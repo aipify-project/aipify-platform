@@ -103,6 +103,13 @@ export type PresenceLabels = {
     executiveSummary: string;
     settings: string;
     notifications: string;
+    actions: string;
+  };
+  actions: {
+    openCenter: string;
+    pending: string;
+    executed: string;
+    failed: string;
   };
   states: Record<string, string>;
   stateMessages: Record<string, string>;

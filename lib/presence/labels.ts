@@ -92,6 +92,13 @@ export function buildPresenceLabels(t: Translator): PresenceLabels {
       executiveSummary: t("presence.center.sections.executiveSummary"),
       settings: t("presence.center.sections.settings"),
       notifications: t("presence.center.sections.notifications"),
+      actions: t("presence.center.sections.actions"),
+    },
+    actions: {
+      openCenter: t("presence.center.actions.openCenter"),
+      pending: t("presence.center.actions.pending"),
+      executed: t("presence.center.actions.executed"),
+      failed: t("presence.center.actions.failed"),
     },
     states: {
       standby: t("presence.states.standby"),

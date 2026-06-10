@@ -1,7 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { AipifyPulse } from "@/components/branding";
+import { parseActionCenterDashboard, type ActionCenterDashboard } from "@/lib/platform/action-engine";
+import { createClient } from "@/lib/supabase/client";
 import {
   formatPresenceTime,
   getImpactBadgeStyle,
@@ -16,9 +19,26 @@ import {
 import { usePresence, type PresenceLabels } from "./PresenceProvider";
 
 export default function PresenceCenterPanel() {
-  const { bundle, loading, open, setOpen, labels, updateSettings, locale } = usePresence();
+  const { bundle, loading, open, setOpen, labels, updateSettings, locale, surface } = usePresence();
   const [saved, setSaved] = useState(false);
   const [approvalExpanded, setApprovalExpanded] = useState(true);
+  const [actionDashboard, setActionDashboard] = useState<ActionCenterDashboard | null>(null);
+
+  useEffect(() => {
+    if (!open || surface !== "platform") return;
+    let cancelled = false;
+    async function loadActions() {
+      const supabase = createClient();
+      const { data, error } = await supabase.rpc("get_action_center_dashboard");
+      if (!cancelled && !error && data) {
+        setActionDashboard(parseActionCenterDashboard(data));
+      }
+    }
+    void loadActions();
+    return () => {
+      cancelled = true;
+    };
+  }, [open, surface]);
 
   if (!open) return null;
 
@@ -132,6 +152,33 @@ export default function PresenceCenterPanel() {
                 <p className="mt-1 text-sm font-medium text-gray-900">{labels.states[bundle.state]}</p>
                 <p className="mt-1 text-xs text-gray-600">{labels.stateMessages[bundle.state]}</p>
               </section>
+
+              {actionDashboard && surface === "platform" && (
+                <section className="rounded-2xl border border-emerald-100 bg-emerald-50/30 p-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="text-xs font-semibold uppercase tracking-wide text-emerald-800">
+                      {labels.sections.actions}
+                    </h3>
+                    <Link
+                      href="/platform/actions"
+                      className="text-xs font-semibold text-emerald-700 hover:text-emerald-900"
+                    >
+                      {labels.actions.openCenter}
+                    </Link>
+                  </div>
+                  <ul className="mt-2 space-y-1 text-sm text-gray-800">
+                    {actionDashboard.metrics.pending > 0 && (
+                      <li>{labels.actions.pending.replace("{count}", String(actionDashboard.metrics.pending))}</li>
+                    )}
+                    {actionDashboard.metrics.executed > 0 && (
+                      <li>{labels.actions.executed.replace("{count}", String(actionDashboard.metrics.executed))}</li>
+                    )}
+                    {actionDashboard.metrics.failed > 0 && (
+                      <li>{labels.actions.failed.replace("{count}", String(actionDashboard.metrics.failed))}</li>
+                    )}
+                  </ul>
+                </section>
+              )}
 
               {bundle.approval_context && (
                 <section className="rounded-2xl border border-amber-100 bg-amber-50/40 p-4">

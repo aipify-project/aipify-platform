@@ -11,7 +11,33 @@ export type PlatformNavId =
   | "support"
   | "automations"
   | "intelligence"
+  | "actions"
   | "system";
+
+export type ActionNavId =
+  | "pending"
+  | "approved"
+  | "executed"
+  | "failed"
+  | "templates"
+  | "policies"
+  | "logs";
+
+export type ActionNavItem = {
+  id: ActionNavId;
+  href: string;
+  labelKey: string;
+};
+
+export const ACTION_NAV: ActionNavItem[] = [
+  { id: "pending", href: "/platform/actions", labelKey: "platform.actions.nav.pending" },
+  { id: "approved", href: "/platform/actions/approved", labelKey: "platform.actions.nav.approved" },
+  { id: "executed", href: "/platform/actions/executed", labelKey: "platform.actions.nav.executed" },
+  { id: "failed", href: "/platform/actions/failed", labelKey: "platform.actions.nav.failed" },
+  { id: "templates", href: "/platform/actions/templates", labelKey: "platform.actions.nav.templates" },
+  { id: "policies", href: "/platform/actions/policies", labelKey: "platform.actions.nav.policies" },
+  { id: "logs", href: "/platform/actions/logs", labelKey: "platform.actions.nav.logs" },
+];
 
 export type IntelligenceNavId =
   | "brain"
@@ -110,6 +136,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.intelligence",
   },
   {
+    id: "actions",
+    href: "/platform/actions",
+    labelKey: "platform.nav.actions",
+  },
+  {
     id: "system",
     href: "/platform/system",
     labelKey: "platform.nav.system",
@@ -135,8 +166,19 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/support")) return "support";
   if (pathname.startsWith("/platform/automations")) return "automations";
   if (pathname.startsWith("/platform/intelligence")) return "intelligence";
+  if (pathname.startsWith("/platform/actions")) return "actions";
   if (pathname.startsWith("/platform/system")) return "system";
   return "overview";
+}
+
+export function getActionActiveNavId(pathname: string): ActionNavId {
+  if (pathname.startsWith("/platform/actions/approved")) return "approved";
+  if (pathname.startsWith("/platform/actions/executed")) return "executed";
+  if (pathname.startsWith("/platform/actions/failed")) return "failed";
+  if (pathname.startsWith("/platform/actions/templates")) return "templates";
+  if (pathname.startsWith("/platform/actions/policies")) return "policies";
+  if (pathname.startsWith("/platform/actions/logs")) return "logs";
+  return "pending";
 }
 
 export function getIntelligenceActiveNavId(pathname: string): IntelligenceNavId {

@@ -86,7 +86,14 @@
       "history": "Presence history",
       "executiveSummary": "Last executive summary",
       "settings": "Presence settings",
-      "notifications": "Notification preferences"
+      "notifications": "Notification preferences",
+      "actions": "Action notifications"
+    },
+    "actions": {
+      "openCenter": "Open Action Center",
+      "pending": "{count} action(s) awaiting approval",
+      "executed": "{count} action(s) executed successfully",
+      "failed": "{count} action(s) failed or rolled back"
     }
   },
   "states": {

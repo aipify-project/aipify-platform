@@ -1,0 +1,38 @@
+Aipify Action Engine (Phase 13)
+==============================
+
+Migration: supabase/migrations/20260610350000_action_engine.sql
+
+Tables:
+- action_templates — reusable operational playbooks
+- approval_policies — platform + tenant risk rules
+- platform_actions — full action lifecycle queue
+- action_execution_logs — audit trail
+
+RPCs:
+- get_action_center_dashboard
+- list_platform_actions(status)
+- list_action_templates
+- list_approval_policies
+- list_action_execution_logs
+- approve_platform_action / reject_platform_action
+- execute_platform_action / rollback_platform_action
+
+Routes:
+- /platform/actions — Pending (default)
+- /platform/actions/approved
+- /platform/actions/executed
+- /platform/actions/failed
+- /platform/actions/templates
+- /platform/actions/policies
+- /platform/actions/logs
+
+API:
+- POST /api/platform/actions/[id]/approve
+- POST /api/platform/actions/[id]/reject
+- POST /api/platform/actions/[id]/execute
+- POST /api/platform/actions/[id]/rollback
+
+Lifecycle: detect → recommend → prepare → approval → execute → verify → log → learn
+
+Presence integration: Action Center metrics loaded in Presence Center on platform surface.

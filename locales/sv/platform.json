@@ -29,7 +29,8 @@
     "support": "Support",
     "automations": "Automations",
     "system": "System status",
-    "intelligence": "Intelligence"
+    "intelligence": "Intelligence",
+    "actions": "Action Center"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -880,6 +881,133 @@
       "learningEventsDetected": "{count} learning events detected",
       "recommendationsAwaiting": "{count} recommendation awaiting review",
       "completedToday": "{count} completed"
+    }
+  },
+  "actions": {
+    "loading": "Loading actions...",
+    "lifecycle": "Action lifecycle",
+    "yes": "Yes",
+    "no": "No",
+    "nav": {
+      "pending": "Pending Actions",
+      "approved": "Approved Actions",
+      "executed": "Executed Actions",
+      "failed": "Failed Actions",
+      "templates": "Action Templates",
+      "policies": "Approval Policies",
+      "logs": "Execution Logs"
+    },
+    "metrics": {
+      "pending": "Pending approval",
+      "approved": "Approved ready",
+      "executed": "Executed successfully",
+      "failed": "Failed or rolled back",
+      "hoursSaved": "Hours saved",
+      "rollbacks": "Rollbacks performed"
+    },
+    "risk": {
+      "low": "Low risk",
+      "medium": "Medium risk",
+      "high": "High risk",
+      "critical": "Critical risk"
+    },
+    "status": {
+      "pending": "Pending approval",
+      "approved": "Approved",
+      "executing": "Executing",
+      "success": "Success",
+      "partialSuccess": "Partial success",
+      "failed": "Failed",
+      "rolledBack": "Rolled back",
+      "verificationPending": "Verification pending",
+      "rejected": "Rejected"
+    },
+    "pages": {
+      "pending": {
+        "title": "Pending Actions",
+        "subtitle": "Prepared solutions awaiting your approval before Aipify executes them safely.",
+        "empty": "No actions awaiting approval."
+      },
+      "approved": {
+        "title": "Approved Actions",
+        "subtitle": "Actions approved and ready for execution.",
+        "empty": "No approved actions in queue."
+      },
+      "executed": {
+        "title": "Executed Actions",
+        "subtitle": "Successfully completed actions with verified outcomes.",
+        "empty": "No executed actions yet."
+      },
+      "failed": {
+        "title": "Failed Actions",
+        "subtitle": "Actions that failed, were rejected, or required rollback.",
+        "empty": "No failed actions recorded."
+      },
+      "templates": {
+        "title": "Action Templates",
+        "subtitle": "Reusable operational playbooks Aipify uses to prepare safe actions.",
+        "empty": "No action templates configured."
+      },
+      "policies": {
+        "title": "Approval Policies",
+        "subtitle": "Risk-based rules that determine when human approval is required.",
+        "empty": "No approval policies configured."
+      },
+      "logs": {
+        "title": "Execution Logs",
+        "subtitle": "Full audit trail for every action — who approved, who executed, and what happened.",
+        "empty": "No execution logs yet."
+      }
+    },
+    "card": {
+      "riskLevel": "Risk level",
+      "reason": "Reason",
+      "recommendedBy": "Recommended by",
+      "environment": "Environment",
+      "customer": "Customer",
+      "preparedSteps": "Prepared steps",
+      "expectedOutcome": "Expected outcome",
+      "expectedImpact": "Expected impact",
+      "approvalStatus": "Approval status",
+      "estimatedTime": "Estimated execution time",
+      "rollbackAvailable": "Rollback available",
+      "rollbackYes": "Yes",
+      "rollbackNo": "No",
+      "whatWillChange": "What will change?",
+      "changes": "Changes",
+      "previewImpact": "Expected impact",
+      "rollbackInstructions": "Rollback",
+      "approve": "Approve",
+      "reject": "Reject",
+      "execute": "Execute",
+      "rollback": "Restore previous state",
+      "processing": "Processing..."
+    },
+    "templates": {
+      "category": "Category",
+      "riskLevel": "Default risk",
+      "steps": "Prepared steps",
+      "outcome": "Expected outcome",
+      "rollback": "Rollback available"
+    },
+    "policies": {
+      "platformDefault": "Platform default policies",
+      "customerPolicies": "Customer-specific policies",
+      "tenant": "Tenant",
+      "riskLevel": "Risk level",
+      "rule": "Policy rule",
+      "autoApprove": "Auto approve",
+      "approverRole": "Approver role",
+      "manualOnly": "Manual only"
+    },
+    "logs": {
+      "action": "Action",
+      "event": "Event",
+      "actor": "Actor",
+      "result": "Result",
+      "duration": "Duration",
+      "environment": "Environment",
+      "timestamp": "Timestamp"
     }
   }
 }
