@@ -474,7 +474,57 @@
       "invoices": "Invoices",
       "usage": "Usage",
       "support": "Support",
-      "activity": "Activity Log"
+      "activity": "Activity Log",
+      "domains": "Domäner"
+    },
+    "license": {
+      "title": "Licens och användning",
+      "plan": "Plan",
+      "maxDomains": "Domäner",
+      "usedDomains": "Domäner i bruk",
+      "maxInstallations": "Installationer",
+      "usedInstallations": "Installationer i bruk",
+      "subscriptionStatus": "Prenumerationsstatus",
+      "paymentStatus": "Betalningsstatus",
+      "lastLicenseCheck": "Senaste licenskontroll",
+      "failedChecks": "Misslyckade licenskontroller",
+      "unlimited": "Obegränsat",
+      "noChecks": "Inga licenskontroller registrerade",
+      "checkResultLabels": {
+        "allowed": "Tillåten",
+        "blocked": "Blockerad",
+        "warning": "Varning"
+      },
+      "checkTypeLabels": {
+        "domain_limit": "Domängräns",
+        "installation_limit": "Installationsgräns",
+        "module_access": "Modultillgång",
+        "subscription_status": "Prenumeration",
+        "payment_status": "Betalning",
+        "domain_verification": "Domänverifiering",
+        "domain_lock": "Domänlås"
+      }
+    },
+    "domainsTab": {
+      "empty": "Inga domäner registrerade för denna kund.",
+      "domain": "Domän",
+      "status": "Status",
+      "verification": "Verifiering",
+      "installation": "Installation",
+      "addedAt": "Tillagd",
+      "lastCheck": "Senaste kontroll",
+      "statusLabels": {
+        "active": "Aktiv",
+        "pending": "Väntar",
+        "disabled": "Inaktiverad",
+        "removed": "Borttagen"
+      },
+      "verificationLabels": {
+        "unverified": "Overifierad",
+        "pending": "Väntar",
+        "verified": "Verifierad",
+        "failed": "Misslyckades"
+      }
     },
     "supportStatus": {
       "open": "Open",

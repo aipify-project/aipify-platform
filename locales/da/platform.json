@@ -474,7 +474,57 @@
       "invoices": "Invoices",
       "usage": "Usage",
       "support": "Support",
-      "activity": "Activity Log"
+      "activity": "Activity Log",
+      "domains": "Domæner"
+    },
+    "license": {
+      "title": "Licens og forbrug",
+      "plan": "Plan",
+      "maxDomains": "Domæner",
+      "usedDomains": "Domæner i brug",
+      "maxInstallations": "Installationer",
+      "usedInstallations": "Installationer i brug",
+      "subscriptionStatus": "Abonnementsstatus",
+      "paymentStatus": "Betalingsstatus",
+      "lastLicenseCheck": "Seneste licenskontrol",
+      "failedChecks": "Mislykkede licenskontroller",
+      "unlimited": "Ubegrænset",
+      "noChecks": "Ingen licenskontroller registreret",
+      "checkResultLabels": {
+        "allowed": "Tilladt",
+        "blocked": "Blokeret",
+        "warning": "Advarsel"
+      },
+      "checkTypeLabels": {
+        "domain_limit": "Domænegrænse",
+        "installation_limit": "Installationsgrænse",
+        "module_access": "Modultilgang",
+        "subscription_status": "Abonnement",
+        "payment_status": "Betaling",
+        "domain_verification": "Domæneverificering",
+        "domain_lock": "Domænelås"
+      }
+    },
+    "domainsTab": {
+      "empty": "Ingen domæner registreret for denne kunde.",
+      "domain": "Domæne",
+      "status": "Status",
+      "verification": "Verificering",
+      "installation": "Installation",
+      "addedAt": "Tilføjet",
+      "lastCheck": "Seneste kontrol",
+      "statusLabels": {
+        "active": "Aktiv",
+        "pending": "Afventer",
+        "disabled": "Deaktiveret",
+        "removed": "Fjernet"
+      },
+      "verificationLabels": {
+        "unverified": "Ikke verificeret",
+        "pending": "Afventer",
+        "verified": "Verificeret",
+        "failed": "Mislykkedes"
+      }
     },
     "supportStatus": {
       "open": "Open",

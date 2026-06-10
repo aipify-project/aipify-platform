@@ -1,5 +1,37 @@
 {
   "title": "Innstillinger",
   "subtitle": "Bedriftsprofil, fakturering og plattformpreferanser.",
-  "comingSoon": "Innstillinger blir tilgjengelig i en fremtidig versjon."
+  "comingSoon": "Innstillinger blir tilgjengelig i en fremtidig versjon.",
+  "domains": {
+    "title": "Domener og installasjoner",
+    "subtitle": "Administrer godkjente domener og overvåk planbegrensninger for nettstedene dine.",
+    "loading": "Laster lisensbruk...",
+    "plan": "Gjeldende plan",
+    "domains": "Domener",
+    "installations": "Installasjoner",
+    "unlimited": "Ubegrenset",
+    "domainColumn": "Domene",
+    "statusColumn": "Status",
+    "verificationColumn": "Verifisering",
+    "addedColumn": "Lagt til",
+    "addDomain": "Legg til domene",
+    "domainPlaceholder": "eksempel.no",
+    "submit": "Legg til domene",
+    "empty": "Ingen domener registrert ennå.",
+    "limitReached": "Du har nådd domenebegrensningen. Oppgrader planen for å legge til flere nettsteder.",
+    "upgrade": "Oppgrader plan",
+    "verificationPlaceholder": "Domeneverifisering (DNS, meta-tagg eller installasjonstoken) blir tilgjengelig i en fremtidig versjon.",
+    "statusLabels": {
+      "active": "Aktiv",
+      "pending": "Venter",
+      "disabled": "Deaktivert",
+      "removed": "Fjernet"
+    },
+    "verificationLabels": {
+      "unverified": "Ikke verifisert",
+      "pending": "Venter",
+      "verified": "Verifisert",
+      "failed": "Mislyktes"
+    }
+  }
 }

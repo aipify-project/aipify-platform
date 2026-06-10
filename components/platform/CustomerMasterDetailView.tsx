@@ -10,6 +10,8 @@ import CustomerRecommendationFeed from "@/components/platform/CustomerRecommenda
 import CustomerHealthBadge from "@/components/platform/CustomerHealthBadge";
 import SuccessScoreBadge from "@/components/platform/SuccessScoreBadge";
 import SelfLearningInsightsPanel from "@/components/platform/SelfLearningInsightsPanel";
+import CustomerLicensePanel from "@/components/platform/CustomerLicensePanel";
+import { formatLimitUsage } from "@/lib/platform/license";
 import { getInstallationHealthStatus } from "@/lib/platform/executive-intelligence";
 import InviteTeamMemberModal from "@/components/platform/InviteTeamMemberModal";
 import OpportunityBadge from "@/components/platform/OpportunityBadge";
@@ -44,6 +46,7 @@ type TabId =
   | "aiInsights"
   | "timeline"
   | "integrations"
+  | "domains"
   | "settings";
 
 type CustomerMasterDetailViewProps = {
@@ -197,6 +200,33 @@ type CustomerMasterDetailViewProps = {
     };
     invitationStatusLabels: Record<string, string>;
     aiInsightsTitle: string;
+    license: {
+      title: string;
+      plan: string;
+      maxDomains: string;
+      usedDomains: string;
+      maxInstallations: string;
+      usedInstallations: string;
+      subscriptionStatus: string;
+      paymentStatus: string;
+      lastLicenseCheck: string;
+      failedChecks: string;
+      unlimited: string;
+      noChecks: string;
+      checkResultLabels: Record<string, string>;
+      checkTypeLabels: Record<string, string>;
+    };
+    domainsTab: {
+      empty: string;
+      domain: string;
+      status: string;
+      verification: string;
+      installation: string;
+      addedAt: string;
+      lastCheck: string;
+      statusLabels: Record<string, string>;
+      verificationLabels: Record<string, string>;
+    };
     selfLearning: {
       title: string;
       environment: string;
@@ -264,6 +294,7 @@ const TAB_IDS: TabId[] = [
   "aiInsights",
   "timeline",
   "integrations",
+  "domains",
   "settings",
 ];
 
@@ -594,7 +625,36 @@ export default function CustomerMasterDetailView({
                 label={labels.successScore}
                 value={`${successScore} / 100`}
               />
+              {detail.license?.has_subscription && (
+                <>
+                  <OverviewCard
+                    label={labels.license.usedDomains}
+                    value={formatLimitUsage(
+                      detail.license.used_domains ?? 0,
+                      detail.license.max_domains,
+                      labels.license.unlimited
+                    )}
+                  />
+                  <OverviewCard
+                    label={labels.license.usedInstallations}
+                    value={formatLimitUsage(
+                      detail.license.used_installations ?? 0,
+                      detail.license.max_installations,
+                      labels.license.unlimited
+                    )}
+                  />
+                </>
+              )}
             </div>
+            {detail.license && (
+              <CustomerLicensePanel
+                license={detail.license}
+                licenseChecks={detail.license_checks ?? []}
+                locale={locale}
+                labels={labels.license}
+                paymentStatus={payment_profile?.payment_status ?? null}
+              />
+            )}
             <CustomerQuickActions title={labels.quickActionsTitle} labels={labels.quickActions} />
           </div>
         )}
@@ -874,6 +934,35 @@ export default function CustomerMasterDetailView({
               })
             )}
           </div>
+        )}
+
+        {activeTab === "domains" && (
+          (detail.domains?.length ?? 0) === 0 ? (
+            <BrandedEmptyState message={labels.domainsTab.empty} pulseLabel={labels.pulseLabel} />
+          ) : (
+            <DataTable
+              empty={labels.domainsTab.empty}
+              pulseLabel={labels.pulseLabel}
+              headers={[
+                labels.domainsTab.domain,
+                labels.domainsTab.status,
+                labels.domainsTab.verification,
+                labels.domainsTab.installation,
+                labels.domainsTab.addedAt,
+              ]}
+              rows={(detail.domains ?? []).map((domain) => [
+                domain.domain,
+                labels.domainsTab.statusLabels[domain.status] ?? domain.status,
+                labels.domainsTab.verificationLabels[domain.verification_status] ??
+                  domain.verification_status,
+                domain.installation_id
+                  ? (installations.find((i) => i.id === domain.installation_id)?.site_url ??
+                    domain.installation_id.slice(0, 8))
+                  : "—",
+                formatDate(domain.added_at, locale),
+              ])}
+            />
+          )
         )}
 
         {activeTab === "settings" && (

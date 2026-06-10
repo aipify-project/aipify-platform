@@ -740,7 +740,57 @@
       "aiInsights": "AI-innsikt",
       "timeline": "Aktivitetstidslinje",
       "integrations": "Integrasjoner",
+      "domains": "Domener",
       "settings": "Innstillinger"
+    },
+    "license": {
+      "title": "Lisens og bruk",
+      "plan": "Plan",
+      "maxDomains": "Domener",
+      "usedDomains": "Domener i bruk",
+      "maxInstallations": "Installasjoner",
+      "usedInstallations": "Installasjoner i bruk",
+      "subscriptionStatus": "Abonnementsstatus",
+      "paymentStatus": "Betalingsstatus",
+      "lastLicenseCheck": "Siste lisenssjekk",
+      "failedChecks": "Mislykkede lisenssjekker",
+      "unlimited": "Ubegrenset",
+      "noChecks": "Ingen lisenssjekker registrert",
+      "checkResultLabels": {
+        "allowed": "Tillatt",
+        "blocked": "Blokkert",
+        "warning": "Advarsel"
+      },
+      "checkTypeLabels": {
+        "domain_limit": "Domebegrensning",
+        "installation_limit": "Installasjonsbegrensning",
+        "module_access": "Modultilgang",
+        "subscription_status": "Abonnement",
+        "payment_status": "Betaling",
+        "domain_verification": "Domeneverifisering",
+        "domain_lock": "Domenelås"
+      }
+    },
+    "domainsTab": {
+      "empty": "Ingen domener registrert for denne kunden.",
+      "domain": "Domene",
+      "status": "Status",
+      "verification": "Verifisering",
+      "installation": "Installasjon",
+      "addedAt": "Lagt til",
+      "lastCheck": "Siste sjekk",
+      "statusLabels": {
+        "active": "Aktiv",
+        "pending": "Venter",
+        "disabled": "Deaktivert",
+        "removed": "Fjernet"
+      },
+      "verificationLabels": {
+        "unverified": "Ikke verifisert",
+        "pending": "Venter",
+        "verified": "Verifisert",
+        "failed": "Mislyktes"
+      }
     },
     "supportStatus": {
       "open": "Open",

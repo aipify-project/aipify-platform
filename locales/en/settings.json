@@ -1,5 +1,37 @@
 {
   "title": "Settings",
   "subtitle": "Company profile, billing, and platform preferences.",
-  "comingSoon": "Settings will be available in a future release."
+  "comingSoon": "Settings will be available in a future release.",
+  "domains": {
+    "title": "Domains & Installations",
+    "subtitle": "Manage approved domains and monitor plan limits for your websites.",
+    "loading": "Loading license usage...",
+    "plan": "Current plan",
+    "domains": "Domains",
+    "installations": "Installations",
+    "unlimited": "Unlimited",
+    "domainColumn": "Domain",
+    "statusColumn": "Status",
+    "verificationColumn": "Verification",
+    "addedColumn": "Added",
+    "addDomain": "Add domain",
+    "domainPlaceholder": "example.com",
+    "submit": "Add domain",
+    "empty": "No domains registered yet.",
+    "limitReached": "You have reached your domain limit. Upgrade your plan to add more websites.",
+    "upgrade": "Upgrade plan",
+    "verificationPlaceholder": "Domain verification (DNS, meta tag, or install token) will be available in a future release.",
+    "statusLabels": {
+      "active": "Active",
+      "pending": "Pending",
+      "disabled": "Disabled",
+      "removed": "Removed"
+    },
+    "verificationLabels": {
+      "unverified": "Unverified",
+      "pending": "Pending",
+      "verified": "Verified",
+      "failed": "Failed"
+    }
+  }
 }

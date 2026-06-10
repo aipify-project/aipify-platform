@@ -1,5 +1,37 @@
 {
   "title": "Indstillinger",
   "subtitle": "Virksomhedsprofil, fakturering og platformpræferencer.",
-  "comingSoon": "Indstillinger bliver tilgængelige i en fremtidig version."
+  "comingSoon": "Indstillinger bliver tilgængelige i en fremtidig version.",
+  "domains": {
+    "title": "Domæner og installationer",
+    "subtitle": "Administrer godkendte domæner og overvåg planbegrænsninger for dine websites.",
+    "loading": "Indlæser licensforbrug...",
+    "plan": "Nuværende plan",
+    "domains": "Domæner",
+    "installations": "Installationer",
+    "unlimited": "Ubegrænset",
+    "domainColumn": "Domæne",
+    "statusColumn": "Status",
+    "verificationColumn": "Verificering",
+    "addedColumn": "Tilføjet",
+    "addDomain": "Tilføj domæne",
+    "domainPlaceholder": "eksempel.dk",
+    "submit": "Tilføj domæne",
+    "empty": "Ingen domæner registreret endnu.",
+    "limitReached": "Du har nået din domænegrænse. Opgrader din plan for at tilføje flere websites.",
+    "upgrade": "Opgrader plan",
+    "verificationPlaceholder": "Domæneverificering (DNS, meta-tag eller installationstoken) bliver tilgængelig i en fremtidig version.",
+    "statusLabels": {
+      "active": "Aktiv",
+      "pending": "Afventer",
+      "disabled": "Deaktiveret",
+      "removed": "Fjernet"
+    },
+    "verificationLabels": {
+      "unverified": "Ikke verificeret",
+      "pending": "Afventer",
+      "verified": "Verificeret",
+      "failed": "Mislykkedes"
+    }
+  }
 }

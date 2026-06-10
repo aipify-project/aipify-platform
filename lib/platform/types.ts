@@ -1,3 +1,5 @@
+import type { CustomerDomain, LicenseCheck, LicenseLimits } from "./license";
+
 export const CUSTOMER_TYPES = ["company", "private"] as const;
 export type CustomerType = (typeof CUSTOMER_TYPES)[number];
 
@@ -201,6 +203,7 @@ export type CustomerBillingOverview = {
   subscription: Subscription | null;
   payment_profile: PaymentProfile | null;
   invoices: Invoice[];
+  license?: LicenseLimits;
 };
 
 export type InvoiceAction =
@@ -435,6 +438,9 @@ export type CustomerMasterDetail = {
   customer: Customer;
   payment_profile: PaymentProfile | null;
   subscription: Subscription | null;
+  license?: LicenseLimits;
+  domains?: CustomerDomain[];
+  license_checks?: LicenseCheck[];
   overview: CustomerOverviewSummary;
   users: CustomerUserRow[];
   installations: CustomerInstallationRow[];

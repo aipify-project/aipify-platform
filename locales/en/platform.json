@@ -814,7 +814,57 @@
       "aiInsights": "AI Insights",
       "timeline": "Activity Timeline",
       "integrations": "Integrations",
+      "domains": "Domains",
       "settings": "Settings"
+    },
+    "license": {
+      "title": "License & Usage",
+      "plan": "Plan",
+      "maxDomains": "Domains",
+      "usedDomains": "Domains used",
+      "maxInstallations": "Installations",
+      "usedInstallations": "Installations used",
+      "subscriptionStatus": "Subscription status",
+      "paymentStatus": "Payment status",
+      "lastLicenseCheck": "Last license check",
+      "failedChecks": "Failed license checks",
+      "unlimited": "Unlimited",
+      "noChecks": "No license checks recorded",
+      "checkResultLabels": {
+        "allowed": "Allowed",
+        "blocked": "Blocked",
+        "warning": "Warning"
+      },
+      "checkTypeLabels": {
+        "domain_limit": "Domain limit",
+        "installation_limit": "Installation limit",
+        "module_access": "Module access",
+        "subscription_status": "Subscription",
+        "payment_status": "Payment",
+        "domain_verification": "Domain verification",
+        "domain_lock": "Domain lock"
+      }
+    },
+    "domainsTab": {
+      "empty": "No domains registered for this customer.",
+      "domain": "Domain",
+      "status": "Status",
+      "verification": "Verification",
+      "installation": "Installation",
+      "addedAt": "Added",
+      "lastCheck": "Last check",
+      "statusLabels": {
+        "active": "Active",
+        "pending": "Pending",
+        "disabled": "Disabled",
+        "removed": "Removed"
+      },
+      "verificationLabels": {
+        "unverified": "Unverified",
+        "pending": "Pending",
+        "verified": "Verified",
+        "failed": "Failed"
+      }
     },
     "supportStatus": {
       "open": "Open",

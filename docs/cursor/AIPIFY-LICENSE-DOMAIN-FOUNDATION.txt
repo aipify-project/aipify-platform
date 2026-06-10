@@ -1,0 +1,41 @@
+AIPIFY – LICENSE, DOMAIN & PLAN LIMIT ENFORCEMENT (FOUNDATION)
+Status: Implemented
+Priority: Critical
+
+GOAL
+Prevent one subscription from being used across unlimited domains/installations.
+Enforce plan limits server-side and prepare upgrade + webhook flows.
+
+DATABASE (migration: 20260610290000_license_domain_foundation.sql)
+- plans — starter/growth/business/enterprise with max_users, max_installations, max_domains
+- subscriptions extended — plan_id, plan_key, max_domains, period fields, provider fields
+- customer_domains — domain registry with verification placeholders
+- license_checks — audit log for allowed/blocked/warning
+
+PLAN LIMITS
+- Starter: 1 domain, 1 installation, 1 user
+- Growth: 3 / 3 / 5
+- Business: 10 / 10 / 25
+- Enterprise: unlimited (null limits)
+
+ENFORCEMENT (server-side RPCs)
+- assert_license_capacity() — subscription + domain/installation limits
+- create_installation() — blocks over limit, registers domain
+- activate_installation() — requires verified domain + active subscription
+- add_customer_domain() — customer dashboard domain add
+- record_license_check() — audit + timeline event
+
+API ROUTES
+- GET|POST /api/dashboard/domains
+- POST /api/webhooks/payment — placeholder webhook handler
+
+RPCs
+- get_customer_license_limits, get_customer_domains_overview
+- handle_payment_webhook_event — plan_upgraded, payment_succeeded, etc.
+
+UI
+- Customer: Settings → Domains & Installations (CustomerDomainsSettingsPanel)
+- Platform Admin: License & Usage on overview, Domains tab
+
+NOT IN THIS PHASE
+- Real Klarna/Stripe charges, full DNS verification, module enforcement

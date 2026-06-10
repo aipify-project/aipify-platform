@@ -1,5 +1,37 @@
 {
   "title": "Inställningar",
   "subtitle": "Företagsprofil, fakturering och plattformsinställningar.",
-  "comingSoon": "Inställningar blir tillgängliga i en framtida version."
+  "comingSoon": "Inställningar blir tillgängliga i en framtida version.",
+  "domains": {
+    "title": "Domäner och installationer",
+    "subtitle": "Hantera godkända domäner och övervaka planbegränsningar för dina webbplatser.",
+    "loading": "Laddar licensanvändning...",
+    "plan": "Aktuell plan",
+    "domains": "Domäner",
+    "installations": "Installationer",
+    "unlimited": "Obegränsat",
+    "domainColumn": "Domän",
+    "statusColumn": "Status",
+    "verificationColumn": "Verifiering",
+    "addedColumn": "Tillagd",
+    "addDomain": "Lägg till domän",
+    "domainPlaceholder": "exempel.se",
+    "submit": "Lägg till domän",
+    "empty": "Inga domäner registrerade ännu.",
+    "limitReached": "Du har nått din domängräns. Uppgradera din plan för att lägga till fler webbplatser.",
+    "upgrade": "Uppgradera plan",
+    "verificationPlaceholder": "Domänverifiering (DNS, metatagg eller installationstoken) blir tillgänglig i en framtida version.",
+    "statusLabels": {
+      "active": "Aktiv",
+      "pending": "Väntar",
+      "disabled": "Inaktiverad",
+      "removed": "Borttagen"
+    },
+    "verificationLabels": {
+      "unverified": "Overifierad",
+      "pending": "Väntar",
+      "verified": "Verifierad",
+      "failed": "Misslyckades"
+    }
+  }
 }
