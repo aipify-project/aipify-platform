@@ -1,0 +1,22 @@
+AIPIFY PLATFORM – PHASE 27
+AIPIFY COMMAND CENTER (DESKTOP APPLICATION)
+STATUS: Implemented (Phase 1 foundation — macOS)
+PRIORITY: HIGH
+
+Deliverables:
+- apps/command-center/ — Tauri + Vite desktop client (macOS Phase 1)
+- lib/desktop/ — security, menubar, timeline, morning-briefing, client, session-auth
+- Migration 20260611400000_desktop_command_center_phase27.sql
+- RPCs: create_desktop_client_session, validate_desktop_session, revoke_desktop_session,
+  get_command_center_bundle_for_tenant, desktop_get_command_center, desktop_perform_quick_action
+- APIs: POST /api/desktop/sessions, POST /api/desktop/sessions/revoke,
+  GET /api/desktop/command-center, POST /api/desktop/quick-action
+- Customer pairing: /app/command-center/connect (DesktopConnectPanel)
+- Extended bundle: morning_briefing, activity_timeline, presence_status
+- Docs: DESKTOP_COMMAND_CENTER.md, .cursor/rules/desktop-command-center.mdc
+
+Principle: Desktop is another interface to Aipify Core — business logic never leaves Core.
+
+OS roadmap: macOS (Phase 1) → Windows → Linux
+
+END OF PHASE

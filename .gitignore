@@ -40,3 +40,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Desktop Command Center (Tauri)
+apps/command-center/node_modules
+apps/command-center/dist
+apps/command-center/src-tauri/target

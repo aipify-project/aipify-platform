@@ -193,6 +193,23 @@
       "do_not_disturb": "Forstyr ikke"
     }
   },
+  "desktopConnect": {
+    "nav": "Forbind desktop-app (macOS)",
+    "back": "Tilbage til Command Center",
+    "title": "Forbind desktop-app",
+    "subtitle": "Generer et sikkert sessionstoken til Aipify Command Center desktop-klienten. Token vises kun én gang.",
+    "platform": "Platform",
+    "deviceName": "Enhedsnavn",
+    "connect": "Generer sessionstoken",
+    "connecting": "Genererer…",
+    "tokenTitle": "Desktop-sessionstoken",
+    "tokenHint": "Indsæt i desktop-appen. Vises ikke igen. Del aldrig offentligt.",
+    "copy": "Kopier token",
+    "copied": "Kopieret!",
+    "error": "Kunne ikke oprette session.",
+    "planRequired": "Desktop Command Center kræver Business-plan eller højere.",
+    "securityNote": "Installationshemmeligheder gemmes aldrig på desktop-klienten. Sessioner kan tilbagekaldes eksternt."
+  },
   "commandCenter": {
     "title": "Aipify Command Center",
     "subtitle": "Ét vindue ind i Aipify Core — bevidsthed uden distraktion.",

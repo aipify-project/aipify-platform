@@ -17,7 +17,7 @@ Read **[DESKTOP_PRESENCE_FOUNDATION.md](../../DESKTOP_PRESENCE_FOUNDATION.md)** 
 
 ## Rules
 
-1. Do **not** build native macOS/Windows/Linux apps in this phase — infrastructure only
+1. Native desktop client is Phase 27 (`apps/command-center/`) — this phase covers notification infrastructure only
 2. Notification levels: informational → important → action_required → critical
 3. Users must control preferences — quiet hours, channels, minimum levels
 4. Critical alerts may bypass quiet hours; vacation mode suppresses non-essential noise

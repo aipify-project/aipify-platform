@@ -22,6 +22,7 @@ type CommandCenterPanelProps = {
     empty: string;
     pulseLabel: string;
     planGate: string;
+    desktopConnect: string;
     sections: {
       executiveFeed: string;
       health: string;
@@ -134,6 +135,12 @@ export function CommandCenterPanel({ labels }: CommandCenterPanelProps) {
             {labels.planGate}
           </p>
         )}
+        <Link
+          href="/app/command-center/connect"
+          className="mt-4 inline-block text-sm text-indigo-600 hover:underline"
+        >
+          {labels.desktopConnect}
+        </Link>
       </div>
 
       <section className="rounded-lg border border-gray-200 bg-white p-5">

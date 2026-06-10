@@ -25,7 +25,7 @@ Read **[COMMAND_CENTER.md](../../COMMAND_CENTER.md)** before changes to Command 
 5. Quick actions reduce context switching — server-side via `perform_presence_quick_action`
 6. Track engagement in `presence_engagement_events` to prevent alert fatigue
 7. Plan packaging enforced server-side (`capabilities` in bundle) — see `lib/notification/packaging.ts`
-8. Do not build native desktop/mobile apps in this phase — infrastructure and web prototype only
+8. Native desktop client lives in `apps/command-center/` (Phase 27) — see `desktop-command-center.mdc`; mobile not yet built
 9. `/app/presence` redirects to `/app/command-center`
 
 > Desktop is another window into Aipify Core — not a separate product.

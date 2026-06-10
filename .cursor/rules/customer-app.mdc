@@ -1,0 +1,30 @@
+---
+description: Aipify Customer App 1.0 — customer product layer, separate from Platform Admin
+alwaysApply: true
+---
+
+# Customer App 1.0 (Phase 28)
+
+Read **[CUSTOMER_APP.md](../../CUSTOMER_APP.md)** before changes to customer routes, navigation, or centers.
+
+## Layer ownership (mandatory before implementation)
+
+| Surface | Owner |
+|---------|-------|
+| Customer App UI | **Customer App** (`app/app/`, `components/app/`) |
+| Nav & route aliases | **Customer App** (`lib/app/nav-config.ts`, `route-aliases.ts`) |
+| Business logic | **Aipify Core** (Supabase RPCs) — never in client panels |
+| Platform Admin | **Platform** (`/platform/*`) — never mix into Customer App |
+
+## Rules
+
+1. Canonical routes are `/app/*` — `/dashboard/*` is legacy
+2. Customer App must feel personal: "This is **my** Aipify"
+3. Never expose other customers, platform billing controls, or global governance in Customer App
+4. Health score, executive data, and feeds come from Core RPCs — panels are thin clients
+5. All data tenant-scoped via `_presence_tenant_for_auth()` or equivalent
+6. i18n required: `locales/{en,no,sv,da}/customerApp.json`
+7. New customer features go under `app/app/` — not `app/platform/` or `app/dashboard/`
+8. Command Center (`/app/command-center`) remains for desktop/advanced presence — Presence center is `/app/presence`
+
+> Platform Admin is for Aipify Group AS. Customer App is for paying customers.

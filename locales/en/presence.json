@@ -193,6 +193,23 @@
       "do_not_disturb": "Do not disturb"
     }
   },
+  "desktopConnect": {
+    "nav": "Connect desktop app (macOS)",
+    "back": "Back to Command Center",
+    "title": "Connect desktop app",
+    "subtitle": "Generate a secure session token for the Aipify Command Center desktop client. The token is shown once.",
+    "platform": "Platform",
+    "deviceName": "Device name",
+    "connect": "Generate session token",
+    "connecting": "Generating…",
+    "tokenTitle": "Desktop session token",
+    "tokenHint": "Paste this into the desktop app. It will not be shown again. Never share publicly.",
+    "copy": "Copy token",
+    "copied": "Copied!",
+    "error": "Could not create session.",
+    "planRequired": "Desktop Command Center requires a Business plan or higher.",
+    "securityNote": "Installation secrets are never stored on the desktop client. Sessions can be revoked remotely."
+  },
   "commandCenter": {
     "title": "Aipify Command Center",
     "subtitle": "One window into Aipify Core — awareness without distraction. Desktop apps are not built yet.",

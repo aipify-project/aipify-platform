@@ -21,7 +21,7 @@ export function SettingsSubnav({ active, labels }: SettingsSubnavProps) {
     },
     {
       id: "security" as const,
-      href: resolveAppHref("/app/settings/security"),
+      href: "/app/security",
       label: labels.security,
     },
     ...(labels.developer

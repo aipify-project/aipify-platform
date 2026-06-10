@@ -1,0 +1,133 @@
+"use client";
+
+import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
+import { AipifyEmptyState } from "@/components/branding";
+import { HealthScoreCard } from "@/components/app/shared/HealthScoreCard";
+import { SectionCard } from "@/components/app/shared/SectionCard";
+import type { CustomerExecutiveDashboard, HealthScoreBand } from "@/lib/app/customer-app";
+import { formatDate } from "@/lib/i18n/format-date";
+import { createClient } from "@/lib/supabase/client";
+
+type ExecutiveDashboardPanelProps = {
+  locale: string;
+  labels: {
+    title: string;
+    subtitle: string;
+    loading: string;
+    empty: string;
+    pulseLabel: string;
+    healthTitle: string;
+    healthBands: Record<HealthScoreBand, string>;
+    sections: {
+      summary: string;
+      activity: string;
+      recommendations: string;
+      approvals: string;
+      skills: string;
+      installations: string;
+      quickActions: string;
+    };
+    noActivity: string;
+    installationsHealthy: string;
+    viewApprovals: string;
+  };
+};
+
+export function ExecutiveDashboardPanel({ locale, labels }: ExecutiveDashboardPanelProps) {
+  const [data, setData] = useState<CustomerExecutiveDashboard | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const refresh = useCallback(async () => {
+    const supabase = createClient();
+    const { data: bundle, error } = await supabase.rpc("get_customer_executive_dashboard");
+    if (!error && bundle?.has_customer) {
+      setData(bundle as CustomerExecutiveDashboard);
+    }
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    void refresh();
+  }, [refresh]);
+
+  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+
+  if (!data?.has_customer) {
+    return (
+      <div className="p-6">
+        <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
+      </div>
+    );
+  }
+
+  const health = data.health_score ?? { score: 90, label: "healthy" as HealthScoreBand };
+  const installs = data.installation_status ?? { total: 0, healthy: 0, attention: 0 };
+
+  return (
+    <div className="mx-auto max-w-6xl space-y-6 p-6">
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
+        <p className="mt-2 text-gray-600">{labels.subtitle}</p>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <HealthScoreCard
+          score={health.score}
+          label={health.label}
+          labels={labels.healthBands}
+          title={labels.healthTitle}
+        />
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+          <p className="text-sm text-gray-500">{labels.sections.approvals}</p>
+          <p className="mt-2 text-3xl font-bold text-gray-900">{data.pending_approvals ?? 0}</p>
+          <Link href="/app/approvals" className="mt-2 inline-block text-sm text-indigo-600 hover:underline">
+            {labels.viewApprovals}
+          </Link>
+        </div>
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+          <p className="text-sm text-gray-500">{labels.sections.skills}</p>
+          <p className="mt-2 text-3xl font-bold text-gray-900">{data.active_skills ?? 0}</p>
+        </div>
+        <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+          <p className="text-sm text-gray-500">{labels.sections.installations}</p>
+          <p className="mt-2 text-3xl font-bold text-gray-900">{installs.total}</p>
+          <p className="mt-1 text-xs text-gray-500">
+            {installs.healthy} {labels.installationsHealthy}
+          </p>
+        </div>
+      </div>
+
+      <SectionCard title={labels.sections.summary}>
+        <p className="text-sm text-gray-700">{data.executive_summary}</p>
+      </SectionCard>
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        <SectionCard title={labels.sections.activity}>
+          {(data.recent_activity ?? []).length === 0 ? (
+            <p className="text-sm text-gray-500">{labels.noActivity}</p>
+          ) : (
+            <ul className="space-y-2">
+              {(data.recent_activity ?? []).slice(0, 8).map((item) => (
+                <li key={item.id} className="text-sm text-gray-700">
+                  {item.title}
+                  <span className="ml-2 text-gray-400">{formatDate(item.created_at, locale)}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </SectionCard>
+
+        <SectionCard title={labels.sections.recommendations}>
+          <ul className="space-y-2">
+            {(data.recommendations ?? []).slice(0, 5).map((item) => (
+              <li key={item.id} className="text-sm text-gray-700">
+                {item.message}
+              </li>
+            ))}
+          </ul>
+        </SectionCard>
+      </div>
+    </div>
+  );
+}

@@ -100,6 +100,10 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Command Center & Notification Engine (Phase 26):** See [COMMAND_CENTER.md](./COMMAND_CENTER.md) — `/app/command-center`, executive feed, quick actions, plan packaging, `lib/notification/`, single Core event infrastructure for web/desktop/mobile.
 
+**Desktop Command Center (Phase 27):** See [DESKTOP_COMMAND_CENTER.md](./DESKTOP_COMMAND_CENTER.md) — Tauri client at `apps/command-center/`, macOS Phase 1, pairing at `/app/command-center/connect`, desktop APIs at `/api/desktop/*`, `lib/desktop/`, hashed session tokens (Business+ plan).
+
+**Customer App 1.0 (Phase 28):** See [CUSTOMER_APP.md](./CUSTOMER_APP.md) — complete customer product at `/app/*` (home, executive, presence, recommendations, approvals, skills, installations, domains, team, license, security, settings). `lib/app/customer-app/`, Core RPCs for health score and centers. `/dashboard/*` is legacy.
+
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.
 
 ---

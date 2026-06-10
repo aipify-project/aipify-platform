@@ -1,0 +1,22 @@
+AIPIFY PLATFORM – PHASE 28
+AIPIFY CUSTOMER APP 1.0 FOUNDATION
+STATUS: Implemented (Phase 1 foundation)
+PRIORITY: CRITICAL
+
+Deliverables:
+- Native /app routes: home, executive, presence, recommendations, skills, approvals,
+  installations, domains, team, license, security, settings
+- lib/app/customer-app/ — types, health-score helpers
+- components/app/ — CustomerHomePanel, ExecutiveDashboardPanel, PresenceCenter,
+  RecommendationsCenter, ApprovalsCenter, InstallationsCenter, TeamCenter, SettingsCenter
+- Migration 20260611500000_customer_app_phase28.sql
+- RPCs: get_customer_app_home_bundle, get_customer_executive_dashboard,
+  get_customer_presence_center, get_customer_recommendations_center,
+  get_customer_approvals_center, get_customer_team_center, _compute_customer_health_score
+- Nav: lib/app/nav-config.ts (12 Customer App items)
+- i18n: locales/{en,no,sv,da}/customerApp.json
+- Docs: CUSTOMER_APP.md, .cursor/rules/customer-app.mdc
+
+Principle: Customer App is the product customers buy — separate from Platform Admin.
+
+END OF PHASE

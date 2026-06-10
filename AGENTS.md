@@ -36,6 +36,10 @@ For **desktop presence and notification architecture**, read **[DESKTOP_PRESENCE
 
 For **Command Center and Notification Engine**, read **[COMMAND_CENTER.md](./COMMAND_CENTER.md)**. Constants in `lib/notification/`; unified UI at `/app/command-center`; bundle via `GET /api/presence/command-center`. All clients consume one Aipify Core — never duplicate business logic.
 
+For **Desktop Command Center (Tauri)**, read **[DESKTOP_COMMAND_CENTER.md](./DESKTOP_COMMAND_CENTER.md)**. Desktop client at `apps/command-center/`; pairing at `/app/command-center/connect`; APIs at `/api/desktop/*`. Session tokens only — never store installation secrets on the desktop client.
+
+For **Customer App 1.0**, read **[CUSTOMER_APP.md](./CUSTOMER_APP.md)**. Canonical routes at `/app/*`; centers for home, executive, presence, recommendations, approvals, skills, installations, domains, team, license, security, settings. Business logic in Core RPCs — UI panels are thin clients. Never mix Platform Admin into Customer App.
+
 ## Aipify architecture — mandatory before every feature
 
 Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.

@@ -1,0 +1,31 @@
+---
+description: Aipify Desktop Command Center — Tauri client consuming Aipify Core
+alwaysApply: true
+---
+
+# Desktop Command Center (Phase 27)
+
+Read **[DESKTOP_COMMAND_CENTER.md](../../DESKTOP_COMMAND_CENTER.md)** before changes to the desktop client, desktop APIs, or session pairing.
+
+## Layer ownership (mandatory before implementation)
+
+| Surface | Owner |
+|---------|-------|
+| Tauri shell, tray, local UI | **Desktop client** (`apps/command-center/`) |
+| Pairing UI | **Customer App** (`/app/command-center/connect`) |
+| Session RPCs, bundle, quick actions | **Shared** (`lib/desktop/`, `/api/desktop/*`) |
+| Business logic | **Aipify Core** — never in the desktop app |
+
+## Rules
+
+1. **One Aipify** — desktop consumes `desktop_get_command_center()` / same tables as web
+2. Desktop client is a **thin client** — no duplicated Intelligence, Action, or License logic
+3. Authentication via hashed desktop session tokens only — never installation secrets locally
+4. Support remote logout and session expiration
+5. Plan gate: Business+ for desktop pairing (`capabilities.desktop_client`)
+6. Respect quiet hours and notification preferences server-side
+7. Tray status: green (healthy) · orange (attention) · red (critical) · grey (offline/paused)
+8. Phase 1 OS: **macOS only** — Windows/Linux in later phases
+9. Prefer **Tauri** over Electron unless blocked by platform constraints
+
+> The Command Center is another window into Aipify Core — not a separate product.

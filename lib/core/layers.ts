@@ -19,7 +19,8 @@ export function layerForPathname(pathname: string): AipifyLayer | null {
     pathname.startsWith("/api/embed") ||
     pathname.startsWith("/api/install") ||
     pathname.startsWith("/api/installations") ||
-    pathname.startsWith("/api/presence")
+    pathname.startsWith("/api/presence") ||
+    pathname.startsWith("/api/desktop")
   ) {
     return "embed";
   }

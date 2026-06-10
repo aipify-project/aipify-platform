@@ -1,0 +1,166 @@
+{
+  "principle": "Dette er din Aipify — kun for din virksomhed.",
+  "home": {
+    "loading": "Loading your overview…",
+    "empty": "Complete account setup to open your Customer App.",
+    "healthTitle": "Business health",
+    "healthBands": {
+      "excellent": "Excellent",
+      "healthy": "Healthy",
+      "needs_attention": "Needs attention",
+      "action_recommended": "Action recommended"
+    },
+    "sections": {
+      "activity": "Recent activity",
+      "recommendations": "Recommendations",
+      "approvals": "Pending approvals",
+      "quickActions": "Quick actions"
+    },
+    "noActivity": "Activity will appear as Aipify monitors your business.",
+    "noRecommendations": "No recommendations ready for review.",
+    "approvalsPending": "pending approvals",
+    "viewAll": "View all",
+    "onboardingNote": "Complete onboarding to unlock the full Customer App experience."
+  },
+  "executive": {
+    "title": "Executive dashboard",
+    "subtitle": "Business awareness — health, activity, and what needs your attention.",
+    "loading": "Loading executive dashboard…",
+    "empty": "Executive dashboard is not available yet.",
+    "healthTitle": "Health score",
+    "sections": {
+      "summary": "Executive summary",
+      "activity": "Recent activity",
+      "recommendations": "Recommendations",
+      "approvals": "Pending approvals",
+      "skills": "Active skills",
+      "installations": "Installations",
+      "quickActions": "Quick actions"
+    },
+    "noActivity": "No recent activity.",
+    "installationsHealthy": "healthy",
+    "viewApprovals": "Review approvals"
+  },
+  "presence": {
+    "title": "Presence center",
+    "subtitle": "What Aipify has been doing while you focus on your business.",
+    "loading": "Loading presence activity…",
+    "empty": "Presence activity will appear as Aipify works in the background.",
+    "sections": {
+      "briefing": "Morning briefing",
+      "timeline": "Activity timeline",
+      "feed": "Executive updates"
+    },
+    "noEvents": "No presence events yet.",
+    "commandCenter": "Open Command Center",
+    "categories": {
+      "support": "Support",
+      "automation": "Automation",
+      "approval": "Approval",
+      "health": "Health",
+      "update": "Update",
+      "presence": "Presence",
+      "skill": "Skill"
+    }
+  },
+  "recommendations": {
+    "title": "Recommendations",
+    "subtitle": "Improve operations with clear, actionable guidance from Aipify.",
+    "loading": "Loading recommendations…",
+    "empty": "No recommendations at the moment. Aipify will suggest improvements as it learns.",
+    "approve": "Approve",
+    "dismiss": "Dismiss",
+    "learnMore": "Learn more",
+    "fields": {
+      "reason": "Reason",
+      "impact": "Expected impact",
+      "risk": "Risk level",
+      "action": "Suggested action"
+    }
+  },
+  "approvals": {
+    "title": "Approval center",
+    "subtitle": "Decisions that need your oversight — in one place.",
+    "loading": "Loading approvals…",
+    "empty": "No pending approvals. Aipify will surface items when human review is required.",
+    "openActionCenter": "Open Command Center for quick actions",
+    "statusLabels": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "completed": "Completed"
+    },
+    "categoryLabels": {
+      "notification": "Notification",
+      "recommendation": "Recommendation",
+      "automation": "Automation",
+      "integration": "Integration",
+      "update": "Update"
+    }
+  },
+  "installations": {
+    "title": "Installations",
+    "subtitle": "Connected environments — health, heartbeat, and connected skills.",
+    "loading": "Loading installations…",
+    "empty": "No installations connected yet.",
+    "addInstall": "Connect installation",
+    "viewDetails": "View details",
+    "healthCheck": "Run health check",
+    "columns": {
+      "platform": "Platform",
+      "health": "Health",
+      "heartbeat": "Last heartbeat",
+      "version": "Version"
+    }
+  },
+  "team": {
+    "title": "Team",
+    "subtitle": "People who access your Aipify workspace.",
+    "loading": "Loading team…",
+    "empty": "No team members found.",
+    "members": "Team members",
+    "invitations": "Invitations",
+    "noInvitations": "No pending invitations.",
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "status": "Status"
+    },
+    "inviteSoon": "Self-service team invites will be available in a future release."
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Notification, presence, and workspace preferences.",
+    "sections": {
+      "notifications": "Notification levels",
+      "presence": "Presence & desktop",
+      "quietHours": "Quiet hours",
+      "executiveBriefing": "Presence & executive feed",
+      "desktop": "Desktop presence",
+      "developer": "Developer",
+      "updates": "Updates"
+    },
+    "save": "Save preferences",
+    "saved": "Saved",
+    "links": {
+      "developer": "Developer settings",
+      "updates": "Update policies",
+      "desktopConnect": "Connect desktop app"
+    }
+  },
+  "nav": {
+    "overview": "Hjem",
+    "executive": "Executive",
+    "presence": "Presence",
+    "recommendations": "Anbefalinger",
+    "skills": "Skills",
+    "approvals": "Godkendelser",
+    "installations": "Installationer",
+    "domains": "Domæner",
+    "team": "Team",
+    "license": "Licens",
+    "security": "Sikkerhed",
+    "settings": "Indstillinger"
+  }
+}

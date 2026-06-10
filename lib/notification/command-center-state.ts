@@ -1,5 +1,8 @@
 import type { PlanType } from "@/lib/platform/types";
 import type { ExecutiveFeedEntry } from "./executive-feed";
+import type { MorningBriefingSummary } from "@/lib/desktop/morning-briefing";
+import type { ActivityTimelineEntry } from "@/lib/desktop/timeline";
+import type { MenubarStatus } from "@/lib/desktop/menubar";
 import type { QuickActionId } from "./command-center";
 import type { PresenceNotification } from "@/lib/presence/notification-state";
 
@@ -21,4 +24,7 @@ export type CommandCenterBundle = {
   unread_count?: number;
   quick_actions?: Array<{ id: QuickActionId; label: string; href?: string }>;
   desktop_clients_prepared?: string[];
+  presence_status?: MenubarStatus;
+  morning_briefing?: MorningBriefingSummary;
+  activity_timeline?: ActivityTimelineEntry[];
 };

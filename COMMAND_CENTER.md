@@ -8,6 +8,8 @@ Unified Command Center consuming **one** Aipify Core event infrastructure. Web, 
 
 **Code:** `lib/notification/` · `lib/presence/` · Customer: `/app/command-center` · APIs: `/api/presence/command-center`, `/api/presence/quick-action`
 
+**Desktop (Phase 27):** [DESKTOP_COMMAND_CENTER.md](./DESKTOP_COMMAND_CENTER.md) · `apps/command-center/` · `/api/desktop/*` · `/app/command-center/connect`
+
 ---
 
 ## Layer ownership
@@ -77,9 +79,9 @@ Source: `lib/notification/packaging.ts` · enforced in `get_command_center_bundl
 
 ## 8. Development phases
 
-1. **This phase** — infrastructure, notification engine, executive feed, preferences
-2. Desktop Command Center prototype (native shell)
-3. Native macOS / Windows / Linux clients
+1. **Phase 26** — infrastructure, notification engine, executive feed, preferences
+2. **Phase 27** — Tauri desktop client (macOS), session pairing, `/api/desktop/*`
+3. Windows / Linux desktop clients
 4. Mobile experiences
 
 ---

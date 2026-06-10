@@ -22,6 +22,7 @@ export default async function AppLayout({
     "branding",
     "presence",
     "license",
+    "customerApp",
   ]);
   const t = createTranslator(dict);
 
@@ -46,18 +47,18 @@ export default async function AppLayout({
             read_only: t("dashboard.roles.read_only"),
           }}
           navConfig={buildAppNavConfig({
-            overview: t("dashboard.nav.overview"),
-            presence: t("dashboard.nav.presence"),
-            assistant: t("dashboard.nav.assistant"),
-            support: t("dashboard.nav.support"),
-            actions: t("dashboard.nav.actions"),
-            recommendations: t("dashboard.nav.recommendations"),
-            installations: t("dashboard.nav.install"),
-            domains: t("dashboard.nav.domains"),
-            team: t("dashboard.nav.team"),
-            billing: t("dashboard.nav.billing"),
-            skills: t("dashboard.nav.skills"),
-            settings: t("dashboard.nav.settings"),
+            overview: t("customerApp.nav.overview"),
+            executive: t("customerApp.nav.executive"),
+            presence: t("customerApp.nav.presence"),
+            recommendations: t("customerApp.nav.recommendations"),
+            skills: t("customerApp.nav.skills"),
+            approvals: t("customerApp.nav.approvals"),
+            installations: t("customerApp.nav.installations"),
+            domains: t("customerApp.nav.domains"),
+            team: t("customerApp.nav.team"),
+            license: t("customerApp.nav.license"),
+            security: t("customerApp.nav.security"),
+            settings: t("customerApp.nav.settings"),
           })}
           shellVariant="customer"
           mobileNavIds={APP_MOBILE_NAV_IDS}

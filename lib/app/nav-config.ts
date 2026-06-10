@@ -2,16 +2,16 @@ import { resolveAppHref } from "./route-aliases";
 
 export type AppNavId =
   | "overview"
+  | "executive"
   | "presence"
-  | "assistant"
-  | "support"
-  | "actions"
   | "recommendations"
+  | "skills"
+  | "approvals"
   | "installations"
   | "domains"
   | "team"
-  | "billing"
-  | "skills"
+  | "license"
+  | "security"
   | "settings";
 
 export type AppNavItem = {
@@ -20,53 +20,46 @@ export type AppNavItem = {
   labelKey: string;
 };
 
-/** Canonical customer product navigation (Layer 2). Hrefs use /app; aliases resolve during migration. */
+/** Canonical Customer App 1.0 navigation (Phase 28). */
 export const APP_NAV: AppNavItem[] = [
-  { id: "overview", href: "/app", labelKey: "dashboard.nav.overview" },
-  { id: "presence", href: "/app/command-center", labelKey: "dashboard.nav.presence" },
-  { id: "assistant", href: "/app/assistant", labelKey: "dashboard.nav.assistant" },
-  { id: "support", href: "/app/support", labelKey: "dashboard.nav.support" },
-  { id: "actions", href: "/app/actions", labelKey: "dashboard.nav.actions" },
+  { id: "overview", href: "/app", labelKey: "customerApp.nav.overview" },
+  { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
+  { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
   {
     id: "recommendations",
     href: "/app/recommendations",
-    labelKey: "dashboard.nav.recommendations",
+    labelKey: "customerApp.nav.recommendations",
   },
-  { id: "installations", href: "/app/installations", labelKey: "dashboard.nav.install" },
-  { id: "domains", href: "/app/domains", labelKey: "dashboard.nav.domains" },
-  { id: "team", href: "/app/team", labelKey: "dashboard.nav.team" },
-  { id: "billing", href: "/app/billing", labelKey: "dashboard.nav.billing" },
-  { id: "skills", href: "/app/skills", labelKey: "dashboard.nav.skills" },
-  { id: "settings", href: "/app/settings", labelKey: "dashboard.nav.settings" },
+  { id: "skills", href: "/app/skills", labelKey: "customerApp.nav.skills" },
+  { id: "approvals", href: "/app/approvals", labelKey: "customerApp.nav.approvals" },
+  { id: "installations", href: "/app/installations", labelKey: "customerApp.nav.installations" },
+  { id: "domains", href: "/app/domains", labelKey: "customerApp.nav.domains" },
+  { id: "team", href: "/app/team", labelKey: "customerApp.nav.team" },
+  { id: "license", href: "/app/license", labelKey: "customerApp.nav.license" },
+  { id: "security", href: "/app/security", labelKey: "customerApp.nav.security" },
+  { id: "settings", href: "/app/settings", labelKey: "customerApp.nav.settings" },
 ];
 
 export const APP_MOBILE_NAV_IDS: AppNavId[] = [
   "overview",
+  "executive",
   "presence",
-  "assistant",
-  "support",
+  "approvals",
   "settings",
 ];
 
 export function getAppActiveNavId(pathname: string): AppNavId {
+  if (pathname === "/app" || pathname === "/dashboard") return "overview";
+  if (pathname.startsWith("/app/executive")) return "executive";
   if (
-    pathname.startsWith("/app/command-center") ||
     pathname.startsWith("/app/presence") ||
-    pathname.startsWith("/dashboard/presence")
+    pathname.startsWith("/app/command-center")
   ) {
     return "presence";
   }
-  if (
-    pathname.startsWith("/app/assistant") ||
-    pathname.startsWith("/dashboard/assistant")
-  ) {
-    return "assistant";
-  }
-  if (pathname.startsWith("/app/support") || pathname.startsWith("/dashboard/support")) {
-    return "support";
-  }
-  if (pathname.startsWith("/app/actions")) return "actions";
   if (pathname.startsWith("/app/recommendations")) return "recommendations";
+  if (pathname.startsWith("/app/skills")) return "skills";
+  if (pathname.startsWith("/app/approvals")) return "approvals";
   if (
     pathname.startsWith("/app/install") ||
     pathname.startsWith("/app/installations") ||
@@ -78,10 +71,15 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/team") || pathname.startsWith("/dashboard/team")) {
     return "team";
   }
-  if (pathname.startsWith("/app/billing") || pathname.startsWith("/dashboard/billing")) {
-    return "billing";
+  if (pathname.startsWith("/app/license") || pathname.startsWith("/dashboard/license")) {
+    return "license";
   }
-  if (pathname.startsWith("/app/skills")) return "skills";
+  if (
+    pathname.startsWith("/app/security") ||
+    pathname.startsWith("/app/settings/security")
+  ) {
+    return "security";
+  }
   if (pathname.startsWith("/app/settings") || pathname.startsWith("/dashboard/settings")) {
     return "settings";
   }

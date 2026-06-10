@@ -38,6 +38,7 @@ export default async function AppCommandCenterPage() {
         empty: t("presence.commandCenter.empty"),
         pulseLabel: t("branding.pulseLabel"),
         planGate: t("presence.commandCenter.planGate"),
+        desktopConnect: t("presence.desktopConnect.nav"),
         sections: {
           executiveFeed: t("presence.commandCenter.sections.executiveFeed"),
           health: t("presence.commandCenter.sections.health"),
