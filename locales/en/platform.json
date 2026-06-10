@@ -27,6 +27,7 @@
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
     "support": "Support",
+    "automations": "Automations",
     "system": "System status"
   },
   "overview": {
@@ -436,10 +437,48 @@
       "webhooks": "Installation webhook delivery and sync health."
     }
   },
+  "automations": {
+    "title": "Automations",
+    "subtitle": "Active workflows, execution health, and the weekly executive digest.",
+    "loading": "Loading automations...",
+    "empty": "No automations configured yet.",
+    "name": "Automation",
+    "status": "Status",
+    "trigger": "Trigger",
+    "lastRun": "Last Run",
+    "nextRun": "Next Run",
+    "actions": "Actions",
+    "healthTitle": "Health",
+    "lastSuccess": "Last success",
+    "totalExecutions": "Total executions",
+    "failureCount": "Failures",
+    "avgExecution": "Avg. execution",
+    "view": "View",
+    "statusLabels": {
+      "active": "Active",
+      "paused": "Paused",
+      "warning": "Warning",
+      "failed": "Failed"
+    },
+    "digest": {
+      "title": "Weekly Executive Summary",
+      "newCustomers": "New Customers",
+      "supportRequests": "Support Requests",
+      "aiResolved": "AI Resolved",
+      "revenueGrowth": "Revenue Growth",
+      "trialsExpiring": "Trials Expiring",
+      "recommendations": "Recommendations"
+    }
+  },
   "masterDetail": {
     "back": "Back to customers",
-    "loading": "Loading customer profile...",
+    "commandCenterTitle": "Customer Command Center",
+    "commandCenterSubtitle": "Operational workspace for managing this customer, automations, and AI-driven workflows.",
+    "loading": "Loading customer workspace...",
     "notFound": "Customer not found.",
+    "health": "Health",
+    "successScore": "Success Score",
+    "opportunities": "Opportunities",
     "customerType": "Customer type",
     "companyNumber": "Company number",
     "language": "Language",
@@ -454,11 +493,20 @@
     "name": "Name",
     "role": "Role",
     "lastLogin": "Last login",
+    "lastActive": "Last active",
+    "permissions": "Permissions",
+    "inviteTeam": "Invite Team Member",
     "ownerBadge": "Owner",
+    "installationId": "Installation ID",
     "installationName": "Installation",
     "domain": "Domain",
     "systemType": "System type",
-    "connectedModules": "Connected modules",
+    "version": "Version",
+    "connectedModules": "Active modules",
+    "installedDate": "Installed date",
+    "lastHealthCheck": "Last health check",
+    "healthScore": "Health score",
+    "recentErrors": "Recent errors",
     "lastSync": "Last sync",
     "trialDates": "Trial period",
     "startDate": "Start date",
@@ -477,18 +525,110 @@
     "lastContact": "Last contact",
     "assignedAgent": "Assigned agent",
     "subject": "Subject",
+    "category": "Category",
+    "priority": "Priority",
     "aiInsightsTitle": "AI Insights",
     "noData": "No data available yet.",
+    "noErrors": "No recent errors",
     "hours": "hours",
+    "quickActionsTitle": "Quick Actions",
+    "quickActions": {
+      "openSupport": "Open Support Queue",
+      "pauseSubscription": "Pause Subscription",
+      "generateInvoice": "Generate Invoice",
+      "resendWelcome": "Resend Welcome Email",
+      "runHealthScan": "Run Health Scan",
+      "scheduleOnboarding": "Schedule Onboarding"
+    },
+    "recommendationFeed": {
+      "title": "AI Recommendations",
+      "priority": "Priority",
+      "recommendedAction": "Recommended action",
+      "confidence": "{value}% confidence",
+      "dismiss": "Dismiss",
+      "empty": "No active recommendations right now."
+    },
+    "priorityLabels": {
+      "low": "Low",
+      "normal": "Normal",
+      "high": "High",
+      "urgent": "Urgent"
+    },
+    "opportunityLabels": {
+      "upgrade": "Upgrade Opportunity",
+      "expansion": "Expansion Opportunity",
+      "retention_risk": "Retention Risk",
+      "low_engagement": "Low Engagement",
+      "advocate": "Customer Advocate Potential"
+    },
+    "timeline": {
+      "empty": "No activity recorded yet.",
+      "categories": {
+        "support": "Support",
+        "billing": "Billing",
+        "installations": "Installations",
+        "automations": "Automations",
+        "users": "Users",
+        "system": "System",
+        "ai_recommendations": "AI Recommendations"
+      }
+    },
+    "integrations": {
+      "connectionStatus": "Status",
+      "lastSync": "Last sync",
+      "health": "Health",
+      "actions": "Actions",
+      "connected": "Connected",
+      "pending": "Pending",
+      "error": "Error",
+      "disconnected": "Disconnected",
+      "webhooks": "Webhook endpoints",
+      "customApi": "Custom APIs"
+    },
+    "automationsTab": {
+      "empty": "No automations available for this customer yet.",
+      "name": "Automation",
+      "status": "Status",
+      "trigger": "Trigger",
+      "lastRun": "Last run",
+      "nextRun": "Next run",
+      "statusLabels": {
+        "active": "Active",
+        "paused": "Paused",
+        "warning": "Warning",
+        "failed": "Failed"
+      }
+    },
+    "settings": {
+      "billingTitle": "Billing profile",
+      "subscriptionTitle": "Subscription",
+      "invoicesTitle": "Invoices"
+    },
+    "inviteModal": {
+      "title": "Invite Team Member",
+      "email": "Email",
+      "role": "Role",
+      "department": "Department",
+      "welcomeMessage": "Welcome message (optional)",
+      "send": "Send invitation",
+      "cancel": "Cancel",
+      "success": "Invitation queued successfully."
+    },
+    "invitationStatus": {
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "expired": "Expired",
+      "cancelled": "Cancelled"
+    },
     "tabs": {
       "overview": "Overview",
       "users": "Users",
-      "installations": "Installations",
-      "subscriptions": "Subscriptions",
-      "invoices": "Invoices",
-      "usage": "Usage",
       "support": "Support",
-      "activity": "Activity Log"
+      "automations": "Automations",
+      "aiInsights": "AI Insights",
+      "timeline": "Activity Timeline",
+      "integrations": "Integrations",
+      "settings": "Settings"
     },
     "supportStatus": {
       "open": "Open",
@@ -497,9 +637,14 @@
     },
     "userRoles": {
       "owner": "Owner",
-      "admin": "Admin",
+      "admin": "Administrator",
+      "administrator": "Administrator",
       "support": "Support",
+      "moderator": "Moderator",
+      "marketing": "Marketing",
+      "analyst": "Analyst",
       "staff": "Staff",
+      "custom": "Custom",
       "readOnly": "Read only"
     },
     "userStatus": {

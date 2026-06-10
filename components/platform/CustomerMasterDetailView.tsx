@@ -4,30 +4,57 @@ import Link from "next/link";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { AipifyEmptyState } from "@/components/branding";
 import AiInsightList from "@/components/platform/AiInsightList";
-import { buildCustomerAiInsights } from "@/lib/platform/ai-dashboard";
+import CustomerActivityTimeline from "@/components/platform/CustomerActivityTimeline";
+import CustomerQuickActions from "@/components/platform/CustomerQuickActions";
+import CustomerRecommendationFeed from "@/components/platform/CustomerRecommendationFeed";
+import CustomerHealthBadge from "@/components/platform/CustomerHealthBadge";
+import InviteTeamMemberModal from "@/components/platform/InviteTeamMemberModal";
+import OpportunityBadge from "@/components/platform/OpportunityBadge";
+import {
+  buildCustomerAiInsightMessages,
+  buildWorkspaceRecommendations,
+  computeSuccessScore,
+  detectOpportunities,
+  getCustomerHealthFromDetail,
+  getInstallationHealthScore,
+  getRolePermissions,
+  INTEGRATION_PROVIDERS,
+  type QuickActionKey,
+} from "@/lib/platform/customer-workspace";
+import { deriveInstallationHealth } from "@/lib/platform/ai-dashboard";
 import { formatDate, formatDateTime } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
-import type { CustomerMasterDetail, InvoiceAction } from "@/lib/platform/types";
+import type { CustomerMasterDetail, InvoiceAction, PlatformAutomation } from "@/lib/platform/types";
 import StatusBadge from "./StatusBadge";
 
 type TabId =
   | "overview"
   | "users"
-  | "installations"
-  | "subscriptions"
-  | "invoices"
-  | "usage"
   | "support"
-  | "activity";
+  | "automations"
+  | "aiInsights"
+  | "timeline"
+  | "integrations"
+  | "settings";
 
 type CustomerMasterDetailViewProps = {
   customerId: string;
   locale: string;
   labels: {
     back: string;
+    commandCenterTitle: string;
+    commandCenterSubtitle: string;
     loading: string;
     notFound: string;
     tabs: Record<TabId, string>;
+    health: string;
+    healthLabels: {
+      healthy: string;
+      attention: string;
+      atRisk: string;
+    };
+    successScore: string;
+    opportunities: string;
     customerNumber: string;
     customerName: string;
     customerType: string;
@@ -50,11 +77,20 @@ type CustomerMasterDetailViewProps = {
     role: string;
     status: string;
     lastLogin: string;
+    lastActive: string;
+    permissions: string;
+    inviteTeam: string;
     ownerBadge: string;
+    installationId: string;
     installationName: string;
     domain: string;
     systemType: string;
+    version: string;
     connectedModules: string;
+    installedDate: string;
+    lastHealthCheck: string;
+    healthScore: string;
+    recentErrors: string;
     lastSync: string;
     trialDates: string;
     startDate: string;
@@ -83,8 +119,64 @@ type CustomerMasterDetailViewProps = {
     lastContact: string;
     assignedAgent: string;
     subject: string;
+    category: string;
+    priority: string;
     noData: string;
+    noErrors: string;
     actionPending: string;
+    quickActionsTitle: string;
+    quickActions: Record<QuickActionKey, string>;
+    recommendationFeed: {
+      title: string;
+      priority: string;
+      recommendedAction: string;
+      confidence: string;
+      dismiss: string;
+      empty: string;
+    };
+    priorityLabels: Record<string, string>;
+    opportunityLabels: Record<string, string>;
+    timeline: {
+      empty: string;
+      categories: Record<string, string>;
+    };
+    integrations: {
+      connectionStatus: string;
+      lastSync: string;
+      health: string;
+      actions: string;
+      connected: string;
+      pending: string;
+      error: string;
+      webhooks: string;
+      customApi: string;
+    };
+    automations: {
+      empty: string;
+      name: string;
+      status: string;
+      trigger: string;
+      lastRun: string;
+      nextRun: string;
+      statusLabels: Record<string, string>;
+    };
+    settings: {
+      billingTitle: string;
+      subscriptionTitle: string;
+      invoicesTitle: string;
+    };
+    inviteModal: {
+      title: string;
+      email: string;
+      role: string;
+      department: string;
+      welcomeMessage: string;
+      send: string;
+      cancel: string;
+      success: string;
+    };
+    invitationStatusLabels: Record<string, string>;
+    aiInsightsTitle: string;
     statusLabels: Record<string, string>;
     typeLabels: Record<string, string>;
     planTypeLabels: Record<string, string>;
@@ -92,13 +184,24 @@ type CustomerMasterDetailViewProps = {
     invoiceStatusLabels: Record<string, string>;
     userRoleLabels: Record<string, string>;
     userStatusLabels: Record<string, string>;
+    supportCategoryLabels: Record<string, string>;
     seconds: string;
     hours: string;
     days: string;
     pulseLabel: string;
-    aiInsightsTitle: string;
   };
 };
+
+const TAB_IDS: TabId[] = [
+  "overview",
+  "users",
+  "support",
+  "automations",
+  "aiInsights",
+  "timeline",
+  "integrations",
+  "settings",
+];
 
 export default function CustomerMasterDetailView({
   customerId,
@@ -106,21 +209,27 @@ export default function CustomerMasterDetailView({
   labels,
 }: CustomerMasterDetailViewProps) {
   const [detail, setDetail] = useState<CustomerMasterDetail | null>(null);
+  const [automations, setAutomations] = useState<PlatformAutomation[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<TabId>("overview");
   const [actingInvoiceId, setActingInvoiceId] = useState<string | null>(null);
+  const [inviteOpen, setInviteOpen] = useState(false);
 
   async function loadDetail() {
     const supabase = createClient();
-    const { data, error } = await supabase.rpc("get_platform_customer_master_detail", {
-      p_customer_id: customerId,
-    });
+    const [detailResult, autoResult] = await Promise.all([
+      supabase.rpc("get_platform_customer_master_detail", { p_customer_id: customerId }),
+      supabase.rpc("list_platform_automations"),
+    ]);
 
-    if (error || !data) {
+    if (detailResult.error || !detailResult.data) {
       setDetail(null);
     } else {
-      setDetail(data as CustomerMasterDetail);
+      setDetail(detailResult.data as CustomerMasterDetail);
     }
+    setAutomations(
+      autoResult.error || !autoResult.data ? [] : (autoResult.data as PlatformAutomation[])
+    );
     setLoading(false);
   }
 
@@ -129,22 +238,25 @@ export default function CustomerMasterDetailView({
 
     async function load() {
       const supabase = createClient();
-      const { data, error } = await supabase.rpc("get_platform_customer_master_detail", {
-        p_customer_id: customerId,
-      });
+      const [detailResult, autoResult] = await Promise.all([
+        supabase.rpc("get_platform_customer_master_detail", { p_customer_id: customerId }),
+        supabase.rpc("list_platform_automations"),
+      ]);
 
       if (!cancelled) {
-        if (error || !data) {
+        if (detailResult.error || !detailResult.data) {
           setDetail(null);
         } else {
-          setDetail(data as CustomerMasterDetail);
+          setDetail(detailResult.data as CustomerMasterDetail);
         }
+        setAutomations(
+          autoResult.error || !autoResult.data ? [] : (autoResult.data as PlatformAutomation[])
+        );
         setLoading(false);
       }
     }
 
     void load();
-
     return () => {
       cancelled = true;
     };
@@ -181,6 +293,10 @@ export default function CustomerMasterDetailView({
   const { customer, payment_profile, subscription, overview, users, installations, invoices, usage, support, activity_log } =
     detail;
   const displayName = customer.company_name ?? customer.full_name ?? labels.customerName;
+  const health = getCustomerHealthFromDetail(detail);
+  const successScore = computeSuccessScore(detail);
+  const opportunities = detectOpportunities(detail);
+  const recommendations = buildWorkspaceRecommendations(detail);
 
   const openTickets = support.filter((ticket) => ticket.status === "open" || ticket.status === "escalated");
   const closedTickets = support.filter((ticket) => ticket.status === "closed");
@@ -197,16 +313,10 @@ export default function CustomerMasterDetailView({
   const assignedAgent =
     openTickets.find((ticket) => ticket.assigned_agent)?.assigned_agent ?? "—";
 
-  const tabIds: TabId[] = [
-    "overview",
-    "users",
-    "installations",
-    "subscriptions",
-    "invoices",
-    "usage",
-    "support",
-    "activity",
-  ];
+  const roleOptions = Object.entries(labels.userRoleLabels).map(([value, label]) => ({
+    value,
+    label,
+  }));
 
   return (
     <div className="mx-auto max-w-6xl">
@@ -220,18 +330,43 @@ export default function CustomerMasterDetailView({
       <div className="mt-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-violet-600">
+              {labels.commandCenterTitle}
+            </p>
             <p className="font-mono text-sm font-medium text-violet-600">
               {customer.customer_number}
             </p>
             <h1 className="mt-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
               {displayName}
             </h1>
+            <p className="mt-2 text-sm text-gray-600">{labels.commandCenterSubtitle}</p>
           </div>
-          <StatusBadge
-            status={customer.status}
-            label={labels.statusLabels[customer.status] ?? customer.status}
-          />
+          <div className="flex flex-wrap items-center gap-2">
+            <CustomerHealthBadge health={health} labels={labels.healthLabels} />
+            <span className="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700 ring-1 ring-violet-100">
+              {labels.successScore}: {successScore}
+            </span>
+            <StatusBadge
+              status={customer.status}
+              label={labels.statusLabels[customer.status] ?? customer.status}
+            />
+          </div>
         </div>
+
+        {opportunities.length > 0 && (
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+              {labels.opportunities}:
+            </span>
+            {opportunities.map((badge) => (
+              <OpportunityBadge
+                key={badge.signal}
+                signal={badge.signal}
+                label={labels.opportunityLabels[badge.signal] ?? badge.label}
+              />
+            ))}
+          </div>
+        )}
 
         <dl className="mt-6 grid gap-4 text-sm sm:grid-cols-2 lg:grid-cols-3">
           <HeaderField label={labels.customerType} value={labels.typeLabels[customer.customer_type] ?? customer.customer_type} />
@@ -262,7 +397,7 @@ export default function CustomerMasterDetailView({
 
       <div className="mt-8 border-b border-gray-200">
         <nav className="-mb-px flex gap-1 overflow-x-auto">
-          {tabIds.map((tabId) => (
+          {TAB_IDS.map((tabId) => (
             <button
               key={tabId}
               type="button"
@@ -281,7 +416,7 @@ export default function CustomerMasterDetailView({
 
       <div className="mt-6">
         {activeTab === "overview" && (
-          <div className="space-y-6">
+          <div className="space-y-8">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <OverviewCard label={labels.currentPlan} value={overview.plan_name ?? "—"} />
               <OverviewCard
@@ -303,211 +438,73 @@ export default function CustomerMasterDetailView({
               <OverviewCard label={labels.nextBillingDate} value={formatDate(overview.next_billing_date, locale)} />
               <OverviewCard label={labels.totalUsers} value={String(overview.total_users)} />
               <OverviewCard label={labels.totalInstallations} value={String(overview.total_installations)} />
+              <OverviewCard label={labels.outstandingInvoices} value={`${overview.outstanding_invoices} NOK`} />
               <OverviewCard
-                label={labels.outstandingInvoices}
-                value={`${overview.outstanding_invoices} NOK`}
-              />
-              <OverviewCard
-                label={labels.paymentProvider}
-                value={
-                  overview.payment_provider
-                    ? labels.providerLabels[overview.payment_provider] ?? overview.payment_provider
-                    : "—"
-                }
+                label={labels.successScore}
+                value={`${successScore} / 100`}
               />
             </div>
-            <AiInsightList
-              title={labels.aiInsightsTitle}
-              items={buildCustomerAiInsights(detail)}
-            />
+            <CustomerQuickActions title={labels.quickActionsTitle} labels={labels.quickActions} />
           </div>
         )}
 
         {activeTab === "users" && (
-          <DataTable
-            empty={labels.noData}
-            pulseLabel={labels.pulseLabel}
-            headers={[labels.name, labels.email, labels.role, labels.status, labels.lastLogin, ""]}
-            rows={
-              users.length === 0
-                ? []
-                : users.map((user) => [
-                    user.full_name ?? "—",
-                    user.email ?? "—",
-                    labels.userRoleLabels[user.role] ?? user.role,
-                    labels.userStatusLabels[user.status] ?? user.status,
-                    formatDateTime(user.last_login_at, locale),
-                    user.is_owner ? (
-                      <span className="rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-700 ring-1 ring-violet-100">
-                        {labels.ownerBadge}
-                      </span>
-                    ) : (
-                      ""
-                    ),
-                  ])
-            }
-          />
-        )}
-
-        {activeTab === "installations" && (
-          <DataTable
-            empty={labels.noData}
-            pulseLabel={labels.pulseLabel}
-            headers={[
-              labels.installationName,
-              labels.domain,
-              labels.systemType,
-              labels.status,
-              labels.connectedModules,
-              labels.lastSync,
-            ]}
-            rows={
-              installations.length === 0
-                ? []
-                : installations.map((installation) => [
-                    installation.name ?? installation.site_url ?? "—",
-                    installation.site_url ?? "—",
-                    installation.system_type,
-                    labels.statusLabels[installation.status] ?? installation.status,
-                    installation.modules.length > 0 ? installation.modules.join(", ") : "—",
-                    formatDateTime(installation.last_synced_at, locale),
-                  ])
-            }
-          />
-        )}
-
-        {activeTab === "subscriptions" && (
-          subscription ? (
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-              <dl className="grid gap-4 text-sm sm:grid-cols-2">
-                <HeaderField label={labels.plan} value={subscription.plan_name} />
-                <HeaderField
-                  label={labels.status}
-                  value={labels.statusLabels[subscription.status] ?? subscription.status}
-                />
-                <HeaderField
-                  label={labels.trialDates}
-                  value={`${formatDate(subscription.trial_starts_at, locale)} – ${formatDate(subscription.trial_ends_at, locale)}`}
-                />
-                <HeaderField label={labels.startDate} value={formatDate(subscription.created_at, locale)} />
-                <HeaderField label={labels.nextBillingDate} value={formatDate(subscription.next_billing_date, locale)} />
-                <HeaderField label={labels.price} value={`${subscription.price_amount} ${subscription.currency}`} />
-                <HeaderField label={labels.currency} value={subscription.currency} />
-                <HeaderField label={labels.billingCycle} value={subscription.billing_cycle} />
-              </dl>
+          <div className="space-y-6">
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={() => setInviteOpen(true)}
+                className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-700"
+              >
+                {labels.inviteTeam}
+              </button>
             </div>
-          ) : (
-            <BrandedEmptyState message={labels.noData} pulseLabel={labels.pulseLabel} />
-          )
-        )}
-
-        {activeTab === "invoices" && (
-          invoices.length === 0 ? (
-            <BrandedEmptyState message={labels.noData} pulseLabel={labels.pulseLabel} />
-          ) : (
-            <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-100">
-                  <thead className="bg-gray-50/80">
-                    <tr>
-                      {[labels.invoiceNumber, labels.invoiceStatus, labels.issueDate, labels.dueDate, labels.amount, labels.paymentStatus, labels.kid, labels.view].map((header) => (
-                        <th
-                          key={header}
-                          className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500"
-                        >
-                          {header}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-100">
-                    {invoices.map((invoice) => (
-                      <tr key={invoice.id}>
-                        <td className="px-4 py-3 font-mono text-sm">{invoice.invoice_number}</td>
-                        <td className="px-4 py-3">
-                          <StatusBadge
-                            status={invoice.status}
-                            label={labels.invoiceStatusLabels[invoice.status] ?? invoice.status}
-                          />
-                        </td>
-                        <td className="px-4 py-3 text-sm">{formatDate(invoice.issued_at, locale)}</td>
-                        <td className="px-4 py-3 text-sm">{formatDate(invoice.due_date, locale)}</td>
-                        <td className="px-4 py-3 text-sm">
-                          {invoice.amount} {invoice.currency}
-                        </td>
-                        <td className="px-4 py-3 text-sm">
-                          {invoice.status === "paid"
-                            ? labels.invoiceStatusLabels.paid
-                            : labels.statusLabels.pending ?? "Pending"}
-                        </td>
-                        <td className="px-4 py-3 font-mono text-xs">{invoice.kid_number ?? "—"}</td>
-                        <td className="px-4 py-3">
-                          <div className="flex flex-wrap gap-2">
-                            <button
-                              type="button"
-                              className="text-xs font-semibold text-violet-600 hover:text-violet-700"
-                              onClick={() => runInvoiceAction(invoice.id, "send")}
-                              disabled={actingInvoiceId === invoice.id}
-                            >
-                              {actingInvoiceId === invoice.id ? labels.actionPending : labels.view}
-                            </button>
-                            {invoice.pdf_url && (
-                              <a
-                                href={invoice.pdf_url}
-                                className="text-xs font-semibold text-gray-600 hover:text-gray-800"
-                              >
-                                {labels.download}
-                              </a>
-                            )}
-                            <button
-                              type="button"
-                              className="text-xs font-semibold text-gray-600 hover:text-gray-800"
-                              onClick={() => runInvoiceAction(invoice.id, "resend")}
-                              disabled={actingInvoiceId === invoice.id}
-                            >
-                              {labels.resend}
-                            </button>
-                            <button
-                              type="button"
-                              className="text-xs font-semibold text-emerald-600 hover:text-emerald-700"
-                              onClick={() => runInvoiceAction(invoice.id, "mark_paid")}
-                              disabled={actingInvoiceId === invoice.id}
-                            >
-                              {labels.markPaid}
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )
-        )}
-
-        {activeTab === "usage" && (
-          usage ? (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <OverviewCard label={labels.supportRequests} value={String(usage.support_requests_handled)} />
-              <OverviewCard label={labels.automatedActions} value={String(usage.automated_actions)} />
-              <OverviewCard label={labels.aiRecommendations} value={String(usage.ai_recommendations)} />
-              <OverviewCard
-                label={labels.avgResponseTime}
-                value={`${usage.avg_response_time_seconds} ${labels.seconds}`}
+            <DataTable
+              empty={labels.noData}
+              pulseLabel={labels.pulseLabel}
+              headers={[
+                labels.name,
+                labels.email,
+                labels.role,
+                labels.status,
+                labels.lastActive,
+                labels.permissions,
+                "",
+              ]}
+              rows={
+                users.length === 0
+                  ? []
+                  : users.map((user) => [
+                      user.full_name ?? "—",
+                      user.email ?? "—",
+                      labels.userRoleLabels[user.role] ?? user.role,
+                      labels.userStatusLabels[user.status] ?? user.status,
+                      formatDateTime(user.last_login_at, locale),
+                      getRolePermissions(user.role).join(", "),
+                      user.is_owner ? (
+                        <span className="rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-700 ring-1 ring-violet-100">
+                          {labels.ownerBadge}
+                        </span>
+                      ) : (
+                        ""
+                      ),
+                    ])
+              }
+            />
+            {(detail.team_invitations?.length ?? 0) > 0 && (
+              <DataTable
+                empty={labels.noData}
+                pulseLabel={labels.pulseLabel}
+                headers={[labels.email, labels.role, labels.status, labels.inviteTeam]}
+                rows={(detail.team_invitations ?? []).map((invite) => [
+                  invite.email,
+                  labels.userRoleLabels[invite.role] ?? invite.role,
+                  labels.invitationStatusLabels[invite.status] ?? invite.status,
+                  invite.department ?? "—",
+                ])}
               />
-              <OverviewCard
-                label={labels.mostUsedModules}
-                value={
-                  usage.most_used_modules.length > 0
-                    ? usage.most_used_modules.join(", ")
-                    : "—"
-                }
-              />
-            </div>
-          ) : (
-            <BrandedEmptyState message={labels.noData} pulseLabel={labels.pulseLabel} />
-          )
+            )}
+          </div>
         )}
 
         {activeTab === "support" && (
@@ -520,17 +517,25 @@ export default function CustomerMasterDetailView({
                 value={avgResolution != null ? `${avgResolution.toFixed(1)} ${labels.hours}` : "—"}
               />
               <OverviewCard label={labels.lastContact} value={formatDate(lastContact, locale)} />
-              <OverviewCard label={labels.assignedAgent} value={assignedAgent} />
             </div>
             <DataTable
               empty={labels.noData}
               pulseLabel={labels.pulseLabel}
-              headers={[labels.subject, labels.status, labels.assignedAgent, labels.lastContact]}
+              headers={[
+                labels.subject,
+                labels.category,
+                labels.priority,
+                labels.status,
+                labels.assignedAgent,
+                labels.lastContact,
+              ]}
               rows={
                 support.length === 0
                   ? []
                   : support.map((ticket) => [
                       ticket.subject,
+                      labels.supportCategoryLabels[ticket.category ?? "general"] ?? ticket.category ?? "—",
+                      labels.priorityLabels[ticket.priority ?? "normal"] ?? ticket.priority ?? "—",
                       labels.statusLabels[ticket.status] ?? ticket.status,
                       ticket.assigned_agent ?? "—",
                       formatDate(ticket.last_contact_at, locale),
@@ -540,24 +545,259 @@ export default function CustomerMasterDetailView({
           </div>
         )}
 
-        {activeTab === "activity" && (
-          activity_log.length === 0 ? (
-            <BrandedEmptyState message={labels.noData} pulseLabel={labels.pulseLabel} />
+        {activeTab === "automations" && (
+          automations.length === 0 ? (
+            <BrandedEmptyState message={labels.automations.empty} pulseLabel={labels.pulseLabel} />
           ) : (
-            <ul className="divide-y divide-gray-100 rounded-2xl border border-gray-200 bg-white shadow-sm">
-              {activity_log.map((entry) => (
-                <li key={entry.id} className="flex flex-wrap items-start justify-between gap-3 px-6 py-4">
-                  <div>
-                    <p className="font-semibold text-gray-900">{entry.title}</p>
-                    <p className="mt-1 font-mono text-xs text-gray-500">{entry.event_type}</p>
-                  </div>
-                  <p className="text-sm text-gray-500">{formatDateTime(entry.created_at, locale)}</p>
-                </li>
-              ))}
-            </ul>
+            <DataTable
+              empty={labels.automations.empty}
+              pulseLabel={labels.pulseLabel}
+              headers={[
+                labels.automations.name,
+                labels.automations.status,
+                labels.automations.trigger,
+                labels.automations.lastRun,
+                labels.automations.nextRun,
+              ]}
+              rows={automations.map((automation) => [
+                automation.name,
+                labels.automations.statusLabels[automation.status] ?? automation.status,
+                automation.trigger_type,
+                formatDateTime(automation.last_run_at, locale),
+                formatDateTime(automation.next_run_at, locale),
+              ])}
+            />
           )
         )}
+
+        {activeTab === "aiInsights" && (
+          <div className="space-y-6">
+            <CustomerRecommendationFeed
+              title={labels.recommendationFeed.title}
+              recommendations={recommendations}
+              labels={labels.recommendationFeed}
+              priorityLabels={labels.priorityLabels}
+            />
+            <AiInsightList
+              title={labels.aiInsightsTitle}
+              items={buildCustomerAiInsightMessages(detail)}
+            />
+          </div>
+        )}
+
+        {activeTab === "timeline" && (
+          <CustomerActivityTimeline
+            entries={activity_log}
+            locale={locale}
+            labels={labels.timeline}
+          />
+        )}
+
+        {activeTab === "integrations" && (
+          <div className="space-y-8">
+            {installations.length === 0 ? (
+              <BrandedEmptyState message={labels.noData} pulseLabel={labels.pulseLabel} />
+            ) : (
+              installations.map((installation) => {
+                const healthMeta = deriveInstallationHealth({
+                  id: installation.id,
+                  customer_id: customer.id,
+                  customer_number: customer.customer_number,
+                  customer_name: displayName,
+                  customer_email: customer.email,
+                  site_url: installation.site_url,
+                  system_type: installation.system_type,
+                  status: installation.status,
+                  modules: installation.modules,
+                  integrations: installation.integrations ?? [],
+                  last_synced_at: installation.last_synced_at,
+                  created_at: installation.created_at ?? "",
+                });
+                const score = getInstallationHealthScore(installation);
+
+                return (
+                  <section
+                    key={installation.id}
+                    className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+                  >
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <p className="font-mono text-xs text-gray-500">{labels.installationId}</p>
+                        <h3 className="mt-1 text-lg font-semibold text-gray-900">
+                          {installation.name ?? installation.site_url ?? labels.installationName}
+                        </h3>
+                        <p className="mt-1 text-sm text-gray-600">{installation.site_url ?? "—"}</p>
+                      </div>
+                      <span className="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700">
+                        {labels.healthScore}: {score}
+                      </span>
+                    </div>
+                    <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-4">
+                      <HeaderField label={labels.domain} value={installation.site_url ?? "—"} />
+                      <HeaderField label={labels.version} value={installation.version ?? "1.0.0"} />
+                      <HeaderField
+                        label={labels.connectedModules}
+                        value={installation.modules.length > 0 ? installation.modules.join(", ") : "—"}
+                      />
+                      <HeaderField
+                        label={labels.installedDate}
+                        value={formatDate(installation.installed_at ?? installation.created_at, locale)}
+                      />
+                      <HeaderField
+                        label={labels.lastHealthCheck}
+                        value={formatDateTime(installation.last_synced_at, locale)}
+                      />
+                      <HeaderField
+                        label={labels.recentErrors}
+                        value={healthMeta.issuesDetected === 0 ? labels.noErrors : String(healthMeta.issuesDetected)}
+                      />
+                    </dl>
+                    <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                      {INTEGRATION_PROVIDERS.map((provider) => {
+                        const connected = installation.integrations?.find(
+                          (item) => item.integration_key === provider
+                        );
+                        const status = connected?.status ?? "disconnected";
+                        return (
+                          <div
+                            key={provider}
+                            className="rounded-xl border border-gray-100 bg-gray-50/50 px-4 py-3"
+                          >
+                            <p className="font-semibold capitalize text-gray-900">
+                              {provider === "custom_api"
+                                ? labels.integrations.customApi
+                                : provider === "webhooks"
+                                  ? labels.integrations.webhooks
+                                  : provider}
+                            </p>
+                            <p className="mt-1 text-xs text-gray-500">
+                              {labels.integrations.connectionStatus}:{" "}
+                              {labels.integrations[status as keyof typeof labels.integrations] ?? status}
+                            </p>
+                            <p className="mt-1 text-xs text-gray-500">
+                              {labels.integrations.lastSync}:{" "}
+                              {formatDateTime(connected?.last_synced_at, locale)}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </section>
+                );
+              })
+            )}
+          </div>
+        )}
+
+        {activeTab === "settings" && (
+          <div className="space-y-8">
+            <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 className="text-lg font-semibold text-gray-900">{labels.settings.subscriptionTitle}</h3>
+              {subscription ? (
+                <dl className="mt-4 grid gap-4 text-sm sm:grid-cols-2">
+                  <HeaderField label={labels.plan} value={subscription.plan_name} />
+                  <HeaderField
+                    label={labels.status}
+                    value={labels.statusLabels[subscription.status] ?? subscription.status}
+                  />
+                  <HeaderField label={labels.price} value={`${subscription.price_amount} ${subscription.currency}`} />
+                  <HeaderField label={labels.billingCycle} value={subscription.billing_cycle} />
+                  <HeaderField label={labels.nextBillingDate} value={formatDate(subscription.next_billing_date, locale)} />
+                </dl>
+              ) : (
+                <p className="mt-4 text-sm text-gray-500">{labels.noData}</p>
+              )}
+            </section>
+
+            <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 className="text-lg font-semibold text-gray-900">{labels.settings.billingTitle}</h3>
+              {payment_profile ? (
+                <dl className="mt-4 grid gap-4 text-sm sm:grid-cols-2">
+                  <HeaderField
+                    label={labels.paymentProvider}
+                    value={labels.providerLabels[payment_profile.provider] ?? payment_profile.provider}
+                  />
+                  <HeaderField label={labels.email} value={payment_profile.billing_email} />
+                  <HeaderField label={labels.country} value={payment_profile.country} />
+                  <HeaderField label={labels.kid} value={payment_profile.kid_number ?? "—"} mono />
+                </dl>
+              ) : (
+                <p className="mt-4 text-sm text-gray-500">{labels.noData}</p>
+              )}
+            </section>
+
+            <section>
+              <h3 className="text-lg font-semibold text-gray-900">{labels.settings.invoicesTitle}</h3>
+              {invoices.length === 0 ? (
+                <p className="mt-4 text-sm text-gray-500">{labels.noData}</p>
+              ) : (
+                <div className="mt-4 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-100">
+                      <thead className="bg-gray-50/80">
+                        <tr>
+                          {[labels.invoiceNumber, labels.invoiceStatus, labels.dueDate, labels.amount, labels.view].map(
+                            (header) => (
+                              <th
+                                key={header}
+                                className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500"
+                              >
+                                {header}
+                              </th>
+                            )
+                          )}
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-100">
+                        {invoices.map((invoice) => (
+                          <tr key={invoice.id}>
+                            <td className="px-4 py-3 font-mono text-sm">{invoice.invoice_number}</td>
+                            <td className="px-4 py-3">
+                              <StatusBadge
+                                status={invoice.status}
+                                label={labels.invoiceStatusLabels[invoice.status] ?? invoice.status}
+                              />
+                            </td>
+                            <td className="px-4 py-3 text-sm">{formatDate(invoice.due_date, locale)}</td>
+                            <td className="px-4 py-3 text-sm">
+                              {invoice.amount} {invoice.currency}
+                            </td>
+                            <td className="px-4 py-3">
+                              <button
+                                type="button"
+                                className="text-xs font-semibold text-violet-600 hover:text-violet-700"
+                                onClick={() => runInvoiceAction(invoice.id, "send")}
+                                disabled={actingInvoiceId === invoice.id}
+                              >
+                                {actingInvoiceId === invoice.id ? labels.actionPending : labels.view}
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+            </section>
+
+            {usage && (
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <OverviewCard label={labels.supportRequests} value={String(usage.support_requests_handled)} />
+                <OverviewCard label={labels.automatedActions} value={String(usage.automated_actions)} />
+                <OverviewCard label={labels.aiRecommendations} value={String(usage.ai_recommendations)} />
+              </div>
+            )}
+          </div>
+        )}
       </div>
+
+      <InviteTeamMemberModal
+        open={inviteOpen}
+        onClose={() => setInviteOpen(false)}
+        labels={labels.inviteModal}
+        roleOptions={roleOptions}
+      />
     </div>
   );
 }

@@ -1,0 +1,47 @@
+AIPIFY PLATFORM – CUSTOMER WORKSPACE & AUTOMATION CENTER
+==========================================================
+
+STATUS: READY FOR CURSOR
+PRIORITY: VERY HIGH
+
+GOAL
+-----
+Transform Aipify from an administrative platform into an operational workspace
+where administrators manage customers, automations, and AI-driven workflows.
+
+IMPLEMENTED IN CODEBASE (reference)
+----------------------------------
+[✓] 1. Customer Command Center – 8-tab workspace on customer detail
+[✓] 2. Activity Timeline – categorized chronological events
+[✓] 3. Automations menu – /platform/automations
+[✓] 4. Automation health – status, executions, failures, avg time
+[✓] 5. AI Recommendation feed – priority, action, confidence, dismiss
+[✓] 6. Users tab – roles, permissions, last active, invite modal
+[✓] 7. Team invitations – pending/accepted/expired/cancelled (DB + UI)
+[✓] 8. Integrations tab – per-installation cards + health score
+[✓] 9. Installation details – ID, version, modules, errors
+[✓] 10. Weekly Executive Digest – on Automations page
+[✓] 11. AI confidence score – on recommendations
+[✓] 12. Quick Actions panel – overview tab
+[✓] 13. Opportunity badges – upgrade, retention, engagement
+[✓] 14. Customer Success Score – 0–100 separate from health
+
+Tables:
+  platform_automations, platform_automation_runs
+  customer_recommendations, team_invitations
+  activity_logs.category
+
+RPCs:
+  list_platform_automations()
+  get_weekly_executive_digest()
+  get_platform_customer_master_detail() – extended payload
+
+FUTURE
+------
+  - Server-side dismiss for recommendations
+  - One-click quick actions
+  - Role editor
+  - Digest delivery (email, Slack, push)
+  - Real success score algorithm
+
+END OF PHASE

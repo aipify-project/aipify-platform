@@ -27,6 +27,7 @@
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
     "support": "Support",
+    "automations": "Automatiseringer",
     "system": "System status"
   },
   "overview": {
@@ -436,10 +437,48 @@
       "webhooks": "Webhook-levering og synk-helse for installasjoner."
     }
   },
+  "automations": {
+    "title": "Automatiseringer",
+    "subtitle": "Aktive arbeidsflyter, kjørehelse og ukentlig executive-sammendrag.",
+    "loading": "Laster automatiseringer...",
+    "empty": "Ingen automatiseringer konfigurert ennå.",
+    "name": "Automatisering",
+    "status": "Status",
+    "trigger": "Utløser",
+    "lastRun": "Siste kjøring",
+    "nextRun": "Neste kjøring",
+    "actions": "Handlinger",
+    "healthTitle": "Helse",
+    "lastSuccess": "Siste vellykkede",
+    "totalExecutions": "Totale kjøringer",
+    "failureCount": "Feil",
+    "avgExecution": "Snitt kjøretid",
+    "view": "Vis",
+    "statusLabels": {
+      "active": "Aktiv",
+      "paused": "Pauset",
+      "warning": "Advarsel",
+      "failed": "Feilet"
+    },
+    "digest": {
+      "title": "Ukentlig executive-sammendrag",
+      "newCustomers": "Nye kunder",
+      "supportRequests": "Supporthenvendelser",
+      "aiResolved": "Løst av AI",
+      "revenueGrowth": "Omsetningsvekst",
+      "trialsExpiring": "Prøveperioder utløper",
+      "recommendations": "Anbefalinger"
+    }
+  },
   "masterDetail": {
-    "back": "Back to customers",
-    "loading": "Loading customer profile...",
-    "notFound": "Customer not found.",
+    "back": "Tilbake til kunder",
+    "commandCenterTitle": "Customer Command Center",
+    "commandCenterSubtitle": "Operativt arbeidsområde for å administrere kunden, automatiseringer og AI-arbeidsflyter.",
+    "loading": "Laster kundearbeidsområde...",
+    "notFound": "Kunde ikke funnet.",
+    "health": "Helse",
+    "successScore": "Suksess-score",
+    "opportunities": "Muligheter",
     "customerType": "Customer type",
     "companyNumber": "Company number",
     "language": "Language",
@@ -453,13 +492,22 @@
     "outstandingInvoices": "Outstanding invoices",
     "name": "Name",
     "role": "Role",
-    "lastLogin": "Last login",
-    "ownerBadge": "Owner",
-    "installationName": "Installation",
+    "lastLogin": "Siste innlogging",
+    "lastActive": "Sist aktiv",
+    "permissions": "Tillatelser",
+    "inviteTeam": "Inviter teammedlem",
+    "ownerBadge": "Eier",
+    "installationId": "Installasjons-ID",
+    "installationName": "Installasjon",
     "domain": "Domain",
     "systemType": "System type",
-    "connectedModules": "Connected modules",
-    "lastSync": "Last sync",
+    "connectedModules": "Aktive moduler",
+    "installedDate": "Installert dato",
+    "lastHealthCheck": "Siste helsesjekk",
+    "healthScore": "Helsescore",
+    "recentErrors": "Nylige feil",
+    "version": "Versjon",
+    "lastSync": "Sist synkronisert",
     "trialDates": "Trial period",
     "startDate": "Start date",
     "currency": "Currency",
@@ -476,19 +524,111 @@
     "avgResolutionTime": "Average resolution time",
     "lastContact": "Last contact",
     "assignedAgent": "Assigned agent",
-    "subject": "Subject",
+    "subject": "Emne",
+    "category": "Kategori",
+    "priority": "Prioritet",
     "aiInsightsTitle": "AI-innsikt",
-    "noData": "No data available yet.",
-    "hours": "hours",
+    "noData": "Ingen data tilgjengelig ennå.",
+    "noErrors": "Ingen nylige feil",
+    "hours": "timer",
+    "quickActionsTitle": "Hurtighandlinger",
+    "quickActions": {
+      "openSupport": "Åpne supportkø",
+      "pauseSubscription": "Pause abonnement",
+      "generateInvoice": "Generer faktura",
+      "resendWelcome": "Send velkomst-e-post på nytt",
+      "runHealthScan": "Kjør helseskanning",
+      "scheduleOnboarding": "Planlegg onboarding"
+    },
+    "recommendationFeed": {
+      "title": "AI-anbefalinger",
+      "priority": "Prioritet",
+      "recommendedAction": "Anbefalt handling",
+      "confidence": "{value}% sikkerhet",
+      "dismiss": "Avvis",
+      "empty": "Ingen aktive anbefalinger akkurat nå."
+    },
+    "priorityLabels": {
+      "low": "Lav",
+      "normal": "Normal",
+      "high": "Høy",
+      "urgent": "Haster"
+    },
+    "opportunityLabels": {
+      "upgrade": "Oppgraderingsmulighet",
+      "expansion": "Ekspansjonsmulighet",
+      "retention_risk": "Retensjonsrisiko",
+      "low_engagement": "Lav engasjement",
+      "advocate": "Kundeambassadør-potensial"
+    },
+    "timeline": {
+      "empty": "Ingen aktivitet registrert ennå.",
+      "categories": {
+        "support": "Support",
+        "billing": "Fakturering",
+        "installations": "Installasjoner",
+        "automations": "Automatiseringer",
+        "users": "Brukere",
+        "system": "System",
+        "ai_recommendations": "AI-anbefalinger"
+      }
+    },
+    "integrations": {
+      "connectionStatus": "Status",
+      "lastSync": "Sist synk",
+      "health": "Helse",
+      "actions": "Handlinger",
+      "connected": "Tilkoblet",
+      "pending": "Venter",
+      "error": "Feil",
+      "disconnected": "Frakoblet",
+      "webhooks": "Webhook-endepunkter",
+      "customApi": "Egendefinerte API-er"
+    },
+    "automationsTab": {
+      "empty": "Ingen automatiseringer for denne kunden ennå.",
+      "name": "Automatisering",
+      "status": "Status",
+      "trigger": "Utløser",
+      "lastRun": "Siste kjøring",
+      "nextRun": "Neste kjøring",
+      "statusLabels": {
+        "active": "Aktiv",
+        "paused": "Pauset",
+        "warning": "Advarsel",
+        "failed": "Feilet"
+      }
+    },
+    "settings": {
+      "billingTitle": "Faktureringsprofil",
+      "subscriptionTitle": "Abonnement",
+      "invoicesTitle": "Fakturaer"
+    },
+    "inviteModal": {
+      "title": "Inviter teammedlem",
+      "email": "E-post",
+      "role": "Rolle",
+      "department": "Avdeling",
+      "welcomeMessage": "Velkomstmelding (valgfritt)",
+      "send": "Send invitasjon",
+      "cancel": "Avbryt",
+      "success": "Invitasjon lagt i kø."
+    },
+    "invitationStatus": {
+      "pending": "Venter",
+      "accepted": "Akseptert",
+      "expired": "Utløpt",
+      "cancelled": "Kansellert"
+    },
     "tabs": {
-      "overview": "Overview",
-      "users": "Users",
-      "installations": "Installations",
-      "subscriptions": "Subscriptions",
-      "invoices": "Invoices",
-      "usage": "Usage",
+      "overview": "Oversikt",
+      "users": "Brukere",
       "support": "Support",
-      "activity": "Activity Log"
+      "automations": "Automatiseringer",
+      "aiInsights": "AI-innsikt",
+      "timeline": "Aktivitetstidslinje",
+      "integrations": "Integrasjoner",
+      "settings": "Innstillinger"
     },
     "supportStatus": {
       "open": "Open",
@@ -496,11 +636,16 @@
       "escalated": "Escalated"
     },
     "userRoles": {
-      "owner": "Owner",
-      "admin": "Admin",
+      "owner": "Eier",
+      "admin": "Administrator",
+      "administrator": "Administrator",
       "support": "Support",
-      "staff": "Staff",
-      "readOnly": "Read only"
+      "moderator": "Moderator",
+      "marketing": "Markedsføring",
+      "analyst": "Analytiker",
+      "staff": "Ansatt",
+      "custom": "Tilpasset",
+      "readOnly": "Kun lesing"
     },
     "userStatus": {
       "active": "Active",

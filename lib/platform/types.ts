@@ -255,6 +255,7 @@ export type CustomerUserRow = {
   status: string;
   last_login_at: string | null;
   is_owner: boolean;
+  permissions?: string[];
 };
 
 export type CustomerInstallationRow = {
@@ -264,7 +265,11 @@ export type CustomerInstallationRow = {
   system_type: string;
   status: string;
   last_synced_at: string | null;
+  installed_at?: string | null;
+  created_at?: string;
+  version?: string;
   modules: string[];
+  integrations?: PlatformInstallationIntegration[];
 };
 
 export type UsageStatistics = {
@@ -284,6 +289,9 @@ export type SupportCase = {
   customer_id: string;
   subject: string;
   status: string;
+  category?: string;
+  priority?: string;
+  ai_escalation_reason?: string | null;
   assigned_agent: string | null;
   opened_at: string;
   closed_at: string | null;
@@ -292,14 +300,82 @@ export type SupportCase = {
   created_at: string;
 };
 
+export type ActivityLogCategory =
+  | "support"
+  | "billing"
+  | "installations"
+  | "automations"
+  | "users"
+  | "system"
+  | "ai_recommendations";
+
 export type ActivityLogEntry = {
   id: string;
   customer_id: string;
   event_type: string;
   title: string;
+  category?: ActivityLogCategory;
   details: Record<string, unknown>;
   created_at: string;
 };
+
+export type CustomerRecommendation = {
+  id: string;
+  recommendation_key: string;
+  message: string;
+  priority: "low" | "normal" | "high" | "urgent";
+  recommended_action: string;
+  confidence: number;
+  dismissed_at: string | null;
+  created_at: string;
+};
+
+export type TeamInvitation = {
+  id: string;
+  customer_id: string;
+  email: string;
+  role: string;
+  department: string | null;
+  welcome_message: string | null;
+  status: "pending" | "accepted" | "expired" | "cancelled";
+  invited_by: string | null;
+  expires_at: string | null;
+  created_at: string;
+};
+
+export type PlatformAutomation = {
+  id: string;
+  automation_key: string;
+  name: string;
+  description: string | null;
+  status: "active" | "paused" | "warning" | "failed";
+  trigger_type: string;
+  schedule_cron: string | null;
+  last_run_at: string | null;
+  next_run_at: string | null;
+  last_success_at: string | null;
+  total_executions: number;
+  failure_count: number;
+  avg_execution_ms: number;
+};
+
+export type WeeklyExecutiveDigest = {
+  period_start: string;
+  period_end: string;
+  new_customers: number;
+  support_requests: number;
+  ai_resolved: number;
+  revenue_growth_pct: number;
+  trials_expiring: number;
+  recommendations: number;
+};
+
+export type OpportunitySignal =
+  | "upgrade"
+  | "expansion"
+  | "retention_risk"
+  | "low_engagement"
+  | "advocate";
 
 export type CustomerOverviewSummary = {
   plan_name: string | null;
@@ -365,4 +441,6 @@ export type CustomerMasterDetail = {
   usage: UsageStatistics | null;
   support: SupportCase[];
   activity_log: ActivityLogEntry[];
+  recommendations?: CustomerRecommendation[];
+  team_invitations?: TeamInvitation[];
 };

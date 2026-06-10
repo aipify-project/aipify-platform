@@ -9,6 +9,7 @@ export type PlatformNavId =
   | "metrics"
   | "stats"
   | "support"
+  | "automations"
   | "system";
 
 export type PlatformNavItem = {
@@ -55,6 +56,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.support",
   },
   {
+    id: "automations",
+    href: "/platform/automations",
+    labelKey: "platform.nav.automations",
+  },
+  {
     id: "system",
     href: "/platform/system",
     labelKey: "platform.nav.system",
@@ -78,6 +84,7 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/metrics")) return "metrics";
   if (pathname.startsWith("/platform/stats")) return "metrics";
   if (pathname.startsWith("/platform/support")) return "support";
+  if (pathname.startsWith("/platform/automations")) return "automations";
   if (pathname.startsWith("/platform/system")) return "system";
   return "overview";
 }
