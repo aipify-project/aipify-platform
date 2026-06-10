@@ -28,7 +28,7 @@ export default async function PlatformLayout({
         <DashboardShell
           appName={t("common.appName")}
           planName={t("platform.sidebar.plan")}
-          shellLabel={t("platform.sidebar.platformAdmin")}
+          shellLabel=""
           searchPlaceholder={t("platform.search")}
           companySelectorLabel={t("platform.topbar.organization")}
           notificationsLabel={t("platform.topbar.notifications")}

@@ -11,6 +11,7 @@ export type AppNavId =
   | "domains"
   | "team"
   | "billing"
+  | "skills"
   | "settings";
 
 export type AppNavItem = {
@@ -35,6 +36,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "domains", href: "/app/domains", labelKey: "dashboard.nav.domains" },
   { id: "team", href: "/app/team", labelKey: "dashboard.nav.team" },
   { id: "billing", href: "/app/billing", labelKey: "dashboard.nav.billing" },
+  { id: "skills", href: "/app/skills", labelKey: "dashboard.nav.skills" },
   { id: "settings", href: "/app/settings", labelKey: "dashboard.nav.settings" },
 ];
 
@@ -74,6 +76,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/billing") || pathname.startsWith("/dashboard/billing")) {
     return "billing";
   }
+  if (pathname.startsWith("/app/skills")) return "skills";
   if (pathname.startsWith("/app/settings") || pathname.startsWith("/dashboard/settings")) {
     return "settings";
   }

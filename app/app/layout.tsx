@@ -54,6 +54,7 @@ export default async function AppLayout({
             domains: t("dashboard.nav.domains"),
             team: t("dashboard.nav.team"),
             billing: t("dashboard.nav.billing"),
+            skills: t("dashboard.nav.skills"),
             settings: t("dashboard.nav.settings"),
           })}
           shellVariant="customer"
