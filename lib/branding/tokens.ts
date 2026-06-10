@@ -1,7 +1,7 @@
 export const AIPIFY_BRAND = {
   pulse: {
-    defaultOpacity: 0.1,
-    hoverOpacity: 0.22,
+    defaultOpacity: 0.18,
+    hoverOpacity: 0.34,
     sizes: {
       xs: 20,
       sm: 28,

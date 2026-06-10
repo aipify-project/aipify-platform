@@ -205,7 +205,7 @@
   },
   "metrics": {
     "title": "Platform Metrics",
-    "subtitle": "Revenue, customers, installations, AI activity, and growth across the Aipify platform.",
+    "subtitle": "Executive overview, alerts, and growth signals for Aipify Group AS.",
     "loading": "Loading platform metrics...",
     "empty": "Platform metrics are not available yet.",
     "currency": "NOK",
@@ -213,37 +213,79 @@
     "days": "days",
     "percent": "%",
     "none": "None yet",
-    "sections": {
-      "revenue": "Revenue",
-      "customers": "Customers",
-      "installations": "Installations",
-      "aiActivity": "AI Activity",
-      "growth": "Growth"
-    },
-    "cards": {
+    "executive": {
+      "title": "Executive Overview",
       "mrr": "MRR",
-      "arr": "ARR",
-      "trialConversion": "Trial → Paid conversion",
-      "outstanding": "Outstanding invoice amount",
-      "arpc": "Average revenue per customer",
-      "totalCustomers": "Total customers",
-      "activeCustomers": "Active customers",
-      "trialCustomers": "Trial customers",
-      "pausedCustomers": "Paused customers",
-      "cancelledCustomers": "Cancelled customers",
-      "overdueCustomers": "Overdue customers",
-      "totalInstallations": "Total installations",
-      "activeInstallations": "Active installations",
-      "failedInstallations": "Failed installations",
-      "avgInstallations": "Avg. installations per customer",
+      "mrrSubtitle": "Monthly recurring revenue",
+      "activeCustomers": "Active Customers",
+      "activeSubtitle": "Paying and live tenants",
+      "trialsEnding": "Trials Ending Soon",
+      "trialsSubtitle": "Customers in active trial",
+      "systemHealth": "System Health",
+      "healthHealthy": "Healthy",
+      "healthStable": "Stable",
+      "healthAttention": "Needs attention",
+      "trendUp": "%",
+      "trendFlat": "Stable",
+      "last30Days": "last 30 days"
+    },
+    "alerts": {
+      "title": "Alerts",
+      "trialsEnding": "{count} trial customers should be contacted this week",
+      "overdueInvoice": "{count} billing issue needs review",
+      "failedSync": "{count} failed installation sync needs review",
+      "followUp": "{count} customers need follow-up",
+      "none": "No alerts requiring attention right now."
+    },
+    "revenueGrowth": {
+      "title": "Revenue & Growth",
+      "mrrChart": "MRR trend",
+      "mrrChartHint": "Illustrative MRR progression (placeholder data)",
+      "customerGrowth": "Customer growth",
+      "customerGrowthHint": "New customers per month (placeholder data)",
+      "trialConversion": "Trial conversion",
+      "trialConversionHint": "Trial to paid conversion rate",
+      "monthLabels": {
+        "0": "Jan",
+        "1": "Feb",
+        "2": "Mar",
+        "3": "Apr",
+        "4": "May",
+        "5": "Jun"
+      }
+    },
+    "customerInsights": {
+      "title": "Customer Insights",
+      "total": "Total",
+      "active": "Active",
+      "trial": "Trial",
+      "paused": "Paused",
+      "cancelled": "Cancelled",
+      "overdue": "Overdue"
+    },
+    "operations": {
+      "title": "Operations",
       "supportHandled": "Support requests handled",
       "automatedTasks": "Automated tasks completed",
       "aiRecommendations": "AI recommendations generated",
-      "avgResponseTime": "Avg. assistant response time",
-      "newCustomers30d": "New customers (30 days)",
-      "newInstallations30d": "New installations (30 days)",
-      "mostUsedModules": "Most used modules",
-      "retentionRate": "Customer retention rate"
+      "avgResponseTime": "Avg. assistant response time"
+    },
+    "installations": {
+      "title": "Installations",
+      "total": "Total installations",
+      "active": "Active installations",
+      "failed": "Failed installations",
+      "average": "Avg. per customer",
+      "mostActive": "Most active customer",
+      "mostActiveValue": "Pilot tenant · 1 active installation"
+    },
+    "recommendations": {
+      "title": "Aipify Recommendations",
+      "contactTrials": "{count} trial customers should be contacted before trial ends.",
+      "churnRisk": "{count} customer accounts may be at risk of churn.",
+      "businessPlan": "Business plan shows the strongest conversion potential.",
+      "failedInstall": "{count} failed installation sync should be reviewed.",
+      "retentionStrong": "Customer retention is strong at {rate}%."
     }
   },
   "masterDetail": {

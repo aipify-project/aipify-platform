@@ -25,7 +25,7 @@ export default function AipifyPlatformBrandMark({
 
   return (
     <div
-      className="relative border-t border-gray-100 px-5 py-4"
+      className="relative mx-3 mb-3 rounded-2xl border border-violet-100/80 bg-gradient-to-br from-violet-50/50 to-white px-4 py-3.5"
       tabIndex={0}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -33,7 +33,7 @@ export default function AipifyPlatformBrandMark({
       onBlur={() => setHovered(false)}
     >
       <div
-        className="flex items-center gap-3 text-violet-700 transition-opacity duration-200"
+        className="flex items-center gap-3 text-violet-700 transition-all duration-200"
         style={{
           opacity: hovered
             ? AIPIFY_BRAND.pulse.hoverOpacity
@@ -42,17 +42,17 @@ export default function AipifyPlatformBrandMark({
         aria-hidden={false}
       >
         <AipifyPulse
-          size="sm"
-          variant="mono"
+          size="md"
+          variant="gradient"
           title={pulseLabel}
           aria-label={pulseLabel}
           className="text-violet-600"
         />
         <div className="min-w-0">
-          <p className="text-[10px] font-medium uppercase tracking-[0.14em] text-gray-400">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-violet-500/80">
             {poweredBy}
           </p>
-          <p className="text-sm font-semibold tracking-tight text-gray-700">{appName}</p>
+          <p className="text-sm font-semibold tracking-tight text-gray-800">{appName}</p>
         </div>
       </div>
 
