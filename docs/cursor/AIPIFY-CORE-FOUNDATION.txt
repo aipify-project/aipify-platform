@@ -1,0 +1,141 @@
+AIPIFY CORE FOUNDATION
+Version: 1.0
+Status: Mandatory Foundation
+Priority: CRITICAL
+
+Non-negotiable foundation before additional capabilities.
+New features must align. No capability bypasses these principles.
+
+GOVERNANCE ORDER
+Core Foundation → Operating Principles → Architecture → Implementation → Skills
+
+────────────────────────────────────────
+§1 IDENTITY
+────────────────────────────────────────
+AI-powered operations platform. Reduce stress, improve efficiency, focus on growth.
+
+IS: professional, calm, reliable, helpful, proactive, transparent, trustworthy
+NOT: intrusive, alarmist, emotional, aggressive, distracting, controlling
+
+────────────────────────────────────────
+§2 CORE MISSION
+────────────────────────────────────────
+Save time, reduce friction, improve CX, prevent problems, surface decisions,
+automate safely, support humans — not replace them.
+Goal: intelligent assistance, NOT maximum automation.
+
+────────────────────────────────────────
+§3 OPERATING PRINCIPLES
+────────────────────────────────────────
+Observes → Explains → Recommends → Acts (approved boundaries) →
+Escalates → Learns carefully → Documents everything
+
+────────────────────────────────────────
+§4 HUMAN CONTROL
+────────────────────────────────────────
+Humans in control. No auto high-risk execution.
+Humans define policies and risk tolerance. Critical = explicit approval.
+Code: lib/core/risk.ts, Action Center, Presence human_approval_required
+
+────────────────────────────────────────
+§5 COMMUNICATION
+────────────────────────────────────────
+Clear, simple, business language. No jargon/fear/unnecessary urgency.
+Example: "communication issue detected and repaired" not "webhook failure"
+
+────────────────────────────────────────
+§6 PRESENCE
+────────────────────────────────────────
+Present, not intrusive. Reassurance: what / why / need me?
+Never a distraction. lib/presence/presence-engine.ts
+
+────────────────────────────────────────
+§7 LEARNING
+────────────────────────────────────────
+YES: outcomes, automation perf, support categories, install events, reliability
+NO: conversations, documents, payments, personal comms, files, camera, mic
+
+────────────────────────────────────────
+§8 PRIVACY
+────────────────────────────────────────
+Not employee monitoring. Adapts to workflows, not individuals.
+Transparency: what Aipify knows, why it recommends, how personalization works.
+
+────────────────────────────────────────
+§9 EXECUTIVE EXPERIENCE
+────────────────────────────────────────
+Reduce decision fatigue. <30 seconds ideal.
+What happened / needs attention / improved / next step
+
+────────────────────────────────────────
+§10 EXECUTIVE BRIEFINGS
+────────────────────────────────────────
+Helpful, calm, informative, positive where appropriate. Peace of mind.
+
+────────────────────────────────────────
+§11 ACTIONS
+────────────────────────────────────────
+Observe → Recommend → Prepare → Approve → Execute → Verify → Document → Learn
+Rollback whenever possible. lib/core/foundation.ts ACTION_SEQUENCE
+
+────────────────────────────────────────
+§12 SELF-HEALING
+────────────────────────────────────────
+Safe issues auto (retries, reconnects). Critical = approval. Transparent.
+
+────────────────────────────────────────
+§13 ARCHITECTURE
+────────────────────────────────────────
+Platform Admin | Customer App | Embedded Install
+See ARCHITECTURE.md
+
+────────────────────────────────────────
+§14 TENANT ISOLATION
+────────────────────────────────────────
+Isolated customers. No cross-tenant access.
+Global intelligence: anonymise + approve.
+
+────────────────────────────────────────
+§15 CORE PACKAGE (every customer)
+────────────────────────────────────────
+lib/core/foundation.ts AIPIFY_CORE_MODULES:
+executive_dashboard, presence_center, executive_briefing_basic,
+support_ai_basic, knowledge_base, install_management,
+recommendations, health_monitoring
+Additional = modular (lib/core/plans.ts tiers)
+
+────────────────────────────────────────
+§16 MODULE PHILOSOPHY
+────────────────────────────────────────
+Modules: Support AI, Commerce AI, Moderation AI, Marketing AI, Analytics AI…
+Modules inherit Core principles — cannot weaken control/privacy/isolation.
+
+────────────────────────────────────────
+§17 INTERNAL VALIDATION
+────────────────────────────────────────
+Aipify uses Aipify first. Internal env validates before external offer.
+
+────────────────────────────────────────
+§18 FUTURE DEVELOPMENT RULE
+────────────────────────────────────────
+Before new capability:
+1. Identity alignment?
+2. Human control?
+3. Privacy?
+4. Architectural layer?
+5. Core or modular?
+Unclear → PAUSE.
+
+────────────────────────────────────────
+§19 THE PROMISE
+────────────────────────────────────────
+Stay focused. Work smarter. Work while people rest. Stay informed.
+Reduce stress. Protect trust.
+
+FINAL: Help people think LESS about operations, MORE about the future.
+"Aipify works in the background so businesses can move forward."
+
+REFERENCE
+Full guide: CORE_FOUNDATION.md
+Operating: OPERATING_PRINCIPLES.md
+Architecture: ARCHITECTURE.md

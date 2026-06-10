@@ -4,11 +4,15 @@
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
-## Aipify operating principles — mandatory before every capability
+## Aipify core foundation — mandatory before every capability
 
-Read **[OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md)** first. Principles 1–9 (identity through architecture) must be satisfied **before** new operational skills or features are introduced. New capabilities must never bypass plan limits, tenant isolation, approval policy, or layer separation.
+Read **[CORE_FOUNDATION.md](./CORE_FOUNDATION.md)** first. This is the non-negotiable foundation (identity, mission, human control, privacy, presence, actions, core package). Then read **[OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md)** for agent governance and skills checklist.
 
-**Governance order:** Operating Principles → Architecture → Implementation → Skills (only when 1–9 are mapped).
+New capabilities must never bypass core principles, plan limits, tenant isolation, approval policy, or layer separation.
+
+**Governance order:** Core Foundation → Operating Principles → Architecture → Implementation → Skills.
+
+Before any new capability, answer [CORE_FOUNDATION.md §18](./CORE_FOUNDATION.md#18-future-development-rule): identity, human control, privacy, layer, core vs modular. If unclear, **pause**.
 
 ## Aipify architecture — mandatory before every feature
 

@@ -5,14 +5,15 @@ alwaysApply: true
 
 # Aipify Operating Principles
 
-Read **[OPERATING_PRINCIPLES.md](../../OPERATING_PRINCIPLES.md)** before new capabilities or agent skills.
+Read **[CORE_FOUNDATION.md](../../CORE_FOUNDATION.md)** then **[OPERATING_PRINCIPLES.md](../../OPERATING_PRINCIPLES.md)** before new capabilities or agent skills.
 
 ## Governance order
 
-1. **Operating Principles** (identity → behaviour → communication → safety → escalation → learning → presence → packages)
-2. **Architecture** ([ARCHITECTURE.md](../../ARCHITECTURE.md) — layer, user, isolation, folder)
-3. **Implementation**
-4. **New operational skill** — only when 1–9 are explicitly mapped
+1. **Core Foundation** (identity, mission, human control, privacy, core package)
+2. **Operating Principles** (behaviour → communication → safety → escalation → learning → presence → skills)
+3. **Architecture** ([ARCHITECTURE.md](../../ARCHITECTURE.md) — layer, user, isolation, folder)
+4. **Implementation**
+5. **New operational skill** — only when foundation + principles are explicitly mapped
 
 New capabilities must **never** bypass principles, plan limits, tenant isolation, or approval policy.
 

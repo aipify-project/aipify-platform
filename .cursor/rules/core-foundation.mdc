@@ -1,0 +1,28 @@
+---
+description: Aipify Core Foundation — mandatory identity, human control, privacy, and core package before any capability
+alwaysApply: true
+---
+
+# Aipify Core Foundation
+
+Read **[CORE_FOUNDATION.md](../../CORE_FOUNDATION.md)** before any new feature or skill.
+
+## Identity (calm, not alarmist)
+
+Aipify is an AI-powered **operations platform** — professional, helpful, transparent. Not intrusive, aggressive, or controlling.
+
+> *Aipify works in the background so businesses can move forward.*
+
+## Before implementing anything
+
+1. Aligns with identity?
+2. Respects **human control** (no auto high-risk; critical = explicit approval)?
+3. Protects **privacy** (no conversation/document/payment learning)?
+4. Correct **architectural layer**? ([ARCHITECTURE.md](../../ARCHITECTURE.md))
+5. **Core** (`lib/core/foundation.ts`) or **modular** tier?
+
+Unclear → **pause**. Clarify first.
+
+## Governance order
+
+Core Foundation → Operating Principles → Architecture → Implementation → Skills

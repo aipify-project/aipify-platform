@@ -1,6 +1,6 @@
 # Aipify Product Architecture
 
-**Prerequisite:** Read **[OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md)** — identity, behaviour, safety, escalation, learning, presence, and packages are decided before architecture and implementation. New skills come last.
+**Prerequisites:** Read **[CORE_FOUNDATION.md](./CORE_FOUNDATION.md)** then **[OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md)** — foundation, behaviour, safety, and packages are decided before architecture and implementation. New skills come last.
 
 Aipify is split into **three layers**. Before adding a feature, decide which layer it belongs to.
 
@@ -194,7 +194,9 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 ## References
 
-- [OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md) — identity, behaviour, safety, escalation, learning, presence, packages, skills governance
+- [CORE_FOUNDATION.md](./CORE_FOUNDATION.md) — non-negotiable identity, mission, human control, privacy, core package
+- [OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md) — agent governance, escalation, learning, presence, skills checklist
+- Spec: `docs/cursor/AIPIFY-CORE-FOUNDATION.txt`
 - Spec: `docs/cursor/AIPIFY-PRODUCT-ARCHITECTURE-SEPARATION.txt`
 - Spec: `docs/cursor/AIPIFY-OPERATING-PRINCIPLES.txt`
 - Layer helpers: `lib/core/layers.ts`

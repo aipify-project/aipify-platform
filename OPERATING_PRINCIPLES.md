@@ -1,8 +1,10 @@
 # Aipify Operating Principles
 
-Before Aipify learns new skills or gains new capabilities, these ten foundations must be defined and respected. **New capabilities must never bypass these principles.** All future development must align with them.
+**Prerequisite:** [CORE_FOUNDATION.md](./CORE_FOUNDATION.md) defines the non-negotiable foundation. This document extends it with agent governance, layer placement, and the skills approval checklist.
 
-Principles are decided **before** architecture, which is decided **before** implementation. See also [ARCHITECTURE.md](./ARCHITECTURE.md).
+Before Aipify learns new skills or gains new capabilities, core foundation and these principles must be respected. **New capabilities must never bypass them.**
+
+**Governance order:** Core Foundation → Operating Principles → Architecture → Implementation → Skills. See [ARCHITECTURE.md](./ARCHITECTURE.md).
 
 ---
 
@@ -141,7 +143,7 @@ Reference: `lib/presence/presence-engine.ts`, Presence Center UI, `DailyBriefing
 
 ## 8. Packages — Which capabilities belong to which plans?
 
-Capabilities are gated by product package. Source of truth: **`lib/core/plans.ts`** (`PRODUCT_PACKAGES`).
+**Every customer** receives the Aipify Core package (`AIPIFY_CORE_MODULES` in `lib/core/foundation.ts`). Additional capabilities are modular by tier. Source of truth: **`lib/core/plans.ts`** (`PRODUCT_PACKAGES`).
 
 | Plan | Limits | Capabilities |
 |------|--------|--------------|
@@ -201,13 +203,15 @@ Skills must not bypass plan limits, tenant isolation, approval policy, or layer 
 ## Governance order
 
 ```
+Core Foundation (CORE_FOUNDATION.md)
+        ↓
 Operating Principles (this document)
         ↓
 Architecture decision (ARCHITECTURE.md)
         ↓
 Implementation
         ↓
-New operational skill (only when 1–9 are mapped)
+New operational skill (only when foundation + 1–9 are mapped)
 ```
 
 ---
@@ -216,7 +220,9 @@ New operational skill (only when 1–9 are mapped)
 
 | Document | Purpose |
 |----------|---------|
+| [CORE_FOUNDATION.md](./CORE_FOUNDATION.md) | Non-negotiable identity, mission, human control, privacy, core package |
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | Three-layer model, mandatory pre-implementation checklist |
+| `lib/core/foundation.ts` | Core modules, action sequence, validation questions |
 | [AGENTS.md](./AGENTS.md) | Cursor agent rules |
 | `lib/core/plans.ts` | Product packages and module gates |
 | `lib/core/risk.ts` | Risk levels and approval rules |

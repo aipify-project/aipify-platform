@@ -7,10 +7,11 @@ Before Aipify learns new skills, these ten foundations must be defined.
 New capabilities must NEVER bypass them. All future development must align.
 
 GOVERNANCE ORDER
-1. Operating Principles (this document + OPERATING_PRINCIPLES.md)
-2. Architecture decision (ARCHITECTURE.md)
-3. Implementation
-4. New operational skill (only when 1–9 are mapped)
+1. Core Foundation (CORE_FOUNDATION.md + lib/core/foundation.ts)
+2. Operating Principles (this document + OPERATING_PRINCIPLES.md)
+3. Architecture decision (ARCHITECTURE.md)
+4. Implementation
+5. New operational skill (only when foundation + 1–9 are mapped)
 
 ────────────────────────────────────────
 1. IDENTITY — Who is Aipify?
