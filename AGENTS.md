@@ -3,3 +3,45 @@
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
+
+## Aipify operating principles — mandatory before every capability
+
+Read **[OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md)** first. Principles 1–9 (identity through architecture) must be satisfied **before** new operational skills or features are introduced. New capabilities must never bypass plan limits, tenant isolation, approval policy, or layer separation.
+
+**Governance order:** Operating Principles → Architecture → Implementation → Skills (only when 1–9 are mapped).
+
+## Aipify architecture — mandatory before every feature
+
+Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.
+
+**Never** place new functionality into existing folders simply because they already exist (e.g. do not add customer product features under `app/platform/` or `app/dashboard/` when they belong in `app/app/`).
+
+### 1. Which layer?
+
+- [ ] Platform Admin
+- [ ] Customer App
+- [ ] Embedded Installation
+
+### 2. Who is the user?
+
+- [ ] Aipify Internal Staff
+- [ ] Customer Owner
+- [ ] Customer Team Member
+- [ ] Embedded End User
+
+### 3. What isolation level?
+
+- [ ] Global
+- [ ] Tenant
+- [ ] Installation
+
+### 4. Where should the code live?
+
+| Layer | Paths (this repo uses `app/`, not `src/app/`) |
+|-------|-----------------------------------------------|
+| Platform | `app/platform/`, `components/platform/`, `lib/platform/` |
+| Customer | `app/app/`, `components/app/`, `lib/app/` |
+| Embedded | `app/api/install/`, `app/api/embed/`, `components/embed/`, `lib/install/`, `lib/embed/` |
+| Shared | `lib/core/`, `components/shared/`, `components/ui/` |
+
+Architecture decisions come **before** implementation decisions.

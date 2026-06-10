@@ -92,9 +92,13 @@
   },
   "nav": {
     "overview": "Overview",
+    "presence": "Närvaro",
     "assistant": "Assistant",
     "install": "Install",
     "support": "Support",
+    "actions": "Åtgärder",
+    "recommendations": "Rekommendationer",
+    "domains": "Domäner",
     "analytics": "Analytics",
     "commerce": "Commerce",
     "notifications": "Notifications",

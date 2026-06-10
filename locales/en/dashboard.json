@@ -106,9 +106,13 @@
   },
   "nav": {
     "overview": "Overview",
+    "presence": "Presence",
     "assistant": "Assistant",
     "install": "Install",
     "support": "Support",
+    "actions": "Actions",
+    "recommendations": "Recommendations",
+    "domains": "Domains",
     "analytics": "Analytics",
     "commerce": "Commerce",
     "notifications": "Notifications",

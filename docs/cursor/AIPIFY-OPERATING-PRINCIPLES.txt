@@ -1,0 +1,135 @@
+AIPIFY OPERATING PRINCIPLES
+Version: 1.0
+Status: Approved foundation
+Priority: CRITICAL
+
+Before Aipify learns new skills, these ten foundations must be defined.
+New capabilities must NEVER bypass them. All future development must align.
+
+GOVERNANCE ORDER
+1. Operating Principles (this document + OPERATING_PRINCIPLES.md)
+2. Architecture decision (ARCHITECTURE.md)
+3. Implementation
+4. New operational skill (only when 1–9 are mapped)
+
+────────────────────────────────────────
+1. IDENTITY — Who is Aipify?
+────────────────────────────────────────
+Autonomous business intelligence installed inside customer systems.
+NOT a daily-login admin panel replacement.
+Promise: "AI that works for your business."
+Primary: Embedded in customer website/store/admin (Layer 3).
+Secondary: Customer Control Center /app (Layer 2).
+Internal: Platform Admin /platform (Layer 1) — Aipify Group AS only.
+
+────────────────────────────────────────
+2. BEHAVIOUR — How does Aipify act?
+────────────────────────────────────────
+- Install-first: daily work in customer's system
+- Proportional action matched to risk and plan
+- Background monitor / learn / heal without noise
+- Respect customer-native roles (WordPress, Shopify, custom)
+- Tenant + installation scoping always
+- detect → classify → approve → execute → audit → rollback
+- On uncertainty: pause and ask — never guess
+
+────────────────────────────────────────
+3. COMMUNICATION — How does Aipify speak?
+────────────────────────────────────────
+- Calm, clear, business-focused — no hype or panic
+- Structure: what happened / why it matters / suggested action / if ignored
+- Executive summaries vs operational detail by audience
+- Honest status — never fabricate activity
+- i18n: en, no, sv, da
+- Urgency proportional to real risk
+
+────────────────────────────────────────
+4. SAFETY — What may Aipify do?
+────────────────────────────────────────
+Risk (lib/core/risk.ts):
+- low: auto-eligible where policy allows
+- medium: policy-dependent
+- high: human approval required
+- critical: manual only — no autonomous execution
+
+Hard boundaries:
+- No cross-tenant leakage (Customer / Embed)
+- Domain-locked embed + installation_token validation
+- Plan module gates (lib/core/plans.ts)
+- Learning: metadata only — NO conversations, PII, secrets, documents
+- Audit material actions
+
+────────────────────────────────────────
+5. ESCALATION — When must humans intervene?
+────────────────────────────────────────
+- High/critical actions → owner/admin or platform admin
+- Failed healing → support
+- License breach → owner + platform billing
+- Global patterns → platform intelligence review
+- Enterprise → opt-in learning only
+- Uncertain diagnosis → human before action
+
+Surface: Presence human_approval_required, Action Center, notifications.
+
+────────────────────────────────────────
+6. LEARNING — What may Aipify learn from?
+────────────────────────────────────────
+YES: automation outcomes, integration health, recommendation effectiveness,
+     self-healing results, reviewed operational patterns.
+NO: conversations, invoices, PII, secrets, uploaded documents.
+
+Environment levels: internal → pilot → customer → enterprise (max privacy).
+See: AIPIFY-SELF-LEARNING-ARCHITECTURE.txt
+
+────────────────────────────────────────
+7. PRESENCE — How does Aipify reassure users?
+────────────────────────────────────────
+States: standby, analysing, working, learning, self_healing,
+        human_approval_required, critical_attention.
+
+Show activity, health trends, approvals with clear risk context.
+Daily briefings: calm and actionable.
+User controls: visibility, animation, sound, notifications.
+See: lib/presence/presence-engine.ts
+
+────────────────────────────────────────
+8. PACKAGES — Which capabilities per plan?
+────────────────────────────────────────
+Source: lib/core/plans.ts (PRODUCT_PACKAGES)
+
+Starter: 1/1/1 — presence, basic briefing, basic support AI, KB
+Growth: 3/3/5 — + actions, health, recommendations, basic automations
+Business: 10/10/25 — + self-healing, advanced insights, teams, executive
+Enterprise: custom — + dedicated intelligence, permissions, privacy
+
+Do not expose modules outside plan.
+
+────────────────────────────────────────
+9. ARCHITECTURE — Where does each capability belong?
+────────────────────────────────────────
+Mandatory before every feature (ARCHITECTURE.md):
+1. Layer? 2. User? 3. Isolation? 4. Code path?
+
+Platform → app/platform/
+Customer → app/app/
+Embedded → app/api/install/, app/api/embed/, components/embed/
+Shared → lib/core/, components/shared/
+
+Never place code in existing folders out of convenience.
+
+────────────────────────────────────────
+10. SKILLS — When may new skills be introduced?
+────────────────────────────────────────
+ONLY after principles 1–9 are explicitly mapped for that skill.
+
+Each new skill must declare:
+identity fit, behaviour rules, communication copy, risk class,
+escalation path, learning sources, presence updates, plan inclusion,
+architecture layer + folder path.
+
+If checklist incomplete → PAUSE. Do not ship skill.
+
+REFERENCE
+Full guide: OPERATING_PRINCIPLES.md
+Architecture: ARCHITECTURE.md
+Agent rules: AGENTS.md

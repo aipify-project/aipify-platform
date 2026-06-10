@@ -92,9 +92,13 @@
   },
   "nav": {
     "overview": "Overview",
+    "presence": "Nærvær",
     "assistant": "Assistant",
     "install": "Install",
     "support": "Support",
+    "actions": "Handlinger",
+    "recommendations": "Anbefalinger",
+    "domains": "Domener",
     "analytics": "Analytics",
     "commerce": "Commerce",
     "notifications": "Notifications",

@@ -10,6 +10,7 @@ import Sidebar, { type NavItem } from "./Sidebar";
 import SidebarBrand from "./SidebarBrand";
 import { PresenceProvider, type PresenceLabels } from "@/components/presence/PresenceProvider";
 import Topbar from "./Topbar";
+import { getAppActiveNavId } from "@/lib/app/nav-config";
 import { getCustomerActiveNavId } from "@/lib/dashboard/nav-config";
 import { getPlatformActiveNavId } from "@/lib/platform/nav-config";
 import { getNavIcon } from "./nav-icons";
@@ -63,11 +64,13 @@ export default function DashboardShell({
 }: DashboardShellProps) {
   const pathname = usePathname();
   const activeNav = useMemo(() => {
-    const resolveActiveNavId =
-      shellVariant === "platform"
-        ? getPlatformActiveNavId
-        : getCustomerActiveNavId;
-    return resolveActiveNavId(pathname);
+    if (shellVariant === "platform") {
+      return getPlatformActiveNavId(pathname);
+    }
+    if (pathname.startsWith("/app")) {
+      return getAppActiveNavId(pathname);
+    }
+    return getCustomerActiveNavId(pathname);
   }, [shellVariant, pathname]);
   const customerContext = useOptionalDashboardProfile();
   const platformContext = usePlatformProfile();

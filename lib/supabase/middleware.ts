@@ -36,7 +36,9 @@ export async function updateSession(request: NextRequest) {
 
   if (
     !user &&
-    (pathname.startsWith("/dashboard") || pathname.startsWith("/platform"))
+    (pathname.startsWith("/dashboard") ||
+      pathname.startsWith("/app") ||
+      pathname.startsWith("/platform"))
   ) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
@@ -51,7 +53,7 @@ export async function updateSession(request: NextRequest) {
       .maybeSingle();
 
     const redirectUrl = request.nextUrl.clone();
-    redirectUrl.pathname = platformAdmin ? "/platform" : "/dashboard";
+    redirectUrl.pathname = platformAdmin ? "/platform" : "/app";
     return NextResponse.redirect(redirectUrl);
   }
 

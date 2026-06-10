@@ -1,0 +1,79 @@
+AIPIFY – PRODUCT ARCHITECTURE SEPARATION
+Version: 1.0
+Status: Implemented (foundation)
+
+PURPOSE
+Aipify is split into three layers. Do not mix them.
+
+1. Platform Admin — internal Aipify Group AS (/platform)
+2. Customer App — product customers buy (/app)
+3. Embedded / Install — inside customer websites (/api/install, /api/embed)
+
+MANDATORY DEVELOPMENT RULE
+Before implementing ANY new feature, Cursor must explicitly answer:
+
+1. Which layer?
+   □ Platform Admin
+   □ Customer App
+   □ Embedded Installation
+
+2. Who is the user?
+   □ Aipify Internal Staff
+   □ Customer Owner
+   □ Customer Team Member
+   □ Embedded End User
+
+3. What isolation level?
+   □ Global
+   □ Tenant
+   □ Installation
+
+4. Where should the code live?
+   Platform: app/platform/, components/platform/, lib/platform/
+   Customer: app/app/, components/app/, lib/app/
+   Embedded: app/api/install/, app/api/embed/, components/embed/, lib/install/, lib/embed/
+   Shared: lib/core/, components/shared/, components/ui/
+
+If these questions cannot be answered, PAUSE until the architecture decision is made.
+Never place new functionality into existing folders simply because they already exist.
+Architecture decisions come BEFORE implementation decisions.
+
+CORE RULE (summary)
+- All customers / internal ops → Platform Admin
+- One customer / tenant-scoped → Customer App
+- Inside customer admin or website → Embedded / Install
+
+FOLDER MAP (repo root, not src/)
+app/platform/          Layer 1 routes
+app/app/               Layer 2 routes (canonical; aliases to /dashboard during migration)
+app/api/install/       Layer 3 install API
+app/api/embed/         Layer 3 embed API
+components/platform/   Layer 1 UI
+components/app/        Layer 2 UI
+components/embed/      Layer 3 UI
+components/shared/     Cross-layer UI
+components/ui/         Primitives
+lib/platform/          Layer 1 logic
+lib/app/               Layer 2 logic (nav-config, route-aliases, build-nav)
+lib/install/           Install runtime
+lib/embed/             Embed validation
+lib/core/              Shared (plans, tenant, layers, presence, risk)
+services/{platform,app,install,core}/
+types/{platform,app,install,core}/
+
+MIGRATION
+- /dashboard is legacy Customer App prefix
+- lib/app/route-aliases.ts maps /app/* → /dashboard/*
+- New customer features: app/app/ + lib/app/, NOT app/platform/
+
+PRODUCT PACKAGES (lib/core/plans.ts)
+Starter, Growth, Business, Enterprise — see ARCHITECTURE.md
+
+AUTH
+Platform: super_admin, platform_admin, platform_support
+Customer: owner, admin, support, staff, read_only
+Embedded: mapped from host system roles
+
+REFERENCE
+Full guide: ARCHITECTURE.md
+Agent rules: AGENTS.md

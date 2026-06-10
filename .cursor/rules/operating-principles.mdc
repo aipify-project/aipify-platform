@@ -1,0 +1,32 @@
+---
+description: Aipify operating principles — identity, safety, learning, presence, packages, architecture before skills
+alwaysApply: true
+---
+
+# Aipify Operating Principles
+
+Read **[OPERATING_PRINCIPLES.md](../../OPERATING_PRINCIPLES.md)** before new capabilities or agent skills.
+
+## Governance order
+
+1. **Operating Principles** (identity → behaviour → communication → safety → escalation → learning → presence → packages)
+2. **Architecture** ([ARCHITECTURE.md](../../ARCHITECTURE.md) — layer, user, isolation, folder)
+3. **Implementation**
+4. **New operational skill** — only when 1–9 are explicitly mapped
+
+New capabilities must **never** bypass principles, plan limits, tenant isolation, or approval policy.
+
+## Quick identity
+
+Aipify is **install-first operational AI** inside customer systems — not a daily-login admin panel. *AI that works for your business.*
+
+## Before a new skill or feature
+
+- [ ] Fits identity (install-first, operational partner)
+- [ ] Risk class assigned (`lib/core/risk.ts`); high/critical need human approval
+- [ ] Plan module gated (`lib/core/plans.ts`)
+- [ ] Learning uses approved metadata only — no PII/conversations
+- [ ] Presence updated honestly when it runs
+- [ ] Layer + folder decided per ARCHITECTURE.md
+
+If any item is unclear, **pause** until decided.
