@@ -40,6 +40,7 @@ export default async function CustomerDetailPage({ params }: CustomerDetailPageP
   return (
     <CustomerMasterDetailView
       customerId={id}
+      locale={locale}
       labels={{
         back: t("platform.masterDetail.back"),
         loading: t("platform.masterDetail.loading"),

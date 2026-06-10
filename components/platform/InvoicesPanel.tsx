@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AipifyBillingDocumentHeader, AipifyEmptyState } from "@/components/branding";
+import { formatDate } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
 import type { CustomerRecord, Invoice, InvoiceAction } from "@/lib/platform/types";
 import StatusBadge from "./StatusBadge";
 
 type InvoicesPanelProps = {
+  locale: string;
   labels: {
     title: string;
     subtitle: string;
@@ -33,7 +35,7 @@ type InvoicesPanelProps = {
   };
 };
 
-export default function InvoicesPanel({ labels }: InvoicesPanelProps) {
+export default function InvoicesPanel({ locale, labels }: InvoicesPanelProps) {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [customers, setCustomers] = useState<Record<string, CustomerRecord>>({});
   const [loading, setLoading] = useState(true);
@@ -173,7 +175,7 @@ export default function InvoicesPanel({ labels }: InvoicesPanelProps) {
                         {invoice.kid_number ?? "—"}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600">
-                        {invoice.due_date}
+                        {formatDate(invoice.due_date, locale)}
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex flex-wrap justify-end gap-2">

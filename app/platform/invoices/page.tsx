@@ -11,6 +11,7 @@ export default async function PlatformInvoicesPage() {
 
   return (
     <InvoicesPanel
+      locale={locale}
       labels={{
         title: t("platform.invoices.title"),
         subtitle: t("platform.invoices.subtitle"),

@@ -14,6 +14,7 @@ export default async function PlatformCustomersPage() {
 
   return (
     <CustomersTable
+      locale={locale}
       labels={{
         title: t("platform.customers.title"),
         subtitle: t("platform.customers.subtitle"),

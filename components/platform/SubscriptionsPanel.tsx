@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AipifyBillingDocumentHeader, AipifyEmptyState } from "@/components/branding";
+import { formatDate } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
 import { getTrialDaysRemaining, isTrialActive } from "@/lib/platform/trial";
 import type { SubscriptionRow } from "@/lib/platform/types";
 import StatusBadge from "./StatusBadge";
 
 type SubscriptionsPanelProps = {
+  locale: string;
   labels: {
     title: string;
     subtitle: string;
@@ -34,7 +36,7 @@ type SubscriptionsPanelProps = {
   };
 };
 
-export default function SubscriptionsPanel({ labels }: SubscriptionsPanelProps) {
+export default function SubscriptionsPanel({ locale, labels }: SubscriptionsPanelProps) {
   const [rows, setRows] = useState<SubscriptionRow[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -138,7 +140,7 @@ export default function SubscriptionsPanel({ labels }: SubscriptionsPanelProps) 
                           : "—"}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600">
-                        {row.next_billing_date ?? "—"}
+                        {formatDate(row.next_billing_date, locale)}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600">
                         {row.provider

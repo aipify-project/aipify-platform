@@ -17,6 +17,7 @@ export default async function DashboardBillingPage() {
 
   return (
     <CustomerBillingPanel
+      locale={locale}
       labels={{
         title: t("dashboard.billing.title"),
         subtitle: t("dashboard.billing.subtitle"),

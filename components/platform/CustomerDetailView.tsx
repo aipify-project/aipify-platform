@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { formatDate } from "@/lib/i18n/format-date";
 import { getTrialDaysRemaining, isTrialActive } from "@/lib/platform/trial";
 import type { CustomerDetail } from "@/lib/platform/types";
 import StatusBadge from "./StatusBadge";
@@ -58,13 +59,6 @@ type CustomerDetailViewProps = {
     invoiceStatusLabels: Record<string, string>;
   };
 };
-
-function formatDate(value: string | null | undefined, locale: string) {
-  if (!value) return "—";
-  return new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(
-    new Date(value)
-  );
-}
 
 export default function CustomerDetailView({
   customerId,

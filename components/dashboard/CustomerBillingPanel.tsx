@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { AipifyBillingDocumentHeader, AipifyEmptyState } from "@/components/branding";
+import { formatDate } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
 import { getTrialDaysRemaining, isTrialActive } from "@/lib/platform/trial";
 import type { CustomerBillingOverview } from "@/lib/platform/types";
 import StatusBadge from "@/components/platform/StatusBadge";
 
 type CustomerBillingPanelProps = {
+  locale: string;
   labels: {
     title: string;
     subtitle: string;
@@ -41,14 +43,7 @@ type CustomerBillingPanelProps = {
   };
 };
 
-function formatDate(value: string | null | undefined) {
-  if (!value) return "—";
-  return new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(
-    new Date(value)
-  );
-}
-
-export default function CustomerBillingPanel({ labels }: CustomerBillingPanelProps) {
+export default function CustomerBillingPanel({ locale, labels }: CustomerBillingPanelProps) {
   const [overview, setOverview] = useState<CustomerBillingOverview | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -127,7 +122,7 @@ export default function CustomerBillingPanel({ labels }: CustomerBillingPanelPro
                 <p className="font-semibold">{labels.trialActive}</p>
                 <p className="mt-1">
                   {labels.daysRemaining}: {trialDays ?? 0} · {labels.trialEnds}:{" "}
-                  {formatDate(subscription.trial_ends_at)}
+                  {formatDate(subscription.trial_ends_at, locale)}
                 </p>
               </div>
             )}
@@ -146,7 +141,7 @@ export default function CustomerBillingPanel({ labels }: CustomerBillingPanelPro
               />
               <Row
                 label={labels.nextBillingDate}
-                value={formatDate(subscription.next_billing_date)}
+                value={formatDate(subscription.next_billing_date, locale)}
               />
             </dl>
           </section>
@@ -213,7 +208,7 @@ export default function CustomerBillingPanel({ labels }: CustomerBillingPanelPro
                         {invoice.amount} {invoice.currency}
                       </td>
                       <td className="py-3 text-sm text-gray-600">
-                        {formatDate(invoice.due_date)}
+                        {formatDate(invoice.due_date, locale)}
                       </td>
                     </tr>
                   ))}

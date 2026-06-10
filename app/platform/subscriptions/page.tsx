@@ -16,6 +16,7 @@ export default async function PlatformSubscriptionsPage() {
 
   return (
     <SubscriptionsPanel
+      locale={locale}
       labels={{
         title: t("platform.subscriptions.title"),
         subtitle: t("platform.subscriptions.subtitle"),

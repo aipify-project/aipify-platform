@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { AipifyEmptyState } from "@/components/branding";
+import { formatDate, formatDateTime } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
 import type { CustomerMasterDetail, InvoiceAction } from "@/lib/platform/types";
 import StatusBadge from "./StatusBadge";
@@ -19,6 +20,7 @@ type TabId =
 
 type CustomerMasterDetailViewProps = {
   customerId: string;
+  locale: string;
   labels: {
     back: string;
     loading: string;
@@ -95,21 +97,9 @@ type CustomerMasterDetailViewProps = {
   };
 };
 
-function formatDate(value: string | null | undefined) {
-  if (!value) return "—";
-  return new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(new Date(value));
-}
-
-function formatDateTime(value: string | null | undefined) {
-  if (!value) return "—";
-  return new Intl.DateTimeFormat("en", {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(new Date(value));
-}
-
 export default function CustomerMasterDetailView({
   customerId,
+  locale,
   labels,
 }: CustomerMasterDetailViewProps) {
   const [detail, setDetail] = useState<CustomerMasterDetail | null>(null);
@@ -263,7 +253,7 @@ export default function CustomerMasterDetailView({
             }
           />
           <HeaderField label={labels.ownerEmail} value={ownerEmail} />
-          <HeaderField label={labels.createdAt} value={formatDate(customer.created_at)} />
+          <HeaderField label={labels.createdAt} value={formatDate(customer.created_at, locale)} />
         </dl>
       </div>
 
@@ -306,7 +296,7 @@ export default function CustomerMasterDetailView({
                   : "—"
               }
             />
-            <OverviewCard label={labels.nextBillingDate} value={formatDate(overview.next_billing_date)} />
+            <OverviewCard label={labels.nextBillingDate} value={formatDate(overview.next_billing_date, locale)} />
             <OverviewCard label={labels.totalUsers} value={String(overview.total_users)} />
             <OverviewCard label={labels.totalInstallations} value={String(overview.total_installations)} />
             <OverviewCard
@@ -337,7 +327,7 @@ export default function CustomerMasterDetailView({
                     user.email ?? "—",
                     labels.userRoleLabels[user.role] ?? user.role,
                     labels.userStatusLabels[user.status] ?? user.status,
-                    formatDateTime(user.last_login_at),
+                    formatDateTime(user.last_login_at, locale),
                     user.is_owner ? (
                       <span className="rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-700 ring-1 ring-violet-100">
                         {labels.ownerBadge}
@@ -371,7 +361,7 @@ export default function CustomerMasterDetailView({
                     installation.system_type,
                     labels.statusLabels[installation.status] ?? installation.status,
                     installation.modules.length > 0 ? installation.modules.join(", ") : "—",
-                    formatDateTime(installation.last_synced_at),
+                    formatDateTime(installation.last_synced_at, locale),
                   ])
             }
           />
@@ -388,10 +378,10 @@ export default function CustomerMasterDetailView({
                 />
                 <HeaderField
                   label={labels.trialDates}
-                  value={`${formatDate(subscription.trial_starts_at)} – ${formatDate(subscription.trial_ends_at)}`}
+                  value={`${formatDate(subscription.trial_starts_at, locale)} – ${formatDate(subscription.trial_ends_at, locale)}`}
                 />
-                <HeaderField label={labels.startDate} value={formatDate(subscription.created_at)} />
-                <HeaderField label={labels.nextBillingDate} value={formatDate(subscription.next_billing_date)} />
+                <HeaderField label={labels.startDate} value={formatDate(subscription.created_at, locale)} />
+                <HeaderField label={labels.nextBillingDate} value={formatDate(subscription.next_billing_date, locale)} />
                 <HeaderField label={labels.price} value={`${subscription.price_amount} ${subscription.currency}`} />
                 <HeaderField label={labels.currency} value={subscription.currency} />
                 <HeaderField label={labels.billingCycle} value={subscription.billing_cycle} />
@@ -431,8 +421,8 @@ export default function CustomerMasterDetailView({
                             label={labels.invoiceStatusLabels[invoice.status] ?? invoice.status}
                           />
                         </td>
-                        <td className="px-4 py-3 text-sm">{formatDate(invoice.issued_at)}</td>
-                        <td className="px-4 py-3 text-sm">{formatDate(invoice.due_date)}</td>
+                        <td className="px-4 py-3 text-sm">{formatDate(invoice.issued_at, locale)}</td>
+                        <td className="px-4 py-3 text-sm">{formatDate(invoice.due_date, locale)}</td>
                         <td className="px-4 py-3 text-sm">
                           {invoice.amount} {invoice.currency}
                         </td>
@@ -520,7 +510,7 @@ export default function CustomerMasterDetailView({
                 label={labels.avgResolutionTime}
                 value={avgResolution != null ? `${avgResolution.toFixed(1)} ${labels.hours}` : "—"}
               />
-              <OverviewCard label={labels.lastContact} value={formatDate(lastContact)} />
+              <OverviewCard label={labels.lastContact} value={formatDate(lastContact, locale)} />
               <OverviewCard label={labels.assignedAgent} value={assignedAgent} />
             </div>
             <DataTable
@@ -534,7 +524,7 @@ export default function CustomerMasterDetailView({
                       ticket.subject,
                       labels.statusLabels[ticket.status] ?? ticket.status,
                       ticket.assigned_agent ?? "—",
-                      formatDate(ticket.last_contact_at),
+                      formatDate(ticket.last_contact_at, locale),
                     ])
               }
             />
@@ -552,7 +542,7 @@ export default function CustomerMasterDetailView({
                     <p className="font-semibold text-gray-900">{entry.title}</p>
                     <p className="mt-1 font-mono text-xs text-gray-500">{entry.event_type}</p>
                   </div>
-                  <p className="text-sm text-gray-500">{formatDateTime(entry.created_at)}</p>
+                  <p className="text-sm text-gray-500">{formatDateTime(entry.created_at, locale)}</p>
                 </li>
               ))}
             </ul>

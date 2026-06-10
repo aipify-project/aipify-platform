@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
+import { formatDate } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
 import type { CustomerRecord, CustomerStatus, CustomerType } from "@/lib/platform/types";
 import StatusBadge from "./StatusBadge";
 
 type CustomersTableProps = {
+  locale: string;
   labels: {
     title: string;
     subtitle: string;
@@ -36,7 +38,7 @@ type CustomersTableProps = {
   };
 };
 
-export default function CustomersTable({ labels }: CustomersTableProps) {
+export default function CustomersTable({ locale, labels }: CustomersTableProps) {
   const [customers, setCustomers] = useState<CustomerRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -222,9 +224,7 @@ export default function CustomersTable({ labels }: CustomersTableProps) {
                     <td className="px-4 py-4 text-sm text-gray-600">{customer.user_count}</td>
                     <td className="px-4 py-4 text-sm text-gray-600">{customer.country}</td>
                     <td className="px-4 py-4 text-sm text-gray-600">
-                      {new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(
-                        new Date(customer.created_at)
-                      )}
+                      {formatDate(customer.created_at, locale)}
                     </td>
                     <td className="px-4 py-4 text-right">
                       <Link
