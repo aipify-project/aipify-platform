@@ -845,6 +845,45 @@
         "domain_lock": "Domain lock"
       }
     },
+    "installationEngine": {
+      "title": "Installation & Onboarding",
+      "onboardingScore": "Onboarding score",
+      "installationHealth": "Installation health",
+      "verificationStatus": "Domain verification",
+      "healthScans": "Recent health scans",
+      "moduleStatus": "Modules",
+      "noData": "No data available yet.",
+      "healthLabels": {
+        "healthy": "Healthy",
+        "needs_attention": "Needs attention",
+        "critical": "Critical"
+      },
+      "onboardingItems": {
+        "profile_completed": "Profile completed",
+        "domain_connected": "Domain connected",
+        "installation_active": "Installation active",
+        "health_scan_completed": "Health scan completed",
+        "recommendation_generated": "Recommendation generated",
+        "support_enabled": "Support AI enabled"
+      },
+      "statusLabels": {
+        "draft": "Draft",
+        "pending_verification": "Pending verification",
+        "ready": "Ready",
+        "installing": "Installing",
+        "active": "Active",
+        "warning": "Warning",
+        "failed": "Failed",
+        "suspended": "Suspended",
+        "archived": "Archived"
+      },
+      "verificationLabels": {
+        "unverified": "Unverified",
+        "pending": "Pending",
+        "verified": "Verified",
+        "failed": "Failed"
+      }
+    },
     "domainsTab": {
       "empty": "No domains registered for this customer.",
       "domain": "Domain",

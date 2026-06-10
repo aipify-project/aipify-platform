@@ -11,7 +11,9 @@ import CustomerHealthBadge from "@/components/platform/CustomerHealthBadge";
 import SuccessScoreBadge from "@/components/platform/SuccessScoreBadge";
 import SelfLearningInsightsPanel from "@/components/platform/SelfLearningInsightsPanel";
 import CustomerLicensePanel from "@/components/platform/CustomerLicensePanel";
+import CustomerInstallationEnginePanel from "@/components/platform/CustomerInstallationEnginePanel";
 import { formatLimitUsage } from "@/lib/platform/license";
+import { formatInstallationModuleKeys } from "@/lib/platform/installation-engine";
 import { getInstallationHealthStatus } from "@/lib/platform/executive-intelligence";
 import InviteTeamMemberModal from "@/components/platform/InviteTeamMemberModal";
 import OpportunityBadge from "@/components/platform/OpportunityBadge";
@@ -224,6 +226,19 @@ type CustomerMasterDetailViewProps = {
       installation: string;
       addedAt: string;
       lastCheck: string;
+      statusLabels: Record<string, string>;
+      verificationLabels: Record<string, string>;
+    };
+    installationEngine: {
+      title: string;
+      onboardingScore: string;
+      installationHealth: string;
+      verificationStatus: string;
+      healthScans: string;
+      moduleStatus: string;
+      noData: string;
+      healthLabels: Record<string, string>;
+      onboardingItems: Record<string, string>;
       statusLabels: Record<string, string>;
       verificationLabels: Record<string, string>;
     };
@@ -655,6 +670,14 @@ export default function CustomerMasterDetailView({
                 paymentStatus={payment_profile?.payment_status ?? null}
               />
             )}
+            <CustomerInstallationEnginePanel
+              locale={locale}
+              onboarding={detail.onboarding ?? null}
+              installations={installations}
+              domains={detail.domains ?? []}
+              healthScans={detail.installation_health_scans ?? []}
+              labels={labels.installationEngine}
+            />
             <CustomerQuickActions title={labels.quickActionsTitle} labels={labels.quickActions} />
           </div>
         )}
@@ -852,7 +875,11 @@ export default function CustomerMasterDetailView({
                   site_url: installation.site_url,
                   system_type: installation.system_type,
                   status: installation.status,
-                  modules: installation.modules,
+                  modules: Array.isArray(installation.modules)
+                    ? installation.modules.map((module) =>
+                        typeof module === "string" ? module : module.module_key
+                      )
+                    : [],
                   integrations: installation.integrations ?? [],
                   last_synced_at: installation.last_synced_at,
                   created_at: installation.created_at ?? "",
@@ -884,7 +911,7 @@ export default function CustomerMasterDetailView({
                       <HeaderField label={labels.version} value={installation.version ?? "1.0.0"} />
                       <HeaderField
                         label={labels.connectedModules}
-                        value={installation.modules.length > 0 ? installation.modules.join(", ") : "—"}
+                        value={formatInstallationModuleKeys(installation.modules)}
                       />
                       <HeaderField
                         label={labels.installedDate}

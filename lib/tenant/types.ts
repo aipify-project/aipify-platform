@@ -17,10 +17,15 @@ export const SYSTEM_TYPES = ["wordpress", "shopify", "custom", "other"] as const
 export type SystemType = (typeof SYSTEM_TYPES)[number];
 
 export const INSTALLATION_STATUSES = [
-  "pending",
+  "draft",
+  "pending_verification",
+  "ready",
+  "installing",
   "active",
-  "paused",
-  "revoked",
+  "warning",
+  "failed",
+  "suspended",
+  "archived",
 ] as const;
 
 export type InstallationStatus = (typeof INSTALLATION_STATUSES)[number];
@@ -32,6 +37,8 @@ export const MODULE_KEYS = [
   "commerce_ai",
   "notifications",
   "install_ai",
+  "moderation_ai",
+  "executive_insights",
 ] as const;
 
 export type ModuleKey = (typeof MODULE_KEYS)[number];

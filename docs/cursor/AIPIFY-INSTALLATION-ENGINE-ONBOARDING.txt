@@ -1,0 +1,46 @@
+AIPIFY – INSTALLATION ENGINE & CUSTOMER ONBOARDING (FOUNDATION)
+Status: Implemented
+Priority: Critical
+
+GOAL
+Structured installation lifecycle, guided onboarding wizard, domain verification placeholder,
+health scan foundation, and platform admin visibility.
+
+DATABASE (migration: 20260610300000_installation_engine_onboarding.sql)
+- installations extended: customer_id, domain_id, lifecycle statuses, token rotation fields,
+  health_score, wizard_step, provisioning placeholders
+- installation_modules extended: status, enabled_at, disabled_at, new module keys
+- customer_onboarding — checklist + score 0–100
+- installation_health_scans — placeholder scan results
+
+INSTALLATION STATES
+draft → pending_verification → ready → installing → active
+(+ warning, failed, suspended, archived)
+
+WIZARD (7 steps)
+1. Website name
+2. Domain
+3. Meta tag verification (placeholder)
+4. Module selection
+5. Credentials / token
+6. Activation
+7. First health scan
+
+RPCs
+- create_installation_draft, update_installation_wizard, get_installation_wizard_state
+- activate_installation_from_wizard, run_installation_health_scan, rotate_installation_token
+- refresh_customer_onboarding, get_customer_onboarding_progress
+
+API ROUTES
+- GET /api/dashboard/onboarding
+- POST /api/installations/wizard
+- GET|PATCH /api/installations/[id]/wizard
+- POST /api/installations/[id]/health-scan
+- POST /api/installations/[id]/rotate-token
+
+UI
+- Customer: Installation wizard on /dashboard/installs, onboarding panel on /dashboard
+- Platform Admin: Installation & Onboarding panel on customer overview
+
+NOT IN THIS PHASE
+- Automatic provisioning, real DNS/HTML verification, live recommendation engine

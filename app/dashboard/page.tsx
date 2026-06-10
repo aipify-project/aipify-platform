@@ -1,11 +1,12 @@
 import Link from "next/link";
+import CustomerOnboardingPanel from "@/components/dashboard/CustomerOnboardingPanel";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function DashboardPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["dashboard"]);
+  const dict = await getDictionary(locale, ["dashboard", "branding"]);
   const t = createTranslator(dict);
 
   const modules = [
@@ -28,7 +29,25 @@ export default async function DashboardPage() {
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <CustomerOnboardingPanel
+        labels={{
+          title: t("dashboard.onboarding.title"),
+          subtitle: t("dashboard.onboarding.subtitle"),
+          loading: t("dashboard.onboarding.loading"),
+          complete: t("dashboard.onboarding.complete"),
+          pulseLabel: t("branding.pulseLabel"),
+          items: {
+            profile_completed: t("dashboard.onboarding.items.profile_completed"),
+            domain_connected: t("dashboard.onboarding.items.domain_connected"),
+            installation_active: t("dashboard.onboarding.items.installation_active"),
+            health_scan_completed: t("dashboard.onboarding.items.health_scan_completed"),
+            recommendation_generated: t("dashboard.onboarding.items.recommendation_generated"),
+            support_enabled: t("dashboard.onboarding.items.support_enabled"),
+          },
+        }}
+      />
+
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {modules.map((module) => (
           <Link
             key={module.href}

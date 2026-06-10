@@ -62,17 +62,21 @@ export function getSuccessScoreStatus(score: number): SuccessScoreStatus {
   return "at_risk";
 }
 
+export function formatCountTemplate(template: string, count: number): string {
+  return template.replace("{count}", String(count));
+}
+
 type BriefingTemplates = {
-  newCustomers: (count: number) => string;
-  trialsEnding: (count: number) => string;
-  supportResolved: (count: number) => string;
-  escalated: (count: number) => string;
-  failedAutomations: (count: number) => string;
-  systemWarnings: (count: number) => string;
-  newRecommendations: (count: number) => string;
+  newCustomers: string;
+  trialsEnding: string;
+  supportResolved: string;
+  escalated: string;
+  failedAutomations: string;
+  systemWarnings: string;
+  newRecommendations: string;
   noIncidents: string;
-  incidents: (count: number) => string;
-  followUp: (count: number) => string;
+  incidents: string;
+  followUp: string;
 };
 
 export function buildExecutiveBriefingItems(
@@ -84,56 +88,62 @@ export function buildExecutiveBriefingItems(
   if (snapshot.failed_automations > 0) {
     items.push({
       id: "failed-automations",
-      message: templates.failedAutomations(snapshot.failed_automations),
+      message: formatCountTemplate(
+        templates.failedAutomations,
+        snapshot.failed_automations
+      ),
       priority: "critical",
     });
   }
   if (snapshot.escalated_cases > 0) {
     items.push({
       id: "escalated",
-      message: templates.escalated(snapshot.escalated_cases),
+      message: formatCountTemplate(templates.escalated, snapshot.escalated_cases),
       priority: "critical",
     });
   }
   if (snapshot.system_warnings > 0) {
     items.push({
       id: "system-warnings",
-      message: templates.systemWarnings(snapshot.system_warnings),
+      message: formatCountTemplate(templates.systemWarnings, snapshot.system_warnings),
       priority: "important",
     });
   }
   if (snapshot.trials_ending_7d > 0) {
     items.push({
       id: "trials-ending",
-      message: templates.trialsEnding(snapshot.trials_ending_7d),
+      message: formatCountTemplate(templates.trialsEnding, snapshot.trials_ending_7d),
       priority: "important",
     });
   }
   if (snapshot.follow_up_customers > 0) {
     items.push({
       id: "follow-up",
-      message: templates.followUp(snapshot.follow_up_customers),
+      message: formatCountTemplate(templates.followUp, snapshot.follow_up_customers),
       priority: "important",
     });
   }
   if (snapshot.new_customers > 0) {
     items.push({
       id: "new-customers",
-      message: templates.newCustomers(snapshot.new_customers),
+      message: formatCountTemplate(templates.newCustomers, snapshot.new_customers),
       priority: "informational",
     });
   }
   if (snapshot.support_resolved > 0) {
     items.push({
       id: "support-resolved",
-      message: templates.supportResolved(snapshot.support_resolved),
+      message: formatCountTemplate(templates.supportResolved, snapshot.support_resolved),
       priority: "informational",
     });
   }
   if (snapshot.new_ai_recommendations > 0) {
     items.push({
       id: "new-recommendations",
-      message: templates.newRecommendations(snapshot.new_ai_recommendations),
+      message: formatCountTemplate(
+        templates.newRecommendations,
+        snapshot.new_ai_recommendations
+      ),
       priority: "informational",
     });
   }
@@ -146,7 +156,7 @@ export function buildExecutiveBriefingItems(
   } else if (snapshot.system_incidents > 0) {
     items.push({
       id: "incidents",
-      message: templates.incidents(snapshot.system_incidents),
+      message: formatCountTemplate(templates.incidents, snapshot.system_incidents),
       priority: "important",
     });
   }
@@ -155,11 +165,11 @@ export function buildExecutiveBriefingItems(
 }
 
 type ActionTemplates = {
-  trialsExpiring: (count: number) => { title: string; reason: string; action: string };
+  trialsExpiring: { title: string; reason: string; action: string };
   healthDropped: { title: string; reason: string; action: string };
   escalationWaiting: { title: string; reason: string; action: string };
   revenueOpportunity: { title: string; reason: string; action: string };
-  failedAutomation: (count: number) => { title: string; reason: string; action: string };
+  failedAutomation: { title: string; reason: string; action: string };
 };
 
 export function buildRecommendedActions(
@@ -170,11 +180,11 @@ export function buildRecommendedActions(
   const actions: RecommendedAction[] = [];
 
   if (snapshot.trials_ending_7d > 0) {
-    const t = templates.trialsExpiring(snapshot.trials_ending_7d);
+    const t = templates.trialsExpiring;
     actions.push({
       id: "trials-expiring",
       icon: "warning",
-      title: t.title,
+      title: formatCountTemplate(t.title, snapshot.trials_ending_7d),
       reason: t.reason,
       suggestedAction: t.action,
       priority: "critical",
@@ -183,11 +193,11 @@ export function buildRecommendedActions(
   }
 
   if (snapshot.failed_automations > 0) {
-    const t = templates.failedAutomation(snapshot.failed_automations);
+    const t = templates.failedAutomation;
     actions.push({
       id: "failed-automation",
       icon: "warning",
-      title: t.title,
+      title: formatCountTemplate(t.title, snapshot.failed_automations),
       reason: t.reason,
       suggestedAction: t.action,
       priority: "critical",
@@ -246,14 +256,14 @@ export function buildRecommendedActions(
 }
 
 type SinceLoginTemplates = {
-  newCustomers: (count: number) => string;
-  supportResolved: (count: number) => string;
-  escalated: (count: number) => string;
-  installationsCompleted: (count: number) => string;
-  automationsTriggered: (count: number) => string;
-  aiRecommendations: (count: number) => string;
-  systemIncidents: (count: number) => string;
-  revenueEvents: (count: number) => string;
+  newCustomers: string;
+  supportResolved: string;
+  escalated: string;
+  installationsCompleted: string;
+  automationsTriggered: string;
+  aiRecommendations: string;
+  systemIncidents: string;
+  revenueEvents: string;
 };
 
 export function buildSinceLoginEvents(

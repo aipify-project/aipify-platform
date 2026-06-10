@@ -235,7 +235,11 @@ export function getInstallationHealthScore(
     site_url: installation.site_url,
     system_type: installation.system_type,
     status: installation.status,
-    modules: installation.modules,
+    modules: Array.isArray(installation.modules)
+      ? installation.modules.map((module) =>
+          typeof module === "string" ? module : module.module_key
+        )
+      : [],
     integrations: installation.integrations ?? [],
     last_synced_at: installation.last_synced_at,
     created_at: installation.created_at ?? "",

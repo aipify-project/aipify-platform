@@ -261,18 +261,58 @@ export type CustomerUserRow = {
   permissions?: string[];
 };
 
+export type CustomerInstallationModule = {
+  module_key: string;
+  status?: string;
+  enabled?: boolean;
+};
+
 export type CustomerInstallationRow = {
   id: string;
   name: string | null;
   site_url: string | null;
   system_type: string;
   status: string;
+  wizard_step?: number;
+  health_score?: number | null;
+  health_status?: string | null;
+  last_health_scan_at?: string | null;
+  activated_at?: string | null;
   last_synced_at: string | null;
   installed_at?: string | null;
   created_at?: string;
   version?: string;
-  modules: string[];
+  modules: CustomerInstallationModule[] | string[];
   integrations?: PlatformInstallationIntegration[];
+};
+
+export type CustomerOnboardingProgress = {
+  id: string;
+  customer_id: string;
+  profile_completed: boolean;
+  domain_connected: boolean;
+  installation_active: boolean;
+  health_scan_completed: boolean;
+  recommendation_generated: boolean;
+  support_enabled: boolean;
+  score: number;
+  completed_at: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type InstallationHealthScanRow = {
+  id: string;
+  installation_id: string;
+  customer_id: string | null;
+  score: number;
+  status: string;
+  connectivity_ok: boolean;
+  webhook_ok: boolean;
+  modules_ok: boolean;
+  api_ok: boolean;
+  details: Record<string, unknown>;
+  created_at: string;
 };
 
 export type UsageStatistics = {
@@ -439,8 +479,10 @@ export type CustomerMasterDetail = {
   payment_profile: PaymentProfile | null;
   subscription: Subscription | null;
   license?: LicenseLimits;
+  onboarding?: CustomerOnboardingProgress | null;
   domains?: CustomerDomain[];
   license_checks?: LicenseCheck[];
+  installation_health_scans?: InstallationHealthScanRow[];
   overview: CustomerOverviewSummary;
   users: CustomerUserRow[];
   installations: CustomerInstallationRow[];

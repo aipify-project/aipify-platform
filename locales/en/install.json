@@ -1,6 +1,6 @@
 {
   "title": "Installations",
-  "subtitle": "Monitor connected systems, active modules, integrations, and sync health from your Control Center.",
+  "subtitle": "Connect your website in minutes with the guided installation wizard.",
   "create": "Create installation",
   "name": "Display name",
   "siteUrl": "Site URL",
@@ -11,17 +11,22 @@
     "custom": "Custom",
     "other": "Other"
   },
-  "empty": "No installations yet. Create one to connect your first system.",
+  "empty": "No installations yet. Start the wizard to connect your first website.",
   "connectionSuccess": "Connection established. Your system is ready to sync.",
   "tokenTitle": "Installation token (shown once)",
   "tokenHint": "Use this token in your plugin or integration. It will not be shown again.",
   "copy": "Copy token",
   "copied": "Copied!",
   "status": {
-    "pending": "Pending",
+    "draft": "Draft",
+    "pending_verification": "Pending verification",
+    "ready": "Ready",
+    "installing": "Installing",
     "active": "Active",
-    "paused": "Paused",
-    "revoked": "Revoked"
+    "warning": "Warning",
+    "failed": "Failed",
+    "suspended": "Suspended",
+    "archived": "Archived"
   },
   "company": "Company",
   "installationId": "Installation ID",
@@ -35,7 +40,9 @@
     "assistant": "Aipify Assistant",
     "commerce_ai": "Aipify Commerce AI",
     "notifications": "Aipify Notifications",
-    "install_ai": "Aipify Install AI"
+    "install_ai": "Aipify Install AI",
+    "moderation_ai": "Aipify Moderation AI",
+    "executive_insights": "Executive Insights"
   },
   "integrationsList": {
     "supabase": "Supabase",
@@ -53,5 +60,49 @@
   },
   "verifyEndpoint": "/api/install/verify",
   "error": "Could not create installation. Try again.",
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "wizard": {
+    "title": "Installation wizard",
+    "subtitle": "Connect your website in minutes. Complexity stays behind the scenes.",
+    "start": "Start installation wizard",
+    "next": "Continue",
+    "back": "Back",
+    "finish": "Run health scan",
+    "loading": "Working...",
+    "error": "Something went wrong. Try again.",
+    "steps": {
+      "name": "Website name",
+      "domain": "Add domain",
+      "verify": "Verify ownership",
+      "modules": "Choose modules",
+      "credentials": "Credentials",
+      "activate": "Activate",
+      "health": "Health scan"
+    },
+    "nameLabel": "Website name",
+    "namePlaceholder": "My Store",
+    "domainLabel": "Domain",
+    "domainPlaceholder": "example.com",
+    "systemType": "System type",
+    "verifyTitle": "Verify domain ownership",
+    "verifyHint": "Add the meta tag below to your site header, then confirm verification.",
+    "startVerification": "Generate meta tag",
+    "confirmVerification": "I have added the meta tag",
+    "metaTagLabel": "Meta tag",
+    "modulesTitle": "Choose modules",
+    "modulesHint": "Select the Aipify modules to enable for this installation.",
+    "credentialsTitle": "Installation credentials",
+    "credentialsHint": "Copy this token into your plugin or integration. It is shown once.",
+    "activateTitle": "Activate installation",
+    "activateHint": "Confirm activation once your plugin is configured with the installation token.",
+    "activate": "Activate installation",
+    "healthTitle": "First health scan",
+    "healthScore": "Health score",
+    "healthStatus": {
+      "healthy": "Healthy",
+      "needs_attention": "Needs attention",
+      "critical": "Critical"
+    },
+    "completed": "Installation complete. Your website is connected to Aipify."
+  }
 }
