@@ -1,0 +1,15 @@
+{
+  "hero": {
+    "title": "AI der virker for din virksomhed.",
+    "subtitle": "Aipify hjælper virksomheder med at automatisere support, strømline drift og træffe klogere beslutninger gennem intelligente AI-assistenter."
+  },
+  "modules": {
+    "title": "Kernemoduler",
+    "supportAi": "Support AI",
+    "installAi": "Install AI"
+  },
+  "cta": {
+    "title": "Klar til at bringe AI ind i din virksomhed?",
+    "startFree": "Start gratis"
+  }
+}

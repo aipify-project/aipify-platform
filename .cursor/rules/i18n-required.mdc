@@ -1,0 +1,53 @@
+---
+description: Mandatory internationalization (i18n) for all user-facing text in Aipify
+alwaysApply: true
+---
+
+# Aipify — Internationalization (i18n) Required
+
+Aipify is a global SaaS product. All user-facing text must use the i18n system from day one.
+
+## Rules
+
+1. **No hardcoded UI text** — never write strings directly in components, pages, or emails.
+2. **Use translation keys** — always use `t("namespace.key")` or equivalent.
+3. **Default language is English** — fallback to `en` when the user's locale is unsupported.
+4. **Supported locales**: `en`, `no`, `sv`, `da` — new locales must be easy to add.
+5. **Admin panel** uses the same translation system — no separate hardcoded admin strings.
+6. **Email templates** must be multilingual — store under `locales/{locale}/emails/`.
+7. **Mobile and desktop** share the same translation keys — no separate mobile-only strings.
+
+## Locale structure
+
+```text
+locales/
+├── en/
+│   ├── common.json
+│   ├── landing.json
+│   ├── dashboard.json
+│   ├── assistant.json
+│   └── emails/
+├── no/
+├── sv/
+└── da/
+```
+
+## Examples
+
+```tsx
+// ❌ BAD
+<h1>Support Dashboard</h1>
+<button>Save</button>
+
+// ✅ GOOD
+<h1>{t("dashboard.title")}</h1>
+<button>{t("common.save")}</button>
+```
+
+## Future modules (all must follow i18n)
+
+Support AI · Install AI · Analytics AI · Commerce AI · Assistant Chat · Notifications · Billing · Settings
+
+## Technical debt
+
+New text without i18n is technical debt and must be fixed before the feature is considered complete.

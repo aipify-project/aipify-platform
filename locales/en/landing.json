@@ -1,0 +1,15 @@
+{
+  "hero": {
+    "title": "AI that works for your business.",
+    "subtitle": "Aipify helps businesses automate support, streamline operations and make smarter decisions through intelligent AI assistants."
+  },
+  "modules": {
+    "title": "Core Modules",
+    "supportAi": "Support AI",
+    "installAi": "Install AI"
+  },
+  "cta": {
+    "title": "Ready to bring AI into your business?",
+    "startFree": "Start Free"
+  }
+}
