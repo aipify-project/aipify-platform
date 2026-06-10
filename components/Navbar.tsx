@@ -56,19 +56,19 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-3 md:flex">
           <a
-            href="#demo"
+            href="mailto:support@aipify.ai"
             className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900"
           >
             Book Demo
           </a>
           <a
-            href="#login"
+            href="/login"
             className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900"
           >
             Login
           </a>
           <a
-            href="#get-started"
+            href="/register"
             className="rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:from-blue-700 hover:to-violet-700"
           >
             Get Started
@@ -109,21 +109,21 @@ export default function Navbar() {
             ))}
             <hr className="my-2 border-gray-200" />
             <a
-              href="#demo"
+              href="mailto:support@aipify.ai"
               className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
               onClick={() => setMenuOpen(false)}
             >
               Book Demo
             </a>
             <a
-              href="#login"
+              href="/login"
               className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
               onClick={() => setMenuOpen(false)}
             >
               Login
             </a>
             <a
-              href="#get-started"
+              href="/register"
               className="mt-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-4 py-3 text-center text-sm font-semibold text-white"
               onClick={() => setMenuOpen(false)}
             >
