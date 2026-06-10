@@ -12,6 +12,7 @@
     "other": "Andet"
   },
   "empty": "Ingen installationer endnu. Opret en for at forbinde dit første system.",
+  "connectionSuccess": "Forbindelse oprettet. Dit system er klar til synkronisering.",
   "tokenTitle": "Installationstoken (vises én gang)",
   "tokenHint": "Brug denne token i dit plugin eller din integration. Den vises ikke igen.",
   "copy": "Kopier token",

@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useCallback, useEffect, useState } from "react";
+import { AipifyEmptyState, AipifyPulse } from "@/components/branding";
 import { createClient } from "@/lib/supabase/client";
 import { getCompanyInstallations } from "@/lib/tenant/get-installations";
 import type {
@@ -40,6 +41,8 @@ type InstallsPanelProps = {
     modulesList: Record<ModuleKey, string>;
     integrationsList: Record<IntegrationKey, string>;
     integrationStatus: Record<IntegrationStatus, string>;
+    pulseLabel: string;
+    connectionSuccess: string;
   };
 };
 
@@ -214,9 +217,22 @@ export default function InstallsPanel({ locale, labels }: InstallsPanelProps) {
 
       {newToken && (
         <div className="mb-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-6">
-          <h2 className="text-sm font-semibold text-emerald-900">
-            {labels.tokenTitle}
-          </h2>
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <h2 className="text-sm font-semibold text-emerald-900">
+                {labels.tokenTitle}
+              </h2>
+              <p className="mt-1 text-xs text-emerald-800">{labels.connectionSuccess}</p>
+            </div>
+            <AipifyPulse
+              size="sm"
+              variant="gradient"
+              opacity={0.2}
+              title={labels.pulseLabel}
+              aria-label={labels.pulseLabel}
+              className="text-violet-600"
+            />
+          </div>
           <p className="mt-2 break-all rounded-lg bg-white px-3 py-2 font-mono text-xs text-gray-800">
             {newToken}
           </p>
@@ -237,9 +253,7 @@ export default function InstallsPanel({ locale, labels }: InstallsPanelProps) {
       {loading ? (
         <p className="text-sm text-gray-500">{labels.loading}</p>
       ) : installations.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50/80 p-6 text-sm text-gray-500">
-          {labels.empty}
-        </div>
+        <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
       ) : (
         <div className="space-y-6">
           {installations.map((installation) => (

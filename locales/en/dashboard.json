@@ -59,7 +59,7 @@
       },
       "billing": {
         "title": "Billing",
-        "description": "Plans and invoices — coming soon."
+        "description": "View your plan, trial, payment status, and invoices."
       },
       "team": {
         "title": "Team",
@@ -94,7 +94,33 @@
     "commerce": "Commerce",
     "notifications": "Notifications",
     "team": "Team",
+    "billing": "Billing",
     "settings": "Settings"
+  },
+  "billing": {
+    "title": "Billing & subscription",
+    "subtitle": "Your Aipify plan, trial period, payment status, and invoices.",
+    "loading": "Loading billing...",
+    "empty": "No billing information available yet.",
+    "plan": "Active plan",
+    "planType": "Plan type",
+    "status": "Status",
+    "trialActive": "Trial active",
+    "daysRemaining": "Days remaining",
+    "trialEnds": "Trial ends",
+    "nextBillingDate": "Next billing date",
+    "price": "Price",
+    "provider": "Payment provider",
+    "paymentStatus": "Payment status",
+    "kid": "KID",
+    "invoices": "Invoices",
+    "invoiceNumber": "Invoice no.",
+    "amount": "Amount",
+    "dueDate": "Due date",
+    "cancelSubscription": "Cancel subscription",
+    "cancelPlaceholder": "Cancellation will be available in a future release. Your data is retained.",
+    "noSubscription": "No active subscription.",
+    "noInvoices": "No invoices yet."
   },
   "stats": {
     "supportHandled": "Support handled",

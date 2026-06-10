@@ -7,6 +7,7 @@ export type CustomerNavId =
   | "commerce"
   | "notifications"
   | "team"
+  | "billing"
   | "settings";
 
 export type CustomerNavItem = {
@@ -49,6 +50,11 @@ export const CUSTOMER_CONTROL_CENTER_NAV: CustomerNavItem[] = [
   },
   { id: "team", href: "/dashboard/team", labelKey: "dashboard.nav.team" },
   {
+    id: "billing",
+    href: "/dashboard/billing",
+    labelKey: "dashboard.nav.billing",
+  },
+  {
     id: "settings",
     href: "/dashboard/settings",
     labelKey: "dashboard.nav.settings",
@@ -71,6 +77,7 @@ export function getCustomerActiveNavId(pathname: string): CustomerNavId {
   if (pathname.startsWith("/dashboard/commerce")) return "commerce";
   if (pathname.startsWith("/dashboard/notifications")) return "notifications";
   if (pathname.startsWith("/dashboard/team")) return "team";
+  if (pathname.startsWith("/dashboard/billing")) return "billing";
   if (pathname.startsWith("/dashboard/settings")) return "settings";
   return "overview";
 }

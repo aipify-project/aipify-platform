@@ -26,12 +26,23 @@ export function planTypeLabels(t: Translator) {
   };
 }
 
-export function paymentMethodLabels(t: Translator) {
+export function paymentProviderLabels(t: Translator) {
   return {
-    manual: t("platform.paymentMethod.manual"),
-    card: t("platform.paymentMethod.card"),
-    invoice: t("platform.paymentMethod.invoice"),
-    stripe: t("platform.paymentMethod.stripe"),
+    klarna: t("platform.paymentProvider.klarna"),
+    stripe: t("platform.paymentProvider.stripe"),
+    vipps: t("platform.paymentProvider.vipps"),
+    manual: t("platform.paymentProvider.manual"),
+    invoice: t("platform.paymentProvider.invoice"),
+  };
+}
+
+export function paymentStatusLabels(t: Translator) {
+  return {
+    not_connected: t("platform.status.payment.not_connected"),
+    pending_setup: t("platform.status.payment.pending_setup"),
+    active: t("platform.status.payment.active"),
+    failed: t("platform.status.payment.failed"),
+    cancelled: t("platform.status.payment.cancelled"),
   };
 }
 
@@ -42,6 +53,7 @@ export function invoiceStatusLabels(t: Translator) {
     paid: t("platform.status.invoice.paid"),
     overdue: t("platform.status.invoice.overdue"),
     cancelled: t("platform.status.invoice.cancelled"),
+    failed: t("platform.status.invoice.failed"),
   };
 }
 

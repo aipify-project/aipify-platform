@@ -1,5 +1,7 @@
 import SubscriptionsPanel from "@/components/platform/SubscriptionsPanel";
 import {
+  paymentProviderLabels,
+  paymentStatusLabels,
   planTypeLabels,
   subscriptionStatusLabels,
 } from "@/lib/platform/labels";
@@ -9,7 +11,7 @@ import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function PlatformSubscriptionsPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["platform"]);
+  const dict = await getDictionary(locale, ["platform", "branding"]);
   const t = createTranslator(dict);
 
   return (
@@ -28,8 +30,14 @@ export default async function PlatformSubscriptionsPage() {
         price: t("platform.subscriptions.price"),
         billingCycle: t("platform.subscriptions.billingCycle"),
         daysRemaining: t("platform.subscriptions.daysRemaining"),
+        nextBillingDate: t("platform.subscriptions.nextBillingDate"),
+        provider: t("platform.subscriptions.provider"),
+        paymentStatus: t("platform.subscriptions.paymentStatus"),
         statusLabels: subscriptionStatusLabels(t),
         planTypeLabels: planTypeLabels(t),
+        providerLabels: paymentProviderLabels(t),
+        paymentStatusLabels: paymentStatusLabels(t),
+        pulseLabel: t("branding.pulseLabel"),
       }}
     />
   );

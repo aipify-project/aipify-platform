@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { usePlatformProfile } from "@/components/platform/PlatformProfileProvider";
 import { useOptionalDashboardProfile } from "./DashboardProfileProvider";
+import { AipifyPlatformBrandMark } from "@/components/branding";
 import Sidebar, { type NavItem } from "./Sidebar";
 import SidebarBrand from "./SidebarBrand";
 import Topbar from "./Topbar";
@@ -26,6 +27,13 @@ type DashboardShellProps = {
   shellVariant: "platform" | "customer";
   mobileNavIds: string[];
   companyNameOverride?: string;
+  platformBrandMark?: {
+    poweredBy: string;
+    tooltipTitle: string;
+    tooltipTagline: string;
+    versionLabel: string;
+    pulseLabel: string;
+  };
   children: React.ReactNode;
 };
 
@@ -43,6 +51,7 @@ export default function DashboardShell({
   shellVariant,
   mobileNavIds,
   companyNameOverride,
+  platformBrandMark,
   children,
 }: DashboardShellProps) {
   const pathname = usePathname();
@@ -108,6 +117,16 @@ export default function DashboardShell({
         <div className="flex-1 overflow-y-auto p-4">
           <Sidebar items={navItems} activeId={activeNav} />
         </div>
+        {shellVariant === "platform" && platformBrandMark && (
+          <AipifyPlatformBrandMark
+            appName={appName}
+            poweredBy={platformBrandMark.poweredBy}
+            tooltipTitle={platformBrandMark.tooltipTitle}
+            tooltipTagline={platformBrandMark.tooltipTagline}
+            versionLabel={platformBrandMark.versionLabel}
+            pulseLabel={platformBrandMark.pulseLabel}
+          />
+        )}
       </aside>
 
       {sidebarOpen && (
@@ -144,6 +163,16 @@ export default function DashboardShell({
                 onNavigate={() => setSidebarOpen(false)}
               />
             </div>
+            {shellVariant === "platform" && platformBrandMark && (
+              <AipifyPlatformBrandMark
+                appName={appName}
+                poweredBy={platformBrandMark.poweredBy}
+                tooltipTitle={platformBrandMark.tooltipTitle}
+                tooltipTagline={platformBrandMark.tooltipTagline}
+                versionLabel={platformBrandMark.versionLabel}
+                pulseLabel={platformBrandMark.pulseLabel}
+              />
+            )}
           </aside>
         </div>
       )}

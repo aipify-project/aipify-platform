@@ -5,7 +5,7 @@ import { createTranslator } from "@/lib/i18n/translate";
 
 export async function createModulePage(moduleKey: string) {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["dashboard"]);
+  const dict = await getDictionary(locale, ["dashboard", "branding"]);
   const t = createTranslator(dict);
 
   return (
@@ -13,6 +13,7 @@ export async function createModulePage(moduleKey: string) {
       title={t(`dashboard.modules.${moduleKey}.title`)}
       subtitle={t(`dashboard.modules.${moduleKey}.subtitle`)}
       comingSoon={t(`dashboard.modules.${moduleKey}.comingSoon`)}
+      pulseLabel={t("branding.pulseLabel")}
     />
   );
 }

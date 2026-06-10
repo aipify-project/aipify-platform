@@ -5,7 +5,7 @@ import { createTranslator } from "@/lib/i18n/translate";
 
 export async function createPlatformPage(sectionKey: string) {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["platform"]);
+  const dict = await getDictionary(locale, ["platform", "branding"]);
   const t = createTranslator(dict);
 
   return (
@@ -13,6 +13,7 @@ export async function createPlatformPage(sectionKey: string) {
       title={t(`platform.sections.${sectionKey}.title`)}
       subtitle={t(`platform.sections.${sectionKey}.subtitle`)}
       comingSoon={t(`platform.sections.${sectionKey}.comingSoon`)}
+      pulseLabel={t("branding.pulseLabel")}
     />
   );
 }

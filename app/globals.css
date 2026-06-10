@@ -56,3 +56,55 @@ body {
   animation: fade-in-up 0.45s ease-out 0.15s forwards;
   opacity: 0;
 }
+
+@keyframes aipify-orb-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.035);
+  }
+}
+
+@keyframes aipify-orb-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.62;
+  }
+}
+
+@keyframes aipify-orb-pulse-ring {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.06);
+  }
+}
+
+.animate-aipify-orb-breathe {
+  animation: aipify-orb-breathe 5.5s ease-in-out infinite;
+}
+
+.animate-aipify-orb-glow {
+  animation: aipify-orb-glow 5.5s ease-in-out infinite;
+}
+
+.animate-aipify-orb-pulse-ring {
+  animation: aipify-orb-pulse-ring 5.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-aipify-orb-breathe,
+  .animate-aipify-orb-glow,
+  .animate-aipify-orb-pulse-ring {
+    animation: none !important;
+  }
+}

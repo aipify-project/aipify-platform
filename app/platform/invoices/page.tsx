@@ -6,7 +6,7 @@ import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function PlatformInvoicesPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["platform"]);
+  const dict = await getDictionary(locale, ["platform", "branding"]);
   const t = createTranslator(dict);
 
   return (
@@ -21,15 +21,18 @@ export default async function PlatformInvoicesPage() {
         amount: t("platform.invoices.amount"),
         status: t("platform.invoices.status"),
         dueDate: t("platform.invoices.dueDate"),
+        kid: t("platform.invoices.kid"),
         actions: t("platform.invoices.actions"),
         send: t("platform.invoices.send"),
         resend: t("platform.invoices.resend"),
         markPaid: t("platform.invoices.markPaid"),
         markOverdue: t("platform.invoices.markOverdue"),
+        markFailed: t("platform.invoices.markFailed"),
         downloadPdf: t("platform.invoices.downloadPdf"),
         actionPending: t("platform.invoices.actionPending"),
         actionDone: t("platform.invoices.actionDone"),
         statusLabels: invoiceStatusLabels(t),
+        pulseLabel: t("branding.pulseLabel"),
       }}
     />
   );

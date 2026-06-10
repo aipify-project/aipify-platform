@@ -4,7 +4,9 @@ export type PlatformNavId =
   | "subscriptions"
   | "billing"
   | "invoices"
+  | "paymentProviders"
   | "installations"
+  | "metrics"
   | "stats"
   | "support"
   | "system";
@@ -42,7 +44,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     href: "/platform/installations",
     labelKey: "platform.nav.installations",
   },
-  { id: "stats", href: "/platform/stats", labelKey: "platform.nav.stats" },
+  {
+    id: "metrics",
+    href: "/platform/metrics",
+    labelKey: "platform.nav.metrics",
+  },
   {
     id: "support",
     href: "/platform/support",
@@ -67,8 +73,10 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/subscriptions")) return "subscriptions";
   if (pathname.startsWith("/platform/billing")) return "billing";
   if (pathname.startsWith("/platform/invoices")) return "invoices";
+  if (pathname.startsWith("/platform/payment-providers")) return "paymentProviders";
   if (pathname.startsWith("/platform/installations")) return "installations";
-  if (pathname.startsWith("/platform/stats")) return "stats";
+  if (pathname.startsWith("/platform/metrics")) return "metrics";
+  if (pathname.startsWith("/platform/stats")) return "metrics";
   if (pathname.startsWith("/platform/support")) return "support";
   if (pathname.startsWith("/platform/system")) return "system";
   return "overview";

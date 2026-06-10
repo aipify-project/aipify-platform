@@ -20,10 +20,12 @@
     "overview": "Overview",
     "customers": "Customers",
     "subscriptions": "Subscriptions",
-    "installations": "Installations",
-    "stats": "Platform stats",
     "billing": "Billing",
     "invoices": "Invoices",
+    "installations": "Installations",
+    "metrics": "Platform Metrics",
+    "stats": "Platform stats",
+    "paymentProviders": "Payment providers",
     "support": "Support",
     "system": "System status"
   },
@@ -42,11 +44,12 @@
     "business": "Business",
     "enterprise": "Enterprise"
   },
-  "paymentMethod": {
+  "paymentProvider": {
+    "klarna": "Klarna",
+    "stripe": "Stripe",
+    "vipps": "Vipps",
     "manual": "Manual",
-    "card": "Card",
-    "invoice": "Invoice",
-    "stripe": "Stripe"
+    "invoice": "Invoice"
   },
   "status": {
     "customer": {
@@ -68,6 +71,14 @@
       "sent": "Sent",
       "paid": "Paid",
       "overdue": "Overdue",
+      "cancelled": "Cancelled",
+      "failed": "Failed"
+    },
+    "payment": {
+      "not_connected": "Not connected",
+      "pending_setup": "Pending setup",
+      "active": "Active",
+      "failed": "Failed",
       "cancelled": "Cancelled"
     },
     "installation": {
@@ -82,14 +93,24 @@
     "subtitle": "Permanent customer numbers, profiles, and tenant links — Platform Admin only.",
     "loading": "Loading customers...",
     "empty": "No customers yet.",
+    "search": "Search customers...",
+    "filterStatus": "All statuses",
+    "filterType": "All types",
+    "filterAll": "All",
     "customerNumber": "Customer no.",
     "name": "Name",
+    "type": "Type",
+    "plan": "Plan",
     "email": "Email",
     "country": "Country",
     "status": "Status",
+    "trialRemaining": "Trial remaining",
     "installations": "Installations",
+    "users": "Users",
     "created": "Created",
-    "view": "View"
+    "actions": "Actions",
+    "view": "View",
+    "days": "days"
   },
   "customerDetail": {
     "back": "Back to customers",
@@ -107,19 +128,23 @@
     "noBilling": "No billing profile yet.",
     "noSubscription": "No subscription yet.",
     "noInstallations": "No installations linked.",
-    "noInvoices": "No invoices yet."
+    "noInvoices": "No invoices yet.",
+    "paymentEvents": "Payment events",
+    "noEvents": "No payment events yet."
   },
   "billing": {
-    "title": "Billing profiles",
-    "subtitle": "Payment details and billing addresses for all customers.",
-    "loading": "Loading billing profiles...",
-    "empty": "No billing profiles yet.",
+    "title": "Payment profiles",
+    "subtitle": "Provider-agnostic payment setup, KID placeholders, and billing addresses.",
+    "loading": "Loading payment profiles...",
+    "empty": "No payment profiles yet.",
     "customer": "Customer",
-    "billingName": "Billing name",
     "billingEmail": "Billing email",
     "address": "Address",
-    "paymentMethod": "Payment method",
-    "currency": "Currency"
+    "provider": "Payment provider",
+    "paymentStatus": "Payment status",
+    "kid": "KID",
+    "providerCustomerId": "Provider customer ID",
+    "providerMandateId": "Provider mandate ID"
   },
   "subscriptions": {
     "title": "Subscriptions",
@@ -137,7 +162,25 @@
     "maxInstallations": "Max installations",
     "trialActive": "Trial active",
     "daysRemaining": "Days remaining",
-    "trialEnds": "Trial ends"
+    "trialEnds": "Trial ends",
+    "nextBillingDate": "Next billing date",
+    "provider": "Provider",
+    "paymentStatus": "Payment status"
+  },
+  "paymentProviders": {
+    "title": "Payment providers",
+    "subtitle": "Provider-agnostic overview — Klarna first, Stripe and Vipps later.",
+    "loading": "Loading providers...",
+    "empty": "No payment providers configured yet.",
+    "provider": "Provider",
+    "customers": "Customers",
+    "active": "Active payments",
+    "trialing": "Trialing",
+    "failed": "Failed payments",
+    "recentEvents": "Recent payment events",
+    "noEvents": "No payment events yet.",
+    "eventType": "Event type",
+    "customer": "Customer"
   },
   "invoices": {
     "title": "Invoices",
@@ -154,9 +197,125 @@
     "resend": "Resend",
     "markPaid": "Mark paid",
     "markOverdue": "Mark overdue",
+    "markFailed": "Mark failed",
+    "kid": "KID",
     "downloadPdf": "PDF",
     "actionPending": "Processing...",
     "actionDone": "Updated"
+  },
+  "metrics": {
+    "title": "Platform Metrics",
+    "subtitle": "Revenue, customers, installations, AI activity, and growth across the Aipify platform.",
+    "loading": "Loading platform metrics...",
+    "empty": "Platform metrics are not available yet.",
+    "currency": "NOK",
+    "seconds": "sec",
+    "days": "days",
+    "percent": "%",
+    "none": "None yet",
+    "sections": {
+      "revenue": "Revenue",
+      "customers": "Customers",
+      "installations": "Installations",
+      "aiActivity": "AI Activity",
+      "growth": "Growth"
+    },
+    "cards": {
+      "mrr": "MRR",
+      "arr": "ARR",
+      "trialConversion": "Trial → Paid conversion",
+      "outstanding": "Outstanding invoice amount",
+      "arpc": "Average revenue per customer",
+      "totalCustomers": "Total customers",
+      "activeCustomers": "Active customers",
+      "trialCustomers": "Trial customers",
+      "pausedCustomers": "Paused customers",
+      "cancelledCustomers": "Cancelled customers",
+      "overdueCustomers": "Overdue customers",
+      "totalInstallations": "Total installations",
+      "activeInstallations": "Active installations",
+      "failedInstallations": "Failed installations",
+      "avgInstallations": "Avg. installations per customer",
+      "supportHandled": "Support requests handled",
+      "automatedTasks": "Automated tasks completed",
+      "aiRecommendations": "AI recommendations generated",
+      "avgResponseTime": "Avg. assistant response time",
+      "newCustomers30d": "New customers (30 days)",
+      "newInstallations30d": "New installations (30 days)",
+      "mostUsedModules": "Most used modules",
+      "retentionRate": "Customer retention rate"
+    }
+  },
+  "masterDetail": {
+    "back": "Back to customers",
+    "loading": "Loading customer profile...",
+    "notFound": "Customer not found.",
+    "customerType": "Customer type",
+    "companyNumber": "Company number",
+    "language": "Language",
+    "subscriptionStatus": "Subscription status",
+    "ownerEmail": "Owner email",
+    "createdAt": "Created",
+    "currentPlan": "Current plan",
+    "trialRemaining": "Trial remaining",
+    "totalUsers": "Total users",
+    "totalInstallations": "Total installations",
+    "outstandingInvoices": "Outstanding invoices",
+    "name": "Name",
+    "role": "Role",
+    "lastLogin": "Last login",
+    "ownerBadge": "Owner",
+    "installationName": "Installation",
+    "domain": "Domain",
+    "systemType": "System type",
+    "connectedModules": "Connected modules",
+    "lastSync": "Last sync",
+    "trialDates": "Trial period",
+    "startDate": "Start date",
+    "currency": "Currency",
+    "issueDate": "Issue date",
+    "paymentStatus": "Payment status",
+    "paymentPending": "Pending",
+    "supportRequests": "Support requests handled",
+    "automatedActions": "Automated actions",
+    "aiRecommendations": "AI recommendations",
+    "avgResponseTime": "Average response time",
+    "mostUsedModules": "Most used modules",
+    "openTickets": "Open tickets",
+    "closedTickets": "Closed tickets",
+    "avgResolutionTime": "Average resolution time",
+    "lastContact": "Last contact",
+    "assignedAgent": "Assigned agent",
+    "subject": "Subject",
+    "noData": "No data available yet.",
+    "hours": "hours",
+    "tabs": {
+      "overview": "Overview",
+      "users": "Users",
+      "installations": "Installations",
+      "subscriptions": "Subscriptions",
+      "invoices": "Invoices",
+      "usage": "Usage",
+      "support": "Support",
+      "activity": "Activity Log"
+    },
+    "supportStatus": {
+      "open": "Open",
+      "closed": "Closed",
+      "escalated": "Escalated"
+    },
+    "userRoles": {
+      "owner": "Owner",
+      "admin": "Admin",
+      "support": "Support",
+      "staff": "Staff",
+      "readOnly": "Read only"
+    },
+    "userStatus": {
+      "active": "Active",
+      "invited": "Invited",
+      "disabled": "Disabled"
+    }
   },
   "sections": {
     "installations": {

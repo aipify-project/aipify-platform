@@ -12,6 +12,7 @@
     "other": "Annat"
   },
   "empty": "Inga installationer ännu. Skapa en för att ansluta ditt första system.",
+  "connectionSuccess": "Anslutning etablerad. Ditt system är redo att synkronisera.",
   "tokenTitle": "Installationstoken (visas en gång)",
   "tokenHint": "Använd denna token i ditt plugin eller din integration. Den visas inte igen.",
   "copy": "Kopiera token",

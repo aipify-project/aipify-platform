@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { AipifyBillingDocumentHeader, AipifyEmptyState } from "@/components/branding";
 import { createClient } from "@/lib/supabase/client";
 import type { CustomerRecord, Invoice, InvoiceAction } from "@/lib/platform/types";
 import StatusBadge from "./StatusBadge";
@@ -17,15 +18,18 @@ type InvoicesPanelProps = {
     amount: string;
     status: string;
     dueDate: string;
+    kid: string;
     actions: string;
     send: string;
     resend: string;
     markPaid: string;
     markOverdue: string;
+    markFailed: string;
     downloadPdf: string;
     actionPending: string;
     actionDone: string;
     statusLabels: Record<string, string>;
+    pulseLabel: string;
   };
 };
 
@@ -95,19 +99,16 @@ export default function InvoicesPanel({ labels }: InvoicesPanelProps) {
 
   return (
     <div className="mx-auto max-w-6xl">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-          {labels.title}
-        </h1>
-        <p className="mt-2 text-base text-gray-500">{labels.subtitle}</p>
-      </div>
+      <AipifyBillingDocumentHeader
+        title={labels.title}
+        subtitle={labels.subtitle}
+        pulseLabel={labels.pulseLabel}
+      />
 
       {loading ? (
         <p className="text-sm text-gray-500">{labels.loading}</p>
       ) : invoices.length === 0 ? (
-        <p className="rounded-2xl border border-dashed border-gray-200 bg-gray-50/80 p-6 text-sm text-gray-500">
-          {labels.empty}
-        </p>
+        <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
       ) : (
         <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
           <div className="overflow-x-auto">
@@ -125,6 +126,9 @@ export default function InvoicesPanel({ labels }: InvoicesPanelProps) {
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.status}
+                  </th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    {labels.kid}
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.dueDate}
@@ -165,6 +169,9 @@ export default function InvoicesPanel({ labels }: InvoicesPanelProps) {
                           label={labels.statusLabels[invoice.status] ?? invoice.status}
                         />
                       </td>
+                      <td className="px-6 py-4 font-mono text-sm text-gray-600">
+                        {invoice.kid_number ?? "—"}
+                      </td>
                       <td className="px-6 py-4 text-sm text-gray-600">
                         {invoice.due_date}
                       </td>
@@ -198,6 +205,15 @@ export default function InvoicesPanel({ labels }: InvoicesPanelProps) {
                               label={labels.markOverdue}
                             />
                           )}
+                          {invoice.status !== "failed" &&
+                            invoice.status !== "paid" &&
+                            invoice.status !== "cancelled" && (
+                              <ActionButton
+                                disabled={busy}
+                                onClick={() => runAction(invoice.id, "mark_failed")}
+                                label={labels.markFailed}
+                              />
+                            )}
                           {invoice.pdf_url && (
                             <a
                               href={invoice.pdf_url}

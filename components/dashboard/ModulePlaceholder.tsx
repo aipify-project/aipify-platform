@@ -1,13 +1,17 @@
+import { AipifyEmptyState } from "@/components/branding";
+
 type ModulePlaceholderProps = {
   title: string;
   subtitle: string;
   comingSoon: string;
+  pulseLabel: string;
 };
 
 export default function ModulePlaceholder({
   title,
   subtitle,
   comingSoon,
+  pulseLabel,
 }: ModulePlaceholderProps) {
   return (
     <div className="mx-auto max-w-3xl">
@@ -15,8 +19,8 @@ export default function ModulePlaceholder({
         {title}
       </h1>
       <p className="mt-2 text-base text-gray-500">{subtitle}</p>
-      <div className="mt-8 rounded-2xl border border-dashed border-gray-200 bg-gray-50/80 p-6 text-sm text-gray-600">
-        {comingSoon}
+      <div className="mt-8">
+        <AipifyEmptyState message={comingSoon} pulseLabel={pulseLabel} />
       </div>
     </div>
   );

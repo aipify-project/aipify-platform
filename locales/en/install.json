@@ -12,6 +12,7 @@
     "other": "Other"
   },
   "empty": "No installations yet. Create one to connect your first system.",
+  "connectionSuccess": "Connection established. Your system is ready to sync.",
   "tokenTitle": "Installation token (shown once)",
   "tokenHint": "Use this token in your plugin or integration. It will not be shown again.",
   "copy": "Copy token",

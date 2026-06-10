@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { AipifyBillingDocumentHeader, AipifyEmptyState } from "@/components/branding";
 import { createClient } from "@/lib/supabase/client";
-import type { BillingProfileRow } from "@/lib/platform/types";
+import type { PaymentProfileRow } from "@/lib/platform/types";
+import StatusBadge from "./StatusBadge";
 
 type BillingPanelProps = {
   labels: {
@@ -13,17 +15,21 @@ type BillingPanelProps = {
     empty: string;
     customer: string;
     customerNumber: string;
-    billingName: string;
     billingEmail: string;
     address: string;
-    paymentMethod: string;
-    currency: string;
-    paymentMethodLabels: Record<string, string>;
+    provider: string;
+    paymentStatus: string;
+    kid: string;
+    providerCustomerId: string;
+    providerMandateId: string;
+    providerLabels: Record<string, string>;
+    paymentStatusLabels: Record<string, string>;
+    pulseLabel: string;
   };
 };
 
 export default function BillingPanel({ labels }: BillingPanelProps) {
-  const [rows, setRows] = useState<BillingProfileRow[]>([]);
+  const [rows, setRows] = useState<PaymentProfileRow[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -31,10 +37,10 @@ export default function BillingPanel({ labels }: BillingPanelProps) {
 
     async function load() {
       const supabase = createClient();
-      const { data, error } = await supabase.rpc("list_platform_billing_profiles");
+      const { data, error } = await supabase.rpc("list_platform_payment_profiles");
 
       if (!cancelled) {
-        setRows(error || !data ? [] : (data as BillingProfileRow[]));
+        setRows(error || !data ? [] : (data as PaymentProfileRow[]));
         setLoading(false);
       }
     }
@@ -48,19 +54,16 @@ export default function BillingPanel({ labels }: BillingPanelProps) {
 
   return (
     <div className="mx-auto max-w-6xl">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-          {labels.title}
-        </h1>
-        <p className="mt-2 text-base text-gray-500">{labels.subtitle}</p>
-      </div>
+      <AipifyBillingDocumentHeader
+        title={labels.title}
+        subtitle={labels.subtitle}
+        pulseLabel={labels.pulseLabel}
+      />
 
       {loading ? (
         <p className="text-sm text-gray-500">{labels.loading}</p>
       ) : rows.length === 0 ? (
-        <p className="rounded-2xl border border-dashed border-gray-200 bg-gray-50/80 p-6 text-sm text-gray-500">
-          {labels.empty}
-        </p>
+        <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
       ) : (
         <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
           <div className="overflow-x-auto">
@@ -74,16 +77,16 @@ export default function BillingPanel({ labels }: BillingPanelProps) {
                     {labels.customer}
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
-                    {labels.billingName}
+                    {labels.provider}
+                  </th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    {labels.paymentStatus}
+                  </th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    {labels.kid}
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.billingEmail}
-                  </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
-                    {labels.address}
-                  </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
-                    {labels.paymentMethod}
                   </th>
                 </tr>
               </thead>
@@ -100,15 +103,27 @@ export default function BillingPanel({ labels }: BillingPanelProps) {
                       >
                         {row.display_name}
                       </Link>
+                      <p className="mt-1 text-xs text-gray-500">
+                        {row.billing_address}, {row.postal_code} {row.city}
+                      </p>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-900">{row.billing_name}</td>
-                    <td className="px-6 py-4 text-sm text-gray-600">{row.billing_email}</td>
-                    <td className="px-6 py-4 text-sm text-gray-600">
-                      {row.billing_address}, {row.postal_code} {row.city}
+                    <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                      {labels.providerLabels[row.provider] ?? row.provider}
+                    </td>
+                    <td className="px-6 py-4">
+                      <StatusBadge
+                        status={row.payment_status}
+                        label={
+                          labels.paymentStatusLabels[row.payment_status] ??
+                          row.payment_status
+                        }
+                      />
+                    </td>
+                    <td className="px-6 py-4 font-mono text-sm text-gray-600">
+                      {row.kid_number ?? "—"}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
-                      {labels.paymentMethodLabels[row.payment_method] ?? row.payment_method} ·{" "}
-                      {row.currency}
+                      {row.billing_email}
                     </td>
                   </tr>
                 ))}

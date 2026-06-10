@@ -7,6 +7,7 @@ const ACTIONS: InvoiceAction[] = [
   "resend",
   "mark_paid",
   "mark_overdue",
+  "mark_failed",
   "cancel",
 ];
 

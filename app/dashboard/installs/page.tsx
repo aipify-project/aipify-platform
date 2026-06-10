@@ -5,7 +5,7 @@ import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function InstallsPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["install"]);
+  const dict = await getDictionary(locale, ["install", "branding"]);
   const t = createTranslator(dict);
 
   return (
@@ -66,6 +66,8 @@ export default async function InstallsPage() {
           error: t("install.integrationStatus.error"),
           disconnected: t("install.integrationStatus.disconnected"),
         },
+        pulseLabel: t("branding.pulseLabel"),
+        connectionSuccess: t("install.connectionSuccess"),
       }}
     />
   );

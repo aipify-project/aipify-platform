@@ -1,5 +1,5 @@
-import { createPlatformPage } from "@/lib/platform/create-platform-page";
+import { redirect } from "next/navigation";
 
-export default function PlatformStatsPage() {
-  return createPlatformPage("stats");
+export default function PlatformStatsRedirectPage() {
+  redirect("/platform/metrics");
 }

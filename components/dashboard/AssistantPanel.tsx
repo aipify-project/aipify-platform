@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AipifyOrb } from "@/components/branding";
 
 type AssistantPanelProps = {
   title: string;
@@ -11,6 +12,7 @@ type AssistantPanelProps = {
   items: string[];
   refresh: string;
   askAipify: string;
+  orbLabel: string;
 };
 
 export default function AssistantPanel({
@@ -22,6 +24,7 @@ export default function AssistantPanel({
   items,
   refresh,
   askAipify,
+  orbLabel,
 }: AssistantPanelProps) {
   const [refreshing, setRefreshing] = useState(false);
 
@@ -39,22 +42,12 @@ export default function AssistantPanel({
 
       <div className="relative flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-violet-600 shadow-md ring-4 ring-white/80">
-            <svg
-              className="h-5 w-5 text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"
-              />
-            </svg>
-          </div>
+          <AipifyOrb
+            size={48}
+            status="online"
+            title={orbLabel}
+            aria-label={orbLabel}
+          />
           <div>
             <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
             <span className="relative mt-0.5 inline-flex items-center gap-1.5 text-xs font-medium text-emerald-600">

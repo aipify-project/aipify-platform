@@ -18,6 +18,7 @@ type CustomerDetailViewProps = {
     subscription: string;
     installations: string;
     invoices: string;
+    paymentEvents: string;
     customerNumber: string;
     customerType: string;
     email: string;
@@ -26,17 +27,20 @@ type CustomerDetailViewProps = {
     language: string;
     status: string;
     createdAt: string;
-    billingName: string;
     billingEmail: string;
     billingAddress: string;
-    paymentMethod: string;
-    currency: string;
+    provider: string;
+    paymentStatus: string;
+    kid: string;
+    providerCustomerId: string;
+    providerMandateId: string;
     plan: string;
     planType: string;
     billingCycle: string;
     price: string;
     maxUsers: string;
     maxInstallations: string;
+    nextBillingDate: string;
     trialActive: string;
     daysRemaining: string;
     trialEnds: string;
@@ -44,10 +48,13 @@ type CustomerDetailViewProps = {
     noSubscription: string;
     noInstallations: string;
     noInvoices: string;
+    noEvents: string;
+    eventType: string;
     statusLabels: Record<string, string>;
     typeLabels: Record<string, string>;
     planTypeLabels: Record<string, string>;
-    paymentMethodLabels: Record<string, string>;
+    providerLabels: Record<string, string>;
+    paymentStatusLabels: Record<string, string>;
     invoiceStatusLabels: Record<string, string>;
   };
 };
@@ -101,8 +108,14 @@ export default function CustomerDetailView({
     return <p className="text-sm text-gray-500">{labels.notFound}</p>;
   }
 
-  const { customer, billing_profile, subscription, installations, invoices } =
-    detail;
+  const {
+    customer,
+    payment_profile,
+    subscription,
+    installations,
+    invoices,
+    payment_events,
+  } = detail;
   const displayName =
     customer.company_name ?? customer.full_name ?? labels.profile;
   const trialDays = getTrialDaysRemaining(subscription?.trial_ends_at);
@@ -153,22 +166,38 @@ export default function CustomerDetailView({
 
         <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
           <h2 className="text-lg font-semibold text-gray-900">{labels.billing}</h2>
-          {billing_profile ? (
+          {payment_profile ? (
             <dl className="mt-4 space-y-3 text-sm">
-              <Row label={labels.billingName} value={billing_profile.billing_name} />
-              <Row label={labels.billingEmail} value={billing_profile.billing_email} />
               <Row
-                label={labels.billingAddress}
-                value={`${billing_profile.billing_address}, ${billing_profile.postal_code} ${billing_profile.city}, ${billing_profile.country}`}
-              />
-              <Row
-                label={labels.paymentMethod}
+                label={labels.provider}
                 value={
-                  labels.paymentMethodLabels[billing_profile.payment_method] ??
-                  billing_profile.payment_method
+                  labels.providerLabels[payment_profile.provider] ??
+                  payment_profile.provider
                 }
               />
-              <Row label={labels.currency} value={billing_profile.currency} />
+              <Row
+                label={labels.paymentStatus}
+                value={
+                  labels.paymentStatusLabels[payment_profile.payment_status] ??
+                  payment_profile.payment_status
+                }
+              />
+              <Row label={labels.billingEmail} value={payment_profile.billing_email} />
+              <Row
+                label={labels.billingAddress}
+                value={`${payment_profile.billing_address}, ${payment_profile.postal_code} ${payment_profile.city}, ${payment_profile.country}`}
+              />
+              <Row label={labels.kid} value={payment_profile.kid_number ?? "—"} mono />
+              <Row
+                label={labels.providerCustomerId}
+                value={payment_profile.provider_customer_id ?? "—"}
+                mono
+              />
+              <Row
+                label={labels.providerMandateId}
+                value={payment_profile.provider_mandate_id ?? "—"}
+                mono
+              />
             </dl>
           ) : (
             <p className="mt-4 text-sm text-gray-500">{labels.noBilling}</p>
@@ -208,6 +237,10 @@ export default function CustomerDetailView({
                   label={labels.price}
                   value={`${subscription.price_amount} ${subscription.currency}`}
                 />
+                <Row
+                  label={labels.nextBillingDate}
+                  value={formatDate(subscription.next_billing_date, locale)}
+                />
                 <Row label={labels.maxUsers} value={String(subscription.max_users)} />
                 <Row
                   label={labels.maxInstallations}
@@ -227,7 +260,10 @@ export default function CustomerDetailView({
           ) : (
             <ul className="mt-4 divide-y divide-gray-100">
               {installations.map((installation) => (
-                <li key={installation.id} className="flex flex-wrap items-center justify-between gap-2 py-3">
+                <li
+                  key={installation.id}
+                  className="flex flex-wrap items-center justify-between gap-2 py-3"
+                >
                   <div>
                     <p className="font-medium text-gray-900">
                       {installation.name ?? installation.site_url ?? installation.id}
@@ -238,7 +274,9 @@ export default function CustomerDetailView({
                   </div>
                   <StatusBadge
                     status={installation.status}
-                    label={labels.statusLabels[installation.status] ?? installation.status}
+                    label={
+                      labels.statusLabels[installation.status] ?? installation.status
+                    }
                   />
                 </li>
               ))}
@@ -257,6 +295,7 @@ export default function CustomerDetailView({
                   <tr className="text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     <th className="py-2 pr-4">#</th>
                     <th className="py-2 pr-4">{labels.status}</th>
+                    <th className="py-2 pr-4">{labels.kid}</th>
                     <th className="py-2 pr-4">{labels.price}</th>
                     <th className="py-2">{labels.createdAt}</th>
                   </tr>
@@ -264,7 +303,9 @@ export default function CustomerDetailView({
                 <tbody className="divide-y divide-gray-100">
                   {invoices.map((invoice) => (
                     <tr key={invoice.id}>
-                      <td className="py-3 pr-4 font-mono text-sm">{invoice.invoice_number}</td>
+                      <td className="py-3 pr-4 font-mono text-sm">
+                        {invoice.invoice_number}
+                      </td>
                       <td className="py-3 pr-4">
                         <StatusBadge
                           status={invoice.status}
@@ -272,6 +313,9 @@ export default function CustomerDetailView({
                             labels.invoiceStatusLabels[invoice.status] ?? invoice.status
                           }
                         />
+                      </td>
+                      <td className="py-3 pr-4 font-mono text-sm text-gray-600">
+                        {invoice.kid_number ?? "—"}
                       </td>
                       <td className="py-3 pr-4 text-sm">
                         {invoice.amount} {invoice.currency}
@@ -284,6 +328,25 @@ export default function CustomerDetailView({
                 </tbody>
               </table>
             </div>
+          )}
+        </section>
+
+        <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm lg:col-span-2">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.paymentEvents}</h2>
+          {!payment_events?.length ? (
+            <p className="mt-4 text-sm text-gray-500">{labels.noEvents}</p>
+          ) : (
+            <ul className="mt-4 divide-y divide-gray-100">
+              {payment_events.map((event) => (
+                <li key={event.id} className="flex flex-wrap justify-between gap-2 py-3 text-sm">
+                  <span className="font-mono text-gray-700">{event.event_type}</span>
+                  <span className="text-gray-500">
+                    {labels.providerLabels[event.provider] ?? event.provider} ·{" "}
+                    {formatDate(event.created_at, locale)}
+                  </span>
+                </li>
+              ))}
+            </ul>
           )}
         </section>
       </div>
@@ -303,7 +366,7 @@ function Row({
   return (
     <div className="flex flex-wrap justify-between gap-2">
       <dt className="font-medium text-gray-500">{label}</dt>
-      <dd className={`text-gray-900 ${mono ? "font-mono" : ""}`}>{value}</dd>
+      <dd className={`text-gray-900 ${mono ? "font-mono text-xs" : ""}`}>{value}</dd>
     </div>
   );
 }
