@@ -274,37 +274,44 @@ export function buildSinceLoginEvents(
   return [
     {
       id: "new-customers",
-      label: templates.newCustomers(snapshot.new_customers),
+      label: formatCountTemplate(templates.newCustomers, snapshot.new_customers),
       count: snapshot.new_customers,
       href: "/platform/customers",
     },
     {
       id: "support-resolved",
-      label: templates.supportResolved(snapshot.support_resolved),
+      label: formatCountTemplate(templates.supportResolved, snapshot.support_resolved),
       count: snapshot.support_resolved,
       href: "/platform/support",
     },
     {
       id: "escalated",
-      label: templates.escalated(snapshot.escalated_cases),
+      label: formatCountTemplate(templates.escalated, snapshot.escalated_cases),
       count: snapshot.escalated_cases,
       href: "/platform/support",
     },
     {
       id: "installations",
-      label: templates.installationsCompleted(snapshot.new_installations),
+      label: formatCountTemplate(
+        templates.installationsCompleted,
+        snapshot.new_installations
+      ),
       count: snapshot.new_installations,
       href: "/platform/installations",
     },
     {
       id: "automations",
-      label: templates.automationsTriggered(snapshot.automations_triggered),
+      label: formatCountTemplate(
+        templates.automationsTriggered,
+        snapshot.automations_triggered
+      ),
       count: snapshot.automations_triggered,
       href: "/platform/automations",
     },
     {
       id: "recommendations",
-      label: templates.aiRecommendations(
+      label: formatCountTemplate(
+        templates.aiRecommendations,
         metrics?.ai_activity.ai_recommendations_generated ?? snapshot.new_ai_recommendations
       ),
       count: snapshot.new_ai_recommendations,
@@ -312,13 +319,13 @@ export function buildSinceLoginEvents(
     },
     {
       id: "incidents",
-      label: templates.systemIncidents(snapshot.system_incidents),
+      label: formatCountTemplate(templates.systemIncidents, snapshot.system_incidents),
       count: snapshot.system_incidents,
       href: "/platform/system",
     },
     {
       id: "revenue",
-      label: templates.revenueEvents(snapshot.revenue_events),
+      label: formatCountTemplate(templates.revenueEvents, snapshot.revenue_events),
       count: snapshot.revenue_events,
       href: "/platform/billing",
     },
