@@ -35,14 +35,6 @@ export default async function PlatformMetricsPage() {
           trendFlat: t("platform.metrics.executive.trendFlat"),
           last30Days: t("platform.metrics.executive.last30Days"),
         },
-        alerts: {
-          title: t("platform.metrics.alerts.title"),
-          trialsEnding: t("platform.metrics.alerts.trialsEnding"),
-          overdueInvoice: t("platform.metrics.alerts.overdueInvoice"),
-          failedSync: t("platform.metrics.alerts.failedSync"),
-          followUp: t("platform.metrics.alerts.followUp"),
-          none: t("platform.metrics.alerts.none"),
-        },
         revenueGrowth: {
           title: t("platform.metrics.revenueGrowth.title"),
           mrrChart: t("platform.metrics.revenueGrowth.mrrChart"),
@@ -87,11 +79,10 @@ export default async function PlatformMetricsPage() {
         },
         recommendations: {
           title: t("platform.metrics.recommendations.title"),
-          contactTrials: t("platform.metrics.recommendations.contactTrials"),
-          churnRisk: t("platform.metrics.recommendations.churnRisk"),
-          businessPlan: t("platform.metrics.recommendations.businessPlan"),
-          failedInstall: t("platform.metrics.recommendations.failedInstall"),
-          retentionStrong: t("platform.metrics.recommendations.retentionStrong"),
+          inactiveModules: t("platform.metrics.recommendations.inactiveModules"),
+          trialsExpiring: t("platform.metrics.recommendations.trialsExpiring"),
+          bestPlan: t("platform.metrics.recommendations.bestPlan"),
+          supportAiImpact: t("platform.metrics.recommendations.supportAiImpact"),
         },
       }}
     />

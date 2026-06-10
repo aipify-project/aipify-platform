@@ -136,46 +136,41 @@ export function buildAlerts(
 export function buildRecommendations(
   metrics: PlatformMetrics,
   templates: {
-    contactTrials: (count: number) => string;
-    churnRisk: (count: number) => string;
-    businessPlan: string;
-    failedInstall: (count: number) => string;
-    retentionStrong: (rate: number) => string;
+    inactiveModules: (count: number) => string;
+    trialsExpiring: (count: number) => string;
+    bestPlan: string;
+    supportAiImpact: (count: number) => string;
   }
 ): MetricRecommendation[] {
   const items: MetricRecommendation[] = [];
+  const inactiveCustomers = Math.max(
+    metrics.customers.total - metrics.customers.active - metrics.customers.trial,
+    0
+  );
 
-  if (metrics.customers.trial > 0) {
+  if (inactiveCustomers > 0) {
     items.push({
-      id: "contact-trials",
-      message: templates.contactTrials(metrics.customers.trial),
+      id: "inactive-modules",
+      message: templates.inactiveModules(inactiveCustomers),
     });
   }
 
-  const atRisk = metrics.customers.paused + metrics.customers.cancelled;
-  if (atRisk > 0) {
+  if (metrics.customers.trial > 0) {
     items.push({
-      id: "churn-risk",
-      message: templates.churnRisk(atRisk),
+      id: "trials-expiring",
+      message: templates.trialsExpiring(metrics.customers.trial),
     });
   }
 
   items.push({
-    id: "business-plan",
-    message: templates.businessPlan,
+    id: "best-plan",
+    message: templates.bestPlan,
   });
 
-  if (metrics.installations.failed > 0) {
+  if (metrics.ai_activity.support_requests_handled > 0) {
     items.push({
-      id: "failed-install",
-      message: templates.failedInstall(metrics.installations.failed),
-    });
-  }
-
-  if (metrics.growth.customer_retention_rate >= 80) {
-    items.push({
-      id: "retention",
-      message: templates.retentionStrong(metrics.growth.customer_retention_rate),
+      id: "support-ai-impact",
+      message: templates.supportAiImpact(metrics.ai_activity.support_requests_handled),
     });
   }
 

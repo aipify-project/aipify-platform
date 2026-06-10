@@ -314,6 +314,46 @@ export type CustomerOverviewSummary = {
   payment_provider: PaymentProvider | null;
 };
 
+export type PlatformInstallationIntegration = {
+  integration_key: string;
+  status: string;
+  last_synced_at: string | null;
+};
+
+export type PlatformInstallationRow = {
+  id: string;
+  customer_id: string;
+  customer_number: string;
+  customer_name: string;
+  customer_email: string;
+  site_url: string | null;
+  system_type: string;
+  status: string;
+  modules: string[];
+  integrations: PlatformInstallationIntegration[];
+  last_synced_at: string | null;
+  created_at: string;
+};
+
+export type PlatformSupportQueueRow = {
+  id: string;
+  customer_id: string;
+  customer_number: string;
+  customer_name: string;
+  customer_email: string;
+  subject: string;
+  category: string;
+  priority: string;
+  status: string;
+  assigned_agent: string | null;
+  ai_escalation_reason: string | null;
+  opened_at: string;
+  last_contact_at: string | null;
+  updated_at: string;
+};
+
+export type PlatformServiceStatus = "operational" | "degraded" | "outage" | "pending";
+
 export type CustomerMasterDetail = {
   customer: Customer;
   payment_profile: PaymentProfile | null;

@@ -66,3 +66,47 @@ export function subscriptionStatusLabels(t: Translator) {
     past_due: t("platform.status.subscription.past_due"),
   };
 }
+
+export function installationStatusLabels(t: Translator) {
+  return {
+    pending: t("platform.status.installation.pending"),
+    active: t("platform.status.installation.active"),
+    paused: t("platform.status.installation.paused"),
+    revoked: t("platform.status.installation.revoked"),
+  };
+}
+
+export function integrationStatusLabels(t: Translator) {
+  return {
+    connected: t("platform.status.integration.connected"),
+    pending: t("platform.status.integration.pending"),
+    error: t("platform.status.integration.error"),
+    disconnected: t("platform.status.integration.disconnected"),
+  };
+}
+
+export function supportCaseStatusLabels(t: Translator) {
+  return {
+    open: t("platform.status.supportCase.open"),
+    closed: t("platform.status.supportCase.closed"),
+    escalated: t("platform.status.supportCase.escalated"),
+  };
+}
+
+export function supportCategoryLabels(t: Translator) {
+  return {
+    general: t("platform.support.categoryLabels.general"),
+    onboarding: t("platform.support.categoryLabels.onboarding"),
+    billing: t("platform.support.categoryLabels.billing"),
+    technical: t("platform.support.categoryLabels.technical"),
+  };
+}
+
+export function supportPriorityLabels(t: Translator) {
+  return {
+    low: t("platform.support.priorityLabels.low"),
+    normal: t("platform.support.priorityLabels.normal"),
+    high: t("platform.support.priorityLabels.high"),
+    urgent: t("platform.support.priorityLabels.urgent"),
+  };
+}

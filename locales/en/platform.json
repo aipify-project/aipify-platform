@@ -86,6 +86,17 @@
       "active": "Active",
       "paused": "Paused",
       "revoked": "Revoked"
+    },
+    "integration": {
+      "connected": "Connected",
+      "pending": "Pending",
+      "error": "Error",
+      "disconnected": "Disconnected"
+    },
+    "supportCase": {
+      "open": "Open",
+      "closed": "Closed",
+      "escalated": "Escalated"
     }
   },
   "customers": {
@@ -109,7 +120,11 @@
     "users": "Users",
     "created": "Created",
     "actions": "Actions",
-    "view": "View",
+    "view": "Open customer",
+    "contact": "Contact customer",
+    "quickActive": "Active",
+    "quickPaused": "Paused",
+    "quickCancelled": "Cancelled",
     "days": "days"
   },
   "customerDetail": {
@@ -214,7 +229,7 @@
     "percent": "%",
     "none": "None yet",
     "executive": {
-      "title": "Executive Overview",
+      "title": "Executive Dashboard",
       "mrr": "MRR",
       "mrrSubtitle": "Monthly recurring revenue",
       "activeCustomers": "Active Customers",
@@ -238,7 +253,7 @@
       "none": "No alerts requiring attention right now."
     },
     "revenueGrowth": {
-      "title": "Revenue & Growth",
+      "title": "Revenue",
       "mrrChart": "MRR trend",
       "mrrChartHint": "Illustrative MRR progression (placeholder data)",
       "customerGrowth": "Customer growth",
@@ -255,9 +270,9 @@
       }
     },
     "customerInsights": {
-      "title": "Customer Insights",
+      "title": "Customer Health",
       "total": "Total",
-      "active": "Active",
+      "active": "Active customers",
       "trial": "Trial",
       "paused": "Paused",
       "cancelled": "Cancelled",
@@ -265,10 +280,10 @@
     },
     "operations": {
       "title": "Operations",
-      "supportHandled": "Support requests handled",
-      "automatedTasks": "Automated tasks completed",
-      "aiRecommendations": "AI recommendations generated",
-      "avgResponseTime": "Avg. assistant response time"
+      "supportHandled": "Support requests",
+      "automatedTasks": "Automated AI actions",
+      "aiRecommendations": "AI recommendations",
+      "avgResponseTime": "Average response time"
     },
     "installations": {
       "title": "Installations",
@@ -280,12 +295,90 @@
       "mostActiveValue": "Pilot tenant · 1 active installation"
     },
     "recommendations": {
-      "title": "Aipify Recommendations",
-      "contactTrials": "{count} trial customers should be contacted before trial ends.",
-      "churnRisk": "{count} customer accounts may be at risk of churn.",
-      "businessPlan": "Business plan shows the strongest conversion potential.",
-      "failedInstall": "{count} failed installation sync should be reviewed.",
-      "retentionStrong": "Customer retention is strong at {rate}%."
+      "title": "Executive Insights",
+      "inactiveModules": "{count} customers have not activated key modules yet.",
+      "trialsExpiring": "{count} trial periods are ending soon.",
+      "bestPlan": "Business plan is the strongest converting subscription.",
+      "supportAiImpact": "Aipify Support AI handled {count} requests this period."
+    }
+  },
+  "installations": {
+    "title": "Installations",
+    "subtitle": "Cross-tenant installations, sync health, and integration status.",
+    "loading": "Loading installations...",
+    "empty": "No installations yet.",
+    "customer": "Customer",
+    "domain": "Domain",
+    "status": "Status",
+    "modules": "Active modules",
+    "lastSynced": "Last synced",
+    "actions": "Actions",
+    "viewCustomer": "Open customer",
+    "detailTitle": "Installation details",
+    "integrations": "API integrations",
+    "webhooks": "Webhook status",
+    "errorLogs": "Error logs",
+    "syncHistory": "Sync history",
+    "noModules": "No modules enabled",
+    "noIntegrations": "No integrations connected",
+    "webhookOperational": "Webhooks are operational.",
+    "noErrors": "No recent errors recorded.",
+    "lastSyncEntry": "Last successful sync: {date}",
+    "never": "Never"
+  },
+  "support": {
+    "title": "Support",
+    "subtitle": "Internal support queue with AI escalation visibility.",
+    "loading": "Loading support queue...",
+    "empty": "No support cases yet.",
+    "customer": "Customer",
+    "category": "Category",
+    "priority": "Priority",
+    "assignee": "Assignee",
+    "lastUpdated": "Last updated",
+    "subject": "Subject",
+    "aiEscalation": "AI escalation",
+    "aiCouldNotResolve": "AI could not resolve the case",
+    "requiresHumanReview": "Requires human review",
+    "unassigned": "Unassigned",
+    "viewCustomer": "Open customer",
+    "categoryLabels": {
+      "general": "General",
+      "onboarding": "Onboarding",
+      "billing": "Billing",
+      "technical": "Technical"
+    },
+    "priorityLabels": {
+      "low": "Low",
+      "normal": "Normal",
+      "high": "High",
+      "urgent": "Urgent"
+    }
+  },
+  "system": {
+    "title": "System status",
+    "subtitle": "Core platform services and integration health.",
+    "loading": "Loading system status...",
+    "empty": "System status is not available yet.",
+    "operational": "Operational",
+    "degraded": "Degraded",
+    "outage": "Outage",
+    "pending": "Pending setup",
+    "services": {
+      "supabase": "Supabase",
+      "resend": "Resend",
+      "klarna": "Klarna",
+      "stripe": "Stripe",
+      "aipifyApi": "Aipify API",
+      "webhooks": "Webhooks"
+    },
+    "details": {
+      "supabase": "Database, auth, and storage are responding normally.",
+      "resend": "Transactional email delivery is healthy.",
+      "klarna": "Payment provider connection status across tenants.",
+      "stripe": "Card payment provider connection status across tenants.",
+      "aipifyApi": "Core API availability derived from platform health signals.",
+      "webhooks": "Installation webhook delivery and sync health."
     }
   },
   "masterDetail": {
@@ -360,25 +453,10 @@
     }
   },
   "sections": {
-    "installations": {
-      "title": "Installations",
-      "subtitle": "Cross-tenant view of all installations and sync health.",
-      "comingSoon": "Platform-wide installation management will be available in a future release."
-    },
     "stats": {
       "title": "Platform statistics",
       "subtitle": "Usage, growth, and health metrics across the platform.",
       "comingSoon": "Platform statistics will be available in a future release."
-    },
-    "support": {
-      "title": "Support",
-      "subtitle": "Internal support queue and customer escalations.",
-      "comingSoon": "Platform support tools will be available in a future release."
-    },
-    "system": {
-      "title": "System status",
-      "subtitle": "Core services, uptime, and incident visibility.",
-      "comingSoon": "System status dashboard will be available in a future release."
     }
   }
 }

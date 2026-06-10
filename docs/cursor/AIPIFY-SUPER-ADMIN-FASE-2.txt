@@ -1,0 +1,245 @@
+AIPIFY SUPER ADMIN – FASE 2
+=============================
+
+VIKTIG REGEL
+------------
+Fra nå av skal alle nye utviklingsfaser leveres som egne .txt-filer i:
+  docs/cursor/
+
+Slik at de kan sendes direkte til Cursor uten ekstra formatering.
+
+Arbeidsområde: /Users/veltrix/Documents/aipify
+Ikke referer til eller importer fra Unonight i kode eller kommentarer.
+
+Plattform Admin: /platform/*
+Customer Control Center: /dashboard/*
+
+
+FASE 2A – DRIFTSFUNDAMENT
+=========================
+
+1. INSTALLASJONER
+-----------------
+Mål:
+  Gjøre Aipify i stand til å overvåke alle kunders installasjoner.
+
+Oversikt (tabell):
+  - Kunde
+  - Domene
+  - Status
+  - Aktive moduler
+  - Sist synkronisert
+
+Detaljvisning (per installasjon):
+  - Installerte moduler
+  - API-integrasjoner
+  - Webhook-status
+  - Feillogger
+  - Synkroniseringshistorikk
+
+Prioritet: KRITISK
+
+Tekniske krav:
+  - RPC/API for plattformomfattende installasjonsliste (platform admin only)
+  - Detaljvisning skal bruke reelle data fra installations, installation_modules,
+    installation_integrations
+  - Feillogger og synkroniseringshistorikk: nye tabeller eller activity_logs
+    utvidelse hvis nødvendig
+  - Side: /platform/installations
+
+
+2. SYSTEM STATUS
+----------------
+Mål:
+  Gi Super Admin sanntidsoversikt over hele plattformens helse.
+
+Vis tjenester:
+  - Supabase
+  - Resend
+  - Stripe
+  - Klarna
+  - Vercel
+  - GitHub Actions
+  - Aipify API
+
+Statusfarger:
+  - Grønn  = OK
+  - Gul    = Advarsel
+  - Rød    = Kritisk feil
+
+Prioritet: KRITISK
+
+Tekniske krav:
+  - Side: /platform/system
+  - Helse kan hentes fra eksisterende metrics + payment provider status
+  - Vercel og GitHub Actions: placeholder eller faktisk health check (API/env)
+  - Ingen overbygging – start med kortbasert oversikt, utvid senere
+
+
+FASE 2B – OPERASJONER
+=====================
+
+3. SUPPORT QUEUE
+----------------
+Mål:
+  Samle alle supporthenvendelser på ett sted.
+
+Vis:
+  - Kunde
+  - Prioritet
+  - Kategori
+  - Status
+  - Ansvarlig
+
+AI skal:
+  - Analysere saken
+  - Foreslå løsning
+  - Eskalere ved behov
+
+Prioritet: HØY
+
+Tekniske krav:
+  - Utvid support_cases (category, priority, ai_escalation_reason)
+  - RPC: list_platform_support_queue
+  - Side: /platform/support
+  - AI-analyse/løsningsforslag: UI-plassholder eller enkel visning først;
+    full AI-integrasjon i senere delfase
+
+
+4. VARSLINGSSENTER
+------------------
+Mål:
+  Gi Super Admin oversikt over hendelser som krever oppfølging.
+
+Eksempler på varsler:
+  - Trial utløper snart
+  - Support AI feilet
+  - Faktura forfalt
+  - Installasjon mistet kontakt
+
+Prioritet: HØY
+
+Tekniske krav:
+  - Ny side eller seksjon: /platform/alerts (eller integrert i /platform)
+  - Bygg på get_platform_metrics + buildAlerts-mønster
+  - Kortbasert, ikke overfylt dashboard
+  - Varsler skal kunne filtreres: kritisk / advarsel / info
+
+
+FASE 2C – AI LEDELSE
+====================
+
+5. EXECUTIVE AI DASHBOARD
+-------------------------
+Mål:
+  La Aipify AI gi innsikt til ledelsen.
+
+Eksempler:
+  - Trials som snart utløper
+  - Moduler som ikke er aktivert
+  - Abonnement med best konvertering
+  - Effekten av Support AI
+
+Prioritet: MIDDELS
+
+Tekniske krav:
+  - Utvid /platform/metrics med seksjon «Executive Insights»
+  - Kortbasert design – behold eksisterende hierarki
+  - Innsikt fra get_platform_metrics + usage_statistics
+
+
+6. KUNDEHANDLINGER
+------------------
+Mål:
+  La Super Admin utføre handlinger direkte fra plattformen.
+
+Handlinger:
+  - Pause abonnement
+  - Forleng trial
+  - Oppgrader abonnement
+  - Opprett supportsak
+  - Send e-post
+  - Deaktiver kunde
+
+Krav:
+  - Alle handlinger skal logges (se Audit Log)
+
+Prioritet: MIDDELS
+
+Tekniske krav:
+  - Handlingsknapper på /platform/customers og /platform/customers/[id]
+  - Server actions eller /api/platform/customers/[id]/actions
+  - Bekreftelsesdialog for destruktive handlinger
+  - Ingen ekte betalingsintegrasjon utover eksisterende placeholder-flyt
+
+
+7. AUDIT LOG
+------------
+Mål:
+  Sikre full sporbarhet.
+
+Loggfør:
+  - Admin-handlinger
+  - AI-handlinger
+  - Kundeendringer
+  - Kritiske systemhendelser
+
+Prioritet: MIDDELS
+
+Tekniske krav:
+  - Utvid activity_logs eller ny platform_audit_log-tabell
+  - RPC: list_platform_audit_log (filtrerbar)
+  - Side: /platform/audit eller fane under System
+  - Vis: tidspunkt, aktør, handling, kunde, detaljer
+
+
+DESIGNPRINSIPPER (gjelder hele Fase 2)
+======================================
+  - Lys grå bakgrunn
+  - Lilla aksentfarge (indigo/violet – premium SaaS)
+  - Kortbasert layout – unngå én lang side med store grafer
+  - Super Admin er IKKE Customer Control Center – ikke bland UX
+  - 10-sekunders test: forståelig for ikke-teknisk leder
+  - Ikke utvid sidebar unødvendig
+
+
+IMPLEMENTERINGSREKKEFØLGE
+==========================
+  1. Fase 2A.1 – Installasjoner (kritisk)
+  2. Fase 2A.2 – System Status (kritisk)
+  3. Fase 2B.3 – Support Queue (høy)
+  4. Fase 2B.4 – Varslingssenter (høy)
+  5. Fase 2C.5 – Executive AI Dashboard (middels)
+  6. Fase 2C.6 – Kundehandlinger (middels)
+  7. Fase 2C.7 – Audit Log (middels)
+
+
+STATUS VED OPPSTART AV FASE 2 (referanse)
+=========================================
+Delvis på plass fra tidligere arbeid:
+  [~] Installasjoner – tabell + enkel detaljvisning (/platform/installations)
+  [~] System Status – 6 tjenester, mangler Vercel og GitHub Actions
+  [~] Support Queue – tabell med AI-eskaleringsvisning
+  [~] Executive Insights – seksjon under /platform/metrics
+  [~] Customers – filtre, trial-dager, åpne/kontakt kunde
+
+Ikke startet:
+  [ ] Varslingssenter (egen side/seksjon)
+  [ ] Kundehandlinger med logging
+  [ ] Audit Log
+  [ ] Reelle feillogger og synkroniseringshistorikk per installasjon
+  [ ] AI analyse/løsningsforslag i Support Queue
+
+
+KONKLUSJON
+==========
+Når Fase 2 er fullført skal Aipify ha:
+  - Installasjonskontroll
+  - Driftsovervåkning
+  - AI-støttet support
+  - Varslingssystem
+  - Kundeadministrasjon
+  - Ledelsesinnsikt
+  - Full revisjonssporing
+
+Dette er neste steg mot en komplett SaaS-plattform.

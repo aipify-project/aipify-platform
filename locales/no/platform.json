@@ -86,6 +86,17 @@
       "active": "Active",
       "paused": "Paused",
       "revoked": "Revoked"
+    },
+    "integration": {
+      "connected": "Tilkoblet",
+      "pending": "Venter",
+      "error": "Feil",
+      "disconnected": "Frakoblet"
+    },
+    "supportCase": {
+      "open": "Åpen",
+      "closed": "Lukket",
+      "escalated": "Eskalert"
     }
   },
   "customers": {
@@ -109,8 +120,12 @@
     "users": "Users",
     "created": "Created",
     "actions": "Actions",
-    "view": "View",
-    "days": "days"
+    "view": "Åpne kunde",
+    "contact": "Kontakt kunde",
+    "quickActive": "Aktiv",
+    "quickPaused": "Pauset",
+    "quickCancelled": "Kansellert",
+    "days": "dager"
   },
   "customerDetail": {
     "back": "Back to customers",
@@ -280,12 +295,90 @@
       "mostActiveValue": "Pilot tenant · 1 active installation"
     },
     "recommendations": {
-      "title": "Aipify Recommendations",
-      "contactTrials": "{count} trial customers should be contacted before trial ends.",
-      "churnRisk": "{count} customer accounts may be at risk of churn.",
-      "businessPlan": "Business plan shows the strongest conversion potential.",
-      "failedInstall": "{count} failed installation sync should be reviewed.",
-      "retentionStrong": "Customer retention is strong at {rate}%."
+      "title": "Executive Insights",
+      "inactiveModules": "{count} kunder har ikke aktivert viktige moduler ennå.",
+      "trialsExpiring": "{count} prøveperioder utløper snart.",
+      "bestPlan": "Business-abonnementet konverterer best.",
+      "supportAiImpact": "Aipify Support AI håndterte {count} henvendelser i perioden."
+    }
+  },
+  "installations": {
+    "title": "Installasjoner",
+    "subtitle": "Installasjoner på tvers av kunder, synk-status og integrasjoner.",
+    "loading": "Laster installasjoner...",
+    "empty": "Ingen installasjoner ennå.",
+    "customer": "Kunde",
+    "domain": "Domene",
+    "status": "Status",
+    "modules": "Aktive moduler",
+    "lastSynced": "Sist synkronisert",
+    "actions": "Handlinger",
+    "viewCustomer": "Åpne kunde",
+    "detailTitle": "Installasjonsdetaljer",
+    "integrations": "API-integrasjoner",
+    "webhooks": "Webhook-status",
+    "errorLogs": "Feillogger",
+    "syncHistory": "Synkroniseringshistorikk",
+    "noModules": "Ingen moduler aktivert",
+    "noIntegrations": "Ingen integrasjoner tilkoblet",
+    "webhookOperational": "Webhooks fungerer normalt.",
+    "noErrors": "Ingen nylige feil registrert.",
+    "lastSyncEntry": "Siste vellykkede synk: {date}",
+    "never": "Aldri"
+  },
+  "support": {
+    "title": "Support",
+    "subtitle": "Intern supportkø med AI-eskaleringsstatus.",
+    "loading": "Laster supportkø...",
+    "empty": "Ingen supportsaker ennå.",
+    "customer": "Kunde",
+    "category": "Kategori",
+    "priority": "Prioritet",
+    "assignee": "Ansvarlig",
+    "lastUpdated": "Sist oppdatert",
+    "subject": "Emne",
+    "aiEscalation": "AI-eskalerings",
+    "aiCouldNotResolve": "AI kunne ikke løse saken",
+    "requiresHumanReview": "Krever menneskelig vurdering",
+    "unassigned": "Ikke tildelt",
+    "viewCustomer": "Åpne kunde",
+    "categoryLabels": {
+      "general": "Generelt",
+      "onboarding": "Onboarding",
+      "billing": "Fakturering",
+      "technical": "Teknisk"
+    },
+    "priorityLabels": {
+      "low": "Lav",
+      "normal": "Normal",
+      "high": "Høy",
+      "urgent": "Haster"
+    }
+  },
+  "system": {
+    "title": "Systemstatus",
+    "subtitle": "Kjernetjenester og integrasjonshelse.",
+    "loading": "Laster systemstatus...",
+    "empty": "Systemstatus er ikke tilgjengelig ennå.",
+    "operational": "Operativ",
+    "degraded": "Degradert",
+    "outage": "Nede",
+    "pending": "Venter oppsett",
+    "services": {
+      "supabase": "Supabase",
+      "resend": "Resend",
+      "klarna": "Klarna",
+      "stripe": "Stripe",
+      "aipifyApi": "Aipify API",
+      "webhooks": "Webhooks"
+    },
+    "details": {
+      "supabase": "Database, auth og lagring svarer normalt.",
+      "resend": "E-postlevering fungerer som forventet.",
+      "klarna": "Betalingsleverandør-status på tvers av kunder.",
+      "stripe": "Kortbetaling-status på tvers av kunder.",
+      "aipifyApi": "API-tilgjengelighet basert på plattformhelse.",
+      "webhooks": "Webhook-levering og synk-helse for installasjoner."
     }
   },
   "masterDetail": {
@@ -360,11 +453,6 @@
     }
   },
   "sections": {
-    "installations": {
-      "title": "Installations",
-      "subtitle": "Cross-tenant view of all installations and sync health.",
-      "comingSoon": "Platform-wide installation management will be available in a future release."
-    },
     "stats": {
       "title": "Platform statistics",
       "subtitle": "Usage, growth, and health metrics across the platform.",

@@ -4,13 +4,11 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { AipifyEmptyState } from "@/components/branding";
 import {
   MetricsBarChart,
-  MetricsDonutChart,
   MetricsLineChart,
   MetricsSparkline,
 } from "@/components/platform/metrics/MetricsCharts";
 import { createClient } from "@/lib/supabase/client";
 import {
-  buildAlerts,
   buildCustomerGrowthSeries,
   buildMrrTrendSeries,
   buildRecommendations,
@@ -49,14 +47,6 @@ type PlatformMetricsPanelProps = {
       trendFlat: string;
       last30Days: string;
     };
-    alerts: {
-      title: string;
-      trialsEnding: string;
-      overdueInvoice: string;
-      failedSync: string;
-      followUp: string;
-      none: string;
-    };
     revenueGrowth: {
       title: string;
       mrrChart: string;
@@ -94,11 +84,10 @@ type PlatformMetricsPanelProps = {
     };
     recommendations: {
       title: string;
-      contactTrials: string;
-      churnRisk: string;
-      businessPlan: string;
-      failedInstall: string;
-      retentionStrong: string;
+      inactiveModules: string;
+      trialsExpiring: string;
+      bestPlan: string;
+      supportAiImpact: string;
     };
   };
 };
@@ -145,27 +134,6 @@ function SectionHeading({
   );
 }
 
-function AlertTone({
-  tone,
-  children,
-}: {
-  tone: "info" | "warning" | "critical";
-  children: ReactNode;
-}) {
-  const toneClass =
-    tone === "critical"
-      ? "border-rose-100 bg-rose-50/70 text-rose-900"
-      : tone === "warning"
-        ? "border-amber-100 bg-amber-50/80 text-amber-900"
-        : "border-blue-100 bg-blue-50/70 text-blue-900";
-
-  return (
-    <li className={`rounded-xl border px-4 py-3 text-sm leading-relaxed ${toneClass}`}>
-      {children}
-    </li>
-  );
-}
-
 export default function PlatformMetricsPanel({ labels }: PlatformMetricsPanelProps) {
   const [metrics, setMetrics] = useState<PlatformMetrics | null>(null);
   const [loading, setLoading] = useState(true);
@@ -208,24 +176,14 @@ export default function PlatformMetricsPanel({ labels }: PlatformMetricsPanelPro
         metrics.growth.new_customers_30d,
         metrics.customers.total
       ),
-      alerts: buildAlerts(metrics, {
-        trialsEnding: (count) => labels.alerts.trialsEnding.replace("{count}", String(count)),
-        overdueInvoice: (count) =>
-          labels.alerts.overdueInvoice.replace("{count}", String(count)),
-        failedSync: (count) => labels.alerts.failedSync.replace("{count}", String(count)),
-        followUp: (count) => labels.alerts.followUp.replace("{count}", String(count)),
-        none: labels.alerts.none,
-      }),
       recommendations: buildRecommendations(metrics, {
-        contactTrials: (count) =>
-          labels.recommendations.contactTrials.replace("{count}", String(count)),
-        churnRisk: (count) =>
-          labels.recommendations.churnRisk.replace("{count}", String(count)),
-        businessPlan: labels.recommendations.businessPlan,
-        failedInstall: (count) =>
-          labels.recommendations.failedInstall.replace("{count}", String(count)),
-        retentionStrong: (rate) =>
-          labels.recommendations.retentionStrong.replace("{rate}", String(rate)),
+        inactiveModules: (count) =>
+          labels.recommendations.inactiveModules.replace("{count}", String(count)),
+        trialsExpiring: (count) =>
+          labels.recommendations.trialsExpiring.replace("{count}", String(count)),
+        bestPlan: labels.recommendations.bestPlan,
+        supportAiImpact: (count) =>
+          labels.recommendations.supportAiImpact.replace("{count}", String(count)),
       }),
     };
   }, [labels, metrics]);
@@ -246,7 +204,6 @@ export default function PlatformMetricsPanel({ labels }: PlatformMetricsPanelPro
         : labels.executive.healthAttention;
 
   const customerStatuses = [
-    { key: "total", value: metrics.customers.total, label: labels.customerInsights.total },
     { key: "active", value: metrics.customers.active, label: labels.customerInsights.active },
     { key: "trial", value: metrics.customers.trial, label: labels.customerInsights.trial },
     { key: "paused", value: metrics.customers.paused, label: labels.customerInsights.paused },
@@ -255,7 +212,6 @@ export default function PlatformMetricsPanel({ labels }: PlatformMetricsPanelPro
       value: metrics.customers.cancelled,
       label: labels.customerInsights.cancelled,
     },
-    { key: "overdue", value: metrics.customers.overdue, label: labels.customerInsights.overdue },
   ];
 
   const growthBars = labels.revenueGrowth.monthLabels.map((label, index) => ({
@@ -343,17 +299,6 @@ export default function PlatformMetricsPanel({ labels }: PlatformMetricsPanelPro
         </div>
       </section>
 
-      <section aria-labelledby="metrics-alerts">
-        <SectionHeading id="metrics-alerts" title={labels.alerts.title} />
-        <ul className="grid gap-3 md:grid-cols-2">
-          {dashboard.alerts.map((alert) => (
-            <AlertTone key={alert.id} tone={alert.tone}>
-              {alert.message}
-            </AlertTone>
-          ))}
-        </ul>
-      </section>
-
       <section aria-labelledby="metrics-revenue">
         <SectionHeading id="metrics-revenue" title={labels.revenueGrowth.title} />
         <div className="grid gap-4 lg:grid-cols-2">
@@ -379,30 +324,13 @@ export default function PlatformMetricsPanel({ labels }: PlatformMetricsPanelPro
             </div>
           </article>
 
-          <article className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm lg:col-span-2">
-            <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h3 className="text-base font-semibold text-gray-900">
-                  {labels.revenueGrowth.trialConversion}
-                </h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  {labels.revenueGrowth.trialConversionHint}
-                </p>
-              </div>
-              <MetricsDonutChart
-                value={metrics.revenue.trial_to_paid_conversion_rate}
-                label={labels.revenueGrowth.trialConversion}
-                ariaLabel={labels.revenueGrowth.trialConversion}
-              />
-            </div>
-          </article>
         </div>
       </section>
 
       <section aria-labelledby="metrics-customers">
         <SectionHeading id="metrics-customers" title={labels.customerInsights.title} />
         <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             {customerStatuses.map((item) => (
               <div
                 key={item.key}

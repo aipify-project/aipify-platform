@@ -31,6 +31,10 @@ type CustomersTableProps = {
     created: string;
     actions: string;
     view: string;
+    contact: string;
+    quickActive: string;
+    quickPaused: string;
+    quickCancelled: string;
     days: string;
     statusLabels: Record<string, string>;
     typeLabels: Record<string, string>;
@@ -104,6 +108,30 @@ export default function CustomersTable({ locale, labels }: CustomersTableProps) 
           {labels.title}
         </h1>
         <p className="mt-2 text-base text-gray-500">{labels.subtitle}</p>
+      </div>
+
+      <div className="mb-4 flex flex-wrap gap-2">
+        {(
+          [
+            { value: "all", label: labels.filterAll },
+            { value: "active", label: labels.quickActive },
+            { value: "paused", label: labels.quickPaused },
+            { value: "cancelled", label: labels.quickCancelled },
+          ] as const
+        ).map((option) => (
+          <button
+            key={option.value}
+            type="button"
+            onClick={() => setStatusFilter(option.value)}
+            className={`rounded-full px-3 py-1.5 text-sm font-medium transition ${
+              statusFilter === option.value
+                ? "bg-violet-600 text-white shadow-sm"
+                : "bg-white text-gray-600 ring-1 ring-gray-200 hover:bg-gray-50"
+            }`}
+          >
+            {option.label}
+          </button>
+        ))}
       </div>
 
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -227,12 +255,20 @@ export default function CustomersTable({ locale, labels }: CustomersTableProps) 
                       {formatDate(customer.created_at, locale)}
                     </td>
                     <td className="px-4 py-4 text-right">
-                      <Link
-                        href={`/platform/customers/${customer.id}`}
-                        className="text-sm font-semibold text-violet-600 hover:text-violet-700"
-                      >
-                        {labels.view}
-                      </Link>
+                      <div className="flex flex-col items-end gap-1">
+                        <Link
+                          href={`/platform/customers/${customer.id}`}
+                          className="text-sm font-semibold text-violet-600 hover:text-violet-700"
+                        >
+                          {labels.view}
+                        </Link>
+                        <a
+                          href={`mailto:${customer.email}`}
+                          className="text-sm font-medium text-gray-500 hover:text-gray-700"
+                        >
+                          {labels.contact}
+                        </a>
+                      </div>
                     </td>
                   </tr>
                 ))}
