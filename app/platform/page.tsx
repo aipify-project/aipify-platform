@@ -94,6 +94,10 @@ export default async function PlatformOverviewPage() {
           healingSuccessRate: t("platform.overview.brain.healingSuccessRate"),
           learningConfidence: t("platform.overview.brain.learningConfidence"),
           automationCoverage: t("platform.overview.brain.automationCoverage"),
+          pulseLabel: t("platform.overview.brain.pulseLabel"),
+          confidenceHigh: t("platform.overview.brain.confidenceHigh"),
+          confidenceMedium: t("platform.overview.brain.confidenceMedium"),
+          confidenceLow: t("platform.overview.brain.confidenceLow"),
         },
         intelligenceRecommendations: {
           title: t("platform.overview.intelligenceRecommendations.title"),

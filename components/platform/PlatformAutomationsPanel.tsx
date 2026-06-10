@@ -183,7 +183,14 @@ export default function PlatformAutomationsPanel({
                         {categoryAutomations.map((automation) => (
                           <tr key={automation.id}>
                             <td className="px-4 py-4">
-                              <p className="font-semibold text-gray-900">{automation.name}</p>
+                              <div className="flex flex-wrap items-center gap-2">
+                                <p className="font-semibold text-gray-900">{automation.name}</p>
+                                <span
+                                  className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ring-1 ring-inset ${getAutomationCategoryStyle(categoryKey)}`}
+                                >
+                                  {labels.categories[categoryKey]}
+                                </span>
+                              </div>
                               {automation.description && (
                                 <p className="mt-1 text-xs text-gray-500">{automation.description}</p>
                               )}

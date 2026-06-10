@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { formatDateTime } from "@/lib/i18n/format-date";
+import IntelligencePresenceStrip from "@/components/platform/IntelligencePresenceStrip";
 import { createClient } from "@/lib/supabase/client";
 import {
+  getHealingStrategySuccessRate,
   parseSelfHealingDashboard,
   type SelfHealingDashboard,
 } from "@/lib/platform/intelligence-engine";
@@ -15,6 +17,29 @@ type PlatformSelfHealingPanelProps = {
     title: string;
     subtitle: string;
     loading: string;
+    pulseLabel: string;
+    presence: {
+      title: string;
+      currentState: string;
+      activeSignals: string;
+      healingToday: string;
+      pendingReviews: string;
+      systemConfidence: string;
+      currentAction: string;
+      estimatedCompletion: string;
+      riskLevel: string;
+      approvalRequired: string;
+      lastResult: string;
+      yes: string;
+      no: string;
+      confidenceHigh: string;
+      confidenceMedium: string;
+      confidenceLow: string;
+      seconds: string;
+      learningEventsDetected: string;
+      recommendationsAwaiting: string;
+      completedToday: string;
+    };
     metrics: {
       attempts: string;
       successful: string;
@@ -28,6 +53,11 @@ type PlatformSelfHealingPanelProps = {
       title: string;
       autoExecute: string;
       manualApproval: string;
+      locked: string;
+      lastExecuted: string;
+      successRate: string;
+      failureCount: string;
+      avgResolution: string;
       empty: string;
     };
     recentRuns: {
@@ -44,6 +74,7 @@ type PlatformSelfHealingPanelProps = {
 };
 
 const EMPTY: SelfHealingDashboard = {
+  live_presence: null,
   totals: { attempts: 0, successful: 0, failed: 0, escalated: 0, avg_resolution_ms: 0 },
   strategies: [],
   recent_runs: [],
@@ -90,6 +121,15 @@ export default function PlatformSelfHealingPanel({
         <p className="mt-2 text-sm text-gray-600">{labels.subtitle}</p>
       </div>
 
+      {dashboard.live_presence ? (
+        <IntelligencePresenceStrip
+          title={labels.presence.title}
+          variant="selfHealing"
+          presence={dashboard.live_presence}
+          labels={{ ...labels.presence, pulseLabel: labels.pulseLabel }}
+        />
+      ) : null}
+
       <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Metric label={labels.metrics.attempts} value={String(totals.attempts)} />
         <Metric label={labels.metrics.successful} value={String(totals.successful)} />
@@ -109,34 +149,66 @@ export default function PlatformSelfHealingPanel({
           <p className="mt-3 text-sm text-gray-500">{labels.strategies.empty}</p>
         ) : (
           <ul className="mt-4 space-y-3">
-            {dashboard.strategies.map((strategy) => (
-              <li
-                key={strategy.id}
-                className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-gray-50 px-4 py-3"
-              >
-                <div>
-                  <p className="font-medium text-gray-900">{strategy.title}</p>
-                  {strategy.description && (
-                    <p className="mt-1 text-xs text-gray-500">{strategy.description}</p>
-                  )}
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <span
-                    className={`rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ring-inset ${getRiskLevelStyle(
-                      strategy.risk_level as "low" | "medium" | "high" | "critical"
-                    )}`}
-                  >
-                    {labels.riskLevels[strategy.risk_level as keyof typeof labels.riskLevels] ??
-                      strategy.risk_level}
-                  </span>
-                  <span className="rounded-full bg-white px-2 py-0.5 text-xs font-semibold text-gray-700">
-                    {strategy.auto_execute
-                      ? labels.strategies.autoExecute
-                      : labels.strategies.manualApproval}
-                  </span>
-                </div>
-              </li>
-            ))}
+            {dashboard.strategies.map((strategy) => {
+              const isCritical = strategy.risk_level === "critical";
+              const successRate = getHealingStrategySuccessRate(strategy);
+              return (
+                <li
+                  key={strategy.id}
+                  className="rounded-xl border border-gray-100 bg-gray-50 px-4 py-4"
+                >
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium text-gray-900">{strategy.title}</p>
+                      {strategy.description && (
+                        <p className="mt-1 text-xs text-gray-500">{strategy.description}</p>
+                      )}
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ring-inset ${getRiskLevelStyle(
+                          strategy.risk_level as "low" | "medium" | "high" | "critical"
+                        )}`}
+                      >
+                        {labels.riskLevels[strategy.risk_level as keyof typeof labels.riskLevels] ??
+                          strategy.risk_level}
+                      </span>
+                      <span className="rounded-full bg-white px-2 py-0.5 text-xs font-semibold text-gray-700 ring-1 ring-inset ring-gray-100">
+                        {isCritical
+                          ? labels.strategies.locked
+                          : strategy.auto_execute
+                            ? labels.strategies.autoExecute
+                            : labels.strategies.manualApproval}
+                      </span>
+                    </div>
+                  </div>
+                  <dl className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-2 lg:grid-cols-4">
+                    <div>
+                      <dt>{labels.strategies.lastExecuted}</dt>
+                      <dd className="font-semibold text-gray-900">
+                        {strategy.last_executed_at
+                          ? formatDateTime(strategy.last_executed_at, locale)
+                          : "—"}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>{labels.strategies.successRate}</dt>
+                      <dd className="font-semibold text-gray-900">{successRate}%</dd>
+                    </div>
+                    <div>
+                      <dt>{labels.strategies.failureCount}</dt>
+                      <dd className="font-semibold text-gray-900">{strategy.failure_count}</dd>
+                    </div>
+                    <div>
+                      <dt>{labels.strategies.avgResolution}</dt>
+                      <dd className="font-semibold text-gray-900">
+                        {strategy.avg_resolution_ms ?? 0} ms
+                      </dd>
+                    </div>
+                  </dl>
+                </li>
+              );
+            })}
           </ul>
         )}
       </section>

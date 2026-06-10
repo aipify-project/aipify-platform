@@ -113,7 +113,11 @@
       "awaitingReview": "Awaiting review",
       "healingSuccessRate": "Self-healing success",
       "learningConfidence": "Learning confidence",
-      "automationCoverage": "Automation coverage"
+      "automationCoverage": "Automation coverage",
+      "pulseLabel": "Aipify intelligence active",
+      "confidenceHigh": "High",
+      "confidenceMedium": "Medium",
+      "confidenceLow": "Low"
     },
     "intelligenceRecommendations": {
       "title": "Intelligence Recommendations",
@@ -986,6 +990,29 @@
       "settings": "Intelligence Settings",
       "auditLog": "Audit Log"
     },
+    "presence": {
+      "title": "Aipify Presence",
+      "selfHealingTitle": "Aipify Self-Healing Status",
+      "currentState": "Current state",
+      "activeSignals": "Active signals",
+      "healingToday": "Self-healing today",
+      "pendingReviews": "Pending reviews",
+      "systemConfidence": "System confidence",
+      "currentAction": "Current action",
+      "estimatedCompletion": "Estimated completion",
+      "riskLevel": "Risk level",
+      "approvalRequired": "Approval required",
+      "lastResult": "Last result",
+      "yes": "Yes",
+      "no": "No",
+      "seconds": "seconds",
+      "confidenceHigh": "High",
+      "confidenceMedium": "Medium",
+      "confidenceLow": "Low",
+      "learningEventsDetected": "{count} learning events detected",
+      "recommendationsAwaiting": "{count} recommendation awaiting review",
+      "completedToday": "{count} completed"
+    },
     "brain": {
       "title": "Aipify Brain",
       "subtitle": "The intelligence layer that observes, learns, and recommends improvements across all environments.",
@@ -1020,9 +1047,12 @@
       "status": "Status",
       "firstDetected": "First detected",
       "lastDetected": "Last detected",
-      "approve": "Approve",
+      "approveGlobal": "Approve globally",
+      "keepInternal": "Keep internal",
+      "needsMoreEvidence": "Needs more evidence",
       "reject": "Reject",
-      "requestMoreData": "Request more data",
+      "reviewReason": "Review reason",
+      "reviewReasonPlaceholder": "Brief explanation for this decision (stored in audit log)",
       "reviewing": "Reviewing...",
       "totals": {
         "pending": "Pending review",
@@ -1040,7 +1070,14 @@
       "detections": "Detections",
       "suggestedAction": "Suggested action",
       "sourceEnvironment": "Source environment",
-      "approvedAt": "Approved"
+      "approvedAt": "Approved",
+      "approvedBy": "Approved by",
+      "detectedAcross": "Detected across",
+      "potentialImpact": "Potential impact",
+      "estimatedBenefit": "Estimated benefit",
+      "supportReduction": "Support reduction",
+      "failurePrevention": "Failure prevention",
+      "onboardingImprovement": "Onboarding improvement"
     },
     "selfHealing": {
       "title": "Self-Healing Engine",
@@ -1059,6 +1096,11 @@
         "title": "Healing strategies",
         "autoExecute": "Auto-execute",
         "manualApproval": "Requires approval",
+        "locked": "Locked — never auto-executes",
+        "lastExecuted": "Last executed",
+        "successRate": "Success rate",
+        "failureCount": "Failure count",
+        "avgResolution": "Avg. resolution time",
         "empty": "No healing strategies configured."
       },
       "recentRuns": {
@@ -1098,6 +1140,10 @@
         "title": "Tenant isolation model",
         "description": "Internal patterns stay internal. Pilot patterns stay with Unonight. Customer patterns remain customer-specific. Only approved global patterns are shared ecosystem-wide."
       },
+      "publicTrust": {
+        "title": "How Aipify learns safely",
+        "description": "Aipify learns from operational metadata, not private customer content. Conversations, invoices, identities, uploaded files, and payment details are never used for shared learning. Only approved and anonymised operational patterns may improve the global Aipify system."
+      },
       "privacy": {
         "title": "Privacy principles",
         "neverLearn": "Aipify never learns from",
@@ -1131,7 +1177,36 @@
       "pattern": "Pattern",
       "reviewer": "Reviewer",
       "notes": "Notes",
-      "timestamp": "Timestamp"
+      "timestamp": "Timestamp",
+      "explanation": "Why did this happen?",
+      "filters": {
+        "title": "Filter audit log",
+        "eventType": "Event type",
+        "environment": "Environment",
+        "action": "Action",
+        "reviewer": "Reviewer",
+        "riskLevel": "Risk level",
+        "dateFrom": "From date",
+        "dateTo": "To date",
+        "apply": "Apply filters",
+        "clear": "Clear",
+        "all": "All"
+      },
+      "eventTypes": {
+        "learning_event": "Learning event",
+        "pattern_review": "Pattern review",
+        "self_healing_run": "Self-healing run",
+        "recommendation": "Recommendation",
+        "approval": "Approval",
+        "rejection": "Rejection",
+        "system_event": "System event"
+      },
+      "riskLevels": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "critical": "Critical"
+      }
     }
   },
   "sections": {

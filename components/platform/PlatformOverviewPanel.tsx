@@ -66,6 +66,10 @@ type PlatformOverviewPanelProps = {
       healingSuccessRate: string;
       learningConfidence: string;
       automationCoverage: string;
+      pulseLabel: string;
+      confidenceHigh: string;
+      confidenceMedium: string;
+      confidenceLow: string;
     };
     intelligenceRecommendations: {
       title: string;

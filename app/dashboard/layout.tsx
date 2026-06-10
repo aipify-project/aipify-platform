@@ -54,6 +54,7 @@ export default async function DashboardLayout({
             pulseLabel: t("branding.pulseLabel"),
           }}
           presenceLabels={buildPresenceLabels(t)}
+          locale={locale}
         >
           {children}
         </DashboardShell>

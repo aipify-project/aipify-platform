@@ -8,6 +8,7 @@ import {
   parseLearningQueue,
   type IntelligencePattern,
   type LearningQueue,
+  type ReviewAction,
 } from "@/lib/platform/intelligence-engine";
 import { getEnvironmentStyle } from "@/lib/platform/self-learning";
 
@@ -27,9 +28,12 @@ type PlatformLearningQueuePanelProps = {
     status: string;
     firstDetected: string;
     lastDetected: string;
-    approve: string;
+    approveGlobal: string;
+    keepInternal: string;
+    needsMoreEvidence: string;
     reject: string;
-    requestMoreData: string;
+    reviewReason: string;
+    reviewReasonPlaceholder: string;
     reviewing: string;
     totals: {
       pending: string;
@@ -60,16 +64,13 @@ export default function PlatformLearningQueuePanel({
     void load();
   }, [load]);
 
-  async function reviewPattern(
-    patternId: string,
-    action: "approve" | "reject" | "request_more_data"
-  ) {
+  async function reviewPattern(patternId: string, action: ReviewAction, notes: string) {
     setReviewingId(patternId);
     try {
       const response = await fetch(`/api/platform/intelligence/patterns/${patternId}/review`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action }),
+        body: JSON.stringify({ action, notes: notes.trim() || undefined }),
       });
       if (response.ok) await load();
     } finally {
@@ -125,8 +126,10 @@ function PatternCard({
   locale: string;
   labels: PlatformLearningQueuePanelProps["labels"];
   reviewing: boolean;
-  onReview: (id: string, action: "approve" | "reject" | "request_more_data") => void;
+  onReview: (id: string, action: ReviewAction, notes: string) => void;
 }) {
+  const [reason, setReason] = useState("");
+
   return (
     <article className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -169,30 +172,52 @@ function PatternCard({
         {formatDateTime(pattern.last_detected, locale)}
       </p>
 
+      <div className="mt-4">
+        <label htmlFor={`reason-${pattern.id}`} className="text-xs font-semibold text-gray-600">
+          {labels.reviewReason}
+        </label>
+        <textarea
+          id={`reason-${pattern.id}`}
+          value={reason}
+          onChange={(e) => setReason(e.target.value)}
+          placeholder={labels.reviewReasonPlaceholder}
+          rows={2}
+          className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-violet-300 focus:outline-none focus:ring-2 focus:ring-violet-100"
+        />
+      </div>
+
       <div className="mt-4 flex flex-wrap gap-2">
         <button
           type="button"
           disabled={reviewing}
-          onClick={() => onReview(pattern.id, "approve")}
+          onClick={() => onReview(pattern.id, "approve_global", reason)}
           className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-emerald-700 disabled:opacity-50"
         >
-          {reviewing ? labels.reviewing : labels.approve}
+          {reviewing ? labels.reviewing : labels.approveGlobal}
         </button>
         <button
           type="button"
           disabled={reviewing}
-          onClick={() => onReview(pattern.id, "reject")}
+          onClick={() => onReview(pattern.id, "keep_internal", reason)}
+          className="rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+        >
+          {labels.keepInternal}
+        </button>
+        <button
+          type="button"
+          disabled={reviewing}
+          onClick={() => onReview(pattern.id, "needs_more_evidence", reason)}
+          className="rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-sky-700 disabled:opacity-50"
+        >
+          {labels.needsMoreEvidence}
+        </button>
+        <button
+          type="button"
+          disabled={reviewing}
+          onClick={() => onReview(pattern.id, "reject", reason)}
           className="rounded-lg bg-rose-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-rose-700 disabled:opacity-50"
         >
           {labels.reject}
-        </button>
-        <button
-          type="button"
-          disabled={reviewing}
-          onClick={() => onReview(pattern.id, "request_more_data")}
-          className="rounded-lg bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-sky-700 disabled:opacity-50"
-        >
-          {labels.requestMoreData}
         </button>
       </div>
     </article>

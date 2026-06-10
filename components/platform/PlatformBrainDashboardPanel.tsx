@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
+import IntelligencePresenceStrip from "@/components/platform/IntelligencePresenceStrip";
 import { createClient } from "@/lib/supabase/client";
 import { parseBrainDashboard, type BrainDashboard } from "@/lib/platform/intelligence-engine";
 
@@ -11,6 +12,28 @@ type PlatformBrainDashboardPanelProps = {
     subtitle: string;
     loading: string;
     pulseLabel: string;
+    presence: {
+      title: string;
+      currentState: string;
+      activeSignals: string;
+      healingToday: string;
+      pendingReviews: string;
+      systemConfidence: string;
+      learningEventsDetected: string;
+      recommendationsAwaiting: string;
+      completedToday: string;
+      confidenceHigh: string;
+      confidenceMedium: string;
+      confidenceLow: string;
+      currentAction: string;
+      estimatedCompletion: string;
+      riskLevel: string;
+      approvalRequired: string;
+      lastResult: string;
+      yes: string;
+      no: string;
+      seconds: string;
+    };
     metrics: {
       knowledgePatternsApproved: string;
       patternsAwaitingReview: string;
@@ -30,7 +53,7 @@ type PlatformBrainDashboardPanelProps = {
   };
 };
 
-const EMPTY: BrainDashboard = { metrics: null, recommendations: [], recent_reviews: [] };
+const EMPTY: BrainDashboard = { metrics: null, presence: null, recommendations: [], recent_reviews: [] };
 
 export default function PlatformBrainDashboardPanel({
   labels,
@@ -69,6 +92,15 @@ export default function PlatformBrainDashboardPanel({
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
         <p className="mt-2 text-sm text-gray-600">{labels.subtitle}</p>
       </div>
+
+      {dashboard.presence ? (
+        <IntelligencePresenceStrip
+          title={labels.presence.title}
+          variant="brain"
+          presence={dashboard.presence}
+          labels={{ ...labels.presence, pulseLabel: labels.pulseLabel }}
+        />
+      ) : null}
 
       {metrics ? (
         <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

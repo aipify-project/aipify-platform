@@ -4,10 +4,40 @@ import type { EnvironmentType } from "./self-learning";
 
 export type PatternApprovalStatus =
   | "pending"
+  | "pending_review"
   | "approved"
+  | "approved_global"
+  | "internal_only"
   | "rejected"
   | "more_data"
+  | "needs_more_data"
   | "archived";
+
+export type ReviewAction =
+  | "approve_global"
+  | "keep_internal"
+  | "needs_more_evidence"
+  | "reject"
+  | "approve"
+  | "request_more_data";
+
+export type BrainPresence = {
+  state: string;
+  active_signals: number;
+  healing_today: number;
+  pending_reviews: number;
+  system_confidence: "high" | "medium" | "low";
+  activity_title: string;
+};
+
+export type SelfHealingLivePresence = {
+  state: string;
+  current_action: string;
+  eta_seconds: number | null;
+  risk_level: string;
+  approval_required: boolean;
+  last_result: string | null;
+};
 
 export type IntelligencePattern = {
   id: string;
@@ -37,6 +67,13 @@ export type GlobalPattern = {
   approved_at: string;
   approved_by: string | null;
   active: boolean;
+  detected_across?: string[];
+  potential_impact_items?: string[];
+  estimated_benefit?: {
+    support_reduction_pct?: number;
+    failure_prevention_pct?: number;
+    onboarding_improvement_pct?: number;
+  };
 };
 
 export type BrainMetrics = {
@@ -67,12 +104,16 @@ export type HealingStrategy = {
   description: string | null;
   risk_level: string;
   auto_execute: boolean;
+  requires_approval?: boolean;
+  last_executed_at?: string | null;
+  avg_resolution_ms?: number;
   category: string;
   success_count: number;
   failure_count: number;
 };
 
 export type SelfHealingDashboard = {
+  live_presence: SelfHealingLivePresence | null;
   totals: {
     attempts: number;
     successful: number;
@@ -95,6 +136,7 @@ export type SelfHealingDashboard = {
 
 export type BrainDashboard = {
   metrics: BrainMetrics | null;
+  presence: BrainPresence | null;
   recommendations: IntelligenceRecommendation[];
   recent_reviews: Array<{
     id: string;
@@ -104,6 +146,29 @@ export type BrainDashboard = {
     notes: string | null;
     created_at: string;
   }>;
+};
+
+export type IntelligenceAuditEntry = {
+  id: string;
+  type: string;
+  action: string;
+  pattern_title: string;
+  reviewer_email: string | null;
+  notes: string | null;
+  environment?: string;
+  risk_level?: string;
+  created_at: string;
+  explanation: string;
+};
+
+export type IntelligenceAuditFilters = {
+  event_type?: string;
+  environment?: string;
+  action?: string;
+  reviewer?: string;
+  risk_level?: string;
+  since?: string;
+  until?: string;
 };
 
 export type LearningQueue = {
@@ -131,9 +196,13 @@ export type ExpansionOpportunity = {
 
 const APPROVAL_STYLES: Record<PatternApprovalStatus, string> = {
   pending: "bg-amber-50 text-amber-700 ring-amber-100",
+  pending_review: "bg-amber-50 text-amber-700 ring-amber-100",
   approved: "bg-emerald-50 text-emerald-700 ring-emerald-100",
+  approved_global: "bg-emerald-50 text-emerald-700 ring-emerald-100",
+  internal_only: "bg-blue-50 text-blue-700 ring-blue-100",
   rejected: "bg-rose-50 text-rose-700 ring-rose-100",
   more_data: "bg-sky-50 text-sky-700 ring-sky-100",
+  needs_more_data: "bg-sky-50 text-sky-700 ring-sky-100",
   archived: "bg-gray-50 text-gray-600 ring-gray-100",
 };
 
@@ -153,8 +222,19 @@ export function getAutomationCategoryStyle(key: AutomationCategoryKey): string {
 
 export function parseBrainDashboard(data: unknown): BrainDashboard {
   const raw = (data ?? {}) as Record<string, unknown>;
+  const presenceRaw = raw.presence as Record<string, unknown> | undefined;
   return {
     metrics: raw.metrics ? (raw.metrics as BrainMetrics) : null,
+    presence: presenceRaw
+      ? {
+          state: String(presenceRaw.state ?? "standby"),
+          active_signals: Number(presenceRaw.active_signals ?? 0),
+          healing_today: Number(presenceRaw.healing_today ?? 0),
+          pending_reviews: Number(presenceRaw.pending_reviews ?? 0),
+          system_confidence: (presenceRaw.system_confidence as BrainPresence["system_confidence"]) ?? "medium",
+          activity_title: String(presenceRaw.activity_title ?? ""),
+        }
+      : null,
     recommendations: Array.isArray(raw.recommendations)
       ? (raw.recommendations as IntelligenceRecommendation[])
       : [],
@@ -185,7 +265,18 @@ export function parseGlobalPatterns(data: unknown): GlobalPattern[] {
 export function parseSelfHealingDashboard(data: unknown): SelfHealingDashboard {
   const raw = (data ?? {}) as Record<string, unknown>;
   const totals = (raw.totals ?? {}) as SelfHealingDashboard["totals"];
+  const liveRaw = raw.live_presence as Record<string, unknown> | undefined;
   return {
+    live_presence: liveRaw
+      ? {
+          state: String(liveRaw.state ?? "standby"),
+          current_action: String(liveRaw.current_action ?? ""),
+          eta_seconds: liveRaw.eta_seconds != null ? Number(liveRaw.eta_seconds) : null,
+          risk_level: String(liveRaw.risk_level ?? "low"),
+          approval_required: Boolean(liveRaw.approval_required),
+          last_result: liveRaw.last_result != null ? String(liveRaw.last_result) : null,
+        }
+      : null,
     totals: {
       attempts: totals.attempts ?? 0,
       successful: totals.successful ?? 0,
@@ -200,6 +291,16 @@ export function parseSelfHealingDashboard(data: unknown): SelfHealingDashboard {
     top_pattern: (raw.top_pattern as string) ?? null,
     most_common_incident: (raw.most_common_incident as string) ?? null,
   };
+}
+
+export function parseIntelligenceAuditLog(data: unknown): IntelligenceAuditEntry[] {
+  return Array.isArray(data) ? (data as IntelligenceAuditEntry[]) : [];
+}
+
+export function getHealingStrategySuccessRate(strategy: HealingStrategy): number {
+  const total = strategy.success_count + strategy.failure_count;
+  if (total === 0) return 0;
+  return Math.round((strategy.success_count / total) * 100);
 }
 
 export function parseIntelligenceRecommendations(data: unknown): IntelligenceRecommendation[] {

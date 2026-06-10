@@ -1,11 +1,12 @@
 import PlatformSelfHealingPanel from "@/components/platform/PlatformSelfHealingPanel";
+import { buildIntelligencePresenceLabels } from "@/lib/platform/intelligence-presence-labels";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function IntelligenceSelfHealingPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["platform"]);
+  const dict = await getDictionary(locale, ["platform", "branding"]);
   const t = createTranslator(dict);
 
   return (
@@ -15,6 +16,8 @@ export default async function IntelligenceSelfHealingPage() {
         title: t("platform.intelligence.selfHealing.title"),
         subtitle: t("platform.intelligence.selfHealing.subtitle"),
         loading: t("platform.intelligence.selfHealing.loading"),
+        pulseLabel: t("branding.pulseLabel"),
+        presence: buildIntelligencePresenceLabels(t, "selfHealing"),
         metrics: {
           attempts: t("platform.intelligence.selfHealing.metrics.attempts"),
           successful: t("platform.intelligence.selfHealing.metrics.successful"),
@@ -28,6 +31,11 @@ export default async function IntelligenceSelfHealingPage() {
           title: t("platform.intelligence.selfHealing.strategies.title"),
           autoExecute: t("platform.intelligence.selfHealing.strategies.autoExecute"),
           manualApproval: t("platform.intelligence.selfHealing.strategies.manualApproval"),
+          locked: t("platform.intelligence.selfHealing.strategies.locked"),
+          lastExecuted: t("platform.intelligence.selfHealing.strategies.lastExecuted"),
+          successRate: t("platform.intelligence.selfHealing.strategies.successRate"),
+          failureCount: t("platform.intelligence.selfHealing.strategies.failureCount"),
+          avgResolution: t("platform.intelligence.selfHealing.strategies.avgResolution"),
           empty: t("platform.intelligence.selfHealing.strategies.empty"),
         },
         recentRuns: {

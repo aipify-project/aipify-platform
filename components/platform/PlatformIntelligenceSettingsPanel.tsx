@@ -22,6 +22,10 @@ type PlatformIntelligenceSettingsPanelProps = {
       title: string;
       description: string;
     };
+    publicTrust: {
+      title: string;
+      description: string;
+    };
   };
 };
 
@@ -50,6 +54,11 @@ export default function PlatformIntelligenceSettingsPanel({
       <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <h2 className="text-lg font-semibold text-gray-900">{labels.tenantIsolation.title}</h2>
         <p className="mt-2 text-sm text-gray-600">{labels.tenantIsolation.description}</p>
+      </section>
+
+      <section className="rounded-2xl border border-violet-100 bg-violet-50/30 p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-gray-900">{labels.publicTrust.title}</h2>
+        <p className="mt-3 text-sm leading-relaxed text-gray-700">{labels.publicTrust.description}</p>
       </section>
 
       <section className="grid gap-6 lg:grid-cols-2">

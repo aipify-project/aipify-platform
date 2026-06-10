@@ -58,6 +58,10 @@ export default async function IntelligenceSettingsPage() {
           title: t("platform.intelligence.settings.tenantIsolation.title"),
           description: t("platform.intelligence.settings.tenantIsolation.description"),
         },
+        publicTrust: {
+          title: t("platform.intelligence.settings.publicTrust.title"),
+          description: t("platform.intelligence.settings.publicTrust.description"),
+        },
       }}
     />
   );

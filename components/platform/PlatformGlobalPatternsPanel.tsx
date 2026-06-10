@@ -21,6 +21,13 @@ type PlatformGlobalPatternsPanelProps = {
     suggestedAction: string;
     sourceEnvironment: string;
     approvedAt: string;
+    approvedBy: string;
+    detectedAcross: string;
+    potentialImpact: string;
+    estimatedBenefit: string;
+    supportReduction: string;
+    failurePrevention: string;
+    onboardingImprovement: string;
     privacyNote: string;
   };
 };
@@ -81,19 +88,84 @@ export default function PlatformGlobalPatternsPanel({
                 >
                   {labels.sourceEnvironment}: {pattern.source_environment}
                 </span>
+                <span className="rounded-full bg-violet-50 px-2 py-0.5 text-xs font-semibold text-violet-700 ring-1 ring-inset ring-violet-100">
+                  {labels.confidence}: {pattern.confidence_score}%
+                </span>
               </div>
+
               <p className="mt-3 text-sm text-gray-700">
                 <span className="font-semibold">{labels.suggestedAction}:</span>{" "}
                 {pattern.suggested_action}
               </p>
-              <dl className="mt-3 grid grid-cols-2 gap-2 text-xs text-gray-600">
-                <div>
-                  <dt>{labels.confidence}</dt>
-                  <dd className="font-semibold text-gray-900">{pattern.confidence_score}%</dd>
+
+              {pattern.detected_across && pattern.detected_across.length > 0 ? (
+                <div className="mt-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    {labels.detectedAcross}
+                  </p>
+                  <ul className="mt-1 list-disc space-y-0.5 pl-5 text-sm text-gray-700">
+                    {pattern.detected_across.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
                 </div>
+              ) : null}
+
+              {pattern.potential_impact_items && pattern.potential_impact_items.length > 0 ? (
+                <div className="mt-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    {labels.potentialImpact}
+                  </p>
+                  <ul className="mt-1 list-disc space-y-0.5 pl-5 text-sm text-gray-700">
+                    {pattern.potential_impact_items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+
+              {pattern.estimated_benefit && Object.keys(pattern.estimated_benefit).length > 0 ? (
+                <div className="mt-3 rounded-xl border border-emerald-100 bg-white/70 px-4 py-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    {labels.estimatedBenefit}
+                  </p>
+                  <dl className="mt-2 grid grid-cols-2 gap-2 text-sm">
+                    {pattern.estimated_benefit.support_reduction_pct != null ? (
+                      <div>
+                        <dt className="text-gray-500">{labels.supportReduction}</dt>
+                        <dd className="font-semibold text-gray-900">
+                          {pattern.estimated_benefit.support_reduction_pct}%
+                        </dd>
+                      </div>
+                    ) : null}
+                    {pattern.estimated_benefit.failure_prevention_pct != null ? (
+                      <div>
+                        <dt className="text-gray-500">{labels.failurePrevention}</dt>
+                        <dd className="font-semibold text-gray-900">
+                          {pattern.estimated_benefit.failure_prevention_pct}%
+                        </dd>
+                      </div>
+                    ) : null}
+                    {pattern.estimated_benefit.onboarding_improvement_pct != null ? (
+                      <div>
+                        <dt className="text-gray-500">{labels.onboardingImprovement}</dt>
+                        <dd className="font-semibold text-gray-900">
+                          {pattern.estimated_benefit.onboarding_improvement_pct}%
+                        </dd>
+                      </div>
+                    ) : null}
+                  </dl>
+                </div>
+              ) : null}
+
+              <dl className="mt-3 grid grid-cols-2 gap-2 text-xs text-gray-600">
                 <div>
                   <dt>{labels.detections}</dt>
                   <dd className="font-semibold text-gray-900">{pattern.detection_count}</dd>
+                </div>
+                <div>
+                  <dt>{labels.approvedBy}</dt>
+                  <dd className="font-semibold text-gray-900">{pattern.approved_by ?? "—"}</dd>
                 </div>
               </dl>
               <p className="mt-2 text-xs text-gray-500">

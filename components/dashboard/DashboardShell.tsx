@@ -37,6 +37,7 @@ type DashboardShellProps = {
     pulseLabel: string;
   };
   presenceLabels?: PresenceLabels;
+  locale?: string;
   children: React.ReactNode;
 };
 
@@ -57,6 +58,7 @@ export default function DashboardShell({
   companyNameOverride,
   platformBrandMark,
   presenceLabels,
+  locale = "en",
   children,
 }: DashboardShellProps) {
   const pathname = usePathname();
@@ -238,7 +240,7 @@ export default function DashboardShell({
   }
 
   return (
-    <PresenceProvider surface={shellVariant} labels={presenceLabels}>
+    <PresenceProvider surface={shellVariant} labels={presenceLabels} locale={locale}>
       {shell}
     </PresenceProvider>
   );

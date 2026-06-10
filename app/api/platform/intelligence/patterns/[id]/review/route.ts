@@ -1,10 +1,20 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import type { ReviewAction } from "@/lib/platform/intelligence-engine";
 
 type ReviewBody = {
-  action: "approve" | "reject" | "request_more_data";
+  action: ReviewAction;
   notes?: string;
 };
+
+const VALID_ACTIONS: ReviewAction[] = [
+  "approve_global",
+  "keep_internal",
+  "needs_more_evidence",
+  "reject",
+  "approve",
+  "request_more_data",
+];
 
 export async function POST(
   request: Request,
@@ -22,7 +32,7 @@ export async function POST(
     }
 
     const body = (await request.json()) as ReviewBody;
-    if (!body.action) {
+    if (!body.action || !VALID_ACTIONS.includes(body.action)) {
       return NextResponse.json({ error: "Action required" }, { status: 400 });
     }
 

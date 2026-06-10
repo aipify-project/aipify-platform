@@ -1,0 +1,24 @@
+Aipify Presence Center Phase 12.3
+==================================
+
+Migration: supabase/migrations/20260610340000_presence_center_phase123.sql
+
+Delivered:
+- Executive snapshot header (TODAY metrics)
+- Health score with weekly trend and contributors
+- Collapsible human approval explanation
+- Expandable presence history with trigger/actions/outcome
+- Presence modes mapped to calm animations (normal, learning, healing, approval, attention)
+- Recommendation impact badges (low/medium/high/critical)
+- Learning discovery explanations (what/why/action/if ignored)
+- Indicator hover tooltip with live metrics
+- Executive vs Operations view mode toggle
+- Expanded settings: animation mode, sound mode, learning notifications
+
+Files:
+- components/presence/PresenceCenterPanel.tsx
+- components/presence/PresenceIndicator.tsx
+- components/presence/PresenceProvider.tsx
+- lib/presence/presence-engine.ts
+- lib/presence/labels.ts
+- locales/*/presence.json

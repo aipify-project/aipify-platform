@@ -23,6 +23,13 @@ export default async function IntelligenceGlobalPatternsPage() {
         suggestedAction: t("platform.intelligence.globalPatterns.suggestedAction"),
         sourceEnvironment: t("platform.intelligence.globalPatterns.sourceEnvironment"),
         approvedAt: t("platform.intelligence.globalPatterns.approvedAt"),
+        approvedBy: t("platform.intelligence.globalPatterns.approvedBy"),
+        detectedAcross: t("platform.intelligence.globalPatterns.detectedAcross"),
+        potentialImpact: t("platform.intelligence.globalPatterns.potentialImpact"),
+        estimatedBenefit: t("platform.intelligence.globalPatterns.estimatedBenefit"),
+        supportReduction: t("platform.intelligence.globalPatterns.supportReduction"),
+        failurePrevention: t("platform.intelligence.globalPatterns.failurePrevention"),
+        onboardingImprovement: t("platform.intelligence.globalPatterns.onboardingImprovement"),
         privacyNote: t("platform.intelligence.privacyNote"),
       }}
     />

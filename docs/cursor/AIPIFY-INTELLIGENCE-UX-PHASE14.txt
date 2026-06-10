@@ -1,0 +1,25 @@
+Aipify Intelligence UX Phase 14
+=================================
+
+Migration: supabase/migrations/20260610330000_intelligence_ux_phase14.sql
+
+Delivered:
+- Brain Dashboard: Aipify Presence strip with animated AipifyPulse indicator
+- Global Patterns: impact context (detected across, potential impact, estimated benefit, approved by)
+- Learning Queue: four decision actions + review reason (stored in intelligence_reviews.notes)
+- Self-Healing: live presence panel + enriched strategy cards (risk, success rate, last executed)
+- Audit Log: human explanations + filters (event type, environment, action, reviewer, date, risk)
+- Intelligence Settings: "How Aipify learns safely" public trust copy (structure preserved)
+- Platform Overview: Aipify Brain card with pulse indicator and confidence label
+- Automations: per-row category badges
+
+Shared components:
+- components/platform/IntelligencePresenceStrip.tsx
+- lib/platform/intelligence-presence-labels.ts
+
+Review actions (API + RPC):
+- approve_global, keep_internal, needs_more_evidence, reject
+- Legacy: approve, request_more_data (mapped in RPC)
+
+Pattern statuses:
+- pending_review, approved_global, internal_only, needs_more_data, rejected

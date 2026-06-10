@@ -1,4 +1,5 @@
 import PlatformBrainDashboardPanel from "@/components/platform/PlatformBrainDashboardPanel";
+import { buildIntelligencePresenceLabels } from "@/lib/platform/intelligence-presence-labels";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -15,6 +16,7 @@ export default async function IntelligenceBrainPage() {
         subtitle: t("platform.intelligence.brain.subtitle"),
         loading: t("platform.intelligence.brain.loading"),
         pulseLabel: t("branding.pulseLabel"),
+        presence: buildIntelligencePresenceLabels(t, "brain"),
         metrics: {
           knowledgePatternsApproved: t(
             "platform.intelligence.brain.metrics.knowledgePatternsApproved"

@@ -1,7 +1,14 @@
 {
   "indicator": {
     "title": "Aipify Presence",
-    "aria": "Open Aipify Presence Center"
+    "aria": "Open Aipify Presence Center",
+    "tooltipTitle": "Aipify Presence",
+    "tooltipStatus": "Status",
+    "tooltipLearning": "Learning events",
+    "tooltipApprovals": "Approvals pending",
+    "tooltipHealing": "Self-healing today",
+    "tooltipHealth": "System health",
+    "tooltipOpen": "Click to open Presence Center"
   },
   "center": {
     "title": "Aipify Presence Center",
@@ -13,6 +20,59 @@
     "estimatedCompletion": "Estimated completion",
     "riskLevel": "Risk level",
     "seconds": "seconds",
+    "today": "Today",
+    "snapshot": {
+      "environments": "{count} environments monitored",
+      "learning": "{count} learning events detected",
+      "healing": "{count} self-healing actions completed",
+      "pending": "{count} recommendation awaiting approval"
+    },
+    "health": {
+      "title": "System health",
+      "deltaUp": "↑ +{delta}% this week",
+      "deltaDown": "↓ {delta}% this week",
+      "deltaFlat": "No change this week",
+      "contributors": "Contributors"
+    },
+    "approval": {
+      "whyTitle": "Why am I seeing this?",
+      "whyBody": "Aipify identified an action classified as {risk} risk. According to your approval policy, this recommendation requires confirmation before execution.",
+      "reasonsTitle": "Possible reasons"
+    },
+    "history": {
+      "viewDetails": "View details",
+      "hideDetails": "Hide details",
+      "trigger": "Trigger",
+      "actions": "Actions performed",
+      "outcome": "Outcome"
+    },
+    "recommendations": {
+      "whatHappened": "What happened",
+      "whyMatters": "Why it matters",
+      "suggestedAction": "Suggested action",
+      "ifIgnored": "If ignored"
+    },
+    "impact": {
+      "low": "Low impact",
+      "medium": "Medium impact",
+      "high": "High impact",
+      "critical": "Critical"
+    },
+    "modes": {
+      "title": "Presence mode",
+      "normal": "Normal — monitoring environment",
+      "learning": "Learning — patterns under evaluation",
+      "healing": "Healing — self-healing active",
+      "approval_required": "Approval required — waiting for human input",
+      "attention_required": "Attention required — escalation needed"
+    },
+    "viewMode": {
+      "title": "View mode",
+      "executive": "Executive",
+      "operations": "Operations",
+      "executiveHint": "Business impact, approvals, and summaries only.",
+      "operationsHint": "Technical recommendations, healing logs, and learning discoveries."
+    },
     "metrics": {
       "automationsRunning": "Automations running",
       "learningToday": "Learning events today",
@@ -22,20 +82,21 @@
     },
     "sections": {
       "activities": "Current activities",
-      "recommendations": "Recent recommendations",
+      "recommendations": "Intelligence recommendations",
       "history": "Presence history",
       "executiveSummary": "Last executive summary",
-      "settings": "Presence settings"
+      "settings": "Presence settings",
+      "notifications": "Notification preferences"
     }
   },
   "states": {
-    "standby": "Standby",
+    "standby": "Monitoring",
     "analysing": "Analysing",
     "working": "Working",
     "learning": "Learning",
     "selfHealing": "Self-Healing",
-    "humanApproval": "Human approval required",
-    "critical": "Critical attention"
+    "humanApproval": "Approval required",
+    "critical": "Attention required"
   },
   "stateMessages": {
     "standby": "Aipify is monitoring your environment.",
@@ -43,20 +104,26 @@
     "working": "Running support workflows and scheduled automations.",
     "learning": "Learning from operational outcomes.",
     "selfHealing": "Reconnecting integration and repairing delivery issues.",
-    "humanApproval": "Aipify recommends human review.",
-    "critical": "Critical issue detected. Immediate review recommended."
+    "humanApproval": "Aipify recommends human review before proceeding.",
+    "critical": "Escalation required. Immediate review recommended."
   },
   "settings": {
-    "animationIntensity": "Animation intensity",
+    "animationMode": "Animation mode",
     "presenceVisible": "Presence indicator visible",
     "executiveSummaries": "Executive summaries",
     "selfHealingNotifications": "Self-healing notifications",
     "approvalNotifications": "Approval notifications",
-    "soundEnabled": "Sound effects",
+    "learningNotifications": "Learning discoveries",
+    "soundMode": "Audio",
     "intensities": {
-      "subtle": "Subtle",
+      "subtle": "Minimal",
       "normal": "Normal",
       "enhanced": "Enhanced"
+    },
+    "soundModes": {
+      "off": "Off",
+      "minimal": "Minimal",
+      "enabled": "Enabled"
     },
     "save": "Save settings",
     "saved": "Settings saved"
