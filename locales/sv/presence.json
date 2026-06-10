@@ -189,7 +189,35 @@
       "standard": "Standard — tystare utanför arbetstid och på helger",
       "working_hours_only": "Endast arbetstid",
       "minimal": "Minimal — endast åtgärd krävs och kritisk",
-      "vacation": "Semesterläge"
+      "vacation": "Semesterläge",
+      "do_not_disturb": "Stör ej"
+    }
+  },
+  "commandCenter": {
+    "title": "Aipify Command Center",
+    "subtitle": "Ett fönster in i Aipify Core — medvetenhet utan distraktion.",
+    "principle": "Aipify ska tyst övervaka verksamheten. När något verkligen betyder något ska Aipify tala upp.",
+    "corePrinciple": "Det finns bara EN Aipify. Web, Desktop och Mobil är gränssnitt till samma intelligenslager.",
+    "empty": "Slutför kontokonfigurationen för att öppna Command Center.",
+    "planGate": "Fullständigt Command Center kräver Business-plan eller högre.",
+    "feedEmpty": "Executive feed visas när Aipify lär sig din drift.",
+    "sections": {
+      "executiveFeed": "Executive feed",
+      "health": "Hälsaöversikt",
+      "approvals": "Väntande godkännanden",
+      "skills": "Skill-status",
+      "activity": "Senaste aktivitet",
+      "recommendations": "Rekommendationer",
+      "notifications": "Systemaviseringar",
+      "quickActions": "Snabbåtgärder",
+      "desktopPrepared": "Desktop-klienter förberedda"
+    },
+    "quietModes": {
+      "standard": "Standard",
+      "working_hours_only": "Endast arbetstid",
+      "minimal": "Minimal",
+      "vacation": "Semesterläge",
+      "do_not_disturb": "Stör ej"
     }
   },
   "pilot": {
@@ -200,7 +228,11 @@
       "sent": "Aviseringar skickade (7d)",
       "actions": "Åtgärder slutförda (7d)",
       "dismissRate": "Avvisningsfrekvens",
-      "usefulness": "Nyttopoäng"
+      "usefulness": "Nyttopoäng",
+      "feedEntries": "Executive feed-poster",
+      "engagement": "Engagemangshändelser (7d)",
+      "approvalRate": "Godkännandegrad",
+      "feedQuality": "Feed-kvalitetspoäng"
     }
   }
 }

@@ -6,7 +6,9 @@ Prepares notification infrastructure for future macOS, Windows, and Linux deskto
 
 **Prerequisites:** Phase 13 Presence System · [OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md) §7
 
-**Code:** `lib/presence/` · Customer: `/app/presence` · APIs: `/api/presence/*` · Pilot: `/platform/presence-pilot`
+**Code:** `lib/presence/` · Customer: `/app/command-center` (Phase 26) · APIs: `/api/presence/*` · Pilot: `/platform/presence-pilot`
+
+**Extended by:** [COMMAND_CENTER.md](./COMMAND_CENTER.md) (Phase 26) — Notification Engine, executive feed, quick actions.
 
 ---
 

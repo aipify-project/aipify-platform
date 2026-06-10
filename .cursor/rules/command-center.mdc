@@ -1,0 +1,31 @@
+---
+description: Aipify Command Center — unified interface to Aipify Core, no duplicated logic
+alwaysApply: true
+---
+
+# Command Center & Notification Engine (Phase 26)
+
+Read **[COMMAND_CENTER.md](../../COMMAND_CENTER.md)** before changes to Command Center, executive feed, quick actions, or notification distribution.
+
+## Layer ownership (mandatory before implementation)
+
+| Surface | Owner |
+|---------|-------|
+| Command Center UI | **Customer App** (`/app/command-center`) |
+| Notification Engine | **Shared** (`lib/notification/`) |
+| Event delivery APIs | **Shared** (`/api/presence/*`) |
+| Unonight pilot metrics | **Platform Admin** |
+
+## Rules
+
+1. **One Aipify** — Web, Desktop, Mobile consume the same `get_command_center_bundle()` / notification tables
+2. Never duplicate business logic in desktop or mobile clients — lightweight clients only
+3. Notification Engine distributes Core events; it does not re-implement Intelligence, Action, or License logic
+4. Executive feed uses professional tone (`lib/presence/personality.ts`)
+5. Quick actions reduce context switching — server-side via `perform_presence_quick_action`
+6. Track engagement in `presence_engagement_events` to prevent alert fatigue
+7. Plan packaging enforced server-side (`capabilities` in bundle) — see `lib/notification/packaging.ts`
+8. Do not build native desktop/mobile apps in this phase — infrastructure and web prototype only
+9. `/app/presence` redirects to `/app/command-center`
+
+> Desktop is another window into Aipify Core — not a separate product.

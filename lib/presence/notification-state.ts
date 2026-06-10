@@ -42,4 +42,8 @@ export type PresencePilotMetrics = {
   actions_completed_7d: number;
   dismiss_rate_pct: number;
   usefulness_score: number;
+  executive_feed_entries?: number;
+  engagement_events_7d?: number;
+  approval_completion_rate_pct?: number;
+  feed_quality_score?: number;
 };

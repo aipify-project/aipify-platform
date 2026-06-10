@@ -23,7 +23,7 @@ export type AppNavItem = {
 /** Canonical customer product navigation (Layer 2). Hrefs use /app; aliases resolve during migration. */
 export const APP_NAV: AppNavItem[] = [
   { id: "overview", href: "/app", labelKey: "dashboard.nav.overview" },
-  { id: "presence", href: "/app/presence", labelKey: "dashboard.nav.presence" },
+  { id: "presence", href: "/app/command-center", labelKey: "dashboard.nav.presence" },
   { id: "assistant", href: "/app/assistant", labelKey: "dashboard.nav.assistant" },
   { id: "support", href: "/app/support", labelKey: "dashboard.nav.support" },
   { id: "actions", href: "/app/actions", labelKey: "dashboard.nav.actions" },
@@ -49,7 +49,11 @@ export const APP_MOBILE_NAV_IDS: AppNavId[] = [
 ];
 
 export function getAppActiveNavId(pathname: string): AppNavId {
-  if (pathname.startsWith("/app/presence") || pathname.startsWith("/dashboard/presence")) {
+  if (
+    pathname.startsWith("/app/command-center") ||
+    pathname.startsWith("/app/presence") ||
+    pathname.startsWith("/dashboard/presence")
+  ) {
     return "presence";
   }
   if (

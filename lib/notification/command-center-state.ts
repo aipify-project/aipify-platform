@@ -1,0 +1,24 @@
+import type { PlanType } from "@/lib/platform/types";
+import type { ExecutiveFeedEntry } from "./executive-feed";
+import type { QuickActionId } from "./command-center";
+import type { PresenceNotification } from "@/lib/presence/notification-state";
+
+export type CommandCenterBundle = {
+  has_customer: boolean;
+  principle?: string;
+  core_principle?: string;
+  plan?: PlanType;
+  capabilities?: Record<string, boolean>;
+  executive_feed?: ExecutiveFeedEntry[];
+  health_overview?: { score: number; label: string };
+  pending_approvals?: number;
+  active_skills?: number;
+  executive_summary?: string;
+  recent_activity?: Array<{ id: string; title: string; created_at: string }>;
+  recommendations?: Array<{ id: string; message: string }>;
+  presence_timeline?: Array<{ id: string; title: string; created_at: string }>;
+  notifications?: PresenceNotification[];
+  unread_count?: number;
+  quick_actions?: Array<{ id: QuickActionId; label: string; href?: string }>;
+  desktop_clients_prepared?: string[];
+};

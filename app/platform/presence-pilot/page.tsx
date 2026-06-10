@@ -21,6 +21,10 @@ export default async function PlatformPresencePilotPage() {
           actions: t("presence.pilot.metrics.actions"),
           dismissRate: t("presence.pilot.metrics.dismissRate"),
           usefulness: t("presence.pilot.metrics.usefulness"),
+          feedEntries: t("presence.pilot.metrics.feedEntries"),
+          engagement: t("presence.pilot.metrics.engagement"),
+          approvalRate: t("presence.pilot.metrics.approvalRate"),
+          feedQuality: t("presence.pilot.metrics.feedQuality"),
         },
       }}
     />

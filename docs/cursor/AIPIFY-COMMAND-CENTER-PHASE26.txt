@@ -1,0 +1,18 @@
+AIPIFY PLATFORM – PHASE 26
+COMMAND CENTER & DESKTOP PRESENCE FOUNDATION
+STATUS: Implemented (Phase 1 infrastructure)
+PRIORITY: HIGH
+
+Deliverables:
+- lib/notification/ (engine, command-center, executive-feed, packaging)
+- Migration 20260611300000_command_center_phase26.sql
+- RPCs: get_command_center_bundle, perform_presence_quick_action, record_presence_engagement
+- APIs: GET /api/presence/command-center, POST /api/presence/quick-action
+- Customer UI: /app/command-center (CommandCenterPanel)
+- /app/presence redirects to command-center
+- Extended Unonight pilot metrics
+- Docs: COMMAND_CENTER.md, .cursor/rules/command-center.mdc
+
+Principle: ONE Aipify Core — no duplicated business logic across clients.
+
+END OF PHASE

@@ -15,6 +15,10 @@ type PlatformPresencePilotPanelProps = {
       actions: string;
       dismissRate: string;
       usefulness: string;
+      feedEntries: string;
+      engagement: string;
+      approvalRate: string;
+      feedQuality: string;
     };
     principle: string;
   };
@@ -70,6 +74,24 @@ export function PlatformPresencePilotPanel({ labels }: PlatformPresencePilotPane
         <div className="rounded-lg border border-gray-200 bg-white p-4">
           <p className="text-sm text-gray-500">{labels.metrics.usefulness}</p>
           <p className="mt-2 text-2xl font-semibold">{metrics.usefulness_score}</p>
+        </div>
+        <div className="rounded-lg border border-gray-200 bg-white p-4">
+          <p className="text-sm text-gray-500">{labels.metrics.feedEntries}</p>
+          <p className="mt-2 text-2xl font-semibold">{metrics.executive_feed_entries ?? 0}</p>
+        </div>
+        <div className="rounded-lg border border-gray-200 bg-white p-4">
+          <p className="text-sm text-gray-500">{labels.metrics.engagement}</p>
+          <p className="mt-2 text-2xl font-semibold">{metrics.engagement_events_7d ?? 0}</p>
+        </div>
+        <div className="rounded-lg border border-gray-200 bg-white p-4">
+          <p className="text-sm text-gray-500">{labels.metrics.approvalRate}</p>
+          <p className="mt-2 text-2xl font-semibold">
+            {metrics.approval_completion_rate_pct ?? 0}%
+          </p>
+        </div>
+        <div className="rounded-lg border border-gray-200 bg-white p-4">
+          <p className="text-sm text-gray-500">{labels.metrics.feedQuality}</p>
+          <p className="mt-2 text-2xl font-semibold">{metrics.feed_quality_score ?? 0}</p>
         </div>
       </div>
     </div>

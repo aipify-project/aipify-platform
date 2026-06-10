@@ -6,6 +6,7 @@ export const QUIET_HOURS_MODES = [
   "working_hours_only",
   "minimal",
   "vacation",
+  "do_not_disturb",
 ] as const;
 
 export type QuietHoursMode = (typeof QUIET_HOURS_MODES)[number];
@@ -39,6 +40,10 @@ export function shouldDeliverNotification(
   now: Date = new Date()
 ): boolean {
   if (level === "critical") return true;
+
+  if (prefs.mode === "do_not_disturb") {
+    return false;
+  }
 
   if (prefs.mode === "vacation") {
     return meetsMinimumLevel(level, "action_required");

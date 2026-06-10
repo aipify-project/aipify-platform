@@ -24,21 +24,26 @@ export const PRESENCE_EVENT_TYPES = [
   "executive_briefing_ready",
   "installation_completed",
   "payment_issue_detected",
+  "subscription_issue_detected",
   "recommendation_generated",
+  "approval_awaiting_action",
   "health_warning_detected",
   "update_scheduled",
   "automation_completed",
   "customer_escalation_detected",
+  "new_opportunity_identified",
 ] as const;
 
 export type PresenceEventType = (typeof PRESENCE_EVENT_TYPES)[number];
 
 export const NOTIFICATION_ACTION_TYPES = [
   "view_details",
+  "approve",
   "approve_recommendation",
   "open_dashboard",
   "dismiss",
   "escalate",
+  "mark_as_reviewed",
 ] as const;
 
 export type NotificationActionType = (typeof NOTIFICATION_ACTION_TYPES)[number];

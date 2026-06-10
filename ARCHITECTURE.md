@@ -96,7 +96,9 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Modern Install Experience (Phase 24):** See [MODERN_INSTALL_EXPERIENCE.md](./MODERN_INSTALL_EXPERIENCE.md) — `/app/install` assistant, Developer Settings at `/app/settings/developer`, install tokens (not license keys), platform detection, support escalations.
 
-**Desktop Presence Foundation (Phase 25):** See [DESKTOP_PRESENCE_FOUNDATION.md](./DESKTOP_PRESENCE_FOUNDATION.md) — `/app/presence` notifications, quiet hours, actionable alerts, `/api/presence/*` for future desktop clients, Unonight pilot at `/platform/presence-pilot`.
+**Desktop Presence Foundation (Phase 25):** See [DESKTOP_PRESENCE_FOUNDATION.md](./DESKTOP_PRESENCE_FOUNDATION.md) — notifications, quiet hours, actionable alerts, `/api/presence/*` for future desktop clients, Unonight pilot at `/platform/presence-pilot`.
+
+**Command Center & Notification Engine (Phase 26):** See [COMMAND_CENTER.md](./COMMAND_CENTER.md) — `/app/command-center`, executive feed, quick actions, plan packaging, `lib/notification/`, single Core event infrastructure for web/desktop/mobile.
 
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.
 

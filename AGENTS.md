@@ -32,7 +32,9 @@ For **architecture review and stabilization**, read **[ARCHITECTURE_REVIEW.md](.
 
 For **modern install experience and license engine**, read **[MODERN_INSTALL_EXPERIENCE.md](./MODERN_INSTALL_EXPERIENCE.md)**. Constants in `lib/install/experience.ts`; customer assistant at `/app/install`; developer settings at `/app/settings/developer`; token-free flow via `POST /api/install/begin`. Standard users never see install tokens.
 
-For **desktop presence and notification architecture**, read **[DESKTOP_PRESENCE_FOUNDATION.md](./DESKTOP_PRESENCE_FOUNDATION.md)**. Constants in `lib/presence/notifications.ts`; customer page at `/app/presence`; desktop-ready APIs at `/api/presence/*`. Native desktop apps are not built in this phase.
+For **desktop presence and notification architecture**, read **[DESKTOP_PRESENCE_FOUNDATION.md](./DESKTOP_PRESENCE_FOUNDATION.md)**. Constants in `lib/presence/notifications.ts`; desktop-ready APIs at `/api/presence/*`. Native desktop apps are not built in this phase.
+
+For **Command Center and Notification Engine**, read **[COMMAND_CENTER.md](./COMMAND_CENTER.md)**. Constants in `lib/notification/`; unified UI at `/app/command-center`; bundle via `GET /api/presence/command-center`. All clients consume one Aipify Core — never duplicate business logic.
 
 ## Aipify architecture — mandatory before every feature
 

@@ -189,7 +189,35 @@
       "standard": "Standard — quieter after hours and weekends",
       "working_hours_only": "Working hours only",
       "minimal": "Minimal — action required and critical only",
-      "vacation": "Vacation mode"
+      "vacation": "Vacation mode",
+      "do_not_disturb": "Do not disturb"
+    }
+  },
+  "commandCenter": {
+    "title": "Aipify Command Center",
+    "subtitle": "One window into Aipify Core — awareness without distraction. Desktop apps are not built yet.",
+    "principle": "Aipify should quietly watch over the business. When something truly matters, Aipify should speak up.",
+    "corePrinciple": "There is only ONE Aipify. Web, Desktop and Mobile are interfaces to the same intelligence layer.",
+    "empty": "Complete account setup to open the Command Center.",
+    "planGate": "Full Command Center features require Business plan or higher. You still receive web presence notifications.",
+    "feedEmpty": "Your executive feed will appear as Aipify learns your operations.",
+    "sections": {
+      "executiveFeed": "Executive feed",
+      "health": "Health overview",
+      "approvals": "Pending approvals",
+      "skills": "Skill status",
+      "activity": "Recent activity",
+      "recommendations": "Recommendations",
+      "notifications": "System notifications",
+      "quickActions": "Quick actions",
+      "desktopPrepared": "Desktop clients prepared"
+    },
+    "quietModes": {
+      "standard": "Standard — quieter after hours and weekends",
+      "working_hours_only": "Working hours only",
+      "minimal": "Minimal — action required and critical only",
+      "vacation": "Vacation mode",
+      "do_not_disturb": "Do not disturb"
     }
   },
   "pilot": {
@@ -200,7 +228,11 @@
       "sent": "Notifications sent (7d)",
       "actions": "Actions completed (7d)",
       "dismissRate": "Dismiss rate",
-      "usefulness": "Usefulness score"
+      "usefulness": "Usefulness score",
+      "feedEntries": "Executive feed entries",
+      "engagement": "Engagement events (7d)",
+      "approvalRate": "Approval completion rate",
+      "feedQuality": "Feed quality score"
     }
   }
 }

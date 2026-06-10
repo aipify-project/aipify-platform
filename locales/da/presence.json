@@ -189,7 +189,35 @@
       "standard": "Standard — roligere uden for arbejdstid og i weekender",
       "working_hours_only": "Kun arbejdstid",
       "minimal": "Minimal — kun handling påkrævet og kritisk",
-      "vacation": "Ferietilstand"
+      "vacation": "Ferietilstand",
+      "do_not_disturb": "Forstyr ikke"
+    }
+  },
+  "commandCenter": {
+    "title": "Aipify Command Center",
+    "subtitle": "Ét vindue ind i Aipify Core — bevidsthed uden distraktion.",
+    "principle": "Aipify skal stille overvåge virksomheden. Når noget virkelig betyder noget, skal Aipify sige til.",
+    "corePrinciple": "Der findes kun ÉN Aipify. Web, Desktop og Mobil er grænseflader til samme intelligenslag.",
+    "empty": "Fuldfør kontokonfiguration for at åbne Command Center.",
+    "planGate": "Fuld Command Center kræver Business-plan eller højere.",
+    "feedEmpty": "Executive feed vises når Aipify lærer din drift.",
+    "sections": {
+      "executiveFeed": "Executive feed",
+      "health": "Sundhedsoversigt",
+      "approvals": "Afventende godkendelser",
+      "skills": "Skill-status",
+      "activity": "Seneste aktivitet",
+      "recommendations": "Anbefalinger",
+      "notifications": "Systemnotifikationer",
+      "quickActions": "Hurtige handlinger",
+      "desktopPrepared": "Desktop-klienter forberedt"
+    },
+    "quietModes": {
+      "standard": "Standard",
+      "working_hours_only": "Kun arbejdstid",
+      "minimal": "Minimal",
+      "vacation": "Ferietilstand",
+      "do_not_disturb": "Forstyr ikke"
     }
   },
   "pilot": {
@@ -200,7 +228,11 @@
       "sent": "Notifikationer sendt (7d)",
       "actions": "Handlinger fuldført (7d)",
       "dismissRate": "Afvisningsrate",
-      "usefulness": "Nytteværdiscore"
+      "usefulness": "Nytteværdiscore",
+      "feedEntries": "Executive feed-poster",
+      "engagement": "Engagementsbegivenheder (7d)",
+      "approvalRate": "Godkendelsesrate",
+      "feedQuality": "Feed-kvalitetsscore"
     }
   }
 }
