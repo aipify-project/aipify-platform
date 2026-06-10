@@ -8,6 +8,9 @@ import CustomerActivityTimeline from "@/components/platform/CustomerActivityTime
 import CustomerQuickActions from "@/components/platform/CustomerQuickActions";
 import CustomerRecommendationFeed from "@/components/platform/CustomerRecommendationFeed";
 import CustomerHealthBadge from "@/components/platform/CustomerHealthBadge";
+import SuccessScoreBadge from "@/components/platform/SuccessScoreBadge";
+import SelfLearningInsightsPanel from "@/components/platform/SelfLearningInsightsPanel";
+import { getInstallationHealthStatus } from "@/lib/platform/executive-intelligence";
 import InviteTeamMemberModal from "@/components/platform/InviteTeamMemberModal";
 import OpportunityBadge from "@/components/platform/OpportunityBadge";
 import {
@@ -21,6 +24,12 @@ import {
   INTEGRATION_PROVIDERS,
   type QuickActionKey,
 } from "@/lib/platform/customer-workspace";
+import {
+  aiRecommendationsToWorkspace,
+  opportunityTypeToSignal,
+  parseIntelligenceFoundation,
+  type CustomerIntelligenceFoundation,
+} from "@/lib/platform/intelligence-foundation";
 import { deriveInstallationHealth } from "@/lib/platform/ai-dashboard";
 import { formatDate, formatDateTime } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
@@ -54,6 +63,8 @@ type CustomerMasterDetailViewProps = {
       atRisk: string;
     };
     successScore: string;
+    successScoreLabels: Record<string, string>;
+    installationHealthLabels: Record<string, string>;
     opportunities: string;
     customerNumber: string;
     customerName: string;
@@ -138,7 +149,12 @@ type CustomerMasterDetailViewProps = {
     opportunityLabels: Record<string, string>;
     timeline: {
       empty: string;
+      filterAll: string;
+      expandDetails: string;
       categories: Record<string, string>;
+    };
+    foundation: {
+      emptyOpportunities: string;
     };
     integrations: {
       connectionStatus: string;
@@ -158,7 +174,11 @@ type CustomerMasterDetailViewProps = {
       trigger: string;
       lastRun: string;
       nextRun: string;
+      executedAt: string;
+      duration: string;
+      error: string;
       statusLabels: Record<string, string>;
+      runStatusLabels: Record<string, string>;
     };
     settings: {
       billingTitle: string;
@@ -177,6 +197,50 @@ type CustomerMasterDetailViewProps = {
     };
     invitationStatusLabels: Record<string, string>;
     aiInsightsTitle: string;
+    selfLearning: {
+      title: string;
+      environment: string;
+      environmentLabels: Record<string, string>;
+      stages: {
+        detection: string;
+        diagnosis: string;
+        recommendation: string;
+        healing: string;
+      };
+      learningEvents: {
+        title: string;
+        empty: string;
+        eventType: string;
+        category: string;
+      };
+      patterns: {
+        title: string;
+        empty: string;
+        detections: string;
+        successRate: string;
+        action: string;
+      };
+      effectiveness: {
+        title: string;
+        empty: string;
+        presented: string;
+        accepted: string;
+        acceptanceRate: string;
+      };
+      selfHealing: {
+        title: string;
+        empty: string;
+        action: string;
+        risk: string;
+        result: string;
+        duration: string;
+        pendingApproval: string;
+      };
+      riskLabels: Record<string, string>;
+      resultLabels: Record<string, string>;
+      eventTypeLabels: Record<string, string>;
+      categoryLabels: Record<string, string>;
+    };
     statusLabels: Record<string, string>;
     typeLabels: Record<string, string>;
     planTypeLabels: Record<string, string>;
@@ -209,6 +273,21 @@ export default function CustomerMasterDetailView({
   labels,
 }: CustomerMasterDetailViewProps) {
   const [detail, setDetail] = useState<CustomerMasterDetail | null>(null);
+  const [intelligence, setIntelligence] = useState<CustomerIntelligenceFoundation>({
+    timeline: [],
+    ai_recommendations: [],
+    success_score: null,
+    installation_health: null,
+    automation_runs: [],
+    opportunity_signals: [],
+    self_learning: {
+      environment_type: null,
+      learning_events: [],
+      self_healing_executions: [],
+      patterns: [],
+      recommendation_effectiveness: [],
+    },
+  });
   const [automations, setAutomations] = useState<PlatformAutomation[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<TabId>("overview");
@@ -217,9 +296,10 @@ export default function CustomerMasterDetailView({
 
   async function loadDetail() {
     const supabase = createClient();
-    const [detailResult, autoResult] = await Promise.all([
+    const [detailResult, autoResult, intelligenceResult] = await Promise.all([
       supabase.rpc("get_platform_customer_master_detail", { p_customer_id: customerId }),
       supabase.rpc("list_platform_automations"),
+      supabase.rpc("get_customer_intelligence_foundation", { p_tenant_id: customerId }),
     ]);
 
     if (detailResult.error || !detailResult.data) {
@@ -230,6 +310,25 @@ export default function CustomerMasterDetailView({
     setAutomations(
       autoResult.error || !autoResult.data ? [] : (autoResult.data as PlatformAutomation[])
     );
+    setIntelligence(
+      intelligenceResult.error || !intelligenceResult.data
+        ? {
+            timeline: [],
+            ai_recommendations: [],
+            success_score: null,
+            installation_health: null,
+            automation_runs: [],
+            opportunity_signals: [],
+            self_learning: {
+              environment_type: null,
+              learning_events: [],
+              self_healing_executions: [],
+              patterns: [],
+              recommendation_effectiveness: [],
+            },
+          }
+        : parseIntelligenceFoundation(intelligenceResult.data)
+    );
     setLoading(false);
   }
 
@@ -238,9 +337,10 @@ export default function CustomerMasterDetailView({
 
     async function load() {
       const supabase = createClient();
-      const [detailResult, autoResult] = await Promise.all([
+      const [detailResult, autoResult, intelligenceResult] = await Promise.all([
         supabase.rpc("get_platform_customer_master_detail", { p_customer_id: customerId }),
         supabase.rpc("list_platform_automations"),
+        supabase.rpc("get_customer_intelligence_foundation", { p_tenant_id: customerId }),
       ]);
 
       if (!cancelled) {
@@ -251,6 +351,25 @@ export default function CustomerMasterDetailView({
         }
         setAutomations(
           autoResult.error || !autoResult.data ? [] : (autoResult.data as PlatformAutomation[])
+        );
+        setIntelligence(
+          intelligenceResult.error || !intelligenceResult.data
+            ? {
+                timeline: [],
+                ai_recommendations: [],
+                success_score: null,
+                installation_health: null,
+                automation_runs: [],
+                opportunity_signals: [],
+                self_learning: {
+                  environment_type: null,
+                  learning_events: [],
+                  self_healing_executions: [],
+                  patterns: [],
+                  recommendation_effectiveness: [],
+                },
+              }
+            : parseIntelligenceFoundation(intelligenceResult.data)
         );
         setLoading(false);
       }
@@ -294,9 +413,43 @@ export default function CustomerMasterDetailView({
     detail;
   const displayName = customer.company_name ?? customer.full_name ?? labels.customerName;
   const health = getCustomerHealthFromDetail(detail);
-  const successScore = computeSuccessScore(detail);
-  const opportunities = detectOpportunities(detail);
-  const recommendations = buildWorkspaceRecommendations(detail);
+  const successScore = intelligence.success_score?.score ?? computeSuccessScore(detail);
+
+  const activeSignals = intelligence.opportunity_signals.filter(
+    (signal) => signal.status === "active"
+  );
+  const opportunities =
+    activeSignals.length > 0
+      ? activeSignals.map((signal) => {
+          const signalKey = opportunityTypeToSignal(signal.type);
+          return {
+            signal: signalKey,
+            label: labels.opportunityLabels[signalKey] ?? signal.type,
+          };
+        })
+      : detectOpportunities(detail);
+
+  const activeRecs = intelligence.ai_recommendations.filter((rec) => rec.status === "active");
+  const recommendations =
+    activeRecs.length > 0
+      ? aiRecommendationsToWorkspace(activeRecs)
+      : buildWorkspaceRecommendations(detail);
+
+  async function dismissRecommendation(recommendationId: string) {
+    await fetch(`/api/platform/customers/${customerId}/recommendations`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ recommendationId }),
+    });
+    setIntelligence((prev) => ({
+      ...prev,
+      ai_recommendations: prev.ai_recommendations.map((rec) =>
+        rec.id === recommendationId
+          ? { ...rec, status: "dismissed" as const, dismissed_at: new Date().toISOString() }
+          : rec
+      ),
+    }));
+  }
 
   const openTickets = support.filter((ticket) => ticket.status === "open" || ticket.status === "escalated");
   const closedTickets = support.filter((ticket) => ticket.status === "closed");
@@ -343,9 +496,7 @@ export default function CustomerMasterDetailView({
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <CustomerHealthBadge health={health} labels={labels.healthLabels} />
-            <span className="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700 ring-1 ring-violet-100">
-              {labels.successScore}: {successScore}
-            </span>
+            <SuccessScoreBadge score={successScore} labels={labels.successScoreLabels} />
             <StatusBadge
               status={customer.status}
               label={labels.statusLabels[customer.status] ?? customer.status}
@@ -545,10 +696,8 @@ export default function CustomerMasterDetailView({
           </div>
         )}
 
-        {activeTab === "automations" && (
-          automations.length === 0 ? (
-            <BrandedEmptyState message={labels.automations.empty} pulseLabel={labels.pulseLabel} />
-          ) : (
+        {activeTab === "automations" &&
+          (automations.length > 0 ? (
             <DataTable
               empty={labels.automations.empty}
               pulseLabel={labels.pulseLabel}
@@ -567,8 +716,30 @@ export default function CustomerMasterDetailView({
                 formatDateTime(automation.next_run_at, locale),
               ])}
             />
-          )
-        )}
+          ) : intelligence.automation_runs.length > 0 ? (
+            <DataTable
+              empty={labels.automations.empty}
+              pulseLabel={labels.pulseLabel}
+              headers={[
+                labels.automations.name,
+                labels.automations.status,
+                labels.automations.executedAt,
+                labels.automations.duration,
+                labels.automations.error,
+              ]}
+              rows={intelligence.automation_runs.map((run) => [
+                run.automation_name,
+                labels.automations.runStatusLabels[run.status] ?? run.status,
+                formatDateTime(run.executed_at, locale),
+                run.execution_time_ms != null
+                  ? `${run.execution_time_ms} ${labels.seconds}`
+                  : "—",
+                run.error_message ?? "—",
+              ])}
+            />
+          ) : (
+            <BrandedEmptyState message={labels.automations.empty} pulseLabel={labels.pulseLabel} />
+          ))}
 
         {activeTab === "aiInsights" && (
           <div className="space-y-6">
@@ -577,6 +748,18 @@ export default function CustomerMasterDetailView({
               recommendations={recommendations}
               labels={labels.recommendationFeed}
               priorityLabels={labels.priorityLabels}
+              onDismiss={
+                activeRecs.length > 0
+                  ? (id) => {
+                      void dismissRecommendation(id);
+                    }
+                  : undefined
+              }
+            />
+            <SelfLearningInsightsPanel
+              learning={intelligence.self_learning}
+              locale={locale}
+              labels={labels.selfLearning}
             />
             <AiInsightList
               title={labels.aiInsightsTitle}
@@ -587,7 +770,8 @@ export default function CustomerMasterDetailView({
 
         {activeTab === "timeline" && (
           <CustomerActivityTimeline
-            entries={activity_log}
+            foundationEvents={intelligence.timeline}
+            legacyEntries={activity_log}
             locale={locale}
             labels={labels.timeline}
           />
@@ -613,7 +797,9 @@ export default function CustomerMasterDetailView({
                   last_synced_at: installation.last_synced_at,
                   created_at: installation.created_at ?? "",
                 });
-                const score = getInstallationHealthScore(installation);
+                const score =
+                  intelligence.installation_health?.health_score ??
+                  getInstallationHealthScore(installation);
 
                 return (
                   <section
@@ -629,7 +815,8 @@ export default function CustomerMasterDetailView({
                         <p className="mt-1 text-sm text-gray-600">{installation.site_url ?? "—"}</p>
                       </div>
                       <span className="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700">
-                        {labels.healthScore}: {score}
+                        {labels.healthScore}: {score} ·{" "}
+                        {labels.installationHealthLabels[getInstallationHealthStatus(score)]}
                       </span>
                     </div>
                     <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-4">

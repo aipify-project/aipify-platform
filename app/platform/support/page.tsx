@@ -42,6 +42,19 @@ export default async function PlatformSupportPage() {
           waitingHuman: t("platform.support.counters.waitingHuman"),
           openCases: t("platform.support.counters.openCases"),
         },
+        performance: {
+          title: t("platform.support.performance.title"),
+          subtitle: t("platform.support.performance.subtitle"),
+          requestsToday: t("platform.support.performance.requestsToday"),
+          resolvedByAi: t("platform.support.performance.resolvedByAi"),
+          escalatedCases: t("platform.support.performance.escalatedCases"),
+          avgResponseTime: t("platform.support.performance.avgResponseTime"),
+          satisfactionScore: t("platform.support.performance.satisfactionScore"),
+          escalationReasons: t("platform.support.performance.escalationReasons"),
+          seconds: t("platform.metrics.seconds"),
+          percent: t("platform.metrics.percent"),
+          noReasons: t("platform.support.performance.noReasons"),
+        },
       }}
     />
   );

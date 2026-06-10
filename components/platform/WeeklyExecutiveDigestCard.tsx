@@ -8,6 +8,7 @@ type WeeklyExecutiveDigestCardProps = {
     supportRequests: string;
     aiResolved: string;
     revenueGrowth: string;
+    supportEscalations: string;
     trialsExpiring: string;
     recommendations: string;
   };
@@ -25,6 +26,7 @@ export default function WeeklyExecutiveDigestCard({
       label: labels.revenueGrowth,
       value: `${digest.revenue_growth_pct >= 0 ? "+" : ""}${digest.revenue_growth_pct}%`,
     },
+    { label: labels.supportEscalations, value: String(digest.support_escalations ?? 0) },
     { label: labels.trialsExpiring, value: String(digest.trials_expiring) },
     { label: labels.recommendations, value: String(digest.recommendations) },
   ];

@@ -366,6 +366,7 @@ export type WeeklyExecutiveDigest = {
   support_requests: number;
   ai_resolved: number;
   revenue_growth_pct: number;
+  support_escalations?: number;
   trials_expiring: number;
   recommendations: number;
 };

@@ -62,6 +62,30 @@
       "aiRecommendations": "AI-anbefalinger: {count}",
       "recommendationHint": "Aipify vil vise anbefalte handlinger her etter hvert som automatiseringen modnes.",
       "empty": "Du er oppdatert siden siste innlogging."
+    },
+    "learning": {
+      "title": "Selvlærende intelligens",
+      "subtitle": "Operasjonelle mønstre fra interne, pilot- og kundemiljøer — ingen kundeinnhold lagres.",
+      "loading": "Laster læringsoversikt...",
+      "totals": {
+        "patterns": "Mønstre",
+        "approvedPatterns": "Godkjent globalt",
+        "learningEvents": "Læringshendelser (30d)",
+        "healingExecutions": "Selvhelbredende kjøringer (30d)"
+      },
+      "patterns": {
+        "title": "Godkjente mønstre",
+        "empty": "Ingen godkjente mønstre ennå.",
+        "approved": "Godkjent for global bruk"
+      },
+      "environments": {
+        "title": "Læring per miljø",
+        "internal": "Intern",
+        "pilot": "Pilot",
+        "customer": "Kunde",
+        "enterprise": "Enterprise"
+      },
+      "privacyNote": "Aipify lærer kun fra operasjonelle mønstre. Samtaler, fakturaer, identiteter og sensitivt innhold lagres aldri."
     }
   },
   "customerType": {
@@ -546,7 +570,83 @@
       "recommendedAction": "Anbefalt handling",
       "confidence": "{value}% sikkerhet",
       "dismiss": "Avvis",
-      "empty": "Ingen aktive anbefalinger akkurat nå."
+      "empty": "Ingen AI-anbefalinger generert."
+    },
+    "foundation": {
+      "emptyOpportunities": "Ingen mulighetssignaler oppdaget."
+    },
+    "selfLearning": {
+      "title": "Selvlærende intelligens",
+      "environment": "Miljø",
+      "environmentLabels": {
+        "internal": "Intern (Nivå 0)",
+        "pilot": "Pilot (Nivå 1)",
+        "customer": "Kunde (Nivå 2)",
+        "enterprise": "Enterprise (Nivå 3)"
+      },
+      "stages": {
+        "detection": "Deteksjon",
+        "diagnosis": "Diagnose",
+        "recommendation": "Anbefalinger",
+        "healing": "Selvhelbredelse"
+      },
+      "learningEvents": {
+        "title": "Læringshendelser",
+        "empty": "Ingen læringshendelser registrert ennå.",
+        "eventType": "Type",
+        "category": "Kategori"
+      },
+      "patterns": {
+        "title": "Godkjente mønstre",
+        "empty": "Ingen godkjente mønstre for dette miljøet.",
+        "detections": "Deteksjoner",
+        "successRate": "Suksessrate",
+        "action": "Anbefalt handling"
+      },
+      "effectiveness": {
+        "title": "Anbefalingseffektivitet",
+        "empty": "Ingen effektivitetsdata ennå.",
+        "presented": "Presentert",
+        "accepted": "Akseptert",
+        "acceptanceRate": "Akseptanse"
+      },
+      "selfHealing": {
+        "title": "Selvhelbredende kjøringer",
+        "empty": "Ingen selvhelbredende kjøringer registrert.",
+        "action": "Handling",
+        "risk": "Risiko",
+        "result": "Resultat",
+        "duration": "Varighet",
+        "pendingApproval": "Venter på administratorgodkjenning"
+      },
+      "riskLabels": {
+        "low": "Lav risiko",
+        "medium": "Middels risiko",
+        "high": "Høy risiko",
+        "critical": "Kritisk risiko"
+      },
+      "resultLabels": {
+        "success": "Vellykket",
+        "failed": "Feilet",
+        "skipped": "Hoppet over",
+        "pending_approval": "Venter på godkjenning"
+      },
+      "eventTypeLabels": {
+        "detection": "Deteksjon",
+        "diagnosis": "Diagnose",
+        "recommendation": "Anbefaling",
+        "healing": "Selvhelbredelse"
+      },
+      "categoryLabels": {
+        "automation": "Automatisering",
+        "webhook": "Webhook",
+        "support": "Support",
+        "integration": "Integrasjon",
+        "onboarding": "Onboarding",
+        "health": "Helse",
+        "billing": "Fakturering",
+        "system": "System"
+      }
     },
     "priorityLabels": {
       "low": "Lav",
@@ -562,15 +662,19 @@
       "advocate": "Kundeambassadør-potensial"
     },
     "timeline": {
-      "empty": "Ingen aktivitet registrert ennå.",
+      "empty": "Ingen tidslinjeaktivitet ennå.",
+      "filterAll": "Alle hendelser",
+      "expandDetails": "Vis detaljer",
       "categories": {
         "support": "Support",
         "billing": "Fakturering",
-        "installations": "Installasjoner",
-        "automations": "Automatiseringer",
-        "users": "Brukere",
+        "automation": "Automatiseringer",
+        "installation": "Installasjoner",
+        "user": "Brukere",
+        "integrations": "Integrasjoner",
         "system": "System",
-        "ai_recommendations": "AI-anbefalinger"
+        "ai_recommendation": "AI-anbefalinger",
+        "subscription": "Abonnement"
       }
     },
     "integrations": {
@@ -586,15 +690,23 @@
       "customApi": "Egendefinerte API-er"
     },
     "automationsTab": {
-      "empty": "Ingen automatiseringer for denne kunden ennå.",
+      "empty": "Ingen automatiseringkjøringer registrert.",
       "name": "Automatisering",
       "status": "Status",
       "trigger": "Utløser",
       "lastRun": "Siste kjøring",
       "nextRun": "Neste kjøring",
+      "executedAt": "Kjørt",
+      "duration": "Varighet",
+      "error": "Feil",
       "statusLabels": {
         "active": "Aktiv",
         "paused": "Pauset",
+        "warning": "Advarsel",
+        "failed": "Feilet"
+      },
+      "runStatusLabels": {
+        "success": "Vellykket",
         "warning": "Advarsel",
         "failed": "Feilet"
       }

@@ -1,13 +1,22 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
+import PriorityBadge from "@/components/platform/PriorityBadge";
+import RecommendedActionsPanel from "@/components/platform/RecommendedActionsPanel";
+import PlatformLearningPanel from "@/components/platform/PlatformLearningPanel";
 import { createClient } from "@/lib/supabase/client";
 import {
   getGreetingName,
   type PlatformAdminSession,
   type PlatformDashboardSnapshot,
 } from "@/lib/platform/ai-dashboard";
+import {
+  buildExecutiveBriefingItems,
+  buildRecommendedActions,
+  buildSinceLoginEvents,
+} from "@/lib/platform/executive-intelligence";
 import { getSystemHealth } from "@/lib/platform/metrics-dashboard";
 import type { PlatformMetrics } from "@/lib/platform/types";
 
@@ -24,25 +33,67 @@ type PlatformOverviewPanelProps = {
       greetingAfternoon: string;
       greetingEvening: string;
       sinceVisit: string;
-      newCustomers: string;
-      trialsEnding: string;
-      supportResolved: string;
-      followUp: string;
+      newCustomers: (count: number) => string;
+      trialsEnding: (count: number) => string;
+      supportResolved: (count: number) => string;
+      escalated: (count: number) => string;
+      failedAutomations: (count: number) => string;
+      systemWarnings: (count: number) => string;
+      newRecommendations: (count: number) => string;
+      followUp: (count: number) => string;
       noIncidents: string;
-      incidents: string;
+      incidents: (count: number) => string;
+    };
+    priorityLabels: Record<string, string>;
+    recommendedActions: {
+      title: string;
+      suggestedAction: string;
+      empty: string;
+      trialsExpiring: (count: number) => { title: string; reason: string; action: string };
+      healthDropped: { title: string; reason: string; action: string };
+      escalationWaiting: { title: string; reason: string; action: string };
+      revenueOpportunity: { title: string; reason: string; action: string };
+      failedAutomation: (count: number) => { title: string; reason: string; action: string };
+    };
+    learning: {
+      title: string;
+      subtitle: string;
+      loading: string;
+      pulseLabel: string;
+      totals: {
+        patterns: string;
+        approvedPatterns: string;
+        learningEvents: string;
+        healingExecutions: string;
+      };
+      patterns: {
+        title: string;
+        empty: string;
+        approved: string;
+      };
+      environments: {
+        title: string;
+        internal: string;
+        pilot: string;
+        customer: string;
+        enterprise: string;
+      };
+      privacyNote: string;
     };
     sinceLogin: {
       title: string;
       markRead: string;
       markedRead: string;
-      newCustomers: string;
-      newInstallations: string;
-      supportResolved: string;
-      escalated: string;
-      trialsEnding: string;
-      billingEvents: string;
-      systemIncidents: string;
-      aiRecommendations: string;
+      expand: string;
+      openModule: string;
+      newCustomers: (count: number) => string;
+      supportResolved: (count: number) => string;
+      escalated: (count: number) => string;
+      installationsCompleted: (count: number) => string;
+      automationsTriggered: (count: number) => string;
+      aiRecommendations: (count: number) => string;
+      systemIncidents: (count: number) => string;
+      revenueEvents: (count: number) => string;
       recommendationHint: string;
       empty: string;
     };
@@ -51,12 +102,32 @@ type PlatformOverviewPanelProps = {
 
 const READ_STORAGE_KEY = "aipify-platform-since-login-read";
 
+const EMPTY_SNAPSHOT: PlatformDashboardSnapshot = {
+  since: new Date().toISOString(),
+  new_customers: 0,
+  new_installations: 0,
+  trials_ending_7d: 0,
+  support_resolved: 0,
+  escalated_cases: 0,
+  waiting_human: 0,
+  open_cases: 0,
+  billing_events: 0,
+  follow_up_customers: 0,
+  system_incidents: 0,
+  failed_automations: 0,
+  system_warnings: 0,
+  new_ai_recommendations: 0,
+  automations_triggered: 0,
+  revenue_events: 0,
+};
+
 export default function PlatformOverviewPanel({ labels }: PlatformOverviewPanelProps) {
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<PlatformAdminSession | null>(null);
   const [snapshot, setSnapshot] = useState<PlatformDashboardSnapshot | null>(null);
   const [metrics, setMetrics] = useState<PlatformMetrics | null>(null);
   const [markedRead, setMarkedRead] = useState(false);
+  const [expandedEvent, setExpandedEvent] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -70,10 +141,9 @@ export default function PlatformOverviewPanel({ labels }: PlatformOverviewPanelP
           : null;
 
       const [snapshotResult, metricsResult] = await Promise.all([
-        supabase.rpc("get_platform_dashboard_snapshot", {
-          p_since: previousLogin,
-        }),
+        supabase.rpc("get_platform_dashboard_snapshot", { p_since: previousLogin }),
         supabase.rpc("get_platform_metrics"),
+        supabase.rpc("record_executive_metric_snapshot"),
       ]);
 
       if (!cancelled) {
@@ -85,7 +155,7 @@ export default function PlatformOverviewPanel({ labels }: PlatformOverviewPanelP
         setSnapshot(
           snapshotResult.error || !snapshotResult.data
             ? null
-            : (snapshotResult.data as PlatformDashboardSnapshot)
+            : ({ ...EMPTY_SNAPSHOT, ...(snapshotResult.data as object) } as PlatformDashboardSnapshot)
         );
         setMetrics(
           metricsResult.error || !metricsResult.data
@@ -97,7 +167,6 @@ export default function PlatformOverviewPanel({ labels }: PlatformOverviewPanelP
     }
 
     void load();
-
     return () => {
       cancelled = true;
     };
@@ -118,44 +187,17 @@ export default function PlatformOverviewPanel({ labels }: PlatformOverviewPanelP
 
   const briefingItems = useMemo(() => {
     if (!snapshot) return [];
-    const items: string[] = [];
-    if (snapshot.new_customers > 0) {
-      items.push(labels.briefing.newCustomers.replace("{count}", String(snapshot.new_customers)));
-    }
-    if (snapshot.trials_ending_7d > 0) {
-      items.push(labels.briefing.trialsEnding.replace("{count}", String(snapshot.trials_ending_7d)));
-    }
-    if (snapshot.support_resolved > 0) {
-      items.push(
-        labels.briefing.supportResolved.replace("{count}", String(snapshot.support_resolved))
-      );
-    }
-    if (snapshot.follow_up_customers > 0) {
-      items.push(labels.briefing.followUp.replace("{count}", String(snapshot.follow_up_customers)));
-    }
-    if (snapshot.system_incidents === 0) {
-      items.push(labels.briefing.noIncidents);
-    } else {
-      items.push(labels.briefing.incidents.replace("{count}", String(snapshot.system_incidents)));
-    }
-    return items;
+    return buildExecutiveBriefingItems(snapshot, labels.briefing);
   }, [labels.briefing, snapshot]);
 
-  const sinceLoginItems = useMemo(() => {
-    if (!snapshot || !metrics) return [];
-    return [
-      labels.sinceLogin.newCustomers.replace("{count}", String(snapshot.new_customers)),
-      labels.sinceLogin.newInstallations.replace("{count}", String(snapshot.new_installations)),
-      labels.sinceLogin.supportResolved.replace("{count}", String(snapshot.support_resolved)),
-      labels.sinceLogin.escalated.replace("{count}", String(snapshot.escalated_cases)),
-      labels.sinceLogin.trialsEnding.replace("{count}", String(snapshot.trials_ending_7d)),
-      labels.sinceLogin.billingEvents.replace("{count}", String(snapshot.billing_events)),
-      labels.sinceLogin.systemIncidents.replace("{count}", String(snapshot.system_incidents)),
-      labels.sinceLogin.aiRecommendations.replace(
-        "{count}",
-        String(metrics.ai_activity.ai_recommendations_generated)
-      ),
-    ];
+  const recommendedActions = useMemo(() => {
+    if (!snapshot) return [];
+    return buildRecommendedActions(snapshot, metrics, labels.recommendedActions);
+  }, [labels.recommendedActions, metrics, snapshot]);
+
+  const sinceLoginEvents = useMemo(() => {
+    if (!snapshot) return [];
+    return buildSinceLoginEvents(snapshot, metrics, labels.sinceLogin);
   }, [labels.sinceLogin, metrics, snapshot]);
 
   function handleMarkRead() {
@@ -190,13 +232,17 @@ export default function PlatformOverviewPanel({ labels }: PlatformOverviewPanelP
           {greeting.replace("{name}", adminName)}
         </p>
         <p className="mt-2 text-sm font-medium text-gray-600">{labels.briefing.sinceVisit}</p>
-        <ul className="mt-4 space-y-2.5">
+        <ul className="mt-4 space-y-3">
           {briefingItems.map((item) => (
-            <li key={item} className="flex items-start gap-2.5 text-sm leading-relaxed text-gray-700">
-              <span className="mt-1 text-violet-500" aria-hidden="true">
-                •
-              </span>
-              {item}
+            <li
+              key={item.id}
+              className="flex flex-wrap items-start gap-2.5 rounded-xl bg-white/60 px-3 py-2.5"
+            >
+              <PriorityBadge
+                priority={item.priority}
+                label={labels.priorityLabels[item.priority] ?? item.priority}
+              />
+              <span className="text-sm leading-relaxed text-gray-700">{item.message}</span>
             </li>
           ))}
         </ul>
@@ -206,6 +252,16 @@ export default function PlatformOverviewPanel({ labels }: PlatformOverviewPanelP
           </p>
         )}
       </section>
+
+      <RecommendedActionsPanel
+        title={labels.recommendedActions.title}
+        actions={recommendedActions}
+        priorityLabels={labels.priorityLabels}
+        suggestedActionLabel={labels.recommendedActions.suggestedAction}
+        empty={labels.recommendedActions.empty}
+      />
+
+      <PlatformLearningPanel labels={labels.learning} />
 
       <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -224,12 +280,26 @@ export default function PlatformOverviewPanel({ labels }: PlatformOverviewPanelP
         ) : (
           <>
             <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-              {sinceLoginItems.map((item) => (
-                <li
-                  key={item}
-                  className="rounded-xl bg-gray-50/80 px-4 py-3 text-sm text-gray-700 ring-1 ring-gray-100"
-                >
-                  {item}
+              {sinceLoginEvents.map((event) => (
+                <li key={event.id}>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setExpandedEvent((current) => (current === event.id ? null : event.id))
+                    }
+                    className="w-full rounded-xl bg-gray-50/80 px-4 py-3 text-left text-sm text-gray-700 ring-1 ring-gray-100 transition hover:ring-violet-200"
+                  >
+                    <span className="font-medium">{event.label}</span>
+                    {expandedEvent === event.id && event.href && (
+                      <Link
+                        href={event.href}
+                        className="mt-2 block text-xs font-semibold text-violet-600 hover:text-violet-700"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {labels.sinceLogin.openModule} →
+                      </Link>
+                    )}
+                  </button>
                 </li>
               ))}
             </ul>

@@ -492,6 +492,39 @@
       "active": "Active",
       "invited": "Invited",
       "disabled": "Disabled"
+    },
+    "foundation": {
+      "emptyOpportunities": "Inga möjlighetssignaler upptäckta."
+    },
+    "timeline": {
+      "empty": "Ingen tidslinjeaktivitet ännu.",
+      "filterAll": "Alla händelser",
+      "expandDetails": "Visa detaljer",
+      "categories": {
+        "support": "Support",
+        "billing": "Fakturering",
+        "automation": "Automationer",
+        "installation": "Installationer",
+        "user": "Användare",
+        "integrations": "Integrationer",
+        "system": "System",
+        "ai_recommendation": "AI-rekommendationer",
+        "subscription": "Prenumeration"
+      }
+    },
+    "recommendationFeed": {
+      "empty": "Inga AI-rekommendationer genererade."
+    },
+    "automationsTab": {
+      "empty": "Inga automationskörningar registrerade.",
+      "executedAt": "Kördes",
+      "duration": "Varaktighet",
+      "error": "Fel",
+      "runStatusLabels": {
+        "success": "Lyckades",
+        "warning": "Varning",
+        "failed": "Misslyckades"
+      }
     }
   },
   "sections": {

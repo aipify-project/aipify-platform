@@ -1,0 +1,41 @@
+AIPIFY PLATFORM – EXECUTIVE INTELLIGENCE & OPERATIONAL CONTROL
+===============================================================
+
+STATUS: READY FOR CURSOR
+PRIORITY: VERY HIGH
+
+GOAL
+-----
+Elevate Aipify into an AI-powered business operating system that guides
+administrators toward better decisions and automation opportunities.
+
+IMPLEMENTED IN CODEBASE (reference)
+----------------------------------
+[✓] 1. Executive Briefing – priority labels (Critical/Important/Informational)
+[✓] 2. Recommended Actions panel on /platform overview
+[✓] 3. Customer Activity Timeline – category filters
+[✓] 4. AI Recommendation Engine – confidence + dismiss (customer workspace)
+[✓] 5. Automation Center – health dashboard section
+[✓] 6. Automation Health metrics – success rate, failures, upcoming
+[✓] 7. Installation Health Score – 0–100 with Healthy/Warning/Critical
+[✓] 8. Customer Success Score – badges (Excellent/Good/Needs Attention/At Risk)
+[✓] 9. Opportunity Detection – customer profile badges
+[✓] 10. Support AI Performance panel on /platform/support
+[✓] 11. Executive Digest – support escalations metric
+[✓] 12. AI Confidence scoring on recommendations
+[✓] 13. Since Last Login – expanded events + module links
+[✓] 14. Quick Actions – customer Command Center overview
+
+RPCs:
+  get_platform_dashboard_snapshot() – extended fields
+  get_support_ai_performance()
+  get_weekly_executive_digest() – support_escalations
+
+FUTURE
+------
+  - Dismiss/complete briefing items server-side
+  - One-click recommended actions
+  - Digest delivery (email, Slack, Teams, push)
+  - Autonomous recommendation execution
+
+END OF PHASE

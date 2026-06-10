@@ -5,8 +5,11 @@ import { useEffect, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
 import { formatDate } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
+import { parseSupportAiPerformance } from "@/lib/platform/executive-intelligence";
+import type { SupportAiPerformance } from "@/lib/platform/executive-intelligence";
 import type { PlatformSupportQueueRow } from "@/lib/platform/types";
 import StatusBadge from "./StatusBadge";
+import SupportAiPerformancePanel from "./SupportAiPerformancePanel";
 
 type PlatformSupportPanelProps = {
   locale: string;
@@ -36,6 +39,19 @@ type PlatformSupportPanelProps = {
       waitingHuman: string;
       openCases: string;
     };
+    performance: {
+      title: string;
+      subtitle: string;
+      requestsToday: string;
+      resolvedByAi: string;
+      escalatedCases: string;
+      avgResponseTime: string;
+      satisfactionScore: string;
+      escalationReasons: string;
+      seconds: string;
+      percent: string;
+      noReasons: string;
+    };
   };
 };
 
@@ -50,6 +66,7 @@ export default function PlatformSupportPanel({
     waitingHuman: 0,
     openCases: 0,
   });
+  const [performance, setPerformance] = useState<SupportAiPerformance | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -57,9 +74,10 @@ export default function PlatformSupportPanel({
 
     async function load() {
       const supabase = createClient();
-      const [queueResult, snapshotResult] = await Promise.all([
+      const [queueResult, snapshotResult, performanceResult] = await Promise.all([
         supabase.rpc("list_platform_support_queue"),
         supabase.rpc("get_platform_dashboard_snapshot"),
+        supabase.rpc("get_support_ai_performance"),
       ]);
 
       if (!cancelled) {
@@ -81,6 +99,11 @@ export default function PlatformSupportPanel({
             waitingHuman: snapshot.waiting_human,
             openCases: snapshot.open_cases,
           });
+        }
+        if (performanceResult.data && typeof performanceResult.data === "object") {
+          setPerformance(
+            parseSupportAiPerformance(performanceResult.data as Record<string, unknown>)
+          );
         }
         setLoading(false);
       }
@@ -115,10 +138,15 @@ export default function PlatformSupportPanel({
 
       {loading ? (
         <p className="text-sm text-gray-500">{labels.loading}</p>
-      ) : cases.length === 0 ? (
-        <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
       ) : (
         <div className="space-y-6">
+          {performance && (
+            <SupportAiPerformancePanel performance={performance} labels={labels.performance} />
+          )}
+          {cases.length === 0 ? (
+            <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
+          ) : (
+            <>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { label: labels.counters.resolvedByAi, value: counters.resolvedByAi },
@@ -205,6 +233,8 @@ export default function PlatformSupportPanel({
             </table>
           </div>
         </div>
+            </>
+          )}
         </div>
       )}
     </div>

@@ -1,0 +1,53 @@
+AIPIFY – SELF-LEARNING ARCHITECTURE & DUAL INTELLIGENCE MODEL
+Status: Foundation implemented
+Priority: Critical
+
+GOAL
+Establish privacy-safe operational learning that distinguishes internal,
+pilot, customer, and enterprise environments while preserving tenant isolation.
+
+INTELLIGENCE LEVELS
+- Level 0 internal: Aipify Group AS (is_platform companies)
+- Level 1 pilot: Unonight and controlled pilots
+- Level 2 customer: Standard paying customers
+- Level 3 enterprise: Maximum privacy, opt-in learning
+
+DATABASE (migration: 20260610280000_self_learning_foundation.sql)
+- customers.environment_type, installations.environment_type
+- ai_learning_events — pattern events only (no customer content)
+- ai_patterns — reusable operational knowledge
+- ai_recommendation_effectiveness — recommendation value tracking
+- ai_self_healing_executions — audit trail with risk levels
+
+RPCs
+- record_ai_learning_event(...)
+- upsert_ai_pattern(...)
+- track_recommendation_effectiveness(type, outcome)
+- record_self_healing_execution(...)
+- get_customer_self_learning(tenant_id)
+- get_platform_learning_overview()
+- get_customer_intelligence_foundation extended with self_learning slice
+
+AUTOMATIC LEARNING TRIGGERS
+- automation_runs (failed/warning) → detection events + pattern bump
+- ai_recommendations (insert/update) → effectiveness tracking
+- installation_integrations (error) → integration detection events
+
+HUMAN APPROVAL MODEL (foundation)
+- low risk: auto-executable healing (health scans, retries)
+- medium/high/critical: pending_approval in self_healing_executions
+
+API ROUTES
+- GET /api/platform/learning
+- GET /api/platform/customers/[id]/learning
+
+UI
+- Platform overview: PlatformLearningPanel (global patterns, env breakdown)
+- Customer AI Insights: SelfLearningInsightsPanel (events, patterns, healing)
+
+PRIVACY BOUNDARIES
+Metadata stores operational signals only — never conversations, invoices,
+PII, secrets, or uploaded documents.
+
+NOT IN THIS PHASE
+- Advanced diagnosis AI, autonomous high-risk actions, cross-tenant content sharing

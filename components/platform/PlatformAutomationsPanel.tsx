@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
 import { formatDateTime } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
+import { computeAutomationHealthSummary } from "@/lib/platform/executive-intelligence";
 import type { PlatformAutomation, WeeklyExecutiveDigest } from "@/lib/platform/types";
+import AutomationHealthDashboard from "./AutomationHealthDashboard";
 import WeeklyExecutiveDigestCard from "./WeeklyExecutiveDigestCard";
 
 type PlatformAutomationsPanelProps = {
@@ -34,8 +36,20 @@ type PlatformAutomationsPanelProps = {
       supportRequests: string;
       aiResolved: string;
       revenueGrowth: string;
+      supportEscalations: string;
       trialsExpiring: string;
       recommendations: string;
+    };
+    healthDashboard: {
+      title: string;
+      total: string;
+      successRate: string;
+      avgExecution: string;
+      warnings: string;
+      failures: string;
+      upcoming: string;
+      needsAttention: string;
+      statusLabels: Record<string, string>;
     };
   };
 };
@@ -86,6 +100,8 @@ export default function PlatformAutomationsPanel({
     };
   }, []);
 
+  const healthSummary = computeAutomationHealthSummary(automations);
+
   if (loading) {
     return <p className="text-sm text-gray-500">{labels.loading}</p>;
   }
@@ -98,6 +114,10 @@ export default function PlatformAutomationsPanel({
       </div>
 
       {digest && <WeeklyExecutiveDigestCard digest={digest} labels={labels.digest} />}
+
+      {automations.length > 0 && (
+        <AutomationHealthDashboard summary={healthSummary} labels={labels.healthDashboard} />
+      )}
 
       {automations.length === 0 ? (
         <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />

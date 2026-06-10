@@ -14,6 +14,11 @@ export type PlatformDashboardSnapshot = {
   billing_events: number;
   follow_up_customers: number;
   system_incidents: number;
+  failed_automations: number;
+  system_warnings: number;
+  new_ai_recommendations: number;
+  automations_triggered: number;
+  revenue_events: number;
 };
 
 export type PlatformAdminSession = {

@@ -1,0 +1,54 @@
+AIPIFY – INTELLIGENCE FOUNDATION & TIMELINE ARCHITECTURE
+Status: Implemented (foundation phase)
+Priority: Critical
+
+GOAL
+Build long-term memory structures for future AI capabilities without implementing
+advanced analysis yet. Collect operational data from day one.
+
+DATABASE (migration: 20260610270000_intelligence_foundation.sql)
+- customer_timeline — categorized events per tenant (customer id)
+- ai_recommendations — active/dismissed/executed recommendations
+- customer_success_scores — 0–100 composite score per tenant
+- installation_health — aggregate health snapshot per tenant
+- automation_runs — execution history (success/warning/failed)
+- opportunity_signals — upgrade, retention, engagement signals
+- executive_metric_snapshots — platform-wide metrics for future dashboards
+
+AUTOMATIC LOGGING (triggers)
+- subscriptions → trial started, upgraded
+- invoices → generated, paid
+- support_cases → resolved, escalated
+- team_invitations → invited
+- ai_recommendations → recommendation generated
+- activity_logs backfill → customer_timeline
+
+RPCs
+- record_customer_timeline_event(tenant_id, category, title, ...)
+- refresh_customer_intelligence_scores(tenant_id)
+- record_executive_metric_snapshot()
+- get_customer_intelligence_foundation(tenant_id)
+- dismiss_ai_recommendation(recommendation_id)
+
+API ROUTES
+- GET /api/platform/customers/[id]/intelligence
+- GET /api/platform/customers/[id]/timeline
+- GET|PATCH /api/platform/customers/[id]/recommendations
+
+UI (Customer Command Center)
+- All 8 tabs preserved: Overview, Users, Support, Automations, AI Insights,
+  Activity Timeline, Integrations, Settings
+- Intelligence bundle loaded via get_customer_intelligence_foundation RPC
+- Timeline: foundation events first, legacy activity_log fallback
+- Category filters, relative timestamps, expandable metadata JSON
+- Empty states: timeline, recommendations, automations, opportunities
+- Platform overview records executive_metric_snapshot on load
+
+TYPES & HELPERS
+- lib/platform/intelligence-foundation.ts
+
+NOT IN THIS PHASE
+- Advanced AI analysis, executive dashboards, search/export on timeline
+
+FOUR-STAGE PRINCIPLE (Visibility → Insights → Recommendations → Automation)
+Structures support all four stages; only Visibility and data collection are active.

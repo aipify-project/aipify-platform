@@ -41,27 +41,92 @@
       "greetingAfternoon": "Good afternoon, {name}.",
       "greetingEvening": "Good evening, {name}.",
       "sinceVisit": "Since your last visit:",
-      "newCustomers": "{count} new customers registered.",
+      "newCustomers": "{count} new customers acquired.",
       "trialsEnding": "{count} trial periods expire within 7 days.",
       "supportResolved": "Support AI resolved {count} requests.",
-      "followUp": "{count} customer requires follow-up.",
+      "escalated": "{count} support case(s) escalated.",
+      "failedAutomations": "{count} automation(s) failed.",
+      "systemWarnings": "{count} system warning(s) detected.",
+      "newRecommendations": "{count} new AI recommendations.",
+      "followUp": "{count} customer(s) require follow-up.",
       "noIncidents": "No critical system incidents detected.",
       "incidents": "{count} installation issue(s) require attention."
+    },
+    "priorityLabels": {
+      "critical": "Critical",
+      "important": "Important",
+      "informational": "Informational"
+    },
+    "recommendedActions": {
+      "title": "Recommended Actions",
+      "suggestedAction": "Suggested action",
+      "empty": "No actions require attention right now.",
+      "trialsExpiring": {
+        "title": "{count} customer trial(s) expire this week",
+        "reason": "Trials ending soon may churn without proactive outreach.",
+        "action": "Contact customers"
+      },
+      "healthDropped": {
+        "title": "Installation health dropped below 90%",
+        "reason": "Platform installation health is at {score}%.",
+        "action": "Run health scan"
+      },
+      "escalationWaiting": {
+        "title": "Support escalation waiting for review",
+        "reason": "Escalated cases are waiting for a human agent.",
+        "action": "Assign support agent"
+      },
+      "revenueOpportunity": {
+        "title": "Revenue opportunity detected",
+        "reason": "New customer growth signals expansion potential.",
+        "action": "Review upgrade recommendations"
+      },
+      "failedAutomation": {
+        "title": "{count} automation(s) require attention",
+        "reason": "Failed automations may interrupt operational workflows.",
+        "action": "Review automation health"
+      }
     },
     "sinceLogin": {
       "title": "Since Last Login",
       "markRead": "Mark as read",
       "markedRead": "Marked as read",
+      "expand": "Expand",
+      "openModule": "Open module",
       "newCustomers": "New customers: {count}",
-      "newInstallations": "New installations: {count}",
-      "supportResolved": "Support cases resolved: {count}",
+      "supportResolved": "Support requests resolved: {count}",
       "escalated": "Escalated cases: {count}",
-      "trialsEnding": "Trials ending soon: {count}",
-      "billingEvents": "Billing events: {count}",
+      "installationsCompleted": "Installations completed: {count}",
+      "automationsTriggered": "Automations triggered: {count}",
+      "aiRecommendations": "AI recommendations generated: {count}",
       "systemIncidents": "System incidents: {count}",
-      "aiRecommendations": "AI recommendations: {count}",
-      "recommendationHint": "Aipify will surface recommended actions here as automation matures.",
+      "revenueEvents": "Revenue events: {count}",
+      "recommendationHint": "Click an event to expand and open the related module.",
       "empty": "You're up to date since your last login."
+    },
+    "learning": {
+      "title": "Self-Learning Intelligence",
+      "subtitle": "Operational patterns learned from internal, pilot, and customer environments — no customer content stored.",
+      "loading": "Loading learning overview...",
+      "totals": {
+        "patterns": "Patterns",
+        "approvedPatterns": "Approved globally",
+        "learningEvents": "Learning events (30d)",
+        "healingExecutions": "Self-healing runs (30d)"
+      },
+      "patterns": {
+        "title": "Approved patterns",
+        "empty": "No approved patterns yet.",
+        "approved": "Approved for global use"
+      },
+      "environments": {
+        "title": "Learning by environment",
+        "internal": "Internal",
+        "pilot": "Pilot",
+        "customer": "Customer",
+        "enterprise": "Enterprise"
+      },
+      "privacyNote": "Aipify learns from operational patterns only. Customer conversations, invoices, identities, and sensitive content are never stored in the learning system."
     }
   },
   "customerType": {
@@ -408,6 +473,17 @@
       "escalatedByAi": "Escalated by AI",
       "waitingHuman": "Waiting for Human",
       "openCases": "Open Cases"
+    },
+    "performance": {
+      "title": "Support AI Performance",
+      "subtitle": "Aipify uses Aipify first — visibility into AI-powered support value.",
+      "requestsToday": "Requests today",
+      "resolvedByAi": "Resolved by AI",
+      "escalatedCases": "Escalated cases",
+      "avgResponseTime": "Average response time",
+      "satisfactionScore": "Customer satisfaction",
+      "escalationReasons": "Escalation reasons",
+      "noReasons": "No escalation reasons recorded."
     }
   },
   "system": {
@@ -466,8 +542,19 @@
       "supportRequests": "Support Requests",
       "aiResolved": "AI Resolved",
       "revenueGrowth": "Revenue Growth",
+      "supportEscalations": "Support Escalations",
       "trialsExpiring": "Trials Expiring",
       "recommendations": "Recommendations"
+    },
+    "healthDashboard": {
+      "title": "Automation Health",
+      "total": "Total automations",
+      "successRate": "Success rate",
+      "avgExecution": "Avg. execution time",
+      "warnings": "Warnings",
+      "failures": "Failures",
+      "upcoming": "Upcoming executions",
+      "needsAttention": "Requires attention"
     }
   },
   "masterDetail": {
@@ -478,6 +565,17 @@
     "notFound": "Customer not found.",
     "health": "Health",
     "successScore": "Success Score",
+    "successScoreLabels": {
+      "excellent": "Excellent",
+      "good": "Good",
+      "needs_attention": "Needs Attention",
+      "at_risk": "At Risk"
+    },
+    "installationHealthLabels": {
+      "healthy": "Healthy",
+      "warning": "Warning",
+      "critical": "Critical"
+    },
     "opportunities": "Opportunities",
     "customerType": "Customer type",
     "companyNumber": "Company number",
@@ -546,7 +644,83 @@
       "recommendedAction": "Recommended action",
       "confidence": "{value}% confidence",
       "dismiss": "Dismiss",
-      "empty": "No active recommendations right now."
+      "empty": "No AI recommendations generated."
+    },
+    "foundation": {
+      "emptyOpportunities": "No opportunity signals detected."
+    },
+    "selfLearning": {
+      "title": "Self-Learning Intelligence",
+      "environment": "Environment",
+      "environmentLabels": {
+        "internal": "Internal (Level 0)",
+        "pilot": "Pilot (Level 1)",
+        "customer": "Customer (Level 2)",
+        "enterprise": "Enterprise (Level 3)"
+      },
+      "stages": {
+        "detection": "Detection",
+        "diagnosis": "Diagnosis",
+        "recommendation": "Recommendations",
+        "healing": "Self-Healing"
+      },
+      "learningEvents": {
+        "title": "Learning events",
+        "empty": "No learning events recorded yet.",
+        "eventType": "Type",
+        "category": "Category"
+      },
+      "patterns": {
+        "title": "Approved patterns",
+        "empty": "No approved patterns available for this environment.",
+        "detections": "Detections",
+        "successRate": "Success rate",
+        "action": "Recommended action"
+      },
+      "effectiveness": {
+        "title": "Recommendation effectiveness",
+        "empty": "No recommendation effectiveness data yet.",
+        "presented": "Presented",
+        "accepted": "Accepted",
+        "acceptanceRate": "Acceptance rate"
+      },
+      "selfHealing": {
+        "title": "Self-healing executions",
+        "empty": "No self-healing executions recorded.",
+        "action": "Action",
+        "risk": "Risk",
+        "result": "Result",
+        "duration": "Duration",
+        "pendingApproval": "Awaiting administrator approval"
+      },
+      "riskLabels": {
+        "low": "Low risk",
+        "medium": "Medium risk",
+        "high": "High risk",
+        "critical": "Critical risk"
+      },
+      "resultLabels": {
+        "success": "Success",
+        "failed": "Failed",
+        "skipped": "Skipped",
+        "pending_approval": "Pending approval"
+      },
+      "eventTypeLabels": {
+        "detection": "Detection",
+        "diagnosis": "Diagnosis",
+        "recommendation": "Recommendation",
+        "healing": "Self-healing"
+      },
+      "categoryLabels": {
+        "automation": "Automation",
+        "webhook": "Webhook",
+        "support": "Support",
+        "integration": "Integration",
+        "onboarding": "Onboarding",
+        "health": "Health",
+        "billing": "Billing",
+        "system": "System"
+      }
     },
     "priorityLabels": {
       "low": "Low",
@@ -562,15 +736,19 @@
       "advocate": "Customer Advocate Potential"
     },
     "timeline": {
-      "empty": "No activity recorded yet.",
+      "empty": "No timeline activity yet.",
+      "filterAll": "All events",
+      "expandDetails": "View details",
       "categories": {
         "support": "Support",
         "billing": "Billing",
-        "installations": "Installations",
-        "automations": "Automations",
-        "users": "Users",
-        "system": "System",
-        "ai_recommendations": "AI Recommendations"
+        "automation": "Automations",
+        "installation": "Installations",
+        "user": "Users",
+        "integrations": "Integrations",
+        "system": "System Events",
+        "ai_recommendation": "AI Recommendations",
+        "subscription": "Subscription"
       }
     },
     "integrations": {
@@ -586,15 +764,23 @@
       "customApi": "Custom APIs"
     },
     "automationsTab": {
-      "empty": "No automations available for this customer yet.",
+      "empty": "No automation executions recorded.",
       "name": "Automation",
       "status": "Status",
       "trigger": "Trigger",
       "lastRun": "Last run",
       "nextRun": "Next run",
+      "executedAt": "Executed at",
+      "duration": "Duration",
+      "error": "Error",
       "statusLabels": {
         "active": "Active",
         "paused": "Paused",
+        "warning": "Warning",
+        "failed": "Failed"
+      },
+      "runStatusLabels": {
+        "success": "Success",
         "warning": "Warning",
         "failed": "Failed"
       }

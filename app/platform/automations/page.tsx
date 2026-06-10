@@ -41,8 +41,25 @@ export default async function PlatformAutomationsPage() {
           supportRequests: t("platform.automations.digest.supportRequests"),
           aiResolved: t("platform.automations.digest.aiResolved"),
           revenueGrowth: t("platform.automations.digest.revenueGrowth"),
+          supportEscalations: t("platform.automations.digest.supportEscalations"),
           trialsExpiring: t("platform.automations.digest.trialsExpiring"),
           recommendations: t("platform.automations.digest.recommendations"),
+        },
+        healthDashboard: {
+          title: t("platform.automations.healthDashboard.title"),
+          total: t("platform.automations.healthDashboard.total"),
+          successRate: t("platform.automations.healthDashboard.successRate"),
+          avgExecution: t("platform.automations.healthDashboard.avgExecution"),
+          warnings: t("platform.automations.healthDashboard.warnings"),
+          failures: t("platform.automations.healthDashboard.failures"),
+          upcoming: t("platform.automations.healthDashboard.upcoming"),
+          needsAttention: t("platform.automations.healthDashboard.needsAttention"),
+          statusLabels: {
+            active: t("platform.automations.statusLabels.active"),
+            paused: t("platform.automations.statusLabels.paused"),
+            warning: t("platform.automations.statusLabels.warning"),
+            failed: t("platform.automations.statusLabels.failed"),
+          },
         },
       }}
     />

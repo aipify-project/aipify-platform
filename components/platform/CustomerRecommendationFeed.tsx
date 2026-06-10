@@ -21,6 +21,7 @@ type CustomerRecommendationFeedProps = {
     empty: string;
   };
   priorityLabels: Record<string, string>;
+  onDismiss?: (recommendationId: string) => void;
 };
 
 export default function CustomerRecommendationFeed({
@@ -28,6 +29,7 @@ export default function CustomerRecommendationFeed({
   recommendations,
   labels,
   priorityLabels,
+  onDismiss,
 }: CustomerRecommendationFeedProps) {
   const [dismissed, setDismissed] = useState<Set<string>>(new Set());
   const visible = recommendations.filter((rec) => !dismissed.has(rec.id));
@@ -64,7 +66,10 @@ export default function CustomerRecommendationFeed({
                 </div>
                 <button
                   type="button"
-                  onClick={() => setDismissed((prev) => new Set(prev).add(rec.id))}
+                  onClick={() => {
+                    setDismissed((prev) => new Set(prev).add(rec.id));
+                    onDismiss?.(rec.id);
+                  }}
                   className="shrink-0 text-xs font-semibold text-gray-500 hover:text-gray-700"
                 >
                   {labels.dismiss}
