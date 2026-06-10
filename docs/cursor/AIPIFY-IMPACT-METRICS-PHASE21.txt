@@ -1,0 +1,25 @@
+PHASE 21 – AIPIFY ANONYMISED IMPACT METRICS & MARKETING PROOF LAYER
+Status: Implemented foundation
+Priority: CRITICAL
+
+OBJECTIVE
+Build a safe metrics layer where Aipify can measure and aggregate operational impact across all tenants without collecting sensitive customer data.
+
+LAYER OWNERSHIP
+- Platform Admin: /platform/impact, marketing proof export, global aggregates
+- Customer App: Trust Center disclosure (license.center.sections.anonymised_impact)
+- Install Engine: POST /api/install/metric-event (installation token)
+
+CODE
+- lib/impact/ — types, events, privacy, marketing
+- supabase/migrations/20260610800000_anonymised_impact_metrics_phase21.sql
+- components/platform/impact/PlatformImpactPanel.tsx
+- IMPACT_METRICS.md, .cursor/rules/impact-metrics.mdc
+
+CORE PRINCIPLE
+Customer business data stays with the customer. Aipify stores proof of value, not private business data.
+
+MINIMUM GROUP SIZE
+5 tenants before public marketing use.
+
+END OF PHASE 21

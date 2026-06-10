@@ -60,6 +60,15 @@
           "You may revoke permissions according to platform policies."
         ]
       },
+      "anonymised_impact": {
+        "title": "Anonymised Impact Metrics",
+        "body": [
+          "Aipify collects anonymised operational metrics to measure service performance and platform impact.",
+          "These metrics do not include your sales data, customer content, emails, transactions, inventory, or private business records.",
+          "Only aggregated counts and outcome trends are stored — never message content or business-sensitive records.",
+          "Global marketing statements combine multiple tenants and never reveal individual customer business performance."
+        ]
+      },
       "security_principles": {
         "title": "Security Principles",
         "body": [

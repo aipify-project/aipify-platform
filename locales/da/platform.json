@@ -26,6 +26,7 @@
     "installEngine": "Install Engine",
     "updates": "Opdateringer",
     "trust": "Tillid og sikkerhed",
+    "impact": "Effektmålinger",
     "metrics": "Platform Metrics",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
@@ -436,6 +437,44 @@
       "learning": "Læringsbegrænsninger",
       "skills": "Skill-sikkerhedsgennemgang",
       "offboarding": "Offboarding-principper"
+    }
+  },
+  "impact": {
+    "title": "Anonymiserede effektmålinger",
+    "subtitle": "Dokumenter operationel værdi på tværs af lejere uden at lagre følsomme forretningsdata.",
+    "loading": "Indlæser effektmålinger...",
+    "empty": "Ingen anonymiserede effektmålinger registreret endnu.",
+    "principle": "Kundens forretningsdata forbliver hos kunden. Aipify gemmer bevis på værdi, ikke private forretningsdata.",
+    "cards": {
+      "supportResolved": "Supportsager løst",
+      "actionsCompleted": "AI-handlinger fuldført",
+      "recommendations": "Anbefalinger genereret",
+      "selfHealing": "Self-healing-hændelser",
+      "responseTimeSaved": "Svartid sparet",
+      "timeSaved": "Estimeret tid sparet",
+      "ytdTenants": "Aktive lejere (YTD)"
+    },
+    "trend": {
+      "title": "Månedlig effekttrend",
+      "month": "Måned",
+      "totalEvents": "Samlede hændelser",
+      "supportResolved": "Support løst",
+      "actionsCompleted": "Handlinger fuldført"
+    },
+    "marketing": {
+      "title": "Marketingbevis-eksport",
+      "subtitle": "Generer sikre udsagn kun fra anonymiserede aggregater.",
+      "generate": "Generer udsagn",
+      "download": "Download rapport",
+      "internalOnly": "Kun intern brug — færre end 5 lejere i perioden.",
+      "publicAllowed": "Sikkert til offentlig marketing — minimum gruppestørrelse opfyldt.",
+      "approvePublic": "Godkend til offentlig brug",
+      "approved": "Godkendt til offentlig marketing",
+      "minimumGroup": "Offentlig marketing kræver mindst {count} lejere i aggregatet."
+    },
+    "units": {
+      "minutes": "minutter",
+      "tenants": "lejere"
     }
   },
   "updates": {

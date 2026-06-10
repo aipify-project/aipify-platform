@@ -60,6 +60,15 @@
           "You may revoke permissions according to platform policies."
         ]
       },
+      "anonymised_impact": {
+        "title": "Anonymiserede effektmålinger",
+        "body": [
+          "Aipify indsamler anonymiserede operationelle målinger for at måle serviceydelse og platformeffekt.",
+          "Disse målinger omfatter ikke salgsdata, kundeindhold, e-mails, transaktioner, lager eller private forretningsdata.",
+          "Kun aggregerede optællinger og resultattrends gemmes — aldrig beskedindhold eller forretningsfølsomme poster.",
+          "Globale marketingudsagn kombinerer flere lejere og afslører aldrig individuel forretningspræstation."
+        ]
+      },
       "security_principles": {
         "title": "Security Principles",
         "body": [

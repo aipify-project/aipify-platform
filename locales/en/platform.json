@@ -26,6 +26,7 @@
     "installEngine": "Install Engine",
     "updates": "Updates",
     "trust": "Trust & Security",
+    "impact": "Impact Metrics",
     "metrics": "Platform Metrics",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
@@ -630,6 +631,44 @@
       "learning": "Learning Restrictions",
       "skills": "Skill Security Review",
       "offboarding": "Offboarding Principles"
+    }
+  },
+  "impact": {
+    "title": "Anonymised Impact Metrics",
+    "subtitle": "Prove operational value across tenants without storing sensitive customer business data.",
+    "loading": "Loading impact metrics...",
+    "empty": "No anonymised impact metrics recorded yet.",
+    "principle": "Customer business data stays with the customer. Aipify stores proof of value, not private business data.",
+    "cards": {
+      "supportResolved": "Support cases resolved",
+      "actionsCompleted": "AI actions completed",
+      "recommendations": "Recommendations generated",
+      "selfHealing": "Self-healing events",
+      "responseTimeSaved": "Response time saved",
+      "timeSaved": "Estimated time saved",
+      "ytdTenants": "Active tenants (YTD)"
+    },
+    "trend": {
+      "title": "Monthly impact trend",
+      "month": "Month",
+      "totalEvents": "Total events",
+      "supportResolved": "Support resolved",
+      "actionsCompleted": "Actions completed"
+    },
+    "marketing": {
+      "title": "Marketing proof export",
+      "subtitle": "Generate safe statements from anonymised aggregates only.",
+      "generate": "Generate statements",
+      "download": "Download report",
+      "internalOnly": "Internal use only — fewer than 5 tenants contributed to this period.",
+      "publicAllowed": "Safe for public marketing — minimum group size met.",
+      "approvePublic": "Approve for public use",
+      "approved": "Approved for public marketing",
+      "minimumGroup": "Public marketing requires at least {count} tenants in the aggregate."
+    },
+    "units": {
+      "minutes": "minutes",
+      "tenants": "tenants"
     }
   },
   "updates": {

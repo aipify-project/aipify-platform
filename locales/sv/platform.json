@@ -26,6 +26,7 @@
     "installEngine": "Install Engine",
     "updates": "Uppdateringar",
     "trust": "Förtroende och säkerhet",
+    "impact": "Effektmätningar",
     "metrics": "Platform Metrics",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
@@ -436,6 +437,44 @@
       "learning": "Inlärningsbegränsningar",
       "skills": "Skill-säkerhetsgranskning",
       "offboarding": "Offboarding-principer"
+    }
+  },
+  "impact": {
+    "title": "Anonymiserade effektmätningar",
+    "subtitle": "Bevisa operativt värde över tenants utan att lagra känsliga kunddata.",
+    "loading": "Laddar effektmätningar...",
+    "empty": "Inga anonymiserade effektmätningar registrerade ännu.",
+    "principle": "Kundens affärsdata stannar hos kunden. Aipify lagrar bevis på värde, inte privata affärsdata.",
+    "cards": {
+      "supportResolved": "Supportärenden lösta",
+      "actionsCompleted": "AI-åtgärder slutförda",
+      "recommendations": "Rekommendationer genererade",
+      "selfHealing": "Self-healing-händelser",
+      "responseTimeSaved": "Svarstid sparad",
+      "timeSaved": "Uppskattad tid sparad",
+      "ytdTenants": "Aktiva tenants (YTD)"
+    },
+    "trend": {
+      "title": "Månatlig effekttrend",
+      "month": "Månad",
+      "totalEvents": "Totala händelser",
+      "supportResolved": "Support löst",
+      "actionsCompleted": "Åtgärder slutförda"
+    },
+    "marketing": {
+      "title": "Marknadsföringsbevis-export",
+      "subtitle": "Generera säkra uttalanden endast från anonymiserade aggregat.",
+      "generate": "Generera uttalanden",
+      "download": "Ladda ner rapport",
+      "internalOnly": "Endast internt bruk — färre än 5 tenants i perioden.",
+      "publicAllowed": "Säkert för offentlig marknadsföring — minimigrupp uppfylld.",
+      "approvePublic": "Godkänn för offentlig användning",
+      "approved": "Godkänd för offentlig marknadsföring",
+      "minimumGroup": "Offentlig marknadsföring kräver minst {count} tenants i aggregatet."
+    },
+    "units": {
+      "minutes": "minuter",
+      "tenants": "tenants"
     }
   },
   "updates": {

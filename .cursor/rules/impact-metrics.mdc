@@ -1,0 +1,30 @@
+---
+description: Aipify anonymised impact metrics — prove value without storing sensitive customer data
+alwaysApply: true
+---
+
+# Anonymised Impact Metrics (Phase 21)
+
+Read **[IMPACT_METRICS.md](../../IMPACT_METRICS.md)** before changes to impact tracking, marketing proof, or aggregate dashboards.
+
+## Layer ownership
+
+| Surface | Owner |
+|---------|-------|
+| `/platform/impact` | **Platform Admin** |
+| Marketing proof export | **Platform Admin** |
+| Trust Center disclosure | **Customer App** (`license.center.sections.anonymised_impact`) |
+| `POST /api/install/metric-event` | **Install Engine** |
+
+## Rules
+
+1. Store **counts and outcome trends only** — never email content, chat, orders, sales, inventory, or PII
+2. `anonymised_metric_events` has **no private content fields** — reject payloads with forbidden keys (`lib/impact/privacy.ts`)
+3. Platform Admin sees **aggregates only** — never individual customer business performance in marketing exports
+4. Customer-specific metrics via `get_customer_impact_summary()` — tenant-scoped, Customer App only
+5. Public marketing requires **≥ 5 tenants** (`MINIMUM_MARKETING_GROUP_SIZE`) — otherwise internal-only
+6. Distinct from `/platform/metrics` (MRR, subscriptions) — impact metrics are anonymised operational proof
+7. Log platform actions in `impact_audit_log` — export, download, public approval
+8. Cross-layer communication via approved APIs/RPCs only — no duplicated aggregation logic
+
+> Customer business data stays with the customer. Aipify stores proof of value, not private business data.

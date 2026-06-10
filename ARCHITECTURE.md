@@ -88,6 +88,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **License & Trust Center (Phase 20):** See [LICENSE_CENTER.md](./LICENSE_CENTER.md) — sidebar license panel, `/app/license`, payment grace period, pause/reactivation policy.
 
+**Anonymised Impact Metrics (Phase 21):** See [IMPACT_METRICS.md](./IMPACT_METRICS.md) — `/platform/impact`, marketing proof export, install metric events, Trust Center disclosure.
+
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.
 
 ---

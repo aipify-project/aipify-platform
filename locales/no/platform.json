@@ -26,6 +26,7 @@
     "installEngine": "Install Engine",
     "updates": "Oppdateringer",
     "trust": "Tillit og sikkerhet",
+    "impact": "Effektmålinger",
     "metrics": "Platform Metrics",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
@@ -475,6 +476,44 @@
       "learning": "Læringsbegrensninger",
       "skills": "Skill-sikkerhetsgjennomgang",
       "offboarding": "Offboarding-prinsipper"
+    }
+  },
+  "impact": {
+    "title": "Anonymiserte effektmålinger",
+    "subtitle": "Dokumenter operativ verdi på tvers av leietakere uten å lagre sensitive forretningsdata.",
+    "loading": "Laster effektmålinger...",
+    "empty": "Ingen anonymiserte effektmålinger registrert ennå.",
+    "principle": "Kundens forretningsdata blir hos kunden. Aipify lagrer bevis på verdi, ikke private forretningsdata.",
+    "cards": {
+      "supportResolved": "Support-saker løst",
+      "actionsCompleted": "AI-handlinger fullført",
+      "recommendations": "Anbefalinger generert",
+      "selfHealing": "Self-healing-hendelser",
+      "responseTimeSaved": "Responstid spart",
+      "timeSaved": "Estimert tid spart",
+      "ytdTenants": "Aktive leietakere (YTD)"
+    },
+    "trend": {
+      "title": "Månedlig effekttrend",
+      "month": "Måned",
+      "totalEvents": "Totale hendelser",
+      "supportResolved": "Support løst",
+      "actionsCompleted": "Handlinger fullført"
+    },
+    "marketing": {
+      "title": "Markedsføringsbevis-eksport",
+      "subtitle": "Generer sikre utsagn kun fra anonymiserte aggregater.",
+      "generate": "Generer utsagn",
+      "download": "Last ned rapport",
+      "internalOnly": "Kun intern bruk — færre enn 5 leietakere i perioden.",
+      "publicAllowed": "Trygt for offentlig markedsføring — minimum gruppestørrelse oppfylt.",
+      "approvePublic": "Godkjenn for offentlig bruk",
+      "approved": "Godkjent for offentlig markedsføring",
+      "minimumGroup": "Offentlig markedsføring krever minst {count} leietakere i aggregatet."
+    },
+    "units": {
+      "minutes": "minutter",
+      "tenants": "leietakere"
     }
   },
   "updates": {

@@ -10,6 +10,7 @@ export type PlatformNavId =
   | "installEngine"
   | "updates"
   | "trust"
+  | "impact"
   | "metrics"
   | "stats"
   | "support"
@@ -137,6 +138,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.trust",
   },
   {
+    id: "impact",
+    href: "/platform/impact",
+    labelKey: "platform.nav.impact",
+  },
+  {
     id: "metrics",
     href: "/platform/metrics",
     labelKey: "platform.nav.metrics",
@@ -190,6 +196,7 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/install-engine")) return "installEngine";
   if (pathname.startsWith("/platform/updates")) return "updates";
   if (pathname.startsWith("/platform/trust")) return "trust";
+  if (pathname.startsWith("/platform/impact")) return "impact";
   if (pathname.startsWith("/platform/installations")) return "installations";
   if (pathname.startsWith("/platform/metrics")) return "metrics";
   if (pathname.startsWith("/platform/stats")) return "metrics";
