@@ -28,7 +28,8 @@
     "paymentProviders": "Payment providers",
     "support": "Support",
     "automations": "Automations",
-    "system": "System status"
+    "system": "System status",
+    "intelligence": "Intelligence"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -62,6 +63,24 @@
       "aiRecommendations": "AI recommendations: {count}",
       "recommendationHint": "Aipify will surface recommended actions here as automation matures.",
       "empty": "You're up to date since your last login."
+    },
+    "brain": {
+      "title": "Aipify Brain",
+      "viewBrain": "Open Brain Dashboard",
+      "loading": "Loading brain metrics...",
+      "approvedPatterns": "Approved patterns",
+      "awaitingReview": "Awaiting review",
+      "healingSuccessRate": "Self-healing success",
+      "learningConfidence": "Learning confidence",
+      "automationCoverage": "Automation coverage"
+    },
+    "intelligenceRecommendations": {
+      "title": "Intelligence Recommendations",
+      "subtitle": "Improvements discovered from operational patterns across environments.",
+      "loading": "Loading recommendations...",
+      "empty": "No intelligence recommendations yet.",
+      "confidence": "Confidence",
+      "viewQueue": "Review learning queue"
     }
   },
   "customerType": {
@@ -575,6 +594,30 @@
         "warning": "Varning",
         "failed": "Misslyckades"
       }
+    },
+    "successScoreExplanation": {
+      "title": "AI Health Score",
+      "basedOn": "Based on",
+      "expansionTitle": "Expansion Opportunities",
+      "eligible": "Eligible",
+      "notEligible": "Not eligible",
+      "factorLabels": {
+        "supportVolume": "Support volume",
+        "installationHealth": "Installation health",
+        "automationAdoption": "Automation adoption",
+        "billingStability": "Billing stability",
+        "onboardingCompletion": "Onboarding completion"
+      },
+      "weightLabels": {
+        "high": "High impact",
+        "medium": "Medium impact"
+      },
+      "expansionLabels": {
+        "extraDomains": "Eligible for extra domains",
+        "supportAiUpgrade": "Suitable for Support AI upgrade",
+        "analyticsAi": "Suitable for Analytics AI",
+        "commerceAi": "Suitable for Commerce AI"
+      }
     }
   },
   "sections": {
@@ -597,6 +640,171 @@
       "title": "System status",
       "subtitle": "Core services, uptime, and incident visibility.",
       "comingSoon": "System status dashboard will be available in a future release."
+    }
+  },
+  "automations": {
+    "categories": {
+      "aiGenerated": "AI Generated",
+      "adminApproved": "Admin Approved",
+      "selfHealing": "Self-Healing"
+    }
+  },
+  "intelligence": {
+    "privacyNote": "Aipify learns only from operational metadata. No conversations, identities, invoices, or uploaded files are stored.",
+    "nav": {
+      "brain": "Brain Dashboard",
+      "learningQueue": "Learning Queue",
+      "globalPatterns": "Global Patterns",
+      "selfHealing": "Self-Healing",
+      "settings": "Intelligence Settings",
+      "auditLog": "Audit Log"
+    },
+    "brain": {
+      "title": "Aipify Brain",
+      "subtitle": "The intelligence layer that observes, learns, and recommends improvements across all environments.",
+      "loading": "Loading brain dashboard...",
+      "metrics": {
+        "knowledgePatternsApproved": "Knowledge patterns approved",
+        "patternsAwaitingReview": "Patterns awaiting review",
+        "learningEvents30d": "Learning events (30 days)",
+        "selfHealingSuccessRate": "Self-healing success rate",
+        "globalRecommendations": "Global recommendations generated",
+        "learningConfidence": "Learning confidence",
+        "approvedAutomations": "Automations from learning",
+        "automationCoverage": "Automation coverage"
+      },
+      "recommendations": {
+        "title": "Approved intelligence insights",
+        "empty": "No approved patterns yet.",
+        "confidence": "Confidence"
+      }
+    },
+    "learningQueue": {
+      "title": "Learning Queue",
+      "subtitle": "Newly discovered patterns awaiting admin review before promotion to global intelligence.",
+      "loading": "Loading learning queue...",
+      "empty": "No patterns awaiting review.",
+      "category": "Category",
+      "environment": "Environment",
+      "detections": "Detections",
+      "confidence": "Confidence",
+      "impact": "Potential impact",
+      "suggestedAction": "Suggested action",
+      "status": "Status",
+      "firstDetected": "First detected",
+      "lastDetected": "Last detected",
+      "approve": "Approve",
+      "reject": "Reject",
+      "requestMoreData": "Request more data",
+      "reviewing": "Reviewing...",
+      "totals": {
+        "pending": "Pending review",
+        "moreData": "Awaiting data",
+        "approved": "Approved"
+      }
+    },
+    "globalPatterns": {
+      "title": "Global Patterns",
+      "subtitle": "Approved, anonymised patterns that improve every installation.",
+      "loading": "Loading global patterns...",
+      "empty": "No global patterns approved yet.",
+      "category": "Category",
+      "confidence": "Confidence",
+      "detections": "Detections",
+      "suggestedAction": "Suggested action",
+      "sourceEnvironment": "Source environment",
+      "approvedAt": "Approved"
+    },
+    "selfHealing": {
+      "title": "Self-Healing Engine",
+      "subtitle": "Automatically resolve approved operational problems with risk-based execution.",
+      "loading": "Loading self-healing dashboard...",
+      "metrics": {
+        "attempts": "Healing attempts",
+        "successful": "Successful healing",
+        "failed": "Failed healing",
+        "escalated": "Escalated cases",
+        "avgResolution": "Avg. resolution time",
+        "mostCommonIncident": "Most common incident",
+        "topPattern": "Top healing pattern"
+      },
+      "strategies": {
+        "title": "Healing strategies",
+        "autoExecute": "Auto-execute",
+        "manualApproval": "Requires approval",
+        "empty": "No healing strategies configured."
+      },
+      "recentRuns": {
+        "title": "Recent healing runs",
+        "empty": "No healing runs recorded yet."
+      },
+      "riskLevels": {
+        "low": "Low risk",
+        "medium": "Medium risk",
+        "high": "High risk",
+        "critical": "Critical risk"
+      }
+    },
+    "settings": {
+      "title": "Intelligence Settings",
+      "subtitle": "Learning levels, tenant isolation, and privacy principles.",
+      "levels": {
+        "title": "Four learning levels",
+        "internal": {
+          "title": "Level 1 — Internal Learning",
+          "description": "Aipify Group AS operational data. Full learning allowed. Highest trust. Never shared externally without approval."
+        },
+        "pilot": {
+          "title": "Level 2 — Pilot Learning",
+          "description": "Unonight production validation. Operational metadata only. Requires admin approval before becoming global."
+        },
+        "customer": {
+          "title": "Level 3 — Customer Learning",
+          "description": "External customer operational patterns. Strict tenant isolation. No conversations, identities, or documents stored."
+        },
+        "global": {
+          "title": "Level 4 — Global Intelligence",
+          "description": "Approved anonymised patterns that improve every installation across the ecosystem."
+        }
+      },
+      "tenantIsolation": {
+        "title": "Tenant isolation model",
+        "description": "Internal patterns stay internal. Pilot patterns stay with Unonight. Customer patterns remain customer-specific. Only approved global patterns are shared ecosystem-wide."
+      },
+      "privacy": {
+        "title": "Privacy principles",
+        "neverLearn": "Aipify never learns from",
+        "onlyLearn": "Aipify only learns from",
+        "neverItems": {
+          "conversations": "Conversations",
+          "names": "Names",
+          "emails": "Emails",
+          "invoices": "Invoices",
+          "files": "Uploaded files",
+          "payments": "Payment details",
+          "documents": "Verification documents"
+        },
+        "onlyItems": {
+          "behaviour": "Operational behaviour",
+          "performance": "Performance signals",
+          "automation": "Automation outcomes",
+          "errors": "Error frequencies",
+          "supportCategories": "Support categories",
+          "installationEvents": "Installation events"
+        }
+      }
+    },
+    "auditLog": {
+      "title": "Intelligence Audit Log",
+      "subtitle": "Pattern reviews and learning events across the intelligence engine.",
+      "loading": "Loading audit log...",
+      "empty": "No audit entries yet.",
+      "type": "Type",
+      "action": "Action",
+      "pattern": "Pattern",
+      "reviewer": "Reviewer",
+      "notes": "Notes",
+      "timestamp": "Timestamp"
     }
   }
 }

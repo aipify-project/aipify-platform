@@ -45,6 +45,11 @@ export default async function PlatformAutomationsPage() {
           trialsExpiring: t("platform.automations.digest.trialsExpiring"),
           recommendations: t("platform.automations.digest.recommendations"),
         },
+        categories: {
+          ai_generated: t("platform.automations.categories.aiGenerated"),
+          admin_approved: t("platform.automations.categories.adminApproved"),
+          self_healing: t("platform.automations.categories.selfHealing"),
+        },
         healthDashboard: {
           title: t("platform.automations.healthDashboard.title"),
           total: t("platform.automations.healthDashboard.total"),

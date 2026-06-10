@@ -5,6 +5,8 @@ import { useEffect, useMemo, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
 import PriorityBadge from "@/components/platform/PriorityBadge";
 import RecommendedActionsPanel from "@/components/platform/RecommendedActionsPanel";
+import AipifyBrainOverviewSection from "@/components/platform/AipifyBrainOverviewSection";
+import IntelligenceRecommendationsSection from "@/components/platform/IntelligenceRecommendationsSection";
 import PlatformLearningPanel from "@/components/platform/PlatformLearningPanel";
 import { createClient } from "@/lib/supabase/client";
 import {
@@ -54,6 +56,24 @@ type PlatformOverviewPanelProps = {
       escalationWaiting: { title: string; reason: string; action: string };
       revenueOpportunity: { title: string; reason: string; action: string };
       failedAutomation: { title: string; reason: string; action: string };
+    };
+    brain: {
+      title: string;
+      viewBrain: string;
+      loading: string;
+      approvedPatterns: string;
+      awaitingReview: string;
+      healingSuccessRate: string;
+      learningConfidence: string;
+      automationCoverage: string;
+    };
+    intelligenceRecommendations: {
+      title: string;
+      subtitle: string;
+      loading: string;
+      empty: string;
+      confidence: string;
+      viewQueue: string;
     };
     learning: {
       title: string;
@@ -260,6 +280,10 @@ export default function PlatformOverviewPanel({ labels }: PlatformOverviewPanelP
         suggestedActionLabel={labels.recommendedActions.suggestedAction}
         empty={labels.recommendedActions.empty}
       />
+
+      <AipifyBrainOverviewSection labels={labels.brain} />
+
+      <IntelligenceRecommendationsSection labels={labels.intelligenceRecommendations} />
 
       <PlatformLearningPanel labels={labels.learning} />
 

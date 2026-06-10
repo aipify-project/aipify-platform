@@ -12,6 +12,7 @@ import SuccessScoreBadge from "@/components/platform/SuccessScoreBadge";
 import SelfLearningInsightsPanel from "@/components/platform/SelfLearningInsightsPanel";
 import CustomerLicensePanel from "@/components/platform/CustomerLicensePanel";
 import CustomerInstallationEnginePanel from "@/components/platform/CustomerInstallationEnginePanel";
+import CustomerSuccessScoreExplanation from "@/components/platform/CustomerSuccessScoreExplanation";
 import { formatLimitUsage } from "@/lib/platform/license";
 import { formatInstallationModuleKeys } from "@/lib/platform/installation-engine";
 import { getInstallationHealthStatus } from "@/lib/platform/executive-intelligence";
@@ -241,6 +242,30 @@ type CustomerMasterDetailViewProps = {
       onboardingItems: Record<string, string>;
       statusLabels: Record<string, string>;
       verificationLabels: Record<string, string>;
+    };
+    successScoreExplanation: {
+      title: string;
+      basedOn: string;
+      expansionTitle: string;
+      eligible: string;
+      notEligible: string;
+      factorLabels: {
+        supportVolume: string;
+        installationHealth: string;
+        automationAdoption: string;
+        billingStability: string;
+        onboardingCompletion: string;
+      };
+      weightLabels: {
+        high: string;
+        medium: string;
+      };
+      expansionLabels: {
+        extraDomains: string;
+        supportAiUpgrade: string;
+        analyticsAi: string;
+        commerceAi: string;
+      };
     };
     selfLearning: {
       title: string;
@@ -661,6 +686,12 @@ export default function CustomerMasterDetailView({
                 </>
               )}
             </div>
+            <CustomerSuccessScoreExplanation
+              detail={detail}
+              intelligence={intelligence}
+              score={successScore}
+              labels={labels.successScoreExplanation}
+            />
             {detail.license && (
               <CustomerLicensePanel
                 license={detail.license}

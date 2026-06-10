@@ -1,0 +1,57 @@
+AIPIFY – INTELLIGENCE ENGINE (PHASE 12 FOUNDATION)
+Status: Implemented
+Priority: Critical
+
+GOAL
+Transform Aipify into a self-improving AI operations system with four learning levels,
+admin-reviewed pattern queue, brain dashboard, self-healing engine, and privacy-safe tenant isolation.
+
+DATABASE (migration: 20260610310000_intelligence_engine_phase12.sql)
+- intelligence_patterns — learning queue with approval workflow
+- intelligence_reviews — admin approve / reject / request more data
+- global_patterns — approved anonymised ecosystem patterns
+- pattern_votes — admin votes on patterns
+- healing_strategies — risk-tiered healing actions
+- automation_categories — AI Generated / Admin Approved / Self-Healing
+- brain_metrics — snapshot cache for brain dashboard
+- Views: learning_events → ai_learning_events, self_healing_runs → ai_self_healing_executions
+- platform_automations.category_key column
+
+LEARNING LEVELS
+1. Internal (Aipify Group AS)
+2. Pilot (Unonight)
+3. Customer (tenant-isolated)
+4. Global (approved, anonymised)
+
+RPCs
+- get_intelligence_brain_dashboard()
+- get_intelligence_learning_queue()
+- get_global_patterns()
+- get_self_healing_dashboard()
+- get_intelligence_recommendations()
+- review_intelligence_pattern(pattern_id, action, notes)
+- get_intelligence_audit_log()
+- refresh_brain_metrics()
+- upsert_intelligence_pattern() — bridges ai_patterns detections
+
+API ROUTES
+- POST /api/platform/intelligence/patterns/[id]/review
+
+UI
+- /platform/intelligence — Brain Dashboard (default)
+- /platform/intelligence/learning-queue
+- /platform/intelligence/global-patterns
+- /platform/intelligence/self-healing
+- /platform/intelligence/settings
+- /platform/intelligence/audit-log
+- Platform overview: Aipify Brain + Intelligence Recommendations sections
+- Automations page: categorized by AI Generated / Admin Approved / Self-Healing
+- Customer command center: AI Health Score explanation + Expansion Opportunities
+
+NOT IN THIS PHASE
+- Real ML inference engine
+- Autonomous high-risk healing execution
+- Customer /dashboard intelligence surface
+- Cross-tenant content sharing
+
+END OF PHASE 12

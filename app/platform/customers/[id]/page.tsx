@@ -146,6 +146,30 @@ export default async function CustomerDetailPage({ params }: CustomerDetailPageP
             failed: t("platform.masterDetail.installationEngine.verificationLabels.failed"),
           },
         },
+        successScoreExplanation: {
+          title: t("platform.masterDetail.successScoreExplanation.title"),
+          basedOn: t("platform.masterDetail.successScoreExplanation.basedOn"),
+          expansionTitle: t("platform.masterDetail.successScoreExplanation.expansionTitle"),
+          eligible: t("platform.masterDetail.successScoreExplanation.eligible"),
+          notEligible: t("platform.masterDetail.successScoreExplanation.notEligible"),
+          factorLabels: {
+            supportVolume: t("platform.masterDetail.successScoreExplanation.factorLabels.supportVolume"),
+            installationHealth: t("platform.masterDetail.successScoreExplanation.factorLabels.installationHealth"),
+            automationAdoption: t("platform.masterDetail.successScoreExplanation.factorLabels.automationAdoption"),
+            billingStability: t("platform.masterDetail.successScoreExplanation.factorLabels.billingStability"),
+            onboardingCompletion: t("platform.masterDetail.successScoreExplanation.factorLabels.onboardingCompletion"),
+          },
+          weightLabels: {
+            high: t("platform.masterDetail.successScoreExplanation.weightLabels.high"),
+            medium: t("platform.masterDetail.successScoreExplanation.weightLabels.medium"),
+          },
+          expansionLabels: {
+            extraDomains: t("platform.masterDetail.successScoreExplanation.expansionLabels.extraDomains"),
+            supportAiUpgrade: t("platform.masterDetail.successScoreExplanation.expansionLabels.supportAiUpgrade"),
+            analyticsAi: t("platform.masterDetail.successScoreExplanation.expansionLabels.analyticsAi"),
+            commerceAi: t("platform.masterDetail.successScoreExplanation.expansionLabels.commerceAi"),
+          },
+        },
         domainsTab: {
           empty: t("platform.masterDetail.domainsTab.empty"),
           domain: t("platform.masterDetail.domainsTab.domain"),

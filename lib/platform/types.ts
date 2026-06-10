@@ -386,6 +386,8 @@ export type TeamInvitation = {
   created_at: string;
 };
 
+export type AutomationCategoryKey = "ai_generated" | "admin_approved" | "self_healing";
+
 export type PlatformAutomation = {
   id: string;
   automation_key: string;
@@ -400,6 +402,7 @@ export type PlatformAutomation = {
   total_executions: number;
   failure_count: number;
   avg_execution_ms: number;
+  category_key?: AutomationCategoryKey;
 };
 
 export type WeeklyExecutiveDigest = {

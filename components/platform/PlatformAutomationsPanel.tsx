@@ -5,7 +5,12 @@ import { AipifyEmptyState } from "@/components/branding";
 import { formatDateTime } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
 import { computeAutomationHealthSummary } from "@/lib/platform/executive-intelligence";
-import type { PlatformAutomation, WeeklyExecutiveDigest } from "@/lib/platform/types";
+import { getAutomationCategoryStyle } from "@/lib/platform/intelligence-engine";
+import type {
+  AutomationCategoryKey,
+  PlatformAutomation,
+  WeeklyExecutiveDigest,
+} from "@/lib/platform/types";
 import AutomationHealthDashboard from "./AutomationHealthDashboard";
 import WeeklyExecutiveDigestCard from "./WeeklyExecutiveDigestCard";
 
@@ -51,8 +56,19 @@ type PlatformAutomationsPanelProps = {
       needsAttention: string;
       statusLabels: Record<string, string>;
     };
+    categories: {
+      ai_generated: string;
+      admin_approved: string;
+      self_healing: string;
+    };
   };
 };
+
+const CATEGORY_ORDER: AutomationCategoryKey[] = [
+  "ai_generated",
+  "admin_approved",
+  "self_healing",
+];
 
 const STATUS_STYLES: Record<string, string> = {
   active: "bg-emerald-50 text-emerald-700",
@@ -122,70 +138,101 @@ export default function PlatformAutomationsPanel({
       {automations.length === 0 ? (
         <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
       ) : (
-        <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-100">
-              <thead className="bg-gray-50/80">
-                <tr>
-                  {[labels.name, labels.status, labels.trigger, labels.lastRun, labels.nextRun, labels.healthTitle].map(
-                    (header) => (
-                      <th
-                        key={header}
-                        className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500"
-                      >
-                        {header}
-                      </th>
-                    )
-                  )}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {automations.map((automation) => (
-                  <tr key={automation.id}>
-                    <td className="px-4 py-4">
-                      <p className="font-semibold text-gray-900">{automation.name}</p>
-                      {automation.description && (
-                        <p className="mt-1 text-xs text-gray-500">{automation.description}</p>
-                      )}
-                    </td>
-                    <td className="px-4 py-4">
-                      <span
-                        className={`rounded-full px-2 py-0.5 text-xs font-semibold ${STATUS_STYLES[automation.status] ?? STATUS_STYLES.paused}`}
-                      >
-                        {labels.statusLabels[automation.status] ?? automation.status}
-                      </span>
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-700">
-                      {automation.trigger_type}
-                      {automation.schedule_cron && (
-                        <span className="mt-1 block font-mono text-xs text-gray-400">
-                          {automation.schedule_cron}
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-600">
-                      {formatDateTime(automation.last_run_at, locale)}
-                    </td>
-                    <td className="px-4 py-4 text-sm text-gray-600">
-                      {formatDateTime(automation.next_run_at, locale)}
-                    </td>
-                    <td className="px-4 py-4 text-xs text-gray-600">
-                      <p>{labels.lastSuccess}: {formatDateTime(automation.last_success_at, locale)}</p>
-                      <p className="mt-1">
-                        {labels.totalExecutions}: {automation.total_executions}
-                      </p>
-                      <p>
-                        {labels.failureCount}: {automation.failure_count}
-                      </p>
-                      <p>
-                        {labels.avgExecution}: {automation.avg_execution_ms} ms
-                      </p>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        <div className="space-y-8">
+          {CATEGORY_ORDER.map((categoryKey) => {
+            const categoryAutomations = automations.filter(
+              (automation) => (automation.category_key ?? "admin_approved") === categoryKey
+            );
+            if (categoryAutomations.length === 0) return null;
+
+            return (
+              <section key={categoryKey}>
+                <div className="mb-3 flex items-center gap-2">
+                  <h2 className="text-lg font-semibold text-gray-900">
+                    {labels.categories[categoryKey]}
+                  </h2>
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ring-inset ${getAutomationCategoryStyle(categoryKey)}`}
+                  >
+                    {labels.categories[categoryKey]}
+                  </span>
+                </div>
+                <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-100">
+                      <thead className="bg-gray-50/80">
+                        <tr>
+                          {[
+                            labels.name,
+                            labels.status,
+                            labels.trigger,
+                            labels.lastRun,
+                            labels.nextRun,
+                            labels.healthTitle,
+                          ].map((header) => (
+                            <th
+                              key={header}
+                              className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500"
+                            >
+                              {header}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-100">
+                        {categoryAutomations.map((automation) => (
+                          <tr key={automation.id}>
+                            <td className="px-4 py-4">
+                              <p className="font-semibold text-gray-900">{automation.name}</p>
+                              {automation.description && (
+                                <p className="mt-1 text-xs text-gray-500">{automation.description}</p>
+                              )}
+                            </td>
+                            <td className="px-4 py-4">
+                              <span
+                                className={`rounded-full px-2 py-0.5 text-xs font-semibold ${STATUS_STYLES[automation.status] ?? STATUS_STYLES.paused}`}
+                              >
+                                {labels.statusLabels[automation.status] ?? automation.status}
+                              </span>
+                            </td>
+                            <td className="px-4 py-4 text-sm text-gray-700">
+                              {automation.trigger_type}
+                              {automation.schedule_cron && (
+                                <span className="mt-1 block font-mono text-xs text-gray-400">
+                                  {automation.schedule_cron}
+                                </span>
+                              )}
+                            </td>
+                            <td className="px-4 py-4 text-sm text-gray-600">
+                              {formatDateTime(automation.last_run_at, locale)}
+                            </td>
+                            <td className="px-4 py-4 text-sm text-gray-600">
+                              {formatDateTime(automation.next_run_at, locale)}
+                            </td>
+                            <td className="px-4 py-4 text-xs text-gray-600">
+                              <p>
+                                {labels.lastSuccess}:{" "}
+                                {formatDateTime(automation.last_success_at, locale)}
+                              </p>
+                              <p className="mt-1">
+                                {labels.totalExecutions}: {automation.total_executions}
+                              </p>
+                              <p>
+                                {labels.failureCount}: {automation.failure_count}
+                              </p>
+                              <p>
+                                {labels.avgExecution}: {automation.avg_execution_ms} ms
+                              </p>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+            );
+          })}
         </div>
       )}
     </div>
