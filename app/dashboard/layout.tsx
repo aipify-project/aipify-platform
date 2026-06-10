@@ -4,7 +4,6 @@ import { DashboardProfileProvider } from "@/components/dashboard/DashboardProfil
 import {
   CUSTOMER_CONTROL_CENTER_NAV,
   CUSTOMER_MOBILE_NAV_IDS,
-  getCustomerActiveNavId,
 } from "@/lib/dashboard/nav-config";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -43,7 +42,7 @@ export default async function DashboardLayout({
             href: item.href,
             label: t(item.labelKey),
           }))}
-          getActiveNavId={getCustomerActiveNavId}
+          shellVariant="customer"
           mobileNavIds={CUSTOMER_MOBILE_NAV_IDS}
         >
           {children}

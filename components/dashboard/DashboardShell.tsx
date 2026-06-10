@@ -8,6 +8,8 @@ import { useOptionalDashboardProfile } from "./DashboardProfileProvider";
 import Sidebar, { type NavItem } from "./Sidebar";
 import SidebarBrand from "./SidebarBrand";
 import Topbar from "./Topbar";
+import { getCustomerActiveNavId } from "@/lib/dashboard/nav-config";
+import { getPlatformActiveNavId } from "@/lib/platform/nav-config";
 import { getNavIcon } from "./nav-icons";
 
 type DashboardShellProps = {
@@ -21,7 +23,7 @@ type DashboardShellProps = {
   profileFallbackName: string;
   companyFallbackName: string;
   navConfig: Array<{ id: string; href: string; label: string }>;
-  getActiveNavId: (pathname: string) => string;
+  shellVariant: "platform" | "customer";
   mobileNavIds: string[];
   companyNameOverride?: string;
   children: React.ReactNode;
@@ -38,13 +40,19 @@ export default function DashboardShell({
   profileFallbackName,
   companyFallbackName,
   navConfig,
-  getActiveNavId,
+  shellVariant,
   mobileNavIds,
   companyNameOverride,
   children,
 }: DashboardShellProps) {
   const pathname = usePathname();
-  const activeNav = useMemo(() => getActiveNavId(pathname), [getActiveNavId, pathname]);
+  const activeNav = useMemo(() => {
+    const resolveActiveNavId =
+      shellVariant === "platform"
+        ? getPlatformActiveNavId
+        : getCustomerActiveNavId;
+    return resolveActiveNavId(pathname);
+  }, [shellVariant, pathname]);
   const customerContext = useOptionalDashboardProfile();
   const platformContext = usePlatformProfile();
   const [sidebarOpen, setSidebarOpen] = useState(false);

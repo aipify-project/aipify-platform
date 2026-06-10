@@ -4,7 +4,6 @@ import { PlatformProfileProvider } from "@/components/platform/PlatformProfilePr
 import {
   PLATFORM_ADMIN_NAV,
   PLATFORM_MOBILE_NAV_IDS,
-  getPlatformActiveNavId,
 } from "@/lib/platform/nav-config";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -44,7 +43,7 @@ export default async function PlatformLayout({
             href: item.href,
             label: t(item.labelKey),
           }))}
-          getActiveNavId={getPlatformActiveNavId}
+          shellVariant="platform"
           mobileNavIds={PLATFORM_MOBILE_NAV_IDS}
         >
           {children}
