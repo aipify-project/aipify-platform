@@ -150,7 +150,8 @@
       "executiveBriefing": "Presence & executive feed",
       "desktop": "Desktop presence",
       "developer": "Developer",
-      "updates": "Updates"
+      "updates": "Updates",
+      "learning": "Læring"
     },
     "timezone": "Tidssone",
     "timezoneHint": "Hilsener og briefinger bruker din lokale tidssone.",
@@ -159,67 +160,54 @@
     "links": {
       "developer": "Developer settings",
       "updates": "Update policies",
-      "desktopConnect": "Connect desktop app"
+      "desktopConnect": "Connect desktop app",
+      "learning": "Læring og personvern"
     }
   },
   "learning": {
-    "title": "Læringsgjennomgang",
-    "subtitle": "Se hva Aipify har lært, hvorfor, og behold kontrollen.",
+    "title": "Læringssenter",
+    "subtitle": "Se hva Aipify lærer, hvorfor, og hold kontrollen.",
     "principle": "Aipify lærer MED deg — ikke FRA deg. Du har kontrollen.",
     "loading": "Laster læringssenter…",
-    "emptyLearnings": "Ingen aktive læringer ennå. Aipify registrerer mønstre når du godkjenner anbefalinger.",
-    "emptySuggestions": "Ingen foreslåtte forbedringer venter på gjennomgang.",
-    "emptyHistory": "Godkjenningshistorikk vises når du gjennomgår anbefalinger og handlinger.",
+    "empty": "Fullfør kontooppsett for å administrere læringsinnstillinger.",
     "sections": {
       "mode": "Læringsmodus",
-      "recent": "Nylige læringer",
+      "learnings": "Nylige læringer",
       "suggestions": "Foreslåtte forbedringer",
-      "history": "Godkjenningshistorikk"
+      "history": "Godkjenningshistorikk",
+      "governance": "Utrulling"
     },
     "modes": {
-      "disabled": {
-        "title": "Deaktivert",
-        "description": "Aipify tilpasser seg ikke. Bruker kun forhåndsdefinerte regler."
-      },
-      "assisted": {
-        "title": "Assistert læring",
-        "description": "Aipify observerer mønstre og foreslår forbedringer. Du godkjenner før noe læres."
-      },
-      "adaptive": {
-        "title": "Adaptiv læring",
-        "description": "Aipify tilpasser seg automatisk innen godkjente grenser — tone, timing og frekvens."
-      }
+      "disabled": "Deaktivert",
+      "assisted": "Assistert læring",
+      "adaptive": "Adaptiv læring"
     },
-    "adaptiveConsent": "Jeg samtykker til adaptiv læring innen godkjente grenser",
-    "adaptiveConsentHint": "Adaptiv læring krever eksplisitt samtykke. Du kan deaktivere eller fjerne læringer når som helst.",
-    "saveMode": "Lagre læringsmodus",
-    "saving": "Lagrer…",
-    "saved": "Læringsinnstillinger lagret",
-    "removeLearning": "Fjern læring",
-    "removing": "Fjerner…",
-    "confidence": "Konfidens",
-    "learnedAt": "Lært",
-    "patternType": "Mønster",
-    "sourceType": "Kilde",
-    "viewRecommendations": "Gå til anbefalinger",
-    "rolloutStage": "Utrullingsfase",
-    "confidenceLabels": {
-      "low": "Aipify har begrenset evidens for dette mønsteret.",
-      "medium": "Aipify er moderat sikker basert på nylige godkjenninger.",
-      "high": "Basert på {count} lignende godkjenninger er Aipify svært sikker."
+    "modeDescriptions": {
+      "disabled": "Aipify tilpasser seg ikke. Kun forhåndsdefinerte regler.",
+      "assisted": "Aipify observerer mønstre og foreslår forbedringer. Du godkjenner før læring.",
+      "adaptive": "Aipify tilpasser seg automatisk innen godkjente grenser. Krever eksplisitt samtykke."
     },
-    "confidenceBadges": {
-      "low": "Lav konfidens",
-      "medium": "Middels konfidens",
-      "high": "Høy konfidens"
-    }
+    "confidence": {
+      "low": "Lav tillit",
+      "medium": "Middels tillit",
+      "high": "Høy tillit"
+    },
+    "adaptiveConsent": "Jeg samtykker til adaptiv læring innen godkjente grenser.",
+    "adaptiveRequired": "Adaptiv læring krever eksplisitt samtykke og kvalifisert plan.",
+    "save": "Lagre læringsinnstillinger",
+    "saved": "Lagret",
+    "remove": "Fjern læring",
+    "disable": "Deaktiver læring",
+    "noLearnings": "Ingen aktive læringer ennå. Godkjente anbefalinger vises her.",
+    "noSuggestions": "Ingen foreslåtte forbedringer akkurat nå.",
+    "noHistory": "Ingen gjennomgangshistorikk ennå.",
+    "rollout": "Utrullingsfase"
   },
   "nav": {
     "overview": "Hjem",
     "executive": "Executive",
     "presence": "Presence",
     "recommendations": "Anbefalinger",
-    "learning": "Læring",
     "skills": "Skills",
     "approvals": "Godkjenninger",
     "installations": "Installasjoner",
@@ -227,6 +215,7 @@
     "team": "Team",
     "license": "Lisens",
     "security": "Sikkerhet",
-    "settings": "Innstillinger"
+    "settings": "Innstillinger",
+    "learning": "Læring"
   }
 }

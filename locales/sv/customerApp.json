@@ -150,7 +150,8 @@
       "executiveBriefing": "Presence & executive feed",
       "desktop": "Desktop presence",
       "developer": "Developer",
-      "updates": "Updates"
+      "updates": "Updates",
+      "learning": "Inlärning"
     },
     "timezone": "Tidszon",
     "timezoneHint": "Hälsningar och briefings använder din lokala tidszon.",
@@ -159,67 +160,54 @@
     "links": {
       "developer": "Developer settings",
       "updates": "Update policies",
-      "desktopConnect": "Connect desktop app"
+      "desktopConnect": "Connect desktop app",
+      "learning": "Inlärning och integritet"
     }
   },
   "learning": {
-    "title": "Lärandegranskning",
-    "subtitle": "Se vad Aipify har lärt sig, varför, och behåll kontrollen.",
+    "title": "Inlärningscenter",
+    "subtitle": "Se vad Aipify lär sig, varför, och behåll kontrollen.",
     "principle": "Aipify lär sig MED dig — inte FRÅN dig. Du har kontrollen.",
-    "loading": "Laddar lärandecenter…",
-    "emptyLearnings": "Inga aktiva inlärningar ännu. Aipify registrerar mönster när du godkänner rekommendationer.",
-    "emptySuggestions": "Inga föreslagna förbättringar väntar på granskning.",
-    "emptyHistory": "Godkännandehistorik visas när du granskar rekommendationer och åtgärder.",
+    "loading": "Laddar inlärningscenter…",
+    "empty": "Slutför kontokonfigurationen för att hantera inlärningsinställningar.",
     "sections": {
-      "mode": "Lärandeläge",
-      "recent": "Senaste inlärningar",
+      "mode": "Inlärningsläge",
+      "learnings": "Senaste inlärningar",
       "suggestions": "Föreslagna förbättringar",
-      "history": "Godkännandehistorik"
+      "history": "Godkännandehistorik",
+      "governance": "Utrullning"
     },
     "modes": {
-      "disabled": {
-        "title": "Inaktiverad",
-        "description": "Aipify anpassar sig inte. Använder endast fördefinierade regler."
-      },
-      "assisted": {
-        "title": "Assisterat lärande",
-        "description": "Aipify observerar mönster och föreslår förbättringar. Du godkänner innan något lärs."
-      },
-      "adaptive": {
-        "title": "Adaptivt lärande",
-        "description": "Aipify anpassar sig automatiskt inom godkända gränser — ton, timing och frekvens."
-      }
+      "disabled": "Inaktiverad",
+      "assisted": "Assisterad inlärning",
+      "adaptive": "Adaptiv inlärning"
     },
-    "adaptiveConsent": "Jag samtycker till adaptivt lärande inom godkända gränser",
-    "adaptiveConsentHint": "Adaptivt lärande kräver uttryckligt samtycke. Du kan inaktivera eller ta bort inlärningar när som helst.",
-    "saveMode": "Spara lärandeläge",
-    "saving": "Sparar…",
-    "saved": "Lärandeinställningar sparade",
-    "removeLearning": "Ta bort inlärning",
-    "removing": "Tar bort…",
-    "confidence": "Konfidens",
-    "learnedAt": "Inlärt",
-    "patternType": "Mönster",
-    "sourceType": "Källa",
-    "viewRecommendations": "Gå till rekommendationer",
-    "rolloutStage": "Utrullningsfas",
-    "confidenceLabels": {
-      "low": "Aipify har begränsad evidens för detta mönster.",
-      "medium": "Aipify är måttligt säker baserat på senaste godkännanden.",
-      "high": "Baserat på {count} liknande godkännanden är Aipify mycket säker."
+    "modeDescriptions": {
+      "disabled": "Aipify anpassar sig inte. Endast fördefinierade regler.",
+      "assisted": "Aipify observerar mönster och föreslår förbättringar. Du godkänner innan inlärning.",
+      "adaptive": "Aipify anpassar sig automatiskt inom godkända gränser. Kräver uttryckligt samtycke."
     },
-    "confidenceBadges": {
-      "low": "Låg konfidens",
-      "medium": "Medel konfidens",
-      "high": "Hög konfidens"
-    }
+    "confidence": {
+      "low": "Låg tillit",
+      "medium": "Medel tillit",
+      "high": "Hög tillit"
+    },
+    "adaptiveConsent": "Jag samtycker till adaptiv inlärning inom godkända gränser.",
+    "adaptiveRequired": "Adaptiv inlärning kräver uttryckligt samtycke och kvalificerad plan.",
+    "save": "Spara inlärningsinställningar",
+    "saved": "Sparat",
+    "remove": "Ta bort inlärning",
+    "disable": "Inaktivera inlärning",
+    "noLearnings": "Inga aktiva inlärningar ännu. Godkända rekommendationer visas här.",
+    "noSuggestions": "Inga föreslagna förbättringar just nu.",
+    "noHistory": "Ingen granskningshistorik ännu.",
+    "rollout": "Utrullningsfas"
   },
   "nav": {
     "overview": "Hem",
     "executive": "Executive",
     "presence": "Presence",
     "recommendations": "Rekommendationer",
-    "learning": "Lärande",
     "skills": "Skills",
     "approvals": "Godkännanden",
     "installations": "Installationer",
@@ -227,6 +215,7 @@
     "team": "Team",
     "license": "Licens",
     "security": "Säkerhet",
-    "settings": "Inställningar"
+    "settings": "Inställningar",
+    "learning": "Inlärning"
   }
 }

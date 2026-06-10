@@ -4,34 +4,26 @@ STATUS: Implemented
 PRIORITY: CRITICAL
 
 CORE PRINCIPLE
-Aipify learns WITH the customer. Not FROM the customer.
+Aipify learns WITH the customer. Not FROM the customer. Customers remain in control.
 
 LEARNING MODES
-disabled → assisted (default) → adaptive (consent required)
+- Disabled — no adaptation, predefined rules only
+- Assisted Learning (default) — observe, suggest, human approves
+- Adaptive Learning — auto-adapt within boundaries, explicit consent required
 
-CUSTOMER ROUTE
-/app/learning — Learning Review Center
+CUSTOMER REVIEW CENTER
+Route: /app/learning
+RPC: get_customer_learning_center
 
-CORE TABLES
-customer_learning_settings
-customer_learning_memory
-customer_learning_reviews
-platform_learning_policies
+PLATFORM GOVERNANCE
+Route: /platform/intelligence/learning-queue (governance panel)
+RPC: get_learning_governance_overview
 
-CORE RPCs
-get_customer_learning_center()
-update_customer_learning_settings()
-remove_customer_learning_memory()
-record_customer_learning_memory()
-get_platform_learning_governance()
+ROLLOUT
+Aipify Internal → Unonight → Beta Customers → General Availability
 
-PLATFORM
-/platform/intelligence/learning-queue — governance section
-
-MIGRATION
-20260611700000_learning_engine_phase29.sql
-
-CODE
-lib/learning/
-components/app/learning/LearningReviewCenterPanel.tsx
-LEARNING_ENGINE.md
+IMPLEMENTATION
+- lib/learning/
+- components/app/learning/LearningReviewCenterPanel.tsx
+- supabase/migrations/20260611700000_learning_engine_phase29.sql
+- LEARNING_ENGINE.md

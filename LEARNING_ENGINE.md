@@ -2,19 +2,19 @@
 
 **Phase 29 · Critical priority**
 
-Controlled, transparent learning that improves Aipify over time while customers remain in control.
+Controlled customer learning: Aipify improves over time while customers remain in control.
 
-**Prerequisites:** [CUSTOMER_APP.md](./CUSTOMER_APP.md) · [TRUST_ARCHITECTURE.md](./TRUST_ARCHITECTURE.md) · [OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md)
+**Prerequisites:** [CUSTOMER_APP.md](./CUSTOMER_APP.md) · [ARCHITECTURE.md](./ARCHITECTURE.md) · Phase 25 self-learning foundation
 
-**Code:** `lib/learning/` · `components/app/learning/` · migration `20260611700000_learning_engine_phase29.sql`
+**Code:** `lib/learning/` · `components/app/learning/` · RPCs in `20260611700000_learning_engine_phase29.sql`
 
 ---
 
 ## Core principle
 
-> Aipify learns **WITH** the customer — not **FROM** the customer.
+**Aipify learns WITH the customer — not FROM the customer.**
 
-Customers always know what was learned, why, how to disable learning, and how to remove individual learnings.
+Customers choose the learning mode, review what was learned, remove learnings, and disable learning entirely.
 
 ---
 
@@ -22,65 +22,87 @@ Customers always know what was learned, why, how to disable learning, and how to
 
 | Mode | Behaviour |
 |------|-----------|
-| **Disabled** | No adaptation. Predefined rules only. Recommended for regulated industries. |
-| **Assisted** (default) | Observes patterns, suggests improvements, learns only after human approval. |
-| **Adaptive** | Automatic adaptation within approved boundaries (tone, timing, frequency). Requires explicit consent. |
+| **Disabled** | No adaptation. Predefined rules only. For highly regulated industries. |
+| **Assisted** (default) | Observes patterns, suggests improvements. Humans approve. Learns approved behaviours. |
+| **Adaptive** | Adapts within approved boundaries (tone, timing, frequency, summaries). Requires explicit consent and eligible plan. |
 
 ---
 
 ## Allowed learning sources
 
-Metadata only — never raw customer content:
-
 - Approved recommendations, automations, responses
 - Skill health outcomes
 - Recommendation acceptance
-- User preferences
-- Notification engagement
+- User preferences (adaptive only)
+- Notification engagement (adaptive only)
 - Support resolution outcomes
 
-**Never stored:** sensitive PII, raw email, private conversations, payment data, secrets, confidential records.
+## Forbidden in memory
+
+Sensitive PII, raw email, private conversations, payment data, passwords, auth secrets, confidential business records.
+
+Learning memory stores **metadata only**: pattern type, approval source, confidence, skill key, explanation, timestamps.
 
 ---
 
-## Customer route
+## Customer Review Center
 
-| Route | Purpose |
-|-------|---------|
-| `/app/learning` | Learning Review Center — modes, recent learnings, suggestions, approval history, remove/disable |
+**Route:** `/app/learning`
 
----
+**RPC:** `get_customer_learning_center`
 
-## Core RPCs
+Displays recent learnings, suggested improvements, confidence levels, approval history, mode controls, remove/disable actions.
 
-| RPC | Purpose |
-|-----|---------|
-| `get_customer_learning_center()` | Learning Review Center bundle |
-| `update_customer_learning_settings()` | Set mode + adaptive consent |
-| `remove_customer_learning_memory()` | Customer removes a learning |
-| `record_customer_learning_memory()` | Record approved pattern (Core) |
-| `get_platform_learning_governance()` | Platform Admin policies & rollout |
-
-`perform_customer_recommendation_action()` records learning memory on approve (Phase 29).
+Linked from **Settings** → Learning & privacy.
 
 ---
 
 ## Platform governance
 
-Platform Admin manages learning at `/platform/intelligence/learning-queue`:
+**Route:** `/platform/intelligence/learning-queue` (governance panel above queue)
 
-- Learning policies per environment (`platform_learning_policies`)
-- Rollout: Internal → Unonight Pilot → Beta → GA
-- Global safeguards (human approval, no content storage, tenant isolation)
+**RPC:** `get_learning_governance_overview`
 
----
-
-## Unonight pilot
-
-Seed learning memory and pilot policy (`pilot_unonight`) validate explanation engine and review UX before beta rollout.
+Platform admins manage rollout pipeline (Internal → Unonight → Beta → GA), safeguards, and pilot validation.
 
 ---
 
-## Principle
+## Rollout pipeline
 
-> Intelligence without learning becomes repetitive. Learning without trust becomes dangerous. Aipify must achieve both.
+1. Aipify Internal
+2. Unonight pilot
+3. Beta customers
+4. General availability
+
+New learning behaviours are validated internally before customer rollout.
+
+---
+
+## Explanation engine
+
+`lib/learning/explanation.ts` and `lib/learning/confidence.ts` provide human-readable confidence and behaviour-change explanations.
+
+Examples:
+
+- "Based on 23 similar approvals, Aipify is highly confident."
+- "Aipify noticed that you approve executive summaries before 09:00 and adjusted delivery timing."
+
+---
+
+## Key RPCs
+
+| RPC | Purpose |
+|-----|---------|
+| `get_customer_learning_center` | Customer Review Center bundle |
+| `update_customer_learning_settings` | Mode + adaptive consent |
+| `record_customer_learning_memory` | Record approved pattern (metadata only) |
+| `remove_customer_learning_memory` | Customer removes a learning |
+| `get_learning_governance_overview` | Platform admin governance |
+| `perform_customer_recommendation_action` | Records learning on approve |
+
+---
+
+## i18n
+
+- Customer: `locales/{en,no,sv,da}/customerApp.json` → `learning.*`
+- Platform: `locales/*/platform.json` → `intelligence.learningGovernance.*`

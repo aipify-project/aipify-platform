@@ -28,7 +28,6 @@ The first complete customer-facing product experience. Customers interact with *
 | `/app/executive` | Executive dashboard |
 | `/app/presence` | Presence center — timeline, briefing, feed |
 | `/app/recommendations` | Recommendations center |
-| `/app/learning` | Learning Review Center (Phase 29) |
 | `/app/skills` | Skills center (SkillOS) |
 | `/app/approvals` | Approval center |
 | `/app/installations` | Installations center |
@@ -37,6 +36,7 @@ The first complete customer-facing product experience. Customers interact with *
 | `/app/license` | Trust & License center |
 | `/app/security` | Security dashboard |
 | `/app/settings` | Settings center |
+| `/app/learning` | Learning Review Center (Phase 29) |
 
 Legacy: `/dashboard/*` remains during migration. `/app/command-center` remains for Command Center / desktop pairing.
 

@@ -1272,6 +1272,19 @@
         "confidence": "Confidence"
       }
     },
+    "learningGovernance": {
+      "title": "Learning governance",
+      "subtitle": "Global safeguards, rollout pipeline, and pilot validation before general availability.",
+      "loading": "Loading governance overview...",
+      "rollout": "Rollout pipeline",
+      "safeguards": "Global safeguards",
+      "pilot": "Unonight pilot",
+      "totals": {
+        "activeMemories": "Active customer memories",
+        "disabledTenants": "Tenants with learning disabled",
+        "adaptiveTenants": "Tenants with adaptive consent"
+      }
+    },
     "learningQueue": {
       "title": "Learning Queue",
       "subtitle": "Newly discovered patterns awaiting admin review before promotion to global intelligence.",
@@ -1298,16 +1311,6 @@
         "moreData": "Awaiting data",
         "approved": "Approved"
       }
-    },
-    "learningGovernance": {
-      "title": "Learning governance",
-      "subtitle": "Platform policies, rollout stages, and safeguards for controlled learning.",
-      "loading": "Loading governance policies…",
-      "environment": "Environment",
-      "defaultMode": "Default mode",
-      "adaptive": "Adaptive allowed",
-      "rollout": "Rollout stage",
-      "safeguards": "Safeguards"
     },
     "globalPatterns": {
       "title": "Global Patterns",

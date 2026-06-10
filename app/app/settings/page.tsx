@@ -40,6 +40,7 @@ export default async function SettingsPage() {
           desktop: t("customerApp.settings.sections.desktop"),
           developer: t("customerApp.settings.sections.developer"),
           updates: t("customerApp.settings.sections.updates"),
+          learning: t("customerApp.settings.sections.learning"),
           timezone: t("customerApp.settings.timezone"),
         },
         timezoneHint: t("customerApp.settings.timezoneHint"),
@@ -51,6 +52,7 @@ export default async function SettingsPage() {
           developer: t("customerApp.settings.links.developer"),
           updates: t("customerApp.settings.links.updates"),
           desktopConnect: t("customerApp.settings.links.desktopConnect"),
+          learning: t("customerApp.settings.links.learning"),
         },
       }}
     />

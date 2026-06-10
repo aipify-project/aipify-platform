@@ -1050,6 +1050,19 @@
         "confidence": "Confidence"
       }
     },
+    "learningGovernance": {
+      "title": "Læringsstyring",
+      "subtitle": "Globale sikkerhetstiltak, utrullingspipeline og pilotvalidering før generell tilgjengelighet.",
+      "loading": "Laster styringsoversikt…",
+      "rollout": "Utrullingspipeline",
+      "safeguards": "Globale sikkerhetstiltak",
+      "pilot": "Unonight-pilot",
+      "totals": {
+        "activeMemories": "Aktive kundeminner",
+        "disabledTenants": "Kunder med læring deaktivert",
+        "adaptiveTenants": "Kunder med adaptivt samtykke"
+      }
+    },
     "learningQueue": {
       "title": "Learning Queue",
       "subtitle": "Newly discovered patterns awaiting admin review before promotion to global intelligence.",
@@ -1076,16 +1089,6 @@
         "moreData": "Awaiting data",
         "approved": "Approved"
       }
-    },
-    "learningGovernance": {
-      "title": "Læringsstyring",
-      "subtitle": "Plattformpolicyer, utrullingsfaser og sikkerhetstiltak for kontrollert læring.",
-      "loading": "Laster styringspolicyer…",
-      "environment": "Miljø",
-      "defaultMode": "Standardmodus",
-      "adaptive": "Adaptiv tillatt",
-      "rollout": "Utrullingsfase",
-      "safeguards": "Sikkerhetstiltak"
     },
     "globalPatterns": {
       "title": "Global Patterns",

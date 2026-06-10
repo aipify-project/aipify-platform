@@ -1,7 +1,7 @@
--- Phase 29 — Learning Engine (controlled, transparent, customer-approved learning)
+-- Phase 29 — Learning Engine (controlled customer learning)
 
 -- ---------------------------------------------------------------------------
--- 1. Tenant learning settings
+-- 1. Customer learning settings
 -- ---------------------------------------------------------------------------
 create table if not exists public.customer_learning_settings (
   tenant_id uuid primary key references public.customers (id) on delete cascade,
@@ -9,6 +9,7 @@ create table if not exists public.customer_learning_settings (
     learning_mode in ('disabled', 'assisted', 'adaptive')
   ),
   adaptive_consent_at timestamptz,
+  disabled_at timestamptz,
   updated_at timestamptz not null default now()
 );
 
@@ -35,17 +36,17 @@ create table if not exists public.customer_learning_memory (
     )
   ),
   approval_source text,
+  confidence_score integer not null default 50 check (confidence_score between 0 and 100),
   confidence_level text not null default 'medium' check (
     confidence_level in ('low', 'medium', 'high')
   ),
-  confidence_score integer not null default 50 check (confidence_score between 0 and 100),
   skill_key text,
   explanation text not null,
   metadata jsonb not null default '{}'::jsonb,
-  status text not null default 'active' check (status in ('active', 'removed')),
+  status text not null default 'active' check (status in ('active', 'removed', 'disabled')),
   learned_at timestamptz not null default now(),
   reviewed_at timestamptz,
-  removed_at timestamptz
+  created_at timestamptz not null default now()
 );
 
 create index if not exists customer_learning_memory_tenant_idx
@@ -55,17 +56,19 @@ alter table public.customer_learning_memory enable row level security;
 revoke all on public.customer_learning_memory from authenticated, anon;
 
 -- ---------------------------------------------------------------------------
--- 3. Learning review audit
+-- 3. Review / audit history
 -- ---------------------------------------------------------------------------
 create table if not exists public.customer_learning_reviews (
   id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null references public.customers (id) on delete cascade,
   memory_id uuid references public.customer_learning_memory (id) on delete set null,
-  review_action text not null check (
-    review_action in ('approved', 'removed', 'mode_changed', 'disabled')
+  action_type text not null check (
+    action_type in (
+      'recorded', 'removed', 'mode_changed', 'adaptive_consent', 'adaptive_revoked', 'disabled'
+    )
   ),
   actor_user_id uuid references public.users (id) on delete set null,
-  note text,
+  notes text,
   created_at timestamptz not null default now()
 );
 
@@ -76,46 +79,9 @@ alter table public.customer_learning_reviews enable row level security;
 revoke all on public.customer_learning_reviews from authenticated, anon;
 
 -- ---------------------------------------------------------------------------
--- 4. Platform learning governance
+-- 4. Helpers
 -- ---------------------------------------------------------------------------
-create table if not exists public.platform_learning_policies (
-  id uuid primary key default gen_random_uuid(),
-  policy_key text not null unique,
-  environment_type text not null check (
-    environment_type in ('internal', 'pilot', 'customer', 'enterprise')
-  ),
-  learning_mode_default text not null default 'assisted' check (
-    learning_mode_default in ('disabled', 'assisted', 'adaptive')
-  ),
-  adaptive_allowed boolean not null default false,
-  rollout_stage text not null default 'internal' check (
-    rollout_stage in ('internal', 'pilot', 'beta', 'ga')
-  ),
-  safeguards jsonb not null default '{}'::jsonb,
-  updated_at timestamptz not null default now()
-);
-
-alter table public.platform_learning_policies enable row level security;
-revoke all on public.platform_learning_policies from authenticated, anon;
-
-insert into public.platform_learning_policies (
-  policy_key, environment_type, learning_mode_default, adaptive_allowed, rollout_stage, safeguards
-)
-values
-  ('internal_default', 'internal', 'assisted', true, 'internal',
-    '{"human_approval_required": true, "content_storage": false}'::jsonb),
-  ('pilot_unonight', 'pilot', 'assisted', false, 'pilot',
-    '{"human_approval_required": true, "pilot_tenant": "unonight"}'::jsonb),
-  ('customer_default', 'customer', 'assisted', false, 'beta',
-    '{"human_approval_required": true, "adaptive_requires_consent": true}'::jsonb),
-  ('enterprise_default', 'enterprise', 'disabled', false, 'ga',
-    '{"human_approval_required": true, "enterprise_opt_in": true}'::jsonb)
-on conflict (policy_key) do nothing;
-
--- ---------------------------------------------------------------------------
--- 5. Helpers
--- ---------------------------------------------------------------------------
-create or replace function public._learning_confidence_level(p_score integer)
+create or replace function public._confidence_level_from_score(p_score integer)
 returns text
 language sql
 immutable
@@ -127,7 +93,7 @@ as $$
   end;
 $$;
 
-create or replace function public._ensure_customer_learning_settings(p_tenant_id uuid)
+create or replace function public.ensure_customer_learning_settings(p_tenant_id uuid)
 returns public.customer_learning_settings
 language plpgsql
 security definer
@@ -135,19 +101,9 @@ set search_path = public
 as $$
 declare
   v_row public.customer_learning_settings;
-  v_env text;
-  v_default_mode text := 'assisted';
 begin
-  select c.environment_type into v_env
-  from public.customers c where c.id = p_tenant_id;
-
-  select p.learning_mode_default into v_default_mode
-  from public.platform_learning_policies p
-  where p.environment_type = coalesce(v_env, 'customer')
-  limit 1;
-
-  insert into public.customer_learning_settings (tenant_id, learning_mode)
-  values (p_tenant_id, coalesce(v_default_mode, 'assisted'))
+  insert into public.customer_learning_settings (tenant_id)
+  values (p_tenant_id)
   on conflict (tenant_id) do nothing;
 
   select * into v_row
@@ -158,8 +114,12 @@ begin
 end;
 $$;
 
+grant execute on function public.ensure_customer_learning_settings(uuid) to authenticated;
+
+-- ---------------------------------------------------------------------------
+-- 5. Record learning memory
+-- ---------------------------------------------------------------------------
 create or replace function public.record_customer_learning_memory(
-  p_tenant_id uuid,
   p_pattern_type text,
   p_source_type text,
   p_approval_source text default null,
@@ -174,45 +134,89 @@ security definer
 set search_path = public
 as $$
 declare
+  v_tenant_id uuid;
   v_settings public.customer_learning_settings;
-  v_level text;
   v_id uuid;
+  v_level text;
+  v_similar integer;
   v_explanation text;
 begin
-  v_settings := public._ensure_customer_learning_settings(p_tenant_id);
+  v_tenant_id := public._presence_tenant_for_auth();
+  if v_tenant_id is null then
+    raise exception 'Customer not found';
+  end if;
 
-  if v_settings.learning_mode = 'disabled' then
+  v_settings := public.ensure_customer_learning_settings(v_tenant_id);
+
+  if v_settings.learning_mode = 'disabled' or v_settings.disabled_at is not null then
     return null;
   end if;
 
-  if v_settings.learning_mode = 'adaptive'
-    and v_settings.adaptive_consent_at is null then
+  if p_source_type in (
+    'user_preference', 'notification_engagement'
+  ) and v_settings.learning_mode <> 'adaptive' then
     return null;
   end if;
 
-  v_level := public._learning_confidence_level(p_confidence_score);
+  v_level := public._confidence_level_from_score(coalesce(p_confidence_score, 50));
+
+  select count(*)::integer into v_similar
+  from public.customer_learning_memory m
+  where m.tenant_id = v_tenant_id
+    and m.pattern_type = p_pattern_type
+    and m.status = 'active';
+
+  v_similar := v_similar + 1;
+
   v_explanation := coalesce(
-    nullif(trim(p_explanation), ''),
-    'Aipify recorded an approved pattern to improve future suggestions.'
+    p_explanation,
+    case
+      when v_similar >= 20 and v_level = 'high'
+        then format('Based on %s similar approvals, Aipify is highly confident.', v_similar)
+      when v_similar >= 8
+        then format('Based on %s similar outcomes, Aipify has moderate confidence.', v_similar)
+      else 'Aipify recorded an approved pattern to improve future suggestions.'
+    end
   );
 
   insert into public.customer_learning_memory (
     tenant_id, pattern_type, source_type, approval_source,
-    confidence_level, confidence_score, skill_key, explanation, metadata
+    confidence_score, confidence_level, skill_key, explanation, metadata
   )
   values (
-    p_tenant_id, p_pattern_type, p_source_type, p_approval_source,
-    v_level, p_confidence_score, p_skill_key, v_explanation,
+    v_tenant_id, p_pattern_type, p_source_type, p_approval_source,
+    coalesce(p_confidence_score, 50), v_level, p_skill_key, v_explanation,
     coalesce(p_metadata, '{}'::jsonb)
   )
   returning id into v_id;
+
+  insert into public.customer_learning_reviews (
+    tenant_id, memory_id, action_type, actor_user_id, notes
+  )
+  select v_tenant_id, v_id, 'recorded', u.id, p_pattern_type
+  from public.users u
+  where u.auth_user_id = auth.uid()
+  limit 1;
+
+  perform public.record_ai_learning_event(
+    v_tenant_id,
+    (select c.environment_type from public.customers c where c.id = v_tenant_id),
+    'recommendation',
+    'system',
+    jsonb_build_object(
+      'pattern_type', p_pattern_type,
+      'source_type', p_source_type,
+      'confidence_level', v_level
+    ),
+    'approved'
+  );
 
   return v_id;
 end;
 $$;
 
 grant execute on function public.record_customer_learning_memory(
-  uuid, text, text, text, integer, text, text, jsonb
+  text, text, text, integer, text, text, jsonb
 ) to authenticated;
 
 -- ---------------------------------------------------------------------------
@@ -228,30 +232,29 @@ as $$
 declare
   v_tenant_id uuid;
   v_settings public.customer_learning_settings;
+  v_plan text;
   v_env text;
-  v_policy public.platform_learning_policies;
+  v_limits jsonb;
 begin
   v_tenant_id := public._presence_tenant_for_auth();
   if v_tenant_id is null then
     return jsonb_build_object('has_customer', false);
   end if;
 
-  v_settings := public._ensure_customer_learning_settings(v_tenant_id);
+  v_settings := public.ensure_customer_learning_settings(v_tenant_id);
+  v_limits := public.get_customer_license_limits(v_tenant_id);
+  v_plan := coalesce(v_limits ->> 'plan', 'starter');
 
   select c.environment_type into v_env
-  from public.customers c where c.id = v_tenant_id;
-
-  select * into v_policy
-  from public.platform_learning_policies p
-  where p.environment_type = coalesce(v_env, 'customer')
-  limit 1;
+  from public.customers c
+  where c.id = v_tenant_id;
 
   return jsonb_build_object(
     'has_customer', true,
     'principle', 'Aipify learns WITH the customer — not FROM the customer. You remain in control.',
     'learning_mode', v_settings.learning_mode,
     'adaptive_consent', v_settings.adaptive_consent_at is not null,
-    'adaptive_allowed', coalesce(v_policy.adaptive_allowed, false),
+    'adaptive_allowed', v_plan in ('business', 'enterprise') and v_env in ('pilot', 'enterprise', 'customer'),
     'recent_learnings', coalesce(
       (select jsonb_agg(jsonb_build_object(
         'id', m.id,
@@ -276,29 +279,32 @@ begin
         'id', ar.id,
         'title', ar.title,
         'description', ar.recommendation,
-        'confidence_level', public._learning_confidence_level(ar.confidence_score),
+        'confidence_level', public._confidence_level_from_score(ar.confidence_score),
         'confidence_score', ar.confidence_score
       ) order by ar.confidence_score desc)
       from public.ai_recommendations ar
       where ar.tenant_id = v_tenant_id and ar.status = 'active'
-      limit 8),
+      limit 5),
       '[]'::jsonb
     ),
     'approval_history', coalesce(
       (select jsonb_agg(jsonb_build_object(
-        'id', e.id,
-        'action_type', coalesce(e.action_type, e.event_type),
-        'created_at', e.created_at
-      ) order by e.created_at desc)
-      from public.presence_engagement_events e
-      where e.tenant_id = v_tenant_id
-        and e.event_type in ('recommendation_action', 'quick_action', 'notification_action')
-      limit 15),
+        'id', r.id,
+        'action_type', r.action_type,
+        'created_at', r.created_at
+      ) order by r.created_at desc)
+      from public.customer_learning_reviews r
+      where r.tenant_id = v_tenant_id
+      limit 20),
       '[]'::jsonb
     ),
     'governance', jsonb_build_object(
-      'rollout_stage', coalesce(v_policy.rollout_stage, 'beta'),
-      'environment_type', coalesce(v_env, 'customer')
+      'rollout_stage', case v_env
+        when 'internal' then 'Aipify Internal'
+        when 'pilot' then 'Unonight Pilot'
+        else 'General Availability'
+      end,
+      'environment_type', v_env
     )
   );
 end;
@@ -306,9 +312,12 @@ $$;
 
 grant execute on function public.get_customer_learning_center() to authenticated;
 
+-- ---------------------------------------------------------------------------
+-- 7. Update learning settings
+-- ---------------------------------------------------------------------------
 create or replace function public.update_customer_learning_settings(
-  p_learning_mode text,
-  p_adaptive_consent boolean default false
+  p_learning_mode text default null,
+  p_adaptive_consent boolean default null
 )
 returns jsonb
 language plpgsql
@@ -317,70 +326,90 @@ set search_path = public
 as $$
 declare
   v_tenant_id uuid;
+  v_settings public.customer_learning_settings;
+  v_plan text;
   v_env text;
-  v_policy public.platform_learning_policies;
-  v_row public.customer_learning_settings;
+  v_limits jsonb;
 begin
   v_tenant_id := public._presence_tenant_for_auth();
   if v_tenant_id is null then
     raise exception 'Customer not found';
   end if;
 
-  if p_learning_mode not in ('disabled', 'assisted', 'adaptive') then
-    raise exception 'Invalid learning mode';
-  end if;
+  v_settings := public.ensure_customer_learning_settings(v_tenant_id);
+  v_limits := public.get_customer_license_limits(v_tenant_id);
+  v_plan := coalesce(v_limits ->> 'plan', 'starter');
 
   select c.environment_type into v_env
-  from public.customers c where c.id = v_tenant_id;
+  from public.customers c
+  where c.id = v_tenant_id;
 
-  select * into v_policy
-  from public.platform_learning_policies p
-  where p.environment_type = coalesce(v_env, 'customer')
-  limit 1;
+  if p_learning_mode is not null then
+    if p_learning_mode not in ('disabled', 'assisted', 'adaptive') then
+      raise exception 'Invalid learning mode';
+    end if;
 
-  if p_learning_mode = 'adaptive' then
-    if not coalesce(v_policy.adaptive_allowed, false) and v_env <> 'internal' then
-      raise exception 'Adaptive learning requires explicit consent and plan eligibility';
+    if p_learning_mode = 'adaptive' then
+      if v_plan not in ('business', 'enterprise') then
+        raise exception 'Adaptive learning requires Business plan or higher';
+      end if;
+      if coalesce(p_adaptive_consent, false) = false and v_settings.adaptive_consent_at is null then
+        raise exception 'Adaptive learning requires explicit consent';
+      end if;
     end if;
-    if not p_adaptive_consent then
-      raise exception 'Adaptive learning requires explicit customer consent';
-    end if;
+
+    update public.customer_learning_settings
+    set
+      learning_mode = p_learning_mode,
+      disabled_at = case when p_learning_mode = 'disabled' then now() else null end,
+      adaptive_consent_at = case
+        when p_learning_mode = 'adaptive' and coalesce(p_adaptive_consent, v_settings.adaptive_consent_at is not null)
+          then coalesce(v_settings.adaptive_consent_at, now())
+        when p_learning_mode <> 'adaptive' then null
+        else adaptive_consent_at
+      end,
+      updated_at = now()
+    where tenant_id = v_tenant_id
+    returning * into v_settings;
+
+    insert into public.customer_learning_reviews (tenant_id, action_type, actor_user_id, notes)
+    select v_tenant_id,
+      case when p_learning_mode = 'disabled' then 'disabled' else 'mode_changed' end,
+      u.id,
+      p_learning_mode
+    from public.users u where u.auth_user_id = auth.uid() limit 1;
+  elsif p_adaptive_consent is not null then
+    update public.customer_learning_settings
+    set
+      adaptive_consent_at = case when p_adaptive_consent then now() else null end,
+      learning_mode = case
+        when p_adaptive_consent and learning_mode = 'assisted' then 'adaptive'
+        when not p_adaptive_consent and learning_mode = 'adaptive' then 'assisted'
+        else learning_mode
+      end,
+      updated_at = now()
+    where tenant_id = v_tenant_id
+    returning * into v_settings;
+
+    insert into public.customer_learning_reviews (tenant_id, action_type, actor_user_id)
+    select v_tenant_id,
+      case when p_adaptive_consent then 'adaptive_consent' else 'adaptive_revoked' end,
+      u.id
+    from public.users u where u.auth_user_id = auth.uid() limit 1;
   end if;
 
-  insert into public.customer_learning_settings (tenant_id, learning_mode, adaptive_consent_at)
-  values (
-    v_tenant_id,
-    p_learning_mode,
-    case when p_learning_mode = 'adaptive' and p_adaptive_consent then now() else null end
-  )
-  on conflict (tenant_id) do update set
-    learning_mode = excluded.learning_mode,
-    adaptive_consent_at = case
-      when excluded.learning_mode = 'adaptive' and p_adaptive_consent then now()
-      when excluded.learning_mode <> 'adaptive' then null
-      else customer_learning_settings.adaptive_consent_at
-    end,
-    updated_at = now()
-  returning * into v_row;
-
-  insert into public.customer_learning_reviews (
-    tenant_id, review_action, note
-  )
-  values (
-    v_tenant_id,
-    'mode_changed',
-    'Learning mode set to ' || p_learning_mode
-  );
-
   return jsonb_build_object(
-    'learning_mode', v_row.learning_mode,
-    'adaptive_consent', v_row.adaptive_consent_at is not null
+    'learning_mode', v_settings.learning_mode,
+    'adaptive_consent', v_settings.adaptive_consent_at is not null
   );
 end;
 $$;
 
 grant execute on function public.update_customer_learning_settings(text, boolean) to authenticated;
 
+-- ---------------------------------------------------------------------------
+-- 8. Remove learning memory entry
+-- ---------------------------------------------------------------------------
 create or replace function public.remove_customer_learning_memory(p_memory_id uuid)
 returns jsonb
 language plpgsql
@@ -396,26 +425,25 @@ begin
   end if;
 
   update public.customer_learning_memory
-  set status = 'removed', removed_at = now(), reviewed_at = now()
+  set status = 'removed', reviewed_at = now()
   where id = p_memory_id and tenant_id = v_tenant_id;
 
   if not found then
     raise exception 'Learning memory not found';
   end if;
 
-  insert into public.customer_learning_reviews (
-    tenant_id, memory_id, review_action, note
-  )
-  values (v_tenant_id, p_memory_id, 'removed', 'Customer removed learning memory');
+  insert into public.customer_learning_reviews (tenant_id, memory_id, action_type, actor_user_id)
+  select v_tenant_id, p_memory_id, 'removed', u.id
+  from public.users u where u.auth_user_id = auth.uid() limit 1;
 
-  return jsonb_build_object('removed', true, 'memory_id', p_memory_id);
+  return jsonb_build_object('removed', true);
 end;
 $$;
 
 grant execute on function public.remove_customer_learning_memory(uuid) to authenticated;
 
 -- ---------------------------------------------------------------------------
--- 7. Wire recommendation approvals into learning memory
+-- 9. Learn from recommendation actions
 -- ---------------------------------------------------------------------------
 create or replace function public.perform_customer_recommendation_action(
   p_recommendation_id uuid,
@@ -429,7 +457,6 @@ set search_path = public
 as $$
 declare
   v_tenant_id uuid;
-  v_title text;
 begin
   v_tenant_id := public._presence_tenant_for_auth();
   if v_tenant_id is null then
@@ -441,50 +468,30 @@ begin
   end if;
 
   if p_source = 'customer' then
-    select cr.recommendation_key into v_title
-    from public.customer_recommendations cr
-    where cr.id = p_recommendation_id and cr.customer_id = v_tenant_id;
-
     if p_action = 'dismiss' then
       update public.customer_recommendations
       set dismissed_at = now()
       where id = p_recommendation_id and customer_id = v_tenant_id;
-    elsif p_action = 'approve' then
-      perform public.record_customer_learning_memory(
-        v_tenant_id,
-        'recommendation_acceptance',
-        'approved_recommendation',
-        v_title,
-        72,
-        null,
-        'Aipify learned from an approved recommendation and will suggest similar improvements.',
-        jsonb_build_object('recommendation_id', p_recommendation_id, 'source', p_source)
-      );
     end if;
   elsif p_source = 'ai' then
-    select ar.title into v_title
-    from public.ai_recommendations ar
-    where ar.id = p_recommendation_id and ar.tenant_id = v_tenant_id;
-
     update public.ai_recommendations
     set status = case when p_action = 'approve' then 'executed' else 'dismissed' end,
         dismissed_at = case when p_action = 'dismiss' then now() else dismissed_at end
     where id = p_recommendation_id and tenant_id = v_tenant_id;
-
-    if p_action = 'approve' then
-      perform public.record_customer_learning_memory(
-        v_tenant_id,
-        'recommendation_acceptance',
-        'approved_recommendation',
-        v_title,
-        80,
-        null,
-        'Aipify learned from an approved recommendation and will suggest similar improvements.',
-        jsonb_build_object('recommendation_id', p_recommendation_id, 'source', p_source)
-      );
-    end if;
   else
     raise exception 'Invalid source';
+  end if;
+
+  if p_action = 'approve' then
+    perform public.record_customer_learning_memory(
+      'recommendation_acceptance',
+      'approved_recommendation',
+      p_source,
+      72,
+      null,
+      'Aipify learned from an approved recommendation and will suggest similar improvements.',
+      jsonb_build_object('recommendation_id', p_recommendation_id)
+    );
   end if;
 
   perform public.record_presence_engagement(
@@ -497,83 +504,110 @@ end;
 $$;
 
 -- ---------------------------------------------------------------------------
--- 8. Platform governance bundle
+-- 10. Platform learning governance overview
 -- ---------------------------------------------------------------------------
-create or replace function public.get_platform_learning_governance()
+create or replace function public.get_learning_governance_overview()
 returns jsonb
 language plpgsql
 stable
 security definer
 set search_path = public
 as $$
+declare
+  v_pilot_id uuid;
+  v_pilot_memories integer;
+  v_customer_memories integer;
 begin
   if not public.is_platform_admin() then
     raise exception 'Not authorized';
   end if;
 
+  select c.id into v_pilot_id from public.customers c where c.slug = 'unonight' limit 1;
+
+  select count(*) into v_pilot_memories
+  from public.customer_learning_memory m
+  where m.tenant_id = v_pilot_id and m.status = 'active';
+
+  select count(*) into v_customer_memories
+  from public.customer_learning_memory m
+  where m.status = 'active';
+
   return jsonb_build_object(
-    'policies', coalesce(
-      (select jsonb_agg(row_to_json(p.*) order by p.environment_type)
-       from public.platform_learning_policies p),
-      '[]'::jsonb
+    'rollout_pipeline', jsonb_build_array(
+      jsonb_build_object('stage', 'Aipify Internal', 'status', 'complete'),
+      jsonb_build_object('stage', 'Unonight', 'status', case when v_pilot_id is not null then 'active' else 'pending' end),
+      jsonb_build_object('stage', 'Beta Customers', 'status', 'planned'),
+      jsonb_build_object('stage', 'General Availability', 'status', 'planned')
     ),
-    'overview', public.get_platform_learning_overview(),
-    'rollout', jsonb_build_array(
-      jsonb_build_object('stage', 'internal', 'label', 'Aipify Internal'),
-      jsonb_build_object('stage', 'pilot', 'label', 'Unonight Pilot'),
-      jsonb_build_object('stage', 'beta', 'label', 'Beta Customers'),
-      jsonb_build_object('stage', 'ga', 'label', 'General Availability')
+    'safeguards', jsonb_build_array(
+      'No raw customer content in learning memory',
+      'Assisted mode is default',
+      'Adaptive requires explicit consent',
+      'Customers can remove learnings at any time'
     ),
-    'safeguards', jsonb_build_object(
-      'human_approval_required', true,
-      'forbidden_content_storage', true,
-      'tenant_isolation', true
+    'pilot', jsonb_build_object(
+      'tenant_slug', 'unonight',
+      'active_memories', coalesce(v_pilot_memories, 0)
+    ),
+    'totals', jsonb_build_object(
+      'active_memories', coalesce(v_customer_memories, 0),
+      'disabled_tenants', (
+        select count(*) from public.customer_learning_settings where learning_mode = 'disabled'
+      ),
+      'adaptive_tenants', (
+        select count(*) from public.customer_learning_settings
+        where learning_mode = 'adaptive' and adaptive_consent_at is not null
+      )
     )
   );
 end;
 $$;
 
-grant execute on function public.get_platform_learning_governance() to authenticated;
+grant execute on function public.get_learning_governance_overview() to authenticated;
 
 -- ---------------------------------------------------------------------------
--- 9. Seed pilot learning memory for Unonight
+-- 11. Seed Unonight pilot learnings
 -- ---------------------------------------------------------------------------
-insert into public.customer_learning_memory (
-  tenant_id, pattern_type, source_type, approval_source,
-  confidence_level, confidence_score, skill_key, explanation, metadata
-)
-select
-  c.id,
-  'notification_frequency',
-  'notification_engagement',
-  'presence_engagement',
-  'medium',
-  62,
-  'presence',
-  'Aipify reduced notification frequency because similar alerts were frequently dismissed.',
-  '{"dismiss_rate": 34}'::jsonb
+insert into public.customer_learning_settings (tenant_id, learning_mode)
+select c.id, 'assisted'
 from public.customers c
 where c.slug = 'unonight'
-  and not exists (
-    select 1 from public.customer_learning_memory m
-    where m.tenant_id = c.id and m.pattern_type = 'notification_frequency'
-  );
+on conflict (tenant_id) do nothing;
 
 insert into public.customer_learning_memory (
   tenant_id, pattern_type, source_type, approval_source,
-  confidence_level, confidence_score, explanation
+  confidence_score, confidence_level, skill_key, explanation, metadata
 )
-select
-  c.id,
-  'executive_summary_timing',
-  'user_preference',
-  'approved_recommendation',
-  'high',
-  84,
-  'Aipify noticed that you approve executive summaries before 09:00 and adjusted delivery timing.'
+select c.id, v.pattern_type, v.source_type, 'unonight_pilot',
+  v.confidence_score, public._confidence_level_from_score(v.confidence_score),
+  v.skill_key, v.explanation, '{}'::jsonb
 from public.customers c
+cross join (
+  values
+    (
+      'executive_summary_timing',
+      'user_preference',
+      82,
+      'support_ai',
+      'Aipify noticed that you approve executive summaries before 09:00 and adjusted delivery timing.'
+    ),
+    (
+      'notification_frequency',
+      'notification_engagement',
+      76,
+      null,
+      'Aipify reduced notification frequency because similar alerts were frequently dismissed.'
+    ),
+    (
+      'recommendation_acceptance',
+      'approved_recommendation',
+      68,
+      'operations',
+      'Aipify learned from approved recommendations to prioritise operational efficiency suggestions.'
+    )
+) as v(pattern_type, source_type, confidence_score, skill_key, explanation)
 where c.slug = 'unonight'
   and not exists (
     select 1 from public.customer_learning_memory m
-    where m.tenant_id = c.id and m.pattern_type = 'executive_summary_timing'
+    where m.tenant_id = c.id and m.pattern_type = v.pattern_type
   );

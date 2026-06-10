@@ -150,7 +150,8 @@
       "executiveBriefing": "Presence & executive feed",
       "desktop": "Desktop presence",
       "developer": "Developer",
-      "updates": "Updates"
+      "updates": "Updates",
+      "learning": "Learning"
     },
     "timezone": "Timezone",
     "timezoneHint": "Greetings and briefings use your local timezone.",
@@ -159,67 +160,54 @@
     "links": {
       "developer": "Developer settings",
       "updates": "Update policies",
-      "desktopConnect": "Connect desktop app"
+      "desktopConnect": "Connect desktop app",
+      "learning": "Learning & privacy"
     }
   },
   "learning": {
-    "title": "Learning review",
-    "subtitle": "See what Aipify has learned, why it learned it, and stay in control.",
+    "title": "Learning review center",
+    "subtitle": "See what Aipify learns, why it learns it, and stay in control.",
     "principle": "Aipify learns WITH you — not FROM you. You remain in control.",
     "loading": "Loading learning center…",
-    "emptyLearnings": "No active learnings yet. Aipify will record patterns when you approve recommendations.",
-    "emptySuggestions": "No suggested improvements awaiting review.",
-    "emptyHistory": "Approval history will appear as you review recommendations and actions.",
+    "empty": "Complete account setup to manage learning preferences.",
     "sections": {
       "mode": "Learning mode",
-      "recent": "Recent learnings",
+      "learnings": "Recent learnings",
       "suggestions": "Suggested improvements",
-      "history": "Approval history"
+      "history": "Approval history",
+      "governance": "Rollout"
     },
     "modes": {
-      "disabled": {
-        "title": "Disabled",
-        "description": "Aipify does not adapt. Uses only predefined rules."
-      },
-      "assisted": {
-        "title": "Assisted learning",
-        "description": "Aipify observes patterns and suggests improvements. You approve before anything is learned."
-      },
-      "adaptive": {
-        "title": "Adaptive learning",
-        "description": "Aipify adapts automatically within approved boundaries — tone, timing, and frequency."
-      }
+      "disabled": "Disabled",
+      "assisted": "Assisted learning",
+      "adaptive": "Adaptive learning"
     },
-    "adaptiveConsent": "I consent to adaptive learning within approved boundaries",
-    "adaptiveConsentHint": "Adaptive learning requires explicit consent. You can disable or remove learnings at any time.",
-    "saveMode": "Save learning mode",
-    "saving": "Saving…",
-    "saved": "Learning settings saved",
-    "removeLearning": "Remove learning",
-    "removing": "Removing…",
-    "confidence": "Confidence",
-    "learnedAt": "Learned",
-    "patternType": "Pattern",
-    "sourceType": "Source",
-    "viewRecommendations": "Review recommendations",
-    "rolloutStage": "Rollout stage",
-    "confidenceLabels": {
-      "low": "Aipify has limited evidence for this pattern.",
-      "medium": "Aipify is moderately confident based on recent approvals.",
-      "high": "Based on {count} similar approvals, Aipify is highly confident."
+    "modeDescriptions": {
+      "disabled": "Aipify does not adapt. Uses only predefined rules.",
+      "assisted": "Aipify observes patterns and suggests improvements. You approve before Aipify learns.",
+      "adaptive": "Aipify adapts automatically within approved boundaries. Requires explicit consent."
     },
-    "confidenceBadges": {
+    "confidence": {
       "low": "Low confidence",
       "medium": "Medium confidence",
       "high": "High confidence"
-    }
+    },
+    "adaptiveConsent": "I consent to adaptive learning within approved boundaries.",
+    "adaptiveRequired": "Adaptive learning requires explicit consent and an eligible plan.",
+    "save": "Save learning settings",
+    "saved": "Saved",
+    "remove": "Remove learning",
+    "disable": "Disable learning",
+    "noLearnings": "No active learnings yet. Approved recommendations will appear here.",
+    "noSuggestions": "No suggested improvements right now.",
+    "noHistory": "No review history yet.",
+    "rollout": "Rollout stage"
   },
   "nav": {
     "overview": "Home",
     "executive": "Executive",
     "presence": "Presence",
     "recommendations": "Recommendations",
-    "learning": "Learning",
     "skills": "Skills",
     "approvals": "Approvals",
     "installations": "Installations",
@@ -227,6 +215,7 @@
     "team": "Team",
     "license": "License",
     "security": "Security",
-    "settings": "Settings"
+    "settings": "Settings",
+    "learning": "Learning"
   }
 }

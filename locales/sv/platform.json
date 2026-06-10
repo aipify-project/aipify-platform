@@ -819,6 +819,19 @@
         "confidence": "Confidence"
       }
     },
+    "learningGovernance": {
+      "title": "Inlärningsstyrning",
+      "subtitle": "Globala skydd, utrullningspipeline och pilotvalidering före allmän tillgänglighet.",
+      "loading": "Laddar styrningsöversikt…",
+      "rollout": "Utrullningspipeline",
+      "safeguards": "Globala skydd",
+      "pilot": "Unonight-pilot",
+      "totals": {
+        "activeMemories": "Aktiva kundminnen",
+        "disabledTenants": "Kunder med inlärning inaktiverad",
+        "adaptiveTenants": "Kunder med adaptivt samtycke"
+      }
+    },
     "learningQueue": {
       "title": "Learning Queue",
       "subtitle": "Newly discovered patterns awaiting admin review before promotion to global intelligence.",
@@ -845,16 +858,6 @@
         "moreData": "Awaiting data",
         "approved": "Approved"
       }
-    },
-    "learningGovernance": {
-      "title": "Lärandestyrning",
-      "subtitle": "Plattformspolicyer, utrullningsfaser och skydd för kontrollerat lärande.",
-      "loading": "Laddar styrningspolicyer…",
-      "environment": "Miljö",
-      "defaultMode": "Standardläge",
-      "adaptive": "Adaptivt tillåtet",
-      "rollout": "Utrullningsfas",
-      "safeguards": "Skydd"
     },
     "globalPatterns": {
       "title": "Global Patterns",

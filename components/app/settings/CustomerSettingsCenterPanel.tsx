@@ -20,6 +20,7 @@ type CustomerSettingsCenterPanelProps = {
       desktop: string;
       developer: string;
       updates: string;
+      learning: string;
       timezone: string;
     };
     timezoneHint: string;
@@ -31,6 +32,7 @@ type CustomerSettingsCenterPanelProps = {
       developer: string;
       updates: string;
       desktopConnect: string;
+      learning: string;
     };
   };
 };
@@ -135,6 +137,9 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
         </Link>
         <Link href="/app/settings/updates" className="block text-indigo-600 hover:underline">
           {labels.links.updates}
+        </Link>
+        <Link href="/app/learning" className="block text-indigo-600 hover:underline">
+          {labels.links.learning}
         </Link>
       </section>
     </div>

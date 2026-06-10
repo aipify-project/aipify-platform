@@ -1,4 +1,6 @@
-export type ConfidenceLevel = "low" | "medium" | "high";
+export const CONFIDENCE_LEVELS = ["low", "medium", "high"] as const;
+
+export type ConfidenceLevel = (typeof CONFIDENCE_LEVELS)[number];
 
 export function confidenceLevelFromScore(score: number): ConfidenceLevel {
   if (score >= 75) return "high";
@@ -6,17 +8,16 @@ export function confidenceLevelFromScore(score: number): ConfidenceLevel {
   return "low";
 }
 
-export function explainConfidence(
-  score: number,
-  approvalCount: number,
-  labels: {
-    low: string;
-    medium: string;
-    high: (count: number) => string;
-  }
+export function confidenceExplanation(
+  level: ConfidenceLevel,
+  similarCount: number,
+  labels: Record<ConfidenceLevel, string>
 ): string {
-  const level = confidenceLevelFromScore(score);
-  if (level === "high") return labels.high(approvalCount);
-  if (level === "medium") return labels.medium;
-  return labels.low;
+  if (similarCount > 0 && level === "high") {
+    return `Based on ${similarCount} similar approvals, Aipify is highly confident.`;
+  }
+  if (similarCount > 0 && level === "medium") {
+    return `Based on ${similarCount} similar outcomes, Aipify has moderate confidence.`;
+  }
+  return labels[level];
 }
