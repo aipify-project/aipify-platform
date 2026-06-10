@@ -1,0 +1,26 @@
+{
+  "title": "Installations",
+  "subtitle": "Create and manage install tokens for your systems. Tokens are shown once — store them securely.",
+  "create": "Create installation",
+  "systemType": "System type",
+  "systemTypes": {
+    "wordpress": "WordPress",
+    "shopify": "Shopify",
+    "custom": "Custom",
+    "other": "Other"
+  },
+  "empty": "No installations yet. Create one to connect your first system.",
+  "tokenTitle": "Installation token (shown once)",
+  "tokenHint": "Use this token in your plugin or integration. It will not be shown again.",
+  "copy": "Copy token",
+  "copied": "Copied!",
+  "status": {
+    "pending": "Pending",
+    "active": "Active",
+    "paused": "Paused",
+    "revoked": "Revoked"
+  },
+  "verifyEndpoint": "/api/install/verify",
+  "error": "Could not create installation. Try again.",
+  "loading": "Loading..."
+}

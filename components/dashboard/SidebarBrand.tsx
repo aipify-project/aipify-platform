@@ -2,12 +2,14 @@ type SidebarBrandProps = {
   appName: string;
   companyName: string;
   plan: string;
+  subtitle?: string;
 };
 
 export default function SidebarBrand({
   appName,
   companyName,
   plan,
+  subtitle,
 }: SidebarBrandProps) {
   return (
     <div className="border-b border-gray-200 px-5 py-5">
@@ -24,9 +26,16 @@ export default function SidebarBrand({
           </p>
         </div>
       </div>
-      <span className="mt-3 inline-flex rounded-full bg-violet-50 px-2.5 py-1 text-xs font-semibold text-violet-700 ring-1 ring-violet-100">
-        {plan}
-      </span>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {subtitle && (
+          <span className="inline-flex rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-700 ring-1 ring-blue-100">
+            {subtitle}
+          </span>
+        )}
+        <span className="inline-flex rounded-full bg-violet-50 px-2.5 py-1 text-xs font-semibold text-violet-700 ring-1 ring-violet-100">
+          {plan}
+        </span>
+      </div>
     </div>
   );
 }

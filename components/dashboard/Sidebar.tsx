@@ -1,17 +1,19 @@
 "use client";
 
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 export type NavItem = {
   id: string;
   label: string;
+  href: string;
   icon: ReactNode;
 };
 
 type SidebarProps = {
   items: NavItem[];
   activeId: string;
-  onNavigate?: (id: string) => void;
+  onNavigate?: () => void;
   className?: string;
 };
 
@@ -26,10 +28,10 @@ export default function Sidebar({
       {items.map((item) => {
         const isActive = item.id === activeId;
         return (
-          <button
+          <Link
             key={item.id}
-            type="button"
-            onClick={() => onNavigate?.(item.id)}
+            href={item.href}
+            onClick={onNavigate}
             className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium transition ${
               isActive
                 ? "bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-sm"
@@ -41,7 +43,7 @@ export default function Sidebar({
               {item.icon}
             </span>
             {item.label}
-          </button>
+          </Link>
         );
       })}
     </nav>

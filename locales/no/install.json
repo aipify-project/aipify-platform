@@ -1,0 +1,26 @@
+{
+  "title": "Installasjoner",
+  "subtitle": "Opprett og administrer installasjonstokens for systemene dine. Tokens vises bare én gang — lagre dem trygt.",
+  "create": "Opprett installasjon",
+  "systemType": "Systemtype",
+  "systemTypes": {
+    "wordpress": "WordPress",
+    "shopify": "Shopify",
+    "custom": "Egendefinert",
+    "other": "Annet"
+  },
+  "empty": "Ingen installasjoner ennå. Opprett en for å koble til ditt første system.",
+  "tokenTitle": "Installasjonstoken (vises én gang)",
+  "tokenHint": "Bruk denne tokenen i plugin eller integrasjon. Den vises ikke igjen.",
+  "copy": "Kopier token",
+  "copied": "Kopiert!",
+  "status": {
+    "pending": "Venter",
+    "active": "Aktiv",
+    "paused": "Pauset",
+    "revoked": "Tilbakekalt"
+  },
+  "verifyEndpoint": "/api/install/verify",
+  "error": "Kunne ikke opprette installasjon. Prøv igjen.",
+  "loading": "Laster..."
+}

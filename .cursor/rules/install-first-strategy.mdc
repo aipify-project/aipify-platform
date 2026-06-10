@@ -1,0 +1,85 @@
+---
+description: Permanent install-first architecture — Aipify lives inside customer systems, not as a daily-login admin panel
+alwaysApply: true
+---
+
+# Aipify — Install-First Strategy
+
+Aipify is **not** another admin panel customers log into every day. It is installed into the customer's existing system and works where users already are.
+
+## Philosophy
+
+- Reduce complexity: *"Install Aipify in minutes and get AI help without learning a new system."*
+- Evaluate every new feature against this principle before building.
+
+## Main model
+
+Customers authenticate in **their own system** (WordPress, Shopify, custom admin, future integrations). Aipify uses those identities and roles — never replaces them for daily work.
+
+## Aipify Install
+
+Install must:
+
+1. Connect to the customer's system
+2. Learn how that system works
+3. Discover available roles
+4. Tailor Aipify Assistant to the business
+5. Operate inside the customer's existing workflow
+
+## Daily use vs Control Center
+
+| Surface | URL | Purpose |
+|---------|-----|---------|
+| **Customer system** | Customer's admin | Primary daily use — Support AI, Assistant, modules |
+| **Aipify Control Center** | `dashboard.aipify.ai` | Subscription, billing, API keys, installs, central settings, support, team admin, security |
+
+Users should **normally not** log into `app.aipify.ai` for daily work.
+
+## Installation record
+
+Every install must track:
+
+- `installation_id`
+- `company_id`
+- `installation_token`
+- `system_type` (e.g. wordpress, shopify, custom)
+- `installed_at`
+- `status`
+
+All modules scope data by `company_id` and respect the active installation context.
+
+## Role mapping
+
+Map Aipify permissions to **customer-native roles**, not a parallel role system:
+
+- WordPress: Administrator, Editor, Support
+- Shopify: Owner, Staff
+- Custom systems: Admin, Moderator, Support (per integration)
+
+Never assume a single global role model across tenants.
+
+## Control Center security
+
+The dashboard must support (build toward):
+
+- Password auth
+- Two-factor authentication (2FA)
+- Recovery codes
+- Active devices
+- Audit logs
+
+## Future modules
+
+Support AI · Install AI · Analytics AI · Commerce AI · Assistant · Notifications
+
+Each module must work in **both** places:
+
+1. Inside the customer's system (primary)
+2. Via Aipify Control Center (management & configuration)
+
+## Before building anything new, ask
+
+1. Does this belong in the customer's system or the Control Center?
+2. Does it use `company_id` and installation context?
+3. Does it respect customer-native roles?
+4. Does it avoid forcing users into a new daily-login workflow?

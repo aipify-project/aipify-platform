@@ -1,0 +1,26 @@
+{
+  "title": "Installationer",
+  "subtitle": "Opret og administrer installationstokens til dine systemer. Tokens vises kun én gang — gem dem sikkert.",
+  "create": "Opret installation",
+  "systemType": "Systemtype",
+  "systemTypes": {
+    "wordpress": "WordPress",
+    "shopify": "Shopify",
+    "custom": "Tilpasset",
+    "other": "Andet"
+  },
+  "empty": "Ingen installationer endnu. Opret en for at forbinde dit første system.",
+  "tokenTitle": "Installationstoken (vises én gang)",
+  "tokenHint": "Brug denne token i dit plugin eller din integration. Den vises ikke igen.",
+  "copy": "Kopier token",
+  "copied": "Kopieret!",
+  "status": {
+    "pending": "Afventer",
+    "active": "Aktiv",
+    "paused": "På pause",
+    "revoked": "Tilbagekaldt"
+  },
+  "verifyEndpoint": "/api/install/verify",
+  "error": "Kunne ikke oprette installation. Prøv igen.",
+  "loading": "Indlæser..."
+}

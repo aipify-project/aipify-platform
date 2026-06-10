@@ -1,0 +1,26 @@
+{
+  "title": "Installationer",
+  "subtitle": "Skapa och hantera installationstokens för dina system. Tokens visas bara en gång — spara dem säkert.",
+  "create": "Skapa installation",
+  "systemType": "Systemtyp",
+  "systemTypes": {
+    "wordpress": "WordPress",
+    "shopify": "Shopify",
+    "custom": "Anpassad",
+    "other": "Annat"
+  },
+  "empty": "Inga installationer ännu. Skapa en för att ansluta ditt första system.",
+  "tokenTitle": "Installationstoken (visas en gång)",
+  "tokenHint": "Använd denna token i ditt plugin eller din integration. Den visas inte igen.",
+  "copy": "Kopiera token",
+  "copied": "Kopierat!",
+  "status": {
+    "pending": "Väntar",
+    "active": "Aktiv",
+    "paused": "Pausad",
+    "revoked": "Återkallad"
+  },
+  "verifyEndpoint": "/api/install/verify",
+  "error": "Kunde inte skapa installation. Försök igen.",
+  "loading": "Laddar..."
+}

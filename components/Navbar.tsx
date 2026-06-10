@@ -1,15 +1,25 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const navLinks = [
-  { label: "Features", href: "#features" },
-  { label: "Solutions", href: "#solutions" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "About", href: "#about" },
-];
+type NavbarProps = {
+  appName: string;
+  links: Array<{ label: string; href: string }>;
+  bookDemo: string;
+  login: string;
+  getStarted: string;
+  controlCenter: string;
+};
 
-export default function Navbar() {
+export default function Navbar({
+  appName,
+  links,
+  bookDemo,
+  login,
+  getStarted,
+  controlCenter,
+}: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -33,19 +43,19 @@ export default function Navbar() {
         className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
         aria-label="Main navigation"
       >
-        <a href="#" className="flex shrink-0 items-center gap-2">
+        <Link href="/" className="flex shrink-0 items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-violet-600 text-sm font-bold text-white">
             A
           </span>
           <span className="text-xl font-bold tracking-tight text-gray-900">
-            Aipify
+            {appName}
           </span>
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
+          {links.map((link) => (
             <a
-              key={link.label}
+              key={link.href}
               href={link.href}
               className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
             >
@@ -59,20 +69,26 @@ export default function Navbar() {
             href="mailto:support@aipify.ai"
             className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900"
           >
-            Book Demo
+            {bookDemo}
           </a>
-          <a
+          <Link
+            href="/dashboard"
+            className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900"
+          >
+            {controlCenter}
+          </Link>
+          <Link
             href="/login"
             className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900"
           >
-            Login
-          </a>
-          <a
+            {login}
+          </Link>
+          <Link
             href="/register"
             className="rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:from-blue-700 hover:to-violet-700"
           >
-            Get Started
-          </a>
+            {getStarted}
+          </Link>
         </div>
 
         <button
@@ -97,9 +113,9 @@ export default function Navbar() {
       {menuOpen && (
         <div className="border-t border-gray-200 bg-white px-4 py-4 md:hidden">
           <div className="flex flex-col gap-1">
-            {navLinks.map((link) => (
+            {links.map((link) => (
               <a
-                key={link.label}
+                key={link.href}
                 href={link.href}
                 className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
                 onClick={() => setMenuOpen(false)}
@@ -113,22 +129,29 @@ export default function Navbar() {
               className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
               onClick={() => setMenuOpen(false)}
             >
-              Book Demo
+              {bookDemo}
             </a>
-            <a
+            <Link
+              href="/dashboard"
+              className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              onClick={() => setMenuOpen(false)}
+            >
+              {controlCenter}
+            </Link>
+            <Link
               href="/login"
               className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
               onClick={() => setMenuOpen(false)}
             >
-              Login
-            </a>
-            <a
+              {login}
+            </Link>
+            <Link
               href="/register"
               className="mt-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-4 py-3 text-center text-sm font-semibold text-white"
               onClick={() => setMenuOpen(false)}
             >
-              Get Started
-            </a>
+              {getStarted}
+            </Link>
           </div>
         </div>
       )}

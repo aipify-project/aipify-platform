@@ -1,10 +1,35 @@
 {
-  "greeting": "God morgon, Svein",
-  "subtitle": "Här är vad som hänt sedan din senaste inloggning.",
+  "greeting": "Välkommen tillbaka",
+  "subtitle": "Hantera installationer, teamåtkomst och plattformsinställningar.",
   "search": "Sök...",
   "sidebar": {
     "companyName": "Acme Corporation",
-    "plan": "Business Plan"
+    "plan": "Business Plan",
+    "controlCenter": "Kontrollcenter"
+  },
+  "controlCenter": {
+    "title": "Kontrollcenter",
+    "subtitle": "Install-first nav för etablering, fakturering och teamhantering — inte daglig drift.",
+    "installFirstNote": "Dagligt AI-arbete sker i dina installerade system. Använd denna panel för att etablera installationer och hantera ditt Aipify-konto.",
+    "cards": {
+      "installs": {
+        "title": "Installationer",
+        "description": "Skapa tokens och anslut WordPress, Shopify eller anpassade system."
+      },
+      "billing": {
+        "title": "Fakturering",
+        "description": "Planer och fakturor — kommer snart."
+      },
+      "team": {
+        "title": "Team",
+        "description": "Bjud in kollegor och tilldela roller."
+      }
+    }
+  },
+  "team": {
+    "title": "Team",
+    "subtitle": "Hantera vem som har åtkomst till kontrollcentret och installationerna.",
+    "comingSoon": "Teaminbjudningar och rollhantering blir tillgängliga i en framtida version."
   },
   "topbar": {
     "notifications": "Aviseringar",

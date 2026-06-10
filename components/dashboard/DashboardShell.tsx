@@ -1,41 +1,54 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { getActiveNavId, MOBILE_NAV_IDS } from "@/lib/dashboard/nav-config";
+import type { UserRole } from "@/lib/tenant/types";
+import { getNavIcon } from "./nav-icons";
 import { useDashboardProfile } from "./DashboardProfileProvider";
 import Sidebar, { type NavItem } from "./Sidebar";
 import SidebarBrand from "./SidebarBrand";
 import Topbar from "./Topbar";
-import type { UserRole } from "@/lib/tenant/types";
-
-const MOBILE_NAV_IDS = ["overview", "assistant", "support", "settings"];
 
 type DashboardShellProps = {
   appName: string;
   planName: string;
+  controlCenterLabel: string;
   searchPlaceholder: string;
   companySelectorLabel: string;
   notificationsLabel: string;
   roleLabels: Record<UserRole, string>;
   profileFallbackName: string;
   companyFallbackName: string;
-  navItems: NavItem[];
+  navConfig: Array<{ id: string; href: string; label: string }>;
   children: React.ReactNode;
 };
 
 export default function DashboardShell({
   appName,
   planName,
+  controlCenterLabel,
   searchPlaceholder,
   companySelectorLabel,
   notificationsLabel,
   roleLabels,
   profileFallbackName,
   companyFallbackName,
-  navItems,
+  navConfig,
   children,
 }: DashboardShellProps) {
+  const pathname = usePathname();
+  const activeNav = useMemo(() => getActiveNavId(pathname), [pathname]);
+  const navItems = useMemo<NavItem[]>(
+    () =>
+      navConfig.map((item) => ({
+        ...item,
+        icon: getNavIcon(item.id),
+      })),
+    [navConfig]
+  );
   const { profile, loading: profileLoading } = useDashboardProfile();
-  const [activeNav, setActiveNav] = useState("overview");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const profileName = profile?.user.full_name ?? profileFallbackName;
@@ -52,7 +65,7 @@ export default function DashboardShell({
   }, [sidebarOpen]);
 
   const mobileNavItems = navItems.filter((item) =>
-    MOBILE_NAV_IDS.includes(item.id)
+    MOBILE_NAV_IDS.includes(item.id as (typeof MOBILE_NAV_IDS)[number])
   );
 
   return (
@@ -62,13 +75,10 @@ export default function DashboardShell({
           appName={appName}
           companyName={companyName}
           plan={planName}
+          subtitle={controlCenterLabel}
         />
         <div className="flex-1 overflow-y-auto p-4">
-          <Sidebar
-            items={navItems}
-            activeId={activeNav}
-            onNavigate={setActiveNav}
-          />
+          <Sidebar items={navItems} activeId={activeNav} />
         </div>
       </aside>
 
@@ -86,6 +96,7 @@ export default function DashboardShell({
                 appName={appName}
                 companyName={companyName}
                 plan={planName}
+                subtitle={controlCenterLabel}
               />
               <button
                 type="button"
@@ -102,10 +113,7 @@ export default function DashboardShell({
               <Sidebar
                 items={navItems}
                 activeId={activeNav}
-                onNavigate={(id) => {
-                  setActiveNav(id);
-                  setSidebarOpen(false);
-                }}
+                onNavigate={() => setSidebarOpen(false)}
               />
             </div>
           </aside>
@@ -136,10 +144,9 @@ export default function DashboardShell({
             {mobileNavItems.map((item) => {
               const isActive = item.id === activeNav;
               return (
-                <button
+                <Link
                   key={item.id}
-                  type="button"
-                  onClick={() => setActiveNav(item.id)}
+                  href={item.href}
                   className={`flex flex-col items-center gap-1 rounded-lg px-3 py-2 text-xs font-medium transition ${
                     isActive ? "text-violet-600" : "text-gray-500"
                   }`}
@@ -149,7 +156,7 @@ export default function DashboardShell({
                     {item.icon}
                   </span>
                   <span className="max-w-[4.5rem] truncate">{item.label}</span>
-                </button>
+                </Link>
               );
             })}
           </div>

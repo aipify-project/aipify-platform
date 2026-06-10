@@ -1,4 +1,11 @@
 {
+  "navbar": {
+    "features": "Funktioner",
+    "solutions": "Løsninger",
+    "pricing": "Priser",
+    "about": "Om os",
+    "controlCenter": "Kontrolcenter"
+  },
   "hero": {
     "title": "AI der virker for din virksomhed.",
     "subtitle": "Aipify hjælper virksomheder med at automatisere support, strømline drift og træffe klogere beslutninger gennem intelligente AI-assistenter."

@@ -1,10 +1,35 @@
 {
-  "greeting": "Good morning, Svein",
-  "subtitle": "Here is what happened since your last login.",
+  "greeting": "Welcome back",
+  "subtitle": "Manage installations, team access, and platform settings.",
   "search": "Search...",
   "sidebar": {
     "companyName": "Acme Corporation",
-    "plan": "Business Plan"
+    "plan": "Business Plan",
+    "controlCenter": "Control Center"
+  },
+  "controlCenter": {
+    "title": "Control Center",
+    "subtitle": "Install-first hub for provisioning, billing, and team management — not daily operations.",
+    "installFirstNote": "Daily AI work happens inside your installed systems. Use this dashboard to provision installs and manage your Aipify account.",
+    "cards": {
+      "installs": {
+        "title": "Installations",
+        "description": "Create tokens and connect WordPress, Shopify, or custom systems."
+      },
+      "billing": {
+        "title": "Billing",
+        "description": "Plans and invoices — coming soon."
+      },
+      "team": {
+        "title": "Team",
+        "description": "Invite colleagues and assign roles."
+      }
+    }
+  },
+  "team": {
+    "title": "Team",
+    "subtitle": "Manage who can access your Control Center and installations.",
+    "comingSoon": "Team invites and role management will be available in a future release."
   },
   "topbar": {
     "notifications": "Notifications",

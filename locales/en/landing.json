@@ -1,4 +1,11 @@
 {
+  "navbar": {
+    "features": "Features",
+    "solutions": "Solutions",
+    "pricing": "Pricing",
+    "about": "About",
+    "controlCenter": "Control Center"
+  },
   "hero": {
     "title": "AI that works for your business.",
     "subtitle": "Aipify helps businesses automate support, streamline operations and make smarter decisions through intelligent AI assistants."

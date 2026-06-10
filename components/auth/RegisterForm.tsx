@@ -96,7 +96,7 @@ export default function RegisterForm({ labels }: RegisterFormProps) {
       }
 
       if (data.session) {
-        window.location.href = "/dashboard";
+        window.location.href = "/dashboard/installs";
       }
     } catch (err) {
       const message = err instanceof Error ? err.message : "";
