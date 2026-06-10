@@ -1,0 +1,51 @@
+{
+  "accessDenied": "Du har ikke adgang til Aipify Platform Admin.",
+  "search": "Søg kunder...",
+  "sidebar": {
+    "plan": "Platform Admin",
+    "platformAdmin": "Platform Admin",
+    "organization": "Aipify Group AS"
+  },
+  "topbar": {
+    "organization": "Organisation",
+    "notifications": "Notifikationer",
+    "profileFallback": "Admin",
+    "organizationFallback": "Aipify Group"
+  },
+  "roles": {
+    "super_admin": "Super Admin",
+    "platform_support": "Platform Support"
+  },
+  "nav": {
+    "overview": "Oversigt",
+    "customers": "Kunder",
+    "subscriptions": "Abonnementer",
+    "installations": "Installationer",
+    "stats": "Platformstatistik",
+    "billing": "Fakturering",
+    "support": "Support",
+    "system": "Systemstatus"
+  },
+  "overview": {
+    "title": "Aipify Platform Admin",
+    "subtitle": "Master-niveau kontrol for Aipify Group AS — kunder, abonnementer, installationer og platformssundhed.",
+    "note": "Customer Control Center ligger på /dashboard. Dette område er internt og spænder over alle tenants."
+  },
+  "customers": {
+    "title": "Kunder",
+    "subtitle": "Alle kundeorganisationer på Aipify-platformen.",
+    "loading": "Indlæser kunder...",
+    "empty": "Ingen kundeorganisationer endnu.",
+    "installations": "installationer",
+    "users": "brugere",
+    "pilotNote": "Unonight er den første pilotkunde. Hver række er en isoleret tenant filtreret på company_id."
+  },
+  "sections": {
+    "subscriptions": { "title": "Abonnementer", "subtitle": "Administrer planer og abonnementer.", "comingSoon": "Kommer snart." },
+    "installations": { "title": "Installationer", "subtitle": "Platformoversigt over alle installationer.", "comingSoon": "Kommer snart." },
+    "stats": { "title": "Platformstatistik", "subtitle": "Forbrug og sundhedsmålinger.", "comingSoon": "Kommer snart." },
+    "billing": { "title": "Fakturering", "subtitle": "Fakturaer og indtægter.", "comingSoon": "Kommer snart." },
+    "support": { "title": "Support", "subtitle": "Intern supportkø.", "comingSoon": "Kommer snart." },
+    "system": { "title": "Systemstatus", "subtitle": "Kernetjenester og oppetid.", "comingSoon": "Kommer snart." }
+  }
+}

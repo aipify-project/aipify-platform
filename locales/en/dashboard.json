@@ -5,7 +5,48 @@
   "sidebar": {
     "companyName": "Acme Corporation",
     "plan": "Business Plan",
-    "controlCenter": "Control Center"
+    "controlCenter": "Control Center",
+    "customerControlCenter": "Customer Control Center"
+  },
+  "customerOverview": {
+    "title": "Overview",
+    "subtitle": "Your company's AI modules, installations, and team — scoped to your organization only.",
+    "installFirstNote": "Daily AI work happens inside your installed systems. This Control Center is for configuration, installs, and team management.",
+    "modules": {
+      "assistant": "Summaries, insights, and recommended actions.",
+      "install": "Connect and monitor your Aipify installation.",
+      "support": "Support AI configuration and ticket insights.",
+      "analytics": "Business analytics and performance signals.",
+      "commerce": "Commerce AI and sales intelligence.",
+      "notifications": "Alerts and notification preferences."
+    }
+  },
+  "modules": {
+    "assistant": {
+      "title": "Assistant",
+      "subtitle": "AI summaries and recommended actions for your business.",
+      "comingSoon": "Assistant module will be available in a future release."
+    },
+    "support": {
+      "title": "Support",
+      "subtitle": "Configure Support AI and review handled tickets.",
+      "comingSoon": "Support module will be available in a future release."
+    },
+    "analytics": {
+      "title": "Analytics",
+      "subtitle": "Track performance and business insights.",
+      "comingSoon": "Analytics module will be available in a future release."
+    },
+    "commerce": {
+      "title": "Commerce",
+      "subtitle": "Commerce AI tools and sales intelligence.",
+      "comingSoon": "Commerce module will be available in a future release."
+    },
+    "notifications": {
+      "title": "Notifications",
+      "subtitle": "Manage alerts and notification channels.",
+      "comingSoon": "Notifications module will be available in a future release."
+    }
   },
   "controlCenter": {
     "title": "Control Center",
@@ -41,7 +82,8 @@
     "owner": "Owner",
     "admin": "Admin",
     "support": "Support",
-    "staff": "Staff"
+    "staff": "Staff",
+    "read_only": "Read Only"
   },
   "nav": {
     "overview": "Overview",

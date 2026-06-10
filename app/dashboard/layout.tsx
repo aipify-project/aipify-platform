@@ -1,7 +1,11 @@
 import DashboardAuthGuard from "@/components/dashboard/DashboardAuthGuard";
 import DashboardShell from "@/components/dashboard/DashboardShell";
 import { DashboardProfileProvider } from "@/components/dashboard/DashboardProfileProvider";
-import { CONTROL_CENTER_NAV } from "@/lib/dashboard/nav-config";
+import {
+  CUSTOMER_CONTROL_CENTER_NAV,
+  CUSTOMER_MOBILE_NAV_IDS,
+  getCustomerActiveNavId,
+} from "@/lib/dashboard/nav-config";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -21,7 +25,7 @@ export default async function DashboardLayout({
         <DashboardShell
           appName={t("common.appName")}
           planName={t("dashboard.sidebar.plan")}
-          controlCenterLabel={t("dashboard.sidebar.controlCenter")}
+          shellLabel={t("dashboard.sidebar.customerControlCenter")}
           searchPlaceholder={t("dashboard.search")}
           companySelectorLabel={t("dashboard.topbar.companySelector")}
           notificationsLabel={t("dashboard.topbar.notifications")}
@@ -32,12 +36,15 @@ export default async function DashboardLayout({
             admin: t("dashboard.roles.admin"),
             support: t("dashboard.roles.support"),
             staff: t("dashboard.roles.staff"),
+            read_only: t("dashboard.roles.read_only"),
           }}
-          navConfig={CONTROL_CENTER_NAV.map((item) => ({
+          navConfig={CUSTOMER_CONTROL_CENTER_NAV.map((item) => ({
             id: item.id,
             href: item.href,
             label: t(item.labelKey),
           }))}
+          getActiveNavId={getCustomerActiveNavId}
+          mobileNavIds={CUSTOMER_MOBILE_NAV_IDS}
         >
           {children}
         </DashboardShell>

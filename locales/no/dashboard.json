@@ -5,7 +5,28 @@
   "sidebar": {
     "companyName": "Acme Corporation",
     "plan": "Business Plan",
-    "controlCenter": "Kontrollsenter"
+    "controlCenter": "Kontrollsenter",
+    "customerControlCenter": "Customer Control Center"
+  },
+  "customerOverview": {
+    "title": "Oversikt",
+    "subtitle": "Din bedrifts AI-moduler, installasjoner og team — kun for din organisasjon.",
+    "installFirstNote": "Daglig AI-arbeid skjer i dine installerte systemer. Dette kontrollsenteret er for konfigurasjon, installasjoner og team.",
+    "modules": {
+      "assistant": "Oppsummeringer, innsikt og anbefalte handlinger.",
+      "install": "Koble til og overvåk Aipify-installasjonen.",
+      "support": "Support AI-konfigurasjon og saksoversikt.",
+      "analytics": "Forretningsanalyse og ytelsessignaler.",
+      "commerce": "Commerce AI og salgsinnsikt.",
+      "notifications": "Varsler og varslingspreferanser."
+    }
+  },
+  "modules": {
+    "assistant": { "title": "Assistent", "subtitle": "AI-oppsummeringer for bedriften din.", "comingSoon": "Assistent-modulen kommer snart." },
+    "support": { "title": "Support", "subtitle": "Konfigurer Support AI og se saker.", "comingSoon": "Support-modulen kommer snart." },
+    "analytics": { "title": "Analyse", "subtitle": "Spor ytelse og forretningsinnsikt.", "comingSoon": "Analyse-modulen kommer snart." },
+    "commerce": { "title": "Commerce", "subtitle": "Commerce AI og salgsinnsikt.", "comingSoon": "Commerce-modulen kommer snart." },
+    "notifications": { "title": "Varsler", "subtitle": "Administrer varsler og kanaler.", "comingSoon": "Varslingsmodulen kommer snart." }
   },
   "controlCenter": {
     "title": "Kontrollsenter",
@@ -41,7 +62,8 @@
     "owner": "Eier",
     "admin": "Admin",
     "support": "Support",
-    "staff": "Ansatt"
+    "staff": "Ansatt",
+    "read_only": "Kun lesing"
   },
   "nav": {
     "overview": "Oversikt",

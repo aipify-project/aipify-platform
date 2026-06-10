@@ -22,6 +22,7 @@ export const NAMESPACES = [
   "support",
   "settings",
   "install",
+  "platform",
 ] as const;
 
 export type Namespace = (typeof NAMESPACES)[number];

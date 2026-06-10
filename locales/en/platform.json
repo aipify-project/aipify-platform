@@ -1,0 +1,75 @@
+{
+  "accessDenied": "You do not have access to Aipify Platform Admin.",
+  "search": "Search customers...",
+  "sidebar": {
+    "plan": "Platform Admin",
+    "platformAdmin": "Platform Admin",
+    "organization": "Aipify Group AS"
+  },
+  "topbar": {
+    "organization": "Organization",
+    "notifications": "Notifications",
+    "profileFallback": "Admin",
+    "organizationFallback": "Aipify Group"
+  },
+  "roles": {
+    "super_admin": "Super Admin",
+    "platform_support": "Platform Support"
+  },
+  "nav": {
+    "overview": "Overview",
+    "customers": "Customers",
+    "subscriptions": "Subscriptions",
+    "installations": "Installations",
+    "stats": "Platform stats",
+    "billing": "Billing",
+    "support": "Support",
+    "system": "System status"
+  },
+  "overview": {
+    "title": "Aipify Platform Admin",
+    "subtitle": "Master-level control for Aipify Group AS — customers, subscriptions, installs, and platform health.",
+    "note": "Customer Control Center lives at /dashboard. This area is internal-only and spans all tenants."
+  },
+  "customers": {
+    "title": "Customers",
+    "subtitle": "All customer organizations on the Aipify platform.",
+    "loading": "Loading customers...",
+    "empty": "No customer organizations yet.",
+    "installations": "installations",
+    "users": "users",
+    "pilotNote": "Unonight is the first pilot customer. Each row represents an isolated tenant scoped by company_id."
+  },
+  "sections": {
+    "subscriptions": {
+      "title": "Subscriptions",
+      "subtitle": "Manage plans and subscription lifecycle across customers.",
+      "comingSoon": "Subscription management will be available in a future release."
+    },
+    "installations": {
+      "title": "Installations",
+      "subtitle": "Cross-tenant view of all installations and sync health.",
+      "comingSoon": "Platform-wide installation management will be available in a future release."
+    },
+    "stats": {
+      "title": "Platform statistics",
+      "subtitle": "Usage, growth, and health metrics across the platform.",
+      "comingSoon": "Platform statistics will be available in a future release."
+    },
+    "billing": {
+      "title": "Billing",
+      "subtitle": "Invoices, revenue, and billing operations.",
+      "comingSoon": "Platform billing will be available in a future release."
+    },
+    "support": {
+      "title": "Support",
+      "subtitle": "Internal support queue and customer escalations.",
+      "comingSoon": "Platform support tools will be available in a future release."
+    },
+    "system": {
+      "title": "System status",
+      "subtitle": "Core services, uptime, and incident visibility.",
+      "comingSoon": "System status dashboard will be available in a future release."
+    }
+  }
+}

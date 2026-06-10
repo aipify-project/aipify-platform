@@ -82,3 +82,7 @@ export function useDashboardProfile() {
 
   return context;
 }
+
+export function useOptionalDashboardProfile() {
+  return useContext(DashboardProfileContext);
+}

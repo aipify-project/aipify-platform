@@ -5,7 +5,28 @@
   "sidebar": {
     "companyName": "Acme Corporation",
     "plan": "Business Plan",
-    "controlCenter": "Kontrollcenter"
+    "controlCenter": "Kontrollcenter",
+    "customerControlCenter": "Customer Control Center"
+  },
+  "customerOverview": {
+    "title": "Översikt",
+    "subtitle": "Ditt företags AI-moduler, installationer och team — endast för din organisation.",
+    "installFirstNote": "Dagligt AI-arbete sker i dina installerade system. Detta kontrollcenter är för konfiguration, installationer och team.",
+    "modules": {
+      "assistant": "Sammanfattningar, insikter och rekommenderade åtgärder.",
+      "install": "Anslut och övervaka din Aipify-installation.",
+      "support": "Support AI-konfiguration och ärendeöversikt.",
+      "analytics": "Affärsanalys och prestandasignaler.",
+      "commerce": "Commerce AI och försäljningsinsikter.",
+      "notifications": "Aviseringar och inställningar."
+    }
+  },
+  "modules": {
+    "assistant": { "title": "Assistent", "subtitle": "AI-sammanfattningar för ditt företag.", "comingSoon": "Kommer snart." },
+    "support": { "title": "Support", "subtitle": "Konfigurera Support AI.", "comingSoon": "Kommer snart." },
+    "analytics": { "title": "Analys", "subtitle": "Spåra prestanda och insikter.", "comingSoon": "Kommer snart." },
+    "commerce": { "title": "Commerce", "subtitle": "Commerce AI och försäljning.", "comingSoon": "Kommer snart." },
+    "notifications": { "title": "Aviseringar", "subtitle": "Hantera aviseringar.", "comingSoon": "Kommer snart." }
   },
   "controlCenter": {
     "title": "Kontrollcenter",
@@ -41,7 +62,8 @@
     "owner": "Ägare",
     "admin": "Admin",
     "support": "Support",
-    "staff": "Medarbetare"
+    "staff": "Medarbetare",
+    "read_only": "Skrivskyddad"
   },
   "nav": {
     "overview": "Översikt",

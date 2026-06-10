@@ -5,7 +5,28 @@
   "sidebar": {
     "companyName": "Acme Corporation",
     "plan": "Business Plan",
-    "controlCenter": "Kontrolcenter"
+    "controlCenter": "Kontrolcenter",
+    "customerControlCenter": "Customer Control Center"
+  },
+  "customerOverview": {
+    "title": "Oversigt",
+    "subtitle": "Din virksomheds AI-moduler, installationer og team — kun for din organisation.",
+    "installFirstNote": "Dagligt AI-arbejde sker i dine installerede systemer. Dette kontrolcenter er til konfiguration, installationer og team.",
+    "modules": {
+      "assistant": "Opsummeringer, indsigt og anbefalede handlinger.",
+      "install": "Forbind og overvåg din Aipify-installation.",
+      "support": "Support AI-konfiguration og sagsoversigt.",
+      "analytics": "Forretningsanalyse og performancesignaler.",
+      "commerce": "Commerce AI og salgsindsigt.",
+      "notifications": "Notifikationer og præferencer."
+    }
+  },
+  "modules": {
+    "assistant": { "title": "Assistent", "subtitle": "AI-opsummeringer for din virksomhed.", "comingSoon": "Kommer snart." },
+    "support": { "title": "Support", "subtitle": "Konfigurer Support AI.", "comingSoon": "Kommer snart." },
+    "analytics": { "title": "Analyse", "subtitle": "Spor ydeevne og indsigt.", "comingSoon": "Kommer snart." },
+    "commerce": { "title": "Commerce", "subtitle": "Commerce AI og salg.", "comingSoon": "Kommer snart." },
+    "notifications": { "title": "Notifikationer", "subtitle": "Administrer notifikationer.", "comingSoon": "Kommer snart." }
   },
   "controlCenter": {
     "title": "Kontrolcenter",
@@ -41,7 +62,8 @@
     "owner": "Ejer",
     "admin": "Admin",
     "support": "Support",
-    "staff": "Medarbejder"
+    "staff": "Medarbejder",
+    "read_only": "Skrivebeskyttet"
   },
   "nav": {
     "overview": "Oversigt",

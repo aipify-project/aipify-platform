@@ -1,0 +1,36 @@
+---
+description: Two-level tenancy — Platform Admin (Level 1) vs Customer Control Center (Level 2)
+alwaysApply: true
+---
+
+# Aipify Multi-Tenant Separation
+
+## Two levels — never mix them in UI or queries
+
+| Level | Route | Who | Purpose |
+|-------|-------|-----|---------|
+| **Level 1 — Platform Admin** | `/platform/*` | `platform_admins` only (Super Admin, Platform Support) | Aipify Group AS internal: customers, subscriptions, cross-tenant installs, billing, platform stats |
+| **Level 2 — Customer Control Center** | `/dashboard/*` | Company `users` (Owner, Admin, Support, Staff, Read Only) | Single-tenant: Overview, Assistant, Install, Support, Analytics, Commerce, Notifications, Team, Settings |
+
+## Data isolation
+
+- Customer queries **must** filter by `company_id` via RLS and tenant helpers.
+- Platform-wide reads use **security definer RPCs** that verify `is_platform_admin()` first.
+- Never expose cross-tenant data in `/dashboard`.
+- `companies.is_platform = true` marks Aipify Group — not a customer tenant.
+
+## Roles
+
+**Platform:** `super_admin`, `platform_support` (table `platform_admins`)
+
+**Customer:** `owner`, `admin`, `support`, `staff`, `read_only` (table `users`)
+
+## Before building features, ask
+
+1. Is this Platform Admin or Customer Control Center?
+2. Does it scope data to one `company_id` (customer) or require platform RPC (admin)?
+3. Does the nav item belong in `lib/platform/nav-config.ts` or `lib/dashboard/nav-config.ts`?
+
+## Pilot
+
+Unonight is the first customer company (`slug: unonight`). Customer owners see only Unonight data at `/dashboard`. Aipify staff use `/platform` for master-level operations.

@@ -3,32 +3,34 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { getActiveNavId, MOBILE_NAV_IDS } from "@/lib/dashboard/nav-config";
-import type { UserRole } from "@/lib/tenant/types";
-import { getNavIcon } from "./nav-icons";
-import { useDashboardProfile } from "./DashboardProfileProvider";
+import { usePlatformProfile } from "@/components/platform/PlatformProfileProvider";
+import { useOptionalDashboardProfile } from "./DashboardProfileProvider";
 import Sidebar, { type NavItem } from "./Sidebar";
 import SidebarBrand from "./SidebarBrand";
 import Topbar from "./Topbar";
+import { getNavIcon } from "./nav-icons";
 
 type DashboardShellProps = {
   appName: string;
   planName: string;
-  controlCenterLabel: string;
+  shellLabel: string;
   searchPlaceholder: string;
   companySelectorLabel: string;
   notificationsLabel: string;
-  roleLabels: Record<UserRole, string>;
+  roleLabels: Record<string, string>;
   profileFallbackName: string;
   companyFallbackName: string;
   navConfig: Array<{ id: string; href: string; label: string }>;
+  getActiveNavId: (pathname: string) => string;
+  mobileNavIds: string[];
+  companyNameOverride?: string;
   children: React.ReactNode;
 };
 
 export default function DashboardShell({
   appName,
   planName,
-  controlCenterLabel,
+  shellLabel,
   searchPlaceholder,
   companySelectorLabel,
   notificationsLabel,
@@ -36,10 +38,17 @@ export default function DashboardShell({
   profileFallbackName,
   companyFallbackName,
   navConfig,
+  getActiveNavId,
+  mobileNavIds,
+  companyNameOverride,
   children,
 }: DashboardShellProps) {
   const pathname = usePathname();
-  const activeNav = useMemo(() => getActiveNavId(pathname), [pathname]);
+  const activeNav = useMemo(() => getActiveNavId(pathname), [getActiveNavId, pathname]);
+  const customerContext = useOptionalDashboardProfile();
+  const platformContext = usePlatformProfile();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   const navItems = useMemo<NavItem[]>(
     () =>
       navConfig.map((item) => ({
@@ -48,14 +57,25 @@ export default function DashboardShell({
       })),
     [navConfig]
   );
-  const { profile, loading: profileLoading } = useDashboardProfile();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const profileName = profile?.user.full_name ?? profileFallbackName;
-  const companyName = profile?.company.name ?? companyFallbackName;
-  const profileRole = profile
-    ? roleLabels[profile.user.role]
-    : roleLabels.owner;
+  const profileName =
+    customerContext?.profile?.user.full_name ??
+    platformContext?.displayName ??
+    profileFallbackName;
+
+  const companyName =
+    companyNameOverride ??
+    customerContext?.profile?.company.name ??
+    companyFallbackName;
+
+  const profileRole = customerContext?.profile
+    ? roleLabels[customerContext.profile.user.role]
+    : platformContext?.platformAdmin
+      ? roleLabels[platformContext.platformAdmin.role]
+      : roleLabels.owner;
+
+  const profileLoading =
+    customerContext?.loading ?? platformContext?.loading ?? false;
 
   useEffect(() => {
     document.body.style.overflow = sidebarOpen ? "hidden" : "";
@@ -65,7 +85,7 @@ export default function DashboardShell({
   }, [sidebarOpen]);
 
   const mobileNavItems = navItems.filter((item) =>
-    MOBILE_NAV_IDS.includes(item.id as (typeof MOBILE_NAV_IDS)[number])
+    mobileNavIds.includes(item.id)
   );
 
   return (
@@ -75,7 +95,7 @@ export default function DashboardShell({
           appName={appName}
           companyName={companyName}
           plan={planName}
-          subtitle={controlCenterLabel}
+          subtitle={shellLabel}
         />
         <div className="flex-1 overflow-y-auto p-4">
           <Sidebar items={navItems} activeId={activeNav} />
@@ -96,7 +116,7 @@ export default function DashboardShell({
                 appName={appName}
                 companyName={companyName}
                 plan={planName}
-                subtitle={controlCenterLabel}
+                subtitle={shellLabel}
               />
               <button
                 type="button"

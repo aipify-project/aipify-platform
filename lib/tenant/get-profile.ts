@@ -34,7 +34,7 @@ export async function getDashboardProfile(
 
   const { data: company, error: companyError } = await supabase
     .from("companies")
-    .select("id, name, slug, created_at")
+    .select("id, name, slug, is_platform, created_at")
     .eq("id", appUser.company_id)
     .maybeSingle();
 

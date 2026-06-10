@@ -1,0 +1,75 @@
+{
+  "accessDenied": "Du har ikke tilgang til Aipify Platform Admin.",
+  "search": "Søk kunder...",
+  "sidebar": {
+    "plan": "Platform Admin",
+    "platformAdmin": "Platform Admin",
+    "organization": "Aipify Group AS"
+  },
+  "topbar": {
+    "organization": "Organisasjon",
+    "notifications": "Varsler",
+    "profileFallback": "Admin",
+    "organizationFallback": "Aipify Group"
+  },
+  "roles": {
+    "super_admin": "Super Admin",
+    "platform_support": "Platform Support"
+  },
+  "nav": {
+    "overview": "Oversikt",
+    "customers": "Kunder",
+    "subscriptions": "Abonnementer",
+    "installations": "Installasjoner",
+    "stats": "Plattformstatistikk",
+    "billing": "Fakturering",
+    "support": "Support",
+    "system": "Systemstatus"
+  },
+  "overview": {
+    "title": "Aipify Platform Admin",
+    "subtitle": "Master-nivå kontroll for Aipify Group AS — kunder, abonnementer, installasjoner og plattformhelse.",
+    "note": "Customer Control Center ligger på /dashboard. Dette området er internt og spenner over alle tenants."
+  },
+  "customers": {
+    "title": "Kunder",
+    "subtitle": "Alle kundeorganisasjoner på Aipify-plattformen.",
+    "loading": "Laster kunder...",
+    "empty": "Ingen kundeorganisasjoner ennå.",
+    "installations": "installasjoner",
+    "users": "brukere",
+    "pilotNote": "Unonight er første pilotkunde. Hver rad er en isolert tenant filtrert på company_id."
+  },
+  "sections": {
+    "subscriptions": {
+      "title": "Abonnementer",
+      "subtitle": "Administrer planer og abonnementslivssyklus på tvers av kunder.",
+      "comingSoon": "Abonnementsadministrasjon kommer i en fremtidig versjon."
+    },
+    "installations": {
+      "title": "Installasjoner",
+      "subtitle": "Tverrgående oversikt over alle installasjoner og synkstatus.",
+      "comingSoon": "Plattformomfattende installasjonsadministrasjon kommer snart."
+    },
+    "stats": {
+      "title": "Plattformstatistikk",
+      "subtitle": "Bruk, vekst og helsemetrikker på tvers av plattformen.",
+      "comingSoon": "Plattformstatistikk kommer i en fremtidig versjon."
+    },
+    "billing": {
+      "title": "Fakturering",
+      "subtitle": "Fakturaer, inntekter og faktureringsoperasjoner.",
+      "comingSoon": "Plattformfakturering kommer i en fremtidig versjon."
+    },
+    "support": {
+      "title": "Support",
+      "subtitle": "Intern supportkø og kundeeskaleringer.",
+      "comingSoon": "Plattformsupport-verktøy kommer i en fremtidig versjon."
+    },
+    "system": {
+      "title": "Systemstatus",
+      "subtitle": "Kjernetjenester, oppetid og hendelsesoversikt.",
+      "comingSoon": "Systemstatus-dashboard kommer i en fremtidig versjon."
+    }
+  }
+}

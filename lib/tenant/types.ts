@@ -1,6 +1,16 @@
-export const USER_ROLES = ["owner", "admin", "support", "staff"] as const;
+export const USER_ROLES = [
+  "owner",
+  "admin",
+  "support",
+  "staff",
+  "read_only",
+] as const;
 
 export type UserRole = (typeof USER_ROLES)[number];
+
+export const PLATFORM_ROLES = ["super_admin", "platform_support"] as const;
+
+export type PlatformRole = (typeof PLATFORM_ROLES)[number];
 
 export const SYSTEM_TYPES = ["wordpress", "shopify", "custom", "other"] as const;
 
@@ -54,7 +64,24 @@ export type Company = {
   id: string;
   name: string;
   slug: string;
+  is_platform: boolean;
   created_at: string;
+};
+
+export type PlatformAdmin = {
+  id: string;
+  auth_user_id: string;
+  role: PlatformRole;
+  created_at: string;
+};
+
+export type PlatformCustomerSummary = {
+  id: string;
+  name: string;
+  slug: string;
+  created_at: string;
+  installation_count: number;
+  user_count: number;
 };
 
 export type AppUser = {
