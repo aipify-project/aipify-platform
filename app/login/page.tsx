@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import AuthLayout from "@/components/auth/AuthLayout";
 import LoginForm from "@/components/auth/LoginForm";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -15,19 +16,21 @@ export default async function LoginPage() {
       title={t("auth.login.title")}
       subtitle={t("auth.login.subtitle")}
     >
-      <LoginForm
-        labels={{
-          email: t("auth.login.email"),
-          password: t("auth.login.password"),
-          signIn: t("auth.login.signIn"),
-          forgotPassword: t("auth.login.forgotPassword"),
-          createAccount: t("auth.login.createAccount"),
-          noAccount: t("auth.login.noAccount"),
-          invalidCredentials: t("auth.errors.invalidCredentials"),
-          requiredFields: t("auth.errors.requiredFields"),
-          generic: t("auth.errors.generic"),
-        }}
-      />
+      <Suspense fallback={<p className="text-sm text-gray-500">{t("common.loading")}</p>}>
+        <LoginForm
+          labels={{
+            email: t("auth.login.email"),
+            password: t("auth.login.password"),
+            signIn: t("auth.login.signIn"),
+            forgotPassword: t("auth.login.forgotPassword"),
+            createAccount: t("auth.login.createAccount"),
+            noAccount: t("auth.login.noAccount"),
+            invalidCredentials: t("auth.errors.invalidCredentials"),
+            requiredFields: t("auth.errors.requiredFields"),
+            generic: t("auth.errors.generic"),
+          }}
+        />
+      </Suspense>
     </AuthLayout>
   );
 }

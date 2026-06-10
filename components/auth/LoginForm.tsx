@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -20,7 +20,7 @@ type LoginFormProps = {
 };
 
 export default function LoginForm({ labels }: LoginFormProps) {
-  const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -39,7 +39,7 @@ export default function LoginForm({ labels }: LoginFormProps) {
 
     try {
       const supabase = createClient();
-      const { error: signInError } = await supabase.auth.signInWithPassword({
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -54,8 +54,18 @@ export default function LoginForm({ labels }: LoginFormProps) {
         return;
       }
 
-      router.push("/dashboard");
-      router.refresh();
+      if (!data.session) {
+        setError(labels.generic);
+        return;
+      }
+
+      const nextPath = searchParams.get("next");
+      const destination =
+        nextPath?.startsWith("/") && !nextPath.startsWith("//")
+          ? nextPath
+          : "/dashboard";
+
+      window.location.assign(destination);
     } catch {
       setError(labels.generic);
     } finally {
@@ -118,7 +128,7 @@ export default function LoginForm({ labels }: LoginFormProps) {
         disabled={loading}
         className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-4 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:from-blue-700 hover:to-violet-700 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {labels.signIn}
+        {loading ? `${labels.signIn}...` : labels.signIn}
       </button>
 
       <p className="text-center text-sm text-gray-600">
