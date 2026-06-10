@@ -1,42 +1,83 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AipifyOrb } from "@/components/branding";
+import { CUSTOMER_ACCENT } from "@/lib/dashboard/customer-tokens";
 
 type AssistantPanelProps = {
   title: string;
   greeting: string;
   subtitle: string;
   online: string;
-  sinceLogin: string;
+  todayFound: string;
   items: string[];
-  refresh: string;
+  lastAnalyzedLabel: string;
+  lastAnalyzedJustNow: string;
+  lastAnalyzedMinutesAgo: string;
   askAipify: string;
   orbLabel: string;
 };
+
+const CRITICAL_SCAN_MS = 3 * 60 * 1000;
+const DISPLAY_TICK_MS = 30 * 1000;
+
+function formatLastAnalyzed(
+  analyzedAt: number,
+  justNow: string,
+  minutesAgoTemplate: string
+): string {
+  const minutes = Math.floor((Date.now() - analyzedAt) / 60_000);
+  if (minutes < 1) return justNow;
+  return minutesAgoTemplate.replace("{count}", String(minutes));
+}
 
 export default function AssistantPanel({
   title,
   greeting,
   subtitle,
   online,
-  sinceLogin,
+  todayFound,
   items,
-  refresh,
+  lastAnalyzedLabel,
+  lastAnalyzedJustNow,
+  lastAnalyzedMinutesAgo,
   askAipify,
   orbLabel,
 }: AssistantPanelProps) {
-  const [refreshing, setRefreshing] = useState(false);
+  const [analyzedAt, setAnalyzedAt] = useState(
+    () => Date.now() - 2 * 60 * 1000
+  );
+  const [lastAnalyzedText, setLastAnalyzedText] = useState("");
 
-  function handleRefresh() {
-    setRefreshing(true);
-    window.setTimeout(() => setRefreshing(false), 800);
-  }
+  useEffect(() => {
+    function updateLabel() {
+      setLastAnalyzedText(
+        formatLastAnalyzed(
+          analyzedAt,
+          lastAnalyzedJustNow,
+          lastAnalyzedMinutesAgo
+        )
+      );
+    }
+
+    updateLabel();
+    const tick = window.setInterval(updateLabel, DISPLAY_TICK_MS);
+    return () => window.clearInterval(tick);
+  }, [analyzedAt, lastAnalyzedJustNow, lastAnalyzedMinutesAgo]);
+
+  useEffect(() => {
+    const scan = window.setInterval(() => {
+      setAnalyzedAt(Date.now());
+    }, CRITICAL_SCAN_MS);
+    return () => window.clearInterval(scan);
+  }, []);
 
   return (
-    <section className="relative overflow-hidden rounded-2xl border border-violet-100 bg-gradient-to-br from-violet-50/90 via-white to-blue-50/60 p-6 shadow-sm transition-all duration-200 hover:shadow-md sm:p-8">
+    <section
+      className={`relative overflow-hidden rounded-2xl border p-6 shadow-sm transition-all duration-200 hover:shadow-md sm:p-8 ${CUSTOMER_ACCENT.cardSurface}`}
+    >
       <div
-        className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-violet-200/30 blur-2xl"
+        className={`pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full blur-2xl ${CUSTOMER_ACCENT.cardGlow}`}
         aria-hidden="true"
       />
 
@@ -60,27 +101,11 @@ export default function AssistantPanel({
           </div>
         </div>
 
-        <button
-          type="button"
-          onClick={handleRefresh}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 transition hover:border-violet-200 hover:text-violet-700"
-        >
-          <svg
-            className={`h-3.5 w-3.5 ${refreshing ? "animate-spin" : ""}`}
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-            />
-          </svg>
-          {refresh}
-        </button>
+        <p className="shrink-0 text-right text-xs text-gray-500">
+          <span className="font-medium text-gray-600">{lastAnalyzedLabel}</span>
+          <br />
+          <span className="text-gray-500">{lastAnalyzedText}</span>
+        </p>
       </div>
 
       <div className="relative mt-6 rounded-xl border border-white/80 bg-white/70 p-4 backdrop-blur-sm">
@@ -89,7 +114,7 @@ export default function AssistantPanel({
       </div>
 
       <p className="relative mt-5 text-sm font-semibold text-gray-900">
-        {sinceLogin}
+        {todayFound}
       </p>
       <ul className="relative mt-3 space-y-2.5">
         {items.map((item) => (
@@ -97,7 +122,12 @@ export default function AssistantPanel({
             key={item}
             className="flex items-start gap-2.5 rounded-lg bg-white/60 px-3 py-2 text-sm leading-relaxed text-gray-600"
           >
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-500" />
+            <span
+              className="mt-0.5 shrink-0 text-emerald-600"
+              aria-hidden="true"
+            >
+              ✓
+            </span>
             {item}
           </li>
         ))}
@@ -106,7 +136,7 @@ export default function AssistantPanel({
       <div className="relative mt-6 flex flex-col gap-3 sm:flex-row">
         <button
           type="button"
-          className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:from-blue-700 hover:to-violet-700"
+          className={`inline-flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition ${CUSTOMER_ACCENT.gradientButton}`}
         >
           <svg
             className="h-4 w-4"

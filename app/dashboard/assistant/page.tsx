@@ -15,13 +15,17 @@ export default async function AssistantPage() {
         greeting={t("dashboard.assistant.greeting")}
         subtitle={t("dashboard.assistant.subtitle")}
         online={t("dashboard.assistant.online")}
-        sinceLogin={t("dashboard.assistant.sinceLogin")}
+        todayFound={t("dashboard.assistant.todayFound")}
         items={[
           t("dashboard.assistant.items.tickets"),
-          t("dashboard.assistant.items.recommendations"),
           t("dashboard.assistant.items.integration"),
+          t("dashboard.assistant.items.trial"),
+          t("dashboard.assistant.items.revenue"),
+          t("dashboard.assistant.items.recommendation"),
         ]}
-        refresh={t("dashboard.assistant.refresh")}
+        lastAnalyzedLabel={t("dashboard.assistant.lastAnalyzed")}
+        lastAnalyzedJustNow={t("dashboard.assistant.lastAnalyzedJustNow")}
+        lastAnalyzedMinutesAgo={t("dashboard.assistant.lastAnalyzedMinutesAgo")}
         askAipify={t("dashboard.assistant.askAipify")}
         orbLabel={t("branding.orbLabel")}
       />

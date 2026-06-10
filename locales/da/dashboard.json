@@ -25,27 +25,32 @@
     "assistant": {
       "title": "Assistant",
       "subtitle": "AI summaries and recommended actions for your business.",
-      "comingSoon": "Assistant module will be available in a future release."
+      "description": "Din Aipify-assistent overvåger installationer, support, fakturering og forretningssignaler — og viser kun det, der betyder noget.",
+      "comingSoon": "Kommer snart."
     },
     "support": {
       "title": "Support",
       "subtitle": "Configure Support AI and review handled tickets.",
-      "comingSoon": "Support module will be available in a future release."
+      "description": "Support-AI svarer automatisk på almindelige kundespørgsmål og eskalerer vigtige sager, når det er nødvendigt.",
+      "comingSoon": "Kommer snart."
     },
     "analytics": {
       "title": "Analytics",
       "subtitle": "Track performance and business insights.",
-      "comingSoon": "Analytics module will be available in a future release."
+      "description": "Aipify Analytics identificerer tendenser, muligheder og vigtige ændringer i din virksomhed.",
+      "comingSoon": "Kommer snart."
     },
     "commerce": {
       "title": "Commerce",
       "subtitle": "Commerce AI tools and sales intelligence.",
-      "comingSoon": "Commerce module will be available in a future release."
+      "description": "Commerce-AI optimerer produkter, priser og rentabilitet.",
+      "comingSoon": "Kommer snart."
     },
     "notifications": {
       "title": "Notifications",
       "subtitle": "Manage alerts and notification channels.",
-      "comingSoon": "Notifications module will be available in a future release."
+      "description": "Administrer advarsler fra installationer, fakturering, integrationer og AI-anbefalinger.",
+      "comingSoon": "Kommer snart."
     }
   },
   "controlCenter": {
@@ -134,16 +139,20 @@
   },
   "assistant": {
     "title": "Aipify Assistant",
-    "greeting": "Good morning, Svein.",
-    "subtitle": "Here's what happened since your last login.",
-    "sinceLogin": "Since your last login:",
+    "greeting": "God morgen, Svein.",
+    "subtitle": "Aipify overvåger din virksomhed stille i baggrunden.",
+    "todayFound": "I dag fandt Aipify:",
     "items": {
-      "tickets": "3 support tickets were handled",
-      "recommendations": "2 recommendations are ready",
-      "integration": "1 integration needs attention"
+      "tickets": "3 supporthenvendelser håndteret",
+      "integration": "1 integration kræver opmærksomhed",
+      "trial": "Prøveperioden udløber om 5 dage",
+      "revenue": "Omsætningen steg 12 % denne uge",
+      "recommendation": "Ny anbefaling tilgængelig"
     },
     "online": "Online",
-    "refresh": "Refresh",
+    "lastAnalyzed": "Sidst analyseret:",
+    "lastAnalyzedJustNow": "Lige nu",
+    "lastAnalyzedMinutesAgo": "for {count} minutter siden",
     "viewSummary": "View summary",
     "askAipify": "Ask Aipify"
   },

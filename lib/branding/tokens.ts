@@ -21,7 +21,7 @@ export const AIPIFY_BRAND = {
       lg: 64,
     },
     gradient: {
-      from: "#2563eb",
+      from: "#6366f1",
       via: "#7c3aed",
       to: "#8b5cf6",
     },

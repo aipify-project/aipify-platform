@@ -15,7 +15,7 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["common", "dashboard"]);
+  const dict = await getDictionary(locale, ["common", "dashboard", "branding"]);
   const t = createTranslator(dict);
 
   return (
@@ -44,6 +44,13 @@ export default async function DashboardLayout({
           }))}
           shellVariant="customer"
           mobileNavIds={CUSTOMER_MOBILE_NAV_IDS}
+          platformBrandMark={{
+            poweredBy: t("branding.poweredBy"),
+            tooltipTitle: t("branding.platformTooltipTitle"),
+            tooltipTagline: t("branding.platformTooltipTagline"),
+            versionLabel: t("branding.platformVersion"),
+            pulseLabel: t("branding.pulseLabel"),
+          }}
         >
           {children}
         </DashboardShell>

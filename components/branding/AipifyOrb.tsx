@@ -33,13 +33,13 @@ export default function AipifyOrb({
       aria-label={ariaLabel}
     >
       <span
-        className={`absolute inset-0 rounded-full bg-gradient-to-br from-blue-500/50 to-violet-600/50 blur-md ${
+        className={`absolute inset-0 rounded-full bg-gradient-to-br from-indigo-400/40 to-violet-500/40 blur-md ${
           isThinking ? "animate-aipify-orb-glow" : ""
         }`}
         aria-hidden="true"
       />
       <span
-        className={`relative block h-full w-full rounded-full bg-gradient-to-br from-blue-600 via-violet-600 to-violet-500 shadow-md ring-4 ring-white/80 ${
+        className={`relative block h-full w-full rounded-full bg-gradient-to-br from-indigo-500 via-violet-500 to-violet-400 shadow-md ring-4 ring-white/80 ${
           isThinking ? "animate-aipify-orb-breathe" : isOffline ? "opacity-70" : ""
         }`}
         title={title}

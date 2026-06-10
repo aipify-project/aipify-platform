@@ -12,6 +12,7 @@ export async function createModulePage(moduleKey: string) {
     <ModulePlaceholder
       title={t(`dashboard.modules.${moduleKey}.title`)}
       subtitle={t(`dashboard.modules.${moduleKey}.subtitle`)}
+      description={t(`dashboard.modules.${moduleKey}.description`)}
       comingSoon={t(`dashboard.modules.${moduleKey}.comingSoon`)}
       pulseLabel={t("branding.pulseLabel")}
     />

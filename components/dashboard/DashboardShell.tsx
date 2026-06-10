@@ -107,7 +107,7 @@ export default function DashboardShell({
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <aside className="hidden w-64 shrink-0 flex-col border-r border-gray-200 bg-white lg:flex">
+      <aside className="hidden h-screen w-64 shrink-0 flex-col border-r border-gray-200 bg-white lg:flex">
         <SidebarBrand
           appName={appName}
           companyName={companyName}
@@ -115,9 +115,13 @@ export default function DashboardShell({
           subtitle={shellLabel}
         />
         <div className="flex-1 overflow-y-auto p-4">
-          <Sidebar items={navItems} activeId={activeNav} />
+          <Sidebar
+            items={navItems}
+            activeId={activeNav}
+            activeAccent={shellVariant === "customer" ? "soft" : "default"}
+          />
         </div>
-        {shellVariant === "platform" && platformBrandMark && (
+        {platformBrandMark && (
           <AipifyPlatformBrandMark
             appName={appName}
             poweredBy={platformBrandMark.poweredBy}
@@ -161,9 +165,10 @@ export default function DashboardShell({
                 items={navItems}
                 activeId={activeNav}
                 onNavigate={() => setSidebarOpen(false)}
+                activeAccent={shellVariant === "customer" ? "soft" : "default"}
               />
             </div>
-            {shellVariant === "platform" && platformBrandMark && (
+            {platformBrandMark && (
               <AipifyPlatformBrandMark
                 appName={appName}
                 poweredBy={platformBrandMark.poweredBy}

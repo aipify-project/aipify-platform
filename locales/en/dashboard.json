@@ -25,27 +25,32 @@
     "assistant": {
       "title": "Assistant",
       "subtitle": "AI summaries and recommended actions for your business.",
-      "comingSoon": "Assistant module will be available in a future release."
+      "description": "Your Aipify Assistant monitors installations, support, billing, and business signals — surfacing only what matters.",
+      "comingSoon": "Coming soon."
     },
     "support": {
       "title": "Support",
       "subtitle": "Configure Support AI and review handled tickets.",
-      "comingSoon": "Support module will be available in a future release."
+      "description": "Support AI will automatically answer common customer questions and escalate important issues when needed.",
+      "comingSoon": "Coming soon."
     },
     "analytics": {
       "title": "Analytics",
       "subtitle": "Track performance and business insights.",
-      "comingSoon": "Analytics module will be available in a future release."
+      "description": "Aipify Analytics will identify trends, opportunities and important changes in your business.",
+      "comingSoon": "Coming soon."
     },
     "commerce": {
       "title": "Commerce",
       "subtitle": "Commerce AI tools and sales intelligence.",
-      "comingSoon": "Commerce module will be available in a future release."
+      "description": "Commerce AI will optimize products, pricing and profitability.",
+      "comingSoon": "Coming soon."
     },
     "notifications": {
       "title": "Notifications",
       "subtitle": "Manage alerts and notification channels.",
-      "comingSoon": "Notifications module will be available in a future release."
+      "description": "Manage alerts from installations, billing, integrations and AI recommendations.",
+      "comingSoon": "Coming soon."
     }
   },
   "controlCenter": {
@@ -135,15 +140,19 @@
   "assistant": {
     "title": "Aipify Assistant",
     "greeting": "Good morning, Svein.",
-    "subtitle": "Here's what happened since your last login.",
-    "sinceLogin": "Since your last login:",
+    "subtitle": "Aipify is monitoring your business quietly in the background.",
+    "todayFound": "Today Aipify found:",
     "items": {
-      "tickets": "3 support tickets were handled",
-      "recommendations": "2 recommendations are ready",
-      "integration": "1 integration needs attention"
+      "tickets": "3 support requests handled",
+      "integration": "1 integration requires attention",
+      "trial": "Trial period ends in 5 days",
+      "revenue": "Revenue increased 12% this week",
+      "recommendation": "New recommendation available"
     },
     "online": "Online",
-    "refresh": "Refresh",
+    "lastAnalyzed": "Last analyzed:",
+    "lastAnalyzedJustNow": "Just now",
+    "lastAnalyzedMinutesAgo": "{count} minutes ago",
     "viewSummary": "View summary",
     "askAipify": "Ask Aipify"
   },

@@ -12,6 +12,7 @@ import type {
   SystemType,
 } from "@/lib/tenant/types";
 import InstallationCard from "./InstallationCard";
+import { CUSTOMER_ACCENT } from "@/lib/dashboard/customer-tokens";
 
 type InstallsPanelProps = {
   locale: string;
@@ -202,7 +203,7 @@ export default function InstallsPanel({ locale, labels }: InstallsPanelProps) {
             <button
               type="submit"
               disabled={creating}
-              className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:from-blue-700 hover:to-violet-700 disabled:opacity-60"
+              className={`w-full rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-sm transition disabled:opacity-60 ${CUSTOMER_ACCENT.gradientButton}`}
             >
               {creating ? labels.loading : labels.create}
             </button>

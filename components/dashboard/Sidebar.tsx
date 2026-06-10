@@ -15,13 +15,20 @@ type SidebarProps = {
   activeId: string;
   onNavigate?: () => void;
   className?: string;
+  activeAccent?: "default" | "soft";
 };
+
+const ACTIVE_ACCENT_CLASSES = {
+  default: "bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-sm",
+  soft: "bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-sm",
+} as const;
 
 export default function Sidebar({
   items,
   activeId,
   onNavigate,
   className = "",
+  activeAccent = "default",
 }: SidebarProps) {
   return (
     <nav className={`flex flex-col gap-1 ${className}`} aria-label="Dashboard">
@@ -34,7 +41,7 @@ export default function Sidebar({
             onClick={onNavigate}
             className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium transition ${
               isActive
-                ? "bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-sm"
+                ? ACTIVE_ACCENT_CLASSES[activeAccent]
                 : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
             }`}
             aria-current={isActive ? "page" : undefined}
