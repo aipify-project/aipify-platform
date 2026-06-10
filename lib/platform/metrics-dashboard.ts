@@ -138,8 +138,11 @@ export function buildRecommendations(
   templates: {
     inactiveModules: (count: number) => string;
     trialsExpiring: (count: number) => string;
+    contactBeforeTrial: string;
     bestPlan: string;
+    bestPlanConversion: string;
     supportAiImpact: (count: number) => string;
+    supportAiHoursSaved: (hours: number) => string;
   }
 ): MetricRecommendation[] {
   const items: MetricRecommendation[] = [];
@@ -160,6 +163,10 @@ export function buildRecommendations(
       id: "trials-expiring",
       message: templates.trialsExpiring(metrics.customers.trial),
     });
+    items.push({
+      id: "contact-before-trial",
+      message: templates.contactBeforeTrial,
+    });
   }
 
   items.push({
@@ -167,12 +174,25 @@ export function buildRecommendations(
     message: templates.bestPlan,
   });
 
+  items.push({
+    id: "best-plan-conversion",
+    message: templates.bestPlanConversion,
+  });
+
   if (metrics.ai_activity.support_requests_handled > 0) {
     items.push({
       id: "support-ai-impact",
       message: templates.supportAiImpact(metrics.ai_activity.support_requests_handled),
     });
+    const hoursSaved = Math.max(
+      1,
+      Math.round(metrics.ai_activity.support_requests_handled * 0.66)
+    );
+    items.push({
+      id: "support-ai-hours",
+      message: templates.supportAiHoursSaved(hoursSaved),
+    });
   }
 
-  return items.slice(0, 4);
+  return items.slice(0, 6);
 }

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
 import { createClient } from "@/lib/supabase/client";
+import { buildSystemAiSummary } from "@/lib/platform/ai-dashboard";
 import { getSystemHealth } from "@/lib/platform/metrics-dashboard";
 import type { PaymentProviderSummary, PlatformMetrics, PlatformServiceStatus } from "@/lib/platform/types";
 
@@ -23,6 +24,7 @@ type PlatformSystemStatusPanelProps = {
     degraded: string;
     outage: string;
     pending: string;
+    aiSummaryTitle: string;
     pulseLabel: string;
     services: {
       supabase: string;
@@ -177,6 +179,8 @@ export default function PlatformSystemStatusPanel({ labels }: PlatformSystemStat
     return <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />;
   }
 
+  const aiSummary = buildSystemAiSummary(metrics, providers);
+
   return (
     <div className="mx-auto max-w-5xl">
       <div className="mb-8">
@@ -185,6 +189,11 @@ export default function PlatformSystemStatusPanel({ labels }: PlatformSystemStat
         </h1>
         <p className="mt-2 text-base text-gray-500">{labels.subtitle}</p>
       </div>
+
+      <section className="mb-6 rounded-2xl border border-violet-100 bg-gradient-to-br from-violet-50/60 via-white to-indigo-50/30 p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-gray-900">{labels.aiSummaryTitle}</h2>
+        <p className="mt-3 text-sm leading-relaxed text-gray-700">{aiSummary}</p>
+      </section>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((service) => (

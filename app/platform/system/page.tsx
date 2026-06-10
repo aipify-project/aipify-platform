@@ -19,6 +19,7 @@ export default async function PlatformSystemPage() {
         degraded: t("platform.system.degraded"),
         outage: t("platform.system.outage"),
         pending: t("platform.system.pending"),
+        aiSummaryTitle: t("platform.system.aiSummaryTitle"),
         pulseLabel: t("branding.pulseLabel"),
         services: {
           supabase: t("platform.system.services.supabase"),

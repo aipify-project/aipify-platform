@@ -31,8 +31,37 @@
   },
   "overview": {
     "title": "Aipify Platform Admin",
-    "subtitle": "Master-level control for Aipify Group AS — customers, subscriptions, billing, and platform health.",
-    "note": "Customer Control Center lives at /dashboard. This area is internal-only and spans all tenants."
+    "subtitle": "AI-drevet ledelseskontroll for Aipify Group AS — hva som betyr noe, hva som krever oppmerksomhet, og hva du bør gjøre neste.",
+    "note": "Customer Control Center lives at /dashboard. This area is internal-only and spans all tenants.",
+    "loading": "Forbereder din executive briefing...",
+    "briefing": {
+      "title": "Executive Briefing",
+      "greetingMorning": "God morgen, {name}.",
+      "greetingAfternoon": "God ettermiddag, {name}.",
+      "greetingEvening": "God kveld, {name}.",
+      "sinceVisit": "Siden ditt siste besøk:",
+      "newCustomers": "{count} nye kunder registrert.",
+      "trialsEnding": "{count} prøveperioder utløper innen 7 dager.",
+      "supportResolved": "Support AI løste {count} henvendelser.",
+      "followUp": "{count} kunde krever oppfølging.",
+      "noIncidents": "Ingen kritiske systemhendelser oppdaget.",
+      "incidents": "{count} installasjonsproblem(er) krever oppmerksomhet."
+    },
+    "sinceLogin": {
+      "title": "Siden siste innlogging",
+      "markRead": "Merk som lest",
+      "markedRead": "Merket som lest",
+      "newCustomers": "Nye kunder: {count}",
+      "newInstallations": "Nye installasjoner: {count}",
+      "supportResolved": "Løste supportsaker: {count}",
+      "escalated": "Eskalerte saker: {count}",
+      "trialsEnding": "Prøveperioder utløper snart: {count}",
+      "billingEvents": "Faktureringshendelser: {count}",
+      "systemIncidents": "Systemhendelser: {count}",
+      "aiRecommendations": "AI-anbefalinger: {count}",
+      "recommendationHint": "Aipify vil vise anbefalte handlinger her etter hvert som automatiseringen modnes.",
+      "empty": "Du er oppdatert siden siste innlogging."
+    }
   },
   "customerType": {
     "company": "Company",
@@ -122,6 +151,12 @@
     "actions": "Actions",
     "view": "Åpne kunde",
     "contact": "Kontakt kunde",
+    "health": "Helse",
+    "healthLabels": {
+      "healthy": "Frisk",
+      "attention": "Trenger oppmerksomhet",
+      "atRisk": "I risiko"
+    },
     "quickActive": "Aktiv",
     "quickPaused": "Pauset",
     "quickCancelled": "Kansellert",
@@ -270,13 +305,16 @@
       }
     },
     "customerInsights": {
-      "title": "Customer Insights",
+      "title": "Kundehelse – oversikt",
       "total": "Total",
-      "active": "Active",
-      "trial": "Trial",
-      "paused": "Paused",
-      "cancelled": "Cancelled",
-      "overdue": "Overdue"
+      "active": "Aktive kunder",
+      "trial": "Prøvekunder",
+      "paused": "Pausede kunder",
+      "cancelled": "Kansellerte kunder",
+      "overdue": "Forfalt",
+      "trendUp": "%",
+      "trendDown": "%",
+      "trendFlat": "Stabil"
     },
     "operations": {
       "title": "Operations",
@@ -298,8 +336,11 @@
       "title": "Executive Insights",
       "inactiveModules": "{count} kunder har ikke aktivert viktige moduler ennå.",
       "trialsExpiring": "{count} prøveperioder utløper snart.",
+      "contactBeforeTrial": "Kontakt kunder før prøveperioden utløper.",
       "bestPlan": "Business-abonnementet konverterer best.",
-      "supportAiImpact": "Aipify Support AI håndterte {count} henvendelser i perioden."
+      "bestPlanConversion": "Business-abonnementet konverterer 28 % bedre enn Starter.",
+      "supportAiImpact": "Aipify Support AI håndterte {count} henvendelser i perioden.",
+      "supportAiHoursSaved": "Support AI sparte omtrent {hours} medarbeidertimer denne måneden."
     }
   },
   "installations": {
@@ -324,7 +365,14 @@
     "webhookOperational": "Webhooks fungerer normalt.",
     "noErrors": "Ingen nylige feil registrert.",
     "lastSyncEntry": "Siste vellykkede synk: {date}",
-    "never": "Aldri"
+    "never": "Aldri",
+    "health": "Helse",
+    "lastAiScan": "Siste AI-skanning",
+    "issuesDetected": "Problemer",
+    "automationStatus": "Automatisering",
+    "automationActive": "Aktiv",
+    "automationInactive": "Inaktiv",
+    "minutesAgo": "{count} minutter siden"
   },
   "support": {
     "title": "Support",
@@ -353,6 +401,12 @@
       "normal": "Normal",
       "high": "Høy",
       "urgent": "Haster"
+    },
+    "counters": {
+      "resolvedByAi": "Løst av AI",
+      "escalatedByAi": "Eskalert av AI",
+      "waitingHuman": "Venter på menneske",
+      "openCases": "Åpne saker"
     }
   },
   "system": {
@@ -364,6 +418,7 @@
     "degraded": "Degradert",
     "outage": "Nede",
     "pending": "Venter oppsett",
+    "aiSummaryTitle": "AI-systemsammendrag",
     "services": {
       "supabase": "Supabase",
       "resend": "Resend",
@@ -422,6 +477,7 @@
     "lastContact": "Last contact",
     "assignedAgent": "Assigned agent",
     "subject": "Subject",
+    "aiInsightsTitle": "AI-innsikt",
     "noData": "No data available yet.",
     "hours": "hours",
     "tabs": {

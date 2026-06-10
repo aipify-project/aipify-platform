@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { AipifyEmptyState } from "@/components/branding";
+import AiInsightList from "@/components/platform/AiInsightList";
+import { buildCustomerAiInsights } from "@/lib/platform/ai-dashboard";
 import { formatDate, formatDateTime } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
 import type { CustomerMasterDetail, InvoiceAction } from "@/lib/platform/types";
@@ -94,6 +96,7 @@ type CustomerMasterDetailViewProps = {
     hours: string;
     days: string;
     pulseLabel: string;
+    aiInsightsTitle: string;
   };
 };
 
@@ -278,38 +281,44 @@ export default function CustomerMasterDetailView({
 
       <div className="mt-6">
         {activeTab === "overview" && (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <OverviewCard label={labels.currentPlan} value={overview.plan_name ?? "—"} />
-            <OverviewCard
-              label={labels.subscriptionStatus}
-              value={
-                overview.subscription_status
-                  ? labels.statusLabels[overview.subscription_status] ?? overview.subscription_status
-                  : labels.statusLabels[overview.customer_status] ?? overview.customer_status
-              }
-            />
-            <OverviewCard
-              label={labels.trialRemaining}
-              value={
-                overview.trial_days_remaining != null
-                  ? `${overview.trial_days_remaining} ${labels.days}`
-                  : "—"
-              }
-            />
-            <OverviewCard label={labels.nextBillingDate} value={formatDate(overview.next_billing_date, locale)} />
-            <OverviewCard label={labels.totalUsers} value={String(overview.total_users)} />
-            <OverviewCard label={labels.totalInstallations} value={String(overview.total_installations)} />
-            <OverviewCard
-              label={labels.outstandingInvoices}
-              value={`${overview.outstanding_invoices} NOK`}
-            />
-            <OverviewCard
-              label={labels.paymentProvider}
-              value={
-                overview.payment_provider
-                  ? labels.providerLabels[overview.payment_provider] ?? overview.payment_provider
-                  : "—"
-              }
+          <div className="space-y-6">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <OverviewCard label={labels.currentPlan} value={overview.plan_name ?? "—"} />
+              <OverviewCard
+                label={labels.subscriptionStatus}
+                value={
+                  overview.subscription_status
+                    ? labels.statusLabels[overview.subscription_status] ?? overview.subscription_status
+                    : labels.statusLabels[overview.customer_status] ?? overview.customer_status
+                }
+              />
+              <OverviewCard
+                label={labels.trialRemaining}
+                value={
+                  overview.trial_days_remaining != null
+                    ? `${overview.trial_days_remaining} ${labels.days}`
+                    : "—"
+                }
+              />
+              <OverviewCard label={labels.nextBillingDate} value={formatDate(overview.next_billing_date, locale)} />
+              <OverviewCard label={labels.totalUsers} value={String(overview.total_users)} />
+              <OverviewCard label={labels.totalInstallations} value={String(overview.total_installations)} />
+              <OverviewCard
+                label={labels.outstandingInvoices}
+                value={`${overview.outstanding_invoices} NOK`}
+              />
+              <OverviewCard
+                label={labels.paymentProvider}
+                value={
+                  overview.payment_provider
+                    ? labels.providerLabels[overview.payment_provider] ?? overview.payment_provider
+                    : "—"
+                }
+              />
+            </div>
+            <AiInsightList
+              title={labels.aiInsightsTitle}
+              items={buildCustomerAiInsights(detail)}
             />
           </div>
         )}

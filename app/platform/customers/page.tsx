@@ -29,6 +29,12 @@ export default async function PlatformCustomersPage() {
         type: t("platform.customers.type"),
         plan: t("platform.customers.plan"),
         status: t("platform.customers.status"),
+        health: t("platform.customers.health"),
+        healthLabels: {
+          healthy: t("platform.customers.healthLabels.healthy"),
+          attention: t("platform.customers.healthLabels.attention"),
+          atRisk: t("platform.customers.healthLabels.atRisk"),
+        },
         trialRemaining: t("platform.customers.trialRemaining"),
         installations: t("platform.customers.installations"),
         users: t("platform.customers.users"),

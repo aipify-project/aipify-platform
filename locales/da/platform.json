@@ -31,8 +31,37 @@
   },
   "overview": {
     "title": "Aipify Platform Admin",
-    "subtitle": "Master-level control for Aipify Group AS — customers, subscriptions, billing, and platform health.",
-    "note": "Customer Control Center lives at /dashboard. This area is internal-only and spans all tenants."
+    "subtitle": "AI-powered executive control for Aipify Group AS — what matters, what needs attention, and what to do next.",
+    "note": "Customer Control Center lives at /dashboard. This area is internal-only and spans all tenants.",
+    "loading": "Preparing your executive briefing...",
+    "briefing": {
+      "title": "Executive Briefing",
+      "greetingMorning": "Good morning, {name}.",
+      "greetingAfternoon": "Good afternoon, {name}.",
+      "greetingEvening": "Good evening, {name}.",
+      "sinceVisit": "Since your last visit:",
+      "newCustomers": "{count} new customers registered.",
+      "trialsEnding": "{count} trial periods expire within 7 days.",
+      "supportResolved": "Support AI resolved {count} requests.",
+      "followUp": "{count} customer requires follow-up.",
+      "noIncidents": "No critical system incidents detected.",
+      "incidents": "{count} installation issue(s) require attention."
+    },
+    "sinceLogin": {
+      "title": "Since Last Login",
+      "markRead": "Mark as read",
+      "markedRead": "Marked as read",
+      "newCustomers": "New customers: {count}",
+      "newInstallations": "New installations: {count}",
+      "supportResolved": "Support cases resolved: {count}",
+      "escalated": "Escalated cases: {count}",
+      "trialsEnding": "Trials ending soon: {count}",
+      "billingEvents": "Billing events: {count}",
+      "systemIncidents": "System incidents: {count}",
+      "aiRecommendations": "AI recommendations: {count}",
+      "recommendationHint": "Aipify will surface recommended actions here as automation matures.",
+      "empty": "You're up to date since your last login."
+    }
   },
   "customerType": {
     "company": "Company",
@@ -104,6 +133,12 @@
     "email": "Email",
     "country": "Country",
     "status": "Status",
+    "health": "Health",
+    "healthLabels": {
+      "healthy": "Healthy",
+      "attention": "Needs Attention",
+      "atRisk": "At Risk"
+    },
     "trialRemaining": "Trial remaining",
     "installations": "Installations",
     "users": "Users",
@@ -255,13 +290,16 @@
       }
     },
     "customerInsights": {
-      "title": "Customer Insights",
+      "title": "Customer Health Overview",
       "total": "Total",
-      "active": "Active",
-      "trial": "Trial",
-      "paused": "Paused",
-      "cancelled": "Cancelled",
-      "overdue": "Overdue"
+      "active": "Active Customers",
+      "trial": "Trial Customers",
+      "paused": "Paused Customers",
+      "cancelled": "Cancelled Customers",
+      "overdue": "Overdue",
+      "trendUp": "%",
+      "trendDown": "%",
+      "trendFlat": "Stable"
     },
     "operations": {
       "title": "Operations",
@@ -280,12 +318,107 @@
       "mostActiveValue": "Pilot tenant · 1 active installation"
     },
     "recommendations": {
-      "title": "Aipify Recommendations",
-      "contactTrials": "{count} trial customers should be contacted before trial ends.",
-      "churnRisk": "{count} customer accounts may be at risk of churn.",
-      "businessPlan": "Business plan shows the strongest conversion potential.",
-      "failedInstall": "{count} failed installation sync should be reviewed.",
-      "retentionStrong": "Customer retention is strong at {rate}%."
+      "title": "Executive Insights",
+      "inactiveModules": "{count} customers have not activated key modules yet.",
+      "trialsExpiring": "{count} trial periods are ending soon.",
+      "contactBeforeTrial": "Contact customers before trial expiration.",
+      "bestPlan": "Business plan is the strongest converting subscription.",
+      "bestPlanConversion": "Business plan converts 28% better than Starter.",
+      "supportAiImpact": "Aipify Support AI handled {count} requests this period.",
+      "supportAiHoursSaved": "Support AI saved approximately {hours} staff hours this month."
+    }
+  },
+  "installations": {
+    "title": "Installations",
+    "subtitle": "Cross-tenant installations, sync health, and integration status.",
+    "loading": "Loading installations...",
+    "empty": "No installations yet.",
+    "customer": "Customer",
+    "domain": "Domain",
+    "status": "Status",
+    "modules": "Active modules",
+    "lastSynced": "Last synced",
+    "actions": "Actions",
+    "viewCustomer": "Open customer",
+    "detailTitle": "Installation details",
+    "integrations": "API integrations",
+    "webhooks": "Webhook status",
+    "errorLogs": "Error logs",
+    "syncHistory": "Sync history",
+    "noModules": "No modules enabled",
+    "noIntegrations": "No integrations connected",
+    "webhookOperational": "Webhooks are operational.",
+    "noErrors": "No recent errors recorded.",
+    "lastSyncEntry": "Last successful sync: {date}",
+    "never": "Never",
+    "health": "Health",
+    "lastAiScan": "Last AI Scan",
+    "issuesDetected": "Issues",
+    "automationStatus": "Automation",
+    "automationActive": "Active",
+    "automationInactive": "Inactive",
+    "minutesAgo": "{count} minutes ago"
+  },
+  "support": {
+    "title": "Support",
+    "subtitle": "Internal support queue with AI escalation visibility.",
+    "loading": "Loading support queue...",
+    "empty": "No support cases yet.",
+    "customer": "Customer",
+    "category": "Category",
+    "priority": "Priority",
+    "assignee": "Assignee",
+    "lastUpdated": "Last updated",
+    "subject": "Subject",
+    "aiEscalation": "AI escalation",
+    "aiCouldNotResolve": "AI could not resolve the case",
+    "requiresHumanReview": "Requires human review",
+    "unassigned": "Unassigned",
+    "viewCustomer": "Open customer",
+    "categoryLabels": {
+      "general": "General",
+      "onboarding": "Onboarding",
+      "billing": "Billing",
+      "technical": "Technical"
+    },
+    "priorityLabels": {
+      "low": "Low",
+      "normal": "Normal",
+      "high": "High",
+      "urgent": "Urgent"
+    },
+    "counters": {
+      "resolvedByAi": "Resolved by AI",
+      "escalatedByAi": "Escalated by AI",
+      "waitingHuman": "Waiting for Human",
+      "openCases": "Open Cases"
+    }
+  },
+  "system": {
+    "title": "System status",
+    "subtitle": "Core platform services and integration health.",
+    "loading": "Loading system status...",
+    "empty": "System status is not available yet.",
+    "operational": "Operational",
+    "degraded": "Degraded",
+    "outage": "Outage",
+    "pending": "Pending setup",
+    "aiSummaryTitle": "AI System Summary",
+    "services": {
+      "supabase": "Supabase",
+      "resend": "Resend",
+      "klarna": "Klarna",
+      "stripe": "Stripe",
+      "aipifyApi": "Aipify API",
+      "webhooks": "Webhooks"
+    },
+    "details": {
+      "supabase": "Database, auth, and storage are responding normally.",
+      "resend": "Transactional email delivery is healthy.",
+      "klarna": "Payment provider connection status across tenants.",
+      "stripe": "Card payment provider connection status across tenants.",
+      "aipifyApi": "Core API availability derived from platform health signals.",
+      "webhooks": "Installation webhook delivery and sync health."
     }
   },
   "masterDetail": {
@@ -329,6 +462,7 @@
     "lastContact": "Last contact",
     "assignedAgent": "Assigned agent",
     "subject": "Subject",
+    "aiInsightsTitle": "AI Insights",
     "noData": "No data available yet.",
     "hours": "hours",
     "tabs": {

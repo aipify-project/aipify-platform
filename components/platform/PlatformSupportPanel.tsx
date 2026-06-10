@@ -30,6 +30,12 @@ type PlatformSupportPanelProps = {
     statusLabels: Record<string, string>;
     categoryLabels: Record<string, string>;
     priorityLabels: Record<string, string>;
+    counters: {
+      resolvedByAi: string;
+      escalatedByAi: string;
+      waitingHuman: string;
+      openCases: string;
+    };
   };
 };
 
@@ -38,6 +44,12 @@ export default function PlatformSupportPanel({
   labels,
 }: PlatformSupportPanelProps) {
   const [cases, setCases] = useState<PlatformSupportQueueRow[]>([]);
+  const [counters, setCounters] = useState({
+    resolvedByAi: 0,
+    escalatedByAi: 0,
+    waitingHuman: 0,
+    openCases: 0,
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -45,10 +57,31 @@ export default function PlatformSupportPanel({
 
     async function load() {
       const supabase = createClient();
-      const { data, error } = await supabase.rpc("list_platform_support_queue");
+      const [queueResult, snapshotResult] = await Promise.all([
+        supabase.rpc("list_platform_support_queue"),
+        supabase.rpc("get_platform_dashboard_snapshot"),
+      ]);
 
       if (!cancelled) {
-        setCases(error || !data ? [] : (data as PlatformSupportQueueRow[]));
+        setCases(
+          queueResult.error || !queueResult.data
+            ? []
+            : (queueResult.data as PlatformSupportQueueRow[])
+        );
+        if (snapshotResult.data && typeof snapshotResult.data === "object") {
+          const snapshot = snapshotResult.data as {
+            support_resolved: number;
+            escalated_cases: number;
+            waiting_human: number;
+            open_cases: number;
+          };
+          setCounters({
+            resolvedByAi: snapshot.support_resolved,
+            escalatedByAi: snapshot.escalated_cases,
+            waitingHuman: snapshot.waiting_human,
+            openCases: snapshot.open_cases,
+          });
+        }
         setLoading(false);
       }
     }
@@ -85,6 +118,25 @@ export default function PlatformSupportPanel({
       ) : cases.length === 0 ? (
         <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
       ) : (
+        <div className="space-y-6">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { label: labels.counters.resolvedByAi, value: counters.resolvedByAi },
+              { label: labels.counters.escalatedByAi, value: counters.escalatedByAi },
+              { label: labels.counters.waitingHuman, value: counters.waitingHuman },
+              { label: labels.counters.openCases, value: counters.openCases },
+            ].map((item) => (
+              <article
+                key={item.label}
+                className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm"
+              >
+                <p className="text-xs font-medium uppercase tracking-wide text-gray-500">
+                  {item.label}
+                </p>
+                <p className="mt-2 text-2xl font-bold text-gray-900">{item.value}</p>
+              </article>
+            ))}
+          </div>
         <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-100">
@@ -152,6 +204,7 @@ export default function PlatformSupportPanel({
               </tbody>
             </table>
           </div>
+        </div>
         </div>
       )}
     </div>

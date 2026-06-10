@@ -5,7 +5,9 @@ import { useEffect, useMemo, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
 import { formatDate } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
+import { deriveInstallationHealth } from "@/lib/platform/ai-dashboard";
 import type { PlatformInstallationRow } from "@/lib/platform/types";
+import CustomerHealthBadge from "./CustomerHealthBadge";
 import StatusBadge from "./StatusBadge";
 
 type PlatformInstallationsPanelProps = {
@@ -33,6 +35,18 @@ type PlatformInstallationsPanelProps = {
     noErrors: string;
     lastSyncEntry: string;
     never: string;
+    health: string;
+    lastAiScan: string;
+    issuesDetected: string;
+    automationStatus: string;
+    automationActive: string;
+    automationInactive: string;
+    minutesAgo: string;
+    healthLabels: {
+      healthy: string;
+      attention: string;
+      atRisk: string;
+    };
     pulseLabel: string;
     statusLabels: Record<string, string>;
     integrationStatusLabels: Record<string, string>;
@@ -92,7 +106,18 @@ export default function PlatformInstallationsPanel({
               <table className="min-w-full divide-y divide-gray-100">
                 <thead className="bg-gray-50/80">
                   <tr>
-                    {[labels.customer, labels.domain, labels.status, labels.modules, labels.lastSynced, labels.actions].map(
+                    {[
+                      labels.customer,
+                      labels.domain,
+                      labels.status,
+                      labels.health,
+                      labels.modules,
+                      labels.lastAiScan,
+                      labels.issuesDetected,
+                      labels.automationStatus,
+                      labels.lastSynced,
+                      labels.actions,
+                    ].map(
                       (heading) => (
                         <th
                           key={heading}
@@ -105,7 +130,9 @@ export default function PlatformInstallationsPanel({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {installations.map((row) => (
+                  {installations.map((row) => {
+                    const healthMeta = deriveInstallationHealth(row);
+                    return (
                     <tr
                       key={row.id}
                       className={`cursor-pointer hover:bg-gray-50/60 ${selectedId === row.id ? "bg-violet-50/50" : ""}`}
@@ -124,8 +151,28 @@ export default function PlatformInstallationsPanel({
                           label={labels.statusLabels[row.status] ?? row.status}
                         />
                       </td>
+                      <td className="px-4 py-4">
+                        <CustomerHealthBadge
+                          health={healthMeta.health}
+                          labels={labels.healthLabels}
+                        />
+                      </td>
                       <td className="px-4 py-4 text-sm text-gray-600">
                         {row.modules.length > 0 ? row.modules.join(", ") : labels.noModules}
+                      </td>
+                      <td className="px-4 py-4 text-sm text-gray-600">
+                        {labels.minutesAgo.replace(
+                          "{count}",
+                          String(healthMeta.lastScanMinutesAgo)
+                        )}
+                      </td>
+                      <td className="px-4 py-4 text-sm text-gray-600">
+                        {healthMeta.issuesDetected}
+                      </td>
+                      <td className="px-4 py-4 text-sm text-gray-600">
+                        {healthMeta.automationActive
+                          ? labels.automationActive
+                          : labels.automationInactive}
                       </td>
                       <td className="px-4 py-4 text-sm text-gray-600">
                         {row.last_synced_at
@@ -142,7 +189,8 @@ export default function PlatformInstallationsPanel({
                         </Link>
                       </td>
                     </tr>
-                  ))}
+                  );
+                  })}
                 </tbody>
               </table>
             </div>

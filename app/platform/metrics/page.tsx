@@ -60,6 +60,9 @@ export default async function PlatformMetricsPage() {
           paused: t("platform.metrics.customerInsights.paused"),
           cancelled: t("platform.metrics.customerInsights.cancelled"),
           overdue: t("platform.metrics.customerInsights.overdue"),
+          trendUp: t("platform.metrics.customerInsights.trendUp"),
+          trendDown: t("platform.metrics.customerInsights.trendDown"),
+          trendFlat: t("platform.metrics.customerInsights.trendFlat"),
         },
         operations: {
           title: t("platform.metrics.operations.title"),
@@ -81,8 +84,11 @@ export default async function PlatformMetricsPage() {
           title: t("platform.metrics.recommendations.title"),
           inactiveModules: t("platform.metrics.recommendations.inactiveModules"),
           trialsExpiring: t("platform.metrics.recommendations.trialsExpiring"),
+          contactBeforeTrial: t("platform.metrics.recommendations.contactBeforeTrial"),
           bestPlan: t("platform.metrics.recommendations.bestPlan"),
+          bestPlanConversion: t("platform.metrics.recommendations.bestPlanConversion"),
           supportAiImpact: t("platform.metrics.recommendations.supportAiImpact"),
+          supportAiHoursSaved: t("platform.metrics.recommendations.supportAiHoursSaved"),
         },
       }}
     />

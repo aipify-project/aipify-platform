@@ -1,0 +1,55 @@
+AIPIFY PLATFORM – AI-FIRST DASHBOARD IMPROVEMENTS
+=================================================
+
+STATUS: READY FOR CURSOR
+PRIORITY: HIGH
+
+GOAL
+-----
+Transform the platform admin panel from a traditional SaaS dashboard into
+an AI-powered executive platform. Make Aipify feel intelligent and proactive.
+
+Arbeidsområde: /Users/veltrix/Documents/aipify
+Lever som .txt i docs/cursor/
+
+
+IMPLEMENTED IN CODEBASE (reference)
+----------------------------------
+[✓] 1. Executive Briefing – top of /platform overview
+[✓] 2. Since Last Login – module with mark-as-read (localStorage)
+[✓] 3. Customer Health Score – placeholder column on Customers
+[✓] 4. AI Insights – customer detail overview tab
+[✓] 5. Installation Health – health, last scan, issues, automation columns
+[✓] 6. Support AI counters – above support queue table
+[✓] 7. System Status AI Summary – above service cards
+[✓] 8. Platform Metrics – customer health trends (placeholder %)
+[✓] 9. Executive Insights – expanded recommendations
+
+RPCs:
+  - record_platform_admin_login()
+  - get_platform_dashboard_snapshot(p_since)
+
+
+REMAINING / FUTURE
+------------------
+  - Real health score algorithm (support, login, invoices, usage)
+  - Server-side mark-as-read for Since Last Login
+  - Live AI-generated briefing copy
+  - Vercel + GitHub Actions in system status
+  - Varslingssenter (Phase 2B)
+  - Kundehandlinger + Audit Log (Phase 2C)
+
+
+DESIGN PRINCIPLE
+----------------
+Every page answers: "What should I pay attention to right now?"
+
+Hierarchy:
+  LEVEL 1: Raw data
+  LEVEL 2: Insights
+  LEVEL 3: AI recommendations
+  LEVEL 4: Automated actions
+
+Do not redesign sidebar. Enhance existing screens.
+
+END OF PHASE

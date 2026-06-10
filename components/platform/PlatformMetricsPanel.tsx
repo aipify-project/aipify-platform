@@ -8,6 +8,7 @@ import {
   MetricsSparkline,
 } from "@/components/platform/metrics/MetricsCharts";
 import { createClient } from "@/lib/supabase/client";
+import { getCustomerHealthTrends } from "@/lib/platform/ai-dashboard";
 import {
   buildCustomerGrowthSeries,
   buildMrrTrendSeries,
@@ -65,6 +66,9 @@ type PlatformMetricsPanelProps = {
       paused: string;
       cancelled: string;
       overdue: string;
+      trendUp: string;
+      trendDown: string;
+      trendFlat: string;
     };
     operations: {
       title: string;
@@ -86,8 +90,11 @@ type PlatformMetricsPanelProps = {
       title: string;
       inactiveModules: string;
       trialsExpiring: string;
+      contactBeforeTrial: string;
       bestPlan: string;
+      bestPlanConversion: string;
       supportAiImpact: string;
+      supportAiHoursSaved: string;
     };
   };
 };
@@ -181,10 +188,15 @@ export default function PlatformMetricsPanel({ labels }: PlatformMetricsPanelPro
           labels.recommendations.inactiveModules.replace("{count}", String(count)),
         trialsExpiring: (count) =>
           labels.recommendations.trialsExpiring.replace("{count}", String(count)),
+        contactBeforeTrial: labels.recommendations.contactBeforeTrial,
         bestPlan: labels.recommendations.bestPlan,
+        bestPlanConversion: labels.recommendations.bestPlanConversion,
         supportAiImpact: (count) =>
           labels.recommendations.supportAiImpact.replace("{count}", String(count)),
+        supportAiHoursSaved: (hours) =>
+          labels.recommendations.supportAiHoursSaved.replace("{hours}", String(hours)),
       }),
+      healthTrends: getCustomerHealthTrends(),
     };
   }, [labels, metrics]);
 
@@ -204,13 +216,14 @@ export default function PlatformMetricsPanel({ labels }: PlatformMetricsPanelPro
         : labels.executive.healthAttention;
 
   const customerStatuses = [
-    { key: "active", value: metrics.customers.active, label: labels.customerInsights.active },
-    { key: "trial", value: metrics.customers.trial, label: labels.customerInsights.trial },
-    { key: "paused", value: metrics.customers.paused, label: labels.customerInsights.paused },
+    { key: "active", value: metrics.customers.active, label: labels.customerInsights.active, trend: dashboard.healthTrends.active },
+    { key: "trial", value: metrics.customers.trial, label: labels.customerInsights.trial, trend: dashboard.healthTrends.trial },
+    { key: "paused", value: metrics.customers.paused, label: labels.customerInsights.paused, trend: dashboard.healthTrends.paused },
     {
       key: "cancelled",
       value: metrics.customers.cancelled,
       label: labels.customerInsights.cancelled,
+      trend: dashboard.healthTrends.cancelled,
     },
   ];
 
@@ -331,19 +344,35 @@ export default function PlatformMetricsPanel({ labels }: PlatformMetricsPanelPro
         <SectionHeading id="metrics-customers" title={labels.customerInsights.title} />
         <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-            {customerStatuses.map((item) => (
-              <div
-                key={item.key}
-                className="rounded-xl bg-gray-50/80 px-4 py-3 text-center ring-1 ring-gray-100"
-              >
-                <p className="text-xs font-medium uppercase tracking-wide text-gray-500">
-                  {item.label}
-                </p>
-                <p className="mt-2 text-2xl font-bold text-gray-900">
-                  {formatMetricNumber(item.value)}
-                </p>
-              </div>
-            ))}
+            {customerStatuses.map((item) => {
+              const trendLabel =
+                item.trend > 0
+                  ? `↑ ${item.trend}${labels.customerInsights.trendUp}`
+                  : item.trend < 0
+                    ? `↓ ${Math.abs(item.trend)}${labels.customerInsights.trendDown}`
+                    : labels.customerInsights.trendFlat;
+              const trendClass =
+                item.trend > 0
+                  ? "text-emerald-600"
+                  : item.trend < 0
+                    ? "text-rose-600"
+                    : "text-gray-500";
+
+              return (
+                <div
+                  key={item.key}
+                  className="rounded-xl bg-gray-50/80 px-4 py-3 text-center ring-1 ring-gray-100"
+                >
+                  <p className="text-xs font-medium uppercase tracking-wide text-gray-500">
+                    {item.label}
+                  </p>
+                  <p className="mt-2 text-2xl font-bold text-gray-900">
+                    {formatMetricNumber(item.value)}
+                  </p>
+                  <p className={`mt-1 text-xs font-medium ${trendClass}`}>{trendLabel}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

@@ -132,6 +132,7 @@ export default async function CustomerDetailPage({ params }: CustomerDetailPageP
         seconds: t("platform.metrics.seconds"),
         hours: t("platform.masterDetail.hours"),
         days: t("platform.customers.days"),
+        aiInsightsTitle: t("platform.masterDetail.aiInsightsTitle"),
         pulseLabel: t("branding.pulseLabel"),
       }}
     />

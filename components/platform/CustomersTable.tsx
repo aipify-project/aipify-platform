@@ -5,7 +5,9 @@ import { useEffect, useMemo, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
 import { formatDate } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
+import { computeCustomerHealth } from "@/lib/platform/ai-dashboard";
 import type { CustomerRecord, CustomerStatus, CustomerType } from "@/lib/platform/types";
+import CustomerHealthBadge from "./CustomerHealthBadge";
 import StatusBadge from "./StatusBadge";
 
 type CustomersTableProps = {
@@ -24,6 +26,12 @@ type CustomersTableProps = {
     type: string;
     plan: string;
     status: string;
+    health: string;
+    healthLabels: {
+      healthy: string;
+      attention: string;
+      atRisk: string;
+    };
     trialRemaining: string;
     installations: string;
     users: string;
@@ -196,6 +204,9 @@ export default function CustomersTable({ locale, labels }: CustomersTableProps) 
                     {labels.status}
                   </th>
                   <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    {labels.health}
+                  </th>
+                  <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
                     {labels.trialRemaining}
                   </th>
                   <th className="px-4 py-4 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
@@ -239,6 +250,12 @@ export default function CustomersTable({ locale, labels }: CustomersTableProps) 
                       <StatusBadge
                         status={customer.status}
                         label={labels.statusLabels[customer.status] ?? customer.status}
+                      />
+                    </td>
+                    <td className="px-4 py-4">
+                      <CustomerHealthBadge
+                        health={computeCustomerHealth(customer)}
+                        labels={labels.healthLabels}
                       />
                     </td>
                     <td className="px-4 py-4 text-sm text-gray-600">

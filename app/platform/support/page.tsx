@@ -36,6 +36,12 @@ export default async function PlatformSupportPage() {
         statusLabels: supportCaseStatusLabels(t),
         categoryLabels: supportCategoryLabels(t),
         priorityLabels: supportPriorityLabels(t),
+        counters: {
+          resolvedByAi: t("platform.support.counters.resolvedByAi"),
+          escalatedByAi: t("platform.support.counters.escalatedByAi"),
+          waitingHuman: t("platform.support.counters.waitingHuman"),
+          openCases: t("platform.support.counters.openCases"),
+        },
       }}
     />
   );
