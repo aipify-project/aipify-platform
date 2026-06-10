@@ -23,6 +23,7 @@
     "billing": "Billing",
     "invoices": "Invoices",
     "installations": "Installations",
+    "installEngine": "Install Engine",
     "metrics": "Platform Metrics",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
@@ -613,6 +614,19 @@
       "satisfactionScore": "Customer satisfaction",
       "escalationReasons": "Escalation reasons",
       "noReasons": "No escalation reasons recorded."
+    }
+  },
+  "installEngine": {
+    "title": "Install Engine",
+    "subtitle": "Supported integrations, installation templates, and global install health.",
+    "statsLabel": "Foundation",
+    "statsValue": "{steps} workflow steps · {systems} detected systems · {stages} rollout stages",
+    "areas": {
+      "integrations": "Supported Integrations",
+      "templates": "Installation Templates",
+      "metrics": "Global Installation Metrics",
+      "heartbeats": "Heartbeat Monitoring",
+      "rollout": "Rollout Pipeline"
     }
   },
   "skills": {

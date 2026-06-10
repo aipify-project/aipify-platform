@@ -23,6 +23,7 @@
     "billing": "Billing",
     "invoices": "Invoices",
     "installations": "Installations",
+    "installEngine": "Install Engine",
     "metrics": "Platform Metrics",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
@@ -419,6 +420,19 @@
       "escalatedByAi": "Escalated by AI",
       "waitingHuman": "Waiting for Human",
       "openCases": "Open Cases"
+    }
+  },
+  "installEngine": {
+    "title": "Install Engine",
+    "subtitle": "Understøttede integrationer, installationsskabeloner og global installationshelbred.",
+    "statsLabel": "Fundament",
+    "statsValue": "{steps} arbejdsgangstrin · {systems} opdagede systemer · {stages} udrulningsfaser",
+    "areas": {
+      "integrations": "Understøttede integrationer",
+      "templates": "Installationsskabeloner",
+      "metrics": "Globale installationsmetrikker",
+      "heartbeats": "Heartbeat-overvågning",
+      "rollout": "Udrulningspipeline"
     }
   },
   "skills": {

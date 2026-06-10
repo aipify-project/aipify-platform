@@ -169,6 +169,37 @@
       "prepareSummary": "Prepare weekly business summary"
     }
   },
+  "installEngine": {
+    "connections": {
+      "title": "Forbindelser",
+      "subtitle": "Tilknyttede systemer, autentificeringsstatus og synkronisering.",
+      "areas": {
+        "systems": "Tilknyttede systemer",
+        "auth": "Autentificeringsstatus",
+        "permissions": "Tilladelsesniveauer",
+        "sync": "Seneste synkronisering",
+        "reconnect": "Genopret forbindelse",
+        "disconnect": "Afbryd forbindelse"
+      }
+    },
+    "learning": {
+      "title": "Læringsfase",
+      "subtitle": "Overvåget observationsperiode før fuld automatisering.",
+      "duration": "Standard læringsperiode: {days} dage — observer, evaluer og forbedr ansvarligt.",
+      "areas": {
+        "observe": "Observer arbejdsgange",
+        "evaluate": "Evaluer anbefalinger",
+        "improve": "Forbedr relevans",
+        "supervised": "Kun overvåget læring"
+      }
+    },
+    "validation": {
+      "approve": "Godkend",
+      "modify": "Rediger",
+      "reject": "Afvis",
+      "error": "Kunne ikke gemme dit svar"
+    }
+  },
   "skills": {
     "title": "Skills",
     "subtitle": "Se, konfigurer og overvåg skills tilgængelige for din organisation.",

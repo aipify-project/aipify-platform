@@ -1,0 +1,43 @@
+AIPIFY – INSTALL ENGINE (PHASE 17 FOUNDATION)
+Status: Implemented
+Priority: Critical
+Doc: INSTALL_ENGINE.md
+
+MISSION
+Connect systems · understand environment · discover workflows · recommend skills ·
+configure safe starting point · supervised learning phase.
+
+WORKFLOW (10 steps)
+create_account → select_plan → register_domains → connect_systems →
+environment_discovery → recommend_skills → customer_approval → activate →
+learning_phase → first_executive_briefing
+
+CODE
+- lib/install/ — engine constants, discovery, health scoring
+- lib/embed/ — heartbeat agent, context scanner
+- app/api/install/ — heartbeat, discover, validate-discovery
+- app/api/installations/ — existing wizard (extend, do not replace)
+
+LAYER PLACEMENT
+Platform: app/platform/install-engine/, app/platform/installations/
+Customer: app/app/connections/, app/app/learning/, wizard via /app/installations
+Embedded: app/api/install/, lib/embed/
+
+DATABASE (migration: 20260610400000_install_engine_phase17.sql)
+- record_installation_heartbeat
+- save_installation_discovery
+- validate_installation_discovery
+- verify_installation_token updated for current lifecycle statuses
+
+HUMAN VALIDATION
+Prompt: "Have we understood your business correctly?"
+Actions: approve · modify · reject
+
+PLAN LIMITS
+Reuse lib/core/plans.ts (starter 1/1, growth 3/3, business 10/10, enterprise custom)
+
+LEARNING PHASE
+30 days default — supervised, no aggressive automation
+
+ROLLout
+aipify_internal → unonight_pilot → limited_beta → public

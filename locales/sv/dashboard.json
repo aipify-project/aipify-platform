@@ -169,6 +169,37 @@
       "prepareSummary": "Prepare weekly business summary"
     }
   },
+  "installEngine": {
+    "connections": {
+      "title": "Anslutningar",
+      "subtitle": "Anslutna system, autentiseringsstatus och synkronisering.",
+      "areas": {
+        "systems": "Anslutna system",
+        "auth": "Autentiseringsstatus",
+        "permissions": "Behörighetsnivåer",
+        "sync": "Senaste synkronisering",
+        "reconnect": "Återanslut",
+        "disconnect": "Koppla från"
+      }
+    },
+    "learning": {
+      "title": "Inlärningsfas",
+      "subtitle": "Övervakad observationsperiod innan full automatisering.",
+      "duration": "Standard inlärningsperiod: {days} dagar — observera, utvärdera och förbättra ansvarsfullt.",
+      "areas": {
+        "observe": "Observera arbetsflöden",
+        "evaluate": "Utvärdera rekommendationer",
+        "improve": "Förbättra relevans",
+        "supervised": "Endast övervakad inlärning"
+      }
+    },
+    "validation": {
+      "approve": "Godkänn",
+      "modify": "Ändra",
+      "reject": "Avvisa",
+      "error": "Kunde inte spara ditt svar"
+    }
+  },
   "skills": {
     "title": "Skills",
     "subtitle": "Visa, konfigurera och övervaka skills tillgängliga för din organisation.",

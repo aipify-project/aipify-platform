@@ -80,6 +80,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Must validate:** `installation_token`, domain, subscription status, license limits, allowed modules.
 
+**Install Engine (Phase 17):** See [INSTALL_ENGINE.md](./INSTALL_ENGINE.md) — workflow, discovery, heartbeat, human validation, learning phase.
+
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.
 
 ---

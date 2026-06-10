@@ -23,6 +23,7 @@
     "billing": "Billing",
     "invoices": "Invoices",
     "installations": "Installations",
+    "installEngine": "Install Engine",
     "metrics": "Platform Metrics",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
@@ -419,6 +420,19 @@
       "escalatedByAi": "Escalated by AI",
       "waitingHuman": "Waiting for Human",
       "openCases": "Open Cases"
+    }
+  },
+  "installEngine": {
+    "title": "Install Engine",
+    "subtitle": "Stödda integrationer, installationsmallar och global installationshälsa.",
+    "statsLabel": "Grund",
+    "statsValue": "{steps} arbetsflödessteg · {systems} upptäckta system · {stages} utrullningsfaser",
+    "areas": {
+      "integrations": "Stödda integrationer",
+      "templates": "Installationsmallar",
+      "metrics": "Globala installationsmått",
+      "heartbeats": "Heartbeat-övervakning",
+      "rollout": "Utrullningspipeline"
     }
   },
   "skills": {

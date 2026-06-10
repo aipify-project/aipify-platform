@@ -1,0 +1,27 @@
+---
+description: Aipify Install Engine — onboarding, discovery, heartbeat, and plan limits
+alwaysApply: true
+---
+
+# Install Engine (Phase 17)
+
+Read **[INSTALL_ENGINE.md](../../INSTALL_ENGINE.md)** before installation, onboarding, domain, connection, or embedded runtime work.
+
+## Layer placement
+
+| Concern | Layer | Paths |
+|---------|-------|-------|
+| Global templates & metrics | Platform | `app/platform/install-engine/`, `app/platform/installations/` |
+| Wizard, connections, learning | Customer | `app/app/`, `components/app/install-engine/` |
+| Heartbeat, discovery, context scan | Embedded | `app/api/install/`, `lib/embed/`, `lib/install/` |
+
+## Rules
+
+1. Reuse `lib/install/` constants — do not duplicate workflow steps, business types, or heartbeat statuses
+2. Plan limits via `getPlanInstallLimits()` / `lib/core/plans.ts` — never hardcode tier caps
+3. Human validation required before activating discovered capabilities (approve · modify · reject)
+4. Learning phase defaults to 30 days — no aggressive automation during supervised learning
+5. Skill recommendations must reference registered skill IDs from `lib/core/skills/registry.ts`
+6. Tenant isolation mandatory; only verified domains may activate installations
+
+> Installing Aipify should feel like onboarding an operations assistant — not configuring complicated software.

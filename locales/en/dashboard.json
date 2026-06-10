@@ -183,6 +183,37 @@
       "prepareSummary": "Prepare weekly business summary"
     }
   },
+  "installEngine": {
+    "connections": {
+      "title": "Connections",
+      "subtitle": "Connected systems, authentication status, and synchronization.",
+      "areas": {
+        "systems": "Connected Systems",
+        "auth": "Authentication Status",
+        "permissions": "Permission Levels",
+        "sync": "Last Synchronization",
+        "reconnect": "Reconnect Options",
+        "disconnect": "Disconnect Options"
+      }
+    },
+    "learning": {
+      "title": "Learning Phase",
+      "subtitle": "Supervised observation period before full automation.",
+      "duration": "Default learning period: {days} days — observe, evaluate, and improve responsibly.",
+      "areas": {
+        "observe": "Observe Workflows",
+        "evaluate": "Evaluate Recommendations",
+        "improve": "Improve Relevance",
+        "supervised": "Supervised Learning Only"
+      }
+    },
+    "validation": {
+      "approve": "Approve",
+      "modify": "Modify",
+      "reject": "Reject",
+      "error": "Could not save your response"
+    }
+  },
   "skills": {
     "title": "Skills",
     "subtitle": "View, configure, and monitor skills available to your organization.",

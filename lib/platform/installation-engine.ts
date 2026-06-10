@@ -1,3 +1,7 @@
+/**
+ * Customer wizard UI constants (Layer 2). Phase 17 Install Engine foundation
+ * lives in lib/install/ — see INSTALL_ENGINE.md.
+ */
 export const INSTALLATION_LIFECYCLE_STATUSES = [
   "draft",
   "pending_verification",

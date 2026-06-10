@@ -16,6 +16,8 @@ Before any new capability, answer [CORE_FOUNDATION.md §18](./CORE_FOUNDATION.md
 
 For **skills**, read **[SKILL_ENGINE.md](./SKILL_ENGINE.md)**. Register every capability in `lib/core/skills/registry.ts`. Follow [CORE_FOUNDATION.md §21](./CORE_FOUNDATION.md#21-skill-placement-rules) for layer placement. No skill before registry entry and placement approval.
 
+For **installation and onboarding**, read **[INSTALL_ENGINE.md](./INSTALL_ENGINE.md)**. Shared constants live in `lib/install/`; embedded runtime in `lib/embed/` and `app/api/install/`. Extend the existing wizard (`lib/platform/installation-engine.ts`) — do not replace without migration plan.
+
 ## Aipify architecture — mandatory before every feature
 
 Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.
