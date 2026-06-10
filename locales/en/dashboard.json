@@ -1,6 +1,52 @@
 {
-  "title": "Support Dashboard",
-  "overview": "Overview",
-  "activeTickets": "Active tickets",
-  "resolvedToday": "Resolved today"
+  "greeting": "Good morning, Svein",
+  "subtitle": "Here is what happened since your last login.",
+  "search": "Search...",
+  "nav": {
+    "overview": "Overview",
+    "assistant": "Assistant",
+    "install": "Install",
+    "support": "Support",
+    "analytics": "Analytics",
+    "commerce": "Commerce",
+    "notifications": "Notifications",
+    "team": "Team",
+    "settings": "Settings"
+  },
+  "stats": {
+    "supportHandled": "Support handled",
+    "tasksPending": "Tasks pending",
+    "recommendations": "Recommendations",
+    "systemHealth": "System health"
+  },
+  "assistant": {
+    "title": "Aipify Assistant",
+    "sinceLogin": "Since your last login:",
+    "items": {
+      "tickets": "3 support tickets were handled",
+      "recommendations": "2 recommendations are ready",
+      "integration": "1 integration needs attention"
+    },
+    "online": "Online",
+    "viewSummary": "View summary",
+    "askAipify": "Ask Aipify"
+  },
+  "actions": {
+    "title": "Recommended next actions",
+    "items": {
+      "reviewTickets": "Review pending support tickets",
+      "checkIntegration": "Check integration status",
+      "prepareSummary": "Prepare weekly business summary"
+    }
+  },
+  "systemStatus": {
+    "title": "System status",
+    "services": {
+      "api": "API",
+      "email": "Email",
+      "aiAssistant": "AI Assistant",
+      "database": "Database"
+    },
+    "operational": "Operational"
+  }
 }

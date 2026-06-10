@@ -1,6 +1,52 @@
 {
-  "title": "Support-dashbord",
-  "overview": "Oversikt",
-  "activeTickets": "Aktive henvendelser",
-  "resolvedToday": "Løst i dag"
+  "greeting": "God morgen, Svein",
+  "subtitle": "Dette har skjedd siden forrige innlogging.",
+  "search": "Søk...",
+  "nav": {
+    "overview": "Oversikt",
+    "assistant": "Assistent",
+    "install": "Install",
+    "support": "Support",
+    "analytics": "Analyse",
+    "commerce": "Commerce",
+    "notifications": "Varsler",
+    "team": "Team",
+    "settings": "Innstillinger"
+  },
+  "stats": {
+    "supportHandled": "Support håndtert",
+    "tasksPending": "Oppgaver venter",
+    "recommendations": "Anbefalinger",
+    "systemHealth": "Systemhelse"
+  },
+  "assistant": {
+    "title": "Aipify Assistant",
+    "sinceLogin": "Siden forrige innlogging:",
+    "items": {
+      "tickets": "3 supporthenvendelser ble håndtert",
+      "recommendations": "2 anbefalinger er klare",
+      "integration": "1 integrasjon trenger oppmerksomhet"
+    },
+    "online": "Online",
+    "viewSummary": "Se oppsummering",
+    "askAipify": "Spør Aipify"
+  },
+  "actions": {
+    "title": "Anbefalte neste handlinger",
+    "items": {
+      "reviewTickets": "Gå gjennom ventende supporthenvendelser",
+      "checkIntegration": "Sjekk integrasjonsstatus",
+      "prepareSummary": "Forbered ukentlig forretningsoppsummering"
+    }
+  },
+  "systemStatus": {
+    "title": "Systemstatus",
+    "services": {
+      "api": "API",
+      "email": "E-post",
+      "aiAssistant": "AI-assistent",
+      "database": "Database"
+    },
+    "operational": "Operativ"
+  }
 }
