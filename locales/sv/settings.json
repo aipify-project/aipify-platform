@@ -2,6 +2,22 @@
   "title": "Inställningar",
   "subtitle": "Företagsprofil, fakturering och plattformsinställningar.",
   "comingSoon": "Inställningar blir tillgängliga i en framtida version.",
+  "updates": {
+    "nav": "Uppdateringar",
+    "title": "Programuppdateringar",
+    "subtitle": "Din nuvarande Aipify-version, schemalagt underhåll och uppdateringshistorik.",
+    "loading": "Laddar uppdateringsinformation...",
+    "empty": "Inga installationer hittades.",
+    "currentVersion": "Nuvarande version",
+    "nextUpdate": "Nästa schemalagda uppdatering",
+    "noNextUpdate": "Inget underhåll schemalagt.",
+    "maintenanceWindow": "Underhållsfönster",
+    "history": "Uppdateringshistorik",
+    "noHistory": "Inga slutförda uppdateringar ännu.",
+    "status": "Uppdateringsstatus",
+    "reassurance": "Du behöver inte göra något. Aipify fortsätter övervaka efter uppdateringen.",
+    "readOnly": "Uppdateringsschemaläggning hanteras av Aipify. Du kan inte ändra utrullningslogik."
+  },
   "domains": {
     "title": "Domäner och installationer",
     "subtitle": "Hantera godkända domäner och övervaka planbegränsningar för dina webbplatser.",

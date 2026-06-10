@@ -1,0 +1,38 @@
+AIPIFY – SAFE UPDATE & VERSION DEPLOYMENT (PHASE 18)
+Status: Implemented
+Priority: Critical
+Doc: UPDATE_ENGINE.md
+
+CORE PRINCIPLE
+Updates only change Aipify software — never silently alter customer data.
+
+CODE
+- lib/update/ — types, engine, safety, presence, rollback
+- lib/embed/version.ts — embedded version reporting
+- app/api/install/version, app/api/install/update-status
+- app/platform/updates/, app/platform/updates/[id]
+- app/app/settings/updates, app/dashboard/settings/updates
+
+DATABASE (migration: 20260610500000_update_engine_phase18.sql)
+- platform_updates — maintenance windows
+- platform_update_targets — per-installation rollout
+- platform_update_audit_log — audit events
+- installations extended: target_version, update_status, rollback_available, update_channel, last_update_at
+
+RPCs
+- list_platform_updates, get_platform_update_detail
+- get_customer_update_overview
+- record_installation_version_report
+- record_update_audit_event
+
+UPDATE TYPES
+patch · minor · major · security · database_migration
+
+CHANNELS & ROLLOUT
+internal → pilot → stable → enterprise
+
+NOTIFICATION CHANNELS
+presence_center · notification_bell · email · customer_control_center · platform_admin
+
+PRESENCE MESSAGES
+Scheduled / in progress / completed / failed — lib/update/presence.ts

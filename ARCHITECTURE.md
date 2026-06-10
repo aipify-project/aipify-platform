@@ -82,6 +82,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Install Engine (Phase 17):** See [INSTALL_ENGINE.md](./INSTALL_ENGINE.md) — workflow, discovery, heartbeat, human validation, learning phase.
 
+**Update Engine (Phase 18):** See [UPDATE_ENGINE.md](./UPDATE_ENGINE.md) — safe version deployment, maintenance windows, migration approval, rollback, audit logging.
+
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.
 
 ---

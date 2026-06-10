@@ -1,0 +1,32 @@
+---
+description: Aipify Update Engine — safe version deployment without touching customer data
+alwaysApply: true
+---
+
+# Update Engine (Phase 18)
+
+Read **[UPDATE_ENGINE.md](../../UPDATE_ENGINE.md)** before any version deployment, maintenance window, migration, or rollout work.
+
+## Core rule
+
+**Updates only change Aipify software.** Never silently alter customer data, configuration, billing, domains, or permissions.
+
+## Layer placement
+
+| Concern | Layer | Paths |
+|---------|-------|-------|
+| Schedule rollout, audit, rollback | Platform | `app/platform/updates/`, `lib/update/` |
+| Customer visibility (read-only) | Customer | `app/app/settings/updates/`, `components/app/update-engine/` |
+| Version & update reporting | Embedded | `app/api/install/version`, `lib/embed/version.ts` |
+
+## Rules
+
+1. Classify every update: `patch` · `minor` · `major` · `security` · `database_migration`
+2. Database migrations require explicit approval via `validateDatabaseMigration()` — no destructive auto-migrations
+3. Notify customers before maintenance (Presence, bell, email, control center)
+4. Log all events to `platform_update_audit_log`
+5. Define rollback plan (`rollback_available`, `previous_version`, `rollback_steps`)
+6. Customers cannot modify update logic — read-only in Settings → Updates
+7. Embedded installs must validate token, domain, and tenant before reporting
+
+> A safe update system is not optional. Customers must trust that Aipify improves without risking their data.

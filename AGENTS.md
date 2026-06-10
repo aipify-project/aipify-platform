@@ -18,6 +18,8 @@ For **skills**, read **[SKILL_ENGINE.md](./SKILL_ENGINE.md)**. Register every ca
 
 For **installation and onboarding**, read **[INSTALL_ENGINE.md](./INSTALL_ENGINE.md)**. Shared constants live in `lib/install/`; embedded runtime in `lib/embed/` and `app/api/install/`. Extend the existing wizard (`lib/platform/installation-engine.ts`) — do not replace without migration plan.
 
+For **safe updates and version deployment**, read **[UPDATE_ENGINE.md](./UPDATE_ENGINE.md)**. Constants in `lib/update/`; platform rollout at `app/platform/updates/`; embedded reporting at `app/api/install/version`. Database migrations require explicit approval — updates must never silently alter customer data.
+
 ## Aipify architecture — mandatory before every feature
 
 Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.

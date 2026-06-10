@@ -2,6 +2,22 @@
   "title": "Innstillinger",
   "subtitle": "Bedriftsprofil, fakturering og plattformpreferanser.",
   "comingSoon": "Innstillinger blir tilgjengelig i en fremtidig versjon.",
+  "updates": {
+    "nav": "Oppdateringer",
+    "title": "Programvareoppdateringer",
+    "subtitle": "Din nåværende Aipify-versjon, planlagt vedlikehold og oppdateringshistorikk.",
+    "loading": "Laster oppdateringsinformasjon...",
+    "empty": "Ingen installasjoner funnet.",
+    "currentVersion": "Nåværende versjon",
+    "nextUpdate": "Neste planlagte oppdatering",
+    "noNextUpdate": "Ingen vedlikehold planlagt.",
+    "maintenanceWindow": "Vedlikeholdsvindu",
+    "history": "Oppdateringshistorikk",
+    "noHistory": "Ingen fullførte oppdateringer ennå.",
+    "status": "Oppdateringsstatus",
+    "reassurance": "Du trenger ikke gjøre noe. Aipify fortsetter overvåkingen etter oppdateringen.",
+    "readOnly": "Oppdateringsplanlegging styres av Aipify. Du kan ikke endre utrullingslogikk."
+  },
   "domains": {
     "title": "Domener og installasjoner",
     "subtitle": "Administrer godkjente domener og overvåk planbegrensninger for nettstedene dine.",

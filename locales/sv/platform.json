@@ -24,6 +24,7 @@
     "invoices": "Invoices",
     "installations": "Installations",
     "installEngine": "Install Engine",
+    "updates": "Uppdateringar",
     "metrics": "Platform Metrics",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
@@ -420,6 +421,44 @@
       "escalatedByAi": "Escalated by AI",
       "waitingHuman": "Waiting for Human",
       "openCases": "Open Cases"
+    }
+  },
+  "updates": {
+    "title": "Uppdateringar och underhåll",
+    "subtitle": "Schemalägg säkra uppdateringar, övervaka utrullning och skydda kunddata.",
+    "loading": "Laddar uppdateringar...",
+    "empty": "Inga uppdateringar schemalagda ännu.",
+    "version": "Version",
+    "status": "Status",
+    "type": "Typ",
+    "channel": "Kanal",
+    "scheduled": "Schemalagd",
+    "affected": "Installationer",
+    "view": "Visa",
+    "areas": {
+      "scheduled": "Schemalagda uppdateringar",
+      "history": "Uppdateringshistorik",
+      "rollout": "Versionsutrullning",
+      "failed": "Misslyckade uppdateringar",
+      "rollback": "Återställningsstatus"
+    },
+    "detail": {
+      "back": "Tillbaka till uppdateringar",
+      "loading": "Laddar uppdateringsdetaljer...",
+      "notFound": "Uppdatering hittades inte.",
+      "summary": "Sammanfattning",
+      "targets": "Berörda installationer",
+      "audit": "Granskningslogg",
+      "rollback": "Återställning",
+      "migration": "Migreringsstatus",
+      "notifications": "Aviseringsstatus",
+      "rollout": "Utrullningsförlopp",
+      "installation": "Installation",
+      "targetStatus": "Status",
+      "noTargets": "Inga installationer målriktade ännu.",
+      "noAudit": "Inga händelser loggade ännu.",
+      "rollbackAvailable": "Återställning är tillgänglig för denna uppdatering.",
+      "rollbackUnavailable": "Återställning är inte tillgänglig för denna uppdatering."
     }
   },
   "installEngine": {

@@ -24,6 +24,7 @@
     "invoices": "Invoices",
     "installations": "Installations",
     "installEngine": "Install Engine",
+    "updates": "Oppdateringer",
     "metrics": "Platform Metrics",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
@@ -459,6 +460,44 @@
       "escalatedByAi": "Eskalert av AI",
       "waitingHuman": "Venter på menneske",
       "openCases": "Åpne saker"
+    }
+  },
+  "updates": {
+    "title": "Oppdateringer og vedlikehold",
+    "subtitle": "Planlegg sikre oppdateringer, overvåk utrulling og beskytt kundedata.",
+    "loading": "Laster oppdateringer...",
+    "empty": "Ingen oppdateringer planlagt ennå.",
+    "version": "Versjon",
+    "status": "Status",
+    "type": "Type",
+    "channel": "Kanal",
+    "scheduled": "Planlagt",
+    "affected": "Installasjoner",
+    "view": "Vis",
+    "areas": {
+      "scheduled": "Planlagte oppdateringer",
+      "history": "Oppdateringshistorikk",
+      "rollout": "Versjonsutrulling",
+      "failed": "Feilede oppdateringer",
+      "rollback": "Tilbakerullingsstatus"
+    },
+    "detail": {
+      "back": "Tilbake til oppdateringer",
+      "loading": "Laster oppdateringsdetaljer...",
+      "notFound": "Oppdatering ikke funnet.",
+      "summary": "Oppsummering",
+      "targets": "Berørte installasjoner",
+      "audit": "Revisjonslogg",
+      "rollback": "Tilbakerulling",
+      "migration": "Migrasjonsstatus",
+      "notifications": "Varslingsstatus",
+      "rollout": "Utrullingsfremdrift",
+      "installation": "Installasjon",
+      "targetStatus": "Status",
+      "noTargets": "Ingen installasjoner målrettet ennå.",
+      "noAudit": "Ingen hendelser logget ennå.",
+      "rollbackAvailable": "Tilbakerulling er tilgjengelig for denne oppdateringen.",
+      "rollbackUnavailable": "Tilbakerulling er ikke tilgjengelig for denne oppdateringen."
     }
   },
   "installEngine": {

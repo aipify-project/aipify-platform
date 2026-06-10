@@ -2,6 +2,22 @@
   "title": "Settings",
   "subtitle": "Company profile, billing, and platform preferences.",
   "comingSoon": "Settings will be available in a future release.",
+  "updates": {
+    "nav": "Updates",
+    "title": "Software Updates",
+    "subtitle": "Your current Aipify version, scheduled maintenance, and update history.",
+    "loading": "Loading update information...",
+    "empty": "No installations found.",
+    "currentVersion": "Current version",
+    "nextUpdate": "Next scheduled update",
+    "noNextUpdate": "No maintenance scheduled.",
+    "maintenanceWindow": "Maintenance window",
+    "history": "Update history",
+    "noHistory": "No completed updates yet.",
+    "status": "Update status",
+    "reassurance": "Nothing is required from you. Aipify will continue monitoring after the update.",
+    "readOnly": "Update scheduling is managed by Aipify. You cannot modify rollout logic."
+  },
   "domains": {
     "title": "Domains & Installations",
     "subtitle": "Manage approved domains and monitor plan limits for your websites.",

@@ -24,6 +24,7 @@
     "invoices": "Invoices",
     "installations": "Installations",
     "installEngine": "Install Engine",
+    "updates": "Updates",
     "metrics": "Platform Metrics",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
@@ -614,6 +615,44 @@
       "satisfactionScore": "Customer satisfaction",
       "escalationReasons": "Escalation reasons",
       "noReasons": "No escalation reasons recorded."
+    }
+  },
+  "updates": {
+    "title": "Updates & Maintenance",
+    "subtitle": "Schedule safe updates, monitor rollout, and protect customer data.",
+    "loading": "Loading updates...",
+    "empty": "No updates scheduled yet.",
+    "version": "Version",
+    "status": "Status",
+    "type": "Type",
+    "channel": "Channel",
+    "scheduled": "Scheduled",
+    "affected": "Installations",
+    "view": "View",
+    "areas": {
+      "scheduled": "Scheduled Updates",
+      "history": "Update History",
+      "rollout": "Version Rollout",
+      "failed": "Failed Updates",
+      "rollback": "Rollback Status"
+    },
+    "detail": {
+      "back": "Back to updates",
+      "loading": "Loading update detail...",
+      "notFound": "Update not found.",
+      "summary": "Update Summary",
+      "targets": "Affected Installations",
+      "audit": "Audit Log",
+      "rollback": "Rollback",
+      "migration": "Migration Status",
+      "notifications": "Notification Status",
+      "rollout": "Rollout Progress",
+      "installation": "Installation",
+      "targetStatus": "Status",
+      "noTargets": "No installations targeted yet.",
+      "noAudit": "No audit events recorded yet.",
+      "rollbackAvailable": "Rollback is available for this update.",
+      "rollbackUnavailable": "Rollback is not available for this update."
     }
   },
   "installEngine": {
