@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { usePlatformProfile } from "@/components/platform/PlatformProfileProvider";
 import { useOptionalDashboardProfile } from "./DashboardProfileProvider";
 import { AipifyPlatformBrandMark } from "@/components/branding";
+import { LicenseSidebarPanel } from "@/components/app/license";
 import Sidebar, { type NavItem } from "./Sidebar";
 import SidebarBrand from "./SidebarBrand";
 import { PresenceProvider, type PresenceLabels } from "@/components/presence/PresenceProvider";
@@ -37,6 +38,18 @@ type DashboardShellProps = {
     versionLabel: string;
     pulseLabel: string;
   };
+  licensePanelLabels?: {
+    poweredBy: string;
+    licensedTo: string;
+    subscription: string;
+    status: string;
+    version: string;
+    copyright: string;
+    statusActive: string;
+    statusGrace: string;
+    statusPaused: string;
+    pulseLabel: string;
+  };
   presenceLabels?: PresenceLabels;
   locale?: string;
   children: React.ReactNode;
@@ -58,6 +71,7 @@ export default function DashboardShell({
   mobileNavIds,
   companyNameOverride,
   platformBrandMark,
+  licensePanelLabels,
   presenceLabels,
   locale = "en",
   children,
@@ -131,7 +145,12 @@ export default function DashboardShell({
             activeAccent={shellVariant === "customer" ? "soft" : "default"}
           />
         </div>
-        {platformBrandMark && (
+        {shellVariant === "customer" && licensePanelLabels ? (
+          <LicenseSidebarPanel
+            companyName={companyName}
+            labels={licensePanelLabels}
+          />
+        ) : platformBrandMark ? (
           <AipifyPlatformBrandMark
             appName={appName}
             poweredBy={platformBrandMark.poweredBy}
@@ -140,7 +159,7 @@ export default function DashboardShell({
             versionLabel={platformBrandMark.versionLabel}
             pulseLabel={platformBrandMark.pulseLabel}
           />
-        )}
+        ) : null}
       </aside>
 
       {sidebarOpen && (
@@ -178,7 +197,12 @@ export default function DashboardShell({
                 activeAccent={shellVariant === "customer" ? "soft" : "default"}
               />
             </div>
-            {platformBrandMark && (
+            {shellVariant === "customer" && licensePanelLabels ? (
+              <LicenseSidebarPanel
+                companyName={companyName}
+                labels={licensePanelLabels}
+              />
+            ) : platformBrandMark ? (
               <AipifyPlatformBrandMark
                 appName={appName}
                 poweredBy={platformBrandMark.poweredBy}
@@ -187,7 +211,7 @@ export default function DashboardShell({
                 versionLabel={platformBrandMark.versionLabel}
                 pulseLabel={platformBrandMark.pulseLabel}
               />
-            )}
+            ) : null}
           </aside>
         </div>
       )}

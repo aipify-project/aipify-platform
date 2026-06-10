@@ -8,6 +8,7 @@ import {
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { buildLicensePanelLabels } from "@/lib/app/license-labels";
 import { buildPresenceLabels } from "@/lib/presence/labels";
 
 export default async function DashboardLayout({
@@ -16,7 +17,14 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["common", "auth", "dashboard", "branding", "presence"]);
+  const dict = await getDictionary(locale, [
+    "common",
+    "auth",
+    "dashboard",
+    "branding",
+    "presence",
+    "license",
+  ]);
   const t = createTranslator(dict);
 
   return (
@@ -46,13 +54,7 @@ export default async function DashboardLayout({
           }))}
           shellVariant="customer"
           mobileNavIds={CUSTOMER_MOBILE_NAV_IDS}
-          platformBrandMark={{
-            poweredBy: t("branding.poweredBy"),
-            tooltipTitle: t("branding.platformTooltipTitle"),
-            tooltipTagline: t("branding.platformTooltipTagline"),
-            versionLabel: t("branding.platformVersion"),
-            pulseLabel: t("branding.pulseLabel"),
-          }}
+          licensePanelLabels={buildLicensePanelLabels(t)}
           presenceLabels={buildPresenceLabels(t)}
           locale={locale}
         >

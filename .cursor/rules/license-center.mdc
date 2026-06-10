@@ -1,0 +1,22 @@
+---
+description: Aipify License & Trust Center — transparent ownership, licensing, and payment recovery
+alwaysApply: true
+---
+
+# License & Trust Center (Phase 20)
+
+Read **[LICENSE_CENTER.md](../../LICENSE_CENTER.md)** before changes to licensing UI, payment pause logic, or ownership messaging.
+
+## Rules
+
+1. Sidebar license panel must remain small and non-intrusive — bottom of customer sidebar only
+2. Clicking sidebar panel opens `/app/license` (Trust & License Center)
+3. Grace period is **3 calendar days** — full access during grace (`PAYMENT_GRACE_PERIOD_DAYS`)
+4. After grace: pause services but **never delete** settings, preferences, installations, or approval policies
+5. Paused state must allow billing, License Center, and payment recovery
+6. Software ownership messaging: proprietary software owned by Aipify Group AS — customers receive a license, not ownership
+7. Data ownership messaging must align with [TRUST_ARCHITECTURE.md](../../TRUST_ARCHITECTURE.md)
+8. Use `get_customer_license_center()` RPC for live subscription data — do not hardcode customer license state
+9. `assert_license_capacity` must block operational actions when `license_service_status` is `paused`
+
+> Trust grows through transparency — never hide how Aipify works.

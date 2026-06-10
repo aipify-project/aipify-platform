@@ -1,0 +1,123 @@
+{
+  "sidebar": {
+    "poweredBy": "Drevet af",
+    "licensedTo": "Licenseret til:",
+    "subscription": "Abonnement:",
+    "status": "Status:",
+    "version": "Version:",
+    "copyright": "© Aipify Group AS",
+    "statusActive": "Aktiv",
+    "statusGrace": "Henstandsperiode",
+    "statusPaused": "Pauset"
+  },
+  "center": {
+    "title": "Tillids- og licenscenter",
+    "subtitle": "Gennemsigtighed om ejerskab, licens, data og dit abonnement.",
+    "loading": "Indlæser licensinformation...",
+    "backToApp": "Tilbage til kontrolcenteret",
+    "graceBanner": "Payment is overdue. You are within the 3-day grace period with full access. Please update billing to avoid service pause.",
+    "pausedBanner": "Services are paused due to an overdue subscription.",
+    "billingCta": "Go to billing",
+    "subscription": {
+      "currentPlan": "Current plan",
+      "renewalDate": "Renewal date",
+      "licenseStatus": "License status",
+      "installations": "Installations",
+      "domains": "Domains",
+      "users": "Users",
+      "paymentStatus": "Payment status"
+    },
+    "sections": {
+      "license_information": {
+        "title": "License Information",
+        "body": [
+          "You receive a limited license to use Aipify software for your organization.",
+          "This license is tied to your subscription plan and approved domains.",
+          "License status is shown in the sidebar and on this page."
+        ]
+      },
+      "software_ownership": {
+        "title": "Software Ownership",
+        "body": [
+          "Aipify is proprietary software owned by {owner}.",
+          "Customers receive a license to use the software.",
+          "Customers do not receive ownership rights to the software itself.",
+          "Unauthorized copying, redistribution, reverse engineering, or tampering is prohibited."
+        ]
+      },
+      "subscription_status": {
+        "title": "Subscription Status",
+        "body": [
+          "Your plan, renewal date, and usage limits are listed above."
+        ]
+      },
+      "data_ownership": {
+        "title": "Data Ownership",
+        "body": [
+          "Your business data remains under your control.",
+          "Aipify stores intelligence and operational metadata required to deliver its services.",
+          "Aipify does not assume ownership of your operational systems.",
+          "You may revoke permissions according to platform policies."
+        ]
+      },
+      "security_principles": {
+        "title": "Security Principles",
+        "body": [
+          "Aipify does not function as an employee monitoring system.",
+          "Aipify does not access cameras or microphones.",
+          "Aipify only accesses approved systems.",
+          "Permissions remain transparent and auditable."
+        ]
+      },
+      "update_policy": {
+        "title": "Update Policy",
+        "body": [
+          "Aipify periodically receives updates to improve security, stability, and functionality.",
+          "Customers receive advance notice before planned maintenance.",
+          "Critical security updates may be applied with shortened notice periods."
+        ]
+      },
+      "payment_policy": {
+        "title": "Payment Policy",
+        "body": [
+          "Grace period: 3 calendar days after payment becomes overdue.",
+          "During grace period: warning notifications are shown and full access remains available.",
+          "After grace period: Aipify services pause, configuration and metadata are preserved.",
+          "Upon successful payment: services reactivate automatically with previous configuration restored."
+        ]
+      },
+      "contact_information": {
+        "title": "Contact Information",
+        "body": [
+          "Official website: {website}",
+          "Support: {support}",
+          "Privacy: {privacy}"
+        ]
+      },
+      "legal_information": {
+        "title": "Legal Information",
+        "body": [
+          "Software owner: {owner}",
+          "Website: {website}",
+          "Support contact: {support}",
+          "Privacy contact: {privacy}"
+        ]
+      },
+      "anti_tampering": {
+        "title": "Anti-Tampering Policy",
+        "body": [
+          "Configure Aipify only through supported interfaces.",
+          "Unauthorized modification of licensing, security controls, or installation mechanisms is prohibited.",
+          "Aipify may disable installations that have been intentionally compromised."
+        ]
+      },
+      "enterprise_note": {
+        "title": "Enterprise",
+        "body": [
+          "Enterprise customers may negotiate custom agreements.",
+          "Extended grace periods, custom maintenance windows, dedicated deployments, and customer-hosted intelligence are available."
+        ]
+      }
+    }
+  }
+}

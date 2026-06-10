@@ -86,6 +86,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Trust Architecture (Phase 19):** See [TRUST_ARCHITECTURE.md](./TRUST_ARCHITECTURE.md) — data ownership, access levels, metadata-first storage, immutable audit, Security Dashboard.
 
+**License & Trust Center (Phase 20):** See [LICENSE_CENTER.md](./LICENSE_CENTER.md) — sidebar license panel, `/app/license`, payment grace period, pause/reactivation policy.
+
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.
 
 ---

@@ -6,6 +6,7 @@ import { APP_MOBILE_NAV_IDS } from "@/lib/app/nav-config";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { buildLicensePanelLabels } from "@/lib/app/license-labels";
 import { buildPresenceLabels } from "@/lib/presence/labels";
 
 export default async function AppLayout({
@@ -20,6 +21,7 @@ export default async function AppLayout({
     "dashboard",
     "branding",
     "presence",
+    "license",
   ]);
   const t = createTranslator(dict);
 
@@ -59,13 +61,7 @@ export default async function AppLayout({
           })}
           shellVariant="customer"
           mobileNavIds={APP_MOBILE_NAV_IDS}
-          platformBrandMark={{
-            poweredBy: t("branding.poweredBy"),
-            tooltipTitle: t("branding.platformTooltipTitle"),
-            tooltipTagline: t("branding.platformTooltipTagline"),
-            versionLabel: t("branding.platformVersion"),
-            pulseLabel: t("branding.pulseLabel"),
-          }}
+          licensePanelLabels={buildLicensePanelLabels(t)}
           presenceLabels={buildPresenceLabels(t)}
           locale={locale}
         >

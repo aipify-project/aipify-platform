@@ -22,6 +22,8 @@ For **safe updates and version deployment**, read **[UPDATE_ENGINE.md](./UPDATE_
 
 For **trust, privacy, and data ownership**, read **[TRUST_ARCHITECTURE.md](./TRUST_ARCHITECTURE.md)**. Rules in `lib/trust/`; customer Security Dashboard at Settings → Security; installation validation in `lib/embed/validation.ts`. Customer owns data — store metadata, not operational records, unless explicitly approved.
 
+For **licensing and ownership transparency**, read **[LICENSE_CENTER.md](./LICENSE_CENTER.md)**. Constants in `lib/license/`; sidebar panel + Trust Center at `/app/license`; 3-day payment grace period before service pause.
+
 ## Aipify architecture — mandatory before every feature
 
 Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.

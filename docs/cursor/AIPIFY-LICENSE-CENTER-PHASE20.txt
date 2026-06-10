@@ -1,0 +1,29 @@
+AIPIFY – LICENSE, OWNERSHIP & TRUST CENTER (PHASE 20)
+Status: Implemented
+Priority: Critical
+Doc: LICENSE_CENTER.md
+
+OBJECTIVE
+Transparent ownership, licensing, subscription status, and payment recovery.
+
+SIDEBAR PANEL
+Powered by Aipify™ · Licensed to · Subscription · Status · Version · © Aipify Group AS
+Click → /app/license
+
+TRUST & LICENSE CENTER SECTIONS
+License · Software Ownership · Subscription · Data Ownership · Security · Updates · Payment · Contact · Legal · Anti-Tampering · Enterprise
+
+CODE
+- lib/license/ — grace period (3 days), pause policy, ownership statements
+- components/app/license/LicenseSidebarPanel.tsx
+- components/app/license/TrustLicenseCenterPanel.tsx
+- app/app/license, app/dashboard/license
+
+DATABASE (migration: 20260610700000_license_center_phase20.sql)
+- subscriptions.license_service_status
+- resolve_license_service_status
+- get_customer_license_center
+- assert_license_capacity blocks when paused
+
+PAYMENT POLICY
+3-day grace (full access) → pause services (preserve config) → auto-reactivate on payment
