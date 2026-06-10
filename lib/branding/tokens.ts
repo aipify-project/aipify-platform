@@ -29,6 +29,13 @@ export const AIPIFY_BRAND = {
   platform: {
     version: "1.0",
   },
+  sidebarMark: {
+    pulseSize: 22,
+    pulseOpacity: 0.28,
+    pulseHoverOpacity: 0.38,
+    textOpacity: 0.42,
+    textHoverOpacity: 0.58,
+  },
 } as const;
 
 export type AipifyPulseSize = keyof typeof AIPIFY_BRAND.pulse.sizes;

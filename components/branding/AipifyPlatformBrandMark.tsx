@@ -18,54 +18,45 @@ export default function AipifyPlatformBrandMark({
   poweredBy,
   tooltipTitle,
   tooltipTagline,
-  versionLabel,
   pulseLabel,
 }: AipifyPlatformBrandMarkProps) {
   const [hovered, setHovered] = useState(false);
+  const { sidebarMark } = AIPIFY_BRAND;
 
   return (
     <div
-      className="relative mx-3 mb-3 rounded-2xl border border-violet-100/80 bg-gradient-to-br from-violet-50/50 to-white px-4 py-3.5"
-      tabIndex={0}
+      className="relative shrink-0 px-5 pb-5 pt-3"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onFocus={() => setHovered(true)}
-      onBlur={() => setHovered(false)}
+      aria-hidden="true"
     >
       <div
-        className="flex items-center gap-3 text-violet-700 transition-all duration-200"
+        className="flex items-center gap-2.5 transition-opacity duration-300 ease-out"
         style={{
-          opacity: hovered
-            ? AIPIFY_BRAND.pulse.hoverOpacity
-            : AIPIFY_BRAND.pulse.defaultOpacity,
+          opacity: hovered ? sidebarMark.textHoverOpacity : sidebarMark.textOpacity,
         }}
-        aria-hidden={false}
       >
         <AipifyPulse
-          size="md"
-          variant="gradient"
+          size={sidebarMark.pulseSize}
+          variant="mono"
+          opacity={hovered ? sidebarMark.pulseHoverOpacity : sidebarMark.pulseOpacity}
           title={pulseLabel}
           aria-label={pulseLabel}
-          className="text-violet-600"
+          className="shrink-0 text-violet-600/80"
         />
-        <div className="min-w-0">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-violet-500/80">
-            {poweredBy}
-          </p>
-          <p className="text-sm font-semibold tracking-tight text-gray-800">{appName}</p>
+        <div className="min-w-0 leading-tight">
+          <p className="text-[11px] font-normal text-gray-500">{poweredBy}</p>
+          <p className="text-xs font-medium tracking-tight text-gray-600">{appName}</p>
         </div>
       </div>
 
       {hovered && (
         <div
           role="tooltip"
-          className="absolute bottom-full left-5 z-20 mb-2 w-52 rounded-xl border border-violet-100 bg-white px-3 py-2.5 text-left shadow-lg"
+          className="pointer-events-none absolute bottom-full left-5 z-20 mb-2 w-48 rounded-lg border border-gray-100 bg-white/95 px-3 py-2 text-left shadow-sm backdrop-blur-sm"
         >
-          <p className="text-xs font-semibold text-gray-900">{tooltipTitle}</p>
-          <p className="mt-1 text-xs leading-relaxed text-gray-500">{tooltipTagline}</p>
-          <p className="mt-2 text-[10px] font-medium uppercase tracking-wide text-gray-400">
-            {versionLabel}
-          </p>
+          <p className="text-xs font-medium text-gray-800">{tooltipTitle}</p>
+          <p className="mt-0.5 text-xs leading-relaxed text-gray-500">{tooltipTagline}</p>
         </div>
       )}
     </div>
