@@ -1,4 +1,5 @@
 export type PlatformNavId =
+  | "executive"
   | "overview"
   | "customers"
   | "subscriptions"
@@ -89,6 +90,7 @@ export type PlatformNavItem = {
 };
 
 export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
+  { id: "executive", href: "/platform/executive", labelKey: "platform.nav.executive" },
   { id: "overview", href: "/platform", labelKey: "platform.nav.overview" },
   {
     id: "customers",
@@ -155,6 +157,7 @@ export const PLATFORM_MOBILE_NAV_IDS: PlatformNavId[] = [
 ];
 
 export function getPlatformActiveNavId(pathname: string): PlatformNavId {
+  if (pathname.startsWith("/platform/executive")) return "executive";
   if (pathname.startsWith("/platform/customers")) return "customers";
   if (pathname.startsWith("/platform/subscriptions")) return "subscriptions";
   if (pathname.startsWith("/platform/billing")) return "billing";

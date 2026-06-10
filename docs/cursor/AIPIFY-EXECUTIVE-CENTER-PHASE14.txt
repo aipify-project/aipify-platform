@@ -1,0 +1,45 @@
+PHASE 14 – AIPIFY EXECUTIVE CENTER
+Version: 1.0
+Status: Implemented
+
+OBJECTIVE
+Unified CEO experience at /platform/executive — one screen summarizing intelligence,
+actions, healing, and operational health in business language.
+
+MODULE
+- Route: /platform/executive
+- Nav: Executive Center (first item in platform sidebar)
+- Panel: PlatformExecutiveCenterPanel
+
+DATABASE
+Migration: 20260610360000_executive_center.sql
+- RPC: get_executive_center_bundle(p_since timestamptz)
+- Seeds executive timeline presence events for demo briefing
+
+SECTIONS
+1. Personalized greeting + since-last-visit summary
+2. Executive metric cards (health, AI activity, time saved, approvals, satisfaction, revenue)
+3. Executive timeline (business-language event titles)
+4. AI workload (monitoring, learning, healing, automations, support)
+5. Executive approvals (inline approve/decline via Action Engine APIs)
+6. Executive recommendations (approve/review/dismiss)
+7. Executive insights (why explanations)
+8. Weekly executive summary
+9. Monthly report (HTML print view via /api/platform/executive/monthly-report)
+
+PRESENCE
+Executive Center activates executive view mode via update_presence_settings on load.
+
+REUSED SYSTEMS
+- record_platform_admin_login (session + since timestamp)
+- platform_actions (pending approvals, metrics)
+- global_patterns (recommendations)
+- presence_events (timeline)
+- Action Engine API routes (approve/reject)
+
+PLAN TIERS (documented, not enforced in UI yet)
+- Starter: basic reporting
+- Business: Executive Center
+- Enterprise: Executive Center + predictive insights
+- Aipify Group: full access
+- Unonight: pilot Executive Center

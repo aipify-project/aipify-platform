@@ -1,0 +1,113 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildExecutiveCenterLabels(t: Translator) {
+  return {
+    title: t("platform.executive.title"),
+    subtitle: t("platform.executive.subtitle"),
+    loading: t("platform.executive.loading"),
+    greetingMorning: t("platform.executive.greetingMorning"),
+    greetingAfternoon: t("platform.executive.greetingAfternoon"),
+    greetingEvening: t("platform.executive.greetingEvening"),
+    sinceVisit: t("platform.executive.sinceVisit"),
+    resolved: {
+      incidents: t("platform.executive.resolved.incidents"),
+      webhooks: t("platform.executive.resolved.webhooks"),
+      support: t("platform.executive.resolved.support"),
+    },
+    waiting: {
+      approvals: t("platform.executive.waiting.approvals"),
+      recommendations: t("platform.executive.waiting.recommendations"),
+    },
+    overallHealth: t("platform.executive.overallHealth"),
+    cards: {
+      businessHealth: t("platform.executive.cards.businessHealth"),
+      aiActivity: t("platform.executive.cards.aiActivity"),
+      aiActivitySub: t("platform.executive.cards.aiActivitySub"),
+      timeSaved: t("platform.executive.cards.timeSaved"),
+      timeSavedSub: t("platform.executive.cards.timeSavedSub"),
+      pendingApprovals: t("platform.executive.cards.pendingApprovals"),
+      pendingApprovalsSub: t("platform.executive.cards.pendingApprovalsSub"),
+      customerSatisfaction: t("platform.executive.cards.customerSatisfaction"),
+      customerSatisfactionSub: t("platform.executive.cards.customerSatisfactionSub"),
+      revenueOpportunities: t("platform.executive.cards.revenueOpportunities"),
+      revenueOpportunitiesSub: t("platform.executive.cards.revenueOpportunitiesSub"),
+      deltaUp: t("platform.executive.cards.deltaUp"),
+    },
+    timeline: {
+      title: t("platform.executive.timeline.title"),
+      empty: t("platform.executive.timeline.empty"),
+    },
+    recommendations: {
+      title: t("platform.executive.recommendations.title"),
+      empty: t("platform.executive.recommendations.empty"),
+      impact: t("platform.executive.recommendations.impact"),
+      businessImpact: t("platform.executive.recommendations.businessImpact"),
+      suggestedAction: t("platform.executive.recommendations.suggestedAction"),
+      expectedBenefit: t("platform.executive.recommendations.expectedBenefit"),
+      approve: t("platform.executive.recommendations.approve"),
+      review: t("platform.executive.recommendations.review"),
+      dismiss: t("platform.executive.recommendations.dismiss"),
+      impactLabels: {
+        high: t("platform.executive.recommendations.impactHigh"),
+        medium: t("platform.executive.recommendations.impactMedium"),
+        low: t("platform.executive.recommendations.impactLow"),
+      },
+    },
+    insights: {
+      title: t("platform.executive.insights.title"),
+      recommendation: t("platform.executive.insights.recommendation"),
+    },
+    workload: {
+      title: t("platform.executive.workload.title"),
+      monitoring: t("platform.executive.workload.monitoring"),
+      learning: t("platform.executive.workload.learning"),
+      healing: t("platform.executive.workload.healing"),
+      automations: t("platform.executive.workload.automations"),
+      support: t("platform.executive.workload.support"),
+    },
+    approvals: {
+      title: t("platform.executive.approvals.title"),
+      empty: t("platform.executive.approvals.empty"),
+      impact: t("platform.executive.approvals.impact"),
+      affectedCustomers: t("platform.executive.approvals.affectedCustomers"),
+      rollback: t("platform.executive.approvals.rollback"),
+      rollbackYes: t("platform.executive.approvals.rollbackYes"),
+      rollbackNo: t("platform.executive.approvals.rollbackNo"),
+      approve: t("platform.executive.approvals.approve"),
+      decline: t("platform.executive.approvals.decline"),
+      processing: t("platform.executive.approvals.processing"),
+      riskLabels: {
+        low: t("platform.executive.approvals.riskLow"),
+        medium: t("platform.executive.approvals.riskMedium"),
+        high: t("platform.executive.approvals.riskHigh"),
+        critical: t("platform.executive.approvals.riskCritical"),
+      },
+    },
+    weekly: {
+      title: t("platform.executive.weekly.title"),
+      subtitle: t("platform.executive.weekly.subtitle"),
+      healthTrend: t("platform.executive.weekly.healthTrend"),
+      revenueOpportunities: t("platform.executive.weekly.revenueOpportunities"),
+      supportTrend: t("platform.executive.weekly.supportTrend"),
+      learningDiscoveries: t("platform.executive.weekly.learningDiscoveries"),
+      healingEffectiveness: t("platform.executive.weekly.healingEffectiveness"),
+      priorities: t("platform.executive.weekly.priorities"),
+    },
+    monthly: {
+      title: t("platform.executive.monthly.title"),
+      subtitle: t("platform.executive.monthly.subtitle"),
+      download: t("platform.executive.monthly.download"),
+      sections: {
+        executiveSummary: t("platform.executive.monthly.sections.executiveSummary"),
+        operationalPerformance: t("platform.executive.monthly.sections.operationalPerformance"),
+        aiImpact: t("platform.executive.monthly.sections.aiImpact"),
+        timeSaved: t("platform.executive.monthly.sections.timeSaved"),
+        growthOpportunities: t("platform.executive.monthly.sections.growthOpportunities"),
+        strategicRecommendations: t("platform.executive.monthly.sections.strategicRecommendations"),
+      },
+    },
+    presence: t("platform.executive.presence"),
+  };
+}
+
+export type ExecutiveCenterLabels = ReturnType<typeof buildExecutiveCenterLabels>;

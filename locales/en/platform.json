@@ -30,7 +30,111 @@
     "automations": "Automations",
     "intelligence": "Intelligence",
     "actions": "Action Center",
+    "executive": "Executive Center",
     "system": "System status"
+  },
+  "executive": {
+    "title": "Executive Center",
+    "subtitle": "One screen. One truth. Everything that matters for your business — without browsing modules.",
+    "loading": "Preparing your executive briefing...",
+    "greetingMorning": "Good morning, {name}.",
+    "greetingAfternoon": "Good afternoon, {name}.",
+    "greetingEvening": "Good evening, {name}.",
+    "sinceVisit": "Here's what happened since your last visit.",
+    "resolved": {
+      "incidents": "{count} operational incidents resolved.",
+      "webhooks": "{count} webhook failures repaired.",
+      "support": "{count} support requests handled."
+    },
+    "waiting": {
+      "approvals": "{count} medium-risk action awaiting approval.",
+      "recommendations": "{count} business improvements discovered."
+    },
+    "overallHealth": "Overall health: {score}%.",
+    "cards": {
+      "businessHealth": "Business health",
+      "aiActivity": "AI activity today",
+      "aiActivitySub": "Actions performed.",
+      "timeSaved": "Time saved",
+      "timeSavedSub": "Estimated.",
+      "pendingApprovals": "Pending approvals",
+      "pendingApprovalsSub": "Needs review.",
+      "customerSatisfaction": "Customer satisfaction",
+      "customerSatisfactionSub": "Estimated trend.",
+      "revenueOpportunities": "Revenue opportunities",
+      "revenueOpportunitiesSub": "Potential upgrades identified.",
+      "deltaUp": "↑ +{delta}%"
+    },
+    "timeline": {
+      "title": "Executive timeline",
+      "empty": "No executive events recorded today."
+    },
+    "recommendations": {
+      "title": "Executive recommendations",
+      "empty": "No high-priority recommendations right now.",
+      "impact": "Impact",
+      "businessImpact": "Business impact",
+      "suggestedAction": "Suggested action",
+      "expectedBenefit": "Expected benefit",
+      "approve": "Approve",
+      "review": "Review",
+      "dismiss": "Dismiss",
+      "impactHigh": "High impact",
+      "impactMedium": "Medium impact",
+      "impactLow": "Low impact"
+    },
+    "insights": {
+      "title": "Executive insights",
+      "recommendation": "Recommendation"
+    },
+    "workload": {
+      "title": "AI workload",
+      "monitoring": "Monitoring environments",
+      "learning": "Learning patterns",
+      "healing": "Recoveries",
+      "automations": "Automation executions",
+      "support": "Support resolutions"
+    },
+    "approvals": {
+      "title": "Executive approvals",
+      "empty": "No approvals waiting.",
+      "impact": "Impact",
+      "affectedCustomers": "Affected customers: {count}.",
+      "rollback": "Rollback available",
+      "rollbackYes": "Yes",
+      "rollbackNo": "No",
+      "approve": "Approve",
+      "decline": "Decline",
+      "processing": "Processing...",
+      "riskLow": "Low",
+      "riskMedium": "Medium",
+      "riskHigh": "High",
+      "riskCritical": "Critical"
+    },
+    "weekly": {
+      "title": "Weekly executive summary",
+      "subtitle": "Generated automatically every Monday morning.",
+      "healthTrend": "Health trend",
+      "revenueOpportunities": "Revenue opportunities",
+      "supportTrend": "Support trend",
+      "learningDiscoveries": "Learning discoveries",
+      "healingEffectiveness": "Healing effectiveness",
+      "priorities": "Recommended priorities"
+    },
+    "monthly": {
+      "title": "Monthly executive report",
+      "subtitle": "PDF-ready report for {period}.",
+      "download": "Generate report",
+      "sections": {
+        "executiveSummary": "Executive Summary",
+        "operationalPerformance": "Operational Performance",
+        "aiImpact": "AI Impact",
+        "timeSaved": "Time Saved",
+        "growthOpportunities": "Growth Opportunities",
+        "strategicRecommendations": "Strategic Recommendations"
+      }
+    },
+    "presence": "Aipify Presence"
   },
   "overview": {
     "title": "Aipify Platform Admin",
