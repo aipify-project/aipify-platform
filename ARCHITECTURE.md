@@ -90,6 +90,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Anonymised Impact Metrics (Phase 21):** See [IMPACT_METRICS.md](./IMPACT_METRICS.md) — `/platform/impact`, marketing proof export, install metric events, Trust Center disclosure.
 
+**Skill Operating System (Phase 22):** See [SKILLOS.md](./SKILLOS.md) — skill registry tables, tenant skills, permissions, health, audit, `/platform/skills`, `/app/skills`.
+
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.
 
 ---

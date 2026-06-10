@@ -1,0 +1,26 @@
+PHASE 22 – AIPIFY SKILL OPERATING SYSTEM (SKILLOS)
+Status: Implemented foundation
+Priority: CRITICAL
+
+GOAL
+Build the operational foundation for modular, secure, scalable Skills under shared principles.
+
+LAYER OWNERSHIP
+- Platform Admin: skill definitions, versions, global governance (/platform/skills)
+- Customer App: tenant skills, permissions, learning (/app/skills)
+- Install Engine: health reporting (POST /api/install/skill-health)
+
+CODE
+- lib/skillos/ — types, lifecycle, permissions, learning, success-score
+- supabase/migrations/20260610900000_skillos_phase22.sql
+- components/platform/skills/PlatformSkillOSPanel.tsx
+- components/app/skills/CustomerSkillOSPanel.tsx
+- SKILLOS.md, .cursor/rules/skillos.mdc
+
+TABLES
+skills, skill_versions, tenant_skills, skill_permissions, skill_health, skill_events, skill_audit_logs
+
+FINAL PRINCIPLE
+Features create software. Skills create intelligence. SkillOS creates an ecosystem.
+
+END OF PHASE 22

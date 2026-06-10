@@ -1,0 +1,30 @@
+---
+description: Aipify Skill Operating System — modular, secure, auditable skill framework
+alwaysApply: true
+---
+
+# Skill Operating System (Phase 22)
+
+Read **[SKILLOS.md](../../SKILLOS.md)** before changes to skill persistence, permissions, health, or rollout.
+
+## Layer ownership (mandatory before implementation)
+
+| Surface | Owner |
+|---------|-------|
+| Skill definitions, versions, global governance | **Platform Admin** |
+| Installed skills, permissions, learning preferences | **Customer App** |
+| Execution, health reporting, permission validation | **Install Engine** |
+
+## Rules
+
+1. Every Skill must register in `lib/core/skills/registry.ts` **and** persist via SkillOS tables when runtime state is needed
+2. Least privilege — Skills request only required permissions; new permissions require customer approval
+3. Learning default is **assisted** — modes: `disabled`, `assisted`, `adaptive`
+4. No public marketplace UI until explicitly approved — database prep only
+5. Release pipeline: Aipify Internal → Unonight Pilot → Beta Customers → Stable Release
+6. Success score range 0–100 via `compute_skill_success_score()`
+7. Phase 16 code registry and Phase 22 DB state are complementary — do not duplicate definitions without sync plan
+8. Install health via `POST /api/install/skill-health` only — no cross-tenant DB access
+9. Skill events and audit logs must never store email content, chat, orders, or PII
+
+> A coordinated team of specialised Skills — not one AI trying to do everything.

@@ -203,6 +203,25 @@
   "skills": {
     "title": "Skills",
     "subtitle": "Visa, konfigurera och övervaka skills tillgängliga för din organisation.",
+    "loading": "Laddar skill-arbetsyta...",
+    "empty": "Skill-arbetsyta är inte tillgänglig ännu.",
+    "principle": "Varje Skill begär endast de behörigheter den behöver. Nya behörigheter kräver godkännande.",
+    "installed": {
+      "title": "Installerade skills",
+      "none": "Inga skills installerade ännu."
+    },
+    "available": {
+      "title": "Tillgängliga skills",
+      "none": "Inga fler skills tillgängliga för din plan."
+    },
+    "columns": {
+      "name": "Skill",
+      "category": "Kategori",
+      "status": "Status",
+      "learning": "Inlärning",
+      "health": "Hälsa",
+      "success": "Framgångspoäng"
+    },
     "areas": {
       "installed": "Installerade skills",
       "settings": "Skill-inställningar",

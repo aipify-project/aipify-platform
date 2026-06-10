@@ -529,10 +529,22 @@
     }
   },
   "skills": {
-    "title": "Skill-register",
-    "subtitle": "Styrning och administration av Aipify-skills för alla tenants.",
+    "title": "Skill Operating System",
+    "subtitle": "Styr skill-definitioner, versioner, utrullning och global hälsa för alla tenants.",
+    "loading": "Laddar SkillOS-dashboard...",
+    "empty": "SkillOS-dashboard är inte tillgänglig ännu.",
+    "principle": "Funktioner skapar programvara. Skills skapar intelligens. SkillOS skapar ett ekosystem.",
     "registryLabel": "Centralt register",
     "registryStats": "{total} skills registrerade ({core} core, {operational} operativa)",
+    "registry": {
+      "total": "Skill-definitioner",
+      "versions": "Utgivna versioner",
+      "installs": "Tenant-installationer"
+    },
+    "status": { "title": "Skills efter status" },
+    "category": { "title": "Skills efter kategori" },
+    "pipeline": { "title": "Intern valideringspipeline" },
+    "codeRegistry": { "title": "Kodregister (Fas 16)" },
     "areas": {
       "registry": "Skill-register",
       "governance": "Skill-styrning",

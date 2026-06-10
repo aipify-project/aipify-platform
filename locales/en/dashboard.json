@@ -217,6 +217,25 @@
   "skills": {
     "title": "Skills",
     "subtitle": "View, configure, and monitor skills available to your organization.",
+    "loading": "Loading your skill workspace...",
+    "empty": "Skill workspace is not available yet.",
+    "principle": "Every Skill requests only the permissions it requires. New permissions require approval.",
+    "installed": {
+      "title": "Installed Skills",
+      "none": "No skills installed yet."
+    },
+    "available": {
+      "title": "Available Skills",
+      "none": "No additional skills available for your plan."
+    },
+    "columns": {
+      "name": "Skill",
+      "category": "Category",
+      "status": "Status",
+      "learning": "Learning",
+      "health": "Health",
+      "success": "Success score"
+    },
     "areas": {
       "installed": "Installed Skills",
       "settings": "Skill Settings",

@@ -5,3 +5,4 @@
  */
 
 export { PlatformSkillsScaffold } from "./PlatformSkillsScaffold";
+export { PlatformSkillOSPanel } from "./PlatformSkillOSPanel";

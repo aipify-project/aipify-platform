@@ -5,3 +5,4 @@
  */
 
 export { CustomerSkillsScaffold } from "./CustomerSkillsScaffold";
+export { CustomerSkillOSPanel } from "./CustomerSkillOSPanel";

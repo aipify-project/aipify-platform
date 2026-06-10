@@ -203,6 +203,25 @@
   "skills": {
     "title": "Skills",
     "subtitle": "Se, konfigurer og overvåk skills tilgjengelig for organisasjonen din.",
+    "loading": "Laster skill-arbeidsområde...",
+    "empty": "Skill-arbeidsområde er ikke tilgjengelig ennå.",
+    "principle": "Hver Skill ber kun om tillatelsene den trenger. Nye tillatelser krever godkjenning.",
+    "installed": {
+      "title": "Installerte skills",
+      "none": "Ingen skills installert ennå."
+    },
+    "available": {
+      "title": "Tilgjengelige skills",
+      "none": "Ingen flere skills tilgjengelig for planen din."
+    },
+    "columns": {
+      "name": "Skill",
+      "category": "Kategori",
+      "status": "Status",
+      "learning": "Læring",
+      "health": "Helse",
+      "success": "Suksess-score"
+    },
     "areas": {
       "installed": "Installerte skills",
       "settings": "Skill-innstillinger",

@@ -723,10 +723,22 @@
     }
   },
   "skills": {
-    "title": "Skill Registry",
-    "subtitle": "Governance and administration of Aipify skills across all tenants.",
+    "title": "Skill Operating System",
+    "subtitle": "Govern skill definitions, versions, rollouts, and global health across all tenants.",
+    "loading": "Loading SkillOS dashboard...",
+    "empty": "SkillOS dashboard is not available yet.",
+    "principle": "Features create software. Skills create intelligence. SkillOS creates an ecosystem.",
     "registryLabel": "Central registry",
     "registryStats": "{total} skills registered ({core} core, {operational} operational)",
+    "registry": {
+      "total": "Skill definitions",
+      "versions": "Released versions",
+      "installs": "Tenant installations"
+    },
+    "status": { "title": "Skills by status" },
+    "category": { "title": "Skills by category" },
+    "pipeline": { "title": "Internal validation pipeline" },
+    "codeRegistry": { "title": "Code registry (Phase 16)" },
     "areas": {
       "registry": "Skill Registry",
       "governance": "Skill Governance",
