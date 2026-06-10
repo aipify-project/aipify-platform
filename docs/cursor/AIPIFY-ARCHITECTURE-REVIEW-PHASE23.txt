@@ -1,0 +1,21 @@
+PHASE 23 – ARCHITECTURE REVIEW & STABILIZATION
+Status: Complete (review only — no feature expansion)
+Priority: CRITICAL
+
+DELIVERABLE
+ARCHITECTURE_REVIEW.md — full route, component, database, and layer audit.
+
+IMMEDIATE FIXES
+- Payment Providers added to Platform sidebar nav
+- lib/core/layers.ts includes /api/installations
+
+KEY FINDINGS
+- Three-layer foundation is sound (Platform / Customer / Install)
+- Dual customer shell: /dashboard (legacy) vs /app (canonical) — migration incomplete
+- No urgent WRONG LAYER blockers
+- SkillOS, Trust, License, Update, Impact verified
+
+NEXT PHASE
+Phase 24 — Customer App migration & shell unification
+
+END OF PHASE 23

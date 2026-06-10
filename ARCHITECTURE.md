@@ -92,6 +92,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Skill Operating System (Phase 22):** See [SKILLOS.md](./SKILLOS.md) — skill registry tables, tenant skills, permissions, health, audit, `/platform/skills`, `/app/skills`.
 
+**Architecture Review (Phase 23):** See [ARCHITECTURE_REVIEW.md](./ARCHITECTURE_REVIEW.md) — layer audit, migration priorities, stabilization rules. `/dashboard/*` is legacy; `/app/*` is canonical.
+
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.
 
 ---

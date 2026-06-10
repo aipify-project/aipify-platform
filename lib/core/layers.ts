@@ -15,7 +15,11 @@ export const LAYER_LIB_PATH: Record<AipifyLayer, string> = {
 export function layerForPathname(pathname: string): AipifyLayer | null {
   if (pathname.startsWith("/platform")) return "platform";
   if (pathname.startsWith("/app") || pathname.startsWith("/dashboard")) return "app";
-  if (pathname.startsWith("/api/embed") || pathname.startsWith("/api/install")) {
+  if (
+    pathname.startsWith("/api/embed") ||
+    pathname.startsWith("/api/install") ||
+    pathname.startsWith("/api/installations")
+  ) {
     return "embed";
   }
   return null;

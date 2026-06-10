@@ -118,6 +118,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.invoices",
   },
   {
+    id: "paymentProviders",
+    href: "/platform/payment-providers",
+    labelKey: "platform.nav.paymentProviders",
+  },
+  {
     id: "installations",
     href: "/platform/installations",
     labelKey: "platform.nav.installations",

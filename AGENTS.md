@@ -28,6 +28,8 @@ For **anonymised impact metrics and marketing proof**, read **[IMPACT_METRICS.md
 
 For **the Skill Operating System**, read **[SKILLOS.md](./SKILLOS.md)**. Constants in `lib/skillos/`; platform governance at `/platform/skills`; customer workspace at `/app/skills`; install health at `/api/install/skill-health`. Register every capability in `lib/core/skills/registry.ts` first.
 
+For **architecture review and stabilization**, read **[ARCHITECTURE_REVIEW.md](./ARCHITECTURE_REVIEW.md)** (Phase 23). Canonical customer routes are `/app/*`; `/dashboard/*` is legacy. Do not expand Platform Admin with customer daily workflows.
+
 ## Aipify architecture — mandatory before every feature
 
 Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.

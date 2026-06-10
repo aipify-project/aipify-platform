@@ -1,0 +1,23 @@
+---
+description: Architecture review outcomes — layer placement and stabilization priorities
+alwaysApply: true
+---
+
+# Architecture Review (Phase 23)
+
+Read **[ARCHITECTURE_REVIEW.md](../../ARCHITECTURE_REVIEW.md)** before large refactors or new surface areas.
+
+## Stabilization rules
+
+1. **No new major features** until Customer App migration milestones are met (Phase 24)
+2. Canonical customer routes are **`/app/*`** — `/dashboard/*` is legacy; do not add new dashboard-only pages
+3. **Platform Admin** must not become the customer daily workspace
+4. Declare **Feature owner** before every implementation (see [layer-ownership.mdc](./layer-ownership.mdc))
+5. `/platform/metrics` ≠ `/platform/impact` — business KPIs vs anonymised proof
+6. `/platform/executive` ≠ customer Executive Dashboard — different layers when building `/app/executive`
+7. Install runtime: `/api/install/*` + `/api/embed/*` (+ `/api/installations/*` for wizard)
+8. Do not store customer email/chat/order content in platform metrics or audit tables
+
+## Next priority
+
+Customer App migration: move `app/dashboard/*` → `app/app/*`, unify nav on `lib/app/nav-config.ts`.
