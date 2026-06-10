@@ -15,6 +15,9 @@ export async function POST(request: Request) {
 
     const body = await request.json();
     const systemType = body.system_type as SystemType;
+    const name = typeof body.name === "string" ? body.name.trim() : null;
+    const siteUrl =
+      typeof body.site_url === "string" ? body.site_url.trim() : null;
 
     if (!SYSTEM_TYPES.includes(systemType)) {
       return NextResponse.json(
@@ -25,6 +28,8 @@ export async function POST(request: Request) {
 
     const { data, error } = await supabase.rpc("create_installation", {
       p_system_type: systemType,
+      p_name: name || null,
+      p_site_url: siteUrl || null,
     });
 
     if (error) {

@@ -3,13 +3,23 @@
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { getCompanyInstallations } from "@/lib/tenant/get-installations";
-import type { Installation, SystemType } from "@/lib/tenant/types";
+import type {
+  Installation,
+  IntegrationKey,
+  IntegrationStatus,
+  ModuleKey,
+  SystemType,
+} from "@/lib/tenant/types";
+import InstallationCard from "./InstallationCard";
 
 type InstallsPanelProps = {
+  locale: string;
   labels: {
     title: string;
     subtitle: string;
     create: string;
+    name: string;
+    siteUrl: string;
     systemType: string;
     systemTypes: Record<SystemType, string>;
     empty: string;
@@ -21,13 +31,24 @@ type InstallsPanelProps = {
     verifyEndpoint: string;
     error: string;
     loading: string;
+    company: string;
+    installationId: string;
+    modules: string;
+    integrations: string;
+    lastSynced: string;
+    neverSynced: string;
+    modulesList: Record<ModuleKey, string>;
+    integrationsList: Record<IntegrationKey, string>;
+    integrationStatus: Record<IntegrationStatus, string>;
   };
 };
 
-export default function InstallsPanel({ labels }: InstallsPanelProps) {
+export default function InstallsPanel({ locale, labels }: InstallsPanelProps) {
   const [installations, setInstallations] = useState<Installation[]>([]);
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
+  const [name, setName] = useState("");
+  const [siteUrl, setSiteUrl] = useState("");
   const [systemType, setSystemType] = useState<SystemType>("custom");
   const [newToken, setNewToken] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -70,7 +91,11 @@ export default function InstallsPanel({ labels }: InstallsPanelProps) {
       const response = await fetch("/api/installations/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ system_type: systemType }),
+        body: JSON.stringify({
+          system_type: systemType,
+          name: name.trim() || undefined,
+          site_url: siteUrl.trim() || undefined,
+        }),
       });
 
       const payload = await response.json();
@@ -81,6 +106,8 @@ export default function InstallsPanel({ labels }: InstallsPanelProps) {
       }
 
       setNewToken(payload.installation_token);
+      setName("");
+      setSiteUrl("");
       await refresh();
     } catch {
       setError(labels.error);
@@ -96,6 +123,21 @@ export default function InstallsPanel({ labels }: InstallsPanelProps) {
     setTimeout(() => setCopied(false), 2000);
   }
 
+  const cardLabels = {
+    company: labels.company,
+    installationId: labels.installationId,
+    systemType: labels.systemType,
+    status: labels.status,
+    systemTypes: labels.systemTypes,
+    modules: labels.modules,
+    integrations: labels.integrations,
+    lastSynced: labels.lastSynced,
+    neverSynced: labels.neverSynced,
+    modulesList: labels.modulesList,
+    integrationsList: labels.integrationsList,
+    integrationStatus: labels.integrationStatus,
+  };
+
   return (
     <div className="mx-auto max-w-4xl">
       <div className="mb-8">
@@ -109,12 +151,35 @@ export default function InstallsPanel({ labels }: InstallsPanelProps) {
         onSubmit={handleCreate}
         className="mb-8 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
       >
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
-          <div className="flex-1">
-            <label
-              htmlFor="systemType"
-              className="block text-sm font-medium text-gray-700"
-            >
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label htmlFor="installName" className="block text-sm font-medium text-gray-700">
+              {labels.name}
+            </label>
+            <input
+              id="installName"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Unonight.com"
+              className="mt-2 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 focus:border-violet-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-violet-100"
+            />
+          </div>
+          <div>
+            <label htmlFor="siteUrl" className="block text-sm font-medium text-gray-700">
+              {labels.siteUrl}
+            </label>
+            <input
+              id="siteUrl"
+              type="url"
+              value={siteUrl}
+              onChange={(e) => setSiteUrl(e.target.value)}
+              placeholder="https://unonight.com"
+              className="mt-2 w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-900 focus:border-violet-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-violet-100"
+            />
+          </div>
+          <div>
+            <label htmlFor="systemType" className="block text-sm font-medium text-gray-700">
               {labels.systemType}
             </label>
             <select
@@ -130,13 +195,15 @@ export default function InstallsPanel({ labels }: InstallsPanelProps) {
               ))}
             </select>
           </div>
-          <button
-            type="submit"
-            disabled={creating}
-            className="rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:from-blue-700 hover:to-violet-700 disabled:opacity-60"
-          >
-            {creating ? labels.loading : labels.create}
-          </button>
+          <div className="flex items-end">
+            <button
+              type="submit"
+              disabled={creating}
+              className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:from-blue-700 hover:to-violet-700 disabled:opacity-60"
+            >
+              {creating ? labels.loading : labels.create}
+            </button>
+          </div>
         </div>
         {error && (
           <p className="mt-4 text-sm font-medium text-red-600" role="alert">
@@ -167,33 +234,24 @@ export default function InstallsPanel({ labels }: InstallsPanelProps) {
         </div>
       )}
 
-      <div className="rounded-2xl border border-gray-200 bg-white shadow-sm">
-        {loading ? (
-          <p className="p-6 text-sm text-gray-500">{labels.loading}</p>
-        ) : installations.length === 0 ? (
-          <p className="p-6 text-sm text-gray-500">{labels.empty}</p>
-        ) : (
-          <ul className="divide-y divide-gray-100">
-            {installations.map((installation) => (
-              <li key={installation.id} className="px-6 py-4">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div>
-                    <p className="font-medium text-gray-900">
-                      {labels.systemTypes[installation.system_type]}
-                    </p>
-                    <p className="mt-1 font-mono text-xs text-gray-500">
-                      {installation.id}
-                    </p>
-                  </div>
-                  <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-700">
-                    {labels.status[installation.status] ?? installation.status}
-                  </span>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      {loading ? (
+        <p className="text-sm text-gray-500">{labels.loading}</p>
+      ) : installations.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50/80 p-6 text-sm text-gray-500">
+          {labels.empty}
+        </div>
+      ) : (
+        <div className="space-y-6">
+          {installations.map((installation) => (
+            <InstallationCard
+              key={installation.id}
+              installation={installation}
+              labels={cardLabels}
+              locale={locale}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

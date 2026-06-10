@@ -1,7 +1,9 @@
 {
   "title": "Installations",
-  "subtitle": "Create and manage install tokens for your systems. Tokens are shown once — store them securely.",
+  "subtitle": "Monitor connected systems, active modules, integrations, and sync health from your Control Center.",
   "create": "Create installation",
+  "name": "Display name",
+  "siteUrl": "Site URL",
   "systemType": "System type",
   "systemTypes": {
     "wordpress": "WordPress",
@@ -19,6 +21,34 @@
     "active": "Active",
     "paused": "Paused",
     "revoked": "Revoked"
+  },
+  "company": "Company",
+  "installationId": "Installation ID",
+  "modules": "Active modules",
+  "integrations": "Integrations",
+  "lastSynced": "Last synced",
+  "neverSynced": "Never synced",
+  "modulesList": {
+    "support_ai": "Aipify Support AI",
+    "analytics_ai": "Aipify Analytics AI",
+    "assistant": "Aipify Assistant",
+    "commerce_ai": "Aipify Commerce AI",
+    "notifications": "Aipify Notifications",
+    "install_ai": "Aipify Install AI"
+  },
+  "integrationsList": {
+    "supabase": "Supabase",
+    "shopify": "Shopify",
+    "resend": "Resend",
+    "wordpress": "WordPress",
+    "stripe": "Stripe",
+    "openai": "OpenAI"
+  },
+  "integrationStatus": {
+    "connected": "Connected",
+    "pending": "Pending",
+    "error": "Error",
+    "disconnected": "Disconnected"
   },
   "verifyEndpoint": "/api/install/verify",
   "error": "Could not create installation. Try again.",

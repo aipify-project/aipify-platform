@@ -1,7 +1,9 @@
 {
   "title": "Installasjoner",
-  "subtitle": "Opprett og administrer installasjonstokens for systemene dine. Tokens vises bare én gang — lagre dem trygt.",
+  "subtitle": "Overvåk tilkoblede systemer, aktive moduler, integrasjoner og synkstatus fra kontrollsenteret.",
   "create": "Opprett installasjon",
+  "name": "Visningsnavn",
+  "siteUrl": "Nettadresse",
   "systemType": "Systemtype",
   "systemTypes": {
     "wordpress": "WordPress",
@@ -19,6 +21,34 @@
     "active": "Aktiv",
     "paused": "Pauset",
     "revoked": "Tilbakekalt"
+  },
+  "company": "Bedrift",
+  "installationId": "Installasjons-ID",
+  "modules": "Aktive moduler",
+  "integrations": "Integrasjoner",
+  "lastSynced": "Sist synkronisert",
+  "neverSynced": "Aldri synkronisert",
+  "modulesList": {
+    "support_ai": "Aipify Support AI",
+    "analytics_ai": "Aipify Analytics AI",
+    "assistant": "Aipify Assistant",
+    "commerce_ai": "Aipify Commerce AI",
+    "notifications": "Aipify Notifications",
+    "install_ai": "Aipify Install AI"
+  },
+  "integrationsList": {
+    "supabase": "Supabase",
+    "shopify": "Shopify",
+    "resend": "Resend",
+    "wordpress": "WordPress",
+    "stripe": "Stripe",
+    "openai": "OpenAI"
+  },
+  "integrationStatus": {
+    "connected": "Tilkoblet",
+    "pending": "Venter",
+    "error": "Feil",
+    "disconnected": "Frakoblet"
   },
   "verifyEndpoint": "/api/install/verify",
   "error": "Kunne ikke opprette installasjon. Prøv igjen.",

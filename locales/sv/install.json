@@ -1,7 +1,9 @@
 {
   "title": "Installationer",
-  "subtitle": "Skapa och hantera installationstokens för dina system. Tokens visas bara en gång — spara dem säkert.",
+  "subtitle": "Övervaka anslutna system, aktiva moduler, integrationer och synkstatus från kontrollcentret.",
   "create": "Skapa installation",
+  "name": "Visningsnamn",
+  "siteUrl": "Webbadress",
   "systemType": "Systemtyp",
   "systemTypes": {
     "wordpress": "WordPress",
@@ -19,6 +21,34 @@
     "active": "Aktiv",
     "paused": "Pausad",
     "revoked": "Återkallad"
+  },
+  "company": "Företag",
+  "installationId": "Installations-ID",
+  "modules": "Aktiva moduler",
+  "integrations": "Integrationer",
+  "lastSynced": "Senast synkad",
+  "neverSynced": "Aldrig synkad",
+  "modulesList": {
+    "support_ai": "Aipify Support AI",
+    "analytics_ai": "Aipify Analytics AI",
+    "assistant": "Aipify Assistant",
+    "commerce_ai": "Aipify Commerce AI",
+    "notifications": "Aipify Notifications",
+    "install_ai": "Aipify Install AI"
+  },
+  "integrationsList": {
+    "supabase": "Supabase",
+    "shopify": "Shopify",
+    "resend": "Resend",
+    "wordpress": "WordPress",
+    "stripe": "Stripe",
+    "openai": "OpenAI"
+  },
+  "integrationStatus": {
+    "connected": "Ansluten",
+    "pending": "Väntar",
+    "error": "Fel",
+    "disconnected": "Frånkopplad"
   },
   "verifyEndpoint": "/api/install/verify",
   "error": "Kunde inte skapa installation. Försök igen.",
