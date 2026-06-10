@@ -1,0 +1,29 @@
+PHASE 14 – EXECUTIVE PRESENCE & DAILY BRIEFINGS
+Status: Implemented
+
+OBJECTIVE
+Aipify functions as a 24/7 operational companion — calm, professional briefings
+that reduce stress and increase confidence without feeling human or intrusive.
+
+DATABASE
+Migration: 20260610370000_executive_presence_daily_briefings.sql
+- Table: executive_presence_messages (message_type, title, body, tone, severity, locale)
+- presence_settings: briefing_*_enabled columns per category
+- RPC: get_daily_briefing(p_surface, p_locale) — context-aware selection + daily rotation
+- Extended: update_presence_settings with briefing category toggles
+
+MESSAGE TYPES
+morning | evening | weekend | positive | attention | critical
+
+DELIVERY
+- Login banner: DailyBriefingBanner (dismissible per day)
+- Presence Center: daily briefing hero section
+- Category toggles in Presence Center settings
+
+PRINCIPLE
+"You focus on growing your business. Aipify focuses on keeping it running."
+
+FUTURE
+- Email summaries
+- Mobile push notifications
+- AI-generated personalized summaries from live operational activity

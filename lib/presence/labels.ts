@@ -143,5 +143,21 @@ export function buildPresenceLabels(t: Translator): PresenceLabels {
       history: t("presence.empty.history"),
       recommendations: t("presence.empty.recommendations"),
     },
+    briefing: {
+      title: t("presence.center.briefing.title"),
+      promise: t("presence.center.briefing.promise"),
+      alwaysOn: t("presence.center.briefing.alwaysOn"),
+      positive: t("presence.center.briefing.positive"),
+      categories: t("presence.center.briefing.categories"),
+      morning: t("presence.center.briefing.morning"),
+      evening: t("presence.center.briefing.evening"),
+      weekend: t("presence.center.briefing.weekend"),
+      positiveCategory: t("presence.center.briefing.positiveCategory"),
+      attention: t("presence.center.briefing.attention"),
+      critical: t("presence.center.briefing.critical"),
+      criticalNote: t("presence.center.briefing.criticalNote"),
+      openPresence: t("presence.center.briefing.openPresence"),
+      dismiss: t("presence.center.briefing.dismiss"),
+    },
   };
 }

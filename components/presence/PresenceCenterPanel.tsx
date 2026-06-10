@@ -6,6 +6,10 @@ import { AipifyPulse } from "@/components/branding";
 import { parseActionCenterDashboard, type ActionCenterDashboard } from "@/lib/platform/action-engine";
 import { createClient } from "@/lib/supabase/client";
 import {
+  getBriefingSeverityStyle,
+  getBriefingSeverityText,
+} from "@/lib/presence/daily-briefing";
+import {
   formatPresenceTime,
   getImpactBadgeStyle,
   getPresenceAnimationClass,
@@ -146,6 +150,33 @@ export default function PresenceCenterPanel() {
                   </div>
                 )}
               </section>
+
+              {bundle.daily_briefing && bundle.settings.executive_summaries && (
+                <section
+                  className={`rounded-2xl border p-4 shadow-sm ${getBriefingSeverityStyle(bundle.daily_briefing.primary.severity)}`}
+                >
+                  <h3 className={`text-xs font-semibold uppercase tracking-wide ${getBriefingSeverityText(bundle.daily_briefing.primary.severity)}`}>
+                    {labels.briefing.title}
+                  </h3>
+                  <p className={`mt-2 text-sm font-semibold ${getBriefingSeverityText(bundle.daily_briefing.primary.severity)}`}>
+                    {bundle.daily_briefing.primary.title}
+                  </p>
+                  <p className={`mt-2 text-sm leading-relaxed ${getBriefingSeverityText(bundle.daily_briefing.primary.severity)} opacity-90`}>
+                    {bundle.daily_briefing.primary.body}
+                  </p>
+                  {bundle.daily_briefing.secondary.length > 0 && (
+                    <ul className="mt-3 space-y-1.5 border-t border-white/50 pt-3 text-xs opacity-85">
+                      {bundle.daily_briefing.secondary.map((msg) => (
+                        <li key={msg.message_key ?? msg.title} className={getBriefingSeverityText("info")}>
+                          {msg.body}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  <p className="mt-3 text-xs font-medium opacity-75">{bundle.daily_briefing.promise}</p>
+                  <p className="mt-1 text-xs opacity-60">{bundle.daily_briefing.always_on}</p>
+                </section>
+              )}
 
               <section className="rounded-2xl border border-gray-100 bg-gray-50/80 p-3">
                 <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">{labels.modes.title}</p>
@@ -383,6 +414,34 @@ export default function PresenceCenterPanel() {
                     </label>
                   ))}
                 </div>
+
+                <h4 className="mt-4 text-xs font-semibold uppercase tracking-wide text-gray-500">
+                  {labels.briefing.categories}
+                </h4>
+                <div className="mt-3 space-y-3 text-sm">
+                  {(
+                    [
+                      ["briefing_morning_enabled", labels.briefing.morning],
+                      ["briefing_evening_enabled", labels.briefing.evening],
+                      ["briefing_weekend_enabled", labels.briefing.weekend],
+                      ["briefing_positive_enabled", labels.briefing.positiveCategory],
+                      ["briefing_attention_enabled", labels.briefing.attention],
+                      ["briefing_critical_enabled", labels.briefing.critical],
+                    ] as const
+                  ).map(([key, label]) => (
+                    <label key={key} className="flex items-center justify-between gap-3">
+                      <span>{label}</span>
+                      <input
+                        type="checkbox"
+                        checked={bundle.settings[key]}
+                        onChange={(e) => void handleSettingChange(key, e.target.checked)}
+                        className="h-4 w-4 rounded border-gray-300 text-violet-600"
+                      />
+                    </label>
+                  ))}
+                </div>
+                <p className="mt-2 text-xs text-gray-500">{labels.briefing.criticalNote}</p>
+
                 {saved && (
                   <p className="mt-3 text-xs font-medium text-emerald-600">{labels.settings.saved}</p>
                 )}

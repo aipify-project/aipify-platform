@@ -94,6 +94,22 @@
       "pending": "{count} action(s) awaiting approval",
       "executed": "{count} action(s) executed successfully",
       "failed": "{count} action(s) failed or rolled back"
+    },
+    "briefing": {
+      "title": "Daily briefing",
+      "promise": "The Aipify promise",
+      "alwaysOn": "Always on duty",
+      "positive": "Positive signals",
+      "categories": "Briefing categories",
+      "morning": "Morning briefings",
+      "evening": "Evening briefings",
+      "weekend": "Weekend briefings",
+      "positiveCategory": "Positive reinforcement",
+      "attention": "Attention messages",
+      "critical": "Critical alerts",
+      "criticalNote": "Critical alerts may still appear during emergencies even when disabled.",
+      "openPresence": "Open Presence Center",
+      "dismiss": "Dismiss for today"
     }
   },
   "states": {

@@ -1,3 +1,5 @@
+import type { DailyBriefing } from "./daily-briefing";
+
 export type PresenceState =
   | "standby"
   | "analysing"
@@ -93,6 +95,12 @@ export type PresenceSettings = {
   sound_enabled: boolean;
   sound_mode: PresenceSoundMode;
   view_mode: PresenceViewMode;
+  briefing_morning_enabled: boolean;
+  briefing_evening_enabled: boolean;
+  briefing_weekend_enabled: boolean;
+  briefing_positive_enabled: boolean;
+  briefing_attention_enabled: boolean;
+  briefing_critical_enabled: boolean;
 };
 
 export type PresenceCenterBundle = {
@@ -105,6 +113,7 @@ export type PresenceCenterBundle = {
   history: PresenceEvent[];
   recommendations: PresenceRecommendation[];
   executive_summary: string;
+  daily_briefing: DailyBriefing | null;
   settings: PresenceSettings;
 };
 
@@ -166,6 +175,7 @@ const EMPTY_BUNDLE: PresenceCenterBundle = {
   history: [],
   recommendations: [],
   executive_summary: "",
+  daily_briefing: null,
   settings: {
     animation_intensity: "normal",
     presence_visible: true,
@@ -176,6 +186,12 @@ const EMPTY_BUNDLE: PresenceCenterBundle = {
     sound_enabled: false,
     sound_mode: "off",
     view_mode: "operations",
+    briefing_morning_enabled: true,
+    briefing_evening_enabled: true,
+    briefing_weekend_enabled: true,
+    briefing_positive_enabled: true,
+    briefing_attention_enabled: true,
+    briefing_critical_enabled: true,
   },
 };
 
@@ -263,7 +279,14 @@ export function parsePresenceCenterBundle(data: unknown): PresenceCenterBundle {
       sound_enabled: settings.sound_enabled === true || soundMode === "enabled",
       sound_mode: soundMode,
       view_mode: (settings.view_mode as PresenceViewMode) ?? "operations",
+      briefing_morning_enabled: settings.briefing_morning_enabled !== false,
+      briefing_evening_enabled: settings.briefing_evening_enabled !== false,
+      briefing_weekend_enabled: settings.briefing_weekend_enabled !== false,
+      briefing_positive_enabled: settings.briefing_positive_enabled !== false,
+      briefing_attention_enabled: settings.briefing_attention_enabled !== false,
+      briefing_critical_enabled: settings.briefing_critical_enabled !== false,
     },
+    daily_briefing: null,
   };
 }
 

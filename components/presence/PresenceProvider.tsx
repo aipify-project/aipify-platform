@@ -10,6 +10,7 @@ import {
   type ReactNode,
 } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { parseDailyBriefing } from "@/lib/presence/daily-briefing";
 import {
   getEmptyPresenceBundle,
   parsePresenceCenterBundle,
@@ -18,6 +19,7 @@ import {
   type PresenceSoundMode,
   type PresenceViewMode,
 } from "@/lib/presence/presence-engine";
+import DailyBriefingBanner from "./DailyBriefingBanner";
 import PresenceCenterPanel from "./PresenceCenterPanel";
 
 export type PresenceLabels = {
@@ -130,6 +132,22 @@ export type PresenceLabels = {
     history: string;
     recommendations: string;
   };
+  briefing: {
+    title: string;
+    promise: string;
+    alwaysOn: string;
+    positive: string;
+    categories: string;
+    morning: string;
+    evening: string;
+    weekend: string;
+    positiveCategory: string;
+    attention: string;
+    critical: string;
+    criticalNote: string;
+    openPresence: string;
+    dismiss: string;
+  };
 };
 
 type PresenceContextValue = {
@@ -160,15 +178,31 @@ export function PresenceProvider({ surface, labels, locale, children }: Presence
 
   const refresh = useCallback(async () => {
     const supabase = createClient();
-    const { data, error } = await supabase.rpc("get_presence_center_bundle", {
-      p_surface: surface,
-    });
+    const [bundleResult, briefingResult] = await Promise.all([
+      supabase.rpc("get_presence_center_bundle", { p_surface: surface }),
+      supabase.rpc("get_daily_briefing", { p_surface: surface, p_locale: locale }),
+    ]);
 
-    if (!error && data) {
-      setBundle(parsePresenceCenterBundle(data));
+    if (!bundleResult.error && bundleResult.data) {
+      const parsed = parsePresenceCenterBundle(bundleResult.data);
+      const dailyBriefing = briefingResult.error
+        ? null
+        : parseDailyBriefing(briefingResult.data);
+      if (dailyBriefing) {
+        parsed.settings = {
+          ...parsed.settings,
+          briefing_morning_enabled: dailyBriefing.preferences.morning,
+          briefing_evening_enabled: dailyBriefing.preferences.evening,
+          briefing_weekend_enabled: dailyBriefing.preferences.weekend,
+          briefing_positive_enabled: dailyBriefing.preferences.positive,
+          briefing_attention_enabled: dailyBriefing.preferences.attention,
+          briefing_critical_enabled: dailyBriefing.preferences.critical,
+        };
+      }
+      setBundle({ ...parsed, daily_briefing: dailyBriefing });
     }
     setLoading(false);
-  }, [surface]);
+  }, [surface, locale]);
 
   useEffect(() => {
     void refresh();
@@ -199,6 +233,12 @@ export function PresenceProvider({ surface, labels, locale, children }: Presence
         p_sound_mode: (settings.sound_mode as PresenceSoundMode) ?? null,
         p_learning_notifications: settings.learning_notifications ?? null,
         p_view_mode: (settings.view_mode as PresenceViewMode) ?? null,
+        p_briefing_morning_enabled: settings.briefing_morning_enabled ?? null,
+        p_briefing_evening_enabled: settings.briefing_evening_enabled ?? null,
+        p_briefing_weekend_enabled: settings.briefing_weekend_enabled ?? null,
+        p_briefing_positive_enabled: settings.briefing_positive_enabled ?? null,
+        p_briefing_attention_enabled: settings.briefing_attention_enabled ?? null,
+        p_briefing_critical_enabled: settings.briefing_critical_enabled ?? null,
       });
 
       if (!error && data) {
@@ -208,6 +248,19 @@ export function PresenceProvider({ surface, labels, locale, children }: Presence
             ...current.settings,
             ...parsePresenceCenterBundle({ settings: data }).settings,
           },
+          daily_briefing: current.daily_briefing
+            ? {
+                ...current.daily_briefing,
+                preferences: {
+                  morning: (data as Record<string, boolean>).briefing_morning_enabled !== false,
+                  evening: (data as Record<string, boolean>).briefing_evening_enabled !== false,
+                  weekend: (data as Record<string, boolean>).briefing_weekend_enabled !== false,
+                  positive: (data as Record<string, boolean>).briefing_positive_enabled !== false,
+                  attention: (data as Record<string, boolean>).briefing_attention_enabled !== false,
+                  critical: (data as Record<string, boolean>).briefing_critical_enabled !== false,
+                },
+              }
+            : current.daily_briefing,
         }));
       }
     },
@@ -231,6 +284,7 @@ export function PresenceProvider({ surface, labels, locale, children }: Presence
 
   return (
     <PresenceContext.Provider value={value}>
+      <DailyBriefingBanner />
       {children}
       <PresenceCenterPanel />
     </PresenceContext.Provider>
