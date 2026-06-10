@@ -45,9 +45,14 @@ export async function updateSession(request: NextRequest) {
   }
 
   if (user && (pathname === "/login" || pathname === "/register")) {
-    const dashboardUrl = request.nextUrl.clone();
-    dashboardUrl.pathname = "/dashboard";
-    return NextResponse.redirect(dashboardUrl);
+    const { data: platformAdmin } = await supabase
+      .from("platform_admins")
+      .select("id")
+      .maybeSingle();
+
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = platformAdmin ? "/platform" : "/dashboard";
+    return NextResponse.redirect(redirectUrl);
   }
 
   return supabaseResponse;

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { getPostLoginPath } from "@/lib/auth/get-post-login-path";
 import { createClient } from "@/lib/supabase/client";
 
 type LoginFormProps = {
@@ -59,11 +60,10 @@ export default function LoginForm({ labels }: LoginFormProps) {
         return;
       }
 
-      const nextPath = searchParams.get("next");
-      const destination =
-        nextPath?.startsWith("/") && !nextPath.startsWith("//")
-          ? nextPath
-          : "/dashboard";
+      const destination = await getPostLoginPath(
+        supabase,
+        searchParams.get("next")
+      );
 
       window.location.assign(destination);
     } catch {
