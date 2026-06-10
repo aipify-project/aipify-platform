@@ -1,6 +1,5 @@
-import Link from "next/link";
+import { SettingsSubnav } from "@/components/app/settings/SettingsSubnav";
 import CustomerDomainsSettingsPanel from "@/components/dashboard/CustomerDomainsSettingsPanel";
-import { resolveAppHref } from "@/lib/app/route-aliases";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -9,21 +8,17 @@ export default async function SettingsPage() {
   const locale = await getLocale();
   const dict = await getDictionary(locale, ["dashboard", "settings", "branding"]);
   const t = createTranslator(dict);
-  const updatesHref = resolveAppHref("/app/settings/updates");
 
   return (
     <div className="mx-auto max-w-4xl space-y-6">
-      <nav className="flex gap-4 border-b border-gray-200 px-1 text-sm">
-        <span className="border-b-2 border-indigo-600 py-3 font-medium text-indigo-600">
-          {t("settings.domains.title")}
-        </span>
-        <Link
-          href={updatesHref}
-          className="py-3 text-gray-500 hover:text-gray-700"
-        >
-          {t("settings.updates.nav")}
-        </Link>
-      </nav>
+      <SettingsSubnav
+        active="domains"
+        labels={{
+          domains: t("settings.domains.title"),
+          updates: t("settings.updates.nav"),
+          security: t("settings.security.nav"),
+        }}
+      />
       <CustomerDomainsSettingsPanel
         locale={locale}
         labels={{

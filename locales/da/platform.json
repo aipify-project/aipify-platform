@@ -25,6 +25,7 @@
     "installations": "Installations",
     "installEngine": "Install Engine",
     "updates": "Opdateringer",
+    "trust": "Tillid og sikkerhed",
     "metrics": "Platform Metrics",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
@@ -421,6 +422,20 @@
       "escalatedByAi": "Escalated by AI",
       "waitingHuman": "Waiting for Human",
       "openCases": "Open Cases"
+    }
+  },
+  "trust": {
+    "title": "Tillid og dataejerskab",
+    "subtitle": "Global styring af dataminimering, revisionsintegritet og platformansvar.",
+    "statsLabel": "Fundament",
+    "statsValue": "{allowed} tilladt · {prohibited} forbudt · {levels} adgangsniveauer · {audits} revisionshændelser",
+    "responsibility": "Platform Admin administrerer installationsstatus, abonnementer, skills og opdateringer — gennemser aldrig unødvendigt kundens operationelle data.",
+    "areas": {
+      "governance": "Tillidsstyring",
+      "audit": "Uforanderlig revisionslog",
+      "learning": "Læringsbegrænsninger",
+      "skills": "Skill-sikkerhedsgennemgang",
+      "offboarding": "Offboarding-principper"
     }
   },
   "updates": {

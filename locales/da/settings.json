@@ -2,6 +2,31 @@
   "title": "Indstillinger",
   "subtitle": "Virksomhedsprofil, fakturering og platformpræferencer.",
   "comingSoon": "Indstillinger bliver tilgængelige i en fremtidig version.",
+  "security": {
+    "nav": "Sikkerhed",
+    "title": "Sikkerhed og dataejerskab",
+    "subtitle": "Forstå hvad Aipify har adgang til, hvad der gemmes, og hvordan tilladelser fungerer.",
+    "loading": "Indlæser sikkerhedsoversigt...",
+    "connectedSystems": "Tilknyttede systemer",
+    "noSystems": "Ingen tilknyttede systemer endnu.",
+    "permissionScopes": "Standard tilladelsesomfang",
+    "registeredDomains": "Registrerede domæner",
+    "noDomains": "Ingen registrerede domæner.",
+    "recentActions": "Seneste handlinger",
+    "noActions": "Ingen følsomme handlinger registreret endnu.",
+    "tokenHealth": "Installationstoken-sundhed",
+    "principles": "Tillidsprincipper",
+    "dataOwnership": "Dataejerskab",
+    "areas": {
+      "systems": "Tilknyttede systemer",
+      "scopes": "Tilladelsesomfang",
+      "actions": "Seneste handlinger",
+      "approvals": "Godkendelseshistorik",
+      "ownership": "Principper for dataejerskab",
+      "tokens": "Token-sundhed",
+      "recommendations": "Sikkerhedsanbefalinger"
+    }
+  },
   "updates": {
     "nav": "Opdateringer",
     "title": "Softwareopdateringer",

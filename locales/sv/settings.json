@@ -2,6 +2,31 @@
   "title": "Inställningar",
   "subtitle": "Företagsprofil, fakturering och plattformsinställningar.",
   "comingSoon": "Inställningar blir tillgängliga i en framtida version.",
+  "security": {
+    "nav": "Säkerhet",
+    "title": "Säkerhet och dataägande",
+    "subtitle": "Förstå vad Aipify har åtkomst till, vad som lagras och hur behörigheter fungerar.",
+    "loading": "Laddar säkerhetsöversikt...",
+    "connectedSystems": "Anslutna system",
+    "noSystems": "Inga anslutna system ännu.",
+    "permissionScopes": "Standard behörighetsomfång",
+    "registeredDomains": "Registrerade domäner",
+    "noDomains": "Inga registrerade domäner.",
+    "recentActions": "Senaste åtgärder",
+    "noActions": "Inga känsliga åtgärder registrerade ännu.",
+    "tokenHealth": "Installationstoken-hälsa",
+    "principles": "Förtroendeprinciper",
+    "dataOwnership": "Dataägande",
+    "areas": {
+      "systems": "Anslutna system",
+      "scopes": "Behörighetsomfång",
+      "actions": "Senaste åtgärder",
+      "approvals": "Godkännandehistorik",
+      "ownership": "Principer för dataägande",
+      "tokens": "Token-hälsa",
+      "recommendations": "Säkerhetsrekommendationer"
+    }
+  },
   "updates": {
     "nav": "Uppdateringar",
     "title": "Programuppdateringar",

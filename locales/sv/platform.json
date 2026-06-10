@@ -25,6 +25,7 @@
     "installations": "Installations",
     "installEngine": "Install Engine",
     "updates": "Uppdateringar",
+    "trust": "Förtroende och säkerhet",
     "metrics": "Platform Metrics",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
@@ -421,6 +422,20 @@
       "escalatedByAi": "Escalated by AI",
       "waitingHuman": "Waiting for Human",
       "openCases": "Open Cases"
+    }
+  },
+  "trust": {
+    "title": "Förtroende och dataägande",
+    "subtitle": "Global styrning för dataminimering, revisionsintegritet och plattformsansvar.",
+    "statsLabel": "Grund",
+    "statsValue": "{allowed} tillåtet · {prohibited} förbjudet · {levels} åtkomstnivåer · {audits} revisionshändelser",
+    "responsibility": "Platform Admin hanterar installationsstatus, prenumerationer, skills och uppdateringar — bläddrar aldrig onödigt i kundens operativa data.",
+    "areas": {
+      "governance": "Förtroendestyrning",
+      "audit": "Oföränderlig revisionslogg",
+      "learning": "Inlärningsbegränsningar",
+      "skills": "Skill-säkerhetsgranskning",
+      "offboarding": "Offboarding-principer"
     }
   },
   "updates": {

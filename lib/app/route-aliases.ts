@@ -15,6 +15,7 @@ export const APP_ROUTE_ALIASES: Record<string, string> = {
   "/app/billing": "/dashboard/billing",
   "/app/settings": "/dashboard/settings",
   "/app/settings/updates": "/dashboard/settings/updates",
+  "/app/settings/security": "/dashboard/settings/security",
   "/app/analytics": "/dashboard/analytics",
   "/app/commerce": "/dashboard/commerce",
   "/app/notifications": "/dashboard/notifications",

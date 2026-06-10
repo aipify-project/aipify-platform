@@ -25,6 +25,7 @@
     "installations": "Installations",
     "installEngine": "Install Engine",
     "updates": "Updates",
+    "trust": "Trust & Security",
     "metrics": "Platform Metrics",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
@@ -615,6 +616,20 @@
       "satisfactionScore": "Customer satisfaction",
       "escalationReasons": "Escalation reasons",
       "noReasons": "No escalation reasons recorded."
+    }
+  },
+  "trust": {
+    "title": "Trust & Data Ownership",
+    "subtitle": "Global governance for data minimization, audit integrity, and platform responsibilities.",
+    "statsLabel": "Foundation",
+    "statsValue": "{allowed} allowed · {prohibited} prohibited · {levels} access levels · {audits} audit events",
+    "responsibility": "Platform Admin manages installation status, subscriptions, skills, and updates — never browses customer operational data unnecessarily.",
+    "areas": {
+      "governance": "Trust Governance",
+      "audit": "Immutable Audit Log",
+      "learning": "Learning Restrictions",
+      "skills": "Skill Security Review",
+      "offboarding": "Offboarding Principles"
     }
   },
   "updates": {

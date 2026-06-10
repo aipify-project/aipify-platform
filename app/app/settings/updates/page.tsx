@@ -1,3 +1,4 @@
+import { SettingsSubnav } from "@/components/app/settings/SettingsSubnav";
 import { CustomerUpdatesPanel } from "@/components/app/update-engine";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -9,7 +10,15 @@ export default async function AppSettingsUpdatesPage() {
   const t = createTranslator(dict);
 
   return (
-    <div className="mx-auto max-w-4xl p-6">
+    <div className="mx-auto max-w-4xl space-y-6 p-6">
+      <SettingsSubnav
+        active="updates"
+        labels={{
+          domains: t("settings.domains.title"),
+          updates: t("settings.updates.nav"),
+          security: t("settings.security.nav"),
+        }}
+      />
       <CustomerUpdatesPanel
         locale={locale}
         labels={{

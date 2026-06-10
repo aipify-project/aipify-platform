@@ -6,6 +6,8 @@ This document defines the **non-negotiable foundation** of Aipify before additio
 
 **Governance order:** Core Foundation → [Operating Principles](./OPERATING_PRINCIPLES.md) → [Architecture](./ARCHITECTURE.md) → Implementation → Skills
 
+**Trust & data ownership (Phase 19):** [TRUST_ARCHITECTURE.md](./TRUST_ARCHITECTURE.md) — extends §7–8 privacy principles with access levels, storage rules, audit, and customer transparency.
+
 Code constants: `lib/core/foundation.ts` · Product modules: `lib/core/plans.ts`
 
 ---

@@ -20,6 +20,8 @@ For **installation and onboarding**, read **[INSTALL_ENGINE.md](./INSTALL_ENGINE
 
 For **safe updates and version deployment**, read **[UPDATE_ENGINE.md](./UPDATE_ENGINE.md)**. Constants in `lib/update/`; platform rollout at `app/platform/updates/`; embedded reporting at `app/api/install/version`. Database migrations require explicit approval — updates must never silently alter customer data.
 
+For **trust, privacy, and data ownership**, read **[TRUST_ARCHITECTURE.md](./TRUST_ARCHITECTURE.md)**. Rules in `lib/trust/`; customer Security Dashboard at Settings → Security; installation validation in `lib/embed/validation.ts`. Customer owns data — store metadata, not operational records, unless explicitly approved.
+
 ## Aipify architecture — mandatory before every feature
 
 Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.

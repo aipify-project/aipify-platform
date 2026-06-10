@@ -25,6 +25,7 @@
     "installations": "Installations",
     "installEngine": "Install Engine",
     "updates": "Oppdateringer",
+    "trust": "Tillit og sikkerhet",
     "metrics": "Platform Metrics",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
@@ -460,6 +461,20 @@
       "escalatedByAi": "Eskalert av AI",
       "waitingHuman": "Venter på menneske",
       "openCases": "Åpne saker"
+    }
+  },
+  "trust": {
+    "title": "Tillit og dataeierskap",
+    "subtitle": "Global styring for dataminimering, revisjonsintegritet og plattformansvar.",
+    "statsLabel": "Fundament",
+    "statsValue": "{allowed} tillatt · {prohibited} forbudt · {levels} tilgangsnivåer · {audits} revisjonshendelser",
+    "responsibility": "Platform Admin administrerer installasjonsstatus, abonnement, skills og oppdateringer — blar aldri unødvendig i kundens operative data.",
+    "areas": {
+      "governance": "Tillitsstyring",
+      "audit": "Uforanderlig revisjonslogg",
+      "learning": "Læringsbegrensninger",
+      "skills": "Skill-sikkerhetsgjennomgang",
+      "offboarding": "Offboarding-prinsipper"
     }
   },
   "updates": {

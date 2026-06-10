@@ -2,6 +2,31 @@
   "title": "Settings",
   "subtitle": "Company profile, billing, and platform preferences.",
   "comingSoon": "Settings will be available in a future release.",
+  "security": {
+    "nav": "Security",
+    "title": "Security & Data Ownership",
+    "subtitle": "Understand what Aipify accesses, what is stored, and how permissions work.",
+    "loading": "Loading security overview...",
+    "connectedSystems": "Connected systems",
+    "noSystems": "No connected systems yet.",
+    "permissionScopes": "Default permission scope",
+    "registeredDomains": "Registered domains",
+    "noDomains": "No registered domains.",
+    "recentActions": "Recent actions",
+    "noActions": "No sensitive actions recorded yet.",
+    "tokenHealth": "Installation token health",
+    "principles": "Trust principles",
+    "dataOwnership": "Data ownership",
+    "areas": {
+      "systems": "Connected Systems",
+      "scopes": "Permission Scopes",
+      "actions": "Recent Actions",
+      "approvals": "Approval History",
+      "ownership": "Data Ownership Principles",
+      "tokens": "Token Health",
+      "recommendations": "Security Recommendations"
+    }
+  },
   "updates": {
     "nav": "Updates",
     "title": "Software Updates",

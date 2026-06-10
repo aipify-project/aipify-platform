@@ -1,0 +1,34 @@
+AIPIFY – TRUST ARCHITECTURE & DATA OWNERSHIP (PHASE 19)
+Status: Implemented
+Priority: Critical
+Doc: TRUST_ARCHITECTURE.md
+
+CORE PRINCIPLE
+Customer owns data. Aipify owns intelligence layer. Store only what is necessary.
+
+CODE
+- lib/trust/ — storage rules, access levels, audit, privacy, installation security, learning restrictions
+- lib/embed/validation.ts — validateEmbedSecurityContext (Phase 19 §11–12)
+- app/platform/trust/ — platform governance (no customer operational browsing)
+- app/app/settings/security — customer Security Dashboard
+
+DATABASE (migration: 20260610600000_trust_architecture_phase19.sql)
+- trust_audit_events — immutable sensitive-operation log
+- record_trust_audit_event
+- get_customer_security_overview
+- get_platform_trust_governance
+
+DATA ACCESS LEVELS
+1 metadata (default) · 2 read_only_operational · 3 approved_operational_actions · 4 customer_hosted_intelligence
+
+READ-ONLY FIRST
+New integrations default to read permission.
+
+PLATFORM ADMIN
+Manages status, subscriptions, skills, updates — never browses customer operational data unnecessarily.
+
+PRIVACY BY DESIGN
+Five questions before every feature — pause if unclear.
+
+SKILL RELEASE
+Security review: permission scope, data minimization, approval, tenant isolation, audit logging.

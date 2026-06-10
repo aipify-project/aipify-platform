@@ -1,0 +1,35 @@
+---
+description: Aipify Trust Architecture — data ownership, minimization, audit, and customer transparency
+alwaysApply: true
+---
+
+# Trust Architecture (Phase 19)
+
+Read **[TRUST_ARCHITECTURE.md](../../TRUST_ARCHITECTURE.md)** before any feature touching customer data, permissions, connectors, learning, or audit.
+
+## Core rule
+
+**The customer owns the data. Aipify owns the intelligence layer.** If data is not required — do not collect, store, or process it.
+
+## Layer placement
+
+| Concern | Layer | Paths |
+|---------|-------|-------|
+| Governance & global audit metrics | Platform | `app/platform/trust/`, `get_platform_trust_governance` |
+| Security Dashboard (transparency) | Customer | `app/app/settings/security/`, `components/app/trust/` |
+| Installation/domain validation | Embedded | `lib/embed/validation.ts`, `lib/trust/installation.ts` |
+| Shared rules | Shared | `lib/trust/` |
+
+## Rules
+
+1. Default access level: **metadata only** — higher levels require explicit approval
+2. New integrations: **read-only first** — never auto-expand to write
+3. Prohibited storage categories are blocked by default (`assertStorageAllowed`)
+4. Metadata-first — store patterns/outcomes, not raw customer records
+5. Sensitive operations → `record_trust_audit_event` (immutable log)
+6. Privacy-by-design five questions — pause if answers unclear
+7. New skills → `buildSkillSecurityReview()` before release
+8. Global learning: anonymized metadata only — never identities or communications
+9. Platform Admin must not browse customer operational data unnecessarily
+
+> Aipify becomes trusted because of what it refuses to collect.

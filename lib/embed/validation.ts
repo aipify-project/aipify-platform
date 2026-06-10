@@ -1,5 +1,10 @@
 import type { PlanType } from "@/lib/platform/types";
 import { planIncludesModule } from "@/lib/core/plans";
+import {
+  isDomainAuthorized,
+  validateInstallationSecurity,
+  type InstallationSecurityContext,
+} from "@/lib/trust/installation";
 
 export type EmbedAuthContext = {
   installation_token: string;
@@ -15,9 +20,31 @@ export type EmbedValidationResult =
   | { ok: false; reason: string };
 
 /**
- * Placeholder validation pipeline for Layer 3 embed/install requests.
- * Wire to database checks when embed routes are implemented.
+ * Layer 3 embed/install validation pipeline.
+ * Enforces Phase 19 installation security before execution.
  */
+export function validateEmbedSecurityContext(
+  ctx: InstallationSecurityContext,
+  registeredDomains: string[]
+): EmbedValidationResult {
+  const security = validateInstallationSecurity(ctx);
+  if (!security.valid) {
+    return { ok: false, reason: `Installation security check failed: ${security.failedCheck}` };
+  }
+  if (ctx.domain && !isDomainAuthorized(ctx.domain, registeredDomains)) {
+    return { ok: false, reason: "Domain not registered for this installation." };
+  }
+  return { ok: true, context: {
+    installation_token: ctx.installationToken!,
+    domain: ctx.domain!,
+    tenant_id: ctx.tenantId!,
+    installation_id: ctx.installationId!,
+    plan_type: "starter",
+    subscription_active: ctx.subscriptionActive === true,
+  } };
+}
+
+/** Placeholder until full header/token resolution is wired to Supabase. */
 export function validateEmbedRequest(
   _headers: Headers,
   requiredModule?: string

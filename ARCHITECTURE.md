@@ -84,6 +84,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Update Engine (Phase 18):** See [UPDATE_ENGINE.md](./UPDATE_ENGINE.md) — safe version deployment, maintenance windows, migration approval, rollback, audit logging.
 
+**Trust Architecture (Phase 19):** See [TRUST_ARCHITECTURE.md](./TRUST_ARCHITECTURE.md) — data ownership, access levels, metadata-first storage, immutable audit, Security Dashboard.
+
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.
 
 ---
