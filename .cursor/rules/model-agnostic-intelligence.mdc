@@ -1,0 +1,20 @@
+---
+description: Model-agnostic intelligence — Aipify is the product, LLMs are replaceable infrastructure
+alwaysApply: true
+---
+
+# Model-Agnostic Intelligence
+
+Read **[MODEL_AGNOSTIC_INTELLIGENCE.md](../../MODEL_AGNOSTIC_INTELLIGENCE.md)** before adding AI generation, provider SDKs, or model configuration.
+
+## Rules
+
+1. **Aipify Intelligence is the product** — customers purchase Aipify, not GPT/Claude/Gemini
+2. Route all generation through `lib/intelligence/` (`selectModelProfile`) — never hardcode a provider at skill/UI layer
+3. **Never** expose model provider brands in customer-facing UI or copy
+4. Select model **by task** (executive summary, support, recommendations, retrieval, email draft)
+5. Enterprise may use `customer_approved` policy with approved profile IDs — default is `aipify_managed`
+6. Learning, trust, approvals, and tenancy must remain independent of any single provider SDK
+7. Provider adapters belong in Core services — swappable without changing Customer App or skills
+
+> Models may change. Aipify remains.

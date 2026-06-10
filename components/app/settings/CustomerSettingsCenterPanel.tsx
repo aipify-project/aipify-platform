@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { COMMON_TIMEZONES, getBrowserTimezone } from "@/lib/core/greeting";
 import { QUIET_HOURS_MODES, type QuietHoursMode } from "@/lib/presence/quiet-hours";
 import type { PresenceNotificationLevel } from "@/lib/presence/notifications";
 import { PRESENCE_NOTIFICATION_LEVELS } from "@/lib/presence/notifications";
+import { createClient } from "@/lib/supabase/client";
 
 type CustomerSettingsCenterPanelProps = {
   labels: {
@@ -18,7 +20,9 @@ type CustomerSettingsCenterPanelProps = {
       desktop: string;
       developer: string;
       updates: string;
+      timezone: string;
     };
+    timezoneHint: string;
     quietModes: Record<QuietHoursMode, string>;
     levels: Record<PresenceNotificationLevel, string>;
     save: string;
@@ -33,6 +37,7 @@ type CustomerSettingsCenterPanelProps = {
 
 export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPanelProps) {
   const [quietMode, setQuietMode] = useState<QuietHoursMode>("standard");
+  const [timezone, setTimezone] = useState("UTC");
   const [saved, setSaved] = useState(false);
 
   const load = useCallback(async () => {
@@ -41,6 +46,7 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
       const data = await res.json();
       const prefs = data.preferences as Record<string, unknown> | undefined;
       setQuietMode((prefs?.quiet_hours_mode as QuietHoursMode) ?? "standard");
+      setTimezone(String(prefs?.timezone ?? getBrowserTimezone()));
     }
   }, []);
 
@@ -48,12 +54,16 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
     void load();
   }, [load]);
 
-  async function saveQuietMode() {
+  async function savePreferences() {
     await fetch("/api/presence/preferences", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ quiet_hours_mode: quietMode }),
+      body: JSON.stringify({ quiet_hours_mode: quietMode, timezone }),
     });
+
+    const supabase = createClient();
+    await supabase.rpc("update_user_timezone", { p_timezone: timezone });
+
     setSaved(true);
     window.setTimeout(() => setSaved(false), 2000);
   }
@@ -64,6 +74,22 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
         <p className="mt-2 text-gray-600">{labels.subtitle}</p>
       </div>
+
+      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+        <h2 className="text-base font-semibold text-gray-900">{labels.sections.timezone}</h2>
+        <p className="mt-1 text-sm text-gray-500">{labels.timezoneHint}</p>
+        <select
+          value={timezone}
+          onChange={(e) => setTimezone(e.target.value)}
+          className="mt-3 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
+        >
+          {COMMON_TIMEZONES.map((tz) => (
+            <option key={tz} value={tz}>
+              {tz}
+            </option>
+          ))}
+        </select>
+      </section>
 
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
         <h2 className="text-base font-semibold text-gray-900">{labels.sections.quietHours}</h2>
@@ -80,7 +106,7 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
         </select>
         <button
           type="button"
-          onClick={() => void saveQuietMode()}
+          onClick={() => void savePreferences()}
           className="mt-3 rounded-lg bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700"
         >
           {saved ? labels.saved : labels.save}

@@ -10,7 +10,8 @@ export async function POST(request: Request) {
 
   return NextResponse.json(
     {
-      message: "Embedded assistant endpoint scaffold. Implement chat handler here.",
+      message:
+        "Embedded assistant endpoint scaffold. Route generation through lib/intelligence/ — model-agnostic, never provider-branded.",
       context: {
         installation_id: validation.context.installation_id,
         domain: validation.context.domain,

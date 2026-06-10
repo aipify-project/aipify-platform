@@ -1,4 +1,5 @@
 import { fetchCommandCenter, runQuickAction, STATUS_COLORS } from "./api";
+import { greetingForTimezone } from "./greeting";
 
 type AppState = {
   baseUrl: string;
@@ -71,7 +72,7 @@ async function renderApp(root: HTMLElement, state: AppState) {
         <span class="status-dot" style="background:${color}"></span>
         <h1>Aipify · ${status}</h1>
       </header>
-      ${briefing ? `<section><h2>Morning briefing</h2><p><strong>${briefing.greeting}.</strong> ${briefing.headline}</p><ul>${bullets}</ul></section>` : ""}
+      ${briefing ? `<section><h2>Briefing</h2><p><strong>${greetingForTimezone(String(briefing.timezone ?? "UTC"))}.</strong> ${briefing.headline}</p><ul>${bullets}</ul></section>` : ""}
       <section><h2>Executive feed</h2>${feed || "<p class='feed-item'>No events yet.</p>"}</section>
       <section><h2>Notifications (${data.unread_count ?? 0})</h2>${notifs || "<p class='notif-item'>None</p>"}</section>
       <section><h2>Pending approvals</h2><p>${data.pending_approvals ?? 0}</p></section>

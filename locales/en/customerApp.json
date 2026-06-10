@@ -1,5 +1,15 @@
 {
   "principle": "This is your Aipify — scoped to your business only.",
+  "greetings": {
+    "morning": "Good morning",
+    "afternoon": "Good afternoon",
+    "evening": "Good evening",
+    "late": {
+      "workingLate": "Working late? Aipify is still monitoring your business.",
+      "onDuty": "Aipify is on duty while you work late.",
+      "stable": "Everything looks stable. No critical action required."
+    }
+  },
   "home": {
     "loading": "Loading your overview…",
     "empty": "Complete account setup to open your Customer App.",
@@ -20,7 +30,8 @@
     "noRecommendations": "No recommendations ready for review.",
     "approvalsPending": "pending approvals",
     "viewAll": "View all",
-    "onboardingNote": "Complete onboarding to unlock the full Customer App experience."
+    "onboardingNote": "Complete onboarding to unlock the full Customer App experience.",
+    "overviewLate": "Everything looks stable. No critical action required."
   },
   "executive": {
     "title": "Executive dashboard",
@@ -141,6 +152,8 @@
       "developer": "Developer",
       "updates": "Updates"
     },
+    "timezone": "Timezone",
+    "timezoneHint": "Greetings and briefings use your local timezone.",
     "save": "Save preferences",
     "saved": "Saved",
     "links": {
@@ -149,11 +162,64 @@
       "desktopConnect": "Connect desktop app"
     }
   },
+  "learning": {
+    "title": "Learning review",
+    "subtitle": "See what Aipify has learned, why it learned it, and stay in control.",
+    "principle": "Aipify learns WITH you — not FROM you. You remain in control.",
+    "loading": "Loading learning center…",
+    "emptyLearnings": "No active learnings yet. Aipify will record patterns when you approve recommendations.",
+    "emptySuggestions": "No suggested improvements awaiting review.",
+    "emptyHistory": "Approval history will appear as you review recommendations and actions.",
+    "sections": {
+      "mode": "Learning mode",
+      "recent": "Recent learnings",
+      "suggestions": "Suggested improvements",
+      "history": "Approval history"
+    },
+    "modes": {
+      "disabled": {
+        "title": "Disabled",
+        "description": "Aipify does not adapt. Uses only predefined rules."
+      },
+      "assisted": {
+        "title": "Assisted learning",
+        "description": "Aipify observes patterns and suggests improvements. You approve before anything is learned."
+      },
+      "adaptive": {
+        "title": "Adaptive learning",
+        "description": "Aipify adapts automatically within approved boundaries — tone, timing, and frequency."
+      }
+    },
+    "adaptiveConsent": "I consent to adaptive learning within approved boundaries",
+    "adaptiveConsentHint": "Adaptive learning requires explicit consent. You can disable or remove learnings at any time.",
+    "saveMode": "Save learning mode",
+    "saving": "Saving…",
+    "saved": "Learning settings saved",
+    "removeLearning": "Remove learning",
+    "removing": "Removing…",
+    "confidence": "Confidence",
+    "learnedAt": "Learned",
+    "patternType": "Pattern",
+    "sourceType": "Source",
+    "viewRecommendations": "Review recommendations",
+    "rolloutStage": "Rollout stage",
+    "confidenceLabels": {
+      "low": "Aipify has limited evidence for this pattern.",
+      "medium": "Aipify is moderately confident based on recent approvals.",
+      "high": "Based on {count} similar approvals, Aipify is highly confident."
+    },
+    "confidenceBadges": {
+      "low": "Low confidence",
+      "medium": "Medium confidence",
+      "high": "High confidence"
+    }
+  },
   "nav": {
     "overview": "Home",
     "executive": "Executive",
     "presence": "Presence",
     "recommendations": "Recommendations",
+    "learning": "Learning",
     "skills": "Skills",
     "approvals": "Approvals",
     "installations": "Installations",

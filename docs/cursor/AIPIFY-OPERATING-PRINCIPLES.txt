@@ -83,7 +83,17 @@ Environment levels: internal → pilot → customer → enterprise (max privacy)
 See: AIPIFY-SELF-LEARNING-ARCHITECTURE.txt
 
 ────────────────────────────────────────
-7. PRESENCE — How does Aipify reassure users?
+7. INTELLIGENCE — Model-agnostic architecture
+────────────────────────────────────────
+Aipify Intelligence is the product. Models are infrastructure.
+- Task-based routing (executive summary, support, recommendations, etc.)
+- Never brand customer UI with GPT/Claude/Gemini
+- Core independent of provider SDKs
+- Enterprise: customer_approved model profiles
+See: MODEL_AGNOSTIC_INTELLIGENCE.md, lib/intelligence/
+
+────────────────────────────────────────
+8. PRESENCE — How does Aipify reassure users?
 ────────────────────────────────────────
 States: standby, analysing, working, learning, self_healing,
         human_approval_required, critical_attention.
@@ -94,7 +104,7 @@ User controls: visibility, animation, sound, notifications.
 See: lib/presence/presence-engine.ts
 
 ────────────────────────────────────────
-8. PACKAGES — Which capabilities per plan?
+9. PACKAGES — Which capabilities per plan?
 ────────────────────────────────────────
 Source: lib/core/plans.ts (PRODUCT_PACKAGES)
 
@@ -106,7 +116,7 @@ Enterprise: custom — + dedicated intelligence, permissions, privacy
 Do not expose modules outside plan.
 
 ────────────────────────────────────────
-9. ARCHITECTURE — Where does each capability belong?
+10. ARCHITECTURE — Where does each capability belong?
 ────────────────────────────────────────
 Mandatory before every feature (ARCHITECTURE.md):
 1. Layer? 2. User? 3. Isolation? 4. Code path?
@@ -119,9 +129,9 @@ Shared → lib/core/, components/shared/
 Never place code in existing folders out of convenience.
 
 ────────────────────────────────────────
-10. SKILLS — When may new skills be introduced?
+11. SKILLS — When may new skills be introduced?
 ────────────────────────────────────────
-ONLY after principles 1–9 are explicitly mapped for that skill.
+ONLY after principles 1–10 are explicitly mapped for that skill.
 
 Each new skill must declare:
 identity fit, behaviour rules, communication copy, risk class,

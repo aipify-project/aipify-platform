@@ -33,6 +33,16 @@ export default async function PresencePage() {
           presence: t("customerApp.presence.categories.presence"),
           skill: t("customerApp.presence.categories.skill"),
         },
+        greetings: {
+          morning: t("customerApp.greetings.morning"),
+          afternoon: t("customerApp.greetings.afternoon"),
+          evening: t("customerApp.greetings.evening"),
+          late: [
+            t("customerApp.greetings.late.workingLate"),
+            t("customerApp.greetings.late.onDuty"),
+            t("customerApp.greetings.late.stable"),
+          ],
+        },
       }}
     />
   );

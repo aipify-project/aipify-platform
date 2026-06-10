@@ -339,6 +339,21 @@ Aipify should become software that helps people think **less** about operations 
 
 ---
 
+## 20. Model-Agnostic Intelligence
+
+Large language models are **replaceable infrastructure** — not the product customers purchase.
+
+- **Aipify Intelligence** is the product: executive summaries, support, recommendations, knowledge retrieval, email drafting, and future skills
+- **Models** (any provider) execute tasks selected by Aipify Core per intelligence task
+- Customers purchase **Aipify** — never access to GPT, Claude, Gemini, or an individual model brand
+- Enterprise customers may later supply **customer-approved** model profiles; Core remains independent
+
+Code: `lib/intelligence/` · Guide: [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md)
+
+> Models may change. Aipify remains.
+
+---
+
 ## 21. Skill Placement Rules
 
 Before implementing any skill, determine **where the skill belongs**. Architectural placement must be **approved before implementation**. Never place skills into existing folders simply because they already exist.

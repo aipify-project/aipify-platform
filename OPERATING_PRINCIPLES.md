@@ -121,7 +121,25 @@ Reference: `docs/cursor/AIPIFY-SELF-LEARNING-ARCHITECTURE.txt`
 
 ---
 
-## 7. Presence — How does Aipify reassure users?
+## 7. Intelligence — Model-agnostic architecture
+
+Aipify must never become dependent on a single language model provider. **Aipify Intelligence is the product; models are replaceable infrastructure.**
+
+| Principle | Rule |
+|-----------|------|
+| **Task-based routing** | Select the most appropriate model profile per task (executive summary, support, recommendations, retrieval, email draft) — not a global default provider |
+| **No provider branding** | Customers purchase Aipify. Never present GPT, Claude, Gemini, or other model brands as the product |
+| **Core independence** | Business logic, learning, trust, and tenancy live in Aipify Core — not in a provider SDK |
+| **Swappable backends** | Provider adapters are infrastructure; swapping models must not require Customer App or skill changes |
+| **Enterprise BYOM** | Enterprise tenants may restrict generation to customer-approved model profiles |
+
+Router: `selectModelProfile()` in `lib/intelligence/router.ts`. Reference: [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md)
+
+> Models may change. Aipify remains.
+
+---
+
+## 8. Presence — How does Aipify reassure users?
 
 Presence makes Aipify **felt but not noisy** — users know the system is working, healthy, and honest.
 
@@ -141,7 +159,7 @@ Reference: `lib/presence/presence-engine.ts`, Presence Center UI, `DailyBriefing
 
 ---
 
-## 8. Packages — Which capabilities belong to which plans?
+## 9. Packages — Which capabilities belong to which plans?
 
 **Every customer** receives the Aipify Core package (`AIPIFY_CORE_MODULES` in `lib/core/foundation.ts`). Additional capabilities are modular by tier. Source of truth: **`lib/core/plans.ts`** (`PRODUCT_PACKAGES`).
 
@@ -156,7 +174,7 @@ Reference: `lib/presence/presence-engine.ts`, Presence Center UI, `DailyBriefing
 
 ---
 
-## 9. Architecture — Where does each capability belong?
+## 10. Architecture — Where does each capability belong?
 
 Every capability lives in exactly one layer. Before implementation, answer the four mandatory questions in [ARCHITECTURE.md](./ARCHITECTURE.md):
 
@@ -176,9 +194,9 @@ Every capability lives in exactly one layer. Before implementation, answer the f
 
 ---
 
-## 10. Skills — When may new operational skills be introduced?
+## 11. Skills — When may new operational skills be introduced?
 
-**Only after Core Foundation and principles 1–9 are satisfied and explicitly mapped** may a new operational skill or agent capability be introduced.
+**Only after Core Foundation and principles 1–10 are satisfied and explicitly mapped** may a new operational skill or agent capability be introduced.
 
 ### Skill placement (Core Foundation §21)
 
@@ -226,7 +244,7 @@ Architecture decision (ARCHITECTURE.md)
         ↓
 Implementation
         ↓
-New operational skill (only when foundation + 1–9 are mapped)
+New operational skill (only when foundation + 1–10 are mapped)
 ```
 
 ---
@@ -243,4 +261,7 @@ New operational skill (only when foundation + 1–9 are mapped)
 | `lib/core/risk.ts` | Risk levels and approval rules |
 | `docs/cursor/AIPIFY-OPERATING-PRINCIPLES.txt` | Cursor phase spec |
 | `docs/cursor/AIPIFY-SELF-LEARNING-ARCHITECTURE.txt` | Learning privacy model |
+| [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) | Task-based model routing, provider independence |
+| `lib/intelligence/` | Intelligence tasks, profiles, router |
 | `.cursor/rules/install-first-strategy.mdc` | Install-first identity |
+| `.cursor/rules/model-agnostic-intelligence.mdc` | Model-agnostic agent rules |

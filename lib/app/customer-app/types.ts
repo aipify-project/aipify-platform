@@ -3,6 +3,8 @@ import type { QuickActionId } from "@/lib/notification/command-center";
 
 export type CustomerAppHomeBundle = {
   has_customer: boolean;
+  timezone?: string;
+  greeting_period?: string;
   welcome_message?: string;
   company_name?: string;
   user_name?: string;

@@ -1299,6 +1299,16 @@
         "approved": "Approved"
       }
     },
+    "learningGovernance": {
+      "title": "Learning governance",
+      "subtitle": "Platform policies, rollout stages, and safeguards for controlled learning.",
+      "loading": "Loading governance policies…",
+      "environment": "Environment",
+      "defaultMode": "Default mode",
+      "adaptive": "Adaptive allowed",
+      "rollout": "Rollout stage",
+      "safeguards": "Safeguards"
+    },
     "globalPatterns": {
       "title": "Global Patterns",
       "subtitle": "Approved, anonymised patterns that improve every installation.",

@@ -846,6 +846,16 @@
         "approved": "Approved"
       }
     },
+    "learningGovernance": {
+      "title": "Lärandestyrning",
+      "subtitle": "Plattformspolicyer, utrullningsfaser och skydd för kontrollerat lärande.",
+      "loading": "Laddar styrningspolicyer…",
+      "environment": "Miljö",
+      "defaultMode": "Standardläge",
+      "adaptive": "Adaptivt tillåtet",
+      "rollout": "Utrullningsfas",
+      "safeguards": "Skydd"
+    },
     "globalPatterns": {
       "title": "Global Patterns",
       "subtitle": "Approved, anonymised patterns that improve every installation.",

@@ -1,5 +1,15 @@
 {
   "principle": "Dette er din Aipify — kun for din virksomhet.",
+  "greetings": {
+    "morning": "God morgen",
+    "afternoon": "God ettermiddag",
+    "evening": "God kveld",
+    "late": {
+      "workingLate": "Jobber sent? Aipify overvåker fortsatt virksomheten din.",
+      "onDuty": "Aipify er på vakt mens du jobber sent.",
+      "stable": "Alt ser stabilt ut. Ingen kritisk handling kreves."
+    }
+  },
   "home": {
     "loading": "Loading your overview…",
     "empty": "Complete account setup to open your Customer App.",
@@ -20,7 +30,8 @@
     "noRecommendations": "No recommendations ready for review.",
     "approvalsPending": "pending approvals",
     "viewAll": "View all",
-    "onboardingNote": "Complete onboarding to unlock the full Customer App experience."
+    "onboardingNote": "Fullfør onboarding for å låse opp hele Customer App.",
+    "overviewLate": "Alt ser stabilt ut. Ingen kritisk handling kreves."
   },
   "executive": {
     "title": "Executive dashboard",
@@ -141,7 +152,9 @@
       "developer": "Developer",
       "updates": "Updates"
     },
-    "save": "Save preferences",
+    "timezone": "Tidssone",
+    "timezoneHint": "Hilsener og briefinger bruker din lokale tidssone.",
+    "save": "Lagre innstillinger",
     "saved": "Saved",
     "links": {
       "developer": "Developer settings",
@@ -149,11 +162,64 @@
       "desktopConnect": "Connect desktop app"
     }
   },
+  "learning": {
+    "title": "Læringsgjennomgang",
+    "subtitle": "Se hva Aipify har lært, hvorfor, og behold kontrollen.",
+    "principle": "Aipify lærer MED deg — ikke FRA deg. Du har kontrollen.",
+    "loading": "Laster læringssenter…",
+    "emptyLearnings": "Ingen aktive læringer ennå. Aipify registrerer mønstre når du godkjenner anbefalinger.",
+    "emptySuggestions": "Ingen foreslåtte forbedringer venter på gjennomgang.",
+    "emptyHistory": "Godkjenningshistorikk vises når du gjennomgår anbefalinger og handlinger.",
+    "sections": {
+      "mode": "Læringsmodus",
+      "recent": "Nylige læringer",
+      "suggestions": "Foreslåtte forbedringer",
+      "history": "Godkjenningshistorikk"
+    },
+    "modes": {
+      "disabled": {
+        "title": "Deaktivert",
+        "description": "Aipify tilpasser seg ikke. Bruker kun forhåndsdefinerte regler."
+      },
+      "assisted": {
+        "title": "Assistert læring",
+        "description": "Aipify observerer mønstre og foreslår forbedringer. Du godkjenner før noe læres."
+      },
+      "adaptive": {
+        "title": "Adaptiv læring",
+        "description": "Aipify tilpasser seg automatisk innen godkjente grenser — tone, timing og frekvens."
+      }
+    },
+    "adaptiveConsent": "Jeg samtykker til adaptiv læring innen godkjente grenser",
+    "adaptiveConsentHint": "Adaptiv læring krever eksplisitt samtykke. Du kan deaktivere eller fjerne læringer når som helst.",
+    "saveMode": "Lagre læringsmodus",
+    "saving": "Lagrer…",
+    "saved": "Læringsinnstillinger lagret",
+    "removeLearning": "Fjern læring",
+    "removing": "Fjerner…",
+    "confidence": "Konfidens",
+    "learnedAt": "Lært",
+    "patternType": "Mønster",
+    "sourceType": "Kilde",
+    "viewRecommendations": "Gå til anbefalinger",
+    "rolloutStage": "Utrullingsfase",
+    "confidenceLabels": {
+      "low": "Aipify har begrenset evidens for dette mønsteret.",
+      "medium": "Aipify er moderat sikker basert på nylige godkjenninger.",
+      "high": "Basert på {count} lignende godkjenninger er Aipify svært sikker."
+    },
+    "confidenceBadges": {
+      "low": "Lav konfidens",
+      "medium": "Middels konfidens",
+      "high": "Høy konfidens"
+    }
+  },
   "nav": {
     "overview": "Hjem",
     "executive": "Executive",
     "presence": "Presence",
     "recommendations": "Anbefalinger",
+    "learning": "Læring",
     "skills": "Skills",
     "approvals": "Godkjenninger",
     "installations": "Installasjoner",

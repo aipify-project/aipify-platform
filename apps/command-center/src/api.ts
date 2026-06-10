@@ -5,7 +5,13 @@ export type CommandCenterData = {
   presence_status?: string;
   health_overview?: { score: number; label: string };
   executive_feed?: Array<{ time_label: string; message: string }>;
-  morning_briefing?: { greeting: string; headline: string; bullets: string[] };
+  morning_briefing?: {
+    greeting: string;
+    headline: string;
+    bullets: string[];
+    timezone?: string;
+    period?: string;
+  };
   notifications?: Array<{ id: string; title: string; level: string }>;
   pending_approvals?: number;
   unread_count?: number;

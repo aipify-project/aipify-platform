@@ -137,8 +137,4 @@ export function buildSystemAiSummary(
   return "No action required. All systems operational.";
 }
 
-export function getGreetingName(hour: number): "morning" | "afternoon" | "evening" {
-  if (hour < 12) return "morning";
-  if (hour < 17) return "afternoon";
-  return "evening";
-}
+export { getGreetingName } from "@/lib/core/greeting";

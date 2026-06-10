@@ -104,6 +104,10 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Customer App 1.0 (Phase 28):** See [CUSTOMER_APP.md](./CUSTOMER_APP.md) — complete customer product at `/app/*` (home, executive, presence, recommendations, approvals, skills, installations, domains, team, license, security, settings). `lib/app/customer-app/`, Core RPCs for health score and centers. `/dashboard/*` is legacy.
 
+**Learning Engine (Phase 29):** See [LEARNING_ENGINE.md](./LEARNING_ENGINE.md) — controlled learning at `/app/learning`, modes (disabled / assisted / adaptive), learning memory metadata only, platform governance at `/platform/intelligence/learning-queue`, `lib/learning/`, migration `20260611700000_learning_engine_phase29.sql`.
+
+**Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
+
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.
 
 ---
@@ -113,9 +117,9 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 | Concern | Path |
 |---------|------|
 | UI primitives & brand | `components/ui/`, `components/shared/` |
-| Cross-layer logic | `lib/core/`, `services/core/`, `types/core/` |
+| Cross-layer logic | `lib/core/`, `lib/intelligence/`, `services/core/`, `types/core/` |
 
-Shared modules include plan limits, tenant utilities, domain validation, risk classification, and presence states. **Do not duplicate** design components across platform / app / embed — import from `components/shared/`.
+Shared modules include plan limits, tenant utilities, domain validation, risk classification, presence states, and model-agnostic intelligence routing. **Do not duplicate** design components across platform / app / embed — import from `components/shared/`.
 
 ---
 

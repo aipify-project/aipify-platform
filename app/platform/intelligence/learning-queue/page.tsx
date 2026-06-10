@@ -1,3 +1,4 @@
+import PlatformLearningGovernanceSection from "@/components/platform/PlatformLearningGovernanceSection";
 import PlatformLearningQueuePanel from "@/components/platform/PlatformLearningQueuePanel";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -9,6 +10,7 @@ export default async function IntelligenceLearningQueuePage() {
   const t = createTranslator(dict);
 
   return (
+    <div className="space-y-10">
     <PlatformLearningQueuePanel
       locale={locale}
       labels={{
@@ -39,5 +41,20 @@ export default async function IntelligenceLearningQueuePage() {
         },
       }}
     />
+    <PlatformLearningGovernanceSection
+      labels={{
+        title: t("platform.intelligence.learningGovernance.title"),
+        subtitle: t("platform.intelligence.learningGovernance.subtitle"),
+        loading: t("platform.intelligence.learningGovernance.loading"),
+        environment: t("platform.intelligence.learningGovernance.environment"),
+        defaultMode: t("platform.intelligence.learningGovernance.defaultMode"),
+        adaptive: t("platform.intelligence.learningGovernance.adaptive"),
+        rollout: t("platform.intelligence.learningGovernance.rollout"),
+        safeguards: t("platform.intelligence.learningGovernance.safeguards"),
+        yes: t("platform.intelligence.presence.yes"),
+        no: t("platform.intelligence.presence.no"),
+      }}
+    />
+    </div>
   );
 }

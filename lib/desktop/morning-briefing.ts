@@ -6,8 +6,8 @@ export type MorningBriefingSummary = {
 };
 
 export const MORNING_BRIEFING_TEMPLATE = {
-  greeting: "Good morning",
-  headline: "Aipify worked while you were away.",
+  greeting: "Greeting",
+  headline: "Aipify is monitoring your business.",
   bulletKeys: [
     "support_resolved",
     "no_critical_incidents",

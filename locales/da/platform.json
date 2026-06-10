@@ -846,6 +846,16 @@
         "approved": "Approved"
       }
     },
+    "learningGovernance": {
+      "title": "Læringsstyring",
+      "subtitle": "Platformspolitikker, udrulningsfaser og sikkerhedsforanstaltninger for kontrolleret læring.",
+      "loading": "Indlæser styringspolitikker…",
+      "environment": "Miljø",
+      "defaultMode": "Standardtilstand",
+      "adaptive": "Adaptiv tilladt",
+      "rollout": "Udrulningsfase",
+      "safeguards": "Sikkerhedsforanstaltninger"
+    },
     "globalPatterns": {
       "title": "Global Patterns",
       "subtitle": "Approved, anonymised patterns that improve every installation.",

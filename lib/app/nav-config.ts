@@ -5,6 +5,7 @@ export type AppNavId =
   | "executive"
   | "presence"
   | "recommendations"
+  | "learning"
   | "skills"
   | "approvals"
   | "installations"
@@ -30,6 +31,7 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/recommendations",
     labelKey: "customerApp.nav.recommendations",
   },
+  { id: "learning", href: "/app/learning", labelKey: "customerApp.nav.learning" },
   { id: "skills", href: "/app/skills", labelKey: "customerApp.nav.skills" },
   { id: "approvals", href: "/app/approvals", labelKey: "customerApp.nav.approvals" },
   { id: "installations", href: "/app/installations", labelKey: "customerApp.nav.installations" },
@@ -58,6 +60,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
     return "presence";
   }
   if (pathname.startsWith("/app/recommendations")) return "recommendations";
+  if (pathname.startsWith("/app/learning")) return "learning";
   if (pathname.startsWith("/app/skills")) return "skills";
   if (pathname.startsWith("/app/approvals")) return "approvals";
   if (

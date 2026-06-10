@@ -1,0 +1,34 @@
+AIPIFY PRINCIPLE – MODEL AGNOSTIC INTELLIGENCE
+STATUS: Foundation implemented
+PRIORITY: CRITICAL
+
+CORE PRINCIPLE
+Aipify Intelligence is the product.
+Models are infrastructure.
+Customers purchase Aipify — not GPT, Claude, Gemini, or any individual model.
+
+RULES
+- Never depend on a single LLM provider
+- Route by intelligence task, not provider default
+- Never brand customer UI with model provider names
+- Enterprise may supply customer_approved model profiles
+- Aipify Core remains independent of provider SDKs
+
+INTELLIGENCE TASKS
+executive_summary, support_response, recommendation, knowledge_retrieval,
+email_draft, presence_briefing, installation_guidance, risk_explanation
+
+CODE
+lib/intelligence/tasks.ts
+lib/intelligence/profiles.ts
+lib/intelligence/router.ts
+lib/intelligence/types.ts
+MODEL_AGNOSTIC_INTELLIGENCE.md
+.cursor/rules/model-agnostic-intelligence.mdc
+
+TEST
+npm run test:intelligence
+
+FINAL PRINCIPLE
+Models may change.
+Aipify remains.

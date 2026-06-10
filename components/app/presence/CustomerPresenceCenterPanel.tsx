@@ -5,6 +5,11 @@ import { useCallback, useEffect, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
 import { SectionCard } from "@/components/app/shared/SectionCard";
 import type { CustomerPresenceEvent } from "@/lib/app/customer-app";
+import {
+  formatWelcomeMessage,
+  getBrowserTimezone,
+  type GreetingLabels,
+} from "@/lib/core/greeting";
 import { formatDate } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
 
@@ -24,6 +29,7 @@ type CustomerPresenceCenterPanelProps = {
     noEvents: string;
     commandCenter: string;
     categories: Record<string, string>;
+    greetings: GreetingLabels;
   };
 };
 
@@ -57,6 +63,10 @@ export function CustomerPresenceCenterPanel({ locale, labels }: CustomerPresence
   const timeline = (data.activity_timeline as CustomerPresenceEvent[]) ?? [];
   const briefing = data.morning_briefing as Record<string, unknown> | undefined;
   const feed = (data.executive_feed as Array<{ id: string; message: string; time_label: string }>) ?? [];
+  const briefingTimezone = String(briefing?.timezone ?? getBrowserTimezone());
+  const localizedBriefing = briefing
+    ? formatWelcomeMessage(labels.greetings, { timezone: briefingTimezone })
+    : null;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -72,7 +82,10 @@ export function CustomerPresenceCenterPanel({ locale, labels }: CustomerPresence
 
       {briefing && (
         <SectionCard title={labels.sections.briefing}>
-          <p className="font-medium text-gray-900">{String(briefing.headline ?? "")}</p>
+          <p className="font-medium text-gray-900">
+            {localizedBriefing?.message ?? String(briefing.greeting ?? "")}
+          </p>
+          <p className="mt-2 text-sm text-gray-600">{String(briefing.headline ?? "")}</p>
           <ul className="mt-3 space-y-1">
             {((briefing.bullets as string[]) ?? []).map((bullet) => (
               <li key={bullet} className="text-sm text-gray-700">

@@ -1,0 +1,23 @@
+---
+description: Aipify Learning Engine — controlled customer learning with transparency and consent
+alwaysApply: true
+---
+
+# Learning Engine (Phase 29)
+
+Read **[LEARNING_ENGINE.md](../../LEARNING_ENGINE.md)** before changes to learning modes, memory, or review UI.
+
+## Rules
+
+1. **Learn WITH the customer** — never store raw customer content in learning memory
+2. Default mode is **assisted** — human approval before learning
+3. **Adaptive** requires explicit `adaptive_consent_at` and plan/policy eligibility
+4. Customer Review Center is `/app/learning` — modes, learnings, remove, disable
+5. Business logic in Core RPCs (`get_customer_learning_center`, `record_customer_learning_memory`) — panels are thin
+6. Explanations required whenever behaviour changes (`lib/learning/explanation.ts`)
+7. Platform governance stays in `/platform/intelligence/learning-queue` — never expose to Customer App
+8. i18n: `locales/{en,no,sv,da}/customerApp.json` (`learning.*`) and `platform.json` (`learningGovernance.*`)
+
+## Forbidden in learning memory
+
+Sensitive PII, raw email, private conversations, payment data, passwords, auth secrets, confidential business records.

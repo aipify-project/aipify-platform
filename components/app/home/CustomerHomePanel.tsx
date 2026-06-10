@@ -5,8 +5,12 @@ import { useCallback, useEffect, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
 import { HealthScoreCard } from "@/components/app/shared/HealthScoreCard";
 import { SectionCard } from "@/components/app/shared/SectionCard";
-import type { CustomerAppHomeBundle } from "@/lib/app/customer-app";
-import type { HealthScoreBand } from "@/lib/app/customer-app";
+import type { CustomerAppHomeBundle, HealthScoreBand } from "@/lib/app/customer-app";
+import {
+  formatWelcomeMessage,
+  getBrowserTimezone,
+  type GreetingLabels,
+} from "@/lib/core/greeting";
 import { formatDate } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
 
@@ -30,6 +34,8 @@ type CustomerHomePanelProps = {
     approvalsPending: string;
     viewAll: string;
     onboardingNote: string;
+    greetings: GreetingLabels;
+    overviewLate: string;
   };
 };
 
@@ -63,14 +69,21 @@ export function CustomerHomePanel({ locale, labels }: CustomerHomePanelProps) {
   }
 
   const health = bundle.health_score ?? { score: 90, label: "healthy" as HealthScoreBand };
+  const timezone = bundle.timezone ?? getBrowserTimezone();
+  const welcome = formatWelcomeMessage(labels.greetings, {
+    timezone,
+    userName: bundle.user_name,
+  });
+  const overview =
+    welcome.period === "late" ? labels.overviewLate : bundle.executive_overview;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-          {bundle.welcome_message}
+          {welcome.message}
         </h1>
-        <p className="mt-2 max-w-2xl text-base text-gray-600">{bundle.executive_overview}</p>
+        <p className="mt-2 max-w-2xl text-base text-gray-600">{overview}</p>
         <p className="mt-3 text-sm text-indigo-700">{labels.principle}</p>
       </div>
 

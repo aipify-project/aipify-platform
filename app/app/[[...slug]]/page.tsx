@@ -45,8 +45,19 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
           noRecommendations: t("customerApp.home.noRecommendations"),
           approvalsPending: t("customerApp.home.approvalsPending"),
           viewAll: t("customerApp.home.viewAll"),
-          onboardingNote: t("customerApp.home.onboardingNote"),
-        }}
+        onboardingNote: t("customerApp.home.onboardingNote"),
+        overviewLate: t("customerApp.home.overviewLate"),
+        greetings: {
+          morning: t("customerApp.greetings.morning"),
+          afternoon: t("customerApp.greetings.afternoon"),
+          evening: t("customerApp.greetings.evening"),
+          late: [
+            t("customerApp.greetings.late.workingLate"),
+            t("customerApp.greetings.late.onDuty"),
+            t("customerApp.greetings.late.stable"),
+          ],
+        },
+      }}
       />
     );
   }

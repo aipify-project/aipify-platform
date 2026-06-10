@@ -9,8 +9,8 @@ import AipifyBrainOverviewSection from "@/components/platform/AipifyBrainOvervie
 import IntelligenceRecommendationsSection from "@/components/platform/IntelligenceRecommendationsSection";
 import PlatformLearningPanel from "@/components/platform/PlatformLearningPanel";
 import { createClient } from "@/lib/supabase/client";
+import { getGreetingPeriodForTimezone, getBrowserTimezone } from "@/lib/core/greeting";
 import {
-  getGreetingName,
   type PlatformAdminSession,
   type PlatformDashboardSnapshot,
 } from "@/lib/platform/ai-dashboard";
@@ -203,7 +203,7 @@ export default function PlatformOverviewPanel({ labels }: PlatformOverviewPanelP
   }, [session?.last_login_at]);
 
   const greeting = useMemo(() => {
-    const part = getGreetingName(new Date().getHours());
+    const part = getGreetingPeriodForTimezone(getBrowserTimezone());
     if (part === "morning") return labels.briefing.greetingMorning;
     if (part === "afternoon") return labels.briefing.greetingAfternoon;
     return labels.briefing.greetingEvening;

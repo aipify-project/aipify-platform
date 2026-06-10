@@ -28,6 +28,7 @@ The first complete customer-facing product experience. Customers interact with *
 | `/app/executive` | Executive dashboard |
 | `/app/presence` | Presence center — timeline, briefing, feed |
 | `/app/recommendations` | Recommendations center |
+| `/app/learning` | Learning Review Center (Phase 29) |
 | `/app/skills` | Skills center (SkillOS) |
 | `/app/approvals` | Approval center |
 | `/app/installations` | Installations center |
@@ -64,7 +65,10 @@ Combines installation health, skill status, pending approvals, and critical even
 | `get_customer_executive_dashboard()` | Executive dashboard |
 | `get_customer_presence_center()` | Presence timeline & feed |
 | `get_customer_recommendations_center()` | Recommendations list |
-| `perform_customer_recommendation_action()` | Approve / dismiss |
+| `perform_customer_recommendation_action()` | Approve / dismiss (records learning on approve) |
+| `get_customer_learning_center()` | Learning Review Center |
+| `update_customer_learning_settings()` | Learning mode & adaptive consent |
+| `remove_customer_learning_memory()` | Remove a learning |
 | `get_customer_approvals_center()` | Pending approvals |
 | `get_customer_team_center()` | Team members & invitations |
 | `_compute_customer_health_score()` | Health score helper |

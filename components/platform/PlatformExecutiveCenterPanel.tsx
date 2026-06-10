@@ -11,10 +11,8 @@ import {
   type ExecutiveCenterBundle,
 } from "@/lib/platform/executive-center";
 import type { ExecutiveCenterLabels } from "@/lib/platform/executive-page-labels";
-import {
-  getGreetingName,
-  type PlatformAdminSession,
-} from "@/lib/platform/ai-dashboard";
+import { getGreetingPeriodForTimezone, getBrowserTimezone } from "@/lib/core/greeting";
+import type { PlatformAdminSession } from "@/lib/platform/ai-dashboard";
 import { createClient } from "@/lib/supabase/client";
 
 type PlatformExecutiveCenterPanelProps = {
@@ -65,7 +63,7 @@ export default function PlatformExecutiveCenterPanel({
   }, [load]);
 
   const greeting = useMemo(() => {
-    const part = getGreetingName(new Date().getHours());
+    const part = getGreetingPeriodForTimezone(getBrowserTimezone());
     if (part === "morning") return labels.greetingMorning;
     if (part === "afternoon") return labels.greetingAfternoon;
     return labels.greetingEvening;
