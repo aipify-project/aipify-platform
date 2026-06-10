@@ -1,0 +1,161 @@
+---
+description: Enforce architectural ownership boundaries across the Aipify ecosystem.
+alwaysApply: true
+---
+
+# AIPIFY LAYER OWNERSHIP RULE
+
+Before implementing ANY new feature, Cursor MUST determine which architectural layer owns the feature.
+
+No implementation may proceed until ownership has been explicitly identified.
+
+See also [ARCHITECTURE.md](../../ARCHITECTURE.md) for repo path mapping (`/platform`, `/app`, `/api/install`).
+
+## LAYER 1 — PLATFORM ADMIN
+
+**Purpose:** Used exclusively by Aipify Group AS to operate the SaaS platform itself.
+
+**Allowed responsibilities:**
+
+- Customer management
+- Subscription management
+- Billing oversight
+- Invoice management
+- Installation management
+- Install Engine orchestration
+- Update scheduling and rollout
+- Trust & Security governance
+- Platform-wide metrics
+- Global support monitoring
+- Automation templates
+- Intelligence review
+- Learning approval workflows
+- Action approvals
+- Skill marketplace governance
+- System health monitoring
+- Global anonymised impact metrics
+- License administration
+- Audit logs
+
+**Must NEVER contain:**
+
+- Customer business workflows
+- Customer support inboxes
+- Customer sales dashboards
+- Customer operational tasks
+- Customer internal automations
+
+**Route examples:** `/platform/*`, `/platform/customers`, `/platform/intelligence`, `/platform/installations`
+
+**Code:** `app/platform/`, `components/platform/`, `lib/platform/`
+
+## LAYER 2 — CUSTOMER APP
+
+**Purpose:** The operational workspace purchased and used by the customer.
+
+**Allowed responsibilities:**
+
+- Executive dashboard
+- Morning briefings
+- Customer support management
+- Customer automations
+- Customer approvals
+- Customer recommendations
+- Customer reports
+- Customer skills
+- Customer communications
+- Internal business workflows
+- Tenant-specific analytics
+- Customer health summaries
+
+**Must NEVER contain:**
+
+- Other customer data
+- Platform-wide metrics
+- Platform billing management
+- Global intelligence governance
+
+**Route examples:** `/app/*`, `/app/executive`, `/app/support`, `/app/automations`
+
+**Code:** `app/app/`, `components/app/`, `lib/app/`
+
+## LAYER 3 — INSTALL ENGINE
+
+**Purpose:** The installation layer responsible for learning and connecting safely with customer environments.
+
+**Allowed responsibilities:**
+
+- Integration discovery
+- API connection setup
+- Environment scanning
+- Permission validation
+- Health monitoring
+- Installation templates
+- Rollout preparation
+- Upgrade compatibility checks
+- Feature activation
+- Local metadata collection
+
+**Must NEVER contain:**
+
+- Customer business decision making
+- Global customer administration
+- Platform billing logic
+
+**Route examples:** `/api/install/*`, `/api/embed/*`
+
+**Code:** `app/api/install/`, `app/api/embed/`, `lib/install/`, `lib/embed/`, `components/embed/`
+
+## IMPLEMENTATION REQUIREMENT
+
+Before generating code, Cursor MUST declare:
+
+- `Feature owner: PLATFORM ADMIN`
+- `Feature owner: CUSTOMER APP`
+- `Feature owner: INSTALL ENGINE`
+
+## CROSS-LAYER RULES
+
+- Features may communicate across layers ONLY through approved APIs.
+- Layers must remain independently deployable.
+- No direct database access across tenants.
+- No shared business logic without documented ownership.
+
+## DUPLICATION RULE
+
+Features must never be duplicated across layers unless there is documented justification.
+
+**Example:** Executive Dashboard may exist in:
+
+- **PLATFORM ADMIN** → Platform KPIs
+- **CUSTOMER APP** → Customer business KPIs
+
+These are separate implementations.
+
+## DATA OWNERSHIP RULE
+
+Customer operational data belongs to the customer.
+
+**Platform Admin may only access:**
+
+- Subscription status
+- Installation status
+- Licensing status
+- Aggregated anonymised metrics
+- System health information
+
+**Platform Admin must NEVER access:**
+
+- Customer emails
+- Customer chats
+- Customer sales records
+- Customer inventory details
+- Customer financial transactions
+
+…unless explicitly authorised by the customer through controlled support workflows.
+
+## GOLDEN RULE
+
+If Cursor cannot clearly determine ownership, **STOP IMPLEMENTATION** and request clarification before proceeding.
+
+Architecture must always take priority over speed of delivery.
