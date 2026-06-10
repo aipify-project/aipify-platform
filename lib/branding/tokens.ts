@@ -32,9 +32,9 @@ export const AIPIFY_BRAND = {
   sidebarMark: {
     pulseSize: 22,
     pulseOpacity: 0.28,
-    pulseHoverOpacity: 0.38,
+    pulseHoverOpacity: 0.5,
     textOpacity: 0.42,
-    textHoverOpacity: 0.58,
+    textHoverOpacity: 0.72,
   },
 } as const;
 

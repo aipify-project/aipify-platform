@@ -15,7 +15,7 @@ export default async function PlatformLayout({
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["common", "platform", "branding"]);
+  const dict = await getDictionary(locale, ["common", "auth", "platform", "branding"]);
   const t = createTranslator(dict);
 
   return (
@@ -33,6 +33,7 @@ export default async function PlatformLayout({
           notificationsLabel={t("platform.topbar.notifications")}
           profileFallbackName={t("platform.topbar.profileFallback")}
           companyFallbackName={t("platform.topbar.organizationFallback")}
+          signOutLabel={t("auth.logout.signOut")}
           companyNameOverride={t("platform.sidebar.organization")}
           roleLabels={{
             super_admin: t("platform.roles.super_admin"),

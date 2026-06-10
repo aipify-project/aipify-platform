@@ -23,6 +23,7 @@ type DashboardShellProps = {
   roleLabels: Record<string, string>;
   profileFallbackName: string;
   companyFallbackName: string;
+  signOutLabel: string;
   navConfig: Array<{ id: string; href: string; label: string }>;
   shellVariant: "platform" | "customer";
   mobileNavIds: string[];
@@ -47,6 +48,7 @@ export default function DashboardShell({
   roleLabels,
   profileFallbackName,
   companyFallbackName,
+  signOutLabel,
   navConfig,
   shellVariant,
   mobileNavIds,
@@ -107,7 +109,7 @@ export default function DashboardShell({
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <aside className="hidden h-screen w-64 shrink-0 flex-col border-r border-gray-200 bg-white lg:flex">
+      <aside className="hidden h-screen w-64 shrink-0 flex-col overflow-visible border-r border-gray-200 bg-white lg:flex">
         <SidebarBrand
           appName={appName}
           companyName={companyName}
@@ -141,7 +143,7 @@ export default function DashboardShell({
             aria-label="Close menu"
             onClick={() => setSidebarOpen(false)}
           />
-          <aside className="absolute left-0 top-0 flex h-full w-72 flex-col bg-white shadow-xl">
+          <aside className="absolute left-0 top-0 flex h-full w-72 flex-col overflow-visible bg-white shadow-xl">
             <div className="relative border-b border-gray-200">
               <SidebarBrand
                 appName={appName}
@@ -191,6 +193,7 @@ export default function DashboardShell({
           profileName={profileName}
           profileRole={profileRole}
           profileLoading={profileLoading}
+          signOutLabel={signOutLabel}
           onMenuClick={() => setSidebarOpen(true)}
         />
 

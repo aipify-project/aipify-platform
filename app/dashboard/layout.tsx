@@ -15,7 +15,7 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["common", "dashboard", "branding"]);
+  const dict = await getDictionary(locale, ["common", "auth", "dashboard", "branding"]);
   const t = createTranslator(dict);
 
   return (
@@ -30,6 +30,7 @@ export default async function DashboardLayout({
           notificationsLabel={t("dashboard.topbar.notifications")}
           profileFallbackName={t("dashboard.topbar.profileFallback")}
           companyFallbackName={t("dashboard.topbar.companyFallback")}
+          signOutLabel={t("auth.logout.signOut")}
           roleLabels={{
             owner: t("dashboard.roles.owner"),
             admin: t("dashboard.roles.admin"),

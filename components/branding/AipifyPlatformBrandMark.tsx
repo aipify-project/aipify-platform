@@ -18,17 +18,19 @@ export default function AipifyPlatformBrandMark({
   poweredBy,
   tooltipTitle,
   tooltipTagline,
+  versionLabel,
   pulseLabel,
 }: AipifyPlatformBrandMarkProps) {
   const [hovered, setHovered] = useState(false);
   const { sidebarMark } = AIPIFY_BRAND;
+  const tooltipId = "aipify-sidebar-brand-tooltip";
 
   return (
     <div
-      className="relative shrink-0 px-5 pb-5 pt-3"
+      className="relative shrink-0 cursor-default overflow-visible px-5 pb-2 pt-2 mb-6"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      aria-hidden="true"
+      aria-describedby={hovered ? tooltipId : undefined}
     >
       <div
         className="flex items-center gap-2.5 transition-opacity duration-300 ease-out"
@@ -50,15 +52,20 @@ export default function AipifyPlatformBrandMark({
         </div>
       </div>
 
-      {hovered && (
-        <div
-          role="tooltip"
-          className="pointer-events-none absolute bottom-full left-5 z-20 mb-2 w-48 rounded-lg border border-gray-100 bg-white/95 px-3 py-2 text-left shadow-sm backdrop-blur-sm"
-        >
-          <p className="text-xs font-medium text-gray-800">{tooltipTitle}</p>
-          <p className="mt-0.5 text-xs leading-relaxed text-gray-500">{tooltipTagline}</p>
-        </div>
-      )}
+      <div
+        id={tooltipId}
+        role="tooltip"
+        aria-hidden={!hovered}
+        className={`pointer-events-none absolute bottom-full left-5 z-50 mb-2 w-52 rounded-lg border border-gray-100 bg-white/95 px-3 py-2.5 text-left shadow-md backdrop-blur-sm transition-all duration-200 ease-out ${
+          hovered
+            ? "translate-y-0 opacity-100"
+            : "pointer-events-none translate-y-1 opacity-0"
+        }`}
+      >
+        <p className="text-xs font-medium text-gray-800">{tooltipTitle}</p>
+        <p className="mt-0.5 text-xs leading-relaxed text-gray-500">{tooltipTagline}</p>
+        <p className="mt-1.5 text-[11px] text-gray-400">{versionLabel}</p>
+      </div>
     </div>
   );
 }

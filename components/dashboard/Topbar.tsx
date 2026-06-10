@@ -1,3 +1,5 @@
+import TopbarProfileMenu from "./TopbarProfileMenu";
+
 type TopbarProps = {
   searchPlaceholder: string;
   companyName: string;
@@ -6,6 +8,7 @@ type TopbarProps = {
   profileName: string;
   profileRole: string;
   profileLoading?: boolean;
+  signOutLabel: string;
   onMenuClick?: () => void;
 };
 
@@ -17,10 +20,9 @@ export default function Topbar({
   profileName,
   profileRole,
   profileLoading = false,
+  signOutLabel,
   onMenuClick,
 }: TopbarProps) {
-  const profileInitial = profileName.charAt(0).toUpperCase() || "?";
-
   return (
     <header className="sticky top-0 z-20 flex h-16 shrink-0 items-center justify-between gap-3 border-b border-gray-200 bg-white/95 px-4 backdrop-blur-sm sm:gap-4 sm:px-6 lg:px-8">
       <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
@@ -124,29 +126,13 @@ export default function Topbar({
           <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-violet-500 ring-2 ring-white" />
         </button>
 
-        <div
-          className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white p-1 pr-2.5 sm:pr-3"
-          aria-label={`${profileName}, ${companyName}, ${profileRole}`}
-        >
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-violet-600 text-sm font-bold text-white ring-2 ring-violet-100 sm:h-9 sm:w-9">
-            {profileLoading ? (
-              <span className="h-3 w-3 animate-pulse rounded-full bg-white/70" />
-            ) : (
-              profileInitial
-            )}
-          </div>
-          <div className="hidden min-w-0 sm:block">
-            <p className="truncate text-sm font-semibold text-gray-900">
-              {profileLoading ? "…" : profileName}
-            </p>
-            <p className="truncate text-xs text-gray-500">
-              {profileLoading ? "…" : companyName}
-            </p>
-            <p className="truncate text-xs font-medium text-violet-600">
-              {profileLoading ? "…" : profileRole}
-            </p>
-          </div>
-        </div>
+        <TopbarProfileMenu
+          profileName={profileName}
+          companyName={companyName}
+          profileRole={profileRole}
+          profileLoading={profileLoading}
+          signOutLabel={signOutLabel}
+        />
       </div>
     </header>
   );
