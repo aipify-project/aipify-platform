@@ -8,6 +8,7 @@ import { useOptionalDashboardProfile } from "./DashboardProfileProvider";
 import { AipifyPlatformBrandMark } from "@/components/branding";
 import Sidebar, { type NavItem } from "./Sidebar";
 import SidebarBrand from "./SidebarBrand";
+import { PresenceProvider, type PresenceLabels } from "@/components/presence/PresenceProvider";
 import Topbar from "./Topbar";
 import { getCustomerActiveNavId } from "@/lib/dashboard/nav-config";
 import { getPlatformActiveNavId } from "@/lib/platform/nav-config";
@@ -35,6 +36,7 @@ type DashboardShellProps = {
     versionLabel: string;
     pulseLabel: string;
   };
+  presenceLabels?: PresenceLabels;
   children: React.ReactNode;
 };
 
@@ -54,6 +56,7 @@ export default function DashboardShell({
   mobileNavIds,
   companyNameOverride,
   platformBrandMark,
+  presenceLabels,
   children,
 }: DashboardShellProps) {
   const pathname = usePathname();
@@ -107,7 +110,7 @@ export default function DashboardShell({
     mobileNavIds.includes(item.id)
   );
 
-  return (
+  const shell = (
     <div className="flex min-h-screen bg-gray-50">
       <aside className="hidden h-screen w-64 shrink-0 flex-col overflow-visible border-r border-gray-200 bg-white lg:flex">
         <SidebarBrand
@@ -228,5 +231,15 @@ export default function DashboardShell({
         </nav>
       </div>
     </div>
+  );
+
+  if (!presenceLabels) {
+    return shell;
+  }
+
+  return (
+    <PresenceProvider surface={shellVariant} labels={presenceLabels}>
+      {shell}
+    </PresenceProvider>
   );
 }

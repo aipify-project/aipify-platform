@@ -1,0 +1,68 @@
+{
+  "indicator": {
+    "title": "Aipify Presence",
+    "aria": "Open Aipify Presence Center"
+  },
+  "center": {
+    "title": "Aipify Presence Center",
+    "close": "Close presence center",
+    "loading": "Loading presence activity...",
+    "currentState": "Current state",
+    "currentActivity": "Current activity",
+    "status": "Status",
+    "estimatedCompletion": "Estimated completion",
+    "riskLevel": "Risk level",
+    "seconds": "seconds",
+    "metrics": {
+      "automationsRunning": "Automations running",
+      "learningToday": "Learning events today",
+      "healingToday": "Self-healing events today",
+      "pendingApprovals": "Pending approvals",
+      "systemHealth": "System health"
+    },
+    "sections": {
+      "activities": "Current activities",
+      "recommendations": "Recent recommendations",
+      "history": "Presence history",
+      "executiveSummary": "Last executive summary",
+      "settings": "Presence settings"
+    }
+  },
+  "states": {
+    "standby": "Standby",
+    "analysing": "Analysing",
+    "working": "Working",
+    "learning": "Learning",
+    "selfHealing": "Self-Healing",
+    "humanApproval": "Human approval required",
+    "critical": "Critical attention"
+  },
+  "stateMessages": {
+    "standby": "Aipify is monitoring your environment.",
+    "analysing": "Aipify is analysing operational patterns.",
+    "working": "Running support workflows and scheduled automations.",
+    "learning": "Learning from operational outcomes.",
+    "selfHealing": "Reconnecting integration and repairing delivery issues.",
+    "humanApproval": "Aipify recommends human review.",
+    "critical": "Critical issue detected. Immediate review recommended."
+  },
+  "settings": {
+    "animationIntensity": "Animation intensity",
+    "presenceVisible": "Presence indicator visible",
+    "executiveSummaries": "Executive summaries",
+    "selfHealingNotifications": "Self-healing notifications",
+    "approvalNotifications": "Approval notifications",
+    "soundEnabled": "Sound effects",
+    "intensities": {
+      "subtle": "Subtle",
+      "normal": "Normal",
+      "enhanced": "Enhanced"
+    },
+    "save": "Save settings",
+    "saved": "Settings saved"
+  },
+  "empty": {
+    "history": "No presence history yet.",
+    "recommendations": "No recommendations right now."
+  }
+}

@@ -1,3 +1,4 @@
+import TopbarPresenceSlot from "./TopbarPresenceSlot";
 import TopbarProfileMenu from "./TopbarProfileMenu";
 
 type TopbarProps = {
@@ -103,6 +104,8 @@ export default function Topbar({
             <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
           </svg>
         </button>
+
+        <TopbarPresenceSlot />
 
         <button
           type="button"

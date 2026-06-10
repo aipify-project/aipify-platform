@@ -1,0 +1,45 @@
+AIPIFY – PRESENCE SYSTEM (PHASE 13 FOUNDATION)
+Status: Implemented
+Priority: High
+
+GOAL
+Make Aipify feel alive through subtle visual feedback — monitoring, analysing, learning,
+healing, and approval states — without chatbot avatars or stressful animations.
+
+PRESENCE STATES
+1. Standby — slow breathing, soft glow
+2. Analysing — flowing pulse, increased brightness
+3. Working — controlled wave movement
+4. Learning — expanding ripples
+5. Self-Healing — gentle circular motion
+6. Human Approval Required — soft amber glow
+7. Critical Attention — stronger presence, never aggressive blinking
+
+DATABASE (migration: 20260610320000_presence_system_phase13.sql)
+- presence_events — transparency history log
+- presence_settings — animation intensity, visibility, notification prefs
+
+RPCs
+- get_presence_center_bundle(surface)
+- update_presence_settings(surface, ...)
+- record_presence_event(...)
+- derive_presence_state(surface)
+
+UI
+- AipifyPulse indicator in topbar (platform + customer shells)
+- Presence Center right-side panel on click
+- PresenceProvider context with 30s refresh polling
+- CSS animations in globals.css (respects prefers-reduced-motion)
+
+SURFACES
+- Platform Admin (`surface: platform`)
+- Customer Control Center (`surface: customer`)
+- Pilot/customer installation variants derive from tenant context (foundation)
+
+NOT IN THIS PHASE
+- Sound effect playback
+- Per-installation custom assistant naming
+- Real-time websocket push (polling only)
+- Customer-specific presence event ingestion pipeline
+
+END OF PHASE 13

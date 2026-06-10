@@ -8,6 +8,7 @@ import {
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { buildPresenceLabels } from "@/lib/presence/labels";
 
 export default async function DashboardLayout({
   children,
@@ -15,7 +16,7 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["common", "auth", "dashboard", "branding"]);
+  const dict = await getDictionary(locale, ["common", "auth", "dashboard", "branding", "presence"]);
   const t = createTranslator(dict);
 
   return (
@@ -52,6 +53,7 @@ export default async function DashboardLayout({
             versionLabel: t("branding.platformVersion"),
             pulseLabel: t("branding.pulseLabel"),
           }}
+          presenceLabels={buildPresenceLabels(t)}
         >
           {children}
         </DashboardShell>

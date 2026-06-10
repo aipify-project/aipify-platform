@@ -101,10 +101,121 @@ body {
   animation: aipify-orb-pulse-ring 5.5s ease-in-out infinite;
 }
 
+@keyframes presence-standby {
+  0%,
+  100% {
+    opacity: 0.82;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes presence-analysing {
+  0%,
+  100% {
+    opacity: 0.88;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(1.12);
+  }
+}
+
+@keyframes presence-working {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes presence-learning {
+  0% {
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.2);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(139, 92, 246, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+  }
+}
+
+@keyframes presence-healing {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes presence-approval {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.08);
+  }
+}
+
+@keyframes presence-critical {
+  0%,
+  100% {
+    filter: brightness(1.05);
+  }
+  50% {
+    filter: brightness(1.18);
+  }
+}
+
+.animate-presence-standby {
+  animation: presence-standby 6s ease-in-out infinite;
+}
+
+.animate-presence-analysing {
+  animation: presence-analysing 4s ease-in-out infinite;
+}
+
+.animate-presence-working {
+  animation: presence-working 3s ease-in-out infinite;
+}
+
+.animate-presence-learning {
+  animation: presence-learning 3.5s ease-out infinite;
+}
+
+.animate-presence-healing {
+  animation: presence-healing 5s ease-in-out infinite;
+}
+
+.animate-presence-approval {
+  animation: presence-approval 4.5s ease-in-out infinite;
+}
+
+.animate-presence-critical {
+  animation: presence-critical 3.5s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-aipify-orb-breathe,
   .animate-aipify-orb-glow,
-  .animate-aipify-orb-pulse-ring {
+  .animate-aipify-orb-pulse-ring,
+  .animate-presence-standby,
+  .animate-presence-analysing,
+  .animate-presence-working,
+  .animate-presence-learning,
+  .animate-presence-healing,
+  .animate-presence-approval,
+  .animate-presence-critical {
     animation: none !important;
   }
 }
