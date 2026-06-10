@@ -1,14 +1,14 @@
 {
-  "accessDenied": "Du har ikke adgang til Aipify Platform Admin.",
-  "search": "Søg kunder...",
+  "accessDenied": "You do not have access to Aipify Platform Admin.",
+  "search": "Search customers...",
   "sidebar": {
     "plan": "Platform Admin",
     "platformAdmin": "Platform Admin",
     "organization": "Aipify Group AS"
   },
   "topbar": {
-    "organization": "Organisation",
-    "notifications": "Notifikationer",
+    "organization": "Organization",
+    "notifications": "Notifications",
     "profileFallback": "Admin",
     "organizationFallback": "Aipify Group"
   },
@@ -17,35 +17,167 @@
     "platform_support": "Platform Support"
   },
   "nav": {
-    "overview": "Oversigt",
-    "customers": "Kunder",
-    "subscriptions": "Abonnementer",
-    "installations": "Installationer",
-    "stats": "Platformstatistik",
-    "billing": "Fakturering",
+    "overview": "Overview",
+    "customers": "Customers",
+    "subscriptions": "Subscriptions",
+    "installations": "Installations",
+    "stats": "Platform stats",
+    "billing": "Billing",
+    "invoices": "Invoices",
     "support": "Support",
-    "system": "Systemstatus"
+    "system": "System status"
   },
   "overview": {
     "title": "Aipify Platform Admin",
-    "subtitle": "Master-niveau kontrol for Aipify Group AS — kunder, abonnementer, installationer og platformssundhed.",
-    "note": "Customer Control Center ligger på /dashboard. Dette område er internt og spænder over alle tenants."
+    "subtitle": "Master-level control for Aipify Group AS — customers, subscriptions, billing, and platform health.",
+    "note": "Customer Control Center lives at /dashboard. This area is internal-only and spans all tenants."
+  },
+  "customerType": {
+    "company": "Company",
+    "private": "Private"
+  },
+  "planType": {
+    "starter": "Starter",
+    "growth": "Growth",
+    "business": "Business",
+    "enterprise": "Enterprise"
+  },
+  "paymentMethod": {
+    "manual": "Manual",
+    "card": "Card",
+    "invoice": "Invoice",
+    "stripe": "Stripe"
+  },
+  "status": {
+    "customer": {
+      "trial": "Trial",
+      "active": "Active",
+      "paused": "Paused",
+      "cancelled": "Cancelled",
+      "overdue": "Overdue"
+    },
+    "subscription": {
+      "trialing": "Trialing",
+      "active": "Active",
+      "cancelled": "Cancelled",
+      "paused": "Paused",
+      "past_due": "Past due"
+    },
+    "invoice": {
+      "draft": "Draft",
+      "sent": "Sent",
+      "paid": "Paid",
+      "overdue": "Overdue",
+      "cancelled": "Cancelled"
+    },
+    "installation": {
+      "pending": "Pending",
+      "active": "Active",
+      "paused": "Paused",
+      "revoked": "Revoked"
+    }
   },
   "customers": {
-    "title": "Kunder",
-    "subtitle": "Alle kundeorganisationer på Aipify-platformen.",
-    "loading": "Indlæser kunder...",
-    "empty": "Ingen kundeorganisationer endnu.",
-    "installations": "installationer",
-    "users": "brugere",
-    "pilotNote": "Unonight er den første pilotkunde. Hver række er en isoleret tenant filtreret på company_id."
+    "title": "Customers",
+    "subtitle": "Permanent customer numbers, profiles, and tenant links — Platform Admin only.",
+    "loading": "Loading customers...",
+    "empty": "No customers yet.",
+    "customerNumber": "Customer no.",
+    "name": "Name",
+    "email": "Email",
+    "country": "Country",
+    "status": "Status",
+    "installations": "Installations",
+    "created": "Created",
+    "view": "View"
+  },
+  "customerDetail": {
+    "back": "Back to customers",
+    "loading": "Loading customer...",
+    "notFound": "Customer not found.",
+    "profile": "Customer profile",
+    "billing": "Billing information",
+    "subscription": "Subscription",
+    "installations": "Installations",
+    "invoices": "Invoices",
+    "customerType": "Customer type",
+    "phone": "Phone",
+    "language": "Language",
+    "createdAt": "Created",
+    "noBilling": "No billing profile yet.",
+    "noSubscription": "No subscription yet.",
+    "noInstallations": "No installations linked.",
+    "noInvoices": "No invoices yet."
+  },
+  "billing": {
+    "title": "Billing profiles",
+    "subtitle": "Payment details and billing addresses for all customers.",
+    "loading": "Loading billing profiles...",
+    "empty": "No billing profiles yet.",
+    "customer": "Customer",
+    "billingName": "Billing name",
+    "billingEmail": "Billing email",
+    "address": "Address",
+    "paymentMethod": "Payment method",
+    "currency": "Currency"
+  },
+  "subscriptions": {
+    "title": "Subscriptions",
+    "subtitle": "Plans, trial periods, and subscription lifecycle.",
+    "loading": "Loading subscriptions...",
+    "empty": "No subscriptions yet.",
+    "customer": "Customer",
+    "plan": "Plan",
+    "planType": "Plan type",
+    "status": "Status",
+    "trial": "Trial",
+    "price": "Price",
+    "billingCycle": "Billing cycle",
+    "maxUsers": "Max users",
+    "maxInstallations": "Max installations",
+    "trialActive": "Trial active",
+    "daysRemaining": "Days remaining",
+    "trialEnds": "Trial ends"
+  },
+  "invoices": {
+    "title": "Invoices",
+    "subtitle": "Invoice registry with placeholder send, pay, and PDF actions.",
+    "loading": "Loading invoices...",
+    "empty": "No invoices yet.",
+    "invoiceNumber": "Invoice no.",
+    "customer": "Customer",
+    "amount": "Amount",
+    "status": "Status",
+    "dueDate": "Due date",
+    "actions": "Actions",
+    "send": "Send",
+    "resend": "Resend",
+    "markPaid": "Mark paid",
+    "markOverdue": "Mark overdue",
+    "downloadPdf": "PDF",
+    "actionPending": "Processing...",
+    "actionDone": "Updated"
   },
   "sections": {
-    "subscriptions": { "title": "Abonnementer", "subtitle": "Administrer planer og abonnementer.", "comingSoon": "Kommer snart." },
-    "installations": { "title": "Installationer", "subtitle": "Platformoversigt over alle installationer.", "comingSoon": "Kommer snart." },
-    "stats": { "title": "Platformstatistik", "subtitle": "Forbrug og sundhedsmålinger.", "comingSoon": "Kommer snart." },
-    "billing": { "title": "Fakturering", "subtitle": "Fakturaer og indtægter.", "comingSoon": "Kommer snart." },
-    "support": { "title": "Support", "subtitle": "Intern supportkø.", "comingSoon": "Kommer snart." },
-    "system": { "title": "Systemstatus", "subtitle": "Kernetjenester og oppetid.", "comingSoon": "Kommer snart." }
+    "installations": {
+      "title": "Installations",
+      "subtitle": "Cross-tenant view of all installations and sync health.",
+      "comingSoon": "Platform-wide installation management will be available in a future release."
+    },
+    "stats": {
+      "title": "Platform statistics",
+      "subtitle": "Usage, growth, and health metrics across the platform.",
+      "comingSoon": "Platform statistics will be available in a future release."
+    },
+    "support": {
+      "title": "Support",
+      "subtitle": "Internal support queue and customer escalations.",
+      "comingSoon": "Platform support tools will be available in a future release."
+    },
+    "system": {
+      "title": "System status",
+      "subtitle": "Core services, uptime, and incident visibility.",
+      "comingSoon": "System status dashboard will be available in a future release."
+    }
   }
 }

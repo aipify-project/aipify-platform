@@ -2,9 +2,10 @@ export type PlatformNavId =
   | "overview"
   | "customers"
   | "subscriptions"
+  | "billing"
+  | "invoices"
   | "installations"
   | "stats"
-  | "billing"
   | "support"
   | "system";
 
@@ -27,16 +28,21 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.subscriptions",
   },
   {
+    id: "billing",
+    href: "/platform/billing",
+    labelKey: "platform.nav.billing",
+  },
+  {
+    id: "invoices",
+    href: "/platform/invoices",
+    labelKey: "platform.nav.invoices",
+  },
+  {
     id: "installations",
     href: "/platform/installations",
     labelKey: "platform.nav.installations",
   },
   { id: "stats", href: "/platform/stats", labelKey: "platform.nav.stats" },
-  {
-    id: "billing",
-    href: "/platform/billing",
-    labelKey: "platform.nav.billing",
-  },
   {
     id: "support",
     href: "/platform/support",
@@ -52,16 +58,17 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
 export const PLATFORM_MOBILE_NAV_IDS: PlatformNavId[] = [
   "overview",
   "customers",
-  "installations",
-  "system",
+  "invoices",
+  "billing",
 ];
 
 export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/customers")) return "customers";
   if (pathname.startsWith("/platform/subscriptions")) return "subscriptions";
+  if (pathname.startsWith("/platform/billing")) return "billing";
+  if (pathname.startsWith("/platform/invoices")) return "invoices";
   if (pathname.startsWith("/platform/installations")) return "installations";
   if (pathname.startsWith("/platform/stats")) return "stats";
-  if (pathname.startsWith("/platform/billing")) return "billing";
   if (pathname.startsWith("/platform/support")) return "support";
   if (pathname.startsWith("/platform/system")) return "system";
   return "overview";
