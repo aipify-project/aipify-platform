@@ -2,6 +2,15 @@
   "greeting": "God morgon, Svein",
   "subtitle": "Här är vad som hänt sedan din senaste inloggning.",
   "search": "Sök...",
+  "sidebar": {
+    "companyName": "Acme Corporation",
+    "plan": "Business Plan"
+  },
+  "topbar": {
+    "notifications": "Aviseringar",
+    "companySelector": "Välj företag",
+    "profile": "Svein"
+  },
   "nav": {
     "overview": "Översikt",
     "assistant": "Assistent",
@@ -17,10 +26,16 @@
     "supportHandled": "Support hanterad",
     "tasksPending": "Uppgifter väntar",
     "recommendations": "Rekommendationer",
-    "systemHealth": "Systemhälsa"
+    "systemHealth": "Systemhälsa",
+    "supportHandledChange": "+12 % från förra veckan",
+    "tasksPendingChange": "3 behöver granskas idag",
+    "recommendationsChange": "2 nya sedan igår",
+    "systemHealthChange": "Alla system stabila"
   },
   "assistant": {
     "title": "Aipify Assistant",
+    "greeting": "God morgon, Svein.",
+    "subtitle": "Här är vad som hänt sedan din senaste inloggning.",
     "sinceLogin": "Sedan din senaste inloggning:",
     "items": {
       "tickets": "3 supportärenden hanterades",
@@ -28,6 +43,7 @@
       "integration": "1 integration behöver uppmärksamhet"
     },
     "online": "Online",
+    "refresh": "Uppdatera",
     "viewSummary": "Visa sammanfattning",
     "askAipify": "Fråga Aipify"
   },

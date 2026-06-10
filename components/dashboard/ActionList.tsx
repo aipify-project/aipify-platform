@@ -5,7 +5,7 @@ type ActionListProps = {
 
 export default function ActionList({ title, items }: ActionListProps) {
   return (
-    <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+    <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-md sm:p-8">
       <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
       <ul className="mt-5 divide-y divide-gray-100">
         {items.map((item, index) => (

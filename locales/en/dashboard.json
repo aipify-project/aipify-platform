@@ -2,6 +2,15 @@
   "greeting": "Good morning, Svein",
   "subtitle": "Here is what happened since your last login.",
   "search": "Search...",
+  "sidebar": {
+    "companyName": "Acme Corporation",
+    "plan": "Business Plan"
+  },
+  "topbar": {
+    "notifications": "Notifications",
+    "companySelector": "Select company",
+    "profile": "Svein"
+  },
   "nav": {
     "overview": "Overview",
     "assistant": "Assistant",
@@ -17,10 +26,16 @@
     "supportHandled": "Support handled",
     "tasksPending": "Tasks pending",
     "recommendations": "Recommendations",
-    "systemHealth": "System health"
+    "systemHealth": "System health",
+    "supportHandledChange": "+12% from last week",
+    "tasksPendingChange": "3 need review today",
+    "recommendationsChange": "2 new since yesterday",
+    "systemHealthChange": "All systems stable"
   },
   "assistant": {
     "title": "Aipify Assistant",
+    "greeting": "Good morning, Svein.",
+    "subtitle": "Here's what happened since your last login.",
     "sinceLogin": "Since your last login:",
     "items": {
       "tickets": "3 support tickets were handled",
@@ -28,6 +43,7 @@
       "integration": "1 integration needs attention"
     },
     "online": "Online",
+    "refresh": "Refresh",
     "viewSummary": "View summary",
     "askAipify": "Ask Aipify"
   },
