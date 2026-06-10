@@ -29,6 +29,9 @@ export default async function RegisterPage() {
           passwordMismatch: t("auth.errors.passwordMismatch"),
           passwordTooShort: t("auth.errors.passwordTooShort"),
           requiredFields: t("auth.errors.requiredFields"),
+          emailAlreadyRegistered: t("auth.errors.emailAlreadyRegistered"),
+          rateLimit: t("auth.errors.rateLimit"),
+          configError: t("auth.errors.configError"),
           generic: t("auth.errors.generic"),
         }}
       />

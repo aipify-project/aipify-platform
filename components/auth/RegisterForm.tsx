@@ -18,6 +18,9 @@ type RegisterFormProps = {
     passwordMismatch: string;
     passwordTooShort: string;
     requiredFields: string;
+    emailAlreadyRegistered: string;
+    rateLimit: string;
+    configError: string;
     generic: string;
   };
 };
@@ -56,10 +59,13 @@ export default function RegisterForm({ labels }: RegisterFormProps) {
 
     try {
       const supabase = createClient();
+      const emailRedirectTo = `${window.location.origin}/login`;
+
       const { data, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
         options: {
+          emailRedirectTo,
           data: {
             full_name: fullName,
             company_name: companyName,
@@ -68,7 +74,19 @@ export default function RegisterForm({ labels }: RegisterFormProps) {
       });
 
       if (signUpError) {
-        setError(signUpError.message);
+        const msg = signUpError.message.toLowerCase();
+        if (msg.includes("rate limit")) {
+          setError(labels.rateLimit);
+        } else if (msg.includes("already registered") || msg.includes("already exists")) {
+          setError(labels.emailAlreadyRegistered);
+        } else {
+          setError(signUpError.message);
+        }
+        return;
+      }
+
+      if (data.user?.identities?.length === 0) {
+        setError(labels.emailAlreadyRegistered);
         return;
       }
 
@@ -77,9 +95,16 @@ export default function RegisterForm({ labels }: RegisterFormProps) {
         return;
       }
 
-      window.location.href = "/dashboard";
-    } catch {
-      setError(labels.generic);
+      if (data.session) {
+        window.location.href = "/dashboard";
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "";
+      setError(
+        message.includes("Missing Supabase environment variables")
+          ? labels.configError
+          : labels.generic
+      );
     } finally {
       setLoading(false);
     }

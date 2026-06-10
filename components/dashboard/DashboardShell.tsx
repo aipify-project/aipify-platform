@@ -1,37 +1,48 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useDashboardProfile } from "./DashboardProfileProvider";
 import Sidebar, { type NavItem } from "./Sidebar";
 import SidebarBrand from "./SidebarBrand";
 import Topbar from "./Topbar";
+import type { UserRole } from "@/lib/tenant/types";
 
 const MOBILE_NAV_IDS = ["overview", "assistant", "support", "settings"];
 
 type DashboardShellProps = {
   appName: string;
-  companyName: string;
   planName: string;
   searchPlaceholder: string;
   companySelectorLabel: string;
   notificationsLabel: string;
-  profileName: string;
+  roleLabels: Record<UserRole, string>;
+  profileFallbackName: string;
+  companyFallbackName: string;
   navItems: NavItem[];
   children: React.ReactNode;
 };
 
 export default function DashboardShell({
   appName,
-  companyName,
   planName,
   searchPlaceholder,
   companySelectorLabel,
   notificationsLabel,
-  profileName,
+  roleLabels,
+  profileFallbackName,
+  companyFallbackName,
   navItems,
   children,
 }: DashboardShellProps) {
+  const { profile, loading: profileLoading } = useDashboardProfile();
   const [activeNav, setActiveNav] = useState("overview");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const profileName = profile?.user.full_name ?? profileFallbackName;
+  const companyName = profile?.company.name ?? companyFallbackName;
+  const profileRole = profile
+    ? roleLabels[profile.user.role]
+    : roleLabels.owner;
 
   useEffect(() => {
     document.body.style.overflow = sidebarOpen ? "hidden" : "";
@@ -108,6 +119,8 @@ export default function DashboardShell({
           companySelectorLabel={companySelectorLabel}
           notificationsLabel={notificationsLabel}
           profileName={profileName}
+          profileRole={profileRole}
+          profileLoading={profileLoading}
           onMenuClick={() => setSidebarOpen(true)}
         />
 

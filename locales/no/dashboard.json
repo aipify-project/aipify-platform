@@ -9,7 +9,14 @@
   "topbar": {
     "notifications": "Varsler",
     "companySelector": "Velg firma",
-    "profile": "Svein"
+    "profileFallback": "Bruker",
+    "companyFallback": "Bedrift"
+  },
+  "roles": {
+    "owner": "Eier",
+    "admin": "Admin",
+    "support": "Support",
+    "staff": "Ansatt"
   },
   "nav": {
     "overview": "Oversikt",

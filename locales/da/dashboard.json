@@ -9,7 +9,14 @@
   "topbar": {
     "notifications": "Notifikationer",
     "companySelector": "Vælg virksomhed",
-    "profile": "Svein"
+    "profileFallback": "Bruger",
+    "companyFallback": "Virksomhed"
+  },
+  "roles": {
+    "owner": "Ejer",
+    "admin": "Admin",
+    "support": "Support",
+    "staff": "Medarbejder"
   },
   "nav": {
     "overview": "Oversigt",

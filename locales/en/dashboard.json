@@ -9,7 +9,14 @@
   "topbar": {
     "notifications": "Notifications",
     "companySelector": "Select company",
-    "profile": "Svein"
+    "profileFallback": "User",
+    "companyFallback": "Company"
+  },
+  "roles": {
+    "owner": "Owner",
+    "admin": "Admin",
+    "support": "Support",
+    "staff": "Staff"
   },
   "nav": {
     "overview": "Overview",

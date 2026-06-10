@@ -36,12 +36,18 @@ export default async function DashboardPage() {
   return (
     <DashboardShell
       appName={t("common.appName")}
-      companyName={t("dashboard.sidebar.companyName")}
       planName={t("dashboard.sidebar.plan")}
       searchPlaceholder={t("dashboard.search")}
       companySelectorLabel={t("dashboard.topbar.companySelector")}
       notificationsLabel={t("dashboard.topbar.notifications")}
-      profileName={t("dashboard.topbar.profile")}
+      profileFallbackName={t("dashboard.topbar.profileFallback")}
+      companyFallbackName={t("dashboard.topbar.companyFallback")}
+      roleLabels={{
+        owner: t("dashboard.roles.owner"),
+        admin: t("dashboard.roles.admin"),
+        support: t("dashboard.roles.support"),
+        staff: t("dashboard.roles.staff"),
+      }}
       navItems={navItems}
     >
       <div className="mx-auto max-w-7xl">

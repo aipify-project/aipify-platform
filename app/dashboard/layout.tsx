@@ -1,4 +1,5 @@
 import DashboardAuthGuard from "@/components/dashboard/DashboardAuthGuard";
+import { DashboardProfileProvider } from "@/components/dashboard/DashboardProfileProvider";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -14,7 +15,7 @@ export default async function DashboardLayout({
 
   return (
     <DashboardAuthGuard loadingLabel={t("common.loading")}>
-      {children}
+      <DashboardProfileProvider>{children}</DashboardProfileProvider>
     </DashboardAuthGuard>
   );
 }

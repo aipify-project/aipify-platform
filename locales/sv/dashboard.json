@@ -9,7 +9,14 @@
   "topbar": {
     "notifications": "Aviseringar",
     "companySelector": "Välj företag",
-    "profile": "Svein"
+    "profileFallback": "Användare",
+    "companyFallback": "Företag"
+  },
+  "roles": {
+    "owner": "Ägare",
+    "admin": "Admin",
+    "support": "Support",
+    "staff": "Medarbetare"
   },
   "nav": {
     "overview": "Översikt",
