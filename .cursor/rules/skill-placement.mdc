@@ -1,0 +1,22 @@
+---
+description: Skill placement — Platform governance, Customer configuration, Embedded execution; approve layer before implementing
+alwaysApply: true
+---
+
+# Skill Placement Rules (Core Foundation §21)
+
+Before implementing any **skill**, determine the layer. **Pause** until placement is approved.
+
+| Layer | Purpose | Paths |
+|-------|---------|-------|
+| **Platform** | Global governance, rollouts, metrics | `app/platform/skills/`, `components/platform/skills/` |
+| **Customer App** | Installed skills, settings, activity | `app/app/skills/`, `components/app/skills/` |
+| **Embedded** | Runtime in customer environments | `app/api/embed/`, `app/api/install/`, `components/embed/` |
+
+## Workflow (`lib/core/skills.ts`)
+
+Define → Layer → Permissions → Approval → Implement → Internal validation → Unonight pilot → Public release
+
+Register in `lib/core/skills/registry.ts` before shipping. See [SKILL_ENGINE.md](../../SKILL_ENGINE.md) and [CORE_FOUNDATION.md §21](../../CORE_FOUNDATION.md#21-skill-placement-rules).
+
+Never place skills in existing folders out of convenience.

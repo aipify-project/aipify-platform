@@ -459,6 +459,19 @@
       "openCases": "Åpne saker"
     }
   },
+  "skills": {
+    "title": "Skill-register",
+    "subtitle": "Styring og administrasjon av Aipify-skills på tvers av alle tenants.",
+    "registryLabel": "Sentralt register",
+    "registryStats": "{total} skills registrert ({core} core, {operational} operative)",
+    "areas": {
+      "registry": "Skill-register",
+      "governance": "Skill-styring",
+      "testing": "Intern skill-testing",
+      "rollouts": "Utrullingsstyring",
+      "metrics": "Globale skill-metrikker"
+    }
+  },
   "system": {
     "title": "Systemstatus",
     "subtitle": "Kjernetjenester og integrasjonshelse.",

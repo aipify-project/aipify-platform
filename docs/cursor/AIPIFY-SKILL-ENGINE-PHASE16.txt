@@ -1,0 +1,57 @@
+AIPIFY SKILL ENGINE — PHASE 16
+Version: 1.0
+Status: Implemented (foundation)
+Priority: CRITICAL
+
+Every future capability must be implemented as a skill.
+Features create software. Skills create intelligence.
+
+CENTRAL REGISTRY
+lib/core/skills/registry.ts — SKILL_REGISTRY
+lib/core/skills/types.ts — SkillDefinition metadata model
+lib/core/skills/{operational,customer,executive,installation,companion,future}/
+
+CATEGORIES
+operational | customer | executive | installation | companion | future
+
+INITIAL SKILL COUNT: 33 registered
+- Operational: 10 (core)
+- Customer: 6
+- Executive: 6
+- Installation: 7
+- Companion: 1 (disabled by default)
+- Future: 3 (planned)
+
+SKILL STATES
+active | disabled | beta | internal_only | deprecated | planned
+
+PLAN TIERS (§12)
+Starter: core operational
+Growth: + recommendations, actions
+Business: + self-healing, advanced executive
+Enterprise: + custom, dedicated intelligence
+
+RELEASE PIPELINE (§13)
+aipify_internal → unonight_pilot → limited_rollout → general_availability
+
+MARKETPLACE PREP (§16 — no UI)
+getTenantSkillCatalog(plan)
+getDefaultTenantSkillStates(plan)
+
+ARCHITECTURE PLACEMENT (§18)
+Platform: app/platform/skills/ — governance
+Customer: app/app/skills/ — configuration
+Embedded: app/api/embed/, components/embed/ — execution
+
+GOVERNANCE (§17)
+SKILL_GOVERNANCE_QUESTIONS in lib/core/skills/governance.ts
+Pause if unclear.
+
+MANDATORY
+No skill before placement approved.
+Registry entry required before implementation ships.
+
+REFERENCE
+SKILL_ENGINE.md
+CORE_FOUNDATION.md §21
+OPERATING_PRINCIPLES.md §10

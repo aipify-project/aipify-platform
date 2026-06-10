@@ -1,0 +1,30 @@
+import { defineSkill } from "../define";
+
+/** Marketplace-prep: planned modular skill — no public UI yet. */
+export const marketingAssistantSkill = defineSkill({
+  id: "marketing-assistant",
+  name: "Marketing Assistant",
+  description: "Planned modular skill for marketing operations assistance.",
+  purpose: "Future capability — architecture placeholder only.",
+  dataSources: [],
+  permissionsRequired: ["admin"],
+  approvalRequirements: "TBD before release.",
+  learningBehaviour: "approved_only",
+  tenantIsolation: "tenant",
+  escalationRules: [],
+  rollbackSupport: false,
+  ownerTeam: "product",
+  category: "future",
+  status: "planned",
+  enabledByDefault: false,
+  requiresApproval: true,
+  supportsLearning: true,
+  requiresInstallation: false,
+  minimumPlan: "enterprise",
+  core: false,
+  tenantScoped: true,
+  version: "0.1.0",
+  layers: ["customer_app", "embedded"],
+  moduleKey: "marketing_ai",
+  releaseStage: "aipify_internal",
+});

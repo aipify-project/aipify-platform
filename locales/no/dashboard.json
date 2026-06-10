@@ -168,6 +168,17 @@
       "prepareSummary": "Prepare weekly business summary"
     }
   },
+  "skills": {
+    "title": "Skills",
+    "subtitle": "Se, konfigurer og overvåk skills tilgjengelig for organisasjonen din.",
+    "areas": {
+      "installed": "Installerte skills",
+      "settings": "Skill-innstillinger",
+      "activity": "Skill-aktivitet",
+      "preferences": "Skill-preferanser",
+      "companion": "Executive Companion-innstillinger"
+    }
+  },
   "systemStatus": {
     "title": "System status",
     "services": {

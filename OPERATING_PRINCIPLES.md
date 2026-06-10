@@ -178,7 +178,21 @@ Every capability lives in exactly one layer. Before implementation, answer the f
 
 ## 10. Skills — When may new operational skills be introduced?
 
-**Only after principles 1–9 are satisfied and explicitly mapped** may a new operational skill or agent capability be introduced.
+**Only after Core Foundation and principles 1–9 are satisfied and explicitly mapped** may a new operational skill or agent capability be introduced.
+
+### Skill placement (Core Foundation §21)
+
+Before implementation, determine the layer:
+
+| Layer | Purpose | Paths |
+|-------|---------|-------|
+| **Platform Admin** | Global governance, rollouts, approval | `app/platform/skills/`, `components/platform/skills/` |
+| **Customer App** | Tenant configuration and monitoring | `app/app/skills/`, `components/app/skills/` |
+| **Embedded** | Runtime execution in customer systems | `app/api/embed/`, `app/api/install/`, `components/embed/` |
+
+Follow [SKILL_ENGINE.md](./SKILL_ENGINE.md) and register in `lib/core/skills/registry.ts`. Workflow: define → layer → permissions → approval → implement → internal validation → Unonight pilot → public release.
+
+**No skill may be implemented before architectural placement is approved.**
 
 ### Skill approval checklist
 
@@ -193,6 +207,7 @@ Before adding a skill (agent skill, automation, AI tool, module, or workflow):
 - [ ] **Presence** — Does it update Presence honestly when it runs?
 - [ ] **Package** — Which plans include this skill?
 - [ ] **Architecture** — Layer, user, isolation, and folder path documented?
+- [ ] **Skill placement** — Platform governance vs customer config vs embed execution decided?
 
 If any item is unchecked, **pause** — do not ship the skill.
 

@@ -614,6 +614,19 @@
       "noReasons": "No escalation reasons recorded."
     }
   },
+  "skills": {
+    "title": "Skill Registry",
+    "subtitle": "Governance and administration of Aipify skills across all tenants.",
+    "registryLabel": "Central registry",
+    "registryStats": "{total} skills registered ({core} core, {operational} operational)",
+    "areas": {
+      "registry": "Skill Registry",
+      "governance": "Skill Governance",
+      "testing": "Internal Skill Testing",
+      "rollouts": "Rollout Management",
+      "metrics": "Global Skill Metrics"
+    }
+  },
   "system": {
     "title": "System status",
     "subtitle": "Core platform services and integration health.",

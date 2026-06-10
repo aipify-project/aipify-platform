@@ -1,0 +1,100 @@
+AIPIFY SKILL PLACEMENT RULES
+Version: 1.0 (Core Foundation §21)
+Status: Mandatory
+Priority: CRITICAL
+
+Before implementing ANY skill, determine where it belongs.
+Architectural placement must be APPROVED before implementation.
+Never place skills in existing folders out of convenience.
+
+────────────────────────────────────────
+PLATFORM ADMIN — Governance
+────────────────────────────────────────
+Purpose: Governance and administration of skills.
+
+Responsibilities:
+• Enable/disable skills globally
+• Define plan availability
+• Monitor skill health
+• Review learning behaviour
+• Manage skill rollouts
+• Approve public release
+
+Location (app/, not src/app/):
+app/platform/skills/
+components/platform/skills/
+lib/platform/skills/
+services/platform/skills/
+
+Examples: Skill Registry, Skill Governance, Internal Skill Testing,
+Rollout Management, Global Skill Metrics
+
+────────────────────────────────────────
+CUSTOMER APP — Configuration
+────────────────────────────────────────
+Purpose: Customers use and configure skills.
+
+Responsibilities:
+• View installed skills
+• Configure skill preferences
+• Enable companion settings
+• Review recommendations
+• Manage approvals
+• Monitor skill activity
+
+Location:
+app/app/skills/
+components/app/skills/
+lib/app/skills/
+services/app/skills/
+
+Examples: Installed Skills, Skill Settings, Skill Activity,
+Skill Preferences, Executive Companion Settings
+
+────────────────────────────────────────
+EMBEDDED INSTALLATION — Execution
+────────────────────────────────────────
+Purpose: Execute skills inside customer environments.
+
+Responsibilities:
+• Collect operational context
+• Deliver assistance
+• Execute approved actions
+• Surface recommendations
+• Monitor environment health
+
+Location:
+app/api/install/
+app/api/embed/
+components/embed/
+lib/install/
+lib/embed/
+
+Examples: Support Assistant, Embedded Presence, Context Scanner,
+Install Agent, Embedded Recommendations, Health Monitoring Agent
+
+────────────────────────────────────────
+SKILL DEVELOPMENT WORKFLOW
+────────────────────────────────────────
+Step 1: Define the skill
+Step 2: Determine layer (Platform / Customer App / Embedded)
+Step 3: Define permissions
+Step 4: Define approval requirements
+Step 5: Implement
+Step 6: Validate internally
+Step 7: Pilot in Unonight
+Step 8: Release publicly
+
+Code: lib/core/skills.ts (SKILL_DEVELOPMENT_WORKFLOW, SKILL_LAYER_PATHS)
+
+────────────────────────────────────────
+MANDATORY RULE
+────────────────────────────────────────
+No skill before architectural placement is approved.
+Architecture decisions ALWAYS precede implementation.
+
+REFERENCE
+CORE_FOUNDATION.md §21
+ARCHITECTURE.md — Skill placement rules
+OPERATING_PRINCIPLES.md §10
+AGENTS.md

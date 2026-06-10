@@ -337,11 +337,84 @@ Aipify should become software that helps people think **less** about operations 
 
 ---
 
+## 21. Skill Placement Rules
+
+Before implementing any skill, determine **where the skill belongs**. Architectural placement must be **approved before implementation**. Never place skills into existing folders simply because they already exist.
+
+### Platform Admin — governance
+
+**Purpose:** Governance and administration of skills.
+
+| Responsibility | Example surface |
+|----------------|-----------------|
+| Enable or disable skills globally | Skill Registry |
+| Define plan availability | Skill Governance |
+| Monitor skill health | Global Skill Metrics |
+| Review learning behaviour | Skill Governance |
+| Manage skill rollouts | Rollout Management |
+| Approve public release | Internal Skill Testing |
+
+**Code:** `app/platform/skills/`, `components/platform/skills/`, `lib/platform/skills/`, `services/platform/skills/`
+
+### Customer App — configuration
+
+**Purpose:** Allow customers to use and configure skills.
+
+| Responsibility | Example surface |
+|----------------|-----------------|
+| View installed skills | Installed Skills |
+| Configure skill preferences | Skill Preferences |
+| Enable companion settings | Executive Companion Settings |
+| Review recommendations | (tenant-scoped) |
+| Manage approvals | Skill Settings |
+| Monitor skill activity | Skill Activity |
+
+**Code:** `app/app/skills/`, `components/app/skills/`, `lib/app/skills/`, `services/app/skills/`
+
+### Embedded Installation — execution
+
+**Purpose:** Execute skills inside customer environments.
+
+| Responsibility | Example surface |
+|----------------|-----------------|
+| Collect operational context | Context Scanner |
+| Deliver assistance | Support Assistant |
+| Execute approved actions | Install Agent |
+| Surface recommendations | Embedded Recommendations |
+| Monitor environment health | Health Monitoring Agent |
+
+**Code:** `app/api/install/`, `app/api/embed/`, `components/embed/`, `lib/install/`, `lib/embed/`
+
+### Skill development workflow
+
+```
+1. Define the skill
+2. Determine the layer (Platform · Customer App · Embedded)
+3. Define permissions
+4. Define approval requirements
+5. Implement
+6. Validate internally (Aipify uses Aipify first)
+7. Pilot in Unonight
+8. Release publicly
+```
+
+Constants: `lib/core/skills/` (`SKILL_REGISTRY`, `SKILL_DEVELOPMENT_WORKFLOW`, `SKILL_LAYER_PATHS`). See [SKILL_ENGINE.md](./SKILL_ENGINE.md).
+
+### Mandatory rule
+
+**No skill may be implemented before its architectural placement has been approved.** Architecture decisions always precede implementation decisions.
+
+---
+
 ## References
 
 | Document | Purpose |
 |----------|---------|
 | [OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md) | Agent governance, skills checklist |
+| `docs/cursor/AIPIFY-SKILL-PLACEMENT-RULES.txt` | Skill placement phase spec |
+| `lib/core/skills.ts` | Skill layers, workflow, responsibilities |
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | Three-layer placement rules |
 | `docs/cursor/AIPIFY-CORE-FOUNDATION.txt` | Cursor phase spec |
+| [SKILL_ENGINE.md](./SKILL_ENGINE.md) | Skill registry, categories, metadata, marketplace prep |
+| `lib/core/skills/registry.ts` | Central `SKILL_REGISTRY` |
 | `lib/core/foundation.ts` | Core modules, action sequence, validation questions |

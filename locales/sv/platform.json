@@ -420,6 +420,19 @@
       "openCases": "Open Cases"
     }
   },
+  "skills": {
+    "title": "Skill-register",
+    "subtitle": "Styrning och administration av Aipify-skills för alla tenants.",
+    "registryLabel": "Centralt register",
+    "registryStats": "{total} skills registrerade ({core} core, {operational} operativa)",
+    "areas": {
+      "registry": "Skill-register",
+      "governance": "Skill-styrning",
+      "testing": "Intern skill-testning",
+      "rollouts": "Utrullningshantering",
+      "metrics": "Globala skill-mätvärden"
+    }
+  },
   "system": {
     "title": "System status",
     "subtitle": "Core platform services and integration health.",

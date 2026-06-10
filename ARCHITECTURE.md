@@ -118,6 +118,22 @@ Defined in `lib/core/plans.ts`:
 
 ---
 
+## Skill placement rules (Core Foundation §21)
+
+Skills span all three layers. **Placement must be approved before implementation.**
+
+| Layer | Purpose | Routes | Components |
+|-------|---------|--------|------------|
+| **Platform Admin** | Global skill governance, rollouts, metrics | `app/platform/skills/` | `components/platform/skills/` |
+| **Customer App** | Installed skills, settings, activity, preferences | `app/app/skills/` | `components/app/skills/` |
+| **Embedded** | Context, assistance, approved actions, health | `app/api/install/`, `app/api/embed/` | `components/embed/` |
+
+**Workflow:** define skill → determine layer → permissions → approval requirements → implement → validate internally → pilot (Unonight) → public release. See `lib/core/skills.ts`.
+
+**Mandatory:** Never place skills in existing folders out of convenience. Architecture before implementation.
+
+---
+
 ## Database & authorization
 
 - **Platform tables** may read across tenants (with admin checks).
@@ -199,6 +215,9 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 - Spec: `docs/cursor/AIPIFY-CORE-FOUNDATION.txt`
 - Spec: `docs/cursor/AIPIFY-PRODUCT-ARCHITECTURE-SEPARATION.txt`
 - Spec: `docs/cursor/AIPIFY-OPERATING-PRINCIPLES.txt`
+- Spec: `docs/cursor/AIPIFY-SKILL-PLACEMENT-RULES.txt`
+- [SKILL_ENGINE.md](./SKILL_ENGINE.md) — central skill registry and metadata
+- Skill placement: `lib/core/skills/`
 - Layer helpers: `lib/core/layers.ts`
 - Plan limits: `lib/core/plans.ts`
 - Customer nav: `lib/app/nav-config.ts`

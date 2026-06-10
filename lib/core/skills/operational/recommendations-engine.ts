@@ -1,0 +1,25 @@
+import { operationalSkill } from "./_defaults";
+
+export const recommendationsEngineSkill = operationalSkill({
+  id: "recommendations-engine",
+  name: "Recommendations Engine",
+  description: "Surfaces operational improvements with impact and suggested actions.",
+  purpose: "Help teams prioritize safe, high-value improvements.",
+  dataSources: ["operational_patterns", "health_trends", "automation_outcomes"],
+  permissionsRequired: ["owner", "admin"],
+  approvalRequirements: "Recommendations only; execution via Action Engine.",
+  learningBehaviour: "approved_only",
+  escalationRules: ["high_impact_recommendation"],
+  rollbackSupport: false,
+  ownerTeam: "intelligence",
+  status: "active",
+  enabledByDefault: true,
+  requiresApproval: false,
+  supportsLearning: true,
+  requiresInstallation: false,
+  minimumPlan: "starter",
+  version: "1.0.0",
+  layers: ["customer_app", "embedded"],
+  moduleKey: "recommendations",
+  releaseStage: "general_availability",
+});

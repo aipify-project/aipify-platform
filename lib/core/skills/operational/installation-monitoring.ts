@@ -1,0 +1,25 @@
+import { operationalSkill } from "./_defaults";
+
+export const installationMonitoringSkill = operationalSkill({
+  id: "installation-monitoring",
+  name: "Installation Monitoring",
+  description: "Monitors installation heartbeat, tokens, and domain alignment.",
+  purpose: "Ensure embed runtime is healthy and domain-locked.",
+  dataSources: ["installation_heartbeat", "domain_validation", "install_status"],
+  permissionsRequired: ["admin", "support"],
+  approvalRequirements: "Monitoring only.",
+  learningBehaviour: "operational_metadata",
+  tenantIsolation: "installation",
+  escalationRules: ["heartbeat_missing", "domain_mismatch", "token_expired"],
+  rollbackSupport: false,
+  ownerTeam: "platform",
+  status: "active",
+  enabledByDefault: true,
+  requiresApproval: false,
+  supportsLearning: true,
+  requiresInstallation: true,
+  version: "1.0.0",
+  layers: ["platform", "customer_app", "embedded"],
+  moduleKey: "install_management",
+  releaseStage: "general_availability",
+});

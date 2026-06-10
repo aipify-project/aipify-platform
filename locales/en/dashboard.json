@@ -182,6 +182,17 @@
       "prepareSummary": "Prepare weekly business summary"
     }
   },
+  "skills": {
+    "title": "Skills",
+    "subtitle": "View, configure, and monitor skills available to your organization.",
+    "areas": {
+      "installed": "Installed Skills",
+      "settings": "Skill Settings",
+      "activity": "Skill Activity",
+      "preferences": "Skill Preferences",
+      "companion": "Executive Companion Settings"
+    }
+  },
   "systemStatus": {
     "title": "System status",
     "services": {

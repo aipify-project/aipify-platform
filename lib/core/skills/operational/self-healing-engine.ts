@@ -1,0 +1,27 @@
+import { operationalSkill } from "./_defaults";
+
+export const selfHealingEngineSkill = operationalSkill({
+  id: "self-healing-engine",
+  name: "Self-Healing Engine",
+  description: "Resolves safe operational issues automatically with full transparency.",
+  purpose: "Retry deliveries, reconnect integrations, and restore healthy services.",
+  dataSources: ["integration_status", "webhook_logs", "service_health"],
+  permissionsRequired: ["admin"],
+  approvalRequirements: "Low-risk auto; critical repairs require approval.",
+  riskClassification: "low",
+  learningBehaviour: "operational_metadata",
+  escalationRules: ["healing_failed", "critical_repair_required"],
+  rollbackSupport: true,
+  ownerTeam: "intelligence",
+  status: "active",
+  enabledByDefault: true,
+  requiresApproval: true,
+  supportsLearning: true,
+  requiresInstallation: true,
+  minimumPlan: "business",
+  version: "1.0.0",
+  layers: ["platform", "customer_app", "embedded"],
+  moduleKey: "self_healing",
+  releaseStage: "general_availability",
+  actionCapable: true,
+});

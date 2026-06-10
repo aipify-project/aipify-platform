@@ -1,0 +1,28 @@
+import { defineSkill } from "../define";
+
+export const recruitmentAssistantSkill = defineSkill({
+  id: "recruitment-assistant",
+  name: "Recruitment Assistant",
+  description: "Planned modular skill for hiring and recruitment workflows.",
+  purpose: "Future capability — architecture placeholder only.",
+  dataSources: [],
+  permissionsRequired: ["admin"],
+  approvalRequirements: "TBD before release.",
+  learningBehaviour: "none",
+  tenantIsolation: "tenant",
+  escalationRules: [],
+  rollbackSupport: false,
+  ownerTeam: "product",
+  category: "future",
+  status: "planned",
+  enabledByDefault: false,
+  requiresApproval: true,
+  supportsLearning: false,
+  requiresInstallation: false,
+  minimumPlan: "enterprise",
+  core: false,
+  tenantScoped: true,
+  version: "0.1.0",
+  layers: ["customer_app"],
+  releaseStage: "aipify_internal",
+});

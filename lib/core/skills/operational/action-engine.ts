@@ -1,0 +1,27 @@
+import { operationalSkill } from "./_defaults";
+
+export const actionEngineSkill = operationalSkill({
+  id: "action-engine",
+  name: "Action Engine",
+  description: "Prepares, approves, executes, and audits operational actions.",
+  purpose: "Automate repetitive work safely within human-defined policies.",
+  dataSources: ["action_templates", "approval_policies", "tenant_context"],
+  permissionsRequired: ["owner", "admin"],
+  approvalRequirements: "High and critical risk actions require explicit human approval.",
+  riskClassification: "medium",
+  learningBehaviour: "operational_metadata",
+  escalationRules: ["approval_required", "execution_failed", "rollback_requested"],
+  rollbackSupport: true,
+  ownerTeam: "platform",
+  status: "active",
+  enabledByDefault: true,
+  requiresApproval: true,
+  supportsLearning: true,
+  requiresInstallation: false,
+  minimumPlan: "growth",
+  version: "1.0.0",
+  layers: ["platform", "customer_app"],
+  moduleKey: "action_center",
+  releaseStage: "general_availability",
+  actionCapable: true,
+});

@@ -1,0 +1,18 @@
+---
+description: Aipify Skill Engine — every capability is a registered skill in lib/core/skills
+alwaysApply: true
+---
+
+# Skill Engine (Phase 16)
+
+Read **[SKILL_ENGINE.md](../../SKILL_ENGINE.md)**. **Every future capability must be a skill** registered in `lib/core/skills/registry.ts`.
+
+## Before implementing a skill
+
+1. Define full `SkillDefinition` metadata (`lib/core/skills/types.ts`)
+2. Choose category: operational · customer · executive · installation · companion · future
+3. Determine layer per [CORE_FOUNDATION.md §21](../../CORE_FOUNDATION.md#21-skill-placement-rules)
+4. Add to `SKILL_REGISTRY` — no shipping without registry entry
+5. Follow release pipeline: internal → Unonight → limited → GA
+
+> Features create software. Skills create intelligence.
