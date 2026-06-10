@@ -1,0 +1,20 @@
+AIPIFY PLATFORM – PHASE 25
+DESKTOP PRESENCE FOUNDATION
+STATUS: Implemented (foundation)
+PRIORITY: HIGH
+
+Deliverables:
+- lib/presence/notifications.ts, quiet-hours.ts, desktop.ts, personality.ts, notification-state.ts, index.ts
+- Migration 20260611200000_desktop_presence_foundation_phase25.sql
+- APIs: GET /api/presence/desktop-bundle, /api/presence/notifications, PATCH /api/presence/preferences, POST /api/presence/notifications/[id]/action
+- Customer UI: /app/presence (DesktopPresenceFoundationPanel)
+- Platform pilot: /platform/presence-pilot (Unonight metrics)
+- Docs: DESKTOP_PRESENCE_FOUNDATION.md, .cursor/rules/desktop-presence.mdc
+- i18n: presence.desktop.*, presence.pilot.* (en, no, sv, da)
+
+Layer ownership:
+- Customer App: /app/presence UI
+- Shared: lib/presence notification engine + APIs
+- Platform Admin: Unonight pilot validation
+
+END OF PHASE

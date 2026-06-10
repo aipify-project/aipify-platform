@@ -154,5 +154,53 @@
   "empty": {
     "history": "No presence history yet.",
     "recommendations": "No recommendations right now."
+  },
+  "desktop": {
+    "title": "Närvaro och aviseringar",
+    "subtitle": "Håll dig informerad utan att leva i instrumentpanelen. Desktop-appar är inte byggda ännu — detta är aviseringsgrunden.",
+    "principle": "Aipify ska arbeta tyst i bakgrunden och tala upp endast när det har något värdefullt att säga.",
+    "empty": "Slutför kontokonfigurationen för att konfigurera närvaroaviseringar.",
+    "sidebar": {
+      "health": "Hälsostatus",
+      "activity": "Senaste aktivitet",
+      "recommendations": "Rekommendationer",
+      "executive": "Ledningssammanfattning",
+      "approvals": "Väntande godkännanden",
+      "skills": "Aktiva skills",
+      "desktopPrepared": "Desktop-klienter (förberedda)"
+    },
+    "notifications": {
+      "title": "Aviseringar",
+      "unread": "{count} olästa",
+      "none": "Inga aviseringar just nu."
+    },
+    "levels": {
+      "informational": "Informativ",
+      "important": "Viktig",
+      "action_required": "Åtgärd krävs",
+      "critical": "Kritisk"
+    },
+    "preferences": {
+      "title": "Aviseringsinställningar",
+      "quietHours": "Tysta timmar-läge",
+      "channels": "Leveranskanaler"
+    },
+    "quietModes": {
+      "standard": "Standard — tystare utanför arbetstid och på helger",
+      "working_hours_only": "Endast arbetstid",
+      "minimal": "Minimal — endast åtgärd krävs och kritisk",
+      "vacation": "Semesterläge"
+    }
+  },
+  "pilot": {
+    "title": "Unonight närvaropilot",
+    "subtitle": "Validera nytta, timing, brusnivå och slutförande av åtgärder.",
+    "empty": "Unonight pilot-tenant hittades inte.",
+    "metrics": {
+      "sent": "Aviseringar skickade (7d)",
+      "actions": "Åtgärder slutförda (7d)",
+      "dismissRate": "Avvisningsfrekvens",
+      "usefulness": "Nyttopoäng"
+    }
   }
 }

@@ -1,0 +1,29 @@
+---
+description: Aipify Modern Install Experience — simple customer flow, strict license engine
+alwaysApply: true
+---
+
+# Modern Install Experience (Phase 24)
+
+Read **[MODERN_INSTALL_EXPERIENCE.md](../../MODERN_INSTALL_EXPERIENCE.md)** before changes to install UX, tokens, platform detection, or escalations.
+
+## Layer ownership (mandatory before implementation)
+
+| Surface | Owner |
+|---------|-------|
+| Installation Assistant, guided steps, knowledge-base UI | **Customer App** (`/app/install`) |
+| Developer Settings (tokens, API keys, diagnostics) | **Customer App** (`/app/settings/developer`) |
+| Token validation, heartbeat, domain/plan enforcement | **Install Engine** (`app/api/install/`) |
+
+## Rules
+
+1. Standard users never see install tokens — use `begin_modern_install` (no token in response)
+2. Tokens only in Developer Settings after explicit rotation
+3. Never log, email, or expose raw tokens in customer-facing UI
+4. Platform detection must ask when uncertain — never guess silently
+5. Domain ownership and plan limits enforced via `assert_license_capacity` server-side
+6. Support escalations collect platform, domain, status, error summary only — no PII
+7. Extend existing wizard/install engine — do not replace without migration plan
+8. Knowledge-base guides in `lib/install/knowledge-base.ts` are the canonical install docs
+
+> Customers should think: "That was incredibly simple."

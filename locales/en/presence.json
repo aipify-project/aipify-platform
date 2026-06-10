@@ -154,5 +154,53 @@
   "empty": {
     "history": "No presence history yet.",
     "recommendations": "No recommendations right now."
+  },
+  "desktop": {
+    "title": "Presence & notifications",
+    "subtitle": "Stay informed without living in the dashboard. Desktop apps are not built yet — this is the notification foundation.",
+    "principle": "Aipify should work quietly in the background and speak up only when it has something valuable to say.",
+    "empty": "Complete account setup to configure presence notifications.",
+    "sidebar": {
+      "health": "Health status",
+      "activity": "Recent activity",
+      "recommendations": "Recommendations",
+      "executive": "Executive summary",
+      "approvals": "Pending approvals",
+      "skills": "Active skills",
+      "desktopPrepared": "Desktop clients (prepared)"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "unread": "{count} unread",
+      "none": "No notifications right now."
+    },
+    "levels": {
+      "informational": "Informational",
+      "important": "Important",
+      "action_required": "Action required",
+      "critical": "Critical"
+    },
+    "preferences": {
+      "title": "Notification preferences",
+      "quietHours": "Quiet hours mode",
+      "channels": "Delivery channels"
+    },
+    "quietModes": {
+      "standard": "Standard — quieter after hours and weekends",
+      "working_hours_only": "Working hours only",
+      "minimal": "Minimal — action required and critical only",
+      "vacation": "Vacation mode"
+    }
+  },
+  "pilot": {
+    "title": "Unonight presence pilot",
+    "subtitle": "Validate notification usefulness, timing, noise levels, and action completion.",
+    "empty": "Unonight pilot tenant not found.",
+    "metrics": {
+      "sent": "Notifications sent (7d)",
+      "actions": "Actions completed (7d)",
+      "dismissRate": "Dismiss rate",
+      "usefulness": "Usefulness score"
+    }
   }
 }

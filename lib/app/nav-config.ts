@@ -64,6 +64,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/actions")) return "actions";
   if (pathname.startsWith("/app/recommendations")) return "recommendations";
   if (
+    pathname.startsWith("/app/install") ||
     pathname.startsWith("/app/installations") ||
     pathname.startsWith("/dashboard/installs")
   ) {

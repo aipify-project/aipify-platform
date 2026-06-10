@@ -1,0 +1,30 @@
+---
+description: Aipify Desktop Presence — notification architecture for future desktop clients
+alwaysApply: true
+---
+
+# Desktop Presence Foundation (Phase 25)
+
+Read **[DESKTOP_PRESENCE_FOUNDATION.md](../../DESKTOP_PRESENCE_FOUNDATION.md)** before changes to notifications, quiet hours, or desktop APIs.
+
+## Layer ownership (mandatory before implementation)
+
+| Surface | Owner |
+|---------|-------|
+| Notification UI, preferences, `/app/presence` | **Customer App** |
+| Delivery APIs, quiet-hours logic, personality templates | **Shared** (`lib/presence/`) |
+| Unonight pilot metrics | **Platform Admin** |
+
+## Rules
+
+1. Do **not** build native macOS/Windows/Linux apps in this phase — infrastructure only
+2. Notification levels: informational → important → action_required → critical
+3. Users must control preferences — quiet hours, channels, minimum levels
+4. Critical alerts may bypass quiet hours; vacation mode suppresses non-essential noise
+5. Professional tone — no enthusiasm spam (`lib/presence/personality.ts`)
+6. Actionable notifications support view, approve, open dashboard, dismiss, escalate
+7. Never store email content, chat, or PII in notification payloads
+8. Extend Phase 13 Presence Center — do not replace `PresenceProvider` without migration plan
+9. Desktop clients register in `presence_desktop_clients` when apps ship — not before
+
+> Aipify should feel present. Not intrusive.

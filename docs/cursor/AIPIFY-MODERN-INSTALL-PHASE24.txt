@@ -1,0 +1,19 @@
+AIPIFY PLATFORM – PHASE 24 (REVISED)
+MODERN INSTALL EXPERIENCE & LICENSE ENGINE
+STATUS: Implemented (foundation)
+PRIORITY: CRITICAL
+
+Deliverables:
+- lib/install/experience.ts, platforms.ts, knowledge-base.ts, token-policy.ts, escalation.ts, modern-state.ts
+- Migration 20260611000000_modern_install_experience_phase24.sql
+- Customer UI: /app/install (ModernInstallAssistantPanel)
+- Developer UI: /app/settings/developer (DeveloperSettingsPanel)
+- APIs: POST /api/install/begin, /api/install/detect-platform, /api/install/escalate
+- Docs: MODERN_INSTALL_EXPERIENCE.md, .cursor/rules/modern-install.mdc
+- i18n: install.modern.* (en, no, sv, da)
+- Nav alias: /app/installations → /app/install
+
+Layer ownership:
+- Customer App: assistant UI, developer settings
+- Install Engine: tokens, validation, detection APIs
+- Shared: plan limits, license grace/pause

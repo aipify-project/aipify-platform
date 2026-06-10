@@ -30,6 +30,10 @@ For **the Skill Operating System**, read **[SKILLOS.md](./SKILLOS.md)**. Constan
 
 For **architecture review and stabilization**, read **[ARCHITECTURE_REVIEW.md](./ARCHITECTURE_REVIEW.md)** (Phase 23). Canonical customer routes are `/app/*`; `/dashboard/*` is legacy. Do not expand Platform Admin with customer daily workflows.
 
+For **modern install experience and license engine**, read **[MODERN_INSTALL_EXPERIENCE.md](./MODERN_INSTALL_EXPERIENCE.md)**. Constants in `lib/install/experience.ts`; customer assistant at `/app/install`; developer settings at `/app/settings/developer`; token-free flow via `POST /api/install/begin`. Standard users never see install tokens.
+
+For **desktop presence and notification architecture**, read **[DESKTOP_PRESENCE_FOUNDATION.md](./DESKTOP_PRESENCE_FOUNDATION.md)**. Constants in `lib/presence/notifications.ts`; customer page at `/app/presence`; desktop-ready APIs at `/api/presence/*`. Native desktop apps are not built in this phase.
+
 ## Aipify architecture — mandatory before every feature
 
 Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.

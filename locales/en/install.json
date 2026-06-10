@@ -104,5 +104,120 @@
       "critical": "Critical"
     },
     "completed": "Installation complete. Your website is connected to Aipify."
+  },
+  "modern": {
+    "title": "Connect Aipify",
+    "subtitle": "Install Aipify like a modern SaaS product — no license keys required.",
+    "principle": "Complexity belongs inside Aipify. Simplicity belongs to the customer.",
+    "empty": "Complete account setup to start connecting your platform.",
+    "assistantPrompt": "Where would you like to install Aipify?",
+    "platforms": {
+      "shopify": "Shopify",
+      "wordpress": "WordPress",
+      "woocommerce": "WooCommerce",
+      "custom_website": "Custom Website",
+      "developer_setup": "Developer Setup",
+      "not_sure": "I'm Not Sure"
+    },
+    "flow": {
+      "selectPlatform": "Select platform",
+      "signIn": "Sign in to Aipify",
+      "connectPlatform": "Connect platform",
+      "approvePermissions": "Approve permissions",
+      "aipifyLearns": "Aipify learns your business",
+      "reviewRecommendations": "Review recommendations",
+      "activateAipify": "Activate Aipify",
+      "firstBriefing": "Receive first executive briefing"
+    },
+    "heartbeat": {
+      "connected": "Connected",
+      "warning": "Warning",
+      "disconnected": "Disconnected",
+      "updating": "Updating",
+      "suspended": "Suspended"
+    },
+    "planLimits": "{used} of {max} installations on {plan} plan",
+    "beginConnect": "Connect platform",
+    "viewGuide": "Guided installation",
+    "escalate": "Get help from support",
+    "escalateTitle": "Installation support",
+    "escalateHint": "Briefly describe what went wrong. Do not include passwords or payment details.",
+    "escalateSubmit": "Send to support",
+    "escalateSuccess": "Support has been notified. We will follow up shortly.",
+    "escalateError": "Could not send escalation. Try again.",
+    "developerLink": "Developer settings",
+    "detecting": "Detecting platform…",
+    "detectionUncertain": "We could not detect your platform automatically. Please choose one.",
+    "working": "Setting up your connection…",
+    "licensePaused": "Aipify services are paused. Update billing to continue installation.",
+    "licenseGrace": "Your subscription is in a grace period. Complete payment soon to avoid suspension.",
+    "guides": {
+      "shopify": {
+        "title": "Shopify installation",
+        "summary": "Install the app, approve permissions, and activate.",
+        "steps": {
+          "installApp": { "title": "Install app", "body": "Install Aipify from the Shopify App Store." },
+          "approve": { "title": "Approve permissions", "body": "Review and approve the requested scopes." },
+          "confirmStore": { "title": "Confirm store", "body": "Verify your Shopify store domain." },
+          "recommendations": { "title": "Review recommendations", "body": "Review skill recommendations for your store." },
+          "activate": { "title": "Activate", "body": "Activate Aipify on your store." }
+        }
+      },
+      "wordpress": {
+        "title": "WordPress installation",
+        "summary": "Install the plugin, sign in, and verify your domain.",
+        "steps": {
+          "installPlugin": { "title": "Install plugin", "body": "Install the Aipify WordPress plugin." },
+          "signIn": { "title": "Sign in to Aipify", "body": "Connect your Aipify account from the plugin." },
+          "verifyDomain": { "title": "Verify domain", "body": "Confirm domain ownership." },
+          "recommendations": { "title": "Review recommendations", "body": "Review recommended skills." },
+          "activate": { "title": "Activate", "body": "Activate Aipify on your site." }
+        }
+      },
+      "woocommerce": {
+        "title": "WooCommerce installation",
+        "summary": "Install the plugin and connect your Aipify account.",
+        "steps": {
+          "installPlugin": { "title": "Install plugin", "body": "Install the Aipify WooCommerce extension." },
+          "connect": { "title": "Connect account", "body": "Sign in with Aipify from your store admin." },
+          "approve": { "title": "Approve permissions", "body": "Approve requested store permissions." },
+          "recommendations": { "title": "Review recommendations", "body": "Review commerce skill recommendations." },
+          "activate": { "title": "Activate", "body": "Activate Aipify on your store." }
+        }
+      },
+      "custom": {
+        "title": "Custom website installation",
+        "summary": "Add the Aipify script and verify your domain.",
+        "steps": {
+          "addScript": { "title": "Add script", "body": "Add the Aipify embed script to your site." },
+          "confirmDomain": { "title": "Confirm domain", "body": "Register and confirm your domain." },
+          "verify": { "title": "Verify installation", "body": "Run verification to confirm the connection." },
+          "activate": { "title": "Activate", "body": "Activate Aipify services." }
+        }
+      }
+    },
+    "developer": {
+      "nav": "Developer",
+      "title": "Developer settings",
+      "subtitle": "Install tokens, API keys, SDK access, and advanced diagnostics.",
+      "empty": "No developer resources available yet.",
+      "advancedNotice": "Advanced mode — standard users never need these settings.",
+      "tokens": "Install tokens",
+      "tokensHint": "Tokens validate tenant, subscription, domain, and plan limits server-side. Shown only when rotated.",
+      "rotate": "Rotate token",
+      "rotating": "Rotating…",
+      "rotated": "New install token (copy now — it will not be shown again):",
+      "rotateError": "Could not rotate token.",
+      "apiKeys": "API keys",
+      "apiKeysHint": "Programmatic access for custom integrations (coming soon).",
+      "sdk": "SDK access",
+      "sdkHint": "Embedded SDK documentation and credentials (coming soon).",
+      "diagnostics": "Advanced diagnostics",
+      "diagnosticsHint": "Heartbeat status, domain validation, and license checks.",
+      "securityRules": "Token security",
+      "installations": "Installations",
+      "noInstallations": "No installations yet. Start from Connect Aipify.",
+      "tokenMasked": "Token hidden · rotate to reveal a new token"
+    }
   }
 }

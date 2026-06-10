@@ -154,5 +154,53 @@
   "empty": {
     "history": "No presence history yet.",
     "recommendations": "No recommendations right now."
+  },
+  "desktop": {
+    "title": "Tilstedeværelse og varsler",
+    "subtitle": "Hold deg informert uten å leve i dashbordet. Desktop-apper er ikke bygget ennå — dette er varslingsgrunnlaget.",
+    "principle": "Aipify skal jobbe stille i bakgrunnen og snakke opp bare når det har noe verdifullt å si.",
+    "empty": "Fullfør kontokonfigurasjon for å konfigurere tilstedeværelsesvarsler.",
+    "sidebar": {
+      "health": "Helsestatus",
+      "activity": "Nylig aktivitet",
+      "recommendations": "Anbefalinger",
+      "executive": "Ledersammendrag",
+      "approvals": "Ventende godkjenninger",
+      "skills": "Aktive skills",
+      "desktopPrepared": "Desktop-klienter (forberedt)"
+    },
+    "notifications": {
+      "title": "Varsler",
+      "unread": "{count} uleste",
+      "none": "Ingen varsler akkurat nå."
+    },
+    "levels": {
+      "informational": "Informasjon",
+      "important": "Viktig",
+      "action_required": "Handling kreves",
+      "critical": "Kritisk"
+    },
+    "preferences": {
+      "title": "Varslingsinnstillinger",
+      "quietHours": "Stille timer-modus",
+      "channels": "Leveringskanaler"
+    },
+    "quietModes": {
+      "standard": "Standard — roligere utenfor arbeidstid og i helger",
+      "working_hours_only": "Kun arbeidstid",
+      "minimal": "Minimal — kun handling kreves og kritisk",
+      "vacation": "Feriemodus"
+    }
+  },
+  "pilot": {
+    "title": "Unonight tilstedeværelsespilot",
+    "subtitle": "Valider nytten, timing, støynivå og fullføring av handlinger.",
+    "empty": "Unonight pilot-leietaker ikke funnet.",
+    "metrics": {
+      "sent": "Varsler sendt (7d)",
+      "actions": "Handlinger fullført (7d)",
+      "dismissRate": "Avvisningsrate",
+      "usefulness": "Nyttighetsscore"
+    }
   }
 }

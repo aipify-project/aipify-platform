@@ -2,11 +2,12 @@ import Link from "next/link";
 import { resolveAppHref } from "@/lib/app/route-aliases";
 
 type SettingsSubnavProps = {
-  active: "domains" | "updates" | "security";
+  active: "domains" | "updates" | "security" | "developer";
   labels: {
     domains: string;
     updates: string;
     security: string;
+    developer?: string;
   };
 };
 
@@ -23,6 +24,15 @@ export function SettingsSubnav({ active, labels }: SettingsSubnavProps) {
       href: resolveAppHref("/app/settings/security"),
       label: labels.security,
     },
+    ...(labels.developer
+      ? [
+          {
+            id: "developer" as const,
+            href: "/app/settings/developer",
+            label: labels.developer,
+          },
+        ]
+      : []),
   ];
 
   return (
