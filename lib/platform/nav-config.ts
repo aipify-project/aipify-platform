@@ -12,6 +12,7 @@ export type PlatformNavId =
   | "trust"
   | "impact"
   | "presencePilot"
+  | "pilotInstall"
   | "metrics"
   | "stats"
   | "support"
@@ -154,6 +155,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.presencePilot",
   },
   {
+    id: "pilotInstall",
+    href: "/platform/install/unonight",
+    labelKey: "platform.nav.pilotInstall",
+  },
+  {
     id: "metrics",
     href: "/platform/metrics",
     labelKey: "platform.nav.metrics",
@@ -209,6 +215,7 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/trust")) return "trust";
   if (pathname.startsWith("/platform/impact")) return "impact";
   if (pathname.startsWith("/platform/presence-pilot")) return "presencePilot";
+  if (pathname.startsWith("/platform/install/unonight")) return "pilotInstall";
   if (pathname.startsWith("/platform/installations")) return "installations";
   if (pathname.startsWith("/platform/metrics")) return "metrics";
   if (pathname.startsWith("/platform/stats")) return "metrics";

@@ -191,7 +191,8 @@
       "predictions": "Predictive Intelligence",
       "automation": "Adaptive Automation",
       "governance": "Trust & Control",
-      "knowledge": "Knowledge Center"
+      "knowledge": "Knowledge Center",
+      "quality": "Quality Guardian"
     },
     "intelligence": {
       "title": "Organizational Intelligence",
@@ -1815,6 +1816,54 @@
       "archived": "Archived"
     }
   },
+  "quality": {
+    "title": "Quality Guardian",
+    "subtitle": "Discover software, workflow, and integration issues before your customers do.",
+    "loading": "Loading quality dashboard…",
+    "empty": "No quality data available.",
+    "back": "Back to Quality Guardian",
+    "observationMode": "Observation mode is active — reports only, no automatic production fixes.",
+    "runScan": "Run health scan",
+    "incidents": "Incidents",
+    "reports": "Developer reports",
+    "scans": "Scan history",
+    "settings": "Quality settings",
+    "incidentsTitle": "Quality incidents",
+    "reportsTitle": "Developer reports",
+    "scansTitle": "Scan history",
+    "settingsTitle": "Quality Guardian settings",
+    "settingsSubtitle": "Configure observation mode and notification preferences. Automatic production fixes remain disabled.",
+    "recentIncidents": "Recent incidents",
+    "noIncidents": "No open incidents.",
+    "noReports": "No reports generated yet.",
+    "noScans": "No scans have been run yet.",
+    "resolve": "Mark resolved",
+    "falsePositive": "False positive",
+    "approvalRequired": "approval required",
+    "notifyDevelopers": "Notify developers",
+    "openKnowledgeGaps": "Open knowledge gaps for missing documentation",
+    "autoFixDisabled": "Automatic production fixes are disabled. Redirect, CMS, and publishing changes require governance approval.",
+    "upgrade": {
+      "body": "Quality Guardian is available in Aipify Business and Enterprise because it monitors software health across your connected operations.",
+      "cta": "View packages"
+    },
+    "widgets": {
+      "openIncidents": "Open incidents",
+      "criticalIncidents": "Critical incidents",
+      "brokenLinks": "Broken links",
+      "failedWorkflows": "Failed workflows",
+      "integrationHealth": "Integration issues",
+      "knowledgeGaps": "Knowledge gaps",
+      "recommendedActions": "Recommended actions"
+    },
+    "severity": {
+      "info": "Info",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    }
+  },
   "nav": {
     "overview": "Home",
     "executive": "Executive",
@@ -1832,6 +1881,7 @@
     "predictiveIntelligence": "Predictions",
     "adaptiveAutomation": "Automations",
     "governance": "Governance",
+    "quality": "Quality",
     "knowledgeCenter": "Knowledge",
     "installations": "Installations",
     "domains": "Domains",

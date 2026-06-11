@@ -191,7 +191,8 @@
       "predictions": "Prediktiv intelligens",
       "automation": "Adaptiv automatisering",
       "governance": "Tillit og kontroll",
-      "knowledge": "Kunnskapssenter"
+      "knowledge": "Kunnskapssenter",
+      "quality": "Quality Guardian"
     },
     "intelligence": {
       "title": "Organisatorisk intelligens",
@@ -1096,6 +1097,54 @@
       "archived": "Arkivert"
     }
   },
+  "quality": {
+    "title": "Quality Guardian",
+    "subtitle": "Oppdag programvare-, arbeidsflyt- og integrasjonsproblemer før kundene dine gjør det.",
+    "loading": "Laster kvalitetsdashboard…",
+    "empty": "Ingen kvalitetsdata tilgjengelig.",
+    "back": "Tilbake til Quality Guardian",
+    "observationMode": "Observasjonsmodus er aktiv — kun rapporter, ingen automatiske produksjonsendringer.",
+    "runScan": "Kjør helseskanning",
+    "incidents": "Hendelser",
+    "reports": "Utvikler-rapporter",
+    "scans": "Skanningshistorikk",
+    "settings": "Kvalitetsinnstillinger",
+    "incidentsTitle": "Kvalitetshendelser",
+    "reportsTitle": "Utvikler-rapporter",
+    "scansTitle": "Skanningshistorikk",
+    "settingsTitle": "Quality Guardian-innstillinger",
+    "settingsSubtitle": "Konfigurer observasjonsmodus og varsler. Automatiske produksjonsfikser forblir deaktivert.",
+    "recentIncidents": "Nylige hendelser",
+    "noIncidents": "Ingen åpne hendelser.",
+    "noReports": "Ingen rapporter generert ennå.",
+    "noScans": "Ingen skanninger kjørt ennå.",
+    "resolve": "Merk som løst",
+    "falsePositive": "Falsk positiv",
+    "approvalRequired": "krever godkjenning",
+    "notifyDevelopers": "Varsle utviklere",
+    "openKnowledgeGaps": "Åpne kunnskapshull for manglende dokumentasjon",
+    "autoFixDisabled": "Automatiske produksjonsfikser er deaktivert. Omdirigeringer, CMS og publisering krever styring-godkjenning.",
+    "upgrade": {
+      "body": "Quality Guardian er tilgjengelig i Aipify Business og Enterprise fordi det overvåker programvarehelse på tvers av tilkoblede systemer.",
+      "cta": "Se pakker"
+    },
+    "widgets": {
+      "openIncidents": "Åpne hendelser",
+      "criticalIncidents": "Kritiske hendelser",
+      "brokenLinks": "Ødelagte lenker",
+      "failedWorkflows": "Feilede arbeidsflyter",
+      "integrationHealth": "Integrasjonsproblemer",
+      "knowledgeGaps": "Kunnskapshull",
+      "recommendedActions": "Anbefalte handlinger"
+    },
+    "severity": {
+      "info": "Info",
+      "low": "Lav",
+      "medium": "Middels",
+      "high": "Høy",
+      "critical": "Kritisk"
+    }
+  },
   "nav": {
     "overview": "Hjem",
     "executive": "Executive",
@@ -1113,6 +1162,7 @@
     "predictiveIntelligence": "Prediksjoner",
     "adaptiveAutomation": "Automatiseringer",
     "governance": "Styring",
+    "quality": "Kvalitet",
     "knowledgeCenter": "Kunnskap",
     "installations": "Installasjoner",
     "domains": "Domener",

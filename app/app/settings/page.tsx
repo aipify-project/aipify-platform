@@ -64,6 +64,7 @@ export default async function SettingsPage() {
           automation: t("customerApp.settings.links.automation"),
           governance: t("customerApp.settings.links.governance"),
           knowledge: t("customerApp.settings.links.knowledge"),
+          quality: t("customerApp.settings.links.quality"),
         },
       }}
     />
