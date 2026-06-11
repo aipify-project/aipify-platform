@@ -200,6 +200,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Continuity, Resilience & Crisis Management (Phase 80):** See [CONTINUITY_RESILIENCE_CRISIS_PHASE80.md](./CONTINUITY_RESILIENCE_CRISIS_PHASE80.md) — continuity plans, backup ownership, incident mode, recovery tracking, readiness score. `/app/continuity`, `lib/aipify/continuity/`, migration `20260617100000_continuity_resilience_crisis_phase80.sql`. Aipify supports resilience; humans lead resilience.
 
+**Strategic Intelligence & Opportunity Engine (Phase 81):** See [STRATEGIC_INTELLIGENCE_OPPORTUNITY_PHASE81.md](./STRATEGIC_INTELLIGENCE_OPPORTUNITY_PHASE81.md) — strategic scorecard, opportunity detection, risk tracking, horizon planning, advisory recommendations. `/app/strategy`, `lib/aipify/strategy/`, migration `20260617200000_strategic_intelligence_opportunity_phase81.sql`. Aipify recommends strategy; humans decide strategy.
+
 **Quality Guardian / QG (Phases 58–59):** See [QG.md](./QG.md) — software and frontend health monitoring (Image Guardian, Performance Guardian, mobile checks) with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `/app/quality/images`, `lib/aipify/quality/`, migrations `20260614600000_quality_guardian_phase58.sql`, `20260614700000_frontend_experience_guardian_phase59.sql`.
 
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.

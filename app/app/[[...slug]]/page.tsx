@@ -179,6 +179,12 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
           readinessScore: t("customerApp.continuityEngine.readinessScore"),
           incidentModeActive: t("customerApp.continuityEngine.incidentModeActive"),
         },
+        strategyEngine: {
+          title: t("customerApp.strategyEngine.title"),
+          open: t("customerApp.strategyEngine.open"),
+          healthScore: t("customerApp.strategyEngine.healthScore"),
+          opportunitiesLabel: t("customerApp.strategyEngine.opportunitiesLabel"),
+        },
         greetings: {
           morning: t("customerApp.greetings.morning"),
           afternoon: t("customerApp.greetings.afternoon"),
