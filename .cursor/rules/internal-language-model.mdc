@@ -10,11 +10,12 @@ See [INTERNAL_LANGUAGE_MODEL.md](../../INTERNAL_LANGUAGE_MODEL.md).
 ## Rules
 
 1. Source of truth: ILM corpus under `aipify-core/knowledge/internal-language-model/` including `proactive-guidance-language.txt`
-2. Programmatic vocabulary: `vocabulary.ts`, `command-vocabulary.ts`, `nble-vocabulary.ts`, `business-phrase-vocabulary.ts`, and `proactive-guidance-vocabulary.ts`
+2. Programmatic vocabulary: ILM modules in `lib/internal-language-model/` including `reminder-followup-vocabulary.ts`
 3. Never describe Aipify as replacing employees or running the company alone.
 4. Use preferred wording from `FUNCTION_VOCABULARY` when explaining features.
 5. User commands: Understand → Prepare → Approve → Execute; use `detectUserCommandIntent()`.
 6. Natural language: use `detectNaturalBusinessIntent()` for vague, emotional, or everyday work phrasing (NBLE).
 7. Proactive guidance: observe → inform → recommend; use `getProactiveGuidance()` and `detectProactiveGuidanceCue()`; never sound judgmental.
-8. Chat order: `detectUserCommandIntent()` → `detectProactiveGuidanceCue()` → `detectNaturalBusinessIntent()` → `detectAipifyFeatureIntent()`.
-9. Core philosophy: augment people — humans decide, Aipify informs and prepares.
+8. Reminders: gentle, non-judgmental; use `getReminderFollowupLanguage()` and `detectReminderFollowupCue()`; never *You forgot*.
+9. Chat order: command → proactive guidance → reminder follow-up → natural language → feature intent.
+10. Core philosophy: augment people — humans decide, Aipify informs and prepares.

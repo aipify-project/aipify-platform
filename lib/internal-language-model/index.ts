@@ -10,6 +10,8 @@ export * from "./business-phrase-detection";
 export * from "./nble-detection";
 export * from "./proactive-guidance-vocabulary";
 export * from "./proactive-guidance";
+export * from "./reminder-followup-vocabulary";
+export * from "./reminder-followup";
 
 /** Canonical knowledge corpus paths (source of truth). */
 export const FUNCTION_VOCABULARY_PATH =
@@ -26,3 +28,6 @@ export const BUSINESS_PHRASE_DATASET_PATH =
 
 export const PROACTIVE_GUIDANCE_LANGUAGE_PATH =
   "aipify-core/knowledge/internal-language-model/proactive-guidance-language.txt";
+
+export const REMINDER_FOLLOWUP_LANGUAGE_PATH =
+  "aipify-core/knowledge/internal-language-model/reminder-and-followup-language.txt";

@@ -17,6 +17,7 @@ const TIER_MODULES: Record<PlanType, string[]> = {
   business: [
     "action_center",
     "autonomous_execution",
+    "adaptive_working_style",
     "automations_basic",
     "self_healing",
     "advanced_insights",
@@ -27,6 +28,7 @@ const TIER_MODULES: Record<PlanType, string[]> = {
   enterprise: [
     "action_center",
     "autonomous_execution",
+    "adaptive_working_style",
     "automations_basic",
     "self_healing",
     "advanced_insights",

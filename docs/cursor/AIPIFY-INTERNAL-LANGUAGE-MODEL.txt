@@ -5,9 +5,10 @@ Knowledge:
   aipify-core/knowledge/internal-language-model/natural-business-language-engine.txt
   aipify-core/knowledge/internal-language-model/business-phrase-dataset.txt
   aipify-core/knowledge/internal-language-model/proactive-guidance-language.txt
+  aipify-core/knowledge/internal-language-model/reminder-and-followup-language.txt
 Lib: lib/internal-language-model/
-Chat: detectUserCommandIntent() → detectProactiveGuidanceCue() → detectNaturalBusinessIntent() → detectAipifyFeatureIntent()
-Proactive: getProactiveGuidance(scenarioKey) for system observations
+Chat: command → proactive → reminder follow-up → natural → feature
+System: getProactiveGuidance() + getReminderFollowupLanguage() for observations
 Command flow: Understand → Prepare → Approve → Execute
 NBLE: natural/vague/emotional work language + expanded business phrases + industry synonym normalization
 Philosophy: Aipify augments people; never replaces employees

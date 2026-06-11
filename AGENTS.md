@@ -68,7 +68,7 @@ For **Commercial Packages & Modular Architecture**, read **[COMMERCIAL_PACKAGES.
 
 For **Autonomous Execution Framework (AEF)**, read **[AUTONOMOUS_EXECUTION_FRAMEWORK.md](./AUTONOMOUS_EXECUTION_FRAMEWORK.md)**. Constants in `lib/aipify/execution/`; Action Center at `/app/action-center`; APIs at `/api/aipify/*`. Execution levels observer→autonomous; package-gated to Business and Enterprise; safety checker blocks forbidden actions; mock adapters for email, support, tasks, FAQ, notifications; full audit via `aipify_action_logs`.
 
-For **Internal Language Model (ILM)**, read **[INTERNAL_LANGUAGE_MODEL.md](./INTERNAL_LANGUAGE_MODEL.md)**. ILM corpus in `aipify-core/knowledge/internal-language-model/`; `lib/internal-language-model/`; command, natural language, and proactive guidance detection; `getProactiveGuidance()` for system-triggered scenarios; Understand → Prepare → Approve → Execute; observe → inform → recommend; never imply Aipify replaces employees.
+For **Internal Language Model (ILM)**, read **[INTERNAL_LANGUAGE_MODEL.md](./INTERNAL_LANGUAGE_MODEL.md)**. ILM corpus in `aipify-core/knowledge/internal-language-model/`; `lib/internal-language-model/`; command, natural language, proactive guidance, and reminder follow-up detection; `getProactiveGuidance()` and `getReminderFollowupLanguage()` for system-triggered scenarios; never imply Aipify replaces employees.
 
 ## Aipify architecture — mandatory before every feature
 

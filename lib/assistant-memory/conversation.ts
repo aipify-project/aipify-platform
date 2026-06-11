@@ -15,6 +15,11 @@ import { detectUserCommandIntent } from "@/lib/internal-language-model/command-d
 import { detectAipifyFeatureIntent } from "@/lib/internal-language-model/detection";
 import { detectNaturalBusinessIntent } from "@/lib/internal-language-model/nble-detection";
 import { detectProactiveGuidanceCue } from "@/lib/internal-language-model/proactive-guidance";
+import {
+  detectReminderFollowupCue,
+  getReminderFollowupLanguage,
+} from "@/lib/internal-language-model/reminder-followup";
+import { detectAdaptiveStyleCue } from "@/lib/adaptive-working-style-engine/detection";
 import { detectGoalIntent } from "@/lib/goals-dreams-engine/detection";
 import type { GoalDraft } from "@/lib/goals-dreams-engine/types";
 import { detectRelationshipSignal } from "@/lib/relationship-intelligence/detection";
@@ -229,6 +234,36 @@ export function buildAssistantTurn(
     };
   }
 
+  const reminderFollowup = detectReminderFollowupCue(message);
+  if (reminderFollowup?.detected) {
+    const dashboardNote = reminderFollowup.dashboardPath
+      ? `\n\nYou can open the relevant dashboard when you're ready.`
+      : "";
+    const closing = reminderFollowup.closingPhrase
+      ? `\n\n${reminderFollowup.closingPhrase}`
+      : "";
+    return {
+      intent: "general",
+      memory_intent: memoryIntent,
+      memoryDraft: null,
+      askBeforeRemembering: false,
+      reply: `${reminderFollowup.reply}${dashboardNote}${closing}`,
+      confidence_level: "high",
+    };
+  }
+
+  const styleCue = detectAdaptiveStyleCue(message);
+  if (styleCue?.detected) {
+    return {
+      intent: "general",
+      memory_intent: memoryIntent,
+      memoryDraft: null,
+      askBeforeRemembering: false,
+      reply: `${styleCue.reply}\n\nYou can update your working style anytime in Settings → Working Style.`,
+      confidence_level: "high",
+    };
+  }
+
   const naturalIntent = detectNaturalBusinessIntent(message);
   if (naturalIntent?.detected) {
     const dashboardNote = naturalIntent.dashboardPath
@@ -313,6 +348,7 @@ export function buildAssistantTurn(
   }
 
   if (memoryIntent === "daily_assistance") {
+    const morningSummary = getReminderFollowupLanguage("daily_morning_summary");
     return {
       intent: "general",
       memory_intent: memoryIntent,
@@ -321,13 +357,13 @@ export function buildAssistantTurn(
       suggestLifeDashboard: true,
       suggestContextDashboard: true,
       suggestDecisionsDashboard: true,
-      reply:
-        "I can help with that. Your Context dashboard has today's briefing, connected calendars, and what needs attention — your Decisions dashboard can help prioritize what matters most. Tell me what you'd like scheduled.",
+      reply: `${morningSummary.reply}\n\nYour Context dashboard has today's briefing, connected calendars, and what needs attention.`,
       confidence_level: "low",
     };
   }
 
   if (memoryIntent === "evening_reflection") {
+    const endOfDay = getReminderFollowupLanguage("daily_end_of_day_summary");
     return {
       intent: "general",
       memory_intent: memoryIntent,
@@ -335,8 +371,7 @@ export function buildAssistantTurn(
       askBeforeRemembering: false,
       suggestLifeDashboard: true,
       suggestContextDashboard: true,
-      reply:
-        "Let's look at your day. Your Context dashboard has an evening review — what's still pending, and whether you'd like to reschedule anything.",
+      reply: `${endOfDay.reply}\n\nYour Context dashboard has an evening review — what's still pending, and whether you'd like to reschedule anything.`,
       confidence_level: "low",
     };
   }

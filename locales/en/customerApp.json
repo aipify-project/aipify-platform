@@ -184,6 +184,7 @@
       "businessDna": "Business DNA",
       "supportOperations": "Support operations",
       "employeeKnowledge": "Employee knowledge",
+      "workingStyle": "Working style",
       "billing": "Billing & packages",
       "modules": "Module management"
     }
@@ -1037,6 +1038,72 @@
       "safety": "Safety check",
       "history": "Execution history"
     }
+  },
+  "workingStyle": {
+    "title": "Working style",
+    "subtitle": "Adapt how Aipify presents information, reminders, and summaries — transparently and under your control.",
+    "loading": "Loading working style preferences…",
+    "back": "Back to settings",
+    "save": "Save preferences",
+    "saved": "Saved",
+    "reset": "Reset to defaults",
+    "resetConfirm": "Reset all working style preferences to defaults?",
+    "youControl": "Aipify adapts. Aipify does not manipulate. You remain in control of every preference.",
+    "transparency": "Current adaptation",
+    "adaptationSuggestion": "Suggested adjustment",
+    "starterNote": "Your plan supports manual preference selection. Adaptive learning requires Business Pro or Enterprise.",
+    "sections": {
+      "profile": "Working profile",
+      "detail": "Information detail",
+      "reminders": "Reminder frequency",
+      "focus": "Focus mode",
+      "learning": "Adaptive learning",
+      "categories": "Reminder categories",
+      "summary": "Daily summary",
+      "enterprise": "Department templates"
+    },
+    "fields": {
+      "workingProfile": "Profile",
+      "detailLevel": "Detail level",
+      "reminderFrequency": "Reminder frequency",
+      "summaryTime": "Preferred summary time",
+      "focusMode": "Enable focus mode (critical notifications only)",
+      "adaptiveLearning": "Allow adaptive learning from my usage patterns (opt-in)"
+    },
+    "profiles": {
+      "executive": "Executive — strategic highlights",
+      "operations": "Operations — tasks and bottlenecks",
+      "support": "Support — queue and escalations",
+      "sales": "Sales — opportunities and follow-ups",
+      "focus": "Focus — minimal interruptions",
+      "custom": "Custom — your configuration"
+    },
+    "detailLevels": {
+      "compact": "Compact — highlights only",
+      "standard": "Standard — balanced detail",
+      "detailed": "Detailed — full context"
+    },
+    "reminderLevels": {
+      "minimal": "Minimal — critical only",
+      "balanced": "Balanced — important reminders",
+      "proactive": "Proactive — frequent follow-up",
+      "highly_proactive": "Highly proactive — intensive guidance"
+    },
+    "summaryTimes": {
+      "morning": "Morning",
+      "midday": "Midday",
+      "evening": "Evening",
+      "none": "None"
+    },
+    "categories": {
+      "email": "Email reminders",
+      "task": "Task reminders",
+      "meeting": "Meeting reminders",
+      "support": "Support reminders",
+      "sales": "Sales reminders",
+      "relationship": "Relationship reminders"
+    },
+    "enterpriseEmpty": "No department templates configured yet. Enterprise administrators can set role-based defaults."
   },
   "nav": {
     "overview": "Home",

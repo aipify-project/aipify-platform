@@ -184,6 +184,7 @@
       "businessDna": "Business DNA",
       "supportOperations": "Supportoperationer",
       "employeeKnowledge": "Medarbetarkunskap",
+      "workingStyle": "Arbetssätt",
       "billing": "Fakturering och paket",
       "modules": "Modulhantering"
     }
@@ -1054,5 +1055,71 @@
       "safety": "Säkerhetskontroll",
       "history": "Körningshistorik"
     }
+  },
+  "workingStyle": {
+    "title": "Arbetssätt",
+    "subtitle": "Anpassa hur Aipify presenterar information, påminnelser och sammanfattningar — transparent och under din kontroll.",
+    "loading": "Laddar arbetssättspreferenser…",
+    "back": "Tillbaka till inställningar",
+    "save": "Spara preferenser",
+    "saved": "Sparat",
+    "reset": "Återställ till standard",
+    "resetConfirm": "Återställa alla arbetssättspreferenser?",
+    "youControl": "Aipify anpassar sig. Aipify manipulerar inte. Du behåller kontrollen.",
+    "transparency": "Aktuell anpassning",
+    "adaptationSuggestion": "Föreslagen justering",
+    "starterNote": "Din plan stöder manuella preferenser. Adaptiv inlärning kräver Business Pro eller Enterprise.",
+    "sections": {
+      "profile": "Arbetsprofil",
+      "detail": "Informationsdetalj",
+      "reminders": "Påminnelsefrekvens",
+      "focus": "Fokusläge",
+      "learning": "Adaptiv inlärning",
+      "categories": "Påminnelsekategorier",
+      "summary": "Daglig sammanfattning",
+      "enterprise": "Avdelningsmallar"
+    },
+    "fields": {
+      "workingProfile": "Profil",
+      "detailLevel": "Detaljnivå",
+      "reminderFrequency": "Påminnelsefrekvens",
+      "summaryTime": "Föredragen sammanfattningstid",
+      "focusMode": "Aktivera fokusläge (endast kritiska aviseringar)",
+      "adaptiveLearning": "Tillåt adaptiv inlärning från användningsmönster (opt-in)"
+    },
+    "profiles": {
+      "executive": "Executive — strategiska höjdpunkter",
+      "operations": "Operations — uppgifter och flaskhalsar",
+      "support": "Support — kö och eskaleringar",
+      "sales": "Försäljning — möjligheter och uppföljning",
+      "focus": "Fokus — minimala avbrott",
+      "custom": "Anpassad — din konfiguration"
+    },
+    "detailLevels": {
+      "compact": "Kompakt — endast höjdpunkter",
+      "standard": "Standard — balanserad detalj",
+      "detailed": "Detaljerad — full kontext"
+    },
+    "reminderLevels": {
+      "minimal": "Minimal — endast kritisk",
+      "balanced": "Balanserad — viktiga påminnelser",
+      "proactive": "Proaktiv — frekvent uppföljning",
+      "highly_proactive": "Mycket proaktiv — intensiv vägledning"
+    },
+    "summaryTimes": {
+      "morning": "Morgon",
+      "midday": "Middag",
+      "evening": "Kväll",
+      "none": "Ingen"
+    },
+    "categories": {
+      "email": "E-postpåminnelser",
+      "task": "Uppgiftspåminnelser",
+      "meeting": "Mötespåminnelser",
+      "support": "Supportpåminnelser",
+      "sales": "Säljuppföljning",
+      "relationship": "Relationspåminnelser"
+    },
+    "enterpriseEmpty": "Inga avdelningsmallar konfigurerade ännu."
   }
 }

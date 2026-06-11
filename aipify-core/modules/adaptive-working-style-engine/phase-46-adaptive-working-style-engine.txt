@@ -1,0 +1,17 @@
+AIPIFY – PHASE 46
+ADAPTIVE WORKING STYLE ENGINE (AWSE)
+
+FILE LOCATION:
+/aipify-core/modules/adaptive-working-style-engine/
+/aipify-core/modules/adaptive-working-style-engine/phase-46-adaptive-working-style-engine.txt
+
+MODULE NAME: Adaptive Working Style Engine
+SHORT NAME: AWSE
+PHASE: Phase 46
+
+See implementation: lib/adaptive-working-style-engine/, supabase/migration 20260613400000, /app/settings/working-style
+
+FINAL PRINCIPLE
+People work differently.
+Aipify should adapt responsibly.
+Humans remain in control.

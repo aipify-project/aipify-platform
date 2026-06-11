@@ -11,6 +11,7 @@ Defines how Aipify describes its own functionality and understands how people na
 - `aipify-core/knowledge/internal-language-model/natural-business-language-engine.txt` — human work language (NBLE)
 - `aipify-core/knowledge/internal-language-model/business-phrase-dataset.txt` — expanded business phrase dataset
 - `aipify-core/knowledge/internal-language-model/proactive-guidance-language.txt` — proactive assistance and gentle guidance
+- `aipify-core/knowledge/internal-language-model/reminder-and-followup-language.txt` — reminders and follow-up language
 
 **Code:** `lib/internal-language-model/`
 
@@ -114,6 +115,26 @@ Never use: *You're doing this wrong* · *That's a bad idea*. Prefer observationa
 
 ---
 
+## Reminder and follow-up
+
+People forget. Aipify remembers. People decide. Gentle, non-judgmental reminders across email, contacts, meetings, tasks, support, sales, and daily summaries.
+
+| Domain | Scenario example |
+|--------|------------------|
+| `email` | Unanswered email · unsent draft · missing attachment |
+| `contact` | Promised follow-up · VIP no contact |
+| `meeting` | Approaching · no agenda · follow-up missing |
+| `task` | Overdue · repeated postpone · high-priority pending |
+| `daily_assistant` | Morning · midday · end-of-day · weekly review |
+| `memory` | Forgot context · returning after absence |
+| `positive` | Follow-up completed · inbox progress |
+
+Never use: *You forgot* · *You failed to respond*. Prefer: *It may still require attention* · *This may deserve review.*
+
+User control: reminder frequency (`minimal` → `highly_proactive`) and per-category toggles.
+
+---
+
 ## APIs
 
 | Function | Purpose |
@@ -129,6 +150,9 @@ Never use: *You're doing this wrong* · *That's a bad idea*. Prefer observationa
 | `getProactiveGuidance(scenarioKey)` | Gentle guidance for system-detected scenarios |
 | `detectProactiveGuidanceCue(message)` | Risky user expressions needing intervention |
 | `getProactiveGuidanceVocabulary(key)` | Scenario, response, consequence, safer alternative |
+| `getReminderFollowupLanguage(scenarioKey)` | Gentle reminder for system-detected follow-ups |
+| `detectReminderFollowupCue(message)` | User requests for summaries, reviews, follow-ups |
+| `getReminderFollowupVocabulary(key)` | Reminder scenario and preferred response |
 | `normalizeBusinessConcept(term)` | Industry synonym → canonical concept |
 | `getCorePhilosophy()` | Core positioning phrase |
 | `getNbleVision()` | NBLE long-term vision phrase |
@@ -141,10 +165,11 @@ Detection order in `buildAssistantTurn()`:
 
 1. `detectUserCommandIntent()` — explicit commands (email, calendar, support, sales, approval, automation)
 2. `detectProactiveGuidanceCue()` — risky expressions needing gentle intervention
-3. `detectNaturalBusinessIntent()` — natural/vague/emotional language
-4. `detectAipifyFeatureIntent()` — *"What is the Action Center?"* and replacement questions
+3. `detectReminderFollowupCue()` — follow-up, summary, and review requests
+4. `detectNaturalBusinessIntent()` — natural/vague/emotional language
+5. `detectAipifyFeatureIntent()` — *"What is the Action Center?"* and replacement questions
 
-Other modules (Action Center, AEF, support ops) call `getProactiveGuidance(scenarioKey)` when system observations trigger a scenario.
+Other modules call `getProactiveGuidance(scenarioKey)` or `getReminderFollowupLanguage(scenarioKey)` when system observations trigger a scenario. `daily_assistance` and `evening_reflection` memory intents use ILM daily summary wording.
 
 ---
 

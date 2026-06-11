@@ -184,6 +184,7 @@
       "businessDna": "Business DNA",
       "supportOperations": "Supportoperationer",
       "employeeKnowledge": "Medarbejderviden",
+      "workingStyle": "Arbejdsstil",
       "billing": "Fakturering og pakker",
       "modules": "Modulstyring"
     }
@@ -1054,5 +1055,71 @@
       "safety": "Sikkerhedstjek",
       "history": "Udførelseshistorik"
     }
+  },
+  "workingStyle": {
+    "title": "Arbejdsstil",
+    "subtitle": "Tilpas hvordan Aipify præsenterer information, påmindelser og oversigter — transparent og under din kontrol.",
+    "loading": "Indlæser arbejdsstilpræferencer…",
+    "back": "Tilbage til indstillinger",
+    "save": "Gem præferencer",
+    "saved": "Gemt",
+    "reset": "Nulstil til standard",
+    "resetConfirm": "Nulstille alle arbejdsstilpræferencer?",
+    "youControl": "Aipify tilpasser sig. Aipify manipulerer ikke. Du beholder kontrollen.",
+    "transparency": "Aktuel tilpasning",
+    "adaptationSuggestion": "Foreslået justering",
+    "starterNote": "Din plan understøtter manuelle præferencer. Adaptiv læring kræver Business Pro eller Enterprise.",
+    "sections": {
+      "profile": "Arbejdsprofil",
+      "detail": "Informationsdetalje",
+      "reminders": "Påmindelsesfrekvens",
+      "focus": "Fokustilstand",
+      "learning": "Adaptiv læring",
+      "categories": "Påmindelseskategorier",
+      "summary": "Daglig oversigt",
+      "enterprise": "Afdelingskabeloner"
+    },
+    "fields": {
+      "workingProfile": "Profil",
+      "detailLevel": "Detaljeniveau",
+      "reminderFrequency": "Påmindelsesfrekvens",
+      "summaryTime": "Foretrukket oversigtstid",
+      "focusMode": "Aktiver fokustilstand (kun kritiske notifikationer)",
+      "adaptiveLearning": "Tillad adaptiv læring fra brugsmønstre (opt-in)"
+    },
+    "profiles": {
+      "executive": "Executive — strategiske højdepunkter",
+      "operations": "Operationer — opgaver og flaskehalse",
+      "support": "Support — kø og eskaleringer",
+      "sales": "Salg — muligheder og opfølgning",
+      "focus": "Fokus — minimale afbrydelser",
+      "custom": "Tilpasset — din konfiguration"
+    },
+    "detailLevels": {
+      "compact": "Kompakt — kun højdepunkter",
+      "standard": "Standard — balanceret detalje",
+      "detailed": "Detaljeret — fuld kontekst"
+    },
+    "reminderLevels": {
+      "minimal": "Minimal — kun kritisk",
+      "balanced": "Balanceret — vigtige påmindelser",
+      "proactive": "Proaktiv — hyppig opfølgning",
+      "highly_proactive": "Meget proaktiv — intens vejledning"
+    },
+    "summaryTimes": {
+      "morning": "Morgen",
+      "midday": "Middag",
+      "evening": "Aften",
+      "none": "Ingen"
+    },
+    "categories": {
+      "email": "E-mailpåmindelser",
+      "task": "Opgavepåmindelser",
+      "meeting": "Mødepåmindelser",
+      "support": "Supportpåmindelser",
+      "sales": "Salgsopfølgning",
+      "relationship": "Relationspåmindelser"
+    },
+    "enterpriseEmpty": "Ingen afdelingskabeloner konfigureret endnu."
   }
 }
