@@ -467,7 +467,8 @@ begin
   end if;
 
   if v_should_escalate then
-    perform public.escalate_self_support_conversation(
+    perform public._sse_escalate_internal(
+      v_org_id,
       p_conversation_id,
       case when p_request_human then 'Customer requested human support'
            when v_sensitive then 'Sensitive topic detected'
@@ -491,6 +492,27 @@ begin
   );
 end; $$;
 
+create or replace function public._sse_escalate_internal(
+  p_organization_id uuid,
+  p_conversation_id uuid,
+  p_reason text default 'Low confidence or customer request'
+)
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  update public.self_support_conversations set
+    status = 'escalated',
+    escalation_count = escalation_count + 1,
+    escalated_at = now(),
+    updated_at = now()
+  where id = p_conversation_id and organization_id = p_organization_id;
+
+  insert into public.self_support_escalations (organization_id, conversation_id, reason)
+  values (p_organization_id, p_conversation_id, p_reason);
+
+  perform public._sse_log(p_organization_id, 'self_support_escalated', 'self_support_conversation', p_conversation_id,
+    jsonb_build_object('reason', p_reason), true);
+end; $$;
+
 create or replace function public.escalate_self_support_conversation(
   p_conversation_id uuid,
   p_reason text default 'Low confidence or customer request'
@@ -500,20 +522,7 @@ declare v_org_id uuid;
 begin
   perform public._irp_require_permission('self_support.manage');
   v_org_id := public._mta_require_organization();
-
-  update public.self_support_conversations set
-    status = 'escalated',
-    escalation_count = escalation_count + 1,
-    escalated_at = now(),
-    updated_at = now()
-  where id = p_conversation_id and organization_id = v_org_id;
-
-  insert into public.self_support_escalations (organization_id, conversation_id, reason)
-  values (v_org_id, p_conversation_id, p_reason);
-
-  perform public._sse_log(v_org_id, 'self_support_escalated', 'self_support_conversation', p_conversation_id,
-    jsonb_build_object('reason', p_reason), true);
-
+  perform public._sse_escalate_internal(v_org_id, p_conversation_id, p_reason);
   return jsonb_build_object('conversation_id', p_conversation_id, 'status', 'escalated');
 end; $$;
 
@@ -574,7 +583,7 @@ create or replace function public.detect_self_support_knowledge_gaps()
 returns jsonb language plpgsql security definer set search_path = public as $$
 declare v_org_id uuid;
 begin
-  perform public._irp_require_permission('self_support.manage_knowledge');
+  perform public._irp_require_permission('self_support.view');
   v_org_id := public._mta_require_organization();
 
   return coalesce((

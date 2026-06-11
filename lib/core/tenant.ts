@@ -20,4 +20,7 @@ export * from "./integrations";
 export * from "./subscription-plan-management";
 export * from "./operations-dashboard";
 export * from "./customer-onboarding";
+export * from "./governance-policy";
+export * from "./unonight-pilot";
 export * from "./quality-guardian";
+export * from "./notification-communication";

@@ -57,6 +57,21 @@ export const PERMISSION_KEYS = [
   "quality.manage",
   "quality.resolve",
   "quality.ignore",
+  "governance.view",
+  "governance.manage",
+  "governance.review",
+  "governance.approve",
+  "pilot.view",
+  "pilot.manage",
+  "pilot.feedback",
+  "pilot.configure",
+  "analytics.view",
+  "analytics.export",
+  "analytics.manage",
+  "notifications.view",
+  "notifications.manage",
+  "notifications.send",
+  "notifications.configure",
   "ai.approve",
   "ai.reject",
   "settings.manage",
@@ -97,6 +112,13 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "subscription.view",
     "quality.view",
     "quality.resolve",
+    "governance.view",
+    "governance.review",
+    "analytics.view",
+    "analytics.export",
+    "notifications.view",
+    "notifications.manage",
+    "notifications.configure",
     "ai.approve",
     "ai.reject",
   ],
@@ -110,6 +132,10 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "self_support.view",
     "self_support.escalate",
     "quality.view",
+    "governance.view",
+    "analytics.view",
+    "notifications.view",
+    "notifications.manage",
   ],
   viewer: [
     "users.view",
@@ -122,6 +148,9 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "subscription.view",
     "self_support.view",
     "quality.view",
+    "governance.view",
+    "analytics.view",
+    "notifications.view",
   ],
 };
 
@@ -168,6 +197,9 @@ export function canAccessModule(
   }
   if (moduleKey === "self_support") {
     return hasPermission(role, "self_support.view");
+  }
+  if (moduleKey === "governance_policy") {
+    return hasPermission(role, "governance.view");
   }
   return true;
 }

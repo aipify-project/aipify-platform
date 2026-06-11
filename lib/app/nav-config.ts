@@ -16,6 +16,10 @@ export type AppNavId =
   | "subscriptionPlanManagementEngine"
   | "selfSupportEngine"
   | "qualityGuardianEngine"
+  | "governancePolicyEngine"
+  | "unonightPilotOperationsEngine"
+  | "analyticsInsightsEngine"
+  | "notificationCommunicationEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -107,6 +111,13 @@ export const APP_NAV: AppNavItem[] = [
   },
   { id: "selfSupportEngine", href: "/app/self-support-engine", labelKey: "customerApp.nav.selfSupportEngine" },
   { id: "qualityGuardianEngine", href: "/app/quality-guardian-engine", labelKey: "customerApp.nav.qualityGuardianEngine" },
+  { id: "governancePolicyEngine", href: "/app/governance-policy-engine", labelKey: "customerApp.nav.governancePolicyEngine" },
+  {
+    id: "unonightPilotOperationsEngine",
+    href: "/app/unonight-pilot-operations-engine",
+    labelKey: "customerApp.nav.unonightPilotOperationsEngine",
+  },
+  { id: "analyticsInsightsEngine", href: "/app/analytics-insights-engine", labelKey: "customerApp.nav.analyticsInsightsEngine" },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -200,6 +211,13 @@ export function getAppActiveNavId(pathname: string): AppNavId {
     return "subscriptionPlanManagementEngine";
   }
   if (pathname.startsWith("/app/self-support-engine")) return "selfSupportEngine";
+  if (pathname.startsWith("/app/quality-guardian-engine")) return "qualityGuardianEngine";
+  if (pathname.startsWith("/app/governance-policy-engine")) return "governancePolicyEngine";
+  if (pathname.startsWith("/app/unonight-pilot-operations-engine")) return "unonightPilotOperationsEngine";
+  if (pathname.startsWith("/app/analytics-insights-engine")) return "analyticsInsightsEngine";
+  if (pathname.startsWith("/app/notification-communication-engine")) {
+    return "notificationCommunicationEngine";
+  }
   if (pathname.startsWith("/app/executive")) return "executive";
   if (
     pathname.startsWith("/app/presence") ||

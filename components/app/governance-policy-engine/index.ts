@@ -1,0 +1,1 @@
+export { GovernancePolicyEngineDashboardPanel } from "./GovernancePolicyEngineDashboardPanel";
