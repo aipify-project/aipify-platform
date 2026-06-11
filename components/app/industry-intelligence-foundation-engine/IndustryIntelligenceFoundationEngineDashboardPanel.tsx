@@ -17,6 +17,8 @@ export function IndustryIntelligenceFoundationEngineDashboardPanel({ labels }: P
   const [assigning, setAssigning] = useState<string | null>(null);
   const [overriding, setOverriding] = useState<string | null>(null);
   const [exporting, setExporting] = useState(false);
+  const [customizing, setCustomizing] = useState(false);
+  const [togglingInsights, setTogglingInsights] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -65,6 +67,45 @@ export function IndustryIntelligenceFoundationEngineDashboardPanel({ labels }: P
     setOverriding(null);
   };
 
+  const toggleInsights = async (disable: boolean) => {
+    setTogglingInsights(true);
+    setActionError(null);
+    const res = await fetch("/api/aipify/industry-intelligence-foundation-engine/customize", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ disable_insights: disable }),
+    });
+    if (!res.ok) {
+      const body = (await res.json()) as { error?: string };
+      setActionError(body.error ?? labels.toggleFailed);
+    } else {
+      await load();
+    }
+    setTogglingInsights(false);
+  };
+
+  const customizeSettings = async () => {
+    const priority = window.prompt(labels.prioritiesPrompt, "");
+    if (priority === null) return;
+
+    setCustomizing(true);
+    setActionError(null);
+    const res = await fetch("/api/aipify/industry-intelligence-foundation-engine/customize", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        priorities: priority.trim() ? [{ title: priority.trim() }] : [],
+      }),
+    });
+    if (!res.ok) {
+      const body = (await res.json()) as { error?: string };
+      setActionError(body.error ?? labels.customizeFailed);
+    } else {
+      await load();
+    }
+    setCustomizing(false);
+  };
+
   const exportInsights = async () => {
     setExporting(true);
     setActionError(null);
@@ -89,6 +130,7 @@ export function IndustryIntelligenceFoundationEngineDashboardPanel({ labels }: P
   if (!dashboard?.has_organization) return null;
 
   const summary = dashboard.summary ?? {};
+  const insightsEnabled = summary.insights_enabled !== false;
 
   return (
     <div className="space-y-6">
@@ -98,14 +140,36 @@ export function IndustryIntelligenceFoundationEngineDashboardPanel({ labels }: P
             <h2 className="text-sm font-semibold">{labels.engineTitle}</h2>
             <p className="mt-2 text-sm">{dashboard.philosophy}</p>
           </div>
-          <button
-            type="button"
-            className="rounded-md border border-indigo-300 bg-white px-3 py-1.5 text-xs font-medium text-indigo-700 disabled:opacity-50"
-            disabled={exporting}
-            onClick={() => void exportInsights()}
-          >
-            {exporting ? labels.exporting : labels.export}
-          </button>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              className="rounded-md border border-indigo-300 bg-white px-3 py-1.5 text-xs font-medium text-indigo-700 disabled:opacity-50"
+              disabled={customizing}
+              onClick={() => void customizeSettings()}
+            >
+              {customizing ? labels.customizing : labels.customize}
+            </button>
+            <button
+              type="button"
+              className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 disabled:opacity-50"
+              disabled={togglingInsights}
+              onClick={() => void toggleInsights(insightsEnabled)}
+            >
+              {togglingInsights
+                ? labels.toggling
+                : insightsEnabled
+                  ? labels.disableInsights
+                  : labels.enableInsights}
+            </button>
+            <button
+              type="button"
+              className="rounded-md border border-indigo-300 bg-white px-3 py-1.5 text-xs font-medium text-indigo-700 disabled:opacity-50"
+              disabled={exporting}
+              onClick={() => void exportInsights()}
+            >
+              {exporting ? labels.exporting : labels.export}
+            </button>
+          </div>
         </div>
       </section>
 

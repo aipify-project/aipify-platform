@@ -37,6 +37,14 @@ export default async function IndustryIntelligenceFoundationEnginePage() {
           export: t(`${p}.export`),
           exporting: t(`${p}.exporting`),
           exportFailed: t(`${p}.exportFailed`),
+          customize: t(`${p}.customize`),
+          customizing: t(`${p}.customizing`),
+          customizeFailed: t(`${p}.customizeFailed`),
+          prioritiesPrompt: t(`${p}.prioritiesPrompt`),
+          disableInsights: t(`${p}.disableInsights`),
+          enableInsights: t(`${p}.enableInsights`),
+          toggling: t(`${p}.toggling`),
+          toggleFailed: t(`${p}.toggleFailed`),
         }} />
     </div>
   );
