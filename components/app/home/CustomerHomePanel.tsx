@@ -14,6 +14,7 @@ import { ValueEngineCard } from "@/components/app/value-engine";
 import { AgentsCard } from "@/components/app/agents";
 import { AppsCard } from "@/components/app/app-ecosystem";
 import { TrustCard } from "@/components/app/trust-engine";
+import { DigitalTwinHomeCard } from "@/components/app/digital-twin";
 import { EnterpriseDeploymentCard } from "@/components/app/enterprise";
 import { AssistantIdentityWelcomeBanner } from "@/components/app/assistant-identity";
 import { LearningEngineCard } from "@/components/app/learning-engine";
@@ -161,6 +162,12 @@ type CustomerHomePanelProps = {
       trustScore: string;
       explanations: string;
     };
+    digitalTwin: {
+      title: string;
+      open: string;
+      healthScore: string;
+      insights: string;
+    };
   };
 };
 
@@ -224,6 +231,7 @@ export function CustomerHomePanel({ locale, labels }: CustomerHomePanelProps) {
       <AgentsCard labels={labels.agents} />
       <AppsCard labels={labels.appEcosystem} />
       <TrustCard labels={labels.trustEngine} />
+      <DigitalTwinHomeCard labels={labels.digitalTwin} />
       <DesktopCompanionCard labels={labels.desktop} />
       <MemoryEngineCard labels={labels.memoryEngine} />
       <SkillStoreCard labels={labels.skillStore} />

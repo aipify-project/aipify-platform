@@ -155,6 +155,12 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
           trustScore: t("customerApp.trustEngine.trustScore"),
           explanations: t("customerApp.trustEngine.explanations"),
         },
+        digitalTwin: {
+          title: t("customerApp.digitalTwin.title"),
+          open: t("customerApp.digitalTwin.open"),
+          healthScore: t("customerApp.digitalTwin.twinHealth"),
+          insights: t("customerApp.digitalTwin.insightsLabel"),
+        },
         greetings: {
           morning: t("customerApp.greetings.morning"),
           afternoon: t("customerApp.greetings.afternoon"),

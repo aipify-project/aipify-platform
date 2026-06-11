@@ -1,0 +1,37 @@
+import { DigitalTwinDashboardPanel } from "@/components/app/digital-twin";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { createTranslator } from "@/lib/i18n/translate";
+
+export default async function DigitalTwinPage() {
+  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const t = createTranslator(dict);
+  const p = "customerApp.digitalTwin";
+
+  return (
+    <div className="mx-auto max-w-6xl space-y-6 p-6">
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t(`${p}.title`)}</h1>
+        <p className="mt-2 text-gray-600">{t(`${p}.subtitle`)}</p>
+        <p className="mt-2 text-sm text-slate-600">{t(`${p}.philosophy`)}</p>
+      </div>
+      <DigitalTwinDashboardPanel
+        labels={{
+          loading: t(`${p}.loading`),
+          twinHealth: t(`${p}.twinHealth`),
+          processCoverage: t(`${p}.processCoverage`),
+          knowledgeOwners: t(`${p}.knowledgeOwners`),
+          lowConfidence: t(`${p}.lowConfidence`),
+          roles: t(`${p}.roles`),
+          rolesSection: t(`${p}.rolesSection`),
+          processesSection: t(`${p}.processesSection`),
+          knowledgeRouting: t(`${p}.knowledgeRouting`),
+          insightsSection: t(`${p}.insightsSection`),
+          reviewRecommended: t(`${p}.reviewRecommended`),
+          integrations: t(`${p}.integrations`),
+          safetyNote: t(`${p}.safetyNote`),
+        }}
+      />
+    </div>
+  );
+}
