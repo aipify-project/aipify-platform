@@ -44,4 +44,6 @@ export * from "./compliance-regulatory-readiness";
 export * from "./strategic-intelligence-foundation";
 export * from "./operations-center-foundation";
 export * from "./continuous-improvement";
+export * from "./business-packs-foundation";
+export * from "./workflow-orchestration-engine";
 export * from "./human-oversight";

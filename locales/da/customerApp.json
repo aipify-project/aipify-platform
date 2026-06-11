@@ -3137,7 +3137,9 @@
     "operationsCenterFoundationEngine": "Driftscenter",
     "continuousImprovementEngine": "Kontinuerlig forbedring",
     "workflowOrchestrationEngine": "Workflow-orkestrering",
-    "humanOversightEngine": "Menneskeligt tilsyn"  },
+    "humanOversightEngine": "Menneskeligt tilsyn",
+    "businessPacksFoundationEngine": "Forretningspakker"
+  },
   "identity": {
     "title": "Din identitet",
     "subtitle": "Hvordan Aipify kommunikerer med dig — velkendt, konsekvent og altid under din kontrol.",
@@ -4204,7 +4206,8 @@
     "confidence": "Tillid",
     "criticalNote": "Kritiske handlinger er forbudt for AI — menneskelig bekræftelse kræves."
   },
-      "title": "Forretningspakker",
+  "businessPacksFoundationEngine": {
+    "title": "Forretningspakker",
     "subtitle": "Kuraterede pakker — vælg, gennemgå moduler og arbejdsgange, aktiver og tilpas.",
     "loading": "Indlæser forretningspakker…",
     "engineTitle": "Business Packs Foundation Engine",

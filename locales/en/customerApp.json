@@ -4282,7 +4282,9 @@
     "operationsCenterFoundationEngine": "Ops Center",
     "continuousImprovementEngine": "Continuous Improvement",
     "workflowOrchestrationEngine": "Workflow Orchestration",
-    "humanOversightEngine": "Human Oversight"  },
+    "humanOversightEngine": "Human Oversight",
+    "businessPacksFoundationEngine": "Business Packs"
+  },
   "aipifyInstallEngine": {
     "title": "Install Engine",
     "subtitle": "Guided installation with discovery, permission review, and recommendations — extending Install Engine Phase 17.",
@@ -4637,7 +4639,8 @@
     "confidence": "Confidence",
     "criticalNote": "Critical actions are prohibited for AI — human confirmation required."
   },
-      "title": "Business Packs",
+  "businessPacksFoundationEngine": {
+    "title": "Business Packs",
     "subtitle": "Curated packs — select, review modules and workflows, activate, then customize.",
     "loading": "Loading business packs…",
     "engineTitle": "Business Packs Foundation Engine",

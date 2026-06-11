@@ -401,6 +401,7 @@ declare
   v_org_id uuid;
   v_tpl public.workflow_templates;
   v_name text;
+  v_result jsonb;
 begin
   perform public._irp_require_permission('workflows.manage');
   v_org_id := public._mta_require_organization();
@@ -410,13 +411,23 @@ begin
 
   v_name := coalesce(nullif(trim(p_workflow_name), ''), v_tpl.template_name || ' (copy)');
 
-  return public.create_organization_workflow(
+  v_result := public.create_organization_workflow(
     v_name,
     v_tpl.description,
     v_tpl.category,
     v_tpl.default_trust_level,
     v_tpl.steps
-  ) || jsonb_build_object('source_template_key', p_template_key, 'human_defined', true);
+  );
+
+  update public.organization_workflows
+  set source_template_key = p_template_key
+  where id = (v_result->>'id')::uuid and organization_id = v_org_id;
+
+  perform public._woe_log(v_org_id, 'workflow_from_template_created', 'organization_workflow',
+    (v_result->>'id')::uuid,
+    jsonb_build_object('template_key', p_template_key, 'human_defined', true));
+
+  return v_result || jsonb_build_object('source_template_key', p_template_key, 'human_defined', true);
 end; $$;
 
 create or replace function public.set_organization_workflow_status(
