@@ -18,7 +18,7 @@ export const STAKEHOLDER_TYPES = [
 
 export type StakeholderType = (typeof STAKEHOLDER_TYPES)[number];
 
-export const COMMUNICATION_TYPES = [
+export const STAKEHOLDER_COMMUNICATION_TYPES = [
   "announcement",
   "operational_update",
   "incident_notification",
@@ -27,7 +27,7 @@ export const COMMUNICATION_TYPES = [
   "policy_update",
 ] as const;
 
-export type CommunicationType = (typeof COMMUNICATION_TYPES)[number];
+export type StakeholderCommunicationType = (typeof STAKEHOLDER_COMMUNICATION_TYPES)[number];
 
 export const CAMPAIGN_STATUSES = [
   "draft",
@@ -39,14 +39,14 @@ export const CAMPAIGN_STATUSES = [
 
 export type CampaignStatus = (typeof CAMPAIGN_STATUSES)[number];
 
-export const DELIVERY_CHANNELS = [
+export const STAKEHOLDER_DELIVERY_CHANNELS = [
   "email",
   "desktop_notification",
   "in_platform",
   "knowledge_center",
 ] as const;
 
-export type DeliveryChannel = (typeof DELIVERY_CHANNELS)[number];
+export type StakeholderDeliveryChannel = (typeof STAKEHOLDER_DELIVERY_CHANNELS)[number];
 
 export const DELIVERY_STATUSES = ["pending", "delivered", "failed", "skipped"] as const;
 export type DeliveryStatus = (typeof DELIVERY_STATUSES)[number];

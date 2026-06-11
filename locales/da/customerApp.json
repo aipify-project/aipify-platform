@@ -4483,5 +4483,28 @@
     "publishFailed": "Publicering mislykkedes",
     "cancelFailed": "Annullering mislykkedes",
     "exportFailed": "Eksport mislykkedes"
+  },
+  "serviceLevelCommitmentEngine": {
+    "title": "Serviceniveauforpligtelser",
+    "subtitle": "Definer operationelle serviceniveauforpligtelser med overholdelsessporing, advarsler og ledelsesrapportering.",
+    "loading": "Indlæser serviceniveaupanel…",
+    "engineTitle": "Service Level & Commitment Engine",
+    "summary": "Resumé",
+    "principles": "Principper",
+    "commitments": "Forpligtelser",
+    "performance": "Performance",
+    "alerts": "Advarsler",
+    "executiveSummary": "Ledelsesresumé",
+    "integrationSummaries": "Integrationssammendrag",
+    "target": "Mål",
+    "pause": "Pause",
+    "pausing": "Pauser…",
+    "pauseFailed": "Pause mislykkedes",
+    "acknowledge": "Bekræft",
+    "acknowledging": "Bekræfter…",
+    "acknowledgeFailed": "Bekræftelse mislykkedes",
+    "exportReport": "Eksporter rapport",
+    "exporting": "Eksporterer…",
+    "exportFailed": "Eksport mislykkedes"
   }
 }

@@ -4916,5 +4916,28 @@
     "publishFailed": "Publish failed",
     "cancelFailed": "Cancel failed",
     "exportFailed": "Export failed"
+  },
+  "serviceLevelCommitmentEngine": {
+    "title": "Service Level Commitments",
+    "subtitle": "Define operational service commitments with compliance tracking, alerts, and executive reporting.",
+    "loading": "Loading service level commitment dashboard…",
+    "engineTitle": "Service Level & Commitment Engine",
+    "summary": "Summary",
+    "principles": "Principles",
+    "commitments": "Commitments",
+    "performance": "Performance",
+    "alerts": "Alerts",
+    "executiveSummary": "Executive summary",
+    "integrationSummaries": "Integration summaries",
+    "target": "Target",
+    "pause": "Pause",
+    "pausing": "Pausing…",
+    "pauseFailed": "Pause failed",
+    "acknowledge": "Acknowledge",
+    "acknowledging": "Acknowledging…",
+    "acknowledgeFailed": "Acknowledge failed",
+    "exportReport": "Export report",
+    "exporting": "Exporting…",
+    "exportFailed": "Export failed"
   }
 }

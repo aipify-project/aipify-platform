@@ -4509,5 +4509,28 @@
     "publishFailed": "Publicering misslyckades",
     "cancelFailed": "Avbrytning misslyckades",
     "exportFailed": "Export misslyckades"
+  },
+  "serviceLevelCommitmentEngine": {
+    "title": "Servicenivååtaganden",
+    "subtitle": "Definiera operativa servicenivååtaganden med regelefterlevnad, varningar och ledningsrapportering.",
+    "loading": "Laddar servicenivåpanel…",
+    "engineTitle": "Service Level & Commitment Engine",
+    "summary": "Sammanfattning",
+    "principles": "Principer",
+    "commitments": "Åtaganden",
+    "performance": "Prestanda",
+    "alerts": "Varningar",
+    "executiveSummary": "Ledningssammanfattning",
+    "integrationSummaries": "Integrationssammanfattningar",
+    "target": "Mål",
+    "pause": "Pausa",
+    "pausing": "Pausar…",
+    "pauseFailed": "Paus misslyckades",
+    "acknowledge": "Bekräfta",
+    "acknowledging": "Bekräftar…",
+    "acknowledgeFailed": "Bekräftelse misslyckades",
+    "exportReport": "Exportera rapport",
+    "exporting": "Exporterar…",
+    "exportFailed": "Export misslyckades"
   }
 }
