@@ -3139,7 +3139,9 @@
     "workflowOrchestrationEngine": "Workflow-orkestrering",
     "humanOversightEngine": "Menneskeligt tilsyn",
     "businessPacksFoundationEngine": "Forretningspakker",
-    "industryIntelligenceFoundationEngine": "Brancheintelligens"
+    "industryIntelligenceFoundationEngine": "Brancheintelligens",
+    "marketplacePartnerEcosystemFoundationEngine": "Partnerøkosystem",
+    "aiEthicsResponsibleUseEngine": "AI-etik"
   },
   "identity": {
     "title": "Din identitet",
@@ -4247,6 +4249,52 @@
     "overrideFailed": "Tilsidesættelse mislykkedes",
     "export": "Eksporter indsigter",
     "exporting": "Eksporterer…",
-    "exportFailed": "Eksport mislykkedes"
+    "exportFailed": "Eksport mislykkedes",
+    "customize": "Tilpas indstillinger",
+    "customizing": "Gemmer…",
+    "customizeFailed": "Tilpasning mislykkedes",
+    "prioritiesPrompt": "Tilføj en operationel prioritet:",
+    "disableInsights": "Deaktiver indsigter",
+    "enableInsights": "Aktiver indsigter",
+    "toggling": "Opdaterer…",
+    "toggleFailed": "Skift mislykkedes"
+  },
+  "marketplacePartnerEcosystemFoundationEngine": {
+    "title": "Partnerøkosystem",
+    "subtitle": "Certificerede partnere, styrede tilbud og økosystemkvalitet — mennesker godkender, Aipify forbereder.",
+    "loading": "Indlæser partnerøkosystem…",
+    "engineTitle": "Marketplace & Partner Ecosystem Foundation Engine",
+    "summary": "Resumé",
+    "principles": "Principper",
+    "approvedPartners": "Godkendte partnere",
+    "pendingPartners": "Afventende partnergennemgange",
+    "offerings": "Publicerede tilbud",
+    "certificationStatus": "Certificeringsfordeling",
+    "qualityIndicators": "Kvalitetsindikatorer",
+    "integrationNotes": "Integrationsnotater",
+    "approve": "Godkend",
+    "suspend": "Suspender",
+    "recertify": "Recertificer",
+    "actionFailed": "Handling mislykkedes"
+  },
+  "aiEthicsResponsibleUseEngine": {
+    "title": "AI-etik",
+    "subtitle": "Dokumenterede AI-brugsscenarier, forklarlighedskrav og etikgennemgang — mennesker bestemmer ansvarlig brug.",
+    "loading": "Indlæser AI-etik…",
+    "engineTitle": "AI Ethics & Responsible Use Engine",
+    "summary": "Resumé",
+    "principles": "Principper",
+    "explainabilityRequirements": "Forklarlighedskrav",
+    "prohibitedExamples": "Forbudte brugseksempler",
+    "approvedUseCases": "Godkendte brugsscenarier",
+    "proposedUseCases": "Foreslåede brugsscenarier",
+    "restrictedUseCases": "Begrænsede brugsscenarier",
+    "reviewSchedules": "Gennemgangsplaner",
+    "oversightTrends": "Tilsynstendenser",
+    "integrationNotes": "Integrationsnotater",
+    "approve": "Godkend",
+    "restrict": "Begræns",
+    "actionFailed": "Handling mislykkedes",
+    "criticalNote": "Kritiske brugsscenarier er forbudt for autonom AI — menneskelig bekræftelse kræves."
   }
 }

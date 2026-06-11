@@ -4284,7 +4284,9 @@
     "workflowOrchestrationEngine": "Workflow Orchestration",
     "humanOversightEngine": "Human Oversight",
     "businessPacksFoundationEngine": "Business Packs",
-    "industryIntelligenceFoundationEngine": "Industry Intelligence"
+    "industryIntelligenceFoundationEngine": "Industry Intelligence",
+    "marketplacePartnerEcosystemFoundationEngine": "Partner Ecosystem",
+    "aiEthicsResponsibleUseEngine": "AI Ethics"
   },
   "aipifyInstallEngine": {
     "title": "Install Engine",
@@ -4680,6 +4682,52 @@
     "overrideFailed": "Override failed",
     "export": "Export insights",
     "exporting": "Exporting…",
-    "exportFailed": "Export failed"
+    "exportFailed": "Export failed",
+    "customize": "Customize settings",
+    "customizing": "Saving…",
+    "customizeFailed": "Customization failed",
+    "prioritiesPrompt": "Add an operational priority:",
+    "disableInsights": "Disable insights",
+    "enableInsights": "Enable insights",
+    "toggling": "Updating…",
+    "toggleFailed": "Toggle failed"
+  },
+  "marketplacePartnerEcosystemFoundationEngine": {
+    "title": "Partner Ecosystem",
+    "subtitle": "Certified partners, governed offerings, and ecosystem quality — humans approve, Aipify prepares.",
+    "loading": "Loading partner ecosystem…",
+    "engineTitle": "Marketplace & Partner Ecosystem Foundation Engine",
+    "summary": "Summary",
+    "principles": "Principles",
+    "approvedPartners": "Approved partners",
+    "pendingPartners": "Pending partner reviews",
+    "offerings": "Published offerings",
+    "certificationStatus": "Certification breakdown",
+    "qualityIndicators": "Quality indicators",
+    "integrationNotes": "Integration notes",
+    "approve": "Approve",
+    "suspend": "Suspend",
+    "recertify": "Re-certify",
+    "actionFailed": "Action failed"
+  },
+  "aiEthicsResponsibleUseEngine": {
+    "title": "AI Ethics",
+    "subtitle": "Documented AI use cases, explainability requirements, and ethics review — humans decide responsible use.",
+    "loading": "Loading AI ethics…",
+    "engineTitle": "AI Ethics & Responsible Use Engine",
+    "summary": "Summary",
+    "principles": "Principles",
+    "explainabilityRequirements": "Explainability requirements",
+    "prohibitedExamples": "Prohibited use examples",
+    "approvedUseCases": "Approved use cases",
+    "proposedUseCases": "Proposed use cases",
+    "restrictedUseCases": "Restricted use cases",
+    "reviewSchedules": "Review schedules",
+    "oversightTrends": "Oversight trends",
+    "integrationNotes": "Integration notes",
+    "approve": "Approve",
+    "restrict": "Restrict",
+    "actionFailed": "Action failed",
+    "criticalNote": "Critical risk use cases are prohibited for autonomous AI — human confirmation required."
   }
 }

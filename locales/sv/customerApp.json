@@ -3165,7 +3165,9 @@
     "workflowOrchestrationEngine": "Arbetsflödesorkestrering",
     "humanOversightEngine": "Mänsklig tillsyn",
     "businessPacksFoundationEngine": "Affärspaket",
-    "industryIntelligenceFoundationEngine": "Branschintelligens"
+    "industryIntelligenceFoundationEngine": "Branschintelligens",
+    "marketplacePartnerEcosystemFoundationEngine": "Partnerekosystem",
+    "aiEthicsResponsibleUseEngine": "AI-etik"
   },
   "identity": {
     "title": "Din identitet",
@@ -4273,6 +4275,52 @@
     "overrideFailed": "Åsidosättning misslyckades",
     "export": "Exportera insikter",
     "exporting": "Exporterar…",
-    "exportFailed": "Export misslyckades"
+    "exportFailed": "Export misslyckades",
+    "customize": "Anpassa inställningar",
+    "customizing": "Sparar…",
+    "customizeFailed": "Anpassning misslyckades",
+    "prioritiesPrompt": "Lägg till en operativ prioritet:",
+    "disableInsights": "Inaktivera insikter",
+    "enableInsights": "Aktivera insikter",
+    "toggling": "Uppdaterar…",
+    "toggleFailed": "Växling misslyckades"
+  },
+  "marketplacePartnerEcosystemFoundationEngine": {
+    "title": "Partnerekosystem",
+    "subtitle": "Certifierade partners, styrda erbjudanden och ekosystemkvalitet — människor godkänner, Aipify förbereder.",
+    "loading": "Laddar partnerekosystem…",
+    "engineTitle": "Marketplace & Partner Ecosystem Foundation Engine",
+    "summary": "Sammanfattning",
+    "principles": "Principer",
+    "approvedPartners": "Godkända partners",
+    "pendingPartners": "Väntande partnergranskningar",
+    "offerings": "Publicerade erbjudanden",
+    "certificationStatus": "Certifieringsfördelning",
+    "qualityIndicators": "Kvalitetsindikatorer",
+    "integrationNotes": "Integrationsanteckningar",
+    "approve": "Godkänn",
+    "suspend": "Suspendera",
+    "recertify": "Omcertifiera",
+    "actionFailed": "Åtgärd misslyckades"
+  },
+  "aiEthicsResponsibleUseEngine": {
+    "title": "AI-etik",
+    "subtitle": "Dokumenterade AI-användningsfall, förklarbarhetskrav och etikgranskning — människor bestämmer ansvarsfull användning.",
+    "loading": "Laddar AI-etik…",
+    "engineTitle": "AI Ethics & Responsible Use Engine",
+    "summary": "Sammanfattning",
+    "principles": "Principer",
+    "explainabilityRequirements": "Förklarbarhetskrav",
+    "prohibitedExamples": "Förbjudna användningsexempel",
+    "approvedUseCases": "Godkända användningsfall",
+    "proposedUseCases": "Föreslagna användningsfall",
+    "restrictedUseCases": "Begränsade användningsfall",
+    "reviewSchedules": "Granskningsscheman",
+    "oversightTrends": "Tillsynstrender",
+    "integrationNotes": "Integrationsanteckningar",
+    "approve": "Godkänn",
+    "restrict": "Begränsa",
+    "actionFailed": "Åtgärd misslyckades",
+    "criticalNote": "Kritiska användningsfall är förbjudna för autonom AI — mänsklig bekräftelse krävs."
   }
 }
