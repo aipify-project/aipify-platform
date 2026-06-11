@@ -18,6 +18,17 @@ export default async function QualitySettingsPage() {
         observationMode: t("customerApp.quality.observationMode"),
         notifyDevelopers: t("customerApp.quality.notifyDevelopers"),
         openKnowledgeGaps: t("customerApp.quality.openKnowledgeGaps"),
+        scanningTitle: t("customerApp.quality.settingsScanningTitle"),
+        imageScanning: t("customerApp.quality.imageScanning"),
+        performanceScanning: t("customerApp.quality.performanceScanning"),
+        mobileScanning: t("customerApp.quality.mobileScanning"),
+        seoScanning: t("customerApp.quality.seoScanning"),
+        localizationScanning: t("customerApp.quality.localizationScanning"),
+        notifyOnHigh: t("customerApp.quality.notifyOnHigh"),
+        notifyOnCritical: t("customerApp.quality.notifyOnCritical"),
+        autoDeveloperReports: t("customerApp.quality.autoDeveloperReports"),
+        imageWarningKb: t("customerApp.quality.imageWarningKb"),
+        pageWeightWarningMb: t("customerApp.quality.pageWeightWarningMb"),
         autoFixDisabled: t("customerApp.quality.autoFixDisabled"),
       }}
     />

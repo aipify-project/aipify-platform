@@ -14,6 +14,7 @@ export default async function QualityReportsPage() {
         title: t("customerApp.quality.reportsTitle"),
         loading: t("customerApp.quality.loading"),
         empty: t("customerApp.quality.noReports"),
+        generateReport: t("customerApp.quality.generateReport"),
         back: t("customerApp.quality.back"),
       }}
     />

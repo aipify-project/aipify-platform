@@ -1,8 +1,12 @@
 export * from "./types";
 export * from "./parse";
 export { UNONIGHT_QUALITY_CHECKS } from "./presets/unonight-checks";
+export { UNONIGHT_SAMPLE_IMAGES, UNONIGHT_TARGET_PAGES } from "./presets/unonight-frontend-checks";
 export { runAllQualityScanners, getChecksForTenant } from "./scanners";
-export { runQualityScanJob, seedTenantQualityChecks } from "./jobs";
+export { runFrontendExperienceScan } from "./frontend-scanner";
+export { evaluateImageAsset } from "./image-guardian";
+export { evaluatePageSnapshot } from "./performance-guardian";
+export { runQualityScanJob, seedTenantQualityChecks, generateGuardianReportJob } from "./jobs";
 
 export const QG_MODULE_PATH = "aipify-core/modules/quality-guardian/phase-58";
 

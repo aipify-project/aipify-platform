@@ -18,6 +18,12 @@ export const QUALITY_SCAN_TYPES = [
   "mobile",
   "journeys",
   "summary",
+  "full_site",
+  "images",
+  "performance",
+  "seo",
+  "localization",
+  "frontend_journey",
 ] as const;
 export type QualityScanType = (typeof QUALITY_SCAN_TYPES)[number];
 
@@ -29,6 +35,10 @@ export const QUALITY_SCANNER_TYPES = [
   "translation_monitor",
   "mobile_monitor",
   "workflow_validator",
+  "image_guardian",
+  "performance_guardian",
+  "frontend_experience",
+  "seo_monitor",
 ] as const;
 export type QualityScannerType = (typeof QUALITY_SCANNER_TYPES)[number];
 
@@ -48,6 +58,39 @@ export type QualityScanResult = {
   suggested_fix?: string;
   missing_documentation?: string;
   language?: string;
+  incident_type?: string;
+  page_url?: string;
+  affected_asset_url?: string;
+  recommendation_type?: string;
+};
+
+export type QualityAsset = {
+  id: string;
+  url: string;
+  page_url: string | null;
+  file_format: string | null;
+  size_bytes: number | null;
+  has_alt_text: boolean | null;
+  is_lazy_loaded: boolean | null;
+  has_width_height: boolean | null;
+  recommendation: string | null;
+  status_code: number | null;
+  rendered_width: number | null;
+  rendered_height: number | null;
+  created_at: string;
+};
+
+export type QualityPageSnapshot = {
+  id: string;
+  page_url: string;
+  viewport: string;
+  load_time_ms: number | null;
+  total_page_weight_bytes: number | null;
+  request_count: number | null;
+  image_weight_bytes: number | null;
+  script_weight_bytes: number | null;
+  layout_issue_count: number;
+  created_at: string;
 };
 
 export type QualityDashboard = {
@@ -57,15 +100,22 @@ export type QualityDashboard = {
   plan?: string;
   observation_mode?: boolean;
   auto_fix_enabled?: boolean;
+  health_score?: number;
   widgets?: {
     open_incidents: number;
     critical_incidents: number;
+    image_issues: number;
+    performance_issues: number;
+    mobile_issues: number;
     broken_links: number;
+    missing_translations: number;
     failed_workflows: number;
     integration_issues: number;
     knowledge_gaps: number;
     recommended_actions: number;
+    oversized_images: number;
   };
+  last_scan?: Record<string, unknown> | null;
   recent_incidents?: QualityIncident[];
   recent_scans?: QualityScanRun[];
   recommended_actions?: QualityRecommendation[];
@@ -128,6 +178,21 @@ export type QualitySettings = {
   open_knowledge_gaps: boolean;
   scan_interval_hours: number;
   enabled_scanners: string[];
+  image_scanning_enabled?: boolean;
+  performance_scanning_enabled?: boolean;
+  mobile_scanning_enabled?: boolean;
+  seo_scanning_enabled?: boolean;
+  localization_scanning_enabled?: boolean;
+  scan_frequency?: string;
+  max_pages_per_scan?: number;
+  max_image_size_warning_kb?: number;
+  max_image_size_high_kb?: number;
+  max_page_weight_warning_mb?: number;
+  max_page_weight_high_mb?: number;
+  notify_on_high?: boolean;
+  notify_on_critical?: boolean;
+  auto_create_developer_reports?: boolean;
+  target_urls?: unknown[];
 };
 
 export type QualityCheckDefinition = {

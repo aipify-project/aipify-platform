@@ -158,7 +158,7 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Unonight Pilot Install (Phase 57):** See [UNONIGHT_PILOT.md](./UNONIGHT_PILOT.md) — first live tenant activation via generic `provision_pilot_tenant`; Unonight config in `lib/aipify/integrations/unonight/`, platform UI at `/platform/install/unonight`, migration `20260614500000_unonight_pilot_installation_phase57.sql`.
 
-**Quality Guardian / QG (Phase 58):** See [QG.md](./QG.md) — software health monitoring with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `lib/aipify/quality/`, migration `20260614600000_quality_guardian_phase58.sql`.
+**Quality Guardian / QG (Phases 58–59):** See [QG.md](./QG.md) — software and frontend health monitoring (Image Guardian, Performance Guardian, mobile checks) with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `/app/quality/images`, `lib/aipify/quality/`, migrations `20260614600000_quality_guardian_phase58.sql`, `20260614700000_frontend_experience_guardian_phase59.sql`.
 
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
 

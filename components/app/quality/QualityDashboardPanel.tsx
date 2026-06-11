@@ -87,18 +87,32 @@ export function QualityDashboardPanel({ labels, severityLabels }: QualityDashboa
       </div>
 
       <div className="flex flex-wrap gap-2 text-sm">
+        <Link href="/app/quality/images" className="text-violet-700">{labels.images}</Link>
+        <Link href="/app/quality/performance" className="text-violet-700">{labels.performance}</Link>
+        <Link href="/app/quality/mobile" className="text-violet-700">{labels.mobile}</Link>
         <Link href="/app/quality/incidents" className="text-violet-700">{labels.incidents}</Link>
         <Link href="/app/quality/reports" className="text-violet-700">{labels.reports}</Link>
         <Link href="/app/quality/scans" className="text-violet-700">{labels.scans}</Link>
         <Link href="/app/settings/quality" className="text-violet-700">{labels.settings}</Link>
       </div>
 
+      {dashboard.health_score !== undefined ? (
+        <div className="rounded-lg border border-violet-100 bg-violet-50/50 p-4">
+          <p className="text-xs text-gray-500">{labels.healthScore}</p>
+          <p className="mt-1 text-3xl font-semibold text-violet-900">{dashboard.health_score}</p>
+        </div>
+      ) : null}
+
       {w ? (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             [labels.openIncidents, w.open_incidents],
             [labels.criticalIncidents, w.critical_incidents],
+            [labels.imageIssues, w.image_issues],
+            [labels.performanceIssues, w.performance_issues],
+            [labels.mobileIssues, w.mobile_issues],
             [labels.brokenLinks, w.broken_links],
+            [labels.missingTranslations, w.missing_translations],
             [labels.failedWorkflows, w.failed_workflows],
             [labels.integrationHealth, w.integration_issues],
             [labels.knowledgeGaps, w.knowledge_gaps],
