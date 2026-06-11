@@ -2,6 +2,9 @@ import { resolveAppHref } from "./route-aliases";
 
 export type AppNavId =
   | "overview"
+  | "aipifyCorePlatformEngine"
+  | "multiTenantArchitectureEngine"
+  | "identityPermissionsEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -75,6 +78,9 @@ export type AppNavItem = {
 /** Canonical Customer App 1.0 navigation (Phase 28). */
 export const APP_NAV: AppNavItem[] = [
   { id: "overview", href: "/app", labelKey: "customerApp.nav.overview" },
+  { id: "aipifyCorePlatformEngine", href: "/app/aipify-core", labelKey: "customerApp.nav.aipifyCorePlatformEngine" },
+  { id: "multiTenantArchitectureEngine", href: "/app/multi-tenant", labelKey: "customerApp.nav.multiTenantArchitectureEngine" },
+  { id: "identityPermissionsEngine", href: "/app/identity-access", labelKey: "customerApp.nav.identityPermissionsEngine" },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -153,6 +159,9 @@ export const APP_MOBILE_NAV_IDS: AppNavId[] = [
 
 export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname === "/app" || pathname === "/dashboard") return "overview";
+  if (pathname.startsWith("/app/aipify-core")) return "aipifyCorePlatformEngine";
+  if (pathname.startsWith("/app/multi-tenant")) return "multiTenantArchitectureEngine";
+  if (pathname.startsWith("/app/identity-access")) return "identityPermissionsEngine";
   if (pathname.startsWith("/app/executive")) return "executive";
   if (
     pathname.startsWith("/app/presence") ||

@@ -1,0 +1,1 @@
+export { IdentityPermissionsDashboardPanel } from "./IdentityPermissionsDashboardPanel";

@@ -11,6 +11,7 @@ import Sidebar, { type NavItem } from "./Sidebar";
 import SidebarBrand from "./SidebarBrand";
 import { PresenceProvider, type PresenceLabels } from "@/components/presence/PresenceProvider";
 import Topbar from "./Topbar";
+import { OrganizationSwitcher } from "@/components/app/organization";
 import { getAppActiveNavId } from "@/lib/app/nav-config";
 import { getCustomerActiveNavId } from "@/lib/dashboard/nav-config";
 import { getPlatformActiveNavId } from "@/lib/platform/nav-config";
@@ -52,6 +53,10 @@ type DashboardShellProps = {
   };
   presenceLabels?: PresenceLabels;
   locale?: string;
+  organizationSwitcherLabels?: {
+    label: string;
+    switching: string;
+  };
   children: React.ReactNode;
 };
 
@@ -74,6 +79,7 @@ export default function DashboardShell({
   licensePanelLabels,
   presenceLabels,
   locale = "en",
+  organizationSwitcherLabels,
   children,
 }: DashboardShellProps) {
   const pathname = usePathname();
@@ -221,6 +227,15 @@ export default function DashboardShell({
           searchPlaceholder={searchPlaceholder}
           companyName={companyName}
           companySelectorLabel={companySelectorLabel}
+          organizationSwitcher={
+            shellVariant === "customer" && organizationSwitcherLabels ? (
+              <OrganizationSwitcher
+                label={organizationSwitcherLabels.label}
+                fallbackName={companyName}
+                switchingLabel={organizationSwitcherLabels.switching}
+              />
+            ) : undefined
+          }
           notificationsLabel={notificationsLabel}
           profileName={profileName}
           profileRole={profileRole}

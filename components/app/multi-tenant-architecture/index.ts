@@ -1,0 +1,1 @@
+export { MultiTenantArchitectureDashboardPanel } from "./MultiTenantArchitectureDashboardPanel";

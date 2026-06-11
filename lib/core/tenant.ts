@@ -7,3 +7,6 @@ export {
   type ModuleKey,
   type Company,
 } from "@/lib/tenant/types";
+
+export * from "./organization";
+export * from "./permissions";

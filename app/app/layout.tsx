@@ -75,6 +75,10 @@ export default async function AppLayout({
           licensePanelLabels={buildLicensePanelLabels(t)}
           presenceLabels={buildPresenceLabels(t)}
           locale={locale}
+          organizationSwitcherLabels={{
+            label: t("customerApp.multiTenantArchitecture.organizationSwitcher"),
+            switching: t("customerApp.multiTenantArchitecture.switchingOrganization"),
+          }}
         >
           {children}
         </DashboardShell>
