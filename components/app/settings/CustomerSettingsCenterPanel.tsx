@@ -33,6 +33,7 @@ type CustomerSettingsCenterPanelProps = {
       updates: string;
       desktopConnect: string;
       learning: string;
+      businessDna: string;
     };
   };
 };
@@ -140,6 +141,9 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
         </Link>
         <Link href="/app/learning" className="block text-indigo-600 hover:underline">
           {labels.links.learning}
+        </Link>
+        <Link href="/app/settings/business-dna" className="block text-indigo-600 hover:underline">
+          {labels.links.businessDna}
         </Link>
       </section>
     </div>

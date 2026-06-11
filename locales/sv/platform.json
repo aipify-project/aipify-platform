@@ -436,6 +436,18 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratörer kan inte se användarnas minnesinnehåll. Endast aggregat."
   },
+  "businessDna": {
+    "title": "BDE-styrning",
+    "subtitle": "Aggregerad Business DNA-adoption — inget innehåll.",
+    "loading": "Laddar Business DNA-översikt…",
+    "profiles": "DNA-profiler",
+    "active": "Aktiva profiler",
+    "templates": "Godkända mallar",
+    "knowledge": "Godkänd kunskap",
+    "drafts": "E-postutkast",
+    "avgHealth": "Snitt hälsopoäng",
+    "privacyNote": "Administratörer kan inte se Business DNA-innehåll. Endast aggregat."
+  },
   "decisionSupport": {
     "title": "DSE-styrning",
     "subtitle": "Aggregerade beslutsmetriker — inget rekommendationsinnehåll.",

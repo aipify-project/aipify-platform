@@ -180,7 +180,8 @@
       "developer": "Developer settings",
       "updates": "Update policies",
       "desktopConnect": "Connect desktop app",
-      "learning": "Learning & privacy"
+      "learning": "Learning & privacy",
+      "businessDna": "Business DNA"
     }
   },
   "learning": {
@@ -745,6 +746,70 @@
       "administrative": "Administrative tasks",
       "executive": "Executive priorities",
       "operational": "Operational workflow"
+    }
+  },
+  "businessDna": {
+    "title": "Business DNA",
+    "subtitle": "How your business works — products, tone, templates, and support rules.",
+    "loading": "Loading Business DNA…",
+    "back": "Back to settings",
+    "save": "Save profile",
+    "saved": "Saved",
+    "privacy": "All imported knowledge is visible here. Sensitive data is never learned without approval.",
+    "seedInstall": "Import from Install Engine",
+    "approveProfile": "Approve Business DNA profile",
+    "youControl": "You review and approve everything Aipify learns.",
+    "empty": "Nothing here yet — import from install or add knowledge manually.",
+    "sections": {
+      "overview": "Overview & health",
+      "profile": "Company profile",
+      "knowledge": "Support knowledge",
+      "templates": "Email templates",
+      "workflows": "Workflows",
+      "escalation": "Escalation rules",
+      "automation": "Automation readiness",
+      "emailTest": "Test email response",
+      "audit": "Audit log",
+      "settings": "Review settings"
+    },
+    "health": {
+      "score": "Health score",
+      "readiness": "Automation readiness",
+      "gaps": "Missing information"
+    },
+    "settings": {
+      "humanReview": "Human review mode (drafts only)",
+      "automation": "Enable partial automation",
+      "learnReplies": "Learn from approved replies",
+      "importHistory": "Import support history"
+    },
+    "emailTest": {
+      "subject": "Subject",
+      "body": "Customer message",
+      "analyze": "Analyze",
+      "draft": "Generate draft",
+      "result": "Draft result"
+    },
+    "profileStatuses": {
+      "draft": "Draft",
+      "pending_review": "Pending review",
+      "approved": "Approved",
+      "active": "Active"
+    },
+    "riskLevels": {
+      "conservative": "Conservative",
+      "balanced": "Balanced",
+      "progressive": "Progressive"
+    },
+    "toneOptions": {
+      "formal": "Formal",
+      "friendly_professional": "Friendly & professional",
+      "short_direct": "Short & direct",
+      "warm_personal": "Warm & personal",
+      "premium": "Premium",
+      "technical": "Technical",
+      "casual": "Casual",
+      "supportive": "Supportive"
     }
   },
   "nav": {

@@ -3,6 +3,7 @@ import PlatformLifeOsPanel from "@/components/platform/PlatformLifeOsPanel";
 import PlatformContextPanel from "@/components/platform/PlatformContextPanel";
 import PlatformAttentionPanel from "@/components/platform/PlatformAttentionPanel";
 import PlatformDecisionPanel from "@/components/platform/PlatformDecisionPanel";
+import PlatformBusinessDnaPanel from "@/components/platform/PlatformBusinessDnaPanel";
 import PlatformGoalsPanel from "@/components/platform/PlatformGoalsPanel";
 import PlatformIdentityPanel from "@/components/platform/PlatformIdentityPanel";
 import PlatformRelationshipPanel from "@/components/platform/PlatformRelationshipPanel";
@@ -46,6 +47,20 @@ export default async function PlatformTrustPage() {
           disabled: t("platform.assistantMemory.disabled"),
           byCategory: t("platform.assistantMemory.byCategory"),
           privacyNote: t("platform.assistantMemory.privacyNote"),
+        }}
+      />
+      <PlatformBusinessDnaPanel
+        labels={{
+          title: t("platform.businessDna.title"),
+          subtitle: t("platform.businessDna.subtitle"),
+          loading: t("platform.businessDna.loading"),
+          profiles: t("platform.businessDna.profiles"),
+          active: t("platform.businessDna.active"),
+          templates: t("platform.businessDna.templates"),
+          knowledge: t("platform.businessDna.knowledge"),
+          drafts: t("platform.businessDna.drafts"),
+          avgHealth: t("platform.businessDna.avgHealth"),
+          privacyNote: t("platform.businessDna.privacyNote"),
         }}
       />
       <PlatformDecisionPanel

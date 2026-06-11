@@ -630,6 +630,18 @@
     "byCategory": "By category",
     "privacyNote": "Administrators cannot access user memory content. Aggregates only."
   },
+  "businessDna": {
+    "title": "BDE governance",
+    "subtitle": "Aggregate Business DNA adoption — no tenant content.",
+    "loading": "Loading Business DNA overview…",
+    "profiles": "DNA profiles",
+    "active": "Active profiles",
+    "templates": "Approved templates",
+    "knowledge": "Approved knowledge",
+    "drafts": "Email drafts",
+    "avgHealth": "Avg health score",
+    "privacyNote": "Administrators cannot access Business DNA content. Aggregates only."
+  },
   "decisionSupport": {
     "title": "DSE governance",
     "subtitle": "Aggregate decision support metrics — no recommendation content.",

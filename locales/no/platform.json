@@ -475,6 +475,18 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratorer kan ikke se brukerens minneinnhold. Kun aggregater."
   },
+  "businessDna": {
+    "title": "BDE-styring",
+    "subtitle": "Aggregert Business DNA-adopsjon — ikke innhold.",
+    "loading": "Laster Business DNA-oversikt…",
+    "profiles": "DNA-profiler",
+    "active": "Aktive profiler",
+    "templates": "Godkjente maler",
+    "knowledge": "Godkjent kunnskap",
+    "drafts": "E-postutkast",
+    "avgHealth": "Snitt helsescore",
+    "privacyNote": "Administratorer kan ikke se Business DNA-innhold. Kun aggregater."
+  },
   "decisionSupport": {
     "title": "DSE-styring",
     "subtitle": "Aggregerte beslutningsmetrikker — ikke anbefalingsinnhold.",

@@ -58,6 +58,8 @@ For **Time & Attention Guardian (TAG)**, read **[ATTENTION_GUARDIAN.md](./ATTENT
 
 For **Decision Support Engine (DSE)**, read **[DECISION_SUPPORT_ENGINE.md](./DECISION_SUPPORT_ENGINE.md)**. Constants in `lib/decision-support-engine/`; dashboard at `/app/assistant/decisions`; APIs at `/api/assistant/decisions`. Business-first guidance with explainability — never dictates outcomes; natural language via `detectDecisionIntent()`; integrates Trust Actions, goals, calendar, and tasks.
 
+For **Business DNA Engine (BDE)**, read **[BUSINESS_DNA_ENGINE.md](./BUSINESS_DNA_ENGINE.md)**. Constants in `lib/business-dna-engine/`; Knowledge Approval Center at `/app/settings/business-dna`; APIs at `/api/business-dna/*` and `/api/support/email/*`. Tenant-specific products, templates, tone, escalation; email template priority chain; human review default; integrates Install Engine, Learning Engine, and Trust & Action.
+
 ## Aipify architecture — mandatory before every feature
 
 Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.

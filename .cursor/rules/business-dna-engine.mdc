@@ -1,0 +1,24 @@
+---
+description: Business DNA Engine (BDE) — Phase 39
+alwaysApply: true
+---
+
+# Business DNA Engine
+
+See [BUSINESS_DNA_ENGINE.md](../../BUSINESS_DNA_ENGINE.md).
+
+## Rules
+
+1. Tenant isolation mandatory — all tables scoped by `tenant_id`.
+2. Learn from approved sources only; all imports visible in Knowledge Approval Center.
+3. Owner/admin required for profile changes (`_bde_require_admin()`).
+4. Email responses: template priority → knowledge → tone → default.
+5. Human review mode default ON; low confidence always escalates.
+6. Business logic in Supabase RPCs; API routes are thin clients.
+7. Route: `/app/settings/business-dna` (spec `/admin/business-dna`).
+8. Platform: `get_platform_business_dna_overview` — aggregates only.
+9. i18n: `customerApp.businessDna.*`, `platform.businessDna.*` in en/no/sv/da.
+
+## Tables
+
+`business_dna_profiles` · `bde_settings` · `business_products` · `business_workflows` · `support_knowledge_items` · `business_email_templates` · `business_tone_profiles` · `business_escalation_rules` · `business_knowledge_sources` · `business_template_suggestions` · `business_email_drafts` · `business_dna_audit_logs`

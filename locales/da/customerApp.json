@@ -180,7 +180,8 @@
       "developer": "Developer settings",
       "updates": "Update policies",
       "desktopConnect": "Connect desktop app",
-      "learning": "Læring og privatliv"
+      "learning": "Læring og privatliv",
+      "businessDna": "Business DNA"
     }
   },
   "learning": {
@@ -761,6 +762,70 @@
       "administrative": "Administrative opgaver",
       "executive": "Ledelsesprioriteter",
       "operational": "Operationel arbejdsgang"
+    }
+  },
+  "businessDna": {
+    "title": "Business DNA",
+    "subtitle": "Hvordan din virksomhed fungerer — produkter, tone, skabeloner og supportregler.",
+    "loading": "Indlæser Business DNA…",
+    "back": "Tilbage til indstillinger",
+    "save": "Gem profil",
+    "saved": "Gemt",
+    "privacy": "Al importeret viden er synlig her. Følsomme data læres aldrig uden godkendelse.",
+    "seedInstall": "Importer fra Install Engine",
+    "approveProfile": "Godkend Business DNA-profil",
+    "youControl": "Du gennemgår og godkender alt, Aipify lærer.",
+    "empty": "Intet her endnu — importer fra installation eller tilføj manuelt.",
+    "sections": {
+      "overview": "Oversigt og sundhed",
+      "profile": "Virksomhedsprofil",
+      "knowledge": "Supportviden",
+      "templates": "E-mailskabeloner",
+      "workflows": "Arbejdsgange",
+      "escalation": "Eskaleringsregler",
+      "automation": "Automatiseringsberedskab",
+      "emailTest": "Test e-mailsvar",
+      "audit": "Revisionslog",
+      "settings": "Gennemgangsindstillinger"
+    },
+    "health": {
+      "score": "Sundhedsscore",
+      "readiness": "Automatiseringsberedskab",
+      "gaps": "Manglende information"
+    },
+    "settings": {
+      "humanReview": "Menneskelig gennemgang (kun kladder)",
+      "automation": "Aktiver delvis automatisering",
+      "learnReplies": "Lær fra godkendte svar",
+      "importHistory": "Importer supporthistorik"
+    },
+    "emailTest": {
+      "subject": "Emne",
+      "body": "Kundebesked",
+      "analyze": "Analyser",
+      "draft": "Generer kladde",
+      "result": "Kladderesultat"
+    },
+    "profileStatuses": {
+      "draft": "Kladde",
+      "pending_review": "Afventer gennemgang",
+      "approved": "Godkendt",
+      "active": "Aktiv"
+    },
+    "riskLevels": {
+      "conservative": "Konservativ",
+      "balanced": "Balanceret",
+      "progressive": "Progressiv"
+    },
+    "toneOptions": {
+      "formal": "Formel",
+      "friendly_professional": "Venlig og professionel",
+      "short_direct": "Kort og direkte",
+      "warm_personal": "Varm og personlig",
+      "premium": "Premium",
+      "technical": "Teknisk",
+      "casual": "Uformel",
+      "supportive": "Støttende"
     }
   }
 }

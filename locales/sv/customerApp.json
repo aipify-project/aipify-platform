@@ -180,7 +180,8 @@
       "developer": "Developer settings",
       "updates": "Update policies",
       "desktopConnect": "Connect desktop app",
-      "learning": "Inlärning och integritet"
+      "learning": "Inlärning och integritet",
+      "businessDna": "Business DNA"
     }
   },
   "learning": {
@@ -761,6 +762,70 @@
       "administrative": "Administrativa uppgifter",
       "executive": "Ledningsprioriteringar",
       "operational": "Operativt arbetsflöde"
+    }
+  },
+  "businessDna": {
+    "title": "Business DNA",
+    "subtitle": "Hur ditt företag fungerar — produkter, ton, mallar och supportregler.",
+    "loading": "Laddar Business DNA…",
+    "back": "Tillbaka till inställningar",
+    "save": "Spara profil",
+    "saved": "Sparat",
+    "privacy": "All importerad kunskap syns här. Känsliga data lärs aldrig utan godkännande.",
+    "seedInstall": "Importera från Install Engine",
+    "approveProfile": "Godkänn Business DNA-profil",
+    "youControl": "Du granskar och godkänner allt Aipify lär sig.",
+    "empty": "Inget här ännu — importera från installation eller lägg till manuellt.",
+    "sections": {
+      "overview": "Översikt och hälsa",
+      "profile": "Företagsprofil",
+      "knowledge": "Supportkunskap",
+      "templates": "E-postmallar",
+      "workflows": "Arbetsflöden",
+      "escalation": "Eskaleringsregler",
+      "automation": "Automatiseringsberedskap",
+      "emailTest": "Testa e-postsvar",
+      "audit": "Revisionslogg",
+      "settings": "Granskningsinställningar"
+    },
+    "health": {
+      "score": "Hälsopoäng",
+      "readiness": "Automatiseringsberedskap",
+      "gaps": "Saknad information"
+    },
+    "settings": {
+      "humanReview": "Mänsklig granskning (endast utkast)",
+      "automation": "Aktivera delvis automatisering",
+      "learnReplies": "Lär av godkända svar",
+      "importHistory": "Importera supporthistorik"
+    },
+    "emailTest": {
+      "subject": "Ämne",
+      "body": "Kundmeddelande",
+      "analyze": "Analysera",
+      "draft": "Generera utkast",
+      "result": "Utkastresultat"
+    },
+    "profileStatuses": {
+      "draft": "Utkast",
+      "pending_review": "Väntar på granskning",
+      "approved": "Godkänd",
+      "active": "Aktiv"
+    },
+    "riskLevels": {
+      "conservative": "Konservativ",
+      "balanced": "Balanserad",
+      "progressive": "Progressiv"
+    },
+    "toneOptions": {
+      "formal": "Formell",
+      "friendly_professional": "Vänlig och professionell",
+      "short_direct": "Kort och direkt",
+      "warm_personal": "Varm och personlig",
+      "premium": "Premium",
+      "technical": "Teknisk",
+      "casual": "Avslappnad",
+      "supportive": "Stödjande"
     }
   }
 }

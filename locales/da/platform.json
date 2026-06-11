@@ -436,6 +436,18 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratorer kan ikke se brugernes mindeindhold. Kun aggregater."
   },
+  "businessDna": {
+    "title": "BDE-styring",
+    "subtitle": "Aggregeret Business DNA-adoption — intet indhold.",
+    "loading": "Indlæser Business DNA-oversigt…",
+    "profiles": "DNA-profiler",
+    "active": "Aktive profiler",
+    "templates": "Godkendte skabeloner",
+    "knowledge": "Godkendt viden",
+    "drafts": "E-mail-kladder",
+    "avgHealth": "Gns. sundhedsscore",
+    "privacyNote": "Administratorer kan ikke se Business DNA-indhold. Kun aggregater."
+  },
   "decisionSupport": {
     "title": "DSE-styring",
     "subtitle": "Aggregerede beslutningsmetrikker — intet anbefalingsindhold.",

@@ -180,7 +180,8 @@
       "developer": "Developer settings",
       "updates": "Update policies",
       "desktopConnect": "Connect desktop app",
-      "learning": "Læring og personvern"
+      "learning": "Læring og personvern",
+      "businessDna": "Business DNA"
     }
   },
   "learning": {
@@ -761,6 +762,70 @@
       "administrative": "Administrative oppgaver",
       "executive": "Ledelsesprioriteter",
       "operational": "Operasjonell arbeidsflyt"
+    }
+  },
+  "businessDna": {
+    "title": "Business DNA",
+    "subtitle": "Hvordan virksomheten din fungerer — produkter, tone, maler og supportregler.",
+    "loading": "Laster Business DNA…",
+    "back": "Tilbake til innstillinger",
+    "save": "Lagre profil",
+    "saved": "Lagret",
+    "privacy": "All importert kunnskap er synlig her. Sensitive data læres aldri uten godkjenning.",
+    "seedInstall": "Importer fra Install Engine",
+    "approveProfile": "Godkjenn Business DNA-profil",
+    "youControl": "Du gjennomgår og godkjenner alt Aipify lærer.",
+    "empty": "Ingenting her ennå — importer fra installasjon eller legg til manuelt.",
+    "sections": {
+      "overview": "Oversikt og helse",
+      "profile": "Bedriftsprofil",
+      "knowledge": "Supportkunnskap",
+      "templates": "E-postmaler",
+      "workflows": "Arbeidsflyter",
+      "escalation": "Eskaleringsregler",
+      "automation": "Automatiseringsberedskap",
+      "emailTest": "Test e-postsvar",
+      "audit": "Revisjonslogg",
+      "settings": "Gjennomgangsinnstillinger"
+    },
+    "health": {
+      "score": "Helsescore",
+      "readiness": "Automatiseringsberedskap",
+      "gaps": "Manglende informasjon"
+    },
+    "settings": {
+      "humanReview": "Menneskelig gjennomgang (kun utkast)",
+      "automation": "Aktiver delvis automatisering",
+      "learnReplies": "Lær fra godkjente svar",
+      "importHistory": "Importer supporthistorikk"
+    },
+    "emailTest": {
+      "subject": "Emne",
+      "body": "Kundemelding",
+      "analyze": "Analyser",
+      "draft": "Generer utkast",
+      "result": "Utkastresultat"
+    },
+    "profileStatuses": {
+      "draft": "Utkast",
+      "pending_review": "Venter på gjennomgang",
+      "approved": "Godkjent",
+      "active": "Aktiv"
+    },
+    "riskLevels": {
+      "conservative": "Konservativ",
+      "balanced": "Balansert",
+      "progressive": "Progressiv"
+    },
+    "toneOptions": {
+      "formal": "Formell",
+      "friendly_professional": "Vennlig og profesjonell",
+      "short_direct": "Kort og direkte",
+      "warm_personal": "Varm og personlig",
+      "premium": "Premium",
+      "technical": "Teknisk",
+      "casual": "Uformell",
+      "supportive": "Støttende"
     }
   }
 }

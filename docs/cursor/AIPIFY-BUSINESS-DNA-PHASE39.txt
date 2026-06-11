@@ -1,0 +1,6 @@
+AIPIFY – PHASE 39 – BUSINESS DNA ENGINE (BDE)
+Implemented: migration 20260612700000_business_dna_phase39.sql
+Route: /app/settings/business-dna (maps spec /admin/business-dna)
+Lib: lib/business-dna-engine/
+APIs: /api/business-dna/*, /api/support/email/*
+Platform: PlatformBusinessDnaPanel on /platform/trust
