@@ -172,6 +172,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Assistant Identity & Welcome Experience (Foundation):** See [ASSISTANT_IDENTITY.md](./ASSISTANT_IDENTITY.md) — professional assistant identity, six-step welcome flow, phrase library (no/en/sv/da), communication preferences, Memory sync, Desktop/Briefing greetings. `/app/welcome`, `/app/settings/assistant-identity`, `lib/aipify/assistant-identity/`, migration `20260615500000_assistant_identity_foundation.sql`.
 
+**Enterprise Deployment Architecture (Phase 66):** See [ENTERPRISE_DEPLOYMENT_PHASE66.md](./ENTERPRISE_DEPLOYMENT_PHASE66.md) — cloud/hybrid/on-premise modes, Aipify Agent registry, job queue, data residency policies, enterprise admin UI. `/app/enterprise`, `lib/aipify/enterprise/`, migration `20260615600000_enterprise_deployment_phase66.sql`.
+
 **Quality Guardian / QG (Phases 58–59):** See [QG.md](./QG.md) — software and frontend health monitoring (Image Guardian, Performance Guardian, mobile checks) with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `/app/quality/images`, `lib/aipify/quality/`, migrations `20260614600000_quality_guardian_phase58.sql`, `20260614700000_frontend_experience_guardian_phase59.sql`.
 
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.

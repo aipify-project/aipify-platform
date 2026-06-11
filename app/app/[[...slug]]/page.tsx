@@ -91,6 +91,13 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
           subtitle: t("customerApp.assistantIdentity.banner.subtitle"),
           cta: t("customerApp.assistantIdentity.banner.cta"),
         },
+        enterpriseDeployment: {
+          title: t("customerApp.enterpriseDeployment.title"),
+          open: t("customerApp.enterpriseDeployment.open"),
+          cloudSaas: t("customerApp.enterpriseDeployment.deploymentModes.cloud_saas"),
+          agentsOnline: t("customerApp.enterpriseDeployment.agentsOnline"),
+          jobsQueued: t("customerApp.enterpriseDeployment.jobsQueued"),
+        },
         greetings: {
           morning: t("customerApp.greetings.morning"),
           afternoon: t("customerApp.greetings.afternoon"),

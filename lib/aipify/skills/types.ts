@@ -48,6 +48,9 @@ export type SkillDetail = SkillCatalogItem & {
   documentation_links: string[];
   knowledge_center_category?: string | null;
   module_key?: string | null;
+  deployment_support?: string[];
+  requires_agent?: boolean;
+  data_residency_behavior?: string;
   dependencies: SkillDependency[];
   dependency_check: { satisfied: boolean; missing: SkillDependency[] };
   tenant_skill_id?: string | null;

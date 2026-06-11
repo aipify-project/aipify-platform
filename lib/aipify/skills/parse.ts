@@ -72,6 +72,11 @@ export function parseSkillDetail(data: unknown): SkillDetail {
       : [],
     knowledge_center_category: d.knowledge_center_category as string | null | undefined,
     module_key: d.module_key as string | null | undefined,
+    deployment_support: Array.isArray(d.deployment_support)
+      ? (d.deployment_support as string[])
+      : ["cloud_saas"],
+    requires_agent: Boolean(d.requires_agent),
+    data_residency_behavior: String(d.data_residency_behavior ?? "cloud"),
     dependencies: Array.isArray(d.dependencies)
       ? (d.dependencies as SkillDetail["dependencies"])
       : [],
