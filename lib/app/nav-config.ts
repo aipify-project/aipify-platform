@@ -33,6 +33,8 @@ export type AppNavId =
   | "commercialModelEngine"
   | "academyEngine"
   | "globalExpansionEngine"
+  | "innovationLabEngine"
+  | "futureTechEngine"
   | "personalityEngine"
   | "workstyleEngine"
   | "approvals"
@@ -100,6 +102,8 @@ export const APP_NAV: AppNavItem[] = [
   { id: "commercialModelEngine", href: "/app/commercial", labelKey: "customerApp.nav.commercialModelEngine" },
   { id: "academyEngine", href: "/app/academy", labelKey: "customerApp.nav.academyEngine" },
   { id: "globalExpansionEngine", href: "/app/global-expansion", labelKey: "customerApp.nav.globalExpansionEngine" },
+  { id: "innovationLabEngine", href: "/app/innovation-lab", labelKey: "customerApp.nav.innovationLabEngine" },
+  { id: "futureTechEngine", href: "/app/future-tech", labelKey: "customerApp.nav.futureTechEngine" },
   { id: "personalityEngine", href: "/app/personality", labelKey: "customerApp.nav.personalityEngine" },
   { id: "approvals", href: "/app/approvals", labelKey: "customerApp.nav.approvals" },
   { id: "actionCenter", href: "/app/action-center", labelKey: "customerApp.nav.actionCenter" },
@@ -169,6 +173,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/commercial")) return "commercialModelEngine";
   if (pathname.startsWith("/app/academy")) return "academyEngine";
   if (pathname.startsWith("/app/global-expansion")) return "globalExpansionEngine";
+  if (pathname.startsWith("/app/innovation-lab")) return "innovationLabEngine";
+  if (pathname.startsWith("/app/future-tech")) return "futureTechEngine";
   if (pathname.startsWith("/app/personality")) return "personalityEngine";
   if (pathname.startsWith("/app/approvals")) return "approvals";
   if (pathname.startsWith("/app/action-center") || pathname.startsWith("/app/actions")) {
