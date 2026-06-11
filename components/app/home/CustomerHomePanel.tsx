@@ -19,6 +19,8 @@ import { SimulationLabHomeCard } from "@/components/app/simulation-lab";
 import { AocHomeCard } from "@/components/app/aoc";
 import { ContinuityHomeCard } from "@/components/app/continuity";
 import { StrategyHomeCard } from "@/components/app/strategy";
+import { HumanSuccessHomeCard } from "@/components/app/human-success";
+import { PersonalityHomeCard } from "@/components/app/personality";
 import { EnterpriseDeploymentCard } from "@/components/app/enterprise";
 import { AssistantIdentityWelcomeBanner } from "@/components/app/assistant-identity";
 import { LearningEngineCard } from "@/components/app/learning-engine";
@@ -196,6 +198,16 @@ type CustomerHomePanelProps = {
       healthScore: string;
       opportunitiesLabel: string;
     };
+    humanSuccessEngine: {
+      title: string;
+      open: string;
+      successScore: string;
+    };
+    personalityEngine: {
+      title: string;
+      open: string;
+      mode: string;
+    };
   };
 };
 
@@ -264,6 +276,8 @@ export function CustomerHomePanel({ locale, labels }: CustomerHomePanelProps) {
       <AocHomeCard labels={labels.operationsCenter} />
       <ContinuityHomeCard labels={labels.continuityEngine} />
       <StrategyHomeCard labels={labels.strategyEngine} />
+      <HumanSuccessHomeCard labels={labels.humanSuccessEngine} />
+      <PersonalityHomeCard labels={labels.personalityEngine} />
       <DesktopCompanionCard labels={labels.desktop} />
       <MemoryEngineCard labels={labels.memoryEngine} />
       <SkillStoreCard labels={labels.skillStore} />

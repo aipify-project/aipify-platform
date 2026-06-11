@@ -202,6 +202,10 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Strategic Intelligence & Opportunity Engine (Phase 81):** See [STRATEGIC_INTELLIGENCE_OPPORTUNITY_PHASE81.md](./STRATEGIC_INTELLIGENCE_OPPORTUNITY_PHASE81.md) — strategic scorecard, opportunity detection, risk tracking, horizon planning, advisory recommendations. `/app/strategy`, `lib/aipify/strategy/`, migration `20260617200000_strategic_intelligence_opportunity_phase81.sql`. Aipify recommends strategy; humans decide strategy.
 
+**Experience, Adoption & Human Success (Phase 82):** See [EXPERIENCE_ADOPTION_HUMAN_SUCCESS_PHASE82.md](./EXPERIENCE_ADOPTION_HUMAN_SUCCESS_PHASE82.md) — adoption score, Human Success score, smart onboarding, success journeys, friction detection, champions. `/app/human-success`, `lib/aipify/human-success/`, migration `20260617300000_experience_adoption_human_success_phase82.sql`. Technology succeeds when people succeed.
+
+**Humor, Warmth & Human Connection (Core Behavior Layer):** See [HUMOR_WARMTH_HUMAN_CONNECTION.md](./HUMOR_WARMTH_HUMAN_CONNECTION.md) — personality modes, context-aware humor, emoji guidelines, warm messaging framework. `/app/personality`, `lib/aipify/personality/`, `lib/aipify/communication/`, migration `20260617400000_humor_warmth_human_connection.sql`. Competent first. Human second. Funny third.
+
 **Quality Guardian / QG (Phases 58–59):** See [QG.md](./QG.md) — software and frontend health monitoring (Image Guardian, Performance Guardian, mobile checks) with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `/app/quality/images`, `lib/aipify/quality/`, migrations `20260614600000_quality_guardian_phase58.sql`, `20260614700000_frontend_experience_guardian_phase59.sql`.
 
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.

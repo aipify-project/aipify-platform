@@ -22,6 +22,8 @@ export type AppNavId =
   | "operationsCenter"
   | "continuityEngine"
   | "strategyEngine"
+  | "humanSuccessEngine"
+  | "personalityEngine"
   | "approvals"
   | "actionCenter"
   | "businessPulse"
@@ -76,6 +78,8 @@ export const APP_NAV: AppNavItem[] = [
   { id: "operationsCenter", href: "/app/operations", labelKey: "customerApp.nav.operationsCenter" },
   { id: "continuityEngine", href: "/app/continuity", labelKey: "customerApp.nav.continuityEngine" },
   { id: "strategyEngine", href: "/app/strategy", labelKey: "customerApp.nav.strategyEngine" },
+  { id: "humanSuccessEngine", href: "/app/human-success", labelKey: "customerApp.nav.humanSuccessEngine" },
+  { id: "personalityEngine", href: "/app/personality", labelKey: "customerApp.nav.personalityEngine" },
   { id: "approvals", href: "/app/approvals", labelKey: "customerApp.nav.approvals" },
   { id: "actionCenter", href: "/app/action-center", labelKey: "customerApp.nav.actionCenter" },
   { id: "businessPulse", href: "/app/business-pulse", labelKey: "customerApp.nav.businessPulse" },
@@ -133,6 +137,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/operations")) return "operationsCenter";
   if (pathname.startsWith("/app/continuity")) return "continuityEngine";
   if (pathname.startsWith("/app/strategy")) return "strategyEngine";
+  if (pathname.startsWith("/app/human-success")) return "humanSuccessEngine";
+  if (pathname.startsWith("/app/personality")) return "personalityEngine";
   if (pathname.startsWith("/app/approvals")) return "approvals";
   if (pathname.startsWith("/app/action-center") || pathname.startsWith("/app/actions")) {
     return "actionCenter";

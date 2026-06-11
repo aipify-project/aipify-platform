@@ -185,6 +185,16 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
           healthScore: t("customerApp.strategyEngine.healthScore"),
           opportunitiesLabel: t("customerApp.strategyEngine.opportunitiesLabel"),
         },
+        humanSuccessEngine: {
+          title: t("customerApp.humanSuccessEngine.title"),
+          open: t("customerApp.humanSuccessEngine.open"),
+          successScore: t("customerApp.humanSuccessEngine.personalSuccess"),
+        },
+        personalityEngine: {
+          title: t("customerApp.personalityEngine.title"),
+          open: t("customerApp.personalityEngine.open"),
+          mode: t("customerApp.personalityEngine.currentMode"),
+        },
         greetings: {
           morning: t("customerApp.greetings.morning"),
           afternoon: t("customerApp.greetings.afternoon"),
