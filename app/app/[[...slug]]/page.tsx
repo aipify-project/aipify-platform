@@ -149,6 +149,12 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
           installedApps: t("customerApp.appEcosystem.installedApps"),
           updatesAvailable: t("customerApp.appEcosystem.updatesAvailable"),
         },
+        trustEngine: {
+          title: t("customerApp.trustEngine.title"),
+          open: t("customerApp.trustEngine.open"),
+          trustScore: t("customerApp.trustEngine.trustScore"),
+          explanations: t("customerApp.trustEngine.explanations"),
+        },
         greetings: {
           morning: t("customerApp.greetings.morning"),
           afternoon: t("customerApp.greetings.afternoon"),

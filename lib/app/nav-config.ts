@@ -16,6 +16,7 @@ export type AppNavId =
   | "valueEngine"
   | "agents"
   | "appEcosystem"
+  | "trustEngine"
   | "approvals"
   | "actionCenter"
   | "businessPulse"
@@ -64,6 +65,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "valueEngine", href: "/app/value", labelKey: "customerApp.nav.valueEngine" },
   { id: "agents", href: "/app/agents", labelKey: "customerApp.nav.agents" },
   { id: "appEcosystem", href: "/app/apps", labelKey: "customerApp.nav.appEcosystem" },
+  { id: "trustEngine", href: "/app/trust", labelKey: "customerApp.nav.trustEngine" },
   { id: "approvals", href: "/app/approvals", labelKey: "customerApp.nav.approvals" },
   { id: "actionCenter", href: "/app/action-center", labelKey: "customerApp.nav.actionCenter" },
   { id: "businessPulse", href: "/app/business-pulse", labelKey: "customerApp.nav.businessPulse" },
@@ -115,6 +117,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/value")) return "valueEngine";
   if (pathname.startsWith("/app/agents")) return "agents";
   if (pathname.startsWith("/app/apps")) return "appEcosystem";
+  if (pathname.startsWith("/app/trust")) return "trustEngine";
   if (pathname.startsWith("/app/approvals")) return "approvals";
   if (pathname.startsWith("/app/action-center") || pathname.startsWith("/app/actions")) {
     return "actionCenter";

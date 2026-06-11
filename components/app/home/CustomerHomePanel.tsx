@@ -13,6 +13,7 @@ import { GlobalLearningCard } from "@/components/app/global-learning";
 import { ValueEngineCard } from "@/components/app/value-engine";
 import { AgentsCard } from "@/components/app/agents";
 import { AppsCard } from "@/components/app/app-ecosystem";
+import { TrustCard } from "@/components/app/trust-engine";
 import { EnterpriseDeploymentCard } from "@/components/app/enterprise";
 import { AssistantIdentityWelcomeBanner } from "@/components/app/assistant-identity";
 import { LearningEngineCard } from "@/components/app/learning-engine";
@@ -154,6 +155,12 @@ type CustomerHomePanelProps = {
       installedApps: string;
       updatesAvailable: string;
     };
+    trustEngine: {
+      title: string;
+      open: string;
+      trustScore: string;
+      explanations: string;
+    };
   };
 };
 
@@ -216,6 +223,7 @@ export function CustomerHomePanel({ locale, labels }: CustomerHomePanelProps) {
       <ValueEngineCard labels={labels.valueEngine} />
       <AgentsCard labels={labels.agents} />
       <AppsCard labels={labels.appEcosystem} />
+      <TrustCard labels={labels.trustEngine} />
       <DesktopCompanionCard labels={labels.desktop} />
       <MemoryEngineCard labels={labels.memoryEngine} />
       <SkillStoreCard labels={labels.skillStore} />
