@@ -12,6 +12,8 @@ export type AppNavId =
   | "actionCenter"
   | "businessPulse"
   | "strategicGoals"
+  | "frictionIntelligence"
+  | "organizationalMemory"
   | "installations"
   | "domains"
   | "team"
@@ -42,6 +44,8 @@ export const APP_NAV: AppNavItem[] = [
   { id: "actionCenter", href: "/app/action-center", labelKey: "customerApp.nav.actionCenter" },
   { id: "businessPulse", href: "/app/business-pulse", labelKey: "customerApp.nav.businessPulse" },
   { id: "strategicGoals", href: "/app/goals", labelKey: "customerApp.nav.strategicGoals" },
+  { id: "frictionIntelligence", href: "/app/friction", labelKey: "customerApp.nav.frictionIntelligence" },
+  { id: "organizationalMemory", href: "/app/memory", labelKey: "customerApp.nav.organizationalMemory" },
   { id: "installations", href: "/app/installations", labelKey: "customerApp.nav.installations" },
   { id: "domains", href: "/app/domains", labelKey: "customerApp.nav.domains" },
   { id: "team", href: "/app/team", labelKey: "customerApp.nav.team" },
@@ -78,6 +82,12 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/goals") || pathname.startsWith("/dashboard/goals")) {
     return "strategicGoals";
+  }
+  if (pathname.startsWith("/app/friction") || pathname.startsWith("/dashboard/friction")) {
+    return "frictionIntelligence";
+  }
+  if (pathname.startsWith("/app/memory") || pathname.startsWith("/dashboard/memory")) {
+    return "organizationalMemory";
   }
   if (
     pathname.startsWith("/app/install") ||

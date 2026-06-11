@@ -1228,6 +1228,108 @@
       "targetDate": "Target date"
     }
   },
+  "friction": {
+    "title": "Friction Intelligence",
+    "subtitle": "Discover improvement opportunities — identify recurring inefficiencies and simplify work.",
+    "executiveSubtitle": "Executive friction overview — top areas, impact, and improvement opportunities.",
+    "loading": "Loading friction intelligence…",
+    "back": "Back to overview",
+    "backToFriction": "Back to Friction Intelligence",
+    "youControl": "Aipify identifies friction and suggests improvements. You decide what changes.",
+    "privacy": "Privacy",
+    "refresh": "Refresh analysis",
+    "executiveReport": "Executive Friction Report",
+    "viewExecutiveReport": "Executive report",
+    "eventCount": "Active signals",
+    "emptyEvents": "No friction events detected at this time.",
+    "emptyRecommendations": "No active improvement recommendations.",
+    "emptyHistory": "Friction history will appear after analysis runs.",
+    "upgrade": {
+      "title": "Friction Intelligence requires Business Pro or Enterprise",
+      "body": "Friction Intelligence is available in Aipify Business Pro and Enterprise because it identifies improvement opportunities across your connected operations.",
+      "cta": "View packages"
+    },
+    "sections": {
+      "overview": "Overall friction overview",
+      "categories": "Friction by area",
+      "events": "Detected friction",
+      "recommendations": "Recommended improvements",
+      "history": "Historical trends"
+    },
+    "scoreLevels": {
+      "low": "Low friction",
+      "moderate": "Moderate friction",
+      "elevated": "Elevated friction",
+      "high": "High friction"
+    },
+    "categories": {
+      "support": "Support friction",
+      "sales": "Sales friction",
+      "process": "Process friction",
+      "team": "Team friction",
+      "customer": "Customer friction",
+      "meeting": "Meeting friction",
+      "email": "Email friction",
+      "task": "Task friction"
+    },
+    "actions": {
+      "accept": "Accept",
+      "dismiss": "Dismiss",
+      "sendToActionCenter": "Send to Action Center"
+    }
+  },
+  "organizationalMemory": {
+    "title": "Organizational Memory",
+    "subtitle": "Preserve context, reasoning and lessons learned — your organization's long-term memory.",
+    "loading": "Loading organizational memory…",
+    "back": "Back to overview",
+    "youControl": "Humans create experience. Aipify helps retain wisdom for future decisions.",
+    "privacy": "Privacy",
+    "createEntry": "Capture memory",
+    "saveEntry": "Save entry",
+    "cancel": "Cancel",
+    "deleteEntry": "Delete",
+    "search": "Search",
+    "searchPlaceholder": "What did we decide about…? Have we tried this before?",
+    "refresh": "Refresh",
+    "upgradeCta": "View Business Pro",
+    "starterNote": "Starter includes personal notes. Upgrade for organizational timeline, decisions and lessons learned.",
+    "emptyTimeline": "Your organizational timeline will grow as you capture memories.",
+    "emptyDecisions": "No decision records yet.",
+    "emptyLessons": "No lessons learned recorded yet.",
+    "emptySearch": "Enter a search to explore organizational memory.",
+    "noResults": "No matching memories found.",
+    "sections": {
+      "briefing": "Memory briefing",
+      "timeline": "Organizational timeline",
+      "decisions": "Strategic decisions",
+      "lessons": "Lessons learned",
+      "search": "Search memory",
+      "create": "Capture a memory",
+      "context": "Connected history"
+    },
+    "categories": {
+      "strategic_decision": "Strategic decision",
+      "project": "Project memory",
+      "operational": "Operational memory",
+      "customer": "Customer memory",
+      "improvement": "Improvement memory"
+    },
+    "visibility": {
+      "personal": "Personal",
+      "tenant": "Organization",
+      "department": "Department",
+      "executive": "Executive only"
+    },
+    "fields": {
+      "title": "Title",
+      "summary": "Summary",
+      "notes": "Detailed notes",
+      "category": "Category",
+      "date": "Memory date",
+      "visibility": "Visibility"
+    }
+  },
   "nav": {
     "overview": "Home",
     "executive": "Executive",
@@ -1239,6 +1341,8 @@
     "actionCenter": "Action Center",
     "businessPulse": "Business Pulse",
     "strategicGoals": "Strategic Goals",
+    "frictionIntelligence": "Friction Intelligence",
+    "organizationalMemory": "Organizational Memory",
     "installations": "Installations",
     "domains": "Domains",
     "team": "Team",

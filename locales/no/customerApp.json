@@ -517,6 +517,108 @@
       "targetDate": "Måldato"
     }
   },
+  "friction": {
+    "title": "Friction Intelligence",
+    "subtitle": "Oppdag forbedringsmuligheter — identifiser gjentatte ineffektiviteter og forenkle arbeidet.",
+    "executiveSubtitle": "Executive friksjonsoversikt — viktigste områder, påvirkning og forbedringsmuligheter.",
+    "loading": "Laster friction intelligence…",
+    "back": "Tilbake til oversikt",
+    "backToFriction": "Tilbake til Friction Intelligence",
+    "youControl": "Aipify identifiserer friksjon og foreslår forbedringer. Du bestemmer hva som endres.",
+    "privacy": "Personvern",
+    "refresh": "Oppdater analyse",
+    "executiveReport": "Executive friksjonsrapport",
+    "viewExecutiveReport": "Executive-rapport",
+    "eventCount": "Aktive signaler",
+    "emptyEvents": "Ingen friksjonshendelser oppdaget akkurat nå.",
+    "emptyRecommendations": "Ingen aktive forbedringsanbefalinger.",
+    "emptyHistory": "Friksjonshistorikk vises etter analyse.",
+    "upgrade": {
+      "title": "Friction Intelligence krever Business Pro eller Enterprise",
+      "body": "Friction Intelligence er tilgjengelig i Aipify Business Pro og Enterprise fordi den identifiserer forbedringsmuligheter på tvers av tilkoblet drift.",
+      "cta": "Se pakker"
+    },
+    "sections": {
+      "overview": "Samlet friksjonsoversikt",
+      "categories": "Friksjon per område",
+      "events": "Oppdaget friksjon",
+      "recommendations": "Anbefalte forbedringer",
+      "history": "Historiske trender"
+    },
+    "scoreLevels": {
+      "low": "Lav friksjon",
+      "moderate": "Moderat friksjon",
+      "elevated": "Forhøyet friksjon",
+      "high": "Høy friksjon"
+    },
+    "categories": {
+      "support": "Support-friksjon",
+      "sales": "Salg-friksjon",
+      "process": "Prosess-friksjon",
+      "team": "Team-friksjon",
+      "customer": "Kunde-friksjon",
+      "meeting": "Møte-friksjon",
+      "email": "E-post-friksjon",
+      "task": "Oppgave-friksjon"
+    },
+    "actions": {
+      "accept": "Godta",
+      "dismiss": "Avvis",
+      "sendToActionCenter": "Send til Handlingssenter"
+    }
+  },
+  "organizationalMemory": {
+    "title": "Organisasjonsminne",
+    "subtitle": "Bevar kontekst, resonnement og erfaringer — organisasjonens langsiktige minne.",
+    "loading": "Laster organisasjonsminne…",
+    "back": "Tilbake til oversikt",
+    "youControl": "Mennesker skaper erfaring. Aipify hjelper med å bevare visdom for fremtidige beslutninger.",
+    "privacy": "Personvern",
+    "createEntry": "Lagre minne",
+    "saveEntry": "Lagre oppføring",
+    "cancel": "Avbryt",
+    "deleteEntry": "Slett",
+    "search": "Søk",
+    "searchPlaceholder": "Hva bestemte vi om…? Har vi prøvd dette før?",
+    "refresh": "Oppdater",
+    "upgradeCta": "Se Business Pro",
+    "starterNote": "Starter inkluderer personlige notater. Oppgrader for organisasjonstidslinje, beslutninger og erfaringer.",
+    "emptyTimeline": "Organisasjonstidslinjen vokser etter hvert som du lagrer minner.",
+    "emptyDecisions": "Ingen beslutningslogger ennå.",
+    "emptyLessons": "Ingen erfaringer registrert ennå.",
+    "emptySearch": "Skriv inn et søk for å utforske organisasjonsminnet.",
+    "noResults": "Ingen treff i minnet.",
+    "sections": {
+      "briefing": "Minneoversikt",
+      "timeline": "Organisasjonstidslinje",
+      "decisions": "Strategiske beslutninger",
+      "lessons": "Erfaringer",
+      "search": "Søk i minnet",
+      "create": "Lagre et minne",
+      "context": "Tilkoblet historikk"
+    },
+    "categories": {
+      "strategic_decision": "Strategisk beslutning",
+      "project": "Prosjektminne",
+      "operational": "Operasjonelt minne",
+      "customer": "Kundeminne",
+      "improvement": "Forbedringsminne"
+    },
+    "visibility": {
+      "personal": "Personlig",
+      "tenant": "Organisasjon",
+      "department": "Avdeling",
+      "executive": "Kun ledelse"
+    },
+    "fields": {
+      "title": "Tittel",
+      "summary": "Sammendrag",
+      "notes": "Detaljerte notater",
+      "category": "Kategori",
+      "date": "Minnedato",
+      "visibility": "Synlighet"
+    }
+  },
   "nav": {
     "overview": "Hjem",
     "executive": "Executive",
@@ -528,6 +630,8 @@
     "actionCenter": "Handlingssenter",
     "businessPulse": "Business Pulse",
     "strategicGoals": "Strategiske mål",
+    "frictionIntelligence": "Friction Intelligence",
+    "organizationalMemory": "Organisasjonsminne",
     "installations": "Installasjoner",
     "domains": "Domener",
     "team": "Team",

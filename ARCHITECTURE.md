@@ -142,6 +142,10 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Strategic Goal Engine / SGE (Phase 48):** See [SGE.md](./SGE.md) — strategic goals, progress tracking, goal health, milestones, pulse-aligned briefings. `/app/goals`, `lib/aipify/strategic-goals/`, migration `20260613600000_strategic_goal_engine_phase48.sql`.
 
+**Friction Intelligence Engine / FIE (Phase 49):** See [FIE.md](./FIE.md) — friction detection, improvement recommendations, pulse and goal alignment, Action Center integration. `/app/friction`, `lib/aipify/friction-intelligence/`, migration `20260613700000_friction_intelligence_engine_phase49.sql`.
+
+**Organizational Memory Engine / OME (Phase 50):** See [OME.md](./OME.md) — institutional memory, decision records, lessons learned, searchable timeline, module integrations. `/app/memory`, `lib/aipify/organizational-memory/`, migration `20260613800000_organizational_memory_engine_phase50.sql`.
+
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
 
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.

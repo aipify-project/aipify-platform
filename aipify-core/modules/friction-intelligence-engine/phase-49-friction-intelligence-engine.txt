@@ -1,0 +1,17 @@
+AIPIFY – PHASE 49
+FRICTION INTELLIGENCE ENGINE (FIE)
+
+FILE LOCATION:
+/aipify-core/modules/friction-intelligence-engine/phase-49-friction-intelligence-engine.txt
+
+MODULE NAME: Friction Intelligence Engine
+SHORT NAME: FIE
+PHASE: Phase 49
+
+Implementation: lib/aipify/friction-intelligence/, /app/friction, /api/aipify/friction/*
+
+FINAL PRINCIPLE
+Aipify identifies friction.
+Aipify explains impact.
+Aipify suggests improvements.
+Humans decide what changes.

@@ -517,6 +517,108 @@
       "targetDate": "Måldato"
     }
   },
+  "friction": {
+    "title": "Friction Intelligence",
+    "subtitle": "Opdag forbedringsmuligheder — identificer gentagne ineffektiviteter og forenkle arbejdet.",
+    "executiveSubtitle": "Executive friktionsoversigt — vigtigste områder, påvirkning og forbedringsmuligheder.",
+    "loading": "Indlæser friction intelligence…",
+    "back": "Tilbage til oversigt",
+    "backToFriction": "Tilbage til Friction Intelligence",
+    "youControl": "Aipify identificerer friktion og foreslår forbedringer. Du bestemmer hvad der ændres.",
+    "privacy": "Privatliv",
+    "refresh": "Opdater analyse",
+    "executiveReport": "Executive friktionsrapport",
+    "viewExecutiveReport": "Executive-rapport",
+    "eventCount": "Aktive signaler",
+    "emptyEvents": "Ingen friktionshændelser opdaget lige nu.",
+    "emptyRecommendations": "Ingen aktive forbedringsanbefalinger.",
+    "emptyHistory": "Friktionshistorik vises efter analyse.",
+    "upgrade": {
+      "title": "Friction Intelligence kræver Business Pro eller Enterprise",
+      "body": "Friction Intelligence er tilgængelig i Aipify Business Pro og Enterprise, fordi den identificerer forbedringsmuligheder på tværs af tilkoblet drift.",
+      "cta": "Se pakker"
+    },
+    "sections": {
+      "overview": "Samlet friktionsoversigt",
+      "categories": "Friktion pr. område",
+      "events": "Opdaget friktion",
+      "recommendations": "Anbefalede forbedringer",
+      "history": "Historiske tendenser"
+    },
+    "scoreLevels": {
+      "low": "Lav friktion",
+      "moderate": "Moderat friktion",
+      "elevated": "Forhøjet friktion",
+      "high": "Høj friktion"
+    },
+    "categories": {
+      "support": "Support-friktion",
+      "sales": "Salg-friktion",
+      "process": "Proces-friktion",
+      "team": "Team-friktion",
+      "customer": "Kunde-friktion",
+      "meeting": "Møde-friktion",
+      "email": "E-mail-friktion",
+      "task": "Opgave-friktion"
+    },
+    "actions": {
+      "accept": "Accepter",
+      "dismiss": "Afvis",
+      "sendToActionCenter": "Send til Handlingcenter"
+    }
+  },
+  "organizationalMemory": {
+    "title": "Organisationshukommelse",
+    "subtitle": "Bevar kontekst, ræsonnement og erfaringer — organisationens langsigtede hukommelse.",
+    "loading": "Indlæser organisationshukommelse…",
+    "back": "Tilbage til oversigt",
+    "youControl": "Mennesker skaber erfaring. Aipify hjælper med at bevare visdom til fremtidige beslutninger.",
+    "privacy": "Privatliv",
+    "createEntry": "Gem hukommelse",
+    "saveEntry": "Gem post",
+    "cancel": "Annuller",
+    "deleteEntry": "Slet",
+    "search": "Søg",
+    "searchPlaceholder": "Hvad besluttede vi om…? Har vi prøvet dette før?",
+    "refresh": "Opdater",
+    "upgradeCta": "Se Business Pro",
+    "starterNote": "Starter inkluderer personlige noter. Opgrader for organisationstidslinje, beslutninger og erfaringer.",
+    "emptyTimeline": "Organisationstidslinjen vokser, når du gemmer hukommelser.",
+    "emptyDecisions": "Ingen beslutningslog endnu.",
+    "emptyLessons": "Ingen erfaringer registreret endnu.",
+    "emptySearch": "Indtast en søgning for at udforske organisationshukommelsen.",
+    "noResults": "Ingen matchende hukommelser fundet.",
+    "sections": {
+      "briefing": "Hukommelsesoversigt",
+      "timeline": "Organisationstidslinje",
+      "decisions": "Strategiske beslutninger",
+      "lessons": "Erfaringer",
+      "search": "Søg i hukommelsen",
+      "create": "Gem en hukommelse",
+      "context": "Tilkoblet historik"
+    },
+    "categories": {
+      "strategic_decision": "Strategisk beslutning",
+      "project": "Projekthukommelse",
+      "operational": "Operationel hukommelse",
+      "customer": "Kundehukommelse",
+      "improvement": "Forbedringshukommelse"
+    },
+    "visibility": {
+      "personal": "Personlig",
+      "tenant": "Organisation",
+      "department": "Afdeling",
+      "executive": "Kun ledelse"
+    },
+    "fields": {
+      "title": "Titel",
+      "summary": "Resumé",
+      "notes": "Detaljerede noter",
+      "category": "Kategori",
+      "date": "Hukommelsesdato",
+      "visibility": "Synlighed"
+    }
+  },
   "nav": {
     "overview": "Hjem",
     "executive": "Executive",
@@ -528,6 +630,8 @@
     "actionCenter": "Handlingcenter",
     "businessPulse": "Business Pulse",
     "strategicGoals": "Strategiske mål",
+    "frictionIntelligence": "Friction Intelligence",
+    "organizationalMemory": "Organisationshukommelse",
     "installations": "Installationer",
     "domains": "Domæner",
     "team": "Team",

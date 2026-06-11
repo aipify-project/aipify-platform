@@ -517,6 +517,108 @@
       "targetDate": "Måldatum"
     }
   },
+  "friction": {
+    "title": "Friction Intelligence",
+    "subtitle": "Upptäck förbättringsmöjligheter — identifiera återkommande ineffektivitet och förenkla arbetet.",
+    "executiveSubtitle": "Executive friktionsöversikt — viktigaste områden, påverkan och förbättringsmöjligheter.",
+    "loading": "Laddar friction intelligence…",
+    "back": "Tillbaka till översikt",
+    "backToFriction": "Tillbaka till Friction Intelligence",
+    "youControl": "Aipify identifierar friktion och föreslår förbättringar. Du bestämmer vad som ändras.",
+    "privacy": "Integritet",
+    "refresh": "Uppdatera analys",
+    "executiveReport": "Executive friktionsrapport",
+    "viewExecutiveReport": "Executive-rapport",
+    "eventCount": "Aktiva signaler",
+    "emptyEvents": "Inga friktionshändelser upptäckta just nu.",
+    "emptyRecommendations": "Inga aktiva förbättringsrekommendationer.",
+    "emptyHistory": "Friktionshistorik visas efter analys.",
+    "upgrade": {
+      "title": "Friction Intelligence kräver Business Pro eller Enterprise",
+      "body": "Friction Intelligence finns i Aipify Business Pro och Enterprise eftersom den identifierar förbättringsmöjligheter över ansluten drift.",
+      "cta": "Visa paket"
+    },
+    "sections": {
+      "overview": "Övergripande friktionsöversikt",
+      "categories": "Friktion per område",
+      "events": "Upptäckt friktion",
+      "recommendations": "Rekommenderade förbättringar",
+      "history": "Historiska trender"
+    },
+    "scoreLevels": {
+      "low": "Låg friktion",
+      "moderate": "Måttlig friktion",
+      "elevated": "Förhöjd friktion",
+      "high": "Hög friktion"
+    },
+    "categories": {
+      "support": "Support-friktion",
+      "sales": "Försäljnings-friktion",
+      "process": "Process-friktion",
+      "team": "Team-friktion",
+      "customer": "Kund-friktion",
+      "meeting": "Mötes-friktion",
+      "email": "E-post-friktion",
+      "task": "Uppgifts-friktion"
+    },
+    "actions": {
+      "accept": "Acceptera",
+      "dismiss": "Avvisa",
+      "sendToActionCenter": "Skicka till Åtgärdscenter"
+    }
+  },
+  "organizationalMemory": {
+    "title": "Organisationsminne",
+    "subtitle": "Bevara kontext, resonemang och erfarenheter — organisationens långsiktiga minne.",
+    "loading": "Laddar organisationsminne…",
+    "back": "Tillbaka till översikt",
+    "youControl": "Människor skapar erfarenhet. Aipify hjälper till att bevara visdom för framtida beslut.",
+    "privacy": "Integritet",
+    "createEntry": "Spara minne",
+    "saveEntry": "Spara post",
+    "cancel": "Avbryt",
+    "deleteEntry": "Ta bort",
+    "search": "Sök",
+    "searchPlaceholder": "Vad beslutade vi om…? Har vi provat detta förut?",
+    "refresh": "Uppdatera",
+    "upgradeCta": "Visa Business Pro",
+    "starterNote": "Starter inkluderar personliga anteckningar. Uppgradera för organisationstidslinje, beslut och erfarenheter.",
+    "emptyTimeline": "Organisationstidslinjen växer när du sparar minnen.",
+    "emptyDecisions": "Inga beslutsloggar ännu.",
+    "emptyLessons": "Inga erfarenheter registrerade ännu.",
+    "emptySearch": "Ange en sökning för att utforska organisationsminnet.",
+    "noResults": "Inga matchande minnen hittades.",
+    "sections": {
+      "briefing": "Minneöversikt",
+      "timeline": "Organisationstidslinje",
+      "decisions": "Strategiska beslut",
+      "lessons": "Erfarenheter",
+      "search": "Sök i minnet",
+      "create": "Spara ett minne",
+      "context": "Ansluten historik"
+    },
+    "categories": {
+      "strategic_decision": "Strategiskt beslut",
+      "project": "Projektminne",
+      "operational": "Operativt minne",
+      "customer": "Kundminne",
+      "improvement": "Förbättringsminne"
+    },
+    "visibility": {
+      "personal": "Personligt",
+      "tenant": "Organisation",
+      "department": "Avdelning",
+      "executive": "Endast ledning"
+    },
+    "fields": {
+      "title": "Titel",
+      "summary": "Sammanfattning",
+      "notes": "Detaljerade anteckningar",
+      "category": "Kategori",
+      "date": "Minnesdatum",
+      "visibility": "Synlighet"
+    }
+  },
   "nav": {
     "overview": "Hem",
     "executive": "Executive",
@@ -528,6 +630,8 @@
     "actionCenter": "Åtgärdscenter",
     "businessPulse": "Business Pulse",
     "strategicGoals": "Strategiska mål",
+    "frictionIntelligence": "Friction Intelligence",
+    "organizationalMemory": "Organisationsminne",
     "installations": "Installationer",
     "domains": "Domäner",
     "team": "Team",

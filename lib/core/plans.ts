@@ -12,7 +12,7 @@ export type ProductPackage = {
 
 /** Tier-specific modules beyond the universal core package (CORE_FOUNDATION.md §15–16). */
 const TIER_MODULES: Record<PlanType, string[]> = {
-  starter: [],
+  starter: ["organizational_memory"],
   growth: ["action_center", "automations_basic"],
   business: [
     "action_center",
@@ -20,6 +20,8 @@ const TIER_MODULES: Record<PlanType, string[]> = {
     "adaptive_working_style",
     "business_pulse",
     "strategic_goal_engine",
+    "friction_intelligence",
+    "organizational_memory",
     "automations_basic",
     "self_healing",
     "advanced_insights",
@@ -33,6 +35,8 @@ const TIER_MODULES: Record<PlanType, string[]> = {
     "adaptive_working_style",
     "business_pulse",
     "strategic_goal_engine",
+    "friction_intelligence",
+    "organizational_memory",
     "automations_basic",
     "self_healing",
     "advanced_insights",
