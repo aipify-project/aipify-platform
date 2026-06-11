@@ -9,6 +9,8 @@ import { SecurityComplianceCard } from "@/components/app/security-compliance";
 import { OrchestrationCard } from "@/components/app/orchestration";
 import { MarketplaceCard } from "@/components/app/marketplace";
 import { IndustryBlueprintsCard } from "@/components/app/industry-blueprints";
+import { GlobalLearningCard } from "@/components/app/global-learning";
+import { ValueEngineCard } from "@/components/app/value-engine";
 import { EnterpriseDeploymentCard } from "@/components/app/enterprise";
 import { AssistantIdentityWelcomeBanner } from "@/components/app/assistant-identity";
 import { LearningEngineCard } from "@/components/app/learning-engine";
@@ -125,6 +127,19 @@ type CustomerHomePanelProps = {
       complete: string;
       noBlueprint: string;
     };
+    globalLearning: {
+      title: string;
+      open: string;
+      mode: string;
+      signals: string;
+      optedOut: string;
+    };
+    valueEngine: {
+      title: string;
+      open: string;
+      impactScore: string;
+      trend: string;
+    };
   };
 };
 
@@ -183,6 +198,8 @@ export function CustomerHomePanel({ locale, labels }: CustomerHomePanelProps) {
       <OrchestrationCard labels={labels.orchestration} />
       <MarketplaceCard labels={labels.marketplace} />
       <IndustryBlueprintsCard labels={labels.industryBlueprints} />
+      <GlobalLearningCard labels={labels.globalLearning} />
+      <ValueEngineCard labels={labels.valueEngine} />
       <DesktopCompanionCard labels={labels.desktop} />
       <MemoryEngineCard labels={labels.memoryEngine} />
       <SkillStoreCard labels={labels.skillStore} />

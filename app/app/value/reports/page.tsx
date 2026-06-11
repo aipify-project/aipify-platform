@@ -1,0 +1,30 @@
+import { ValueEngineReportsPanel } from "@/components/app/value-engine";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { createTranslator } from "@/lib/i18n/translate";
+
+export default async function ValueEngineReportsPage() {
+  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const t = createTranslator(dict);
+  const p = "customerApp.valueEngine";
+
+  return (
+    <div className="mx-auto max-w-4xl space-y-6 p-6">
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t(`${p}.reportsTitle`)}</h1>
+        <p className="mt-2 text-gray-600">{t(`${p}.reportsSubtitle`)}</p>
+      </div>
+      <ValueEngineReportsPanel
+        labels={{
+          loading: t(`${p}.loading`),
+          back: t(`${p}.back`),
+          noReports: t(`${p}.noReports`),
+          generate_weekly: t(`${p}.generateWeekly`),
+          generate_monthly: t(`${p}.generateMonthly`),
+          generate_quarterly: t(`${p}.generateQuarterly`),
+          generate_annual: t(`${p}.generateAnnual`),
+        }}
+      />
+    </div>
+  );
+}

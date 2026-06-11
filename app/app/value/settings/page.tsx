@@ -1,0 +1,32 @@
+import { ValueEngineSettingsPanel } from "@/components/app/value-engine";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { createTranslator } from "@/lib/i18n/translate";
+
+export default async function ValueEngineSettingsPage() {
+  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const t = createTranslator(dict);
+  const p = "customerApp.valueEngine";
+
+  return (
+    <div className="mx-auto max-w-4xl space-y-6 p-6">
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t(`${p}.settingsTitle`)}</h1>
+        <p className="mt-2 text-gray-600">{t(`${p}.settingsSubtitle`)}</p>
+      </div>
+      <ValueEngineSettingsPanel
+        labels={{
+          loading: t(`${p}.loading`),
+          back: t(`${p}.back`),
+          enableRoi: t(`${p}.enableRoi`),
+          supportRate: t(`${p}.supportRate`),
+          adminRate: t(`${p}.adminRate`),
+          managementRate: t(`${p}.managementRate`),
+          defaultRate: t(`${p}.defaultRate`),
+          currency: t(`${p}.currency`),
+          roiDisclaimer: t(`${p}.roiDisclaimer`),
+        }}
+      />
+    </div>
+  );
+}

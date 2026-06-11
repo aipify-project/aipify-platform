@@ -124,6 +124,19 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
           complete: t("customerApp.industryBlueprints.complete"),
           noBlueprint: t("customerApp.industryBlueprints.noBlueprint"),
         },
+        globalLearning: {
+          title: t("customerApp.globalLearning.title"),
+          open: t("customerApp.globalLearning.open"),
+          mode: t("customerApp.globalLearning.mode"),
+          signals: t("customerApp.globalLearning.signals"),
+          optedOut: t("customerApp.globalLearning.optedOut"),
+        },
+        valueEngine: {
+          title: t("customerApp.valueEngine.title"),
+          open: t("customerApp.valueEngine.open"),
+          impactScore: t("customerApp.valueEngine.impactScore"),
+          trend: t("customerApp.valueEngine.trend"),
+        },
         greetings: {
           morning: t("customerApp.greetings.morning"),
           afternoon: t("customerApp.greetings.afternoon"),
