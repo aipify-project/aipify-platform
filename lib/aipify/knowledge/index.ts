@@ -2,7 +2,7 @@ export * from "./types";
 export * from "./parse";
 export * from "./detection";
 export * from "./retrieve";
-export * from "./import-seed";
+// import-seed uses node:fs — import only from ./import-seed in server routes
 
 export const KC_MODULE_PATH =
   "aipify-core/modules/knowledge-center/phase-55-self-knowledge-knowledge-center.txt";
