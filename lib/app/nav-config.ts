@@ -27,6 +27,7 @@ export type AppNavId =
   | "team"
   | "license"
   | "security"
+  | "orchestration"
   | "settings";
 
 export type AppNavItem = {
@@ -67,6 +68,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "team", href: "/app/team", labelKey: "customerApp.nav.team" },
   { id: "license", href: "/app/license", labelKey: "customerApp.nav.license" },
   { id: "security", href: "/app/security", labelKey: "customerApp.nav.security" },
+  { id: "orchestration", href: "/app/orchestration", labelKey: "customerApp.nav.orchestration" },
   { id: "settings", href: "/app/settings", labelKey: "customerApp.nav.settings" },
 ];
 
@@ -155,6 +157,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/compliance")) {
     return "security";
+  }
+  if (pathname.startsWith("/app/orchestration")) {
+    return "orchestration";
   }
   if (pathname.startsWith("/app/settings") || pathname.startsWith("/dashboard/settings")) {
     return "settings";

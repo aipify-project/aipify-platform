@@ -6,6 +6,7 @@ import { AipifyBriefingCard } from "@/components/app/briefing";
 import { DesktopCompanionCard } from "@/components/app/desktop";
 import { MemoryEngineCard } from "@/components/app/memory";
 import { SecurityComplianceCard } from "@/components/app/security-compliance";
+import { OrchestrationCard } from "@/components/app/orchestration";
 import { EnterpriseDeploymentCard } from "@/components/app/enterprise";
 import { AssistantIdentityWelcomeBanner } from "@/components/app/assistant-identity";
 import { LearningEngineCard } from "@/components/app/learning-engine";
@@ -103,6 +104,13 @@ type CustomerHomePanelProps = {
       critical: string;
       emergencyStop: string;
     };
+    orchestration: {
+      title: string;
+      open: string;
+      eventsToday: string;
+      activeFlows: string;
+      emergencyStop: string;
+    };
   };
 };
 
@@ -158,6 +166,7 @@ export function CustomerHomePanel({ locale, labels }: CustomerHomePanelProps) {
       <AssistantIdentityWelcomeBanner labels={labels.assistantIdentity} />
       <EnterpriseDeploymentCard labels={labels.enterpriseDeployment} />
       <SecurityComplianceCard labels={labels.securityCompliance} />
+      <OrchestrationCard labels={labels.orchestration} />
       <DesktopCompanionCard labels={labels.desktop} />
       <MemoryEngineCard labels={labels.memoryEngine} />
       <SkillStoreCard labels={labels.skillStore} />

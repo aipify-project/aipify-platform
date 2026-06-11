@@ -105,6 +105,13 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
           critical: t("customerApp.securityCompliance.criticalIncidents"),
           emergencyStop: t("customerApp.securityCompliance.emergencyStopActive"),
         },
+        orchestration: {
+          title: t("customerApp.orchestration.title"),
+          open: t("customerApp.orchestration.open"),
+          eventsToday: t("customerApp.orchestration.eventsToday"),
+          activeFlows: t("customerApp.orchestration.activeFlows"),
+          emergencyStop: t("customerApp.orchestration.emergencyStopActive"),
+        },
         greetings: {
           morning: t("customerApp.greetings.morning"),
           afternoon: t("customerApp.greetings.afternoon"),

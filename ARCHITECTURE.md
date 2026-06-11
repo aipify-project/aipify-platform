@@ -176,6 +176,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Security, Compliance & Data Governance (Phase 67):** See [SECURITY_COMPLIANCE_PHASE67.md](./SECURITY_COMPLIANCE_PHASE67.md) — Policy Engine, data classification, access policies, privacy requests, retention, security incidents, secrets references. `/app/security`, `/app/compliance`, `lib/aipify/security-compliance/`, migration `20260615700000_security_compliance_phase67.sql`.
 
+**Orchestration Engine (Phase 68):** See [ORCHESTRATION_ENGINE_PHASE68.md](./ORCHESTRATION_ENGINE_PHASE68.md) — cross-module coordination: events, rules, flows, dispatches, Policy Engine integration, duplicate suppression. `/app/orchestration`, `lib/aipify/orchestration/`, migration `20260615800000_orchestration_engine_phase68.sql`.
+
 **Quality Guardian / QG (Phases 58–59):** See [QG.md](./QG.md) — software and frontend health monitoring (Image Guardian, Performance Guardian, mobile checks) with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `/app/quality/images`, `lib/aipify/quality/`, migrations `20260614600000_quality_guardian_phase58.sql`, `20260614700000_frontend_experience_guardian_phase59.sql`.
 
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
