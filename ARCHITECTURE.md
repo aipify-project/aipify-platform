@@ -170,6 +170,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Learning Engine — Feedback Loop (Phase 65):** See [LEARNING_ENGINE_PHASE65.md](./LEARNING_ENGINE_PHASE65.md) — governed feedback loop: learning events, outcomes, scores, rules, and audit. Extends Phase 29. Integrates with Memory Engine, Action Center, Quality Guardian, Governance, and Knowledge Center. `/app/learning`, `lib/aipify/learning-engine/`, migration `20260615400000_learning_engine_phase65.sql`.
 
+**Assistant Identity & Welcome Experience (Foundation):** See [ASSISTANT_IDENTITY.md](./ASSISTANT_IDENTITY.md) — professional assistant identity, six-step welcome flow, phrase library (no/en/sv/da), communication preferences, Memory sync, Desktop/Briefing greetings. `/app/welcome`, `/app/settings/assistant-identity`, `lib/aipify/assistant-identity/`, migration `20260615500000_assistant_identity_foundation.sql`.
+
 **Quality Guardian / QG (Phases 58–59):** See [QG.md](./QG.md) — software and frontend health monitoring (Image Guardian, Performance Guardian, mobile checks) with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `/app/quality/images`, `lib/aipify/quality/`, migrations `20260614600000_quality_guardian_phase58.sql`, `20260614700000_frontend_experience_guardian_phase59.sql`.
 
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.

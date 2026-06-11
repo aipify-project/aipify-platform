@@ -192,7 +192,8 @@
       "automation": "Adaptive Automation",
       "governance": "Trust & Control",
       "knowledge": "Knowledge Center",
-      "quality": "Quality Guardian"
+      "quality": "Quality Guardian",
+      "assistantIdentity": "Assistant identity"
     },
     "intelligence": {
       "title": "Organizational Intelligence",
@@ -2205,6 +2206,71 @@
       "add": "Add",
       "cancel": "Cancel",
       "titlePlaceholder": "Reminder title"
+    }
+  },
+  "assistantIdentity": {
+    "loading": "Loading assistant identity…",
+    "privacy": "Your name and preferences are stored securely in your tenant. You can change or reset them anytime. Personalization never bypasses approvals or governance.",
+    "banner": {
+      "prompt": "Hi! Before we begin — who hired Aipify?",
+      "subtitle": "A short welcome helps Aipify greet you properly and set communication preferences. You stay in control.",
+      "cta": "Start welcome experience"
+    },
+    "welcome": {
+      "title": "Welcome to Aipify",
+      "subtitle": "Let's establish how your assistant should work with you.",
+      "step1": "Hi! Before we begin — who hired me?",
+      "step2": "How would you like me to address you?",
+      "step3": "What would you like me to help with first?",
+      "step4": "How would you like me to communicate?",
+      "step5": "When I'm unsure, how should I handle it?",
+      "namePlaceholder": "Your name",
+      "continue": "Continue",
+      "finish": "Finish setup",
+      "getStarted": "Let's get started",
+      "alreadyComplete": "Welcome setup is already complete.",
+      "goHome": "Back to home"
+    },
+    "settings": {
+      "title": "Assistant identity",
+      "subtitle": "How Aipify greets you, communicates, and handles uncertainty.",
+      "back": "Back to settings",
+      "ownerName": "Who hired Aipify",
+      "greetingName": "Preferred greeting name",
+      "communicationStyle": "Communication style",
+      "uncertainty": "When unsure",
+      "useNameInGreetings": "Use my name in greetings",
+      "allowPersonalized": "Allow personalized phrases",
+      "redoWelcome": "Redo welcome flow",
+      "resetWelcome": "Reset welcome",
+      "resetConfirm": "Reset assistant identity and welcome flow for this tenant?"
+    },
+    "focusAreas": {
+      "support": "Support",
+      "administration": "Administration",
+      "quality": "Quality assurance",
+      "automation": "Automation",
+      "insights": "Insights & reports",
+      "all": "All of the above"
+    },
+    "communicationStyles": {
+      "professional": "Professional",
+      "professional_warm": "Professional and warm",
+      "short_effective": "Short and effective",
+      "personal": "More personal",
+      "technical_precise": "Technical and precise"
+    },
+    "uncertaintyHandling": {
+      "ask_first": "Always ask first",
+      "suggest_and_approve": "Suggest and ask for approval",
+      "draft_only": "Draft only",
+      "report_only": "Report only"
+    },
+    "addressModes": {
+      "first_name": "First name",
+      "full_name": "Full name",
+      "company_role": "Company role",
+      "custom": "Custom name"
     }
   },
   "nav": {

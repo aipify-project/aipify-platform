@@ -191,7 +191,8 @@
       "predictions": "Prediktiv intelligens",
       "automation": "Adaptiv automatisering",
       "governance": "Förtroende och kontroll",
-      "knowledge": "Kunskapscenter"
+      "knowledge": "Kunskapscenter",
+      "assistantIdentity": "Assistentidentitet"
     },
     "intelligence": {
       "title": "Organisatorisk intelligens",
@@ -1094,6 +1095,71 @@
       "review": "Granskning",
       "published": "Publicerad",
       "archived": "Arkiverad"
+    }
+  },
+  "assistantIdentity": {
+    "loading": "Laddar assistentidentitet…",
+    "privacy": "Ditt namn och dina preferenser lagras säkert i din tenant. Du kan ändra eller återställa dem när som helst. Personalisering kringgår aldrig godkännanden eller styrning.",
+    "banner": {
+      "prompt": "Hej! Innan vi börjar — vem har anställt mig?",
+      "subtitle": "En kort välkomst hjälper Aipify att hälsa dig rätt och ställa in kommunikationspreferenser. Du har alltid kontroll.",
+      "cta": "Starta välkomstupplevelsen"
+    },
+    "welcome": {
+      "title": "Välkommen till Aipify",
+      "subtitle": "Låt oss etablera hur din assistent ska arbeta med dig.",
+      "step1": "Hej! Innan vi börjar — vem har anställt mig?",
+      "step2": "Hur vill du att jag ska tilltala dig?",
+      "step3": "Vad vill du att jag ska hjälpa dig med först?",
+      "step4": "Hur vill du att jag ska kommunicera?",
+      "step5": "När jag är osäker, hur ska jag hantera det?",
+      "namePlaceholder": "Ditt namn",
+      "continue": "Fortsätt",
+      "finish": "Slutför inställning",
+      "getStarted": "Låt oss börja",
+      "alreadyComplete": "Välkomstinställningen är redan klar.",
+      "goHome": "Tillbaka till hem"
+    },
+    "settings": {
+      "title": "Assistentidentitet",
+      "subtitle": "Hur Aipify hälsar dig, kommunicerar och hanterar osäkerhet.",
+      "back": "Tillbaka till inställningar",
+      "ownerName": "Vem anställde Aipify",
+      "greetingName": "Föredraget hälsningsnamn",
+      "communicationStyle": "Kommunikationsstil",
+      "uncertainty": "När osäker",
+      "useNameInGreetings": "Använd mitt namn i hälsningar",
+      "allowPersonalized": "Tillåt personliga fraser",
+      "redoWelcome": "Gör om välkomstflödet",
+      "resetWelcome": "Återställ välkomst",
+      "resetConfirm": "Återställa assistentidentitet och välkomstflöde för denna tenant?"
+    },
+    "focusAreas": {
+      "support": "Support",
+      "administration": "Administration",
+      "quality": "Kvalitetssäkring",
+      "automation": "Automatisering",
+      "insights": "Insikter och rapporter",
+      "all": "Allt ovanstående"
+    },
+    "communicationStyles": {
+      "professional": "Professionell",
+      "professional_warm": "Professionell och varm",
+      "short_effective": "Kort och effektiv",
+      "personal": "Mer personlig",
+      "technical_precise": "Teknisk och precis"
+    },
+    "uncertaintyHandling": {
+      "ask_first": "Fråga alltid först",
+      "suggest_and_approve": "Föreslå och be om godkännande",
+      "draft_only": "Skapa utkast",
+      "report_only": "Endast rapportera"
+    },
+    "addressModes": {
+      "first_name": "Förnamn",
+      "full_name": "Fullständigt namn",
+      "company_role": "Företagsroll",
+      "custom": "Anpassat namn"
     }
   },
   "nav": {

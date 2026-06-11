@@ -154,6 +154,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/settings") || pathname.startsWith("/dashboard/settings")) {
     return "settings";
   }
+  if (pathname.startsWith("/app/welcome")) return "overview";
   return "overview";
 }
 

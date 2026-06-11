@@ -192,7 +192,8 @@
       "automation": "Adaptiv automatisering",
       "governance": "Tillit og kontroll",
       "knowledge": "Kunnskapssenter",
-      "quality": "Quality Guardian"
+      "quality": "Quality Guardian",
+      "assistantIdentity": "Assistentidentitet"
     },
     "intelligence": {
       "title": "Organisatorisk intelligens",
@@ -1486,6 +1487,71 @@
       "add": "Legg til",
       "cancel": "Avbryt",
       "titlePlaceholder": "Tittel på påminnelse"
+    }
+  },
+  "assistantIdentity": {
+    "loading": "Laster assistentidentitet…",
+    "privacy": "Navnet og preferansene dine lagres trygt i din tenant. Du kan endre eller nullstille dem når som helst. Personlig tilpasning omgår aldri godkjenninger eller styring.",
+    "banner": {
+      "prompt": "Hei! Før vi begynner — hvem har ansatt meg?",
+      "subtitle": "En kort velkomst hjelper Aipify å hilse deg riktig og sette kommunikasjonspreferanser. Du har alltid kontroll.",
+      "cta": "Start velkomstopplevelsen"
+    },
+    "welcome": {
+      "title": "Velkommen til Aipify",
+      "subtitle": "La oss etablere hvordan assistenten din skal jobbe med deg.",
+      "step1": "Hei! Før vi begynner — hvem har ansatt meg?",
+      "step2": "Hvordan ønsker du at jeg skal tiltale deg?",
+      "step3": "Hva ønsker du at jeg skal hjelpe deg mest med først?",
+      "step4": "Hvordan ønsker du at jeg skal kommunisere?",
+      "step5": "Når jeg er usikker, hvordan ønsker du at jeg skal gjøre det?",
+      "namePlaceholder": "Ditt navn",
+      "continue": "Fortsett",
+      "finish": "Fullfør oppsett",
+      "getStarted": "La oss komme i gang",
+      "alreadyComplete": "Velkomstoppsettet er allerede fullført.",
+      "goHome": "Tilbake til hjem"
+    },
+    "settings": {
+      "title": "Assistentidentitet",
+      "subtitle": "Hvordan Aipify hilser deg, kommuniserer og håndterer usikkerhet.",
+      "back": "Tilbake til innstillinger",
+      "ownerName": "Hvem ansatt Aipify",
+      "greetingName": "Foretrukket hilsenavn",
+      "communicationStyle": "Kommunikasjonsstil",
+      "uncertainty": "Når usikker",
+      "useNameInGreetings": "Bruk navnet mitt i hilsener",
+      "allowPersonalized": "Tillat personlige fraser",
+      "redoWelcome": "Gjør velkomstflyten på nytt",
+      "resetWelcome": "Nullstill velkomst",
+      "resetConfirm": "Nullstille assistentidentitet og velkomstflyt for denne tenanten?"
+    },
+    "focusAreas": {
+      "support": "Support",
+      "administration": "Administrasjon",
+      "quality": "Kvalitetssikring",
+      "automation": "Automatisering",
+      "insights": "Innsikt og rapporter",
+      "all": "Alt det ovennevnte"
+    },
+    "communicationStyles": {
+      "professional": "Profesjonell",
+      "professional_warm": "Profesjonell og varm",
+      "short_effective": "Kort og effektiv",
+      "personal": "Mer personlig",
+      "technical_precise": "Teknisk og presis"
+    },
+    "uncertaintyHandling": {
+      "ask_first": "Spør alltid først",
+      "suggest_and_approve": "Foreslå og be om godkjenning",
+      "draft_only": "Lag utkast",
+      "report_only": "Kun rapporter"
+    },
+    "addressModes": {
+      "first_name": "Fornavn",
+      "full_name": "Fullt navn",
+      "company_role": "Rolle i selskapet",
+      "custom": "Egendefinert navn"
     }
   },
   "nav": {

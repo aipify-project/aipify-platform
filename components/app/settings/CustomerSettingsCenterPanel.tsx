@@ -45,6 +45,7 @@ type CustomerSettingsCenterPanelProps = {
       governance: string;
       knowledge: string;
       quality: string;
+      assistantIdentity: string;
     };
   };
 };
@@ -185,6 +186,9 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
         </Link>
         <Link href="/app/settings/knowledge" className="block text-indigo-600 hover:underline">
           {labels.links.knowledge}
+        </Link>
+        <Link href="/app/settings/assistant-identity" className="block text-indigo-600 hover:underline">
+          {labels.links.assistantIdentity}
         </Link>
         <Link href="/app/settings/quality" className="block text-indigo-600 hover:underline">
           {labels.links.quality}

@@ -10,12 +10,20 @@ type DesktopCompanionCardProps = {
 
 export function DesktopCompanionCard({ labels }: DesktopCompanionCardProps) {
   const [card, setCard] = useState<DesktopCompanionCard | null>(null);
+  const [identityGreeting, setIdentityGreeting] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   const refresh = useCallback(async () => {
     setLoading(true);
-    const res = await fetch("/api/aipify/desktop/card");
-    if (res.ok) setCard(parseDesktopCompanionCard(await res.json()));
+    const [deskRes, greetRes] = await Promise.all([
+      fetch("/api/aipify/desktop/card"),
+      fetch("/api/aipify/assistant-identity/greeting?context=daily_greeting"),
+    ]);
+    if (deskRes.ok) setCard(parseDesktopCompanionCard(await deskRes.json()));
+    if (greetRes.ok) {
+      const g = await greetRes.json();
+      if (g.greeting) setIdentityGreeting(String(g.greeting));
+    }
     setLoading(false);
   }, []);
 
@@ -33,8 +41,8 @@ export function DesktopCompanionCard({ labels }: DesktopCompanionCardProps) {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-xs font-medium uppercase tracking-wide text-slate-600">{labels.title}</p>
-          {card.briefing_greeting ? (
-            <h2 className="mt-1 text-lg font-semibold text-gray-900">{card.briefing_greeting}</h2>
+          {card.briefing_greeting || identityGreeting ? (
+            <h2 className="mt-1 text-lg font-semibold text-gray-900">{identityGreeting ?? card.briefing_greeting}</h2>
           ) : null}
           <p className="mt-2 text-sm text-gray-700">{card.briefing_summary}</p>
           <p className="mt-1 text-xs text-slate-500">

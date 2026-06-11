@@ -86,6 +86,11 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
           events: t("customerApp.learningEngine.events"),
           positive: t("customerApp.learningEngine.positive"),
         },
+        assistantIdentity: {
+          prompt: t("customerApp.assistantIdentity.banner.prompt"),
+          subtitle: t("customerApp.assistantIdentity.banner.subtitle"),
+          cta: t("customerApp.assistantIdentity.banner.cta"),
+        },
         greetings: {
           morning: t("customerApp.greetings.morning"),
           afternoon: t("customerApp.greetings.afternoon"),

@@ -23,13 +23,21 @@ function itemIcon(item: BriefKeyItem): string {
 
 export function AipifyBriefingCard({ labels }: AipifyBriefingCardProps) {
   const [card, setCard] = useState<BriefingCard | null>(null);
+  const [identityGreeting, setIdentityGreeting] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [marking, setMarking] = useState(false);
 
   const refresh = useCallback(async () => {
     setLoading(true);
-    const res = await fetch("/api/aipify/briefing/card");
-    if (res.ok) setCard(parseBriefingCard(await res.json()));
+    const [briefRes, greetRes] = await Promise.all([
+      fetch("/api/aipify/briefing/card"),
+      fetch("/api/aipify/assistant-identity/greeting?context=since_last_login"),
+    ]);
+    if (briefRes.ok) setCard(parseBriefingCard(await briefRes.json()));
+    if (greetRes.ok) {
+      const g = await greetRes.json();
+      if (g.greeting) setIdentityGreeting(String(g.greeting));
+    }
     setLoading(false);
   }, []);
 
@@ -58,7 +66,9 @@ export function AipifyBriefingCard({ labels }: AipifyBriefingCardProps) {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-xs font-medium uppercase tracking-wide text-indigo-600">{labels.sinceLastLogin}</p>
-          {card.greeting ? <h2 className="mt-1 text-lg font-semibold text-gray-900">{card.greeting}</h2> : null}
+          {card.greeting || identityGreeting ? (
+            <h2 className="mt-1 text-lg font-semibold text-gray-900">{card.greeting ?? identityGreeting}</h2>
+          ) : null}
           <p className="mt-2 text-sm text-gray-700">{card.summary}</p>
         </div>
         <Link href="/app/briefing" className="text-sm font-medium text-indigo-700 hover:underline">
