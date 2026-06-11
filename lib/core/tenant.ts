@@ -54,4 +54,5 @@ export * from "./change-management";
 export * from "./value-realization";
 export * from "./organizational-resilience";
 export * from "./incident-response-coordination";
+export * from "./stakeholder-communication";
 export * from "./strategic-alignment";

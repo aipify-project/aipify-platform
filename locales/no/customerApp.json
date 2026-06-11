@@ -4812,5 +4812,30 @@
     "exportReport": "Eksporter rapport",
     "exporting": "Eksporterer…",
     "exportFailed": "Eksport mislyktes"
+  },
+  "stakeholderCommunicationEngine": {
+    "title": "Interessentkommunikasjon",
+    "subtitle": "Koordinert interessentkommunikasjon — flerkanalslevering, engasjementssporing og transparente resultater.",
+    "loading": "Laster interessentkommunikasjonsdashbord…",
+    "engineTitle": "Stakeholder Communication Engine",
+    "summary": "Sammendrag",
+    "principles": "Prinsipper",
+    "campaigns": "Kampanjer",
+    "deliveries": "Leveringer",
+    "executiveSummary": "Ledelsessammendrag",
+    "integrationSummaries": "Integrasjonssammendrag",
+    "stakeholderType": "Interessenttype",
+    "schedule": "Planlegg",
+    "publish": "Publiser",
+    "cancel": "Avbryt",
+    "export": "Eksporter kampanjer",
+    "scheduling": "Planlegger…",
+    "publishing": "Publiserer…",
+    "cancelling": "Avbryter…",
+    "exporting": "Eksporterer…",
+    "scheduleFailed": "Planlegging mislyktes",
+    "publishFailed": "Publisering mislyktes",
+    "cancelFailed": "Avbrytelse mislyktes",
+    "exportFailed": "Eksport mislyktes"
   }
 }

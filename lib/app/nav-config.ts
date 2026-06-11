@@ -48,6 +48,7 @@ export type AppNavId =
   | "valueRealizationEngine"
   | "organizationalResilienceEngine"
   | "incidentResponseCoordinationEngine"
+  | "stakeholderCommunicationEngine"
   | "strategicAlignmentEngine"
   | "briefing"
   | "executive"
@@ -288,6 +289,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.incidentResponseCoordinationEngine",
   },
   {
+    id: "stakeholderCommunicationEngine",
+    href: "/app/stakeholder-communication-engine",
+    labelKey: "customerApp.nav.stakeholderCommunicationEngine",
+  },
+  {
     id: "strategicAlignmentEngine",
     href: "/app/strategic-alignment-engine",
     labelKey: "customerApp.nav.strategicAlignmentEngine",
@@ -421,6 +427,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/incident-response-coordination-engine")) {
     return "incidentResponseCoordinationEngine";
+  }
+  if (pathname.startsWith("/app/stakeholder-communication-engine")) {
+    return "stakeholderCommunicationEngine";
   }
   if (pathname.startsWith("/app/strategic-alignment-engine")) {
     return "strategicAlignmentEngine";

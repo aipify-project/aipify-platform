@@ -4891,5 +4891,30 @@
     "exportReport": "Export report",
     "exporting": "Exporting…",
     "exportFailed": "Export failed"
+  },
+  "stakeholderCommunicationEngine": {
+    "title": "Stakeholder Communications",
+    "subtitle": "Coordinated stakeholder communications — multi-channel delivery, engagement tracking, and transparent outcomes.",
+    "loading": "Loading stakeholder communication dashboard…",
+    "engineTitle": "Stakeholder Communication Engine",
+    "summary": "Summary",
+    "principles": "Principles",
+    "campaigns": "Campaigns",
+    "deliveries": "Deliveries",
+    "executiveSummary": "Executive summary",
+    "integrationSummaries": "Integration summaries",
+    "stakeholderType": "Stakeholder type",
+    "schedule": "Schedule",
+    "publish": "Publish",
+    "cancel": "Cancel",
+    "export": "Export campaigns",
+    "scheduling": "Scheduling…",
+    "publishing": "Publishing…",
+    "cancelling": "Cancelling…",
+    "exporting": "Exporting…",
+    "scheduleFailed": "Schedule failed",
+    "publishFailed": "Publish failed",
+    "cancelFailed": "Cancel failed",
+    "exportFailed": "Export failed"
   }
 }

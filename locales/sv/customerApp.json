@@ -4484,5 +4484,30 @@
     "exportReport": "Exportera rapport",
     "exporting": "Exporterar…",
     "exportFailed": "Export misslyckades"
+  },
+  "stakeholderCommunicationEngine": {
+    "title": "Intressentkommunikation",
+    "subtitle": "Koordinerad intressentkommunikation — flerkanalsleverans, engagemangsspårning och transparenta resultat.",
+    "loading": "Laddar intressentkommunikationspanel…",
+    "engineTitle": "Stakeholder Communication Engine",
+    "summary": "Sammanfattning",
+    "principles": "Principer",
+    "campaigns": "Kampanjer",
+    "deliveries": "Leveranser",
+    "executiveSummary": "Ledningssammanfattning",
+    "integrationSummaries": "Integrationssammanfattningar",
+    "stakeholderType": "Intressenttyp",
+    "schedule": "Schemalägg",
+    "publish": "Publicera",
+    "cancel": "Avbryt",
+    "export": "Exportera kampanjer",
+    "scheduling": "Schemalägger…",
+    "publishing": "Publicerar…",
+    "cancelling": "Avbryter…",
+    "exporting": "Exporterar…",
+    "scheduleFailed": "Schemaläggning misslyckades",
+    "publishFailed": "Publicering misslyckades",
+    "cancelFailed": "Avbrytning misslyckades",
+    "exportFailed": "Export misslyckades"
   }
 }
