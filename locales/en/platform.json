@@ -630,6 +630,28 @@
     "byCategory": "By category",
     "privacyNote": "Administrators cannot access user memory content. Aggregates only."
   },
+  "goalsDreams": {
+    "title": "GDE governance",
+    "subtitle": "Aggregate goals adoption metrics — no goal content.",
+    "loading": "Loading goals overview…",
+    "users": "Users with goals",
+    "active": "Active goals",
+    "completed": "Completed goals",
+    "milestones": "Milestones completed",
+    "byCategory": "By category",
+    "privacyNote": "Administrators cannot access goal content. Aggregates only."
+  },
+  "contextEngine": {
+    "title": "ACE & UCL governance",
+    "subtitle": "Aggregate context and calendar metrics — no event or calendar content.",
+    "loading": "Loading context overview…",
+    "profiles": "Context profiles",
+    "connections": "Connected calendars",
+    "pending": "Pending connections",
+    "events": "Scheduled internal events",
+    "byMode": "By context mode",
+    "privacyNote": "Administrators cannot access calendar events or context details. Aggregates only."
+  },
   "identity": {
     "title": "AIE governance",
     "subtitle": "Aggregate identity adoption metrics — no user profile content.",

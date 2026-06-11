@@ -1,0 +1,27 @@
+---
+description: Context Engine (ACE) and Universal Calendar Layer (UCL) — Phase 35
+alwaysApply: true
+---
+
+# Context Engine & Universal Calendar Layer
+
+See [CONTEXT_ENGINE.md](../../CONTEXT_ENGINE.md).
+
+## Rules
+
+1. Aipify is the intelligence layer **above** calendars — never a replacement calendar app.
+2. Business logic in Supabase RPCs; API routes and panels are thin clients.
+3. OAuth providers connect as `pending` until authorization completes — never fake sync.
+4. `aipify_internal` calendar is auto-provisioned; cannot be disconnected.
+5. Natural language scheduling requires user confirmation before `create_calendar_event`.
+6. Context pulls from PAME, LifeOS, RSI, Identity — separate concerns, unified display.
+7. Platform `/platform/trust` uses `get_platform_context_overview` — aggregates only.
+8. i18n: `customerApp.contextEngine.*`, `customerApp.universalCalendar.*`, `platform.contextEngine.*` in en/no/sv/da.
+
+## Tables
+
+`context_settings` · `calendar_connections` · `calendar_events` · `calendar_sync_log`
+
+## Routes
+
+`/app/assistant/context` · `/app/assistant/calendars`

@@ -1,0 +1,29 @@
+AIPIFY – PHASE 36
+GOALS & DREAMS ENGINE (GDE)
+
+PURPOSE
+Support long-term aspirations with milestones, accountability, and encouragement — no guilt.
+
+ROUTES
+/app/assistant/goals — Goals dashboard
+
+APIs
+GET/PATCH/POST /api/assistant/goals
+GET /api/assistant/goals/export
+
+DATABASE (migration 20260612400000_goals_dreams_phase36.sql)
+gde_settings, user_goals, goal_milestones, goal_actions, goal_activity
+
+RPCs
+get_customer_goals_center, create_user_goal, update_user_goal
+update_goal_milestone, create_goal_action, toggle_goal_action
+record_goal_check_in, update_gde_settings, export_goals_data
+get_platform_goals_overview
+
+IMPLEMENTATION
+lib/goals-dreams-engine/ — dimensions, detection, breakdown, parse
+components/app/assistant/GoalsDashboardPanel.tsx
+components/platform/PlatformGoalsPanel.tsx
+Chat: detectGoalIntent() + confirmGoal in /api/assistant
+
+STATUS: Implemented

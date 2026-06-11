@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AipifyOrb } from "@/components/branding";
 import type { MemoryDraft } from "@/lib/assistant-memory/conversation";
+import type { EventDraft } from "@/lib/context-engine/types";
+import type { GoalDraft } from "@/lib/goals-dreams-engine/types";
 
 type ChatMessage = {
   id: string;
@@ -23,6 +25,11 @@ type AssistantChatPanelProps = {
     viewLife: string;
     viewRelationships: string;
     viewIdentity: string;
+    viewContext: string;
+    viewCalendars: string;
+    confirmEvent: string;
+    confirmGoal: string;
+    viewGoals: string;
     proactiveTitle: string;
     loading: string;
     orbLabel: string;
@@ -37,6 +44,8 @@ export function AssistantChatPanel({
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [pendingDraft, setPendingDraft] = useState<MemoryDraft | null>(null);
+  const [pendingEvent, setPendingEvent] = useState<EventDraft | null>(null);
+  const [pendingGoal, setPendingGoal] = useState<GoalDraft | null>(null);
   const [sending, setSending] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -46,13 +55,18 @@ export function AssistantChatPanel({
 
   useEffect(() => {
     scrollToEnd();
-  }, [messages, pendingDraft, scrollToEnd]);
+  }, [messages, pendingDraft, pendingEvent, pendingGoal, scrollToEnd]);
 
-  async function sendMessage(text: string, confirmMemory = false) {
-    if (!text.trim() && !confirmMemory) return;
+  async function sendMessage(
+    text: string,
+    confirmMemory = false,
+    confirmEvent = false,
+    confirmGoal = false
+  ) {
+    if (!text.trim() && !confirmMemory && !confirmEvent && !confirmGoal) return;
     setSending(true);
 
-    if (!confirmMemory) {
+    if (!confirmMemory && !confirmEvent && !confirmGoal) {
       setMessages((prev) => [
         ...prev,
         { id: crypto.randomUUID(), role: "user", content: text.trim() },
@@ -64,24 +78,28 @@ export function AssistantChatPanel({
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(
-        confirmMemory && pendingDraft
-          ? {
-              confirmMemory: true,
-              memoryDraft: {
-                category: pendingDraft.category,
-                title: pendingDraft.title,
-                summary: pendingDraft.summary,
-                event_date: pendingDraft.event_date,
-                intent_key: pendingDraft.intent,
-                reminder_offsets: pendingDraft.reminder_offsets,
-                recurrence: pendingDraft.recurrence,
-                source: "explicit",
-                confidence_level: pendingDraft.confidence_level,
-                person_name: pendingDraft.person_name,
-                relationship: pendingDraft.relationship,
-              },
-            }
-          : { message: text }
+        confirmGoal && pendingGoal
+          ? { confirmGoal: true, goalDraft: pendingGoal }
+          : confirmEvent && pendingEvent
+          ? { confirmEvent: true, eventDraft: pendingEvent }
+          : confirmMemory && pendingDraft
+            ? {
+                confirmMemory: true,
+                memoryDraft: {
+                  category: pendingDraft.category,
+                  title: pendingDraft.title,
+                  summary: pendingDraft.summary,
+                  event_date: pendingDraft.event_date,
+                  intent_key: pendingDraft.intent,
+                  reminder_offsets: pendingDraft.reminder_offsets,
+                  recurrence: pendingDraft.recurrence,
+                  source: "explicit",
+                  confidence_level: pendingDraft.confidence_level,
+                  person_name: pendingDraft.person_name,
+                  relationship: pendingDraft.relationship,
+                },
+              }
+            : { message: text }
       ),
     });
 
@@ -97,13 +115,27 @@ export function AssistantChatPanel({
 
     if (data.saved) {
       setPendingDraft(null);
+      setPendingEvent(null);
+      setPendingGoal(null);
       return;
     }
 
-    if (data.memoryDraft) {
-      setPendingDraft(data.memoryDraft as MemoryDraft);
-    } else if (!confirmMemory) {
+    if (data.goalDraft) {
+      setPendingGoal(data.goalDraft as GoalDraft);
       setPendingDraft(null);
+      setPendingEvent(null);
+    } else if (data.eventDraft) {
+      setPendingEvent(data.eventDraft as EventDraft);
+      setPendingDraft(null);
+      setPendingGoal(null);
+    } else if (data.memoryDraft) {
+      setPendingDraft(data.memoryDraft as MemoryDraft);
+      setPendingEvent(null);
+      setPendingGoal(null);
+    } else if (!confirmMemory && !confirmEvent && !confirmGoal) {
+      setPendingDraft(null);
+      setPendingEvent(null);
+      setPendingGoal(null);
     }
   }
 
@@ -152,7 +184,56 @@ export function AssistantChatPanel({
               {msg.content}
             </div>
           ))}
-          {pendingDraft && (
+          {pendingGoal && (
+            <div className="rounded-xl border border-violet-200 bg-violet-50 p-3 text-sm">
+              <p className="font-medium text-gray-900">{pendingGoal.title}</p>
+              {pendingGoal.needs_clarification && pendingGoal.clarification_question && (
+                <p className="mt-1 text-gray-600">{pendingGoal.clarification_question}</p>
+              )}
+              <div className="mt-2 flex flex-wrap gap-2">
+                {!pendingGoal.needs_clarification && (
+                  <button
+                    type="button"
+                    disabled={sending}
+                    onClick={() => void sendMessage("", false, false, true)}
+                    className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs text-white hover:bg-indigo-700"
+                  >
+                    {labels.confirmGoal}
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setPendingGoal(null)}
+                  className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs text-gray-700"
+                >
+                  {labels.decline}
+                </button>
+              </div>
+            </div>
+          )}
+          {pendingEvent && !pendingGoal && (
+            <div className="rounded-xl border border-sky-200 bg-sky-50 p-3 text-sm">
+              <p className="font-medium text-gray-900">{pendingEvent.title}</p>
+              <div className="mt-2 flex gap-2">
+                <button
+                  type="button"
+                  disabled={sending}
+                  onClick={() => void sendMessage("", false, true)}
+                  className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs text-white hover:bg-indigo-700"
+                >
+                  {labels.confirmEvent}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPendingEvent(null)}
+                  className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs text-gray-700"
+                >
+                  {labels.decline}
+                </button>
+              </div>
+            </div>
+          )}
+          {pendingDraft && !pendingEvent && !pendingGoal && (
             <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm">
               <p className="font-medium text-gray-900">{pendingDraft.title}</p>
               <div className="mt-2 flex gap-2">
@@ -202,6 +283,15 @@ export function AssistantChatPanel({
       </div>
 
       <div className="flex flex-wrap gap-4">
+        <Link href="/app/assistant/goals" className="text-sm text-indigo-600 hover:underline">
+          {labels.viewGoals}
+        </Link>
+        <Link href="/app/assistant/context" className="text-sm text-indigo-600 hover:underline">
+          {labels.viewContext}
+        </Link>
+        <Link href="/app/assistant/calendars" className="text-sm text-indigo-600 hover:underline">
+          {labels.viewCalendars}
+        </Link>
         <Link href="/app/assistant/identity" className="text-sm text-indigo-600 hover:underline">
           {labels.viewIdentity}
         </Link>

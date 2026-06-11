@@ -1,0 +1,37 @@
+AIPIFY – PHASE 35
+CONTEXT ENGINE & UNIVERSAL CALENDAR LAYER (ACE + UCL)
+
+PURPOSE
+Intelligence layer above user calendars. Orchestrate, never replace.
+
+ROUTES
+/app/assistant/context — Context dashboard
+/app/assistant/calendars — Universal Calendar dashboard
+
+APIs
+GET/PATCH /api/assistant/context
+POST /api/assistant/context/analyze
+GET /api/assistant/context/summary
+GET /api/assistant/calendars
+POST /api/assistant/calendars/connect
+DELETE /api/assistant/calendars/disconnect
+GET/POST/PATCH /api/assistant/calendars/events
+
+DATABASE (migration 20260612300000_context_calendar_phase35.sql)
+context_settings, calendar_connections, calendar_events, calendar_sync_log
+
+RPCs
+get_customer_context_center, get_customer_calendar_center
+analyze_user_context, get_context_summary
+connect_calendar, disconnect_calendar, update_calendar_connection
+create_calendar_event, update_calendar_event, get_calendar_events
+update_context_settings, get_platform_context_overview
+
+IMPLEMENTATION
+lib/context-engine/ — dimensions, types, parse, scheduling
+components/app/assistant/ContextDashboardPanel.tsx
+components/app/assistant/CalendarDashboardPanel.tsx
+components/platform/PlatformContextPanel.tsx
+Chat: conversation.ts schedule intent + eventDraft confirm in /api/assistant
+
+STATUS: Implemented

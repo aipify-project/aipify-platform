@@ -15,6 +15,25 @@ export async function POST(request: Request) {
     const body = (await request.json()) as {
       message?: string;
       confirmMemory?: boolean;
+      confirmEvent?: boolean;
+      confirmGoal?: boolean;
+      goalDraft?: {
+        title: string;
+        description?: string;
+        why_matters?: string;
+        category?: string;
+        timeframe?: string;
+        accountability_level?: string;
+      };
+      eventDraft?: {
+        title: string;
+        description?: string;
+        event_type?: string;
+        calendar_purpose?: string;
+        starts_at?: string | null;
+        all_day?: boolean;
+        connection_id?: string | null;
+      };
       memoryDraft?: {
         category: string;
         title: string;
@@ -29,6 +48,50 @@ export async function POST(request: Request) {
         relationship?: string | null;
       };
     };
+
+    if (body.confirmGoal && body.goalDraft?.title) {
+      const draft = body.goalDraft;
+      const { data, error } = await supabase.rpc("create_user_goal", {
+        p_title: draft.title,
+        p_description: draft.description ?? draft.title,
+        p_why_matters: draft.why_matters ?? "",
+        p_category: draft.category ?? "personal_development",
+        p_timeframe: draft.timeframe ?? "medium_term",
+        p_accountability_level: draft.accountability_level ?? null,
+        p_target_date: null,
+        p_auto_milestones: true,
+      });
+
+      if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+
+      return NextResponse.json({
+        reply:
+          "Your goal is set with milestones to guide you. Open your Goals dashboard anytime — no pressure, your pace.",
+        goalId: data,
+        saved: true,
+      });
+    }
+
+    if (body.confirmEvent && body.eventDraft?.title) {
+      const draft = body.eventDraft;
+      const { data, error } = await supabase.rpc("create_calendar_event", {
+        p_title: draft.title,
+        p_description: draft.description ?? draft.title,
+        p_event_type: draft.event_type ?? "appointment",
+        p_calendar_purpose: draft.calendar_purpose ?? "personal",
+        p_starts_at: draft.starts_at ?? null,
+        p_all_day: draft.all_day ?? false,
+        p_connection_id: draft.connection_id ?? null,
+      });
+
+      if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+
+      return NextResponse.json({
+        reply: "Added to your calendar. I'll keep it in sync with your context.",
+        eventId: data,
+        saved: true,
+      });
+    }
 
     if (body.confirmMemory && body.memoryDraft) {
       const draft = body.memoryDraft;
@@ -89,6 +152,12 @@ export async function POST(request: Request) {
       askBeforeRemembering: turn.askBeforeRemembering,
       confidence_level: turn.confidence_level,
       suggestLifeDashboard: turn.suggestLifeDashboard ?? false,
+      suggestContextDashboard: turn.suggestContextDashboard ?? false,
+      eventDraft: turn.eventDraft ?? null,
+      schedulingFollowUp: turn.schedulingFollowUp,
+      goalDraft: turn.goalDraft ?? null,
+      suggestGoalsDashboard: turn.suggestGoalsDashboard ?? false,
+      goalFollowUp: turn.goalFollowUp,
     });
   } catch {
     return NextResponse.json({ error: "Assistant request failed" }, { status: 500 });

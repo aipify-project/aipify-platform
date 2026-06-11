@@ -116,6 +116,10 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Identity Engine / AIE (Phase 34):** See [IDENTITY_ENGINE.md](./IDENTITY_ENGINE.md) — per-user communication identity, observation approval, reply adaptation, `/app/assistant/identity`. Transparent — never manipulative. `lib/identity-engine/`, migration `20260612200000_identity_engine_phase34.sql`.
 
+**Context Engine & Universal Calendar Layer / ACE + UCL (Phase 35):** See [CONTEXT_ENGINE.md](./CONTEXT_ENGINE.md) — orchestrates calendars users already trust; context modes, daily briefings, conflict detection, natural language scheduling. `/app/assistant/context`, `/app/assistant/calendars`. `lib/context-engine/`, migration `20260612300000_context_calendar_phase35.sql`.
+
+**Goals & Dreams Engine / GDE (Phase 36):** See [GOALS_DREAMS_ENGINE.md](./GOALS_DREAMS_ENGINE.md) — long-term aspirations, milestones, accountability, celebrations, setback support. `/app/assistant/goals`. `lib/goals-dreams-engine/`, migration `20260612400000_goals_dreams_phase36.sql`.
+
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
 
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.

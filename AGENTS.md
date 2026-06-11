@@ -50,6 +50,10 @@ For **Relationship & Social Intelligence (RSI)**, read **[RELATIONSHIP_SOCIAL_IN
 
 For **Identity Engine (AIE)**, read **[IDENTITY_ENGINE.md](./IDENTITY_ENGINE.md)**. Constants in `lib/identity-engine/`; dashboard at `/app/assistant/identity`; APIs at `/api/assistant/identity`. Per-user communication style; observations require approval; `adaptReplyToIdentity()` on assistant replies.
 
+For **Context Engine & Universal Calendar Layer (ACE + UCL)**, read **[CONTEXT_ENGINE.md](./CONTEXT_ENGINE.md)**. Constants in `lib/context-engine/`; dashboards at `/app/assistant/context` and `/app/assistant/calendars`; APIs at `/api/assistant/context` and `/api/assistant/calendars`. Orchestrates calendars — never replaces them; natural language scheduling via `detectSchedulingIntent()` with user confirmation.
+
+For **Goals & Dreams Engine (GDE)**, read **[GOALS_DREAMS_ENGINE.md](./GOALS_DREAMS_ENGINE.md)**. Constants in `lib/goals-dreams-engine/`; dashboard at `/app/assistant/goals`; APIs at `/api/assistant/goals`. Supports aspirations with milestones and accountability — never guilt; natural language via `detectGoalIntent()` with user confirmation.
+
 ## Aipify architecture — mandatory before every feature
 
 Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.

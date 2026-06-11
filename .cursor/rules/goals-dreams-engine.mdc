@@ -1,0 +1,27 @@
+---
+description: Goals & Dreams Engine (GDE) — Phase 36
+alwaysApply: true
+---
+
+# Goals & Dreams Engine
+
+See [GOALS_DREAMS_ENGINE.md](../../GOALS_DREAMS_ENGINE.md).
+
+## Rules
+
+1. Support aspirations — never create guilt or pressure around setbacks.
+2. Business logic in Supabase RPCs; panels and API routes are thin clients.
+3. Natural language goal detection requires user confirmation before `create_user_goal`.
+4. Vague goals trigger clarification — never assume specifics silently.
+5. Milestones auto-suggested on creation; user can complete, pause, or archive.
+6. Celebrations and check-ins respect `gde_settings` toggles.
+7. Platform uses `get_platform_goals_overview` — aggregates only, never goal content.
+8. i18n: `customerApp.goalsDreams.*`, `platform.goalsDreams.*` in en/no/sv/da.
+
+## Tables
+
+`gde_settings` · `user_goals` · `goal_milestones` · `goal_actions` · `goal_activity`
+
+## Route
+
+`/app/assistant/goals`

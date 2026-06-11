@@ -6,6 +6,10 @@ import {
   permissionPromptForIntent,
   type MemoryIntent,
 } from "./memory-intent-dataset";
+import { detectSchedulingIntent } from "@/lib/context-engine/scheduling";
+import type { EventDraft } from "@/lib/context-engine/types";
+import { detectGoalIntent } from "@/lib/goals-dreams-engine/detection";
+import type { GoalDraft } from "@/lib/goals-dreams-engine/types";
 import { detectRelationshipSignal } from "@/lib/relationship-intelligence/detection";
 import { defaultEventReminders } from "./reminders";
 import { toAssistantIntent, type AssistantIntent } from "./intent";
@@ -34,6 +38,12 @@ export type AssistantTurnResult = {
   followUpOptions?: string[];
   confidence_level: "high" | "medium" | "low";
   suggestLifeDashboard?: boolean;
+  suggestContextDashboard?: boolean;
+  eventDraft?: EventDraft | null;
+  schedulingFollowUp?: string[];
+  goalDraft?: GoalDraft | null;
+  suggestGoalsDashboard?: boolean;
+  goalFollowUp?: string[];
 };
 
 const MONTH_PATTERN =
@@ -177,8 +187,9 @@ export function buildAssistantTurn(
       memoryDraft: null,
       askBeforeRemembering: false,
       suggestLifeDashboard: true,
+      suggestContextDashboard: true,
       reply:
-        "I can help with that. Your Life dashboard has today's overview, priorities, and what needs attention — open it anytime, or tell me what you'd like remembered.",
+        "I can help with that. Your Context dashboard has today's briefing, connected calendars, and what needs attention — open it anytime, or tell me what you'd like scheduled.",
       confidence_level: "low",
     };
   }
@@ -190,21 +201,56 @@ export function buildAssistantTurn(
       memoryDraft: null,
       askBeforeRemembering: false,
       suggestLifeDashboard: true,
+      suggestContextDashboard: true,
       reply:
-        "Let's look at your day. Your Life dashboard has an evening review — what's still pending, and whether you'd like to move anything to tomorrow.",
+        "Let's look at your day. Your Context dashboard has an evening review — what's still pending, and whether you'd like to reschedule anything.",
       confidence_level: "low",
     };
   }
 
-  if (memoryIntent === "schedule") {
+  const goalIntent = detectGoalIntent(message);
+  if (goalIntent?.detected && goalIntent.draft) {
+    return {
+      intent: "general",
+      memory_intent: memoryIntent,
+      memoryDraft: null,
+      goalDraft: goalIntent.draft,
+      askBeforeRemembering: !goalIntent.draft.needs_clarification,
+      suggestGoalsDashboard: true,
+      goalFollowUp: goalIntent.follow_up_options,
+      reply: goalIntent.prompt,
+      confidence_level: goalIntent.draft.needs_clarification ? "medium" : "high",
+    };
+  }
+
+  const scheduling = detectSchedulingIntent(message);
+  if (memoryIntent === "schedule" || scheduling?.detected) {
+    const proposal = scheduling ?? {
+      detected: true,
+      title: buildTitle(message),
+      event_date: extractEventDate(message),
+      suggested_purpose: "personal" as const,
+      suggested_calendar_name: "personal calendar",
+      prompt: "Would you like me to add this to your calendar?",
+    };
+    const eventDraft: EventDraft = {
+      title: proposal.title,
+      description: message.trim(),
+      event_type: /remind/i.test(message) ? "reminder" : "appointment",
+      calendar_purpose: proposal.suggested_purpose,
+      starts_at: proposal.event_date ? `${proposal.event_date}T09:00:00.000Z` : null,
+      all_day: Boolean(proposal.event_date),
+    };
     return {
       intent,
       memory_intent: memoryIntent,
       memoryDraft: null,
-      askBeforeRemembering: false,
-      reply:
-        "Calendar integration with Google, Apple, and Outlook is planned. I can remember the details and remind you until then.",
-      confidence_level: "low",
+      eventDraft,
+      askBeforeRemembering: true,
+      suggestContextDashboard: true,
+      schedulingFollowUp: proposal.follow_up_options,
+      reply: proposal.prompt,
+      confidence_level: confidence,
     };
   }
 
@@ -273,7 +319,7 @@ export function buildAssistantTurn(
     memoryDraft: null,
     askBeforeRemembering: false,
     reply:
-      "I'm listening. Tell me what matters — birthdays, follow-ups, or things you don't want to forget.",
+      "I'm listening. Tell me what matters — goals you're working toward, birthdays, follow-ups, or things you don't want to forget.",
     confidence_level: "low",
   };
 }

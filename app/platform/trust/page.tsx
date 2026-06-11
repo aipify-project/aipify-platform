@@ -1,5 +1,7 @@
 import PlatformAssistantMemoryPanel from "@/components/platform/PlatformAssistantMemoryPanel";
 import PlatformLifeOsPanel from "@/components/platform/PlatformLifeOsPanel";
+import PlatformContextPanel from "@/components/platform/PlatformContextPanel";
+import PlatformGoalsPanel from "@/components/platform/PlatformGoalsPanel";
 import PlatformIdentityPanel from "@/components/platform/PlatformIdentityPanel";
 import PlatformRelationshipPanel from "@/components/platform/PlatformRelationshipPanel";
 import PlatformTrustActionsPanel from "@/components/platform/PlatformTrustActionsPanel";
@@ -42,6 +44,32 @@ export default async function PlatformTrustPage() {
           disabled: t("platform.assistantMemory.disabled"),
           byCategory: t("platform.assistantMemory.byCategory"),
           privacyNote: t("platform.assistantMemory.privacyNote"),
+        }}
+      />
+      <PlatformGoalsPanel
+        labels={{
+          title: t("platform.goalsDreams.title"),
+          subtitle: t("platform.goalsDreams.subtitle"),
+          loading: t("platform.goalsDreams.loading"),
+          users: t("platform.goalsDreams.users"),
+          active: t("platform.goalsDreams.active"),
+          completed: t("platform.goalsDreams.completed"),
+          milestones: t("platform.goalsDreams.milestones"),
+          byCategory: t("platform.goalsDreams.byCategory"),
+          privacyNote: t("platform.goalsDreams.privacyNote"),
+        }}
+      />
+      <PlatformContextPanel
+        labels={{
+          title: t("platform.contextEngine.title"),
+          subtitle: t("platform.contextEngine.subtitle"),
+          loading: t("platform.contextEngine.loading"),
+          profiles: t("platform.contextEngine.profiles"),
+          connections: t("platform.contextEngine.connections"),
+          pending: t("platform.contextEngine.pending"),
+          events: t("platform.contextEngine.events"),
+          byMode: t("platform.contextEngine.byMode"),
+          privacyNote: t("platform.contextEngine.privacyNote"),
         }}
       />
       <PlatformIdentityPanel

@@ -475,6 +475,28 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratorer kan ikke se brukerens minneinnhold. Kun aggregater."
   },
+  "goalsDreams": {
+    "title": "GDE-styring",
+    "subtitle": "Aggregerte målmetrikker — ikke målinnhold.",
+    "loading": "Laster måloversikt…",
+    "users": "Brukere med mål",
+    "active": "Aktive mål",
+    "completed": "Fullførte mål",
+    "milestones": "Fullførte milepæler",
+    "byCategory": "Etter kategori",
+    "privacyNote": "Administratorer kan ikke se målinnhold. Kun aggregater."
+  },
+  "contextEngine": {
+    "title": "ACE og UCL-styring",
+    "subtitle": "Aggregerte kontekst- og kalendermetrikker — ikke hendelsesinnhold.",
+    "loading": "Laster kontekstoversikt…",
+    "profiles": "Kontekstprofiler",
+    "connections": "Tilkoblede kalendere",
+    "pending": "Ventende tilkoblinger",
+    "events": "Planlagte interne hendelser",
+    "byMode": "Etter kontekstmodus",
+    "privacyNote": "Administratorer kan ikke se kalenderhendelser eller kontekstdetaljer. Kun aggregater."
+  },
   "identity": {
     "title": "AIE-styring",
     "subtitle": "Aggregerte identitetsmetrikker — ikke profilinnhold.",

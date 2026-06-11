@@ -233,6 +233,11 @@
     "viewLife": "Livsoversikt",
     "viewRelationships": "Relasjoner",
     "viewIdentity": "Din identitet",
+    "viewContext": "Kontekstoversikt",
+    "viewCalendars": "Kalendere",
+    "confirmEvent": "Ja, legg til i kalender",
+    "confirmGoal": "Ja, opprett dette målet",
+    "viewGoals": "Mål og drømmer",
     "proactiveTitle": "Proaktive forslag",
     "loading": "Tenker…"
   },
@@ -483,6 +488,153 @@
       "minimal": "Minimal",
       "balanced": "Balanced",
       "frequent": "More frequent"
+    }
+  },
+  "contextEngine": {
+    "title": "Kontekst",
+    "subtitle": "Din situasjon, samlet — kalendere, prioriteringer og det som betyr noe nå.",
+    "loading": "Laster kontekst…",
+    "back": "Tilbake til assistent",
+    "save": "Lagre preferanser",
+    "saved": "Lagret",
+    "privacy": "Du styrer kontekstmodus, kalendertilgang og hvor proaktiv jeg er.",
+    "analyze": "Oppdater analyse",
+    "viewCalendars": "Administrer kalendere",
+    "empty": "Ingen kalendere tilkoblet ennå.",
+    "sections": {
+      "mode": "Aktuell kontekst",
+      "calendars": "Tilkoblede kalendere",
+      "briefing": "Daglig briefing",
+      "evening": "Kveldsoppsummering",
+      "events": "Kommende hendelser",
+      "tasks": "Prioriterte oppgaver",
+      "conflicts": "Mulige konflikter",
+      "workload": "Arbeidsbelastning",
+      "suggestions": "Foreslåtte handlinger",
+      "proactive": "Proaktiv assistanse",
+      "settings": "Preferanser"
+    },
+    "settings": {
+      "contextMode": "Kontekstmodus",
+      "proactive": "Proaktiv assistanse",
+      "dailyBriefing": "Daglig briefing",
+      "eveningReview": "Kveldsoppsummering",
+      "conflicts": "Konfliktdeteksjon",
+      "cognitiveLoad": "Varsler om kognitiv belastning"
+    },
+    "contextModes": {
+      "auto": "Automatisk",
+      "work": "Arbeid",
+      "personal": "Personlig",
+      "family": "Familie",
+      "vacation": "Ferie",
+      "focus": "Fokus",
+      "recovery": "Restitusjon",
+      "planning": "Planlegging"
+    },
+    "proactiveLevels": {
+      "minimal": "Minimal",
+      "balanced": "Balansert",
+      "proactive": "Proaktiv"
+    },
+    "workloadLevels": {
+      "high": "Høy belastning",
+      "moderate": "Moderat",
+      "low": "Lav"
+    }
+  },
+  "universalCalendar": {
+    "title": "Kalendere",
+    "subtitle": "Koble til kalenderne du allerede bruker — Aipify orkestrerer dem, erstatter dem ikke.",
+    "loading": "Laster kalendere…",
+    "back": "Tilbake til kontekst",
+    "privacy": "Kalenderdataene dine tilhører deg. Koble fra når som helst.",
+    "connect": "Koble til",
+    "disconnect": "Koble fra",
+    "connecting": "Kobler til…",
+    "viewContext": "Kontekstoversikt",
+    "empty": "Ingen eksterne kalendere tilkoblet.",
+    "internalNote": "Innebygd kalender for avtaler, påminnelser og planlegging.",
+    "sections": {
+      "connections": "Tilkoblede kalendere",
+      "providers": "Legg til kalender",
+      "activity": "Nylig aktivitet",
+      "syncHistory": "Synkroniseringshistorikk",
+      "permissions": "Tillatelser"
+    },
+    "providers": {
+      "aipify_internal": "Aipify-kalender",
+      "apple": "Apple-kalender",
+      "google": "Google-kalender",
+      "outlook": "Outlook",
+      "microsoft365": "Microsoft 365",
+      "samsung": "Samsung-kalender",
+      "yahoo": "Yahoo-kalender",
+      "fastmail": "Fastmail",
+      "nextcloud": "Nextcloud",
+      "exchange": "Exchange",
+      "caldav": "CalDAV"
+    },
+    "purposes": {
+      "work": "Arbeid",
+      "personal": "Personlig",
+      "family": "Familie",
+      "travel": "Reise",
+      "health": "Helse",
+      "education": "Utdanning",
+      "custom": "Egendefinert"
+    },
+    "statuses": {
+      "connected": "Tilkoblet",
+      "pending": "Venter på autorisasjon",
+      "disconnected": "Frakoblet",
+      "error": "Feil"
+    }
+  },
+  "goalsDreams": {
+    "title": "Mål og drømmer",
+    "subtitle": "Støtte for det som virkelig betyr noe — fremgang uten press, vekst i ditt tempo.",
+    "loading": "Laster mål…",
+    "back": "Tilbake til assistent",
+    "save": "Lagre preferanser",
+    "saved": "Lagret",
+    "privacy": "Målene dine tilhører deg. Du styrer ansvarlighet og forslag.",
+    "export": "Eksporter mål",
+    "checkIn": "Sjekk inn",
+    "completeMilestone": "Fullfør",
+    "pause": "Pause",
+    "empty": "Ingen aktive mål ennå. Fortell meg hva du jobber mot — med dine egne ord.",
+    "sections": {
+      "active": "Aktive mål",
+      "completed": "Fullførte mål",
+      "milestones": "Milepæler",
+      "actions": "Neste handlinger",
+      "nextSteps": "Anbefalte neste steg",
+      "celebrations": "Feiringer",
+      "checkIns": "Innsjekkingshistorikk",
+      "settings": "Preferanser"
+    },
+    "settings": {
+      "accountability": "Standard ansvarlighet",
+      "proactive": "Proaktive forslag",
+      "celebrations": "Feir fremgang",
+      "setbacks": "Støtte ved tilbakeslag",
+      "checkInDays": "Innsjekkingsfrekvens (dager)"
+    },
+    "categories": {
+      "personal_development": "Personlig utvikling",
+      "career": "Karriere",
+      "financial": "Økonomi",
+      "family": "Familie",
+      "health": "Helse",
+      "education": "Utdanning",
+      "lifestyle": "Livsstil"
+    },
+    "accountabilityLevels": {
+      "minimal": "Minimal",
+      "occasional": "Av og til innsjekk",
+      "regular": "Regelmessig oppmuntring",
+      "highly_supportive": "Svært støttende"
     }
   }
 }

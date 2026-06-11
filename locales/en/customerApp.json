@@ -233,6 +233,11 @@
     "viewLife": "Life dashboard",
     "viewRelationships": "Relationships",
     "viewIdentity": "Your identity",
+    "viewContext": "Context dashboard",
+    "viewCalendars": "Calendars",
+    "confirmEvent": "Yes, add to calendar",
+    "confirmGoal": "Yes, create this goal",
+    "viewGoals": "Goals & dreams",
     "proactiveTitle": "Proactive suggestions",
     "loading": "Thinking…"
   },
@@ -467,6 +472,153 @@
       "minimal": "Minimal",
       "balanced": "Balanced",
       "frequent": "More frequent"
+    }
+  },
+  "contextEngine": {
+    "title": "Context",
+    "subtitle": "Your situation, unified — calendars, priorities, and what matters now.",
+    "loading": "Loading context…",
+    "back": "Back to Assistant",
+    "save": "Save preferences",
+    "saved": "Saved",
+    "privacy": "You control context modes, calendar access, and how proactive I am.",
+    "analyze": "Refresh analysis",
+    "viewCalendars": "Manage calendars",
+    "empty": "No calendars connected yet.",
+    "sections": {
+      "mode": "Current context",
+      "calendars": "Connected calendars",
+      "briefing": "Daily briefing",
+      "evening": "Evening review",
+      "events": "Upcoming events",
+      "tasks": "Priority tasks",
+      "conflicts": "Potential conflicts",
+      "workload": "Workload",
+      "suggestions": "Suggested actions",
+      "proactive": "Proactive assistance",
+      "settings": "Preferences"
+    },
+    "settings": {
+      "contextMode": "Context mode",
+      "proactive": "Proactive assistance",
+      "dailyBriefing": "Daily briefing",
+      "eveningReview": "Evening review",
+      "conflicts": "Conflict detection",
+      "cognitiveLoad": "Cognitive load alerts"
+    },
+    "contextModes": {
+      "auto": "Automatic",
+      "work": "Work",
+      "personal": "Personal",
+      "family": "Family",
+      "vacation": "Vacation",
+      "focus": "Focus",
+      "recovery": "Recovery",
+      "planning": "Planning"
+    },
+    "proactiveLevels": {
+      "minimal": "Minimal",
+      "balanced": "Balanced",
+      "proactive": "Proactive"
+    },
+    "workloadLevels": {
+      "high": "High load",
+      "moderate": "Moderate",
+      "low": "Light"
+    }
+  },
+  "universalCalendar": {
+    "title": "Calendars",
+    "subtitle": "Connect the calendars you already use — Aipify orchestrates them, never replaces them.",
+    "loading": "Loading calendars…",
+    "back": "Back to Context",
+    "privacy": "Your calendar data belongs to you. Disconnect anytime.",
+    "connect": "Connect",
+    "disconnect": "Disconnect",
+    "connecting": "Connecting…",
+    "viewContext": "Context dashboard",
+    "empty": "No external calendars connected.",
+    "internalNote": "Built-in calendar for appointments, reminders, and planning.",
+    "sections": {
+      "connections": "Connected calendars",
+      "providers": "Add a calendar",
+      "activity": "Recent activity",
+      "syncHistory": "Sync history",
+      "permissions": "Permissions"
+    },
+    "providers": {
+      "aipify_internal": "Aipify Calendar",
+      "apple": "Apple Calendar",
+      "google": "Google Calendar",
+      "outlook": "Outlook",
+      "microsoft365": "Microsoft 365",
+      "samsung": "Samsung Calendar",
+      "yahoo": "Yahoo Calendar",
+      "fastmail": "Fastmail",
+      "nextcloud": "Nextcloud",
+      "exchange": "Exchange",
+      "caldav": "CalDAV"
+    },
+    "purposes": {
+      "work": "Work",
+      "personal": "Personal",
+      "family": "Family",
+      "travel": "Travel",
+      "health": "Health",
+      "education": "Education",
+      "custom": "Custom"
+    },
+    "statuses": {
+      "connected": "Connected",
+      "pending": "Pending authorization",
+      "disconnected": "Disconnected",
+      "error": "Error"
+    }
+  },
+  "goalsDreams": {
+    "title": "Goals & dreams",
+    "subtitle": "Support for what truly matters — progress without pressure, growth at your pace.",
+    "loading": "Loading goals…",
+    "back": "Back to Assistant",
+    "save": "Save preferences",
+    "saved": "Saved",
+    "privacy": "Your goals belong to you. You control accountability and suggestions.",
+    "export": "Export goals",
+    "checkIn": "Check in",
+    "completeMilestone": "Complete",
+    "pause": "Pause",
+    "empty": "No active goals yet. Tell me what you're working toward — in your own words.",
+    "sections": {
+      "active": "Active goals",
+      "completed": "Completed goals",
+      "milestones": "Milestones",
+      "actions": "Next actions",
+      "nextSteps": "Recommended next steps",
+      "celebrations": "Celebrations",
+      "checkIns": "Check-in history",
+      "settings": "Preferences"
+    },
+    "settings": {
+      "accountability": "Default accountability",
+      "proactive": "Proactive suggestions",
+      "celebrations": "Celebrate progress",
+      "setbacks": "Setback support",
+      "checkInDays": "Check-in frequency (days)"
+    },
+    "categories": {
+      "personal_development": "Personal development",
+      "career": "Career",
+      "financial": "Financial",
+      "family": "Family",
+      "health": "Health",
+      "education": "Education",
+      "lifestyle": "Lifestyle"
+    },
+    "accountabilityLevels": {
+      "minimal": "Minimal",
+      "occasional": "Occasional check-ins",
+      "regular": "Regular encouragement",
+      "highly_supportive": "Highly supportive"
     }
   },
   "nav": {
