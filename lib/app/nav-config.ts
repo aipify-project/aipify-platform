@@ -41,6 +41,8 @@ export type AppNavId =
   | "commerceIntelligenceEngine"
   | "productAutomationEngine"
   | "dropshippingOperationsEngine"
+  | "commercePerformanceEngine"
+  | "multiStoreOrchestrationEngine"
   | "personalityEngine"
   | "workstyleEngine"
   | "approvals"
@@ -116,6 +118,8 @@ export const APP_NAV: AppNavItem[] = [
   { id: "commerceIntelligenceEngine", href: "/app/commerce-intelligence", labelKey: "customerApp.nav.commerceIntelligenceEngine" },
   { id: "productAutomationEngine", href: "/app/product-automation", labelKey: "customerApp.nav.productAutomationEngine" },
   { id: "dropshippingOperationsEngine", href: "/app/dropshipping-operations", labelKey: "customerApp.nav.dropshippingOperationsEngine" },
+  { id: "commercePerformanceEngine", href: "/app/commerce-performance", labelKey: "customerApp.nav.commercePerformanceEngine" },
+  { id: "multiStoreOrchestrationEngine", href: "/app/multi-store", labelKey: "customerApp.nav.multiStoreOrchestrationEngine" },
   { id: "personalityEngine", href: "/app/personality", labelKey: "customerApp.nav.personalityEngine" },
   { id: "approvals", href: "/app/approvals", labelKey: "customerApp.nav.approvals" },
   { id: "actionCenter", href: "/app/action-center", labelKey: "customerApp.nav.actionCenter" },
@@ -193,6 +197,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/commerce-intelligence")) return "commerceIntelligenceEngine";
   if (pathname.startsWith("/app/product-automation")) return "productAutomationEngine";
   if (pathname.startsWith("/app/dropshipping-operations")) return "dropshippingOperationsEngine";
+  if (pathname.startsWith("/app/commerce-performance")) return "commercePerformanceEngine";
+  if (pathname.startsWith("/app/multi-store")) return "multiStoreOrchestrationEngine";
   if (pathname.startsWith("/app/personality")) return "personalityEngine";
   if (pathname.startsWith("/app/approvals")) return "approvals";
   if (pathname.startsWith("/app/action-center") || pathname.startsWith("/app/actions")) {
