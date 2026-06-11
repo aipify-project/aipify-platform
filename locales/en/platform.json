@@ -630,6 +630,17 @@
     "byCategory": "By category",
     "privacyNote": "Administrators cannot access user memory content. Aggregates only."
   },
+  "commercialPackages": {
+    "title": "Commercial packages governance",
+    "subtitle": "Aggregate package and module adoption — no tenant billing details.",
+    "loading": "Loading commercial packages overview…",
+    "packages": "Active packages",
+    "tenants": "Tenants with modules",
+    "licensed": "Licensed modules",
+    "enabled": "Enabled modules",
+    "trials": "Trial modules",
+    "privacyNote": "Administrators cannot access tenant billing details. Aggregates only."
+  },
   "employeeKnowledge": {
     "title": "EKE governance",
     "subtitle": "Aggregate employee knowledge metrics — no article content.",

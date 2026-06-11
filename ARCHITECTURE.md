@@ -130,6 +130,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Employee Knowledge Engine / EKE (Phase 41):** See [EMPLOYEE_KNOWLEDGE_ENGINE.md](./EMPLOYEE_KNOWLEDGE_ENGINE.md) — approved knowledge ingestion, role permissions, employee assistant Q&A, step-by-step guidance, onboarding paths, gap detection, health score. `/app/settings/employee-knowledge`. `lib/employee-knowledge-engine/`, migration `20260612900000_employee_knowledge_phase41.sql`.
 
+**Commercial Packages & Modular Architecture (Phase 42):** See [COMMERCIAL_PACKAGES.md](./COMMERCIAL_PACKAGES.md) — subscription packages, tenant module licensing, billing dashboard, module management, usage tracking, feature flags, upgrade flows. `/app/settings/billing`, `/app/settings/modules`. `lib/commercial-packages/`, migration `20260613000000_commercial_packages_phase42.sql`.
+
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
 
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.

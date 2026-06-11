@@ -50,6 +50,8 @@ The first complete customer-facing product experience. Customers interact with *
 | `/app/settings/business-dna` | BDE Knowledge Approval Center — profile, templates, knowledge, escalation, automation readiness |
 | `/app/settings/support-operations` | ASO Admin Control Center — autonomy levels, triage, performance, approval queue, knowledge gaps |
 | `/app/settings/employee-knowledge` | EKE Internal Knowledge Dashboard — coverage, gaps, onboarding, role permissions, employee Q&A |
+| `/app/settings/billing` | Commercial billing — current package, usage, upgrades, add-on marketplace |
+| `/app/settings/modules` | Module management — enable/disable licensed modules, upgrade recommendations |
 
 Legacy: `/dashboard/*` remains during migration. `/app/command-center` remains for Command Center / desktop pairing.
 

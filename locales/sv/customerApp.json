@@ -183,7 +183,9 @@
       "learning": "Inlärning och integritet",
       "businessDna": "Business DNA",
       "supportOperations": "Supportoperationer",
-      "employeeKnowledge": "Medarbetarkunskap"
+      "employeeKnowledge": "Medarbetarkunskap",
+      "billing": "Fakturering och paket",
+      "modules": "Modulhantering"
     }
   },
   "learning": {
@@ -926,6 +928,55 @@
       "category": "Kategori",
       "content": "Innehåll",
       "submit": "Lägg till kunskapsobjekt"
+    }
+  },
+  "commercialPackages": {
+    "billing": {
+      "title": "Fakturering och paket",
+      "subtitle": "Ditt paket, användning, uppgraderingar och tillägg — betala bara för det du behöver.",
+      "loading": "Laddar faktureringscenter…",
+      "back": "Tillbaka till inställningar",
+      "viewLicense": "Licenscenter",
+      "viewModules": "Modulhantering",
+      "empty": "Inget att visa ännu.",
+      "sections": {
+        "package": "Aktuellt paket",
+        "modules": "Aktiverade moduler",
+        "usage": "Användning denna månad",
+        "limits": "Hyresgästgränser",
+        "upgrades": "Uppgraderingsalternativ",
+        "addons": "Tilläggsmarknad",
+        "recommendations": "Uppgraderingsrekommendationer",
+        "history": "Faktureringshistorik",
+        "suites": "Produktpaket"
+      },
+      "usage": {
+        "supportCases": "Supportärenden",
+        "autonomous": "Autonoma lösningar",
+        "knowledgeSearches": "Kunskapssökningar",
+        "employeeInteractions": "Medarbetarinteraktioner",
+        "insightReports": "Insiktsrapporter",
+        "apiCalls": "API-anrop",
+        "aiUsage": "AI-användningsvolym"
+      }
+    },
+    "modules": {
+      "title": "Modulhantering",
+      "subtitle": "Aktivera eller inaktivera köpta moduler. Aipify växer med ditt företag.",
+      "loading": "Laddar moduler…",
+      "back": "Tillbaka till inställningar",
+      "viewBilling": "Fakturering och paket",
+      "empty": "Inga moduler tillgängliga.",
+      "enable": "Aktivera",
+      "disable": "Inaktivera",
+      "sections": {
+        "installed": "Installerade moduler",
+        "available": "Tillgängligt med uppgradering",
+        "trials": "Testmoduler",
+        "recommendations": "Uppgraderingsrekommendationer",
+        "packages": "Kommersiella paket",
+        "flags": "Funktionsflaggor"
+      }
     }
   }
 }

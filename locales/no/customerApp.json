@@ -183,7 +183,9 @@
       "learning": "Læring og personvern",
       "businessDna": "Business DNA",
       "supportOperations": "Supportoperasjoner",
-      "employeeKnowledge": "Ansattkunnskap"
+      "employeeKnowledge": "Ansattkunnskap",
+      "billing": "Fakturering og pakker",
+      "modules": "Modulstyring"
     }
   },
   "learning": {
@@ -926,6 +928,55 @@
       "category": "Kategori",
       "content": "Innhold",
       "submit": "Legg til kunnskapselement"
+    }
+  },
+  "commercialPackages": {
+    "billing": {
+      "title": "Fakturering og pakker",
+      "subtitle": "Din pakke, bruk, oppgraderinger og tillegg — betal kun for det du trenger.",
+      "loading": "Laster faktureringssenter…",
+      "back": "Tilbake til innstillinger",
+      "viewLicense": "Lisenssenter",
+      "viewModules": "Modulstyring",
+      "empty": "Ingenting å vise ennå.",
+      "sections": {
+        "package": "Gjeldende pakke",
+        "modules": "Aktiverte moduler",
+        "usage": "Bruk denne måneden",
+        "limits": "Leietakergrenser",
+        "upgrades": "Oppgraderingsalternativer",
+        "addons": "Tilleggsmarked",
+        "recommendations": "Oppgraderingsanbefalinger",
+        "history": "Faktureringshistorikk",
+        "suites": "Produktpakker"
+      },
+      "usage": {
+        "supportCases": "Support-saker",
+        "autonomous": "Autonome løsninger",
+        "knowledgeSearches": "Kunnskapssøk",
+        "employeeInteractions": "Ansattinteraksjoner",
+        "insightReports": "Innsiktsrapporter",
+        "apiCalls": "API-kall",
+        "aiUsage": "AI-bruksvolum"
+      }
+    },
+    "modules": {
+      "title": "Modulstyring",
+      "subtitle": "Aktiver eller deaktiver kjøpte moduler. Aipify vokser med virksomheten din.",
+      "loading": "Laster moduler…",
+      "back": "Tilbake til innstillinger",
+      "viewBilling": "Fakturering og pakker",
+      "empty": "Ingen moduler tilgjengelig.",
+      "enable": "Aktiver",
+      "disable": "Deaktiver",
+      "sections": {
+        "installed": "Installerte moduler",
+        "available": "Tilgjengelig med oppgradering",
+        "trials": "Prøvemoduler",
+        "recommendations": "Oppgraderingsanbefalinger",
+        "packages": "Kommersielle pakker",
+        "flags": "Funksjonsflagg"
+      }
     }
   }
 }

@@ -436,6 +436,17 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratörer kan inte se användarnas minnesinnehåll. Endast aggregat."
   },
+  "commercialPackages": {
+    "title": "Kommersiella paket",
+    "subtitle": "Aggregerad paket- och moduladoption — inga faktureringsdetaljer.",
+    "loading": "Laddar paketöversikt…",
+    "packages": "Aktiva paket",
+    "tenants": "Hyresgäster med moduler",
+    "licensed": "Licensierade moduler",
+    "enabled": "Aktiverade moduler",
+    "trials": "Testmoduler",
+    "privacyNote": "Administratörer kan inte se faktureringsdetaljer. Endast aggregat."
+  },
   "employeeKnowledge": {
     "title": "EKE-styrning",
     "subtitle": "Aggregerade medarbetarkunskapsmetriker — inget artikelinnehåll.",

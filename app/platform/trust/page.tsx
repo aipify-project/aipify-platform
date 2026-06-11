@@ -6,6 +6,7 @@ import PlatformDecisionPanel from "@/components/platform/PlatformDecisionPanel";
 import PlatformBusinessDnaPanel from "@/components/platform/PlatformBusinessDnaPanel";
 import PlatformSupportOperationsPanel from "@/components/platform/PlatformSupportOperationsPanel";
 import PlatformEmployeeKnowledgePanel from "@/components/platform/PlatformEmployeeKnowledgePanel";
+import PlatformCommercialPackagesPanel from "@/components/platform/PlatformCommercialPackagesPanel";
 import PlatformGoalsPanel from "@/components/platform/PlatformGoalsPanel";
 import PlatformIdentityPanel from "@/components/platform/PlatformIdentityPanel";
 import PlatformRelationshipPanel from "@/components/platform/PlatformRelationshipPanel";
@@ -49,6 +50,19 @@ export default async function PlatformTrustPage() {
           disabled: t("platform.assistantMemory.disabled"),
           byCategory: t("platform.assistantMemory.byCategory"),
           privacyNote: t("platform.assistantMemory.privacyNote"),
+        }}
+      />
+      <PlatformCommercialPackagesPanel
+        labels={{
+          title: t("platform.commercialPackages.title"),
+          subtitle: t("platform.commercialPackages.subtitle"),
+          loading: t("platform.commercialPackages.loading"),
+          packages: t("platform.commercialPackages.packages"),
+          tenants: t("platform.commercialPackages.tenants"),
+          licensed: t("platform.commercialPackages.licensed"),
+          enabled: t("platform.commercialPackages.enabled"),
+          trials: t("platform.commercialPackages.trials"),
+          privacyNote: t("platform.commercialPackages.privacyNote"),
         }}
       />
       <PlatformEmployeeKnowledgePanel

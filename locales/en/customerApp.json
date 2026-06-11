@@ -183,7 +183,9 @@
       "learning": "Learning & privacy",
       "businessDna": "Business DNA",
       "supportOperations": "Support operations",
-      "employeeKnowledge": "Employee knowledge"
+      "employeeKnowledge": "Employee knowledge",
+      "billing": "Billing & packages",
+      "modules": "Module management"
     }
   },
   "learning": {
@@ -910,6 +912,55 @@
       "category": "Category",
       "content": "Content",
       "submit": "Add knowledge item"
+    }
+  },
+  "commercialPackages": {
+    "billing": {
+      "title": "Billing & packages",
+      "subtitle": "Your current package, usage, upgrades, and add-ons — pay only for what you need.",
+      "loading": "Loading billing center…",
+      "back": "Back to settings",
+      "viewLicense": "License center",
+      "viewModules": "Module management",
+      "empty": "Nothing to show yet.",
+      "sections": {
+        "package": "Current package",
+        "modules": "Enabled modules",
+        "usage": "Usage this month",
+        "limits": "Tenant limits",
+        "upgrades": "Upgrade options",
+        "addons": "Add-on marketplace",
+        "recommendations": "Upgrade recommendations",
+        "history": "Billing history",
+        "suites": "Product suites"
+      },
+      "usage": {
+        "supportCases": "Support cases",
+        "autonomous": "Autonomous resolutions",
+        "knowledgeSearches": "Knowledge searches",
+        "employeeInteractions": "Employee interactions",
+        "insightReports": "Insight reports",
+        "apiCalls": "API calls",
+        "aiUsage": "AI usage volume"
+      }
+    },
+    "modules": {
+      "title": "Module management",
+      "subtitle": "Enable or disable purchased modules. Aipify grows with your business.",
+      "loading": "Loading modules…",
+      "back": "Back to settings",
+      "viewBilling": "Billing & packages",
+      "empty": "No modules available.",
+      "enable": "Enable",
+      "disable": "Disable",
+      "sections": {
+        "installed": "Installed modules",
+        "available": "Available with upgrade",
+        "trials": "Trial modules",
+        "recommendations": "Upgrade recommendations",
+        "packages": "Commercial packages",
+        "flags": "Feature flag states"
+      }
     }
   },
   "nav": {

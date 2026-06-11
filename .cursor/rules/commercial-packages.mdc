@@ -1,0 +1,23 @@
+---
+description: Commercial Packages & Modular Architecture — Phase 42
+alwaysApply: true
+---
+
+# Commercial Packages & Modular Architecture
+
+See [COMMERCIAL_PACKAGES.md](../../COMMERCIAL_PACKAGES.md).
+
+## Rules
+
+1. Build as modular SaaS — customers pay only for licensed modules.
+2. Package resolution maps `subscriptions.plan_key`: starter, growth→professional, business, enterprise.
+3. Gate features with `is_tenant_module_enabled()` — never expose unlicensed capabilities.
+4. Tenant isolation mandatory — no cross-tenant module or usage data.
+5. Feature flags: enabled, disabled, trial, beta, deprecated, enterprise_only.
+6. Routes: `/app/settings/billing`, `/app/settings/modules` (spec `/admin/*`).
+7. i18n: `customerApp.commercialPackages.*`, `platform.commercialPackages.*` in en/no/sv/da.
+8. Integrates existing `plans`, `subscriptions`, and License Center — do not duplicate payment logic.
+
+## Tables
+
+`subscription_packages` · `tenant_modules` · `tenant_usage_metrics`

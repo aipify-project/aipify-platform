@@ -1,0 +1,12 @@
+AIPIFY – COMMERCIAL PACKAGES & MODULAR ARCHITECTURE – PHASE 42
+
+Route: /app/settings/billing, /app/settings/modules (spec /admin/billing, /admin/modules)
+Migration: 20260613000000_commercial_packages_phase42.sql
+Lib: lib/commercial-packages/
+APIs: /api/commercial-packages/billing, /api/commercial-packages/modules
+Platform: /platform/trust — PlatformCommercialPackagesPanel
+
+Packages: Starter, Professional, Business, Insights (add-on), Enterprise
+Suites: Core, Support, Operations, Knowledge, Insights, Enterprise Intelligence
+
+Definition of done: Modular architecture, subscription packages, module licensing, billing dashboard, module management, usage tracking, feature flags, upgrade flows, tenant isolation, add-on marketplace prepared, enterprise controls prepared.
