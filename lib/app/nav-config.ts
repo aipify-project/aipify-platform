@@ -36,6 +36,8 @@ export type AppNavId =
   | "innovationLabEngine"
   | "futureTechEngine"
   | "constitutionEngine"
+  | "manifestoEngine"
+  | "platformInstallEngine"
   | "personalityEngine"
   | "workstyleEngine"
   | "approvals"
@@ -106,6 +108,8 @@ export const APP_NAV: AppNavItem[] = [
   { id: "innovationLabEngine", href: "/app/innovation-lab", labelKey: "customerApp.nav.innovationLabEngine" },
   { id: "futureTechEngine", href: "/app/future-tech", labelKey: "customerApp.nav.futureTechEngine" },
   { id: "constitutionEngine", href: "/app/constitution", labelKey: "customerApp.nav.constitutionEngine" },
+  { id: "manifestoEngine", href: "/app/manifesto", labelKey: "customerApp.nav.manifestoEngine" },
+  { id: "platformInstallEngine", href: "/app/platform-install", labelKey: "customerApp.nav.platformInstallEngine" },
   { id: "personalityEngine", href: "/app/personality", labelKey: "customerApp.nav.personalityEngine" },
   { id: "approvals", href: "/app/approvals", labelKey: "customerApp.nav.approvals" },
   { id: "actionCenter", href: "/app/action-center", labelKey: "customerApp.nav.actionCenter" },
@@ -178,6 +182,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/innovation-lab")) return "innovationLabEngine";
   if (pathname.startsWith("/app/future-tech")) return "futureTechEngine";
   if (pathname.startsWith("/app/constitution")) return "constitutionEngine";
+  if (pathname.startsWith("/app/manifesto")) return "manifestoEngine";
+  if (pathname.startsWith("/app/platform-install")) return "platformInstallEngine";
   if (pathname.startsWith("/app/personality")) return "personalityEngine";
   if (pathname.startsWith("/app/approvals")) return "approvals";
   if (pathname.startsWith("/app/action-center") || pathname.startsWith("/app/actions")) {

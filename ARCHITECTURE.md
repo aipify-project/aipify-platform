@@ -238,6 +238,10 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Aipify Constitution & Core Principles (Phase 98):** See [AIPIFY_CONSTITUTION_CORE_PRINCIPLES_PHASE98.md](./AIPIFY_CONSTITUTION_CORE_PRINCIPLES_PHASE98.md) — 12 core principles, responsible AI commitments, constitutional governance, partner alignment, review process. `/app/constitution`, `lib/aipify/constitution/`, migration `20260627000000_aipify_constitution_core_principles_phase98.sql`. Technology guided by principles.
 
+**Aipify Manifesto & Founding Vision (Phase 99):** See [AIPIFY_MANIFESTO_FOUNDING_VISION_PHASE99.md](./AIPIFY_MANIFESTO_FOUNDING_VISION_PHASE99.md) — founding statements, strategic themes, organizational commitments, vision updates, publications. `/app/manifesto`, `lib/aipify/manifesto/`, migration `20260628000000_aipify_manifesto_founding_vision_phase99.sql`. Purpose beyond functionality.
+
+**Platform Install Connectors (Phase 100):** See [PLATFORM_INSTALL_CONNECTORS_PHASE100.md](./PLATFORM_INSTALL_CONNECTORS_PHASE100.md) — WordPress, Shopify, WooCommerce, Other Platforms connectors, 14-day trial billing, install wizard, health checks, Stripe Checkout. `/app/platform-install`, `lib/aipify/platform-install/`, migration `20260629000000_platform_install_connectors_phase100.sql`. Installation should feel simple.
+
 **Quality Guardian / QG (Phases 58–59):** See [QG.md](./QG.md) — software and frontend health monitoring (Image Guardian, Performance Guardian, mobile checks) with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `/app/quality/images`, `lib/aipify/quality/`, migrations `20260614600000_quality_guardian_phase58.sql`, `20260614700000_frontend_experience_guardian_phase59.sql`.
 
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
