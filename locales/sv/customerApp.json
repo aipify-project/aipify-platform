@@ -3170,7 +3170,8 @@
     "marketplacePartnerEcosystemFoundationEngine": "Partnerekosystem",
     "aiEthicsResponsibleUseEngine": "AI-etik",
     "valueRealizationEngine": "Värerealisering",
-    "organizationalResilienceEngine": "Organisationsmotståndskraft"
+    "organizationalResilienceEngine": "Organisationsmotståndskraft",
+    "incidentResponseCoordinationEngine": "Incidenthantering"
   },
   "identity": {
     "title": "Din identitet",
@@ -4400,6 +4401,29 @@
     "updateFailed": "Uppdatering misslyckades",
     "approveFailed": "Godkännande misslyckades",
     "simulationFailed": "Simulering misslyckades",
+    "resolveFailed": "Lösning misslyckades"
+  },
+  "incidentResponseCoordinationEngine": {
+    "title": "Incidenthantering",
+    "subtitle": "Koordinerad incidenthantering — tydligt ägarskap, strukturerad eskalering och transparent kommunikation.",
+    "loading": "Laddar incidenthanteringspanel…",
+    "engineTitle": "Incident Response Coordination Engine",
+    "summary": "Sammanfattning",
+    "principles": "Principer",
+    "incidents": "Aktiva incidenter",
+    "timeline": "Tidslinje",
+    "communications": "Kommunikation",
+    "executiveSummary": "Ledningssammanfattning",
+    "integrationSummaries": "Integrationssammanfattningar",
+    "severity": "Allvarlighetsgrad",
+    "startInvestigation": "Starta utredning",
+    "escalate": "Eskalera",
+    "resolve": "Lös",
+    "investigating": "Utreder…",
+    "escalating": "Eskalerar…",
+    "resolving": "Löser…",
+    "updateFailed": "Uppdatering misslyckades",
+    "escalateFailed": "Eskalering misslyckades",
     "resolveFailed": "Lösning misslyckades"
   }
 }

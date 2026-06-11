@@ -47,6 +47,7 @@ export type AppNavId =
   | "changeManagementEngine"
   | "valueRealizationEngine"
   | "organizationalResilienceEngine"
+  | "incidentResponseCoordinationEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -280,6 +281,11 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/organizational-resilience-engine",
     labelKey: "customerApp.nav.organizationalResilienceEngine",
   },
+  {
+    id: "incidentResponseCoordinationEngine",
+    href: "/app/incident-response-coordination-engine",
+    labelKey: "customerApp.nav.incidentResponseCoordinationEngine",
+  },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -406,6 +412,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/organizational-resilience-engine")) {
     return "organizationalResilienceEngine";
+  }
+  if (pathname.startsWith("/app/incident-response-coordination-engine")) {
+    return "incidentResponseCoordinationEngine";
   }
   if (pathname.startsWith("/app/aipify-install-engine")) return "aipifyInstallEngine";
   if (pathname.startsWith("/app/module-marketplace-foundation-engine")) {

@@ -3144,7 +3144,8 @@
     "marketplacePartnerEcosystemFoundationEngine": "Partnerøkosystem",
     "aiEthicsResponsibleUseEngine": "AI-etik",
     "valueRealizationEngine": "Værdirealisering",
-    "organizationalResilienceEngine": "Organisatorisk modstandskraft"
+    "organizationalResilienceEngine": "Organisatorisk modstandskraft",
+    "incidentResponseCoordinationEngine": "Hændelseshåndtering"
   },
   "identity": {
     "title": "Din identitet",
@@ -4374,6 +4375,29 @@
     "updateFailed": "Opdatering mislykkedes",
     "approveFailed": "Godkendelse mislykkedes",
     "simulationFailed": "Simulering mislykkedes",
+    "resolveFailed": "Løsning mislykkedes"
+  },
+  "incidentResponseCoordinationEngine": {
+    "title": "Hændelseshåndtering",
+    "subtitle": "Koordineret hændelseshåndtering — tydeligt ejerskab, struktureret eskalering og transparent kommunikation.",
+    "loading": "Indlæser hændelseshåndteringspanel…",
+    "engineTitle": "Incident Response Coordination Engine",
+    "summary": "Resumé",
+    "principles": "Principper",
+    "incidents": "Aktive hændelser",
+    "timeline": "Tidslinje",
+    "communications": "Kommunikation",
+    "executiveSummary": "Ledelsesresumé",
+    "integrationSummaries": "Integrationssammendrag",
+    "severity": "Alvorlighedsgrad",
+    "startInvestigation": "Start undersøgelse",
+    "escalate": "Eskaler",
+    "resolve": "Løs",
+    "investigating": "Undersøger…",
+    "escalating": "Eskalerer…",
+    "resolving": "Løser…",
+    "updateFailed": "Opdatering mislykkedes",
+    "escalateFailed": "Eskalering mislykkedes",
     "resolveFailed": "Løsning mislykkedes"
   }
 }

@@ -3525,7 +3525,8 @@
     "marketplacePartnerEcosystemFoundationEngine": "Partnerekosystem",
     "aiEthicsResponsibleUseEngine": "AI-etikk",
     "valueRealizationEngine": "Verdirealisering",
-    "organizationalResilienceEngine": "Organisasjonsmotstandskraft"
+    "organizationalResilienceEngine": "Organisasjonsmotstandskraft",
+    "incidentResponseCoordinationEngine": "Hendelseshåndtering"
   },
   "identity": {
     "title": "Din identitet",
@@ -4728,6 +4729,29 @@
     "updateFailed": "Oppdatering mislyktes",
     "approveFailed": "Godkjenning mislyktes",
     "simulationFailed": "Simulering mislyktes",
+    "resolveFailed": "Løsning mislyktes"
+  },
+  "incidentResponseCoordinationEngine": {
+    "title": "Hendelseshåndtering",
+    "subtitle": "Koordinert hendelseshåndtering — tydelig eierskap, strukturert eskalering og transparent kommunikasjon.",
+    "loading": "Laster hendelseshåndteringsdashbord…",
+    "engineTitle": "Incident Response Coordination Engine",
+    "summary": "Sammendrag",
+    "principles": "Prinsipper",
+    "incidents": "Aktive hendelser",
+    "timeline": "Tidslinje",
+    "communications": "Kommunikasjon",
+    "executiveSummary": "Ledelsessammendrag",
+    "integrationSummaries": "Integrasjonssammendrag",
+    "severity": "Alvorlighetsgrad",
+    "startInvestigation": "Start undersøkelse",
+    "escalate": "Eskaler",
+    "resolve": "Løs",
+    "investigating": "Undersøker…",
+    "escalating": "Eskalerer…",
+    "resolving": "Løser…",
+    "updateFailed": "Oppdatering mislyktes",
+    "escalateFailed": "Eskalering mislyktes",
     "resolveFailed": "Løsning mislyktes"
   }
 }

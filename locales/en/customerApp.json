@@ -4289,7 +4289,8 @@
     "marketplacePartnerEcosystemFoundationEngine": "Partner Ecosystem",
     "aiEthicsResponsibleUseEngine": "AI Ethics",
     "valueRealizationEngine": "Value Realization",
-    "organizationalResilienceEngine": "Organizational Resilience"
+    "organizationalResilienceEngine": "Organizational Resilience",
+    "incidentResponseCoordinationEngine": "Incident Response"
   },
   "aipifyInstallEngine": {
     "title": "Install Engine",
@@ -4807,6 +4808,29 @@
     "updateFailed": "Update failed",
     "approveFailed": "Approval failed",
     "simulationFailed": "Simulation failed",
+    "resolveFailed": "Resolution failed"
+  },
+  "incidentResponseCoordinationEngine": {
+    "title": "Incident Response",
+    "subtitle": "Coordinated incident response — clear ownership, structured escalation, and transparent communication.",
+    "loading": "Loading incident response dashboard…",
+    "engineTitle": "Incident Response Coordination Engine",
+    "summary": "Summary",
+    "principles": "Principles",
+    "incidents": "Active incidents",
+    "timeline": "Timeline",
+    "communications": "Communications",
+    "executiveSummary": "Executive summary",
+    "integrationSummaries": "Integration summaries",
+    "severity": "Severity",
+    "startInvestigation": "Start investigation",
+    "escalate": "Escalate",
+    "resolve": "Resolve",
+    "investigating": "Investigating…",
+    "escalating": "Escalating…",
+    "resolving": "Resolving…",
+    "updateFailed": "Update failed",
+    "escalateFailed": "Escalation failed",
     "resolveFailed": "Resolution failed"
   }
 }
