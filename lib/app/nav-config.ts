@@ -9,6 +9,8 @@ export type AppNavId =
   | "recommendations"
   | "learning"
   | "skills"
+  | "marketplace"
+  | "industryBlueprints"
   | "approvals"
   | "actionCenter"
   | "businessPulse"
@@ -50,6 +52,8 @@ export const APP_NAV: AppNavItem[] = [
   },
   { id: "learning", href: "/app/learning", labelKey: "customerApp.nav.learning" },
   { id: "skills", href: "/app/skills", labelKey: "customerApp.nav.skills" },
+  { id: "marketplace", href: "/app/marketplace", labelKey: "customerApp.nav.marketplace" },
+  { id: "industryBlueprints", href: "/app/industry-blueprints", labelKey: "customerApp.nav.industryBlueprints" },
   { id: "approvals", href: "/app/approvals", labelKey: "customerApp.nav.approvals" },
   { id: "actionCenter", href: "/app/action-center", labelKey: "customerApp.nav.actionCenter" },
   { id: "businessPulse", href: "/app/business-pulse", labelKey: "customerApp.nav.businessPulse" },
@@ -94,6 +98,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/recommendations")) return "recommendations";
   if (pathname.startsWith("/app/learning")) return "learning";
   if (pathname.startsWith("/app/skills")) return "skills";
+  if (pathname.startsWith("/app/marketplace")) return "marketplace";
+  if (pathname.startsWith("/app/industry-blueprints")) return "industryBlueprints";
   if (pathname.startsWith("/app/approvals")) return "approvals";
   if (pathname.startsWith("/app/action-center") || pathname.startsWith("/app/actions")) {
     return "actionCenter";

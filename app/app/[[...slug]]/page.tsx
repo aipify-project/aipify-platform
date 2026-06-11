@@ -112,6 +112,18 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
           activeFlows: t("customerApp.orchestration.activeFlows"),
           emergencyStop: t("customerApp.orchestration.emergencyStopActive"),
         },
+        marketplace: {
+          title: t("customerApp.marketplace.title"),
+          open: t("customerApp.marketplace.open"),
+          catalogItems: t("customerApp.marketplace.catalogItems"),
+          installed: t("customerApp.marketplace.installed"),
+        },
+        industryBlueprints: {
+          title: t("customerApp.industryBlueprints.title"),
+          open: t("customerApp.industryBlueprints.open"),
+          complete: t("customerApp.industryBlueprints.complete"),
+          noBlueprint: t("customerApp.industryBlueprints.noBlueprint"),
+        },
         greetings: {
           morning: t("customerApp.greetings.morning"),
           afternoon: t("customerApp.greetings.afternoon"),
