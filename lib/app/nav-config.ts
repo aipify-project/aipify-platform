@@ -42,6 +42,10 @@ export type AppNavId =
   | "humanOversightEngine"
   | "businessPacksFoundationEngine"
   | "industryIntelligenceFoundationEngine"
+  | "marketplacePartnerEcosystemFoundationEngine"
+  | "aiEthicsResponsibleUseEngine"
+  | "changeManagementEngine"
+  | "valueRealizationEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -250,6 +254,26 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/industry-intelligence-foundation-engine",
     labelKey: "customerApp.nav.industryIntelligenceFoundationEngine",
   },
+  {
+    id: "marketplacePartnerEcosystemFoundationEngine",
+    href: "/app/marketplace-partner-ecosystem-foundation-engine",
+    labelKey: "customerApp.nav.marketplacePartnerEcosystemFoundationEngine",
+  },
+  {
+    id: "aiEthicsResponsibleUseEngine",
+    href: "/app/ai-ethics-responsible-use-engine",
+    labelKey: "customerApp.nav.aiEthicsResponsibleUseEngine",
+  },
+  {
+    id: "changeManagementEngine",
+    href: "/app/change-management-engine",
+    labelKey: "customerApp.nav.changeManagementEngine",
+  },
+  {
+    id: "valueRealizationEngine",
+    href: "/app/value-realization-engine",
+    labelKey: "customerApp.nav.valueRealizationEngine",
+  },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -361,6 +385,18 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/industry-intelligence-foundation-engine")) {
     return "industryIntelligenceFoundationEngine";
+  }
+  if (pathname.startsWith("/app/marketplace-partner-ecosystem-foundation-engine")) {
+    return "marketplacePartnerEcosystemFoundationEngine";
+  }
+  if (pathname.startsWith("/app/ai-ethics-responsible-use-engine")) {
+    return "aiEthicsResponsibleUseEngine";
+  }
+  if (pathname.startsWith("/app/change-management-engine")) {
+    return "changeManagementEngine";
+  }
+  if (pathname.startsWith("/app/value-realization-engine")) {
+    return "valueRealizationEngine";
   }
   if (pathname.startsWith("/app/aipify-install-engine")) return "aipifyInstallEngine";
   if (pathname.startsWith("/app/module-marketplace-foundation-engine")) {

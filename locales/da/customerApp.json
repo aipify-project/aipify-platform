@@ -3140,8 +3140,10 @@
     "humanOversightEngine": "Menneskeligt tilsyn",
     "businessPacksFoundationEngine": "Forretningspakker",
     "industryIntelligenceFoundationEngine": "Brancheintelligens",
+    "changeManagementEngine": "Forandringsledelse",
     "marketplacePartnerEcosystemFoundationEngine": "Partnerøkosystem",
-    "aiEthicsResponsibleUseEngine": "AI-etik"
+    "aiEthicsResponsibleUseEngine": "AI-etik",
+    "valueRealizationEngine": "Værdirealisering"
   },
   "identity": {
     "title": "Din identitet",
@@ -4259,6 +4261,27 @@
     "toggling": "Opdaterer…",
     "toggleFailed": "Skift mislykkedes"
   },
+  "changeManagementEngine": {
+    "title": "Forandringsledelse",
+    "subtitle": "Menneskecentreret adoption — planlæg initiativer, kommuniker transparent og mål resultater.",
+    "loading": "Indlæser forandringsledelse…",
+    "engineTitle": "Change Management Engine",
+    "summary": "Resumé",
+    "principles": "Principper",
+    "initiatives": "Forandringsinitiativer",
+    "milestones": "Milepæle",
+    "communications": "Kommunikationsplaner",
+    "integrationSummaries": "Integrationssammendrag",
+    "startInitiative": "Start initiativ",
+    "updating": "Opdaterer…",
+    "updateFailed": "Opdatering mislykkedes",
+    "completeMilestone": "Fuldfør",
+    "completing": "Fuldfører…",
+    "milestoneFailed": "Milepælsopdatering mislykkedes",
+    "releaseCommunication": "Udgiv",
+    "releasing": "Udgiver…",
+    "releaseFailed": "Udgivelse mislykkedes"
+  },
   "marketplacePartnerEcosystemFoundationEngine": {
     "title": "Partnerøkosystem",
     "subtitle": "Certificerede partnere, styrede tilbud og økosystemkvalitet — mennesker godkender, Aipify forbereder.",
@@ -4296,5 +4319,25 @@
     "restrict": "Begræns",
     "actionFailed": "Handling mislykkedes",
     "criticalNote": "Kritiske brugsscenarier er forbudt for autonom AI — menneskelig bekræftelse kræves."
+  },
+  "valueRealizationEngine": {
+    "title": "Værdirealisering",
+    "subtitle": "Resultatorienteret måling — baseline, forbedringer, ledelsessynlighed og evidensbaseret ansvarlighed.",
+    "loading": "Indlæser værdirealisering…",
+    "engineTitle": "Value Realization Engine",
+    "summary": "Resumé",
+    "principles": "Principper",
+    "metrics": "Værdimålinger",
+    "milestones": "Milepæle",
+    "suggestions": "Forbedringsforslag",
+    "integrationSummaries": "Integrationssammendrag",
+    "baseline": "Baseline",
+    "current": "Nuværende",
+    "exportReport": "Eksporter rapport",
+    "exporting": "Eksporterer…",
+    "exportFailed": "Eksport mislykkedes",
+    "achieveMilestone": "Markér opnået",
+    "completing": "Opdaterer…",
+    "milestoneFailed": "Milepælsopdatering mislykkedes"
   }
 }

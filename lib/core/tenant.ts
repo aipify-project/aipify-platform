@@ -48,3 +48,4 @@ export * from "./business-packs-foundation";
 export * from "./workflow-orchestration-engine";
 export * from "./human-oversight";
 export * from "./industry-intelligence-foundation";
+export * from "./change-management";

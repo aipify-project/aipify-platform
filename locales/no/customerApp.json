@@ -3521,7 +3521,9 @@
     "humanOversightEngine": "Menneskelig tilsyn",
     "businessPacksFoundationEngine": "Forretningspakker",
     "industryIntelligenceFoundationEngine": "Bransjeintelligens",
-    "changeManagementEngine": "Endringsledelse"
+    "changeManagementEngine": "Endringsledelse",
+    "marketplacePartnerEcosystemFoundationEngine": "Partnerekosystem",
+    "aiEthicsResponsibleUseEngine": "AI-etikk"
   },
   "identity": {
     "title": "Din identitet",

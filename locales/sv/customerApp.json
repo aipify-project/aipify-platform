@@ -3166,8 +3166,10 @@
     "humanOversightEngine": "Mänsklig tillsyn",
     "businessPacksFoundationEngine": "Affärspaket",
     "industryIntelligenceFoundationEngine": "Branschintelligens",
+    "changeManagementEngine": "Förändringsledning",
     "marketplacePartnerEcosystemFoundationEngine": "Partnerekosystem",
-    "aiEthicsResponsibleUseEngine": "AI-etik"
+    "aiEthicsResponsibleUseEngine": "AI-etik",
+    "valueRealizationEngine": "Värerealisering"
   },
   "identity": {
     "title": "Din identitet",
@@ -4285,6 +4287,27 @@
     "toggling": "Uppdaterar…",
     "toggleFailed": "Växling misslyckades"
   },
+  "changeManagementEngine": {
+    "title": "Förändringsledning",
+    "subtitle": "Människocentrerad adoption — planera initiativ, kommunicera transparent och mät resultat.",
+    "loading": "Laddar förändringsledning…",
+    "engineTitle": "Change Management Engine",
+    "summary": "Sammanfattning",
+    "principles": "Principer",
+    "initiatives": "Förändringsinitiativ",
+    "milestones": "Milstolpar",
+    "communications": "Kommunikationsplaner",
+    "integrationSummaries": "Integrationssammanfattningar",
+    "startInitiative": "Starta initiativ",
+    "updating": "Uppdaterar…",
+    "updateFailed": "Uppdatering misslyckades",
+    "completeMilestone": "Slutför",
+    "completing": "Slutför…",
+    "milestoneFailed": "Milstolpeuppdatering misslyckades",
+    "releaseCommunication": "Publicera",
+    "releasing": "Publicerar…",
+    "releaseFailed": "Publicering misslyckades"
+  },
   "marketplacePartnerEcosystemFoundationEngine": {
     "title": "Partnerekosystem",
     "subtitle": "Certifierade partners, styrda erbjudanden och ekosystemkvalitet — människor godkänner, Aipify förbereder.",
@@ -4322,5 +4345,25 @@
     "restrict": "Begränsa",
     "actionFailed": "Åtgärd misslyckades",
     "criticalNote": "Kritiska användningsfall är förbjudna för autonom AI — mänsklig bekräftelse krävs."
+  },
+  "valueRealizationEngine": {
+    "title": "Värerealisering",
+    "subtitle": "Resultatorienterad mätning — baslinjer, förbättringar, ledningssynlighet och evidensbaserat ansvar.",
+    "loading": "Laddar värerealisering…",
+    "engineTitle": "Value Realization Engine",
+    "summary": "Sammanfattning",
+    "principles": "Principer",
+    "metrics": "Värdemätningar",
+    "milestones": "Milstolpar",
+    "suggestions": "Förbättringsförslag",
+    "integrationSummaries": "Integrationssammanfattningar",
+    "baseline": "Baslinje",
+    "current": "Nuvarande",
+    "exportReport": "Exportera rapport",
+    "exporting": "Exporterar…",
+    "exportFailed": "Export misslyckades",
+    "achieveMilestone": "Markera uppnådd",
+    "completing": "Uppdaterar…",
+    "milestoneFailed": "Milstolpeuppdatering misslyckades"
   }
 }

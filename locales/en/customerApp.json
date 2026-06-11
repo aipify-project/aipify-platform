@@ -4285,6 +4285,7 @@
     "humanOversightEngine": "Human Oversight",
     "businessPacksFoundationEngine": "Business Packs",
     "industryIntelligenceFoundationEngine": "Industry Intelligence",
+    "changeManagementEngine": "Change Management",
     "marketplacePartnerEcosystemFoundationEngine": "Partner Ecosystem",
     "aiEthicsResponsibleUseEngine": "AI Ethics"
   },
@@ -4691,6 +4692,27 @@
     "enableInsights": "Enable insights",
     "toggling": "Updating…",
     "toggleFailed": "Toggle failed"
+  },
+  "changeManagementEngine": {
+    "title": "Change Management",
+    "subtitle": "Human-centered adoption — plan initiatives, communicate transparently, and measure outcomes.",
+    "loading": "Loading change management…",
+    "engineTitle": "Change Management Engine",
+    "summary": "Summary",
+    "principles": "Principles",
+    "initiatives": "Change initiatives",
+    "milestones": "Milestones",
+    "communications": "Communication plans",
+    "integrationSummaries": "Integration summaries",
+    "startInitiative": "Start initiative",
+    "updating": "Updating…",
+    "updateFailed": "Update failed",
+    "completeMilestone": "Complete",
+    "completing": "Completing…",
+    "milestoneFailed": "Milestone update failed",
+    "releaseCommunication": "Release",
+    "releasing": "Releasing…",
+    "releaseFailed": "Release failed"
   },
   "marketplacePartnerEcosystemFoundationEngine": {
     "title": "Partner Ecosystem",
