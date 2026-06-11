@@ -1,0 +1,29 @@
+AIPIFY – PHASE 37
+TIME & ATTENTION GUARDIAN (TAG)
+
+PURPOSE
+Protect time, energy, and attention — focus on what matters, not doing more.
+
+ROUTES
+/app/assistant/attention — Time & Attention dashboard
+
+APIs
+GET/PATCH/POST /api/assistant/attention
+POST /api/assistant/attention/analyze
+GET /api/assistant/attention/summary
+
+DATABASE (migration 20260612500000_attention_guardian_phase37.sql)
+tag_settings, focus_sessions, protected_time_blocks, tag_activity
+
+RPCs
+get_customer_attention_center, analyze_attention, get_attention_summary
+activate_focus_mode, deactivate_focus_mode, create_protected_time_block
+update_tag_settings, get_platform_attention_overview
+
+IMPLEMENTATION
+lib/attention-guardian/ — dimensions, detection, parse
+components/app/assistant/AttentionDashboardPanel.tsx
+components/platform/PlatformAttentionPanel.tsx
+Chat: detectFocusIntent() + confirmFocus in /api/assistant
+
+STATUS: Implemented

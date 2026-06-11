@@ -1,0 +1,26 @@
+---
+description: Time & Attention Guardian (TAG) — Phase 37
+alwaysApply: true
+---
+
+# Time & Attention Guardian
+
+See [ATTENTION_GUARDIAN.md](../../ATTENTION_GUARDIAN.md).
+
+## Rules
+
+1. Protect attention — never add pressure or guilt-based motivation.
+2. Business logic in Supabase RPCs; panels and API routes are thin clients.
+3. Focus mode requires user confirmation; sets context mode to `focus` when active.
+4. Attention tracking is opt-out via `tag_settings.attention_tracking_enabled`.
+5. Weekly attention summary uses illustrative allocation when tracking enabled — transparent, not hidden analysis.
+6. Platform uses `get_platform_attention_overview` — aggregates only.
+7. i18n: `customerApp.attentionGuardian.*`, `platform.attentionGuardian.*` in en/no/sv/da.
+
+## Tables
+
+`tag_settings` · `focus_sessions` · `protected_time_blocks` · `tag_activity`
+
+## Route
+
+`/app/assistant/attention`

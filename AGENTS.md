@@ -54,6 +54,10 @@ For **Context Engine & Universal Calendar Layer (ACE + UCL)**, read **[CONTEXT_E
 
 For **Goals & Dreams Engine (GDE)**, read **[GOALS_DREAMS_ENGINE.md](./GOALS_DREAMS_ENGINE.md)**. Constants in `lib/goals-dreams-engine/`; dashboard at `/app/assistant/goals`; APIs at `/api/assistant/goals`. Supports aspirations with milestones and accountability — never guilt; natural language via `detectGoalIntent()` with user confirmation.
 
+For **Time & Attention Guardian (TAG)**, read **[ATTENTION_GUARDIAN.md](./ATTENTION_GUARDIAN.md)**. Constants in `lib/attention-guardian/`; dashboard at `/app/assistant/attention`; APIs at `/api/assistant/attention`. Protects focus and attention — never pressure; natural language via `detectFocusIntent()` with user confirmation; syncs Context Engine focus mode.
+
+For **Decision Support Engine (DSE)**, read **[DECISION_SUPPORT_ENGINE.md](./DECISION_SUPPORT_ENGINE.md)**. Constants in `lib/decision-support-engine/`; dashboard at `/app/assistant/decisions`; APIs at `/api/assistant/decisions`. Business-first guidance with explainability — never dictates outcomes; natural language via `detectDecisionIntent()`; integrates Trust Actions, goals, calendar, and tasks.
+
 ## Aipify architecture — mandatory before every feature
 
 Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.

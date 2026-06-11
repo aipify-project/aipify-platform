@@ -238,6 +238,9 @@
     "confirmEvent": "Yes, add to calendar",
     "confirmGoal": "Yes, create this goal",
     "viewGoals": "Goals & dreams",
+    "confirmFocus": "Yes, protect my focus",
+    "viewAttention": "Time & attention",
+    "viewDecisions": "Decision support",
     "proactiveTitle": "Proactive suggestions",
     "loading": "Thinking…"
   },
@@ -619,6 +622,129 @@
       "occasional": "Occasional check-ins",
       "regular": "Regular encouragement",
       "highly_supportive": "Highly supportive"
+    }
+  },
+  "attentionGuardian": {
+    "title": "Time & attention",
+    "subtitle": "Protect your focus, energy, and priorities — support, not pressure.",
+    "loading": "Loading attention insights…",
+    "back": "Back to Assistant",
+    "save": "Save preferences",
+    "saved": "Saved",
+    "privacy": "Attention data belongs to you. Disable tracking anytime.",
+    "analyze": "Refresh analysis",
+    "activateFocus": "Activate focus mode",
+    "endFocus": "End focus mode",
+    "viewContext": "Context dashboard",
+    "focusActive": "Focus mode active",
+    "empty": "No protected blocks yet.",
+    "sections": {
+      "state": "Attention state",
+      "briefing": "Daily focus briefing",
+      "evening": "End-of-day review",
+      "focus": "Focus sessions",
+      "blocks": "Protected time blocks",
+      "weekly": "Weekly attention summary",
+      "meetings": "Meeting analysis",
+      "energy": "Energy insights",
+      "goals": "Goal alignment",
+      "recovery": "Recovery protection",
+      "priorities": "Priority defense",
+      "activity": "Recent activity",
+      "settings": "Preferences"
+    },
+    "settings": {
+      "focusProtection": "Focus protection enabled",
+      "proactivity": "Proactivity level",
+      "interruptions": "Interruption handling",
+      "energy": "Energy management",
+      "goalAlignment": "Goal alignment insights",
+      "meetings": "Meeting protection",
+      "recovery": "Recovery protection",
+      "dailyBriefing": "Daily focus briefing",
+      "endOfDay": "End-of-day review",
+      "tracking": "Attention tracking",
+      "focusPeriod": "Preferred focus period"
+    },
+    "attentionStates": {
+      "focused": "Focused",
+      "balanced": "Balanced",
+      "overloaded": "Overloaded",
+      "distracted": "Distracted",
+      "recovery_needed": "Recovery needed",
+      "planning_required": "Planning required"
+    },
+    "focusPeriods": {
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "evening": "Evening",
+      "flexible": "Flexible"
+    },
+    "interruptionHandling": {
+      "allow_all": "Allow all",
+      "batch_non_essential": "Batch non-essential",
+      "delay_low_priority": "Delay low priority",
+      "silence_optional": "Silence optional"
+    },
+    "proactivityLevels": {
+      "minimal": "Minimal",
+      "balanced": "Balanced",
+      "proactive": "Proactive"
+    }
+  },
+  "decisionSupport": {
+    "title": "Decision support",
+    "subtitle": "Clarity about your options — you always make the final decision.",
+    "loading": "Loading decision insights…",
+    "back": "Back to Assistant",
+    "save": "Save preferences",
+    "saved": "Saved",
+    "privacy": "Recommendations are guidance only. Business data stays protected.",
+    "analyze": "Refresh recommendations",
+    "viewAttention": "Time & attention",
+    "acceptGuidance": "This guidance helps",
+    "defer": "Decide later",
+    "dismiss": "Not relevant",
+    "youDecide": "Aipify advises — you decide.",
+    "empty": "No pending recommendations. Refresh analysis or ask in chat.",
+    "sections": {
+      "pending": "Pending decisions",
+      "business": "Business insights",
+      "priorities": "Priority opportunities",
+      "risks": "Risk indicators",
+      "history": "Decision history",
+      "framework": "Decision framework",
+      "ethics": "Ethical safeguards",
+      "settings": "Preferences"
+    },
+    "settings": {
+      "enabled": "Recommendations enabled",
+      "proactivity": "Proactivity level",
+      "personal": "Personal decision support",
+      "historical": "Use historical data",
+      "presentation": "Presentation style",
+      "storeHistory": "Store decision history"
+    },
+    "confidenceLevels": {
+      "low": "Low confidence",
+      "moderate": "Moderate confidence",
+      "high": "High confidence"
+    },
+    "proactivityLevels": {
+      "minimal": "Minimal",
+      "balanced": "Balanced",
+      "proactive": "Proactive"
+    },
+    "presentationStyles": {
+      "concise": "Concise",
+      "balanced": "Balanced",
+      "detailed": "Detailed"
+    },
+    "businessDomains": {
+      "support": "Support prioritization",
+      "administrative": "Administrative tasks",
+      "executive": "Executive priorities",
+      "operational": "Operational workflow"
     }
   },
   "nav": {

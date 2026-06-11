@@ -45,6 +45,8 @@ The first complete customer-facing product experience. Customers interact with *
 | `/app/assistant/context` | ACE dashboard — context mode, briefings, conflicts, workload, prioritization |
 | `/app/assistant/calendars` | UCL dashboard — multi-provider calendars, sync, permissions, internal calendar |
 | `/app/assistant/goals` | GDE dashboard — goals, milestones, celebrations, accountability settings |
+| `/app/assistant/attention` | TAG dashboard — focus protection, attention audit, energy & meeting insights |
+| `/app/assistant/decisions` | DSE dashboard — pending recommendations, business insights, risk indicators, decision history |
 
 Legacy: `/dashboard/*` remains during migration. `/app/command-center` remains for Command Center / desktop pairing.
 

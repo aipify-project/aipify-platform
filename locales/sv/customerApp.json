@@ -238,6 +238,9 @@
     "confirmEvent": "Ja, lägg till i kalender",
     "confirmGoal": "Ja, skapa detta mål",
     "viewGoals": "Mål och drömmar",
+    "confirmFocus": "Ja, skydda mitt fokus",
+    "viewAttention": "Tid och uppmärksamhet",
+    "viewDecisions": "Beslutsstöd",
     "proactiveTitle": "Proaktiva förslag",
     "loading": "Tänker…"
   },
@@ -635,6 +638,129 @@
       "occasional": "Tillfälliga incheckningar",
       "regular": "Regelbunden uppmuntran",
       "highly_supportive": "Mycket stöttande"
+    }
+  },
+  "attentionGuardian": {
+    "title": "Tid och uppmärksamhet",
+    "subtitle": "Skydda fokus, energi och prioriteringar — stöd, inte press.",
+    "loading": "Laddar uppmärksamhetsinsikter…",
+    "back": "Tillbaka till assistent",
+    "save": "Spara preferenser",
+    "saved": "Sparat",
+    "privacy": "Uppmärksamhetsdata tillhör dig. Inaktivera spårning när som helst.",
+    "analyze": "Uppdatera analys",
+    "activateFocus": "Aktivera fokusläge",
+    "endFocus": "Avsluta fokusläge",
+    "viewContext": "Kontextöversikt",
+    "focusActive": "Fokusläge aktivt",
+    "empty": "Inga skyddade block ännu.",
+    "sections": {
+      "state": "Uppmärksamhetstillstånd",
+      "briefing": "Daglig fokusbriefing",
+      "evening": "Kvällsöversikt",
+      "focus": "Fokuspass",
+      "blocks": "Skyddade tidsblock",
+      "weekly": "Veckosammanfattning",
+      "meetings": "Mötesanalys",
+      "energy": "Energiinsikter",
+      "goals": "Måljustering",
+      "recovery": "Återhämtningsskydd",
+      "priorities": "Prioritetsförsvar",
+      "activity": "Senaste aktivitet",
+      "settings": "Preferenser"
+    },
+    "settings": {
+      "focusProtection": "Fokusskydd aktiverat",
+      "proactivity": "Proaktivitetsnivå",
+      "interruptions": "Avbrottshantering",
+      "energy": "Energihantering",
+      "goalAlignment": "Måljusteringsinsikter",
+      "meetings": "Mötesskydd",
+      "recovery": "Återhämtningsskydd",
+      "dailyBriefing": "Daglig fokusbriefing",
+      "endOfDay": "Kvällsöversikt",
+      "tracking": "Uppmärksamhetsspårning",
+      "focusPeriod": "Föredragen fokusperiod"
+    },
+    "attentionStates": {
+      "focused": "Fokuserad",
+      "balanced": "Balanserad",
+      "overloaded": "Överbelastad",
+      "distracted": "Distraherad",
+      "recovery_needed": "Behöver återhämtning",
+      "planning_required": "Planering krävs"
+    },
+    "focusPeriods": {
+      "morning": "Morgon",
+      "afternoon": "Eftermiddag",
+      "evening": "Kväll",
+      "flexible": "Flexibel"
+    },
+    "interruptionHandling": {
+      "allow_all": "Tillåt alla",
+      "batch_non_essential": "Samla icke-väsentliga",
+      "delay_low_priority": "Fördröj låg prioritet",
+      "silence_optional": "Tysta valfria"
+    },
+    "proactivityLevels": {
+      "minimal": "Minimal",
+      "balanced": "Balanserad",
+      "proactive": "Proaktiv"
+    }
+  },
+  "decisionSupport": {
+    "title": "Beslutsstöd",
+    "subtitle": "Klarhet om dina alternativ — du fattar alltid det slutgiltiga beslutet.",
+    "loading": "Laddar beslutsinsikter…",
+    "back": "Tillbaka till assistent",
+    "save": "Spara preferenser",
+    "saved": "Sparat",
+    "privacy": "Rekommendationer är vägledning. Affärsdata förblir skyddad.",
+    "analyze": "Uppdatera rekommendationer",
+    "viewAttention": "Tid och uppmärksamhet",
+    "acceptGuidance": "Denna vägledning hjälper",
+    "defer": "Bestäm senare",
+    "dismiss": "Inte relevant",
+    "youDecide": "Aipify rådgiver — du bestämmer.",
+    "empty": "Inga väntande rekommendationer. Uppdatera analys eller fråga i chatten.",
+    "sections": {
+      "pending": "Väntande beslut",
+      "business": "Affärsinsikter",
+      "priorities": "Prioritetsmöjligheter",
+      "risks": "Riskindikatorer",
+      "history": "Beslutshistorik",
+      "framework": "Beslutsramverk",
+      "ethics": "Etiska skydd",
+      "settings": "Preferenser"
+    },
+    "settings": {
+      "enabled": "Rekommendationer aktiverade",
+      "proactivity": "Proaktivitetsnivå",
+      "personal": "Personligt beslutsstöd",
+      "historical": "Använd historiska data",
+      "presentation": "Presentationsstil",
+      "storeHistory": "Spara beslutshistorik"
+    },
+    "confidenceLevels": {
+      "low": "Låg tillförlitlighet",
+      "moderate": "Måttlig tillförlitlighet",
+      "high": "Hög tillförlitlighet"
+    },
+    "proactivityLevels": {
+      "minimal": "Minimal",
+      "balanced": "Balanserad",
+      "proactive": "Proaktiv"
+    },
+    "presentationStyles": {
+      "concise": "Kortfattad",
+      "balanced": "Balanserad",
+      "detailed": "Detaljerad"
+    },
+    "businessDomains": {
+      "support": "Supportprioritering",
+      "administrative": "Administrativa uppgifter",
+      "executive": "Ledningsprioriteringar",
+      "operational": "Operativt arbetsflöde"
     }
   }
 }

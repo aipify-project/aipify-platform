@@ -29,7 +29,10 @@ type AssistantChatPanelProps = {
     viewCalendars: string;
     confirmEvent: string;
     confirmGoal: string;
+    confirmFocus: string;
     viewGoals: string;
+    viewAttention: string;
+    viewDecisions: string;
     proactiveTitle: string;
     loading: string;
     orbLabel: string;
@@ -46,6 +49,11 @@ export function AssistantChatPanel({
   const [pendingDraft, setPendingDraft] = useState<MemoryDraft | null>(null);
   const [pendingEvent, setPendingEvent] = useState<EventDraft | null>(null);
   const [pendingGoal, setPendingGoal] = useState<GoalDraft | null>(null);
+  const [pendingFocus, setPendingFocus] = useState<{
+    title: string;
+    session_type: string;
+    ends_at_hint: string | null;
+  } | null>(null);
   const [sending, setSending] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -55,18 +63,19 @@ export function AssistantChatPanel({
 
   useEffect(() => {
     scrollToEnd();
-  }, [messages, pendingDraft, pendingEvent, pendingGoal, scrollToEnd]);
+  }, [messages, pendingDraft, pendingEvent, pendingGoal, pendingFocus, scrollToEnd]);
 
   async function sendMessage(
     text: string,
     confirmMemory = false,
     confirmEvent = false,
-    confirmGoal = false
+    confirmGoal = false,
+    confirmFocus = false
   ) {
-    if (!text.trim() && !confirmMemory && !confirmEvent && !confirmGoal) return;
+    if (!text.trim() && !confirmMemory && !confirmEvent && !confirmGoal && !confirmFocus) return;
     setSending(true);
 
-    if (!confirmMemory && !confirmEvent && !confirmGoal) {
+    if (!confirmMemory && !confirmEvent && !confirmGoal && !confirmFocus) {
       setMessages((prev) => [
         ...prev,
         { id: crypto.randomUUID(), role: "user", content: text.trim() },
@@ -78,7 +87,9 @@ export function AssistantChatPanel({
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(
-        confirmGoal && pendingGoal
+        confirmFocus && pendingFocus
+          ? { confirmFocus: true, focusProposal: pendingFocus }
+          : confirmGoal && pendingGoal
           ? { confirmGoal: true, goalDraft: pendingGoal }
           : confirmEvent && pendingEvent
           ? { confirmEvent: true, eventDraft: pendingEvent }
@@ -117,25 +128,35 @@ export function AssistantChatPanel({
       setPendingDraft(null);
       setPendingEvent(null);
       setPendingGoal(null);
+      setPendingFocus(null);
       return;
     }
 
-    if (data.goalDraft) {
+    if (data.focusProposal) {
+      setPendingFocus(data.focusProposal as typeof pendingFocus);
+      setPendingDraft(null);
+      setPendingEvent(null);
+      setPendingGoal(null);
+    } else if (data.goalDraft) {
       setPendingGoal(data.goalDraft as GoalDraft);
       setPendingDraft(null);
       setPendingEvent(null);
+      setPendingFocus(null);
     } else if (data.eventDraft) {
       setPendingEvent(data.eventDraft as EventDraft);
       setPendingDraft(null);
       setPendingGoal(null);
+      setPendingFocus(null);
     } else if (data.memoryDraft) {
       setPendingDraft(data.memoryDraft as MemoryDraft);
       setPendingEvent(null);
       setPendingGoal(null);
-    } else if (!confirmMemory && !confirmEvent && !confirmGoal) {
+      setPendingFocus(null);
+    } else if (!confirmMemory && !confirmEvent && !confirmGoal && !confirmFocus) {
       setPendingDraft(null);
       setPendingEvent(null);
       setPendingGoal(null);
+      setPendingFocus(null);
     }
   }
 
@@ -184,7 +205,29 @@ export function AssistantChatPanel({
               {msg.content}
             </div>
           ))}
-          {pendingGoal && (
+          {pendingFocus && (
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm">
+              <p className="font-medium text-gray-900">{pendingFocus.title}</p>
+              <div className="mt-2 flex gap-2">
+                <button
+                  type="button"
+                  disabled={sending}
+                  onClick={() => void sendMessage("", false, false, false, true)}
+                  className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs text-white hover:bg-indigo-700"
+                >
+                  {labels.confirmFocus}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPendingFocus(null)}
+                  className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs text-gray-700"
+                >
+                  {labels.decline}
+                </button>
+              </div>
+            </div>
+          )}
+          {pendingGoal && !pendingFocus && (
             <div className="rounded-xl border border-violet-200 bg-violet-50 p-3 text-sm">
               <p className="font-medium text-gray-900">{pendingGoal.title}</p>
               {pendingGoal.needs_clarification && pendingGoal.clarification_question && (
@@ -211,7 +254,7 @@ export function AssistantChatPanel({
               </div>
             </div>
           )}
-          {pendingEvent && !pendingGoal && (
+          {pendingEvent && !pendingGoal && !pendingFocus && (
             <div className="rounded-xl border border-sky-200 bg-sky-50 p-3 text-sm">
               <p className="font-medium text-gray-900">{pendingEvent.title}</p>
               <div className="mt-2 flex gap-2">
@@ -233,7 +276,7 @@ export function AssistantChatPanel({
               </div>
             </div>
           )}
-          {pendingDraft && !pendingEvent && !pendingGoal && (
+          {pendingDraft && !pendingEvent && !pendingGoal && !pendingFocus && (
             <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm">
               <p className="font-medium text-gray-900">{pendingDraft.title}</p>
               <div className="mt-2 flex gap-2">
@@ -283,6 +326,12 @@ export function AssistantChatPanel({
       </div>
 
       <div className="flex flex-wrap gap-4">
+        <Link href="/app/assistant/decisions" className="text-sm text-indigo-600 hover:underline">
+          {labels.viewDecisions}
+        </Link>
+        <Link href="/app/assistant/attention" className="text-sm text-indigo-600 hover:underline">
+          {labels.viewAttention}
+        </Link>
         <Link href="/app/assistant/goals" className="text-sm text-indigo-600 hover:underline">
           {labels.viewGoals}
         </Link>

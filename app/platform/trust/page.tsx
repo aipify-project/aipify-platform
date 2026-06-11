@@ -1,6 +1,8 @@
 import PlatformAssistantMemoryPanel from "@/components/platform/PlatformAssistantMemoryPanel";
 import PlatformLifeOsPanel from "@/components/platform/PlatformLifeOsPanel";
 import PlatformContextPanel from "@/components/platform/PlatformContextPanel";
+import PlatformAttentionPanel from "@/components/platform/PlatformAttentionPanel";
+import PlatformDecisionPanel from "@/components/platform/PlatformDecisionPanel";
 import PlatformGoalsPanel from "@/components/platform/PlatformGoalsPanel";
 import PlatformIdentityPanel from "@/components/platform/PlatformIdentityPanel";
 import PlatformRelationshipPanel from "@/components/platform/PlatformRelationshipPanel";
@@ -44,6 +46,31 @@ export default async function PlatformTrustPage() {
           disabled: t("platform.assistantMemory.disabled"),
           byCategory: t("platform.assistantMemory.byCategory"),
           privacyNote: t("platform.assistantMemory.privacyNote"),
+        }}
+      />
+      <PlatformDecisionPanel
+        labels={{
+          title: t("platform.decisionSupport.title"),
+          subtitle: t("platform.decisionSupport.subtitle"),
+          loading: t("platform.decisionSupport.loading"),
+          profiles: t("platform.decisionSupport.profiles"),
+          pending: t("platform.decisionSupport.pending"),
+          accepted: t("platform.decisionSupport.accepted"),
+          byDomain: t("platform.decisionSupport.byDomain"),
+          byConfidence: t("platform.decisionSupport.byConfidence"),
+          privacyNote: t("platform.decisionSupport.privacyNote"),
+        }}
+      />
+      <PlatformAttentionPanel
+        labels={{
+          title: t("platform.attentionGuardian.title"),
+          subtitle: t("platform.attentionGuardian.subtitle"),
+          loading: t("platform.attentionGuardian.loading"),
+          profiles: t("platform.attentionGuardian.profiles"),
+          activeFocus: t("platform.attentionGuardian.activeFocus"),
+          blocks: t("platform.attentionGuardian.blocks"),
+          enabled: t("platform.attentionGuardian.enabled"),
+          privacyNote: t("platform.attentionGuardian.privacyNote"),
         }}
       />
       <PlatformGoalsPanel

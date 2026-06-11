@@ -436,6 +436,27 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratorer kan ikke se brugernes mindeindhold. Kun aggregater."
   },
+  "decisionSupport": {
+    "title": "DSE-styring",
+    "subtitle": "Aggregerede beslutningsmetrikker — intet anbefalingsindhold.",
+    "loading": "Indlæser beslutningsoversigt…",
+    "profiles": "DSE-profiler",
+    "pending": "Ventende anbefalinger",
+    "accepted": "Accepteret vejledning",
+    "byDomain": "Efter domæne",
+    "byConfidence": "Efter tillid",
+    "privacyNote": "Administratorer kan ikke se beslutningsindhold. Kun aggregater."
+  },
+  "attentionGuardian": {
+    "title": "TAG-styring",
+    "subtitle": "Aggregerede opmærksomhedsmetrikker — ikke indhold.",
+    "loading": "Indlæser opmærksomhedsoversigt…",
+    "profiles": "TAG-profiler",
+    "activeFocus": "Aktive fokussessioner",
+    "blocks": "Beskyttede blokke",
+    "enabled": "Fokusbeskyttelse aktiveret",
+    "privacyNote": "Administratorer kan ikke se opmærksomhedsdetaljer. Kun aggregater."
+  },
   "goalsDreams": {
     "title": "GDE-styring",
     "subtitle": "Aggregerede målmetrikker — ikke målindhold.",

@@ -6,3 +6,5 @@ export { IdentityDashboardPanel } from "./IdentityDashboardPanel";
 export { ContextDashboardPanel } from "./ContextDashboardPanel";
 export { CalendarDashboardPanel } from "./CalendarDashboardPanel";
 export { GoalsDashboardPanel } from "./GoalsDashboardPanel";
+export { AttentionDashboardPanel } from "./AttentionDashboardPanel";
+export { DecisionDashboardPanel } from "./DecisionDashboardPanel";

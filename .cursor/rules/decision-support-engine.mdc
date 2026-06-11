@@ -1,0 +1,27 @@
+---
+description: Decision Support Engine (DSE) — Phase 38
+alwaysApply: true
+---
+
+# Decision Support Engine
+
+See [DECISION_SUPPORT_ENGINE.md](../../DECISION_SUPPORT_ENGINE.md).
+
+## Rules
+
+1. Business-first — support prioritization and operational insights before personal guidance.
+2. Aipify advises; users decide. Never auto-execute or dictate outcomes.
+3. Every recommendation includes reasoning, confidence (low/moderate/high), and optional trade-offs.
+4. Business logic in Supabase RPCs; panels and API routes are thin clients.
+5. Chat guidance via `detectDecisionIntent()` — no confirmation flow; link to `/app/assistant/decisions`.
+6. User controls: domains, proactivity, personal support, historical data, presentation style.
+7. Platform uses `get_platform_decisions_overview` — aggregates only.
+8. i18n: `customerApp.decisionSupport.*`, `platform.decisionSupport.*` in en/no/sv/da.
+
+## Tables
+
+`dse_settings` · `decision_recommendations` · `decision_history`
+
+## Route
+
+`/app/assistant/decisions`

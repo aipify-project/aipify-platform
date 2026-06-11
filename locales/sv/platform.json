@@ -436,6 +436,27 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratörer kan inte se användarnas minnesinnehåll. Endast aggregat."
   },
+  "decisionSupport": {
+    "title": "DSE-styrning",
+    "subtitle": "Aggregerade beslutsmetriker — inget rekommendationsinnehåll.",
+    "loading": "Laddar beslutsoversikt…",
+    "profiles": "DSE-profiler",
+    "pending": "Väntande rekommendationer",
+    "accepted": "Accepterad vägledning",
+    "byDomain": "Per domän",
+    "byConfidence": "Per tillförlitlighet",
+    "privacyNote": "Administratörer kan inte se beslutsinnehåll. Endast aggregat."
+  },
+  "attentionGuardian": {
+    "title": "TAG-styrning",
+    "subtitle": "Aggregerade uppmärksamhetsmetriker — inget innehåll.",
+    "loading": "Laddar uppmärksamhetsöversikt…",
+    "profiles": "TAG-profiler",
+    "activeFocus": "Aktiva fokuspass",
+    "blocks": "Skyddade block",
+    "enabled": "Fokusskydd aktiverat",
+    "privacyNote": "Administratörer kan inte se uppmärksamhetsdetaljer. Endast aggregat."
+  },
   "goalsDreams": {
     "title": "GDE-styrning",
     "subtitle": "Aggregerade målmetriker — inget målinnehåll.",

@@ -238,6 +238,9 @@
     "confirmEvent": "Ja, legg til i kalender",
     "confirmGoal": "Ja, opprett dette målet",
     "viewGoals": "Mål og drømmer",
+    "confirmFocus": "Ja, beskytt fokuset mitt",
+    "viewAttention": "Tid og oppmerksomhet",
+    "viewDecisions": "Beslutningsstøtte",
     "proactiveTitle": "Proaktive forslag",
     "loading": "Tenker…"
   },
@@ -635,6 +638,129 @@
       "occasional": "Av og til innsjekk",
       "regular": "Regelmessig oppmuntring",
       "highly_supportive": "Svært støttende"
+    }
+  },
+  "attentionGuardian": {
+    "title": "Tid og oppmerksomhet",
+    "subtitle": "Beskytt fokus, energi og prioriteringer — støtte, ikke press.",
+    "loading": "Laster oppmerksomhetsinnsikt…",
+    "back": "Tilbake til assistent",
+    "save": "Lagre preferanser",
+    "saved": "Lagret",
+    "privacy": "Oppmerksomhetsdata tilhører deg. Deaktiver sporing når som helst.",
+    "analyze": "Oppdater analyse",
+    "activateFocus": "Aktiver fokusmodus",
+    "endFocus": "Avslutt fokusmodus",
+    "viewContext": "Kontekstoversikt",
+    "focusActive": "Fokusmodus aktiv",
+    "empty": "Ingen beskyttede blokker ennå.",
+    "sections": {
+      "state": "Oppmerksomhetstilstand",
+      "briefing": "Daglig fokusbriefing",
+      "evening": "Kveldsoppsummering",
+      "focus": "Fokusøkter",
+      "blocks": "Beskyttede tidsblokker",
+      "weekly": "Ukentlig oppmerksomhetsoversikt",
+      "meetings": "Møteanalyse",
+      "energy": "Energiinnsikt",
+      "goals": "Måljustering",
+      "recovery": "Restitusjonsbeskyttelse",
+      "priorities": "Prioritetsforsvar",
+      "activity": "Nylig aktivitet",
+      "settings": "Preferanser"
+    },
+    "settings": {
+      "focusProtection": "Fokusbeskyttelse aktivert",
+      "proactivity": "Proaktivitetsnivå",
+      "interruptions": "Håndtering av avbrytelser",
+      "energy": "Energistyring",
+      "goalAlignment": "Måljusteringsinnsikt",
+      "meetings": "Møtebeskyttelse",
+      "recovery": "Restitusjonsbeskyttelse",
+      "dailyBriefing": "Daglig fokusbriefing",
+      "endOfDay": "Kveldsoppsummering",
+      "tracking": "Oppmerksomhetssporing",
+      "focusPeriod": "Foretrukket fokusperiode"
+    },
+    "attentionStates": {
+      "focused": "Fokusert",
+      "balanced": "Balansert",
+      "overloaded": "Overbelastet",
+      "distracted": "Distrahert",
+      "recovery_needed": "Trenger restitusjon",
+      "planning_required": "Planlegging nødvendig"
+    },
+    "focusPeriods": {
+      "morning": "Morgen",
+      "afternoon": "Ettermiddag",
+      "evening": "Kveld",
+      "flexible": "Fleksibel"
+    },
+    "interruptionHandling": {
+      "allow_all": "Tillat alle",
+      "batch_non_essential": "Samle ikke-essensielle",
+      "delay_low_priority": "Utsett lav prioritet",
+      "silence_optional": "Demp valgfrie"
+    },
+    "proactivityLevels": {
+      "minimal": "Minimal",
+      "balanced": "Balansert",
+      "proactive": "Proaktiv"
+    }
+  },
+  "decisionSupport": {
+    "title": "Beslutningsstøtte",
+    "subtitle": "Klarhet om alternativene dine — du tar alltid den endelige beslutningen.",
+    "loading": "Laster beslutningsinnsikt…",
+    "back": "Tilbake til assistent",
+    "save": "Lagre preferanser",
+    "saved": "Lagret",
+    "privacy": "Anbefalinger er veiledning. Forretningsdata forblir beskyttet.",
+    "analyze": "Oppdater anbefalinger",
+    "viewAttention": "Tid og oppmerksomhet",
+    "acceptGuidance": "Denne veiledningen hjelper",
+    "defer": "Bestem senere",
+    "dismiss": "Ikke relevant",
+    "youDecide": "Aipify rådgir — du bestemmer.",
+    "empty": "Ingen ventende anbefalinger. Oppdater analyse eller spør i chat.",
+    "sections": {
+      "pending": "Ventende beslutninger",
+      "business": "Forretningsinnsikt",
+      "priorities": "Prioritetsmuligheter",
+      "risks": "Risikoindikatorer",
+      "history": "Beslutningshistorikk",
+      "framework": "Beslutningsrammeverk",
+      "ethics": "Etiske sikringer",
+      "settings": "Preferanser"
+    },
+    "settings": {
+      "enabled": "Anbefalinger aktivert",
+      "proactivity": "Proaktivitetsnivå",
+      "personal": "Personlig beslutningsstøtte",
+      "historical": "Bruk historiske data",
+      "presentation": "Presentasjonsstil",
+      "storeHistory": "Lagre beslutningshistorikk"
+    },
+    "confidenceLevels": {
+      "low": "Lav tillit",
+      "moderate": "Moderat tillit",
+      "high": "Høy tillit"
+    },
+    "proactivityLevels": {
+      "minimal": "Minimal",
+      "balanced": "Balansert",
+      "proactive": "Proaktiv"
+    },
+    "presentationStyles": {
+      "concise": "Kortfattet",
+      "balanced": "Balansert",
+      "detailed": "Detaljert"
+    },
+    "businessDomains": {
+      "support": "Supportprioritering",
+      "administrative": "Administrative oppgaver",
+      "executive": "Ledelsesprioriteter",
+      "operational": "Operasjonell arbeidsflyt"
     }
   }
 }

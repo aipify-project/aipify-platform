@@ -630,6 +630,27 @@
     "byCategory": "By category",
     "privacyNote": "Administrators cannot access user memory content. Aggregates only."
   },
+  "decisionSupport": {
+    "title": "DSE governance",
+    "subtitle": "Aggregate decision support metrics — no recommendation content.",
+    "loading": "Loading decision overview…",
+    "profiles": "DSE profiles",
+    "pending": "Pending recommendations",
+    "accepted": "Accepted guidance",
+    "byDomain": "By domain",
+    "byConfidence": "By confidence",
+    "privacyNote": "Administrators cannot access decision content. Aggregates only."
+  },
+  "attentionGuardian": {
+    "title": "TAG governance",
+    "subtitle": "Aggregate attention protection metrics — no attention content.",
+    "loading": "Loading attention overview…",
+    "profiles": "TAG profiles",
+    "activeFocus": "Active focus sessions",
+    "blocks": "Protected blocks",
+    "enabled": "Focus protection enabled",
+    "privacyNote": "Administrators cannot access attention details. Aggregates only."
+  },
   "goalsDreams": {
     "title": "GDE governance",
     "subtitle": "Aggregate goals adoption metrics — no goal content.",

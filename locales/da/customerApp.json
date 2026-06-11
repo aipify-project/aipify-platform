@@ -238,6 +238,9 @@
     "confirmEvent": "Ja, tilføj til kalender",
     "confirmGoal": "Ja, opret dette mål",
     "viewGoals": "Mål og drømme",
+    "confirmFocus": "Ja, beskyt mit fokus",
+    "viewAttention": "Tid og opmærksomhed",
+    "viewDecisions": "Beslutningsstøtte",
     "proactiveTitle": "Proaktive forslag",
     "loading": "Tænker…"
   },
@@ -635,6 +638,129 @@
       "occasional": "Lejlighedsvis indtjekning",
       "regular": "Regelmæssig opmuntring",
       "highly_supportive": "Meget støttende"
+    }
+  },
+  "attentionGuardian": {
+    "title": "Tid og opmærksomhed",
+    "subtitle": "Beskyt fokus, energi og prioriteringer — støtte, ikke pres.",
+    "loading": "Indlæser opmærksomhedsindsigt…",
+    "back": "Tilbage til assistent",
+    "save": "Gem præferencer",
+    "saved": "Gemt",
+    "privacy": "Opmærksomhedsdata tilhører dig. Deaktiver sporing når som helst.",
+    "analyze": "Opdater analyse",
+    "activateFocus": "Aktiver fokustilstand",
+    "endFocus": "Afslut fokustilstand",
+    "viewContext": "Kontekstoversigt",
+    "focusActive": "Fokustilstand aktiv",
+    "empty": "Ingen beskyttede blokke endnu.",
+    "sections": {
+      "state": "Opmærksomhedstilstand",
+      "briefing": "Daglig fokusbriefing",
+      "evening": "Aftenopsummering",
+      "focus": "Fokussessioner",
+      "blocks": "Beskyttede tidsblokke",
+      "weekly": "Ugentlig opmærksomhedsoversigt",
+      "meetings": "Mødeanalyse",
+      "energy": "Energiindsigt",
+      "goals": "Måljustering",
+      "recovery": "Restitutionsbeskyttelse",
+      "priorities": "Prioritetsforsvar",
+      "activity": "Seneste aktivitet",
+      "settings": "Præferencer"
+    },
+    "settings": {
+      "focusProtection": "Fokusbeskyttelse aktiveret",
+      "proactivity": "Proaktivitetsniveau",
+      "interruptions": "Håndtering af afbrydelser",
+      "energy": "Energistyring",
+      "goalAlignment": "Måljusteringsindsigt",
+      "meetings": "Mødebeskyttelse",
+      "recovery": "Restitutionsbeskyttelse",
+      "dailyBriefing": "Daglig fokusbriefing",
+      "endOfDay": "Aftenopsummering",
+      "tracking": "Opmærksomhedssporing",
+      "focusPeriod": "Foretrukket fokusperiode"
+    },
+    "attentionStates": {
+      "focused": "Fokuseret",
+      "balanced": "Balanceret",
+      "overloaded": "Overbelastet",
+      "distracted": "Distraheret",
+      "recovery_needed": "Behov for restitution",
+      "planning_required": "Planlægning påkrævet"
+    },
+    "focusPeriods": {
+      "morning": "Morgen",
+      "afternoon": "Eftermiddag",
+      "evening": "Aften",
+      "flexible": "Fleksibel"
+    },
+    "interruptionHandling": {
+      "allow_all": "Tillad alle",
+      "batch_non_essential": "Samle ikke-væsentlige",
+      "delay_low_priority": "Udskyd lav prioritet",
+      "silence_optional": "Dæmp valgfrie"
+    },
+    "proactivityLevels": {
+      "minimal": "Minimal",
+      "balanced": "Balanceret",
+      "proactive": "Proaktiv"
+    }
+  },
+  "decisionSupport": {
+    "title": "Beslutningsstøtte",
+    "subtitle": "Klarhed om dine muligheder — du træffer altid den endelige beslutning.",
+    "loading": "Indlæser beslutningsindsigt…",
+    "back": "Tilbage til assistent",
+    "save": "Gem præferencer",
+    "saved": "Gemt",
+    "privacy": "Anbefalinger er vejledning. Forretningsdata forbliver beskyttet.",
+    "analyze": "Opdater anbefalinger",
+    "viewAttention": "Tid og opmærksomhed",
+    "acceptGuidance": "Denne vejledning hjælper",
+    "defer": "Beslut senere",
+    "dismiss": "Ikke relevant",
+    "youDecide": "Aipify rådgiver — du beslutter.",
+    "empty": "Ingen ventende anbefalinger. Opdater analyse eller spørg i chat.",
+    "sections": {
+      "pending": "Ventende beslutninger",
+      "business": "Forretningsindsigt",
+      "priorities": "Prioritetsmuligheder",
+      "risks": "Risikoindikatorer",
+      "history": "Beslutningshistorik",
+      "framework": "Beslutningsramme",
+      "ethics": "Etiske sikringer",
+      "settings": "Præferencer"
+    },
+    "settings": {
+      "enabled": "Anbefalinger aktiveret",
+      "proactivity": "Proaktivitetsniveau",
+      "personal": "Personlig beslutningsstøtte",
+      "historical": "Brug historiske data",
+      "presentation": "Præsentationsstil",
+      "storeHistory": "Gem beslutningshistorik"
+    },
+    "confidenceLevels": {
+      "low": "Lav tillid",
+      "moderate": "Moderat tillid",
+      "high": "Høj tillid"
+    },
+    "proactivityLevels": {
+      "minimal": "Minimal",
+      "balanced": "Balanceret",
+      "proactive": "Proaktiv"
+    },
+    "presentationStyles": {
+      "concise": "Kortfattet",
+      "balanced": "Balanceret",
+      "detailed": "Detaljeret"
+    },
+    "businessDomains": {
+      "support": "Supportprioritering",
+      "administrative": "Administrative opgaver",
+      "executive": "Ledelsesprioriteter",
+      "operational": "Operationel arbejdsgang"
     }
   }
 }

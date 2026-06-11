@@ -1,0 +1,7 @@
+AIPIFY – PHASE 38 – DECISION SUPPORT ENGINE (DSE)
+Implemented: migration 20260612600000_decision_support_phase38.sql
+Route: /app/assistant/decisions
+Lib: lib/decision-support-engine/
+API: /api/assistant/decisions
+Chat: detectDecisionIntent() — guidance only, user decides
+Platform: PlatformDecisionPanel on /platform/trust

@@ -120,6 +120,10 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Goals & Dreams Engine / GDE (Phase 36):** See [GOALS_DREAMS_ENGINE.md](./GOALS_DREAMS_ENGINE.md) — long-term aspirations, milestones, accountability, celebrations, setback support. `/app/assistant/goals`. `lib/goals-dreams-engine/`, migration `20260612400000_goals_dreams_phase36.sql`.
 
+**Time & Attention Guardian / TAG (Phase 37):** See [ATTENTION_GUARDIAN.md](./ATTENTION_GUARDIAN.md) — focus protection, attention audit, energy management, goal alignment, meeting protection. `/app/assistant/attention`. `lib/attention-guardian/`, migration `20260612500000_attention_guardian_phase37.sql`.
+
+**Decision Support Engine / DSE (Phase 38):** See [DECISION_SUPPORT_ENGINE.md](./DECISION_SUPPORT_ENGINE.md) — business-first prioritization, escalation guidance, executive insights, explainability, confidence indicators. `/app/assistant/decisions`. `lib/decision-support-engine/`, migration `20260612600000_decision_support_phase38.sql`.
+
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
 
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.

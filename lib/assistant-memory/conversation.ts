@@ -8,6 +8,8 @@ import {
 } from "./memory-intent-dataset";
 import { detectSchedulingIntent } from "@/lib/context-engine/scheduling";
 import type { EventDraft } from "@/lib/context-engine/types";
+import { detectFocusIntent } from "@/lib/attention-guardian/detection";
+import { detectDecisionIntent } from "@/lib/decision-support-engine/detection";
 import { detectGoalIntent } from "@/lib/goals-dreams-engine/detection";
 import type { GoalDraft } from "@/lib/goals-dreams-engine/types";
 import { detectRelationshipSignal } from "@/lib/relationship-intelligence/detection";
@@ -44,6 +46,16 @@ export type AssistantTurnResult = {
   goalDraft?: GoalDraft | null;
   suggestGoalsDashboard?: boolean;
   goalFollowUp?: string[];
+  suggestAttentionDashboard?: boolean;
+  focusProposal?: { title: string; session_type: string; ends_at_hint: string | null } | null;
+  suggestDecisionsDashboard?: boolean;
+  decisionGuidance?: {
+    decision_type: string;
+    domain: string;
+    reasoning: string[];
+    confidence: string;
+    trade_offs?: string[];
+  } | null;
 };
 
 const MONTH_PATTERN =
@@ -180,6 +192,40 @@ export function buildAssistantTurn(
   const needsConfirm =
     askBeforeRemembering && (confidence !== "high" || rsi.askToRemember);
 
+  const decisionIntent = detectDecisionIntent(message);
+  if (decisionIntent?.detected) {
+    const reasoningBlock =
+      decisionIntent.reasoning.length > 0
+        ? `\n\nI'm thinking about this because:\n${decisionIntent.reasoning.map((r) => `· ${r}`).join("\n")}`
+        : "";
+    const tradeOffBlock =
+      decisionIntent.trade_offs && decisionIntent.trade_offs.length > 0
+        ? `\n\nTrade-offs to consider:\n${decisionIntent.trade_offs.map((t) => `· ${t}`).join("\n")}`
+        : "";
+    return {
+      intent: "general",
+      memory_intent: memoryIntent,
+      memoryDraft: null,
+      askBeforeRemembering: false,
+      suggestDecisionsDashboard: true,
+      suggestContextDashboard: true,
+      decisionGuidance: {
+        decision_type: decisionIntent.decision_type,
+        domain: decisionIntent.domain,
+        reasoning: decisionIntent.reasoning,
+        confidence: decisionIntent.confidence,
+        trade_offs: decisionIntent.trade_offs,
+      },
+      reply: `${decisionIntent.prompt}${reasoningBlock}${tradeOffBlock}\n\nYou make the final decision — I'm here to clarify, not decide for you.`,
+      confidence_level:
+        decisionIntent.confidence === "high"
+          ? "high"
+          : decisionIntent.confidence === "low"
+            ? "low"
+            : "medium",
+    };
+  }
+
   if (memoryIntent === "daily_assistance") {
     return {
       intent: "general",
@@ -188,8 +234,9 @@ export function buildAssistantTurn(
       askBeforeRemembering: false,
       suggestLifeDashboard: true,
       suggestContextDashboard: true,
+      suggestDecisionsDashboard: true,
       reply:
-        "I can help with that. Your Context dashboard has today's briefing, connected calendars, and what needs attention — open it anytime, or tell me what you'd like scheduled.",
+        "I can help with that. Your Context dashboard has today's briefing, connected calendars, and what needs attention — your Decisions dashboard can help prioritize what matters most. Tell me what you'd like scheduled.",
       confidence_level: "low",
     };
   }
@@ -205,6 +252,24 @@ export function buildAssistantTurn(
       reply:
         "Let's look at your day. Your Context dashboard has an evening review — what's still pending, and whether you'd like to reschedule anything.",
       confidence_level: "low",
+    };
+  }
+
+  const focusIntent = detectFocusIntent(message);
+  if (focusIntent?.detected) {
+    return {
+      intent: "general",
+      memory_intent: memoryIntent,
+      memoryDraft: null,
+      askBeforeRemembering: true,
+      suggestAttentionDashboard: true,
+      focusProposal: {
+        title: focusIntent.title,
+        session_type: focusIntent.session_type,
+        ends_at_hint: focusIntent.ends_at_hint,
+      },
+      reply: focusIntent.prompt,
+      confidence_level: "high",
     };
   }
 

@@ -17,6 +17,12 @@ export async function POST(request: Request) {
       confirmMemory?: boolean;
       confirmEvent?: boolean;
       confirmGoal?: boolean;
+      confirmFocus?: boolean;
+      focusProposal?: {
+        title: string;
+        session_type?: string;
+        ends_at_hint?: string | null;
+      };
       goalDraft?: {
         title: string;
         description?: string;
@@ -48,6 +54,30 @@ export async function POST(request: Request) {
         relationship?: string | null;
       };
     };
+
+    if (body.confirmFocus && body.focusProposal?.title) {
+      const endsAt = body.focusProposal.ends_at_hint === "noon"
+        ? new Date(new Date().setHours(12, 0, 0, 0)).toISOString()
+        : body.focusProposal.ends_at_hint === "evening"
+          ? new Date(new Date().setHours(18, 0, 0, 0)).toISOString()
+          : null;
+
+      const { data, error } = await supabase.rpc("activate_focus_mode", {
+        p_title: body.focusProposal.title,
+        p_session_type: body.focusProposal.session_type ?? "deep_work",
+        p_ends_at: endsAt,
+        p_linked_goal_id: null,
+      });
+
+      if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+
+      return NextResponse.json({
+        reply:
+          "Focus mode is on. Non-essential interruptions are reduced — your time is protected.",
+        focusSessionId: data,
+        saved: true,
+      });
+    }
 
     if (body.confirmGoal && body.goalDraft?.title) {
       const draft = body.goalDraft;
@@ -158,6 +188,10 @@ export async function POST(request: Request) {
       goalDraft: turn.goalDraft ?? null,
       suggestGoalsDashboard: turn.suggestGoalsDashboard ?? false,
       goalFollowUp: turn.goalFollowUp,
+      suggestAttentionDashboard: turn.suggestAttentionDashboard ?? false,
+      focusProposal: turn.focusProposal ?? null,
+      suggestDecisionsDashboard: turn.suggestDecisionsDashboard ?? false,
+      decisionGuidance: turn.decisionGuidance ?? null,
     });
   } catch {
     return NextResponse.json({ error: "Assistant request failed" }, { status: 500 });
