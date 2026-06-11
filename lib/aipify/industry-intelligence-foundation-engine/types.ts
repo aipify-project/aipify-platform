@@ -30,6 +30,15 @@ export type IndustryIntelligenceFoundationEngineCard = {
   [key: string]: unknown;
 };
 
+export type IndustryInsightsExportPayload = {
+  exported_at?: string;
+  industry_key?: string | null;
+  insights?: IndustryInsightRecord[];
+  metadata_only?: boolean;
+  privacy_note?: string;
+  [key: string]: unknown;
+};
+
 export type IndustryIntelligenceFoundationEngineDashboard = {
   has_organization: boolean;
   philosophy?: string;

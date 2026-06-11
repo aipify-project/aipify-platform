@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import {
+  parseIndustryInsightsExportPayload,
   parseIndustryIntelligenceFoundationEngineDashboard,
   type IndustryInsightRecord,
   type IndustryIntelligenceFoundationEngineDashboard,
@@ -15,6 +16,7 @@ export function IndustryIntelligenceFoundationEngineDashboardPanel({ labels }: P
   const [actionError, setActionError] = useState<string | null>(null);
   const [assigning, setAssigning] = useState<string | null>(null);
   const [overriding, setOverriding] = useState<string | null>(null);
+  const [exporting, setExporting] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -63,6 +65,26 @@ export function IndustryIntelligenceFoundationEngineDashboardPanel({ labels }: P
     setOverriding(null);
   };
 
+  const exportInsights = async () => {
+    setExporting(true);
+    setActionError(null);
+    const res = await fetch("/api/aipify/industry-intelligence-foundation-engine/export");
+    if (!res.ok) {
+      const body = (await res.json()) as { error?: string };
+      setActionError(body.error ?? labels.exportFailed);
+    } else {
+      const payload = parseIndustryInsightsExportPayload(await res.json());
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = `industry-insights-${payload.industry_key ?? "export"}.json`;
+      anchor.click();
+      URL.revokeObjectURL(url);
+    }
+    setExporting(false);
+  };
+
   if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
   if (!dashboard?.has_organization) return null;
 
@@ -71,8 +93,20 @@ export function IndustryIntelligenceFoundationEngineDashboardPanel({ labels }: P
   return (
     <div className="space-y-6">
       <section className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-6">
-        <h2 className="text-sm font-semibold">{labels.engineTitle}</h2>
-        <p className="mt-2 text-sm">{dashboard.philosophy}</p>
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h2 className="text-sm font-semibold">{labels.engineTitle}</h2>
+            <p className="mt-2 text-sm">{dashboard.philosophy}</p>
+          </div>
+          <button
+            type="button"
+            className="rounded-md border border-indigo-300 bg-white px-3 py-1.5 text-xs font-medium text-indigo-700 disabled:opacity-50"
+            disabled={exporting}
+            onClick={() => void exportInsights()}
+          >
+            {exporting ? labels.exporting : labels.export}
+          </button>
+        </div>
       </section>
 
       {actionError && (

@@ -4270,6 +4270,9 @@
     "override": "Åsidosätt rekommendation",
     "overriding": "Åsidosätter…",
     "overridePrompt": "Ange din åsidosättning:",
-    "overrideFailed": "Åsidosättning misslyckades"
+    "overrideFailed": "Åsidosättning misslyckades",
+    "export": "Exportera insikter",
+    "exporting": "Exporterar…",
+    "exportFailed": "Export misslyckades"
   }
 }

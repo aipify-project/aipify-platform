@@ -1,5 +1,6 @@
 import type {
   IndustryInsightRecord,
+  IndustryInsightsExportPayload,
   IndustryIntelligenceFoundationEngineCard,
   IndustryIntelligenceFoundationEngineDashboard,
   IndustryProfileRecord,
@@ -51,4 +52,16 @@ export function parseIndustryIntelligenceFoundationEngineDashboard(data: unknown
     available_profiles: parseObjectList(d.available_profiles),
     ...d,
   } as IndustryIntelligenceFoundationEngineDashboard;
+}
+
+export function parseIndustryInsightsExportPayload(data: unknown): IndustryInsightsExportPayload {
+  const d = (data ?? {}) as Record<string, unknown>;
+  return {
+    exported_at: typeof d.exported_at === "string" ? d.exported_at : undefined,
+    industry_key: typeof d.industry_key === "string" ? d.industry_key : d.industry_key === null ? null : undefined,
+    insights: parseInsightList(d.insights),
+    metadata_only: typeof d.metadata_only === "boolean" ? d.metadata_only : undefined,
+    privacy_note: typeof d.privacy_note === "string" ? d.privacy_note : undefined,
+    ...d,
+  } as IndustryInsightsExportPayload;
 }

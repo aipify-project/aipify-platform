@@ -34,6 +34,9 @@ export default async function IndustryIntelligenceFoundationEnginePage() {
           overriding: t(`${p}.overriding`),
           overridePrompt: t(`${p}.overridePrompt`),
           overrideFailed: t(`${p}.overrideFailed`),
+          export: t(`${p}.export`),
+          exporting: t(`${p}.exporting`),
+          exportFailed: t(`${p}.exportFailed`),
         }} />
     </div>
   );

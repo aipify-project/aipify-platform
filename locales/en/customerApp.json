@@ -4677,6 +4677,9 @@
     "override": "Override recommendation",
     "overriding": "Overriding…",
     "overridePrompt": "Enter your override reason:",
-    "overrideFailed": "Override failed"
+    "overrideFailed": "Override failed",
+    "export": "Export insights",
+    "exporting": "Exporting…",
+    "exportFailed": "Export failed"
   }
 }

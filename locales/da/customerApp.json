@@ -4244,6 +4244,9 @@
     "override": "Tilsidesæt anbefaling",
     "overriding": "Tilsidesætter…",
     "overridePrompt": "Indtast din tilsidesættelse:",
-    "overrideFailed": "Tilsidesættelse mislykkedes"
+    "overrideFailed": "Tilsidesættelse mislykkedes",
+    "export": "Eksporter indsigter",
+    "exporting": "Eksporterer…",
+    "exportFailed": "Eksport mislykkedes"
   }
 }

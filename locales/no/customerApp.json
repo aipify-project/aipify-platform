@@ -4598,6 +4598,9 @@
     "override": "Overstyr anbefaling",
     "overriding": "Overstyrer…",
     "overridePrompt": "Skriv inn begrunnelse for overstyring:",
-    "overrideFailed": "Overstyring mislyktes"
+    "overrideFailed": "Overstyring mislyktes",
+    "export": "Eksporter innsikter",
+    "exporting": "Eksporterer…",
+    "exportFailed": "Eksport mislyktes"
   }
 }
