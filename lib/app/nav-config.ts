@@ -19,6 +19,8 @@ export type AppNavId =
   | "trustEngine"
   | "digitalTwin"
   | "simulationLab"
+  | "operationsCenter"
+  | "continuityEngine"
   | "approvals"
   | "actionCenter"
   | "businessPulse"
@@ -70,6 +72,8 @@ export const APP_NAV: AppNavItem[] = [
   { id: "trustEngine", href: "/app/trust", labelKey: "customerApp.nav.trustEngine" },
   { id: "digitalTwin", href: "/app/digital-twin", labelKey: "customerApp.nav.digitalTwin" },
   { id: "simulationLab", href: "/app/simulations", labelKey: "customerApp.nav.simulationLab" },
+  { id: "operationsCenter", href: "/app/operations", labelKey: "customerApp.nav.operationsCenter" },
+  { id: "continuityEngine", href: "/app/continuity", labelKey: "customerApp.nav.continuityEngine" },
   { id: "approvals", href: "/app/approvals", labelKey: "customerApp.nav.approvals" },
   { id: "actionCenter", href: "/app/action-center", labelKey: "customerApp.nav.actionCenter" },
   { id: "businessPulse", href: "/app/business-pulse", labelKey: "customerApp.nav.businessPulse" },
@@ -124,6 +128,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/trust")) return "trustEngine";
   if (pathname.startsWith("/app/digital-twin")) return "digitalTwin";
   if (pathname.startsWith("/app/simulations")) return "simulationLab";
+  if (pathname.startsWith("/app/operations")) return "operationsCenter";
+  if (pathname.startsWith("/app/continuity")) return "continuityEngine";
   if (pathname.startsWith("/app/approvals")) return "approvals";
   if (pathname.startsWith("/app/action-center") || pathname.startsWith("/app/actions")) {
     return "actionCenter";

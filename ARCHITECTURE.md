@@ -196,6 +196,10 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Simulation & Decision Lab (Phase 78):** See [SIMULATION_DECISION_LAB_PHASE78.md](./SIMULATION_DECISION_LAB_PHASE78.md) — safe scenario modeling, outcome forecasting, scenario comparison, production isolation. `/app/simulations`, `lib/aipify/simulation-lab/`, migration `20260616900000_simulation_decision_lab_phase78.sql`. Simulation predicts; simulation never acts.
 
+**Autonomous Operations Center (Phase 79):** See [AUTONOMOUS_OPERATIONS_CENTER_PHASE79.md](./AUTONOMOUS_OPERATIONS_CENTER_PHASE79.md) — operational health score, 10 watchers, recommendations, daily/weekly/executive reviews. `/app/operations`, `lib/aipify/aoc/`, migration `20260617000000_autonomous_operations_center_phase79.sql`. AOC observes and recommends; humans decide.
+
+**Continuity, Resilience & Crisis Management (Phase 80):** See [CONTINUITY_RESILIENCE_CRISIS_PHASE80.md](./CONTINUITY_RESILIENCE_CRISIS_PHASE80.md) — continuity plans, backup ownership, incident mode, recovery tracking, readiness score. `/app/continuity`, `lib/aipify/continuity/`, migration `20260617100000_continuity_resilience_crisis_phase80.sql`. Aipify supports resilience; humans lead resilience.
+
 **Quality Guardian / QG (Phases 58–59):** See [QG.md](./QG.md) — software and frontend health monitoring (Image Guardian, Performance Guardian, mobile checks) with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `/app/quality/images`, `lib/aipify/quality/`, migrations `20260614600000_quality_guardian_phase58.sql`, `20260614700000_frontend_experience_guardian_phase59.sql`.
 
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.

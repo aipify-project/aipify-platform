@@ -167,6 +167,18 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
           scenarios: t("customerApp.simulationLab.scenariosLabel"),
           runs: t("customerApp.simulationLab.runsLabel"),
         },
+        operationsCenter: {
+          title: t("customerApp.operationsCenter.title"),
+          open: t("customerApp.operationsCenter.open"),
+          healthScore: t("customerApp.operationsCenter.operationalHealth"),
+          findings: t("customerApp.operationsCenter.findingsLabel"),
+        },
+        continuityEngine: {
+          title: t("customerApp.continuityEngine.title"),
+          open: t("customerApp.continuityEngine.open"),
+          readinessScore: t("customerApp.continuityEngine.readinessScore"),
+          incidentModeActive: t("customerApp.continuityEngine.incidentModeActive"),
+        },
         greetings: {
           morning: t("customerApp.greetings.morning"),
           afternoon: t("customerApp.greetings.afternoon"),
