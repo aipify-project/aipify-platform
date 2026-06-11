@@ -75,9 +75,14 @@ export function CustomerPresenceCenterPanel({ locale, labels }: CustomerPresence
           <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
           <p className="mt-2 text-gray-600">{labels.subtitle}</p>
         </div>
-        <Link href="/app/command-center" className="text-sm text-indigo-600 hover:underline">
-          {labels.commandCenter}
-        </Link>
+        <div className="flex gap-3 text-sm">
+          <Link href="/app/desktop" className="text-indigo-600 hover:underline">
+            Desktop Companion
+          </Link>
+          <Link href="/app/command-center" className="text-indigo-600 hover:underline">
+            {labels.commandCenter}
+          </Link>
+        </div>
       </div>
 
       {briefing && (

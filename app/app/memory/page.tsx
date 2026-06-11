@@ -1,3 +1,4 @@
+import { MemoryEngineHub } from "@/components/app/memory";
 import { OrganizationalMemoryPanel } from "@/components/app/organizational-memory/OrganizationalMemoryPanel";
 import { MEMORY_CATEGORIES } from "@/lib/aipify/organizational-memory";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -14,6 +15,27 @@ export default async function OrganizationalMemoryPage() {
   );
 
   return (
+    <div className="space-y-6">
+      <div className="mx-auto max-w-6xl px-6 pt-6">
+        <MemoryEngineHub
+          labels={{
+            engineTitle: t("customerApp.memoryEngine.title"),
+            engineSubtitle: t("customerApp.memoryEngine.subtitle"),
+            loading: t("customerApp.memoryEngine.loading"),
+            empty: t("customerApp.memoryEngine.empty"),
+            refresh: t("customerApp.memoryEngine.refresh"),
+            preferences: t("customerApp.memoryEngine.preferences"),
+            patterns: t("customerApp.memoryEngine.patterns"),
+            recommendations: t("customerApp.memoryEngine.recommendations"),
+            settingsLink: t("customerApp.memoryEngine.settingsLink"),
+            profileCount: t("customerApp.memoryEngine.profileCount"),
+            patternCount: t("customerApp.memoryEngine.patternCount"),
+            noRecommendations: t("customerApp.memoryEngine.recommendationsEmpty"),
+            open: t("customerApp.memoryEngine.open"),
+            privacy: t("customerApp.memoryEngine.privacy"),
+          }}
+        />
+      </div>
     <OrganizationalMemoryPanel
       labels={{
         title: t("customerApp.organizationalMemory.title"),
@@ -62,5 +84,6 @@ export default async function OrganizationalMemoryPage() {
         noResults: t("customerApp.organizationalMemory.noResults"),
       }}
     />
+    </div>
   );
 }

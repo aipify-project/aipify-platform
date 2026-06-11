@@ -1,0 +1,53 @@
+import type { NormalizedDesktopEvent } from "../types";
+
+/** Unonight pilot desktop notification presets (observation mode). */
+export const UNONIGHT_DESKTOP_EVENTS: NormalizedDesktopEvent[] = [
+  {
+    source_module: "unonight",
+    source_type: "verification",
+    event_key: "desktop.unonight.pending_verifications",
+    category: "unonight",
+    title: "Pending verifications",
+    summary: "Guest verifications await review in the Unonight pilot.",
+    severity: "high",
+    requires_action: true,
+    action_url: "/app/installations",
+    recommendation: "Review pending verifications",
+  },
+  {
+    source_module: "unonight",
+    source_type: "support_draft",
+    event_key: "desktop.unonight.support_drafts",
+    category: "unonight",
+    title: "Support drafts ready",
+    summary: "Support AI drafts are ready for human review.",
+    severity: "medium",
+    requires_action: true,
+    action_url: "/app/assistant",
+    recommendation: "Review support drafts before sending",
+  },
+  {
+    source_module: "unonight",
+    source_type: "marketplace",
+    event_key: "desktop.unonight.marketplace_approvals",
+    category: "unonight",
+    title: "Marketplace approvals",
+    summary: "New marketplace listings need approval.",
+    severity: "medium",
+    requires_action: true,
+    action_url: "/app/approvals",
+    recommendation: "Open Approval Center",
+  },
+  {
+    source_module: "unonight",
+    source_type: "upgrade_warning",
+    event_key: "desktop.unonight.upgrade_flow",
+    category: "unonight",
+    title: "Upgrade flow warning",
+    summary: "Checkout or upgrade flow reported friction.",
+    severity: "high",
+    requires_action: true,
+    action_url: "/app/quality",
+    recommendation: "Review upgrade flow incidents",
+  },
+];

@@ -47,6 +47,27 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
           viewAll: t("customerApp.home.viewAll"),
         onboardingNote: t("customerApp.home.onboardingNote"),
         overviewLate: t("customerApp.home.overviewLate"),
+        briefing: {
+          sinceLastLogin: t("customerApp.briefing.sinceLastLogin"),
+          viewFull: t("customerApp.briefing.viewFull"),
+          recommendedStep: t("customerApp.briefing.recommendedStep"),
+          openApprovals: t("customerApp.briefing.openApprovals"),
+          openQuality: t("customerApp.briefing.openQuality"),
+          markRead: t("customerApp.briefing.markRead"),
+        },
+        desktop: {
+          title: t("customerApp.desktop.title"),
+          open: t("customerApp.desktop.open"),
+          mode: t("customerApp.desktop.mode"),
+          unread: t("customerApp.desktop.unread"),
+          remindersSoon: t("customerApp.desktop.remindersSoon"),
+        },
+        memoryEngine: {
+          title: t("customerApp.memoryEngine.title"),
+          open: t("customerApp.memoryEngine.open"),
+          profiles: t("customerApp.memoryEngine.profiles"),
+          patterns: t("customerApp.memoryEngine.patternsLabel"),
+        },
         greetings: {
           morning: t("customerApp.greetings.morning"),
           afternoon: t("customerApp.greetings.afternoon"),

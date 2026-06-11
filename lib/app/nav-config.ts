@@ -2,6 +2,7 @@ import { resolveAppHref } from "./route-aliases";
 
 export type AppNavId =
   | "overview"
+  | "briefing"
   | "executive"
   | "presence"
   | "assistant"
@@ -36,6 +37,7 @@ export type AppNavItem = {
 /** Canonical Customer App 1.0 navigation (Phase 28). */
 export const APP_NAV: AppNavItem[] = [
   { id: "overview", href: "/app", labelKey: "customerApp.nav.overview" },
+  { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
   { id: "assistant", href: "/app/assistant", labelKey: "customerApp.nav.assistant" },
@@ -79,7 +81,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/executive")) return "executive";
   if (
     pathname.startsWith("/app/presence") ||
-    pathname.startsWith("/app/command-center")
+    pathname.startsWith("/app/command-center") ||
+    pathname.startsWith("/app/desktop")
   ) {
     return "presence";
   }
@@ -98,7 +101,10 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/friction") || pathname.startsWith("/dashboard/friction")) {
     return "frictionIntelligence";
   }
-  if (pathname.startsWith("/app/memory") || pathname.startsWith("/dashboard/memory")) {
+  if (
+    pathname.startsWith("/app/memory") ||
+    pathname.startsWith("/dashboard/memory")
+  ) {
     return "organizationalMemory";
   }
   if (pathname.startsWith("/app/insights") || pathname.startsWith("/app/organization") || pathname.startsWith("/app/workflows")) {

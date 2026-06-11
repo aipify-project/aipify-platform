@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { AipifyBriefingCard } from "@/components/app/briefing";
+import { DesktopCompanionCard } from "@/components/app/desktop";
+import { MemoryEngineCard } from "@/components/app/memory";
 import { AipifyEmptyState } from "@/components/branding";
 import { HealthScoreCard } from "@/components/app/shared/HealthScoreCard";
 import { SectionCard } from "@/components/app/shared/SectionCard";
@@ -36,6 +39,27 @@ type CustomerHomePanelProps = {
     onboardingNote: string;
     greetings: GreetingLabels;
     overviewLate: string;
+    briefing: {
+      sinceLastLogin: string;
+      viewFull: string;
+      recommendedStep: string;
+      openApprovals: string;
+      openQuality: string;
+      markRead: string;
+    };
+    desktop: {
+      title: string;
+      open: string;
+      mode: string;
+      unread: string;
+      remindersSoon: string;
+    };
+    memoryEngine: {
+      title: string;
+      open: string;
+      profiles: string;
+      patterns: string;
+    };
   };
 };
 
@@ -86,6 +110,10 @@ export function CustomerHomePanel({ locale, labels }: CustomerHomePanelProps) {
         <p className="mt-2 max-w-2xl text-base text-gray-600">{overview}</p>
         <p className="mt-3 text-sm text-indigo-700">{labels.principle}</p>
       </div>
+
+      <AipifyBriefingCard labels={labels.briefing} />
+      <DesktopCompanionCard labels={labels.desktop} />
+      <MemoryEngineCard labels={labels.memoryEngine} />
 
       <div className="grid gap-4 lg:grid-cols-3">
         <HealthScoreCard

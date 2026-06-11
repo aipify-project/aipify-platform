@@ -158,6 +158,12 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Unonight Pilot Install (Phase 57):** See [UNONIGHT_PILOT.md](./UNONIGHT_PILOT.md) — first live tenant activation via generic `provision_pilot_tenant`; Unonight config in `lib/aipify/integrations/unonight/`, platform UI at `/platform/install/unonight`, migration `20260614500000_unonight_pilot_installation_phase57.sql`.
 
+**Briefing System (Phase 60):** See [BRIEFING.md](./BRIEFING.md) — Since Last Login and Daily Command Brief across modules. `/app` briefing card, `/app/briefing`, `lib/aipify/briefing/`, migration `20260614900000_briefing_system_phase60.sql`.
+
+**Desktop Companion (Phase 61):** See [DESKTOP_COMPANION.md](./DESKTOP_COMPANION.md) — smart notifications, reminders, mini-chat, and notification modes (Silent, Balanced, Active Assistant, Focus). Integrates with Briefing, Quality Guardian, Governance, and Unonight pilot. `/app/desktop`, `lib/aipify/desktop/`, migration `20260615000000_desktop_companion_phase61.sql`.
+
+**Memory Engine (Phase 62):** See [MEMORY_ENGINE.md](./MEMORY_ENGINE.md) — tenant-isolated pattern learning, preferences, observations, and memory-improved recommendations. Integrates with Briefing, Desktop Companion, Governance, Quality Guardian, and Organizational Memory (OME). `/app/memory`, `lib/aipify/memory/`, migration `20260615100000_memory_engine_phase62.sql`.
+
 **Quality Guardian / QG (Phases 58–59):** See [QG.md](./QG.md) — software and frontend health monitoring (Image Guardian, Performance Guardian, mobile checks) with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `/app/quality/images`, `lib/aipify/quality/`, migrations `20260614600000_quality_guardian_phase58.sql`, `20260614700000_frontend_experience_guardian_phase59.sql`.
 
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
