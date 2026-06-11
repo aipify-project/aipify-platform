@@ -205,6 +205,10 @@ export const PERMISSION_KEYS = [
   "health.manage",
   "health.review",
   "health.export",
+  "maturity.view",
+  "maturity.manage",
+  "maturity.review",
+  "maturity.export",
   "ai.approve",
   "ai.reject",
   "settings.manage",
@@ -317,6 +321,10 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "strategy.manage",
     "strategy.review",
     "strategy.export",
+    "maturity.view",
+    "maturity.manage",
+    "maturity.review",
+    "maturity.export",
     "ai.approve",
     "ai.reject",
   ],
@@ -359,6 +367,7 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "commitments.review",
     "decisions.view",
     "strategy.view",
+    "maturity.view",
   ],
   viewer: [
     "users.view",
@@ -395,6 +404,7 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "commitments.view",
     "decisions.view",
     "strategy.view",
+    "maturity.view",
   ],
 };
 

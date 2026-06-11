@@ -3175,7 +3175,10 @@
     "serviceLevelCommitmentEngine": "Servicenivååtaganden",
     "stakeholderCommunicationEngine": "Intressentkommunikation",
     "organizationalDecisionSupportEngine": "Organisationsbeslut",
-    "strategicAlignmentEngine": "Strategisk inriktning"
+    "strategicAlignmentEngine": "Strategisk inriktning",
+    "meetingCollaborationIntelligenceEngine": "Mötesintelligens",
+    "recordsRetentionManagementEngine": "Poster och bevarande",
+    "organizationalBenchmarkingEngine": "Organisationsbenchmarking"
   },
   "identity": {
     "title": "Din identitet",
@@ -4532,5 +4535,37 @@
     "exportReport": "Exportera rapport",
     "exporting": "Exporterar…",
     "exportFailed": "Export misslyckades"
+  },
+  "recordsRetentionManagementEngine": {
+    "title": "Poster och bevarande",
+    "subtitle": "Bevarandepolicyer, metadata-arkiv, destruktionsgodkännanden och efterlevnadsögonblicksbilder.",
+    "loading": "Laddar poster och bevarande…",
+    "engineTitle": "Records & Retention Management Engine",
+    "distinctionNote": "Skilt från säkerhetsinställningar och efterlevnadsberedskap — denna motor styr postlivscykel med mänskligt godkänd destruktion.",
+    "summary": "Sammanfattning",
+    "compliance": "Efterlevnadsögonblicksbild",
+    "integrationSummaries": "Integrationssammanfattningar",
+    "policies": "Bevarandepolicyer",
+    "archivedRecords": "Arkiverade poster",
+    "disposalRequests": "Destruktionsförfrågningar",
+    "noPolicies": "Inga bevarandepolicyer ännu.",
+    "noArchivedRecords": "Inga arkiverade poster ännu.",
+    "noDisposalRequests": "Inga destruktionsförfrågningar.",
+    "activatePolicy": "Aktivera policy",
+    "activating": "Aktiverar…",
+    "activateFailed": "Aktivering misslyckades",
+    "restore": "Återställ",
+    "restoring": "Återställer…",
+    "restoreFailed": "Återställning misslyckades",
+    "requestDisposal": "Begär destruktion",
+    "requestingDisposal": "Skickar begäran…",
+    "disposeFailed": "Destruktionsförfrågan misslyckades",
+    "approve": "Godkänn",
+    "approving": "Godkänner…",
+    "approveFailed": "Godkännande misslyckades",
+    "reject": "Avvisa",
+    "completeDisposal": "Slutför destruktion",
+    "completing": "Slutför…",
+    "completeFailed": "Slutförande misslyckades"
   }
 }

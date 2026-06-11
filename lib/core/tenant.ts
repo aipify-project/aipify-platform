@@ -61,3 +61,4 @@ export * from "./strategic-alignment";
 export * from "./organizational-health";
 export * from "./capability-maturity";
 export * from "./organizational-benchmarking";
+export * from "./document-output";
