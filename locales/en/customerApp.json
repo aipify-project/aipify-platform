@@ -1159,6 +1159,75 @@
       "dismiss": "Dismiss"
     }
   },
+  "strategicGoals": {
+    "title": "Strategic Goals",
+    "subtitle": "Connect daily work to what matters most — define goals, track progress, and stay aligned.",
+    "loading": "Loading strategic goals…",
+    "back": "Back to overview",
+    "youControl": "Humans define success. Aipify provides awareness and supports execution.",
+    "privacy": "Privacy",
+    "createGoal": "Create goal",
+    "saveGoal": "Save goal",
+    "cancel": "Cancel",
+    "archive": "Archive",
+    "refresh": "Refresh",
+    "progress": "Progress",
+    "emptyActive": "No active goals yet. Create one to align work with your objectives.",
+    "emptyAtRisk": "No goals currently need additional attention.",
+    "emptyMilestones": "Milestones will appear as goals progress.",
+    "emptyTimeline": "Goal activity will appear here.",
+    "emptyCompleted": "Completed goals will appear here.",
+    "upgrade": {
+      "title": "Strategic Goals require Business Pro or Enterprise",
+      "body": "Strategic Goal Engine is available in Aipify Business Pro and Enterprise because it connects daily operations to meaningful business outcomes.",
+      "cta": "View packages"
+    },
+    "sections": {
+      "active": "Active goals",
+      "health": "Goal health",
+      "milestones": "Upcoming milestones",
+      "atRisk": "Goals at risk",
+      "recommended": "Recommended actions",
+      "completed": "Completed goals",
+      "timeline": "Goal timeline",
+      "create": "Create a new goal"
+    },
+    "statuses": {
+      "not_started": "Not started",
+      "on_track": "On track",
+      "needs_attention": "Needs attention",
+      "at_risk": "At risk",
+      "behind_schedule": "Behind schedule",
+      "completed": "Completed",
+      "archived": "Archived"
+    },
+    "categories": {
+      "sales": "Sales",
+      "support": "Support",
+      "operations": "Operations",
+      "marketing": "Marketing",
+      "hr": "HR",
+      "custom": "Custom"
+    },
+    "priorities": {
+      "critical": "Critical",
+      "high": "High",
+      "standard": "Standard",
+      "low": "Low"
+    },
+    "fields": {
+      "title": "Goal title",
+      "description": "Description",
+      "category": "Category",
+      "priority": "Priority",
+      "baseline": "Baseline value",
+      "target": "Target value",
+      "current": "Current value",
+      "unit": "Measurement unit",
+      "startDate": "Start date",
+      "targetDate": "Target date"
+    }
+  },
   "nav": {
     "overview": "Home",
     "executive": "Executive",
@@ -1169,6 +1238,7 @@
     "approvals": "Approvals",
     "actionCenter": "Action Center",
     "businessPulse": "Business Pulse",
+    "strategicGoals": "Strategic Goals",
     "installations": "Installations",
     "domains": "Domains",
     "team": "Team",

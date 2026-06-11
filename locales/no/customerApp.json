@@ -448,6 +448,75 @@
       "dismiss": "Avvis"
     }
   },
+  "strategicGoals": {
+    "title": "Strategiske mål",
+    "subtitle": "Koble daglig arbeid til det som betyr mest — definer mål, følg fremdrift og hold retningen.",
+    "loading": "Laster strategiske mål…",
+    "back": "Tilbake til oversikt",
+    "youControl": "Mennesker definerer suksess. Aipify gir oversikt og støtter gjennomføring.",
+    "privacy": "Personvern",
+    "createGoal": "Opprett mål",
+    "saveGoal": "Lagre mål",
+    "cancel": "Avbryt",
+    "archive": "Arkiver",
+    "refresh": "Oppdater",
+    "progress": "Fremdrift",
+    "emptyActive": "Ingen aktive mål ennå. Opprett et mål for å samkjøre arbeidet med målene dine.",
+    "emptyAtRisk": "Ingen mål trenger ekstra oppmerksomhet akkurat nå.",
+    "emptyMilestones": "Milepæler vises etter hvert som mål gjør fremgang.",
+    "emptyTimeline": "Målaktivitet vises her.",
+    "emptyCompleted": "Fullførte mål vises her.",
+    "upgrade": {
+      "title": "Strategiske mål krever Business Pro eller Enterprise",
+      "body": "Strategic Goal Engine er tilgjengelig i Aipify Business Pro og Enterprise fordi den kobler daglig drift til meningsfulle forretningsresultater.",
+      "cta": "Se pakker"
+    },
+    "sections": {
+      "active": "Aktive mål",
+      "health": "Målhelse",
+      "milestones": "Kommende milepæler",
+      "atRisk": "Mål i risiko",
+      "recommended": "Anbefalte handlinger",
+      "completed": "Fullførte mål",
+      "timeline": "Måltidslinje",
+      "create": "Opprett nytt mål"
+    },
+    "statuses": {
+      "not_started": "Ikke startet",
+      "on_track": "På sporet",
+      "needs_attention": "Trenger oppmerksomhet",
+      "at_risk": "I risiko",
+      "behind_schedule": "Forsinket",
+      "completed": "Fullført",
+      "archived": "Arkivert"
+    },
+    "categories": {
+      "sales": "Salg",
+      "support": "Support",
+      "operations": "Drift",
+      "marketing": "Markedsføring",
+      "hr": "HR",
+      "custom": "Egendefinert"
+    },
+    "priorities": {
+      "critical": "Kritisk",
+      "high": "Høy",
+      "standard": "Standard",
+      "low": "Lav"
+    },
+    "fields": {
+      "title": "Måltittel",
+      "description": "Beskrivelse",
+      "category": "Kategori",
+      "priority": "Prioritet",
+      "baseline": "Utgangspunkt",
+      "target": "Målverdi",
+      "current": "Nåværende verdi",
+      "unit": "Måleenhet",
+      "startDate": "Startdato",
+      "targetDate": "Måldato"
+    }
+  },
   "nav": {
     "overview": "Hjem",
     "executive": "Executive",
@@ -458,6 +527,7 @@
     "approvals": "Godkjenninger",
     "actionCenter": "Handlingssenter",
     "businessPulse": "Business Pulse",
+    "strategicGoals": "Strategiske mål",
     "installations": "Installasjoner",
     "domains": "Domener",
     "team": "Team",

@@ -140,6 +140,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Business Pulse Engine / BPE (Phase 47):** See [BPE.md](./BPE.md) — calm operational awareness, anomaly detection, daily briefings, pulse alerts. `/app/business-pulse`, `lib/aipify/business-pulse/`, migration `20260613500000_business_pulse_phase47.sql`.
 
+**Strategic Goal Engine / SGE (Phase 48):** See [SGE.md](./SGE.md) — strategic goals, progress tracking, goal health, milestones, pulse-aligned briefings. `/app/goals`, `lib/aipify/strategic-goals/`, migration `20260613600000_strategic_goal_engine_phase48.sql`.
+
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
 
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.

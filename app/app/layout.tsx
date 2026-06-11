@@ -55,6 +55,7 @@ export default async function AppLayout({
             approvals: t("customerApp.nav.approvals"),
             actionCenter: t("customerApp.nav.actionCenter"),
             businessPulse: t("customerApp.nav.businessPulse"),
+            strategicGoals: t("customerApp.nav.strategicGoals"),
             installations: t("customerApp.nav.installations"),
             domains: t("customerApp.nav.domains"),
             team: t("customerApp.nav.team"),

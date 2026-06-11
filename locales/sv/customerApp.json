@@ -448,6 +448,75 @@
       "dismiss": "Avvisa"
     }
   },
+  "strategicGoals": {
+    "title": "Strategiska mål",
+    "subtitle": "Koppla dagligt arbete till det som betyder mest — definiera mål, följ framsteg och håll riktningen.",
+    "loading": "Laddar strategiska mål…",
+    "back": "Tillbaka till översikt",
+    "youControl": "Människor definierar framgång. Aipify ger medvetenhet och stödjer genomförande.",
+    "privacy": "Integritet",
+    "createGoal": "Skapa mål",
+    "saveGoal": "Spara mål",
+    "cancel": "Avbryt",
+    "archive": "Arkivera",
+    "refresh": "Uppdatera",
+    "progress": "Framsteg",
+    "emptyActive": "Inga aktiva mål ännu. Skapa ett mål för att samordna arbetet med dina mål.",
+    "emptyAtRisk": "Inga mål behöver extra uppmärksamhet just nu.",
+    "emptyMilestones": "Milstolpar visas när mål gör framsteg.",
+    "emptyTimeline": "Målaktivitet visas här.",
+    "emptyCompleted": "Slutförda mål visas här.",
+    "upgrade": {
+      "title": "Strategiska mål kräver Business Pro eller Enterprise",
+      "body": "Strategic Goal Engine finns i Aipify Business Pro och Enterprise eftersom den kopplar daglig drift till meningsfulla affärsresultat.",
+      "cta": "Visa paket"
+    },
+    "sections": {
+      "active": "Aktiva mål",
+      "health": "Målhälsa",
+      "milestones": "Kommande milstolpar",
+      "atRisk": "Mål i risk",
+      "recommended": "Rekommenderade åtgärder",
+      "completed": "Slutförda mål",
+      "timeline": "Måltidslinje",
+      "create": "Skapa nytt mål"
+    },
+    "statuses": {
+      "not_started": "Inte påbörjat",
+      "on_track": "I fas",
+      "needs_attention": "Behöver uppmärksamhet",
+      "at_risk": "I risk",
+      "behind_schedule": "Försenat",
+      "completed": "Slutfört",
+      "archived": "Arkiverat"
+    },
+    "categories": {
+      "sales": "Försäljning",
+      "support": "Support",
+      "operations": "Drift",
+      "marketing": "Marknadsföring",
+      "hr": "HR",
+      "custom": "Anpassat"
+    },
+    "priorities": {
+      "critical": "Kritisk",
+      "high": "Hög",
+      "standard": "Standard",
+      "low": "Låg"
+    },
+    "fields": {
+      "title": "Måltitel",
+      "description": "Beskrivning",
+      "category": "Kategori",
+      "priority": "Prioritet",
+      "baseline": "Utgångsvärde",
+      "target": "Målvärde",
+      "current": "Nuvarande värde",
+      "unit": "Mätenhet",
+      "startDate": "Startdatum",
+      "targetDate": "Måldatum"
+    }
+  },
   "nav": {
     "overview": "Hem",
     "executive": "Executive",
@@ -458,6 +527,7 @@
     "approvals": "Godkännanden",
     "actionCenter": "Åtgärdscenter",
     "businessPulse": "Business Pulse",
+    "strategicGoals": "Strategiska mål",
     "installations": "Installationer",
     "domains": "Domäner",
     "team": "Team",
