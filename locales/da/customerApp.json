@@ -3138,7 +3138,8 @@
     "continuousImprovementEngine": "Kontinuerlig forbedring",
     "workflowOrchestrationEngine": "Workflow-orkestrering",
     "humanOversightEngine": "Menneskeligt tilsyn",
-    "businessPacksFoundationEngine": "Forretningspakker"
+    "businessPacksFoundationEngine": "Forretningspakker",
+    "industryIntelligenceFoundationEngine": "Brancheintelligens"
   },
   "identity": {
     "title": "Din identitet",
@@ -4221,5 +4222,28 @@
     "activating": "Aktiverer…",
     "activateFailed": "Aktivering mislykkedes",
     "comingSoon": "Reserveret"
+  },
+  "industryIntelligenceFoundationEngine": {
+    "title": "Brancheintelligens",
+    "subtitle": "Branchespecifikke mønstre, terminologi og operationel vejledning — mennesker bestemmer, Aipify informerer.",
+    "loading": "Indlæser brancheintelligens…",
+    "engineTitle": "Industry Intelligence Foundation Engine",
+    "summary": "Resumé",
+    "principles": "Principper",
+    "assignedProfile": "Tildelt brancheprofil",
+    "availableProfiles": "Tilgængelige brancheprofiler",
+    "assignProfile": "Tildel profil",
+    "assigning": "Tildeler…",
+    "assignFailed": "Tildeling mislykkedes",
+    "benchmarks": "Branchebenchmarks",
+    "recommendedImprovements": "Anbefalede forbedringer",
+    "commonRisks": "Almindelige risici",
+    "strategicOpportunities": "Strategiske muligheder",
+    "businessPackAlignment": "Forretningspakke-tilpasning",
+    "integrationSummaries": "Integrationssammendrag",
+    "override": "Tilsidesæt anbefaling",
+    "overriding": "Tilsidesætter…",
+    "overridePrompt": "Indtast din tilsidesættelse:",
+    "overrideFailed": "Tilsidesættelse mislykkedes"
   }
 }

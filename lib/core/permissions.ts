@@ -157,6 +157,10 @@ export const PERMISSION_KEYS = [
   "business_packs.activate",
   "business_packs.manage",
   "business_packs.customize",
+  "industry.view",
+  "industry.manage",
+  "industry.override",
+  "industry.export",
   "ai.approve",
   "ai.reject",
   "settings.manage",
@@ -229,6 +233,8 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "workflows.view",
     "workflows.approve",
     "workflows.pause",
+    "industry.view",
+    "industry.override",
     "ai.approve",
     "ai.reject",
   ],
@@ -256,6 +262,7 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "memory.view",
     "memory.create",
     "workflows.view",
+    "industry.view",
   ],
   viewer: [
     "users.view",
@@ -280,6 +287,7 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "certifications.view",
     "memory.view",
     "workflows.view",
+    "industry.view",
   ],
 };
 

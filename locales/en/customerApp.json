@@ -4283,7 +4283,8 @@
     "continuousImprovementEngine": "Continuous Improvement",
     "workflowOrchestrationEngine": "Workflow Orchestration",
     "humanOversightEngine": "Human Oversight",
-    "businessPacksFoundationEngine": "Business Packs"
+    "businessPacksFoundationEngine": "Business Packs",
+    "industryIntelligenceFoundationEngine": "Industry Intelligence"
   },
   "aipifyInstallEngine": {
     "title": "Install Engine",
@@ -4654,5 +4655,28 @@
     "activating": "Activating…",
     "activateFailed": "Activation failed",
     "comingSoon": "Reserved"
+  },
+  "industryIntelligenceFoundationEngine": {
+    "title": "Industry Intelligence",
+    "subtitle": "Industry-specific patterns, terminology, and operational guidance — humans decide, Aipify informs.",
+    "loading": "Loading industry intelligence…",
+    "engineTitle": "Industry Intelligence Foundation Engine",
+    "summary": "Summary",
+    "principles": "Principles",
+    "assignedProfile": "Assigned industry profile",
+    "availableProfiles": "Available industry profiles",
+    "assignProfile": "Assign profile",
+    "assigning": "Assigning…",
+    "assignFailed": "Assignment failed",
+    "benchmarks": "Industry benchmarks",
+    "recommendedImprovements": "Recommended improvements",
+    "commonRisks": "Common risks",
+    "strategicOpportunities": "Strategic opportunities",
+    "businessPackAlignment": "Business pack alignment",
+    "integrationSummaries": "Integration summaries",
+    "override": "Override recommendation",
+    "overriding": "Overriding…",
+    "overridePrompt": "Enter your override reason:",
+    "overrideFailed": "Override failed"
   }
 }

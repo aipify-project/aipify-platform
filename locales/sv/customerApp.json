@@ -3164,7 +3164,8 @@
     "continuousImprovementEngine": "Kontinuerlig förbättring",
     "workflowOrchestrationEngine": "Arbetsflödesorkestrering",
     "humanOversightEngine": "Mänsklig tillsyn",
-    "businessPacksFoundationEngine": "Affärspaket"
+    "businessPacksFoundationEngine": "Affärspaket",
+    "industryIntelligenceFoundationEngine": "Branschintelligens"
   },
   "identity": {
     "title": "Din identitet",
@@ -4247,5 +4248,28 @@
     "activating": "Aktiverar…",
     "activateFailed": "Aktivering misslyckades",
     "comingSoon": "Reserverad"
+  },
+  "industryIntelligenceFoundationEngine": {
+    "title": "Branschintelligens",
+    "subtitle": "Branschspecifika mönster, terminologi och operativ vägledning — människor bestämmer, Aipify informerar.",
+    "loading": "Laddar branschintelligens…",
+    "engineTitle": "Industry Intelligence Foundation Engine",
+    "summary": "Sammanfattning",
+    "principles": "Principer",
+    "assignedProfile": "Tilldelad branschprofil",
+    "availableProfiles": "Tillgängliga branschprofiler",
+    "assignProfile": "Tilldela profil",
+    "assigning": "Tilldelar…",
+    "assignFailed": "Tilldelning misslyckades",
+    "benchmarks": "Branschbenchmarks",
+    "recommendedImprovements": "Rekommenderade förbättringar",
+    "commonRisks": "Vanliga risker",
+    "strategicOpportunities": "Strategiska möjligheter",
+    "businessPackAlignment": "Affärspaketsanpassning",
+    "integrationSummaries": "Integrationssammanfattningar",
+    "override": "Åsidosätt rekommendation",
+    "overriding": "Åsidosätter…",
+    "overridePrompt": "Ange din åsidosättning:",
+    "overrideFailed": "Åsidosättning misslyckades"
   }
 }

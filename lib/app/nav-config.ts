@@ -41,6 +41,7 @@ export type AppNavId =
   | "workflowOrchestrationEngine"
   | "humanOversightEngine"
   | "businessPacksFoundationEngine"
+  | "industryIntelligenceFoundationEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -244,6 +245,11 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/business-packs-foundation-engine",
     labelKey: "customerApp.nav.businessPacksFoundationEngine",
   },
+  {
+    id: "industryIntelligenceFoundationEngine",
+    href: "/app/industry-intelligence-foundation-engine",
+    labelKey: "customerApp.nav.industryIntelligenceFoundationEngine",
+  },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -352,6 +358,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/business-packs-foundation-engine")) {
     return "businessPacksFoundationEngine";
+  }
+  if (pathname.startsWith("/app/industry-intelligence-foundation-engine")) {
+    return "industryIntelligenceFoundationEngine";
   }
   if (pathname.startsWith("/app/aipify-install-engine")) return "aipifyInstallEngine";
   if (pathname.startsWith("/app/module-marketplace-foundation-engine")) {

@@ -47,3 +47,4 @@ export * from "./continuous-improvement";
 export * from "./business-packs-foundation";
 export * from "./workflow-orchestration-engine";
 export * from "./human-oversight";
+export * from "./industry-intelligence-foundation";
