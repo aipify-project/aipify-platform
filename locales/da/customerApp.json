@@ -1018,7 +1018,9 @@
       "approveAlways": "Godkend altid",
       "pauseCategory": "Pause kategori"
     },
-    "approvals": { "empty": "Ingen afventende godkendelser." },
+    "approvals": {
+      "empty": "Ingen afventende godkendelser."
+    },
     "risk": {
       "low": "Lav risiko",
       "medium": "Mellem risiko",
@@ -1077,7 +1079,10 @@
       "gaps": "Åbne huller",
       "searches": "Søgninger (24t)"
     },
-    "articles": { "title": "Artikler", "empty": "Ingen artikler endnu." },
+    "articles": {
+      "title": "Artikler",
+      "empty": "Ingen artikler endnu."
+    },
     "gaps": {
       "title": "Videnshuller",
       "subtitle": "Spørgsmål Aipify ikke kunne svare sikkert på.",
@@ -1092,7 +1097,10 @@
     "dismiss": "Afvis",
     "noAnswer": "Aipify fandt ikke et dokumenteret svar.",
     "confidenceLow": "Svar med lav sikkerhed",
-    "links": { "gaps": "Videnshuller", "settings": "Vidensindstillinger" },
+    "links": {
+      "gaps": "Videnshuller",
+      "settings": "Vidensindstillinger"
+    },
     "statuses": {
       "draft": "Udkast",
       "review": "Gennemgang",
@@ -1288,10 +1296,28 @@
     "auditSubtitle": "Anmod om eksport af agentadgang og revisionslogge.",
     "requestExport": "Anmod",
     "noExports": "Ingen revisionseksport endnu.",
-    "deploymentModes": { "cloud_saas": "Cloud SaaS", "hybrid": "Hybrid", "on_premise": "On-premise" },
-    "residencyModes": { "cloud": "Cloud", "local_only": "Kun lokalt", "hybrid_redacted": "Hybrid (redigeret)", "customer_controlled": "Kundestyret" },
-    "connectivityModes": { "internet": "Internet", "outbound_only": "Kun udgående", "private_network": "Privat netværk", "offline_limited": "Begrænset offline" },
-    "endpointModes": { "cloud": "Aipify Cloud", "hybrid": "Hybrid", "on_premise": "Internt endpoint" }
+    "deploymentModes": {
+      "cloud_saas": "Cloud SaaS",
+      "hybrid": "Hybrid",
+      "on_premise": "On-premise"
+    },
+    "residencyModes": {
+      "cloud": "Cloud",
+      "local_only": "Kun lokalt",
+      "hybrid_redacted": "Hybrid (redigeret)",
+      "customer_controlled": "Kundestyret"
+    },
+    "connectivityModes": {
+      "internet": "Internet",
+      "outbound_only": "Kun udgående",
+      "private_network": "Privat netværk",
+      "offline_limited": "Begrænset offline"
+    },
+    "endpointModes": {
+      "cloud": "Aipify Cloud",
+      "hybrid": "Hybrid",
+      "on_premise": "Internt endpoint"
+    }
   },
   "enterpriseDeploymentFramework": {
     "title": "Enterprise Deployment Framework",
@@ -3089,7 +3115,12 @@
     "security": "Sikkerhed",
     "orchestration": "Orkestrering",
     "settings": "Indstillinger",
-    "learning": "Læring"
+    "learning": "Læring",
+    "aipifyInstallEngine": "Install Engine (da)",
+    "moduleMarketplaceFoundationEngine": "Module Marketplace (da)",
+    "aipifyInternalOperationsEngine": "Internal Ops (da)",
+    "launchReadinessEngine": "Launch Readiness (da)",
+    "customerSuccessEngine": "Customer Success (da)"
   },
   "identity": {
     "title": "Din identitet",
@@ -3802,5 +3833,93 @@
       "relationship": "Relationspåmindelser"
     },
     "enterpriseEmpty": "Ingen afdelingskabeloner konfigureret endnu."
+  },
+  "aipifyInstallEngine": {
+    "title": "Install Engine (da)",
+    "subtitle": "Guided installation with discovery, permission review, and recommendations — extending Install Engine Phase 17. (da)",
+    "loading": "Loading install dashboard… (da)",
+    "installEngine": "Aipify Install Engine (da)",
+    "installWizard": "Install Wizard (da)",
+    "onboarding": "Onboarding (da)",
+    "knowledgeCenter": "Knowledge Center (da)",
+    "completion": "Completion (da)",
+    "currentStep": "Current Step (da)",
+    "discoveries": "Discoveries (da)",
+    "pendingPermissions": "Pending Permissions (da)",
+    "installActions": "Install Actions (da)",
+    "startInstall": "Start (da)",
+    "advanceStep": "Advance Step (da)",
+    "runDiscovery": "Run Discovery (da)",
+    "approvePermissions": "Approve Permissions (da)",
+    "acceptRecommendations": "Accept Recommendations (da)",
+    "completeInstall": "Complete (da)",
+    "status": "Status (da)",
+    "discoveryResults": "Discovery Results (da)",
+    "noDiscoveries": "No discoveries yet. (da)",
+    "permissionReviews": "Permission Reviews (da)",
+    "noPermissions": "No permissions to review. (da)",
+    "recommendations": "Recommendations (da)",
+    "noRecommendations": "No recommendations yet. (da)",
+    "principles": "Principles (da)"
+  },
+  "moduleMarketplaceFoundationEngine": {
+    "title": "Module Marketplace (da)",
+    "subtitle": "Modular SaaS catalog, tenant activation, dependencies, and configuration. (da)",
+    "loading": "Loading marketplace… (da)",
+    "engineTitle": "Module Marketplace Foundation Engine (da)",
+    "modulesSettings": "Module Settings (da)",
+    "subscription": "Subscription (da)",
+    "catalog_count": "Catalog Modules (da)",
+    "active_modules": "Active Modules (da)",
+    "beta_modules": "Beta Modules (da)",
+    "future_modules": "Future Modules (da)",
+    "catalog": "Module Catalog (da)",
+    "noItems": "No modules in catalog. (da)",
+    "principles": "Principles (da)"
+  },
+  "aipifyInternalOperationsEngine": {
+    "title": "Internal Operations (da)",
+    "subtitle": "Dogfooding dashboard and feature validation for Aipify Group AS. (da)",
+    "loading": "Loading internal ops… (da)",
+    "engineTitle": "Aipify Internal Operations Engine (da)",
+    "quality": "Quality Guardian (da)",
+    "pilot": "Unonight Pilot (da)",
+    "open_tasks": "Open Tasks (da)",
+    "open_feedback": "Open Feedback (da)",
+    "validations_passed": "Validations Passed (da)",
+    "release_blockers": "Release Blockers (da)",
+    "tasks": "Internal Tasks (da)",
+    "noItems": "No tasks. (da)",
+    "principles": "Principles (da)"
+  },
+  "launchReadinessEngine": {
+    "title": "Launch Readiness (da)",
+    "subtitle": "Go/No-Go checklist, launch reviews, and post-launch monitoring. (da)",
+    "loading": "Loading launch readiness… (da)",
+    "engineTitle": "Launch Readiness Engine (da)",
+    "pilot": "Unonight Pilot (da)",
+    "deployments": "Deployments (da)",
+    "total_items": "Checklist Items (da)",
+    "approved_items": "Approved (da)",
+    "blocked_items": "Blocked (da)",
+    "monitoring_alerts": "Monitoring Alerts (da)",
+    "checklist": "Launch Checklist (da)",
+    "noItems": "No checklist items. (da)",
+    "principles": "Principles (da)"
+  },
+  "customerSuccessEngine": {
+    "title": "Customer Success (da)",
+    "subtitle": "Health scoring, adoption tracking, interventions, and renewal risk detection. (da)",
+    "loading": "Loading customer success… (da)",
+    "engineTitle": "Customer Success Engine (da)",
+    "onboarding": "Onboarding (da)",
+    "subscription": "Subscription (da)",
+    "health_score": "Health Score (da)",
+    "adoption_score": "Adoption Score (da)",
+    "satisfaction_score": "Satisfaction (da)",
+    "pending_interventions": "Pending Interventions (da)",
+    "interventions": "Interventions (da)",
+    "noItems": "No interventions. (da)",
+    "principles": "Principles (da)"
   }
 }

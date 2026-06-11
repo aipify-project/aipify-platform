@@ -22,6 +22,11 @@ export type AppNavId =
   | "notificationCommunicationEngine"
   | "deploymentEnvironmentManagementEngine"
   | "observabilityPlatformHealthEngine"
+  | "aipifyInstallEngine"
+  | "moduleMarketplaceFoundationEngine"
+  | "aipifyInternalOperationsEngine"
+  | "launchReadinessEngine"
+  | "customerSuccessEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -135,6 +140,31 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/observability-platform-health-engine",
     labelKey: "customerApp.nav.observabilityPlatformHealthEngine",
   },
+  {
+    id: "aipifyInstallEngine",
+    href: "/app/aipify-install-engine",
+    labelKey: "customerApp.nav.aipifyInstallEngine",
+  },
+  {
+    id: "moduleMarketplaceFoundationEngine",
+    href: "/app/module-marketplace-foundation-engine",
+    labelKey: "customerApp.nav.moduleMarketplaceFoundationEngine",
+  },
+  {
+    id: "aipifyInternalOperationsEngine",
+    href: "/app/aipify-internal-operations-engine",
+    labelKey: "customerApp.nav.aipifyInternalOperationsEngine",
+  },
+  {
+    id: "launchReadinessEngine",
+    href: "/app/launch-readiness-engine",
+    labelKey: "customerApp.nav.launchReadinessEngine",
+  },
+  {
+    id: "customerSuccessEngine",
+    href: "/app/customer-success-engine",
+    labelKey: "customerApp.nav.customerSuccessEngine",
+  },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -241,6 +271,15 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/observability-platform-health-engine")) {
     return "observabilityPlatformHealthEngine";
   }
+  if (pathname.startsWith("/app/aipify-install-engine")) return "aipifyInstallEngine";
+  if (pathname.startsWith("/app/module-marketplace-foundation-engine")) {
+    return "moduleMarketplaceFoundationEngine";
+  }
+  if (pathname.startsWith("/app/aipify-internal-operations-engine")) {
+    return "aipifyInternalOperationsEngine";
+  }
+  if (pathname.startsWith("/app/launch-readiness-engine")) return "launchReadinessEngine";
+  if (pathname.startsWith("/app/customer-success-engine")) return "customerSuccessEngine";
   if (pathname.startsWith("/app/executive")) return "executive";
   if (
     pathname.startsWith("/app/presence") ||

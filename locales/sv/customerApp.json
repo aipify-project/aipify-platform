@@ -1018,7 +1018,9 @@
       "approveAlways": "Godkänn alltid",
       "pauseCategory": "Pausa kategori"
     },
-    "approvals": { "empty": "Inga väntande godkännanden." },
+    "approvals": {
+      "empty": "Inga väntande godkännanden."
+    },
     "risk": {
       "low": "Låg risk",
       "medium": "Medelrisk",
@@ -1077,7 +1079,10 @@
       "gaps": "Öppna luckor",
       "searches": "Sökningar (24h)"
     },
-    "articles": { "title": "Artiklar", "empty": "Inga artiklar ännu." },
+    "articles": {
+      "title": "Artiklar",
+      "empty": "Inga artiklar ännu."
+    },
     "gaps": {
       "title": "Kunskapsluckor",
       "subtitle": "Frågor Aipify inte kunde svara säkert på.",
@@ -1092,7 +1097,10 @@
     "dismiss": "Avvisa",
     "noAnswer": "Aipify hittade inget dokumenterat svar.",
     "confidenceLow": "Svar med låg säkerhet",
-    "links": { "gaps": "Kunskapsluckor", "settings": "Kunskapsinställningar" },
+    "links": {
+      "gaps": "Kunskapsluckor",
+      "settings": "Kunskapsinställningar"
+    },
     "statuses": {
       "draft": "Utkast",
       "review": "Granskning",
@@ -1288,10 +1296,28 @@
     "auditSubtitle": "Begär export av agentåtkomst och revisionsloggar.",
     "requestExport": "Begär",
     "noExports": "Inga revisionsexporter ännu.",
-    "deploymentModes": { "cloud_saas": "Moln SaaS", "hybrid": "Hybrid", "on_premise": "On-premise" },
-    "residencyModes": { "cloud": "Moln", "local_only": "Endast lokalt", "hybrid_redacted": "Hybrid (redigerad)", "customer_controlled": "Kundstyrd" },
-    "connectivityModes": { "internet": "Internet", "outbound_only": "Endast utgående", "private_network": "Privat nätverk", "offline_limited": "Begränsad offline" },
-    "endpointModes": { "cloud": "Aipify Cloud", "hybrid": "Hybrid", "on_premise": "Intern slutpunkt" }
+    "deploymentModes": {
+      "cloud_saas": "Moln SaaS",
+      "hybrid": "Hybrid",
+      "on_premise": "On-premise"
+    },
+    "residencyModes": {
+      "cloud": "Moln",
+      "local_only": "Endast lokalt",
+      "hybrid_redacted": "Hybrid (redigerad)",
+      "customer_controlled": "Kundstyrd"
+    },
+    "connectivityModes": {
+      "internet": "Internet",
+      "outbound_only": "Endast utgående",
+      "private_network": "Privat nätverk",
+      "offline_limited": "Begränsad offline"
+    },
+    "endpointModes": {
+      "cloud": "Aipify Cloud",
+      "hybrid": "Hybrid",
+      "on_premise": "Intern slutpunkt"
+    }
   },
   "enterpriseDeploymentFramework": {
     "title": "Enterprise Deployment Framework",
@@ -3115,7 +3141,12 @@
     "security": "Säkerhet",
     "orchestration": "Orkestrering",
     "settings": "Inställningar",
-    "learning": "Inlärning"
+    "learning": "Inlärning",
+    "aipifyInstallEngine": "Install Engine (sv)",
+    "moduleMarketplaceFoundationEngine": "Module Marketplace (sv)",
+    "aipifyInternalOperationsEngine": "Internal Ops (sv)",
+    "launchReadinessEngine": "Launch Readiness (sv)",
+    "customerSuccessEngine": "Customer Success (sv)"
   },
   "identity": {
     "title": "Din identitet",
@@ -3828,5 +3859,93 @@
       "relationship": "Relationspåminnelser"
     },
     "enterpriseEmpty": "Inga avdelningsmallar konfigurerade ännu."
+  },
+  "aipifyInstallEngine": {
+    "title": "Install Engine (sv)",
+    "subtitle": "Guided installation with discovery, permission review, and recommendations — extending Install Engine Phase 17. (sv)",
+    "loading": "Loading install dashboard… (sv)",
+    "installEngine": "Aipify Install Engine (sv)",
+    "installWizard": "Install Wizard (sv)",
+    "onboarding": "Onboarding (sv)",
+    "knowledgeCenter": "Knowledge Center (sv)",
+    "completion": "Completion (sv)",
+    "currentStep": "Current Step (sv)",
+    "discoveries": "Discoveries (sv)",
+    "pendingPermissions": "Pending Permissions (sv)",
+    "installActions": "Install Actions (sv)",
+    "startInstall": "Start (sv)",
+    "advanceStep": "Advance Step (sv)",
+    "runDiscovery": "Run Discovery (sv)",
+    "approvePermissions": "Approve Permissions (sv)",
+    "acceptRecommendations": "Accept Recommendations (sv)",
+    "completeInstall": "Complete (sv)",
+    "status": "Status (sv)",
+    "discoveryResults": "Discovery Results (sv)",
+    "noDiscoveries": "No discoveries yet. (sv)",
+    "permissionReviews": "Permission Reviews (sv)",
+    "noPermissions": "No permissions to review. (sv)",
+    "recommendations": "Recommendations (sv)",
+    "noRecommendations": "No recommendations yet. (sv)",
+    "principles": "Principles (sv)"
+  },
+  "moduleMarketplaceFoundationEngine": {
+    "title": "Module Marketplace (sv)",
+    "subtitle": "Modular SaaS catalog, tenant activation, dependencies, and configuration. (sv)",
+    "loading": "Loading marketplace… (sv)",
+    "engineTitle": "Module Marketplace Foundation Engine (sv)",
+    "modulesSettings": "Module Settings (sv)",
+    "subscription": "Subscription (sv)",
+    "catalog_count": "Catalog Modules (sv)",
+    "active_modules": "Active Modules (sv)",
+    "beta_modules": "Beta Modules (sv)",
+    "future_modules": "Future Modules (sv)",
+    "catalog": "Module Catalog (sv)",
+    "noItems": "No modules in catalog. (sv)",
+    "principles": "Principles (sv)"
+  },
+  "aipifyInternalOperationsEngine": {
+    "title": "Internal Operations (sv)",
+    "subtitle": "Dogfooding dashboard and feature validation for Aipify Group AS. (sv)",
+    "loading": "Loading internal ops… (sv)",
+    "engineTitle": "Aipify Internal Operations Engine (sv)",
+    "quality": "Quality Guardian (sv)",
+    "pilot": "Unonight Pilot (sv)",
+    "open_tasks": "Open Tasks (sv)",
+    "open_feedback": "Open Feedback (sv)",
+    "validations_passed": "Validations Passed (sv)",
+    "release_blockers": "Release Blockers (sv)",
+    "tasks": "Internal Tasks (sv)",
+    "noItems": "No tasks. (sv)",
+    "principles": "Principles (sv)"
+  },
+  "launchReadinessEngine": {
+    "title": "Launch Readiness (sv)",
+    "subtitle": "Go/No-Go checklist, launch reviews, and post-launch monitoring. (sv)",
+    "loading": "Loading launch readiness… (sv)",
+    "engineTitle": "Launch Readiness Engine (sv)",
+    "pilot": "Unonight Pilot (sv)",
+    "deployments": "Deployments (sv)",
+    "total_items": "Checklist Items (sv)",
+    "approved_items": "Approved (sv)",
+    "blocked_items": "Blocked (sv)",
+    "monitoring_alerts": "Monitoring Alerts (sv)",
+    "checklist": "Launch Checklist (sv)",
+    "noItems": "No checklist items. (sv)",
+    "principles": "Principles (sv)"
+  },
+  "customerSuccessEngine": {
+    "title": "Customer Success (sv)",
+    "subtitle": "Health scoring, adoption tracking, interventions, and renewal risk detection. (sv)",
+    "loading": "Loading customer success… (sv)",
+    "engineTitle": "Customer Success Engine (sv)",
+    "onboarding": "Onboarding (sv)",
+    "subscription": "Subscription (sv)",
+    "health_score": "Health Score (sv)",
+    "adoption_score": "Adoption Score (sv)",
+    "satisfaction_score": "Satisfaction (sv)",
+    "pending_interventions": "Pending Interventions (sv)",
+    "interventions": "Interventions (sv)",
+    "noItems": "No interventions. (sv)",
+    "principles": "Principles (sv)"
   }
 }

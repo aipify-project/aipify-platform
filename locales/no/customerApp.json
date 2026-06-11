@@ -1019,7 +1019,9 @@
       "approveAlways": "Godkjenn alltid",
       "pauseCategory": "Pause kategori"
     },
-    "approvals": { "empty": "Ingen ventende godkjenninger." },
+    "approvals": {
+      "empty": "Ingen ventende godkjenninger."
+    },
     "risk": {
       "low": "Lav risiko",
       "medium": "Middels risiko",
@@ -1078,7 +1080,10 @@
       "gaps": "Åpne hull",
       "searches": "Søk (24t)"
     },
-    "articles": { "title": "Artikler", "empty": "Ingen artikler ennå." },
+    "articles": {
+      "title": "Artikler",
+      "empty": "Ingen artikler ennå."
+    },
     "gaps": {
       "title": "Kunnskapshull",
       "subtitle": "Spørsmål Aipify ikke kunne svare sikkert på.",
@@ -1093,7 +1098,10 @@
     "dismiss": "Avvis",
     "noAnswer": "Aipify fant ikke et dokumentert svar.",
     "confidenceLow": "Svar med lav sikkerhet",
-    "links": { "gaps": "Kunnskapshull", "settings": "Kunnskapsinnstillinger" },
+    "links": {
+      "gaps": "Kunnskapshull",
+      "settings": "Kunnskapsinnstillinger"
+    },
     "statuses": {
       "draft": "Utkast",
       "review": "Gjennomgang",
@@ -1447,7 +1455,14 @@
     "modesSubtitle": "Velg hvor aktivt Aipify skal vise informasjon.",
     "history": "Historikk",
     "historyTitle": "Varslingshistorikk",
-    "reminders": "Påminnelser",
+    "reminders": {
+      "create": "Opprett påminnelse",
+      "upcoming": "Kommende påminnelser",
+      "empty": "Ingen påminnelser planlagt.",
+      "add": "Legg til",
+      "cancel": "Avbryt",
+      "titlePlaceholder": "Tittel på påminnelse"
+    },
     "remindersTitle": "Påminnelser",
     "remindersSubtitle": "Engangs-, gjentakende og forretningspåminnelser fra Desktop Companion.",
     "mode": "Modus",
@@ -1482,14 +1497,6 @@
       "send": "Send",
       "openLink": "Åpne",
       "disabled": "Mini-chat er tilgjengelig i Active Assistant eller Focus-modus."
-    },
-    "reminders": {
-      "create": "Opprett påminnelse",
-      "upcoming": "Kommende påminnelser",
-      "empty": "Ingen påminnelser planlagt.",
-      "add": "Legg til",
-      "cancel": "Avbryt",
-      "titlePlaceholder": "Tittel på påminnelse"
     }
   },
   "assistantIdentity": {
@@ -3489,7 +3496,12 @@
     "security": "Sikkerhet",
     "orchestration": "Orkestrering",
     "settings": "Innstillinger",
-    "learning": "Læring"
+    "learning": "Læring",
+    "aipifyInstallEngine": "Install Engine (no)",
+    "moduleMarketplaceFoundationEngine": "Module Marketplace (no)",
+    "aipifyInternalOperationsEngine": "Internal Ops (no)",
+    "launchReadinessEngine": "Launch Readiness (no)",
+    "customerSuccessEngine": "Customer Success (no)"
   },
   "identity": {
     "title": "Din identitet",
@@ -4202,5 +4214,93 @@
       "relationship": "Relasjonspåminnelser"
     },
     "enterpriseEmpty": "Ingen avdelingsmaler konfigurert ennå."
+  },
+  "aipifyInstallEngine": {
+    "title": "Install Engine (no)",
+    "subtitle": "Guided installation with discovery, permission review, and recommendations — extending Install Engine Phase 17. (no)",
+    "loading": "Loading install dashboard… (no)",
+    "installEngine": "Aipify Install Engine (no)",
+    "installWizard": "Install Wizard (no)",
+    "onboarding": "Onboarding (no)",
+    "knowledgeCenter": "Knowledge Center (no)",
+    "completion": "Completion (no)",
+    "currentStep": "Current Step (no)",
+    "discoveries": "Discoveries (no)",
+    "pendingPermissions": "Pending Permissions (no)",
+    "installActions": "Install Actions (no)",
+    "startInstall": "Start (no)",
+    "advanceStep": "Advance Step (no)",
+    "runDiscovery": "Run Discovery (no)",
+    "approvePermissions": "Approve Permissions (no)",
+    "acceptRecommendations": "Accept Recommendations (no)",
+    "completeInstall": "Complete (no)",
+    "status": "Status (no)",
+    "discoveryResults": "Discovery Results (no)",
+    "noDiscoveries": "No discoveries yet. (no)",
+    "permissionReviews": "Permission Reviews (no)",
+    "noPermissions": "No permissions to review. (no)",
+    "recommendations": "Recommendations (no)",
+    "noRecommendations": "No recommendations yet. (no)",
+    "principles": "Principles (no)"
+  },
+  "moduleMarketplaceFoundationEngine": {
+    "title": "Module Marketplace (no)",
+    "subtitle": "Modular SaaS catalog, tenant activation, dependencies, and configuration. (no)",
+    "loading": "Loading marketplace… (no)",
+    "engineTitle": "Module Marketplace Foundation Engine (no)",
+    "modulesSettings": "Module Settings (no)",
+    "subscription": "Subscription (no)",
+    "catalog_count": "Catalog Modules (no)",
+    "active_modules": "Active Modules (no)",
+    "beta_modules": "Beta Modules (no)",
+    "future_modules": "Future Modules (no)",
+    "catalog": "Module Catalog (no)",
+    "noItems": "No modules in catalog. (no)",
+    "principles": "Principles (no)"
+  },
+  "aipifyInternalOperationsEngine": {
+    "title": "Internal Operations (no)",
+    "subtitle": "Dogfooding dashboard and feature validation for Aipify Group AS. (no)",
+    "loading": "Loading internal ops… (no)",
+    "engineTitle": "Aipify Internal Operations Engine (no)",
+    "quality": "Quality Guardian (no)",
+    "pilot": "Unonight Pilot (no)",
+    "open_tasks": "Open Tasks (no)",
+    "open_feedback": "Open Feedback (no)",
+    "validations_passed": "Validations Passed (no)",
+    "release_blockers": "Release Blockers (no)",
+    "tasks": "Internal Tasks (no)",
+    "noItems": "No tasks. (no)",
+    "principles": "Principles (no)"
+  },
+  "launchReadinessEngine": {
+    "title": "Launch Readiness (no)",
+    "subtitle": "Go/No-Go checklist, launch reviews, and post-launch monitoring. (no)",
+    "loading": "Loading launch readiness… (no)",
+    "engineTitle": "Launch Readiness Engine (no)",
+    "pilot": "Unonight Pilot (no)",
+    "deployments": "Deployments (no)",
+    "total_items": "Checklist Items (no)",
+    "approved_items": "Approved (no)",
+    "blocked_items": "Blocked (no)",
+    "monitoring_alerts": "Monitoring Alerts (no)",
+    "checklist": "Launch Checklist (no)",
+    "noItems": "No checklist items. (no)",
+    "principles": "Principles (no)"
+  },
+  "customerSuccessEngine": {
+    "title": "Customer Success (no)",
+    "subtitle": "Health scoring, adoption tracking, interventions, and renewal risk detection. (no)",
+    "loading": "Loading customer success… (no)",
+    "engineTitle": "Customer Success Engine (no)",
+    "onboarding": "Onboarding (no)",
+    "subscription": "Subscription (no)",
+    "health_score": "Health Score (no)",
+    "adoption_score": "Adoption Score (no)",
+    "satisfaction_score": "Satisfaction (no)",
+    "pending_interventions": "Pending Interventions (no)",
+    "interventions": "Interventions (no)",
+    "noItems": "No interventions. (no)",
+    "principles": "Principles (no)"
   }
 }
