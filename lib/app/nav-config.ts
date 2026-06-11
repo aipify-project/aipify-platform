@@ -7,6 +7,8 @@ export type AppNavId =
   | "identityPermissionsEngine"
   | "secureAiActionEngine"
   | "auditAccountabilityEngine"
+  | "knowledgeCenterEngine"
+  | "adminAssistantEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -85,6 +87,8 @@ export const APP_NAV: AppNavItem[] = [
   { id: "identityPermissionsEngine", href: "/app/identity-access", labelKey: "customerApp.nav.identityPermissionsEngine" },
   { id: "secureAiActionEngine", href: "/app/secure-ai-actions", labelKey: "customerApp.nav.secureAiActionEngine" },
   { id: "auditAccountabilityEngine", href: "/app/audit-accountability", labelKey: "customerApp.nav.auditAccountabilityEngine" },
+  { id: "knowledgeCenterEngine", href: "/app/knowledge-center-engine", labelKey: "customerApp.nav.knowledgeCenterEngine" },
+  { id: "adminAssistantEngine", href: "/app/admin-assistant-engine", labelKey: "customerApp.nav.adminAssistantEngine" },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -168,6 +172,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/identity-access")) return "identityPermissionsEngine";
   if (pathname.startsWith("/app/secure-ai-actions")) return "secureAiActionEngine";
   if (pathname.startsWith("/app/audit-accountability")) return "auditAccountabilityEngine";
+  if (pathname.startsWith("/app/knowledge-center-engine")) return "knowledgeCenterEngine";
+  if (pathname.startsWith("/app/admin-assistant-engine")) return "adminAssistantEngine";
   if (pathname.startsWith("/app/executive")) return "executive";
   if (
     pathname.startsWith("/app/presence") ||

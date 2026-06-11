@@ -262,6 +262,10 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Audit Log & Accountability Engine (Phase A.4):** See [AUDIT_ACCOUNTABILITY_ENGINE_PHASE_A4.md](./AUDIT_ACCOUNTABILITY_ENGINE_PHASE_A4.md) — immutable `audit_logs`, search/filter, compliance exports, retention policies, AI traceability, security event timeline. `/app/audit-accountability`, `lib/aipify/audit-accountability/`, migration `20260709000000_audit_accountability_engine_phase_a4.sql`. Transparency and trust for every critical action.
 
+**Knowledge Center Engine (Phase A.5):** See [KNOWLEDGE_CENTER_ENGINE_PHASE_A5.md](./KNOWLEDGE_CENTER_ENGINE_PHASE_A5.md) — tenant-owned articles, FAQs, versioning, approval workflow, AI retrieval rules, search, and import. `/app/knowledge-center-engine`, `lib/aipify/knowledge-center-engine/`, migration `20260710000000_knowledge_center_engine_phase_a5.sql`. Trusted knowledge powering Support AI and Admin Assistant.
+
+**Admin Assistant Engine (Phase A.6):** See [ADMIN_ASSISTANT_ENGINE_PHASE_A6.md](./ADMIN_ASSISTANT_ENGINE_PHASE_A6.md) — since-last-login, task center, recommendations, reminders, daily briefing, notifications, Knowledge Center integration. `/app/admin-assistant-engine`, `lib/aipify/admin-assistant-engine/`, migration `20260711000000_admin_assistant_engine_phase_a6.sql`. First operational AI module for administrators.
+
 **Quality Guardian / QG (Phases 58–59):** See [QG.md](./QG.md) — software and frontend health monitoring (Image Guardian, Performance Guardian, mobile checks) with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `/app/quality/images`, `lib/aipify/quality/`, migrations `20260614600000_quality_guardian_phase58.sql`, `20260614700000_frontend_experience_guardian_phase59.sql`.
 
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
