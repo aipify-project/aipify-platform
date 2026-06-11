@@ -4295,6 +4295,7 @@
     "stakeholderCommunicationEngine": "Stakeholder Communications",
     "organizationalDecisionSupportEngine": "Organizational Decisions",
     "strategicAlignmentEngine": "Strategic Alignment",
+    "capabilityMaturityEngine": "Capability Maturity",
     "documentOutputEngine": "Document & Output",
     "recordsRetentionManagementEngine": "Records & Retention"
   },
@@ -4995,5 +4996,27 @@
     "completeDisposal": "Complete disposal",
     "completing": "Completing…",
     "completeFailed": "Completion failed"
+  },
+  "capabilityMaturityEngine": {
+    "title": "Capability Maturity",
+    "subtitle": "Assess organizational capability maturity across key domains, generate improvement roadmaps, and export executive maturity summaries.",
+    "loading": "Loading capability maturity dashboard…",
+    "engineTitle": "Capability Maturity Engine",
+    "summary": "Summary",
+    "principles": "Principles",
+    "assessments": "Maturity assessments",
+    "roadmaps": "Improvement roadmaps",
+    "executiveSummary": "Executive summary",
+    "integrationSummaries": "Integration summaries",
+    "level": "Level",
+    "advanceMaturity": "Advance maturity",
+    "advancing": "Advancing…",
+    "advanceFailed": "Advance failed",
+    "generateRoadmaps": "Generate roadmaps",
+    "generating": "Generating…",
+    "roadmapFailed": "Roadmap generation failed",
+    "exportReport": "Export report",
+    "exporting": "Exporting…",
+    "exportFailed": "Export failed"
   }
 }

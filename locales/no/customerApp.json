@@ -3531,8 +3531,10 @@
     "stakeholderCommunicationEngine": "Interessentkommunikasjon",
     "organizationalDecisionSupportEngine": "Organisasjonsbeslutninger",
     "strategicAlignmentEngine": "Strategisk justering",
+    "capabilityMaturityEngine": "Kapabilitetsmodenhet",
     "meetingCollaborationIntelligenceEngine": "Møteintelligens",
-    "organizationalBenchmarkingEngine": "Organisasjonsbenchmarking"
+    "organizationalBenchmarkingEngine": "Organisasjonsbenchmarking",
+    "recordsRetentionManagementEngine": "Poster og oppbevaring"
   },
   "identity": {
     "title": "Din identitet",
@@ -4919,5 +4921,37 @@
     "exportReport": "Eksporter rapport",
     "exporting": "Eksporterer…",
     "exportFailed": "Eksport mislyktes"
+  },
+  "recordsRetentionManagementEngine": {
+    "title": "Poster og oppbevaring",
+    "subtitle": "Oppbevaringspolicyer, metadata-arkiver, destruksjonsgodkjenninger og etterlevelsesøyeblikksbilder.",
+    "loading": "Laster poster og oppbevaring…",
+    "engineTitle": "Records & Retention Management Engine",
+    "distinctionNote": "Skilt fra sikkerhetsinnstillinger og etterlevelsesberedskap — denne motoren styrer postlivssyklus med menneskelig godkjent destruksjon.",
+    "summary": "Sammendrag",
+    "compliance": "Etterlevelsesøyeblikksbilde",
+    "integrationSummaries": "Integrasjonssammendrag",
+    "policies": "Oppbevaringspolicyer",
+    "archivedRecords": "Arkiverte poster",
+    "disposalRequests": "Destruksjonsforespørsler",
+    "noPolicies": "Ingen oppbevaringspolicyer ennå.",
+    "noArchivedRecords": "Ingen arkiverte poster ennå.",
+    "noDisposalRequests": "Ingen destruksjonsforespørsler.",
+    "activatePolicy": "Aktiver policy",
+    "activating": "Aktiverer…",
+    "activateFailed": "Aktivering mislyktes",
+    "restore": "Gjenopprett",
+    "restoring": "Gjenoppretter…",
+    "restoreFailed": "Gjenoppretting mislyktes",
+    "requestDisposal": "Be om destruksjon",
+    "requestingDisposal": "Sender forespørsel…",
+    "disposeFailed": "Destruksjonsforespørsel mislyktes",
+    "approve": "Godkjenn",
+    "approving": "Godkjenner…",
+    "approveFailed": "Godkjenning mislyktes",
+    "reject": "Avvis",
+    "completeDisposal": "Fullfør destruksjon",
+    "completing": "Fullfører…",
+    "completeFailed": "Fullføring mislyktes"
   }
 }

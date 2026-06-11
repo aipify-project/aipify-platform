@@ -3151,7 +3151,9 @@
     "organizationalDecisionSupportEngine": "Organisationsbeslutninger",
     "strategicAlignmentEngine": "Strategisk justering",
     "meetingCollaborationIntelligenceEngine": "Mødeintelligens",
-    "recordsRetentionManagementEngine": "Poster og opbevaring"
+    "recordsRetentionManagementEngine": "Poster og opbevaring",
+    "organizationalBenchmarkingEngine": "Organisationsbenchmarking",
+    "documentOutputEngine": "Dokument og output"
   },
   "identity": {
     "title": "Din identitet",
@@ -4597,5 +4599,27 @@
     "completeDisposal": "Fuldfør destruktion",
     "completing": "Fuldfører…",
     "completeFailed": "Fuldførelse mislykkedes"
+  },
+  "documentOutputEngine": {
+    "title": "Dokument og output",
+    "subtitle": "Gem, eksporter, del, automatiser og reproducer operationelle output — kun metadata, ingen rå PII i revision.",
+    "loading": "Indlæser dokument-output-dashboard…",
+    "engineTitle": "Dokument- og outputmotor",
+    "trustNote": "Formatadapters returnerer struktureret metadata og download-URL — aldrig rå kundeindhold i databasen.",
+    "summary": "Resumé",
+    "templates": "Outputskabeloner",
+    "generations": "Seneste genereringer",
+    "schedules": "Planlagte output",
+    "executiveSummary": "Ledelsesresumé",
+    "integrationSummaries": "Integrationssammendrag",
+    "generate": "Generer",
+    "generating": "Genererer…",
+    "generateFailed": "Generering mislykkedes",
+    "schedule": "Planlæg",
+    "scheduling": "Planlægger…",
+    "scheduleFailed": "Planlægning mislykkedes",
+    "exportManifest": "Eksporter manifest",
+    "exporting": "Eksporterer…",
+    "exportFailed": "Eksport mislykkedes"
   }
 }
