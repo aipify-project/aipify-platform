@@ -43,6 +43,20 @@ export const PERMISSION_KEYS = [
   "integrations.disable",
   "integrations.delete",
   "integrations.sync",
+  "dashboard.view",
+  "dashboard.configure",
+  "dashboard.view_alerts",
+  "onboarding.view",
+  "onboarding.manage",
+  "self_support.view",
+  "self_support.escalate",
+  "subscription.view",
+  "subscription.manage",
+  "subscription.upgrade",
+  "quality.view",
+  "quality.manage",
+  "quality.resolve",
+  "quality.ignore",
   "ai.approve",
   "ai.reject",
   "settings.manage",
@@ -77,11 +91,38 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "knowledge.view",
     "knowledge.update",
     "audit.view",
+    "dashboard.view",
+    "dashboard.view_alerts",
+    "onboarding.view",
+    "subscription.view",
+    "quality.view",
+    "quality.resolve",
     "ai.approve",
     "ai.reject",
   ],
-  support_agent: ["support.view", "support.reply", "knowledge.view"],
-  viewer: ["users.view", "modules.view", "support.view", "knowledge.view", "audit.view"],
+  support_agent: [
+    "support.view",
+    "support.reply",
+    "knowledge.view",
+    "dashboard.view",
+    "dashboard.view_alerts",
+    "onboarding.view",
+    "self_support.view",
+    "self_support.escalate",
+    "quality.view",
+  ],
+  viewer: [
+    "users.view",
+    "modules.view",
+    "support.view",
+    "knowledge.view",
+    "audit.view",
+    "dashboard.view",
+    "onboarding.view",
+    "subscription.view",
+    "self_support.view",
+    "quality.view",
+  ],
 };
 
 /** Client-side permission preview — server RPCs are authoritative. */
@@ -124,6 +165,9 @@ export function canAccessModule(
   if (moduleKey === "admin_assistant") return isAdministrator(role) || role === "manager";
   if (moduleKey === "support_ai") {
     return role !== "viewer" || hasPermission(role, "support.view");
+  }
+  if (moduleKey === "self_support") {
+    return hasPermission(role, "self_support.view");
   }
   return true;
 }

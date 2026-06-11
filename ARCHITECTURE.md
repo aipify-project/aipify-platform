@@ -268,7 +268,13 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Support AI Engine (Phase A.7):** See [SUPPORT_AI_ENGINE_PHASE_A7.md](./SUPPORT_AI_ENGINE_PHASE_A7.md) — customer-facing AI support, response modes, escalation, KC integration, satisfaction feedback, metrics. `/app/support-ai-engine`, `lib/aipify/support-ai-engine/`, migration `20260712000000_support_ai_engine_phase_a7.sql`. Faster, scalable support with human oversight.
 
+**Aipify Self-Support Engine (Phase A.12):** See [AIPIFY_SELF_SUPPORT_ENGINE_PHASE_A12.md](./AIPIFY_SELF_SUPPORT_ENGINE_PHASE_A12.md) — knowledge-driven self-service for Aipify platform questions, confidence evaluation, escalation queue, feedback, and KC gap detection. `/app/self-support-engine`, `lib/aipify/self-support-engine/`, migration `20260717000000_aipify_self_support_engine_phase_a12.sql`. Distinct from Support AI (A.7) — helps customers with Aipify itself.
+
 **Integration Engine (Phase A.8):** See [INTEGRATION_ENGINE_PHASE_A8.md](./INTEGRATION_ENGINE_PHASE_A8.md) — secure tenant integrations, credential vault, sync engine, webhooks, Unonight pilot. `/app/integration-engine`, `lib/aipify/integration-engine/`, migration `20260713000000_integration_engine_phase_a8.sql`. Connect external systems with full auditability.
+
+**Operations Dashboard Engine (Phase A.9):** See [OPERATIONS_DASHBOARD_ENGINE_PHASE_A9.md](./OPERATIONS_DASHBOARD_ENGINE_PHASE_A9.md) — unified operational widgets, role-based visibility, preferences, alerts, organization health score. `/app/operations-dashboard-engine`, `lib/aipify/operations-dashboard-engine/`, migration `20260714000000_operations_dashboard_engine_phase_a9.sql`. Cross-module operational visibility.
+
+**Customer Onboarding Engine (Phase A.10):** See [CUSTOMER_ONBOARDING_ENGINE_PHASE_A10.md](./CUSTOMER_ONBOARDING_ENGINE_PHASE_A10.md) — 10-step guided flow, checklist, KC recommendations, progress tracking. `/app/customer-onboarding-engine`, `lib/aipify/customer-onboarding-engine/`, migration `20260715000000_customer_onboarding_engine_phase_a10.sql`. Guided setup for new organizations.
 
 **Quality Guardian / QG (Phases 58–59):** See [QG.md](./QG.md) — software and frontend health monitoring (Image Guardian, Performance Guardian, mobile checks) with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `/app/quality/images`, `lib/aipify/quality/`, migrations `20260614600000_quality_guardian_phase58.sql`, `20260614700000_frontend_experience_guardian_phase59.sql`.
 

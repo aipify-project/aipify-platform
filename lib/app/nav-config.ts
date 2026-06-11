@@ -11,6 +11,11 @@ export type AppNavId =
   | "adminAssistantEngine"
   | "supportAiEngine"
   | "integrationEngine"
+  | "operationsDashboardEngine"
+  | "customerOnboardingEngine"
+  | "subscriptionPlanManagementEngine"
+  | "selfSupportEngine"
+  | "qualityGuardianEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -93,6 +98,15 @@ export const APP_NAV: AppNavItem[] = [
   { id: "adminAssistantEngine", href: "/app/admin-assistant-engine", labelKey: "customerApp.nav.adminAssistantEngine" },
   { id: "supportAiEngine", href: "/app/support-ai-engine", labelKey: "customerApp.nav.supportAiEngine" },
   { id: "integrationEngine", href: "/app/integration-engine", labelKey: "customerApp.nav.integrationEngine" },
+  { id: "operationsDashboardEngine", href: "/app/operations-dashboard-engine", labelKey: "customerApp.nav.operationsDashboardEngine" },
+  { id: "customerOnboardingEngine", href: "/app/customer-onboarding-engine", labelKey: "customerApp.nav.customerOnboardingEngine" },
+  {
+    id: "subscriptionPlanManagementEngine",
+    href: "/app/subscription-plan-management-engine",
+    labelKey: "customerApp.nav.subscriptionPlanManagementEngine",
+  },
+  { id: "selfSupportEngine", href: "/app/self-support-engine", labelKey: "customerApp.nav.selfSupportEngine" },
+  { id: "qualityGuardianEngine", href: "/app/quality-guardian-engine", labelKey: "customerApp.nav.qualityGuardianEngine" },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -180,6 +194,12 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/admin-assistant-engine")) return "adminAssistantEngine";
   if (pathname.startsWith("/app/support-ai-engine")) return "supportAiEngine";
   if (pathname.startsWith("/app/integration-engine")) return "integrationEngine";
+  if (pathname.startsWith("/app/operations-dashboard-engine")) return "operationsDashboardEngine";
+  if (pathname.startsWith("/app/customer-onboarding-engine")) return "customerOnboardingEngine";
+  if (pathname.startsWith("/app/subscription-plan-management-engine")) {
+    return "subscriptionPlanManagementEngine";
+  }
+  if (pathname.startsWith("/app/self-support-engine")) return "selfSupportEngine";
   if (pathname.startsWith("/app/executive")) return "executive";
   if (
     pathname.startsWith("/app/presence") ||
