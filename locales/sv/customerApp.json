@@ -3176,6 +3176,7 @@
     "stakeholderCommunicationEngine": "Intressentkommunikation",
     "organizationalDecisionSupportEngine": "Organisationsbeslut",
     "strategicAlignmentEngine": "Strategisk inriktning",
+    "capabilityMaturityEngine": "Kapabilitetsmognad",
     "meetingCollaborationIntelligenceEngine": "Mötesintelligens",
     "recordsRetentionManagementEngine": "Poster och bevarande",
     "organizationalBenchmarkingEngine": "Organisationsbenchmarking",
@@ -4625,5 +4626,27 @@
     "actionFailed": "Åtgärd misslyckades",
     "defaultMeetingTitle": "Teamsamarbetssync",
     "defaultDecisionText": "Granska mötesresultat och bekräfta nästa steg med ägare."
+  },
+  "capabilityMaturityEngine": {
+    "title": "Kapabilitetsmognad",
+    "subtitle": "Bedöm organisationens kapabilitetsmognad över nyckeldomäner, generera förbättringsplaner och exportera ledningssammanfattningar.",
+    "loading": "Laddar kapabilitetsmognadspanel…",
+    "engineTitle": "Kapabilitetsmognadsmotor",
+    "summary": "Sammanfattning",
+    "principles": "Principer",
+    "assessments": "Mognadsbedömningar",
+    "roadmaps": "Förbättringsplaner",
+    "executiveSummary": "Ledningssammanfattning",
+    "integrationSummaries": "Integrationssammanfattningar",
+    "level": "Nivå",
+    "advanceMaturity": "Höj mognad",
+    "advancing": "Höjer…",
+    "advanceFailed": "Höjning misslyckades",
+    "generateRoadmaps": "Generera planer",
+    "generating": "Genererar…",
+    "roadmapFailed": "Plangenerering misslyckades",
+    "exportReport": "Exportera rapport",
+    "exporting": "Exporterar…",
+    "exportFailed": "Export misslyckades"
   }
 }

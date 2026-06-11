@@ -4953,5 +4953,27 @@
     "completeDisposal": "Fullfør destruksjon",
     "completing": "Fullfører…",
     "completeFailed": "Fullføring mislyktes"
+  },
+  "capabilityMaturityEngine": {
+    "title": "Kapabilitetsmodenhet",
+    "subtitle": "Vurder organisasjonens kapabilitetsmodenhet på tvers av nøkkeldomener, generer forbedringsveikart og eksporter ledelsessammendrag.",
+    "loading": "Laster kapabilitetsmodenhetsdashbord…",
+    "engineTitle": "Kapabilitetsmodenhetsmotor",
+    "summary": "Sammendrag",
+    "principles": "Prinsipper",
+    "assessments": "Modenhetsvurderinger",
+    "roadmaps": "Forbedringsveikart",
+    "executiveSummary": "Ledelsessammendrag",
+    "integrationSummaries": "Integrasjonssammendrag",
+    "level": "Nivå",
+    "advanceMaturity": "Hev modenhet",
+    "advancing": "Hever…",
+    "advanceFailed": "Heving mislyktes",
+    "generateRoadmaps": "Generer veikart",
+    "generating": "Genererer…",
+    "roadmapFailed": "Veikartgenerering mislyktes",
+    "exportReport": "Eksporter rapport",
+    "exporting": "Eksporterer…",
+    "exportFailed": "Eksport mislyktes"
   }
 }
