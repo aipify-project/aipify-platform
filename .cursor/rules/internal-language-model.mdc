@@ -1,0 +1,17 @@
+---
+description: Internal Language Model — function vocabulary and response guide
+alwaysApply: true
+---
+
+# Internal Language Model
+
+See [INTERNAL_LANGUAGE_MODEL.md](../../INTERNAL_LANGUAGE_MODEL.md).
+
+## Rules
+
+1. Source of truth: `aipify-core/knowledge/internal-language-model/function-vocabulary.txt`
+2. Programmatic vocabulary: `lib/internal-language-model/vocabulary.ts`
+3. Never describe Aipify as replacing employees or running the company alone.
+4. Use preferred wording from `FUNCTION_VOCABULARY` when explaining features.
+5. Chat: `detectAipifyFeatureIntent()` for feature and replacement questions.
+6. Core philosophy: augment people — humans decide, Aipify informs and prepares.

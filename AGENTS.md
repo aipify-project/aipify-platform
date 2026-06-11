@@ -68,6 +68,8 @@ For **Commercial Packages & Modular Architecture**, read **[COMMERCIAL_PACKAGES.
 
 For **Autonomous Execution Framework (AEF)**, read **[AUTONOMOUS_EXECUTION_FRAMEWORK.md](./AUTONOMOUS_EXECUTION_FRAMEWORK.md)**. Constants in `lib/aipify/execution/`; Action Center at `/app/action-center`; APIs at `/api/aipify/*`. Execution levels observer→autonomous; package-gated to Business and Enterprise; safety checker blocks forbidden actions; mock adapters for email, support, tasks, FAQ, notifications; full audit via `aipify_action_logs`.
 
+For **Internal Language Model (ILM)**, read **[INTERNAL_LANGUAGE_MODEL.md](./INTERNAL_LANGUAGE_MODEL.md)**. Function vocabulary in `aipify-core/knowledge/internal-language-model/function-vocabulary.txt` and `lib/internal-language-model/`; `detectAipifyFeatureIntent()` for consistent feature descriptions; never imply Aipify replaces employees.
+
 ## Aipify architecture — mandatory before every feature
 
 Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.

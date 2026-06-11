@@ -11,6 +11,7 @@ import type { EventDraft } from "@/lib/context-engine/types";
 import { detectFocusIntent } from "@/lib/attention-guardian/detection";
 import { detectDecisionIntent } from "@/lib/decision-support-engine/detection";
 import { detectEmployeeKnowledgeIntent } from "@/lib/employee-knowledge-engine/detection";
+import { detectAipifyFeatureIntent } from "@/lib/internal-language-model/detection";
 import { detectGoalIntent } from "@/lib/goals-dreams-engine/detection";
 import type { GoalDraft } from "@/lib/goals-dreams-engine/types";
 import { detectRelationshipSignal } from "@/lib/relationship-intelligence/detection";
@@ -193,6 +194,22 @@ export function buildAssistantTurn(
   const confidence = confidenceFromIntent(intent, message);
   const needsConfirm =
     askBeforeRemembering && (confidence !== "high" || rsi.askToRemember);
+
+  const featureIntent = detectAipifyFeatureIntent(message);
+  if (featureIntent?.detected) {
+    const dashboardNote = featureIntent.dashboardPath
+      ? `\n\nYou can open the relevant dashboard when you're ready.`
+      : "";
+    const closing = featureIntent.closingPhrase ? `\n\n${featureIntent.closingPhrase}` : "";
+    return {
+      intent: "general",
+      memory_intent: memoryIntent,
+      memoryDraft: null,
+      askBeforeRemembering: false,
+      reply: `${featureIntent.reply}${dashboardNote}${closing}`,
+      confidence_level: "high",
+    };
+  }
 
   const decisionIntent = detectDecisionIntent(message);
   if (decisionIntent?.detected) {
