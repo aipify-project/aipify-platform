@@ -20,6 +20,8 @@ export type AppNavId =
   | "unonightPilotOperationsEngine"
   | "analyticsInsightsEngine"
   | "notificationCommunicationEngine"
+  | "deploymentEnvironmentManagementEngine"
+  | "observabilityPlatformHealthEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -118,6 +120,21 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.unonightPilotOperationsEngine",
   },
   { id: "analyticsInsightsEngine", href: "/app/analytics-insights-engine", labelKey: "customerApp.nav.analyticsInsightsEngine" },
+  {
+    id: "notificationCommunicationEngine",
+    href: "/app/notification-communication-engine",
+    labelKey: "customerApp.nav.notificationCommunicationEngine",
+  },
+  {
+    id: "deploymentEnvironmentManagementEngine",
+    href: "/app/deployment-environment-management-engine",
+    labelKey: "customerApp.nav.deploymentEnvironmentManagementEngine",
+  },
+  {
+    id: "observabilityPlatformHealthEngine",
+    href: "/app/observability-platform-health-engine",
+    labelKey: "customerApp.nav.observabilityPlatformHealthEngine",
+  },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -217,6 +234,12 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/analytics-insights-engine")) return "analyticsInsightsEngine";
   if (pathname.startsWith("/app/notification-communication-engine")) {
     return "notificationCommunicationEngine";
+  }
+  if (pathname.startsWith("/app/deployment-environment-management-engine")) {
+    return "deploymentEnvironmentManagementEngine";
+  }
+  if (pathname.startsWith("/app/observability-platform-health-engine")) {
+    return "observabilityPlatformHealthEngine";
   }
   if (pathname.startsWith("/app/executive")) return "executive";
   if (

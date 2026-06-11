@@ -22,5 +22,8 @@ export * from "./operations-dashboard";
 export * from "./customer-onboarding";
 export * from "./governance-policy";
 export * from "./unonight-pilot";
+export * from "./analytics-insights";
 export * from "./quality-guardian";
 export * from "./notification-communication";
+export * from "./observability-platform-health";
+export * from "./deployment-environment";
