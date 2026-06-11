@@ -46,6 +46,7 @@ export type AppNavId =
   | "aiEthicsResponsibleUseEngine"
   | "changeManagementEngine"
   | "valueRealizationEngine"
+  | "organizationalResilienceEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -274,6 +275,11 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/value-realization-engine",
     labelKey: "customerApp.nav.valueRealizationEngine",
   },
+  {
+    id: "organizationalResilienceEngine",
+    href: "/app/organizational-resilience-engine",
+    labelKey: "customerApp.nav.organizationalResilienceEngine",
+  },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -397,6 +403,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/value-realization-engine")) {
     return "valueRealizationEngine";
+  }
+  if (pathname.startsWith("/app/organizational-resilience-engine")) {
+    return "organizationalResilienceEngine";
   }
   if (pathname.startsWith("/app/aipify-install-engine")) return "aipifyInstallEngine";
   if (pathname.startsWith("/app/module-marketplace-foundation-engine")) {

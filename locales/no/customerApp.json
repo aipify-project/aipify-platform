@@ -3524,7 +3524,8 @@
     "changeManagementEngine": "Endringsledelse",
     "marketplacePartnerEcosystemFoundationEngine": "Partnerekosystem",
     "aiEthicsResponsibleUseEngine": "AI-etikk",
-    "valueRealizationEngine": "Verdirealisering"
+    "valueRealizationEngine": "Verdirealisering",
+    "organizationalResilienceEngine": "Organisasjonsmotstandskraft"
   },
   "identity": {
     "title": "Din identitet",
@@ -4693,5 +4694,31 @@
     "achieveMilestone": "Merk oppnådd",
     "completing": "Oppdaterer…",
     "milestoneFailed": "Milepælsoppdatering mislyktes"
+  },
+  "organizationalResilienceEngine": {
+    "title": "Organisasjonsmotstandskraft",
+    "subtitle": "Beredskap og kontinuitet — scenarioplaner, simuleringer og strukturert gjenoppretting med menneskelig godkjenning.",
+    "loading": "Laster organisasjonsmotstandskraft…",
+    "engineTitle": "Organizational Resilience Engine",
+    "summary": "Sammendrag",
+    "principles": "Prinsipper",
+    "plans": "Kontinuitetsplaner",
+    "simulations": "Simuleringer",
+    "vulnerabilities": "Sårbarheter",
+    "executiveSummary": "Ledelsessammendrag",
+    "integrationSummaries": "Integrasjonssammendrag",
+    "reviewFrequency": "Gjennomgangsfrekvens",
+    "submitReview": "Send til gjennomgang",
+    "approvePlan": "Godkjenn plan",
+    "recordSimulation": "Registrer bordøvelse",
+    "resolve": "Løs",
+    "updating": "Oppdaterer…",
+    "approving": "Godkjenner…",
+    "recording": "Registrerer…",
+    "resolving": "Løser…",
+    "updateFailed": "Oppdatering mislyktes",
+    "approveFailed": "Godkjenning mislyktes",
+    "simulationFailed": "Simulering mislyktes",
+    "resolveFailed": "Løsning mislyktes"
   }
 }

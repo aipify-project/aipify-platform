@@ -52,3 +52,4 @@ export * from "./marketplace-partner-ecosystem-foundation";
 export * from "./ai-ethics-responsible-use";
 export * from "./change-management";
 export * from "./value-realization";
+export * from "./organizational-resilience";

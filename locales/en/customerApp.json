@@ -4288,7 +4288,8 @@
     "changeManagementEngine": "Change Management",
     "marketplacePartnerEcosystemFoundationEngine": "Partner Ecosystem",
     "aiEthicsResponsibleUseEngine": "AI Ethics",
-    "valueRealizationEngine": "Value Realization"
+    "valueRealizationEngine": "Value Realization",
+    "organizationalResilienceEngine": "Organizational Resilience"
   },
   "aipifyInstallEngine": {
     "title": "Install Engine",
@@ -4772,5 +4773,31 @@
     "achieveMilestone": "Mark achieved",
     "completing": "Updating…",
     "milestoneFailed": "Milestone update failed"
+  },
+  "organizationalResilienceEngine": {
+    "title": "Organizational Resilience",
+    "subtitle": "Preparedness and continuity — scenario plans, simulations, and structured recovery with human approval.",
+    "loading": "Loading organizational resilience…",
+    "engineTitle": "Organizational Resilience Engine",
+    "summary": "Summary",
+    "principles": "Principles",
+    "plans": "Continuity plans",
+    "simulations": "Simulations",
+    "vulnerabilities": "Vulnerabilities",
+    "executiveSummary": "Executive summary",
+    "integrationSummaries": "Integration summaries",
+    "reviewFrequency": "Review frequency",
+    "submitReview": "Submit for review",
+    "approvePlan": "Approve plan",
+    "recordSimulation": "Record tabletop",
+    "resolve": "Resolve",
+    "updating": "Updating…",
+    "approving": "Approving…",
+    "recording": "Recording…",
+    "resolving": "Resolving…",
+    "updateFailed": "Update failed",
+    "approveFailed": "Approval failed",
+    "simulationFailed": "Simulation failed",
+    "resolveFailed": "Resolution failed"
   }
 }

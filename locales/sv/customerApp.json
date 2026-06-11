@@ -3169,7 +3169,8 @@
     "changeManagementEngine": "Förändringsledning",
     "marketplacePartnerEcosystemFoundationEngine": "Partnerekosystem",
     "aiEthicsResponsibleUseEngine": "AI-etik",
-    "valueRealizationEngine": "Värerealisering"
+    "valueRealizationEngine": "Värerealisering",
+    "organizationalResilienceEngine": "Organisationsmotståndskraft"
   },
   "identity": {
     "title": "Din identitet",
@@ -4185,12 +4186,21 @@
     "principles": "Principles"
   },
   "continuousImprovementEngine": {
-    "title": "Continuous Improvement",
-    "subtitle": "Human-guided improvement through feedback and outcomes.",
-    "loading": "Loading…",
+    "title": "Kontinuerlig förbättring",
+    "subtitle": "Människostyrd förbättring genom feedback, initiativ och mätbara resultat.",
+    "loading": "Laddar…",
     "engineTitle": "Continuous Improvement Engine",
-    "summary": "Summary",
-    "principles": "Principles"
+    "summary": "Sammanfattning",
+    "principles": "Principer",
+    "initiatives": "Förbättringsinitiativ",
+    "trends": "Trender",
+    "recommendations": "Rekommendationer",
+    "memoryIntegration": "Organisationsminnesintegration",
+    "successMeasurements": "Framgångsmätningar",
+    "approveInitiative": "Godkänn",
+    "startInitiative": "Starta",
+    "reviewing": "Granskar…",
+    "actionFailed": "Åtgärden misslyckades"
   },
   "workflowOrchestrationEngine": {
     "title": "Arbetsflödesorkestrering",
@@ -4365,5 +4375,31 @@
     "achieveMilestone": "Markera uppnådd",
     "completing": "Uppdaterar…",
     "milestoneFailed": "Milstolpeuppdatering misslyckades"
+  },
+  "organizationalResilienceEngine": {
+    "title": "Organisationsmotståndskraft",
+    "subtitle": "Beredskap och kontinuitet — scenarioplaner, simuleringar och strukturerad återhämtning med mänskligt godkännande.",
+    "loading": "Laddar organisationsmotståndskraft…",
+    "engineTitle": "Organizational Resilience Engine",
+    "summary": "Sammanfattning",
+    "principles": "Principer",
+    "plans": "Kontinuitetsplaner",
+    "simulations": "Simuleringar",
+    "vulnerabilities": "Sårbarheter",
+    "executiveSummary": "Ledningssammanfattning",
+    "integrationSummaries": "Integrationssammanfattningar",
+    "reviewFrequency": "Granskningsfrekvens",
+    "submitReview": "Skicka till granskning",
+    "approvePlan": "Godkänn plan",
+    "recordSimulation": "Registrera bordövning",
+    "resolve": "Lös",
+    "updating": "Uppdaterar…",
+    "approving": "Godkänner…",
+    "recording": "Registrerar…",
+    "resolving": "Löser…",
+    "updateFailed": "Uppdatering misslyckades",
+    "approveFailed": "Godkännande misslyckades",
+    "simulationFailed": "Simulering misslyckades",
+    "resolveFailed": "Lösning misslyckades"
   }
 }
