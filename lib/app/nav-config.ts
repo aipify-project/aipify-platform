@@ -29,6 +29,18 @@ export type AppNavId =
   | "customerSuccessEngine"
   | "statusTransparencyEngine"
   | "enterpriseReadinessEngine"
+  | "enterpriseDeploymentDeviceRolloutEngine"
+  | "executiveInsightsEngine"
+  | "learningTrainingEngine"
+  | "certificationAchievementEngine"
+  | "innovationImpactEngine"
+  | "complianceRegulatoryReadinessEngine"
+  | "strategicIntelligenceFoundationEngine"
+  | "operationsCenterFoundationEngine"
+  | "continuousImprovementEngine"
+  | "workflowOrchestrationEngine"
+  | "humanOversightEngine"
+  | "businessPacksFoundationEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -177,6 +189,61 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/enterprise-readiness-engine",
     labelKey: "customerApp.nav.enterpriseReadinessEngine",
   },
+  {
+    id: "enterpriseDeploymentDeviceRolloutEngine",
+    href: "/app/enterprise-deployment-device-rollout-engine",
+    labelKey: "customerApp.nav.enterpriseDeploymentDeviceRolloutEngine",
+  },
+  {
+    id: "learningTrainingEngine",
+    href: "/app/learning-training-engine",
+    labelKey: "customerApp.nav.learningTrainingEngine",
+  },
+  {
+    id: "certificationAchievementEngine",
+    href: "/app/certification-achievement-engine",
+    labelKey: "customerApp.nav.certificationAchievementEngine",
+  },
+  {
+    id: "innovationImpactEngine",
+    href: "/app/innovation-impact-engine",
+    labelKey: "customerApp.nav.innovationImpactEngine",
+  },
+  {
+    id: "complianceRegulatoryReadinessEngine",
+    href: "/app/compliance-regulatory-readiness-engine",
+    labelKey: "customerApp.nav.complianceRegulatoryReadinessEngine",
+  },
+  {
+    id: "strategicIntelligenceFoundationEngine",
+    href: "/app/strategic-intelligence-foundation-engine",
+    labelKey: "customerApp.nav.strategicIntelligenceFoundationEngine",
+  },
+  {
+    id: "operationsCenterFoundationEngine",
+    href: "/app/operations-center-foundation-engine",
+    labelKey: "customerApp.nav.operationsCenterFoundationEngine",
+  },
+  {
+    id: "continuousImprovementEngine",
+    href: "/app/continuous-improvement-engine",
+    labelKey: "customerApp.nav.continuousImprovementEngine",
+  },
+  {
+    id: "workflowOrchestrationEngine",
+    href: "/app/workflow-orchestration-engine",
+    labelKey: "customerApp.nav.workflowOrchestrationEngine",
+  },
+  {
+    id: "humanOversightEngine",
+    href: "/app/human-oversight-engine",
+    labelKey: "customerApp.nav.humanOversightEngine",
+  },
+  {
+    id: "businessPacksFoundationEngine",
+    href: "/app/business-packs-foundation-engine",
+    labelKey: "customerApp.nav.businessPacksFoundationEngine",
+  },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -283,6 +350,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/observability-platform-health-engine")) {
     return "observabilityPlatformHealthEngine";
   }
+  if (pathname.startsWith("/app/business-packs-foundation-engine")) {
+    return "businessPacksFoundationEngine";
+  }
   if (pathname.startsWith("/app/aipify-install-engine")) return "aipifyInstallEngine";
   if (pathname.startsWith("/app/module-marketplace-foundation-engine")) {
     return "moduleMarketplaceFoundationEngine";
@@ -294,6 +364,12 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/customer-success-engine")) return "customerSuccessEngine";
   if (pathname.startsWith("/app/status-transparency-engine")) return "statusTransparencyEngine";
   if (pathname.startsWith("/app/enterprise-readiness-engine")) return "enterpriseReadinessEngine";
+  if (pathname.startsWith("/app/enterprise-deployment-device-rollout-engine")) {
+    return "enterpriseDeploymentDeviceRolloutEngine";
+  }
+  if (pathname.startsWith("/app/learning-training-engine")) return "learningTrainingEngine";
+  if (pathname.startsWith("/app/certification-achievement-engine")) return "certificationAchievementEngine";
+  if (pathname.startsWith("/app/executive-insights-engine")) return "executiveInsightsEngine";
   if (pathname.startsWith("/app/executive")) return "executive";
   if (
     pathname.startsWith("/app/presence") ||

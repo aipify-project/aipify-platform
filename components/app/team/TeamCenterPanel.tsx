@@ -6,6 +6,12 @@ import type { CustomerTeamInvitation, CustomerTeamMember } from "@/lib/app/custo
 import { formatDate } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
 
+type ProfileBadge = {
+  badge_key?: string;
+  name?: string;
+  description?: string;
+};
+
 type TeamCenterPanelProps = {
   locale: string;
   labels: {
@@ -17,6 +23,9 @@ type TeamCenterPanelProps = {
     members: string;
     invitations: string;
     noInvitations: string;
+    achievementBadges: string;
+    noAchievementBadges: string;
+    viewCertifications: string;
     columns: {
       name: string;
       email: string;
@@ -31,15 +40,27 @@ type TeamCenterPanelProps = {
 export function TeamCenterPanel({ locale, labels }: TeamCenterPanelProps) {
   const [members, setMembers] = useState<CustomerTeamMember[]>([]);
   const [invitations, setInvitations] = useState<CustomerTeamInvitation[]>([]);
+  const [profileBadges, setProfileBadges] = useState<ProfileBadge[]>([]);
   const [loading, setLoading] = useState(true);
 
   const refresh = useCallback(async () => {
     const supabase = createClient();
-    const { data, error } = await supabase.rpc("get_customer_team_center");
+    const [teamRes, badgesRes] = await Promise.all([
+      supabase.rpc("get_customer_team_center"),
+      fetch("/api/certifications/badges"),
+    ]);
+
+    const { data, error } = teamRes;
     if (!error && data?.has_customer) {
       setMembers((data.members as CustomerTeamMember[]) ?? []);
       setInvitations((data.invitations as CustomerTeamInvitation[]) ?? []);
     }
+
+    if (badgesRes.ok) {
+      const badges = (await badgesRes.json()) as ProfileBadge[];
+      setProfileBadges(Array.isArray(badges) ? badges : []);
+    }
+
     setLoading(false);
   }, []);
 
@@ -55,6 +76,30 @@ export function TeamCenterPanel({ locale, labels }: TeamCenterPanelProps) {
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
         <p className="mt-2 text-gray-600">{labels.subtitle}</p>
       </div>
+
+      <section className="rounded-2xl border border-amber-100 bg-amber-50/40 p-5 shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="text-base font-semibold text-gray-900">{labels.achievementBadges}</h2>
+          <a href="/app/certification-achievement-engine" className="text-sm text-amber-900 underline">
+            {labels.viewCertifications}
+          </a>
+        </div>
+        {profileBadges.length === 0 ? (
+          <p className="mt-3 text-sm text-gray-600">{labels.noAchievementBadges}</p>
+        ) : (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {profileBadges.map((badge) => (
+              <span
+                key={badge.badge_key ?? badge.name}
+                className="rounded-full border border-amber-200 bg-white px-3 py-1 text-xs font-medium text-amber-900"
+                title={badge.description}
+              >
+                {badge.name ?? badge.badge_key}
+              </span>
+            ))}
+          </div>
+        )}
+      </section>
 
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
         <h2 className="text-base font-semibold text-gray-900">{labels.members}</h2>

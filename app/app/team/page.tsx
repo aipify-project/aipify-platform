@@ -36,6 +36,9 @@ export default async function TeamPage() {
           viewer: t("dashboard.roles.read_only"),
         },
         inviteSoon: t("customerApp.team.inviteSoon"),
+        achievementBadges: t("customerApp.team.achievementBadges"),
+        noAchievementBadges: t("customerApp.team.noAchievementBadges"),
+        viewCertifications: t("customerApp.team.viewCertifications"),
       }}
     />
   );

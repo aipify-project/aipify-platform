@@ -1,0 +1,45 @@
+import { LearningTrainingEngineDashboardPanel } from "@/components/app/learning-training-engine";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { createTranslator } from "@/lib/i18n/translate";
+
+export default async function LearningTrainingEnginePage() {
+  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const t = createTranslator(dict);
+  const p = "customerApp.learningTrainingEngine";
+
+  return (
+    <div className="mx-auto max-w-6xl space-y-6 p-6">
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t(`${p}.title`)}</h1>
+        <p className="mt-2 text-gray-600">{t(`${p}.subtitle`)}</p>
+      </div>
+      <LearningTrainingEngineDashboardPanel
+        labels={{
+          loading: t(`${p}.loading`),
+          engineTitle: t(`${p}.engineTitle`),
+          onboarding: t(`${p}.onboarding`),
+          learningEngine: t(`${p}.learningEngine`),
+          knowledgeCenter: t(`${p}.knowledgeCenter`),
+          assigned_paths: t(`${p}.assigned_paths`),
+          completed_paths: t(`${p}.completed_paths`),
+          in_progress_paths: t(`${p}.in_progress_paths`),
+          overdue_paths: t(`${p}.overdue_paths`),
+          onboardingIntegration: t(`${p}.onboardingIntegration`),
+          currentStep: t(`${p}.currentStep`),
+          assignedPaths: t(`${p}.assignedPaths`),
+          recommendedPaths: t(`${p}.recommendedPaths`),
+          overdueTraining: t(`${p}.overdueTraining`),
+          recommendedModules: t(`${p}.recommendedModules`),
+          teamReadiness: t(`${p}.teamReadiness`),
+          readinessScore: t(`${p}.readinessScore`),
+          averageCompletion: t(`${p}.averageCompletion`),
+          availablePaths: t(`${p}.availablePaths`),
+          minutes: t(`${p}.minutes`),
+          noItems: t(`${p}.noItems`),
+          principles: t(`${p}.principles`),
+        }}
+      />
+    </div>
+  );
+}
