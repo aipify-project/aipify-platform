@@ -5,6 +5,7 @@ Self-knowledge foundation so Aipify can answer questions about itself from a con
 **Spec:** `aipify-core/modules/knowledge-center/phase-55-self-knowledge-knowledge-center.txt`  
 **Code:** `lib/aipify/knowledge/`  
 **Seed content:** `content/knowledge/aipify/` (includes `quality/faq/` for Quality Guardian — 30 global FAQ articles)  
+**Developer KB:** `content/knowledge/aipify/developers/` — see [DEVELOPER_KNOWLEDGE_CENTER.md](./DEVELOPER_KNOWLEDGE_CENTER.md)  
 **Center:** `/app/knowledge-center`  
 **Gaps:** `/app/knowledge-center/gaps`  
 **Settings:** `/app/settings/knowledge`  
@@ -72,7 +73,7 @@ Migration: `supabase/migrations/20260614300000_knowledge_center_phase55.sql`
 
 ## Integrations
 
-- **Admin Assistant** — `app/api/assistant/route.ts` calls `retrieve_knowledge_answer` before hardcoded feature replies
+- **Admin Assistant** — `app/api/assistant/route.ts` calls `retrieve_developer_knowledge_answer` for developer questions, otherwise `retrieve_knowledge_answer` before hardcoded feature replies
 - **Support AI** — use `POST /api/aipify/knowledge/retrieve-answer`
 - **Governance / Automation** — document behavior via seeded FAQ articles
 

@@ -69,7 +69,8 @@ Note: Uses `ecosystem_apps` (not bare `apps`) to avoid generic naming conflicts.
 ## Knowledge Center
 
 Category: `developers`  
-FAQ: `content/knowledge/aipify/developers/faq/developers-faq.md`
+FAQ: `content/knowledge/aipify/developers/faq/developers-faq.md`  
+Full KB: See [DEVELOPER_KNOWLEDGE_CENTER.md](./DEVELOPER_KNOWLEDGE_CENTER.md)
 
 ## Out of scope (V1)
 

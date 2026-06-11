@@ -1,6 +1,8 @@
 export * from "./types";
 export * from "./parse";
 export * from "./detection";
+export * from "./developer-detection";
+export * from "./developer-guidance";
 export * from "./retrieve";
 // import-seed uses node:fs — import only from ./import-seed in server routes
 

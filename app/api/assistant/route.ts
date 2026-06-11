@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { buildAssistantTurn } from "@/lib/assistant-memory/conversation";
-import { isAipifyKnowledgeQuestion, parseKnowledgeAnswer } from "@/lib/aipify/knowledge";
+import {
+  DEVELOPER_LOW_CONFIDENCE_NOTE,
+  isAipifyKnowledgeQuestion,
+  isDeveloperKnowledgeQuestion,
+  parseKnowledgeAnswer,
+} from "@/lib/aipify/knowledge";
 import { adaptReplyToIdentity } from "@/lib/identity-engine/adapt";
 import { parseIdentityCenter } from "@/lib/identity-engine/parse";
 import { createClient } from "@/lib/supabase/server";
@@ -165,14 +170,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Message required" }, { status: 400 });
     }
 
-    if (isAipifyKnowledgeQuestion(message)) {
+    const useDeveloperKnowledge = isDeveloperKnowledgeQuestion(message);
+    const useKnowledgeCenter = useDeveloperKnowledge || isAipifyKnowledgeQuestion(message);
+
+    if (useKnowledgeCenter) {
       const { data: knowledgeAnswer, error: knowledgeError } = await supabase.rpc(
-        "retrieve_knowledge_answer",
+        useDeveloperKnowledge ? "retrieve_developer_knowledge_answer" : "retrieve_knowledge_answer",
         {
           p_query: message,
           p_language: "en",
           p_visibility_context: "authenticated",
-          p_source_type: "admin_chat",
+          p_source_type: useDeveloperKnowledge ? "developer_assistant" : "admin_chat",
         }
       );
 
@@ -187,9 +195,10 @@ export async function POST(request: Request) {
 
           return NextResponse.json({
             reply,
-            intent: "general",
+            intent: useDeveloperKnowledge ? "developer" : "general",
             confidence_level: parsed.confidence_score >= 0.65 ? "high" : "medium",
             knowledge_center: true,
+            developer_knowledge: useDeveloperKnowledge,
             articles_used: parsed.articles_used,
             created_gap_id: parsed.created_gap_id,
           });
@@ -210,11 +219,17 @@ export async function POST(request: Request) {
               ? `${parsed.answer}\n\n${parsed.fallback_message}`
               : parsed.fallback_message;
 
+          const lowConfidenceReply =
+            useDeveloperKnowledge && parsed.should_escalate
+              ? `${reply}\n\n${DEVELOPER_LOW_CONFIDENCE_NOTE}`
+              : reply;
+
           return NextResponse.json({
-            reply,
-            intent: "general",
+            reply: lowConfidenceReply,
+            intent: useDeveloperKnowledge ? "developer" : "general",
             confidence_level: "low",
             knowledge_center: true,
+            developer_knowledge: useDeveloperKnowledge,
             created_gap_id: parsed.created_gap_id,
             should_escalate: parsed.should_escalate,
           });
