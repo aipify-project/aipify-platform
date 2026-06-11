@@ -27,6 +27,8 @@ export type AppNavId =
   | "aipifyInternalOperationsEngine"
   | "launchReadinessEngine"
   | "customerSuccessEngine"
+  | "statusTransparencyEngine"
+  | "enterpriseReadinessEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -165,6 +167,16 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/customer-success-engine",
     labelKey: "customerApp.nav.customerSuccessEngine",
   },
+  {
+    id: "statusTransparencyEngine",
+    href: "/app/status-transparency-engine",
+    labelKey: "customerApp.nav.statusTransparencyEngine",
+  },
+  {
+    id: "enterpriseReadinessEngine",
+    href: "/app/enterprise-readiness-engine",
+    labelKey: "customerApp.nav.enterpriseReadinessEngine",
+  },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -280,6 +292,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/launch-readiness-engine")) return "launchReadinessEngine";
   if (pathname.startsWith("/app/customer-success-engine")) return "customerSuccessEngine";
+  if (pathname.startsWith("/app/status-transparency-engine")) return "statusTransparencyEngine";
+  if (pathname.startsWith("/app/enterprise-readiness-engine")) return "enterpriseReadinessEngine";
   if (pathname.startsWith("/app/executive")) return "executive";
   if (
     pathname.startsWith("/app/presence") ||
