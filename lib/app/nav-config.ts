@@ -38,6 +38,9 @@ export type AppNavId =
   | "constitutionEngine"
   | "manifestoEngine"
   | "platformInstallEngine"
+  | "commerceIntelligenceEngine"
+  | "productAutomationEngine"
+  | "dropshippingOperationsEngine"
   | "personalityEngine"
   | "workstyleEngine"
   | "approvals"
@@ -110,6 +113,9 @@ export const APP_NAV: AppNavItem[] = [
   { id: "constitutionEngine", href: "/app/constitution", labelKey: "customerApp.nav.constitutionEngine" },
   { id: "manifestoEngine", href: "/app/manifesto", labelKey: "customerApp.nav.manifestoEngine" },
   { id: "platformInstallEngine", href: "/app/platform-install", labelKey: "customerApp.nav.platformInstallEngine" },
+  { id: "commerceIntelligenceEngine", href: "/app/commerce-intelligence", labelKey: "customerApp.nav.commerceIntelligenceEngine" },
+  { id: "productAutomationEngine", href: "/app/product-automation", labelKey: "customerApp.nav.productAutomationEngine" },
+  { id: "dropshippingOperationsEngine", href: "/app/dropshipping-operations", labelKey: "customerApp.nav.dropshippingOperationsEngine" },
   { id: "personalityEngine", href: "/app/personality", labelKey: "customerApp.nav.personalityEngine" },
   { id: "approvals", href: "/app/approvals", labelKey: "customerApp.nav.approvals" },
   { id: "actionCenter", href: "/app/action-center", labelKey: "customerApp.nav.actionCenter" },
@@ -184,6 +190,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/constitution")) return "constitutionEngine";
   if (pathname.startsWith("/app/manifesto")) return "manifestoEngine";
   if (pathname.startsWith("/app/platform-install")) return "platformInstallEngine";
+  if (pathname.startsWith("/app/commerce-intelligence")) return "commerceIntelligenceEngine";
+  if (pathname.startsWith("/app/product-automation")) return "productAutomationEngine";
+  if (pathname.startsWith("/app/dropshipping-operations")) return "dropshippingOperationsEngine";
   if (pathname.startsWith("/app/personality")) return "personalityEngine";
   if (pathname.startsWith("/app/approvals")) return "approvals";
   if (pathname.startsWith("/app/action-center") || pathname.startsWith("/app/actions")) {
