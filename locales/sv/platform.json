@@ -436,6 +436,16 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratörer kan inte se användarnas minnesinnehåll. Endast aggregat."
   },
+  "identity": {
+    "title": "AIE-styrning",
+    "subtitle": "Aggregerade identitetsmått — inget profilinnehåll.",
+    "loading": "Laddar identitetsöversikt…",
+    "profiles": "Identitetsprofiler",
+    "onboarded": "Onboarding slutförd",
+    "pending": "Väntande observationer",
+    "byMode": "Per identitetsläge",
+    "privacyNote": "Administratörer kan inte se identitetsprofiler. Endast aggregat."
+  },
   "relationships": {
     "title": "RSI-styrning",
     "subtitle": "Aggregerade relationsmått — inget användarinnehåll.",

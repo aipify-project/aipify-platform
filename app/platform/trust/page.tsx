@@ -1,5 +1,6 @@
 import PlatformAssistantMemoryPanel from "@/components/platform/PlatformAssistantMemoryPanel";
 import PlatformLifeOsPanel from "@/components/platform/PlatformLifeOsPanel";
+import PlatformIdentityPanel from "@/components/platform/PlatformIdentityPanel";
 import PlatformRelationshipPanel from "@/components/platform/PlatformRelationshipPanel";
 import PlatformTrustActionsPanel from "@/components/platform/PlatformTrustActionsPanel";
 import { PlatformTrustScaffold } from "@/components/platform/trust";
@@ -41,6 +42,18 @@ export default async function PlatformTrustPage() {
           disabled: t("platform.assistantMemory.disabled"),
           byCategory: t("platform.assistantMemory.byCategory"),
           privacyNote: t("platform.assistantMemory.privacyNote"),
+        }}
+      />
+      <PlatformIdentityPanel
+        labels={{
+          title: t("platform.identity.title"),
+          subtitle: t("platform.identity.subtitle"),
+          loading: t("platform.identity.loading"),
+          profiles: t("platform.identity.profiles"),
+          onboarded: t("platform.identity.onboarded"),
+          pending: t("platform.identity.pending"),
+          byMode: t("platform.identity.byMode"),
+          privacyNote: t("platform.identity.privacyNote"),
         }}
       />
       <PlatformRelationshipPanel

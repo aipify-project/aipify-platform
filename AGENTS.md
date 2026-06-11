@@ -48,6 +48,8 @@ For **Life Operating System (LifeOS)**, read **[LIFE_OPERATING_SYSTEM.md](./LIFE
 
 For **Relationship & Social Intelligence (RSI)**, read **[RELATIONSHIP_SOCIAL_INTELLIGENCE.md](./RELATIONSHIP_SOCIAL_INTELLIGENCE.md)**. Constants in `lib/relationship-intelligence/`; dashboard at `/app/assistant/relationships`; APIs at `/api/assistant/relationships/*`. Never impersonate user or send automated messages. Conversation notes require explicit approval.
 
+For **Identity Engine (AIE)**, read **[IDENTITY_ENGINE.md](./IDENTITY_ENGINE.md)**. Constants in `lib/identity-engine/`; dashboard at `/app/assistant/identity`; APIs at `/api/assistant/identity`. Per-user communication style; observations require approval; `adaptReplyToIdentity()` on assistant replies.
+
 ## Aipify architecture — mandatory before every feature
 
 Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.

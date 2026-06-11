@@ -1,0 +1,24 @@
+AIPIFY IDENTITY ENGINE (AIE)
+Phase 34
+STATUS: Implemented
+
+PURPOSE
+Shape how Aipify interacts with each user — familiarity without manipulation.
+
+DIMENSIONS
+Communication style · Proactivity · Tone · Name usage · Identity modes
+Notification preferences · Boundaries · Observation approval
+
+CUSTOMER ROUTE
+/app/assistant/identity
+
+APIs
+GET/PATCH/POST /api/assistant/identity
+
+DATABASE
+identity_profiles · interaction_observations
+
+IMPLEMENTATION
+lib/identity-engine/
+supabase/migrations/20260612200000_identity_engine_phase34.sql
+IDENTITY_ENGINE.md

@@ -436,6 +436,16 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratorer kan ikke se brugernes mindeindhold. Kun aggregater."
   },
+  "identity": {
+    "title": "AIE-styring",
+    "subtitle": "Aggregerede identitetsmetrikker — intet profilindhold.",
+    "loading": "Indlæser identitetsoversigt…",
+    "profiles": "Identitetsprofiler",
+    "onboarded": "Onboarding fuldført",
+    "pending": "Afventende observationer",
+    "byMode": "Per identitetstilstand",
+    "privacyNote": "Administratorer kan ikke se identitetsprofiler. Kun aggregater."
+  },
   "relationships": {
     "title": "RSI-styring",
     "subtitle": "Aggregerede relationsmetrikker — intet brugerindhold.",

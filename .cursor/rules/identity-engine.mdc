@@ -1,0 +1,23 @@
+---
+description: AIE — per-user identity, observation approval, transparent adaptation
+alwaysApply: true
+---
+
+# Identity Engine / AIE (Phase 34)
+
+Read **[IDENTITY_ENGINE.md](../../IDENTITY_ENGINE.md)** before identity profile, observation, or reply adaptation changes.
+
+## Rules
+
+1. **Familiarity, not fake personality** — adapt style; never impersonate or manipulate
+2. Customer route: `/app/assistant/identity` — APIs at `/api/assistant/identity`
+3. Identity changes require **user approval** via `interaction_observations` — never silent
+4. `adaptReplyToIdentity()` applies profile to assistant replies — transparent explainability
+5. Integrates with PAME, LifeOS, RSI — identity does not store life/relationship content
+6. Learning Engine may suggest — user always retains control over identity profile
+7. Platform aggregates only — `get_platform_identity_overview` with `privacy_note`
+8. i18n: `locales/{en,no,sv,da}/customerApp.json` (`identity.*`)
+
+## Tables
+
+`identity_profiles` · `interaction_observations`

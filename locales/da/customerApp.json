@@ -232,6 +232,7 @@
     "viewMemories": "Se og administrer minder",
     "viewLife": "Livsoversigt",
     "viewRelationships": "Relationer",
+    "viewIdentity": "Din identitet",
     "proactiveTitle": "Proaktive forslag",
     "loading": "Tænker…"
   },
@@ -394,5 +395,94 @@
     "security": "Sikkerhed",
     "settings": "Indstillinger",
     "learning": "Læring"
+  },
+  "identity": {
+    "title": "Din identitet",
+    "subtitle": "Hvordan Aipify kommunikerer med dig — velkendt, konsekvent og altid under din kontrol.",
+    "loading": "Indlæser identitetsindstillinger…",
+    "back": "Tilbage til assistent",
+    "save": "Gem indstillinger",
+    "saved": "Gemt",
+    "privacy": "Identitet former, hvordan jeg kommunikerer — aldrig hvem du er.",
+    "explainability": "Hvorfor jeg kommunikerer sådan",
+    "viewMemories": "Personlige minder",
+    "viewLife": "Livsoversigt",
+    "sections": {
+      "onboarding": "Kom i gang",
+      "profile": "Identitetstilstand",
+      "observations": "Foreslåede justeringer",
+      "history": "Interaktionshistorik",
+      "boundaries": "Grænser",
+      "notifications": "Notifikationsstil",
+      "settings": "Identitetspræferencer"
+    },
+    "onboarding": {
+      "start": "Hvordan vil du have, at jeg kommunikerer med dig? Vælg en starttilstand — du kan tilpasse når som helst.",
+      "complete": "Fuldfør opsætning",
+      "useName": "Brug mit fornavn",
+      "dailySummaries": "Daglige opsummeringer",
+      "reminders": "Påmindelser aktiveret"
+    },
+    "observations": {
+      "yes": "Ja, juster",
+      "no": "Nej tak",
+      "later": "Spørg mig senere"
+    },
+    "modes": {
+      "minimal": "Minimal — quiet and task-focused",
+      "professional": "Professional — clear and efficient",
+      "supportive": "Supportive — warm and helpful",
+      "companion": "Companion — conversational and personal",
+      "custom": "Custom — you define everything"
+    },
+    "communicationStyles": {
+      "minimal": "Minimal",
+      "professional": "Professional",
+      "friendly": "Friendly",
+      "conversational": "Conversational",
+      "supportive": "Supportive",
+      "motivational": "Motivational",
+      "formal": "Formal",
+      "warm": "Warm",
+      "humorous": "Humorous"
+    },
+    "proactivityLevels": {
+      "passive": "Passive — I only respond",
+      "reactive": "Reactive — respond when prompted",
+      "balanced": "Balanced — useful suggestions",
+      "proactive": "Proactive — anticipate needs",
+      "highly_proactive": "Highly proactive — daily coordination"
+    },
+    "tones": {
+      "direct": "Direct",
+      "encouraging": "Encouraging",
+      "calm": "Calm",
+      "energetic": "Energetic",
+      "neutral": "Neutral",
+      "supportive": "Supportive"
+    },
+    "nameUsage": {
+      "always": "Always use first name",
+      "occasional": "Occasionally use first name",
+      "avoid": "Avoid using names",
+      "professional_title": "Use professional titles"
+    },
+    "socialStyles": {
+      "professional_assistant": "Professional assistant",
+      "trusted_organizer": "Trusted organizer",
+      "friendly_companion": "Friendly companion",
+      "executive_advisor": "Executive advisor",
+      "life_coordinator": "Life coordinator"
+    },
+    "responseLengths": {
+      "short": "Short answers",
+      "balanced": "Balanced",
+      "detailed": "Detailed explanations"
+    },
+    "notificationStyles": {
+      "minimal": "Minimal",
+      "balanced": "Balanced",
+      "frequent": "More frequent"
+    }
   }
 }

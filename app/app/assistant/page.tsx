@@ -28,6 +28,7 @@ export default async function AppAssistantPage() {
         viewMemories: t("customerApp.assistant.viewMemories"),
         viewLife: t("customerApp.assistant.viewLife"),
         viewRelationships: t("customerApp.assistant.viewRelationships"),
+        viewIdentity: t("customerApp.assistant.viewIdentity"),
         proactiveTitle: t("customerApp.assistant.proactiveTitle"),
         loading: t("customerApp.assistant.loading"),
         orbLabel: t("branding.orbLabel"),

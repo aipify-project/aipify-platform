@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { buildAssistantTurn } from "@/lib/assistant-memory/conversation";
+import { adaptReplyToIdentity } from "@/lib/identity-engine/adapt";
+import { parseIdentityCenter } from "@/lib/identity-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {
@@ -71,8 +73,15 @@ export async function POST(request: Request) {
 
     const turn = buildAssistantTurn(message, askBeforeRemembering);
 
+    const { data: identityCenter } = await supabase.rpc("get_customer_identity_center");
+    const identity = parseIdentityCenter(identityCenter);
+    const reply =
+      identity.profile
+        ? adaptReplyToIdentity(turn.reply, identity.profile, identity.user_name)
+        : turn.reply;
+
     return NextResponse.json({
-      reply: turn.reply,
+      reply,
       intent: turn.intent,
       memory_intent: turn.memory_intent,
       memoryDraft: turn.memoryDraft,

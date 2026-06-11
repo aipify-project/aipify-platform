@@ -22,6 +22,7 @@ type AssistantChatPanelProps = {
     viewMemories: string;
     viewLife: string;
     viewRelationships: string;
+    viewIdentity: string;
     proactiveTitle: string;
     loading: string;
     orbLabel: string;
@@ -201,6 +202,9 @@ export function AssistantChatPanel({
       </div>
 
       <div className="flex flex-wrap gap-4">
+        <Link href="/app/assistant/identity" className="text-sm text-indigo-600 hover:underline">
+          {labels.viewIdentity}
+        </Link>
         <Link href="/app/assistant/relationships" className="text-sm text-indigo-600 hover:underline">
           {labels.viewRelationships}
         </Link>

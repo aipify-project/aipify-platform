@@ -41,6 +41,7 @@ The first complete customer-facing product experience. Customers interact with *
 | `/app/assistant/memory` | Personal memory dashboard — people, events, tasks, habits, goals |
 | `/app/assistant/life` | LifeOS dashboard — briefings, priorities, checklists, life balance |
 | `/app/assistant/relationships` | RSI dashboard — important people, milestones, follow-ups, gift planning |
+| `/app/assistant/identity` | AIE dashboard — communication style, proactivity, observations, boundaries |
 
 Legacy: `/dashboard/*` remains during migration. `/app/command-center` remains for Command Center / desktop pairing.
 

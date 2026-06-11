@@ -630,6 +630,16 @@
     "byCategory": "By category",
     "privacyNote": "Administrators cannot access user memory content. Aggregates only."
   },
+  "identity": {
+    "title": "AIE governance",
+    "subtitle": "Aggregate identity adoption metrics — no user profile content.",
+    "loading": "Loading identity overview…",
+    "profiles": "Identity profiles",
+    "onboarded": "Onboarding completed",
+    "pending": "Pending observations",
+    "byMode": "By identity mode",
+    "privacyNote": "Administrators cannot access identity profiles. Aggregates only."
+  },
   "relationships": {
     "title": "RSI governance",
     "subtitle": "Aggregate relationship assistance metrics — no user relationship content.",

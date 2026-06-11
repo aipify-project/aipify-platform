@@ -475,6 +475,16 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratorer kan ikke se brukerens minneinnhold. Kun aggregater."
   },
+  "identity": {
+    "title": "AIE-styring",
+    "subtitle": "Aggregerte identitetsmetrikker — ikke profilinnhold.",
+    "loading": "Laster identitetsoversikt…",
+    "profiles": "Identitetsprofiler",
+    "onboarded": "Onboarding fullført",
+    "pending": "Ventende observasjoner",
+    "byMode": "Per identitetsmodus",
+    "privacyNote": "Administratorer kan ikke se identitetsprofiler. Kun aggregater."
+  },
   "relationships": {
     "title": "RSI-styring",
     "subtitle": "Aggregerte relasjonsmetrikker — ikke brukerinnhold.",
