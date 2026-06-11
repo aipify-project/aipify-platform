@@ -5,6 +5,9 @@ import { useCallback, useEffect, useState } from "react";
 import { AipifyBriefingCard } from "@/components/app/briefing";
 import { DesktopCompanionCard } from "@/components/app/desktop";
 import { MemoryEngineCard } from "@/components/app/memory";
+import { LearningEngineCard } from "@/components/app/learning-engine";
+import { ActionHubCard } from "@/components/app/action-hub";
+import { SkillStoreCard } from "@/components/app/skills";
 import { AipifyEmptyState } from "@/components/branding";
 import { HealthScoreCard } from "@/components/app/shared/HealthScoreCard";
 import { SectionCard } from "@/components/app/shared/SectionCard";
@@ -60,6 +63,24 @@ type CustomerHomePanelProps = {
       profiles: string;
       patterns: string;
     };
+    skillStore: {
+      title: string;
+      open: string;
+      installed: string;
+      available: string;
+    };
+    actionHub: {
+      title: string;
+      open: string;
+      critical: string;
+      openHub: string;
+    };
+    learningEngine: {
+      title: string;
+      open: string;
+      events: string;
+      positive: string;
+    };
   };
 };
 
@@ -114,6 +135,9 @@ export function CustomerHomePanel({ locale, labels }: CustomerHomePanelProps) {
       <AipifyBriefingCard labels={labels.briefing} />
       <DesktopCompanionCard labels={labels.desktop} />
       <MemoryEngineCard labels={labels.memoryEngine} />
+      <SkillStoreCard labels={labels.skillStore} />
+      <ActionHubCard labels={labels.actionHub} />
+      <LearningEngineCard labels={labels.learningEngine} />
 
       <div className="grid gap-4 lg:grid-cols-3">
         <HealthScoreCard

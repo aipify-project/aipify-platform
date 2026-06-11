@@ -91,7 +91,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/learning")) return "learning";
   if (pathname.startsWith("/app/skills")) return "skills";
   if (pathname.startsWith("/app/approvals")) return "approvals";
-  if (pathname.startsWith("/app/action-center")) return "actionCenter";
+  if (pathname.startsWith("/app/action-center") || pathname.startsWith("/app/actions")) {
+    return "actionCenter";
+  }
   if (pathname.startsWith("/app/business-pulse") || pathname.startsWith("/dashboard/business-pulse")) {
     return "businessPulse";
   }

@@ -164,6 +164,12 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Memory Engine (Phase 62):** See [MEMORY_ENGINE.md](./MEMORY_ENGINE.md) — tenant-isolated pattern learning, preferences, observations, and memory-improved recommendations. Integrates with Briefing, Desktop Companion, Governance, Quality Guardian, and Organizational Memory (OME). `/app/memory`, `lib/aipify/memory/`, migration `20260615100000_memory_engine_phase62.sql`.
 
+**Skill Store (Phase 63):** See [SKILL_STORE.md](./SKILL_STORE.md) — modular capability platform: catalog, install, governance approval, dependency checks, tenant settings, and audit history. Extends Phase 22 SkillOS. Integrates with Governance, Knowledge Center, Audit, Desktop Companion, Executive Briefing, and Memory Engine. `/app/skills`, `lib/aipify/skills/`, migration `20260615200000_skill_store_phase63.sql`.
+
+**Action Center / Decision Hub (Phase 64):** See [ACTION_HUB.md](./ACTION_HUB.md) — operational execution layer: prioritized action queue, assignments, governance approval, audit decisions, and dashboard widgets. Collects from Quality Guardian, Governance, Knowledge Center, and Memory Engine. `/app/actions`, `lib/aipify/action-hub/`, migration `20260615300000_action_hub_phase64.sql`. Phase 44 AEF remains at `/app/action-center`.
+
+**Learning Engine — Feedback Loop (Phase 65):** See [LEARNING_ENGINE_PHASE65.md](./LEARNING_ENGINE_PHASE65.md) — governed feedback loop: learning events, outcomes, scores, rules, and audit. Extends Phase 29. Integrates with Memory Engine, Action Center, Quality Guardian, Governance, and Knowledge Center. `/app/learning`, `lib/aipify/learning-engine/`, migration `20260615400000_learning_engine_phase65.sql`.
+
 **Quality Guardian / QG (Phases 58–59):** See [QG.md](./QG.md) — software and frontend health monitoring (Image Guardian, Performance Guardian, mobile checks) with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `/app/quality/images`, `lib/aipify/quality/`, migrations `20260614600000_quality_guardian_phase58.sql`, `20260614700000_frontend_experience_guardian_phase59.sql`.
 
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.

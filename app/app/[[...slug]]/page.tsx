@@ -68,6 +68,24 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
           profiles: t("customerApp.memoryEngine.profiles"),
           patterns: t("customerApp.memoryEngine.patternsLabel"),
         },
+        skillStore: {
+          title: t("customerApp.skillStore.title"),
+          open: t("customerApp.skillStore.open"),
+          installed: t("customerApp.skillStore.installed"),
+          available: t("customerApp.skillStore.available"),
+        },
+        actionHub: {
+          title: t("customerApp.actionHub.title"),
+          open: t("customerApp.actionHub.openCount"),
+          critical: t("customerApp.actionHub.critical"),
+          openHub: t("customerApp.actionHub.openHub"),
+        },
+        learningEngine: {
+          title: t("customerApp.learningEngine.title"),
+          open: t("customerApp.learningEngine.open"),
+          events: t("customerApp.learningEngine.events"),
+          positive: t("customerApp.learningEngine.positive"),
+        },
         greetings: {
           morning: t("customerApp.greetings.morning"),
           afternoon: t("customerApp.greetings.afternoon"),
