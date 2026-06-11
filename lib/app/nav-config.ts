@@ -150,10 +150,10 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/license") || pathname.startsWith("/dashboard/license")) {
     return "license";
   }
-  if (
-    pathname.startsWith("/app/security") ||
-    pathname.startsWith("/app/settings/security")
-  ) {
+  if (pathname.startsWith("/app/security") || pathname.startsWith("/app/settings/security")) {
+    return "security";
+  }
+  if (pathname.startsWith("/app/compliance")) {
     return "security";
   }
   if (pathname.startsWith("/app/settings") || pathname.startsWith("/dashboard/settings")) {

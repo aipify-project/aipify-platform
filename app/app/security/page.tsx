@@ -1,47 +1,34 @@
-import { SecurityDashboardPanel } from "@/components/app/trust";
+import { SecurityComplianceDashboardPanel } from "@/components/app/security-compliance";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function SecurityPage() {
-  const locale = await getLocale();
-  const dict = await getDictionary(locale, ["settings", "branding", "customerApp"]);
+  const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
+  const p = "customerApp.securityCompliance";
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6 p-6">
+    <div className="mx-auto max-w-6xl space-y-6 p-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-          {t("customerApp.nav.security")}
-        </h1>
-        <p className="mt-2 text-gray-600">{t("settings.security.subtitle")}</p>
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t(`${p}.title`)}</h1>
+        <p className="mt-2 text-gray-600">{t(`${p}.subtitle`)}</p>
       </div>
-      <SecurityDashboardPanel
-        locale={locale}
+      <SecurityComplianceDashboardPanel
         labels={{
-          title: t("settings.security.title"),
-          subtitle: t("settings.security.subtitle"),
-          loading: t("settings.security.loading"),
-          connectedSystems: t("settings.security.connectedSystems"),
-          noSystems: t("settings.security.noSystems"),
-          permissionScopes: t("settings.security.permissionScopes"),
-          registeredDomains: t("settings.security.registeredDomains"),
-          noDomains: t("settings.security.noDomains"),
-          recentActions: t("settings.security.recentActions"),
-          noActions: t("settings.security.noActions"),
-          tokenHealth: t("settings.security.tokenHealth"),
-          principles: t("settings.security.principles"),
-          dataOwnership: t("settings.security.dataOwnership"),
-          areas: {
-            systems: t("settings.security.areas.systems"),
-            scopes: t("settings.security.areas.scopes"),
-            actions: t("settings.security.areas.actions"),
-            approvals: t("settings.security.areas.approvals"),
-            ownership: t("settings.security.areas.ownership"),
-            tokens: t("settings.security.areas.tokens"),
-            recommendations: t("settings.security.areas.recommendations"),
-          },
-          pulseLabel: t("branding.pulseLabel"),
+          loading: t(`${p}.loading`),
+          emergencyStopActive: t(`${p}.emergencyStopActive`),
+          openIncidents: t(`${p}.openIncidents`),
+          criticalIncidents: t(`${p}.criticalIncidents`),
+          secretsExpiring: t(`${p}.secretsExpiring`),
+          incidents: t(`${p}.incidents`),
+          secrets: t(`${p}.secrets`),
+          policies: t(`${p}.policies`),
+          compliance: t(`${p}.compliance`),
+          dataGovernance: t(`${p}.dataGovernance`),
+          recentDecisions: t(`${p}.recentDecisions`),
+          noDecisions: t(`${p}.noDecisions`),
+          principle: t(`${p}.principle`),
         }}
       />
     </div>

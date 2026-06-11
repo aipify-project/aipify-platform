@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { AipifyBriefingCard } from "@/components/app/briefing";
 import { DesktopCompanionCard } from "@/components/app/desktop";
 import { MemoryEngineCard } from "@/components/app/memory";
+import { SecurityComplianceCard } from "@/components/app/security-compliance";
 import { EnterpriseDeploymentCard } from "@/components/app/enterprise";
 import { AssistantIdentityWelcomeBanner } from "@/components/app/assistant-identity";
 import { LearningEngineCard } from "@/components/app/learning-engine";
@@ -95,6 +96,13 @@ type CustomerHomePanelProps = {
       agentsOnline: string;
       jobsQueued: string;
     };
+    securityCompliance: {
+      title: string;
+      open: string;
+      openIncidents: string;
+      critical: string;
+      emergencyStop: string;
+    };
   };
 };
 
@@ -149,6 +157,7 @@ export function CustomerHomePanel({ locale, labels }: CustomerHomePanelProps) {
       <AipifyBriefingCard labels={labels.briefing} />
       <AssistantIdentityWelcomeBanner labels={labels.assistantIdentity} />
       <EnterpriseDeploymentCard labels={labels.enterpriseDeployment} />
+      <SecurityComplianceCard labels={labels.securityCompliance} />
       <DesktopCompanionCard labels={labels.desktop} />
       <MemoryEngineCard labels={labels.memoryEngine} />
       <SkillStoreCard labels={labels.skillStore} />

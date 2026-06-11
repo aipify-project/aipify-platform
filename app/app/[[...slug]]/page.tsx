@@ -98,6 +98,13 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
           agentsOnline: t("customerApp.enterpriseDeployment.agentsOnline"),
           jobsQueued: t("customerApp.enterpriseDeployment.jobsQueued"),
         },
+        securityCompliance: {
+          title: t("customerApp.securityCompliance.title"),
+          open: t("customerApp.securityCompliance.open"),
+          openIncidents: t("customerApp.securityCompliance.openIncidents"),
+          critical: t("customerApp.securityCompliance.criticalIncidents"),
+          emergencyStop: t("customerApp.securityCompliance.emergencyStopActive"),
+        },
         greetings: {
           morning: t("customerApp.greetings.morning"),
           afternoon: t("customerApp.greetings.afternoon"),

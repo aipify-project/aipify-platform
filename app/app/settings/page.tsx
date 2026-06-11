@@ -67,6 +67,7 @@ export default async function SettingsPage() {
           quality: t("customerApp.settings.links.quality"),
           assistantIdentity: t("customerApp.settings.links.assistantIdentity"),
           enterprise: t("customerApp.settings.links.enterprise"),
+          compliance: t("customerApp.settings.links.compliance"),
         },
       }}
     />
