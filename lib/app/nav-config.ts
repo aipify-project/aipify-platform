@@ -14,6 +14,7 @@ export type AppNavId =
   | "globalLearning"
   | "evolution"
   | "valueEngine"
+  | "outcomesEngine"
   | "agents"
   | "appEcosystem"
   | "trustEngine"
@@ -23,6 +24,7 @@ export type AppNavId =
   | "continuityEngine"
   | "strategyEngine"
   | "humanSuccessEngine"
+  | "customerLifecycleEngine"
   | "personalityEngine"
   | "workstyleEngine"
   | "approvals"
@@ -71,6 +73,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "globalLearning", href: "/app/global-learning", labelKey: "customerApp.nav.globalLearning" },
   { id: "evolution", href: "/app/evolution", labelKey: "customerApp.nav.evolution" },
   { id: "valueEngine", href: "/app/value", labelKey: "customerApp.nav.valueEngine" },
+  { id: "outcomesEngine", href: "/app/outcomes", labelKey: "customerApp.nav.outcomesEngine" },
   { id: "agents", href: "/app/agents", labelKey: "customerApp.nav.agents" },
   { id: "appEcosystem", href: "/app/apps", labelKey: "customerApp.nav.appEcosystem" },
   { id: "trustEngine", href: "/app/trust", labelKey: "customerApp.nav.trustEngine" },
@@ -80,6 +83,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "continuityEngine", href: "/app/continuity", labelKey: "customerApp.nav.continuityEngine" },
   { id: "strategyEngine", href: "/app/strategy", labelKey: "customerApp.nav.strategyEngine" },
   { id: "humanSuccessEngine", href: "/app/human-success", labelKey: "customerApp.nav.humanSuccessEngine" },
+  { id: "customerLifecycleEngine", href: "/app/customer-lifecycle", labelKey: "customerApp.nav.customerLifecycleEngine" },
   { id: "personalityEngine", href: "/app/personality", labelKey: "customerApp.nav.personalityEngine" },
   { id: "approvals", href: "/app/approvals", labelKey: "customerApp.nav.approvals" },
   { id: "actionCenter", href: "/app/action-center", labelKey: "customerApp.nav.actionCenter" },
@@ -130,6 +134,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/global-learning")) return "globalLearning";
   if (pathname.startsWith("/app/evolution")) return "evolution";
   if (pathname.startsWith("/app/value")) return "valueEngine";
+  if (pathname.startsWith("/app/outcomes")) return "outcomesEngine";
   if (pathname.startsWith("/app/agents")) return "agents";
   if (pathname.startsWith("/app/apps")) return "appEcosystem";
   if (pathname.startsWith("/app/trust")) return "trustEngine";
@@ -139,6 +144,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/continuity")) return "continuityEngine";
   if (pathname.startsWith("/app/strategy")) return "strategyEngine";
   if (pathname.startsWith("/app/human-success")) return "humanSuccessEngine";
+  if (pathname.startsWith("/app/customer-lifecycle")) return "customerLifecycleEngine";
   if (pathname.startsWith("/app/personality")) return "personalityEngine";
   if (pathname.startsWith("/app/approvals")) return "approvals";
   if (pathname.startsWith("/app/action-center") || pathname.startsWith("/app/actions")) {
