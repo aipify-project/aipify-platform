@@ -10,3 +10,5 @@ export {
 
 export * from "./organization";
 export * from "./permissions";
+export * from "./ai-actions";
+export * from "./audit";

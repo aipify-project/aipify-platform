@@ -5,6 +5,8 @@ export type AppNavId =
   | "aipifyCorePlatformEngine"
   | "multiTenantArchitectureEngine"
   | "identityPermissionsEngine"
+  | "secureAiActionEngine"
+  | "auditAccountabilityEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -81,6 +83,8 @@ export const APP_NAV: AppNavItem[] = [
   { id: "aipifyCorePlatformEngine", href: "/app/aipify-core", labelKey: "customerApp.nav.aipifyCorePlatformEngine" },
   { id: "multiTenantArchitectureEngine", href: "/app/multi-tenant", labelKey: "customerApp.nav.multiTenantArchitectureEngine" },
   { id: "identityPermissionsEngine", href: "/app/identity-access", labelKey: "customerApp.nav.identityPermissionsEngine" },
+  { id: "secureAiActionEngine", href: "/app/secure-ai-actions", labelKey: "customerApp.nav.secureAiActionEngine" },
+  { id: "auditAccountabilityEngine", href: "/app/audit-accountability", labelKey: "customerApp.nav.auditAccountabilityEngine" },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -162,6 +166,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/aipify-core")) return "aipifyCorePlatformEngine";
   if (pathname.startsWith("/app/multi-tenant")) return "multiTenantArchitectureEngine";
   if (pathname.startsWith("/app/identity-access")) return "identityPermissionsEngine";
+  if (pathname.startsWith("/app/secure-ai-actions")) return "secureAiActionEngine";
+  if (pathname.startsWith("/app/audit-accountability")) return "auditAccountabilityEngine";
   if (pathname.startsWith("/app/executive")) return "executive";
   if (
     pathname.startsWith("/app/presence") ||
