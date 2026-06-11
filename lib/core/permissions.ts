@@ -209,6 +209,10 @@ export const PERMISSION_KEYS = [
   "maturity.manage",
   "maturity.review",
   "maturity.export",
+  "benchmarks.view",
+  "benchmarks.manage",
+  "benchmarks.review",
+  "benchmarks.export",
   "ai.approve",
   "ai.reject",
   "settings.manage",
@@ -325,6 +329,10 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "maturity.manage",
     "maturity.review",
     "maturity.export",
+    "benchmarks.view",
+    "benchmarks.manage",
+    "benchmarks.review",
+    "benchmarks.export",
     "ai.approve",
     "ai.reject",
   ],
@@ -368,6 +376,7 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "decisions.view",
     "strategy.view",
     "maturity.view",
+    "benchmarks.view",
   ],
   viewer: [
     "users.view",
@@ -405,6 +414,7 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "decisions.view",
     "strategy.view",
     "maturity.view",
+    "benchmarks.view",
   ],
 };
 

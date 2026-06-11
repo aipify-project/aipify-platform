@@ -54,6 +54,7 @@ export type AppNavId =
   | "strategicAlignmentEngine"
   | "organizationalHealthEngine"
   | "capabilityMaturityEngine"
+  | "organizationalBenchmarkingEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -322,6 +323,11 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/capability-maturity-engine",
     labelKey: "customerApp.nav.capabilityMaturityEngine",
   },
+  {
+    id: "organizationalBenchmarkingEngine",
+    href: "/app/organizational-benchmarking-engine",
+    labelKey: "customerApp.nav.organizationalBenchmarkingEngine",
+  },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -469,6 +475,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/capability-maturity-engine")) {
     return "capabilityMaturityEngine";
+  }
+  if (pathname.startsWith("/app/organizational-benchmarking-engine")) {
+    return "organizationalBenchmarkingEngine";
   }
   if (pathname.startsWith("/app/aipify-install-engine")) return "aipifyInstallEngine";
   if (pathname.startsWith("/app/module-marketplace-foundation-engine")) {
