@@ -137,6 +137,18 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
           impactScore: t("customerApp.valueEngine.impactScore"),
           trend: t("customerApp.valueEngine.trend"),
         },
+        agents: {
+          title: t("customerApp.agents.title"),
+          open: t("customerApp.agents.open"),
+          activeAgents: t("customerApp.agents.activeAgents"),
+          eventsToday: t("customerApp.agents.eventsToday"),
+        },
+        appEcosystem: {
+          title: t("customerApp.appEcosystem.title"),
+          open: t("customerApp.appEcosystem.open"),
+          installedApps: t("customerApp.appEcosystem.installedApps"),
+          updatesAvailable: t("customerApp.appEcosystem.updatesAvailable"),
+        },
         greetings: {
           morning: t("customerApp.greetings.morning"),
           afternoon: t("customerApp.greetings.afternoon"),

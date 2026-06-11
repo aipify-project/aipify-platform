@@ -11,6 +11,8 @@ import { MarketplaceCard } from "@/components/app/marketplace";
 import { IndustryBlueprintsCard } from "@/components/app/industry-blueprints";
 import { GlobalLearningCard } from "@/components/app/global-learning";
 import { ValueEngineCard } from "@/components/app/value-engine";
+import { AgentsCard } from "@/components/app/agents";
+import { AppsCard } from "@/components/app/app-ecosystem";
 import { EnterpriseDeploymentCard } from "@/components/app/enterprise";
 import { AssistantIdentityWelcomeBanner } from "@/components/app/assistant-identity";
 import { LearningEngineCard } from "@/components/app/learning-engine";
@@ -140,6 +142,18 @@ type CustomerHomePanelProps = {
       impactScore: string;
       trend: string;
     };
+    agents: {
+      title: string;
+      open: string;
+      activeAgents: string;
+      eventsToday: string;
+    };
+    appEcosystem: {
+      title: string;
+      open: string;
+      installedApps: string;
+      updatesAvailable: string;
+    };
   };
 };
 
@@ -200,6 +214,8 @@ export function CustomerHomePanel({ locale, labels }: CustomerHomePanelProps) {
       <IndustryBlueprintsCard labels={labels.industryBlueprints} />
       <GlobalLearningCard labels={labels.globalLearning} />
       <ValueEngineCard labels={labels.valueEngine} />
+      <AgentsCard labels={labels.agents} />
+      <AppsCard labels={labels.appEcosystem} />
       <DesktopCompanionCard labels={labels.desktop} />
       <MemoryEngineCard labels={labels.memoryEngine} />
       <SkillStoreCard labels={labels.skillStore} />

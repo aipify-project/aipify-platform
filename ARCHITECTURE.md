@@ -186,6 +186,10 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Value Engine & Impact Analytics (Phase 73):** See [VALUE_ENGINE_PHASE73.md](./VALUE_ENGINE_PHASE73.md) — Impact Score, value events, optional ROI, executive reports, marketplace/blueprint impact. `/app/value`, `lib/aipify/value-engine/`, migration `20260616300000_value_engine_phase73.sql`.
 
+**Multi-Agent Collaboration System (Phase 74):** See [MULTI_AGENT_COLLABORATION_PHASE74.md](./MULTI_AGENT_COLLABORATION_PHASE74.md) — specialist agent registry, orchestrated collaboration, policy/governance enforcement, health metrics. `/app/agents`, `lib/aipify/agents/`, migration `20260616400000_multi_agent_collaboration_phase74.sql`.
+
+**App Ecosystem & Developer Platform (Phase 75):** See [APP_ECOSYSTEM_DEVELOPER_PLATFORM_PHASE75.md](./APP_ECOSYSTEM_DEVELOPER_PLATFORM_PHASE75.md) — app registry, SDK, sandbox runtime, install/review flow, developer portal. `/app/apps`, `/developers`, `lib/aipify/app-ecosystem/`, migration `20260616500000_app_ecosystem_developer_platform_phase75.sql`.
+
 **Quality Guardian / QG (Phases 58–59):** See [QG.md](./QG.md) — software and frontend health monitoring (Image Guardian, Performance Guardian, mobile checks) with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `/app/quality/images`, `lib/aipify/quality/`, migrations `20260614600000_quality_guardian_phase58.sql`, `20260614700000_frontend_experience_guardian_phase59.sql`.
 
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
