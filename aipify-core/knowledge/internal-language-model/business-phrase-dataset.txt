@@ -1,0 +1,404 @@
+AIPIFY – NATURAL BUSINESS LANGUAGE ENGINE (NBLE)
+EXPANDED BUSINESS PHRASE DATASET
+
+FILE LOCATION:
+/aipify-core/knowledge/internal-language-model/business-phrase-dataset.txt
+
+RELATED FILES:
+/aipify-core/knowledge/internal-language-model/function-vocabulary.txt
+/aipify-core/knowledge/internal-language-model/user-command-wording.txt
+/aipify-core/knowledge/internal-language-model/natural-business-language-engine.txt
+
+PURPOSE
+This document expands Aipify's understanding of how real employees, managers, customer service agents and business owners naturally communicate.
+Employees rarely use exact system commands.
+Instead, they describe situations, problems, priorities and desired outcomes.
+Aipify must recognize these phrases and convert them into structured business actions.
+
+---
+
+EXECUTIVE LANGUAGE DATASET
+Human phrase:
+"Give me the big picture."
+Meaning:
+* Executive summary
+* Key metrics
+* Risks and opportunities
+Response:
+"I can provide a summary of important developments, opportunities and items requiring attention."
+
+---
+
+Human phrase:
+"What should I know before today starts?"
+Meaning:
+* Daily briefing
+Response:
+"I can prepare a morning overview including priorities, meetings, customer issues and pending approvals."
+
+---
+
+Human phrase:
+"What's keeping this business from moving faster?"
+Meaning:
+* Bottleneck analysis
+Response:
+"I can identify recurring obstacles and suggest improvement opportunities."
+
+---
+
+Human phrase:
+"Anything I should be worried about?"
+Meaning:
+* Risk detection
+Response:
+"I can highlight situations that may require additional attention."
+
+---
+
+CUSTOMER SUPPORT LANGUAGE DATASET
+Human phrase:
+"Who's been waiting too long?"
+Meaning:
+* Detect delayed tickets
+Response:
+"I can identify customers who may require faster follow-up."
+
+---
+
+Human phrase:
+"What's causing the most trouble today?"
+Meaning:
+* Repeated support issues
+Response:
+"I can summarize recurring issues and their impact."
+
+---
+
+Human phrase:
+"Can we answer these faster?"
+Meaning:
+* Improve response efficiency
+Response:
+"I can identify opportunities to streamline support processes."
+
+---
+
+Human phrase:
+"Show me the angry customers."
+Meaning:
+* Escalation detection
+Response:
+"I can identify interactions that may require careful attention."
+
+---
+
+RETAIL AND STORE LANGUAGE DATASET
+Human phrase:
+"What's selling best?"
+Meaning:
+* Top-performing products
+Response:
+"I can identify products currently performing strongly."
+
+---
+
+Human phrase:
+"What isn't moving?"
+Meaning:
+* Slow inventory analysis
+Response:
+"I can highlight products that may require promotional attention."
+
+---
+
+Human phrase:
+"What should we push this week?"
+Meaning:
+* Product prioritization
+Response:
+"I can recommend products based on performance and trends."
+
+---
+
+Human phrase:
+"Do we have enough stock?"
+Meaning:
+* Inventory review
+Response:
+"I can identify inventory levels that may require review."
+
+---
+
+Human phrase:
+"Are customers abandoning their carts?"
+Meaning:
+* Conversion analysis
+Response:
+"I can identify patterns related to incomplete purchases."
+
+---
+
+SALES LANGUAGE DATASET
+Human phrase:
+"Who's closest to buying?"
+Meaning:
+* Lead prioritization
+Response:
+"I can identify opportunities that appear ready for follow-up."
+
+---
+
+Human phrase:
+"Who has gone cold?"
+Meaning:
+* Detect inactive leads
+Response:
+"I can identify leads that may benefit from renewed engagement."
+
+---
+
+Human phrase:
+"What opportunities are we missing?"
+Meaning:
+* Opportunity analysis
+Response:
+"I can highlight areas where additional attention may generate results."
+
+---
+
+MARKETING LANGUAGE DATASET
+Human phrase:
+"What's working?"
+Meaning:
+* Campaign effectiveness
+Response:
+"I can identify initiatives that appear to perform well."
+
+---
+
+Human phrase:
+"What's wasting money?"
+Meaning:
+* Performance review
+Response:
+"I can identify activities that may require optimization."
+
+---
+
+Human phrase:
+"What should we test next?"
+Meaning:
+* Experiment planning
+Response:
+"I can suggest opportunities for future experimentation."
+
+---
+
+ACCOUNTING LANGUAGE DATASET
+Human phrase:
+"Have we been paid?"
+Meaning:
+* Payment review
+Response:
+"I can identify payment statuses based on available records."
+
+---
+
+Human phrase:
+"What's overdue?"
+Meaning:
+* Outstanding balances
+Response:
+"I can highlight items that may require follow-up."
+
+---
+
+Human phrase:
+"Do we have any surprises coming?"
+Meaning:
+* Financial risk review
+Response:
+"I can summarize obligations and unusual patterns requiring attention."
+
+---
+
+HR LANGUAGE DATASET
+Human phrase:
+"How is everyone doing?"
+Meaning:
+* Team overview
+Response:
+"I can summarize available indicators related to workload and outstanding tasks."
+
+---
+
+Human phrase:
+"Who's overloaded?"
+Meaning:
+* Workload balancing
+Response:
+"I can identify employees or teams that may benefit from support."
+
+---
+
+PROJECT MANAGEMENT LANGUAGE DATASET
+Human phrase:
+"Are we on track?"
+Meaning:
+* Project health review
+Response:
+"I can summarize current progress and identify areas requiring attention."
+
+---
+
+Human phrase:
+"What's blocking us?"
+Meaning:
+* Bottleneck detection
+Response:
+"I can identify issues that may be slowing progress."
+
+---
+
+Human phrase:
+"What slipped through the cracks?"
+Meaning:
+* Gap analysis
+Response:
+"I can identify items that may have been overlooked."
+
+---
+
+ADMIN LANGUAGE DATASET
+Human phrase:
+"What's still waiting for me?"
+Meaning:
+* Pending approvals
+Response:
+"I can summarize actions requiring your attention."
+
+---
+
+Human phrase:
+"What happened while I was away?"
+Meaning:
+* Since-last-login overview
+Response:
+"I can prepare a summary of important events and developments."
+
+---
+
+Human phrase:
+"What's my day looking like?"
+Meaning:
+* Daily agenda
+Response:
+"I can summarize your upcoming schedule and priorities."
+
+---
+
+PRODUCTIVITY LANGUAGE DATASET
+Human phrase:
+"Help me get organized."
+Meaning:
+* Structure work
+Response:
+"I can create a clear overview of priorities and next steps."
+
+---
+
+Human phrase:
+"I'm drowning."
+Meaning:
+* Reduce overload
+Response:
+"I can help prioritize what deserves attention first."
+
+---
+
+Human phrase:
+"Where do I even start?"
+Meaning:
+* Identify first actions
+Response:
+"I can suggest an action plan to help you move forward."
+
+---
+
+AIPIFY-SPECIFIC LANGUAGE DATASET
+Human phrase:
+"What would you do?"
+Meaning:
+* Recommendation request
+Response:
+"I can suggest options based on available information, but important decisions remain yours."
+
+---
+
+Human phrase:
+"Can you take care of this?"
+Meaning:
+* Evaluate execution possibility
+Response:
+"I can determine whether this can be prepared, approved or automated within your permissions."
+
+---
+
+Human phrase:
+"Can this be automated?"
+Meaning:
+* Automation assessment
+Response:
+"I can evaluate whether this process is suitable for automation."
+
+---
+
+Human phrase:
+"Make sure this doesn't happen again."
+Meaning:
+* Improvement opportunity
+Response:
+"I can suggest safeguards or automation rules that may reduce future occurrences."
+
+---
+
+SAFETY PHRASES
+Aipify should regularly remind users:
+"I can prepare this for approval."
+"I will not make changes without authorization."
+"I can show you a preview first."
+"I can recommend next steps."
+"I can automate this within approved limits."
+"This action requires additional review."
+
+---
+
+IMPORTANT BUILD NOTE FOR CURSOR
+This file should function as a continuously expandable business language dataset.
+Do not implement this as static chatbot responses.
+Use this knowledge layer to improve:
+* Intent recognition
+* Natural language understanding
+* Context awareness
+* Response consistency
+* Recommendation quality
+
+Future business-specific phrases should be appended to this dataset.
+
+---
+
+LONG-TERM VISION
+The ultimate objective is for employees to communicate naturally.
+
+Examples:
+"Can you help me catch up?"
+"What should I focus on?"
+"Did I forget something important?"
+"Take a look at this."
+"Can you make sense of this mess?"
+
+Aipify should understand these requests, translate them into structured actions, apply the correct safety level and provide practical assistance.
+
+People should not learn how to speak like software.
+Aipify should learn how people actually work.

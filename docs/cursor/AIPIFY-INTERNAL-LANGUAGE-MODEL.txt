@@ -1,5 +1,13 @@
 AIPIFY – INTERNAL LANGUAGE MODEL
-Knowledge: aipify-core/knowledge/internal-language-model/function-vocabulary.txt
+Knowledge:
+  aipify-core/knowledge/internal-language-model/function-vocabulary.txt
+  aipify-core/knowledge/internal-language-model/user-command-wording.txt
+  aipify-core/knowledge/internal-language-model/natural-business-language-engine.txt
+  aipify-core/knowledge/internal-language-model/business-phrase-dataset.txt
+  aipify-core/knowledge/internal-language-model/proactive-guidance-language.txt
 Lib: lib/internal-language-model/
-Chat: detectAipifyFeatureIntent() — approved function vocabulary for feature questions
+Chat: detectUserCommandIntent() → detectProactiveGuidanceCue() → detectNaturalBusinessIntent() → detectAipifyFeatureIntent()
+Proactive: getProactiveGuidance(scenarioKey) for system observations
+Command flow: Understand → Prepare → Approve → Execute
+NBLE: natural/vague/emotional work language + expanded business phrases + industry synonym normalization
 Philosophy: Aipify augments people; never replaces employees

@@ -134,7 +134,7 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Autonomous Execution Framework / AEF (Phase 44):** See [AUTONOMOUS_EXECUTION_FRAMEWORK.md](./AUTONOMOUS_EXECUTION_FRAMEWORK.md) — controlled business action execution, approval flow, safety checker, execution rules (Enterprise), mock adapters. `/app/action-center`. `lib/aipify/execution/`, migration `20260613300000_autonomous_execution_phase44.sql`.
 
-**Internal Language Model / ILM:** See [INTERNAL_LANGUAGE_MODEL.md](./INTERNAL_LANGUAGE_MODEL.md) — function vocabulary and response guide for how Aipify describes itself. `aipify-core/knowledge/internal-language-model/`, `lib/internal-language-model/`.
+**Internal Language Model / ILM:** See [INTERNAL_LANGUAGE_MODEL.md](./INTERNAL_LANGUAGE_MODEL.md) — function vocabulary, command wording, NBLE, business phrases, and proactive guidance for intent recognition and safe action language. `aipify-core/knowledge/internal-language-model/`, `lib/internal-language-model/`.
 
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
 

@@ -11,7 +11,10 @@ import type { EventDraft } from "@/lib/context-engine/types";
 import { detectFocusIntent } from "@/lib/attention-guardian/detection";
 import { detectDecisionIntent } from "@/lib/decision-support-engine/detection";
 import { detectEmployeeKnowledgeIntent } from "@/lib/employee-knowledge-engine/detection";
+import { detectUserCommandIntent } from "@/lib/internal-language-model/command-detection";
 import { detectAipifyFeatureIntent } from "@/lib/internal-language-model/detection";
+import { detectNaturalBusinessIntent } from "@/lib/internal-language-model/nble-detection";
+import { detectProactiveGuidanceCue } from "@/lib/internal-language-model/proactive-guidance";
 import { detectGoalIntent } from "@/lib/goals-dreams-engine/detection";
 import type { GoalDraft } from "@/lib/goals-dreams-engine/types";
 import { detectRelationshipSignal } from "@/lib/relationship-intelligence/detection";
@@ -194,6 +197,57 @@ export function buildAssistantTurn(
   const confidence = confidenceFromIntent(intent, message);
   const needsConfirm =
     askBeforeRemembering && (confidence !== "high" || rsi.askToRemember);
+
+  const commandIntent = detectUserCommandIntent(message);
+  if (commandIntent?.detected) {
+    const closing = commandIntent.closingPhrase ? `\n\n${commandIntent.closingPhrase}` : "";
+    return {
+      intent: "general",
+      memory_intent: memoryIntent,
+      memoryDraft: null,
+      askBeforeRemembering: commandIntent.requiresApproval,
+      reply: `${commandIntent.reply}${closing}`,
+      confidence_level: commandIntent.requiresApproval ? "medium" : "high",
+    };
+  }
+
+  const proactiveGuidance = detectProactiveGuidanceCue(message);
+  if (proactiveGuidance?.detected) {
+    const dashboardNote = proactiveGuidance.dashboardPath
+      ? `\n\nYou can open the relevant dashboard when you're ready.`
+      : "";
+    const closing = proactiveGuidance.closingPhrase
+      ? `\n\n${proactiveGuidance.closingPhrase}`
+      : "";
+    return {
+      intent: "general",
+      memory_intent: memoryIntent,
+      memoryDraft: null,
+      askBeforeRemembering: true,
+      reply: `${proactiveGuidance.reply}${dashboardNote}${closing}`,
+      confidence_level: "medium",
+    };
+  }
+
+  const naturalIntent = detectNaturalBusinessIntent(message);
+  if (naturalIntent?.detected) {
+    const dashboardNote = naturalIntent.dashboardPath
+      ? `\n\nYou can open the relevant dashboard when you're ready.`
+      : "";
+    const closing = naturalIntent.closingPhrase ? `\n\n${naturalIntent.closingPhrase}` : "";
+    return {
+      intent: "general",
+      memory_intent: memoryIntent,
+      memoryDraft: null,
+      askBeforeRemembering:
+        naturalIntent.domain === "emotional" || naturalIntent.domain === "productivity",
+      reply: `${naturalIntent.reply}${dashboardNote}${closing}`,
+      confidence_level:
+        naturalIntent.domain === "emotional" || naturalIntent.domain === "productivity"
+          ? "medium"
+          : "high",
+    };
+  }
 
   const featureIntent = detectAipifyFeatureIntent(message);
   if (featureIntent?.detected) {
