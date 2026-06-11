@@ -150,6 +150,10 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Predictive Intelligence Engine / PIE (Phase 52):** See [PIE.md](./PIE.md) — forward-looking alerts for bottlenecks, SLA risk, follow-ups, churn, workload, and growth opportunities using trend and threshold rules (no ML in V1). `/app/predictions`, `/app/settings/predictions`, `lib/aipify/predictive-intelligence/`, migration `20260614000000_predictive_intelligence_phase52.sql`.
 
+**Adaptive Automation Layer / AAL (Phase 53):** See [AAL.md](./AAL.md) — discover repeated work, suggest safe automations, require approval, execute approved flows, and monitor value. Observe → Suggest → Approve → Generate → Execute → Monitor. `/app/automations`, `/app/automation-library`, `/app/automation-executions`, `/app/settings/automation`, `lib/aipify/adaptive-automation/`, migration `20260614100000_adaptive_automation_phase53.sql`.
+
+**Trust, Approval & Control Center / TACC (Phase 54):** See [TACC.md](./TACC.md) — unified governance for approvals, permission matrix, emergency stop, audit timeline, trust scores, and explainability. Observe → Suggest → Request Approval → Execute → Explain → Audit → Learn. `/app/governance`, `/app/governance/audit`, `/app/governance/trust`, `/app/settings/governance`, `lib/aipify/governance/`, migration `20260614200000_trust_approval_control_center_phase54.sql`.
+
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
 
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.

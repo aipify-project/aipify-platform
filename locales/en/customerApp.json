@@ -188,7 +188,9 @@
       "billing": "Billing & packages",
       "modules": "Module management",
       "intelligence": "Organizational Intelligence",
-      "predictions": "Predictive Intelligence"
+      "predictions": "Predictive Intelligence",
+      "automation": "Adaptive Automation",
+      "governance": "Trust & Control"
     },
     "intelligence": {
       "title": "Organizational Intelligence",
@@ -235,6 +237,52 @@
       "upgrade": {
         "title": "Predictive Intelligence requires Business Pro or Enterprise",
         "body": "Predictive Intelligence is available in Aipify Business Pro and Enterprise because it identifies likely future risks and opportunities from approved business activity.",
+        "cta": "View packages"
+      }
+    },
+    "automation": {
+      "title": "Automation Settings",
+      "description": "Control how Aipify discovers, suggests, and runs automations.",
+      "privacy": "Automations require approval before activation. High-risk actions require approval every run. All actions are logged.",
+      "loading": "Loading automation settings…",
+      "back": "Back to settings",
+      "save": "Save settings",
+      "saved": "Saved",
+      "enable": "Enable Adaptive Automation",
+      "discovery": "Allow automation discovery",
+      "aiDrafts": "Allow AI-generated automation drafts",
+      "lowRiskExecution": "Allow low-risk automatic execution after approval",
+      "mediumApproval": "Require approval for medium-risk automations",
+      "highApproval": "Require approval for high-risk automations",
+      "valueEstimation": "Enable value estimation",
+      "maxDaily": "Max daily executions",
+      "maxMessages": "Max external messages per day",
+      "centerLink": "→ Automation Center",
+      "upgrade": {
+        "title": "Adaptive Automation requires Business Pro or Enterprise",
+        "body": "Adaptive Automation is available in Aipify Business Pro and Enterprise because it discovers safe automation opportunities across your operations.",
+        "cta": "View packages"
+      }
+    },
+    "governance": {
+      "title": "Governance Settings",
+      "description": "Control how Aipify requests approval, explains actions, and maintains audit transparency.",
+      "privacy": "Aipify never acts as a black box. Every sensitive action requires visibility, approval, and audit logging.",
+      "loading": "Loading governance settings…",
+      "back": "Back to settings",
+      "save": "Save settings",
+      "saved": "Saved",
+      "centerLink": "→ Trust & Control Center",
+      "fields": {
+        "mode": "Governance mode",
+        "emergency": "Enable emergency controls",
+        "explainability": "Enable explainability",
+        "trustScoring": "Enable trust scoring",
+        "retention": "Audit retention (days)"
+      },
+      "upgrade": {
+        "title": "Trust & Control requires Business Pro or Enterprise",
+        "body": "Trust, Approval & Control Center is available in Aipify Business Pro and Enterprise because it provides transparent governance as Aipify becomes more autonomous.",
         "cta": "View packages"
       }
     }
@@ -1514,6 +1562,187 @@
       "snooze": "Snooze"
     }
   },
+  "automation": {
+    "center": {
+      "title": "Automation Center",
+      "subtitle": "Let Aipify help discover, suggest, and manage safe business automations.",
+      "loading": "Loading automation center…",
+      "back": "Back to overview",
+      "privacy": "Observe → Suggest → Approve → Generate → Execute → Monitor. No hidden automations.",
+      "refresh": "Discover opportunities",
+      "notEnabled": {
+        "title": "Adaptive Automation is not enabled",
+        "body": "Enable Adaptive Automation in settings to discover repeated work and build safe automation drafts.",
+        "cta": "Open automation settings"
+      },
+      "upgrade": {
+        "title": "Automation Center requires Business Pro or Enterprise",
+        "body": "Adaptive Automation is available in Aipify Business Pro and Enterprise because it discovers safe automation opportunities across your operations.",
+        "cta": "View packages"
+      }
+    },
+    "metrics": {
+      "active": "Active automations",
+      "drafts": "Draft automations",
+      "newSuggestions": "New suggestions",
+      "timeSaved": "Estimated time saved",
+      "approvals": "Pending approvals"
+    },
+    "sections": {
+      "automations": "Automations",
+      "suggestions": "Automation suggestions",
+      "approvals": "Needs approval"
+    },
+    "suggestions": {
+      "title": "Automation Suggestions",
+      "subtitle": "Aipify found repeated work that may be automated.",
+      "empty": "No automation suggestions right now. Run discovery when workflow patterns emerge."
+    },
+    "automations": {
+      "empty": "No automations yet. Create a draft from a suggestion or template."
+    },
+    "suggestion": {
+      "createDraft": "Create draft",
+      "viewEvidence": "View evidence",
+      "snooze": "Snooze",
+      "dismiss": "Dismiss"
+    },
+    "actions": {
+      "enable": "Request enable",
+      "pause": "Pause",
+      "test": "Test run"
+    },
+    "approval": {
+      "approve": "Approve",
+      "required": "Approval required"
+    },
+    "risk": {
+      "low": "Low risk",
+      "medium": "Medium risk",
+      "high": "High risk",
+      "blocked": "Blocked"
+    },
+    "statuses": {
+      "draft": "Draft",
+      "pending_approval": "Pending approval",
+      "active": "Active",
+      "paused": "Paused",
+      "disabled": "Disabled",
+      "archived": "Archived",
+      "failed": "Failed"
+    },
+    "executionStatuses": {
+      "queued": "Queued",
+      "running": "Running",
+      "success": "Success",
+      "partial_success": "Partial success",
+      "failed": "Failed",
+      "skipped": "Skipped",
+      "waiting_approval": "Waiting approval"
+    },
+    "library": {
+      "title": "Automation Library",
+      "subtitle": "Reusable templates for safe business automations.",
+      "loading": "Loading templates…",
+      "back": "Back to Automation Center",
+      "createFromTemplate": "Create automation from template",
+      "empty": "No templates available.",
+      "global": "Aipify template",
+      "tenant": "Custom template"
+    },
+    "executions": {
+      "title": "Execution Log",
+      "subtitle": "Every automation run is logged for transparency and safety.",
+      "loading": "Loading executions…",
+      "back": "Back to Automation Center",
+      "empty": "No executions yet."
+    },
+    "links": {
+      "library": "Template library",
+      "executions": "Execution log",
+      "settings": "Automation settings"
+    }
+  },
+  "governance": {
+    "center": {
+      "title": "Trust & Control Center",
+      "subtitle": "See what Aipify wants to do, why, who approved it, and how to stop everything immediately.",
+      "loading": "Loading governance center…",
+      "back": "Back to overview",
+      "privacy": "Observe → Suggest → Request Approval → Execute → Explain → Audit → Learn.",
+      "upgrade": {
+        "title": "Trust & Control requires Business Pro or Enterprise",
+        "body": "Trust, Approval & Control Center is available in Aipify Business Pro and Enterprise because it provides transparent governance as Aipify becomes more autonomous.",
+        "cta": "View packages"
+      }
+    },
+    "metrics": {
+      "pending": "Pending approvals",
+      "blocked": "Blocked action types",
+      "trust": "Average trust score",
+      "audit": "Audit events (24h)"
+    },
+    "sections": {
+      "approvals": "Approval Center",
+      "audit": "Recent audit",
+      "trust": "Trust scores",
+      "permissions": "Permission matrix"
+    },
+    "emergency": {
+      "active": "Emergency stop is active — AI actions are paused",
+      "stop": "Pause all Aipify actions",
+      "resume": "Resume Aipify actions",
+      "reason": "Reason"
+    },
+    "approval": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "approveAlways": "Approve always",
+      "pauseCategory": "Pause category"
+    },
+    "approvals": {
+      "empty": "No pending approvals."
+    },
+    "risk": {
+      "low": "Low risk",
+      "medium": "Medium risk",
+      "high": "High risk",
+      "blocked": "Blocked"
+    },
+    "permission": {
+      "allowed": "Allowed",
+      "approval_required": "Approval required",
+      "blocked": "Blocked"
+    },
+    "modes": {
+      "safe": "Safe mode",
+      "balanced": "Balanced mode",
+      "autonomous_low_risk": "Autonomous low-risk mode",
+      "enterprise_control": "Enterprise control mode"
+    },
+    "audit": {
+      "title": "Audit Timeline",
+      "subtitle": "Every Aipify action is logged for transparency and accountability.",
+      "loading": "Loading audit timeline…",
+      "back": "Back to Trust & Control Center",
+      "empty": "No audit events yet."
+    },
+    "trust": {
+      "title": "Trust Scores",
+      "subtitle": "Trust scores inform recommendations only. High-risk actions still require approval.",
+      "loading": "Loading trust scores…",
+      "back": "Back to Trust & Control Center",
+      "empty": "No trust scores calculated yet.",
+      "success": "Successes",
+      "failure": "Failures",
+      "approvals": "Approvals"
+    },
+    "links": {
+      "audit": "Audit timeline",
+      "trust": "Trust scores",
+      "settings": "Governance settings"
+    }
+  },
   "nav": {
     "overview": "Home",
     "executive": "Executive",
@@ -1529,6 +1758,8 @@
     "organizationalMemory": "Organizational Memory",
     "organizationalIntelligence": "Aipify Insights",
     "predictiveIntelligence": "Predictions",
+    "adaptiveAutomation": "Automations",
+    "governance": "Governance",
     "installations": "Installations",
     "domains": "Domains",
     "team": "Team",

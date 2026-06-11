@@ -188,7 +188,9 @@
       "billing": "Fakturering och paket",
       "modules": "Modulhantering",
       "intelligence": "Organisatorisk intelligens",
-      "predictions": "Prediktiv intelligens"
+      "predictions": "Prediktiv intelligens",
+      "automation": "Adaptiv automatisering",
+      "governance": "Förtroende och kontroll"
     },
     "intelligence": {
       "title": "Organisatorisk intelligens",
@@ -235,6 +237,52 @@
       "upgrade": {
         "title": "Prediktiv intelligens kräver Business Pro eller Enterprise",
         "body": "Prediktiv intelligens finns i Aipify Business Pro och Enterprise eftersom den identifierar sannolika framtida risker och möjligheter från godkänd affärsaktivitet.",
+        "cta": "Visa paket"
+      }
+    },
+    "automation": {
+      "title": "Automatiseringsinställningar",
+      "description": "Styr hur Aipify upptäcker, föreslår och kör automatiseringar.",
+      "privacy": "Automatiseringar kräver godkännande före aktivering. Högriskåtgärder kräver godkännande vid varje körning. Alla åtgärder loggas.",
+      "loading": "Laddar automatiseringsinställningar…",
+      "back": "Tillbaka till inställningar",
+      "save": "Spara inställningar",
+      "saved": "Sparat",
+      "enable": "Aktivera adaptiv automatisering",
+      "discovery": "Tillåt automatiseringsupptäckt",
+      "aiDrafts": "Tillåt AI-genererade automatiseringsutkast",
+      "lowRiskExecution": "Tillåt lågrisk automatisk körning efter godkännande",
+      "mediumApproval": "Kräv godkännande för medelrisk",
+      "highApproval": "Kräv godkännande för hög risk",
+      "valueEstimation": "Aktivera värdeuppskattning",
+      "maxDaily": "Max dagliga körningar",
+      "maxMessages": "Max externa meddelanden per dag",
+      "centerLink": "→ Automatiseringscenter",
+      "upgrade": {
+        "title": "Adaptiv automatisering kräver Business Pro eller Enterprise",
+        "body": "Adaptiv automatisering finns i Aipify Business Pro och Enterprise eftersom den upptäcker säkra automatiseringsmöjligheter i hela verksamheten.",
+        "cta": "Visa paket"
+      }
+    },
+    "governance": {
+      "title": "Styrningsinställningar",
+      "description": "Styr hur Aipify begär godkännande, förklarar åtgärder och upprätthåller revisionsspår.",
+      "privacy": "Aipify är aldrig en svart låda. Alla känsliga åtgärder kräver synlighet, godkännande och revisionslogg.",
+      "loading": "Laddar styrningsinställningar…",
+      "back": "Tillbaka till inställningar",
+      "save": "Spara inställningar",
+      "saved": "Sparat",
+      "centerLink": "→ Förtroende- och kontrollcenter",
+      "fields": {
+        "mode": "Styrningsläge",
+        "emergency": "Aktivera nödkontroller",
+        "explainability": "Aktivera förklarbarhet",
+        "trustScoring": "Aktivera förtroendepoäng",
+        "retention": "Revisionslagring (dagar)"
+      },
+      "upgrade": {
+        "title": "Förtroende och kontroll kräver Business Pro eller Enterprise",
+        "body": "Förtroende, godkännande och kontrollcenter finns i Aipify Business Pro och Enterprise eftersom det ger transparent styrning när Aipify blir mer autonom.",
         "cta": "Visa paket"
       }
     }
@@ -803,6 +851,185 @@
       "snooze": "Snooza"
     }
   },
+  "automation": {
+    "center": {
+      "title": "Automatiseringscenter",
+      "subtitle": "Låt Aipify hjälpa till att upptäcka, föreslå och hantera säkra affärsautomatiseringar.",
+      "loading": "Laddar automatiseringscenter…",
+      "back": "Tillbaka till översikt",
+      "privacy": "Observera → Föreslå → Godkänn → Generera → Kör → Övervaka. Inga dolda automatiseringar.",
+      "refresh": "Upptäck möjligheter",
+      "notEnabled": {
+        "title": "Adaptiv automatisering är inte aktiverad",
+        "body": "Aktivera adaptiv automatisering i inställningar för att upptäcka upprepat arbete och bygga säkra utkast.",
+        "cta": "Öppna automatiseringsinställningar"
+      },
+      "upgrade": {
+        "title": "Automatiseringscenter kräver Business Pro eller Enterprise",
+        "body": "Adaptiv automatisering finns i Aipify Business Pro och Enterprise eftersom den upptäcker säkra automatiseringsmöjligheter i hela verksamheten.",
+        "cta": "Visa paket"
+      }
+    },
+    "metrics": {
+      "active": "Aktiva automatiseringar",
+      "drafts": "Utkast",
+      "newSuggestions": "Nya förslag",
+      "timeSaved": "Uppskattad sparad tid",
+      "approvals": "Väntar på godkännande"
+    },
+    "sections": {
+      "automations": "Automatiseringar",
+      "suggestions": "Automatiseringsförslag",
+      "approvals": "Behöver godkännande"
+    },
+    "suggestions": {
+      "title": "Automatiseringsförslag",
+      "subtitle": "Aipify hittade upprepat arbete som kan automatiseras.",
+      "empty": "Inga automatiseringsförslag just nu. Kör upptäckt när arbetsflödesmönster uppstår."
+    },
+    "automations": {
+      "empty": "Inga automatiseringar ännu. Skapa utkast från ett förslag eller mall."
+    },
+    "suggestion": {
+      "createDraft": "Skapa utkast",
+      "viewEvidence": "Visa underlag",
+      "snooze": "Snooza",
+      "dismiss": "Avvisa"
+    },
+    "actions": {
+      "enable": "Begär aktivering",
+      "pause": "Pausa",
+      "test": "Testkörning"
+    },
+    "approval": {
+      "approve": "Godkänn",
+      "required": "Kräver godkännande"
+    },
+    "risk": {
+      "low": "Låg risk",
+      "medium": "Medelrisk",
+      "high": "Hög risk",
+      "blocked": "Blockerad"
+    },
+    "statuses": {
+      "draft": "Utkast",
+      "pending_approval": "Väntar på godkännande",
+      "active": "Aktiv",
+      "paused": "Pausad",
+      "disabled": "Inaktiverad",
+      "archived": "Arkiverad",
+      "failed": "Misslyckad"
+    },
+    "executionStatuses": {
+      "queued": "I kö",
+      "running": "Kör",
+      "success": "Lyckades",
+      "partial_success": "Delvis lyckades",
+      "failed": "Misslyckades",
+      "skipped": "Hoppades över",
+      "waiting_approval": "Väntar på godkännande"
+    },
+    "library": {
+      "title": "Automatiseringsbibliotek",
+      "subtitle": "Återanvändbara mallar för säkra affärsautomatiseringar.",
+      "loading": "Laddar mallar…",
+      "back": "Tillbaka till automatiseringscenter",
+      "createFromTemplate": "Skapa automatisering från mall",
+      "empty": "Inga mallar tillgängliga.",
+      "global": "Aipify-mall",
+      "tenant": "Anpassad mall"
+    },
+    "executions": {
+      "title": "Körningslogg",
+      "subtitle": "Varje automatiseringskörning loggas för transparens och säkerhet.",
+      "loading": "Laddar körningar…",
+      "back": "Tillbaka till automatiseringscenter",
+      "empty": "Inga körningar ännu."
+    },
+    "links": {
+      "library": "Mallbibliotek",
+      "executions": "Körningslogg",
+      "settings": "Automatiseringsinställningar"
+    }
+  },
+  "governance": {
+    "center": {
+      "title": "Förtroende- och kontrollcenter",
+      "subtitle": "Se vad Aipify vill göra, varför, vem som godkände, och hur du stoppar allt omedelbart.",
+      "loading": "Laddar kontrollcenter…",
+      "back": "Tillbaka till översikt",
+      "privacy": "Observera → Föreslå → Begär godkännande → Kör → Förklara → Revidera → Lär.",
+      "upgrade": {
+        "title": "Förtroende och kontroll kräver Business Pro eller Enterprise",
+        "body": "Förtroende, godkännande och kontrollcenter finns i Aipify Business Pro och Enterprise eftersom det ger transparent styrning när Aipify blir mer autonom.",
+        "cta": "Visa paket"
+      }
+    },
+    "metrics": {
+      "pending": "Väntande godkännanden",
+      "blocked": "Blockerade åtgärdstyper",
+      "trust": "Genomsnittligt förtroendepoäng",
+      "audit": "Revisionshändelser (24h)"
+    },
+    "sections": {
+      "approvals": "Godkännandecenter",
+      "audit": "Senaste revision",
+      "trust": "Förtroendepoäng",
+      "permissions": "Behörighetsmatris"
+    },
+    "emergency": {
+      "active": "Nödstopp är aktivt — AI-åtgärder är pausade",
+      "stop": "Pausa alla Aipify-åtgärder",
+      "resume": "Återuppta Aipify-åtgärder",
+      "reason": "Anledning"
+    },
+    "approval": {
+      "approve": "Godkänn",
+      "reject": "Avvisa",
+      "approveAlways": "Godkänn alltid",
+      "pauseCategory": "Pausa kategori"
+    },
+    "approvals": { "empty": "Inga väntande godkännanden." },
+    "risk": {
+      "low": "Låg risk",
+      "medium": "Medelrisk",
+      "high": "Hög risk",
+      "blocked": "Blockerad"
+    },
+    "permission": {
+      "allowed": "Tillåten",
+      "approval_required": "Kräver godkännande",
+      "blocked": "Blockerad"
+    },
+    "modes": {
+      "safe": "Säkert läge",
+      "balanced": "Balanserat läge",
+      "autonomous_low_risk": "Autonomt lågriskläge",
+      "enterprise_control": "Enterprise-kontrollläge"
+    },
+    "audit": {
+      "title": "Revisionstidslinje",
+      "subtitle": "Varje Aipify-åtgärd loggas för transparens och ansvarsskyldighet.",
+      "loading": "Laddar revisionstidslinje…",
+      "back": "Tillbaka till kontrollcenter",
+      "empty": "Inga revisionshändelser ännu."
+    },
+    "trust": {
+      "title": "Förtroendepoäng",
+      "subtitle": "Förtroendepoäng informerar endast rekommendationer. Högriskåtgärder kräver fortfarande godkännande.",
+      "loading": "Laddar förtroendepoäng…",
+      "back": "Tillbaka till kontrollcenter",
+      "empty": "Inga förtroendepoäng beräknade ännu.",
+      "success": "Lyckade",
+      "failure": "Misslyckade",
+      "approvals": "Godkännanden"
+    },
+    "links": {
+      "audit": "Revisionstidslinje",
+      "trust": "Förtroendepoäng",
+      "settings": "Styrningsinställningar"
+    }
+  },
   "nav": {
     "overview": "Hem",
     "executive": "Executive",
@@ -818,6 +1045,8 @@
     "organizationalMemory": "Organisationsminne",
     "organizationalIntelligence": "Aipify Insikter",
     "predictiveIntelligence": "Prediktioner",
+    "adaptiveAutomation": "Automatiseringar",
+    "governance": "Styrning",
     "installations": "Installationer",
     "domains": "Domäner",
     "team": "Team",

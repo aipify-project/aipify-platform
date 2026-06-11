@@ -1,0 +1,12 @@
+Phase 53 — Adaptive Automation Layer (AAL)
+
+Observe → Suggest → Approve → Generate → Execute → Monitor
+
+Multi-tenant automation discovery, suggestions, templates, approval engine,
+safe executor, execution logs, metrics, and audit trail.
+
+V1: rule-based discovery, structured flow builder (no drag-and-drop), safe
+low-risk actions only. No hidden automations. enabled=false by default.
+
+UI: /app/automations, /app/automation-suggestions, /app/automation-library,
+/app/automation-executions, /app/settings/automation

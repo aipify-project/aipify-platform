@@ -188,7 +188,9 @@
       "billing": "Fakturering og pakker",
       "modules": "Modulstyring",
       "intelligence": "Organisatorisk intelligens",
-      "predictions": "Prediktiv intelligens"
+      "predictions": "Prediktiv intelligens",
+      "automation": "Adaptiv automatisering",
+      "governance": "Tillit og kontroll"
     },
     "intelligence": {
       "title": "Organisatorisk intelligens",
@@ -235,6 +237,52 @@
       "upgrade": {
         "title": "Prediktiv intelligens krever Business Pro eller Enterprise",
         "body": "Prediktiv intelligens er tilgjengelig i Aipify Business Pro og Enterprise fordi den identifiserer sannsynlige fremtidige risikoer og muligheter fra godkjent bedriftsaktivitet.",
+        "cta": "Se pakker"
+      }
+    },
+    "automation": {
+      "title": "Automatiseringsinnstillinger",
+      "description": "Styr hvordan Aipify oppdager, foreslår og kjører automatiseringer.",
+      "privacy": "Automatiseringer krever godkjenning før aktivering. Høyrisiko-handlinger krever godkjenning ved hver kjøring. Alle handlinger loggføres.",
+      "loading": "Laster automatiseringsinnstillinger…",
+      "back": "Tilbake til innstillinger",
+      "save": "Lagre innstillinger",
+      "saved": "Lagret",
+      "enable": "Aktiver adaptiv automatisering",
+      "discovery": "Tillat automatiseringsoppdagelse",
+      "aiDrafts": "Tillat AI-genererte automatiseringsutkast",
+      "lowRiskExecution": "Tillat lavrisiko automatisk kjøring etter godkjenning",
+      "mediumApproval": "Krev godkjenning for middels risiko",
+      "highApproval": "Krev godkjenning for høy risiko",
+      "valueEstimation": "Aktiver verdiestimering",
+      "maxDaily": "Maks daglige kjøringer",
+      "maxMessages": "Maks eksterne meldinger per dag",
+      "centerLink": "→ Automatiseringssenter",
+      "upgrade": {
+        "title": "Adaptiv automatisering krever Business Pro eller Enterprise",
+        "body": "Adaptiv automatisering er tilgjengelig i Aipify Business Pro og Enterprise fordi den oppdager trygge automatiseringsmuligheter på tvers av driften.",
+        "cta": "Se pakker"
+      }
+    },
+    "governance": {
+      "title": "Styringsinnstillinger",
+      "description": "Styr hvordan Aipify ber om godkjenning, forklarer handlinger og opprettholder revisjonsspor.",
+      "privacy": "Aipify er aldri en svart boks. Alle sensitive handlinger krever synlighet, godkjenning og revisjonslogg.",
+      "loading": "Laster styringsinnstillinger…",
+      "back": "Tilbake til innstillinger",
+      "save": "Lagre innstillinger",
+      "saved": "Lagret",
+      "centerLink": "→ Tillit og kontrollsenter",
+      "fields": {
+        "mode": "Styringsmodus",
+        "emergency": "Aktiver nødkontroller",
+        "explainability": "Aktiver forklarbarhet",
+        "trustScoring": "Aktiver tillitsscore",
+        "retention": "Revisjonslagring (dager)"
+      },
+      "upgrade": {
+        "title": "Tillit og kontroll krever Business Pro eller Enterprise",
+        "body": "Tillit, godkjenning og kontrollsenter er tilgjengelig i Aipify Business Pro og Enterprise fordi det gir transparent styring når Aipify blir mer autonom.",
         "cta": "Se pakker"
       }
     }
@@ -803,6 +851,185 @@
       "snooze": "Utsett"
     }
   },
+  "automation": {
+    "center": {
+      "title": "Automatiseringssenter",
+      "subtitle": "La Aipify hjelpe med å oppdage, foreslå og styre trygge automatiseringer.",
+      "loading": "Laster automatiseringssenter…",
+      "back": "Tilbake til oversikt",
+      "privacy": "Observer → Foreslå → Godkjenn → Generer → Kjør → Overvåk. Ingen skjulte automatiseringer.",
+      "refresh": "Oppdag muligheter",
+      "notEnabled": {
+        "title": "Adaptiv automatisering er ikke aktivert",
+        "body": "Aktiver adaptiv automatisering i innstillinger for å oppdage gjentakende arbeid og bygge trygge utkast.",
+        "cta": "Åpne automatiseringsinnstillinger"
+      },
+      "upgrade": {
+        "title": "Automatiseringssenter krever Business Pro eller Enterprise",
+        "body": "Adaptiv automatisering er tilgjengelig i Aipify Business Pro og Enterprise fordi den oppdager trygge automatiseringsmuligheter på tvers av driften.",
+        "cta": "Se pakker"
+      }
+    },
+    "metrics": {
+      "active": "Aktive automatiseringer",
+      "drafts": "Utkast",
+      "newSuggestions": "Nye forslag",
+      "timeSaved": "Estimert spart tid",
+      "approvals": "Venter på godkjenning"
+    },
+    "sections": {
+      "automations": "Automatiseringer",
+      "suggestions": "Automatiseringsforslag",
+      "approvals": "Trenger godkjenning"
+    },
+    "suggestions": {
+      "title": "Automatiseringsforslag",
+      "subtitle": "Aipify fant gjentakende arbeid som kan automatiseres.",
+      "empty": "Ingen automatiseringsforslag akkurat nå. Kjør oppdagelse når arbeidsflytmønstre dukker opp."
+    },
+    "automations": {
+      "empty": "Ingen automatiseringer ennå. Opprett utkast fra et forslag eller mal."
+    },
+    "suggestion": {
+      "createDraft": "Opprett utkast",
+      "viewEvidence": "Vis grunnlag",
+      "snooze": "Utsett",
+      "dismiss": "Avvis"
+    },
+    "actions": {
+      "enable": "Be om aktivering",
+      "pause": "Pause",
+      "test": "Testkjøring"
+    },
+    "approval": {
+      "approve": "Godkjenn",
+      "required": "Krever godkjenning"
+    },
+    "risk": {
+      "low": "Lav risiko",
+      "medium": "Middels risiko",
+      "high": "Høy risiko",
+      "blocked": "Blokkert"
+    },
+    "statuses": {
+      "draft": "Utkast",
+      "pending_approval": "Venter på godkjenning",
+      "active": "Aktiv",
+      "paused": "Pauset",
+      "disabled": "Deaktivert",
+      "archived": "Arkivert",
+      "failed": "Feilet"
+    },
+    "executionStatuses": {
+      "queued": "I kø",
+      "running": "Kjører",
+      "success": "Vellykket",
+      "partial_success": "Delvis vellykket",
+      "failed": "Feilet",
+      "skipped": "Hoppet over",
+      "waiting_approval": "Venter på godkjenning"
+    },
+    "library": {
+      "title": "Automatiseringsbibliotek",
+      "subtitle": "Gjenbrukbare maler for trygge bedriftsautomatiseringer.",
+      "loading": "Laster maler…",
+      "back": "Tilbake til automatiseringssenter",
+      "createFromTemplate": "Opprett automatisering fra mal",
+      "empty": "Ingen maler tilgjengelig.",
+      "global": "Aipify-mal",
+      "tenant": "Egendefinert mal"
+    },
+    "executions": {
+      "title": "Kjøringslogg",
+      "subtitle": "Hver automatiseringskjøring loggføres for åpenhet og sikkerhet.",
+      "loading": "Laster kjøringer…",
+      "back": "Tilbake til automatiseringssenter",
+      "empty": "Ingen kjøringer ennå."
+    },
+    "links": {
+      "library": "Malbibliotek",
+      "executions": "Kjøringslogg",
+      "settings": "Automatiseringsinnstillinger"
+    }
+  },
+  "governance": {
+    "center": {
+      "title": "Tillit og kontrollsenter",
+      "subtitle": "Se hva Aipify vil gjøre, hvorfor, hvem som godkjente, og hvordan du stopper alt umiddelbart.",
+      "loading": "Laster kontrollsenter…",
+      "back": "Tilbake til oversikt",
+      "privacy": "Observer → Foreslå → Be om godkjenning → Utfør → Forklar → Revider → Lær.",
+      "upgrade": {
+        "title": "Tillit og kontroll krever Business Pro eller Enterprise",
+        "body": "Tillit, godkjenning og kontrollsenter er tilgjengelig i Aipify Business Pro og Enterprise fordi det gir transparent styring når Aipify blir mer autonom.",
+        "cta": "Se pakker"
+      }
+    },
+    "metrics": {
+      "pending": "Venter på godkjenning",
+      "blocked": "Blokkerte handlingstyper",
+      "trust": "Gjennomsnittlig tillitsscore",
+      "audit": "Revisjonshendelser (24t)"
+    },
+    "sections": {
+      "approvals": "Godkjenningssenter",
+      "audit": "Nylig revisjon",
+      "trust": "Tillitsscorer",
+      "permissions": "Tillatelsesmatrise"
+    },
+    "emergency": {
+      "active": "Nødstopp er aktiv — AI-handlinger er pauset",
+      "stop": "Pause alle Aipify-handlinger",
+      "resume": "Gjenoppta Aipify-handlinger",
+      "reason": "Årsak"
+    },
+    "approval": {
+      "approve": "Godkjenn",
+      "reject": "Avvis",
+      "approveAlways": "Godkjenn alltid",
+      "pauseCategory": "Pause kategori"
+    },
+    "approvals": { "empty": "Ingen ventende godkjenninger." },
+    "risk": {
+      "low": "Lav risiko",
+      "medium": "Middels risiko",
+      "high": "Høy risiko",
+      "blocked": "Blokkert"
+    },
+    "permission": {
+      "allowed": "Tillatt",
+      "approval_required": "Krever godkjenning",
+      "blocked": "Blokkert"
+    },
+    "modes": {
+      "safe": "Sikker modus",
+      "balanced": "Balansert modus",
+      "autonomous_low_risk": "Autonom lavrisiko-modus",
+      "enterprise_control": "Enterprise-kontrollmodus"
+    },
+    "audit": {
+      "title": "Revisjonstidslinje",
+      "subtitle": "Hver Aipify-handling loggføres for åpenhet og ansvarlighet.",
+      "loading": "Laster revisjonstidslinje…",
+      "back": "Tilbake til kontrollsenter",
+      "empty": "Ingen revisjonshendelser ennå."
+    },
+    "trust": {
+      "title": "Tillitsscorer",
+      "subtitle": "Tillitsscorer informerer kun anbefalinger. Høyrisiko-handlinger krever fortsatt godkjenning.",
+      "loading": "Laster tillitsscorer…",
+      "back": "Tilbake til kontrollsenter",
+      "empty": "Ingen tillitsscorer beregnet ennå.",
+      "success": "Vellykkede",
+      "failure": "Feilet",
+      "approvals": "Godkjenninger"
+    },
+    "links": {
+      "audit": "Revisjonstidslinje",
+      "trust": "Tillitsscorer",
+      "settings": "Styringsinnstillinger"
+    }
+  },
   "nav": {
     "overview": "Hjem",
     "executive": "Executive",
@@ -818,6 +1045,8 @@
     "organizationalMemory": "Organisasjonsminne",
     "organizationalIntelligence": "Aipify Innsikt",
     "predictiveIntelligence": "Prediksjoner",
+    "adaptiveAutomation": "Automatiseringer",
+    "governance": "Styring",
     "installations": "Installasjoner",
     "domains": "Domener",
     "team": "Team",

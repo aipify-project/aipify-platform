@@ -41,6 +41,8 @@ type CustomerSettingsCenterPanelProps = {
       modules: string;
       intelligence: string;
       predictions: string;
+      automation: string;
+      governance: string;
     };
   };
 };
@@ -172,6 +174,12 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
         </Link>
         <Link href="/app/settings/predictions" className="block text-indigo-600 hover:underline">
           {labels.links.predictions}
+        </Link>
+        <Link href="/app/settings/automation" className="block text-indigo-600 hover:underline">
+          {labels.links.automation}
+        </Link>
+        <Link href="/app/settings/governance" className="block text-indigo-600 hover:underline">
+          {labels.links.governance}
         </Link>
       </section>
     </div>

@@ -16,6 +16,8 @@ export type AppNavId =
   | "organizationalMemory"
   | "organizationalIntelligence"
   | "predictiveIntelligence"
+  | "adaptiveAutomation"
+  | "governance"
   | "installations"
   | "domains"
   | "team"
@@ -50,6 +52,8 @@ export const APP_NAV: AppNavItem[] = [
   { id: "organizationalMemory", href: "/app/memory", labelKey: "customerApp.nav.organizationalMemory" },
   { id: "organizationalIntelligence", href: "/app/insights", labelKey: "customerApp.nav.organizationalIntelligence" },
   { id: "predictiveIntelligence", href: "/app/predictions", labelKey: "customerApp.nav.predictiveIntelligence" },
+  { id: "adaptiveAutomation", href: "/app/automations", labelKey: "customerApp.nav.adaptiveAutomation" },
+  { id: "governance", href: "/app/governance", labelKey: "customerApp.nav.governance" },
   { id: "installations", href: "/app/installations", labelKey: "customerApp.nav.installations" },
   { id: "domains", href: "/app/domains", labelKey: "customerApp.nav.domains" },
   { id: "team", href: "/app/team", labelKey: "customerApp.nav.team" },
@@ -98,6 +102,16 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/predictions")) {
     return "predictiveIntelligence";
+  }
+  if (
+    pathname.startsWith("/app/automations") ||
+    pathname.startsWith("/app/automation-library") ||
+    pathname.startsWith("/app/automation-executions")
+  ) {
+    return "adaptiveAutomation";
+  }
+  if (pathname.startsWith("/app/governance")) {
+    return "governance";
   }
   if (
     pathname.startsWith("/app/install") ||

@@ -60,6 +60,8 @@ export default async function AppLayout({
             organizationalMemory: t("customerApp.nav.organizationalMemory"),
             organizationalIntelligence: t("customerApp.nav.organizationalIntelligence"),
             predictiveIntelligence: t("customerApp.nav.predictiveIntelligence"),
+            adaptiveAutomation: t("customerApp.nav.adaptiveAutomation"),
+            governance: t("customerApp.nav.governance"),
             installations: t("customerApp.nav.installations"),
             domains: t("customerApp.nav.domains"),
             team: t("customerApp.nav.team"),
