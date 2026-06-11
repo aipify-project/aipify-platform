@@ -5,6 +5,8 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     const { data, error } = await supabase.rpc("suggest_improvement_initiatives");
     if (error) return NextResponse.json({ error: error.message }, { status: 403 });
     return NextResponse.json({ suggestions: parseImprovementSuggestions(data) });
@@ -16,6 +18,8 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     const body = (await request.json()) as {
       action?: string;
       initiative_id?: string;
