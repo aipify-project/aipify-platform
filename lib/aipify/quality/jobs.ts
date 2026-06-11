@@ -1,4 +1,5 @@
 import { runFrontendExperienceScan } from "./frontend-scanner";
+import { linkIncidentsToKnowledge } from "./knowledge-links";
 import { getChecksForTenant, runAllQualityScanners, type ScannerContext } from "./scanners";
 import type { QualityScanType } from "./types";
 
@@ -32,7 +33,7 @@ export async function runQualityScanJob(
   ctx: ScannerContext = {}
 ) {
   if (scanType === "full") {
-    const legacy = runAllQualityScanners(ctx);
+    const legacy = linkIncidentsToKnowledge(runAllQualityScanners(ctx));
     const frontend = runFrontendExperienceScan({
       tenantSlug: ctx.tenantSlug,
       scanType: "full_site",
@@ -58,7 +59,7 @@ export async function runQualityScanJob(
     });
   }
 
-  const results = runAllQualityScanners(ctx);
+  const results = linkIncidentsToKnowledge(runAllQualityScanners(ctx));
   return fetcher("run_quality_scan", {
     p_scan_type: scanType,
     p_results: results,

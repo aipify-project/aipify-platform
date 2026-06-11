@@ -1,6 +1,7 @@
 import { evaluateImageAsset, type ImageAssetInput } from "./image-guardian";
 import { evaluateMobileIssue, type MobileCheckInput } from "./mobile-checks";
 import { evaluatePageSnapshot, type PageSnapshotInput } from "./performance-guardian";
+import { linkIncidentsToKnowledge } from "./knowledge-links";
 import type { QualityScanResult } from "./types";
 import {
   UNONIGHT_LOCALIZATION_ISSUES,
@@ -121,5 +122,5 @@ export function runFrontendExperienceScan(options: FrontendScanOptions = {}): Fr
     }
   }
 
-  return { results, assets, snapshots: snapshotRecords };
+  return { results: linkIncidentsToKnowledge(results), assets, snapshots: snapshotRecords };
 }

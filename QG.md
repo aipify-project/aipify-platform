@@ -84,10 +84,37 @@ Expected Behaviour → Health Checks → Deviation Detection → Incident → De
 | `generate_developer_report` | `generateGuardianReportJob('developer_report')` |
 | `create_quality_summary` | `runQualityScanJob(..., 'summary')` |
 
+## Knowledge Center FAQ (Phases 58–59)
+
+Seed content is the source of truth — never hardcode answers in prompts.
+
+| Scope | Path |
+|-------|------|
+| Global FAQ (25 articles) | `content/knowledge/aipify/quality/faq/quality-guardian-faq.md` |
+| Governance FAQ (5 articles) | `content/knowledge/aipify/quality/governance/governance-and-safety-faq.md` |
+| Image deep-dives | `content/knowledge/aipify/quality/images/` |
+| Unonight tenant FAQ | `content/knowledge/unonight/quality/` |
+
+**Categories:** `quality_guardian`, `quality-images`, `quality-performance`, `quality-mobile`, `quality-frontend`, `quality-reports`, `quality-incidents`, `quality-governance`, `quality-troubleshooting`
+
+**Incident linking:** `lib/aipify/quality/knowledge-links.ts` adds `evidence.knowledge_article_slug` on incidents for UI links to KC articles.
+
+Migration for extra categories: `20260614800000_quality_guardian_knowledge_faq.sql`
+
 ## Import Knowledge Center seed
+
+**Global Aipify articles:**
 
 ```bash
 POST /api/aipify/knowledge/import-seed-content
+{ "overwrite": true }
 ```
 
-Include `content/knowledge/aipify/quality/` and `content/knowledge/unonight/quality/` in the global seed import flow.
+**Unonight tenant articles** (after pilot provisioned):
+
+```bash
+POST /api/aipify/install/unonight/seed-knowledge
+{ "overwrite": true }
+```
+
+Walks `content/knowledge/unonight/` including `quality/faq`, `quality/images`, `quality/mobile`, `quality/marketplace`, and `quality/translations`.

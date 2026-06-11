@@ -1120,6 +1120,7 @@
     "noScans": "Ingen skanninger kjørt ennå.",
     "resolve": "Merk som løst",
     "falsePositive": "Falsk positiv",
+    "learnMore": "Les mer i Knowledge Center →",
     "approvalRequired": "krever godkjenning",
     "notifyDevelopers": "Varsle utviklere",
     "openKnowledgeGaps": "Åpne kunnskapshull for manglende dokumentasjon",

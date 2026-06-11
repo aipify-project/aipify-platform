@@ -22,6 +22,7 @@ export default async function QualityIncidentsPage() {
         back: t("customerApp.quality.back"),
         resolve: t("customerApp.quality.resolve"),
         falsePositive: t("customerApp.quality.falsePositive"),
+        learnMore: t("customerApp.quality.learnMore"),
       }}
     />
   );

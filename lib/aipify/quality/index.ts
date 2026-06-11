@@ -7,6 +7,12 @@ export { runFrontendExperienceScan } from "./frontend-scanner";
 export { evaluateImageAsset } from "./image-guardian";
 export { evaluatePageSnapshot } from "./performance-guardian";
 export { runQualityScanJob, seedTenantQualityChecks, generateGuardianReportJob } from "./jobs";
+export {
+  QUALITY_INCIDENT_KNOWLEDGE_SLUGS,
+  knowledgeSlugForIncident,
+  linkIncidentToKnowledge,
+  linkIncidentsToKnowledge,
+} from "./knowledge-links";
 
 export const QG_MODULE_PATH = "aipify-core/modules/quality-guardian/phase-58";
 

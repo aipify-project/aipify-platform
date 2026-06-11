@@ -1839,6 +1839,7 @@
     "noScans": "No scans have been run yet.",
     "resolve": "Mark resolved",
     "falsePositive": "False positive",
+    "learnMore": "Learn more in Knowledge Center →",
     "approvalRequired": "approval required",
     "notifyDevelopers": "Notify developers",
     "openKnowledgeGaps": "Open knowledge gaps for missing documentation",

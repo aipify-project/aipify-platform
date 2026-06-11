@@ -4,7 +4,7 @@ Self-knowledge foundation so Aipify can answer questions about itself from a con
 
 **Spec:** `aipify-core/modules/knowledge-center/phase-55-self-knowledge-knowledge-center.txt`  
 **Code:** `lib/aipify/knowledge/`  
-**Seed content:** `content/knowledge/aipify/`  
+**Seed content:** `content/knowledge/aipify/` (includes `quality/faq/` for Quality Guardian — 30 global FAQ articles)  
 **Center:** `/app/knowledge-center`  
 **Gaps:** `/app/knowledge-center/gaps`  
 **Settings:** `/app/settings/knowledge`  

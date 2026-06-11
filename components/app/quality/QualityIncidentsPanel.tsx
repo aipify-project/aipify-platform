@@ -51,6 +51,14 @@ export function QualityIncidentsPanel({ labels, severityLabels }: QualityInciden
               <div>
                 <h2 className="font-medium">{inc.title}</h2>
                 <p className="mt-1 text-sm text-gray-600">{inc.observed_behavior}</p>
+                {typeof inc.evidence?.knowledge_article_slug === "string" ? (
+                  <Link
+                    href={`/app/knowledge-center?slug=${inc.evidence.knowledge_article_slug}`}
+                    className="mt-2 inline-block text-xs text-violet-700"
+                  >
+                    {labels.learnMore}
+                  </Link>
+                ) : null}
               </div>
               <span className="text-xs text-gray-500">
                 {severityLabels[inc.severity] ?? inc.severity} · {inc.status}
