@@ -3523,7 +3523,8 @@
     "industryIntelligenceFoundationEngine": "Bransjeintelligens",
     "changeManagementEngine": "Endringsledelse",
     "marketplacePartnerEcosystemFoundationEngine": "Partnerekosystem",
-    "aiEthicsResponsibleUseEngine": "AI-etikk"
+    "aiEthicsResponsibleUseEngine": "AI-etikk",
+    "valueRealizationEngine": "Verdirealisering"
   },
   "identity": {
     "title": "Din identitet",
@@ -4672,5 +4673,25 @@
     "restrict": "Begrens",
     "actionFailed": "Handling mislyktes",
     "criticalNote": "Kritiske bruksområder er forbudt for autonom AI — menneskelig bekreftelse kreves."
+  },
+  "valueRealizationEngine": {
+    "title": "Verdirealisering",
+    "subtitle": "Resultatorientert måling — grunnlinjer, forbedringer, ledelsessynlighet og evidensbasert ansvar.",
+    "loading": "Laster verdirealisering…",
+    "engineTitle": "Value Realization Engine",
+    "summary": "Sammendrag",
+    "principles": "Prinsipper",
+    "metrics": "Verdimålinger",
+    "milestones": "Milepæler",
+    "suggestions": "Forbedringsforslag",
+    "integrationSummaries": "Integrasjonssammendrag",
+    "baseline": "Grunnlinje",
+    "current": "Nåværende",
+    "exportReport": "Eksporter rapport",
+    "exporting": "Eksporterer…",
+    "exportFailed": "Eksport mislyktes",
+    "achieveMilestone": "Merk oppnådd",
+    "completing": "Oppdaterer…",
+    "milestoneFailed": "Milepælsoppdatering mislyktes"
   }
 }

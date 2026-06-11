@@ -48,4 +48,7 @@ export * from "./business-packs-foundation";
 export * from "./workflow-orchestration-engine";
 export * from "./human-oversight";
 export * from "./industry-intelligence-foundation";
+export * from "./marketplace-partner-ecosystem-foundation";
+export * from "./ai-ethics-responsible-use";
 export * from "./change-management";
+export * from "./value-realization";

@@ -4287,7 +4287,8 @@
     "industryIntelligenceFoundationEngine": "Industry Intelligence",
     "changeManagementEngine": "Change Management",
     "marketplacePartnerEcosystemFoundationEngine": "Partner Ecosystem",
-    "aiEthicsResponsibleUseEngine": "AI Ethics"
+    "aiEthicsResponsibleUseEngine": "AI Ethics",
+    "valueRealizationEngine": "Value Realization"
   },
   "aipifyInstallEngine": {
     "title": "Install Engine",
@@ -4751,5 +4752,25 @@
     "restrict": "Restrict",
     "actionFailed": "Action failed",
     "criticalNote": "Critical risk use cases are prohibited for autonomous AI — human confirmation required."
+  },
+  "valueRealizationEngine": {
+    "title": "Value Realization",
+    "subtitle": "Outcome-oriented measurement — baselines, improvements, executive visibility, and evidence-based accountability.",
+    "loading": "Loading value realization…",
+    "engineTitle": "Value Realization Engine",
+    "summary": "Summary",
+    "principles": "Principles",
+    "metrics": "Value metrics",
+    "milestones": "Milestones",
+    "suggestions": "Improvement suggestions",
+    "integrationSummaries": "Integration summaries",
+    "baseline": "Baseline",
+    "current": "Current",
+    "exportReport": "Export report",
+    "exporting": "Exporting…",
+    "exportFailed": "Export failed",
+    "achieveMilestone": "Mark achieved",
+    "completing": "Updating…",
+    "milestoneFailed": "Milestone update failed"
   }
 }
