@@ -23,7 +23,7 @@ function QueueItem({
   acting: string | null;
   onReview: (id: string, decision: string) => void;
 }) {
-  const isPending = item.status === "review" || item.status === "governance_check";
+  const isPending = item.status === "review" || item.status === "governance_check" || item.status === "anonymization_check";
 
   return (
     <li className="rounded-lg border border-gray-200 bg-white p-4 text-sm shadow-sm">
@@ -31,7 +31,7 @@ function QueueItem({
         <div>
           <p className="font-medium text-gray-900">{item.title}</p>
           <p className="mt-1 text-xs capitalize text-gray-500">
-            {item.type_label ?? item.contribution_type?.replace(/_/g, " ")} · {item.status?.replace(/_/g, " ")}
+            {item.category_label ?? item.type_label ?? item.contribution_type?.replace(/_/g, " ")} · {item.status?.replace(/_/g, " ")}
             {item.governance_flag ? ` · ${labels.governanceFlag}` : ""}
           </p>
         </div>
@@ -41,22 +41,35 @@ function QueueItem({
       </div>
       {isPending ? (
         <div className="mt-3 flex flex-wrap gap-2">
-          <button
-            type="button"
-            disabled={acting === item.id}
-            onClick={() => onReview(item.id, "publish")}
-            className="rounded-md bg-violet-600 px-3 py-1 text-xs font-medium text-white hover:bg-violet-700 disabled:opacity-50"
-          >
-            {labels.publish}
-          </button>
-          <button
-            type="button"
-            disabled={acting === item.id}
-            onClick={() => onReview(item.id, "escalate_governance")}
-            className="rounded-md border border-gray-300 px-3 py-1 text-xs text-gray-700 hover:bg-gray-50 disabled:opacity-50"
-          >
-            {labels.escalateGovernance}
-          </button>
+          {item.status === "anonymization_check" ? (
+            <button
+              type="button"
+              disabled={acting === item.id}
+              onClick={() => onReview(item.id, "publish")}
+              className="rounded-md bg-violet-600 px-3 py-1 text-xs font-medium text-white hover:bg-violet-700 disabled:opacity-50"
+            >
+              {labels.approvePublication}
+            </button>
+          ) : (
+            <>
+              <button
+                type="button"
+                disabled={acting === item.id}
+                onClick={() => onReview(item.id, "publish")}
+                className="rounded-md bg-violet-600 px-3 py-1 text-xs font-medium text-white hover:bg-violet-700 disabled:opacity-50"
+              >
+                {labels.advanceReview}
+              </button>
+              <button
+                type="button"
+                disabled={acting === item.id}
+                onClick={() => onReview(item.id, "escalate_governance")}
+                className="rounded-md border border-gray-300 px-3 py-1 text-xs text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+              >
+                {labels.escalateGovernance}
+              </button>
+            </>
+          )}
           <button
             type="button"
             disabled={acting === item.id}
@@ -131,8 +144,10 @@ export function CommunityAdminPanel({ labels }: CommunityAdminPanelProps) {
             <p className="mt-1 text-2xl font-bold text-violet-900">{admin.health_score ?? 0}/100</p>
           </div>
           <div>
-            <h2 className="text-xs font-semibold uppercase text-violet-700">{labels.contributionScore}</h2>
-            <p className="mt-1 text-2xl font-bold text-violet-900">{admin.contribution_score ?? 0}/100</p>
+            <h2 className="text-xs font-semibold uppercase text-violet-700">{labels.intelligenceScore}</h2>
+            <p className="mt-1 text-2xl font-bold text-violet-900">
+              {admin.intelligence_score ?? admin.contribution_score ?? 0}/100
+            </p>
           </div>
           <div>
             <h2 className="text-xs font-semibold uppercase text-violet-700">{labels.pendingReviews}</h2>
@@ -179,11 +194,11 @@ export function CommunityAdminPanel({ labels }: CommunityAdminPanelProps) {
         )}
       </section>
 
-      {admin.governance_flags.length > 0 ? (
+      {(admin.governance_queue.length > 0 ? admin.governance_queue : admin.governance_flags).length > 0 ? (
         <section>
-          <h2 className="text-sm font-semibold text-gray-900">{labels.governanceFlags}</h2>
+          <h2 className="text-sm font-semibold text-gray-900">{labels.governanceQueue}</h2>
           <ul className="mt-3 space-y-2">
-            {admin.governance_flags.map((item) => (
+            {(admin.governance_queue.length > 0 ? admin.governance_queue : admin.governance_flags).map((item) => (
               <li key={item.id} className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
                 {item.title}
                 <span className="ml-2 text-xs capitalize text-amber-700">{item.status?.replace(/_/g, " ")}</span>
@@ -193,13 +208,37 @@ export function CommunityAdminPanel({ labels }: CommunityAdminPanelProps) {
         </section>
       ) : null}
 
-      {admin.intelligence_trends.length > 0 ? (
+      {admin.intelligence_categories.length > 0 ? (
         <section>
-          <h2 className="text-sm font-semibold text-gray-900">{labels.intelligenceTrends}</h2>
+          <h2 className="text-sm font-semibold text-gray-900">{labels.intelligenceCategories}</h2>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {admin.intelligence_categories.map((c) => (
+              <li key={c.category} className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-700">
+                {c.label} ({c.count})
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {admin.participation_insights ? (
+        <section className="rounded-xl border border-gray-100 bg-gray-50 p-4">
+          <h2 className="text-sm font-semibold text-gray-900">{labels.participationInsights}</h2>
+          <ul className="mt-2 space-y-1 text-sm text-gray-700">
+            <li>{labels.published}: {admin.participation_insights.published_count ?? 0}</li>
+            <li>{labels.drafts}: {admin.participation_insights.draft_count ?? 0}</li>
+            <li>{labels.pendingReviews}: {admin.participation_insights.pending_count ?? 0}</li>
+          </ul>
+        </section>
+      ) : null}
+
+      {(admin.contribution_trends.length > 0 ? admin.contribution_trends : admin.intelligence_trends).length > 0 ? (
+        <section>
+          <h2 className="text-sm font-semibold text-gray-900">{labels.contributionTrends}</h2>
           <ul className="mt-3 space-y-1 text-sm text-gray-600">
-            {admin.intelligence_trends.slice(0, 5).map((t, i) => (
+            {(admin.contribution_trends.length > 0 ? admin.contribution_trends : admin.intelligence_trends).slice(0, 5).map((t, i) => (
               <li key={i}>
-                Health {t.health_score} · Contribution {t.contribution_score}
+                Health {t.health_score} · Intelligence {t.intelligence_score ?? t.contribution_score}
               </li>
             ))}
           </ul>

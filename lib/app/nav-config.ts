@@ -28,6 +28,8 @@ export type AppNavId =
   | "platformIntegrityEngine"
   | "ecosystemIntelligenceEngine"
   | "communityIntelligenceEngine"
+  | "marketplaceGovernanceEngine"
+  | "partnerCertificationEngine"
   | "personalityEngine"
   | "workstyleEngine"
   | "approvals"
@@ -90,6 +92,8 @@ export const APP_NAV: AppNavItem[] = [
   { id: "platformIntegrityEngine", href: "/app/integrity", labelKey: "customerApp.nav.platformIntegrityEngine" },
   { id: "ecosystemIntelligenceEngine", href: "/app/ecosystem", labelKey: "customerApp.nav.ecosystemIntelligenceEngine" },
   { id: "communityIntelligenceEngine", href: "/app/community", labelKey: "customerApp.nav.communityIntelligenceEngine" },
+  { id: "marketplaceGovernanceEngine", href: "/app/marketplace-governance", labelKey: "customerApp.nav.marketplaceGovernanceEngine" },
+  { id: "partnerCertificationEngine", href: "/app/partners", labelKey: "customerApp.nav.partnerCertificationEngine" },
   { id: "personalityEngine", href: "/app/personality", labelKey: "customerApp.nav.personalityEngine" },
   { id: "approvals", href: "/app/approvals", labelKey: "customerApp.nav.approvals" },
   { id: "actionCenter", href: "/app/action-center", labelKey: "customerApp.nav.actionCenter" },
@@ -154,6 +158,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/integrity")) return "platformIntegrityEngine";
   if (pathname.startsWith("/app/ecosystem")) return "ecosystemIntelligenceEngine";
   if (pathname.startsWith("/app/community")) return "communityIntelligenceEngine";
+  if (pathname.startsWith("/app/marketplace-governance")) return "marketplaceGovernanceEngine";
+  if (pathname.startsWith("/app/partners")) return "partnerCertificationEngine";
   if (pathname.startsWith("/app/personality")) return "personalityEngine";
   if (pathname.startsWith("/app/approvals")) return "approvals";
   if (pathname.startsWith("/app/action-center") || pathname.startsWith("/app/actions")) {

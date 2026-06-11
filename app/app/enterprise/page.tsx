@@ -23,6 +23,7 @@ export default async function EnterprisePage() {
         dataResidency: t(`${p}.dataResidency`),
         connectors: t(`${p}.connectors`),
         audit: t(`${p}.audit`),
+        framework: t(`${p}.framework`),
         upgradeRequired: t(`${p}.upgradeRequired`),
         mode: t(`${p}.mode`),
         residency: t(`${p}.residency`),

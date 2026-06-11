@@ -2,72 +2,68 @@
 
 ## Core principle
 
-**Collective Intelligence amplifies wisdom. Not compromise trust.**
+**Organizations own their knowledge. Organizations control participation.**
 
-Organizations learn from one another through governed, anonymized, and validated community intelligence.
+Collective Intelligence strengthens trust — it does not compromise it.
 
 ## What was built
 
 | Layer | Location |
 |-------|----------|
-| Migration | `supabase/migrations/20260618100000_community_collective_intelligence_phase89.sql` |
+| Migration | `20260618100000_community_collective_intelligence_phase89.sql` |
+| Refinement | `20260618200000_community_collective_intelligence_refinement_phase89.sql` |
 | Lib | `lib/aipify/community-intelligence/` |
 | API | `/api/aipify/community-intelligence/*` |
-| UI | `/app/community` — Community Hub; `/app/community/admin` — Admin Dashboard |
-| KC FAQ | `content/knowledge/aipify/community/faq/community-intelligence-faq.md` |
+| UI | `/app/community` — Community Hub; `/app/community/admin` — Community Dashboard |
+| KC | `content/knowledge/aipify/community/` |
 
 ## Database tables
 
-- `community_contributions` — contribution workflow with anonymized published content
-- `community_reviews` — moderation and governance review decisions
-- `community_ratings` — community usefulness ratings (1–5)
-- `community_scores` — Collective Contribution Score and Community Health Score
-- `community_briefings` — executive community intelligence briefings
-- `community_settings` — opt-in participation and governance controls
-- `community_audit_log` — audit trail
+- `community_contributions` — category, workflow status, anonymized published content
+- `community_reviews` — moderation and governance decisions
+- `community_ratings` — usefulness ratings (1–5)
+- `community_scores` — tenant score history
+- `community_health_scores` — view aligned to spec (`health_score`, `intelligence_score`)
+- `community_briefings`, `community_settings`, `community_audit_log`
 
-## Contribution types
+## Contribution categories
 
-Knowledge Articles, Implementation Guides, Blueprint Enhancements, Business Pack Reviews, Operational Lessons Learned, Governance Recommendations, Adoption Success Stories, Risk Mitigation Practices
+Knowledge, Operational, Governance, Customer Success, Industry, Marketplace
 
 ## Approval workflow
 
-Draft → Review → Governance Check → Publication → Community Rating
+Draft → Internal Review → Governance Validation → Anonymization Check → Publication Approval → Community Availability
 
 ## Scores (0–100)
 
 | Score | Purpose |
 |-------|---------|
-| Collective Contribution Score | Quality and usefulness of shared intelligence |
-| Community Health Score | Strength and sustainability of the intelligence ecosystem |
+| Collective Intelligence Score | Usefulness, quality, validation, relevance of contributions |
+| Community Health Score | Sustainability of the intelligence ecosystem |
 
-## Score factors
+## Hub sections
 
-Community usefulness, validation quality, adoption impact, governance compliance, participation, knowledge quality, contribution diversity
+Featured Learnings, Best Practices, Recently Validated Contributions, Blueprint Recommendations, Industry Insights, Popular Resources
+
+## Admin dashboard
+
+Pending Reviews, Governance Queue, Contribution Trends, Health Score, Intelligence Categories, Participation Insights
 
 ## Integrations
 
-- **Knowledge Center** — enriches FAQs, best practices, and playbooks
-- **Global Learning Network** — pattern recognition and industry guidance
-- **Marketplace** — pack reviews and implementation experiences
-- **Strategic Intelligence** — common opportunities and shared challenges
-- **Human Success** — onboarding patterns and adoption accelerators
-- **Executive Briefing** — `generate_community_briefing()`
+Learning Engine, Knowledge Center, Global Learning Network, Marketplace, Strategic Intelligence, Human Success, Executive Briefing
 
 ## Safety guarantees
 
-- Voluntary participation with opt-out
-- Anonymization before publication
-- No confidential or proprietary sharing without approval
-- Governance review required
-- No social media feeds or public rankings
+- Opt-in participation only
+- Enhanced anonymization engine
+- No automatic publication
+- Governance and audit on every contribution
 
 ## RPCs
 
 - `get_community_intelligence_dashboard()` — Community Hub
-- `get_community_intelligence_admin()` — Admin dashboard
+- `get_community_intelligence_admin()` — Community Dashboard
 - `get_community_intelligence_card()` — summary card
-- `submit_community_contribution(type, title, description)` — create contribution
-- `review_community_contribution(id, decision, notes)` — moderation/governance
-- `rate_community_contribution(id, rating)` — community rating
+- `submit_community_contribution()`, `review_community_contribution()`, `rate_community_contribution()`
 - `generate_community_briefing()` — executive briefing

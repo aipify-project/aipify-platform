@@ -1,3 +1,12 @@
+export const CONTRIBUTION_CATEGORIES = [
+  "knowledge",
+  "operational",
+  "governance",
+  "customer_success",
+  "industry",
+  "marketplace",
+] as const;
+
 export const CONTRIBUTION_TYPES = [
   "knowledge_article",
   "implementation_guide",
@@ -13,6 +22,8 @@ export type CommunityContribution = {
   id: string;
   title: string;
   description?: string;
+  category?: string;
+  category_label?: string;
   contribution_type: string;
   type_label?: string;
   status?: string;
@@ -27,6 +38,7 @@ export type CommunityContribution = {
 export type CommunityIntelligenceCard = {
   has_customer: boolean;
   health_score?: number;
+  intelligence_score?: number;
   contribution_score?: number;
   pending_reviews?: number;
   philosophy?: string;
@@ -41,14 +53,20 @@ export type CommunityIntelligenceDashboard = {
   philosophy?: string;
   safety_note?: string;
   health_score?: number;
+  intelligence_score?: number;
   contribution_score?: number;
   score_components?: Record<string, number>;
+  featured_learnings: CommunityContribution[];
   featured_insights: CommunityContribution[];
   best_practices: CommunityContribution[];
   top_rated: CommunityContribution[];
+  popular_resources: CommunityContribution[];
   recently_validated: CommunityContribution[];
+  blueprint_recommendations: CommunityContribution[];
   blueprint_discussions: CommunityContribution[];
+  industry_insights: CommunityContribution[];
   briefings: Array<{ id: string; summary: string; created_at?: string }>;
+  intelligence_categories?: Array<{ key: string; label: string }>;
   contribution_types?: Array<{ key: string; label: string }>;
   approval_workflow?: Array<{ step: string; label: string }>;
   integrations?: Record<string, string>;
@@ -59,15 +77,32 @@ export type CommunityIntelligenceAdmin = {
   participation_enabled?: boolean;
   require_governance_review?: boolean;
   health_score?: number;
+  intelligence_score?: number;
   contribution_score?: number;
   pending_reviews: CommunityContribution[];
+  governance_queue: CommunityContribution[];
   contribution_queue: CommunityContribution[];
   governance_flags: CommunityContribution[];
-  intelligence_trends: Array<{
+  contribution_trends: Array<{
     health_score: number;
+    intelligence_score?: number;
     contribution_score: number;
     calculated_at?: string;
   }>;
+  intelligence_trends: Array<{
+    health_score: number;
+    intelligence_score?: number;
+    contribution_score: number;
+    calculated_at?: string;
+  }>;
+  intelligence_categories: Array<{ category: string; label: string; count: number }>;
+  participation_insights?: {
+    participation_enabled?: boolean;
+    allow_contributions?: boolean;
+    published_count?: number;
+    draft_count?: number;
+    pending_count?: number;
+  };
   pending_count?: number;
   queue_count?: number;
 };

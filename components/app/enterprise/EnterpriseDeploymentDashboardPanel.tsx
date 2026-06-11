@@ -45,6 +45,7 @@ export function EnterpriseDeploymentDashboardPanel({
           <p className="mt-2 text-sm text-indigo-800">{labels.principle}</p>
         </div>
         <div className="flex flex-wrap gap-2">
+          <Link href="/app/enterprise/framework" className="rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-sm font-medium text-indigo-800">{labels.framework}</Link>
           <Link href="/app/enterprise/deployment" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">{labels.deployment}</Link>
           <Link href="/app/enterprise/agents" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">{labels.agents}</Link>
           <Link href="/app/enterprise/data-residency" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">{labels.dataResidency}</Link>
