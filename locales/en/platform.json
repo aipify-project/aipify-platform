@@ -630,6 +630,18 @@
     "byCategory": "By category",
     "privacyNote": "Administrators cannot access user memory content. Aggregates only."
   },
+  "employeeKnowledge": {
+    "title": "EKE governance",
+    "subtitle": "Aggregate employee knowledge metrics — no article content.",
+    "loading": "Loading employee knowledge overview…",
+    "profiles": "EKE profiles",
+    "approved": "Approved articles",
+    "pending": "Pending approval",
+    "gaps": "Open gaps",
+    "paths": "Onboarding paths",
+    "avgHealth": "Avg health score",
+    "privacyNote": "Administrators cannot access employee knowledge content. Aggregates only."
+  },
   "supportOperations": {
     "title": "ASO governance",
     "subtitle": "Aggregate autonomous support metrics — no case content.",

@@ -10,6 +10,7 @@ import { detectSchedulingIntent } from "@/lib/context-engine/scheduling";
 import type { EventDraft } from "@/lib/context-engine/types";
 import { detectFocusIntent } from "@/lib/attention-guardian/detection";
 import { detectDecisionIntent } from "@/lib/decision-support-engine/detection";
+import { detectEmployeeKnowledgeIntent } from "@/lib/employee-knowledge-engine/detection";
 import { detectGoalIntent } from "@/lib/goals-dreams-engine/detection";
 import type { GoalDraft } from "@/lib/goals-dreams-engine/types";
 import { detectRelationshipSignal } from "@/lib/relationship-intelligence/detection";
@@ -49,6 +50,7 @@ export type AssistantTurnResult = {
   suggestAttentionDashboard?: boolean;
   focusProposal?: { title: string; session_type: string; ends_at_hint: string | null } | null;
   suggestDecisionsDashboard?: boolean;
+  suggestEmployeeKnowledgeDashboard?: boolean;
   decisionGuidance?: {
     decision_type: string;
     domain: string;
@@ -223,6 +225,19 @@ export function buildAssistantTurn(
           : decisionIntent.confidence === "low"
             ? "low"
             : "medium",
+    };
+  }
+
+  const employeeKnowledgeIntent = detectEmployeeKnowledgeIntent(message);
+  if (employeeKnowledgeIntent?.detected) {
+    return {
+      intent: "general",
+      memory_intent: memoryIntent,
+      memoryDraft: null,
+      askBeforeRemembering: false,
+      suggestEmployeeKnowledgeDashboard: true,
+      reply: `${employeeKnowledgeIntent.prompt}\n\nYou make the final decision — I'm here to guide, not replace your judgment. Open Employee Knowledge in Settings for approved procedures and step-by-step guidance.`,
+      confidence_level: "medium",
     };
   }
 

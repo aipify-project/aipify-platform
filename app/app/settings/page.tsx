@@ -55,6 +55,7 @@ export default async function SettingsPage() {
           learning: t("customerApp.settings.links.learning"),
           businessDna: t("customerApp.settings.links.businessDna"),
           supportOperations: t("customerApp.settings.links.supportOperations"),
+          employeeKnowledge: t("customerApp.settings.links.employeeKnowledge"),
         },
       }}
     />

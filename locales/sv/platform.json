@@ -436,6 +436,18 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratörer kan inte se användarnas minnesinnehåll. Endast aggregat."
   },
+  "employeeKnowledge": {
+    "title": "EKE-styrning",
+    "subtitle": "Aggregerade medarbetarkunskapsmetriker — inget artikelinnehåll.",
+    "loading": "Laddar medarbetarkunskapsöversikt…",
+    "profiles": "EKE-profiler",
+    "approved": "Godkända artiklar",
+    "pending": "Väntar godkännande",
+    "gaps": "Öppna luckor",
+    "paths": "Onboardingvägar",
+    "avgHealth": "Snitt hälsopoäng",
+    "privacyNote": "Administratörer kan inte se medarbetarkunskapsinnehåll. Endast aggregat."
+  },
   "supportOperations": {
     "title": "ASO-styrning",
     "subtitle": "Aggregerade autonoma supportmetriker — inget ärendeinnehåll.",

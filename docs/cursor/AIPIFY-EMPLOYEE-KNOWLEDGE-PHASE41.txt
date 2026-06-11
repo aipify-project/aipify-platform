@@ -1,0 +1,10 @@
+AIPIFY – PHASE 41 – EMPLOYEE KNOWLEDGE ENGINE (EKE)
+
+Route: /app/settings/employee-knowledge (spec /admin/employee-knowledge)
+Migration: 20260612900000_employee_knowledge_phase41.sql
+Lib: lib/employee-knowledge-engine/
+APIs: /api/employee-knowledge, /api/employee-knowledge/ask, /api/employee-knowledge/search
+Platform: /platform/trust — PlatformEmployeeKnowledgePanel
+Chat: detectEmployeeKnowledgeIntent() in lib/employee-knowledge-engine/detection.ts
+
+Definition of done: Knowledge acquisition, ingestion, categorization, employee assistant, confidence system, step-by-step guidance, onboarding, role permissions, search, improvement loop, gap detection, dashboard, health score, audit logging, Business DNA integration, privacy and ethical safeguards.

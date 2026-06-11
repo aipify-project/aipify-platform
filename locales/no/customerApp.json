@@ -182,7 +182,8 @@
       "desktopConnect": "Connect desktop app",
       "learning": "Læring og personvern",
       "businessDna": "Business DNA",
-      "supportOperations": "Supportoperasjoner"
+      "supportOperations": "Supportoperasjoner",
+      "employeeKnowledge": "Ansattkunnskap"
     }
   },
   "learning": {
@@ -874,6 +875,57 @@
       "1": "Assistert support",
       "2": "Overvåket automatisering",
       "3": "Betrodd drift"
+    }
+  },
+  "employeeKnowledge": {
+    "title": "Ansattkunnskap",
+    "subtitle": "Intern kunnskapspartner — godkjent dokumentasjon, rollebasert tilgang og steg-for-steg veiledning.",
+    "loading": "Laster ansattkunnskap…",
+    "back": "Tilbake til innstillinger",
+    "save": "Lagre innstillinger",
+    "saved": "Lagret",
+    "privacy": "Kun godkjente kilder læres. Ansatte ser innhold autorisert for rollen sin.",
+    "viewBusinessDna": "Business DNA",
+    "youControl": "Administratorer godkjenner all kunnskap — åpenhet er obligatorisk.",
+    "empty": "Ingenting venter.",
+    "sections": {
+      "health": "Kunnskapshelsescore",
+      "coverage": "Kunnskapsdekning",
+      "gaps": "Kunnskapshull",
+      "onboarding": "Onboarding-løp",
+      "permissions": "Rolletilganger",
+      "sources": "Godkjente kilder",
+      "pending": "Venter godkjenning",
+      "ask": "Ansattassistent",
+      "search": "Kunnskapssøk",
+      "audit": "Revisjonslogg",
+      "ethics": "Etiske sikringer",
+      "settings": "Innstillinger"
+    },
+    "settings": {
+      "assistant": "Ansattassistentmodus",
+      "gapDetection": "Oppdagelse av kunnskapshull",
+      "onboarding": "Onboarding-motor",
+      "improvementLoop": "Forbedringssløyfe",
+      "adminApproval": "Krev admin-godkjenning",
+      "videoSupport": "Videokunnskapsstøtte"
+    },
+    "ask": {
+      "placeholder": "Hvordan behandler vi en refusjon?",
+      "run": "Spør",
+      "confidence": "Konfidens",
+      "escalate": "Eskalering anbefales — ingen godkjent dokumentasjon funnet.",
+      "steps": "Steg-for-steg veiledning"
+    },
+    "search": {
+      "placeholder": "Søk i kunnskap…",
+      "run": "Søk"
+    },
+    "create": {
+      "title": "Artikkeltittel",
+      "category": "Kategori",
+      "content": "Innhold",
+      "submit": "Legg til kunnskapselement"
     }
   }
 }

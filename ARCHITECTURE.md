@@ -128,6 +128,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Autonomous Support Operations / ASO (Phase 40):** See [AUTONOMOUS_SUPPORT_OPERATIONS.md](./AUTONOMOUS_SUPPORT_OPERATIONS.md) — autonomy levels, triage engine, confidence scoring, proactive support, knowledge gaps, case summarization. `/app/settings/support-operations`. `lib/autonomous-support-operations/`, migration `20260612800000_autonomous_support_phase40.sql`.
 
+**Employee Knowledge Engine / EKE (Phase 41):** See [EMPLOYEE_KNOWLEDGE_ENGINE.md](./EMPLOYEE_KNOWLEDGE_ENGINE.md) — approved knowledge ingestion, role permissions, employee assistant Q&A, step-by-step guidance, onboarding paths, gap detection, health score. `/app/settings/employee-knowledge`. `lib/employee-knowledge-engine/`, migration `20260612900000_employee_knowledge_phase41.sql`.
+
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
 
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.

@@ -5,6 +5,7 @@ import PlatformAttentionPanel from "@/components/platform/PlatformAttentionPanel
 import PlatformDecisionPanel from "@/components/platform/PlatformDecisionPanel";
 import PlatformBusinessDnaPanel from "@/components/platform/PlatformBusinessDnaPanel";
 import PlatformSupportOperationsPanel from "@/components/platform/PlatformSupportOperationsPanel";
+import PlatformEmployeeKnowledgePanel from "@/components/platform/PlatformEmployeeKnowledgePanel";
 import PlatformGoalsPanel from "@/components/platform/PlatformGoalsPanel";
 import PlatformIdentityPanel from "@/components/platform/PlatformIdentityPanel";
 import PlatformRelationshipPanel from "@/components/platform/PlatformRelationshipPanel";
@@ -48,6 +49,20 @@ export default async function PlatformTrustPage() {
           disabled: t("platform.assistantMemory.disabled"),
           byCategory: t("platform.assistantMemory.byCategory"),
           privacyNote: t("platform.assistantMemory.privacyNote"),
+        }}
+      />
+      <PlatformEmployeeKnowledgePanel
+        labels={{
+          title: t("platform.employeeKnowledge.title"),
+          subtitle: t("platform.employeeKnowledge.subtitle"),
+          loading: t("platform.employeeKnowledge.loading"),
+          profiles: t("platform.employeeKnowledge.profiles"),
+          approved: t("platform.employeeKnowledge.approved"),
+          pending: t("platform.employeeKnowledge.pending"),
+          gaps: t("platform.employeeKnowledge.gaps"),
+          paths: t("platform.employeeKnowledge.paths"),
+          avgHealth: t("platform.employeeKnowledge.avgHealth"),
+          privacyNote: t("platform.employeeKnowledge.privacyNote"),
         }}
       />
       <PlatformSupportOperationsPanel

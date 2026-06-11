@@ -1,0 +1,23 @@
+---
+description: Employee Knowledge Engine (EKE) — Phase 41
+alwaysApply: true
+---
+
+# Employee Knowledge Engine
+
+See [EMPLOYEE_KNOWLEDGE_ENGINE.md](../../EMPLOYEE_KNOWLEDGE_ENGINE.md).
+
+## Rules
+
+1. Only learn from administrator-approved sources — transparency mandatory.
+2. Role-based access via `knowledge_permissions`; owners/admins see all categories.
+3. Employee assistant provides guidance — humans make final decisions.
+4. Low confidence (&lt;50%) triggers gap detection and escalation recommendation.
+5. Full audit via `employee_knowledge_audit_logs`; platform sees aggregates only.
+6. Route: `/app/settings/employee-knowledge` (spec `/admin/employee-knowledge`).
+7. i18n: `customerApp.employeeKnowledge.*`, `platform.employeeKnowledge.*` in en/no/sv/da.
+8. Integrates Business DNA (`support_knowledge_items`) as fallback for support procedures.
+
+## Tables
+
+`eke_settings` · `employee_knowledge_items` · `knowledge_permissions` · `employee_knowledge_sources` · `employee_knowledge_gaps` · `employee_onboarding_paths` · `employee_onboarding_progress` · `employee_knowledge_audit_logs`

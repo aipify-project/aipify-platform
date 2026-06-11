@@ -475,6 +475,18 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratorer kan ikke se brukerens minneinnhold. Kun aggregater."
   },
+  "employeeKnowledge": {
+    "title": "EKE-styring",
+    "subtitle": "Aggregerte ansattkunnskapsmetrikker — ikke artikkelinnhold.",
+    "loading": "Laster ansattkunnskapsoversikt…",
+    "profiles": "EKE-profiler",
+    "approved": "Godkjente artikler",
+    "pending": "Venter godkjenning",
+    "gaps": "Åpne hull",
+    "paths": "Onboarding-løp",
+    "avgHealth": "Snitt helsescore",
+    "privacyNote": "Administratorer kan ikke se ansattkunnskapsinnhold. Kun aggregater."
+  },
   "supportOperations": {
     "title": "ASO-styring",
     "subtitle": "Aggregerte autonome supportmetrikker — ikke saksinnhold.",

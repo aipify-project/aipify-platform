@@ -182,7 +182,8 @@
       "desktopConnect": "Connect desktop app",
       "learning": "Inlärning och integritet",
       "businessDna": "Business DNA",
-      "supportOperations": "Supportoperationer"
+      "supportOperations": "Supportoperationer",
+      "employeeKnowledge": "Medarbetarkunskap"
     }
   },
   "learning": {
@@ -874,6 +875,57 @@
       "1": "Assisterad support",
       "2": "Övervakad automatisering",
       "3": "Betrodd drift"
+    }
+  },
+  "employeeKnowledge": {
+    "title": "Medarbetarkunskap",
+    "subtitle": "Intern kunskapspartner — godkänd dokumentation, rollbaserad åtkomst och steg-för-steg vägledning.",
+    "loading": "Laddar medarbetarkunskap…",
+    "back": "Tillbaka till inställningar",
+    "save": "Spara inställningar",
+    "saved": "Sparat",
+    "privacy": "Endast godkända källor lärs. Medarbetare ser innehåll auktoriserat för deras roll.",
+    "viewBusinessDna": "Business DNA",
+    "youControl": "Administratörer godkänner all kunskap — transparens är obligatorisk.",
+    "empty": "Inget väntar.",
+    "sections": {
+      "health": "Kunskapshälsopoäng",
+      "coverage": "Kunskapstäckning",
+      "gaps": "Kunskapsluckor",
+      "onboarding": "Onboardingväg",
+      "permissions": "Rollbehörigheter",
+      "sources": "Godkända källor",
+      "pending": "Väntar godkännande",
+      "ask": "Medarbetarassistent",
+      "search": "Kunskapssökning",
+      "audit": "Revisionslogg",
+      "ethics": "Etiska skydd",
+      "settings": "Inställningar"
+    },
+    "settings": {
+      "assistant": "Medarbetarassistentläge",
+      "gapDetection": "Upptäckt av kunskapsluckor",
+      "onboarding": "Onboardingmotor",
+      "improvementLoop": "Förbättringsloop",
+      "adminApproval": "Kräv admin-godkännande",
+      "videoSupport": "Videokunskapsstöd"
+    },
+    "ask": {
+      "placeholder": "Hur hanterar vi en återbetalning?",
+      "run": "Fråga",
+      "confidence": "Konfidens",
+      "escalate": "Eskalering rekommenderas — ingen godkänd dokumentation hittades.",
+      "steps": "Steg-för-steg vägledning"
+    },
+    "search": {
+      "placeholder": "Sök kunskap…",
+      "run": "Sök"
+    },
+    "create": {
+      "title": "Artikeltitel",
+      "category": "Kategori",
+      "content": "Innehåll",
+      "submit": "Lägg till kunskapsobjekt"
     }
   }
 }

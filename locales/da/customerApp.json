@@ -182,7 +182,8 @@
       "desktopConnect": "Connect desktop app",
       "learning": "Læring og privatliv",
       "businessDna": "Business DNA",
-      "supportOperations": "Supportoperationer"
+      "supportOperations": "Supportoperationer",
+      "employeeKnowledge": "Medarbejderviden"
     }
   },
   "learning": {
@@ -874,6 +875,57 @@
       "1": "Assisteret support",
       "2": "Overvåget automatisering",
       "3": "Betroet drift"
+    }
+  },
+  "employeeKnowledge": {
+    "title": "Medarbejderviden",
+    "subtitle": "Intern videnspartner — godkendt dokumentation, rollebaseret adgang og trin-for-trin vejledning.",
+    "loading": "Indlæser medarbejderviden…",
+    "back": "Tilbage til indstillinger",
+    "save": "Gem indstillinger",
+    "saved": "Gemt",
+    "privacy": "Kun godkendte kilder læres. Medarbejdere ser indhold autoriseret for deres rolle.",
+    "viewBusinessDna": "Business DNA",
+    "youControl": "Administratorer godkender al viden — gennemsigtighed er obligatorisk.",
+    "empty": "Intet afventer.",
+    "sections": {
+      "health": "Videnssundhedsscore",
+      "coverage": "Vidensdækning",
+      "gaps": "Videnshuller",
+      "onboarding": "Onboardingforløb",
+      "permissions": "Rolletilladelser",
+      "sources": "Godkendte kilder",
+      "pending": "Afventer godkendelse",
+      "ask": "Medarbejderassistent",
+      "search": "Vidensøgning",
+      "audit": "Revisionslog",
+      "ethics": "Etiske sikringer",
+      "settings": "Indstillinger"
+    },
+    "settings": {
+      "assistant": "Medarbejderassistentsmode",
+      "gapDetection": "Opdagelse af videnshuller",
+      "onboarding": "Onboarding-motor",
+      "improvementLoop": "Forbedringsløkke",
+      "adminApproval": "Kræv admin-godkendelse",
+      "videoSupport": "Videovidensstøtte"
+    },
+    "ask": {
+      "placeholder": "Hvordan behandler vi en refusion?",
+      "run": "Spørg",
+      "confidence": "Konfidens",
+      "escalate": "Eskalering anbefales — ingen godkendt dokumentation fundet.",
+      "steps": "Trin-for-trin vejledning"
+    },
+    "search": {
+      "placeholder": "Søg viden…",
+      "run": "Søg"
+    },
+    "create": {
+      "title": "Artikeltitel",
+      "category": "Kategori",
+      "content": "Indhold",
+      "submit": "Tilføj videnselement"
     }
   }
 }

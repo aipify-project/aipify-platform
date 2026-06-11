@@ -182,7 +182,8 @@
       "desktopConnect": "Connect desktop app",
       "learning": "Learning & privacy",
       "businessDna": "Business DNA",
-      "supportOperations": "Support operations"
+      "supportOperations": "Support operations",
+      "employeeKnowledge": "Employee knowledge"
     }
   },
   "learning": {
@@ -858,6 +859,57 @@
       "1": "Assisted support",
       "2": "Supervised automation",
       "3": "Trusted operations"
+    }
+  },
+  "employeeKnowledge": {
+    "title": "Employee knowledge",
+    "subtitle": "Internal knowledge partner — approved documentation, role-based access, and step-by-step guidance.",
+    "loading": "Loading employee knowledge…",
+    "back": "Back to settings",
+    "save": "Save settings",
+    "saved": "Saved",
+    "privacy": "Only approved sources are learned. Employees see content authorized for their role.",
+    "viewBusinessDna": "Business DNA",
+    "youControl": "Administrators approve all knowledge — transparency is mandatory.",
+    "empty": "Nothing pending.",
+    "sections": {
+      "health": "Knowledge health score",
+      "coverage": "Knowledge coverage",
+      "gaps": "Knowledge gaps",
+      "onboarding": "Onboarding path",
+      "permissions": "Role permissions",
+      "sources": "Approved sources",
+      "pending": "Pending approval",
+      "ask": "Employee assistant",
+      "search": "Knowledge search",
+      "audit": "Audit log",
+      "ethics": "Ethical safeguards",
+      "settings": "Settings"
+    },
+    "settings": {
+      "assistant": "Employee assistant mode",
+      "gapDetection": "Knowledge gap detection",
+      "onboarding": "Onboarding engine",
+      "improvementLoop": "Improvement loop",
+      "adminApproval": "Require admin approval",
+      "videoSupport": "Video knowledge support"
+    },
+    "ask": {
+      "placeholder": "How do we process a refund?",
+      "run": "Ask",
+      "confidence": "Confidence",
+      "escalate": "Escalation recommended — no approved documentation found.",
+      "steps": "Step-by-step guidance"
+    },
+    "search": {
+      "placeholder": "Search knowledge…",
+      "run": "Search"
+    },
+    "create": {
+      "title": "Article title",
+      "category": "Category",
+      "content": "Content",
+      "submit": "Add knowledge item"
     }
   },
   "nav": {

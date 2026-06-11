@@ -35,6 +35,7 @@ type CustomerSettingsCenterPanelProps = {
       learning: string;
       businessDna: string;
       supportOperations: string;
+      employeeKnowledge: string;
     };
   };
 };
@@ -148,6 +149,9 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
         </Link>
         <Link href="/app/settings/support-operations" className="block text-indigo-600 hover:underline">
           {labels.links.supportOperations}
+        </Link>
+        <Link href="/app/settings/employee-knowledge" className="block text-indigo-600 hover:underline">
+          {labels.links.employeeKnowledge}
         </Link>
       </section>
     </div>

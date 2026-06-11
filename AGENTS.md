@@ -62,6 +62,8 @@ For **Business DNA Engine (BDE)**, read **[BUSINESS_DNA_ENGINE.md](./BUSINESS_DN
 
 For **Autonomous Support Operations (ASO)**, read **[AUTONOMOUS_SUPPORT_OPERATIONS.md](./AUTONOMOUS_SUPPORT_OPERATIONS.md)**. Constants in `lib/autonomous-support-operations/`; Admin Control Center at `/app/settings/support-operations`; APIs at `/api/support-operations/*` and `/api/support/triage`. Autonomy levels 0–3, triage engine, confidence scoring, knowledge gaps; integrates Business DNA and Trust & Action; escalates uncertainty.
 
+For **Employee Knowledge Engine (EKE)**, read **[EMPLOYEE_KNOWLEDGE_ENGINE.md](./EMPLOYEE_KNOWLEDGE_ENGINE.md)**. Constants in `lib/employee-knowledge-engine/`; Internal Knowledge Dashboard at `/app/settings/employee-knowledge`; APIs at `/api/employee-knowledge/*`. Approved ingestion only, role-based permissions, employee Q&A, step-by-step guidance, onboarding paths, knowledge gaps, health score; integrates Business DNA; natural language via `detectEmployeeKnowledgeIntent()`.
+
 ## Aipify architecture — mandatory before every feature
 
 Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.

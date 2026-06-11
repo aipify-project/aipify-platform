@@ -436,6 +436,18 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratorer kan ikke se brugernes mindeindhold. Kun aggregater."
   },
+  "employeeKnowledge": {
+    "title": "EKE-styring",
+    "subtitle": "Aggregerede medarbejdervidensmetrikker — intet artikelindhold.",
+    "loading": "Indlæser medarbejdervidensoversigt…",
+    "profiles": "EKE-profiler",
+    "approved": "Godkendte artikler",
+    "pending": "Afventer godkendelse",
+    "gaps": "Åbne huller",
+    "paths": "Onboardingforløb",
+    "avgHealth": "Gns. sundhedsscore",
+    "privacyNote": "Administratorer kan ikke se medarbejdervidensindhold. Kun aggregater."
+  },
   "supportOperations": {
     "title": "ASO-styring",
     "subtitle": "Aggregerede autonome supportmetrikker — intet sagsindhold.",
