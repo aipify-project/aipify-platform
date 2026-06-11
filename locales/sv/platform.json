@@ -436,6 +436,17 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratörer kan inte se användarnas minnesinnehåll. Endast aggregat."
   },
+  "supportOperations": {
+    "title": "ASO-styrning",
+    "subtitle": "Aggregerade autonoma supportmetriker — inget ärendeinnehåll.",
+    "loading": "Laddar supportöversikt…",
+    "profiles": "ASO-profiler",
+    "openCases": "Öppna ärenden",
+    "autoReplied": "Autosvarade",
+    "escalated": "Eskalerade",
+    "gaps": "Kunskapsluckor",
+    "privacyNote": "Administratörer kan inte se supportärendeinnehåll. Endast aggregat."
+  },
   "businessDna": {
     "title": "BDE-styrning",
     "subtitle": "Aggregerad Business DNA-adoption — inget innehåll.",

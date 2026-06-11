@@ -60,6 +60,8 @@ For **Decision Support Engine (DSE)**, read **[DECISION_SUPPORT_ENGINE.md](./DEC
 
 For **Business DNA Engine (BDE)**, read **[BUSINESS_DNA_ENGINE.md](./BUSINESS_DNA_ENGINE.md)**. Constants in `lib/business-dna-engine/`; Knowledge Approval Center at `/app/settings/business-dna`; APIs at `/api/business-dna/*` and `/api/support/email/*`. Tenant-specific products, templates, tone, escalation; email template priority chain; human review default; integrates Install Engine, Learning Engine, and Trust & Action.
 
+For **Autonomous Support Operations (ASO)**, read **[AUTONOMOUS_SUPPORT_OPERATIONS.md](./AUTONOMOUS_SUPPORT_OPERATIONS.md)**. Constants in `lib/autonomous-support-operations/`; Admin Control Center at `/app/settings/support-operations`; APIs at `/api/support-operations/*` and `/api/support/triage`. Autonomy levels 0–3, triage engine, confidence scoring, knowledge gaps; integrates Business DNA and Trust & Action; escalates uncertainty.
+
 ## Aipify architecture — mandatory before every feature
 
 Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.

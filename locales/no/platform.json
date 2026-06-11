@@ -475,6 +475,17 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratorer kan ikke se brukerens minneinnhold. Kun aggregater."
   },
+  "supportOperations": {
+    "title": "ASO-styring",
+    "subtitle": "Aggregerte autonome supportmetrikker — ikke saksinnhold.",
+    "loading": "Laster supportoversikt…",
+    "profiles": "ASO-profiler",
+    "openCases": "Åpne saker",
+    "autoReplied": "Autosvart",
+    "escalated": "Eskalert",
+    "gaps": "Kunnskapshull",
+    "privacyNote": "Administratorer kan ikke se supportsaksinnhold. Kun aggregater."
+  },
   "businessDna": {
     "title": "BDE-styring",
     "subtitle": "Aggregert Business DNA-adopsjon — ikke innhold.",

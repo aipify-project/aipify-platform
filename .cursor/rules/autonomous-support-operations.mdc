@@ -1,0 +1,22 @@
+---
+description: Autonomous Support Operations (ASO) — Phase 40
+alwaysApply: true
+---
+
+# Autonomous Support Operations
+
+See [AUTONOMOUS_SUPPORT_OPERATIONS.md](../../AUTONOMOUS_SUPPORT_OPERATIONS.md).
+
+## Rules
+
+1. Never hide uncertainty — escalate when confidence &lt;50% or risk is high/critical.
+2. Autonomy level 0–3 is tenant-controlled; default level 1 (assisted).
+3. Auto-reply only when: level ≥2, confidence ≥ threshold, low risk, category allows, BDE draft succeeds.
+4. Triage uses Business DNA (templates, knowledge, escalation) — never bypass BDE.
+5. Full audit via `support_audit_logs`; platform sees aggregates only.
+6. Route: `/app/settings/support-operations` (spec `/admin/support-operations`).
+7. i18n: `customerApp.supportOperations.*`, `platform.supportOperations.*` in en/no/sv/da.
+
+## Tables
+
+`aso_settings` · `support_categories` · `support_cases` · `support_audit_logs` · `support_knowledge_gaps` · `support_proactive_alerts`

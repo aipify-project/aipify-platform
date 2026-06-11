@@ -126,6 +126,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Business DNA Engine / BDE (Phase 39):** See [BUSINESS_DNA_ENGINE.md](./BUSINESS_DNA_ENGINE.md) — tenant Business DNA profiles, email templates, support knowledge, workflows, escalation rules, health score, email draft pipeline. `/app/settings/business-dna`. `lib/business-dna-engine/`, migration `20260612700000_business_dna_phase39.sql`.
 
+**Autonomous Support Operations / ASO (Phase 40):** See [AUTONOMOUS_SUPPORT_OPERATIONS.md](./AUTONOMOUS_SUPPORT_OPERATIONS.md) — autonomy levels, triage engine, confidence scoring, proactive support, knowledge gaps, case summarization. `/app/settings/support-operations`. `lib/autonomous-support-operations/`, migration `20260612800000_autonomous_support_phase40.sql`.
+
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
 
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.

@@ -1,0 +1,7 @@
+AIPIFY – PHASE 40 – AUTONOMOUS SUPPORT OPERATIONS (ASO)
+Implemented: migration 20260612800000_autonomous_support_phase40.sql
+Route: /app/settings/support-operations (maps spec /admin/support-operations)
+Lib: lib/autonomous-support-operations/
+APIs: /api/support-operations/*, /api/support/triage
+Platform: PlatformSupportOperationsPanel on /platform/trust
+Integrates: Business DNA triage, templates, confidence, escalation

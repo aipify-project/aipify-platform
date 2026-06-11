@@ -54,6 +54,7 @@ export default async function SettingsPage() {
           desktopConnect: t("customerApp.settings.links.desktopConnect"),
           learning: t("customerApp.settings.links.learning"),
           businessDna: t("customerApp.settings.links.businessDna"),
+          supportOperations: t("customerApp.settings.links.supportOperations"),
         },
       }}
     />

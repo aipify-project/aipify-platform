@@ -181,7 +181,8 @@
       "updates": "Update policies",
       "desktopConnect": "Connect desktop app",
       "learning": "Inlärning och integritet",
-      "businessDna": "Business DNA"
+      "businessDna": "Business DNA",
+      "supportOperations": "Supportoperationer"
     }
   },
   "learning": {
@@ -826,6 +827,53 @@
       "technical": "Teknisk",
       "casual": "Avslappnad",
       "supportive": "Stödjande"
+    }
+  },
+  "supportOperations": {
+    "title": "Supportoperationer",
+    "subtitle": "Autonom support med mänsklig tillsyn — repetitivt arbete automatiseras, känsliga ärenden eskaleras.",
+    "loading": "Laddar supportoperationer…",
+    "back": "Tillbaka till inställningar",
+    "save": "Spara inställningar",
+    "saved": "Sparat",
+    "privacy": "Full revisionstransparens. Eskalering bevarar mänskligt omdöme.",
+    "viewBusinessDna": "Business DNA",
+    "runProactive": "Kör proaktiv kontroll",
+    "youControl": "Du sätter autonominivå — Aipify döljer aldrig osäkerhet.",
+    "empty": "Inget väntar.",
+    "sections": {
+      "health": "Automatiseringsberedskap",
+      "autonomy": "Autonominivå",
+      "performance": "Prestandainsikter",
+      "cases": "Öppna ärenden",
+      "approval": "Godkännandekö",
+      "gaps": "Kunskapsluckor",
+      "alerts": "Proaktiva varningar",
+      "highRisk": "Högriskärenden",
+      "triage": "Testa triage",
+      "audit": "Revisionslogg",
+      "ethics": "Etiska skydd",
+      "settings": "Inställningar"
+    },
+    "settings": {
+      "proactive": "Proaktiv support",
+      "gapDetection": "Upptäckt av kunskapsluckor",
+      "selfHealing": "Självläkande support",
+      "collaboration": "Mänskligt samarbetsläge",
+      "autoThreshold": "Tröskel för autosvar",
+      "draftThreshold": "Tröskel för utkast"
+    },
+    "triage": {
+      "subject": "Ämne",
+      "body": "Kundmeddelande",
+      "run": "Kör triage",
+      "result": "Triageresultat"
+    },
+    "autonomyLevels": {
+      "0": "Endast människa",
+      "1": "Assisterad support",
+      "2": "Övervakad automatisering",
+      "3": "Betrodd drift"
     }
   }
 }

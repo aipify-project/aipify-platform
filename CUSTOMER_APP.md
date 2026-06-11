@@ -48,6 +48,7 @@ The first complete customer-facing product experience. Customers interact with *
 | `/app/assistant/attention` | TAG dashboard — focus protection, attention audit, energy & meeting insights |
 | `/app/assistant/decisions` | DSE dashboard — pending recommendations, business insights, risk indicators, decision history |
 | `/app/settings/business-dna` | BDE Knowledge Approval Center — profile, templates, knowledge, escalation, automation readiness |
+| `/app/settings/support-operations` | ASO Admin Control Center — autonomy levels, triage, performance, approval queue, knowledge gaps |
 
 Legacy: `/dashboard/*` remains during migration. `/app/command-center` remains for Command Center / desktop pairing.
 

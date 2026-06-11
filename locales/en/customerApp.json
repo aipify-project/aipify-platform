@@ -181,7 +181,8 @@
       "updates": "Update policies",
       "desktopConnect": "Connect desktop app",
       "learning": "Learning & privacy",
-      "businessDna": "Business DNA"
+      "businessDna": "Business DNA",
+      "supportOperations": "Support operations"
     }
   },
   "learning": {
@@ -810,6 +811,53 @@
       "technical": "Technical",
       "casual": "Casual",
       "supportive": "Supportive"
+    }
+  },
+  "supportOperations": {
+    "title": "Support operations",
+    "subtitle": "Autonomous support with human oversight — repetitive work automated, sensitive cases escalated.",
+    "loading": "Loading support operations…",
+    "back": "Back to settings",
+    "save": "Save settings",
+    "saved": "Saved",
+    "privacy": "Full audit transparency. Escalation preserves human judgment.",
+    "viewBusinessDna": "Business DNA",
+    "runProactive": "Run proactive check",
+    "youControl": "You set autonomy levels — Aipify never hides uncertainty.",
+    "empty": "Nothing pending.",
+    "sections": {
+      "health": "Automation readiness",
+      "autonomy": "Autonomy level",
+      "performance": "Performance insights",
+      "cases": "Open cases",
+      "approval": "Approval queue",
+      "gaps": "Knowledge gaps",
+      "alerts": "Proactive alerts",
+      "highRisk": "High-risk cases",
+      "triage": "Test triage",
+      "audit": "Audit log",
+      "ethics": "Ethical safeguards",
+      "settings": "Settings"
+    },
+    "settings": {
+      "proactive": "Proactive support",
+      "gapDetection": "Knowledge gap detection",
+      "selfHealing": "Self-healing support",
+      "collaboration": "Human collaboration mode",
+      "autoThreshold": "Auto-reply confidence threshold",
+      "draftThreshold": "Draft confidence threshold"
+    },
+    "triage": {
+      "subject": "Subject",
+      "body": "Customer message",
+      "run": "Run triage",
+      "result": "Triage result"
+    },
+    "autonomyLevels": {
+      "0": "Human only",
+      "1": "Assisted support",
+      "2": "Supervised automation",
+      "3": "Trusted operations"
     }
   },
   "nav": {

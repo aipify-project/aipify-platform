@@ -181,7 +181,8 @@
       "updates": "Update policies",
       "desktopConnect": "Connect desktop app",
       "learning": "Læring og privatliv",
-      "businessDna": "Business DNA"
+      "businessDna": "Business DNA",
+      "supportOperations": "Supportoperationer"
     }
   },
   "learning": {
@@ -826,6 +827,53 @@
       "technical": "Teknisk",
       "casual": "Uformel",
       "supportive": "Støttende"
+    }
+  },
+  "supportOperations": {
+    "title": "Supportoperationer",
+    "subtitle": "Autonom support med menneskeligt tilsyn — gentaget arbejde automatiseres, følsomme sager eskaleres.",
+    "loading": "Indlæser supportoperationer…",
+    "back": "Tilbage til indstillinger",
+    "save": "Gem indstillinger",
+    "saved": "Gemt",
+    "privacy": "Fuld revisionstransparens. Eskalering bevarer menneskelig dømmekraft.",
+    "viewBusinessDna": "Business DNA",
+    "runProactive": "Kør proaktiv kontrol",
+    "youControl": "Du sætter autonominiveau — Aipify skjuler aldrig usikkerhed.",
+    "empty": "Intet afventer.",
+    "sections": {
+      "health": "Automatiseringsberedskab",
+      "autonomy": "Autonominiveau",
+      "performance": "Performanceindsigt",
+      "cases": "Åbne sager",
+      "approval": "Godkendelseskø",
+      "gaps": "Videnshuller",
+      "alerts": "Proaktive advarsler",
+      "highRisk": "Højrisikosager",
+      "triage": "Test triage",
+      "audit": "Revisionslog",
+      "ethics": "Etiske sikringer",
+      "settings": "Indstillinger"
+    },
+    "settings": {
+      "proactive": "Proaktiv support",
+      "gapDetection": "Registrering af videnshuller",
+      "selfHealing": "Selvhelbredende support",
+      "collaboration": "Menneskelig samarbejdstilstand",
+      "autoThreshold": "Tærskel for autosvar",
+      "draftThreshold": "Tærskel for kladde"
+    },
+    "triage": {
+      "subject": "Emne",
+      "body": "Kundebesked",
+      "run": "Kør triage",
+      "result": "Triageresultat"
+    },
+    "autonomyLevels": {
+      "0": "Kun menneske",
+      "1": "Assisteret support",
+      "2": "Overvåget automatisering",
+      "3": "Betroet drift"
     }
   }
 }

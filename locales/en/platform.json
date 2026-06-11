@@ -630,6 +630,17 @@
     "byCategory": "By category",
     "privacyNote": "Administrators cannot access user memory content. Aggregates only."
   },
+  "supportOperations": {
+    "title": "ASO governance",
+    "subtitle": "Aggregate autonomous support metrics — no case content.",
+    "loading": "Loading support operations overview…",
+    "profiles": "ASO profiles",
+    "openCases": "Open cases",
+    "autoReplied": "Auto-replied",
+    "escalated": "Escalated",
+    "gaps": "Knowledge gaps",
+    "privacyNote": "Administrators cannot access support case content. Aggregates only."
+  },
   "businessDna": {
     "title": "BDE governance",
     "subtitle": "Aggregate Business DNA adoption — no tenant content.",

@@ -181,7 +181,8 @@
       "updates": "Update policies",
       "desktopConnect": "Connect desktop app",
       "learning": "Læring og personvern",
-      "businessDna": "Business DNA"
+      "businessDna": "Business DNA",
+      "supportOperations": "Supportoperasjoner"
     }
   },
   "learning": {
@@ -826,6 +827,53 @@
       "technical": "Teknisk",
       "casual": "Uformell",
       "supportive": "Støttende"
+    }
+  },
+  "supportOperations": {
+    "title": "Supportoperasjoner",
+    "subtitle": "Autonom support med menneskelig tilsyn — repeterende arbeid automatiseres, sensitive saker eskaleres.",
+    "loading": "Laster supportoperasjoner…",
+    "back": "Tilbake til innstillinger",
+    "save": "Lagre innstillinger",
+    "saved": "Lagret",
+    "privacy": "Full revisjonstransparens. Eskalering bevarer menneskelig skjønn.",
+    "viewBusinessDna": "Business DNA",
+    "runProactive": "Kjør proaktiv sjekk",
+    "youControl": "Du setter autonominivå — Aipify skjuler aldri usikkerhet.",
+    "empty": "Ingenting venter.",
+    "sections": {
+      "health": "Automatiseringsberedskap",
+      "autonomy": "Autonominivå",
+      "performance": "Ytelsesinnsikt",
+      "cases": "Åpne saker",
+      "approval": "Godkjenningskø",
+      "gaps": "Kunnskapshull",
+      "alerts": "Proaktive varsler",
+      "highRisk": "Høyrisikosaker",
+      "triage": "Test triage",
+      "audit": "Revisjonslogg",
+      "ethics": "Etiske sikringer",
+      "settings": "Innstillinger"
+    },
+    "settings": {
+      "proactive": "Proaktiv support",
+      "gapDetection": "Oppdagelse av kunnskapshull",
+      "selfHealing": "Selvhelbredende support",
+      "collaboration": "Menneskelig samarbeidsmodus",
+      "autoThreshold": "Terskel for autosvar",
+      "draftThreshold": "Terskel for utkast"
+    },
+    "triage": {
+      "subject": "Emne",
+      "body": "Kundemelding",
+      "run": "Kjør triage",
+      "result": "Triageresultat"
+    },
+    "autonomyLevels": {
+      "0": "Kun menneske",
+      "1": "Assistert support",
+      "2": "Overvåket automatisering",
+      "3": "Betrodd drift"
     }
   }
 }
