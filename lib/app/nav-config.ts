@@ -52,6 +52,7 @@ export type AppNavId =
   | "stakeholderCommunicationEngine"
   | "organizationalDecisionSupportEngine"
   | "strategicAlignmentEngine"
+  | "organizationalHealthEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -309,6 +310,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "strategicAlignmentEngine",
     href: "/app/strategic-alignment-engine",
     labelKey: "customerApp.nav.strategicAlignmentEngine",
+  },
+  {
+    id: "organizationalHealthEngine",
+    href: "/app/organizational-health-engine",
+    labelKey: "customerApp.nav.organizationalHealthEngine",
   },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
