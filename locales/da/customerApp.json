@@ -4160,12 +4160,21 @@
     "principles": "Principles"
   },
   "continuousImprovementEngine": {
-    "title": "Continuous Improvement",
-    "subtitle": "Human-guided improvement through feedback and outcomes.",
-    "loading": "Loading…",
+    "title": "Kontinuerlig forbedring",
+    "subtitle": "Menneskestyret forbedring gennem feedback, initiativer og målbare resultater.",
+    "loading": "Indlæser…",
     "engineTitle": "Continuous Improvement Engine",
-    "summary": "Summary",
-    "principles": "Principles"
+    "summary": "Resumé",
+    "principles": "Principper",
+    "initiatives": "Forbedringsinitiativer",
+    "trends": "Tendenser",
+    "recommendations": "Anbefalinger",
+    "memoryIntegration": "Organisationshukommelsesintegration",
+    "successMeasurements": "Succesmålinger",
+    "approveInitiative": "Godkend",
+    "startInitiative": "Start",
+    "reviewing": "Gennemgår…",
+    "actionFailed": "Handling mislykkedes"
   },
   "workflowOrchestrationEngine": {
     "title": "Workflow-orkestrering",

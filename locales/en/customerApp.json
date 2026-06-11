@@ -4594,11 +4594,20 @@
   },
   "continuousImprovementEngine": {
     "title": "Continuous Improvement",
-    "subtitle": "Human-guided improvement through feedback and outcomes.",
+    "subtitle": "Human-guided improvement through feedback, initiatives, and measurable outcomes.",
     "loading": "Loading…",
     "engineTitle": "Continuous Improvement Engine",
     "summary": "Summary",
-    "principles": "Principles"
+    "principles": "Principles",
+    "initiatives": "Improvement initiatives",
+    "trends": "Trends",
+    "recommendations": "Recommendations",
+    "memoryIntegration": "Organizational memory integration",
+    "successMeasurements": "Success measurements",
+    "approveInitiative": "Approve",
+    "startInitiative": "Start",
+    "reviewing": "Reviewing…",
+    "actionFailed": "Action failed"
   },
   "workflowOrchestrationEngine": {
     "title": "Workflow Orchestration",

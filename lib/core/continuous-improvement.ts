@@ -13,6 +13,12 @@ export async function getContinuousImprovementEngineDashboard(supabase: RpcClien
   return (data as Record<string, unknown>) ?? {};
 }
 
+export async function suggestImprovementInitiatives(supabase: RpcClient): Promise<Record<string, unknown>> {
+  const { data, error } = await supabase.rpc("suggest_improvement_initiatives");
+  if (error) throw new Error(error.message);
+  return (data as Record<string, unknown>) ?? {};
+}
+
 export function createContinuousImprovementEngineAuditEntry(actionType: string, metadata: Record<string, unknown> = {}) {
   return { action_type: actionType, metadata, recorded_server_side: true as const };
 }

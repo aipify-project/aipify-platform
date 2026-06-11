@@ -19,6 +19,15 @@ export default async function ContinuousImprovementEnginePage() {
           engineTitle: t(`${p}.engineTitle`),
           summary: t(`${p}.summary`),
           principles: t(`${p}.principles`),
+          initiatives: t(`${p}.initiatives`),
+          trends: t(`${p}.trends`),
+          recommendations: t(`${p}.recommendations`),
+          memoryIntegration: t(`${p}.memoryIntegration`),
+          successMeasurements: t(`${p}.successMeasurements`),
+          approveInitiative: t(`${p}.approveInitiative`),
+          startInitiative: t(`${p}.startInitiative`),
+          reviewing: t(`${p}.reviewing`),
+          actionFailed: t(`${p}.actionFailed`),
         }} />
     </div>
   );
