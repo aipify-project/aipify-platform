@@ -401,6 +401,7 @@
     "recommendations": "Anbefalinger",
     "skills": "Skills",
     "approvals": "Godkendelser",
+    "actionCenter": "Handlingcenter",
     "installations": "Installationer",
     "domains": "Domæner",
     "team": "Team",
@@ -977,6 +978,81 @@
         "packages": "Kommercielle pakker",
         "flags": "Funktionsflag"
       }
+    }
+  },
+  "actionCenter": {
+    "title": "Handlingcenter",
+    "subtitle": "Kontrolleret digital operatør — Aipify forbereder og udfører godkendte handlinger inden for sikre grænser.",
+    "loading": "Indlæser handlingcenter…",
+    "back": "Tilbage til hjem",
+    "empty": "Ingen ventende handlinger.",
+    "youControl": "Aipify observerer frit, foreslår intelligent og udfører kun inden for godkendte grænser.",
+    "privacy": "Hver handling logges. Tenant-isoleret. Ingen stille udførelse.",
+    "viewApprovals": "Skill-godkendelser",
+    "createDemo": "Opret demo-handling",
+    "upgrade": {
+      "title": "Opgrader for Handlingcenter",
+      "body": "Autonom udførelse er tilgængelig på Business- og Enterprise-planer.",
+      "cta": "Se licens og planer"
+    },
+    "sections": {
+      "overview": "Oversigt",
+      "pending": "Afventer godkendelse",
+      "executed": "Udførte handlinger",
+      "rules": "Udførelsesregler",
+      "audit": "Revisionslog",
+      "ethics": "Sikkerhedsprincipper",
+      "blocked": "Blokerede handlinger"
+    },
+    "counts": {
+      "pending": "Afventer",
+      "approved": "Godkendt",
+      "executed": "Udført",
+      "rejected": "Afvist",
+      "failed": "Fejlet",
+      "scheduled": "Planlagt",
+      "blocked": "Blokeret"
+    },
+    "actions": {
+      "approve": "Godkend",
+      "reject": "Afvis",
+      "execute": "Udfør",
+      "schedule": "Planlæg",
+      "cancel": "Annuller",
+      "view": "Vis",
+      "review": "Gennemgå"
+    },
+    "riskLevels": {
+      "low": "Lav risiko",
+      "medium": "Middel risiko",
+      "high": "Høj risiko",
+      "critical": "Kritisk"
+    },
+    "statusLabels": {
+      "draft": "Kladde",
+      "pending_approval": "Afventer godkendelse",
+      "approved": "Godkendt",
+      "rejected": "Afvist",
+      "scheduled": "Planlagt",
+      "executing": "Udfører",
+      "executed": "Udført",
+      "failed": "Fejlet",
+      "cancelled": "Annulleret",
+      "blocked": "Blokeret"
+    },
+    "executionLevels": {
+      "observer": "Observatør",
+      "assistant": "Assistent",
+      "operator": "Operatør",
+      "autonomous": "Autonom"
+    },
+    "detail": {
+      "back": "Tilbage til Handlingcenter",
+      "explanation": "Hvorfor Aipify foreslog dette",
+      "impact": "Estimeret effekt",
+      "preview": "Forhåndsvisning",
+      "safety": "Sikkerhedstjek",
+      "history": "Udførelseshistorik"
     }
   }
 }

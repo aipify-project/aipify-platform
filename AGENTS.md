@@ -66,6 +66,8 @@ For **Employee Knowledge Engine (EKE)**, read **[EMPLOYEE_KNOWLEDGE_ENGINE.md](.
 
 For **Commercial Packages & Modular Architecture**, read **[COMMERCIAL_PACKAGES.md](./COMMERCIAL_PACKAGES.md)**. Constants in `lib/commercial-packages/`; Billing at `/app/settings/billing`; Module Management at `/app/settings/modules`; APIs at `/api/commercial-packages/*`. Starter through Enterprise packages, tenant module licensing, usage tracking, feature flags, upgrade recommendations; integrates License Center and existing `plans`/`subscriptions`.
 
+For **Autonomous Execution Framework (AEF)**, read **[AUTONOMOUS_EXECUTION_FRAMEWORK.md](./AUTONOMOUS_EXECUTION_FRAMEWORK.md)**. Constants in `lib/aipify/execution/`; Action Center at `/app/action-center`; APIs at `/api/aipify/*`. Execution levels observer→autonomous; package-gated to Business and Enterprise; safety checker blocks forbidden actions; mock adapters for email, support, tasks, FAQ, notifications; full audit via `aipify_action_logs`.
+
 ## Aipify architecture — mandatory before every feature
 
 Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.

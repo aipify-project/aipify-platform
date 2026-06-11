@@ -7,6 +7,7 @@ import PlatformBusinessDnaPanel from "@/components/platform/PlatformBusinessDnaP
 import PlatformSupportOperationsPanel from "@/components/platform/PlatformSupportOperationsPanel";
 import PlatformEmployeeKnowledgePanel from "@/components/platform/PlatformEmployeeKnowledgePanel";
 import PlatformCommercialPackagesPanel from "@/components/platform/PlatformCommercialPackagesPanel";
+import PlatformAefPanel from "@/components/platform/PlatformAefPanel";
 import PlatformGoalsPanel from "@/components/platform/PlatformGoalsPanel";
 import PlatformIdentityPanel from "@/components/platform/PlatformIdentityPanel";
 import PlatformRelationshipPanel from "@/components/platform/PlatformRelationshipPanel";
@@ -90,6 +91,20 @@ export default async function PlatformTrustPage() {
           escalated: t("platform.supportOperations.escalated"),
           gaps: t("platform.supportOperations.gaps"),
           privacyNote: t("platform.supportOperations.privacyNote"),
+        }}
+      />
+      <PlatformAefPanel
+        labels={{
+          title: t("platform.aef.title"),
+          subtitle: t("platform.aef.subtitle"),
+          loading: t("platform.aef.loading"),
+          profiles: t("platform.aef.profiles"),
+          total: t("platform.aef.total"),
+          pending: t("platform.aef.pending"),
+          executed: t("platform.aef.executed"),
+          blocked: t("platform.aef.blocked"),
+          rules: t("platform.aef.rules"),
+          privacyNote: t("platform.aef.privacyNote"),
         }}
       />
       <PlatformBusinessDnaPanel

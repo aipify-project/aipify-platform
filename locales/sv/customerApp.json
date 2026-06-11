@@ -401,6 +401,7 @@
     "recommendations": "Rekommendationer",
     "skills": "Skills",
     "approvals": "Godkännanden",
+    "actionCenter": "Åtgärdscenter",
     "installations": "Installationer",
     "domains": "Domäner",
     "team": "Team",
@@ -977,6 +978,81 @@
         "packages": "Kommersiella paket",
         "flags": "Funktionsflaggor"
       }
+    }
+  },
+  "actionCenter": {
+    "title": "Åtgärdscenter",
+    "subtitle": "Kontrollerad digital operatör — Aipify förbereder och utför godkända åtgärder inom säkra gränser.",
+    "loading": "Laddar åtgärdscenter…",
+    "back": "Tillbaka till hem",
+    "empty": "Inga väntande åtgärder.",
+    "youControl": "Aipify observerar fritt, föreslår intelligent och utför endast inom godkända gränser.",
+    "privacy": "Varje åtgärd loggas. Tenant-isolerad. Ingen tyst körning.",
+    "viewApprovals": "Skill-godkännanden",
+    "createDemo": "Skapa demoåtgärd",
+    "upgrade": {
+      "title": "Uppgradera för Åtgärdscenter",
+      "body": "Autonom körning finns på Business- och Enterprise-planer.",
+      "cta": "Visa licens och planer"
+    },
+    "sections": {
+      "overview": "Översikt",
+      "pending": "Väntar på godkännande",
+      "executed": "Utförda åtgärder",
+      "rules": "Körningsregler",
+      "audit": "Revisionslogg",
+      "ethics": "Säkerhetsprinciper",
+      "blocked": "Blockerade åtgärder"
+    },
+    "counts": {
+      "pending": "Väntande",
+      "approved": "Godkänd",
+      "executed": "Utförd",
+      "rejected": "Avvisad",
+      "failed": "Misslyckad",
+      "scheduled": "Schemalagd",
+      "blocked": "Blockerad"
+    },
+    "actions": {
+      "approve": "Godkänn",
+      "reject": "Avvisa",
+      "execute": "Utför",
+      "schedule": "Schemalägg",
+      "cancel": "Avbryt",
+      "view": "Visa",
+      "review": "Granska"
+    },
+    "riskLevels": {
+      "low": "Låg risk",
+      "medium": "Medel risk",
+      "high": "Hög risk",
+      "critical": "Kritisk"
+    },
+    "statusLabels": {
+      "draft": "Utkast",
+      "pending_approval": "Väntar på godkännande",
+      "approved": "Godkänd",
+      "rejected": "Avvisad",
+      "scheduled": "Schemalagd",
+      "executing": "Kör",
+      "executed": "Utförd",
+      "failed": "Misslyckad",
+      "cancelled": "Avbruten",
+      "blocked": "Blockerad"
+    },
+    "executionLevels": {
+      "observer": "Observatör",
+      "assistant": "Assistent",
+      "operator": "Operatör",
+      "autonomous": "Autonom"
+    },
+    "detail": {
+      "back": "Tillbaka till Åtgärdscenter",
+      "explanation": "Varför Aipify föreslog detta",
+      "impact": "Uppskattad effekt",
+      "preview": "Förhandsgranskning",
+      "safety": "Säkerhetskontroll",
+      "history": "Körningshistorik"
     }
   }
 }

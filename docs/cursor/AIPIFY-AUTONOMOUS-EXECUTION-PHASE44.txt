@@ -1,0 +1,8 @@
+AIPIFY – PHASE 44 – AUTONOMOUS EXECUTION FRAMEWORK (AEF)
+Implemented: migration 20260613300000_autonomous_execution_phase44.sql
+Route: /app/action-center (maps spec /admin/action-center)
+Lib: lib/aipify/execution/ + adapters
+APIs: /api/aipify/actions/*, /api/aipify/execution-rules/*, /api/aipify/action-logs
+Platform: PlatformAefPanel on /platform/trust
+Package gate: business + enterprise only
+Integrates: Trust Action Engine (/app/approvals), License Center, Business DNA

@@ -630,6 +630,18 @@
     "byCategory": "By category",
     "privacyNote": "Administrators cannot access user memory content. Aggregates only."
   },
+  "aef": {
+    "title": "AEF governance",
+    "subtitle": "Aggregate autonomous execution metrics — no action payloads.",
+    "loading": "Loading execution overview…",
+    "profiles": "AEF profiles",
+    "total": "Total actions",
+    "pending": "Pending",
+    "executed": "Executed",
+    "blocked": "Blocked",
+    "rules": "Active rules",
+    "privacyNote": "Administrators cannot access action payloads. Aggregates only."
+  },
   "commercialPackages": {
     "title": "Commercial packages governance",
     "subtitle": "Aggregate package and module adoption — no tenant billing details.",

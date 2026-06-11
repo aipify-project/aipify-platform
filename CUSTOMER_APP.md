@@ -29,7 +29,8 @@ The first complete customer-facing product experience. Customers interact with *
 | `/app/presence` | Presence center — timeline, briefing, feed |
 | `/app/recommendations` | Recommendations center |
 | `/app/skills` | Skills center (SkillOS) |
-| `/app/approvals` | Approval center |
+| `/app/approvals` | Approval center (Trust & Action Engine) |
+| `/app/action-center` | AEF Action Center — pending, approved, executed, and blocked business actions |
 | `/app/installations` | Installations center |
 | `/app/domains` | Domains center |
 | `/app/team` | Team center |

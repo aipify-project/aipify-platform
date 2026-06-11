@@ -132,6 +132,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Commercial Packages & Modular Architecture (Phase 42):** See [COMMERCIAL_PACKAGES.md](./COMMERCIAL_PACKAGES.md) — subscription packages, tenant module licensing, billing dashboard, module management, usage tracking, feature flags, upgrade flows. `/app/settings/billing`, `/app/settings/modules`. `lib/commercial-packages/`, migration `20260613000000_commercial_packages_phase42.sql`.
 
+**Autonomous Execution Framework / AEF (Phase 44):** See [AUTONOMOUS_EXECUTION_FRAMEWORK.md](./AUTONOMOUS_EXECUTION_FRAMEWORK.md) — controlled business action execution, approval flow, safety checker, execution rules (Enterprise), mock adapters. `/app/action-center`. `lib/aipify/execution/`, migration `20260613300000_autonomous_execution_phase44.sql`.
+
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
 
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.

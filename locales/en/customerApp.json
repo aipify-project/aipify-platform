@@ -963,6 +963,81 @@
       }
     }
   },
+  "actionCenter": {
+    "title": "Action Center",
+    "subtitle": "Controlled digital operator — Aipify prepares and executes approved business actions inside safe limits.",
+    "loading": "Loading Action Center…",
+    "back": "Back to home",
+    "empty": "No pending actions.",
+    "youControl": "Aipify observes freely, suggests intelligently, and executes only inside approved limits.",
+    "privacy": "Every action is logged. Tenant-isolated. No silent execution.",
+    "viewApprovals": "Skill approvals",
+    "createDemo": "Create demo action",
+    "upgrade": {
+      "title": "Upgrade for Action Center",
+      "body": "Autonomous Execution is available on Business and Enterprise plans — controlled automation with admin oversight.",
+      "cta": "View license & plans"
+    },
+    "sections": {
+      "overview": "Overview",
+      "pending": "Pending & ready for approval",
+      "executed": "Executed actions",
+      "rules": "Execution rules",
+      "audit": "Audit log",
+      "ethics": "Safety principles",
+      "blocked": "Blocked actions"
+    },
+    "counts": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "executed": "Executed",
+      "rejected": "Rejected",
+      "failed": "Failed",
+      "scheduled": "Scheduled",
+      "blocked": "Blocked"
+    },
+    "actions": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "execute": "Execute",
+      "schedule": "Schedule",
+      "cancel": "Cancel",
+      "view": "View",
+      "review": "Review"
+    },
+    "riskLevels": {
+      "low": "Low risk",
+      "medium": "Medium risk",
+      "high": "High risk",
+      "critical": "Critical"
+    },
+    "statusLabels": {
+      "draft": "Draft",
+      "pending_approval": "Pending approval",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "scheduled": "Scheduled",
+      "executing": "Executing",
+      "executed": "Executed",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "blocked": "Blocked"
+    },
+    "executionLevels": {
+      "observer": "Observer",
+      "assistant": "Assistant",
+      "operator": "Operator",
+      "autonomous": "Autonomous"
+    },
+    "detail": {
+      "back": "Back to Action Center",
+      "explanation": "Why Aipify suggested this",
+      "impact": "Estimated impact",
+      "preview": "Preview",
+      "safety": "Safety check",
+      "history": "Execution history"
+    }
+  },
   "nav": {
     "overview": "Home",
     "executive": "Executive",
@@ -971,6 +1046,7 @@
     "recommendations": "Recommendations",
     "skills": "Skills",
     "approvals": "Approvals",
+    "actionCenter": "Action Center",
     "installations": "Installations",
     "domains": "Domains",
     "team": "Team",

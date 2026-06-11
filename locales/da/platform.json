@@ -436,6 +436,18 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratorer kan ikke se brugernes mindeindhold. Kun aggregater."
   },
+  "aef": {
+    "title": "AEF-styring",
+    "subtitle": "Aggregerede autonome udførelsesmetrikker — intet handlingsindhold.",
+    "loading": "Indlæser udførelsesoversigt…",
+    "profiles": "AEF-profiler",
+    "total": "Samlede handlinger",
+    "pending": "Afventer",
+    "executed": "Udført",
+    "blocked": "Blokeret",
+    "rules": "Aktive regler",
+    "privacyNote": "Administratorer kan ikke se handlingsindhold. Kun aggregater."
+  },
   "commercialPackages": {
     "title": "Kommercielle pakker",
     "subtitle": "Aggregeret pakke- og moduladoption — ingen faktureringsdetaljer.",

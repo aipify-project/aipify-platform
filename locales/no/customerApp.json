@@ -401,6 +401,7 @@
     "recommendations": "Anbefalinger",
     "skills": "Skills",
     "approvals": "Godkjenninger",
+    "actionCenter": "Handlingssenter",
     "installations": "Installasjoner",
     "domains": "Domener",
     "team": "Team",
@@ -977,6 +978,81 @@
         "packages": "Kommersielle pakker",
         "flags": "Funksjonsflagg"
       }
+    }
+  },
+  "actionCenter": {
+    "title": "Handlingssenter",
+    "subtitle": "Kontrollert digital operatør — Aipify forbereder og utfører godkjente handlinger innenfor trygge grenser.",
+    "loading": "Laster handlingssenter…",
+    "back": "Tilbake til hjem",
+    "empty": "Ingen ventende handlinger.",
+    "youControl": "Aipify observerer fritt, foreslår intelligent, og utfører kun innenfor godkjente grenser.",
+    "privacy": "Hver handling logges. Tenant-isolert. Ingen stille utførelse.",
+    "viewApprovals": "Skill-godkjenninger",
+    "createDemo": "Opprett demo-handling",
+    "upgrade": {
+      "title": "Oppgrader for Handlingssenter",
+      "body": "Autonom utførelse er tilgjengelig på Business- og Enterprise-planer.",
+      "cta": "Se lisens og planer"
+    },
+    "sections": {
+      "overview": "Oversikt",
+      "pending": "Venter på godkjenning",
+      "executed": "Utførte handlinger",
+      "rules": "Utførelsesregler",
+      "audit": "Revisjonslogg",
+      "ethics": "Sikkerhetsprinsipper",
+      "blocked": "Blokkerte handlinger"
+    },
+    "counts": {
+      "pending": "Venter",
+      "approved": "Godkjent",
+      "executed": "Utført",
+      "rejected": "Avvist",
+      "failed": "Feilet",
+      "scheduled": "Planlagt",
+      "blocked": "Blokkert"
+    },
+    "actions": {
+      "approve": "Godkjenn",
+      "reject": "Avvis",
+      "execute": "Utfør",
+      "schedule": "Planlegg",
+      "cancel": "Avbryt",
+      "view": "Vis",
+      "review": "Gjennomgå"
+    },
+    "riskLevels": {
+      "low": "Lav risiko",
+      "medium": "Middels risiko",
+      "high": "Høy risiko",
+      "critical": "Kritisk"
+    },
+    "statusLabels": {
+      "draft": "Utkast",
+      "pending_approval": "Venter på godkjenning",
+      "approved": "Godkjent",
+      "rejected": "Avvist",
+      "scheduled": "Planlagt",
+      "executing": "Utfører",
+      "executed": "Utført",
+      "failed": "Feilet",
+      "cancelled": "Avbrutt",
+      "blocked": "Blokkert"
+    },
+    "executionLevels": {
+      "observer": "Observatør",
+      "assistant": "Assistent",
+      "operator": "Operatør",
+      "autonomous": "Autonom"
+    },
+    "detail": {
+      "back": "Tilbake til Handlingssenter",
+      "explanation": "Hvorfor Aipify foreslo dette",
+      "impact": "Estimert effekt",
+      "preview": "Forhåndsvisning",
+      "safety": "Sikkerhetssjekk",
+      "history": "Utførelseshistorikk"
     }
   }
 }

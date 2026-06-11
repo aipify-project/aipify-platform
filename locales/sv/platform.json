@@ -436,6 +436,18 @@
     "byCategory": "Per kategori",
     "privacyNote": "Administratörer kan inte se användarnas minnesinnehåll. Endast aggregat."
   },
+  "aef": {
+    "title": "AEF-styrning",
+    "subtitle": "Aggregerade autonoma körningsmått — inget åtgärdsinnehåll.",
+    "loading": "Laddar körningsöversikt…",
+    "profiles": "AEF-profiler",
+    "total": "Totalt antal åtgärder",
+    "pending": "Väntande",
+    "executed": "Utförda",
+    "blocked": "Blockerade",
+    "rules": "Aktiva regler",
+    "privacyNote": "Administratörer kan inte se åtgärdsinnehåll. Endast aggregat."
+  },
   "commercialPackages": {
     "title": "Kommersiella paket",
     "subtitle": "Aggregerad paket- och moduladoption — inga faktureringsdetaljer.",

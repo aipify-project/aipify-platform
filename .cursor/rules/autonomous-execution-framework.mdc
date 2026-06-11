@@ -1,0 +1,22 @@
+---
+description: Autonomous Execution Framework (AEF) — Phase 44
+alwaysApply: true
+---
+
+# Autonomous Execution Framework
+
+See [AUTONOMOUS_EXECUTION_FRAMEWORK.md](../../AUTONOMOUS_EXECUTION_FRAMEWORK.md).
+
+## Rules
+
+1. Aipify is never an uncontrolled agent — observe, suggest, prepare, execute only inside approved limits.
+2. Package gate: `business` and `enterprise` only; Starter/Growth see upgrade notice.
+3. Forbidden action types are blocked by `validate_aipify_action_safety()` — no refunds, admin permission changes, etc.
+4. Autonomous level and execution rules require Enterprise plan.
+5. Every action lifecycle event is logged in `aipify_action_logs` — no silent execution.
+6. Route: `/app/action-center` (spec `/admin/action-center`); APIs at `/api/aipify/*`.
+7. i18n: `customerApp.actionCenter.*`, `platform.aef.*` in en/no/sv/da.
+
+## Tables
+
+`aef_settings` · `aipify_actions` · `aipify_action_approvals` · `aipify_action_logs` · `aipify_execution_rules` · `aipify_execution_permissions`
