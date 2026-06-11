@@ -266,6 +266,10 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Admin Assistant Engine (Phase A.6):** See [ADMIN_ASSISTANT_ENGINE_PHASE_A6.md](./ADMIN_ASSISTANT_ENGINE_PHASE_A6.md) — since-last-login, task center, recommendations, reminders, daily briefing, notifications, Knowledge Center integration. `/app/admin-assistant-engine`, `lib/aipify/admin-assistant-engine/`, migration `20260711000000_admin_assistant_engine_phase_a6.sql`. First operational AI module for administrators.
 
+**Support AI Engine (Phase A.7):** See [SUPPORT_AI_ENGINE_PHASE_A7.md](./SUPPORT_AI_ENGINE_PHASE_A7.md) — customer-facing AI support, response modes, escalation, KC integration, satisfaction feedback, metrics. `/app/support-ai-engine`, `lib/aipify/support-ai-engine/`, migration `20260712000000_support_ai_engine_phase_a7.sql`. Faster, scalable support with human oversight.
+
+**Integration Engine (Phase A.8):** See [INTEGRATION_ENGINE_PHASE_A8.md](./INTEGRATION_ENGINE_PHASE_A8.md) — secure tenant integrations, credential vault, sync engine, webhooks, Unonight pilot. `/app/integration-engine`, `lib/aipify/integration-engine/`, migration `20260713000000_integration_engine_phase_a8.sql`. Connect external systems with full auditability.
+
 **Quality Guardian / QG (Phases 58–59):** See [QG.md](./QG.md) — software and frontend health monitoring (Image Guardian, Performance Guardian, mobile checks) with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `/app/quality/images`, `lib/aipify/quality/`, migrations `20260614600000_quality_guardian_phase58.sql`, `20260614700000_frontend_experience_guardian_phase59.sql`.
 
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.

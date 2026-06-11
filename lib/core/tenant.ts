@@ -14,3 +14,5 @@ export * from "./ai-actions";
 export * from "./audit";
 export * from "./knowledge";
 export * from "./admin-assistant";
+export * from "./support-ai";
+export * from "./integrations";

@@ -9,6 +9,8 @@ export type AppNavId =
   | "auditAccountabilityEngine"
   | "knowledgeCenterEngine"
   | "adminAssistantEngine"
+  | "supportAiEngine"
+  | "integrationEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -89,6 +91,8 @@ export const APP_NAV: AppNavItem[] = [
   { id: "auditAccountabilityEngine", href: "/app/audit-accountability", labelKey: "customerApp.nav.auditAccountabilityEngine" },
   { id: "knowledgeCenterEngine", href: "/app/knowledge-center-engine", labelKey: "customerApp.nav.knowledgeCenterEngine" },
   { id: "adminAssistantEngine", href: "/app/admin-assistant-engine", labelKey: "customerApp.nav.adminAssistantEngine" },
+  { id: "supportAiEngine", href: "/app/support-ai-engine", labelKey: "customerApp.nav.supportAiEngine" },
+  { id: "integrationEngine", href: "/app/integration-engine", labelKey: "customerApp.nav.integrationEngine" },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -174,6 +178,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/audit-accountability")) return "auditAccountabilityEngine";
   if (pathname.startsWith("/app/knowledge-center-engine")) return "knowledgeCenterEngine";
   if (pathname.startsWith("/app/admin-assistant-engine")) return "adminAssistantEngine";
+  if (pathname.startsWith("/app/support-ai-engine")) return "supportAiEngine";
+  if (pathname.startsWith("/app/integration-engine")) return "integrationEngine";
   if (pathname.startsWith("/app/executive")) return "executive";
   if (
     pathname.startsWith("/app/presence") ||
