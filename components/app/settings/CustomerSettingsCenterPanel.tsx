@@ -37,6 +37,7 @@ type CustomerSettingsCenterPanelProps = {
       supportOperations: string;
       employeeKnowledge: string;
       workingStyle: string;
+      personalization: string;
       billing: string;
       modules: string;
       intelligence: string;
@@ -167,6 +168,9 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
         </Link>
         <Link href="/app/settings/working-style" className="block text-indigo-600 hover:underline">
           {labels.links.workingStyle}
+        </Link>
+        <Link href="/app/settings/personalization" className="block text-indigo-600 hover:underline">
+          {labels.links.personalization}
         </Link>
         <Link href="/app/settings/billing" className="block text-indigo-600 hover:underline">
           {labels.links.billing}

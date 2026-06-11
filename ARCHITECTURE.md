@@ -206,6 +206,10 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Humor, Warmth & Human Connection (Core Behavior Layer):** See [HUMOR_WARMTH_HUMAN_CONNECTION.md](./HUMOR_WARMTH_HUMAN_CONNECTION.md) — personality modes, context-aware humor, emoji guidelines, warm messaging framework. `/app/personality`, `lib/aipify/personality/`, `lib/aipify/communication/`, migration `20260617400000_humor_warmth_human_connection.sql`. Competent first. Human second. Funny third.
 
+**Personalization & Workstyle Intelligence (Phase 83):** See [PERSONALIZATION_WORKSTYLE_INTELLIGENCE_PHASE83.md](./PERSONALIZATION_WORKSTYLE_INTELLIGENCE_PHASE83.md) — workstyle profiles, preference suggestions with consent, org policies, desktop-adaptive greetings. `/app/settings/personalization`, `lib/aipify/workstyle/`, migration `20260617500000_personalization_workstyle_intelligence_phase83.sql`. Aipify adapts to people.
+
+**Evolution Governance & Change Management (Phase 84):** See [EVOLUTION_GOVERNANCE_CHANGE_MANAGEMENT_PHASE84.md](./EVOLUTION_GOVERNANCE_CHANGE_MANAGEMENT_PHASE84.md) — tenant evolution proposals, risk classification, approval matrix, rollback guidance, executive briefings. `/app/evolution`, `lib/aipify/evolution-governance/`, migration `20260617600000_evolution_governance_change_management_phase84.sql`. Aipify proposes evolution; humans approve evolution.
+
 **Quality Guardian / QG (Phases 58–59):** See [QG.md](./QG.md) — software and frontend health monitoring (Image Guardian, Performance Guardian, mobile checks) with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `/app/quality/images`, `lib/aipify/quality/`, migrations `20260614600000_quality_guardian_phase58.sql`, `20260614700000_frontend_experience_guardian_phase59.sql`.
 
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.

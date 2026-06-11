@@ -57,6 +57,7 @@ export default async function SettingsPage() {
           supportOperations: t("customerApp.settings.links.supportOperations"),
           employeeKnowledge: t("customerApp.settings.links.employeeKnowledge"),
           workingStyle: t("customerApp.settings.links.workingStyle"),
+          personalization: t("customerApp.settings.links.personalization"),
           billing: t("customerApp.settings.links.billing"),
           modules: t("customerApp.settings.links.modules"),
           intelligence: t("customerApp.settings.links.intelligence"),
