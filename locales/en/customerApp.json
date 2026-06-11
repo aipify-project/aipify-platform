@@ -1105,6 +1105,60 @@
     },
     "enterpriseEmpty": "No department templates configured yet. Enterprise administrators can set role-based defaults."
   },
+  "businessPulse": {
+    "title": "Business Pulse",
+    "subtitle": "Calm operational awareness — what is normal, what changed, and what may deserve attention.",
+    "executiveSubtitle": "Weekly pulse summary for leadership — key changes, risks, and opportunities.",
+    "loading": "Loading business pulse…",
+    "back": "Back to overview",
+    "backToPulse": "Back to Business Pulse",
+    "youControl": "Aipify observes patterns and explains calmly. You decide what action to take.",
+    "privacy": "Privacy",
+    "recalculate": "Refresh pulse",
+    "executiveReport": "Executive Pulse Report",
+    "viewExecutiveReport": "Executive report",
+    "emptyAlerts": "No active pulse alerts.",
+    "emptyHistory": "Pulse history will appear after daily snapshots.",
+    "upgrade": {
+      "title": "Business Pulse requires Business Pro or Enterprise",
+      "body": "Business Pulse is available in Aipify Business Pro and Enterprise because it analyzes operational activity across your connected systems.",
+      "cta": "View packages"
+    },
+    "sections": {
+      "today": "Today's pulse",
+      "changed": "What changed",
+      "attention": "Areas needing attention",
+      "normal": "Normal areas",
+      "focus": "Recommended focus",
+      "alerts": "Active alerts",
+      "history": "Pulse history",
+      "sources": "Connected data sources"
+    },
+    "statuses": {
+      "normal": "Normal",
+      "worth_reviewing": "Worth reviewing",
+      "needs_attention": "Needs attention",
+      "requires_action": "Requires action"
+    },
+    "areas": {
+      "support": "Support Pulse",
+      "sales": "Sales Pulse",
+      "operations": "Operations Pulse",
+      "team": "Team Pulse",
+      "customer": "Customer Pulse",
+      "automation": "Automation Pulse"
+    },
+    "severities": {
+      "info": "Info",
+      "review": "Review",
+      "attention": "Attention",
+      "action_required": "Action required"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss"
+    }
+  },
   "nav": {
     "overview": "Home",
     "executive": "Executive",
@@ -1114,6 +1168,7 @@
     "skills": "Skills",
     "approvals": "Approvals",
     "actionCenter": "Action Center",
+    "businessPulse": "Business Pulse",
     "installations": "Installations",
     "domains": "Domains",
     "team": "Team",

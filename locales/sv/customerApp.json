@@ -394,6 +394,60 @@
       "other": "Annat"
     }
   },
+  "businessPulse": {
+    "title": "Business Pulse",
+    "subtitle": "Lugn operativ medvetenhet — vad som är normalt, vad som har ändrats och vad som kan vara värt att granska.",
+    "executiveSubtitle": "Veckosammanfattning för ledningen — viktiga förändringar, risker och möjligheter.",
+    "loading": "Laddar business pulse…",
+    "back": "Tillbaka till översikt",
+    "backToPulse": "Tillbaka till Business Pulse",
+    "youControl": "Aipify observerar mönster och förklarar lugnt. Du bestämmer vilka åtgärder som tas.",
+    "privacy": "Integritet",
+    "recalculate": "Uppdatera pulse",
+    "executiveReport": "Executive Pulse-rapport",
+    "viewExecutiveReport": "Executive-rapport",
+    "emptyAlerts": "Inga aktiva pulse-varningar.",
+    "emptyHistory": "Pulse-historik visas efter dagliga ögonblicksbilder.",
+    "upgrade": {
+      "title": "Business Pulse kräver Business Pro eller Enterprise",
+      "body": "Business Pulse finns i Aipify Business Pro och Enterprise eftersom den analyserar operativ aktivitet över dina anslutna system.",
+      "cta": "Visa paket"
+    },
+    "sections": {
+      "today": "Dagens pulse",
+      "changed": "Vad som har ändrats",
+      "attention": "Områden som behöver uppmärksamhet",
+      "normal": "Normala områden",
+      "focus": "Rekommenderat fokus",
+      "alerts": "Aktiva varningar",
+      "history": "Pulse-historik",
+      "sources": "Anslutna datakällor"
+    },
+    "statuses": {
+      "normal": "Normal",
+      "worth_reviewing": "Värt att granska",
+      "needs_attention": "Behöver uppmärksamhet",
+      "requires_action": "Kräver åtgärd"
+    },
+    "areas": {
+      "support": "Support Pulse",
+      "sales": "Sales Pulse",
+      "operations": "Operations Pulse",
+      "team": "Team Pulse",
+      "customer": "Customer Pulse",
+      "automation": "Automation Pulse"
+    },
+    "severities": {
+      "info": "Info",
+      "review": "Granskning",
+      "attention": "Uppmärksamhet",
+      "action_required": "Åtgärd krävs"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa"
+    }
+  },
   "nav": {
     "overview": "Hem",
     "executive": "Executive",
@@ -403,6 +457,7 @@
     "skills": "Skills",
     "approvals": "Godkännanden",
     "actionCenter": "Åtgärdscenter",
+    "businessPulse": "Business Pulse",
     "installations": "Installationer",
     "domains": "Domäner",
     "team": "Team",

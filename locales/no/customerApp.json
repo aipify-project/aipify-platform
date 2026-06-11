@@ -394,6 +394,60 @@
       "other": "Annet"
     }
   },
+  "businessPulse": {
+    "title": "Business Pulse",
+    "subtitle": "Rolig operasjonell oversikt — hva som er normalt, hva som har endret seg, og hva som kan være verdt å se på.",
+    "executiveSubtitle": "Ukentlig pulsoversikt for ledelsen — viktige endringer, risikoer og muligheter.",
+    "loading": "Laster business pulse…",
+    "back": "Tilbake til oversikt",
+    "backToPulse": "Tilbake til Business Pulse",
+    "youControl": "Aipify observerer mønstre og forklarer rolig. Du bestemmer hvilke tiltak som tas.",
+    "privacy": "Personvern",
+    "recalculate": "Oppdater pulse",
+    "executiveReport": "Executive Pulse-rapport",
+    "viewExecutiveReport": "Executive-rapport",
+    "emptyAlerts": "Ingen aktive pulse-varsler.",
+    "emptyHistory": "Pulse-historikk vises etter daglige øyeblikksbilder.",
+    "upgrade": {
+      "title": "Business Pulse krever Business Pro eller Enterprise",
+      "body": "Business Pulse er tilgjengelig i Aipify Business Pro og Enterprise fordi den analyserer operasjonell aktivitet på tvers av tilkoblede systemer.",
+      "cta": "Se pakker"
+    },
+    "sections": {
+      "today": "Dagens pulse",
+      "changed": "Hva som har endret seg",
+      "attention": "Områder som trenger oppmerksomhet",
+      "normal": "Normale områder",
+      "focus": "Anbefalt fokus",
+      "alerts": "Aktive varsler",
+      "history": "Pulse-historikk",
+      "sources": "Tilkoblede datakilder"
+    },
+    "statuses": {
+      "normal": "Normal",
+      "worth_reviewing": "Verdt å se på",
+      "needs_attention": "Trenger oppmerksomhet",
+      "requires_action": "Krever handling"
+    },
+    "areas": {
+      "support": "Support Pulse",
+      "sales": "Sales Pulse",
+      "operations": "Operations Pulse",
+      "team": "Team Pulse",
+      "customer": "Customer Pulse",
+      "automation": "Automation Pulse"
+    },
+    "severities": {
+      "info": "Info",
+      "review": "Gjennomgang",
+      "attention": "Oppmerksomhet",
+      "action_required": "Handling kreves"
+    },
+    "actions": {
+      "acknowledge": "Bekreft",
+      "dismiss": "Avvis"
+    }
+  },
   "nav": {
     "overview": "Hjem",
     "executive": "Executive",
@@ -403,6 +457,7 @@
     "skills": "Skills",
     "approvals": "Godkjenninger",
     "actionCenter": "Handlingssenter",
+    "businessPulse": "Business Pulse",
     "installations": "Installasjoner",
     "domains": "Domener",
     "team": "Team",

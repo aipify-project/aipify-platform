@@ -10,6 +10,7 @@ export type AppNavId =
   | "skills"
   | "approvals"
   | "actionCenter"
+  | "businessPulse"
   | "installations"
   | "domains"
   | "team"
@@ -38,6 +39,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "skills", href: "/app/skills", labelKey: "customerApp.nav.skills" },
   { id: "approvals", href: "/app/approvals", labelKey: "customerApp.nav.approvals" },
   { id: "actionCenter", href: "/app/action-center", labelKey: "customerApp.nav.actionCenter" },
+  { id: "businessPulse", href: "/app/business-pulse", labelKey: "customerApp.nav.businessPulse" },
   { id: "installations", href: "/app/installations", labelKey: "customerApp.nav.installations" },
   { id: "domains", href: "/app/domains", labelKey: "customerApp.nav.domains" },
   { id: "team", href: "/app/team", labelKey: "customerApp.nav.team" },
@@ -69,6 +71,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/skills")) return "skills";
   if (pathname.startsWith("/app/approvals")) return "approvals";
   if (pathname.startsWith("/app/action-center")) return "actionCenter";
+  if (pathname.startsWith("/app/business-pulse") || pathname.startsWith("/dashboard/business-pulse")) {
+    return "businessPulse";
+  }
   if (
     pathname.startsWith("/app/install") ||
     pathname.startsWith("/app/installations") ||

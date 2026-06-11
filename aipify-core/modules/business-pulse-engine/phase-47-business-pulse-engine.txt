@@ -1,0 +1,18 @@
+AIPIFY – PHASE 47
+BUSINESS PULSE ENGINE (BPE)
+
+FILE LOCATION:
+/aipify-core/modules/business-pulse-engine/phase-47-business-pulse-engine.txt
+
+MODULE NAME: Business Pulse Engine
+SHORT NAME: BPE
+PHASE: Phase 47
+
+Implementation: lib/aipify/business-pulse/, /app/business-pulse, /api/aipify/business-pulse/*
+
+FINAL PRINCIPLE
+Aipify observes the business rhythm.
+Aipify notices meaningful change.
+Aipify explains calmly.
+Aipify recommends next steps.
+Humans remain in control.

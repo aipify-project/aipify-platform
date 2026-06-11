@@ -138,6 +138,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Adaptive Working Style Engine / AWSE (Phase 46):** See [AWSE.md](./AWSE.md) — transparent working profiles, detail levels, reminder preferences, optional adaptive learning. `/app/settings/working-style`, `lib/adaptive-working-style-engine/`.
 
+**Business Pulse Engine / BPE (Phase 47):** See [BPE.md](./BPE.md) — calm operational awareness, anomaly detection, daily briefings, pulse alerts. `/app/business-pulse`, `lib/aipify/business-pulse/`, migration `20260613500000_business_pulse_phase47.sql`.
+
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
 
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.
