@@ -190,7 +190,8 @@
       "intelligence": "Organizational Intelligence",
       "predictions": "Predictive Intelligence",
       "automation": "Adaptive Automation",
-      "governance": "Trust & Control"
+      "governance": "Trust & Control",
+      "knowledge": "Knowledge Center"
     },
     "intelligence": {
       "title": "Organizational Intelligence",
@@ -283,6 +284,30 @@
       "upgrade": {
         "title": "Trust & Control requires Business Pro or Enterprise",
         "body": "Trust, Approval & Control Center is available in Aipify Business Pro and Enterprise because it provides transparent governance as Aipify becomes more autonomous.",
+        "cta": "View packages"
+      }
+    },
+    "knowledge": {
+      "title": "Knowledge Center Settings",
+      "description": "Control how Aipify searches documentation, creates knowledge gaps, and answers questions about itself.",
+      "privacy": "Aipify must not invent answers about itself. Low-confidence questions create knowledge gaps for admin review.",
+      "loading": "Loading knowledge settings…",
+      "back": "Back to settings",
+      "save": "Save settings",
+      "saved": "Saved",
+      "centerLink": "→ Knowledge Center",
+      "fields": {
+        "enable": "Enable Knowledge Center",
+        "useGlobal": "Use global Aipify knowledge",
+        "allowTenant": "Allow tenant-specific articles",
+        "aiDrafts": "Allow AI-generated gap drafts",
+        "requireReview": "Require review before publish",
+        "minConfidence": "Minimum answer confidence",
+        "gapConfidence": "Create gap below confidence"
+      },
+      "upgrade": {
+        "title": "Knowledge Center requires Growth or above",
+        "body": "Knowledge Center is available in Aipify Growth and above because it lets Aipify support itself with trusted, editable documentation.",
         "cta": "View packages"
       }
     }
@@ -1743,6 +1768,53 @@
       "settings": "Governance settings"
     }
   },
+  "knowledge": {
+    "title": "Aipify Knowledge Center",
+    "subtitle": "Manage the knowledge Aipify uses to support itself and your customers.",
+    "loading": "Loading knowledge center…",
+    "back": "Back to overview",
+    "privacy": "Search Knowledge Center first. Answer only from known content. Create a Knowledge Gap when confidence is low.",
+    "upgrade": {
+      "title": "Knowledge Center requires Growth or above",
+      "body": "Knowledge Center is available in Aipify Growth and above because it lets Aipify support itself with trusted, editable documentation.",
+      "cta": "View packages"
+    },
+    "metrics": {
+      "published": "Published articles",
+      "drafts": "Draft articles",
+      "review": "Needs review",
+      "gaps": "Open gaps",
+      "searches": "Searches (24h)"
+    },
+    "articles": {
+      "title": "Articles",
+      "empty": "No articles yet. Import seed content or create from a knowledge gap."
+    },
+    "gaps": {
+      "title": "Knowledge Gaps",
+      "subtitle": "Questions Aipify could not answer confidently.",
+      "loading": "Loading knowledge gaps…",
+      "back": "Back to Knowledge Center",
+      "empty": "No open knowledge gaps."
+    },
+    "createArticle": "Create Article",
+    "publish": "Publish",
+    "importSeed": "Import seed content",
+    "createFromGap": "Create article from gap",
+    "dismiss": "Dismiss",
+    "noAnswer": "Aipify could not find a documented answer.",
+    "confidenceLow": "Low confidence answer",
+    "links": {
+      "gaps": "Knowledge gaps",
+      "settings": "Knowledge settings"
+    },
+    "statuses": {
+      "draft": "Draft",
+      "review": "Review",
+      "published": "Published",
+      "archived": "Archived"
+    }
+  },
   "nav": {
     "overview": "Home",
     "executive": "Executive",
@@ -1760,6 +1832,7 @@
     "predictiveIntelligence": "Predictions",
     "adaptiveAutomation": "Automations",
     "governance": "Governance",
+    "knowledgeCenter": "Knowledge",
     "installations": "Installations",
     "domains": "Domains",
     "team": "Team",

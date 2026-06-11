@@ -190,7 +190,8 @@
       "intelligence": "Organisatorisk intelligens",
       "predictions": "Prediktiv intelligens",
       "automation": "Adaptiv automatisering",
-      "governance": "Tillid og kontrol"
+      "governance": "Tillid og kontrol",
+      "knowledge": "Videnscenter"
     },
     "intelligence": {
       "title": "Organisatorisk intelligens",
@@ -283,6 +284,30 @@
       "upgrade": {
         "title": "Tillid og kontrol kræver Business Pro eller Enterprise",
         "body": "Tillid, godkendelse og kontrolcenter er tilgængelig i Aipify Business Pro og Enterprise, fordi det giver transparent styring, når Aipify bliver mere autonom.",
+        "cta": "Se pakker"
+      }
+    },
+    "knowledge": {
+      "title": "Indstillinger for videnscenter",
+      "description": "Styr hvordan Aipify søger dokumentation, opretter videnshuller og svarer på spørgsmål om sig selv.",
+      "privacy": "Aipify må ikke opfinde svar om sig selv. Spørgsmål med lav sikkerhed opretter videnshuller til admin-gennemgang.",
+      "loading": "Indlæser vidensindstillinger…",
+      "back": "Tilbage til indstillinger",
+      "save": "Gem indstillinger",
+      "saved": "Gemt",
+      "centerLink": "→ Videnscenter",
+      "fields": {
+        "enable": "Aktivér videnscenter",
+        "useGlobal": "Brug global Aipify-viden",
+        "allowTenant": "Tillad kundespecifikke artikler",
+        "aiDrafts": "Tillad AI-genererede udkast til huller",
+        "requireReview": "Kræv gennemgang før publicering",
+        "minConfidence": "Minimum svar-sikkerhed",
+        "gapConfidence": "Opret hul under sikkerhed"
+      },
+      "upgrade": {
+        "title": "Videnscenter kræver Growth eller højere",
+        "body": "Videnscenter er tilgængelig i Aipify Growth og højere, fordi det lader Aipify understøtte sig selv med pålidelig, redigerbar dokumentation.",
         "cta": "Se pakker"
       }
     }
@@ -1030,6 +1055,47 @@
       "settings": "Styringsindstillinger"
     }
   },
+  "knowledge": {
+    "title": "Aipify Videnscenter",
+    "subtitle": "Administrer den viden, Aipify bruger til at understøtte sig selv og dine kunder.",
+    "loading": "Indlæser videnscenter…",
+    "back": "Tilbage til oversigt",
+    "privacy": "Søg i videnscenteret først. Svar kun fra kendt indhold. Opret videnshuller, når sikkerheden er lav.",
+    "upgrade": {
+      "title": "Videnscenter kræver Growth eller højere",
+      "body": "Videnscenter er tilgængelig i Aipify Growth og højere, fordi det lader Aipify understøtte sig selv med pålidelig, redigerbar dokumentation.",
+      "cta": "Se pakker"
+    },
+    "metrics": {
+      "published": "Publicerede artikler",
+      "drafts": "Udkast",
+      "review": "Kræver gennemgang",
+      "gaps": "Åbne huller",
+      "searches": "Søgninger (24t)"
+    },
+    "articles": { "title": "Artikler", "empty": "Ingen artikler endnu." },
+    "gaps": {
+      "title": "Videnshuller",
+      "subtitle": "Spørgsmål Aipify ikke kunne svare sikkert på.",
+      "loading": "Indlæser videnshuller…",
+      "back": "Tilbage til videnscenter",
+      "empty": "Ingen åbne videnshuller."
+    },
+    "createArticle": "Opret artikel",
+    "publish": "Publicér",
+    "importSeed": "Importer seed-indhold",
+    "createFromGap": "Opret artikel fra hul",
+    "dismiss": "Afvis",
+    "noAnswer": "Aipify fandt ikke et dokumenteret svar.",
+    "confidenceLow": "Svar med lav sikkerhed",
+    "links": { "gaps": "Videnshuller", "settings": "Vidensindstillinger" },
+    "statuses": {
+      "draft": "Udkast",
+      "review": "Gennemgang",
+      "published": "Publiceret",
+      "archived": "Arkiveret"
+    }
+  },
   "nav": {
     "overview": "Hjem",
     "executive": "Executive",
@@ -1047,6 +1113,7 @@
     "predictiveIntelligence": "Forudsigelser",
     "adaptiveAutomation": "Automatiseringer",
     "governance": "Styring",
+    "knowledgeCenter": "Viden",
     "installations": "Installationer",
     "domains": "Domæner",
     "team": "Team",

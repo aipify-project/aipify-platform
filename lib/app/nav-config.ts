@@ -18,6 +18,7 @@ export type AppNavId =
   | "predictiveIntelligence"
   | "adaptiveAutomation"
   | "governance"
+  | "knowledgeCenter"
   | "installations"
   | "domains"
   | "team"
@@ -54,6 +55,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "predictiveIntelligence", href: "/app/predictions", labelKey: "customerApp.nav.predictiveIntelligence" },
   { id: "adaptiveAutomation", href: "/app/automations", labelKey: "customerApp.nav.adaptiveAutomation" },
   { id: "governance", href: "/app/governance", labelKey: "customerApp.nav.governance" },
+  { id: "knowledgeCenter", href: "/app/knowledge-center", labelKey: "customerApp.nav.knowledgeCenter" },
   { id: "installations", href: "/app/installations", labelKey: "customerApp.nav.installations" },
   { id: "domains", href: "/app/domains", labelKey: "customerApp.nav.domains" },
   { id: "team", href: "/app/team", labelKey: "customerApp.nav.team" },
@@ -112,6 +114,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/governance")) {
     return "governance";
+  }
+  if (pathname.startsWith("/app/knowledge-center")) {
+    return "knowledgeCenter";
   }
   if (
     pathname.startsWith("/app/install") ||

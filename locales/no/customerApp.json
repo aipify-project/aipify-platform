@@ -190,7 +190,8 @@
       "intelligence": "Organisatorisk intelligens",
       "predictions": "Prediktiv intelligens",
       "automation": "Adaptiv automatisering",
-      "governance": "Tillit og kontroll"
+      "governance": "Tillit og kontroll",
+      "knowledge": "Kunnskapssenter"
     },
     "intelligence": {
       "title": "Organisatorisk intelligens",
@@ -283,6 +284,30 @@
       "upgrade": {
         "title": "Tillit og kontroll krever Business Pro eller Enterprise",
         "body": "Tillit, godkjenning og kontrollsenter er tilgjengelig i Aipify Business Pro og Enterprise fordi det gir transparent styring når Aipify blir mer autonom.",
+        "cta": "Se pakker"
+      }
+    },
+    "knowledge": {
+      "title": "Innstillinger for kunnskapssenter",
+      "description": "Styr hvordan Aipify søker dokumentasjon, oppretter kunnskapshull og svarer på spørsmål om seg selv.",
+      "privacy": "Aipify må ikke finne opp svar om seg selv. Spørsmål med lav sikkerhet oppretter kunnskapshull for admin-gjennomgang.",
+      "loading": "Laster kunnskapsinnstillinger…",
+      "back": "Tilbake til innstillinger",
+      "save": "Lagre innstillinger",
+      "saved": "Lagret",
+      "centerLink": "→ Kunnskapssenter",
+      "fields": {
+        "enable": "Aktiver kunnskapssenter",
+        "useGlobal": "Bruk global Aipify-kunnskap",
+        "allowTenant": "Tillat kundespesifikke artikler",
+        "aiDrafts": "Tillat AI-genererte utkast for kunnskapshull",
+        "requireReview": "Krev gjennomgang før publisering",
+        "minConfidence": "Minimum svar-sikkerhet",
+        "gapConfidence": "Opprett hull under sikkerhet"
+      },
+      "upgrade": {
+        "title": "Kunnskapssenter krever Growth eller høyere",
+        "body": "Kunnskapssenter er tilgjengelig i Aipify Growth og høyere fordi det lar Aipify støtte seg selv med pålitelig, redigerbar dokumentasjon.",
         "cta": "Se pakker"
       }
     }
@@ -1030,6 +1055,47 @@
       "settings": "Styringsinnstillinger"
     }
   },
+  "knowledge": {
+    "title": "Aipify Kunnskapssenter",
+    "subtitle": "Administrer kunnskapen Aipify bruker for å støtte seg selv og kundene dine.",
+    "loading": "Laster kunnskapssenter…",
+    "back": "Tilbake til oversikt",
+    "privacy": "Søk i kunnskapssenteret først. Svar kun fra kjent innhold. Opprett kunnskapshull når sikkerheten er lav.",
+    "upgrade": {
+      "title": "Kunnskapssenter krever Growth eller høyere",
+      "body": "Kunnskapssenter er tilgjengelig i Aipify Growth og høyere fordi det lar Aipify støtte seg selv med pålitelig, redigerbar dokumentasjon.",
+      "cta": "Se pakker"
+    },
+    "metrics": {
+      "published": "Publiserte artikler",
+      "drafts": "Utkast",
+      "review": "Trenger gjennomgang",
+      "gaps": "Åpne hull",
+      "searches": "Søk (24t)"
+    },
+    "articles": { "title": "Artikler", "empty": "Ingen artikler ennå." },
+    "gaps": {
+      "title": "Kunnskapshull",
+      "subtitle": "Spørsmål Aipify ikke kunne svare sikkert på.",
+      "loading": "Laster kunnskapshull…",
+      "back": "Tilbake til kunnskapssenter",
+      "empty": "Ingen åpne kunnskapshull."
+    },
+    "createArticle": "Opprett artikkel",
+    "publish": "Publiser",
+    "importSeed": "Importer seed-innhold",
+    "createFromGap": "Opprett artikkel fra kunnskapshull",
+    "dismiss": "Avvis",
+    "noAnswer": "Aipify fant ikke et dokumentert svar.",
+    "confidenceLow": "Svar med lav sikkerhet",
+    "links": { "gaps": "Kunnskapshull", "settings": "Kunnskapsinnstillinger" },
+    "statuses": {
+      "draft": "Utkast",
+      "review": "Gjennomgang",
+      "published": "Publisert",
+      "archived": "Arkivert"
+    }
+  },
   "nav": {
     "overview": "Hjem",
     "executive": "Executive",
@@ -1047,6 +1113,7 @@
     "predictiveIntelligence": "Prediksjoner",
     "adaptiveAutomation": "Automatiseringer",
     "governance": "Styring",
+    "knowledgeCenter": "Kunnskap",
     "installations": "Installasjoner",
     "domains": "Domener",
     "team": "Team",

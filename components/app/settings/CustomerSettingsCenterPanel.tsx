@@ -43,6 +43,7 @@ type CustomerSettingsCenterPanelProps = {
       predictions: string;
       automation: string;
       governance: string;
+      knowledge: string;
     };
   };
 };
@@ -180,6 +181,9 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
         </Link>
         <Link href="/app/settings/governance" className="block text-indigo-600 hover:underline">
           {labels.links.governance}
+        </Link>
+        <Link href="/app/settings/knowledge" className="block text-indigo-600 hover:underline">
+          {labels.links.knowledge}
         </Link>
       </section>
     </div>

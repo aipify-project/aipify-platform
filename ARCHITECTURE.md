@@ -154,6 +154,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Trust, Approval & Control Center / TACC (Phase 54):** See [TACC.md](./TACC.md) — unified governance for approvals, permission matrix, emergency stop, audit timeline, trust scores, and explainability. Observe → Suggest → Request Approval → Execute → Explain → Audit → Learn. `/app/governance`, `/app/governance/audit`, `/app/governance/trust`, `/app/settings/governance`, `lib/aipify/governance/`, migration `20260614200000_trust_approval_control_center_phase54.sql`.
 
+**Knowledge Center / KC (Phase 55):** See [KC.md](./KC.md) — self-knowledge layer so Aipify answers questions about itself from published articles, creates knowledge gaps when confidence is low, and never hallucinates product answers. `/app/knowledge-center`, `content/knowledge/aipify/`, `lib/aipify/knowledge/`, migration `20260614300000_knowledge_center_phase55.sql`.
+
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
 
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.

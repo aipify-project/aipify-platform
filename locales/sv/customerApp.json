@@ -190,7 +190,8 @@
       "intelligence": "Organisatorisk intelligens",
       "predictions": "Prediktiv intelligens",
       "automation": "Adaptiv automatisering",
-      "governance": "Förtroende och kontroll"
+      "governance": "Förtroende och kontroll",
+      "knowledge": "Kunskapscenter"
     },
     "intelligence": {
       "title": "Organisatorisk intelligens",
@@ -283,6 +284,30 @@
       "upgrade": {
         "title": "Förtroende och kontroll kräver Business Pro eller Enterprise",
         "body": "Förtroende, godkännande och kontrollcenter finns i Aipify Business Pro och Enterprise eftersom det ger transparent styrning när Aipify blir mer autonom.",
+        "cta": "Visa paket"
+      }
+    },
+    "knowledge": {
+      "title": "Inställningar för kunskapscenter",
+      "description": "Styr hur Aipify söker dokumentation, skapar kunskapsluckor och svarar på frågor om sig själv.",
+      "privacy": "Aipify får inte hitta på svar om sig själv. Frågor med låg säkerhet skapar kunskapsluckor för admin-granskning.",
+      "loading": "Laddar kunskapsinställningar…",
+      "back": "Tillbaka till inställningar",
+      "save": "Spara inställningar",
+      "saved": "Sparat",
+      "centerLink": "→ Kunskapscenter",
+      "fields": {
+        "enable": "Aktivera kunskapscenter",
+        "useGlobal": "Använd global Aipify-kunskap",
+        "allowTenant": "Tillåt kundspecifika artiklar",
+        "aiDrafts": "Tillåt AI-genererade utkast för luckor",
+        "requireReview": "Kräv granskning före publicering",
+        "minConfidence": "Minsta svarssäkerhet",
+        "gapConfidence": "Skapa lucka under säkerhet"
+      },
+      "upgrade": {
+        "title": "Kunskapscenter kräver Growth eller högre",
+        "body": "Kunskapscenter finns i Aipify Growth och högre eftersom det låter Aipify stödja sig själv med pålitlig, redigerbar dokumentation.",
         "cta": "Visa paket"
       }
     }
@@ -1030,6 +1055,47 @@
       "settings": "Styrningsinställningar"
     }
   },
+  "knowledge": {
+    "title": "Aipify Kunskapscenter",
+    "subtitle": "Hantera kunskapen Aipify använder för att stödja sig själv och dina kunder.",
+    "loading": "Laddar kunskapscenter…",
+    "back": "Tillbaka till översikt",
+    "privacy": "Sök i kunskapscentret först. Svara endast från känd information. Skapa kunskapsluckor när säkerheten är låg.",
+    "upgrade": {
+      "title": "Kunskapscenter kräver Growth eller högre",
+      "body": "Kunskapscenter finns i Aipify Growth och högre eftersom det låter Aipify stödja sig själv med pålitlig, redigerbar dokumentation.",
+      "cta": "Visa paket"
+    },
+    "metrics": {
+      "published": "Publicerade artiklar",
+      "drafts": "Utkast",
+      "review": "Behöver granskning",
+      "gaps": "Öppna luckor",
+      "searches": "Sökningar (24h)"
+    },
+    "articles": { "title": "Artiklar", "empty": "Inga artiklar ännu." },
+    "gaps": {
+      "title": "Kunskapsluckor",
+      "subtitle": "Frågor Aipify inte kunde svara säkert på.",
+      "loading": "Laddar kunskapsluckor…",
+      "back": "Tillbaka till kunskapscenter",
+      "empty": "Inga öppna kunskapsluckor."
+    },
+    "createArticle": "Skapa artikel",
+    "publish": "Publicera",
+    "importSeed": "Importera seed-innehåll",
+    "createFromGap": "Skapa artikel från lucka",
+    "dismiss": "Avvisa",
+    "noAnswer": "Aipify hittade inget dokumenterat svar.",
+    "confidenceLow": "Svar med låg säkerhet",
+    "links": { "gaps": "Kunskapsluckor", "settings": "Kunskapsinställningar" },
+    "statuses": {
+      "draft": "Utkast",
+      "review": "Granskning",
+      "published": "Publicerad",
+      "archived": "Arkiverad"
+    }
+  },
   "nav": {
     "overview": "Hem",
     "executive": "Executive",
@@ -1047,6 +1113,7 @@
     "predictiveIntelligence": "Prediktioner",
     "adaptiveAutomation": "Automatiseringar",
     "governance": "Styrning",
+    "knowledgeCenter": "Kunskap",
     "installations": "Installationer",
     "domains": "Domäner",
     "team": "Team",

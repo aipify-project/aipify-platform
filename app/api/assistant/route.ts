@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { buildAssistantTurn } from "@/lib/assistant-memory/conversation";
+import { isAipifyKnowledgeQuestion, parseKnowledgeAnswer } from "@/lib/aipify/knowledge";
 import { adaptReplyToIdentity } from "@/lib/identity-engine/adapt";
 import { parseIdentityCenter } from "@/lib/identity-engine/parse";
 import { createClient } from "@/lib/supabase/server";
@@ -162,6 +163,63 @@ export async function POST(request: Request) {
     const message = String(body.message ?? "").trim();
     if (!message) {
       return NextResponse.json({ error: "Message required" }, { status: 400 });
+    }
+
+    if (isAipifyKnowledgeQuestion(message)) {
+      const { data: knowledgeAnswer, error: knowledgeError } = await supabase.rpc(
+        "retrieve_knowledge_answer",
+        {
+          p_query: message,
+          p_language: "en",
+          p_visibility_context: "authenticated",
+          p_source_type: "admin_chat",
+        }
+      );
+
+      if (!knowledgeError && knowledgeAnswer) {
+        const parsed = parseKnowledgeAnswer(knowledgeAnswer);
+        if (parsed.answered && parsed.answer) {
+          const { data: identityCenter } = await supabase.rpc("get_customer_identity_center");
+          const identity = parseIdentityCenter(identityCenter);
+          const reply = identity.profile
+            ? adaptReplyToIdentity(parsed.answer, identity.profile, identity.user_name)
+            : parsed.answer;
+
+          return NextResponse.json({
+            reply,
+            intent: "general",
+            confidence_level: parsed.confidence_score >= 0.65 ? "high" : "medium",
+            knowledge_center: true,
+            articles_used: parsed.articles_used,
+            created_gap_id: parsed.created_gap_id,
+          });
+        }
+
+        if (parsed.fallback_message) {
+          const { data: identityCenter } = await supabase.rpc("get_customer_identity_center");
+          const identity = parseIdentityCenter(identityCenter);
+          const reply = identity.profile
+            ? adaptReplyToIdentity(
+                parsed.answer
+                  ? `${parsed.answer}\n\n${parsed.fallback_message}`
+                  : parsed.fallback_message,
+                identity.profile,
+                identity.user_name
+              )
+            : parsed.answer
+              ? `${parsed.answer}\n\n${parsed.fallback_message}`
+              : parsed.fallback_message;
+
+          return NextResponse.json({
+            reply,
+            intent: "general",
+            confidence_level: "low",
+            knowledge_center: true,
+            created_gap_id: parsed.created_gap_id,
+            should_escalate: parsed.should_escalate,
+          });
+        }
+      }
     }
 
     const turn = buildAssistantTurn(message, askBeforeRemembering);
