@@ -59,6 +59,8 @@ export default async function SettingsPage() {
           workingStyle: t("customerApp.settings.links.workingStyle"),
           billing: t("customerApp.settings.links.billing"),
           modules: t("customerApp.settings.links.modules"),
+          intelligence: t("customerApp.settings.links.intelligence"),
+          predictions: t("customerApp.settings.links.predictions"),
         },
       }}
     />

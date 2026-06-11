@@ -1,0 +1,16 @@
+Phase 52 — Predictive Intelligence Engine (PIE)
+
+Reusable multi-tenant prediction layer: future bottlenecks, churn risk, workload
+risk, growth opportunities, follow-up risk, and SLA risk.
+
+V1 uses historical trends, threshold rules, workflow analysis, and anomaly
+detection — no advanced ML.
+
+Safe-by-default: tenant isolation, no employee surveillance, workflow/process
+focus, AI actions require approval, full audit trail.
+
+Implementation:
+- Tables: aipify_predictive_alerts, aipify_prediction_models, aipify_prediction_settings
+- Worker jobs: detect_future_bottlenecks, detect_customer_inactivity,
+  detect_workload_risk, detect_sla_risk, detect_growth_opportunities
+- UI: /app/predictions, /app/settings/predictions

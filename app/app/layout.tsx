@@ -58,6 +58,8 @@ export default async function AppLayout({
             strategicGoals: t("customerApp.nav.strategicGoals"),
             frictionIntelligence: t("customerApp.nav.frictionIntelligence"),
             organizationalMemory: t("customerApp.nav.organizationalMemory"),
+            organizationalIntelligence: t("customerApp.nav.organizationalIntelligence"),
+            predictiveIntelligence: t("customerApp.nav.predictiveIntelligence"),
             installations: t("customerApp.nav.installations"),
             domains: t("customerApp.nav.domains"),
             team: t("customerApp.nav.team"),

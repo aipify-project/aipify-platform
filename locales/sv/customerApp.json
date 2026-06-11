@@ -186,7 +186,57 @@
       "employeeKnowledge": "Medarbetarkunskap",
       "workingStyle": "Arbetssätt",
       "billing": "Fakturering och paket",
-      "modules": "Modulhantering"
+      "modules": "Modulhantering",
+      "intelligence": "Organisatorisk intelligens",
+      "predictions": "Prediktiv intelligens"
+    },
+    "intelligence": {
+      "title": "Organisatorisk intelligens",
+      "description": "Aipify kan analysera godkänd affärsaktivitet för att upptäcka flaskhalsar, glömda uppföljningar, återkommande uppgifter och operativa risker.",
+      "privacy": "Aipify analyserar endast datakällor du aktiverar. Känsliga åtgärder kräver godkännande och loggas.",
+      "loading": "Laddar intelligensinställningar…",
+      "back": "Tillbaka till inställningar",
+      "save": "Spara inställningar",
+      "saved": "Sparat",
+      "enable": "Aktivera organisatorisk intelligens",
+      "email": "Tillåt e-postanalys",
+      "calendar": "Tillåt kalenderanalys",
+      "support": "Tillåt supportanalys",
+      "customerMemory": "Tillåt kundrelationsminne",
+      "staffWorkload": "Tillåt arbetsbelastningsinsikter",
+      "crossDepartment": "Tillåt tväravdelningsinsikter",
+      "approval": "Kräv admin-godkännande före AI-åtgärder",
+      "retention": "Datalagring (dagar)",
+      "upgrade": {
+        "title": "Organisatorisk intelligens kräver Business Pro eller Enterprise",
+        "body": "Organisatorisk intelligens finns i Aipify Business Pro och Enterprise eftersom den ger operativa insikter över din anslutna affärsaktivitet.",
+        "cta": "Visa paket"
+      }
+    },
+    "predictions": {
+      "title": "Prediktiv intelligens",
+      "description": "Aipify kan förutse sannolika flaskhalsar, SLA-risker, uppföljningsgap och tillväxtmöjligheter från godkända arbetsflödestrender.",
+      "privacy": "Prediktioner använder arbetsflödes- och processdata du aktiverar. Ingen medarbetarövervakning. Alla varningsåtgärder loggas.",
+      "loading": "Laddar prediktionsinställningar…",
+      "back": "Tillbaka till inställningar",
+      "save": "Spara inställningar",
+      "saved": "Sparat",
+      "enable": "Aktivera prediktiv intelligens",
+      "bottlenecks": "Förutse framtida flaskhalsar",
+      "churn": "Förutse churn och inaktivitetsrisk",
+      "workload": "Förutse arbetsbelastningsrisk",
+      "growth": "Upptäck tillväxtmöjligheter",
+      "followup": "Förutse uppföljningsrisk",
+      "sla": "Förutse SLA-brytningsrisk",
+      "approval": "Kräv admin-godkännande före AI-åtgärder",
+      "horizon": "Prediktionshorisont (dagar)",
+      "modelsTitle": "Prediktionsmodeller",
+      "predictionsLink": "→ Prediktionspanel",
+      "upgrade": {
+        "title": "Prediktiv intelligens kräver Business Pro eller Enterprise",
+        "body": "Prediktiv intelligens finns i Aipify Business Pro och Enterprise eftersom den identifierar sannolika framtida risker och möjligheter från godkänd affärsaktivitet.",
+        "cta": "Visa paket"
+      }
     }
   },
   "learning": {
@@ -619,6 +669,140 @@
       "visibility": "Synlighet"
     }
   },
+  "insights": {
+    "title": "Aipify Insikter",
+    "subtitle": "Förstå vad som händer i verksamheten och var uppmärksamhet behövs.",
+    "loading": "Laddar insikter…",
+    "back": "Tillbaka till översikt",
+    "privacy": "Aipify analyserar endast datakällor du aktiverar. Känsliga åtgärder kräver godkännande och loggas.",
+    "refresh": "Kör analys",
+    "healthScore": "Affärshälsopoäng",
+    "strongestArea": "Starkaste område",
+    "weakestArea": "Behöver uppmärksamhet",
+    "openRisks": "Öppna risker",
+    "recommendedActions": "Rekommenderade åtgärder",
+    "noInsights": "Inga viktiga problem upptäckta just nu.",
+    "notEnabled": {
+      "title": "Organisatorisk intelligens är inte aktiverad",
+      "body": "Aktivera organisatorisk intelligens i inställningarna för att börja få operativa insikter.",
+      "cta": "Öppna intelligensinställningar"
+    },
+    "upgrade": {
+      "title": "Aipify Insikter kräver Business Pro eller Enterprise",
+      "body": "Organisatorisk intelligens finns i Aipify Business Pro och Enterprise eftersom den ger operativa insikter över din anslutna affärsaktivitet.",
+      "cta": "Visa paket"
+    },
+    "healthBands": {
+      "healthy": "Frisk",
+      "good": "Bra, men följ vissa områden",
+      "needs_attention": "Behöver uppmärksamhet",
+      "risky": "Riskabel",
+      "critical": "Kritisk"
+    },
+    "severities": {
+      "info": "Info",
+      "low": "Låg",
+      "medium": "Medel",
+      "high": "Hög",
+      "critical": "Kritisk"
+    },
+    "types": {
+      "bottleneck": "Flaskhals",
+      "forgotten_task": "Glömd uppgift",
+      "customer_followup": "Kunduppföljning",
+      "risk": "Risk",
+      "opportunity": "Möjlighet",
+      "automation_suggestion": "Automatiseringsmöjlighet",
+      "workload": "Arbetsbelastning",
+      "trend": "Trend",
+      "health_score": "Hälsopoäng",
+      "relationship_memory": "Relationsminne"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "resolve": "Lös",
+      "dismiss": "Avvisa",
+      "snooze": "Snooza"
+    },
+    "links": {
+      "organization": "Organisationskarta",
+      "workflows": "Arbetsflöden",
+      "settings": "Intelligensinställningar"
+    }
+  },
+  "organization": {
+    "title": "Organisation",
+    "subtitle": "Avdelningar, team och ansvarskarta för operativ intelligens.",
+    "loading": "Laddar organisation…",
+    "back": "Tillbaka till insikter",
+    "units": "Avdelningar och team",
+    "responsibilities": "Ansvarskarta",
+    "emptyUnits": "Inga organisationsenheter ännu. Lägg till din första avdelning eller team.",
+    "emptyResponsibilities": "Inga ansvariga definierade ännu.",
+    "addUnit": "Lägg till enhet",
+    "addResponsibility": "Lägg till ansvar",
+    "save": "Spara",
+    "insightsLink": "← Tillbaka till Aipify Insikter"
+  },
+  "workflows": {
+    "title": "Arbetsflöden",
+    "subtitle": "Arbetsflödesdefinitioner som Aipify använder för att upptäcka flaskhalsar och uppföljningar.",
+    "loading": "Laddar arbetsflöden…",
+    "back": "Tillbaka till insikter",
+    "empty": "Inga arbetsflödesdefinitioner ännu. Registrera arbetsflöden som verksamheten förlitar sig på.",
+    "addWorkflow": "Lägg till arbetsflöde",
+    "name": "Arbetsflödesnamn",
+    "key": "Arbetsflödesnyckel (unik identifierare)",
+    "category": "Kategori",
+    "responseTime": "Förväntad svarstid",
+    "openItems": "Öppna poster",
+    "insightsLink": "← Tillbaka till Aipify Insikter"
+  },
+  "predictions": {
+    "title": "Prediktioner",
+    "subtitle": "Se vad som sannolikt händer härnäst — och agera innan problem utvecklas.",
+    "loading": "Laddar prediktioner…",
+    "back": "Tillbaka till översikt",
+    "privacy": "Prediktioner baseras på arbetsflödestrender och trösklar du aktiverar. Alla varningsåtgärder loggas.",
+    "refresh": "Kör prediktionsskanning",
+    "openAlerts": "Öppna varningar",
+    "upcomingWeek": "Förfaller denna vecka",
+    "horizon": "Prediktionshorisont",
+    "noAlerts": "Inga prediktiva varningar just nu. Aipify visar risker när mönster uppstår.",
+    "predictedDate": "Förväntas senast",
+    "settingsLink": "Prediktionsinställningar",
+    "notEnabled": {
+      "title": "Prediktiv intelligens är inte aktiverad",
+      "body": "Aktivera prediktiv intelligens i inställningarna för att få framåtblickande varningar.",
+      "cta": "Öppna prediktionsinställningar"
+    },
+    "upgrade": {
+      "title": "Prediktioner kräver Business Pro eller Enterprise",
+      "body": "Prediktiv intelligens finns i Aipify Business Pro och Enterprise eftersom den identifierar sannolika framtida risker och möjligheter från godkänd affärsaktivitet.",
+      "cta": "Visa paket"
+    },
+    "severities": {
+      "info": "Info",
+      "low": "Låg",
+      "medium": "Medel",
+      "high": "Hög",
+      "critical": "Kritisk"
+    },
+    "types": {
+      "future_bottleneck": "Framtida flaskhals",
+      "churn_risk": "Churn-risk",
+      "workload_risk": "Arbetsbelastningsrisk",
+      "growth_opportunity": "Tillväxtmöjlighet",
+      "followup_risk": "Uppföljningsrisk",
+      "sla_risk": "SLA-risk"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "resolve": "Lös",
+      "dismiss": "Avvisa",
+      "snooze": "Snooza"
+    }
+  },
   "nav": {
     "overview": "Hem",
     "executive": "Executive",
@@ -632,6 +816,8 @@
     "strategicGoals": "Strategiska mål",
     "frictionIntelligence": "Friction Intelligence",
     "organizationalMemory": "Organisationsminne",
+    "organizationalIntelligence": "Aipify Insikter",
+    "predictiveIntelligence": "Prediktioner",
     "installations": "Installationer",
     "domains": "Domäner",
     "team": "Team",

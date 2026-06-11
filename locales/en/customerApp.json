@@ -186,7 +186,57 @@
       "employeeKnowledge": "Employee knowledge",
       "workingStyle": "Working style",
       "billing": "Billing & packages",
-      "modules": "Module management"
+      "modules": "Module management",
+      "intelligence": "Organizational Intelligence",
+      "predictions": "Predictive Intelligence"
+    },
+    "intelligence": {
+      "title": "Organizational Intelligence",
+      "description": "Aipify can analyze approved business activity to detect bottlenecks, forgotten follow-ups, recurring tasks, and operational risks.",
+      "privacy": "Aipify only analyzes data sources you enable. Sensitive actions require approval and are logged.",
+      "loading": "Loading intelligence settings…",
+      "back": "Back to settings",
+      "save": "Save settings",
+      "saved": "Saved",
+      "enable": "Enable Organizational Intelligence",
+      "email": "Allow email analysis",
+      "calendar": "Allow calendar analysis",
+      "support": "Allow support analysis",
+      "customerMemory": "Allow customer relationship memory",
+      "staffWorkload": "Allow staff workload insights",
+      "crossDepartment": "Allow cross-department insights",
+      "approval": "Require admin approval before AI actions",
+      "retention": "Data retention (days)",
+      "upgrade": {
+        "title": "Organizational Intelligence requires Business Pro or Enterprise",
+        "body": "Organizational Intelligence is available in Aipify Business Pro and Enterprise because it provides operational insights across your connected business activity.",
+        "cta": "View packages"
+      }
+    },
+    "predictions": {
+      "title": "Predictive Intelligence",
+      "description": "Aipify can forecast likely bottlenecks, SLA risks, follow-up gaps, and growth opportunities from approved workflow trends.",
+      "privacy": "Predictions use workflow and process data you enable. No employee surveillance. All alert actions are logged.",
+      "loading": "Loading prediction settings…",
+      "back": "Back to settings",
+      "save": "Save settings",
+      "saved": "Saved",
+      "enable": "Enable Predictive Intelligence",
+      "bottlenecks": "Predict future bottlenecks",
+      "churn": "Predict churn and inactivity risk",
+      "workload": "Predict workload concentration risk",
+      "growth": "Detect growth opportunities",
+      "followup": "Predict follow-up risk",
+      "sla": "Predict SLA breach risk",
+      "approval": "Require admin approval before AI actions",
+      "horizon": "Prediction horizon (days)",
+      "modelsTitle": "Prediction models",
+      "predictionsLink": "→ Predictions dashboard",
+      "upgrade": {
+        "title": "Predictive Intelligence requires Business Pro or Enterprise",
+        "body": "Predictive Intelligence is available in Aipify Business Pro and Enterprise because it identifies likely future risks and opportunities from approved business activity.",
+        "cta": "View packages"
+      }
     }
   },
   "learning": {
@@ -1330,6 +1380,140 @@
       "visibility": "Visibility"
     }
   },
+  "insights": {
+    "title": "Aipify Insights",
+    "subtitle": "Understand what is happening across your business and where attention is needed.",
+    "loading": "Loading insights…",
+    "back": "Back to overview",
+    "privacy": "Aipify only analyzes data sources you enable. Sensitive actions require approval and are logged.",
+    "refresh": "Run analysis",
+    "healthScore": "Business health score",
+    "strongestArea": "Strongest area",
+    "weakestArea": "Needs attention",
+    "openRisks": "Open risks",
+    "recommendedActions": "Recommended actions",
+    "noInsights": "No important issues detected right now.",
+    "notEnabled": {
+      "title": "Organizational Intelligence is not enabled",
+      "body": "Enable Organizational Intelligence in settings to begin operational insights for your business.",
+      "cta": "Open intelligence settings"
+    },
+    "upgrade": {
+      "title": "Aipify Insights requires Business Pro or Enterprise",
+      "body": "Organizational Intelligence is available in Aipify Business Pro and Enterprise because it provides operational insights across your connected business activity.",
+      "cta": "View packages"
+    },
+    "healthBands": {
+      "healthy": "Healthy",
+      "good": "Good, but watch some areas",
+      "needs_attention": "Needs attention",
+      "risky": "Risky",
+      "critical": "Critical"
+    },
+    "severities": {
+      "info": "Info",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "types": {
+      "bottleneck": "Bottleneck",
+      "forgotten_task": "Forgotten task",
+      "customer_followup": "Customer follow-up",
+      "risk": "Risk",
+      "opportunity": "Opportunity",
+      "automation_suggestion": "Automation opportunity",
+      "workload": "Workload",
+      "trend": "Trend",
+      "health_score": "Health score",
+      "relationship_memory": "Relationship memory"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "resolve": "Resolve",
+      "dismiss": "Dismiss",
+      "snooze": "Snooze"
+    },
+    "links": {
+      "organization": "Organization chart",
+      "workflows": "Workflows",
+      "settings": "Intelligence settings"
+    }
+  },
+  "organization": {
+    "title": "Organization",
+    "subtitle": "Departments, teams, and responsibility mapping for operational intelligence.",
+    "loading": "Loading organization…",
+    "back": "Back to insights",
+    "units": "Departments & teams",
+    "responsibilities": "Responsibility map",
+    "emptyUnits": "No organization units yet. Add your first department or team.",
+    "emptyResponsibilities": "No responsibility owners defined yet.",
+    "addUnit": "Add unit",
+    "addResponsibility": "Add responsibility",
+    "save": "Save",
+    "insightsLink": "← Back to Aipify Insights"
+  },
+  "workflows": {
+    "title": "Workflows",
+    "subtitle": "Workflow definitions Aipify uses to detect bottlenecks and follow-ups.",
+    "loading": "Loading workflows…",
+    "back": "Back to insights",
+    "empty": "No workflow definitions yet. Register workflows your business relies on.",
+    "addWorkflow": "Add workflow",
+    "name": "Workflow name",
+    "key": "Workflow key (unique identifier)",
+    "category": "Category",
+    "responseTime": "Expected response time",
+    "openItems": "Open items",
+    "insightsLink": "← Back to Aipify Insights"
+  },
+  "predictions": {
+    "title": "Predictions",
+    "subtitle": "See what is likely to happen next — and act before problems develop.",
+    "loading": "Loading predictions…",
+    "back": "Back to overview",
+    "privacy": "Predictions are based on workflow trends and thresholds you enable. All alert actions are logged.",
+    "refresh": "Run prediction scan",
+    "openAlerts": "Open alerts",
+    "upcomingWeek": "Due this week",
+    "horizon": "Prediction horizon",
+    "noAlerts": "No predictive alerts right now. Aipify will surface risks as patterns emerge.",
+    "predictedDate": "Predicted by",
+    "settingsLink": "Prediction settings",
+    "notEnabled": {
+      "title": "Predictive Intelligence is not enabled",
+      "body": "Enable Predictive Intelligence in settings to receive forward-looking alerts.",
+      "cta": "Open prediction settings"
+    },
+    "upgrade": {
+      "title": "Predictions require Business Pro or Enterprise",
+      "body": "Predictive Intelligence is available in Aipify Business Pro and Enterprise because it identifies likely future risks and opportunities from approved business activity.",
+      "cta": "View packages"
+    },
+    "severities": {
+      "info": "Info",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "types": {
+      "future_bottleneck": "Future bottleneck",
+      "churn_risk": "Churn risk",
+      "workload_risk": "Workload risk",
+      "growth_opportunity": "Growth opportunity",
+      "followup_risk": "Follow-up risk",
+      "sla_risk": "SLA risk"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "resolve": "Resolve",
+      "dismiss": "Dismiss",
+      "snooze": "Snooze"
+    }
+  },
   "nav": {
     "overview": "Home",
     "executive": "Executive",
@@ -1343,6 +1527,8 @@
     "strategicGoals": "Strategic Goals",
     "frictionIntelligence": "Friction Intelligence",
     "organizationalMemory": "Organizational Memory",
+    "organizationalIntelligence": "Aipify Insights",
+    "predictiveIntelligence": "Predictions",
     "installations": "Installations",
     "domains": "Domains",
     "team": "Team",

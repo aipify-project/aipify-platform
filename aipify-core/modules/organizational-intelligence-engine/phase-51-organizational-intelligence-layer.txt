@@ -1,0 +1,14 @@
+Phase 51 — Organizational Intelligence Layer (OIL)
+
+Multi-tenant operational intelligence: structure, responsibilities, workflows,
+bottlenecks, forgotten follow-ups, customer memory, business health, and risks.
+
+Safe-by-default: enabled=false, no hidden surveillance, admin approval for AI actions,
+audit logging, tenant isolation, role-based access.
+
+Implementation scope (Steps 1–5):
+1. Database schema + TypeScript types
+2. Admin intelligence settings (/app/settings/intelligence)
+3. Workflow definitions + recordWorkflowEvent()
+4. Insights dashboard (/app/insights)
+5. Rule-based detection jobs (bottlenecks, follow-ups, health snapshot)

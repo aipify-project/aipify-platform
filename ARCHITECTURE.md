@@ -146,6 +146,10 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Organizational Memory Engine / OME (Phase 50):** See [OME.md](./OME.md) — institutional memory, decision records, lessons learned, searchable timeline, module integrations. `/app/memory`, `lib/aipify/organizational-memory/`, migration `20260613800000_organizational_memory_engine_phase50.sql`.
 
+**Organizational Intelligence Layer / OIL (Phase 51):** See [OIL.md](./OIL.md) — operational insights, workflow understanding, bottleneck and follow-up detection, business health, org structure, tenant-safe audit logging. `/app/insights`, `/app/settings/intelligence`, `lib/aipify/organizational-intelligence/`, migration `20260613900000_organizational_intelligence_phase51.sql`.
+
+**Predictive Intelligence Engine / PIE (Phase 52):** See [PIE.md](./PIE.md) — forward-looking alerts for bottlenecks, SLA risk, follow-ups, churn, workload, and growth opportunities using trend and threshold rules (no ML in V1). `/app/predictions`, `/app/settings/predictions`, `lib/aipify/predictive-intelligence/`, migration `20260614000000_predictive_intelligence_phase52.sql`.
+
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
 
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.
