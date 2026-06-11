@@ -14,6 +14,7 @@ export const DECISION_TYPES = [
   "learning",
   "security",
   "agent_collaboration",
+  "simulation",
 ] as const;
 
 export const CONFIDENCE_LEVELS = ["high", "medium", "low"] as const;

@@ -161,6 +161,12 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
           healthScore: t("customerApp.digitalTwin.twinHealth"),
           insights: t("customerApp.digitalTwin.insightsLabel"),
         },
+        simulationLab: {
+          title: t("customerApp.simulationLab.title"),
+          open: t("customerApp.simulationLab.open"),
+          scenarios: t("customerApp.simulationLab.scenariosLabel"),
+          runs: t("customerApp.simulationLab.runsLabel"),
+        },
         greetings: {
           morning: t("customerApp.greetings.morning"),
           afternoon: t("customerApp.greetings.afternoon"),

@@ -194,6 +194,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Digital Twin & Organizational Model Engine (Phase 77):** See [DIGITAL_TWIN_ORGANIZATIONAL_MODEL_PHASE77.md](./DIGITAL_TWIN_ORGANIZATIONAL_MODEL_PHASE77.md) — responsibility-centric organizational model, process twin, escalation engine, knowledge routing, bottleneck detection, Twin Health. `/app/digital-twin`, `lib/aipify/digital-twin/`, migration `20260616800000_digital_twin_organizational_model_phase77.sql`. Models responsibilities — not people; never employee surveillance.
 
+**Simulation & Decision Lab (Phase 78):** See [SIMULATION_DECISION_LAB_PHASE78.md](./SIMULATION_DECISION_LAB_PHASE78.md) — safe scenario modeling, outcome forecasting, scenario comparison, production isolation. `/app/simulations`, `lib/aipify/simulation-lab/`, migration `20260616900000_simulation_decision_lab_phase78.sql`. Simulation predicts; simulation never acts.
+
 **Quality Guardian / QG (Phases 58–59):** See [QG.md](./QG.md) — software and frontend health monitoring (Image Guardian, Performance Guardian, mobile checks) with observation-mode scans, incident engine, developer reports, and Knowledge Center integration. `/app/quality`, `/app/quality/images`, `lib/aipify/quality/`, migrations `20260614600000_quality_guardian_phase58.sql`, `20260614700000_frontend_experience_guardian_phase59.sql`.
 
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
