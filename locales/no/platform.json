@@ -465,6 +465,52 @@
       "openCases": "Åpne saker"
     }
   },
+  "assistantMemory": {
+    "title": "PAME-styring",
+    "subtitle": "Aggregerte minnetall per kategori — kun metadata.",
+    "loading": "Laster PAME-oversikt…",
+    "active": "Aktive minner",
+    "tenants": "Kunder med minne",
+    "disabled": "Minne deaktivert",
+    "byCategory": "Per kategori",
+    "privacyNote": "Administratorer kan ikke se brukerens minneinnhold. Kun aggregater."
+  },
+  "relationships": {
+    "title": "RSI-styring",
+    "subtitle": "Aggregerte relasjonsmetrikker — ikke brukerinnhold.",
+    "loading": "Laster RSI-oversikt…",
+    "tenants": "Kunder med RSI",
+    "people": "Aktive personer",
+    "notes": "Godkjente notater",
+    "timeline": "Tidslinjehendelser",
+    "disabled": "RSI deaktivert",
+    "byType": "Per persontype",
+    "privacyNote": "Administratorer kan ikke se relasjonsdata. Kun aggregater."
+  },
+  "lifeOs": {
+    "title": "LifeOS-styring",
+    "subtitle": "Aggregerte livskoordineringsmetrikker — ikke brukerinnhold.",
+    "loading": "Laster LifeOS-oversikt…",
+    "tenants": "Kunder med LifeOS",
+    "checklists": "Aktive sjekklister",
+    "memories": "Minner med prioritet",
+    "reschedule": "Omplanleggingsforslag",
+    "byPriority": "Per prioritet",
+    "byLifeArea": "Per livsområde",
+    "privacyNote": "Administratorer kan ikke se brukerens livsdata. Kun aggregater."
+  },
+  "trustActions": {
+    "title": "Tillit og handlinger",
+    "subtitle": "Ventende godkjenninger, utførte handlinger, nødstopp og høyrisiko-forespørsler.",
+    "loading": "Laster tillit og handlinger…",
+    "pending": "Ventende godkjenninger",
+    "executed": "Utført i dag",
+    "rejected": "Avvist i dag",
+    "emergency": "Nødstopp",
+    "highestRisk": "Høyest risiko",
+    "recentActivity": "Nylig aktivitet",
+    "noActivity": "Ingen aktivitet ennå."
+  },
   "trust": {
     "title": "Tillit og dataeierskap",
     "subtitle": "Global styring for dataminimering, revisjonsintegritet og plattformansvar.",

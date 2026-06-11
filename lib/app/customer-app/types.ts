@@ -41,6 +41,11 @@ export type CustomerApproval = {
   status: string;
   risk_level: string;
   created_at: string;
+  action_name?: string;
+  skill_name?: string;
+  confidence_score?: number;
+  approver_role_required?: string;
+  undo_available?: boolean;
 };
 
 export type CustomerTeamMember = {

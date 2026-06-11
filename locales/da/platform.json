@@ -426,6 +426,52 @@
       "openCases": "Open Cases"
     }
   },
+  "assistantMemory": {
+    "title": "PAME-styring",
+    "subtitle": "Aggregerede mindeantal per kategori — kun metadata.",
+    "loading": "Indlæser PAME-oversigt…",
+    "active": "Aktive minder",
+    "tenants": "Kunder med minde",
+    "disabled": "Minde deaktiveret",
+    "byCategory": "Per kategori",
+    "privacyNote": "Administratorer kan ikke se brugernes mindeindhold. Kun aggregater."
+  },
+  "relationships": {
+    "title": "RSI-styring",
+    "subtitle": "Aggregerede relationsmetrikker — intet brugerindhold.",
+    "loading": "Indlæser RSI-oversigt…",
+    "tenants": "Kunder med RSI",
+    "people": "Aktive personer",
+    "notes": "Godkendte noter",
+    "timeline": "Tidslinjebegivenheder",
+    "disabled": "RSI deaktiveret",
+    "byType": "Per persontype",
+    "privacyNote": "Administratorer kan ikke se relationsdata. Kun aggregater."
+  },
+  "lifeOs": {
+    "title": "LifeOS-styring",
+    "subtitle": "Aggregerede livskoordineringsmetrikker — intet brugerindhold.",
+    "loading": "Indlæser LifeOS-oversigt…",
+    "tenants": "Kunder med LifeOS",
+    "checklists": "Aktive tjeklister",
+    "memories": "Minder med prioritet",
+    "reschedule": "Omplanlægningsforslag",
+    "byPriority": "Per prioritet",
+    "byLifeArea": "Per livsområde",
+    "privacyNote": "Administratorer kan ikke se brugernes livsdata. Kun aggregater."
+  },
+  "trustActions": {
+    "title": "Tillid og handlinger",
+    "subtitle": "Ventende godkendelser, udførte handlinger, nødstop og højrisiko-anmodninger.",
+    "loading": "Indlæser tillid og handlinger…",
+    "pending": "Ventende godkendelser",
+    "executed": "Udført i dag",
+    "rejected": "Afvist i dag",
+    "emergency": "Nødstop",
+    "highestRisk": "Højeste risiko",
+    "recentActivity": "Seneste aktivitet",
+    "noActivity": "Ingen aktivitet endnu."
+  },
   "trust": {
     "title": "Tillid og dataejerskab",
     "subtitle": "Global styring af dataminimering, revisionsintegritet og platformansvar.",

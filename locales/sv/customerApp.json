@@ -95,6 +95,24 @@
     "loading": "Loading approvals…",
     "empty": "No pending approvals. Aipify will surface items when human review is required.",
     "openActionCenter": "Open Command Center for quick actions",
+    "approve": "Godkänn",
+    "reject": "Avvisa",
+    "executing": "Bearbetar…",
+    "emergencyStop": "Stoppa alla AI-åtgärder",
+    "emergencyActive": "Nödstopp är aktivt. Alla väntande AI-åtgärder är pausade.",
+    "riskLevels": {
+      "information": "Information",
+      "low": "Låg risk",
+      "medium": "Medel risk",
+      "high": "Hög risk",
+      "critical": "Kritisk"
+    },
+    "fields": {
+      "skill": "Skill",
+      "confidence": "Tillit",
+      "approver": "Godkännare krävs",
+      "reasoning": "Varför Aipify rekommenderar detta"
+    },
     "statusLabels": {
       "pending": "Pending",
       "approved": "Approved",
@@ -106,7 +124,8 @@
       "recommendation": "Recommendation",
       "automation": "Automation",
       "integration": "Integration",
-      "update": "Update"
+      "update": "Update",
+      "action": "AI-åtgärd"
     }
   },
   "installations": {
@@ -203,10 +222,168 @@
     "noHistory": "Ingen granskningshistorik ännu.",
     "rollout": "Utrullningsfas"
   },
+  "assistant": {
+    "title": "Aipify-assistent",
+    "subtitle": "Prata naturligt — jag förstår vad som betyder något och hjälper dig att komma ihåg.",
+    "placeholder": "Min fru fyller år den 3 april…",
+    "send": "Skicka",
+    "confirm": "Ja, kom ihåg detta",
+    "decline": "Inte nu",
+    "viewMemories": "Visa och hantera minnen",
+    "viewLife": "Livsöversikt",
+    "viewRelationships": "Relationer",
+    "proactiveTitle": "Proaktiva förslag",
+    "loading": "Tänker…"
+  },
+  "assistantMemory": {
+    "title": "Personligt minne",
+    "subtitle": "Allt här tillhör dig. Granska, pausa, slutför eller exportera — inget är dolt.",
+    "principle": "PAME stödjer dig. Learning Engine förbättrar Aipify. Dina minnen är privata — administratörer ser endast aggregat.",
+    "loading": "Laddar minnen…",
+    "empty": "Inga minnen ännu. Säg vad som betyder något — med egna ord.",
+    "back": "Tillbaka till assistent",
+    "remove": "Ta bort",
+    "pause": "Pausa påminnelser",
+    "complete": "Markera som klar",
+    "export": "Exportera minnen",
+    "askBeforeRemembering": "Fråga innan jag minns när jag är osäker",
+    "save": "Spara inställningar",
+    "saved": "Sparat",
+    "sections": {
+      "importantPeople": "Viktiga personer",
+      "upcomingEvents": "Kommande händelser",
+      "activeTasks": "Aktiva uppgifter",
+      "recurringReminders": "Återkommande påminnelser",
+      "completedItems": "Slutförda",
+      "recentlyAdded": "Nyligen tillagda"
+    },
+    "categories": {
+      "important_people": "Viktiga personer",
+      "events": "Händelser",
+      "tasks": "Uppgifter",
+      "habits": "Vanor",
+      "goals": "Långsiktiga mål"
+    }
+  },
+  "lifeOs": {
+    "title": "Livsöversikt",
+    "subtitle": "Håll koll på allt — prioriteringar, rutiner och det som betyder något idag.",
+    "loading": "Förbereder din dag…",
+    "back": "Tillbaka till assistent",
+    "save": "Spara inställningar",
+    "saved": "Sparat",
+    "privacy": "Endast förslag — du bestämmer alltid.",
+    "planWeek": "Hjälp mig planera veckan",
+    "planning": "Planerar veckan…",
+    "postpone": "Skjut upp",
+    "empty": "Din livsöversikt fylls i när du delar vad som betyder något.",
+    "viewMemories": "Visa personliga minnen",
+    "sections": {
+      "dailyBriefing": "Morgonbriefing",
+      "eveningReview": "Kvällssammanfattning",
+      "todayOverview": "Idag",
+      "upcomingEvents": "Kommande händelser",
+      "priorityTasks": "Prioriterade uppgifter",
+      "familyReminders": "Familjepåminnelser",
+      "suggestedActions": "Föreslagna åtgärder",
+      "conflicts": "Konflikter upptäckta",
+      "proactiveQuestions": "Proaktiva frågor",
+      "checklists": "Checklistor",
+      "lifeBalance": "Livsbalans",
+      "settings": "Assistentinställningar"
+    },
+    "settings": {
+      "proactivity": "Hur proaktiv",
+      "notifications": "Aviseringsfrekvens",
+      "personality": "Assistentpersonlighet",
+      "dailyBriefing": "Morgonbriefing",
+      "eveningReview": "Kvällssammanfattning",
+      "energyAware": "Energimedvetna förslag",
+      "lifeAreas": "Livsområden att hjälpa med"
+    },
+    "priorities": {
+      "critical": "Kritisk",
+      "important": "Viktig",
+      "routine": "Rutin",
+      "optional": "Valfri"
+    },
+    "lifeAreas": {
+      "personal": "Personligt",
+      "family": "Familj",
+      "health": "Hälsa",
+      "work": "Arbete",
+      "finance": "Ekonomi",
+      "travel": "Resa",
+      "education": "Utbildning",
+      "home": "Hem"
+    },
+    "personalities": {
+      "minimal": "Minimal",
+      "professional": "Professionell",
+      "supportive": "Stödjande",
+      "highly_proactive": "Mycket proaktiv"
+    },
+    "proactivityLevels": {
+      "low": "Tyst — endast när du ber",
+      "balanced": "Balanserad",
+      "high": "Mer proaktiv"
+    },
+    "notificationFrequencies": {
+      "minimal": "Minimal",
+      "balanced": "Balanserad",
+      "frequent": "Tätare"
+    }
+  },
+  "relationships": {
+    "title": "Relationer",
+    "subtitle": "Vårda dem som betyder något — omtänksamma påminnelser, aldrig automatiska meddelanden.",
+    "loading": "Laddar relationer…",
+    "back": "Tillbaka till assistent",
+    "save": "Spara inställningar",
+    "saved": "Sparat",
+    "export": "Exportera relationsdata",
+    "pause": "Pausa påminnelser",
+    "remove": "Ta bort person",
+    "addPerson": "Lägg till",
+    "personName": "Namn",
+    "personType": "Relationstyp",
+    "viewLife": "Livsöversikt",
+    "viewMemories": "Personliga minnen",
+    "sections": {
+      "people": "Viktiga personer",
+      "milestones": "Kommande milstolpar",
+      "socialReminders": "Sociala påminnelser",
+      "followUps": "Väntande uppföljningar",
+      "suggestedActions": "Föreslagna åtgärder",
+      "giftOpportunities": "Presentmöjligheter",
+      "sharedCommitments": "Delade åtaganden",
+      "proactive": "Proaktiv assistans",
+      "settings": "Relationsinställningar",
+      "ethics": "Etiska gränser",
+      "sharedMemory": "Delade minnen (framtid)"
+    },
+    "settings": {
+      "enabled": "Relationsassistans aktiverad",
+      "askBeforeRemembering": "Fråga innan jag minns relationsdetaljer",
+      "giftSuggestions": "Presentförslag",
+      "followUps": "Uppföljningspåminnelser"
+    },
+    "personTypes": {
+      "partner": "Partner",
+      "child": "Barn",
+      "parent": "Förälder",
+      "friend": "Vän",
+      "colleague": "Kollega",
+      "client": "Kund",
+      "mentor": "Mentor",
+      "other": "Annat"
+    }
+  },
   "nav": {
     "overview": "Hem",
     "executive": "Executive",
     "presence": "Presence",
+    "assistant": "Assistent",
     "recommendations": "Rekommendationer",
     "skills": "Skills",
     "approvals": "Godkännanden",

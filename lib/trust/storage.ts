@@ -14,6 +14,7 @@ export const ALLOWED_STORAGE_CATEGORIES = [
   "update_history",
   "notification_preferences",
   "approval_policies",
+  "assistant_context_metadata",
 ] as const;
 
 /** Default prohibition — enterprise may override explicitly (Phase 19 §5). */

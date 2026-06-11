@@ -1,0 +1,29 @@
+---
+description: PAME — natural conversation, metadata-only personal memory, user ownership
+alwaysApply: true
+---
+
+# Personal Assistant Memory Engine / PAME (Phase 31)
+
+Read **[ASSISTANT_MEMORY_ENGINE.md](../../ASSISTANT_MEMORY_ENGINE.md)** before assistant chat, memory, or reminder changes.
+
+## Rules
+
+1. **Build an assistant, not a chatbot** — natural language in, intention understood, follow-up questions out
+2. **Metadata only** — never store raw chat transcripts; summaries max 500 chars
+3. **PAME supports the user** — distinct from **Learning Engine** (`customer_learning_memory`) which improves Aipify
+4. Customer routes: `/app/assistant`, `/app/assistant/memory` — APIs at `/api/assistant/*`
+5. Confidence model: high (explicit) stores; medium asks confirm; low never auto-stores
+6. Always ask before remembering when uncertain (`ask_before_remembering` default true)
+7. User ownership: view, edit, pause, complete, delete, export — admins cannot access memory content
+8. Platform aggregates only at `/platform/trust` — `privacy_note` on overview RPC
+9. i18n: `locales/{en,no,sv,da}/customerApp.json` (`assistant.*`, `assistantMemory.*`)
+10. **Human Memory Intent Dataset v1.0** — read [HUMAN_MEMORY_INTENT_DATASET.md](../../HUMAN_MEMORY_INTENT_DATASET.md); extend `memory-intent-dataset.ts` for new natural phrasing, not command syntax
+
+## Memory types
+
+`important_people` · `events` · `tasks` · `habits` · `goals`
+
+## Tables
+
+`personal_memories` · `important_people` · `memory_notifications`

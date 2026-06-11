@@ -95,6 +95,24 @@
     "loading": "Loading approvals…",
     "empty": "No pending approvals. Aipify will surface items when human review is required.",
     "openActionCenter": "Open Command Center for quick actions",
+    "approve": "Approve",
+    "reject": "Reject",
+    "executing": "Processing…",
+    "emergencyStop": "Stop all AI actions",
+    "emergencyActive": "Emergency stop is active. All pending AI actions are paused.",
+    "riskLevels": {
+      "information": "Information",
+      "low": "Low risk",
+      "medium": "Medium risk",
+      "high": "High risk",
+      "critical": "Critical"
+    },
+    "fields": {
+      "skill": "Skill",
+      "confidence": "Confidence",
+      "approver": "Approver required",
+      "reasoning": "Why Aipify recommends this"
+    },
     "statusLabels": {
       "pending": "Pending",
       "approved": "Approved",
@@ -106,7 +124,8 @@
       "recommendation": "Recommendation",
       "automation": "Automation",
       "integration": "Integration",
-      "update": "Update"
+      "update": "Update",
+      "action": "AI action"
     }
   },
   "installations": {
@@ -203,10 +222,168 @@
     "noHistory": "No review history yet.",
     "rollout": "Rollout stage"
   },
+  "assistant": {
+    "title": "Aipify Assistant",
+    "subtitle": "Talk naturally — I'll understand what matters and help you remember.",
+    "placeholder": "My wife has a birthday on April 3rd…",
+    "send": "Send",
+    "confirm": "Yes, remember this",
+    "decline": "Not now",
+    "viewMemories": "View & manage memories",
+    "viewLife": "Life dashboard",
+    "viewRelationships": "Relationships",
+    "proactiveTitle": "Proactive suggestions",
+    "loading": "Thinking…"
+  },
+  "assistantMemory": {
+    "title": "Personal memory",
+    "subtitle": "Everything here belongs to you. Review, pause, complete, or export — nothing is hidden.",
+    "principle": "PAME supports you. Learning Engine improves Aipify. Your memories are private — admins see aggregates only.",
+    "loading": "Loading memories…",
+    "empty": "No memories yet. Say what matters — in your own words.",
+    "back": "Back to Assistant",
+    "remove": "Delete",
+    "pause": "Pause reminders",
+    "complete": "Mark complete",
+    "export": "Export memories",
+    "askBeforeRemembering": "Ask before remembering when uncertain",
+    "save": "Save preferences",
+    "saved": "Saved",
+    "sections": {
+      "importantPeople": "Important people",
+      "upcomingEvents": "Upcoming events",
+      "activeTasks": "Active tasks",
+      "recurringReminders": "Recurring reminders",
+      "completedItems": "Completed",
+      "recentlyAdded": "Recently added"
+    },
+    "categories": {
+      "important_people": "Important people",
+      "events": "Events",
+      "tasks": "Tasks",
+      "habits": "Habits",
+      "goals": "Long-term goals"
+    }
+  },
+  "lifeOs": {
+    "title": "Life dashboard",
+    "subtitle": "Stay on top of everything — priorities, routines, and what matters today.",
+    "loading": "Preparing your day…",
+    "back": "Back to Assistant",
+    "save": "Save preferences",
+    "saved": "Saved",
+    "privacy": "Suggestions only — you always decide.",
+    "planWeek": "Help me plan the week",
+    "planning": "Planning your week…",
+    "postpone": "Postpone",
+    "empty": "Your life dashboard will fill in as you share what matters.",
+    "viewMemories": "View personal memories",
+    "sections": {
+      "dailyBriefing": "Morning briefing",
+      "eveningReview": "Evening review",
+      "todayOverview": "Today",
+      "upcomingEvents": "Upcoming events",
+      "priorityTasks": "Priority tasks",
+      "familyReminders": "Family reminders",
+      "suggestedActions": "Suggested actions",
+      "conflicts": "Conflicts detected",
+      "proactiveQuestions": "Proactive questions",
+      "checklists": "Checklists",
+      "lifeBalance": "Life balance",
+      "settings": "Assistant preferences"
+    },
+    "settings": {
+      "proactivity": "How proactive",
+      "notifications": "Notification frequency",
+      "personality": "Assistant personality",
+      "dailyBriefing": "Morning briefing",
+      "eveningReview": "Evening review",
+      "energyAware": "Energy-aware suggestions",
+      "lifeAreas": "Life areas to assist with"
+    },
+    "priorities": {
+      "critical": "Critical",
+      "important": "Important",
+      "routine": "Routine",
+      "optional": "Optional"
+    },
+    "lifeAreas": {
+      "personal": "Personal",
+      "family": "Family",
+      "health": "Health",
+      "work": "Work",
+      "finance": "Finance",
+      "travel": "Travel",
+      "education": "Education",
+      "home": "Home"
+    },
+    "personalities": {
+      "minimal": "Minimal",
+      "professional": "Professional",
+      "supportive": "Supportive",
+      "highly_proactive": "Highly proactive"
+    },
+    "proactivityLevels": {
+      "low": "Quiet — only when asked",
+      "balanced": "Balanced",
+      "high": "More proactive"
+    },
+    "notificationFrequencies": {
+      "minimal": "Minimal",
+      "balanced": "Balanced",
+      "frequent": "More frequent"
+    }
+  },
+  "relationships": {
+    "title": "Relationships",
+    "subtitle": "Nurture the people who matter — thoughtful reminders, never automated messages.",
+    "loading": "Loading relationships…",
+    "back": "Back to Assistant",
+    "save": "Save preferences",
+    "saved": "Saved",
+    "export": "Export relationship data",
+    "pause": "Pause reminders",
+    "remove": "Remove person",
+    "addPerson": "Add",
+    "personName": "Name",
+    "personType": "Relationship type",
+    "viewLife": "Life dashboard",
+    "viewMemories": "Personal memories",
+    "sections": {
+      "people": "Important people",
+      "milestones": "Upcoming milestones",
+      "socialReminders": "Social reminders",
+      "followUps": "Pending follow-ups",
+      "suggestedActions": "Suggested actions",
+      "giftOpportunities": "Gift opportunities",
+      "sharedCommitments": "Shared commitments",
+      "proactive": "Proactive assistance",
+      "settings": "Relationship preferences",
+      "ethics": "Ethical boundaries",
+      "sharedMemory": "Shared memories (future)"
+    },
+    "settings": {
+      "enabled": "Relationship assistance enabled",
+      "askBeforeRemembering": "Ask before remembering relationship details",
+      "giftSuggestions": "Gift planning suggestions",
+      "followUps": "Follow-up reminders"
+    },
+    "personTypes": {
+      "partner": "Partner",
+      "child": "Child",
+      "parent": "Parent",
+      "friend": "Friend",
+      "colleague": "Colleague",
+      "client": "Client",
+      "mentor": "Mentor",
+      "other": "Other"
+    }
+  },
   "nav": {
     "overview": "Home",
     "executive": "Executive",
     "presence": "Presence",
+    "assistant": "Assistant",
     "recommendations": "Recommendations",
     "skills": "Skills",
     "approvals": "Approvals",

@@ -1,0 +1,27 @@
+AIPIFY LIFE OPERATING SYSTEM (LifeOS)
+Phase 32 — From remembering to assisting
+STATUS: Implemented
+
+CORE PHILOSOPHY
+PAME remembers. LifeOS coordinates daily life.
+Suggestions only — user always decides.
+
+ENGINES
+Daily briefing · Evening review · Priority · Smart rescheduling
+Conflict detection · Planning assistant · Checklists
+
+CUSTOMER ROUTE
+/app/assistant/life — Life dashboard
+
+APIs
+GET/PATCH/POST /api/assistant/life
+POST /api/assistant/life/postpone
+POST/PATCH /api/assistant/life/checklists
+
+DATABASE
+life_os_settings · life_memory_meta · life_checklists · life_checklist_items
+
+IMPLEMENTATION
+lib/life-os/
+supabase/migrations/20260612000000_life_os_phase32.sql
+LIFE_OPERATING_SYSTEM.md

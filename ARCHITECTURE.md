@@ -106,6 +106,14 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Learning Engine (Phase 29):** See [LEARNING_ENGINE.md](./LEARNING_ENGINE.md) — controlled learning at `/app/learning`, modes (disabled / assisted / adaptive), learning memory metadata only, platform governance at `/platform/intelligence/learning-queue`, `lib/learning/`, migration `20260611700000_learning_engine_phase29.sql`.
 
+**Trust & Action Engine (Phase 30):** See [TRUST_ACTION_ENGINE.md](./TRUST_ACTION_ENGINE.md) — governed AI actions at `/app/approvals`, action levels 0–4, policies, explainability, audit, emergency stop, APIs at `/api/actions/*`, platform dashboard at `/platform/trust`. `lib/trust-action/`, migration `20260611800000_trust_action_engine_phase30.sql`.
+
+**Personal Assistant Memory Engine / PAME (Phase 31):** See [ASSISTANT_MEMORY_ENGINE.md](./ASSISTANT_MEMORY_ENGINE.md) — natural conversation at `/app/assistant`, PAME memory types (people, events, tasks, habits, goals), clarification + reminder engines, `/app/assistant/memory` dashboard. Separate from Learning Engine. `lib/assistant-memory/`, migrations `20260611900000_assistant_memory_phase31.sql`, `20260611910000_pame_phase31.sql`.
+
+**Life Operating System / LifeOS (Phase 32):** See [LIFE_OPERATING_SYSTEM.md](./LIFE_OPERATING_SYSTEM.md) — daily briefings, evening reviews, priority engine, conflict detection, checklists, `/app/assistant/life` dashboard. Builds on PAME; suggestions only. `lib/life-os/`, migration `20260612000000_life_os_phase32.sql`.
+
+**Relationship & Social Intelligence / RSI (Phase 33):** See [RELATIONSHIP_SOCIAL_INTELLIGENCE.md](./RELATIONSHIP_SOCIAL_INTELLIGENCE.md) — important people directory, social reminders, relationship timeline, follow-ups, gift planning, `/app/assistant/relationships`. Never impersonates user. `lib/relationship-intelligence/`, migration `20260612100000_rsi_phase33.sql`.
+
 **Model-Agnostic Intelligence:** See [MODEL_AGNOSTIC_INTELLIGENCE.md](./MODEL_AGNOSTIC_INTELLIGENCE.md) — Aipify Intelligence is the product; LLMs are swappable infrastructure. Task-based routing via `lib/intelligence/` (`selectModelProfile`). Never brand customer UI with model providers. Enterprise BYOM via `customer_approved` policy.
 
 **UI:** Minimal — Ask Aipify, Recommendations, Activity, Settings.

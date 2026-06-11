@@ -37,6 +37,10 @@ The first complete customer-facing product experience. Customers interact with *
 | `/app/security` | Security dashboard |
 | `/app/settings` | Settings center |
 | `/app/learning` | Learning Review Center (Phase 29) |
+| `/app/assistant` | Natural conversation assistant — PAME (Phase 31) |
+| `/app/assistant/memory` | Personal memory dashboard — people, events, tasks, habits, goals |
+| `/app/assistant/life` | LifeOS dashboard — briefings, priorities, checklists, life balance |
+| `/app/assistant/relationships` | RSI dashboard — important people, milestones, follow-ups, gift planning |
 
 Legacy: `/dashboard/*` remains during migration. `/app/command-center` remains for Command Center / desktop pairing.
 
@@ -69,7 +73,10 @@ Combines installation health, skill status, pending approvals, and critical even
 | `get_customer_learning_center()` | Learning Review Center |
 | `update_customer_learning_settings()` | Learning mode & adaptive consent |
 | `remove_customer_learning_memory()` | Remove a learning |
-| `get_customer_approvals_center()` | Pending approvals |
+| `get_customer_approvals_center()` | Approval inbox (actions, notifications, patterns) |
+| `approve_action_request()` / `reject_action_request()` | Governed AI action decisions |
+| `set_tenant_emergency_state()` | Emergency stop all AI actions |
+| `get_customer_trust_actions_center()` | Trust & actions dashboard bundle |
 | `get_customer_team_center()` | Team members & invitations |
 | `_compute_customer_health_score()` | Health score helper |
 

@@ -426,6 +426,52 @@
       "openCases": "Open Cases"
     }
   },
+  "assistantMemory": {
+    "title": "PAME-styrning",
+    "subtitle": "Aggregerade minnesantal per kategori — endast metadata.",
+    "loading": "Laddar PAME-översikt…",
+    "active": "Aktiva minnen",
+    "tenants": "Kunder med minne",
+    "disabled": "Minne inaktiverat",
+    "byCategory": "Per kategori",
+    "privacyNote": "Administratörer kan inte se användarnas minnesinnehåll. Endast aggregat."
+  },
+  "relationships": {
+    "title": "RSI-styrning",
+    "subtitle": "Aggregerade relationsmått — inget användarinnehåll.",
+    "loading": "Laddar RSI-översikt…",
+    "tenants": "Kunder med RSI",
+    "people": "Aktiva personer",
+    "notes": "Godkända anteckningar",
+    "timeline": "Tidslinjehändelser",
+    "disabled": "RSI inaktiverat",
+    "byType": "Per persontyp",
+    "privacyNote": "Administratörer kan inte se relationsdata. Endast aggregat."
+  },
+  "lifeOs": {
+    "title": "LifeOS-styrning",
+    "subtitle": "Aggregerade livskoordineringsmått — inget användarinnehåll.",
+    "loading": "Laddar LifeOS-översikt…",
+    "tenants": "Kunder med LifeOS",
+    "checklists": "Aktiva checklistor",
+    "memories": "Minnen med prioritet",
+    "reschedule": "Omplaneringsförslag",
+    "byPriority": "Per prioritet",
+    "byLifeArea": "Per livsområde",
+    "privacyNote": "Administratörer kan inte se användarnas livsdata. Endast aggregat."
+  },
+  "trustActions": {
+    "title": "Tillit och åtgärder",
+    "subtitle": "Väntande godkännanden, utförda åtgärder, nödstopp och högrisk-förfrågningar.",
+    "loading": "Laddar tillit och åtgärder…",
+    "pending": "Väntande godkännanden",
+    "executed": "Utförda idag",
+    "rejected": "Avvisade idag",
+    "emergency": "Nödstopp",
+    "highestRisk": "Högsta risk",
+    "recentActivity": "Senaste aktivitet",
+    "noActivity": "Ingen aktivitet ännu."
+  },
   "trust": {
     "title": "Förtroende och dataägande",
     "subtitle": "Global styrning för dataminimering, revisionsintegritet och plattformsansvar.",

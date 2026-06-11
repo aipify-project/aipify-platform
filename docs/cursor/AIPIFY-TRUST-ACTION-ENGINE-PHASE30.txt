@@ -1,0 +1,32 @@
+AIPIFY – PHASE 30
+TRUST & ACTION ENGINE
+STATUS: Implemented
+PRIORITY: CRITICAL
+
+CORE PRINCIPLE
+Aipify must never perform sensitive actions without explicit permission.
+Trusted AI — not autonomous AI.
+
+ACTION LEVELS
+0 Information (no approval)
+1 Draft (approval required)
+2 Reversible (manager approval, undo)
+3 Sensitive (admin approval)
+4 Critical (AI prohibited)
+
+CUSTOMER APPROVAL CENTER
+Route: /app/approvals (canonical; spec /admin/approvals maps here)
+API: /api/actions/*
+
+PLATFORM TRUST & ACTIONS
+Route: /platform/trust
+RPC: get_platform_trust_actions_overview
+
+TABLES
+action_requests, action_policies, action_explanations, action_audit_logs,
+tenant_action_emergency, skill_trust_scores
+
+IMPLEMENTATION
+lib/trust-action/
+supabase/migrations/20260611800000_trust_action_engine_phase30.sql
+TRUST_ACTION_ENGINE.md

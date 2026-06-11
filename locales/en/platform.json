@@ -620,6 +620,52 @@
       "noReasons": "No escalation reasons recorded."
     }
   },
+  "assistantMemory": {
+    "title": "PAME governance",
+    "subtitle": "Aggregate memory counts by category — metadata only, no conversation content.",
+    "loading": "Loading PAME overview…",
+    "active": "Active memories",
+    "tenants": "Tenants using memory",
+    "disabled": "Memory disabled",
+    "byCategory": "By category",
+    "privacyNote": "Administrators cannot access user memory content. Aggregates only."
+  },
+  "relationships": {
+    "title": "RSI governance",
+    "subtitle": "Aggregate relationship assistance metrics — no user relationship content.",
+    "loading": "Loading RSI overview…",
+    "tenants": "Tenants using RSI",
+    "people": "Active people",
+    "notes": "Approved notes",
+    "timeline": "Timeline events",
+    "disabled": "RSI disabled",
+    "byType": "By person type",
+    "privacyNote": "Administrators cannot access relationship data. Aggregates only."
+  },
+  "lifeOs": {
+    "title": "LifeOS governance",
+    "subtitle": "Aggregate life coordination metrics — no user life content.",
+    "loading": "Loading LifeOS overview…",
+    "tenants": "Tenants using LifeOS",
+    "checklists": "Active checklists",
+    "memories": "Memories with priorities",
+    "reschedule": "Reschedule suggestions",
+    "byPriority": "By priority",
+    "byLifeArea": "By life area",
+    "privacyNote": "Administrators cannot access user life data. Aggregates only."
+  },
+  "trustActions": {
+    "title": "Trust & Actions",
+    "subtitle": "Pending approvals, executed actions, emergency stops, and highest-risk requests across tenants.",
+    "loading": "Loading trust & actions overview…",
+    "pending": "Pending approvals",
+    "executed": "Executed today",
+    "rejected": "Rejected today",
+    "emergency": "Emergency stops",
+    "highestRisk": "Highest risk requests",
+    "recentActivity": "Recent activity",
+    "noActivity": "No activity yet."
+  },
   "trust": {
     "title": "Trust & Data Ownership",
     "subtitle": "Global governance for data minimization, audit integrity, and platform responsibilities.",

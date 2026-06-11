@@ -3,7 +3,6 @@
  * Remove entries as pages move from app/dashboard/ to app/app/.
  */
 export const APP_ROUTE_ALIASES: Record<string, string> = {
-  "/app/assistant": "/dashboard/assistant",
   "/app/support": "/dashboard/support",
   "/app/billing": "/dashboard/billing",
   "/app/analytics": "/dashboard/analytics",

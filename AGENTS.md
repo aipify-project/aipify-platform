@@ -40,6 +40,14 @@ For **Desktop Command Center (Tauri)**, read **[DESKTOP_COMMAND_CENTER.md](./DES
 
 For **Customer App 1.0**, read **[CUSTOMER_APP.md](./CUSTOMER_APP.md)**. Canonical routes at `/app/*`; centers for home, executive, presence, recommendations, approvals, skills, installations, domains, team, license, security, settings. Business logic in Core RPCs — UI panels are thin clients. Never mix Platform Admin into Customer App.
 
+For **Trust & Action Engine**, read **[TRUST_ACTION_ENGINE.md](./TRUST_ACTION_ENGINE.md)**. Constants in `lib/trust-action/`; customer Approval Center at `/app/approvals`; APIs at `/api/actions/*`; platform governance at `/platform/trust`. Level 4 (critical) actions are prohibited for AI. Every action requires explanation and audit.
+
+For **Personal Assistant Memory Engine (PAME)**, read **[ASSISTANT_MEMORY_ENGINE.md](./ASSISTANT_MEMORY_ENGINE.md)** and **[HUMAN_MEMORY_INTENT_DATASET.md](./HUMAN_MEMORY_INTENT_DATASET.md)**. Intent patterns in `lib/assistant-memory/memory-intent-dataset.ts`; natural conversation at `/app/assistant`; memory dashboard at `/app/assistant/memory`; APIs at `/api/assistant/*`. Teach understanding, not commands. Metadata only — never store raw chat.
+
+For **Life Operating System (LifeOS)**, read **[LIFE_OPERATING_SYSTEM.md](./LIFE_OPERATING_SYSTEM.md)**. Constants in `lib/life-os/`; life dashboard at `/app/assistant/life`; APIs at `/api/assistant/life/*`. Daily briefings, priorities, conflict detection, checklists. Builds on PAME — suggestions only, user always decides.
+
+For **Relationship & Social Intelligence (RSI)**, read **[RELATIONSHIP_SOCIAL_INTELLIGENCE.md](./RELATIONSHIP_SOCIAL_INTELLIGENCE.md)**. Constants in `lib/relationship-intelligence/`; dashboard at `/app/assistant/relationships`; APIs at `/api/assistant/relationships/*`. Never impersonate user or send automated messages. Conversation notes require explicit approval.
+
 ## Aipify architecture — mandatory before every feature
 
 Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.

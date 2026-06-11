@@ -1,0 +1,20 @@
+AIPIFY HUMAN MEMORY INTENT DATASET v1.0
+Natural Language Examples for Memory, Reminders and Personal Assistance
+
+PURPOSE
+Teach understanding — not commands.
+Aipify recognizes intention behind what people say.
+
+INTENTS (implemented in lib/assistant-memory/memory-intent-dataset.ts)
+create_reminder · important_date · follow_up · contact_someone
+task_reminder · long_term_memory · health_reminder · financial_reminder
+travel_planning · procrastination_support · daily_assistance · evening_reflection
+
+PHILOSOPHY
+People never learn how to speak to Aipify.
+The greatest compliment: "Thanks, Aipify. I would have forgotten that."
+
+IMPLEMENTATION
+lib/assistant-memory/memory-intent-dataset.ts
+lib/assistant-memory/conversation.ts
+HUMAN_MEMORY_INTENT_DATASET.md

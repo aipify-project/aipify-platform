@@ -1,0 +1,27 @@
+AIPIFY RELATIONSHIP & SOCIAL INTELLIGENCE ENGINE (RSI)
+Phase 33
+STATUS: Implemented
+
+CORE PHILOSOPHY
+Help people stay present and reliable.
+Never impersonate. Never automate personal messages.
+
+CAPABILITIES
+Important people directory · Social reminders · Relationship timeline
+Follow-up engine · Gift planning · Conversation tags (approved only)
+
+CUSTOMER ROUTE
+/app/assistant/relationships
+
+APIs
+GET/PATCH/POST /api/assistant/relationships
+GET /api/assistant/relationships/export
+
+DATABASE
+relationship_settings · important_people (extended)
+relationship_notes · relationship_timeline · shared_memory_spaces (scaffold)
+
+IMPLEMENTATION
+lib/relationship-intelligence/
+supabase/migrations/20260612100000_rsi_phase33.sql
+RELATIONSHIP_SOCIAL_INTELLIGENCE.md

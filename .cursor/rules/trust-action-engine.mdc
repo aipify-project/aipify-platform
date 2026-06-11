@@ -1,0 +1,23 @@
+---
+description: Trust & Action Engine — governed AI actions with approval, audit, and emergency stop
+alwaysApply: true
+---
+
+# Trust & Action Engine (Phase 30)
+
+Read **[TRUST_ACTION_ENGINE.md](../../TRUST_ACTION_ENGINE.md)** before changes to action requests, policies, approvals, or emergency stop.
+
+## Rules
+
+1. **Never execute sensitive actions without explicit approval** — Level 4 (critical) is prohibited for AI
+2. Every action must be **explainable** (`action_explanations`) and **audited** (`action_audit_logs` + `record_trust_audit_event`)
+3. Customer Approval Center is `/app/approvals` — approve/reject via `/api/actions/*`
+4. Business logic in Core RPCs — panels are thin clients
+5. Emergency stop (`set_tenant_emergency_state`) pauses all pending requests
+6. Policies in `action_policies` — skills declare allowed/forbidden actions
+7. Platform governance at `/platform/trust` — never expose platform-only controls to Customer App
+8. i18n: `locales/{en,no,sv,da}/customerApp.json` (`approvals.*`) and `platform.json` (`trustActions.*`)
+
+## Action levels (risk_level 0–4)
+
+0 information · 1 draft · 2 reversible · 3 sensitive · 4 critical (AI prohibited)

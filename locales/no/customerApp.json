@@ -95,6 +95,24 @@
     "loading": "Loading approvals…",
     "empty": "No pending approvals. Aipify will surface items when human review is required.",
     "openActionCenter": "Open Command Center for quick actions",
+    "approve": "Godkjenn",
+    "reject": "Avvis",
+    "executing": "Behandler…",
+    "emergencyStop": "Stopp alle AI-handlinger",
+    "emergencyActive": "Nødstopp er aktiv. Alle ventende AI-handlinger er satt på pause.",
+    "riskLevels": {
+      "information": "Informasjon",
+      "low": "Lav risiko",
+      "medium": "Middels risiko",
+      "high": "Høy risiko",
+      "critical": "Kritisk"
+    },
+    "fields": {
+      "skill": "Skill",
+      "confidence": "Tillit",
+      "approver": "Godkjenner kreves",
+      "reasoning": "Hvorfor Aipify anbefaler dette"
+    },
     "statusLabels": {
       "pending": "Pending",
       "approved": "Approved",
@@ -106,7 +124,8 @@
       "recommendation": "Recommendation",
       "automation": "Automation",
       "integration": "Integration",
-      "update": "Update"
+      "update": "Update",
+      "action": "AI-handling"
     }
   },
   "installations": {
@@ -203,10 +222,168 @@
     "noHistory": "Ingen gjennomgangshistorikk ennå.",
     "rollout": "Utrullingsfase"
   },
+  "assistant": {
+    "title": "Aipify-assistent",
+    "subtitle": "Snakk naturlig — jeg forstår hva som betyr noe og hjelper deg å huske.",
+    "placeholder": "Konen min har bursdag 3. april…",
+    "send": "Send",
+    "confirm": "Ja, husk dette",
+    "decline": "Ikke nå",
+    "viewMemories": "Se og administrer minner",
+    "viewLife": "Livsoversikt",
+    "viewRelationships": "Relasjoner",
+    "proactiveTitle": "Proaktive forslag",
+    "loading": "Tenker…"
+  },
+  "assistantMemory": {
+    "title": "Personlig minne",
+    "subtitle": "Alt her tilhører deg. Gjennomgå, pause, fullfør eller eksporter — ingenting er skjult.",
+    "principle": "PAME støtter deg. Learning Engine forbedrer Aipify. Minnene dine er private — administratorer ser kun aggregater.",
+    "loading": "Laster minner…",
+    "empty": "Ingen minner ennå. Si hva som betyr noe — med dine egne ord.",
+    "back": "Tilbake til assistent",
+    "remove": "Slett",
+    "pause": "Pause påminnelser",
+    "complete": "Merk som fullført",
+    "export": "Eksporter minner",
+    "askBeforeRemembering": "Spør før jeg husker når jeg er usikker",
+    "save": "Lagre innstillinger",
+    "saved": "Lagret",
+    "sections": {
+      "importantPeople": "Viktige personer",
+      "upcomingEvents": "Kommende hendelser",
+      "activeTasks": "Aktive oppgaver",
+      "recurringReminders": "Gjentakende påminnelser",
+      "completedItems": "Fullført",
+      "recentlyAdded": "Nylig lagt til"
+    },
+    "categories": {
+      "important_people": "Viktige personer",
+      "events": "Hendelser",
+      "tasks": "Oppgaver",
+      "habits": "Vaner",
+      "goals": "Langsiktige mål"
+    }
+  },
+  "lifeOs": {
+    "title": "Livsoversikt",
+    "subtitle": "Hold oversikt — prioriteringer, rutiner og det som betyr noe i dag.",
+    "loading": "Forbereder dagen din…",
+    "back": "Tilbake til assistent",
+    "save": "Lagre innstillinger",
+    "saved": "Lagret",
+    "privacy": "Kun forslag — du bestemmer alltid.",
+    "planWeek": "Hjelp meg planlegge uken",
+    "planning": "Planlegger uken…",
+    "postpone": "Utsett",
+    "empty": "Livsoversikten fylles etter hvert som du deler hva som betyr noe.",
+    "viewMemories": "Se personlige minner",
+    "sections": {
+      "dailyBriefing": "Morgenbriefing",
+      "eveningReview": "Kveldsoppsummering",
+      "todayOverview": "I dag",
+      "upcomingEvents": "Kommende hendelser",
+      "priorityTasks": "Prioriterte oppgaver",
+      "familyReminders": "Familiepåminnelser",
+      "suggestedActions": "Foreslåtte handlinger",
+      "conflicts": "Konflikter oppdaget",
+      "proactiveQuestions": "Proaktive spørsmål",
+      "checklists": "Sjekklister",
+      "lifeBalance": "Livsbalance",
+      "settings": "Assistentinnstillinger"
+    },
+    "settings": {
+      "proactivity": "Hvor proaktiv",
+      "notifications": "Varslingsfrekvens",
+      "personality": "Assistentpersonlighet",
+      "dailyBriefing": "Morgenbriefing",
+      "eveningReview": "Kveldsoppsummering",
+      "energyAware": "Energibevisste forslag",
+      "lifeAreas": "Livsområder å hjelpe med"
+    },
+    "priorities": {
+      "critical": "Kritisk",
+      "important": "Viktig",
+      "routine": "Rutine",
+      "optional": "Valgfritt"
+    },
+    "lifeAreas": {
+      "personal": "Personlig",
+      "family": "Familie",
+      "health": "Helse",
+      "work": "Arbeid",
+      "finance": "Økonomi",
+      "travel": "Reise",
+      "education": "Utdanning",
+      "home": "Hjem"
+    },
+    "personalities": {
+      "minimal": "Minimal",
+      "professional": "Profesjonell",
+      "supportive": "Støttende",
+      "highly_proactive": "Svært proaktiv"
+    },
+    "proactivityLevels": {
+      "low": "Stille — kun når bedt",
+      "balanced": "Balansert",
+      "high": "Mer proaktiv"
+    },
+    "notificationFrequencies": {
+      "minimal": "Minimal",
+      "balanced": "Balansert",
+      "frequent": "Hyppigere"
+    }
+  },
+  "relationships": {
+    "title": "Relasjoner",
+    "subtitle": "Styrk de som betyr noe — gjennomtenkte påminnelser, aldri automatiske meldinger.",
+    "loading": "Laster relasjoner…",
+    "back": "Tilbake til assistent",
+    "save": "Lagre innstillinger",
+    "saved": "Lagret",
+    "export": "Eksporter relasjonsdata",
+    "pause": "Pause påminnelser",
+    "remove": "Fjern person",
+    "addPerson": "Legg til",
+    "personName": "Navn",
+    "personType": "Relasjonstype",
+    "viewLife": "Livsoversikt",
+    "viewMemories": "Personlige minner",
+    "sections": {
+      "people": "Viktige personer",
+      "milestones": "Kommende milepæler",
+      "socialReminders": "Sosiale påminnelser",
+      "followUps": "Ventende oppfølginger",
+      "suggestedActions": "Foreslåtte handlinger",
+      "giftOpportunities": "Gavemuligheter",
+      "sharedCommitments": "Delte forpliktelser",
+      "proactive": "Proaktiv assistanse",
+      "settings": "Relasjonsinnstillinger",
+      "ethics": "Etiske grenser",
+      "sharedMemory": "Delte minner (fremtid)"
+    },
+    "settings": {
+      "enabled": "Relasjonsassistanse aktivert",
+      "askBeforeRemembering": "Spør før jeg husker relasjonsdetaljer",
+      "giftSuggestions": "Gaveforslag",
+      "followUps": "Oppfølgingspåminnelser"
+    },
+    "personTypes": {
+      "partner": "Partner",
+      "child": "Barn",
+      "parent": "Forelder",
+      "friend": "Venn",
+      "colleague": "Kollega",
+      "client": "Kunde",
+      "mentor": "Mentor",
+      "other": "Annet"
+    }
+  },
   "nav": {
     "overview": "Hjem",
     "executive": "Executive",
     "presence": "Presence",
+    "assistant": "Assistent",
     "recommendations": "Anbefalinger",
     "skills": "Skills",
     "approvals": "Godkjenninger",

@@ -18,6 +18,28 @@ export default async function ApprovalsPage() {
         empty: t("customerApp.approvals.empty"),
         pulseLabel: t("branding.pulseLabel"),
         openActionCenter: t("customerApp.approvals.openActionCenter"),
+        approve: t("customerApp.approvals.approve"),
+        reject: t("customerApp.approvals.reject"),
+        executing: t("customerApp.approvals.executing"),
+        emergencyStop: t("customerApp.approvals.emergencyStop"),
+        emergencyActive: t("customerApp.approvals.emergencyActive"),
+        riskLevels: {
+          "0": t("customerApp.approvals.riskLevels.information"),
+          "1": t("customerApp.approvals.riskLevels.low"),
+          "2": t("customerApp.approvals.riskLevels.medium"),
+          "3": t("customerApp.approvals.riskLevels.high"),
+          "4": t("customerApp.approvals.riskLevels.critical"),
+          low: t("customerApp.approvals.riskLevels.low"),
+          medium: t("customerApp.approvals.riskLevels.medium"),
+          high: t("customerApp.approvals.riskLevels.high"),
+          critical: t("customerApp.approvals.riskLevels.critical"),
+        },
+        fields: {
+          skill: t("customerApp.approvals.fields.skill"),
+          confidence: t("customerApp.approvals.fields.confidence"),
+          approver: t("customerApp.approvals.fields.approver"),
+          reasoning: t("customerApp.approvals.fields.reasoning"),
+        },
         statusLabels: {
           pending: t("customerApp.approvals.statusLabels.pending"),
           approved: t("customerApp.approvals.statusLabels.approved"),
@@ -30,6 +52,7 @@ export default async function ApprovalsPage() {
           automation: t("customerApp.approvals.categoryLabels.automation"),
           integration: t("customerApp.approvals.categoryLabels.integration"),
           update: t("customerApp.approvals.categoryLabels.update"),
+          action: t("customerApp.approvals.categoryLabels.action"),
         },
       }}
     />

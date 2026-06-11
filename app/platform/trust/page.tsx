@@ -1,3 +1,7 @@
+import PlatformAssistantMemoryPanel from "@/components/platform/PlatformAssistantMemoryPanel";
+import PlatformLifeOsPanel from "@/components/platform/PlatformLifeOsPanel";
+import PlatformRelationshipPanel from "@/components/platform/PlatformRelationshipPanel";
+import PlatformTrustActionsPanel from "@/components/platform/PlatformTrustActionsPanel";
 import { PlatformTrustScaffold } from "@/components/platform/trust";
 import {
   ALLOWED_STORAGE_CATEGORIES,
@@ -26,7 +30,62 @@ export default async function PlatformTrustPage() {
     : undefined;
 
   return (
-    <PlatformTrustScaffold
+    <>
+      <PlatformAssistantMemoryPanel
+        labels={{
+          title: t("platform.assistantMemory.title"),
+          subtitle: t("platform.assistantMemory.subtitle"),
+          loading: t("platform.assistantMemory.loading"),
+          active: t("platform.assistantMemory.active"),
+          tenants: t("platform.assistantMemory.tenants"),
+          disabled: t("platform.assistantMemory.disabled"),
+          byCategory: t("platform.assistantMemory.byCategory"),
+          privacyNote: t("platform.assistantMemory.privacyNote"),
+        }}
+      />
+      <PlatformRelationshipPanel
+        labels={{
+          title: t("platform.relationships.title"),
+          subtitle: t("platform.relationships.subtitle"),
+          loading: t("platform.relationships.loading"),
+          tenants: t("platform.relationships.tenants"),
+          people: t("platform.relationships.people"),
+          notes: t("platform.relationships.notes"),
+          timeline: t("platform.relationships.timeline"),
+          disabled: t("platform.relationships.disabled"),
+          byType: t("platform.relationships.byType"),
+          privacyNote: t("platform.relationships.privacyNote"),
+        }}
+      />
+      <PlatformLifeOsPanel
+        labels={{
+          title: t("platform.lifeOs.title"),
+          subtitle: t("platform.lifeOs.subtitle"),
+          loading: t("platform.lifeOs.loading"),
+          tenants: t("platform.lifeOs.tenants"),
+          checklists: t("platform.lifeOs.checklists"),
+          memories: t("platform.lifeOs.memories"),
+          reschedule: t("platform.lifeOs.reschedule"),
+          byPriority: t("platform.lifeOs.byPriority"),
+          byLifeArea: t("platform.lifeOs.byLifeArea"),
+          privacyNote: t("platform.lifeOs.privacyNote"),
+        }}
+      />
+      <PlatformTrustActionsPanel
+        labels={{
+          title: t("platform.trustActions.title"),
+          subtitle: t("platform.trustActions.subtitle"),
+          loading: t("platform.trustActions.loading"),
+          pending: t("platform.trustActions.pending"),
+          executed: t("platform.trustActions.executed"),
+          rejected: t("platform.trustActions.rejected"),
+          emergency: t("platform.trustActions.emergency"),
+          highestRisk: t("platform.trustActions.highestRisk"),
+          recentActivity: t("platform.trustActions.recentActivity"),
+          noActivity: t("platform.trustActions.noActivity"),
+        }}
+      />
+      <PlatformTrustScaffold
       title={t("platform.trust.title")}
       subtitle={t("platform.trust.subtitle")}
       statsLabel={t("platform.trust.statsLabel")}
@@ -44,5 +103,6 @@ export default async function PlatformTrustPage() {
         t("platform.trust.areas.offboarding"),
       ]}
     />
+    </>
   );
 }

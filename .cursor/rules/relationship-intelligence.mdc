@@ -1,0 +1,24 @@
+---
+description: RSI — relationship assistance, ethical boundaries, never impersonate user
+alwaysApply: true
+---
+
+# Relationship & Social Intelligence / RSI (Phase 33)
+
+Read **[RELATIONSHIP_SOCIAL_INTELLIGENCE.md](../../RELATIONSHIP_SOCIAL_INTELLIGENCE.md)** before relationship dashboard, reminders, or people directory changes.
+
+## Rules
+
+1. **Strengthen relationships — never replace them** — thoughtful suggestions only
+2. **Never impersonate the user** — no automated personal messages
+3. **Never manipulate or pressure** — user always decides
+4. Customer route: `/app/assistant/relationships` — APIs at `/api/assistant/relationships/*`
+5. Conversation notes require **explicit approval** (`record_relationship_note` with `p_approved = true`)
+6. Builds on PAME `important_people` — extend, don't duplicate
+7. Shared memory: `shared_memory_spaces` scaffold only — `pending_consent` until future phase
+8. Platform aggregates only — `get_platform_relationship_overview` with `privacy_note`
+9. i18n: `locales/{en,no,sv,da}/customerApp.json` (`relationships.*`)
+
+## Person types
+
+`partner` · `child` · `parent` · `friend` · `colleague` · `client` · `mentor` · `other`

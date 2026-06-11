@@ -1,0 +1,24 @@
+---
+description: LifeOS — daily coordination on top of PAME, user-controlled suggestions
+alwaysApply: true
+---
+
+# Life Operating System / LifeOS (Phase 32)
+
+Read **[LIFE_OPERATING_SYSTEM.md](../../LIFE_OPERATING_SYSTEM.md)** before life dashboard, briefing, or priority changes.
+
+## Rules
+
+1. **PAME remembers, LifeOS assists** — build on `personal_memories`, never duplicate memory storage
+2. **Suggestions only** — user always decides; no hidden actions or pressure
+3. Customer route: `/app/assistant/life` — APIs at `/api/assistant/life/*`
+4. Priority engine: `critical` · `important` · `routine` · `optional` via `life_memory_meta`
+5. Life areas: `personal` · `family` · `health` · `work` · `finance` · `travel` · `education` · `home`
+6. Smart rescheduling: `postpone_life_reminder` — suggest after 3 postponements
+7. Distinct from **Executive briefings** (business Presence) and **Learning Engine**
+8. Platform aggregates only — `get_platform_life_os_overview` with `privacy_note`
+9. i18n: `locales/{en,no,sv,da}/customerApp.json` (`lifeOs.*`)
+
+## Tables
+
+`life_os_settings` · `life_memory_meta` · `life_checklists` · `life_checklist_items`

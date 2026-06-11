@@ -1,0 +1,35 @@
+AIPIFY PERSONAL ASSISTANT MEMORY ENGINE (PAME)
+Phase 31 — Natural Human Communication Layer
+STATUS: Implemented
+
+CORE PHILOSOPHY
+People think in conversations, not commands.
+PAME supports the user. Learning Engine improves Aipify.
+
+MEMORY TYPES
+important_people, events, tasks, habits, goals
+
+ENGINES
+Intent detection · Clarification · Reminder · Confidence (high/medium/low)
+
+CUSTOMER ROUTES
+/app/assistant — natural conversation
+/app/assistant/memory — dashboard (people, events, tasks, habits, goals)
+
+APIs
+POST /api/assistant
+GET/PATCH/DELETE /api/assistant/memory
+GET /api/assistant/export
+
+DATABASE
+personal_memories · important_people · memory_notifications
+
+PRIVACY
+Metadata only. Ask before remembering. User owns all memories.
+Administrators cannot access user memory content — aggregates only.
+
+IMPLEMENTATION
+lib/assistant-memory/
+supabase/migrations/20260611900000_assistant_memory_phase31.sql
+supabase/migrations/20260611910000_pame_phase31.sql
+ASSISTANT_MEMORY_ENGINE.md
