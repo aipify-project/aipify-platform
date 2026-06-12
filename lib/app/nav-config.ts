@@ -51,6 +51,9 @@ export type AppNavId =
   | "serviceLevelCommitmentEngine"
   | "recordsRetentionManagementEngine"
   | "meetingCollaborationIntelligenceEngine"
+  | "unifiedTaskFollowUpEngine"
+  | "resourcePlanningEngine"
+  | "capacityWorkloadManagementEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -304,6 +307,21 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/meeting-collaboration-intelligence-engine",
     labelKey: "customerApp.nav.meetingCollaborationIntelligenceEngine",
   },
+  {
+    id: "unifiedTaskFollowUpEngine",
+    href: "/app/unified-task-follow-up-engine",
+    labelKey: "customerApp.nav.unifiedTaskFollowUpEngine",
+  },
+  {
+    id: "resourcePlanningEngine",
+    href: "/app/resource-planning-engine",
+    labelKey: "customerApp.nav.resourcePlanningEngine",
+  },
+  {
+    id: "capacityWorkloadManagementEngine",
+    href: "/app/capacity-workload-management-engine",
+    labelKey: "customerApp.nav.capacityWorkloadManagementEngine",
+  },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -442,6 +460,15 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/meeting-collaboration-intelligence-engine")) {
     return "meetingCollaborationIntelligenceEngine";
+  }
+  if (pathname.startsWith("/app/unified-task-follow-up-engine")) {
+    return "unifiedTaskFollowUpEngine";
+  }
+  if (pathname.startsWith("/app/resource-planning-engine")) {
+    return "resourcePlanningEngine";
+  }
+  if (pathname.startsWith("/app/capacity-workload-management-engine")) {
+    return "capacityWorkloadManagementEngine";
   }
   if (pathname.startsWith("/app/aipify-install-engine")) return "aipifyInstallEngine";
   if (pathname.startsWith("/app/module-marketplace-foundation-engine")) {

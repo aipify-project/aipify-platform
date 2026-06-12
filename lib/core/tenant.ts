@@ -64,3 +64,6 @@ export * from "./organizational-benchmarking";
 export * from "./document-output";
 export * from "./records-retention-management";
 export * from "./meeting-collaboration-intelligence";
+export * from "./unified-task-follow-up";
+export * from "./resource-planning";
+export * from "./capacity-workload-management";
