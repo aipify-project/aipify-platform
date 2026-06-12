@@ -94,6 +94,7 @@ export type CompanionExample = {
 export type SelfLoveConnection = {
   principle?: string;
   practices?: string[];
+  journey_phrase?: string;
   self_love_route?: string;
   naming_doc?: string;
   boundary_note?: string;

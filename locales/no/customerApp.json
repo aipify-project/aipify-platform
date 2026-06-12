@@ -2337,6 +2337,24 @@
         "trustConnection": "Tillit og transparens",
         "dogfooding": "Dogfooding",
         "visionPhrases": "Visjon"
+      },
+      "phase78": {
+        "sectionTitle": "Simulation & Decision Lab Engine (ABOS fase 78)",
+        "engagementSummary": "Engasjementssammendrag for Decision Lab",
+        "objectives": "Mål for Decision Lab",
+        "decisionLabEnvironment": "Decision Lab-miljø",
+        "simulationInputs": "Simuleringsinndata",
+        "scenarioComparison": "Scenariesammenligning",
+        "companionGuidance": "Companion-veiledning",
+        "collaborativeDecisionMaking": "Samarbeidende beslutningstaking",
+        "learningThroughSimulation": "Læring gjennom simulering",
+        "leadershipInsights": "Ledelsesinnsikt",
+        "limitationPrinciples": "Begrensningsprinsipper",
+        "successCriteria": "Suksesskriterier",
+        "selfLoveConnection": "Self Love-tilknytning",
+        "trustConnection": "Tillit og transparens",
+        "dogfooding": "Dogfooding",
+        "visionPhrases": "Visjon"
       }
     }
   },

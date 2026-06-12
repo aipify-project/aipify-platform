@@ -3120,6 +3120,24 @@
         "trustConnection": "Trust connection",
         "dogfooding": "Dogfooding",
         "visionPhrases": "Vision"
+      },
+      "phase78": {
+        "sectionTitle": "Simulation & Decision Lab Engine (ABOS Phase 78)",
+        "engagementSummary": "Decision Lab engagement summary",
+        "objectives": "Decision Lab objectives",
+        "decisionLabEnvironment": "Decision Lab environment",
+        "simulationInputs": "Simulation inputs",
+        "scenarioComparison": "Scenario comparison",
+        "companionGuidance": "Companion guidance",
+        "collaborativeDecisionMaking": "Collaborative decision-making",
+        "learningThroughSimulation": "Learning through simulation",
+        "leadershipInsights": "Leadership insights",
+        "limitationPrinciples": "Limitation principles",
+        "successCriteria": "Success criteria",
+        "selfLoveConnection": "Self Love connection",
+        "trustConnection": "Trust connection",
+        "dogfooding": "Dogfooding",
+        "visionPhrases": "Vision"
       }
     }
   },
