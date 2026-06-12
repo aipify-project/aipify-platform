@@ -1,5 +1,6 @@
 import type {
   AbosSuccessCriterion,
+  AipifyTrustNetwork,
   BlueprintBoundaries,
   BoundaryPrinciples,
   CompanionExample,
@@ -9,15 +10,19 @@ import type {
   EarlyWarningSignal,
   ExamplePhrase,
   GrowthPartnerTrustModel,
+  GrowthPartnerTrustProgram,
   IntegrationLink,
   OrganizationalTrust,
   OrganizationTrustOutcome,
   OrganizationTrustProfile,
+  OrganizationTrustProfileBundle,
   OrganizationTrustSignal,
   RecognitionTypesBlueprint,
   RelationshipObjective,
   RelationshipPrinciple,
+  ReputationSafeguards,
   SelfLoveConnection,
+  TrustCompanionBlueprint,
   TrustEngagementSummary,
   TrustInsightQuestion,
   TrustReputationEngineCard,
@@ -144,6 +149,31 @@ function parseGrowthPartnerTrustModel(data: unknown): GrowthPartnerTrustModel | 
   return data as GrowthPartnerTrustModel;
 }
 
+function parseReputationSafeguards(data: unknown): ReputationSafeguards | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ReputationSafeguards;
+}
+
+function parseTrustCompanion(data: unknown): TrustCompanionBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as TrustCompanionBlueprint;
+}
+
+function parseAipifyTrustNetwork(data: unknown): AipifyTrustNetwork | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as AipifyTrustNetwork;
+}
+
+function parseGrowthPartnerTrustProgram(data: unknown): GrowthPartnerTrustProgram | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as GrowthPartnerTrustProgram;
+}
+
+function parseOrganizationTrustProfileBundle(data: unknown): OrganizationTrustProfileBundle | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as OrganizationTrustProfileBundle;
+}
+
 export function parseTrustReputationEngineCard(data: unknown): TrustReputationEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
   return {
@@ -262,6 +292,30 @@ export function parseTrustReputationEngineDashboard(
     companion_adaptation: parseCompanionExamples(d.companion_adaptation),
     phase116_success_metrics: parseRelationshipObjectives(d.phase116_success_metrics),
     phase116_success_criteria: parseSuccessCriteria(d.phase116_success_criteria),
+    implementation_blueprint_phase116:
+      typeof d.implementation_blueprint_phase116 === "object" && d.implementation_blueprint_phase116
+        ? (d.implementation_blueprint_phase116 as TrustReputationEngineDashboard["implementation_blueprint_phase116"])
+        : undefined,
+    trust_network_verified_ecosystem_note:
+      typeof d.trust_network_verified_ecosystem_note === "string"
+        ? d.trust_network_verified_ecosystem_note
+        : undefined,
+    phase142_objectives: parseRelationshipObjectives(d.phase142_objectives),
+    aipify_trust_network: parseAipifyTrustNetwork(d.aipify_trust_network),
+    verified_organization_engine: parseRelationshipObjectives(d.verified_organization_engine),
+    organization_trust_profile_fields: parseRelationshipObjectives(d.organization_trust_profile_fields),
+    growth_partner_trust_program: parseGrowthPartnerTrustProgram(d.growth_partner_trust_program),
+    trust_signal_engine: parseRelationshipObjectives(d.trust_signal_engine),
+    procurement_readiness_engine: parseRelationshipObjectives(d.procurement_readiness_engine),
+    trust_companion: parseTrustCompanion(d.trust_companion),
+    reputation_safeguards: parseReputationSafeguards(d.reputation_safeguards),
+    phase142_companion_limitations: parseStringArray(d.phase142_companion_limitations),
+    phase142_self_love_connection: parseSelfLoveConnection(d.phase142_self_love_connection),
+    phase142_security_requirements: parseRelationshipObjectives(d.phase142_security_requirements),
+    phase142_integration_links: parseIntegrationLinks(d.phase142_integration_links),
+    dogfooding_phase142: parseDogfooding(d.dogfooding_phase142),
+    phase142_success_criteria: parseSuccessCriteria(d.phase142_success_criteria),
+    organization_trust_profile: parseOrganizationTrustProfileBundle(d.organization_trust_profile),
     ...d,
   } as TrustReputationEngineDashboard;
 }

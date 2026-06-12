@@ -105,6 +105,39 @@ export type BlueprintSection = {
   audit_note?: string;
 };
 
+export type OrganizationalConsciousnessPhase159Blueprint = {
+  phase?: string;
+  doc?: string;
+  spec_doc?: string;
+  engine_phase?: string;
+  era?: string;
+  route?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: BlueprintObjective[];
+  systemic_awareness_center?: BlueprintObjective[];
+  interdependency_engine?: BlueprintObjective[];
+  systemic_consequence_framework?: BlueprintObjective[];
+  executive_systemic_reviews?: BlueprintSection;
+  systemic_companion?: BlueprintObjective[];
+  organizational_health_engine?: BlueprintSection;
+  systemic_learning_engine?: BlueprintObjective[];
+  awareness_memory_engine?: BlueprintSection;
+  companion_limitations?: BlueprintObjective[];
+  self_love_connection?: BlueprintSection;
+  security_requirements?: BlueprintSection;
+  integration_links?: IntegrationLink[];
+  dogfooding?: Record<string, unknown>;
+  success_metrics?: BlueprintObjective[];
+  success_criteria?: AbosSuccessCriterion[];
+  engagement_summary?: DigitalTwinEngagementSummary;
+  vision_phrases?: string[];
+  privacy_note?: string;
+};
+
 export type OrganizationalDigitalTwinPhase124Blueprint = {
   phase?: string;
   doc?: string;
@@ -168,6 +201,18 @@ export type DigitalTwinEngagementSummary = {
   success_metrics_count?: number;
   companion_limitations_count?: number;
   memory_captures?: number;
+  awareness_center_capabilities?: number;
+  interdependency_domains?: number;
+  consequence_framework_items?: number;
+  executive_review_themes?: number;
+  systemic_companion_supports?: number;
+  health_theme_count?: number;
+  systemic_learning_links?: number;
+  awareness_memory_captures?: number;
+  dependency_maps?: number;
+  systemic_reviews?: number;
+  awareness_memory_entries?: number;
+  health_snapshots?: number;
 };
 
 export type AbosSuccessCriterion = {
@@ -194,6 +239,11 @@ export type DigitalTwinCard = {
   phase124_abos_principle?: string;
   phase124_engagement_summary?: DigitalTwinEngagementSummary;
   phase124_note?: string;
+  implementation_blueprint_phase159?: ImplementationBlueprintMeta;
+  phase159_mission?: string;
+  phase159_abos_principle?: string;
+  phase159_engagement_summary?: DigitalTwinEngagementSummary;
+  phase159_note?: string;
 };
 
 export type DigitalTwinDashboard = {
@@ -232,6 +282,8 @@ export type DigitalTwinDashboard = {
   blueprint_privacy_note?: string;
   implementation_blueprint_phase124?: OrganizationalDigitalTwinPhase124Blueprint;
   organizational_digital_twin_phase124_note?: string;
+  implementation_blueprint_phase159?: OrganizationalConsciousnessPhase159Blueprint;
+  organizational_consciousness_phase159_note?: string;
 };
 
 export type KnowledgeRouteResult = {

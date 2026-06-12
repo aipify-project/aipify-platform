@@ -103,8 +103,15 @@ export type TrustEngagementSummary = {
   relationship_signals_90d?: number;
   warning_signals_30d?: number;
   phase116_note?: string;
+  phase142_note?: string;
   companion_note?: string;
   privacy_note?: string;
+  verified_verifications?: number;
+  pending_verifications?: number;
+  active_gp_certifications?: number;
+  public_profile_visible?: boolean;
+  knowledge_contributions_count?: number;
+  community_participation_count?: number;
 };
 
 export type TrustInsightQuestion = {
@@ -134,6 +141,79 @@ export type GrowthPartnerTrustModel = {
   principle?: string;
   growth_partner_route?: string;
   areas?: RelationshipObjective[];
+};
+
+export type ReputationSafeguards = {
+  principle?: string;
+  do_not?: string[];
+  do?: string[];
+};
+
+export type TrustCompanionBlueprint = {
+  principle?: string;
+  may?: string[];
+  must_avoid?: string[];
+};
+
+export type AipifyTrustNetwork = {
+  principle?: string;
+  participant_types?: RelationshipObjective[];
+};
+
+export type GrowthPartnerTrustProgram = {
+  principle?: string;
+  partners_route?: string;
+  growth_partner_ops_route?: string;
+  areas?: RelationshipObjective[];
+};
+
+export type OrganizationEcosystemTrustProfile = {
+  organization_id?: string;
+  display_name?: string;
+  country_code?: string;
+  industry_key?: string;
+  verification_status?: string;
+  growth_partner_status?: string;
+  years_in_ecosystem?: number;
+  knowledge_contributions_count?: number;
+  community_participation_count?: number;
+  enterprise_certification_keys?: string[];
+  public_profile_visible?: boolean;
+  metadata?: Record<string, unknown>;
+  updated_at?: string;
+  [key: string]: unknown;
+};
+
+export type OrganizationTrustVerification = {
+  id?: string;
+  verification_type?: string;
+  status?: string;
+  verified_at?: string;
+  metadata?: Record<string, unknown>;
+  created_at?: string;
+  [key: string]: unknown;
+};
+
+export type GrowthPartnerTrustCertification = {
+  id?: string;
+  program_key?: string;
+  certification_level?: string;
+  status?: string;
+  certified_at?: string;
+  metadata?: Record<string, unknown>;
+  [key: string]: unknown;
+};
+
+export type OrganizationTrustProfileBundle = {
+  has_organization?: boolean;
+  organization_id?: string;
+  ecosystem_profile?: OrganizationEcosystemTrustProfile;
+  verifications?: OrganizationTrustVerification[];
+  growth_partner_certifications?: GrowthPartnerTrustCertification[];
+  profile_fields?: RelationshipObjective[];
+  reputation_safeguards?: ReputationSafeguards;
+  engagement_summary?: TrustEngagementSummary;
+  privacy_note?: string;
 };
 
 export type AbosSuccessCriterion = {
@@ -261,6 +341,24 @@ export type TrustReputationEngineDashboard = {
   companion_adaptation?: CompanionExample[];
   phase116_success_metrics?: RelationshipObjective[];
   phase116_success_criteria?: AbosSuccessCriterion[];
+  implementation_blueprint_phase116?: ImplementationBlueprintMeta;
+  trust_network_verified_ecosystem_note?: string;
+  phase142_objectives?: RelationshipObjective[];
+  aipify_trust_network?: AipifyTrustNetwork;
+  verified_organization_engine?: RelationshipObjective[];
+  organization_trust_profile_fields?: RelationshipObjective[];
+  growth_partner_trust_program?: GrowthPartnerTrustProgram;
+  trust_signal_engine?: RelationshipObjective[];
+  procurement_readiness_engine?: RelationshipObjective[];
+  trust_companion?: TrustCompanionBlueprint;
+  reputation_safeguards?: ReputationSafeguards;
+  phase142_companion_limitations?: string[];
+  phase142_self_love_connection?: SelfLoveConnection;
+  phase142_security_requirements?: RelationshipObjective[];
+  phase142_integration_links?: IntegrationLink[];
+  dogfooding_phase142?: DogfoodingBlueprint;
+  phase142_success_criteria?: AbosSuccessCriterion[];
+  organization_trust_profile?: OrganizationTrustProfileBundle;
   privacy_note?: string;
   [key: string]: unknown;
 };

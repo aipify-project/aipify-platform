@@ -13,6 +13,9 @@ import type {
   IntegrationLink,
   LimitationPrinciples,
   PolicyEntry,
+  ProfessionalDirectoryEntry,
+  CertificationReview,
+  GlobalEcosystemCertificationBlueprint,
   SelfLoveConnection,
   TrustBadge,
 } from "./types";
@@ -92,6 +95,26 @@ function parseBlueprintBlock(data: unknown): EcosystemGovernanceBlueprint | unde
   return data as EcosystemGovernanceBlueprint;
 }
 
+function parseGlobalCertificationBlueprint(data: unknown): GlobalEcosystemCertificationBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as GlobalEcosystemCertificationBlueprint;
+}
+
+function parseProfessionalDirectory(data: unknown): ProfessionalDirectoryEntry[] {
+  if (!Array.isArray(data)) return [];
+  return data as ProfessionalDirectoryEntry[];
+}
+
+function parseCertificationReviews(data: unknown): CertificationReview[] {
+  if (!Array.isArray(data)) return [];
+  return data as CertificationReview[];
+}
+
+function parseStringArray(data: unknown): string[] {
+  if (!Array.isArray(data)) return [];
+  return data.filter((item): item is string => typeof item === "string");
+}
+
 function parseRecord(data: unknown): Record<string, unknown> | undefined {
   if (typeof data !== "object" || !data) return undefined;
   return data as Record<string, unknown>;
@@ -117,6 +140,17 @@ export function parseEcosystemGovernanceCard(data: unknown): EcosystemGovernance
     ecosystem_governance_engagement_summary: parseEngagementSummary(d.ecosystem_governance_engagement_summary),
     ecosystem_governance_vision_note:
       typeof d.ecosystem_governance_vision_note === "string" ? d.ecosystem_governance_vision_note : undefined,
+    implementation_blueprint_phase146: parseBlueprintMeta(d.implementation_blueprint_phase146),
+    gecsbp146_mission: typeof d.gecsbp146_mission === "string" ? d.gecsbp146_mission : undefined,
+    gecsbp146_philosophy: typeof d.gecsbp146_philosophy === "string" ? d.gecsbp146_philosophy : undefined,
+    gecsbp146_abos_principle:
+      typeof d.gecsbp146_abos_principle === "string" ? d.gecsbp146_abos_principle : undefined,
+    gecsbp146_engagement_summary: parseEngagementSummary(d.gecsbp146_engagement_summary),
+    gecsbp146_vision_note: typeof d.gecsbp146_vision_note === "string" ? d.gecsbp146_vision_note : undefined,
+    gecsbp146_distinction_note:
+      typeof d.gecsbp146_distinction_note === "string" ? d.gecsbp146_distinction_note : undefined,
+    global_ecosystem_certification_note:
+      typeof d.global_ecosystem_certification_note === "string" ? d.global_ecosystem_certification_note : undefined,
   };
 }
 
@@ -190,5 +224,44 @@ export function parseEcosystemGovernanceDashboard(data: unknown): EcosystemGover
     ecosystem_governance_vision:
       typeof d.ecosystem_governance_vision === "string" ? d.ecosystem_governance_vision : undefined,
     privacy_note: typeof d.privacy_note === "string" ? d.privacy_note : undefined,
+    implementation_blueprint_phase146: parseBlueprintMeta(d.implementation_blueprint_phase146),
+    global_ecosystem_certification_blueprint: parseGlobalCertificationBlueprint(
+      d.global_ecosystem_certification_blueprint,
+    ),
+    global_ecosystem_certification_note:
+      typeof d.global_ecosystem_certification_note === "string" ? d.global_ecosystem_certification_note : undefined,
+    gecsbp146_distinction_note:
+      typeof d.gecsbp146_distinction_note === "string" ? d.gecsbp146_distinction_note : undefined,
+    gecsbp146_mission: typeof d.gecsbp146_mission === "string" ? d.gecsbp146_mission : undefined,
+    gecsbp146_philosophy: typeof d.gecsbp146_philosophy === "string" ? d.gecsbp146_philosophy : undefined,
+    gecsbp146_abos_principle:
+      typeof d.gecsbp146_abos_principle === "string" ? d.gecsbp146_abos_principle : undefined,
+    gecsbp146_vision: typeof d.gecsbp146_vision === "string" ? d.gecsbp146_vision : undefined,
+    gecsbp146_objectives: parseObjectives(d.gecsbp146_objectives),
+    global_certification_center_meta: parseRecord(d.global_certification_center_meta),
+    certification_framework_engine_meta: parseRecord(d.certification_framework_engine_meta),
+    growth_partner_accreditation_meta: parseRecord(d.growth_partner_accreditation_meta),
+    continuous_learning_engine_meta: parseRecord(d.continuous_learning_engine_meta),
+    professional_standards_framework_meta: parseRecord(d.professional_standards_framework_meta),
+    certification_companion_meta: parseRecord(d.certification_companion_meta),
+    executive_education_engine_meta: parseRecord(d.executive_education_engine_meta),
+    professional_directory_engine_meta: parseRecord(d.professional_directory_engine_meta),
+    gecsbp146_companion_limitations: parseLimitationPrinciples(d.gecsbp146_companion_limitations),
+    gecsbp146_self_love_connection: parseSelfLoveConnection(d.gecsbp146_self_love_connection),
+    gecsbp146_security_requirements: parseRecord(d.gecsbp146_security_requirements),
+    gecsbp146_integration_links: parseIntegrationLinks(d.gecsbp146_integration_links),
+    gecsbp146_dogfooding: typeof d.gecsbp146_dogfooding === "string" ? d.gecsbp146_dogfooding : undefined,
+    gecsbp146_engagement_summary: parseEngagementSummary(d.gecsbp146_engagement_summary),
+    gecsbp146_success_criteria: parseSuccessCriteria(d.gecsbp146_success_criteria),
+    gecsbp146_vision_phrases: parseStringArray(d.gecsbp146_vision_phrases),
+    gecsbp146_privacy_note: typeof d.gecsbp146_privacy_note === "string" ? d.gecsbp146_privacy_note : undefined,
+    professional_directory_count: Number(d.professional_directory_count ?? 0),
+    certified_professionals_count: Number(d.certified_professionals_count ?? 0),
+    certification_reviews_scheduled: Number(d.certification_reviews_scheduled ?? 0),
+    certification_reviews_in_progress: Number(d.certification_reviews_in_progress ?? 0),
+    certification_pathways_count: Number(d.certification_pathways_count ?? 0),
+    professional_standards_count: Number(d.professional_standards_count ?? 0),
+    professional_directory_entries: parseProfessionalDirectory(d.professional_directory_entries),
+    certification_reviews: parseCertificationReviews(d.certification_reviews),
   };
 }

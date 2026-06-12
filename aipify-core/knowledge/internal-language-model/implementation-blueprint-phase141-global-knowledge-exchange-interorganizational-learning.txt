@@ -1,0 +1,58 @@
+Aipify Business Operating System (ABOS) — Phase 141 Global Knowledge Exchange & Interorganizational Learning Engine
+
+Route: /app/global-knowledge-exchange-engine
+Era: Global Intelligence & Interorganizational (141–150) opener
+
+MISSION
+Enable voluntary, consensual, governed knowledge exchange across participating organizations. Wisdom before speed. Anonymization mandatory. Organizations own their knowledge.
+
+PHILOSOPHY
+People First. Voluntary exchange only. Anonymization mandatory for benchmarks. Never expose cross-tenant identifiable operational data. Growth Partner terminology — never Affiliate.
+
+ABOS PRINCIPLE
+Global Knowledge Exchange aggregates opt-in interorganizational learning visibility. A.71 cross-tenant intelligence and era engines remain authoritative. Humans and executives decide what to share.
+
+GLOBAL KNOWLEDGE CENTER (eight capabilities)
+Exchange programs, cross-industry insights, anonymized benchmarking, community learning networks, Growth Partner contributions, best practices, collective initiatives, governance controls
+
+INTERORGANIZATIONAL LEARNING (six domains)
+Lessons learned exchanges, operational best practices, transformation experiences, support excellence, companion adoption insights, governance framework sharing
+
+KNOWLEDGE SHARING GOVERNANCE
+Voluntary participation, may/must-not-share rules, anonymization, approval workflows, retention, participation boundaries
+
+ANONYMIZED BENCHMARKING (six benchmarks)
+Industry averages, maturity indicators, knowledge engagement, companion adoption, support responsiveness, transformation readiness — no identifiable info
+
+GLOBAL LEARNING NETWORKS (eight networks)
+Executive leadership, support excellence, commerce operations, governance stewards, Growth Partner development, knowledge stewardship, transformation, resilience
+
+GROWTH PARTNER CONTRIBUTION ENGINE
+Implementation insights, playbooks, adoption frameworks, training, recommendations, case studies — metadata summaries only
+
+COLLECTIVE WISDOM COMPANION
+Knowledge discovery, benchmark interpretation, cross-industry insights, learning recommendations, community navigation, reflection — never reveal confidential info
+
+COMPANION LIMITATIONS
+No proprietary exposure, no unauthorized sharing, no governance bypass, no identity reveal, no privacy override, no pressure to share confidential data
+
+INTEGRATION CROSS-LINKS (do NOT duplicate RPCs)
+A.71 /app/cross-tenant-intelligence-engine
+Community 117 /app/community
+Benchmarking A.58 /app/organizational-benchmarking-engine
+GP Ops 114 /app/growth-partner-operations
+University 115 /app/aipify-university
+Impact Metrics /platform/impact
+Knowledge Center A.5 /app/knowledge-center-engine
+Collective Decision 137 /app/collective-decision-council-engine
+Augmented Organization 140 /app/augmented-organization-engine
+
+VISION PHRASES
+Wisdom before speed.
+Voluntary exchange — organizations own their knowledge.
+Anonymization mandatory for shared benchmarks.
+Humility, curiosity, generosity.
+People First — mutual support across industries.
+
+PRIVACY NOTE
+Metadata and anonymized aggregates only. No cross-tenant PII. Opt-in required. Minimum participant thresholds for shared benchmark views.

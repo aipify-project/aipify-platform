@@ -1,0 +1,42 @@
+Implementation Blueprint Phase 149 — Global Impact & Social Responsibility Engine
+
+Route: /app/social-impact-purpose-engine
+Extends: Social Impact & Purpose Engine Phase 118
+Era: Global Intelligence & Interorganizational Era (141–150)
+Helper prefix: _gisrb149_*
+
+Mission
+Help organizations steward authentic social responsibility — tracking community initiatives, supporting employee wellbeing programs, reporting contributions thoughtfully, and guiding leadership reflection — without scoring worth, imposing ideology, or replacing executive accountability.
+
+Philosophy
+Authentic responsibility and measurable contribution — not virtue signaling or PR campaigns. People First. Stewardship through responsibility. Growth Partner not Affiliate.
+
+ABOS Principle
+Global Impact & Social Responsibility extends Phase 118 Purpose Center with Global Intelligence Era depth. Purpose & Values A.82, Impact Engine A.85, and Platform Anonymised Impact remain authoritative. Aipify informs and prepares; executives retain accountability.
+
+Vision
+Organizations contribute meaningfully to communities and people — visible stewardship, thoughtful reporting, and leadership reflection — because authentic responsibility builds trust that marketing cannot manufacture.
+
+Distinctions
+- NOT virtue signaling or PR campaigns
+- NOT social scoring or ranking organizations
+- NOT Purpose & Values A.82 / Phase 138 (cross-link only)
+- NOT Impact Engine A.85 (cross-link only)
+- NOT Platform Anonymised Impact /platform/impact (marketing proof)
+- NOT Innovation & Impact A.28 duplicate
+- Extends Phase 118 — do NOT create duplicate impact center
+
+Global Impact Center (8 capabilities)
+Impact dashboards · Community initiative tracking · Employee wellbeing programs · Social contribution reporting · Leadership reflection frameworks · GP impact reviews · Purpose alignment insights · Impact knowledge libraries
+
+Impact Companion
+May: reflection prompts, opportunity identification, knowledge recommendations, reporting guidance, community initiative support, leadership summaries.
+Must avoid: social scores, judging organizational worth, imposing ideology, publishing sensitive info, replacing executive accountability.
+
+Growth Partner terminology: Growth Partner — never Affiliate.
+
+Cross-links
+Phase 118 · Purpose & Values 138 · Impact Engine A.85 · Innovation & Impact A.28 · Platform Anonymised Impact · Self Love A.76 · Inclusion A.83 · Employee Experience Phase 96 · Ecosystem Governance 119/146 · Global Knowledge Exchange 141 · Growth Partner Ops 114
+
+Privacy
+Metadata only — participation counts and reflection records. No PII. No individual employee surveillance.

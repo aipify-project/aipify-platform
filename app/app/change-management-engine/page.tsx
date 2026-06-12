@@ -9,6 +9,7 @@ export default async function ChangeManagementEnginePage() {
   const p = "customerApp.changeManagementEngine";
   const b = `${p}.blueprint`;
   const p127 = `${p}.phase127`;
+  const p155 = `${p}.phase155`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -74,6 +75,21 @@ export default async function ChangeManagementEnginePage() {
           phase127CompanionAdaptation: t(`${p127}.companionAdaptation`),
           phase127SuccessMetrics: t(`${p127}.successMetrics`),
           phase127SuccessCriteria: t(`${p127}.successCriteria`),
+          phase155Title: t(`${p155}.title`),
+          phase155Objectives: t(`${p155}.objectives`),
+          phase155RenewalCenter: t(`${p155}.renewalCenter`),
+          phase155ReinventionIntelligence: t(`${p155}.reinventionIntelligence`),
+          phase155IdentityPreservation: t(`${p155}.identityPreservation`),
+          phase155ExecutiveRenewal: t(`${p155}.executiveRenewal`),
+          phase155RenewalCompanion: t(`${p155}.renewalCompanion`),
+          phase155InnovationBalance: t(`${p155}.innovationBalance`),
+          phase155OrganizationalLearning: t(`${p155}.organizationalLearning`),
+          phase155RenewalMemory: t(`${p155}.renewalMemory`),
+          phase155Limitations: t(`${p155}.limitations`),
+          phase155SelfLove: t(`${p155}.selfLove`),
+          phase155SecurityRequirements: t(`${p155}.securityRequirements`),
+          phase155VisionPhrases: t(`${p155}.visionPhrases`),
+          phase155SuccessCriteria: t(`${p155}.successCriteria`),
         }} />
     </div>
   );

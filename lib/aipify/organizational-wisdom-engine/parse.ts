@@ -9,13 +9,14 @@ import type {
   LimitationPrinciples,
   OrganizationalWisdomBlueprint,
   OrganizationalWisdomCard,
+  OrganizationalWisdomCouncilBlueprint,
   OrganizationalWisdomDashboard,
+  Phase157EngagementSummary,
+  Phase157Sections,
   ReflectionWorkspace,
   SelfLoveConnection,
   WisdomPractice,
 } from "./types";
-
-function parseBlueprintMeta(data: unknown): ImplementationBlueprintMeta | undefined {
   if (typeof data !== "object" || !data) return undefined;
   return data as ImplementationBlueprintMeta;
 }
@@ -75,6 +76,26 @@ function parseBlueprintBlock(data: unknown): OrganizationalWisdomBlueprint | und
   return data as OrganizationalWisdomBlueprint;
 }
 
+function parsePhase157BlueprintBlock(data: unknown): OrganizationalWisdomCouncilBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as OrganizationalWisdomCouncilBlueprint;
+}
+
+function parsePhase157EngagementSummary(data: unknown): Phase157EngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as Phase157EngagementSummary;
+}
+
+function parsePhase157Sections(data: unknown): Phase157Sections | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as Phase157Sections;
+}
+
+function parseStringArray(data: unknown): string[] {
+  if (!Array.isArray(data)) return [];
+  return data.filter((item): item is string => typeof item === "string");
+}
+
 function parseRecord(data: unknown): Record<string, unknown> | undefined {
   if (typeof data !== "object" || !data) return undefined;
   return data as Record<string, unknown>;
@@ -105,6 +126,14 @@ export function parseOrganizationalWisdomCard(data: unknown): OrganizationalWisd
     organizational_wisdom_engagement_summary: parseEngagementSummary(d.organizational_wisdom_engagement_summary),
     organizational_wisdom_vision_note:
       typeof d.organizational_wisdom_vision_note === "string" ? d.organizational_wisdom_vision_note : undefined,
+    implementation_blueprint_phase157: parseBlueprintMeta(d.implementation_blueprint_phase157),
+    phase157_mission: typeof d.phase157_mission === "string" ? d.phase157_mission : undefined,
+    phase157_abos_principle: typeof d.phase157_abos_principle === "string" ? d.phase157_abos_principle : undefined,
+    phase157_vision: typeof d.phase157_vision === "string" ? d.phase157_vision : undefined,
+    phase157_engagement_summary: parsePhase157EngagementSummary(d.phase157_engagement_summary),
+    phase157_note: typeof d.phase157_note === "string" ? d.phase157_note : undefined,
+    phase157_distinction_note:
+      typeof d.phase157_distinction_note === "string" ? d.phase157_distinction_note : undefined,
   };
 }
 
@@ -174,5 +203,36 @@ export function parseOrganizationalWisdomDashboard(data: unknown): Organizationa
     organizational_wisdom_vision:
       typeof d.organizational_wisdom_vision === "string" ? d.organizational_wisdom_vision : undefined,
     privacy_note: typeof d.privacy_note === "string" ? d.privacy_note : undefined,
+    implementation_blueprint_phase157: parseBlueprintMeta(d.implementation_blueprint_phase157),
+    wisdom_council_ethical_foresight_blueprint: parsePhase157BlueprintBlock(
+      d.wisdom_council_ethical_foresight_blueprint,
+    ),
+    phase157_distinction_note:
+      typeof d.phase157_distinction_note === "string" ? d.phase157_distinction_note : undefined,
+    phase157_mission: typeof d.phase157_mission === "string" ? d.phase157_mission : undefined,
+    phase157_philosophy: typeof d.phase157_philosophy === "string" ? d.phase157_philosophy : undefined,
+    phase157_abos_principle: typeof d.phase157_abos_principle === "string" ? d.phase157_abos_principle : undefined,
+    phase157_vision: typeof d.phase157_vision === "string" ? d.phase157_vision : undefined,
+    phase157_objectives: parseObjectives(d.phase157_objectives),
+    phase157_wisdom_council_center: parseRecord(d.phase157_wisdom_council_center),
+    phase157_ethical_foresight_engine: parseRecord(d.phase157_ethical_foresight_engine),
+    phase157_stakeholder_awareness_framework: parseRecord(d.phase157_stakeholder_awareness_framework),
+    phase157_executive_wisdom_reviews: parseRecord(d.phase157_executive_wisdom_reviews),
+    phase157_wisdom_companion: parseRecord(d.phase157_wisdom_companion),
+    phase157_ethical_innovation_engine: parseRecord(d.phase157_ethical_innovation_engine),
+    phase157_future_consequence_framework: parseRecord(d.phase157_future_consequence_framework),
+    phase157_wisdom_memory_engine: parseRecord(d.phase157_wisdom_memory_engine),
+    phase157_companion_limitations: parseRecord(d.phase157_companion_limitations),
+    phase157_self_love_connection: parseSelfLoveConnection(d.phase157_self_love_connection),
+    phase157_security_requirements: parseRecord(d.phase157_security_requirements),
+    owcebp157_integration_links: parseIntegrationLinks(d.owcebp157_integration_links),
+    phase157_dogfooding: parseRecord(d.phase157_dogfooding),
+    phase157_success_criteria: parseSuccessCriteria(d.phase157_success_criteria),
+    phase157_engagement_summary: parsePhase157EngagementSummary(d.phase157_engagement_summary),
+    phase157_vision_phrases: parseStringArray(d.phase157_vision_phrases),
+    organizational_wisdom_council_note:
+      typeof d.organizational_wisdom_council_note === "string" ? d.organizational_wisdom_council_note : undefined,
+    phase157_privacy_note: typeof d.phase157_privacy_note === "string" ? d.phase157_privacy_note : undefined,
+    phase157_sections: parsePhase157Sections(d.phase157_sections),
   };
 }

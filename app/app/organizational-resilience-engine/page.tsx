@@ -11,6 +11,7 @@ export default async function OrganizationalResilienceEnginePage() {
   const r = `${p}.blueprint.phase91`;
   const c = `${p}.blueprint.phase128`;
   const s = `${p}.blueprint.phase136`;
+  const a = `${p}.blueprint.phase154`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -117,6 +118,27 @@ export default async function OrganizationalResilienceEnginePage() {
           pendingRecommendations: t(`${s}.pendingRecommendations`),
           selfHealingSuccessCriteria: t(`${s}.selfHealingSuccessCriteria`),
           selfHealingVisionPhrases: t(`${s}.selfHealingVisionPhrases`),
+          phase154Title: t(`${a}.phase154Title`),
+          adaptiveContinuityObjectives: t(`${a}.adaptiveContinuityObjectives`),
+          adaptiveResilienceCenter: t(`${a}.adaptiveResilienceCenter`),
+          adaptiveContinuityEngine: t(`${a}.adaptiveContinuityEngine`),
+          scenarioPreparednessEngine: t(`${a}.scenarioPreparednessEngine`),
+          leadershipResilienceReviews: t(`${a}.leadershipResilienceReviews`),
+          adaptiveResilienceCompanion: t(`${a}.adaptiveResilienceCompanion`),
+          organizationalFlexibilityEngine: t(`${a}.organizationalFlexibilityEngine`),
+          employeeSupportFramework: t(`${a}.employeeSupportFramework`),
+          continuityMemoryEngine: t(`${a}.continuityMemoryEngine`),
+          adaptiveContinuityCompanionAdaptation: t(`${a}.adaptiveContinuityCompanionAdaptation`),
+          adaptiveContinuitySelfLoveConnection: t(`${a}.adaptiveContinuitySelfLoveConnection`),
+          adaptiveContinuitySecurityRequirements: t(`${a}.adaptiveContinuitySecurityRequirements`),
+          adaptiveContinuityLimitationPrinciples: t(`${a}.adaptiveContinuityLimitationPrinciples`),
+          adaptiveContinuityScenarios: t(`${a}.adaptiveContinuityScenarios`),
+          adaptiveContinuityEngagementSummary: t(`${a}.adaptiveContinuityEngagementSummary`),
+          activeContinuityPlans: t(`${a}.activeContinuityPlans`),
+          activeScenarios: t(`${a}.activeScenarios`),
+          pendingLeadershipReviews: t(`${a}.pendingLeadershipReviews`),
+          adaptiveContinuitySuccessCriteria: t(`${a}.adaptiveContinuitySuccessCriteria`),
+          adaptiveContinuityVisionPhrases: t(`${a}.adaptiveContinuityVisionPhrases`),
         }} />
     </div>
   );

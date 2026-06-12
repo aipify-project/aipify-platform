@@ -14,6 +14,7 @@ import type {
   ImplementationBlueprintMeta,
   IntegrationLink,
   KnowledgeRouteResult,
+  OrganizationalConsciousnessPhase159Blueprint,
   OrganizationalDigitalTwinPhase124Blueprint,
   ProcessDetail,
   TwinHealthResult,
@@ -47,6 +48,59 @@ function parseSuccessCriteria(data: unknown): AbosSuccessCriterion[] | undefined
 function parseIntegrationLinks(data: unknown): IntegrationLink[] | undefined {
   if (!Array.isArray(data)) return undefined;
   return data as IntegrationLink[];
+}
+
+function parsePhase159Blueprint(data: unknown): OrganizationalConsciousnessPhase159Blueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  const d = data as Record<string, unknown>;
+  return {
+    phase: d.phase as string | undefined,
+    doc: d.doc as string | undefined,
+    spec_doc: d.spec_doc as string | undefined,
+    engine_phase: d.engine_phase as string | undefined,
+    era: d.era as string | undefined,
+    route: d.route as string | undefined,
+    distinction_note: d.distinction_note as string | undefined,
+    mission: d.mission as string | undefined,
+    philosophy: d.philosophy as string | undefined,
+    abos_principle: d.abos_principle as string | undefined,
+    vision: d.vision as string | undefined,
+    objectives: parseObjectives(d.objectives),
+    systemic_awareness_center: Array.isArray(d.systemic_awareness_center)
+      ? (d.systemic_awareness_center as BlueprintObjective[])
+      : undefined,
+    interdependency_engine: Array.isArray(d.interdependency_engine)
+      ? (d.interdependency_engine as BlueprintObjective[])
+      : undefined,
+    systemic_consequence_framework: Array.isArray(d.systemic_consequence_framework)
+      ? (d.systemic_consequence_framework as BlueprintObjective[])
+      : undefined,
+    executive_systemic_reviews: parseBlueprintSection(d.executive_systemic_reviews),
+    systemic_companion: Array.isArray(d.systemic_companion)
+      ? (d.systemic_companion as BlueprintObjective[])
+      : undefined,
+    organizational_health_engine: parseBlueprintSection(d.organizational_health_engine),
+    systemic_learning_engine: Array.isArray(d.systemic_learning_engine)
+      ? (d.systemic_learning_engine as BlueprintObjective[])
+      : undefined,
+    awareness_memory_engine: parseBlueprintSection(d.awareness_memory_engine),
+    companion_limitations: Array.isArray(d.companion_limitations)
+      ? (d.companion_limitations as BlueprintObjective[])
+      : undefined,
+    self_love_connection: parseBlueprintSection(d.self_love_connection),
+    security_requirements: parseBlueprintSection(d.security_requirements),
+    integration_links: parseIntegrationLinks(d.integration_links),
+    dogfooding: d.dogfooding as Record<string, unknown> | undefined,
+    success_metrics: Array.isArray(d.success_metrics)
+      ? (d.success_metrics as BlueprintObjective[])
+      : undefined,
+    success_criteria: parseSuccessCriteria(d.success_criteria),
+    engagement_summary: parseEngagementSummary(d.engagement_summary),
+    vision_phrases: Array.isArray(d.vision_phrases)
+      ? (d.vision_phrases as string[])
+      : undefined,
+    privacy_note: d.privacy_note as string | undefined,
+  };
 }
 
 function parsePhase124Blueprint(data: unknown): OrganizationalDigitalTwinPhase124Blueprint | undefined {
@@ -149,6 +203,11 @@ export function parseDigitalTwinCard(data: unknown): DigitalTwinCard {
     phase124_abos_principle: d.phase124_abos_principle as string | undefined,
     phase124_engagement_summary: parseEngagementSummary(d.phase124_engagement_summary),
     phase124_note: d.phase124_note as string | undefined,
+    implementation_blueprint_phase159: parseBlueprintMeta(d.implementation_blueprint_phase159),
+    phase159_mission: d.phase159_mission as string | undefined,
+    phase159_abos_principle: d.phase159_abos_principle as string | undefined,
+    phase159_engagement_summary: parseEngagementSummary(d.phase159_engagement_summary),
+    phase159_note: d.phase159_note as string | undefined,
   };
 }
 
@@ -196,6 +255,10 @@ export function parseDigitalTwinDashboard(data: unknown): DigitalTwinDashboard {
     blueprint_privacy_note: d.blueprint_privacy_note as string | undefined,
     implementation_blueprint_phase124: parsePhase124Blueprint(d.implementation_blueprint_phase124),
     organizational_digital_twin_phase124_note: d.organizational_digital_twin_phase124_note as
+      | string
+      | undefined,
+    implementation_blueprint_phase159: parsePhase159Blueprint(d.implementation_blueprint_phase159),
+    organizational_consciousness_phase159_note: d.organizational_consciousness_phase159_note as
       | string
       | undefined,
   };

@@ -27,6 +27,7 @@ export type ImplementationBlueprintMeta = {
   engine_phase?: string;
   route?: string;
   mapping_note?: string;
+  era?: string;
 };
 
 export type InitiativeScaffold = {
@@ -135,6 +136,101 @@ export type SocialImpactPurposeEngagementSummary = {
   privacy_note?: string;
 };
 
+export type CommunityInitiative = {
+  id: string;
+  initiative_key: string;
+  initiative_type: string;
+  title: string;
+  summary: string;
+  status: string;
+  participation_count: number;
+};
+
+export type WellbeingProgram = {
+  id: string;
+  program_key: string;
+  program_type: string;
+  title: string;
+  summary: string;
+  status: string;
+  adoption_count: number;
+};
+
+export type ImpactReport = {
+  id: string;
+  report_key: string;
+  report_type: string;
+  title: string;
+  summary: string;
+  status: string;
+};
+
+export type ExecutiveImpactReview = {
+  id: string;
+  review_key: string;
+  review_dimension: string;
+  title: string;
+  reflection_summary: string;
+  status: string;
+};
+
+export type Phase149Sections = {
+  community_initiatives: CommunityInitiative[];
+  wellbeing_programs: WellbeingProgram[];
+  impact_reports: ImpactReport[];
+  executive_reviews: ExecutiveImpactReview[];
+};
+
+export type Gisrb149EngagementSummary = {
+  active_initiatives?: number;
+  active_commitments?: number;
+  community_initiatives?: number;
+  wellbeing_programs?: number;
+  impact_reports?: number;
+  executive_reviews?: number;
+  global_impact_capabilities_count?: number;
+  social_responsibility_domains_count?: number;
+  community_impact_types_count?: number;
+  wellbeing_framework_areas_count?: number;
+  impact_reporting_types_count?: number;
+  executive_review_dimensions_count?: number;
+  gp_impact_program_types_count?: number;
+  cross_links_count?: number;
+  privacy_note?: string;
+};
+
+export type GlobalImpactSocialResponsibilityBlueprint = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  era?: string;
+  mapping_note?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: BlueprintObjective[];
+  global_impact_center?: Record<string, unknown>;
+  social_responsibility_engine?: Array<Record<string, unknown>>;
+  community_impact_engine?: Array<Record<string, unknown>>;
+  employee_wellbeing_framework?: Record<string, unknown>;
+  impact_reporting_engine?: Array<Record<string, unknown>>;
+  impact_companion?: Record<string, unknown>;
+  growth_partner_impact_program?: Record<string, unknown>;
+  executive_impact_reviews?: Record<string, unknown>;
+  companion_limitations?: string[];
+  self_love_connection?: Record<string, unknown>;
+  security_requirements?: string[];
+  integration_links?: IntegrationLink[];
+  dogfooding?: Record<string, unknown>;
+  engagement_summary?: Gisrb149EngagementSummary;
+  success_criteria?: AbosSuccessCriterion[];
+  vision_phrases?: string[];
+  privacy_note?: string;
+};
+
 export type SocialImpactPurposeCard = {
   has_customer: boolean;
   active_initiatives?: number;
@@ -148,6 +244,12 @@ export type SocialImpactPurposeCard = {
   social_impact_purpose_engagement_summary?: SocialImpactPurposeEngagementSummary;
   social_impact_purpose_note?: string;
   social_impact_purpose_vision_note?: string;
+  implementation_blueprint_phase149?: ImplementationBlueprintMeta;
+  gisrb149_mission?: string;
+  gisrb149_abos_principle?: string;
+  gisrb149_engagement_summary?: Gisrb149EngagementSummary;
+  gisrb149_note?: string;
+  gisrb149_companion_note?: string;
 };
 
 export type SocialImpactPurposeDashboard = {
@@ -202,4 +304,31 @@ export type SocialImpactPurposeDashboard = {
   social_impact_purpose_success_metrics?: Array<Record<string, unknown>>;
   social_impact_purpose_vision?: string;
   social_impact_purpose_privacy_note?: string;
+  implementation_blueprint_phase149?: ImplementationBlueprintMeta;
+  global_impact_social_responsibility_note?: string;
+  gisrb149_distinction_note?: string;
+  gisrb149_mission?: string;
+  gisrb149_philosophy?: string;
+  gisrb149_abos_principle?: string;
+  gisrb149_vision?: string;
+  gisrb149_objectives?: BlueprintObjective[];
+  global_impact_center?: Record<string, unknown>;
+  social_responsibility_engine?: Array<Record<string, unknown>>;
+  community_impact_engine?: Array<Record<string, unknown>>;
+  employee_wellbeing_framework?: Record<string, unknown>;
+  impact_reporting_engine?: Array<Record<string, unknown>>;
+  impact_companion?: Record<string, unknown>;
+  growth_partner_impact_program?: Record<string, unknown>;
+  executive_impact_reviews_meta?: Record<string, unknown>;
+  gisrb149_companion_limitations?: string[];
+  gisrb149_self_love_connection?: Record<string, unknown>;
+  gisrb149_security_requirements?: string[];
+  gisrb149_integration_links?: IntegrationLink[];
+  gisrb149_dogfooding?: Record<string, unknown>;
+  gisrb149_blueprint?: GlobalImpactSocialResponsibilityBlueprint;
+  gisrb149_engagement_summary?: Gisrb149EngagementSummary;
+  gisrb149_success_criteria?: AbosSuccessCriterion[];
+  gisrb149_vision_phrases?: string[];
+  gisrb149_privacy_note?: string;
+  phase149_sections?: Phase149Sections;
 };

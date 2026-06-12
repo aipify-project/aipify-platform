@@ -7,6 +7,7 @@ export default async function DecisionIntelligenceEnginePage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
   const p = "customerApp.decisionIntelligence";
+  const p153 = "customerApp.decisionIntelligenceEngine.phase153";
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -54,6 +55,31 @@ export default async function DecisionIntelligenceEnginePage() {
           wisdomEngine: t(`${p}.wisdomEngine`),
           simulationLab: t(`${p}.simulationLab`),
           selfLove: t(`${p}.selfLove`),
+          futureLeaders: t(`${p153}.futureLeaders`),
+          organizationalMemory: t(`${p153}.organizationalMemory`),
+          collectiveDecisionCouncil: t(`${p153}.collectiveDecisionCouncil`),
+          phase153Title: t(`${p153}.title`),
+          phase153Objectives: t(`${p153}.objectives`),
+          phase153HeritageCenter: t(`${p153}.heritageCenter`),
+          phase153HeritageArchives: t(`${p153}.heritageArchives`),
+          phase153DecisionJournalEngine: t(`${p153}.decisionJournalEngine`),
+          phase153OutcomeReviews: t(`${p153}.outcomeReviews`),
+          phase153OutcomeReviewEngine: t(`${p153}.outcomeReviewEngine`),
+          phase153ExecutiveReflections: t(`${p153}.executiveReflections`),
+          phase153ExecutiveReflectionEngine: t(`${p153}.executiveReflectionEngine`),
+          phase153WisdomCompanion: t(`${p153}.wisdomCompanion`),
+          phase153PatternSnapshots: t(`${p153}.patternSnapshots`),
+          phase153PatternNote: t(`${p153}.patternNote`),
+          phase153DecisionPatternEngine: t(`${p153}.decisionPatternEngine`),
+          phase153InstitutionalWisdomLibrary: t(`${p153}.institutionalWisdomLibrary`),
+          phase153FutureLeaderPreparation: t(`${p153}.futureLeaderPreparation`),
+          phase153CompanionLimitations: t(`${p153}.companionLimitations`),
+          phase153SelfLoveConnection: t(`${p153}.selfLoveConnection`),
+          phase153SecurityRequirements: t(`${p153}.securityRequirements`),
+          phase153IntegrationLinks: t(`${p153}.integrationLinks`),
+          phase153Engagement: t(`${p153}.engagement`),
+          phase153VisionPhrases: t(`${p153}.visionPhrases`),
+          phase153SuccessCriteria: t(`${p153}.successCriteria`),
         }}
       />
     </div>

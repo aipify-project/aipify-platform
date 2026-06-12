@@ -78,6 +78,22 @@ export function OrganizationalMemoryEngineDashboardPanel({ labels }: Props) {
   const phase126Engagement = dashboard.phase126_engagement_summary ?? {};
   const phase126SuccessCriteria = dashboard.phase126_success_criteria ?? [];
   const omlebp126Links = dashboard.omlebp126_cross_links ?? [];
+  const blueprint152 = dashboard.implementation_blueprint_phase152;
+  const phase152Objectives = dashboard.phase152_objectives ?? [];
+  const phase152LegacyCenter = dashboard.phase152_legacy_center ?? [];
+  const phase152Succession = dashboard.phase152_succession_intelligence_engine ?? [];
+  const phase152CriticalKnowledge = dashboard.phase152_critical_knowledge_engine ?? [];
+  const phase152ExecutiveLegacy = dashboard.phase152_executive_legacy_reviews;
+  const phase152LegacyCompanion = dashboard.phase152_legacy_companion ?? [];
+  const phase152ContinuityReadiness = dashboard.phase152_continuity_readiness_framework ?? [];
+  const phase152Storytelling = dashboard.phase152_organizational_storytelling_engine;
+  const phase152InstitutionalMemory = dashboard.phase152_institutional_memory_library ?? [];
+  const phase152CompanionLimits = dashboard.phase152_companion_limitations ?? [];
+  const phase152SelfLove = dashboard.phase152_self_love_connection;
+  const phase152Security = dashboard.phase152_security_requirements;
+  const phase152Engagement = dashboard.phase152_engagement_summary ?? {};
+  const phase152SuccessCriteria = dashboard.phase152_success_criteria ?? [];
+  const olsibp152Links = dashboard.olsibp152_integration_links ?? [];
 
   return (
     <div className="space-y-6">
@@ -87,6 +103,12 @@ export function OrganizationalMemoryEngineDashboardPanel({ labels }: Props) {
         </Link>
         <Link href="/app/legacy-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.legacyEngine}
+        </Link>
+        <Link href="/app/future-leaders-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.futureLeadersEngine}
+        </Link>
+        <Link href="/app/continuity" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.continuityEngine}
         </Link>
         <Link href="/app/learning" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.learningEngine}
@@ -880,6 +902,289 @@ export function OrganizationalMemoryEngineDashboardPanel({ labels }: Props) {
       {dashboard.phase126_privacy_note ? (
         <section className="rounded-lg border border-gray-100 px-4 py-3 text-xs text-gray-500">
           {dashboard.phase126_privacy_note}
+        </section>
+      ) : null}
+
+      {blueprint152?.phase ? (
+        <section className="rounded-xl border border-teal-200 bg-teal-50/40 p-6">
+          <h2 className="text-sm font-semibold">{labels.phase152Title}</h2>
+          {dashboard.phase152_mission ? (
+            <p className="mt-2 text-sm font-medium text-teal-900">{dashboard.phase152_mission}</p>
+          ) : null}
+          {dashboard.phase152_philosophy ? (
+            <p className="mt-2 text-xs text-teal-900">{dashboard.phase152_philosophy}</p>
+          ) : null}
+          {dashboard.phase152_abos_principle ? (
+            <p className="mt-1 text-xs font-medium text-teal-800">{dashboard.phase152_abos_principle}</p>
+          ) : null}
+          {dashboard.phase152_vision ? (
+            <p className="mt-2 text-xs italic text-teal-700">{dashboard.phase152_vision}</p>
+          ) : null}
+          {dashboard.phase152_distinction_note ? (
+            <p className="mt-2 text-xs text-teal-700">{dashboard.phase152_distinction_note}</p>
+          ) : null}
+          {dashboard.organizational_legacy_succession_note ? (
+            <p className="mt-2 text-xs text-gray-600">{dashboard.organizational_legacy_succession_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase152Objectives.length > 0 && (
+        <section className="rounded-lg border border-teal-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.phase152Objectives}</h3>
+          <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {phase152Objectives.map((obj: ContinuityObjective) => (
+              <li key={obj.key ?? obj.label} className="rounded border border-teal-50 p-3 text-sm">
+                <div className="font-medium">
+                  {obj.emoji ? `${obj.emoji} ` : ""}
+                  {obj.label}
+                </div>
+                {obj.description ? <p className="mt-1 text-xs text-gray-600">{obj.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase152LegacyCenter.length > 0 && (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.phase152LegacyCenter}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {phase152LegacyCenter.map((item: EnterpriseIntelligenceBlueprintItem) => (
+              <li key={item.key ?? item.label} className="rounded border border-gray-100 px-3 py-2 text-xs">
+                <span className="font-medium">{item.label}</span>
+                {item.description ? <p className="mt-1 text-gray-500">{item.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase152Succession.length > 0 && (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/20 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase152Succession}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase152Succession.map((item: EnterpriseIntelligenceBlueprintItem) => (
+              <li key={item.key ?? item.label} className="rounded border border-indigo-100 bg-white px-3 py-2 text-xs">
+                <span className="font-medium">{item.label}</span>
+                {item.description ? <p className="mt-1 text-gray-500">{item.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase152CriticalKnowledge.length > 0 && (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase152CriticalKnowledge}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase152CriticalKnowledge.map((item: EnterpriseIntelligenceBlueprintItem) => (
+              <li key={item.key ?? item.label} className="rounded border border-amber-100 bg-white px-3 py-2 text-xs">
+                <span className="font-medium">{item.label}</span>
+                {item.description ? <p className="mt-1 text-gray-500">{item.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase152ExecutiveLegacy && (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase152ExecutiveLegacy}</h3>
+          {phase152ExecutiveLegacy.principle ? (
+            <p className="mt-2 text-xs text-violet-900">{phase152ExecutiveLegacy.principle}</p>
+          ) : null}
+          {(phase152ExecutiveLegacy.dimensions?.length ?? 0) > 0 ? (
+            <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+              {(phase152ExecutiveLegacy.dimensions as EnterpriseIntelligenceBlueprintItem[]).map((dim) => (
+                <li key={dim.key ?? dim.label} className="rounded border border-violet-100 bg-white px-3 py-2 text-xs">
+                  <span className="font-medium">{dim.label}</span>
+                  {dim.description ? <p className="mt-1 text-gray-500">{dim.description}</p> : null}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {phase152LegacyCompanion.length > 0 && (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.phase152LegacyCompanion}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase152LegacyCompanion.map((item: EnterpriseIntelligenceBlueprintItem) => (
+              <li key={item.key ?? item.label} className="rounded border border-gray-100 px-3 py-2 text-xs">
+                <span className="font-medium">{item.label}</span>
+                {item.description ? <p className="mt-1 text-gray-500">{item.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase152ContinuityReadiness.length > 0 && (
+        <section className="rounded-lg border border-indigo-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.phase152ContinuityReadiness}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase152ContinuityReadiness.map((item: EnterpriseIntelligenceBlueprintItem) => (
+              <li key={item.key ?? item.label} className="rounded border border-indigo-50 px-3 py-2 text-xs">
+                <span className="font-medium">{item.label}</span>
+                {item.description ? <p className="mt-1 text-gray-500">{item.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase152Storytelling && (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.phase152Storytelling}</h3>
+          {phase152Storytelling.principle ? (
+            <p className="mt-2 text-xs text-gray-700">{phase152Storytelling.principle}</p>
+          ) : null}
+          {phase152Storytelling.boundary_note ? (
+            <p className="mt-2 text-xs text-gray-500">{phase152Storytelling.boundary_note}</p>
+          ) : null}
+          {Array.isArray(phase152Storytelling.story_types) && phase152Storytelling.story_types.length > 0 ? (
+            <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+              {(phase152Storytelling.story_types as EnterpriseIntelligenceBlueprintItem[]).map((story) => (
+                <li key={story.key ?? story.label} className="rounded border border-gray-100 px-3 py-2 text-xs">
+                  <span className="font-medium">{story.label}</span>
+                  {story.description ? <p className="mt-1 text-gray-500">{story.description}</p> : null}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {phase152InstitutionalMemory.length > 0 && (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.phase152InstitutionalMemory}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase152InstitutionalMemory.map((item: EnterpriseIntelligenceBlueprintItem) => (
+              <li key={item.key ?? item.label} className="rounded border border-gray-100 px-3 py-2 text-xs">
+                <span className="font-medium">{item.label}</span>
+                {item.description ? <p className="mt-1 text-gray-500">{item.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase152CompanionLimits.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase152CompanionLimitations}</h3>
+          <ul className="mt-2 list-inside list-disc text-xs text-gray-600">
+            {phase152CompanionLimits.map((item: EnterpriseIntelligenceBlueprintItem) => (
+              <li key={item.key ?? item.label}>
+                {item.label}
+                {item.description ? ` — ${item.description}` : ""}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase152SelfLove && (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/30 p-4 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.phase152SelfLove}</h3>
+          {phase152SelfLove.principle ? <p className="mt-2 text-xs">{phase152SelfLove.principle}</p> : null}
+          {(phase152SelfLove.practices?.length ?? 0) > 0 ? (
+            <ul className="mt-2 list-inside list-disc text-xs">
+              {(phase152SelfLove.practices as Array<{ label?: string; description?: string }>).map((item) => (
+                <li key={item.label}>{item.label}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {phase152Security && (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase152Security}</h3>
+          {phase152Security.principle ? (
+            <p className="mt-2 text-xs text-gray-600">{phase152Security.principle}</p>
+          ) : null}
+          {(() => {
+            const requirements = phase152Security.requirements;
+            if (!Array.isArray(requirements) || requirements.length === 0) return null;
+            return (
+            <ul className="mt-2 grid gap-2 sm:grid-cols-2">
+              {(requirements as EnterpriseIntelligenceBlueprintItem[]).map((req) => (
+                <li key={req.key ?? req.label} className="rounded border border-gray-100 px-3 py-2 text-xs">
+                  <span className="font-medium">{req.label}</span>
+                  {req.description ? <p className="mt-1 text-gray-500">{req.description}</p> : null}
+                </li>
+              ))}
+            </ul>
+            );
+          })()}
+        </section>
+      )}
+
+      {typeof phase152Engagement.phase152_objectives_count === "number" ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase152Engagement}</h3>
+          <p className="mt-2 text-gray-700">
+            {labels.successionPlans}: {String(phase152Engagement.phase152_active_succession_plans ?? 0)} ·{" "}
+            {labels.knowledgeEntries}: {String(phase152Engagement.phase152_active_knowledge_entries ?? 0)} ·{" "}
+            {labels.legacyReviews}: {String(phase152Engagement.phase152_pending_legacy_reviews ?? 0)} ·{" "}
+            {labels.storyRecords}: {String(phase152Engagement.phase152_active_story_records ?? 0)}
+          </p>
+          {phase152Engagement.privacy_note ? (
+            <p className="mt-2 text-xs text-gray-500">{String(phase152Engagement.privacy_note)}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase152SuccessCriteria.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase152SuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {phase152SuccessCriteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {olsibp152Links.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase152IntegrationLinks}</h3>
+          <ul className="mt-2 space-y-1 text-sm">
+            {olsibp152Links.map((link) => {
+              const route = typeof link.route === "string" ? link.route : null;
+              const label = typeof link.label === "string" ? link.label : route ?? "";
+              return (
+                <li key={label}>
+                  {route ? (
+                    <Link href={route} className="text-teal-600 hover:underline">
+                      {label}
+                    </Link>
+                  ) : (
+                    label
+                  )}
+                  {link.note ? <span className="ml-2 text-xs text-gray-500">{link.note}</span> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {dashboard.phase152_privacy_note ? (
+        <section className="rounded-lg border border-gray-100 px-4 py-3 text-xs text-gray-500">
+          {dashboard.phase152_privacy_note}
         </section>
       ) : null}
 

@@ -1,0 +1,39 @@
+# Implementation Blueprint Phase 143 — Cross-Organizational Collaboration & Joint Operations Engine
+
+## Mission
+Enable secure, governed, opt-in collaboration between autonomous organizations — shared workspaces and joint operations with clear participation agreements, not centralized authority.
+
+## Philosophy
+People First. Autonomous organizations remain independent. Trusted collaboration through configurable participation and visibility. Companions support; humans accountable. Wisdom before speed. Growth Partner terminology — never Affiliate.
+
+## ABOS Principle
+Aipify Business Operating System (ABOS) — Joint Operations Center orchestrates cross-org workspace scaffolds, partnership governance, and collaboration metadata. Internal workspaces (A.75) and knowledge exchange (Phase 141) remain authoritative for their domains.
+
+## Route
+/app/joint-operations-engine
+
+## Distinctions
+- Organization & Workspace Engine A.75 at /app/organization-workspace-engine — single-tenant internal workspaces; cross-link only; never collide with _owe_*
+- Global Knowledge Exchange Phase 141 at /app/global-knowledge-exchange-engine — voluntary knowledge exchange; cross-link only
+- Trust Network Phase 142 at /app/trust-reputation-engine — verified organization ecosystem; cross-link only
+- Community Phase 117 at /app/community — community learning; cross-link only
+
+## Joint Operations Center (8 capabilities)
+shared_workspaces · cross_org_projects · joint_tasks · companion_collaboration · partner_comms · governance_oversight · knowledge_sharing_controls · collaboration_dashboards
+
+## Companion limitations
+- No confidential exposure across org boundaries
+- No independent access expansion without approval
+- No governance bypass
+- No boundary override of participation agreements
+- No replacing human relationship management
+
+## Vision phrases
+- Autonomous organizations — trusted collaboration.
+- Configurable participation and visibility.
+- Companions support; humans accountable.
+- Wisdom before speed.
+- Growth Partner — never Affiliate.
+
+## Privacy note
+Joint Operations metadata only — partnership summaries, workspace scaffolds, and objective metadata. No cross-tenant PII or confidential operational records without explicit governed partnership link. Opt-in required.

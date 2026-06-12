@@ -1,0 +1,31 @@
+# Implementation Blueprint Phase 153 — Institutional Wisdom & Decision Heritage Engine
+# Legacy & Future Stewardship Era (151–160)
+# Route: /app/decision-intelligence-engine (extends Phase 125)
+# Helpers: _iwdhbp153_* (never collide with _dein_*, _deibp125_*)
+
+## Mission
+Preserve institutional decision wisdom — strategic archives, outcome reviews, and executive reflections that help future leaders learn from history without glorifying the past.
+
+## Philosophy
+Preserve understanding not only outcomes — wisdom compounds. Not to glorify past or resist change. Patterns support learning NOT judgment.
+
+## Distinction
+- Extends Decision Intelligence Phase 125 — all _dein_* and _deibp125_* preserved
+- Future Leaders Phase 151 at /app/future-leaders-engine — cross-link only
+- Organizational Legacy Phase 152 at /app/organizational-memory-engine — cross-link only
+- Wisdom A.93 at /app/wisdom-engine — never duplicate _wis_* RPCs
+- Collective Decision Phase 137, ODSE A.54, Personal DSE — cross-link only
+
+## Decision Heritage Center (8)
+decision journals, strategic archives, executive reflection libraries, outcome tracking, lessons learned repositories, decision review frameworks, knowledge connections, institutional memory dashboards
+
+## Wisdom Companion (6)
+decision summaries, historical context retrieval, reflection prompts, outcome comparisons, knowledge discovery, leadership preparation
+
+## Companion limitations (5)
+no rewrite records, no suppress interpretations, no determine future decisions, no replace accountability, no improper confidential reveal
+
+## ILM companion examples
+🦉 A prior strategic decision archive may offer context — shall Aipify summarize approved heritage metadata for your reflection?
+🌹 An outcome review scaffold is ready — would reviewing what happened and what surprised us feel helpful for institutional learning?
+🔔 Aggregate pattern themes suggest a recurring risk theme — metadata only, for awareness not judgment.

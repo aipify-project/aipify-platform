@@ -1,0 +1,59 @@
+Aipify Business Operating System (ABOS) — Phase 147 Global Talent & Expert Network Engine
+
+Route: /app/global-talent-expert-network-engine
+Era: Global Intelligence & Interorganizational (141–150)
+
+MISSION
+Enable professional expert discovery and Growth Partner matching across verified ecosystems — built on trust, verification, and shared standards, not anonymous marketplaces. Humans decide; companions prepare.
+
+PHILOSOPHY
+People First. Professional ecosystems built on trust and verification — not anonymous marketplaces. Quality not popularity. Growth Partner not Affiliate. Growth through support and mentorship.
+
+ABOS PRINCIPLE
+Global Expert Network Center surfaces professional discovery metadata and engagement scaffolds. Aipify informs and prepares; executives and procurement retain authority. Talent Companion recommends — it does not guarantee outcomes.
+
+GLOBAL EXPERT NETWORK CENTER (eight capabilities)
+Expert discovery, Growth Partner matching, executive advisory networks, industry directories, transformation specialist access, knowledge steward communities, regional networks, collaboration spaces
+
+EXPERT DISCOVERY ENGINE (eight dimensions)
+Expertise, industry, regional availability, certification status, GP accreditation, executive experience, implementation history, knowledge contributions — credibility not popularity
+
+EXECUTIVE ADVISORY NETWORK (six roles)
+Transformation advisors, governance specialists, executive coaches, companion strategy consultants, operational excellence advisors, growth leaders
+
+GROWTH PARTNER MATCHING (six criteria)
+Industry alignment, regional presence, languages, certification, implementation experience, customer success — cross-link /app/partners
+
+SPECIALIST COLLABORATION FRAMEWORK (six elements)
+Role definitions, project charters, governance expectations, confidentiality scaffolds, executive sponsorship, outcome definitions
+
+PROFESSIONAL PROFILE ENGINE (eight fields)
+Biography metadata, experience, expertise, certifications, languages, industry focus, contributions, GP status — NO star ratings or popularity rankings
+
+TALENT COMPANION (six capabilities)
+Expert recommendations, GP discovery, advisory matching, capability gap identification, knowledge navigation, relationship preparation — does NOT replace human judgment
+
+PROFESSIONAL CONTRIBUTION ENGINE (six types)
+Knowledge publications, community leadership, executive education, training development, GP mentorship, operational excellence initiatives
+
+COMPANION LIMITATIONS
+No guarantee outcomes, no misrepresent expertise, no manipulate visibility, no reveal confidential info, no replace procurement, no present popularity as quality
+
+INTEGRATION CROSS-LINKS (do NOT duplicate RPCs)
+Ecosystem Governance 146 /app/ecosystem-governance
+Trust Network 142 /app/trust-reputation-engine
+Partner Certification 91 /app/partners
+Marketplace Partner Ecosystem A.45 / Blueprint 33 /app/marketplace-partner-ecosystem-foundation-engine
+Growth Partner Ecosystem 107 /app/growth-partner-operations
+Global Knowledge Exchange 141 /app/global-knowledge-exchange-engine
+Joint Operations 143 /app/joint-operations-engine
+
+VISION PHRASES
+Professional ecosystems built on trust and verification.
+Quality not popularity — no star ratings.
+Growth Partner not Affiliate.
+Humans decide; companions prepare.
+Discovery supports relationships — does not replace procurement.
+
+PRIVACY NOTE
+Metadata-only professional profiles, engagement charter scaffolds, and contribution counts. No PII surveillance. No popularity rankings.

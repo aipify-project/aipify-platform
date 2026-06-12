@@ -149,6 +149,93 @@ export type SelfHealingEngagementSummary = ContinuityCompanionEngagementSummary 
   phase136_draft_learnings?: number;
 };
 
+export type AdaptiveContinuityEngagementSummary = SelfHealingEngagementSummary & {
+  adaptive_continuity_engine_areas?: number;
+  scenario_preparedness_types?: number;
+  leadership_review_areas?: number;
+  organizational_flexibility_areas?: number;
+  employee_support_areas?: number;
+  continuity_memory_types?: number;
+  phase154_active_plans?: number;
+  phase154_active_scenarios?: number;
+  phase154_pending_leadership_reviews?: number;
+  phase154_draft_memory_entries?: number;
+};
+
+export type AdaptiveContinuityPlanRecord = {
+  id?: string;
+  plan_key?: string;
+  plan_title?: string;
+  plan_type?: string;
+  status?: string;
+  summary_metadata?: Record<string, unknown>;
+  [key: string]: unknown;
+};
+
+export type AdaptiveContinuityScenarioRecord = {
+  id?: string;
+  scenario_key?: string;
+  scenario_type?: string;
+  scenario_title?: string;
+  preparedness_level?: string;
+  summary_metadata?: Record<string, unknown>;
+  [key: string]: unknown;
+};
+
+export type AdaptiveContinuityLeadershipReviewRecord = {
+  id?: string;
+  review_key?: string;
+  review_title?: string;
+  preparedness_level?: string;
+  summary_metadata?: Record<string, unknown>;
+  [key: string]: unknown;
+};
+
+export type AdaptiveContinuityMemoryRecord = {
+  id?: string;
+  memory_key?: string;
+  memory_type?: string;
+  memory_title?: string;
+  status?: string;
+  summary_metadata?: Record<string, unknown>;
+  [key: string]: unknown;
+};
+
+export type OrganizationalResilienceAdaptiveContinuityBlueprint = {
+  phase?: string;
+  doc?: string;
+  spec_doc?: string;
+  engine_phase?: string;
+  era?: string;
+  route?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: BlueprintObjective[];
+  resilience_center?: BlueprintObjective[];
+  adaptive_continuity_engine?: BlueprintObjective[];
+  scenario_preparedness_engine?: BlueprintObjective[];
+  leadership_resilience_reviews?: BlueprintObjective[];
+  resilience_companion?: BlueprintObjective[];
+  organizational_flexibility_engine?: BlueprintObjective[];
+  employee_support_framework?: BlueprintObjective[];
+  continuity_memory_engine?: BlueprintObjective[];
+  companion_limitations?: Array<Record<string, unknown>>;
+  self_love_connection?: SelfLoveConnection;
+  security_requirements?: BlueprintObjective[];
+  integration_links?: IntegrationLink[];
+  limitation_principles?: BlueprintPrincipleBlock;
+  companion_adaptation?: BlueprintGuidanceBlock;
+  success_metrics?: Array<Record<string, unknown>>;
+  success_criteria?: AbosSuccessCriterion[];
+  engagement_summary?: AdaptiveContinuityEngagementSummary;
+  dogfooding?: string;
+  vision_phrases?: string[];
+  privacy_note?: string;
+};
+
 export type SelfHealingRecoveryEventRecord = {
   id?: string;
   event_type?: string;
@@ -323,6 +410,12 @@ export type OrganizationalResilienceEngineCard = {
   self_healing_engagement_summary?: SelfHealingEngagementSummary;
   self_healing_note?: string;
   self_healing_vision_note?: string;
+  implementation_blueprint_phase154?: ImplementationBlueprint & { spec_doc?: string; era?: string };
+  adaptive_continuity_mission?: string;
+  adaptive_continuity_abos_principle?: string;
+  adaptive_continuity_engagement_summary?: AdaptiveContinuityEngagementSummary;
+  adaptive_continuity_note?: string;
+  adaptive_continuity_vision_note?: string;
   [key: string]: unknown;
 };
 
@@ -456,5 +549,38 @@ export type OrganizationalResilienceEngineDashboard = {
   self_healing_incident_learnings?: SelfHealingIncidentLearningRecord[];
   self_healing_recovery_recommendations?: SelfHealingRecoveryRecommendationRecord[];
   self_healing_privacy_note?: string;
+  implementation_blueprint_phase154?: ImplementationBlueprint & { spec_doc?: string; era?: string };
+  adaptive_continuity_engine_note?: string;
+  organizational_resilience_adaptive_continuity_blueprint?: OrganizationalResilienceAdaptiveContinuityBlueprint;
+  adaptive_continuity_distinction_note?: string;
+  adaptive_continuity_mission?: string;
+  adaptive_continuity_philosophy?: string;
+  adaptive_continuity_abos_principle?: string;
+  adaptive_continuity_vision?: string;
+  adaptive_continuity_objectives?: BlueprintObjective[];
+  adaptive_resilience_center?: BlueprintObjective[];
+  adaptive_continuity_engine?: BlueprintObjective[];
+  scenario_preparedness_engine?: BlueprintObjective[];
+  leadership_resilience_reviews?: BlueprintObjective[];
+  adaptive_resilience_companion?: BlueprintObjective[];
+  organizational_flexibility_engine?: BlueprintObjective[];
+  employee_support_framework?: BlueprintObjective[];
+  continuity_memory_engine?: BlueprintObjective[];
+  adaptive_companion_limitations?: Array<Record<string, unknown>>;
+  adaptive_continuity_self_love_connection?: SelfLoveConnection;
+  adaptive_continuity_security_requirements?: BlueprintObjective[];
+  adaptive_continuity_integration_links?: IntegrationLink[];
+  adaptive_continuity_limitation_principles?: BlueprintPrincipleBlock;
+  adaptive_continuity_companion_adaptation?: BlueprintGuidanceBlock;
+  adaptive_continuity_engagement_summary?: AdaptiveContinuityEngagementSummary;
+  adaptive_continuity_success_criteria?: AbosSuccessCriterion[];
+  adaptive_continuity_success_metrics?: Array<Record<string, unknown>>;
+  adaptive_continuity_vision_phrases?: string[];
+  adaptive_continuity_dogfooding?: string;
+  adaptive_continuity_plans?: AdaptiveContinuityPlanRecord[];
+  adaptive_continuity_scenarios?: AdaptiveContinuityScenarioRecord[];
+  adaptive_continuity_leadership_review_records?: AdaptiveContinuityLeadershipReviewRecord[];
+  adaptive_continuity_memory_entries?: AdaptiveContinuityMemoryRecord[];
+  adaptive_continuity_privacy_note?: string;
   [key: string]: unknown;
 };

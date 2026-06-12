@@ -53,6 +53,14 @@ export type AppNavId =
   | "proactiveOrganizationEngine"
   | "humanPotentialAugmentedWorkEngine"
   | "augmentedOrganizationEngine"
+  | "globalKnowledgeExchangeEngine"
+  | "jointOperationsEngine"
+  | "globalGovernanceDiplomacyEngine"
+  | "globalTalentExpertNetworkEngine"
+  | "globalEcosystemMarketplaceEngine"
+  | "globalStewardshipCollectiveFutureEngine"
+  | "futureLeadersEngine"
+  | "organizationalSensemakingEngine"
   | "businessPacksFoundationEngine"
   | "industryIntelligenceFoundationEngine"
   | "marketplacePartnerEcosystemFoundationEngine"
@@ -358,6 +366,46 @@ export const APP_NAV: AppNavItem[] = [
     id: "augmentedOrganizationEngine",
     href: "/app/augmented-organization-engine",
     labelKey: "customerApp.nav.augmentedOrganizationEngine",
+  },
+  {
+    id: "globalKnowledgeExchangeEngine",
+    href: "/app/global-knowledge-exchange-engine",
+    labelKey: "customerApp.nav.globalKnowledgeExchangeEngine",
+  },
+  {
+    id: "jointOperationsEngine",
+    href: "/app/joint-operations-engine",
+    labelKey: "customerApp.nav.jointOperationsEngine",
+  },
+  {
+    id: "globalGovernanceDiplomacyEngine",
+    href: "/app/global-governance-diplomacy-engine",
+    labelKey: "customerApp.nav.globalGovernanceDiplomacyEngine",
+  },
+  {
+    id: "globalTalentExpertNetworkEngine",
+    href: "/app/global-talent-expert-network-engine",
+    labelKey: "customerApp.nav.globalTalentExpertNetworkEngine",
+  },
+  {
+    id: "globalEcosystemMarketplaceEngine",
+    href: "/app/global-ecosystem-marketplace-engine",
+    labelKey: "customerApp.nav.globalEcosystemMarketplaceEngine",
+  },
+  {
+    id: "globalStewardshipCollectiveFutureEngine",
+    href: "/app/global-stewardship-collective-future-engine",
+    labelKey: "customerApp.nav.globalStewardshipCollectiveFutureEngine",
+  },
+  {
+    id: "futureLeadersEngine",
+    href: "/app/future-leaders-engine",
+    labelKey: "customerApp.nav.futureLeadersEngine",
+  },
+  {
+    id: "organizationalSensemakingEngine",
+    href: "/app/organizational-sensemaking-engine",
+    labelKey: "customerApp.nav.organizationalSensemakingEngine",
   },
   {
     id: "businessPacksFoundationEngine",
@@ -938,6 +986,30 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/augmented-organization-engine")) {
     return "augmentedOrganizationEngine";
+  }
+  if (pathname.startsWith("/app/global-knowledge-exchange-engine")) {
+    return "globalKnowledgeExchangeEngine";
+  }
+  if (pathname.startsWith("/app/joint-operations-engine")) {
+    return "jointOperationsEngine";
+  }
+  if (pathname.startsWith("/app/global-governance-diplomacy-engine")) {
+    return "globalGovernanceDiplomacyEngine";
+  }
+  if (pathname.startsWith("/app/global-talent-expert-network-engine")) {
+    return "globalTalentExpertNetworkEngine";
+  }
+  if (pathname.startsWith("/app/global-ecosystem-marketplace-engine")) {
+    return "globalEcosystemMarketplaceEngine";
+  }
+  if (pathname.startsWith("/app/global-stewardship-collective-future-engine")) {
+    return "globalStewardshipCollectiveFutureEngine";
+  }
+  if (pathname.startsWith("/app/future-leaders-engine")) {
+    return "futureLeadersEngine";
+  }
+  if (pathname.startsWith("/app/organizational-sensemaking-engine")) {
+    return "organizationalSensemakingEngine";
   }
   if (pathname.startsWith("/app/executive")) return "executive";
   if (

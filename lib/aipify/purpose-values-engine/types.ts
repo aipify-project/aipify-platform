@@ -361,6 +361,142 @@ export type PurposeAlignmentEngagementSummary = {
   privacy_note?: string;
 };
 
+export type PurposeEvolutionEngine = {
+  principle?: string;
+  evolution_questions?: BlueprintObjective[];
+  reflection_note?: string;
+};
+
+export type ValuesContinuityFramework = {
+  principle?: string;
+  continuity_dimensions?: BlueprintObjective[];
+  customization_note?: string;
+};
+
+export type IdentityEvolutionEngine = {
+  principle?: string;
+  evolution_dimensions?: BlueprintObjective[];
+  boundary_note?: string;
+};
+
+export type CulturalContinuityEngine = {
+  principle?: string;
+  continuity_types?: BlueprintObjective[];
+  boundary_note?: string;
+};
+
+export type PurposeMemoryEngine = {
+  principle?: string;
+  memory_types?: BlueprintObjective[];
+  org_memory_route?: string;
+  org_legacy_route?: string;
+  boundary_note?: string;
+};
+
+export type PurposeRenewalReview = {
+  id?: string;
+  review_title?: string;
+  review_scope?: string;
+  renewal_summary?: string | null;
+  reflection_prompts?: string[] | unknown[];
+  status?: string;
+  metadata?: Record<string, unknown>;
+  reviewed_at?: string | null;
+  created_at?: string;
+  updated_at?: string;
+  [key: string]: unknown;
+};
+
+export type PurposeIdentityEvolutionRecord = {
+  id?: string;
+  workshop_title?: string;
+  workshop_scope?: string;
+  summary?: string | null;
+  reflection_prompts?: string[] | unknown[];
+  status?: string;
+  metadata?: Record<string, unknown>;
+  recorded_at?: string | null;
+  created_at?: string;
+  updated_at?: string;
+  [key: string]: unknown;
+};
+
+export type Phase156PurposeMemoryEntry = {
+  id?: string;
+  memory_type?: string;
+  title?: string;
+  summary?: string;
+  captured_by_role?: string | null;
+  metadata?: Record<string, unknown>;
+  captured_at?: string;
+  created_at?: string;
+  [key: string]: unknown;
+};
+
+export type CulturalContinuityRecord = {
+  id?: string;
+  record_type?: string;
+  title?: string;
+  summary?: string;
+  metadata?: Record<string, unknown>;
+  captured_at?: string;
+  created_at?: string;
+  [key: string]: unknown;
+};
+
+export type OrganizationalPurposeRenewalBlueprint = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  era?: string;
+  mapping_note?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: BlueprintObjective[];
+  purpose_renewal_center?: PurposeAlignmentCenter;
+  purpose_evolution_engine?: PurposeEvolutionEngine;
+  values_continuity_framework?: ValuesContinuityFramework;
+  identity_evolution_engine?: IdentityEvolutionEngine;
+  purpose_companion?: PurposeCompanionBlueprint;
+  executive_purpose_reviews?: ExecutivePurposeReviews;
+  cultural_continuity_engine?: CulturalContinuityEngine;
+  purpose_memory_engine?: PurposeMemoryEngine;
+  companion_limitations?: CompanionLimitations;
+  self_love_connection?: SelfLoveConnection;
+  security_requirements?: SecurityRequirements;
+  dogfooding?: DogfoodingBlueprint;
+  integration_links?: IntegrationLink[];
+  era_cross_links?: EraCrossLink[];
+  success_criteria?: AbosSuccessCriterion[];
+  engagement_summary?: Record<string, unknown>;
+  vision_phrases?: string[];
+  privacy_note?: string;
+};
+
+export type PurposeRenewalEngagementSummary = {
+  purpose_renewal_center_capabilities?: number;
+  purpose_evolution_questions?: number;
+  values_continuity_dimensions?: number;
+  identity_evolution_dimensions?: number;
+  purpose_companion_capabilities?: number;
+  executive_review_areas?: number;
+  cultural_continuity_types?: number;
+  purpose_memory_types?: number;
+  integration_links?: number;
+  scheduled_renewal_reviews?: number;
+  identity_evolution_workshops?: number;
+  purpose_memory_entries?: number;
+  cultural_continuity_records?: number;
+  phase138_engagement?: PurposeAlignmentEngagementSummary;
+  phase95_engagement?: CulturalAlignmentEngagementSummary;
+  phase64_engagement?: PurposeValuesEngagementSummary;
+  privacy_note?: string;
+};
+
 export type ValuesExploration = {
   principle?: string;
   dimensions?: BlueprintObjective[];
@@ -471,6 +607,12 @@ export type PurposeValuesEngineCard = {
   purpose_alignment_engagement_summary?: PurposeAlignmentEngagementSummary;
   purpose_alignment_note?: string;
   purpose_alignment_vision_note?: string;
+  implementation_blueprint_phase156?: ImplementationBlueprintMeta;
+  purpose_renewal_mission?: string;
+  purpose_renewal_abos_principle?: string;
+  purpose_renewal_engagement_summary?: PurposeRenewalEngagementSummary;
+  purpose_renewal_note?: string;
+  purpose_renewal_vision_note?: string;
   [key: string]: unknown;
 };
 
@@ -572,6 +714,37 @@ export type PurposeValuesEngineDashboard = {
   alignment_reviews?: PurposeAlignmentReview[];
   values_memory_entries?: ValuesMemoryEntry[];
   culture_health_snapshots?: CultureHealthSnapshot[];
+  implementation_blueprint_phase156?: ImplementationBlueprintMeta;
+  organizational_purpose_renewal_note?: string;
+  organizational_purpose_renewal_blueprint?: OrganizationalPurposeRenewalBlueprint;
+  purpose_renewal_distinction_note?: string;
+  purpose_renewal_mission?: string;
+  purpose_renewal_philosophy?: string;
+  purpose_renewal_abos_principle?: string;
+  purpose_renewal_objectives?: BlueprintObjective[];
+  purpose_renewal_center?: PurposeAlignmentCenter;
+  purpose_evolution_engine?: PurposeEvolutionEngine;
+  values_continuity_framework?: ValuesContinuityFramework;
+  identity_evolution_engine?: IdentityEvolutionEngine;
+  purpose_renewal_companion?: PurposeCompanionBlueprint;
+  purpose_renewal_executive_reviews?: ExecutivePurposeReviews;
+  cultural_continuity_engine?: CulturalContinuityEngine;
+  purpose_memory_engine?: PurposeMemoryEngine;
+  purpose_renewal_companion_limitations?: CompanionLimitations;
+  purpose_renewal_self_love_connection?: SelfLoveConnection;
+  purpose_renewal_security_requirements?: SecurityRequirements;
+  purpose_renewal_dogfooding?: DogfoodingBlueprint;
+  purpose_renewal_integration_links?: IntegrationLink[];
+  purpose_renewal_era_cross_links?: EraCrossLink[];
+  purpose_renewal_engagement_summary?: PurposeRenewalEngagementSummary;
+  purpose_renewal_success_criteria?: AbosSuccessCriterion[];
+  purpose_renewal_vision?: string;
+  purpose_renewal_vision_phrases?: string[];
+  purpose_renewal_privacy_note?: string;
+  purpose_renewal_reviews?: PurposeRenewalReview[];
+  purpose_identity_evolution_records?: PurposeIdentityEvolutionRecord[];
+  phase156_purpose_memory_entries?: Phase156PurposeMemoryEntry[];
+  cultural_continuity_records?: CulturalContinuityRecord[];
   [key: string]: unknown;
 };
 

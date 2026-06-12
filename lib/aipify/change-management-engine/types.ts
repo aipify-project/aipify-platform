@@ -205,6 +205,82 @@ export type TransformationOrchestrationPhase127Blueprint = {
   privacy_note?: string;
 };
 
+export type IdentityPreservationFramework = {
+  principle?: string;
+  dimensions?: BlueprintObjective[];
+  purpose_values_route?: string;
+  boundary_note?: string;
+};
+
+export type ExecutiveRenewalReviews = {
+  principle?: string;
+  dimensions?: BlueprintObjective[];
+  boundary_note?: string;
+};
+
+export type InnovationBalanceEngine = {
+  principle?: string;
+  balances?: BlueprintObjective[];
+  innovation_lab_route?: string;
+  innovation_impact_route?: string;
+  boundary_note?: string;
+};
+
+export type OrganizationalLearningEngine = {
+  principle?: string;
+  learning_types?: BlueprintObjective[];
+  knowledge_exchange_route?: string;
+  boundary_note?: string;
+};
+
+export type RenewalMemoryEngine = {
+  principle?: string;
+  captures?: BlueprintObjective[];
+  org_legacy_route?: string;
+  decision_heritage_route?: string;
+  boundary_note?: string;
+};
+
+export type SelfLoveRenewalConnection = {
+  principle?: string;
+  patterns?: BlueprintObjective[];
+  renewal_phrase?: string;
+  self_love_route?: string;
+  boundary_note?: string;
+};
+
+export type OrganizationalRenewalPhase155Blueprint = {
+  phase?: string;
+  doc?: string;
+  spec_doc?: string;
+  engine_phase?: string;
+  era?: string;
+  route?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: BlueprintObjective[];
+  organizational_renewal_center?: BlueprintObjective[];
+  reinvention_intelligence_engine?: BlueprintObjective[];
+  identity_preservation_framework?: IdentityPreservationFramework;
+  executive_renewal_reviews?: ExecutiveRenewalReviews;
+  renewal_companion?: BlueprintObjective[];
+  innovation_balance_engine?: InnovationBalanceEngine;
+  organizational_learning_engine?: OrganizationalLearningEngine;
+  renewal_memory_engine?: RenewalMemoryEngine;
+  companion_limitations?: BlueprintObjective[];
+  self_love_connection?: SelfLoveRenewalConnection;
+  security_requirements?: BlueprintObjective[];
+  integration_links?: IntegrationLink[];
+  dogfooding?: DogfoodingBlueprint;
+  success_criteria?: AbosSuccessCriterion[];
+  engagement_summary?: ChangeEngagementSummary;
+  vision_phrases?: string[];
+  privacy_note?: string;
+};
+
 export type ChangeManagementEngineCard = {
   has_organization: boolean;
   philosophy?: string;
@@ -221,6 +297,11 @@ export type ChangeManagementEngineCard = {
   phase127_abos_principle?: string;
   phase127_engagement_summary?: ChangeEngagementSummary;
   phase127_note?: string;
+  implementation_blueprint_phase155?: ImplementationBlueprintMeta;
+  phase155_mission?: string;
+  phase155_abos_principle?: string;
+  phase155_engagement_summary?: ChangeEngagementSummary;
+  phase155_note?: string;
   [key: string]: unknown;
 };
 
@@ -261,5 +342,7 @@ export type ChangeManagementEngineDashboard = {
   privacy_note?: string;
   implementation_blueprint_phase127?: TransformationOrchestrationPhase127Blueprint;
   transformation_orchestration_phase127_note?: string;
+  implementation_blueprint_phase155?: OrganizationalRenewalPhase155Blueprint;
+  organizational_renewal_phase155_note?: string;
   [key: string]: unknown;
 };

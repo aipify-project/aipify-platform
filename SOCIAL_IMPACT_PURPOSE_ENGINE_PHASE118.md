@@ -42,7 +42,7 @@ Purpose Center + Social Impact initiatives — stewardship through responsibilit
 
 ## Cross-links
 
-Purpose & Values A.82 · Impact Engine A.85 · Inclusion & Humanity A.83 · Self Love A.76 · Gratitude & Recognition A.89 · Community Phase 117/89 · Growth Partner Ops Phase 114 · AI Ethics Blueprint 98
+Purpose & Values A.82 · Impact Engine A.85 · Inclusion & Humanity A.83 · Self Love A.76 · Gratitude & Recognition A.89 · Community Phase 117/89 · Growth Partner Ops Phase 114 · AI Ethics Blueprint 98 · **Global Impact & Social Responsibility Phase 149** (extends this engine — migration `20261309000000_implementation_blueprint_phase149_global_impact_social_responsibility.sql`, helpers `_gisrb149_*`)
 
 ## Code paths
 

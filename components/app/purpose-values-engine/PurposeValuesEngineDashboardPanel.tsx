@@ -273,7 +273,8 @@ export function PurposeValuesEngineDashboardPanel({ labels }: Props) {
   const engagement = dashboard.engagement_summary;
   const culturalEngagement = dashboard.cultural_alignment_engagement_summary;
   const purposeAlignmentEngagement = dashboard.purpose_alignment_engagement_summary;
-  const allIntegrationLinks = [...blueprintLinks, ...culturalLinks, ...purposeAlignmentLinks];
+  const purposeRenewalEngagement = dashboard.purpose_renewal_engagement_summary;
+  const allIntegrationLinks = [...blueprintLinks, ...culturalLinks, ...purposeAlignmentLinks, ...(dashboard.purpose_renewal_integration_links ?? [])];
 
   return (
     <div className="space-y-6">
@@ -546,6 +547,247 @@ export function PurposeValuesEngineDashboardPanel({ labels }: Props) {
 
       {dashboard.purpose_alignment_privacy_note ? (
         <p className="text-xs text-gray-500">{dashboard.purpose_alignment_privacy_note}</p>
+      ) : null}
+
+      {dashboard.implementation_blueprint_phase156?.phase ? (
+        <section className="rounded-xl border border-emerald-200 bg-emerald-50/40 p-6">
+          <p className="text-xs text-emerald-700">
+            {dashboard.implementation_blueprint_phase156.phase}
+            {dashboard.implementation_blueprint_phase156.engine_phase
+              ? ` · ${dashboard.implementation_blueprint_phase156.engine_phase}`
+              : ""}
+          </p>
+          {dashboard.purpose_renewal_mission ? (
+            <p className="mt-2 text-sm font-medium text-emerald-900">{dashboard.purpose_renewal_mission}</p>
+          ) : null}
+          {dashboard.purpose_renewal_philosophy ? (
+            <p className="mt-2 text-sm text-emerald-900">{dashboard.purpose_renewal_philosophy}</p>
+          ) : null}
+          {dashboard.purpose_renewal_abos_principle ? (
+            <p className="mt-2 text-xs text-emerald-800">{dashboard.purpose_renewal_abos_principle}</p>
+          ) : null}
+          {dashboard.purpose_renewal_vision ? (
+            <p className="mt-1 text-xs italic text-emerald-700">{dashboard.purpose_renewal_vision}</p>
+          ) : null}
+          {dashboard.organizational_purpose_renewal_note ? (
+            <p className="mt-2 text-xs text-emerald-800">{dashboard.organizational_purpose_renewal_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.purpose_renewal_objectives && dashboard.purpose_renewal_objectives.length > 0 ? (
+        <section className="rounded-xl border border-emerald-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase156Objectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.purpose_renewal_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_renewal_center?.capabilities &&
+      dashboard.purpose_renewal_center.capabilities.length > 0 ? (
+        <section className="rounded-xl border border-emerald-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase156RenewalCenter}</h3>
+          {dashboard.purpose_renewal_center.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.purpose_renewal_center.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.purpose_renewal_center.capabilities.map((cap) => (
+              <ObjectiveCard key={cap.key ?? cap.label} objective={cap} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_evolution_engine?.evolution_questions &&
+      dashboard.purpose_evolution_engine.evolution_questions.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase156PurposeEvolution}</h3>
+          {dashboard.purpose_evolution_engine.principle ? (
+            <p className="mt-2 text-gray-700">{dashboard.purpose_evolution_engine.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {dashboard.purpose_evolution_engine.evolution_questions.map((q) => (
+              <ObjectiveCard key={q.key ?? q.label} objective={q} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.values_continuity_framework?.continuity_dimensions &&
+      dashboard.values_continuity_framework.continuity_dimensions.length > 0 ? (
+        <section className="rounded-xl border border-emerald-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase156ValuesContinuity}</h3>
+          {dashboard.values_continuity_framework.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.values_continuity_framework.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.values_continuity_framework.continuity_dimensions.map((dim) => (
+              <ObjectiveCard key={dim.key ?? dim.label} objective={dim} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.identity_evolution_engine?.evolution_dimensions &&
+      dashboard.identity_evolution_engine.evolution_dimensions.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase156IdentityEvolution}</h3>
+          {dashboard.identity_evolution_engine.principle ? (
+            <p className="mt-2 text-gray-700">{dashboard.identity_evolution_engine.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {dashboard.identity_evolution_engine.evolution_dimensions.map((dim) => (
+              <ObjectiveCard key={dim.key ?? dim.label} objective={dim} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_renewal_companion?.capabilities &&
+      dashboard.purpose_renewal_companion.capabilities.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase156PurposeCompanion}</h3>
+          {dashboard.purpose_renewal_companion.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.purpose_renewal_companion.principle}</p>
+          ) : null}
+          <div className="mt-3 space-y-2">
+            {dashboard.purpose_renewal_companion.capabilities.map((cap) => (
+              <CompanionGuidanceCard
+                key={cap.key ?? cap.label}
+                example={{ emoji: cap.emoji, prompt: cap.label, consideration: cap.description }}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.cultural_continuity_engine?.continuity_types &&
+      dashboard.cultural_continuity_engine.continuity_types.length > 0 ? (
+        <section className="rounded-xl border border-emerald-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase156CulturalContinuity}</h3>
+          {dashboard.cultural_continuity_engine.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.cultural_continuity_engine.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.cultural_continuity_engine.continuity_types.map((t) => (
+              <ObjectiveCard key={t.key ?? t.label} objective={t} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_memory_engine?.memory_types &&
+      dashboard.purpose_memory_engine.memory_types.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase156PurposeMemory}</h3>
+          {dashboard.purpose_memory_engine.principle ? (
+            <p className="mt-2 text-gray-700">{dashboard.purpose_memory_engine.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {dashboard.purpose_memory_engine.memory_types.map((m) => (
+              <ObjectiveCard key={m.key ?? m.label} objective={m} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_renewal_executive_reviews?.review_areas &&
+      dashboard.purpose_renewal_executive_reviews.review_areas.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase156ExecutiveReviews}</h3>
+          {dashboard.purpose_renewal_executive_reviews.principle ? (
+            <p className="mt-2 text-gray-700">{dashboard.purpose_renewal_executive_reviews.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {dashboard.purpose_renewal_executive_reviews.review_areas.map((area) => (
+              <ObjectiveCard key={area.key ?? area.label} objective={area} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_renewal_companion_limitations?.limitations &&
+      dashboard.purpose_renewal_companion_limitations.limitations.length > 0 ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/40 p-4 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.phase156CompanionLimitations}</h3>
+          {dashboard.purpose_renewal_companion_limitations.principle ? (
+            <p className="mt-2">{dashboard.purpose_renewal_companion_limitations.principle}</p>
+          ) : null}
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+            {dashboard.purpose_renewal_companion_limitations.limitations.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_renewal_self_love_connection?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.phase156SelfLoveConnection}</h3>
+          <p className="mt-2">{dashboard.purpose_renewal_self_love_connection.principle}</p>
+          {dashboard.purpose_renewal_self_love_connection.practices &&
+          dashboard.purpose_renewal_self_love_connection.practices.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {dashboard.purpose_renewal_self_love_connection.practices.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {purposeRenewalEngagement ? (
+        <section className="rounded-lg border border-emerald-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.phase156Engagement}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-4">
+            <span>
+              {labels.phase156RenewalReviews}: {purposeRenewalEngagement.scheduled_renewal_reviews ?? 0}
+            </span>
+            <span>
+              {labels.phase156EvolutionWorkshops}: {purposeRenewalEngagement.identity_evolution_workshops ?? 0}
+            </span>
+            <span>
+              {labels.phase156PurposeMemoryCount}: {purposeRenewalEngagement.purpose_memory_entries ?? 0}
+            </span>
+            <span>
+              {labels.phase156ContinuityRecords}: {purposeRenewalEngagement.cultural_continuity_records ?? 0}
+            </span>
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_renewal_success_criteria && dashboard.purpose_renewal_success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-emerald-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase156SuccessCriteria}</h3>
+          <div className="mt-3 space-y-2">
+            {dashboard.purpose_renewal_success_criteria.map((criterion) => (
+              <SuccessCriterionRow
+                key={criterion.key ?? criterion.label}
+                criterion={criterion}
+                metLabel={labels.criterionMet}
+                pendingLabel={labels.criterionPending}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_renewal_vision_phrases && dashboard.purpose_renewal_vision_phrases.length > 0 ? (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/30 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase156VisionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-emerald-900">
+            {dashboard.purpose_renewal_vision_phrases.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_renewal_privacy_note ? (
+        <p className="text-xs text-gray-500">{dashboard.purpose_renewal_privacy_note}</p>
       ) : null}
 
       {dashboard.cultural_alignment_objectives && dashboard.cultural_alignment_objectives.length > 0 ? (

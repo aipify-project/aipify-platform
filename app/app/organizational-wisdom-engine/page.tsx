@@ -7,6 +7,7 @@ export default async function OrganizationalWisdomEnginePage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
   const p = "customerApp.organizationalWisdom";
+  const p157 = "customerApp.organizationalWisdomEngine.phase157";
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -53,6 +54,32 @@ export default async function OrganizationalWisdomEnginePage() {
           organizationalMemory: t(`${p}.organizationalMemory`),
           inclusionHumanity: t(`${p}.inclusionHumanity`),
           selfLove: t(`${p}.selfLove`),
+          collectiveDecisionCouncil: t(`${p}.collectiveDecisionCouncil`),
+          strategicForesight: t(`${p}.strategicForesight`),
+          changeManagement: t(`${p}.changeManagement`),
+          futureLeaders: t(`${p}.futureLeaders`),
+          phase157Title: t(`${p157}.title`),
+          phase157Objectives: t(`${p157}.objectives`),
+          phase157WisdomCouncilCenter: t(`${p157}.wisdomCouncilCenter`),
+          phase157EthicalForesight: t(`${p157}.ethicalForesight`),
+          phase157StakeholderAwareness: t(`${p157}.stakeholderAwareness`),
+          phase157ExecutiveWisdom: t(`${p157}.executiveWisdom`),
+          phase157CouncilReviews: t(`${p157}.councilReviews`),
+          phase157ForesightSessions: t(`${p157}.foresightSessions`),
+          phase157WisdomCompanion: t(`${p157}.wisdomCompanion`),
+          phase157EthicalInnovation: t(`${p157}.ethicalInnovation`),
+          phase157FutureConsequences: t(`${p157}.futureConsequences`),
+          phase157WisdomMemory: t(`${p157}.wisdomMemory`),
+          phase157MemoryEntries: t(`${p157}.memoryEntries`),
+          phase157StakeholderSnapshots: t(`${p157}.stakeholderSnapshots`),
+          phase157StakeholderNote: t(`${p157}.stakeholderNote`),
+          phase157CompanionLimitations: t(`${p157}.companionLimitations`),
+          phase157SelfLove: t(`${p157}.selfLove`),
+          phase157Security: t(`${p157}.security`),
+          phase157Engagement: t(`${p157}.engagement`),
+          phase157VisionPhrases: t(`${p157}.visionPhrases`),
+          phase157SuccessCriteria: t(`${p157}.successCriteria`),
+          phase157IntegrationLinks: t(`${p157}.integrationLinks`),
         }}
       />
     </div>

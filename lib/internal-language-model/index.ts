@@ -98,6 +98,12 @@ export * from "./implementation-blueprint-phase58-vocabulary";
 export * from "./implementation-blueprint-phase56-vocabulary";
 export * from "./implementation-blueprint-phase57-vocabulary";
 export * from "./implementation-blueprint-phase116-vocabulary";
+export * from "./implementation-blueprint-phase142-vocabulary";
+export * from "./implementation-blueprint-phase146-vocabulary";
+export * from "./implementation-blueprint-phase145-vocabulary";
+export * from "./implementation-blueprint-phase151-vocabulary";
+export * from "./implementation-blueprint-phase148-vocabulary";
+export * from "./implementation-blueprint-phase149-vocabulary";
 export * from "./implementation-blueprint-phase61-vocabulary";
 export * from "./implementation-blueprint-phase67-vocabulary";
 export * from "./implementation-blueprint-phase123-vocabulary";
@@ -153,13 +159,19 @@ export * from "./implementation-blueprint-phase115-vocabulary";
 export * from "./implementation-blueprint-phase121-vocabulary";
 export * from "./implementation-blueprint-phase132-vocabulary";
 export * from "./implementation-blueprint-phase136-vocabulary";
+export * from "./implementation-blueprint-phase154-vocabulary";
 export * from "./implementation-blueprint-phase137-vocabulary";
+export * from "./implementation-blueprint-phase143-vocabulary";
 export * from "./implementation-blueprint-phase125-vocabulary";
 export * from "./implementation-blueprint-phase129-vocabulary";
 export * from "./implementation-blueprint-phase120-vocabulary";
 export * from "./implementation-blueprint-phase119-vocabulary";
+export * from "./implementation-blueprint-phase144-vocabulary";
 export * from "./implementation-blueprint-phase122-vocabulary";
 export * from "./implementation-blueprint-phase126-vocabulary";
+export * from "./implementation-blueprint-phase152-vocabulary";
+export * from "./implementation-blueprint-phase153-vocabulary";
+export * from "./implementation-blueprint-phase155-vocabulary";
 export * from "./implementation-blueprint-phase118-vocabulary";
 export * from "./implementation-blueprint-phase109-vocabulary";
 export * from "./implementation-blueprint-phase100-vocabulary";
@@ -374,6 +386,9 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE57_PATH =
 
 export const IMPLEMENTATION_BLUEPRINT_PHASE116_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase116-trust-reputation-relationship.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE142_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase142-trust-network-verified-organization-ecosystem.txt";
 
 export const IMPLEMENTATION_BLUEPRINT_PHASE61_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase61-organizational-health.txt";
@@ -594,6 +609,12 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE94_PATH =
 export const IMPLEMENTATION_BLUEPRINT_PHASE126_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase126-organizational-memory-legacy.txt";
 
+export const IMPLEMENTATION_BLUEPRINT_PHASE152_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase152-organizational-legacy-succession-intelligence.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE155_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase155-organizational-renewal-reinvention.txt";
+
 export const IMPLEMENTATION_BLUEPRINT_PHASE101_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase101-commerce-intelligence.txt";
 
@@ -636,6 +657,9 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE132_PATH =
 export const IMPLEMENTATION_BLUEPRINT_PHASE136_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase136-self-healing-operations-organizational-recovery.txt";
 
+export const IMPLEMENTATION_BLUEPRINT_PHASE154_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase154-organizational-resilience-adaptive-continuity.txt";
+
 export const IMPLEMENTATION_BLUEPRINT_PHASE137_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase137-collective-decision-human-companion-council.txt";
 
@@ -647,6 +671,33 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE139_PATH =
 
 export const IMPLEMENTATION_BLUEPRINT_PHASE140_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase140-human-companion-symbiosis-augmented-organization.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE144_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase144-global-governance-digital-diplomacy.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE141_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase141-global-knowledge-exchange-interorganizational-learning.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE145_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase145-global-compliance-regulatory-intelligence.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE149_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase149-global-impact-social-responsibility.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE151_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase151-intergenerational-leadership-future-leaders.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE148_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase148-global-ecosystem-marketplace-solution-exchange.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE146_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase146-global-ecosystem-certification-professional-standards.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE147_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase147-global-talent-expert-network-engine.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE153_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase153-institutional-wisdom-decision-heritage.txt";
 
 export const IMPLEMENTATION_BLUEPRINT_PHASE125_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase125-decision-intelligence-executive-advisory.txt";

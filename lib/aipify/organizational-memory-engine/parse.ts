@@ -279,6 +279,77 @@ export function parseOrganizationalMemoryEngineDashboard(
     organizational_memory_enterprise_note:
       asString(d.organizational_memory_enterprise_note) || undefined,
     phase126_privacy_note: asString(d.phase126_privacy_note) || undefined,
+    implementation_blueprint_phase152:
+      typeof d.implementation_blueprint_phase152 === "object" && d.implementation_blueprint_phase152
+        ? (d.implementation_blueprint_phase152 as OrganizationalMemoryEngineDashboard["implementation_blueprint_phase152"])
+        : undefined,
+    legacy_succession_intelligence_blueprint:
+      typeof d.legacy_succession_intelligence_blueprint === "object" &&
+      d.legacy_succession_intelligence_blueprint
+        ? (d.legacy_succession_intelligence_blueprint as OrganizationalMemoryEngineDashboard["legacy_succession_intelligence_blueprint"])
+        : undefined,
+    phase152_distinction_note: asString(d.phase152_distinction_note) || undefined,
+    phase152_mission: asString(d.phase152_mission) || undefined,
+    phase152_philosophy: asString(d.phase152_philosophy) || undefined,
+    phase152_abos_principle: asString(d.phase152_abos_principle) || undefined,
+    phase152_vision: asString(d.phase152_vision) || undefined,
+    phase152_objectives: asRecordList<ContinuityObjective>(d.phase152_objectives),
+    phase152_legacy_center: asRecordList<EnterpriseIntelligenceBlueprintItem>(d.phase152_legacy_center),
+    phase152_succession_intelligence_engine: asRecordList<EnterpriseIntelligenceBlueprintItem>(
+      d.phase152_succession_intelligence_engine
+    ),
+    phase152_critical_knowledge_engine: asRecordList<EnterpriseIntelligenceBlueprintItem>(
+      d.phase152_critical_knowledge_engine
+    ),
+    phase152_executive_legacy_reviews:
+      typeof d.phase152_executive_legacy_reviews === "object" && d.phase152_executive_legacy_reviews
+        ? (d.phase152_executive_legacy_reviews as MemoryLegacyBlueprintSection)
+        : undefined,
+    phase152_legacy_companion: asRecordList<EnterpriseIntelligenceBlueprintItem>(
+      d.phase152_legacy_companion
+    ),
+    phase152_continuity_readiness_framework: asRecordList<EnterpriseIntelligenceBlueprintItem>(
+      d.phase152_continuity_readiness_framework
+    ),
+    phase152_organizational_storytelling_engine:
+      typeof d.phase152_organizational_storytelling_engine === "object" &&
+      d.phase152_organizational_storytelling_engine
+        ? (d.phase152_organizational_storytelling_engine as MemoryLegacyBlueprintSection)
+        : undefined,
+    phase152_institutional_memory_library: asRecordList<EnterpriseIntelligenceBlueprintItem>(
+      d.phase152_institutional_memory_library
+    ),
+    phase152_companion_limitations: asRecordList<EnterpriseIntelligenceBlueprintItem>(
+      d.phase152_companion_limitations
+    ),
+    phase152_self_love_connection:
+      typeof d.phase152_self_love_connection === "object" && d.phase152_self_love_connection
+        ? (d.phase152_self_love_connection as MemoryLegacyBlueprintSection)
+        : undefined,
+    phase152_security_requirements:
+      typeof d.phase152_security_requirements === "object" && d.phase152_security_requirements
+        ? (d.phase152_security_requirements as MemoryLegacyBlueprintSection)
+        : undefined,
+    olsibp152_integration_links: asRecordList<IntegrationLink>(d.olsibp152_integration_links),
+    phase152_dogfooding:
+      typeof d.phase152_dogfooding === "object" && d.phase152_dogfooding
+        ? (d.phase152_dogfooding as Record<string, unknown>)
+        : undefined,
+    phase152_success_criteria: asRecordList<AbosSuccessCriterion>(d.phase152_success_criteria),
+    phase152_engagement_summary:
+      typeof d.phase152_engagement_summary === "object" && d.phase152_engagement_summary
+        ? (d.phase152_engagement_summary as OrganizationalMemoryEngineDashboard["phase152_engagement_summary"])
+        : undefined,
+    phase152_vision_phrases: Array.isArray(d.phase152_vision_phrases)
+      ? (d.phase152_vision_phrases as string[])
+      : undefined,
+    organizational_legacy_succession_note:
+      asString(d.organizational_legacy_succession_note) || undefined,
+    phase152_privacy_note: asString(d.phase152_privacy_note) || undefined,
+    phase152_sections:
+      typeof d.phase152_sections === "object" && d.phase152_sections
+        ? (d.phase152_sections as OrganizationalMemoryEngineDashboard["phase152_sections"])
+        : undefined,
   };
 }
 

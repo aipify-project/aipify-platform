@@ -11,9 +11,13 @@ import {
   type ImpactIndicator,
   type InitiativeScaffold,
   type IntegrationLink,
+  type CommunityInitiative,
+  type ExecutiveImpactReview,
+  type ImpactReport,
   type PurposeCommitment,
   type PurposeInitiative,
   type SocialImpactPurposeDashboard,
+  type WellbeingProgram,
 } from "@/lib/aipify/social-impact-purpose-engine";
 
 type SocialImpactPurposeDashboardPanelProps = {
@@ -137,6 +141,70 @@ function IndicatorRow({ indicator }: { indicator: ImpactIndicator }) {
   );
 }
 
+function CommunityInitiativeCard({ initiative }: { initiative: CommunityInitiative }) {
+  return (
+    <div className="rounded-lg border border-sky-100 bg-sky-50/30 px-3 py-2 text-sm">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <span className="font-medium text-sky-900">{initiative.title}</span>
+        <span className={`rounded px-2 py-0.5 text-xs ${badgeClass(initiative.status)}`}>
+          {initiative.status.replace(/_/g, " ")}
+        </span>
+      </div>
+      <p className="mt-1 text-xs text-sky-800">{initiative.summary}</p>
+      <p className="mt-1 text-xs text-sky-700">
+        {initiative.initiative_type.replace(/_/g, " ")} · {initiative.participation_count} participants
+      </p>
+    </div>
+  );
+}
+
+function WellbeingProgramCard({ program }: { program: WellbeingProgram }) {
+  return (
+    <div className="rounded-lg border border-rose-100 bg-rose-50/30 px-3 py-2 text-sm">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <span className="font-medium text-rose-900">{program.title}</span>
+        <span className={`rounded px-2 py-0.5 text-xs ${badgeClass(program.status)}`}>
+          {program.status.replace(/_/g, " ")}
+        </span>
+      </div>
+      <p className="mt-1 text-xs text-rose-800">{program.summary}</p>
+      <p className="mt-1 text-xs text-rose-700">
+        {program.program_type.replace(/_/g, " ")} · {program.adoption_count} adoption
+      </p>
+    </div>
+  );
+}
+
+function ImpactReportCard({ report }: { report: ImpactReport }) {
+  return (
+    <div className="rounded-lg border border-indigo-100 bg-indigo-50/30 px-3 py-2 text-sm">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <span className="font-medium text-indigo-900">{report.title}</span>
+        <span className={`rounded px-2 py-0.5 text-xs ${badgeClass(report.status)}`}>
+          {report.status.replace(/_/g, " ")}
+        </span>
+      </div>
+      <p className="mt-1 text-xs text-indigo-800">{report.summary}</p>
+      <p className="mt-1 text-xs text-indigo-700">{report.report_type.replace(/_/g, " ")}</p>
+    </div>
+  );
+}
+
+function ExecutiveReviewCard({ review }: { review: ExecutiveImpactReview }) {
+  return (
+    <div className="rounded-lg border border-amber-100 bg-amber-50/30 px-3 py-2 text-sm">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <span className="font-medium text-amber-900">{review.title}</span>
+        <span className={`rounded px-2 py-0.5 text-xs ${badgeClass(review.status)}`}>
+          {review.status.replace(/_/g, " ")}
+        </span>
+      </div>
+      <p className="mt-1 text-xs text-amber-800">{review.reflection_summary}</p>
+      <p className="mt-1 text-xs text-amber-700">{review.review_dimension.replace(/_/g, " ")}</p>
+    </div>
+  );
+}
+
 function MetaListSection({
   title,
   meta,
@@ -196,6 +264,18 @@ export function SocialImpactPurposeDashboardPanel({ labels }: SocialImpactPurpos
   const executiveMonitors = Array.isArray(dashboard.executive_purpose_dashboard_meta?.monitors)
     ? (dashboard.executive_purpose_dashboard_meta.monitors as Array<Record<string, unknown>>)
     : [];
+  const phase149Links: IntegrationLink[] = dashboard.gisrb149_integration_links ?? [];
+  const phase149Limitations = dashboard.gisrb149_companion_limitations ?? [];
+  const impactCompanionExamples = Array.isArray(dashboard.impact_companion?.examples)
+    ? (dashboard.impact_companion.examples as CompanionAdaptationExample[])
+    : [];
+  const executiveReviewDimensions = Array.isArray(dashboard.executive_impact_reviews_meta?.dimensions)
+    ? (dashboard.executive_impact_reviews_meta.dimensions as Array<Record<string, unknown>>)
+    : [];
+  const globalImpactCapabilities = Array.isArray(dashboard.global_impact_center?.capabilities)
+    ? (dashboard.global_impact_center.capabilities as Array<Record<string, unknown>>)
+    : [];
+  const phase149Sections = dashboard.phase149_sections;
 
   return (
     <div className="space-y-6">
@@ -224,7 +304,19 @@ export function SocialImpactPurposeDashboardPanel({ labels }: SocialImpactPurpos
         <Link href="/app/ai-ethics-responsible-use-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.aiEthicsEngine}
         </Link>
-        {integrationLinks.map((link) =>
+        <Link href="/app/global-knowledge-exchange-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.globalKnowledgeExchangeEngine}
+        </Link>
+        <Link href="/app/innovation-impact-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.innovationImpactEngine}
+        </Link>
+        <Link href="/app/ecosystem-governance" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.ecosystemGovernance}
+        </Link>
+        <Link href="/app/organizational-health-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.organizationalHealthEngine}
+        </Link>
+        {phase149Links.map((link) =>
           link.route ? (
             <Link
               key={link.route + (link.key ?? "")}
@@ -472,6 +564,251 @@ export function SocialImpactPurposeDashboardPanel({ labels }: SocialImpactPurpos
 
       {dashboard.social_impact_purpose_privacy_note ? (
         <p className="text-xs text-gray-500">{dashboard.social_impact_purpose_privacy_note}</p>
+      ) : null}
+
+      <section className="rounded-xl border border-sky-200 bg-gradient-to-br from-sky-50 to-white p-5">
+        <h2 className="text-sm font-semibold text-sky-900">{labels.phase149BlueprintTitle}</h2>
+        {dashboard.implementation_blueprint_phase149?.phase ? (
+          <p className="mt-1 text-xs text-sky-700">
+            {dashboard.implementation_blueprint_phase149.phase}
+            {dashboard.implementation_blueprint_phase149.era
+              ? ` · ${dashboard.implementation_blueprint_phase149.era}`
+              : ""}
+          </p>
+        ) : null}
+        {dashboard.gisrb149_mission ? (
+          <p className="mt-2 text-sm font-medium text-sky-900">{dashboard.gisrb149_mission}</p>
+        ) : null}
+        {dashboard.gisrb149_philosophy ? (
+          <p className="mt-2 text-sm text-sky-900">{dashboard.gisrb149_philosophy}</p>
+        ) : null}
+        {dashboard.gisrb149_distinction_note ? (
+          <p className="mt-2 text-xs text-sky-700">{dashboard.gisrb149_distinction_note}</p>
+        ) : null}
+        {dashboard.gisrb149_vision ? (
+          <p className="mt-2 text-xs italic text-sky-800">{dashboard.gisrb149_vision}</p>
+        ) : null}
+        {dashboard.global_impact_social_responsibility_note ? (
+          <p className="mt-2 text-xs text-sky-700">{dashboard.global_impact_social_responsibility_note}</p>
+        ) : null}
+      </section>
+
+      {dashboard.gisrb149_engagement_summary ? (
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="rounded-lg border border-sky-100 bg-white/80 px-3 py-2 text-sm">
+            <span className="text-sky-600">{labels.communityInitiatives}</span>
+            <p className="font-semibold">{dashboard.gisrb149_engagement_summary.community_initiatives ?? 0}</p>
+          </div>
+          <div className="rounded-lg border border-sky-100 bg-white/80 px-3 py-2 text-sm">
+            <span className="text-sky-600">{labels.wellbeingPrograms}</span>
+            <p className="font-semibold">{dashboard.gisrb149_engagement_summary.wellbeing_programs ?? 0}</p>
+          </div>
+          <div className="rounded-lg border border-sky-100 bg-white/80 px-3 py-2 text-sm">
+            <span className="text-sky-600">{labels.impactReports}</span>
+            <p className="font-semibold">{dashboard.gisrb149_engagement_summary.impact_reports ?? 0}</p>
+          </div>
+          <div className="rounded-lg border border-sky-100 bg-white/80 px-3 py-2 text-sm">
+            <span className="text-sky-600">{labels.executiveReviews}</span>
+            <p className="font-semibold">{dashboard.gisrb149_engagement_summary.executive_reviews ?? 0}</p>
+          </div>
+        </div>
+      ) : null}
+
+      {globalImpactCapabilities.length > 0 ? (
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.globalImpactCenter}</h2>
+          {typeof dashboard.global_impact_center?.principle === "string" ? (
+            <p className="text-sm text-gray-600">{dashboard.global_impact_center.principle}</p>
+          ) : null}
+          <div className="grid gap-2 sm:grid-cols-2">
+            {globalImpactCapabilities.map((capability) => (
+              <div key={String(capability.key)} className="rounded-lg border border-sky-100 bg-sky-50/30 px-3 py-2 text-sm">
+                <span className="font-medium text-sky-900">{String(capability.label)}</span>
+                {typeof capability.description === "string" ? (
+                  <p className="mt-1 text-xs text-sky-800">{capability.description}</p>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase149Sections?.community_initiatives && phase149Sections.community_initiatives.length > 0 ? (
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.communityInitiatives}</h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {phase149Sections.community_initiatives.map((initiative) => (
+              <CommunityInitiativeCard key={initiative.id} initiative={initiative} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase149Sections?.wellbeing_programs && phase149Sections.wellbeing_programs.length > 0 ? (
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.wellbeingPrograms}</h2>
+          {typeof dashboard.employee_wellbeing_framework?.boundary_note === "string" ? (
+            <p className="text-sm text-gray-600">{dashboard.employee_wellbeing_framework.boundary_note}</p>
+          ) : null}
+          <div className="grid gap-3 sm:grid-cols-2">
+            {phase149Sections.wellbeing_programs.map((program) => (
+              <WellbeingProgramCard key={program.id} program={program} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      <MetaListSection
+        title={labels.socialResponsibilityEngine}
+        meta={{ items: dashboard.social_responsibility_engine }}
+        itemsKey="items"
+      />
+
+      <MetaListSection
+        title={labels.communityImpactEngine}
+        meta={{ items: dashboard.community_impact_engine }}
+        itemsKey="items"
+      />
+
+      <MetaListSection
+        title={labels.impactReportingEngine}
+        meta={{ items: dashboard.impact_reporting_engine }}
+        itemsKey="items"
+      />
+
+      {phase149Sections?.impact_reports && phase149Sections.impact_reports.length > 0 ? (
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.impactReports}</h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {phase149Sections.impact_reports.map((report) => (
+              <ImpactReportCard key={report.id} report={report} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      <MetaListSection
+        title={labels.growthPartnerImpactProgram}
+        meta={dashboard.growth_partner_impact_program}
+        itemsKey="program_types"
+      />
+
+      {executiveReviewDimensions.length > 0 ? (
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.executiveImpactReviews}</h2>
+          {typeof dashboard.executive_impact_reviews_meta?.principle === "string" ? (
+            <p className="text-sm text-gray-600">{dashboard.executive_impact_reviews_meta.principle}</p>
+          ) : null}
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {executiveReviewDimensions.map((dimension) => (
+              <li key={String(dimension.key)} className="rounded-lg border border-amber-100 px-3 py-2 text-sm">
+                {String(dimension.label)}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {phase149Sections?.executive_reviews && phase149Sections.executive_reviews.length > 0 ? (
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.executiveReviewRecords}</h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {phase149Sections.executive_reviews.map((review) => (
+              <ExecutiveReviewCard key={review.id} review={review} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.gisrb149_objectives?.length ? (
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.phase149Objectives}</h2>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {dashboard.gisrb149_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {impactCompanionExamples.length > 0 ? (
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.impactCompanion}</h2>
+          {typeof dashboard.impact_companion?.principle === "string" ? (
+            <p className="text-sm text-gray-600">{dashboard.impact_companion.principle}</p>
+          ) : null}
+          <div className="space-y-2">
+            {impactCompanionExamples.map((example: CompanionAdaptationExample) => (
+              <div key={example.key} className="rounded-lg border border-violet-100 bg-violet-50/40 px-3 py-2 text-sm">
+                <span className="font-medium">
+                  {example.emoji ? `${example.emoji} ` : ""}
+                  {example.prompt}
+                </span>
+                {example.consideration ? (
+                  <p className="mt-1 text-xs text-violet-800">{example.consideration}</p>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {typeof dashboard.gisrb149_self_love_connection?.vision === "string" ? (
+        <section className="rounded-xl border border-rose-100 bg-rose-50/40 p-4">
+          <h2 className="text-sm font-semibold text-rose-900">{labels.selfLoveConnection}</h2>
+          <p className="mt-2 text-sm text-rose-800">{dashboard.gisrb149_self_love_connection.vision}</p>
+        </section>
+      ) : null}
+
+      {dashboard.gisrb149_security_requirements && dashboard.gisrb149_security_requirements.length > 0 ? (
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.securityRequirements}</h2>
+          <ul className="list-inside list-disc space-y-1 text-sm text-gray-700">
+            {dashboard.gisrb149_security_requirements.map((req) => (
+              <li key={req}>{req}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {phase149Limitations.length > 0 ? (
+        <section className="rounded-xl border border-amber-100 bg-amber-50/40 p-4">
+          <h2 className="text-sm font-semibold text-amber-900">{labels.companionLimitations}</h2>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-amber-800">
+            {phase149Limitations.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.gisrb149_success_criteria?.length ? (
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.phase149SuccessCriteria}</h2>
+          {dashboard.gisrb149_success_criteria.map((criterion) => (
+            <SuccessCriterionRow
+              key={criterion.key ?? criterion.label}
+              criterion={criterion}
+              metLabel={labels.criterionMet}
+              pendingLabel={labels.criterionPending}
+            />
+          ))}
+        </section>
+      ) : null}
+
+      {dashboard.gisrb149_vision_phrases && dashboard.gisrb149_vision_phrases.length > 0 ? (
+        <section className="space-y-2">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.visionPhrases}</h2>
+          <ul className="list-inside list-disc space-y-1 text-sm text-gray-700">
+            {dashboard.gisrb149_vision_phrases.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.gisrb149_privacy_note ? (
+        <p className="text-xs text-gray-500">{dashboard.gisrb149_privacy_note}</p>
       ) : null}
     </div>
   );

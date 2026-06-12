@@ -1180,6 +1180,204 @@ export function OrganizationalResilienceEngineDashboardPanel({ labels }: Props) 
           ) : null}
         </>
       ) : null}
+
+      {dashboard.implementation_blueprint_phase154?.phase ? (
+        <>
+          <section className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-6">
+            <h2 className="text-sm font-semibold">{labels.phase154Title}</h2>
+            <p className="mt-1 text-xs text-emerald-700">
+              {dashboard.implementation_blueprint_phase154.phase}
+              {dashboard.implementation_blueprint_phase154.engine_phase
+                ? ` · ${dashboard.implementation_blueprint_phase154.engine_phase}`
+                : ""}
+              {dashboard.implementation_blueprint_phase154.era
+                ? ` · ${dashboard.implementation_blueprint_phase154.era}`
+                : ""}
+            </p>
+            {dashboard.adaptive_continuity_distinction_note ? (
+              <p className="mt-2 text-xs text-emerald-700">{dashboard.adaptive_continuity_distinction_note}</p>
+            ) : null}
+            {dashboard.adaptive_continuity_mission ? (
+              <p className="mt-2 text-sm font-medium text-emerald-900">{dashboard.adaptive_continuity_mission}</p>
+            ) : null}
+            {dashboard.adaptive_continuity_philosophy ? (
+              <p className="mt-2 text-sm text-emerald-900">{dashboard.adaptive_continuity_philosophy}</p>
+            ) : null}
+            {dashboard.adaptive_continuity_abos_principle ? (
+              <p className="mt-2 text-xs text-emerald-800">{dashboard.adaptive_continuity_abos_principle}</p>
+            ) : null}
+            {dashboard.adaptive_continuity_engine_note ? (
+              <p className="mt-2 text-xs text-emerald-800">{dashboard.adaptive_continuity_engine_note}</p>
+            ) : null}
+            {dashboard.adaptive_continuity_vision ? (
+              <p className="mt-2 text-xs italic text-emerald-700">{dashboard.adaptive_continuity_vision}</p>
+            ) : null}
+          </section>
+
+          {(dashboard.adaptive_continuity_integration_links ?? []).length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {dashboard.adaptive_continuity_integration_links?.map((link) =>
+                link.route ? (
+                  <Link key={link.route + String(link.label)} href={link.route} className="rounded-lg border border-emerald-200 px-3 py-1.5 text-sm">
+                    {link.label}
+                  </Link>
+                ) : null
+              )}
+            </div>
+          ) : null}
+
+          {dashboard.adaptive_continuity_objectives && dashboard.adaptive_continuity_objectives.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveContinuityObjectives}</h3>
+              <ObjectiveList items={dashboard.adaptive_continuity_objectives} />
+            </section>
+          ) : null}
+
+          {dashboard.adaptive_resilience_center && dashboard.adaptive_resilience_center.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveResilienceCenter}</h3>
+              <ObjectiveList items={dashboard.adaptive_resilience_center} />
+            </section>
+          ) : null}
+
+          {dashboard.adaptive_continuity_engine && dashboard.adaptive_continuity_engine.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveContinuityEngine}</h3>
+              <ObjectiveList items={dashboard.adaptive_continuity_engine} />
+            </section>
+          ) : null}
+
+          {dashboard.scenario_preparedness_engine && dashboard.scenario_preparedness_engine.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.scenarioPreparednessEngine}</h3>
+              <ObjectiveList items={dashboard.scenario_preparedness_engine} />
+            </section>
+          ) : null}
+
+          {dashboard.leadership_resilience_reviews && dashboard.leadership_resilience_reviews.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.leadershipResilienceReviews}</h3>
+              <ObjectiveList items={dashboard.leadership_resilience_reviews} />
+            </section>
+          ) : null}
+
+          {dashboard.adaptive_resilience_companion && dashboard.adaptive_resilience_companion.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveResilienceCompanion}</h3>
+              <ObjectiveList items={dashboard.adaptive_resilience_companion} />
+            </section>
+          ) : null}
+
+          {dashboard.organizational_flexibility_engine && dashboard.organizational_flexibility_engine.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.organizationalFlexibilityEngine}</h3>
+              <ObjectiveList items={dashboard.organizational_flexibility_engine} />
+            </section>
+          ) : null}
+
+          {dashboard.employee_support_framework && dashboard.employee_support_framework.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.employeeSupportFramework}</h3>
+              <ObjectiveList items={dashboard.employee_support_framework} />
+            </section>
+          ) : null}
+
+          {dashboard.continuity_memory_engine && dashboard.continuity_memory_engine.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.continuityMemoryEngine}</h3>
+              <ObjectiveList items={dashboard.continuity_memory_engine} />
+            </section>
+          ) : null}
+
+          {dashboard.adaptive_continuity_companion_adaptation?.principle ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveContinuityCompanionAdaptation}</h3>
+              <p className="mt-2 text-sm text-gray-700">{dashboard.adaptive_continuity_companion_adaptation.principle}</p>
+              <GuidanceList items={dashboard.adaptive_continuity_companion_adaptation.examples} />
+            </section>
+          ) : null}
+
+          {dashboard.adaptive_continuity_self_love_connection?.principle ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveContinuitySelfLoveConnection}</h3>
+              <p className="mt-2 text-sm text-gray-700">{dashboard.adaptive_continuity_self_love_connection.principle}</p>
+              {dashboard.adaptive_continuity_self_love_connection.journey_phrase ? (
+                <p className="mt-2 text-xs italic text-gray-600">{dashboard.adaptive_continuity_self_love_connection.journey_phrase}</p>
+              ) : null}
+            </section>
+          ) : null}
+
+          {dashboard.adaptive_continuity_security_requirements && dashboard.adaptive_continuity_security_requirements.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveContinuitySecurityRequirements}</h3>
+              <ObjectiveList items={dashboard.adaptive_continuity_security_requirements} />
+            </section>
+          ) : null}
+
+          {dashboard.adaptive_continuity_limitation_principles?.principle ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveContinuityLimitationPrinciples}</h3>
+              <p className="mt-2 text-sm text-gray-700">{dashboard.adaptive_continuity_limitation_principles.principle}</p>
+              {dashboard.adaptive_continuity_limitation_principles.forbidden &&
+              dashboard.adaptive_continuity_limitation_principles.forbidden.length > 0 ? (
+                <>
+                  <p className="mt-3 text-xs font-medium text-gray-500">{labels.forbidden}</p>
+                  <ul className="mt-1 list-inside list-disc space-y-1 text-sm text-gray-600">
+                    {dashboard.adaptive_continuity_limitation_principles.forbidden.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </>
+              ) : null}
+            </section>
+          ) : null}
+
+          {dashboard.adaptive_continuity_scenarios && dashboard.adaptive_continuity_scenarios.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveContinuityScenarios}</h3>
+              <ul className="mt-3 space-y-2 text-sm">
+                {dashboard.adaptive_continuity_scenarios.map((scenario) => (
+                  <li key={String(scenario.id ?? scenario.scenario_title)} className="rounded border border-gray-100 p-2">
+                    <span className="font-medium text-gray-900">{scenario.scenario_title}</span>
+                    {scenario.preparedness_level ? (
+                      <span className="ml-2 text-xs text-gray-500">{scenario.preparedness_level}</span>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {dashboard.adaptive_continuity_engagement_summary ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveContinuityEngagementSummary}</h3>
+              <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-3">
+                <div><dt className="text-gray-500">{labels.activeContinuityPlans}</dt><dd>{String(dashboard.adaptive_continuity_engagement_summary.phase154_active_plans ?? 0)}</dd></div>
+                <div><dt className="text-gray-500">{labels.activeScenarios}</dt><dd>{String(dashboard.adaptive_continuity_engagement_summary.phase154_active_scenarios ?? 0)}</dd></div>
+                <div><dt className="text-gray-500">{labels.pendingLeadershipReviews}</dt><dd>{String(dashboard.adaptive_continuity_engagement_summary.phase154_pending_leadership_reviews ?? 0)}</dd></div>
+              </dl>
+            </section>
+          ) : null}
+
+          {dashboard.adaptive_continuity_success_criteria && dashboard.adaptive_continuity_success_criteria.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveContinuitySuccessCriteria}</h3>
+              <SuccessCriteriaList criteria={dashboard.adaptive_continuity_success_criteria} labels={labels} />
+            </section>
+          ) : null}
+
+          {dashboard.adaptive_continuity_vision_phrases && dashboard.adaptive_continuity_vision_phrases.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveContinuityVisionPhrases}</h3>
+              <ul className="mt-3 list-inside list-disc space-y-1 text-sm text-gray-600">
+                {dashboard.adaptive_continuity_vision_phrases.map((phrase) => (
+                  <li key={phrase}>{phrase}</li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+        </>
+      ) : null}
     </div>
   );
 }

@@ -15,6 +15,7 @@ import type {
   ImplementationBlueprintMeta,
   IntegrationLink,
   TransformationOrchestrationPhase127Blueprint,
+  OrganizationalRenewalPhase155Blueprint,
 } from "./types";
 
 function parseRecordList<T>(data: unknown): T[] | undefined {
@@ -47,6 +48,11 @@ function parsePhase127Blueprint(data: unknown): TransformationOrchestrationPhase
   return data as TransformationOrchestrationPhase127Blueprint;
 }
 
+function parsePhase155Blueprint(data: unknown): OrganizationalRenewalPhase155Blueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as OrganizationalRenewalPhase155Blueprint;
+}
+
 export function parseChangeManagementEngineCard(data: unknown): ChangeManagementEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
   return {
@@ -65,6 +71,11 @@ export function parseChangeManagementEngineCard(data: unknown): ChangeManagement
     phase127_abos_principle: typeof d.phase127_abos_principle === "string" ? d.phase127_abos_principle : undefined,
     phase127_engagement_summary: parseEngagementSummary(d.phase127_engagement_summary),
     phase127_note: typeof d.phase127_note === "string" ? d.phase127_note : undefined,
+    implementation_blueprint_phase155: parseBlueprintMeta(d.implementation_blueprint_phase155),
+    phase155_mission: typeof d.phase155_mission === "string" ? d.phase155_mission : undefined,
+    phase155_abos_principle: typeof d.phase155_abos_principle === "string" ? d.phase155_abos_principle : undefined,
+    phase155_engagement_summary: parseEngagementSummary(d.phase155_engagement_summary),
+    phase155_note: typeof d.phase155_note === "string" ? d.phase155_note : undefined,
     ...d,
   } as ChangeManagementEngineCard;
 }
@@ -118,6 +129,11 @@ export function parseChangeManagementEngineDashboard(data: unknown): ChangeManag
     transformation_orchestration_phase127_note:
       typeof d.transformation_orchestration_phase127_note === "string"
         ? d.transformation_orchestration_phase127_note
+        : undefined,
+    implementation_blueprint_phase155: parsePhase155Blueprint(d.implementation_blueprint_phase155),
+    organizational_renewal_phase155_note:
+      typeof d.organizational_renewal_phase155_note === "string"
+        ? d.organizational_renewal_phase155_note
         : undefined,
     ...d,
   } as ChangeManagementEngineDashboard;

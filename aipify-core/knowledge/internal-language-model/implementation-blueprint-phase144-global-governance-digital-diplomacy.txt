@@ -1,0 +1,28 @@
+Phase 144 — Global Governance & Digital Diplomacy Engine
+Route: /app/global-governance-diplomacy-engine
+Module: global_governance_diplomacy_engine
+Helpers: _ggde_* (engine), _ggdebp144_* (blueprint)
+
+Global Intelligence & Interorganizational Era (141–150) — principled collaboration not centralized control.
+
+Mission: Enable principled interorganizational governance and digital diplomacy — stewardship through responsibility, strengthening relationships without unnecessary restriction.
+
+Philosophy: People First. Principled collaboration not uniformity. Governance strengthens relationships — not unnecessary restriction. Complements legal processes — never replaces legal advice. Growth Partner terminology — never Affiliate.
+
+Distinctions:
+- Governance & Policy A.14 /app/governance-policy-engine — tenant internal policies — cross-link only, do NOT duplicate _gpe_*
+- Ecosystem Governance Phase 119 /app/ecosystem-governance — GP/companion/certification — cross-link only, do NOT duplicate _egce_*
+- Joint Operations Phase 143 /app/joint-operations-engine — shared workspaces — cross-link only
+- Global Knowledge Exchange Phase 141 /app/global-knowledge-exchange-engine — voluntary learning exchange — cross-link only
+
+Global Governance Center capabilities: framework libraries, cross-border guidelines, partnership governance models, executive alignment sessions, dispute prevention, policy coordination, governance dashboards, knowledge repositories.
+
+Digital diplomacy domains: partnership preparation, stakeholder mapping, cultural awareness, communication recommendations, conflict prevention, mutual expectation reviews, relationship health monitoring (aggregate).
+
+Partnership charter elements: shared objectives, governance principles, decision models, escalation, confidentiality, review cadences, exit procedures — metadata summaries only.
+
+Companion limitations (never): override executive authority, dictate outcomes, enforce ideology, suppress dissent, replace legal/regulatory advice.
+
+Legal disclaimer: Template references and metadata summaries only — not legal or regulatory advice. Consult qualified counsel.
+
+Privacy: metadata only — charter summaries, engagement scaffolds, policy library template keys. No raw legal documents. No cross-tenant PII.

@@ -9,10 +9,12 @@ import {
   type BlueprintObjective,
   type CertificationProgram,
   type CertificationRecord,
+  type CertificationReview,
   type EcosystemGovernanceDashboard,
   type GpCertificationLevel,
   type IntegrationLink,
   type PolicyEntry,
+  type ProfessionalDirectoryEntry,
   type TrustBadge,
 } from "@/lib/aipify/ecosystem-governance";
 
@@ -154,6 +156,40 @@ function GpLevelRow({ level }: { level: GpCertificationLevel }) {
   );
 }
 
+function DirectoryRow({ entry }: { entry: ProfessionalDirectoryEntry }) {
+  return (
+    <li className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <span className="font-medium">{entry.display_name}</span>
+        <span className={`rounded px-2 py-0.5 text-xs ${badgeClass(entry.certification_status)}`}>
+          {entry.certification_status?.replace(/_/g, " ")}
+        </span>
+      </div>
+      {entry.gp_tier_label ? <p className="mt-1 text-xs text-gray-600">{entry.gp_tier_label}</p> : null}
+      {entry.contributions_summary ? (
+        <p className="mt-1 text-xs text-gray-500">{entry.contributions_summary}</p>
+      ) : null}
+    </li>
+  );
+}
+
+function CertificationReviewRow({ review }: { review: CertificationReview }) {
+  return (
+    <li className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <span className="font-medium">{review.title}</span>
+        <span className={`rounded px-2 py-0.5 text-xs ${badgeClass(review.status)}`}>
+          {review.review_type?.replace(/_/g, " ")}
+        </span>
+      </div>
+      <p className="mt-1 text-xs text-gray-600">{review.summary}</p>
+      {review.support_not_punishment_note ? (
+        <p className="mt-1 text-xs italic text-gray-500">{review.support_not_punishment_note}</p>
+      ) : null}
+    </li>
+  );
+}
+
 export function EcosystemGovernanceDashboardPanel({ labels }: Props) {
   const [dashboard, setDashboard] = useState<EcosystemGovernanceDashboard | null>(null);
   const [loading, setLoading] = useState(true);
@@ -173,7 +209,10 @@ export function EcosystemGovernanceDashboardPanel({ labels }: Props) {
   if (!dashboard?.has_customer) return null;
 
   const integrationLinks: IntegrationLink[] =
-    dashboard.egcbp119_cross_links ?? dashboard.integration_links ?? [];
+    dashboard.gecsbp146_integration_links ??
+    dashboard.egcbp119_cross_links ??
+    dashboard.integration_links ??
+    [];
   const limitationItems = dashboard.ecosystem_governance_limitation_principles?.must_avoid ?? [];
   const selfLovePractices = dashboard.self_love_in_governance?.practices ?? [];
   const companionExamples = (dashboard.ecosystem_governance_companion_adaptation?.examples ?? []) as Array<{
@@ -183,6 +222,36 @@ export function EcosystemGovernanceDashboardPanel({ labels }: Props) {
   }>;
   const ciActivities = (dashboard.continuous_improvement_meta?.activities ?? []) as string[];
   const securityRequirements = (dashboard.security_requirements_meta?.requirements ?? []) as string[];
+  const phase146Limitations = dashboard.gecsbp146_companion_limitations?.must_avoid ?? [];
+  const phase146SelfLove = dashboard.gecsbp146_self_love_connection?.practices ?? [];
+  const phase146CompanionExamples = (dashboard.certification_companion_meta?.examples ?? []) as Array<{
+    emoji?: string;
+    prompt?: string;
+    consideration?: string;
+  }>;
+  const certificationPathways = (dashboard.certification_framework_engine_meta?.pathways ?? []) as Array<{
+    key?: string;
+    label?: string;
+    route?: string;
+  }>;
+  const professionalStandards = (dashboard.professional_standards_framework_meta?.standards ?? []) as Array<{
+    key?: string;
+    label?: string;
+  }>;
+  const gpAccreditationAreas = (dashboard.growth_partner_accreditation_meta?.areas ?? []) as Array<{
+    key?: string;
+    label?: string;
+    description?: string;
+  }>;
+  const continuousLearningActivities = (dashboard.continuous_learning_engine_meta?.activities ?? []) as Array<{
+    key?: string;
+    label?: string;
+  }>;
+  const executiveEducationTopics = (dashboard.executive_education_engine_meta?.topics ?? []) as Array<{
+    key?: string;
+    label?: string;
+  }>;
+  const phase146SecurityRequirements = (dashboard.gecsbp146_security_requirements?.requirements ?? []) as string[];
 
   return (
     <div className="space-y-6">
@@ -201,6 +270,18 @@ export function EcosystemGovernanceDashboardPanel({ labels }: Props) {
         </Link>
         <Link href="/app/continuous-improvement-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.continuousImprovement}
+        </Link>
+        <Link href="/app/global-knowledge-exchange-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.globalKnowledgeExchange}
+        </Link>
+        <Link href="/app/aipify-university" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.aipifyUniversity}
+        </Link>
+        <Link href="/app/compliance-regulatory-readiness-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.complianceReadiness}
+        </Link>
+        <Link href="/app/certification-achievement-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.certificationAchievement}
         </Link>
         <Link href="/app/approvals" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.approvals}
@@ -465,6 +546,227 @@ export function EcosystemGovernanceDashboardPanel({ labels }: Props) {
             ))}
           </div>
         </section>
+      ) : null}
+
+      <section className="rounded-xl border border-indigo-200 bg-gradient-to-br from-indigo-50 to-white p-5">
+        <h2 className="text-sm font-semibold text-indigo-900">{labels.phase146BlueprintTitle}</h2>
+        {dashboard.implementation_blueprint_phase146?.phase ? (
+          <p className="mt-1 text-xs text-indigo-700">{dashboard.implementation_blueprint_phase146.phase}</p>
+        ) : null}
+        {dashboard.gecsbp146_mission ? (
+          <p className="mt-2 text-sm font-medium text-indigo-900">{dashboard.gecsbp146_mission}</p>
+        ) : null}
+        {dashboard.gecsbp146_philosophy ? (
+          <p className="mt-2 text-sm text-indigo-900">{dashboard.gecsbp146_philosophy}</p>
+        ) : null}
+        {dashboard.gecsbp146_distinction_note ? (
+          <p className="mt-2 text-xs text-indigo-700">{dashboard.gecsbp146_distinction_note}</p>
+        ) : null}
+        {dashboard.gecsbp146_vision ? (
+          <p className="mt-2 text-xs italic text-indigo-800">{dashboard.gecsbp146_vision}</p>
+        ) : null}
+        {dashboard.global_ecosystem_certification_note ? (
+          <p className="mt-2 text-xs text-indigo-800">{dashboard.global_ecosystem_certification_note}</p>
+        ) : null}
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="rounded-lg border border-indigo-100 bg-white/80 px-3 py-2 text-sm">
+            <span className="text-indigo-600">{labels.professionalDirectoryCount}</span>
+            <p className="text-xl font-semibold">{dashboard.professional_directory_count ?? 0}</p>
+          </div>
+          <div className="rounded-lg border border-indigo-100 bg-white/80 px-3 py-2 text-sm">
+            <span className="text-indigo-600">{labels.certifiedProfessionalsCount}</span>
+            <p className="text-xl font-semibold">{dashboard.certified_professionals_count ?? 0}</p>
+          </div>
+          <div className="rounded-lg border border-indigo-100 bg-white/80 px-3 py-2 text-sm">
+            <span className="text-indigo-600">{labels.certificationReviewsScheduled}</span>
+            <p className="text-xl font-semibold">{dashboard.certification_reviews_scheduled ?? 0}</p>
+          </div>
+          <div className="rounded-lg border border-indigo-100 bg-white/80 px-3 py-2 text-sm">
+            <span className="text-indigo-600">{labels.certificationPathwaysCount}</span>
+            <p className="text-xl font-semibold">{dashboard.certification_pathways_count ?? 0}</p>
+          </div>
+        </div>
+      </section>
+
+      {dashboard.gecsbp146_objectives?.length ? (
+        <section>
+          <h3 className="mb-3 text-sm font-semibold text-gray-900">{labels.phase146Objectives}</h3>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {dashboard.gecsbp146_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {certificationPathways.length ? (
+        <section>
+          <h3 className="mb-3 text-sm font-semibold text-gray-900">{labels.certificationPathways}</h3>
+          <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {certificationPathways.map((pathway) => (
+              <li key={pathway.key ?? pathway.label} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                {pathway.route ? (
+                  <Link href={pathway.route} className="text-emerald-700">
+                    {pathway.label}
+                  </Link>
+                ) : (
+                  pathway.label
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {gpAccreditationAreas.length ? (
+        <section>
+          <h3 className="mb-3 text-sm font-semibold text-gray-900">{labels.growthPartnerAccreditation}</h3>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {gpAccreditationAreas.map((area) => (
+              <ObjectiveCard key={area.key ?? area.label} objective={area} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {continuousLearningActivities.length ? (
+        <section>
+          <h3 className="mb-3 text-sm font-semibold text-gray-900">{labels.continuousLearningEngine}</h3>
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {continuousLearningActivities.map((activity) => (
+              <li key={activity.key ?? activity.label} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                {activity.label}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {professionalStandards.length ? (
+        <section>
+          <h3 className="mb-3 text-sm font-semibold text-gray-900">{labels.professionalStandards}</h3>
+          <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+            {professionalStandards.map((standard) => (
+              <li key={standard.key ?? standard.label} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                {standard.label}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {executiveEducationTopics.length ? (
+        <section>
+          <h3 className="mb-3 text-sm font-semibold text-gray-900">{labels.executiveEducation}</h3>
+          <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {executiveEducationTopics.map((topic) => (
+              <li key={topic.key ?? topic.label} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                {topic.label}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.professional_directory_entries.length ? (
+        <section>
+          <h3 className="mb-3 text-sm font-semibold text-gray-900">{labels.professionalDirectory}</h3>
+          <p className="mb-2 text-xs text-gray-500">{labels.professionalDirectoryNote}</p>
+          <ul className="space-y-2">
+            {dashboard.professional_directory_entries.map((entry) => (
+              <DirectoryRow key={entry.id ?? entry.entry_key} entry={entry} />
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.certification_reviews.length ? (
+        <section>
+          <h3 className="mb-3 text-sm font-semibold text-gray-900">{labels.certificationReviewsPhase146}</h3>
+          <ul className="space-y-2">
+            {dashboard.certification_reviews.map((review) => (
+              <CertificationReviewRow key={review.id ?? review.review_key} review={review} />
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {phase146CompanionExamples.length ? (
+        <section>
+          <h3 className="mb-3 text-sm font-semibold text-gray-900">{labels.certificationCompanion}</h3>
+          <ul className="space-y-2">
+            {phase146CompanionExamples.map((example) => (
+              <li key={example.prompt} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                <span>
+                  {example.emoji ? `${example.emoji} ` : ""}
+                  {example.prompt}
+                </span>
+                {example.consideration ? (
+                  <p className="mt-1 text-xs text-gray-500">{example.consideration}</p>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {phase146SecurityRequirements.length ? (
+        <section>
+          <h3 className="mb-3 text-sm font-semibold text-gray-900">{labels.phase146SecurityRequirements}</h3>
+          <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {phase146SecurityRequirements.map((req) => (
+              <li key={req} className="rounded-lg border border-gray-100 px-3 py-2 text-sm capitalize">
+                {req.replace(/_/g, " ")}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {phase146SelfLove.length ? (
+        <section>
+          <h3 className="mb-3 text-sm font-semibold text-gray-900">{labels.phase146SelfLove}</h3>
+          <ul className="space-y-1 text-sm text-gray-700">
+            {phase146SelfLove.map((practice) => (
+              <li key={practice} className="rounded border border-gray-100 px-3 py-2 capitalize">
+                {practice.replace(/_/g, " ")}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {phase146Limitations.length ? (
+        <section>
+          <h3 className="mb-3 text-sm font-semibold text-gray-900">{labels.phase146CompanionLimitations}</h3>
+          <ul className="space-y-1 text-sm text-gray-700">
+            {phase146Limitations.map((item) => (
+              <li key={item} className="rounded border border-amber-100 bg-amber-50/40 px-3 py-2">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.gecsbp146_success_criteria?.length ? (
+        <section>
+          <h3 className="mb-3 text-sm font-semibold text-gray-900">{labels.phase146SuccessCriteria}</h3>
+          <div className="space-y-2">
+            {dashboard.gecsbp146_success_criteria.map((criterion) => (
+              <SuccessCriterionRow
+                key={criterion.key ?? criterion.label}
+                criterion={criterion}
+                metLabel={labels.criterionMet}
+                pendingLabel={labels.criterionPending}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.gecsbp146_privacy_note ? (
+        <p className="text-xs text-gray-500">{dashboard.gecsbp146_privacy_note}</p>
       ) : null}
 
       {dashboard.privacy_note ? <p className="text-xs text-gray-500">{dashboard.privacy_note}</p> : null}

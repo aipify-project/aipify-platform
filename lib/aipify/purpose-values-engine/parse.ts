@@ -19,7 +19,9 @@ import type {
   PurposeDiscovery,
   PurposeFrameworkItem,
   OrganizationalPurposeAlignmentBlueprint,
+  OrganizationalPurposeRenewalBlueprint,
   PurposeAlignmentEngagementSummary,
+  PurposeRenewalEngagementSummary,
   PurposeValuesCulturalAlignmentBlueprint,
   PurposeValuesEngineCard,
   PurposeValuesEngineDashboard,
@@ -114,6 +116,18 @@ function parseOrganizationalPurposeAlignmentBlueprint(
   return data as OrganizationalPurposeAlignmentBlueprint;
 }
 
+function parseOrganizationalPurposeRenewalBlueprint(
+  data: unknown
+): OrganizationalPurposeRenewalBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as OrganizationalPurposeRenewalBlueprint;
+}
+
+function parsePurposeRenewalEngagementSummary(data: unknown): PurposeRenewalEngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as PurposeRenewalEngagementSummary;
+}
+
 export function parsePurposeValuesEngineCard(data: unknown): PurposeValuesEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
   return {
@@ -151,6 +165,15 @@ export function parsePurposeValuesEngineCard(data: unknown): PurposeValuesEngine
     purpose_alignment_note: typeof d.purpose_alignment_note === "string" ? d.purpose_alignment_note : undefined,
     purpose_alignment_vision_note:
       typeof d.purpose_alignment_vision_note === "string" ? d.purpose_alignment_vision_note : undefined,
+    implementation_blueprint_phase156: parseBlueprintMeta(d.implementation_blueprint_phase156),
+    purpose_renewal_mission:
+      typeof d.purpose_renewal_mission === "string" ? d.purpose_renewal_mission : undefined,
+    purpose_renewal_abos_principle:
+      typeof d.purpose_renewal_abos_principle === "string" ? d.purpose_renewal_abos_principle : undefined,
+    purpose_renewal_engagement_summary: parsePurposeRenewalEngagementSummary(d.purpose_renewal_engagement_summary),
+    purpose_renewal_note: typeof d.purpose_renewal_note === "string" ? d.purpose_renewal_note : undefined,
+    purpose_renewal_vision_note:
+      typeof d.purpose_renewal_vision_note === "string" ? d.purpose_renewal_vision_note : undefined,
     ...d,
   } as PurposeValuesEngineCard;
 }
@@ -388,6 +411,86 @@ export function parsePurposeValuesEngineDashboard(data: unknown): PurposeValuesE
     alignment_reviews: parseRecordList(d.alignment_reviews),
     values_memory_entries: parseRecordList(d.values_memory_entries),
     culture_health_snapshots: parseRecordList(d.culture_health_snapshots),
+    implementation_blueprint_phase156: parseBlueprintMeta(d.implementation_blueprint_phase156),
+    organizational_purpose_renewal_note:
+      typeof d.organizational_purpose_renewal_note === "string" ? d.organizational_purpose_renewal_note : undefined,
+    organizational_purpose_renewal_blueprint: parseOrganizationalPurposeRenewalBlueprint(
+      d.organizational_purpose_renewal_blueprint
+    ),
+    purpose_renewal_distinction_note:
+      typeof d.purpose_renewal_distinction_note === "string" ? d.purpose_renewal_distinction_note : undefined,
+    purpose_renewal_mission:
+      typeof d.purpose_renewal_mission === "string" ? d.purpose_renewal_mission : undefined,
+    purpose_renewal_philosophy:
+      typeof d.purpose_renewal_philosophy === "string" ? d.purpose_renewal_philosophy : undefined,
+    purpose_renewal_abos_principle:
+      typeof d.purpose_renewal_abos_principle === "string" ? d.purpose_renewal_abos_principle : undefined,
+    purpose_renewal_objectives: parseRecordList<BlueprintObjective>(d.purpose_renewal_objectives),
+    purpose_renewal_center:
+      typeof d.purpose_renewal_center === "object" && d.purpose_renewal_center
+        ? (d.purpose_renewal_center as PurposeValuesEngineDashboard["purpose_renewal_center"])
+        : undefined,
+    purpose_evolution_engine:
+      typeof d.purpose_evolution_engine === "object" && d.purpose_evolution_engine
+        ? (d.purpose_evolution_engine as PurposeValuesEngineDashboard["purpose_evolution_engine"])
+        : undefined,
+    values_continuity_framework:
+      typeof d.values_continuity_framework === "object" && d.values_continuity_framework
+        ? (d.values_continuity_framework as PurposeValuesEngineDashboard["values_continuity_framework"])
+        : undefined,
+    identity_evolution_engine:
+      typeof d.identity_evolution_engine === "object" && d.identity_evolution_engine
+        ? (d.identity_evolution_engine as PurposeValuesEngineDashboard["identity_evolution_engine"])
+        : undefined,
+    purpose_renewal_companion:
+      typeof d.purpose_renewal_companion === "object" && d.purpose_renewal_companion
+        ? (d.purpose_renewal_companion as PurposeValuesEngineDashboard["purpose_renewal_companion"])
+        : undefined,
+    purpose_renewal_executive_reviews:
+      typeof d.purpose_renewal_executive_reviews === "object" && d.purpose_renewal_executive_reviews
+        ? (d.purpose_renewal_executive_reviews as PurposeValuesEngineDashboard["purpose_renewal_executive_reviews"])
+        : undefined,
+    cultural_continuity_engine:
+      typeof d.cultural_continuity_engine === "object" && d.cultural_continuity_engine
+        ? (d.cultural_continuity_engine as PurposeValuesEngineDashboard["cultural_continuity_engine"])
+        : undefined,
+    purpose_memory_engine:
+      typeof d.purpose_memory_engine === "object" && d.purpose_memory_engine
+        ? (d.purpose_memory_engine as PurposeValuesEngineDashboard["purpose_memory_engine"])
+        : undefined,
+    purpose_renewal_companion_limitations:
+      typeof d.purpose_renewal_companion_limitations === "object" && d.purpose_renewal_companion_limitations
+        ? (d.purpose_renewal_companion_limitations as PurposeValuesEngineDashboard["purpose_renewal_companion_limitations"])
+        : undefined,
+    purpose_renewal_self_love_connection:
+      typeof d.purpose_renewal_self_love_connection === "object" && d.purpose_renewal_self_love_connection
+        ? (d.purpose_renewal_self_love_connection as SelfLoveConnection)
+        : undefined,
+    purpose_renewal_security_requirements:
+      typeof d.purpose_renewal_security_requirements === "object" && d.purpose_renewal_security_requirements
+        ? (d.purpose_renewal_security_requirements as PurposeValuesEngineDashboard["purpose_renewal_security_requirements"])
+        : undefined,
+    purpose_renewal_dogfooding:
+      typeof d.purpose_renewal_dogfooding === "object" && d.purpose_renewal_dogfooding
+        ? (d.purpose_renewal_dogfooding as DogfoodingBlueprint)
+        : undefined,
+    purpose_renewal_integration_links: parseRecordList<IntegrationLink>(d.purpose_renewal_integration_links),
+    purpose_renewal_era_cross_links: parseRecordList<{ phase?: string; label?: string; route?: string; status?: string }>(
+      d.purpose_renewal_era_cross_links
+    ),
+    purpose_renewal_engagement_summary: parsePurposeRenewalEngagementSummary(d.purpose_renewal_engagement_summary),
+    purpose_renewal_success_criteria: parseRecordList<AbosSuccessCriterion>(d.purpose_renewal_success_criteria),
+    purpose_renewal_vision:
+      typeof d.purpose_renewal_vision === "string" ? d.purpose_renewal_vision : undefined,
+    purpose_renewal_vision_phrases: Array.isArray(d.purpose_renewal_vision_phrases)
+      ? (d.purpose_renewal_vision_phrases as string[])
+      : undefined,
+    purpose_renewal_privacy_note:
+      typeof d.purpose_renewal_privacy_note === "string" ? d.purpose_renewal_privacy_note : undefined,
+    purpose_renewal_reviews: parseRecordList(d.purpose_renewal_reviews),
+    purpose_identity_evolution_records: parseRecordList(d.purpose_identity_evolution_records),
+    phase156_purpose_memory_entries: parseRecordList(d.phase156_purpose_memory_entries),
+    cultural_continuity_records: parseRecordList(d.cultural_continuity_records),
     ...d,
   } as PurposeValuesEngineDashboard;
 }

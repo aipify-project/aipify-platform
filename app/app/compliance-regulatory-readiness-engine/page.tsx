@@ -7,6 +7,7 @@ export default async function ComplianceRegulatoryReadinessEnginePage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
   const p = "customerApp.complianceRegulatoryReadinessEngine";
+  const ph = `${p}.phase145`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -19,6 +20,34 @@ export default async function ComplianceRegulatoryReadinessEnginePage() {
           engineTitle: t(`${p}.engineTitle`),
           summary: t(`${p}.summary`),
           principles: t(`${p}.principles`),
+          legalDisclaimerTitle: t(`${ph}.legalDisclaimerTitle`),
+          legalDisclaimerBody: t(`${ph}.legalDisclaimerBody`),
+          objectives: t(`${ph}.objectives`),
+          regulatoryIntelligence: t(`${ph}.regulatoryIntelligence`),
+          policyManagement: t(`${ph}.policyManagement`),
+          policyRegistry: t(`${ph}.policyRegistry`),
+          reviewCycles: t(`${ph}.reviewCycles`),
+          auditReadiness: t(`${ph}.auditReadiness`),
+          complianceCompanion: t(`${ph}.complianceCompanion`),
+          companionMustAvoid: t(`${ph}.companionMustAvoid`),
+          securityRequirements: t(`${ph}.securityRequirements`),
+          selfLove: t(`${ph}.selfLove`),
+          companionLimitations: t(`${ph}.companionLimitations`),
+          successCriteria: t(`${ph}.successCriteria`),
+          criterionMet: t(`${ph}.criterionMet`),
+          criterionPending: t(`${ph}.criterionPending`),
+          visionPhrases: t(`${ph}.visionPhrases`),
+          openRecords: t(`${ph}.openRecords`),
+          activePolicies: t(`${ph}.activePolicies`),
+          scheduledReviews: t(`${ph}.scheduledReviews`),
+          pendingAttestations: t(`${ph}.pendingAttestations`),
+          scheduleReview: t(`${ph}.scheduleReview`),
+          scheduling: t(`${ph}.scheduling`),
+          defaultReviewTitle: t(`${ph}.defaultReviewTitle`),
+          noReviewCycles: t(`${ph}.noReviewCycles`),
+          attest: t(`${ph}.attest`),
+          declineAttestation: t(`${ph}.declineAttestation`),
+          actionFailed: t(`${ph}.actionFailed`),
         }} />
     </div>
   );

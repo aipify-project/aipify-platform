@@ -13,6 +13,7 @@ import type {
   RecoveryEngagementSummary,
   ContinuityCompanionEngagementSummary,
   SelfHealingEngagementSummary,
+  AdaptiveContinuityEngagementSummary,
   SelfLoveConnection,
   TrustConnection,
 } from "./types";
@@ -59,6 +60,13 @@ function parseSelfHealingEngagementSummary(data: unknown): SelfHealingEngagement
   return data as SelfHealingEngagementSummary;
 }
 
+function parseAdaptiveContinuityEngagementSummary(
+  data: unknown
+): AdaptiveContinuityEngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as AdaptiveContinuityEngagementSummary;
+}
+
 export function parseOrganizationalResilienceEngineCard(
   data: unknown
 ): OrganizationalResilienceEngineCard {
@@ -71,6 +79,9 @@ export function parseOrganizationalResilienceEngineCard(
       d.continuity_companion_engagement_summary
     ),
     self_healing_engagement_summary: parseSelfHealingEngagementSummary(d.self_healing_engagement_summary),
+    adaptive_continuity_engagement_summary: parseAdaptiveContinuityEngagementSummary(
+      d.adaptive_continuity_engagement_summary
+    ),
     ...d,
   } as OrganizationalResilienceEngineCard;
 }
@@ -182,6 +193,31 @@ export function parseOrganizationalResilienceEngineDashboard(
     self_healing_success_criteria: parseObjectList<AbosSuccessCriterion>(d.self_healing_success_criteria),
     self_healing_vision_phrases: Array.isArray(d.self_healing_vision_phrases)
       ? (d.self_healing_vision_phrases as string[])
+      : undefined,
+    adaptive_continuity_objectives: parseObjectList<BlueprintObjective>(d.adaptive_continuity_objectives),
+    adaptive_resilience_center: parseObjectList<BlueprintObjective>(d.adaptive_resilience_center),
+    adaptive_continuity_engine: parseObjectList<BlueprintObjective>(d.adaptive_continuity_engine),
+    scenario_preparedness_engine: parseObjectList<BlueprintObjective>(d.scenario_preparedness_engine),
+    leadership_resilience_reviews: parseObjectList<BlueprintObjective>(d.leadership_resilience_reviews),
+    adaptive_resilience_companion: parseObjectList<BlueprintObjective>(d.adaptive_resilience_companion),
+    organizational_flexibility_engine: parseObjectList<BlueprintObjective>(d.organizational_flexibility_engine),
+    employee_support_framework: parseObjectList<BlueprintObjective>(d.employee_support_framework),
+    continuity_memory_engine: parseObjectList<BlueprintObjective>(d.continuity_memory_engine),
+    adaptive_continuity_self_love_connection:
+      typeof d.adaptive_continuity_self_love_connection === "object" && d.adaptive_continuity_self_love_connection
+        ? (d.adaptive_continuity_self_love_connection as SelfLoveConnection)
+        : undefined,
+    adaptive_continuity_security_requirements: parseObjectList<BlueprintObjective>(
+      d.adaptive_continuity_security_requirements
+    ),
+    adaptive_continuity_limitation_principles: parsePrincipleBlock(d.adaptive_continuity_limitation_principles),
+    adaptive_continuity_companion_adaptation: parseGuidanceBlock(d.adaptive_continuity_companion_adaptation),
+    adaptive_continuity_engagement_summary: parseAdaptiveContinuityEngagementSummary(
+      d.adaptive_continuity_engagement_summary
+    ),
+    adaptive_continuity_success_criteria: parseObjectList<AbosSuccessCriterion>(d.adaptive_continuity_success_criteria),
+    adaptive_continuity_vision_phrases: Array.isArray(d.adaptive_continuity_vision_phrases)
+      ? (d.adaptive_continuity_vision_phrases as string[])
       : undefined,
     ...d,
   } as OrganizationalResilienceEngineDashboard;

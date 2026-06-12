@@ -96,7 +96,96 @@ export type EngagementSummary = {
   outcome_learnings?: number;
   intelligence_center_capabilities_count?: number;
   cross_links_count?: number;
+  heritage_archives?: number;
+  outcome_reviews?: number;
+  executive_reflections?: number;
+  pattern_snapshots?: number;
   privacy_note?: string;
+  phase153_privacy_note?: string;
+  [key: string]: unknown;
+};
+
+export type HeritageArchive = {
+  id?: string;
+  archive_key?: string;
+  title?: string;
+  decision_summary?: string;
+  status?: string;
+  visibility?: string;
+};
+
+export type HeritageOutcomeReview = {
+  id?: string;
+  review_key?: string;
+  title?: string;
+  what_happened_summary?: string;
+  status?: string;
+};
+
+export type HeritageExecutiveReflection = {
+  id?: string;
+  reflection_key?: string;
+  reflection_type?: string;
+  title?: string;
+  reflection_summary?: string;
+  status?: string;
+};
+
+export type HeritagePatternSnapshot = {
+  id?: string;
+  snapshot_key?: string;
+  pattern_type?: string;
+  title?: string;
+  theme_summary?: string;
+  status?: string;
+};
+
+export type DecisionHeritageBlueprint = {
+  phase?: string;
+  doc?: string;
+  spec_doc?: string;
+  engine_phase?: string;
+  era?: string;
+  route?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: BlueprintObjective[];
+  decision_heritage_center?: Record<string, unknown>;
+  decision_journal_engine?: Record<string, unknown>;
+  outcome_review_engine?: Record<string, unknown>;
+  executive_reflection_engine?: Record<string, unknown>;
+  wisdom_companion?: Record<string, unknown>;
+  decision_pattern_engine?: Record<string, unknown>;
+  institutional_wisdom_library?: Record<string, unknown>;
+  future_leader_preparation_engine?: Record<string, unknown>;
+  companion_limitations?: Record<string, unknown>;
+  self_love_connection?: SelfLoveConnection;
+  security_requirements?: Array<Record<string, unknown>>;
+  integration_links?: IntegrationLink[];
+  dogfooding?: Record<string, unknown>;
+  success_metrics?: Array<Record<string, unknown>>;
+  success_criteria?: AbosSuccessCriterion[];
+  engagement_summary?: EngagementSummary;
+  vision_phrases?: string[];
+  privacy_note?: string;
+};
+
+export type Phase153HeritageSections = {
+  heritage_archives?: HeritageArchive[];
+  outcome_reviews?: HeritageOutcomeReview[];
+  executive_reflections?: HeritageExecutiveReflection[];
+  pattern_snapshots?: HeritagePatternSnapshot[];
+};
+
+export type Phase153HeritageMetrics = {
+  heritage_archives?: number;
+  outcome_reviews?: number;
+  executive_reflections?: number;
+  pattern_snapshots?: number;
+  [key: string]: unknown;
 };
 
 export type DecisionIntelligenceBlueprint = {
@@ -144,6 +233,14 @@ export type DecisionIntelligenceCard = {
   decision_intelligence_abos_principle?: string;
   decision_intelligence_engagement_summary?: EngagementSummary;
   decision_intelligence_vision_note?: string;
+  implementation_blueprint_phase153?: ImplementationBlueprintMeta;
+  phase153_mission?: string;
+  phase153_abos_principle?: string;
+  phase153_vision?: string;
+  phase153_engagement_summary?: EngagementSummary;
+  phase153_heritage_archives?: number;
+  phase153_note?: string;
+  phase153_distinction_note?: string;
   [key: string]: unknown;
 };
 
@@ -202,5 +299,34 @@ export type DecisionIntelligenceDashboard = {
   success_metrics?: Array<Record<string, unknown>>;
   decision_intelligence_vision?: string;
   privacy_note?: string;
+  implementation_blueprint_phase153?: ImplementationBlueprintMeta;
+  decision_heritage_blueprint?: DecisionHeritageBlueprint;
+  phase153_distinction_note?: string;
+  phase153_mission?: string;
+  phase153_philosophy?: string;
+  phase153_abos_principle?: string;
+  phase153_vision?: string;
+  phase153_objectives?: BlueprintObjective[];
+  phase153_decision_heritage_center?: Record<string, unknown>;
+  phase153_decision_journal_engine?: Record<string, unknown>;
+  phase153_outcome_review_engine?: Record<string, unknown>;
+  phase153_executive_reflection_engine?: Record<string, unknown>;
+  phase153_wisdom_companion?: Record<string, unknown>;
+  phase153_decision_pattern_engine?: Record<string, unknown>;
+  phase153_institutional_wisdom_library?: Record<string, unknown>;
+  phase153_future_leader_preparation_engine?: Record<string, unknown>;
+  phase153_companion_limitations?: Record<string, unknown>;
+  phase153_self_love_connection?: SelfLoveConnection;
+  phase153_security_requirements?: Array<Record<string, unknown>>;
+  iwdhbp153_integration_links?: IntegrationLink[];
+  phase153_dogfooding?: Record<string, unknown>;
+  phase153_success_metrics?: Array<Record<string, unknown>>;
+  phase153_success_criteria?: AbosSuccessCriterion[];
+  phase153_engagement_summary?: EngagementSummary;
+  phase153_vision_phrases?: string[];
+  phase153_heritage_metrics?: Phase153HeritageMetrics;
+  decision_heritage_note?: string;
+  phase153_privacy_note?: string;
+  phase153_sections?: Phase153HeritageSections;
   [key: string]: unknown;
 };

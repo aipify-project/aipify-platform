@@ -11,6 +11,7 @@ import {
   type ChangeMilestoneRecord,
   type CompanionGuidanceExample,
   type TransformationOrchestrationPhase127Blueprint,
+  type OrganizationalRenewalPhase155Blueprint,
 } from "@/lib/aipify/change-management-engine";
 
 type Props = { labels: Record<string, string> };
@@ -290,6 +291,224 @@ function Phase127Sections({
           <h3 className="text-sm font-semibold text-gray-900">{labels.phase127SuccessCriteria}</h3>
           <div className="mt-3 space-y-2">
             {phase127.success_criteria.map((criterion) => (
+              <SuccessCriterionRow
+                key={criterion.key ?? criterion.label}
+                criterion={criterion}
+                metLabel={labels.criterionMet}
+                pendingLabel={labels.criterionPending}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+    </>
+  );
+}
+
+function Phase155Sections({
+  phase155,
+  phase155Note,
+  labels,
+}: {
+  phase155: OrganizationalRenewalPhase155Blueprint;
+  phase155Note?: string;
+  labels: Record<string, string>;
+}) {
+  const phase155Links = phase155.integration_links ?? [];
+
+  return (
+    <>
+      {phase155Links.length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {phase155Links.map((link) =>
+            link.route ? (
+              <Link key={link.route + (link.key ?? "")} href={link.route} className="rounded-lg border border-violet-200 px-3 py-1.5 text-sm">
+                {link.label ?? link.route}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : null}
+
+      <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">
+        <h2 className="text-sm font-semibold text-violet-900">{labels.phase155Title}</h2>
+        {phase155.phase ? <p className="mt-1 text-xs text-violet-700">{phase155.phase}</p> : null}
+        {phase155Note ? <p className="mt-2 text-xs text-violet-700">{phase155Note}</p> : null}
+        {phase155.mission ? <p className="mt-2 text-sm font-medium text-violet-900">{phase155.mission}</p> : null}
+        {phase155.philosophy ? <p className="mt-2 text-sm text-violet-900">{phase155.philosophy}</p> : null}
+        {phase155.abos_principle ? <p className="mt-2 text-xs text-violet-800">{phase155.abos_principle}</p> : null}
+        {phase155.privacy_note ? <p className="mt-2 text-xs text-violet-600">{phase155.privacy_note}</p> : null}
+      </section>
+
+      {phase155.objectives && phase155.objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase155Objectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {phase155.objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase155.organizational_renewal_center && phase155.organizational_renewal_center.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase155RenewalCenter}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-3">
+            {phase155.organizational_renewal_center.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase155.reinvention_intelligence_engine && phase155.reinvention_intelligence_engine.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase155ReinventionIntelligence}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {phase155.reinvention_intelligence_engine.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase155.identity_preservation_framework?.principle ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4 text-sm">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase155IdentityPreservation}</h3>
+          <p className="mt-2 text-gray-700">{phase155.identity_preservation_framework.principle}</p>
+          {phase155.identity_preservation_framework.dimensions &&
+          phase155.identity_preservation_framework.dimensions.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {phase155.identity_preservation_framework.dimensions.map((item) => (
+                <ObjectiveCard key={item.key ?? item.label} objective={item} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase155.executive_renewal_reviews?.principle ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4 text-sm">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase155ExecutiveRenewal}</h3>
+          <p className="mt-2 text-gray-700">{phase155.executive_renewal_reviews.principle}</p>
+          {phase155.executive_renewal_reviews.dimensions &&
+          phase155.executive_renewal_reviews.dimensions.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {phase155.executive_renewal_reviews.dimensions.map((item) => (
+                <ObjectiveCard key={item.key ?? item.label} objective={item} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase155.renewal_companion && phase155.renewal_companion.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase155RenewalCompanion}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {phase155.renewal_companion.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase155.innovation_balance_engine?.principle ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4 text-sm">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase155InnovationBalance}</h3>
+          <p className="mt-2 text-gray-700">{phase155.innovation_balance_engine.principle}</p>
+          {phase155.innovation_balance_engine.balances && phase155.innovation_balance_engine.balances.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {phase155.innovation_balance_engine.balances.map((item) => (
+                <ObjectiveCard key={item.key ?? item.label} objective={item} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase155.organizational_learning_engine?.principle ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4 text-sm">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase155OrganizationalLearning}</h3>
+          <p className="mt-2 text-gray-700">{phase155.organizational_learning_engine.principle}</p>
+          {phase155.organizational_learning_engine.learning_types &&
+          phase155.organizational_learning_engine.learning_types.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {phase155.organizational_learning_engine.learning_types.map((item) => (
+                <ObjectiveCard key={item.key ?? item.label} objective={item} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase155.renewal_memory_engine?.principle ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4 text-sm">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase155RenewalMemory}</h3>
+          <p className="mt-2 text-gray-700">{phase155.renewal_memory_engine.principle}</p>
+          {phase155.renewal_memory_engine.captures && phase155.renewal_memory_engine.captures.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {phase155.renewal_memory_engine.captures.map((item) => (
+                <ObjectiveCard key={item.key ?? item.label} objective={item} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase155.companion_limitations && phase155.companion_limitations.length > 0 ? (
+        <section className="rounded-lg border border-red-100 bg-red-50/40 p-4 text-sm text-red-900">
+          <h3 className="text-sm font-semibold">{labels.phase155Limitations}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+            {phase155.companion_limitations.map((item) => (
+              <li key={item.key ?? item.label}>{item.label}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {phase155.self_love_connection?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.phase155SelfLove}</h3>
+          <p className="mt-2">{phase155.self_love_connection.principle}</p>
+          {phase155.self_love_connection.patterns && phase155.self_love_connection.patterns.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-3">
+              {phase155.self_love_connection.patterns.map((item) => (
+                <ObjectiveCard key={item.key ?? item.label} objective={item} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase155.security_requirements && phase155.security_requirements.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase155SecurityRequirements}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {phase155.security_requirements.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase155.vision_phrases && phase155.vision_phrases.length > 0 ? (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/30 p-4 text-sm text-violet-900">
+          <h3 className="text-sm font-semibold">{labels.phase155VisionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+            {phase155.vision_phrases.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {phase155.success_criteria && phase155.success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase155SuccessCriteria}</h3>
+          <div className="mt-3 space-y-2">
+            {phase155.success_criteria.map((criterion) => (
               <SuccessCriterionRow
                 key={criterion.key ?? criterion.label}
                 criterion={criterion}
@@ -604,6 +823,14 @@ export function ChangeManagementEngineDashboardPanel({ labels }: Props) {
         <Phase127Sections
           phase127={dashboard.implementation_blueprint_phase127}
           phase127Note={dashboard.transformation_orchestration_phase127_note}
+          labels={labels}
+        />
+      ) : null}
+
+      {dashboard.implementation_blueprint_phase155 ? (
+        <Phase155Sections
+          phase155={dashboard.implementation_blueprint_phase155}
+          phase155Note={dashboard.organizational_renewal_phase155_note}
           labels={labels}
         />
       ) : null}

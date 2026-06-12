@@ -121,10 +121,26 @@ export function TrustReputationEngineDashboardPanel({ labels }: Props) {
   const reputationIndicators = sections.reputation_indicators ?? [];
   const engagement = dashboard.engagement_summary;
   const blueprintLinks =
+    dashboard.phase142_integration_links ??
     dashboard.phase116_integration_links ??
     dashboard.companion_integration_links ??
     dashboard.blueprint_integration_links ??
     [];
+
+  const requestVerification = async (verificationType: string) => {
+    setActionError(null);
+    const res = await fetch("/api/aipify/trust-reputation-engine/verification", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ verification_type: verificationType }),
+    });
+    if (!res.ok) {
+      const body = (await res.json()) as { error?: string };
+      setActionError(body.error ?? labels.actionFailed);
+      return;
+    }
+    await load();
+  };
 
   return (
     <div className="space-y-6">
@@ -168,7 +184,244 @@ export function TrustReputationEngineDashboardPanel({ labels }: Props) {
         {dashboard.trust_reputation_relationship_note ? (
           <p className="mt-2 text-xs text-emerald-800">{dashboard.trust_reputation_relationship_note}</p>
         ) : null}
+        {dashboard.trust_network_verified_ecosystem_note ? (
+          <p className="mt-2 text-xs text-emerald-800">{dashboard.trust_network_verified_ecosystem_note}</p>
+        ) : null}
       </section>
+
+      {dashboard.reputation_safeguards ? (
+        <section className="rounded-lg border border-red-200 bg-red-50/50 p-4 text-sm text-red-900">
+          <h3 className="text-sm font-semibold">{labels.reputationSafeguards}</h3>
+          {dashboard.reputation_safeguards.principle ? (
+            <p className="mt-2">{dashboard.reputation_safeguards.principle}</p>
+          ) : null}
+          {dashboard.reputation_safeguards.do_not && dashboard.reputation_safeguards.do_not.length > 0 ? (
+            <>
+              <p className="mt-3 text-xs font-medium">{labels.safeguardsDoNot}</p>
+              <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+                {dashboard.reputation_safeguards.do_not.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+          {dashboard.reputation_safeguards.do && dashboard.reputation_safeguards.do.length > 0 ? (
+            <>
+              <p className="mt-3 text-xs font-medium">{labels.safeguardsDo}</p>
+              <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-red-800">
+                {dashboard.reputation_safeguards.do.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.phase142_objectives && dashboard.phase142_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase142Objectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.phase142_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.aipify_trust_network?.participant_types &&
+      dashboard.aipify_trust_network.participant_types.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.aipifyTrustNetwork}</h3>
+          {dashboard.aipify_trust_network.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.aipify_trust_network.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.aipify_trust_network.participant_types.map((participant) => (
+              <ObjectiveCard key={participant.key ?? participant.label} objective={participant} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.verified_organization_engine && dashboard.verified_organization_engine.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.verifiedOrganizationEngine}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.verified_organization_engine.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <button
+              type="button"
+              className="rounded border border-emerald-300 px-3 py-1 text-xs text-emerald-800"
+              onClick={() => void requestVerification("business_identity")}
+            >
+              {labels.requestBusinessIdentityVerification}
+            </button>
+            <button
+              type="button"
+              className="rounded border border-emerald-300 px-3 py-1 text-xs text-emerald-800"
+              onClick={() => void requestVerification("domain")}
+            >
+              {labels.requestDomainVerification}
+            </button>
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.organization_trust_profile_fields &&
+      dashboard.organization_trust_profile_fields.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.organizationTrustProfileFields}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.organization_trust_profile_fields.map((field) => (
+              <ObjectiveCard key={field.key ?? field.label} objective={field} />
+            ))}
+          </div>
+          {dashboard.organization_trust_profile?.ecosystem_profile ? (
+            <dl className="mt-4 grid gap-2 text-xs text-gray-600 sm:grid-cols-2">
+              <div>
+                <dt className="text-gray-500">{labels.verificationStatus}</dt>
+                <dd>{dashboard.organization_trust_profile.ecosystem_profile.verification_status}</dd>
+              </div>
+              <div>
+                <dt className="text-gray-500">{labels.gpStatus}</dt>
+                <dd>{dashboard.organization_trust_profile.ecosystem_profile.growth_partner_status}</dd>
+              </div>
+              <div>
+                <dt className="text-gray-500">{labels.ecosystemTenure}</dt>
+                <dd>{dashboard.organization_trust_profile.ecosystem_profile.years_in_ecosystem}</dd>
+              </div>
+              <div>
+                <dt className="text-gray-500">{labels.knowledgeContributions}</dt>
+                <dd>{dashboard.organization_trust_profile.ecosystem_profile.knowledge_contributions_count}</dd>
+              </div>
+            </dl>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.growth_partner_trust_program?.areas &&
+      dashboard.growth_partner_trust_program.areas.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.growthPartnerTrustProgram}</h3>
+          {dashboard.growth_partner_trust_program.principle ? (
+            <p className="mt-2 text-gray-700">{dashboard.growth_partner_trust_program.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {dashboard.growth_partner_trust_program.areas.map((area) => (
+              <ObjectiveCard key={area.key ?? area.label} objective={area} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.trust_signal_engine && dashboard.trust_signal_engine.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.trustSignalEngine}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.trust_signal_engine.map((signal) => (
+              <ObjectiveCard key={signal.key ?? signal.label} objective={signal} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.procurement_readiness_engine && dashboard.procurement_readiness_engine.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.procurementReadinessEngine}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.procurement_readiness_engine.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.trust_companion?.may && dashboard.trust_companion.may.length > 0 ? (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/40 p-4 text-sm text-violet-900">
+          <h3 className="text-sm font-semibold">{labels.trustCompanion}</h3>
+          {dashboard.trust_companion.principle ? (
+            <p className="mt-2 text-xs">{dashboard.trust_companion.principle}</p>
+          ) : null}
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+            {dashboard.trust_companion.may.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          {dashboard.trust_companion.must_avoid && dashboard.trust_companion.must_avoid.length > 0 ? (
+            <>
+              <p className="mt-3 text-xs font-medium">{labels.companionMustAvoid}</p>
+              <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-violet-700">
+                {dashboard.trust_companion.must_avoid.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.phase142_security_requirements &&
+      dashboard.phase142_security_requirements.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase142SecurityRequirements}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {dashboard.phase142_security_requirements.map((req) => (
+              <ObjectiveCard key={req.key ?? req.label} objective={req} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.phase142_self_love_connection?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.phase142SelfLove}</h3>
+          <p className="mt-2">{dashboard.phase142_self_love_connection.principle}</p>
+          {dashboard.phase142_self_love_connection.practices &&
+          dashboard.phase142_self_love_connection.practices.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {dashboard.phase142_self_love_connection.practices.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.phase142_companion_limitations && dashboard.phase142_companion_limitations.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase142CompanionLimitations}</h3>
+          <ul className="mt-3 list-inside list-disc space-y-1 text-xs text-gray-600">
+            {dashboard.phase142_companion_limitations.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.phase142_success_criteria) && dashboard.phase142_success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase142SuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.phase142_success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              return (
+                <li key={item.key ?? label} className="flex items-start gap-2">
+                  <span className={met ? "text-emerald-600" : "text-gray-400"}>{met ? "✓" : "○"}</span>
+                  <span>
+                    {label}
+                    {item.note ? <span className="block text-xs text-gray-500">{item.note}</span> : null}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
 
       {dashboard.phase116_objectives && dashboard.phase116_objectives.length > 0 ? (
         <section className="rounded-xl border border-gray-200 p-6">
