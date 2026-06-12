@@ -39,6 +39,20 @@ export default async function MultiStoreOrchestrationPage() {
           commercePerformance: t(`${p}.commercePerformance`),
           commerceIntelligence: t(`${p}.commerceIntelligence`),
           knowledgeCenter: t(`${p}.knowledgeCenter`),
+          blueprintTitle: t(`${p}.blueprintTitle`),
+          blueprintObjectives: t(`${p}.blueprintObjectives`),
+          companionGuidance: t(`${p}.companionGuidance`),
+          notGenericAi: t(`${p}.notGenericAi`),
+          permissionPrinciples: t(`${p}.permissionPrinciples`),
+          selfLoveConnection: t(`${p}.selfLoveConnection`),
+          successCriteria: t(`${p}.successCriteria`),
+          criterionMet: t(`${p}.criterionMet`),
+          criterionPending: t(`${p}.criterionPending`),
+          productAutomation: t(`${p}.productAutomation`),
+          dropshippingOperations: t(`${p}.dropshippingOperations`),
+          workflowOrchestration: t(`${p}.workflowOrchestration`),
+          approvals: t(`${p}.approvals`),
+          autoSyncDisabled: t(`${p}.autoSyncDisabled`),
         }}
       />
     </div>

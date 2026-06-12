@@ -164,6 +164,105 @@ export type CompanionIdentitySettings = {
   [key: string]: unknown;
 };
 
+export type HumanPartnershipQuestion = {
+  emoji?: string;
+  key?: string;
+  question?: string;
+  description?: string;
+};
+
+export type HumanPartnershipObjective = {
+  key?: string;
+  label?: string;
+  emoji?: string;
+  description?: string;
+};
+
+export type HumanPartnershipEvolutionStage = {
+  stage?: number;
+  key?: string;
+  label?: string;
+  emoji?: string;
+  description?: string;
+};
+
+export type HumanPartnershipBlueprintSection = {
+  principle?: string;
+  questions?: HumanPartnershipQuestion[];
+  reflection_note?: string;
+  principles?: Array<{ key?: string; label?: string; emoji?: string; description?: string }>;
+  dimensions?: Array<{ key?: string; label?: string; description?: string }>;
+  stages?: HumanPartnershipEvolutionStage[];
+  examples?: Array<{ emoji?: string; key?: string; prompt?: string; consideration?: string }>;
+  encourage?: string[];
+  avoid?: string[];
+  quotes?: string[];
+  practices?: string[];
+  routes?: Record<string, string>;
+  organizations_should_understand?: string[];
+  leaders_should_know?: string[];
+  forbidden?: string[];
+  required?: string[];
+  boundary_note?: string;
+  progression_note?: string;
+  journey_phrase?: string;
+  route?: string;
+  phase?: string;
+  audit_note?: string;
+  [key: string]: unknown;
+};
+
+export type HumanPartnershipIntegrationLink = {
+  key?: string;
+  label?: string;
+  route?: string;
+  note?: string;
+};
+
+export type HumanPartnershipEngagementSummary = {
+  modules_tracked?: number;
+  modules_aligned?: number;
+  companion_identity_enabled?: boolean;
+  objectives_count?: number;
+  partnership_questions_count?: number;
+  evolution_principles_count?: number;
+  personalization_dimensions_count?: number;
+  relationship_stages_count?: number;
+  companion_guidance_examples?: number;
+  integration_links_count?: number;
+  privacy_note?: string;
+};
+
+export type HumanAiPartnershipCompanionEvolutionBlueprint = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  objectives?: HumanPartnershipObjective[];
+  partnership_questions?: HumanPartnershipBlueprintSection;
+  companion_evolution_principles?: HumanPartnershipBlueprintSection;
+  personalization_principles?: HumanPartnershipBlueprintSection;
+  healthy_dependency_principles?: HumanPartnershipBlueprintSection;
+  companion_guidance?: HumanPartnershipBlueprintSection;
+  relationship_evolution_stages?: HumanPartnershipBlueprintSection;
+  self_love_connection?: HumanPartnershipBlueprintSection;
+  leadership_connection?: HumanPartnershipBlueprintSection;
+  trust_connection?: HumanPartnershipBlueprintSection;
+  privacy_principles?: HumanPartnershipBlueprintSection;
+  dogfooding?: Record<string, unknown>;
+  success_criteria?: SuccessCriterion[];
+  vision?: string;
+  vision_phrases?: string[];
+  integration_links?: HumanPartnershipIntegrationLink[];
+  engagement_summary?: HumanPartnershipEngagementSummary;
+  privacy_note?: string;
+};
+
 export type CompanionIdentityEngineCard = {
   has_organization: boolean;
   philosophy?: string;
@@ -177,6 +276,13 @@ export type CompanionIdentityEngineCard = {
   companion_identity_engine_note?: string;
   companion_naming_policy?: CompanionNamingPolicy;
   aipify_first_language_policy?: AipifyFirstLanguagePolicy;
+  implementation_blueprint_phase99?: ImplementationBlueprintMeta;
+  human_partnership_mission?: string;
+  human_partnership_vision?: string;
+  human_partnership_abos_principle?: string;
+  human_partnership_engagement_summary?: HumanPartnershipEngagementSummary;
+  human_partnership_note?: string;
+  human_partnership_distinction_note?: string;
   [key: string]: unknown;
 };
 
@@ -217,6 +323,30 @@ export type CompanionIdentityEngineDashboard = {
   vision_phrases?: string[];
   companion_naming_policy?: CompanionNamingPolicy;
   aipify_first_language_policy?: AipifyFirstLanguagePolicy;
+  implementation_blueprint_phase99?: ImplementationBlueprintMeta;
+  human_partnership_mission?: string;
+  human_partnership_philosophy?: string;
+  human_partnership_abos_principle?: string;
+  human_partnership_vision?: string;
+  human_partnership_distinction_note?: string;
+  human_partnership_objectives?: HumanPartnershipObjective[];
+  human_partnership_questions?: HumanPartnershipBlueprintSection;
+  human_partnership_evolution_principles?: HumanPartnershipBlueprintSection;
+  human_partnership_personalization?: HumanPartnershipBlueprintSection;
+  human_partnership_healthy_dependency?: HumanPartnershipBlueprintSection;
+  human_partnership_companion_guidance?: HumanPartnershipBlueprintSection;
+  human_partnership_evolution_stages?: HumanPartnershipBlueprintSection;
+  human_partnership_self_love?: HumanPartnershipBlueprintSection;
+  human_partnership_leadership?: HumanPartnershipBlueprintSection;
+  human_partnership_trust?: HumanPartnershipBlueprintSection;
+  human_partnership_privacy?: HumanPartnershipBlueprintSection;
+  human_partnership_dogfooding?: Record<string, unknown>;
+  human_partnership_success_criteria?: SuccessCriterion[];
+  human_partnership_vision_phrases?: string[];
+  human_partnership_integration_links?: HumanPartnershipIntegrationLink[];
+  human_partnership_engagement_summary?: HumanPartnershipEngagementSummary;
+  human_partnership_note?: string;
+  human_ai_partnership_companion_evolution_blueprint?: HumanAiPartnershipCompanionEvolutionBlueprint;
   [key: string]: unknown;
 };
 

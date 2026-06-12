@@ -1,4 +1,6 @@
+import { CompanionBriefingPageIntro } from "@/components/app/briefing";
 import { CustomerLifecycleDashboardPanel } from "@/components/app/customer-lifecycle";
+import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -10,10 +12,12 @@ export default async function CustomerLifecyclePage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t(`${p}.title`)}</h1>
-        <p className="mt-2 text-gray-600">{t(`${p}.subtitle`)}</p>
-      </div>
+      <CompanionBriefingPageIntro
+        title={t(`${p}.title`)}
+        subtitle={t(`${p}.subtitle`)}
+        context="customer_success"
+        labels={buildCompanionBriefingLabels(t)}
+      />
       <CustomerLifecycleDashboardPanel
         labels={{
           loading: t(`${p}.loading`),
@@ -32,6 +36,30 @@ export default async function CustomerLifecyclePage() {
           dismiss: t(`${p}.dismiss`),
           playbooks: t(`${p}.playbooks`),
           briefings: t(`${p}.briefings`),
+          blueprintTitle: t(`${p}.blueprintTitle`),
+          blueprintObjectives: t(`${p}.blueprintObjectives`),
+          customerJourneyStages: t(`${p}.customerJourneyStages`),
+          journeyInsights: t(`${p}.journeyInsights`),
+          customerExperienceDashboard: t(`${p}.customerExperienceDashboard`),
+          onboardingIntelligence: t(`${p}.onboardingIntelligence`),
+          adoptionIntelligence: t(`${p}.adoptionIntelligence`),
+          companionGuidance: t(`${p}.companionGuidance`),
+          notGenericAi: t(`${p}.notGenericAi`),
+          privacyPrinciples: t(`${p}.privacyPrinciples`),
+          selfLoveConnection: t(`${p}.selfLoveConnection`),
+          successCriteria: t(`${p}.successCriteria`),
+          criterionMet: t(`${p}.criterionMet`),
+          criterionPending: t(`${p}.criterionPending`),
+          customerSuccessEngine: t(`${p}.customerSuccessEngine`),
+          customerOnboarding: t(`${p}.customerOnboarding`),
+          growthPartners: t(`${p}.growthPartners`),
+          meetingCompanion: t(`${p}.meetingCompanion`),
+          valueRealization: t(`${p}.valueRealization`),
+          knowledgeCenter: t(`${p}.knowledgeCenter`),
+          engagementMilestones: t(`${p}.engagementMilestones`),
+          engagementQuickWins: t(`${p}.engagementQuickWins`),
+          engagementRecommendations: t(`${p}.engagementRecommendations`),
+          engagementOnboarding: t(`${p}.engagementOnboarding`),
         }}
       />
     </div>

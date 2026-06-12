@@ -1,0 +1,1 @@
+export { CommerceCompanionDashboardPanel } from "./CommerceCompanionDashboardPanel";

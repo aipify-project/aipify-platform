@@ -1,4 +1,6 @@
+import { CompanionBriefingPageIntro } from "@/components/app/briefing";
 import { ProductAutomationDashboardPanel } from "@/components/app/product-automation";
+import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -6,17 +8,36 @@ import { createTranslator } from "@/lib/i18n/translate";
 export default async function ProductAutomationPage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
-  const p = "customerApp.productAutomation";
+  const p = "customerApp.productAutomationEngine";
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t(`${p}.title`)}</h1>
-        <p className="mt-2 text-gray-600">{t(`${p}.subtitle`)}</p>
-      </div>
+      <CompanionBriefingPageIntro
+        title={t(`${p}.title`)}
+        subtitle={t(`${p}.subtitle`)}
+        context="product_automation"
+        labels={buildCompanionBriefingLabels(t)}
+      />
       <ProductAutomationDashboardPanel
         labels={{
           loading: t(`${p}.loading`),
+          blueprintTitle: t(`${p}.blueprintTitle`),
+          blueprintPhase: t(`${p}.blueprintPhase`),
+          engagementSummary: t(`${p}.engagementSummary`),
+          pipelineSteps: t(`${p}.pipelineSteps`),
+          primaryLocales: t(`${p}.primaryLocales`),
+          translationVersions: t(`${p}.translationVersions`),
+          rewritingVersions: t(`${p}.rewritingVersions`),
+          seoOpen: t(`${p}.seoOpen`),
+          productsTracked: t(`${p}.productsTracked`),
+          objectives: t(`${p}.objectives`),
+          workflowPipeline: t(`${p}.workflowPipeline`),
+          supportedLocales: t(`${p}.supportedLocales`),
+          companionGuidance: t(`${p}.companionGuidance`),
+          approvalPrinciples: t(`${p}.approvalPrinciples`),
+          successCriteria: t(`${p}.successCriteria`),
+          integrationLinks: t(`${p}.integrationLinks`),
+          visionPhrases: t(`${p}.visionPhrases`),
           readinessOverview: t(`${p}.readinessOverview`),
           awaitingApproval: t(`${p}.awaitingApproval`),
           seoRecommendations: t(`${p}.seoRecommendations`),
@@ -40,6 +61,8 @@ export default async function ProductAutomationPage() {
           recentBriefings: t(`${p}.recentBriefings`),
           commerceIntelligence: t(`${p}.commerceIntelligence`),
           dropshippingOperations: t(`${p}.dropshippingOperations`),
+          workflowOrchestration: t(`${p}.workflowOrchestration`),
+          approvals: t(`${p}.approvals`),
           platformInstall: t(`${p}.platformInstall`),
           knowledgeCenter: t(`${p}.knowledgeCenter`),
         }}

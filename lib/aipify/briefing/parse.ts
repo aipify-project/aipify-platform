@@ -5,6 +5,7 @@ import type {
   BriefingSettings,
   BriefingSummary,
   BriefKeyItem,
+  CompanionContextBriefing,
 } from "./types";
 
 function asRecord(value: unknown): Record<string, unknown> {
@@ -93,6 +94,29 @@ export function parseBriefingEvents(raw: unknown): BriefingEvent[] {
       occurred_at: String(r.occurred_at ?? ""),
     };
   });
+}
+
+export function parseCompanionContextBriefing(raw: unknown): CompanionContextBriefing {
+  if (!raw || typeof raw !== "object") return { has_customer: false };
+  const r = raw as Record<string, unknown>;
+  const metrics = asRecord(r.metrics);
+  return {
+    has_customer: Boolean(r.has_customer),
+    enabled: r.enabled !== undefined ? Boolean(r.enabled) : undefined,
+    context: r.context ? String(r.context) : undefined,
+    summary: r.summary ? String(r.summary) : undefined,
+    key_items: parseKeyItems(r.key_items),
+    metrics: Object.keys(metrics).length
+      ? Object.fromEntries(
+          Object.entries(metrics).map(([k, v]) => [
+            k,
+            typeof v === "number" ? v : String(v),
+          ])
+        )
+      : undefined,
+    companion_note: r.companion_note ? String(r.companion_note) : undefined,
+    privacy_note: r.privacy_note ? String(r.privacy_note) : undefined,
+  };
 }
 
 export function parseBriefingSettings(raw: unknown): BriefingSettings {

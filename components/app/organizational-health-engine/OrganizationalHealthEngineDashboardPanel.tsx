@@ -5,10 +5,13 @@ import { useCallback, useEffect, useState } from "react";
 import {
   parseOrganizationalHealthEngineDashboard,
   type BlueprintObjective,
+  type CompanionCheckIn,
+  type EmployeeExperienceQuestion,
   type HealthObservation,
   type OrganizationalHealthEngineDashboard,
   type OrganizationalHealthIntervention,
   type OrganizationalHealthScore,
+  type RecognitionPractice,
 } from "@/lib/aipify/organizational-health-engine";
 
 type Props = { labels: Record<string, string> };
@@ -50,6 +53,49 @@ function SuccessCriterionRow({
         {criterion.met ? metLabel : pendingLabel}
       </span>
       {criterion.note ? <p className="w-full text-xs text-gray-500">{criterion.note}</p> : null}
+    </div>
+  );
+}
+
+function QuestionCard({ question }: { question: EmployeeExperienceQuestion }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+      <span className="font-medium">
+        {question.emoji ? `${question.emoji} ` : ""}
+        {question.question}
+      </span>
+      {question.description ? <p className="mt-1 text-xs text-gray-600">{question.description}</p> : null}
+    </div>
+  );
+}
+
+function CheckInCard({ checkIn }: { checkIn: CompanionCheckIn }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+      <span className="font-medium">
+        {checkIn.emoji ? `${checkIn.emoji} ` : ""}
+        {checkIn.scenario}
+      </span>
+      {checkIn.example ? <p className="mt-1 text-xs text-gray-600">{checkIn.example}</p> : null}
+    </div>
+  );
+}
+
+function RecognitionPracticeCard({ practice }: { practice: RecognitionPractice | string }) {
+  if (typeof practice === "string") {
+    return (
+      <div className="rounded-lg border border-amber-100 bg-amber-50/40 px-3 py-2 text-sm text-amber-900">
+        {practice}
+      </div>
+    );
+  }
+  return (
+    <div className="rounded-lg border border-amber-100 bg-amber-50/40 px-3 py-2 text-sm text-amber-900">
+      <span className="font-medium">
+        {practice.emoji ? `${practice.emoji} ` : ""}
+        {practice.label}
+      </span>
+      {practice.description ? <p className="mt-1 text-xs text-amber-800">{practice.description}</p> : null}
     </div>
   );
 }
@@ -146,6 +192,21 @@ export function OrganizationalHealthEngineDashboardPanel({ labels }: Props) {
   const summary = dashboard.summary ?? {};
   const engagement = dashboard.engagement_summary;
   const blueprintLinks = dashboard.blueprint_integration_links ?? [];
+  const wellbeingLinks = dashboard.wellbeing_integration_links ?? [];
+  const wellbeingEngagement = dashboard.wellbeing_engagement_summary;
+  const wellbeingBlueprint = dashboard.employee_experience_wellbeing_blueprint;
+  const experienceQuestions = dashboard.employee_experience_questions?.questions ?? wellbeingBlueprint?.employee_experience_questions?.questions;
+  const wellbeingObservations = dashboard.wellbeing_observations ?? wellbeingBlueprint?.wellbeing_observations;
+  const recognitionPractices = dashboard.wellbeing_recognition_practices ?? wellbeingBlueprint?.recognition_practices;
+  const companionCheckIns = dashboard.companion_check_ins ?? wellbeingBlueprint?.companion_check_ins;
+  const wellbeingSelfLove = dashboard.wellbeing_self_love_connection ?? wellbeingBlueprint?.self_love_connection;
+  const wellbeingLeadership = dashboard.wellbeing_leadership_connection ?? wellbeingBlueprint?.leadership_connection;
+  const employeeJourney = dashboard.employee_journey_connection ?? wellbeingBlueprint?.employee_journey_connection;
+  const wellbeingTrust = dashboard.wellbeing_trust_connection ?? wellbeingBlueprint?.trust_connection;
+  const wellbeingPrivacy = dashboard.wellbeing_privacy_principles ?? wellbeingBlueprint?.privacy_principles;
+  const wellbeingDogfooding = dashboard.wellbeing_dogfooding ?? wellbeingBlueprint?.dogfooding;
+  const wellbeingSuccessCriteria = dashboard.wellbeing_success_criteria ?? wellbeingBlueprint?.success_criteria;
+  const wellbeingObjectives = dashboard.employee_experience_wellbeing_objectives ?? wellbeingBlueprint?.objectives;
 
   return (
     <div className="space-y-6">
@@ -315,6 +376,252 @@ export function OrganizationalHealthEngineDashboardPanel({ labels }: Props) {
         <section className="rounded-lg border border-gray-200 p-4 text-sm">
           <h3 className="text-sm font-semibold">{labels.dogfooding}</h3>
           <p className="mt-2 text-gray-700">{dashboard.dogfooding.principle}</p>
+        </section>
+      ) : null}
+
+      {wellbeingLinks.length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {wellbeingLinks.map((link) =>
+            link.route ? (
+              <Link key={link.route} href={link.route} className="rounded-lg border border-rose-200 px-3 py-1.5 text-sm">
+                {link.label ?? link.route}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : null}
+
+      {(dashboard.employee_experience_wellbeing_mission || wellbeingBlueprint?.mission) ? (
+        <section className="rounded-xl border border-rose-200 bg-rose-50/50 p-6">
+          <h2 className="text-sm font-semibold">{labels.employeeWellbeingTitle}</h2>
+          {dashboard.implementation_blueprint_phase96?.phase ? (
+            <p className="mt-1 text-xs text-rose-600">
+              {dashboard.implementation_blueprint_phase96.phase}
+              {dashboard.implementation_blueprint_phase96.engine_phase
+                ? ` · ${dashboard.implementation_blueprint_phase96.engine_phase}`
+                : ""}
+            </p>
+          ) : null}
+          <p className="mt-2 text-sm font-medium text-rose-900">
+            {dashboard.employee_experience_wellbeing_mission ?? wellbeingBlueprint?.mission}
+          </p>
+          {(dashboard.employee_experience_wellbeing_philosophy || wellbeingBlueprint?.philosophy) ? (
+            <p className="mt-2 text-sm text-rose-900">
+              {dashboard.employee_experience_wellbeing_philosophy ?? wellbeingBlueprint?.philosophy}
+            </p>
+          ) : null}
+          {(dashboard.employee_experience_wellbeing_abos_principle || wellbeingBlueprint?.abos_principle) ? (
+            <p className="mt-2 text-xs text-rose-800">
+              {dashboard.employee_experience_wellbeing_abos_principle ?? wellbeingBlueprint?.abos_principle}
+            </p>
+          ) : null}
+          {(dashboard.employee_experience_wellbeing_distinction_note || wellbeingBlueprint?.distinction_note) ? (
+            <p className="mt-2 text-xs text-rose-700">
+              {dashboard.employee_experience_wellbeing_distinction_note ?? wellbeingBlueprint?.distinction_note}
+            </p>
+          ) : null}
+          {(dashboard.employee_experience_wellbeing_engine_note) ? (
+            <p className="mt-2 text-xs text-rose-800">{dashboard.employee_experience_wellbeing_engine_note}</p>
+          ) : null}
+          {(dashboard.employee_experience_wellbeing_vision || wellbeingBlueprint?.vision) ? (
+            <p className="mt-2 text-sm italic text-rose-900">
+              {dashboard.employee_experience_wellbeing_vision ?? wellbeingBlueprint?.vision}
+            </p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {wellbeingObjectives && wellbeingObjectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.employeeWellbeingObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {wellbeingObjectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {experienceQuestions && experienceQuestions.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.employeeExperienceQuestions}</h3>
+          {dashboard.employee_experience_questions?.principle ? (
+            <p className="mt-2 text-xs text-gray-600">{dashboard.employee_experience_questions.principle}</p>
+          ) : null}
+          <div className="mt-3 space-y-3">
+            {experienceQuestions.map((question) => (
+              <QuestionCard key={question.key ?? question.question} question={question} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {wellbeingObservations && wellbeingObservations.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.wellbeingObservations}</h3>
+          <div className="mt-3 space-y-3">
+            {wellbeingObservations.map((observation) => (
+              <ObservationCard key={observation.key ?? observation.scenario} observation={observation} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {recognitionPractices?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/40 p-4 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.wellbeingRecognitionPractices}</h3>
+          <p className="mt-2">{recognitionPractices.principle}</p>
+          {recognitionPractices.practices && recognitionPractices.practices.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {recognitionPractices.practices.map((practice) => (
+                <RecognitionPracticeCard
+                  key={typeof practice === "string" ? practice : practice.key ?? practice.label}
+                  practice={practice}
+                />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {companionCheckIns?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.companionCheckIns}</h3>
+          <p className="mt-2">{companionCheckIns.principle}</p>
+          {companionCheckIns.companion_name ? (
+            <p className="mt-1 text-xs text-rose-700">
+              {companionCheckIns.companion_name}
+              {companionCheckIns.not_label ? ` — ${labels.notAiWellnessBot}` : ""}
+            </p>
+          ) : null}
+          {companionCheckIns.check_ins && companionCheckIns.check_ins.length > 0 ? (
+            <div className="mt-3 space-y-3">
+              {companionCheckIns.check_ins.map((checkIn) => (
+                <CheckInCard key={checkIn.key ?? checkIn.scenario} checkIn={checkIn} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {wellbeingSelfLove?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.wellbeingSelfLoveConnection}</h3>
+          <p className="mt-2">{wellbeingSelfLove.principle}</p>
+          {wellbeingSelfLove.quotes && wellbeingSelfLove.quotes.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs italic">
+              {wellbeingSelfLove.quotes.map((quote) => (
+                <li key={quote}>{quote}</li>
+              ))}
+            </ul>
+          ) : null}
+          {wellbeingSelfLove.practices && wellbeingSelfLove.practices.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {wellbeingSelfLove.practices.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {wellbeingLeadership?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.wellbeingLeadershipConnection}</h3>
+          <p className="mt-2 text-gray-700">{wellbeingLeadership.principle}</p>
+          {wellbeingLeadership.leadership_practices && wellbeingLeadership.leadership_practices.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {wellbeingLeadership.leadership_practices.map((practice) => (
+                <ObjectiveCard key={practice.key ?? practice.label} objective={practice} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {employeeJourney?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.employeeJourneyConnection}</h3>
+          <p className="mt-2 text-gray-700">{employeeJourney.principle}</p>
+          {employeeJourney.journey_stages && employeeJourney.journey_stages.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {employeeJourney.journey_stages.map((stage) => (
+                <div key={stage.key ?? stage.label} className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2">
+                  <span className="font-medium">{stage.label}</span>
+                  {stage.description ? <p className="mt-1 text-xs text-gray-600">{stage.description}</p> : null}
+                  {stage.route ? (
+                    <Link href={stage.route} className="mt-1 inline-block text-xs text-teal-700 underline">
+                      {stage.route}
+                    </Link>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {wellbeingTrust?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.wellbeingTrustConnection}</h3>
+          <p className="mt-2 text-gray-700">{wellbeingTrust.principle}</p>
+          {wellbeingTrust.employees_should_know && wellbeingTrust.employees_should_know.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+              {wellbeingTrust.employees_should_know.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {wellbeingPrivacy?.principle ? (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/40 p-4 text-sm text-violet-900">
+          <h3 className="text-sm font-semibold">{labels.wellbeingPrivacyPrinciples}</h3>
+          <p className="mt-2">{wellbeingPrivacy.principle}</p>
+          {wellbeingPrivacy.must_avoid && wellbeingPrivacy.must_avoid.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {wellbeingPrivacy.must_avoid.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {wellbeingDogfooding?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.wellbeingDogfooding}</h3>
+          <p className="mt-2 text-gray-700">{wellbeingDogfooding.principle}</p>
+        </section>
+      ) : null}
+
+      {wellbeingEngagement ? (
+        <section className="rounded-lg border border-rose-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.wellbeingEngagementSummary}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>{labels.experienceQuestionsDocumented}: {wellbeingEngagement.experience_questions_documented ?? 0}</span>
+            <span>{labels.wellbeingObservationsDocumented}: {wellbeingEngagement.wellbeing_observations_documented ?? 0}</span>
+            <span>{labels.companionCheckInsDocumented}: {wellbeingEngagement.companion_check_ins_documented ?? 0}</span>
+            <span>{labels.overallScore}: {wellbeingEngagement.overall_score ?? 0}</span>
+            <span>{labels.pendingInterventions}: {wellbeingEngagement.pending_interventions ?? 0}</span>
+          </div>
+        </section>
+      ) : null}
+
+      {wellbeingSuccessCriteria && wellbeingSuccessCriteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.wellbeingSuccessCriteria}</h3>
+          <div className="mt-3 space-y-2">
+            {wellbeingSuccessCriteria.map((criterion) => (
+              <SuccessCriterionRow
+                key={criterion.key ?? criterion.label}
+                criterion={criterion}
+                metLabel={labels.criterionMet}
+                pendingLabel={labels.criterionPending}
+              />
+            ))}
+          </div>
         </section>
       ) : null}
 

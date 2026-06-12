@@ -100,7 +100,91 @@ export type BusinessPacksFoundationEngineCard = {
   abos_principle?: string;
   implementation_blueprint?: ImplementationBlueprintMeta;
   productization_pack_count?: number;
+  example_industry_pack_count?: number;
+  ipsbp111_distinction_note?: string;
+  ipsbp111_vision?: string;
   [key: string]: unknown;
+};
+
+export type BlueprintObjective = {
+  key?: string;
+  label?: string;
+  emoji?: string;
+  description?: string;
+};
+
+export type ExampleIndustryPack = {
+  pack_key?: string;
+  display_name?: string;
+  mapped_catalog_pack_key?: string;
+  mapping_note?: string;
+  is_future?: boolean;
+  included_capabilities?: string[];
+  module_routes?: string[];
+};
+
+export type CompanionAdaptationExample = {
+  emoji?: string;
+  key?: string;
+  prompt?: string;
+  consideration?: string;
+};
+
+export type InstallFlowStep = {
+  step?: number;
+  key?: string;
+  label?: string;
+  description?: string;
+  route?: string;
+};
+
+export type LimitationPrinciples = {
+  principle?: string;
+  must_avoid?: string[];
+  relevance_note?: string;
+};
+
+export type IndustryPacksBusinessSpecializationBlueprint = {
+  phase?: number;
+  title?: string;
+  engine_phase?: string;
+  doc?: string;
+  route?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  objectives?: BlueprintObjective[];
+  business_pack_concept?: Record<string, unknown>;
+  example_industry_packs?: ExampleIndustryPack[];
+  companion_adaptation?: {
+    principle?: string;
+    examples?: CompanionAdaptationExample[];
+    identity_route?: string;
+    boundary_note?: string;
+  };
+  knowledge_center_connection?: Record<string, unknown>;
+  growth_partner_connection?: Record<string, unknown>;
+  installation_engine_connection?: {
+    principle?: string;
+    steps?: InstallFlowStep[];
+    install_route?: string;
+    sync_note?: string;
+  };
+  self_love_connection?: {
+    principle?: string;
+    quotes?: string[];
+    route?: string;
+    boundary_note?: string;
+  };
+  leadership_connection?: Record<string, unknown>;
+  trust_connection?: TrustConnection;
+  limitation_principles?: LimitationPrinciples;
+  dogfooding?: Record<string, unknown>;
+  success_criteria?: AbosSuccessCriterion[];
+  vision?: string;
+  integration_links?: IntegrationLink[];
+  privacy_note?: string;
 };
 
 export type BusinessPacksFoundationEngineDashboard = {
@@ -133,6 +217,8 @@ export type BusinessPacksFoundationEngineDashboard = {
   vision_phrases?: string[];
   integration_links?: IntegrationLink[];
   commercial_packages_distinction?: CommercialPackagesDistinction;
+  ipsbp111_distinction_note?: string;
+  industry_packs_business_specialization_blueprint?: IndustryPacksBusinessSpecializationBlueprint;
   [key: string]: unknown;
 };
 

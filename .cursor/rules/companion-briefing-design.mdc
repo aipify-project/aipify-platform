@@ -1,0 +1,17 @@
+# Companion Briefing Design Principle
+
+See [AIPIFY_DESIGN_PRINCIPLE_COMPANION_BRIEFING.md](../../AIPIFY_DESIGN_PRINCIPLE_COMPANION_BRIEFING.md).
+
+## Rules
+
+1. **New major Customer App pages** (`app/app/*/page.tsx`) must include `AipifyCompanionBriefingBanner` or `CompanionBriefingPageIntro` after the title block.
+2. Register route → context in `lib/aipify/briefing/contexts.ts`; extend `_acb_context_summary` in SQL when new domain data is available.
+3. Use `buildCompanionBriefingLabels()` — no hardcoded UI strings (`customerApp.companionBriefing.*`).
+4. Aipify-first language — **Companion Briefing**, never generic "AI summary".
+5. Metadata only in summaries — no email, chat, or payment content.
+6. Reuse Phase 60 briefing infrastructure — do not duplicate briefing tables.
+
+## Components
+
+`components/app/briefing/AipifyCompanionBriefingBanner.tsx` · `CompanionBriefingPageIntro.tsx`  
+API: `GET /api/aipify/companion-briefing?context=...`

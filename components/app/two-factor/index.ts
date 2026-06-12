@@ -1,0 +1,1 @@
+export { TwoFactorSetupPanel } from "./TwoFactorSetupPanel";

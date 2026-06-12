@@ -1,4 +1,6 @@
+import { AipifyCompanionBriefingBanner } from "@/components/app/briefing";
 import { CommandCenterPanel } from "@/components/app/presence";
+import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
 import {
   PRESENCE_NOTIFICATION_LEVELS,
   type PresenceNotificationLevel,
@@ -27,8 +29,14 @@ export default async function AppCommandCenterPage() {
     ])
   ) as Record<QuietHoursMode, string>;
 
+  const briefingLabels = buildCompanionBriefingLabels(t);
+
   return (
-    <CommandCenterPanel
+    <div className="space-y-4">
+      <div className="px-6 pt-6">
+        <AipifyCompanionBriefingBanner context="command_center" labels={briefingLabels} />
+      </div>
+      <CommandCenterPanel
       labels={{
         title: t("presence.commandCenter.title"),
         subtitle: t("presence.commandCenter.subtitle"),
@@ -65,5 +73,6 @@ export default async function AppCommandCenterPage() {
         },
       }}
     />
+    </div>
   );
 }

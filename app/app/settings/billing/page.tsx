@@ -1,4 +1,6 @@
+import { AipifyCompanionBriefingBanner } from "@/components/app/briefing";
 import { BillingAdminPanel } from "@/components/app/settings/BillingAdminPanel";
+import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -9,7 +11,11 @@ export default async function BillingSettingsPage() {
   const t = createTranslator(dict);
 
   return (
-    <BillingAdminPanel
+    <div className="space-y-4">
+      <div className="px-6 pt-6">
+        <AipifyCompanionBriefingBanner context="billing" labels={buildCompanionBriefingLabels(t)} />
+      </div>
+      <BillingAdminPanel
       labels={{
         title: t("customerApp.commercialPackages.billing.title"),
         subtitle: t("customerApp.commercialPackages.billing.subtitle"),
@@ -52,5 +58,6 @@ export default async function BillingSettingsPage() {
         },
       }}
     />
+    </div>
   );
 }

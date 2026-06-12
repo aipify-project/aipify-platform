@@ -1,4 +1,6 @@
+import { AipifyCompanionBriefingBanner } from "@/components/app/briefing";
 import { LearningEngineDashboardPanel } from "@/components/app/learning-engine";
+import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -9,7 +11,11 @@ export default async function AppLearningPage() {
   const t = createTranslator(dict);
 
   return (
-    <LearningEngineDashboardPanel
+    <div className="space-y-4">
+      <div className="px-6 pt-6">
+        <AipifyCompanionBriefingBanner context="learning" labels={buildCompanionBriefingLabels(t)} />
+      </div>
+      <LearningEngineDashboardPanel
       locale={locale}
       labels={{
         title: t("customerApp.learningEngine.title"),
@@ -57,7 +63,27 @@ export default async function AppLearningPage() {
         aipifyGroup: t("customerApp.learningEngine.aipifyGroup"),
         unonightPilot: t("customerApp.learningEngine.unonightPilot"),
         visionPhrases: t("customerApp.learningEngine.visionPhrases"),
+        adaptiveOrganizationalTitle: t("customerApp.learningEngine.adaptiveOrganizationalCapability.title"),
+        adaptiveOrganizationalObjectives: t("customerApp.learningEngine.adaptiveOrganizationalCapability.objectives"),
+        adaptiveOrganizationalLearningSignals: t("customerApp.learningEngine.adaptiveOrganizationalCapability.learningSignals"),
+        adaptiveOrganizationalCapabilityQuestions: t("customerApp.learningEngine.adaptiveOrganizationalCapability.capabilityQuestions"),
+        adaptiveOrganizationalAdaptivePathways: t("customerApp.learningEngine.adaptiveOrganizationalCapability.adaptivePathways"),
+        adaptiveOrganizationalCompanionGuidance: t("customerApp.learningEngine.adaptiveOrganizationalCapability.companionGuidance"),
+        adaptiveOrganizationalNotAiCoach: t("customerApp.learningEngine.adaptiveOrganizationalCapability.notAiCoach"),
+        adaptiveOrganizationalKnowledgeReinforcement: t("customerApp.learningEngine.adaptiveOrganizationalCapability.knowledgeReinforcement"),
+        adaptiveOrganizationalCommunityLearning: t("customerApp.learningEngine.adaptiveOrganizationalCapability.communityLearning"),
+        adaptiveOrganizationalLeadershipInsights: t("customerApp.learningEngine.adaptiveOrganizationalCapability.leadershipInsights"),
+        adaptiveOrganizationalPrivacy: t("customerApp.learningEngine.adaptiveOrganizationalCapability.privacy"),
+        adaptiveOrganizationalSuccessCriteria: t("customerApp.learningEngine.adaptiveOrganizationalCapability.successCriteria"),
+        adaptiveOrganizationalSelfLove: t("customerApp.learningEngine.adaptiveOrganizationalCapability.selfLove"),
+        adaptiveOrganizationalTrust: t("customerApp.learningEngine.adaptiveOrganizationalCapability.trust"),
+        adaptiveOrganizationalEngagement: t("customerApp.learningEngine.adaptiveOrganizationalCapability.engagement"),
+        adaptiveOrganizationalLearningSignalsCount: t("customerApp.learningEngine.adaptiveOrganizationalCapability.learningSignalsCount"),
+        adaptiveOrganizationalAdaptivePathwaysCount: t("customerApp.learningEngine.adaptiveOrganizationalCapability.adaptivePathwaysCount"),
+        adaptiveOrganizationalCapabilityQuestionsCount: t("customerApp.learningEngine.adaptiveOrganizationalCapability.capabilityQuestionsCount"),
+        adaptiveOrganizationalVisionPhrases: t("customerApp.learningEngine.adaptiveOrganizationalCapability.visionPhrases"),
       }}
     />
+    </div>
   );
 }

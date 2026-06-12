@@ -13,6 +13,8 @@ import {
   type HumanMomentsCompanionExample,
   type HumanMomentsObjective,
   type IntegrationLinkItem,
+  type OrganizationalRecognitionObjective,
+  type OrganizationalRecognitionSection,
   type RecognitionCategory,
   type RecognitionRosesBlueprint,
   type RedRoseMoment,
@@ -187,6 +189,22 @@ export function GratitudeRecognitionEngineDashboardPanel({ labels }: Props) {
   const humanSuccessCriteria = dashboard.human_moments_success_criteria ?? [];
   const humanVisionPhrases = dashboard.human_moments_vision_phrases ?? [];
   const lehmbpLinks = dashboard.lehmbp_integration_links ?? [];
+  const blueprint97 = dashboard.implementation_blueprint_phase97;
+  const orgRecognitionObjectives = dashboard.organizational_recognition_objectives ?? [];
+  const recognitionMoments = dashboard.recognition_moments;
+  const companionRecognitionPrompts = dashboard.companion_recognition_prompts;
+  const peerRecognition = dashboard.peer_recognition;
+  const leadershipRecognition = dashboard.leadership_recognition;
+  const customerAppreciation = dashboard.customer_appreciation;
+  const salesExpertRecognition = dashboard.sales_expert_recognition;
+  const orgSelfLove = dashboard.organizational_self_love_connection;
+  const leadershipInsights = dashboard.leadership_insights;
+  const orgTrustConnection = dashboard.organizational_trust_connection;
+  const orgPrivacyPrinciples = dashboard.organizational_privacy_principles;
+  const orgRecognitionSummary = dashboard.organizational_recognition_summary ?? {};
+  const orgSuccessCriteria = dashboard.organizational_recognition_success_criteria ?? [];
+  const orgVisionPhrases = dashboard.organizational_recognition_vision_phrases ?? [];
+  const oraebp97Links = dashboard.oraebp97_integration_links ?? [];
 
   return (
     <div className="space-y-6">
@@ -472,6 +490,311 @@ export function GratitudeRecognitionEngineDashboardPanel({ labels }: Props) {
               <li key={link.key ?? link.label}>
                 {link.route ? (
                   <Link href={link.route} className="text-violet-700 underline">
+                    {link.label ?? link.key}
+                  </Link>
+                ) : (
+                  <span className="text-gray-600">{link.label}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {blueprint97?.title ? (
+        <section className="rounded-xl border border-sky-200 bg-sky-50/40 p-6">
+          <h2 className="text-sm font-semibold">{labels.organizationalRecognitionTitle}</h2>
+          {dashboard.organizational_recognition_mission ? (
+            <p className="mt-2 text-sm">{dashboard.organizational_recognition_mission}</p>
+          ) : null}
+          {dashboard.organizational_recognition_philosophy ? (
+            <p className="mt-2 text-xs text-sky-900">{dashboard.organizational_recognition_philosophy}</p>
+          ) : null}
+          {dashboard.organizational_recognition_abos_principle ? (
+            <p className="mt-1 text-xs font-medium text-sky-800">{dashboard.organizational_recognition_abos_principle}</p>
+          ) : null}
+          {dashboard.organizational_recognition_vision ? (
+            <p className="mt-1 text-xs italic text-sky-700">{dashboard.organizational_recognition_vision}</p>
+          ) : null}
+          <p className="mt-2 text-xs font-medium text-sky-800">{blueprint97.title}</p>
+          {dashboard.organizational_recognition_distinction_note ? (
+            <p className="mt-2 text-xs text-sky-700">{dashboard.organizational_recognition_distinction_note}</p>
+          ) : null}
+          {dashboard.organizational_recognition_engine_note ? (
+            <p className="mt-1 text-xs text-sky-600">{dashboard.organizational_recognition_engine_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {orgRecognitionObjectives.length > 0 && (
+        <section className="rounded-lg border border-sky-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.organizationalRecognitionObjectives}</h3>
+          <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {orgRecognitionObjectives.map((obj: OrganizationalRecognitionObjective) => (
+              <li key={obj.key ?? obj.label} className="rounded border border-sky-50 p-3 text-sm">
+                <div className="font-medium">
+                  {obj.emoji ? `${obj.emoji} ` : ""}
+                  {obj.label}
+                </div>
+                {obj.description ? <p className="mt-1 text-xs text-gray-600">{obj.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {recognitionMoments?.categories && Array.isArray(recognitionMoments.categories) && recognitionMoments.categories.length > 0 ? (
+        <section className="rounded-lg border border-sky-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.recognitionMoments}</h3>
+          {recognitionMoments.principle ? (
+            <p className="mt-2 text-xs text-gray-600">{recognitionMoments.principle}</p>
+          ) : null}
+          <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {recognitionMoments.categories.map((cat) => (
+              <li key={cat.key ?? cat.label} className="rounded border border-sky-50 p-3 text-sm">
+                <div className="font-medium">
+                  {cat.emoji ? `${cat.emoji} ` : ""}
+                  {cat.label}
+                </div>
+                {cat.description ? <p className="mt-1 text-xs text-gray-600">{cat.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {companionRecognitionPrompts?.prompts && Array.isArray(companionRecognitionPrompts.prompts) && companionRecognitionPrompts.prompts.length > 0 ? (
+        <section className="rounded-lg border border-sky-100 bg-sky-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.companionRecognitionPrompts}</h3>
+          {companionRecognitionPrompts.principle ? (
+            <p className="mt-2 text-xs text-sky-900">{companionRecognitionPrompts.principle}</p>
+          ) : null}
+          <ul className="mt-3 space-y-2 text-sm">
+            {companionRecognitionPrompts.prompts.map((item, i) => (
+              <li key={item.key ?? i} className="rounded border border-sky-100 bg-white px-3 py-2 text-xs">
+                {item.emoji ? `${item.emoji} ` : ""}
+                {item.prompt}
+                {item.consideration ? <p className="mt-1 text-gray-500">{item.consideration}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {peerRecognition?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/20 p-4">
+          <h3 className="text-sm font-semibold">{labels.peerRecognition}</h3>
+          <p className="mt-2 text-sm text-gray-700">{peerRecognition.principle}</p>
+          {(peerRecognition.gestures?.length ?? 0) > 0 ? (
+            <ul className="mt-2 list-inside list-disc text-xs text-gray-600">
+              {peerRecognition.gestures?.map((g, i) => (
+                <li key={g.key ?? i}>
+                  {g.emoji ? `${g.emoji} ` : ""}
+                  {g.label}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {leadershipRecognition?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.leadershipRecognition}</h3>
+          <p className="mt-2 text-gray-600">{leadershipRecognition.principle}</p>
+          {(leadershipRecognition.practices?.length ?? 0) > 0 ? (
+            <ul className="mt-2 space-y-2 text-xs">
+              {(leadershipRecognition as OrganizationalRecognitionSection).practices?.map((item, i) => {
+                if (typeof item === "string") return <li key={i}>{item}</li>;
+                return (
+                  <li key={item.key ?? i} className="rounded border border-gray-100 px-3 py-2">
+                    {item.emoji ? `${item.emoji} ` : ""}
+                    {item.label}
+                    {item.description ? ` — ${item.description}` : ""}
+                  </li>
+                );
+              })}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {customerAppreciation?.principle ? (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.customerAppreciation}</h3>
+          <p className="mt-2 text-sm text-gray-700">{customerAppreciation.principle}</p>
+          {(customerAppreciation.dimensions?.length ?? 0) > 0 ? (
+            <ul className="mt-2 space-y-2 text-xs">
+              {customerAppreciation.dimensions?.map((d, i) => (
+                <li key={d.key ?? i}>
+                  {d.emoji ? `${d.emoji} ` : ""}
+                  <span className="font-medium">{d.label}</span>
+                  {d.description ? ` — ${d.description}` : ""}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {salesExpertRecognition?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.salesExpertRecognition}</h3>
+          <p className="mt-2 text-sm text-gray-700">{salesExpertRecognition.principle}</p>
+          {(salesExpertRecognition.milestones?.length ?? 0) > 0 ? (
+            <ul className="mt-2 space-y-2 text-xs">
+              {salesExpertRecognition.milestones?.map((m, i) => (
+                <li key={m.key ?? i}>
+                  {m.emoji ? `${m.emoji} ` : ""}
+                  {m.label}
+                  {m.description ? ` — ${m.description}` : ""}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {orgSelfLove?.principle ? (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.organizationalSelfLove}</h3>
+          <p className="mt-2 text-sm text-gray-700">{orgSelfLove.principle}</p>
+          {(orgSelfLove.quotes?.length ?? 0) > 0 ? (
+            <ul className="mt-2 list-inside list-disc text-sm italic text-gray-700">
+              {orgSelfLove.quotes?.map((q, i) => (
+                <li key={i}>{q}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {leadershipInsights?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.leadershipInsights}</h3>
+          <p className="mt-2 text-gray-600">{leadershipInsights.principle}</p>
+          {(leadershipInsights.insights?.length ?? 0) > 0 ? (
+            <ul className="mt-2 space-y-2 text-xs">
+              {leadershipInsights.insights?.map((ins, i) => (
+                <li key={ins.key ?? i}>
+                  {ins.emoji ? `${ins.emoji} ` : ""}
+                  <span className="font-medium">{ins.label}</span>
+                  {ins.description ? ` — ${ins.description}` : ""}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {orgTrustConnection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.organizationalTrustConnection}</h3>
+          <p className="mt-2 text-gray-600">{orgTrustConnection.principle}</p>
+          <div className="mt-3 grid gap-4 sm:grid-cols-2 text-xs">
+            {(orgTrustConnection.users_should_see?.length ?? 0) > 0 && (
+              <div>
+                <h4 className="font-semibold text-emerald-700">{labels.usersShouldSee}</h4>
+                <ul className="mt-2 list-inside list-disc text-gray-600">
+                  {orgTrustConnection.users_should_see?.map((p, i) => (
+                    <li key={i}>{p}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {(orgTrustConnection.operators_should_understand?.length ?? 0) > 0 && (
+              <div>
+                <h4 className="font-semibold text-sky-700">{labels.operatorsShouldUnderstand}</h4>
+                <ul className="mt-2 list-inside list-disc text-gray-600">
+                  {orgTrustConnection.operators_should_understand?.map((p, i) => (
+                    <li key={i}>{p}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </section>
+      ) : null}
+
+      {orgPrivacyPrinciples?.principle ? (
+        <section className="rounded-lg border border-sky-100 bg-sky-50/20 p-4">
+          <h3 className="text-sm font-semibold">{labels.organizationalPrivacyPrinciples}</h3>
+          <p className="mt-2 text-xs text-gray-600">{orgPrivacyPrinciples.principle}</p>
+          <div className="mt-3 grid gap-4 sm:grid-cols-2 text-xs">
+            {(orgPrivacyPrinciples.must_avoid?.length ?? 0) > 0 && (
+              <div>
+                <h4 className="font-semibold text-red-700">{labels.mustAvoid}</h4>
+                <ul className="mt-2 list-inside list-disc text-gray-600">
+                  {orgPrivacyPrinciples.must_avoid?.map((p, i) => (
+                    <li key={i}>{p}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {(orgPrivacyPrinciples.required?.length ?? 0) > 0 && (
+              <div>
+                <h4 className="font-semibold text-emerald-700">{labels.required}</h4>
+                <ul className="mt-2 list-inside list-disc text-gray-600">
+                  {orgPrivacyPrinciples.required?.map((p, i) => (
+                    <li key={i}>{p}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </section>
+      ) : null}
+
+      {orgRecognitionSummary.summary_text ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.organizationalRecognitionSummary}</h3>
+          <p className="mt-2 text-sm">{orgRecognitionSummary.summary_text}</p>
+          {orgRecognitionSummary.privacy_note ? (
+            <p className="mt-2 text-xs text-gray-500">{orgRecognitionSummary.privacy_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {orgSuccessCriteria.length > 0 && (
+        <section className="rounded-lg border border-sky-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.organizationalRecognitionSuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {orgSuccessCriteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {(orgVisionPhrases.length ?? 0) > 0 && (
+        <section className="rounded-lg border border-sky-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.organizationalRecognitionVisionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+            {orgVisionPhrases.map((phrase, i) => (
+              <li key={i}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {oraebp97Links.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.organizationalRecognitionIntegrationLinks}</h3>
+          <ul className="mt-2 flex flex-wrap gap-2 text-xs">
+            {oraebp97Links.map((link: IntegrationLinkItem) => (
+              <li key={link.key ?? link.label}>
+                {link.route ? (
+                  <Link href={link.route} className="text-sky-700 underline">
                     {link.label ?? link.key}
                   </Link>
                 ) : (

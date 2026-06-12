@@ -1,0 +1,61 @@
+ABOS Implementation Blueprint Phase 104 — Commerce Performance & Profit Engine
+Route: /app/commerce-performance
+Engine: Repo Phase 104 Commerce Performance & Profit Engine (_cpp_*)
+
+Mission
+Transform financial and operational data into meaningful profitability insights.
+
+Philosophy
+More sales ≠ better business — balance growth with profitability; wisdom guides ambition.
+Revenue measures activity; profitability reflects sustainability.
+
+ABOS principle
+Sustainability not extraction. Aipify Commerce Companion informs and prepares profit visibility, product performance, cost awareness, and strategic prioritization. Humans retain financial oversight and commercial decisions.
+
+Vision
+We finally understand what truly drives profitability in our business.
+
+Objectives
+1. Profit visibility — gross and net margin signals across products and categories
+2. Product performance — revenue vs sustainable profit contribution
+3. Revenue intelligence — trends with margin context, not volume alone
+4. Cost awareness — supplier, shipping, platform, advertising, refund visibility
+5. Strategic prioritization — profitable growth over noise
+6. Sustainable growth — long-term health over short-term metric spikes
+
+Profit intelligence
+🦉 Margin observations and cost pressure — context before scaling
+🌹 Sustainable profit contributors — celebrate durable performers
+🔔 Review signals — returns, ad spend, weak margins need human attention
+
+Pricing insights
+🦉 Landed cost gap — price may not cover supplier, shipping, and ad assumptions
+🌹 Sustainable pricing — thoughtful margins in core categories
+🔔 Discount and ad pressure — when net profit falls below threshold
+
+Commerce Companion guidance
+Use "Commerce Companion" or "Aipify" — never generic "AI finance bot".
+🦉 Would a cost breakdown summary help before you adjust ad spend?
+🌹 Shall Aipify prepare a category focus brief for strong profit contributors?
+🔔 Would reviewing product messaging feel wise when return rates rise?
+
+Limitation principles — sustainability not extraction
+Never frame growth-at-any-cost.
+Never optimize short-term metrics alone while ignoring margin.
+Never ignore customer experience for volume metrics.
+Never treat metrics as the sole definition of success.
+
+Self Love connection
+Profitability clarity before scale protects wellbeing — rushed growth creates avoidable stress.
+Your business can grow at a human pace — margin health matters as much as top-line revenue.
+
+Distinctions
+Commerce Intelligence Blueprint Phase 101 — /app/commerce-intelligence — discovery/opportunity
+Product Automation Phase 102 — /app/product-automation — catalog automation
+Dropshipping Operations Phase 103 — /app/dropshipping-operations — supplier/margin context
+Revenue Intelligence Blueprint Phase 39 — /app/commercial — subscription MRR/ARR only, NOT product profit
+Fiken — accounting source of truth; Aipify — operational intelligence layer
+
+Safety
+Does not replace professional financial expertise — human oversight central.
+auto_actions_disabled default true — humans approve performance recommendation actions.

@@ -4,12 +4,60 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseCommercePerformanceDashboard,
+  type AbosSuccessCriterion,
+  type BlueprintObjective,
   type CommercePerformanceDashboard,
+  type CompanionGuidanceExample,
+  type IntegrationLink,
 } from "@/lib/aipify/commerce-performance";
 
 type CommercePerformanceDashboardPanelProps = {
   labels: Record<string, string>;
 };
+
+function ObjectiveCard({ objective }: { objective: BlueprintObjective }) {
+  return (
+    <div className="rounded-lg border border-emerald-100 bg-emerald-50/40 px-3 py-2 text-sm">
+      <span className="font-medium">
+        {objective.emoji ? `${objective.emoji} ` : ""}
+        {objective.label}
+      </span>
+      {objective.description ? <p className="mt-1 text-xs text-emerald-900">{objective.description}</p> : null}
+    </div>
+  );
+}
+
+function CompanionGuidanceCard({ example }: { example: CompanionGuidanceExample }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+      <p className="font-medium">
+        {example.emoji ? `${example.emoji} ` : ""}
+        {example.prompt}
+      </p>
+      {example.consideration ? <p className="mt-1 text-xs text-gray-600">{example.consideration}</p> : null}
+    </div>
+  );
+}
+
+function SuccessCriterionRow({
+  criterion,
+  metLabel,
+  pendingLabel,
+}: {
+  criterion: AbosSuccessCriterion;
+  metLabel: string;
+  pendingLabel: string;
+}) {
+  return (
+    <div className="flex flex-wrap items-start justify-between gap-2 rounded border border-gray-100 px-3 py-2 text-sm">
+      <span className="text-gray-800">{criterion.label}</span>
+      <span className={criterion.met ? "text-xs text-green-700" : "text-xs text-amber-700"}>
+        {criterion.met ? metLabel : pendingLabel}
+      </span>
+      {criterion.note ? <p className="w-full text-xs text-gray-500">{criterion.note}</p> : null}
+    </div>
+  );
+}
 
 function badgeClass(value?: string) {
   switch (value) {
@@ -72,6 +120,8 @@ export function CommercePerformanceDashboardPanel({ labels }: CommercePerformanc
   if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
   if (!dashboard?.has_customer) return null;
 
+  const integrationLinks: IntegrationLink[] = dashboard.cppbp104_integration_links ?? [];
+
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap gap-2">
@@ -84,10 +134,136 @@ export function CommercePerformanceDashboardPanel({ labels }: CommercePerformanc
         <Link href="/app/dropshipping-operations" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.dropshippingOperations}
         </Link>
+        <Link href="/app/commercial" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.commercial}
+        </Link>
         <Link href="/app/knowledge-center" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.knowledgeCenter}
         </Link>
+        {integrationLinks.map((link) =>
+          link.route ? (
+            <Link key={link.route + (link.key ?? "")} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+              {link.label ?? link.route}
+            </Link>
+          ) : null,
+        )}
       </div>
+
+      <section className="rounded-xl border border-emerald-200 bg-emerald-50/40 p-6">
+        <h2 className="text-sm font-semibold text-emerald-900">{labels.blueprintTitle}</h2>
+        {dashboard.implementation_blueprint_phase104?.phase ? (
+          <p className="mt-1 text-xs text-emerald-700">
+            {dashboard.implementation_blueprint_phase104.phase}
+            {dashboard.implementation_blueprint_phase104.engine_phase
+              ? ` · ${dashboard.implementation_blueprint_phase104.engine_phase}`
+              : ""}
+          </p>
+        ) : null}
+        {dashboard.commerce_performance_mission ? (
+          <p className="mt-2 text-sm font-medium text-emerald-900">{dashboard.commerce_performance_mission}</p>
+        ) : null}
+        {dashboard.commerce_performance_philosophy ? (
+          <p className="mt-2 text-sm text-emerald-900">{dashboard.commerce_performance_philosophy}</p>
+        ) : null}
+        {dashboard.commerce_performance_abos_principle ? (
+          <p className="mt-2 text-xs text-emerald-800">{dashboard.commerce_performance_abos_principle}</p>
+        ) : null}
+        {dashboard.commerce_performance_distinction_note ? (
+          <p className="mt-2 text-xs text-emerald-700">{dashboard.commerce_performance_distinction_note}</p>
+        ) : null}
+        {dashboard.commerce_performance_engine_note ? (
+          <p className="mt-2 text-xs text-emerald-800">{dashboard.commerce_performance_engine_note}</p>
+        ) : null}
+        {dashboard.commerce_performance_vision ? (
+          <p className="mt-2 text-xs italic text-emerald-800">{dashboard.commerce_performance_vision}</p>
+        ) : null}
+        {dashboard.commerce_performance_privacy_note ? (
+          <p className="mt-2 text-xs text-emerald-700">{dashboard.commerce_performance_privacy_note}</p>
+        ) : null}
+      </section>
+
+      {dashboard.commerce_performance_objectives && dashboard.commerce_performance_objectives.length > 0 ? (
+        <section className="rounded-xl border border-teal-200 p-6">
+          <h3 className="text-sm font-semibold text-teal-900">{labels.blueprintObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.commerce_performance_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.commerce_companion_guidance?.examples &&
+      dashboard.commerce_companion_guidance.examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionGuidance}</h3>
+          {dashboard.commerce_companion_guidance.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.commerce_companion_guidance.principle}</p>
+          ) : null}
+          {dashboard.commerce_companion_guidance.companion_name ? (
+            <p className="mt-1 text-xs text-gray-600">
+              {dashboard.commerce_companion_guidance.companion_name}
+              {dashboard.commerce_companion_guidance.not_label
+                ? ` — ${labels.notGenericAi}: ${dashboard.commerce_companion_guidance.not_label}`
+                : ""}
+            </p>
+          ) : null}
+          <div className="mt-3 space-y-2">
+            {dashboard.commerce_companion_guidance.examples.map((example) => (
+              <CompanionGuidanceCard key={example.key ?? example.prompt} example={example} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.commerce_limitation_principles ? (
+        <section className="rounded-xl border border-rose-200 bg-rose-50/30 p-6">
+          <h3 className="text-sm font-semibold text-rose-900">{labels.limitationPrinciples}</h3>
+          {dashboard.commerce_limitation_principles.principle ? (
+            <p className="mt-2 text-sm text-rose-900">{dashboard.commerce_limitation_principles.principle}</p>
+          ) : null}
+          {dashboard.commerce_limitation_principles.must_avoid &&
+          dashboard.commerce_limitation_principles.must_avoid.length > 0 ? (
+            <ul className="mt-3 list-inside list-disc space-y-1 text-xs text-rose-800">
+              {dashboard.commerce_limitation_principles.must_avoid.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.commerce_self_love_connection?.quotes &&
+      dashboard.commerce_self_love_connection.quotes.length > 0 ? (
+        <section className="rounded-xl border border-sky-200 bg-sky-50/30 p-6">
+          <h3 className="text-sm font-semibold text-sky-900">{labels.selfLoveConnection}</h3>
+          {dashboard.commerce_self_love_connection.principle ? (
+            <p className="mt-2 text-sm text-sky-900">{dashboard.commerce_self_love_connection.principle}</p>
+          ) : null}
+          <ul className="mt-3 space-y-2 text-xs italic text-sky-800">
+            {dashboard.commerce_self_love_connection.quotes.map((quote) => (
+              <li key={quote}>{quote}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.commerce_performance_success_criteria &&
+      dashboard.commerce_performance_success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.successCriteria}</h3>
+          <div className="mt-3 space-y-2">
+            {dashboard.commerce_performance_success_criteria.map((criterion) => (
+              <SuccessCriterionRow
+                key={criterion.key ?? criterion.label}
+                criterion={criterion}
+                metLabel={labels.criterionMet}
+                pendingLabel={labels.criterionPending}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-6">
         <h2 className="text-sm font-semibold text-emerald-900">{labels.performanceOverview}</h2>

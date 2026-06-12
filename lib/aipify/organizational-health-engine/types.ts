@@ -120,6 +120,114 @@ export type ImplementationBlueprintMeta = {
   mapping_note?: string;
 };
 
+export type EmployeeExperienceQuestion = {
+  emoji?: string;
+  key?: string;
+  question?: string;
+  description?: string;
+};
+
+export type EmployeeExperienceQuestions = {
+  principle?: string;
+  questions?: EmployeeExperienceQuestion[];
+  reflection_note?: string;
+};
+
+export type RecognitionPractice = {
+  emoji?: string;
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type RecognitionPractices = {
+  principle?: string;
+  practices?: RecognitionPractice[] | string[];
+  gratitude_route?: string;
+  boundary_note?: string;
+};
+
+export type CompanionCheckIn = {
+  emoji?: string;
+  key?: string;
+  scenario?: string;
+  example?: string;
+};
+
+export type CompanionCheckIns = {
+  principle?: string;
+  check_ins?: CompanionCheckIn[];
+  companion_name?: string;
+  not_label?: string;
+  reflection_note?: string;
+};
+
+export type SelfLoveWellbeingConnection = SelfLoveConnection & {
+  quotes?: string[];
+};
+
+export type LeadershipConnection = {
+  principle?: string;
+  leadership_practices?: BlueprintObjective[];
+  dialogue_note?: string;
+};
+
+export type EmployeeJourneyStage = {
+  key?: string;
+  label?: string;
+  description?: string;
+  route?: string;
+};
+
+export type EmployeeJourneyConnection = {
+  principle?: string;
+  journey_stages?: EmployeeJourneyStage[];
+  boundary_note?: string;
+};
+
+export type WellbeingTrustConnection = TrustConnection & {
+  employees_should_know?: string[];
+  leaders_should_understand?: string[];
+};
+
+export type WellbeingEngagementSummary = HealthEngagementSummary & {
+  experience_questions_documented?: number;
+  wellbeing_observations_documented?: number;
+  recognition_practices_documented?: number;
+  companion_check_ins_documented?: number;
+  journey_stages_documented?: number;
+  integration_links_documented?: number;
+};
+
+export type EmployeeExperienceWellbeingBlueprint = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  objectives?: BlueprintObjective[];
+  employee_experience_questions?: EmployeeExperienceQuestions;
+  wellbeing_observations?: HealthObservation[];
+  recognition_practices?: RecognitionPractices;
+  companion_check_ins?: CompanionCheckIns;
+  self_love_connection?: SelfLoveWellbeingConnection;
+  leadership_connection?: LeadershipConnection;
+  employee_journey_connection?: EmployeeJourneyConnection;
+  trust_connection?: WellbeingTrustConnection;
+  privacy_principles?: PrivacyPrinciples;
+  dogfooding?: DogfoodingBlueprint;
+  success_criteria?: AbosSuccessCriterion[];
+  vision?: string;
+  vision_phrases?: string[];
+  integration_links?: IntegrationLink[];
+  engagement_summary?: WellbeingEngagementSummary;
+  privacy_note?: string;
+};
+
 export type OrganizationalHealthEngineCard = {
   has_organization: boolean;
   philosophy?: string;
@@ -128,11 +236,17 @@ export type OrganizationalHealthEngineCard = {
   categories_measured?: number;
   pending_interventions?: number;
   implementation_blueprint_phase61?: ImplementationBlueprintMeta;
+  implementation_blueprint_phase96?: ImplementationBlueprintMeta;
   mission?: string;
   abos_principle?: string;
   engagement_summary?: HealthEngagementSummary;
+  wellbeing_engagement_summary?: WellbeingEngagementSummary;
   blueprint_note?: string;
   health_note?: string;
+  employee_experience_wellbeing_mission?: string;
+  employee_experience_wellbeing_abos_principle?: string;
+  employee_experience_wellbeing_note?: string;
+  employee_experience_wellbeing_vision_note?: string;
   [key: string]: unknown;
 };
 
@@ -169,6 +283,30 @@ export type OrganizationalHealthEngineDashboard = {
   success_criteria?: AbosSuccessCriterion[];
   vision_phrases?: string[];
   privacy_note?: string;
+  implementation_blueprint_phase96?: ImplementationBlueprintMeta;
+  employee_experience_wellbeing_engine_note?: string;
+  employee_experience_wellbeing_blueprint?: EmployeeExperienceWellbeingBlueprint;
+  employee_experience_wellbeing_distinction_note?: string;
+  employee_experience_wellbeing_mission?: string;
+  employee_experience_wellbeing_philosophy?: string;
+  employee_experience_wellbeing_abos_principle?: string;
+  employee_experience_wellbeing_objectives?: BlueprintObjective[];
+  employee_experience_questions?: EmployeeExperienceQuestions;
+  wellbeing_observations?: HealthObservation[];
+  wellbeing_recognition_practices?: RecognitionPractices;
+  companion_check_ins?: CompanionCheckIns;
+  wellbeing_self_love_connection?: SelfLoveWellbeingConnection;
+  wellbeing_leadership_connection?: LeadershipConnection;
+  employee_journey_connection?: EmployeeJourneyConnection;
+  wellbeing_trust_connection?: WellbeingTrustConnection;
+  wellbeing_privacy_principles?: PrivacyPrinciples;
+  wellbeing_dogfooding?: DogfoodingBlueprint;
+  wellbeing_integration_links?: IntegrationLink[];
+  wellbeing_engagement_summary?: WellbeingEngagementSummary;
+  wellbeing_success_criteria?: AbosSuccessCriterion[];
+  employee_experience_wellbeing_vision?: string;
+  employee_experience_wellbeing_vision_phrases?: string[];
+  employee_experience_wellbeing_privacy_note?: string;
   [key: string]: unknown;
 };
 

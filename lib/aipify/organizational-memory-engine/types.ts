@@ -184,6 +184,8 @@ export type ContinuityCompanionExample = {
   key?: string;
   text?: string;
   example?: string;
+  prompt?: string;
+  consideration?: string;
 };
 
 export type ContinuityBlueprintSection = {
@@ -243,6 +245,91 @@ export type ContinuitySummary = {
   summary_text?: string;
 };
 
+export type MemoryLegacyCategory = {
+  key?: string;
+  label?: string;
+  emoji?: string;
+  description?: string;
+  sub_items?: string[];
+  record_categories?: string[];
+  maps_to?: string;
+  legacy_engine_route?: string;
+  executive_insights_route?: string;
+};
+
+export type MemoryLegacyQuestion = {
+  emoji?: string;
+  key?: string;
+  question?: string;
+  description?: string;
+};
+
+export type MemoryLegacyBlueprintSection = {
+  principle?: string;
+  questions?: MemoryLegacyQuestion[];
+  reflection_note?: string;
+  dimensions?: Array<{ key?: string; label?: string; description?: string; emoji?: string }>;
+  examples?: ContinuityCompanionExample[];
+  feeds?: string[];
+  route?: string;
+  phase?: string;
+  distinction?: string;
+  approved_sources?: string[];
+  practices?: string[];
+  journey_phrase?: string;
+  organizations_should_understand?: string[];
+  leaders_should_know?: string[];
+  audit_note?: string;
+  forbidden?: string[];
+  required?: string[];
+  boundary_note?: string;
+  legacy_engine_route?: string;
+  phase83_helpers?: string;
+  [key: string]: unknown;
+};
+
+export type MemoryLegacyEngagementSummary = {
+  active_memory_records?: number;
+  active_decisions?: number;
+  pending_reviews?: number;
+  memory_categories?: number;
+  memory_questions?: number;
+  legacy_preservation_dimensions?: number;
+  companion_examples?: number;
+  continuity_summary?: ContinuitySummary;
+  legacy_engagement_summary?: Record<string, unknown>;
+  privacy_note?: string;
+};
+
+export type OrganizationalMemoryLegacyBlueprint = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  objectives?: ContinuityObjective[];
+  memory_categories?: MemoryLegacyCategory[];
+  memory_questions?: MemoryLegacyBlueprintSection;
+  legacy_preservation?: MemoryLegacyBlueprintSection;
+  companion_guidance?: MemoryLegacyBlueprintSection;
+  meeting_companion_connection?: MemoryLegacyBlueprintSection;
+  knowledge_center_connection?: MemoryLegacyBlueprintSection;
+  self_love_connection?: MemoryLegacyBlueprintSection;
+  trust_connection?: MemoryLegacyBlueprintSection;
+  privacy_principles?: MemoryLegacyBlueprintSection;
+  dogfooding?: Record<string, unknown>;
+  success_criteria?: AbosSuccessCriterion[];
+  vision?: string;
+  vision_phrases?: string[];
+  integration_links?: IntegrationLink[];
+  engagement_summary?: MemoryLegacyEngagementSummary;
+  privacy_note?: string;
+};
+
 export type OrganizationalMemoryEngineDashboard = {
   has_organization: boolean;
   philosophy?: string;
@@ -293,4 +380,27 @@ export type OrganizationalMemoryEngineDashboard = {
   continuity_success_criteria?: AbosSuccessCriterion[];
   continuity_vision_phrases?: string[];
   continuity_distinction_note?: string;
+  implementation_blueprint_phase94?: ImplementationBlueprintMeta;
+  organizational_memory_legacy_blueprint?: OrganizationalMemoryLegacyBlueprint;
+  memory_legacy_distinction_note?: string;
+  memory_legacy_mission?: string;
+  memory_legacy_philosophy?: string;
+  memory_legacy_abos_principle?: string;
+  memory_legacy_objectives?: ContinuityObjective[];
+  memory_legacy_categories?: MemoryLegacyCategory[];
+  memory_legacy_questions?: MemoryLegacyBlueprintSection;
+  memory_legacy_preservation?: MemoryLegacyBlueprintSection;
+  memory_legacy_companion_guidance?: MemoryLegacyBlueprintSection;
+  memory_legacy_meeting_companion_connection?: MemoryLegacyBlueprintSection;
+  memory_legacy_knowledge_center_connection?: MemoryLegacyBlueprintSection;
+  memory_legacy_self_love_connection?: MemoryLegacyBlueprintSection;
+  memory_legacy_trust_connection?: MemoryLegacyBlueprintSection;
+  memory_legacy_privacy_principles?: MemoryLegacyBlueprintSection;
+  memory_legacy_dogfooding?: Record<string, unknown>;
+  omlebp94_integration_links?: IntegrationLink[];
+  memory_legacy_engagement_summary?: MemoryLegacyEngagementSummary;
+  memory_legacy_success_criteria?: AbosSuccessCriterion[];
+  memory_legacy_vision?: string;
+  memory_legacy_vision_phrases?: string[];
+  memory_legacy_privacy_note?: string;
 };

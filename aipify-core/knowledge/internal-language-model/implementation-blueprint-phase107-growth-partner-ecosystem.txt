@@ -1,0 +1,68 @@
+ABOS Implementation Blueprint Phase 107 — Growth Partner Ecosystem Engine
+Route: /app/partners
+Engine: Repo Phase 91 Partner & Certification Ecosystem (_pce_*)
+
+Mission
+A thriving ecosystem of independent businesses supporting implementation, education, consulting, and customer success.
+
+Philosophy
+Growth Partners, not affiliates — entrepreneurs, educators, implementation specialists, and trusted advisors.
+Aipify succeeds when partners succeed.
+
+ABOS principle
+Partnership not extraction. Competence-based certification, credible specializations, and ecosystem stewardship.
+Aipify informs and prepares partner programs; humans govern certification quality and high-impact program decisions.
+
+Vision
+We did not simply purchase software. We gained a trusted partner who helped us succeed.
+
+Objectives
+1. Partner recruitment — qualified independent businesses
+2. Partner education — training, playbooks, Learning & Training A.36 cross-link
+3. Certification pathways — Certified → Professional → Elite mapped to _pce_tier_label()
+4. Customer matching — geography, language, industry, platform, availability
+5. Revenue opportunities — implementation, onboarding, workshops, consulting — ethical and transparent
+6. Ecosystem stewardship — community leadership, mentorship, long-term partner success
+
+Certification levels (maps to _pce_tier_label())
+Certified Partner — certified tier — foundations and core competence
+Professional Partner — sales_expert tier — proven delivery and customer outcomes
+Elite Partner — expert tier — leadership, innovation, ecosystem stewardship
+
+Growth Partner Companion guidance
+Use "Growth Partner Companion" or "Aipify" — never generic "AI partner recruitment bot".
+🦉 Would a certification pathway summary for Professional Partner help you plan next steps?
+🌹 Shall Aipify prepare a customer matching summary for your review?
+🔔 Would celebrating one outcome before taking on more engagements feel wise?
+
+Partner recognition
+🌹 Success awards — celebrate partner and customer outcomes
+❤️ Community leadership — forums, advisory councils
+🦉 Innovation — implementation excellence and shared learnings
+🔔 Mentorship — guide emerging partners without pressure
+
+Limitation principles — partnership not extraction
+Never treat partners as disposable sales channels.
+Never prioritize recruitment volume over partner success.
+Never dilute certification standards for volume.
+Never use Affiliate language — Growth Partner terminology only per PARTNER_TERMINOLOGY_UPDATE.md.
+
+Self Love connection
+Your partner business can grow at a pace that protects wellbeing — competence and customer outcomes beat volume-for-volume's sake.
+
+Distinctions
+Marketplace Partner Ecosystem A.45 (/app/marketplace-partner-ecosystem-foundation-engine) — marketplace connectors, distinct
+Partner Success A.73 (/app/partner-success-engine) — partner portfolio health for customer orgs, distinct
+Sales Expert OS Phase 33 / A.95 (/app/sales-expert-engine) — Sales Expert as Growth Partner type, cross-link
+Certification & Achievement A.37 (/app/certification-achievement-engine) — internal team certs, NOT partner certification
+Organizational Resilience Blueprint Phase 91 (/app/organizational-resilience-engine) — unrelated phase collision
+
+Cross-links
+Learning & Training A.36, Customer Success A.26, Aipify Academy, Knowledge Center, Ecosystem Intelligence Phase 88
+
+Dogfooding
+Sales Expert ecosystem, certification journeys, implementation experiences, marketing resources, onboarding flows
+
+Preferred phrasing
+Growth Partner — never Affiliate
+Aipify recommends / Aipify prepares / Aipify has found — not "the AI recruited a partner"

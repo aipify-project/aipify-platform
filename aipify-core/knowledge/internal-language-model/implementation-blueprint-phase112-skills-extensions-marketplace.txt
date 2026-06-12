@@ -1,0 +1,44 @@
+ABOS Implementation Blueprint Phase 112 — Skills & Extensions Marketplace Engine
+
+Mission: Trusted marketplace of Skills and Extensions expanding Companion capabilities.
+
+Philosophy: Ecosystems strengthen platforms — safe innovation, wisdom guides expansion.
+
+Vision: Aipify evolves alongside our needs.
+
+Route: /app/marketplace
+Engine prefix: _mkp_*
+Blueprint prefix: _sembp112_*
+Decision type: skills_extensions_marketplace
+
+Objectives:
+- Trusted discovery — permissions, risk, deployment compatibility transparent
+- Governed installation — precheck, approval, install via Skill Store Phase 63
+- Extension ecosystem — integrations, widgets, connectors, workflow enhancements
+- Quality assurance — security, reliability, UX — Phase 90 cross-link
+- Growth Partner offerings — partner skills, industry packs, templates
+- Developer ecosystem — APIs, docs, sandbox, certification
+
+Install flow: Browse → review details → understand permissions → install → configure → activate
+
+Skill categories:
+- Commerce — quality-guardian, image-guardian, performance-guardian (Website Quality Pack)
+- Support — knowledge-center (Support Starter Pack, Knowledge Center Starter Pack)
+- Executive — executive-briefing (Executive Briefing Pack, Desktop Companion Pack)
+- Growth Partner — certified offerings at /app/partners, industry packs Phase 111
+- Personal Companion — desktop-companion, memory-engine, approval-center
+
+Companion adaptation:
+🦉 Permissions first — context before activation
+🌹 Gradual adoption — not catalog anxiety
+🔔 Quality cross-link — Marketplace Governance Phase 90
+
+Limitation principles:
+- No unnecessary complexity from unreviewed activation
+- No security sacrifice — precheck and approval required
+- No low-quality submissions without Phase 90 governance
+- No ungoverned growth — orgs activate what creates value
+
+Cross-links: Skill Store 63 · SkillOS 22 · Module Marketplace A.23 · Marketplace Governance 90 · Partner A.45 · Growth Partner 107 · Industry Packs 111 · API Platform A.21 · Trust & Action 30
+
+Aipify informs and prepares — humans approve every governed install.

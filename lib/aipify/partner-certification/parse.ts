@@ -1,10 +1,80 @@
 import type {
+  AbosSuccessCriterion,
+  BlueprintObjective,
+  CompanionGuidance,
+  GrowthPartnerEcosystemBlueprint,
+  GrowthPartnerEngagementSummary,
+  ImplementationBlueprintMeta,
+  IntegrationLink,
+  LimitationPrinciples,
   PartnerCredentialVerification,
   PartnerEcosystemActionResult,
   PartnerEcosystemBriefingResult,
   PartnerEcosystemCard,
   PartnerEcosystemDashboard,
+  SelfLoveConnection,
+  TrustConnection,
 } from "./types";
+
+function parseBlueprintMeta(data: unknown): ImplementationBlueprintMeta | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ImplementationBlueprintMeta;
+}
+
+function parseObjectives(data: unknown): BlueprintObjective[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as BlueprintObjective[];
+}
+
+function parseSuccessCriteria(data: unknown): AbosSuccessCriterion[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as AbosSuccessCriterion[];
+}
+
+function parseIntegrationLinks(data: unknown): IntegrationLink[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as IntegrationLink[];
+}
+
+function parseCompanionGuidance(data: unknown): CompanionGuidance | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CompanionGuidance;
+}
+
+function parseLimitationPrinciples(data: unknown): LimitationPrinciples | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as LimitationPrinciples;
+}
+
+function parseSelfLoveConnection(data: unknown): SelfLoveConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as SelfLoveConnection;
+}
+
+function parseTrustConnection(data: unknown): TrustConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as TrustConnection;
+}
+
+function parseEngagementSummary(data: unknown): GrowthPartnerEngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as GrowthPartnerEngagementSummary;
+}
+
+function parseBlueprintBlock(data: unknown): GrowthPartnerEcosystemBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as GrowthPartnerEcosystemBlueprint;
+}
+
+function parseRecord(data: unknown): Record<string, unknown> | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as Record<string, unknown>;
+}
+
+function parseStringList(data: unknown): string[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data.filter((item): item is string => typeof item === "string");
+}
 
 export function parsePartnerEcosystemCard(data: unknown): PartnerEcosystemCard {
   const d = (data ?? {}) as Record<string, unknown>;
@@ -16,6 +86,15 @@ export function parsePartnerEcosystemCard(data: unknown): PartnerEcosystemCard {
     open_leads: Number(d.open_leads ?? 0),
     philosophy: typeof d.philosophy === "string" ? d.philosophy : undefined,
     human_oversight_required: Boolean(d.human_oversight_required),
+    implementation_blueprint_phase107: parseBlueprintMeta(d.implementation_blueprint_phase107),
+    growth_partner_mission:
+      typeof d.growth_partner_mission === "string" ? d.growth_partner_mission : undefined,
+    growth_partner_abos_principle:
+      typeof d.growth_partner_abos_principle === "string" ? d.growth_partner_abos_principle : undefined,
+    growth_partner_engagement_summary: parseEngagementSummary(d.growth_partner_engagement_summary),
+    growth_partner_note: typeof d.growth_partner_note === "string" ? d.growth_partner_note : undefined,
+    growth_partner_vision_note:
+      typeof d.growth_partner_vision_note === "string" ? d.growth_partner_vision_note : undefined,
   };
 }
 
@@ -65,6 +144,41 @@ export function parsePartnerEcosystemDashboard(data: unknown): PartnerEcosystemD
     integrations: typeof d.integrations === "object" && d.integrations
       ? (d.integrations as Record<string, string>)
       : undefined,
+    implementation_blueprint_phase107: parseBlueprintMeta(d.implementation_blueprint_phase107),
+    growth_partner_ecosystem_engine_note:
+      typeof d.growth_partner_ecosystem_engine_note === "string"
+        ? d.growth_partner_ecosystem_engine_note
+        : undefined,
+    growth_partner_ecosystem_blueprint: parseBlueprintBlock(d.growth_partner_ecosystem_blueprint),
+    growth_partner_distinction_note:
+      typeof d.growth_partner_distinction_note === "string" ? d.growth_partner_distinction_note : undefined,
+    growth_partner_mission:
+      typeof d.growth_partner_mission === "string" ? d.growth_partner_mission : undefined,
+    growth_partner_philosophy:
+      typeof d.growth_partner_philosophy === "string" ? d.growth_partner_philosophy : undefined,
+    growth_partner_abos_principle:
+      typeof d.growth_partner_abos_principle === "string" ? d.growth_partner_abos_principle : undefined,
+    growth_partner_objectives: parseObjectives(d.growth_partner_objectives),
+    growth_partner_who_can_become: parseRecord(d.growth_partner_who_can_become),
+    growth_partner_business_opportunities: parseRecord(d.growth_partner_business_opportunities),
+    growth_partner_certification_levels: parseRecord(d.growth_partner_certification_levels),
+    growth_partner_portal: parseRecord(d.growth_partner_portal),
+    growth_partner_matching_engine: parseRecord(d.growth_partner_matching_engine),
+    growth_partner_marketing_resource_center: parseRecord(d.growth_partner_marketing_resource_center),
+    growth_partner_recognition: parseRecord(d.growth_partner_recognition),
+    growth_partner_companion_guidance: parseCompanionGuidance(d.growth_partner_companion_guidance),
+    growth_partner_self_love_connection: parseSelfLoveConnection(d.growth_partner_self_love_connection),
+    growth_partner_leadership_connection: parseRecord(d.growth_partner_leadership_connection),
+    growth_partner_trust_connection: parseTrustConnection(d.growth_partner_trust_connection),
+    growth_partner_limitation_principles: parseLimitationPrinciples(d.growth_partner_limitation_principles),
+    growth_partner_dogfooding: parseRecord(d.growth_partner_dogfooding),
+    gpebp107_integration_links: parseIntegrationLinks(d.gpebp107_integration_links),
+    growth_partner_engagement_summary: parseEngagementSummary(d.growth_partner_engagement_summary),
+    growth_partner_success_criteria: parseSuccessCriteria(d.growth_partner_success_criteria),
+    growth_partner_vision: typeof d.growth_partner_vision === "string" ? d.growth_partner_vision : undefined,
+    growth_partner_vision_phrases: parseStringList(d.growth_partner_vision_phrases),
+    growth_partner_privacy_note:
+      typeof d.growth_partner_privacy_note === "string" ? d.growth_partner_privacy_note : undefined,
   };
 }
 

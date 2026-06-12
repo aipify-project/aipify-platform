@@ -110,6 +110,122 @@ export type ComplianceRecord = {
   expires_at?: string | null;
 };
 
+export type BlueprintObjective = {
+  key?: string;
+  label?: string;
+  emoji?: string;
+  description?: string;
+};
+
+export type AbosSuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+};
+
+export type IntegrationLink = {
+  key?: string;
+  label?: string;
+  route?: string;
+  note?: string;
+};
+
+export type ImplementationBlueprintMeta = {
+  phase?: string | number;
+  title?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+};
+
+export type CompanionGuidanceExample = {
+  emoji?: string;
+  key?: string;
+  prompt?: string;
+  consideration?: string;
+};
+
+export type CompanionGuidance = {
+  principle?: string;
+  companion_name?: string;
+  not_label?: string;
+  examples?: CompanionGuidanceExample[];
+  boundary_note?: string;
+};
+
+export type LimitationPrinciples = {
+  principle?: string;
+  must_avoid?: string[];
+  required?: string[];
+  boundary_note?: string;
+};
+
+export type SelfLoveConnection = {
+  principle?: string;
+  quotes?: string[];
+  practices?: string[];
+  route?: string;
+  boundary_note?: string;
+};
+
+export type TrustConnection = {
+  principle?: string;
+  users_should_see?: string[];
+  operators_should_understand?: string[];
+  audit_note?: string;
+};
+
+export type GrowthPartnerEngagementSummary = {
+  ecosystem_score?: number;
+  active_partners?: number;
+  certified_partners?: number;
+  open_leads?: number;
+  compliance_pct?: number;
+  certification_tracks?: number;
+  active_credentials?: number;
+  portal_resources?: number;
+  objectives_documented?: number;
+  certification_levels?: number;
+  matching_dimensions?: number;
+  companion_examples?: number;
+  integration_links?: number;
+  privacy_note?: string;
+};
+
+export type GrowthPartnerEcosystemBlueprint = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  objectives?: BlueprintObjective[];
+  who_can_become?: Record<string, unknown>;
+  partner_business_opportunities?: Record<string, unknown>;
+  partner_certification_levels?: Record<string, unknown>;
+  partner_portal?: Record<string, unknown>;
+  partner_matching_engine?: Record<string, unknown>;
+  marketing_resource_center?: Record<string, unknown>;
+  partner_recognition?: Record<string, unknown>;
+  companion_guidance?: CompanionGuidance;
+  self_love_connection?: SelfLoveConnection;
+  leadership_connection?: Record<string, unknown>;
+  trust_connection?: TrustConnection;
+  limitation_principles?: LimitationPrinciples;
+  dogfooding?: Record<string, unknown>;
+  success_criteria?: AbosSuccessCriterion[];
+  vision?: string;
+  vision_phrases?: string[];
+  integration_links?: IntegrationLink[];
+  engagement_summary?: GrowthPartnerEngagementSummary;
+  privacy_note?: string;
+};
+
 export type PartnerEcosystemCard = {
   has_customer: boolean;
   ecosystem_score?: number;
@@ -118,6 +234,12 @@ export type PartnerEcosystemCard = {
   open_leads?: number;
   philosophy?: string;
   human_oversight_required?: boolean;
+  implementation_blueprint_phase107?: ImplementationBlueprintMeta;
+  growth_partner_mission?: string;
+  growth_partner_abos_principle?: string;
+  growth_partner_engagement_summary?: GrowthPartnerEngagementSummary;
+  growth_partner_note?: string;
+  growth_partner_vision_note?: string;
 };
 
 export type PartnerEcosystemDashboard = {
@@ -148,6 +270,33 @@ export type PartnerEcosystemDashboard = {
   community_engagement?: string[];
   briefings: Array<{ id: string; summary: string; created_at?: string }>;
   integrations?: Record<string, string>;
+  implementation_blueprint_phase107?: ImplementationBlueprintMeta;
+  growth_partner_ecosystem_engine_note?: string;
+  growth_partner_ecosystem_blueprint?: GrowthPartnerEcosystemBlueprint;
+  growth_partner_distinction_note?: string;
+  growth_partner_mission?: string;
+  growth_partner_philosophy?: string;
+  growth_partner_abos_principle?: string;
+  growth_partner_objectives?: BlueprintObjective[];
+  growth_partner_who_can_become?: Record<string, unknown>;
+  growth_partner_business_opportunities?: Record<string, unknown>;
+  growth_partner_certification_levels?: Record<string, unknown>;
+  growth_partner_portal?: Record<string, unknown>;
+  growth_partner_matching_engine?: Record<string, unknown>;
+  growth_partner_marketing_resource_center?: Record<string, unknown>;
+  growth_partner_recognition?: Record<string, unknown>;
+  growth_partner_companion_guidance?: CompanionGuidance;
+  growth_partner_self_love_connection?: SelfLoveConnection;
+  growth_partner_leadership_connection?: Record<string, unknown>;
+  growth_partner_trust_connection?: TrustConnection;
+  growth_partner_limitation_principles?: LimitationPrinciples;
+  growth_partner_dogfooding?: Record<string, unknown>;
+  gpebp107_integration_links?: IntegrationLink[];
+  growth_partner_engagement_summary?: GrowthPartnerEngagementSummary;
+  growth_partner_success_criteria?: AbosSuccessCriterion[];
+  growth_partner_vision?: string;
+  growth_partner_vision_phrases?: string[];
+  growth_partner_privacy_note?: string;
 };
 
 export type PartnerEcosystemActionResult = {

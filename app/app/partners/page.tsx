@@ -41,6 +41,20 @@ export default async function PartnerCertificationPage() {
           complianceRequirements: t(`${p}.complianceRequirements`),
           acceptCompliance: t(`${p}.acceptCompliance`),
           communityEngagement: t(`${p}.communityEngagement`),
+          blueprintTitle: t(`${p}.blueprintTitle`),
+          blueprintObjectives: t(`${p}.blueprintObjectives`),
+          companionGuidance: t(`${p}.companionGuidance`),
+          notGenericAi: t(`${p}.notGenericAi`),
+          limitationPrinciples: t(`${p}.limitationPrinciples`),
+          selfLoveConnection: t(`${p}.selfLoveConnection`),
+          successCriteria: t(`${p}.successCriteria`),
+          criterionMet: t(`${p}.criterionMet`),
+          criterionPending: t(`${p}.criterionPending`),
+          salesExpertEngine: t(`${p}.salesExpertEngine`),
+          marketplacePartnerEcosystem: t(`${p}.marketplacePartnerEcosystem`),
+          partnerSuccessEngine: t(`${p}.partnerSuccessEngine`),
+          aipifyAcademy: t(`${p}.aipifyAcademy`),
+          knowledgeCenter: t(`${p}.knowledgeCenter`),
         }}
       />
     </div>

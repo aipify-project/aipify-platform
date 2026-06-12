@@ -1,4 +1,6 @@
+import { CompanionBriefingPageIntro } from "@/components/app/briefing";
 import { CommerceIntelligenceDashboardPanel } from "@/components/app/commerce-intelligence";
+import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -10,10 +12,12 @@ export default async function CommerceIntelligencePage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t(`${p}.title`)}</h1>
-        <p className="mt-2 text-gray-600">{t(`${p}.subtitle`)}</p>
-      </div>
+      <CompanionBriefingPageIntro
+        title={t(`${p}.title`)}
+        subtitle={t(`${p}.subtitle`)}
+        context="commerce_intelligence"
+        labels={buildCompanionBriefingLabels(t)}
+      />
       <CommerceIntelligenceDashboardPanel
         labels={{
           loading: t(`${p}.loading`),
@@ -40,7 +44,17 @@ export default async function CommerceIntelligencePage() {
           recentBriefings: t(`${p}.recentBriefings`),
           platformInstall: t(`${p}.platformInstall`),
           commercial: t(`${p}.commercial`),
+          commercePerformance: t(`${p}.commercePerformance`),
           knowledgeCenter: t(`${p}.knowledgeCenter`),
+          blueprintTitle: t(`${p}.blueprintTitle`),
+          blueprintObjectives: t(`${p}.blueprintObjectives`),
+          companionGuidance: t(`${p}.companionGuidance`),
+          notGenericAi: t(`${p}.notGenericAi`),
+          limitationPrinciples: t(`${p}.limitationPrinciples`),
+          selfLoveConnection: t(`${p}.selfLoveConnection`),
+          successCriteria: t(`${p}.successCriteria`),
+          criterionMet: t(`${p}.criterionMet`),
+          criterionPending: t(`${p}.criterionPending`),
         }}
       />
     </div>

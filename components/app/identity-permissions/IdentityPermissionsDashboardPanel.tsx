@@ -460,7 +460,15 @@ export function IdentityPermissionsDashboardPanel({
 
       {dashboard.mfa_readiness.length > 0 ? (
         <section>
-          <h2 className="text-sm font-semibold text-gray-900">{labels.mfaReadiness}</h2>
+          <div className="flex items-center justify-between gap-3">
+            <h2 className="text-sm font-semibold text-gray-900">{labels.mfaReadiness}</h2>
+            <a
+              href="/app/settings/two-factor"
+              className="text-xs font-medium text-violet-600 hover:text-violet-700"
+            >
+              {labels.twoFactorSetup}
+            </a>
+          </div>
           <div className="mt-2 flex flex-wrap gap-2">
             {dashboard.mfa_readiness.map((m) => (
               <span

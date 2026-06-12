@@ -51,6 +51,20 @@ export default async function OrganizationalMemoryEnginePage() {
           continuitySummary: t(`${p}.continuitySummary`),
           continuitySuccessCriteria: t(`${p}.continuitySuccessCriteria`),
           continuityIntegrationLinks: t(`${p}.continuityIntegrationLinks`),
+          legacyEngine: t(`${p}.legacyEngine`),
+          memoryLegacyTitle: t(`${p}.memoryLegacyBlueprint.title`),
+          memoryLegacyObjectives: t(`${p}.memoryLegacyBlueprint.objectives`),
+          memoryLegacyCategories: t(`${p}.memoryLegacyBlueprint.categories`),
+          memoryLegacyQuestions: t(`${p}.memoryLegacyBlueprint.questions`),
+          memoryLegacyPreservation: t(`${p}.memoryLegacyBlueprint.preservation`),
+          memoryLegacyCompanionGuidance: t(`${p}.memoryLegacyBlueprint.companionGuidance`),
+          memoryLegacyConnections: t(`${p}.memoryLegacyBlueprint.connections`),
+          memoryLegacySelfLove: t(`${p}.memoryLegacyBlueprint.selfLove`),
+          memoryLegacyTrust: t(`${p}.memoryLegacyBlueprint.trust`),
+          memoryLegacyPrivacy: t(`${p}.memoryLegacyBlueprint.privacy`),
+          memoryLegacyEngagement: t(`${p}.memoryLegacyBlueprint.engagement`),
+          memoryLegacySuccessCriteria: t(`${p}.memoryLegacyBlueprint.successCriteria`),
+          memoryLegacyIntegrationLinks: t(`${p}.memoryLegacyBlueprint.integrationLinks`),
         }}
       />
     </div>

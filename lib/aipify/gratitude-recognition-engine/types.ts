@@ -217,6 +217,92 @@ export type IntegrationLinkItem = {
   [key: string]: unknown;
 };
 
+export type OrganizationalRecognitionObjective = {
+  key?: string;
+  label?: string;
+  emoji?: string;
+  description?: string;
+  [key: string]: unknown;
+};
+
+export type OrganizationalRecognitionMomentCategory = {
+  key?: string;
+  label?: string;
+  emoji?: string;
+  description?: string;
+  cross_link?: string;
+  [key: string]: unknown;
+};
+
+export type CompanionRecognitionPrompt = {
+  emoji?: string;
+  key?: string;
+  prompt?: string;
+  consideration?: string;
+  [key: string]: unknown;
+};
+
+export type OrganizationalRecognitionSection = {
+  emoji?: string;
+  label?: string;
+  principle?: string;
+  categories?: OrganizationalRecognitionMomentCategory[];
+  prompts?: CompanionRecognitionPrompt[];
+  gestures?: Array<{ key?: string; label?: string; emoji?: string; description?: string; [key: string]: unknown }>;
+  practices?: Array<{ emoji?: string; key?: string; label?: string; description?: string; [key: string]: unknown }> | string[];
+  dimensions?: Array<{ emoji?: string; key?: string; label?: string; description?: string; [key: string]: unknown }>;
+  milestones?: Array<{ emoji?: string; key?: string; label?: string; description?: string; [key: string]: unknown }>;
+  insights?: Array<{ emoji?: string; key?: string; label?: string; description?: string; [key: string]: unknown }>;
+  quotes?: string[];
+  must_avoid?: string[];
+  required?: string[];
+  users_should_see?: string[];
+  operators_should_understand?: string[];
+  boundary_note?: string;
+  [key: string]: unknown;
+};
+
+export type OrganizationalRecognitionSummary = {
+  organizational_recognition_count?: number;
+  rose_count?: number;
+  pending_recognition_moments?: number;
+  recognition_counts_by_category?: Record<string, number>;
+  companion_prompts_documented?: number;
+  privacy_note?: string;
+  summary_text?: string;
+  [key: string]: unknown;
+};
+
+export type OrganizationalRecognitionAppreciationBlueprint = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  objectives?: OrganizationalRecognitionObjective[];
+  recognition_moments?: OrganizationalRecognitionSection;
+  companion_recognition_prompts?: OrganizationalRecognitionSection;
+  peer_recognition?: OrganizationalRecognitionSection;
+  leadership_recognition?: OrganizationalRecognitionSection;
+  customer_appreciation?: OrganizationalRecognitionSection;
+  sales_expert_recognition?: OrganizationalRecognitionSection;
+  self_love_connection?: OrganizationalRecognitionSection;
+  leadership_insights?: OrganizationalRecognitionSection;
+  trust_connection?: OrganizationalRecognitionSection;
+  privacy_principles?: OrganizationalRecognitionSection;
+  dogfooding?: Record<string, unknown>;
+  success_criteria?: SuccessCriterion[];
+  vision?: string;
+  vision_phrases?: string[];
+  integration_links?: IntegrationLinkItem[];
+  recognition_summary?: OrganizationalRecognitionSummary;
+  privacy_note?: string;
+  [key: string]: unknown;
+};
+
 export type GratitudeRecognitionDashboard = {
   has_organization: boolean;
   philosophy?: string;
@@ -226,6 +312,7 @@ export type GratitudeRecognitionDashboard = {
   distinction_note?: string;
   implementation_blueprint?: ImplementationBlueprintMeta;
   implementation_blueprint_phase53?: ImplementationBlueprintMeta;
+  implementation_blueprint_phase97?: ImplementationBlueprintMeta;
   gratitude_recognition_engine_note?: string;
   recognition_categories?: RecognitionCategory[];
   bell_moments?: BellMomentsBlueprint;
@@ -266,6 +353,30 @@ export type GratitudeRecognitionDashboard = {
   human_moments_success_criteria?: SuccessCriterion[];
   human_moments_vision_phrases?: string[];
   human_moments_distinction_note?: string;
+  organizational_recognition_engine_note?: string;
+  organizational_recognition_appreciation_blueprint?: OrganizationalRecognitionAppreciationBlueprint;
+  organizational_recognition_distinction_note?: string;
+  organizational_recognition_mission?: string;
+  organizational_recognition_philosophy?: string;
+  organizational_recognition_abos_principle?: string;
+  organizational_recognition_objectives?: OrganizationalRecognitionObjective[];
+  recognition_moments?: OrganizationalRecognitionSection;
+  companion_recognition_prompts?: OrganizationalRecognitionSection;
+  peer_recognition?: OrganizationalRecognitionSection;
+  leadership_recognition?: OrganizationalRecognitionSection;
+  customer_appreciation?: OrganizationalRecognitionSection;
+  sales_expert_recognition?: OrganizationalRecognitionSection;
+  organizational_self_love_connection?: OrganizationalRecognitionSection;
+  leadership_insights?: OrganizationalRecognitionSection;
+  organizational_trust_connection?: OrganizationalRecognitionSection;
+  organizational_privacy_principles?: OrganizationalRecognitionSection;
+  organizational_recognition_dogfooding?: Record<string, unknown>;
+  oraebp97_integration_links?: IntegrationLinkItem[];
+  organizational_recognition_summary?: OrganizationalRecognitionSummary;
+  organizational_recognition_success_criteria?: SuccessCriterion[];
+  organizational_recognition_vision?: string;
+  organizational_recognition_vision_phrases?: string[];
+  organizational_recognition_privacy_note?: string;
   [key: string]: unknown;
 };
 

@@ -1,0 +1,64 @@
+ABOS Implementation Blueprint Phase 101 — Commerce Intelligence Engine
+Route: /app/commerce-intelligence
+Engine: Repo Phase 101 Commerce Intelligence Engine (_cie_*)
+
+Mission
+Commercial outcomes through opportunity discovery, product intelligence, and market awareness.
+
+Philosophy
+Wisdom guides commerce — sustainable opportunities aligned with strengths and customer needs.
+Awareness not hype — trends inform, humans decide.
+
+ABOS principle
+Wisdom not speculation. Aipify Commerce Companion informs and prepares product research, trend awareness, margin analysis, and supplier evaluation. Humans approve every import and commercial decision.
+
+Vision
+We understand our commercial opportunities more clearly than ever before.
+
+Objectives
+1. Trend intelligence — market awareness without hype
+2. Product opportunity discovery — fit customer, store, margin, and trust
+3. Margin intelligence — wisdom before scale
+4. Supplier insights — reliability and risk awareness
+5. Store fit analysis — catalog alignment with audience and brand
+6. Commerce strategy connection — purpose, sustainable growth, customer needs
+
+Trend intelligence (awareness not hype)
+🦉 Context before action — margin and store fit before chasing popularity
+🌹 Audience-fit opportunities aligned with store strengths
+🔔 Pause when saturated markets or weak margins signal impulsive tests
+
+Supplier insights
+🦉 Reliability patterns — delivery, defects, price stability
+🌹 Trusted suppliers for limited testing volume
+🔔 High-risk suppliers should block impulsive large orders
+
+Commerce Companion guidance
+Use "Commerce Companion" or "Aipify" — never generic "AI commerce bot".
+🦉 Would a margin and store-fit summary help before you decide?
+🌹 Shall Aipify prepare a test-product checklist when store fit is strong?
+🔔 Would pausing for supplier evaluation feel wise when risk signals are mixed?
+
+Limitation principles — wisdom not speculation
+Never promise guaranteed success.
+Never push impulsive decisions from trend hype alone.
+Never recommend popularity-only products that ignore store fit or values.
+Never ignore margin thresholds or supplier risk for short-term trends.
+
+Self Love connection
+Patience and disciplined decisions beat impulsive product launches — sustainable commerce grows one thoughtful choice at a time.
+
+Distinctions
+Commerce Performance Phase 104 (/app/commerce-performance) — profit operations, cross-link only
+Revenue Intelligence Blueprint Phase 39 (/app/commercial) — MRR/ARR only
+Strategic Intelligence A.31 — cross-link for market signals
+Curiosity A.87 Phase 80 — cross-link for opportunity exploration
+
+Cross-links
+Integration Engine A.8, Business DNA, Purpose & Values Phase 95, Decision Support, Marketplace A.45
+
+Dogfooding
+Sportsklær.no — product research, supplier evaluation, margin analysis, store fit validation
+
+Preferred phrasing
+Aipify recommends / Aipify has found / Aipify prepares — not "the AI says buy this product"

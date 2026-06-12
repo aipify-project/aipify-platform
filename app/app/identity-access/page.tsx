@@ -38,6 +38,7 @@ export default async function IdentityPermissionsPage() {
           approvalRequired: t(`${p}.approvalRequired`),
           yourPermissions: t(`${p}.yourPermissions`),
           mfaReadiness: t(`${p}.mfaReadiness`),
+          twoFactorSetup: t(`${p}.twoFactorSetup`),
           recentAccessEvents: t(`${p}.recentAccessEvents`),
           successCriteria: t(`${p}.successCriteria`),
           defaultRoles: t(`${p}.defaultRoles`),

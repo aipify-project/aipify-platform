@@ -94,3 +94,14 @@ export type NormalizedBriefingEvent = {
   occurred_at?: string;
   metadata?: Record<string, unknown>;
 };
+
+export type CompanionContextBriefing = {
+  has_customer: boolean;
+  enabled?: boolean;
+  context?: string;
+  summary?: string;
+  key_items?: BriefKeyItem[];
+  metrics?: Record<string, number | string>;
+  companion_note?: string;
+  privacy_note?: string;
+};

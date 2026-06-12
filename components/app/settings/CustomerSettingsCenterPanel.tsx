@@ -50,6 +50,7 @@ type CustomerSettingsCenterPanelProps = {
       quality: string;
       assistantIdentity: string;
       companionPresence: string;
+      twoFactor: string;
     };
   };
 };
@@ -208,6 +209,9 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
         </Link>
         <Link href="/app/settings/quality" className="block text-indigo-600 hover:underline">
           {labels.links.quality}
+        </Link>
+        <Link href="/app/settings/two-factor" className="block text-indigo-600 hover:underline">
+          {labels.links.twoFactor}
         </Link>
       </section>
     </div>

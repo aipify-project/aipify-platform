@@ -104,7 +104,48 @@ export function AiEthicsResponsibleUseEngineDashboardPanel({ labels }: Props) {
             </Link>
           ) : null
         )}
+        {(dashboard.tehgbp98_integration_links ?? []).slice(0, 3).map((link: BlueprintIntegrationLink) =>
+          link.route ? (
+            <Link key={`tehgbp98-${link.route}`} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+              {link.label ?? link.route}
+            </Link>
+          ) : null
+        )}
       </div>
+
+      {dashboard.implementation_blueprint_phase98 ? (
+        <section className="rounded-xl border border-amber-200 bg-amber-50/50 p-6">
+          <h2 className="text-sm font-semibold text-amber-900">{labels.trustGovernanceBlueprintTitle}</h2>
+          <p className="mt-1 text-xs uppercase tracking-wide text-amber-700">
+            {dashboard.implementation_blueprint_phase98.title ?? labels.blueprintPhase98}
+            {dashboard.implementation_blueprint_phase98.engine_phase
+              ? ` · ${dashboard.implementation_blueprint_phase98.engine_phase}`
+              : ""}
+          </p>
+          {dashboard.tehgbp98_mission ? (
+            <p className="mt-2 text-sm font-medium text-amber-900">{dashboard.tehgbp98_mission}</p>
+          ) : null}
+          {dashboard.tehgbp98_philosophy ? (
+            <p className="mt-2 text-sm text-amber-900">{dashboard.tehgbp98_philosophy}</p>
+          ) : null}
+          {dashboard.tehgbp98_vision ? (
+            <p className="mt-2 text-sm italic text-amber-800">{dashboard.tehgbp98_vision}</p>
+          ) : null}
+          {dashboard.tehgbp98_abos_principle ? (
+            <p className="mt-2 text-xs text-amber-800">{dashboard.tehgbp98_abos_principle}</p>
+          ) : null}
+          {dashboard.tehgbp98_distinction_note ? (
+            <p className="mt-2 text-xs text-amber-700">{dashboard.tehgbp98_distinction_note}</p>
+          ) : null}
+          {dashboard.tehgbp98_vision_phrases && dashboard.tehgbp98_vision_phrases.length > 0 ? (
+            <ul className="mt-3 list-inside list-disc space-y-1 text-xs text-amber-800">
+              {dashboard.tehgbp98_vision_phrases.slice(0, 4).map((phrase) => (
+                <li key={phrase}>{phrase}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
 
       {dashboard.implementation_blueprint_phase65 ? (
         <section className="rounded-xl border border-teal-200 bg-teal-50/50 p-6">
@@ -204,6 +245,84 @@ export function AiEthicsResponsibleUseEngineDashboardPanel({ labels }: Props) {
           <pre className="mt-2 overflow-auto text-xs text-gray-700">{JSON.stringify(summary, null, 2)}</pre>
         </div>
       )}
+
+      {dashboard.trust_ethics_governance_engagement_summary ? (
+        <section className="rounded-xl border border-amber-100 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.trustGovernanceEngagementSummary}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {[
+              { label: labels.approvedUseCases, value: dashboard.trust_ethics_governance_engagement_summary.approved_use_cases },
+              { label: labels.proposedUseCases, value: dashboard.trust_ethics_governance_engagement_summary.proposed_use_cases },
+              { label: labels.overdueReviews, value: dashboard.trust_ethics_governance_engagement_summary.overdue_ethics_reviews },
+              { label: labels.highRiskActive, value: dashboard.trust_ethics_governance_engagement_summary.high_risk_active },
+              { label: labels.recentAuditEvents, value: dashboard.trust_ethics_governance_engagement_summary.recent_ethics_audit_events },
+            ].map((item) => (
+              <div key={item.label} className="rounded-lg border border-gray-100 bg-gray-50 p-3">
+                <p className="text-xs text-gray-500">{item.label}</p>
+                <p className="mt-1 text-lg font-semibold text-gray-800">{String(item.value ?? "—")}</p>
+              </div>
+            ))}
+          </div>
+          {dashboard.trust_ethics_governance_engagement_summary.summary_text ? (
+            <p className="mt-2 text-xs text-gray-500">{dashboard.trust_ethics_governance_engagement_summary.summary_text}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.tehgbp98_objectives && dashboard.tehgbp98_objectives.length > 0 ? (
+        <section className="rounded-xl border border-amber-100 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.trustGovernanceObjectives}</h3>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            {dashboard.tehgbp98_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.ethical_questions ? (
+        <GuidingQuestionsSection title={labels.ethicalQuestions} data={dashboard.ethical_questions} />
+      ) : null}
+
+      {dashboard.governance_principles ? (
+        <JsonSection title={labels.governancePrinciples} data={dashboard.governance_principles} />
+      ) : null}
+
+      {dashboard.human_in_the_loop ? (
+        <JsonSection title={labels.humanInTheLoop} data={dashboard.human_in_the_loop} />
+      ) : null}
+
+      {dashboard.companion_transparency ? (
+        <JsonSection title={labels.companionTransparency} data={dashboard.companion_transparency} />
+      ) : null}
+
+      {dashboard.ethical_review_practices ? (
+        <JsonSection title={labels.ethicalReviewPractices} data={dashboard.ethical_review_practices} />
+      ) : null}
+
+      {dashboard.tehgbp98_companion_guidance ? (
+        <JsonSection title={labels.trustGovernanceCompanionGuidance} data={dashboard.tehgbp98_companion_guidance} />
+      ) : null}
+
+      {dashboard.tehgbp98_self_love_connection ? (
+        <JsonSection title={labels.trustGovernanceSelfLoveConnection} data={dashboard.tehgbp98_self_love_connection} />
+      ) : null}
+
+      {dashboard.tehgbp98_leadership_connection ? (
+        <JsonSection title={labels.leadershipConnection} data={dashboard.tehgbp98_leadership_connection} />
+      ) : null}
+
+      {dashboard.tehgbp98_trust_connection ? (
+        <JsonSection title={labels.trustGovernanceTrustConnection} data={dashboard.tehgbp98_trust_connection} />
+      ) : null}
+
+      {dashboard.privacy_principles ? (
+        <PrivacyPrinciplesSection title={labels.privacyPrinciples} data={dashboard.privacy_principles} />
+      ) : null}
+
+      {dashboard.tehgbp98_dogfooding ? (
+        <JsonSection title={labels.trustGovernanceDogfooding} data={dashboard.tehgbp98_dogfooding} />
+      ) : null}
 
       {dashboard.council_engagement_summary ? (
         <section className="rounded-xl border border-teal-100 bg-white p-6">
@@ -394,6 +513,17 @@ export function AiEthicsResponsibleUseEngineDashboardPanel({ labels }: Props) {
         <JsonSection title={labels.oversightTrends} data={dashboard.oversight_trends} />
       )}
 
+      {dashboard.tehgbp98_success_criteria && dashboard.tehgbp98_success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-amber-100 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.trustGovernanceSuccessCriteria}</h3>
+          <ul className="mt-3 space-y-2">
+            {dashboard.tehgbp98_success_criteria.map((criterion) => (
+              <SuccessCriterionRow key={criterion.key ?? criterion.label} criterion={criterion} />
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       {dashboard.cecbp_success_criteria && dashboard.cecbp_success_criteria.length > 0 ? (
         <section className="rounded-xl border border-teal-100 bg-white p-6">
           <h3 className="text-sm font-semibold text-gray-900">{labels.councilSuccessCriteria}</h3>
@@ -578,6 +708,37 @@ function GuidingQuestionsSection({
               {q.question ? <p className="mt-1 text-xs text-gray-600">{q.question}</p> : null}
             </div>
           ))}
+        </div>
+      ) : null}
+    </section>
+  );
+}
+
+function PrivacyPrinciplesSection({
+  title,
+  data,
+}: {
+  title: string;
+  data: { principle?: string; never?: string[]; always?: string[] };
+}) {
+  return (
+    <section className="rounded-xl border border-gray-200 bg-white p-6">
+      <h3 className="text-sm font-semibold text-gray-900">{title}</h3>
+      {data.principle ? <p className="mt-1 text-xs text-gray-500">{data.principle}</p> : null}
+      {data.never && data.never.length > 0 ? (
+        <div className="mt-3">
+          <p className="text-xs font-medium text-rose-700">Never</p>
+          <ul className="mt-1 list-inside list-disc space-y-1 text-sm text-gray-600">
+            {data.never.map((item) => <li key={item}>{item}</li>)}
+          </ul>
+        </div>
+      ) : null}
+      {data.always && data.always.length > 0 ? (
+        <div className="mt-3">
+          <p className="text-xs font-medium text-emerald-700">Always</p>
+          <ul className="mt-1 list-inside list-disc space-y-1 text-sm text-gray-600">
+            {data.always.map((item) => <li key={item}>{item}</li>)}
+          </ul>
         </div>
       ) : null}
     </section>

@@ -4,7 +4,10 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseProductAutomationDashboard,
+  type BlueprintObjective,
+  type CompanionGuidanceExample,
   type ProductAutomationDashboard,
+  type WorkflowPipelineStep,
 } from "@/lib/aipify/product-automation";
 
 type ProductAutomationDashboardPanelProps = {
@@ -66,6 +69,18 @@ export function ProductAutomationDashboardPanel({ labels }: ProductAutomationDas
   if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
   if (!dashboard?.has_customer) return null;
 
+  const objectives = dashboard.product_automation_objectives ?? [];
+  const pipelineSteps = dashboard.workflow_automation?.pipeline_steps ?? [];
+  const companionExamples = dashboard.product_companion_guidance?.examples ?? [];
+  const approvalModes = dashboard.approval_principles?.modes ?? [];
+  const successCriteria = dashboard.product_automation_success_criteria ?? [];
+  const visionPhrases = dashboard.product_automation_vision_phrases ?? [];
+  const integrationLinks = dashboard.paebp102_integration_links ?? [];
+  const engagement = dashboard.product_automation_engagement_summary;
+  const primaryLocales = Array.isArray(dashboard.product_translation?.primary_locales)
+    ? (dashboard.product_translation?.primary_locales as Array<{ code?: string; label?: string }>)
+    : [];
+
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap gap-2">
@@ -75,6 +90,12 @@ export function ProductAutomationDashboardPanel({ labels }: ProductAutomationDas
         <Link href="/app/dropshipping-operations" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.dropshippingOperations}
         </Link>
+        <Link href="/app/workflow-orchestration-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.workflowOrchestration}
+        </Link>
+        <Link href="/app/approvals" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.approvals}
+        </Link>
         <Link href="/app/platform-install" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.platformInstall}
         </Link>
@@ -82,6 +103,163 @@ export function ProductAutomationDashboardPanel({ labels }: ProductAutomationDas
           {labels.knowledgeCenter}
         </Link>
       </div>
+
+      <section className="rounded-xl border border-indigo-200 bg-indigo-50/40 p-6">
+        <h2 className="text-sm font-semibold text-indigo-900">{labels.blueprintTitle}</h2>
+        {dashboard.product_automation_mission ? (
+          <p className="mt-2 text-sm font-medium text-indigo-900">{dashboard.product_automation_mission}</p>
+        ) : null}
+        {dashboard.product_automation_philosophy ? (
+          <p className="mt-2 text-sm text-indigo-800">{dashboard.product_automation_philosophy}</p>
+        ) : null}
+        {dashboard.product_automation_abos_principle ? (
+          <p className="mt-2 text-xs text-indigo-700">{dashboard.product_automation_abos_principle}</p>
+        ) : null}
+        {dashboard.product_automation_vision ? (
+          <p className="mt-2 text-sm italic text-indigo-800">{dashboard.product_automation_vision}</p>
+        ) : null}
+        {dashboard.implementation_blueprint_phase102?.engine_phase ? (
+          <p className="mt-1 text-xs text-indigo-600">
+            {dashboard.implementation_blueprint_phase102.phase ?? labels.blueprintPhase}
+            {dashboard.implementation_blueprint_phase102.engine_phase
+              ? ` · ${dashboard.implementation_blueprint_phase102.engine_phase}`
+              : ""}
+          </p>
+        ) : null}
+      </section>
+
+      {engagement ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.engagementSummary}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>{labels.pipelineSteps}: {engagement.pipeline_steps ?? 0}</span>
+            <span>{labels.primaryLocales}: {engagement.primary_locales ?? 0}</span>
+            <span>{labels.translationVersions}: {engagement.translation_versions ?? 0}</span>
+            <span>{labels.rewritingVersions}: {engagement.rewriting_versions ?? 0}</span>
+            <span>{labels.seoOpen}: {engagement.seo_recommendations_open ?? 0}</span>
+            <span>{labels.productsTracked}: {engagement.products_tracked ?? 0}</span>
+          </div>
+          {engagement.privacy_note ? <p className="mt-2 text-xs text-gray-500">{engagement.privacy_note}</p> : null}
+        </section>
+      ) : null}
+
+      {objectives.length > 0 ? (
+        <section>
+          <h2 className="text-sm font-semibold text-gray-900">{labels.objectives}</h2>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {objectives.map((o: BlueprintObjective) => (
+              <article key={o.key} className="rounded-lg border border-violet-100 bg-violet-50/30 p-4">
+                <p className="font-medium text-violet-900">
+                  {o.emoji ? `${o.emoji} ` : ""}
+                  {o.label}
+                </p>
+                {o.description ? <p className="mt-1 text-xs text-violet-800">{o.description}</p> : null}
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {pipelineSteps.length > 0 ? (
+        <section>
+          <h2 className="text-sm font-semibold text-gray-900">{labels.workflowPipeline}</h2>
+          <ol className="mt-3 space-y-2">
+            {pipelineSteps.map((step: WorkflowPipelineStep) => (
+              <li key={step.key} className="flex gap-3 rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+                <span className="font-bold text-violet-700">{step.step}.</span>
+                <div>
+                  <span className="font-medium text-gray-900">{step.label}</span>
+                  {step.description ? <p className="text-xs text-gray-600">{step.description}</p> : null}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : null}
+
+      {primaryLocales.length > 0 ? (
+        <section>
+          <h2 className="text-sm font-semibold text-gray-900">{labels.supportedLocales}</h2>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {primaryLocales.map((locale) => (
+              <span key={locale.code} className="rounded-full bg-indigo-100 px-2 py-0.5 text-xs uppercase text-indigo-800">
+                {locale.code}
+              </span>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {companionExamples.length > 0 ? (
+        <section>
+          <h2 className="text-sm font-semibold text-gray-900">{labels.companionGuidance}</h2>
+          <ul className="mt-3 space-y-2">
+            {companionExamples.map((ex: CompanionGuidanceExample) => (
+              <li key={ex.key} className="rounded-lg border border-sky-100 bg-sky-50/40 px-3 py-2 text-sm">
+                <span className="font-medium text-sky-900">
+                  {ex.emoji ? `${ex.emoji} ` : ""}
+                  {ex.prompt}
+                </span>
+                {ex.consideration ? <p className="mt-1 text-xs text-sky-700">{ex.consideration}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {approvalModes.length > 0 ? (
+        <section>
+          <h2 className="text-sm font-semibold text-gray-900">{labels.approvalPrinciples}</h2>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {approvalModes.map((mode) => (
+              <article key={mode.key} className="rounded-lg border border-emerald-100 bg-emerald-50/30 p-4">
+                <p className="font-medium text-emerald-900">{mode.label}</p>
+                {mode.description ? <p className="mt-1 text-xs text-emerald-800">{mode.description}</p> : null}
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {successCriteria.length > 0 ? (
+        <section>
+          <h2 className="text-sm font-semibold text-gray-900">{labels.successCriteria}</h2>
+          <ul className="mt-3 space-y-1">
+            {successCriteria.map((c) => (
+              <li key={c.key} className="flex items-start gap-2 text-sm text-gray-700">
+                <span className={c.met ? "text-emerald-600" : "text-gray-400"}>{c.met ? "✓" : "○"}</span>
+                <span>{c.label}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {integrationLinks.length > 0 ? (
+        <section>
+          <h2 className="text-sm font-semibold text-gray-900">{labels.integrationLinks}</h2>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {integrationLinks.map((link) =>
+              link.route ? (
+                <Link key={link.key ?? link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+                  {link.label ?? link.route}
+                </Link>
+              ) : null
+            )}
+          </div>
+        </section>
+      ) : null}
+
+      {visionPhrases.length > 0 ? (
+        <section className="rounded-lg border border-gray-100 bg-gray-50 p-4">
+          <h2 className="text-sm font-semibold text-gray-900">{labels.visionPhrases}</h2>
+          <ul className="mt-2 space-y-1 text-sm text-gray-700">
+            {visionPhrases.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">
         <h2 className="text-sm font-semibold text-violet-900">{labels.readinessOverview}</h2>

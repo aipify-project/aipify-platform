@@ -1,0 +1,61 @@
+ABOS Implementation Blueprint Phase 102 — Product Automation Engine
+Route: /app/product-automation
+Engine: Product Automation Engine repo Phase 102 (_pae_*)
+Blueprint helpers: _paebp102_* (never collide with _pae_*)
+
+Mission
+Streamline product operations via automation, localization, and optimization with strategic oversight.
+
+Philosophy
+Automation supports creativity and consistency — humans own strategic decisions.
+
+ABOS principle
+Humans in control — Aipify Product Companion prepares import, translation, rewriting, SEO, and category suggestions; humans choose draft, review, or approved publish paths. auto_publish_disabled remains default true.
+
+Vision
+We accomplished in minutes what previously required hours.
+
+Objectives (6)
+1. Product import automation — Shopify, WooCommerce, CSV, supplier feeds; awaiting review by default
+2. Localization & translation — no/en/sv/da/de/fr plus additional language scaffold
+3. Brand voice rewriting — professional, luxury, sport performance, custom brand voice
+4. SEO optimization — title, meta, keywords, structured data with human apply/dismiss
+5. Category & quality readiness — suggestions and quality validation before store-ready
+6. Approval workflow integration — draft, human review, opt-in auto; cross-link Trust & Action and Workflow Orchestration Phase 86
+
+Product Companion guidance (not "AI product bot")
+🦉 Import ready — translation summary for target locales?
+🌹 Brand voice rewriting preview before approval?
+🔔 SEO and categories ready — human review required before publish?
+
+Workflow pipeline
+import → translate → rewrite → SEO → categories → approval → publish
+
+Approval principles
+- Draft — default safe path
+- Human review — mandatory before publication
+- Auto publish — tenant opt-in only, never default
+- Approval workflows — /app/approvals and /app/workflow-orchestration-engine
+
+Cross-links
+- Commerce Intelligence Blueprint Phase 101 — /app/commerce-intelligence (discovery vs automation)
+- Dropshipping Operations Phase 103 — /app/dropshipping-operations
+- Workflow Orchestration Phase 86 — /app/workflow-orchestration-engine
+- Trust & Action — /app/approvals
+- Platform Install Phase 100 — /app/platform-install
+- Self Love A.76 — /app/self-love-engine (principle only)
+
+Dogfooding
+Sportsklær.no — Shopify import, Nordic locales (no/sv/da), sport performance rewriting, SEO, supplier sync context
+
+Preferred wording
+- "Aipify Product Companion" not "AI product bot"
+- "Human review before publish" not "automatic publishing"
+- "Prepare store-ready content" not "replace your merchandising team"
+- "We accomplished in minutes what previously required hours" — efficiency without sacrificing accountability
+
+Boundaries
+- Never silent auto-publish
+- Never bypass quality warnings for critical severity without documented approval
+- Never store raw supplier PII in automation audit logs
+- Commerce Intelligence discovers — Product Automation prepares after human import decision

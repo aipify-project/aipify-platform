@@ -8,12 +8,16 @@ import type {
   MemoryCapability,
   MemoryCategoryBlock,
   MemoryContinuitySettings,
+  MemoryLegacyCategory,
+  MemoryLegacyBlueprintSection,
+  MemoryLegacyEngagementSummary,
   MemoryLevelSummary,
   OrganizationDecisionRegisterEntry,
   OrganizationMemoryRecord,
   OrganizationMemoryReview,
   OrganizationalMemoryEngineCard,
   OrganizationalMemoryEngineDashboard,
+  OrganizationalMemoryLegacyBlueprint,
   OrganizationalMemorySummary,
   RecurringTheme,
 } from "./types";
@@ -138,6 +142,73 @@ export function parseOrganizationalMemoryEngineDashboard(
       ? (d.continuity_vision_phrases as string[])
       : undefined,
     continuity_distinction_note: asString(d.continuity_distinction_note) || undefined,
+    implementation_blueprint_phase94:
+      typeof d.implementation_blueprint_phase94 === "object" && d.implementation_blueprint_phase94
+        ? (d.implementation_blueprint_phase94 as OrganizationalMemoryEngineDashboard["implementation_blueprint_phase94"])
+        : undefined,
+    organizational_memory_legacy_blueprint:
+      typeof d.organizational_memory_legacy_blueprint === "object" &&
+      d.organizational_memory_legacy_blueprint
+        ? (d.organizational_memory_legacy_blueprint as OrganizationalMemoryLegacyBlueprint)
+        : undefined,
+    memory_legacy_distinction_note: asString(d.memory_legacy_distinction_note) || undefined,
+    memory_legacy_mission: asString(d.memory_legacy_mission) || undefined,
+    memory_legacy_philosophy: asString(d.memory_legacy_philosophy) || undefined,
+    memory_legacy_abos_principle: asString(d.memory_legacy_abos_principle) || undefined,
+    memory_legacy_objectives: asRecordList<ContinuityObjective>(d.memory_legacy_objectives),
+    memory_legacy_categories: asRecordList<MemoryLegacyCategory>(d.memory_legacy_categories),
+    memory_legacy_questions:
+      typeof d.memory_legacy_questions === "object" && d.memory_legacy_questions
+        ? (d.memory_legacy_questions as MemoryLegacyBlueprintSection)
+        : undefined,
+    memory_legacy_preservation:
+      typeof d.memory_legacy_preservation === "object" && d.memory_legacy_preservation
+        ? (d.memory_legacy_preservation as MemoryLegacyBlueprintSection)
+        : undefined,
+    memory_legacy_companion_guidance:
+      typeof d.memory_legacy_companion_guidance === "object" && d.memory_legacy_companion_guidance
+        ? (d.memory_legacy_companion_guidance as MemoryLegacyBlueprintSection)
+        : undefined,
+    memory_legacy_meeting_companion_connection:
+      typeof d.memory_legacy_meeting_companion_connection === "object" &&
+      d.memory_legacy_meeting_companion_connection
+        ? (d.memory_legacy_meeting_companion_connection as MemoryLegacyBlueprintSection)
+        : undefined,
+    memory_legacy_knowledge_center_connection:
+      typeof d.memory_legacy_knowledge_center_connection === "object" &&
+      d.memory_legacy_knowledge_center_connection
+        ? (d.memory_legacy_knowledge_center_connection as MemoryLegacyBlueprintSection)
+        : undefined,
+    memory_legacy_self_love_connection:
+      typeof d.memory_legacy_self_love_connection === "object" &&
+      d.memory_legacy_self_love_connection
+        ? (d.memory_legacy_self_love_connection as MemoryLegacyBlueprintSection)
+        : undefined,
+    memory_legacy_trust_connection:
+      typeof d.memory_legacy_trust_connection === "object" && d.memory_legacy_trust_connection
+        ? (d.memory_legacy_trust_connection as MemoryLegacyBlueprintSection)
+        : undefined,
+    memory_legacy_privacy_principles:
+      typeof d.memory_legacy_privacy_principles === "object" && d.memory_legacy_privacy_principles
+        ? (d.memory_legacy_privacy_principles as MemoryLegacyBlueprintSection)
+        : undefined,
+    memory_legacy_dogfooding:
+      typeof d.memory_legacy_dogfooding === "object" && d.memory_legacy_dogfooding
+        ? (d.memory_legacy_dogfooding as Record<string, unknown>)
+        : undefined,
+    omlebp94_integration_links: asRecordList<IntegrationLink>(d.omlebp94_integration_links),
+    memory_legacy_engagement_summary:
+      typeof d.memory_legacy_engagement_summary === "object" && d.memory_legacy_engagement_summary
+        ? (d.memory_legacy_engagement_summary as MemoryLegacyEngagementSummary)
+        : undefined,
+    memory_legacy_success_criteria: asRecordList<AbosSuccessCriterion>(
+      d.memory_legacy_success_criteria
+    ),
+    memory_legacy_vision: asString(d.memory_legacy_vision) || undefined,
+    memory_legacy_vision_phrases: Array.isArray(d.memory_legacy_vision_phrases)
+      ? (d.memory_legacy_vision_phrases as string[])
+      : undefined,
+    memory_legacy_privacy_note: asString(d.memory_legacy_privacy_note) || undefined,
   };
 }
 

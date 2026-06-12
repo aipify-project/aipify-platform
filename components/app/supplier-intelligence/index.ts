@@ -1,0 +1,1 @@
+export { SupplierIntelligenceDashboardPanel } from "./SupplierIntelligenceDashboardPanel";

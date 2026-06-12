@@ -64,6 +64,22 @@ export default async function AiEthicsResponsibleUseEnginePage() {
           councilSuccessCriteria: t(`${p}.blueprint.phase65.successCriteria`),
           overdueReviews: t(`${p}.blueprint.phase65.overdueReviews`),
           recentAuditEvents: t(`${p}.blueprint.phase65.recentAuditEvents`),
+          trustGovernanceBlueprintTitle: t(`${p}.trustEthicsGovernance.blueprintTitle`),
+          blueprintPhase98: t(`${p}.trustEthicsGovernance.phase98Title`),
+          trustGovernanceEngagementSummary: t(`${p}.trustEthicsGovernance.engagementSummary`),
+          trustGovernanceObjectives: t(`${p}.trustEthicsGovernance.objectives`),
+          ethicalQuestions: t(`${p}.trustEthicsGovernance.ethicalQuestions`),
+          governancePrinciples: t(`${p}.trustEthicsGovernance.governancePrinciples`),
+          humanInTheLoop: t(`${p}.trustEthicsGovernance.humanInTheLoop`),
+          companionTransparency: t(`${p}.trustEthicsGovernance.companionTransparency`),
+          ethicalReviewPractices: t(`${p}.trustEthicsGovernance.ethicalReviewPractices`),
+          trustGovernanceCompanionGuidance: t(`${p}.trustEthicsGovernance.companionGuidance`),
+          trustGovernanceSelfLoveConnection: t(`${p}.trustEthicsGovernance.selfLoveConnection`),
+          leadershipConnection: t(`${p}.trustEthicsGovernance.leadershipConnection`),
+          trustGovernanceTrustConnection: t(`${p}.trustEthicsGovernance.trustConnection`),
+          privacyPrinciples: t(`${p}.trustEthicsGovernance.privacyPrinciples`),
+          trustGovernanceDogfooding: t(`${p}.trustEthicsGovernance.dogfooding`),
+          trustGovernanceSuccessCriteria: t(`${p}.trustEthicsGovernance.successCriteria`),
         }} />
     </div>
   );

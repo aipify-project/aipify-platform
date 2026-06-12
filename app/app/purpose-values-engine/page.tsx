@@ -64,6 +64,21 @@ export default async function PurposeValuesEnginePage() {
           criterionMet: t(`${p}.blueprint.criterionMet`),
           criterionPending: t(`${p}.blueprint.criterionPending`),
           visionPhrases: t(`${p}.blueprint.visionPhrases`),
+          culturalAlignmentObjectives: t(`${p}.culturalAlignment.objectives`),
+          culturalAlignmentPurposeQuestions: t(`${p}.culturalAlignment.purposeQuestions`),
+          culturalAlignmentValuesReflection: t(`${p}.culturalAlignment.valuesReflection`),
+          culturalAlignmentObservations: t(`${p}.culturalAlignment.observations`),
+          culturalAlignmentOnboarding: t(`${p}.culturalAlignment.onboarding`),
+          culturalAlignmentCompanionGuidance: t(`${p}.culturalAlignment.companionGuidance`),
+          culturalAlignmentRecognition: t(`${p}.culturalAlignment.recognition`),
+          culturalAlignmentLeadership: t(`${p}.culturalAlignment.leadership`),
+          culturalAlignmentPrivacy: t(`${p}.culturalAlignment.privacy`),
+          culturalAlignmentEngagement: t(`${p}.culturalAlignment.engagementSummary`),
+          culturalAlignmentPurposeQuestionsCount: t(`${p}.culturalAlignment.purposeQuestionsCount`),
+          culturalAlignmentValuesReflectionCount: t(`${p}.culturalAlignment.valuesReflectionCount`),
+          culturalAlignmentObservationsCount: t(`${p}.culturalAlignment.observationsCount`),
+          culturalAlignmentSuccessCriteria: t(`${p}.culturalAlignment.successCriteria`),
+          culturalAlignmentVisionPhrases: t(`${p}.culturalAlignment.visionPhrases`),
         }}
       />
     </div>

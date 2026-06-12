@@ -1,10 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { getPartnerTierLabel } from "@/lib/internal-language-model/implementation-blueprint-phase33-vocabulary";
 import {
   parsePartnerCredentialVerification,
   parsePartnerEcosystemDashboard,
+  type AbosSuccessCriterion,
+  type BlueprintObjective,
+  type CompanionGuidanceExample,
+  type IntegrationLink,
   type PartnerEcosystemDashboard,
   type PartnerProfile,
 } from "@/lib/aipify/partner-certification";
@@ -12,6 +17,50 @@ import {
 type PartnerCertificationDashboardPanelProps = {
   labels: Record<string, string>;
 };
+
+function ObjectiveCard({ objective }: { objective: BlueprintObjective }) {
+  return (
+    <div className="rounded-lg border border-violet-100 bg-violet-50/40 px-3 py-2 text-sm">
+      <span className="font-medium">
+        {objective.emoji ? `${objective.emoji} ` : ""}
+        {objective.label}
+      </span>
+      {objective.description ? <p className="mt-1 text-xs text-violet-900">{objective.description}</p> : null}
+    </div>
+  );
+}
+
+function CompanionGuidanceCard({ example }: { example: CompanionGuidanceExample }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+      <p className="font-medium">
+        {example.emoji ? `${example.emoji} ` : ""}
+        {example.prompt}
+      </p>
+      {example.consideration ? <p className="mt-1 text-xs text-gray-600">{example.consideration}</p> : null}
+    </div>
+  );
+}
+
+function SuccessCriterionRow({
+  criterion,
+  metLabel,
+  pendingLabel,
+}: {
+  criterion: AbosSuccessCriterion;
+  metLabel: string;
+  pendingLabel: string;
+}) {
+  return (
+    <div className="flex flex-wrap items-start justify-between gap-2 rounded border border-gray-100 px-3 py-2 text-sm">
+      <span className="text-gray-800">{criterion.label}</span>
+      <span className={criterion.met ? "text-xs text-green-700" : "text-xs text-amber-700"}>
+        {criterion.met ? metLabel : pendingLabel}
+      </span>
+      {criterion.note ? <p className="w-full text-xs text-gray-500">{criterion.note}</p> : null}
+    </div>
+  );
+}
 
 function tierClass(tier?: string) {
   switch (tier) {
@@ -86,8 +135,150 @@ export function PartnerCertificationDashboardPanel({ labels }: PartnerCertificat
     return p.partner_tier === directoryFilter || p.partner_type === directoryFilter;
   });
 
+  const integrationLinks: IntegrationLink[] = dashboard.gpebp107_integration_links ?? [];
+
   return (
     <div className="space-y-6">
+      <div className="flex flex-wrap gap-2">
+        <Link href="/app/sales-expert-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.salesExpertEngine}
+        </Link>
+        <Link href="/app/marketplace-partner-ecosystem-foundation-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.marketplacePartnerEcosystem}
+        </Link>
+        <Link href="/app/partner-success-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.partnerSuccessEngine}
+        </Link>
+        <Link href="/app/aipify-academy" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.aipifyAcademy}
+        </Link>
+        <Link href="/app/knowledge-center" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.knowledgeCenter}
+        </Link>
+        {integrationLinks.map((link) =>
+          link.route ? (
+            <Link key={link.route + (link.key ?? "")} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+              {link.label ?? link.route}
+            </Link>
+          ) : null,
+        )}
+      </div>
+
+      <section className="rounded-xl border border-violet-200 bg-violet-50/40 p-6">
+        <h2 className="text-sm font-semibold text-violet-900">{labels.blueprintTitle}</h2>
+        {dashboard.implementation_blueprint_phase107?.phase ? (
+          <p className="mt-1 text-xs text-violet-700">
+            {dashboard.implementation_blueprint_phase107.phase}
+            {dashboard.implementation_blueprint_phase107.engine_phase
+              ? ` · ${dashboard.implementation_blueprint_phase107.engine_phase}`
+              : ""}
+          </p>
+        ) : null}
+        {dashboard.growth_partner_mission ? (
+          <p className="mt-2 text-sm font-medium text-violet-900">{dashboard.growth_partner_mission}</p>
+        ) : null}
+        {dashboard.growth_partner_philosophy ? (
+          <p className="mt-2 text-sm text-violet-900">{dashboard.growth_partner_philosophy}</p>
+        ) : null}
+        {dashboard.growth_partner_abos_principle ? (
+          <p className="mt-2 text-xs text-violet-800">{dashboard.growth_partner_abos_principle}</p>
+        ) : null}
+        {dashboard.growth_partner_distinction_note ? (
+          <p className="mt-2 text-xs text-violet-700">{dashboard.growth_partner_distinction_note}</p>
+        ) : null}
+        {dashboard.growth_partner_ecosystem_engine_note ? (
+          <p className="mt-2 text-xs text-violet-800">{dashboard.growth_partner_ecosystem_engine_note}</p>
+        ) : null}
+        {dashboard.growth_partner_vision ? (
+          <p className="mt-2 text-xs italic text-violet-800">{dashboard.growth_partner_vision}</p>
+        ) : null}
+        {dashboard.growth_partner_privacy_note ? (
+          <p className="mt-2 text-xs text-violet-700">{dashboard.growth_partner_privacy_note}</p>
+        ) : null}
+      </section>
+
+      {dashboard.growth_partner_objectives && dashboard.growth_partner_objectives.length > 0 ? (
+        <section className="rounded-xl border border-violet-200 p-6">
+          <h3 className="text-sm font-semibold text-violet-900">{labels.blueprintObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.growth_partner_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.growth_partner_companion_guidance?.examples &&
+      dashboard.growth_partner_companion_guidance.examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionGuidance}</h3>
+          {dashboard.growth_partner_companion_guidance.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.growth_partner_companion_guidance.principle}</p>
+          ) : null}
+          {dashboard.growth_partner_companion_guidance.companion_name ? (
+            <p className="mt-1 text-xs text-gray-600">
+              {dashboard.growth_partner_companion_guidance.companion_name}
+              {dashboard.growth_partner_companion_guidance.not_label
+                ? ` — ${labels.notGenericAi}: ${dashboard.growth_partner_companion_guidance.not_label}`
+                : ""}
+            </p>
+          ) : null}
+          <div className="mt-3 space-y-2">
+            {dashboard.growth_partner_companion_guidance.examples.map((example) => (
+              <CompanionGuidanceCard key={example.key ?? example.prompt} example={example} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.growth_partner_limitation_principles ? (
+        <section className="rounded-xl border border-rose-200 bg-rose-50/30 p-6">
+          <h3 className="text-sm font-semibold text-rose-900">{labels.limitationPrinciples}</h3>
+          {dashboard.growth_partner_limitation_principles.principle ? (
+            <p className="mt-2 text-sm text-rose-900">{dashboard.growth_partner_limitation_principles.principle}</p>
+          ) : null}
+          {dashboard.growth_partner_limitation_principles.must_avoid &&
+          dashboard.growth_partner_limitation_principles.must_avoid.length > 0 ? (
+            <ul className="mt-3 list-inside list-disc space-y-1 text-xs text-rose-800">
+              {dashboard.growth_partner_limitation_principles.must_avoid.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.growth_partner_self_love_connection?.quotes &&
+      dashboard.growth_partner_self_love_connection.quotes.length > 0 ? (
+        <section className="rounded-xl border border-sky-200 bg-sky-50/30 p-6">
+          <h3 className="text-sm font-semibold text-sky-900">{labels.selfLoveConnection}</h3>
+          {dashboard.growth_partner_self_love_connection.principle ? (
+            <p className="mt-2 text-sm text-sky-900">{dashboard.growth_partner_self_love_connection.principle}</p>
+          ) : null}
+          <ul className="mt-3 space-y-2 text-xs italic text-sky-800">
+            {dashboard.growth_partner_self_love_connection.quotes.map((quote) => (
+              <li key={quote}>{quote}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.growth_partner_success_criteria && dashboard.growth_partner_success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.successCriteria}</h3>
+          <div className="mt-3 space-y-2">
+            {dashboard.growth_partner_success_criteria.map((criterion) => (
+              <SuccessCriterionRow
+                key={criterion.key ?? criterion.label}
+                criterion={criterion}
+                metLabel={labels.criterionMet}
+                pendingLabel={labels.criterionPending}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">
         <h2 className="text-sm font-semibold text-violet-900">{labels.ecosystemScore}</h2>
         <p className="mt-2 text-4xl font-bold text-violet-800">

@@ -1,0 +1,121 @@
+ABOS Implementation Blueprint Phase 93 — Adaptive Learning & Organizational Capability Engine
+============================================================================================
+
+Route: /app/learning
+Engine: Learning Engine Phase 65 + Phase 29 + Blueprint Phase 23
+Helper prefix: _alocbp93_*
+Doc: IMPLEMENTATION_BLUEPRINT_PHASE93_ADAPTIVE_LEARNING_ORGANIZATIONAL_CAPABILITY.md
+
+Mission
+-------
+Identify emerging capability needs and create adaptive learning experiences for long-term success.
+
+Philosophy
+----------
+Learning happens daily through work — capture and cultivate intentionally.
+Adaptive learning should feel empowering and voluntary, not surveillance-based or compliance-driven.
+
+ABOS Principle
+--------------
+Organizations that learn fastest thrive — not necessarily those with greatest resources.
+
+Vision
+------
+"I am continually becoming more capable because this organization encourages me to learn."
+
+Objectives (6)
+--------------
+1. Capability needs detection — emerging needs from daily work signals
+2. Adaptive experiences — learning aligned to long-term success
+3. Intentional capture — cultivate learning through everyday work
+4. Organizational capability — shared transparent learning loops
+5. Empowerment not surveillance — voluntary, transparent participation
+6. Sustained success — connect adaptive learning to organizational resilience
+
+Learning Signals
+----------------
+- Support requests — recurring themes and resolution patterns
+- Mistakes & corrections — normalized learning, not punitive scoring
+- Strategic initiatives — adoption patterns from strategic intelligence
+- New technology — tool adoption and capability gaps
+- Sales Expert observations — field metadata from Sales Expert Academy
+- Customer feedback trends — aggregate satisfaction metadata
+
+Capability Questions (🦉 🌹 ❤️ 🔔)
+------------------------------------
+🦉 What capability gaps are emerging from daily work?
+🌹 What learning progress deserves recognition?
+❤️ How can learning feel empowering rather than mandatory?
+🔔 What adaptive pathways would strengthen organizational capability?
+
+Adaptive Learning Pathways
+--------------------------
+- Micro-learning — short contextual moments tied to work signals
+- Knowledge Center recommendations — gap-driven article suggestions
+- Companion-guided coaching — growth not compliance (not "AI coach")
+- Peer learning — community connections without public ranking
+- Simulation-based — practice via Simulation Lab
+- Leadership pathways — aggregate leadership capability scaffolds
+
+Companion Guidance (🦉 🌹 🔔)
+------------------------------
+Growth not compliance. Aipify observes capability signals and suggests adaptive pathways.
+Humans decide whether and when to learn. Companion — not AI coach.
+
+Knowledge Reinforcement
+-----------------------
+KC article references, organizational memory hooks, EKE procedures — metadata only.
+
+Community Learning Connection
+-----------------------------
+Peer insights via Community Phase 89 — no public leaderboards or individual comparison.
+
+Self Love Connection
+--------------------
+Normalize learning curves, celebrate progress, reduce fear of mistakes — principle at /app/self-love-engine.
+
+Leadership Insights
+-------------------
+Aggregate capability trends for leaders — no individual ranking or hidden evaluations.
+
+Trust Connection
+----------------
+Transparent adaptive learning data. Empowerment not control. All pathways voluntary.
+
+Privacy Principles
+------------------
+FORBIDDEN: surveillance-based mandatory learning, hidden evaluations, public ranking, punishment framing
+REQUIRED: voluntary pathways, transparent signal sources, aggregate leadership insights, growth tone
+
+Dogfooding
+----------
+Aipify Group: Sales Expert Academy, leadership development, product capability, Meeting Companion, KC evolution
+Unonight: first external pilot for commerce operational capability learning
+
+Phase Number Collisions
+-----------------------
+- Billing/Packaging repo Phase 93 → /app/commercial
+- Blueprint Phase 39 Revenue Intelligence → extends repo Phase 93 billing
+- Wisdom Engine A.93 → /app/wisdom-engine
+- Blueprint Phase 23 → learning adaptation on same /app/learning route (preserved)
+- THIS blueprint → adaptive learning on /app/learning
+
+Cross-Links (do not duplicate)
+------------------------------
+Learning & Training A.36 / Phase 92 → /app/learning-training-engine
+Capability Maturity A.57 → /app/capability-maturity-engine
+Knowledge Center A.5 → /app/knowledge-center-engine
+EKE → /app/settings/employee-knowledge
+Community Phase 89 → /app/community
+Continuous Improvement A.33 / Phase 90 → /app/continuous-improvement-engine
+Organizational Memory A.34 → /app/organizational-memory-engine
+Simulation Lab → /app/simulations
+Growth & Evolution A.81 → /app/growth-evolution-engine
+
+Preferred Wording
+-----------------
+- "Companion-guided coaching" not "AI coach"
+- "Aipify recommends" not generic "AI suggests"
+- "Growth not compliance" for companion guidance tone
+- "Empowerment not surveillance" for privacy framing
+- "Learning happens daily through work" for philosophy

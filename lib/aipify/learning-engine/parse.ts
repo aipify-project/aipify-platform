@@ -1,8 +1,16 @@
 import type {
   AbosSuccessCriterion,
   AdaptationPrinciples,
+  AdaptiveLearningOrganizationalCapabilityBlueprint,
+  AdaptiveLearningPathway,
+  AdaptiveOrganizationalEngagementSummary,
+  CapabilityQuestionsBlueprint,
+  CommunityLearningConnection,
   CompanionExample,
+  CompanionGuidanceBlueprint,
   IntegrationLink,
+  KnowledgeReinforcementBlueprint,
+  LeadershipInsightsBlueprint,
   LearningEngineCard,
   LearningEngineDashboard,
   LearningEngineSettings,
@@ -12,7 +20,9 @@ import type {
   LearningPattern,
   LearningRule,
   LearningAuditEntry,
+  LearningSignalsBlueprint,
   LearningSourcesBlueprint,
+  PrivacyPrinciplesBlueprint,
   SelfLoveConnection,
   TrustConnection,
 } from "./types";
@@ -93,6 +103,78 @@ function parseEngagementSummary(data: unknown): LearningEngagementSummary | unde
   return data as LearningEngagementSummary;
 }
 
+function parseAdaptiveEngagementSummary(data: unknown): AdaptiveOrganizationalEngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  const d = data as Record<string, unknown>;
+  return {
+    ...(d as AdaptiveOrganizationalEngagementSummary),
+    operational_engagement: parseEngagementSummary(d.operational_engagement),
+  };
+}
+
+function parseLearningSignals(data: unknown): LearningSignalsBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as LearningSignalsBlueprint;
+}
+
+function parseCapabilityQuestions(data: unknown): CapabilityQuestionsBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CapabilityQuestionsBlueprint;
+}
+
+function parseAdaptivePathways(data: unknown): AdaptiveLearningPathway[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as AdaptiveLearningPathway[];
+}
+
+function parseCompanionGuidance(data: unknown): CompanionGuidanceBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CompanionGuidanceBlueprint;
+}
+
+function parseKnowledgeReinforcement(data: unknown): KnowledgeReinforcementBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as KnowledgeReinforcementBlueprint;
+}
+
+function parseCommunityLearning(data: unknown): CommunityLearningConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CommunityLearningConnection;
+}
+
+function parseLeadershipInsights(data: unknown): LeadershipInsightsBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as LeadershipInsightsBlueprint;
+}
+
+function parsePrivacyPrinciples(data: unknown): PrivacyPrinciplesBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as PrivacyPrinciplesBlueprint;
+}
+
+function parseAdaptiveBlueprintBlock(data: unknown): AdaptiveLearningOrganizationalCapabilityBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  const d = data as Record<string, unknown>;
+  return {
+    ...(d as AdaptiveLearningOrganizationalCapabilityBlueprint),
+    objectives: parseLearningObjectives(d.objectives),
+    learning_signals: parseLearningSignals(d.learning_signals),
+    capability_questions: parseCapabilityQuestions(d.capability_questions),
+    adaptive_learning_pathways: parseAdaptivePathways(d.adaptive_learning_pathways),
+    companion_guidance: parseCompanionGuidance(d.companion_guidance),
+    knowledge_reinforcement: parseKnowledgeReinforcement(d.knowledge_reinforcement),
+    community_learning_connection: parseCommunityLearning(d.community_learning_connection),
+    self_love_connection: parseSelfLoveConnection(d.self_love_connection),
+    leadership_insights: parseLeadershipInsights(d.leadership_insights),
+    trust_connection: parseTrustConnection(d.trust_connection),
+    privacy_principles: parsePrivacyPrinciples(d.privacy_principles),
+    integration_links: parseIntegrationLinks(d.integration_links),
+    success_criteria: parseSuccessCriteria(d.success_criteria),
+    vision_phrases: parseStringArray(d.vision_phrases),
+    engagement_summary: parseAdaptiveEngagementSummary(d.engagement_summary),
+  };
+}
+
 export function parseLearningEngineCard(data: unknown): LearningEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
   return {
@@ -109,6 +191,12 @@ export function parseLearningEngineCard(data: unknown): LearningEngineCard {
     implementation_blueprint: d.implementation_blueprint as LearningEngineCard["implementation_blueprint"],
     engagement_summary: parseEngagementSummary(d.engagement_summary),
     blueprint_note: d.blueprint_note as string | undefined,
+    implementation_blueprint_phase93: d.implementation_blueprint_phase93 as LearningEngineCard["implementation_blueprint"],
+    adaptive_organizational_mission: d.adaptive_organizational_mission as string | undefined,
+    adaptive_organizational_abos_principle: d.adaptive_organizational_abos_principle as string | undefined,
+    adaptive_organizational_engagement_summary: parseAdaptiveEngagementSummary(d.adaptive_organizational_engagement_summary),
+    adaptive_organizational_note: d.adaptive_organizational_note as string | undefined,
+    adaptive_organizational_vision_note: d.adaptive_organizational_vision_note as string | undefined,
   };
 }
 
@@ -152,6 +240,31 @@ export function parseLearningEngineDashboard(data: unknown): LearningEngineDashb
     vision_phrases: parseStringArray(d.vision_phrases),
     privacy_note: d.privacy_note as string | undefined,
     principles: parseStringArray(d.principles),
+    implementation_blueprint_phase93: d.implementation_blueprint_phase93 as LearningEngineDashboard["implementation_blueprint_phase93"],
+    adaptive_learning_organizational_capability_engine_note: d.adaptive_learning_organizational_capability_engine_note as string | undefined,
+    adaptive_learning_organizational_capability_blueprint: parseAdaptiveBlueprintBlock(d.adaptive_learning_organizational_capability_blueprint),
+    adaptive_organizational_distinction_note: d.adaptive_organizational_distinction_note as string | undefined,
+    adaptive_organizational_mission: d.adaptive_organizational_mission as string | undefined,
+    adaptive_organizational_philosophy: d.adaptive_organizational_philosophy as string | undefined,
+    adaptive_organizational_abos_principle: d.adaptive_organizational_abos_principle as string | undefined,
+    adaptive_organizational_objectives: parseLearningObjectives(d.adaptive_organizational_objectives),
+    adaptive_organizational_learning_signals: parseLearningSignals(d.adaptive_organizational_learning_signals),
+    adaptive_organizational_capability_questions: parseCapabilityQuestions(d.adaptive_organizational_capability_questions),
+    adaptive_organizational_pathways: parseAdaptivePathways(d.adaptive_organizational_pathways),
+    adaptive_organizational_companion_guidance: parseCompanionGuidance(d.adaptive_organizational_companion_guidance),
+    adaptive_organizational_knowledge_reinforcement: parseKnowledgeReinforcement(d.adaptive_organizational_knowledge_reinforcement),
+    adaptive_organizational_community_learning: parseCommunityLearning(d.adaptive_organizational_community_learning),
+    adaptive_organizational_self_love_connection: parseSelfLoveConnection(d.adaptive_organizational_self_love_connection),
+    adaptive_organizational_leadership_insights: parseLeadershipInsights(d.adaptive_organizational_leadership_insights),
+    adaptive_organizational_trust_connection: parseTrustConnection(d.adaptive_organizational_trust_connection),
+    adaptive_organizational_privacy_principles: parsePrivacyPrinciples(d.adaptive_organizational_privacy_principles),
+    adaptive_organizational_dogfooding: d.adaptive_organizational_dogfooding as LearningEngineDashboard["adaptive_organizational_dogfooding"],
+    adaptive_organizational_integration_links: parseIntegrationLinks(d.adaptive_organizational_integration_links),
+    adaptive_organizational_engagement_summary: parseAdaptiveEngagementSummary(d.adaptive_organizational_engagement_summary),
+    adaptive_organizational_success_criteria: parseSuccessCriteria(d.adaptive_organizational_success_criteria),
+    adaptive_organizational_vision: d.adaptive_organizational_vision as string | undefined,
+    adaptive_organizational_vision_phrases: parseStringArray(d.adaptive_organizational_vision_phrases),
+    adaptive_organizational_privacy_note: d.adaptive_organizational_privacy_note as string | undefined,
   };
 }
 

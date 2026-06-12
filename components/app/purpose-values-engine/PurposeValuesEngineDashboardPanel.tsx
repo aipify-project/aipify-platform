@@ -5,6 +5,8 @@ import { useCallback, useEffect, useState } from "react";
 import {
   parsePurposeValuesEngineDashboard,
   type BlueprintObjective,
+  type CompanionGuidanceExample,
+  type CulturalObservation,
   type OrganizationStatedValue,
   type PurposeDiscoveryQuestion,
   type PurposeValuesEngineDashboard,
@@ -47,6 +49,30 @@ function ValueInActionCard({ value }: { value: ValueInAction }) {
           ))}
         </ul>
       ) : null}
+    </div>
+  );
+}
+
+function CulturalObservationCard({ observation }: { observation: CulturalObservation }) {
+  return (
+    <div className="rounded-lg border border-teal-100 bg-teal-50/40 px-3 py-2 text-sm">
+      <span className="font-medium">
+        {observation.emoji ? `${observation.emoji} ` : ""}
+        {observation.label}
+      </span>
+      {observation.description ? <p className="mt-1 text-xs text-gray-600">{observation.description}</p> : null}
+    </div>
+  );
+}
+
+function CompanionGuidanceCard({ example }: { example: CompanionGuidanceExample }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+      <p className="font-medium">
+        {example.emoji ? `${example.emoji} ` : ""}
+        {example.prompt}
+      </p>
+      {example.consideration ? <p className="mt-1 text-xs text-gray-600">{example.consideration}</p> : null}
     </div>
   );
 }
@@ -242,15 +268,18 @@ export function PurposeValuesEngineDashboardPanel({ labels }: Props) {
   const pendingReflections = dashboard.pending_reflections ?? [];
   const integrationLinks = dashboard.integration_links ?? {};
   const blueprintLinks = dashboard.blueprint_integration_links ?? [];
+  const culturalLinks = dashboard.cultural_alignment_integration_links ?? [];
   const engagement = dashboard.engagement_summary;
+  const culturalEngagement = dashboard.cultural_alignment_engagement_summary;
+  const allIntegrationLinks = [...blueprintLinks, ...culturalLinks];
 
   return (
     <div className="space-y-6">
-      {blueprintLinks.length > 0 ? (
+      {allIntegrationLinks.length > 0 ? (
         <div className="flex flex-wrap gap-2">
-          {blueprintLinks.map((link) =>
+          {allIntegrationLinks.map((link) =>
             link.route ? (
-              <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+              <Link key={link.route + (link.label ?? "")} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
                 {link.label ?? link.route}
               </Link>
             ) : null
@@ -287,7 +316,213 @@ export function PurposeValuesEngineDashboardPanel({ labels }: Props) {
         {dashboard.purpose_values_note ? (
           <p className="mt-2 text-xs text-violet-800">{dashboard.purpose_values_note}</p>
         ) : null}
+        {dashboard.implementation_blueprint_phase95?.phase ? (
+          <p className="mt-2 text-xs text-teal-700">
+            {dashboard.implementation_blueprint_phase95.phase}
+            {dashboard.implementation_blueprint_phase95.engine_phase
+              ? ` · ${dashboard.implementation_blueprint_phase95.engine_phase}`
+              : ""}
+          </p>
+        ) : null}
+        {dashboard.cultural_alignment_mission ? (
+          <p className="mt-2 text-sm font-medium text-teal-900">{dashboard.cultural_alignment_mission}</p>
+        ) : null}
+        {dashboard.cultural_alignment_philosophy ? (
+          <p className="mt-2 text-sm text-teal-900">{dashboard.cultural_alignment_philosophy}</p>
+        ) : null}
+        {dashboard.cultural_alignment_abos_principle ? (
+          <p className="mt-2 text-xs text-teal-800">{dashboard.cultural_alignment_abos_principle}</p>
+        ) : null}
+        {dashboard.cultural_alignment_vision ? (
+          <p className="mt-1 text-xs italic text-teal-700">{dashboard.cultural_alignment_vision}</p>
+        ) : null}
+        {dashboard.purpose_values_cultural_alignment_note ? (
+          <p className="mt-2 text-xs text-teal-800">{dashboard.purpose_values_cultural_alignment_note}</p>
+        ) : null}
       </section>
+
+      {dashboard.cultural_alignment_objectives && dashboard.cultural_alignment_objectives.length > 0 ? (
+        <section className="rounded-xl border border-teal-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.culturalAlignmentObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.cultural_alignment_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.cultural_alignment_purpose_questions?.questions &&
+      dashboard.cultural_alignment_purpose_questions.questions.length > 0 ? (
+        <section className="rounded-xl border border-teal-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.culturalAlignmentPurposeQuestions}</h3>
+          {dashboard.cultural_alignment_purpose_questions.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.cultural_alignment_purpose_questions.principle}</p>
+          ) : null}
+          <div className="mt-3 space-y-2">
+            {dashboard.cultural_alignment_purpose_questions.questions.map((q) => (
+              <DiscoveryQuestionCard key={q.key ?? q.question} question={q} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.cultural_alignment_values_reflection_questions?.questions &&
+      dashboard.cultural_alignment_values_reflection_questions.questions.length > 0 ? (
+        <section className="rounded-xl border border-teal-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.culturalAlignmentValuesReflection}</h3>
+          {dashboard.cultural_alignment_values_reflection_questions.principle ? (
+            <p className="mt-2 text-sm text-gray-700">
+              {dashboard.cultural_alignment_values_reflection_questions.principle}
+            </p>
+          ) : null}
+          <div className="mt-3 space-y-2">
+            {dashboard.cultural_alignment_values_reflection_questions.questions.map((q) => (
+              <DiscoveryQuestionCard key={q.key ?? q.question} question={q} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.cultural_alignment_cultural_observations?.observations &&
+      dashboard.cultural_alignment_cultural_observations.observations.length > 0 ? (
+        <section className="rounded-xl border border-teal-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.culturalAlignmentObservations}</h3>
+          {dashboard.cultural_alignment_cultural_observations.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.cultural_alignment_cultural_observations.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.cultural_alignment_cultural_observations.observations.map((obs) => (
+              <CulturalObservationCard key={obs.key ?? obs.label} observation={obs} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.cultural_alignment_onboarding_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.culturalAlignmentOnboarding}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.cultural_alignment_onboarding_connection.principle}</p>
+          {dashboard.cultural_alignment_onboarding_connection.practices &&
+          dashboard.cultural_alignment_onboarding_connection.practices.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+              {dashboard.cultural_alignment_onboarding_connection.practices.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.cultural_alignment_companion_guidance?.examples &&
+      dashboard.cultural_alignment_companion_guidance.examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.culturalAlignmentCompanionGuidance}</h3>
+          {dashboard.cultural_alignment_companion_guidance.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.cultural_alignment_companion_guidance.principle}</p>
+          ) : null}
+          <div className="mt-3 space-y-2">
+            {dashboard.cultural_alignment_companion_guidance.examples.map((ex) => (
+              <CompanionGuidanceCard key={ex.key ?? ex.prompt} example={ex} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.cultural_alignment_recognition_connection?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.culturalAlignmentRecognition}</h3>
+          <p className="mt-2">{dashboard.cultural_alignment_recognition_connection.principle}</p>
+          {dashboard.cultural_alignment_recognition_connection.dimensions &&
+          dashboard.cultural_alignment_recognition_connection.dimensions.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.cultural_alignment_recognition_connection.dimensions.map((dim) => (
+                <ObjectiveCard key={dim.key ?? dim.label} objective={dim} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.cultural_alignment_leadership_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.culturalAlignmentLeadership}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.cultural_alignment_leadership_connection.principle}</p>
+          {dashboard.cultural_alignment_leadership_connection.practices &&
+          dashboard.cultural_alignment_leadership_connection.practices.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+              {dashboard.cultural_alignment_leadership_connection.practices.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.cultural_alignment_privacy_principles?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/40 p-4 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.culturalAlignmentPrivacy}</h3>
+          <p className="mt-2">{dashboard.cultural_alignment_privacy_principles.principle}</p>
+          {dashboard.cultural_alignment_privacy_principles.forbidden &&
+          dashboard.cultural_alignment_privacy_principles.forbidden.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {dashboard.cultural_alignment_privacy_principles.forbidden.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {culturalEngagement ? (
+        <section className="rounded-lg border border-teal-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.culturalAlignmentEngagement}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>
+              {labels.culturalAlignmentPurposeQuestionsCount}: {culturalEngagement.purpose_questions ?? 0}
+            </span>
+            <span>
+              {labels.culturalAlignmentValuesReflectionCount}:{" "}
+              {culturalEngagement.values_reflection_questions ?? 0}
+            </span>
+            <span>
+              {labels.culturalAlignmentObservationsCount}: {culturalEngagement.cultural_observations ?? 0}
+            </span>
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.cultural_alignment_success_criteria &&
+      dashboard.cultural_alignment_success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-teal-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.culturalAlignmentSuccessCriteria}</h3>
+          <div className="mt-3 space-y-2">
+            {dashboard.cultural_alignment_success_criteria.map((criterion) => (
+              <SuccessCriterionRow
+                key={criterion.key ?? criterion.label}
+                criterion={criterion}
+                metLabel={labels.criterionMet}
+                pendingLabel={labels.criterionPending}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.cultural_alignment_vision_phrases && dashboard.cultural_alignment_vision_phrases.length > 0 ? (
+        <section className="rounded-lg border border-teal-100 bg-teal-50/30 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.culturalAlignmentVisionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-teal-900">
+            {dashboard.cultural_alignment_vision_phrases.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.cultural_alignment_privacy_note ? (
+        <p className="text-xs text-gray-500">{dashboard.cultural_alignment_privacy_note}</p>
+      ) : null}
 
       {dashboard.blueprint_objectives && dashboard.blueprint_objectives.length > 0 ? (
         <section className="rounded-xl border border-gray-200 p-6">

@@ -4,9 +4,13 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseLearningEngineDashboard,
+  type AdaptiveLearningPathway,
+  type CapabilityQuestion,
   type CompanionExample,
+  type CompanionGuidanceExample,
   type LearningEngineDashboard,
   type LearningObjective,
+  type LearningSignal,
   type LearningSourceCategory,
 } from "@/lib/aipify/learning-engine";
 import { formatDate } from "@/lib/i18n/format-date";
@@ -257,6 +261,215 @@ export function LearningEngineDashboardPanel({ locale, labels }: LearningEngineD
         </section>
       ) : null}
 
+      {dashboard.adaptive_organizational_mission ? (
+        <section className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-6">
+          <h2 className="text-sm font-semibold text-indigo-900">{labels.adaptiveOrganizationalTitle}</h2>
+          <p className="mt-2 text-sm font-medium text-indigo-900">{dashboard.adaptive_organizational_mission}</p>
+          {dashboard.adaptive_organizational_philosophy ? (
+            <p className="mt-2 text-sm text-indigo-800">{dashboard.adaptive_organizational_philosophy}</p>
+          ) : null}
+          {dashboard.adaptive_organizational_distinction_note ? (
+            <p className="mt-2 text-xs text-indigo-700">{dashboard.adaptive_organizational_distinction_note}</p>
+          ) : null}
+          {dashboard.adaptive_organizational_vision ? (
+            <p className="mt-2 text-sm font-medium italic text-indigo-900">{dashboard.adaptive_organizational_vision}</p>
+          ) : null}
+          {dashboard.adaptive_organizational_abos_principle ? (
+            <p className="mt-2 text-xs text-indigo-800">{dashboard.adaptive_organizational_abos_principle}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.adaptive_organizational_objectives && dashboard.adaptive_organizational_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveOrganizationalObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.adaptive_organizational_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.adaptive_organizational_learning_signals?.signals &&
+      dashboard.adaptive_organizational_learning_signals.signals.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveOrganizationalLearningSignals}</h3>
+          {dashboard.adaptive_organizational_learning_signals.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{dashboard.adaptive_organizational_learning_signals.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.adaptive_organizational_learning_signals.signals.map((signal) => (
+              <LearningSignalCard key={signal.key ?? signal.label} signal={signal} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.adaptive_organizational_capability_questions?.questions &&
+      dashboard.adaptive_organizational_capability_questions.questions.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveOrganizationalCapabilityQuestions}</h3>
+          <div className="mt-3 space-y-3">
+            {dashboard.adaptive_organizational_capability_questions.questions.map((q) => (
+              <CapabilityQuestionCard key={q.key ?? q.question} question={q} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.adaptive_organizational_pathways && dashboard.adaptive_organizational_pathways.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveOrganizationalAdaptivePathways}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.adaptive_organizational_pathways.map((pathway) => (
+              <AdaptivePathwayCard key={pathway.key ?? pathway.title} pathway={pathway} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.adaptive_organizational_companion_guidance?.principle ? (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/40 p-4 text-sm">
+          <h3 className="text-sm font-semibold text-emerald-900">{labels.adaptiveOrganizationalCompanionGuidance}</h3>
+          <p className="mt-2 text-emerald-900">{dashboard.adaptive_organizational_companion_guidance.principle}</p>
+          {dashboard.adaptive_organizational_companion_guidance.companion_name ? (
+            <p className="mt-1 text-xs text-emerald-800">
+              {dashboard.adaptive_organizational_companion_guidance.companion_name}
+              {dashboard.adaptive_organizational_companion_guidance.not_label
+                ? ` — ${labels.adaptiveOrganizationalNotAiCoach}`
+                : ""}
+            </p>
+          ) : null}
+          {dashboard.adaptive_organizational_companion_guidance.examples?.map((example) => (
+            <CompanionGuidanceCard key={example.key ?? example.prompt} example={example} />
+          ))}
+        </section>
+      ) : null}
+
+      {dashboard.adaptive_organizational_knowledge_reinforcement?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.adaptiveOrganizationalKnowledgeReinforcement}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.adaptive_organizational_knowledge_reinforcement.principle}</p>
+          {dashboard.adaptive_organizational_knowledge_reinforcement.practices?.map((practice) => (
+            <p key={practice} className="mt-1 text-xs text-gray-500">· {practice}</p>
+          ))}
+        </section>
+      ) : null}
+
+      {dashboard.adaptive_organizational_community_learning?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.adaptiveOrganizationalCommunityLearning}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.adaptive_organizational_community_learning.principle}</p>
+        </section>
+      ) : null}
+
+      {dashboard.adaptive_organizational_leadership_insights?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.adaptiveOrganizationalLeadershipInsights}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.adaptive_organizational_leadership_insights.principle}</p>
+          {dashboard.adaptive_organizational_leadership_insights.insights?.map((insight) => (
+            <div key={insight.key ?? insight.label} className="mt-2 rounded border border-gray-100 bg-gray-50/50 px-3 py-2 text-xs">
+              <p className="font-medium text-gray-900">{insight.label}</p>
+              {insight.description ? <p className="mt-1 text-gray-600">{insight.description}</p> : null}
+            </div>
+          ))}
+        </section>
+      ) : null}
+
+      {dashboard.adaptive_organizational_privacy_principles?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm">
+          <h3 className="text-sm font-semibold text-rose-900">{labels.adaptiveOrganizationalPrivacy}</h3>
+          <p className="mt-2 text-rose-900">{dashboard.adaptive_organizational_privacy_principles.principle}</p>
+          {dashboard.adaptive_organizational_privacy_principles.forbidden?.map((item) => (
+            <p key={item} className="mt-1 text-xs text-rose-800">· {item}</p>
+          ))}
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.adaptive_organizational_success_criteria) &&
+      dashboard.adaptive_organizational_success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.adaptiveOrganizationalSuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.adaptive_organizational_success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={item.key ?? label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.adaptive_organizational_self_love_connection?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.adaptiveOrganizationalSelfLove}</h3>
+          <p className="mt-2">{dashboard.adaptive_organizational_self_love_connection.principle}</p>
+        </section>
+      ) : null}
+
+      {dashboard.adaptive_organizational_trust_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.adaptiveOrganizationalTrust}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.adaptive_organizational_trust_connection.principle}</p>
+        </section>
+      ) : null}
+
+      {dashboard.adaptive_organizational_engagement_summary ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.adaptiveOrganizationalEngagement}</h3>
+          <dl className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <div>
+              <dt>{labels.adaptiveOrganizationalLearningSignalsCount}</dt>
+              <dd className="font-medium">{dashboard.adaptive_organizational_engagement_summary.learning_signals ?? 0}</dd>
+            </div>
+            <div>
+              <dt>{labels.adaptiveOrganizationalAdaptivePathwaysCount}</dt>
+              <dd className="font-medium">{dashboard.adaptive_organizational_engagement_summary.adaptive_pathways ?? 0}</dd>
+            </div>
+            <div>
+              <dt>{labels.adaptiveOrganizationalCapabilityQuestionsCount}</dt>
+              <dd className="font-medium">{dashboard.adaptive_organizational_engagement_summary.capability_questions ?? 0}</dd>
+            </div>
+          </dl>
+          {dashboard.adaptive_organizational_engagement_summary.privacy_note ? (
+            <p className="mt-2 text-xs text-gray-500">{dashboard.adaptive_organizational_engagement_summary.privacy_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.adaptive_organizational_integration_links &&
+      dashboard.adaptive_organizational_integration_links.length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {dashboard.adaptive_organizational_integration_links.map((link) =>
+            link.route ? (
+              <Link key={link.route} href={link.route} className="rounded-lg border border-indigo-200 px-3 py-1.5 text-sm">
+                {link.label ?? link.route}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : null}
+
+      {(dashboard.adaptive_organizational_vision_phrases ?? []).length > 0 ? (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/30 p-4 text-sm text-indigo-900">
+          <h3 className="text-sm font-semibold">{labels.adaptiveOrganizationalVisionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+            {dashboard.adaptive_organizational_vision_phrases?.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       <div className="grid gap-4 lg:grid-cols-2">
         <section className="rounded-lg border border-gray-200 bg-gray-50/50 p-4">
           <h2 className="text-sm font-semibold">{labels.topPatterns}</h2>
@@ -349,6 +562,63 @@ function DogfoodingCard({ entry, title }: { entry: { role?: string; focus?: stri
           ))}
         </ul>
       ) : null}
+    </div>
+  );
+}
+
+function LearningSignalCard({ signal }: { signal: LearningSignal }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 px-3 py-2 text-sm">
+      <p className="font-medium text-gray-900">{signal.label}</p>
+      {signal.description ? <p className="mt-1 text-xs text-gray-600">{signal.description}</p> : null}
+      {signal.cross_link ? (
+        <Link href={signal.cross_link} className="mt-2 inline-block text-xs underline">
+          {signal.cross_link}
+        </Link>
+      ) : null}
+    </div>
+  );
+}
+
+function CapabilityQuestionCard({ question }: { question: CapabilityQuestion }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 px-3 py-2 text-sm">
+      <p className="font-medium text-gray-900">
+        {question.emoji ? `${question.emoji} ` : ""}{question.question}
+      </p>
+      {question.description ? <p className="mt-1 text-xs text-gray-600">{question.description}</p> : null}
+    </div>
+  );
+}
+
+function AdaptivePathwayCard({ pathway }: { pathway: AdaptiveLearningPathway }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 px-3 py-2 text-sm">
+      <p className="font-medium text-gray-900">{pathway.title}</p>
+      {pathway.description ? <p className="mt-1 text-xs text-gray-600">{pathway.description}</p> : null}
+      {pathway.topics && pathway.topics.length > 0 ? (
+        <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-500">
+          {pathway.topics.map((topic) => (
+            <li key={topic}>{topic}</li>
+          ))}
+        </ul>
+      ) : null}
+      {pathway.cross_link ? (
+        <Link href={pathway.cross_link} className="mt-2 inline-block text-xs underline">
+          {pathway.cross_link_note ?? pathway.cross_link}
+        </Link>
+      ) : null}
+    </div>
+  );
+}
+
+function CompanionGuidanceCard({ example }: { example: CompanionGuidanceExample }) {
+  return (
+    <div className="mt-2 rounded border border-emerald-100 bg-white/60 px-3 py-2 text-xs text-emerald-900">
+      <p>
+        {example.emoji ? `${example.emoji} ` : ""}{example.prompt}
+      </p>
+      {example.consideration ? <p className="mt-1 text-emerald-700">{example.consideration}</p> : null}
     </div>
   );
 }

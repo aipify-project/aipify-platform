@@ -12,7 +12,10 @@ import type {
   GovernanceSummary,
   ImplementationBlueprintPhase54,
   ImplementationBlueprintPhase65,
+  ImplementationBlueprintPhase98,
   CouncilEngagementSummary,
+  TrustEthicsGovernanceEngagementSummary,
+  TrustEthicsHumanGovernanceBlueprint,
 } from "./types";
 
 function parseUseCaseList(data: unknown): AiUseCaseRecord[] | undefined {
@@ -48,6 +51,25 @@ function parseBlueprintPhase54(data: unknown): ImplementationBlueprintPhase54 | 
 function parseBlueprintPhase65(data: unknown): ImplementationBlueprintPhase65 | undefined {
   if (typeof data !== "object" || !data) return undefined;
   return data as ImplementationBlueprintPhase65;
+}
+
+function parseBlueprintPhase98(data: unknown): ImplementationBlueprintPhase98 | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ImplementationBlueprintPhase98;
+}
+
+function parseTrustEthicsGovernanceEngagementSummary(
+  data: unknown
+): TrustEthicsGovernanceEngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as TrustEthicsGovernanceEngagementSummary;
+}
+
+function parseTrustEthicsHumanGovernanceBlueprint(
+  data: unknown
+): TrustEthicsHumanGovernanceBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as TrustEthicsHumanGovernanceBlueprint;
 }
 
 function parseCouncilEngagementSummary(data: unknown): CouncilEngagementSummary | undefined {
@@ -106,6 +128,18 @@ export function parseAiEthicsResponsibleUseEngineCard(data: unknown): AiEthicsRe
     critical_prohibition_note: typeof d.critical_prohibition_note === "string" ? d.critical_prohibition_note : undefined,
     blueprint_note: typeof d.blueprint_note === "string" ? d.blueprint_note : undefined,
     council_vision_phrase: typeof d.council_vision_phrase === "string" ? d.council_vision_phrase : undefined,
+    implementation_blueprint_phase98: parseBlueprintPhase98(d.implementation_blueprint_phase98),
+    trust_ethics_human_governance_phase:
+      typeof d.trust_ethics_human_governance_phase === "number" ? d.trust_ethics_human_governance_phase : undefined,
+    tehgbp98_abos_principle: typeof d.tehgbp98_abos_principle === "string" ? d.tehgbp98_abos_principle : undefined,
+    trust_ethics_governance_engagement_summary: parseTrustEthicsGovernanceEngagementSummary(
+      d.trust_ethics_governance_engagement_summary
+    ),
+    trust_governance_vision_phrase:
+      typeof d.trust_governance_vision_phrase === "string" ? d.trust_governance_vision_phrase : undefined,
+    trust_ethics_human_governance_blueprint: parseTrustEthicsHumanGovernanceBlueprint(
+      d.trust_ethics_human_governance_blueprint
+    ),
     ...d,
   } as AiEthicsResponsibleUseEngineCard;
 }
@@ -217,6 +251,68 @@ export function parseAiEthicsResponsibleUseEngineDashboard(data: unknown): AiEth
     cecbp_success_criteria: parseSuccessCriteria(d.cecbp_success_criteria),
     cecbp_distinction_note: typeof d.cecbp_distinction_note === "string" ? d.cecbp_distinction_note : undefined,
     cecbp_vision_phrases: parseStringList(d.cecbp_vision_phrases),
+    implementation_blueprint_phase98: parseBlueprintPhase98(d.implementation_blueprint_phase98),
+    trust_ethics_human_governance_phase:
+      typeof d.trust_ethics_human_governance_phase === "number" ? d.trust_ethics_human_governance_phase : undefined,
+    tehgbp98_mission: typeof d.tehgbp98_mission === "string" ? d.tehgbp98_mission : undefined,
+    tehgbp98_philosophy: typeof d.tehgbp98_philosophy === "string" ? d.tehgbp98_philosophy : undefined,
+    tehgbp98_vision: typeof d.tehgbp98_vision === "string" ? d.tehgbp98_vision : undefined,
+    tehgbp98_abos_principle: typeof d.tehgbp98_abos_principle === "string" ? d.tehgbp98_abos_principle : undefined,
+    tehgbp98_objectives: parseObjectives(d.tehgbp98_objectives),
+    ethical_questions:
+      typeof d.ethical_questions === "object" && d.ethical_questions
+        ? (d.ethical_questions as Record<string, unknown>)
+        : undefined,
+    governance_principles:
+      typeof d.governance_principles === "object" && d.governance_principles
+        ? (d.governance_principles as Record<string, unknown>)
+        : undefined,
+    human_in_the_loop:
+      typeof d.human_in_the_loop === "object" && d.human_in_the_loop
+        ? (d.human_in_the_loop as Record<string, unknown>)
+        : undefined,
+    companion_transparency:
+      typeof d.companion_transparency === "object" && d.companion_transparency
+        ? (d.companion_transparency as Record<string, unknown>)
+        : undefined,
+    ethical_review_practices:
+      typeof d.ethical_review_practices === "object" && d.ethical_review_practices
+        ? (d.ethical_review_practices as Record<string, unknown>)
+        : undefined,
+    tehgbp98_companion_guidance:
+      typeof d.tehgbp98_companion_guidance === "object" && d.tehgbp98_companion_guidance
+        ? (d.tehgbp98_companion_guidance as Record<string, unknown>)
+        : undefined,
+    tehgbp98_self_love_connection:
+      typeof d.tehgbp98_self_love_connection === "object" && d.tehgbp98_self_love_connection
+        ? (d.tehgbp98_self_love_connection as Record<string, unknown>)
+        : undefined,
+    tehgbp98_leadership_connection:
+      typeof d.tehgbp98_leadership_connection === "object" && d.tehgbp98_leadership_connection
+        ? (d.tehgbp98_leadership_connection as Record<string, unknown>)
+        : undefined,
+    tehgbp98_trust_connection:
+      typeof d.tehgbp98_trust_connection === "object" && d.tehgbp98_trust_connection
+        ? (d.tehgbp98_trust_connection as Record<string, unknown>)
+        : undefined,
+    privacy_principles:
+      typeof d.privacy_principles === "object" && d.privacy_principles
+        ? (d.privacy_principles as Record<string, unknown>)
+        : undefined,
+    tehgbp98_dogfooding:
+      typeof d.tehgbp98_dogfooding === "object" && d.tehgbp98_dogfooding
+        ? (d.tehgbp98_dogfooding as Record<string, unknown>)
+        : undefined,
+    tehgbp98_integration_links: parseIntegrationLinks(d.tehgbp98_integration_links),
+    trust_ethics_governance_engagement_summary: parseTrustEthicsGovernanceEngagementSummary(
+      d.trust_ethics_governance_engagement_summary
+    ),
+    tehgbp98_success_criteria: parseSuccessCriteria(d.tehgbp98_success_criteria),
+    tehgbp98_distinction_note: typeof d.tehgbp98_distinction_note === "string" ? d.tehgbp98_distinction_note : undefined,
+    tehgbp98_vision_phrases: parseStringList(d.tehgbp98_vision_phrases),
+    trust_ethics_human_governance_blueprint: parseTrustEthicsHumanGovernanceBlueprint(
+      d.trust_ethics_human_governance_blueprint
+    ),
     ...d,
   } as AiEthicsResponsibleUseEngineDashboard;
 }

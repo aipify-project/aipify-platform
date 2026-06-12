@@ -1,0 +1,71 @@
+Implementation Blueprint Phase 96 — Employee Experience & Wellbeing Companion Engine
+Aipify Business Operating System (ABOS)
+
+MISSION
+Healthier workplaces — support wellbeing, engagement, and sustainable performance without sacrificing humanity.
+
+PHILOSOPHY
+People are not machines — wellbeing supports performance. Aipify Wellbeing Companion informs and reflects; humans decide.
+
+ABOS PRINCIPLE
+Exceptional work should not require sacrificing humanity — employee experience is strategic, not a surveillance metric.
+
+ENGINE
+Organizational Health Engine Phase A.56 at /app/organizational-health-engine
+Extends Blueprint Phase 61 — preserve ALL _ohbp_* fields.
+
+OBJECTIVES
+- Employee engagement awareness — aggregate signals, never individual surveillance scoring
+- Wellbeing support not control — Wellbeing Companion reflection, no diagnosis
+- Sustainable performance — pacing, recovery, workload sustainability
+- Recognition and appreciation — cross-link Gratitude A.89
+- Companion reflection — optional check-ins, not intrusion
+- Employee journey support — onboarding, milestones, transitions, leadership dev
+
+EMPLOYEE EXPERIENCE QUESTIONS
+🦉 What patterns deserve thoughtful leadership attention?
+🌹 What appreciation and recognition strengthen engagement?
+❤️ How can wellbeing support feel caring rather than intrusive?
+🔔 What sustainable pacing signals may indicate recovery is needed?
+
+WELLBEING OBSERVATIONS (awareness not surveillance)
+🌹 Healthy team appreciation patterns — aggregate only
+❤️ Wellbeing awareness supports performance — not diagnosis
+🦉 Pacing conversations from aggregate workload patterns — never blame
+🔔 Recovery windows deserve leadership attention
+
+RECOGNITION PRACTICES
+🌹 Appreciation · Milestones · Effort during demanding periods · Gratitude without pressure
+Route: /app/gratitude-recognition-engine — cross-link only
+
+WELLBEING COMPANION CHECK-INS (reflection not intrusion)
+🌹 Meaningful progress · ❤️ Support not judge · 🦉 Sustainable work · 🔔 Rest and recovery
+Wellbeing Companion — not AI wellness bot. Optional participation.
+
+SELF LOVE CONNECTION
+You do not need to earn rest through exhaustion.
+Recovery contributes to long-term excellence.
+Route: /app/self-love-engine — principle only
+
+LEADERSHIP CONNECTION
+Model sustainable pacing · Participate in recognition · Create recovery space · Dialogue not surveillance
+
+EMPLOYEE JOURNEY CONNECTION
+Onboarding (EKE) · Milestones · Transitions (Human Success) · Leadership development (Learning & Training / Phase 92) · Recognition
+
+TRUST CONNECTION
+Optional Wellbeing Companion · No diagnosis · No hidden monitoring · Aggregate signals only · Humans approve interventions
+
+PRIVACY PRINCIPLES
+No hidden monitoring · No mental health diagnosis · No surveillance scoring · No intrusive mandatory wellness tracking
+
+DISTINCTIONS
+Innovation Lab repo Phase 96 at /app/innovation-lab — phase number collision
+Companion Device Ecosystem Phase A.96 at /app/companion-device-ecosystem-engine — phase number collision
+Blueprint Phase 61 organizational health preserved on same route
+
+CROSS-LINKS
+Self Love A.76 · Gratitude A.89 · Presence & Comfort A.90 · Human Success repo Phase 82 · Attention Guardian · Purpose & Values A.82 / Blueprint Phase 95 · Inclusion A.83 · Learning & Training / Phase 92 · EKE employee onboarding
+
+VISION
+Building an environment where people can do exceptional work without sacrificing their humanity.

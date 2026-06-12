@@ -5,6 +5,8 @@ import { useCallback, useEffect, useState } from "react";
 import {
   parseCompanionIdentityEngineDashboard,
   type CompanionIdentityEngineDashboard,
+  type HumanPartnershipIntegrationLink,
+  type HumanPartnershipObjective,
   type IdentityTrait,
   type ModuleConsistencyEntry,
   type SignatureElement,
@@ -120,6 +122,21 @@ export function CompanionIdentityEngineDashboardPanel({ labels }: Props) {
   const globalLabelReplacements = globalPolicy?.label_replacements ?? [];
   const appliesToSurfaces = globalPolicy?.applies_to_surfaces ?? [];
   const technicalExceptions = globalPolicy?.technical_exceptions ?? [];
+  const partnershipObjectives = dashboard.human_partnership_objectives ?? [];
+  const partnershipQuestions = dashboard.human_partnership_questions;
+  const evolutionPrinciples = dashboard.human_partnership_evolution_principles;
+  const personalization = dashboard.human_partnership_personalization;
+  const healthyDependency = dashboard.human_partnership_healthy_dependency;
+  const partnershipGuidance = dashboard.human_partnership_companion_guidance;
+  const evolutionStages = dashboard.human_partnership_evolution_stages;
+  const partnershipSelfLove = dashboard.human_partnership_self_love;
+  const partnershipLeadership = dashboard.human_partnership_leadership;
+  const partnershipTrust = dashboard.human_partnership_trust;
+  const partnershipPrivacy = dashboard.human_partnership_privacy;
+  const partnershipSuccessCriteria = dashboard.human_partnership_success_criteria ?? [];
+  const partnershipVisionPhrases = dashboard.human_partnership_vision_phrases ?? [];
+  const partnershipIntegrationLinks = dashboard.human_partnership_integration_links ?? [];
+  const blueprint99 = dashboard.implementation_blueprint_phase99;
 
   return (
     <div className="space-y-6">
@@ -262,6 +279,334 @@ export function CompanionIdentityEngineDashboardPanel({ labels }: Props) {
               </ul>
             </div>
           )}
+        </section>
+      )}
+
+      {(dashboard.human_partnership_mission || blueprint99?.phase) && (
+        <section className="rounded-xl border border-rose-200 bg-rose-50/40 p-6">
+          <h2 className="text-sm font-semibold">{labels.humanPartnershipTitle}</h2>
+          <p className="mt-1 text-xs text-rose-900">{labels.humanPartnershipSubtitle}</p>
+          {dashboard.human_partnership_mission ? (
+            <p className="mt-2 text-sm font-medium text-rose-900">{dashboard.human_partnership_mission}</p>
+          ) : null}
+          {dashboard.human_partnership_philosophy ? (
+            <p className="mt-2 text-xs text-rose-900">{dashboard.human_partnership_philosophy}</p>
+          ) : null}
+          {dashboard.human_partnership_abos_principle ? (
+            <p className="mt-1 text-xs font-medium text-rose-800">{dashboard.human_partnership_abos_principle}</p>
+          ) : null}
+          {dashboard.human_partnership_vision ? (
+            <p className="mt-2 text-xs italic text-rose-700">{dashboard.human_partnership_vision}</p>
+          ) : null}
+          {dashboard.human_partnership_distinction_note ? (
+            <p className="mt-2 text-xs text-rose-700">{dashboard.human_partnership_distinction_note}</p>
+          ) : null}
+          {dashboard.human_partnership_note ? (
+            <p className="mt-1 text-xs text-rose-600">{dashboard.human_partnership_note}</p>
+          ) : null}
+        </section>
+      )}
+
+      {partnershipObjectives.length > 0 && (
+        <section className="rounded-lg border border-rose-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.humanPartnershipObjectives}</h3>
+          <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {partnershipObjectives.map((obj: HumanPartnershipObjective) => (
+              <li key={obj.key ?? obj.label} className="rounded border border-rose-50 p-3 text-sm">
+                <div className="font-medium">
+                  {obj.emoji ? `${obj.emoji} ` : ""}
+                  {obj.label}
+                </div>
+                {obj.description ? <p className="mt-1 text-xs text-gray-600">{obj.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {partnershipQuestions?.questions && Array.isArray(partnershipQuestions.questions) && (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/20 p-4">
+          <h3 className="text-sm font-semibold">{labels.humanPartnershipQuestions}</h3>
+          {partnershipQuestions.principle ? (
+            <p className="mt-2 text-xs text-rose-900">{partnershipQuestions.principle}</p>
+          ) : null}
+          <ul className="mt-3 space-y-2">
+            {partnershipQuestions.questions.map((q) => (
+              <li key={q.key ?? q.question} className="rounded border border-rose-100 bg-white px-3 py-2 text-xs">
+                <span className="font-medium">
+                  {q.emoji ? `${q.emoji} ` : ""}
+                  {q.question}
+                </span>
+                {q.description ? <p className="mt-1 text-gray-500">{q.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {evolutionPrinciples?.principles && evolutionPrinciples.principles.length > 0 && (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.humanPartnershipEvolutionPrinciples}</h3>
+          {evolutionPrinciples.principle ? (
+            <p className="mt-2 text-xs text-gray-600">{evolutionPrinciples.principle}</p>
+          ) : null}
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {evolutionPrinciples.principles.map((p) => (
+              <li key={p.key ?? p.label} className="rounded border border-gray-100 px-3 py-2 text-xs">
+                <span className="font-medium">
+                  {p.emoji ? `${p.emoji} ` : ""}
+                  {p.label}
+                </span>
+                {p.description ? <p className="mt-1 text-gray-500">{p.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {personalization?.dimensions && personalization.dimensions.length > 0 && (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/20 p-4">
+          <h3 className="text-sm font-semibold">{labels.humanPartnershipPersonalization}</h3>
+          {personalization.principle ? (
+            <p className="mt-2 text-xs text-violet-900">{personalization.principle}</p>
+          ) : null}
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {personalization.dimensions.map((dim) => (
+              <li key={dim.key ?? dim.label} className="rounded border border-violet-100 bg-white px-3 py-2 text-xs">
+                <span className="font-medium">{dim.label}</span>
+                {dim.description ? <p className="mt-1 text-gray-500">{dim.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+          {personalization.boundary_note ? (
+            <p className="mt-3 text-xs text-violet-700">{personalization.boundary_note}</p>
+          ) : null}
+        </section>
+      )}
+
+      {healthyDependency && (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/20 p-4">
+          <h3 className="text-sm font-semibold">{labels.humanPartnershipHealthyDependency}</h3>
+          {healthyDependency.principle ? (
+            <p className="mt-2 text-xs text-amber-900">{healthyDependency.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-4 sm:grid-cols-2">
+            {(healthyDependency.encourage?.length ?? 0) > 0 && (
+              <div>
+                <h4 className="text-xs font-medium text-emerald-700">{labels.humanPartnershipEncourage}</h4>
+                <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+                  {healthyDependency.encourage!.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {(healthyDependency.avoid?.length ?? 0) > 0 && (
+              <div>
+                <h4 className="text-xs font-medium text-red-700">{labels.humanPartnershipAvoid}</h4>
+                <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+                  {healthyDependency.avoid!.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {evolutionStages?.stages && evolutionStages.stages.length > 0 && (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/20 p-4">
+          <h3 className="text-sm font-semibold">{labels.humanPartnershipEvolutionStages}</h3>
+          {evolutionStages.principle ? (
+            <p className="mt-2 text-xs text-indigo-900">{evolutionStages.principle}</p>
+          ) : null}
+          <ol className="mt-3 space-y-2">
+            {evolutionStages.stages.map((stage) => (
+              <li key={stage.key ?? stage.label} className="rounded border border-indigo-100 bg-white px-3 py-2 text-sm">
+                <span className="font-medium">
+                  {stage.stage ? `${stage.stage}. ` : ""}
+                  {stage.emoji ? `${stage.emoji} ` : ""}
+                  {stage.label}
+                </span>
+                {stage.description ? <p className="mt-1 text-xs text-gray-600">{stage.description}</p> : null}
+              </li>
+            ))}
+          </ol>
+          {evolutionStages.progression_note ? (
+            <p className="mt-3 text-xs text-indigo-700">{evolutionStages.progression_note}</p>
+          ) : null}
+        </section>
+      )}
+
+      {partnershipGuidance?.examples && partnershipGuidance.examples.length > 0 && (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.humanPartnershipCompanionGuidance}</h3>
+          {partnershipGuidance.principle ? (
+            <p className="mt-2 text-xs text-gray-600">{partnershipGuidance.principle}</p>
+          ) : null}
+          <ul className="mt-3 space-y-2">
+            {partnershipGuidance.examples.map((ex) => (
+              <li key={ex.key ?? ex.prompt} className="rounded border border-gray-100 px-3 py-2 text-xs">
+                <span className="font-medium">
+                  {ex.emoji ? `${ex.emoji} ` : ""}
+                  {ex.prompt}
+                </span>
+                {ex.consideration ? <p className="mt-1 text-gray-500">{ex.consideration}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {partnershipSelfLove && (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.humanPartnershipSelfLove}</h3>
+          {partnershipSelfLove.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{partnershipSelfLove.principle}</p>
+          ) : null}
+          {(partnershipSelfLove.quotes?.length ?? 0) > 0 && (
+            <ul className="mt-2 space-y-1 text-sm italic text-emerald-900">
+              {partnershipSelfLove.quotes!.map((quote, i) => (
+                <li key={i}>{quote}</li>
+              ))}
+            </ul>
+          )}
+          {partnershipSelfLove.journey_phrase ? (
+            <p className="mt-2 text-xs text-emerald-700">{partnershipSelfLove.journey_phrase}</p>
+          ) : null}
+        </section>
+      )}
+
+      {partnershipLeadership?.practices && partnershipLeadership.practices.length > 0 && (
+        <section className="rounded-lg border border-gray-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.humanPartnershipLeadership}</h3>
+          {partnershipLeadership.principle ? (
+            <p className="mt-2 text-xs text-gray-600">{partnershipLeadership.principle}</p>
+          ) : null}
+          <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+            {partnershipLeadership.practices.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {partnershipTrust && (
+        <section className="rounded-lg border border-sky-100 bg-sky-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.humanPartnershipTrust}</h3>
+          {partnershipTrust.principle ? (
+            <p className="mt-2 text-xs text-sky-900">{partnershipTrust.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-4 sm:grid-cols-2">
+            {(partnershipTrust.organizations_should_understand?.length ?? 0) > 0 && (
+              <div>
+                <h4 className="text-xs font-medium text-gray-700">{labels.humanPartnershipOrgTrust}</h4>
+                <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+                  {partnershipTrust.organizations_should_understand!.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {(partnershipTrust.leaders_should_know?.length ?? 0) > 0 && (
+              <div>
+                <h4 className="text-xs font-medium text-gray-700">{labels.humanPartnershipLeaderTrust}</h4>
+                <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+                  {partnershipTrust.leaders_should_know!.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {partnershipPrivacy && (
+        <section className="rounded-lg border border-red-100 bg-red-50/20 p-4">
+          <h3 className="text-sm font-semibold">{labels.humanPartnershipPrivacy}</h3>
+          {partnershipPrivacy.principle ? (
+            <p className="mt-2 text-xs text-red-900">{partnershipPrivacy.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-4 sm:grid-cols-2">
+            {(partnershipPrivacy.forbidden?.length ?? 0) > 0 && (
+              <div>
+                <h4 className="text-xs font-medium text-red-700">{labels.humanPartnershipForbidden}</h4>
+                <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+                  {partnershipPrivacy.forbidden!.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {(partnershipPrivacy.required?.length ?? 0) > 0 && (
+              <div>
+                <h4 className="text-xs font-medium text-emerald-700">{labels.humanPartnershipRequired}</h4>
+                <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+                  {partnershipPrivacy.required!.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {partnershipSuccessCriteria.length > 0 && (
+        <section className="rounded-lg border border-rose-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.humanPartnershipSuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {partnershipSuccessCriteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {partnershipVisionPhrases.length > 0 && (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.humanPartnershipVisionPhrases}</h3>
+          <ul className="mt-2 space-y-1 text-sm italic text-rose-900">
+            {partnershipVisionPhrases.map((phrase, i) => (
+              <li key={i}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {partnershipIntegrationLinks.length > 0 && (
+        <section className="rounded-lg border border-gray-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.humanPartnershipIntegrationLinks}</h3>
+          <ul className="mt-2 space-y-1 text-sm">
+            {partnershipIntegrationLinks.map((link: HumanPartnershipIntegrationLink) => {
+              const route = link.route ?? "";
+              const isExternalDoc = route.endsWith(".md");
+              return (
+                <li key={link.key ?? link.label}>
+                  {route && !isExternalDoc ? (
+                    <Link href={route} className="text-indigo-600 hover:underline">
+                      {link.label ?? link.key}
+                    </Link>
+                  ) : (
+                    <span className="text-gray-700">{link.label ?? link.key}</span>
+                  )}
+                  {link.note ? <span className="ml-2 text-xs text-gray-500">{link.note}</span> : null}
+                </li>
+              );
+            })}
+          </ul>
         </section>
       )}
 

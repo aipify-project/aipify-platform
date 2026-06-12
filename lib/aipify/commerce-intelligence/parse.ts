@@ -1,9 +1,79 @@
 import type {
+  AbosSuccessCriterion,
+  BlueprintObjective,
   CommerceActionResult,
   CommerceBriefingResult,
+  CommerceIntelligenceBlueprint,
   CommerceIntelligenceCard,
   CommerceIntelligenceDashboard,
+  CommerceIntelligenceEngagementSummary,
+  CompanionGuidance,
+  ImplementationBlueprintMeta,
+  IntegrationLink,
+  LimitationPrinciples,
+  SelfLoveConnection,
+  TrustConnection,
 } from "./types";
+
+function parseBlueprintMeta(data: unknown): ImplementationBlueprintMeta | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ImplementationBlueprintMeta;
+}
+
+function parseObjectives(data: unknown): BlueprintObjective[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as BlueprintObjective[];
+}
+
+function parseSuccessCriteria(data: unknown): AbosSuccessCriterion[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as AbosSuccessCriterion[];
+}
+
+function parseIntegrationLinks(data: unknown): IntegrationLink[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as IntegrationLink[];
+}
+
+function parseCompanionGuidance(data: unknown): CompanionGuidance | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CompanionGuidance;
+}
+
+function parseLimitationPrinciples(data: unknown): LimitationPrinciples | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as LimitationPrinciples;
+}
+
+function parseSelfLoveConnection(data: unknown): SelfLoveConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as SelfLoveConnection;
+}
+
+function parseTrustConnection(data: unknown): TrustConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as TrustConnection;
+}
+
+function parseEngagementSummary(data: unknown): CommerceIntelligenceEngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CommerceIntelligenceEngagementSummary;
+}
+
+function parseBlueprintBlock(data: unknown): CommerceIntelligenceBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CommerceIntelligenceBlueprint;
+}
+
+function parseRecord(data: unknown): Record<string, unknown> | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as Record<string, unknown>;
+}
+
+function parseStringList(data: unknown): string[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data.filter((item): item is string => typeof item === "string");
+}
 
 export function parseCommerceIntelligenceCard(data: unknown): CommerceIntelligenceCard {
   const d = (data ?? {}) as Record<string, unknown>;
@@ -13,6 +83,20 @@ export function parseCommerceIntelligenceCard(data: unknown): CommerceIntelligen
     opportunities_count: Number(d.opportunities_count ?? 0),
     philosophy: typeof d.philosophy === "string" ? d.philosophy : undefined,
     human_oversight_required: Boolean(d.human_oversight_required),
+    implementation_blueprint_phase101: parseBlueprintMeta(d.implementation_blueprint_phase101),
+    commerce_intelligence_mission:
+      typeof d.commerce_intelligence_mission === "string" ? d.commerce_intelligence_mission : undefined,
+    commerce_intelligence_abos_principle:
+      typeof d.commerce_intelligence_abos_principle === "string"
+        ? d.commerce_intelligence_abos_principle
+        : undefined,
+    commerce_intelligence_engagement_summary: parseEngagementSummary(
+      d.commerce_intelligence_engagement_summary,
+    ),
+    commerce_intelligence_note:
+      typeof d.commerce_intelligence_note === "string" ? d.commerce_intelligence_note : undefined,
+    commerce_intelligence_vision_note:
+      typeof d.commerce_intelligence_vision_note === "string" ? d.commerce_intelligence_vision_note : undefined,
   };
 }
 
@@ -64,6 +148,46 @@ export function parseCommerceIntelligenceDashboard(data: unknown): CommerceIntel
     integrations: typeof d.integrations === "object" && d.integrations
       ? (d.integrations as Record<string, string>)
       : undefined,
+    implementation_blueprint_phase101: parseBlueprintMeta(d.implementation_blueprint_phase101),
+    commerce_intelligence_engine_note:
+      typeof d.commerce_intelligence_engine_note === "string" ? d.commerce_intelligence_engine_note : undefined,
+    commerce_intelligence_blueprint: parseBlueprintBlock(d.commerce_intelligence_blueprint),
+    commerce_intelligence_distinction_note:
+      typeof d.commerce_intelligence_distinction_note === "string"
+        ? d.commerce_intelligence_distinction_note
+        : undefined,
+    commerce_intelligence_mission:
+      typeof d.commerce_intelligence_mission === "string" ? d.commerce_intelligence_mission : undefined,
+    commerce_intelligence_philosophy:
+      typeof d.commerce_intelligence_philosophy === "string" ? d.commerce_intelligence_philosophy : undefined,
+    commerce_intelligence_abos_principle:
+      typeof d.commerce_intelligence_abos_principle === "string"
+        ? d.commerce_intelligence_abos_principle
+        : undefined,
+    commerce_intelligence_objectives: parseObjectives(d.commerce_intelligence_objectives),
+    commerce_insight_sources: parseRecord(d.commerce_insight_sources),
+    commerce_trend_intelligence: parseRecord(d.commerce_trend_intelligence),
+    commerce_product_opportunity_discovery: parseRecord(d.commerce_product_opportunity_discovery),
+    commerce_margin_intelligence: parseRecord(d.commerce_margin_intelligence),
+    commerce_supplier_insights: parseRecord(d.commerce_supplier_insights),
+    commerce_companion_guidance: parseCompanionGuidance(d.commerce_companion_guidance),
+    commerce_strategy_connection: parseRecord(d.commerce_strategy_connection),
+    commerce_self_love_connection: parseSelfLoveConnection(d.commerce_self_love_connection),
+    commerce_trust_connection: parseTrustConnection(d.commerce_trust_connection),
+    commerce_limitation_principles: parseLimitationPrinciples(d.commerce_limitation_principles),
+    commerce_intelligence_dogfooding: parseRecord(d.commerce_intelligence_dogfooding),
+    cibp101_integration_links: parseIntegrationLinks(d.cibp101_integration_links),
+    commerce_intelligence_engagement_summary: parseEngagementSummary(
+      d.commerce_intelligence_engagement_summary,
+    ),
+    commerce_intelligence_success_criteria: parseSuccessCriteria(d.commerce_intelligence_success_criteria),
+    commerce_intelligence_vision:
+      typeof d.commerce_intelligence_vision === "string" ? d.commerce_intelligence_vision : undefined,
+    commerce_intelligence_vision_phrases: parseStringList(d.commerce_intelligence_vision_phrases),
+    commerce_intelligence_privacy_note:
+      typeof d.commerce_intelligence_privacy_note === "string"
+        ? d.commerce_intelligence_privacy_note
+        : undefined,
   };
 }
 

@@ -1,0 +1,61 @@
+Aipify Internal Language Model — Implementation Blueprint Phase 105 Multi-Store Orchestration Engine
+=====================================================================================================
+
+Mission
+-------
+Centralized intelligence and orchestration across multiple stores — simplify complexity, scale confidently.
+
+Philosophy
+----------
+Growth creates complexity but not confusion — preserve brand individuality; wisdom guides expansion.
+
+ABOS principle
+--------------
+Portfolio authority retained. Aipify Portfolio Companion informs and prepares cross-store intelligence, unified reporting, and selective publish guidance. Humans approve every sync and publish. auto_sync_disabled remains default true.
+
+Vision
+------
+We have complete visibility across our entire commerce ecosystem.
+
+Objectives (🦉 🌹 🔔)
+---------------------
+- Centralized oversight — executive portfolio visibility
+- Cross-store intelligence — shared opportunities and cross-brand learning
+- Unified reporting — store-by-store performance and operational alerts
+- Brand flexibility — selective publish, localized descriptions, market pricing
+- Operational efficiency — governance coordination and best-practice sharing
+- Strategic scalability — regional expansion readiness
+
+Safety
+------
+No automatic product synchronization. Aipify coordinates intelligence across stores — organizations retain authority over portfolio decisions. Sync and publish require human approval via Trust & Action.
+
+Store performance comparison
+----------------------------
+Learning not competition. 🦉 Context before comparison. 🌹 Cross-store learning without ranking teams. 🔔 Stores needing support — attention signals, not blame.
+
+Companion guidance (Portfolio Companion — not AI multi-store bot)
+-----------------------------------------------------------------
+🦉 Your portfolio health score is ready — would an executive summary across all connected stores feel helpful?
+🌹 A fitness bundle performs well in Norway — shall I prepare a replication checklist for SE and FI stores?
+🔔 Product sync recommendations are ready — human approval is required before any publish. Open approvals?
+
+Automation connection
+---------------------
+Product update → translate → distribute → review local adjustments → publish. Cross-link Product Automation Phase 102 and Workflow Orchestration Phase 86. Never silent sync.
+
+Cross-links
+-----------
+Commerce Intelligence Phase 101 · Product Automation Phase 102 · Dropshipping Operations Phase 103 · Commerce Performance Phase 104 · Integration Engine · Platform Install · Workflow Orchestration Phase 86 · Trust & Action Approvals
+
+Dogfooding
+----------
+Sportsklær.no — future commerce, international storefronts, Shopify, cross-brand reporting.
+
+Preferred vocabulary
+--------------------
+- "Aipify Portfolio Companion" not "AI multi-store bot"
+- "Wisdom guides expansion" not "automate your entire portfolio"
+- "Human approval required" not "sync automatically"
+- "Learning not competition" not "rank your stores"
+- "Portfolio authority retained" not "Aipify manages your stores"

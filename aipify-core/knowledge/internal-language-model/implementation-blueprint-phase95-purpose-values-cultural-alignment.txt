@@ -1,0 +1,106 @@
+ABOS Implementation Blueprint Phase 95 — Purpose, Values & Cultural Alignment Engine
+======================================================================================
+
+Mission
+-------
+Align everyday actions with values and purpose; strengthen belonging.
+
+Philosophy
+----------
+Culture is daily experience; purpose provides direction in uncertainty.
+Alignment not control — values guide choices through everyday practice, not surveillance.
+
+ABOS principle
+--------------
+Alignment not control. Purpose and values guide everyday choices; culture is practiced through actions, not scored in secret.
+Aipify informs and prepares; humans decide.
+
+Objectives
+----------
+- Daily values alignment
+- Belonging strengthening
+- Purpose direction
+- Cultural awareness
+- Onboarding integration
+- Recognition reinforcement
+
+Purpose questions (🦉 🌹 ❤️ 🔔)
+--------------------------------
+- Why does this work matter beyond immediate outcomes?
+- How does our purpose guide us when the path is uncertain?
+- What would teammates miss if our culture faded?
+- When should we pause to reconnect with our stated values?
+
+Values reflection questions (🦉 🌹 ❤️ 🔔)
+-----------------------------------------
+- Do our daily actions reflect what we claim to value?
+- Which value deserves more intentional practice this week?
+- How can we treat one another in ways that strengthen belonging?
+- What small habit would close the gap between intention and behavior?
+
+Cultural observations (🌹 ❤️ 🦉 🔔)
+------------------------------------
+Awareness not judgment — metadata patterns only:
+- Value-aligned wins and celebration patterns
+- Inclusion and belonging signals in team interactions
+- Purpose references in decisions and communications
+- Reflection prompts acknowledged or deferred — human choice respected
+
+Onboarding connection
+---------------------
+Install onboarding (A.22), Employee Knowledge Engine onboarding paths — cross-link only.
+
+Companion guidance (🦉 🌹 ❤️)
+------------------------------
+Companion scaffolds purpose and values reflection — never enforces compliance or hidden cultural scoring.
+
+Recognition connection
+----------------------
+Cross-link Gratitude & Recognition A.89 — values, service, collaboration, stewardship.
+
+Self Love connection
+--------------------
+Sustainable pacing and reflection on how daily work connects to purpose — route /app/self-love-engine (principle only).
+
+Leadership connection
+---------------------
+Leadership consistency, purpose reflection, cultural dialogue — aggregate metadata only.
+
+Trust connection
+----------------
+Transparent cultural alignment experience generation, optional reflection elements, human control always.
+
+Privacy principles
+------------------
+Alignment not control:
+- No hidden cultural scoring or individual behavior metrics
+- No public ranking or values-as-compliance framing
+- No surveillance-based cultural evaluation
+- Metadata summaries only — humans decide
+
+Distinctions
+------------
+- Extends Purpose & Values Engine Phase A.82 + Blueprint Phase 64 at /app/purpose-values-engine
+- Distinct from Sales Expert Operating System A.95 at /app/sales-expert-engine (phase number collision)
+- Cross-link Strategic Alignment A.55 / Blueprint Phase 68
+- Cross-link Inclusion & Humanity A.83 — Human Values Charter
+- Cross-link Companion Identity A.84
+- Distinct from Business DNA A.46 at /app/settings/business-dna
+- Cross-link Organizational Memory A.34 / Blueprint Phase 94
+- Distinct from AI Ethics A.46
+- Cross-link Gratitude & Recognition A.89, Self Love A.76
+- Engine helpers: _pve_* — Phase 64: _pvbp_* — Phase 95: _pvcaebp95_* (do not collide)
+
+Dogfooding
+----------
+Aipify Group: companion philosophy, Self Love rhythms, Sales Expert stewardship, leadership consistency, community belonging.
+Unonight: first external pilot — commerce purpose values and customer-care culture.
+
+Vision
+------
+"We know who we are, why we exist and how we aspire to treat one another."
+
+Privacy note
+------------
+Metadata only — no hidden cultural scoring, no individual behavior metrics, no PII.
+Humans decide; Aipify informs and prepares.

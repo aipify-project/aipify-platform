@@ -4,12 +4,60 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseDropshippingOperationsDashboard,
+  type AbosSuccessCriterion,
+  type BlueprintObjective,
+  type CompanionGuidanceExample,
   type DropshippingOperationsDashboard,
+  type IntegrationLink,
 } from "@/lib/aipify/dropshipping-operations";
 
 type DropshippingOperationsDashboardPanelProps = {
   labels: Record<string, string>;
 };
+
+function ObjectiveCard({ objective }: { objective: BlueprintObjective }) {
+  return (
+    <div className="rounded-lg border border-slate-200 bg-slate-50/40 px-3 py-2 text-sm">
+      <span className="font-medium">
+        {objective.emoji ? `${objective.emoji} ` : ""}
+        {objective.label}
+      </span>
+      {objective.description ? <p className="mt-1 text-xs text-slate-800">{objective.description}</p> : null}
+    </div>
+  );
+}
+
+function CompanionGuidanceCard({ example }: { example: CompanionGuidanceExample }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+      <p className="font-medium">
+        {example.emoji ? `${example.emoji} ` : ""}
+        {example.prompt}
+      </p>
+      {example.consideration ? <p className="mt-1 text-xs text-gray-600">{example.consideration}</p> : null}
+    </div>
+  );
+}
+
+function SuccessCriterionRow({
+  criterion,
+  metLabel,
+  pendingLabel,
+}: {
+  criterion: AbosSuccessCriterion;
+  metLabel: string;
+  pendingLabel: string;
+}) {
+  return (
+    <div className="flex flex-wrap items-start justify-between gap-2 rounded border border-gray-100 px-3 py-2 text-sm">
+      <span className="text-gray-800">{criterion.label}</span>
+      <span className={criterion.met ? "text-xs text-green-700" : "text-xs text-amber-700"}>
+        {criterion.met ? metLabel : pendingLabel}
+      </span>
+      {criterion.note ? <p className="w-full text-xs text-gray-500">{criterion.note}</p> : null}
+    </div>
+  );
+}
 
 function badgeClass(value?: string) {
   switch (value) {
@@ -72,19 +120,16 @@ export function DropshippingOperationsDashboardPanel({ labels }: DropshippingOpe
     await load();
   };
 
-  const addWatchlist = async (productKey: string, productName: string) => {
-    setActing(`watch-${productKey}`);
-    await fetch("/api/dropshipping/watchlists", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ product_key: productKey, product_name: productName }),
-    });
-    setActing(null);
-    await load();
-  };
-
   if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
   if (!dashboard?.has_customer) return null;
+
+  const integrationLinks: IntegrationLink[] = dashboard.docbp103_integration_links ?? [];
+  const orderSteps = Array.isArray(dashboard.dropshipping_order_tracking_center?.steps)
+    ? (dashboard.dropshipping_order_tracking_center.steps as Array<{ key?: string; label?: string; description?: string }>)
+    : [];
+  const lifecycleSteps = Array.isArray(dashboard.dropshipping_product_lifecycle_management?.steps)
+    ? (dashboard.dropshipping_product_lifecycle_management.steps as Array<{ key?: string; label?: string; description?: string }>)
+    : [];
 
   return (
     <div className="space-y-6">
@@ -92,13 +137,189 @@ export function DropshippingOperationsDashboardPanel({ labels }: DropshippingOpe
         <Link href="/app/commerce-intelligence" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.commerceIntelligence}
         </Link>
+        <Link href="/app/product-automation" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.productAutomation}
+        </Link>
+        <Link href="/app/commerce-performance" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.commercePerformance}
+        </Link>
+        <Link href="/app/integration-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.integrationEngine}
+        </Link>
+        <Link href="/app/approvals" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.approvals}
+        </Link>
         <Link href="/app/platform-install" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.platformInstall}
         </Link>
         <Link href="/app/knowledge-center" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.knowledgeCenter}
         </Link>
+        {integrationLinks.map((link) =>
+          link.route ? (
+            <Link key={link.route + (link.key ?? "")} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+              {link.label ?? link.route}
+            </Link>
+          ) : null,
+        )}
       </div>
+
+      <section className="rounded-xl border border-slate-300 bg-slate-50/40 p-6">
+        <h2 className="text-sm font-semibold text-slate-900">{labels.blueprintTitle}</h2>
+        {dashboard.implementation_blueprint_phase103?.phase ? (
+          <p className="mt-1 text-xs text-slate-700">
+            {dashboard.implementation_blueprint_phase103.phase}
+            {dashboard.implementation_blueprint_phase103.engine_phase
+              ? ` · ${dashboard.implementation_blueprint_phase103.engine_phase}`
+              : ""}
+          </p>
+        ) : null}
+        {dashboard.dropshipping_operations_mission ? (
+          <p className="mt-2 text-sm font-medium text-slate-900">{dashboard.dropshipping_operations_mission}</p>
+        ) : null}
+        {dashboard.dropshipping_operations_philosophy ? (
+          <p className="mt-2 text-sm text-slate-800">{dashboard.dropshipping_operations_philosophy}</p>
+        ) : null}
+        {dashboard.dropshipping_operations_abos_principle ? (
+          <p className="mt-2 text-xs text-slate-700">{dashboard.dropshipping_operations_abos_principle}</p>
+        ) : null}
+        {dashboard.dropshipping_operations_distinction_note ? (
+          <p className="mt-2 text-xs text-slate-600">{dashboard.dropshipping_operations_distinction_note}</p>
+        ) : null}
+        {dashboard.dropshipping_operations_engine_note ? (
+          <p className="mt-2 text-xs text-slate-700">{dashboard.dropshipping_operations_engine_note}</p>
+        ) : null}
+        {dashboard.dropshipping_operations_vision ? (
+          <p className="mt-2 text-xs italic text-slate-800">{dashboard.dropshipping_operations_vision}</p>
+        ) : null}
+        {dashboard.dropshipping_operations_privacy_note ? (
+          <p className="mt-2 text-xs text-slate-600">{dashboard.dropshipping_operations_privacy_note}</p>
+        ) : null}
+      </section>
+
+      {dashboard.dropshipping_operations_objectives && dashboard.dropshipping_operations_objectives.length > 0 ? (
+        <section className="rounded-xl border border-slate-200 p-6">
+          <h3 className="text-sm font-semibold text-slate-900">{labels.blueprintObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.dropshipping_operations_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {orderSteps.length > 0 ? (
+        <section className="rounded-xl border border-indigo-200 p-6">
+          <h3 className="text-sm font-semibold text-indigo-900">{labels.orderTrackingCenter}</h3>
+          {typeof dashboard.dropshipping_order_tracking_center?.principle === "string" ? (
+            <p className="mt-2 text-sm text-indigo-800">{dashboard.dropshipping_order_tracking_center.principle}</p>
+          ) : null}
+          <ol className="mt-3 space-y-2">
+            {orderSteps.map((step, index) => (
+              <li key={step.key ?? step.label ?? index} className="rounded-lg border border-indigo-100 bg-indigo-50/30 px-3 py-2 text-sm">
+                <span className="font-medium text-indigo-900">
+                  {index + 1}. {step.label}
+                </span>
+                {step.description ? <p className="mt-1 text-xs text-indigo-800">{step.description}</p> : null}
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : null}
+
+      {lifecycleSteps.length > 0 ? (
+        <section className="rounded-xl border border-violet-200 p-6">
+          <h3 className="text-sm font-semibold text-violet-900">{labels.productLifecycle}</h3>
+          {typeof dashboard.dropshipping_product_lifecycle_management?.principle === "string" ? (
+            <p className="mt-2 text-sm text-violet-800">{dashboard.dropshipping_product_lifecycle_management.principle}</p>
+          ) : null}
+          <ol className="mt-3 space-y-2">
+            {lifecycleSteps.map((step, index) => (
+              <li key={step.key ?? step.label ?? index} className="rounded-lg border border-violet-100 bg-violet-50/30 px-3 py-2 text-sm">
+                <span className="font-medium text-violet-900">
+                  {index + 1}. {step.label}
+                </span>
+                {step.description ? <p className="mt-1 text-xs text-violet-800">{step.description}</p> : null}
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : null}
+
+      {dashboard.dropshipping_companion_guidance?.examples &&
+      dashboard.dropshipping_companion_guidance.examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionGuidance}</h3>
+          {dashboard.dropshipping_companion_guidance.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.dropshipping_companion_guidance.principle}</p>
+          ) : null}
+          {dashboard.dropshipping_companion_guidance.companion_name ? (
+            <p className="mt-1 text-xs text-gray-600">
+              {dashboard.dropshipping_companion_guidance.companion_name}
+              {dashboard.dropshipping_companion_guidance.not_label
+                ? ` — ${labels.notGenericAi}: ${dashboard.dropshipping_companion_guidance.not_label}`
+                : ""}
+            </p>
+          ) : null}
+          <div className="mt-3 space-y-2">
+            {dashboard.dropshipping_companion_guidance.examples.map((example) => (
+              <CompanionGuidanceCard key={example.key ?? example.prompt} example={example} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.dropshipping_approval_principles ? (
+        <section className="rounded-xl border border-amber-200 bg-amber-50/30 p-6">
+          <h3 className="text-sm font-semibold text-amber-900">{labels.approvalPrinciples}</h3>
+          {dashboard.dropshipping_approval_principles.principle ? (
+            <p className="mt-2 text-sm text-amber-900">{dashboard.dropshipping_approval_principles.principle}</p>
+          ) : null}
+          {dashboard.dropshipping_approval_principles.rules &&
+          dashboard.dropshipping_approval_principles.rules.length > 0 ? (
+            <ul className="mt-3 space-y-2">
+              {dashboard.dropshipping_approval_principles.rules.map((rule) => (
+                <li key={rule.key ?? rule.label} className="rounded border border-amber-100 px-3 py-2 text-xs text-amber-900">
+                  <span className="font-medium">{rule.label}</span>
+                  {rule.description ? <p className="mt-1 text-amber-800">{rule.description}</p> : null}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.dropshipping_self_love_connection?.quotes &&
+      dashboard.dropshipping_self_love_connection.quotes.length > 0 ? (
+        <section className="rounded-xl border border-sky-200 bg-sky-50/30 p-6">
+          <h3 className="text-sm font-semibold text-sky-900">{labels.selfLoveConnection}</h3>
+          {dashboard.dropshipping_self_love_connection.principle ? (
+            <p className="mt-2 text-sm text-sky-900">{dashboard.dropshipping_self_love_connection.principle}</p>
+          ) : null}
+          <ul className="mt-3 space-y-2 text-xs italic text-sky-800">
+            {dashboard.dropshipping_self_love_connection.quotes.map((quote) => (
+              <li key={quote}>{quote}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.dropshipping_operations_success_criteria &&
+      dashboard.dropshipping_operations_success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.successCriteria}</h3>
+          <div className="mt-3 space-y-2">
+            {dashboard.dropshipping_operations_success_criteria.map((criterion) => (
+              <SuccessCriterionRow
+                key={criterion.key ?? criterion.label}
+                criterion={criterion}
+                metLabel={labels.criterionMet}
+                pendingLabel={labels.criterionPending}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="rounded-xl border border-slate-200 bg-slate-50/50 p-6">
         <h2 className="text-sm font-semibold text-slate-900">{labels.operationalHealth}</h2>

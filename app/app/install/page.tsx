@@ -1,4 +1,6 @@
+import { AipifyCompanionBriefingBanner } from "@/components/app/briefing";
 import { ModernInstallAssistantPanel } from "@/components/app/install-engine";
+import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
 import type { InstallPlatformOption } from "@/lib/install/experience";
 import { MODERN_INSTALL_FLOW } from "@/lib/install/experience";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -7,7 +9,7 @@ import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AppInstallPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["install", "branding"]);
+  const dict = await getDictionary(locale, ["install", "branding", "customerApp"]);
   const t = createTranslator(dict);
 
   const flowLabels = Object.fromEntries(
@@ -28,7 +30,11 @@ export default async function AppInstallPage() {
   ) as Record<InstallPlatformOption, string>;
 
   return (
-    <ModernInstallAssistantPanel
+    <div className="space-y-4">
+      <div className="px-6 pt-6">
+        <AipifyCompanionBriefingBanner context="install" labels={buildCompanionBriefingLabels(t)} />
+      </div>
+      <ModernInstallAssistantPanel
       labels={{
         title: t("install.modern.title"),
         subtitle: t("install.modern.subtitle"),
@@ -64,5 +70,6 @@ export default async function AppInstallPage() {
         licenseGrace: t("install.modern.licenseGrace"),
       }}
     />
+    </div>
   );
 }

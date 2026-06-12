@@ -78,6 +78,13 @@ export function parseBusinessPacksFoundationEngineDashboard(data: unknown): Busi
       typeof d.commercial_packages_distinction === "object" && d.commercial_packages_distinction
         ? (d.commercial_packages_distinction as BusinessPacksFoundationEngineDashboard["commercial_packages_distinction"])
         : undefined,
+    ipsbp111_distinction_note:
+      typeof d.ipsbp111_distinction_note === "string" ? d.ipsbp111_distinction_note : undefined,
+    industry_packs_business_specialization_blueprint:
+      typeof d.industry_packs_business_specialization_blueprint === "object" &&
+      d.industry_packs_business_specialization_blueprint
+        ? (d.industry_packs_business_specialization_blueprint as BusinessPacksFoundationEngineDashboard["industry_packs_business_specialization_blueprint"])
+        : undefined,
     ...d,
   } as BusinessPacksFoundationEngineDashboard;
 }

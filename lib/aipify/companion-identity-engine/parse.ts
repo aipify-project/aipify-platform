@@ -7,9 +7,15 @@ import type {
   CompanionIdentitySettings,
   CompanionNamingPolicy,
   FoxExchangeExample,
+  HumanAiPartnershipCompanionEvolutionBlueprint,
+  HumanPartnershipBlueprintSection,
+  HumanPartnershipEngagementSummary,
+  HumanPartnershipIntegrationLink,
+  HumanPartnershipObjective,
   IdentityTrait,
   ModuleConsistencyEntry,
   SignatureElement,
+  SuccessCriterion,
 } from "./types";
 
 function parseRecordList<T>(data: unknown): T[] | undefined {
@@ -83,12 +89,108 @@ function parseAipifyFirstLanguagePolicy(data: unknown): AipifyFirstLanguagePolic
   } as AipifyFirstLanguagePolicy;
 }
 
+function parseHumanPartnershipSection(data: unknown): HumanPartnershipBlueprintSection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as HumanPartnershipBlueprintSection;
+}
+
+function parseHumanPartnershipEngagement(data: unknown): HumanPartnershipEngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as HumanPartnershipEngagementSummary;
+}
+
+function parseHumanPartnershipBlueprint(
+  data: unknown,
+): HumanAiPartnershipCompanionEvolutionBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  const d = data as Record<string, unknown>;
+  return {
+    phase: typeof d.phase === "string" ? d.phase : undefined,
+    doc: typeof d.doc === "string" ? d.doc : undefined,
+    mission: typeof d.mission === "string" ? d.mission : undefined,
+    philosophy: typeof d.philosophy === "string" ? d.philosophy : undefined,
+    abos_principle: typeof d.abos_principle === "string" ? d.abos_principle : undefined,
+    vision: typeof d.vision === "string" ? d.vision : undefined,
+    distinction_note: typeof d.distinction_note === "string" ? d.distinction_note : undefined,
+    objectives: parseRecordList<HumanPartnershipObjective>(d.objectives),
+    partnership_questions: parseHumanPartnershipSection(d.partnership_questions),
+    companion_evolution_principles: parseHumanPartnershipSection(d.companion_evolution_principles),
+    personalization_principles: parseHumanPartnershipSection(d.personalization_principles),
+    healthy_dependency_principles: parseHumanPartnershipSection(d.healthy_dependency_principles),
+    companion_guidance: parseHumanPartnershipSection(d.companion_guidance),
+    relationship_evolution_stages: parseHumanPartnershipSection(d.relationship_evolution_stages),
+    self_love_connection: parseHumanPartnershipSection(d.self_love_connection),
+    leadership_connection: parseHumanPartnershipSection(d.leadership_connection),
+    trust_connection: parseHumanPartnershipSection(d.trust_connection),
+    privacy_principles: parseHumanPartnershipSection(d.privacy_principles),
+    success_criteria: parseRecordList<SuccessCriterion>(d.success_criteria),
+    vision_phrases: Array.isArray(d.vision_phrases) ? (d.vision_phrases as string[]) : undefined,
+    integration_links: parseRecordList<HumanPartnershipIntegrationLink>(d.integration_links),
+    engagement_summary: parseHumanPartnershipEngagement(d.engagement_summary),
+    ...d,
+  } as HumanAiPartnershipCompanionEvolutionBlueprint;
+}
+
+function parseHumanPartnershipFields(d: Record<string, unknown>) {
+  return {
+    human_partnership_mission:
+      typeof d.human_partnership_mission === "string" ? d.human_partnership_mission : undefined,
+    human_partnership_philosophy:
+      typeof d.human_partnership_philosophy === "string" ? d.human_partnership_philosophy : undefined,
+    human_partnership_abos_principle:
+      typeof d.human_partnership_abos_principle === "string" ? d.human_partnership_abos_principle : undefined,
+    human_partnership_vision:
+      typeof d.human_partnership_vision === "string" ? d.human_partnership_vision : undefined,
+    human_partnership_distinction_note:
+      typeof d.human_partnership_distinction_note === "string"
+        ? d.human_partnership_distinction_note
+        : undefined,
+    human_partnership_note:
+      typeof d.human_partnership_note === "string" ? d.human_partnership_note : undefined,
+    human_partnership_objectives: parseRecordList<HumanPartnershipObjective>(d.human_partnership_objectives),
+    human_partnership_questions: parseHumanPartnershipSection(d.human_partnership_questions),
+    human_partnership_evolution_principles: parseHumanPartnershipSection(
+      d.human_partnership_evolution_principles,
+    ),
+    human_partnership_personalization: parseHumanPartnershipSection(d.human_partnership_personalization),
+    human_partnership_healthy_dependency: parseHumanPartnershipSection(
+      d.human_partnership_healthy_dependency,
+    ),
+    human_partnership_companion_guidance: parseHumanPartnershipSection(
+      d.human_partnership_companion_guidance,
+    ),
+    human_partnership_evolution_stages: parseHumanPartnershipSection(
+      d.human_partnership_evolution_stages,
+    ),
+    human_partnership_self_love: parseHumanPartnershipSection(d.human_partnership_self_love),
+    human_partnership_leadership: parseHumanPartnershipSection(d.human_partnership_leadership),
+    human_partnership_trust: parseHumanPartnershipSection(d.human_partnership_trust),
+    human_partnership_privacy: parseHumanPartnershipSection(d.human_partnership_privacy),
+    human_partnership_success_criteria: parseRecordList<SuccessCriterion>(
+      d.human_partnership_success_criteria,
+    ),
+    human_partnership_vision_phrases: Array.isArray(d.human_partnership_vision_phrases)
+      ? (d.human_partnership_vision_phrases as string[])
+      : undefined,
+    human_partnership_integration_links: parseRecordList<HumanPartnershipIntegrationLink>(
+      d.human_partnership_integration_links,
+    ),
+    human_partnership_engagement_summary: parseHumanPartnershipEngagement(
+      d.human_partnership_engagement_summary,
+    ),
+    human_ai_partnership_companion_evolution_blueprint: parseHumanPartnershipBlueprint(
+      d.human_ai_partnership_companion_evolution_blueprint,
+    ),
+  };
+}
+
 export function parseCompanionIdentityEngineCard(data: unknown): CompanionIdentityEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
   return {
     has_organization: Boolean(d.has_organization),
     companion_naming_policy: parseCompanionNamingPolicy(d.companion_naming_policy),
     aipify_first_language_policy: parseAipifyFirstLanguagePolicy(d.aipify_first_language_policy),
+    ...parseHumanPartnershipFields(d),
     ...d,
   } as CompanionIdentityEngineCard;
 }
@@ -134,6 +236,7 @@ export function parseCompanionIdentityEngineDashboard(data: unknown): CompanionI
         : undefined,
     companion_naming_policy: parseCompanionNamingPolicy(d.companion_naming_policy),
     aipify_first_language_policy: parseAipifyFirstLanguagePolicy(d.aipify_first_language_policy),
+    ...parseHumanPartnershipFields(d),
     ...d,
   } as CompanionIdentityEngineDashboard;
 }

@@ -4,12 +4,60 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseMultiStoreOrchestrationDashboard,
+  type AbosSuccessCriterion,
+  type BlueprintObjective,
+  type CompanionGuidanceExample,
+  type IntegrationLink,
   type MultiStoreOrchestrationDashboard,
 } from "@/lib/aipify/multi-store-orchestration";
 
 type MultiStoreOrchestrationDashboardPanelProps = {
   labels: Record<string, string>;
 };
+
+function ObjectiveCard({ objective }: { objective: BlueprintObjective }) {
+  return (
+    <div className="rounded-lg border border-indigo-100 bg-indigo-50/40 px-3 py-2 text-sm">
+      <span className="font-medium">
+        {objective.emoji ? `${objective.emoji} ` : ""}
+        {objective.label}
+      </span>
+      {objective.description ? <p className="mt-1 text-xs text-indigo-900">{objective.description}</p> : null}
+    </div>
+  );
+}
+
+function CompanionGuidanceCard({ example }: { example: CompanionGuidanceExample }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+      <p className="font-medium">
+        {example.emoji ? `${example.emoji} ` : ""}
+        {example.prompt}
+      </p>
+      {example.consideration ? <p className="mt-1 text-xs text-gray-600">{example.consideration}</p> : null}
+    </div>
+  );
+}
+
+function SuccessCriterionRow({
+  criterion,
+  metLabel,
+  pendingLabel,
+}: {
+  criterion: AbosSuccessCriterion;
+  metLabel: string;
+  pendingLabel: string;
+}) {
+  return (
+    <div className="flex flex-wrap items-start justify-between gap-2 rounded border border-gray-100 px-3 py-2 text-sm">
+      <span className="text-gray-800">{criterion.label}</span>
+      <span className={criterion.met ? "text-xs text-green-700" : "text-xs text-amber-700"}>
+        {criterion.met ? metLabel : pendingLabel}
+      </span>
+      {criterion.note ? <p className="w-full text-xs text-gray-500">{criterion.note}</p> : null}
+    </div>
+  );
+}
 
 function badgeClass(value?: string) {
   switch (value) {
@@ -75,6 +123,8 @@ export function MultiStoreOrchestrationDashboardPanel({ labels }: MultiStoreOrch
   if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
   if (!dashboard?.has_customer) return null;
 
+  const integrationLinks: IntegrationLink[] = dashboard.msobp105_integration_links ?? [];
+
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap gap-2">
@@ -87,10 +137,148 @@ export function MultiStoreOrchestrationDashboardPanel({ labels }: MultiStoreOrch
         <Link href="/app/commerce-intelligence" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.commerceIntelligence}
         </Link>
+        <Link href="/app/product-automation" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.productAutomation}
+        </Link>
+        <Link href="/app/dropshipping-operations" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.dropshippingOperations}
+        </Link>
+        <Link href="/app/workflow-orchestration-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.workflowOrchestration}
+        </Link>
+        <Link href="/app/approvals" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.approvals}
+        </Link>
         <Link href="/app/knowledge-center" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.knowledgeCenter}
         </Link>
+        {integrationLinks.map((link) =>
+          link.route ? (
+            <Link key={link.route + (link.key ?? "")} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+              {link.label ?? link.route}
+            </Link>
+          ) : null,
+        )}
       </div>
+
+      <section className="rounded-xl border border-indigo-200 bg-indigo-50/40 p-6">
+        <h2 className="text-sm font-semibold text-indigo-900">{labels.blueprintTitle}</h2>
+        {dashboard.implementation_blueprint_phase105?.phase ? (
+          <p className="mt-1 text-xs text-indigo-700">
+            {dashboard.implementation_blueprint_phase105.phase}
+            {dashboard.implementation_blueprint_phase105.engine_phase
+              ? ` · ${dashboard.implementation_blueprint_phase105.engine_phase}`
+              : ""}
+          </p>
+        ) : null}
+        {dashboard.multi_store_orchestration_mission ? (
+          <p className="mt-2 text-sm font-medium text-indigo-900">{dashboard.multi_store_orchestration_mission}</p>
+        ) : null}
+        {dashboard.multi_store_orchestration_philosophy ? (
+          <p className="mt-2 text-sm text-indigo-900">{dashboard.multi_store_orchestration_philosophy}</p>
+        ) : null}
+        {dashboard.multi_store_orchestration_abos_principle ? (
+          <p className="mt-2 text-xs text-indigo-800">{dashboard.multi_store_orchestration_abos_principle}</p>
+        ) : null}
+        {dashboard.multi_store_orchestration_distinction_note ? (
+          <p className="mt-2 text-xs text-indigo-700">{dashboard.multi_store_orchestration_distinction_note}</p>
+        ) : null}
+        {dashboard.multi_store_orchestration_engine_note ? (
+          <p className="mt-2 text-xs text-indigo-800">{dashboard.multi_store_orchestration_engine_note}</p>
+        ) : null}
+        {dashboard.multi_store_orchestration_vision ? (
+          <p className="mt-2 text-xs italic text-indigo-800">{dashboard.multi_store_orchestration_vision}</p>
+        ) : null}
+        {dashboard.multi_store_orchestration_privacy_note ? (
+          <p className="mt-2 text-xs text-indigo-700">{dashboard.multi_store_orchestration_privacy_note}</p>
+        ) : null}
+      </section>
+
+      {dashboard.multi_store_orchestration_objectives && dashboard.multi_store_orchestration_objectives.length > 0 ? (
+        <section className="rounded-xl border border-violet-200 p-6">
+          <h3 className="text-sm font-semibold text-violet-900">{labels.blueprintObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.multi_store_orchestration_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.multi_store_companion_guidance?.examples &&
+      dashboard.multi_store_companion_guidance.examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionGuidance}</h3>
+          {dashboard.multi_store_companion_guidance.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.multi_store_companion_guidance.principle}</p>
+          ) : null}
+          {dashboard.multi_store_companion_guidance.companion_name ? (
+            <p className="mt-1 text-xs text-gray-600">
+              {dashboard.multi_store_companion_guidance.companion_name}
+              {dashboard.multi_store_companion_guidance.not_label
+                ? ` — ${labels.notGenericAi}: ${dashboard.multi_store_companion_guidance.not_label}`
+                : ""}
+            </p>
+          ) : null}
+          <div className="mt-3 space-y-2">
+            {dashboard.multi_store_companion_guidance.examples.map((example) => (
+              <CompanionGuidanceCard key={example.key ?? example.prompt} example={example} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.multi_store_permission_principles ? (
+        <section className="rounded-xl border border-slate-200 bg-slate-50/40 p-6">
+          <h3 className="text-sm font-semibold text-slate-900">{labels.permissionPrinciples}</h3>
+          {typeof dashboard.multi_store_permission_principles.principle === "string" ? (
+            <p className="mt-2 text-sm text-slate-800">{dashboard.multi_store_permission_principles.principle}</p>
+          ) : null}
+          {Array.isArray(dashboard.multi_store_permission_principles.rules) ? (
+            <ul className="mt-3 space-y-2">
+              {(dashboard.multi_store_permission_principles.rules as Array<{ label?: string; description?: string }>).map(
+                (rule) => (
+                  <li key={rule.label} className="rounded border border-slate-100 bg-white px-3 py-2 text-xs text-slate-700">
+                    <span className="font-medium">{rule.label}</span>
+                    {rule.description ? <p className="mt-1 text-slate-600">{rule.description}</p> : null}
+                  </li>
+                ),
+              )}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.multi_store_self_love_connection ? (
+        <section className="rounded-xl border border-pink-200 bg-pink-50/30 p-6">
+          <h3 className="text-sm font-semibold text-pink-900">{labels.selfLoveConnection}</h3>
+          {dashboard.multi_store_self_love_connection.principle ? (
+            <p className="mt-2 text-sm text-pink-900">{dashboard.multi_store_self_love_connection.principle}</p>
+          ) : null}
+          {dashboard.multi_store_self_love_connection.quotes?.map((quote) => (
+            <p key={quote} className="mt-2 text-xs italic text-pink-800">
+              {quote}
+            </p>
+          ))}
+        </section>
+      ) : null}
+
+      {dashboard.multi_store_orchestration_success_criteria &&
+      dashboard.multi_store_orchestration_success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.successCriteria}</h3>
+          <div className="mt-3 space-y-2">
+            {dashboard.multi_store_orchestration_success_criteria.map((criterion) => (
+              <SuccessCriterionRow
+                key={criterion.key ?? criterion.label}
+                criterion={criterion}
+                metLabel={labels.criterionMet}
+                pendingLabel={labels.criterionPending}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-6">
         <h2 className="text-sm font-semibold text-indigo-900">{labels.portfolioOverview}</h2>
@@ -104,6 +292,9 @@ export function MultiStoreOrchestrationDashboardPanel({ labels }: MultiStoreOrch
         </p>
         <p className="mt-2 text-sm text-indigo-800">{dashboard.philosophy}</p>
         <p className="mt-1 text-xs text-indigo-700">{dashboard.safety_note}</p>
+        {dashboard.auto_sync_disabled ? (
+          <p className="mt-1 text-xs font-medium text-indigo-600">{labels.autoSyncDisabled}</p>
+        ) : null}
         <button
           type="button"
           disabled={acting === "report"}

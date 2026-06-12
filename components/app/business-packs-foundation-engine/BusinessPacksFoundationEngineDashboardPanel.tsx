@@ -4,8 +4,11 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseBusinessPacksFoundationEngineDashboard,
+  type BlueprintObjective,
   type BusinessPackRecord,
   type BusinessPacksFoundationEngineDashboard,
+  type ExampleIndustryPack,
+  type InstallFlowStep,
   type ModularAddon,
   type ProductizationPack,
 } from "@/lib/aipify/business-packs-foundation-engine";
@@ -49,12 +52,17 @@ export function BusinessPacksFoundationEngineDashboardPanel({ labels }: Props) {
   if (!dashboard?.has_organization) return null;
 
   const summary = dashboard.summary ?? {};
+  const blueprint = dashboard.industry_packs_business_specialization_blueprint;
+  const blueprintLinks = blueprint?.integration_links ?? [];
+  const allLinks = [...(dashboard.integration_links ?? []), ...blueprintLinks].filter(
+    (link, index, arr) => arr.findIndex((l) => (l.key ?? l.route) === (link.key ?? link.route)) === index
+  );
 
   return (
     <div className="space-y-6">
-      {(dashboard.integration_links ?? []).length > 0 ? (
+      {allLinks.length > 0 ? (
         <div className="flex flex-wrap gap-2">
-          {dashboard.integration_links?.map((link) =>
+          {allLinks.map((link) =>
             link.route ? (
               <Link key={link.key ?? link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
                 {link.label ?? labels[link.key as keyof typeof labels] ?? link.key?.replace(/_/g, " ")}
@@ -84,6 +92,117 @@ export function BusinessPacksFoundationEngineDashboardPanel({ labels }: Props) {
       {actionError && (
         <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{actionError}</div>
       )}
+
+      {blueprint?.example_industry_packs && blueprint.example_industry_packs.length > 0 ? (
+        <section className="rounded-xl border border-emerald-200 bg-emerald-50/40 p-6">
+          <h3 className="text-sm font-semibold text-emerald-900">{labels.industryPackExamples}</h3>
+          <p className="mt-1 text-xs text-emerald-800">{labels.industryPackExamplesNote}</p>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {blueprint.example_industry_packs.map((pack) => (
+              <ExampleIndustryPackCard
+                key={pack.pack_key ?? pack.display_name}
+                pack={pack}
+                labels={labels}
+                onActivate={
+                  pack.mapped_catalog_pack_key && !pack.is_future
+                    ? () => void activatePack(pack.mapped_catalog_pack_key!)
+                    : undefined
+                }
+                activating={activating === pack.mapped_catalog_pack_key}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {blueprint?.objectives && blueprint.objectives.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.blueprintObjectives}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {blueprint.objectives.map((obj) => (
+              <ObjectiveCard key={obj.key ?? obj.label} objective={obj} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {blueprint?.installation_engine_connection?.steps &&
+      blueprint.installation_engine_connection.steps.length > 0 ? (
+        <section className="rounded-xl border border-sky-200 bg-sky-50/40 p-6">
+          <h3 className="text-sm font-semibold text-sky-900">{labels.installFlow}</h3>
+          {blueprint.installation_engine_connection.principle ? (
+            <p className="mt-1 text-xs text-sky-800">{blueprint.installation_engine_connection.principle}</p>
+          ) : null}
+          <ol className="mt-3 space-y-2">
+            {blueprint.installation_engine_connection.steps.map((step) => (
+              <InstallFlowStepCard key={step.key ?? step.label} step={step} />
+            ))}
+          </ol>
+        </section>
+      ) : null}
+
+      {blueprint?.companion_adaptation?.examples && blueprint.companion_adaptation.examples.length > 0 ? (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/40 p-4">
+          <h3 className="text-sm font-semibold text-violet-900">{labels.companionAdaptation}</h3>
+          {blueprint.companion_adaptation.principle ? (
+            <p className="mt-1 text-xs text-violet-800">{blueprint.companion_adaptation.principle}</p>
+          ) : null}
+          <ul className="mt-3 space-y-2 text-sm">
+            {blueprint.companion_adaptation.examples.map((ex) => (
+              <li key={ex.key ?? ex.prompt} className="rounded border border-violet-100 bg-white/60 px-3 py-2">
+                <span className="font-medium">
+                  {ex.emoji ? `${ex.emoji} ` : ""}
+                  {ex.prompt}
+                </span>
+                {ex.consideration ? <p className="mt-1 text-xs text-violet-700">{ex.consideration}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {blueprint?.limitation_principles?.must_avoid &&
+      blueprint.limitation_principles.must_avoid.length > 0 ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 p-4">
+          <h3 className="text-sm font-semibold text-amber-900">{labels.limitationPrinciples}</h3>
+          {blueprint.limitation_principles.principle ? (
+            <p className="mt-1 text-xs text-amber-800">{blueprint.limitation_principles.principle}</p>
+          ) : null}
+          <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-amber-900">
+            {blueprint.limitation_principles.must_avoid.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {Array.isArray(blueprint?.success_criteria) && blueprint.success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.blueprintSuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {blueprint.success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={item.key ?? label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {blueprint?.vision ? (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/30 px-4 py-3">
+          <h3 className="text-sm font-semibold text-indigo-900">{labels.blueprintVision}</h3>
+          <p className="mt-2 text-sm italic text-indigo-800">{blueprint.vision}</p>
+        </section>
+      ) : null}
 
       {dashboard.productization_packs && dashboard.productization_packs.length > 0 ? (
         <section className="rounded-xl border border-gray-200 bg-white p-6">
@@ -256,6 +375,94 @@ export function BusinessPacksFoundationEngineDashboardPanel({ labels }: Props) {
       )}
     </div>
   );
+}
+
+function ObjectiveCard({ objective }: { objective: BlueprintObjective }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 px-3 py-2 text-sm">
+      <span className="font-medium">
+        {objective.emoji ? `${objective.emoji} ` : ""}
+        {objective.label}
+      </span>
+      {objective.description ? <p className="mt-1 text-xs text-gray-600">{objective.description}</p> : null}
+    </div>
+  );
+}
+
+function ExampleIndustryPackCard({
+  pack,
+  labels,
+  onActivate,
+  activating,
+}: {
+  pack: ExampleIndustryPack;
+  labels: Record<string, string>;
+  onActivate?: () => void;
+  activating?: boolean;
+}) {
+  return (
+    <div className="rounded-lg border border-emerald-100 bg-white/70 p-4">
+      <div className="flex flex-wrap items-start justify-between gap-2">
+        <p className="font-medium text-emerald-900">{pack.display_name}</p>
+        {pack.is_future ? (
+          <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600">{labels.comingSoon}</span>
+        ) : null}
+      </div>
+      {pack.included_capabilities && pack.included_capabilities.length > 0 ? (
+        <ul className="mt-2 list-inside list-disc text-xs text-gray-600">
+          {pack.included_capabilities.map((cap) => (
+            <li key={cap}>{cap}</li>
+          ))}
+        </ul>
+      ) : null}
+      {pack.mapped_catalog_pack_key ? (
+        <p className="mt-2 text-xs text-emerald-700">
+          {labels.mappedCatalogPack}: {pack.mapped_catalog_pack_key}
+        </p>
+      ) : null}
+      {pack.module_routes && pack.module_routes.length > 0 ? (
+        <div className="mt-2 flex flex-wrap gap-1">
+          {pack.module_routes.map((route) => (
+            <Link key={route} href={route} className="rounded border border-emerald-100 px-2 py-0.5 text-xs text-emerald-800 hover:border-emerald-300">
+              {route.replace("/app/", "")}
+            </Link>
+          ))}
+        </div>
+      ) : null}
+      {onActivate ? (
+        <button
+          type="button"
+          disabled={activating}
+          onClick={onActivate}
+          className="mt-3 rounded-md bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+        >
+          {activating ? labels.activating : labels.activateCatalogPack}
+        </button>
+      ) : null}
+    </div>
+  );
+}
+
+function InstallFlowStepCard({ step }: { step: InstallFlowStep }) {
+  const content = (
+    <>
+      <span className="font-medium text-sky-900">
+        {step.step ? `${step.step}. ` : ""}
+        {step.label}
+      </span>
+      {step.description ? <p className="mt-1 text-xs text-sky-800">{step.description}</p> : null}
+    </>
+  );
+  if (step.route) {
+    return (
+      <li>
+        <Link href={step.route} className="block rounded-lg border border-sky-100 bg-white/70 px-3 py-2 text-sm hover:border-sky-300">
+          {content}
+        </Link>
+      </li>
+    );
+  }
+  return <li className="rounded-lg border border-sky-100 bg-white/70 px-3 py-2 text-sm">{content}</li>;
 }
 
 function ProductizationPackCard({

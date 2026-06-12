@@ -1,4 +1,6 @@
+import { CompanionBriefingPageIntro } from "@/components/app/briefing";
 import { CustomerSuccessEngineDashboardPanel } from "@/components/app/customer-success-engine";
+import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -10,10 +12,12 @@ export default async function CustomerSuccessEnginePage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t(`${p}.title`)}</h1>
-        <p className="mt-2 text-gray-600">{t(`${p}.subtitle`)}</p>
-      </div>
+      <CompanionBriefingPageIntro
+        title={t(`${p}.title`)}
+        subtitle={t(`${p}.subtitle`)}
+        context="customer_success"
+        labels={buildCompanionBriefingLabels(t)}
+      />
       <CustomerSuccessEngineDashboardPanel labels={{ loading: t(`${p}.loading`),
           engineTitle: t(`${p}.engineTitle`),
           noItems: t(`${p}.noItems`),

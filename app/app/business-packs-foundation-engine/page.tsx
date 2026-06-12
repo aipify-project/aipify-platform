@@ -41,6 +41,14 @@ export default async function BusinessPacksFoundationEnginePage() {
           targetAudience: t(`${p}.targetAudience`),
           mappedCatalogPack: t(`${p}.mappedCatalogPack`),
           activateCatalogPack: t(`${p}.activateCatalogPack`),
+          industryPackExamples: t(`${p}.industryPackExamples`),
+          industryPackExamplesNote: t(`${p}.industryPackExamplesNote`),
+          blueprintObjectives: t(`${p}.blueprintObjectives`),
+          installFlow: t(`${p}.installFlow`),
+          companionAdaptation: t(`${p}.companionAdaptation`),
+          limitationPrinciples: t(`${p}.limitationPrinciples`),
+          blueprintSuccessCriteria: t(`${p}.blueprintSuccessCriteria`),
+          blueprintVision: t(`${p}.blueprintVision`),
         }}
       />
     </div>

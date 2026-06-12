@@ -1,0 +1,42 @@
+ABOS Implementation Blueprint Phase 110 — Commerce Companion Engine
+
+Mission: Unified Companion for commerce — clarity, confidence, and sustainable success daily.
+
+Philosophy: Commerce is customers, teams, partnerships, and sustainability — simplify complexity; wisdom guides action. Partnership not pressure — stewardship not urgency.
+
+Vision: We no longer manage our commerce operations alone.
+
+Route: /app/commerce-companion
+Engine prefix: _ccom_*
+Blueprint prefix: _ccombp110_*
+Decision type: commerce_companion
+
+Objectives:
+- Daily briefings — morning commerce clarity without reactive pressure
+- Opportunity discovery connection — Commerce Intelligence Phase 101 cross-link
+- Operational awareness — delays, refunds, supplier concerns, shortages
+- Strategic guidance — holistic portfolio without duplicating domain RPCs
+- Profitability support — Commerce Performance Phase 104 coaching source
+- Sustainable growth — human-centered pacing
+
+Morning commerce briefings:
+🌹 Encouraging morning clarity — calm daily overview
+🦉 Insight before action — revenue and profit metadata
+❤️ Human-centered pacing — no urgent pressure
+🔔 Prepared highlights — operational signals for human review
+
+Companion personality: Encouraging 🌹 · Insightful 🦉 · Human-centered ❤️ · Proactive 🔔
+Not label: generic AI commerce bot
+Companion name: Commerce Companion
+
+Limitation principles:
+- No reactive pressure or growth-at-any-cost framing
+- No revenue-only optimization ignoring sustainability
+- pressure_free_mode default true
+- Domain modules Phases 101–109 remain authoritative
+
+Integration links: Commerce Intelligence 101 · Product Automation 102 · Dropshipping Operations 103 · Commerce Performance 104 · Multi-Store 105 · Supplier Intelligence 106 · Growth Partner 107 · Customer Journey 108 · Global Commerce Expansion 109 · Command Center · Meeting Companion · Knowledge Center
+
+Dogfooding: Sportsklær.no · Shopify · Multi-store · Growth Partner programs
+
+Aipify informs and prepares — humans decide.

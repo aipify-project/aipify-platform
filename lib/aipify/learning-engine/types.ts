@@ -124,6 +124,139 @@ export type ImplementationBlueprintMeta = {
   core_principle?: string;
 };
 
+export type LearningSignal = {
+  key?: string;
+  label?: string;
+  description?: string;
+  cross_link?: string;
+};
+
+export type LearningSignalsBlueprint = {
+  principle?: string;
+  signals?: LearningSignal[];
+};
+
+export type CapabilityQuestion = {
+  emoji?: string;
+  key?: string;
+  question?: string;
+  description?: string;
+};
+
+export type CapabilityQuestionsBlueprint = {
+  principle?: string;
+  questions?: CapabilityQuestion[];
+  reflection_note?: string;
+};
+
+export type AdaptiveLearningPathway = {
+  key?: string;
+  title?: string;
+  description?: string;
+  designed_for?: string[];
+  topics?: string[];
+  cross_link?: string;
+  cross_link_note?: string;
+  companion_name?: string;
+  not_label?: string;
+};
+
+export type CompanionGuidanceExample = {
+  emoji?: string;
+  key?: string;
+  prompt?: string;
+  consideration?: string;
+};
+
+export type CompanionGuidanceBlueprint = {
+  principle?: string;
+  companion_name?: string;
+  not_label?: string;
+  examples?: CompanionGuidanceExample[];
+  boundary_note?: string;
+};
+
+export type KnowledgeReinforcementBlueprint = {
+  principle?: string;
+  practices?: string[];
+  knowledge_center_route?: string;
+  organizational_memory_route?: string;
+  eke_route?: string;
+  boundary_note?: string;
+};
+
+export type CommunityLearningConnection = {
+  principle?: string;
+  practices?: string[];
+  community_route?: string;
+  boundary_note?: string;
+};
+
+export type LeadershipInsight = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type LeadershipInsightsBlueprint = {
+  principle?: string;
+  insights?: LeadershipInsight[];
+  boundary_note?: string;
+};
+
+export type PrivacyPrinciplesBlueprint = {
+  principle?: string;
+  forbidden?: string[];
+  required?: string[];
+  boundary_note?: string;
+};
+
+export type AdaptiveOrganizationalEngagementSummary = {
+  learning_signals?: number;
+  capability_questions?: number;
+  adaptive_pathways?: number;
+  companion_guidance_examples?: number;
+  leadership_insight_dimensions?: number;
+  privacy_forbidden_count?: number;
+  integration_links?: number;
+  operational_engagement?: LearningEngagementSummary;
+  privacy_note?: string;
+};
+
+export type AdaptiveLearningOrganizationalCapabilityBlueprint = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  objectives?: LearningObjective[];
+  learning_signals?: LearningSignalsBlueprint;
+  capability_questions?: CapabilityQuestionsBlueprint;
+  adaptive_learning_pathways?: AdaptiveLearningPathway[];
+  companion_guidance?: CompanionGuidanceBlueprint;
+  knowledge_reinforcement?: KnowledgeReinforcementBlueprint;
+  community_learning_connection?: CommunityLearningConnection;
+  self_love_connection?: SelfLoveConnection;
+  leadership_insights?: LeadershipInsightsBlueprint;
+  trust_connection?: TrustConnection;
+  privacy_principles?: PrivacyPrinciplesBlueprint;
+  dogfooding?: {
+    principle?: string;
+    aipify_group?: DogfoodingEntry;
+    unonight?: DogfoodingEntry;
+  };
+  success_criteria?: AbosSuccessCriterion[];
+  vision?: string;
+  vision_phrases?: string[];
+  integration_links?: IntegrationLink[];
+  engagement_summary?: AdaptiveOrganizationalEngagementSummary;
+  privacy_note?: string;
+};
+
 export type LearningEngineCard = {
   has_customer: boolean;
   enabled?: boolean;
@@ -138,6 +271,12 @@ export type LearningEngineCard = {
   implementation_blueprint?: ImplementationBlueprintMeta;
   engagement_summary?: LearningEngagementSummary;
   blueprint_note?: string;
+  implementation_blueprint_phase93?: ImplementationBlueprintMeta;
+  adaptive_organizational_mission?: string;
+  adaptive_organizational_abos_principle?: string;
+  adaptive_organizational_engagement_summary?: AdaptiveOrganizationalEngagementSummary;
+  adaptive_organizational_note?: string;
+  adaptive_organizational_vision_note?: string;
 };
 
 export type LearningEngineDashboard = {
@@ -179,6 +318,35 @@ export type LearningEngineDashboard = {
   vision_phrases?: string[];
   privacy_note?: string;
   principles?: string[];
+  implementation_blueprint_phase93?: ImplementationBlueprintMeta;
+  adaptive_learning_organizational_capability_engine_note?: string;
+  adaptive_learning_organizational_capability_blueprint?: AdaptiveLearningOrganizationalCapabilityBlueprint;
+  adaptive_organizational_distinction_note?: string;
+  adaptive_organizational_mission?: string;
+  adaptive_organizational_philosophy?: string;
+  adaptive_organizational_abos_principle?: string;
+  adaptive_organizational_objectives?: LearningObjective[];
+  adaptive_organizational_learning_signals?: LearningSignalsBlueprint;
+  adaptive_organizational_capability_questions?: CapabilityQuestionsBlueprint;
+  adaptive_organizational_pathways?: AdaptiveLearningPathway[];
+  adaptive_organizational_companion_guidance?: CompanionGuidanceBlueprint;
+  adaptive_organizational_knowledge_reinforcement?: KnowledgeReinforcementBlueprint;
+  adaptive_organizational_community_learning?: CommunityLearningConnection;
+  adaptive_organizational_self_love_connection?: SelfLoveConnection;
+  adaptive_organizational_leadership_insights?: LeadershipInsightsBlueprint;
+  adaptive_organizational_trust_connection?: TrustConnection;
+  adaptive_organizational_privacy_principles?: PrivacyPrinciplesBlueprint;
+  adaptive_organizational_dogfooding?: {
+    principle?: string;
+    aipify_group?: DogfoodingEntry;
+    unonight?: DogfoodingEntry;
+  };
+  adaptive_organizational_integration_links?: IntegrationLink[];
+  adaptive_organizational_engagement_summary?: AdaptiveOrganizationalEngagementSummary;
+  adaptive_organizational_success_criteria?: AbosSuccessCriterion[];
+  adaptive_organizational_vision?: string;
+  adaptive_organizational_vision_phrases?: string[];
+  adaptive_organizational_privacy_note?: string;
 };
 
 export type LearningEngineSettings = {

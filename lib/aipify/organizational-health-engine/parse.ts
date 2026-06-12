@@ -1,12 +1,17 @@
 import type {
   AbosSuccessCriterion,
   BlueprintObjective,
+  CompanionCheckIns,
   DogfoodingBlueprint,
+  EmployeeExperienceQuestions,
+  EmployeeExperienceWellbeingBlueprint,
+  EmployeeJourneyConnection,
   HealthDomain,
   HealthEngagementSummary,
   HealthObservation,
   ImplementationBlueprintMeta,
   IntegrationLink,
+  LeadershipConnection,
   LeadershipInsights,
   OrganizationalHealthEngineCard,
   OrganizationalHealthEngineDashboard,
@@ -15,8 +20,12 @@ import type {
   OrganizationalHealthScore,
   PrivacyPrinciples,
   RecognitionConnection,
+  RecognitionPractices,
   SelfLoveConnection,
+  SelfLoveWellbeingConnection,
   TrustConnection,
+  WellbeingEngagementSummary,
+  WellbeingTrustConnection,
   WorkloadAwareness,
 } from "./types";
 
@@ -35,6 +44,18 @@ function parseEngagementSummary(data: unknown): HealthEngagementSummary | undefi
   return data as HealthEngagementSummary;
 }
 
+function parseWellbeingEngagementSummary(data: unknown): WellbeingEngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as WellbeingEngagementSummary;
+}
+
+function parseEmployeeExperienceWellbeingBlueprint(
+  data: unknown
+): EmployeeExperienceWellbeingBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as EmployeeExperienceWellbeingBlueprint;
+}
+
 export function parseOrganizationalHealthEngineCard(data: unknown): OrganizationalHealthEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
   return {
@@ -45,11 +66,29 @@ export function parseOrganizationalHealthEngineCard(data: unknown): Organization
     categories_measured: typeof d.categories_measured === "number" ? d.categories_measured : undefined,
     pending_interventions: typeof d.pending_interventions === "number" ? d.pending_interventions : undefined,
     implementation_blueprint_phase61: parseBlueprintMeta(d.implementation_blueprint_phase61),
+    implementation_blueprint_phase96: parseBlueprintMeta(d.implementation_blueprint_phase96),
     mission: typeof d.mission === "string" ? d.mission : undefined,
     abos_principle: typeof d.abos_principle === "string" ? d.abos_principle : undefined,
     engagement_summary: parseEngagementSummary(d.engagement_summary),
+    wellbeing_engagement_summary: parseWellbeingEngagementSummary(d.wellbeing_engagement_summary),
     blueprint_note: typeof d.blueprint_note === "string" ? d.blueprint_note : undefined,
     health_note: typeof d.health_note === "string" ? d.health_note : undefined,
+    employee_experience_wellbeing_mission:
+      typeof d.employee_experience_wellbeing_mission === "string"
+        ? d.employee_experience_wellbeing_mission
+        : undefined,
+    employee_experience_wellbeing_abos_principle:
+      typeof d.employee_experience_wellbeing_abos_principle === "string"
+        ? d.employee_experience_wellbeing_abos_principle
+        : undefined,
+    employee_experience_wellbeing_note:
+      typeof d.employee_experience_wellbeing_note === "string"
+        ? d.employee_experience_wellbeing_note
+        : undefined,
+    employee_experience_wellbeing_vision_note:
+      typeof d.employee_experience_wellbeing_vision_note === "string"
+        ? d.employee_experience_wellbeing_vision_note
+        : undefined,
     ...d,
   } as OrganizationalHealthEngineCard;
 }
@@ -127,6 +166,84 @@ export function parseOrganizationalHealthEngineDashboard(
     success_criteria: parseRecordList<AbosSuccessCriterion>(d.success_criteria),
     vision_phrases: Array.isArray(d.vision_phrases) ? (d.vision_phrases as string[]) : undefined,
     privacy_note: typeof d.privacy_note === "string" ? d.privacy_note : undefined,
+    implementation_blueprint_phase96: parseBlueprintMeta(d.implementation_blueprint_phase96),
+    employee_experience_wellbeing_engine_note:
+      typeof d.employee_experience_wellbeing_engine_note === "string"
+        ? d.employee_experience_wellbeing_engine_note
+        : undefined,
+    employee_experience_wellbeing_blueprint: parseEmployeeExperienceWellbeingBlueprint(
+      d.employee_experience_wellbeing_blueprint
+    ),
+    employee_experience_wellbeing_distinction_note:
+      typeof d.employee_experience_wellbeing_distinction_note === "string"
+        ? d.employee_experience_wellbeing_distinction_note
+        : undefined,
+    employee_experience_wellbeing_mission:
+      typeof d.employee_experience_wellbeing_mission === "string"
+        ? d.employee_experience_wellbeing_mission
+        : undefined,
+    employee_experience_wellbeing_philosophy:
+      typeof d.employee_experience_wellbeing_philosophy === "string"
+        ? d.employee_experience_wellbeing_philosophy
+        : undefined,
+    employee_experience_wellbeing_abos_principle:
+      typeof d.employee_experience_wellbeing_abos_principle === "string"
+        ? d.employee_experience_wellbeing_abos_principle
+        : undefined,
+    employee_experience_wellbeing_objectives: parseRecordList<BlueprintObjective>(
+      d.employee_experience_wellbeing_objectives
+    ),
+    employee_experience_questions:
+      typeof d.employee_experience_questions === "object" && d.employee_experience_questions
+        ? (d.employee_experience_questions as EmployeeExperienceQuestions)
+        : undefined,
+    wellbeing_observations: parseRecordList<HealthObservation>(d.wellbeing_observations),
+    wellbeing_recognition_practices:
+      typeof d.wellbeing_recognition_practices === "object" && d.wellbeing_recognition_practices
+        ? (d.wellbeing_recognition_practices as RecognitionPractices)
+        : undefined,
+    companion_check_ins:
+      typeof d.companion_check_ins === "object" && d.companion_check_ins
+        ? (d.companion_check_ins as CompanionCheckIns)
+        : undefined,
+    wellbeing_self_love_connection:
+      typeof d.wellbeing_self_love_connection === "object" && d.wellbeing_self_love_connection
+        ? (d.wellbeing_self_love_connection as SelfLoveWellbeingConnection)
+        : undefined,
+    wellbeing_leadership_connection:
+      typeof d.wellbeing_leadership_connection === "object" && d.wellbeing_leadership_connection
+        ? (d.wellbeing_leadership_connection as LeadershipConnection)
+        : undefined,
+    employee_journey_connection:
+      typeof d.employee_journey_connection === "object" && d.employee_journey_connection
+        ? (d.employee_journey_connection as EmployeeJourneyConnection)
+        : undefined,
+    wellbeing_trust_connection:
+      typeof d.wellbeing_trust_connection === "object" && d.wellbeing_trust_connection
+        ? (d.wellbeing_trust_connection as WellbeingTrustConnection)
+        : undefined,
+    wellbeing_privacy_principles:
+      typeof d.wellbeing_privacy_principles === "object" && d.wellbeing_privacy_principles
+        ? (d.wellbeing_privacy_principles as PrivacyPrinciples)
+        : undefined,
+    wellbeing_dogfooding:
+      typeof d.wellbeing_dogfooding === "object" && d.wellbeing_dogfooding
+        ? (d.wellbeing_dogfooding as DogfoodingBlueprint)
+        : undefined,
+    wellbeing_integration_links: parseRecordList<IntegrationLink>(d.wellbeing_integration_links),
+    wellbeing_engagement_summary: parseWellbeingEngagementSummary(d.wellbeing_engagement_summary),
+    wellbeing_success_criteria: parseRecordList<AbosSuccessCriterion>(d.wellbeing_success_criteria),
+    employee_experience_wellbeing_vision:
+      typeof d.employee_experience_wellbeing_vision === "string"
+        ? d.employee_experience_wellbeing_vision
+        : undefined,
+    employee_experience_wellbeing_vision_phrases: Array.isArray(d.employee_experience_wellbeing_vision_phrases)
+      ? (d.employee_experience_wellbeing_vision_phrases as string[])
+      : undefined,
+    employee_experience_wellbeing_privacy_note:
+      typeof d.employee_experience_wellbeing_privacy_note === "string"
+        ? d.employee_experience_wellbeing_privacy_note
+        : undefined,
     ...d,
   } as OrganizationalHealthEngineDashboard;
 }

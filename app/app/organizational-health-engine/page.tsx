@@ -8,6 +8,7 @@ export default async function OrganizationalHealthEnginePage() {
   const t = createTranslator(dict);
   const p = "customerApp.organizationalHealthEngine";
   const b = `${p}.blueprint`;
+  const w = `${p}.employeeWellbeing`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -56,6 +57,24 @@ export default async function OrganizationalHealthEnginePage() {
           pendingInterventions: t(`${b}.pendingInterventions`),
           criterionMet: t(`${b}.criterionMet`),
           criterionPending: t(`${b}.criterionPending`),
+          employeeWellbeingTitle: t(`${w}.title`),
+          employeeWellbeingObjectives: t(`${w}.objectives`),
+          employeeExperienceQuestions: t(`${w}.experienceQuestions`),
+          wellbeingObservations: t(`${w}.wellbeingObservations`),
+          wellbeingRecognitionPractices: t(`${w}.recognitionPractices`),
+          companionCheckIns: t(`${w}.companionCheckIns`),
+          notAiWellnessBot: t(`${w}.notAiWellnessBot`),
+          wellbeingSelfLoveConnection: t(`${w}.selfLoveConnection`),
+          wellbeingLeadershipConnection: t(`${w}.leadershipConnection`),
+          employeeJourneyConnection: t(`${w}.employeeJourneyConnection`),
+          wellbeingTrustConnection: t(`${w}.trustConnection`),
+          wellbeingPrivacyPrinciples: t(`${w}.privacyPrinciples`),
+          wellbeingDogfooding: t(`${w}.dogfooding`),
+          wellbeingEngagementSummary: t(`${w}.engagementSummary`),
+          wellbeingSuccessCriteria: t(`${w}.successCriteria`),
+          experienceQuestionsDocumented: t(`${w}.experienceQuestionsDocumented`),
+          wellbeingObservationsDocumented: t(`${w}.wellbeingObservationsDocumented`),
+          companionCheckInsDocumented: t(`${w}.companionCheckInsDocumented`),
         }} />
     </div>
   );

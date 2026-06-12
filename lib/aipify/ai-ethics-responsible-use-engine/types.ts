@@ -126,6 +126,59 @@ export type ImplementationBlueprintPhase65 = {
   mapping_note?: string;
 };
 
+export type ImplementationBlueprintPhase98 = {
+  phase?: number;
+  title?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+};
+
+export type TrustEthicsHumanGovernanceBlueprint = {
+  phase?: number;
+  title?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+  mission?: string;
+  philosophy?: string;
+  vision?: string;
+  abos_principle?: string;
+  objectives?: BlueprintObjective[];
+  ethical_questions?: Record<string, unknown>;
+  governance_principles?: Record<string, unknown>;
+  human_in_the_loop?: Record<string, unknown>;
+  companion_transparency?: Record<string, unknown>;
+  ethical_review_practices?: Record<string, unknown>;
+  companion_guidance?: Record<string, unknown>;
+  self_love_connection?: Record<string, unknown>;
+  leadership_connection?: Record<string, unknown>;
+  trust_connection?: Record<string, unknown>;
+  privacy_principles?: Record<string, unknown>;
+  dogfooding?: Record<string, unknown>;
+  integration_links?: BlueprintIntegrationLink[];
+  vision_phrases?: string[];
+  distinction_note?: string;
+  constitution_cross_link?: Record<string, unknown>;
+};
+
+export type TrustEthicsGovernanceEngagementSummary = {
+  approved_use_cases?: number;
+  proposed_use_cases?: number;
+  overdue_ethics_reviews?: number;
+  high_risk_active?: number;
+  recent_ethics_audit_events?: number;
+  governance_objectives_count?: number;
+  ethical_questions_count?: number;
+  human_in_the_loop_domains?: number;
+  governance_health?: string;
+  council_engagement_summary?: CouncilEngagementSummary;
+  privacy_note?: string;
+  summary_text?: string;
+};
+
 export type GuidingQuestion = {
   emoji?: string;
   key?: string;
@@ -162,6 +215,12 @@ export type AiEthicsResponsibleUseEngineCard = {
   critical_prohibition_note?: string;
   blueprint_note?: string;
   council_vision_phrase?: string;
+  implementation_blueprint_phase98?: ImplementationBlueprintPhase98;
+  trust_ethics_human_governance_phase?: number;
+  tehgbp98_abos_principle?: string;
+  trust_ethics_governance_engagement_summary?: TrustEthicsGovernanceEngagementSummary;
+  trust_governance_vision_phrase?: string;
+  trust_ethics_human_governance_blueprint?: TrustEthicsHumanGovernanceBlueprint;
   [key: string]: unknown;
 };
 
@@ -221,5 +280,29 @@ export type AiEthicsResponsibleUseEngineDashboard = {
   cecbp_success_criteria?: BlueprintSuccessCriterion[];
   cecbp_distinction_note?: string;
   cecbp_vision_phrases?: string[];
+  implementation_blueprint_phase98?: ImplementationBlueprintPhase98;
+  trust_ethics_human_governance_phase?: number;
+  tehgbp98_mission?: string;
+  tehgbp98_philosophy?: string;
+  tehgbp98_vision?: string;
+  tehgbp98_abos_principle?: string;
+  tehgbp98_objectives?: BlueprintObjective[];
+  ethical_questions?: Record<string, unknown>;
+  governance_principles?: Record<string, unknown>;
+  human_in_the_loop?: Record<string, unknown>;
+  companion_transparency?: Record<string, unknown>;
+  ethical_review_practices?: Record<string, unknown>;
+  tehgbp98_companion_guidance?: Record<string, unknown>;
+  tehgbp98_self_love_connection?: Record<string, unknown>;
+  tehgbp98_leadership_connection?: Record<string, unknown>;
+  tehgbp98_trust_connection?: Record<string, unknown>;
+  privacy_principles?: Record<string, unknown>;
+  tehgbp98_dogfooding?: Record<string, unknown>;
+  tehgbp98_integration_links?: BlueprintIntegrationLink[];
+  trust_ethics_governance_engagement_summary?: TrustEthicsGovernanceEngagementSummary;
+  tehgbp98_success_criteria?: BlueprintSuccessCriterion[];
+  tehgbp98_distinction_note?: string;
+  tehgbp98_vision_phrases?: string[];
+  trust_ethics_human_governance_blueprint?: TrustEthicsHumanGovernanceBlueprint;
   [key: string]: unknown;
 };

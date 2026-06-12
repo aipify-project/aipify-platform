@@ -1,4 +1,6 @@
+import { AipifyCompanionBriefingBanner } from "@/components/app/briefing";
 import { ApprovalsCenterPanel } from "@/components/app/approvals/ApprovalsCenterPanel";
+import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -9,7 +11,14 @@ export default async function ApprovalsPage() {
   const t = createTranslator(dict);
 
   return (
-    <ApprovalsCenterPanel
+    <div className="space-y-4">
+      <div className="px-6 pt-6">
+        <AipifyCompanionBriefingBanner
+          context="approvals"
+          labels={buildCompanionBriefingLabels(t)}
+        />
+      </div>
+      <ApprovalsCenterPanel
       locale={locale}
       labels={{
         title: t("customerApp.approvals.title"),
@@ -59,5 +68,6 @@ export default async function ApprovalsPage() {
         },
       }}
     />
+    </div>
   );
 }

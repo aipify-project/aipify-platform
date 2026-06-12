@@ -70,6 +70,7 @@ export default async function SettingsPage() {
           companionPresence: t("customerApp.settings.links.companionPresence"),
           enterprise: t("customerApp.settings.links.enterprise"),
           compliance: t("customerApp.settings.links.compliance"),
+          twoFactor: t("customerApp.settings.links.twoFactor"),
         },
       }}
     />

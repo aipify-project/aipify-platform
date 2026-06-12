@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { getPostLoginPath } from "@/lib/auth/get-post-login-path";
+import { twoFactorRedirectPath, type TwoFactorStatus } from "@/lib/auth/two-factor";
 import { createClient } from "@/lib/supabase/client";
 
 type LoginFormProps = {
@@ -64,6 +65,16 @@ export default function LoginForm({ labels }: LoginFormProps) {
         supabase,
         searchParams.get("next")
       );
+
+      const statusRes = await fetch("/api/auth/2fa/status");
+      if (statusRes.ok) {
+        const status = (await statusRes.json()) as TwoFactorStatus;
+        const gatePath = twoFactorRedirectPath(status, destination);
+        if (gatePath) {
+          window.location.assign(gatePath);
+          return;
+        }
+      }
 
       window.location.assign(destination);
     } catch {

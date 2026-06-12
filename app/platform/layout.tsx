@@ -1,5 +1,6 @@
 import DashboardShell from "@/components/dashboard/DashboardShell";
 import PlatformAuthGuard from "@/components/platform/PlatformAuthGuard";
+import TwoFactorSessionGate from "@/components/auth/TwoFactorSessionGate";
 import { PlatformProfileProvider } from "@/components/platform/PlatformProfileProvider";
 import {
   PLATFORM_ADMIN_NAV,
@@ -24,6 +25,7 @@ export default async function PlatformLayout({
       loadingLabel={t("common.loading")}
       deniedLabel={t("platform.accessDenied")}
     >
+      <TwoFactorSessionGate loadingLabel={t("common.loading")}>
       <PlatformProfileProvider>
         <DashboardShell
           appName={t("common.appName")}
@@ -60,6 +62,7 @@ export default async function PlatformLayout({
           {children}
         </DashboardShell>
       </PlatformProfileProvider>
+      </TwoFactorSessionGate>
     </PlatformAuthGuard>
   );
 }

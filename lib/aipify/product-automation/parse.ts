@@ -1,9 +1,83 @@
 import type {
+  AbosSuccessCriterion,
+  BlueprintObjective,
+  CompanionGuidance,
+  ImplementationBlueprintMeta,
+  IntegrationLink,
   ProductAutomationActionResult,
+  ProductAutomationBlueprint,
   ProductAutomationBriefingResult,
   ProductAutomationCard,
   ProductAutomationDashboard,
+  ProductAutomationEngagementSummary,
+  SelfLoveConnection,
+  TrustConnection,
 } from "./types";
+
+function parseBlueprintMeta(data: unknown): ImplementationBlueprintMeta | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ImplementationBlueprintMeta;
+}
+
+function parseObjectives(data: unknown): BlueprintObjective[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as BlueprintObjective[];
+}
+
+function parseSuccessCriteria(data: unknown): AbosSuccessCriterion[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as AbosSuccessCriterion[];
+}
+
+function parseIntegrationLinks(data: unknown): IntegrationLink[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as IntegrationLink[];
+}
+
+function parseCompanionGuidance(data: unknown): CompanionGuidance | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CompanionGuidance;
+}
+
+function parseSelfLoveConnection(data: unknown): SelfLoveConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as SelfLoveConnection;
+}
+
+function parseTrustConnection(data: unknown): TrustConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as TrustConnection;
+}
+
+function parseEngagementSummary(data: unknown): ProductAutomationEngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ProductAutomationEngagementSummary;
+}
+
+function parseBlueprintBlock(data: unknown): ProductAutomationBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ProductAutomationBlueprint;
+}
+
+function parseRecord(data: unknown): Record<string, unknown> | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as Record<string, unknown>;
+}
+
+function parseStringList(data: unknown): string[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data.filter((item): item is string => typeof item === "string");
+}
+
+function parseWorkflowAutomation(data: unknown): ProductAutomationDashboard["workflow_automation"] {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ProductAutomationDashboard["workflow_automation"];
+}
+
+function parseApprovalPrinciples(data: unknown): ProductAutomationDashboard["approval_principles"] {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ProductAutomationDashboard["approval_principles"];
+}
 
 export function parseProductAutomationCard(data: unknown): ProductAutomationCard {
   const d = (data ?? {}) as Record<string, unknown>;
@@ -13,6 +87,14 @@ export function parseProductAutomationCard(data: unknown): ProductAutomationCard
     awaiting_approval_count: Number(d.awaiting_approval_count ?? 0),
     philosophy: typeof d.philosophy === "string" ? d.philosophy : undefined,
     human_oversight_required: Boolean(d.human_oversight_required),
+    implementation_blueprint_phase102: parseBlueprintMeta(d.implementation_blueprint_phase102),
+    product_automation_mission: typeof d.product_automation_mission === "string" ? d.product_automation_mission : undefined,
+    product_automation_abos_principle:
+      typeof d.product_automation_abos_principle === "string" ? d.product_automation_abos_principle : undefined,
+    product_automation_engagement_summary: parseEngagementSummary(d.product_automation_engagement_summary),
+    product_automation_note: typeof d.product_automation_note === "string" ? d.product_automation_note : undefined,
+    product_automation_vision_note:
+      typeof d.product_automation_vision_note === "string" ? d.product_automation_vision_note : undefined,
   };
 }
 
@@ -70,6 +152,37 @@ export function parseProductAutomationDashboard(data: unknown): ProductAutomatio
     briefings: Array.isArray(d.briefings) ? (d.briefings as ProductAutomationDashboard["briefings"]) : [],
     integrations:
       typeof d.integrations === "object" && d.integrations ? (d.integrations as Record<string, string>) : undefined,
+    implementation_blueprint_phase102: parseBlueprintMeta(d.implementation_blueprint_phase102),
+    product_automation_engine_note:
+      typeof d.product_automation_engine_note === "string" ? d.product_automation_engine_note : undefined,
+    product_automation_blueprint: parseBlueprintBlock(d.product_automation_blueprint),
+    product_automation_distinction_note:
+      typeof d.product_automation_distinction_note === "string" ? d.product_automation_distinction_note : undefined,
+    product_automation_mission: typeof d.product_automation_mission === "string" ? d.product_automation_mission : undefined,
+    product_automation_philosophy:
+      typeof d.product_automation_philosophy === "string" ? d.product_automation_philosophy : undefined,
+    product_automation_abos_principle:
+      typeof d.product_automation_abos_principle === "string" ? d.product_automation_abos_principle : undefined,
+    product_automation_objectives: parseObjectives(d.product_automation_objectives),
+    product_import_automation: parseRecord(d.product_import_automation),
+    product_translation: parseRecord(d.product_translation),
+    product_rewriting: parseRecord(d.product_rewriting),
+    seo_optimization: parseRecord(d.seo_optimization),
+    category_recommendations: parseRecord(d.category_recommendations),
+    product_quality_checks: parseRecord(d.product_quality_checks),
+    product_companion_guidance: parseCompanionGuidance(d.product_companion_guidance),
+    workflow_automation: parseWorkflowAutomation(d.workflow_automation),
+    approval_principles: parseApprovalPrinciples(d.approval_principles),
+    product_automation_self_love_connection: parseSelfLoveConnection(d.product_automation_self_love_connection),
+    product_automation_trust_connection: parseTrustConnection(d.product_automation_trust_connection),
+    product_automation_dogfooding: parseRecord(d.product_automation_dogfooding),
+    paebp102_integration_links: parseIntegrationLinks(d.paebp102_integration_links),
+    product_automation_engagement_summary: parseEngagementSummary(d.product_automation_engagement_summary),
+    product_automation_success_criteria: parseSuccessCriteria(d.product_automation_success_criteria),
+    product_automation_vision: typeof d.product_automation_vision === "string" ? d.product_automation_vision : undefined,
+    product_automation_vision_phrases: parseStringList(d.product_automation_vision_phrases),
+    product_automation_privacy_note:
+      typeof d.product_automation_privacy_note === "string" ? d.product_automation_privacy_note : undefined,
   };
 }
 

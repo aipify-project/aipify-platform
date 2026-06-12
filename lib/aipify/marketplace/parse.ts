@@ -1,12 +1,53 @@
 import type {
+  AbosSuccessCriterion,
+  BlueprintObjective,
+  ImplementationBlueprintMeta,
+  IntegrationLink,
   MarketplaceCard,
   MarketplaceDashboard,
+  MarketplaceEngagementSummary,
   MarketplaceInstall,
   MarketplaceInstallResult,
   MarketplaceItem,
   MarketplaceItemDetail,
   MarketplacePrecheck,
+  SkillsExtensionsMarketplaceBlueprint,
 } from "./types";
+
+function parseBlueprintMeta(data: unknown): ImplementationBlueprintMeta | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ImplementationBlueprintMeta;
+}
+
+function parseObjectives(data: unknown): BlueprintObjective[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as BlueprintObjective[];
+}
+
+function parseSuccessCriteria(data: unknown): AbosSuccessCriterion[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as AbosSuccessCriterion[];
+}
+
+function parseIntegrationLinks(data: unknown): IntegrationLink[] {
+  if (!Array.isArray(data)) return [];
+  return data as IntegrationLink[];
+}
+
+function parseEngagementSummary(data: unknown): MarketplaceEngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as MarketplaceEngagementSummary;
+}
+
+function parseBlueprintBlock(data: unknown): SkillsExtensionsMarketplaceBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as SkillsExtensionsMarketplaceBlueprint;
+}
+
+function parseRecord(data: unknown): Record<string, unknown> | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as Record<string, unknown>;
+}
 
 export function parseMarketplaceItem(row: unknown): MarketplaceItem {
   const s = (row ?? {}) as Record<string, unknown>;
@@ -45,6 +86,14 @@ export function parseMarketplaceCard(data: unknown): MarketplaceCard {
     updates_available: d.updates_available as number | undefined,
     philosophy: d.philosophy as string | undefined,
     privacy_note: d.privacy_note as string | undefined,
+    implementation_blueprint_phase112: parseBlueprintMeta(d.implementation_blueprint_phase112),
+    marketplace_mission: typeof d.marketplace_mission === "string" ? d.marketplace_mission : undefined,
+    marketplace_abos_principle:
+      typeof d.marketplace_abos_principle === "string" ? d.marketplace_abos_principle : undefined,
+    marketplace_engagement_summary: parseEngagementSummary(d.marketplace_engagement_summary),
+    marketplace_note: typeof d.marketplace_note === "string" ? d.marketplace_note : undefined,
+    marketplace_vision_note:
+      typeof d.marketplace_vision_note === "string" ? d.marketplace_vision_note : undefined,
   };
 }
 
@@ -72,6 +121,42 @@ export function parseMarketplaceDashboard(data: unknown): MarketplaceDashboard {
     featured: list("featured"),
     installed,
     recommended,
+    implementation_blueprint_phase112: parseBlueprintMeta(d.implementation_blueprint_phase112),
+    marketplace_engine_note:
+      typeof d.marketplace_engine_note === "string" ? d.marketplace_engine_note : undefined,
+    skills_extensions_marketplace_blueprint: parseBlueprintBlock(d.skills_extensions_marketplace_blueprint),
+    marketplace_distinction_note:
+      typeof d.marketplace_distinction_note === "string" ? d.marketplace_distinction_note : undefined,
+    marketplace_mission: typeof d.marketplace_mission === "string" ? d.marketplace_mission : undefined,
+    marketplace_philosophy:
+      typeof d.marketplace_philosophy === "string" ? d.marketplace_philosophy : undefined,
+    marketplace_abos_principle:
+      typeof d.marketplace_abos_principle === "string" ? d.marketplace_abos_principle : undefined,
+    marketplace_objectives: parseObjectives(d.marketplace_objectives),
+    skills_marketplace_concept: parseRecord(d.skills_marketplace_concept),
+    skill_categories: d.skill_categories as MarketplaceDashboard["skill_categories"],
+    extensions_marketplace: parseRecord(d.extensions_marketplace),
+    companion_adaptation: d.companion_adaptation as MarketplaceDashboard["companion_adaptation"],
+    skill_quality_assurance: parseRecord(d.skill_quality_assurance),
+    growth_partner_marketplace: parseRecord(d.growth_partner_marketplace),
+    developer_ecosystem: parseRecord(d.developer_ecosystem),
+    installation_experience: d.installation_experience as MarketplaceDashboard["installation_experience"],
+    marketplace_self_love_connection:
+      d.marketplace_self_love_connection as MarketplaceDashboard["marketplace_self_love_connection"],
+    marketplace_leadership_connection: parseRecord(d.marketplace_leadership_connection),
+    marketplace_trust_connection: parseRecord(d.marketplace_trust_connection),
+    marketplace_limitation_principles:
+      d.marketplace_limitation_principles as MarketplaceDashboard["marketplace_limitation_principles"],
+    marketplace_dogfooding: parseRecord(d.marketplace_dogfooding),
+    sembp112_integration_links: parseIntegrationLinks(d.sembp112_integration_links),
+    marketplace_engagement_summary: parseEngagementSummary(d.marketplace_engagement_summary),
+    marketplace_success_criteria: parseSuccessCriteria(d.marketplace_success_criteria),
+    marketplace_vision: typeof d.marketplace_vision === "string" ? d.marketplace_vision : undefined,
+    marketplace_vision_phrases: Array.isArray(d.marketplace_vision_phrases)
+      ? (d.marketplace_vision_phrases as string[])
+      : undefined,
+    marketplace_privacy_note:
+      typeof d.marketplace_privacy_note === "string" ? d.marketplace_privacy_note : undefined,
   };
 }
 

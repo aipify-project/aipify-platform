@@ -1,22 +1,31 @@
 import type {
   AbosSuccessCriterion,
   BlueprintObjective,
+  CompanionGuidance,
+  CulturalAlignmentEngagementSummary,
+  CulturalObservations,
   DecisionAlignment,
   DecisionSupportExample,
   DogfoodingBlueprint,
   ExampleValue,
   ImplementationBlueprintMeta,
   IntegrationLink,
+  LeadershipConnection,
   LeadershipInsights,
+  OnboardingConnection,
   OrganizationStatedValue,
   OrganizationalStorytelling,
+  PrivacyPrinciples,
   PurposeDiscovery,
   PurposeFrameworkItem,
+  PurposeValuesCulturalAlignmentBlueprint,
   PurposeValuesEngineCard,
   PurposeValuesEngineDashboard,
   PurposeValuesEngagementSummary,
   PurposeValuesExport,
   PurposeValuesSettings,
+  RecognitionConnection,
+  ReflectionQuestionSet,
   SelfLoveConnection,
   TrustConnection,
   ValueInAction,
@@ -46,6 +55,51 @@ function parseEngagementSummary(data: unknown): PurposeValuesEngagementSummary |
   return data as PurposeValuesEngagementSummary;
 }
 
+function parseCulturalEngagementSummary(data: unknown): CulturalAlignmentEngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CulturalAlignmentEngagementSummary;
+}
+
+function parseReflectionQuestionSet(data: unknown): ReflectionQuestionSet | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ReflectionQuestionSet;
+}
+
+function parseCulturalObservations(data: unknown): CulturalObservations | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CulturalObservations;
+}
+
+function parseOnboardingConnection(data: unknown): OnboardingConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as OnboardingConnection;
+}
+
+function parseCompanionGuidance(data: unknown): CompanionGuidance | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CompanionGuidance;
+}
+
+function parseRecognitionConnection(data: unknown): RecognitionConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as RecognitionConnection;
+}
+
+function parseLeadershipConnection(data: unknown): LeadershipConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as LeadershipConnection;
+}
+
+function parsePrivacyPrinciples(data: unknown): PrivacyPrinciples | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as PrivacyPrinciples;
+}
+
+function parseCulturalAlignmentBlueprint(data: unknown): PurposeValuesCulturalAlignmentBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as PurposeValuesCulturalAlignmentBlueprint;
+}
+
 export function parsePurposeValuesEngineCard(data: unknown): PurposeValuesEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
   return {
@@ -55,11 +109,23 @@ export function parsePurposeValuesEngineCard(data: unknown): PurposeValuesEngine
     pending_reflections: typeof d.pending_reflections === "number" ? d.pending_reflections : undefined,
     enabled: typeof d.enabled === "boolean" ? d.enabled : undefined,
     implementation_blueprint_phase64: parseBlueprintMeta(d.implementation_blueprint_phase64),
+    implementation_blueprint_phase95: parseBlueprintMeta(d.implementation_blueprint_phase95),
     mission: typeof d.mission === "string" ? d.mission : undefined,
     abos_principle: typeof d.abos_principle === "string" ? d.abos_principle : undefined,
     engagement_summary: parseEngagementSummary(d.engagement_summary),
     blueprint_note: typeof d.blueprint_note === "string" ? d.blueprint_note : undefined,
     values_note: typeof d.values_note === "string" ? d.values_note : undefined,
+    cultural_alignment_mission:
+      typeof d.cultural_alignment_mission === "string" ? d.cultural_alignment_mission : undefined,
+    cultural_alignment_abos_principle:
+      typeof d.cultural_alignment_abos_principle === "string" ? d.cultural_alignment_abos_principle : undefined,
+    cultural_alignment_engagement_summary: parseCulturalEngagementSummary(
+      d.cultural_alignment_engagement_summary
+    ),
+    cultural_alignment_note:
+      typeof d.cultural_alignment_note === "string" ? d.cultural_alignment_note : undefined,
+    cultural_alignment_vision_note:
+      typeof d.cultural_alignment_vision_note === "string" ? d.cultural_alignment_vision_note : undefined,
     ...d,
   } as PurposeValuesEngineCard;
 }
@@ -144,6 +210,74 @@ export function parsePurposeValuesEngineDashboard(data: unknown): PurposeValuesE
     success_criteria: parseRecordList<AbosSuccessCriterion>(d.success_criteria),
     vision_phrases: Array.isArray(d.vision_phrases) ? (d.vision_phrases as string[]) : undefined,
     privacy_note: typeof d.privacy_note === "string" ? d.privacy_note : undefined,
+    implementation_blueprint_phase95: parseBlueprintMeta(d.implementation_blueprint_phase95),
+    purpose_values_cultural_alignment_note:
+      typeof d.purpose_values_cultural_alignment_note === "string"
+        ? d.purpose_values_cultural_alignment_note
+        : undefined,
+    purpose_values_cultural_alignment_blueprint: parseCulturalAlignmentBlueprint(
+      d.purpose_values_cultural_alignment_blueprint
+    ),
+    cultural_alignment_distinction_note:
+      typeof d.cultural_alignment_distinction_note === "string"
+        ? d.cultural_alignment_distinction_note
+        : undefined,
+    cultural_alignment_mission:
+      typeof d.cultural_alignment_mission === "string" ? d.cultural_alignment_mission : undefined,
+    cultural_alignment_philosophy:
+      typeof d.cultural_alignment_philosophy === "string" ? d.cultural_alignment_philosophy : undefined,
+    cultural_alignment_abos_principle:
+      typeof d.cultural_alignment_abos_principle === "string" ? d.cultural_alignment_abos_principle : undefined,
+    cultural_alignment_objectives: parseRecordList<BlueprintObjective>(d.cultural_alignment_objectives),
+    cultural_alignment_purpose_questions: parseReflectionQuestionSet(
+      d.cultural_alignment_purpose_questions
+    ),
+    cultural_alignment_values_reflection_questions: parseReflectionQuestionSet(
+      d.cultural_alignment_values_reflection_questions
+    ),
+    cultural_alignment_cultural_observations: parseCulturalObservations(
+      d.cultural_alignment_cultural_observations
+    ),
+    cultural_alignment_onboarding_connection: parseOnboardingConnection(
+      d.cultural_alignment_onboarding_connection
+    ),
+    cultural_alignment_companion_guidance: parseCompanionGuidance(d.cultural_alignment_companion_guidance),
+    cultural_alignment_recognition_connection: parseRecognitionConnection(
+      d.cultural_alignment_recognition_connection
+    ),
+    cultural_alignment_self_love_connection:
+      typeof d.cultural_alignment_self_love_connection === "object" &&
+      d.cultural_alignment_self_love_connection
+        ? (d.cultural_alignment_self_love_connection as SelfLoveConnection)
+        : undefined,
+    cultural_alignment_leadership_connection: parseLeadershipConnection(
+      d.cultural_alignment_leadership_connection
+    ),
+    cultural_alignment_trust_connection:
+      typeof d.cultural_alignment_trust_connection === "object" && d.cultural_alignment_trust_connection
+        ? (d.cultural_alignment_trust_connection as TrustConnection)
+        : undefined,
+    cultural_alignment_privacy_principles: parsePrivacyPrinciples(d.cultural_alignment_privacy_principles),
+    cultural_alignment_dogfooding:
+      typeof d.cultural_alignment_dogfooding === "object" && d.cultural_alignment_dogfooding
+        ? (d.cultural_alignment_dogfooding as DogfoodingBlueprint)
+        : undefined,
+    cultural_alignment_integration_links: parseRecordList<IntegrationLink>(
+      d.cultural_alignment_integration_links
+    ),
+    cultural_alignment_engagement_summary: parseCulturalEngagementSummary(
+      d.cultural_alignment_engagement_summary
+    ),
+    cultural_alignment_success_criteria: parseRecordList<AbosSuccessCriterion>(
+      d.cultural_alignment_success_criteria
+    ),
+    cultural_alignment_vision:
+      typeof d.cultural_alignment_vision === "string" ? d.cultural_alignment_vision : undefined,
+    cultural_alignment_vision_phrases: Array.isArray(d.cultural_alignment_vision_phrases)
+      ? (d.cultural_alignment_vision_phrases as string[])
+      : undefined,
+    cultural_alignment_privacy_note:
+      typeof d.cultural_alignment_privacy_note === "string" ? d.cultural_alignment_privacy_note : undefined,
     ...d,
   } as PurposeValuesEngineDashboard;
 }

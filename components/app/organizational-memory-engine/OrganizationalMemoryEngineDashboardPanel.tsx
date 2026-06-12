@@ -7,6 +7,8 @@ import {
   type ContinuityBlueprintSection,
   type ContinuityCompanionExample,
   type ContinuityObjective,
+  type MemoryLegacyCategory,
+  type MemoryLegacyBlueprintSection,
   type OrganizationalMemoryEngineDashboard,
 } from "@/lib/aipify/organizational-memory-engine";
 
@@ -43,12 +45,29 @@ export function OrganizationalMemoryEngineDashboardPanel({ labels }: Props) {
   const continuitySummary = dashboard.continuity_summary ?? {};
   const continuitySuccessCriteria = dashboard.continuity_success_criteria ?? [];
   const mcebpLinks = dashboard.mcebp_integration_links ?? [];
+  const blueprint94 = dashboard.implementation_blueprint_phase94;
+  const memoryLegacyObjectives = dashboard.memory_legacy_objectives ?? [];
+  const memoryLegacyCategories = dashboard.memory_legacy_categories ?? [];
+  const memoryLegacyQuestions = dashboard.memory_legacy_questions;
+  const memoryLegacyPreservation = dashboard.memory_legacy_preservation;
+  const memoryLegacyCompanion = dashboard.memory_legacy_companion_guidance;
+  const memoryLegacyKc = dashboard.memory_legacy_knowledge_center_connection;
+  const memoryLegacyMeeting = dashboard.memory_legacy_meeting_companion_connection;
+  const memoryLegacySelfLove = dashboard.memory_legacy_self_love_connection;
+  const memoryLegacyTrust = dashboard.memory_legacy_trust_connection;
+  const memoryLegacyPrivacy = dashboard.memory_legacy_privacy_principles;
+  const memoryLegacyEngagement = dashboard.memory_legacy_engagement_summary ?? {};
+  const memoryLegacySuccessCriteria = dashboard.memory_legacy_success_criteria ?? [];
+  const omlebp94Links = dashboard.omlebp94_integration_links ?? [];
 
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap gap-2">
         <Link href="/app/memory" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.legacyMemory}
+        </Link>
+        <Link href="/app/legacy-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.legacyEngine}
         </Link>
         <Link href="/app/learning" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.learningEngine}
@@ -282,6 +301,248 @@ export function OrganizationalMemoryEngineDashboardPanel({ labels }: Props) {
                 <li key={label}>
                   {route ? (
                     <Link href={route} className="text-indigo-600 hover:underline">
+                      {label}
+                    </Link>
+                  ) : (
+                    label
+                  )}
+                  {link.note ? <span className="ml-2 text-xs text-gray-500">{link.note}</span> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {blueprint94?.title || blueprint94?.phase ? (
+        <section className="rounded-xl border border-emerald-200 bg-emerald-50/40 p-6">
+          <h2 className="text-sm font-semibold">{labels.memoryLegacyTitle}</h2>
+          {dashboard.memory_legacy_mission ? (
+            <p className="mt-2 text-sm font-medium text-emerald-900">{dashboard.memory_legacy_mission}</p>
+          ) : null}
+          {dashboard.memory_legacy_philosophy ? (
+            <p className="mt-2 text-xs text-emerald-900">{dashboard.memory_legacy_philosophy}</p>
+          ) : null}
+          {dashboard.memory_legacy_abos_principle ? (
+            <p className="mt-1 text-xs font-medium text-emerald-800">{dashboard.memory_legacy_abos_principle}</p>
+          ) : null}
+          {dashboard.memory_legacy_vision ? (
+            <p className="mt-2 text-xs italic text-emerald-700">{dashboard.memory_legacy_vision}</p>
+          ) : null}
+          {dashboard.memory_legacy_distinction_note ? (
+            <p className="mt-2 text-xs text-emerald-700">{dashboard.memory_legacy_distinction_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {memoryLegacyObjectives.length > 0 && (
+        <section className="rounded-lg border border-emerald-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.memoryLegacyObjectives}</h3>
+          <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {memoryLegacyObjectives.map((obj: ContinuityObjective) => (
+              <li key={obj.key ?? obj.label} className="rounded border border-emerald-50 p-3 text-sm">
+                <div className="font-medium">
+                  {obj.emoji ? `${obj.emoji} ` : ""}
+                  {obj.label}
+                </div>
+                {obj.description ? <p className="mt-1 text-xs text-gray-600">{obj.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {memoryLegacyCategories.length > 0 && (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.memoryLegacyCategories}</h3>
+          <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+            {memoryLegacyCategories.map((cat: MemoryLegacyCategory) => (
+              <li key={cat.key ?? cat.label} className="rounded border border-gray-100 px-3 py-2 text-sm">
+                <span className="font-medium">
+                  {cat.emoji ? `${cat.emoji} ` : ""}
+                  {cat.label}
+                </span>
+                {cat.description ? <p className="mt-1 text-xs text-gray-500">{cat.description}</p> : null}
+                {cat.sub_items && cat.sub_items.length > 0 ? (
+                  <ul className="mt-1 list-inside list-disc text-xs text-gray-400">
+                    {cat.sub_items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {memoryLegacyQuestions?.questions && Array.isArray(memoryLegacyQuestions.questions) && (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/20 p-4">
+          <h3 className="text-sm font-semibold">{labels.memoryLegacyQuestions}</h3>
+          {memoryLegacyQuestions.principle ? (
+            <p className="mt-2 text-xs text-emerald-900">{memoryLegacyQuestions.principle}</p>
+          ) : null}
+          <ul className="mt-3 space-y-2">
+            {(memoryLegacyQuestions.questions as MemoryLegacyBlueprintSection["questions"])!.map((q) => (
+              <li key={q.key ?? q.question} className="rounded border border-emerald-100 bg-white px-3 py-2 text-xs">
+                <span className="font-medium">
+                  {q.emoji ? `${q.emoji} ` : ""}
+                  {q.question}
+                </span>
+                {q.description ? <p className="mt-1 text-gray-500">{q.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {memoryLegacyPreservation && (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.memoryLegacyPreservation}</h3>
+          {memoryLegacyPreservation.principle ? (
+            <p className="mt-2 text-xs text-violet-900">{memoryLegacyPreservation.principle}</p>
+          ) : null}
+          {memoryLegacyPreservation.boundary_note ? (
+            <p className="mt-2 text-xs text-violet-700">{memoryLegacyPreservation.boundary_note}</p>
+          ) : null}
+          {(memoryLegacyPreservation.dimensions?.length ?? 0) > 0 ? (
+            <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+              {memoryLegacyPreservation.dimensions!.map((dim) => (
+                <li key={dim.key ?? dim.label} className="rounded border border-violet-100 bg-white px-3 py-2 text-xs">
+                  <span className="font-medium">
+                    {dim.emoji ? `${dim.emoji} ` : ""}
+                    {dim.label}
+                  </span>
+                  {dim.description ? <p className="mt-1 text-gray-500">{dim.description}</p> : null}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {memoryLegacyCompanion && (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/20 p-4">
+          <h3 className="text-sm font-semibold">{labels.memoryLegacyCompanionGuidance}</h3>
+          {memoryLegacyCompanion.principle ? (
+            <p className="mt-2 text-xs text-indigo-900">{memoryLegacyCompanion.principle}</p>
+          ) : null}
+          {(memoryLegacyCompanion.examples?.length ?? 0) > 0 ? (
+            <ul className="mt-3 space-y-2 text-sm">
+              {memoryLegacyCompanion.examples!.map((ex, i) => (
+                <li key={ex.key ?? i} className="rounded border border-indigo-100 bg-white px-3 py-2 text-xs">
+                  {ex.prompt ?? ex.example ?? ex.text}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {(memoryLegacyKc || memoryLegacyMeeting) && (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.memoryLegacyConnections}</h3>
+          {memoryLegacyKc?.principle ? (
+            <p className="mt-2 text-xs text-gray-600">{memoryLegacyKc.principle}</p>
+          ) : null}
+          {memoryLegacyMeeting?.principle ? (
+            <p className="mt-2 text-xs text-gray-600">{memoryLegacyMeeting.principle}</p>
+          ) : null}
+        </section>
+      )}
+
+      {memoryLegacySelfLove && (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/30 p-4 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.memoryLegacySelfLove}</h3>
+          {memoryLegacySelfLove.principle ? <p className="mt-2 text-xs">{memoryLegacySelfLove.principle}</p> : null}
+          {(memoryLegacySelfLove.practices?.length ?? 0) > 0 ? (
+            <ul className="mt-2 list-inside list-disc text-xs">
+              {memoryLegacySelfLove.practices!.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {memoryLegacyTrust && (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.memoryLegacyTrust}</h3>
+          {memoryLegacyTrust.principle ? (
+            <p className="mt-2 text-xs text-gray-600">{memoryLegacyTrust.principle}</p>
+          ) : null}
+          {(memoryLegacyTrust.organizations_should_understand?.length ?? 0) > 0 ? (
+            <ul className="mt-2 list-inside list-disc text-xs text-gray-500">
+              {memoryLegacyTrust.organizations_should_understand!.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {memoryLegacyPrivacy && (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.memoryLegacyPrivacy}</h3>
+          {memoryLegacyPrivacy.principle ? (
+            <p className="mt-2 text-xs text-gray-600">{memoryLegacyPrivacy.principle}</p>
+          ) : null}
+          {(memoryLegacyPrivacy.forbidden?.length ?? 0) > 0 ? (
+            <ul className="mt-2 list-inside list-disc text-xs text-gray-500">
+              {memoryLegacyPrivacy.forbidden!.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {typeof memoryLegacyEngagement.active_memory_records === "number" ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.memoryLegacyEngagement}</h3>
+          <p className="mt-2 text-gray-700">
+            {labels.activeRecords}: {String(memoryLegacyEngagement.active_memory_records ?? 0)} ·{" "}
+            {labels.activeDecisions}: {String(memoryLegacyEngagement.active_decisions ?? 0)} ·{" "}
+            {labels.pendingReviews}: {String(memoryLegacyEngagement.pending_reviews ?? 0)}
+          </p>
+          {memoryLegacyEngagement.privacy_note ? (
+            <p className="mt-2 text-xs text-gray-500">{memoryLegacyEngagement.privacy_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {memoryLegacySuccessCriteria.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.memoryLegacySuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {memoryLegacySuccessCriteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {omlebp94Links.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.memoryLegacyIntegrationLinks}</h3>
+          <ul className="mt-2 space-y-1 text-sm">
+            {omlebp94Links.map((link) => {
+              const route = typeof link.route === "string" ? link.route : null;
+              const label = typeof link.label === "string" ? link.label : route ?? "";
+              return (
+                <li key={label}>
+                  {route ? (
+                    <Link href={route} className="text-emerald-600 hover:underline">
                       {label}
                     </Link>
                   ) : (
