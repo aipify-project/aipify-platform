@@ -2,10 +2,38 @@ Wisdom Intervention Protocol (ABOS) — Phase A.94
 Includes Pause & Reflection Protocol — one surface, no duplicate engine.
 
 PHILOSOPHY
-Emotions influence communication — a pause can change outcomes; wisdom lives between impulse and action.
+Emotions influence communication — a pause can change outcomes; wisdom lives between impulse and action. Perspective, not control.
 
 MISSION
-Gently encourage reflection before emotionally charged actions.
+Gently encourage reflection before emotionally charged actions — pause, reflect, decisions less likely to regret.
+
+ABOS PRINCIPLE
+Wisdom = thoughtful difficult conversations; sometimes waiting until tomorrow.
+
+VISION
+Communicate reflecting values, not temporary frustration — glad I did not send that email last night.
+
+WHEN TO INTERVENE
+- Angry or heated email
+- Excessive caps
+- Aggressive wording
+- Late-night decisions
+- Emotionally charged response
+- High-risk communication
+
+INTERVENTION TRIGGERS (metadata scaffold)
+caps · aggression_pattern · late_night · high_risk_comm · emotional_charge
+
+GENTLE PROMPTS
+- This message carries strong emotion — would you like to review it before sending?
+- This feels unusually urgent — a brief pause might help you send what you truly mean.
+- Saving a draft gives you space to reflect — you can revisit with a clearer mind.
+- You decide whether to send, revise, or wait — I am here to offer perspective, not control.
+
+SLEEP ON IT PHRASES
+- A good night's sleep can change how this reads — consider revisiting tomorrow.
+- {name}, sometimes it is worth sleeping on an email.
+- Fresh perspective in the morning often leads to communication you will not regret.
 
 PAUSE REFLECTION PHILOSOPHY
 People deserve grace — one moment should not define a relationship, career, or decision.
@@ -13,19 +41,17 @@ People deserve grace — one moment should not define a relationship, career, or
 HUMAN MOMENT
 Emotions are human — anger does not make someone a bad person; hurt does not make someone weak.
 
-BOUNDARIES
-Suggest only — never block permanently. User always decides.
+BOUNDARIES — MAY
+Recommend reflection · suggest save draft · offer gentle perspective · encourage patience
 
-PREFERRED PHRASES
-- Would you like to review the message before sending?
-- Saving a draft gives you space to reflect.
-- Sometimes it is worth sleeping on an email.
-- There is strength in a thoughtful response.
+BOUNDARIES — MAY NOT
+Prevent sending · override autonomy · store raw message content · force mandatory delays
 
-SELF LOVE ROSE PHRASES
-- You have the right to feel strongly — a pause may help.
-- Being kind to your future self sometimes means waiting until tomorrow.
-- Tomorrow often brings clarity.
+SELF LOVE
+Reduce impulsive reactions, support emotional recovery, encourage healthier communications, thoughtful responses.
+
+WISDOM ENGINE DISTINCTION (A.93)
+Wisdom Engine synthesizes experience over time. Wisdom Intervention is pre-send reflection for one communication moment.
 
 METADATA ONLY
 No raw email, chat, or message body storage.
