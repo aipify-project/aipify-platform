@@ -202,7 +202,8 @@
       "assistantIdentity": "Assistentidentitet",
       "companionPresence": "Companion-tilstedeværelse",
       "enterprise": "Enterprise-udrulning",
-      "compliance": "Sikkerhed og compliance"
+      "compliance": "Sikkerhed og compliance",
+      "twoFactor": "Loginbekræftelse (2FA)"
     },
     "intelligence": {
       "title": "Organisatorisk intelligens",
@@ -3869,6 +3870,7 @@
     "approvalRequired": "Godkendelse påkrævet",
     "yourPermissions": "Dine tilladelser",
     "mfaReadiness": "MFA-klarhed",
+    "twoFactorSetup": "Opsæt loginbekræftelse",
     "recentAccessEvents": "Seneste adgangshændelser",
     "successCriteria": "Fase 2 succes-kriterier",
     "defaultRoles": "Standardroller",
@@ -3890,6 +3892,38 @@
     "companionPrefsSaveFailed": "Kunne ikke gemme companion-tilladelsespræferencer",
     "auditRequirements": "Revisionskrav",
     "blueprintLinks": "Grundlagslinks"
+  },
+  "twoFactor": {
+    "title": "Aipify loginbekræftelse",
+    "subtitle": "Beskyt din konto med en godkendelsesapp. Aipify bruger tidsbaserede koder — ikke SMS — for stærkere login.",
+    "requiredNotice": "Din rolle kræver loginbekræftelse, før du får adgang til Aipify.",
+    "statusEnabled": "Loginbekræftelse er aktiveret for din konto.",
+    "statusDisabled": "Loginbekræftelse er ikke aktiveret endnu.",
+    "enableTitle": "Aktiver godkendelsesverifikation",
+    "enableStepScan": "Scan denne QR-kode med din godkendelsesapp (Google Authenticator, 1Password, Authy eller lignende).",
+    "enableStepConfirm": "Indtast den 6-cifrede kode fra appen for at bekræfte opsætningen.",
+    "manualKey": "Manuel opsætningsnøgle",
+    "confirmCode": "6-cifret kode",
+    "enable": "Aktiver bekræftelse",
+    "disable": "Deaktiver bekræftelse",
+    "regenerate": "Generer nye gendannelseskoder",
+    "recoveryTitle": "Gem dine gendannelseskoder",
+    "recoveryNotice": "Opbevar koderne et sikkert sted. Hver kode kan bruges én gang, hvis du mister godkendelsesappen.",
+    "recoveryRemaining": "{count} ubrugte gendannelseskoder tilbage",
+    "saveCodes": "Jeg har gemt koderne et sikkert sted.",
+    "loading": "Indlæser bekræftelsesindstillinger…",
+    "saving": "Gemmer…",
+    "done": "Færdig",
+    "backToSettings": "Tilbage til indstillinger",
+    "errors": {
+      "generic": "Noget gik galt. Prøv igen.",
+      "invalidCode": "Koden er ugyldig. Tjek godkendelsesappen og prøv igen.",
+      "codeRequired": "Indtast din bekræftelseskode.",
+      "noPendingEnrollment": "Start opsætningen igen for at generere en ny QR-kode.",
+      "notEnabled": "Loginbekræftelse er ikke aktiveret for denne konto.",
+      "requiredByPolicy": "Din organisation kræver loginbekræftelse. Den kan ikke deaktiveres.",
+      "configError": "Loginbekræftelse er midlertidigt utilgængelig. Kontakt support, hvis dette fortsætter."
+    }
   },
   "multiTenantArchitecture": {
     "title": "Multi-Tenant-arkitektur",
