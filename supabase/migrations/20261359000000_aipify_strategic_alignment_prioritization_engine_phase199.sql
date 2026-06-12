@@ -524,7 +524,7 @@ declare v_tenant_id uuid; v_settings public.aipify_strategic_alignment_prioritiz
 end; $$;
 
 insert into public.aipify_knowledge_categories (slug, name, description, visibility, sort_order)
-select 'aipify-strategic-alignment-prioritization-engine', 'Aipify Strategic Alignment & Prioritization Engine', 'Strategic Priorities Dashboard — Perpetual Stewardship & Constitutional Governance Era (191–200). People First.', 'authenticated', 199
+select 'aipify-strategic-alignment-prioritization-engine', 'Aipify Strategic Alignment & Prioritization Engine', 'Strategic Priorities Dashboard — Perpetual Stewardship & Constitutional Governance Era (191–200). People First.', 'authenticated', 200
 where not exists (select 1 from public.aipify_knowledge_categories where slug = 'aipify-strategic-alignment-prioritization-engine' and tenant_id is null);
 
 grant execute on function public.get_aipify_strategic_alignment_prioritization_engine_card(uuid) to authenticated;

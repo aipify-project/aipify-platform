@@ -2,7 +2,7 @@
 
 ## Vision
 
-Strategic Priorities Dashboard within Perpetual Stewardship & Constitutional Governance Era (191–200). Strategy Companion supports early awareness — does NOT surveil employees or take punitive actions.
+Strategic Priorities Dashboard within Perpetual Stewardship & Constitutional Governance Era (191–200). Strategy Companion supports alignment reflection — does NOT define strategy or auto-prioritize.
 
 ## Permissions
 
