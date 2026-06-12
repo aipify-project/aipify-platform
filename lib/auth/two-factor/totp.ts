@@ -1,4 +1,4 @@
-import { generateSecret, generateURI, verifySync } from "otplib";
+import { generateSecret, generateURI, verify } from "otplib";
 
 const ISSUER = "Aipify";
 
@@ -14,9 +14,9 @@ export function buildOtpAuthUrl(email: string, secret: string): string {
   });
 }
 
-export function verifyTotpCode(secret: string, code: string): boolean {
+export async function verifyTotpCode(secret: string, code: string): Promise<boolean> {
   const normalized = code.replace(/\s+/g, "");
   if (!/^\d{6}$/.test(normalized)) return false;
-  const result = verifySync({ secret, token: normalized });
+  const result = await verify({ secret, token: normalized });
   return result.valid;
 }
