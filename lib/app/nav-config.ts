@@ -71,6 +71,7 @@ export type AppNavId =
   | "trustReputationEngine"
   | "aiCostGovernanceEngine"
   | "personalProductivityEngine"
+  | "proactiveCompanionEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -424,6 +425,11 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/personal-productivity-engine",
     labelKey: "customerApp.nav.personalProductivityEngine",
   },
+  {
+    id: "proactiveCompanionEngine",
+    href: "/app/proactive-companion-engine",
+    labelKey: "customerApp.nav.proactiveCompanionEngine",
+  },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -618,6 +624,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/personal-productivity-engine")) {
     return "personalProductivityEngine";
+  }
+  if (pathname.startsWith("/app/proactive-companion-engine")) {
+    return "proactiveCompanionEngine";
   }
   if (pathname.startsWith("/app/aipify-install-engine")) return "aipifyInstallEngine";
   if (pathname.startsWith("/app/module-marketplace-foundation-engine")) {

@@ -604,6 +604,8 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "context_intelligence.view",
     "productivity.view",
     "companion.view",
+    "proactive_companion.view",
+    "proactive_companion.preferences.manage",
     "trust.view",
     "ai_costs.view",
   ],

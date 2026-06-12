@@ -3431,6 +3431,7 @@
     "aipifyCorePlatformEngine": "Aipify Core",
     "multiTenantArchitectureEngine": "Tenants",
     "organizationWorkspaceEngine": "Arbeidsområder",
+    "contextIntelligenceEngine": "Kontekstintelligens",
     "identityPermissionsEngine": "Identitet",
     "secureAiActionEngine": "Aipify-handlinger",
     "auditAccountabilityEngine": "Revisjon",
@@ -5271,6 +5272,8 @@
     "actionFailed": "Handling mislyktes"
   },
   "trustReputationEngine": {
+    "title": "Tillit og omdømme",
+    "subtitle": "Organisatoriske tillitsprofiler og metadata-baserte omdømmesignaler — opptjent tillit med menneskelig gjennomgang av utvidelser.",
     "loading": "Laster tillit og omdømme…",
     "engineTitle": "Trust & Reputation Engine",
     "distinctionNote": "Skilt fra eldre Trust Engine på /app/trust — denne motoren sporer enhetsspesifikke tillitsprofiler og omdømmesignaler.",

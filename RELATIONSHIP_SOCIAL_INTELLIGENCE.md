@@ -2,6 +2,8 @@
 
 **Phase 33 · Help people stay present and reliable**
 
+> **Organizational counterpart:** Phase A.78 Relationship Intelligence Engine ([RELATIONSHIP_INTELLIGENCE_ENGINE.md](./RELATIONSHIP_INTELLIGENCE_ENGINE.md)) covers tenant-level internal, customer, partner, and community relationships at `/app/relationship-intelligence-engine` — separate from this personal RSI module.
+
 RSI helps users nurture relationships — follow-ups, milestones, thoughtful gestures. **Never impersonates the user. Never sends messages automatically.**
 
 **Prerequisites:** [ASSISTANT_MEMORY_ENGINE.md](./ASSISTANT_MEMORY_ENGINE.md) · [LIFE_OPERATING_SYSTEM.md](./LIFE_OPERATING_SYSTEM.md)

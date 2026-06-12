@@ -74,6 +74,7 @@ Full mapping of ABOS pillars to A-phases and related engines in this repository.
 | | A.12 Aipify Self-Support Engine | [AIPIFY_SELF_SUPPORT_ENGINE_PHASE_A12.md](./AIPIFY_SELF_SUPPORT_ENGINE_PHASE_A12.md) |
 | | Personal Assistant Memory (PAME) | [ASSISTANT_MEMORY_ENGINE.md](./ASSISTANT_MEMORY_ENGINE.md) |
 | | LifeOS · RSI · Identity · Context · GDE · TAG · DSE | Companion assistant modules under `/app/assistant/*` |
+| | A.78 Relationship Intelligence Engine (organizational) | [RELATIONSHIP_INTELLIGENCE_ENGINE.md](./RELATIONSHIP_INTELLIGENCE_ENGINE.md) — tenant-level; distinct from personal RSI |
 | | **A.76 Self Love Engine™ (planned)** | Roadmap — [DEVELOPMENT_PRIORITY_ROADMAP.md](./DEVELOPMENT_PRIORITY_ROADMAP.md) |
 | **Automation** | A.3 Secure AI Action Engine | [SECURE_AI_ACTION_ENGINE_PHASE_A3.md](./SECURE_AI_ACTION_ENGINE_PHASE_A3.md) |
 | | Autonomous Execution Framework (AEF) | [AUTONOMOUS_EXECUTION_FRAMEWORK.md](./AUTONOMOUS_EXECUTION_FRAMEWORK.md) |
