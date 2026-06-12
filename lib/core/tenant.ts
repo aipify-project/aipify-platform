@@ -62,3 +62,5 @@ export * from "./organizational-health";
 export * from "./capability-maturity";
 export * from "./organizational-benchmarking";
 export * from "./document-output";
+export * from "./records-retention-management";
+export * from "./meeting-collaboration-intelligence";

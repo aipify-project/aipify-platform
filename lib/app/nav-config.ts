@@ -49,6 +49,8 @@ export type AppNavId =
   | "organizationalResilienceEngine"
   | "incidentResponseCoordinationEngine"
   | "serviceLevelCommitmentEngine"
+  | "recordsRetentionManagementEngine"
+  | "meetingCollaborationIntelligenceEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -292,6 +294,16 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/service-level-commitment-engine",
     labelKey: "customerApp.nav.serviceLevelCommitmentEngine",
   },
+  {
+    id: "recordsRetentionManagementEngine",
+    href: "/app/records-retention-management-engine",
+    labelKey: "customerApp.nav.recordsRetentionManagementEngine",
+  },
+  {
+    id: "meetingCollaborationIntelligenceEngine",
+    href: "/app/meeting-collaboration-intelligence-engine",
+    labelKey: "customerApp.nav.meetingCollaborationIntelligenceEngine",
+  },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -424,6 +436,12 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/service-level-commitment-engine")) {
     return "serviceLevelCommitmentEngine";
+  }
+  if (pathname.startsWith("/app/records-retention-management-engine")) {
+    return "recordsRetentionManagementEngine";
+  }
+  if (pathname.startsWith("/app/meeting-collaboration-intelligence-engine")) {
+    return "meetingCollaborationIntelligenceEngine";
   }
   if (pathname.startsWith("/app/aipify-install-engine")) return "aipifyInstallEngine";
   if (pathname.startsWith("/app/module-marketplace-foundation-engine")) {
