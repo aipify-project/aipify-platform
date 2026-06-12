@@ -191,6 +191,13 @@ export * from "./implementation-blueprint-phase177-vocabulary";
 export * from "./implementation-blueprint-phase178-vocabulary";
 export * from "./implementation-blueprint-phase185-vocabulary";
 export * from "./implementation-blueprint-phase188-vocabulary";
+export * from "./implementation-blueprint-phase190-vocabulary";
+export * from "./implementation-blueprint-phase191-vocabulary";
+export * from "./implementation-blueprint-phase192-vocabulary";
+export * from "./implementation-blueprint-phase193-vocabulary";
+export * from "./implementation-blueprint-phase196-vocabulary";
+export * from "./implementation-blueprint-phase195-vocabulary";
+export * from "./implementation-blueprint-phase197-vocabulary";
 export * from "./implementation-blueprint-phase187-vocabulary";
 export * from "./implementation-blueprint-phase186-vocabulary";
 export * from "./implementation-blueprint-phase184-vocabulary";
@@ -799,6 +806,20 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE187_PATH =
 
 export const IMPLEMENTATION_BLUEPRINT_PHASE188_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase188-shared-gratitude-appreciative-stewardship.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE190_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase190-shared-legacy-flourishing.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE191_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase191-aipify-constitution-perpetual-principles.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE192_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase192-aipify-ethical-evolution-responsible-innovation.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE193_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase193-aipify-guardianship-succession.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE196_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase196-aipify-principles-enforcement.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE195_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase195-aipify-values-transmission-cultural-continuity.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE197_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase197-aipify-decision-transparency.txt";
 
 export const IMPLEMENTATION_BLUEPRINT_PHASE185_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase185-shared-trust-cooperative-intelligence.txt";

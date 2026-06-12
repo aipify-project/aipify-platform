@@ -143,3 +143,10 @@ export * from "./shared-compassion-reciprocal-care-engine";
 export * from "./shared-courage-responsible-action-engine";
 
 export * from "./shared-gratitude-appreciative-stewardship-engine";
+export * from "./shared-legacy-flourishing-engine";
+export * from "./aipify-constitution-perpetual-principles-engine";
+export * from "./aipify-ethical-evolution-responsible-innovation-engine";
+export * from "./aipify-guardianship-succession-engine";
+export * from "./aipify-principles-enforcement-engine";
+export * from "./aipify-values-transmission-cultural-continuity-engine";
+export * from "./aipify-decision-transparency-engine";

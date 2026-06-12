@@ -88,6 +88,13 @@ export type AppNavId =
   | "universalStewardshipSharedFuturesEngine"
   | "collectiveWisdomSharedLearningEngine"
   | "sharedGratitudeAppreciativeStewardshipEngine"
+  | "sharedLegacyFlourishingEngine"
+  | "aipifyConstitutionPerpetualPrinciplesEngine"
+  | "aipifyEthicalEvolutionResponsibleInnovationEngine"
+  | "aipifyGuardianshipSuccessionEngine"
+  | "aipifyPrinciplesEnforcementEngine"
+  | "aipifyValuesTransmissionCulturalContinuityEngine"
+  | "aipifyDecisionTransparencyEngine"
   | "sharedCourageResponsibleActionEngine"
   | "sharedCompassionReciprocalCareEngine"
   | "businessPacksFoundationEngine"
@@ -580,6 +587,41 @@ export const APP_NAV: AppNavItem[] = [
     id: "sharedGratitudeAppreciativeStewardshipEngine",
     href: "/app/shared-gratitude-appreciative-stewardship-engine",
     labelKey: "customerApp.nav.sharedGratitudeAppreciativeStewardshipEngine",
+  },
+  {
+    id: "sharedLegacyFlourishingEngine",
+    href: "/app/shared-legacy-flourishing-engine",
+    labelKey: "customerApp.nav.sharedLegacyFlourishingEngine",
+  },
+  {
+    id: "aipifyConstitutionPerpetualPrinciplesEngine",
+    href: "/app/aipify-constitution-perpetual-principles-engine",
+    labelKey: "customerApp.nav.aipifyConstitutionPerpetualPrinciplesEngine",
+  },
+  {
+    id: "aipifyEthicalEvolutionResponsibleInnovationEngine",
+    href: "/app/aipify-ethical-evolution-responsible-innovation-engine",
+    labelKey: "customerApp.nav.aipifyEthicalEvolutionResponsibleInnovationEngine",
+  },
+  {
+    id: "aipifyGuardianshipSuccessionEngine",
+    href: "/app/aipify-guardianship-succession-engine",
+    labelKey: "customerApp.nav.aipifyGuardianshipSuccessionEngine",
+  },
+  {
+    id: "aipifyPrinciplesEnforcementEngine",
+    href: "/app/aipify-principles-enforcement-engine",
+    labelKey: "customerApp.nav.aipifyPrinciplesEnforcementEngine",
+  },
+  {
+    id: "aipifyValuesTransmissionCulturalContinuityEngine",
+    href: "/app/aipify-values-transmission-cultural-continuity-engine",
+    labelKey: "customerApp.nav.aipifyValuesTransmissionCulturalContinuityEngine",
+  },
+  {
+    id: "aipifyDecisionTransparencyEngine",
+    href: "/app/aipify-decision-transparency-engine",
+    labelKey: "customerApp.nav.aipifyDecisionTransparencyEngine",
   },
   {
     id: "businessPacksFoundationEngine",
@@ -1265,6 +1307,27 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/shared-gratitude-appreciative-stewardship-engine")) {
     return "sharedGratitudeAppreciativeStewardshipEngine";
+  }
+  if (pathname.startsWith("/app/shared-legacy-flourishing-engine")) {
+    return "sharedLegacyFlourishingEngine";
+  }
+  if (pathname.startsWith("/app/aipify-constitution-perpetual-principles-engine")) {
+    return "aipifyConstitutionPerpetualPrinciplesEngine";
+  }
+  if (pathname.startsWith("/app/aipify-ethical-evolution-responsible-innovation-engine")) {
+    return "aipifyEthicalEvolutionResponsibleInnovationEngine";
+  }
+  if (pathname.startsWith("/app/aipify-guardianship-succession-engine")) {
+    return "aipifyGuardianshipSuccessionEngine";
+  }
+  if (pathname.startsWith("/app/aipify-principles-enforcement-engine")) {
+    return "aipifyPrinciplesEnforcementEngine";
+  }
+  if (pathname.startsWith("/app/aipify-values-transmission-cultural-continuity-engine")) {
+    return "aipifyValuesTransmissionCulturalContinuityEngine";
+  }
+  if (pathname.startsWith("/app/aipify-decision-transparency-engine")) {
+    return "aipifyDecisionTransparencyEngine";
   }
   if (pathname.startsWith("/app/shared-courage-responsible-action-engine")) {
     return "sharedCourageResponsibleActionEngine";

@@ -1,0 +1,10 @@
+ABOS Phase 193 — Aipify Guardianship & Succession
+Route: /app/aipify-guardianship-succession-engine
+
+Succession Center: leadership preparedness programs, succession planning reviews, companion reflection, mentorship frameworks, institutional wisdom preservation, Growth Partner development, leadership pipeline dashboards, succession knowledge libraries.
+Guardianship Engine prompts: Who are we preparing to lead? What knowledge deserves preservation? How do we strengthen mentorship? What values require continuity? How do we transfer stewardship responsibly?
+Succession Framework: leadership development, knowledge accessibility, mentorship participation, Growth Partner preparedness, institutional memory, governance readiness, future leadership opportunities.
+Executive Succession Reviews, Guardianship Companion, Mentorship Engine, Institutional Memory Engine.
+Companion limitations: no selecting successors, no overriding governance, no replacing leadership judgment, no suppressing diverse viewpoints.
+Cross-links only: Phase 192 ethical evolution, organizational_memory_engine — never duplicate RPCs or appoint leaders.
+People First. Growth Partner — never Affiliate.

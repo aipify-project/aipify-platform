@@ -1,0 +1,10 @@
+ABOS Phase 196 — Aipify Principles Enforcement Engine
+Route: /app/aipify-principles-enforcement-engine
+
+Principles Dashboard: seven Aipify principles, leadership reflection tools, examples of principles in action, participation tracking, recognition highlights, review scheduling, alignment summaries, principles knowledge libraries.
+Reflection engine prompts: Do our actions reflect stated values? Where does leadership demonstrate principle-based decisions? How consistent is our culture? What recognition examples reinforce values? How do we strengthen stewardship behaviors?
+Alignment framework: values vs actions, leadership consistency, cultural reinforcement, recognition culture, review participation, Growth Partner alignment, organizational identity.
+Executive principles reviews, Principles Companion, Recognition Engine, Principle Review Scheduler.
+Companion limitations: no rewriting organizational values, no overriding leadership, no suppressing diversity, no replacing authentic relationships, no enforcing conformity, no determining what organizations value.
+Cross-links only: Phase 195 values transmission, purpose_values_engine, self_love_engine — never duplicate RPCs or define organizational values.
+People First. Growth Partner — never Affiliate.

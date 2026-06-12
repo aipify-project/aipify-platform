@@ -1,0 +1,47 @@
+---
+description: ABOS phase implementation — current phase only; no revisiting or validating prior phases.
+alwaysApply: true
+---
+
+# Aipify Development Rule — Cursor Optimization
+
+## Purpose
+
+Cursor should focus only on implementing the **current phase**.
+
+## Rules
+
+1. Do **NOT** revisit previous phases.
+2. Do **NOT** validate previous phases.
+3. Do **NOT** regenerate earlier content.
+4. Do **NOT** re-read historical phase documents.
+5. Assume all previously approved phases are complete and implemented correctly.
+6. Focus exclusively on the functionality introduced by the **current phase**.
+7. Build only what is described in the active phase document.
+8. Preserve existing architecture unless the current phase explicitly requires modification.
+9. Avoid introducing unnecessary dependencies on previous phases.
+10. Keep implementation simple, focused, and production-ready.
+
+## Phase document structure
+
+```
+AIPIFY – PHASE XXX
+TITLE: [Phase Title]
+PURPOSE: A short explanation of what this phase introduces.
+OBJECTIVES: • Objective 1 • Objective 2 …
+REQUIREMENTS: • Requirement 1 • Requirement 2 …
+COMPONENTS: • Component 1 • Component 2 …
+SECURITY REQUIREMENTS: GitHub-style 2FA, enterprise permissions, audit logging remain active.
+AIPIFY PRINCIPLES: People First. Technology Second. Self Love. Wisdom before speed. Companionship before replacement. Growth through support. Stewardship through responsibility.
+END OF PHASE.
+```
+
+## Important
+
+- Do not search for previous phases.
+- Do not attempt to understand the entire Aipify ecosystem before implementing the current phase.
+- Assume all previous work is approved.
+- Implement only the **delta** introduced in the current document.
+- Forward momentum is more important than historical reconstruction.
+
+**Build the feature. Ship the feature. Continue the evolution.**
