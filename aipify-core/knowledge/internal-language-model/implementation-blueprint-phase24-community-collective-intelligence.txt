@@ -1,0 +1,93 @@
+ABOS Implementation Blueprint Phase 24 — Community & Collective Intelligence Engine
+====================================================================================
+
+Mission
+-------
+Identify broader patterns, shared learning, and collective improvements across organizations — preserving privacy, security, and trust.
+
+Philosophy
+----------
+Organizations should not solve every problem alone. Shared learning accelerates progress. Collective intelligence without compromising confidentiality.
+
+ABOS principle
+--------------
+Wisdom grows when experiences are shared responsibly.
+
+Core principle (Phase 89)
+-------------------------
+Organizations own their knowledge. Organizations control participation.
+
+Community objectives
+--------------------
+- Best practice recommendations from anonymized collective patterns
+- Industry trend awareness from metadata — never confidential records
+- Cross-organizational learning without org identity exposure
+- Emerging pattern detection — workflows, knowledge gaps, opportunities
+- Community-driven improvements — voluntary contributions
+- Benchmarking opportunities via anonymized aggregation
+
+Collective insight examples (metadata)
+--------------------------------------
+Support: frequently resolved issues, effective workflows, escalation improvements
+Knowledge: common gaps, frequently requested topics, documentation best practices
+Operational: workflow optimization, team coordination, productivity recommendations
+Strategic: emerging opportunities, market observations, growth considerations
+
+Privacy principles
+------------------
+- Anonymized aggregation — no org identity disclosure
+- No confidential exposure — metadata patterns only
+- Explicit governance — voluntary participation with review workflow
+- Organizations own their knowledge — organizations control participation
+- Trust transparency — what contributes to insights is explainable
+
+Community contributions (voluntary)
+-----------------------------------
+Best practices, templates, knowledge packs, lessons learned, industry guidance.
+Workflow: draft → review → governance → anonymization → publication.
+
+Companion examples
+------------------
+🦉 Others approached this challenge differently — pattern worth exploring without exposing who shared it.
+🌹 You are not alone — similar knowledge gaps appear across the ecosystem.
+🔔 Community insight worth exploring — validated by multiple organizations.
+🦉 Emerging trends in best practices — collective intelligence surfaced responsibly.
+
+Self Love connection
+--------------------
+Normalize challenges, encourage learning, reduce fear of imperfection, celebrate collective progress.
+Route: /app/self-love-engine — principle only, not a feature toggle.
+
+Trust connection
+----------------
+What contributes to insights, anonymity protection, which recommendations come from community trends, participation settings. Trust is non-negotiable.
+
+Distinctions (cross-link, do not duplicate)
+-------------------------------------------
+Cross-Tenant Intelligence A.71 /app/cross-tenant-intelligence-engine
+Organizational Benchmarking A.58 /app/organizational-benchmarking-engine
+Impact Metrics Phase 21 /platform/impact
+Learning & Adaptation Phase 23 /app/learning
+Marketplace Ecosystem Phase 19 /app/marketplace-partner-ecosystem-foundation-engine
+Industry Intelligence A.44 /app/industry-intelligence-foundation-engine
+Continuous Improvement A.49 /app/continuous-improvement-engine
+
+Dogfooding
+----------
+Aipify Group: internal validation — knowledge sharing, support improvements, workflow recommendations, companion experiences.
+Unonight: first external pilot — knowledge sharing, support improvements, workflow recommendations, companion experiences.
+
+Vision phrases
+--------------
+- Benefit from broader ecosystem lessons — "we would never have discovered this on our own."
+- Wisdom grows when experiences are shared responsibly.
+- Organizations should not solve every problem alone.
+- Organizations own their knowledge. Organizations control participation.
+- Trust is non-negotiable.
+
+Routes
+------
+Community Hub: /app/community
+Community Admin: /app/community/admin
+RPCs: get_community_intelligence_dashboard(), get_community_intelligence_card()
+Migration: supabase/migrations/20260971000000_implementation_blueprint_phase24_community_collective_intelligence.sql

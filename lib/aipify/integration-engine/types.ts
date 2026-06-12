@@ -85,6 +85,83 @@ export type AbosSuccessCriterion = {
 export type IntegrationLink = {
   label?: string;
   route?: string;
+  note?: string;
+};
+
+export type FinancialPrinciple = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type PrimaryStrategySystem = {
+  key?: string;
+  name?: string;
+  role?: string;
+  emoji?: string;
+  note?: string;
+};
+
+export type PrimaryStrategy = {
+  principle?: string;
+  systems?: PrimaryStrategySystem[];
+  coordination_model?: string;
+  coordination_note?: string;
+  aipify_role?: string;
+  aipify_role_note?: string;
+};
+
+export type BlueprintBoundaries = {
+  principle?: string;
+  should_not_become?: string[];
+  preserved_a8?: string[];
+};
+
+export type ExecutiveInsightExample = {
+  emoji?: string;
+  key?: string;
+  scenario?: string;
+  example?: string;
+};
+
+export type SelfLoveConnection = {
+  principle?: string;
+  practices?: string[];
+  self_love_route?: string;
+  naming_doc?: string;
+  boundary_note?: string;
+};
+
+export type FinancialTrustConnection = {
+  principle?: string;
+  users_should_know?: string[];
+  operators_should_understand?: string[];
+  audit_note?: string;
+};
+
+export type FinancialEngagementSummary = {
+  stripe_connected?: boolean;
+  fiken_connected?: boolean;
+  stripe_active?: boolean;
+  fiken_active?: boolean;
+  stripe_syncs?: number;
+  fiken_syncs?: number;
+  stripe_webhooks?: number;
+  financial_webhooks?: number;
+  stripe_sync_failures?: number;
+  last_stripe_sync_at?: string | null;
+  last_fiken_sync_at?: string | null;
+  fiken_catalog_scaffold?: boolean;
+  stripe_catalog_available?: boolean;
+  privacy_note?: string;
+};
+
+export type ImplementationBlueprintMeta = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
 };
 
 export type IntegrationEngineCard = {
@@ -95,6 +172,11 @@ export type IntegrationEngineCard = {
   mission?: string;
   abos_principle?: string;
   integration_engine_note?: string;
+  implementation_blueprint?: ImplementationBlueprintMeta;
+  blueprint_mission?: string;
+  blueprint_abos_principle?: string;
+  engagement_summary?: FinancialEngagementSummary;
+  blueprint_note?: string;
 };
 
 export type IntegrationEngineDashboard = {
@@ -137,4 +219,27 @@ export type IntegrationEngineDashboard = {
     status?: string | null;
     last_sync_at?: string | null;
   };
+  implementation_blueprint?: ImplementationBlueprintMeta;
+  financial_operations_note?: string;
+  blueprint_philosophy?: string;
+  blueprint_mission?: string;
+  blueprint_abos_principle?: string;
+  blueprint_distinction_note?: string;
+  financial_principles?: FinancialPrinciple[];
+  primary_strategy?: PrimaryStrategy;
+  aipify_may?: string[];
+  blueprint_boundaries?: BlueprintBoundaries;
+  executive_insight_examples?: ExecutiveInsightExample[];
+  self_love_connection?: SelfLoveConnection;
+  financial_trust_connection?: FinancialTrustConnection;
+  financial_dogfooding?: {
+    principle?: string;
+    aipify_group?: Record<string, unknown>;
+    unonight?: Record<string, unknown>;
+  };
+  blueprint_integration_links?: IntegrationLink[];
+  engagement_summary?: FinancialEngagementSummary;
+  financial_operations_success_criteria?: AbosSuccessCriterion[];
+  vision_phrases?: string[];
+  privacy_note?: string;
 };

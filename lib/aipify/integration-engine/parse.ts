@@ -1,11 +1,18 @@
 import type {
   AbosSuccessCriterion,
+  BlueprintBoundaries,
   ConnectorArchitecture,
+  ExecutiveInsightExample,
+  FinancialEngagementSummary,
+  FinancialPrinciple,
+  FinancialTrustConnection,
   InstallConnection,
   IntegrationEngineCard,
   IntegrationEngineDashboard,
   IntegrationLink,
   PlatformPriority,
+  PrimaryStrategy,
+  SelfLoveConnection,
   TrustConnection,
 } from "./types";
 
@@ -75,8 +82,44 @@ function parseIntegrationLinks(value: unknown): IntegrationLink[] | undefined {
     return {
       label: typeof l.label === "string" ? l.label : undefined,
       route: typeof l.route === "string" ? l.route : undefined,
+      note: typeof l.note === "string" ? l.note : undefined,
     };
   });
+}
+
+function parseFinancialPrinciples(value: unknown): FinancialPrinciple[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  return value as FinancialPrinciple[];
+}
+
+function parsePrimaryStrategy(value: unknown): PrimaryStrategy | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  return value as PrimaryStrategy;
+}
+
+function parseBlueprintBoundaries(value: unknown): BlueprintBoundaries | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  return value as BlueprintBoundaries;
+}
+
+function parseExecutiveInsightExamples(value: unknown): ExecutiveInsightExample[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  return value as ExecutiveInsightExample[];
+}
+
+function parseSelfLoveConnection(value: unknown): SelfLoveConnection | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  return value as SelfLoveConnection;
+}
+
+function parseFinancialTrustConnection(value: unknown): FinancialTrustConnection | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  return value as FinancialTrustConnection;
+}
+
+function parseEngagementSummary(value: unknown): FinancialEngagementSummary | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  return value as FinancialEngagementSummary;
 }
 
 export function parseIntegrationEngineCard(data: unknown): IntegrationEngineCard {
@@ -90,6 +133,15 @@ export function parseIntegrationEngineCard(data: unknown): IntegrationEngineCard
     abos_principle: typeof d.abos_principle === "string" ? d.abos_principle : undefined,
     integration_engine_note:
       typeof d.integration_engine_note === "string" ? d.integration_engine_note : undefined,
+    implementation_blueprint:
+      typeof d.implementation_blueprint === "object" && d.implementation_blueprint
+        ? (d.implementation_blueprint as IntegrationEngineCard["implementation_blueprint"])
+        : undefined,
+    blueprint_mission: typeof d.blueprint_mission === "string" ? d.blueprint_mission : undefined,
+    blueprint_abos_principle:
+      typeof d.blueprint_abos_principle === "string" ? d.blueprint_abos_principle : undefined,
+    engagement_summary: parseEngagementSummary(d.engagement_summary),
+    blueprint_note: typeof d.blueprint_note === "string" ? d.blueprint_note : undefined,
   };
 }
 
@@ -140,5 +192,33 @@ export function parseIntegrationEngineDashboard(data: unknown): IntegrationEngin
       typeof d.unonight_pilot === "object" && d.unonight_pilot
         ? (d.unonight_pilot as IntegrationEngineDashboard["unonight_pilot"])
         : undefined,
+    implementation_blueprint:
+      typeof d.implementation_blueprint === "object" && d.implementation_blueprint
+        ? (d.implementation_blueprint as IntegrationEngineDashboard["implementation_blueprint"])
+        : undefined,
+    financial_operations_note:
+      typeof d.financial_operations_note === "string" ? d.financial_operations_note : undefined,
+    blueprint_philosophy: typeof d.blueprint_philosophy === "string" ? d.blueprint_philosophy : undefined,
+    blueprint_mission: typeof d.blueprint_mission === "string" ? d.blueprint_mission : undefined,
+    blueprint_abos_principle:
+      typeof d.blueprint_abos_principle === "string" ? d.blueprint_abos_principle : undefined,
+    blueprint_distinction_note:
+      typeof d.blueprint_distinction_note === "string" ? d.blueprint_distinction_note : undefined,
+    financial_principles: parseFinancialPrinciples(d.financial_principles),
+    primary_strategy: parsePrimaryStrategy(d.primary_strategy),
+    aipify_may: parseStringArray(d.aipify_may),
+    blueprint_boundaries: parseBlueprintBoundaries(d.blueprint_boundaries),
+    executive_insight_examples: parseExecutiveInsightExamples(d.executive_insight_examples),
+    self_love_connection: parseSelfLoveConnection(d.self_love_connection),
+    financial_trust_connection: parseFinancialTrustConnection(d.financial_trust_connection),
+    financial_dogfooding:
+      typeof d.financial_dogfooding === "object" && d.financial_dogfooding
+        ? (d.financial_dogfooding as IntegrationEngineDashboard["financial_dogfooding"])
+        : undefined,
+    blueprint_integration_links: parseIntegrationLinks(d.blueprint_integration_links),
+    engagement_summary: parseEngagementSummary(d.engagement_summary),
+    financial_operations_success_criteria: parseSuccessCriteria(d.financial_operations_success_criteria),
+    vision_phrases: parseStringArray(d.vision_phrases),
+    privacy_note: typeof d.privacy_note === "string" ? d.privacy_note : undefined,
   };
 }

@@ -13,6 +13,7 @@ export type AppNavId =
   | "adminAssistantEngine"
   | "supportAiEngine"
   | "integrationEngine"
+  | "apiPlatformEngine"
   | "operationsDashboardEngine"
   | "customerOnboardingEngine"
   | "subscriptionPlanManagementEngine"
@@ -49,6 +50,7 @@ export type AppNavId =
   | "changeManagementEngine"
   | "valueRealizationEngine"
   | "organizationalResilienceEngine"
+  | "securityTrustEngine"
   | "incidentResponseCoordinationEngine"
   | "serviceLevelCommitmentEngine"
   | "stakeholderCommunicationEngine"
@@ -67,11 +69,13 @@ export type AppNavId =
   | "predictiveInsightsEngine"
   | "crossTenantIntelligenceEngine"
   | "partnerSuccessEngine"
+  | "salesExpertEngine"
   | "relationshipIntelligenceEngine"
   | "trustReputationEngine"
   | "aiCostGovernanceEngine"
   | "personalProductivityEngine"
   | "proactiveCompanionEngine"
+  | "companionDeviceEcosystemEngine"
   | "selfLoveEngine"
   | "growthEvolutionEngine"
   | "priorityFocusEngine"
@@ -180,6 +184,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "adminAssistantEngine", href: "/app/admin-assistant-engine", labelKey: "customerApp.nav.adminAssistantEngine" },
   { id: "supportAiEngine", href: "/app/support-ai-engine", labelKey: "customerApp.nav.supportAiEngine" },
   { id: "integrationEngine", href: "/app/integration-engine", labelKey: "customerApp.nav.integrationEngine" },
+  { id: "apiPlatformEngine", href: "/app/api-platform-engine", labelKey: "customerApp.nav.apiPlatformEngine" },
   { id: "operationsDashboardEngine", href: "/app/operations-dashboard-engine", labelKey: "customerApp.nav.operationsDashboardEngine" },
   { id: "customerOnboardingEngine", href: "/app/customer-onboarding-engine", labelKey: "customerApp.nav.customerOnboardingEngine" },
   {
@@ -312,6 +317,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.marketplacePartnerEcosystemFoundationEngine",
   },
   {
+    id: "salesExpertEngine",
+    href: "/app/sales-expert-engine",
+    labelKey: "customerApp.nav.salesExpertEngine",
+  },
+  {
     id: "aiEthicsResponsibleUseEngine",
     href: "/app/ai-ethics-responsible-use-engine",
     labelKey: "customerApp.nav.aiEthicsResponsibleUseEngine",
@@ -330,6 +340,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "organizationalResilienceEngine",
     href: "/app/organizational-resilience-engine",
     labelKey: "customerApp.nav.organizationalResilienceEngine",
+  },
+  {
+    id: "securityTrustEngine",
+    href: "/app/security-trust-engine",
+    labelKey: "customerApp.nav.securityTrustEngine",
   },
   {
     id: "incidentResponseCoordinationEngine",
@@ -422,6 +437,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.partnerSuccessEngine",
   },
   {
+    id: "salesExpertEngine",
+    href: "/app/sales-expert-engine",
+    labelKey: "customerApp.nav.salesExpertEngine",
+  },
+  {
     id: "relationshipIntelligenceEngine",
     href: "/app/relationship-intelligence-engine",
     labelKey: "customerApp.nav.relationshipIntelligenceEngine",
@@ -445,6 +465,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "proactiveCompanionEngine",
     href: "/app/proactive-companion-engine",
     labelKey: "customerApp.nav.proactiveCompanionEngine",
+  },
+  {
+    id: "companionDeviceEcosystemEngine",
+    href: "/app/companion-device-ecosystem-engine",
+    labelKey: "customerApp.nav.companionDeviceEcosystemEngine",
   },
   {
     id: "selfLoveEngine",
@@ -655,6 +680,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/organizational-resilience-engine")) {
     return "organizationalResilienceEngine";
   }
+  if (pathname.startsWith("/app/security-trust-engine")) {
+    return "securityTrustEngine";
+  }
   if (pathname.startsWith("/app/incident-response-coordination-engine")) {
     return "incidentResponseCoordinationEngine";
   }
@@ -709,6 +737,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/partner-success-engine")) {
     return "partnerSuccessEngine";
   }
+  if (pathname.startsWith("/app/sales-expert-engine")) {
+    return "salesExpertEngine";
+  }
   if (pathname.startsWith("/app/relationship-intelligence-engine")) {
     return "relationshipIntelligenceEngine";
   }
@@ -723,6 +754,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/proactive-companion-engine")) {
     return "proactiveCompanionEngine";
+  }
+  if (pathname.startsWith("/app/companion-device-ecosystem-engine")) {
+    return "companionDeviceEcosystemEngine";
   }
   if (pathname.startsWith("/app/self-love-engine")) {
     return "selfLoveEngine";

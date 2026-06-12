@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseNotificationCommunicationEngineDashboard,
+  type MobileDashboardBlock,
   type NotificationCommunicationEngineDashboard,
 } from "@/lib/aipify/notification-communication-engine";
 
@@ -26,6 +27,25 @@ function priorityClass(priority?: string) {
 
 function formatCategory(category?: string) {
   return (category ?? "").replace(/_/g, " ");
+}
+
+function MobileDashboardBlockCard({ block, labels }: { block: MobileDashboardBlock; labels: Record<string, string> }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-white p-3">
+      <div className="flex flex-wrap items-start justify-between gap-2">
+        <div>
+          <p className="text-xs font-medium text-gray-900">{block.label}</p>
+          {block.description ? <p className="mt-1 text-xs text-gray-500">{block.description}</p> : null}
+        </div>
+        <p className="text-2xl font-semibold text-gray-900">{block.count ?? 0}</p>
+      </div>
+      {block.route ? (
+        <Link href={block.route} className="mt-2 inline-block text-xs text-sky-700 underline">
+          {labels.openLink}
+        </Link>
+      ) : null}
+    </div>
+  );
 }
 
 export function NotificationCommunicationEngineDashboardPanel({
@@ -84,41 +104,121 @@ export function NotificationCommunicationEngineDashboardPanel({
   if (!dashboard?.has_organization) return null;
 
   const trends = dashboard.trends ?? {};
+  const engagement = dashboard.engagement_summary;
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap gap-2">
-        <Link href="/app/operations-dashboard-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.operationsDashboard}
-        </Link>
-        <Link href="/app/presence" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.presence}
-        </Link>
-        <Link href="/app/admin-assistant-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.adminAssistant}
-        </Link>
-        <Link href="/app/secure-ai-actions" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.secureAiActions}
-        </Link>
-      </div>
+      {(dashboard.integration_links ?? []).length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {dashboard.integration_links?.map((link) =>
+            link.route ? (
+              <Link key={link.key ?? link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+                {link.label ?? link.key?.replace(/_/g, " ")}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : (
+        <div className="flex flex-wrap gap-2">
+          <Link href="/app/operations-dashboard-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.operationsDashboard}
+          </Link>
+          <Link href="/app/presence" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.presence}
+          </Link>
+          <Link href="/app/admin-assistant-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.adminAssistant}
+          </Link>
+          <Link href="/app/secure-ai-actions" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.secureAiActions}
+          </Link>
+        </div>
+      )}
 
-      <section className="rounded-xl border border-sky-200 bg-sky-50/50 p-6">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div>
-            <h2 className="text-sm font-semibold text-sky-900">{labels.notificationEngine}</h2>
-            <p className="mt-2 text-sm text-sky-900">{dashboard.philosophy}</p>
-            <p className="mt-1 text-xs text-sky-700">{dashboard.safety_note}</p>
-          </div>
+      <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">
+        <h2 className="text-sm font-semibold text-violet-900">{labels.mobileCompanionEngine}</h2>
+        {dashboard.mission ? (
+          <p className="mt-2 text-sm font-medium text-violet-900">{dashboard.mission}</p>
+        ) : null}
+        <p className="mt-2 text-sm text-violet-900">{dashboard.mobile_philosophy ?? dashboard.philosophy}</p>
+        {dashboard.abos_principle ? (
+          <p className="mt-2 text-xs text-violet-800">{dashboard.abos_principle}</p>
+        ) : null}
+        {dashboard.implementation_blueprint?.title ? (
+          <p className="mt-1 text-xs text-violet-700">
+            {dashboard.implementation_blueprint.title}
+            {dashboard.implementation_blueprint.phase ? ` · Phase ${dashboard.implementation_blueprint.phase}` : ""}
+          </p>
+        ) : null}
+        <p className="mt-1 text-xs text-violet-700">{dashboard.safety_note}</p>
+        <div className="mt-3 flex flex-wrap gap-2">
           <button
             type="button"
             disabled={actionId === "digest"}
             onClick={() => void generateDigest()}
-            className="rounded-lg border border-sky-300 bg-white px-3 py-1.5 text-sm text-sky-900"
+            className="rounded-lg border border-violet-300 bg-white px-3 py-1.5 text-sm text-violet-900"
           >
             {labels.generateDigest}
           </button>
         </div>
       </section>
+
+      {engagement ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.engagementSummary}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>{labels.unread}: {engagement.unread_notifications ?? 0}</span>
+            <span>{labels.criticalUnread}: {engagement.critical_unread ?? 0}</span>
+            <span>{labels.delivered24h}: {engagement.delivered_last_24h ?? 0}</span>
+            <span>{labels.frequency}: {engagement.frequency ?? "immediate"}</span>
+            <span>{labels.quietHours}: {engagement.quiet_hours_enabled ? labels.enabled : labels.disabled}</span>
+            <span>{labels.subscribedCategories}: {engagement.subscribed_categories ?? 0}</span>
+          </div>
+          {engagement.mobile_push_note ? (
+            <p className="mt-2 text-xs text-gray-500">{engagement.mobile_push_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.mobile_dashboard?.blocks && dashboard.mobile_dashboard.blocks.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.mobileDashboard}</h3>
+          {dashboard.mobile_dashboard.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{dashboard.mobile_dashboard.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {dashboard.mobile_dashboard.blocks.map((block) => (
+              <MobileDashboardBlockCard key={block.key ?? block.label} block={block} labels={labels} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.since_last_time ? (
+        <section className="rounded-lg border border-sky-100 bg-sky-50/40 p-4 text-sm">
+          <h3 className="text-sm font-semibold text-sky-900">{labels.sinceLastTime}</h3>
+          {typeof dashboard.since_last_time.summary === "string" ? (
+            <p className="mt-2 text-sky-900">{dashboard.since_last_time.summary}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.companion_experiences && dashboard.companion_experiences.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionExperiences}</h3>
+          <ul className="mt-3 space-y-3">
+            {dashboard.companion_experiences.map((exp) => (
+              <li key={exp.key ?? exp.scenario} className="rounded-lg border border-gray-100 p-3 text-sm">
+                <p className="font-medium text-gray-900">
+                  {exp.emoji ? `${exp.emoji} ` : ""}
+                  {exp.scenario}
+                </p>
+                {exp.example ? <p className="mt-1 text-xs text-gray-600">{exp.example}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-lg border border-gray-100 bg-white p-3">
@@ -263,6 +363,76 @@ export function NotificationCommunicationEngineDashboardPanel({
           </ul>
         </div>
       </section>
+
+      {Array.isArray(dashboard.success_criteria) && dashboard.success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.successCriteria}</h3>
+          <ul className="mt-3 space-y-2">
+            {dashboard.success_criteria.map((criterion) => (
+              <li key={criterion.key ?? criterion.label} className="flex gap-2 text-sm">
+                <span className={criterion.met ? "text-emerald-600" : "text-amber-600"}>
+                  {criterion.met ? "✓" : "○"}
+                </span>
+                <span className="text-gray-700">
+                  {criterion.label}
+                  {criterion.note ? <span className="block text-xs text-gray-500">{criterion.note}</span> : null}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.self_love_connection?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.selfLoveConnection}</h3>
+          <p className="mt-2">{dashboard.self_love_connection.principle}</p>
+          {dashboard.self_love_connection.companion_patterns && dashboard.self_love_connection.companion_patterns.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {dashboard.self_love_connection.companion_patterns.map((pattern) => (
+                <li key={pattern}>{pattern}</li>
+              ))}
+            </ul>
+          ) : null}
+          {dashboard.self_love_connection.self_love_route ? (
+            <Link href={dashboard.self_love_connection.self_love_route} className="mt-2 inline-block text-xs underline">
+              {labels.openSelfLove}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.trust_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.trustConnection}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.trust_connection.principle}</p>
+          {dashboard.trust_connection.users_should_know && dashboard.trust_connection.users_should_know.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+              {dashboard.trust_connection.users_should_know.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.configuration_options?.options && dashboard.configuration_options.options.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.configurationOptions}</h3>
+          {dashboard.configuration_options.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{dashboard.configuration_options.principle}</p>
+          ) : null}
+          <div className="mt-3 flex flex-wrap gap-2">
+            {dashboard.configuration_options.options.map((option) =>
+              option.route ? (
+                <Link key={option.key ?? option.label} href={option.route} className="rounded border border-gray-200 px-2 py-1 text-xs">
+                  {option.label}
+                </Link>
+              ) : null
+            )}
+          </div>
+        </section>
+      ) : null}
 
       {(dashboard.principles?.length ?? 0) > 0 && (
         <section className="rounded-xl border border-gray-200 bg-white p-4">

@@ -48,6 +48,17 @@ export default async function TrustReputationEnginePage() {
           approveExpansion: t(`${p}.approveExpansion`),
           rejectExpansion: t(`${p}.rejectExpansion`),
           actionFailed: t(`${p}.actionFailed`),
+          engagementSummary: t(`${p}.engagementSummary`),
+          outcomesTotal: t(`${p}.outcomesTotal`),
+          signalsLast90d: t(`${p}.signalsLast90d`),
+          relationshipObjectives: t(`${p}.relationshipObjectives`),
+          relationshipPrinciples: t(`${p}.relationshipPrinciples`),
+          examplePhrases: t(`${p}.examplePhrases`),
+          companionExamples: t(`${p}.companionExamples`),
+          trustSignals: t(`${p}.trustSignals`),
+          blueprintBoundaries: t(`${p}.blueprintBoundaries`),
+          selfLoveConnection: t(`${p}.selfLoveConnection`),
+          successCriteria: t(`${p}.successCriteria`),
         }} />
     </div>
   );

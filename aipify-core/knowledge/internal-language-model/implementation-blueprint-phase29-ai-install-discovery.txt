@@ -1,0 +1,30 @@
+Implementation Blueprint Phase 29 — AI Install & Discovery Engine
+
+Engine: Aipify Install Engine Phase A.22 at /app/aipify-install-engine
+Embedded: Install Engine Phase 17 at /app/install, /api/install/*, /api/embed/*
+
+Mission: Reduce onboarding friction by safely analyzing connected systems and recommending tailored configurations.
+
+Philosophy: Aipify should adapt to organizations. Discovery should reduce complexity — not create it.
+
+Core rule: Recommend, analyze, suggest. Never modify systems automatically, access restricted information without authorization, or activate capabilities silently. Permission review is mandatory.
+
+Supported environments (initial): WordPress, Shopify, WooCommerce, custom web applications, internal documentation repositories, connected productivity platforms.
+
+Discovery capabilities: Identify frequently accessed resources, detect support channels, recognize organizational terminology, suggest Knowledge Center structures, recommend Business Packs, highlight integration opportunities.
+
+Companion examples:
+- Support workflow value recommendation
+- Disconnected knowledge sources identified
+- Onboarding milestone completed
+- Configuration progress celebrated
+
+Self Love: Guide step by step, simplify choices, gradual adoption, celebrate progress — /app/self-love-engine as principle.
+
+Trust: Organizations understand what is analyzed, why recommendations appear, which permissions are required, how to revoke access. Metadata only in discovery results.
+
+Distinct from Phase 28 Onboarding & Success (customer journey) and Curiosity & Discovery A.87 (exploration culture).
+
+ABOS principle: Understanding creates relevance.
+
+Vision: "It already knows how we work" — because Aipify listened, learned responsibly, and adapted thoughtfully.

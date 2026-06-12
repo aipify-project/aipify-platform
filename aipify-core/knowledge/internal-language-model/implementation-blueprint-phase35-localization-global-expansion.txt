@@ -1,0 +1,62 @@
+Aipify Implementation Blueprint Phase 35 — Localization & Global Expansion Engine
+
+Mission
+Help organizations expand globally while respecting local languages, cultures, payment preferences, and operational realities. Localization creates belonging, not just translation.
+
+Philosophy
+Global platforms succeed when they respect local realities. Localization extends beyond translation — it creates belonging.
+
+ABOS principle
+One platform. Local experiences. Global impact — technology adapts to people, not the reverse.
+
+Naming distinction
+Blueprint Phase 35 (localization/global expansion at /app/global-expansion) is distinct from Context Engine Phase 35 (personal calendar at /app/assistant/context and /app/assistant/calendars). Extend Global Expansion Phase 95 only — do not duplicate Context Engine, Global Learning Network, or Academy tables.
+
+Priority languages
+English (en), Norwegian (no), Swedish (sv), Danish (da) — ship first with quality.
+
+Future languages
+German (de), French (fr), Spanish (es), Dutch (nl), Portuguese (pt) — activated by validated market demand.
+
+Companion localization
+Preserve Aipify identity across languages:
+- Warm and supportive 🌹 — tone adapted per locale
+- Wise and thoughtful 🦉 — uncertainty acknowledged in local phrasing
+- Encouraging and attentive 🔔 — milestones without pressure
+- Human-centered and compassionate ❤️ — sustainable pace during expansion
+
+Personality is adapted, not merely translated. Cross-link Companion Identity A.84.
+
+Knowledge Center localization
+Global articles, country-specific guidance, industry content, regional best practices. Route: /app/knowledge-center (A.5).
+
+Sales Expert localization
+Local languages, currencies, business structures, market-sensitive sales guidance, regional communication preferences. Route: /app/sales-expert-engine (A.95).
+
+Payment and financial localization (scaffold)
+Norway: Fiken, Vipps, Norwegian accounting expectations.
+Sweden: Swish, Swedish payment expectations.
+Denmark: MobilePay, Danish payment expectations.
+International: Stripe, regional expansion strategies.
+Not legal or tax advice — configure integrations in Billing & Commercial (/app/commercial).
+
+Training and certification localization
+Multiple languages, localized examples, region-specific scenarios, market-sensitive demos. Cross-link Learning & Training A.36 and Certification A.37.
+
+Trust connection
+Globally standardized platform capabilities with regionally adapted experiences. Localization decisions are transparent and auditable. Metadata only in RPC payloads.
+
+Dogfooding
+Aipify Group validates Nordic language quality internally. Unonight exercises multilingual operational flows as first external pilot.
+
+Vision
+People everywhere should feel that Aipify was built for their market — not translated as an afterthought.
+
+Preferred phrasing
+- "Aipify adapts to your market" not "We translated the app"
+- "Localized guidance" not "Foreign language version"
+- "Regional payment preferences" not "Alternative payment methods"
+- "Companion personality preserved across languages" not "Chatbot in multiple languages"
+
+Cross-links
+Knowledge Center A.5 · Sales Expert A.95 · Learning & Training A.36 · Certification A.37 · Billing & Commercial · Companion Identity A.84 · Global Learning (distinct) · License & Trust Center

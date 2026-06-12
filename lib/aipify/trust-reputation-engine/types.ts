@@ -31,6 +31,97 @@ export type OrganizationTrustOutcome = {
   [key: string]: unknown;
 };
 
+export type RelationshipObjective = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type RelationshipPrinciple = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type ExamplePhrase = {
+  key?: string;
+  phrase?: string;
+};
+
+export type CompanionExample = {
+  emoji?: string;
+  key?: string;
+  scenario?: string;
+  example?: string;
+};
+
+export type BlueprintBoundaries = {
+  principle?: string;
+  should_avoid?: string[];
+  preserved_a72?: string[];
+};
+
+export type TrustSignalsBlueprint = {
+  principle?: string;
+  users_should_see?: string[];
+  operators_should_understand?: string[];
+  audit_note?: string;
+};
+
+export type SelfLoveConnection = {
+  principle?: string;
+  practices?: string[];
+  self_love_route?: string;
+  naming_doc?: string;
+  boundary_note?: string;
+};
+
+export type DogfoodingBlueprint = {
+  principle?: string;
+  aipify_group?: Record<string, unknown>;
+  unonight?: Record<string, unknown>;
+};
+
+export type TrustEngagementSummary = {
+  active_profiles?: number;
+  trusted_profiles?: number;
+  under_review_profiles?: number;
+  revoked_profiles?: number;
+  avg_trust_score?: number;
+  recent_signals_30d?: number;
+  entity_type_count?: number;
+  outcomes_total?: number;
+  outcomes_last_30d?: number;
+  expansion_approved?: number;
+  expansion_rejected?: number;
+  revocations?: number;
+  signals_last_90d?: number;
+  auto_signal_enabled?: boolean;
+  expansion_review_required?: boolean;
+  privacy_note?: string;
+};
+
+export type AbosSuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+};
+
+export type IntegrationLink = {
+  label?: string;
+  route?: string;
+  note?: string;
+};
+
+export type ImplementationBlueprintMeta = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+};
+
 export type TrustReputationEngineCard = {
   has_organization: boolean;
   philosophy?: string;
@@ -38,6 +129,11 @@ export type TrustReputationEngineCard = {
   trusted_profiles?: number;
   under_review_profiles?: number;
   avg_trust_score?: number;
+  implementation_blueprint?: ImplementationBlueprintMeta;
+  mission?: string;
+  abos_principle?: string;
+  engagement_summary?: TrustEngagementSummary;
+  blueprint_note?: string;
   [key: string]: unknown;
 };
 
@@ -58,6 +154,26 @@ export type TrustReputationEngineDashboard = {
   executive_summary?: Record<string, unknown>;
   integration_notes?: Record<string, string>;
   integration_summaries?: Record<string, unknown>;
+  implementation_blueprint?: ImplementationBlueprintMeta;
+  trust_relationship_note?: string;
+  blueprint_philosophy?: string;
+  blueprint_mission?: string;
+  blueprint_abos_principle?: string;
+  vision?: string;
+  blueprint_distinction_note?: string;
+  relationship_objectives?: RelationshipObjective[];
+  relationship_principles?: RelationshipPrinciple[];
+  example_phrases?: ExamplePhrase[];
+  trust_signals?: TrustSignalsBlueprint;
+  companion_examples?: CompanionExample[];
+  blueprint_boundaries?: BlueprintBoundaries;
+  self_love_connection?: SelfLoveConnection;
+  dogfooding?: DogfoodingBlueprint;
+  blueprint_integration_links?: IntegrationLink[];
+  engagement_summary?: TrustEngagementSummary;
+  success_criteria?: AbosSuccessCriterion[];
+  vision_phrases?: string[];
+  privacy_note?: string;
   [key: string]: unknown;
 };
 

@@ -46,6 +46,15 @@ export default async function AipifyInstallEnginePage() {
           successCriteria: t(`${p}.successCriteria`),
           trustConnection: t(`${p}.trustConnection`),
           integrationLinks: t(`${p}.integrationLinks`),
+          discoveryObjectives: t(`${p}.discoveryObjectives`),
+          supportedEnvironments: t(`${p}.supportedEnvironments`),
+          discoveryCapabilities: t(`${p}.discoveryCapabilities`),
+          recommendationExperiences: t(`${p}.recommendationExperiences`),
+          humanApproval: t(`${p}.humanApproval`),
+          blueprintSuccessCriteria: t(`${p}.blueprintSuccessCriteria`),
+          selfLoveConnection: t(`${p}.selfLoveConnection`),
+          trustConnectionBlueprint: t(`${p}.trustConnectionBlueprint`),
+          engagementSummary: t(`${p}.engagementSummary`),
         }}
       />
     </div>

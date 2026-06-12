@@ -1,4 +1,9 @@
 import type {
+  AbosSuccessCriterion,
+  BlueprintBoundaries,
+  CompanionExample,
+  DogfoodingBlueprint,
+  IntegrationLink,
   ProactiveCompanionAssistanceCategory,
   ProactiveCompanionEngineCard,
   ProactiveCompanionEngineDashboard,
@@ -7,6 +12,11 @@ import type {
   ProactiveCompanionSettings,
   ProactiveCompanionStyleExample,
   ProactiveCompanionUserPreferences,
+  ProactiveEngagementSummary,
+  ProactiveExamplesBlueprint,
+  ProactiveObjective,
+  SelfLoveConnection,
+  TrustConnection,
 } from "./types";
 
 function parseRecordList<T>(data: unknown): T[] | undefined {
@@ -24,9 +34,78 @@ function parseUserPreferences(data: unknown): ProactiveCompanionUserPreferences 
   return data as ProactiveCompanionUserPreferences;
 }
 
+function parseStringArray(data: unknown): string[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data.filter((item): item is string => typeof item === "string");
+}
+
+function parseProactiveObjectives(data: unknown): ProactiveObjective[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as ProactiveObjective[];
+}
+
+function parseProactiveExamples(data: unknown): ProactiveExamplesBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ProactiveExamplesBlueprint;
+}
+
+function parseCompanionExamples(data: unknown): CompanionExample[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as CompanionExample[];
+}
+
+function parseBlueprintBoundaries(data: unknown): BlueprintBoundaries | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as BlueprintBoundaries;
+}
+
+function parseSelfLoveConnection(data: unknown): SelfLoveConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as SelfLoveConnection;
+}
+
+function parseTrustConnection(data: unknown): TrustConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as TrustConnection;
+}
+
+function parseDogfooding(data: unknown): DogfoodingBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as DogfoodingBlueprint;
+}
+
+function parseEngagementSummary(data: unknown): ProactiveEngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ProactiveEngagementSummary;
+}
+
+function parseSuccessCriteria(data: unknown): AbosSuccessCriterion[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as AbosSuccessCriterion[];
+}
+
+function parseIntegrationLinks(data: unknown): IntegrationLink[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as IntegrationLink[];
+}
+
 export function parseProactiveCompanionEngineCard(data: unknown): ProactiveCompanionEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
-  return { has_organization: Boolean(d.has_organization), ...d } as ProactiveCompanionEngineCard;
+  return {
+    has_organization: Boolean(d.has_organization),
+    philosophy: typeof d.philosophy === "string" ? d.philosophy : undefined,
+    pending_nudges: typeof d.pending_nudges === "number" ? d.pending_nudges : undefined,
+    enabled: typeof d.enabled === "boolean" ? d.enabled : undefined,
+    mission: typeof d.mission === "string" ? d.mission : undefined,
+    abos_principle: typeof d.abos_principle === "string" ? d.abos_principle : undefined,
+    blueprint_note: typeof d.blueprint_note === "string" ? d.blueprint_note : undefined,
+    implementation_blueprint:
+      typeof d.implementation_blueprint === "object" && d.implementation_blueprint
+        ? (d.implementation_blueprint as ProactiveCompanionEngineCard["implementation_blueprint"])
+        : undefined,
+    engagement_summary: parseEngagementSummary(d.engagement_summary),
+    ...d,
+  } as ProactiveCompanionEngineCard;
 }
 
 export function parseProactiveCompanionEngineDashboard(
@@ -42,7 +121,7 @@ export function parseProactiveCompanionEngineDashboard(
     distinction_note: typeof d.distinction_note === "string" ? d.distinction_note : undefined,
     assistance_categories: parseRecordList<ProactiveCompanionAssistanceCategory>(d.assistance_categories),
     companion_style_examples: parseRecordList<ProactiveCompanionStyleExample>(d.companion_style_examples),
-    boundaries: Array.isArray(d.boundaries) ? (d.boundaries as string[]) : undefined,
+    boundaries: parseStringArray(d.boundaries),
     settings: parseSettings(d.settings),
     user_preferences: parseUserPreferences(d.user_preferences),
     preference_summary:
@@ -59,6 +138,31 @@ export function parseProactiveCompanionEngineDashboard(
       typeof d.permissions === "object" && d.permissions
         ? (d.permissions as Record<string, unknown>)
         : undefined,
+    implementation_blueprint:
+      typeof d.implementation_blueprint === "object" && d.implementation_blueprint
+        ? (d.implementation_blueprint as ProactiveCompanionEngineDashboard["implementation_blueprint"])
+        : undefined,
+    proactive_assistance_note:
+      typeof d.proactive_assistance_note === "string" ? d.proactive_assistance_note : undefined,
+    blueprint_philosophy: typeof d.blueprint_philosophy === "string" ? d.blueprint_philosophy : undefined,
+    blueprint_mission: typeof d.blueprint_mission === "string" ? d.blueprint_mission : undefined,
+    blueprint_abos_principle:
+      typeof d.blueprint_abos_principle === "string" ? d.blueprint_abos_principle : undefined,
+    vision: typeof d.vision === "string" ? d.vision : undefined,
+    blueprint_distinction_note:
+      typeof d.blueprint_distinction_note === "string" ? d.blueprint_distinction_note : undefined,
+    proactive_objectives: parseProactiveObjectives(d.proactive_objectives),
+    proactive_examples: parseProactiveExamples(d.proactive_examples),
+    companion_examples: parseCompanionExamples(d.companion_examples),
+    blueprint_boundaries: parseBlueprintBoundaries(d.blueprint_boundaries),
+    self_love_connection: parseSelfLoveConnection(d.self_love_connection),
+    trust_connection: parseTrustConnection(d.trust_connection),
+    dogfooding: parseDogfooding(d.dogfooding),
+    blueprint_integration_links: parseIntegrationLinks(d.blueprint_integration_links),
+    engagement_summary: parseEngagementSummary(d.engagement_summary),
+    success_criteria: parseSuccessCriteria(d.success_criteria),
+    vision_phrases: parseStringArray(d.vision_phrases),
+    privacy_note: typeof d.privacy_note === "string" ? d.privacy_note : undefined,
     ...d,
   } as ProactiveCompanionEngineDashboard;
 }
@@ -80,7 +184,7 @@ export function parseProactiveCompanionExport(data: unknown): ProactiveCompanion
         ? (d.preference_summary as Record<string, unknown>)
         : undefined,
     assistance_categories: parseRecordList<ProactiveCompanionAssistanceCategory>(d.assistance_categories),
-    boundaries: Array.isArray(d.boundaries) ? (d.boundaries as string[]) : undefined,
+    boundaries: parseStringArray(d.boundaries),
     active_nudges: parseRecordList<ProactiveCompanionNudge>(d.active_nudges),
     permissions:
       typeof d.permissions === "object" && d.permissions

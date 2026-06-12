@@ -91,3 +91,5 @@ export * from "./wisdom-intervention";
 export * from "./wisdom-engine";
 export * from "./hope-engine";
 export * from "./dedication-engine";
+export * from "./companion-device-ecosystem";
+export * from "./api-platform-engine";

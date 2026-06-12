@@ -18,6 +18,7 @@ export default async function NotificationCommunicationEnginePage() {
         labels={{
           loading: t(`${p}.loading`),
           notificationEngine: t(`${p}.notificationEngine`),
+          mobileCompanionEngine: t(`${p}.mobileCompanionEngine`),
           operationsDashboard: t(`${p}.operationsDashboard`),
           presence: t(`${p}.presence`),
           adminAssistant: t(`${p}.adminAssistant`),
@@ -26,6 +27,7 @@ export default async function NotificationCommunicationEnginePage() {
           unread: t(`${p}.unread`),
           criticalUnread: t(`${p}.criticalUnread`),
           deliveredWeek: t(`${p}.deliveredWeek`),
+          delivered24h: t(`${p}.delivered24h`),
           recentDigests: t(`${p}.recentDigests`),
           criticalAlerts: t(`${p}.criticalAlerts`),
           unreadNotifications: t(`${p}.unreadNotifications`),
@@ -33,6 +35,7 @@ export default async function NotificationCommunicationEnginePage() {
           markRead: t(`${p}.markRead`),
           dismiss: t(`${p}.dismiss`),
           openAction: t(`${p}.openAction`),
+          openLink: t(`${p}.openLink`),
           preferences: t(`${p}.preferences`),
           frequency: t(`${p}.frequency`),
           immediate: t(`${p}.immediate`),
@@ -41,6 +44,19 @@ export default async function NotificationCommunicationEnginePage() {
           savePreferences: t(`${p}.savePreferences`),
           recentHistory: t(`${p}.recentHistory`),
           principles: t(`${p}.principles`),
+          engagementSummary: t(`${p}.engagementSummary`),
+          mobileDashboard: t(`${p}.mobileDashboard`),
+          sinceLastTime: t(`${p}.sinceLastTime`),
+          companionExperiences: t(`${p}.companionExperiences`),
+          successCriteria: t(`${p}.successCriteria`),
+          selfLoveConnection: t(`${p}.selfLoveConnection`),
+          openSelfLove: t(`${p}.openSelfLove`),
+          trustConnection: t(`${p}.trustConnection`),
+          configurationOptions: t(`${p}.configurationOptions`),
+          quietHours: t(`${p}.quietHours`),
+          subscribedCategories: t(`${p}.subscribedCategories`),
+          enabled: t(`${p}.enabled`),
+          disabled: t(`${p}.disabled`),
         }}
       />
     </div>

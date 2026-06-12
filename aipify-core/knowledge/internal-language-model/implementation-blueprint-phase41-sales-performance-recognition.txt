@@ -1,0 +1,37 @@
+# Sales Performance & Recognition Engine — ILM Corpus (Phase 41)
+
+Mission: Help Sales Experts maintain momentum, celebrate achievements, and build sustainable businesses around Aipify.
+
+Philosophy: Recognition strengthens motivation. Competition should inspire growth. Success should never come at the expense of integrity.
+
+ABOS principle: People thrive when their efforts are noticed. Recognition should reinforce values, not ego.
+
+Objectives: Sales milestone recognition · Healthy competition · Personal goal tracking · Team celebrations · Recognition experiences · Long-term motivation.
+
+Performance dashboard: Monthly commissions · Active subscriptions · New customers · Retention rate · Lifetime subscription value · Performance trends.
+
+Milestones:
+- First Customer Acquired (🔔)
+- Five Active Customers (🔔)
+- Fifty Active Customers (🔔)
+- One Hundred Customers Supported (🔔)
+- First Customer Renewal (🌹)
+- First Enterprise Customer (🌹)
+- First Year as Sales Expert (🌹)
+
+Bell Moments: Gentle celebrations for customer acquisition, certification, and meaningful milestones. Celebrate progress, not comparison.
+
+Recognition Roses: Voluntary customer appreciation via Gratitude & Recognition A.89. Never required. Distinct from Presence & Comfort A.90 comfort roses.
+
+Leaderboards (encouragement only): Most Improved · Customer Satisfaction · Knowledge Champion · Onboarding Excellence · Community Contributor.
+
+Avoid: Aggressive competition · Public shaming · Vanity metrics without customer outcomes.
+
+Self Love A.76: Sustainable pacing, work-life balance, celebration of progress without burnout. Route /app/self-love-engine.
+
+Trust: Transparent metrics — customer outcomes over vanity counts. Leaderboards are encouragement-oriented, not punitive.
+
+Route: /app/sales-expert-engine (Performance tab)
+Engine phase: A.95 extension
+Cross-links: Gratitude & Recognition A.89 · Self Love A.76 · Certification A.37
+Distinct from organization-wide Gratitude & Recognition Phase 9 — this is Sales Expert partner performance visibility.

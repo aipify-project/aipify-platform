@@ -1,0 +1,52 @@
+# Implementation Blueprint Phase 23 — Learning & Adaptation Engine (ABOS)
+
+Mission: Continuous improvement through observation, feedback, and experience — preserving trust, governance, and human oversight.
+
+Philosophy: Learning is intentional; adaptation is transparent; improvement never compromises trust.
+
+ABOS principle: Strongest organizations keep learning — make learning visible, practical, and continuous.
+
+Core principle (Phase 29): Aipify learns WITH the customer — not FROM the customer.
+
+Learning objectives:
+- Feedback collection — outcomes, approvals, user feedback as metadata
+- Recommendation refinement — explainable confidence from observed patterns
+- Workflow improvement — bottlenecks and task completion trends
+- Knowledge enhancement — article usefulness, gaps, search effectiveness
+- Support optimization — resolution effectiveness, satisfaction, escalation outcomes
+- Organizational learning — visible, practical, continuous improvement loops
+
+Learning sources (metadata):
+- Support: resolution effectiveness, satisfaction, escalation outcomes
+- Knowledge: article usefulness, gaps, search effectiveness
+- Operational: task completion trends, bottlenecks, team observations
+- Companion: communication, recognition, humor, bell moment preferences
+
+Adaptation principles:
+- Should: recommend improvements, learn from outcomes, identify recurring opportunities, preserve org context, require human approval
+- Should not: auto-change critical settings, override governance, remove human oversight, store raw customer content
+
+Companion examples:
+- 🦉 Patterns suggest improvement — thoughtful observation before workflow changes
+- 🌹 Feedback helped support the organization — lessons captured together
+- 🔔 Positive trend surfaced — automation success rising, worth celebrating
+- 🦉 Process stronger than three months ago — steady organizational learning
+
+Self Love: celebrate progress, normalize learning, encourage experimentation, reduce fear of mistakes. Route /app/self-love-engine — principle only, no ™.
+
+Trust: what Aipify learns, why recommendations evolve, feedback influence, governance protections. Metadata only — human approval. Recommendations are guidance, not guarantees.
+
+Distinctions — do not duplicate:
+- Phase 29 Review Center /app/learning/review (assisted/adaptive modes)
+- Learning & Training Engine A.36 /app/learning-training-engine (user education)
+- Knowledge Evolution Blueprint Phase 14 /app/knowledge-center-engine
+- Growth & Evolution Engine A.81 /app/growth-evolution-engine
+- Platform governance /platform/intelligence/learning-queue
+
+Dogfooding: Aipify Group (product improvement, support quality, knowledge evolution, companion refinement); Unonight first external pilot (commerce and support operational learning).
+
+Vision: Organizations become wiser through experience; Aipify grows alongside them responsibly, one lesson at a time.
+
+Route: /app/learning
+RPCs: get_learning_engine_dashboard(), get_learning_engine_card(), get_customer_learning_center()
+Migration: supabase/migrations/20260970000000_implementation_blueprint_phase23_learning_adaptation.sql

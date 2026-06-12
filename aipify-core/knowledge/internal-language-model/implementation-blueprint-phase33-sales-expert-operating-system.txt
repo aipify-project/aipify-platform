@@ -1,0 +1,25 @@
+# Sales Expert Operating System — ILM Corpus (Phase 33 Extension)
+
+Mission: Empower Aipify Sales Representatives and Sales Experts with a professional partner portal.
+
+Philosophy: Professional partner engagement — Customers, Opportunities, Pipeline, Commission Overview. Never use Affiliate publicly.
+
+Official partner tiers:
+- Aipify Sales Representative — prospecting, relationships, recurring commission
+- Aipify Sales Expert — demos, solution matching, enhanced recurring commission
+- Aipify Certified Partner — onboarding, KC setup, implementation services
+- Aipify Expert Partner — executive consulting, industry specialization
+
+Portal sections: Dashboard, Customers, Opportunities, Commission Overview, Training Center, Partner Resources, Email Center, Implementation Services.
+
+Email: One-to-one only. Mass email campaigns are NOT supported. Ten initial templates with expert_name, company_name, booking_link, personal_link placeholders.
+
+Follow-up cadences: 14-day, 30-day, 90-day automated follow-up metadata.
+
+Implementation services (suggested NOK): Setup 15000, Training 5000, Package 20000 — customers pay experts directly.
+
+Subscription principles: Aipify subscription = Customer ↔ Aipify. Consulting = Customer ↔ Sales Expert.
+
+Route: /app/sales-expert-engine
+Engine phase: A.95
+Distinct from Partner Success A.73 and Partner Certification Phase 91 /app/partners.

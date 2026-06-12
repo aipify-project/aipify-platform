@@ -1,0 +1,19 @@
+Implementation Blueprint Phase 33 — Partner & Aipify Expert Network Engine
+
+Mission: Build a global network of qualified Aipify professionals who help organizations succeed with ABOS adoption.
+
+Philosophy: Technology succeeds when knowledgeable people guide adoption. Partners strengthen trust through verified expertise and professional engagement.
+
+Official partner tiers (public — use full titles):
+1. Aipify Sales Representative — prospecting, relationships, product introductions, opportunities; recurring commission
+2. Aipify Sales Expert — demos, solution matching, business pack recommendations; Foundations Certification; enhanced commission
+3. Aipify Certified Partner — onboarding, KC setup, workflow config, training; Administrator Certification; successful implementations
+4. Aipify Expert Partner — executive consulting, industry specialization, large-scale implementations; advanced certifications
+
+Never use publicly: Affiliate, Affiliate Dashboard, Affiliate Earnings, Referral hustle, Registered Partner, Advanced Partner, Strategic Partner.
+
+Partner Portal terminology: Customers, Opportunities, Pipeline, Commission Overview, Certifications, Performance Insights, Partner Resources.
+
+Routes: /app/marketplace-partner-ecosystem-foundation-engine (A.45), /app/partners (Phase 91), /app/certification-achievement-engine (A.37), /app/learning-training-engine (A.36), /app/self-love-engine, /app/security-trust-engine.
+
+Humans approve partner applications, tier changes, and offering publications. Metadata only — no partner PII beyond governance fields.

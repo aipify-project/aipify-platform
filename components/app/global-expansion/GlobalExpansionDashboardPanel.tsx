@@ -95,7 +95,254 @@ export function GlobalExpansionDashboardPanel({ labels }: GlobalExpansionDashboa
         <Link href="/app/commercial" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.commercial}
         </Link>
+        {(dashboard.localization_integration_links ?? []).map((link) =>
+          link.route && !["/app/knowledge-center", "/app/global-learning", "/app/academy", "/app/commercial"].includes(link.route) ? (
+            <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+              {link.label ?? link.route}
+            </Link>
+          ) : null
+        )}
       </div>
+
+      {dashboard.implementation_blueprint_phase35 ? (
+        <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">
+          <h2 className="text-sm font-semibold text-violet-900">{labels.blueprintTitle}</h2>
+          <p className="mt-1 text-xs uppercase tracking-wide text-violet-700">
+            {dashboard.implementation_blueprint_phase35.title ?? labels.blueprintPhase35}
+            {dashboard.implementation_blueprint_phase35.engine_phase
+              ? ` · ${dashboard.implementation_blueprint_phase35.engine_phase}`
+              : ""}
+          </p>
+          {dashboard.localization_expansion_mission ? (
+            <p className="mt-2 text-sm font-medium text-violet-900">{dashboard.localization_expansion_mission}</p>
+          ) : null}
+          {dashboard.localization_expansion_philosophy ? (
+            <p className="mt-2 text-sm text-violet-900">{dashboard.localization_expansion_philosophy}</p>
+          ) : null}
+          {dashboard.localization_abos_principle ? (
+            <p className="mt-2 text-xs text-violet-800">{dashboard.localization_abos_principle}</p>
+          ) : null}
+          {dashboard.localization_distinction_note ? (
+            <p className="mt-2 text-xs text-violet-700">{dashboard.localization_distinction_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.localization_summary ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.localizationSummary}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>
+              {labels.activeLanguages}: {dashboard.localization_summary.active_languages ?? 0}
+            </span>
+            <span>
+              {labels.avgCoverage}: {dashboard.localization_summary.avg_coverage_pct ?? 0}%
+            </span>
+            <span>
+              {labels.openRecommendations}: {dashboard.localization_summary.open_recommendations ?? 0}
+            </span>
+            <span>
+              {labels.publishedProjects}: {dashboard.localization_summary.published_projects ?? 0}
+            </span>
+            <span>
+              {labels.regionalContentItems}: {dashboard.localization_summary.regional_content_items ?? 0}
+            </span>
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.localization_objectives && dashboard.localization_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.localizationObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.localization_objectives.map((objective) => (
+              <article key={objective.key ?? objective.label} className="rounded-lg border border-gray-100 bg-gray-50 p-4">
+                <p className="font-medium text-gray-900">{objective.label}</p>
+                {objective.description ? <p className="mt-1 text-xs text-gray-600">{objective.description}</p> : null}
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.language_strategy?.priority_locales && dashboard.language_strategy.priority_locales.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.languageStrategy}</h3>
+          {dashboard.language_strategy.principle ? (
+            <p className="mt-2 text-xs text-gray-600">{dashboard.language_strategy.principle}</p>
+          ) : null}
+          <div className="mt-3 flex flex-wrap gap-2">
+            {dashboard.language_strategy.priority_locales.map((locale) => (
+              <span
+                key={locale.code ?? locale.label}
+                className="rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-800"
+              >
+                {locale.label ?? locale.code} ({locale.code})
+              </span>
+            ))}
+          </div>
+          {dashboard.language_strategy.future_locales && dashboard.language_strategy.future_locales.length > 0 ? (
+            <p className="mt-3 text-xs text-gray-500">
+              {labels.futureLocales}: {dashboard.language_strategy.future_locales.join(", ")}
+            </p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.companion_localization?.personalities && dashboard.companion_localization.personalities.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionLocalization}</h3>
+          {dashboard.companion_localization.principle ? (
+            <p className="mt-2 text-xs text-gray-600">{dashboard.companion_localization.principle}</p>
+          ) : null}
+          <div className="mt-3 space-y-3">
+            {dashboard.companion_localization.personalities.map((personality) => (
+              <article key={personality.key ?? personality.trait} className="rounded-lg border border-gray-100 bg-gray-50 p-3">
+                <p className="text-sm font-medium text-gray-900">
+                  {personality.emoji} {personality.trait}
+                </p>
+                {personality.example ? <p className="mt-1 text-xs italic text-gray-600">{personality.example}</p> : null}
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.payment_financial_localization?.nordic_markets &&
+      dashboard.payment_financial_localization.nordic_markets.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.paymentLocalization}</h3>
+          {dashboard.payment_financial_localization.principle ? (
+            <p className="mt-2 text-xs text-gray-600">{dashboard.payment_financial_localization.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-3">
+            {dashboard.payment_financial_localization.nordic_markets.map((market) => (
+              <article key={market.code ?? market.country} className="rounded-lg border border-gray-100 bg-gray-50 p-4">
+                <p className="font-medium text-gray-900">{market.country}</p>
+                {market.providers && market.providers.length > 0 ? (
+                  <p className="mt-1 text-xs text-gray-600">{market.providers.join(" · ")}</p>
+                ) : null}
+                {market.expectations && market.expectations.length > 0 ? (
+                  <ul className="mt-2 list-inside list-disc text-xs text-gray-500">
+                    {market.expectations.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </article>
+            ))}
+          </div>
+          {dashboard.payment_financial_localization.international?.providers ? (
+            <p className="mt-3 text-xs text-gray-600">
+              {labels.internationalPayments}: {dashboard.payment_financial_localization.international.providers.join(", ")}
+            </p>
+          ) : null}
+          {dashboard.payment_financial_localization.safety_note ? (
+            <p className="mt-2 text-xs text-amber-700">{dashboard.payment_financial_localization.safety_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.sales_expert_localization?.capabilities && dashboard.sales_expert_localization.capabilities.length > 0 ? (
+        <section className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <h3 className="text-sm font-semibold text-slate-900">{labels.salesExpertLocalization}</h3>
+          {dashboard.sales_expert_localization.principle ? (
+            <p className="mt-2 text-xs text-slate-700">{dashboard.sales_expert_localization.principle}</p>
+          ) : null}
+          <ul className="mt-2 list-inside list-disc text-xs text-slate-700">
+            {dashboard.sales_expert_localization.capabilities.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          {dashboard.sales_expert_localization.sales_expert_route ? (
+            <Link
+              href={dashboard.sales_expert_localization.sales_expert_route}
+              className="mt-3 inline-block text-xs text-indigo-700 underline"
+            >
+              {labels.openSalesExpert}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.training_certification_localization?.capabilities &&
+      dashboard.training_certification_localization.capabilities.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.trainingCertificationLocalization}</h3>
+          {dashboard.training_certification_localization.principle ? (
+            <p className="mt-2 text-xs text-gray-600">{dashboard.training_certification_localization.principle}</p>
+          ) : null}
+          <ul className="mt-2 list-inside list-disc text-xs text-gray-600">
+            {dashboard.training_certification_localization.capabilities.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.localization_trust_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.trustConnection}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.localization_trust_connection.principle}</p>
+          {dashboard.localization_trust_connection.users_should_understand &&
+          dashboard.localization_trust_connection.users_should_understand.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+              {dashboard.localization_trust_connection.users_should_understand.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.localization_dogfooding?.principle ? (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/40 p-4 text-sm text-emerald-900">
+          <h3 className="text-sm font-semibold">{labels.dogfooding}</h3>
+          <p className="mt-2">{dashboard.localization_dogfooding.principle}</p>
+          {dashboard.localization_dogfooding.aipify_group?.role ? (
+            <p className="mt-2 text-xs">
+              <span className="font-medium">{labels.aipifyGroup}:</span> {dashboard.localization_dogfooding.aipify_group.role}
+            </p>
+          ) : null}
+          {dashboard.localization_dogfooding.unonight?.role ? (
+            <p className="mt-1 text-xs">
+              <span className="font-medium">{labels.unonight}:</span> {dashboard.localization_dogfooding.unonight.role}
+            </p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.localization_success_criteria) && dashboard.localization_success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.successCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.localization_success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              return (
+                <li key={item.key ?? label} className="flex items-start gap-2">
+                  <span className={met ? "text-emerald-600" : "text-gray-400"}>{met ? "✓" : "○"}</span>
+                  <span>
+                    {label}
+                    {item.note ? <span className="block text-xs text-gray-500">{item.note}</span> : null}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.localization_vision_phrases && dashboard.localization_vision_phrases.length > 0 ? (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/30 p-4">
+          <h3 className="text-sm font-semibold text-indigo-900">{labels.visionPhrases}</h3>
+          <ul className="mt-2 space-y-2 text-xs italic text-indigo-800">
+            {dashboard.localization_vision_phrases.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <section className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-6">
         <h2 className="text-sm font-semibold text-indigo-900">{labels.globalReadiness}</h2>

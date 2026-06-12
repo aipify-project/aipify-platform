@@ -38,6 +38,22 @@ export default async function LearningTrainingEnginePage() {
           minutes: t(`${p}.minutes`),
           noItems: t(`${p}.noItems`),
           principles: t(`${p}.principles`),
+          trainingObjectives: t(`${p}.trainingObjectives`),
+          blueprintLearningPaths: t(`${p}.blueprintLearningPaths`),
+          designedFor: t(`${p}.designedFor`),
+          learningExperiences: t(`${p}.learningExperiences`),
+          certificationPrinciples: t(`${p}.certificationPrinciples`),
+          companionExamples: t(`${p}.companionExamples`),
+          blueprintSuccessCriteria: t(`${p}.blueprintSuccessCriteria`),
+          selfLoveConnection: t(`${p}.selfLoveConnection`),
+          trustConnectionBlueprint: t(`${p}.trustConnectionBlueprint`),
+          knowledgeCenterConnection: t(`${p}.knowledgeCenterConnection`),
+          engagementSummary: t(`${p}.engagementSummary`),
+          activeLearningPaths: t(`${p}.activeLearningPaths`),
+          userCompletedPaths: t(`${p}.userCompletedPaths`),
+          trainingAssessments: t(`${p}.trainingAssessments`),
+          userActiveCertificates: t(`${p}.userActiveCertificates`),
+          integrationLinks: t(`${p}.integrationLinks`),
         }}
       />
     </div>

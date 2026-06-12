@@ -35,6 +35,102 @@ export type CommunityContribution = {
   created_at?: string;
 };
 
+export type CommunityObjective = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type CollectiveInsightCategory = {
+  domain?: string;
+  label?: string;
+  signals?: string[];
+};
+
+export type CollectiveInsightExamples = {
+  principle?: string;
+  categories?: CollectiveInsightCategory[];
+};
+
+export type PrivacyPrinciples = {
+  principle?: string;
+  must?: string[];
+  must_not?: string[];
+};
+
+export type CommunityContributionsBlueprint = {
+  principle?: string;
+  contribution_types?: Array<{ key?: string; label?: string; description?: string }>;
+  participation_note?: string;
+};
+
+export type CompanionExample = {
+  emoji?: string;
+  key?: string;
+  scenario?: string;
+  example?: string;
+};
+
+export type SelfLoveConnection = {
+  principle?: string;
+  practices?: string[];
+  self_love_route?: string;
+  naming_doc?: string;
+  boundary_note?: string;
+};
+
+export type TrustConnection = {
+  principle?: string;
+  users_should_know?: string[];
+  operators_should_understand?: string[];
+  audit_note?: string;
+};
+
+export type DogfoodingEntry = {
+  slug?: string;
+  role?: string;
+  focus?: string[];
+};
+
+export type CommunityEngagementSummary = {
+  contributions_total?: number;
+  published_contributions?: number;
+  pending_reviews?: number;
+  draft_contributions?: number;
+  briefings_total?: number;
+  briefings_last_30d?: number;
+  ratings_total?: number;
+  avg_health_score?: number;
+  avg_intelligence_score?: number;
+  categories_used?: number;
+  participation_enabled?: boolean;
+  allow_contributions?: boolean;
+  privacy_note?: string;
+};
+
+export type AbosSuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+};
+
+export type IntegrationLink = {
+  label?: string;
+  route?: string;
+  note?: string;
+};
+
+export type ImplementationBlueprintMeta = {
+  phase?: number | string;
+  title?: string;
+  engine_phase?: string;
+  doc?: string;
+  route?: string;
+  admin_route?: string;
+  mapping_note?: string;
+};
+
 export type CommunityIntelligenceCard = {
   has_customer: boolean;
   health_score?: number;
@@ -43,6 +139,12 @@ export type CommunityIntelligenceCard = {
   pending_reviews?: number;
   philosophy?: string;
   participation_voluntary?: boolean;
+  mission?: string;
+  abos_principle?: string;
+  core_principle?: string;
+  implementation_blueprint?: ImplementationBlueprintMeta;
+  engagement_summary?: CommunityEngagementSummary;
+  blueprint_note?: string;
 };
 
 export type CommunityIntelligenceDashboard = {
@@ -70,6 +172,32 @@ export type CommunityIntelligenceDashboard = {
   contribution_types?: Array<{ key: string; label: string }>;
   approval_workflow?: Array<{ step: string; label: string }>;
   integrations?: Record<string, string>;
+  implementation_blueprint?: ImplementationBlueprintMeta;
+  mission?: string;
+  community_philosophy?: string;
+  abos_principle?: string;
+  core_principle?: string;
+  vision?: string;
+  community_intelligence_note?: string;
+  distinction_note?: string;
+  community_objectives?: CommunityObjective[];
+  collective_insight_examples?: CollectiveInsightExamples;
+  privacy_principles?: PrivacyPrinciples;
+  community_contributions_blueprint?: CommunityContributionsBlueprint;
+  companion_examples?: CompanionExample[];
+  self_love_connection?: SelfLoveConnection;
+  trust_connection?: TrustConnection;
+  dogfooding?: {
+    principle?: string;
+    aipify_group?: DogfoodingEntry;
+    unonight?: DogfoodingEntry;
+  };
+  integration_links?: IntegrationLink[];
+  engagement_summary?: CommunityEngagementSummary;
+  success_criteria?: AbosSuccessCriterion[];
+  vision_phrases?: string[];
+  privacy_note?: string;
+  principles?: string[];
 };
 
 export type CommunityIntelligenceAdmin = {

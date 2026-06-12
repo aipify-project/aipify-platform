@@ -45,6 +45,20 @@ export default async function IndustryIntelligenceFoundationEnginePage() {
           enableInsights: t(`${p}.enableInsights`),
           toggling: t(`${p}.toggling`),
           toggleFailed: t(`${p}.toggleFailed`),
+          industryObjectives: t(`${p}.industryObjectives`),
+          industryPackExamples: t(`${p}.industryPackExamples`),
+          companionSpecialization: t(`${p}.companionSpecialization`),
+          blueprintSuccessCriteria: t(`${p}.blueprintSuccessCriteria`),
+          selfLoveConnection: t(`${p}.selfLoveConnection`),
+          trustConnectionBlueprint: t(`${p}.trustConnectionBlueprint`),
+          knowledgeCenterConnection: t(`${p}.knowledgeCenterConnection`),
+          engagementSummary: t(`${p}.engagementSummary`),
+          activeInsights: t(`${p}.activeInsights`),
+          activatedBusinessPacks: t(`${p}.activatedBusinessPacks`),
+          highImpactInsights: t(`${p}.highImpactInsights`),
+          profileAssigned: t(`${p}.profileAssigned`),
+          yes: t(`${p}.yes`),
+          no: t(`${p}.no`),
         }} />
     </div>
   );

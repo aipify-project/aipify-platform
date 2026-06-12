@@ -72,19 +72,23 @@ export function AipifyInstallEngineDashboardPanel({
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap gap-2">
-        <Link href="/app/install" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.installWizard}
-        </Link>
-        <Link href="/app/customer-onboarding-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.onboarding}
-        </Link>
-        <Link href="/app/knowledge-center-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.knowledgeCenter}
-        </Link>
+        {(dashboard.blueprint_integration_links ?? dashboard.integration_links)?.map((link) =>
+          link.route ? (
+            <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+              {link.label}
+            </Link>
+          ) : null
+        )}
       </div>
 
       <section className="rounded-xl border border-teal-200 bg-teal-50/50 p-6">
         <h2 className="text-sm font-semibold text-teal-900">{labels.installEngine}</h2>
+        {dashboard.implementation_blueprint?.title ? (
+          <p className="mt-1 text-xs text-teal-700">
+            {dashboard.implementation_blueprint.title}
+            {dashboard.implementation_blueprint.phase ? ` · Phase ${dashboard.implementation_blueprint.phase}` : ""}
+          </p>
+        ) : null}
         {dashboard.mission ? (
           <p className="mt-2 text-sm font-medium text-teal-900">{dashboard.mission}</p>
         ) : null}
@@ -100,6 +104,116 @@ export function AipifyInstallEngineDashboardPanel({
           <p className="mt-1 text-xs text-teal-700">{dashboard.install_engine_note}</p>
         )}
       </section>
+
+      {dashboard.discovery_objectives && dashboard.discovery_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.discoveryObjectives}</h3>
+          <ul className="mt-3 space-y-2 text-sm text-gray-600">
+            {dashboard.discovery_objectives.map((item) => (
+              <li key={String(item.key ?? item.label)}>
+                <span className="font-medium text-gray-800">{String(item.label ?? "")}</span>
+                {item.description ? <span className="text-gray-500"> — {String(item.description)}</span> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.supported_environments ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.supportedEnvironments}</h3>
+          {Array.isArray(dashboard.supported_environments.initial_priorities) ? (
+            <ul className="mt-2 flex flex-wrap gap-2">
+              {(dashboard.supported_environments.initial_priorities as Array<Record<string, unknown>>).map((env) => (
+                <li key={String(env.key)} className="rounded-full border border-teal-100 bg-teal-50 px-3 py-1 text-xs">
+                  {String(env.label ?? env.key)}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.discovery_capabilities_blueprint && dashboard.discovery_capabilities_blueprint.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.discoveryCapabilities}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-gray-600">
+            {dashboard.discovery_capabilities_blueprint.map((cap) => (
+              <li key={cap}>{cap}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.recommendation_experiences && dashboard.recommendation_experiences.length > 0 ? (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/40 p-4">
+          <h3 className="text-sm font-semibold text-violet-900">{labels.recommendationExperiences}</h3>
+          <ul className="mt-2 space-y-2 text-sm text-violet-900">
+            {dashboard.recommendation_experiences.map((exp) => (
+              <li key={exp.key ?? exp.example}>
+                {exp.emoji ? `${exp.emoji} ` : ""}
+                {exp.example}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.human_approval_principles ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.humanApproval}</h3>
+          {dashboard.human_approval_principles.principle ? (
+            <p className="mt-2 text-gray-600">{dashboard.human_approval_principles.principle}</p>
+          ) : null}
+          {dashboard.human_approval_principles.should_not && dashboard.human_approval_principles.should_not.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc text-xs text-gray-500">
+              {dashboard.human_approval_principles.should_not.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.blueprint_success_criteria) && dashboard.blueprint_success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.blueprintSuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.blueprint_success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={item.key ?? label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.self_love_connection?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.selfLoveConnection}</h3>
+          <p className="mt-2">{dashboard.self_love_connection.principle}</p>
+        </section>
+      ) : null}
+
+      {dashboard.trust_connection_blueprint &&
+      typeof dashboard.trust_connection_blueprint.principle === "string" ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.trustConnectionBlueprint}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.trust_connection_blueprint.principle as string}</p>
+        </section>
+      ) : null}
+
+      {dashboard.phase28_distinction ? (
+        <p className="text-xs text-gray-500">{dashboard.phase28_distinction}</p>
+      ) : null}
 
       {dashboard.adoption_journey && dashboard.adoption_journey.length > 0 ? (
         <section className="rounded-xl border border-gray-200 bg-white p-6">

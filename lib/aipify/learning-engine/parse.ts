@@ -1,11 +1,20 @@
 import type {
-  LearningAuditEntry,
+  AbosSuccessCriterion,
+  AdaptationPrinciples,
+  CompanionExample,
+  IntegrationLink,
   LearningEngineCard,
   LearningEngineDashboard,
   LearningEngineSettings,
+  LearningEngagementSummary,
   LearningEvent,
+  LearningObjective,
   LearningPattern,
   LearningRule,
+  LearningAuditEntry,
+  LearningSourcesBlueprint,
+  SelfLoveConnection,
+  TrustConnection,
 } from "./types";
 
 function parseEvent(row: unknown): LearningEvent {
@@ -34,6 +43,56 @@ function parsePattern(row: unknown): LearningPattern {
   };
 }
 
+function parseStringArray(data: unknown): string[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data.filter((item): item is string => typeof item === "string");
+}
+
+function parseSuccessCriteria(data: unknown): AbosSuccessCriterion[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as AbosSuccessCriterion[];
+}
+
+function parseIntegrationLinks(data: unknown): IntegrationLink[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as IntegrationLink[];
+}
+
+function parseLearningObjectives(data: unknown): LearningObjective[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as LearningObjective[];
+}
+
+function parseLearningSources(data: unknown): LearningSourcesBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as LearningSourcesBlueprint;
+}
+
+function parseAdaptationPrinciples(data: unknown): AdaptationPrinciples | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as AdaptationPrinciples;
+}
+
+function parseCompanionExamples(data: unknown): CompanionExample[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as CompanionExample[];
+}
+
+function parseSelfLoveConnection(data: unknown): SelfLoveConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as SelfLoveConnection;
+}
+
+function parseTrustConnection(data: unknown): TrustConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as TrustConnection;
+}
+
+function parseEngagementSummary(data: unknown): LearningEngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as LearningEngagementSummary;
+}
+
 export function parseLearningEngineCard(data: unknown): LearningEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
   return {
@@ -44,6 +103,12 @@ export function parseLearningEngineCard(data: unknown): LearningEngineCard {
     negative_feedback: d.negative_feedback as number | undefined,
     philosophy: d.philosophy as string | undefined,
     privacy_note: d.privacy_note as string | undefined,
+    mission: d.mission as string | undefined,
+    abos_principle: d.abos_principle as string | undefined,
+    core_principle: d.core_principle as string | undefined,
+    implementation_blueprint: d.implementation_blueprint as LearningEngineCard["implementation_blueprint"],
+    engagement_summary: parseEngagementSummary(d.engagement_summary),
+    blueprint_note: d.blueprint_note as string | undefined,
   };
 }
 
@@ -66,6 +131,27 @@ export function parseLearningEngineDashboard(data: unknown): LearningEngineDashb
     top_patterns: list("top_patterns", parsePattern) as LearningPattern[],
     recent_priority_adjustments: list("recent_priority_adjustments", parseEvent) as LearningEvent[],
     recent_events: list("recent_events", parseEvent) as LearningEvent[],
+    implementation_blueprint: d.implementation_blueprint as LearningEngineDashboard["implementation_blueprint"],
+    mission: d.mission as string | undefined,
+    philosophy: d.philosophy as string | undefined,
+    abos_principle: d.abos_principle as string | undefined,
+    core_principle: d.core_principle as string | undefined,
+    vision: d.vision as string | undefined,
+    learning_engine_note: d.learning_engine_note as string | undefined,
+    distinction_note: d.distinction_note as string | undefined,
+    learning_objectives: parseLearningObjectives(d.learning_objectives),
+    learning_sources: parseLearningSources(d.learning_sources),
+    adaptation_principles: parseAdaptationPrinciples(d.adaptation_principles),
+    companion_examples: parseCompanionExamples(d.companion_examples),
+    self_love_connection: parseSelfLoveConnection(d.self_love_connection),
+    trust_connection: parseTrustConnection(d.trust_connection),
+    dogfooding: d.dogfooding as LearningEngineDashboard["dogfooding"],
+    integration_links: parseIntegrationLinks(d.integration_links),
+    engagement_summary: parseEngagementSummary(d.engagement_summary),
+    success_criteria: parseSuccessCriteria(d.success_criteria),
+    vision_phrases: parseStringArray(d.vision_phrases),
+    privacy_note: d.privacy_note as string | undefined,
+    principles: parseStringArray(d.principles),
   };
 }
 

@@ -1,0 +1,41 @@
+# Implementation Blueprint Phase 20 — Desktop Companion Engine (ABOS)
+
+Mission: Accessible desktop companion — support, awareness, and assistance throughout the workday; available when needed, not intrusive.
+
+Philosophy: Support available naturally; present without demanding attention.
+
+ABOS principle: Best companions contribute meaningfully when needed — they do not compete for attention.
+
+Companion objectives:
+- Quick conversations via mini-chat
+- Since Last Time summaries (reuse Operations Center pattern when org context available)
+- Task awareness via reminders and unified tasks cross-link
+- Support notifications — contextual, configurable, respectful
+- Bell Moments — small victories without alarm
+- Recognition cross-links via Gratitude engine
+- Knowledge search via Knowledge Center
+- Executive insights via Briefing and Executive Insights
+
+Companion experiences:
+- 🌹 Morning summary — calm start-of-day context
+- 🔔 Small victory — celebrate steady progress
+- 🦉 Developments worth attention — thoughtful surfacing before reviews
+- ❤️ Self Love busy week — sustainable productivity, suggest breaks
+
+Mini Companion Panel: ask anything, tasks, notifications, KC, support queues, executive summaries.
+
+Notification principles: helpful, contextual, configurable, respectful. Avoid excessive interruptions, constant urgency, overload.
+
+Self Love: breaks, celebrate progress, reduce stress, sustainable productivity. Route /app/self-love-engine — principle only, no ™.
+
+Trust: explain what info is accessed, why notifications occur, how to adjust preferences. Metadata only — no email, chat, orders, PII.
+
+Configuration cross-links: /app/desktop/settings, /app/personality, /app/gratitude-recognition-engine, /app/proactive-companion-engine.
+
+Distinctions — do not duplicate:
+- Desktop Command Center Phase 27 /app/command-center
+- Proactive Companion A.79 /app/proactive-companion-engine
+- Companion Presence A.67 /app/companion-presence-indicator-engine
+- Briefing Phase 60 already in get_desktop_companion_card
+
+Vision: Trusted presence throughout the workday — support within reach without demanding attention.

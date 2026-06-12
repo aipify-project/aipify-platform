@@ -1,0 +1,106 @@
+ABOS Implementation Blueprint Phase 21 — Mobile Companion Engine
+================================================================
+
+Engine: Notification & Communication Engine (Phase A.17)
+Route: /app/notification-communication-engine
+Doc: IMPLEMENTATION_BLUEPRINT_PHASE21_MOBILE_COMPANION.md
+
+Mission
+-------
+Extend Aipify beyond the desk — thoughtful mobile companion experiences; available wherever people work.
+
+Philosophy
+----------
+Mobile creates clarity, not distraction — the right information at the right moment.
+One thoughtful interaction at a time.
+
+ABOS principle
+--------------
+Companionship is not limited to a desk — support travels with people who need it.
+
+Mapping note
+------------
+Native mobile app is not built yet. Phase 21 extends A.17 as the mobile-ready companion
+communication layer plus mobile dashboard metadata blocks. Do not duplicate Desktop Companion
+Phase 61 / Blueprint Phase 20, Desktop Command Center Phase 27, or Companion Presence A.67.
+
+Companion objectives
+--------------------
+- Since Last Time — Operations Center A.32 via _ocf_since_last_time_summary
+- Mobile notifications — A.17 preferences, digests, actionable alerts
+- Support queue awareness — Support AI A.7
+- Task follow-up — Unified Tasks A.62
+- Executive insights — Executive Insights A.35
+- Knowledge access — Knowledge Center A.5
+- Companion conversations — Proactive Companion A.79
+- Recognition — Gratitude Recognition A.89
+
+Companion experiences
+---------------------
+🌹 Morning attention — calm clarity for the day ahead
+🔔 Milestone — celebrate steady progress without pressure
+🦉 Strategic development — thoughtful surfacing before reviews
+❤️ Self Love intense week — sustainable productivity, never guilt
+
+Mobile dashboard blocks
+-----------------------
+Today's priorities · Open tasks · Support activity · Executive highlights · Bell Moments · Recognition opportunities
+Live counts from existing tables with to_regclass checks — empty-safe, counts only.
+
+Notification principles
+-----------------------
+Relevant · Configurable · Respectful · Timely
+Avoid excessive urgency, notification fatigue, and unnecessary interruptions.
+
+Self Love connection
+--------------------
+Quiet hours, reflection prompts, celebrate progress, sustainable productivity.
+Route: /app/self-love-engine — principle only, not wellbeing content storage.
+
+Trust connection
+----------------
+Explain why notifications appear, what metadata is accessed, how to adjust preferences.
+Future native app — mobile permissions transparency when push ships.
+
+Configuration cross-links
+---------------------------
+/app/notification-communication-engine — categories, quiet hours
+/app/personality — companion tone, humor
+/app/gratitude-recognition-engine — Bell Moments, recognition
+/app/proactive-companion-engine — proactive companion prefs
+/app/self-love-engine — Self Love principle
+
+Integration links
+-----------------
+Desktop Companion /app/desktop (Phase 61, Blueprint Phase 20)
+Command Center Connect /app/command-center/connect
+Companion Presence /app/settings/companion-presence (A.67)
+Personal Productivity /app/personal-productivity-engine (A.70)
+Operations Center /app/operations-center-foundation-engine (A.32)
+
+Vision phrases
+--------------
+Trusted presence throughout the day — traveling, meetings, away from desk.
+Mobile creates clarity, not distraction.
+Informed without overwhelm.
+Support travels with people who need it.
+
+RPC helpers (_mcbp_ prefix)
+---------------------------
+_mcbp_blueprint_companion_objectives()
+_mcbp_blueprint_companion_experiences()
+_mcbp_blueprint_mobile_dashboard(org_id, user_id)
+_mcbp_blueprint_notification_principles()
+_mcbp_blueprint_self_love_connection()
+_mcbp_blueprint_trust_connection()
+_mcbp_blueprint_configuration_options()
+_mcbp_blueprint_dogfooding()
+_mcbp_blueprint_integration_links()
+_mcbp_blueprint_vision_phrases()
+_mcbp_since_last_time(org_id, user_id)
+_mcbp_engagement_summary(org_id, user_id)
+_mcbp_blueprint_success_criteria(org_id, user_id)
+
+Privacy boundary
+----------------
+Metadata and summary counts only — never email content, chat, orders, or PII in notification payloads.

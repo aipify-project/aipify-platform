@@ -1,0 +1,32 @@
+Implementation Blueprint Phase 31 — Training & Certification Engine
+
+Engine: Learning & Training Engine Phase A.36 at /app/learning-training-engine
+Certification cross-link: Certification & Achievement Engine Phase A.37 at /app/certification-achievement-engine
+
+Mission: Accelerate adoption, strengthen competence, long-term success through guided learning and certification.
+
+Philosophy: Knowledge creates confidence. Confidence accelerates adoption. Learning achievable — not intimidating.
+
+Training objectives: Self-paced learning, guided onboarding, role-based paths, interactive experiences, companion-assisted education, certification opportunities.
+
+Blueprint paths: Aipify Foundations (all users), Support Specialist Certification, Executive Companion Certification, Administrator Certification.
+
+Learning experiences: Interactive walkthroughs, scenario-based learning, knowledge checks, companion guidance, simulation exercises.
+
+Certification principles: Completion requirements, knowledge assessments, practical demonstrations, recertification — meaningful competence via A.37.
+
+Companion examples: Excellent progress, learning milestone, practice makes easier, mastery over time.
+
+Self Love: Sustainable learning — patience, normalize mistakes, celebrate progress, reduce fear of failure. /app/self-love-engine as principle.
+
+Trust: What certifications represent, how progress is measured, validated competencies, optional paths. Metadata only.
+
+Knowledge Center: FAQs, procedures, organizational knowledge, best practices — content_ref on paths and modules.
+
+Distinct from Learning Engine /app/learning (operational memory), Academy /app/academy-engine, Blueprint Phase 23 (Phase 65 only).
+
+Dogfooding: Aipify Group — employee onboarding, product understanding, support readiness, executive enablement. Unonight — first external pilot.
+
+ABOS principle: Learning transforms capability into impact.
+
+Vision: We know how to succeed with this — empowered, not overwhelmed.

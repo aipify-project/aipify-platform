@@ -1,0 +1,65 @@
+IMPLEMENTATION BLUEPRINT PHASE 27 — FINANCIAL OPERATIONS & ACCOUNTING INTEGRATION ENGINE
+ABOS mapping: Phase 27 → Integration Engine Phase A.8 at /app/integration-engine
+
+MISSION
+Support financial operations through trusted integrations — assist workflows, never replace accountants.
+
+PHILOSOPHY
+Collaborate with specialized systems — automation without sacrificing compliance.
+
+ABOS PRINCIPLE
+Financial systems work quietly; leaders get clarity when it matters.
+
+PRIMARY STRATEGY
+- Fiken 🇳🇴 — primary accounting, source of truth for bookkeeping
+- Stripe 💳 — primary payments, payment events and subscription signals
+- Stripe → Fiken coordination model — Fiken remains authoritative
+- Aipify — operational awareness layer; monitor, surface, coordinate
+
+FINANCIAL PRINCIPLES
+- Monitor events — payment and sync signals from connected integrations
+- Operational awareness — subscription, revenue, invoice follow-up cues
+- Surface signals — executive summaries and reminders, metadata only
+- Coordinate with accounting — Fiken remains source of truth
+- Respect governance — payment-sensitive actions require Trust & Action approval
+
+AIPIFY MAY
+- Subscription awareness and revenue visibility
+- Failed payment notifications and financial task reminders
+- Invoice follow-up coordination
+- Executive financial summaries
+- Workflow coordination between Stripe and Fiken
+
+SHOULD NOT BECOME
+- Bookkeeping system or general ledger
+- Tax engine or regulatory reporting platform
+- Replacement for accountants or auditors
+- Silent auto-posting without approval
+
+EXECUTIVE INSIGHT EXAMPLES
+🦉 Subscription revenue up — calm review before executive sync
+🌹 Invoices need follow-up — summary prepared for human review
+🔔 Financial milestone approaching — preparation window opens
+❤️ Workflows healthy — Stripe and Fiken integrations steady
+
+SELF LOVE CONNECTION
+Reduce admin burden, improve visibility, encourage preparation, minimize surprises.
+Route: /app/self-love-engine — principle only.
+
+TRUST
+What financial metadata is accessed; why insights appear; Fiken and Stripe as source of truth; approval-required actions.
+
+DISTINCTIONS
+- Commercial Packages /app/settings/billing — tenant billing
+- Subscription Plan Management A.11 /app/subscription-plan-management-engine
+- License Center /app/license
+- Executive Insights A.35 /app/executive-insights-engine
+- Trust & Action /app/approvals — payment-sensitive approvals
+- Integration Phase 5 connectivity — extended, not replaced
+
+DOGFOODING
+Aipify Group — Stripe events, Fiken sync awareness, executive summaries, subscription monitoring.
+Unonight — future commerce pilot.
+
+VISION
+Operational companion ensuring financial moments do not go unnoticed — not replacing accountants.

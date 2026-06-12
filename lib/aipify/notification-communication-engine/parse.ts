@@ -2,9 +2,79 @@ import type {
   CommunicationDigest,
   CommunicationNotification,
   CommunicationPreferences,
+  CompanionExperience,
+  CompanionObjective,
+  ConfigurationOptionsBlueprint,
+  EngagementSummary,
+  IntegrationLink,
+  MobileDashboardBlueprint,
   NotificationCommunicationEngineCard,
   NotificationCommunicationEngineDashboard,
+  NotificationPrinciplesBlueprint,
+  SelfLoveConnection,
+  SinceLastTimeSummary,
+  TrustConnection,
 } from "./types";
+
+function parseStringArray(value: unknown): string[] | undefined {
+  return Array.isArray(value) ? (value as string[]) : undefined;
+}
+
+function parseSuccessCriteria(value: unknown) {
+  if (!Array.isArray(value)) return undefined;
+  return value as NotificationCommunicationEngineDashboard["success_criteria"];
+}
+
+function parseCompanionObjectives(value: unknown): CompanionObjective[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  return value as CompanionObjective[];
+}
+
+function parseCompanionExperiences(value: unknown): CompanionExperience[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  return value as CompanionExperience[];
+}
+
+function parseMobileDashboard(value: unknown): MobileDashboardBlueprint | undefined {
+  if (typeof value !== "object" || !value) return undefined;
+  return value as MobileDashboardBlueprint;
+}
+
+function parseNotificationPrinciples(value: unknown): NotificationPrinciplesBlueprint | undefined {
+  if (typeof value !== "object" || !value) return undefined;
+  return value as NotificationPrinciplesBlueprint;
+}
+
+function parseSelfLoveConnection(value: unknown): SelfLoveConnection | undefined {
+  if (typeof value !== "object" || !value) return undefined;
+  return value as SelfLoveConnection;
+}
+
+function parseTrustConnection(value: unknown): TrustConnection | undefined {
+  if (typeof value !== "object" || !value) return undefined;
+  return value as TrustConnection;
+}
+
+function parseConfigurationOptions(value: unknown): ConfigurationOptionsBlueprint | undefined {
+  if (typeof value !== "object" || !value) return undefined;
+  return value as ConfigurationOptionsBlueprint;
+}
+
+function parseIntegrationLinks(value: unknown): IntegrationLink[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  return value as IntegrationLink[];
+}
+
+function parseEngagementSummary(value: unknown): EngagementSummary | undefined {
+  if (typeof value !== "object" || !value) return undefined;
+  return value as EngagementSummary;
+}
+
+function parseSinceLastTime(value: unknown): SinceLastTimeSummary | null | undefined {
+  if (value === null) return null;
+  if (typeof value !== "object" || !value) return undefined;
+  return value as SinceLastTimeSummary;
+}
 
 export function parseNotificationCommunicationEngineCard(
   data: unknown
@@ -15,7 +85,12 @@ export function parseNotificationCommunicationEngineCard(
     unread: Number(d.unread ?? 0),
     critical_unread: Number(d.critical_unread ?? 0),
     philosophy: typeof d.philosophy === "string" ? d.philosophy : undefined,
-  };
+    mission: typeof d.mission === "string" ? d.mission : undefined,
+    abos_principle: typeof d.abos_principle === "string" ? d.abos_principle : undefined,
+    engagement_summary: parseEngagementSummary(d.engagement_summary),
+    blueprint_note: typeof d.blueprint_note === "string" ? d.blueprint_note : undefined,
+    ...d,
+  } as NotificationCommunicationEngineCard;
 }
 
 function parseNotification(item: unknown): CommunicationNotification {
@@ -66,7 +141,7 @@ export function parseNotificationCommunicationEngineDashboard(
     has_organization: Boolean(d.has_organization),
     philosophy: typeof d.philosophy === "string" ? d.philosophy : undefined,
     safety_note: typeof d.safety_note === "string" ? d.safety_note : undefined,
-    principles: Array.isArray(d.principles) ? (d.principles as string[]) : undefined,
+    principles: parseStringArray(d.principles),
     preferences: prefs,
     trends:
       typeof d.trends === "object" && d.trends
@@ -84,10 +159,27 @@ export function parseNotificationCommunicationEngineDashboard(
     recent_digests: Array.isArray(d.recent_digests)
       ? d.recent_digests.map(parseDigest)
       : [],
-    future_channels: Array.isArray(d.future_channels)
-      ? (d.future_channels as string[])
-      : undefined,
-  };
+    future_channels: parseStringArray(d.future_channels),
+    mission: typeof d.mission === "string" ? d.mission : undefined,
+    mobile_philosophy: typeof d.mobile_philosophy === "string" ? d.mobile_philosophy : undefined,
+    abos_principle: typeof d.abos_principle === "string" ? d.abos_principle : undefined,
+    mobile_companion_engine_note:
+      typeof d.mobile_companion_engine_note === "string" ? d.mobile_companion_engine_note : undefined,
+    distinction_note: typeof d.distinction_note === "string" ? d.distinction_note : undefined,
+    companion_objectives: parseCompanionObjectives(d.companion_objectives),
+    companion_experiences: parseCompanionExperiences(d.companion_experiences),
+    mobile_dashboard: parseMobileDashboard(d.mobile_dashboard),
+    notification_principles: parseNotificationPrinciples(d.notification_principles),
+    self_love_connection: parseSelfLoveConnection(d.self_love_connection),
+    trust_connection: parseTrustConnection(d.trust_connection),
+    configuration_options: parseConfigurationOptions(d.configuration_options),
+    integration_links: parseIntegrationLinks(d.integration_links),
+    engagement_summary: parseEngagementSummary(d.engagement_summary),
+    since_last_time: parseSinceLastTime(d.since_last_time),
+    success_criteria: parseSuccessCriteria(d.success_criteria),
+    vision_phrases: parseStringArray(d.vision_phrases),
+    ...d,
+  } as NotificationCommunicationEngineDashboard;
 }
 
 export function parseCommunicationPreferences(data: unknown): CommunicationPreferences {

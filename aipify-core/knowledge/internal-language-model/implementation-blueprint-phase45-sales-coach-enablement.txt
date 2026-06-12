@@ -1,0 +1,47 @@
+Implementation Blueprint Phase 45 — Sales Coach & Enablement Engine
+
+Extends Sales Expert Operating System A.95 at /app/sales-expert-engine.
+Tab: Coach & Enablement — not a separate engine route.
+
+Mission: Equip Sales Experts with supportive coaching, enablement guidance, and sustainable pacing — never punitive judgment.
+
+Philosophy: Coaching strengthens confidence. Guidance should inspire thoughtful action. Success should never come at the expense of wellbeing or integrity.
+
+ABOS principle: People thrive when they feel equipped and respected. Coaching should reinforce professional growth, not pressure.
+
+Sales Companion roles:
+- Mentor 🌹 — patient guidance and professional development
+- Strategist 🦉 — pipeline priorities and thoughtful planning
+- Motivator 🔔 — encouragement and momentum, never shaming
+- Companion ❤️ — supportive presence through setbacks
+- Performance advisor 📈 — transparent metrics, strengths first
+
+Coach dashboard: monthly commissions, new customers, renewals, conversion rates, follow-ups, scheduled demos, personal goals, suggested next actions.
+
+Daily briefing: supportive morning guidance — opportunities, renewals, activity comparison, consistency reminders.
+
+Activity recommendations: contact local businesses, follow-ups, schedule demo, revisit inactive opportunity, ask for introductions — supportive never punitive.
+
+Field sales coaching: personal visit, sector demos, in-person meeting nudges.
+
+Demonstration guidance: checklists, industry talking points, discovery questions, recommended next steps.
+
+Objection library: honest professional responses for time, existing system, budget, and think-about-it objections.
+
+Communication coaching: email, meeting prep, discovery, follow-up, proposal guidance.
+
+Performance insights: strengths and opportunities — encourage development, never shame.
+
+Self Love A.76: healthy boundaries, sustainable pacing, recovery after setbacks.
+
+Bell moments: first demo, first customer, first renewal, first enterprise, first year — cross-link Phase 41 _sprbp_* where appropriate.
+
+Training integration: Learning & Training A.36, Certification A.37, Sales Expert Training Center tab.
+
+Roleplay scaffold: practice conversations, demo prep, objection scenarios — cross-link Simulation Lab Phase 22.
+
+Trust: transparent metrics, optional suggestions, metadata-only insight generation.
+
+Dogfooding: Aipify Group Sales Reps and Experts validate coaching tone internally first.
+
+Distinction: Phase 45 coaches daily; Phase 41 celebrates milestones — complementary, not duplicate.

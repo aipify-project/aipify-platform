@@ -1,0 +1,78 @@
+Implementation Blueprint Phase 36 — Companion Device Ecosystem Engine
+Phase A.96 — Customer App orchestration hub
+
+MISSION
+People move between devices; Aipify follows naturally without disruption.
+Unified companion experience across desktop, mobile, tablet, and future surfaces.
+
+PHILOSOPHY
+Companion intelligence should feel continuous, not fragmented.
+Device-specific engines own their surfaces.
+The ecosystem engine orchestrates cross-device readiness and honest roadmap status.
+Metadata only — no keystroke logging, screen monitoring, or ambient surveillance.
+
+ABOS PRINCIPLE
+Aipify Business Operating System (ABOS) companion intelligence meets people where they work —
+desktop, mobile, and future surfaces — with human control on every device.
+
+DEVICE PRIORITY ROADMAP
+Phase 1: Desktop (Windows, macOS) — Command Center + Desktop Companion — active
+Phase 2: Mobile (iOS, Android) — A.17 mobile-ready layer — native app future
+Phase 3: Tablet — executive dashboards, operations center, Knowledge Center — scaffold
+Phase 4: Emerging — smartwatch, voice, automotive — future scaffold
+
+DISTINCTIONS
+NOT Desktop Companion Blueprint 20 — /app/desktop
+NOT Mobile Companion Blueprint 21 — /app/notification-communication-engine (A.17)
+NOT Desktop Command Center Phase 27 Tauri — /app/command-center
+NOT Companion Presence A.67 — /app/settings/companion-presence (heartbeat source)
+A.96 orchestrates cross-links — does not duplicate device engines
+
+CONTINUITY EXAMPLES
+Continue where you left off on another device — context follows, not surveillance.
+Cross-device notes help you pick up without repeating yourself.
+Important follow-ups surface on the device you are using — never duplicated noise.
+
+VOICE COMPANION (FUTURE SCAFFOLD)
+Respectful — never interrupt inappropriately
+Context-aware — understands what you are doing, not everything you do
+Privacy-conscious — metadata only; no ambient recording
+Helpful — concise phrases that prepare, not perform
+
+WEARABLE EXPERIENCES (FUTURE SCAFFOLD)
+Important notifications — action-required and critical alerts only
+Recognition moments — gentle appreciation, never performance pressure
+Critical reminders — quiet-hours respect
+Avoid overload — filtered signals, not full operational feeds
+
+SELF LOVE CONNECTION A.76
+Gentle wellbeing nudges across devices — never intrusive.
+Route: /app/self-love-engine
+
+TRUST CONNECTION
+Connected devices, permissions, sync scope, revocation transparency.
+Device counts from companion_presence — not duplicated heartbeat storage.
+
+INTEGRATION LINKS
+Desktop Companion: /app/desktop
+Mobile Companion: /app/notification-communication-engine
+Command Center: /app/command-center
+Companion Presence: /app/settings/companion-presence
+Enterprise Device Rollout: /app/enterprise-deployment-device-rollout-engine
+Self Love: /app/self-love-engine
+Proactive Companion: /app/proactive-companion-engine
+Companion Identity: /app/companion-identity-engine
+Personal Productivity: /app/personal-productivity-engine
+
+VISION PHRASES
+Aipify follows you — naturally, without disruption.
+One companion experience across the devices you already use.
+Continuity is designed — not accidental sync.
+Future devices will join the ecosystem with the same trust boundaries.
+Your attention is protected on every surface.
+
+ROUTE
+/app/companion-device-ecosystem-engine
+Nav id: companionDeviceEcosystemEngine
+Engine phase: A.96
+Blueprint phase: 36

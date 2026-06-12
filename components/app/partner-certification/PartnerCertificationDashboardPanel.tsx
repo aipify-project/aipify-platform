@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { getPartnerTierLabel } from "@/lib/internal-language-model/implementation-blueprint-phase33-vocabulary";
 import {
   parsePartnerCredentialVerification,
   parsePartnerEcosystemDashboard,
@@ -14,14 +15,17 @@ type PartnerCertificationDashboardPanelProps = {
 
 function tierClass(tier?: string) {
   switch (tier) {
+    case "expert":
     case "strategic":
-      return "bg-violet-100 text-violet-800";
-    case "premier":
-      return "bg-indigo-100 text-indigo-800";
     case "advanced":
-      return "bg-blue-100 text-blue-800";
+    case "premier":
+      return "bg-violet-100 text-violet-800";
     case "certified":
       return "bg-emerald-100 text-emerald-800";
+    case "sales_expert":
+      return "bg-blue-100 text-blue-800";
+    case "sales_representative":
+    case "registered":
     default:
       return "bg-gray-100 text-gray-800";
   }
@@ -118,16 +122,25 @@ export function PartnerCertificationDashboardPanel({ labels }: PartnerCertificat
       <section>
         <h2 className="text-sm font-semibold text-gray-900">{labels.partnerDirectory}</h2>
         <div className="mt-2 flex flex-wrap gap-2">
-          {["all", "certified", "advanced", "premier", "strategic", "implementation", "development"].map((f) => (
+          {[
+            "all",
+            ...(dashboard.partner_tiers ?? []).map((t) => t.tier ?? ""),
+            "implementation",
+            "development",
+          ]
+            .filter((f, idx, arr) => f && arr.indexOf(f) === idx)
+            .map((f) => (
             <button
               key={f}
               type="button"
               onClick={() => setDirectoryFilter(f)}
-              className={`rounded-full px-3 py-1 text-xs font-medium capitalize ${
+              className={`rounded-full px-3 py-1 text-xs font-medium ${
                 directoryFilter === f ? "bg-violet-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
-              {f === "all" ? labels.filterAll : f.replace(/_/g, " ")}
+              {f === "all"
+                ? labels.filterAll
+                : dashboard.partner_tiers?.find((t) => t.tier === f)?.label ?? getPartnerTierLabel(f)}
             </button>
           ))}
         </div>
@@ -236,7 +249,9 @@ export function PartnerCertificationDashboardPanel({ labels }: PartnerCertificat
               <li key={idx} className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
                 <span className="font-medium text-gray-900">{s.partner_name}</span>
                 <span className="ml-2 text-xs text-violet-700">{s.overall_score}/100</span>
-                <span className="ml-2 text-xs text-gray-500 capitalize">{s.partner_tier}</span>
+                <span className="ml-2 text-xs text-gray-500">
+                  {s.partner_tier_label ?? getPartnerTierLabel(s.partner_tier)}
+                </span>
               </li>
             ))}
           </ul>

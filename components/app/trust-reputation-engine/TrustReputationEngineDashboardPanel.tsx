@@ -1,13 +1,44 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseTrustReputationEngineDashboard,
+  type CompanionExample,
   type OrganizationTrustProfile,
+  type RelationshipObjective,
+  type RelationshipPrinciple,
   type TrustReputationEngineDashboard,
 } from "@/lib/aipify/trust-reputation-engine";
 
 type Props = { labels: Record<string, string> };
+
+function ObjectiveCard({ objective }: { objective: RelationshipObjective }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+      <span className="font-medium">{objective.label}</span>
+      {objective.description ? <p className="mt-1 text-xs text-gray-600">{objective.description}</p> : null}
+    </div>
+  );
+}
+
+function PrincipleCard({ principle }: { principle: RelationshipPrinciple }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+      <span className="font-medium">{principle.label}</span>
+      {principle.description ? <p className="mt-1 text-xs text-gray-600">{principle.description}</p> : null}
+    </div>
+  );
+}
+
+function CompanionExampleCard({ example }: { example: CompanionExample }) {
+  return (
+    <div className="rounded-lg border border-emerald-100 bg-emerald-50/40 px-3 py-2 text-sm">
+      {example.scenario ? <p className="text-xs font-medium text-emerald-900">{example.scenario}</p> : null}
+      {example.example ? <p className="mt-1 text-xs text-emerald-800">{example.example}</p> : null}
+    </div>
+  );
+}
 
 export function TrustReputationEngineDashboardPanel({ labels }: Props) {
   const [dashboard, setDashboard] = useState<TrustReputationEngineDashboard | null>(null);
@@ -88,14 +119,169 @@ export function TrustReputationEngineDashboardPanel({ labels }: Props) {
   const trustedWorkflows = sections.trusted_workflows ?? [];
   const approvalQuality = sections.approval_quality ?? [];
   const reputationIndicators = sections.reputation_indicators ?? [];
+  const engagement = dashboard.engagement_summary;
+  const blueprintLinks = dashboard.blueprint_integration_links ?? [];
 
   return (
     <div className="space-y-6">
+      {blueprintLinks.length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {blueprintLinks.map((link) =>
+            link.route ? (
+              <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+                {link.label ?? link.route}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : null}
+
       <section className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-6">
         <h2 className="text-sm font-semibold">{labels.engineTitle}</h2>
         <p className="mt-2 text-sm">{dashboard.philosophy}</p>
         <p className="mt-2 text-xs text-emerald-700">{labels.distinctionNote}</p>
+        {dashboard.implementation_blueprint?.phase ? (
+          <p className="mt-1 text-xs text-emerald-600">
+            {dashboard.implementation_blueprint.phase}
+            {dashboard.implementation_blueprint.engine_phase ? ` · ${dashboard.implementation_blueprint.engine_phase}` : ""}
+          </p>
+        ) : null}
+        {dashboard.blueprint_mission ? (
+          <p className="mt-2 text-sm font-medium text-emerald-900">{dashboard.blueprint_mission}</p>
+        ) : null}
+        {dashboard.blueprint_philosophy ? (
+          <p className="mt-2 text-sm text-emerald-900">{dashboard.blueprint_philosophy}</p>
+        ) : null}
+        {dashboard.blueprint_abos_principle ? (
+          <p className="mt-2 text-xs text-emerald-800">{dashboard.blueprint_abos_principle}</p>
+        ) : null}
+        {dashboard.blueprint_distinction_note ? (
+          <p className="mt-2 text-xs text-emerald-700">{dashboard.blueprint_distinction_note}</p>
+        ) : null}
       </section>
+
+      {engagement ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.engagementSummary}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>{labels.activeProfiles}: {engagement.active_profiles ?? 0}</span>
+            <span>{labels.trustedProfiles}: {engagement.trusted_profiles ?? 0}</span>
+            <span>{labels.underReviewProfiles}: {engagement.under_review_profiles ?? 0}</span>
+            <span>{labels.recentSignals}: {engagement.recent_signals_30d ?? 0}</span>
+            <span>{labels.outcomesTotal}: {engagement.outcomes_total ?? 0}</span>
+            <span>{labels.signalsLast90d}: {engagement.signals_last_90d ?? 0}</span>
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.relationship_objectives && dashboard.relationship_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.relationshipObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.relationship_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.relationship_principles && dashboard.relationship_principles.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.relationshipPrinciples}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.relationship_principles.map((principle) => (
+              <PrincipleCard key={principle.key ?? principle.label} principle={principle} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.example_phrases && dashboard.example_phrases.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.examplePhrases}</h3>
+          <ul className="mt-3 space-y-2 text-sm text-gray-700">
+            {dashboard.example_phrases.map((item) => (
+              <li key={item.key ?? item.phrase} className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-xs italic">
+                {item.phrase}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.companion_examples && dashboard.companion_examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.companionExamples}</h3>
+          <div className="mt-3 space-y-3">
+            {dashboard.companion_examples.map((example) => (
+              <CompanionExampleCard key={example.key ?? example.scenario} example={example} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.trust_signals?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.trustSignals}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.trust_signals.principle}</p>
+          {dashboard.trust_signals.users_should_see && dashboard.trust_signals.users_should_see.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+              {dashboard.trust_signals.users_should_see.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_boundaries?.should_avoid && dashboard.blueprint_boundaries.should_avoid.length > 0 ? (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/40 p-4 text-sm text-violet-900">
+          <h3 className="text-sm font-semibold">{labels.blueprintBoundaries}</h3>
+          {dashboard.blueprint_boundaries.principle ? (
+            <p className="mt-2">{dashboard.blueprint_boundaries.principle}</p>
+          ) : null}
+          <ul className="mt-3 list-inside list-disc space-y-1 text-xs">
+            {dashboard.blueprint_boundaries.should_avoid.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.self_love_connection?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.selfLoveConnection}</h3>
+          <p className="mt-2">{dashboard.self_love_connection.principle}</p>
+          {dashboard.self_love_connection.practices && dashboard.self_love_connection.practices.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {dashboard.self_love_connection.practices.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.success_criteria) && dashboard.success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.successCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              return (
+                <li key={item.key ?? label} className="flex items-start gap-2">
+                  <span className={met ? "text-emerald-600" : "text-gray-400"}>{met ? "✓" : "○"}</span>
+                  <span>
+                    {label}
+                    {item.note ? <span className="block text-xs text-gray-500">{item.note}</span> : null}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
 
       {actionError && (
         <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{actionError}</div>

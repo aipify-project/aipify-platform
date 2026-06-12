@@ -74,6 +74,7 @@ export type DigitalCredential = {
 export type PartnerScorecard = {
   partner_name: string;
   partner_tier: string;
+  partner_tier_label?: string;
   overall_score: number;
   certification_completion?: number;
   customer_feedback_score?: number;

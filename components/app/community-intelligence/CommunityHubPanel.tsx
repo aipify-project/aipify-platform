@@ -4,8 +4,11 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseCommunityIntelligenceDashboard,
-  type CommunityIntelligenceDashboard,
   type CommunityContribution,
+  type CommunityIntelligenceDashboard,
+  type CompanionExample,
+  type CollectiveInsightCategory,
+  type CommunityObjective,
 } from "@/lib/aipify/community-intelligence";
 
 type CommunityHubPanelProps = {
@@ -66,6 +69,8 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
   if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
   if (!dashboard?.has_customer) return null;
 
+  const engagement = dashboard.engagement_summary;
+
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap gap-3">
@@ -75,7 +80,53 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
         >
           {labels.adminDashboard}
         </Link>
+        {(dashboard.integration_links ?? []).map((link) =>
+          link.route ? (
+            <Link
+              key={link.route}
+              href={link.route}
+              className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm hover:border-violet-300"
+            >
+              {link.label ?? link.route}
+            </Link>
+          ) : null
+        )}
       </div>
+
+      <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">
+        <h2 className="text-sm font-semibold text-violet-900">{labels.engineTitle}</h2>
+        {dashboard.mission ? (
+          <p className="mt-2 text-sm font-medium text-violet-900">{dashboard.mission}</p>
+        ) : null}
+        {dashboard.community_philosophy ? (
+          <p className="mt-2 text-sm text-violet-900">{dashboard.community_philosophy}</p>
+        ) : dashboard.philosophy ? (
+          <p className="mt-2 text-sm text-violet-900">{dashboard.philosophy}</p>
+        ) : null}
+        {dashboard.abos_principle ? (
+          <p className="mt-2 text-xs text-violet-800">{dashboard.abos_principle}</p>
+        ) : null}
+        {dashboard.implementation_blueprint?.engine_phase ? (
+          <p className="mt-1 text-xs text-violet-700">
+            {dashboard.implementation_blueprint.phase ?? labels.blueprintPhase}
+            {dashboard.implementation_blueprint.engine_phase ? ` · ${dashboard.implementation_blueprint.engine_phase}` : ""}
+          </p>
+        ) : null}
+      </section>
+
+      {engagement ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.engagementSummary}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>{labels.contributionsTotal}: {engagement.contributions_total ?? 0}</span>
+            <span>{labels.publishedContributions}: {engagement.published_contributions ?? 0}</span>
+            <span>{labels.pendingReviewsCount}: {engagement.pending_reviews ?? 0}</span>
+            <span>{labels.briefingsTotal}: {engagement.briefings_total ?? 0}</span>
+            <span>{labels.briefingsLast30d}: {engagement.briefings_last_30d ?? 0}</span>
+            <span>{labels.ratingsTotal}: {engagement.ratings_total ?? 0}</span>
+          </div>
+        </section>
+      ) : null}
 
       <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">
         <div className="grid gap-4 sm:grid-cols-2">
@@ -104,6 +155,130 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
           {labels.generateBriefing}
         </button>
       </section>
+
+      {dashboard.community_objectives && dashboard.community_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.communityObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.community_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.collective_insight_examples?.categories &&
+      dashboard.collective_insight_examples.categories.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.collectiveInsightExamples}</h3>
+          {dashboard.collective_insight_examples.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{dashboard.collective_insight_examples.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.collective_insight_examples.categories.map((category) => (
+              <InsightCategoryCard key={category.domain ?? category.label} category={category} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.privacy_principles?.principle ? (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/40 p-4 text-sm text-indigo-900">
+          <h3 className="text-sm font-semibold">{labels.privacyPrinciples}</h3>
+          <p className="mt-2">{dashboard.privacy_principles.principle}</p>
+          {dashboard.privacy_principles.must && dashboard.privacy_principles.must.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {dashboard.privacy_principles.must.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.community_contributions_blueprint?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.communityContributions}</h3>
+          <p className="mt-1 text-xs text-gray-500">{dashboard.community_contributions_blueprint.principle}</p>
+          {dashboard.community_contributions_blueprint.contribution_types &&
+          dashboard.community_contributions_blueprint.contribution_types.length > 0 ? (
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              {dashboard.community_contributions_blueprint.contribution_types.map((type) => (
+                <div key={type.key ?? type.label} className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 text-sm">
+                  <p className="font-medium text-gray-900">{type.label}</p>
+                  {type.description ? <p className="mt-1 text-xs text-gray-600">{type.description}</p> : null}
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.companion_examples && dashboard.companion_examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionExamples}</h3>
+          <div className="mt-3 space-y-3">
+            {dashboard.companion_examples.map((example) => (
+              <CompanionExampleCard key={example.key ?? example.scenario} example={example} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.success_criteria) && dashboard.success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.successCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={item.key ?? label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.self_love_connection?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.selfLoveConnection}</h3>
+          <p className="mt-2">{dashboard.self_love_connection.principle}</p>
+          {dashboard.self_love_connection.self_love_route ? (
+            <Link href={dashboard.self_love_connection.self_love_route} className="mt-2 inline-block text-xs underline">
+              {labels.openSelfLove}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.trust_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.trustConnection}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.trust_connection.principle}</p>
+        </section>
+      ) : null}
+
+      {dashboard.dogfooding?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.dogfooding}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.dogfooding.principle}</p>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.dogfooding.aipify_group ? (
+              <DogfoodingCard entry={dashboard.dogfooding.aipify_group} title={labels.aipifyGroup} />
+            ) : null}
+            {dashboard.dogfooding.unonight ? (
+              <DogfoodingCard entry={dashboard.dogfooding.unonight} title={labels.unonightPilot} />
+            ) : null}
+          </div>
+        </section>
+      ) : null}
 
       {dashboard.score_components ? (
         <section className="rounded-xl border border-gray-200 p-4">
@@ -256,6 +431,71 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
             ))}
           </div>
         </section>
+      ) : null}
+
+      {(dashboard.vision_phrases ?? []).length > 0 ? (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/30 p-4 text-sm text-violet-900">
+          <h3 className="text-sm font-semibold">{labels.visionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+            {dashboard.vision_phrases?.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      <p className="text-xs text-gray-500">{dashboard.privacy_note ?? dashboard.safety_note}</p>
+    </div>
+  );
+}
+
+function ObjectiveCard({ objective }: { objective: CommunityObjective }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 text-sm">
+      <p className="font-medium text-gray-900">{objective.label}</p>
+      {objective.description ? <p className="mt-1 text-xs text-gray-600">{objective.description}</p> : null}
+    </div>
+  );
+}
+
+function InsightCategoryCard({ category }: { category: CollectiveInsightCategory }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 text-sm">
+      <p className="font-medium capitalize text-gray-900">{category.label ?? category.domain}</p>
+      {category.signals && category.signals.length > 0 ? (
+        <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+          {category.signals.map((signal) => (
+            <li key={signal}>{signal}</li>
+          ))}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
+function CompanionExampleCard({ example }: { example: CompanionExample }) {
+  return (
+    <div className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+      <p className="font-medium text-gray-900">
+        {example.emoji ? `${example.emoji} ` : ""}
+        {example.scenario}
+      </p>
+      {example.example ? <p className="mt-1 text-xs text-gray-600">{example.example}</p> : null}
+    </div>
+  );
+}
+
+function DogfoodingCard({ entry, title }: { entry: { role?: string; focus?: string[] }; title: string }) {
+  return (
+    <div className="rounded border border-gray-100 bg-gray-50/50 p-3 text-xs">
+      <p className="font-semibold text-gray-900">{title}</p>
+      {entry.role ? <p className="mt-1 text-gray-600">{entry.role}</p> : null}
+      {entry.focus && entry.focus.length > 0 ? (
+        <ul className="mt-2 list-inside list-disc space-y-0.5 text-gray-600">
+          {entry.focus.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
       ) : null}
     </div>
   );

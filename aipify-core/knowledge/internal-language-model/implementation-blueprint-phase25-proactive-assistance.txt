@@ -1,0 +1,59 @@
+IMPLEMENTATION BLUEPRINT PHASE 25 — PROACTIVE ASSISTANCE ENGINE
+ABOS mapping: Phase 25 → Proactive Companion Engine Phase A.79 at /app/proactive-companion-engine
+
+MISSION
+Move beyond reactive assistance — timely, valuable support before users ask; anticipate needs responsibly.
+
+PHILOSOPHY
+The most valuable assistance arrives before difficulties escalate — proactive, not intrusive.
+
+ABOS PRINCIPLE
+Best companions help prepare before emergencies — preparation creates confidence.
+
+PROACTIVE OBJECTIVES
+- Early risk detection — escalating volumes, bottlenecks, workload imbalances
+- Opportunity identification — strategic opportunities, positive trends, simplification
+- Reminder generation — deadlines, follow-ups, preparation windows
+- Workflow improvement suggestions — metadata patterns; human approval required
+- Follow-up recommendations — tasks, support cases, executive milestones
+- Knowledge gap awareness — documentation gaps, article review, dependencies
+
+PROACTIVE EXAMPLES (METADATA ONLY)
+Support: escalating volumes, increasing response times, repeated customer concerns
+Operational: tasks approaching deadlines, unbalanced workloads, bottlenecks
+Knowledge: topics lacking documentation, articles needing review, critical dependencies
+Executive: strategic opportunities, performance trends, milestones approaching
+
+COMPANION EXAMPLES
+🦉 Trend deserves attention — support response times rose; review before backlog grows
+🌹 Opportunity to simplify — overlapping approval steps worth streamlining
+🔔 Small intervention prevents bottleneck — shared deadline; handoff now helps later
+❤️ Three priorities that matter most — calm focus before leadership meetings
+
+BOUNDARIES (SHOULD AVOID)
+- Excessive recommendations — daily caps and frequency preferences
+- Fear-driven messaging — no anxiety-inducing urgency
+- Notification overload — quiet hours and fatigue signals
+- Acting without approvals — nudges suggest; users dismiss, snooze, or act
+- Surveillance — metadata summaries only
+
+SELF LOVE CONNECTION
+Prevent crises, encourage preparation, healthier workloads, reduce urgency — peace of mind not constant alerts.
+Route: /app/self-love-engine — principle only.
+
+TRUST
+Why recommendations appear; which signals contributed; uncertainty acknowledged; actions optional.
+
+DISTINCTIONS
+- Companion Presence A.67 /app/settings/companion-presence — orb, not nudges
+- ILM proactive guidance — lib/internal-language-model/proactive-guidance.ts
+- Notification Communication A.17 /app/notification-communication-engine
+- Dedication Engine A.91 /app/dedication-engine — philosophy distinct
+- Desktop Companion Phase 20 /app/desktop — cross-link only
+
+DOGFOODING
+Aipify Group: executive awareness, support health, knowledge maintenance, task follow-up
+Unonight: first external pilot — commerce and support proactive assistance
+
+VISION
+Reactive → intentional leadership. Glad Aipify brought that early. Preparation creates confidence.

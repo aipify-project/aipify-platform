@@ -1,0 +1,31 @@
+Implementation Blueprint Phase 34 — API & Developer Platform
+
+Engine: API Platform Engine Phase A.21 at /app/api-platform-engine
+
+Mission: Empower developers to integrate, customize, and build upon Aipify through secure APIs, documentation, and extensibility.
+
+Philosophy: Developers integrate confidently — governance visible, secrets never in plain text, extensibility grows adoption.
+
+Developer objectives: Public APIs, Partner APIs, secure auth, API keys, webhooks, developer documentation, sandbox environments.
+
+API categories:
+- Core: Organizations, Users, Permissions, Knowledge Center, Tasks, Support
+- Companion: conversations, notifications, bell moments, recognition events
+- Commerce: products, orders, commerce intelligence, financial events
+- Partner: Sales Expert Portal, commission tracking, customer lifecycle visibility
+
+Developer experience: Interactive documentation, example code, SDKs, API explorers, testing environments — cross-link /developers and /app/settings/developer.
+
+Security principles: Scoped permissions, audit logging, rate limits, token expiration, secure secret handling, elevated scope approval.
+
+Trust: Available permissions, usage expectations, governance requirements, security responsibilities. Metadata only. Customer tenant only — not Platform Admin /api/platform/*.
+
+Distinct from App Ecosystem Phase 75 /app/apps, Developer Portal /developers, Integration Engine A.8, Identity A.75, Audit A.5, Marketplace Partner A.45.
+
+Dogfooding: Aipify Group — API key lifecycle, webhook metadata, audit logging, sandbox. Unonight — first external pilot for integration experiences.
+
+ABOS principle: Extensibility increases when developers can build securely.
+
+Vision: Integrations accelerate adoption when APIs are scoped, auditable, and well documented.
+
+Never store full API keys or webhook secrets — prefix/hash and secret_ref only.

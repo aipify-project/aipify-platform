@@ -24,6 +24,11 @@ export function parseAipifyInstallEngineCard(data: unknown): AipifyInstallEngine
     abos_principle: typeof d.abos_principle === "string" ? d.abos_principle : undefined,
     install_adoption_engine_note:
       typeof d.install_adoption_engine_note === "string" ? d.install_adoption_engine_note : undefined,
+    implementation_blueprint:
+      typeof d.implementation_blueprint === "object" && d.implementation_blueprint
+        ? (d.implementation_blueprint as AipifyInstallEngineCard["implementation_blueprint"])
+        : undefined,
+    discovery_count: typeof d.discovery_count === "number" ? d.discovery_count : undefined,
   };
 }
 
@@ -146,5 +151,52 @@ export function parseAipifyInstallEngineDashboard(data: unknown): AipifyInstallE
       typeof d.install_engine_integration === "object" && d.install_engine_integration
         ? (d.install_engine_integration as Record<string, unknown>)
         : undefined,
+    implementation_blueprint:
+      typeof d.implementation_blueprint === "object" && d.implementation_blueprint
+        ? (d.implementation_blueprint as AipifyInstallEngineDashboard["implementation_blueprint"])
+        : undefined,
+    discovery_objectives: Array.isArray(d.discovery_objectives)
+      ? (d.discovery_objectives as Array<Record<string, unknown>>)
+      : undefined,
+    supported_environments:
+      typeof d.supported_environments === "object" && d.supported_environments
+        ? (d.supported_environments as Record<string, unknown>)
+        : undefined,
+    discovery_capabilities_blueprint: Array.isArray(d.discovery_capabilities_blueprint)
+      ? (d.discovery_capabilities_blueprint as string[])
+      : undefined,
+    recommendation_experiences: Array.isArray(d.recommendation_experiences)
+      ? (d.recommendation_experiences as AipifyInstallEngineDashboard["recommendation_experiences"])
+      : undefined,
+    human_approval_principles:
+      typeof d.human_approval_principles === "object" && d.human_approval_principles
+        ? (d.human_approval_principles as AipifyInstallEngineDashboard["human_approval_principles"])
+        : undefined,
+    self_love_connection:
+      typeof d.self_love_connection === "object" && d.self_love_connection
+        ? (d.self_love_connection as AipifyInstallEngineDashboard["self_love_connection"])
+        : undefined,
+    trust_connection_blueprint:
+      typeof d.trust_connection_blueprint === "object" && d.trust_connection_blueprint
+        ? (d.trust_connection_blueprint as Record<string, unknown>)
+        : undefined,
+    dogfooding_blueprint:
+      typeof d.dogfooding_blueprint === "object" && d.dogfooding_blueprint
+        ? (d.dogfooding_blueprint as Record<string, unknown>)
+        : undefined,
+    blueprint_integration_links: Array.isArray(d.blueprint_integration_links)
+      ? (d.blueprint_integration_links as IntegrationLink[])
+      : undefined,
+    blueprint_vision_phrases: Array.isArray(d.blueprint_vision_phrases)
+      ? (d.blueprint_vision_phrases as string[])
+      : undefined,
+    engagement_summary:
+      typeof d.engagement_summary === "object" && d.engagement_summary
+        ? (d.engagement_summary as Record<string, unknown>)
+        : undefined,
+    blueprint_success_criteria: Array.isArray(d.blueprint_success_criteria)
+      ? (d.blueprint_success_criteria as AbosSuccessCriterion[])
+      : undefined,
+    phase28_distinction: typeof d.phase28_distinction === "string" ? d.phase28_distinction : undefined,
   };
 }

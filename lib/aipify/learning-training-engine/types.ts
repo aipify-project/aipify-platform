@@ -42,6 +42,24 @@ export type LearningTrainingEngineDashboard = {
   onboarding_integration?: Record<string, unknown>;
   settings?: Record<string, unknown>;
   distinction_note?: string;
+  mission?: string;
+  blueprint_philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  training_objectives?: TrainingObjective[];
+  blueprint_learning_paths?: BlueprintLearningPath[];
+  learning_experiences?: string[];
+  certification_principles?: CertificationPrinciples;
+  companion_examples?: CompanionExample[];
+  self_love_connection?: SelfLoveConnection;
+  trust_connection_blueprint?: TrustConnectionBlueprint;
+  knowledge_center_connection?: KnowledgeCenterConnection;
+  dogfooding_blueprint?: Record<string, unknown>;
+  blueprint_integration_links?: IntegrationLink[];
+  blueprint_vision_phrases?: string[];
+  engagement_summary?: TrainingEngagementSummary;
+  blueprint_success_criteria?: AbosSuccessCriterion[];
+  implementation_blueprint?: Record<string, unknown>;
   [key: string]: unknown;
 };
 
@@ -66,4 +84,83 @@ export type TrainingAssessment = {
   passing_score?: number;
   content_ref?: string;
   [key: string]: unknown;
+};
+
+export type BlueprintLearningPath = {
+  key?: string;
+  title?: string;
+  designed_for?: string[];
+  topics?: string[];
+  mapped_path_keys?: string[];
+  kc_route?: string;
+  certification_route?: string;
+};
+
+export type CompanionExample = {
+  emoji?: string;
+  key?: string;
+  example?: string;
+};
+
+export type SelfLoveConnection = {
+  principle?: string;
+  practices?: string[];
+  route?: string;
+  phase?: string;
+  boundary?: string;
+};
+
+export type TrustConnectionBlueprint = {
+  principle?: string;
+  organizations_should_understand?: string[];
+  metadata_only?: boolean;
+  transparency_note?: string;
+};
+
+export type IntegrationLink = {
+  key?: string;
+  label?: string;
+  route?: string;
+  note?: string;
+};
+
+export type AbosSuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+};
+
+export type TrainingEngagementSummary = {
+  user_assigned_paths?: number;
+  user_completed_paths?: number;
+  user_in_progress_paths?: number;
+  user_overdue_paths?: number;
+  active_learning_paths?: number;
+  training_assessments?: number;
+  org_completed_progress_records?: number;
+  org_total_progress_records?: number;
+  active_certification_programs?: number;
+  org_active_certificates?: number;
+  user_active_certificates?: number;
+  user_badges_awarded?: number;
+  privacy_note?: string;
+};
+
+export type TrainingObjective = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type CertificationPrinciples = {
+  principle?: string;
+  requirements?: string[];
+  certification_engine_route?: string;
+};
+
+export type KnowledgeCenterConnection = {
+  principle?: string;
+  integrations?: string[];
+  kc_route?: string;
 };

@@ -48,6 +48,20 @@ export default async function ProactiveCompanionEnginePage() {
           exportSummary: t(`${p}.exportSummary`),
           exporting: t(`${p}.exporting`),
           exportFailed: t(`${p}.exportFailed`),
+          engagementSummary: t(`${p}.engagementSummary`),
+          nudgesTotal: t(`${p}.nudgesTotal`),
+          actedNudges: t(`${p}.actedNudges`),
+          nudgesLast30d: t(`${p}.nudgesLast30d`),
+          categoriesUsed: t(`${p}.categoriesUsed`),
+          auditEvents: t(`${p}.auditEvents`),
+          proactiveObjectives: t(`${p}.proactiveObjectives`),
+          proactiveExamples: t(`${p}.proactiveExamples`),
+          companionExamples: t(`${p}.companionExamples`),
+          blueprintBoundaries: t(`${p}.blueprintBoundaries`),
+          selfLoveConnection: t(`${p}.selfLoveConnection`),
+          trustConnection: t(`${p}.trustConnection`),
+          successCriteria: t(`${p}.successCriteria`),
+          visionPhrases: t(`${p}.visionPhrases`),
         }}
       />
     </div>

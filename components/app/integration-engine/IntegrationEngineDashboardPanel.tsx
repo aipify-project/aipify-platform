@@ -4,12 +4,32 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseIntegrationEngineDashboard,
+  type ExecutiveInsightExample,
+  type FinancialPrinciple,
   type IntegrationEngineDashboard,
 } from "@/lib/aipify/integration-engine";
 
 type IntegrationEngineDashboardPanelProps = {
   labels: Record<string, string>;
 };
+
+function PrincipleCard({ principle }: { principle: FinancialPrinciple }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+      <span className="font-medium">{principle.label}</span>
+      {principle.description ? <p className="mt-1 text-xs text-gray-600">{principle.description}</p> : null}
+    </div>
+  );
+}
+
+function ExecutiveExampleCard({ example }: { example: ExecutiveInsightExample }) {
+  return (
+    <div className="rounded-lg border border-emerald-100 bg-emerald-50/40 px-3 py-2 text-sm">
+      {example.scenario ? <p className="text-xs font-medium text-emerald-900">{example.scenario}</p> : null}
+      {example.example ? <p className="mt-1 text-xs text-emerald-800">{example.example}</p> : null}
+    </div>
+  );
+}
 
 function badgeClass(value?: string) {
   switch (value) {
@@ -106,6 +126,180 @@ export function IntegrationEngineDashboardPanel({ labels }: IntegrationEngineDas
           <p className="mt-1 text-xs text-violet-700">{dashboard.safety_note}</p>
         ) : null}
       </section>
+
+      {dashboard.financial_operations_note ? (
+        <section className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-6">
+          <h2 className="text-sm font-semibold text-emerald-900">{labels.financialOperations}</h2>
+          {dashboard.blueprint_mission ? (
+            <p className="mt-2 text-sm font-medium text-emerald-900">{dashboard.blueprint_mission}</p>
+          ) : null}
+          {dashboard.blueprint_philosophy ? (
+            <p className="mt-2 text-sm text-emerald-900">{dashboard.blueprint_philosophy}</p>
+          ) : null}
+          {dashboard.blueprint_abos_principle ? (
+            <p className="mt-2 text-xs text-emerald-800">{dashboard.blueprint_abos_principle}</p>
+          ) : null}
+          <p className="mt-1 text-xs text-emerald-700">{dashboard.financial_operations_note}</p>
+        </section>
+      ) : null}
+
+      {dashboard.primary_strategy?.systems && dashboard.primary_strategy.systems.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.primaryStrategy}</h3>
+          {dashboard.primary_strategy.principle ? (
+            <p className="mt-2 text-sm text-gray-600">{dashboard.primary_strategy.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.primary_strategy.systems.map((system) => (
+              <div key={system.key ?? system.name} className="rounded-lg border border-emerald-100 bg-emerald-50/30 px-3 py-2">
+                <p className="text-sm font-medium text-emerald-900">
+                  {system.emoji ? `${system.emoji} ` : ""}
+                  {system.name}
+                </p>
+                {system.note ? <p className="mt-1 text-xs text-emerald-800">{system.note}</p> : null}
+              </div>
+            ))}
+          </div>
+          {dashboard.primary_strategy.coordination_note ? (
+            <p className="mt-3 text-xs text-gray-600">{dashboard.primary_strategy.coordination_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.financial_principles && dashboard.financial_principles.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.financialPrinciples}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.financial_principles.map((principle) => (
+              <PrincipleCard key={principle.key ?? principle.label} principle={principle} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.aipify_may && dashboard.aipify_may.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.aipifyMay}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-gray-700">
+            {dashboard.aipify_may.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_boundaries?.should_not_become &&
+      dashboard.blueprint_boundaries.should_not_become.length > 0 ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/40 p-4">
+          <h3 className="text-sm font-semibold text-amber-900">{labels.blueprintBoundaries}</h3>
+          {dashboard.blueprint_boundaries.principle ? (
+            <p className="mt-2 text-sm text-amber-900">{dashboard.blueprint_boundaries.principle}</p>
+          ) : null}
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-amber-800">
+            {dashboard.blueprint_boundaries.should_not_become.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.executive_insight_examples && dashboard.executive_insight_examples.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.executiveExamples}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.executive_insight_examples.map((example) => (
+              <ExecutiveExampleCard key={example.key ?? example.scenario} example={example} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.engagement_summary ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.engagementSummary}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+              <p className="text-xs text-gray-500">{labels.stripeActive}</p>
+              <p className="mt-1 font-medium">{dashboard.engagement_summary.stripe_active ? labels.yes : labels.no}</p>
+            </div>
+            <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+              <p className="text-xs text-gray-500">{labels.stripeWebhooks}</p>
+              <p className="mt-1 font-medium">{dashboard.engagement_summary.stripe_webhooks ?? 0}</p>
+            </div>
+            <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+              <p className="text-xs text-gray-500">{labels.fikenScaffold}</p>
+              <p className="mt-1 font-medium">
+                {dashboard.engagement_summary.fiken_catalog_scaffold ? labels.yes : labels.no}
+              </p>
+            </div>
+            <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+              <p className="text-xs text-gray-500">{labels.financialWebhooks}</p>
+              <p className="mt-1 font-medium">{dashboard.engagement_summary.financial_webhooks ?? 0}</p>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {(dashboard.blueprint_integration_links ?? []).length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.blueprintIntegrationLinks}</h3>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {dashboard.blueprint_integration_links?.map((link) =>
+              link.route ? (
+                <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+                  {link.label}
+                </Link>
+              ) : null
+            )}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.self_love_connection?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.selfLoveConnection}</h3>
+          <p className="mt-2">{dashboard.self_love_connection.principle}</p>
+        </section>
+      ) : null}
+
+      {dashboard.financial_trust_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.financialTrust}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.financial_trust_connection.principle}</p>
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.financial_operations_success_criteria) &&
+      dashboard.financial_operations_success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.financialSuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.financial_operations_success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              return (
+                <li key={item.key ?? label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {item.note ? <p className="text-xs text-gray-500">{item.note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.vision_phrases && dashboard.vision_phrases.length > 0 ? (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.visionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-emerald-900">
+            {dashboard.vision_phrases.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       {dashboard.platform_priorities && dashboard.platform_priorities.length > 0 ? (
         <section className="rounded-lg border border-gray-200 p-4">

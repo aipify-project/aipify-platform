@@ -91,6 +91,36 @@ export type IntegrationLink = {
   route?: string;
 };
 
+export type BlueprintImplementationRef = {
+  phase?: number;
+  title?: string;
+  engine_phase?: string;
+  doc?: string;
+  route?: string;
+};
+
+export type RecommendationExperience = {
+  emoji?: string;
+  key?: string;
+  example?: string;
+};
+
+export type HumanApprovalPrinciples = {
+  may?: string[];
+  should_not?: string[];
+  principle?: string;
+  permission_review_step?: string;
+  recommendation_acceptance?: string;
+};
+
+export type SelfLoveConnection = {
+  principle?: string;
+  practices?: string[];
+  route?: string;
+  phase?: string;
+  boundary?: string;
+};
+
 export type AipifyInstallEngineCard = {
   has_organization: boolean;
   completion_percentage?: number;
@@ -100,6 +130,8 @@ export type AipifyInstallEngineCard = {
   mission?: string;
   abos_principle?: string;
   install_adoption_engine_note?: string;
+  implementation_blueprint?: BlueprintImplementationRef;
+  discovery_count?: number;
 };
 
 export type AipifyInstallEngineDashboard = {
@@ -131,4 +163,18 @@ export type AipifyInstallEngineDashboard = {
   recommendations: InstallRecommendation[];
   permission_reviews: InstallPermissionReview[];
   install_engine_integration?: Record<string, unknown>;
+  implementation_blueprint?: BlueprintImplementationRef;
+  discovery_objectives?: Array<Record<string, unknown>>;
+  supported_environments?: Record<string, unknown>;
+  discovery_capabilities_blueprint?: string[];
+  recommendation_experiences?: RecommendationExperience[];
+  human_approval_principles?: HumanApprovalPrinciples;
+  self_love_connection?: SelfLoveConnection;
+  trust_connection_blueprint?: Record<string, unknown>;
+  dogfooding_blueprint?: Record<string, unknown>;
+  blueprint_integration_links?: IntegrationLink[];
+  blueprint_vision_phrases?: string[];
+  engagement_summary?: Record<string, unknown>;
+  blueprint_success_criteria?: AbosSuccessCriterion[];
+  phase28_distinction?: string;
 };
