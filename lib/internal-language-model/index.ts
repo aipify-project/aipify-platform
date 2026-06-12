@@ -190,6 +190,9 @@ export * from "./implementation-blueprint-phase176-vocabulary";
 export * from "./implementation-blueprint-phase177-vocabulary";
 export * from "./implementation-blueprint-phase178-vocabulary";
 export * from "./implementation-blueprint-phase185-vocabulary";
+export * from "./implementation-blueprint-phase188-vocabulary";
+export * from "./implementation-blueprint-phase187-vocabulary";
+export * from "./implementation-blueprint-phase186-vocabulary";
 export * from "./implementation-blueprint-phase184-vocabulary";
 export * from "./implementation-blueprint-phase183-vocabulary";
 export * from "./implementation-blueprint-phase179-vocabulary";
@@ -787,6 +790,15 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE183_PATH =
 
 export const IMPLEMENTATION_BLUEPRINT_PHASE184_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase184-shared-resilience-adaptive-capacity.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE186_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase186-shared-compassion-reciprocal-care.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE187_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase187-shared-courage-responsible-action.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE188_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase188-shared-gratitude-appreciative-stewardship.txt";
 
 export const IMPLEMENTATION_BLUEPRINT_PHASE185_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase185-shared-trust-cooperative-intelligence.txt";

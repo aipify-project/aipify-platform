@@ -138,3 +138,8 @@ export * from "./collective-wisdom-shared-learning-engine";
 export * from "./shared-purpose-contribution-engine";
 export * from "./shared-resilience-adaptive-capacity-engine";
 export * from "./shared-trust-cooperative-intelligence-engine";
+
+export * from "./shared-compassion-reciprocal-care-engine";
+export * from "./shared-courage-responsible-action-engine";
+
+export * from "./shared-gratitude-appreciative-stewardship-engine";

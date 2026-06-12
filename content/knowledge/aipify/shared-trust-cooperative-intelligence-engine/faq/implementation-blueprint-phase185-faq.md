@@ -18,4 +18,4 @@ Compassion, humility, patience, respect, recognition, and generosity — coopera
 
 ## What surfaces cross-link only?
 
-trust_reputation_engine, Phase 184 shared resilience, social_cohesion_engine, and civilizational trust surfaces — never duplicate RPCs.
+trust_reputation_engine, Phase 184 shared resilience, social_cohesion_engine — never duplicate RPCs.

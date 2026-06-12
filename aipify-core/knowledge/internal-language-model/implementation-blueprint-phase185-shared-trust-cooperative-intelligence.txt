@@ -3,7 +3,7 @@ Route: /app/shared-trust-cooperative-intelligence-engine
 Era: Universal Stewardship & Shared Futures Era (181–190)
 Cooperative Intelligence Center: metadata scaffolds for stewardship programs, companion-supported reflection, executive reviews.
 Cooperation Companion supports — NOT replace human judgment.
-Cross-links only: trust_reputation_engine, Phase 184 shared resilience, social_cohesion_engine, civilizational trust surfaces — never duplicate RPCs.
+Cross-links only: trust_reputation_engine, Phase 184 shared resilience, social_cohesion_engine — never duplicate RPCs.
 People First. Wisdom before speed. Growth Partner — never Affiliate.
 
 Cooperative Intelligence Center: trust reflection programs, cross-org learning networks, companion facilitation, leadership collaboration workshops, Growth Partner development, collective insight dashboards, knowledge exchange frameworks, trust knowledge libraries.

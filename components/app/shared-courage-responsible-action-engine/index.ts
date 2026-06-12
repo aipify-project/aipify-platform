@@ -1,0 +1,1 @@
+export { SharedCourageResponsibleActionEngineDashboardPanel } from "./SharedCourageResponsibleActionEngineDashboardPanel";

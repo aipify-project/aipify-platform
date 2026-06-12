@@ -16,6 +16,6 @@ The Shared Resilience & Adaptive Capacity Center at `/app/shared-resilience-adap
 
 **Yes.** Growth Partner — never Affiliate.
 
-## Resilience Companion supports adaptive reflection ?
+## Companion limitations?
 
 Resilience Companion supports adaptive reflection — does NOT predict crises, force optimism, or override human agency.

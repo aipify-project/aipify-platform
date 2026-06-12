@@ -16,6 +16,6 @@ The Shared Purpose & Contribution Center at `/app/shared-purpose-contribution-en
 
 **Yes.** Growth Partner — never Affiliate.
 
-## Contribution Companion supports purpose reflection ?
+## Companion limitations?
 
 Contribution Companion supports purpose reflection — does NOT assign worth, dictate contribution, or replace leadership accountability.

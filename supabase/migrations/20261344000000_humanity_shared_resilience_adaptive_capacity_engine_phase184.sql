@@ -1,6 +1,6 @@
--- Phase 182 — Human Hope & Collective Wisdom Engine
--- Universal Stewardship & Shared Futures Era (181–190) — Collective Wisdom Center.
--- Helpers: _hcwsl_* (engine), _hcwslbp182_* (blueprint)
+-- Phase 184 — Human Hope & Shared Resilience & Adaptive Capacity Engine
+-- Universal Stewardship & Shared Futures Era (181–190) — Shared Resilience & Adaptive Capacity Center.
+-- Helpers: _hsrac_* (engine), _hsracbp184_* (blueprint)
 
 alter table public.decision_explanations drop constraint if exists decision_explanations_decision_type_check;
 alter table public.decision_explanations add constraint decision_explanations_decision_type_check check (
@@ -121,16 +121,16 @@ alter table public.decision_explanations add constraint decision_explanations_de
     'human_wisdom_augmented_judgment_engine',
     'human_agency_responsible_autonomy_engine',
     'human_dignity_humility_engine',
-    'humanity_collective_wisdom_shared_learning_engine'
+    'humanity_shared_resilience_adaptive_capacity_engine'
   )
 );
 
-create table if not exists public.humanity_collective_wisdom_shared_learning_settings (
+create table if not exists public.humanity_shared_resilience_adaptive_capacity_settings (
   id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null references public.customers (id) on delete cascade unique,
   enabled boolean not null default true,
-  wisdom_readiness_level int not null default 1 check (wisdom_readiness_level between 1 and 5),
-  learning_mode text not null default 'guided' check (learning_mode in ('guided', 'governance_led', 'executive_sponsored')),
+  adaptive_readiness_level int not null default 1 check (adaptive_readiness_level between 1 and 5),
+  resilience_mode text not null default 'guided' check (resilience_mode in ('guided', 'governance_led', 'executive_sponsored')),
   agency_reflection_enabled boolean not null default true,
   participation_reflection_enabled boolean not null default true,
   autonomy_strengthening_enabled boolean not null default true,
@@ -142,10 +142,10 @@ create table if not exists public.humanity_collective_wisdom_shared_learning_set
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
-alter table public.humanity_collective_wisdom_shared_learning_settings enable row level security;
-revoke all on public.humanity_collective_wisdom_shared_learning_settings from authenticated, anon;
+alter table public.humanity_shared_resilience_adaptive_capacity_settings enable row level security;
+revoke all on public.humanity_shared_resilience_adaptive_capacity_settings from authenticated, anon;
 
-create table if not exists public.humanity_collective_wisdom_shared_learning_reviews (
+create table if not exists public.humanity_shared_resilience_adaptive_capacity_reviews (
   id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null references public.customers (id) on delete cascade,
   review_key text not null,
@@ -158,11 +158,11 @@ create table if not exists public.humanity_collective_wisdom_shared_learning_rev
   captured_at timestamptz not null default now(),
   unique (tenant_id, review_key)
 );
-create index if not exists humanity_collective_wisdom_shared_learning_reviews_tenant_idx on public.humanity_collective_wisdom_shared_learning_reviews (tenant_id, review_type, status, captured_at desc);
-alter table public.humanity_collective_wisdom_shared_learning_reviews enable row level security;
-revoke all on public.humanity_collective_wisdom_shared_learning_reviews from authenticated, anon;
+create index if not exists humanity_shared_resilience_adaptive_capacity_reviews_tenant_idx on public.humanity_shared_resilience_adaptive_capacity_reviews (tenant_id, review_type, status, captured_at desc);
+alter table public.humanity_shared_resilience_adaptive_capacity_reviews enable row level security;
+revoke all on public.humanity_shared_resilience_adaptive_capacity_reviews from authenticated, anon;
 
-create table if not exists public.humanity_collective_wisdom_shared_learning_reflections (
+create table if not exists public.humanity_shared_resilience_adaptive_capacity_reflections (
   id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null references public.customers (id) on delete cascade,
   reflection_key text not null,
@@ -175,11 +175,11 @@ create table if not exists public.humanity_collective_wisdom_shared_learning_ref
   updated_at timestamptz not null default now(),
   unique (tenant_id, reflection_key)
 );
-create index if not exists humanity_collective_wisdom_shared_learning_reflections_tenant_idx on public.humanity_collective_wisdom_shared_learning_reflections (tenant_id, reflection_type, status);
-alter table public.humanity_collective_wisdom_shared_learning_reflections enable row level security;
-revoke all on public.humanity_collective_wisdom_shared_learning_reflections from authenticated, anon;
+create index if not exists humanity_shared_resilience_adaptive_capacity_reflections_tenant_idx on public.humanity_shared_resilience_adaptive_capacity_reflections (tenant_id, reflection_type, status);
+alter table public.humanity_shared_resilience_adaptive_capacity_reflections enable row level security;
+revoke all on public.humanity_shared_resilience_adaptive_capacity_reflections from authenticated, anon;
 
-create table if not exists public.humanity_collective_wisdom_shared_learning_learning_notes (
+create table if not exists public.humanity_shared_resilience_adaptive_capacity_resilience_notes (
   id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null references public.customers (id) on delete cascade,
   note_key text not null,
@@ -192,11 +192,11 @@ create table if not exists public.humanity_collective_wisdom_shared_learning_lea
   updated_at timestamptz not null default now(),
   unique (tenant_id, note_key)
 );
-create index if not exists humanity_collective_wisdom_shared_learning_learning_notes_tenant_idx on public.humanity_collective_wisdom_shared_learning_learning_notes (tenant_id, note_type, status);
-alter table public.humanity_collective_wisdom_shared_learning_learning_notes enable row level security;
-revoke all on public.humanity_collective_wisdom_shared_learning_learning_notes from authenticated, anon;
+create index if not exists humanity_shared_resilience_adaptive_capacity_resilience_notes_tenant_idx on public.humanity_shared_resilience_adaptive_capacity_resilience_notes (tenant_id, note_type, status);
+alter table public.humanity_shared_resilience_adaptive_capacity_resilience_notes enable row level security;
+revoke all on public.humanity_shared_resilience_adaptive_capacity_resilience_notes from authenticated, anon;
 
-create table if not exists public.humanity_collective_wisdom_shared_learning_audit_logs (
+create table if not exists public.humanity_shared_resilience_adaptive_capacity_audit_logs (
   id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null references public.customers (id) on delete cascade,
   action_type text not null,
@@ -204,88 +204,88 @@ create table if not exists public.humanity_collective_wisdom_shared_learning_aud
   context jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now()
 );
-alter table public.humanity_collective_wisdom_shared_learning_audit_logs enable row level security;
-revoke all on public.humanity_collective_wisdom_shared_learning_audit_logs from authenticated, anon;
+alter table public.humanity_shared_resilience_adaptive_capacity_audit_logs enable row level security;
+revoke all on public.humanity_shared_resilience_adaptive_capacity_audit_logs from authenticated, anon;
 
 insert into public.aipify_permissions (permission_key, label, module_key, description)
-select v.key, v.label, 'humanity_collective_wisdom_shared_learning_engine', v.description
+select v.key, v.label, 'humanity_shared_resilience_adaptive_capacity_engine', v.description
 from (values
-  ('humanity_collective_wisdom_shared_learning.view', 'View Collective Wisdom Center', 'View executive reviews, reflections, and metadata scaffolds'),
-  ('humanity_collective_wisdom_shared_learning.manage', 'Manage Collective Wisdom Center', 'Update settings and governance preferences'),
-  ('humanity_collective_wisdom_shared_learning.steward', 'Steward Collective Wisdom Center', 'Conduct executive reviews and record metadata scaffolds')
+  ('humanity_shared_resilience_adaptive_capacity.view', 'View Shared Resilience & Adaptive Capacity Center', 'View executive reviews, reflections, and metadata scaffolds'),
+  ('humanity_shared_resilience_adaptive_capacity.manage', 'Manage Shared Resilience & Adaptive Capacity Center', 'Update settings and governance preferences'),
+  ('humanity_shared_resilience_adaptive_capacity.steward', 'Steward Shared Resilience & Adaptive Capacity Center', 'Conduct executive reviews and record metadata scaffolds')
 ) as v(key, label, description)
 where not exists (select 1 from public.aipify_permissions ap where ap.permission_key = v.key);
 
 insert into public.organization_role_permissions (organization_id, role, permission_key)
 select o.id, v.role, v.key from public.organizations o
 cross join (values
-  ('owner', 'humanity_collective_wisdom_shared_learning.view'), ('owner', 'humanity_collective_wisdom_shared_learning.manage'), ('owner', 'humanity_collective_wisdom_shared_learning.steward'),
-  ('administrator', 'humanity_collective_wisdom_shared_learning.view'), ('administrator', 'humanity_collective_wisdom_shared_learning.manage'), ('administrator', 'humanity_collective_wisdom_shared_learning.steward'),
-  ('manager', 'humanity_collective_wisdom_shared_learning.view'), ('manager', 'humanity_collective_wisdom_shared_learning.steward'),
-  ('employee', 'humanity_collective_wisdom_shared_learning.view'), ('support_agent', 'humanity_collective_wisdom_shared_learning.view'),
-  ('moderator', 'humanity_collective_wisdom_shared_learning.view'), ('viewer', 'humanity_collective_wisdom_shared_learning.view')
+  ('owner', 'humanity_shared_resilience_adaptive_capacity.view'), ('owner', 'humanity_shared_resilience_adaptive_capacity.manage'), ('owner', 'humanity_shared_resilience_adaptive_capacity.steward'),
+  ('administrator', 'humanity_shared_resilience_adaptive_capacity.view'), ('administrator', 'humanity_shared_resilience_adaptive_capacity.manage'), ('administrator', 'humanity_shared_resilience_adaptive_capacity.steward'),
+  ('manager', 'humanity_shared_resilience_adaptive_capacity.view'), ('manager', 'humanity_shared_resilience_adaptive_capacity.steward'),
+  ('employee', 'humanity_shared_resilience_adaptive_capacity.view'), ('support_agent', 'humanity_shared_resilience_adaptive_capacity.view'),
+  ('moderator', 'humanity_shared_resilience_adaptive_capacity.view'), ('viewer', 'humanity_shared_resilience_adaptive_capacity.view')
 ) as v(role, key)
 where not exists (select 1 from public.organization_role_permissions rp where rp.organization_id = o.id and rp.role = v.role and rp.permission_key = v.key);
 
-create or replace function public._hcwsl_tenant_for_auth() returns uuid language plpgsql stable security definer set search_path = public as $$
+create or replace function public._hsrac_tenant_for_auth() returns uuid language plpgsql stable security definer set search_path = public as $$
 begin return public._presence_tenant_for_auth(); end; $$;
 
-create or replace function public._hcwsl_require_tenant() returns uuid language plpgsql security definer set search_path = public as $$
-declare v_tenant_id uuid; begin v_tenant_id := public._hcwsl_tenant_for_auth(); if v_tenant_id is null then raise exception 'No tenant context'; end if; return v_tenant_id; end; $$;
+create or replace function public._hsrac_require_tenant() returns uuid language plpgsql security definer set search_path = public as $$
+declare v_tenant_id uuid; begin v_tenant_id := public._hsrac_tenant_for_auth(); if v_tenant_id is null then raise exception 'No tenant context'; end if; return v_tenant_id; end; $$;
 
-create or replace function public._hcwsl_log_audit(p_tenant_id uuid, p_action_type text, p_summary text default null, p_context jsonb default '{}'::jsonb)
+create or replace function public._hsrac_log_audit(p_tenant_id uuid, p_action_type text, p_summary text default null, p_context jsonb default '{}'::jsonb)
 returns uuid language plpgsql security definer set search_path = public as $$
-declare v_id uuid; begin insert into public.humanity_collective_wisdom_shared_learning_audit_logs (tenant_id, action_type, summary, context) values (p_tenant_id, p_action_type, p_summary, p_context) returning id into v_id; return v_id; end; $$;
+declare v_id uuid; begin insert into public.humanity_shared_resilience_adaptive_capacity_audit_logs (tenant_id, action_type, summary, context) values (p_tenant_id, p_action_type, p_summary, p_context) returning id into v_id; return v_id; end; $$;
 
-create or replace function public._hcwsl_ensure_settings(p_tenant_id uuid) returns public.humanity_collective_wisdom_shared_learning_settings language plpgsql security definer set search_path = public as $$
-declare v_settings public.humanity_collective_wisdom_shared_learning_settings; begin
-  insert into public.humanity_collective_wisdom_shared_learning_settings (tenant_id, enabled, learning_mode) values (p_tenant_id, true, 'guided') on conflict (tenant_id) do nothing;
-  select * into v_settings from public.humanity_collective_wisdom_shared_learning_settings where tenant_id = p_tenant_id; return v_settings; end; $$;
+create or replace function public._hsrac_ensure_settings(p_tenant_id uuid) returns public.humanity_shared_resilience_adaptive_capacity_settings language plpgsql security definer set search_path = public as $$
+declare v_settings public.humanity_shared_resilience_adaptive_capacity_settings; begin
+  insert into public.humanity_shared_resilience_adaptive_capacity_settings (tenant_id, enabled, resilience_mode) values (p_tenant_id, true, 'guided') on conflict (tenant_id) do nothing;
+  select * into v_settings from public.humanity_shared_resilience_adaptive_capacity_settings where tenant_id = p_tenant_id; return v_settings; end; $$;
 
-create or replace function public._hcwsl_seed_reflections(p_tenant_id uuid) returns void language plpgsql security definer set search_path = public as $$
-begin if exists (select 1 from public.humanity_collective_wisdom_shared_learning_reflections where tenant_id = p_tenant_id limit 1) then return; end if;
-  insert into public.humanity_collective_wisdom_shared_learning_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (p_tenant_id, 'meaningful-choice', 'meaningful_choice', 'Meaningful Choice', 'Aggregate meaningful choice metadata — Learning Companion supports, never replaces.', 'draft');
-  insert into public.humanity_collective_wisdom_shared_learning_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (p_tenant_id, 'responsibility-reflection', 'responsibility_reflection', 'Responsibility Reflection', 'Aggregate responsibility reflection metadata — Learning Companion supports, never replaces.', 'draft');
-  insert into public.humanity_collective_wisdom_shared_learning_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (p_tenant_id, 'autonomy-strengthening', 'autonomy_strengthening', 'Autonomy Strengthening', 'Aggregate autonomy strengthening metadata — Learning Companion supports, never replaces.', 'draft');
-  insert into public.humanity_collective_wisdom_shared_learning_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (p_tenant_id, 'automation-agency', 'automation_agency', 'Automation Agency', 'Aggregate automation agency metadata — Learning Companion supports, never replaces.', 'draft');
-  insert into public.humanity_collective_wisdom_shared_learning_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (p_tenant_id, 'ownership-themes', 'ownership_themes', 'Ownership Themes', 'Aggregate ownership themes metadata — Learning Companion supports, never replaces.', 'draft');
-  insert into public.humanity_collective_wisdom_shared_learning_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (p_tenant_id, 'governance-participation', 'governance_participation', 'Governance Participation', 'Aggregate governance participation metadata — Learning Companion supports, never replaces.', 'draft');
-  insert into public.humanity_collective_wisdom_shared_learning_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (p_tenant_id, 'knowledge-empowerment', 'knowledge_empowerment', 'Knowledge Empowerment', 'Aggregate knowledge empowerment metadata — Learning Companion supports, never replaces.', 'draft');
-  insert into public.humanity_collective_wisdom_shared_learning_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (p_tenant_id, 'leadership-preparation', 'leadership_preparation', 'Leadership Preparation', 'Aggregate leadership preparation metadata — Learning Companion supports, never replaces.', 'draft');
+create or replace function public._hsrac_seed_reflections(p_tenant_id uuid) returns void language plpgsql security definer set search_path = public as $$
+begin if exists (select 1 from public.humanity_shared_resilience_adaptive_capacity_reflections where tenant_id = p_tenant_id limit 1) then return; end if;
+  insert into public.humanity_shared_resilience_adaptive_capacity_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (p_tenant_id, 'meaningful-choice', 'meaningful_choice', 'Meaningful Choice', 'Aggregate meaningful choice metadata — Resilience Companion supports, never replaces.', 'draft');
+  insert into public.humanity_shared_resilience_adaptive_capacity_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (p_tenant_id, 'responsibility-reflection', 'responsibility_reflection', 'Responsibility Reflection', 'Aggregate responsibility reflection metadata — Resilience Companion supports, never replaces.', 'draft');
+  insert into public.humanity_shared_resilience_adaptive_capacity_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (p_tenant_id, 'autonomy-strengthening', 'autonomy_strengthening', 'Autonomy Strengthening', 'Aggregate autonomy strengthening metadata — Resilience Companion supports, never replaces.', 'draft');
+  insert into public.humanity_shared_resilience_adaptive_capacity_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (p_tenant_id, 'automation-agency', 'automation_agency', 'Automation Agency', 'Aggregate automation agency metadata — Resilience Companion supports, never replaces.', 'draft');
+  insert into public.humanity_shared_resilience_adaptive_capacity_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (p_tenant_id, 'ownership-themes', 'ownership_themes', 'Ownership Themes', 'Aggregate ownership themes metadata — Resilience Companion supports, never replaces.', 'draft');
+  insert into public.humanity_shared_resilience_adaptive_capacity_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (p_tenant_id, 'governance-participation', 'governance_participation', 'Governance Participation', 'Aggregate governance participation metadata — Resilience Companion supports, never replaces.', 'draft');
+  insert into public.humanity_shared_resilience_adaptive_capacity_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (p_tenant_id, 'knowledge-empowerment', 'knowledge_empowerment', 'Knowledge Empowerment', 'Aggregate knowledge empowerment metadata — Resilience Companion supports, never replaces.', 'draft');
+  insert into public.humanity_shared_resilience_adaptive_capacity_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (p_tenant_id, 'leadership-preparation', 'leadership_preparation', 'Leadership Preparation', 'Aggregate leadership preparation metadata — Resilience Companion supports, never replaces.', 'draft');
 end; $$;
 
-create or replace function public._hcwsl_seed_learning_notes(p_tenant_id uuid) returns void language plpgsql security definer set search_path = public as $$
-begin if exists (select 1 from public.humanity_collective_wisdom_shared_learning_learning_notes where tenant_id = p_tenant_id limit 1) then return; end if;
-  insert into public.humanity_collective_wisdom_shared_learning_learning_notes (tenant_id, note_key, note_type, title, summary, status) values (p_tenant_id, 'human-oversight', 'human_oversight', 'Human Oversight', 'Human Oversight scaffold — metadata only.', 'draft');
-  insert into public.humanity_collective_wisdom_shared_learning_learning_notes (tenant_id, note_key, note_type, title, summary, status) values (p_tenant_id, 'approval-checkpoints', 'approval_checkpoints', 'Approval Checkpoints', 'Approval Checkpoints scaffold — metadata only.', 'draft');
-  insert into public.humanity_collective_wisdom_shared_learning_learning_notes (tenant_id, note_key, note_type, title, summary, status) values (p_tenant_id, 'escalation-readiness', 'escalation_readiness', 'Escalation Readiness', 'Escalation Readiness scaffold — metadata only.', 'draft');
-  insert into public.humanity_collective_wisdom_shared_learning_learning_notes (tenant_id, note_key, note_type, title, summary, status) values (p_tenant_id, 'decision-ownership', 'decision_ownership', 'Decision Ownership', 'Decision Ownership scaffold — metadata only.', 'draft');
-  insert into public.humanity_collective_wisdom_shared_learning_learning_notes (tenant_id, note_key, note_type, title, summary, status) values (p_tenant_id, 'governance-participation', 'governance_participation', 'Governance Participation', 'Governance Participation scaffold — metadata only.', 'draft');
-  insert into public.humanity_collective_wisdom_shared_learning_learning_notes (tenant_id, note_key, note_type, title, summary, status) values (p_tenant_id, 'role-based-controls', 'role_based_controls', 'Role Based Controls', 'Role Based Controls scaffold — metadata only.', 'draft');
-  insert into public.humanity_collective_wisdom_shared_learning_learning_notes (tenant_id, note_key, note_type, title, summary, status) values (p_tenant_id, 'companion-transparency', 'companion_transparency', 'Companion Transparency', 'Companion Transparency scaffold — metadata only.', 'draft');
-  insert into public.humanity_collective_wisdom_shared_learning_learning_notes (tenant_id, note_key, note_type, title, summary, status) values (p_tenant_id, 'empowerment-access', 'empowerment_access', 'Empowerment Access', 'Empowerment Access scaffold — metadata only.', 'draft');
+create or replace function public._hsrac_seed_resilience_notes(p_tenant_id uuid) returns void language plpgsql security definer set search_path = public as $$
+begin if exists (select 1 from public.humanity_shared_resilience_adaptive_capacity_resilience_notes where tenant_id = p_tenant_id limit 1) then return; end if;
+  insert into public.humanity_shared_resilience_adaptive_capacity_resilience_notes (tenant_id, note_key, note_type, title, summary, status) values (p_tenant_id, 'human-oversight', 'human_oversight', 'Human Oversight', 'Human Oversight scaffold — metadata only.', 'draft');
+  insert into public.humanity_shared_resilience_adaptive_capacity_resilience_notes (tenant_id, note_key, note_type, title, summary, status) values (p_tenant_id, 'approval-checkpoints', 'approval_checkpoints', 'Approval Checkpoints', 'Approval Checkpoints scaffold — metadata only.', 'draft');
+  insert into public.humanity_shared_resilience_adaptive_capacity_resilience_notes (tenant_id, note_key, note_type, title, summary, status) values (p_tenant_id, 'escalation-readiness', 'escalation_readiness', 'Escalation Readiness', 'Escalation Readiness scaffold — metadata only.', 'draft');
+  insert into public.humanity_shared_resilience_adaptive_capacity_resilience_notes (tenant_id, note_key, note_type, title, summary, status) values (p_tenant_id, 'decision-ownership', 'decision_ownership', 'Decision Ownership', 'Decision Ownership scaffold — metadata only.', 'draft');
+  insert into public.humanity_shared_resilience_adaptive_capacity_resilience_notes (tenant_id, note_key, note_type, title, summary, status) values (p_tenant_id, 'governance-participation', 'governance_participation', 'Governance Participation', 'Governance Participation scaffold — metadata only.', 'draft');
+  insert into public.humanity_shared_resilience_adaptive_capacity_resilience_notes (tenant_id, note_key, note_type, title, summary, status) values (p_tenant_id, 'role-based-controls', 'role_based_controls', 'Role Based Controls', 'Role Based Controls scaffold — metadata only.', 'draft');
+  insert into public.humanity_shared_resilience_adaptive_capacity_resilience_notes (tenant_id, note_key, note_type, title, summary, status) values (p_tenant_id, 'companion-transparency', 'companion_transparency', 'Companion Transparency', 'Companion Transparency scaffold — metadata only.', 'draft');
+  insert into public.humanity_shared_resilience_adaptive_capacity_resilience_notes (tenant_id, note_key, note_type, title, summary, status) values (p_tenant_id, 'empowerment-access', 'empowerment_access', 'Empowerment Access', 'Empowerment Access scaffold — metadata only.', 'draft');
 end; $$;
 
 
-create or replace function public._hcwslbp182_distinction_note() returns text language sql immutable as $$ select 'ABOS Phase 182 — Collective Wisdom Center. Supports autonomy — NOT executive authority replacement. Cross-link Trust & Action /app/approvals, AEF /app/action-center, Phase 175 wisdom. Helpers _hcwslbp182_*.'; $$;
-create or replace function public._hcwslbp182_mission() returns text language sql immutable as $$ select 'Help organizations strengthen human agency and responsible autonomy — with oversight, transparency, and decision ownership — without replacing leadership responsibility.'; $$;
-create or replace function public._hcwslbp182_philosophy() returns text language sql immutable as $$ select 'People First. Learning Companion supports autonomy — does NOT replace responsibility. Self Love: confidence, courage, self-awareness. Growth Partner — never Affiliate.'; $$;
-create or replace function public._hcwslbp182_abos_principle() returns text language sql immutable as $$
-  select 'Aipify Business Operating System (ABOS) — Collective Wisdom Center aggregates visibility across Cosmic Stewardship Era (171–180). Humans decide; Learning Companion informs and prepares.'; $$;
-create or replace function public._hcwslbp182_vision() returns text language sql immutable as $$ select 'Organizations where meaningful choice, accountability, and responsible automation coexist — humans decide; Companions inform within approved boundaries.'; $$;
-create or replace function public._hcwslbp182_objectives() returns jsonb language sql immutable as $$
+create or replace function public._hsracbp184_distinction_note() returns text language sql immutable as $$ select 'ABOS Phase 184 — Shared Resilience & Adaptive Capacity Center. Supports autonomy — NOT executive authority replacement. Cross-link Trust & Action /app/approvals, AEF /app/action-center, Phase 175 wisdom. Helpers _hsracbp184_*.'; $$;
+create or replace function public._hsracbp184_mission() returns text language sql immutable as $$ select 'Help organizations strengthen human agency and responsible autonomy — with oversight, transparency, and decision ownership — without replacing leadership responsibility.'; $$;
+create or replace function public._hsracbp184_philosophy() returns text language sql immutable as $$ select 'People First. Resilience Companion supports autonomy — does NOT replace responsibility. Self Love: confidence, courage, self-awareness. Growth Partner — never Affiliate.'; $$;
+create or replace function public._hsracbp184_abos_principle() returns text language sql immutable as $$
+  select 'Aipify Business Operating System (ABOS) — Shared Resilience & Adaptive Capacity Center aggregates visibility across Cosmic Stewardship Era (171–180). Humans decide; Resilience Companion informs and prepares.'; $$;
+create or replace function public._hsracbp184_vision() returns text language sql immutable as $$ select 'Organizations where meaningful choice, accountability, and responsible automation coexist — humans decide; Companions inform within approved boundaries.'; $$;
+create or replace function public._hsracbp184_objectives() returns jsonb language sql immutable as $$
   select jsonb_build_array(
-    jsonb_build_object('key', 'center_capabilities', 'label', 'Collective Wisdom Center programs', 'emoji', '🎯', 'description', 'Eight capability scaffolds'),
+    jsonb_build_object('key', 'center_capabilities', 'label', 'Shared Resilience & Adaptive Capacity Center programs', 'emoji', '🎯', 'description', 'Eight capability scaffolds'),
     jsonb_build_object('key', 'reflection_engine', 'label', 'Reflection engine', 'emoji', '🪞', 'description', 'Human reflection prompts'),
     jsonb_build_object('key', 'framework', 'label', 'Responsible framework', 'emoji', '🛡️', 'description', 'Governance and oversight themes'),
     jsonb_build_object('key', 'executive_reviews', 'label', 'Executive reviews', 'emoji', '👥', 'description', 'Leadership accountability'),
-    jsonb_build_object('key', 'companion', 'label', 'Learning Companion', 'emoji', '✨', 'description', 'Supports — does not replace'),
+    jsonb_build_object('key', 'companion', 'label', 'Resilience Companion', 'emoji', '✨', 'description', 'Supports — does not replace'),
     jsonb_build_object('key', 'sub_engine', 'label', 'Supporting engine', 'emoji', '⚙️', 'description', 'Metadata scaffolds'),
     jsonb_build_object('key', 'knowledge_libraries', 'label', 'Knowledge libraries', 'emoji', '📖', 'description', 'Approved resources'),
     jsonb_build_object('key', 'empowerment', 'label', 'Empowerment themes', 'emoji', '🌱', 'description', 'Participation and learning')
   ); $$;
-create or replace function public._hcwslbp182_agency_center() returns jsonb language sql immutable as $$
-  select jsonb_build_object('principle', 'Collective Wisdom Center — eight capabilities.', 'capabilities', jsonb_build_array(
+create or replace function public._hsracbp184_agency_center() returns jsonb language sql immutable as $$
+  select jsonb_build_object('principle', 'Shared Resilience & Adaptive Capacity Center — eight capabilities.', 'capabilities', jsonb_build_array(
     jsonb_build_object('key', 'oversight_frameworks', 'label', 'Human oversight frameworks'),
     jsonb_build_object('key', 'leadership_programs', 'label', 'Leadership responsibility programs'),
     jsonb_build_object('key', 'companion_reviews', 'label', 'Companion interaction reviews'),
@@ -295,7 +295,7 @@ create or replace function public._hcwslbp182_agency_center() returns jsonb lang
     jsonb_build_object('key', 'participation_frameworks', 'label', 'Participation frameworks'),
     jsonb_build_object('key', 'knowledge_libraries', 'label', 'Agency knowledge libraries')
   )); $$;
-create or replace function public._hcwslbp182_human_agency_engine() returns jsonb language sql immutable as $$
+create or replace function public._hsracbp184_human_agency_engine() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Reflection prompts — humans decide.', 'reflection_questions', jsonb_build_array(
     jsonb_build_object('key', 'meaningful_choice', 'label', 'What meaningful choices am I making?'),
     jsonb_build_object('key', 'responsibilities', 'label', 'What responsibilities do I hold?'),
@@ -303,7 +303,7 @@ create or replace function public._hcwslbp182_human_agency_engine() returns json
     jsonb_build_object('key', 'automation_agency', 'label', 'Where might automation reduce agency?'),
     jsonb_build_object('key', 'ownership', 'label', 'Who owns decisions in our organization?')
   )); $$;
-create or replace function public._hcwslbp182_responsible_autonomy_framework() returns jsonb language sql immutable as $$
+create or replace function public._hsracbp184_responsible_autonomy_framework() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Responsible autonomy framework.', 'domains', jsonb_build_array(
     jsonb_build_object('key', 'human_oversight', 'label', 'Human oversight'),
     jsonb_build_object('key', 'leadership_accountability', 'label', 'Leadership accountability'),
@@ -313,7 +313,7 @@ create or replace function public._hcwslbp182_responsible_autonomy_framework() r
     jsonb_build_object('key', 'governance_participation', 'label', 'Governance participation'),
     jsonb_build_object('key', 'role_controls', 'label', 'Role-based controls')
   )); $$;
-create or replace function public._hcwslbp182_executive_agency_reviews() returns jsonb language sql immutable as $$
+create or replace function public._hsracbp184_executive_agency_reviews() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Executive reviews — leadership reflection.', 'review_themes', jsonb_build_array(
     jsonb_build_object('key', 'agency_stewardship', 'label', 'Agency Stewardship'),
     jsonb_build_object('key', 'leadership_accountability', 'label', 'Leadership Accountability'),
@@ -321,8 +321,8 @@ create or replace function public._hcwslbp182_executive_agency_reviews() returns
     jsonb_build_object('key', 'decision_ownership', 'label', 'Decision Ownership'),
     jsonb_build_object('key', 'responsible_automation', 'label', 'Responsible Automation')
   )); $$;
-create or replace function public._hcwslbp182_agency_companion() returns jsonb language sql immutable as $$
-  select jsonb_build_object('principle', 'Learning Companion — supports, does not replace.', 'capabilities', jsonb_build_array(
+create or replace function public._hsracbp184_agency_companion() returns jsonb language sql immutable as $$
+  select jsonb_build_object('principle', 'Resilience Companion — supports, does not replace.', 'capabilities', jsonb_build_array(
     jsonb_build_object('key', 'reflection_prompts', 'label', 'Reflection prompts'),
     jsonb_build_object('key', 'governance_briefings', 'label', 'Governance briefings'),
     jsonb_build_object('key', 'ownership_summaries', 'label', 'Decision ownership summaries'),
@@ -330,7 +330,7 @@ create or replace function public._hcwslbp182_agency_companion() returns jsonb l
     jsonb_build_object('key', 'leadership_preparation', 'label', 'Leadership preparation'),
     jsonb_build_object('key', 'oversight_guidance', 'label', 'Oversight guidance')
   )); $$;
-create or replace function public._hcwslbp182_human_oversight_engine() returns jsonb language sql immutable as $$
+create or replace function public._hsracbp184_human_oversight_engine() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Supporting engine — metadata only.', 'characteristics', jsonb_build_array(
     jsonb_build_object('key', 'approval_checkpoints', 'label', 'Approval checkpoints'),
     jsonb_build_object('key', 'escalation', 'label', 'Escalation readiness'),
@@ -339,165 +339,165 @@ create or replace function public._hcwslbp182_human_oversight_engine() returns j
     jsonb_build_object('key', 'governance_participation', 'label', 'Governance participation'),
     jsonb_build_object('key', 'role_controls', 'label', 'Role-based controls')
   )); $$;
-create or replace function public._hcwslbp182_companion_limitations() returns jsonb language sql immutable as $$
+create or replace function public._hsracbp184_companion_limitations() returns jsonb language sql immutable as $$
   select jsonb_build_object('must_avoid', jsonb_build_array('Override human decisions',
       'Assume executive authority',
       'Remove meaningful choice',
       'Conceal automated actions',
       'Determine personal priorities',
-      'Replace leadership responsibility'), 'principle', 'Learning Companion supports — humans decide.'); $$;
-create or replace function public._hcwslbp182_self_love_connection() returns jsonb language sql immutable as $$
+      'Replace leadership responsibility'), 'principle', 'Resilience Companion supports — humans decide.'); $$;
+create or replace function public._hsracbp184_self_love_connection() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Self Love — confidence, responsibility, courage, self-awareness.', 'values', jsonb_build_array('confidence','responsibility','courage','self_awareness','reflection','growth'), 'cross_link', '/app/self-love-engine'); $$;
-create or replace function public._hcwslbp182_security_requirements() returns jsonb language sql immutable as $$
+create or replace function public._hsracbp184_security_requirements() returns jsonb language sql immutable as $$
   select jsonb_build_object('requirements', jsonb_build_array(
-    jsonb_build_object('key', 'audit_logs', 'label', 'Decision audit logs via humanity_collective_wisdom_shared_learning_audit_logs'),
-    jsonb_build_object('key', 'rbac', 'label', 'Role-based access via humanity_collective_wisdom_shared_learning permissions'),
+    jsonb_build_object('key', 'audit_logs', 'label', 'Decision audit logs via humanity_shared_resilience_adaptive_capacity_audit_logs'),
+    jsonb_build_object('key', 'rbac', 'label', 'Role-based access via humanity_shared_resilience_adaptive_capacity permissions'),
     jsonb_build_object('key', 'companion_histories', 'label', 'Companion action histories — metadata only'),
     jsonb_build_object('key', 'approval_records', 'label', 'Human approval records'),
     jsonb_build_object('key', 'two_factor', 'label', 'Two-factor authentication', 'cross_link', '/app/settings/two-factor')
   )); $$;
-create or replace function public._hcwslbp182_era_opener_summary() returns jsonb language sql immutable as $$ select jsonb_build_array(
+create or replace function public._hsracbp184_era_opener_summary() returns jsonb language sql immutable as $$ select jsonb_build_array(
     jsonb_build_object('phase', 171, 'key', 'multi_generational_futures', 'label', 'Multi-Generational Futures Phase 171', 'route', '/app/multi-generational-futures-engine', 'description', 'Era opener'),
     jsonb_build_object('phase', 172, 'key', 'intergenerational_guardianship', 'label', 'Intergenerational Guardianship Phase 172', 'route', '/app/intergenerational-guardianship-engine', 'description', 'Guardianship'),
     jsonb_build_object('phase', 173, 'key', 'human_identity_meaning', 'label', 'Human Identity & Meaning Phase 173', 'route', '/app/human-identity-meaning-engine', 'description', 'Meaning & identity'),
     jsonb_build_object('phase', 174, 'key', 'human_creativity_imagination', 'label', 'Human Creativity & Imagination Phase 174', 'route', '/app/human-creativity-imagination-engine', 'description', 'Creativity'),
     jsonb_build_object('phase', 175, 'key', 'human_wisdom_augmented_judgment', 'label', 'Human Wisdom & Judgment Phase 175', 'route', '/app/human-wisdom-augmented-judgment-engine', 'description', 'Wisdom & judgment'),
-    jsonb_build_object('phase', 176, 'key', 'humanity_collective_wisdom_shared_learning', 'label', 'Human Agency & Autonomy Phase 182', 'route', '/app/collective-wisdom-shared-learning-engine', 'description', 'Responsible autonomy — supports not replaces')
+    jsonb_build_object('phase', 176, 'key', 'humanity_shared_resilience_adaptive_capacity', 'label', 'Human Agency & Autonomy Phase 184', 'route', '/app/collective-wisdom-shared-learning-engine', 'description', 'Responsible autonomy — supports not replaces')
   ); $$;
-create or replace function public._hcwslbp182_extended_cross_links() returns jsonb language sql immutable as $$ select jsonb_build_array(
+create or replace function public._hsracbp184_extended_cross_links() returns jsonb language sql immutable as $$ select jsonb_build_array(
     jsonb_build_object('key', 'trust_action', 'label', 'Trust & Action Engine', 'route', '/app/approvals', 'relationship', 'Sensitive action approvals — cross-link only'),
     jsonb_build_object('key', 'action_center', 'label', 'Autonomous Execution Framework AEF', 'route', '/app/action-center', 'relationship', 'Execution boundaries — cross-link only'),
     jsonb_build_object('key', 'human_wisdom_augmented_judgment', 'label', 'Human Wisdom & Judgment Phase 175', 'route', '/app/human-wisdom-augmented-judgment-engine', 'relationship', 'Wisdom — cross-link only')
   ); $$;
-create or replace function public._hcwslbp182_integration_links() returns jsonb language sql stable as $$ select public._hcwslbp182_era_opener_summary() || public._hcwslbp182_extended_cross_links(); $$;
-create or replace function public._hcwslbp182_dogfooding() returns text language sql immutable as $$
-  select 'Aipify uses Collective Wisdom Center internally with metadata-only executive reviews and reflection scaffolds. Growth Partner terminology. Learning Companion supports — never replaces human responsibility.'; $$;
-create or replace function public._hcwslbp182_vision_phrases() returns jsonb language sql immutable as $$
-  select jsonb_build_array('People First — humans decide.', 'Learning Companion informs and prepares.', 'Responsible autonomy — transparency required.', 'Growth Partner — never Affiliate.'); $$;
-create or replace function public._hcwslbp182_privacy_note() returns text language sql immutable as $$
-  select 'Collective Wisdom Center metadata only — executive review summaries max ~500 chars, reflection aggregates. No surveillance, ranking, or PII content.'; $$;
+create or replace function public._hsracbp184_integration_links() returns jsonb language sql stable as $$ select public._hsracbp184_era_opener_summary() || public._hsracbp184_extended_cross_links(); $$;
+create or replace function public._hsracbp184_dogfooding() returns text language sql immutable as $$
+  select 'Aipify uses Shared Resilience & Adaptive Capacity Center internally with metadata-only executive reviews and reflection scaffolds. Growth Partner terminology. Resilience Companion supports — never replaces human responsibility.'; $$;
+create or replace function public._hsracbp184_vision_phrases() returns jsonb language sql immutable as $$
+  select jsonb_build_array('People First — humans decide.', 'Resilience Companion informs and prepares.', 'Responsible autonomy — transparency required.', 'Growth Partner — never Affiliate.'); $$;
+create or replace function public._hsracbp184_privacy_note() returns text language sql immutable as $$
+  select 'Shared Resilience & Adaptive Capacity Center metadata only — executive review summaries max ~500 chars, reflection aggregates. No surveillance, ranking, or PII content.'; $$;
 
-create or replace function public._hcwsl_refresh_metrics(p_tenant_id uuid) returns jsonb language plpgsql security definer set search_path = public as $$
-declare v_settings public.humanity_collective_wisdom_shared_learning_settings; v_reviews int; v_reflections int; v_notes int; v_active int; v_score numeric;
+create or replace function public._hsrac_refresh_metrics(p_tenant_id uuid) returns jsonb language plpgsql security definer set search_path = public as $$
+declare v_settings public.humanity_shared_resilience_adaptive_capacity_settings; v_reviews int; v_reflections int; v_notes int; v_active int; v_score numeric;
 begin
-  select * into v_settings from public.humanity_collective_wisdom_shared_learning_settings where tenant_id = p_tenant_id;
-  select count(*) into v_reviews from public.humanity_collective_wisdom_shared_learning_reviews where tenant_id = p_tenant_id;
-  select count(*) into v_reflections from public.humanity_collective_wisdom_shared_learning_reflections where tenant_id = p_tenant_id;
-  select count(*) into v_notes from public.humanity_collective_wisdom_shared_learning_learning_notes where tenant_id = p_tenant_id;
-  select count(*) into v_active from public.humanity_collective_wisdom_shared_learning_reflections where tenant_id = p_tenant_id and status in ('draft','review');
-  v_score := round(coalesce(v_settings.wisdom_readiness_level,1)*10.0 + least(v_reviews,5)*3.5 + least(v_reflections,8)*2.0 + least(v_notes,8)*2.0 + least(v_active,8)*1.5, 1);
-  return jsonb_build_object('humanity_collective_wisdom_shared_learning_score', v_score, 'enabled', coalesce(v_settings.enabled,false), 'learning_mode', coalesce(v_settings.learning_mode, 'guided'),
-    'wisdom_readiness_level', coalesce(v_settings.wisdom_readiness_level,1), 'executive_reviews_count', v_reviews, 'reflections_count', v_reflections, 'learning_notes_count', v_notes,
-    'active_reflections_count', v_active, 'era_phases_count', jsonb_array_length(public._hcwslbp182_era_opener_summary()), 'cross_links_count', jsonb_array_length(public._hcwslbp182_integration_links()));
+  select * into v_settings from public.humanity_shared_resilience_adaptive_capacity_settings where tenant_id = p_tenant_id;
+  select count(*) into v_reviews from public.humanity_shared_resilience_adaptive_capacity_reviews where tenant_id = p_tenant_id;
+  select count(*) into v_reflections from public.humanity_shared_resilience_adaptive_capacity_reflections where tenant_id = p_tenant_id;
+  select count(*) into v_notes from public.humanity_shared_resilience_adaptive_capacity_resilience_notes where tenant_id = p_tenant_id;
+  select count(*) into v_active from public.humanity_shared_resilience_adaptive_capacity_reflections where tenant_id = p_tenant_id and status in ('draft','review');
+  v_score := round(coalesce(v_settings.adaptive_readiness_level,1)*10.0 + least(v_reviews,5)*3.5 + least(v_reflections,8)*2.0 + least(v_notes,8)*2.0 + least(v_active,8)*1.5, 1);
+  return jsonb_build_object('humanity_shared_resilience_adaptive_capacity_score', v_score, 'enabled', coalesce(v_settings.enabled,false), 'resilience_mode', coalesce(v_settings.resilience_mode, 'guided'),
+    'adaptive_readiness_level', coalesce(v_settings.adaptive_readiness_level,1), 'executive_reviews_count', v_reviews, 'reflections_count', v_reflections, 'resilience_notes_count', v_notes,
+    'active_reflections_count', v_active, 'era_phases_count', jsonb_array_length(public._hsracbp184_era_opener_summary()), 'cross_links_count', jsonb_array_length(public._hsracbp184_integration_links()));
 end; $$;
 
-create or replace function public._hcwslbp182_engagement_summary(p_org_id uuid) returns jsonb language plpgsql stable security definer set search_path = public as $$
+create or replace function public._hsracbp184_engagement_summary(p_org_id uuid) returns jsonb language plpgsql stable security definer set search_path = public as $$
 declare v_metrics jsonb; begin
-  perform public._hcwsl_ensure_settings(p_org_id); perform public._hcwsl_seed_reflections(p_org_id); perform public._hcwsl_seed_learning_notes(p_org_id);
-  v_metrics := public._hcwsl_refresh_metrics(p_org_id);
-  return jsonb_build_object('humanity_collective_wisdom_shared_learning_score', coalesce((v_metrics->>'humanity_collective_wisdom_shared_learning_score')::numeric,0), 'enabled', coalesce((v_metrics->>'enabled')::boolean,false),
-    'learning_mode', coalesce(v_metrics->>'learning_mode', 'guided'), 'wisdom_readiness_level', coalesce((v_metrics->>'wisdom_readiness_level')::int,1),
+  perform public._hsrac_ensure_settings(p_org_id); perform public._hsrac_seed_reflections(p_org_id); perform public._hsrac_seed_resilience_notes(p_org_id);
+  v_metrics := public._hsrac_refresh_metrics(p_org_id);
+  return jsonb_build_object('humanity_shared_resilience_adaptive_capacity_score', coalesce((v_metrics->>'humanity_shared_resilience_adaptive_capacity_score')::numeric,0), 'enabled', coalesce((v_metrics->>'enabled')::boolean,false),
+    'resilience_mode', coalesce(v_metrics->>'resilience_mode', 'guided'), 'adaptive_readiness_level', coalesce((v_metrics->>'adaptive_readiness_level')::int,1),
     'executive_reviews_count', coalesce((v_metrics->>'executive_reviews_count')::int,0), 'reflections_count', coalesce((v_metrics->>'reflections_count')::int,0),
-    'learning_notes_count', coalesce((v_metrics->>'learning_notes_count')::int,0), 'active_reflections_count', coalesce((v_metrics->>'active_reflections_count')::int,0),
+    'resilience_notes_count', coalesce((v_metrics->>'resilience_notes_count')::int,0), 'active_reflections_count', coalesce((v_metrics->>'active_reflections_count')::int,0),
     'era_phases_count', coalesce((v_metrics->>'era_phases_count')::int,0), 'cross_links_count', coalesce((v_metrics->>'cross_links_count')::int,0),
-    'privacy_note', public._hcwslbp182_privacy_note(), 'not_surveillance', true);
+    'privacy_note', public._hsracbp184_privacy_note(), 'not_surveillance', true);
 end; $$;
 
-create or replace function public._hcwslbp182_success_criteria(p_org_id uuid) returns jsonb language plpgsql stable security definer set search_path = public as $$
-begin perform public._hcwsl_ensure_settings(p_org_id); perform public._hcwsl_seed_reflections(p_org_id); perform public._hcwsl_seed_learning_notes(p_org_id);
+create or replace function public._hsracbp184_success_criteria(p_org_id uuid) returns jsonb language plpgsql stable security definer set search_path = public as $$
+begin perform public._hsrac_ensure_settings(p_org_id); perform public._hsrac_seed_reflections(p_org_id); perform public._hsrac_seed_resilience_notes(p_org_id);
   return jsonb_build_array(
-    jsonb_build_object('key', 'center', 'label', 'Collective Wisdom Center — eight capabilities', 'met', jsonb_array_length(public._hcwslbp182_agency_center()->'capabilities') = 8, 'note', null),
-    jsonb_build_object('key', 'engine', 'label', 'Reflection engine — five questions', 'met', jsonb_array_length(public._hcwslbp182_human_agency_engine()->'reflection_questions') = 5, 'note', null),
-    jsonb_build_object('key', 'framework', 'label', 'Framework domains documented', 'met', jsonb_array_length(public._hcwslbp182_responsible_autonomy_framework()->'domains') >= 6, 'note', null),
-    jsonb_build_object('key', 'companion', 'label', 'Learning Companion capabilities', 'met', jsonb_array_length(public._hcwslbp182_agency_companion()->'capabilities') = 6, 'note', null),
-    jsonb_build_object('key', 'reflections_seeded', 'label', 'Reflections seeded', 'met', (select count(*) >= 8 from public.humanity_collective_wisdom_shared_learning_reflections r where r.tenant_id = p_org_id), 'note', null),
-    jsonb_build_object('key', 'notes_seeded', 'label', 'Scaffold notes seeded', 'met', (select count(*) >= 8 from public.humanity_collective_wisdom_shared_learning_learning_notes n where n.tenant_id = p_org_id), 'note', null),
-    jsonb_build_object('key', 'limitations', 'label', 'Companion limitations documented', 'met', jsonb_array_length(public._hcwslbp182_companion_limitations()->'must_avoid') >= 6, 'note', null),
-    jsonb_build_object('key', 'era', 'label', 'Era phases documented', 'met', jsonb_array_length(public._hcwslbp182_era_opener_summary()) = 6, 'note', null),
-    jsonb_build_object('key', 'baseline', 'label', 'Repo Phase 182 baseline tables', 'met', to_regclass('public.humanity_collective_wisdom_shared_learning_settings') is not null, 'note', '_hcwsl_* helpers intact')
+    jsonb_build_object('key', 'center', 'label', 'Shared Resilience & Adaptive Capacity Center — eight capabilities', 'met', jsonb_array_length(public._hsracbp184_agency_center()->'capabilities') = 8, 'note', null),
+    jsonb_build_object('key', 'engine', 'label', 'Reflection engine — five questions', 'met', jsonb_array_length(public._hsracbp184_human_agency_engine()->'reflection_questions') = 5, 'note', null),
+    jsonb_build_object('key', 'framework', 'label', 'Framework domains documented', 'met', jsonb_array_length(public._hsracbp184_responsible_autonomy_framework()->'domains') >= 6, 'note', null),
+    jsonb_build_object('key', 'companion', 'label', 'Resilience Companion capabilities', 'met', jsonb_array_length(public._hsracbp184_agency_companion()->'capabilities') = 6, 'note', null),
+    jsonb_build_object('key', 'reflections_seeded', 'label', 'Reflections seeded', 'met', (select count(*) >= 8 from public.humanity_shared_resilience_adaptive_capacity_reflections r where r.tenant_id = p_org_id), 'note', null),
+    jsonb_build_object('key', 'notes_seeded', 'label', 'Scaffold notes seeded', 'met', (select count(*) >= 8 from public.humanity_shared_resilience_adaptive_capacity_resilience_notes n where n.tenant_id = p_org_id), 'note', null),
+    jsonb_build_object('key', 'limitations', 'label', 'Companion limitations documented', 'met', jsonb_array_length(public._hsracbp184_companion_limitations()->'must_avoid') >= 6, 'note', null),
+    jsonb_build_object('key', 'era', 'label', 'Era phases documented', 'met', jsonb_array_length(public._hsracbp184_era_opener_summary()) = 6, 'note', null),
+    jsonb_build_object('key', 'baseline', 'label', 'Repo Phase 184 baseline tables', 'met', to_regclass('public.humanity_shared_resilience_adaptive_capacity_settings') is not null, 'note', '_hsrac_* helpers intact')
   );
 end; $$;
 
-create or replace function public._hcwslbp182_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
+create or replace function public._hsracbp184_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'phase', 'Phase 182 — Human Hope & Collective Wisdom Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE182_HUMANITY_COLLECTIVE_WISDOM_SHARED_LEARNING_ENGINE.md', 'engine_phase', 'Repo Phase 182', 'route', '/app/collective-wisdom-shared-learning-engine',
-    'distinction_note', public._hcwslbp182_distinction_note(), 'mission', public._hcwslbp182_mission(), 'philosophy', public._hcwslbp182_philosophy(),
-    'abos_principle', public._hcwslbp182_abos_principle(), 'vision', public._hcwslbp182_vision(), 'objectives', public._hcwslbp182_objectives(),
-    'agency_center', public._hcwslbp182_agency_center(), 'human_agency_engine', public._hcwslbp182_human_agency_engine(),
-    'responsible_autonomy_framework', public._hcwslbp182_responsible_autonomy_framework(), 'executive_agency_reviews', public._hcwslbp182_executive_agency_reviews(),
-    'agency_companion', public._hcwslbp182_agency_companion(), 'human_oversight_engine', public._hcwslbp182_human_oversight_engine(),
-    'companion_limitations', public._hcwslbp182_companion_limitations(), 'self_love_connection', public._hcwslbp182_self_love_connection(),
-    'security_requirements', public._hcwslbp182_security_requirements(), 'era_opener_summary', public._hcwslbp182_era_opener_summary(),
-    'integration_links', public._hcwslbp182_integration_links(), 'dogfooding', public._hcwslbp182_dogfooding(),
-    'success_criteria', public._hcwslbp182_success_criteria(p_org_id), 'engagement_summary', public._hcwslbp182_engagement_summary(p_org_id),
-    'vision_phrases', public._hcwslbp182_vision_phrases(), 'privacy_note', public._hcwslbp182_privacy_note()
+    'phase', 'Phase 184 — Human Hope & Shared Resilience & Adaptive Capacity Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE182_HUMANITY_COLLECTIVE_WISDOM_SHARED_LEARNING_ENGINE.md', 'engine_phase', 'Repo Phase 184', 'route', '/app/collective-wisdom-shared-learning-engine',
+    'distinction_note', public._hsracbp184_distinction_note(), 'mission', public._hsracbp184_mission(), 'philosophy', public._hsracbp184_philosophy(),
+    'abos_principle', public._hsracbp184_abos_principle(), 'vision', public._hsracbp184_vision(), 'objectives', public._hsracbp184_objectives(),
+    'agency_center', public._hsracbp184_agency_center(), 'human_agency_engine', public._hsracbp184_human_agency_engine(),
+    'responsible_autonomy_framework', public._hsracbp184_responsible_autonomy_framework(), 'executive_agency_reviews', public._hsracbp184_executive_agency_reviews(),
+    'agency_companion', public._hsracbp184_agency_companion(), 'human_oversight_engine', public._hsracbp184_human_oversight_engine(),
+    'companion_limitations', public._hsracbp184_companion_limitations(), 'self_love_connection', public._hsracbp184_self_love_connection(),
+    'security_requirements', public._hsracbp184_security_requirements(), 'era_opener_summary', public._hsracbp184_era_opener_summary(),
+    'integration_links', public._hsracbp184_integration_links(), 'dogfooding', public._hsracbp184_dogfooding(),
+    'success_criteria', public._hsracbp184_success_criteria(p_org_id), 'engagement_summary', public._hsracbp184_engagement_summary(p_org_id),
+    'vision_phrases', public._hsracbp184_vision_phrases(), 'privacy_note', public._hsracbp184_privacy_note()
   ); $$;
 
 create or replace function public.record_executive_hope_review(p_review_type text, p_title text, p_summary text, p_org_id uuid default null)
 returns uuid language plpgsql security definer set search_path = public as $$
 declare v_tenant_id uuid; v_key text; v_id uuid; begin
-  v_tenant_id := coalesce(p_org_id, public._hcwsl_require_tenant()); perform public._hcwsl_ensure_settings(v_tenant_id);
+  v_tenant_id := coalesce(p_org_id, public._hsrac_require_tenant()); perform public._hsrac_ensure_settings(v_tenant_id);
   if char_length(p_summary) > 500 then raise exception 'Summary max 500 characters'; end if;
   v_key := p_review_type || '-' || left(md5(p_title || clock_timestamp()::text), 8);
-  insert into public.humanity_collective_wisdom_shared_learning_reviews (tenant_id, review_key, review_type, title, summary, status) values (v_tenant_id, v_key, p_review_type, p_title, left(p_summary,500), 'draft') returning id into v_id;
-  perform public._hcwsl_log_audit(v_tenant_id, 'executive_review_recorded', left(p_title,120), jsonb_build_object('review_id', v_id));
+  insert into public.humanity_shared_resilience_adaptive_capacity_reviews (tenant_id, review_key, review_type, title, summary, status) values (v_tenant_id, v_key, p_review_type, p_title, left(p_summary,500), 'draft') returning id into v_id;
+  perform public._hsrac_log_audit(v_tenant_id, 'executive_review_recorded', left(p_title,120), jsonb_build_object('review_id', v_id));
   return v_id; end; $$;
 
 create or replace function public.record_hope_reflection(p_reflection_type text, p_title text, p_reflection_summary text, p_org_id uuid default null)
 returns uuid language plpgsql security definer set search_path = public as $$
 declare v_tenant_id uuid; v_key text; v_id uuid; begin
-  v_tenant_id := coalesce(p_org_id, public._hcwsl_require_tenant()); perform public._hcwsl_ensure_settings(v_tenant_id);
+  v_tenant_id := coalesce(p_org_id, public._hsrac_require_tenant()); perform public._hsrac_ensure_settings(v_tenant_id);
   if char_length(p_reflection_summary) > 500 then raise exception 'Reflection summary max 500 characters'; end if;
   v_key := p_reflection_type || '-' || left(md5(p_title || clock_timestamp()::text), 8);
-  insert into public.humanity_collective_wisdom_shared_learning_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (v_tenant_id, v_key, p_reflection_type, p_title, left(p_reflection_summary,500), 'draft') returning id into v_id;
-  perform public._hcwsl_log_audit(v_tenant_id, 'reflection_recorded', left(p_title,120), jsonb_build_object('reflection_id', v_id));
+  insert into public.humanity_shared_resilience_adaptive_capacity_reflections (tenant_id, reflection_key, reflection_type, title, reflection_summary, status) values (v_tenant_id, v_key, p_reflection_type, p_title, left(p_reflection_summary,500), 'draft') returning id into v_id;
+  perform public._hsrac_log_audit(v_tenant_id, 'reflection_recorded', left(p_title,120), jsonb_build_object('reflection_id', v_id));
   return v_id; end; $$;
 
-create or replace function public.get_humanity_collective_wisdom_shared_learning_engine_card(p_org_id uuid default null) returns jsonb language plpgsql stable security definer set search_path = public as $$
-declare v_tenant_id uuid; v_settings public.humanity_collective_wisdom_shared_learning_settings; v_metrics jsonb; v_engagement jsonb; begin
-  v_tenant_id := coalesce(p_org_id, public._hcwsl_tenant_for_auth()); if v_tenant_id is null then return jsonb_build_object('has_customer', false); end if;
-  v_settings := public._hcwsl_ensure_settings(v_tenant_id); perform public._hcwsl_seed_reflections(v_tenant_id); perform public._hcwsl_seed_learning_notes(v_tenant_id);
-  v_metrics := public._hcwsl_refresh_metrics(v_tenant_id); v_engagement := public._hcwslbp182_engagement_summary(v_tenant_id);
-  return jsonb_build_object('has_customer', true, 'humanity_collective_wisdom_shared_learning_score', v_metrics->'humanity_collective_wisdom_shared_learning_score', 'enabled', v_settings.enabled, 'learning_mode', v_settings.learning_mode,
-    'wisdom_readiness_level', v_settings.wisdom_readiness_level, 'reflections_count', v_metrics->'reflections_count', 'philosophy', public._hcwslbp182_philosophy(),
+create or replace function public.get_humanity_shared_resilience_adaptive_capacity_engine_card(p_org_id uuid default null) returns jsonb language plpgsql stable security definer set search_path = public as $$
+declare v_tenant_id uuid; v_settings public.humanity_shared_resilience_adaptive_capacity_settings; v_metrics jsonb; v_engagement jsonb; begin
+  v_tenant_id := coalesce(p_org_id, public._hsrac_tenant_for_auth()); if v_tenant_id is null then return jsonb_build_object('has_customer', false); end if;
+  v_settings := public._hsrac_ensure_settings(v_tenant_id); perform public._hsrac_seed_reflections(v_tenant_id); perform public._hsrac_seed_resilience_notes(v_tenant_id);
+  v_metrics := public._hsrac_refresh_metrics(v_tenant_id); v_engagement := public._hsracbp184_engagement_summary(v_tenant_id);
+  return jsonb_build_object('has_customer', true, 'humanity_shared_resilience_adaptive_capacity_score', v_metrics->'humanity_shared_resilience_adaptive_capacity_score', 'enabled', v_settings.enabled, 'resilience_mode', v_settings.resilience_mode,
+    'adaptive_readiness_level', v_settings.adaptive_readiness_level, 'reflections_count', v_metrics->'reflections_count', 'philosophy', public._hsracbp184_philosophy(),
     'human_oversight_required', v_settings.human_oversight_required,
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 182 — Human Hope & Collective Wisdom Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE182_HUMANITY_COLLECTIVE_WISDOM_SHARED_LEARNING_ENGINE.md', 'route', '/app/collective-wisdom-shared-learning-engine'),
-    'humanity_collective_wisdom_shared_learning_mission', public._hcwslbp182_mission(), 'humanity_collective_wisdom_shared_learning_abos_principle', public._hcwslbp182_abos_principle(),
-    'humanity_collective_wisdom_shared_learning_engagement_summary', v_engagement, 'humanity_collective_wisdom_shared_learning_note', public._hcwslbp182_distinction_note(), 'humanity_collective_wisdom_shared_learning_vision_note', public._hcwslbp182_vision());
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 184 — Human Hope & Shared Resilience & Adaptive Capacity Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE182_HUMANITY_COLLECTIVE_WISDOM_SHARED_LEARNING_ENGINE.md', 'route', '/app/collective-wisdom-shared-learning-engine'),
+    'humanity_shared_resilience_adaptive_capacity_mission', public._hsracbp184_mission(), 'humanity_shared_resilience_adaptive_capacity_abos_principle', public._hsracbp184_abos_principle(),
+    'humanity_shared_resilience_adaptive_capacity_engagement_summary', v_engagement, 'humanity_shared_resilience_adaptive_capacity_note', public._hsracbp184_distinction_note(), 'humanity_shared_resilience_adaptive_capacity_vision_note', public._hsracbp184_vision());
 end; $$;
 
-create or replace function public.get_humanity_collective_wisdom_shared_learning_engine_dashboard(p_org_id uuid default null) returns jsonb language plpgsql security definer set search_path = public as $$
-declare v_tenant_id uuid; v_settings public.humanity_collective_wisdom_shared_learning_settings; v_metrics jsonb; begin
-  v_tenant_id := coalesce(p_org_id, public._hcwsl_require_tenant()); v_settings := public._hcwsl_ensure_settings(v_tenant_id);
-  perform public._hcwsl_seed_reflections(v_tenant_id); perform public._hcwsl_seed_learning_notes(v_tenant_id); v_metrics := public._hcwsl_refresh_metrics(v_tenant_id);
-  perform public._hcwsl_log_audit(v_tenant_id, 'dashboard_view', 'Collective Wisdom Center dashboard viewed', jsonb_build_object('score', v_metrics->>'humanity_collective_wisdom_shared_learning_score'));
-  return jsonb_build_object('has_customer', true, 'enabled', v_settings.enabled, 'learning_mode', v_settings.learning_mode, 'wisdom_readiness_level', v_settings.wisdom_readiness_level,
-    'human_oversight_required', v_settings.human_oversight_required, 'philosophy', public._hcwslbp182_philosophy(),
-    'safety_note', 'Collective Wisdom Center — metadata scaffolds only. Learning Companion supports — never replaces human responsibility.',
-    'distinction_note', public._hcwslbp182_distinction_note(), 'humanity_collective_wisdom_shared_learning_score', v_metrics->'humanity_collective_wisdom_shared_learning_score',
+create or replace function public.get_humanity_shared_resilience_adaptive_capacity_engine_dashboard(p_org_id uuid default null) returns jsonb language plpgsql security definer set search_path = public as $$
+declare v_tenant_id uuid; v_settings public.humanity_shared_resilience_adaptive_capacity_settings; v_metrics jsonb; begin
+  v_tenant_id := coalesce(p_org_id, public._hsrac_require_tenant()); v_settings := public._hsrac_ensure_settings(v_tenant_id);
+  perform public._hsrac_seed_reflections(v_tenant_id); perform public._hsrac_seed_resilience_notes(v_tenant_id); v_metrics := public._hsrac_refresh_metrics(v_tenant_id);
+  perform public._hsrac_log_audit(v_tenant_id, 'dashboard_view', 'Shared Resilience & Adaptive Capacity Center dashboard viewed', jsonb_build_object('score', v_metrics->>'humanity_shared_resilience_adaptive_capacity_score'));
+  return jsonb_build_object('has_customer', true, 'enabled', v_settings.enabled, 'resilience_mode', v_settings.resilience_mode, 'adaptive_readiness_level', v_settings.adaptive_readiness_level,
+    'human_oversight_required', v_settings.human_oversight_required, 'philosophy', public._hsracbp184_philosophy(),
+    'safety_note', 'Shared Resilience & Adaptive Capacity Center — metadata scaffolds only. Resilience Companion supports — never replaces human responsibility.',
+    'distinction_note', public._hsracbp184_distinction_note(), 'humanity_shared_resilience_adaptive_capacity_score', v_metrics->'humanity_shared_resilience_adaptive_capacity_score',
     'executive_reviews_count', v_metrics->'executive_reviews_count', 'reflections_count', v_metrics->'reflections_count',
-    'learning_notes_count', v_metrics->'learning_notes_count', 'active_reflections_count', v_metrics->'active_reflections_count', 'era_phases_count', v_metrics->'era_phases_count',
-    'executive_reviews', coalesce((select jsonb_agg(jsonb_build_object('id',r.id,'review_key',r.review_key,'review_type',r.review_type,'title',r.title,'summary',r.summary,'status',r.status,'readiness_signal',r.readiness_signal,'captured_at',r.captured_at) order by r.captured_at desc) from public.humanity_collective_wisdom_shared_learning_reviews r where r.tenant_id = v_tenant_id), '[]'::jsonb),
-    'reflections', coalesce((select jsonb_agg(jsonb_build_object('id',b.id,'reflection_key',b.reflection_key,'reflection_type',b.reflection_type,'title',b.title,'reflection_summary',b.reflection_summary,'status',b.status,'created_at',b.created_at) order by b.created_at desc) from public.humanity_collective_wisdom_shared_learning_reflections b where b.tenant_id = v_tenant_id), '[]'::jsonb),
-    'scaffold_notes', coalesce((select jsonb_agg(jsonb_build_object('id',s.id,'note_key',s.note_key,'note_type',s.note_type,'title',s.title,'summary',s.summary,'status',s.status,'created_at',s.created_at) order by s.created_at) from public.humanity_collective_wisdom_shared_learning_learning_notes s where s.tenant_id = v_tenant_id), '[]'::jsonb),
-    'integration_links', public._hcwslbp182_integration_links(), 'era_opener_summary', public._hcwslbp182_era_opener_summary(),
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 182 — Human Hope & Collective Wisdom Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE182_HUMANITY_COLLECTIVE_WISDOM_SHARED_LEARNING_ENGINE.md', 'route', '/app/collective-wisdom-shared-learning-engine'),
-    'humanity_collective_wisdom_shared_learning_blueprint', public._hcwslbp182_blueprint_block(v_tenant_id), 'humanity_collective_wisdom_shared_learning_mission', public._hcwslbp182_mission(), 'humanity_collective_wisdom_shared_learning_philosophy', public._hcwslbp182_philosophy(),
-    'humanity_collective_wisdom_shared_learning_abos_principle', public._hcwslbp182_abos_principle(), 'humanity_collective_wisdom_shared_learning_objectives', public._hcwslbp182_objectives(),
-    'center_meta', public._hcwslbp182_agency_center(), 'engine_meta', public._hcwslbp182_human_agency_engine(), 'framework_meta', public._hcwslbp182_responsible_autonomy_framework(),
-    'executive_reviews_meta', public._hcwslbp182_executive_agency_reviews(), 'companion_meta', public._hcwslbp182_agency_companion(), 'sub_engine_meta', public._hcwslbp182_human_oversight_engine(),
-    'companion_limitations_meta', public._hcwslbp182_companion_limitations(), 'self_love_connection_meta', public._hcwslbp182_self_love_connection(),
-    'security_requirements_meta', public._hcwslbp182_security_requirements(), 'haarbp176_integration_links', public._hcwslbp182_integration_links(),
-    'haarbp176_era_opener_summary', public._hcwslbp182_era_opener_summary(), 'humanity_collective_wisdom_shared_learning_engagement_summary', public._hcwslbp182_engagement_summary(v_tenant_id),
-    'humanity_collective_wisdom_shared_learning_success_criteria', public._hcwslbp182_success_criteria(v_tenant_id), 'humanity_collective_wisdom_shared_learning_vision', public._hcwslbp182_vision(), 'humanity_collective_wisdom_shared_learning_vision_phrases', public._hcwslbp182_vision_phrases(),
-    'humanity_collective_wisdom_shared_learning_privacy_note', public._hcwslbp182_privacy_note(), 'humanity_collective_wisdom_shared_learning_dogfooding', public._hcwslbp182_dogfooding(), 'humanity_collective_wisdom_shared_learning_engine_note', 'Phase 182 Human Hope & Collective Wisdom Engine — cross-link only for related engines.');
+    'resilience_notes_count', v_metrics->'resilience_notes_count', 'active_reflections_count', v_metrics->'active_reflections_count', 'era_phases_count', v_metrics->'era_phases_count',
+    'executive_reviews', coalesce((select jsonb_agg(jsonb_build_object('id',r.id,'review_key',r.review_key,'review_type',r.review_type,'title',r.title,'summary',r.summary,'status',r.status,'readiness_signal',r.readiness_signal,'captured_at',r.captured_at) order by r.captured_at desc) from public.humanity_shared_resilience_adaptive_capacity_reviews r where r.tenant_id = v_tenant_id), '[]'::jsonb),
+    'reflections', coalesce((select jsonb_agg(jsonb_build_object('id',b.id,'reflection_key',b.reflection_key,'reflection_type',b.reflection_type,'title',b.title,'reflection_summary',b.reflection_summary,'status',b.status,'created_at',b.created_at) order by b.created_at desc) from public.humanity_shared_resilience_adaptive_capacity_reflections b where b.tenant_id = v_tenant_id), '[]'::jsonb),
+    'scaffold_notes', coalesce((select jsonb_agg(jsonb_build_object('id',s.id,'note_key',s.note_key,'note_type',s.note_type,'title',s.title,'summary',s.summary,'status',s.status,'created_at',s.created_at) order by s.created_at) from public.humanity_shared_resilience_adaptive_capacity_resilience_notes s where s.tenant_id = v_tenant_id), '[]'::jsonb),
+    'integration_links', public._hsracbp184_integration_links(), 'era_opener_summary', public._hsracbp184_era_opener_summary(),
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 184 — Human Hope & Shared Resilience & Adaptive Capacity Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE182_HUMANITY_COLLECTIVE_WISDOM_SHARED_LEARNING_ENGINE.md', 'route', '/app/collective-wisdom-shared-learning-engine'),
+    'humanity_shared_resilience_adaptive_capacity_blueprint', public._hsracbp184_blueprint_block(v_tenant_id), 'humanity_shared_resilience_adaptive_capacity_mission', public._hsracbp184_mission(), 'humanity_shared_resilience_adaptive_capacity_philosophy', public._hsracbp184_philosophy(),
+    'humanity_shared_resilience_adaptive_capacity_abos_principle', public._hsracbp184_abos_principle(), 'humanity_shared_resilience_adaptive_capacity_objectives', public._hsracbp184_objectives(),
+    'center_meta', public._hsracbp184_agency_center(), 'engine_meta', public._hsracbp184_human_agency_engine(), 'framework_meta', public._hsracbp184_responsible_autonomy_framework(),
+    'executive_reviews_meta', public._hsracbp184_executive_agency_reviews(), 'companion_meta', public._hsracbp184_agency_companion(), 'sub_engine_meta', public._hsracbp184_human_oversight_engine(),
+    'companion_limitations_meta', public._hsracbp184_companion_limitations(), 'self_love_connection_meta', public._hsracbp184_self_love_connection(),
+    'security_requirements_meta', public._hsracbp184_security_requirements(), 'haarbp176_integration_links', public._hsracbp184_integration_links(),
+    'haarbp176_era_opener_summary', public._hsracbp184_era_opener_summary(), 'humanity_shared_resilience_adaptive_capacity_engagement_summary', public._hsracbp184_engagement_summary(v_tenant_id),
+    'humanity_shared_resilience_adaptive_capacity_success_criteria', public._hsracbp184_success_criteria(v_tenant_id), 'humanity_shared_resilience_adaptive_capacity_vision', public._hsracbp184_vision(), 'humanity_shared_resilience_adaptive_capacity_vision_phrases', public._hsracbp184_vision_phrases(),
+    'humanity_shared_resilience_adaptive_capacity_privacy_note', public._hsracbp184_privacy_note(), 'humanity_shared_resilience_adaptive_capacity_dogfooding', public._hsracbp184_dogfooding(), 'humanity_shared_resilience_adaptive_capacity_engine_note', 'Phase 184 Human Hope & Shared Resilience & Adaptive Capacity Engine — cross-link only for related engines.');
 end; $$;
 
 insert into public.aipify_knowledge_categories (slug, name, description, visibility, sort_order)
-select 'collective-wisdom-shared-learning-engine', 'Human Hope & Collective Wisdom Engine', 'Collective Wisdom Center — Cosmic Stewardship Era (171–180). People First.', 'authenticated', 186
+select 'collective-wisdom-shared-learning-engine', 'Human Hope & Shared Resilience & Adaptive Capacity Engine', 'Shared Resilience & Adaptive Capacity Center — Cosmic Stewardship Era (171–180). People First.', 'authenticated', 186
 where not exists (select 1 from public.aipify_knowledge_categories where slug = 'collective-wisdom-shared-learning-engine' and tenant_id is null);
 
-grant execute on function public.get_humanity_collective_wisdom_shared_learning_engine_card(uuid) to authenticated;
-grant execute on function public.get_humanity_collective_wisdom_shared_learning_engine_dashboard(uuid) to authenticated;
+grant execute on function public.get_humanity_shared_resilience_adaptive_capacity_engine_card(uuid) to authenticated;
+grant execute on function public.get_humanity_shared_resilience_adaptive_capacity_engine_dashboard(uuid) to authenticated;
 grant execute on function public.record_executive_hope_review(text, text, text, uuid) to authenticated;
 grant execute on function public.record_hope_reflection(text, text, text, uuid) to authenticated;

@@ -87,6 +87,9 @@ export type AppNavId =
   | "humanLegacyEternalStewardshipEngine"
   | "universalStewardshipSharedFuturesEngine"
   | "collectiveWisdomSharedLearningEngine"
+  | "sharedGratitudeAppreciativeStewardshipEngine"
+  | "sharedCourageResponsibleActionEngine"
+  | "sharedCompassionReciprocalCareEngine"
   | "businessPacksFoundationEngine"
   | "industryIntelligenceFoundationEngine"
   | "marketplacePartnerEcosystemFoundationEngine"
@@ -547,6 +550,36 @@ export const APP_NAV: AppNavItem[] = [
     id: "collectiveWisdomSharedLearningEngine",
     href: "/app/collective-wisdom-shared-learning-engine",
     labelKey: "customerApp.nav.collectiveWisdomSharedLearningEngine",
+  },
+  {
+    id: "sharedPurposeContributionEngine",
+    href: "/app/shared-purpose-contribution-engine",
+    labelKey: "customerApp.nav.sharedPurposeContributionEngine",
+  },
+  {
+    id: "sharedResilienceAdaptiveCapacityEngine",
+    href: "/app/shared-resilience-adaptive-capacity-engine",
+    labelKey: "customerApp.nav.sharedResilienceAdaptiveCapacityEngine",
+  },
+  {
+    id: "sharedTrustCooperativeIntelligenceEngine",
+    href: "/app/shared-trust-cooperative-intelligence-engine",
+    labelKey: "customerApp.nav.sharedTrustCooperativeIntelligenceEngine",
+  },
+  {
+    id: "sharedCompassionReciprocalCareEngine",
+    href: "/app/shared-compassion-reciprocal-care-engine",
+    labelKey: "customerApp.nav.sharedCompassionReciprocalCareEngine",
+  },
+  {
+    id: "sharedCourageResponsibleActionEngine",
+    href: "/app/shared-courage-responsible-action-engine",
+    labelKey: "customerApp.nav.sharedCourageResponsibleActionEngine",
+  },
+  {
+    id: "sharedGratitudeAppreciativeStewardshipEngine",
+    href: "/app/shared-gratitude-appreciative-stewardship-engine",
+    labelKey: "customerApp.nav.sharedGratitudeAppreciativeStewardshipEngine",
   },
   {
     id: "businessPacksFoundationEngine",
@@ -1229,6 +1262,15 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/collective-wisdom-shared-learning-engine")) {
     return "collectiveWisdomSharedLearningEngine";
+  }
+  if (pathname.startsWith("/app/shared-gratitude-appreciative-stewardship-engine")) {
+    return "sharedGratitudeAppreciativeStewardshipEngine";
+  }
+  if (pathname.startsWith("/app/shared-courage-responsible-action-engine")) {
+    return "sharedCourageResponsibleActionEngine";
+  }
+  if (pathname.startsWith("/app/shared-compassion-reciprocal-care-engine")) {
+    return "sharedCompassionReciprocalCareEngine";
   }
   if (pathname.startsWith("/app/executive")) return "executive";
   if (
