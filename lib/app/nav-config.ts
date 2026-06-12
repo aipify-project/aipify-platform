@@ -70,6 +70,11 @@ export type AppNavId =
   | "civilizationalCoordinationEngine"
   | "constructiveDialogueEngine"
   | "sharedProsperityEngine"
+  | "socialCohesionEngine"
+  | "humanFlourishingEngine"
+  | "multiGenerationalFuturesEngine"
+  | "intergenerationalGuardianshipEngine"
+  | "humanIdentityMeaningEngine"
   | "businessPacksFoundationEngine"
   | "industryIntelligenceFoundationEngine"
   | "marketplacePartnerEcosystemFoundationEngine"
@@ -455,6 +460,36 @@ export const APP_NAV: AppNavItem[] = [
     id: "sharedProsperityEngine",
     href: "/app/shared-prosperity-engine",
     labelKey: "customerApp.nav.sharedProsperityEngine",
+  },
+  {
+    id: "constructiveDialogueEngine",
+    href: "/app/constructive-dialogue-engine",
+    labelKey: "customerApp.nav.constructiveDialogueEngine",
+  },
+  {
+    id: "socialCohesionEngine",
+    href: "/app/social-cohesion-engine",
+    labelKey: "customerApp.nav.socialCohesionEngine",
+  },
+  {
+    id: "humanFlourishingEngine",
+    href: "/app/human-flourishing-engine",
+    labelKey: "customerApp.nav.humanFlourishingEngine",
+  },
+  {
+    id: "multiGenerationalFuturesEngine",
+    href: "/app/multi-generational-futures-engine",
+    labelKey: "customerApp.nav.multiGenerationalFuturesEngine",
+  },
+  {
+    id: "intergenerationalGuardianshipEngine",
+    href: "/app/intergenerational-guardianship-engine",
+    labelKey: "customerApp.nav.intergenerationalGuardianshipEngine",
+  },
+  {
+    id: "humanIdentityMeaningEngine",
+    href: "/app/human-identity-meaning-engine",
+    labelKey: "customerApp.nav.humanIdentityMeaningEngine",
   },
   {
     id: "businessPacksFoundationEngine",
@@ -1078,8 +1113,29 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/civilizational-learning-engine")) {
     return "civilizationalLearningEngine";
   }
+  if (pathname.startsWith("/app/civilizational-coordination-engine")) {
+    return "civilizationalCoordinationEngine";
+  }
   if (pathname.startsWith("/app/shared-prosperity-engine")) {
     return "sharedProsperityEngine";
+  }
+  if (pathname.startsWith("/app/constructive-dialogue-engine")) {
+    return "constructiveDialogueEngine";
+  }
+  if (pathname.startsWith("/app/social-cohesion-engine")) {
+    return "socialCohesionEngine";
+  }
+  if (pathname.startsWith("/app/human-flourishing-engine")) {
+    return "humanFlourishingEngine";
+  }
+  if (pathname.startsWith("/app/multi-generational-futures-engine")) {
+    return "multiGenerationalFuturesEngine";
+  }
+  if (pathname.startsWith("/app/intergenerational-guardianship-engine")) {
+    return "intergenerationalGuardianshipEngine";
+  }
+  if (pathname.startsWith("/app/human-identity-meaning-engine")) {
+    return "humanIdentityMeaningEngine";
   }
   if (pathname.startsWith("/app/executive")) return "executive";
   if (

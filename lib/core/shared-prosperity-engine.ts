@@ -16,7 +16,7 @@ export const SHARED_PROSPERITY_MATURITY_STAGES = [
 ] as const;
 export type SharedProsperityMaturityStage = (typeof SHARED_PROSPERITY_MATURITY_STAGES)[number];
 
-export const STEWARDSHIP_REVIEW_TYPES = [
+export const SHARED_PROSPERITY_STEWARDSHIP_REVIEW_TYPES = [
   "who_benefits",
   "unintentional_exclusion",
   "accessible_opportunity",
@@ -24,7 +24,8 @@ export const STEWARDSHIP_REVIEW_TYPES = [
   "legacy_creating",
   "companion_stewardship",
 ] as const;
-export type StewardshipReviewType = (typeof STEWARDSHIP_REVIEW_TYPES)[number];
+export type SharedProsperityStewardshipReviewType =
+  (typeof SHARED_PROSPERITY_STEWARDSHIP_REVIEW_TYPES)[number];
 
 export const OPPORTUNITY_INITIATIVE_TYPES = [
   "mentorship",
