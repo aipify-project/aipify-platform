@@ -16,7 +16,7 @@
 | API | `/api/aipify/identity-permissions/*`, `/api/identity/*` |
 | UI | `/app/identity-access` |
 | ILM | `aipify-core/knowledge/internal-language-model/implementation-blueprint-phase2-user-role-permission.txt` |
-| KC FAQ | `content/knowledge/aipify/identity-permissions/faq/identity-permissions-faq.md`, `implementation-blueprint-phase2-faq.md` |
+| KC FAQ | `content/knowledge/aipify/identity-permissions/faq/identity-permissions-faq.md`, `implementation-blueprint-phase2-faq.md`, `content/knowledge/aipify/security/faq/two-factor-authentication-faq.md` |
 
 ## Core components
 
@@ -29,7 +29,7 @@
 7. **Approval Engine** — low (auto), medium (human), high (owner/admin)
 8. **AI Risk Classification** — low / medium / high action categories
 9. **Session Security** — `identity_sessions`, revoke all devices
-10. **MFA Readiness** — architecture for authenticator, email, SMS, passkeys
+10. **MFA Readiness** — architecture for authenticator, email, SMS, passkeys. **Shipped (TOTP + recovery):** [AIPIFY_SECURITY_IMPLEMENTATION_TWO_FACTOR_AUTHENTICATION.md](./AIPIFY_SECURITY_IMPLEMENTATION_TWO_FACTOR_AUTHENTICATION.md) — `/app/settings/two-factor`, `/verify-2fa`, `lib/auth/two-factor/`, migration `20261202000000_two_factor_authentication_system.sql`.
 
 ## Permission evaluation order
 
