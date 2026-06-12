@@ -203,6 +203,8 @@ export * from "./implementation-blueprint-phase199-vocabulary";
 export * from "./implementation-blueprint-phase200-vocabulary";
 export * from "./implementation-blueprint-phase204-vocabulary";
 export * from "./implementation-blueprint-phase205-vocabulary";
+export * from "./implementation-blueprint-phase208-vocabulary";
+export * from "./implementation-blueprint-phase206-vocabulary";
 export * from "./implementation-blueprint-phase202-vocabulary";
 export * from "./implementation-blueprint-phase201-vocabulary";
 export * from "./implementation-blueprint-phase203-vocabulary";
@@ -839,6 +841,10 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE204_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase204-aipify-knowledge-discovery-intelligent-search.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE205_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase205-aipify-action-center-execution.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE208_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase208-aipify-operations-orchestration.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE206_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase206-aipify-meeting-intelligence-follow-up.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE202_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase202-aipify-unified-workspace.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE201_CORPUS =

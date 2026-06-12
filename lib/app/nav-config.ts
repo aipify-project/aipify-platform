@@ -100,6 +100,8 @@ export type AppNavId =
   | "aipifyExecutiveOperatingSystemFoundersCockpitEngine"
   | "aipifyKnowledgeDiscoveryIntelligentSearchEngine"
   | "aipifyActionCenterExecutionEngine"
+  | "aipifyOperationsOrchestrationEngine"
+  | "aipifyMeetingIntelligenceFollowUpEngine"
   | "aipifyUnifiedWorkspaceEngine"
   | "aipifyGlobalCommandCenterEngine"
   | "aipifyDigitalHeadquartersEngine"
@@ -656,6 +658,16 @@ export const APP_NAV: AppNavItem[] = [
     id: "aipifyActionCenterExecutionEngine",
     href: "/app/aipify-action-center-execution-engine",
     labelKey: "customerApp.nav.aipifyActionCenterExecutionEngine",
+  },
+  {
+    id: "aipifyOperationsOrchestrationEngine",
+    href: "/app/aipify-operations-orchestration-engine",
+    labelKey: "customerApp.nav.aipifyOperationsOrchestrationEngine",
+  },
+  {
+    id: "aipifyMeetingIntelligenceFollowUpEngine",
+    href: "/app/aipify-meeting-intelligence-follow-up-engine",
+    labelKey: "customerApp.nav.aipifyMeetingIntelligenceFollowUpEngine",
   },
   {
     id: "aipifyUnifiedWorkspaceEngine",
@@ -1397,6 +1409,12 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/aipify-action-center-execution-engine")) {
     return "aipifyActionCenterExecutionEngine";
+  }
+  if (pathname.startsWith("/app/aipify-operations-orchestration-engine")) {
+    return "aipifyOperationsOrchestrationEngine";
+  }
+  if (pathname.startsWith("/app/aipify-meeting-intelligence-follow-up-engine")) {
+    return "aipifyMeetingIntelligenceFollowUpEngine";
   }
   if (pathname.startsWith("/app/aipify-unified-workspace-engine")) {
     return "aipifyUnifiedWorkspaceEngine";

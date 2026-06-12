@@ -6958,7 +6958,9 @@
     "aipifyUnifiedWorkspaceEngine": "Unified Workspace",
     "aipifyKnowledgeDiscoveryIntelligentSearchEngine": "Knowledge Discovery",
     "aipifyExecutiveOperatingSystemFoundersCockpitEngine": "Executive Cockpit",
-    "aipifyActionCenterExecutionEngine": "Action Center"
+    "aipifyActionCenterExecutionEngine": "Action Center",
+    "aipifyMeetingIntelligenceFollowUpEngine": "Meeting Follow-Up",
+    "aipifyOperationsOrchestrationEngine": "Operations Orchestration"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -11938,6 +11940,74 @@
     "phase205": {
       "mission": "Execution Companion supports action tracking — humans retain approval authority for sensitive actions.",
       "philosophy": "People First. Metadata-only action scaffolds. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
+    }
+  },
+  "aipifyMeetingIntelligenceFollowUpEngine": {
+    "title": "Meeting Follow-Up Dashboard",
+    "subtitle": "Global Command & Enterprise Operations Era (201–210). Meeting Companion supports meeting summaries, action extraction, and consent controls. Metadata/summaries only — does NOT store raw transcripts without policy or include PII in audit payloads. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Meeting Intelligence & Follow-Up dashboard…",
+    "engineTitle": "Aipify Meeting Intelligence & Follow-Up Engine (Phase 206)",
+    "scoreLabel": "Follow-up score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Follow-up readiness level",
+    "executiveReviews": "Leadership briefing reviews",
+    "activeReflections": "Active reflections",
+    "humanOversightRequired": "Human oversight required — humans decide what to capture; Meeting Companion supports only",
+    "eraOpenerSummary": "Global Command Era — Phases 201–210",
+    "eraOpenerNote": "Cross-link only — do not duplicate Action Center RPCs.",
+    "centerLabel": "Meeting Follow-Up Dashboard capabilities",
+    "engineLabel": "Meeting reflection engine — reflection prompts",
+    "frameworkLabel": "Follow-up framework",
+    "reviewsLabel": "Leadership briefing reviews",
+    "companionLabel": "Meeting Companion — supports, does not bypass consent",
+    "subEngineLabel": "Action Item Extractor",
+    "reflections": "Meeting reflection scaffolds",
+    "executiveReviewEntries": "Briefing review entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 206)",
+    "companionLimitations": "Meeting Companion limitations — does NOT store raw transcripts without policy or include PII in audit payloads",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase206": {
+      "mission": "Meeting Companion supports meeting follow-up — humans retain capture and sharing authority.",
+      "philosophy": "People First. Metadata/summaries only. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
+    }
+  },
+  "aipifyOperationsOrchestrationEngine": {
+    "title": "Operations Command Dashboard",
+    "subtitle": "Global Command & Enterprise Operations Era (201–210). Operations Companion supports workflow visibility, dependency alerts, and escalation guidance. Supports humans — does NOT auto-execute workflows or override escalation governance. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Operations Orchestration dashboard…",
+    "engineTitle": "Aipify Operations Orchestration Engine (Phase 208)",
+    "scoreLabel": "Operations score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Operational coordination level",
+    "executiveReviews": "Executive operations reviews",
+    "activeReflections": "Active reflections",
+    "humanOversightRequired": "Human oversight required — humans coordinate operational decisions; Operations Companion supports only",
+    "eraOpenerSummary": "Global Command Era — Phases 201–210",
+    "eraOpenerNote": "Cross-link only — do not duplicate action center or decision center RPCs.",
+    "centerLabel": "Operations Command Dashboard capabilities",
+    "engineLabel": "Operations reflection engine — reflection prompts",
+    "frameworkLabel": "Operations framework",
+    "reviewsLabel": "Executive operations reviews",
+    "companionLabel": "Operations Companion — supports, does not auto-execute",
+    "subEngineLabel": "Workflow Visibility Center",
+    "reflections": "Operations reflection scaffolds",
+    "executiveReviewEntries": "Operations review entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 208)",
+    "companionLimitations": "Operations Companion limitations — does NOT auto-execute workflows or override escalation governance",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase208": {
+      "mission": "Operations Companion supports operational visibility — humans retain coordination authority for operational changes.",
+      "philosophy": "People First. Metadata-only operations scaffolds. Growth Partner terminology — never Affiliate.",
       "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
     }
   }
