@@ -361,7 +361,46 @@
     "quickActive": "Active",
     "quickPaused": "Paused",
     "quickCancelled": "Cancelled",
-    "days": "days"
+    "days": "days",
+    "filterWorkspaceType": "All workspace types",
+    "filterVerification": "All verification",
+    "filterEnterprise": "Enterprise candidate",
+    "owner": "Owner",
+    "phone": "Phone",
+    "organizationNumber": "Org / VAT",
+    "industry": "Industry",
+    "workspaceType": "Workspace type",
+    "verification": "Verification",
+    "twoFactor": "2FA",
+    "growthPartner": "Growth Partner",
+    "employeeSize": "Employees",
+    "website": "Website",
+    "enterprise": "Enterprise",
+    "workspaceTypeLabels": {
+      "company": "Company",
+      "growth_partner": "Growth Partner",
+      "consultant": "Consultant",
+      "freelancer": "Freelancer",
+      "internal_team_pilot": "Internal pilot"
+    },
+    "verificationLabels": {
+      "pending": "Pending",
+      "verified": "Verified",
+      "rejected": "Rejected"
+    },
+    "twoFactorLabels": {
+      "enabled": "Enabled",
+      "skipped": "Skipped",
+      "not_enabled": "Not enabled"
+    },
+    "growthPartnerLabels": {
+      "eligible": "Eligible",
+      "standard": "Standard"
+    },
+    "enterpriseLabels": {
+      "yes": "Yes",
+      "no": "No"
+    }
   },
   "customerDetail": {
     "back": "Back to customers",

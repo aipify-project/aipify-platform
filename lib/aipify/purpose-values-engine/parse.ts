@@ -18,6 +18,8 @@ import type {
   PrivacyPrinciples,
   PurposeDiscovery,
   PurposeFrameworkItem,
+  OrganizationalPurposeAlignmentBlueprint,
+  PurposeAlignmentEngagementSummary,
   PurposeValuesCulturalAlignmentBlueprint,
   PurposeValuesEngineCard,
   PurposeValuesEngineDashboard,
@@ -100,6 +102,18 @@ function parseCulturalAlignmentBlueprint(data: unknown): PurposeValuesCulturalAl
   return data as PurposeValuesCulturalAlignmentBlueprint;
 }
 
+function parsePurposeAlignmentEngagementSummary(data: unknown): PurposeAlignmentEngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as PurposeAlignmentEngagementSummary;
+}
+
+function parseOrganizationalPurposeAlignmentBlueprint(
+  data: unknown
+): OrganizationalPurposeAlignmentBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as OrganizationalPurposeAlignmentBlueprint;
+}
+
 export function parsePurposeValuesEngineCard(data: unknown): PurposeValuesEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
   return {
@@ -126,6 +140,17 @@ export function parsePurposeValuesEngineCard(data: unknown): PurposeValuesEngine
       typeof d.cultural_alignment_note === "string" ? d.cultural_alignment_note : undefined,
     cultural_alignment_vision_note:
       typeof d.cultural_alignment_vision_note === "string" ? d.cultural_alignment_vision_note : undefined,
+    implementation_blueprint_phase138: parseBlueprintMeta(d.implementation_blueprint_phase138),
+    purpose_alignment_mission:
+      typeof d.purpose_alignment_mission === "string" ? d.purpose_alignment_mission : undefined,
+    purpose_alignment_abos_principle:
+      typeof d.purpose_alignment_abos_principle === "string" ? d.purpose_alignment_abos_principle : undefined,
+    purpose_alignment_engagement_summary: parsePurposeAlignmentEngagementSummary(
+      d.purpose_alignment_engagement_summary
+    ),
+    purpose_alignment_note: typeof d.purpose_alignment_note === "string" ? d.purpose_alignment_note : undefined,
+    purpose_alignment_vision_note:
+      typeof d.purpose_alignment_vision_note === "string" ? d.purpose_alignment_vision_note : undefined,
     ...d,
   } as PurposeValuesEngineCard;
 }
@@ -278,6 +303,91 @@ export function parsePurposeValuesEngineDashboard(data: unknown): PurposeValuesE
       : undefined,
     cultural_alignment_privacy_note:
       typeof d.cultural_alignment_privacy_note === "string" ? d.cultural_alignment_privacy_note : undefined,
+    implementation_blueprint_phase138: parseBlueprintMeta(d.implementation_blueprint_phase138),
+    organizational_purpose_alignment_note:
+      typeof d.organizational_purpose_alignment_note === "string"
+        ? d.organizational_purpose_alignment_note
+        : undefined,
+    organizational_purpose_alignment_blueprint: parseOrganizationalPurposeAlignmentBlueprint(
+      d.organizational_purpose_alignment_blueprint
+    ),
+    purpose_alignment_distinction_note:
+      typeof d.purpose_alignment_distinction_note === "string" ? d.purpose_alignment_distinction_note : undefined,
+    purpose_alignment_mission:
+      typeof d.purpose_alignment_mission === "string" ? d.purpose_alignment_mission : undefined,
+    purpose_alignment_philosophy:
+      typeof d.purpose_alignment_philosophy === "string" ? d.purpose_alignment_philosophy : undefined,
+    purpose_alignment_abos_principle:
+      typeof d.purpose_alignment_abos_principle === "string" ? d.purpose_alignment_abos_principle : undefined,
+    purpose_alignment_objectives: parseRecordList<BlueprintObjective>(d.purpose_alignment_objectives),
+    purpose_alignment_center:
+      typeof d.purpose_alignment_center === "object" && d.purpose_alignment_center
+        ? (d.purpose_alignment_center as PurposeValuesEngineDashboard["purpose_alignment_center"])
+        : undefined,
+    purpose_alignment_values_framework:
+      typeof d.purpose_alignment_values_framework === "object" && d.purpose_alignment_values_framework
+        ? (d.purpose_alignment_values_framework as PurposeValuesEngineDashboard["purpose_alignment_values_framework"])
+        : undefined,
+    purpose_alignment_review_engine:
+      typeof d.purpose_alignment_review_engine === "object" && d.purpose_alignment_review_engine
+        ? (d.purpose_alignment_review_engine as PurposeValuesEngineDashboard["purpose_alignment_review_engine"])
+        : undefined,
+    purpose_alignment_companion:
+      typeof d.purpose_alignment_companion === "object" && d.purpose_alignment_companion
+        ? (d.purpose_alignment_companion as PurposeValuesEngineDashboard["purpose_alignment_companion"])
+        : undefined,
+    purpose_alignment_culture_health:
+      typeof d.purpose_alignment_culture_health === "object" && d.purpose_alignment_culture_health
+        ? (d.purpose_alignment_culture_health as PurposeValuesEngineDashboard["purpose_alignment_culture_health"])
+        : undefined,
+    purpose_alignment_integration_framework:
+      typeof d.purpose_alignment_integration_framework === "object" && d.purpose_alignment_integration_framework
+        ? (d.purpose_alignment_integration_framework as PurposeValuesEngineDashboard["purpose_alignment_integration_framework"])
+        : undefined,
+    purpose_alignment_values_memory_engine:
+      typeof d.purpose_alignment_values_memory_engine === "object" && d.purpose_alignment_values_memory_engine
+        ? (d.purpose_alignment_values_memory_engine as PurposeValuesEngineDashboard["purpose_alignment_values_memory_engine"])
+        : undefined,
+    purpose_alignment_companion_limitations:
+      typeof d.purpose_alignment_companion_limitations === "object" && d.purpose_alignment_companion_limitations
+        ? (d.purpose_alignment_companion_limitations as PurposeValuesEngineDashboard["purpose_alignment_companion_limitations"])
+        : undefined,
+    purpose_alignment_self_love_connection:
+      typeof d.purpose_alignment_self_love_connection === "object" && d.purpose_alignment_self_love_connection
+        ? (d.purpose_alignment_self_love_connection as SelfLoveConnection)
+        : undefined,
+    purpose_alignment_executive_reviews:
+      typeof d.purpose_alignment_executive_reviews === "object" && d.purpose_alignment_executive_reviews
+        ? (d.purpose_alignment_executive_reviews as PurposeValuesEngineDashboard["purpose_alignment_executive_reviews"])
+        : undefined,
+    purpose_alignment_security_requirements:
+      typeof d.purpose_alignment_security_requirements === "object" && d.purpose_alignment_security_requirements
+        ? (d.purpose_alignment_security_requirements as PurposeValuesEngineDashboard["purpose_alignment_security_requirements"])
+        : undefined,
+    purpose_alignment_dogfooding:
+      typeof d.purpose_alignment_dogfooding === "object" && d.purpose_alignment_dogfooding
+        ? (d.purpose_alignment_dogfooding as DogfoodingBlueprint)
+        : undefined,
+    purpose_alignment_integration_links: parseRecordList<IntegrationLink>(d.purpose_alignment_integration_links),
+    purpose_alignment_era_cross_links: parseRecordList<{ phase?: string; label?: string; route?: string; status?: string }>(
+      d.purpose_alignment_era_cross_links
+    ),
+    purpose_alignment_engagement_summary: parsePurposeAlignmentEngagementSummary(
+      d.purpose_alignment_engagement_summary
+    ),
+    purpose_alignment_success_criteria: parseRecordList<AbosSuccessCriterion>(
+      d.purpose_alignment_success_criteria
+    ),
+    purpose_alignment_vision:
+      typeof d.purpose_alignment_vision === "string" ? d.purpose_alignment_vision : undefined,
+    purpose_alignment_vision_phrases: Array.isArray(d.purpose_alignment_vision_phrases)
+      ? (d.purpose_alignment_vision_phrases as string[])
+      : undefined,
+    purpose_alignment_privacy_note:
+      typeof d.purpose_alignment_privacy_note === "string" ? d.purpose_alignment_privacy_note : undefined,
+    alignment_reviews: parseRecordList(d.alignment_reviews),
+    values_memory_entries: parseRecordList(d.values_memory_entries),
+    culture_health_snapshots: parseRecordList(d.culture_health_snapshots),
     ...d,
   } as PurposeValuesEngineDashboard;
 }

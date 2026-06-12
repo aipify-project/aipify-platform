@@ -1,0 +1,26 @@
+Ecosystem Governance & Certification Engine — Phase 119
+Route: /app/ecosystem-governance
+
+Mission: Steward ecosystem trust through standards, certification oversight, and responsible governance.
+
+Philosophy: Governance guides — not controls. People First. Stewardship through responsibility. Standards build confidence — not bureaucracy.
+
+ABOS principle: Ecosystem Governance Center orchestrates certification oversight ecosystem-wide. Domain RPCs at /app/partners and /app/marketplace-governance remain authoritative. Voluntary participation.
+
+Distinction: NOT Marketplace Governance repo Phase 90 /app/marketplace-governance (marketplace QA subset). NOT Partner Certification Phase 91 /app/partners (authoritative GP tiers — cross-link _pce_tier_label()). Blueprint Phase 90 = Continuous Improvement /app/continuous-improvement-engine — different phase number.
+
+Certification programs: Growth Partners, Companion Publishers, Training Providers, Implementation Specialists, Governance Advisors, Executive Advisors, Commerce Specialists, Knowledge Leaders, Support Specialists, Community Facilitators.
+
+GP levels: Registered, Certified, Advanced, Strategic, Enterprise, Global — mapped to _pce_tier_label() without renaming DB seeds.
+
+Companion assessment: Safety controls, governance alignment, documentation, UX, permission transparency, knowledge accuracy, operational reliability, escalation frameworks — trust not gatekeeping.
+
+Maintenance: Continuing education, governance training, periodic assessments, customer outcome reviews, knowledge contributions, operational reviews — failure triggers review not punishment.
+
+Trust badges: Commitment not superiority — Certified GP, Certified Companion, Governance Steward, Knowledge Leader, Executive Advisor, Support Excellence.
+
+Self Love: Reflection, education, coaching, accountability with compassion — help people succeed not create fear. Cross-link /app/self-love-engine.
+
+Security: 2FA cross-link /app/settings/two-factor — audit logging, RBAC, evidence preservation.
+
+Cross-links: Growth Partner Ops Phase 114, Companion Marketplace Phase 113, Aipify University Phase 115, Trust Phase 116, Approvals Phase 30, AI Ethics Blueprint 98.

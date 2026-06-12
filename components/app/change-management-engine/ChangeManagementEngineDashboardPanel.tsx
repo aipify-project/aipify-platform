@@ -10,6 +10,7 @@ import {
   type ChangeManagementEngineDashboard,
   type ChangeMilestoneRecord,
   type CompanionGuidanceExample,
+  type TransformationOrchestrationPhase127Blueprint,
 } from "@/lib/aipify/change-management-engine";
 
 type Props = { labels: Record<string, string> };
@@ -59,6 +60,247 @@ function SuccessCriterionRow({
       </span>
       {criterion.note ? <p className="w-full text-xs text-gray-500">{criterion.note}</p> : null}
     </div>
+  );
+}
+
+function Phase127Sections({
+  phase127,
+  phase127Note,
+  labels,
+}: {
+  phase127: TransformationOrchestrationPhase127Blueprint;
+  phase127Note?: string;
+  labels: Record<string, string>;
+}) {
+  const phase127Links = phase127.cross_links ?? [];
+  const companionExamples = phase127.companion_adaptation?.examples ?? [];
+
+  return (
+    <>
+      {phase127Links.length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {phase127Links.map((link) =>
+            link.route ? (
+              <Link key={link.route + (link.key ?? "")} href={link.route} className="rounded-lg border border-teal-200 px-3 py-1.5 text-sm">
+                {link.label ?? link.route}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : null}
+
+      <section className="rounded-xl border border-teal-200 bg-teal-50/50 p-6">
+        <h2 className="text-sm font-semibold text-teal-900">{labels.phase127Title}</h2>
+        {phase127.phase ? <p className="mt-1 text-xs text-teal-700">{phase127.phase}</p> : null}
+        {phase127Note ? <p className="mt-2 text-xs text-teal-700">{phase127Note}</p> : null}
+        {phase127.mission ? <p className="mt-2 text-sm font-medium text-teal-900">{phase127.mission}</p> : null}
+        {phase127.philosophy ? <p className="mt-2 text-sm text-teal-900">{phase127.philosophy}</p> : null}
+        {phase127.abos_principle ? <p className="mt-2 text-xs text-teal-800">{phase127.abos_principle}</p> : null}
+        {phase127.privacy_note ? <p className="mt-2 text-xs text-teal-600">{phase127.privacy_note}</p> : null}
+      </section>
+
+      {phase127.objectives && phase127.objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase127Objectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {phase127.objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase127.orchestration_center && phase127.orchestration_center.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase127OrchestrationCenter}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-3">
+            {phase127.orchestration_center.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase127.roadmap_engine && phase127.roadmap_engine.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase127RoadmapEngine}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {phase127.roadmap_engine.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase127.readiness_engine && phase127.readiness_engine.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase127ReadinessEngine}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {phase127.readiness_engine.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase127.stakeholder_engagement && phase127.stakeholder_engagement.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase127StakeholderEngagement}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {phase127.stakeholder_engagement.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase127.change_companion && phase127.change_companion.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase127ChangeCompanion}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {phase127.change_companion.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase127.communication_orchestration?.principle ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4 text-sm">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase127CommunicationOrchestration}</h3>
+          <p className="mt-2 text-gray-700">{phase127.communication_orchestration.principle}</p>
+          {phase127.communication_orchestration.types && phase127.communication_orchestration.types.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {phase127.communication_orchestration.types.map((item) => (
+                <ObjectiveCard key={item.key ?? item.label} objective={item} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase127.transformation_risk_engine && phase127.transformation_risk_engine.length > 0 ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/40 p-4 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.phase127TransformationRisk}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase127.transformation_risk_engine.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase127.adoption_intelligence?.principle ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4 text-sm">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase127AdoptionIntelligence}</h3>
+          <p className="mt-2 text-gray-700">{phase127.adoption_intelligence.principle}</p>
+          {phase127.adoption_intelligence.indicators && phase127.adoption_intelligence.indicators.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {phase127.adoption_intelligence.indicators.map((item) => (
+                <ObjectiveCard key={item.key ?? item.label} objective={item} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase127.transformation_memory_engine?.principle ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4 text-sm">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase127TransformationMemory}</h3>
+          <p className="mt-2 text-gray-700">{phase127.transformation_memory_engine.principle}</p>
+          {phase127.transformation_memory_engine.captures && phase127.transformation_memory_engine.captures.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {phase127.transformation_memory_engine.captures.map((item) => (
+                <ObjectiveCard key={item.key ?? item.label} objective={item} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase127.companion_limitations && phase127.companion_limitations.length > 0 ? (
+        <section className="rounded-lg border border-red-100 bg-red-50/40 p-4 text-sm text-red-900">
+          <h3 className="text-sm font-semibold">{labels.phase127Limitations}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+            {phase127.companion_limitations.map((item) => (
+              <li key={item.key ?? item.label}>{item.label}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {phase127.self_love_transformation?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.phase127SelfLove}</h3>
+          <p className="mt-2">{phase127.self_love_transformation.principle}</p>
+          {phase127.self_love_transformation.patterns && phase127.self_love_transformation.patterns.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-3">
+              {phase127.self_love_transformation.patterns.map((item) => (
+                <ObjectiveCard key={item.key ?? item.label} objective={item} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase127.knowledge_library && phase127.knowledge_library.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase127KnowledgeLibrary}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {phase127.knowledge_library.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {companionExamples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase127CompanionAdaptation}</h3>
+          {phase127.companion_adaptation?.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{phase127.companion_adaptation.principle}</p>
+          ) : null}
+          <div className="mt-3 space-y-3">
+            {companionExamples.map((example) => (
+              <div key={example.key ?? example.prompt} className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+                <span className="font-medium">
+                  {example.emoji ? `${example.emoji} ` : ""}
+                  {example.prompt}
+                </span>
+                {example.consideration ? <p className="mt-1 text-xs text-gray-600">{example.consideration}</p> : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase127.success_metrics && phase127.success_metrics.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase127SuccessMetrics}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase127.success_metrics.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase127.success_criteria && phase127.success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase127SuccessCriteria}</h3>
+          <div className="mt-3 space-y-2">
+            {phase127.success_criteria.map((criterion) => (
+              <SuccessCriterionRow
+                key={criterion.key ?? criterion.label}
+                criterion={criterion}
+                metLabel={labels.criterionMet}
+                pendingLabel={labels.criterionPending}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+    </>
   );
 }
 
@@ -356,6 +598,14 @@ export function ChangeManagementEngineDashboardPanel({ labels }: Props) {
             ))}
           </ul>
         </section>
+      ) : null}
+
+      {dashboard.implementation_blueprint_phase127 ? (
+        <Phase127Sections
+          phase127={dashboard.implementation_blueprint_phase127}
+          phase127Note={dashboard.transformation_orchestration_phase127_note}
+          labels={labels}
+        />
       ) : null}
 
       {actionError && (

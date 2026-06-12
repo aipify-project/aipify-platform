@@ -1,0 +1,56 @@
+Enterprise Design & Communication Standard — Aipify Internal Language Model Corpus
+
+PURPOSE
+Enterprise-ready design and language for organizations with 50–10,000 employees.
+Fortune 500 operational software influence. Trust infrastructure — not cosmetic polish.
+
+DEFAULT ASSUMPTION
+Audience: 50–10,000 employee organization. Design bar: Microsoft professionalism, Apple simplicity,
+GitHub trust, Stripe clarity, Aipify humanity. Security baseline: 2FA, audit, RBAC expected.
+
+PHILOSOPHY
+People First. Technology Second. Self Love. Wisdom before speed.
+Companionship before replacement. Stewardship through responsibility. Trust earned, never manipulated.
+
+LANGUAGE — DO NOT
+- Create your account / Create account / Sign up (registration)
+- AI Assistant / AI Support / Resolved by AI / bot / copilot (customer-facing)
+- AI chatbot / AI assistant platform / AI automation tool (product category)
+- Affiliate / Affiliate program / Referral partner (use Growth Partner)
+- Slang, memes, emoji spam, fake urgency, guilt-based motivation
+- Get Started Free!!! / Join the revolution / Supercharged AI
+
+LANGUAGE — DO
+- Establish your Aipify Workspace / Establish workspace / Create Aipify Workspace
+- Aipify Companion / Aipify Support / Resolved by Aipify
+- Aipify Business Operating System (ABOS)
+- Growth Partner / Growth Partner Operations Center
+- Aipify recommends / Your Companion can prepare / Awaiting your approval
+- Set up your Aipify Business Operating System in a few guided steps
+
+ONBOARDING
+Registration is workspace establishment — Day One metadata for ABOS, not throwaway signup.
+Premium but not overwhelming. People First. Security step respectful — skip allowed with clear enable path.
+
+SECURITY COPY
+- Two-factor authentication required for organization administrators (where policy applies)
+- Protect your workspace — not "extra security hassle"
+- Audit trail links beside sensitive actions
+- Customer owns data; Aipify owns intelligence layer
+
+GROWTH PARTNER
+Official term: Growth Partner — NEVER Affiliate in product UI, marketing, KC, or Cursor specs.
+
+THE AIPIFY STANDARD (five questions)
+1. Enterprise-ready for 500–10,000 employee orgs?
+2. People First — dignity and human accountability?
+3. Clear and calm — next action obvious without hype?
+4. Trustworthy — security, limits, audit visible and honest?
+5. Distinctly Aipify — ABOS / Companion / workspace language?
+
+GOVERNANCE ORDER
+CORE_FOUNDATION → OPERATING_PRINCIPLES → ENTERPRISE_DESIGN_COMMUNICATION_STANDARD → ARCHITECTURE
+
+CROSS-REF (do not duplicate)
+ABOS_BRAND_TERMINOLOGY_STANDARD.md · AIPIFY_BRANDING_STANDARD_COMPANION_NAMING_POLICY.md
+TRUST_ARCHITECTURE.md · AIPIFY_SECURITY_IMPLEMENTATION_TWO_FACTOR_AUTHENTICATION.md

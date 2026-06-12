@@ -1,0 +1,1 @@
+export { AipifyUniversityDashboardPanel } from "./AipifyUniversityDashboardPanel";

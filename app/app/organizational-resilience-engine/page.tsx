@@ -9,6 +9,8 @@ export default async function OrganizationalResilienceEnginePage() {
   const p = "customerApp.organizationalResilienceEngine";
   const b = `${p}.blueprint.phase81`;
   const r = `${p}.blueprint.phase91`;
+  const c = `${p}.blueprint.phase128`;
+  const s = `${p}.blueprint.phase136`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -77,6 +79,44 @@ export default async function OrganizationalResilienceEnginePage() {
           completedReviews: t(`${r}.completedReviews`),
           recoverySuccessCriteria: t(`${r}.recoverySuccessCriteria`),
           recoveryVisionPhrases: t(`${r}.recoveryVisionPhrases`),
+          phase128Title: t(`${c}.phase128Title`),
+          continuityCompanionObjectives: t(`${c}.continuityCompanionObjectives`),
+          resilienceCenter: t(`${c}.resilienceCenter`),
+          businessContinuityEngine: t(`${c}.businessContinuityEngine`),
+          resilienceAssessment: t(`${c}.resilienceAssessment`),
+          dependencyProtection: t(`${c}.dependencyProtection`),
+          recoveryOrchestration: t(`${c}.recoveryOrchestration`),
+          resilienceCompanionSupports: t(`${c}.resilienceCompanionSupports`),
+          leadershipContinuitySupports: t(`${c}.leadershipContinuitySupports`),
+          resilienceExerciseFramework: t(`${c}.resilienceExerciseFramework`),
+          continuityCompanionAdaptation: t(`${c}.continuityCompanionAdaptation`),
+          continuitySelfLoveConnection: t(`${c}.continuitySelfLoveConnection`),
+          continuityKnowledgeLibrary: t(`${c}.continuityKnowledgeLibrary`),
+          continuityCompanionLimitationPrinciples: t(`${c}.continuityCompanionLimitationPrinciples`),
+          continuityCompanionEngagementSummary: t(`${c}.continuityCompanionEngagementSummary`),
+          continuityCompanionSuccessCriteria: t(`${c}.continuityCompanionSuccessCriteria`),
+          phase136Title: t(`${s}.phase136Title`),
+          selfHealingObjectives: t(`${s}.selfHealingObjectives`),
+          selfHealingOperationsCenter: t(`${s}.selfHealingOperationsCenter`),
+          operationalHealthEngine: t(`${s}.operationalHealthEngine`),
+          recoveryDetectionEngine: t(`${s}.recoveryDetectionEngine`),
+          selfHealingFramework: t(`${s}.selfHealingFramework`),
+          recoveryCompanionSupports: t(`${s}.recoveryCompanionSupports`),
+          incidentLearningEngine: t(`${s}.incidentLearningEngine`),
+          recoveryOrchestrationEngine: t(`${s}.recoveryOrchestrationEngine`),
+          organizationalHealingPrinciples: t(`${s}.organizationalHealingPrinciples`),
+          selfHealingCompanionAdaptation: t(`${s}.selfHealingCompanionAdaptation`),
+          selfHealingSelfLoveConnection: t(`${s}.selfHealingSelfLoveConnection`),
+          selfHealingSecurityRequirements: t(`${s}.selfHealingSecurityRequirements`),
+          selfHealingLimitationPrinciples: t(`${s}.selfHealingLimitationPrinciples`),
+          selfHealingRecoveryEvents: t(`${s}.selfHealingRecoveryEvents`),
+          selfHealingRecoveryRecommendations: t(`${s}.selfHealingRecoveryRecommendations`),
+          selfHealingEngagementSummary: t(`${s}.selfHealingEngagementSummary`),
+          openRecoveryEvents: t(`${s}.openRecoveryEvents`),
+          recoveringEvents: t(`${s}.recoveringEvents`),
+          pendingRecommendations: t(`${s}.pendingRecommendations`),
+          selfHealingSuccessCriteria: t(`${s}.selfHealingSuccessCriteria`),
+          selfHealingVisionPhrases: t(`${s}.selfHealingVisionPhrases`),
         }} />
     </div>
   );

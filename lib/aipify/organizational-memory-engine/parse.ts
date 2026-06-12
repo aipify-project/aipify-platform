@@ -16,7 +16,9 @@ import type {
   OrganizationMemoryRecord,
   OrganizationMemoryReview,
   OrganizationalMemoryEngineCard,
+  EnterpriseIntelligenceBlueprintItem,
   OrganizationalMemoryEngineDashboard,
+  OrganizationalMemoryEnterpriseBlueprint,
   OrganizationalMemoryLegacyBlueprint,
   OrganizationalMemorySummary,
   RecurringTheme,
@@ -209,6 +211,74 @@ export function parseOrganizationalMemoryEngineDashboard(
       ? (d.memory_legacy_vision_phrases as string[])
       : undefined,
     memory_legacy_privacy_note: asString(d.memory_legacy_privacy_note) || undefined,
+    implementation_blueprint_phase126:
+      typeof d.implementation_blueprint_phase126 === "object" && d.implementation_blueprint_phase126
+        ? (d.implementation_blueprint_phase126 as OrganizationalMemoryEngineDashboard["implementation_blueprint_phase126"])
+        : undefined,
+    enterprise_intelligence_blueprint:
+      typeof d.enterprise_intelligence_blueprint === "object" && d.enterprise_intelligence_blueprint
+        ? (d.enterprise_intelligence_blueprint as OrganizationalMemoryEnterpriseBlueprint)
+        : undefined,
+    phase126_distinction_note: asString(d.phase126_distinction_note) || undefined,
+    phase126_mission: asString(d.phase126_mission) || undefined,
+    phase126_philosophy: asString(d.phase126_philosophy) || undefined,
+    phase126_abos_principle: asString(d.phase126_abos_principle) || undefined,
+    phase126_vision: asString(d.phase126_vision) || undefined,
+    phase126_objectives: asRecordList<ContinuityObjective>(d.phase126_objectives),
+    phase126_memory_center: asRecordList<EnterpriseIntelligenceBlueprintItem>(d.phase126_memory_center),
+    phase126_memory_archive_engine: asRecordList<EnterpriseIntelligenceBlueprintItem>(
+      d.phase126_memory_archive_engine
+    ),
+    phase126_legacy_engine_captures:
+      typeof d.phase126_legacy_engine_captures === "object" && d.phase126_legacy_engine_captures
+        ? (d.phase126_legacy_engine_captures as MemoryLegacyBlueprintSection)
+        : undefined,
+    phase126_succession_intelligence: asRecordList<EnterpriseIntelligenceBlueprintItem>(
+      d.phase126_succession_intelligence
+    ),
+    phase126_storytelling_framework: asRecordList<EnterpriseIntelligenceBlueprintItem>(
+      d.phase126_storytelling_framework
+    ),
+    phase126_critical_knowledge_protection: asRecordList<EnterpriseIntelligenceBlueprintItem>(
+      d.phase126_critical_knowledge_protection
+    ),
+    phase126_memory_discovery:
+      typeof d.phase126_memory_discovery === "object" && d.phase126_memory_discovery
+        ? (d.phase126_memory_discovery as MemoryLegacyBlueprintSection)
+        : undefined,
+    phase126_legacy_companion: asRecordList<EnterpriseIntelligenceBlueprintItem>(
+      d.phase126_legacy_companion
+    ),
+    phase126_companion_limitations: asRecordList<EnterpriseIntelligenceBlueprintItem>(
+      d.phase126_companion_limitations
+    ),
+    phase126_self_love_connection:
+      typeof d.phase126_self_love_connection === "object" && d.phase126_self_love_connection
+        ? (d.phase126_self_love_connection as MemoryLegacyBlueprintSection)
+        : undefined,
+    phase126_heritage_library: asRecordList<EnterpriseIntelligenceBlueprintItem>(
+      d.phase126_heritage_library
+    ),
+    omlebp126_cross_links: asRecordList<IntegrationLink>(d.omlebp126_cross_links),
+    phase126_limitation_principles:
+      typeof d.phase126_limitation_principles === "object" && d.phase126_limitation_principles
+        ? (d.phase126_limitation_principles as MemoryLegacyBlueprintSection)
+        : undefined,
+    phase126_companion_adaptation:
+      typeof d.phase126_companion_adaptation === "object" && d.phase126_companion_adaptation
+        ? (d.phase126_companion_adaptation as MemoryLegacyBlueprintSection)
+        : undefined,
+    phase126_success_metrics: asRecordList<EnterpriseIntelligenceBlueprintItem>(
+      d.phase126_success_metrics
+    ),
+    phase126_success_criteria: asRecordList<AbosSuccessCriterion>(d.phase126_success_criteria),
+    phase126_engagement_summary:
+      typeof d.phase126_engagement_summary === "object" && d.phase126_engagement_summary
+        ? (d.phase126_engagement_summary as OrganizationalMemoryEngineDashboard["phase126_engagement_summary"])
+        : undefined,
+    organizational_memory_enterprise_note:
+      asString(d.organizational_memory_enterprise_note) || undefined,
+    phase126_privacy_note: asString(d.phase126_privacy_note) || undefined,
   };
 }
 

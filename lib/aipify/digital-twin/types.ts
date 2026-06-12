@@ -76,6 +76,12 @@ export type CompanionObservation = {
 export type BlueprintSection = {
   principle?: string;
   components?: BlueprintObjective[];
+  reflects?: BlueprintObjective[];
+  captures?: BlueprintObjective[];
+  considerations?: BlueprintObjective[];
+  examples?: Array<CompanionObservation & { consideration?: string }>;
+  scenarios?: BlueprintObjective[];
+  must_never?: BlueprintObjective[];
   example_chain?: string[];
   flow_note?: string;
   mapping_dimensions?: BlueprintObjective[];
@@ -83,6 +89,7 @@ export type BlueprintSection = {
   awareness_note?: string;
   example_scenarios?: BlueprintObjective[];
   simulation_route?: string;
+  org_memory_route?: string;
   boundary_note?: string;
   evolution_sources?: Array<BlueprintObjective & { route?: string }>;
   learning_note?: string;
@@ -96,6 +103,39 @@ export type BlueprintSection = {
   users_should_see?: string[];
   operators_should_understand?: string[];
   audit_note?: string;
+};
+
+export type OrganizationalDigitalTwinPhase124Blueprint = {
+  phase?: string;
+  doc?: string;
+  spec_doc?: string;
+  engine_phase?: string;
+  era?: string;
+  route?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  objectives?: BlueprintObjective[];
+  organizational_digital_twin?: BlueprintSection;
+  digital_twin_center?: BlueprintObjective[];
+  organizational_map_engine?: BlueprintObjective[];
+  dependency_intelligence?: BlueprintObjective[];
+  simulation_workspace?: BlueprintSection;
+  transformation_impact_model?: BlueprintObjective[];
+  knowledge_network_engine?: BlueprintObjective[];
+  resilience_visualization?: BlueprintObjective[];
+  executive_digital_twin_companion?: BlueprintObjective[];
+  companion_limitations?: BlueprintObjective[];
+  self_love_connection?: BlueprintSection;
+  memory_engine?: BlueprintSection;
+  cross_links?: IntegrationLink[];
+  limitation_principles?: BlueprintSection;
+  companion_adaptation?: BlueprintSection;
+  success_metrics?: BlueprintObjective[];
+  success_criteria?: AbosSuccessCriterion[];
+  engagement_summary?: DigitalTwinEngagementSummary;
+  privacy_note?: string;
 };
 
 export type IntegrationLink = {
@@ -115,6 +155,19 @@ export type DigitalTwinEngagementSummary = {
   companion_observations?: number;
   objective_count?: number;
   privacy_note?: string;
+  objectives_count?: number;
+  twin_center_capabilities?: number;
+  map_engine_examples?: number;
+  dependency_signals?: number;
+  simulation_scenarios?: number;
+  transformation_impacts?: number;
+  knowledge_highlights?: number;
+  resilience_displays?: number;
+  executive_companion_supports?: number;
+  cross_links_count?: number;
+  success_metrics_count?: number;
+  companion_limitations_count?: number;
+  memory_captures?: number;
 };
 
 export type AbosSuccessCriterion = {
@@ -136,6 +189,11 @@ export type DigitalTwinCard = {
   engagement_summary?: DigitalTwinEngagementSummary;
   blueprint_note?: string;
   understanding_note?: string;
+  implementation_blueprint_phase124?: ImplementationBlueprintMeta;
+  phase124_mission?: string;
+  phase124_abos_principle?: string;
+  phase124_engagement_summary?: DigitalTwinEngagementSummary;
+  phase124_note?: string;
 };
 
 export type DigitalTwinDashboard = {
@@ -172,6 +230,8 @@ export type DigitalTwinDashboard = {
   blueprint_success_criteria?: AbosSuccessCriterion[];
   blueprint_vision_phrases?: string[];
   blueprint_privacy_note?: string;
+  implementation_blueprint_phase124?: OrganizationalDigitalTwinPhase124Blueprint;
+  organizational_digital_twin_phase124_note?: string;
 };
 
 export type KnowledgeRouteResult = {

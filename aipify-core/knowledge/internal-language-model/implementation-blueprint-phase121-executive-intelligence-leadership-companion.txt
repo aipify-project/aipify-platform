@@ -1,0 +1,19 @@
+Phase 121 — Executive Intelligence & Leadership Companion Engine
+Route: /app/executive-intelligence
+Module: executive_intelligence_engine
+Helpers: _exin_* (engine), _exibp121_* (blueprint)
+
+Enterprise Intelligence Era (121–130) — unified Executive Intelligence Center.
+
+Mission: Support leadership with clarity, context, perspective, and trusted Executive Companion guidance.
+
+Philosophy: Aipify is a trusted Executive Companion — not a decision-maker. Wisdom before speed. People First.
+
+Distinctions:
+- Executive Insights A.35 /app/executive-insights-engine — cross-link, do NOT duplicate RPCs
+- Legacy /app/executive — cross-link only
+- Ecosystem Orchestration Phase 120 /app/ecosystem-orchestration — Era capstone cross-link
+
+Companion limitations (never): override authority, binding directives, hide uncertainty, suppress dissent, replace human judgment.
+
+Privacy: metadata only — aggregate trends, no raw chat/email/PII, no employee surveillance.

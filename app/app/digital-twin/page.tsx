@@ -8,6 +8,7 @@ export default async function DigitalTwinPage() {
   const t = createTranslator(dict);
   const p = "customerApp.digitalTwin";
   const bp = `${p}.blueprint.phase77`;
+  const bp124 = `${p}.blueprint.phase124`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -49,6 +50,28 @@ export default async function DigitalTwinPage() {
           openInsights: t(`${bp}.openInsights`),
           criterionMet: t(`${bp}.criterionMet`),
           criterionPending: t(`${bp}.criterionPending`),
+          phase124Section: t(`${bp124}.sectionTitle`),
+          phase124Era: t(`${bp124}.era`),
+          phase124Objectives: t(`${bp124}.objectives`),
+          phase124TwinReflects: t(`${bp124}.twinReflects`),
+          phase124TwinCenter: t(`${bp124}.twinCenter`),
+          phase124MapEngine: t(`${bp124}.mapEngine`),
+          phase124DependencyIntelligence: t(`${bp124}.dependencyIntelligence`),
+          phase124SimulationWorkspace: t(`${bp124}.simulationWorkspace`),
+          phase124TransformationImpact: t(`${bp124}.transformationImpact`),
+          phase124KnowledgeNetwork: t(`${bp124}.knowledgeNetwork`),
+          phase124ResilienceVisualization: t(`${bp124}.resilienceVisualization`),
+          phase124ExecutiveCompanion: t(`${bp124}.executiveCompanion`),
+          phase124CompanionLimitations: t(`${bp124}.companionLimitations`),
+          phase124SelfLoveConnection: t(`${bp124}.selfLoveConnection`),
+          phase124MemoryEngine: t(`${bp124}.memoryEngine`),
+          phase124OpenOrgMemory: t(`${bp124}.openOrgMemory`),
+          phase124TwinCenterCount: t(`${bp124}.twinCenterCount`),
+          phase124DependencySignals: t(`${bp124}.dependencySignals`),
+          phase124SimulationScenarios: t(`${bp124}.simulationScenarios`),
+          phase124SuccessCriteria: t(`${bp124}.successCriteria`),
+          phase124SuccessMetrics: t(`${bp124}.successMetrics`),
+          phase124CompanionAdaptation: t(`${bp124}.companionAdaptation`),
         }}
       />
     </div>

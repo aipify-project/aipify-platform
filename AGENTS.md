@@ -6,11 +6,11 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ## Aipify core foundation — mandatory before every capability
 
-Read **[CORE_FOUNDATION.md](./CORE_FOUNDATION.md)** first. This is the non-negotiable foundation (identity, mission, human control, privacy, presence, actions, core package). Then read **[OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md)** for agent governance and skills checklist. For product architecture framing, read **[ABOS_FOUNDATION.md](./ABOS_FOUNDATION.md)** and **[ABOS_BRAND_TERMINOLOGY_STANDARD.md](./ABOS_BRAND_TERMINOLOGY_STANDARD.md)** — use **Aipify Business Operating System (ABOS)** in all generated docs unless a specific module name is required.
+Read **[CORE_FOUNDATION.md](./CORE_FOUNDATION.md)** first. This is the non-negotiable foundation (identity, mission, human control, privacy, presence, actions, core package). Then read **[OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md)** for agent governance and skills checklist. Read **[ENTERPRISE_DESIGN_COMMUNICATION_STANDARD.md](./ENTERPRISE_DESIGN_COMMUNICATION_STANDARD.md)** before UX, copy, onboarding, dashboards, Companion UI, marketing strings, pricing copy, or Knowledge Center content. For product architecture framing, read **[ABOS_FOUNDATION.md](./ABOS_FOUNDATION.md)** and **[ABOS_BRAND_TERMINOLOGY_STANDARD.md](./ABOS_BRAND_TERMINOLOGY_STANDARD.md)** — use **Aipify Business Operating System (ABOS)** in all generated docs unless a specific module name is required.
 
 New capabilities must never bypass core principles, plan limits, tenant isolation, approval policy, or layer separation.
 
-**Governance order:** Core Foundation → Operating Principles → Architecture → Implementation → Skills.
+**Governance order:** Core Foundation → Operating Principles → Enterprise Design & Communication Standard → Architecture → Implementation → Skills.
 
 Before any new capability, answer [CORE_FOUNDATION.md §18](./CORE_FOUNDATION.md#18-future-development-rule): identity, human control, privacy, layer, core vs modular. If unclear, **pause**.
 

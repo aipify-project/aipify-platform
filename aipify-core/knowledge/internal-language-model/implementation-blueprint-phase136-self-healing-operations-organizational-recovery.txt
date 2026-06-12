@@ -1,0 +1,86 @@
+ABOS Autonomous Organization Phase 136 — Self-Healing Operations & Organizational Recovery Engine
+Route: /app/organizational-resilience-engine
+Extends: Organizational Resilience Engine A.50 + Blueprint Phase 81 (_rnbp_*) + Phase 91 (_orrbp91_*) + Phase 128 (_rccbp128_*)
+Helper prefix: _shobp136_* only — never collide with _ore_*, _rnbp_*, _orrbp91_*, _rccbp128_*
+
+Vision
+When disruption degrades operations, the organization sees it early, recovers with transparency, learns with compassion, and builds lasting resilience — together.
+
+Mission
+Help organizations detect operational degradation early, coordinate transparent recovery, capture lessons learned, and emerge stronger — humans accountable, companions supportive.
+
+Philosophy
+Recovery strengthens organizations — not merely return to normal.
+Transparent, governed, human-centered recovery.
+People First. Wisdom before speed.
+No unchecked autonomy or hidden actions.
+
+Objectives (8)
+operational_health — aggregate operational health monitoring
+early_detection — degradation pattern detection before crisis
+transparent_recovery — governed recommendations with human approval
+incident_learning — lessons learned metadata only
+knowledge_restoration — cross-link Org Memory Phase 126
+recovery_orchestration — task coordination, humans lead
+organizational_healing — transparency, psychological safety, compassion
+executive_visibility — cross-link Executive Intelligence Phase 121
+
+Self-Healing Operations Center (8)
+operational health monitoring · incident coordination cross-link · recovery recommendations · knowledge restoration · companion recovery support · escalation workflows · lessons learned · executive dashboards
+
+Operational health engine (8)
+workflow effectiveness · companion availability · knowledge accessibility · support capacity · transformation progress · governance alignment · community health · Growth Partner health (never Affiliate)
+
+Recovery detection engine (7)
+repeated workflow failures · companion escalation surges · knowledge interruptions · support backlogs · governance exceptions · communication breakdowns · executive overload indicators
+
+Self-healing framework (6) — no high-risk auto actions
+recommendations · playbooks · human escalation · resource reallocation suggestions · communication plans · knowledge refresh
+
+Recovery Companion (6) — supportive NOT directive
+identify disruptions · recovery guidance · historical lessons · coordination support · incident summaries · progress tracking
+
+Incident learning engine (7) — metadata only
+incident summaries · recovery actions · lessons learned · knowledge updates · governance improvements · companion adjustments · leadership reflections
+
+Recovery orchestration engine (7)
+task coordination · role assignments · executive notifications · escalation tracking · knowledge distribution · companion participation · recovery visibility
+
+Organizational healing principles (7)
+transparency · psychological safety · learning · collaboration · compassion · accountability · support
+
+Companion limitations (5)
+no autonomous governance changes · no concealing incidents · no overriding leadership · no independent high-risk execution · no suppressing dissent
+
+Self Love in recovery — cross-link A.76 /app/self-love-engine
+empathy · reflection · recognition · healthy recovery pace · supportive leadership · collective care
+
+Security requirements (6)
+recovery audit trails · incident histories · executive oversight · RBAC · 2FA cross-link /app/settings/two-factor · tenant isolation
+
+Distinctions
+Phase 128 = continuity companion (prepare/adapt/recover)
+Phase 136 = self-healing operations (detect/degrade/recover/learn/strengthen)
+Incident Response A.51 = coordinated incident response — cross-link only
+Continuity Phase 80 = crisis continuity — cross-link only
+Proactive Organization Phase 135 = anticipatory support — cross-link only
+Platform ai_self_healing_executions = technical automation — distinct organizational layer
+
+Integration links (Phases 131–135)
+Human Oversight A.40 (Phase 131 interim) · Companion Workforce 132 · Workflow Orchestration 133 · Adaptive Organization 134 · Proactive Organization 135
+
+Companion examples
+🦉 A workflow degradation pattern may need review — shall Aipify prepare a recovery summary for leadership?
+🔔 Recovery recommendations are ready for review — would you like to see pending actions requiring approval?
+🌹 This recovery may offer organizational lessons — shall Aipify scaffold a lessons-learned capture for review?
+❤️ Recovery is progressing — would a status summary help coordinate next steps at a sustainable pace?
+
+Vision phrases
+Recovery strengthens organizations — not merely return to normal.
+Transparent governed recovery — no hidden actions.
+People First. Wisdom before speed.
+Humans accountable; companions supportive.
+Detect early, recover together, learn with compassion.
+
+Privacy
+Aggregate counts and summary metadata only. No PII, no raw incident content, no employee surveillance, no concealed actions.

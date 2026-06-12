@@ -18,6 +18,19 @@ import {
   type CompanionGuidanceExample,
   type CommunityRecognitionDomain,
   type CommunityCollectiveIntelligenceBlueprintPhase89,
+  type CommunityCollectiveSuccessBlueprintPhase117,
+  type CommunitySpace,
+  type CommunityContributionType,
+  type CollectiveIntelligencePattern,
+  type MentorshipType,
+  type CommunityRecognitionType,
+  type CommunityEventType,
+  type SafetyPrinciple,
+  type KnowledgeVaultAsset,
+  type GrowthPartnerCollaborationMode,
+  type CommunityAnalyticsMetric,
+  type SuccessMetric,
+  type CompanionAdaptationExample,
 } from "@/lib/aipify/community-intelligence";
 
 type CommunityHubPanelProps = {
@@ -80,7 +93,9 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
 
   const engagement = dashboard.engagement_summary;
   const bp89 = dashboard.community_collective_intelligence_blueprint_phase89;
+  const bp117 = dashboard.community_collective_success_blueprint_phase117;
   const navLinks = [
+    ...(bp117?.cross_links ?? []),
     ...(bp89?.integration_links ?? []),
     ...(dashboard.clwbp_integration_links ?? dashboard.integration_links ?? []),
   ].filter(
@@ -157,6 +172,28 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
           ) : null}
           {bp89.vision ? (
             <p className="mt-2 text-xs font-medium text-rose-800">{bp89.vision}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {bp117?.mission ? (
+        <section className="rounded-xl border border-emerald-200 bg-emerald-50/40 p-6">
+          <h2 className="text-sm font-semibold text-emerald-900">{labels.ccsbp117EngineTitle}</h2>
+          <p className="mt-2 text-sm font-medium text-emerald-900">{bp117.mission}</p>
+          {bp117.philosophy ? (
+            <p className="mt-2 text-sm text-emerald-900">{bp117.philosophy}</p>
+          ) : null}
+          {bp117.abos_principle ? (
+            <p className="mt-2 text-xs text-emerald-800">{bp117.abos_principle}</p>
+          ) : null}
+          {bp117.people_first_note ? (
+            <p className="mt-2 text-xs italic text-emerald-800">{bp117.people_first_note}</p>
+          ) : null}
+          {bp117.distinction_note ? (
+            <p className="mt-2 text-xs text-emerald-700">{bp117.distinction_note}</p>
+          ) : null}
+          {bp117.vision ? (
+            <p className="mt-2 text-xs font-medium text-emerald-800">{bp117.vision}</p>
           ) : null}
         </section>
       ) : null}
@@ -424,6 +461,288 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
         <section className="rounded-lg border border-gray-200 bg-white p-4">
           <h3 className="text-sm font-semibold text-gray-900">{labels.ccibp89EngagementSummary}</h3>
           <Ccibp89EngagementGrid summary={bp89.engagement_summary} labels={labels} />
+        </section>
+      ) : null}
+
+      {bp117?.engagement_summary ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.ccsbp117EngagementSummary}</h3>
+          <Ccsbp117EngagementGrid summary={bp117.engagement_summary} labels={labels} />
+        </section>
+      ) : null}
+
+      {bp117?.objectives && bp117.objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.ccsbp117Objectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp117.objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {bp117?.community_spaces?.spaces && bp117.community_spaces.spaces.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.communitySpaces}</h3>
+          {bp117.community_spaces.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{bp117.community_spaces.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp117.community_spaces.spaces.map((space) => (
+              <CommunitySpaceCard key={space.key ?? space.label} space={space} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {bp117?.community_contributions?.contribution_types &&
+      bp117.community_contributions.contribution_types.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.ccsbp117Contributions}</h3>
+          {bp117.community_contributions.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{bp117.community_contributions.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp117.community_contributions.contribution_types.map((type) => (
+              <ContributionTypeCard key={type.key ?? type.label} type={type} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {bp117?.collective_intelligence_patterns?.patterns &&
+      bp117.collective_intelligence_patterns.patterns.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.collectiveIntelligencePatterns}</h3>
+          {bp117.collective_intelligence_patterns.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{bp117.collective_intelligence_patterns.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp117.collective_intelligence_patterns.patterns.map((pattern) => (
+              <CollectivePatternCard key={pattern.key ?? pattern.label} pattern={pattern} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {bp117?.mentorship_program?.mentorship_types &&
+      bp117.mentorship_program.mentorship_types.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.mentorshipProgram}</h3>
+          {bp117.mentorship_program.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{bp117.mentorship_program.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp117.mentorship_program.mentorship_types.map((type) => (
+              <MentorshipTypeCard key={type.key ?? type.label} type={type} />
+            ))}
+          </div>
+          {bp117.mentorship_program.sales_community_route ? (
+            <Link href={bp117.mentorship_program.sales_community_route} className="mt-3 inline-block text-xs underline text-violet-800">
+              {labels.openSalesCommunity}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {bp117?.community_recognition?.recognition_types &&
+      bp117.community_recognition.recognition_types.length > 0 ? (
+        <section className="rounded-xl border border-amber-100 bg-amber-50/40 p-6">
+          <h3 className="text-sm font-semibold text-amber-900">{labels.ccsbp117Recognition}</h3>
+          {bp117.community_recognition.principle ? (
+            <p className="mt-1 text-xs text-amber-800">{bp117.community_recognition.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp117.community_recognition.recognition_types.map((domain) => (
+              <CommunityRecognitionTypeCard key={domain.key ?? domain.label} domain={domain} />
+            ))}
+          </div>
+          {bp117.community_recognition.gratitude_route ? (
+            <Link href={bp117.community_recognition.gratitude_route} className="mt-3 inline-block text-xs underline text-amber-900">
+              {labels.openGratitudeRecognition}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {bp117?.community_events?.event_types && bp117.community_events.event_types.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.communityEvents}</h3>
+          {bp117.community_events.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{bp117.community_events.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp117.community_events.event_types.map((event) => (
+              <CommunityEventCard key={event.key ?? event.label} event={event} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {bp117?.safety_framework?.principles && bp117.safety_framework.principles.length > 0 ? (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/40 p-4 text-sm text-indigo-900">
+          <h3 className="text-sm font-semibold">{labels.safetyFramework}</h3>
+          {bp117.safety_framework.principle ? (
+            <p className="mt-2">{bp117.safety_framework.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp117.safety_framework.principles.map((principle) => (
+              <SafetyPrincipleCard key={principle.key ?? principle.label} principle={principle} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {bp117?.knowledge_vault?.asset_types && bp117.knowledge_vault.asset_types.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.knowledgeVault}</h3>
+          {bp117.knowledge_vault.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{bp117.knowledge_vault.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp117.knowledge_vault.asset_types.map((asset) => (
+              <KnowledgeVaultAssetCard key={asset.key ?? asset.label} asset={asset} />
+            ))}
+          </div>
+          {bp117.knowledge_vault.knowledge_center_route ? (
+            <Link href={bp117.knowledge_vault.knowledge_center_route} className="mt-3 inline-block text-xs underline text-violet-800">
+              {labels.openKnowledgeCenter}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {bp117?.companion_participation?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.companionParticipation}</h3>
+          <p className="mt-2 text-gray-600">{bp117.companion_participation.principle}</p>
+          {bp117.companion_participation.may && bp117.companion_participation.may.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+              {bp117.companion_participation.may.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+          {bp117.companion_participation.must_never && bp117.companion_participation.must_never.length > 0 ? (
+            <>
+              <p className="mt-3 text-xs font-medium text-gray-700">{labels.companionMustNever}</p>
+              <ul className="mt-1 list-inside list-disc space-y-1 text-xs text-gray-600">
+                {bp117.companion_participation.must_never.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+        </section>
+      ) : null}
+
+      {bp117?.growth_partner_network?.collaboration_modes &&
+      bp117.growth_partner_network.collaboration_modes.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.growthPartnerNetwork}</h3>
+          {bp117.growth_partner_network.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{bp117.growth_partner_network.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp117.growth_partner_network.collaboration_modes.map((mode) => (
+              <GrowthPartnerModeCard key={mode.key ?? mode.label} mode={mode} />
+            ))}
+          </div>
+          {bp117.growth_partner_network.growth_partner_ops_route ? (
+            <Link href={bp117.growth_partner_network.growth_partner_ops_route} className="mt-3 inline-block text-xs underline text-violet-800">
+              {labels.openGrowthPartnerOps}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {bp117?.community_analytics?.metrics && bp117.community_analytics.metrics.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.communityAnalytics}</h3>
+          {bp117.community_analytics.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{bp117.community_analytics.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp117.community_analytics.metrics.map((metric) => (
+              <CommunityAnalyticsMetricCard key={metric.key ?? metric.label} metric={metric} />
+            ))}
+          </div>
+          {bp117.community_analytics.not_for_ranking_note ? (
+            <p className="mt-2 text-xs italic text-gray-500">{bp117.community_analytics.not_for_ranking_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {bp117?.companion_adaptation?.examples && bp117.companion_adaptation.examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionAdaptation}</h3>
+          {bp117.companion_adaptation.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{bp117.companion_adaptation.principle}</p>
+          ) : null}
+          <div className="mt-3 space-y-3">
+            {bp117.companion_adaptation.examples.map((example) => (
+              <CompanionAdaptationCard key={example.key ?? example.scenario} example={example} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {bp117?.limitation_principles?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.limitationPrinciples}</h3>
+          <p className="mt-2">{bp117.limitation_principles.principle}</p>
+          {bp117.limitation_principles.must_not && bp117.limitation_principles.must_not.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {bp117.limitation_principles.must_not.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {Array.isArray(bp117?.success_criteria) && bp117.success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-emerald-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.ccsbp117SuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {bp117.success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={item.key ?? label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {bp117?.success_metrics && bp117.success_metrics.length > 0 ? (
+        <section className="rounded-xl border border-emerald-100 bg-emerald-50/30 p-6">
+          <h3 className="text-sm font-semibold text-emerald-900">{labels.successMetrics}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp117.success_metrics.map((metric) => (
+              <SuccessMetricCard key={metric.key ?? metric.label} metric={metric} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {bp117?.self_love_connection?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.ccsbp117SelfLoveConnection}</h3>
+          <p className="mt-2">{bp117.self_love_connection.principle}</p>
+          {bp117.self_love_connection.self_love_route ? (
+            <Link href={bp117.self_love_connection.self_love_route} className="mt-2 inline-block text-xs underline">
+              {labels.openSelfLove}
+            </Link>
+          ) : null}
         </section>
       ) : null}
 
@@ -1021,6 +1340,142 @@ function Ccibp89EngagementGrid({
       {summary.privacy_note ? (
         <p className="col-span-full mt-1 text-gray-500">{summary.privacy_note}</p>
       ) : null}
+    </div>
+  );
+}
+
+function Ccsbp117EngagementGrid({
+  summary,
+  labels,
+}: {
+  summary: NonNullable<CommunityCollectiveSuccessBlueprintPhase117["engagement_summary"]>;
+  labels: Record<string, string>;
+}) {
+  return (
+    <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+      <span>{labels.communitySpaces}: {summary.community_spaces ?? 0}</span>
+      <span>{labels.ccsbp117Contributions}: {summary.contribution_types ?? 0}</span>
+      <span>{labels.tenantContributionsTotal}: {summary.tenant_contributions_total ?? 0}</span>
+      <span>{labels.ecosystemPublishedTotal}: {summary.ecosystem_published_total ?? 0}</span>
+      <span>{labels.mentorshipProgram}: {summary.mentorship_types ?? 0}</span>
+      <span>{labels.communityEvents}: {summary.event_types ?? 0}</span>
+      {summary.privacy_note ? (
+        <p className="col-span-full mt-1 text-gray-500">{summary.privacy_note}</p>
+      ) : null}
+    </div>
+  );
+}
+
+function CommunitySpaceCard({ space }: { space: CommunitySpace }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 text-sm">
+      <p className="font-medium text-gray-900">{space.label}</p>
+      {space.description ? <p className="mt-1 text-xs text-gray-600">{space.description}</p> : null}
+    </div>
+  );
+}
+
+function ContributionTypeCard({ type }: { type: CommunityContributionType }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 text-sm">
+      <p className="font-medium text-gray-900">{type.label}</p>
+      {type.description ? <p className="mt-1 text-xs text-gray-600">{type.description}</p> : null}
+    </div>
+  );
+}
+
+function CollectivePatternCard({ pattern }: { pattern: CollectiveIntelligencePattern }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 text-sm">
+      <p className="font-medium text-gray-900">{pattern.label}</p>
+      {pattern.description ? <p className="mt-1 text-xs text-gray-600">{pattern.description}</p> : null}
+    </div>
+  );
+}
+
+function MentorshipTypeCard({ type }: { type: MentorshipType }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 text-sm">
+      <p className="font-medium text-gray-900">{type.label}</p>
+      {type.description ? <p className="mt-1 text-xs text-gray-600">{type.description}</p> : null}
+    </div>
+  );
+}
+
+function CommunityRecognitionTypeCard({ domain }: { domain: CommunityRecognitionType }) {
+  return (
+    <div className="rounded-lg border border-amber-100 bg-amber-50/50 p-3 text-sm">
+      <p className="font-medium text-amber-900">
+        {domain.emoji ? `${domain.emoji} ` : ""}
+        {domain.label}
+      </p>
+      {domain.description ? <p className="mt-1 text-xs text-amber-800">{domain.description}</p> : null}
+    </div>
+  );
+}
+
+function CommunityEventCard({ event }: { event: CommunityEventType }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 text-sm">
+      <p className="font-medium text-gray-900">{event.label}</p>
+      {event.description ? <p className="mt-1 text-xs text-gray-600">{event.description}</p> : null}
+    </div>
+  );
+}
+
+function SafetyPrincipleCard({ principle }: { principle: SafetyPrinciple }) {
+  return (
+    <div className="rounded-lg border border-indigo-100 bg-white/50 p-3 text-sm">
+      <p className="font-medium text-indigo-900">{principle.label}</p>
+      {principle.description ? <p className="mt-1 text-xs text-indigo-800">{principle.description}</p> : null}
+    </div>
+  );
+}
+
+function KnowledgeVaultAssetCard({ asset }: { asset: KnowledgeVaultAsset }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 text-sm">
+      <p className="font-medium text-gray-900">{asset.label}</p>
+      {asset.description ? <p className="mt-1 text-xs text-gray-600">{asset.description}</p> : null}
+    </div>
+  );
+}
+
+function GrowthPartnerModeCard({ mode }: { mode: GrowthPartnerCollaborationMode }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 text-sm">
+      <p className="font-medium text-gray-900">{mode.label}</p>
+      {mode.description ? <p className="mt-1 text-xs text-gray-600">{mode.description}</p> : null}
+    </div>
+  );
+}
+
+function CommunityAnalyticsMetricCard({ metric }: { metric: CommunityAnalyticsMetric }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 text-sm">
+      <p className="font-medium text-gray-900">{metric.label}</p>
+      {metric.description ? <p className="mt-1 text-xs text-gray-600">{metric.description}</p> : null}
+    </div>
+  );
+}
+
+function SuccessMetricCard({ metric }: { metric: SuccessMetric }) {
+  return (
+    <div className="rounded-lg border border-emerald-100 bg-emerald-50/50 p-3 text-sm">
+      <p className="font-medium text-emerald-900">{metric.label}</p>
+      {metric.description ? <p className="mt-1 text-xs text-emerald-800">{metric.description}</p> : null}
+    </div>
+  );
+}
+
+function CompanionAdaptationCard({ example }: { example: CompanionAdaptationExample }) {
+  return (
+    <div className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+      <p className="font-medium text-gray-900">
+        {example.emoji ? `${example.emoji} ` : ""}
+        {example.scenario}
+      </p>
+      {example.example ? <p className="mt-1 text-xs text-gray-600">{example.example}</p> : null}
     </div>
   );
 }

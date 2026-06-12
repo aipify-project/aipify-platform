@@ -1,0 +1,40 @@
+# Implementation Blueprint Phase 114 — Growth Partner Operations Center Engine
+
+Route: /app/growth-partner-operations
+RPC prefix: _gpoc_* (baseline), _gpocbp114_* (blueprint helpers)
+Migration: 20261204000000_growth_partner_operations_center_engine_phase114.sql
+
+## Mission
+Empower Growth Partners to deliver transformation — manage customers, implementations, training, renewals, and outcomes at sustainable scale.
+
+## Philosophy
+Growth Partners are independent businesses — NOT affiliates. Strategy, implementation, training, change management, customer success, advisory. Growth through support. People First. Technology Second. Self Love. Wisdom before speed. Companionship before replacement. Stewardship through responsibility.
+
+## ABOS Principle
+Aipify Business Operating System (ABOS) — Growth Partner Operations Center orchestrates partner delivery workflows; certification at /app/partners remains authoritative. Aipify informs and prepares; humans approve significant partner actions.
+
+## Vision
+We gained a trusted Growth Partner who helped our organization succeed — not just software we purchased alone.
+
+## Distinction Cross-Links (mandatory)
+- Partner Certification Phase 91 + Blueprint 107 → /app/partners (certification & ecosystem — cross-link NOT duplicate)
+- Partner Success A.73 → /app/partner-success-engine (portfolio health — complementary)
+- Companion Marketplace Phase 113 → /app/companion-marketplace (companion deployment)
+- Marketplace Blueprint 112 → /app/marketplace
+- Marketplace Partner Ecosystem A.45 → /app/marketplace-partner-ecosystem-foundation-engine
+- Customer Lifecycle Phase 86 / Blueprint 108 → /app/customer-lifecycle
+- Certification & Achievement A.37 → /app/certification-achievement-engine (internal certs distinct)
+- Learning & Training A.36 → /app/learning-training-engine
+- Sales Expert OS A.79 → /app/sales-expert-engine
+- Two-Factor Authentication → /app/settings/two-factor
+
+## Companion Adaptation (🦉🌹🔔)
+🦉 Two customers approach renewal windows — shall Aipify prepare a calm portfolio summary for your review?
+🌹 Training completion metadata is improving — would celebrating one milestone before taking on new implementations feel wise?
+🔔 A pilot deployment is ready for governance review — Companion Marketplace cross-link available when you are.
+
+## Limitation Principles
+- Never use Affiliate terminology — Growth Partner only
+- Metadata only — no customer email, chat, or PII
+- Do NOT duplicate _pce_* or _gpebp107_* partner certification RPCs
+- Humans approve significant partner actions

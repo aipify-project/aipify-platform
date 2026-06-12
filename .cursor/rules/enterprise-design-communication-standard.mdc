@@ -1,0 +1,48 @@
+---
+description: Enterprise Design & Communication Standard — UX, copy, onboarding, and enterprise-ready defaults before Architecture
+alwaysApply: true
+---
+
+# Enterprise Design & Communication Standard
+
+Read **[ENTERPRISE_DESIGN_COMMUNICATION_STANDARD.md](../../ENTERPRISE_DESIGN_COMMUNICATION_STANDARD.md)** before UX, copy, onboarding, dashboards, Companion UI, marketing strings, pricing copy, or Knowledge Center content. Terminology: **[ABOS_BRAND_TERMINOLOGY_STANDARD.md](../../ABOS_BRAND_TERMINOLOGY_STANDARD.md)** · Companion naming: **[AIPIFY_BRANDING_STANDARD_COMPANION_NAMING_POLICY.md](../../AIPIFY_BRANDING_STANDARD_COMPANION_NAMING_POLICY.md)**.
+
+## Enterprise-ready default
+
+Design and copy for **50–10,000 employee organizations** with **Fortune 500** operational software influence. If it would fail a procurement review, pause and redesign.
+
+## Language
+
+- **Companion** — not AI Assistant, bot, or copilot (customer-facing)
+- **Establish workspace** — not "Create account" or throwaway signup tone
+- **Aipify Business Operating System (ABOS)** — not generic AI chatbot category
+- **Growth Partner** — never Affiliate
+- No slang, gimmicks, emoji spam, guilt, or fake urgency
+
+## Design bar
+
+Microsoft **professionalism** · Apple **simplicity** · GitHub **trust** (audit, RBAC visibility) · Stripe **pricing clarity** · **Aipify humanity** (calm, warm, People First)
+
+## Security baseline
+
+2FA, audit trails, and RBAC are expected — visible in onboarding and settings. See [AIPIFY_SECURITY_IMPLEMENTATION_TWO_FACTOR_AUTHENTICATION.md](../../AIPIFY_SECURITY_IMPLEMENTATION_TWO_FACTOR_AUTHENTICATION.md) · [TRUST_ARCHITECTURE.md](../../TRUST_ARCHITECTURE.md).
+
+## Philosophy
+
+People First · Technology Second · Self Love · Wisdom before speed · Companionship before replacement · Stewardship through responsibility · Trust earned, never manipulated
+
+## The Aipify Standard — decision filter
+
+Before shipping UI or copy:
+
+1. Enterprise-ready for 500–10,000 employee orgs?
+2. People First — dignity and human accountability preserved?
+3. Clear & calm — next action obvious without hype?
+4. Trustworthy — security, limits, audit honest and visible?
+5. Distinctly Aipify — ABOS / Companion / workspace language?
+
+Unclear → **pause**. Clarity over cleverness; restraint over noise.
+
+## Governance order
+
+Core Foundation → Operating Principles → **Enterprise Design Standard** → Architecture → Implementation → Skills

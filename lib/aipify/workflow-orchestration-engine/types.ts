@@ -134,6 +134,12 @@ export type WorkflowOrchestrationEngineCard = {
   workflow_orchestration_summary?: OrchestrationSummary;
   blueprint_note?: string;
   autonomous_operations_orchestration?: ImplementationBlueprintPhase86;
+  implementation_blueprint_phase133?: ImplementationBlueprintPhase133;
+  awobp133_mission?: string;
+  awobp133_abos_principle?: string;
+  awobp133_engagement_summary?: Phase133EngagementSummary;
+  awobp133_note?: string;
+  autonomous_workflow_orchestration_blueprint?: ImplementationBlueprintPhase133;
   [key: string]: unknown;
 };
 
@@ -254,6 +260,152 @@ export type ImplementationBlueprintPhase86 = {
   orchestration_summary?: OrchestrationSummary;
 };
 
+export type WorkflowTypeEntry = {
+  key?: string;
+  label?: string;
+  route?: string;
+  description?: string;
+  category?: string;
+};
+
+export type BuilderElement = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type VisualWorkflowBuilder = {
+  principle?: string;
+  elements?: BuilderElement[];
+  scaffold_note?: string;
+};
+
+export type ApprovalGateType = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type ApprovalFramework = {
+  principle?: string;
+  gate_types?: ApprovalGateType[];
+  trust_action_route?: string;
+  human_oversight_route?: string;
+  boundary?: string;
+};
+
+export type CompanionCapability = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type CompanionParticipation = {
+  principle?: string;
+  capabilities?: CompanionCapability[];
+  companion_workforce_route?: string;
+  boundary?: string;
+};
+
+export type ExceptionAction = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type ExceptionManagement = {
+  principle?: string;
+  actions?: ExceptionAction[];
+  operations_center_route?: string;
+  boundary?: string;
+};
+
+export type WorkflowMetric = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type WorkflowAnalytics = {
+  principle?: string;
+  metrics?: WorkflowMetric[];
+  privacy_note?: string;
+};
+
+export type TemplateLibraryEntry = {
+  key?: string;
+  label?: string;
+  category?: string;
+  description?: string;
+};
+
+export type CompanionLimitation = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type SecurityRequirement = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type SecurityRequirements = {
+  principle?: string;
+  requirements?: SecurityRequirement[];
+  two_factor_route?: string;
+  security_route?: string;
+  boundary?: string;
+};
+
+export type OrchestrationCenter = {
+  principle?: string;
+  capabilities?: BlueprintObjective[];
+  boundary_note?: string;
+};
+
+export type Phase133EngagementSummary = OrchestrationSummary & {
+  supported_workflow_types?: number;
+  template_library_count?: number;
+};
+
+export type ImplementationBlueprintPhase133 = {
+  phase?: number;
+  title?: string;
+  doc?: string;
+  spec_doc?: string;
+  engine_phase?: string;
+  era?: string;
+  route?: string;
+  mapping_note?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: BlueprintObjective[];
+  workflow_orchestration_center?: OrchestrationCenter;
+  supported_workflow_types?: WorkflowTypeEntry[];
+  visual_workflow_builder?: VisualWorkflowBuilder;
+  workflow_triggers?: WorkflowTypeEntry[];
+  approval_framework?: ApprovalFramework;
+  companion_participation?: CompanionParticipation;
+  exception_management?: ExceptionManagement;
+  workflow_analytics?: WorkflowAnalytics;
+  template_library?: TemplateLibraryEntry[];
+  companion_limitations?: CompanionLimitation[];
+  self_love_connection?: SelfLoveConnection;
+  security_requirements?: SecurityRequirements;
+  dogfooding?: AutonomousOperationsDogfooding;
+  integration_links?: BlueprintIntegrationLink[];
+  vision_phrases?: string[];
+  privacy_note?: string;
+  era_capstone_note?: string;
+  success_criteria?: BlueprintSuccessCriterion[];
+  engagement_summary?: Phase133EngagementSummary;
+};
+
 export type WorkflowOrchestrationEngineDashboard = {
   has_organization: boolean;
   philosophy?: string;
@@ -281,5 +433,33 @@ export type WorkflowOrchestrationEngineDashboard = {
   workflow_distinction_note?: string;
   workflow_integration_links?: BlueprintIntegrationLink[];
   autonomous_operations_orchestration?: ImplementationBlueprintPhase86;
+  implementation_blueprint_phase133?: ImplementationBlueprintPhase133;
+  autonomous_workflow_orchestration_engine_note?: string;
+  autonomous_organization_era_note?: string;
+  awobp133_distinction_note?: string;
+  awobp133_mission?: string;
+  awobp133_philosophy?: string;
+  awobp133_abos_principle?: string;
+  awobp133_vision?: string;
+  awobp133_objectives?: BlueprintObjective[];
+  awobp133_workflow_orchestration_center?: OrchestrationCenter;
+  awobp133_supported_workflow_types?: WorkflowTypeEntry[];
+  awobp133_visual_workflow_builder?: VisualWorkflowBuilder;
+  awobp133_workflow_triggers?: WorkflowTypeEntry[];
+  awobp133_approval_framework?: ApprovalFramework;
+  awobp133_companion_participation?: CompanionParticipation;
+  awobp133_exception_management?: ExceptionManagement;
+  awobp133_workflow_analytics?: WorkflowAnalytics;
+  awobp133_template_library?: TemplateLibraryEntry[];
+  awobp133_companion_limitations?: CompanionLimitation[];
+  awobp133_self_love_connection?: SelfLoveConnection;
+  awobp133_security_requirements?: SecurityRequirements;
+  awobp133_integration_links?: BlueprintIntegrationLink[];
+  awobp133_dogfooding?: AutonomousOperationsDogfooding;
+  awobp133_engagement_summary?: Phase133EngagementSummary;
+  awobp133_success_criteria?: BlueprintSuccessCriterion[];
+  awobp133_vision_phrases?: string[];
+  awobp133_privacy_note?: string;
+  autonomous_workflow_orchestration_blueprint?: ImplementationBlueprintPhase133;
   [key: string]: unknown;
 };

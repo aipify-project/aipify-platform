@@ -1,0 +1,20 @@
+ABOS Implementation Blueprint Phase 127 — Transformation Orchestration & Change Companion Engine
+Route: /app/change-management-engine
+Era: Enterprise Intelligence Era (121–130)
+Engine: Phase A.47 Change Management Engine
+Prior blueprint: Phase 62 (_cmbp_*)
+Helper prefix: _tcobp127_ (never _cme_* or _cmbp_*)
+
+Mission: Orchestrate organizational transformation with clarity, empathy, and responsibility — change with people, not to people.
+
+Philosophy: Change is hard — orchestrate with clarity, empathy, and responsibility, not force or reckless speed. Wisdom before speed. People First.
+
+ABOS principle: Transformation Orchestration supports people through transition. Adoption metrics aggregate and support — never employee surveillance.
+
+Distinct from Evolution Governance Phase 84 (/app/evolution) — Aipify software evolution proposals, NOT org transformation.
+
+Cross-links: Executive Intelligence 121 · Decision Intelligence 125 · Digital Twin 124 · Org Memory 126 · Aipify University 115 · Self Love A.76 · Learning & Training A.36 · Stakeholder Communication A.53
+
+Companion limitations: Never force participation · Never manipulate emotions · Never suppress concerns · Never replace accountability · Never guarantee success
+
+Transformation phrase: Change with people, not to people — adjustment often requires time.

@@ -149,6 +149,9 @@ export function PartnerCertificationDashboardPanel({ labels }: PartnerCertificat
         <Link href="/app/partner-success-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.partnerSuccessEngine}
         </Link>
+        <Link href="/app/growth-partner-operations" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.growthPartnerOperations}
+        </Link>
         <Link href="/app/aipify-academy" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.aipifyAcademy}
         </Link>

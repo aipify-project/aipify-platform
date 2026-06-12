@@ -1,8 +1,12 @@
 import type {
+  AdaptiveOrganizationContinuousOptimizationBlueprint,
+  AdaptiveOrganizationExperimentRecord,
   ContinuousImprovementEngineCard,
   ContinuousImprovementEngineDashboard,
   ContinuousImprovementOrganizationalEvolutionBlueprint,
+  FatigueSignalRecord,
   ImprovementInitiativeRecord,
+  ImprovementPortfolioRecord,
   ImprovementReviewCycleRecord,
   ImprovementSuccessMeasurementRecord,
   ImprovementSuggestion,
@@ -15,6 +19,18 @@ function parseBlueprint(
   return raw as ContinuousImprovementOrganizationalEvolutionBlueprint;
 }
 
+function parsePhase134Blueprint(
+  raw: unknown,
+): AdaptiveOrganizationContinuousOptimizationBlueprint | undefined {
+  if (typeof raw !== "object" || !raw) return undefined;
+  return raw as AdaptiveOrganizationContinuousOptimizationBlueprint;
+}
+
+function parseArray<T>(raw: unknown): T[] | undefined {
+  if (!Array.isArray(raw)) return undefined;
+  return raw as T[];
+}
+
 export function parseContinuousImprovementEngineCard(data: unknown): ContinuousImprovementEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
   return {
@@ -25,6 +41,8 @@ export function parseContinuousImprovementEngineCard(data: unknown): ContinuousI
     continuous_improvement_organizational_evolution_blueprint: parseBlueprint(
       d.continuous_improvement_organizational_evolution_blueprint,
     ),
+    implementation_blueprint_phase134: parsePhase134Blueprint(d.implementation_blueprint_phase134),
+    experiments_active: typeof d.experiments_active === "number" ? d.experiments_active : undefined,
     ...d,
   } as ContinuousImprovementEngineCard;
 }
@@ -71,6 +89,10 @@ export function parseContinuousImprovementEngineDashboard(data: unknown): Contin
     continuous_improvement_organizational_evolution_blueprint: parseBlueprint(
       d.continuous_improvement_organizational_evolution_blueprint,
     ),
+    implementation_blueprint_phase134: parsePhase134Blueprint(d.implementation_blueprint_phase134),
+    experiments: parseArray<AdaptiveOrganizationExperimentRecord>(d.experiments),
+    improvement_portfolio: parseArray<ImprovementPortfolioRecord>(d.improvement_portfolio),
+    fatigue_signals: parseArray<FatigueSignalRecord>(d.fatigue_signals),
   };
 }
 
@@ -78,4 +100,10 @@ export function parseContinuousImprovementOrganizationalEvolutionBlueprint(
   data: unknown,
 ): ContinuousImprovementOrganizationalEvolutionBlueprint | undefined {
   return parseBlueprint(data);
+}
+
+export function parseAdaptiveOrganizationContinuousOptimizationBlueprint(
+  data: unknown,
+): AdaptiveOrganizationContinuousOptimizationBlueprint | undefined {
+  return parsePhase134Blueprint(data);
 }

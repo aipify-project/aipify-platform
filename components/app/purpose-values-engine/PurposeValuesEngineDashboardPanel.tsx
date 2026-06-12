@@ -269,9 +269,11 @@ export function PurposeValuesEngineDashboardPanel({ labels }: Props) {
   const integrationLinks = dashboard.integration_links ?? {};
   const blueprintLinks = dashboard.blueprint_integration_links ?? [];
   const culturalLinks = dashboard.cultural_alignment_integration_links ?? [];
+  const purposeAlignmentLinks = dashboard.purpose_alignment_integration_links ?? [];
   const engagement = dashboard.engagement_summary;
   const culturalEngagement = dashboard.cultural_alignment_engagement_summary;
-  const allIntegrationLinks = [...blueprintLinks, ...culturalLinks];
+  const purposeAlignmentEngagement = dashboard.purpose_alignment_engagement_summary;
+  const allIntegrationLinks = [...blueprintLinks, ...culturalLinks, ...purposeAlignmentLinks];
 
   return (
     <div className="space-y-6">
@@ -339,7 +341,212 @@ export function PurposeValuesEngineDashboardPanel({ labels }: Props) {
         {dashboard.purpose_values_cultural_alignment_note ? (
           <p className="mt-2 text-xs text-teal-800">{dashboard.purpose_values_cultural_alignment_note}</p>
         ) : null}
+        {dashboard.implementation_blueprint_phase138?.phase ? (
+          <p className="mt-2 text-xs text-indigo-700">
+            {dashboard.implementation_blueprint_phase138.phase}
+            {dashboard.implementation_blueprint_phase138.engine_phase
+              ? ` · ${dashboard.implementation_blueprint_phase138.engine_phase}`
+              : ""}
+          </p>
+        ) : null}
+        {dashboard.purpose_alignment_mission ? (
+          <p className="mt-2 text-sm font-medium text-indigo-900">{dashboard.purpose_alignment_mission}</p>
+        ) : null}
+        {dashboard.purpose_alignment_philosophy ? (
+          <p className="mt-2 text-sm text-indigo-900">{dashboard.purpose_alignment_philosophy}</p>
+        ) : null}
+        {dashboard.purpose_alignment_abos_principle ? (
+          <p className="mt-2 text-xs text-indigo-800">{dashboard.purpose_alignment_abos_principle}</p>
+        ) : null}
+        {dashboard.purpose_alignment_vision ? (
+          <p className="mt-1 text-xs italic text-indigo-700">{dashboard.purpose_alignment_vision}</p>
+        ) : null}
+        {dashboard.organizational_purpose_alignment_note ? (
+          <p className="mt-2 text-xs text-indigo-800">{dashboard.organizational_purpose_alignment_note}</p>
+        ) : null}
       </section>
+
+      {dashboard.purpose_alignment_objectives && dashboard.purpose_alignment_objectives.length > 0 ? (
+        <section className="rounded-xl border border-indigo-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase138Objectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.purpose_alignment_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_alignment_center?.capabilities &&
+      dashboard.purpose_alignment_center.capabilities.length > 0 ? (
+        <section className="rounded-xl border border-indigo-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase138AlignmentCenter}</h3>
+          {dashboard.purpose_alignment_center.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.purpose_alignment_center.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.purpose_alignment_center.capabilities.map((cap) => (
+              <ObjectiveCard key={cap.key ?? cap.label} objective={cap} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_alignment_values_framework?.default_values &&
+      dashboard.purpose_alignment_values_framework.default_values.length > 0 ? (
+        <section className="rounded-xl border border-indigo-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase138ValuesFramework}</h3>
+          {dashboard.purpose_alignment_values_framework.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.purpose_alignment_values_framework.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.purpose_alignment_values_framework.default_values.map((value) => (
+              <ObjectiveCard key={value.key ?? value.label} objective={value} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_alignment_review_engine?.review_dimensions &&
+      dashboard.purpose_alignment_review_engine.review_dimensions.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase138AlignmentReview}</h3>
+          {dashboard.purpose_alignment_review_engine.principle ? (
+            <p className="mt-2 text-gray-700">{dashboard.purpose_alignment_review_engine.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {dashboard.purpose_alignment_review_engine.review_dimensions.map((dim) => (
+              <ObjectiveCard key={dim.key ?? dim.label} objective={dim} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_alignment_companion?.capabilities &&
+      dashboard.purpose_alignment_companion.capabilities.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase138PurposeCompanion}</h3>
+          {dashboard.purpose_alignment_companion.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.purpose_alignment_companion.principle}</p>
+          ) : null}
+          <div className="mt-3 space-y-2">
+            {dashboard.purpose_alignment_companion.capabilities.map((cap) => (
+              <CompanionGuidanceCard
+                key={cap.key ?? cap.label}
+                example={{ emoji: cap.emoji, prompt: cap.label, consideration: cap.description }}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_alignment_culture_health?.indicators &&
+      dashboard.purpose_alignment_culture_health.indicators.length > 0 ? (
+        <section className="rounded-xl border border-indigo-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase138CultureHealth}</h3>
+          {dashboard.purpose_alignment_culture_health.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.purpose_alignment_culture_health.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.purpose_alignment_culture_health.indicators.map((ind) => (
+              <ObjectiveCard key={ind.key ?? ind.label} objective={ind} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_alignment_executive_reviews?.review_areas &&
+      dashboard.purpose_alignment_executive_reviews.review_areas.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase138ExecutiveReviews}</h3>
+          {dashboard.purpose_alignment_executive_reviews.principle ? (
+            <p className="mt-2 text-gray-700">{dashboard.purpose_alignment_executive_reviews.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {dashboard.purpose_alignment_executive_reviews.review_areas.map((area) => (
+              <ObjectiveCard key={area.key ?? area.label} objective={area} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_alignment_companion_limitations?.limitations &&
+      dashboard.purpose_alignment_companion_limitations.limitations.length > 0 ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/40 p-4 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.phase138CompanionLimitations}</h3>
+          {dashboard.purpose_alignment_companion_limitations.principle ? (
+            <p className="mt-2">{dashboard.purpose_alignment_companion_limitations.principle}</p>
+          ) : null}
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+            {dashboard.purpose_alignment_companion_limitations.limitations.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_alignment_self_love_connection?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.phase138SelfLoveConnection}</h3>
+          <p className="mt-2">{dashboard.purpose_alignment_self_love_connection.principle}</p>
+          {dashboard.purpose_alignment_self_love_connection.practices &&
+          dashboard.purpose_alignment_self_love_connection.practices.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {dashboard.purpose_alignment_self_love_connection.practices.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {purposeAlignmentEngagement ? (
+        <section className="rounded-lg border border-indigo-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.phase138Engagement}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>
+              {labels.phase138AlignmentReviews}: {purposeAlignmentEngagement.scheduled_alignment_reviews ?? 0}
+            </span>
+            <span>
+              {labels.phase138ValuesMemory}: {purposeAlignmentEngagement.values_memory_entries ?? 0}
+            </span>
+            <span>
+              {labels.phase138CultureSnapshots}: {purposeAlignmentEngagement.culture_health_snapshots ?? 0}
+            </span>
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_alignment_success_criteria && dashboard.purpose_alignment_success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-indigo-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase138SuccessCriteria}</h3>
+          <div className="mt-3 space-y-2">
+            {dashboard.purpose_alignment_success_criteria.map((criterion) => (
+              <SuccessCriterionRow
+                key={criterion.key ?? criterion.label}
+                criterion={criterion}
+                metLabel={labels.criterionMet}
+                pendingLabel={labels.criterionPending}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_alignment_vision_phrases && dashboard.purpose_alignment_vision_phrases.length > 0 ? (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/30 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase138VisionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-indigo-900">
+            {dashboard.purpose_alignment_vision_phrases.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.purpose_alignment_privacy_note ? (
+        <p className="text-xs text-gray-500">{dashboard.purpose_alignment_privacy_note}</p>
+      ) : null}
 
       {dashboard.cultural_alignment_objectives && dashboard.cultural_alignment_objectives.length > 0 ? (
         <section className="rounded-xl border border-teal-200 p-6">

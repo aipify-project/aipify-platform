@@ -55,6 +55,21 @@ export const INVOICE_STATUSES = [
 ] as const;
 export type InvoiceStatus = (typeof INVOICE_STATUSES)[number];
 
+export const VERIFICATION_STATUSES = ["pending", "verified", "rejected"] as const;
+export type VerificationStatus = (typeof VERIFICATION_STATUSES)[number];
+
+export const WORKSPACE_TYPES = [
+  "company",
+  "growth_partner",
+  "consultant",
+  "freelancer",
+  "internal_team_pilot",
+] as const;
+export type WorkspaceType = (typeof WORKSPACE_TYPES)[number];
+
+export const TWO_FACTOR_STATUSES = ["enabled", "skipped", "not_enabled"] as const;
+export type TwoFactorStatusLabel = (typeof TWO_FACTOR_STATUSES)[number];
+
 export type CustomerRecord = {
   id: string;
   customer_number: string;
@@ -71,6 +86,17 @@ export type CustomerRecord = {
   plan_type: PlanType | null;
   trial_days_remaining: number | null;
   created_at: string;
+  owner_name?: string | null;
+  phone?: string | null;
+  organization_number?: string | null;
+  industry?: string | null;
+  workspace_type?: WorkspaceType | string | null;
+  verification_status?: VerificationStatus | string | null;
+  two_factor_status?: TwoFactorStatusLabel | string | null;
+  growth_partner_status?: string | null;
+  employee_size?: string | null;
+  website?: string | null;
+  enterprise_candidate?: boolean | null;
 };
 
 export type Customer = {

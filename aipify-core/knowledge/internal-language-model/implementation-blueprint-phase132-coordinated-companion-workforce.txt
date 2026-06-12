@@ -1,0 +1,23 @@
+Phase 132 — Coordinated Companion Workforce Engine
+Route: /app/companion-workforce-engine
+Module: companion_workforce_engine
+Helpers: _ccwf_* (engine), _ccwfbp132_* (blueprint)
+
+Autonomous Organization Era (131–140) — workforce coordination center for specialized Companions as teams.
+
+Mission: Coordinate specialized Companions as a harmonious workforce — clarity of responsibility, healthy collaboration, and human-led governance.
+
+Philosophy: Humans lead; companions support within governance frameworks. Harmony not hierarchy. NOT one super-assistant. Metadata only — no surveillance. Growth Partner terminology — never Affiliate.
+
+Distinctions:
+- Multi-Agent Collaboration Phase 74 /app/agents — agent registry/orchestration — cross-link only
+- Companion Marketplace Phase 113 /app/companion-marketplace — digital employee catalog — cross-link only
+- Human Oversight A.40 /app/human-oversight-engine — Phase 131 interim cross-link (no dedicated Phase 131 migration yet)
+
+Companion roles: Executive, Support, Knowledge, Commerce, Growth Partner, Governance, Transformation, Community, Resilience, Operations — each cross-links existing engine routes.
+
+Collaboration model: Support+Knowledge, Commerce+GP, Executive+Governance, Operations+Resilience, Transformation+Community.
+
+Companion limitations (never): expand authority, redefine responsibilities silently, suppress escalation, bypass governance, override humans.
+
+Privacy: metadata only — aggregate companion health, no PII, no individual surveillance.

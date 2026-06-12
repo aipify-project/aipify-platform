@@ -217,7 +217,29 @@
     "quickActive": "Aktiv",
     "quickPaused": "Pauset",
     "quickCancelled": "Kansellert",
-    "days": "dager"
+    "days": "dager",
+    "filterWorkspaceType": "Alle arbeidsområdetyper",
+    "filterVerification": "All verifisering",
+    "filterEnterprise": "Enterprise-kandidat",
+    "owner": "Eier",
+    "phone": "Telefon",
+    "organizationNumber": "Org / MVA",
+    "industry": "Bransje",
+    "workspaceType": "Arbeidsområdetype",
+    "verification": "Verifisering",
+    "twoFactor": "2FA",
+    "growthPartner": "Growth Partner",
+    "employeeSize": "Ansatte",
+    "website": "Nettsted",
+    "enterprise": "Enterprise",
+    "workspaceTypeLabels": {
+      "company": "Bedrift", "growth_partner": "Growth Partner", "consultant": "Konsulent",
+      "freelancer": "Frilanser", "internal_team_pilot": "Intern pilot"
+    },
+    "verificationLabels": { "pending": "Venter", "verified": "Verifisert", "rejected": "Avvist" },
+    "twoFactorLabels": { "enabled": "Aktivert", "skipped": "Hoppet over", "not_enabled": "Ikke aktivert" },
+    "growthPartnerLabels": { "eligible": "Kvalifisert", "standard": "Standard" },
+    "enterpriseLabels": { "yes": "Ja", "no": "Nei" }
   },
   "customerDetail": {
     "back": "Back to customers",

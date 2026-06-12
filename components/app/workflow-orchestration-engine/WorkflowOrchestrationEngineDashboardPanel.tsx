@@ -17,6 +17,15 @@ import {
   type HumanApprovalCategory,
   type CompanionGuidanceExample,
   type SafetyAvoidItem,
+  type WorkflowTypeEntry,
+  type BuilderElement,
+  type ApprovalGateType,
+  type CompanionCapability,
+  type ExceptionAction,
+  type WorkflowMetric,
+  type TemplateLibraryEntry,
+  type CompanionLimitation,
+  type SecurityRequirement,
 } from "@/lib/aipify/workflow-orchestration-engine";
 
 type Props = { labels: Record<string, string> };
@@ -191,6 +200,95 @@ function SafetyAvoidCard({ item }: { item: SafetyAvoidItem }) {
   );
 }
 
+function WorkflowTypeCard({ entry }: { entry: WorkflowTypeEntry }) {
+  return (
+    <article className="rounded-lg border border-gray-100 bg-gray-50 p-3">
+      <div className="flex flex-wrap items-start justify-between gap-2">
+        <p className="text-sm font-medium text-gray-900">{entry.label}</p>
+        {entry.route ? (
+          <Link href={entry.route} className="text-xs text-indigo-600 hover:underline">
+            {entry.route}
+          </Link>
+        ) : null}
+      </div>
+      {entry.description ? <p className="mt-1 text-xs text-gray-600">{entry.description}</p> : null}
+    </article>
+  );
+}
+
+function BuilderElementRow({ element }: { element: BuilderElement }) {
+  return (
+    <li className="rounded-lg border border-gray-100 bg-gray-50 p-3 text-sm">
+      <span className="font-medium text-gray-900">{element.label}</span>
+      {element.description ? <span className="text-gray-600"> — {element.description}</span> : null}
+    </li>
+  );
+}
+
+function ApprovalGateCard({ gate }: { gate: ApprovalGateType }) {
+  return (
+    <article className="rounded-lg border border-amber-100 bg-amber-50/30 p-3">
+      <p className="text-sm font-medium text-gray-900">{gate.label}</p>
+      {gate.description ? <p className="mt-1 text-xs text-gray-600">{gate.description}</p> : null}
+    </article>
+  );
+}
+
+function CompanionCapabilityCard({ capability }: { capability: CompanionCapability }) {
+  return (
+    <article className="rounded-lg border border-gray-100 bg-gray-50 p-3">
+      <p className="text-sm font-medium text-gray-900">{capability.label}</p>
+      {capability.description ? <p className="mt-1 text-xs text-gray-600">{capability.description}</p> : null}
+    </article>
+  );
+}
+
+function ExceptionActionCard({ action }: { action: ExceptionAction }) {
+  return (
+    <article className="rounded-lg border border-orange-100 bg-orange-50/30 p-3">
+      <p className="text-sm font-medium text-gray-900">{action.label}</p>
+      {action.description ? <p className="mt-1 text-xs text-gray-600">{action.description}</p> : null}
+    </article>
+  );
+}
+
+function WorkflowMetricRow({ metric }: { metric: WorkflowMetric }) {
+  return (
+    <li className="text-sm text-gray-600">
+      <span className="font-medium text-gray-900">{metric.label}</span>
+      {metric.description ? ` — ${metric.description}` : ""}
+    </li>
+  );
+}
+
+function TemplateLibraryCard({ entry }: { entry: TemplateLibraryEntry }) {
+  return (
+    <article className="rounded-lg border border-gray-100 bg-gray-50 p-3">
+      <p className="text-sm font-medium text-gray-900">{entry.label}</p>
+      {entry.category ? <p className="text-xs text-gray-500">{entry.category}</p> : null}
+      {entry.description ? <p className="mt-1 text-xs text-gray-600">{entry.description}</p> : null}
+    </article>
+  );
+}
+
+function CompanionLimitationCard({ item }: { item: CompanionLimitation }) {
+  return (
+    <article className="rounded-lg border border-rose-200 bg-rose-50/40 p-3">
+      <p className="text-sm font-medium text-rose-900">{item.label}</p>
+      {item.description ? <p className="mt-1 text-xs text-rose-800">{item.description}</p> : null}
+    </article>
+  );
+}
+
+function SecurityRequirementRow({ requirement }: { requirement: SecurityRequirement }) {
+  return (
+    <li className="text-sm text-gray-600">
+      <span className="font-medium text-gray-900">{requirement.label}</span>
+      {requirement.description ? ` — ${requirement.description}` : ""}
+    </li>
+  );
+}
+
 function SuccessCriterionRow({ criterion }: { criterion: BlueprintSuccessCriterion }) {
   return (
     <li className="flex flex-wrap items-start gap-2 rounded-lg border border-gray-100 p-3 text-sm">
@@ -265,6 +363,8 @@ export function WorkflowOrchestrationEngineDashboardPanel({ labels }: Props) {
   const templates = (dashboard.templates ?? []) as Array<Record<string, unknown>>;
   const orchestrationSummary = dashboard.workflow_orchestration_summary;
   const aoobp = dashboard.autonomous_operations_orchestration;
+  const awobp133 = dashboard.autonomous_workflow_orchestration_blueprint;
+  const awobp133Engagement = dashboard.awobp133_engagement_summary;
 
   return (
     <div className="space-y-6">
@@ -301,6 +401,12 @@ export function WorkflowOrchestrationEngineDashboardPanel({ labels }: Props) {
         </Link>
         <Link href="/app/operations" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.operationsCenter79}
+        </Link>
+        <Link href="/app/companion-workforce-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.companionWorkforce}
+        </Link>
+        <Link href="/app/growth-partner-operations" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.growthPartnerOps}
         </Link>
         {(dashboard.workflow_integration_links ?? []).slice(0, 4).map((link: BlueprintIntegrationLink) =>
           link.route ? (
@@ -718,6 +824,301 @@ export function WorkflowOrchestrationEngineDashboardPanel({ labels }: Props) {
                 ))}
               </ul>
             </section>
+          ) : null}
+        </>
+      ) : null}
+
+      {awobp133 ? (
+        <>
+          <section className="rounded-xl border border-purple-200 bg-purple-50/50 p-6">
+            <h2 className="text-sm font-semibold text-purple-900">{labels.awobp133Title}</h2>
+            <p className="mt-1 text-xs uppercase tracking-wide text-purple-700">
+              {awobp133.title ?? labels.awobp133Phase133}
+              {awobp133.era ? ` · ${awobp133.era}` : ""}
+              {awobp133.engine_phase ? ` · ${awobp133.engine_phase}` : ""}
+            </p>
+            {dashboard.autonomous_organization_era_note ? (
+              <p className="mt-2 text-xs text-purple-700">{dashboard.autonomous_organization_era_note}</p>
+            ) : null}
+            {awobp133.mission ? <p className="mt-2 text-sm font-medium text-purple-900">{awobp133.mission}</p> : null}
+            {awobp133.philosophy ? <p className="mt-2 text-sm text-purple-900">{awobp133.philosophy}</p> : null}
+            {awobp133.abos_principle ? <p className="mt-2 text-xs text-purple-800">{awobp133.abos_principle}</p> : null}
+            {awobp133.vision ? (
+              <p className="mt-2 text-sm italic text-purple-800">&ldquo;{awobp133.vision}&rdquo;</p>
+            ) : null}
+            {awobp133.distinction_note ? (
+              <p className="mt-2 text-xs text-purple-700">{awobp133.distinction_note}</p>
+            ) : null}
+          </section>
+
+          {awobp133Engagement ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.awobp133EngagementSummary}</h3>
+              <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {[
+                  { label: labels.activeWorkflows, value: awobp133Engagement.active_workflows },
+                  { label: labels.awaitingApproval, value: awobp133Engagement.awaiting_approval },
+                  { label: labels.awobp133SupportedTypes, value: awobp133Engagement.supported_workflow_types },
+                  { label: labels.awobp133TemplateLibraryCount, value: awobp133Engagement.template_library_count },
+                ].map((item) => (
+                  <div key={item.label} className="rounded-lg border border-gray-100 bg-gray-50 p-3">
+                    <p className="text-xs text-gray-500">{item.label}</p>
+                    <p className="mt-1 text-lg font-semibold text-gray-900">{String(item.value ?? "—")}</p>
+                  </div>
+                ))}
+              </div>
+              {awobp133Engagement.privacy_note ? (
+                <p className="mt-2 text-xs text-gray-500">{awobp133Engagement.privacy_note}</p>
+              ) : null}
+            </section>
+          ) : null}
+
+          {awobp133.objectives && awobp133.objectives.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.awobp133Objectives}</h3>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {awobp133.objectives.map((objective) => (
+                  <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {awobp133.workflow_orchestration_center ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.awobp133OrchestrationCenter}</h3>
+              {awobp133.workflow_orchestration_center.principle ? (
+                <p className="mt-2 text-sm text-gray-600">{awobp133.workflow_orchestration_center.principle}</p>
+              ) : null}
+              <ul className="mt-3 list-inside list-disc space-y-1 text-sm text-gray-600">
+                {(awobp133.workflow_orchestration_center.capabilities ?? []).map((cap) => (
+                  <li key={cap.key ?? cap.label}>
+                    <span className="font-medium">{cap.label}</span>
+                    {cap.description ? ` — ${cap.description}` : ""}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {awobp133.supported_workflow_types && awobp133.supported_workflow_types.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.awobp133SupportedTypes}</h3>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {awobp133.supported_workflow_types.map((entry) => (
+                  <WorkflowTypeCard key={entry.key ?? entry.label} entry={entry} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {awobp133.visual_workflow_builder ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.awobp133VisualBuilder}</h3>
+              {awobp133.visual_workflow_builder.principle ? (
+                <p className="mt-2 text-sm text-gray-600">{awobp133.visual_workflow_builder.principle}</p>
+              ) : null}
+              <ul className="mt-4 space-y-2">
+                {(awobp133.visual_workflow_builder.elements ?? []).map((element) => (
+                  <BuilderElementRow key={element.key ?? element.label} element={element} />
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {awobp133.workflow_triggers && awobp133.workflow_triggers.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.awobp133WorkflowTriggers}</h3>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {awobp133.workflow_triggers.map((trigger) => (
+                  <WorkflowTypeCard key={trigger.key ?? trigger.label} entry={trigger} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {awobp133.approval_framework ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.awobp133ApprovalFramework}</h3>
+              {awobp133.approval_framework.principle ? (
+                <p className="mt-2 text-sm text-gray-600">{awobp133.approval_framework.principle}</p>
+              ) : null}
+              <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {(awobp133.approval_framework.gate_types ?? []).map((gate) => (
+                  <ApprovalGateCard key={gate.key ?? gate.label} gate={gate} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {awobp133.companion_participation ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.awobp133CompanionParticipation}</h3>
+              {awobp133.companion_participation.principle ? (
+                <p className="mt-2 text-sm text-gray-600">{awobp133.companion_participation.principle}</p>
+              ) : null}
+              <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {(awobp133.companion_participation.capabilities ?? []).map((capability) => (
+                  <CompanionCapabilityCard key={capability.key ?? capability.label} capability={capability} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {awobp133.companion_limitations && awobp133.companion_limitations.length > 0 ? (
+            <section className="rounded-xl border border-rose-100 bg-rose-50/30 p-6">
+              <h3 className="text-sm font-semibold text-rose-900">{labels.awobp133CompanionLimitations}</h3>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {awobp133.companion_limitations.map((item) => (
+                  <CompanionLimitationCard key={item.key ?? item.label} item={item} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {awobp133.exception_management ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.awobp133ExceptionManagement}</h3>
+              {awobp133.exception_management.principle ? (
+                <p className="mt-2 text-sm text-gray-600">{awobp133.exception_management.principle}</p>
+              ) : null}
+              <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {(awobp133.exception_management.actions ?? []).map((action) => (
+                  <ExceptionActionCard key={action.key ?? action.label} action={action} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {awobp133.workflow_analytics ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.awobp133WorkflowAnalytics}</h3>
+              {awobp133.workflow_analytics.principle ? (
+                <p className="mt-2 text-sm text-gray-600">{awobp133.workflow_analytics.principle}</p>
+              ) : null}
+              <ul className="mt-3 list-inside list-disc space-y-1">
+                {(awobp133.workflow_analytics.metrics ?? []).map((metric) => (
+                  <WorkflowMetricRow key={metric.key ?? metric.label} metric={metric} />
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {awobp133.template_library && awobp133.template_library.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.awobp133TemplateLibrary}</h3>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {awobp133.template_library.map((entry) => (
+                  <TemplateLibraryCard key={entry.key ?? entry.label} entry={entry} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {awobp133.security_requirements ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.awobp133SecurityRequirements}</h3>
+              {awobp133.security_requirements.principle ? (
+                <p className="mt-2 text-sm text-gray-600">{awobp133.security_requirements.principle}</p>
+              ) : null}
+              <ul className="mt-3 list-inside list-disc space-y-1">
+                {(awobp133.security_requirements.requirements ?? []).map((requirement) => (
+                  <SecurityRequirementRow key={requirement.key ?? requirement.label} requirement={requirement} />
+                ))}
+              </ul>
+              {awobp133.security_requirements.two_factor_route ? (
+                <Link
+                  href={awobp133.security_requirements.two_factor_route}
+                  className="mt-2 inline-block text-xs text-indigo-600 hover:underline"
+                >
+                  {labels.awobp133TwoFactor}
+                </Link>
+              ) : null}
+            </section>
+          ) : null}
+
+          {awobp133.self_love_connection ? (
+            <section className="rounded-xl border border-rose-100 bg-rose-50/40 p-6">
+              <h3 className="text-sm font-semibold text-rose-900">{labels.awobp133SelfLoveConnection}</h3>
+              {awobp133.self_love_connection.principle ? (
+                <p className="mt-2 text-sm text-rose-800">{awobp133.self_love_connection.principle}</p>
+              ) : null}
+              <ul className="mt-2 list-inside list-disc text-sm text-rose-800">
+                {(awobp133.self_love_connection.connections ?? []).map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {awobp133.dogfooding ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.awobp133Dogfooding}</h3>
+              {awobp133.dogfooding.principle ? (
+                <p className="mt-2 text-sm text-gray-600">{awobp133.dogfooding.principle}</p>
+              ) : null}
+              {awobp133.dogfooding.focus_areas && awobp133.dogfooding.focus_areas.length > 0 ? (
+                <ul className="mt-2 list-inside list-disc text-sm text-gray-600">
+                  {awobp133.dogfooding.focus_areas.map((area) => (
+                    <li key={area}>{area}</li>
+                  ))}
+                </ul>
+              ) : null}
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {awobp133.dogfooding.aipify_group ? (
+                  <DogfoodingCard entry={awobp133.dogfooding.aipify_group} title={labels.aipifyGroup} />
+                ) : null}
+                {awobp133.dogfooding.unonight ? (
+                  <DogfoodingCard entry={awobp133.dogfooding.unonight} title={labels.unonight} />
+                ) : null}
+              </div>
+            </section>
+          ) : null}
+
+          {awobp133.success_criteria && awobp133.success_criteria.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.awobp133SuccessCriteria}</h3>
+              <ul className="mt-4 space-y-2">
+                {awobp133.success_criteria.map((criterion) => (
+                  <SuccessCriterionRow key={criterion.key ?? criterion.label} criterion={criterion} />
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {awobp133.vision_phrases && awobp133.vision_phrases.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.awobp133VisionPhrases}</h3>
+              <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-gray-600">
+                {awobp133.vision_phrases.map((phrase) => (
+                  <li key={phrase}>{phrase}</li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {awobp133.integration_links && awobp133.integration_links.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.awobp133IntegrationLinks}</h3>
+              <ul className="mt-3 space-y-2 text-sm">
+                {awobp133.integration_links.map((link) => (
+                  <li key={String(link.key ?? link.route)}>
+                    {link.route ? (
+                      <Link href={link.route} className="font-medium text-indigo-700 hover:underline">
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <span className="font-medium text-gray-900">{link.label}</span>
+                    )}
+                    {link.note ? <p className="text-xs text-gray-500">{link.note}</p> : null}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {awobp133.privacy_note ? (
+            <p className="text-xs text-gray-500">{awobp133.privacy_note}</p>
           ) : null}
         </>
       ) : null}

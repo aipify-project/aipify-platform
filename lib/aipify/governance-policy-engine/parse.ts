@@ -11,6 +11,7 @@ import type {
   GovernancePrinciple,
   ImplementationBlueprintMeta,
   IntegrationLink,
+  BoardGovernanceCompanionPhase123Blueprint,
   SelfLoveConnection,
   StrategicOversight,
   TrustConnection,
@@ -53,6 +54,12 @@ export function parseGovernancePolicyEngineCard(data: unknown): GovernancePolicy
     engagement_summary: parseEngagementSummary(d.engagement_summary),
     blueprint_note: typeof d.blueprint_note === "string" ? d.blueprint_note : undefined,
     governance_note: typeof d.governance_note === "string" ? d.governance_note : undefined,
+    implementation_blueprint_phase123: parseBlueprintMeta(d.implementation_blueprint_phase123),
+    phase123_mission: typeof d.phase123_mission === "string" ? d.phase123_mission : undefined,
+    phase123_abos_principle:
+      typeof d.phase123_abos_principle === "string" ? d.phase123_abos_principle : undefined,
+    phase123_engagement_summary: parseEngagementSummary(d.phase123_engagement_summary),
+    phase123_note: typeof d.phase123_note === "string" ? d.phase123_note : undefined,
   };
 }
 
@@ -123,5 +130,12 @@ export function parseGovernancePolicyEngineDashboard(
     success_criteria: parseRecordList<AbosSuccessCriterion>(d.success_criteria),
     vision_phrases: Array.isArray(d.vision_phrases) ? (d.vision_phrases as string[]) : undefined,
     metadata_note: typeof d.metadata_note === "string" ? d.metadata_note : undefined,
+    implementation_blueprint_phase123: parseObjectBlock<BoardGovernanceCompanionPhase123Blueprint>(
+      d.implementation_blueprint_phase123
+    ),
+    board_governance_companion_phase123_note:
+      typeof d.board_governance_companion_phase123_note === "string"
+        ? d.board_governance_companion_phase123_note
+        : undefined,
   };
 }

@@ -1,0 +1,1 @@
+export { CollectiveDecisionCouncilEngineDashboardPanel } from "./CollectiveDecisionCouncilEngineDashboardPanel";

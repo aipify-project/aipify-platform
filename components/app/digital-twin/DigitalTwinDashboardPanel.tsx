@@ -51,6 +51,8 @@ export function DigitalTwinDashboardPanel({ labels }: DigitalTwinDashboardPanelP
   if (!dashboard?.has_customer) return null;
 
   const engagement = dashboard.engagement_summary;
+  const phase124 = dashboard.implementation_blueprint_phase124;
+  const phase124Engagement = phase124?.engagement_summary;
 
   return (
     <div className="space-y-6">
@@ -242,6 +244,250 @@ export function DigitalTwinDashboardPanel({ labels }: DigitalTwinDashboardPanelP
           ) : null}
           {dashboard.blueprint_privacy_note ? (
             <p className="mt-4 text-xs text-indigo-700">{dashboard.blueprint_privacy_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase124?.mission || phase124?.distinction_note ? (
+        <section className="rounded-xl border border-teal-200 bg-teal-50/30 p-6">
+          <h2 className="text-sm font-semibold text-teal-900">{labels.phase124Section}</h2>
+          {phase124.phase ? (
+            <p className="mt-1 text-xs text-teal-700">
+              {labels.phase124Era}
+              {phase124.engine_phase ? ` · ${phase124.engine_phase}` : ""}
+            </p>
+          ) : null}
+          {phase124.distinction_note ? (
+            <p className="mt-2 text-xs text-teal-800">{phase124.distinction_note}</p>
+          ) : null}
+          {phase124.mission ? (
+            <p className="mt-2 text-sm font-medium text-teal-900">{phase124.mission}</p>
+          ) : null}
+          {phase124.philosophy ? (
+            <p className="mt-2 text-sm text-teal-900">{phase124.philosophy}</p>
+          ) : null}
+          {phase124.abos_principle ? (
+            <p className="mt-2 text-xs text-teal-800">{phase124.abos_principle}</p>
+          ) : null}
+          {(phase124.objectives ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-teal-700">{labels.phase124Objectives}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {phase124.objectives?.map((obj) => (
+                  <ObjectiveCard key={obj.key ?? obj.label} objective={obj} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {phase124.organizational_digital_twin?.reflects?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-teal-700">{labels.phase124TwinReflects}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {phase124.organizational_digital_twin.reflects.map((item) => (
+                  <ObjectiveCard key={item.key ?? item.label} objective={item} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {(phase124.digital_twin_center ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-teal-700">{labels.phase124TwinCenter}</h3>
+              <ul className="mt-2 flex flex-wrap gap-2 text-sm text-teal-900">
+                {phase124.digital_twin_center?.map((cap) => (
+                  <li key={cap.key ?? cap.label} className="rounded border border-teal-100 px-2 py-1">
+                    {cap.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {(phase124.organizational_map_engine ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-teal-700">{labels.phase124MapEngine}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {phase124.organizational_map_engine?.map((item) => (
+                  <ObjectiveCard key={item.key ?? item.label} objective={item} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {(phase124.dependency_intelligence ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-teal-700">{labels.phase124DependencyIntelligence}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {phase124.dependency_intelligence?.map((item) => (
+                  <ObjectiveCard key={item.key ?? item.label} objective={item} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {phase124.simulation_workspace?.scenarios?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-teal-700">{labels.phase124SimulationWorkspace}</h3>
+              <ul className="mt-2 space-y-1 text-sm text-teal-900">
+                {phase124.simulation_workspace.scenarios.map((scenario) => (
+                  <li key={scenario.key ?? scenario.label}>{scenario.label}</li>
+                ))}
+              </ul>
+              {phase124.simulation_workspace.simulation_route ? (
+                <Link
+                  href={phase124.simulation_workspace.simulation_route}
+                  className="mt-2 inline-block text-sm text-teal-700 underline"
+                >
+                  {labels.openSimulations}
+                </Link>
+              ) : null}
+            </div>
+          ) : null}
+          {(phase124.transformation_impact_model ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-teal-700">{labels.phase124TransformationImpact}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {phase124.transformation_impact_model?.map((item) => (
+                  <ObjectiveCard key={item.key ?? item.label} objective={item} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {(phase124.knowledge_network_engine ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-teal-700">{labels.phase124KnowledgeNetwork}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {phase124.knowledge_network_engine?.map((item) => (
+                  <ObjectiveCard key={item.key ?? item.label} objective={item} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {(phase124.resilience_visualization ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-teal-700">{labels.phase124ResilienceVisualization}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {phase124.resilience_visualization?.map((item) => (
+                  <ObjectiveCard key={item.key ?? item.label} objective={item} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {(phase124.executive_digital_twin_companion ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-teal-700">{labels.phase124ExecutiveCompanion}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {phase124.executive_digital_twin_companion?.map((item) => (
+                  <ObjectiveCard key={item.key ?? item.label} objective={item} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {(phase124.companion_limitations ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-teal-700">{labels.phase124CompanionLimitations}</h3>
+              <ul className="mt-2 list-disc space-y-1 pl-4 text-xs text-teal-800">
+                {phase124.companion_limitations?.map((rule) => (
+                  <li key={rule.key ?? rule.label}>{rule.label}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {phase124.self_love_connection?.considerations?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-teal-700">{labels.phase124SelfLoveConnection}</h3>
+              <ul className="mt-2 space-y-1 text-sm text-teal-900">
+                {phase124.self_love_connection.considerations.map((item) => (
+                  <li key={item.key ?? item.label}>{item.label}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {phase124.memory_engine?.captures?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-teal-700">{labels.phase124MemoryEngine}</h3>
+              <ul className="mt-2 flex flex-wrap gap-2 text-sm text-teal-900">
+                {phase124.memory_engine.captures.map((item) => (
+                  <li key={item.key ?? item.label} className="rounded border border-teal-100 px-2 py-1">
+                    {item.label}
+                  </li>
+                ))}
+              </ul>
+              {phase124.memory_engine.org_memory_route ? (
+                <Link
+                  href={phase124.memory_engine.org_memory_route}
+                  className="mt-2 inline-block text-sm text-teal-700 underline"
+                >
+                  {labels.phase124OpenOrgMemory}
+                </Link>
+              ) : null}
+            </div>
+          ) : null}
+          {(phase124.cross_links ?? []).length > 0 ? (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {phase124.cross_links?.map((link) =>
+                link.route ? (
+                  <Link key={link.route + (link.label ?? "")} href={link.route} className="rounded-lg border border-teal-200 px-3 py-1.5 text-sm">
+                    {link.label}
+                  </Link>
+                ) : null
+              )}
+            </div>
+          ) : null}
+          {phase124Engagement ? (
+            <div className="mt-4 grid gap-2 sm:grid-cols-3 lg:grid-cols-4">
+              <p className="text-xs text-teal-800">
+                {labels.phase124TwinCenterCount}: {phase124Engagement.twin_center_capabilities ?? 0}
+              </p>
+              <p className="text-xs text-teal-800">
+                {labels.phase124DependencySignals}: {phase124Engagement.dependency_signals ?? 0}
+              </p>
+              <p className="text-xs text-teal-800">
+                {labels.phase124SimulationScenarios}: {phase124Engagement.simulation_scenarios ?? 0}
+              </p>
+            </div>
+          ) : null}
+          {(phase124.success_criteria ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-teal-700">{labels.phase124SuccessCriteria}</h3>
+              <ul className="mt-2 space-y-1">
+                {phase124.success_criteria?.map((criterion) => (
+                  <li
+                    key={criterion.key ?? criterion.label}
+                    className="flex flex-wrap items-center justify-between gap-2 rounded border border-teal-100 px-3 py-2 text-sm"
+                  >
+                    <span className="text-teal-900">{criterion.label}</span>
+                    <span className={criterion.met ? "text-xs text-green-700" : "text-xs text-amber-700"}>
+                      {criterion.met ? labels.criterionMet : labels.criterionPending}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {(phase124.success_metrics ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-teal-700">{labels.phase124SuccessMetrics}</h3>
+              <ul className="mt-2 flex flex-wrap gap-2 text-sm text-teal-900">
+                {phase124.success_metrics?.map((metric) => (
+                  <li key={metric.key ?? metric.label} className="rounded border border-teal-100 px-2 py-1">
+                    {metric.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {phase124.companion_adaptation?.examples?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-teal-700">{labels.phase124CompanionAdaptation}</h3>
+              <ul className="mt-2 space-y-2 text-sm text-teal-900">
+                {phase124.companion_adaptation.examples.map((example) => (
+                  <li key={example.key ?? example.prompt}>
+                    {example.emoji ? `${example.emoji} ` : ""}
+                    {example.prompt}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {phase124.privacy_note ? (
+            <p className="mt-4 text-xs text-teal-700">{phase124.privacy_note}</p>
           ) : null}
         </section>
       ) : null}

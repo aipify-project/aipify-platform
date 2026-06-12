@@ -4,17 +4,22 @@ import type {
   BoundaryPrinciples,
   CompanionExample,
   CompanionReliability,
+  CompanionResponsibilities,
   DogfoodingBlueprint,
+  EarlyWarningSignal,
   ExamplePhrase,
+  GrowthPartnerTrustModel,
   IntegrationLink,
   OrganizationalTrust,
   OrganizationTrustOutcome,
   OrganizationTrustProfile,
   OrganizationTrustSignal,
+  RecognitionTypesBlueprint,
   RelationshipObjective,
   RelationshipPrinciple,
   SelfLoveConnection,
   TrustEngagementSummary,
+  TrustInsightQuestion,
   TrustReputationEngineCard,
   TrustReputationEngineDashboard,
   TrustReputationExport,
@@ -114,6 +119,31 @@ function parseOrganizationalTrust(data: unknown): OrganizationalTrust | undefine
   return data as OrganizationalTrust;
 }
 
+function parseTrustInsightQuestions(data: unknown): TrustInsightQuestion[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as TrustInsightQuestion[];
+}
+
+function parseEarlyWarningSignals(data: unknown): EarlyWarningSignal[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as EarlyWarningSignal[];
+}
+
+function parseRecognitionTypes(data: unknown): RecognitionTypesBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as RecognitionTypesBlueprint;
+}
+
+function parseCompanionResponsibilities(data: unknown): CompanionResponsibilities | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CompanionResponsibilities;
+}
+
+function parseGrowthPartnerTrustModel(data: unknown): GrowthPartnerTrustModel | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as GrowthPartnerTrustModel;
+}
+
 export function parseTrustReputationEngineCard(data: unknown): TrustReputationEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
   return {
@@ -165,6 +195,10 @@ export function parseTrustReputationEngineDashboard(
       typeof d.companion_relationship_trust_note === "string"
         ? d.companion_relationship_trust_note
         : undefined,
+    trust_reputation_relationship_note:
+      typeof d.trust_reputation_relationship_note === "string"
+        ? d.trust_reputation_relationship_note
+        : undefined,
     blueprint_philosophy: typeof d.blueprint_philosophy === "string" ? d.blueprint_philosophy : undefined,
     blueprint_mission: typeof d.blueprint_mission === "string" ? d.blueprint_mission : undefined,
     blueprint_abos_principle:
@@ -193,6 +227,10 @@ export function parseTrustReputationEngineDashboard(
       typeof d.implementation_blueprint_phase26 === "object" && d.implementation_blueprint_phase26
         ? (d.implementation_blueprint_phase26 as TrustReputationEngineDashboard["implementation_blueprint_phase26"])
         : undefined,
+    implementation_blueprint_phase57:
+      typeof d.implementation_blueprint_phase57 === "object" && d.implementation_blueprint_phase57
+        ? (d.implementation_blueprint_phase57 as TrustReputationEngineDashboard["implementation_blueprint_phase57"])
+        : undefined,
     companion_objectives: parseRelationshipObjectives(d.companion_objectives),
     trust_principles: parseRelationshipPrinciples(d.trust_principles),
     avoid_practices: parseStringArray(d.avoid_practices),
@@ -206,6 +244,24 @@ export function parseTrustReputationEngineDashboard(
     companion_integration_links: parseIntegrationLinks(d.companion_integration_links),
     companion_success_criteria: parseSuccessCriteria(d.companion_success_criteria),
     companion_vision_phrases: parseStringArray(d.companion_vision_phrases),
+    phase116_objectives: parseRelationshipObjectives(d.phase116_objectives),
+    trust_framework_dimensions: parseRelationshipObjectives(d.trust_framework_dimensions),
+    relationship_health_categories: parseRelationshipObjectives(d.relationship_health_categories),
+    reputation_profile_types: parseRelationshipObjectives(d.reputation_profile_types),
+    trust_insights_questions: parseTrustInsightQuestions(d.trust_insights_questions),
+    early_warning_signals: parseEarlyWarningSignals(d.early_warning_signals),
+    recognition_types: parseRecognitionTypes(d.recognition_types),
+    trust_recovery_framework: parseRelationshipObjectives(d.trust_recovery_framework),
+    companion_responsibilities: parseCompanionResponsibilities(d.companion_responsibilities),
+    growth_partner_trust_model: parseGrowthPartnerTrustModel(d.growth_partner_trust_model),
+    enterprise_trust_governance: parseRelationshipObjectives(d.enterprise_trust_governance),
+    privacy_ethics_principles: parseRelationshipPrinciples(d.privacy_ethics_principles),
+    self_love_in_relationships: parseSelfLoveConnection(d.self_love_in_relationships),
+    phase116_integration_links: parseIntegrationLinks(d.phase116_integration_links),
+    limitation_principles: parseStringArray(d.limitation_principles),
+    companion_adaptation: parseCompanionExamples(d.companion_adaptation),
+    phase116_success_metrics: parseRelationshipObjectives(d.phase116_success_metrics),
+    phase116_success_criteria: parseSuccessCriteria(d.phase116_success_criteria),
     ...d,
   } as TrustReputationEngineDashboard;
 }

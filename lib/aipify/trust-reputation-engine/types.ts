@@ -100,8 +100,40 @@ export type TrustEngagementSummary = {
   expansion_review_required?: boolean;
   reliability_signals_90d?: number;
   continuity_signals_30d?: number;
+  relationship_signals_90d?: number;
+  warning_signals_30d?: number;
+  phase116_note?: string;
   companion_note?: string;
   privacy_note?: string;
+};
+
+export type TrustInsightQuestion = {
+  key?: string;
+  question?: string;
+  intent?: string;
+};
+
+export type EarlyWarningSignal = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type RecognitionTypesBlueprint = {
+  principle?: string;
+  recognition_route?: string;
+  types?: RelationshipObjective[];
+};
+
+export type CompanionResponsibilities = {
+  may?: string[];
+  must_avoid?: string[];
+};
+
+export type GrowthPartnerTrustModel = {
+  principle?: string;
+  growth_partner_route?: string;
+  areas?: RelationshipObjective[];
 };
 
 export type AbosSuccessCriterion = {
@@ -177,8 +209,10 @@ export type TrustReputationEngineDashboard = {
   integration_summaries?: Record<string, unknown>;
   implementation_blueprint?: ImplementationBlueprintMeta;
   implementation_blueprint_phase26?: ImplementationBlueprintMeta;
+  implementation_blueprint_phase57?: ImplementationBlueprintMeta;
   trust_relationship_note?: string;
   companion_relationship_trust_note?: string;
+  trust_reputation_relationship_note?: string;
   blueprint_philosophy?: string;
   blueprint_mission?: string;
   blueprint_abos_principle?: string;
@@ -209,6 +243,24 @@ export type TrustReputationEngineDashboard = {
   companion_integration_links?: IntegrationLink[];
   companion_success_criteria?: AbosSuccessCriterion[];
   companion_vision_phrases?: string[];
+  phase116_objectives?: RelationshipObjective[];
+  trust_framework_dimensions?: RelationshipObjective[];
+  relationship_health_categories?: RelationshipObjective[];
+  reputation_profile_types?: RelationshipObjective[];
+  trust_insights_questions?: TrustInsightQuestion[];
+  early_warning_signals?: EarlyWarningSignal[];
+  recognition_types?: RecognitionTypesBlueprint;
+  trust_recovery_framework?: RelationshipObjective[];
+  companion_responsibilities?: CompanionResponsibilities;
+  growth_partner_trust_model?: GrowthPartnerTrustModel;
+  enterprise_trust_governance?: RelationshipObjective[];
+  privacy_ethics_principles?: RelationshipPrinciple[];
+  self_love_in_relationships?: SelfLoveConnection;
+  phase116_integration_links?: IntegrationLink[];
+  limitation_principles?: string[];
+  companion_adaptation?: CompanionExample[];
+  phase116_success_metrics?: RelationshipObjective[];
+  phase116_success_criteria?: AbosSuccessCriterion[];
   privacy_note?: string;
   [key: string]: unknown;
 };

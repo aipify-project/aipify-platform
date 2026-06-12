@@ -23,6 +23,17 @@ function ObjectiveCard({ objective }: { objective: BlueprintObjective }) {
   );
 }
 
+function ObjectiveList({ items }: { items?: BlueprintObjective[] }) {
+  if (!items || items.length === 0) return null;
+  return (
+    <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {items.map((item) => (
+        <ObjectiveCard key={item.key ?? item.label} objective={item} />
+      ))}
+    </div>
+  );
+}
+
 function GuidanceList({ items }: { items?: Array<Record<string, unknown>> }) {
   if (!items || items.length === 0) return null;
   return (
@@ -737,6 +748,431 @@ export function OrganizationalResilienceEngineDashboardPanel({ labels }: Props) 
               <h3 className="text-sm font-semibold text-gray-900">{labels.recoveryVisionPhrases}</h3>
               <ul className="mt-3 list-inside list-disc space-y-1 text-sm text-gray-600">
                 {dashboard.recovery_vision_phrases.map((phrase) => (
+                  <li key={phrase}>{phrase}</li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+        </>
+      ) : null}
+
+      {dashboard.implementation_blueprint_phase128?.phase ? (
+        <>
+          <section className="rounded-xl border border-sky-200 bg-sky-50/50 p-6">
+            <h2 className="text-sm font-semibold">{labels.phase128Title}</h2>
+            <p className="mt-1 text-xs text-sky-700">
+              {dashboard.implementation_blueprint_phase128.phase}
+              {dashboard.implementation_blueprint_phase128.engine_phase
+                ? ` · ${dashboard.implementation_blueprint_phase128.engine_phase}`
+                : ""}
+              {dashboard.implementation_blueprint_phase128.era
+                ? ` · ${dashboard.implementation_blueprint_phase128.era}`
+                : ""}
+            </p>
+            {dashboard.continuity_companion_distinction_note ? (
+              <p className="mt-2 text-xs text-sky-700">{dashboard.continuity_companion_distinction_note}</p>
+            ) : null}
+            {dashboard.continuity_companion_mission ? (
+              <p className="mt-2 text-sm font-medium text-sky-900">{dashboard.continuity_companion_mission}</p>
+            ) : null}
+            {dashboard.continuity_companion_philosophy ? (
+              <p className="mt-2 text-sm text-sky-900">{dashboard.continuity_companion_philosophy}</p>
+            ) : null}
+            {dashboard.continuity_companion_abos_principle ? (
+              <p className="mt-2 text-xs text-sky-800">{dashboard.continuity_companion_abos_principle}</p>
+            ) : null}
+            {dashboard.continuity_companion_engine_note ? (
+              <p className="mt-2 text-xs text-sky-800">{dashboard.continuity_companion_engine_note}</p>
+            ) : null}
+            {dashboard.continuity_companion_vision ? (
+              <p className="mt-2 text-xs italic text-sky-700">{dashboard.continuity_companion_vision}</p>
+            ) : null}
+          </section>
+
+          {(dashboard.continuity_companion_cross_links ?? []).length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {dashboard.continuity_companion_cross_links?.map((link) =>
+                link.route ? (
+                  <Link key={link.route + String(link.label)} href={link.route} className="rounded-lg border border-sky-200 px-3 py-1.5 text-sm">
+                    {link.label}
+                  </Link>
+                ) : null
+              )}
+            </div>
+          ) : null}
+
+          {dashboard.continuity_companion_objectives && dashboard.continuity_companion_objectives.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.continuityCompanionObjectives}</h3>
+              <ObjectiveList items={dashboard.continuity_companion_objectives} />
+            </section>
+          ) : null}
+
+          {dashboard.resilience_center && dashboard.resilience_center.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.resilienceCenter}</h3>
+              <ObjectiveList items={dashboard.resilience_center} />
+            </section>
+          ) : null}
+
+          {dashboard.business_continuity_engine && dashboard.business_continuity_engine.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.businessContinuityEngine}</h3>
+              <ObjectiveList items={dashboard.business_continuity_engine} />
+            </section>
+          ) : null}
+
+          {dashboard.resilience_assessment && dashboard.resilience_assessment.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.resilienceAssessment}</h3>
+              <ObjectiveList items={dashboard.resilience_assessment} />
+            </section>
+          ) : null}
+
+          {dashboard.dependency_protection?.principle ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.dependencyProtection}</h3>
+              <p className="mt-2 text-sm text-gray-700">{dashboard.dependency_protection.principle}</p>
+              <CategoryGrid block={{ categories: dashboard.dependency_protection.examples as Array<Record<string, unknown>> | undefined }} />
+            </section>
+          ) : null}
+
+          {dashboard.recovery_orchestration && dashboard.recovery_orchestration.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.recoveryOrchestration}</h3>
+              <ObjectiveList items={dashboard.recovery_orchestration} />
+            </section>
+          ) : null}
+
+          {dashboard.resilience_companion_supports && dashboard.resilience_companion_supports.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.resilienceCompanionSupports}</h3>
+              <ObjectiveList items={dashboard.resilience_companion_supports} />
+            </section>
+          ) : null}
+
+          {dashboard.leadership_continuity_supports?.principle ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.leadershipContinuitySupports}</h3>
+              <p className="mt-2 text-sm text-gray-700">{dashboard.leadership_continuity_supports.principle}</p>
+              <ObjectiveList
+                items={(dashboard.leadership_continuity_supports.supports ?? []).map((item) => ({
+                  key: String(item.key ?? ""),
+                  label: String(item.label ?? ""),
+                  description: String(item.description ?? ""),
+                }))}
+              />
+            </section>
+          ) : null}
+
+          {dashboard.resilience_exercise_framework?.principle ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.resilienceExerciseFramework}</h3>
+              <p className="mt-2 text-sm text-gray-700">{dashboard.resilience_exercise_framework.principle}</p>
+              <ObjectiveList
+                items={(dashboard.resilience_exercise_framework.exercise_types ?? []).map((item) => ({
+                  key: String(item.key ?? ""),
+                  label: String(item.label ?? ""),
+                  description: String(item.description ?? ""),
+                }))}
+              />
+            </section>
+          ) : null}
+
+          {dashboard.continuity_companion_adaptation?.principle ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.continuityCompanionAdaptation}</h3>
+              <p className="mt-2 text-sm text-gray-700">{dashboard.continuity_companion_adaptation.principle}</p>
+              <GuidanceList items={dashboard.continuity_companion_adaptation.examples} />
+            </section>
+          ) : null}
+
+          {dashboard.continuity_self_love_connection?.principle ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.continuitySelfLoveConnection}</h3>
+              <p className="mt-2 text-sm text-gray-700">{dashboard.continuity_self_love_connection.principle}</p>
+              {dashboard.continuity_self_love_connection.journey_phrase ? (
+                <p className="mt-2 text-xs italic text-gray-600">{dashboard.continuity_self_love_connection.journey_phrase}</p>
+              ) : null}
+            </section>
+          ) : null}
+
+          {dashboard.continuity_knowledge_library && dashboard.continuity_knowledge_library.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.continuityKnowledgeLibrary}</h3>
+              <ObjectiveList items={dashboard.continuity_knowledge_library} />
+            </section>
+          ) : null}
+
+          {dashboard.continuity_companion_limitation_principles?.principle ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.continuityCompanionLimitationPrinciples}</h3>
+              <p className="mt-2 text-sm text-gray-700">{dashboard.continuity_companion_limitation_principles.principle}</p>
+              {dashboard.continuity_companion_limitation_principles.forbidden &&
+              dashboard.continuity_companion_limitation_principles.forbidden.length > 0 ? (
+                <>
+                  <p className="mt-3 text-xs font-medium text-gray-500">{labels.forbidden}</p>
+                  <ul className="mt-1 list-inside list-disc space-y-1 text-sm text-gray-600">
+                    {dashboard.continuity_companion_limitation_principles.forbidden.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </>
+              ) : null}
+              {dashboard.continuity_companion_limitation_principles.required &&
+              dashboard.continuity_companion_limitation_principles.required.length > 0 ? (
+                <>
+                  <p className="mt-3 text-xs font-medium text-gray-500">{labels.required}</p>
+                  <ul className="mt-1 list-inside list-disc space-y-1 text-sm text-gray-600">
+                    {dashboard.continuity_companion_limitation_principles.required.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </>
+              ) : null}
+            </section>
+          ) : null}
+
+          {dashboard.continuity_companion_engagement_summary ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.continuityCompanionEngagementSummary}</h3>
+              <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-3">
+                <div><dt className="text-gray-500">{labels.activePlans}</dt><dd>{String(dashboard.continuity_companion_engagement_summary.phase128_active_plans ?? dashboard.continuity_companion_engagement_summary.active_plans ?? 0)}</dd></div>
+                <div><dt className="text-gray-500">{labels.openVulnerabilities}</dt><dd>{String(dashboard.continuity_companion_engagement_summary.phase128_open_vulnerabilities ?? dashboard.continuity_companion_engagement_summary.open_vulnerabilities ?? 0)}</dd></div>
+                <div><dt className="text-gray-500">{labels.completedSimulations}</dt><dd>{String(dashboard.continuity_companion_engagement_summary.phase128_completed_simulations ?? dashboard.continuity_companion_engagement_summary.completed_simulations ?? 0)}</dd></div>
+              </dl>
+            </section>
+          ) : null}
+
+          {dashboard.continuity_companion_success_criteria && dashboard.continuity_companion_success_criteria.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.continuityCompanionSuccessCriteria}</h3>
+              <SuccessCriteriaList criteria={dashboard.continuity_companion_success_criteria} labels={labels} />
+            </section>
+          ) : null}
+        </>
+      ) : null}
+
+      {dashboard.implementation_blueprint_phase136?.phase ? (
+        <>
+          <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">
+            <h2 className="text-sm font-semibold">{labels.phase136Title}</h2>
+            <p className="mt-1 text-xs text-violet-700">
+              {dashboard.implementation_blueprint_phase136.phase}
+              {dashboard.implementation_blueprint_phase136.engine_phase
+                ? ` · ${dashboard.implementation_blueprint_phase136.engine_phase}`
+                : ""}
+              {dashboard.implementation_blueprint_phase136.era
+                ? ` · ${dashboard.implementation_blueprint_phase136.era}`
+                : ""}
+            </p>
+            {dashboard.self_healing_distinction_note ? (
+              <p className="mt-2 text-xs text-violet-700">{dashboard.self_healing_distinction_note}</p>
+            ) : null}
+            {dashboard.self_healing_mission ? (
+              <p className="mt-2 text-sm font-medium text-violet-900">{dashboard.self_healing_mission}</p>
+            ) : null}
+            {dashboard.self_healing_philosophy ? (
+              <p className="mt-2 text-sm text-violet-900">{dashboard.self_healing_philosophy}</p>
+            ) : null}
+            {dashboard.self_healing_abos_principle ? (
+              <p className="mt-2 text-xs text-violet-800">{dashboard.self_healing_abos_principle}</p>
+            ) : null}
+            {dashboard.self_healing_operations_engine_note ? (
+              <p className="mt-2 text-xs text-violet-800">{dashboard.self_healing_operations_engine_note}</p>
+            ) : null}
+            {dashboard.self_healing_vision ? (
+              <p className="mt-2 text-xs italic text-violet-700">{dashboard.self_healing_vision}</p>
+            ) : null}
+          </section>
+
+          {(dashboard.self_healing_integration_links ?? []).length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {dashboard.self_healing_integration_links?.map((link) =>
+                link.route ? (
+                  <Link key={link.route + String(link.label)} href={link.route} className="rounded-lg border border-violet-200 px-3 py-1.5 text-sm">
+                    {link.label}
+                  </Link>
+                ) : null
+              )}
+            </div>
+          ) : null}
+
+          {dashboard.self_healing_objectives && dashboard.self_healing_objectives.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.selfHealingObjectives}</h3>
+              <ObjectiveList items={dashboard.self_healing_objectives} />
+            </section>
+          ) : null}
+
+          {dashboard.self_healing_operations_center && dashboard.self_healing_operations_center.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.selfHealingOperationsCenter}</h3>
+              <ObjectiveList items={dashboard.self_healing_operations_center} />
+            </section>
+          ) : null}
+
+          {dashboard.operational_health_engine && dashboard.operational_health_engine.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.operationalHealthEngine}</h3>
+              <ObjectiveList items={dashboard.operational_health_engine} />
+            </section>
+          ) : null}
+
+          {dashboard.recovery_detection_engine && dashboard.recovery_detection_engine.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.recoveryDetectionEngine}</h3>
+              <ObjectiveList items={dashboard.recovery_detection_engine} />
+            </section>
+          ) : null}
+
+          {dashboard.self_healing_framework?.principle ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.selfHealingFramework}</h3>
+              <p className="mt-2 text-sm text-gray-700">{dashboard.self_healing_framework.principle}</p>
+              <ObjectiveList
+                items={(dashboard.self_healing_framework.includes ?? []).map((item) => ({
+                  key: String(item.key ?? ""),
+                  label: String(item.label ?? ""),
+                  description: String(item.description ?? ""),
+                }))}
+              />
+            </section>
+          ) : null}
+
+          {dashboard.recovery_companion_supports && dashboard.recovery_companion_supports.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.recoveryCompanionSupports}</h3>
+              <ObjectiveList items={dashboard.recovery_companion_supports} />
+            </section>
+          ) : null}
+
+          {dashboard.incident_learning_engine && dashboard.incident_learning_engine.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.incidentLearningEngine}</h3>
+              <ObjectiveList items={dashboard.incident_learning_engine} />
+            </section>
+          ) : null}
+
+          {dashboard.recovery_orchestration_engine && dashboard.recovery_orchestration_engine.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.recoveryOrchestrationEngine}</h3>
+              <ObjectiveList items={dashboard.recovery_orchestration_engine} />
+            </section>
+          ) : null}
+
+          {dashboard.organizational_healing_principles && dashboard.organizational_healing_principles.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.organizationalHealingPrinciples}</h3>
+              <ObjectiveList items={dashboard.organizational_healing_principles} />
+            </section>
+          ) : null}
+
+          {dashboard.self_healing_companion_adaptation?.principle ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.selfHealingCompanionAdaptation}</h3>
+              <p className="mt-2 text-sm text-gray-700">{dashboard.self_healing_companion_adaptation.principle}</p>
+              <GuidanceList items={dashboard.self_healing_companion_adaptation.examples} />
+            </section>
+          ) : null}
+
+          {dashboard.self_healing_self_love_connection?.principle ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.selfHealingSelfLoveConnection}</h3>
+              <p className="mt-2 text-sm text-gray-700">{dashboard.self_healing_self_love_connection.principle}</p>
+              {dashboard.self_healing_self_love_connection.journey_phrase ? (
+                <p className="mt-2 text-xs italic text-gray-600">{dashboard.self_healing_self_love_connection.journey_phrase}</p>
+              ) : null}
+            </section>
+          ) : null}
+
+          {dashboard.self_healing_security_requirements && dashboard.self_healing_security_requirements.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.selfHealingSecurityRequirements}</h3>
+              <ObjectiveList items={dashboard.self_healing_security_requirements} />
+            </section>
+          ) : null}
+
+          {dashboard.self_healing_limitation_principles?.principle ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.selfHealingLimitationPrinciples}</h3>
+              <p className="mt-2 text-sm text-gray-700">{dashboard.self_healing_limitation_principles.principle}</p>
+              {dashboard.self_healing_limitation_principles.forbidden &&
+              dashboard.self_healing_limitation_principles.forbidden.length > 0 ? (
+                <>
+                  <p className="mt-3 text-xs font-medium text-gray-500">{labels.forbidden}</p>
+                  <ul className="mt-1 list-inside list-disc space-y-1 text-sm text-gray-600">
+                    {dashboard.self_healing_limitation_principles.forbidden.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </>
+              ) : null}
+              {dashboard.self_healing_limitation_principles.required &&
+              dashboard.self_healing_limitation_principles.required.length > 0 ? (
+                <>
+                  <p className="mt-3 text-xs font-medium text-gray-500">{labels.required}</p>
+                  <ul className="mt-1 list-inside list-disc space-y-1 text-sm text-gray-600">
+                    {dashboard.self_healing_limitation_principles.required.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </>
+              ) : null}
+            </section>
+          ) : null}
+
+          {dashboard.self_healing_recovery_events && dashboard.self_healing_recovery_events.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.selfHealingRecoveryEvents}</h3>
+              <ul className="mt-3 space-y-2 text-sm">
+                {dashboard.self_healing_recovery_events.map((event) => (
+                  <li key={String(event.id ?? event.event_title)} className="rounded border border-gray-100 p-2">
+                    <span className="font-medium text-gray-900">{event.event_title}</span>
+                    {event.status ? <span className="ml-2 text-xs text-gray-500">{event.status}</span> : null}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {dashboard.self_healing_recovery_recommendations && dashboard.self_healing_recovery_recommendations.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.selfHealingRecoveryRecommendations}</h3>
+              <ul className="mt-3 space-y-2 text-sm">
+                {dashboard.self_healing_recovery_recommendations.map((rec) => (
+                  <li key={String(rec.id ?? rec.recommendation_title)} className="rounded border border-gray-100 p-2">
+                    <span className="font-medium text-gray-900">{rec.recommendation_title}</span>
+                    {rec.status ? <span className="ml-2 text-xs text-gray-500">{rec.status}</span> : null}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {dashboard.self_healing_engagement_summary ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.selfHealingEngagementSummary}</h3>
+              <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-3">
+                <div><dt className="text-gray-500">{labels.openRecoveryEvents}</dt><dd>{String(dashboard.self_healing_engagement_summary.phase136_open_events ?? 0)}</dd></div>
+                <div><dt className="text-gray-500">{labels.recoveringEvents}</dt><dd>{String(dashboard.self_healing_engagement_summary.phase136_recovering_events ?? 0)}</dd></div>
+                <div><dt className="text-gray-500">{labels.pendingRecommendations}</dt><dd>{String(dashboard.self_healing_engagement_summary.phase136_pending_recommendations ?? 0)}</dd></div>
+              </dl>
+            </section>
+          ) : null}
+
+          {dashboard.self_healing_success_criteria && dashboard.self_healing_success_criteria.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.selfHealingSuccessCriteria}</h3>
+              <SuccessCriteriaList criteria={dashboard.self_healing_success_criteria} labels={labels} />
+            </section>
+          ) : null}
+
+          {dashboard.self_healing_vision_phrases && dashboard.self_healing_vision_phrases.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.selfHealingVisionPhrases}</h3>
+              <ul className="mt-3 list-inside list-disc space-y-1 text-sm text-gray-600">
+                {dashboard.self_healing_vision_phrases.map((phrase) => (
                   <li key={phrase}>{phrase}</li>
                 ))}
               </ul>

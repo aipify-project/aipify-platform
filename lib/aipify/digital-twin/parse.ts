@@ -14,6 +14,7 @@ import type {
   ImplementationBlueprintMeta,
   IntegrationLink,
   KnowledgeRouteResult,
+  OrganizationalDigitalTwinPhase124Blueprint,
   ProcessDetail,
   TwinHealthResult,
 } from "./types";
@@ -46,6 +47,61 @@ function parseSuccessCriteria(data: unknown): AbosSuccessCriterion[] | undefined
 function parseIntegrationLinks(data: unknown): IntegrationLink[] | undefined {
   if (!Array.isArray(data)) return undefined;
   return data as IntegrationLink[];
+}
+
+function parsePhase124Blueprint(data: unknown): OrganizationalDigitalTwinPhase124Blueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  const d = data as Record<string, unknown>;
+  return {
+    phase: d.phase as string | undefined,
+    doc: d.doc as string | undefined,
+    spec_doc: d.spec_doc as string | undefined,
+    engine_phase: d.engine_phase as string | undefined,
+    era: d.era as string | undefined,
+    route: d.route as string | undefined,
+    distinction_note: d.distinction_note as string | undefined,
+    mission: d.mission as string | undefined,
+    philosophy: d.philosophy as string | undefined,
+    abos_principle: d.abos_principle as string | undefined,
+    objectives: parseObjectives(d.objectives),
+    organizational_digital_twin: parseBlueprintSection(d.organizational_digital_twin),
+    digital_twin_center: Array.isArray(d.digital_twin_center)
+      ? (d.digital_twin_center as BlueprintObjective[])
+      : undefined,
+    organizational_map_engine: Array.isArray(d.organizational_map_engine)
+      ? (d.organizational_map_engine as BlueprintObjective[])
+      : undefined,
+    dependency_intelligence: Array.isArray(d.dependency_intelligence)
+      ? (d.dependency_intelligence as BlueprintObjective[])
+      : undefined,
+    simulation_workspace: parseBlueprintSection(d.simulation_workspace),
+    transformation_impact_model: Array.isArray(d.transformation_impact_model)
+      ? (d.transformation_impact_model as BlueprintObjective[])
+      : undefined,
+    knowledge_network_engine: Array.isArray(d.knowledge_network_engine)
+      ? (d.knowledge_network_engine as BlueprintObjective[])
+      : undefined,
+    resilience_visualization: Array.isArray(d.resilience_visualization)
+      ? (d.resilience_visualization as BlueprintObjective[])
+      : undefined,
+    executive_digital_twin_companion: Array.isArray(d.executive_digital_twin_companion)
+      ? (d.executive_digital_twin_companion as BlueprintObjective[])
+      : undefined,
+    companion_limitations: Array.isArray(d.companion_limitations)
+      ? (d.companion_limitations as BlueprintObjective[])
+      : undefined,
+    self_love_connection: parseBlueprintSection(d.self_love_connection),
+    memory_engine: parseBlueprintSection(d.memory_engine),
+    cross_links: parseIntegrationLinks(d.cross_links),
+    limitation_principles: parseBlueprintSection(d.limitation_principles),
+    companion_adaptation: parseBlueprintSection(d.companion_adaptation),
+    success_metrics: Array.isArray(d.success_metrics)
+      ? (d.success_metrics as BlueprintObjective[])
+      : undefined,
+    success_criteria: parseSuccessCriteria(d.success_criteria),
+    engagement_summary: parseEngagementSummary(d.engagement_summary),
+    privacy_note: d.privacy_note as string | undefined,
+  };
 }
 
 function parseRole(row: unknown): DigitalTwinRole {
@@ -88,6 +144,11 @@ export function parseDigitalTwinCard(data: unknown): DigitalTwinCard {
     engagement_summary: parseEngagementSummary(d.engagement_summary),
     blueprint_note: d.blueprint_note as string | undefined,
     understanding_note: d.understanding_note as string | undefined,
+    implementation_blueprint_phase124: parseBlueprintMeta(d.implementation_blueprint_phase124),
+    phase124_mission: d.phase124_mission as string | undefined,
+    phase124_abos_principle: d.phase124_abos_principle as string | undefined,
+    phase124_engagement_summary: parseEngagementSummary(d.phase124_engagement_summary),
+    phase124_note: d.phase124_note as string | undefined,
   };
 }
 
@@ -133,6 +194,10 @@ export function parseDigitalTwinDashboard(data: unknown): DigitalTwinDashboard {
       ? (d.blueprint_vision_phrases as string[])
       : undefined,
     blueprint_privacy_note: d.blueprint_privacy_note as string | undefined,
+    implementation_blueprint_phase124: parsePhase124Blueprint(d.implementation_blueprint_phase124),
+    organizational_digital_twin_phase124_note: d.organizational_digital_twin_phase124_note as
+      | string
+      | undefined,
   };
 }
 

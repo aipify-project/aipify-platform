@@ -10,6 +10,11 @@ import {
   type CompanionGuidanceExample,
   type CrossFunctionalObservation,
   type HealthIndicator,
+  type HealthMonitoringTheme,
+  type CompanionNetworkEntry,
+  type CompanionLimitation,
+  type ReviewCycle,
+  type EraCrossLink,
   type ModuleOverviewBlock,
   type OperationsCenterFoundationEngineDashboard,
   type OperationsEvent,
@@ -853,6 +858,329 @@ export function OperationsCenterFoundationEngineDashboardPanel({ labels }: Props
           {dashboard.eocbp_integration_links?.map((link) =>
             link.route ? (
               <Link key={`eocbp-${link.route}`} href={link.route} className="rounded-lg border border-violet-200 px-3 py-1.5 text-sm">
+                {link.label}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : null}
+
+      <section className="rounded-xl border border-amber-300 bg-amber-50/50 p-6">
+        <h2 className="text-sm font-semibold text-amber-950">{labels.phase130Title}</h2>
+        {dashboard.enterprise_intelligence_era_capstone_note ? (
+          <p className="mt-2 text-xs text-amber-900">{dashboard.enterprise_intelligence_era_capstone_note}</p>
+        ) : null}
+        {dashboard.implementation_blueprint_phase130?.phase ? (
+          <p className="mt-1 text-xs text-amber-800">
+            {dashboard.implementation_blueprint_phase130.phase}
+            {dashboard.implementation_blueprint_phase130.era
+              ? ` · ${dashboard.implementation_blueprint_phase130.era}`
+              : ""}
+          </p>
+        ) : null}
+        {dashboard.enterprise_command_engine_note ? (
+          <p className="mt-2 text-xs text-amber-900">{dashboard.enterprise_command_engine_note}</p>
+        ) : null}
+        {dashboard.eoccep130_mission ? (
+          <p className="mt-2 text-sm font-medium text-amber-950">{dashboard.eoccep130_mission}</p>
+        ) : null}
+        {dashboard.eoccep130_philosophy ? (
+          <p className="mt-2 text-sm text-amber-950">{dashboard.eoccep130_philosophy}</p>
+        ) : null}
+        {dashboard.eoccep130_abos_principle ? (
+          <p className="mt-2 text-xs text-amber-900">{dashboard.eoccep130_abos_principle}</p>
+        ) : null}
+        {dashboard.eoccep130_vision ? (
+          <p className="mt-2 text-sm text-amber-950">{dashboard.eoccep130_vision}</p>
+        ) : null}
+        {dashboard.eoccep130_distinction_note ? (
+          <p className="mt-1 text-xs text-amber-800">{dashboard.eoccep130_distinction_note}</p>
+        ) : null}
+        {dashboard.eoccep130_privacy_note ? (
+          <p className="mt-2 text-xs text-gray-500">{dashboard.eoccep130_privacy_note}</p>
+        ) : null}
+      </section>
+
+      {dashboard.eoccep130_objectives && dashboard.eoccep130_objectives.length > 0 ? (
+        <section className="rounded-xl border border-amber-100 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.eoccep130Objectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.eoccep130_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.eoccep130_enterprise_command_dashboard?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.enterpriseCommandDashboard}</h3>
+          <p className="mt-2 text-sm text-gray-700">{dashboard.eoccep130_enterprise_command_dashboard.principle}</p>
+          {dashboard.eoccep130_enterprise_command_dashboard.dimensions &&
+          dashboard.eoccep130_enterprise_command_dashboard.dimensions.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.eoccep130_enterprise_command_dashboard.dimensions.map((dim) => (
+                <ObjectiveCard key={dim.key ?? dim.label} objective={dim} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.eoccep130_initiative_orchestration?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.initiativeOrchestration}</h3>
+          <p className="mt-2 text-sm text-gray-700">{dashboard.eoccep130_initiative_orchestration.principle}</p>
+          {dashboard.eoccep130_initiative_orchestration.elements &&
+          dashboard.eoccep130_initiative_orchestration.elements.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.eoccep130_initiative_orchestration.elements.map((el) => (
+                <ObjectiveCard key={el.key ?? el.label} objective={el} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.eoccep130_executive_alignment?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.executiveAlignment}</h3>
+          <p className="mt-2 text-sm text-gray-700">{dashboard.eoccep130_executive_alignment.principle}</p>
+          {dashboard.eoccep130_executive_alignment.alignment_elements &&
+          dashboard.eoccep130_executive_alignment.alignment_elements.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.eoccep130_executive_alignment.alignment_elements.map((el) => (
+                <ObjectiveCard key={el.key ?? el.label} objective={el} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.eoccep130_decision_execution?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.decisionExecution}</h3>
+          <p className="mt-2 text-sm text-gray-700">{dashboard.eoccep130_decision_execution.principle}</p>
+          {dashboard.eoccep130_decision_execution.execution_elements &&
+          dashboard.eoccep130_decision_execution.execution_elements.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.eoccep130_decision_execution.execution_elements.map((el) => (
+                <ObjectiveCard key={el.key ?? el.label} objective={el} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.eoccep130_executive_companion_network?.companions &&
+      dashboard.eoccep130_executive_companion_network.companions.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.executiveCompanionNetwork}</h3>
+          {dashboard.eoccep130_executive_companion_network.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.eoccep130_executive_companion_network.principle}</p>
+          ) : null}
+          <div className="mt-3 space-y-2">
+            {dashboard.eoccep130_executive_companion_network.companions.map((companion: CompanionNetworkEntry) =>
+              companion.route ? (
+                <Link
+                  key={companion.key ?? companion.route}
+                  href={companion.route}
+                  className="block rounded-lg border border-amber-100 bg-amber-50/40 px-3 py-2 text-sm hover:border-amber-200"
+                >
+                  <span className="font-medium">
+                    {companion.label}
+                    {companion.phase ? ` (Phase ${companion.phase})` : ""}
+                  </span>
+                  {companion.description ? (
+                    <p className="mt-1 text-xs text-gray-600">{companion.description}</p>
+                  ) : null}
+                </Link>
+              ) : null
+            )}
+          </div>
+          {dashboard.eoccep130_executive_companion_network.can_companions_decide ? (
+            <p className="mt-3 text-xs text-gray-600">
+              {dashboard.eoccep130_executive_companion_network.can_companions_decide}
+            </p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.eoccep130_organizational_health_monitoring?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.organizationalHealthMonitoring}</h3>
+          <p className="mt-2 text-sm text-gray-700">{dashboard.eoccep130_organizational_health_monitoring.principle}</p>
+          {dashboard.eoccep130_organizational_health_monitoring.themes &&
+          dashboard.eoccep130_organizational_health_monitoring.themes.length > 0 ? (
+            <div className="mt-3 space-y-2">
+              {dashboard.eoccep130_organizational_health_monitoring.themes.map((item: HealthMonitoringTheme) => (
+                <div key={item.key ?? item.theme} className="rounded-lg border border-emerald-100 bg-emerald-50/40 px-3 py-2 text-sm">
+                  <span className="font-medium">
+                    {item.emoji ? `${item.emoji} ` : ""}
+                    {item.theme}
+                  </span>
+                  {item.description ? <p className="mt-1 text-xs text-gray-600">{item.description}</p> : null}
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {(dashboard.eoccep130_executive_review_cycles ?? []).length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.executiveReviewCycles}</h3>
+          <div className="mt-3 space-y-2">
+            {dashboard.eoccep130_executive_review_cycles?.map((cycle: ReviewCycle) => (
+              <div key={cycle.key ?? cycle.label} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                <span className="font-medium">
+                  {cycle.emoji ? `${cycle.emoji} ` : ""}
+                  {cycle.label}
+                </span>
+                {cycle.description ? <p className="mt-1 text-xs text-gray-600">{cycle.description}</p> : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.eoccep130_enterprise_memory_integration?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.enterpriseMemoryIntegration}</h3>
+          <p className="mt-2 text-sm text-gray-700">{dashboard.eoccep130_enterprise_memory_integration.principle}</p>
+          {(dashboard.eoccep130_enterprise_memory_integration.cross_links ?? []).length > 0 ? (
+            <div className="mt-3 flex flex-wrap gap-2">
+              {dashboard.eoccep130_enterprise_memory_integration.cross_links?.map((link) =>
+                link.route ? (
+                  <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+                    {link.label}
+                  </Link>
+                ) : null
+              )}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {(dashboard.eoccep130_companion_limitations ?? []).length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionLimitations}</h3>
+          <ul className="mt-3 space-y-2 text-sm">
+            {dashboard.eoccep130_companion_limitations?.map((item: CompanionLimitation) => (
+              <li key={item.key ?? item.limitation} className="rounded border border-gray-100 p-2">
+                <p className="font-medium">{item.limitation}</p>
+                {item.description ? <p className="mt-1 text-xs text-gray-600">{item.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {(dashboard.eoccep130_enterprise_knowledge_library ?? []).length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.enterpriseKnowledgeLibrary}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {dashboard.eoccep130_enterprise_knowledge_library?.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.eoccep130_engagement_summary ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.eoccep130EngagementSummary}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="rounded-lg border border-gray-100 p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.enterpriseDashboardDimensions}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.eoccep130_engagement_summary.executive_dashboard_dimensions ?? 0}
+              </p>
+            </div>
+            <div className="rounded-lg border border-gray-100 p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.companionNetworkCount}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.eoccep130_engagement_summary.companion_network_count ?? 0}
+              </p>
+            </div>
+            <div className="rounded-lg border border-gray-100 p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.eraCrossLinkCount}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.eoccep130_engagement_summary.era_cross_link_count ?? 0}
+              </p>
+            </div>
+          </div>
+          {dashboard.eoccep130_engagement_summary.privacy_note ? (
+            <p className="mt-3 text-xs text-gray-500">{dashboard.eoccep130_engagement_summary.privacy_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {(dashboard.eoccep130_success_criteria ?? []).length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.eoccep130SuccessCriteria}</h3>
+          <ul className="mt-3 space-y-2 text-sm">
+            {dashboard.eoccep130_success_criteria?.map((c) => (
+              <li key={c.key ?? c.label} className="flex flex-wrap items-start gap-2">
+                <span className={c.met ? "text-emerald-700" : "text-amber-700"}>
+                  {c.met ? "✓" : "○"}
+                </span>
+                <span className="flex-1">
+                  {c.label}
+                  {c.note ? <span className="mt-0.5 block text-xs text-gray-500">{c.note}</span> : null}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {(dashboard.eoccep130_vision_phrases ?? []).length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.eoccep130VisionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-gray-600">
+            {dashboard.eoccep130_vision_phrases?.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.eoccep130_self_love_connection?.principle ? (
+        <section className="rounded-xl border border-violet-100 bg-violet-50/30 p-6">
+          <h3 className="text-sm font-semibold text-violet-900">{labels.eoccep130SelfLoveConnection}</h3>
+          <p className="mt-2 text-sm text-violet-900">{dashboard.eoccep130_self_love_connection.principle}</p>
+          {dashboard.eoccep130_self_love_connection.why_self_love ? (
+            <p className="mt-2 text-xs text-violet-800">{dashboard.eoccep130_self_love_connection.why_self_love}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {(dashboard.eoccep130_era_cross_links ?? []).length > 0 ? (
+        <section className="rounded-xl border border-amber-200 bg-amber-50/30 p-6">
+          <h3 className="text-sm font-semibold text-amber-950">{labels.eraCapstoneBanner}</h3>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {dashboard.eoccep130_era_cross_links?.map((link: EraCrossLink) =>
+              link.route ? (
+                <Link
+                  key={`era-${link.phase}-${link.route}`}
+                  href={link.route}
+                  className="rounded-lg border border-amber-200 bg-white px-3 py-1.5 text-sm"
+                >
+                  {link.phase ? `${link.phase}: ` : ""}
+                  {link.label}
+                </Link>
+              ) : null
+            )}
+          </div>
+        </section>
+      ) : null}
+
+      {(dashboard.eoccep130_integration_links ?? []).length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {dashboard.eoccep130_integration_links?.map((link) =>
+            link.route ? (
+              <Link key={`eoccep130-${link.route}-${link.label}`} href={link.route} className="rounded-lg border border-amber-200 px-3 py-1.5 text-sm">
                 {link.label}
               </Link>
             ) : null

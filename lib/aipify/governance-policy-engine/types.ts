@@ -161,9 +161,72 @@ export type IntegrationLink = {
 export type ImplementationBlueprintMeta = {
   phase?: string;
   doc?: string;
+  spec_doc?: string;
   engine_phase?: string;
+  era?: string;
   route?: string;
   mapping_note?: string;
+};
+
+export type CompanionAdaptationExample = {
+  emoji?: string;
+  key?: string;
+  prompt?: string;
+  consideration?: string;
+};
+
+export type CompanionAdaptation = {
+  principle?: string;
+  examples?: CompanionAdaptationExample[];
+};
+
+export type LimitationPrinciples = {
+  principle?: string;
+  must_never?: BlueprintObjective[];
+  required?: string[];
+  boundary_note?: string;
+};
+
+export type SelfLoveGovernance = {
+  principle?: string;
+  patterns?: BlueprintObjective[];
+  governance_phrase?: string;
+  self_love_route?: string;
+  boundary_note?: string;
+};
+
+export type BoardGovernanceCompanionPhase123Blueprint = {
+  phase?: string;
+  doc?: string;
+  spec_doc?: string;
+  engine_phase?: string;
+  era?: string;
+  route?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: BlueprintObjective[];
+  board_intelligence_center?: BlueprintObjective[];
+  board_dashboard_displays?: BlueprintObjective[];
+  board_briefing_engine?: BlueprintObjective[];
+  governance_memory_engine?: BlueprintObjective[];
+  board_companion_supports?: BlueprintObjective[];
+  committee_support?: BlueprintObjective[];
+  risk_oversight_framework?: BlueprintObjective[];
+  decision_traceability?: BlueprintObjective[];
+  board_effectiveness_insights?: BlueprintObjective[];
+  companion_limitations?: BlueprintObjective[];
+  self_love_governance?: SelfLoveGovernance;
+  board_knowledge_library?: BlueprintObjective[];
+  cross_links?: IntegrationLink[];
+  limitation_principles?: LimitationPrinciples;
+  companion_adaptation?: CompanionAdaptation;
+  success_metrics?: BlueprintObjective[];
+  success_criteria?: AbosSuccessCriterion[];
+  engagement_summary?: GovernanceEngagementSummary;
+  privacy_note?: string;
 };
 
 export type GovernancePolicyEngineCard = {
@@ -180,6 +243,11 @@ export type GovernancePolicyEngineCard = {
   engagement_summary?: GovernanceEngagementSummary;
   blueprint_note?: string;
   governance_note?: string;
+  implementation_blueprint_phase123?: ImplementationBlueprintMeta;
+  phase123_mission?: string;
+  phase123_abos_principle?: string;
+  phase123_engagement_summary?: GovernanceEngagementSummary;
+  phase123_note?: string;
 };
 
 export type GovernancePolicyEngineDashboard = {
@@ -234,4 +302,6 @@ export type GovernancePolicyEngineDashboard = {
   success_criteria?: AbosSuccessCriterion[];
   vision_phrases?: string[];
   metadata_note?: string;
+  implementation_blueprint_phase123?: BoardGovernanceCompanionPhase123Blueprint;
+  board_governance_companion_phase123_note?: string;
 };

@@ -79,6 +79,21 @@ export default async function PurposeValuesEnginePage() {
           culturalAlignmentObservationsCount: t(`${p}.culturalAlignment.observationsCount`),
           culturalAlignmentSuccessCriteria: t(`${p}.culturalAlignment.successCriteria`),
           culturalAlignmentVisionPhrases: t(`${p}.culturalAlignment.visionPhrases`),
+          phase138Objectives: t(`${p}.phase138.objectives`),
+          phase138AlignmentCenter: t(`${p}.phase138.alignmentCenter`),
+          phase138ValuesFramework: t(`${p}.phase138.valuesFramework`),
+          phase138AlignmentReview: t(`${p}.phase138.alignmentReview`),
+          phase138PurposeCompanion: t(`${p}.phase138.purposeCompanion`),
+          phase138CultureHealth: t(`${p}.phase138.cultureHealth`),
+          phase138ExecutiveReviews: t(`${p}.phase138.executiveReviews`),
+          phase138CompanionLimitations: t(`${p}.phase138.companionLimitations`),
+          phase138SelfLoveConnection: t(`${p}.phase138.selfLoveConnection`),
+          phase138Engagement: t(`${p}.phase138.engagementSummary`),
+          phase138AlignmentReviews: t(`${p}.phase138.alignmentReviews`),
+          phase138ValuesMemory: t(`${p}.phase138.valuesMemory`),
+          phase138CultureSnapshots: t(`${p}.phase138.cultureSnapshots`),
+          phase138SuccessCriteria: t(`${p}.phase138.successCriteria`),
+          phase138VisionPhrases: t(`${p}.phase138.visionPhrases`),
         }}
       />
     </div>

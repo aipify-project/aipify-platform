@@ -96,9 +96,37 @@ revoke all on public.two_factor_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 2. Helpers (_tfa_ prefix)
 -- ---------------------------------------------------------------------------
+create or replace function public._tfa_ensure_app_user_id()
+returns uuid language plpgsql security definer set search_path = public as $$
+declare
+  v_user_id uuid;
+  v_company_id uuid;
+  v_email text;
+begin
+  v_user_id := public._mta_app_user_id();
+  if v_user_id is not null then return v_user_id; end if;
+
+  if not public.is_platform_admin() then return null; end if;
+
+  select u.id into v_user_id from public.users u where u.auth_user_id = auth.uid() limit 1;
+  if v_user_id is not null then return v_user_id; end if;
+
+  select id into v_company_id from public.companies where is_platform = true order by created_at limit 1;
+  if v_company_id is null then return null; end if;
+
+  v_email := coalesce(auth.jwt() ->> 'email', 'Platform Admin');
+
+  insert into public.users (auth_user_id, company_id, full_name, role)
+  values (auth.uid(), v_company_id, v_email, 'admin')
+  on conflict (auth_user_id) do update set full_name = excluded.full_name
+  returning id into v_user_id;
+
+  return v_user_id;
+end; $$;
+
 create or replace function public._tfa_app_user_id()
 returns uuid language sql stable security definer set search_path = public as $$
-  select public._mta_app_user_id();
+  select public._tfa_ensure_app_user_id();
 $$;
 
 create or replace function public._tfa_hash_text(p_value text)

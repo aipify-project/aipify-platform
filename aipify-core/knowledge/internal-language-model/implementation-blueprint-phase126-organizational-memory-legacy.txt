@@ -1,0 +1,39 @@
+ABOS Enterprise Intelligence Phase 126 — Organizational Memory & Legacy Engine
+Route: /app/organizational-memory-engine (extends A.34 — no new route)
+Helpers: _omlebp126_* (never collide with _omlebp94_*, _mcebp_*)
+
+Vision: Organizations forget — preserve decisions, experiences, principles, stories. Wisdom before speed. People First. Memory as asset not accident.
+
+Mission: Preserve organizational wisdom so continuity strengthens identity and future actions become wiser.
+
+Philosophy: Humans are custodians of legacy. Aipify informs, prepares, and protects continuity — never rewrites history.
+
+ABOS principle: Knowledge tells us what we know. Memory reminds us who we have become.
+
+Phase collision: Blueprint Phase 94 and Enterprise Intelligence Phase 126 share Organizational Memory & Legacy theme. Phase 126 layers on Phase 94. All prior dashboard fields preserved.
+
+Organizational Memory Center (9): memory archives, legacy records, knowledge preservation, transformation histories, leadership continuity, decision histories, milestone tracking, succession support, institutional storytelling.
+
+Memory archive engine (8): major decisions, lessons learned, strategic milestones, project outcomes, governance evolutions, companion introductions, community contributions, GP innovations.
+
+Legacy engine captures (7): cross-link Legacy A.86 /app/legacy-engine — never duplicate _leg_* tables.
+
+Succession intelligence (6): role knowledge mapping, leadership transition prep, knowledge transfer, critical dependency ID, continuity planning, onboarding acceleration.
+
+Storytelling framework (6): challenges overcome, innovation journeys, customer success, GP contributions, community milestones, transformation experiences.
+
+Critical knowledge protection (6): single knowledge holders, undocumented processes, leadership dependencies, companion config risks, operational vulnerabilities, documentation gaps.
+
+Memory discovery (5): solved before?, what happened?, who contributed?, lessons?, inaccurate assumptions?
+
+Legacy Companion (6): knowledge discovery, historical summaries, continuity prep, story preservation, context retrieval, reflection prompts — protect continuity NOT rewrite history.
+
+Companion limitations (5): no altering records, suppress perspectives, fictional narratives, distort memory, replace human interpretation.
+
+Heritage library (7): milestones, leadership narratives, transformation stories, decision archives, governance histories, community contributions, knowledge assets.
+
+Cross-links: Decision Intelligence 125 /app/decision-intelligence-engine, Executive Intelligence 121 /app/executive-intelligence, Digital Twin 124 /app/digital-twin, Legacy A.86 /app/legacy-engine, Employee Knowledge /app/settings/employee-knowledge, KC A.5, Self Love A.76, Aipify University 115, Continuity 73 /app/continuity.
+
+Success metrics (8): wisdom preservation, knowledge continuity, succession readiness, onboarding acceleration, reduced repeated mistakes, institutional identity, heritage engagement, governed retention health.
+
+Privacy: Metadata only — no PII, no surveillance, no legacy story duplication. Humans decide; Aipify informs and prepares.

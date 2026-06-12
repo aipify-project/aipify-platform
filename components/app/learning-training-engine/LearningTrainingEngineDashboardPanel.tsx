@@ -58,6 +58,9 @@ export function LearningTrainingEngineDashboardPanel({ labels }: Props) {
         <Link href="/app/knowledge-center-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.knowledgeCenter}
         </Link>
+        <Link href="/app/aipify-university" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.aipifyUniversity}
+        </Link>
       </div>
 
       <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">

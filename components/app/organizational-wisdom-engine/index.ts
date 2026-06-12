@@ -1,0 +1,1 @@
+export { OrganizationalWisdomDashboardPanel } from "./OrganizationalWisdomDashboardPanel";

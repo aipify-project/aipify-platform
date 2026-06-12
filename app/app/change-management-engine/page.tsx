@@ -8,6 +8,7 @@ export default async function ChangeManagementEnginePage() {
   const t = createTranslator(dict);
   const p = "customerApp.changeManagementEngine";
   const b = `${p}.blueprint`;
+  const p127 = `${p}.phase127`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -56,6 +57,23 @@ export default async function ChangeManagementEnginePage() {
           criterionMet: t(`${b}.criterionMet`),
           criterionPending: t(`${b}.criterionPending`),
           visionPhrases: t(`${b}.visionPhrases`),
+          phase127Title: t(`${p127}.title`),
+          phase127Objectives: t(`${p127}.objectives`),
+          phase127OrchestrationCenter: t(`${p127}.orchestrationCenter`),
+          phase127RoadmapEngine: t(`${p127}.roadmapEngine`),
+          phase127ReadinessEngine: t(`${p127}.readinessEngine`),
+          phase127StakeholderEngagement: t(`${p127}.stakeholderEngagement`),
+          phase127ChangeCompanion: t(`${p127}.changeCompanion`),
+          phase127CommunicationOrchestration: t(`${p127}.communicationOrchestration`),
+          phase127TransformationRisk: t(`${p127}.transformationRisk`),
+          phase127AdoptionIntelligence: t(`${p127}.adoptionIntelligence`),
+          phase127TransformationMemory: t(`${p127}.transformationMemory`),
+          phase127Limitations: t(`${p127}.limitations`),
+          phase127SelfLove: t(`${p127}.selfLove`),
+          phase127KnowledgeLibrary: t(`${p127}.knowledgeLibrary`),
+          phase127CompanionAdaptation: t(`${p127}.companionAdaptation`),
+          phase127SuccessMetrics: t(`${p127}.successMetrics`),
+          phase127SuccessCriteria: t(`${p127}.successCriteria`),
         }} />
     </div>
   );

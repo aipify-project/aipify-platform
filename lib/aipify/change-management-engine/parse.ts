@@ -14,6 +14,7 @@ import type {
   DogfoodingBlueprint,
   ImplementationBlueprintMeta,
   IntegrationLink,
+  TransformationOrchestrationPhase127Blueprint,
 } from "./types";
 
 function parseRecordList<T>(data: unknown): T[] | undefined {
@@ -41,6 +42,11 @@ function parseDogfooding(data: unknown): DogfoodingBlueprint | undefined {
   return data as DogfoodingBlueprint;
 }
 
+function parsePhase127Blueprint(data: unknown): TransformationOrchestrationPhase127Blueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as TransformationOrchestrationPhase127Blueprint;
+}
+
 export function parseChangeManagementEngineCard(data: unknown): ChangeManagementEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
   return {
@@ -54,6 +60,11 @@ export function parseChangeManagementEngineCard(data: unknown): ChangeManagement
     engagement_summary: parseEngagementSummary(d.engagement_summary),
     blueprint_note: typeof d.blueprint_note === "string" ? d.blueprint_note : undefined,
     change_note: typeof d.change_note === "string" ? d.change_note : undefined,
+    implementation_blueprint_phase127: parseBlueprintMeta(d.implementation_blueprint_phase127),
+    phase127_mission: typeof d.phase127_mission === "string" ? d.phase127_mission : undefined,
+    phase127_abos_principle: typeof d.phase127_abos_principle === "string" ? d.phase127_abos_principle : undefined,
+    phase127_engagement_summary: parseEngagementSummary(d.phase127_engagement_summary),
+    phase127_note: typeof d.phase127_note === "string" ? d.phase127_note : undefined,
     ...d,
   } as ChangeManagementEngineCard;
 }
@@ -103,6 +114,11 @@ export function parseChangeManagementEngineDashboard(data: unknown): ChangeManag
     success_criteria: parseRecordList<AbosSuccessCriterion>(d.success_criteria),
     vision_phrases: Array.isArray(d.vision_phrases) ? (d.vision_phrases as string[]) : undefined,
     privacy_note: typeof d.privacy_note === "string" ? d.privacy_note : undefined,
+    implementation_blueprint_phase127: parsePhase127Blueprint(d.implementation_blueprint_phase127),
+    transformation_orchestration_phase127_note:
+      typeof d.transformation_orchestration_phase127_note === "string"
+        ? d.transformation_orchestration_phase127_note
+        : undefined,
     ...d,
   } as ChangeManagementEngineDashboard;
 }

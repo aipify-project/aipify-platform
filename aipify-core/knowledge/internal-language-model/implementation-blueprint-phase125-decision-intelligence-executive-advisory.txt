@@ -1,0 +1,33 @@
+# Implementation Blueprint Phase 125 — Decision Intelligence & Executive Advisory Engine
+# Enterprise Intelligence Era (121–130)
+# Route: /app/decision-intelligence-engine
+# Helpers: _dein_* (engine), _deibp125_* (blueprint)
+
+## Mission
+Help leaders think clearly about important decisions — structure, perspective, and wisdom that strengthen judgment without deciding for them.
+
+## Philosophy
+People First. Wisdom before speed. Better thinking not faster decisions. Humans decide. Metadata only — no raw transcripts or PII.
+
+## Distinction
+- Personal DSE Phase 38/60 at /app/assistant/decisions — individual guidance; cross-link _dse_* only
+- ODSE A.54 at /app/organizational-decision-support-engine — org register; cross-link _odse_* only
+- Executive Intelligence Phase 121, Strategic Foresight 122, Board Governance 123, Digital Twin 124
+- Wisdom A.93, Simulation Lab 78, Executive Reflection 82, Self Love A.76
+
+## Decision Intelligence Center (9)
+decision workspaces, decision journals, advisory briefings, assumption reviews, trade-off analysis, stakeholder mapping, historical references, outcome tracking, reflection sessions
+
+## Workspace fields (10)
+decision statement, objectives, constraints, alternatives, dependencies, stakeholders, benefits, risks, unknowns, supporting knowledge
+
+## Executive Advisory Companion (7)
+thoughtful questions, blind spots, historical context, alternative viewpoints, trade-offs, knowledge resources, reflection
+
+## Companion limitations (5)
+no executive decisions, no guaranteed outcomes, no suppressing disagreement, no certainty framing, no overriding judgment
+
+## ILM companion examples
+🦉 Assumption review prompt — hypotheses for leader validation
+🌹 Trade-off exploration — who benefits, who is affected
+🔔 Historical context — prior outcome learning summary

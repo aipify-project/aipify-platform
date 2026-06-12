@@ -8,6 +8,7 @@ import {
   type ContinuityCompanionExample,
   type ContinuityObjective,
   type MemoryLegacyCategory,
+  type EnterpriseIntelligenceBlueprintItem,
   type MemoryLegacyBlueprintSection,
   type OrganizationalMemoryEngineDashboard,
 } from "@/lib/aipify/organizational-memory-engine";
@@ -59,6 +60,24 @@ export function OrganizationalMemoryEngineDashboardPanel({ labels }: Props) {
   const memoryLegacyEngagement = dashboard.memory_legacy_engagement_summary ?? {};
   const memoryLegacySuccessCriteria = dashboard.memory_legacy_success_criteria ?? [];
   const omlebp94Links = dashboard.omlebp94_integration_links ?? [];
+  const blueprint126 = dashboard.implementation_blueprint_phase126;
+  const phase126Objectives = dashboard.phase126_objectives ?? [];
+  const phase126MemoryCenter = dashboard.phase126_memory_center ?? [];
+  const phase126MemoryArchive = dashboard.phase126_memory_archive_engine ?? [];
+  const phase126LegacyCaptures = dashboard.phase126_legacy_engine_captures;
+  const phase126Succession = dashboard.phase126_succession_intelligence ?? [];
+  const phase126Storytelling = dashboard.phase126_storytelling_framework ?? [];
+  const phase126KnowledgeProtection = dashboard.phase126_critical_knowledge_protection ?? [];
+  const phase126MemoryDiscovery = dashboard.phase126_memory_discovery;
+  const phase126LegacyCompanion = dashboard.phase126_legacy_companion ?? [];
+  const phase126CompanionLimits = dashboard.phase126_companion_limitations ?? [];
+  const phase126SelfLove = dashboard.phase126_self_love_connection;
+  const phase126Heritage = dashboard.phase126_heritage_library ?? [];
+  const phase126CompanionAdaptation = dashboard.phase126_companion_adaptation;
+  const phase126LimitationPrinciples = dashboard.phase126_limitation_principles;
+  const phase126Engagement = dashboard.phase126_engagement_summary ?? {};
+  const phase126SuccessCriteria = dashboard.phase126_success_criteria ?? [];
+  const omlebp126Links = dashboard.omlebp126_cross_links ?? [];
 
   return (
     <div className="space-y-6">
@@ -555,6 +574,314 @@ export function OrganizationalMemoryEngineDashboardPanel({ labels }: Props) {
           </ul>
         </section>
       )}
+
+      {blueprint126?.phase ? (
+        <section className="rounded-xl border border-rose-200 bg-rose-50/40 p-6">
+          <h2 className="text-sm font-semibold">{labels.phase126Title}</h2>
+          {dashboard.phase126_mission ? (
+            <p className="mt-2 text-sm font-medium text-rose-900">{dashboard.phase126_mission}</p>
+          ) : null}
+          {dashboard.phase126_philosophy ? (
+            <p className="mt-2 text-xs text-rose-900">{dashboard.phase126_philosophy}</p>
+          ) : null}
+          {dashboard.phase126_abos_principle ? (
+            <p className="mt-1 text-xs font-medium text-rose-800">{dashboard.phase126_abos_principle}</p>
+          ) : null}
+          {dashboard.phase126_vision ? (
+            <p className="mt-2 text-xs italic text-rose-700">{dashboard.phase126_vision}</p>
+          ) : null}
+          {dashboard.phase126_distinction_note ? (
+            <p className="mt-2 text-xs text-rose-700">{dashboard.phase126_distinction_note}</p>
+          ) : null}
+          {dashboard.organizational_memory_enterprise_note ? (
+            <p className="mt-2 text-xs text-gray-600">{dashboard.organizational_memory_enterprise_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase126Objectives.length > 0 && (
+        <section className="rounded-lg border border-rose-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.phase126Objectives}</h3>
+          <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {phase126Objectives.map((obj: ContinuityObjective) => (
+              <li key={obj.key ?? obj.label} className="rounded border border-rose-50 p-3 text-sm">
+                <div className="font-medium">
+                  {obj.emoji ? `${obj.emoji} ` : ""}
+                  {obj.label}
+                </div>
+                {obj.description ? <p className="mt-1 text-xs text-gray-600">{obj.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase126MemoryCenter.length > 0 && (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.phase126MemoryCenter}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {phase126MemoryCenter.map((item: EnterpriseIntelligenceBlueprintItem) => (
+              <li key={item.key ?? item.label} className="rounded border border-gray-100 px-3 py-2 text-xs">
+                <span className="font-medium">{item.label}</span>
+                {item.description ? <p className="mt-1 text-gray-500">{item.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase126MemoryArchive.length > 0 && (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.phase126MemoryArchive}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase126MemoryArchive.map((item: EnterpriseIntelligenceBlueprintItem) => (
+              <li key={item.key ?? item.label} className="rounded border border-gray-100 px-3 py-2 text-xs">
+                <span className="font-medium">{item.label}</span>
+                {item.description ? <p className="mt-1 text-gray-500">{item.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase126LegacyCaptures && (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase126LegacyCaptures}</h3>
+          {phase126LegacyCaptures.principle ? (
+            <p className="mt-2 text-xs text-violet-900">{phase126LegacyCaptures.principle}</p>
+          ) : null}
+          {phase126LegacyCaptures.boundary_note ? (
+            <p className="mt-2 text-xs text-violet-700">{phase126LegacyCaptures.boundary_note}</p>
+          ) : null}
+          {(phase126LegacyCaptures.captures?.length ?? 0) > 0 ? (
+            <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+              {(phase126LegacyCaptures.captures as EnterpriseIntelligenceBlueprintItem[]).map((cap) => (
+                <li key={cap.key ?? cap.label} className="rounded border border-violet-100 bg-white px-3 py-2 text-xs">
+                  <span className="font-medium">{cap.label}</span>
+                  {cap.description ? <p className="mt-1 text-gray-500">{cap.description}</p> : null}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {phase126Succession.length > 0 && (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/20 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase126Succession}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase126Succession.map((item: EnterpriseIntelligenceBlueprintItem) => (
+              <li key={item.key ?? item.label} className="rounded border border-indigo-100 bg-white px-3 py-2 text-xs">
+                <span className="font-medium">{item.label}</span>
+                {item.description ? <p className="mt-1 text-gray-500">{item.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase126Storytelling.length > 0 && (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.phase126Storytelling}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase126Storytelling.map((item: EnterpriseIntelligenceBlueprintItem) => (
+              <li key={item.key ?? item.label} className="rounded border border-gray-100 px-3 py-2 text-xs">
+                <span className="font-medium">{item.label}</span>
+                {item.description ? <p className="mt-1 text-gray-500">{item.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase126KnowledgeProtection.length > 0 && (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase126KnowledgeProtection}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase126KnowledgeProtection.map((item: EnterpriseIntelligenceBlueprintItem) => (
+              <li key={item.key ?? item.label} className="rounded border border-amber-100 bg-white px-3 py-2 text-xs">
+                <span className="font-medium">{item.label}</span>
+                {item.description ? <p className="mt-1 text-gray-500">{item.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase126MemoryDiscovery?.questions && Array.isArray(phase126MemoryDiscovery.questions) && (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/20 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase126MemoryDiscovery}</h3>
+          {phase126MemoryDiscovery.principle ? (
+            <p className="mt-2 text-xs text-rose-900">{phase126MemoryDiscovery.principle}</p>
+          ) : null}
+          <ul className="mt-3 space-y-2">
+            {(phase126MemoryDiscovery.questions as MemoryLegacyBlueprintSection["questions"])!.map((q) => (
+              <li key={q.key ?? q.question} className="rounded border border-rose-100 bg-white px-3 py-2 text-xs">
+                <span className="font-medium">
+                  {q.emoji ? `${q.emoji} ` : ""}
+                  {q.question}
+                </span>
+                {q.description ? <p className="mt-1 text-gray-500">{q.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase126LegacyCompanion.length > 0 && (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.phase126LegacyCompanion}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase126LegacyCompanion.map((item: EnterpriseIntelligenceBlueprintItem) => (
+              <li key={item.key ?? item.label} className="rounded border border-gray-100 px-3 py-2 text-xs">
+                <span className="font-medium">{item.label}</span>
+                {item.description ? <p className="mt-1 text-gray-500">{item.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase126CompanionAdaptation && (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/20 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase126CompanionAdaptation}</h3>
+          {phase126CompanionAdaptation.principle ? (
+            <p className="mt-2 text-xs text-indigo-900">{phase126CompanionAdaptation.principle}</p>
+          ) : null}
+          {(phase126CompanionAdaptation.examples?.length ?? 0) > 0 ? (
+            <ul className="mt-3 space-y-2 text-sm">
+              {phase126CompanionAdaptation.examples!.map((ex, i) => (
+                <li key={ex.key ?? i} className="rounded border border-indigo-100 bg-white px-3 py-2 text-xs">
+                  {ex.prompt ?? ex.example ?? ex.text}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {phase126CompanionLimits.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase126CompanionLimitations}</h3>
+          <ul className="mt-2 list-inside list-disc text-xs text-gray-600">
+            {phase126CompanionLimits.map((item: EnterpriseIntelligenceBlueprintItem) => (
+              <li key={item.key ?? item.label}>
+                {item.label}
+                {item.description ? ` — ${item.description}` : ""}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase126SelfLove && (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/30 p-4 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.phase126SelfLove}</h3>
+          {phase126SelfLove.principle ? <p className="mt-2 text-xs">{phase126SelfLove.principle}</p> : null}
+          {(phase126SelfLove.practices?.length ?? 0) > 0 ? (
+            <ul className="mt-2 list-inside list-disc text-xs">
+              {(phase126SelfLove.practices as Array<{ label?: string; description?: string }>).map((item) => (
+                <li key={item.label}>{item.label}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {phase126Heritage.length > 0 && (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.phase126HeritageLibrary}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase126Heritage.map((item: EnterpriseIntelligenceBlueprintItem) => (
+              <li key={item.key ?? item.label} className="rounded border border-gray-100 px-3 py-2 text-xs">
+                <span className="font-medium">{item.label}</span>
+                {item.description ? <p className="mt-1 text-gray-500">{item.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {phase126LimitationPrinciples && (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase126LimitationPrinciples}</h3>
+          {phase126LimitationPrinciples.principle ? (
+            <p className="mt-2 text-xs text-gray-600">{phase126LimitationPrinciples.principle}</p>
+          ) : null}
+          {(phase126LimitationPrinciples.forbidden?.length ?? 0) > 0 ? (
+            <ul className="mt-2 list-inside list-disc text-xs text-gray-500">
+              {phase126LimitationPrinciples.forbidden!.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {typeof phase126Engagement.objectives_count === "number" ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase126Engagement}</h3>
+          <p className="mt-2 text-gray-700">
+            {labels.activeRecords}: {String(phase126Engagement.phase126_active_records ?? 0)} ·{" "}
+            {labels.activeDecisions}: {String(phase126Engagement.phase126_active_decisions ?? 0)} ·{" "}
+            {labels.pendingReviews}: {String(phase126Engagement.phase126_pending_reviews ?? 0)}
+          </p>
+          {phase126Engagement.privacy_note ? (
+            <p className="mt-2 text-xs text-gray-500">{String(phase126Engagement.privacy_note)}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase126SuccessCriteria.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase126SuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {phase126SuccessCriteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {omlebp126Links.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase126IntegrationLinks}</h3>
+          <ul className="mt-2 space-y-1 text-sm">
+            {omlebp126Links.map((link) => {
+              const route = typeof link.route === "string" ? link.route : null;
+              const label = typeof link.label === "string" ? link.label : route ?? "";
+              return (
+                <li key={label}>
+                  {route ? (
+                    <Link href={route} className="text-rose-600 hover:underline">
+                      {label}
+                    </Link>
+                  ) : (
+                    label
+                  )}
+                  {link.note ? <span className="ml-2 text-xs text-gray-500">{link.note}</span> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {dashboard.phase126_privacy_note ? (
+        <section className="rounded-lg border border-gray-100 px-4 py-3 text-xs text-gray-500">
+          {dashboard.phase126_privacy_note}
+        </section>
+      ) : null}
 
       {dashboard.memory_categories && dashboard.memory_categories.length > 0 ? (
         <section className="rounded-xl border border-gray-200 bg-white p-6">

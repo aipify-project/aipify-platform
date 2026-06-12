@@ -8,6 +8,7 @@ export default async function GovernancePolicyEnginePage() {
   const t = createTranslator(dict);
   const p = "customerApp.governancePolicyEngine";
   const bp = `${p}.blueprint.phase67`;
+  const bp123 = `${p}.blueprint.phase123`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -63,6 +64,24 @@ export default async function GovernancePolicyEnginePage() {
           successCriteria: t(`${bp}.successCriteria`),
           criterionMet: t(`${bp}.criterionMet`),
           criterionPending: t(`${bp}.criterionPending`),
+          phase123Title: t(`${bp123}.title`),
+          phase123Objectives: t(`${bp123}.objectives`),
+          phase123IntelligenceCenter: t(`${bp123}.intelligenceCenter`),
+          phase123DashboardDisplays: t(`${bp123}.dashboardDisplays`),
+          phase123BriefingEngine: t(`${bp123}.briefingEngine`),
+          phase123GovernanceMemory: t(`${bp123}.governanceMemory`),
+          phase123CompanionSupports: t(`${bp123}.companionSupports`),
+          phase123CommitteeSupport: t(`${bp123}.committeeSupport`),
+          phase123RiskOversight: t(`${bp123}.riskOversight`),
+          phase123DecisionTraceability: t(`${bp123}.decisionTraceability`),
+          phase123EffectivenessInsights: t(`${bp123}.effectivenessInsights`),
+          phase123Limitations: t(`${bp123}.limitations`),
+          phase123SelfLove: t(`${bp123}.selfLove`),
+          phase123KnowledgeLibrary: t(`${bp123}.knowledgeLibrary`),
+          phase123CompanionAdaptation: t(`${bp123}.companionAdaptation`),
+          phase123SuccessMetrics: t(`${bp123}.successMetrics`),
+          phase123SuccessCriteria: t(`${bp123}.successCriteria`),
+          phase123CrossLinks: t(`${bp123}.crossLinks`),
         }}
       />
     </div>

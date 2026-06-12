@@ -196,6 +196,171 @@ export type CulturalAlignmentEngagementSummary = {
   privacy_note?: string;
 };
 
+export type PurposeAlignmentCapability = {
+  emoji?: string;
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type PurposeAlignmentCenter = {
+  principle?: string;
+  capabilities?: PurposeAlignmentCapability[];
+  boundary_note?: string;
+};
+
+export type ValuesFrameworkEngine = {
+  principle?: string;
+  default_values?: BlueprintObjective[];
+  customization_note?: string;
+};
+
+export type AlignmentReviewEngine = {
+  principle?: string;
+  review_dimensions?: BlueprintObjective[];
+  reflection_note?: string;
+};
+
+export type PurposeCompanionBlueprint = {
+  principle?: string;
+  companion_name?: string;
+  not_label?: string;
+  capabilities?: PurposeAlignmentCapability[];
+  boundary_note?: string;
+};
+
+export type CultureHealthEngine = {
+  principle?: string;
+  indicators?: BlueprintObjective[];
+  boundary_note?: string;
+};
+
+export type PurposeIntegrationFramework = {
+  principle?: string;
+  integrations?: IntegrationLink[];
+  boundary_note?: string;
+};
+
+export type ValuesMemoryEngine = {
+  principle?: string;
+  memory_types?: BlueprintObjective[];
+  org_memory_route?: string;
+  boundary_note?: string;
+};
+
+export type CompanionLimitations = {
+  principle?: string;
+  limitations?: string[];
+  boundary_note?: string;
+};
+
+export type ExecutivePurposeReviews = {
+  principle?: string;
+  review_areas?: BlueprintObjective[];
+  executive_route?: string;
+  boundary_note?: string;
+};
+
+export type SecurityRequirements = {
+  principle?: string;
+  requirements?: string[];
+  two_factor_route?: string;
+  audit_note?: string;
+};
+
+export type PurposeAlignmentReview = {
+  id?: string;
+  review_title?: string;
+  review_scope?: string;
+  alignment_summary?: string | null;
+  reflection_prompts?: string[] | unknown[];
+  status?: string;
+  metadata?: Record<string, unknown>;
+  reviewed_at?: string | null;
+  created_at?: string;
+  updated_at?: string;
+  [key: string]: unknown;
+};
+
+export type ValuesMemoryEntry = {
+  id?: string;
+  memory_type?: string;
+  title?: string;
+  summary?: string;
+  captured_by_role?: string | null;
+  metadata?: Record<string, unknown>;
+  captured_at?: string;
+  created_at?: string;
+  [key: string]: unknown;
+};
+
+export type CultureHealthSnapshot = {
+  id?: string;
+  indicator_key?: string;
+  indicator_label?: string;
+  aggregate_note?: string | null;
+  trend?: string;
+  measured_at?: string;
+  metadata?: Record<string, unknown>;
+  created_at?: string;
+  [key: string]: unknown;
+};
+
+export type EraCrossLink = {
+  phase?: string;
+  label?: string;
+  route?: string;
+  status?: string;
+};
+
+export type OrganizationalPurposeAlignmentBlueprint = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  era?: string;
+  mapping_note?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: BlueprintObjective[];
+  purpose_alignment_center?: PurposeAlignmentCenter;
+  values_framework_engine?: ValuesFrameworkEngine;
+  alignment_review_engine?: AlignmentReviewEngine;
+  purpose_companion?: PurposeCompanionBlueprint;
+  culture_health_engine?: CultureHealthEngine;
+  purpose_integration_framework?: PurposeIntegrationFramework;
+  values_memory_engine?: ValuesMemoryEngine;
+  companion_limitations?: CompanionLimitations;
+  self_love_connection?: SelfLoveConnection;
+  executive_purpose_reviews?: ExecutivePurposeReviews;
+  security_requirements?: SecurityRequirements;
+  dogfooding?: DogfoodingBlueprint;
+  integration_links?: IntegrationLink[];
+  era_cross_links?: EraCrossLink[];
+  success_criteria?: AbosSuccessCriterion[];
+  engagement_summary?: Record<string, unknown>;
+  vision_phrases?: string[];
+  privacy_note?: string;
+};
+
+export type PurposeAlignmentEngagementSummary = {
+  values_framework_defaults?: number;
+  alignment_review_dimensions?: number;
+  purpose_companion_capabilities?: number;
+  culture_health_indicators?: number;
+  executive_review_areas?: number;
+  integration_links?: number;
+  scheduled_alignment_reviews?: number;
+  values_memory_entries?: number;
+  culture_health_snapshots?: number;
+  phase95_engagement?: CulturalAlignmentEngagementSummary;
+  phase64_engagement?: PurposeValuesEngagementSummary;
+  privacy_note?: string;
+};
+
 export type ValuesExploration = {
   principle?: string;
   dimensions?: BlueprintObjective[];
@@ -300,6 +465,12 @@ export type PurposeValuesEngineCard = {
   cultural_alignment_engagement_summary?: CulturalAlignmentEngagementSummary;
   cultural_alignment_note?: string;
   cultural_alignment_vision_note?: string;
+  implementation_blueprint_phase138?: ImplementationBlueprintMeta;
+  purpose_alignment_mission?: string;
+  purpose_alignment_abos_principle?: string;
+  purpose_alignment_engagement_summary?: PurposeAlignmentEngagementSummary;
+  purpose_alignment_note?: string;
+  purpose_alignment_vision_note?: string;
   [key: string]: unknown;
 };
 
@@ -371,6 +542,36 @@ export type PurposeValuesEngineDashboard = {
   cultural_alignment_vision?: string;
   cultural_alignment_vision_phrases?: string[];
   cultural_alignment_privacy_note?: string;
+  implementation_blueprint_phase138?: ImplementationBlueprintMeta;
+  organizational_purpose_alignment_note?: string;
+  organizational_purpose_alignment_blueprint?: OrganizationalPurposeAlignmentBlueprint;
+  purpose_alignment_distinction_note?: string;
+  purpose_alignment_mission?: string;
+  purpose_alignment_philosophy?: string;
+  purpose_alignment_abos_principle?: string;
+  purpose_alignment_objectives?: BlueprintObjective[];
+  purpose_alignment_center?: PurposeAlignmentCenter;
+  purpose_alignment_values_framework?: ValuesFrameworkEngine;
+  purpose_alignment_review_engine?: AlignmentReviewEngine;
+  purpose_alignment_companion?: PurposeCompanionBlueprint;
+  purpose_alignment_culture_health?: CultureHealthEngine;
+  purpose_alignment_integration_framework?: PurposeIntegrationFramework;
+  purpose_alignment_values_memory_engine?: ValuesMemoryEngine;
+  purpose_alignment_companion_limitations?: CompanionLimitations;
+  purpose_alignment_self_love_connection?: SelfLoveConnection;
+  purpose_alignment_executive_reviews?: ExecutivePurposeReviews;
+  purpose_alignment_security_requirements?: SecurityRequirements;
+  purpose_alignment_dogfooding?: DogfoodingBlueprint;
+  purpose_alignment_integration_links?: IntegrationLink[];
+  purpose_alignment_era_cross_links?: EraCrossLink[];
+  purpose_alignment_engagement_summary?: PurposeAlignmentEngagementSummary;
+  purpose_alignment_success_criteria?: AbosSuccessCriterion[];
+  purpose_alignment_vision?: string;
+  purpose_alignment_vision_phrases?: string[];
+  purpose_alignment_privacy_note?: string;
+  alignment_reviews?: PurposeAlignmentReview[];
+  values_memory_entries?: ValuesMemoryEntry[];
+  culture_health_snapshots?: CultureHealthSnapshot[];
   [key: string]: unknown;
 };
 

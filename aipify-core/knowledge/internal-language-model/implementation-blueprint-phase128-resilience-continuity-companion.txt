@@ -1,0 +1,93 @@
+ABOS Enterprise Intelligence Phase 128 — Resilience & Continuity Companion Engine
+Route: /app/organizational-resilience-engine
+Extends: Organizational Resilience Engine A.50 + Blueprint Phase 81 (_rnbp_*) + Blueprint Phase 91 (_orrbp91_*)
+Helper prefix: _rccbp128_* only — never collide with _ore_*, _rnbp_*, _orrbp91_*
+
+Vision
+Disruption is inevitable — prepare, adapt, and recover together. Not eliminate uncertainty.
+Wisdom before speed. People First. Resilience intentional not reactive.
+
+Mission
+Help organizations prepare for, adapt through, and recover from disruption — continuity planning, dependency awareness, coordinated recovery that puts people first.
+
+Philosophy
+Aipify informs, prepares, and supports continuity readiness.
+Humans lead decisions and emergency response.
+Readiness not command.
+
+Objectives (8)
+continuity_planning — structured continuity plans with human approval
+preparedness — disruption preparedness without panic
+reduce_vulnerability — dependency protection and vulnerability tracking
+protect_knowledge — knowledge protection and continuity library
+coordinated_responses — recovery orchestration with communication coordination
+adaptability — operational flexibility and alternative workflows
+recovery_capabilities — recovery checklists, status monitoring, leadership briefings
+long_term_resilience — resilience assessment, exercises, review cycles
+
+Resilience Center (9)
+continuity planning · disruption preparedness · dependency visibility · recovery coordination · leadership continuity · knowledge protection · companion recovery planning · scenario exercises · resilience dashboards
+
+Business continuity engine (8)
+critical process ID · recovery prioritization · continuity plans · alternative workflows · communication protocols · role assignments · escalation paths · review cycles
+
+Resilience assessment (8)
+operational flexibility · knowledge redundancy · leadership continuity · companion dependence · governance strength · GP diversity · learning capacity · community support networks
+
+Dependency protection (6) — cross-link Digital Twin Phase 124 /app/digital-twin
+SPOF · undocumented responsibilities · companion overdependence · leadership bottlenecks · critical vendor dependence · knowledge isolation
+
+Recovery orchestration (7) — people not only systems
+action tracking · priority sequencing · communication coordination · resource visibility · recovery checklists · status monitoring · leadership briefings
+
+Resilience Companion (6) — readiness NOT command
+continuity guidance · preparedness resources · response procedure summaries · critical dependencies · learning exercises · recovery communication
+
+Leadership continuity (6) — cross-link Org Memory Phase 126 /app/organizational-memory-engine
+succession preparedness · decision continuity · executive knowledge preservation · governance alignment · role transition planning · strategic memory retention
+
+Resilience exercise framework (6) — cross-link /app/simulations
+scenario reviews · recovery simulations · communication drills · leadership tabletop · knowledge continuity reviews · governance stress tests
+
+Companion limitations (5)
+no panic · no guaranteed outcomes · no overriding emergency leadership · no replacing crisis professionals · no suppressing uncertainty
+
+Self Love in resilience — cross-link A.76 /app/self-love-engine
+empathy · psychological safety · healthy recovery pace · supportive leadership · recognition of effort · collective care
+
+Continuity knowledge library (7)
+continuity plans · preparedness guides · lessons learned · recovery playbooks · communication templates · exercise outcomes · governance frameworks
+
+Cross-links
+Transformation Phase 127 /app/change-management-engine
+Executive Intelligence Phase 121 /app/executive-intelligence
+Decision Intelligence Phase 125 /app/decision-intelligence-engine
+Continuity Phase 80 /app/continuity — crisis continuity distinct layer
+Organizational Continuity Blueprint 73 /app/continuity
+Digital Twin Phase 124 /app/digital-twin
+Organizational Memory Phase 126 /app/organizational-memory-engine
+Simulations /app/simulations
+Self Love A.76 /app/self-love-engine
+Incident Response A.51 /app/incident-response-coordination-engine
+Risk Navigation Phase 81 — same route, preserved
+Recovery Blueprint Phase 91 — same route, preserved
+RESILIENCE_ENGINE.md / ABOS resilience article
+
+Success metrics (8)
+continuity readiness · preparedness maturity · vulnerability reduction · knowledge protection coverage · coordinated response capability · adaptability index · recovery capability · long-term resilience strength
+
+Companion adaptation examples
+🦉 Your continuity plan is due for review — shall Aipify prepare a summary of dependencies and open vulnerabilities for leadership?
+🔔 A critical dependency may need attention — would reviewing the Digital Twin summary help continuity planning?
+🌹 A tabletop exercise could strengthen readiness — shall Aipify outline exercise options for review?
+❤️ Recovery actions may benefit from priority sequencing — would a recovery checklist scaffold help the team?
+
+Distinction vs Phase 80 Continuity
+Phase 80 /app/continuity = backup ownership, incident mode, readiness score, crisis briefings
+Phase 128 = continuity companion on /app/organizational-resilience-engine — business continuity orchestration, dependency protection, recovery coordination
+Do NOT duplicate Phase 80 incident mode or crisis briefings
+Do NOT duplicate A.50 plan/simulation RPCs — extend metadata scaffolding only
+
+Privacy
+Metadata only — no PII, no panic framing, no crisis command
+Humans lead; Aipify prepares

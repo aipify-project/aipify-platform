@@ -90,6 +90,7 @@ export type DogfoodingBlueprint = {
 };
 
 export type IntegrationLink = {
+  key?: string;
   label?: string;
   route?: string;
   note?: string;
@@ -116,9 +117,92 @@ export type ChangeEngagementSummary = {
 export type ImplementationBlueprintMeta = {
   phase?: string;
   doc?: string;
+  spec_doc?: string;
   engine_phase?: string;
+  era?: string;
   route?: string;
   mapping_note?: string;
+};
+
+export type CompanionAdaptationExample = {
+  emoji?: string;
+  key?: string;
+  prompt?: string;
+  consideration?: string;
+};
+
+export type CompanionAdaptation = {
+  principle?: string;
+  examples?: CompanionAdaptationExample[];
+};
+
+export type LimitationPrinciples = {
+  principle?: string;
+  must_never?: BlueprintObjective[];
+  required?: string[];
+  boundary_note?: string;
+};
+
+export type SelfLoveTransformation = {
+  principle?: string;
+  patterns?: BlueprintObjective[];
+  transformation_phrase?: string;
+  self_love_route?: string;
+  boundary_note?: string;
+};
+
+export type AdoptionIntelligence = {
+  principle?: string;
+  indicators?: BlueprintObjective[];
+  privacy_note?: string;
+};
+
+export type TransformationMemoryEngine = {
+  principle?: string;
+  captures?: BlueprintObjective[];
+  org_memory_route?: string;
+  boundary_note?: string;
+};
+
+export type CommunicationOrchestration = {
+  principle?: string;
+  types?: BlueprintObjective[];
+  stakeholder_communication_route?: string;
+  boundary_note?: string;
+};
+
+export type TransformationOrchestrationPhase127Blueprint = {
+  phase?: string;
+  doc?: string;
+  spec_doc?: string;
+  engine_phase?: string;
+  era?: string;
+  route?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: BlueprintObjective[];
+  orchestration_center?: BlueprintObjective[];
+  roadmap_engine?: BlueprintObjective[];
+  readiness_engine?: BlueprintObjective[];
+  stakeholder_engagement?: BlueprintObjective[];
+  change_companion?: BlueprintObjective[];
+  communication_orchestration?: CommunicationOrchestration;
+  transformation_risk_engine?: BlueprintObjective[];
+  adoption_intelligence?: AdoptionIntelligence;
+  transformation_memory_engine?: TransformationMemoryEngine;
+  companion_limitations?: BlueprintObjective[];
+  self_love_transformation?: SelfLoveTransformation;
+  knowledge_library?: BlueprintObjective[];
+  cross_links?: IntegrationLink[];
+  limitation_principles?: LimitationPrinciples;
+  companion_adaptation?: CompanionAdaptation;
+  success_metrics?: BlueprintObjective[];
+  success_criteria?: AbosSuccessCriterion[];
+  engagement_summary?: ChangeEngagementSummary;
+  privacy_note?: string;
 };
 
 export type ChangeManagementEngineCard = {
@@ -132,6 +216,11 @@ export type ChangeManagementEngineCard = {
   engagement_summary?: ChangeEngagementSummary;
   blueprint_note?: string;
   change_note?: string;
+  implementation_blueprint_phase127?: ImplementationBlueprintMeta;
+  phase127_mission?: string;
+  phase127_abos_principle?: string;
+  phase127_engagement_summary?: ChangeEngagementSummary;
+  phase127_note?: string;
   [key: string]: unknown;
 };
 
@@ -170,5 +259,7 @@ export type ChangeManagementEngineDashboard = {
   success_criteria?: AbosSuccessCriterion[];
   vision_phrases?: string[];
   privacy_note?: string;
+  implementation_blueprint_phase127?: TransformationOrchestrationPhase127Blueprint;
+  transformation_orchestration_phase127_note?: string;
   [key: string]: unknown;
 };

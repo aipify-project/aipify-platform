@@ -7,6 +7,8 @@ import type {
   CollectiveObservations,
   CollectiveSummary,
   CommunityCollectiveIntelligenceBlueprintPhase89,
+  CommunityCollectiveSuccessBlueprintPhase117,
+  Ccsbp117EngagementSummary,
   CommunityContributionsBlueprint,
   CommunityEngagementSummary,
   CommunityIntelligenceCard,
@@ -154,6 +156,48 @@ function parseCcibp89EngagementSummary(data: unknown): Ccibp89EngagementSummary 
   return data as Ccibp89EngagementSummary;
 }
 
+function parseCcsbp117EngagementSummary(data: unknown): Ccsbp117EngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as Ccsbp117EngagementSummary;
+}
+
+function parseCommunityCollectiveSuccessBlueprintPhase117(
+  data: unknown
+): CommunityCollectiveSuccessBlueprintPhase117 | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  const d = data as Record<string, unknown>;
+  return {
+    implementation_blueprint_phase117: d.implementation_blueprint_phase117 as CommunityCollectiveSuccessBlueprintPhase117["implementation_blueprint_phase117"],
+    community_collective_success_note: d.community_collective_success_note as string | undefined,
+    distinction_note: d.distinction_note as string | undefined,
+    mission: d.mission as string | undefined,
+    philosophy: d.philosophy as string | undefined,
+    abos_principle: d.abos_principle as string | undefined,
+    vision: d.vision as string | undefined,
+    objectives: parseCommunityObjectives(d.objectives),
+    community_spaces: d.community_spaces as CommunityCollectiveSuccessBlueprintPhase117["community_spaces"],
+    community_contributions: d.community_contributions as CommunityCollectiveSuccessBlueprintPhase117["community_contributions"],
+    collective_intelligence_patterns: d.collective_intelligence_patterns as CommunityCollectiveSuccessBlueprintPhase117["collective_intelligence_patterns"],
+    mentorship_program: d.mentorship_program as CommunityCollectiveSuccessBlueprintPhase117["mentorship_program"],
+    community_recognition: d.community_recognition as CommunityCollectiveSuccessBlueprintPhase117["community_recognition"],
+    community_events: d.community_events as CommunityCollectiveSuccessBlueprintPhase117["community_events"],
+    safety_framework: d.safety_framework as CommunityCollectiveSuccessBlueprintPhase117["safety_framework"],
+    knowledge_vault: d.knowledge_vault as CommunityCollectiveSuccessBlueprintPhase117["knowledge_vault"],
+    companion_participation: d.companion_participation as CommunityCollectiveSuccessBlueprintPhase117["companion_participation"],
+    growth_partner_network: d.growth_partner_network as CommunityCollectiveSuccessBlueprintPhase117["growth_partner_network"],
+    self_love_connection: parseSelfLoveConnection(d.self_love_connection),
+    community_analytics: d.community_analytics as CommunityCollectiveSuccessBlueprintPhase117["community_analytics"],
+    limitation_principles: d.limitation_principles as CommunityCollectiveSuccessBlueprintPhase117["limitation_principles"],
+    companion_adaptation: d.companion_adaptation as CommunityCollectiveSuccessBlueprintPhase117["companion_adaptation"],
+    cross_links: parseIntegrationLinks(d.cross_links),
+    success_metrics: d.success_metrics as CommunityCollectiveSuccessBlueprintPhase117["success_metrics"],
+    success_criteria: parseSuccessCriteria(d.success_criteria),
+    engagement_summary: parseCcsbp117EngagementSummary(d.engagement_summary),
+    people_first_note: d.people_first_note as string | undefined,
+    privacy_note: d.privacy_note as string | undefined,
+  };
+}
+
 function parseCommunityCollectiveIntelligenceBlueprintPhase89(
   data: unknown
 ): CommunityCollectiveIntelligenceBlueprintPhase89 | undefined {
@@ -215,6 +259,14 @@ export function parseCommunityIntelligenceCard(data: unknown): CommunityIntellig
     ccibp89_engagement_summary: parseCcibp89EngagementSummary(d.ccibp89_engagement_summary),
     shared_learning_not_surveillance_note: d.shared_learning_not_surveillance_note as string | undefined,
     community_collective_intelligence_blueprint_phase89: d.community_collective_intelligence_blueprint_phase89 as CommunityIntelligenceCard["community_collective_intelligence_blueprint_phase89"],
+    community_collective_success_blueprint_phase117: d.community_collective_success_blueprint_phase117 as CommunityIntelligenceCard["community_collective_success_blueprint_phase117"],
+    ccsbp117_mission: d.ccsbp117_mission as string | undefined,
+    ccsbp117_philosophy: d.ccsbp117_philosophy as string | undefined,
+    ccsbp117_abos_principle: d.ccsbp117_abos_principle as string | undefined,
+    ccsbp117_vision: d.ccsbp117_vision as string | undefined,
+    ccsbp117_engagement_summary: parseCcsbp117EngagementSummary(d.ccsbp117_engagement_summary),
+    ccsbp117_distinction_note: d.ccsbp117_distinction_note as string | undefined,
+    people_first_note: d.people_first_note as string | undefined,
     blueprint_note: d.blueprint_note as string | undefined,
   };
 }
@@ -303,6 +355,9 @@ export function parseCommunityIntelligenceDashboard(data: unknown): CommunityInt
     inform_not_prescribe_note: d.inform_not_prescribe_note as string | undefined,
     community_collective_intelligence_blueprint_phase89: parseCommunityCollectiveIntelligenceBlueprintPhase89(
       d.community_collective_intelligence_blueprint_phase89
+    ),
+    community_collective_success_blueprint_phase117: parseCommunityCollectiveSuccessBlueprintPhase117(
+      d.community_collective_success_blueprint_phase117
     ),
   };
 }

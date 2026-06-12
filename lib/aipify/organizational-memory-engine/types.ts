@@ -285,6 +285,7 @@ export type MemoryLegacyBlueprintSection = {
   boundary_note?: string;
   legacy_engine_route?: string;
   phase83_helpers?: string;
+  captures?: EnterpriseIntelligenceBlueprintItem[];
   [key: string]: unknown;
 };
 
@@ -298,6 +299,46 @@ export type MemoryLegacyEngagementSummary = {
   companion_examples?: number;
   continuity_summary?: ContinuitySummary;
   legacy_engagement_summary?: Record<string, unknown>;
+  privacy_note?: string;
+};
+
+export type EnterpriseIntelligenceBlueprintItem = {
+  key?: string;
+  label?: string;
+  description?: string;
+  emoji?: string;
+};
+
+export type OrganizationalMemoryEnterpriseBlueprint = {
+  phase?: string;
+  doc?: string;
+  spec_doc?: string;
+  engine_phase?: string;
+  era?: string;
+  route?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: ContinuityObjective[];
+  organizational_memory_center?: EnterpriseIntelligenceBlueprintItem[];
+  memory_archive_engine?: EnterpriseIntelligenceBlueprintItem[];
+  legacy_engine_captures?: MemoryLegacyBlueprintSection;
+  succession_intelligence?: EnterpriseIntelligenceBlueprintItem[];
+  storytelling_framework?: EnterpriseIntelligenceBlueprintItem[];
+  critical_knowledge_protection?: EnterpriseIntelligenceBlueprintItem[];
+  memory_discovery?: MemoryLegacyBlueprintSection;
+  legacy_companion?: EnterpriseIntelligenceBlueprintItem[];
+  companion_limitations?: EnterpriseIntelligenceBlueprintItem[];
+  self_love_connection?: MemoryLegacyBlueprintSection;
+  heritage_library?: EnterpriseIntelligenceBlueprintItem[];
+  cross_links?: IntegrationLink[];
+  limitation_principles?: MemoryLegacyBlueprintSection;
+  companion_adaptation?: MemoryLegacyBlueprintSection;
+  success_metrics?: EnterpriseIntelligenceBlueprintItem[];
+  success_criteria?: AbosSuccessCriterion[];
+  engagement_summary?: MemoryLegacyEngagementSummary & Record<string, unknown>;
   privacy_note?: string;
 };
 
@@ -403,4 +444,34 @@ export type OrganizationalMemoryEngineDashboard = {
   memory_legacy_vision?: string;
   memory_legacy_vision_phrases?: string[];
   memory_legacy_privacy_note?: string;
+  implementation_blueprint_phase126?: ImplementationBlueprintMeta & {
+    spec_doc?: string;
+    era?: string;
+  };
+  enterprise_intelligence_blueprint?: OrganizationalMemoryEnterpriseBlueprint;
+  phase126_distinction_note?: string;
+  phase126_mission?: string;
+  phase126_philosophy?: string;
+  phase126_abos_principle?: string;
+  phase126_vision?: string;
+  phase126_objectives?: ContinuityObjective[];
+  phase126_memory_center?: EnterpriseIntelligenceBlueprintItem[];
+  phase126_memory_archive_engine?: EnterpriseIntelligenceBlueprintItem[];
+  phase126_legacy_engine_captures?: MemoryLegacyBlueprintSection;
+  phase126_succession_intelligence?: EnterpriseIntelligenceBlueprintItem[];
+  phase126_storytelling_framework?: EnterpriseIntelligenceBlueprintItem[];
+  phase126_critical_knowledge_protection?: EnterpriseIntelligenceBlueprintItem[];
+  phase126_memory_discovery?: MemoryLegacyBlueprintSection;
+  phase126_legacy_companion?: EnterpriseIntelligenceBlueprintItem[];
+  phase126_companion_limitations?: EnterpriseIntelligenceBlueprintItem[];
+  phase126_self_love_connection?: MemoryLegacyBlueprintSection;
+  phase126_heritage_library?: EnterpriseIntelligenceBlueprintItem[];
+  omlebp126_cross_links?: IntegrationLink[];
+  phase126_limitation_principles?: MemoryLegacyBlueprintSection;
+  phase126_companion_adaptation?: MemoryLegacyBlueprintSection;
+  phase126_success_metrics?: EnterpriseIntelligenceBlueprintItem[];
+  phase126_success_criteria?: AbosSuccessCriterion[];
+  phase126_engagement_summary?: MemoryLegacyEngagementSummary & Record<string, unknown>;
+  organizational_memory_enterprise_note?: string;
+  phase126_privacy_note?: string;
 };

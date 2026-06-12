@@ -1,0 +1,34 @@
+ABOS Enterprise Intelligence Phase 130 — Executive Operations Center & Enterprise Command Engine
+Route: /app/operations-center-foundation-engine
+Helpers: _eoccep130_* (never _eocbp_*, _ocf_*, _cfibp_*)
+Era: Enterprise Intelligence (121–130) capstone — extends Phase 75 on A.32
+
+Philosophy
+People First. Technology Second. Self Love. Wisdom before speed. Companionship before replacement.
+Clarity NOT command-and-control. Humans lead; companions support. Metadata only — no surveillance.
+
+Mission
+Unify executive situational awareness, initiative orchestration, alignment, and decision execution — stewardship not control.
+
+Enterprise command dashboard dimensions
+Strategic objectives · Operational health · Priorities · Transformation · Risk · Companion activity · Knowledge signals · Growth Partner updates · Community trends · Purpose metrics
+
+Executive companion network (121–129)
+121 Leadership → /app/executive-intelligence
+122 Foresight → /app/strategic-foresight-engine
+123 Governance → /app/governance-policy-engine
+125 Decision → /app/decision-intelligence-engine
+127 Transformation → /app/change-management-engine
+128 Resilience → /app/organizational-resilience-engine
+129 Wisdom (planned) → /app/wisdom-engine (A.93 interim)
+
+Companion limitations
+Never override authority · Never issue directives · Never replace accountability · Never conceal uncertainty · Never suppress dissent
+
+Cross-links
+Command Center Phase 26 /app/command-center (presence — distinct)
+Executive Intelligence 121 · Digital Twin 124 · Org Memory 126
+Ecosystem era 113–120 where relevant
+Self Love A.76 /app/self-love-engine
+
+Growth Partner terminology — never Affiliate.

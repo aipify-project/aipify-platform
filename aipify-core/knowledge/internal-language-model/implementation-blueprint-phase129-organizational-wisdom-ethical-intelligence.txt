@@ -1,0 +1,39 @@
+Implementation Blueprint Phase 129 — Organizational Wisdom & Ethical Intelligence Engine
+Route: /app/organizational-wisdom-engine
+Module: organizational_wisdom_engine
+Helpers: _owis_* (engine), _owebp129_* (blueprint)
+
+Mission: Help organizations reflect wisely and act with integrity — ethical awareness, values alignment, and discernment that strengthen trust without determining right or wrong.
+
+Philosophy: People First. Wisdom before speed. Discernment not perfection. Aipify supports reflection and transparency — humans retain moral agency. No shaming. No moral superiority.
+
+ABOS Principle: Wisdom Center orchestrates ethical reflection, values alignment reviews, decision ethics prompts, and culture theme insights. Wisdom A.93 and AI Ethics A.46 remain authoritative — cross-link only.
+
+Vision: Intelligence is not enough — wisdom means applying knowledge responsibly; ethics means integrity.
+
+Distinctions:
+- Wisdom Engine A.93 at /app/wisdom-engine — experience-to-guidance synthesis. Cross-link only. Never duplicate _wie_* RPCs.
+- AI Ethics A.46 at /app/ai-ethics-responsible-use-engine — deploy/govern Aipify ethically. Cross-link only. Never duplicate _aere_* RPCs.
+- Purpose & Values A.82 at /app/purpose-values-engine — values alignment cross-link.
+- Decision Intelligence Phase 125 at /app/decision-intelligence-engine — decision ethics cross-link.
+- Social Impact Phase 118, Board Governance Phase 123, Org Memory A.34, Self Love A.76, Inclusion A.83.
+
+Wisdom Center (8): ethical reflection workspaces, values alignment reviews, decision reflection tools, perspective expansion, governance integration, companion ethics guidance, organizational learning, leadership insights.
+
+Ethical intelligence (6 questions): who benefits, who harmed, assumptions, values, transparency, long-term implications.
+
+Values alignment (7 dimensions): declared values, leadership behaviors, operational decisions, companion usage, governance practices, customer experiences, community contributions.
+
+Multi-perspective (8): employees, customers, GPs, communities, executives, governance bodies, knowledge contributors, future stakeholders.
+
+Wisdom Companion (6 supports): reflective questions, ethical considerations, historical context, perspective exploration, knowledge connections, governance references. Thoughtfulness NOT determining morality.
+
+Decision ethics review (5 prompts): values aligned, unintended consequences, affected voices, public explanation comfort, strengthens trust.
+
+Culture insight (7 areas): trust signals, recognition practices, learning participation, knowledge sharing, governance engagement, community contribution, leadership accessibility. Aggregate themes NOT surveillance.
+
+Companion limitations (5 never): moral superiority, values as objective facts, override decisions, suppress viewpoints, shame.
+
+Self Love in wisdom: humility, self-awareness, compassion, patience, curiosity, reflection.
+
+Preferred wording: Aipify recommends reflection scaffolds. Aipify has prepared an ethics review summary. Aipify found aggregate culture themes worth discussing.

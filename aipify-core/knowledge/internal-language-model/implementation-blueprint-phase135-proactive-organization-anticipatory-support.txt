@@ -1,0 +1,49 @@
+Proactive Organization & Anticipatory Support Engine — Phase 135 ILM Corpus
+Autonomous Organization Era (131–140)
+
+Mission
+Help organizations notice emerging patterns early, anticipate support needs compassionately, and strengthen preventative care — care not control, wisdom before speed.
+
+Philosophy
+Organizational patterns only — never individual employee monitoring. People First. Companions support awareness without unnecessary urgency. Humans responsible; approved governance for any automated intervention.
+
+ABOS Principle
+Aipify Business Operating System (ABOS) — Proactive Organization Center surfaces aggregate early signals and preventative recommendations. Companions highlight trends and encourage reflection; humans decide and connect.
+
+Distinction
+Phase 135 at /app/proactive-organization-engine — organization-level early awareness, anticipatory support, org pulse.
+Distinct from Proactive Companion A.79 at /app/proactive-companion-engine — individual nudges/presence; cross-link only.
+Distinct from Organizational Health A.56 at /app/organizational-health-engine — health indicators cross-link.
+Helpers _porg_* engine, _porgbp135_* blueprint — never collide with _pce_*, _paebp_*, _pcobp56_*.
+
+Proactive Organization Center (8 capabilities)
+Emerging signals · support opportunities · preventative recommendations · pulse monitoring · companion alerts · knowledge gaps · executive notifications · anticipation dashboards
+
+Early Signal Engine (8 types)
+Support volume · knowledge access · bottlenecks · transformation fatigue · companion adoption · learning participation · CSAT changes · leadership overload — aggregate trends only
+
+Preventative Support Engine
+Knowledge recommendations · training suggestions · workflow reviews · executive briefings · communication guidance · governance reminders · resource allocation awareness
+
+Organizational Pulse Engine (8 dimensions)
+Learning health · companion engagement · knowledge utilization · transformation momentum · community · support trends · governance · Growth Partner relationships
+
+Proactive Companion (org-level)
+Highlight aggregate trends · encourage reflection · suggest preventative actions — individual nudge delivery remains at /app/proactive-companion-engine
+
+Companion Limitations — never
+Unnecessary anxiety · false certainty · governance override · opaque action · replacing human relationships
+
+Self Love Connection
+Empathy · patience · encouragement · balanced workloads · early conversations · compassionate leadership
+
+Privacy
+Organizational patterns — NOT employee surveillance. Aggregate metadata only — no PII, no individual ranking.
+
+Growth Partner terminology — never Affiliate.
+
+Cross-links
+Phases 131–134 · org health A.56 · KC · Self Love A.76 · proactive companion A.79 · predictive insights A.66 · human oversight A.40
+
+Vision Phrases
+Care not surveillance · Wisdom before speed · Anticipate with compassion · Humans decide — companions prepare · Organizational patterns — not employee monitoring

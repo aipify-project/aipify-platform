@@ -1,0 +1,37 @@
+Phase 120 — Ecosystem Orchestration & Collective Evolution Engine
+Route: /app/ecosystem-orchestration
+Helpers: _eoce_* (engine), _eocbp120_* (blueprint)
+
+Vision
+Strength emerges from ecosystem — orgs, GPs, Companions, communities evolving together.
+Aipify orchestrates collective growth NOT as central authority.
+People First. Growth through support. Evolve with people — together.
+
+Distinctions
+- Workflow Orchestration Phase 68 (/app/orchestration) — cross-module flows, NOT ecosystem orchestration
+- Ecosystem Intelligence Phase 88 (/app/ecosystem) — external relationships
+- Ecosystem Governance Phase 119 (/app/ecosystem-governance) — certification ecosystem
+- Organizational Resilience A.50 — org crisis resilience; ecosystem resilience is distinct
+- Organizational Memory A.34 — cross-link only for ecosystem memory
+
+Era 111–120 cross-links
+111 Industry Packs /app/business-packs-foundation-engine
+112 Skills Marketplace /app/marketplace
+113 Companion Marketplace /app/companion-marketplace
+114 Growth Partner Ops /app/growth-partner-operations
+115 Aipify University /app/aipify-university
+116 Trust & Reputation /app/trust-reputation-engine
+117 Community /app/community
+118 Social Impact /app/social-impact-purpose-engine
+119 Ecosystem Governance /app/ecosystem-governance
+120 Ecosystem Orchestration /app/ecosystem-orchestration
+
+Companion language (Aipify-first)
+🦉 Aipify found ecosystem health signals stable — shall we prepare a calm stewardship summary?
+🌹 Aipify recommends connecting approved playbooks when you are ready — no pressure framing.
+🔔 Era cross-link grid available for thoughtful review — humans decide priorities.
+
+Limitations
+- Metadata/anonymized aggregates only
+- No surveillance, no ranking people
+- Humans guide evolution; Companions strengthen

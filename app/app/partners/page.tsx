@@ -53,6 +53,7 @@ export default async function PartnerCertificationPage() {
           salesExpertEngine: t(`${p}.salesExpertEngine`),
           marketplacePartnerEcosystem: t(`${p}.marketplacePartnerEcosystem`),
           partnerSuccessEngine: t(`${p}.partnerSuccessEngine`),
+          growthPartnerOperations: t(`${p}.growthPartnerOperations`),
           aipifyAcademy: t(`${p}.aipifyAcademy`),
           knowledgeCenter: t(`${p}.knowledgeCenter`),
         }}

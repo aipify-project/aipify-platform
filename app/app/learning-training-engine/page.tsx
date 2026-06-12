@@ -21,6 +21,7 @@ export default async function LearningTrainingEnginePage() {
           onboarding: t(`${p}.onboarding`),
           learningEngine: t(`${p}.learningEngine`),
           knowledgeCenter: t(`${p}.knowledgeCenter`),
+          aipifyUniversity: t(`${p}.aipifyUniversity`),
           assigned_paths: t(`${p}.assigned_paths`),
           completed_paths: t(`${p}.completed_paths`),
           in_progress_paths: t(`${p}.in_progress_paths`),

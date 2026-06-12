@@ -125,6 +125,8 @@ export function GovernancePolicyEngineDashboardPanel({
   const settings = dashboard.settings ?? {};
   const engagement = dashboard.engagement_summary;
   const blueprintLinks = dashboard.blueprint_integration_links ?? [];
+  const phase123 = dashboard.implementation_blueprint_phase123;
+  const phase123Links = phase123?.cross_links ?? [];
 
   return (
     <div className="space-y-6">
@@ -473,6 +475,225 @@ export function GovernancePolicyEngineDashboardPanel({
                 pendingLabel={labels.criterionPending}
               />
             ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase123 ? (
+        <section className="rounded-xl border border-violet-200 bg-violet-50/40 p-6">
+          <h2 className="text-sm font-semibold text-violet-900">{labels.phase123Title}</h2>
+          {phase123.phase ? <p className="mt-1 text-xs text-violet-700">{phase123.phase}</p> : null}
+          {dashboard.board_governance_companion_phase123_note ? (
+            <p className="mt-2 text-xs text-violet-700">{dashboard.board_governance_companion_phase123_note}</p>
+          ) : null}
+          {phase123.mission ? <p className="mt-2 text-sm font-medium text-violet-900">{phase123.mission}</p> : null}
+          {phase123.philosophy ? <p className="mt-2 text-sm text-violet-900">{phase123.philosophy}</p> : null}
+          {phase123.abos_principle ? <p className="mt-2 text-xs text-violet-800">{phase123.abos_principle}</p> : null}
+          {phase123.privacy_note ? <p className="mt-2 text-xs text-violet-600">{phase123.privacy_note}</p> : null}
+        </section>
+      ) : null}
+
+      {phase123?.objectives && phase123.objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase123Objectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {phase123.objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase123?.board_intelligence_center && phase123.board_intelligence_center.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase123IntelligenceCenter}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase123.board_intelligence_center.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase123?.board_dashboard_displays && phase123.board_dashboard_displays.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase123DashboardDisplays}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {phase123.board_dashboard_displays.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase123?.board_briefing_engine && phase123.board_briefing_engine.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase123BriefingEngine}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase123.board_briefing_engine.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase123?.governance_memory_engine && phase123.governance_memory_engine.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase123GovernanceMemory}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase123.governance_memory_engine.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase123?.board_companion_supports && phase123.board_companion_supports.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase123CompanionSupports}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {phase123.board_companion_supports.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase123?.committee_support && phase123.committee_support.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase123CommitteeSupport}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {phase123.committee_support.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase123?.risk_oversight_framework && phase123.risk_oversight_framework.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase123RiskOversight}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {phase123.risk_oversight_framework.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase123?.decision_traceability && phase123.decision_traceability.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase123DecisionTraceability}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase123.decision_traceability.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase123?.board_effectiveness_insights && phase123.board_effectiveness_insights.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase123EffectivenessInsights}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {phase123.board_effectiveness_insights.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase123?.companion_limitations && phase123.companion_limitations.length > 0 ? (
+        <section className="rounded-xl border border-amber-200 bg-amber-50/40 p-6">
+          <h3 className="text-sm font-semibold text-amber-900">{labels.phase123Limitations}</h3>
+          <ul className="mt-3 space-y-2">
+            {phase123.companion_limitations.map((item) => (
+              <li key={item.key ?? item.label} className="text-sm text-amber-900">{item.label}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {phase123?.self_love_governance?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.phase123SelfLove}</h3>
+          <p className="mt-2">{phase123.self_love_governance.principle}</p>
+          {phase123.self_love_governance.governance_phrase ? (
+            <p className="mt-2 text-xs">{phase123.self_love_governance.governance_phrase}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase123?.board_knowledge_library && phase123.board_knowledge_library.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase123KnowledgeLibrary}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase123.board_knowledge_library.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase123?.companion_adaptation?.examples && phase123.companion_adaptation.examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase123CompanionAdaptation}</h3>
+          {phase123.companion_adaptation.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{phase123.companion_adaptation.principle}</p>
+          ) : null}
+          <div className="mt-3 space-y-3">
+            {phase123.companion_adaptation.examples.map((example) => (
+              <CompanionCard
+                key={example.key ?? example.prompt}
+                example={{
+                  emoji: example.emoji,
+                  scenario: example.prompt,
+                  example: example.consideration,
+                }}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase123?.success_metrics && phase123.success_metrics.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase123SuccessMetrics}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {phase123.success_metrics.map((item) => (
+              <ObjectiveCard key={item.key ?? item.label} objective={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase123?.success_criteria && phase123.success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase123SuccessCriteria}</h3>
+          <div className="mt-3 space-y-2">
+            {phase123.success_criteria.map((criterion) => (
+              <SuccessCriterionRow
+                key={criterion.key ?? criterion.label}
+                criterion={criterion}
+                metLabel={labels.criterionMet}
+                pendingLabel={labels.criterionPending}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {phase123Links.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase123CrossLinks}</h3>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {phase123Links.map((link) =>
+              link.route ? (
+                <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+                  {link.label ?? link.route}
+                </Link>
+              ) : null
+            )}
           </div>
         </section>
       ) : null}

@@ -8,7 +8,9 @@ export type AbosSuccessCriterion = {
 export type ImplementationBlueprint = {
   phase?: string;
   doc?: string;
+  spec_doc?: string;
   engine_phase?: string;
+  era?: string;
   route?: string;
   mapping_note?: string;
 };
@@ -125,7 +127,47 @@ export type EngagementSummary = {
   executive_dashboard_dimensions?: number;
   daily_briefing_elements?: number;
   companion_guidance_examples?: number;
+  initiative_orchestration_elements?: number;
+  companion_network_count?: number;
+  health_monitoring_themes?: number;
+  review_cycle_count?: number;
+  era_cross_link_count?: number;
+  companion_limitations_count?: number;
   privacy_note?: string;
+};
+
+export type EraCrossLink = {
+  phase?: string;
+  label?: string;
+  route?: string;
+};
+
+export type CompanionNetworkEntry = {
+  key?: string;
+  label?: string;
+  phase?: string;
+  route?: string;
+  description?: string;
+};
+
+export type CompanionLimitation = {
+  key?: string;
+  limitation?: string;
+  description?: string;
+};
+
+export type HealthMonitoringTheme = {
+  emoji?: string;
+  key?: string;
+  theme?: string;
+  description?: string;
+};
+
+export type ReviewCycle = {
+  key?: string;
+  label?: string;
+  emoji?: string;
+  description?: string;
 };
 
 export type BriefingElement = {
@@ -190,6 +232,13 @@ export type OperationsCenterFoundationEngineCard = {
   eocbp_engagement_summary?: EngagementSummary;
   eocbp_note?: string;
   executive_leadership_note?: string;
+  implementation_blueprint_phase130?: ImplementationBlueprint;
+  eoccep130_mission?: string;
+  eoccep130_abos_principle?: string;
+  eoccep130_engagement_summary?: EngagementSummary;
+  eoccep130_note?: string;
+  enterprise_command_note?: string;
+  enterprise_intelligence_era_capstone_note?: string;
   [key: string]: unknown;
 };
 
@@ -264,5 +313,36 @@ export type OperationsCenterFoundationEngineDashboard = {
   eocbp_success_criteria?: AbosSuccessCriterion[];
   eocbp_vision_phrases?: string[];
   eocbp_privacy_note?: string;
+  implementation_blueprint_phase130?: ImplementationBlueprint;
+  enterprise_command_engine_note?: string;
+  enterprise_intelligence_era_capstone_note?: string;
+  eoccep130_distinction_note?: string;
+  eoccep130_mission?: string;
+  eoccep130_philosophy?: string;
+  eoccep130_abos_principle?: string;
+  eoccep130_vision?: string;
+  eoccep130_objectives?: BlueprintObjective[];
+  eoccep130_executive_operations_center?: BlueprintSection & { capabilities?: BlueprintObjective[] };
+  eoccep130_enterprise_command_dashboard?: BlueprintSection & { dimensions?: BlueprintObjective[] };
+  eoccep130_initiative_orchestration?: BlueprintSection & { elements?: BlueprintObjective[] };
+  eoccep130_executive_alignment?: BlueprintSection & { alignment_elements?: BlueprintObjective[] };
+  eoccep130_decision_execution?: BlueprintSection & { execution_elements?: BlueprintObjective[] };
+  eoccep130_executive_companion_network?: BlueprintSection & {
+    companions?: CompanionNetworkEntry[];
+    can_companions_decide?: string;
+  };
+  eoccep130_organizational_health_monitoring?: BlueprintSection & { themes?: HealthMonitoringTheme[] };
+  eoccep130_executive_review_cycles?: ReviewCycle[];
+  eoccep130_enterprise_memory_integration?: BlueprintSection & { cross_links?: IntegrationLink[] };
+  eoccep130_companion_limitations?: CompanionLimitation[];
+  eoccep130_self_love_connection?: SelfLoveConnection & { why_self_love?: string };
+  eoccep130_enterprise_knowledge_library?: BlueprintObjective[];
+  eoccep130_integration_links?: IntegrationLink[];
+  eoccep130_era_cross_links?: EraCrossLink[];
+  eoccep130_dogfooding?: Record<string, unknown>;
+  eoccep130_engagement_summary?: EngagementSummary;
+  eoccep130_success_criteria?: AbosSuccessCriterion[];
+  eoccep130_vision_phrases?: string[];
+  eoccep130_privacy_note?: string;
   [key: string]: unknown;
 };

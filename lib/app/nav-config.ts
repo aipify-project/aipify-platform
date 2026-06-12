@@ -34,15 +34,25 @@ export type AppNavId =
   | "enterpriseReadinessEngine"
   | "enterpriseDeploymentDeviceRolloutEngine"
   | "executiveInsightsEngine"
+  | "executiveIntelligenceEngine"
+  | "companionWorkforceEngine"
   | "learningTrainingEngine"
+  | "aipifyUniversityEngine"
   | "certificationAchievementEngine"
   | "innovationImpactEngine"
   | "complianceRegulatoryReadinessEngine"
   | "strategicIntelligenceFoundationEngine"
+  | "strategicForesightEngine"
+  | "decisionIntelligenceEngine"
+  | "collectiveDecisionCouncilEngine"
+  | "organizationalWisdomEngine"
   | "operationsCenterFoundationEngine"
   | "continuousImprovementEngine"
   | "workflowOrchestrationEngine"
   | "humanOversightEngine"
+  | "proactiveOrganizationEngine"
+  | "humanPotentialAugmentedWorkEngine"
+  | "augmentedOrganizationEngine"
   | "businessPacksFoundationEngine"
   | "industryIntelligenceFoundationEngine"
   | "marketplacePartnerEcosystemFoundationEngine"
@@ -83,6 +93,7 @@ export type AppNavId =
   | "inclusionHumanityEngine"
   | "companionIdentityEngine"
   | "abosImpactEngine"
+  | "socialImpactPurposeEngine"
   | "wonderEngine"
   | "legacyEngine"
   | "curiosityDiscoveryEngine"
@@ -117,9 +128,12 @@ export type AppNavId =
   | "customerLifecycleEngine"
   | "platformIntegrityEngine"
   | "ecosystemIntelligenceEngine"
+  | "ecosystemOrchestrationEngine"
   | "communityIntelligenceEngine"
   | "marketplaceGovernanceEngine"
   | "partnerCertificationEngine"
+  | "growthPartnerOperationsEngine"
+  | "ecosystemGovernanceEngine"
   | "commercialModelEngine"
   | "academyEngine"
   | "globalExpansionEngine"
@@ -128,6 +142,7 @@ export type AppNavId =
   | "constitutionEngine"
   | "manifestoEngine"
   | "platformInstallEngine"
+  | "companionMarketplaceEngine"
   | "commerceCompanionEngine"
   | "commerceIntelligenceEngine"
   | "productAutomationEngine"
@@ -265,6 +280,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.learningTrainingEngine",
   },
   {
+    id: "aipifyUniversityEngine",
+    href: "/app/aipify-university",
+    labelKey: "customerApp.nav.aipifyUniversityEngine",
+  },
+  {
     id: "certificationAchievementEngine",
     href: "/app/certification-achievement-engine",
     labelKey: "customerApp.nav.certificationAchievementEngine",
@@ -285,6 +305,26 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.strategicIntelligenceFoundationEngine",
   },
   {
+    id: "strategicForesightEngine",
+    href: "/app/strategic-foresight-engine",
+    labelKey: "customerApp.nav.strategicForesightEngine",
+  },
+  {
+    id: "decisionIntelligenceEngine",
+    href: "/app/decision-intelligence-engine",
+    labelKey: "customerApp.nav.decisionIntelligenceEngine",
+  },
+  {
+    id: "collectiveDecisionCouncilEngine",
+    href: "/app/collective-decision-council-engine",
+    labelKey: "customerApp.nav.collectiveDecisionCouncilEngine",
+  },
+  {
+    id: "organizationalWisdomEngine",
+    href: "/app/organizational-wisdom-engine",
+    labelKey: "customerApp.nav.organizationalWisdomEngine",
+  },
+  {
     id: "operationsCenterFoundationEngine",
     href: "/app/operations-center-foundation-engine",
     labelKey: "customerApp.nav.operationsCenterFoundationEngine",
@@ -303,6 +343,21 @@ export const APP_NAV: AppNavItem[] = [
     id: "humanOversightEngine",
     href: "/app/human-oversight-engine",
     labelKey: "customerApp.nav.humanOversightEngine",
+  },
+  {
+    id: "proactiveOrganizationEngine",
+    href: "/app/proactive-organization-engine",
+    labelKey: "customerApp.nav.proactiveOrganizationEngine",
+  },
+  {
+    id: "humanPotentialAugmentedWorkEngine",
+    href: "/app/human-potential-augmented-work-engine",
+    labelKey: "customerApp.nav.humanPotentialAugmentedWorkEngine",
+  },
+  {
+    id: "augmentedOrganizationEngine",
+    href: "/app/augmented-organization-engine",
+    labelKey: "customerApp.nav.augmentedOrganizationEngine",
   },
   {
     id: "businessPacksFoundationEngine",
@@ -510,6 +565,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.abosImpactEngine",
   },
   {
+    id: "socialImpactPurposeEngine",
+    href: "/app/social-impact-purpose-engine",
+    labelKey: "customerApp.nav.socialImpactPurposeEngine",
+  },
+  {
     id: "legacyEngine",
     href: "/app/legacy-engine",
     labelKey: "customerApp.nav.legacyEngine",
@@ -555,6 +615,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.wisdomInterventionProtocol",
   },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
+  {
+    id: "executiveIntelligenceEngine",
+    href: "/app/executive-intelligence",
+    labelKey: "customerApp.nav.executiveIntelligenceEngine",
+  },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
   { id: "assistant", href: "/app/assistant", labelKey: "customerApp.nav.assistant" },
@@ -566,12 +631,18 @@ export const APP_NAV: AppNavItem[] = [
   { id: "learning", href: "/app/learning", labelKey: "customerApp.nav.learning" },
   { id: "skills", href: "/app/skills", labelKey: "customerApp.nav.skills" },
   { id: "marketplace", href: "/app/marketplace", labelKey: "customerApp.nav.marketplace" },
+  { id: "companionMarketplaceEngine", href: "/app/companion-marketplace", labelKey: "customerApp.nav.companionMarketplaceEngine" },
   { id: "industryBlueprints", href: "/app/industry-blueprints", labelKey: "customerApp.nav.industryBlueprints" },
   { id: "globalLearning", href: "/app/global-learning", labelKey: "customerApp.nav.globalLearning" },
   { id: "evolution", href: "/app/evolution", labelKey: "customerApp.nav.evolution" },
   { id: "valueEngine", href: "/app/value", labelKey: "customerApp.nav.valueEngine" },
   { id: "outcomesEngine", href: "/app/outcomes", labelKey: "customerApp.nav.outcomesEngine" },
   { id: "agents", href: "/app/agents", labelKey: "customerApp.nav.agents" },
+  {
+    id: "companionWorkforceEngine",
+    href: "/app/companion-workforce-engine",
+    labelKey: "customerApp.nav.companionWorkforceEngine",
+  },
   { id: "appEcosystem", href: "/app/apps", labelKey: "customerApp.nav.appEcosystem" },
   { id: "trustEngine", href: "/app/trust", labelKey: "customerApp.nav.trustEngine" },
   { id: "digitalTwin", href: "/app/digital-twin", labelKey: "customerApp.nav.digitalTwin" },
@@ -583,9 +654,16 @@ export const APP_NAV: AppNavItem[] = [
   { id: "customerLifecycleEngine", href: "/app/customer-lifecycle", labelKey: "customerApp.nav.customerLifecycleEngine" },
   { id: "platformIntegrityEngine", href: "/app/integrity", labelKey: "customerApp.nav.platformIntegrityEngine" },
   { id: "ecosystemIntelligenceEngine", href: "/app/ecosystem", labelKey: "customerApp.nav.ecosystemIntelligenceEngine" },
+  {
+    id: "ecosystemOrchestrationEngine",
+    href: "/app/ecosystem-orchestration",
+    labelKey: "customerApp.nav.ecosystemOrchestrationEngine",
+  },
   { id: "communityIntelligenceEngine", href: "/app/community", labelKey: "customerApp.nav.communityIntelligenceEngine" },
   { id: "marketplaceGovernanceEngine", href: "/app/marketplace-governance", labelKey: "customerApp.nav.marketplaceGovernanceEngine" },
+  { id: "ecosystemGovernanceEngine", href: "/app/ecosystem-governance", labelKey: "customerApp.nav.ecosystemGovernanceEngine" },
   { id: "partnerCertificationEngine", href: "/app/partners", labelKey: "customerApp.nav.partnerCertificationEngine" },
+  { id: "growthPartnerOperationsEngine", href: "/app/growth-partner-operations", labelKey: "customerApp.nav.growthPartnerOperationsEngine" },
   { id: "commercialModelEngine", href: "/app/commercial", labelKey: "customerApp.nav.commercialModelEngine" },
   { id: "academyEngine", href: "/app/academy", labelKey: "customerApp.nav.academyEngine" },
   { id: "globalExpansionEngine", href: "/app/global-expansion", labelKey: "customerApp.nav.globalExpansionEngine" },
@@ -785,6 +863,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/impact-engine")) {
     return "abosImpactEngine";
   }
+  if (pathname.startsWith("/app/social-impact-purpose-engine")) {
+    return "socialImpactPurposeEngine";
+  }
   if (pathname.startsWith("/app/legacy-engine")) {
     return "legacyEngine";
   }
@@ -830,8 +911,10 @@ export function getAppActiveNavId(pathname: string): AppNavId {
     return "enterpriseDeploymentDeviceRolloutEngine";
   }
   if (pathname.startsWith("/app/learning-training-engine")) return "learningTrainingEngine";
+  if (pathname.startsWith("/app/aipify-university")) return "aipifyUniversityEngine";
   if (pathname.startsWith("/app/certification-achievement-engine")) return "certificationAchievementEngine";
   if (pathname.startsWith("/app/executive-insights-engine")) return "executiveInsightsEngine";
+  if (pathname.startsWith("/app/executive-intelligence")) return "executiveIntelligenceEngine";
   if (pathname.startsWith("/app/innovation-impact-engine")) return "innovationImpactEngine";
   if (pathname.startsWith("/app/compliance-regulatory-readiness-engine")) {
     return "complianceRegulatoryReadinessEngine";
@@ -839,12 +922,23 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/strategic-intelligence-foundation-engine")) {
     return "strategicIntelligenceFoundationEngine";
   }
+  if (pathname.startsWith("/app/strategic-foresight-engine")) return "strategicForesightEngine";
+  if (pathname.startsWith("/app/decision-intelligence-engine")) return "decisionIntelligenceEngine";
+  if (pathname.startsWith("/app/collective-decision-council-engine")) return "collectiveDecisionCouncilEngine";
+  if (pathname.startsWith("/app/organizational-wisdom-engine")) return "organizationalWisdomEngine";
   if (pathname.startsWith("/app/operations-center-foundation-engine")) {
     return "operationsCenterFoundationEngine";
   }
   if (pathname.startsWith("/app/continuous-improvement-engine")) return "continuousImprovementEngine";
   if (pathname.startsWith("/app/workflow-orchestration-engine")) return "workflowOrchestrationEngine";
   if (pathname.startsWith("/app/human-oversight-engine")) return "humanOversightEngine";
+  if (pathname.startsWith("/app/proactive-organization-engine")) return "proactiveOrganizationEngine";
+  if (pathname.startsWith("/app/human-potential-augmented-work-engine")) {
+    return "humanPotentialAugmentedWorkEngine";
+  }
+  if (pathname.startsWith("/app/augmented-organization-engine")) {
+    return "augmentedOrganizationEngine";
+  }
   if (pathname.startsWith("/app/executive")) return "executive";
   if (
     pathname.startsWith("/app/presence") ||
@@ -857,12 +951,14 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/recommendations")) return "recommendations";
   if (pathname.startsWith("/app/learning")) return "learning";
   if (pathname.startsWith("/app/skills")) return "skills";
+  if (pathname.startsWith("/app/companion-marketplace")) return "companionMarketplaceEngine";
   if (pathname.startsWith("/app/marketplace")) return "marketplace";
   if (pathname.startsWith("/app/industry-blueprints")) return "industryBlueprints";
   if (pathname.startsWith("/app/global-learning")) return "globalLearning";
   if (pathname.startsWith("/app/evolution")) return "evolution";
   if (pathname.startsWith("/app/value")) return "valueEngine";
   if (pathname.startsWith("/app/outcomes")) return "outcomesEngine";
+  if (pathname.startsWith("/app/companion-workforce-engine")) return "companionWorkforceEngine";
   if (pathname.startsWith("/app/agents")) return "agents";
   if (pathname.startsWith("/app/apps")) return "appEcosystem";
   if (pathname.startsWith("/app/trust")) return "trustEngine";
@@ -874,9 +970,12 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/human-success")) return "humanSuccessEngine";
   if (pathname.startsWith("/app/customer-lifecycle")) return "customerLifecycleEngine";
   if (pathname.startsWith("/app/integrity")) return "platformIntegrityEngine";
+  if (pathname.startsWith("/app/ecosystem-orchestration")) return "ecosystemOrchestrationEngine";
   if (pathname.startsWith("/app/ecosystem")) return "ecosystemIntelligenceEngine";
   if (pathname.startsWith("/app/community")) return "communityIntelligenceEngine";
   if (pathname.startsWith("/app/marketplace-governance")) return "marketplaceGovernanceEngine";
+  if (pathname.startsWith("/app/growth-partner-operations")) return "growthPartnerOperationsEngine";
+  if (pathname.startsWith("/app/ecosystem-governance")) return "ecosystemGovernanceEngine";
   if (pathname.startsWith("/app/partners")) return "partnerCertificationEngine";
   if (pathname.startsWith("/app/commercial")) return "commercialModelEngine";
   if (pathname.startsWith("/app/academy")) return "academyEngine";

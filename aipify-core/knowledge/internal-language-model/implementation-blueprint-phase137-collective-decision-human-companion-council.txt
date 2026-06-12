@@ -1,0 +1,25 @@
+Phase 137 — Collective Decision & Human-Companion Council Engine
+Route: /app/collective-decision-council-engine
+Module: collective_decision_council_engine
+Helpers: _cdcc_* (engine), _cdccbp137_* (blueprint)
+
+Autonomous Organization Era (131–140) — collective council with human-companion perspectives.
+
+Mission: Bring human and companion perspectives together in collective council deliberation — expanding awareness while humans retain full decision authority.
+
+Philosophy: People First. Wisdom before speed. Collective wisdom not consensus at all costs. Companions advise — they do not vote. Transparency builds trust. Growth Partner terminology — never Affiliate.
+
+Distinctions:
+- Decision Intelligence Phase 125 /app/decision-intelligence-engine — executive advisory workspaces — cross-link only
+- Organizational Decision Support A.54 /app/organizational-decision-support-engine — org decision register — cross-link only
+- AI Ethics A.46 /app/ai-ethics-responsible-use-engine — ethics council — cross-link only
+
+Council center capabilities: decision workspaces, perspective collection, companion contributions, executive reviews, governance integration, stakeholder mapping, reflection sessions, decision histories.
+
+Human-Companion Council roles: executives, department leaders, knowledge stewards, Growth Partners, governance reps, SMEs, relevant companions — humans responsible.
+
+Companion advisory supports: knowledge summaries, trend context, historical refs, risk visibility, stakeholder mapping, alternative viewpoints, question generation — does NOT vote.
+
+Companion limitations (never): vote, governance override, false certainty, suppressing dissent, replacing accountability.
+
+Privacy: metadata only — no raw sensitive decision content, no PII, no meeting transcripts.

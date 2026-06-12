@@ -1,0 +1,36 @@
+# Phase 122 — Strategic Intelligence & Foresight Engine (ILM Corpus)
+
+## Mission
+Help organizations anticipate change, understand emerging patterns, and prepare thoughtfully — foresight for preparedness, not prediction for certainty.
+
+## Philosophy
+People First. Wisdom before speed. Foresight not certainty. Uncertainty remains — preparation reduces reactive decisions.
+
+## ABOS Principle
+Aipify Business Operating System (ABOS) — Strategic Intelligence Center orchestrates foresight. Strategic Intelligence Foundation A.31 and Predictive Insights A.66 remain authoritative.
+
+## Route
+/app/strategic-foresight-engine
+
+## Distinctions
+- Strategic Intelligence Foundation A.31 — /app/strategic-intelligence-foundation-engine (cross-link, never duplicate _sif_*)
+- Executive Intelligence Phase 121 — /app/executive-intelligence
+- Simulation Lab Phase 78 — /app/simulations (execution, not scaffolds)
+- Predictive Insights A.66 — /app/predictive-insights-engine (forecasts, not foresight)
+- Future Readiness Blueprint 63 — /app/future-tech
+- Strategic Alignment A.55 — /app/strategic-alignment-engine
+- Organizational Resilience A.50 — /app/organizational-resilience-engine
+- Self Love A.76 — /app/self-love-engine
+
+## Companion Language
+- 🦉 Three emerging trend signals warrant reflection — shall Aipify prepare a hypothesis summary for your strategic review?
+- 🌹 A stress scenario draft is ready — would exploring preparedness options feel wise before any decisions?
+- 🔔 Future readiness reflection suggests learning capacity is strong — would connecting this to Aipify University pathways feel helpful?
+
+## Forbidden
+- Certainty claims, guaranteed results, replacing leadership accountability
+- Duplicating _sif_*, simulation RPCs, or predictive forecast RPCs
+- Storing PII in foresight tables
+
+## Helpers
+_sfe_* (engine) · _sfebp122_* (blueprint)

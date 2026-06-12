@@ -78,10 +78,34 @@ export default async function OperationsCenterFoundationEnginePage() {
     "eocbpTrustConnection",
   ] as const;
 
+  const phase130LabelKeys = [
+    "phase130Title",
+    "eraCapstoneBanner",
+    "eoccep130Objectives",
+    "enterpriseCommandDashboard",
+    "initiativeOrchestration",
+    "executiveAlignment",
+    "decisionExecution",
+    "executiveCompanionNetwork",
+    "organizationalHealthMonitoring",
+    "executiveReviewCycles",
+    "enterpriseMemoryIntegration",
+    "companionLimitations",
+    "enterpriseKnowledgeLibrary",
+    "eoccep130EngagementSummary",
+    "enterpriseDashboardDimensions",
+    "companionNetworkCount",
+    "eraCrossLinkCount",
+    "eoccep130SuccessCriteria",
+    "eoccep130VisionPhrases",
+    "eoccep130SelfLoveConnection",
+  ] as const;
+
   const labels = {
     ...Object.fromEntries(labelKeys.map((key) => [key, t(`${p}.${key}`)])),
     ...Object.fromEntries(blueprintLabelKeys.map((key) => [key, t(`${p}.blueprint.phase70.${key}`)])),
     ...Object.fromEntries(phase75LabelKeys.map((key) => [key, t(`${p}.blueprint.phase75.${key}`)])),
+    ...Object.fromEntries(phase130LabelKeys.map((key) => [key, t(`${p}.blueprint.phase130.${key}`)])),
   } as Record<string, string>;
 
   return (

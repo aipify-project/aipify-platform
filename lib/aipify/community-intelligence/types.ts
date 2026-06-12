@@ -291,6 +291,214 @@ export type Ccibp89EngagementSummary = {
   privacy_note?: string;
 };
 
+export type CommunitySpace = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type CommunitySpaces = {
+  principle?: string;
+  spaces?: CommunitySpace[];
+};
+
+export type CommunityContributionType = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type CommunityContributionsPhase117 = {
+  principle?: string;
+  contribution_types?: CommunityContributionType[];
+};
+
+export type CollectiveIntelligencePattern = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type CollectiveIntelligencePatterns = {
+  principle?: string;
+  patterns?: CollectiveIntelligencePattern[];
+};
+
+export type MentorshipType = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type MentorshipPrinciple = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type MentorshipProgram = {
+  principle?: string;
+  mentorship_types?: MentorshipType[];
+  principles?: MentorshipPrinciple[];
+  sales_community_route?: string;
+  sales_community_note?: string;
+};
+
+export type CommunityRecognitionType = {
+  emoji?: string;
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type CommunityRecognitionPhase117 = {
+  principle?: string;
+  recognition_types?: CommunityRecognitionType[];
+  gratitude_route?: string;
+  boundary_note?: string;
+};
+
+export type CommunityEventType = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type CommunityEvents = {
+  principle?: string;
+  event_types?: CommunityEventType[];
+};
+
+export type SafetyPrinciple = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type SafetyFramework = {
+  principle?: string;
+  principles?: SafetyPrinciple[];
+};
+
+export type KnowledgeVaultAsset = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type KnowledgeVault = {
+  principle?: string;
+  asset_types?: KnowledgeVaultAsset[];
+  knowledge_center_route?: string;
+  boundary_note?: string;
+};
+
+export type CompanionParticipation = {
+  principle?: string;
+  may?: string[];
+  must_never?: string[];
+};
+
+export type GrowthPartnerCollaborationMode = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type GrowthPartnerNetwork = {
+  principle?: string;
+  collaboration_modes?: GrowthPartnerCollaborationMode[];
+  growth_partner_ops_route?: string;
+  aipify_university_route?: string;
+};
+
+export type CommunityAnalyticsMetric = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type CommunityAnalytics = {
+  principle?: string;
+  metrics?: CommunityAnalyticsMetric[];
+  not_for_ranking_note?: string;
+};
+
+export type LimitationPrinciples = {
+  principle?: string;
+  must?: string[];
+  must_not?: string[];
+  shared_learning_note?: string;
+};
+
+export type CompanionAdaptationExample = {
+  emoji?: string;
+  key?: string;
+  scenario?: string;
+  example?: string;
+};
+
+export type CompanionAdaptation = {
+  principle?: string;
+  examples?: CompanionAdaptationExample[];
+};
+
+export type SuccessMetric = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type Ccsbp117EngagementSummary = {
+  community_spaces?: number;
+  contribution_types?: number;
+  collective_intelligence_patterns?: number;
+  mentorship_types?: number;
+  recognition_types?: number;
+  event_types?: number;
+  safety_principles?: number;
+  vault_asset_types?: number;
+  analytics_metrics?: number;
+  cross_links?: number;
+  tenant_contributions_total?: number;
+  ecosystem_published_total?: number;
+  contributions_total?: number;
+  published_contributions?: number;
+  participation_enabled?: boolean;
+  privacy_note?: string;
+};
+
+export type CommunityCollectiveSuccessBlueprintPhase117 = {
+  implementation_blueprint_phase117?: ImplementationBlueprintMeta;
+  community_collective_success_note?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: CommunityObjective[];
+  community_spaces?: CommunitySpaces;
+  community_contributions?: CommunityContributionsPhase117;
+  collective_intelligence_patterns?: CollectiveIntelligencePatterns;
+  mentorship_program?: MentorshipProgram;
+  community_recognition?: CommunityRecognitionPhase117;
+  community_events?: CommunityEvents;
+  safety_framework?: SafetyFramework;
+  knowledge_vault?: KnowledgeVault;
+  companion_participation?: CompanionParticipation;
+  growth_partner_network?: GrowthPartnerNetwork;
+  self_love_connection?: SelfLoveConnection;
+  community_analytics?: CommunityAnalytics;
+  limitation_principles?: LimitationPrinciples;
+  companion_adaptation?: CompanionAdaptation;
+  cross_links?: IntegrationLink[];
+  success_metrics?: SuccessMetric[];
+  success_criteria?: AbosSuccessCriterion[];
+  engagement_summary?: Ccsbp117EngagementSummary;
+  people_first_note?: string;
+  privacy_note?: string;
+};
+
 export type CommunityCollectiveIntelligenceBlueprintPhase89 = {
   implementation_blueprint_phase89?: ImplementationBlueprintMeta;
   community_collective_intelligence_note?: string;
@@ -348,6 +556,14 @@ export type CommunityIntelligenceCard = {
   ccibp89_engagement_summary?: Ccibp89EngagementSummary;
   shared_learning_not_surveillance_note?: string;
   community_collective_intelligence_blueprint_phase89?: ImplementationBlueprintMeta;
+  community_collective_success_blueprint_phase117?: ImplementationBlueprintMeta;
+  ccsbp117_mission?: string;
+  ccsbp117_philosophy?: string;
+  ccsbp117_abos_principle?: string;
+  ccsbp117_vision?: string;
+  ccsbp117_engagement_summary?: Ccsbp117EngagementSummary;
+  ccsbp117_distinction_note?: string;
+  people_first_note?: string;
   blueprint_note?: string;
 };
 
@@ -427,6 +643,7 @@ export type CommunityIntelligenceDashboard = {
   clwbp_vision_phrases?: string[];
   inform_not_prescribe_note?: string;
   community_collective_intelligence_blueprint_phase89?: CommunityCollectiveIntelligenceBlueprintPhase89;
+  community_collective_success_blueprint_phase117?: CommunityCollectiveSuccessBlueprintPhase117;
 };
 
 export type CommunityIntelligenceAdmin = {

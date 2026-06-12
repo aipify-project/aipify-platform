@@ -1,0 +1,56 @@
+ABOS Implementation Blueprint Phase 113 — Companion Marketplace & Digital Employee Engine
+
+Mission: Trusted Companion Marketplace and Digital Employee provisioning — digital coworkers that augment teams.
+
+Philosophy: People First. Technology Second. Companionship before replacement. Companions are trusted digital coworkers — NOT chatbots.
+
+Vision: Every team has trusted digital coworkers — and humans remain in charge.
+
+Route: /app/companion-marketplace
+Engine prefix: _cmpm_*
+Blueprint prefix: _cmbp113_*
+Decision type: companion_marketplace
+
+Objectives:
+- Trusted Companions — governed profiles, not generic AI bots
+- Digital Employees — role identity, permissions, escalation — never autonomous decision-makers
+- Governed deployment — ten-step flow with human approval gates
+- Enterprise Digital Employee Center — provision, audit, 2FA enforcement
+- Health monitoring — ten aggregate metrics, metadata only
+- Collaboration rules — Support+Knowledge, Executive+Analytics — explicit approval
+
+Companion Marketplace categories:
+Executive · Support · Sales · Growth Partner · Commerce · Knowledge · HR · Compliance · Operations · Industry · Custom Enterprise Companions
+
+Digital employee types:
+Assistant · Advisor · Analyst · Coordinator · Knowledge · Support · Executive · Growth Employee
+
+Deployment flow (10 steps):
+Browse → Review profile → Review permissions → Review governance → Assign scope → Configure integrations → Define escalation → Activate → Monitor → Optimize
+
+Governance layers (1–5):
+1 Observation (read-only) · 2 Recommendation (human approval) · 3 Assisted Action (human confirmation) · 4 Operational Automation (pre-approved low-risk) · 5 Enterprise Restricted (enhanced controls, mandatory logging, executive visibility)
+
+Companion adaptation:
+🦉 Permissions first — context before activation
+🌹 Gradual adoption — People First pacing
+🔔 Governance ready — human approval before activate
+
+Limitation principles:
+- No autonomous decision-making without human approval
+- No impersonation in communications
+- No replacement framing
+- No high-risk auto-deployment
+- No PII in health or audit metadata
+
+Security cross-links:
+/app/settings/two-factor · /verify-2fa · migration 20261202000000_two_factor_authentication_system.sql
+Mandatory 2FA: Super Admin · Executive · Security Administrator · Marketplace Publisher · Companion Developers
+
+Distinction cross-links:
+Skills Marketplace Blueprint 112 /app/marketplace · Skill Store 63 /app/skills · Commerce Companion 110 /app/commerce-companion · Companion Identity A.84 /app/companion-identity-engine · Industry Packs 111 /app/business-packs-foundation-engine · Marketplace Governance 90 /app/marketplace-governance · Trust & Action 30 /app/approvals · Proactive Companion A.79 /app/proactive-companion-engine
+
+Success metrics:
+Reduced overload · Higher consistency · Improved CX · Faster onboarding · Knowledge retention · Employee satisfaction · Governance outcomes · Organizational resilience · Healthier human-Aipify collaboration
+
+Aipify informs and prepares — humans approve every Companion activation.

@@ -1,0 +1,22 @@
+Aipify University & Continuous Learning Engine — Phase 115
+Route: /app/aipify-university
+
+Mission: Continuously educate teams — learning as part of everyday work.
+
+Philosophy: People First. Wisdom before speed. Growth through support. Learning empowers confidence, not pressure.
+
+ABOS principle: Aipify University is the centralized learning environment. Companion coaches support growth; humans decide pace.
+
+Distinction: NOT Learning Engine /app/learning (operational memory). NOT A.36 /app/learning-training-engine (formal talent paths).
+
+Companion coaching: Answer questions, encourage, suggest resources, identify gaps gently, recommend next steps, celebrate progress — never shame.
+
+Self Love: Healthy pacing, reflection, progress recognition — mistakes are opportunities, not shame.
+
+Wellbeing-aware: Supportive overload signals — reduced intensity suggestions, never punitive scoring.
+
+Micro-learning: 3-minute refreshers during work — wisdom before speed.
+
+Security training: 2FA cross-link /app/settings/two-factor — enterprise policy awareness.
+
+Cross-links: Certification A.37, Employee Knowledge, Organizational Memory A.34, KC A.5, Self Love A.76, Growth Partner Ops Phase 114, Companion Marketplace Phase 113.

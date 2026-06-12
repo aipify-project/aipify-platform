@@ -5,6 +5,7 @@ type AuthLayoutProps = {
   title: string;
   subtitle: string;
   children: React.ReactNode;
+  wide?: boolean;
 };
 
 export default function AuthLayout({
@@ -12,6 +13,7 @@ export default function AuthLayout({
   title,
   subtitle,
   children,
+  wide = false,
 }: AuthLayoutProps) {
   return (
     <div className="relative flex min-h-screen flex-col bg-gray-50">
@@ -34,7 +36,7 @@ export default function AuthLayout({
       </header>
 
       <main className="relative z-10 flex flex-1 items-center justify-center px-4 py-12 sm:px-6">
-        <div className="w-full max-w-md">
+        <div className={`w-full ${wide ? "max-w-2xl" : "max-w-md"}`}>
           <div className="mb-8 text-center">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               {title}

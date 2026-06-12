@@ -21,7 +21,9 @@ function parseImplementationBlueprint(value: unknown): ImplementationBlueprint |
   return {
     phase: typeof b.phase === "string" ? b.phase : undefined,
     doc: typeof b.doc === "string" ? b.doc : undefined,
+    spec_doc: typeof b.spec_doc === "string" ? b.spec_doc : undefined,
     engine_phase: typeof b.engine_phase === "string" ? b.engine_phase : undefined,
+    era: typeof b.era === "string" ? b.era : undefined,
     route: typeof b.route === "string" ? b.route : undefined,
     mapping_note: typeof b.mapping_note === "string" ? b.mapping_note : undefined,
   };
@@ -175,6 +177,12 @@ function parseEngagementSummary(value: unknown): EngagementSummary | undefined {
     executive_dashboard_dimensions: Number(e.executive_dashboard_dimensions ?? 0),
     daily_briefing_elements: Number(e.daily_briefing_elements ?? 0),
     companion_guidance_examples: Number(e.companion_guidance_examples ?? 0),
+    initiative_orchestration_elements: Number(e.initiative_orchestration_elements ?? 0),
+    companion_network_count: Number(e.companion_network_count ?? 0),
+    health_monitoring_themes: Number(e.health_monitoring_themes ?? 0),
+    review_cycle_count: Number(e.review_cycle_count ?? 0),
+    era_cross_link_count: Number(e.era_cross_link_count ?? 0),
+    companion_limitations_count: Number(e.companion_limitations_count ?? 0),
     privacy_note: typeof e.privacy_note === "string" ? e.privacy_note : undefined,
   };
 }
@@ -208,6 +216,16 @@ export function parseOperationsCenterFoundationEngineCard(data: unknown): Operat
     eocbp_note: typeof d.eocbp_note === "string" ? d.eocbp_note : undefined,
     executive_leadership_note:
       typeof d.executive_leadership_note === "string" ? d.executive_leadership_note : undefined,
+    implementation_blueprint_phase130: parseImplementationBlueprint(d.implementation_blueprint_phase130),
+    eoccep130_mission: typeof d.eoccep130_mission === "string" ? d.eoccep130_mission : undefined,
+    eoccep130_abos_principle: typeof d.eoccep130_abos_principle === "string" ? d.eoccep130_abos_principle : undefined,
+    eoccep130_engagement_summary: parseEngagementSummary(d.eoccep130_engagement_summary),
+    eoccep130_note: typeof d.eoccep130_note === "string" ? d.eoccep130_note : undefined,
+    enterprise_command_note: typeof d.enterprise_command_note === "string" ? d.enterprise_command_note : undefined,
+    enterprise_intelligence_era_capstone_note:
+      typeof d.enterprise_intelligence_era_capstone_note === "string"
+        ? d.enterprise_intelligence_era_capstone_note
+        : undefined,
     ...d,
   } as OperationsCenterFoundationEngineCard;
 }
@@ -344,6 +362,74 @@ export function parseOperationsCenterFoundationEngineDashboard(
       ? (d.eocbp_vision_phrases as string[])
       : undefined,
     eocbp_privacy_note: typeof d.eocbp_privacy_note === "string" ? d.eocbp_privacy_note : undefined,
+    implementation_blueprint_phase130: parseImplementationBlueprint(d.implementation_blueprint_phase130),
+    enterprise_command_engine_note:
+      typeof d.enterprise_command_engine_note === "string" ? d.enterprise_command_engine_note : undefined,
+    enterprise_intelligence_era_capstone_note:
+      typeof d.enterprise_intelligence_era_capstone_note === "string"
+        ? d.enterprise_intelligence_era_capstone_note
+        : undefined,
+    eoccep130_distinction_note:
+      typeof d.eoccep130_distinction_note === "string" ? d.eoccep130_distinction_note : undefined,
+    eoccep130_mission: typeof d.eoccep130_mission === "string" ? d.eoccep130_mission : undefined,
+    eoccep130_philosophy: typeof d.eoccep130_philosophy === "string" ? d.eoccep130_philosophy : undefined,
+    eoccep130_abos_principle: typeof d.eoccep130_abos_principle === "string" ? d.eoccep130_abos_principle : undefined,
+    eoccep130_vision: typeof d.eoccep130_vision === "string" ? d.eoccep130_vision : undefined,
+    eoccep130_objectives: parseBlueprintObjectives(d.eoccep130_objectives),
+    eoccep130_executive_operations_center:
+      typeof d.eoccep130_executive_operations_center === "object" && d.eoccep130_executive_operations_center
+        ? (d.eoccep130_executive_operations_center as OperationsCenterFoundationEngineDashboard["eoccep130_executive_operations_center"])
+        : undefined,
+    eoccep130_enterprise_command_dashboard:
+      typeof d.eoccep130_enterprise_command_dashboard === "object" && d.eoccep130_enterprise_command_dashboard
+        ? (d.eoccep130_enterprise_command_dashboard as OperationsCenterFoundationEngineDashboard["eoccep130_enterprise_command_dashboard"])
+        : undefined,
+    eoccep130_initiative_orchestration:
+      typeof d.eoccep130_initiative_orchestration === "object" && d.eoccep130_initiative_orchestration
+        ? (d.eoccep130_initiative_orchestration as OperationsCenterFoundationEngineDashboard["eoccep130_initiative_orchestration"])
+        : undefined,
+    eoccep130_executive_alignment:
+      typeof d.eoccep130_executive_alignment === "object" && d.eoccep130_executive_alignment
+        ? (d.eoccep130_executive_alignment as OperationsCenterFoundationEngineDashboard["eoccep130_executive_alignment"])
+        : undefined,
+    eoccep130_decision_execution:
+      typeof d.eoccep130_decision_execution === "object" && d.eoccep130_decision_execution
+        ? (d.eoccep130_decision_execution as OperationsCenterFoundationEngineDashboard["eoccep130_decision_execution"])
+        : undefined,
+    eoccep130_executive_companion_network:
+      typeof d.eoccep130_executive_companion_network === "object" && d.eoccep130_executive_companion_network
+        ? (d.eoccep130_executive_companion_network as OperationsCenterFoundationEngineDashboard["eoccep130_executive_companion_network"])
+        : undefined,
+    eoccep130_organizational_health_monitoring:
+      typeof d.eoccep130_organizational_health_monitoring === "object" && d.eoccep130_organizational_health_monitoring
+        ? (d.eoccep130_organizational_health_monitoring as OperationsCenterFoundationEngineDashboard["eoccep130_organizational_health_monitoring"])
+        : undefined,
+    eoccep130_executive_review_cycles: Array.isArray(d.eoccep130_executive_review_cycles)
+      ? (d.eoccep130_executive_review_cycles as OperationsCenterFoundationEngineDashboard["eoccep130_executive_review_cycles"])
+      : undefined,
+    eoccep130_enterprise_memory_integration:
+      typeof d.eoccep130_enterprise_memory_integration === "object" && d.eoccep130_enterprise_memory_integration
+        ? (d.eoccep130_enterprise_memory_integration as OperationsCenterFoundationEngineDashboard["eoccep130_enterprise_memory_integration"])
+        : undefined,
+    eoccep130_companion_limitations: Array.isArray(d.eoccep130_companion_limitations)
+      ? (d.eoccep130_companion_limitations as OperationsCenterFoundationEngineDashboard["eoccep130_companion_limitations"])
+      : undefined,
+    eoccep130_self_love_connection: parseSelfLoveConnection(d.eoccep130_self_love_connection),
+    eoccep130_enterprise_knowledge_library: parseBlueprintObjectives(d.eoccep130_enterprise_knowledge_library),
+    eoccep130_integration_links: parseIntegrationLinks(d.eoccep130_integration_links),
+    eoccep130_era_cross_links: Array.isArray(d.eoccep130_era_cross_links)
+      ? (d.eoccep130_era_cross_links as OperationsCenterFoundationEngineDashboard["eoccep130_era_cross_links"])
+      : undefined,
+    eoccep130_dogfooding:
+      typeof d.eoccep130_dogfooding === "object" && d.eoccep130_dogfooding
+        ? (d.eoccep130_dogfooding as Record<string, unknown>)
+        : undefined,
+    eoccep130_engagement_summary: parseEngagementSummary(d.eoccep130_engagement_summary),
+    eoccep130_success_criteria: parseSuccessCriteria(d.eoccep130_success_criteria),
+    eoccep130_vision_phrases: Array.isArray(d.eoccep130_vision_phrases)
+      ? (d.eoccep130_vision_phrases as string[])
+      : undefined,
+    eoccep130_privacy_note: typeof d.eoccep130_privacy_note === "string" ? d.eoccep130_privacy_note : undefined,
     ...d,
   } as OperationsCenterFoundationEngineDashboard;
 }
