@@ -135,6 +135,8 @@ alter table public.decision_explanations add constraint decision_explanations_de
     'human_dignity_humility_engine',
     'aipify_constitution_perpetual_principles_engine',
     'aipify_ethical_evolution_responsible_innovation_engine',
+    'aipify_guardianship_succession_engine',
+    'aipify_values_transmission_cultural_continuity_engine',
     'aipify_principles_enforcement_engine'
   )
 );
@@ -481,7 +483,7 @@ declare v_tenant_id uuid; v_settings public.aipify_principles_enforcement_settin
   return jsonb_build_object('has_customer', true, 'aipify_principles_enforcement_score', v_metrics->'aipify_principles_enforcement_score', 'enabled', v_settings.enabled, 'principles_enforcement_mode', v_settings.principles_enforcement_mode,
     'alignment_readiness_level', v_settings.alignment_readiness_level, 'reflections_count', v_metrics->'reflections_count', 'philosophy', public._apeebp196_philosophy(),
     'human_oversight_required', v_settings.human_oversight_required,
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 196 — Aipify Principles Enforcement Engine Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE196_AIPIFY_PRINCIPLES_ENFORCEMENT_ENGINE.md', 'route', '/app/aipify-principles-enforcement-engine'),
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 196 — Aipify Principles Enforcement Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE196_AIPIFY_PRINCIPLES_ENFORCEMENT_ENGINE.md', 'route', '/app/aipify-principles-enforcement-engine'),
     'aipify_principles_enforcement_mission', public._apeebp196_mission(), 'aipify_principles_enforcement_abos_principle', public._apeebp196_abos_principle(),
     'aipify_principles_enforcement_engagement_summary', v_engagement, 'aipify_principles_enforcement_note', public._apeebp196_distinction_note(), 'aipify_principles_enforcement_vision_note', public._apeebp196_vision());
 end; $$;
@@ -501,7 +503,7 @@ declare v_tenant_id uuid; v_settings public.aipify_principles_enforcement_settin
     'reflections', coalesce((select jsonb_agg(jsonb_build_object('id',b.id,'reflection_key',b.reflection_key,'reflection_type',b.reflection_type,'title',b.title,'reflection_summary',b.reflection_summary,'status',b.status,'created_at',b.created_at) order by b.created_at desc) from public.aipify_principles_enforcement_reflections b where b.tenant_id = v_tenant_id), '[]'::jsonb),
     'scaffold_notes', coalesce((select jsonb_agg(jsonb_build_object('id',s.id,'note_key',s.note_key,'note_type',s.note_type,'title',s.title,'summary',s.summary,'status',s.status,'created_at',s.created_at) order by s.created_at) from public.aipify_principles_enforcement_principles_notes s where s.tenant_id = v_tenant_id), '[]'::jsonb),
     'integration_links', public._apeebp196_integration_links(), 'era_opener_summary', public._apeebp196_era_opener_summary(),
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 196 — Aipify Principles Enforcement Engine Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE196_AIPIFY_PRINCIPLES_ENFORCEMENT_ENGINE.md', 'route', '/app/aipify-principles-enforcement-engine'),
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 196 — Aipify Principles Enforcement Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE196_AIPIFY_PRINCIPLES_ENFORCEMENT_ENGINE.md', 'route', '/app/aipify-principles-enforcement-engine'),
     'aipify_principles_enforcement_blueprint', public._apeebp196_blueprint_block(v_tenant_id), 'aipify_principles_enforcement_mission', public._apeebp196_mission(), 'aipify_principles_enforcement_philosophy', public._apeebp196_philosophy(),
     'aipify_principles_enforcement_abos_principle', public._apeebp196_abos_principle(), 'aipify_principles_enforcement_objectives', public._apeebp196_objectives(),
     'center_meta', public._apeebp196_principles_dashboard(), 'engine_meta', public._apeebp196_reflection_engine(), 'framework_meta', public._apeebp196_alignment_framework(),

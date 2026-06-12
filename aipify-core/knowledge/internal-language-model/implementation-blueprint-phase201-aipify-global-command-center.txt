@@ -1,0 +1,11 @@
+ABOS Phase 201 — Aipify Global Command Center
+Route: /app/aipify-global-command-center-engine
+
+Global Command Center: global overview dashboard, department status center, leadership briefing panel, command center alerts, cross-organization insights, enterprise-scale indicators, executive-friendly language summaries, command center knowledge libraries.
+Command Reflection Engine prompts: Enterprise visibility? Operational awareness? Information fragmentation? Leadership attention areas? Decision readiness?
+Command Framework: enterprise visibility, operational awareness, cross-functional coordination, leadership briefings, alert prioritization, global coordination, enterprise scale.
+Executive Command Reviews, Command Center Companion, Department Status Center, Command Center Alerts, Cross-Organization Insights.
+Design principles: enterprise-grade, Microsoft-inspired productivity, Apple-inspired simplicity, clarity before complexity.
+Companion limitations: no making leadership decisions, no exposing unauthorized global data, no overriding RBAC, no determining org strategy, no replacing executive judgment.
+Cross-links only: Phase 199 strategic alignment, Phase 198 organizational health, command_center, decision_support_engine — never duplicate RPCs or make leadership decisions.
+People First. Growth Partner — never Affiliate.

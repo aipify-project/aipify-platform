@@ -95,10 +95,9 @@ function transformFrom193(content) {
     ["stewardship_notes_count", `${P.thirdEntity}_count`],
     ["Succession Center", P.centerTitle],
     ["Guardianship Companion", P.companion],
-    ["Aipify Guardianship & Succession", P.title],
+    ["Aipify Guardianship & Succession", "Aipify Principles Enforcement"],
     ["Guardianship & Succession", "Principles Enforcement"],
     ["Phase 193", `Phase ${P.phase}`],
-    ["aipify_guardianship_succession_engine", P.decisionType],
     ["aipify_guardianship_succession.view", `${P.permPrefix}.view`],
     ["aipify_guardianship_succession.manage", `${P.permPrefix}.manage`],
     ["aipify_guardianship_succession.steward", `${P.permPrefix}.steward`],
@@ -356,6 +355,13 @@ function patchMigration(sql) {
     `-- Phase ${P.phase} — ${P.title}\n-- ${P.era}.\n-- Helpers: _${P.helper}_* (engine), _${P.bp}_* (blueprint)`,
   );
 
+  const chainTail = `'aipify_ethical_evolution_responsible_innovation_engine',\n    'aipify_guardianship_succession_engine'`;
+  if (!sql.includes(`'aipify_guardianship_succession_engine'`)) {
+    sql = sql.replace(
+      `'aipify_ethical_evolution_responsible_innovation_engine'`,
+      chainTail,
+    );
+  }
   if (!sql.includes(`'${P.prevDecision}'`)) {
     sql = sql.replace(
       `'aipify_guardianship_succession_engine'`,
@@ -431,6 +437,8 @@ where not exists (select 1 from public.aipify_knowledge_categories where slug = 
     /'implementation_blueprint', jsonb_build_object\('title', '[^']+'/,
     `'implementation_blueprint', jsonb_build_object('title', '${P.title}'`,
   );
+
+  sql = sql.replace(/Aipify Principles Enforcement Engine Engine/g, P.title);
 
   return sql;
 }
@@ -610,9 +618,14 @@ function patchArchitecture() {
   let c = fs.readFileSync(path.join(ROOT, "ARCHITECTURE.md"), "utf8");
   const entry = `\n**Aipify Principles Enforcement Engine (Phase 196):** See [AIPIFY_PRINCIPLES_ENFORCEMENT_ENGINE_PHASE196.md](./AIPIFY_PRINCIPLES_ENFORCEMENT_ENGINE_PHASE196.md) — ${P.centerTitle} for seven Aipify principles, leadership reflection tools, recognition engine, principle review scheduler, alignment framework, and executive principles reviews. \`/app/${P.slug}\`, nav id \`${P.camel}\`, migration \`${P.migration}\`. Helpers \`_${P.helper}_*\`, \`_${P.bp}_*\`. ${P.companion} supports alignment — **NOT** rewrite organizational values or override leadership. Cross-links only: Phase 195 values transmission, purpose_values_engine, self_love_engine. Permissions \`${P.permPrefix}.view\`, \`${P.permPrefix}.manage\`, \`${P.permPrefix}.steward\`.`;
   if (!c.includes("Phase 196")) {
-    const marker = "Permissions `aipify_guardianship_succession.steward`.";
+    const marker = "**Aipify Decision Transparency Engine (Phase 197):**";
     const idx = c.indexOf(marker);
-    if (idx !== -1) c = c.slice(0, idx + marker.length) + entry + c.slice(idx + marker.length);
+    if (idx !== -1) c = c.slice(0, idx) + entry + "\n\n" + c.slice(idx);
+    else {
+      const fallback = "Permissions `aipify_guardianship_succession.steward`.";
+      const fidx = c.indexOf(fallback);
+      if (fidx !== -1) c = c.slice(0, fidx + fallback.length) + entry + c.slice(fidx + fallback.length);
+    }
   }
   fs.writeFileSync(path.join(ROOT, "ARCHITECTURE.md"), c);
   console.log("patched ARCHITECTURE.md");

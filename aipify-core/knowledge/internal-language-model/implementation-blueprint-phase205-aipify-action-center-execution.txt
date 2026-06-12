@@ -1,0 +1,10 @@
+ABOS Phase 205 — Aipify Action Center & Execution
+Route: /app/aipify-action-center-execution-engine
+
+Action Center (My Actions Dashboard): my actions dashboard, team action center, executive action board, smart follow-up engine, delegation framework, completion analytics dashboard, ecosystem action consolidation, action knowledge libraries.
+Execution Reflection Engine prompts: Are actions clear and owned? Is follow-up timely? Does delegation respect governance? Where do actions stall? What completion patterns emerge?
+Execution Framework: action clarity, delegation governance, follow-up discipline, completion tracking, trust alignment, executive visibility, enterprise scale.
+Executive Action Reviews, Execution Companion, Smart Follow-Up Engine, Delegation Framework, Completion Analytics tracks.
+Companion limitations: no auto-executing Level 3+ actions, no bypassing trust_action_engine, no overriding delegation governance, no replacing human approval for sensitive actions.
+Cross-links only: Phase 204 knowledge discovery, /app/action-center (AEF), trust_action_engine — never duplicate AEF RPCs, auto-execute Level 3+ actions, or bypass delegation governance.
+People First. Growth Partner — never Affiliate.

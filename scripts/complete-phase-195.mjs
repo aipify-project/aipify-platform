@@ -93,7 +93,6 @@ function transformFrom193(content) {
     ["Aipify Guardianship & Succession", P.title],
     ["Guardianship & Succession", "Values Transmission & Cultural Continuity"],
     ["Phase 193", `Phase ${P.phase}`],
-    ["aipify_guardianship_succession_engine", P.decisionType],
     ["aipify_guardianship_succession.view", `${P.permPrefix}.view`],
     ["aipify_guardianship_succession.manage", `${P.permPrefix}.manage`],
     ["aipify_guardianship_succession.steward", `${P.permPrefix}.steward`],
@@ -295,8 +294,8 @@ function patchMigration(sql) {
   );
   if (!sql.includes(`'${P.prevDecision}'`)) {
     sql = sql.replace(
-      `'aipify_guardianship_succession_engine'`,
-      `'aipify_guardianship_succession_engine',\n    '${P.prevDecision}',\n    '${P.decisionType}'`,
+      `'aipify_guardianship_succession_engine'\n  )`,
+      `'aipify_guardianship_succession_engine',\n    '${P.prevDecision}',\n    '${P.decisionType}'\n  )`,
     );
   } else if (!sql.includes(`'${P.decisionType}'`)) {
     sql = sql.replace(`'${P.prevDecision}'`, `'${P.prevDecision}',\n    '${P.decisionType}'`);

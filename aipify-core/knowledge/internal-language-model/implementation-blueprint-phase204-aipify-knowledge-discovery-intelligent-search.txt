@@ -1,0 +1,10 @@
+ABOS Phase 204 — Aipify Knowledge Discovery & Intelligent Search
+Route: /app/aipify-knowledge-discovery-intelligent-search-engine
+
+Knowledge Result Center: global search bar, intelligent search engine, summarized answers with source links, permission-aware search, knowledge feedback system, knowledge gap detection, multi-language search scaffolds, search knowledge libraries.
+Search Reflection Engine prompts: How much time is spent searching? Is knowledge accessible? Do permission boundaries build trust? Where are knowledge gaps? What institutional learning emerges?
+Search Framework: search accessibility, natural language, permission awareness, result clarity, feedback loops, gap detection, enterprise scale.
+Executive Search Reviews, Discovery Companion, Intelligent Search Engine, Permission-Aware Search, Knowledge Gap Detection tracks.
+Companion limitations: no bypassing RBAC, no exposing unauthorized content, no auto-publishing knowledge, no replacing knowledge stewards, no storing raw sensitive content in search indexes.
+Cross-links only: Phase 203 digital headquarters, knowledge_center_engine, employee_knowledge_engine — never duplicate RPCs, bypass RBAC, or index raw sensitive content.
+People First. Growth Partner — never Affiliate.

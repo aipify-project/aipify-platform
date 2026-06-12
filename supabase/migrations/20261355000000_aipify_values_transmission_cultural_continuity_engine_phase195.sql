@@ -444,7 +444,7 @@ end; $$;
 
 create or replace function public._avtccebp195_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 195 — Aipify Values Transmission & Cultural Continuity Engine', 'title', 'Aipify Values Transmission & Cultural Continuity Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE195_AIPIFY_VALUES_TRANSMISSION_CULTURAL_CONTINUITY_ENGINE.md', 'engine_phase', 'Repo Phase 195', 'route', '/app/aipify-values-transmission-cultural-continuity-engine',
+    'phase', 'Phase 195 — Aipify Values Transmission & Cultural Continuity Engine', 'title', 'Aipify Values Transmission & Cultural Continuity Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE195_AIPIFY_VALUES_TRANSMISSION_CULTURAL_CONTINUITY_ENGINE.md', 'engine_phase', 'Repo Phase 195', 'route', '/app/aipify-values-transmission-cultural-continuity-engine',
     'distinction_note', public._avtccebp195_distinction_note(), 'mission', public._avtccebp195_mission(), 'philosophy', public._avtccebp195_philosophy(),
     'abos_principle', public._avtccebp195_abos_principle(), 'vision', public._avtccebp195_vision(), 'objectives', public._avtccebp195_objectives(),
     'cultural_continuity_center', public._avtccebp195_cultural_continuity_center(), 'values_transmission_engine', public._avtccebp195_values_transmission_engine(),

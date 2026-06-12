@@ -1,0 +1,10 @@
+ABOS Phase 198 — Aipify Organizational Health & Early Warning
+Route: /app/aipify-organizational-health-early-warning-engine
+
+Organizational Health Dashboard: executive wellbeing overview, trend analytics, early warning monitor, leadership attention center, resolution tracker, configurable thresholds, privacy preservation, health knowledge libraries.
+Health Reflection Engine prompts: What friction is emerging? Where are patterns shifting? What bottlenecks need attention? How do we respond supportively? How do we strengthen resilience?
+Health Framework: organizational awareness, proactive leadership, emerging issues, team health, operational disruptions, long-term resilience, privacy standards.
+Executive Health Reviews, Health Companion, Early Warning Monitor, Resolution Tracker Engine.
+Companion limitations: no employee surveillance, no punitive actions, no personal data exposure, no overriding leadership, no determining priorities.
+Cross-links only: Phase 197 decision transparency, attention_guardian, decision_support_engine — never duplicate RPCs or enable employee surveillance.
+People First. Growth Partner — never Affiliate.

@@ -1,0 +1,10 @@
+ABOS Phase 200 — Aipify Executive Operating System & Founder's Cockpit — Era Capstone 191–200
+Route: /app/aipify-executive-operating-system-founders-cockpit-engine
+
+Executive Cockpit Dashboard: critical org info, clarity over complexity, role-specific views, Since Last Login Center, Executive Attention Queue, Opportunity & Risk Monitor, Founder Mode, executive decision summaries, personalized dashboards, cockpit knowledge libraries.
+Executive Reflection Engine prompts: Is executive visibility sufficient? Are we decision-ready? Where is information fragmented? What risks or opportunities are emerging? How do we steward proactively?
+Executive Framework: executive visibility, decision readiness, information clarity, organizational awareness, strategic leadership, proactive stewardship, enterprise scale.
+Executive Cockpit Reviews, Executive Companion, Since Last Login Center, Attention Queue Engine, Opportunity & Risk Monitor.
+Companion limitations: no executive decisions, no overriding leadership, no unauthorized executive data, no replacing human judgment, no determining strategy, no enforcing founder actions without auth.
+Cross-links only: Phase 199 strategic alignment, command_center, decision_support_engine — never duplicate RPCs or make executive decisions.
+People First. Growth Partner — never Affiliate.
