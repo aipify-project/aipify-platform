@@ -1,0 +1,1 @@
+export { AipifyMeetingIntelligenceFollowUpEngineDashboardPanel } from "./AipifyMeetingIntelligenceFollowUpEngineDashboardPanel";

@@ -1,0 +1,10 @@
+ABOS Phase 206 — Aipify Meeting Intelligence & Follow-Up
+Route: /app/aipify-meeting-intelligence-follow-up-engine
+
+Meeting Follow-Up Dashboard: meeting summary generator, decision capture center, action item extractor, meeting follow-up dashboard, leadership briefing reports, privacy & consent controls, Action Center integration (cross-link), meeting knowledge libraries.
+Meeting Reflection Engine prompts: Are meeting outcomes captured? Are action items clear? Is consent respected? Where does follow-up stall? What leadership insights emerge?
+Follow-Up Framework: summary clarity, decision capture, action extraction, consent controls, privacy boundaries, leadership visibility, enterprise scale.
+Leadership Briefing Reviews, Meeting Companion, Action Item Extractor, Privacy & Consent Controls, Decision Capture Center tracks.
+Companion limitations: no raw transcript storage without policy, no PII in audit payloads, metadata/summaries only, no bypassing consent controls.
+Cross-links only: Phase 205 action center execution, /app/action-center (AEF), trust_action_engine — metadata/summaries only; no raw transcript storage without policy; no PII in audit payloads.
+People First. Growth Partner — never Affiliate.

@@ -351,15 +351,21 @@ create or replace function public._${bp}_privacy_note() returns text language sq
 }
 
 function patchDecisionTypeChain(sql) {
-  if (sql.includes(`'${P.decisionType}'`) && sql.includes(`'${P.prevDecision}'`)) return sql;
+  if (sql.includes(`'${P.prevDecision}'`) && sql.includes(`'${P.decisionType}'`)) return sql;
+  if (sql.includes(`'${P.decisionType}'`) && !sql.includes(`'${P.prevDecision}'`)) {
+    return sql.replace(
+      `'${P.decisionType}'`,
+      `'${P.prevDecision}',\n    '${P.decisionType}'`,
+    );
+  }
   const additions = [];
   for (const entry of [P.prevDecision, P.decisionType]) {
     if (!sql.includes(`'${entry}'`)) additions.push(`'${entry}'`);
   }
   if (additions.length === 0) return sql;
   return sql.replace(
-    "'aipify_knowledge_discovery_intelligent_search_engine'",
-    `'aipify_knowledge_discovery_intelligent_search_engine',\n    ${additions.join(",\n    ")}`,
+    "'aipify_digital_headquarters_engine'",
+    `'aipify_digital_headquarters_engine',\n    ${additions.join(",\n    ")}`,
   );
 }
 

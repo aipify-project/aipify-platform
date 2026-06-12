@@ -143,6 +143,7 @@ alter table public.decision_explanations add constraint decision_explanations_de
     'aipify_organizational_health_early_warning_engine',
     'aipify_strategic_alignment_prioritization_engine',
     'aipify_digital_headquarters_engine',
+    'aipify_knowledge_discovery_intelligent_search_engine',
     'aipify_action_center_execution_engine'
   )
 );
