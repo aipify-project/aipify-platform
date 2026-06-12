@@ -49,12 +49,6 @@ export type AppNavId =
   | "organizationalResilienceEngine"
   | "incidentResponseCoordinationEngine"
   | "serviceLevelCommitmentEngine"
-  | "stakeholderCommunicationEngine"
-  | "organizationalDecisionSupportEngine"
-  | "strategicAlignmentEngine"
-  | "organizationalHealthEngine"
-  | "capabilityMaturityEngine"
-  | "organizationalBenchmarkingEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -298,36 +292,6 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/service-level-commitment-engine",
     labelKey: "customerApp.nav.serviceLevelCommitmentEngine",
   },
-  {
-    id: "stakeholderCommunicationEngine",
-    href: "/app/stakeholder-communication-engine",
-    labelKey: "customerApp.nav.stakeholderCommunicationEngine",
-  },
-  {
-    id: "organizationalDecisionSupportEngine",
-    href: "/app/organizational-decision-support-engine",
-    labelKey: "customerApp.nav.organizationalDecisionSupportEngine",
-  },
-  {
-    id: "strategicAlignmentEngine",
-    href: "/app/strategic-alignment-engine",
-    labelKey: "customerApp.nav.strategicAlignmentEngine",
-  },
-  {
-    id: "organizationalHealthEngine",
-    href: "/app/organizational-health-engine",
-    labelKey: "customerApp.nav.organizationalHealthEngine",
-  },
-  {
-    id: "capabilityMaturityEngine",
-    href: "/app/capability-maturity-engine",
-    labelKey: "customerApp.nav.capabilityMaturityEngine",
-  },
-  {
-    id: "organizationalBenchmarkingEngine",
-    href: "/app/organizational-benchmarking-engine",
-    labelKey: "customerApp.nav.organizationalBenchmarkingEngine",
-  },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -460,24 +424,6 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/service-level-commitment-engine")) {
     return "serviceLevelCommitmentEngine";
-  }
-  if (pathname.startsWith("/app/stakeholder-communication-engine")) {
-    return "stakeholderCommunicationEngine";
-  }
-  if (pathname.startsWith("/app/organizational-decision-support-engine")) {
-    return "organizationalDecisionSupportEngine";
-  }
-  if (pathname.startsWith("/app/strategic-alignment-engine")) {
-    return "strategicAlignmentEngine";
-  }
-  if (pathname.startsWith("/app/organizational-health-engine")) {
-    return "organizationalHealthEngine";
-  }
-  if (pathname.startsWith("/app/capability-maturity-engine")) {
-    return "capabilityMaturityEngine";
-  }
-  if (pathname.startsWith("/app/organizational-benchmarking-engine")) {
-    return "organizationalBenchmarkingEngine";
   }
   if (pathname.startsWith("/app/aipify-install-engine")) return "aipifyInstallEngine";
   if (pathname.startsWith("/app/module-marketplace-foundation-engine")) {
