@@ -2,11 +2,24 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { parseDigitalTwinDashboard, type DigitalTwinDashboard } from "@/lib/aipify/digital-twin";
+import {
+  parseDigitalTwinDashboard,
+  type BlueprintObjective,
+  type DigitalTwinDashboard,
+} from "@/lib/aipify/digital-twin";
 
 type DigitalTwinDashboardPanelProps = {
   labels: Record<string, string>;
 };
+
+function ObjectiveCard({ objective }: { objective: BlueprintObjective }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+      <p className="font-medium text-gray-900">{objective.label}</p>
+      {objective.description ? <p className="mt-1 text-xs text-gray-600">{objective.description}</p> : null}
+    </div>
+  );
+}
 
 function confidenceClass(level: string) {
   switch (level) {
@@ -37,8 +50,202 @@ export function DigitalTwinDashboardPanel({ labels }: DigitalTwinDashboardPanelP
   if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
   if (!dashboard?.has_customer) return null;
 
+  const engagement = dashboard.engagement_summary;
+
   return (
     <div className="space-y-6">
+      {(dashboard.blueprint_integration_links ?? []).length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {dashboard.blueprint_integration_links?.map((link) =>
+            link.route ? (
+              <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+                {link.label}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : null}
+
+      {dashboard.blueprint_mission || dashboard.blueprint_distinction_note ? (
+        <section className="rounded-xl border border-indigo-200 bg-indigo-50/30 p-6">
+          <h2 className="text-sm font-semibold text-indigo-900">{labels.blueprintSection}</h2>
+          {dashboard.implementation_blueprint_phase77?.phase ? (
+            <p className="mt-1 text-xs text-indigo-700">
+              {dashboard.implementation_blueprint_phase77.phase}
+              {dashboard.implementation_blueprint_phase77.engine_phase
+                ? ` · ${dashboard.implementation_blueprint_phase77.engine_phase}`
+                : ""}
+            </p>
+          ) : null}
+          {dashboard.blueprint_distinction_note ? (
+            <p className="mt-2 text-xs text-indigo-800">{dashboard.blueprint_distinction_note}</p>
+          ) : null}
+          {dashboard.blueprint_mission ? (
+            <p className="mt-2 text-sm font-medium text-indigo-900">{dashboard.blueprint_mission}</p>
+          ) : null}
+          {dashboard.blueprint_philosophy ? (
+            <p className="mt-2 text-sm text-indigo-900">{dashboard.blueprint_philosophy}</p>
+          ) : null}
+          {dashboard.blueprint_abos_principle ? (
+            <p className="mt-2 text-xs text-indigo-800">{dashboard.blueprint_abos_principle}</p>
+          ) : null}
+          {(dashboard.blueprint_objectives ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-indigo-700">{labels.objectives}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {dashboard.blueprint_objectives?.map((obj) => (
+                  <ObjectiveCard key={obj.key ?? obj.label} objective={obj} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {dashboard.digital_twin_definition?.components?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-indigo-700">{labels.twinDefinition}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {dashboard.digital_twin_definition.components.map((comp) => (
+                  <ObjectiveCard key={comp.key ?? comp.label} objective={comp} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {dashboard.organizational_mapping?.example_chain?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-indigo-700">{labels.organizationalMapping}</h3>
+              <p className="mt-2 text-sm text-indigo-900">
+                {dashboard.organizational_mapping.example_chain.join(" → ")}
+              </p>
+            </div>
+          ) : null}
+          {dashboard.companion_observations?.observations?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-indigo-700">{labels.companionObservations}</h3>
+              <ul className="mt-2 space-y-2 text-sm text-indigo-900">
+                {dashboard.companion_observations.observations.map((obs) => (
+                  <li key={obs.key ?? obs.signal}>
+                    {obs.emoji ? `${obs.emoji} ` : ""}
+                    {obs.signal}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {dashboard.simulation_connection?.example_scenarios?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-indigo-700">{labels.simulationConnection}</h3>
+              <ul className="mt-2 space-y-1 text-sm text-indigo-900">
+                {dashboard.simulation_connection.example_scenarios.map((scenario) => (
+                  <li key={scenario.key ?? scenario.label}>{scenario.label}</li>
+                ))}
+              </ul>
+              {dashboard.simulation_connection.simulation_route ? (
+                <Link
+                  href={dashboard.simulation_connection.simulation_route}
+                  className="mt-2 inline-block text-sm text-indigo-700 underline"
+                >
+                  {labels.openSimulations}
+                </Link>
+              ) : null}
+            </div>
+          ) : null}
+          {dashboard.learning_organization_connection?.evolution_sources?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-indigo-700">{labels.learningConnection}</h3>
+              <ul className="mt-2 space-y-1 text-sm text-indigo-900">
+                {dashboard.learning_organization_connection.evolution_sources.map((src) => (
+                  <li key={src.key ?? src.label}>
+                    {src.route ? (
+                      <Link href={src.route} className="underline">
+                        {src.label}
+                      </Link>
+                    ) : (
+                      src.label
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {dashboard.blueprint_self_love_connection?.practices?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-indigo-700">{labels.selfLoveConnection}</h3>
+              <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-indigo-900">
+                {dashboard.blueprint_self_love_connection.practices.map((practice) => (
+                  <li key={practice}>{practice}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {dashboard.blueprint_leadership_insights?.insight_types?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-indigo-700">{labels.leadershipInsights}</h3>
+              <ul className="mt-2 space-y-1 text-sm text-indigo-900">
+                {dashboard.blueprint_leadership_insights.insight_types.map((insight) => (
+                  <li key={insight.key ?? insight.label}>
+                    {insight.emoji ? `${insight.emoji} ` : ""}
+                    {insight.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {dashboard.privacy_principles?.forbidden?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-indigo-700">{labels.privacyPrinciples}</h3>
+              <ul className="mt-2 list-disc space-y-1 pl-4 text-xs text-indigo-800">
+                {dashboard.privacy_principles.forbidden.map((rule) => (
+                  <li key={rule}>{rule}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {engagement ? (
+            <div className="mt-4 grid gap-2 sm:grid-cols-3 lg:grid-cols-4">
+              <p className="text-xs text-indigo-800">
+                {labels.activeRoles}: {engagement.active_roles ?? 0}
+              </p>
+              <p className="text-xs text-indigo-800">
+                {labels.activeProcesses}: {engagement.active_processes ?? 0}
+              </p>
+              <p className="text-xs text-indigo-800">
+                {labels.openInsights}: {engagement.open_insights ?? 0}
+              </p>
+            </div>
+          ) : null}
+          {(dashboard.blueprint_success_criteria ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-indigo-700">{labels.successCriteria}</h3>
+              <ul className="mt-2 space-y-1">
+                {dashboard.blueprint_success_criteria?.map((criterion) => (
+                  <li
+                    key={criterion.key ?? criterion.label}
+                    className="flex flex-wrap items-center justify-between gap-2 rounded border border-indigo-100 px-3 py-2 text-sm"
+                  >
+                    <span className="text-indigo-900">{criterion.label}</span>
+                    <span className={criterion.met ? "text-xs text-green-700" : "text-xs text-amber-700"}>
+                      {criterion.met ? labels.criterionMet : labels.criterionPending}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {(dashboard.blueprint_vision_phrases ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-indigo-700">{labels.visionPhrases}</h3>
+              <ul className="mt-2 space-y-1 text-sm italic text-indigo-900">
+                {dashboard.blueprint_vision_phrases?.map((phrase) => (
+                  <li key={phrase}>&ldquo;{phrase}&rdquo;</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {dashboard.blueprint_privacy_note ? (
+            <p className="mt-4 text-xs text-indigo-700">{dashboard.blueprint_privacy_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
       <section className="rounded-xl border border-slate-200 bg-slate-50/50 p-6">
         <h2 className="text-sm font-semibold text-slate-900">{labels.twinHealth}</h2>
         <p className="mt-2 text-4xl font-bold text-gray-900">

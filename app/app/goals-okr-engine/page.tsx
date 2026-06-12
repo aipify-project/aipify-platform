@@ -7,6 +7,7 @@ export default async function GoalsOkrEnginePage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
   const p = "customerApp.goalsOkrEngine";
+  const b = `${p}.blueprint.phase69`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -38,6 +39,23 @@ export default async function GoalsOkrEnginePage() {
           activateObjective: t(`${p}.activateObjective`),
           approveCompletion: t(`${p}.approveCompletion`),
           actionFailed: t(`${p}.actionFailed`),
+          blueprintObjectives: t(`${b}.objectives`),
+          strategicInitiatives: t(`${b}.strategicInitiatives`),
+          executionCascade: t(`${b}.executionCascade`),
+          companionGuidance: t(`${b}.companionGuidance`),
+          progressVisibility: t(`${b}.progressVisibility`),
+          adaptiveExecution: t(`${b}.adaptiveExecution`),
+          crossFunctionalCoordination: t(`${b}.crossFunctionalCoordination`),
+          selfLoveConnection: t(`${b}.selfLoveConnection`),
+          leadershipInsights: t(`${b}.leadershipInsights`),
+          trustConnection: t(`${b}.trustConnection`),
+          dogfooding: t(`${b}.dogfooding`),
+          engagementSummary: t(`${b}.engagementSummary`),
+          totalKeyResults: t(`${b}.totalKeyResults`),
+          successCriteria: t(`${b}.successCriteria`),
+          criterionMet: t(`${b}.criterionMet`),
+          criterionPending: t(`${b}.criterionPending`),
+          visionPhrases: t(`${b}.visionPhrases`),
         }} />
     </div>
   );

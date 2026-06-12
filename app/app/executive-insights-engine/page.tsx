@@ -67,6 +67,23 @@ export default async function ExecutiveInsightsEnginePage() {
           hypotheses: t(`${p}.phase59.hypotheses`),
           strategicSelfLove: t(`${p}.phase59.strategicSelfLove`),
           strategicSuccessCriteria: t(`${p}.phase59.strategicSuccessCriteria`),
+          companionEngagement: t(`${p}.phase66.companionEngagement`),
+          companionHealthScore: t(`${p}.phase66.companionHealthScore`),
+          companionReports: t(`${p}.phase66.companionReports`),
+          companionRisks: t(`${p}.phase66.companionRisks`),
+          companionActions: t(`${p}.phase66.companionActions`),
+          companionObjectivesTitle: t(`${p}.phase66.companionObjectivesTitle`),
+          companionDailyBriefings: t(`${p}.phase66.companionDailyBriefings`),
+          leadershipPreparation: t(`${p}.phase66.leadershipPreparation`),
+          executiveReflection: t(`${p}.phase66.executiveReflection`),
+          companionPriorityAlignment: t(`${p}.phase66.companionPriorityAlignment`),
+          organizationalVisibility: t(`${p}.phase66.organizationalVisibility`),
+          executiveDecisionSupport: t(`${p}.phase66.executiveDecisionSupport`),
+          companionTrust: t(`${p}.phase66.companionTrust`),
+          whatInformsObservations: t(`${p}.phase66.whatInformsObservations`),
+          uncertaintyAreas: t(`${p}.phase66.uncertaintyAreas`),
+          companionSelfLove: t(`${p}.phase66.companionSelfLove`),
+          companionSuccessCriteria: t(`${p}.phase66.companionSuccessCriteria`),
         }}
       />
     </div>

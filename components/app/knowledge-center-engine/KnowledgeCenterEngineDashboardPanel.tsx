@@ -146,6 +146,66 @@ export function KnowledgeCenterEngineDashboardPanel({ labels }: KnowledgeCenterE
     typeof dashboard.trust_connection === "object" && dashboard.trust_connection
       ? dashboard.trust_connection
       : null;
+  const phase71 =
+    typeof dashboard.implementation_blueprint_phase71 === "object" && dashboard.implementation_blueprint_phase71
+      ? dashboard.implementation_blueprint_phase71
+      : null;
+  const fabricObjectives = Array.isArray(dashboard.fabric_objectives) ? dashboard.fabric_objectives : [];
+  const knowledgeSources = Array.isArray(dashboard.knowledge_sources) ? dashboard.knowledge_sources : [];
+  const knowledgeDiscovery =
+    typeof dashboard.knowledge_discovery === "object" && dashboard.knowledge_discovery
+      ? dashboard.knowledge_discovery
+      : null;
+  const contextualIntelligence =
+    typeof dashboard.contextual_intelligence === "object" && dashboard.contextual_intelligence
+      ? dashboard.contextual_intelligence
+      : null;
+  const fabricKnowledgeGaps =
+    typeof dashboard.fabric_knowledge_gaps === "object" && dashboard.fabric_knowledge_gaps
+      ? dashboard.fabric_knowledge_gaps
+      : null;
+  const organizationalContinuity =
+    typeof dashboard.organizational_continuity === "object" && dashboard.organizational_continuity
+      ? dashboard.organizational_continuity
+      : null;
+  const fabricSelfLove =
+    typeof dashboard.fabric_self_love_connection === "object" && dashboard.fabric_self_love_connection
+      ? dashboard.fabric_self_love_connection
+      : null;
+  const leadershipInsights =
+    typeof dashboard.leadership_insights === "object" && dashboard.leadership_insights
+      ? dashboard.leadership_insights
+      : null;
+  const fabricTrust =
+    typeof dashboard.fabric_trust_connection === "object" && dashboard.fabric_trust_connection
+      ? dashboard.fabric_trust_connection
+      : null;
+  const fabricDogfooding =
+    typeof dashboard.fabric_dogfooding === "object" && dashboard.fabric_dogfooding
+      ? dashboard.fabric_dogfooding
+      : null;
+  const engagementSummary =
+    typeof dashboard.engagement_summary === "object" && dashboard.engagement_summary
+      ? dashboard.engagement_summary
+      : null;
+  const fabricSuccessCriteria = Array.isArray(dashboard.fabric_success_criteria)
+    ? dashboard.fabric_success_criteria
+    : [];
+  const fabricVisionPhrases = Array.isArray(dashboard.fabric_vision_phrases)
+    ? dashboard.fabric_vision_phrases
+    : [];
+  const fabricIntegrationLinks = Array.isArray(dashboard.fabric_integration_links)
+    ? dashboard.fabric_integration_links
+    : [];
+  const discoverySignals = Array.isArray(knowledgeDiscovery?.signals) ? knowledgeDiscovery.signals : [];
+  const gapTypes = Array.isArray(fabricKnowledgeGaps?.signals)
+    ? fabricKnowledgeGaps.signals
+    : Array.isArray(fabricKnowledgeGaps?.gap_types)
+      ? fabricKnowledgeGaps.gap_types
+      : [];
+  const contextualDimensions = Array.isArray(contextualIntelligence?.dimensions)
+    ? contextualIntelligence.dimensions
+    : [];
 
   function priorityClass(priority?: string) {
     switch (priority) {
@@ -301,6 +361,269 @@ export function KnowledgeCenterEngineDashboardPanel({ labels }: KnowledgeCenterE
               <span className="text-xs text-violet-700">{labels.phase14Philosophy}: </span>
               {phase14.philosophy}
             </p>
+          )}
+        </section>
+      )}
+
+      {phase71 && (
+        <section className="rounded-xl border border-teal-200 bg-teal-50/40 p-6">
+          <h2 className="text-sm font-semibold text-teal-900">{labels.fabricTitle}</h2>
+          {typeof phase71.phase === "string" && (
+            <p className="mt-1 text-xs text-teal-700">{phase71.phase}</p>
+          )}
+          {dashboard.fabric_mission && (
+            <p className="mt-2 text-sm font-medium text-teal-900">{dashboard.fabric_mission}</p>
+          )}
+          {dashboard.fabric_philosophy && (
+            <p className="mt-2 text-sm text-teal-900">{dashboard.fabric_philosophy}</p>
+          )}
+          {dashboard.fabric_abos_principle && (
+            <p className="mt-2 text-xs text-teal-800">{dashboard.fabric_abos_principle}</p>
+          )}
+          {dashboard.blueprint_distinction_note && (
+            <p className="mt-2 text-xs text-teal-700">{dashboard.blueprint_distinction_note}</p>
+          )}
+        </section>
+      )}
+
+      {fabricObjectives.length > 0 && (
+        <section className="rounded-lg border border-teal-100 bg-teal-50/20 p-4">
+          <h3 className="text-sm font-semibold text-teal-900">{labels.fabricObjectives}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {fabricObjectives.map((item) => {
+              const key = typeof item.key === "string" ? item.key : String(item.label ?? "");
+              const label = typeof item.label === "string" ? item.label : key;
+              const description = typeof item.description === "string" ? item.description : null;
+              return (
+                <div key={key} className="rounded-lg border border-teal-100 bg-white px-3 py-2 text-xs">
+                  <p className="font-medium text-gray-900">{label}</p>
+                  {description && <p className="mt-1 text-gray-600">{description}</p>}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {knowledgeSources.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.knowledgeSources}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {knowledgeSources.map((item) => {
+              const key = typeof item.key === "string" ? item.key : String(item.label ?? "");
+              const label = typeof item.label === "string" ? item.label : key;
+              const description = typeof item.description === "string" ? item.description : null;
+              return (
+                <div key={key} className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-xs">
+                  <p className="font-medium text-gray-900">{label}</p>
+                  {description && <p className="mt-1 text-gray-600">{description}</p>}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {discoverySignals.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.knowledgeDiscovery}</h3>
+          {typeof knowledgeDiscovery?.principle === "string" && (
+            <p className="mt-1 text-xs text-gray-600">{knowledgeDiscovery.principle}</p>
+          )}
+          <ul className="mt-3 space-y-2 text-sm">
+            {discoverySignals.map((signal) => {
+              const key = typeof signal.key === "string" ? signal.key : String(signal.label ?? "");
+              const emoji = typeof signal.emoji === "string" ? signal.emoji : "";
+              const label = typeof signal.label === "string" ? signal.label : key;
+              const description = typeof signal.description === "string" ? signal.description : null;
+              return (
+                <li key={key} className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-xs">
+                  <p className="font-medium text-gray-900">
+                    {emoji ? `${emoji} ` : ""}
+                    {label}
+                  </p>
+                  {description && <p className="mt-1 text-gray-600">{description}</p>}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {contextualDimensions.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.contextualIntelligence}</h3>
+          {typeof contextualIntelligence?.principle === "string" && (
+            <p className="mt-1 text-xs text-gray-600">{contextualIntelligence.principle}</p>
+          )}
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {contextualDimensions.map((dim) => {
+              const key = typeof dim.key === "string" ? dim.key : String(dim.label ?? "");
+              const label = typeof dim.label === "string" ? dim.label : key;
+              const description = typeof dim.description === "string" ? dim.description : null;
+              return (
+                <div key={key} className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-xs">
+                  <p className="font-medium text-gray-900">{label}</p>
+                  {description && <p className="mt-1 text-gray-600">{description}</p>}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {gapTypes.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.fabricKnowledgeGaps}</h3>
+          {typeof fabricKnowledgeGaps?.principle === "string" && (
+            <p className="mt-1 text-xs text-gray-600">{fabricKnowledgeGaps.principle}</p>
+          )}
+          <ul className="mt-3 space-y-2">
+            {gapTypes.map((gap) => {
+              const key = typeof gap.key === "string" ? gap.key : String(gap.label ?? "");
+              const emoji = typeof gap.emoji === "string" ? gap.emoji : "";
+              const label = typeof gap.label === "string" ? gap.label : key;
+              const description = typeof gap.description === "string" ? gap.description : null;
+              return (
+                <li key={key} className="rounded-lg border border-amber-100 bg-amber-50/30 px-3 py-2 text-xs">
+                  <p className="font-medium text-gray-900">
+                    {emoji ? `${emoji} ` : ""}
+                    {label}
+                  </p>
+                  {description && <p className="mt-1 text-gray-600">{description}</p>}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {organizationalContinuity && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.organizationalContinuity}</h3>
+          {typeof organizationalContinuity.principle === "string" && (
+            <p className="mt-2 text-xs text-gray-600">{organizationalContinuity.principle}</p>
+          )}
+        </section>
+      )}
+
+      {engagementSummary && (
+        <section className="rounded-lg border border-teal-100 bg-teal-50/20 p-4">
+          <h3 className="text-sm font-semibold text-teal-900">{labels.engagementSummary}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {(
+              [
+                ["published_articles", labels.publishedArticles],
+                ["published_faqs", labels.faqCount],
+                ["categories", labels.categories],
+                ["open_support_gaps", labels.openSupportGaps],
+                ["freshness_score", labels.freshnessScore],
+                ["coverage_score", labels.coverageScore],
+              ] as const
+            ).map(([key, label]) => (
+              <div key={key} className="rounded-lg border border-teal-100 bg-white p-3 text-center">
+                <p className="text-xs font-medium text-gray-600">{label}</p>
+                <p className="mt-1 text-lg font-semibold text-gray-900">
+                  {typeof engagementSummary[key] === "number" ? engagementSummary[key] : "—"}
+                </p>
+              </div>
+            ))}
+          </div>
+          {typeof engagementSummary.privacy_note === "string" && (
+            <p className="mt-2 text-xs text-gray-500">{engagementSummary.privacy_note}</p>
+          )}
+        </section>
+      )}
+
+      {fabricSuccessCriteria.length > 0 && (
+        <section className="rounded-lg border border-teal-100 bg-teal-50/30 p-4">
+          <h3 className="text-sm font-semibold text-teal-900">{labels.fabricSuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {fabricSuccessCriteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={label} className="flex flex-col gap-0.5">
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note && <span className="text-xs text-gray-500">{note}</span>}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {(fabricSelfLove || leadershipInsights || fabricTrust) && (
+        <section className="grid gap-4 lg:grid-cols-3">
+          {fabricSelfLove && (
+            <div className="rounded-lg border border-gray-200 p-4">
+              <h3 className="text-sm font-semibold">{labels.fabricSelfLoveConnection}</h3>
+              {typeof fabricSelfLove.principle === "string" && (
+                <p className="mt-2 text-xs text-gray-600">{fabricSelfLove.principle}</p>
+              )}
+            </div>
+          )}
+          {leadershipInsights && (
+            <div className="rounded-lg border border-gray-200 p-4">
+              <h3 className="text-sm font-semibold">{labels.leadershipInsights}</h3>
+              {typeof leadershipInsights.principle === "string" && (
+                <p className="mt-2 text-xs text-gray-600">{leadershipInsights.principle}</p>
+              )}
+            </div>
+          )}
+          {fabricTrust && (
+            <div className="rounded-lg border border-gray-200 p-4">
+              <h3 className="text-sm font-semibold">{labels.fabricTrustConnection}</h3>
+              {typeof fabricTrust.principle === "string" && (
+                <p className="mt-2 text-xs text-gray-600">{fabricTrust.principle}</p>
+              )}
+            </div>
+          )}
+        </section>
+      )}
+
+      {fabricVisionPhrases.length > 0 && (
+        <section className="rounded-lg border border-teal-100 bg-teal-50/30 p-4">
+          <h3 className="text-sm font-semibold text-teal-900">{labels.fabricVisionPhrases}</h3>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-teal-800">
+            {fabricVisionPhrases.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {fabricIntegrationLinks.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.fabricIntegrationLinks}</h3>
+          <ul className="mt-2 space-y-1 text-sm">
+            {fabricIntegrationLinks.map((link) => {
+              const route = typeof link.route === "string" ? link.route : null;
+              const label = typeof link.label === "string" ? link.label : route ?? "";
+              return (
+                <li key={label}>
+                  {route ? (
+                    <Link href={route} className="text-teal-700 hover:underline">
+                      {label}
+                    </Link>
+                  ) : (
+                    label
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {fabricDogfooding && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.fabricDogfooding}</h3>
+          {typeof fabricDogfooding.principle === "string" && (
+            <p className="mt-1 text-xs text-gray-600">{fabricDogfooding.principle}</p>
           )}
         </section>
       )}

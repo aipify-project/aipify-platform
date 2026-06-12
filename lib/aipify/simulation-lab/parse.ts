@@ -1,15 +1,27 @@
 import type {
   AbosSuccessCriterion,
+  CollaborativeDecisionMakingBlueprint,
   CompanionExample,
+  CompanionGuidanceBlueprint,
+  CollaborativeSimulationBlueprint,
   DecisionComparisonFramework,
+  DecisionLabEnvironmentBlueprint,
   IntegrationLink,
+  LeadershipInsightsBlueprint,
+  LearningThroughSimulationBlueprint,
+  LimitationPrinciples,
+  MultipleFuturesBlueprint,
   ScenarioComparison,
+  ScenarioComparisonBlueprint,
+  ScenarioTypesBlueprint,
   SelfLoveConnection,
   SimulationEngagementSummary,
   SimulationExamplesBlueprint,
+  SimulationInputsBlueprint,
   SimulationLabCard,
   SimulationLabDashboard,
   SimulationObjective,
+  SimulationQuestionsBlueprint,
   SimulationRunDetail,
   SimulationRunResult,
   SimulationScenario,
@@ -66,6 +78,71 @@ function parseEngagementSummary(data: unknown): SimulationEngagementSummary | un
   return data as SimulationEngagementSummary;
 }
 
+function parseScenarioTypes(data: unknown): ScenarioTypesBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ScenarioTypesBlueprint;
+}
+
+function parseSimulationQuestions(data: unknown): SimulationQuestionsBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as SimulationQuestionsBlueprint;
+}
+
+function parseMultipleFutures(data: unknown): MultipleFuturesBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as MultipleFuturesBlueprint;
+}
+
+function parseCompanionGuidance(data: unknown): CompanionGuidanceBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CompanionGuidanceBlueprint;
+}
+
+function parseCollaborativeSimulation(data: unknown): CollaborativeSimulationBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CollaborativeSimulationBlueprint;
+}
+
+function parseLeadershipInsights(data: unknown): LeadershipInsightsBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as LeadershipInsightsBlueprint;
+}
+
+function parseLimitationPrinciples(data: unknown): LimitationPrinciples | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as LimitationPrinciples;
+}
+
+function parseDecisionLabEnvironment(data: unknown): DecisionLabEnvironmentBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as DecisionLabEnvironmentBlueprint;
+}
+
+function parseSimulationInputs(data: unknown): SimulationInputsBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as SimulationInputsBlueprint;
+}
+
+function parseScenarioComparisonBlueprint(data: unknown): ScenarioComparisonBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ScenarioComparisonBlueprint;
+}
+
+function parseCollaborativeDecisionMaking(data: unknown): CollaborativeDecisionMakingBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CollaborativeDecisionMakingBlueprint;
+}
+
+function parseLearningThroughSimulation(data: unknown): LearningThroughSimulationBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as LearningThroughSimulationBlueprint;
+}
+
+function parseBlueprintMeta(data: unknown): SimulationLabDashboard["implementation_blueprint_phase76"] {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as SimulationLabDashboard["implementation_blueprint_phase76"];
+}
+
 export function parseSimulationLabCard(data: unknown): SimulationLabCard {
   const d = (data ?? {}) as Record<string, unknown>;
   return {
@@ -77,8 +154,18 @@ export function parseSimulationLabCard(data: unknown): SimulationLabCard {
     mission: d.mission as string | undefined,
     abos_principle: d.abos_principle as string | undefined,
     implementation_blueprint: d.implementation_blueprint as SimulationLabCard["implementation_blueprint"],
+    implementation_blueprint_phase76: parseBlueprintMeta(d.implementation_blueprint_phase76),
     engagement_summary: parseEngagementSummary(d.engagement_summary),
     blueprint_note: d.blueprint_note as string | undefined,
+    blueprint_phase76_mission: d.blueprint_phase76_mission as string | undefined,
+    blueprint_phase76_abos_principle: d.blueprint_phase76_abos_principle as string | undefined,
+    blueprint_phase76_engagement_summary: parseEngagementSummary(d.blueprint_phase76_engagement_summary),
+    blueprint_phase76_note: d.blueprint_phase76_note as string | undefined,
+    implementation_blueprint_phase78: parseBlueprintMeta(d.implementation_blueprint_phase78),
+    blueprint_phase78_mission: d.blueprint_phase78_mission as string | undefined,
+    blueprint_phase78_abos_principle: d.blueprint_phase78_abos_principle as string | undefined,
+    blueprint_phase78_engagement_summary: parseEngagementSummary(d.blueprint_phase78_engagement_summary),
+    blueprint_phase78_note: d.blueprint_phase78_note as string | undefined,
   };
 }
 
@@ -112,6 +199,55 @@ export function parseSimulationLabDashboard(data: unknown): SimulationLabDashboa
     vision_phrases: parseStringArray(d.vision_phrases),
     safety_note: d.safety_note as string | undefined,
     principles: parseStringArray(d.principles),
+    implementation_blueprint_phase76: parseBlueprintMeta(d.implementation_blueprint_phase76),
+    scenario_simulation_engine_note: d.scenario_simulation_engine_note as string | undefined,
+    blueprint_phase76_distinction_note: d.blueprint_phase76_distinction_note as string | undefined,
+    blueprint_phase76_mission: d.blueprint_phase76_mission as string | undefined,
+    blueprint_phase76_philosophy: d.blueprint_phase76_philosophy as string | undefined,
+    blueprint_phase76_abos_principle: d.blueprint_phase76_abos_principle as string | undefined,
+    blueprint_phase76_objectives: parseSimulationObjectives(d.blueprint_phase76_objectives),
+    blueprint_phase76_scenario_types: parseScenarioTypes(d.blueprint_phase76_scenario_types),
+    blueprint_phase76_simulation_questions: parseSimulationQuestions(d.blueprint_phase76_simulation_questions),
+    blueprint_phase76_multiple_futures: parseMultipleFutures(d.blueprint_phase76_multiple_futures),
+    blueprint_phase76_companion_guidance: parseCompanionGuidance(d.blueprint_phase76_companion_guidance),
+    blueprint_phase76_collaborative_simulation: parseCollaborativeSimulation(d.blueprint_phase76_collaborative_simulation),
+    blueprint_phase76_self_love_connection: parseSelfLoveConnection(d.blueprint_phase76_self_love_connection),
+    blueprint_phase76_leadership_insights: parseLeadershipInsights(d.blueprint_phase76_leadership_insights),
+    blueprint_phase76_trust_connection: parseTrustConnection(d.blueprint_phase76_trust_connection),
+    blueprint_phase76_limitation_principles: parseLimitationPrinciples(d.blueprint_phase76_limitation_principles),
+    blueprint_phase76_dogfooding: d.blueprint_phase76_dogfooding as SimulationLabDashboard["blueprint_phase76_dogfooding"],
+    blueprint_phase76_integration_links: parseIntegrationLinks(d.blueprint_phase76_integration_links),
+    blueprint_phase76_engagement_summary: parseEngagementSummary(d.blueprint_phase76_engagement_summary),
+    blueprint_phase76_success_criteria: parseSuccessCriteria(d.blueprint_phase76_success_criteria),
+    blueprint_phase76_vision_phrases: parseStringArray(d.blueprint_phase76_vision_phrases),
+    blueprint_phase76_safety_note: d.blueprint_phase76_safety_note as string | undefined,
+    implementation_blueprint_phase78: parseBlueprintMeta(d.implementation_blueprint_phase78),
+    decision_lab_engine_note: d.decision_lab_engine_note as string | undefined,
+    blueprint_phase78_distinction_note: d.blueprint_phase78_distinction_note as string | undefined,
+    blueprint_phase78_mission: d.blueprint_phase78_mission as string | undefined,
+    blueprint_phase78_philosophy: d.blueprint_phase78_philosophy as string | undefined,
+    blueprint_phase78_abos_principle: d.blueprint_phase78_abos_principle as string | undefined,
+    blueprint_phase78_objectives: parseSimulationObjectives(d.blueprint_phase78_objectives),
+    blueprint_phase78_decision_lab_environment: parseDecisionLabEnvironment(d.blueprint_phase78_decision_lab_environment),
+    blueprint_phase78_simulation_inputs: parseSimulationInputs(d.blueprint_phase78_simulation_inputs),
+    blueprint_phase78_scenario_comparison: parseScenarioComparisonBlueprint(d.blueprint_phase78_scenario_comparison),
+    blueprint_phase78_companion_guidance: parseCompanionGuidance(d.blueprint_phase78_companion_guidance),
+    blueprint_phase78_collaborative_decision_making: parseCollaborativeDecisionMaking(
+      d.blueprint_phase78_collaborative_decision_making
+    ),
+    blueprint_phase78_learning_through_simulation: parseLearningThroughSimulation(
+      d.blueprint_phase78_learning_through_simulation
+    ),
+    blueprint_phase78_self_love_connection: parseSelfLoveConnection(d.blueprint_phase78_self_love_connection),
+    blueprint_phase78_leadership_insights: parseLeadershipInsights(d.blueprint_phase78_leadership_insights),
+    blueprint_phase78_trust_connection: parseTrustConnection(d.blueprint_phase78_trust_connection),
+    blueprint_phase78_limitation_principles: parseLimitationPrinciples(d.blueprint_phase78_limitation_principles),
+    blueprint_phase78_dogfooding: d.blueprint_phase78_dogfooding as SimulationLabDashboard["blueprint_phase78_dogfooding"],
+    blueprint_phase78_integration_links: parseIntegrationLinks(d.blueprint_phase78_integration_links),
+    blueprint_phase78_engagement_summary: parseEngagementSummary(d.blueprint_phase78_engagement_summary),
+    blueprint_phase78_success_criteria: parseSuccessCriteria(d.blueprint_phase78_success_criteria),
+    blueprint_phase78_vision_phrases: parseStringArray(d.blueprint_phase78_vision_phrases),
+    blueprint_phase78_safety_note: d.blueprint_phase78_safety_note as string | undefined,
   };
 }
 

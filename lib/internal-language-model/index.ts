@@ -91,11 +91,22 @@ export * from "./implementation-blueprint-phase55-vocabulary";
 export * from "./implementation-blueprint-phase54-vocabulary";
 export * from "./implementation-blueprint-phase65-vocabulary";
 export * from "./implementation-blueprint-phase59-vocabulary";
+export * from "./implementation-blueprint-phase66-vocabulary";
 export * from "./implementation-blueprint-phase58-vocabulary";
 export * from "./implementation-blueprint-phase56-vocabulary";
 export * from "./implementation-blueprint-phase57-vocabulary";
 export * from "./implementation-blueprint-phase61-vocabulary";
+export * from "./implementation-blueprint-phase67-vocabulary";
 export * from "./implementation-blueprint-phase64-vocabulary";
+export * from "./implementation-blueprint-phase68-vocabulary";
+export * from "./implementation-blueprint-phase71-vocabulary";
+export * from "./implementation-blueprint-phase73-vocabulary";
+export * from "./implementation-blueprint-phase74-vocabulary";
+export * from "./implementation-blueprint-phase76-vocabulary";
+export * from "./implementation-blueprint-phase77-vocabulary";
+export * from "./implementation-blueprint-phase69-vocabulary";
+export * from "./implementation-blueprint-phase72-vocabulary";
+export * from "./meeting-companion-teams-privacy-vocabulary";
 export * from "./implementation-blueprint-phase63-vocabulary";
 export * from "./implementation-blueprint-phase62-vocabulary";
 export * from "./implementation-blueprint-phase60-vocabulary";
@@ -286,14 +297,44 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE57_PATH =
 export const IMPLEMENTATION_BLUEPRINT_PHASE61_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase61-organizational-health.txt";
 
+export const IMPLEMENTATION_BLUEPRINT_PHASE67_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase67-board-governance-companion.txt";
+
 export const IMPLEMENTATION_BLUEPRINT_PHASE64_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase64-purpose-values.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE68_ORGANIZATIONAL_ALIGNMENT_CORPUS_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase68-organizational-alignment.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE71_ENTERPRISE_KNOWLEDGE_FABRIC_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase71-enterprise-knowledge-fabric.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE74_PREDICTIVE_OPERATIONS_CORPUS_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase74-predictive-operations.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE77_ORGANIZATIONAL_DIGITAL_TWIN_CORPUS_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase77-organizational-digital-twin.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE73_ORGANIZATIONAL_CONTINUITY_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase73-organizational-continuity.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE70_CROSS_FUNCTIONAL_INTELLIGENCE_CORPUS_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase70-cross-functional-intelligence.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE75_EXECUTIVE_OPERATIONS_CENTER_CORPUS_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase75-executive-operations-center.txt";
 
 export const IMPLEMENTATION_BLUEPRINT_PHASE63_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase63-future-readiness.txt";
 
 export const IMPLEMENTATION_BLUEPRINT_PHASE62_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase62-change-management.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE72_MEETING_COMPANION_CORPUS_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase72-meeting-companion-collaboration.txt";
+
+export const MEETING_COMPANION_TEAMS_INTEGRATION_PRIVACY_STANDARD_CORPUS_PATH =
+  "aipify-core/knowledge/internal-language-model/meeting-companion-teams-integration-privacy-standard.txt";
 
 export const IMPLEMENTATION_BLUEPRINT_PHASE60_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase60-decision-support.txt";

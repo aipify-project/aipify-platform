@@ -44,6 +44,67 @@ export type RecoveryAction = {
   status: string;
 };
 
+export type ImplementationBlueprintMeta = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+};
+
+export type BlueprintObjective = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type CompanionGuidanceExample = {
+  emoji?: string;
+  key?: string;
+  prompt?: string;
+  signal?: string;
+  consideration?: string;
+  description?: string;
+};
+
+export type BlueprintSection = {
+  principle?: string;
+  practices?: BlueprintObjective[];
+  signals?: CompanionGuidanceExample[];
+  dimensions?: BlueprintObjective[];
+  vulnerability_patterns?: BlueprintObjective[];
+  examples?: CompanionGuidanceExample[];
+  pathways?: Array<BlueprintObjective & { route?: string }>;
+  insight_types?: BlueprintObjective[];
+  rules?: string[];
+  practices_list?: string[];
+};
+
+export type ContinuityEngagementSummary = {
+  critical_processes?: number;
+  backup_assignments?: number;
+  backup_gaps?: number;
+  active_plans?: number;
+  critical_process_count?: number;
+  coverage_ratio?: number;
+  objective_count?: number;
+  companion_examples?: number;
+  privacy_note?: string;
+};
+
+export type AbosSuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+};
+
+export type IntegrationLink = {
+  label?: string;
+  route?: string;
+  note?: string;
+};
+
 export type ContinuityCard = {
   has_customer: boolean;
   overall_score?: number;
@@ -52,6 +113,12 @@ export type ContinuityCard = {
   open_incidents?: number;
   philosophy?: string;
   human_leadership_required?: boolean;
+  implementation_blueprint_phase73?: ImplementationBlueprintMeta;
+  blueprint_mission?: string;
+  blueprint_abos_principle?: string;
+  engagement_summary?: ContinuityEngagementSummary;
+  blueprint_note?: string;
+  continuity_note?: string;
 };
 
 export type ContinuityDashboard = {
@@ -67,6 +134,29 @@ export type ContinuityDashboard = {
   briefings: Array<{ id: string; summary: string; created_at?: string }>;
   incident_levels?: Array<{ level: number; label: string }>;
   integrations?: Record<string, string>;
+  implementation_blueprint_phase73?: ImplementationBlueprintMeta;
+  organizational_continuity_note?: string;
+  blueprint_distinction_note?: string;
+  blueprint_mission?: string;
+  blueprint_philosophy?: string;
+  blueprint_abos_principle?: string;
+  blueprint_objectives?: BlueprintObjective[];
+  knowledge_continuity?: BlueprintSection;
+  role_continuity?: BlueprintSection;
+  succession_support?: BlueprintSection;
+  operational_resilience?: BlueprintSection;
+  companion_guidance?: BlueprintSection;
+  onboarding_connection?: BlueprintSection;
+  blueprint_self_love_connection?: BlueprintSection & { journey_phrase?: string; self_love_route?: string; boundary_note?: string };
+  blueprint_leadership_insights?: BlueprintSection;
+  blueprint_trust_connection?: BlueprintSection & { users_should_see?: string[]; operators_should_understand?: string[]; audit_note?: string };
+  privacy_principles?: BlueprintSection & { strengthen_systems_note?: string };
+  blueprint_dogfooding?: Record<string, unknown>;
+  blueprint_integration_links?: IntegrationLink[];
+  engagement_summary?: ContinuityEngagementSummary;
+  blueprint_success_criteria?: AbosSuccessCriterion[];
+  blueprint_vision_phrases?: string[];
+  blueprint_privacy_note?: string;
 };
 
 export type IncidentDetail = {

@@ -51,12 +51,91 @@ export type DigitalTwinOrgUnit = {
   unit_type: string;
 };
 
+export type ImplementationBlueprintMeta = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+};
+
+export type BlueprintObjective = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type CompanionObservation = {
+  emoji?: string;
+  key?: string;
+  signal?: string;
+  prompt?: string;
+  description?: string;
+};
+
+export type BlueprintSection = {
+  principle?: string;
+  components?: BlueprintObjective[];
+  example_chain?: string[];
+  flow_note?: string;
+  mapping_dimensions?: BlueprintObjective[];
+  observations?: CompanionObservation[];
+  awareness_note?: string;
+  example_scenarios?: BlueprintObjective[];
+  simulation_route?: string;
+  boundary_note?: string;
+  evolution_sources?: Array<BlueprintObjective & { route?: string }>;
+  learning_note?: string;
+  practices?: string[];
+  journey_phrase?: string;
+  self_love_route?: string;
+  insight_types?: Array<BlueprintObjective & { emoji?: string }>;
+  dialogue_note?: string;
+  forbidden?: string[];
+  required?: string[];
+  users_should_see?: string[];
+  operators_should_understand?: string[];
+  audit_note?: string;
+};
+
+export type IntegrationLink = {
+  label?: string;
+  route?: string;
+  note?: string;
+};
+
+export type DigitalTwinEngagementSummary = {
+  active_roles?: number;
+  active_processes?: number;
+  total_insights?: number;
+  open_insights?: number;
+  knowledge_owners?: number;
+  metric_records?: number;
+  twin_health_score?: number;
+  companion_observations?: number;
+  objective_count?: number;
+  privacy_note?: string;
+};
+
+export type AbosSuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+};
+
 export type DigitalTwinCard = {
   has_customer: boolean;
   twin_health_score?: number;
   open_insights?: number;
   philosophy?: string;
   privacy_note?: string;
+  implementation_blueprint_phase77?: ImplementationBlueprintMeta;
+  blueprint_mission?: string;
+  blueprint_abos_principle?: string;
+  engagement_summary?: DigitalTwinEngagementSummary;
+  blueprint_note?: string;
+  understanding_note?: string;
 };
 
 export type DigitalTwinDashboard = {
@@ -71,6 +150,28 @@ export type DigitalTwinDashboard = {
   insights: DigitalTwinInsight[];
   organization_units: DigitalTwinOrgUnit[];
   integrations?: Record<string, string>;
+  implementation_blueprint_phase77?: ImplementationBlueprintMeta;
+  organizational_digital_twin_note?: string;
+  blueprint_distinction_note?: string;
+  blueprint_mission?: string;
+  blueprint_philosophy?: string;
+  blueprint_abos_principle?: string;
+  blueprint_objectives?: BlueprintObjective[];
+  digital_twin_definition?: BlueprintSection;
+  organizational_mapping?: BlueprintSection;
+  companion_observations?: BlueprintSection;
+  simulation_connection?: BlueprintSection;
+  learning_organization_connection?: BlueprintSection;
+  blueprint_self_love_connection?: BlueprintSection;
+  blueprint_leadership_insights?: BlueprintSection;
+  privacy_principles?: BlueprintSection;
+  blueprint_trust_connection?: BlueprintSection;
+  blueprint_dogfooding?: Record<string, unknown>;
+  blueprint_integration_links?: IntegrationLink[];
+  engagement_summary?: DigitalTwinEngagementSummary;
+  blueprint_success_criteria?: AbosSuccessCriterion[];
+  blueprint_vision_phrases?: string[];
+  blueprint_privacy_note?: string;
 };
 
 export type KnowledgeRouteResult = {

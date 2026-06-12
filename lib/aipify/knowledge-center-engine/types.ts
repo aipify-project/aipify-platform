@@ -98,6 +98,47 @@ export type EvolutionConnectionBlueprint = {
   [key: string]: unknown;
 };
 
+export type FabricObjectiveItem = {
+  key?: string;
+  label?: string;
+  description?: string;
+  [key: string]: unknown;
+};
+
+export type FabricSourceItem = {
+  key?: string;
+  label?: string;
+  description?: string;
+  [key: string]: unknown;
+};
+
+export type FabricDiscoveryBlueprint = {
+  principle?: string;
+  signals?: { emoji?: string; key?: string; label?: string; description?: string }[];
+  [key: string]: unknown;
+};
+
+export type FabricContextualIntelligence = {
+  principle?: string;
+  dimensions?: { key?: string; label?: string; description?: string }[];
+  boundary_note?: string;
+  [key: string]: unknown;
+};
+
+export type FabricEngagementSummary = {
+  published_articles?: number;
+  published_faqs?: number;
+  categories?: number;
+  draft_and_review_queue?: number;
+  overdue_reviews?: number;
+  open_support_gaps?: number;
+  freshness_score?: number;
+  coverage_score?: number;
+  quality_score?: number;
+  privacy_note?: string;
+  [key: string]: unknown;
+};
+
 export type KnowledgeCenterEngineCard = {
   has_organization: boolean;
   published_articles?: number;
@@ -139,6 +180,27 @@ export type KnowledgeCenterEngineDashboard = {
   evolution_success_criteria?: BlueprintSuccessCriterion[];
   vision_phrases?: string[];
   integration_links?: { label?: string; route?: string; note?: string }[];
+  implementation_blueprint_phase71?: Record<string, unknown>;
+  enterprise_knowledge_fabric_note?: string;
+  blueprint_distinction_note?: string;
+  fabric_mission?: string;
+  fabric_philosophy?: string;
+  fabric_abos_principle?: string;
+  fabric_objectives?: FabricObjectiveItem[];
+  knowledge_sources?: FabricSourceItem[];
+  knowledge_discovery?: FabricDiscoveryBlueprint;
+  contextual_intelligence?: FabricContextualIntelligence;
+  fabric_knowledge_governance?: Record<string, unknown>;
+  fabric_knowledge_gaps?: FabricDiscoveryBlueprint;
+  organizational_continuity?: Record<string, unknown>;
+  fabric_self_love_connection?: EvolutionConnectionBlueprint;
+  leadership_insights?: Record<string, unknown>;
+  fabric_trust_connection?: Record<string, unknown>;
+  fabric_dogfooding?: Record<string, unknown>;
+  engagement_summary?: FabricEngagementSummary;
+  fabric_success_criteria?: BlueprintSuccessCriterion[];
+  fabric_vision_phrases?: string[];
+  fabric_integration_links?: { label?: string; route?: string; note?: string }[];
   organization?: Record<string, unknown>;
   published_articles?: number;
   drafts_awaiting_review?: number;

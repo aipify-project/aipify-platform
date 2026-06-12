@@ -1,0 +1,44 @@
+ABOS Implementation Blueprint Phase 66 — Executive Companion Engine
+
+Route: /app/executive-insights-engine
+Engine: Executive Insights Engine Phase A.35
+Layered with: Phase 13 Executive Insights Foundation, Phase 59 Strategic Thinking
+
+Mission
+Trusted executive companion — clarity, preparation, strategic awareness; preserve human judgment.
+
+Philosophy
+Leadership creates direction, enables people, and decides under uncertainty — Aipify strengthens leaders, does not replace them.
+
+ABOS principle
+Leadership means better questions, listening, and environments where people succeed — not having all the answers.
+
+Distinctions
+- Predictive Insights Engine A.66 at /app/predictive-insights-engine — repo phase number collision with ABOS blueprint 66
+- Command Center /app/command-center — daily executive presence cross-link
+- Briefing /app/briefing — daily briefing flow cross-link
+- Assistant DSE Phase 38 /app/assistant/decisions — personal decision support
+- Organizational Decision Support A.54 — structured org decisions
+- Platform Admin /platform/executive — global governance only
+- Phase 59 Strategic Thinking _stbp_* — preserved on same route
+
+Objectives
+Executive preparation, leadership reflection, strategic awareness, priority clarification, organizational visibility, decision readiness.
+
+Daily briefings (companion patterns)
+📈 Strategic priorities and emerging opportunities
+🦉 Milestone awareness without urgency
+🔔 Positive developments for leadership attention
+🌹 Sustainable pacing and progress recognition
+
+Executive reflection (🦉 🌹 ❤️)
+Long-term priorities, achievements recognition, team support needs, perspective, recovery.
+
+Self Love connection
+Leadership is a journey rather than a destination — sustainable pacing, perspective, recovery, progress recognition.
+
+Vision
+Navigate complexity with wisdom, humility, and confidence.
+Aipify helped me become a better leader.
+
+Helpers: _ecbp_* (Phase 66), _stbp_* (Phase 59), _eie_* (A.35)

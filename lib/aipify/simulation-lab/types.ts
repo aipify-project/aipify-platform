@@ -147,6 +147,148 @@ export type ImplementationBlueprintMeta = {
   mapping_note?: string;
 };
 
+export type ScenarioTypeCategory = {
+  key?: string;
+  label?: string;
+  examples?: string[];
+};
+
+export type ScenarioTypesBlueprint = {
+  principle?: string;
+  categories?: ScenarioTypeCategory[];
+};
+
+export type SimulationQuestion = {
+  emoji?: string;
+  key?: string;
+  question?: string;
+  consideration?: string;
+};
+
+export type SimulationQuestionsBlueprint = {
+  principle?: string;
+  questions?: SimulationQuestion[];
+};
+
+export type MultipleFuture = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type MultipleFuturesBlueprint = {
+  principle?: string;
+  futures?: MultipleFuture[];
+  boundary_note?: string;
+};
+
+export type CompanionGuidanceExample = {
+  emoji?: string;
+  key?: string;
+  prompt?: string;
+  consideration?: string;
+};
+
+export type CompanionGuidanceBlueprint = {
+  principle?: string;
+  examples?: CompanionGuidanceExample[];
+};
+
+export type CollaborativeSimulationContext = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type CollaborativeSimulationBlueprint = {
+  principle?: string;
+  contexts?: CollaborativeSimulationContext[];
+  dialogue_note?: string;
+};
+
+export type LeadershipInsightType = {
+  emoji?: string;
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type LeadershipInsightsBlueprint = {
+  principle?: string;
+  insight_types?: LeadershipInsightType[];
+  dialogue_note?: string;
+};
+
+export type LimitationPrinciples = {
+  principle?: string;
+  forbidden?: string[];
+  required?: string[];
+  boundary_note?: string;
+};
+
+export type DecisionLabEnvironmentEntry = {
+  key?: string;
+  label?: string;
+  description?: string;
+  encouragement?: string;
+};
+
+export type DecisionLabEnvironmentBlueprint = {
+  principle?: string;
+  environments?: DecisionLabEnvironmentEntry[];
+  boundary_note?: string;
+};
+
+export type SimulationInputCategory = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type SimulationInputsBlueprint = {
+  principle?: string;
+  input_categories?: SimulationInputCategory[];
+  assumption_note?: string;
+};
+
+export type BlueprintScenarioOption = {
+  key?: string;
+  label?: string;
+  description?: string;
+  consideration?: string;
+};
+
+export type ScenarioComparisonBlueprint = {
+  principle?: string;
+  scenarios?: BlueprintScenarioOption[];
+  comparison_note?: string;
+};
+
+export type CollaborativeStakeholder = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type CollaborativeDecisionMakingBlueprint = {
+  principle?: string;
+  stakeholders?: CollaborativeStakeholder[];
+  dialogue_note?: string;
+};
+
+export type LearningDimension = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type LearningThroughSimulationBlueprint = {
+  principle?: string;
+  reflection_prompts?: string[];
+  learning_dimensions?: LearningDimension[];
+  boundary_note?: string;
+};
+
 export type SimulationLabCard = {
   has_customer: boolean;
   scenario_count?: number;
@@ -156,8 +298,18 @@ export type SimulationLabCard = {
   mission?: string;
   abos_principle?: string;
   implementation_blueprint?: ImplementationBlueprintMeta;
+  implementation_blueprint_phase76?: ImplementationBlueprintMeta;
   engagement_summary?: SimulationEngagementSummary;
   blueprint_note?: string;
+  blueprint_phase76_mission?: string;
+  blueprint_phase76_abos_principle?: string;
+  blueprint_phase76_engagement_summary?: SimulationEngagementSummary;
+  blueprint_phase76_note?: string;
+  implementation_blueprint_phase78?: ImplementationBlueprintMeta;
+  blueprint_phase78_mission?: string;
+  blueprint_phase78_abos_principle?: string;
+  blueprint_phase78_engagement_summary?: SimulationEngagementSummary;
+  blueprint_phase78_note?: string;
 };
 
 export type SimulationLabDashboard = {
@@ -192,6 +344,51 @@ export type SimulationLabDashboard = {
   vision_phrases?: string[];
   safety_note?: string;
   principles?: string[];
+  implementation_blueprint_phase76?: ImplementationBlueprintMeta;
+  scenario_simulation_engine_note?: string;
+  blueprint_phase76_distinction_note?: string;
+  blueprint_phase76_mission?: string;
+  blueprint_phase76_philosophy?: string;
+  blueprint_phase76_abos_principle?: string;
+  blueprint_phase76_objectives?: SimulationObjective[];
+  blueprint_phase76_scenario_types?: ScenarioTypesBlueprint;
+  blueprint_phase76_simulation_questions?: SimulationQuestionsBlueprint;
+  blueprint_phase76_multiple_futures?: MultipleFuturesBlueprint;
+  blueprint_phase76_companion_guidance?: CompanionGuidanceBlueprint;
+  blueprint_phase76_collaborative_simulation?: CollaborativeSimulationBlueprint;
+  blueprint_phase76_self_love_connection?: SelfLoveConnection;
+  blueprint_phase76_leadership_insights?: LeadershipInsightsBlueprint;
+  blueprint_phase76_trust_connection?: TrustConnection;
+  blueprint_phase76_limitation_principles?: LimitationPrinciples;
+  blueprint_phase76_dogfooding?: SimulationLabDashboard["dogfooding"];
+  blueprint_phase76_integration_links?: IntegrationLink[];
+  blueprint_phase76_engagement_summary?: SimulationEngagementSummary;
+  blueprint_phase76_success_criteria?: AbosSuccessCriterion[];
+  blueprint_phase76_vision_phrases?: string[];
+  blueprint_phase76_safety_note?: string;
+  implementation_blueprint_phase78?: ImplementationBlueprintMeta;
+  decision_lab_engine_note?: string;
+  blueprint_phase78_distinction_note?: string;
+  blueprint_phase78_mission?: string;
+  blueprint_phase78_philosophy?: string;
+  blueprint_phase78_abos_principle?: string;
+  blueprint_phase78_objectives?: SimulationObjective[];
+  blueprint_phase78_decision_lab_environment?: DecisionLabEnvironmentBlueprint;
+  blueprint_phase78_simulation_inputs?: SimulationInputsBlueprint;
+  blueprint_phase78_scenario_comparison?: ScenarioComparisonBlueprint;
+  blueprint_phase78_companion_guidance?: CompanionGuidanceBlueprint;
+  blueprint_phase78_collaborative_decision_making?: CollaborativeDecisionMakingBlueprint;
+  blueprint_phase78_learning_through_simulation?: LearningThroughSimulationBlueprint;
+  blueprint_phase78_self_love_connection?: SelfLoveConnection;
+  blueprint_phase78_leadership_insights?: LeadershipInsightsBlueprint;
+  blueprint_phase78_trust_connection?: TrustConnection;
+  blueprint_phase78_limitation_principles?: LimitationPrinciples;
+  blueprint_phase78_dogfooding?: SimulationLabDashboard["dogfooding"];
+  blueprint_phase78_integration_links?: IntegrationLink[];
+  blueprint_phase78_engagement_summary?: SimulationEngagementSummary;
+  blueprint_phase78_success_criteria?: AbosSuccessCriterion[];
+  blueprint_phase78_vision_phrases?: string[];
+  blueprint_phase78_safety_note?: string;
 };
 
 export type SimulationRunDetail = {

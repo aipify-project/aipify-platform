@@ -7,6 +7,8 @@ export default async function SimulationsPage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
   const p = "customerApp.simulationLab";
+  const bp76 = `${p}.blueprint.phase76`;
+  const bp78 = `${p}.blueprint.phase78`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -54,6 +56,37 @@ export default async function SimulationsPage() {
           recentRuns: t(`${p}.recentRuns`),
           integrations: t(`${p}.integrations`),
           safetyNote: t(`${p}.safetyNote`),
+          phase76SectionTitle: t(`${bp76}.sectionTitle`),
+          phase76EngagementSummary: t(`${bp76}.engagementSummary`),
+          phase76Objectives: t(`${bp76}.objectives`),
+          phase76ScenarioTypes: t(`${bp76}.scenarioTypes`),
+          phase76SimulationQuestions: t(`${bp76}.simulationQuestions`),
+          phase76MultipleFutures: t(`${bp76}.multipleFutures`),
+          phase76CompanionGuidance: t(`${bp76}.companionGuidance`),
+          phase76CollaborativeSimulation: t(`${bp76}.collaborativeSimulation`),
+          phase76LeadershipInsights: t(`${bp76}.leadershipInsights`),
+          phase76LimitationPrinciples: t(`${bp76}.limitationPrinciples`),
+          phase76SuccessCriteria: t(`${bp76}.successCriteria`),
+          phase76SelfLoveConnection: t(`${bp76}.selfLoveConnection`),
+          phase76TrustConnection: t(`${bp76}.trustConnection`),
+          phase76Dogfooding: t(`${bp76}.dogfooding`),
+          phase76VisionPhrases: t(`${bp76}.visionPhrases`),
+          phase78SectionTitle: t(`${bp78}.sectionTitle`),
+          phase78EngagementSummary: t(`${bp78}.engagementSummary`),
+          phase78Objectives: t(`${bp78}.objectives`),
+          phase78DecisionLabEnvironment: t(`${bp78}.decisionLabEnvironment`),
+          phase78SimulationInputs: t(`${bp78}.simulationInputs`),
+          phase78ScenarioComparison: t(`${bp78}.scenarioComparison`),
+          phase78CompanionGuidance: t(`${bp78}.companionGuidance`),
+          phase78CollaborativeDecisionMaking: t(`${bp78}.collaborativeDecisionMaking`),
+          phase78LearningThroughSimulation: t(`${bp78}.learningThroughSimulation`),
+          phase78LeadershipInsights: t(`${bp78}.leadershipInsights`),
+          phase78LimitationPrinciples: t(`${bp78}.limitationPrinciples`),
+          phase78SuccessCriteria: t(`${bp78}.successCriteria`),
+          phase78SelfLoveConnection: t(`${bp78}.selfLoveConnection`),
+          phase78TrustConnection: t(`${bp78}.trustConnection`),
+          phase78Dogfooding: t(`${bp78}.dogfooding`),
+          phase78VisionPhrases: t(`${bp78}.visionPhrases`),
         }}
       />
     </div>

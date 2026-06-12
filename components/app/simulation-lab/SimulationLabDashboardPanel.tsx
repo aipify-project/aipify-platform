@@ -252,6 +252,523 @@ export function SimulationLabDashboardPanel({ labels }: SimulationLabDashboardPa
         </section>
       ) : null}
 
+      {dashboard.blueprint_phase76_mission || dashboard.blueprint_phase76_distinction_note ? (
+        <section className="rounded-xl border border-indigo-200 bg-indigo-50/30 p-6">
+          <h2 className="text-sm font-semibold text-indigo-900">{labels.phase76SectionTitle}</h2>
+          {dashboard.implementation_blueprint_phase76?.phase ? (
+            <p className="mt-1 text-xs text-indigo-700">
+              {dashboard.implementation_blueprint_phase76.phase}
+              {dashboard.implementation_blueprint_phase76.engine_phase
+                ? ` · ${dashboard.implementation_blueprint_phase76.engine_phase}`
+                : ""}
+            </p>
+          ) : null}
+          {dashboard.blueprint_phase76_distinction_note ? (
+            <p className="mt-2 text-xs text-indigo-800">{dashboard.blueprint_phase76_distinction_note}</p>
+          ) : null}
+          {dashboard.blueprint_phase76_mission ? (
+            <p className="mt-2 text-sm font-medium text-indigo-900">{dashboard.blueprint_phase76_mission}</p>
+          ) : null}
+          {dashboard.blueprint_phase76_philosophy ? (
+            <p className="mt-2 text-sm text-indigo-900">{dashboard.blueprint_phase76_philosophy}</p>
+          ) : null}
+          {dashboard.blueprint_phase76_abos_principle ? (
+            <p className="mt-2 text-xs text-indigo-800">{dashboard.blueprint_phase76_abos_principle}</p>
+          ) : null}
+          {dashboard.scenario_simulation_engine_note ? (
+            <p className="mt-2 text-xs text-indigo-800">{dashboard.scenario_simulation_engine_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {(dashboard.blueprint_phase76_integration_links ?? []).length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {dashboard.blueprint_phase76_integration_links?.map((link) =>
+            link.route ? (
+              <Link key={link.route} href={link.route} className="rounded-lg border border-indigo-200 px-3 py-1.5 text-sm">
+                {link.label ?? link.route}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : null}
+
+      {dashboard.blueprint_phase76_engagement_summary ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase76EngagementSummary}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>{labels.scenariosTotal}: {dashboard.blueprint_phase76_engagement_summary.scenarios_total ?? 0}</span>
+            <span>{labels.scenariosReady}: {dashboard.blueprint_phase76_engagement_summary.scenarios_ready ?? 0}</span>
+            <span>{labels.simulationRuns}: {dashboard.blueprint_phase76_engagement_summary.simulation_runs_total ?? 0}</span>
+            <span>{labels.runsLast30d}: {dashboard.blueprint_phase76_engagement_summary.simulation_runs_last_30d ?? 0}</span>
+            <span>{labels.categoriesUsed}: {dashboard.blueprint_phase76_engagement_summary.categories_used ?? 0}</span>
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase76_objectives && dashboard.blueprint_phase76_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase76Objectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.blueprint_phase76_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase76_scenario_types?.categories &&
+      dashboard.blueprint_phase76_scenario_types.categories.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase76ScenarioTypes}</h3>
+          {dashboard.blueprint_phase76_scenario_types.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{dashboard.blueprint_phase76_scenario_types.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.blueprint_phase76_scenario_types.categories.map((category) => (
+              <ExampleCategoryCard key={category.key ?? category.label} category={category} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase76_simulation_questions?.questions &&
+      dashboard.blueprint_phase76_simulation_questions.questions.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase76SimulationQuestions}</h3>
+          <ul className="mt-3 space-y-2 text-sm">
+            {dashboard.blueprint_phase76_simulation_questions.questions.map((q) => (
+              <li key={q.key ?? q.question} className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2">
+                {q.emoji ? `${q.emoji} ` : ""}
+                {q.question}
+                {q.consideration ? <span className="mt-1 block text-xs text-gray-600">{q.consideration}</span> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase76_multiple_futures?.futures &&
+      dashboard.blueprint_phase76_multiple_futures.futures.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase76MultipleFutures}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-3">
+            {dashboard.blueprint_phase76_multiple_futures.futures.map((future) => (
+              <ObjectiveCard key={future.key ?? future.label} objective={future} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase76_companion_guidance?.examples &&
+      dashboard.blueprint_phase76_companion_guidance.examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase76CompanionGuidance}</h3>
+          <div className="mt-3 space-y-3">
+            {dashboard.blueprint_phase76_companion_guidance.examples.map((example) => (
+              <div key={example.key ?? example.prompt} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                <p className="font-medium text-gray-900">
+                  {example.emoji ? `${example.emoji} ` : ""}
+                  {example.prompt}
+                </p>
+                {example.consideration ? <p className="mt-1 text-xs text-gray-600">{example.consideration}</p> : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase76_collaborative_simulation?.contexts &&
+      dashboard.blueprint_phase76_collaborative_simulation.contexts.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase76CollaborativeSimulation}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {dashboard.blueprint_phase76_collaborative_simulation.contexts.map((ctx) => (
+              <ObjectiveCard key={ctx.key ?? ctx.label} objective={ctx} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase76_leadership_insights?.insight_types &&
+      dashboard.blueprint_phase76_leadership_insights.insight_types.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase76LeadershipInsights}</h3>
+          <ul className="mt-3 space-y-2 text-sm">
+            {dashboard.blueprint_phase76_leadership_insights.insight_types.map((insight) => (
+              <li key={insight.key ?? insight.label} className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2">
+                {insight.emoji ? `${insight.emoji} ` : ""}
+                <span className="font-medium">{insight.label}</span>
+                {insight.description ? <span className="mt-1 block text-xs text-gray-600">{insight.description}</span> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase76_limitation_principles?.forbidden &&
+      dashboard.blueprint_phase76_limitation_principles.forbidden.length > 0 ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.phase76LimitationPrinciples}</h3>
+          {dashboard.blueprint_phase76_limitation_principles.principle ? (
+            <p className="mt-2">{dashboard.blueprint_phase76_limitation_principles.principle}</p>
+          ) : null}
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+            {dashboard.blueprint_phase76_limitation_principles.forbidden.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.blueprint_phase76_success_criteria) &&
+      dashboard.blueprint_phase76_success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase76SuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.blueprint_phase76_success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={item.key ?? label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase76_self_love_connection?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.phase76SelfLoveConnection}</h3>
+          <p className="mt-2">{dashboard.blueprint_phase76_self_love_connection.principle}</p>
+          {dashboard.blueprint_phase76_self_love_connection.self_love_route ? (
+            <Link
+              href={dashboard.blueprint_phase76_self_love_connection.self_love_route}
+              className="mt-2 inline-block text-xs underline"
+            >
+              {labels.openSelfLove}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase76_trust_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase76TrustConnection}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.blueprint_phase76_trust_connection.principle}</p>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase76_dogfooding?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase76Dogfooding}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.blueprint_phase76_dogfooding.principle}</p>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.blueprint_phase76_dogfooding.aipify_group ? (
+              <DogfoodingCard entry={dashboard.blueprint_phase76_dogfooding.aipify_group} title={labels.aipifyGroup} />
+            ) : null}
+            {dashboard.blueprint_phase76_dogfooding.unonight ? (
+              <DogfoodingCard entry={dashboard.blueprint_phase76_dogfooding.unonight} title={labels.unonightPilot} />
+            ) : null}
+          </div>
+        </section>
+      ) : null}
+
+      {(dashboard.blueprint_phase76_vision_phrases ?? []).length > 0 ? (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/30 p-4 text-sm text-indigo-900">
+          <h3 className="text-sm font-semibold">{labels.phase76VisionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+            {dashboard.blueprint_phase76_vision_phrases?.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase76_safety_note ? (
+        <p className="text-xs text-gray-500">{dashboard.blueprint_phase76_safety_note}</p>
+      ) : null}
+
+      {dashboard.blueprint_phase78_mission || dashboard.blueprint_phase78_distinction_note ? (
+        <section className="rounded-xl border border-violet-200 bg-violet-50/30 p-6">
+          <h2 className="text-sm font-semibold text-violet-900">{labels.phase78SectionTitle}</h2>
+          {dashboard.implementation_blueprint_phase78?.phase ? (
+            <p className="mt-1 text-xs text-violet-700">
+              {dashboard.implementation_blueprint_phase78.phase}
+              {dashboard.implementation_blueprint_phase78.engine_phase
+                ? ` · ${dashboard.implementation_blueprint_phase78.engine_phase}`
+                : ""}
+            </p>
+          ) : null}
+          {dashboard.blueprint_phase78_distinction_note ? (
+            <p className="mt-2 text-xs text-violet-800">{dashboard.blueprint_phase78_distinction_note}</p>
+          ) : null}
+          {dashboard.blueprint_phase78_mission ? (
+            <p className="mt-2 text-sm font-medium text-violet-900">{dashboard.blueprint_phase78_mission}</p>
+          ) : null}
+          {dashboard.blueprint_phase78_philosophy ? (
+            <p className="mt-2 text-sm text-violet-900">{dashboard.blueprint_phase78_philosophy}</p>
+          ) : null}
+          {dashboard.blueprint_phase78_abos_principle ? (
+            <p className="mt-2 text-xs text-violet-800">{dashboard.blueprint_phase78_abos_principle}</p>
+          ) : null}
+          {dashboard.decision_lab_engine_note ? (
+            <p className="mt-2 text-xs text-violet-800">{dashboard.decision_lab_engine_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {(dashboard.blueprint_phase78_integration_links ?? []).length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {dashboard.blueprint_phase78_integration_links?.map((link) =>
+            link.route ? (
+              <Link key={`p78-${link.route}`} href={link.route} className="rounded-lg border border-violet-200 px-3 py-1.5 text-sm">
+                {link.label ?? link.route}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : null}
+
+      {dashboard.blueprint_phase78_engagement_summary ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase78EngagementSummary}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>{labels.scenariosTotal}: {dashboard.blueprint_phase78_engagement_summary.scenarios_total ?? 0}</span>
+            <span>{labels.scenariosReady}: {dashboard.blueprint_phase78_engagement_summary.scenarios_ready ?? 0}</span>
+            <span>{labels.simulationRuns}: {dashboard.blueprint_phase78_engagement_summary.simulation_runs_total ?? 0}</span>
+            <span>{labels.runsLast30d}: {dashboard.blueprint_phase78_engagement_summary.simulation_runs_last_30d ?? 0}</span>
+            <span>{labels.comparisonsTotal}: {dashboard.blueprint_phase78_engagement_summary.comparisons_total ?? 0}</span>
+            <span>{labels.categoriesUsed}: {dashboard.blueprint_phase78_engagement_summary.categories_used ?? 0}</span>
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase78_objectives && dashboard.blueprint_phase78_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase78Objectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.blueprint_phase78_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase78_decision_lab_environment?.environments &&
+      dashboard.blueprint_phase78_decision_lab_environment.environments.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase78DecisionLabEnvironment}</h3>
+          {dashboard.blueprint_phase78_decision_lab_environment.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{dashboard.blueprint_phase78_decision_lab_environment.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.blueprint_phase78_decision_lab_environment.environments.map((env) => (
+              <div key={env.key ?? env.label} className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 text-sm">
+                <p className="font-medium text-gray-900">{env.label}</p>
+                {env.description ? <p className="mt-1 text-xs text-gray-600">{env.description}</p> : null}
+                {env.encouragement ? <p className="mt-1 text-xs italic text-violet-700">{env.encouragement}</p> : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase78_simulation_inputs?.input_categories &&
+      dashboard.blueprint_phase78_simulation_inputs.input_categories.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase78SimulationInputs}</h3>
+          {dashboard.blueprint_phase78_simulation_inputs.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{dashboard.blueprint_phase78_simulation_inputs.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.blueprint_phase78_simulation_inputs.input_categories.map((input) => (
+              <ObjectiveCard key={input.key ?? input.label} objective={input} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase78_scenario_comparison?.scenarios &&
+      dashboard.blueprint_phase78_scenario_comparison.scenarios.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase78ScenarioComparison}</h3>
+          {dashboard.blueprint_phase78_scenario_comparison.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{dashboard.blueprint_phase78_scenario_comparison.principle}</p>
+          ) : null}
+          <ul className="mt-3 space-y-3 text-sm">
+            {dashboard.blueprint_phase78_scenario_comparison.scenarios.map((scenario) => (
+              <li key={scenario.key ?? scenario.label} className="rounded-lg border border-gray-100 px-3 py-2">
+                <p className="font-medium text-gray-900">{scenario.label}</p>
+                {scenario.description ? <p className="mt-1 text-xs text-gray-600">{scenario.description}</p> : null}
+                {scenario.consideration ? <p className="mt-1 text-xs text-violet-700">{scenario.consideration}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase78_companion_guidance?.examples &&
+      dashboard.blueprint_phase78_companion_guidance.examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase78CompanionGuidance}</h3>
+          <div className="mt-3 space-y-3">
+            {dashboard.blueprint_phase78_companion_guidance.examples.map((example) => (
+              <div key={example.key ?? example.prompt} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                <p className="font-medium text-gray-900">
+                  {example.emoji ? `${example.emoji} ` : ""}
+                  {example.prompt}
+                </p>
+                {example.consideration ? <p className="mt-1 text-xs text-gray-600">{example.consideration}</p> : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase78_collaborative_decision_making?.stakeholders &&
+      dashboard.blueprint_phase78_collaborative_decision_making.stakeholders.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase78CollaborativeDecisionMaking}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.blueprint_phase78_collaborative_decision_making.stakeholders.map((stakeholder) => (
+              <ObjectiveCard key={stakeholder.key ?? stakeholder.label} objective={stakeholder} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase78_learning_through_simulation?.reflection_prompts &&
+      dashboard.blueprint_phase78_learning_through_simulation.reflection_prompts.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase78LearningThroughSimulation}</h3>
+          {dashboard.blueprint_phase78_learning_through_simulation.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{dashboard.blueprint_phase78_learning_through_simulation.principle}</p>
+          ) : null}
+          <ul className="mt-3 list-inside list-disc space-y-1 text-sm text-gray-700">
+            {dashboard.blueprint_phase78_learning_through_simulation.reflection_prompts.map((prompt) => (
+              <li key={prompt}>{prompt}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase78_leadership_insights?.insight_types &&
+      dashboard.blueprint_phase78_leadership_insights.insight_types.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.phase78LeadershipInsights}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.blueprint_phase78_leadership_insights.insight_types.map((insight) => (
+              <div key={insight.key ?? insight.label} className="rounded-lg border border-gray-100 p-3 text-sm">
+                <p className="font-medium text-gray-900">
+                  {insight.emoji ? `${insight.emoji} ` : ""}
+                  {insight.label}
+                </p>
+                {insight.description ? <p className="mt-1 text-xs text-gray-600">{insight.description}</p> : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase78_limitation_principles?.forbidden &&
+      dashboard.blueprint_phase78_limitation_principles.forbidden.length > 0 ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/40 p-4 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.phase78LimitationPrinciples}</h3>
+          {dashboard.blueprint_phase78_limitation_principles.principle ? (
+            <p className="mt-2">{dashboard.blueprint_phase78_limitation_principles.principle}</p>
+          ) : null}
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+            {dashboard.blueprint_phase78_limitation_principles.forbidden.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.blueprint_phase78_success_criteria) &&
+      dashboard.blueprint_phase78_success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase78SuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.blueprint_phase78_success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={item.key ?? label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase78_self_love_connection?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.phase78SelfLoveConnection}</h3>
+          <p className="mt-2">{dashboard.blueprint_phase78_self_love_connection.principle}</p>
+          {dashboard.blueprint_phase78_self_love_connection.journey_phrase ? (
+            <p className="mt-2 text-xs italic">{dashboard.blueprint_phase78_self_love_connection.journey_phrase}</p>
+          ) : null}
+          {dashboard.blueprint_phase78_self_love_connection.self_love_route ? (
+            <Link
+              href={dashboard.blueprint_phase78_self_love_connection.self_love_route}
+              className="mt-2 inline-block text-xs underline"
+            >
+              {labels.openSelfLove}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase78_trust_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase78TrustConnection}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.blueprint_phase78_trust_connection.principle}</p>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase78_dogfooding?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.phase78Dogfooding}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.blueprint_phase78_dogfooding.principle}</p>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.blueprint_phase78_dogfooding.aipify_group ? (
+              <DogfoodingCard entry={dashboard.blueprint_phase78_dogfooding.aipify_group} title={labels.aipifyGroup} />
+            ) : null}
+            {dashboard.blueprint_phase78_dogfooding.unonight ? (
+              <DogfoodingCard entry={dashboard.blueprint_phase78_dogfooding.unonight} title={labels.unonightPilot} />
+            ) : null}
+          </div>
+        </section>
+      ) : null}
+
+      {(dashboard.blueprint_phase78_vision_phrases ?? []).length > 0 ? (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/30 p-4 text-sm text-violet-900">
+          <h3 className="text-sm font-semibold">{labels.phase78VisionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+            {dashboard.blueprint_phase78_vision_phrases?.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_phase78_safety_note ? (
+        <p className="text-xs text-gray-500">{dashboard.blueprint_phase78_safety_note}</p>
+      ) : null}
+
       <section>
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="text-sm font-semibold text-gray-900">{labels.scenariosSection}</h2>

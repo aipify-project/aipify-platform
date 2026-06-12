@@ -37,7 +37,52 @@ export default async function OperationsCenterFoundationEnginePage() {
     "trustConnection",
   ] as const;
 
-  const labels = Object.fromEntries(labelKeys.map((key) => [key, t(`${p}.${key}`)])) as Record<string, string>;
+  const blueprintLabelKeys = [
+    "blueprintObjectives",
+    "organizationalConnections",
+    "crossFunctionalObservations",
+    "informationFlowVisibility",
+    "bottleneckIdentification",
+    "collaborationOpportunities",
+    "leadershipInsights",
+    "privacyPrinciples",
+    "engagementSummary",
+    "moduleOverviewBlocks",
+    "openOperationsEvents",
+    "urgentOperationsEvents",
+    "tasksOverdue",
+    "knowledgeOpenGaps",
+    "blueprintSuccessCriteria",
+    "visionPhrases",
+    "blueprintSelfLoveConnection",
+    "blueprintTrustConnection",
+  ] as const;
+
+  const phase75LabelKeys = [
+    "phase75Title",
+    "eocbpObjectives",
+    "executiveDashboard",
+    "dailyExecutiveBriefings",
+    "executivePriorityCenter",
+    "organizationalHealthOverview",
+    "meetingDecisionContinuity",
+    "strategicMomentumTracking",
+    "eocbpCompanionGuidance",
+    "eocbpEngagementSummary",
+    "pendingLeadershipApprovals",
+    "executiveOverviewSignals",
+    "recognitionSignals",
+    "eocbpSuccessCriteria",
+    "eocbpVisionPhrases",
+    "eocbpSelfLoveConnection",
+    "eocbpTrustConnection",
+  ] as const;
+
+  const labels = {
+    ...Object.fromEntries(labelKeys.map((key) => [key, t(`${p}.${key}`)])),
+    ...Object.fromEntries(blueprintLabelKeys.map((key) => [key, t(`${p}.blueprint.phase70.${key}`)])),
+    ...Object.fromEntries(phase75LabelKeys.map((key) => [key, t(`${p}.blueprint.phase75.${key}`)])),
+  } as Record<string, string>;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">

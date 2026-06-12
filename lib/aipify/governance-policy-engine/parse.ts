@@ -1,4 +1,40 @@
-import type { GovernancePolicyEngineCard, GovernancePolicyEngineDashboard } from "./types";
+import type {
+  AbosSuccessCriterion,
+  BlueprintObjective,
+  BoardMeetingSupport,
+  CompanionExample,
+  DecisionContinuity,
+  DogfoodingBlueprint,
+  GovernanceEngagementSummary,
+  GovernancePolicyEngineCard,
+  GovernancePolicyEngineDashboard,
+  GovernancePrinciple,
+  ImplementationBlueprintMeta,
+  IntegrationLink,
+  SelfLoveConnection,
+  StrategicOversight,
+  TrustConnection,
+} from "./types";
+
+function parseRecordList<T>(data: unknown): T[] | undefined {
+  if (!Array.isArray(data)) return undefined;
+  return data as T[];
+}
+
+function parseBlueprintMeta(data: unknown): ImplementationBlueprintMeta | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ImplementationBlueprintMeta;
+}
+
+function parseEngagementSummary(data: unknown): GovernanceEngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as GovernanceEngagementSummary;
+}
+
+function parseObjectBlock<T>(data: unknown): T | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as T;
+}
 
 export function parseGovernancePolicyEngineCard(data: unknown): GovernancePolicyEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
@@ -9,6 +45,14 @@ export function parseGovernancePolicyEngineCard(data: unknown): GovernancePolicy
     pending_approvals: Number(d.pending_approvals ?? 0),
     upcoming_reviews: Number(d.upcoming_reviews ?? 0),
     philosophy: typeof d.philosophy === "string" ? d.philosophy : undefined,
+    quality_guardian_blueprint_note:
+      typeof d.quality_guardian_blueprint_note === "string" ? d.quality_guardian_blueprint_note : undefined,
+    implementation_blueprint_phase67: parseBlueprintMeta(d.implementation_blueprint_phase67),
+    mission: typeof d.mission === "string" ? d.mission : undefined,
+    abos_principle: typeof d.abos_principle === "string" ? d.abos_principle : undefined,
+    engagement_summary: parseEngagementSummary(d.engagement_summary),
+    blueprint_note: typeof d.blueprint_note === "string" ? d.blueprint_note : undefined,
+    governance_note: typeof d.governance_note === "string" ? d.governance_note : undefined,
   };
 }
 
@@ -54,5 +98,30 @@ export function parseGovernancePolicyEngineDashboard(
     integrates_with: Array.isArray(d.integrates_with)
       ? (d.integrates_with as string[])
       : undefined,
+    implementation_blueprint_phase67: parseBlueprintMeta(d.implementation_blueprint_phase67),
+    board_governance_companion_note:
+      typeof d.board_governance_companion_note === "string" ? d.board_governance_companion_note : undefined,
+    blueprint_distinction_note:
+      typeof d.blueprint_distinction_note === "string" ? d.blueprint_distinction_note : undefined,
+    blueprint_mission: typeof d.blueprint_mission === "string" ? d.blueprint_mission : undefined,
+    blueprint_philosophy: typeof d.blueprint_philosophy === "string" ? d.blueprint_philosophy : undefined,
+    blueprint_abos_principle:
+      typeof d.blueprint_abos_principle === "string" ? d.blueprint_abos_principle : undefined,
+    vision: typeof d.vision === "string" ? d.vision : undefined,
+    blueprint_objectives: parseRecordList<BlueprintObjective>(d.blueprint_objectives),
+    board_preparation: parseRecordList<CompanionExample>(d.board_preparation),
+    board_meeting_support: parseObjectBlock<BoardMeetingSupport>(d.board_meeting_support),
+    strategic_oversight: parseObjectBlock<StrategicOversight>(d.strategic_oversight),
+    risk_awareness: parseRecordList<CompanionExample>(d.risk_awareness),
+    blueprint_governance_principles: parseRecordList<GovernancePrinciple>(d.blueprint_governance_principles),
+    decision_continuity: parseObjectBlock<DecisionContinuity>(d.decision_continuity),
+    self_love_connection: parseObjectBlock<SelfLoveConnection>(d.self_love_connection),
+    trust_connection: parseObjectBlock<TrustConnection>(d.trust_connection),
+    dogfooding: parseObjectBlock<DogfoodingBlueprint>(d.dogfooding),
+    blueprint_integration_links: parseRecordList<IntegrationLink>(d.blueprint_integration_links),
+    engagement_summary: parseEngagementSummary(d.engagement_summary),
+    success_criteria: parseRecordList<AbosSuccessCriterion>(d.success_criteria),
+    vision_phrases: Array.isArray(d.vision_phrases) ? (d.vision_phrases as string[]) : undefined,
+    metadata_note: typeof d.metadata_note === "string" ? d.metadata_note : undefined,
   };
 }

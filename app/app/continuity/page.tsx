@@ -7,6 +7,7 @@ export default async function ContinuityPage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
   const p = "customerApp.continuityEngine";
+  const bp = `${p}.blueprint.phase73`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -30,6 +31,23 @@ export default async function ContinuityPage() {
           backupOwners: t(`${p}.backupOwners`),
           incidentsSection: t(`${p}.incidentsSection`),
           safetyNote: t(`${p}.safetyNote`),
+          blueprintSection: t(`${bp}.sectionTitle`),
+          blueprintObjectives: t(`${bp}.objectives`),
+          knowledgeContinuity: t(`${bp}.knowledgeContinuity`),
+          roleContinuity: t(`${bp}.roleContinuity`),
+          successionSupport: t(`${bp}.successionSupport`),
+          operationalResilience: t(`${bp}.operationalResilience`),
+          companionGuidance: t(`${bp}.companionGuidance`),
+          onboardingConnection: t(`${bp}.onboardingConnection`),
+          selfLoveConnection: t(`${bp}.selfLoveConnection`),
+          privacyPrinciples: t(`${bp}.privacyPrinciples`),
+          successCriteria: t(`${bp}.successCriteria`),
+          visionPhrases: t(`${bp}.visionPhrases`),
+          engagementSummary: t(`${bp}.engagementSummary`),
+          criticalProcessCount: t(`${bp}.criticalProcessCount`),
+          backupAssignments: t(`${bp}.backupAssignments`),
+          backupGaps: t(`${bp}.backupGaps`),
+          coverageRatio: t(`${bp}.coverageRatio`),
         }}
       />
     </div>

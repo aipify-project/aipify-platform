@@ -4,6 +4,12 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseOperationsCenterFoundationEngineDashboard,
+  type BlueprintObjective,
+  type BriefingElement,
+  type CollaborationExample,
+  type CompanionGuidanceExample,
+  type CrossFunctionalObservation,
+  type HealthIndicator,
   type ModuleOverviewBlock,
   type OperationsCenterFoundationEngineDashboard,
   type OperationsEvent,
@@ -22,6 +28,15 @@ function priorityClass(priority?: string) {
     default:
       return "bg-slate-100 text-slate-700";
   }
+}
+
+function ObjectiveCard({ objective }: { objective: BlueprintObjective }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 text-sm">
+      <p className="font-medium text-gray-900">{objective.label}</p>
+      {objective.description ? <p className="mt-1 text-xs text-gray-600">{objective.description}</p> : null}
+    </div>
+  );
 }
 
 function ModuleOverviewCard({
@@ -178,8 +193,34 @@ export function OperationsCenterFoundationEngineDashboardPanel({ labels }: Props
         {dashboard.distinction_note ? (
           <p className="mt-1 text-xs text-indigo-700">{dashboard.distinction_note}</p>
         ) : null}
+        {dashboard.implementation_blueprint_phase70?.phase ? (
+          <p className="mt-1 text-xs text-indigo-600">
+            {dashboard.implementation_blueprint_phase70.phase}
+            {dashboard.implementation_blueprint_phase70.engine_phase
+              ? ` · ${dashboard.implementation_blueprint_phase70.engine_phase}`
+              : ""}
+          </p>
+        ) : null}
+        {dashboard.blueprint_mission ? (
+          <p className="mt-2 text-sm font-medium text-indigo-900">{dashboard.blueprint_mission}</p>
+        ) : null}
+        {dashboard.blueprint_philosophy ? (
+          <p className="mt-2 text-sm text-indigo-900">{dashboard.blueprint_philosophy}</p>
+        ) : null}
+        {dashboard.blueprint_abos_principle ? (
+          <p className="mt-2 text-xs text-indigo-800">{dashboard.blueprint_abos_principle}</p>
+        ) : null}
+        {dashboard.cross_functional_intelligence_note ? (
+          <p className="mt-2 text-xs text-indigo-800">{dashboard.cross_functional_intelligence_note}</p>
+        ) : null}
+        {dashboard.blueprint_distinction_note ? (
+          <p className="mt-1 text-xs text-indigo-700">{dashboard.blueprint_distinction_note}</p>
+        ) : null}
         {dashboard.safety_note ? (
           <p className="mt-2 text-xs text-gray-500">{dashboard.safety_note}</p>
+        ) : null}
+        {dashboard.blueprint_privacy_note ? (
+          <p className="mt-2 text-xs text-gray-500">{dashboard.blueprint_privacy_note}</p>
         ) : null}
       </section>
 
@@ -330,6 +371,493 @@ export function OperationsCenterFoundationEngineDashboardPanel({ labels }: Props
           <h3 className="text-sm font-semibold text-gray-900">{labels.trustConnection}</h3>
           <p className="mt-2 text-sm text-gray-700">{dashboard.trust_connection.principle}</p>
         </section>
+      ) : null}
+
+      {dashboard.blueprint_objectives && dashboard.blueprint_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.blueprintObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.blueprint_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.organizational_connections?.example_chain &&
+      dashboard.organizational_connections.example_chain.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.organizationalConnections}</h3>
+          {dashboard.organizational_connections.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.organizational_connections.principle}</p>
+          ) : null}
+          {dashboard.organizational_connections.chain_summary ? (
+            <p className="mt-2 text-sm font-medium text-indigo-900">
+              {dashboard.organizational_connections.chain_summary}
+            </p>
+          ) : null}
+          <div className="mt-3 flex flex-wrap gap-2">
+            {dashboard.organizational_connections.example_chain.map((conn) => (
+              <div key={conn.key ?? conn.label} className="rounded-lg border border-indigo-100 bg-indigo-50/40 px-3 py-2 text-sm">
+                {conn.route ? (
+                  <Link href={conn.route} className="font-medium text-indigo-800 hover:underline">
+                    {conn.label}
+                  </Link>
+                ) : (
+                  <span className="font-medium">{conn.label}</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.cross_functional_observations?.observations &&
+      dashboard.cross_functional_observations.observations.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.crossFunctionalObservations}</h3>
+          {dashboard.cross_functional_observations.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.cross_functional_observations.principle}</p>
+          ) : null}
+          <div className="mt-3 space-y-2">
+            {dashboard.cross_functional_observations.observations.map((obs: CrossFunctionalObservation) => (
+              <div key={obs.key ?? obs.observation} className="rounded-lg border border-indigo-100 bg-indigo-50/40 px-3 py-2 text-sm">
+                <span className="font-medium">
+                  {obs.emoji ? `${obs.emoji} ` : ""}
+                  {obs.observation}
+                </span>
+                {obs.description ? <p className="mt-1 text-xs text-gray-600">{obs.description}</p> : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.information_flow_visibility?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.informationFlowVisibility}</h3>
+          <p className="mt-2 text-sm text-gray-700">{dashboard.information_flow_visibility.principle}</p>
+          {dashboard.information_flow_visibility.dimensions &&
+          dashboard.information_flow_visibility.dimensions.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.information_flow_visibility.dimensions.map((dim) => (
+                <ObjectiveCard key={dim.key ?? dim.label} objective={dim} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.bottleneck_identification?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.bottleneckIdentification}</h3>
+          <p className="mt-2 text-sm text-gray-700">{dashboard.bottleneck_identification.principle}</p>
+          {dashboard.bottleneck_identification.patterns &&
+          dashboard.bottleneck_identification.patterns.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.bottleneck_identification.patterns.map((pattern) => (
+                <ObjectiveCard key={pattern.key ?? pattern.label} objective={pattern} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.collaboration_opportunities?.examples &&
+      dashboard.collaboration_opportunities.examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.collaborationOpportunities}</h3>
+          {dashboard.collaboration_opportunities.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.collaboration_opportunities.principle}</p>
+          ) : null}
+          <ul className="mt-3 space-y-2 text-sm">
+            {dashboard.collaboration_opportunities.examples.map((example: CollaborationExample, i) => (
+              <li key={example.key ?? i} className="rounded border border-gray-100 p-2">
+                <p className="font-medium">
+                  {example.emoji ? `${example.emoji} ` : ""}
+                  {example.prompt}
+                </p>
+                {example.consideration ? (
+                  <p className="mt-1 text-xs text-gray-600">{example.consideration}</p>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_leadership_insights?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.leadershipInsights}</h3>
+          <p className="mt-2 text-sm text-gray-700">{dashboard.blueprint_leadership_insights.principle}</p>
+          {dashboard.blueprint_leadership_insights.insight_types &&
+          dashboard.blueprint_leadership_insights.insight_types.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.blueprint_leadership_insights.insight_types.map((insight) => (
+                <ObjectiveCard key={insight.key ?? insight.label} objective={insight} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.privacy_principles?.principle ? (
+        <section className="rounded-xl border border-amber-100 bg-amber-50/30 p-6">
+          <h3 className="text-sm font-semibold text-amber-900">{labels.privacyPrinciples}</h3>
+          <p className="mt-2 text-sm text-amber-900">{dashboard.privacy_principles.principle}</p>
+          {dashboard.privacy_principles.rules && dashboard.privacy_principles.rules.length > 0 ? (
+            <ul className="mt-3 list-inside list-disc space-y-1 text-sm text-amber-900">
+              {dashboard.privacy_principles.rules.map((rule) => (
+                <li key={rule}>{rule}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.engagement_summary ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.engagementSummary}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="rounded-lg border border-gray-100 p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.moduleOverviewBlocks}</p>
+              <p className="mt-1 text-xl font-semibold">{dashboard.engagement_summary.module_overview_blocks ?? 0}</p>
+            </div>
+            <div className="rounded-lg border border-gray-100 p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.openOperationsEvents}</p>
+              <p className="mt-1 text-xl font-semibold">{dashboard.engagement_summary.open_operations_events ?? 0}</p>
+            </div>
+            <div className="rounded-lg border border-gray-100 p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.urgentOperationsEvents}</p>
+              <p className="mt-1 text-xl font-semibold">{dashboard.engagement_summary.urgent_operations_events ?? 0}</p>
+            </div>
+            <div className="rounded-lg border border-gray-100 p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.tasksOverdue}</p>
+              <p className="mt-1 text-xl font-semibold">{dashboard.engagement_summary.tasks_overdue ?? 0}</p>
+            </div>
+            <div className="rounded-lg border border-gray-100 p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.knowledgeOpenGaps}</p>
+              <p className="mt-1 text-xl font-semibold">{dashboard.engagement_summary.knowledge_open_gaps ?? 0}</p>
+            </div>
+          </div>
+          {dashboard.engagement_summary.privacy_note ? (
+            <p className="mt-3 text-xs text-gray-500">{dashboard.engagement_summary.privacy_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {(dashboard.blueprint_success_criteria ?? []).length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.blueprintSuccessCriteria}</h3>
+          <ul className="mt-3 space-y-2 text-sm">
+            {dashboard.blueprint_success_criteria?.map((c) => (
+              <li key={c.key ?? c.label} className="flex flex-wrap items-start gap-2">
+                <span className={c.met ? "text-emerald-700" : "text-amber-700"}>
+                  {c.met ? "✓" : "○"}
+                </span>
+                <span className="flex-1">
+                  {c.label}
+                  {c.note ? <span className="mt-0.5 block text-xs text-gray-500">{c.note}</span> : null}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {(dashboard.blueprint_vision_phrases ?? []).length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.visionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-gray-600">
+            {dashboard.blueprint_vision_phrases?.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_self_love_connection?.principle ? (
+        <section className="rounded-xl border border-violet-100 bg-violet-50/30 p-6">
+          <h3 className="text-sm font-semibold text-violet-900">{labels.blueprintSelfLoveConnection}</h3>
+          <p className="mt-2 text-sm text-violet-900">{dashboard.blueprint_self_love_connection.principle}</p>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_trust_connection?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.blueprintTrustConnection}</h3>
+          <p className="mt-2 text-sm text-gray-700">{dashboard.blueprint_trust_connection.principle}</p>
+        </section>
+      ) : null}
+
+      {(dashboard.blueprint_integration_links ?? []).length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {dashboard.blueprint_integration_links?.map((link) =>
+            link.route ? (
+              <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+                {link.label}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : null}
+
+      <section className="rounded-xl border border-violet-200 bg-violet-50/40 p-6">
+        <h2 className="text-sm font-semibold text-violet-900">{labels.phase75Title}</h2>
+        {dashboard.implementation_blueprint_phase75?.phase ? (
+          <p className="mt-1 text-xs text-violet-700">
+            {dashboard.implementation_blueprint_phase75.phase}
+            {dashboard.implementation_blueprint_phase75.engine_phase
+              ? ` · ${dashboard.implementation_blueprint_phase75.engine_phase}`
+              : ""}
+          </p>
+        ) : null}
+        {dashboard.executive_operations_center_note ? (
+          <p className="mt-2 text-xs text-violet-800">{dashboard.executive_operations_center_note}</p>
+        ) : null}
+        {dashboard.eocbp_mission ? (
+          <p className="mt-2 text-sm font-medium text-violet-900">{dashboard.eocbp_mission}</p>
+        ) : null}
+        {dashboard.eocbp_philosophy ? (
+          <p className="mt-2 text-sm text-violet-900">{dashboard.eocbp_philosophy}</p>
+        ) : null}
+        {dashboard.eocbp_abos_principle ? (
+          <p className="mt-2 text-xs text-violet-800">{dashboard.eocbp_abos_principle}</p>
+        ) : null}
+        {dashboard.eocbp_distinction_note ? (
+          <p className="mt-1 text-xs text-violet-700">{dashboard.eocbp_distinction_note}</p>
+        ) : null}
+        {dashboard.eocbp_privacy_note ? (
+          <p className="mt-2 text-xs text-gray-500">{dashboard.eocbp_privacy_note}</p>
+        ) : null}
+      </section>
+
+      {dashboard.eocbp_objectives && dashboard.eocbp_objectives.length > 0 ? (
+        <section className="rounded-xl border border-violet-100 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.eocbpObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.eocbp_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.eocbp_executive_dashboard?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.executiveDashboard}</h3>
+          <p className="mt-2 text-sm text-gray-700">{dashboard.eocbp_executive_dashboard.principle}</p>
+          {dashboard.eocbp_executive_dashboard.clarity_objective ? (
+            <p className="mt-2 text-sm font-medium text-violet-900">
+              {dashboard.eocbp_executive_dashboard.clarity_objective}
+            </p>
+          ) : null}
+          {dashboard.eocbp_executive_dashboard.dimensions &&
+          dashboard.eocbp_executive_dashboard.dimensions.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.eocbp_executive_dashboard.dimensions.map((dim) => (
+                <ObjectiveCard key={dim.key ?? dim.label} objective={dim} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.eocbp_daily_executive_briefings?.briefing_elements &&
+      dashboard.eocbp_daily_executive_briefings.briefing_elements.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.dailyExecutiveBriefings}</h3>
+          {dashboard.eocbp_daily_executive_briefings.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.eocbp_daily_executive_briefings.principle}</p>
+          ) : null}
+          <div className="mt-3 space-y-2">
+            {dashboard.eocbp_daily_executive_briefings.briefing_elements.map((item: BriefingElement) => (
+              <div key={item.key ?? item.element} className="rounded-lg border border-violet-100 bg-violet-50/40 px-3 py-2 text-sm">
+                <span className="font-medium">
+                  {item.emoji ? `${item.emoji} ` : ""}
+                  {item.element}
+                </span>
+                {item.description ? <p className="mt-1 text-xs text-gray-600">{item.description}</p> : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.eocbp_executive_priority_center?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.executivePriorityCenter}</h3>
+          <p className="mt-2 text-sm text-gray-700">{dashboard.eocbp_executive_priority_center.principle}</p>
+          {dashboard.eocbp_executive_priority_center.focus_areas &&
+          dashboard.eocbp_executive_priority_center.focus_areas.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.eocbp_executive_priority_center.focus_areas.map((area) => (
+                <ObjectiveCard key={area.key ?? area.label} objective={area} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.eocbp_organizational_health_overview?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.organizationalHealthOverview}</h3>
+          <p className="mt-2 text-sm text-gray-700">{dashboard.eocbp_organizational_health_overview.principle}</p>
+          {dashboard.eocbp_organizational_health_overview.indicators &&
+          dashboard.eocbp_organizational_health_overview.indicators.length > 0 ? (
+            <div className="mt-3 space-y-2">
+              {dashboard.eocbp_organizational_health_overview.indicators.map((item: HealthIndicator) => (
+                <div key={item.key ?? item.indicator} className="rounded-lg border border-emerald-100 bg-emerald-50/40 px-3 py-2 text-sm">
+                  <span className="font-medium">
+                    {item.emoji ? `${item.emoji} ` : ""}
+                    {item.indicator}
+                  </span>
+                  {item.description ? <p className="mt-1 text-xs text-gray-600">{item.description}</p> : null}
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.eocbp_meeting_decision_continuity?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.meetingDecisionContinuity}</h3>
+          <p className="mt-2 text-sm text-gray-700">{dashboard.eocbp_meeting_decision_continuity.principle}</p>
+          {dashboard.eocbp_meeting_decision_continuity.continuity_elements &&
+          dashboard.eocbp_meeting_decision_continuity.continuity_elements.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.eocbp_meeting_decision_continuity.continuity_elements.map((el) => (
+                <ObjectiveCard key={el.key ?? el.label} objective={el} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.eocbp_strategic_momentum_tracking?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.strategicMomentumTracking}</h3>
+          <p className="mt-2 text-sm text-gray-700">{dashboard.eocbp_strategic_momentum_tracking.principle}</p>
+          {dashboard.eocbp_strategic_momentum_tracking.tracking_elements &&
+          dashboard.eocbp_strategic_momentum_tracking.tracking_elements.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.eocbp_strategic_momentum_tracking.tracking_elements.map((el) => (
+                <ObjectiveCard key={el.key ?? el.label} objective={el} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.eocbp_companion_guidance?.examples && dashboard.eocbp_companion_guidance.examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.eocbpCompanionGuidance}</h3>
+          {dashboard.eocbp_companion_guidance.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.eocbp_companion_guidance.principle}</p>
+          ) : null}
+          <ul className="mt-3 space-y-2 text-sm">
+            {dashboard.eocbp_companion_guidance.examples.map((example: CompanionGuidanceExample, i) => (
+              <li key={example.key ?? i} className="rounded border border-gray-100 p-2">
+                <p className="font-medium">
+                  {example.emoji ? `${example.emoji} ` : ""}
+                  {example.prompt}
+                </p>
+                {example.consideration ? (
+                  <p className="mt-1 text-xs text-gray-600">{example.consideration}</p>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.eocbp_engagement_summary ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.eocbpEngagementSummary}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="rounded-lg border border-gray-100 p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.pendingLeadershipApprovals}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.eocbp_engagement_summary.pending_leadership_approvals ?? 0}
+              </p>
+            </div>
+            <div className="rounded-lg border border-gray-100 p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.executiveOverviewSignals}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.eocbp_engagement_summary.executive_overview_signals ?? 0}
+              </p>
+            </div>
+            <div className="rounded-lg border border-gray-100 p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.recognitionSignals}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.eocbp_engagement_summary.recognition_signals ?? 0}
+              </p>
+            </div>
+          </div>
+          {dashboard.eocbp_engagement_summary.privacy_note ? (
+            <p className="mt-3 text-xs text-gray-500">{dashboard.eocbp_engagement_summary.privacy_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {(dashboard.eocbp_success_criteria ?? []).length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.eocbpSuccessCriteria}</h3>
+          <ul className="mt-3 space-y-2 text-sm">
+            {dashboard.eocbp_success_criteria?.map((c) => (
+              <li key={c.key ?? c.label} className="flex flex-wrap items-start gap-2">
+                <span className={c.met ? "text-emerald-700" : "text-amber-700"}>
+                  {c.met ? "✓" : "○"}
+                </span>
+                <span className="flex-1">
+                  {c.label}
+                  {c.note ? <span className="mt-0.5 block text-xs text-gray-500">{c.note}</span> : null}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {(dashboard.eocbp_vision_phrases ?? []).length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.eocbpVisionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-gray-600">
+            {dashboard.eocbp_vision_phrases?.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.eocbp_self_love_connection?.principle ? (
+        <section className="rounded-xl border border-violet-100 bg-violet-50/30 p-6">
+          <h3 className="text-sm font-semibold text-violet-900">{labels.eocbpSelfLoveConnection}</h3>
+          <p className="mt-2 text-sm text-violet-900">{dashboard.eocbp_self_love_connection.principle}</p>
+          {dashboard.eocbp_self_love_connection.journey_phrase ? (
+            <p className="mt-2 text-xs italic text-violet-800">{dashboard.eocbp_self_love_connection.journey_phrase}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.eocbp_trust_connection?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.eocbpTrustConnection}</h3>
+          <p className="mt-2 text-sm text-gray-700">{dashboard.eocbp_trust_connection.principle}</p>
+        </section>
+      ) : null}
+
+      {(dashboard.eocbp_integration_links ?? []).length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {dashboard.eocbp_integration_links?.map((link) =>
+            link.route ? (
+              <Link key={`eocbp-${link.route}`} href={link.route} className="rounded-lg border border-violet-200 px-3 py-1.5 text-sm">
+                {link.label}
+              </Link>
+            ) : null
+          )}
+        </div>
       ) : null}
     </div>
   );

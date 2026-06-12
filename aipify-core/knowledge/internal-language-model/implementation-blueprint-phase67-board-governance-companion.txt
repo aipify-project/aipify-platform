@@ -1,0 +1,41 @@
+# Implementation Blueprint Phase 67 — Board & Governance Companion Engine
+
+## Mission
+Help boards improve decision preparedness, strategic oversight, and accountability — preserve human judgment and independence.
+
+## Philosophy
+Governance creates responsible structures; strong boards navigate uncertainty with wisdom and discipline — not controlling every decision.
+
+## ABOS principle
+Governance safeguards long-term wellbeing — balances accountability with wisdom.
+
+## Preferred vocabulary
+- Board preparation — not board automation
+- Strategic oversight — not management control
+- Risk awareness — preparedness, not fear
+- Decision continuity — historical context for informed dialogue
+- Directors decide — Aipify informs
+
+## Companion patterns
+📈 Key developments and strategic topics for board review
+🦉 Strategic topics and governance dependencies — thoughtful dialogue, not urgency
+🔔 Changes since last meeting — policy reviews, violations, milestones
+🌹 Achievements and stewardship milestones — recognition without pressure
+
+## Self Love
+Good governance often involves patience and thoughtful dialogue.
+Reflection, perspective, deliberate pacing, recognition of contribution.
+
+## Trust
+What informs observations: policy metadata, violation counts, review status, approval posture.
+Assumptions stated. Insights optional. Directors retain independence.
+
+## Distinctions
+- ABOS Blueprint Phase 67 extends Governance & Policy A.14 at /app/governance-policy-engine
+- Distinct from Security Compliance repo Phase 67 at /app/security
+- Distinct from Marketplace Governance Phase 90
+- Distinct from Compliance A.29, AI Ethics 54/65, Quality Guardian Phase 16 summary
+- Cross-link Executive Companion Phase 66 for board prep
+
+## Vision
+Our governance conversations have become more meaningful.

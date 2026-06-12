@@ -1,0 +1,79 @@
+ABOS Implementation Blueprint Phase 70 — Cross-Functional Intelligence Engine
+Extends Operations Center Foundation Engine Phase A.32 at /app/operations-center-foundation-engine
+Blueprint helpers: _cfibp_* — Engine helpers: _ocf_* (do not collide)
+Layered with Phase 18 Operations Center Engine Foundation blueprint
+
+Mission
+Strengthen collaboration, reduce silos, and improve outcomes by making cross-functional relationships visible.
+
+Philosophy
+No department operates in isolation. Interdependence creates stronger organizations. Awareness strengthens systems; surveillance does not.
+
+ABOS principle
+Organizations are living systems — understanding connections reveals improvement opportunities. Aipify informs and prepares; humans decide.
+
+Objectives
+- Dependency awareness — how teams and modules depend on one another
+- Collaboration insights — cross-team collaboration strengthens outcomes
+- Information flow visibility — how insights travel, delays, shared knowledge
+- Cross-team opportunities — shared challenges and initiative representation
+- Bottleneck recognition — handoff friction and knowledge concentration — improvement not blame
+- Systems thinking — organizational resilience through connection awareness
+
+Organizational connections
+Sales → Customer Success → Support → Knowledge Center → Product Development
+Understand relationships across the operating chain — metadata only.
+
+Cross-functional observations (🦉 🌹 🔔)
+- Support informs product priorities — humans prioritize
+- Marketing/sales alignment strengthens customer experience
+- Recurring team dependencies — coordination review, not individual scoring
+
+Information flow visibility
+- How insights travel across module overviews and operations_events
+- Delays — overdue tasks, escalations, knowledge gaps
+- Shared knowledge dependencies — KC articles, support gaps
+- Communication opportunities — proactive cross-team dialogue
+
+Bottleneck identification
+- Reliance on individuals — delegation opportunity, never score people
+- Inter-department delays — systemic friction signals
+- Handoff friction — open operations_events at boundaries
+- Knowledge concentration — open KC gaps
+
+Collaboration opportunities (🦉 🌹 🔔)
+- Similar challenges solved independently — shared review
+- Shared learning — KC updates strengthening multiple functions
+- Broader initiative representation — cross-functional context
+
+Leadership insights
+Cross-functional health summaries, dependency observations, positive collaboration examples.
+
+Self Love connection
+Empathy across departments, appreciation of diverse contributions, constructive communication, shared ownership.
+Every team contributes to organizational success in different ways.
+Route /app/self-love-engine — principle only.
+
+Trust connection
+Transparent how observations are generated, limitations, optional insights. Metadata only.
+
+Privacy principles
+NO hidden monitoring. NO individual performance scoring. NO punitive interpretations.
+Strengthen systems — never judge people.
+
+Distinctions
+- Personal Productivity A.70 — /app/personal-productivity-engine — repo phase collision, NOT this blueprint
+- Cross-Tenant Intelligence A.71 — /app/cross-tenant-intelligence-engine — anonymized cross-tenant, NOT intra-org
+- Strategic Alignment Phase 68 — /app/strategic-alignment-engine — alignment focus, cross-link only
+- Operations Dashboard A.9 — /app/operations-dashboard-engine — role-aware widgets
+- Command Center Phase 26 — /app/command-center — presence/notifications
+- AOC Phase 79 — /app/operations — autonomous watchers
+- Industry Intelligence A.44 — /app/industry-intelligence-foundation-engine — industry patterns
+
+Dogfooding
+Aipify Group — product development, Sales Expert ecosystem, support experiences, strategic initiatives.
+Unonight — first external pilot for commerce cross-functional coordination.
+
+Vision
+We are operating more cohesively than before.
+Greater understanding of how people, teams, and processes interact.

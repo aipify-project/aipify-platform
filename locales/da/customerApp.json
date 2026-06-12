@@ -1930,7 +1930,29 @@
     "back": "Tilbage til Digital Twin",
     "notFound": "Proces ikke fundet.",
     "steps": "Proces trin",
-    "escalationPath": "Eskaleringssti"
+    "escalationPath": "Eskaleringssti",
+    "blueprint": {
+      "phase77": {
+        "sectionTitle": "Organisationens digitale tvilling (ABOS fase 77)",
+        "objectives": "Blueprint-mål",
+        "twinDefinition": "Hvad er en digital tvilling",
+        "organizationalMapping": "Organisationskortlægning",
+        "companionObservations": "Companion-observationer",
+        "simulationConnection": "Simuleringstilkobling",
+        "openSimulations": "Åbn Decision Lab",
+        "learningConnection": "Lærende organisation",
+        "selfLoveConnection": "Self Love-tilkobling",
+        "leadershipInsights": "Ledelsesindsigt",
+        "privacyPrinciples": "Privatlivsprincipper",
+        "successCriteria": "Succeskriterier",
+        "visionPhrases": "Vision",
+        "activeRoles": "Aktive roller",
+        "activeProcesses": "Aktive processer",
+        "openInsights": "Åbne indsigter",
+        "criterionMet": "Opfyldt",
+        "criterionPending": "Afventer"
+      }
+    }
   },
   "simulationLab": {
     "title": "Decision Lab",
@@ -2034,7 +2056,28 @@
     "incidentsSection": "Hændelser",
     "back": "Tilbage til Continuity",
     "notFound": "Hændelse ikke fundet.",
-    "recoveryActions": "Genopretningshandlinger"
+    "recoveryActions": "Genopretningshandlinger",
+    "blueprint": {
+      "phase73": {
+        "sectionTitle": "Organisatorisk kontinuitet (ABOS Fase 73)",
+        "objectives": "Kontinuitetsmål",
+        "knowledgeContinuity": "Videnkontinuitet",
+        "roleContinuity": "Rollekontinuitet",
+        "successionSupport": "Succession-støtte",
+        "operationalResilience": "Operationel modstandskraft",
+        "companionGuidance": "Companion-vejledning",
+        "onboardingConnection": "Onboarding-forbindelse",
+        "selfLoveConnection": "Self Love-forbindelse",
+        "privacyPrinciples": "Privatlivsprincipper",
+        "successCriteria": "Succeskriterier",
+        "visionPhrases": "Vision",
+        "engagementSummary": "Kontinuitetsengagementsoversigt",
+        "criticalProcessCount": "Kritiske processer",
+        "backupAssignments": "Backup-tildelinger",
+        "backupGaps": "Backup-huller",
+        "coverageRatio": "Dækningsgrad"
+      }
+    }
   },
   "strategyEngine": {
     "title": "Strategic Intelligence",
@@ -3035,7 +3078,27 @@
     "categoryAccess": "Adgang",
     "categoryKnowledge": "Videnspublicering",
     "categoryIntegration": "Integration",
-    "categoryRetention": "Opbevaring"
+    "categoryRetention": "Opbevaring",
+    "blueprint": {
+      "phase67": {
+        "objectives": "Blueprint-mål",
+        "boardPreparation": "Bestyrelsesforberedelse",
+        "boardMeetingSupport": "Støtte til bestyrelsesmøder",
+        "strategicOversight": "Strategisk tilsyn",
+        "riskAwareness": "Risikobevidsthed",
+        "governancePrinciples": "Governance-principper",
+        "decisionContinuity": "Beslutningskontinuitet",
+        "selfLoveConnection": "Self Love-forbindelse",
+        "trustConnection": "Tillidsforbindelse",
+        "dogfooding": "Dogfooding",
+        "engagementSummary": "Engagementsoversigt",
+        "scheduledReviews": "Planlagte gennemgange",
+        "overdueReviews": "Forfaldne gennemgange",
+        "successCriteria": "Blueprint succeskriterier",
+        "criterionMet": "Opfyldt",
+        "criterionPending": "I gang"
+      }
+    }
   },
   "unonightPilotOperationsEngine": {
     "title": "Unonight pilotdrift",
@@ -3274,7 +3337,27 @@
     "proactiveRecommendationsEnabled": "Proaktive anbefalinger",
     "healthScoringEnabled": "Helsescoring",
     "duplicateDetectionScaffold": "Duplikatdetektion (skelet)",
-    "organizationalMemorySync": "Organizational Memory-synk (skelet)"
+    "organizationalMemorySync": "Organizational Memory-synk (skelet)",
+    "blueprint": {
+      "phase71": {
+        "title": "Enterprise Knowledge Fabric (Fase 71)",
+        "objectives": "Fabric-mål",
+        "knowledgeSources": "Videnskilder",
+        "knowledgeDiscovery": "Vidensopdagelse",
+        "contextualIntelligence": "Kontekstuel intelligens",
+        "knowledgeGaps": "Videnshull",
+        "organizationalContinuity": "Organisationskontinuitet",
+        "engagementSummary": "Fabric engagementsoversigt",
+        "openSupportGaps": "Åbne support-hull",
+        "successCriteria": "Fase 71 succes-kriterier",
+        "selfLoveConnection": "Self Love-forbindelse",
+        "leadershipInsights": "Ledelsesindsigt",
+        "trustConnection": "Tillidsforbindelse",
+        "visionPhrases": "Fabric-vision",
+        "integrationLinks": "Fabric-integrationslinks",
+        "dogfooding": "Fabric dogfooding"
+      }
+    }
   },
   "auditAccountability": {
     "title": "Revision og ansvarlighed",
@@ -4920,6 +5003,25 @@
       "hypotheses": "Hypoteser (da)",
       "strategicSelfLove": "Self Love og bæredygtigt tempo (da)",
       "strategicSuccessCriteria": "Strategiske succeskriterier (da)"
+    },
+    "phase66": {
+      "companionEngagement": "Executive companion-engagement (da)",
+      "companionHealthScore": "Organisationshelbred (da)",
+      "companionReports": "Executive-rapporter (da)",
+      "companionRisks": "Operationelle risici (da)",
+      "companionActions": "Anbefalede handlinger (da)",
+      "companionObjectivesTitle": "Executive companion-mål (da)",
+      "companionDailyBriefings": "Executive daglige briefings (da)",
+      "leadershipPreparation": "Ledelsesforberedelse (da)",
+      "executiveReflection": "Executive refleksion (da)",
+      "companionPriorityAlignment": "Prioritetsjustering (companion) (da)",
+      "organizationalVisibility": "Organisationssynlighed (da)",
+      "executiveDecisionSupport": "Executive beslutningsstøtte (da)",
+      "companionTrust": "Tillid og transparens (companion) (da)",
+      "whatInformsObservations": "Hvad informerer observationer (da)",
+      "uncertaintyAreas": "Usikkerhedsområder (da)",
+      "companionSelfLove": "Self Love og bæredygtigt lederskab (da)",
+      "companionSuccessCriteria": "Executive companion succeskriterier (da)"
     }
   },
   "innovationImpactEngine": {
@@ -4994,7 +5096,28 @@
     "companionExamples": "Eksempler på ledsagerkommunikation",
     "successCriteria": "Succeskriterier",
     "selfLoveConnection": "Self Love-forbindelse",
-    "trustConnection": "Tillid og gennemsigtighed"
+    "trustConnection": "Tillid og gennemsigtighed",
+    "blueprint": {
+      "phase75": {
+        "phase75Title": "Executive Operations Center (Fase 75)",
+        "eocbpObjectives": "Executive mål",
+        "executiveDashboard": "Executive-dashboard",
+        "dailyExecutiveBriefings": "Daglige executive-briefings",
+        "executivePriorityCenter": "Executive prioritetscenter",
+        "organizationalHealthOverview": "Organisationshelbredsoversigt",
+        "meetingDecisionContinuity": "Møde- og beslutningskontinuitet",
+        "strategicMomentumTracking": "Strategisk momentumsporing",
+        "eocbpCompanionGuidance": "Ledsagervejledning (Fase 75)",
+        "eocbpEngagementSummary": "Executive engagementresumé",
+        "pendingLeadershipApprovals": "Afventende ledelsesgodkendelser",
+        "executiveOverviewSignals": "Executive oversigtssignaler",
+        "recognitionSignals": "Anerkendelsessignaler",
+        "eocbpSuccessCriteria": "Blueprint succeskriterier (Fase 75)",
+        "eocbpVisionPhrases": "Visionssætninger (Fase 75)",
+        "eocbpSelfLoveConnection": "Self Love-forbindelse (Fase 75)",
+        "eocbpTrustConnection": "Tillidsforbindelse (Fase 75)"
+      }
+    }
   },
   "continuousImprovementEngine": {
     "title": "Kontinuerlig forbedring",
@@ -5996,7 +6119,30 @@
     "detectFailed": "Opdagelse mislykkedes",
     "exportReport": "Eksporter rapport",
     "exporting": "Eksporterer…",
-    "exportFailed": "Eksport mislykkedes"
+    "exportFailed": "Eksport mislykkedes",
+    "blueprint": {
+      "phase68": {
+        "objectives": "Blueprint-mål",
+        "alignmentQuestions": "Justeringsspørgsmål",
+        "strategicCascading": "Strategisk kaskadering",
+        "crossFunctionalVisibility": "Tværfunktionel synlighed",
+        "companionGuidance": "Følgesvend-vejledning",
+        "goalCommunication": "Målkommunikation",
+        "selfLoveConnection": "Self Love-forbindelse",
+        "leadershipInsights": "Ledelsesindsigter",
+        "trustConnection": "Tillidsforbindelse",
+        "dogfooding": "Dogfooding",
+        "engagementSummary": "Engagementsoversigt",
+        "activeObjectives": "Aktive mål",
+        "linkedEntities": "Tilknyttede enheder",
+        "reviewsRecorded": "Registrerede gennemgange",
+        "latestMisaligned": "Seneste feiljusterede antal",
+        "successCriteria": "Blueprint succes-kriterier",
+        "criterionMet": "Opfyldt",
+        "criterionPending": "I gang",
+        "visionPhrases": "Visionsfraser"
+      }
+    }
   },
   "stakeholderCommunicationEngine": {
     "title": "Interessentkommunikation",
@@ -6076,7 +6222,40 @@
     "completeAction": "Afslut",
     "actionFailed": "Handling mislykkedes",
     "defaultMeetingTitle": "Teamsamarbejdssync",
-    "defaultDecisionText": "Gennemgå mødeudfald og bekræft næste skridt med ejere."
+    "defaultDecisionText": "Gennemgå mødeudfald og bekræft næste skridt med ejere.",
+    "blueprint": {
+      "phase72": {
+        "objectives": "Blueprint-mål",
+        "supportedPlatforms": "Understøttede platforme (fremtidigt skelet)",
+        "decisionTracking": "Beslutningssporing",
+        "companionInsights": "Companion-indsigter",
+        "meetingContinuity": "Mødekontinuitet",
+        "collaborationHealth": "Samarbejdssundhed",
+        "selfLoveConnection": "Self Love-forbindelse",
+        "engagementSummary": "Engagementsoversigt",
+        "decisionsLogged30d": "Beslutninger logget (30 dage)",
+        "overdueActions": "Forfaldne handlinger",
+        "supportedPlatformsCount": "Platformskelet",
+        "successCriteria": "Blueprint succes-kriterier (fase 72)",
+        "criterionMet": "Opfyldt",
+        "criterionPending": "I gang",
+        "visionPhrases": "Visionssætninger"
+      }
+    },
+    "teamsPrivacy": {
+      "title": "Teams-integration og privatlivsstandard",
+      "distinction": "Udvider A.61 og Blueprint fase 72 — samtykkebaseret Teams-skelet, ingen live OAuth eller rå lyd/video.",
+      "joinExperience": "Deltagelsesoplevelse",
+      "joinOptions": "Valg før møde",
+      "permitted": "Når godkendt kan Aipify",
+      "prohibited": "Aipify må ikke",
+      "savePreferences": "Gem-præferencer (standard: gem ikke)",
+      "postMeeting": "Flow efter møde",
+      "faq": "Privatlivs-FAQ",
+      "consentSummary": "Samtykkesammendrag (metadata-tællinger)",
+      "totalMeetings": "Samlet antal møder",
+      "withSummary": "Med resumémetadata"
+    }
   },
   "unifiedTaskFollowUpEngine": {
     "title": "Opgaver og opfølgning",
@@ -6203,7 +6382,28 @@
     "exportFailed": "Eksport mislykkedes",
     "activateObjective": "Aktiver",
     "approveCompletion": "Godkend fuldførelse",
-    "actionFailed": "Handling mislykkedes"
+    "actionFailed": "Handling mislykkedes",
+    "blueprint": {
+      "phase69": {
+        "objectives": "Blueprint-mål",
+        "strategicInitiatives": "Strategiske initiativer",
+        "executionCascade": "Udførelseskaskade",
+        "companionGuidance": "Følgesven-vejledning",
+        "progressVisibility": "Fremskridtssynlighed",
+        "adaptiveExecution": "Adaptiv udførelse",
+        "crossFunctionalCoordination": "Tværfunktionel koordinering",
+        "selfLoveConnection": "Self Love-forbindelse",
+        "leadershipInsights": "Ledelsesindsigter",
+        "trustConnection": "Tillidsforbindelse",
+        "dogfooding": "Dogfooding",
+        "engagementSummary": "Engagementssammendrag",
+        "totalKeyResults": "Samlet antal nøgleresultater",
+        "successCriteria": "Blueprint succes-kriterier",
+        "criterionMet": "Opfyldt",
+        "criterionPending": "I gang",
+        "visionPhrases": "Visionsfraser"
+      }
+    }
   },
   "predictiveInsightsEngine": {
     "title": "Prediktive indsigter",
@@ -6230,7 +6430,31 @@
     "generating": "Genererer…",
     "generateFailed": "Generering mislykkedes",
     "dismissInsight": "Afvis",
-    "actionFailed": "Handling mislykkedes"
+    "actionFailed": "Handling mislykkedes",
+    "blueprint": {
+      "phase74": {
+        "objectives": "Blueprint-mål",
+        "operationalPatternRecognition": "Operationel mønstergenkendelse",
+        "resourceAwareness": "Ressourcebevidsthed",
+        "bottleneckForecasting": "Flaskehalsprognoser",
+        "scenarioObservations": "Scenarioobservationer",
+        "executiveInsights": "Ledelsesindsigter",
+        "companionGuidance": "Companion-vejledning",
+        "selfLoveConnection": "Self Love-forbindelse",
+        "trustConnection": "Tillidsforbindelse",
+        "limitationPrinciples": "Begrænsningsprincipper",
+        "dogfooding": "Dogfooding",
+        "engagementSummary": "Engagementsoversigt",
+        "patternSignals": "Mønstresignaler",
+        "bottleneckForecasts": "Flaskehalsprognoser",
+        "successCriteria": "Blueprint succeskriterier",
+        "criterionMet": "Opfyldt",
+        "criterionPending": "I gang",
+        "visionPhrases": "Visionsfraser",
+        "forbidden": "Forbudt",
+        "required": "Påkrævet"
+      }
+    }
   },
   "crossTenantIntelligenceEngine": {
     "title": "Tvær-lejer intelligens",

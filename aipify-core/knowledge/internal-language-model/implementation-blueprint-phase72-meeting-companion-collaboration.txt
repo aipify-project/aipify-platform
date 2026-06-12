@@ -1,0 +1,53 @@
+ABOS Implementation Blueprint Phase 72 — Meeting Companion & Collaboration Engine
+Route: /app/meeting-collaboration-intelligence-engine
+Engine: Meeting & Collaboration Intelligence Engine Phase A.61
+Helpers: _mcbp_* (blueprint) · _mcie_* (engine)
+
+MISSION
+Capture decisions, commitments, and insights from meetings; strengthen collaboration and accountability.
+
+PHILOSOPHY
+Meeting value = shared understanding + clear next steps — better meetings, not more meetings.
+
+ABOS PRINCIPLE
+Meetings create shared understanding leading to meaningful action — not conversation alone.
+Aipify informs and prepares; humans decide.
+
+DISTINCTIONS
+- Distinct from Global Learning Network repo Phase 72 (/app/global-learning, /app/evolution)
+- Distinct from Multi-Agent Collaboration repo Phase 74 (/app/agents)
+- Distinct from Context Engine / Universal Calendar (calendar cross-link only)
+- Distinct from Unified Task A.62 (action items cross-link via create_task_from_source)
+- Distinct from Stakeholder Communication A.53 and Document Output A.59
+
+OBJECTIVES
+- Meeting summaries: topics, themes, agreements, open questions
+- Decision tracking: visible decisions with context
+- Action item creation: named owners, accountability
+- Follow-up reminders: gentle, non-judgmental
+- Meeting continuity: prior topics and open commitments
+- Collaboration improvement: awareness strengthens collaboration
+
+SUPPORTED PLATFORMS (FUTURE SCAFFOLD — NO FAKE INTEGRATIONS)
+Microsoft Teams/Outlook/365 · Google Meet/Calendar/Workspace · Zoom · Slack · Discord
+
+COMPANION PATTERNS
+🦉 Meeting continuity — previously discussed topics resurface gently
+🌹 Progress recognition — several meaningful outcomes emerged from today's discussions
+🔔 Decision visibility — pilot timing, training updates, strategic choices logged
+
+COLLABORATION HEALTH
+Repeated unresolved topics · unclear ownership · overloaded participants · missed follow-ups
+Awareness strengthens collaboration — not surveillance or blame.
+
+PRIVACY
+Organization controls recording permissions, consent, access boundaries, retention.
+Metadata only — no raw transcripts in RPCs. Trust through transparency.
+
+SELF LOVE CONNECTION
+Focus · healthy pacing · progress recognition · appreciation
+Cross-link /app/self-love-engine as principle only.
+
+VISION
+Our meetings have become significantly more effective.
+Clarity, connection, progress.

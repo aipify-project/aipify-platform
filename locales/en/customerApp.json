@@ -3022,7 +3022,29 @@
     "back": "Back to Digital Twin",
     "notFound": "Process not found.",
     "steps": "Process steps",
-    "escalationPath": "Escalation path"
+    "escalationPath": "Escalation path",
+    "blueprint": {
+      "phase77": {
+        "sectionTitle": "Organizational Digital Twin (ABOS Phase 77)",
+        "objectives": "Blueprint objectives",
+        "twinDefinition": "What is a Digital Twin",
+        "organizationalMapping": "Organizational mapping",
+        "companionObservations": "Companion observations",
+        "simulationConnection": "Simulation connection",
+        "openSimulations": "Open Decision Lab",
+        "learningConnection": "Learning organization connection",
+        "selfLoveConnection": "Self Love connection",
+        "leadershipInsights": "Leadership insights",
+        "privacyPrinciples": "Privacy principles",
+        "successCriteria": "Success criteria",
+        "visionPhrases": "Vision",
+        "activeRoles": "Active roles",
+        "activeProcesses": "Active processes",
+        "openInsights": "Open insights",
+        "criterionMet": "Met",
+        "criterionPending": "Pending"
+      }
+    }
   },
   "simulationLab": {
     "title": "Decision Lab",
@@ -3080,7 +3102,26 @@
     "viewExplanation": "View Trust explanation",
     "outcomes": "Forecasted outcomes",
     "assumptions": "Assumptions used",
-    "impactScore": "Impact score"
+    "impactScore": "Impact score",
+    "blueprint": {
+      "phase76": {
+        "sectionTitle": "Scenario Simulation Engine (ABOS Phase 76)",
+        "engagementSummary": "Scenario simulation engagement summary",
+        "objectives": "Scenario simulation objectives",
+        "scenarioTypes": "Scenario types",
+        "simulationQuestions": "Simulation questions",
+        "multipleFutures": "Multiple futures",
+        "companionGuidance": "Companion guidance",
+        "collaborativeSimulation": "Collaborative simulation",
+        "leadershipInsights": "Leadership insights",
+        "limitationPrinciples": "Limitation principles",
+        "successCriteria": "Success criteria",
+        "selfLoveConnection": "Self Love connection",
+        "trustConnection": "Trust connection",
+        "dogfooding": "Dogfooding",
+        "visionPhrases": "Vision"
+      }
+    }
   },
   "operationsCenter": {
     "title": "Operations Center",
@@ -3126,7 +3167,28 @@
     "incidentsSection": "Incident events",
     "back": "Back to Continuity",
     "notFound": "Incident not found.",
-    "recoveryActions": "Recovery actions"
+    "recoveryActions": "Recovery actions",
+    "blueprint": {
+      "phase73": {
+        "sectionTitle": "Organizational Continuity (ABOS Phase 73)",
+        "objectives": "Continuity objectives",
+        "knowledgeContinuity": "Knowledge continuity",
+        "roleContinuity": "Role continuity",
+        "successionSupport": "Succession support",
+        "operationalResilience": "Operational resilience",
+        "companionGuidance": "Companion guidance",
+        "onboardingConnection": "Onboarding connection",
+        "selfLoveConnection": "Self Love connection",
+        "privacyPrinciples": "Privacy principles",
+        "successCriteria": "Success criteria",
+        "visionPhrases": "Vision",
+        "engagementSummary": "Continuity engagement summary",
+        "criticalProcessCount": "Critical processes",
+        "backupAssignments": "Backup assignments",
+        "backupGaps": "Backup gaps",
+        "coverageRatio": "Coverage ratio"
+      }
+    }
   },
   "strategyEngine": {
     "title": "Strategic Intelligence",
@@ -4064,7 +4126,27 @@
     "categoryAccess": "Access",
     "categoryKnowledge": "Knowledge Publishing",
     "categoryIntegration": "Integration",
-    "categoryRetention": "Retention"
+    "categoryRetention": "Retention",
+    "blueprint": {
+      "phase67": {
+        "objectives": "Blueprint objectives",
+        "boardPreparation": "Board preparation",
+        "boardMeetingSupport": "Board meeting support",
+        "strategicOversight": "Strategic oversight",
+        "riskAwareness": "Risk awareness",
+        "governancePrinciples": "Governance principles",
+        "decisionContinuity": "Decision continuity",
+        "selfLoveConnection": "Self Love connection",
+        "trustConnection": "Trust connection",
+        "dogfooding": "Dogfooding",
+        "engagementSummary": "Engagement summary",
+        "scheduledReviews": "Scheduled reviews",
+        "overdueReviews": "Overdue reviews",
+        "successCriteria": "Blueprint success criteria",
+        "criterionMet": "Met",
+        "criterionPending": "In progress"
+      }
+    }
   },
   "unonightPilotOperationsEngine": {
     "title": "Unonight Pilot Operations",
@@ -4402,7 +4484,27 @@
     "proactiveRecommendationsEnabled": "Proactive recommendations",
     "healthScoringEnabled": "Health scoring",
     "duplicateDetectionScaffold": "Duplicate detection (scaffold)",
-    "organizationalMemorySync": "Organizational Memory sync (scaffold)"
+    "organizationalMemorySync": "Organizational Memory sync (scaffold)",
+    "blueprint": {
+      "phase71": {
+        "title": "Enterprise Knowledge Fabric (Phase 71)",
+        "objectives": "Fabric objectives",
+        "knowledgeSources": "Knowledge sources",
+        "knowledgeDiscovery": "Knowledge discovery",
+        "contextualIntelligence": "Contextual intelligence",
+        "knowledgeGaps": "Knowledge gaps",
+        "organizationalContinuity": "Organizational continuity",
+        "engagementSummary": "Fabric engagement summary",
+        "openSupportGaps": "Open support gaps",
+        "successCriteria": "Phase 71 success criteria",
+        "selfLoveConnection": "Self Love connection",
+        "leadershipInsights": "Leadership insights",
+        "trustConnection": "Trust connection",
+        "visionPhrases": "Fabric vision",
+        "integrationLinks": "Fabric integration links",
+        "dogfooding": "Fabric dogfooding"
+      }
+    }
   },
   "auditAccountability": {
     "title": "Audit & Accountability",
@@ -5268,6 +5370,25 @@
       "hypotheses": "Hypotheses",
       "strategicSelfLove": "Self Love & sustainable pacing",
       "strategicSuccessCriteria": "Strategic success criteria"
+    },
+    "phase66": {
+      "companionEngagement": "Executive companion engagement",
+      "companionHealthScore": "Organization health",
+      "companionReports": "Executive reports",
+      "companionRisks": "Operational risks",
+      "companionActions": "Recommended actions",
+      "companionObjectivesTitle": "Executive companion objectives",
+      "companionDailyBriefings": "Executive daily briefings",
+      "leadershipPreparation": "Leadership preparation",
+      "executiveReflection": "Executive reflection",
+      "companionPriorityAlignment": "Priority alignment (companion)",
+      "organizationalVisibility": "Organizational visibility",
+      "executiveDecisionSupport": "Executive decision support",
+      "companionTrust": "Trust & transparency (companion)",
+      "whatInformsObservations": "What informs observations",
+      "uncertaintyAreas": "Uncertainty areas",
+      "companionSelfLove": "Self Love & sustainable leadership",
+      "companionSuccessCriteria": "Executive companion success criteria"
     }
   },
   "innovationImpactEngine": {
@@ -5342,7 +5463,48 @@
     "companionExamples": "Companion communication examples",
     "successCriteria": "Success criteria",
     "selfLoveConnection": "Self Love connection",
-    "trustConnection": "Trust & transparency"
+    "trustConnection": "Trust & transparency",
+    "blueprint": {
+      "phase70": {
+        "blueprintObjectives": "Blueprint objectives",
+        "organizationalConnections": "Organizational connections",
+        "crossFunctionalObservations": "Cross-functional observations",
+        "informationFlowVisibility": "Information flow visibility",
+        "bottleneckIdentification": "Bottleneck identification",
+        "collaborationOpportunities": "Collaboration opportunities",
+        "leadershipInsights": "Leadership insights",
+        "privacyPrinciples": "Privacy principles",
+        "engagementSummary": "Engagement summary",
+        "moduleOverviewBlocks": "Module overview blocks",
+        "openOperationsEvents": "Open operations events",
+        "urgentOperationsEvents": "Urgent operations events",
+        "tasksOverdue": "Tasks overdue",
+        "knowledgeOpenGaps": "Knowledge open gaps",
+        "blueprintSuccessCriteria": "Blueprint success criteria (Phase 70)",
+        "visionPhrases": "Vision phrases",
+        "blueprintSelfLoveConnection": "Self Love connection (Phase 70)",
+        "blueprintTrustConnection": "Trust connection (Phase 70)"
+      },
+      "phase75": {
+        "phase75Title": "Executive Operations Center (Phase 75)",
+        "eocbpObjectives": "Executive objectives",
+        "executiveDashboard": "Executive dashboard",
+        "dailyExecutiveBriefings": "Daily executive briefings",
+        "executivePriorityCenter": "Executive priority center",
+        "organizationalHealthOverview": "Organizational health overview",
+        "meetingDecisionContinuity": "Meeting & decision continuity",
+        "strategicMomentumTracking": "Strategic momentum tracking",
+        "eocbpCompanionGuidance": "Companion guidance (Phase 75)",
+        "eocbpEngagementSummary": "Executive engagement summary",
+        "pendingLeadershipApprovals": "Pending leadership approvals",
+        "executiveOverviewSignals": "Executive overview signals",
+        "recognitionSignals": "Recognition signals",
+        "eocbpSuccessCriteria": "Blueprint success criteria (Phase 75)",
+        "eocbpVisionPhrases": "Vision phrases (Phase 75)",
+        "eocbpSelfLoveConnection": "Self Love connection (Phase 75)",
+        "eocbpTrustConnection": "Trust connection (Phase 75)"
+      }
+    }
   },
   "continuousImprovementEngine": {
     "title": "Continuous Improvement",
@@ -6366,7 +6528,30 @@
     "detectFailed": "Detection failed",
     "exportReport": "Export report",
     "exporting": "Exporting…",
-    "exportFailed": "Export failed"
+    "exportFailed": "Export failed",
+    "blueprint": {
+      "phase68": {
+        "objectives": "Blueprint objectives",
+        "alignmentQuestions": "Alignment questions",
+        "strategicCascading": "Strategic cascading",
+        "crossFunctionalVisibility": "Cross-functional visibility",
+        "companionGuidance": "Companion guidance",
+        "goalCommunication": "Goal communication",
+        "selfLoveConnection": "Self Love connection",
+        "leadershipInsights": "Leadership insights",
+        "trustConnection": "Trust connection",
+        "dogfooding": "Dogfooding",
+        "engagementSummary": "Engagement summary",
+        "activeObjectives": "Active objectives",
+        "linkedEntities": "Linked entities",
+        "reviewsRecorded": "Reviews recorded",
+        "latestMisaligned": "Latest misaligned count",
+        "successCriteria": "Blueprint success criteria",
+        "criterionMet": "Met",
+        "criterionPending": "In progress",
+        "visionPhrases": "Vision phrases"
+      }
+    }
   },
   "stakeholderCommunicationEngine": {
     "title": "Stakeholder Communications",
@@ -6500,7 +6685,40 @@
     "completeAction": "Complete action",
     "actionFailed": "Action failed",
     "defaultMeetingTitle": "Team meeting",
-    "defaultDecisionText": "Decision recorded"
+    "defaultDecisionText": "Decision recorded",
+    "blueprint": {
+      "phase72": {
+        "objectives": "Blueprint objectives",
+        "supportedPlatforms": "Supported platforms (future scaffold)",
+        "decisionTracking": "Decision tracking",
+        "companionInsights": "Companion insights",
+        "meetingContinuity": "Meeting continuity",
+        "collaborationHealth": "Collaboration health",
+        "selfLoveConnection": "Self Love connection",
+        "engagementSummary": "Engagement summary",
+        "decisionsLogged30d": "Decisions logged (30 days)",
+        "overdueActions": "Overdue actions",
+        "supportedPlatformsCount": "Platform scaffolds",
+        "successCriteria": "Blueprint success criteria (Phase 72)",
+        "criterionMet": "Met",
+        "criterionPending": "In progress",
+        "visionPhrases": "Vision phrases"
+      }
+    },
+    "teamsPrivacy": {
+      "title": "Teams Integration & Privacy Standard",
+      "distinction": "Extends A.61 and Blueprint Phase 72 — consent-based Teams scaffold, no live OAuth or raw audio/video.",
+      "joinExperience": "Join experience",
+      "joinOptions": "Pre-meeting join options",
+      "permitted": "When approved, Aipify can",
+      "prohibited": "Aipify must not",
+      "savePreferences": "Save preferences (default: do not save)",
+      "postMeeting": "Post-meeting flow",
+      "faq": "Privacy FAQ",
+      "consentSummary": "Consent summary (metadata counts)",
+      "totalMeetings": "Total meetings",
+      "withSummary": "With summary metadata"
+    }
   },
   "unifiedTaskFollowUpEngine": {
     "title": "Tasks & Follow-Up",
@@ -6627,7 +6845,28 @@
     "exportFailed": "Export failed",
     "activateObjective": "Activate",
     "approveCompletion": "Approve completion",
-    "actionFailed": "Action failed"
+    "actionFailed": "Action failed",
+    "blueprint": {
+      "phase69": {
+        "objectives": "Blueprint objectives",
+        "strategicInitiatives": "Strategic initiatives",
+        "executionCascade": "Execution cascade",
+        "companionGuidance": "Companion guidance",
+        "progressVisibility": "Progress visibility",
+        "adaptiveExecution": "Adaptive execution",
+        "crossFunctionalCoordination": "Cross-functional coordination",
+        "selfLoveConnection": "Self Love connection",
+        "leadershipInsights": "Leadership insights",
+        "trustConnection": "Trust connection",
+        "dogfooding": "Dogfooding",
+        "engagementSummary": "Engagement summary",
+        "totalKeyResults": "Total key results",
+        "successCriteria": "Blueprint success criteria",
+        "criterionMet": "Met",
+        "criterionPending": "In progress",
+        "visionPhrases": "Vision phrases"
+      }
+    }
   },
   "predictiveInsightsEngine": {
     "title": "Predictive Insights",
@@ -6654,7 +6893,31 @@
     "generating": "Generating…",
     "generateFailed": "Generation failed",
     "dismissInsight": "Dismiss",
-    "actionFailed": "Action failed"
+    "actionFailed": "Action failed",
+    "blueprint": {
+      "phase74": {
+        "objectives": "Blueprint objectives",
+        "operationalPatternRecognition": "Operational pattern recognition",
+        "resourceAwareness": "Resource awareness",
+        "bottleneckForecasting": "Bottleneck forecasting",
+        "scenarioObservations": "Scenario observations",
+        "executiveInsights": "Executive insights",
+        "companionGuidance": "Companion guidance",
+        "selfLoveConnection": "Self Love connection",
+        "trustConnection": "Trust connection",
+        "limitationPrinciples": "Limitation principles",
+        "dogfooding": "Dogfooding",
+        "engagementSummary": "Engagement summary",
+        "patternSignals": "Pattern signals",
+        "bottleneckForecasts": "Bottleneck forecasts",
+        "successCriteria": "Blueprint success criteria",
+        "criterionMet": "Met",
+        "criterionPending": "In progress",
+        "visionPhrases": "Vision phrases",
+        "forbidden": "Forbidden",
+        "required": "Required"
+      }
+    }
   },
   "crossTenantIntelligenceEngine": {
     "title": "Cross-Tenant Intelligence",

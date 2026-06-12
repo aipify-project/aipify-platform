@@ -7,6 +7,7 @@ export default async function KnowledgeCenterEnginePage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
   const p = "customerApp.knowledgeCenterEngine";
+  const b = `${p}.blueprint.phase71`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -79,6 +80,22 @@ export default async function KnowledgeCenterEnginePage() {
           healthScoringEnabled: t(`${p}.healthScoringEnabled`),
           duplicateDetectionScaffold: t(`${p}.duplicateDetectionScaffold`),
           organizationalMemorySync: t(`${p}.organizationalMemorySync`),
+          fabricTitle: t(`${b}.title`),
+          fabricObjectives: t(`${b}.objectives`),
+          knowledgeSources: t(`${b}.knowledgeSources`),
+          knowledgeDiscovery: t(`${b}.knowledgeDiscovery`),
+          contextualIntelligence: t(`${b}.contextualIntelligence`),
+          fabricKnowledgeGaps: t(`${b}.knowledgeGaps`),
+          organizationalContinuity: t(`${b}.organizationalContinuity`),
+          engagementSummary: t(`${b}.engagementSummary`),
+          openSupportGaps: t(`${b}.openSupportGaps`),
+          fabricSuccessCriteria: t(`${b}.successCriteria`),
+          fabricSelfLoveConnection: t(`${b}.selfLoveConnection`),
+          leadershipInsights: t(`${b}.leadershipInsights`),
+          fabricTrustConnection: t(`${b}.trustConnection`),
+          fabricVisionPhrases: t(`${b}.visionPhrases`),
+          fabricIntegrationLinks: t(`${b}.integrationLinks`),
+          fabricDogfooding: t(`${b}.dogfooding`),
         }}
       />
     </div>

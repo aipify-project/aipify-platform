@@ -7,6 +7,7 @@ export default async function PredictiveInsightsEnginePage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
   const p = "customerApp.predictiveInsightsEngine";
+  const b = `${p}.blueprint.phase74`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -37,6 +38,26 @@ export default async function PredictiveInsightsEnginePage() {
           generateFailed: t(`${p}.generateFailed`),
           dismissInsight: t(`${p}.dismissInsight`),
           actionFailed: t(`${p}.actionFailed`),
+          blueprintObjectives: t(`${b}.objectives`),
+          operationalPatternRecognition: t(`${b}.operationalPatternRecognition`),
+          resourceAwareness: t(`${b}.resourceAwareness`),
+          bottleneckForecasting: t(`${b}.bottleneckForecasting`),
+          scenarioObservations: t(`${b}.scenarioObservations`),
+          executiveInsights: t(`${b}.executiveInsights`),
+          companionGuidance: t(`${b}.companionGuidance`),
+          selfLoveConnection: t(`${b}.selfLoveConnection`),
+          trustConnection: t(`${b}.trustConnection`),
+          limitationPrinciples: t(`${b}.limitationPrinciples`),
+          dogfooding: t(`${b}.dogfooding`),
+          engagementSummary: t(`${b}.engagementSummary`),
+          patternSignals: t(`${b}.patternSignals`),
+          bottleneckForecasts: t(`${b}.bottleneckForecasts`),
+          successCriteria: t(`${b}.successCriteria`),
+          criterionMet: t(`${b}.criterionMet`),
+          criterionPending: t(`${b}.criterionPending`),
+          visionPhrases: t(`${b}.visionPhrases`),
+          forbidden: t(`${b}.forbidden`),
+          required: t(`${b}.required`),
         }} />
     </div>
   );

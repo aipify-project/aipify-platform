@@ -4,12 +4,55 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseGovernancePolicyEngineDashboard,
+  type BlueprintObjective,
+  type CompanionExample,
   type GovernancePolicyEngineDashboard,
 } from "@/lib/aipify/governance-policy-engine";
 
 type GovernancePolicyEngineDashboardPanelProps = {
   labels: Record<string, string>;
 };
+
+function ObjectiveCard({ objective }: { objective: BlueprintObjective }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+      <span className="font-medium">{objective.label}</span>
+      {objective.description ? <p className="mt-1 text-xs text-gray-600">{objective.description}</p> : null}
+    </div>
+  );
+}
+
+function CompanionCard({ example }: { example: CompanionExample }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+      <span className="font-medium">
+        {example.emoji ? `${example.emoji} ` : ""}
+        {example.scenario}
+      </span>
+      {example.example ? <p className="mt-1 text-xs text-gray-600">{example.example}</p> : null}
+    </div>
+  );
+}
+
+function SuccessCriterionRow({
+  criterion,
+  metLabel,
+  pendingLabel,
+}: {
+  criterion: { key?: string; label?: string; met?: boolean; note?: string | null };
+  metLabel: string;
+  pendingLabel: string;
+}) {
+  return (
+    <div className="flex flex-wrap items-start justify-between gap-2 rounded border border-gray-100 px-3 py-2 text-sm">
+      <span className="text-gray-800">{criterion.label}</span>
+      <span className={criterion.met ? "text-xs text-green-700" : "text-xs text-amber-700"}>
+        {criterion.met ? metLabel : pendingLabel}
+      </span>
+      {criterion.note ? <p className="w-full text-xs text-gray-500">{criterion.note}</p> : null}
+    </div>
+  );
+}
 
 function severityClass(severity?: string) {
   switch (severity) {
@@ -80,6 +123,8 @@ export function GovernancePolicyEngineDashboardPanel({
   if (!dashboard?.has_organization) return null;
 
   const settings = dashboard.settings ?? {};
+  const engagement = dashboard.engagement_summary;
+  const blueprintLinks = dashboard.blueprint_integration_links ?? [];
 
   return (
     <div className="space-y-6">
@@ -96,12 +141,42 @@ export function GovernancePolicyEngineDashboardPanel({
         <Link href="/app/approvals" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.approvals}
         </Link>
+        {blueprintLinks.slice(0, 4).map((link) =>
+          link.route ? (
+            <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+              {link.label ?? link.route}
+            </Link>
+          ) : null
+        )}
       </div>
 
       <section className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-6">
         <h2 className="text-sm font-semibold text-indigo-900">{labels.governancePolicyEngine}</h2>
         <p className="mt-2 text-sm text-indigo-900">{dashboard.philosophy}</p>
         <p className="mt-1 text-xs text-indigo-700">{dashboard.safety_note}</p>
+        {dashboard.implementation_blueprint_phase67?.phase ? (
+          <p className="mt-2 text-xs text-indigo-600">
+            {dashboard.implementation_blueprint_phase67.phase}
+            {dashboard.implementation_blueprint_phase67.engine_phase
+              ? ` · ${dashboard.implementation_blueprint_phase67.engine_phase}`
+              : ""}
+          </p>
+        ) : null}
+        {dashboard.blueprint_mission ? (
+          <p className="mt-2 text-sm font-medium text-indigo-900">{dashboard.blueprint_mission}</p>
+        ) : null}
+        {dashboard.blueprint_philosophy ? (
+          <p className="mt-2 text-sm text-indigo-900">{dashboard.blueprint_philosophy}</p>
+        ) : null}
+        {dashboard.blueprint_abos_principle ? (
+          <p className="mt-2 text-xs text-indigo-800">{dashboard.blueprint_abos_principle}</p>
+        ) : null}
+        {dashboard.board_governance_companion_note ? (
+          <p className="mt-2 text-xs text-indigo-700">{dashboard.board_governance_companion_note}</p>
+        ) : null}
+        {dashboard.metadata_note ? (
+          <p className="mt-2 text-xs text-indigo-600">{dashboard.metadata_note}</p>
+        ) : null}
       </section>
 
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -240,6 +315,165 @@ export function GovernancePolicyEngineDashboardPanel({
               </li>
             ))}
           </ul>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_objectives && dashboard.blueprint_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.blueprintObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.blueprint_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.board_preparation && dashboard.board_preparation.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.boardPreparation}</h3>
+          <div className="mt-3 space-y-3">
+            {dashboard.board_preparation.map((item) => (
+              <CompanionCard key={item.key ?? item.scenario} example={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.board_meeting_support?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.boardMeetingSupport}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.board_meeting_support.principle}</p>
+          {dashboard.board_meeting_support.support_types && dashboard.board_meeting_support.support_types.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.board_meeting_support.support_types.map((item) => (
+                <ObjectiveCard key={item.key ?? item.label} objective={item} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.strategic_oversight?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.strategicOversight}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.strategic_oversight.principle}</p>
+          {dashboard.strategic_oversight.oversight_areas && dashboard.strategic_oversight.oversight_areas.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.strategic_oversight.oversight_areas.map((item) => (
+                <ObjectiveCard key={item.key ?? item.label} objective={item} />
+              ))}
+            </div>
+          ) : null}
+          {dashboard.strategic_oversight.balanced_oversight_note ? (
+            <p className="mt-2 text-xs text-gray-500">{dashboard.strategic_oversight.balanced_oversight_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.risk_awareness && dashboard.risk_awareness.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.riskAwareness}</h3>
+          <div className="mt-3 space-y-3">
+            {dashboard.risk_awareness.map((item) => (
+              <CompanionCard key={item.key ?? item.scenario} example={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.blueprint_governance_principles && dashboard.blueprint_governance_principles.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.blueprintGovernancePrinciples}</h3>
+          <ul className="mt-3 space-y-2">
+            {dashboard.blueprint_governance_principles.map((principle) => (
+              <li key={principle.key ?? principle.label} className="text-sm text-gray-700">
+                {principle.emoji ? `${principle.emoji} ` : ""}
+                {principle.label}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.decision_continuity?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.decisionContinuity}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.decision_continuity.principle}</p>
+          {dashboard.decision_continuity.continuity_elements &&
+          dashboard.decision_continuity.continuity_elements.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.decision_continuity.continuity_elements.map((item) => (
+                <ObjectiveCard key={item.key ?? item.label} objective={item} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.self_love_connection?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.selfLoveConnection}</h3>
+          <p className="mt-2">{dashboard.self_love_connection.principle}</p>
+          {dashboard.self_love_connection.companion_patterns &&
+          dashboard.self_love_connection.companion_patterns.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {dashboard.self_love_connection.companion_patterns.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.trust_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.trustConnection}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.trust_connection.principle}</p>
+          {dashboard.trust_connection.what_informs_observations &&
+          dashboard.trust_connection.what_informs_observations.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+              {dashboard.trust_connection.what_informs_observations.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.dogfooding?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.dogfooding}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.dogfooding.principle}</p>
+        </section>
+      ) : null}
+
+      {engagement ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.engagementSummary}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>{labels.activePolicies}: {engagement.active_policies ?? 0}</span>
+            <span>{labels.openViolations}: {engagement.open_violations ?? 0}</span>
+            <span>{labels.scheduledReviews}: {engagement.scheduled_reviews ?? 0}</span>
+            <span>{labels.overdueReviews}: {engagement.overdue_reviews ?? 0}</span>
+            <span>{labels.pendingApprovals}: {engagement.pending_approvals ?? 0}</span>
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.success_criteria && dashboard.success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.successCriteria}</h3>
+          <div className="mt-3 space-y-2">
+            {dashboard.success_criteria.map((criterion) => (
+              <SuccessCriterionRow
+                key={criterion.key ?? criterion.label}
+                criterion={criterion}
+                metLabel={labels.criterionMet}
+                pendingLabel={labels.criterionPending}
+              />
+            ))}
+          </div>
         </section>
       ) : null}
 

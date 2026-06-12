@@ -1,0 +1,107 @@
+IMPLEMENTATION BLUEPRINT PHASE 71 — ENTERPRISE KNOWLEDGE FABRIC ENGINE
+======================================================================
+
+Route: /app/knowledge-center-engine
+Engine: Knowledge Center Engine (Phase A.5)
+Extends: Blueprint Phases 3 and 14 — preserve ALL fields
+Helpers: _ekfbp_* (blueprint) · _kce_* (engine)
+
+DISTINCTION
+-----------
+- ABOS Blueprint Phase 71 → unified tenant knowledge fabric at /app/knowledge-center-engine
+- Cross-Tenant Intelligence A.71 → /app/cross-tenant-intelligence-engine (repo phase number collision)
+- KC Phase 55 self-knowledge → /app/knowledge-center (Aipify product answers)
+- Organizational Memory A.34 → /app/organizational-memory-engine (Phase 55 memory continuity cross-link)
+- Employee Knowledge EKE Phase 41 → /app/settings/employee-knowledge
+- Business DNA → /app/settings/business-dna
+- Wisdom Engine A.93 → /app/wisdom-engine
+
+MISSION
+-------
+Unified knowledge fabric spanning the enterprise — continuity, decision-making, operational effectiveness.
+
+PHILOSOPHY
+----------
+Hidden knowledge loses value. Right people, right information, right time. Wisdom when actionable — not overload.
+
+ABOS PRINCIPLE
+--------------
+Knowledge surviving beyond roles becomes strategic advantage. Aipify informs and prepares; humans decide.
+
+OBJECTIVES
+----------
+- Knowledge unification
+- Contextual retrieval
+- Cross-system understanding
+- Knowledge governance
+- Organizational continuity
+- Actionable intelligence
+
+KNOWLEDGE SOURCES
+-----------------
+Internal docs · KC articles · policies/procedures · meeting summaries (metadata) · support histories (metadata) · training resources · workflow docs · future integrations (read-only first)
+
+KNOWLEDGE DISCOVERY (🦉 🌹 🔔)
+-------------------------------
+🦉 Relevant resources — contextual retrieval of published articles and FAQs
+🌹 Similar documented situations — related content from category metadata
+🔔 Articles needing review — stale content, overdue reviews, draft queue
+
+CONTEXTUAL INTELLIGENCE
+-----------------------
+Why document matters · related assets · previous decisions (Organizational Memory cross-link) · recommended next steps
+Understanding, not overload.
+
+KNOWLEDGE GOVERNANCE
+--------------------
+Ownership · review schedules · approval requirements · access boundaries
+KC approval workflow remains authoritative.
+
+KNOWLEDGE GAPS (🦉 🌹 🔔)
+-------------------------
+🦉 Recurring questions need docs — support_ai_knowledge_gaps metadata only
+🌹 Undocumented practices — workflow changes without playbook updates
+🔔 Knowledge concentration risks — critical topics with few authors
+
+ORGANIZATIONAL CONTINUITY
+-------------------------
+Reduce individual dependency · preserve institutional knowledge · onboarding · strategic memory
+Cross-link Organizational Memory A.34.
+
+SELF LOVE CONNECTION
+--------------------
+Clarity · confidence · reduced cognitive burden · shared learning
+"Knowledge shared generously benefits everyone."
+Route: /app/self-love-engine
+
+LEADERSHIP INSIGHTS
+-------------------
+Knowledge health · emerging documentation needs · positive sharing practices
+Metadata only — encourages dialogue.
+
+TRUST
+-----
+Sources in responses · confidence levels · approval processes for visibility
+Metadata only — no raw support chat or customer content.
+
+DOGFOODING
+----------
+Aipify Group: product documentation · Sales Expert training · companion guidance · organizational learning
+Unonight: marketplace operations · support escalation reviews · pilot lessons · onboarding paths
+
+SUCCESS CRITERIA
+----------------
+Easier access · visible gaps · stronger continuity · improved onboarding · increased trust in knowledge
+
+VISION
+------
+"We know more than we realized, and we can now access that knowledge when it matters most."
+Knowledge flows freely, responsibly, meaningfully.
+
+PREFERRED WORDING
+-----------------
+- "Enterprise knowledge fabric" not "company wiki replacement"
+- "Contextual retrieval" not "dump all documents"
+- "Published and approved" not "everything the AI found"
+- "Metadata only" when describing support or gap signals
+- "Humans approve" for all publication changes

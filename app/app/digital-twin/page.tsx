@@ -7,6 +7,7 @@ export default async function DigitalTwinPage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
   const p = "customerApp.digitalTwin";
+  const bp = `${p}.blueprint.phase77`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -30,6 +31,24 @@ export default async function DigitalTwinPage() {
           reviewRecommended: t(`${p}.reviewRecommended`),
           integrations: t(`${p}.integrations`),
           safetyNote: t(`${p}.safetyNote`),
+          blueprintSection: t(`${bp}.sectionTitle`),
+          objectives: t(`${bp}.objectives`),
+          twinDefinition: t(`${bp}.twinDefinition`),
+          organizationalMapping: t(`${bp}.organizationalMapping`),
+          companionObservations: t(`${bp}.companionObservations`),
+          simulationConnection: t(`${bp}.simulationConnection`),
+          openSimulations: t(`${bp}.openSimulations`),
+          learningConnection: t(`${bp}.learningConnection`),
+          selfLoveConnection: t(`${bp}.selfLoveConnection`),
+          leadershipInsights: t(`${bp}.leadershipInsights`),
+          privacyPrinciples: t(`${bp}.privacyPrinciples`),
+          successCriteria: t(`${bp}.successCriteria`),
+          visionPhrases: t(`${bp}.visionPhrases`),
+          activeRoles: t(`${bp}.activeRoles`),
+          activeProcesses: t(`${bp}.activeProcesses`),
+          openInsights: t(`${bp}.openInsights`),
+          criterionMet: t(`${bp}.criterionMet`),
+          criterionPending: t(`${bp}.criterionPending`),
         }}
       />
     </div>

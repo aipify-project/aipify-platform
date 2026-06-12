@@ -123,6 +123,72 @@ export function parseKnowledgeCenterEngineDashboard(data: unknown): KnowledgeCen
     integration_links: Array.isArray(d.integration_links)
       ? (d.integration_links as KnowledgeCenterEngineDashboard["integration_links"])
       : undefined,
+    implementation_blueprint_phase71:
+      typeof d.implementation_blueprint_phase71 === "object" && d.implementation_blueprint_phase71
+        ? (d.implementation_blueprint_phase71 as Record<string, unknown>)
+        : undefined,
+    enterprise_knowledge_fabric_note:
+      typeof d.enterprise_knowledge_fabric_note === "string" ? d.enterprise_knowledge_fabric_note : undefined,
+    blueprint_distinction_note:
+      typeof d.blueprint_distinction_note === "string" ? d.blueprint_distinction_note : undefined,
+    fabric_mission: typeof d.fabric_mission === "string" ? d.fabric_mission : undefined,
+    fabric_philosophy: typeof d.fabric_philosophy === "string" ? d.fabric_philosophy : undefined,
+    fabric_abos_principle: typeof d.fabric_abos_principle === "string" ? d.fabric_abos_principle : undefined,
+    fabric_objectives: Array.isArray(d.fabric_objectives)
+      ? (d.fabric_objectives as KnowledgeCenterEngineDashboard["fabric_objectives"])
+      : undefined,
+    knowledge_sources: Array.isArray(d.knowledge_sources)
+      ? (d.knowledge_sources as KnowledgeCenterEngineDashboard["knowledge_sources"])
+      : undefined,
+    knowledge_discovery:
+      typeof d.knowledge_discovery === "object" && d.knowledge_discovery
+        ? (d.knowledge_discovery as KnowledgeCenterEngineDashboard["knowledge_discovery"])
+        : undefined,
+    contextual_intelligence:
+      typeof d.contextual_intelligence === "object" && d.contextual_intelligence
+        ? (d.contextual_intelligence as KnowledgeCenterEngineDashboard["contextual_intelligence"])
+        : undefined,
+    fabric_knowledge_governance:
+      typeof d.fabric_knowledge_governance === "object" && d.fabric_knowledge_governance
+        ? (d.fabric_knowledge_governance as Record<string, unknown>)
+        : undefined,
+    fabric_knowledge_gaps:
+      typeof d.fabric_knowledge_gaps === "object" && d.fabric_knowledge_gaps
+        ? (d.fabric_knowledge_gaps as KnowledgeCenterEngineDashboard["fabric_knowledge_gaps"])
+        : undefined,
+    organizational_continuity:
+      typeof d.organizational_continuity === "object" && d.organizational_continuity
+        ? (d.organizational_continuity as Record<string, unknown>)
+        : undefined,
+    fabric_self_love_connection:
+      typeof d.fabric_self_love_connection === "object" && d.fabric_self_love_connection
+        ? (d.fabric_self_love_connection as KnowledgeCenterEngineDashboard["fabric_self_love_connection"])
+        : undefined,
+    leadership_insights:
+      typeof d.leadership_insights === "object" && d.leadership_insights
+        ? (d.leadership_insights as Record<string, unknown>)
+        : undefined,
+    fabric_trust_connection:
+      typeof d.fabric_trust_connection === "object" && d.fabric_trust_connection
+        ? (d.fabric_trust_connection as Record<string, unknown>)
+        : undefined,
+    fabric_dogfooding:
+      typeof d.fabric_dogfooding === "object" && d.fabric_dogfooding
+        ? (d.fabric_dogfooding as Record<string, unknown>)
+        : undefined,
+    engagement_summary:
+      typeof d.engagement_summary === "object" && d.engagement_summary
+        ? (d.engagement_summary as KnowledgeCenterEngineDashboard["engagement_summary"])
+        : undefined,
+    fabric_success_criteria: Array.isArray(d.fabric_success_criteria)
+      ? (d.fabric_success_criteria as KnowledgeCenterEngineDashboard["fabric_success_criteria"])
+      : undefined,
+    fabric_vision_phrases: Array.isArray(d.fabric_vision_phrases)
+      ? (d.fabric_vision_phrases as string[])
+      : undefined,
+    fabric_integration_links: Array.isArray(d.fabric_integration_links)
+      ? (d.fabric_integration_links as KnowledgeCenterEngineDashboard["fabric_integration_links"])
+      : undefined,
     ...d,
   } as KnowledgeCenterEngineDashboard;
 }

@@ -130,8 +130,23 @@ export function ExecutiveInsightsEngineDashboardPanel({ labels }: Props) {
         {dashboard.strategic_thinking_note ? (
           <p className="mt-1 text-xs text-indigo-800">{dashboard.strategic_thinking_note}</p>
         ) : null}
+        {dashboard.executive_companion_note ? (
+          <p className="mt-1 text-xs text-teal-800">{dashboard.executive_companion_note}</p>
+        ) : null}
+        {dashboard.companion_mission ? (
+          <p className="mt-2 text-sm font-medium text-teal-900">{dashboard.companion_mission}</p>
+        ) : null}
+        {dashboard.companion_philosophy ? (
+          <p className="mt-1 text-sm text-teal-800">{dashboard.companion_philosophy}</p>
+        ) : null}
+        {dashboard.companion_abos_principle ? (
+          <p className="mt-1 text-xs text-teal-700">{dashboard.companion_abos_principle}</p>
+        ) : null}
         {dashboard.blueprint_distinction_note ? (
           <p className="mt-1 text-xs text-gray-500">{dashboard.blueprint_distinction_note}</p>
+        ) : null}
+        {dashboard.companion_blueprint_distinction_note ? (
+          <p className="mt-1 text-xs text-gray-500">{dashboard.companion_blueprint_distinction_note}</p>
         ) : null}
         {dashboard.safety_note ? (
           <p className="mt-2 text-xs text-gray-500">{dashboard.safety_note}</p>
@@ -605,6 +620,257 @@ export function ExecutiveInsightsEngineDashboardPanel({ labels }: Props) {
           <h3 className="text-sm font-semibold text-gray-900">{labels.strategicSuccessCriteria}</h3>
           <ul className="mt-3 space-y-2">
             {dashboard.strategic_success_criteria.map((criterion) => (
+              <li
+                key={criterion.key ?? criterion.label}
+                className="flex flex-wrap items-start gap-2 rounded-lg border border-gray-100 px-3 py-2 text-sm"
+              >
+                <span
+                  className={`rounded-full px-2 py-0.5 text-xs ${criterion.met ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"}`}
+                >
+                  {criterion.met ? labels.criterionMet : labels.criterionPending}
+                </span>
+                <div>
+                  <p className="font-medium text-gray-900">{criterion.label}</p>
+                  {criterion.note ? <p className="mt-1 text-xs text-gray-500">{criterion.note}</p> : null}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {(dashboard.companion_integration_links ?? []).length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {dashboard.companion_integration_links!.map((link) =>
+            link.route ? (
+              <Link key={link.route} href={link.route} className="rounded-lg border border-teal-200 px-3 py-1.5 text-sm">
+                {link.label}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : null}
+
+      {dashboard.companion_engagement_summary ? (
+        <section className="rounded-xl border border-teal-200 bg-teal-50/40 p-6">
+          <h3 className="text-sm font-semibold text-teal-900">{labels.companionEngagement}</h3>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-lg border border-teal-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.companionHealthScore}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.companion_engagement_summary.organization_health_score ?? 0}
+              </p>
+            </div>
+            <div className="rounded-lg border border-teal-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.companionReports}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.companion_engagement_summary.executive_reports_total ?? 0}
+              </p>
+            </div>
+            <div className="rounded-lg border border-teal-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.companionRisks}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.companion_engagement_summary.operational_risks_count ?? 0}
+              </p>
+            </div>
+            <div className="rounded-lg border border-teal-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.companionActions}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.companion_engagement_summary.recommended_actions_count ?? 0}
+              </p>
+            </div>
+          </div>
+          {dashboard.companion_engagement_summary.summary_note ? (
+            <p className="mt-3 text-xs text-gray-500">{dashboard.companion_engagement_summary.summary_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.executive_companion_objectives && dashboard.executive_companion_objectives.length > 0 ? (
+        <section className="rounded-xl border border-teal-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionObjectivesTitle}</h3>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {dashboard.executive_companion_objectives.map((obj) => (
+              <div key={obj.key ?? obj.label} className="rounded-lg border border-teal-100 bg-teal-50/30 p-4">
+                <p className="text-sm font-medium text-teal-900">{obj.label}</p>
+                {obj.description ? <p className="mt-1 text-xs text-gray-600">{obj.description}</p> : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.companion_daily_briefings && dashboard.companion_daily_briefings.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionDailyBriefings}</h3>
+          <ul className="mt-3 space-y-2">
+            {dashboard.companion_daily_briefings.map((item) => (
+              <li key={item.key ?? item.scenario} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                {item.scenario ? <p className="text-xs text-gray-500">{item.scenario}</p> : null}
+                <p className="mt-1">{item.example}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.companion_leadership_preparation ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.leadershipPreparation}</h3>
+          {dashboard.companion_leadership_preparation.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.companion_leadership_preparation.principle}</p>
+          ) : null}
+          {(dashboard.companion_leadership_preparation.preparation_types ?? []).length > 0 ? (
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {dashboard.companion_leadership_preparation.preparation_types!.map((item) => (
+                <div key={String(item.key ?? item.label)} className="rounded-lg border border-gray-100 p-3 text-sm">
+                  <p className="font-medium">{String(item.label ?? "")}</p>
+                  {item.description ? <p className="mt-1 text-xs text-gray-600">{String(item.description)}</p> : null}
+                </div>
+              ))}
+            </div>
+          ) : null}
+          {dashboard.companion_leadership_preparation.boundary_note ? (
+            <p className="mt-3 text-xs text-gray-500">{dashboard.companion_leadership_preparation.boundary_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.companion_executive_reflection && dashboard.companion_executive_reflection.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.executiveReflection}</h3>
+          <ul className="mt-3 space-y-3">
+            {dashboard.companion_executive_reflection.map((item) => (
+              <li key={item.key ?? item.scenario} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                {item.scenario ? <p className="text-xs text-gray-500">{item.scenario}</p> : null}
+                <p className="mt-1">{item.question ?? item.example}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.companion_priority_alignment ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionPriorityAlignment}</h3>
+          {dashboard.companion_priority_alignment.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.companion_priority_alignment.principle}</p>
+          ) : null}
+          {(dashboard.companion_priority_alignment.dimensions ?? []).length > 0 ? (
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {dashboard.companion_priority_alignment.dimensions!.map((dim) => (
+                <div key={String(dim.key ?? dim.label)} className="rounded-lg border border-gray-100 p-3 text-sm">
+                  <p className="font-medium">{String(dim.label ?? "")}</p>
+                  {dim.description ? <p className="mt-1 text-xs text-gray-600">{String(dim.description)}</p> : null}
+                </div>
+              ))}
+            </div>
+          ) : null}
+          {dashboard.companion_priority_alignment.intentional_leadership_note ? (
+            <p className="mt-3 text-xs text-gray-500">
+              {dashboard.companion_priority_alignment.intentional_leadership_note}
+            </p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.companion_organizational_visibility ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.organizationalVisibility}</h3>
+          {dashboard.companion_organizational_visibility.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.companion_organizational_visibility.principle}</p>
+          ) : null}
+          {(dashboard.companion_organizational_visibility.visibility_areas ?? []).length > 0 ? (
+            <ul className="mt-3 space-y-2">
+              {dashboard.companion_organizational_visibility.visibility_areas!.map((item) => (
+                <li key={String(item.key ?? item.label)} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                  <p className="font-medium">{String(item.label ?? "")}</p>
+                  {item.description ? <p className="mt-1 text-xs text-gray-600">{String(item.description)}</p> : null}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.companion_executive_decision_support ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.executiveDecisionSupport}</h3>
+          {dashboard.companion_executive_decision_support.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.companion_executive_decision_support.principle}</p>
+          ) : null}
+          {(dashboard.companion_executive_decision_support.support_patterns ?? []).length > 0 ? (
+            <ul className="mt-3 space-y-2">
+              {dashboard.companion_executive_decision_support.support_patterns!.map((item) => (
+                <li key={String(item.key ?? item.scenario)} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                  {item.scenario ? <p className="text-xs text-gray-500">{String(item.scenario)}</p> : null}
+                  <p className="mt-1">{String(item.prompt ?? "")}</p>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          {dashboard.companion_executive_decision_support.boundary_note ? (
+            <p className="mt-3 text-xs text-gray-500">{dashboard.companion_executive_decision_support.boundary_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.companion_trust ? (
+        <section className="rounded-xl border border-amber-200 bg-amber-50/30 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionTrust}</h3>
+          {dashboard.companion_trust.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.companion_trust.principle}</p>
+          ) : null}
+          {(dashboard.companion_trust.what_informs_observations ?? []).length > 0 ? (
+            <div className="mt-4">
+              <p className="text-xs font-semibold uppercase text-emerald-800">{labels.whatInformsObservations}</p>
+              <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-gray-600">
+                {dashboard.companion_trust.what_informs_observations!.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {(dashboard.companion_trust.uncertainty_areas ?? []).length > 0 ? (
+            <div className="mt-4">
+              <p className="text-xs font-semibold uppercase text-amber-800">{labels.uncertaintyAreas}</p>
+              <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-gray-600">
+                {dashboard.companion_trust.uncertainty_areas!.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {dashboard.companion_trust.uncertainty_note ? (
+            <p className="mt-3 text-xs text-gray-500">{dashboard.companion_trust.uncertainty_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.companion_self_love ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionSelfLove}</h3>
+          {dashboard.companion_self_love.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.companion_self_love.principle}</p>
+          ) : null}
+          {dashboard.companion_self_love.journey_phrase ? (
+            <p className="mt-2 text-sm italic text-teal-800">{dashboard.companion_self_love.journey_phrase}</p>
+          ) : null}
+          {(dashboard.companion_self_love.companion_patterns ?? []).length > 0 ? (
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-gray-600">
+              {dashboard.companion_self_love.companion_patterns!.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.companion_success_criteria && dashboard.companion_success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionSuccessCriteria}</h3>
+          <ul className="mt-3 space-y-2">
+            {dashboard.companion_success_criteria.map((criterion) => (
               <li
                 key={criterion.key ?? criterion.label}
                 className="flex flex-wrap items-start gap-2 rounded-lg border border-gray-100 px-3 py-2 text-sm"

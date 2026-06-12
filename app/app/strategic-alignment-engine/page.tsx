@@ -7,6 +7,7 @@ export default async function StrategicAlignmentEnginePage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
   const p = "customerApp.strategicAlignmentEngine";
+  const b = `${p}.blueprint.phase68`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -37,6 +38,25 @@ export default async function StrategicAlignmentEnginePage() {
           exportReport: t(`${p}.exportReport`),
           exporting: t(`${p}.exporting`),
           exportFailed: t(`${p}.exportFailed`),
+          blueprintObjectives: t(`${b}.objectives`),
+          alignmentQuestions: t(`${b}.alignmentQuestions`),
+          strategicCascading: t(`${b}.strategicCascading`),
+          crossFunctionalVisibility: t(`${b}.crossFunctionalVisibility`),
+          companionGuidance: t(`${b}.companionGuidance`),
+          goalCommunication: t(`${b}.goalCommunication`),
+          selfLoveConnection: t(`${b}.selfLoveConnection`),
+          leadershipInsights: t(`${b}.leadershipInsights`),
+          trustConnection: t(`${b}.trustConnection`),
+          dogfooding: t(`${b}.dogfooding`),
+          engagementSummary: t(`${b}.engagementSummary`),
+          activeObjectives: t(`${b}.activeObjectives`),
+          linkedEntities: t(`${b}.linkedEntities`),
+          reviewsRecorded: t(`${b}.reviewsRecorded`),
+          latestMisaligned: t(`${b}.latestMisaligned`),
+          successCriteria: t(`${b}.successCriteria`),
+          criterionMet: t(`${b}.criterionMet`),
+          criterionPending: t(`${b}.criterionPending`),
+          visionPhrases: t(`${b}.visionPhrases`),
         }} />
     </div>
   );

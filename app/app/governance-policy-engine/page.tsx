@@ -7,6 +7,7 @@ export default async function GovernancePolicyEnginePage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
   const p = "customerApp.governancePolicyEngine";
+  const bp = `${p}.blueprint.phase67`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -46,6 +47,22 @@ export default async function GovernancePolicyEnginePage() {
           categoryKnowledge: t(`${p}.categoryKnowledge`),
           categoryIntegration: t(`${p}.categoryIntegration`),
           categoryRetention: t(`${p}.categoryRetention`),
+          blueprintObjectives: t(`${bp}.objectives`),
+          boardPreparation: t(`${bp}.boardPreparation`),
+          boardMeetingSupport: t(`${bp}.boardMeetingSupport`),
+          strategicOversight: t(`${bp}.strategicOversight`),
+          riskAwareness: t(`${bp}.riskAwareness`),
+          blueprintGovernancePrinciples: t(`${bp}.governancePrinciples`),
+          decisionContinuity: t(`${bp}.decisionContinuity`),
+          selfLoveConnection: t(`${bp}.selfLoveConnection`),
+          trustConnection: t(`${bp}.trustConnection`),
+          dogfooding: t(`${bp}.dogfooding`),
+          engagementSummary: t(`${bp}.engagementSummary`),
+          scheduledReviews: t(`${bp}.scheduledReviews`),
+          overdueReviews: t(`${bp}.overdueReviews`),
+          successCriteria: t(`${bp}.successCriteria`),
+          criterionMet: t(`${bp}.criterionMet`),
+          criterionPending: t(`${bp}.criterionPending`),
         }}
       />
     </div>

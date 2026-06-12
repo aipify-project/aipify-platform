@@ -1,0 +1,76 @@
+ABOS Implementation Blueprint Phase 75 — Executive Operations Center Engine
+Extends Operations Center Foundation Engine Phase A.32 at /app/operations-center-foundation-engine
+Blueprint helpers: _eocbp_* — Engine helpers: _ocf_* (Phase 18), _cfibp_* (Phase 70) — do not collide
+Layered with Phase 18 Operations Center Engine Foundation and Phase 70 Cross-Functional Intelligence
+
+Mission
+Help leaders gain situational awareness, maintain focus on strategic priorities, and guide organizations through complexity with confidence.
+
+Philosophy
+Leadership requires perspective; perspective emerges through clarity. Purpose is NOT to overwhelm — help leaders focus where attention creates greatest value.
+
+ABOS principle
+Leadership objective is not managing every detail — create conditions for people and organizations to flourish; perspective enables stewardship. Aipify informs and prepares; humans decide.
+
+Objectives
+- Strategic visibility — unified view of initiatives and milestones
+- Operational awareness — risks, urgent events, pending approvals at leadership altitude
+- Executive prioritization — top priorities, commitments, decisions awaiting review
+- Organizational health insights — collaboration, recognition, workload — cross-link Org Health Phase 61
+- Decision preparation — meeting continuity, open action items, historical context
+- Cross-functional understanding — executive lens on Phase 70 connection visibility
+
+Executive dashboard (unified view)
+Strategic initiatives, organizational health, operational risks, meeting follow-ups, executive priorities, recognition opportunities, emerging trends, critical alerts — clarity objective.
+
+Daily executive briefings (🌹 🦉 🔔 ❤️)
+- Positive momentum
+- Cross-functional dependencies
+- Unresolved commitments
+- Recognition opportunities
+Begin day with perspective.
+
+Executive priority center
+Top priorities, upcoming leadership commitments, decisions awaiting review, high-impact conversations — intentional focus.
+
+Organizational health overview (📈 🌹 🦉 🔔)
+Collaboration observations, recognition trends, workload concerns, change adoption indicators — cross-link /app/organizational-health-engine
+
+Meeting & decision continuity
+Recent executive decisions, open action items, meeting summaries, historical decision context — cross-link /app/meeting-collaboration-intelligence-engine
+
+Strategic momentum tracking
+Initiative progress, goal advancement, execution summaries, strategic milestone achievements — cross-link /app/goals-okr-engine
+
+Companion guidance (🦉 🌹 🔔)
+Renewed leadership attention, positive developments merit recognition, approaching decision deadlines — optional, humans decide.
+
+Self Love connection
+Reflection, perspective, recognition of progress, sustainable leadership.
+"Extraordinary leadership is built through consistency rather than perfection."
+Leadership can be isolating — reduce isolation not pressure.
+
+Trust connection
+How observations generated, assumptions influencing insights, recommendations remain optional.
+
+Distinctions
+- App Ecosystem repo Phase 75 at /app/apps and /developers — NOT this blueprint
+- Executive Insights A.35 at /app/executive-insights-engine — cross-link
+- Command Center Phase 26 — presence/notifications
+- Operations Dashboard A.9 — role-aware widgets
+- AOC Phase 79 — autonomous operations
+- Cross-Functional Intelligence Phase 70 — same engine, executive lens added
+- Briefing System at /app/briefing
+- Organizational Health Phase 61 — cross-link
+- Meeting Intelligence A.61 — cross-link
+- Goals OKR A.65 — cross-link
+- Predictive Insights A.66 — cross-link
+
+Dogfooding
+Aipify Group leadership — ecosystem stewardship, strategic planning, organizational health, leadership coordination.
+
+Success criteria
+Leadership clarity improves, strategic focus strengthens, organizational visibility increases, decision preparedness improves, executive effectiveness increases.
+
+Vision
+"Our leaders are better equipped because they have a clearer understanding of what truly matters."

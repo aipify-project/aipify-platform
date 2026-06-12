@@ -1,0 +1,58 @@
+Meeting Companion Teams Integration & Privacy Standard
+Extends Meeting & Collaboration Intelligence Engine Phase A.61 and Blueprint Phase 72
+
+CORE IDEA
+Calendar connection detects upcoming meetings. Before meeting, Aipify asks:
+"Your Teams meeting starts soon. Would you like me to join and help?"
+Options: join + notes, join + action items, join + summary, do not join, never join this type.
+Context Engine (/app/assistant/calendars) handles calendar OAuth — MCIE consumes cross-link only.
+
+JOIN EXPERIENCE
+When approved, Aipify appears as Aipify Companion — visible to all participants.
+Never secretly listen. Never auto-join without consent.
+
+PERMITTED (when approved)
+- Take notes
+- Summarize topics
+- Identify decisions, action items, follow-ups
+- Post-meeting summary
+- Draft tasks (Unified Tasks A.62 cross-link)
+- Suggest reminders
+
+PROHIBITED
+- Join without approval
+- Secretly record
+- Store raw audio/video by default
+- Save content without approval
+- Send summaries without review when required
+- Access private meetings without permission
+
+PRIVACY STANDARD
+No audio/video by default. Only keep notes, summaries, decisions, actions when explicitly approved.
+Save choices: do not save, private notes only, meeting summary, decisions + actions, Knowledge Center, Organizational Memory.
+Default: privacy-safe — do not save until user chooses.
+
+POST-MEETING FLOW
+"Would you like me to save or send this meeting summary?"
+Options: save privately, send to participants, save to KC, create tasks, delete everything, edit first.
+
+FAQ
+Q: Does Aipify join automatically? A: No — user or org consent rules.
+Q: Does Aipify record meetings? A: No raw audio/video by default.
+Q: Can participants see Aipify? A: Yes — Aipify Companion, never hidden.
+Q: Can I delete meeting notes? A: Yes — per permissions/retention.
+Q: Can Aipify create tasks? A: Yes if approved — draft tasks, user control.
+Q: Can Aipify save meeting knowledge? A: Yes with approval — KC or Org Memory.
+
+ABOS PRINCIPLE
+Preserve what matters without violating trust — privacy first, consent always, value when approved.
+
+VISION
+Trusted meeting companion — helps when invited, explains clearly, respects privacy.
+
+DISTINCTIONS
+- Extends A.61 + Blueprint Phase 72 — not a separate product
+- Context Engine calendars — cross-link only
+- Unified Tasks A.62 — draft task creation
+- Knowledge Center A.5 and Organizational Memory A.34 — approved save destinations
+- Platform scaffolds only — no Microsoft Graph API in this standard
