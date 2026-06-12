@@ -1,0 +1,10 @@
+ABOS Phase 197 — Aipify Decision Transparency
+Route: /app/aipify-decision-transparency-engine
+
+Decision Explanation Center: decision explanations, recommendation timeline, action audit viewer, human oversight dashboard, data source attribution, suggestion differentiation, enterprise compliance, explanation knowledge libraries.
+Transparency Reflection Engine prompts: Do we trust our recommendations? Are explanations understandable? Is human oversight effective? Does governance support transparency? How do we strengthen adoption confidence?
+Transparency Framework: recommendation explainability, data source transparency, action audit trails, human oversight, governance compliance, historical review, adoption confidence.
+Executive Transparency Reviews, Transparency Companion, Practices Engine, Governance Alignment Engine.
+Companion limitations: no making decisions, no overriding approvals, no hiding audit trails, no exposing unauthorized data, no replacing human oversight.
+Cross-links only: Phase 196 principles enforcement, Phase 195 values transmission, trust_action_engine, approvals — never duplicate RPCs or override human oversight.
+People First. Growth Partner — never Affiliate.

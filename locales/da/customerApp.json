@@ -5775,7 +5775,9 @@
     "aipifyGuardianshipSuccessionEngine": "Forvaltning og succession",
     "aipifyValuesTransmissionCulturalContinuityEngine": "Værdier og kultur",
     "aipifyPrinciplesEnforcementEngine": "Princip håndhævelse",
-    "aipifyDecisionTransparencyEngine": "Beslutningstransparens"
+    "aipifyDecisionTransparencyEngine": "Beslutningstransparens",
+    "aipifyOrganizationalHealthEarlyWarningEngine": "Organisationshelbred",
+    "aipifyLegacyPreservationKnowledgeContinuityEngine": "Arv og videns kontinuitet"
   },
   "identity": {
     "title": "Din identitet",
@@ -11238,6 +11240,75 @@
     "phase197": {
       "mission": "Transparency Companion supports decision explanations and audit transparency — humans retain decision authority.",
       "philosophy": "People First. Confidence through transparency. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
+    }
+  },
+  "aipifyOrganizationalHealthEarlyWarningEngine": {
+    "title": "Organizational Health Dashboard",
+    "subtitle": "Perpetual Stewardship & Constitutional Governance Era (191–200). Health Companion supports organizational health indicators, early warning signals, and resolution tracking. Supports humans — does NOT surveil employees or take punitive actions. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Organizational Health & Early Warning dashboard…",
+    "engineTitle": "Aipify Organizational Health & Early Warning Engine (Phase 198)",
+    "scoreLabel": "Engagement score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Early warning sensitivity level",
+    "executiveReviews": "Executive health reviews",
+    "activeReflections": "Active reflections",
+    "humanOversightRequired": "Human oversight required — humans decide interventions; Health Companion supports only",
+    "eraOpenerSummary": "Perpetual Stewardship Era — Phases 191–200",
+    "eraOpenerNote": "Cross-link only — do not duplicate era engine RPCs.",
+    "centerLabel": "Organizational Health Dashboard capabilities",
+    "engineLabel": "Health reflection engine — reflection prompts",
+    "frameworkLabel": "Health framework",
+    "reviewsLabel": "Executive health reviews",
+    "companionLabel": "Health Companion — supports, does not surveil",
+    "subEngineLabel": "Early Warning Monitor",
+    "reflections": "Health reflection scaffolds",
+    "executiveReviewEntries": "Health review entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 198)",
+    "companionLimitations": "Health Companion limitations — does NOT surveil employees or take punitive actions",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase198": {
+      "mission": "Health Companion supports early organizational health awareness — humans retain intervention authority.",
+      "philosophy": "People First. Supportive interventions only. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
+    }
+  },
+  "aipifyLegacyPreservationKnowledgeContinuityEngine": {
+    "title": "Knowledge Continuity Center",
+    "subtitle": "Perpetual Stewardship & Constitutional Governance Era (191–200). Knowledge Continuity Companion supports knowledge preservation and metadata scaffolds. Supports humans — does NOT determine organizational values. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Legacy Preservation & Knowledge Continuity dashboard…",
+    "engineTitle": "Aipify Legacy Preservation & Knowledge Continuity Engine (Phase 194)",
+    "scoreLabel": "Engagement score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Readiness level",
+    "executiveReviews": "Executive continuity reviews",
+    "activeReflections": "Active reflections",
+    "humanOversightRequired": "Human oversight required — humans decide values; Knowledge Continuity Companion supports only",
+    "eraOpenerSummary": "Perpetual Stewardship Era — Phases 191–200",
+    "eraOpenerNote": "Cross-link only — do not duplicate era engine RPCs.",
+    "centerLabel": "Knowledge Continuity Center capabilities",
+    "engineLabel": "Legacy preservation engine — reflection prompts",
+    "frameworkLabel": "Knowledge continuity framework",
+    "reviewsLabel": "Executive continuity reviews",
+    "companionLabel": "Knowledge Continuity Companion — supports, does not determine values",
+    "subEngineLabel": "Institutional memory engine",
+    "wisdomTransferLabel": "Wisdom transfer engine",
+    "reflections": "Legacy preservation reflection scaffolds",
+    "executiveReviewEntries": "Continuity review entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 194)",
+    "companionLimitations": "Knowledge Continuity Companion limitations — does NOT determine organizational values",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase194": {
+      "mission": "Knowledge Continuity Companion supports preservation and continuity reflection — humans retain value decisions.",
+      "philosophy": "People First. Growth through support. Growth Partner terminology — never Affiliate.",
       "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
     }
   }

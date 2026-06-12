@@ -1,0 +1,1 @@
+export { AipifyDecisionTransparencyEngineDashboardPanel } from "./AipifyDecisionTransparencyEngineDashboardPanel";
