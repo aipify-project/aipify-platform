@@ -5159,6 +5159,27 @@
     "generating": "Genererer…",
     "generateFailed": "Generering mislyktes"
   },
+  "contextIntelligenceEngine": {
+    "title": "Kontekstintelligens",
+    "subtitle": "Organisatorisk ABOS-kontekstintelligens — åtte dimensjoner, gapdeteksjon og integrasjon med minne, arbeidsområder og tilsyn.",
+    "loading": "Laster kontekstintelligens…",
+    "engineTitle": "Kontekstintelligensmotor",
+    "openGaps": "Åpne gap",
+    "dimensionsMonitored": "Overvåkede dimensjoner",
+    "proactiveLevel": "Proaktivt nivå",
+    "gapDetection": "Gapdeteksjon",
+    "enabled": "Aktivert",
+    "disabled": "Deaktivert",
+    "contextDimensions": "Kontekstdimensjoner",
+    "contextGaps": "Kontekstgap",
+    "resolveGap": "Løs",
+    "exportSummary": "Eksporter sammendrag",
+    "exporting": "Eksporterer…",
+    "noItems": "Ingen elementer.",
+    "noGaps": "Ingen åpne kontekstgap oppdaget.",
+    "noSignals": "Ingen signaler tilgjengelig.",
+    "principles": "Prinsipper"
+  },
   "organizationWorkspaceEngine": {
     "title": "Organisasjon og arbeidsområder",
     "subtitle": "Organisasjon → Arbeidsområde → Brukere → Roller → Tillatelser — isolerte driftskontekster innen leietakeren.",
