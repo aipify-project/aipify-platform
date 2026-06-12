@@ -54,6 +54,7 @@ export type AppNavId =
   | "unifiedTaskFollowUpEngine"
   | "resourcePlanningEngine"
   | "capacityWorkloadManagementEngine"
+  | "personalProductivityEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -322,6 +323,11 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/capacity-workload-management-engine",
     labelKey: "customerApp.nav.capacityWorkloadManagementEngine",
   },
+  {
+    id: "personalProductivityEngine",
+    href: "/app/personal-productivity-engine",
+    labelKey: "customerApp.nav.personalProductivityEngine",
+  },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -469,6 +475,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/capacity-workload-management-engine")) {
     return "capacityWorkloadManagementEngine";
+  }
+  if (pathname.startsWith("/app/personal-productivity-engine")) {
+    return "personalProductivityEngine";
   }
   if (pathname.startsWith("/app/aipify-install-engine")) return "aipifyInstallEngine";
   if (pathname.startsWith("/app/module-marketplace-foundation-engine")) {

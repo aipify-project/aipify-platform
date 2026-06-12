@@ -240,6 +240,9 @@ export const PERMISSION_KEYS = [
   "workload.view",
   "workload.reassign",
   "capacity.export",
+  "productivity.view",
+  "productivity.manage",
+  "productivity.configure",
   "ai.approve",
   "ai.reject",
   "settings.manage",
@@ -390,6 +393,9 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "workload.view",
     "workload.reassign",
     "capacity.export",
+    "productivity.view",
+    "productivity.manage",
+    "productivity.configure",
     "ai.approve",
     "ai.reject",
   ],
@@ -442,6 +448,8 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "resources.view",
     "capacity.view",
     "workload.view",
+    "productivity.view",
+    "productivity.manage",
   ],
   viewer: [
     "users.view",
@@ -487,6 +495,7 @@ const DEFAULT_ROLE_PERMISSIONS: Record<OrganizationRole, PermissionKey[]> = {
     "resources.view",
     "capacity.view",
     "workload.view",
+    "productivity.view",
   ],
 };
 

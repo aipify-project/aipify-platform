@@ -1,0 +1,247 @@
+{
+  "meta": {
+    "homeTitle": "Aipify — AI Business Operating System",
+    "homeDescription": "Install Aipify into your business systems. An intelligent operating layer for support, operations, governance, and decisions — not a chatbot.",
+    "productTitle": "Product — Aipify AI Business Operating System",
+    "productDescription": "See how Aipify learns your systems, prepares actions, and keeps humans in control.",
+    "modulesTitle": "Modules — Aipify",
+    "modulesDescription": "Modular operational intelligence — enable only what your business needs.",
+    "enterpriseTitle": "Enterprise — Aipify",
+    "enterpriseDescription": "Multi-tenant architecture, RBAC, audit trails, and SSO readiness for IT teams.",
+    "securityTitle": "Security & Trust — Aipify",
+    "securityDescription": "Privacy by design. Aipify does not monitor employees or surveil your workforce.",
+    "earlyAccessTitle": "Early Access — Aipify",
+    "earlyAccessDescription": "Request early access to the AI Business Operating System.",
+    "pilotTitle": "Pilot Program — Aipify",
+    "pilotDescription": "Operational validation with real businesses — starting with Unonight.",
+    "knowledgeTitle": "Knowledge — Aipify",
+    "knowledgeDescription": "Learn how Aipify works, what it collects, and how humans stay in control.",
+    "contactTitle": "Contact — Aipify",
+    "contactDescription": "Talk to the Aipify team about early access, enterprise, or partnerships.",
+    "privacyTitle": "Privacy Policy — Aipify",
+    "privacyDescription": "How Aipify handles data, privacy, and customer ownership.",
+    "termsTitle": "Terms of Service — Aipify"
+  },
+  "nav": {
+    "product": "Product",
+    "modules": "Modules",
+    "enterprise": "Enterprise",
+    "security": "Security",
+    "pilot": "Pilot",
+    "knowledge": "Knowledge",
+    "earlyAccess": "Early Access",
+    "contact": "Contact",
+    "controlCenter": "Control Center",
+    "login": "Login",
+    "getStarted": "Get Started"
+  },
+  "footer": {
+    "tagline": "AI Business Operating System — install-first operational intelligence for modern teams.",
+    "product": "Product",
+    "company": "Company",
+    "legal": "Legal",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "contact": "Contact",
+    "earlyAccess": "Early Access",
+    "copyright": "Aipify Group AS. All rights reserved.",
+    "privacyNote": "Aipify does not monitor employees or conduct workplace surveillance."
+  },
+  "hero": {
+    "badge": "AI Business Operating System",
+    "title": "Operational intelligence that works inside your business.",
+    "subtitle": "Aipify installs into your existing systems, learns how your organization operates, and prepares actions your team can approve — support, workflows, insights, and governance in one layer.",
+    "notChatbot": "Not a chatbot. Not surveillance. A calm operational partner.",
+    "ctaPrimary": "Request Early Access",
+    "ctaSecondary": "See How It Works",
+    "statInstall": "2 min",
+    "statInstallLabel": "Typical install start",
+    "statModules": "10+",
+    "statModulesLabel": "Operational modules",
+    "statControl": "Human-first",
+    "statControlLabel": "Approval on sensitive actions"
+  },
+  "animatedDemo": {
+    "title": "Support flow in motion",
+    "subtitle": "Nine steps from inquiry to resolution — transparent, auditable, human-controlled.",
+    "steps": {
+      "1": { "title": "Inquiry arrives", "detail": "Support request enters from email, chat, or your admin." },
+      "2": { "title": "Triage", "detail": "Category, urgency, and routing assessed automatically." },
+      "3": { "title": "Business DNA", "detail": "Templates, tone, and escalation rules applied." },
+      "4": { "title": "Knowledge match", "detail": "Approved knowledge sources searched — no raw chat storage." },
+      "5": { "title": "Draft prepared", "detail": "Response or action draft ready for review." },
+      "6": { "title": "Confidence scored", "detail": "Low confidence triggers escalation — never silent guessing." },
+      "7": { "title": "Risk check", "detail": "Sensitive actions blocked until explicit approval." },
+      "8": { "title": "Human approval", "detail": "Your team approves, edits, or rejects." },
+      "9": { "title": "Resolved & logged", "detail": "Outcome recorded in audit trail — metadata only." }
+    },
+    "mobileSummary": "Inquiry → triage → knowledge → draft → approval → resolution"
+  },
+  "companionOrb": {
+    "title": "Presence without intrusion",
+    "subtitle": "The Aipify companion orb shows operational state — online, working, attention needed — never employee monitoring.",
+    "clickHint": "Click the orb to explore states",
+    "states": {
+      "online": { "label": "Online", "description": "Aipify is connected and ready." },
+      "working": { "label": "Working", "description": "Processing tasks in the background." },
+      "attention": { "label": "Attention", "description": "Something needs your review." },
+      "critical": { "label": "Critical", "description": "Urgent item — human decision required." },
+      "disconnected": { "label": "Disconnected", "description": "Installation offline or paused." },
+      "quiet": { "label": "Quiet hours", "description": "Non-essential notifications suppressed." }
+    }
+  },
+  "enterpriseTrust": {
+    "title": "Built for IT and security teams",
+    "subtitle": "Enterprise-grade isolation, permissions, and audit — without surveillance.",
+    "points": {
+      "multiTenant": { "title": "Multi-tenant isolation", "description": "Every customer scoped by tenant. No cross-tenant data in customer surfaces." },
+      "rbac": { "title": "Role-based access", "description": "Owner, admin, support, staff, and read-only — mapped to your native roles." },
+      "audit": { "title": "Full audit trails", "description": "Actions, approvals, and configuration changes logged with explainability." },
+      "sso": { "title": "SSO readiness", "description": "Enterprise deployment scaffold for SSO, SCIM, and device enrollment." },
+      "noSurveillance": { "title": "No employee surveillance", "description": "Aipify does not monitor keystrokes, screens, or employee activity." },
+      "metadata": { "title": "Metadata-first storage", "description": "Patterns and outcomes — not raw emails, chats, or operational records." }
+    }
+  },
+  "howItWorks": {
+    "title": "How Aipify works",
+    "subtitle": "Install-first — intelligence where your team already works.",
+    "steps": {
+      "1": { "title": "Install", "description": "Connect Aipify to your admin, store, or custom system in minutes." },
+      "2": { "title": "Learn", "description": "Install AI discovers capabilities, roles, and workflows — with human validation." },
+      "3": { "title": "Assist", "description": "Modules prepare drafts, insights, and recommendations inside your workflow." },
+      "4": { "title": "Approve", "description": "Sensitive actions require explicit human approval — critical actions prohibited for AI." },
+      "5": { "title": "Improve", "description": "Assisted learning from approved metadata — never raw customer content." }
+    }
+  },
+  "modules": {
+    "title": "Modular operational intelligence",
+    "subtitle": "Enable the capabilities your business needs — pay for modules, not unused features.",
+    "items": {
+      "support": { "name": "Support Operations", "description": "Triage, draft responses, and escalate with Business DNA." },
+      "install": { "name": "Install Engine", "description": "Discovery, heartbeat, and system learning on install." },
+      "executive": { "name": "Executive Briefing", "description": "Morning summaries and operational awareness for leaders." },
+      "actions": { "name": "Action Center", "description": "Prepared actions with approval policies and audit." },
+      "knowledge": { "name": "Knowledge Center", "description": "Approved sources, FAQs, and gap detection." },
+      "quality": { "name": "Quality Guardian", "description": "Operational and frontend health monitoring." },
+      "governance": { "name": "Governance & Trust", "description": "Policies, emergency stop, and trust transparency." },
+      "analytics": { "name": "Analytics & Insights", "description": "KPIs, trends, and explainable recommendations." },
+      "workflow": { "name": "Workflow Orchestration", "description": "Coordinate modules — one brain, no alert fatigue." },
+      "desktop": { "name": "Desktop Companion", "description": "Calm presence on desktop — reminders and quick actions." }
+    }
+  },
+  "pilot": {
+    "title": "Validated in real operations",
+    "subtitle": "Unonight pilot — operational focus",
+    "description": "Aipify's first pilot customer validates install-first workflows: support triage, knowledge approval, action policies, and executive briefings in a live multi-module environment.",
+    "highlights": {
+      "1": "Multi-module install with domain verification and license gates",
+      "2": "Support operations with human review and escalation paths",
+      "3": "Metadata-only metrics — no customer content in platform aggregates",
+      "4": "Feedback loops for product hardening before broader release"
+    },
+    "cta": "Learn about the pilot"
+  },
+  "outputs": {
+    "title": "What Aipify delivers",
+    "subtitle": "Concrete operational outputs — not endless chat threads.",
+    "items": {
+      "1": "Drafted support responses ready for approval",
+      "2": "Executive briefings and operational summaries",
+      "3": "Prepared actions with risk classification",
+      "4": "Knowledge gap reports and approval queues",
+      "5": "Quality and health incident alerts",
+      "6": "Audit-ready decision and action logs",
+      "7": "Module-specific exports and compliance snapshots",
+      "8": "Install discovery reports and capability maps"
+    }
+  },
+  "humanOversight": {
+    "title": "Human oversight by design",
+    "subtitle": "Trust grows through transparency — automation only where you approve.",
+    "ladder": {
+      "manual": { "label": "Manual", "description": "Every action reviewed by your team." },
+      "assisted": { "label": "Assisted", "description": "Aipify prepares; humans decide." },
+      "trusted": { "label": "Trusted automation", "description": "Low-risk, reversible actions within policy." },
+      "prohibited": { "label": "AI prohibited", "description": "Critical actions always require humans — never AI alone." }
+    }
+  },
+  "earlyAccess": {
+    "title": "Request early access",
+    "subtitle": "Join businesses preparing for the AI Business Operating System.",
+    "name": "Full name",
+    "company": "Company",
+    "email": "Work email",
+    "companySize": "Company size",
+    "industry": "Industry",
+    "interest": "Primary interest",
+    "message": "Message (optional)",
+    "submit": "Submit request",
+    "submitting": "Submitting…",
+    "success": "Thank you — we will be in touch shortly.",
+    "error": "Something went wrong. Please try again or email support@aipify.ai.",
+    "privacy": "We store only the information you provide to respond to your request. Aipify does not sell lead data.",
+    "companySizes": {
+      "1-10": "1–10",
+      "11-50": "11–50",
+      "51-200": "51–200",
+      "201-1000": "201–1,000",
+      "1000+": "1,000+"
+    },
+    "interests": {
+      "support": "Support operations",
+      "enterprise": "Enterprise deployment",
+      "modules": "Modular platform",
+      "pilot": "Pilot program",
+      "other": "Other"
+    }
+  },
+  "contact": {
+    "title": "Contact us",
+    "subtitle": "Questions about early access, enterprise, or partnerships.",
+    "emailLabel": "Email",
+    "emailValue": "support@aipify.ai",
+    "note": "For Control Center access, use your existing account or register for a trial."
+  },
+  "privacyPage": {
+    "title": "Privacy Policy",
+    "updated": "Last updated: June 2026",
+    "sections": {
+      "ownership": { "title": "You own your data", "body": "Customer operational data belongs to the customer. Aipify owns the intelligence layer — metadata, patterns, and approved learning summaries only." },
+      "noSurveillance": { "title": "No employee surveillance", "body": "Aipify does not monitor employees, keystrokes, screens, or workplace activity. Presence indicators reflect system state — not individual surveillance." },
+      "collection": { "title": "What we collect", "body": "Account information, installation metadata, configuration, and anonymised operational metrics. We do not store raw email content, chat transcripts, or payment records in learning memory." },
+      "contact": { "title": "Contact", "body": "Privacy questions: support@aipify.ai" }
+    }
+  },
+  "termsPage": {
+    "title": "Terms of Service",
+    "updated": "Last updated: June 2026",
+    "sections": {
+      "license": { "title": "Software license", "body": "Aipify is proprietary software owned by Aipify Group AS. Customers receive a license to use the service — not ownership of the software." },
+      "use": { "title": "Acceptable use", "body": "Use Aipify in compliance with applicable law and your organization's policies. Do not attempt to bypass tenant isolation or approval controls." },
+      "contact": { "title": "Contact", "body": "Legal inquiries: support@aipify.ai" }
+    }
+  },
+  "knowledgePage": {
+    "title": "Knowledge Center",
+    "subtitle": "Transparent documentation on how Aipify works.",
+    "faqIntro": "Common questions about the public website and product story.",
+    "readFaq": "Read full FAQ"
+  },
+  "productPage": {
+    "title": "The AI Business Operating System",
+    "subtitle": "Install intelligence into your existing workflow — support, operations, governance, and decisions in one coordinated layer."
+  },
+  "enterprisePage": {
+    "title": "Enterprise readiness",
+    "subtitle": "Deployment, isolation, and governance for organizations that cannot compromise on trust."
+  },
+  "securityPage": {
+    "title": "Security & trust",
+    "subtitle": "Privacy by design. Human control. No surveillance."
+  },
+  "ctaBand": {
+    "title": "Ready to install operational intelligence?",
+    "subtitle": "Request early access and see Aipify in your environment.",
+    "button": "Request Early Access"
+  }
+}

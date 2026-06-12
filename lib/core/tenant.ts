@@ -67,3 +67,4 @@ export * from "./meeting-collaboration-intelligence";
 export * from "./unified-task-follow-up";
 export * from "./resource-planning";
 export * from "./capacity-workload-management";
+export * from "./personal-productivity";
