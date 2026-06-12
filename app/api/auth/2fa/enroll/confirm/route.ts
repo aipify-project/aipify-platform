@@ -38,7 +38,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "configError" }, { status: 503 });
     }
 
-    if (!verifyTotpCode(secret, code)) {
+    if (!(await verifyTotpCode(secret, code))) {
       return NextResponse.json({ error: "invalidCode" }, { status: 400 });
     }
 

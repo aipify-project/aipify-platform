@@ -203,7 +203,8 @@
       "assistantIdentity": "Assistentidentitet",
       "companionPresence": "Companion-tilstedeværelse",
       "enterprise": "Enterprise-utrulling",
-      "compliance": "Sikkerhet og compliance"
+      "compliance": "Sikkerhet og compliance",
+      "twoFactor": "Innloggingsverifisering (2FA)"
     },
     "intelligence": {
       "title": "Organisatorisk intelligens",
@@ -4165,6 +4166,7 @@
     "approvalRequired": "Godkjenning kreves",
     "yourPermissions": "Dine tillatelser",
     "mfaReadiness": "MFA-beredskap",
+    "twoFactorSetup": "Sett opp innloggingsverifisering",
     "recentAccessEvents": "Nylige tilgangshendelser",
     "successCriteria": "Fase 2 suksesskriterier",
     "defaultRoles": "Standardroller",
@@ -4186,6 +4188,38 @@
     "companionPrefsSaveFailed": "Kunne ikke lagre companion-tillatelsespreferanser",
     "auditRequirements": "Revisjonskrav",
     "blueprintLinks": "Grunnlagslenker"
+  },
+  "twoFactor": {
+    "title": "Aipify innloggingsverifisering",
+    "subtitle": "Beskytt kontoen med en autentiseringsapp. Aipify bruker tidsbaserte koder — ikke SMS — for sterk innlogging.",
+    "requiredNotice": "Rollen din krever innloggingsverifisering før du får tilgang til Aipify.",
+    "statusEnabled": "Innloggingsverifisering er aktivert for kontoen din.",
+    "statusDisabled": "Innloggingsverifisering er ikke aktivert ennå.",
+    "enableTitle": "Aktiver autentiseringsverifisering",
+    "enableStepScan": "Skann denne QR-koden med autentiseringsappen (Google Authenticator, 1Password, Authy eller lignende).",
+    "enableStepConfirm": "Skriv inn 6-sifret kode fra appen for å bekrefte oppsettet.",
+    "manualKey": "Manuell oppsettnøkkel",
+    "confirmCode": "6-sifret kode",
+    "enable": "Aktiver verifisering",
+    "disable": "Deaktiver verifisering",
+    "regenerate": "Generer nye gjenopprettingskoder",
+    "recoveryTitle": "Lagre gjenopprettingskodene",
+    "recoveryNotice": "Oppbevar kodene på et sikkert sted. Hver kode kan brukes én gang hvis du mister autentiseringsappen.",
+    "recoveryRemaining": "{count} ubrukte gjenopprettingskoder igjen",
+    "saveCodes": "Jeg har lagret kodene på et sikkert sted.",
+    "loading": "Laster verifiseringsinnstillinger…",
+    "saving": "Lagrer…",
+    "done": "Ferdig",
+    "backToSettings": "Tilbake til innstillinger",
+    "errors": {
+      "generic": "Noe gikk galt. Prøv igjen.",
+      "invalidCode": "Koden er ikke gyldig. Sjekk autentiseringsappen og prøv igjen.",
+      "codeRequired": "Skriv inn verifiseringskoden.",
+      "noPendingEnrollment": "Start oppsettet på nytt for å generere en ny QR-kode.",
+      "notEnabled": "Innloggingsverifisering er ikke aktivert for denne kontoen.",
+      "requiredByPolicy": "Organisasjonen krever innloggingsverifisering. Den kan ikke deaktiveres.",
+      "configError": "Innloggingsverifisering er midlertidig utilgjengelig. Kontakt support hvis dette vedvarer."
+    }
   },
   "multiTenantArchitecture": {
     "title": "Multi-Tenant-arkitektur",

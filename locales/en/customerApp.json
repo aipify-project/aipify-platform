@@ -203,7 +203,8 @@
       "assistantIdentity": "Assistant identity",
       "companionPresence": "Companion presence",
       "enterprise": "Enterprise deployment",
-      "compliance": "Security & compliance"
+      "compliance": "Security & compliance",
+      "twoFactor": "Sign-in verification (2FA)"
     },
     "intelligence": {
       "title": "Organizational Intelligence",
@@ -4988,6 +4989,7 @@
     "approvalRequired": "Approval required",
     "yourPermissions": "Your Permissions",
     "mfaReadiness": "MFA Readiness",
+    "twoFactorSetup": "Set up sign-in verification",
     "recentAccessEvents": "Recent Access Events",
     "successCriteria": "Phase 2 success criteria",
     "defaultRoles": "Default roles",
@@ -5009,6 +5011,38 @@
     "companionPrefsSaveFailed": "Failed to save companion permission preferences",
     "auditRequirements": "Audit requirements",
     "blueprintLinks": "Foundation links"
+  },
+  "twoFactor": {
+    "title": "Aipify sign-in verification",
+    "subtitle": "Protect your account with an authenticator app. Aipify uses time-based codes — not SMS — for a stronger sign-in boundary.",
+    "requiredNotice": "Your role requires sign-in verification before you can access Aipify.",
+    "statusEnabled": "Sign-in verification is enabled for your account.",
+    "statusDisabled": "Sign-in verification is not enabled yet.",
+    "enableTitle": "Enable authenticator verification",
+    "enableStepScan": "Scan this QR code with your authenticator app (Google Authenticator, 1Password, Authy, or similar).",
+    "enableStepConfirm": "Enter the 6-digit code from your app to confirm setup.",
+    "manualKey": "Manual setup key",
+    "confirmCode": "6-digit code",
+    "enable": "Enable verification",
+    "disable": "Disable verification",
+    "regenerate": "Regenerate recovery codes",
+    "recoveryTitle": "Save your recovery codes",
+    "recoveryNotice": "Store these codes in a secure place. Each code works once if you lose access to your authenticator.",
+    "recoveryRemaining": "{count} unused recovery codes remaining",
+    "saveCodes": "I have saved these codes in a secure place.",
+    "loading": "Loading verification settings…",
+    "saving": "Saving…",
+    "done": "Done",
+    "backToSettings": "Back to settings",
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "invalidCode": "That code is not valid. Check your authenticator app and try again.",
+      "codeRequired": "Please enter your verification code.",
+      "noPendingEnrollment": "Start setup again to generate a new QR code.",
+      "notEnabled": "Sign-in verification is not enabled for this account.",
+      "requiredByPolicy": "Your organization requires sign-in verification. It cannot be disabled.",
+      "configError": "Sign-in verification is temporarily unavailable. Contact support if this persists."
+    }
   },
   "multiTenantArchitecture": {
     "title": "Multi-Tenant Architecture",

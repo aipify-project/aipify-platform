@@ -45,7 +45,7 @@ export async function POST(request: Request) {
 
     const ipHash = await getClientIpHash();
 
-    if (!verifyTotpCode(secret, code)) {
+    if (!(await verifyTotpCode(secret, code))) {
       const { data: failData } = await supabase.rpc("_tfa_record_failed_attempt", {
         p_challenge_id: challengeId,
         p_ip_hash: ipHash,
