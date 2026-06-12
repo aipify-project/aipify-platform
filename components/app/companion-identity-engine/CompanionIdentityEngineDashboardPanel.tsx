@@ -222,6 +222,9 @@ export function CompanionIdentityEngineDashboardPanel({ labels }: Props) {
           {dashboard.learning_journey_standard_note ? (
             <p className="mt-2 text-xs text-violet-800">{dashboard.learning_journey_standard_note}</p>
           ) : null}
+          {dashboard.learning_journey_abos_principle ? (
+            <p className="mt-2 text-xs text-violet-700">{dashboard.learning_journey_abos_principle}</p>
+          ) : null}
           {dashboard.vision_rose_phrase ? (
             <p className="mt-3 text-sm italic text-violet-900">{dashboard.vision_rose_phrase}</p>
           ) : null}

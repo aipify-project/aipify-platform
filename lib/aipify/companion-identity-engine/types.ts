@@ -76,6 +76,7 @@ export type CompanionIdentityEngineDashboard = {
   module_consistency?: ModuleConsistencyEntry[];
   self_love_note?: string;
   learning_journey_philosophy?: string;
+  learning_journey_abos_principle?: string;
   capability_gap_examples?: CapabilityGapExamples;
   growth_principle_phrases?: string[];
   vision_rose_phrase?: string;

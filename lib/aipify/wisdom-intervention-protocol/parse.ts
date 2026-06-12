@@ -82,14 +82,6 @@ export function parseWisdomInterventionDashboard(data: unknown): WisdomIntervent
       typeof d.permissions === "object" && d.permissions
         ? (d.permissions as Record<string, unknown>)
         : undefined,
-    pause_reflection_philosophy:
-      typeof d.pause_reflection_philosophy === "string" ? d.pause_reflection_philosophy : undefined,
-    human_moment_note: typeof d.human_moment_note === "string" ? d.human_moment_note : undefined,
-    pause_communication_examples: parseRecordList<ResponseStyleExample>(d.pause_communication_examples),
-    self_love_rose_phrases: parseRecordList<Record<string, unknown>>(d.self_love_rose_phrases),
-    pause_abos_principle: typeof d.pause_abos_principle === "string" ? d.pause_abos_principle : undefined,
-    combined_protocol_note:
-      typeof d.combined_protocol_note === "string" ? d.combined_protocol_note : undefined,
     ...d,
   } as WisdomInterventionDashboard;
 }
