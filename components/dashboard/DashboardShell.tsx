@@ -9,6 +9,8 @@ import { AipifyPlatformBrandMark } from "@/components/branding";
 import { LicenseSidebarPanel } from "@/components/app/license";
 import Sidebar, { type NavItem } from "./Sidebar";
 import SidebarBrand from "./SidebarBrand";
+import { CompanionPresenceIndicator } from "@/components/app/companion-presence";
+import type { CompanionPresenceLabels } from "@/components/app/companion-presence";
 import { PresenceProvider, type PresenceLabels } from "@/components/presence/PresenceProvider";
 import Topbar from "./Topbar";
 import { OrganizationSwitcher } from "@/components/app/organization";
@@ -52,6 +54,7 @@ type DashboardShellProps = {
     pulseLabel: string;
   };
   presenceLabels?: PresenceLabels;
+  companionPresenceLabels?: CompanionPresenceLabels;
   locale?: string;
   organizationSwitcherLabels?: {
     label: string;
@@ -78,6 +81,7 @@ export default function DashboardShell({
   platformBrandMark,
   licensePanelLabels,
   presenceLabels,
+  companionPresenceLabels,
   locale = "en",
   organizationSwitcherLabels,
   children,
@@ -277,13 +281,25 @@ export default function DashboardShell({
     </div>
   );
 
+  const withCompanion =
+    shellVariant === "customer" &&
+    pathname.startsWith("/app") &&
+    companionPresenceLabels ? (
+      <>
+        {shell}
+        <CompanionPresenceIndicator labels={companionPresenceLabels} />
+      </>
+    ) : (
+      shell
+    );
+
   if (!presenceLabels) {
-    return shell;
+    return withCompanion;
   }
 
   return (
     <PresenceProvider surface={shellVariant} labels={presenceLabels} locale={locale}>
-      {shell}
+      {withCompanion}
     </PresenceProvider>
   );
 }

@@ -55,7 +55,8 @@ alter table public.decision_explanations add constraint decision_explanations_de
     'resource_planning_engine',
     'capacity_workload_management_engine',
     'goals_okr_engine',
-    'personal_productivity_engine'
+    'personal_productivity_engine',
+    'companion_presence_indicator_engine'
   )
 );
 
@@ -298,13 +299,36 @@ exception when others then
   return jsonb_build_object('available', false);
 end; $$;
 
+-- Delegates to A.67 _cpie_* helpers when companion_presence tables exist (see 20260911500000).
 create or replace function public._ppe_companion_presence_summary(
   p_organization_id uuid,
   p_user_id uuid
 )
 returns jsonb language plpgsql stable security definer set search_path = public as $$
+declare v_counts jsonb;
+declare v_prefs record;
+declare v_derived text;
 declare v_pending_approvals int := 0;
 begin
+  if exists (select 1 from pg_tables where tablename = 'companion_presence_settings' and schemaname = 'public') then
+    v_counts := public._cpie_summary_counts(p_organization_id, p_user_id);
+    select quiet_mode_enabled into v_prefs
+    from public.companion_presence_user_preferences
+    where organization_id = p_organization_id and user_id = p_user_id;
+    v_derived := public._cpie_derive_state(
+      p_organization_id, p_user_id, coalesce(v_prefs.quiet_mode_enabled, false)
+    );
+    return jsonb_build_object(
+      'available', true,
+      'companion_presence_scaffold', false,
+      'current_state', v_derived,
+      'pending_approvals', coalesce((v_counts->>'pending_approvals')::int, 0),
+      'open_tasks', coalesce((v_counts->>'open_tasks')::int, 0),
+      'quiet_hours_respected', coalesce(v_prefs.quiet_mode_enabled, false),
+      'metadata_only', true
+    );
+  end if;
+
   if exists (select 1 from pg_tables where tablename = 'ai_action_requests' and schemaname = 'public') then
     select count(*) into v_pending_approvals
     from public.ai_action_requests
@@ -966,7 +990,8 @@ returns boolean language sql immutable as $$
     'goke_progress_updated', 'goke_progress_overridden', 'goke_objective_completed',
     'goke_manifest_exported',
     'ppe_profile_updated', 'ppe_reminder_created', 'ppe_briefing_generated',
-    'ppe_automation_approved', 'ppe_manifest_exported'
+    'ppe_automation_approved', 'ppe_manifest_exported',
+    'cpie_critical_alert_acknowledged', 'cpie_quiet_mode_changed', 'cpie_org_settings_changed'
   ) or p_action_type like 'ai_%' or p_action_type like '%_changed';
 $$;
 

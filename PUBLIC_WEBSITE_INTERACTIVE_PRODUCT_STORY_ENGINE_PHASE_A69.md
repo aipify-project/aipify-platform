@@ -36,7 +36,7 @@ Interactive public marketing site and product story — install-first positionin
 | i18n | `locales/{en,no,sv,da}/marketing.json` |
 | Analytics scaffold | `lib/marketing/analytics.ts` |
 | Early access API | `app/api/marketing/early-access/route.ts` |
-| Migration | `20260911000000_public_website_early_access_phase_a69.sql` |
+| Migration | `20260911100000_public_website_early_access_phase_a69.sql` |
 | KC FAQ | `content/knowledge/aipify/public-website/faq/public-website-faq.md` |
 
 ## Key components

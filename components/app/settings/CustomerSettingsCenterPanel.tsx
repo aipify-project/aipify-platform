@@ -49,6 +49,7 @@ type CustomerSettingsCenterPanelProps = {
       compliance: string;
       quality: string;
       assistantIdentity: string;
+      companionPresence: string;
     };
   };
 };
@@ -201,6 +202,9 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
         </Link>
         <Link href="/app/settings/assistant-identity" className="block text-indigo-600 hover:underline">
           {labels.links.assistantIdentity}
+        </Link>
+        <Link href="/app/settings/companion-presence" className="block text-indigo-600 hover:underline">
+          {labels.links.companionPresence}
         </Link>
         <Link href="/app/settings/quality" className="block text-indigo-600 hover:underline">
           {labels.links.quality}

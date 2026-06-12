@@ -7,6 +7,7 @@ import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { buildLicensePanelLabels } from "@/lib/app/license-labels";
+import { buildCompanionPresenceLabels } from "@/lib/presence/companion-presence-labels";
 import { buildPresenceLabels } from "@/lib/presence/labels";
 
 export default async function AppLayout({
@@ -74,6 +75,7 @@ export default async function AppLayout({
           mobileNavIds={APP_MOBILE_NAV_IDS}
           licensePanelLabels={buildLicensePanelLabels(t)}
           presenceLabels={buildPresenceLabels(t)}
+          companionPresenceLabels={buildCompanionPresenceLabels(t)}
           locale={locale}
           organizationSwitcherLabels={{
             label: t("customerApp.multiTenantArchitecture.organizationSwitcher"),

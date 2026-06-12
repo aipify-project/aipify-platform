@@ -67,4 +67,7 @@ export * from "./meeting-collaboration-intelligence";
 export * from "./unified-task-follow-up";
 export * from "./resource-planning";
 export * from "./capacity-workload-management";
+export * from "./goals-okr";
+export * from "./predictive-insights";
 export * from "./personal-productivity";
+export * from "./companion-presence";

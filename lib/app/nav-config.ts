@@ -49,11 +49,20 @@ export type AppNavId =
   | "organizationalResilienceEngine"
   | "incidentResponseCoordinationEngine"
   | "serviceLevelCommitmentEngine"
+  | "stakeholderCommunicationEngine"
+  | "organizationalDecisionSupportEngine"
+  | "strategicAlignmentEngine"
+  | "organizationalHealthEngine"
+  | "capabilityMaturityEngine"
+  | "organizationalBenchmarkingEngine"
+  | "documentOutputEngine"
   | "recordsRetentionManagementEngine"
   | "meetingCollaborationIntelligenceEngine"
   | "unifiedTaskFollowUpEngine"
   | "resourcePlanningEngine"
   | "capacityWorkloadManagementEngine"
+  | "goalsOkrEngine"
+  | "predictiveInsightsEngine"
   | "personalProductivityEngine"
   | "briefing"
   | "executive"
@@ -299,6 +308,41 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.serviceLevelCommitmentEngine",
   },
   {
+    id: "stakeholderCommunicationEngine",
+    href: "/app/stakeholder-communication-engine",
+    labelKey: "customerApp.nav.stakeholderCommunicationEngine",
+  },
+  {
+    id: "organizationalDecisionSupportEngine",
+    href: "/app/organizational-decision-support-engine",
+    labelKey: "customerApp.nav.organizationalDecisionSupportEngine",
+  },
+  {
+    id: "strategicAlignmentEngine",
+    href: "/app/strategic-alignment-engine",
+    labelKey: "customerApp.nav.strategicAlignmentEngine",
+  },
+  {
+    id: "organizationalHealthEngine",
+    href: "/app/organizational-health-engine",
+    labelKey: "customerApp.nav.organizationalHealthEngine",
+  },
+  {
+    id: "capabilityMaturityEngine",
+    href: "/app/capability-maturity-engine",
+    labelKey: "customerApp.nav.capabilityMaturityEngine",
+  },
+  {
+    id: "organizationalBenchmarkingEngine",
+    href: "/app/organizational-benchmarking-engine",
+    labelKey: "customerApp.nav.organizationalBenchmarkingEngine",
+  },
+  {
+    id: "documentOutputEngine",
+    href: "/app/document-output-engine",
+    labelKey: "customerApp.nav.documentOutputEngine",
+  },
+  {
     id: "recordsRetentionManagementEngine",
     href: "/app/records-retention-management-engine",
     labelKey: "customerApp.nav.recordsRetentionManagementEngine",
@@ -322,6 +366,16 @@ export const APP_NAV: AppNavItem[] = [
     id: "capacityWorkloadManagementEngine",
     href: "/app/capacity-workload-management-engine",
     labelKey: "customerApp.nav.capacityWorkloadManagementEngine",
+  },
+  {
+    id: "goalsOkrEngine",
+    href: "/app/goals-okr-engine",
+    labelKey: "customerApp.nav.goalsOkrEngine",
+  },
+  {
+    id: "predictiveInsightsEngine",
+    href: "/app/predictive-insights-engine",
+    labelKey: "customerApp.nav.predictiveInsightsEngine",
   },
   {
     id: "personalProductivityEngine",
@@ -461,6 +515,27 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/service-level-commitment-engine")) {
     return "serviceLevelCommitmentEngine";
   }
+  if (pathname.startsWith("/app/stakeholder-communication-engine")) {
+    return "stakeholderCommunicationEngine";
+  }
+  if (pathname.startsWith("/app/organizational-decision-support-engine")) {
+    return "organizationalDecisionSupportEngine";
+  }
+  if (pathname.startsWith("/app/strategic-alignment-engine")) {
+    return "strategicAlignmentEngine";
+  }
+  if (pathname.startsWith("/app/organizational-health-engine")) {
+    return "organizationalHealthEngine";
+  }
+  if (pathname.startsWith("/app/capability-maturity-engine")) {
+    return "capabilityMaturityEngine";
+  }
+  if (pathname.startsWith("/app/organizational-benchmarking-engine")) {
+    return "organizationalBenchmarkingEngine";
+  }
+  if (pathname.startsWith("/app/document-output-engine")) {
+    return "documentOutputEngine";
+  }
   if (pathname.startsWith("/app/records-retention-management-engine")) {
     return "recordsRetentionManagementEngine";
   }
@@ -475,6 +550,12 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/capacity-workload-management-engine")) {
     return "capacityWorkloadManagementEngine";
+  }
+  if (pathname.startsWith("/app/goals-okr-engine")) {
+    return "goalsOkrEngine";
+  }
+  if (pathname.startsWith("/app/predictive-insights-engine")) {
+    return "predictiveInsightsEngine";
   }
   if (pathname.startsWith("/app/personal-productivity-engine")) {
     return "personalProductivityEngine";
@@ -496,6 +577,19 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/learning-training-engine")) return "learningTrainingEngine";
   if (pathname.startsWith("/app/certification-achievement-engine")) return "certificationAchievementEngine";
   if (pathname.startsWith("/app/executive-insights-engine")) return "executiveInsightsEngine";
+  if (pathname.startsWith("/app/innovation-impact-engine")) return "innovationImpactEngine";
+  if (pathname.startsWith("/app/compliance-regulatory-readiness-engine")) {
+    return "complianceRegulatoryReadinessEngine";
+  }
+  if (pathname.startsWith("/app/strategic-intelligence-foundation-engine")) {
+    return "strategicIntelligenceFoundationEngine";
+  }
+  if (pathname.startsWith("/app/operations-center-foundation-engine")) {
+    return "operationsCenterFoundationEngine";
+  }
+  if (pathname.startsWith("/app/continuous-improvement-engine")) return "continuousImprovementEngine";
+  if (pathname.startsWith("/app/workflow-orchestration-engine")) return "workflowOrchestrationEngine";
+  if (pathname.startsWith("/app/human-oversight-engine")) return "humanOversightEngine";
   if (pathname.startsWith("/app/executive")) return "executive";
   if (
     pathname.startsWith("/app/presence") ||

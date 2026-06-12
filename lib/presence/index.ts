@@ -8,3 +8,4 @@ export * from "./quiet-hours";
 export * from "./desktop";
 export * from "./personality";
 export * from "./notification-state";
+export * from "./companion-presence";
