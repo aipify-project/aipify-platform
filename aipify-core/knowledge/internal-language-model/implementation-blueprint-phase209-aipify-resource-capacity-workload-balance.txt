@@ -1,0 +1,12 @@
+ABOS Phase 209 — Aipify Resource Capacity & Workload Balance
+Route: /app/aipify-resource-capacity-workload-balance-engine
+
+Resource Capacity Center: capacity dashboard, workload balance monitor, resource planning center, team capacity insights, strategic resource overview, capacity review scheduler, operations/action center integration, capacity knowledge libraries.
+Capacity Reflection Engine prompts: Is overload prevented proactively? Is resource utilization sustainable? Is workload balance maintained? Does capacity planning support long-term execution? Where can stewardship improve outcomes?
+Capacity Framework: capacity trends, workload balance, resource planning, team insights, strategic overview, review cadence, enterprise scale.
+Executive Capacity Reviews, Capacity Companion, Workload Balance Monitor, Resource Planning Center, Capacity Review Scheduler tracks.
+Design principles: sustainability before exhaustion, clarity before complexity, stewardship before short-term optimization.
+Companion limitations: no employee surveillance, no individual performance ranking, no punitive workload enforcement, no exposing personal data, no overriding leadership allocation decisions, no auto-reassigning resources.
+Privacy critical: aggregate team/unit trends only — never individual monitoring.
+Cross-links only: Phase 208 operations orchestration, Phase 205 action center, Phase 198 organizational health — never surveil individuals, auto-reassign resources, or override leadership allocation decisions.
+People First. Growth Partner — never Affiliate.

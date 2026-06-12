@@ -101,7 +101,9 @@ export type AppNavId =
   | "aipifyKnowledgeDiscoveryIntelligentSearchEngine"
   | "aipifyActionCenterExecutionEngine"
   | "aipifyOperationsOrchestrationEngine"
+  | "aipifyResourceCapacityWorkloadBalanceEngine"
   | "aipifyDecisionCenterGovernanceEngine"
+  | "aipifyOrganizationalRhythmsOperatingCadenceEngine"
   | "aipifyMeetingIntelligenceFollowUpEngine"
   | "aipifyUnifiedWorkspaceEngine"
   | "aipifyGlobalCommandCenterEngine"
@@ -666,9 +668,19 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.aipifyOperationsOrchestrationEngine",
   },
   {
+    id: "aipifyResourceCapacityWorkloadBalanceEngine",
+    href: "/app/aipify-resource-capacity-workload-balance-engine",
+    labelKey: "customerApp.nav.aipifyResourceCapacityWorkloadBalanceEngine",
+  },
+  {
     id: "aipifyDecisionCenterGovernanceEngine",
     href: "/app/aipify-decision-center-governance-engine",
     labelKey: "customerApp.nav.aipifyDecisionCenterGovernanceEngine",
+  },
+  {
+    id: "aipifyOrganizationalRhythmsOperatingCadenceEngine",
+    href: "/app/aipify-organizational-rhythms-operating-cadence-engine",
+    labelKey: "customerApp.nav.aipifyOrganizationalRhythmsOperatingCadenceEngine",
   },
   {
     id: "aipifyMeetingIntelligenceFollowUpEngine",
@@ -1419,8 +1431,14 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/aipify-operations-orchestration-engine")) {
     return "aipifyOperationsOrchestrationEngine";
   }
+  if (pathname.startsWith("/app/aipify-resource-capacity-workload-balance-engine")) {
+    return "aipifyResourceCapacityWorkloadBalanceEngine";
+  }
   if (pathname.startsWith("/app/aipify-decision-center-governance-engine")) {
     return "aipifyDecisionCenterGovernanceEngine";
+  }
+  if (pathname.startsWith("/app/aipify-organizational-rhythms-operating-cadence-engine")) {
+    return "aipifyOrganizationalRhythmsOperatingCadenceEngine";
   }
   if (pathname.startsWith("/app/aipify-meeting-intelligence-follow-up-engine")) {
     return "aipifyMeetingIntelligenceFollowUpEngine";

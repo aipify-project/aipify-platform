@@ -6080,8 +6080,9 @@
     "aipifyExecutiveOperatingSystemFoundersCockpitEngine": "Executive cockpit",
     "aipifyActionCenterExecutionEngine": "Handlingssenter",
     "aipifyMeetingIntelligenceFollowUpEngine": "Møteoppfølging",
+    "aipifyDecisionCenterGovernanceEngine": "Beslutningssenter",
     "aipifyOperationsOrchestrationEngine": "Operasjonsorkestrering",
-    "aipifyResourceCapacityWorkloadBalanceEngine": "Ressurskapasitet"
+    "aipifyOrganizationalRhythmsOperatingCadenceEngine": "Operasjonskadens"
   },
   "identity": {
     "title": "Din identitet",
@@ -11853,6 +11854,40 @@
       "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
     }
   },
+  "aipifyDecisionCenterGovernanceEngine": {
+    "title": "Decision Center",
+    "subtitle": "Global Command & Enterprise Operations Era (201–210). Governance Companion supports decision governance, registry insights, and review reminders. Supports humans — does NOT make organizational decisions or bypass approval chains. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Decision Center & Governance dashboard…",
+    "engineTitle": "Aipify Decision Center & Governance Engine (Phase 207)",
+    "scoreLabel": "Governance score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Governance maturity level",
+    "executiveReviews": "Executive decision reviews",
+    "activeReflections": "Active reflections",
+    "humanOversightRequired": "Human oversight required — humans decide organizational decisions; Governance Companion supports only",
+    "eraOpenerSummary": "Global Command Era — Phases 201–210",
+    "eraOpenerNote": "Cross-link only — do not duplicate DSE RPCs.",
+    "centerLabel": "Decision Center capabilities",
+    "engineLabel": "Decision reflection engine — reflection prompts",
+    "frameworkLabel": "Governance framework",
+    "reviewsLabel": "Executive decision reviews",
+    "companionLabel": "Governance Companion — supports, does not make decisions",
+    "subEngineLabel": "Governance Workflow Engine",
+    "reflections": "Decision reflection scaffolds",
+    "executiveReviewEntries": "Decision review entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 207)",
+    "companionLimitations": "Governance Companion limitations — does NOT make organizational decisions or bypass approval chains",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase207": {
+      "mission": "Governance Companion supports decision governance — humans retain decision authority.",
+      "philosophy": "People First. Governance before confusion. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
+    }
+  },
   "aipifyOperationsOrchestrationEngine": {
     "title": "Operations Command Dashboard",
     "subtitle": "Global Command & Enterprise Operations Era (201–210). Operations Companion supports workflow visibility, dependency alerts, and escalation guidance. Supports humans — does NOT auto-execute workflows or override escalation governance. Growth Partner — never Affiliate.",
@@ -11887,38 +11922,39 @@
       "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
     }
   },
-  "aipifyResourceCapacityWorkloadBalanceEngine": {
-    "title": "Resource Capacity Center",
-    "subtitle": "Global Command & Enterprise Operations Era (201–210). Capacity Companion supports trend summaries, planning insights, and review reminders. Supports humans — does NOT surveil individuals or auto-reassign resources. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Resource Capacity & Workload Balance dashboard…",
-    "engineTitle": "Aipify Resource Capacity & Workload Balance Engine (Phase 209)",
-    "scoreLabel": "Capacity score",
+  "aipifyOrganizationalRhythmsOperatingCadenceEngine": {
+    "title": "Operating Cadence Center",
+    "subtitle": "Global Command & Enterprise Operations Era (201–210) — Era Capstone. Cadence Companion supports rhythm summaries, review reminders, and follow-up insights. Supports humans — does NOT auto-schedule meetings or override leadership cadence. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Organizational Rhythms & Operating Cadence dashboard…",
+    "engineTitle": "Aipify Organizational Rhythms & Operating Cadence Engine (Phase 210 — Era Capstone)",
+    "scoreLabel": "Cadence score",
     "modeLabel": "Mode",
-    "readinessLabel": "Capacity balance level",
-    "executiveReviews": "Executive capacity reviews",
+    "readinessLabel": "Cadence discipline level",
+    "executiveReviews": "Executive cadence reviews",
     "activeReflections": "Active reflections",
-    "humanOversightRequired": "Human oversight required — humans steward allocation decisions; Capacity Companion supports only",
-    "eraOpenerSummary": "Global Command Era — Phases 201–210",
-    "eraOpenerNote": "Cross-link only — do not duplicate operations orchestration or action center RPCs.",
-    "centerLabel": "Resource Capacity Center capabilities",
-    "engineLabel": "Capacity reflection engine — reflection prompts",
-    "frameworkLabel": "Capacity framework",
-    "reviewsLabel": "Executive capacity reviews",
-    "companionLabel": "Capacity Companion — supports, does not surveil",
-    "subEngineLabel": "Workload Balance Monitor",
-    "reflections": "Capacity reflection scaffolds",
-    "executiveReviewEntries": "Capacity review entries",
+    "humanOversightRequired": "Human oversight required — humans steward cadence and reflection; Cadence Companion supports only",
+    "eraOpenerSummary": "Global Command Era — Phases 201–210 (Era Capstone)",
+    "eraOpenerNote": "Cross-link only — do not duplicate action center, decision center, or executive cockpit RPCs.",
+    "centerLabel": "Operating Cadence Center capabilities",
+    "engineLabel": "Cadence reflection engine — reflection prompts",
+    "frameworkLabel": "Cadence framework",
+    "reviewsLabel": "Executive cadence reviews",
+    "companionLabel": "Cadence Companion — supports, does not auto-schedule",
+    "subEngineLabel": "Leadership Cadence Center",
+    "reflections": "Cadence reflection scaffolds",
+    "executiveReviewEntries": "Cadence review entries",
     "scaffoldNotes": "Metadata scaffolds",
     "crossLinks": "Related surfaces — cross-link only, do not duplicate",
-    "blueprintObjectives": "Blueprint objectives (Phase 209)",
-    "companionLimitations": "Capacity Companion limitations — does NOT surveil individuals or auto-reassign resources",
+    "blueprintObjectives": "Blueprint objectives (Phase 210 — Era Capstone)",
+    "companionLimitations": "Cadence Companion limitations — does NOT auto-schedule meetings or override leadership cadence",
     "successCriteria": "Blueprint success criteria",
     "criterionMet": "Met",
     "criterionPending": "In progress",
-    "phase209": {
-      "mission": "Capacity Companion supports capacity planning — humans retain allocation authority for resource decisions.",
-      "philosophy": "People First. Aggregate-only capacity scaffolds. Growth Partner terminology — never Affiliate.",
-      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
+    "phase210": {
+      "mission": "Cadence Companion supports rhythm visibility — humans retain cadence authority for leadership rhythms.",
+      "philosophy": "People First. Metadata-only cadence scaffolds. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
+      "eraCapstone": "Global Command & Enterprise Operations Era (201–210) — Phase 210 era capstone."
     }
   }
 }
