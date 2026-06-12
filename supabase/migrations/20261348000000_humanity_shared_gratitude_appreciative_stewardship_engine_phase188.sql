@@ -1,4 +1,4 @@
--- Phase 188 — Human Hope & Appreciative Stewardship Engine
+-- Phase 188 — Humanity's Shared Gratitude & Appreciative Stewardship Engine
 -- Universal Stewardship & Shared Futures Era (181–190) — Appreciative Stewardship Center.
 -- Helpers: _hsgas_* (engine), _hsgasbp188_* (blueprint)
 
@@ -112,7 +112,16 @@ alter table public.decision_explanations add constraint decision_explanations_de
     'civilizational_coordination_engine',
     'shared_prosperity_engine',
     'constructive_dialogue_engine',
-    'Phase 186 compassion',
+    'humanity_shared_compassion_reciprocal_care_engine',
+    'humanity_shared_courage_responsible_action_engine',
+    'human_hope_possibility_engine',
+    'human_wonder_exploration_engine',
+    'human_legacy_eternal_stewardship_engine',
+    'universal_stewardship_shared_futures_engine',
+    'humanity_collective_wisdom_shared_learning_engine',
+    'humanity_shared_purpose_contribution_engine',
+    'humanity_shared_resilience_adaptive_capacity_engine',
+    'humanity_shared_trust_cooperative_intelligence_engine',
     'human_flourishing_engine',
     'multi_generational_futures_engine',
     'intergenerational_guardianship_engine',
@@ -494,8 +503,8 @@ declare v_tenant_id uuid; v_settings public.humanity_shared_gratitude_appreciati
 end; $$;
 
 insert into public.aipify_knowledge_categories (slug, name, description, visibility, sort_order)
-select 'collective-wisdom-shared-learning-engine', 'Human Hope & Appreciative Stewardship Engine', 'Appreciative Stewardship Center — Cosmic Stewardship Era (171–180). People First.', 'authenticated', 186
-where not exists (select 1 from public.aipify_knowledge_categories where slug = 'collective-wisdom-shared-learning-engine' and tenant_id is null);
+select 'shared-gratitude-appreciative-stewardship-engine', 'Humanity''s Shared Gratitude & Appreciative Stewardship Engine', 'Appreciative Stewardship Center — Universal Stewardship & Shared Futures Era (181–190). People First.', 'authenticated', 194
+where not exists (select 1 from public.aipify_knowledge_categories where slug = 'shared-gratitude-appreciative-stewardship-engine' and tenant_id is null);
 
 grant execute on function public.get_humanity_shared_gratitude_appreciative_stewardship_engine_card(uuid) to authenticated;
 grant execute on function public.get_humanity_shared_gratitude_appreciative_stewardship_engine_dashboard(uuid) to authenticated;

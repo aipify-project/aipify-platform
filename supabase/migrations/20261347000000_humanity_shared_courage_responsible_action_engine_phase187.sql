@@ -1,4 +1,4 @@
--- Phase 187 — Human Hope & Courage Engine
+-- Phase 187 — Humanity's Shared Courage & Responsible Action Engine
 -- Universal Stewardship & Shared Futures Era (181–190) — Courage Center.
 -- Helpers: _hscra_* (engine), _hscrabp187_* (blueprint)
 
@@ -112,7 +112,7 @@ alter table public.decision_explanations add constraint decision_explanations_de
     'civilizational_coordination_engine',
     'shared_prosperity_engine',
     'constructive_dialogue_engine',
-    'Phase 186 compassion',
+    'humanity_shared_compassion_reciprocal_care_engine',
     'human_flourishing_engine',
     'multi_generational_futures_engine',
     'intergenerational_guardianship_engine',
@@ -494,8 +494,8 @@ declare v_tenant_id uuid; v_settings public.humanity_shared_courage_responsible_
 end; $$;
 
 insert into public.aipify_knowledge_categories (slug, name, description, visibility, sort_order)
-select 'collective-wisdom-shared-learning-engine', 'Human Hope & Courage Engine', 'Courage Center — Cosmic Stewardship Era (171–180). People First.', 'authenticated', 186
-where not exists (select 1 from public.aipify_knowledge_categories where slug = 'collective-wisdom-shared-learning-engine' and tenant_id is null);
+select 'shared-courage-responsible-action-engine', 'Humanity''s Shared Courage & Responsible Action Engine', 'Courage Center — Universal Stewardship & Shared Futures Era (181–190). People First.', 'authenticated', 193
+where not exists (select 1 from public.aipify_knowledge_categories where slug = 'shared-courage-responsible-action-engine' and tenant_id is null);
 
 grant execute on function public.get_humanity_shared_courage_responsible_action_engine_card(uuid) to authenticated;
 grant execute on function public.get_humanity_shared_courage_responsible_action_engine_dashboard(uuid) to authenticated;

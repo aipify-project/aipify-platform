@@ -494,8 +494,8 @@ declare v_tenant_id uuid; v_settings public.humanity_shared_trust_cooperative_in
 end; $$;
 
 insert into public.aipify_knowledge_categories (slug, name, description, visibility, sort_order)
-select 'collective-wisdom-shared-learning-engine', 'Human Hope & Cooperative Intelligence Engine', 'Cooperative Intelligence Center — Cosmic Stewardship Era (171–180). People First.', 'authenticated', 186
-where not exists (select 1 from public.aipify_knowledge_categories where slug = 'collective-wisdom-shared-learning-engine' and tenant_id is null);
+select 'shared-trust-cooperative-intelligence-engine', 'Humanity''s Shared Trust & Cooperative Intelligence Engine', 'Cooperative Intelligence Center — Universal Stewardship & Shared Futures Era (181–190). People First.', 'authenticated', 191
+where not exists (select 1 from public.aipify_knowledge_categories where slug = 'shared-trust-cooperative-intelligence-engine' and tenant_id is null);
 
 grant execute on function public.get_humanity_shared_trust_cooperative_intelligence_engine_card(uuid) to authenticated;
 grant execute on function public.get_humanity_shared_trust_cooperative_intelligence_engine_dashboard(uuid) to authenticated;

@@ -494,8 +494,8 @@ declare v_tenant_id uuid; v_settings public.humanity_shared_resilience_adaptive_
 end; $$;
 
 insert into public.aipify_knowledge_categories (slug, name, description, visibility, sort_order)
-select 'collective-wisdom-shared-learning-engine', 'Human Hope & Shared Resilience & Adaptive Capacity Engine', 'Shared Resilience & Adaptive Capacity Center — Cosmic Stewardship Era (171–180). People First.', 'authenticated', 186
-where not exists (select 1 from public.aipify_knowledge_categories where slug = 'collective-wisdom-shared-learning-engine' and tenant_id is null);
+select 'shared-resilience-adaptive-capacity-engine', 'Humanity''s Shared Resilience & Adaptive Capacity Engine', 'Shared Resilience & Adaptive Capacity Center — Universal Stewardship & Shared Futures Era (181–190). People First.', 'authenticated', 190
+where not exists (select 1 from public.aipify_knowledge_categories where slug = 'shared-resilience-adaptive-capacity-engine' and tenant_id is null);
 
 grant execute on function public.get_humanity_shared_resilience_adaptive_capacity_engine_card(uuid) to authenticated;
 grant execute on function public.get_humanity_shared_resilience_adaptive_capacity_engine_dashboard(uuid) to authenticated;

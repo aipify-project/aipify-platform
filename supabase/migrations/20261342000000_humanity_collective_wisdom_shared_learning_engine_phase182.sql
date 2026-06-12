@@ -494,7 +494,7 @@ declare v_tenant_id uuid; v_settings public.humanity_collective_wisdom_shared_le
 end; $$;
 
 insert into public.aipify_knowledge_categories (slug, name, description, visibility, sort_order)
-select 'collective-wisdom-shared-learning-engine', 'Human Hope & Collective Wisdom Engine', 'Collective Wisdom Center — Cosmic Stewardship Era (171–180). People First.', 'authenticated', 186
+select 'collective-wisdom-shared-learning-engine', 'Collective Wisdom & Shared Learning Engine', 'Collective Wisdom Center — Universal Stewardship & Shared Futures Era (181–190). People First.', 'authenticated', 188
 where not exists (select 1 from public.aipify_knowledge_categories where slug = 'collective-wisdom-shared-learning-engine' and tenant_id is null);
 
 grant execute on function public.get_humanity_collective_wisdom_shared_learning_engine_card(uuid) to authenticated;

@@ -494,7 +494,7 @@ declare v_tenant_id uuid; v_settings public.universal_stewardship_shared_futures
 end; $$;
 
 insert into public.aipify_knowledge_categories (slug, name, description, visibility, sort_order)
-select 'universal-stewardship-shared-futures-engine', 'Human Hope & Universal Stewardship Engine', 'Universal Stewardship Center — Cosmic Stewardship Era (171–180). People First.', 'authenticated', 186
+select 'universal-stewardship-shared-futures-engine', 'Universal Stewardship & Shared Futures Engine', 'Universal Stewardship Center — Universal Stewardship & Shared Futures Era (181–190). People First.', 'authenticated', 187
 where not exists (select 1 from public.aipify_knowledge_categories where slug = 'universal-stewardship-shared-futures-engine' and tenant_id is null);
 
 grant execute on function public.get_universal_stewardship_shared_futures_engine_card(uuid) to authenticated;
