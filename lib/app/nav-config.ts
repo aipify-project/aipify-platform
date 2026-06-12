@@ -99,6 +99,7 @@ export type AppNavId =
   | "aipifyStrategicAlignmentPrioritizationEngine"
   | "aipifyExecutiveOperatingSystemFoundersCockpitEngine"
   | "aipifyKnowledgeDiscoveryIntelligentSearchEngine"
+  | "aipifyActionCenterExecutionEngine"
   | "aipifyUnifiedWorkspaceEngine"
   | "aipifyGlobalCommandCenterEngine"
   | "aipifyDigitalHeadquartersEngine"
@@ -650,6 +651,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "aipifyKnowledgeDiscoveryIntelligentSearchEngine",
     href: "/app/aipify-knowledge-discovery-intelligent-search-engine",
     labelKey: "customerApp.nav.aipifyKnowledgeDiscoveryIntelligentSearchEngine",
+  },
+  {
+    id: "aipifyActionCenterExecutionEngine",
+    href: "/app/aipify-action-center-execution-engine",
+    labelKey: "customerApp.nav.aipifyActionCenterExecutionEngine",
   },
   {
     id: "aipifyUnifiedWorkspaceEngine",
@@ -1388,6 +1394,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/aipify-knowledge-discovery-intelligent-search-engine")) {
     return "aipifyKnowledgeDiscoveryIntelligentSearchEngine";
+  }
+  if (pathname.startsWith("/app/aipify-action-center-execution-engine")) {
+    return "aipifyActionCenterExecutionEngine";
   }
   if (pathname.startsWith("/app/aipify-unified-workspace-engine")) {
     return "aipifyUnifiedWorkspaceEngine";

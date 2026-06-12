@@ -1,0 +1,11 @@
+ABOS Phase 203 — Aipify Digital Headquarters Engine
+Route: /app/aipify-digital-headquarters-engine
+
+Digital Headquarters: company feed, executive updates center, events and milestones dashboard, resource library, department spaces, welcome center, multi-language support scaffolds, headquarters knowledge libraries.
+Alignment Reflection Engine prompts: organizational alignment, internal communication, information silos, employee engagement, belonging for distributed teams.
+Headquarters Framework: alignment, communication, engagement, events/milestones, resources, department spaces, onboarding.
+Executive Headquarters Reviews, Headquarters Companion, Executive Updates Center practices, Events & Milestones practices, Resource Library tracks.
+Design principles: enterprise-grade, Microsoft productivity, Apple simplicity, professional communication, clarity before complexity, belonging before bureaucracy.
+Companion limitations: no publishing org communications, no overriding leadership messages, no exposing sensitive internal info, no replacing HR/comms teams, no determining org priorities.
+Cross-links only: Phase 202 unified workspace, employee_knowledge_engine, notification_communication_engine — never duplicate RPCs or publish org communications without leadership approval.
+People First. Growth Partner — never Affiliate.

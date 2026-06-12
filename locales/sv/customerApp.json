@@ -5837,7 +5837,8 @@
     "aipifyGlobalCommandCenterEngine": "Globalt kommandocenter",
     "aipifyUnifiedWorkspaceEngine": "Enhetlig arbetsyta",
     "aipifyKnowledgeDiscoveryIntelligentSearchEngine": "Kunskapsupptäckt",
-    "aipifyExecutiveOperatingSystemFoundersCockpitEngine": "Executive cockpit"
+    "aipifyExecutiveOperatingSystemFoundersCockpitEngine": "Executive cockpit",
+    "aipifyActionCenterExecutionEngine": "Action Center"
   },
   "identity": {
     "title": "Din identitet",
@@ -11543,6 +11544,40 @@
     "phase200": {
       "mission": "Executive Companion supports executive visibility — humans retain all decision authority.",
       "philosophy": "People First. Clarity without overload. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
+    }
+  },
+  "aipifyActionCenterExecutionEngine": {
+    "title": "Action Center (My Actions Dashboard)",
+    "subtitle": "Global Command & Enterprise Operations Era (201–210). Execution Companion supports action tracking, follow-up, and delegation governance. Supports humans — does NOT auto-execute Level 3+ or bypass trust_action_engine. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Action Center & Execution dashboard…",
+    "engineTitle": "Aipify Action Center & Execution Engine (Phase 205)",
+    "scoreLabel": "Execution score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Execution readiness level",
+    "executiveReviews": "Executive action reviews",
+    "activeReflections": "Active reflections",
+    "humanOversightRequired": "Human oversight required — humans decide sensitive actions; Execution Companion supports only",
+    "eraOpenerSummary": "Global Command Era — Phases 201–210",
+    "eraOpenerNote": "Cross-link only — do not duplicate AEF RPCs.",
+    "centerLabel": "Action Center (My Actions Dashboard) capabilities",
+    "engineLabel": "Execution reflection engine — reflection prompts",
+    "frameworkLabel": "Execution framework",
+    "reviewsLabel": "Executive action reviews",
+    "companionLabel": "Execution Companion — supports, does not auto-execute",
+    "subEngineLabel": "Smart Follow-Up Engine",
+    "reflections": "Execution reflection scaffolds",
+    "executiveReviewEntries": "Action review entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 205)",
+    "companionLimitations": "Execution Companion limitations — does NOT auto-execute Level 3+ or bypass trust_action_engine",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase205": {
+      "mission": "Execution Companion supports action tracking — humans retain approval authority for sensitive actions.",
+      "philosophy": "People First. Metadata-only action scaffolds. Growth Partner terminology — never Affiliate.",
       "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
     }
   }
