@@ -39,6 +39,9 @@ export * from "./wisdom-intervention-vocabulary";
 export * from "./wisdom-engine-vocabulary";
 export * from "./hope-engine-vocabulary";
 export * from "./learning-journey-vocabulary";
+export * from "./implementation-blueprint-phase1-vocabulary";
+export * from "./implementation-blueprint-phase2-vocabulary";
+export * from "./implementation-blueprint-phase3-vocabulary";
 
 /** Canonical knowledge corpus paths (source of truth). */
 export const FUNCTION_VOCABULARY_PATH =
@@ -136,5 +139,14 @@ export const PLAYFUL_MOMENTS_BELL_PATH =
 
 export const LEARNING_JOURNEY_COMMUNICATION_PATH =
   "aipify-core/knowledge/internal-language-model/learning-journey-communication-standard.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE1_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase1-org-workspace.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE2_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase2-user-role-permission.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE3_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase3-knowledge-center.txt";
 
 export * from "./playful-moments-bell-vocabulary";

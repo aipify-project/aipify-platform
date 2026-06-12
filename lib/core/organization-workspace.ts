@@ -86,3 +86,14 @@ export function createWorkspaceAuditEntry(
 ) {
   return { action_type: actionType, metadata, recorded_server_side: true as const };
 }
+
+export async function saveOrganizationCompanionFoundation(
+  supabase: RpcClient,
+  payload: Record<string, unknown>
+): Promise<Record<string, unknown>> {
+  const { data, error } = await supabase.rpc("save_organization_companion_foundation", {
+    p_payload: payload,
+  });
+  if (error) throw new Error(error.message);
+  return (data as Record<string, unknown>) ?? {};
+}

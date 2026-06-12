@@ -53,10 +53,43 @@ export type OrganizationWorkspaceEngineCard = {
   [key: string]: unknown;
 };
 
+export type CompanionFoundation = {
+  communication_tone?: string;
+  humor_level?: string;
+  bell_moments_enabled?: boolean;
+  self_love_reminders_enabled?: boolean;
+  recognition_features_enabled?: boolean;
+  presence_comfort_enabled?: boolean;
+  [key: string]: unknown;
+};
+
+export type BlueprintSuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+  [key: string]: unknown;
+};
+
 export type OrganizationWorkspaceEngineDashboard = {
   has_organization: boolean;
   philosophy?: string;
+  mission?: string;
+  build_philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  implementation_blueprint?: Record<string, unknown>;
   principles?: string[];
+  organizational_hierarchy?: string[];
+  org_engine_requirements?: string[];
+  workspace_engine_requirements?: string[];
+  user_management_requirements?: string[];
+  multi_tenant_security_requirements?: string[];
+  companion_foundation?: CompanionFoundation;
+  knowledge_center_foundation?: string[];
+  dogfooding?: Record<string, unknown>;
+  success_criteria?: BlueprintSuccessCriterion[];
+  blueprint_integration_links?: { label?: string; route?: string }[];
   organization?: Record<string, unknown>;
   summary?: Record<string, unknown>;
   settings?: WorkspaceSettings;

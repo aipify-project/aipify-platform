@@ -27,3 +27,15 @@ Each workspace exposes metadata-only integration links to Knowledge Center, Supp
 ## What dogfood workspaces are seeded?
 
 For **Aipify Group AS** (`aipify-group`): Executive Office, Development, Support, Operations, Sales. For **Unonight** (`unonight`): Admin, Moderation, Customer Support, Marketplace Operations. Seeds run only when the organization exists and has no workspaces yet.
+
+## How does Implementation Blueprint Phase 1 relate to this engine?
+
+Phase 1 — Organization & Workspace Foundation defines the ABOS structural base: Organization → Workspaces → Users → Roles → Permissions → Companion Experiences. The Organization & Workspace Engine (A.75) implements this foundation. See [IMPLEMENTATION_BLUEPRINT_PHASE1_ORGANIZATION_WORKSPACE_FOUNDATION.md](../../../IMPLEMENTATION_BLUEPRINT_PHASE1_ORGANIZATION_WORKSPACE_FOUNDATION.md).
+
+## What is the ABOS companion foundation?
+
+Per-organization companion settings (metadata): communication tone, humor level, bell moments, Self Love reminders, recognition features, and Presence & Comfort. Configured at `/app/organization-workspace-engine` — Aipify identity stays consistent while allowing appropriate customization.
+
+## What are Phase 1 success criteria?
+
+Multiple organizations, independent workspaces, secure user membership, enforceable permissions, tenant isolation, per-organization Knowledge Centers, and safe companion preference configuration. The dashboard shows live status for your organization.

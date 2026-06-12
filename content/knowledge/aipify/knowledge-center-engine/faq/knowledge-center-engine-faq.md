@@ -31,3 +31,15 @@ Yes. Significant knowledge events must be recorded.
 ## Can organizations import existing documentation?
 
 Yes. Imported content enters the review workflow before publication.
+
+## What is Implementation Blueprint Phase 3?
+
+Phase 3 aligns the Knowledge Center Engine with ABOS organizational memory — mission, knowledge types, visibility levels, success criteria, and dogfood collections. See `implementation-blueprint-phase3-faq.md`.
+
+## What knowledge types does ABOS define?
+
+Operational, support, organizational, companion, training, and strategic — each organization maps content to categories.
+
+## Does the blueprint add new database tables?
+
+No. Phase 3 extends existing `knowledge_categories`, `knowledge_articles`, and related A.5 tables via RPC alignment and metadata scaffolds.

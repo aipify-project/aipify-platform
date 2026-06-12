@@ -33,11 +33,17 @@ Organization → Workspace → Users → Roles → Permissions hierarchy with is
 
 ## RPCs
 
-Dashboard, card, list workspaces, get/switch current workspace, create/update/archive workspace, invite/update member, list/create custom roles, get/save workspace permissions, export summary.
+Dashboard, card, list workspaces, get/switch current workspace, create/update/archive workspace, invite/update member, list/create custom roles, get/save workspace permissions, save organization companion foundation, export summary.
 
 ## Dogfood seeds
 
 - `aipify-group`: Executive Office, Development, Support, Operations, Sales
 - `unonight`: Admin, Moderation, Customer Support, Marketplace Operations
+
+## Implementation Blueprint Phase 1 alignment
+
+See [IMPLEMENTATION_BLUEPRINT_PHASE1_ORGANIZATION_WORKSPACE_FOUNDATION.md](./IMPLEMENTATION_BLUEPRINT_PHASE1_ORGANIZATION_WORKSPACE_FOUNDATION.md).
+
+Migration `20260946000000_implementation_blueprint_phase1_org_workspace.sql` extends dashboard/card with mission, build philosophy, ABOS principle, success criteria, companion foundation (`metadata.companion_foundation`), and blueprint integration links. RPC `save_organization_companion_foundation(p_payload)`.
 
 Metadata only — integration links scaffold KC, PAME, support, automations without duplicating engine tables.

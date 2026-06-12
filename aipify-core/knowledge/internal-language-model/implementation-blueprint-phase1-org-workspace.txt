@@ -1,0 +1,17 @@
+IMPLEMENTATION BLUEPRINT — PHASE 1: ORGANIZATION & WORKSPACE FOUNDATION
+
+Mission: Build organizational architecture that supports businesses of all sizes through secure, scalable, isolated environments.
+
+Build philosophy: Build once. Build properly. Scale forever.
+
+Hierarchy: Organization → Workspaces → Users → Roles → Permissions → Companion Experiences.
+
+ABOS principle: Intelligence without structure creates chaos. Structure without humanity creates rigidity. Aipify combines both.
+
+Companion foundation (metadata): communication tone, humor level, bell moments, Self Love reminders, recognition features, presence and comfort settings. Aipify identity stays consistent; customization stays appropriate and safe.
+
+Knowledge Center foundation: each organization receives FAQs, documentation, procedures, values, learning resources, and companion guidance — the base of Organizational Memory.
+
+Dogfooding: Aipify Group AS uses ABOS internally. Unonight is the first external pilot for real-world validation.
+
+Preferred wording: "organization and workspace foundation", "isolated operational context", "tenant boundary", "workspace switching", not "separate admin panel" or "replace your system".

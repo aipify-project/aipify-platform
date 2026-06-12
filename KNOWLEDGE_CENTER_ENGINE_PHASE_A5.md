@@ -9,11 +9,15 @@
 | Layer | Location |
 |-------|----------|
 | Migration | `supabase/migrations/20260710000000_knowledge_center_engine_phase_a5.sql` |
+| Blueprint alignment | `supabase/migrations/20260948000000_implementation_blueprint_phase3_knowledge_center.sql` |
+| Blueprint doc | [IMPLEMENTATION_BLUEPRINT_PHASE3_KNOWLEDGE_CENTER_FOUNDATION.md](./IMPLEMENTATION_BLUEPRINT_PHASE3_KNOWLEDGE_CENTER_FOUNDATION.md) |
 | Prefix | `_kce_` · decision type: `knowledge_center_engine` |
 | Lib | `lib/aipify/knowledge-center-engine/`, `lib/core/knowledge.ts` |
 | API | `/api/aipify/knowledge-center-engine/*`, `/api/knowledge/*` |
 | UI | `/app/knowledge-center-engine` |
 | KC FAQ | `content/knowledge/aipify/knowledge-center-engine/faq/knowledge-center-engine-faq.md` |
+| Blueprint FAQ | `content/knowledge/aipify/knowledge-center-engine/faq/implementation-blueprint-phase3-faq.md` |
+| ILM | `aipify-core/knowledge/internal-language-model/implementation-blueprint-phase3-knowledge-center.txt` |
 
 ## Core tables
 
@@ -35,8 +39,11 @@
 
 ## RPCs
 
-- `get_knowledge_center_engine_dashboard()` — knowledge health dashboard
-- `get_knowledge_center_engine_card()` — summary card
+- `get_knowledge_center_engine_dashboard()` — knowledge health dashboard with Implementation Blueprint Phase 3 fields
+- `get_knowledge_center_engine_card()` — summary card with blueprint mission and philosophy
+- `_kce_blueprint_success_criteria(uuid)` — live Phase 3 success criteria
+- `_kce_seed_blueprint_dogfood_categories(uuid)` — dogfood category seeds for pilot orgs
+- `_kce_ensure_evolution_settings(uuid)` — knowledge evolution scaffold in org settings metadata
 - `search_organization_knowledge(jsonb)` — keyword search with filters and relevance ranking
 - `retrieve_knowledge_for_ai(text, text, text)` — AI retrieval with publication rules
 - `create_organization_knowledge_article(...)` — create draft article
@@ -80,3 +87,7 @@ Article creation, updates, publishing, archival, FAQ modifications, and imports 
 ## Principle
 
 Unpublished knowledge never powers customer-facing AI responses. Every change is versioned, reviewable, and auditable.
+
+## Implementation Blueprint Phase 3
+
+Aligns A.5 with ABOS organizational memory requirements — no new tables. Adds mission, knowledge types, visibility mapping, success criteria, dogfood collections, companion integration metadata, and knowledge evolution scaffold. Gaps (scaffold only): article tags, related content, workspace-scoped visibility, full Self Love A.76 integration, automated organizational gap detection (KC Phase 55 handles product self-knowledge gaps).

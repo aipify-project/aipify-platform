@@ -92,25 +92,201 @@ export function KnowledgeCenterEngineDashboardPanel({ labels }: KnowledgeCenterE
   if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
   if (!dashboard?.has_organization) return null;
 
+  const successCriteria = Array.isArray(dashboard.success_criteria) ? dashboard.success_criteria : [];
+  const knowledgeTypes = Array.isArray(dashboard.knowledge_types) ? dashboard.knowledge_types : [];
+  const visibilityLevels = Array.isArray(dashboard.visibility_levels) ? dashboard.visibility_levels : [];
+  const kcObjectives = Array.isArray(dashboard.kc_objectives) ? dashboard.kc_objectives : [];
+  const blueprintLinks = Array.isArray(dashboard.blueprint_integration_links)
+    ? dashboard.blueprint_integration_links
+    : [];
+  const dogfooding =
+    typeof dashboard.dogfooding === "object" && dashboard.dogfooding
+      ? (dashboard.dogfooding as Record<string, unknown>)
+      : null;
+  const evolution =
+    typeof dashboard.knowledge_evolution === "object" && dashboard.knowledge_evolution
+      ? dashboard.knowledge_evolution
+      : null;
+
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap gap-2">
         <Link href="/app/aipify-core" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.aipifyCore}
         </Link>
-        <Link href="/app/audit-accountability" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.auditAccountability}
+        <Link href="/app/organization-workspace-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.organizationWorkspace}
         </Link>
-        <Link href="/app/secure-ai-actions" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.secureAiActions}
+        <Link href="/app/identity-access" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.identityPermissions}
+        </Link>
+        <Link href="/app/knowledge-center" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.kcSelfKnowledge}
         </Link>
       </div>
 
       <section className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-6">
         <h2 className="text-sm font-semibold text-indigo-900">{labels.knowledgeEngine}</h2>
+        {dashboard.mission && <p className="mt-2 text-sm font-medium text-indigo-900">{dashboard.mission}</p>}
         <p className="mt-2 text-sm text-indigo-900">{dashboard.philosophy}</p>
+        {dashboard.abos_principle && (
+          <p className="mt-2 text-xs text-indigo-700">{dashboard.abos_principle}</p>
+        )}
         <p className="mt-1 text-xs text-indigo-700">{dashboard.safety_note}</p>
+        <p className="mt-2 text-xs text-indigo-600">{labels.distinctionNote}</p>
       </section>
+
+      {successCriteria.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.successCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {successCriteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={label} className="flex flex-col gap-0.5">
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note && <span className="text-xs text-gray-500">{note}</span>}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {kcObjectives.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.kcObjectives}</h3>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-gray-700">
+            {kcObjectives.map((obj) => (
+              <li key={obj}>{obj}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {knowledgeTypes.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.knowledgeTypes}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {knowledgeTypes.map((type) => {
+              const key = typeof type.key === "string" ? type.key : String(type.label ?? "");
+              const label = typeof type.label === "string" ? type.label : key;
+              const description = typeof type.description === "string" ? type.description : null;
+              return (
+                <div key={key} className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-xs">
+                  <p className="font-medium text-gray-900">{label}</p>
+                  {description && <p className="mt-1 text-gray-600">{description}</p>}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {visibilityLevels.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.visibilityLevels}</h3>
+          <ul className="mt-2 space-y-2 text-xs text-gray-700">
+            {visibilityLevels.map((level) => {
+              const blueprint = typeof level.blueprint === "string" ? level.blueprint : "";
+              const engine = typeof level.engine === "string" ? level.engine : "";
+              const description = typeof level.description === "string" ? level.description : "";
+              return (
+                <li key={blueprint} className="rounded border border-gray-100 bg-gray-50 px-3 py-2">
+                  <span className="font-medium capitalize">{blueprint}</span>
+                  {engine ? <span className="text-gray-500"> → {engine}</span> : null}
+                  {description ? <p className="mt-0.5 text-gray-600">{description}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {evolution && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.knowledgeEvolution}</h3>
+          <p className="mt-1 text-xs text-gray-500">{labels.knowledgeEvolutionNote}</p>
+          <ul className="mt-2 space-y-1 text-xs text-gray-700">
+            {(
+              [
+                ["gap_detection_enabled", labels.gapDetection],
+                ["evolution_tracking_enabled", labels.evolutionTracking],
+                ["self_love_integration_enabled", labels.selfLoveIntegration],
+                ["companion_guidance_priority", labels.companionGuidance],
+              ] as const
+            ).map(([key, label]) => (
+              <li key={key}>
+                {label}: {evolution[key] ? labels.enabled : labels.disabled}
+              </li>
+            ))}
+            {typeof evolution.review_cycle_days === "number" && (
+              <li>
+                {labels.reviewCycle}: {evolution.review_cycle_days} {labels.days}
+              </li>
+            )}
+          </ul>
+        </section>
+      )}
+
+      {dogfooding && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.dogfooding}</h3>
+          {typeof dogfooding.principle === "string" && (
+            <p className="mt-1 text-xs text-gray-600">{dogfooding.principle}</p>
+          )}
+          <div className="mt-3 grid gap-4 sm:grid-cols-2">
+            {(["aipify_group", "unonight"] as const).map((orgKey) => {
+              const org = dogfooding[orgKey];
+              if (typeof org !== "object" || !org) return null;
+              const orgData = org as Record<string, unknown>;
+              const slug = typeof orgData.slug === "string" ? orgData.slug : orgKey;
+              const categories = Array.isArray(orgData.categories) ? (orgData.categories as string[]) : [];
+              return (
+                <div key={orgKey} className="rounded border border-gray-100 bg-gray-50 p-3">
+                  <p className="text-xs font-medium text-gray-900">{slug}</p>
+                  {categories.length > 0 && (
+                    <div className="mt-2 flex flex-wrap gap-1">
+                      {categories.map((cat) => (
+                        <span key={cat} className="rounded-full bg-indigo-100 px-2 py-0.5 text-xs text-indigo-800">
+                          {cat}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {blueprintLinks.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.blueprintLinks}</h3>
+          <ul className="mt-2 space-y-1 text-sm">
+            {blueprintLinks.map((link) => {
+              const route = typeof link.route === "string" ? link.route : null;
+              const label = typeof link.label === "string" ? link.label : route ?? "";
+              return (
+                <li key={label}>
+                  {route ? (
+                    <Link href={route} className="text-indigo-600 hover:underline">
+                      {label}
+                    </Link>
+                  ) : (
+                    label
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
 
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-lg border border-gray-100 bg-white p-3">

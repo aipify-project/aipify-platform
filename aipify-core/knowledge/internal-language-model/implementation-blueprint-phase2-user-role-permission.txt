@@ -1,0 +1,19 @@
+IMPLEMENTATION BLUEPRINT — PHASE 2: USER, ROLE & PERMISSION FOUNDATION
+
+Mission: Secure identity management, roles, and permissions — the right access at the right time.
+
+Build philosophy: Least privilege by default. Humans decide. Aipify prepares and enforces.
+
+Default roles: Super Admin (platform), Org Owner, Administrator, Executive, Manager, Support Agent, Moderator, Employee, Viewer, plus custom roles.
+
+Permission categories: organization, workspace, knowledge, support, companion, admin.
+
+ABOS principle: Access without accountability erodes trust. Accountability without empathy erodes adoption. Aipify balances both.
+
+Approval integration: low-risk may auto-execute; medium and high-risk require human approval. All identity actions are audit-logged.
+
+Self Love connection: companion permission preferences respect wellbeing boundaries — scaffold until Self Love Engine (A.76).
+
+Trust connection: integrates Security & Trust (A.18), Trust Architecture, and periodic access reviews.
+
+Preferred wording: "identity and permissions foundation", "least privilege", "role-based access", "human approval for high-risk changes", not "AI runs your company" or "replace administrators".

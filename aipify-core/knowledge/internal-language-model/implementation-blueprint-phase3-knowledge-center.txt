@@ -1,0 +1,21 @@
+IMPLEMENTATION BLUEPRINT — PHASE 3: KNOWLEDGE CENTER FOUNDATION
+
+Mission: Central source of truth for organizational memory, companion guidance, support knowledge, and operational intelligence.
+
+Philosophy: Accessible. Organized. Actionable. Continuously improved. Shared responsibly.
+
+ABOS principle: Knowledge without governance creates confusion. Governance without accessibility creates silence. Aipify combines both.
+
+Knowledge types: operational, support, organizational, companion, training, strategic.
+
+Visibility: public (external), organization (internal), workspace (internal scaffold), restricted (permission-gated).
+
+AI companion: retrieve published tenant knowledge first; never use draft, review, or archived content for customer-facing responses.
+
+Knowledge evolution scaffold: gap detection, evolution tracking, Self Love integration (A.76 metadata), review cycle defaults.
+
+Dogfooding: Aipify Group AS — Product, Engineering, Support, Sales, Governance, Self Love, Human Values, Companion Guidelines. Unonight pilot — Support, Operations, Marketplace, FAQ.
+
+Preferred wording: "organizational memory", "approved knowledge", "review before publication", "tenant-owned knowledge", not "AI knows everything" or "automatic documentation".
+
+Gaps (scaffold only): article tags, related content links, workspace-scoped visibility, full Self Love A.76 integration, automated gap detection beyond KC Phase 55.

@@ -17,8 +17,10 @@ export default async function IdentityPermissionsPage() {
       <IdentityPermissionsDashboardPanel
         labels={{
           loading: t(`${p}.loading`),
+          engineTitle: t(`${p}.engineTitle`),
           aipifyCore: t(`${p}.aipifyCore`),
           multiTenant: t(`${p}.multiTenant`),
+          organizationWorkspace: t(`${p}.organizationWorkspace`),
           team: t(`${p}.team`),
           approvals: t(`${p}.approvals`),
           identityOverview: t(`${p}.identityOverview`),
@@ -37,6 +39,26 @@ export default async function IdentityPermissionsPage() {
           yourPermissions: t(`${p}.yourPermissions`),
           mfaReadiness: t(`${p}.mfaReadiness`),
           recentAccessEvents: t(`${p}.recentAccessEvents`),
+          successCriteria: t(`${p}.successCriteria`),
+          defaultRoles: t(`${p}.defaultRoles`),
+          scaffold: t(`${p}.scaffold`),
+          permissionCategories: t(`${p}.permissionCategories`),
+          leastPrivilege: t(`${p}.leastPrivilege`),
+          accessReviews: t(`${p}.accessReviews`),
+          accessReviewsNote: t(`${p}.accessReviewsNote`),
+          pendingAccessReviews: t(`${p}.pendingAccessReviews`),
+          scheduledReviews: t(`${p}.scheduledReviews`),
+          privilegedAccountsOnly: t(`${p}.privilegedAccountsOnly`),
+          notifyOwners: t(`${p}.notifyOwners`),
+          accessReviewSaveFailed: t(`${p}.accessReviewSaveFailed`),
+          companionPermissionPrefs: t(`${p}.companionPermissionPrefs`),
+          companionPermissionPrefsNote: t(`${p}.companionPermissionPrefsNote`),
+          companionViewDefault: t(`${p}.companionViewDefault`),
+          companionManageRestricted: t(`${p}.companionManageRestricted`),
+          selfLoveBoundary: t(`${p}.selfLoveBoundary`),
+          companionPrefsSaveFailed: t(`${p}.companionPrefsSaveFailed`),
+          auditRequirements: t(`${p}.auditRequirements`),
+          blueprintLinks: t(`${p}.blueprintLinks`),
         }}
       />
     </div>

@@ -9,11 +9,14 @@
 | Layer | Location |
 |-------|----------|
 | Migration | `supabase/migrations/20260707000000_identity_permissions_engine_phase_a2.sql` |
+| Blueprint alignment | `supabase/migrations/20260947000000_implementation_blueprint_phase2_user_role_permission.sql` |
+| Blueprint doc | [IMPLEMENTATION_BLUEPRINT_PHASE2_USER_ROLE_PERMISSION_FOUNDATION.md](./IMPLEMENTATION_BLUEPRINT_PHASE2_USER_ROLE_PERMISSION_FOUNDATION.md) |
 | Prefix | `_irp_` · decision type: `identity_permissions` |
-| Lib | `lib/aipify/identity-permissions/`, `lib/core/permissions.ts` |
+| Lib | `lib/aipify/identity-permissions/`, `lib/core/permissions.ts`, `lib/core/identity-permissions.ts` |
 | API | `/api/aipify/identity-permissions/*`, `/api/identity/*` |
 | UI | `/app/identity-access` |
-| KC FAQ | `content/knowledge/aipify/identity-permissions/faq/identity-permissions-faq.md` |
+| ILM | `aipify-core/knowledge/internal-language-model/implementation-blueprint-phase2-user-role-permission.txt` |
+| KC FAQ | `content/knowledge/aipify/identity-permissions/faq/identity-permissions-faq.md`, `implementation-blueprint-phase2-faq.md` |
 
 ## Core components
 
@@ -39,8 +42,10 @@
 
 ## RPCs
 
-- `get_identity_permissions_dashboard()` — identity dashboard
+- `get_identity_permissions_dashboard()` — identity dashboard (Phase 2 blueprint fields)
 - `get_identity_permissions_card()` — summary card
+- `save_identity_access_review_settings(jsonb)` — access review prefs
+- `save_identity_companion_permission_prefs(jsonb)` — companion permission prefs
 - `check_identity_permission(text)` — evaluate single permission
 - `invite_organization_user(text, text)` — invite user
 - `update_organization_user_role(uuid, text)` — change role
@@ -63,6 +68,8 @@
 
 - `GET /api/aipify/identity-permissions/dashboard`
 - `GET /api/aipify/identity-permissions/card`
+- `POST /api/aipify/identity-permissions/access-review-settings`
+- `POST /api/aipify/identity-permissions/companion-permission-prefs`
 - `GET /api/identity/permissions?key=`
 - `GET|POST /api/identity/sessions`
 - `POST /api/identity/approvals/[id]/approve`

@@ -21,6 +21,7 @@ export function OrganizationWorkspaceEngineDashboardPanel({ labels }: Props) {
   const [workspaceName, setWorkspaceName] = useState("");
   const [workspaceSlug, setWorkspaceSlug] = useState("");
   const [roleName, setRoleName] = useState("");
+  const [savingCompanion, setSavingCompanion] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -33,6 +34,23 @@ export function OrganizationWorkspaceEngineDashboardPanel({ labels }: Props) {
   }, []);
 
   useEffect(() => { void load(); }, [load]);
+
+  const saveCompanionToggle = async (key: string, value: boolean) => {
+    setSavingCompanion(true);
+    setActionError(null);
+    const res = await fetch("/api/aipify/organization-workspace-engine/companion-foundation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ [key]: value }),
+    });
+    if (!res.ok) {
+      const body = (await res.json()) as { error?: string };
+      setActionError(body.error ?? labels.companionSaveFailed);
+    } else {
+      await load();
+    }
+    setSavingCompanion(false);
+  };
 
   const switchWorkspace = async (workspaceId: string) => {
     setSwitching(workspaceId);
@@ -114,6 +132,11 @@ export function OrganizationWorkspaceEngineDashboardPanel({ labels }: Props) {
   if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
   if (!dashboard?.has_organization) return null;
 
+  const companionFoundation =
+    typeof dashboard.companion_foundation === "object" && dashboard.companion_foundation
+      ? dashboard.companion_foundation
+      : null;
+
   const summary = dashboard.summary ?? {};
   const org = dashboard.organization ?? {};
   const workspaces = dashboard.workspaces ?? [];
@@ -122,6 +145,10 @@ export function OrganizationWorkspaceEngineDashboardPanel({ labels }: Props) {
   const currentWorkspaceId =
     typeof currentWorkspace.workspace_id === "string" ? currentWorkspace.workspace_id : undefined;
   const integrationLinks = dashboard.integration_links ?? {};
+  const successCriteria = Array.isArray(dashboard.success_criteria) ? dashboard.success_criteria : [];
+  const blueprintLinks = Array.isArray(dashboard.blueprint_integration_links)
+    ? dashboard.blueprint_integration_links
+    : [];
   const roleDistribution =
     typeof summary.role_distribution === "object" && summary.role_distribution
       ? (summary.role_distribution as Record<string, number>)
@@ -140,9 +167,91 @@ export function OrganizationWorkspaceEngineDashboardPanel({ labels }: Props) {
 
       <section className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-6">
         <h2 className="text-sm font-semibold">{labels.engineTitle}</h2>
+        {dashboard.mission && <p className="mt-2 text-sm font-medium text-indigo-900">{dashboard.mission}</p>}
         <p className="mt-2 text-sm">{dashboard.philosophy}</p>
+        {dashboard.build_philosophy && (
+          <p className="mt-2 text-xs font-medium text-indigo-800">{dashboard.build_philosophy}</p>
+        )}
+        {dashboard.abos_principle && (
+          <p className="mt-2 text-xs text-indigo-700">{dashboard.abos_principle}</p>
+        )}
         <p className="mt-2 text-xs text-indigo-700">{labels.distinctionNote}</p>
       </section>
+
+      {successCriteria.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.successCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {successCriteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={label} className="flex flex-col gap-0.5">
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note && <span className="text-xs text-gray-500">{note}</span>}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {companionFoundation && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.companionFoundation}</h3>
+          <p className="mt-1 text-xs text-gray-500">{labels.companionFoundationNote}</p>
+          <ul className="mt-3 space-y-2 text-sm">
+            {(
+              [
+                ["bell_moments_enabled", labels.bellMoments],
+                ["self_love_reminders_enabled", labels.selfLoveReminders],
+                ["recognition_features_enabled", labels.recognitionFeatures],
+                ["presence_comfort_enabled", labels.presenceComfort],
+              ] as const
+            ).map(([key, label]) => (
+              <li key={key} className="flex items-center justify-between gap-2">
+                <span>{label}</span>
+                <button
+                  type="button"
+                  disabled={savingCompanion}
+                  className={`rounded px-2 py-0.5 text-xs border ${
+                    companionFoundation[key] ? "border-green-300 bg-green-50 text-green-800" : "border-gray-300"
+                  }`}
+                  onClick={() => void saveCompanionToggle(key, !companionFoundation[key])}
+                >
+                  {companionFoundation[key] ? labels.enabled : labels.disabled}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {blueprintLinks.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.blueprintLinks}</h3>
+          <ul className="mt-2 space-y-1 text-sm">
+            {blueprintLinks.map((link) => {
+              const route = typeof link.route === "string" ? link.route : null;
+              const label = typeof link.label === "string" ? link.label : route ?? "";
+              return (
+                <li key={label}>
+                  {route ? (
+                    <Link href={route} className="text-indigo-600 hover:underline">
+                      {label}
+                    </Link>
+                  ) : (
+                    label
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
 
       {actionError && (
         <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{actionError}</div>
@@ -169,6 +278,7 @@ export function OrganizationWorkspaceEngineDashboardPanel({ labels }: Props) {
           <li>{labels.hierarchyWorkspace}</li>
           <li>{labels.hierarchyUsers}</li>
           <li>{labels.hierarchyRoles}</li>
+          <li>{labels.hierarchyCompanion}</li>
         </ul>
       </section>
 
