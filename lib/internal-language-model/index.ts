@@ -62,6 +62,7 @@ export * from "./implementation-blueprint-phase19-vocabulary";
 export * from "./implementation-blueprint-phase21-vocabulary";
 export * from "./implementation-blueprint-phase20-vocabulary";
 export * from "./implementation-blueprint-phase22-vocabulary";
+export * from "./implementation-blueprint-phase78-vocabulary";
 export * from "./implementation-blueprint-phase24-vocabulary";
 export * from "./implementation-blueprint-phase23-vocabulary";
 export * from "./implementation-blueprint-phase25-vocabulary";
@@ -281,6 +282,9 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE20_PATH =
 
 export const IMPLEMENTATION_BLUEPRINT_PHASE22_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase22-simulation-decision-lab.txt";
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE78_PATH =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase78-simulation-decision-lab.txt";
 
 export const IMPLEMENTATION_BLUEPRINT_PHASE23_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase23-learning-adaptation.txt";

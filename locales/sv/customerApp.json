@@ -2010,7 +2010,44 @@
     "viewExplanation": "Visa Trust-förklaring",
     "outcomes": "Prognostiserade resultat",
     "assumptions": "Antaganden",
-    "impactScore": "Impact score"
+    "impactScore": "Impact score",
+    "blueprint": {
+      "phase76": {
+        "sectionTitle": "Scenario Simulation Engine (ABOS fas 76)",
+        "engagementSummary": "Engagemangssammanfattning för scenariosimulering",
+        "objectives": "Mål för scenariosimulering",
+        "scenarioTypes": "Scenariotyper",
+        "simulationQuestions": "Simuleringsfrågor",
+        "multipleFutures": "Flera framtider",
+        "companionGuidance": "Companion-vägledning",
+        "collaborativeSimulation": "Samarbetssimulering",
+        "leadershipInsights": "Ledarskapsinsikter",
+        "limitationPrinciples": "Begränsningsprinciper",
+        "successCriteria": "Framgångskriterier",
+        "selfLoveConnection": "Self Love-koppling",
+        "trustConnection": "Förtroende och transparens",
+        "dogfooding": "Dogfooding",
+        "visionPhrases": "Vision"
+      },
+      "phase78": {
+        "sectionTitle": "Simulation & Decision Lab Engine (ABOS fas 78)",
+        "engagementSummary": "Engagemangssammanfattning för Decision Lab",
+        "objectives": "Mål för Decision Lab",
+        "decisionLabEnvironment": "Decision Lab-miljö",
+        "simulationInputs": "Simuleringsindata",
+        "scenarioComparison": "Scenarie jämförelse",
+        "companionGuidance": "Companion-vägledning",
+        "collaborativeDecisionMaking": "Samarbetsbaserat beslutsfattande",
+        "learningThroughSimulation": "Lärande genom simulering",
+        "leadershipInsights": "Ledarskapsinsikter",
+        "limitationPrinciples": "Begränsningsprinciper",
+        "successCriteria": "Framgångskriterier",
+        "selfLoveConnection": "Self Love-koppling",
+        "trustConnection": "Förtroende och transparens",
+        "dogfooding": "Dogfooding",
+        "visionPhrases": "Vision"
+      }
+    }
   },
   "operationsCenter": {
     "title": "Operations Center",

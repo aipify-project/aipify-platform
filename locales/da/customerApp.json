@@ -2010,7 +2010,44 @@
     "viewExplanation": "Se Trust-forklaring",
     "outcomes": "Forudsagte resultater",
     "assumptions": "Antagelser",
-    "impactScore": "Impact score"
+    "impactScore": "Impact score",
+    "blueprint": {
+      "phase76": {
+        "sectionTitle": "Scenario Simulation Engine (ABOS fase 76)",
+        "engagementSummary": "Engagementsoversigt for scenariosimulation",
+        "objectives": "Mål for scenariosimulation",
+        "scenarioTypes": "Scenarietyper",
+        "simulationQuestions": "Simuleringsspørgsmål",
+        "multipleFutures": "Flere fremtider",
+        "companionGuidance": "Companion-vejledning",
+        "collaborativeSimulation": "Samarbejdende simulation",
+        "leadershipInsights": "Ledelsesindsigt",
+        "limitationPrinciples": "Begrænsningsprincipper",
+        "successCriteria": "Succeskriterier",
+        "selfLoveConnection": "Self Love-forbindelse",
+        "trustConnection": "Tillid og gennemsigtighed",
+        "dogfooding": "Dogfooding",
+        "visionPhrases": "Vision"
+      },
+      "phase78": {
+        "sectionTitle": "Simulation & Decision Lab Engine (ABOS fase 78)",
+        "engagementSummary": "Engagementsoversigt for Decision Lab",
+        "objectives": "Mål for Decision Lab",
+        "decisionLabEnvironment": "Decision Lab-miljø",
+        "simulationInputs": "Simuleringsinput",
+        "scenarioComparison": "Scenariesammenligning",
+        "companionGuidance": "Companion-vejledning",
+        "collaborativeDecisionMaking": "Samarbejdende beslutningstagning",
+        "learningThroughSimulation": "Læring gennem simulation",
+        "leadershipInsights": "Ledelsesindsigt",
+        "limitationPrinciples": "Begrænsningsprincipper",
+        "successCriteria": "Succeskriterier",
+        "selfLoveConnection": "Self Love-forbindelse",
+        "trustConnection": "Tillid og gennemsigtighed",
+        "dogfooding": "Dogfooding",
+        "visionPhrases": "Vision"
+      }
+    }
   },
   "operationsCenter": {
     "title": "Operations Center",
