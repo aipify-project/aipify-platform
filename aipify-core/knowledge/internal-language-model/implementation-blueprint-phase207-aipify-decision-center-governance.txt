@@ -1,0 +1,11 @@
+ABOS Phase 207 — Aipify Decision Center & Governance Engine
+Route: /app/aipify-decision-center-governance-engine
+
+Decision Center: decision dashboard, decision registry, governance workflow engine, decision ownership framework, decision review center, executive decision briefings, meeting intelligence & action center integration (cross-links), decision governance knowledge libraries.
+Decision Reflection Engine prompts: decision quality, governance maturity, repeated discussions, decision context preservation, leadership continuity.
+Governance Framework: decision traceability, governance workflows, ownership, review cycles, executive briefings, integration with meetings/actions, enterprise scale.
+Executive Decision Reviews, Governance Companion, Governance Workflow Engine, Decision Ownership Framework, Decision Review Center tracks.
+Design principles: governance before confusion, clarity before complexity, accountability before ambiguity.
+Companion limitations: no making organizational decisions, no bypassing approval chains, no exposing sensitive governance data, no overriding trust_action_engine, no replacing executive judgment.
+Cross-links only: Phase 206 meeting intelligence, Phase 205 action center, /app/approvals, /app/assistant/decisions (DSE) — never duplicate DSE RPCs, bypass approval chains, or override trust_action_engine.
+People First. Growth Partner — never Affiliate.

@@ -204,7 +204,7 @@ export * from "./implementation-blueprint-phase200-vocabulary";
 export * from "./implementation-blueprint-phase204-vocabulary";
 export * from "./implementation-blueprint-phase205-vocabulary";
 export * from "./implementation-blueprint-phase208-vocabulary";
-export * from "./implementation-blueprint-phase209-vocabulary";
+export * from "./implementation-blueprint-phase207-vocabulary";
 export * from "./implementation-blueprint-phase206-vocabulary";
 export * from "./implementation-blueprint-phase202-vocabulary";
 export * from "./implementation-blueprint-phase201-vocabulary";

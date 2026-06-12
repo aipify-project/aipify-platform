@@ -1419,8 +1419,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/aipify-operations-orchestration-engine")) {
     return "aipifyOperationsOrchestrationEngine";
   }
-  if (pathname.startsWith("/app/aipify-resource-capacity-workload-balance-engine")) {
-    return "aipifyResourceCapacityWorkloadBalanceEngine";
+  if (pathname.startsWith("/app/aipify-decision-center-governance-engine")) {
+    return "aipifyDecisionCenterGovernanceEngine";
   }
   if (pathname.startsWith("/app/aipify-meeting-intelligence-follow-up-engine")) {
     return "aipifyMeetingIntelligenceFollowUpEngine";
