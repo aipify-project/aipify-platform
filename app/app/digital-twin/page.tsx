@@ -9,6 +9,7 @@ export default async function DigitalTwinPage() {
   const p = "customerApp.digitalTwin";
   const bp = `${p}.blueprint.phase77`;
   const bp124 = `${p}.blueprint.phase124`;
+  const bp159 = `${p}.blueprint.phase159`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -72,6 +73,26 @@ export default async function DigitalTwinPage() {
           phase124SuccessCriteria: t(`${bp124}.successCriteria`),
           phase124SuccessMetrics: t(`${bp124}.successMetrics`),
           phase124CompanionAdaptation: t(`${bp124}.companionAdaptation`),
+          phase159Section: t(`${bp159}.sectionTitle`),
+          phase159Era: t(`${bp159}.era`),
+          phase159Objectives: t(`${bp159}.objectives`),
+          phase159AwarenessCenter: t(`${bp159}.awarenessCenter`),
+          phase159InterdependencyEngine: t(`${bp159}.interdependencyEngine`),
+          phase159ConsequenceFramework: t(`${bp159}.consequenceFramework`),
+          phase159ExecutiveReviews: t(`${bp159}.executiveReviews`),
+          phase159SystemicCompanion: t(`${bp159}.systemicCompanion`),
+          phase159OrgHealthThemes: t(`${bp159}.orgHealthThemes`),
+          phase159OpenOrgHealth: t(`${bp159}.openOrgHealth`),
+          phase159SystemicLearning: t(`${bp159}.systemicLearning`),
+          phase159AwarenessMemory: t(`${bp159}.awarenessMemory`),
+          phase159CompanionLimitations: t(`${bp159}.companionLimitations`),
+          phase159SelfLoveConnection: t(`${bp159}.selfLoveConnection`),
+          phase159DependencyMaps: t(`${bp159}.dependencyMaps`),
+          phase159SystemicReviews: t(`${bp159}.systemicReviews`),
+          phase159AwarenessCenterCount: t(`${bp159}.awarenessCenterCount`),
+          phase159SuccessCriteria: t(`${bp159}.successCriteria`),
+          phase159SuccessMetrics: t(`${bp159}.successMetrics`),
+          phase159VisionPhrases: t(`${bp159}.visionPhrases`),
         }}
       />
     </div>

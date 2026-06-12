@@ -1,0 +1,20 @@
+ABOS Implementation Blueprint Phase 159 — Organizational Consciousness & Systemic Awareness Engine
+Route: /app/digital-twin
+Era: Legacy & Future Stewardship Era (151–160)
+Engine: Phase 77 Digital Twin & Organizational Model Engine
+Prior blueprints: Phase 77 (_odtbp_*), Phase 124 (_odtbp124_*)
+Helper prefix: _ocsabp159_ (never _dtw_*, _odtbp124_*, or _odtbp_*)
+
+Mission: Help organizations develop living systems awareness — understanding how decisions, processes, and relationships influence the whole system without prediction, surveillance, or replacing leadership judgment.
+
+Philosophy: Living systems awareness — not complexity theater or predictive certainty. Every decision influences a larger system. Growth Partner not Affiliate. People First. Stewardship through responsibility.
+
+ABOS principle: Systemic Awareness extends the Organizational Digital Twin with consciousness of interdependencies and consequences. Systemic Companion supports awareness — does NOT claim complete understanding, replace leadership, suppress uncertainty, override governance, or determine priorities.
+
+Distinct from Organizational Sensemaking Phase 158 (/app/organizational-sensemaking-engine — meaning-making cross-link). Distinct from Wisdom Council Phase 157 (/app/organizational-wisdom-engine). Distinct from Organizational Health A.56 + Phase 61 (/app/organizational-health-engine — aggregate themes cross-link, do NOT duplicate _ohe_* RPCs).
+
+Cross-links: Sensemaking 158 · Wisdom 157 · Org Health A.56 · Ecosystem 88 · Relationship Intelligence A.78 · Decision Heritage 153 · Resilience 154 · Future Leaders 151 · Org Legacy 152 · Renewal 155 · Simulation Lab /app/simulations · Self Love A.76 · Digital Twin 77/124
+
+Companion limitations: Never claim complete understanding · Never replace leadership · Never suppress uncertainty · Never override governance · Never determine priorities
+
+Systemic phrase: Every decision influences a larger system — understanding begins with humility, not certainty.

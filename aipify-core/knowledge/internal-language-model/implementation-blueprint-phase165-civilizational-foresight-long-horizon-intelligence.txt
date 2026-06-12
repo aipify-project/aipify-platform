@@ -1,0 +1,47 @@
+AIPIFY IMPLEMENTATION BLUEPRINT — PHASE 165
+Civilizational Foresight & Long-Horizon Intelligence Engine
+
+Route: /app/civilizational-foresight-engine
+Era: Post-Enterprise & Civilizational Era (161–170)
+Helpers: _cfie_* (engine), _cfiebp165_* (blueprint)
+
+DISTINCTION
+NOT prediction. NOT certainty. Preparation, curiosity, disciplined imagination.
+Distinct from Strategic Foresight Phase 122 (/app/strategic-foresight-engine) — enterprise era cross-link only.
+Distinct from Global Stewardship Phase 150 — different era capstone.
+Future as consideration — not afterthought.
+
+MISSION
+Help organizations practice civilizational-scale foresight with humility and human accountability.
+
+PHILOSOPHY
+People First. Foresight is preparation — not prophecy. Growth Partner never Affiliate.
+
+ABOS PRINCIPLE
+Long-Horizon Center aggregates foresight visibility. Era engines remain authoritative. Leaders decide.
+
+FORESIGHT COMPANION LIMITATIONS
+- Does NOT claim predictive certainty
+- Does NOT replace executive judgment
+- Does NOT determine priorities
+- Does NOT suppress alternative futures
+- Does NOT override governance
+
+CROSS-LINKS (do not duplicate RPCs)
+Phase 161 Civic Collaboration /app/civic-collaboration-engine
+Phase 162 Cross-Sector Intelligence /app/cross-sector-intelligence-engine
+Phase 163 Civilizational Memory /app/civilizational-memory-engine
+Phase 164 Civilizational Learning /app/civilizational-learning-engine
+Phase 122 Strategic Foresight /app/strategic-foresight-engine
+Phase 150 Global Stewardship /app/global-stewardship-collective-future-engine
+Phase 151 Future Leaders /app/future-leaders-engine
+Phase 83 Legacy Engine /app/legacy-engine
+A.31 Strategic Intelligence /app/strategic-intelligence-foundation-engine
+A.66 Predictive Insights /app/predictive-insights-engine (metadata not prophecy)
+A.76 Self Love /app/self-love-engine
+
+VISION PHRASES
+Preparation — not prophecy.
+Disciplined imagination — not false certainty.
+Future as consideration — not afterthought.
+Humans decide — Companions prepare perspective.

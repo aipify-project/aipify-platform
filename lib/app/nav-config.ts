@@ -61,6 +61,15 @@ export type AppNavId =
   | "globalStewardshipCollectiveFutureEngine"
   | "futureLeadersEngine"
   | "organizationalSensemakingEngine"
+  | "livingEnterpriseEngine"
+  | "civicCollaborationEngine"
+  | "crossSectorIntelligenceEngine"
+  | "civilizationalMemoryEngine"
+  | "civilizationalLearningEngine"
+  | "civilizationalForesightEngine"
+  | "civilizationalCoordinationEngine"
+  | "constructiveDialogueEngine"
+  | "sharedProsperityEngine"
   | "businessPacksFoundationEngine"
   | "industryIntelligenceFoundationEngine"
   | "marketplacePartnerEcosystemFoundationEngine"
@@ -406,6 +415,46 @@ export const APP_NAV: AppNavItem[] = [
     id: "organizationalSensemakingEngine",
     href: "/app/organizational-sensemaking-engine",
     labelKey: "customerApp.nav.organizationalSensemakingEngine",
+  },
+  {
+    id: "livingEnterpriseEngine",
+    href: "/app/living-enterprise-engine",
+    labelKey: "customerApp.nav.livingEnterpriseEngine",
+  },
+  {
+    id: "civicCollaborationEngine",
+    href: "/app/civic-collaboration-engine",
+    labelKey: "customerApp.nav.civicCollaborationEngine",
+  },
+  {
+    id: "crossSectorIntelligenceEngine",
+    href: "/app/cross-sector-intelligence-engine",
+    labelKey: "customerApp.nav.crossSectorIntelligenceEngine",
+  },
+  {
+    id: "civilizationalMemoryEngine",
+    href: "/app/civilizational-memory-engine",
+    labelKey: "customerApp.nav.civilizationalMemoryEngine",
+  },
+  {
+    id: "civilizationalLearningEngine",
+    href: "/app/civilizational-learning-engine",
+    labelKey: "customerApp.nav.civilizationalLearningEngine",
+  },
+  {
+    id: "civilizationalForesightEngine",
+    href: "/app/civilizational-foresight-engine",
+    labelKey: "customerApp.nav.civilizationalForesightEngine",
+  },
+  {
+    id: "civilizationalCoordinationEngine",
+    href: "/app/civilizational-coordination-engine",
+    labelKey: "customerApp.nav.civilizationalCoordinationEngine",
+  },
+  {
+    id: "sharedProsperityEngine",
+    href: "/app/shared-prosperity-engine",
+    labelKey: "customerApp.nav.sharedProsperityEngine",
   },
   {
     id: "businessPacksFoundationEngine",
@@ -1010,6 +1059,27 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/organizational-sensemaking-engine")) {
     return "organizationalSensemakingEngine";
+  }
+  if (pathname.startsWith("/app/living-enterprise-engine")) {
+    return "livingEnterpriseEngine";
+  }
+  if (pathname.startsWith("/app/cross-sector-intelligence-engine")) {
+    return "crossSectorIntelligenceEngine";
+  }
+  if (pathname.startsWith("/app/civic-collaboration-engine")) {
+    return "civicCollaborationEngine";
+  }
+  if (pathname.startsWith("/app/civilizational-foresight-engine")) {
+    return "civilizationalForesightEngine";
+  }
+  if (pathname.startsWith("/app/civilizational-memory-engine")) {
+    return "civilizationalMemoryEngine";
+  }
+  if (pathname.startsWith("/app/civilizational-learning-engine")) {
+    return "civilizationalLearningEngine";
+  }
+  if (pathname.startsWith("/app/shared-prosperity-engine")) {
+    return "sharedProsperityEngine";
   }
   if (pathname.startsWith("/app/executive")) return "executive";
   if (

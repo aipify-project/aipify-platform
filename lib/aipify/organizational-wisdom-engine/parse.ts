@@ -17,6 +17,8 @@ import type {
   SelfLoveConnection,
   WisdomPractice,
 } from "./types";
+
+function parseBlueprintMeta(data: unknown): ImplementationBlueprintMeta | undefined {
   if (typeof data !== "object" || !data) return undefined;
   return data as ImplementationBlueprintMeta;
 }

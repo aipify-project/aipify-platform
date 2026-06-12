@@ -1,0 +1,27 @@
+ABOS Implementation Blueprint Phase 163 — Global Knowledge Preservation & Civilizational Memory Engine
+Route: /app/civilizational-memory-engine
+Era: Post-Enterprise & Civilizational Era (161–170)
+Helpers: _gcme_* (engine), _gcmebp163_* (blueprint)
+
+MISSION
+Safeguard institutional wisdom with discernment — preserving essential knowledge, leadership narratives, and transformation lessons for future generations without hoarding, clutter, or rewriting history.
+
+PHILOSOPHY
+Wisdom before speed. Preservation requires discernment — not everything, not clutter.
+Growth Partner not Affiliate. People First. Stewardship through responsibility.
+Memory Companion supports remembrance; humans retain judgment and governance authority.
+
+DISTINCTION
+- Phase 141 Global Knowledge Exchange: exchange — cross-link only (_gkee_*)
+- Phase 152 Organizational Memory: tenant legacy/succession — cross-link only (_olsibp152_*)
+- Knowledge Center A.5: articles — cross-link only
+- Living Enterprise Phase 160: living memory — cross-link only
+- Legacy Engine A.86: storytelling — cross-link only (_leg_*)
+NOT preserve everything. NOT digital clutter. NOT rewrite history.
+
+MEMORY COMPANION
+Supports: knowledge summaries, wisdom retrieval, historical context, reflection prompts, legacy preparation, learning recommendations.
+Must NOT: alter records, suppress experiences, determine truth, replace judgment, improperly reveal confidential info.
+
+SELF LOVE A.76
+Humility, curiosity, recognition of predecessors, respect for experience, compassion toward imperfection, commitment to learning.

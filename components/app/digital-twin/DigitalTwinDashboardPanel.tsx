@@ -53,6 +53,8 @@ export function DigitalTwinDashboardPanel({ labels }: DigitalTwinDashboardPanelP
   const engagement = dashboard.engagement_summary;
   const phase124 = dashboard.implementation_blueprint_phase124;
   const phase124Engagement = phase124?.engagement_summary;
+  const phase159 = dashboard.implementation_blueprint_phase159;
+  const phase159Engagement = phase159?.engagement_summary;
 
   return (
     <div className="space-y-6">
@@ -488,6 +490,219 @@ export function DigitalTwinDashboardPanel({ labels }: DigitalTwinDashboardPanelP
           ) : null}
           {phase124.privacy_note ? (
             <p className="mt-4 text-xs text-teal-700">{phase124.privacy_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {phase159?.mission || phase159?.distinction_note ? (
+        <section className="rounded-xl border border-violet-200 bg-violet-50/30 p-6">
+          <h2 className="text-sm font-semibold text-violet-900">{labels.phase159Section}</h2>
+          {phase159.phase ? (
+            <p className="mt-1 text-xs text-violet-700">
+              {labels.phase159Era}
+              {phase159.engine_phase ? ` · ${phase159.engine_phase}` : ""}
+            </p>
+          ) : null}
+          {phase159.distinction_note ? (
+            <p className="mt-2 text-xs text-violet-800">{phase159.distinction_note}</p>
+          ) : null}
+          {phase159.mission ? (
+            <p className="mt-2 text-sm font-medium text-violet-900">{phase159.mission}</p>
+          ) : null}
+          {phase159.philosophy ? (
+            <p className="mt-2 text-sm text-violet-900">{phase159.philosophy}</p>
+          ) : null}
+          {phase159.abos_principle ? (
+            <p className="mt-2 text-xs text-violet-800">{phase159.abos_principle}</p>
+          ) : null}
+          {(phase159.objectives ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-violet-700">{labels.phase159Objectives}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {phase159.objectives?.map((obj) => (
+                  <ObjectiveCard key={obj.key ?? obj.label} objective={obj} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {(phase159.systemic_awareness_center ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-violet-700">{labels.phase159AwarenessCenter}</h3>
+              <ul className="mt-2 flex flex-wrap gap-2 text-sm text-violet-900">
+                {phase159.systemic_awareness_center?.map((cap) => (
+                  <li key={cap.key ?? cap.label} className="rounded border border-violet-100 px-2 py-1">
+                    {cap.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {(phase159.interdependency_engine ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-violet-700">{labels.phase159InterdependencyEngine}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {phase159.interdependency_engine?.map((item) => (
+                  <ObjectiveCard key={item.key ?? item.label} objective={item} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {(phase159.systemic_consequence_framework ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-violet-700">{labels.phase159ConsequenceFramework}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {phase159.systemic_consequence_framework?.map((item) => (
+                  <ObjectiveCard key={item.key ?? item.label} objective={item} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {phase159.executive_systemic_reviews?.review_themes?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-violet-700">{labels.phase159ExecutiveReviews}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {phase159.executive_systemic_reviews.review_themes.map((item) => (
+                  <ObjectiveCard key={item.key ?? item.label} objective={item} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {(phase159.systemic_companion ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-violet-700">{labels.phase159SystemicCompanion}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {phase159.systemic_companion?.map((item) => (
+                  <ObjectiveCard key={item.key ?? item.label} objective={item} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {phase159.organizational_health_engine?.themes?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-violet-700">{labels.phase159OrgHealthThemes}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {phase159.organizational_health_engine.themes.map((item) => (
+                  <ObjectiveCard key={item.key ?? item.label} objective={item} />
+                ))}
+              </div>
+              {phase159.organizational_health_engine.org_health_route ? (
+                <Link
+                  href={phase159.organizational_health_engine.org_health_route}
+                  className="mt-2 inline-block text-sm text-violet-700 underline"
+                >
+                  {labels.phase159OpenOrgHealth}
+                </Link>
+              ) : null}
+            </div>
+          ) : null}
+          {(phase159.systemic_learning_engine ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-violet-700">{labels.phase159SystemicLearning}</h3>
+              <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                {phase159.systemic_learning_engine?.map((item) => (
+                  <ObjectiveCard key={item.key ?? item.label} objective={item} />
+                ))}
+              </div>
+            </div>
+          ) : null}
+          {phase159.awareness_memory_engine?.captures?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-violet-700">{labels.phase159AwarenessMemory}</h3>
+              <ul className="mt-2 flex flex-wrap gap-2 text-sm text-violet-900">
+                {phase159.awareness_memory_engine.captures.map((item) => (
+                  <li key={item.key ?? item.label} className="rounded border border-violet-100 px-2 py-1">
+                    {item.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {(phase159.companion_limitations ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-violet-700">{labels.phase159CompanionLimitations}</h3>
+              <ul className="mt-2 list-disc space-y-1 pl-4 text-xs text-violet-800">
+                {phase159.companion_limitations?.map((rule) => (
+                  <li key={rule.key ?? rule.label}>{rule.label}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {phase159.self_love_connection?.considerations?.length ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-violet-700">{labels.phase159SelfLoveConnection}</h3>
+              <ul className="mt-2 space-y-1 text-sm text-violet-900">
+                {phase159.self_love_connection.considerations.map((item) => (
+                  <li key={item.key ?? item.label}>{item.label}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {(phase159.integration_links ?? []).length > 0 ? (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {phase159.integration_links?.map((link) =>
+                link.route ? (
+                  <Link key={link.route + (link.label ?? "")} href={link.route} className="rounded-lg border border-violet-200 px-3 py-1.5 text-sm">
+                    {link.label}
+                  </Link>
+                ) : null
+              )}
+            </div>
+          ) : null}
+          {phase159Engagement ? (
+            <div className="mt-4 grid gap-2 sm:grid-cols-3 lg:grid-cols-4">
+              <p className="text-xs text-violet-800">
+                {labels.phase159DependencyMaps}: {phase159Engagement.dependency_maps ?? 0}
+              </p>
+              <p className="text-xs text-violet-800">
+                {labels.phase159SystemicReviews}: {phase159Engagement.systemic_reviews ?? 0}
+              </p>
+              <p className="text-xs text-violet-800">
+                {labels.phase159AwarenessCenterCount}: {phase159Engagement.awareness_center_capabilities ?? 0}
+              </p>
+            </div>
+          ) : null}
+          {(phase159.success_criteria ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-violet-700">{labels.phase159SuccessCriteria}</h3>
+              <ul className="mt-2 space-y-1">
+                {phase159.success_criteria?.map((criterion) => (
+                  <li
+                    key={criterion.key ?? criterion.label}
+                    className="flex flex-wrap items-center justify-between gap-2 rounded border border-violet-100 px-3 py-2 text-sm"
+                  >
+                    <span className="text-violet-900">{criterion.label}</span>
+                    <span className={criterion.met ? "text-xs text-green-700" : "text-xs text-amber-700"}>
+                      {criterion.met ? labels.criterionMet : labels.criterionPending}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {(phase159.success_metrics ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-violet-700">{labels.phase159SuccessMetrics}</h3>
+              <ul className="mt-2 flex flex-wrap gap-2 text-sm text-violet-900">
+                {phase159.success_metrics?.map((metric) => (
+                  <li key={metric.key ?? metric.label} className="rounded border border-violet-100 px-2 py-1">
+                    {metric.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {(phase159.vision_phrases ?? []).length > 0 ? (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-violet-700">{labels.phase159VisionPhrases}</h3>
+              <ul className="mt-2 space-y-1 text-sm italic text-violet-900">
+                {phase159.vision_phrases?.map((phrase) => (
+                  <li key={phrase}>&ldquo;{phrase}&rdquo;</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {phase159.privacy_note ? (
+            <p className="mt-4 text-xs text-violet-700">{phase159.privacy_note}</p>
           ) : null}
         </section>
       ) : null}

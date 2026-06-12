@@ -90,6 +90,9 @@ export type BlueprintSection = {
   example_scenarios?: BlueprintObjective[];
   simulation_route?: string;
   org_memory_route?: string;
+  org_health_route?: string;
+  review_themes?: BlueprintObjective[];
+  themes?: BlueprintObjective[];
   boundary_note?: string;
   evolution_sources?: Array<BlueprintObjective & { route?: string }>;
   learning_note?: string;
