@@ -92,9 +92,17 @@ export type AppNavId =
   | "aipifyConstitutionPerpetualPrinciplesEngine"
   | "aipifyEthicalEvolutionResponsibleInnovationEngine"
   | "aipifyGuardianshipSuccessionEngine"
+  | "aipifyLegacyPreservationKnowledgeContinuityEngine"
   | "aipifyPrinciplesEnforcementEngine"
   | "aipifyValuesTransmissionCulturalContinuityEngine"
   | "aipifyDecisionTransparencyEngine"
+  | "aipifyStrategicAlignmentPrioritizationEngine"
+  | "aipifyExecutiveOperatingSystemFoundersCockpitEngine"
+  | "aipifyKnowledgeDiscoveryIntelligentSearchEngine"
+  | "aipifyUnifiedWorkspaceEngine"
+  | "aipifyGlobalCommandCenterEngine"
+  | "aipifyDigitalHeadquartersEngine"
+  | "aipifyOrganizationalHealthEarlyWarningEngine"
   | "sharedCourageResponsibleActionEngine"
   | "sharedCompassionReciprocalCareEngine"
   | "businessPacksFoundationEngine"
@@ -609,6 +617,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.aipifyGuardianshipSuccessionEngine",
   },
   {
+    id: "aipifyLegacyPreservationKnowledgeContinuityEngine",
+    href: "/app/aipify-legacy-preservation-knowledge-continuity-engine",
+    labelKey: "customerApp.nav.aipifyLegacyPreservationKnowledgeContinuityEngine",
+  },
+  {
     id: "aipifyPrinciplesEnforcementEngine",
     href: "/app/aipify-principles-enforcement-engine",
     labelKey: "customerApp.nav.aipifyPrinciplesEnforcementEngine",
@@ -622,6 +635,41 @@ export const APP_NAV: AppNavItem[] = [
     id: "aipifyDecisionTransparencyEngine",
     href: "/app/aipify-decision-transparency-engine",
     labelKey: "customerApp.nav.aipifyDecisionTransparencyEngine",
+  },
+  {
+    id: "aipifyStrategicAlignmentPrioritizationEngine",
+    href: "/app/aipify-strategic-alignment-prioritization-engine",
+    labelKey: "customerApp.nav.aipifyStrategicAlignmentPrioritizationEngine",
+  },
+  {
+    id: "aipifyExecutiveOperatingSystemFoundersCockpitEngine",
+    href: "/app/aipify-executive-operating-system-founders-cockpit-engine",
+    labelKey: "customerApp.nav.aipifyExecutiveOperatingSystemFoundersCockpitEngine",
+  },
+  {
+    id: "aipifyKnowledgeDiscoveryIntelligentSearchEngine",
+    href: "/app/aipify-knowledge-discovery-intelligent-search-engine",
+    labelKey: "customerApp.nav.aipifyKnowledgeDiscoveryIntelligentSearchEngine",
+  },
+  {
+    id: "aipifyUnifiedWorkspaceEngine",
+    href: "/app/aipify-unified-workspace-engine",
+    labelKey: "customerApp.nav.aipifyUnifiedWorkspaceEngine",
+  },
+  {
+    id: "aipifyGlobalCommandCenterEngine",
+    href: "/app/aipify-global-command-center-engine",
+    labelKey: "customerApp.nav.aipifyGlobalCommandCenterEngine",
+  },
+  {
+    id: "aipifyDigitalHeadquartersEngine",
+    href: "/app/aipify-digital-headquarters-engine",
+    labelKey: "customerApp.nav.aipifyDigitalHeadquartersEngine",
+  },
+  {
+    id: "aipifyOrganizationalHealthEarlyWarningEngine",
+    href: "/app/aipify-organizational-health-early-warning-engine",
+    labelKey: "customerApp.nav.aipifyOrganizationalHealthEarlyWarningEngine",
   },
   {
     id: "businessPacksFoundationEngine",
@@ -1320,6 +1368,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/aipify-guardianship-succession-engine")) {
     return "aipifyGuardianshipSuccessionEngine";
   }
+  if (pathname.startsWith("/app/aipify-legacy-preservation-knowledge-continuity-engine")) {
+    return "aipifyLegacyPreservationKnowledgeContinuityEngine";
+  }
   if (pathname.startsWith("/app/aipify-principles-enforcement-engine")) {
     return "aipifyPrinciplesEnforcementEngine";
   }
@@ -1328,6 +1379,27 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/aipify-decision-transparency-engine")) {
     return "aipifyDecisionTransparencyEngine";
+  }
+  if (pathname.startsWith("/app/aipify-strategic-alignment-prioritization-engine")) {
+    return "aipifyStrategicAlignmentPrioritizationEngine";
+  }
+  if (pathname.startsWith("/app/aipify-executive-operating-system-founders-cockpit-engine")) {
+    return "aipifyExecutiveOperatingSystemFoundersCockpitEngine";
+  }
+  if (pathname.startsWith("/app/aipify-knowledge-discovery-intelligent-search-engine")) {
+    return "aipifyKnowledgeDiscoveryIntelligentSearchEngine";
+  }
+  if (pathname.startsWith("/app/aipify-unified-workspace-engine")) {
+    return "aipifyUnifiedWorkspaceEngine";
+  }
+  if (pathname.startsWith("/app/aipify-global-command-center-engine")) {
+    return "aipifyGlobalCommandCenterEngine";
+  }
+  if (pathname.startsWith("/app/aipify-digital-headquarters-engine")) {
+    return "aipifyDigitalHeadquartersEngine";
+  }
+  if (pathname.startsWith("/app/aipify-organizational-health-early-warning-engine")) {
+    return "aipifyOrganizationalHealthEarlyWarningEngine";
   }
   if (pathname.startsWith("/app/shared-courage-responsible-action-engine")) {
     return "sharedCourageResponsibleActionEngine";

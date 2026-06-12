@@ -199,6 +199,12 @@ export * from "./implementation-blueprint-phase194-vocabulary";
 export * from "./implementation-blueprint-phase196-vocabulary";
 export * from "./implementation-blueprint-phase195-vocabulary";
 export * from "./implementation-blueprint-phase197-vocabulary";
+export * from "./implementation-blueprint-phase199-vocabulary";
+export * from "./implementation-blueprint-phase200-vocabulary";
+export * from "./implementation-blueprint-phase204-vocabulary";
+export * from "./implementation-blueprint-phase202-vocabulary";
+export * from "./implementation-blueprint-phase201-vocabulary";
+export * from "./implementation-blueprint-phase203-vocabulary";
 export * from "./implementation-blueprint-phase198-vocabulary";
 export * from "./implementation-blueprint-phase187-vocabulary";
 export * from "./implementation-blueprint-phase186-vocabulary";
@@ -824,6 +830,18 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE195_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase195-aipify-values-transmission-cultural-continuity.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE197_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase197-aipify-decision-transparency.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE199_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase199-aipify-strategic-alignment-prioritization.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE200_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase200-aipify-executive-operating-system-founders-cockpit.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE204_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase204-aipify-knowledge-discovery-intelligent-search.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE202_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase202-aipify-unified-workspace.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE201_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase201-aipify-global-command-center.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE203_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase203-aipify-digital-headquarters.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE198_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase198-aipify-organizational-health-early-warning.txt";
 

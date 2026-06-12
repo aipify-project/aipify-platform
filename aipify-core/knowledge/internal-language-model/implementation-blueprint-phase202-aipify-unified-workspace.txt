@@ -1,0 +1,14 @@
+ABOS Phase 202 — Aipify Unified Workspace
+Route: /app/aipify-unified-workspace-engine
+
+My Workspace Dashboard: important info, daily priorities, quick tool access, clean executive design.
+Smart Priority Center, Notification Hub, Quick Actions Panel, Workspace Personalization Center, role-specific layouts, Growth Partner workspace views, workspace knowledge libraries.
+Workspace Reflection Engine prompts: How do we reduce context switching? What are today's priorities? What is role-relevant now? Focus vs overload? Workspace ownership within governance?
+Workspace Framework: productivity, focus, role-based experiences, notification consolidation, quick actions, personalization governance, enterprise scale.
+Executive/user reviews: workspace clarity, priority alignment, notification effectiveness, quick action usage, personalization compliance.
+Workspace Companion: priority summaries, notification digests, quick action suggestions, personalization guidance.
+Sub-engines: Smart Priority Center practices, Notification Hub practices, Personalization Center tracks.
+Design principles: enterprise-grade, Microsoft productivity, Apple simplicity, clarity before complexity, focus before feature overload.
+Companion limitations: no overriding RBAC, no bypassing governance, no unauthorized data, no determining priorities without context, no replacing human judgment.
+Cross-links only: Phase 201 global command center, command_center, attention_guardian, personal_productivity — never duplicate RPCs or override workspace RBAC.
+People First. Growth Partner — never Affiliate.
