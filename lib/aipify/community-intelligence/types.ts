@@ -121,6 +121,96 @@ export type IntegrationLink = {
   note?: string;
 };
 
+export type CollectiveObservationExample = {
+  emoji?: string;
+  key?: string;
+  scenario?: string;
+  example?: string;
+};
+
+export type CollectiveObservations = {
+  principle?: string;
+  tone?: string;
+  examples?: CollectiveObservationExample[];
+};
+
+export type BestPracticeDomain = {
+  key?: string;
+  label?: string;
+  signals?: string[];
+};
+
+export type BestPracticeEvolution = {
+  principle?: string;
+  domains?: BestPracticeDomain[];
+};
+
+export type AnonymizationPrinciples = {
+  principle?: string;
+  must?: string[];
+  must_not?: string[];
+  impact_metrics_cross_link?: string;
+  forbidden_keys_note?: string;
+};
+
+export type KnowledgeCenterSurface = {
+  label?: string;
+  route?: string;
+  note?: string;
+};
+
+export type KnowledgeCenterConnection = {
+  principle?: string;
+  surfaces?: KnowledgeCenterSurface[];
+};
+
+export type SalesExpertWisdomExample = {
+  domain?: string;
+  signal?: string;
+};
+
+export type SalesExpertConnection = {
+  principle?: string;
+  examples?: SalesExpertWisdomExample[];
+  sales_expert_route?: string;
+  phase47_note?: string;
+};
+
+export type ExecutiveConnection = {
+  principle?: string;
+  signals?: string[];
+  executive_route?: string;
+  executive_insights_note?: string;
+};
+
+export type CollectiveSummaryCategory = {
+  category?: string;
+  category_label?: string;
+  count?: number;
+};
+
+export type CollectiveSummaryType = {
+  contribution_type?: string;
+  type_label?: string;
+  count?: number;
+};
+
+export type CollectiveSummary = {
+  has_data?: boolean;
+  tenant_contributions_total?: number;
+  tenant_published?: number;
+  tenant_pending_reviews?: number;
+  tenant_briefings?: number;
+  tenant_ratings?: number;
+  ecosystem_published_total?: number;
+  ecosystem_categories?: CollectiveSummaryCategory[];
+  ecosystem_contribution_types?: CollectiveSummaryType[];
+  ecosystem_avg_rating?: number;
+  ecosystem_recent_90d?: number;
+  inform_not_prescribe?: boolean;
+  privacy_note?: string;
+};
+
 export type ImplementationBlueprintMeta = {
   phase?: number | string;
   title?: string;
@@ -140,10 +230,16 @@ export type CommunityIntelligenceCard = {
   philosophy?: string;
   participation_voluntary?: boolean;
   mission?: string;
+  clwbp_mission?: string;
   abos_principle?: string;
+  clwbp_abos_principle?: string;
   core_principle?: string;
   implementation_blueprint?: ImplementationBlueprintMeta;
+  collective_learning_wisdom_blueprint?: ImplementationBlueprintMeta;
   engagement_summary?: CommunityEngagementSummary;
+  collective_summary?: CollectiveSummary;
+  inform_not_prescribe_note?: string;
+  clwbp_distinction_note?: string;
   blueprint_note?: string;
 };
 
@@ -198,6 +294,30 @@ export type CommunityIntelligenceDashboard = {
   vision_phrases?: string[];
   privacy_note?: string;
   principles?: string[];
+  collective_learning_wisdom_blueprint?: ImplementationBlueprintMeta;
+  clwbp_mission?: string;
+  clwbp_philosophy?: string;
+  clwbp_abos_principle?: string;
+  clwbp_objectives?: CommunityObjective[];
+  collective_observations?: CollectiveObservations;
+  best_practice_evolution?: BestPracticeEvolution;
+  clwbp_anonymization_principles?: AnonymizationPrinciples;
+  knowledge_center_connection?: KnowledgeCenterConnection;
+  sales_expert_connection?: SalesExpertConnection;
+  executive_connection?: ExecutiveConnection;
+  clwbp_self_love_connection?: SelfLoveConnection;
+  clwbp_trust_connection?: TrustConnection;
+  clwbp_dogfooding?: {
+    principle?: string;
+    aipify_group?: DogfoodingEntry;
+    unonight?: DogfoodingEntry;
+  };
+  clwbp_integration_links?: IntegrationLink[];
+  collective_summary?: CollectiveSummary;
+  clwbp_success_criteria?: AbosSuccessCriterion[];
+  clwbp_distinction_note?: string;
+  clwbp_vision_phrases?: string[];
+  inform_not_prescribe_note?: string;
 };
 
 export type CommunityIntelligenceAdmin = {

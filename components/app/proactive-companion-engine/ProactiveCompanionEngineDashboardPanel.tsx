@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import {
   parseProactiveCompanionEngineDashboard,
   type CompanionExample,
+  type OperationalAwarenessDomain,
   type ProactiveCompanionEngineDashboard,
   type ProactiveCompanionNudge,
   type ProactiveExampleCategory,
@@ -42,6 +43,26 @@ function CompanionExampleCard({ example }: { example: CompanionExample }) {
     <div className="rounded-lg border border-indigo-100 bg-indigo-50/40 px-3 py-2 text-sm">
       {example.scenario ? <p className="text-xs font-medium text-indigo-900">{example.scenario}</p> : null}
       {example.example ? <p className="mt-1 text-xs text-indigo-800">{example.example}</p> : null}
+    </div>
+  );
+}
+
+function OperationalDomainCard({ domain, viewLabel }: { domain: OperationalAwarenessDomain; viewLabel: string }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+      <span className="font-medium">{domain.label}</span>
+      {domain.signals && domain.signals.length > 0 ? (
+        <ul className="mt-1 list-inside list-disc space-y-0.5 text-xs text-gray-600">
+          {domain.signals.map((signal) => (
+            <li key={signal}>{signal}</li>
+          ))}
+        </ul>
+      ) : null}
+      {domain.route ? (
+        <Link href={domain.route} className="mt-2 inline-block text-xs text-indigo-700">
+          {viewLabel}
+        </Link>
+      ) : null}
     </div>
   );
 }
@@ -206,10 +227,24 @@ export function ProactiveCompanionEngineDashboardPanel({ labels }: Props) {
   const styleExamples = dashboard.companion_style_examples ?? [];
   const boundaries = dashboard.boundaries ?? [];
   const engagement = dashboard.engagement_summary;
+  const presenceSummary = dashboard.presence_summary;
   const blueprintLinks = dashboard.blueprint_integration_links ?? [];
+  const phase56Links = dashboard.phase56_integration_links ?? [];
 
   return (
     <div className="space-y-6">
+      {phase56Links.length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {phase56Links.map((link) =>
+            link.route ? (
+              <Link key={link.route} href={link.route} className="rounded-lg border border-indigo-200 px-3 py-1.5 text-sm">
+                {link.label ?? link.route}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : null}
+
       {blueprintLinks.length > 0 ? (
         <div className="flex flex-wrap gap-2">
           {blueprintLinks.map((link) =>
@@ -271,7 +306,42 @@ export function ProactiveCompanionEngineDashboardPanel({ labels }: Props) {
         {dashboard.blueprint_distinction_note ? (
           <p className="mt-2 text-xs text-indigo-700">{dashboard.blueprint_distinction_note}</p>
         ) : null}
+        {dashboard.companion_presence_philosophy ? (
+          <p className="mt-2 text-sm font-medium text-indigo-900">{dashboard.companion_presence_philosophy}</p>
+        ) : null}
+        {dashboard.phase56_distinction_note ? (
+          <p className="mt-2 text-xs text-indigo-700">{dashboard.phase56_distinction_note}</p>
+        ) : null}
       </section>
+
+      {presenceSummary ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.presenceSummary}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>
+              {labels.connectedDevices}: {presenceSummary.connected_devices ?? 0}
+            </span>
+            <span>
+              {labels.onlineDevices}: {presenceSummary.online_devices ?? 0}
+            </span>
+            <span>
+              {labels.companionIndicator}: {presenceSummary.companion_indicator_enabled ? labels.enabled : labels.disabled}
+            </span>
+            <span>
+              {labels.pendingNudges}: {presenceSummary.pending_nudges ?? 0}
+            </span>
+            <span>
+              {labels.nudgesLast30d}: {presenceSummary.nudges_last_30d ?? 0}
+            </span>
+            <span>
+              {labels.categoriesUsed}: {presenceSummary.categories_used ?? 0}
+            </span>
+          </div>
+          {presenceSummary.privacy_note ? (
+            <p className="mt-2 text-xs text-gray-500">{presenceSummary.privacy_note}</p>
+          ) : null}
+        </section>
+      ) : null}
 
       {engagement ? (
         <section className="rounded-lg border border-gray-200 bg-white p-4">
@@ -295,6 +365,40 @@ export function ProactiveCompanionEngineDashboardPanel({ labels }: Props) {
             <span>
               {labels.auditEvents}: {engagement.audit_events_total ?? 0}
             </span>
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.companion_presence_principles?.qualities &&
+      dashboard.companion_presence_principles.qualities.length > 0 ? (
+        <section className="rounded-xl border border-violet-200 bg-violet-50/30 p-6">
+          <h3 className="text-sm font-semibold">{labels.companionPresencePrinciples}</h3>
+          {dashboard.companion_presence_principles.principle ? (
+            <p className="mt-1 text-xs text-violet-800">{dashboard.companion_presence_principles.principle}</p>
+          ) : null}
+          <ul className="mt-3 list-inside list-disc space-y-1 text-sm text-violet-900">
+            {dashboard.companion_presence_principles.qualities.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          {dashboard.companion_presence_principles.should_avoid &&
+          dashboard.companion_presence_principles.should_avoid.length > 0 ? (
+            <ul className="mt-3 list-inside list-disc space-y-1 text-xs text-violet-700">
+              {dashboard.companion_presence_principles.should_avoid.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.phase56_objectives && dashboard.phase56_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.phase56Objectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.phase56_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
           </div>
         </section>
       ) : null}
@@ -324,6 +428,17 @@ export function ProactiveCompanionEngineDashboardPanel({ labels }: Props) {
         </section>
       ) : null}
 
+      {dashboard.proactive_support_examples && dashboard.proactive_support_examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.proactiveSupportExamples}</h3>
+          <div className="mt-3 space-y-3">
+            {dashboard.proactive_support_examples.map((example) => (
+              <CompanionExampleCard key={example.key ?? example.scenario} example={example} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       {dashboard.companion_examples && dashboard.companion_examples.length > 0 ? (
         <section className="rounded-xl border border-gray-200 p-6">
           <h3 className="text-sm font-semibold">{labels.companionExamples}</h3>
@@ -332,6 +447,79 @@ export function ProactiveCompanionEngineDashboardPanel({ labels }: Props) {
               <CompanionExampleCard key={example.key ?? example.scenario} example={example} />
             ))}
           </div>
+        </section>
+      ) : null}
+
+      {dashboard.operational_awareness?.domains && dashboard.operational_awareness.domains.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.operationalAwareness}</h3>
+          {dashboard.operational_awareness.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{dashboard.operational_awareness.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.operational_awareness.domains.map((domain) => (
+              <OperationalDomainCard key={domain.key ?? domain.label} domain={domain} viewLabel={labels.viewSurface} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.sales_expert_connection?.examples && dashboard.sales_expert_connection.examples.length > 0 ? (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/40 p-4 text-sm text-emerald-900">
+          <h3 className="text-sm font-semibold">{labels.salesExpertConnection}</h3>
+          {dashboard.sales_expert_connection.principle ? (
+            <p className="mt-2 text-xs">{dashboard.sales_expert_connection.principle}</p>
+          ) : null}
+          <ul className="mt-2 space-y-1 text-xs">
+            {dashboard.sales_expert_connection.examples.map((ex) => (
+              <li key={ex.text}>
+                {ex.emoji ? `${ex.emoji} ` : ""}
+                {ex.text}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.executive_connection?.examples && dashboard.executive_connection.examples.length > 0 ? (
+        <section className="rounded-lg border border-sky-100 bg-sky-50/40 p-4 text-sm text-sky-900">
+          <h3 className="text-sm font-semibold">{labels.executiveConnection}</h3>
+          {dashboard.executive_connection.principle ? (
+            <p className="mt-2 text-xs">{dashboard.executive_connection.principle}</p>
+          ) : null}
+          <ul className="mt-2 space-y-1 text-xs">
+            {dashboard.executive_connection.examples.map((ex) => (
+              <li key={ex.text}>
+                {ex.emoji ? `${ex.emoji} ` : ""}
+                {ex.text}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.self_love_wellbeing?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.selfLoveWellbeing}</h3>
+          <p className="mt-2">{dashboard.self_love_wellbeing.principle}</p>
+          {dashboard.self_love_wellbeing.practices && dashboard.self_love_wellbeing.practices.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {dashboard.self_love_wellbeing.practices.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.presence_settings?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.presenceSettings}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.presence_settings.principle}</p>
+          {dashboard.presence_settings.escalation &&
+          typeof dashboard.presence_settings.escalation.principle === "string" ? (
+            <p className="mt-2 text-xs text-gray-600">{dashboard.presence_settings.escalation.principle}</p>
+          ) : null}
         </section>
       ) : null}
 
@@ -378,6 +566,27 @@ export function ProactiveCompanionEngineDashboardPanel({ labels }: Props) {
         </section>
       ) : null}
 
+      {Array.isArray(dashboard.phase56_success_criteria) && dashboard.phase56_success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase56SuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.phase56_success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              return (
+                <li key={item.key ?? label} className="flex items-start gap-2">
+                  <span className={met ? "text-emerald-600" : "text-gray-400"}>{met ? "✓" : "○"}</span>
+                  <span>
+                    {label}
+                    {item.note ? <span className="block text-xs text-gray-500">{item.note}</span> : null}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
       {Array.isArray(dashboard.success_criteria) && dashboard.success_criteria.length > 0 ? (
         <section className="rounded-lg border border-gray-200 p-4">
           <h3 className="text-sm font-semibold">{labels.successCriteria}</h3>
@@ -395,6 +604,17 @@ export function ProactiveCompanionEngineDashboardPanel({ labels }: Props) {
                 </li>
               );
             })}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.phase56_vision_phrases && dashboard.phase56_vision_phrases.length > 0 ? (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.phase56Vision}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-indigo-900">
+            {dashboard.phase56_vision_phrases.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
           </ul>
         </section>
       ) : null}

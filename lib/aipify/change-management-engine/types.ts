@@ -49,11 +49,89 @@ export type ChangeMilestoneRecord = {
   [key: string]: unknown;
 };
 
+export type BlueprintObjective = {
+  key?: string;
+  label?: string;
+  description?: string;
+  examples?: string[];
+};
+
+export type CompanionGuidanceExample = {
+  emoji?: string;
+  key?: string;
+  scenario?: string;
+  example?: string;
+};
+
+export type BlueprintSection = {
+  principle?: string;
+  dimensions?: BlueprintObjective[];
+  resources?: BlueprintObjective[];
+  supports?: BlueprintObjective[];
+  common_concerns?: BlueprintObjective[];
+  insight_types?: BlueprintObjective[];
+  users_should_see?: string[];
+  practices?: string[];
+  response_tone?: string;
+  boundary_note?: string;
+  stakeholder_communication_route?: string;
+  learning_route?: string;
+  self_love_route?: string;
+  license_route?: string;
+  audit_note?: string;
+  a47_note?: string;
+  dialogue_note?: string;
+};
+
+export type DogfoodingBlueprint = {
+  principle?: string;
+  aipify_group?: Record<string, unknown>;
+  unonight?: Record<string, unknown>;
+};
+
+export type IntegrationLink = {
+  label?: string;
+  route?: string;
+  note?: string;
+};
+
+export type AbosSuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+};
+
+export type ChangeEngagementSummary = {
+  total_initiatives?: number;
+  active_initiatives?: number;
+  completed_initiatives?: number;
+  pending_milestones?: number;
+  completed_milestones?: number;
+  pending_communications?: number;
+  adoption_metrics_90d?: number;
+  privacy_note?: string;
+};
+
+export type ImplementationBlueprintMeta = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+};
+
 export type ChangeManagementEngineCard = {
   has_organization: boolean;
   philosophy?: string;
   active_initiatives?: number;
   pending_milestones?: number;
+  implementation_blueprint_phase62?: ImplementationBlueprintMeta;
+  mission?: string;
+  abos_principle?: string;
+  engagement_summary?: ChangeEngagementSummary;
+  blueprint_note?: string;
+  change_note?: string;
   [key: string]: unknown;
 };
 
@@ -69,5 +147,28 @@ export type ChangeManagementEngineDashboard = {
   milestones?: ChangeMilestoneRecord[];
   integration_notes?: Record<string, string>;
   integration_summaries?: Record<string, unknown>;
+  implementation_blueprint_phase62?: ImplementationBlueprintMeta;
+  change_management_note?: string;
+  blueprint_distinction_note?: string;
+  blueprint_mission?: string;
+  blueprint_philosophy?: string;
+  blueprint_abos_principle?: string;
+  vision?: string;
+  blueprint_objectives?: BlueprintObjective[];
+  blueprint_change_types?: BlueprintObjective[];
+  readiness_assessment?: BlueprintSection;
+  companion_guidance?: CompanionGuidanceExample[];
+  communication_support?: BlueprintSection;
+  adoption_support?: BlueprintSection;
+  resistance_awareness?: BlueprintSection;
+  self_love_connection?: BlueprintSection;
+  leadership_insights?: BlueprintSection;
+  trust_connection?: BlueprintSection;
+  dogfooding?: DogfoodingBlueprint;
+  blueprint_integration_links?: IntegrationLink[];
+  engagement_summary?: ChangeEngagementSummary;
+  success_criteria?: AbosSuccessCriterion[];
+  vision_phrases?: string[];
+  privacy_note?: string;
   [key: string]: unknown;
 };

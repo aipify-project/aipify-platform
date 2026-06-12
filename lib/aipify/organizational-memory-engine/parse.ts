@@ -1,8 +1,13 @@
 import type {
   AbosSuccessCriterion,
+  ContinuityBlueprintSection,
+  ContinuityMemoryCategory,
+  ContinuityObjective,
+  ContinuitySummary,
   IntegrationLink,
   MemoryCapability,
   MemoryCategoryBlock,
+  MemoryContinuitySettings,
   MemoryLevelSummary,
   OrganizationDecisionRegisterEntry,
   OrganizationMemoryRecord,
@@ -82,6 +87,57 @@ export function parseOrganizationalMemoryEngineDashboard(
     archived_decisions: asRecordList<OrganizationDecisionRegisterEntry>(d.archived_decisions),
     recommended_reviews: asRecordList<OrganizationMemoryReview>(d.recommended_reviews),
     privacy_note: asString(d.privacy_note) || undefined,
+    implementation_blueprint_phase55:
+      typeof d.implementation_blueprint_phase55 === "object" && d.implementation_blueprint_phase55
+        ? (d.implementation_blueprint_phase55 as OrganizationalMemoryEngineDashboard["implementation_blueprint_phase55"])
+        : undefined,
+    continuity_mission: asString(d.continuity_mission) || undefined,
+    continuity_philosophy: asString(d.continuity_philosophy) || undefined,
+    continuity_abos_principle: asString(d.continuity_abos_principle) || undefined,
+    continuity_objectives: asRecordList<ContinuityObjective>(d.continuity_objectives),
+    continuity_memory_categories: asRecordList<ContinuityMemoryCategory>(d.continuity_memory_categories),
+    organizational_continuity:
+      typeof d.organizational_continuity === "object" && d.organizational_continuity
+        ? (d.organizational_continuity as ContinuityBlueprintSection)
+        : undefined,
+    individual_continuity:
+      typeof d.individual_continuity === "object" && d.individual_continuity
+        ? (d.individual_continuity as ContinuityBlueprintSection)
+        : undefined,
+    memory_management:
+      typeof d.memory_management === "object" && d.memory_management
+        ? (d.memory_management as ContinuityBlueprintSection)
+        : undefined,
+    continuity_self_love_connection:
+      typeof d.continuity_self_love_connection === "object" && d.continuity_self_love_connection
+        ? (d.continuity_self_love_connection as ContinuityBlueprintSection)
+        : undefined,
+    continuity_trust_privacy:
+      typeof d.continuity_trust_privacy === "object" && d.continuity_trust_privacy
+        ? (d.continuity_trust_privacy as ContinuityBlueprintSection)
+        : undefined,
+    continuity_companion_principles:
+      typeof d.continuity_companion_principles === "object" && d.continuity_companion_principles
+        ? (d.continuity_companion_principles as ContinuityBlueprintSection)
+        : undefined,
+    continuity_settings:
+      typeof d.continuity_settings === "object" && d.continuity_settings
+        ? (d.continuity_settings as MemoryContinuitySettings)
+        : undefined,
+    continuity_summary:
+      typeof d.continuity_summary === "object" && d.continuity_summary
+        ? (d.continuity_summary as ContinuitySummary)
+        : undefined,
+    continuity_dogfooding:
+      typeof d.continuity_dogfooding === "object" && d.continuity_dogfooding
+        ? (d.continuity_dogfooding as Record<string, unknown>)
+        : undefined,
+    mcebp_integration_links: asRecordList<IntegrationLink>(d.mcebp_integration_links),
+    continuity_success_criteria: asRecordList<AbosSuccessCriterion>(d.continuity_success_criteria),
+    continuity_vision_phrases: Array.isArray(d.continuity_vision_phrases)
+      ? (d.continuity_vision_phrases as string[])
+      : undefined,
+    continuity_distinction_note: asString(d.continuity_distinction_note) || undefined,
   };
 }
 

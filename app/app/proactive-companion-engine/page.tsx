@@ -62,6 +62,23 @@ export default async function ProactiveCompanionEnginePage() {
           trustConnection: t(`${p}.trustConnection`),
           successCriteria: t(`${p}.successCriteria`),
           visionPhrases: t(`${p}.visionPhrases`),
+          presenceSummary: t(`${p}.presenceSummary`),
+          connectedDevices: t(`${p}.connectedDevices`),
+          onlineDevices: t(`${p}.onlineDevices`),
+          companionIndicator: t(`${p}.companionIndicator`),
+          enabled: t(`${p}.enabled`),
+          disabled: t(`${p}.disabled`),
+          companionPresencePrinciples: t(`${p}.companionPresencePrinciples`),
+          phase56Objectives: t(`${p}.phase56Objectives`),
+          proactiveSupportExamples: t(`${p}.proactiveSupportExamples`),
+          operationalAwareness: t(`${p}.operationalAwareness`),
+          viewSurface: t(`${p}.viewSurface`),
+          salesExpertConnection: t(`${p}.salesExpertConnection`),
+          executiveConnection: t(`${p}.executiveConnection`),
+          selfLoveWellbeing: t(`${p}.selfLoveWellbeing`),
+          presenceSettings: t(`${p}.presenceSettings`),
+          phase56SuccessCriteria: t(`${p}.phase56SuccessCriteria`),
+          phase56Vision: t(`${p}.phase56Vision`),
         }}
       />
     </div>

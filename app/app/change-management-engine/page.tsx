@@ -7,6 +7,7 @@ export default async function ChangeManagementEnginePage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
   const p = "customerApp.changeManagementEngine";
+  const b = `${p}.blueprint`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -17,6 +18,7 @@ export default async function ChangeManagementEnginePage() {
       <ChangeManagementEngineDashboardPanel labels={{
           loading: t(`${p}.loading`),
           engineTitle: t(`${p}.engineTitle`),
+          distinctionNote: t(`${p}.distinctionNote`),
           summary: t(`${p}.summary`),
           principles: t(`${p}.principles`),
           initiatives: t(`${p}.initiatives`),
@@ -32,6 +34,28 @@ export default async function ChangeManagementEnginePage() {
           releaseCommunication: t(`${p}.releaseCommunication`),
           releasing: t(`${p}.releasing`),
           releaseFailed: t(`${p}.releaseFailed`),
+          blueprintObjectives: t(`${b}.objectives`),
+          changeTypes: t(`${b}.changeTypes`),
+          readinessAssessment: t(`${b}.readinessAssessment`),
+          companionGuidance: t(`${b}.companionGuidance`),
+          communicationSupport: t(`${b}.communicationSupport`),
+          adoptionSupport: t(`${b}.adoptionSupport`),
+          resistanceAwareness: t(`${b}.resistanceAwareness`),
+          selfLoveConnection: t(`${b}.selfLoveConnection`),
+          leadershipInsights: t(`${b}.leadershipInsights`),
+          trustConnection: t(`${b}.trustConnection`),
+          engagementSummary: t(`${b}.engagementSummary`),
+          totalInitiatives: t(`${b}.totalInitiatives`),
+          activeInitiatives: t(`${b}.activeInitiatives`),
+          completedInitiatives: t(`${b}.completedInitiatives`),
+          pendingMilestones: t(`${b}.pendingMilestones`),
+          completedMilestones: t(`${b}.completedMilestones`),
+          pendingCommunications: t(`${b}.pendingCommunications`),
+          adoptionMetrics90d: t(`${b}.adoptionMetrics90d`),
+          successCriteria: t(`${b}.successCriteria`),
+          criterionMet: t(`${b}.criterionMet`),
+          criterionPending: t(`${b}.criterionPending`),
+          visionPhrases: t(`${b}.visionPhrases`),
         }} />
     </div>
   );

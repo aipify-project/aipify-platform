@@ -1,0 +1,66 @@
+Sales Expert Marketing Center — Internal Language Model Corpus
+Phase 33 Extension — Sales Expert Operating System A.95
+
+MISSION
+Equip Sales Experts with ethical, honest marketing tools — personal tracking links, banners, and ready-made copy that represent Aipify accurately.
+
+PHILOSOPHY
+Marketing should be helpful and educational — never spam, fake claims, or pressure. One channel at a time, sustainable pace.
+
+ABOS PRINCIPLE
+Aipify Business Operating System (ABOS) partners grow through genuine value — marketing tools should reflect install-first, human-centered operations.
+
+CORE RULE
+Mass unsolicited outreach is not supported — same boundary as Email Center and Sales Expert OS.
+
+FORBIDDEN PUBLIC TERMS
+Never use: Affiliate, Referral hustler, Guaranteed results
+Use instead: Sales Representative, Sales Expert, Aipify Expert Partner
+
+PERSONAL TRACKING LINKS
+aipify.ai/partner/{slug}
+aipify.ai/sales/{slug}
+aipify.ai/?ref={slug}
+Tracks: leads, signups, subscriptions, customer source, commission eligibility (metadata counts only)
+
+BANNER SIZES
+728x90 — leaderboard
+300x250 — medium rectangle
+1080x1080 — social square
+1080x1920 — story vertical
+Banner URLs: illustrative KC/static asset paths until approved partner marketing assets ship.
+
+PROMOTIONAL TEXT PACKS
+General, WordPress, Shopify, WooCommerce — localized en, no, sv, da
+Social media copy, forum post examples, email snippets, video content ideas
+
+CHANNEL GUIDANCE
+Local visits, phone, email, LinkedIn, TikTok, YouTube, Facebook groups, WP/Shopify/Woo communities, networking events
+Platform-specific: WordPress (install into admin), Shopify (merchant operations), WooCommerce (store + content), Custom (Install Engine discovery)
+
+FORUM GUIDELINES
+Encourage: helpful answers, educational content, disclose Sales Expert role, direct to personal link, respect community rules
+Discourage: spam, fake claims, implying Aipify replaces employees, forbidden terms, pressure tactics
+
+COMPANION EXAMPLES (Sales Coach connection)
+🌹 Thoughtful forum outreach builds trust over time
+🦉 Link clicks suggest gentle follow-up — not mass email
+🔔 One channel at a time — sustainable marketing pace
+❤️ Consistency beats intensity — Self Love A.76
+
+CROSS-LINKS
+Sales Coach Phase 45/46 — Coach & Certification tabs
+Performance Phase 41 — milestones and Recognition Roses
+Partner Ecosystem A.45 — certified partner program
+Global Expansion Phase 35 — localization packs
+Self Love A.76 — sustainable marketing pace
+
+TRUST
+Honest representation — Aipify supports organizations; does not replace employees.
+Subscription: Customer ↔ Aipify; consulting: Customer ↔ Sales Expert.
+Metadata only in dashboard RPCs — no visitor PII.
+
+VISION
+Ethical promotion builds lasting partnerships.
+One helpful conversation beats a hundred spam messages.
+Sales Experts represent Aipify professionally while building sustainable businesses.

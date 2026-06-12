@@ -1,4 +1,8 @@
-import type { DecisionsCenterBundle, DecisionRecommendation } from "./types";
+import type {
+  DecisionsCenterBundle,
+  DecisionRecommendation,
+  DecisionSupportBlueprintPhase60,
+} from "./types";
 
 function asArray<T>(value: unknown): T[] {
   return Array.isArray(value) ? (value as T[]) : [];
@@ -24,6 +28,33 @@ function parseRecommendation(raw: Record<string, unknown>): DecisionRecommendati
   };
 }
 
+function parseBlueprintPhase60(raw: unknown): DecisionSupportBlueprintPhase60 | undefined {
+  if (!raw || typeof raw !== "object") return undefined;
+  const b = raw as Record<string, unknown>;
+  return {
+    phase: typeof b.phase === "string" ? b.phase : undefined,
+    doc: typeof b.doc === "string" ? b.doc : undefined,
+    engine_phase: typeof b.engine_phase === "string" ? b.engine_phase : undefined,
+    route: typeof b.route === "string" ? b.route : undefined,
+    distinction_note: typeof b.distinction_note === "string" ? b.distinction_note : undefined,
+    mission: typeof b.mission === "string" ? b.mission : undefined,
+    philosophy: typeof b.philosophy === "string" ? b.philosophy : undefined,
+    abos_principle: typeof b.abos_principle === "string" ? b.abos_principle : undefined,
+    objectives: asArray(b.objectives),
+    decision_frameworks: asArray(b.decision_frameworks),
+    decision_types: asArray(b.decision_types),
+    option_comparison_examples: asArray(b.option_comparison_examples),
+    risk_awareness: b.risk_awareness as DecisionSupportBlueprintPhase60["risk_awareness"],
+    scenario_exploration: b.scenario_exploration as DecisionSupportBlueprintPhase60["scenario_exploration"],
+    self_love_connection: b.self_love_connection as DecisionSupportBlueprintPhase60["self_love_connection"],
+    trust_connection: b.trust_connection as DecisionSupportBlueprintPhase60["trust_connection"],
+    dogfooding: b.dogfooding as DecisionSupportBlueprintPhase60["dogfooding"],
+    success_criteria: asArray(b.success_criteria),
+    vision_phrases: asStringArray(b.vision_phrases),
+    integration_links: asArray(b.integration_links),
+  };
+}
+
 export function parseDecisionsCenter(data: unknown): DecisionsCenterBundle {
   if (!data || typeof data !== "object") {
     return { has_customer: false };
@@ -43,5 +74,6 @@ export function parseDecisionsCenter(data: unknown): DecisionsCenterBundle {
     privacy_note: typeof d.privacy_note === "string" ? d.privacy_note : undefined,
     ethical_principles: asStringArray(d.ethical_principles),
     integrations: d.integrations as Record<string, string>,
+    implementation_blueprint_phase60: parseBlueprintPhase60(d.implementation_blueprint_phase60),
   };
 }

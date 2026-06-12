@@ -143,8 +143,76 @@ export type ImplementationBlueprintMeta = {
   phase?: string;
   doc?: string;
   engine_phase?: string;
+  prior_blueprint?: string;
+  prior_doc?: string;
   route?: string;
   mapping_note?: string;
+};
+
+export type CompanionPresencePrinciples = {
+  principle?: string;
+  qualities?: string[];
+  should_avoid?: string[];
+  companion_presence_route?: string;
+  companion_presence_phase?: string;
+  orb_note?: string;
+};
+
+export type OperationalAwarenessDomain = {
+  key?: string;
+  label?: string;
+  signals?: string[];
+  route?: string;
+};
+
+export type OperationalAwareness = {
+  principle?: string;
+  domains?: OperationalAwarenessDomain[];
+  workflow_phase?: number;
+  workflow_route?: string;
+  boundary?: string;
+};
+
+export type ConnectionExamples = {
+  principle?: string;
+  examples?: Array<{ emoji?: string; text?: string }>;
+  route?: string;
+  phase?: string | number;
+  phases?: number[];
+  boundary?: string;
+  command_center_route?: string;
+};
+
+export type SelfLoveWellbeing = {
+  principle?: string;
+  practices?: string[];
+  route?: string;
+  phase?: string;
+  ethics_route?: string;
+  ethics_phase?: number;
+  boundary_note?: string;
+};
+
+export type PresenceSettingsBlueprint = {
+  principle?: string;
+  proactive_companion_settings?: Array<Record<string, unknown>>;
+  companion_presence_settings?: Array<Record<string, unknown>>;
+  escalation?: Record<string, unknown>;
+  tag_route?: string;
+  tag_note?: string;
+};
+
+export type PresenceSummary = {
+  pending_nudges?: number;
+  snoozed_nudges?: number;
+  nudges_last_30d?: number;
+  categories_used?: number;
+  connected_devices?: number;
+  online_devices?: number;
+  companion_indicator_enabled?: boolean;
+  proactive_engine_enabled?: boolean;
+  max_nudges_per_day?: number;
+  privacy_note?: string;
 };
 
 export type ProactiveCompanionEngineCard = {
@@ -156,6 +224,7 @@ export type ProactiveCompanionEngineCard = {
   mission?: string;
   abos_principle?: string;
   engagement_summary?: ProactiveEngagementSummary;
+  presence_summary?: PresenceSummary;
   blueprint_note?: string;
   [key: string]: unknown;
 };
@@ -196,6 +265,24 @@ export type ProactiveCompanionEngineDashboard = {
   success_criteria?: AbosSuccessCriterion[];
   vision_phrases?: string[];
   privacy_note?: string;
+  companion_presence_mission?: string;
+  companion_presence_philosophy?: string;
+  companion_presence_abos_principle?: string;
+  phase56_distinction_note?: string;
+  companion_presence_principles?: CompanionPresencePrinciples;
+  phase56_objectives?: ProactiveObjective[];
+  proactive_support_examples?: CompanionExample[];
+  operational_awareness?: OperationalAwareness;
+  sales_expert_connection?: ConnectionExamples;
+  executive_connection?: ConnectionExamples;
+  self_love_wellbeing?: SelfLoveWellbeing;
+  presence_settings?: PresenceSettingsBlueprint;
+  presence_summary?: PresenceSummary;
+  phase56_trust_connection?: TrustConnection;
+  phase56_dogfooding?: DogfoodingBlueprint;
+  phase56_success_criteria?: AbosSuccessCriterion[];
+  phase56_vision_phrases?: string[];
+  phase56_integration_links?: IntegrationLink[];
   [key: string]: unknown;
 };
 

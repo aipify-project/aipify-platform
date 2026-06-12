@@ -127,6 +127,12 @@ export function ExecutiveInsightsEngineDashboardPanel({ labels }: Props) {
         {dashboard.distinction_note ? (
           <p className="mt-1 text-xs text-violet-700">{dashboard.distinction_note}</p>
         ) : null}
+        {dashboard.strategic_thinking_note ? (
+          <p className="mt-1 text-xs text-indigo-800">{dashboard.strategic_thinking_note}</p>
+        ) : null}
+        {dashboard.blueprint_distinction_note ? (
+          <p className="mt-1 text-xs text-gray-500">{dashboard.blueprint_distinction_note}</p>
+        ) : null}
         {dashboard.safety_note ? (
           <p className="mt-2 text-xs text-gray-500">{dashboard.safety_note}</p>
         ) : null}
@@ -354,6 +360,251 @@ export function ExecutiveInsightsEngineDashboardPanel({ labels }: Props) {
           <h3 className="text-sm font-semibold text-gray-900">{labels.successCriteria}</h3>
           <ul className="mt-3 space-y-2">
             {dashboard.success_criteria.map((criterion) => (
+              <li
+                key={criterion.key ?? criterion.label}
+                className="flex flex-wrap items-start gap-2 rounded-lg border border-gray-100 px-3 py-2 text-sm"
+              >
+                <span
+                  className={`rounded-full px-2 py-0.5 text-xs ${criterion.met ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"}`}
+                >
+                  {criterion.met ? labels.criterionMet : labels.criterionPending}
+                </span>
+                <div>
+                  <p className="font-medium text-gray-900">{criterion.label}</p>
+                  {criterion.note ? <p className="mt-1 text-xs text-gray-500">{criterion.note}</p> : null}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.strategic_engagement_summary ? (
+        <section className="rounded-xl border border-indigo-200 bg-indigo-50/40 p-6">
+          <h3 className="text-sm font-semibold text-indigo-900">{labels.strategicEngagement}</h3>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-lg border border-indigo-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.strategicObjectives}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.strategic_engagement_summary.strategic_objectives_active ?? 0}
+                <span className="text-sm font-normal text-gray-500">
+                  {" "}
+                  / {dashboard.strategic_engagement_summary.strategic_objectives_total ?? 0}
+                </span>
+              </p>
+            </div>
+            <div className="rounded-lg border border-indigo-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.activeOkrs}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.strategic_engagement_summary.active_okr_objectives ?? 0}
+              </p>
+            </div>
+            <div className="rounded-lg border border-indigo-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.openOpportunities}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.strategic_engagement_summary.open_strategic_opportunities ?? 0}
+              </p>
+            </div>
+            <div className="rounded-lg border border-indigo-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.pendingDecisions}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.strategic_engagement_summary.pending_org_decisions ?? 0}
+              </p>
+            </div>
+          </div>
+          {dashboard.strategic_engagement_summary.summary_note ? (
+            <p className="mt-3 text-xs text-gray-500">{dashboard.strategic_engagement_summary.summary_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.strategic_thinking_objectives && dashboard.strategic_thinking_objectives.length > 0 ? (
+        <section className="rounded-xl border border-indigo-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.strategicObjectivesTitle}</h3>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {dashboard.strategic_thinking_objectives.map((obj) => (
+              <div key={obj.key ?? obj.label} className="rounded-lg border border-indigo-100 bg-indigo-50/30 p-4">
+                <p className="text-sm font-medium text-indigo-900">{obj.label}</p>
+                {obj.description ? <p className="mt-1 text-xs text-gray-600">{obj.description}</p> : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.strategic_conversations && dashboard.strategic_conversations.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.strategicConversations}</h3>
+          <ul className="mt-3 space-y-3">
+            {dashboard.strategic_conversations.map((item) => (
+              <li key={item.key ?? item.scenario} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                {item.scenario ? <p className="text-xs text-gray-500">{item.scenario}</p> : null}
+                <p className="mt-1">{item.question ?? item.example}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.priority_alignment ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.priorityAlignment}</h3>
+          {dashboard.priority_alignment.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.priority_alignment.principle}</p>
+          ) : null}
+          {(dashboard.priority_alignment.dimensions ?? []).length > 0 ? (
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {dashboard.priority_alignment.dimensions!.map((dim) => (
+                <div key={String(dim.key ?? dim.label)} className="rounded-lg border border-gray-100 p-3 text-sm">
+                  <p className="font-medium">{String(dim.label ?? "")}</p>
+                  {dim.description ? <p className="mt-1 text-xs text-gray-600">{String(dim.description)}</p> : null}
+                </div>
+              ))}
+            </div>
+          ) : null}
+          {(dashboard.priority_alignment.misalignment_scaffold ?? []).length > 0 ? (
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-xs text-gray-600">
+              {dashboard.priority_alignment.misalignment_scaffold!.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+          {dashboard.priority_alignment.boundary_note ? (
+            <p className="mt-3 text-xs text-gray-500">{dashboard.priority_alignment.boundary_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.opportunity_exploration ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.opportunityExploration}</h3>
+          {dashboard.opportunity_exploration.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.opportunity_exploration.principle}</p>
+          ) : null}
+          {(dashboard.opportunity_exploration.exploration_types ?? []).length > 0 ? (
+            <ul className="mt-3 space-y-2">
+              {dashboard.opportunity_exploration.exploration_types!.map((item) => (
+                <li key={String(item.key ?? item.label)} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-medium">{String(item.label ?? "")}</span>
+                    {item.source_type ? (
+                      <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-700">
+                        {String(item.source_type)}
+                      </span>
+                    ) : null}
+                  </div>
+                  {item.description ? <p className="mt-1 text-xs text-gray-600">{String(item.description)}</p> : null}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          {dashboard.opportunity_exploration.awareness_not_certainty ? (
+            <p className="mt-3 text-xs text-gray-500">{dashboard.opportunity_exploration.awareness_not_certainty}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.strategic_review_sessions ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.strategicReviewSessions}</h3>
+          {dashboard.strategic_review_sessions.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.strategic_review_sessions.principle}</p>
+          ) : null}
+          {(dashboard.strategic_review_sessions.cadences ?? []).length > 0 ? (
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              {dashboard.strategic_review_sessions.cadences!.map((cadence) => (
+                <div key={String(cadence.key ?? cadence.label)} className="rounded-lg border border-gray-100 p-3 text-sm">
+                  <p className="font-medium">{String(cadence.label ?? "")}</p>
+                  {cadence.description ? <p className="mt-1 text-xs text-gray-600">{String(cadence.description)}</p> : null}
+                </div>
+              ))}
+            </div>
+          ) : null}
+          {dashboard.strategic_review_sessions.boundary_note ? (
+            <p className="mt-3 text-xs text-gray-500">{dashboard.strategic_review_sessions.boundary_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.executive_briefings && dashboard.executive_briefings.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.executiveBriefings}</h3>
+          <ul className="mt-3 space-y-2">
+            {dashboard.executive_briefings.map((item) => (
+              <li key={item.key ?? item.scenario} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                {item.scenario ? <p className="text-xs text-gray-500">{item.scenario}</p> : null}
+                <p className="mt-1">{item.example}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.strategic_trust ? (
+        <section className="rounded-xl border border-amber-200 bg-amber-50/30 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.strategicTrust}</h3>
+          {dashboard.strategic_trust.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.strategic_trust.principle}</p>
+          ) : null}
+          {dashboard.strategic_trust.data_vs_hypotheses ? (
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <div>
+                <p className="text-xs font-semibold uppercase text-emerald-800">{labels.verifiedData}</p>
+                <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-gray-600">
+                  {(dashboard.strategic_trust.data_vs_hypotheses.verified_data ?? []).map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase text-amber-800">{labels.hypotheses}</p>
+                <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-gray-600">
+                  {(dashboard.strategic_trust.data_vs_hypotheses.hypotheses ?? []).map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ) : null}
+          {dashboard.strategic_trust.uncertainty_note ? (
+            <p className="mt-3 text-xs text-gray-500">{dashboard.strategic_trust.uncertainty_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.strategic_self_love ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.strategicSelfLove}</h3>
+          {dashboard.strategic_self_love.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.strategic_self_love.principle}</p>
+          ) : null}
+          {(dashboard.strategic_self_love.strategic_patterns ?? []).length > 0 ? (
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-gray-600">
+              {dashboard.strategic_self_love.strategic_patterns!.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {(dashboard.strategic_integration_links ?? []).length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {dashboard.strategic_integration_links!.map((link) =>
+            link.route ? (
+              <Link key={link.route} href={link.route} className="rounded-lg border border-indigo-200 px-3 py-1.5 text-sm">
+                {link.label}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : null}
+
+      {dashboard.strategic_success_criteria && dashboard.strategic_success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.strategicSuccessCriteria}</h3>
+          <ul className="mt-3 space-y-2">
+            {dashboard.strategic_success_criteria.map((criterion) => (
               <li
                 key={criterion.key ?? criterion.label}
                 className="flex flex-wrap items-start gap-2 rounded-lg border border-gray-100 px-3 py-2 text-sm"

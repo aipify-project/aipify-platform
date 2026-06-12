@@ -98,6 +98,9 @@ export type TrustEngagementSummary = {
   signals_last_90d?: number;
   auto_signal_enabled?: boolean;
   expansion_review_required?: boolean;
+  reliability_signals_90d?: number;
+  continuity_signals_30d?: number;
+  companion_note?: string;
   privacy_note?: string;
 };
 
@@ -137,6 +140,24 @@ export type TrustReputationEngineCard = {
   [key: string]: unknown;
 };
 
+export type CompanionReliability = {
+  principle?: string;
+  indicators?: RelationshipObjective[];
+  reputation_signal_types?: string[];
+};
+
+export type BoundaryPrinciples = {
+  principle?: string;
+  should_support?: string[];
+  should_avoid?: string[];
+  preserved_a72?: string[];
+};
+
+export type OrganizationalTrust = {
+  principle?: string;
+  pillars?: RelationshipObjective[];
+};
+
 export type TrustReputationEngineDashboard = {
   has_organization: boolean;
   philosophy?: string;
@@ -155,7 +176,9 @@ export type TrustReputationEngineDashboard = {
   integration_notes?: Record<string, string>;
   integration_summaries?: Record<string, unknown>;
   implementation_blueprint?: ImplementationBlueprintMeta;
+  implementation_blueprint_phase26?: ImplementationBlueprintMeta;
   trust_relationship_note?: string;
+  companion_relationship_trust_note?: string;
   blueprint_philosophy?: string;
   blueprint_mission?: string;
   blueprint_abos_principle?: string;
@@ -173,6 +196,19 @@ export type TrustReputationEngineDashboard = {
   engagement_summary?: TrustEngagementSummary;
   success_criteria?: AbosSuccessCriterion[];
   vision_phrases?: string[];
+  companion_objectives?: RelationshipObjective[];
+  trust_principles?: RelationshipPrinciple[];
+  avoid_practices?: string[];
+  relationship_continuity?: CompanionExample[];
+  companion_reliability?: CompanionReliability;
+  companion_self_love?: SelfLoveConnection;
+  boundary_principles?: BoundaryPrinciples;
+  trust_signal_indicators?: TrustSignalsBlueprint;
+  organizational_trust?: OrganizationalTrust;
+  dogfooding_phase57?: DogfoodingBlueprint;
+  companion_integration_links?: IntegrationLink[];
+  companion_success_criteria?: AbosSuccessCriterion[];
+  companion_vision_phrases?: string[];
   privacy_note?: string;
   [key: string]: unknown;
 };

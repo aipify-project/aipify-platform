@@ -1,0 +1,63 @@
+Implementation Blueprint Phase 47 — Sales Community & Mentorship Engine
+=======================================================================
+
+Feature owner: Customer App
+Engine: Sales Expert Operating System A.95
+Route: /app/sales-expert-engine
+Tab: Community (salesExpertEngine.community)
+
+Distinction (_scmbp_distinction_note):
+- Phase 89 Community & Collective Intelligence at /app/community = tenant org-wide knowledge sharing
+- Phase 47 = Sales Expert peer community and voluntary mentorship within partner portal
+- Cross-links: Coach Phase 45/46, Gratitude A.89, Academy Phase 94, Partner Success A.73, Self Love A.76, Phase 41 encouragement leaderboards
+
+Mission:
+Build a supportive Sales Expert community where partners learn from each other, share honest success stories, and grow through voluntary mentorship — never alone in the journey.
+
+Philosophy:
+Peer learning strengthens everyone. Mentorship is voluntary and respectful. Recognition educates — it does not boast. Community dialogue is constructive, professional, and trust-building.
+
+ABOS principle:
+Aipify Business Operating System (ABOS) grows when Sales Experts support each other — humans decide, Aipify informs and connects.
+
+Objectives:
+1. Peer learning
+2. Voluntary mentorship
+3. Best practices library
+4. Community recognition (encouraging not shaming)
+5. Collaborative problem-solving
+6. Belonging
+
+Mentorship program:
+- Voluntary experienced → newer mentor links
+- Guidance: demo preparation, follow-up rhythm, confidence, implementation
+- Either party may decline or pause — no penalty
+
+Community hub channels:
+- Discussions 💬
+- Success stories 🌹
+- Q&A 🦉
+- Inspiration 🔔
+- Best practice library 📚
+
+Success story categories:
+first_customer, outreach_ideas, challenges_overcome, implementation_wins, renewals, best_practices, mentorship
+Summaries max 500 characters — metadata only, no customer PII.
+
+Community recognition badges:
+- Mentor 🌹
+- Community Contributor 🔔
+- Knowledge Champion 🦉
+Collaboration over aggressive competition — no public shaming leaderboards.
+
+Trust:
+Respect, professionalism, constructive dialogue. No harassment, shaming, or misleading advice.
+
+Sales Coach connection:
+Recommends discussions, mentors, and resources — complements Coach tab Phase 45/46.
+
+Regional groups scaffold: nordic (no/sv/da/en), europe, global
+
+Dogfooding: Aipify Group Sales Experts participate first.
+
+i18n: customerApp.salesExpertEngine.* in en, no, sv, da

@@ -1,0 +1,46 @@
+Implementation Blueprint Phase 49 — Sales Intelligence & Opportunity Engine
+Sales Expert Operating System A.95 extension — partner portal Intelligence tab
+
+Mission
+Help Sales Experts see their pipeline clearly, prioritize thoughtfully, and act with integrity — intelligence informs, humans decide.
+
+Philosophy
+Not every opportunity is urgent. Scores and categories support focus — sustainable pacing protects wellbeing and professional judgment.
+
+ABOS principle
+Aipify Business Operating System (ABOS) partners grow through informed, relationship-first sales — Aipify prepares context; Sales Experts choose every action.
+
+Distinction
+Phase 49 is Sales Expert opportunity guidance at /app/sales-expert-engine Intelligence tab only.
+Distinct from Predictive Insights A.66, Strategic Intelligence A.31, Industry Intelligence A.44, Cross-Tenant Intelligence A.71 — tenant/org intelligence engines.
+No cross-tenant data in sales expert intelligence.
+
+Objectives
+- Opportunity awareness — surface open pipeline metadata
+- Prioritization — scores inform, humans decide
+- Industry insights — commerce, professional services, community platforms scaffold
+- Follow-up recommendations — stale opportunities, demo nudges, educational resources
+- Pipeline visibility — early-stage, demo candidates, renewal-related, expansion conversations
+- Market observations — illustrative sector patterns only
+
+Companion opportunity insights
+🦉 Pipeline review — thoughtful follow-up from metadata
+🌹 Demo-ready qualification — prepare discovery before demonstrating
+🔔 Stale opportunity — gentle check-in may reopen conversation
+
+Opportunity scoring
+Engagement, demo completed, stakeholders, positive signals — inform never dictate.
+Composite scores are prioritization aids only.
+
+Self Love A.76
+Not every opportunity needs action today. Intelligence never implies inadequacy for unfollowed suggestions.
+
+Trust
+Transparent factors — pipeline stage, activity timestamps, opportunity metadata. Optional insights without penalty.
+
+Cross-links
+Phase 43 engagement follow-ups, Phase 44 renewal/expansion, Phase 45 coach activity recommendations, Industry Intelligence A.44 / Blueprint 32, Decision Support A.54, Self Love A.76.
+
+Preferred wording
+Aipify recommends reviewing pipeline metadata — not "AI says you must close this deal."
+Scores suggest priorities — you still decide what deserves attention this week.

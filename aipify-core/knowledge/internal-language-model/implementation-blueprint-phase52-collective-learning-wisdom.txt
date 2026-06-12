@@ -1,0 +1,91 @@
+ABOS Implementation Blueprint Phase 52 — Collective Learning & Wisdom Engine
+===============================================================================
+
+Mission
+-------
+Compound anonymized collective wisdom across the ecosystem — pattern recognition, best practice evolution, and responsible insights that inform without prescribing.
+
+Philosophy
+----------
+Wisdom grows when experiences are shared responsibly. Collective observations inform teams — they never prescribe outcomes. Humans decide; Aipify surfaces patterns from governed, anonymized contributions.
+
+ABOS principle
+--------------
+Aipify Business Operating System (ABOS) strengthens when collective learning compounds safely — metadata patterns across the ecosystem, never confidential records or org identity.
+
+Inform not prescribe
+--------------------
+Collective observations inform — they do not prescribe. Humans decide what to adopt from collective wisdom.
+
+Objectives
+----------
+- Pattern recognition from anonymized community contributions
+- Best practice evolution across support, sales, implementation, operational, training
+- Ecosystem observations — never competitive intelligence or confidential content
+- Knowledge evolution — KC, training, certification scaffolds
+- Continuous improvement through governed participation
+- Responsible insights with explainability and optional adoption
+
+Collective observations (🦉🌹🔔)
+--------------------------------
+🦉 Pattern worth reviewing — without exposing who contributed
+🌹 Shared challenge — you are not alone
+🔔 Evolved best practice signal — explore when ready
+🦉 Ecosystem theme surfaced — informative, not mandatory
+
+Best practice evolution domains
+-------------------------------
+Support: triage workflows, escalation patterns, template effectiveness
+Sales: discovery approaches, renewal patterns, ethical outreach
+Implementation: onboarding scope, install adoption, handoff practices
+Operational: workflow optimization, approval cadence, automation metadata
+Training: role-based paths, certification readiness, academy effectiveness
+
+Anonymization principles
+------------------------
+Aggregates only — aligned with lib/impact/privacy.ts forbidden-keys mindset.
+No identities, PII, confidential records, competitive intelligence, or org identity.
+Explicit governance before publication. Observations inform — never auto-adopt.
+
+Knowledge Center connection
+---------------------------
+Knowledge Center A.5 · Learning & Training A.36 · Certification A.37 · Industry guidance · Companion recommendations (Wisdom Engine A.93 cross-link)
+
+Sales Expert connection
+-----------------------
+Collective sales wisdom — discovery, renewals, onboarding, outreach — metadata only.
+Distinct from Sales Expert Community Phase 47 peer mentorship at /app/sales-expert-engine.
+
+Executive connection
+--------------------
+Ecosystem trends, themes, positive signals for Executive Insights A.35 — aggregates only.
+
+Self Love connection
+--------------------
+Shared challenges normalize learning — optional insights, no pressure.
+Route: /app/self-love-engine — principle only.
+
+Trust connection
+----------------
+Privacy, optional insights, explainability. Voluntary participation. Users choose what to explore and adopt.
+
+Distinctions (cross-link only)
+------------------------------
+Global Learning Network Phase 72 /app/global-learning — platform evolution intelligence
+Learning Engine Phase 23 /app/learning — tenant learning memory with approval
+Wisdom Engine A.93 /app/wisdom-engine — companion wisdom interventions
+Organizational Memory A.34 / OME — tenant memory, not cross-ecosystem aggregates
+Community Phase 89 + Blueprint 24 /app/community — governed community hub (base)
+Impact Metrics Phase 21 /platform/impact — anonymised proof, forbidden-keys rules
+
+Route
+-----
+/app/community (admin /app/community/admin)
+RPCs: get_community_intelligence_dashboard(), get_community_intelligence_card()
+Helpers: _clwbp_collective_summary(organization_id), _clwbp_blueprint_success_criteria(organization_id)
+
+Vision
+------
+Collective wisdom compounds when experiences are shared responsibly.
+Observations inform; humans decide.
+Trust is non-negotiable — aggregates only, explicit governance, voluntary participation.

@@ -4,6 +4,12 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseGrowthEvolutionEngineDashboard,
+  type BlueprintIntegrationLink,
+  type BlueprintObjective,
+  type BlueprintSection,
+  type BlueprintSuccessCriterion,
+  type CompanionExample,
+  type CompanionGrowthFeedbackEvent,
   type GrowthEvolutionEngineDashboard,
   type GrowthEvolutionRecommendation,
   type GrowthEvolutionSignal,
@@ -138,6 +144,12 @@ export function GrowthEvolutionEngineDashboardPanel({ labels }: Props) {
   const [savingSettings, setSavingSettings] = useState(false);
   const [cadence, setCadence] = useState("monthly");
   const [celebrateProgress, setCelebrateProgress] = useState(true);
+  const [feedbackPromptsEnabled, setFeedbackPromptsEnabled] = useState(true);
+  const [adaptivePreferencesEnabled, setAdaptivePreferencesEnabled] = useState(true);
+  const [companionRefinementOptIn, setCompanionRefinementOptIn] = useState(true);
+  const [identityCrossLinkEnabled, setIdentityCrossLinkEnabled] = useState(true);
+  const [helpfulnessFrequency, setHelpfulnessFrequency] = useState("occasional");
+  const [savingAdaptive, setSavingAdaptive] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -151,6 +163,21 @@ export function GrowthEvolutionEngineDashboardPanel({ labels }: Props) {
       }
       if (typeof parsed.settings?.celebrate_progress === "boolean") {
         setCelebrateProgress(parsed.settings.celebrate_progress);
+      }
+      if (typeof parsed.adaptive_settings?.feedback_prompts_enabled === "boolean") {
+        setFeedbackPromptsEnabled(parsed.adaptive_settings.feedback_prompts_enabled);
+      }
+      if (typeof parsed.adaptive_settings?.adaptive_preferences_enabled === "boolean") {
+        setAdaptivePreferencesEnabled(parsed.adaptive_settings.adaptive_preferences_enabled);
+      }
+      if (typeof parsed.adaptive_settings?.companion_refinement_opt_in === "boolean") {
+        setCompanionRefinementOptIn(parsed.adaptive_settings.companion_refinement_opt_in);
+      }
+      if (typeof parsed.adaptive_settings?.identity_cross_link_enabled === "boolean") {
+        setIdentityCrossLinkEnabled(parsed.adaptive_settings.identity_cross_link_enabled);
+      }
+      if (typeof parsed.adaptive_settings?.helpfulness_prompt_frequency === "string") {
+        setHelpfulnessFrequency(parsed.adaptive_settings.helpfulness_prompt_frequency);
       }
     }
     setLoading(false);
@@ -175,6 +202,30 @@ export function GrowthEvolutionEngineDashboardPanel({ labels }: Props) {
       await load();
     }
     setBusyId(null);
+  }
+
+  async function saveAdaptiveSettings() {
+    setSavingAdaptive(true);
+    setActionError(null);
+    const res = await fetch("/api/aipify/growth-evolution-engine/adaptive-settings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        feedback_prompts_enabled: feedbackPromptsEnabled,
+        adaptive_preferences_enabled: adaptivePreferencesEnabled,
+        companion_refinement_opt_in: companionRefinementOptIn,
+        identity_cross_link_enabled: identityCrossLinkEnabled,
+        helpfulness_prompt_frequency: helpfulnessFrequency,
+        celebrate_progress_enabled: celebrateProgress,
+      }),
+    });
+    if (!res.ok) {
+      const body = (await res.json()) as { error?: string };
+      setActionError(body.error ?? labels.settingsFailed);
+    } else {
+      await load();
+    }
+    setSavingAdaptive(false);
   }
 
   async function saveSettings() {
@@ -226,6 +277,9 @@ export function GrowthEvolutionEngineDashboardPanel({ labels }: Props) {
   const dimensions = dashboard.growth_dimensions ?? [];
   const cycleSteps = dashboard.learning_cycle_steps ?? [];
   const capabilities = dashboard.evolution_capabilities ?? [];
+  const blueprintLinks = dashboard.cgadbp_integration_links ?? [];
+  const recentFeedback = dashboard.recent_feedback ?? [];
+  const adaptiveSummary = dashboard.cgadbp_adaptive_summary ?? {};
 
   return (
     <div className="space-y-6">
@@ -245,7 +299,41 @@ export function GrowthEvolutionEngineDashboardPanel({ labels }: Props) {
         <Link href="/app/learning" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.learning}
         </Link>
+        <Link href="/app/assistant/identity" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.identity}
+        </Link>
+        <Link href="/app/companion-identity-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.companionIdentity}
+        </Link>
+        {blueprintLinks.slice(0, 4).map((link: BlueprintIntegrationLink) =>
+          link.route ? (
+            <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+              {link.label ?? link.route}
+            </Link>
+          ) : null
+        )}
       </div>
+
+      {dashboard.implementation_blueprint ? (
+        <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">
+          <h2 className="text-sm font-semibold text-violet-900">{labels.blueprintTitle}</h2>
+          <p className="mt-1 text-xs uppercase tracking-wide text-violet-700">
+            {String(dashboard.implementation_blueprint.phase ?? labels.blueprintPhase58)}
+          </p>
+          {dashboard.blueprint_mission ? (
+            <p className="mt-2 text-sm font-medium text-violet-900">{dashboard.blueprint_mission}</p>
+          ) : null}
+          {dashboard.blueprint_philosophy ? (
+            <p className="mt-2 text-sm text-violet-900">{dashboard.blueprint_philosophy}</p>
+          ) : null}
+          {dashboard.blueprint_abos_principle ? (
+            <p className="mt-2 text-xs text-violet-800">{dashboard.blueprint_abos_principle}</p>
+          ) : null}
+          {dashboard.cgadbp_distinction_note ? (
+            <p className="mt-2 text-xs text-violet-700">{dashboard.cgadbp_distinction_note}</p>
+          ) : null}
+        </section>
+      ) : null}
 
       <section className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-6">
         <h2 className="text-sm font-semibold">{labels.engineTitle}</h2>
@@ -273,7 +361,7 @@ export function GrowthEvolutionEngineDashboardPanel({ labels }: Props) {
         <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{actionError}</div>
       ) : null}
 
-      <section className="grid gap-4 sm:grid-cols-3">
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-xl border border-gray-200 p-4">
           <p className="text-xs uppercase text-gray-500">{labels.pendingRecommendations}</p>
           <p className="mt-1 text-2xl font-semibold">{String(summary.pending_recommendations ?? 0)}</p>
@@ -286,7 +374,84 @@ export function GrowthEvolutionEngineDashboardPanel({ labels }: Props) {
           <p className="text-xs uppercase text-gray-500">{labels.recentSignals}</p>
           <p className="mt-1 text-2xl font-semibold">{String(summary.recent_signals ?? 0)}</p>
         </div>
+        <div className="rounded-xl border border-gray-200 p-4">
+          <p className="text-xs uppercase text-gray-500">{labels.feedbackSignals30d}</p>
+          <p className="mt-1 text-2xl font-semibold">{String(adaptiveSummary.feedback_events_30d ?? 0)}</p>
+        </div>
       </section>
+
+      {dashboard.cgadbp_objectives && dashboard.cgadbp_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.blueprintObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.cgadbp_objectives.map((objective: BlueprintObjective) => (
+              <div key={objective.key ?? objective.label} className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+                <span className="font-medium">
+                  {objective.emoji ? `${objective.emoji} ` : ""}
+                  {objective.label}
+                </span>
+                {objective.description ? <p className="mt-1 text-xs text-gray-600">{objective.description}</p> : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.cgadbp_feedback_collection ? (
+        <BlueprintSectionBlock section={dashboard.cgadbp_feedback_collection} title={labels.feedbackCollection} />
+      ) : null}
+
+      {dashboard.cgadbp_companion_evolution_principles ? (
+        <BlueprintSectionBlock
+          section={dashboard.cgadbp_companion_evolution_principles}
+          title={labels.companionEvolutionPrinciples}
+          showExamples
+        />
+      ) : null}
+
+      {dashboard.cgadbp_organizational_learning ? (
+        <BlueprintSectionBlock section={dashboard.cgadbp_organizational_learning} title={labels.organizationalLearning} />
+      ) : null}
+
+      {dashboard.cgadbp_individual_adaptation ? (
+        <BlueprintSectionBlock
+          section={dashboard.cgadbp_individual_adaptation}
+          title={labels.individualAdaptation}
+          showExamples
+          exampleKey="preference_examples"
+        />
+      ) : null}
+
+      {dashboard.cgadbp_self_love_connection ? (
+        <BlueprintSectionBlock section={dashboard.cgadbp_self_love_connection} title={labels.selfLoveConnection} />
+      ) : null}
+
+      {dashboard.cgadbp_innovation_balance ? (
+        <BlueprintSectionBlock section={dashboard.cgadbp_innovation_balance} title={labels.innovationBalance} />
+      ) : null}
+
+      {dashboard.cgadbp_trust_connection ? (
+        <BlueprintSectionBlock section={dashboard.cgadbp_trust_connection} title={labels.trustConnection} />
+      ) : null}
+
+      {recentFeedback.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.recentFeedback}</h3>
+          <ul className="mt-3 space-y-2">
+            {recentFeedback.map((event: CompanionGrowthFeedbackEvent) => (
+              <li key={event.id} className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="font-medium capitalize">{(event.feedback_type ?? "").replace(/_/g, " ")}</span>
+                  {event.helpfulness_rating ? (
+                    <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs capitalize">{event.helpfulness_rating}</span>
+                  ) : null}
+                </div>
+                {event.summary ? <p className="mt-1 text-xs text-gray-700">{event.summary}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <section className="rounded-xl border border-gray-200 p-6">
         <h3 className="text-sm font-semibold">{labels.learningCycle}</h3>
@@ -376,6 +541,72 @@ export function GrowthEvolutionEngineDashboardPanel({ labels }: Props) {
 
       {canManage ? (
         <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.adaptiveSettings}</h3>
+          <p className="mt-1 text-xs text-gray-500">{labels.adaptiveSettingsNote}</p>
+          <div className="mt-3 grid gap-4 sm:grid-cols-2">
+            <label className="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={feedbackPromptsEnabled}
+                onChange={(e) => setFeedbackPromptsEnabled(e.target.checked)}
+                className="rounded border-gray-300"
+              />
+              <span>{labels.feedbackPromptsEnabled}</span>
+            </label>
+            <label className="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={adaptivePreferencesEnabled}
+                onChange={(e) => setAdaptivePreferencesEnabled(e.target.checked)}
+                className="rounded border-gray-300"
+              />
+              <span>{labels.adaptivePreferencesEnabled}</span>
+            </label>
+            <label className="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={companionRefinementOptIn}
+                onChange={(e) => setCompanionRefinementOptIn(e.target.checked)}
+                className="rounded border-gray-300"
+              />
+              <span>{labels.companionRefinementOptIn}</span>
+            </label>
+            <label className="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={identityCrossLinkEnabled}
+                onChange={(e) => setIdentityCrossLinkEnabled(e.target.checked)}
+                className="rounded border-gray-300"
+              />
+              <span>{labels.identityCrossLinkEnabled}</span>
+            </label>
+            <label className="text-sm">
+              <span className="block text-xs text-gray-500">{labels.helpfulnessFrequency}</span>
+              <select
+                value={helpfulnessFrequency}
+                onChange={(e) => setHelpfulnessFrequency(e.target.value)}
+                className="mt-1 w-full rounded border border-gray-200 px-2 py-1.5"
+              >
+                <option value="never">{labels.frequencyNever}</option>
+                <option value="occasional">{labels.frequencyOccasional}</option>
+                <option value="after_sessions">{labels.frequencyAfterSessions}</option>
+                <option value="weekly">{labels.frequencyWeekly}</option>
+              </select>
+            </label>
+          </div>
+          <button
+            type="button"
+            disabled={savingAdaptive}
+            onClick={() => void saveAdaptiveSettings()}
+            className="mt-4 rounded-lg bg-violet-600 px-4 py-2 text-sm text-white disabled:opacity-50"
+          >
+            {savingAdaptive ? labels.saving : labels.saveAdaptiveSettings}
+          </button>
+        </section>
+      ) : null}
+
+      {canManage ? (
+        <section className="rounded-xl border border-gray-200 p-6">
           <h3 className="text-sm font-semibold">{labels.settings}</h3>
           <div className="mt-3 grid gap-4 sm:grid-cols-2">
             <label className="text-sm">
@@ -412,6 +643,36 @@ export function GrowthEvolutionEngineDashboardPanel({ labels }: Props) {
         </section>
       ) : null}
 
+      {dashboard.cgadbp_success_criteria && dashboard.cgadbp_success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.successCriteria}</h3>
+          <ul className="mt-3 space-y-2">
+            {dashboard.cgadbp_success_criteria.map((criterion: BlueprintSuccessCriterion) => (
+              <li key={criterion.key ?? criterion.label} className="rounded-lg border border-gray-100 bg-white px-3 py-2 text-sm">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="font-medium">{criterion.label}</span>
+                  <span className={`rounded-full px-2 py-0.5 text-xs ${criterion.met ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"}`}>
+                    {criterion.met ? labels.criterionMet : labels.criterionPending}
+                  </span>
+                </div>
+                {criterion.note ? <p className="mt-1 text-xs text-gray-600">{criterion.note}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.cgadbp_vision_phrases && dashboard.cgadbp_vision_phrases.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.visionPhrases}</h3>
+          <ul className="mt-3 space-y-1 text-sm italic text-emerald-800">
+            {dashboard.cgadbp_vision_phrases.map((phrase) => (
+              <li key={phrase}>&ldquo;{phrase}&rdquo;</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       <section className="rounded-xl border border-gray-200 p-6">
         <h3 className="text-sm font-semibold">{labels.integrationLinks}</h3>
         <div className="mt-3 flex flex-wrap gap-2">
@@ -422,8 +683,19 @@ export function GrowthEvolutionEngineDashboardPanel({ labels }: Props) {
               </Link>
             ) : null
           )}
+          {blueprintLinks.map((link: BlueprintIntegrationLink) =>
+            link.route ? (
+              <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+                {link.label ?? link.route}
+              </Link>
+            ) : null
+          )}
         </div>
       </section>
+
+      {dashboard.privacy_note ? (
+        <p className="text-xs text-gray-500">{dashboard.privacy_note}</p>
+      ) : null}
 
       {canExport ? (
         <button
@@ -436,5 +708,55 @@ export function GrowthEvolutionEngineDashboardPanel({ labels }: Props) {
         </button>
       ) : null}
     </div>
+  );
+}
+
+function BlueprintSectionBlock({
+  section,
+  title,
+  showExamples,
+  exampleKey = "companion_examples",
+}: {
+  section: BlueprintSection;
+  title: string;
+  showExamples?: boolean;
+  exampleKey?: string;
+}) {
+  const examples = (section[exampleKey] as CompanionExample[] | undefined) ?? section.companion_examples;
+  return (
+    <section className="rounded-xl border border-gray-200 p-6">
+      <h3 className="text-sm font-semibold">{title}</h3>
+      {section.principle ? <p className="mt-1 text-xs text-gray-500">{section.principle}</p> : null}
+      {section.qualities && section.qualities.length > 0 ? (
+        <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-gray-600">
+          {section.qualities.map((q) => <li key={q}>{q}</li>)}
+        </ul>
+      ) : null}
+      {section.practices && section.practices.length > 0 ? (
+        <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-gray-600">
+          {section.practices.map((p) => <li key={p}>{p}</li>)}
+        </ul>
+      ) : null}
+      {section.users_should_know && section.users_should_know.length > 0 ? (
+        <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-gray-600">
+          {section.users_should_know.map((item) => <li key={item}>{item}</li>)}
+        </ul>
+      ) : null}
+      {section.should_avoid && section.should_avoid.length > 0 ? (
+        <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-orange-700">
+          {section.should_avoid.map((item) => <li key={item}>{item}</li>)}
+        </ul>
+      ) : null}
+      {showExamples && examples && examples.length > 0 ? (
+        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          {examples.map((ex: CompanionExample) => (
+            <div key={ex.key ?? ex.example} className="rounded-lg border border-indigo-100 bg-indigo-50/50 px-3 py-2 text-xs text-indigo-900">
+              {ex.emoji ? <span className="mr-1">{ex.emoji}</span> : null}
+              {ex.example ?? ex.text}
+            </div>
+          ))}
+        </div>
+      ) : null}
+    </section>
   );
 }

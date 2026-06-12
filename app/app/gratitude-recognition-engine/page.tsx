@@ -64,6 +64,23 @@ export default async function GratitudeRecognitionEnginePage() {
           trustConnection: t(`${p}.trustConnection`),
           orgConfiguration: t(`${p}.orgConfiguration`),
           visionPhrases: t(`${p}.visionPhrases`),
+          humanMomentsTitle: t(`${p}.humanMomentsTitle`),
+          humanMomentsObjectives: t(`${p}.humanMomentsObjectives`),
+          birthdayExperiences: t(`${p}.birthdayExperiences`),
+          professionalAnniversaries: t(`${p}.professionalAnniversaries`),
+          certificationCelebrations: t(`${p}.certificationCelebrations`),
+          communityContributions: t(`${p}.communityContributions`),
+          companionPrinciples: t(`${p}.companionPrinciples`),
+          privacyPrinciples: t(`${p}.privacyPrinciples`),
+          humanMomentsSummary: t(`${p}.humanMomentsSummary`),
+          humanMomentsPreferences: t(`${p}.humanMomentsPreferences`),
+          birthdayVisible: t(`${p}.birthdayVisible`),
+          anniversaryVisible: t(`${p}.anniversaryVisible`),
+          displayPreference: t(`${p}.displayPreference`),
+          humanMomentsSelfLove: t(`${p}.humanMomentsSelfLove`),
+          humanMomentsSuccessCriteria: t(`${p}.humanMomentsSuccessCriteria`),
+          humanMomentsVisionPhrases: t(`${p}.humanMomentsVisionPhrases`),
+          humanMomentsIntegrationLinks: t(`${p}.humanMomentsIntegrationLinks`),
         }}
       />
     </div>

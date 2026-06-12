@@ -1,0 +1,73 @@
+ABOS Implementation Blueprint Phase 60 — Decision Support Engine
+Extends Decision Support Engine Phase 38 at /app/assistant/decisions
+
+Mission
+Help people navigate important decisions with clarity — structure, perspective, and context. Humans decide; Aipify supports.
+
+Philosophy
+Decision support means clarity before choosing — not certainty. Structure options, surface trade-offs, highlight risks — reflect intentionally before acting.
+
+ABOS principle
+Clarity before choosing — structure, perspective, and context; humans retain final authority.
+
+Objectives
+- Decision preparation — frame the problem and gather context
+- Option evaluation — compare alternatives; perspective not prescription
+- Trade-off awareness — competing priorities and consequences
+- Risk identification — timing, dependencies, opportunity costs
+- Scenario consideration — success, underperformance, secondary effects
+- Reflection before action — good decisions can still produce difficult outcomes
+
+Decision framework companion questions
+- What problem are we trying to solve?
+- What options are available?
+- What assumptions are we making?
+- What risks should we consider?
+- What would success look like?
+- What if we do nothing?
+
+Decision types
+Operational — team priorities, resource allocation, workflow
+Strategic — market expansion, product investment, org restructuring
+Personal — workload, professional development, goal prioritization
+
+Option comparison companion examples
+🦉 Perspective not prescription — Option A vs B trade-offs; you decide
+🌹 Values alignment — goal path vs urgent operational need
+🔔 Timing awareness — delay reduces pressure but may affect renewal window
+
+Risk awareness
+Resource limitations, timing, dependencies, opportunity costs — strengthen preparation not paralysis
+
+Scenario exploration
+Success path, underperformance, secondary effects — reflection not prediction certainty
+Quantitative forecasting: Simulation Decision Lab Phase 78 / Blueprint Phase 22 at /app/simulations
+
+Self Love connection (A.76 /app/self-love-engine)
+Reflection, patience, acceptance of uncertainty, self-compassion — principle only
+
+Trust connection (Phase 30 /app/approvals)
+Explain recommendations, assumptions, uncertainty areas — DSE prepares; humans approve actions
+
+Distinctions
+- Organizational Decision Support A.54 /app/organizational-decision-support-engine
+- Briefing System repo Phase 60 (20260614900000_briefing_system_phase60.sql)
+- Quality Guardian Phases 58–59 /app/quality
+- Simulation Decision Lab Blueprint Phase 22 /app/simulations
+
+Cross-links
+Goals & Dreams /app/assistant/goals
+Attention Guardian /app/assistant/attention
+Context Engine /app/assistant/context
+Executive Insights Blueprint Phase 59 /app/executive-insights-engine
+Learning Engine /app/learning
+Wisdom Engine A.93 /app/wisdom-engine
+
+Dogfooding — Aipify Group
+Product prioritization, sales strategy, ecosystem investments, organizational planning
+
+Success criteria
+Decision quality, leader confidence, risk attention, intentional reflection, human responsibility central
+
+Vision phrases
+Clarity before choosing. Humans decide. Self-compassion when outcomes are difficult. Preparation not paralysis.

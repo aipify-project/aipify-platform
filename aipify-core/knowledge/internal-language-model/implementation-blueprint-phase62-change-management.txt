@@ -1,0 +1,76 @@
+ABOS Implementation Blueprint Phase 62 — Change Management Engine
+Extends Change Management Engine Phase A.47 at /app/change-management-engine
+
+Mission
+Help organizations introduce new systems, processes, structures, and ways of working while supporting people affected.
+
+Philosophy
+People resist uncertainty, confusion, and lack of involvement — not change itself. Successful change requires communication, support, and empathy.
+
+ABOS principle
+Change is not just implementation — help people move confidently from one reality to another.
+
+Objectives
+- Change planning — structured initiatives with impact assessment and milestones
+- Communication guidance — announcements, FAQs, leadership talking points, progress updates
+- Stakeholder awareness — who is affected, concerns, where to raise questions
+- Adoption support — training, companion onboarding, reinforcement — nurtured not assumed
+- Progress visibility — milestones and adoption metrics
+- Reinforcement strategies — celebration messages and sustained review
+
+Change types (blueprint framing)
+Operational — new workflows, process redesign, policy updates
+Technology — software implementations, migrations, AI adoption
+Organizational — restructuring, leadership transitions, growth-related changes
+
+Change readiness assessment
+Why necessary · Who affected · Concerns · Support structures · Success definition
+
+Companion change guidance
+🦉 Additional communication may help
+🌹 Stakeholders may need more preparation
+🔔 Milestone completed successfully
+
+Communication support
+Announcement templates · FAQs · Leadership talking points · Progress updates · Celebration messages
+Cross-link Stakeholder Communication A.53 /app/stakeholder-communication-engine
+
+Adoption support
+Training recommendations · Companion onboarding · Reinforcement reminders · Knowledge Center resources
+Cross-link Learning & Training A.36 /app/learning-training-engine
+
+Resistance awareness
+Workload concerns · Fear of unknown · Lack of understanding · Unclear expectations — empathy not blame
+
+Self Love connection (A.76 /app/self-love-engine)
+Patience · Compassion · Recovery periods · Progress recognition — Adjustment often requires time.
+
+Leadership insights
+Adoption progress · Stakeholder engagement · Positive momentum indicators
+
+Trust connection
+Why changes occur · Expected outcomes · Support provided · Where concerns can be raised
+
+Distinctions
+- Evolution Governance Phase 84 /app/evolution — Aipify software evolution, not org initiatives
+- Enterprise Deployment Framework Phase 92 /app/enterprise/framework
+- Stakeholder Communication A.53 /app/stakeholder-communication-engine
+- Organizational Health Blueprint Phase 61 A.56 /app/organizational-health-engine
+- Learning A.36 · Customer Success A.26 · Deployment A.20 · Human Oversight A.40 — cross-links only
+- Engine helpers _cme_* — blueprint helpers _cmbp_* (no collision)
+
+Cross-links
+Customer Success A.26 /app/customer-success-engine
+Deployment & Environment A.20 /app/deployment-environment-management-engine
+Human Oversight A.40 /app/human-oversight-engine
+Knowledge Center A.5 /app/knowledge-center
+License & Trust /app/license
+
+Dogfooding — Aipify Group
+Product evolution · Sales Expert program · Organizational scaling · Companion enhancements
+
+Success criteria
+Structured initiatives · Improved adoption · Stakeholder confidence · Constructive resistance · Organizational resilience
+
+Vision phrases
+Transformation without losing people. This change was handled thoughtfully. Humans lead; Aipify prepares and informs.

@@ -2,8 +2,13 @@ import type {
   AbosSuccessCriterion,
   BlueprintBoundaries,
   CompanionExample,
+  CompanionPresencePrinciples,
+  ConnectionExamples,
   DogfoodingBlueprint,
   IntegrationLink,
+  OperationalAwareness,
+  PresenceSettingsBlueprint,
+  PresenceSummary,
   ProactiveCompanionAssistanceCategory,
   ProactiveCompanionEngineCard,
   ProactiveCompanionEngineDashboard,
@@ -16,6 +21,7 @@ import type {
   ProactiveExamplesBlueprint,
   ProactiveObjective,
   SelfLoveConnection,
+  SelfLoveWellbeing,
   TrustConnection,
 } from "./types";
 
@@ -89,6 +95,36 @@ function parseIntegrationLinks(data: unknown): IntegrationLink[] | undefined {
   return data as IntegrationLink[];
 }
 
+function parseCompanionPresencePrinciples(data: unknown): CompanionPresencePrinciples | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CompanionPresencePrinciples;
+}
+
+function parseOperationalAwareness(data: unknown): OperationalAwareness | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as OperationalAwareness;
+}
+
+function parseConnectionExamples(data: unknown): ConnectionExamples | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ConnectionExamples;
+}
+
+function parseSelfLoveWellbeing(data: unknown): SelfLoveWellbeing | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as SelfLoveWellbeing;
+}
+
+function parsePresenceSettings(data: unknown): PresenceSettingsBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as PresenceSettingsBlueprint;
+}
+
+function parsePresenceSummary(data: unknown): PresenceSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as PresenceSummary;
+}
+
 export function parseProactiveCompanionEngineCard(data: unknown): ProactiveCompanionEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
   return {
@@ -104,6 +140,7 @@ export function parseProactiveCompanionEngineCard(data: unknown): ProactiveCompa
         ? (d.implementation_blueprint as ProactiveCompanionEngineCard["implementation_blueprint"])
         : undefined,
     engagement_summary: parseEngagementSummary(d.engagement_summary),
+    presence_summary: parsePresenceSummary(d.presence_summary),
     ...d,
   } as ProactiveCompanionEngineCard;
 }
@@ -163,6 +200,28 @@ export function parseProactiveCompanionEngineDashboard(
     success_criteria: parseSuccessCriteria(d.success_criteria),
     vision_phrases: parseStringArray(d.vision_phrases),
     privacy_note: typeof d.privacy_note === "string" ? d.privacy_note : undefined,
+    companion_presence_mission:
+      typeof d.companion_presence_mission === "string" ? d.companion_presence_mission : undefined,
+    companion_presence_philosophy:
+      typeof d.companion_presence_philosophy === "string" ? d.companion_presence_philosophy : undefined,
+    companion_presence_abos_principle:
+      typeof d.companion_presence_abos_principle === "string" ? d.companion_presence_abos_principle : undefined,
+    phase56_distinction_note:
+      typeof d.phase56_distinction_note === "string" ? d.phase56_distinction_note : undefined,
+    companion_presence_principles: parseCompanionPresencePrinciples(d.companion_presence_principles),
+    phase56_objectives: parseProactiveObjectives(d.phase56_objectives),
+    proactive_support_examples: parseCompanionExamples(d.proactive_support_examples),
+    operational_awareness: parseOperationalAwareness(d.operational_awareness),
+    sales_expert_connection: parseConnectionExamples(d.sales_expert_connection),
+    executive_connection: parseConnectionExamples(d.executive_connection),
+    self_love_wellbeing: parseSelfLoveWellbeing(d.self_love_wellbeing),
+    presence_settings: parsePresenceSettings(d.presence_settings),
+    presence_summary: parsePresenceSummary(d.presence_summary),
+    phase56_trust_connection: parseTrustConnection(d.phase56_trust_connection),
+    phase56_dogfooding: parseDogfooding(d.phase56_dogfooding),
+    phase56_success_criteria: parseSuccessCriteria(d.phase56_success_criteria),
+    phase56_vision_phrases: parseStringArray(d.phase56_vision_phrases),
+    phase56_integration_links: parseIntegrationLinks(d.phase56_integration_links),
     ...d,
   } as ProactiveCompanionEngineDashboard;
 }

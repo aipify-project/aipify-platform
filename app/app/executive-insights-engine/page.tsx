@@ -51,6 +51,22 @@ export default async function ExecutiveInsightsEnginePage() {
           criterionPending: t(`${p}.criterionPending`),
           trustConnection: t(`${p}.trustConnection`),
           dataSources: t(`${p}.dataSources`),
+          strategicEngagement: t(`${p}.phase59.strategicEngagement`),
+          strategicObjectives: t(`${p}.phase59.strategicObjectives`),
+          activeOkrs: t(`${p}.phase59.activeOkrs`),
+          openOpportunities: t(`${p}.phase59.openOpportunities`),
+          pendingDecisions: t(`${p}.phase59.pendingDecisions`),
+          strategicObjectivesTitle: t(`${p}.phase59.strategicObjectivesTitle`),
+          strategicConversations: t(`${p}.phase59.strategicConversations`),
+          priorityAlignment: t(`${p}.phase59.priorityAlignment`),
+          opportunityExploration: t(`${p}.phase59.opportunityExploration`),
+          strategicReviewSessions: t(`${p}.phase59.strategicReviewSessions`),
+          executiveBriefings: t(`${p}.phase59.executiveBriefings`),
+          strategicTrust: t(`${p}.phase59.strategicTrust`),
+          verifiedData: t(`${p}.phase59.verifiedData`),
+          hypotheses: t(`${p}.phase59.hypotheses`),
+          strategicSelfLove: t(`${p}.phase59.strategicSelfLove`),
+          strategicSuccessCriteria: t(`${p}.phase59.strategicSuccessCriteria`),
         }}
       />
     </div>

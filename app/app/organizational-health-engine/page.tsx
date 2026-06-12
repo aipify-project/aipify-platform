@@ -7,6 +7,7 @@ export default async function OrganizationalHealthEnginePage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
   const p = "customerApp.organizationalHealthEngine";
+  const b = `${p}.blueprint`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -36,6 +37,25 @@ export default async function OrganizationalHealthEnginePage() {
           exportReport: t(`${p}.exportReport`),
           exporting: t(`${p}.exporting`),
           exportFailed: t(`${p}.exportFailed`),
+          blueprintObjectives: t(`${b}.objectives`),
+          healthDomains: t(`${b}.healthDomains`),
+          healthObservations: t(`${b}.healthObservations`),
+          workloadAwareness: t(`${b}.workloadAwareness`),
+          recognitionConnection: t(`${b}.recognitionConnection`),
+          selfLoveConnection: t(`${b}.selfLoveConnection`),
+          leadershipInsights: t(`${b}.leadershipInsights`),
+          trustConnection: t(`${b}.trustConnection`),
+          privacyPrinciples: t(`${b}.privacyPrinciples`),
+          dogfooding: t(`${b}.dogfooding`),
+          successCriteria: t(`${b}.successCriteria`),
+          engagementSummary: t(`${b}.engagementSummary`),
+          categoriesMeasured: t(`${b}.categoriesMeasured`),
+          healthyCategories: t(`${b}.healthyCategories`),
+          attentionRequired: t(`${b}.attentionRequired`),
+          overallScore: t(`${b}.overallScore`),
+          pendingInterventions: t(`${b}.pendingInterventions`),
+          criterionMet: t(`${b}.criterionMet`),
+          criterionPending: t(`${b}.criterionPending`),
         }} />
     </div>
   );

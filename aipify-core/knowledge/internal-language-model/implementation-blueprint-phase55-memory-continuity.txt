@@ -1,0 +1,50 @@
+Implementation Blueprint Phase 55 — Memory & Continuity Engine
+Extends Organizational Memory Engine Phase A.34 at /app/organizational-memory-engine
+
+Mission
+Help people and organizations maintain continuity — remembering context, preferences, relationships, and lessons — so Aipify feels like a companion that grows alongside the work.
+
+Philosophy
+Continuity strengthens trust. Memory should be intentional, transparent, and human-controlled. Metadata only — never hidden retention; never manipulative personalization.
+
+ABOS principle
+Aipify Business Operating System (ABOS) remembers with permission. Organizations and individuals decide what continuity means; Aipify prepares context and gentle reminders.
+
+Memory categories (continuity framework)
+- Operational — process improvements, incidents, workflow adjustments → organization_memory_records
+- Relationship — communication styles, partnership patterns → org records + RSI cross-link
+- Learning — product learning patterns → customer_learning_memory aggregate counts only
+- Companion — preferences and device context → memory_continuity_settings + Companion Device Phase 36 cross-link
+
+Organizational continuity examples
+🦉 Incident lesson recall — approved metadata summary surfaced when similar context appears
+🔔 Workflow precedent — since-last-time awareness across orchestrated workflows
+🌹 Decision continuity — rationale and outcomes available for human review
+
+Individual continuity examples
+❤️ PAME cross-link — user-owned preferences surfaced when relevant, never duplicated in org payloads
+🌹 Gentle preference memory — review and remove anytime
+🔔 Follow-up reminders — optional, never pressure
+
+Distinctions (_mcebp_distinction_note)
+- PAME /app/assistant/memory — personal metadata; cross-link only
+- Learning Engine Phase 23 /app/learning — product learning, not relationship continuity
+- Memory Engine Phase 62 /app/memory and OME Phase 50 — institutional timeline
+- Companion Device Phase 36 — cross-device continuity cross-link
+- Employee Knowledge EKE — approved internal knowledge, not companion preference memory
+- Blueprint Phase 55 — continuity framework with user/org control
+
+Memory management
+Review via organization_memory_reviews. Update and archive via memory.edit and memory.archive permissions. Retention via organization_memory_settings.retention_days and personal retention_policy_preference in memory_continuity_settings.
+
+Self Love A.76
+Recognize progress, gentle reminders, celebrate resilience — proactive_reminders_enabled toggle; never guilt.
+
+Trust and privacy
+No hidden memory. Intentional retention. Aggregate counts in continuity summary — no PAME content, no learning memory text, no PII in RPC payloads.
+
+Cross-links
+Workflow Orchestration A.42, Identity A.34, Context Engine, Self Love A.76, Human Moments Phase 53, RSI, Knowledge Center A.5
+
+Dogfooding
+Aipify Group internal validation; Unonight pilot for operational memory continuity in support workflows.

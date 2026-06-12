@@ -120,7 +120,7 @@ export function TrustReputationEngineDashboardPanel({ labels }: Props) {
   const approvalQuality = sections.approval_quality ?? [];
   const reputationIndicators = sections.reputation_indicators ?? [];
   const engagement = dashboard.engagement_summary;
-  const blueprintLinks = dashboard.blueprint_integration_links ?? [];
+  const blueprintLinks = dashboard.companion_integration_links ?? dashboard.blueprint_integration_links ?? [];
 
   return (
     <div className="space-y-6">
@@ -158,7 +158,132 @@ export function TrustReputationEngineDashboardPanel({ labels }: Props) {
         {dashboard.blueprint_distinction_note ? (
           <p className="mt-2 text-xs text-emerald-700">{dashboard.blueprint_distinction_note}</p>
         ) : null}
+        {dashboard.companion_relationship_trust_note ? (
+          <p className="mt-2 text-xs text-emerald-800">{dashboard.companion_relationship_trust_note}</p>
+        ) : null}
       </section>
+
+      {dashboard.companion_objectives && dashboard.companion_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.companionObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.companion_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.trust_principles && dashboard.trust_principles.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.trustPrinciples}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.trust_principles.map((principle) => (
+              <PrincipleCard key={principle.key ?? principle.label} principle={principle} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.avoid_practices && dashboard.avoid_practices.length > 0 ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/40 p-4 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.avoidPractices}</h3>
+          <ul className="mt-3 list-inside list-disc space-y-1 text-xs">
+            {dashboard.avoid_practices.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.relationship_continuity && dashboard.relationship_continuity.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.relationshipContinuity}</h3>
+          <div className="mt-3 space-y-3">
+            {dashboard.relationship_continuity.map((example) => (
+              <CompanionExampleCard key={example.key ?? example.scenario} example={example} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.companion_reliability?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.companionReliability}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.companion_reliability.principle}</p>
+          {dashboard.companion_reliability.indicators && dashboard.companion_reliability.indicators.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.companion_reliability.indicators.map((indicator) => (
+                <ObjectiveCard key={indicator.key ?? indicator.label} objective={indicator} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.boundary_principles?.should_support && dashboard.boundary_principles.should_support.length > 0 ? (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/40 p-4 text-sm text-violet-900">
+          <h3 className="text-sm font-semibold">{labels.boundaryPrinciples}</h3>
+          {dashboard.boundary_principles.principle ? (
+            <p className="mt-2">{dashboard.boundary_principles.principle}</p>
+          ) : null}
+          <ul className="mt-3 list-inside list-disc space-y-1 text-xs">
+            {dashboard.boundary_principles.should_support.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          {dashboard.boundary_principles.should_avoid && dashboard.boundary_principles.should_avoid.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-violet-700">
+              {dashboard.boundary_principles.should_avoid.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.trust_signal_indicators?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.trustSignalIndicators}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.trust_signal_indicators.principle}</p>
+          {dashboard.trust_signal_indicators.users_should_see &&
+          dashboard.trust_signal_indicators.users_should_see.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+              {dashboard.trust_signal_indicators.users_should_see.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.organizational_trust?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.organizationalTrust}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.organizational_trust.principle}</p>
+          {dashboard.organizational_trust.pillars && dashboard.organizational_trust.pillars.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-3">
+              {dashboard.organizational_trust.pillars.map((pillar) => (
+                <ObjectiveCard key={pillar.key ?? pillar.label} objective={pillar} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.companion_self_love?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.companionSelfLove}</h3>
+          <p className="mt-2">{dashboard.companion_self_love.principle}</p>
+          {dashboard.companion_self_love.practices && dashboard.companion_self_love.practices.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {dashboard.companion_self_love.practices.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
 
       {engagement ? (
         <section className="rounded-lg border border-gray-200 bg-white p-4">
@@ -170,6 +295,8 @@ export function TrustReputationEngineDashboardPanel({ labels }: Props) {
             <span>{labels.recentSignals}: {engagement.recent_signals_30d ?? 0}</span>
             <span>{labels.outcomesTotal}: {engagement.outcomes_total ?? 0}</span>
             <span>{labels.signalsLast90d}: {engagement.signals_last_90d ?? 0}</span>
+            <span>{labels.reliabilitySignals}: {engagement.reliability_signals_90d ?? 0}</span>
+            <span>{labels.continuitySignals}: {engagement.continuity_signals_30d ?? 0}</span>
           </div>
         </section>
       ) : null}
@@ -259,6 +386,27 @@ export function TrustReputationEngineDashboardPanel({ labels }: Props) {
               ))}
             </ul>
           ) : null}
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.companion_success_criteria) && dashboard.companion_success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.companionSuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.companion_success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              return (
+                <li key={item.key ?? label} className="flex items-start gap-2">
+                  <span className={met ? "text-emerald-600" : "text-gray-400"}>{met ? "✓" : "○"}</span>
+                  <span>
+                    {label}
+                    {item.note ? <span className="block text-xs text-gray-500">{item.note}</span> : null}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
         </section>
       ) : null}
 

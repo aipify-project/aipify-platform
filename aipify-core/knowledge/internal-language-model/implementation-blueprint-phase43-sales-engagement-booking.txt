@@ -1,0 +1,40 @@
+Implementation Blueprint Phase 43 — Sales Engagement & Booking Engine
+
+Mission
+Help Sales Experts schedule meetings professionally, follow up consistently, and prepare thoughtfully — trust through consistency.
+
+Philosophy
+Follow-up demonstrates professionalism. Booking should feel personal and respectful — never pressure or mass outreach.
+
+ABOS principle
+Aipify Business Operating System (ABOS) partners build trust through prepared, consistent engagement — humans decide; Aipify informs and prepares.
+
+Booking center
+Personal pages at aipify.ai/book/{slug} — discovery, demos, onboarding, follow-up consultations.
+Extends organization_sales_expert_settings.booking_link and email template booking_link placeholder.
+
+Calendar integrations (scaffold)
+Google, Outlook, Apple — conflict avoidance metadata; honest pending OAuth status.
+Cross-link Context Engine / Universal Calendar — orchestrates calendars, never replaces them.
+
+Follow-up engagement
+Companion nudges: rose thoughtful follow-up, bell scheduled reminder, owl prep suggestion.
+Leverage organization_sales_expert_follow_ups — consistency demonstrates professionalism.
+
+Meeting preparation
+Customer background summaries (metadata), industry context, discovery questions, demo pathways — scaffold only.
+
+Engagement history
+Meeting history, upcoming bookings, follow-ups, open opportunities — metadata from customers, opportunities, follow_ups, bookings tables.
+
+Self Love A.76
+Sustainable engagement pacing — back-to-back meetings without recovery is not success.
+
+Trust
+Honest calendar integration status, metadata-only prep, empty booking notes scaffold, regional date/time via locale and timezone metadata.
+
+Preferred wording
+- "Schedule a discovery session" not "Book me now before slots run out"
+- "Your follow-ups this week" not "You forgot to follow up"
+- "Calendar connection pending" not "Calendar synced" when OAuth is not complete
+- "Aipify recommends preparing discovery questions" not "AI will run the meeting for you"

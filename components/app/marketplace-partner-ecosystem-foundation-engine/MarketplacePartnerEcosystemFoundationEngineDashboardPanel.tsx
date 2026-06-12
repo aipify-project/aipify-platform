@@ -81,8 +81,11 @@ export function MarketplacePartnerEcosystemFoundationEngineDashboardPanel({ labe
   const allLinks = [
     ...(dashboard.integration_links ?? []),
     ...(dashboard.penbp_integration_links ?? []),
+    ...(dashboard.egmibp_integration_links ?? []),
   ];
   const salesExpertLink = dashboard.sales_expert_os_link;
+  const ecosystemGrowth = dashboard.ecosystem_growth_summary;
+  const salesSignals = ecosystemGrowth?.sales_expert_signal_counts;
 
   return (
     <div className="space-y-6">
@@ -503,6 +506,234 @@ export function MarketplacePartnerEcosystemFoundationEngineDashboardPanel({ labe
           <h3 className="text-sm font-semibold text-violet-900">{labels.partnerVisionPhrases}</h3>
           <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-violet-800">
             {dashboard.partner_vision_phrases.map((phrase) => <li key={phrase}>{phrase}</li>)}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.market_intelligence_mission ? (
+        <section className="rounded-xl border border-teal-200 bg-teal-50/50 p-6">
+          <h2 className="text-sm font-semibold text-teal-900">{labels.marketIntelligenceTitle}</h2>
+          <p className="mt-1 text-xs uppercase tracking-wide text-teal-700">{labels.blueprintPhase51}</p>
+          <p className="mt-2 text-sm font-medium text-teal-900">{dashboard.market_intelligence_mission}</p>
+          {dashboard.market_intelligence_philosophy ? (
+            <p className="mt-2 text-sm text-teal-900">{dashboard.market_intelligence_philosophy}</p>
+          ) : null}
+          {dashboard.market_intelligence_abos_principle ? (
+            <p className="mt-2 text-xs text-teal-800">{dashboard.market_intelligence_abos_principle}</p>
+          ) : null}
+          {dashboard.market_intelligence_distinction_note ? (
+            <p className="mt-2 text-xs text-teal-700">{dashboard.market_intelligence_distinction_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {ecosystemGrowth ? (
+        <section className="rounded-lg border border-teal-100 bg-white p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.ecosystemGrowthSummary}</h3>
+          {ecosystemGrowth.ecosystem_summary ? (
+            <p className="mt-2 text-sm text-gray-700">{ecosystemGrowth.ecosystem_summary}</p>
+          ) : null}
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>{labels.nordicPartnerIndicators}: {ecosystemGrowth.nordic_partner_indicators ?? 0}</span>
+            <span>{labels.openOpportunities}: {salesSignals?.open_opportunities ?? 0}</span>
+            <span>{labels.activeCustomers}: {salesSignals?.active_customers ?? 0}</span>
+            <span>{labels.scheduledFollowUps}: {salesSignals?.scheduled_follow_ups ?? 0}</span>
+            <span>{labels.salesExpertSignals}: {salesSignals?.total_signals ?? 0}</span>
+          </div>
+          {ecosystemGrowth.privacy_note ? (
+            <p className="mt-2 text-xs text-gray-500">{ecosystemGrowth.privacy_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.market_intelligence_objectives && dashboard.market_intelligence_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.marketIntelligenceObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.market_intelligence_objectives.map((objective) => (
+              <EcosystemObjectiveCard key={objective.key ?? objective.label} objective={objective} labels={labels} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.market_observations?.principle ? (
+        <section className="rounded-lg border border-sky-100 bg-sky-50/40 p-4 text-sm text-sky-900">
+          <h3 className="text-sm font-semibold">{labels.marketObservations}</h3>
+          <p className="mt-2">{dashboard.market_observations.principle}</p>
+          {dashboard.market_observations.companion_examples && dashboard.market_observations.companion_examples.length > 0 ? (
+            <ul className="mt-3 space-y-2 text-xs">
+              {dashboard.market_observations.companion_examples.map((item) => (
+                <li key={item.key ?? item.example}>
+                  {item.emoji ? `${item.emoji} ` : ""}{item.example}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          {dashboard.market_observations.tone ? (
+            <p className="mt-2 text-xs text-sky-800">{dashboard.market_observations.tone}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.industry_intelligence?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.industryIntelligence}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.industry_intelligence.principle}</p>
+          {dashboard.industry_intelligence.signal_categories && dashboard.industry_intelligence.signal_categories.length > 0 ? (
+            <ul className="mt-2 space-y-1 text-xs text-gray-600">
+              {dashboard.industry_intelligence.signal_categories.map((cat) => (
+                <li key={cat.key ?? cat.label}>
+                  <span className="font-medium text-gray-800">{cat.label}</span>
+                  {cat.description ? `: ${cat.description}` : ""}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          {dashboard.industry_intelligence.industry_intelligence_route ? (
+            <Link href={dashboard.industry_intelligence.industry_intelligence_route} className="mt-2 inline-block text-xs text-indigo-700 underline">
+              {labels.exploreIndustryIntelligence}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.regional_insights?.principle ? (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/40 p-4 text-sm text-emerald-900">
+          <h3 className="text-sm font-semibold">{labels.regionalInsights}</h3>
+          <p className="mt-2">{dashboard.regional_insights.principle}</p>
+          {dashboard.regional_insights.regions && dashboard.regional_insights.regions.length > 0 ? (
+            <div className="mt-3 space-y-3">
+              {dashboard.regional_insights.regions.map((region) => (
+                <div key={region.key ?? region.label} className="rounded border border-emerald-200/60 p-3 text-xs">
+                  <p className="font-medium">{region.label}</p>
+                  {region.trends && region.trends.length > 0 ? (
+                    <ul className="mt-1 list-inside list-disc text-emerald-800">
+                      {region.trends.map((trend) => <li key={trend}>{trend}</li>)}
+                    </ul>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.sales_expert_feedback_loops?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.salesExpertFeedbackLoops}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.sales_expert_feedback_loops.principle}</p>
+          {dashboard.sales_expert_feedback_loops.feedback_loops && dashboard.sales_expert_feedback_loops.feedback_loops.length > 0 ? (
+            <ul className="mt-2 space-y-1 text-xs text-gray-600">
+              {dashboard.sales_expert_feedback_loops.feedback_loops.map((loop) => (
+                <li key={loop.key ?? loop.label}>
+                  <span className="font-medium text-gray-800">{loop.label}</span>
+                  {loop.description ? `: ${loop.description}` : ""}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          {dashboard.sales_expert_feedback_loops.sales_expert_route ? (
+            <Link href={dashboard.sales_expert_feedback_loops.sales_expert_route} className="mt-2 inline-block text-xs text-indigo-700 underline">
+              {labels.salesExpertPortal}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.partner_ecosystem_insights?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.partnerEcosystemInsights}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.partner_ecosystem_insights.principle}</p>
+          {dashboard.partner_ecosystem_insights.dimensions && dashboard.partner_ecosystem_insights.dimensions.length > 0 ? (
+            <ul className="mt-2 space-y-1 text-xs text-gray-600">
+              {dashboard.partner_ecosystem_insights.dimensions.map((dim) => (
+                <li key={dim.key ?? dim.label}>
+                  <span className="font-medium text-gray-800">{dim.label}</span>
+                  {dim.description ? `: ${dim.description}` : ""}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.executive_support?.principle ? (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/30 p-4 text-sm text-indigo-900">
+          <h3 className="text-sm font-semibold">{labels.executiveSupport}</h3>
+          <p className="mt-2">{dashboard.executive_support.principle}</p>
+          {dashboard.executive_support.support_types && dashboard.executive_support.support_types.length > 0 ? (
+            <ul className="mt-3 space-y-2 text-xs">
+              {dashboard.executive_support.support_types.map((item) => (
+                <li key={item.key ?? item.label}>
+                  {item.emoji ? `${item.emoji} ` : ""}
+                  <span className="font-medium">{item.label}</span>
+                  {item.description ? `: ${item.description}` : ""}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.market_intelligence_success_criteria) && dashboard.market_intelligence_success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-teal-100 bg-teal-50/30 p-4">
+          <h3 className="text-sm font-semibold text-teal-900">{labels.marketIntelligenceSuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.market_intelligence_success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={item.key ?? label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.market_intelligence_self_love_connection?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.marketIntelligenceSelfLove}</h3>
+          <p className="mt-2">{dashboard.market_intelligence_self_love_connection.principle}</p>
+          {dashboard.market_intelligence_self_love_connection.route ? (
+            <Link href={dashboard.market_intelligence_self_love_connection.route} className="mt-2 inline-block text-xs underline">
+              {labels.openSelfLove}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.market_intelligence_trust_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.marketIntelligenceTrust}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.market_intelligence_trust_connection.principle}</p>
+        </section>
+      ) : null}
+
+      {dashboard.market_intelligence_dogfooding?.principle ? (
+        <section className="rounded-lg border border-gray-100 bg-gray-50 px-4 py-3 text-sm">
+          <h3 className="text-sm font-semibold text-gray-800">{labels.marketIntelligenceDogfooding}</h3>
+          <p className="mt-2 text-xs text-gray-600">{dashboard.market_intelligence_dogfooding.principle}</p>
+          {dashboard.market_intelligence_dogfooding.aipify_group?.note ? (
+            <p className="mt-2 text-xs text-gray-600"><strong>Aipify Group:</strong> {dashboard.market_intelligence_dogfooding.aipify_group.note}</p>
+          ) : null}
+          {dashboard.market_intelligence_dogfooding.unonight?.note ? (
+            <p className="mt-1 text-xs text-gray-600"><strong>Unonight:</strong> {dashboard.market_intelligence_dogfooding.unonight.note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.market_intelligence_vision_phrases && dashboard.market_intelligence_vision_phrases.length > 0 ? (
+        <section className="rounded-lg border border-teal-100 bg-teal-50/30 px-4 py-3">
+          <h3 className="text-sm font-semibold text-teal-900">{labels.marketIntelligenceVision}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-teal-800">
+            {dashboard.market_intelligence_vision_phrases.map((phrase) => <li key={phrase}>{phrase}</li>)}
           </ul>
         </section>
       ) : null}

@@ -39,6 +39,18 @@ export default async function OrganizationalMemoryEnginePage() {
           references: t(`${p}.references`),
           noItems: t(`${p}.noItems`),
           principles: t(`${p}.principles`),
+          continuityTitle: t(`${p}.continuityTitle`),
+          continuityObjectives: t(`${p}.continuityObjectives`),
+          continuityMemoryCategories: t(`${p}.continuityMemoryCategories`),
+          organizationalContinuity: t(`${p}.organizationalContinuity`),
+          individualContinuity: t(`${p}.individualContinuity`),
+          memoryManagement: t(`${p}.memoryManagement`),
+          continuitySelfLove: t(`${p}.continuitySelfLove`),
+          continuityTrustPrivacy: t(`${p}.continuityTrustPrivacy`),
+          continuityCompanionPrinciples: t(`${p}.continuityCompanionPrinciples`),
+          continuitySummary: t(`${p}.continuitySummary`),
+          continuitySuccessCriteria: t(`${p}.continuitySuccessCriteria`),
+          continuityIntegrationLinks: t(`${p}.continuityIntegrationLinks`),
         }}
       />
     </div>

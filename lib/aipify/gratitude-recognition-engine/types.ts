@@ -113,7 +113,8 @@ export type OrgConfigurationBoundaries = {
 };
 
 export type ImplementationBlueprintMeta = {
-  phase?: string;
+  phase?: string | number;
+  title?: string;
   doc?: string;
   engine_phase?: string;
   route?: string;
@@ -142,6 +143,80 @@ export type GratitudeRecognitionCard = {
   [key: string]: unknown;
 };
 
+export type HumanMomentsObjective = {
+  key?: string;
+  label?: string;
+  emoji?: string;
+  description?: string;
+  [key: string]: unknown;
+};
+
+export type HumanMomentsCompanionExample = {
+  emoji?: string;
+  key?: string;
+  text?: string;
+  example?: string;
+  [key: string]: unknown;
+};
+
+export type HumanMomentsBlueprintSection = {
+  emoji?: string;
+  label?: string;
+  principle?: string;
+  examples?: HumanMomentsCompanionExample[] | string[];
+  companion_examples?: HumanMomentsCompanionExample[];
+  milestones?: Array<{ years?: number; label?: string; example?: string; [key: string]: unknown }>;
+  avoid?: string[];
+  settings_keys?: string[];
+  settings_key?: string;
+  future_scaffold?: string;
+  boundary?: string;
+  tiers?: Array<{ key?: string; label?: string; route?: string; [key: string]: unknown }>;
+  controls?: Array<{ key?: string; label?: string; [key: string]: unknown }>;
+  qualities?: string[];
+  practices?: string[];
+  cultural_note?: string;
+  trust_note?: string;
+  settings_table?: string;
+  consent_required?: boolean;
+  [key: string]: unknown;
+};
+
+export type HumanMomentsSettings = {
+  id?: string;
+  organization_id?: string;
+  user_id?: string;
+  birthday_visible?: boolean;
+  birthday_notifications_enabled?: boolean;
+  anniversary_visible?: boolean;
+  anniversary_notifications_enabled?: boolean;
+  certification_celebrations_enabled?: boolean;
+  community_contributions_visible?: boolean;
+  personal_achievements_visible?: boolean;
+  sales_milestones_visible?: boolean;
+  display_preference?: string;
+  metadata?: Record<string, unknown>;
+  updated_at?: string;
+  [key: string]: unknown;
+};
+
+export type HumanMomentsSummary = {
+  human_moment_count?: number;
+  celebration_counts_by_category?: Record<string, number>;
+  consent_summary?: Record<string, number>;
+  privacy_note?: string;
+  summary_text?: string;
+  [key: string]: unknown;
+};
+
+export type IntegrationLinkItem = {
+  key?: string;
+  label?: string;
+  route?: string;
+  note?: string;
+  [key: string]: unknown;
+};
+
 export type GratitudeRecognitionDashboard = {
   has_organization: boolean;
   philosophy?: string;
@@ -150,6 +225,7 @@ export type GratitudeRecognitionDashboard = {
   vision?: string;
   distinction_note?: string;
   implementation_blueprint?: ImplementationBlueprintMeta;
+  implementation_blueprint_phase53?: ImplementationBlueprintMeta;
   gratitude_recognition_engine_note?: string;
   recognition_categories?: RecognitionCategory[];
   bell_moments?: BellMomentsBlueprint;
@@ -172,6 +248,24 @@ export type GratitudeRecognitionDashboard = {
   summary?: Record<string, unknown>;
   integration_links?: Record<string, unknown>;
   permissions?: Record<string, unknown>;
+  human_moments_mission?: string;
+  human_moments_philosophy?: string;
+  human_moments_abos_principle?: string;
+  human_moments_objectives?: HumanMomentsObjective[];
+  birthday_experiences?: HumanMomentsBlueprintSection;
+  professional_anniversaries?: HumanMomentsBlueprintSection;
+  certification_celebrations?: HumanMomentsBlueprintSection;
+  community_contributions?: HumanMomentsBlueprintSection;
+  human_moments_self_love_connection?: HumanMomentsBlueprintSection;
+  companion_principles?: HumanMomentsBlueprintSection;
+  privacy_principles?: HumanMomentsBlueprintSection;
+  human_moments_settings?: HumanMomentsSettings;
+  human_moments_summary?: HumanMomentsSummary;
+  human_moments_dogfooding?: Record<string, unknown>;
+  lehmbp_integration_links?: IntegrationLinkItem[];
+  human_moments_success_criteria?: SuccessCriterion[];
+  human_moments_vision_phrases?: string[];
+  human_moments_distinction_note?: string;
   [key: string]: unknown;
 };
 

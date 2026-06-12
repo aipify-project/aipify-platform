@@ -9,6 +9,7 @@ import {
   PROACTIVITY_LEVELS,
   parseDecisionsCenter,
   type DecisionsCenterBundle,
+  type DecisionSupportBlueprintPhase60,
   type DseSettings,
 } from "@/lib/decision-support-engine";
 import { formatDate } from "@/lib/i18n/format-date";
@@ -52,6 +53,28 @@ type DecisionDashboardPanelProps = {
     businessDomains: Record<string, string>;
     empty: string;
     youDecide: string;
+    blueprint: {
+      toggle: string;
+      phase: string;
+      mission: string;
+      philosophy: string;
+      abosPrinciple: string;
+      distinction: string;
+      objectives: string;
+      frameworks: string;
+      decisionTypes: string;
+      examples: string;
+      riskAwareness: string;
+      scenarios: string;
+      selfLove: string;
+      trust: string;
+      dogfooding: string;
+      successCriteria: string;
+      vision: string;
+      integrations: string;
+      met: string;
+      notMet: string;
+    };
   };
 };
 
@@ -60,6 +83,235 @@ const CONFIDENCE_STYLES: Record<string, string> = {
   moderate: "bg-amber-100 text-amber-800",
   low: "bg-slate-100 text-slate-700",
 };
+
+function BlueprintSection({
+  blueprint,
+  labels,
+}: {
+  blueprint: DecisionSupportBlueprintPhase60;
+  labels: DecisionDashboardPanelProps["labels"]["blueprint"];
+}) {
+  return (
+    <details className="rounded-2xl border border-indigo-200 bg-indigo-50/40 p-5 shadow-sm">
+      <summary className="cursor-pointer font-semibold text-indigo-900">{labels.toggle}</summary>
+      <div className="mt-4 space-y-4 text-sm text-indigo-950">
+        {blueprint.phase ? (
+          <p className="text-xs text-indigo-700">
+            {labels.phase}: {blueprint.phase}
+            {blueprint.engine_phase ? ` · ${blueprint.engine_phase}` : ""}
+          </p>
+        ) : null}
+        {blueprint.distinction_note ? (
+          <p className="text-xs text-indigo-700">
+            <span className="font-semibold">{labels.distinction}: </span>
+            {blueprint.distinction_note}
+          </p>
+        ) : null}
+        {blueprint.mission ? (
+          <p>
+            <span className="font-semibold">{labels.mission}: </span>
+            {blueprint.mission}
+          </p>
+        ) : null}
+        {blueprint.philosophy ? (
+          <p>
+            <span className="font-semibold">{labels.philosophy}: </span>
+            {blueprint.philosophy}
+          </p>
+        ) : null}
+        {blueprint.abos_principle ? (
+          <p className="text-xs text-indigo-800">
+            <span className="font-semibold">{labels.abosPrinciple}: </span>
+            {blueprint.abos_principle}
+          </p>
+        ) : null}
+
+        {Array.isArray(blueprint.objectives) && blueprint.objectives.length > 0 ? (
+          <div>
+            <h3 className="font-semibold">{labels.objectives}</h3>
+            <ul className="mt-2 space-y-2">
+              {blueprint.objectives.map((item) => (
+                <li key={item.key}>
+                  <span className="font-medium">{item.label}</span>
+                  {item.description ? ` — ${item.description}` : ""}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
+        {Array.isArray(blueprint.decision_frameworks) && blueprint.decision_frameworks.length > 0 ? (
+          <div>
+            <h3 className="font-semibold">{labels.frameworks}</h3>
+            <ul className="mt-2 space-y-2">
+              {blueprint.decision_frameworks.map((item) => (
+                <li key={item.key}>
+                  <span className="font-medium">{item.question}</span>
+                  {item.purpose ? ` — ${item.purpose}` : ""}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
+        {Array.isArray(blueprint.decision_types) && blueprint.decision_types.length > 0 ? (
+          <div>
+            <h3 className="font-semibold">{labels.decisionTypes}</h3>
+            <ul className="mt-2 space-y-3">
+              {blueprint.decision_types.map((item) => (
+                <li key={item.key}>
+                  <span className="font-medium">{item.label}</span>
+                  {item.description ? ` — ${item.description}` : ""}
+                  {Array.isArray(item.examples) && item.examples.length > 0 ? (
+                    <ul className="mt-1 list-inside list-disc text-xs text-indigo-800">
+                      {item.examples.map((ex) => (
+                        <li key={ex}>{ex}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
+        {Array.isArray(blueprint.option_comparison_examples) &&
+        blueprint.option_comparison_examples.length > 0 ? (
+          <div>
+            <h3 className="font-semibold">{labels.examples}</h3>
+            <ul className="mt-2 space-y-2">
+              {blueprint.option_comparison_examples.map((item) => (
+                <li key={item.key}>
+                  {item.example}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
+        {blueprint.risk_awareness?.principle ? (
+          <div>
+            <h3 className="font-semibold">{labels.riskAwareness}</h3>
+            <p className="mt-1">{blueprint.risk_awareness.principle}</p>
+            {Array.isArray(blueprint.risk_awareness.categories) ? (
+              <ul className="mt-2 space-y-1">
+                {blueprint.risk_awareness.categories.map((cat) => (
+                  <li key={cat.key}>
+                    <span className="font-medium">{cat.label}</span>
+                    {cat.description ? ` — ${cat.description}` : ""}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        ) : null}
+
+        {blueprint.scenario_exploration?.principle ? (
+          <div>
+            <h3 className="font-semibold">{labels.scenarios}</h3>
+            <p className="mt-1">{blueprint.scenario_exploration.principle}</p>
+            {Array.isArray(blueprint.scenario_exploration.scenarios) ? (
+              <ul className="mt-2 space-y-1">
+                {blueprint.scenario_exploration.scenarios.map((s) => (
+                  <li key={s.key}>
+                    <span className="font-medium">{s.label}</span>
+                    {s.description ? ` — ${s.description}` : ""}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        ) : null}
+
+        {blueprint.self_love_connection?.principle ? (
+          <div>
+            <h3 className="font-semibold">{labels.selfLove}</h3>
+            <p className="mt-1">{blueprint.self_love_connection.principle}</p>
+            {Array.isArray(blueprint.self_love_connection.practices) ? (
+              <ul className="mt-2 list-inside list-disc space-y-1">
+                {blueprint.self_love_connection.practices.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        ) : null}
+
+        {blueprint.trust_connection?.principle ? (
+          <div>
+            <h3 className="font-semibold">{labels.trust}</h3>
+            <p className="mt-1">{blueprint.trust_connection.principle}</p>
+            {Array.isArray(blueprint.trust_connection.users_should_see) ? (
+              <ul className="mt-2 list-inside list-disc space-y-1">
+                {blueprint.trust_connection.users_should_see.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        ) : null}
+
+        {blueprint.dogfooding?.principle ? (
+          <div>
+            <h3 className="font-semibold">{labels.dogfooding}</h3>
+            <p className="mt-1">{blueprint.dogfooding.principle}</p>
+            {blueprint.dogfooding.aipify_group?.focus ? (
+              <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+                {blueprint.dogfooding.aipify_group.focus.map((f) => (
+                  <li key={f}>{f}</li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        ) : null}
+
+        {Array.isArray(blueprint.success_criteria) && blueprint.success_criteria.length > 0 ? (
+          <div>
+            <h3 className="font-semibold">{labels.successCriteria}</h3>
+            <ul className="mt-2 space-y-2">
+              {blueprint.success_criteria.map((c) => (
+                <li key={c.key}>
+                  <span className="font-medium">{c.label}</span>
+                  <span className="ml-2 text-xs">
+                    {c.met ? labels.met : labels.notMet}
+                  </span>
+                  {c.note ? <p className="mt-0.5 text-xs text-indigo-700">{c.note}</p> : null}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
+        {Array.isArray(blueprint.vision_phrases) && blueprint.vision_phrases.length > 0 ? (
+          <div>
+            <h3 className="font-semibold">{labels.vision}</h3>
+            <ul className="mt-2 list-inside list-disc space-y-1">
+              {blueprint.vision_phrases.map((p) => (
+                <li key={p}>{p}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
+        {Array.isArray(blueprint.integration_links) && blueprint.integration_links.length > 0 ? (
+          <div>
+            <h3 className="font-semibold">{labels.integrations}</h3>
+            <ul className="mt-2 space-y-2">
+              {blueprint.integration_links.map((link) => (
+                <li key={link.route}>
+                  <Link href={link.route} className="text-indigo-700 hover:underline">
+                    {link.label}
+                  </Link>
+                  {link.note ? <span className="text-xs text-indigo-600"> — {link.note}</span> : null}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+      </div>
+    </details>
+  );
+}
 
 export function DecisionDashboardPanel({ locale, labels }: DecisionDashboardPanelProps) {
   const [center, setCenter] = useState<DecisionsCenterBundle | null>(null);
@@ -277,6 +529,13 @@ export function DecisionDashboardPanel({ locale, labels }: DecisionDashboardPane
           </ul>
         </section>
       )}
+
+      {center?.implementation_blueprint_phase60 ? (
+        <BlueprintSection
+          blueprint={center.implementation_blueprint_phase60}
+          labels={labels.blueprint}
+        />
+      ) : null}
 
       {Array.isArray(center?.decision_history) && center.decision_history.length > 0 && (
         <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">

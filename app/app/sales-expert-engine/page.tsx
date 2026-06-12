@@ -21,7 +21,7 @@ export default async function SalesExpertEnginePage() {
         <p className="mt-2 text-gray-600">{t(`${p}.subtitle`)}</p>
       </div>
       <SalesExpertPortalNoticePanel labels={labels} />
-      <SalesExpertEngineDashboardPanel labels={labels} />
+      <SalesExpertEngineDashboardPanel labels={labels} locale={await getLocale()} />
     </div>
   );
 }

@@ -9,6 +9,10 @@ import {
   type CompanionExample,
   type CollectiveInsightCategory,
   type CommunityObjective,
+  type BestPracticeDomain,
+  type CollectiveObservationExample,
+  type CollectiveSummaryCategory,
+  type CollectiveSummaryType,
 } from "@/lib/aipify/community-intelligence";
 
 type CommunityHubPanelProps = {
@@ -80,10 +84,10 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
         >
           {labels.adminDashboard}
         </Link>
-        {(dashboard.integration_links ?? []).map((link) =>
+        {(dashboard.clwbp_integration_links ?? dashboard.integration_links ?? []).map((link) =>
           link.route ? (
             <Link
-              key={link.route}
+              key={link.route + (link.label ?? "")}
               href={link.route}
               className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm hover:border-violet-300"
             >
@@ -112,7 +116,41 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
             {dashboard.implementation_blueprint.engine_phase ? ` · ${dashboard.implementation_blueprint.engine_phase}` : ""}
           </p>
         ) : null}
+        {dashboard.collective_learning_wisdom_blueprint?.phase ? (
+          <p className="mt-1 text-xs text-violet-700">
+            {dashboard.collective_learning_wisdom_blueprint.phase}
+          </p>
+        ) : null}
+        {dashboard.inform_not_prescribe_note ? (
+          <p className="mt-2 text-xs italic text-violet-800">{dashboard.inform_not_prescribe_note}</p>
+        ) : null}
       </section>
+
+      {dashboard.clwbp_mission ? (
+        <section className="rounded-xl border border-teal-200 bg-teal-50/40 p-6">
+          <h2 className="text-sm font-semibold text-teal-900">{labels.clwbpEngineTitle}</h2>
+          <p className="mt-2 text-sm font-medium text-teal-900">{dashboard.clwbp_mission}</p>
+          {dashboard.clwbp_philosophy ? (
+            <p className="mt-2 text-sm text-teal-900">{dashboard.clwbp_philosophy}</p>
+          ) : null}
+          {dashboard.clwbp_abos_principle ? (
+            <p className="mt-2 text-xs text-teal-800">{dashboard.clwbp_abos_principle}</p>
+          ) : null}
+          {dashboard.clwbp_distinction_note ? (
+            <p className="mt-2 text-xs text-teal-700">{dashboard.clwbp_distinction_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.collective_summary ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.collectiveSummary}</h3>
+          <CollectiveSummaryGrid summary={dashboard.collective_summary} labels={labels} />
+          {dashboard.collective_summary.privacy_note ? (
+            <p className="mt-2 text-xs text-gray-500">{dashboard.collective_summary.privacy_note}</p>
+          ) : null}
+        </section>
+      ) : null}
 
       {engagement ? (
         <section className="rounded-lg border border-gray-200 bg-white p-4">
@@ -161,6 +199,17 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
           <h3 className="text-sm font-semibold text-gray-900">{labels.communityObjectives}</h3>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             {dashboard.community_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.clwbp_objectives && dashboard.clwbp_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.clwbpObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.clwbp_objectives.map((objective) => (
               <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
             ))}
           </div>
@@ -225,11 +274,125 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
         </section>
       ) : null}
 
+      {dashboard.collective_observations?.examples && dashboard.collective_observations.examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.collectiveObservations}</h3>
+          {dashboard.collective_observations.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{dashboard.collective_observations.principle}</p>
+          ) : null}
+          <div className="mt-3 space-y-3">
+            {dashboard.collective_observations.examples.map((example) => (
+              <CollectiveObservationCard key={example.key ?? example.scenario} example={example} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.best_practice_evolution?.domains && dashboard.best_practice_evolution.domains.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.bestPracticeEvolution}</h3>
+          {dashboard.best_practice_evolution.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{dashboard.best_practice_evolution.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.best_practice_evolution.domains.map((domain) => (
+              <BestPracticeDomainCard key={domain.key ?? domain.label} domain={domain} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.clwbp_anonymization_principles?.principle ? (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/40 p-4 text-sm text-indigo-900">
+          <h3 className="text-sm font-semibold">{labels.clwbpAnonymizationPrinciples}</h3>
+          <p className="mt-2">{dashboard.clwbp_anonymization_principles.principle}</p>
+          {dashboard.clwbp_anonymization_principles.must && dashboard.clwbp_anonymization_principles.must.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {dashboard.clwbp_anonymization_principles.must.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.knowledge_center_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.knowledgeCenterConnection}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.knowledge_center_connection.principle}</p>
+          {dashboard.knowledge_center_connection.surfaces && dashboard.knowledge_center_connection.surfaces.length > 0 ? (
+            <ul className="mt-2 space-y-2 text-xs text-gray-600">
+              {dashboard.knowledge_center_connection.surfaces.map((surface) =>
+                surface.route ? (
+                  <li key={surface.route}>
+                    <Link href={surface.route} className="font-medium text-violet-800 underline">
+                      {surface.label}
+                    </Link>
+                    {surface.note ? ` — ${surface.note}` : null}
+                  </li>
+                ) : (
+                  <li key={surface.label}>{surface.label}</li>
+                )
+              )}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.sales_expert_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.salesExpertConnection}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.sales_expert_connection.principle}</p>
+          {dashboard.sales_expert_connection.examples && dashboard.sales_expert_connection.examples.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+              {dashboard.sales_expert_connection.examples.map((ex) => (
+                <li key={ex.domain}>{ex.domain}: {ex.signal}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.executive_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.executiveConnection}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.executive_connection.principle}</p>
+          {dashboard.executive_connection.signals && dashboard.executive_connection.signals.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+              {dashboard.executive_connection.signals.map((signal) => (
+                <li key={signal}>{signal}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
       {Array.isArray(dashboard.success_criteria) && dashboard.success_criteria.length > 0 ? (
         <section className="rounded-lg border border-gray-200 p-4">
           <h3 className="text-sm font-semibold">{labels.successCriteria}</h3>
           <ul className="mt-2 space-y-2 text-sm">
             {dashboard.success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={item.key ?? label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.clwbp_success_criteria) && dashboard.clwbp_success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-teal-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.clwbpSuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.clwbp_success_criteria.map((item) => {
               const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
               const met = Boolean(item.met);
               const note = typeof item.note === "string" ? item.note : null;
@@ -258,10 +421,29 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
         </section>
       ) : null}
 
+      {dashboard.clwbp_self_love_connection?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.clwbpSelfLoveConnection}</h3>
+          <p className="mt-2">{dashboard.clwbp_self_love_connection.principle}</p>
+          {dashboard.clwbp_self_love_connection.self_love_route ? (
+            <Link href={dashboard.clwbp_self_love_connection.self_love_route} className="mt-2 inline-block text-xs underline">
+              {labels.openSelfLove}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
       {dashboard.trust_connection?.principle ? (
         <section className="rounded-lg border border-gray-200 p-4 text-sm">
           <h3 className="text-sm font-semibold">{labels.trustConnection}</h3>
           <p className="mt-2 text-gray-600">{dashboard.trust_connection.principle}</p>
+        </section>
+      ) : null}
+
+      {dashboard.clwbp_trust_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.clwbpTrustConnection}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.clwbp_trust_connection.principle}</p>
         </section>
       ) : null}
 
@@ -275,6 +457,21 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
             ) : null}
             {dashboard.dogfooding.unonight ? (
               <DogfoodingCard entry={dashboard.dogfooding.unonight} title={labels.unonightPilot} />
+            ) : null}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.clwbp_dogfooding?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.clwbpDogfooding}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.clwbp_dogfooding.principle}</p>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.clwbp_dogfooding.aipify_group ? (
+              <DogfoodingCard entry={dashboard.clwbp_dogfooding.aipify_group} title={labels.aipifyGroup} />
+            ) : null}
+            {dashboard.clwbp_dogfooding.unonight ? (
+              <DogfoodingCard entry={dashboard.clwbp_dogfooding.unonight} title={labels.unonightPilot} />
             ) : null}
           </div>
         </section>
@@ -444,6 +641,17 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
         </section>
       ) : null}
 
+      {(dashboard.clwbp_vision_phrases ?? []).length > 0 ? (
+        <section className="rounded-lg border border-teal-100 bg-teal-50/30 p-4 text-sm text-teal-900">
+          <h3 className="text-sm font-semibold">{labels.clwbpVisionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+            {dashboard.clwbp_vision_phrases?.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       <p className="text-xs text-gray-500">{dashboard.privacy_note ?? dashboard.safety_note}</p>
     </div>
   );
@@ -496,6 +704,77 @@ function DogfoodingCard({ entry, title }: { entry: { role?: string; focus?: stri
             <li key={item}>{item}</li>
           ))}
         </ul>
+      ) : null}
+    </div>
+  );
+}
+
+function CollectiveObservationCard({ example }: { example: CollectiveObservationExample }) {
+  return (
+    <div className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+      <p className="font-medium text-gray-900">
+        {example.emoji ? `${example.emoji} ` : ""}
+        {example.scenario}
+      </p>
+      {example.example ? <p className="mt-1 text-xs text-gray-600">{example.example}</p> : null}
+    </div>
+  );
+}
+
+function BestPracticeDomainCard({ domain }: { domain: BestPracticeDomain }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 text-sm">
+      <p className="font-medium capitalize text-gray-900">{domain.label ?? domain.key}</p>
+      {domain.signals && domain.signals.length > 0 ? (
+        <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+          {domain.signals.map((signal) => (
+            <li key={signal}>{signal}</li>
+          ))}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
+function CollectiveSummaryGrid({
+  summary,
+  labels,
+}: {
+  summary: NonNullable<CommunityIntelligenceDashboard["collective_summary"]>;
+  labels: Record<string, string>;
+}) {
+  return (
+    <div className="mt-3 space-y-3">
+      <div className="grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+        <span>{labels.tenantContributionsTotal}: {summary.tenant_contributions_total ?? 0}</span>
+        <span>{labels.tenantPublished}: {summary.tenant_published ?? 0}</span>
+        <span>{labels.ecosystemPublishedTotal}: {summary.ecosystem_published_total ?? 0}</span>
+        <span>{labels.ecosystemRecent90d}: {summary.ecosystem_recent_90d ?? 0}</span>
+        <span>{labels.ecosystemAvgRating}: {(summary.ecosystem_avg_rating ?? 0).toFixed(1)}</span>
+      </div>
+      {(summary.ecosystem_categories ?? []).length > 0 ? (
+        <div>
+          <p className="text-xs font-medium text-gray-700">{labels.ecosystemCategories}</p>
+          <ul className="mt-1 space-y-1 text-xs text-gray-600">
+            {(summary.ecosystem_categories as CollectiveSummaryCategory[]).map((cat) => (
+              <li key={cat.category}>
+                {cat.category_label ?? cat.category}: {cat.count ?? 0}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+      {(summary.ecosystem_contribution_types ?? []).length > 0 ? (
+        <div>
+          <p className="text-xs font-medium text-gray-700">{labels.ecosystemContributionTypes}</p>
+          <ul className="mt-1 space-y-1 text-xs text-gray-600">
+            {(summary.ecosystem_contribution_types as CollectiveSummaryType[]).map((t) => (
+              <li key={t.contribution_type}>
+                {t.type_label ?? t.contribution_type}: {t.count ?? 0}
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : null}
     </div>
   );

@@ -1,0 +1,59 @@
+Implementation Blueprint Phase 44 — Customer Renewal & Expansion Engine
+Sales Expert Operating System A.95 extension — /app/sales-expert-engine Renewal & Expansion tab
+
+Mission
+Help Sales Experts nurture long-term customer partnerships through renewal awareness, health insights, and consultative expansion — never aggressive upsell.
+
+Philosophy
+Renewals should feel intentional, not accidental. Customer health metadata supports care — never surveillance or blame.
+
+ABOS principle
+Aipify Business Operating System (ABOS) partnerships grow when organizations succeed — humans decide, Aipify prepares renewal conversations with clarity.
+
+Distinction — AEF Phase 44 collision
+Autonomous Execution Framework Phase 44 (/app/action-center) executes approved tenant business actions.
+Blueprint Phase 44 (/app/sales-expert-engine) supports Sales Expert renewal awareness and consultative expansion — different surfaces, documented in _crebp_distinction_note().
+
+Objectives
+- Renewal awareness — upcoming renewals, anniversaries, intentional follow-up windows
+- Health monitoring — aggregate engagement, adoption, readiness — metadata only
+- Expansion recommendations — consultative team growth, business packs, intelligence modules
+- Success planning — success review questions and next-year outcomes
+- Risk support — at-risk signals with prevention guidance — support not blame
+- Relationships — celebration moments and partnership continuity
+
+Renewal dashboard
+Upcoming renewals · recently renewed · anniversaries · readiness indicators · at-risk count
+Companion examples: 🔔🌹 — intentional preparation, not pressure
+Live summary: _crebp_renewal_summary(organization_id) from sales expert customers + commercial_renewal_events / commercial_customer_health_scores when available
+
+Customer health insights
+Aggregate signals only: login frequency patterns, training completion, support volume trends, Knowledge Center usage, workflow adoption
+Cross-link Phase 39 Revenue Intelligence at /app/commercial — do not duplicate MRR/ARR modules
+
+Success review questions
+Outcomes achieved · challenges addressed · future value · next year success — relationship-focused, not interrogation
+
+Expansion opportunities — consultative not aggressive
+Team members · Business Packs A.43 · executive/support/commerce/strategic intelligence modules
+
+Renewal playbooks — Sales Coach Phase 45 cross-link
+30 days before · 14 days before · renewal week — structure not scripts
+
+Customer celebration experiences 🌹🔔❤️
+Cross-link Performance Phase 41 bell moments and Gratitude A.89 — Phase 44 focuses on customer celebration guidance
+
+Churn prevention support 🦉🌹
+Prevention not blame — cross-link Customer Success A.26
+
+Sales Expert insights
+Renewal forecasts · expansion recommendations · journey visibility · engagement summaries — metadata only
+
+Self Love A.76
+Clarity not anxiety during renewal season — /app/self-love-engine
+
+Trust
+Transparent metrics, honest commercial cross-links, no raw customer PII
+
+Dogfooding
+Aipify Group Sales Experts validate renewal tone internally first

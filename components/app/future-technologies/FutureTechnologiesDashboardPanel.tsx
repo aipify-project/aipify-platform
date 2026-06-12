@@ -4,6 +4,9 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseFutureTechnologiesDashboard,
+  type BlueprintObjective,
+  type CompanionGuidanceItem,
+  type FutureExplorationQuestion,
   type FutureTechnologiesDashboard,
 } from "@/lib/aipify/future-technologies";
 
@@ -55,6 +58,41 @@ function impactClass(impact?: string) {
   }
 }
 
+function ObjectiveCard({ objective }: { objective: BlueprintObjective }) {
+  return (
+    <article className="rounded-lg border border-gray-100 bg-gray-50 p-3">
+      {objective.label ? <p className="text-sm font-medium text-gray-900">{objective.label}</p> : null}
+      {objective.description ? <p className="mt-1 text-xs text-gray-600">{objective.description}</p> : null}
+    </article>
+  );
+}
+
+function ExplorationCard({ item }: { item: FutureExplorationQuestion }) {
+  return (
+    <article className="rounded-lg border border-cyan-100 bg-cyan-50/40 p-4">
+      {item.emoji && item.question ? (
+        <p className="text-sm font-medium text-cyan-900">
+          {item.emoji} {item.question}
+        </p>
+      ) : null}
+      {item.example ? <p className="mt-2 text-xs text-cyan-800">{item.example}</p> : null}
+    </article>
+  );
+}
+
+function GuidanceCard({ item }: { item: CompanionGuidanceItem }) {
+  return (
+    <article className="rounded-lg border border-indigo-100 bg-indigo-50/40 p-4">
+      {item.emoji && item.topic ? (
+        <p className="text-sm font-medium text-indigo-900">
+          {item.emoji} {item.topic}
+        </p>
+      ) : null}
+      {item.example ? <p className="mt-2 text-xs text-indigo-800">{item.example}</p> : null}
+    </article>
+  );
+}
+
 export function FutureTechnologiesDashboardPanel({ labels }: FutureTechnologiesDashboardPanelProps) {
   const [dashboard, setDashboard] = useState<FutureTechnologiesDashboard | null>(null);
   const [loading, setLoading] = useState(true);
@@ -93,22 +131,228 @@ export function FutureTechnologiesDashboardPanel({ labels }: FutureTechnologiesD
   if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
   if (!dashboard?.has_customer) return null;
 
+  const blueprintLinks = dashboard.blueprint_integration_links ?? [];
+  const engagement = dashboard.engagement_summary;
+
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap gap-2">
-        <Link href="/app/innovation-lab" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.innovationLab}
-        </Link>
-        <Link href="/app/strategy" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.strategy}
-        </Link>
-        <Link href="/app/governance" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.governance}
-        </Link>
-        <Link href="/app/knowledge-center" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.knowledgeCenter}
-        </Link>
-      </div>
+      {blueprintLinks.length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {blueprintLinks.map((link) =>
+            link.route ? (
+              <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+                {link.label ?? link.route}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : (
+        <div className="flex flex-wrap gap-2">
+          <Link href="/app/innovation-lab" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.innovationLab}
+          </Link>
+          <Link href="/app/strategy" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.strategy}
+          </Link>
+          <Link href="/app/governance" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.governance}
+          </Link>
+          <Link href="/app/knowledge-center" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.knowledgeCenter}
+          </Link>
+        </div>
+      )}
+
+      <section className="rounded-xl border border-cyan-200 bg-cyan-50/50 p-6">
+        <h2 className="text-sm font-semibold text-cyan-900">{labels.blueprintTitle}</h2>
+        <p className="mt-2 text-sm text-cyan-900">{dashboard.philosophy}</p>
+        {dashboard.implementation_blueprint_phase63?.phase ? (
+          <p className="mt-1 text-xs text-cyan-600">
+            {dashboard.implementation_blueprint_phase63.phase}
+            {dashboard.implementation_blueprint_phase63.engine_phase
+              ? ` · ${dashboard.implementation_blueprint_phase63.engine_phase}`
+              : ""}
+          </p>
+        ) : null}
+        {dashboard.blueprint_mission ? (
+          <p className="mt-2 text-sm font-medium text-cyan-900">{dashboard.blueprint_mission}</p>
+        ) : null}
+        {dashboard.blueprint_philosophy ? (
+          <p className="mt-2 text-sm text-cyan-900">{dashboard.blueprint_philosophy}</p>
+        ) : null}
+        {dashboard.blueprint_abos_principle ? (
+          <p className="mt-2 text-xs text-cyan-800">{dashboard.blueprint_abos_principle}</p>
+        ) : null}
+        {dashboard.blueprint_distinction_note ? (
+          <p className="mt-2 text-xs text-cyan-700">{dashboard.blueprint_distinction_note}</p>
+        ) : null}
+        {dashboard.future_readiness_note ? (
+          <p className="mt-2 text-xs text-cyan-800">{dashboard.future_readiness_note}</p>
+        ) : null}
+        {dashboard.vision ? <p className="mt-2 text-xs italic text-cyan-800">{dashboard.vision}</p> : null}
+      </section>
+
+      {dashboard.blueprint_objectives && dashboard.blueprint_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.blueprintObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.blueprint_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.future_exploration && dashboard.future_exploration.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.futureExploration}</h3>
+          <div className="mt-3 space-y-3">
+            {dashboard.future_exploration.map((item) => (
+              <ExplorationCard key={item.key ?? item.question} item={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.emerging_themes && dashboard.emerging_themes.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.emergingThemes}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {dashboard.emerging_themes.map((theme) => (
+              <ObjectiveCard key={theme.key ?? theme.label} objective={theme} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.scenario_preparedness?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.scenarioPreparedness}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.scenario_preparedness.principle}</p>
+          {dashboard.scenario_preparedness.scenarios && dashboard.scenario_preparedness.scenarios.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-3">
+              {dashboard.scenario_preparedness.scenarios.map((scenario) => (
+                <ObjectiveCard key={scenario.key ?? scenario.label} objective={scenario} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.organizational_resilience?.principle ? (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/40 p-4 text-sm text-emerald-900">
+          <h3 className="text-sm font-semibold">{labels.organizationalResilience}</h3>
+          <p className="mt-2">{dashboard.organizational_resilience.principle}</p>
+          {dashboard.organizational_resilience.encouragements &&
+          dashboard.organizational_resilience.encouragements.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.organizational_resilience.encouragements.map((item) => (
+                <ObjectiveCard key={item.key ?? item.label} objective={item} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.companion_guidance && dashboard.companion_guidance.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.companionGuidance}</h3>
+          <div className="mt-3 space-y-3">
+            {dashboard.companion_guidance.map((item) => (
+              <GuidanceCard key={item.key ?? item.topic} item={item} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.self_love_connection?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.selfLoveConnection}</h3>
+          <p className="mt-2">{dashboard.self_love_connection.principle}</p>
+          {dashboard.self_love_connection.mantra ? (
+            <p className="mt-2 text-xs italic">{dashboard.self_love_connection.mantra}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.leadership_insights?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.leadershipInsights}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.leadership_insights.principle}</p>
+          {dashboard.leadership_insights.insight_types && dashboard.leadership_insights.insight_types.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-3">
+              {dashboard.leadership_insights.insight_types.map((insight) => (
+                <ObjectiveCard key={insight.key ?? insight.label} objective={insight} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.trust_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.trustConnection}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.trust_connection.principle}</p>
+          {dashboard.trust_connection.users_should_see && dashboard.trust_connection.users_should_see.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+              {dashboard.trust_connection.users_should_see.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.dogfooding?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.dogfooding}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.dogfooding.principle}</p>
+        </section>
+      ) : null}
+
+      {engagement ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.engagementSummary}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>
+              {labels.readinessAssessmentsCount}: {engagement.readiness_assessments_count ?? 0}
+            </span>
+            <span>
+              {labels.scenarioPlansCount}: {engagement.scenario_plans_count ?? 0}
+            </span>
+            <span>
+              {labels.activeScenarioPlans}: {engagement.active_scenario_plans ?? 0}
+            </span>
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.success_criteria && dashboard.success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.successCriteria}</h3>
+          <ul className="mt-3 space-y-2">
+            {dashboard.success_criteria.map((criterion) => (
+              <li key={criterion.key ?? criterion.label} className="flex items-start gap-2 text-sm">
+                <span className={criterion.met ? "text-emerald-600" : "text-amber-600"}>
+                  {criterion.met ? labels.criterionMet : labels.criterionPending}
+                </span>
+                <span className="text-gray-700">{criterion.label}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.vision_phrases && dashboard.vision_phrases.length > 0 ? (
+        <section className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <h3 className="text-sm font-semibold text-slate-900">{labels.visionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-slate-700">
+            {dashboard.vision_phrases.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <section className="rounded-xl border border-cyan-200 bg-cyan-50/50 p-6">
         <h2 className="text-sm font-semibold text-cyan-900">{labels.futureReadiness}</h2>

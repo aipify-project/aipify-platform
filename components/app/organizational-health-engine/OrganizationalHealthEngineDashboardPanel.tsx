@@ -1,14 +1,58 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseOrganizationalHealthEngineDashboard,
+  type BlueprintObjective,
+  type HealthObservation,
   type OrganizationalHealthEngineDashboard,
   type OrganizationalHealthIntervention,
   type OrganizationalHealthScore,
 } from "@/lib/aipify/organizational-health-engine";
 
 type Props = { labels: Record<string, string> };
+
+function ObjectiveCard({ objective }: { objective: BlueprintObjective }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+      <span className="font-medium">{objective.label}</span>
+      {objective.description ? <p className="mt-1 text-xs text-gray-600">{objective.description}</p> : null}
+    </div>
+  );
+}
+
+function ObservationCard({ observation }: { observation: HealthObservation }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-sm">
+      <span className="font-medium">
+        {observation.emoji ? `${observation.emoji} ` : ""}
+        {observation.scenario}
+      </span>
+      {observation.example ? <p className="mt-1 text-xs text-gray-600">{observation.example}</p> : null}
+    </div>
+  );
+}
+
+function SuccessCriterionRow({
+  criterion,
+  metLabel,
+  pendingLabel,
+}: {
+  criterion: { key?: string; label?: string; met?: boolean; note?: string | null };
+  metLabel: string;
+  pendingLabel: string;
+}) {
+  return (
+    <div className="flex flex-wrap items-start justify-between gap-2 rounded border border-gray-100 px-3 py-2 text-sm">
+      <span className="text-gray-800">{criterion.label}</span>
+      <span className={criterion.met ? "text-xs text-green-700" : "text-xs text-amber-700"}>
+        {criterion.met ? metLabel : pendingLabel}
+      </span>
+      {criterion.note ? <p className="w-full text-xs text-gray-500">{criterion.note}</p> : null}
+    </div>
+  );
+}
 
 export function OrganizationalHealthEngineDashboardPanel({ labels }: Props) {
   const [dashboard, setDashboard] = useState<OrganizationalHealthEngineDashboard | null>(null);
@@ -100,14 +144,208 @@ export function OrganizationalHealthEngineDashboardPanel({ labels }: Props) {
   if (!dashboard?.has_organization) return null;
 
   const summary = dashboard.summary ?? {};
+  const engagement = dashboard.engagement_summary;
+  const blueprintLinks = dashboard.blueprint_integration_links ?? [];
 
   return (
     <div className="space-y-6">
+      {blueprintLinks.length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {blueprintLinks.map((link) =>
+            link.route ? (
+              <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+                {link.label ?? link.route}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : null}
+
       <section className="rounded-xl border border-teal-200 bg-teal-50/50 p-6">
         <h2 className="text-sm font-semibold">{labels.engineTitle}</h2>
         <p className="mt-2 text-sm">{dashboard.philosophy}</p>
         <p className="mt-2 text-xs text-teal-700">{labels.distinctionNote}</p>
+        {dashboard.implementation_blueprint_phase61?.phase ? (
+          <p className="mt-1 text-xs text-teal-600">
+            {dashboard.implementation_blueprint_phase61.phase}
+            {dashboard.implementation_blueprint_phase61.engine_phase
+              ? ` · ${dashboard.implementation_blueprint_phase61.engine_phase}`
+              : ""}
+          </p>
+        ) : null}
+        {dashboard.blueprint_mission ? (
+          <p className="mt-2 text-sm font-medium text-teal-900">{dashboard.blueprint_mission}</p>
+        ) : null}
+        {dashboard.blueprint_philosophy ? (
+          <p className="mt-2 text-sm text-teal-900">{dashboard.blueprint_philosophy}</p>
+        ) : null}
+        {dashboard.blueprint_abos_principle ? (
+          <p className="mt-2 text-xs text-teal-800">{dashboard.blueprint_abos_principle}</p>
+        ) : null}
+        {dashboard.blueprint_distinction_note ? (
+          <p className="mt-2 text-xs text-teal-700">{dashboard.blueprint_distinction_note}</p>
+        ) : null}
+        {dashboard.organizational_health_note ? (
+          <p className="mt-2 text-xs text-teal-800">{dashboard.organizational_health_note}</p>
+        ) : null}
       </section>
+
+      {dashboard.blueprint_objectives && dashboard.blueprint_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.blueprintObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.blueprint_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.health_domains && dashboard.health_domains.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.healthDomains}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-3">
+            {dashboard.health_domains.map((domain) => (
+              <ObjectiveCard key={domain.key ?? domain.label} objective={domain} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.health_observations && dashboard.health_observations.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.healthObservations}</h3>
+          <div className="mt-3 space-y-3">
+            {dashboard.health_observations.map((observation) => (
+              <ObservationCard key={observation.key ?? observation.scenario} observation={observation} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.workload_awareness?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.workloadAwareness}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.workload_awareness.principle}</p>
+          {dashboard.workload_awareness.signals && dashboard.workload_awareness.signals.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {dashboard.workload_awareness.signals.map((signal) => (
+                <ObjectiveCard key={signal.key ?? signal.label} objective={signal} />
+              ))}
+            </div>
+          ) : null}
+          {dashboard.workload_awareness.sustainability_note ? (
+            <p className="mt-2 text-xs text-gray-500">{dashboard.workload_awareness.sustainability_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.recognition_connection?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/40 p-4 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.recognitionConnection}</h3>
+          <p className="mt-2">{dashboard.recognition_connection.principle}</p>
+          {dashboard.recognition_connection.practices && dashboard.recognition_connection.practices.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {dashboard.recognition_connection.practices.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.self_love_connection?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.selfLoveConnection}</h3>
+          <p className="mt-2">{dashboard.self_love_connection.principle}</p>
+          {dashboard.self_love_connection.practices && dashboard.self_love_connection.practices.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {dashboard.self_love_connection.practices.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.leadership_insights?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.leadershipInsights}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.leadership_insights.principle}</p>
+          {dashboard.leadership_insights.insight_types && dashboard.leadership_insights.insight_types.length > 0 ? (
+            <div className="mt-3 grid gap-2 sm:grid-cols-3">
+              {dashboard.leadership_insights.insight_types.map((insight) => (
+                <ObjectiveCard key={insight.key ?? insight.label} objective={insight} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.trust_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.trustConnection}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.trust_connection.principle}</p>
+          {dashboard.trust_connection.users_should_see &&
+          dashboard.trust_connection.users_should_see.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+              {dashboard.trust_connection.users_should_see.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.privacy_principles?.principle ? (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/40 p-4 text-sm text-violet-900">
+          <h3 className="text-sm font-semibold">{labels.privacyPrinciples}</h3>
+          <p className="mt-2">{dashboard.privacy_principles.principle}</p>
+          {dashboard.privacy_principles.must_avoid && dashboard.privacy_principles.must_avoid.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {dashboard.privacy_principles.must_avoid.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.dogfooding?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.dogfooding}</h3>
+          <p className="mt-2 text-gray-700">{dashboard.dogfooding.principle}</p>
+        </section>
+      ) : null}
+
+      {engagement ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.engagementSummary}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>{labels.categoriesMeasured}: {engagement.categories_measured ?? 0}</span>
+            <span>{labels.healthyCategories}: {engagement.healthy_categories ?? 0}</span>
+            <span>{labels.attentionRequired}: {engagement.attention_required_categories ?? 0}</span>
+            <span>{labels.overallScore}: {engagement.overall_score ?? 0}</span>
+            <span>{labels.pendingInterventions}: {engagement.pending_interventions ?? 0}</span>
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.success_criteria && dashboard.success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold">{labels.successCriteria}</h3>
+          <div className="mt-3 space-y-2">
+            {dashboard.success_criteria.map((criterion) => (
+              <SuccessCriterionRow
+                key={criterion.key ?? criterion.label}
+                criterion={criterion}
+                metLabel={labels.criterionMet}
+                pendingLabel={labels.criterionPending}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {actionError && (
         <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{actionError}</div>

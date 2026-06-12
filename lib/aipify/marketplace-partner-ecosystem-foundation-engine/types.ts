@@ -65,6 +65,101 @@ export type PartnerEngagementSummary = {
   privacy_note?: string;
 };
 
+export type MarketObservationExample = {
+  emoji?: string;
+  key?: string;
+  example?: string;
+};
+
+export type MarketObservationsBlueprint = {
+  principle?: string;
+  companion_examples?: MarketObservationExample[];
+  tone?: string;
+  boundary?: string;
+};
+
+export type IndustrySignalCategory = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type IndustryIntelligenceBlueprint = {
+  principle?: string;
+  signal_categories?: IndustrySignalCategory[];
+  industries?: Array<{ key?: string; label?: string; emerging_needs?: string[] }>;
+  industry_intelligence_route?: string;
+  industry_solutions_phase?: number;
+};
+
+export type RegionalInsightRegion = {
+  key?: string;
+  label?: string;
+  trends?: string[];
+  partner_activity?: string;
+  localization_opportunities?: string[];
+};
+
+export type RegionalInsightsBlueprint = {
+  principle?: string;
+  regions?: RegionalInsightRegion[];
+  global_expansion_route?: string;
+  global_expansion_phase?: number;
+};
+
+export type SalesExpertFeedbackLoops = {
+  principle?: string;
+  feedback_loops?: Array<{ key?: string; label?: string; description?: string }>;
+  sales_expert_route?: string;
+  sales_expert_phase?: string;
+  intelligence_tab_phase?: number;
+  boundary?: string;
+};
+
+export type PartnerEcosystemInsights = {
+  principle?: string;
+  dimensions?: Array<{ key?: string; label?: string; description?: string }>;
+  partner_success_route?: string;
+  partner_success_phase?: string;
+  partner_network_phase?: number;
+};
+
+export type ExecutiveSupportType = {
+  emoji?: string;
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type ExecutiveSupportBlueprint = {
+  principle?: string;
+  support_types?: ExecutiveSupportType[];
+  executive_route?: string;
+  strategic_intelligence_route?: string;
+  boundary?: string;
+};
+
+export type EcosystemGrowthSummary = {
+  partner_engagement?: PartnerEngagementSummary;
+  activation?: EcosystemActivationSummary;
+  sales_expert_signal_counts?: {
+    open_opportunities?: number;
+    active_customers?: number;
+    scheduled_follow_ups?: number;
+    total_signals?: number;
+  };
+  nordic_partner_indicators?: number;
+  ecosystem_summary?: string;
+  privacy_note?: string;
+};
+
+export type MarketIntelligenceTrustConnection = {
+  principle?: string;
+  organizations_should_understand?: string[];
+  security_route?: string;
+  trust_route?: string;
+};
+
 export type EcosystemObjective = {
   key?: string;
   label?: string;
@@ -225,6 +320,10 @@ export type MarketplacePartnerEcosystemFoundationEngineCard = {
   partner_abos_principle?: string;
   implementation_blueprint_phase33?: ImplementationBlueprintMeta;
   partner_engagement_summary?: PartnerEngagementSummary;
+  implementation_blueprint_phase51?: ImplementationBlueprintMeta;
+  market_intelligence_mission?: string;
+  market_intelligence_philosophy?: string;
+  ecosystem_growth_summary?: EcosystemGrowthSummary;
   [key: string]: unknown;
 };
 
@@ -292,5 +391,28 @@ export type MarketplacePartnerEcosystemFoundationEngineDashboard = {
     doc?: string;
     note?: string;
   };
+  implementation_blueprint_phase51?: ImplementationBlueprintMeta;
+  market_intelligence_mission?: string;
+  market_intelligence_philosophy?: string;
+  market_intelligence_abos_principle?: string;
+  market_intelligence_objectives?: EcosystemObjective[];
+  market_observations?: MarketObservationsBlueprint;
+  industry_intelligence?: IndustryIntelligenceBlueprint;
+  regional_insights?: RegionalInsightsBlueprint;
+  sales_expert_feedback_loops?: SalesExpertFeedbackLoops;
+  partner_ecosystem_insights?: PartnerEcosystemInsights;
+  executive_support?: ExecutiveSupportBlueprint;
+  market_intelligence_self_love_connection?: SelfLoveConnection;
+  market_intelligence_trust_connection?: MarketIntelligenceTrustConnection;
+  market_intelligence_dogfooding?: {
+    principle?: string;
+    aipify_group?: DogfoodingEntry;
+    unonight?: DogfoodingEntry;
+  };
+  egmibp_integration_links?: IntegrationLink[];
+  ecosystem_growth_summary?: EcosystemGrowthSummary;
+  market_intelligence_success_criteria?: AbosSuccessCriterion[];
+  market_intelligence_vision_phrases?: string[];
+  market_intelligence_distinction_note?: string;
   [key: string]: unknown;
 };

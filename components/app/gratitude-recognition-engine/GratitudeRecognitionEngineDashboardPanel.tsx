@@ -9,6 +9,10 @@ import {
   type GratitudeMoment,
   type GratitudeMomentTypeInfo,
   type GratitudeRecognitionDashboard,
+  type HumanMomentsBlueprintSection,
+  type HumanMomentsCompanionExample,
+  type HumanMomentsObjective,
+  type IntegrationLinkItem,
   type RecognitionCategory,
   type RecognitionRosesBlueprint,
   type RedRoseMoment,
@@ -169,6 +173,20 @@ export function GratitudeRecognitionEngineDashboardPanel({ labels }: Props) {
   const orgBoundaries = dashboard.org_configuration_boundaries;
   const successCriteria = dashboard.success_criteria ?? [];
   const visionPhrases = dashboard.vision_phrases ?? [];
+  const blueprint53 = dashboard.implementation_blueprint_phase53;
+  const humanObjectives = dashboard.human_moments_objectives ?? [];
+  const birthdayExperiences = dashboard.birthday_experiences;
+  const professionalAnniversaries = dashboard.professional_anniversaries;
+  const certificationCelebrations = dashboard.certification_celebrations;
+  const communityContributions = dashboard.community_contributions;
+  const humanSelfLove = dashboard.human_moments_self_love_connection;
+  const companionPrinciples = dashboard.companion_principles;
+  const privacyPrinciples = dashboard.privacy_principles;
+  const humanMomentsSummary = dashboard.human_moments_summary ?? {};
+  const humanSettings = dashboard.human_moments_settings ?? {};
+  const humanSuccessCriteria = dashboard.human_moments_success_criteria ?? [];
+  const humanVisionPhrases = dashboard.human_moments_vision_phrases ?? [];
+  const lehmbpLinks = dashboard.lehmbp_integration_links ?? [];
 
   return (
     <div className="space-y-6">
@@ -210,6 +228,260 @@ export function GratitudeRecognitionEngineDashboardPanel({ labels }: Props) {
           </button>
         ) : null}
       </div>
+
+      {blueprint53?.title ? (
+        <section className="rounded-xl border border-violet-200 bg-violet-50/40 p-6">
+          <h2 className="text-sm font-semibold">{labels.humanMomentsTitle}</h2>
+          {dashboard.human_moments_mission ? (
+            <p className="mt-2 text-sm">{dashboard.human_moments_mission}</p>
+          ) : null}
+          {dashboard.human_moments_philosophy ? (
+            <p className="mt-2 text-xs text-violet-900">{dashboard.human_moments_philosophy}</p>
+          ) : null}
+          {dashboard.human_moments_abos_principle ? (
+            <p className="mt-1 text-xs font-medium text-violet-800">{dashboard.human_moments_abos_principle}</p>
+          ) : null}
+          <p className="mt-2 text-xs font-medium text-violet-800">{blueprint53.title}</p>
+          {dashboard.human_moments_distinction_note ? (
+            <p className="mt-2 text-xs text-violet-700">{dashboard.human_moments_distinction_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {humanObjectives.length > 0 && (
+        <section className="rounded-lg border border-violet-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.humanMomentsObjectives}</h3>
+          <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {humanObjectives.map((obj: HumanMomentsObjective) => (
+              <li key={obj.key ?? obj.label} className="rounded border border-violet-50 p-3 text-sm">
+                <div className="font-medium">
+                  {obj.emoji ? `${obj.emoji} ` : ""}
+                  {obj.label}
+                </div>
+                {obj.description ? <p className="mt-1 text-xs text-gray-600">{obj.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {birthdayExperiences && (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/30 p-4">
+          <h3 className="text-sm font-semibold">
+            {birthdayExperiences.emoji ? `${birthdayExperiences.emoji} ` : ""}
+            {labels.birthdayExperiences}
+          </h3>
+          {birthdayExperiences.principle ? (
+            <p className="mt-2 text-xs text-rose-900">{birthdayExperiences.principle}</p>
+          ) : null}
+          {(birthdayExperiences.companion_examples?.length ?? 0) > 0 ? (
+            <ul className="mt-3 space-y-2 text-sm">
+              {(birthdayExperiences as HumanMomentsBlueprintSection).companion_examples!.map((ex, i) => (
+                <li key={ex.key ?? i} className="rounded border border-rose-100 bg-white px-3 py-2 text-xs">
+                  {ex.example ?? ex.text}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          {birthdayExperiences.future_scaffold ? (
+            <p className="mt-2 text-xs text-gray-500">{birthdayExperiences.future_scaffold}</p>
+          ) : null}
+        </section>
+      )}
+
+      {professionalAnniversaries && (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/30 p-4">
+          <h3 className="text-sm font-semibold">
+            {professionalAnniversaries.emoji ? `${professionalAnniversaries.emoji} ` : ""}
+            {labels.professionalAnniversaries}
+          </h3>
+          {professionalAnniversaries.principle ? (
+            <p className="mt-2 text-xs text-amber-900">{professionalAnniversaries.principle}</p>
+          ) : null}
+          {(professionalAnniversaries.milestones?.length ?? 0) > 0 ? (
+            <ul className="mt-3 space-y-2 text-sm">
+              {(professionalAnniversaries as HumanMomentsBlueprintSection).milestones!.map((m, i) => (
+                <li key={m.years ?? i} className="rounded border border-amber-100 bg-white px-3 py-2 text-xs">
+                  <span className="font-medium">{m.label}</span>
+                  {m.example ? <span className="mt-1 block text-gray-600">{m.example}</span> : null}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {certificationCelebrations && (
+        <section className="rounded-lg border border-sky-100 bg-sky-50/30 p-4">
+          <h3 className="text-sm font-semibold">
+            {certificationCelebrations.emoji ? `${certificationCelebrations.emoji} ` : ""}
+            {labels.certificationCelebrations}
+          </h3>
+          {certificationCelebrations.principle ? (
+            <p className="mt-2 text-xs text-sky-900">{certificationCelebrations.principle}</p>
+          ) : null}
+          {(certificationCelebrations.companion_examples?.length ?? 0) > 0 ? (
+            <ul className="mt-3 space-y-2 text-sm">
+              {(certificationCelebrations as HumanMomentsBlueprintSection).companion_examples!.map((ex, i) => (
+                <li key={ex.key ?? i} className="rounded border border-sky-100 bg-white px-3 py-2 text-xs">
+                  {ex.text ?? ex.example}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {communityContributions && (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/30 p-4">
+          <h3 className="text-sm font-semibold">
+            {communityContributions.emoji ? `${communityContributions.emoji} ` : ""}
+            {labels.communityContributions}
+          </h3>
+          {communityContributions.principle ? (
+            <p className="mt-2 text-xs text-emerald-900">{communityContributions.principle}</p>
+          ) : null}
+          {(communityContributions.examples?.length ?? 0) > 0 ? (
+            <ul className="mt-3 space-y-2 text-sm">
+              {(communityContributions.examples as HumanMomentsCompanionExample[]).map((ex, i) => (
+                <li key={i} className="rounded border border-emerald-100 bg-white px-3 py-2 text-xs">
+                  {typeof ex === "string" ? ex : (ex.text ?? ex.example)}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {companionPrinciples && (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/20 p-4">
+          <h3 className="text-sm font-semibold">{labels.companionPrinciples}</h3>
+          {companionPrinciples.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{companionPrinciples.principle}</p>
+          ) : null}
+          {(companionPrinciples.qualities?.length ?? 0) > 0 ? (
+            <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+              {companionPrinciples.qualities?.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+          {companionPrinciples.cultural_note ? (
+            <p className="mt-2 text-xs text-gray-500">{companionPrinciples.cultural_note}</p>
+          ) : null}
+        </section>
+      )}
+
+      {privacyPrinciples && (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.privacyPrinciples}</h3>
+          {privacyPrinciples.principle ? (
+            <p className="mt-2 text-gray-600">{privacyPrinciples.principle}</p>
+          ) : null}
+          {(privacyPrinciples.controls?.length ?? 0) > 0 ? (
+            <ul className="mt-2 list-inside list-disc text-xs text-gray-600">
+              {privacyPrinciples.controls?.map((c, i) => (
+                <li key={c.key ?? i}>{c.label}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {humanMomentsSummary.summary_text ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.humanMomentsSummary}</h3>
+          <p className="mt-2 text-sm">{humanMomentsSummary.summary_text}</p>
+          {humanMomentsSummary.privacy_note ? (
+            <p className="mt-2 text-xs text-gray-500">{humanMomentsSummary.privacy_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {humanSettings.display_preference ? (
+        <section className="rounded-lg border border-gray-100 bg-gray-50 p-4 text-xs text-gray-600">
+          <h3 className="text-sm font-semibold text-gray-800">{labels.humanMomentsPreferences}</h3>
+          <dl className="mt-3 grid gap-2 sm:grid-cols-2">
+            <div>
+              <dt>{labels.birthdayVisible}</dt>
+              <dd>{humanSettings.birthday_visible ? labels.yes : labels.no}</dd>
+            </div>
+            <div>
+              <dt>{labels.anniversaryVisible}</dt>
+              <dd>{humanSettings.anniversary_visible ? labels.yes : labels.no}</dd>
+            </div>
+            <div>
+              <dt>{labels.displayPreference}</dt>
+              <dd className="capitalize">{humanSettings.display_preference}</dd>
+            </div>
+          </dl>
+        </section>
+      ) : null}
+
+      {humanSelfLove && (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.humanMomentsSelfLove}</h3>
+          {humanSelfLove.principle ? <p className="mt-2 text-sm text-gray-700">{humanSelfLove.principle}</p> : null}
+          {(humanSelfLove.practices?.length ?? 0) > 0 ? (
+            <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+              {humanSelfLove.practices?.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {humanSuccessCriteria.length > 0 && (
+        <section className="rounded-lg border border-violet-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.humanMomentsSuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {humanSuccessCriteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {(humanVisionPhrases.length ?? 0) > 0 && (
+        <section className="rounded-lg border border-violet-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.humanMomentsVisionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+            {humanVisionPhrases.map((phrase, i) => (
+              <li key={i}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {lehmbpLinks.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.humanMomentsIntegrationLinks}</h3>
+          <ul className="mt-2 flex flex-wrap gap-2 text-xs">
+            {lehmbpLinks.map((link: IntegrationLinkItem) => (
+              <li key={link.key ?? link.label}>
+                {link.route ? (
+                  <Link href={link.route} className="text-violet-700 underline">
+                    {link.label ?? link.key}
+                  </Link>
+                ) : (
+                  <span className="text-gray-600">{link.label}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {successCriteria.length > 0 && (
         <section className="rounded-lg border border-gray-200 p-4">

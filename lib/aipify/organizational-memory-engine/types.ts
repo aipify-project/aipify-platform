@@ -147,6 +147,100 @@ export type AbosSuccessCriterion = {
 export type IntegrationLink = {
   label?: string;
   route?: string;
+  key?: string;
+  note?: string;
+};
+
+export type ImplementationBlueprintMeta = {
+  phase?: number | string;
+  title?: string;
+  engine_phase?: string;
+  doc?: string;
+  route?: string;
+  mapping_note?: string;
+};
+
+export type ContinuityObjective = {
+  key?: string;
+  label?: string;
+  emoji?: string;
+  description?: string;
+};
+
+export type ContinuityMemoryCategory = {
+  key?: string;
+  label?: string;
+  description?: string;
+  maps_to?: string;
+  record_categories?: string[];
+  emoji?: string;
+  learning_route?: string;
+  rsi_route?: string;
+  companion_device_route?: string;
+};
+
+export type ContinuityCompanionExample = {
+  emoji?: string;
+  key?: string;
+  text?: string;
+  example?: string;
+};
+
+export type ContinuityBlueprintSection = {
+  emoji?: string;
+  label?: string;
+  principle?: string;
+  examples?: ContinuityCompanionExample[] | string[];
+  companion_examples?: ContinuityCompanionExample[];
+  controls?: Array<{ key?: string; label?: string; route?: string; permission?: string; maps_to?: string }>;
+  retention_options?: Array<{ key?: string; label?: string }>;
+  practices?: string[];
+  commitments?: string[];
+  qualities?: string[];
+  settings_keys?: string[];
+  settings_key?: string;
+  settings_table?: string;
+  org_settings_table?: string;
+  pame_route?: string;
+  pame_boundary?: string;
+  identity_note?: string;
+  boundary?: string;
+  route?: string;
+  phase?: string;
+  trust_note?: string;
+  companion_identity_route?: string;
+  human_moments_route?: string;
+  human_moments_phase?: number;
+  [key: string]: unknown;
+};
+
+export type MemoryContinuitySettings = {
+  id?: string;
+  organization_id?: string;
+  user_id?: string;
+  operational_continuity_enabled?: boolean;
+  relationship_continuity_enabled?: boolean;
+  learning_continuity_enabled?: boolean;
+  companion_continuity_enabled?: boolean;
+  cross_device_continuity_enabled?: boolean;
+  pame_cross_link_enabled?: boolean;
+  retention_policy_preference?: string;
+  proactive_reminders_enabled?: boolean;
+  metadata?: Record<string, unknown>;
+  updated_at?: string;
+};
+
+export type ContinuitySummary = {
+  operational_memory_count?: number;
+  relationship_memory_count?: number;
+  learning_memory_count?: number;
+  companion_continuity_opt_in_count?: number;
+  pame_cross_link_opt_in_count?: number;
+  cross_device_opt_in_count?: number;
+  pending_review_count?: number;
+  pame_active_memory_count?: number;
+  privacy_note?: string;
+  summary_text?: string;
 };
 
 export type OrganizationalMemoryEngineDashboard = {
@@ -180,4 +274,23 @@ export type OrganizationalMemoryEngineDashboard = {
   archived_decisions: OrganizationDecisionRegisterEntry[];
   recommended_reviews: OrganizationMemoryReview[];
   privacy_note?: string;
+  implementation_blueprint_phase55?: ImplementationBlueprintMeta;
+  continuity_mission?: string;
+  continuity_philosophy?: string;
+  continuity_abos_principle?: string;
+  continuity_objectives?: ContinuityObjective[];
+  continuity_memory_categories?: ContinuityMemoryCategory[];
+  organizational_continuity?: ContinuityBlueprintSection;
+  individual_continuity?: ContinuityBlueprintSection;
+  memory_management?: ContinuityBlueprintSection;
+  continuity_self_love_connection?: ContinuityBlueprintSection;
+  continuity_trust_privacy?: ContinuityBlueprintSection;
+  continuity_companion_principles?: ContinuityBlueprintSection;
+  continuity_settings?: MemoryContinuitySettings;
+  continuity_summary?: ContinuitySummary;
+  continuity_dogfooding?: Record<string, unknown>;
+  mcebp_integration_links?: IntegrationLink[];
+  continuity_success_criteria?: AbosSuccessCriterion[];
+  continuity_vision_phrases?: string[];
+  continuity_distinction_note?: string;
 };

@@ -16,7 +16,14 @@ import type {
   OverviewCapability,
   SelfLoveConnection,
   SinceLastTimeSummary,
+  StrategicConversation,
+  StrategicEngagementSummary,
+  StrategicObjective,
+  StrategicReviewSessions,
+  StrategicSelfLoveConnection,
   TrustConnection,
+  PriorityAlignment,
+  OpportunityExploration,
 } from "./types";
 
 function asRecordList(value: unknown): Array<Record<string, unknown>> {
@@ -146,11 +153,113 @@ function parseSelfLoveConnection(value: unknown): SelfLoveConnection | undefined
 function parseTrustConnection(value: unknown): TrustConnection | undefined {
   if (!value || typeof value !== "object") return undefined;
   const t = value as Record<string, unknown>;
+  const dvh =
+    typeof t.data_vs_hypotheses === "object" && t.data_vs_hypotheses
+      ? (t.data_vs_hypotheses as Record<string, unknown>)
+      : undefined;
   return {
     principle: typeof t.principle === "string" ? t.principle : undefined,
     executives_should_know: parseStringArray(t.executives_should_know),
     organizations_should_understand: parseStringArray(t.organizations_should_understand),
     audit_note: typeof t.audit_note === "string" ? t.audit_note : undefined,
+    uncertainty_note: typeof t.uncertainty_note === "string" ? t.uncertainty_note : undefined,
+    data_vs_hypotheses: dvh
+      ? {
+          verified_data: parseStringArray(dvh.verified_data),
+          hypotheses: parseStringArray(dvh.hypotheses),
+        }
+      : undefined,
+  };
+}
+
+function parseStrategicConversations(value: unknown): StrategicConversation[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  return value.map((item) => {
+    const c = (item ?? {}) as Record<string, unknown>;
+    return {
+      emoji: typeof c.emoji === "string" ? c.emoji : undefined,
+      key: typeof c.key === "string" ? c.key : undefined,
+      scenario: typeof c.scenario === "string" ? c.scenario : undefined,
+      question: typeof c.question === "string" ? c.question : undefined,
+      example: typeof c.example === "string" ? c.example : undefined,
+    };
+  });
+}
+
+function parseStrategicObjectives(value: unknown): StrategicObjective[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  return value.map((item) => {
+    const o = (item ?? {}) as Record<string, unknown>;
+    return {
+      key: typeof o.key === "string" ? o.key : undefined,
+      label: typeof o.label === "string" ? o.label : undefined,
+      description: typeof o.description === "string" ? o.description : undefined,
+    };
+  });
+}
+
+function parsePriorityAlignment(value: unknown): PriorityAlignment | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  const p = value as Record<string, unknown>;
+  return {
+    principle: typeof p.principle === "string" ? p.principle : undefined,
+    dimensions: asRecordList(p.dimensions),
+    misalignment_scaffold: parseStringArray(p.misalignment_scaffold),
+    alignment_route: typeof p.alignment_route === "string" ? p.alignment_route : undefined,
+    boundary_note: typeof p.boundary_note === "string" ? p.boundary_note : undefined,
+  };
+}
+
+function parseOpportunityExploration(value: unknown): OpportunityExploration | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  const o = value as Record<string, unknown>;
+  return {
+    principle: typeof o.principle === "string" ? o.principle : undefined,
+    exploration_types: asRecordList(o.exploration_types),
+    awareness_not_certainty:
+      typeof o.awareness_not_certainty === "string" ? o.awareness_not_certainty : undefined,
+    strategic_intelligence_route:
+      typeof o.strategic_intelligence_route === "string" ? o.strategic_intelligence_route : undefined,
+    ecosystem_route: typeof o.ecosystem_route === "string" ? o.ecosystem_route : undefined,
+  };
+}
+
+function parseStrategicReviewSessions(value: unknown): StrategicReviewSessions | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  const s = value as Record<string, unknown>;
+  return {
+    principle: typeof s.principle === "string" ? s.principle : undefined,
+    cadences: asRecordList(s.cadences),
+    executive_reports_link:
+      typeof s.executive_reports_link === "string" ? s.executive_reports_link : undefined,
+    boundary_note: typeof s.boundary_note === "string" ? s.boundary_note : undefined,
+  };
+}
+
+function parseStrategicEngagementSummary(value: unknown): StrategicEngagementSummary | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  const s = value as Record<string, unknown>;
+  return {
+    strategic_objectives_total: Number(s.strategic_objectives_total ?? 0),
+    strategic_objectives_active: Number(s.strategic_objectives_active ?? 0),
+    open_strategic_opportunities: Number(s.open_strategic_opportunities ?? 0),
+    pending_org_decisions: Number(s.pending_org_decisions ?? 0),
+    active_okr_objectives: Number(s.active_okr_objectives ?? 0),
+    alignment_snapshots_90d: Number(s.alignment_snapshots_90d ?? 0),
+    strategic_reviews_90d: Number(s.strategic_reviews_90d ?? 0),
+    summary_note: typeof s.summary_note === "string" ? s.summary_note : undefined,
+  };
+}
+
+function parseStrategicSelfLove(value: unknown): StrategicSelfLoveConnection | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  const s = value as Record<string, unknown>;
+  return {
+    principle: typeof s.principle === "string" ? s.principle : undefined,
+    strategic_patterns: parseStringArray(s.strategic_patterns),
+    self_love_route: typeof s.self_love_route === "string" ? s.self_love_route : undefined,
+    naming_doc: typeof s.naming_doc === "string" ? s.naming_doc : undefined,
+    boundary_note: typeof s.boundary_note === "string" ? s.boundary_note : undefined,
   };
 }
 
@@ -176,9 +285,14 @@ export function parseExecutiveInsightsEngineCard(data: unknown): ExecutiveInsigh
     mission: typeof d.mission === "string" ? d.mission : undefined,
     abos_principle: typeof d.abos_principle === "string" ? d.abos_principle : undefined,
     implementation_blueprint: parseImplementationBlueprint(d.implementation_blueprint),
+    implementation_blueprint_phase59: parseImplementationBlueprint(d.implementation_blueprint_phase59),
     executive_insights_engine_note:
       typeof d.executive_insights_engine_note === "string" ? d.executive_insights_engine_note : undefined,
+    strategic_thinking_note:
+      typeof d.strategic_thinking_note === "string" ? d.strategic_thinking_note : undefined,
+    blueprint_note: typeof d.blueprint_note === "string" ? d.blueprint_note : undefined,
     since_last_time: parseSinceLastTime(d.since_last_time),
+    strategic_engagement_summary: parseStrategicEngagementSummary(d.strategic_engagement_summary),
   };
 }
 
@@ -189,13 +303,38 @@ export function parseExecutiveInsightsEngineDashboard(
   return {
     has_organization: Boolean(d.has_organization),
     implementation_blueprint: parseImplementationBlueprint(d.implementation_blueprint),
+    implementation_blueprint_phase59: parseImplementationBlueprint(d.implementation_blueprint_phase59),
     mission: typeof d.mission === "string" ? d.mission : undefined,
     philosophy: typeof d.philosophy === "string" ? d.philosophy : undefined,
     abos_principle: typeof d.abos_principle === "string" ? d.abos_principle : undefined,
     vision: typeof d.vision === "string" ? d.vision : undefined,
     executive_insights_engine_note:
       typeof d.executive_insights_engine_note === "string" ? d.executive_insights_engine_note : undefined,
+    strategic_thinking_note:
+      typeof d.strategic_thinking_note === "string" ? d.strategic_thinking_note : undefined,
     distinction_note: typeof d.distinction_note === "string" ? d.distinction_note : undefined,
+    blueprint_distinction_note:
+      typeof d.blueprint_distinction_note === "string" ? d.blueprint_distinction_note : undefined,
+    blueprint_mission: typeof d.blueprint_mission === "string" ? d.blueprint_mission : undefined,
+    blueprint_philosophy: typeof d.blueprint_philosophy === "string" ? d.blueprint_philosophy : undefined,
+    blueprint_abos_principle:
+      typeof d.blueprint_abos_principle === "string" ? d.blueprint_abos_principle : undefined,
+    strategic_thinking_objectives: parseStrategicObjectives(d.strategic_thinking_objectives),
+    strategic_conversations: parseStrategicConversations(d.strategic_conversations),
+    priority_alignment: parsePriorityAlignment(d.priority_alignment),
+    opportunity_exploration: parseOpportunityExploration(d.opportunity_exploration),
+    strategic_review_sessions: parseStrategicReviewSessions(d.strategic_review_sessions),
+    executive_briefings: parseStrategicConversations(d.executive_briefings),
+    strategic_self_love: parseStrategicSelfLove(d.strategic_self_love),
+    strategic_trust: parseTrustConnection(d.strategic_trust),
+    strategic_dogfooding:
+      typeof d.strategic_dogfooding === "object" && d.strategic_dogfooding
+        ? (d.strategic_dogfooding as Record<string, unknown>)
+        : undefined,
+    strategic_integration_links: parseIntegrationLinks(d.strategic_integration_links),
+    strategic_engagement_summary: parseStrategicEngagementSummary(d.strategic_engagement_summary),
+    strategic_success_criteria: parseSuccessCriteria(d.strategic_success_criteria),
+    strategic_vision_phrases: parseStringArray(d.strategic_vision_phrases),
     executive_objectives: parseExecutiveObjectives(d.executive_objectives),
     overview_capabilities: parseOverviewCapabilities(d.overview_capabilities),
     insight_categories: parseInsightCategories(d.insight_categories),

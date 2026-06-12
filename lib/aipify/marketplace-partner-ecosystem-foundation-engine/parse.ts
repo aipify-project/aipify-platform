@@ -21,6 +21,14 @@ import type {
   QualityGuardianConnection,
   SelfLoveConnection,
   TrustConnection,
+  MarketObservationsBlueprint,
+  IndustryIntelligenceBlueprint,
+  RegionalInsightsBlueprint,
+  SalesExpertFeedbackLoops,
+  PartnerEcosystemInsights,
+  ExecutiveSupportBlueprint,
+  EcosystemGrowthSummary,
+  MarketIntelligenceTrustConnection,
 } from "./types";
 
 function parsePartnerList(data: unknown): PartnerRecord[] | undefined {
@@ -128,6 +136,46 @@ function parsePartnerEngagementSummary(data: unknown): PartnerEngagementSummary 
   return data as PartnerEngagementSummary;
 }
 
+function parseMarketObservations(data: unknown): MarketObservationsBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as MarketObservationsBlueprint;
+}
+
+function parseIndustryIntelligence(data: unknown): IndustryIntelligenceBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as IndustryIntelligenceBlueprint;
+}
+
+function parseRegionalInsights(data: unknown): RegionalInsightsBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as RegionalInsightsBlueprint;
+}
+
+function parseSalesExpertFeedbackLoops(data: unknown): SalesExpertFeedbackLoops | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as SalesExpertFeedbackLoops;
+}
+
+function parsePartnerEcosystemInsights(data: unknown): PartnerEcosystemInsights | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as PartnerEcosystemInsights;
+}
+
+function parseExecutiveSupport(data: unknown): ExecutiveSupportBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ExecutiveSupportBlueprint;
+}
+
+function parseEcosystemGrowthSummary(data: unknown): EcosystemGrowthSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as EcosystemGrowthSummary;
+}
+
+function parseMarketIntelligenceTrustConnection(data: unknown): MarketIntelligenceTrustConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as MarketIntelligenceTrustConnection;
+}
+
 export function parseMarketplacePartnerEcosystemFoundationEngineCard(
   data: unknown
 ): MarketplacePartnerEcosystemFoundationEngineCard {
@@ -142,6 +190,9 @@ export function parseMarketplacePartnerEcosystemFoundationEngineCard(
     partner_philosophy: typeof d.partner_philosophy === "string" ? d.partner_philosophy : undefined,
     partner_abos_principle: typeof d.partner_abos_principle === "string" ? d.partner_abos_principle : undefined,
     partner_engagement_summary: parsePartnerEngagementSummary(d.partner_engagement_summary),
+    ecosystem_growth_summary: parseEcosystemGrowthSummary(d.ecosystem_growth_summary),
+    market_intelligence_mission: typeof d.market_intelligence_mission === "string" ? d.market_intelligence_mission : undefined,
+    market_intelligence_philosophy: typeof d.market_intelligence_philosophy === "string" ? d.market_intelligence_philosophy : undefined,
     ...d,
   } as MarketplacePartnerEcosystemFoundationEngineCard;
 }
@@ -202,6 +253,25 @@ export function parseMarketplacePartnerEcosystemFoundationEngineDashboard(
     partner_vision_phrases: parseStringArray(d.partner_vision_phrases),
     blueprint_distinction_note:
       typeof d.blueprint_distinction_note === "string" ? d.blueprint_distinction_note : undefined,
+    market_intelligence_mission: typeof d.market_intelligence_mission === "string" ? d.market_intelligence_mission : undefined,
+    market_intelligence_philosophy: typeof d.market_intelligence_philosophy === "string" ? d.market_intelligence_philosophy : undefined,
+    market_intelligence_abos_principle:
+      typeof d.market_intelligence_abos_principle === "string" ? d.market_intelligence_abos_principle : undefined,
+    market_intelligence_objectives: parseEcosystemObjectives(d.market_intelligence_objectives),
+    market_observations: parseMarketObservations(d.market_observations),
+    industry_intelligence: parseIndustryIntelligence(d.industry_intelligence),
+    regional_insights: parseRegionalInsights(d.regional_insights),
+    sales_expert_feedback_loops: parseSalesExpertFeedbackLoops(d.sales_expert_feedback_loops),
+    partner_ecosystem_insights: parsePartnerEcosystemInsights(d.partner_ecosystem_insights),
+    executive_support: parseExecutiveSupport(d.executive_support),
+    market_intelligence_self_love_connection: parseSelfLoveConnection(d.market_intelligence_self_love_connection),
+    market_intelligence_trust_connection: parseMarketIntelligenceTrustConnection(d.market_intelligence_trust_connection),
+    egmibp_integration_links: parseIntegrationLinks(d.egmibp_integration_links),
+    ecosystem_growth_summary: parseEcosystemGrowthSummary(d.ecosystem_growth_summary),
+    market_intelligence_success_criteria: parseSuccessCriteria(d.market_intelligence_success_criteria),
+    market_intelligence_vision_phrases: parseStringArray(d.market_intelligence_vision_phrases),
+    market_intelligence_distinction_note:
+      typeof d.market_intelligence_distinction_note === "string" ? d.market_intelligence_distinction_note : undefined,
     ...d,
   } as MarketplacePartnerEcosystemFoundationEngineDashboard;
 }

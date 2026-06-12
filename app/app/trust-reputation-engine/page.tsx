@@ -59,6 +59,18 @@ export default async function TrustReputationEnginePage() {
           blueprintBoundaries: t(`${p}.blueprintBoundaries`),
           selfLoveConnection: t(`${p}.selfLoveConnection`),
           successCriteria: t(`${p}.successCriteria`),
+          companionObjectives: t(`${p}.phase57.companionObjectives`),
+          trustPrinciples: t(`${p}.phase57.trustPrinciples`),
+          avoidPractices: t(`${p}.phase57.avoidPractices`),
+          relationshipContinuity: t(`${p}.phase57.relationshipContinuity`),
+          companionReliability: t(`${p}.phase57.companionReliability`),
+          boundaryPrinciples: t(`${p}.phase57.boundaryPrinciples`),
+          trustSignalIndicators: t(`${p}.phase57.trustSignalIndicators`),
+          organizationalTrust: t(`${p}.phase57.organizationalTrust`),
+          companionSelfLove: t(`${p}.phase57.companionSelfLove`),
+          companionSuccessCriteria: t(`${p}.phase57.companionSuccessCriteria`),
+          reliabilitySignals: t(`${p}.phase57.reliabilitySignals`),
+          continuitySignals: t(`${p}.phase57.continuitySignals`),
         }} />
     </div>
   );

@@ -60,6 +60,28 @@ export default async function AppAssistantDecisionsPage() {
         presentationStyles: mapKeys(PRESENTATION_STYLES, "presentationStyles"),
         businessDomains: mapKeys(BUSINESS_DOMAIN_KEYS, "businessDomains"),
         empty: t("customerApp.decisionSupport.empty"),
+        blueprint: {
+          toggle: t("customerApp.decisionSupport.blueprint.toggle"),
+          phase: t("customerApp.decisionSupport.blueprint.phase"),
+          mission: t("customerApp.decisionSupport.blueprint.mission"),
+          philosophy: t("customerApp.decisionSupport.blueprint.philosophy"),
+          abosPrinciple: t("customerApp.decisionSupport.blueprint.abosPrinciple"),
+          distinction: t("customerApp.decisionSupport.blueprint.distinction"),
+          objectives: t("customerApp.decisionSupport.blueprint.objectives"),
+          frameworks: t("customerApp.decisionSupport.blueprint.frameworks"),
+          decisionTypes: t("customerApp.decisionSupport.blueprint.decisionTypes"),
+          examples: t("customerApp.decisionSupport.blueprint.examples"),
+          riskAwareness: t("customerApp.decisionSupport.blueprint.riskAwareness"),
+          scenarios: t("customerApp.decisionSupport.blueprint.scenarios"),
+          selfLove: t("customerApp.decisionSupport.blueprint.selfLove"),
+          trust: t("customerApp.decisionSupport.blueprint.trust"),
+          dogfooding: t("customerApp.decisionSupport.blueprint.dogfooding"),
+          successCriteria: t("customerApp.decisionSupport.blueprint.successCriteria"),
+          vision: t("customerApp.decisionSupport.blueprint.vision"),
+          integrations: t("customerApp.decisionSupport.blueprint.integrations"),
+          met: t("customerApp.decisionSupport.blueprint.met"),
+          notMet: t("customerApp.decisionSupport.blueprint.notMet"),
+        },
       }}
     />
   );

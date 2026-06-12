@@ -1,0 +1,101 @@
+ABOS Implementation Blueprint Phase 64 — Purpose & Values Engine
+================================================================
+
+Mission
+-------
+Clarify, preserve, and actively live purpose and values in daily operations and strategic decisions.
+
+Philosophy
+----------
+Values are meaningful only when they influence behavior.
+Purpose guides priorities.
+Culture is practiced intentionally — practical, not decorative.
+
+ABOS principle
+--------------
+Purpose provides direction; values provide boundaries; together they shape choices over time.
+Aipify informs and prepares; humans decide.
+
+Objectives
+----------
+- Purpose clarification
+- Values alignment
+- Cultural reinforcement
+- Leadership reflection
+- Organizational storytelling
+- Decision alignment
+
+Purpose discovery (🦉 🌹 ❤️)
+-----------------------------
+- Why exist beyond financial outcomes
+- What positive impact sought
+- What customers would miss if we disappeared
+
+Values exploration
+------------------
+Core values, expected behaviors, leadership commitments, cultural aspirations.
+Example values: integrity, compassion, excellence, curiosity, responsibility — practical not decorative.
+
+Values in action
+----------------
+Respect → listening, feedback, supporting colleagues
+Innovation → experimentation, sharing ideas, learning from outcomes
+Integrity → honest commitments, explain trade-offs openly
+Compassion → recognize effort, sustainable pacing, include diverse perspectives
+
+Decision alignment (🦉 🌹)
+---------------------------
+- Does this decision align with stated values?
+- Which principles should influence the discussion?
+- What trade-offs matter most?
+
+Organizational storytelling
+---------------------------
+Resilience moments, customer success, team achievements, compassion, innovation milestones — stories shape culture.
+Metadata summaries only — no raw customer content.
+
+Self Love connection
+--------------------
+Reflection, appreciation, recognition of contribution, connection to something larger.
+"The work you do contributes to the purpose your organization has chosen."
+
+Leadership insights
+-------------------
+Values engagement summaries, purpose reflection prompts, cultural strength observations — dialogue, not surveillance.
+
+Trust connection
+----------------
+How values experiences are generated, optional elements, how purpose statements influence companion behavior.
+Human control — acknowledge or dismiss reflection prompts.
+
+Distinctions
+------------
+- Extends Purpose & Values Engine Phase A.82 at /app/purpose-values-engine
+- Distinct from Brand Identity & Personhood Standard (Aipify product naming)
+- Distinct from Business DNA Engine at /app/settings/business-dna
+- Distinct from Strategic Alignment Engine A.55 at /app/strategic-alignment-engine
+- Distinct from AI Ethics & Responsible Use A.46 at /app/ai-ethics-responsible-use-engine
+- Distinct from Inclusion & Humanity A.83 — Human Values Charter vs tenant purpose/values
+- Distinct from Impact Engine A.85 and Growth & Evolution A.81
+- Engine helpers: _pve_* — blueprint helpers: _pvbp_* (do not collide)
+
+Dogfooding
+----------
+Aipify Group: companion philosophy, Sales Expert culture, leadership practices, community experiences.
+Unonight: first external pilot — customer obsession and commerce purpose values.
+
+Success criteria
+----------------
+- Clearer purpose articulation
+- Values influence behavior
+- Cultural consistency
+- Employee meaning
+- Leadership alignment
+
+Vision
+------
+Preserve humanity as organizations grow — "We remember why we started."
+
+Route: /app/purpose-values-engine
+Migration: 20261014000000_implementation_blueprint_phase64_purpose_values.sql
+Doc: IMPLEMENTATION_BLUEPRINT_PHASE64_PURPOSE_VALUES.md

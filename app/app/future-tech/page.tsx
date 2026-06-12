@@ -7,6 +7,7 @@ export default async function FutureTechnologiesPage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
   const p = "customerApp.futureTechnologies";
+  const b = `${p}.blueprint`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -43,6 +44,25 @@ export default async function FutureTechnologiesPage() {
           strategy: t(`${p}.strategy`),
           governance: t(`${p}.governance`),
           knowledgeCenter: t(`${p}.knowledgeCenter`),
+          blueprintTitle: t(`${b}.title`),
+          blueprintObjectives: t(`${b}.objectives`),
+          futureExploration: t(`${b}.futureExploration`),
+          emergingThemes: t(`${b}.emergingThemes`),
+          scenarioPreparedness: t(`${b}.scenarioPreparedness`),
+          organizationalResilience: t(`${b}.organizationalResilience`),
+          companionGuidance: t(`${b}.companionGuidance`),
+          selfLoveConnection: t(`${b}.selfLoveConnection`),
+          leadershipInsights: t(`${b}.leadershipInsights`),
+          trustConnection: t(`${b}.trustConnection`),
+          dogfooding: t(`${b}.dogfooding`),
+          successCriteria: t(`${b}.successCriteria`),
+          engagementSummary: t(`${b}.engagementSummary`),
+          readinessAssessmentsCount: t(`${b}.readinessAssessmentsCount`),
+          scenarioPlansCount: t(`${b}.scenarioPlansCount`),
+          activeScenarioPlans: t(`${b}.activeScenarioPlans`),
+          criterionMet: t(`${b}.criterionMet`),
+          criterionPending: t(`${b}.criterionPending`),
+          visionPhrases: t(`${b}.visionPhrases`),
         }}
       />
     </div>

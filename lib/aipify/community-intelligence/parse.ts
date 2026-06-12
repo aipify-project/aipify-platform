@@ -1,6 +1,10 @@
 import type {
   AbosSuccessCriterion,
+  AnonymizationPrinciples,
+  BestPracticeEvolution,
   CollectiveInsightExamples,
+  CollectiveObservations,
+  CollectiveSummary,
   CommunityContributionsBlueprint,
   CommunityEngagementSummary,
   CommunityIntelligenceCard,
@@ -10,8 +14,11 @@ import type {
   CommunityBriefingResult,
   CommunityObjective,
   CompanionExample,
+  ExecutiveConnection,
   IntegrationLink,
+  KnowledgeCenterConnection,
   PrivacyPrinciples,
+  SalesExpertConnection,
   SelfLoveConnection,
   TrustConnection,
 } from "./types";
@@ -75,6 +82,41 @@ function parseEngagementSummary(data: unknown): CommunityEngagementSummary | und
   return data as CommunityEngagementSummary;
 }
 
+function parseCollectiveSummary(data: unknown): CollectiveSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CollectiveSummary;
+}
+
+function parseCollectiveObservations(data: unknown): CollectiveObservations | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as CollectiveObservations;
+}
+
+function parseBestPracticeEvolution(data: unknown): BestPracticeEvolution | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as BestPracticeEvolution;
+}
+
+function parseAnonymizationPrinciples(data: unknown): AnonymizationPrinciples | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as AnonymizationPrinciples;
+}
+
+function parseKnowledgeCenterConnection(data: unknown): KnowledgeCenterConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as KnowledgeCenterConnection;
+}
+
+function parseSalesExpertConnection(data: unknown): SalesExpertConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as SalesExpertConnection;
+}
+
+function parseExecutiveConnection(data: unknown): ExecutiveConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ExecutiveConnection;
+}
+
 export function parseCommunityIntelligenceCard(data: unknown): CommunityIntelligenceCard {
   const d = (data ?? {}) as Record<string, unknown>;
   return {
@@ -86,10 +128,16 @@ export function parseCommunityIntelligenceCard(data: unknown): CommunityIntellig
     philosophy: d.philosophy as string | undefined,
     participation_voluntary: d.participation_voluntary as boolean | undefined,
     mission: d.mission as string | undefined,
+    clwbp_mission: d.clwbp_mission as string | undefined,
     abos_principle: d.abos_principle as string | undefined,
+    clwbp_abos_principle: d.clwbp_abos_principle as string | undefined,
     core_principle: d.core_principle as string | undefined,
     implementation_blueprint: d.implementation_blueprint as CommunityIntelligenceCard["implementation_blueprint"],
+    collective_learning_wisdom_blueprint: d.collective_learning_wisdom_blueprint as CommunityIntelligenceCard["collective_learning_wisdom_blueprint"],
     engagement_summary: parseEngagementSummary(d.engagement_summary),
+    collective_summary: parseCollectiveSummary(d.collective_summary),
+    inform_not_prescribe_note: d.inform_not_prescribe_note as string | undefined,
+    clwbp_distinction_note: d.clwbp_distinction_note as string | undefined,
     blueprint_note: d.blueprint_note as string | undefined,
   };
 }
@@ -156,6 +204,26 @@ export function parseCommunityIntelligenceDashboard(data: unknown): CommunityInt
     vision_phrases: parseStringArray(d.vision_phrases),
     privacy_note: d.privacy_note as string | undefined,
     principles: parseStringArray(d.principles),
+    collective_learning_wisdom_blueprint: d.collective_learning_wisdom_blueprint as CommunityIntelligenceDashboard["collective_learning_wisdom_blueprint"],
+    clwbp_mission: d.clwbp_mission as string | undefined,
+    clwbp_philosophy: d.clwbp_philosophy as string | undefined,
+    clwbp_abos_principle: d.clwbp_abos_principle as string | undefined,
+    clwbp_objectives: parseCommunityObjectives(d.clwbp_objectives),
+    collective_observations: parseCollectiveObservations(d.collective_observations),
+    best_practice_evolution: parseBestPracticeEvolution(d.best_practice_evolution),
+    clwbp_anonymization_principles: parseAnonymizationPrinciples(d.clwbp_anonymization_principles),
+    knowledge_center_connection: parseKnowledgeCenterConnection(d.knowledge_center_connection),
+    sales_expert_connection: parseSalesExpertConnection(d.sales_expert_connection),
+    executive_connection: parseExecutiveConnection(d.executive_connection),
+    clwbp_self_love_connection: parseSelfLoveConnection(d.clwbp_self_love_connection),
+    clwbp_trust_connection: parseTrustConnection(d.clwbp_trust_connection),
+    clwbp_dogfooding: d.clwbp_dogfooding as CommunityIntelligenceDashboard["clwbp_dogfooding"],
+    clwbp_integration_links: parseIntegrationLinks(d.clwbp_integration_links),
+    collective_summary: parseCollectiveSummary(d.collective_summary),
+    clwbp_success_criteria: parseSuccessCriteria(d.clwbp_success_criteria),
+    clwbp_distinction_note: d.clwbp_distinction_note as string | undefined,
+    clwbp_vision_phrases: parseStringArray(d.clwbp_vision_phrases),
+    inform_not_prescribe_note: d.inform_not_prescribe_note as string | undefined,
   };
 }
 

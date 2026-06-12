@@ -1,14 +1,28 @@
 import type {
+  AbosSuccessCriterion,
+  BlueprintObjective,
+  DecisionAlignment,
   DecisionSupportExample,
+  DogfoodingBlueprint,
   ExampleValue,
+  ImplementationBlueprintMeta,
+  IntegrationLink,
+  LeadershipInsights,
   OrganizationStatedValue,
+  OrganizationalStorytelling,
+  PurposeDiscovery,
   PurposeFrameworkItem,
   PurposeValuesEngineCard,
   PurposeValuesEngineDashboard,
+  PurposeValuesEngagementSummary,
   PurposeValuesExport,
   PurposeValuesSettings,
+  SelfLoveConnection,
+  TrustConnection,
+  ValueInAction,
   ValuesAlignmentSignal,
   ValuesAssistanceExample,
+  ValuesExploration,
   ValuesReflection,
 } from "./types";
 
@@ -22,9 +36,32 @@ function parseSettings(data: unknown): PurposeValuesSettings | undefined {
   return data as PurposeValuesSettings;
 }
 
+function parseBlueprintMeta(data: unknown): ImplementationBlueprintMeta | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ImplementationBlueprintMeta;
+}
+
+function parseEngagementSummary(data: unknown): PurposeValuesEngagementSummary | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as PurposeValuesEngagementSummary;
+}
+
 export function parsePurposeValuesEngineCard(data: unknown): PurposeValuesEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
-  return { has_organization: Boolean(d.has_organization), ...d } as PurposeValuesEngineCard;
+  return {
+    has_organization: Boolean(d.has_organization),
+    philosophy: typeof d.philosophy === "string" ? d.philosophy : undefined,
+    active_values: typeof d.active_values === "number" ? d.active_values : undefined,
+    pending_reflections: typeof d.pending_reflections === "number" ? d.pending_reflections : undefined,
+    enabled: typeof d.enabled === "boolean" ? d.enabled : undefined,
+    implementation_blueprint_phase64: parseBlueprintMeta(d.implementation_blueprint_phase64),
+    mission: typeof d.mission === "string" ? d.mission : undefined,
+    abos_principle: typeof d.abos_principle === "string" ? d.abos_principle : undefined,
+    engagement_summary: parseEngagementSummary(d.engagement_summary),
+    blueprint_note: typeof d.blueprint_note === "string" ? d.blueprint_note : undefined,
+    values_note: typeof d.values_note === "string" ? d.values_note : undefined,
+    ...d,
+  } as PurposeValuesEngineCard;
 }
 
 export function parsePurposeValuesEngineDashboard(data: unknown): PurposeValuesEngineDashboard {
@@ -62,6 +99,51 @@ export function parsePurposeValuesEngineDashboard(data: unknown): PurposeValuesE
       typeof d.permissions === "object" && d.permissions
         ? (d.permissions as Record<string, unknown>)
         : undefined,
+    implementation_blueprint_phase64: parseBlueprintMeta(d.implementation_blueprint_phase64),
+    purpose_values_note: typeof d.purpose_values_note === "string" ? d.purpose_values_note : undefined,
+    blueprint_distinction_note:
+      typeof d.blueprint_distinction_note === "string" ? d.blueprint_distinction_note : undefined,
+    blueprint_mission: typeof d.blueprint_mission === "string" ? d.blueprint_mission : undefined,
+    blueprint_philosophy: typeof d.blueprint_philosophy === "string" ? d.blueprint_philosophy : undefined,
+    blueprint_abos_principle:
+      typeof d.blueprint_abos_principle === "string" ? d.blueprint_abos_principle : undefined,
+    blueprint_objectives: parseRecordList<BlueprintObjective>(d.blueprint_objectives),
+    purpose_discovery:
+      typeof d.purpose_discovery === "object" && d.purpose_discovery
+        ? (d.purpose_discovery as PurposeDiscovery)
+        : undefined,
+    values_exploration:
+      typeof d.values_exploration === "object" && d.values_exploration
+        ? (d.values_exploration as ValuesExploration)
+        : undefined,
+    values_in_action: parseRecordList<ValueInAction>(d.values_in_action),
+    decision_alignment:
+      typeof d.decision_alignment === "object" && d.decision_alignment
+        ? (d.decision_alignment as DecisionAlignment)
+        : undefined,
+    organizational_storytelling:
+      typeof d.organizational_storytelling === "object" && d.organizational_storytelling
+        ? (d.organizational_storytelling as OrganizationalStorytelling)
+        : undefined,
+    self_love_connection:
+      typeof d.self_love_connection === "object" && d.self_love_connection
+        ? (d.self_love_connection as SelfLoveConnection)
+        : undefined,
+    leadership_insights:
+      typeof d.leadership_insights === "object" && d.leadership_insights
+        ? (d.leadership_insights as LeadershipInsights)
+        : undefined,
+    trust_connection:
+      typeof d.trust_connection === "object" && d.trust_connection
+        ? (d.trust_connection as TrustConnection)
+        : undefined,
+    dogfooding:
+      typeof d.dogfooding === "object" && d.dogfooding ? (d.dogfooding as DogfoodingBlueprint) : undefined,
+    blueprint_integration_links: parseRecordList<IntegrationLink>(d.blueprint_integration_links),
+    engagement_summary: parseEngagementSummary(d.engagement_summary),
+    success_criteria: parseRecordList<AbosSuccessCriterion>(d.success_criteria),
+    vision_phrases: Array.isArray(d.vision_phrases) ? (d.vision_phrases as string[]) : undefined,
+    privacy_note: typeof d.privacy_note === "string" ? d.privacy_note : undefined,
     ...d,
   } as PurposeValuesEngineDashboard;
 }

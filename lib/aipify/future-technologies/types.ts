@@ -62,12 +62,114 @@ export type FutureRecommendation = {
   status: string;
 };
 
+export type BlueprintObjective = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type FutureExplorationQuestion = {
+  emoji?: string;
+  key?: string;
+  question?: string;
+  example?: string;
+};
+
+export type EmergingTheme = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type ScenarioPreparedness = {
+  principle?: string;
+  scenarios?: BlueprintObjective[];
+  reflection_note?: string;
+};
+
+export type OrganizationalResilienceBlueprint = {
+  principle?: string;
+  encouragements?: BlueprintObjective[];
+  resilience_route?: string;
+  boundary_note?: string;
+};
+
+export type CompanionGuidanceItem = {
+  emoji?: string;
+  key?: string;
+  topic?: string;
+  example?: string;
+};
+
+export type SelfLoveConnection = {
+  principle?: string;
+  practices?: string[];
+  mantra?: string;
+  self_love_route?: string;
+  boundary_note?: string;
+};
+
+export type LeadershipInsights = {
+  principle?: string;
+  insight_types?: BlueprintObjective[];
+  dialogue_note?: string;
+};
+
+export type TrustConnection = {
+  principle?: string;
+  users_should_see?: string[];
+  operators_should_understand?: string[];
+  audit_note?: string;
+};
+
+export type DogfoodingBlueprint = {
+  principle?: string;
+  aipify_group?: Record<string, unknown>;
+  unonight?: Record<string, unknown>;
+};
+
+export type FutureReadinessEngagementSummary = {
+  readiness_assessments_count?: number;
+  scenario_plans_count?: number;
+  active_scenario_plans?: number;
+  future_exploration_documented?: number;
+  emerging_themes_documented?: number;
+  privacy_note?: string;
+};
+
+export type AbosSuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+};
+
+export type IntegrationLink = {
+  label?: string;
+  route?: string;
+  note?: string;
+};
+
+export type ImplementationBlueprintMeta = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+};
+
 export type FutureTechnologiesCard = {
   has_customer: boolean;
   future_readiness_score?: number;
   active_initiatives?: number;
   philosophy?: string;
   human_oversight_required?: boolean;
+  implementation_blueprint_phase63?: ImplementationBlueprintMeta;
+  mission?: string;
+  abos_principle?: string;
+  engagement_summary?: FutureReadinessEngagementSummary;
+  blueprint_note?: string;
+  readiness_note?: string;
 };
 
 export type FutureTechnologiesDashboard = {
@@ -98,6 +200,28 @@ export type FutureTechnologiesDashboard = {
   automation_evolution_principles?: string[];
   briefings: Array<{ id: string; summary: string; created_at?: string }>;
   integrations?: Record<string, string>;
+  implementation_blueprint_phase63?: ImplementationBlueprintMeta;
+  future_readiness_note?: string;
+  blueprint_distinction_note?: string;
+  blueprint_mission?: string;
+  blueprint_philosophy?: string;
+  blueprint_abos_principle?: string;
+  vision?: string;
+  blueprint_objectives?: BlueprintObjective[];
+  future_exploration?: FutureExplorationQuestion[];
+  emerging_themes?: EmergingTheme[];
+  scenario_preparedness?: ScenarioPreparedness;
+  organizational_resilience?: OrganizationalResilienceBlueprint;
+  companion_guidance?: CompanionGuidanceItem[];
+  self_love_connection?: SelfLoveConnection;
+  leadership_insights?: LeadershipInsights;
+  trust_connection?: TrustConnection;
+  dogfooding?: DogfoodingBlueprint;
+  blueprint_integration_links?: IntegrationLink[];
+  engagement_summary?: FutureReadinessEngagementSummary;
+  success_criteria?: AbosSuccessCriterion[];
+  vision_phrases?: string[];
+  privacy_note?: string;
 };
 
 export type FutureTechnologiesActionResult = {
