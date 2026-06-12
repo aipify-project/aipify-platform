@@ -5023,7 +5023,27 @@
     "userCompletedPaths": "Dine fuldførte forløb (da)",
     "trainingAssessments": "Træningsvurderinger (da)",
     "userActiveCertificates": "Dine aktive certificeringer (da)",
-    "integrationLinks": "Relaterede flader (da)"
+    "integrationLinks": "Relaterede flader (da)",
+    "humanPotential": {
+      "title": "Menneskeligt potentiale og talentudvikling (fase 92) (da)",
+      "objectives": "Udviklingsmål (da)",
+      "developmentQuestions": "Udviklingsspørgsmål (da)",
+      "strengthBased": "Styrkebaseret udvikling (da)",
+      "learningPathways": "Talentudviklingsforløb (da)",
+      "careerCompanion": "Career Companion-støtte (da)",
+      "notAiCoach": "udvikling ikke evaluering (da)",
+      "talentMobility": "Talentmobilitet (da)",
+      "recognition": "Anerkendelsesforbindelse (da)",
+      "privacy": "Privatlivsprincipper (da)",
+      "successCriteria": "Succeskriterier fase 92 (da)",
+      "selfLove": "Self Love-forbindelse (da)",
+      "trust": "Tillid og styrkelse (da)",
+      "engagement": "Menneskeligt potentiale-engagement (da)",
+      "pathways": "Dokumenterede forløb (da)",
+      "mobilityDimensions": "Mobilitetsdimensioner (da)",
+      "developmentQuestionsCount": "Udviklingsspørgsmål (da)",
+      "integrationLinks": "Krydslinks menneskeligt potentiale (da)"
+    }
   },
   "certificationAchievementEngine": {
     "title": "Certificering og badges (da)",

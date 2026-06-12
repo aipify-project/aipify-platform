@@ -5048,7 +5048,27 @@
     "userCompletedPaths": "Dina slutförda vägar (sv)",
     "trainingAssessments": "Utbildningsbedömningar (sv)",
     "userActiveCertificates": "Dina aktiva certifieringar (sv)",
-    "integrationLinks": "Relaterade ytor (sv)"
+    "integrationLinks": "Relaterade ytor (sv)",
+    "humanPotential": {
+      "title": "Mänsklig potential och talangutveckling (fas 92) (sv)",
+      "objectives": "Utvecklingsmål (sv)",
+      "developmentQuestions": "Utvecklingsfrågor (sv)",
+      "strengthBased": "Styrkebaserad utveckling (sv)",
+      "learningPathways": "Talangutvecklingsvägar (sv)",
+      "careerCompanion": "Career Companion-stöd (sv)",
+      "notAiCoach": "utveckling inte utvärdering (sv)",
+      "talentMobility": "Talangmobilitet (sv)",
+      "recognition": "Erkännandekoppling (sv)",
+      "privacy": "Integritetsprinciper (sv)",
+      "successCriteria": "Framgångskriterier fas 92 (sv)",
+      "selfLove": "Self Love-koppling (sv)",
+      "trust": "Förtroende och stärkning (sv)",
+      "engagement": "Mänsklig potential-engagemang (sv)",
+      "pathways": "Dokumenterade vägar (sv)",
+      "mobilityDimensions": "Mobilitetsdimensioner (sv)",
+      "developmentQuestionsCount": "Utvecklingsfrågor (sv)",
+      "integrationLinks": "Tvärkopplingar mänsklig potential (sv)"
+    }
   },
   "certificationAchievementEngine": {
     "title": "Certifiering och märken (sv)",

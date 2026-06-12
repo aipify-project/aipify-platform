@@ -5320,7 +5320,27 @@
     "userCompletedPaths": "Dine fullførte løp (no)",
     "trainingAssessments": "Opplæringsvurderinger (no)",
     "userActiveCertificates": "Dine aktive sertifikater (no)",
-    "integrationLinks": "Relaterte flater (no)"
+    "integrationLinks": "Relaterte flater (no)",
+    "humanPotential": {
+      "title": "Menneskelig potensial og talentutvikling (fase 92) (no)",
+      "objectives": "Utviklingsmål (no)",
+      "developmentQuestions": "Utviklingsspørsmål (no)",
+      "strengthBased": "Styrkebasert utvikling (no)",
+      "learningPathways": "Talentutviklingsløp (no)",
+      "careerCompanion": "Career Companion-støtte (no)",
+      "notAiCoach": "utvikling ikke evaluering (no)",
+      "talentMobility": "Talentmobilitet (no)",
+      "recognition": "Anerkjennelsestilknytning (no)",
+      "privacy": "Personvernprinsipper (no)",
+      "successCriteria": "Suksesskriterier fase 92 (no)",
+      "selfLove": "Self Love-tilknytning (no)",
+      "trust": "Tillit og styrking (no)",
+      "engagement": "Menneskelig potensial-engasjement (no)",
+      "pathways": "Dokumenterte løp (no)",
+      "mobilityDimensions": "Mobilitetsdimensjoner (no)",
+      "developmentQuestionsCount": "Utviklingsspørsmål (no)",
+      "integrationLinks": "Krysskoblinger menneskelig potensial (no)"
+    }
   },
   "certificationAchievementEngine": {
     "title": "Sertifisering og merker (no)",
