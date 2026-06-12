@@ -315,6 +315,7 @@ function patchDecisionTypeChain(sql) {
     "aipify_legacy_preservation_knowledge_continuity_engine",
     "aipify_values_transmission_cultural_continuity_engine",
     "aipify_principles_enforcement_engine",
+    "aipify_decision_transparency_engine",
     P.prevDecision,
     P.decisionType,
   ]) {
@@ -379,8 +380,8 @@ function patchMigration(sql) {
   }
 
   sql = sql.replace(
-    /select 'aipify-organizational-health-early-warning-engine'[^;]+;/,
-    `select '${P.slug}', '${P.title} Engine', '${P.centerTitle} — ${P.era}. People First.', 'authenticated', 199
+    /select 'aipify-strategic-alignment-prioritization-engine'[^;]+;/,
+    `select '${P.slug}', '${P.title} Engine', '${P.centerTitle} — ${P.era}. People First.', 'authenticated', 200
 where not exists (select 1 from public.aipify_knowledge_categories where slug = '${P.slug}' and tenant_id is null);`,
   );
 
@@ -414,7 +415,7 @@ function genDocs() {
 
 ## Vision
 
-${P.centerTitle} within ${P.era}. ${P.companion} supports early awareness — does NOT surveil employees or take punitive actions.
+${P.centerTitle} within ${P.era}. ${P.companion} supports alignment reflection — does NOT define strategy or auto-prioritize.
 
 ## Permissions
 
@@ -441,7 +442,7 @@ ${P.crossLinkNote}
   );
   write(
     path.join(ROOT, `lib/internal-language-model/implementation-blueprint-phase${P.phase}-vocabulary.ts`),
-    `export const IMPLEMENTATION_BLUEPRINT_PHASE${P.phase}_MISSION = "${P.centerTitle} — ${P.companion} supports; never surveils.";\nexport const IMPLEMENTATION_BLUEPRINT_PHASE${P.phase}_ROUTE = "/app/${P.slug}";\nexport const IMPLEMENTATION_BLUEPRINT_PHASE${P.phase}_COMPANION_LIMITATIONS = [\n${P.companionLimitations.map((l) => `  "${l}",`).join("\n")}\n] as const;\n`,
+    `export const IMPLEMENTATION_BLUEPRINT_PHASE${P.phase}_MISSION = "${P.centerTitle} — ${P.companion} supports; never defines strategy.";\nexport const IMPLEMENTATION_BLUEPRINT_PHASE${P.phase}_ROUTE = "/app/${P.slug}";\nexport const IMPLEMENTATION_BLUEPRINT_PHASE${P.phase}_COMPANION_LIMITATIONS = [\n${P.companionLimitations.map((l) => `  "${l}",`).join("\n")}\n] as const;\n`,
   );
 }
 
