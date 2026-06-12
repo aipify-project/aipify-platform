@@ -126,7 +126,10 @@
       "integration": "Integration",
       "update": "Update",
       "action": "AI action"
-    }
+    },
+    "actionCategories": "Action categories",
+    "successCriteria": "Phase 6 success criteria",
+    "integrationLinks": "Related governance surfaces"
   },
   "installations": {
     "title": "Installations",
@@ -4478,7 +4481,13 @@
     "noPermissions": "No permissions to review.",
     "recommendations": "Recommendations",
     "noRecommendations": "No recommendations yet.",
-    "principles": "Principles"
+    "principles": "Principles",
+    "adoptionJourney": "Adoption journey",
+    "supportedPlatforms": "Supported platforms",
+    "planned": "planned",
+    "successCriteria": "Success criteria",
+    "trustConnection": "Trust & transparency",
+    "integrationLinks": "Related surfaces"
   },
   "moduleMarketplaceFoundationEngine": {
     "title": "Module Marketplace",
@@ -4662,6 +4671,11 @@
     "archivedDecisions": "Archived Decisions",
     "recommendedReviews": "Recommended Reviews",
     "memoryLevels": "Memory levels",
+    "memoryCategories": "Memory categories",
+    "memoryCapabilities": "Memory capabilities",
+    "successCriteria": "Success criteria",
+    "trustConnection": "Trust & transparency",
+    "integrationLinks": "Related engines",
     "references": "References",
     "noItems": "No items.",
     "principles": "Principles"

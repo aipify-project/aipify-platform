@@ -8,6 +8,23 @@ import { RISK_LEVEL_STYLES, type ActionLevel } from "@/lib/trust-action";
 import { formatDate } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
 
+type ApprovalsCenterMeta = {
+  philosophy?: string;
+  mission?: string;
+  abos_principle?: string;
+  vision?: string;
+  action_categories?: {
+    key?: string;
+    label?: string;
+    approval?: string;
+    examples?: string[];
+  }[];
+  success_criteria?: { key?: string; label?: string; met?: boolean; note?: string | null }[];
+  transparency_requirements?: string[];
+  integration_links?: { label?: string; route?: string }[];
+  self_love_note?: string;
+};
+
 type ApprovalsCenterPanelProps = {
   locale: string;
   labels: {
@@ -22,6 +39,10 @@ type ApprovalsCenterPanelProps = {
     executing: string;
     emergencyStop: string;
     emergencyActive: string;
+    actionCategories?: string;
+    successCriteria?: string;
+    transparencyRequirements?: string;
+    integrationLinks?: string;
     riskLevels: Record<string, string>;
     statusLabels: Record<string, string>;
     categoryLabels: Record<string, string>;
@@ -52,6 +73,7 @@ function riskStyle(level: string): string {
 
 export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelProps) {
   const [items, setItems] = useState<CustomerApproval[]>([]);
+  const [centerMeta, setCenterMeta] = useState<ApprovalsCenterMeta | null>(null);
   const [emergencyState, setEmergencyState] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [actingId, setActingId] = useState<string | null>(null);
@@ -60,9 +82,29 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
     const supabase = createClient();
     const { data, error } = await supabase.rpc("get_customer_approvals_center");
     if (!error && data?.has_customer) {
-      setItems((data.approvals as CustomerApproval[]) ?? []);
+      const payload = data as Record<string, unknown>;
+      setCenterMeta({
+        philosophy: typeof payload.philosophy === "string" ? payload.philosophy : undefined,
+        mission: typeof payload.mission === "string" ? payload.mission : undefined,
+        abos_principle: typeof payload.abos_principle === "string" ? payload.abos_principle : undefined,
+        vision: typeof payload.vision === "string" ? payload.vision : undefined,
+        action_categories: Array.isArray(payload.action_categories)
+          ? (payload.action_categories as ApprovalsCenterMeta["action_categories"])
+          : undefined,
+        success_criteria: Array.isArray(payload.success_criteria)
+          ? (payload.success_criteria as ApprovalsCenterMeta["success_criteria"])
+          : undefined,
+        transparency_requirements: Array.isArray(payload.transparency_requirements)
+          ? (payload.transparency_requirements as string[])
+          : undefined,
+        integration_links: Array.isArray(payload.integration_links)
+          ? (payload.integration_links as ApprovalsCenterMeta["integration_links"])
+          : undefined,
+        self_love_note: typeof payload.self_love_note === "string" ? payload.self_love_note : undefined,
+      });
+      setItems((payload.approvals as CustomerApproval[]) ?? []);
       setEmergencyState(
-        typeof data.emergency_state === "string" ? data.emergency_state : null
+        typeof payload.emergency_state === "string" ? payload.emergency_state : null
       );
     }
     setLoading(false);
@@ -124,6 +166,53 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
         <p className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
           {labels.emergencyActive}
         </p>
+      )}
+
+      {centerMeta?.mission && (
+        <section className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4 text-sm">
+          <p className="font-medium text-indigo-900">{centerMeta.mission}</p>
+          {centerMeta.philosophy && <p className="mt-2 text-indigo-900">{centerMeta.philosophy}</p>}
+          {centerMeta.abos_principle && (
+            <p className="mt-2 text-xs text-indigo-800">{centerMeta.abos_principle}</p>
+          )}
+        </section>
+      )}
+
+      {centerMeta?.action_categories && centerMeta.action_categories.length > 0 && labels.actionCategories && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h2 className="text-sm font-semibold">{labels.actionCategories}</h2>
+          <ul className="mt-2 grid gap-2 sm:grid-cols-3">
+            {centerMeta.action_categories.map((cat) => (
+              <li key={cat.key ?? cat.label} className="rounded border border-gray-100 px-2 py-2 text-xs">
+                <span className="font-medium">{cat.label}</span>
+                {cat.examples?.map((ex) => (
+                  <p key={ex} className="text-gray-500">{ex}</p>
+                ))}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {centerMeta?.success_criteria && centerMeta.success_criteria.length > 0 && labels.successCriteria && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h2 className="text-sm font-semibold">{labels.successCriteria}</h2>
+          <ul className="mt-2 space-y-1 text-sm">
+            {centerMeta.success_criteria.map((item) => (
+              <li key={item.key ?? item.label}>
+                <span className={item.met ? "text-green-800" : "text-gray-700"}>
+                  {item.met ? "✓" : "○"} {item.label}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {centerMeta?.self_love_note && (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          {centerMeta.self_love_note}
+        </section>
       )}
 
       {items.length === 0 ? (
@@ -202,6 +291,23 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
             </li>
           ))}
         </ul>
+      )}
+
+      {centerMeta?.integration_links && centerMeta.integration_links.length > 0 && labels.integrationLinks && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h2 className="text-sm font-semibold">{labels.integrationLinks}</h2>
+          <ul className="mt-2 space-y-1 text-sm">
+            {centerMeta.integration_links.map((link) =>
+              link.route ? (
+                <li key={link.label}>
+                  <Link href={link.route} className="text-indigo-600 hover:underline">
+                    {link.label}
+                  </Link>
+                </li>
+              ) : null
+            )}
+          </ul>
+        </section>
       )}
 
       <p className="text-sm text-gray-500">

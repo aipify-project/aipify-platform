@@ -4044,7 +4044,13 @@
     "noPermissions": "No permissions to review. (da)",
     "recommendations": "Recommendations (da)",
     "noRecommendations": "No recommendations yet. (da)",
-    "principles": "Principles (da)"
+    "principles": "Principles (da)",
+    "adoptionJourney": "Adoptionsrejse",
+    "supportedPlatforms": "Understøttede platforme",
+    "planned": "planlagt",
+    "successCriteria": "Succeskriterier",
+    "trustConnection": "Tillid og gennemsigtighed",
+    "integrationLinks": "Relaterede flader"
   },
   "moduleMarketplaceFoundationEngine": {
     "title": "Module Marketplace (da)",
@@ -4228,7 +4234,12 @@
     "archivedDecisions": "Arkiverede beslutninger (da)",
     "recommendedReviews": "Anbefalede gennemgange (da)",
     "memoryLevels": "Hukommelsesniveauer",
-    "references": "Referencer (da)",
+    "memoryCategories": "Hukommelseskategorier",
+    "memoryCapabilities": "Hukommelsesfunktioner",
+    "successCriteria": "Succeskriterier",
+    "trustConnection": "Tillid og gennemsigtighed",
+    "integrationLinks": "Relaterede motorer",
+    "references": "Referencer",
     "noItems": "Ingen elementer. (da)",
     "principles": "Principper (da)"
   },

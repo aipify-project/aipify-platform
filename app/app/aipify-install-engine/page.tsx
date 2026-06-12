@@ -40,6 +40,12 @@ export default async function AipifyInstallEnginePage() {
           recommendations: t(`${p}.recommendations`),
           noRecommendations: t(`${p}.noRecommendations`),
           principles: t(`${p}.principles`),
+          adoptionJourney: t(`${p}.adoptionJourney`),
+          supportedPlatforms: t(`${p}.supportedPlatforms`),
+          planned: t(`${p}.planned`),
+          successCriteria: t(`${p}.successCriteria`),
+          trustConnection: t(`${p}.trustConnection`),
+          integrationLinks: t(`${p}.integrationLinks`),
         }}
       />
     </div>

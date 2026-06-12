@@ -125,12 +125,49 @@ export type MemoryLevelSummary = {
   description?: string;
 };
 
+export type MemoryCategoryBlock = {
+  key?: string;
+  label?: string;
+  examples?: string[];
+  record_categories?: string[];
+};
+
+export type MemoryCapability = {
+  key?: string;
+  label?: string;
+};
+
+export type AbosSuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+};
+
+export type IntegrationLink = {
+  label?: string;
+  route?: string;
+};
+
 export type OrganizationalMemoryEngineDashboard = {
   has_organization: boolean;
   philosophy?: string;
   mission?: string;
   abos_principle?: string;
+  vision?: string;
+  knowledge_vs_memory_note?: string;
+  core_philosophy?: string[];
+  memory_categories?: MemoryCategoryBlock[];
+  memory_capabilities?: MemoryCapability[];
+  capability_examples?: string[];
   self_love_note?: string;
+  trust_connection?: {
+    principle?: string;
+    organizations_should_understand?: string[];
+  };
+  distinction_note?: string;
+  success_criteria?: AbosSuccessCriterion[];
+  integration_links?: IntegrationLink[];
   memory_levels?: MemoryLevelSummary[];
   knowledge_domains?: string[];
   approved_sources?: string[];

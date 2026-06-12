@@ -80,8 +80,14 @@ Distinct from **PAME** (personal) and **Learning Engine** (improves Aipify). Ext
 
 ## ABOS principle
 
-> Knowledge should not disappear when employees leave. A healthy organization preserves what it learns.
+> Knowledge tells us what we know. Memory reminds us who we have become.
 
-## Principle
+## ABOS spec alignment
+
+See [ORGANIZATIONAL_MEMORY_ENGINE.md](./ORGANIZATIONAL_MEMORY_ENGINE.md). Migration `20260949000000_organizational_memory_engine_abos_spec_alignment.sql` extends dashboard/card with memory categories (operational, relationship, decision, growth), capabilities, trust connection, success criteria, and integration links.
+
+## Principle (legacy framing)
+
+> A healthy organization preserves what it learns. Aipify helps organizations remember, improve, and grow together.
 
 Business logic in RPCs; panels are thin clients. Tenant-scoped via `organizations.id`.

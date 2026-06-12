@@ -1,11 +1,15 @@
 import type {
+  AbosSuccessCriterion,
+  AdoptionJourneyStage,
   AipifyInstallEngineCard,
   AipifyInstallEngineDashboard,
+  IntegrationLink,
   InstallDiscoveryResult,
   InstallPermissionReview,
   InstallRecommendation,
   InstallSummary,
   OrganizationInstallation,
+  SupportedPlatform,
 } from "./types";
 
 export function parseAipifyInstallEngineCard(data: unknown): AipifyInstallEngineCard {
@@ -16,6 +20,10 @@ export function parseAipifyInstallEngineCard(data: unknown): AipifyInstallEngine
     installation_status: typeof d.installation_status === "string" ? d.installation_status : undefined,
     current_step: typeof d.current_step === "string" ? d.current_step : undefined,
     philosophy: typeof d.philosophy === "string" ? d.philosophy : undefined,
+    mission: typeof d.mission === "string" ? d.mission : undefined,
+    abos_principle: typeof d.abos_principle === "string" ? d.abos_principle : undefined,
+    install_adoption_engine_note:
+      typeof d.install_adoption_engine_note === "string" ? d.install_adoption_engine_note : undefined,
   };
 }
 
@@ -91,7 +99,40 @@ export function parseAipifyInstallEngineDashboard(data: unknown): AipifyInstallE
   return {
     has_organization: Boolean(d.has_organization),
     philosophy: typeof d.philosophy === "string" ? d.philosophy : undefined,
+    mission: typeof d.mission === "string" ? d.mission : undefined,
+    abos_principle: typeof d.abos_principle === "string" ? d.abos_principle : undefined,
+    vision: typeof d.vision === "string" ? d.vision : undefined,
+    install_adoption_engine_note:
+      typeof d.install_adoption_engine_note === "string" ? d.install_adoption_engine_note : undefined,
     install_engine_note: typeof d.install_engine_note === "string" ? d.install_engine_note : undefined,
+    installation_principles: Array.isArray(d.installation_principles)
+      ? (d.installation_principles as string[])
+      : undefined,
+    supported_platforms: Array.isArray(d.supported_platforms)
+      ? (d.supported_platforms as SupportedPlatform[])
+      : undefined,
+    install_capabilities: Array.isArray(d.install_capabilities)
+      ? (d.install_capabilities as string[])
+      : undefined,
+    adoption_journey: Array.isArray(d.adoption_journey)
+      ? (d.adoption_journey as AdoptionJourneyStage[])
+      : undefined,
+    self_love_note: typeof d.self_love_note === "string" ? d.self_love_note : undefined,
+    trust_connection:
+      typeof d.trust_connection === "object" && d.trust_connection
+        ? (d.trust_connection as AipifyInstallEngineDashboard["trust_connection"])
+        : undefined,
+    dogfooding:
+      typeof d.dogfooding === "object" && d.dogfooding
+        ? (d.dogfooding as Record<string, unknown>)
+        : undefined,
+    success_criteria: Array.isArray(d.success_criteria)
+      ? (d.success_criteria as AbosSuccessCriterion[])
+      : undefined,
+    vision_phrases: Array.isArray(d.vision_phrases) ? (d.vision_phrases as string[]) : undefined,
+    integration_links: Array.isArray(d.integration_links)
+      ? (d.integration_links as IntegrationLink[])
+      : undefined,
     principles: Array.isArray(d.principles) ? (d.principles as string[]) : undefined,
     installation: parseInstallation(d.installation),
     steps: Array.isArray(d.steps) ? (d.steps as string[]) : undefined,

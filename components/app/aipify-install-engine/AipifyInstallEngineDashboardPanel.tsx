@@ -85,11 +85,97 @@ export function AipifyInstallEngineDashboardPanel({
 
       <section className="rounded-xl border border-teal-200 bg-teal-50/50 p-6">
         <h2 className="text-sm font-semibold text-teal-900">{labels.installEngine}</h2>
+        {dashboard.mission ? (
+          <p className="mt-2 text-sm font-medium text-teal-900">{dashboard.mission}</p>
+        ) : null}
         <p className="mt-2 text-sm text-teal-900">{dashboard.philosophy}</p>
+        {dashboard.abos_principle ? (
+          <p className="mt-2 text-xs text-teal-800">{dashboard.abos_principle}</p>
+        ) : null}
+        {dashboard.vision ? <p className="mt-2 text-xs text-gray-600">{dashboard.vision}</p> : null}
+        {dashboard.install_adoption_engine_note && (
+          <p className="mt-1 text-xs text-teal-700">{dashboard.install_adoption_engine_note}</p>
+        )}
         {dashboard.install_engine_note && (
           <p className="mt-1 text-xs text-teal-700">{dashboard.install_engine_note}</p>
         )}
       </section>
+
+      {dashboard.adoption_journey && dashboard.adoption_journey.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.adoptionJourney}</h3>
+          <ol className="mt-3 space-y-3">
+            {dashboard.adoption_journey.map((stage) => (
+              <li key={stage.key ?? stage.stage} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                <span className="font-medium">
+                  {stage.stage ? `${stage.stage}. ` : ""}
+                  {stage.label}
+                </span>
+                {stage.focus && stage.focus.length > 0 ? (
+                  <ul className="mt-1 list-inside list-disc text-xs text-gray-500">
+                    {stage.focus.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : null}
+
+      {dashboard.supported_platforms && dashboard.supported_platforms.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.supportedPlatforms}</h3>
+          <ul className="mt-2 flex flex-wrap gap-2">
+            {dashboard.supported_platforms.map((platform) => (
+              <li
+                key={platform.key ?? platform.label}
+                className="rounded-full border border-teal-100 bg-teal-50 px-3 py-1 text-xs"
+              >
+                {platform.label}
+                {platform.status === "planned" ? ` (${labels.planned})` : ""}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.success_criteria) && dashboard.success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.successCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.self_love_note ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          {dashboard.self_love_note}
+        </section>
+      ) : null}
+
+      {dashboard.trust_connection ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.trustConnection}</h3>
+          {dashboard.trust_connection.principle ? (
+            <p className="mt-2 text-gray-600">{dashboard.trust_connection.principle}</p>
+          ) : null}
+        </section>
+      ) : null}
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-lg border border-gray-200 bg-white p-4">
@@ -244,6 +330,37 @@ export function AipifyInstallEngineDashboardPanel({
           </ul>
         </section>
       )}
+
+      {dashboard.integration_links && dashboard.integration_links.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.integrationLinks}</h3>
+          <ul className="mt-2 space-y-1 text-sm">
+            {dashboard.integration_links.map((link) => {
+              const route = typeof link.route === "string" ? link.route : null;
+              const label = typeof link.label === "string" ? link.label : route ?? "";
+              return (
+                <li key={label}>
+                  {route ? (
+                    <Link href={route} className="text-teal-600 hover:underline">
+                      {label}
+                    </Link>
+                  ) : (
+                    label
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.vision_phrases && dashboard.vision_phrases.length > 0 ? (
+        <section className="rounded-lg border border-teal-100 bg-teal-50/30 p-4 text-sm italic text-teal-900">
+          {dashboard.vision_phrases.map((phrase) => (
+            <p key={phrase}>&ldquo;{phrase}&rdquo;</p>
+          ))}
+        </section>
+      ) : null}
     </div>
   );
 }

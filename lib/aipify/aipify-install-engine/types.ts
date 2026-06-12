@@ -65,18 +65,64 @@ export type InstallSummary = {
   discoveries?: number;
 };
 
+export type AdoptionJourneyStage = {
+  stage?: number;
+  key?: string;
+  label?: string;
+  focus?: string[];
+  install_steps?: string[];
+};
+
+export type SupportedPlatform = {
+  key?: string;
+  label?: string;
+  status?: string;
+};
+
+export type AbosSuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+};
+
+export type IntegrationLink = {
+  label?: string;
+  route?: string;
+};
+
 export type AipifyInstallEngineCard = {
   has_organization: boolean;
   completion_percentage?: number;
   installation_status?: string;
   current_step?: string;
   philosophy?: string;
+  mission?: string;
+  abos_principle?: string;
+  install_adoption_engine_note?: string;
 };
 
 export type AipifyInstallEngineDashboard = {
   has_organization: boolean;
   philosophy?: string;
+  mission?: string;
+  abos_principle?: string;
+  vision?: string;
+  install_adoption_engine_note?: string;
   install_engine_note?: string;
+  installation_principles?: string[];
+  supported_platforms?: SupportedPlatform[];
+  install_capabilities?: string[];
+  adoption_journey?: AdoptionJourneyStage[];
+  self_love_note?: string;
+  trust_connection?: {
+    principle?: string;
+    organizations_should_understand?: string[];
+  };
+  dogfooding?: Record<string, unknown>;
+  success_criteria?: AbosSuccessCriterion[];
+  vision_phrases?: string[];
+  integration_links?: IntegrationLink[];
   principles?: string[];
   installation?: OrganizationInstallation;
   steps?: string[];

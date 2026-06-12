@@ -47,3 +47,7 @@ Extends Install Engine (Phase 17) — lib/install/, /api/install/, /app/install.
 ## Principle
 
 Business logic in RPCs; panels are thin clients. Tenant-scoped via organizations.id = customers.id.
+
+## Install & Adoption Engine (ABOS)
+
+See [INSTALL_ADOPTION_ENGINE.md](./INSTALL_ADOPTION_ENGINE.md). Migration `20260950000000_install_adoption_engine_abos_spec_alignment.sql` extends dashboard/card with adoption journey (Welcome → Discovery → Assistance → Partnership), supported platforms, success criteria, trust connection, and dogfooding notes.

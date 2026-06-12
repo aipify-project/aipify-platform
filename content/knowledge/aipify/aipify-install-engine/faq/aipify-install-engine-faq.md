@@ -19,3 +19,22 @@ Metadata only — no PII, email content, chat, or payment data. Audit events via
 ## How does it integrate with other engines?
 
 Extends Install Engine (Phase 17) — lib/install/, /api/install/, /app/install. KC initialization on completion.
+
+## What is the Install & Adoption Engine (ABOS)?
+
+The ABOS Install & Adoption framing extends A.22 — Aipify adapts to organizations; organizations should not rebuild around Aipify. See [INSTALL_ADOPTION_ENGINE.md](../../../../INSTALL_ADOPTION_ENGINE.md).
+
+## What is the adoption journey?
+
+1. **Welcome** — introduce Aipify, explain purpose, establish trust  
+2. **Discovery** — learn the organization, teams, and priorities  
+3. **Assistance** — begin helping, recommend improvements, reduce friction  
+4. **Partnership** — embedded in operations, support growth, preserve organizational memory
+
+## What platforms are supported?
+
+WordPress, Shopify, WooCommerce, custom websites, and future business platforms via environment discovery.
+
+## What is the ABOS principle?
+
+> Technology should adapt to people. People should not be forced to adapt entirely to technology.

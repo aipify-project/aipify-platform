@@ -4059,7 +4059,13 @@
     "noPermissions": "No permissions to review. (sv)",
     "recommendations": "Recommendations (sv)",
     "noRecommendations": "No recommendations yet. (sv)",
-    "principles": "Principles (sv)"
+    "principles": "Principles (sv)",
+    "adoptionJourney": "Adoptionsresa",
+    "supportedPlatforms": "Plattformar som stöds",
+    "planned": "planerad",
+    "successCriteria": "Framgångskriterier",
+    "trustConnection": "Förtroende och transparens",
+    "integrationLinks": "Relaterade ytor"
   },
   "moduleMarketplaceFoundationEngine": {
     "title": "Module Marketplace (sv)",
@@ -4243,7 +4249,12 @@
     "archivedDecisions": "Arkiverade beslut (sv)",
     "recommendedReviews": "Rekommenderade granskningar (sv)",
     "memoryLevels": "Minnesnivåer",
-    "references": "Referenser (sv)",
+    "memoryCategories": "Minneskategorier",
+    "memoryCapabilities": "Minnesfunktioner",
+    "successCriteria": "Framgångskriterier",
+    "trustConnection": "Förtroende och transparens",
+    "integrationLinks": "Relaterade motorer",
+    "references": "Referenser",
     "noItems": "Inga objekt. (sv)",
     "principles": "Principer (sv)"
   },

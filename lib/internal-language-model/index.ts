@@ -42,6 +42,8 @@ export * from "./learning-journey-vocabulary";
 export * from "./implementation-blueprint-phase1-vocabulary";
 export * from "./implementation-blueprint-phase2-vocabulary";
 export * from "./implementation-blueprint-phase3-vocabulary";
+export * from "./organizational-memory-engine-vocabulary";
+export * from "./install-adoption-engine-vocabulary";
 
 /** Canonical knowledge corpus paths (source of truth). */
 export const FUNCTION_VOCABULARY_PATH =
@@ -148,5 +150,11 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE2_PATH =
 
 export const IMPLEMENTATION_BLUEPRINT_PHASE3_PATH =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase3-knowledge-center.txt";
+
+export const ORGANIZATIONAL_MEMORY_ENGINE_ABOS_PATH =
+  "aipify-core/knowledge/internal-language-model/organizational-memory-engine-abos.txt";
+
+export const INSTALL_ADOPTION_ENGINE_ABOS_PATH =
+  "aipify-core/knowledge/internal-language-model/install-adoption-engine-abos.txt";
 
 export * from "./playful-moments-bell-vocabulary";

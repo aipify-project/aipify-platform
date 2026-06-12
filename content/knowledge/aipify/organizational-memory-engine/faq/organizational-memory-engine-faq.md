@@ -43,4 +43,18 @@ Self Love (planned A.76) will monitor memory quality — detecting duplicates, o
 
 ## What is the ABOS principle?
 
-Knowledge should not disappear when employees leave. A healthy organization preserves what it learns. Aipify exists to help organizations remember, improve, and grow together — a core **Knowledge** pillar of [ABOS](../../abos/articles/what-is-abos.md).
+> Knowledge tells us what we know. Memory reminds us who we have become.
+
+See [ORGANIZATIONAL_MEMORY_ENGINE.md](../../../../ORGANIZATIONAL_MEMORY_ENGINE.md) for the full ABOS spec.
+
+## What are memory categories?
+
+**Operational** — process improvements, incident resolutions, interventions, workflow adjustments. **Relationship** — customer preferences, communication styles, partnerships, collaboration patterns. **Decision** — major decisions, rationale, trade-offs, outcomes. **Growth** — milestones, challenges overcome, lessons learned, improvements.
+
+## How is Organizational Memory different from Knowledge Center?
+
+Knowledge Center (A.5) holds approved documentation and FAQs. Organizational Memory captures **how things actually unfolded** — experience, decisions, and lessons over time. Both are essential; neither replaces the other.
+
+## What memory capabilities does Aipify provide?
+
+Recall previous situations, surface relevant experiences, highlight similar events, recommend lessons learned, and preserve organizational context — with example phrasing like "A similar issue occurred six months ago."

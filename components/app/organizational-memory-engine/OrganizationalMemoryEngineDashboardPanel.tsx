@@ -52,10 +52,97 @@ export function OrganizationalMemoryEngineDashboardPanel({ labels }: Props) {
         {dashboard.abos_principle ? (
           <p className="mt-2 text-xs text-violet-800">{dashboard.abos_principle}</p>
         ) : null}
+        {dashboard.knowledge_vs_memory_note ? (
+          <p className="mt-2 text-xs italic text-violet-700">{dashboard.knowledge_vs_memory_note}</p>
+        ) : null}
+        {dashboard.vision ? (
+          <p className="mt-2 text-xs text-gray-600">{dashboard.vision}</p>
+        ) : null}
+        {dashboard.distinction_note ? (
+          <p className="mt-2 text-xs text-gray-500">{dashboard.distinction_note}</p>
+        ) : null}
         {dashboard.privacy_note ? (
           <p className="mt-2 text-xs text-gray-500">{dashboard.privacy_note}</p>
         ) : null}
       </section>
+
+      {dashboard.memory_categories && dashboard.memory_categories.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.memoryCategories}</h3>
+          <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.memory_categories.map((cat) => (
+              <li key={cat.key ?? cat.label} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                <span className="font-medium">{cat.label}</span>
+                {cat.examples && cat.examples.length > 0 ? (
+                  <ul className="mt-1 list-inside list-disc text-xs text-gray-500">
+                    {cat.examples.map((ex) => (
+                      <li key={ex}>{ex}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.memory_capabilities && dashboard.memory_capabilities.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.memoryCapabilities}</h3>
+          <ul className="mt-2 flex flex-wrap gap-2">
+            {dashboard.memory_capabilities.map((cap) => (
+              <li key={cap.key ?? cap.label} className="rounded-full border border-violet-100 bg-violet-50 px-3 py-1 text-xs">
+                {cap.label}
+              </li>
+            ))}
+          </ul>
+          {dashboard.capability_examples && dashboard.capability_examples.length > 0 ? (
+            <ul className="mt-3 space-y-1 text-xs italic text-gray-600">
+              {dashboard.capability_examples.map((ex) => (
+                <li key={ex}>&ldquo;{ex}&rdquo;</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.success_criteria) && dashboard.success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.successCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.trust_connection ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.trustConnection}</h3>
+          {dashboard.trust_connection.principle ? (
+            <p className="mt-2 text-gray-600">{dashboard.trust_connection.principle}</p>
+          ) : null}
+          {dashboard.trust_connection.organizations_should_understand &&
+          dashboard.trust_connection.organizations_should_understand.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc text-xs text-gray-500">
+              {dashboard.trust_connection.organizations_should_understand.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
 
       {dashboard.memory_levels && dashboard.memory_levels.length > 0 ? (
         <section className="rounded-xl border border-gray-200 bg-white p-6">
@@ -199,6 +286,29 @@ export function OrganizationalMemoryEngineDashboardPanel({ labels }: Props) {
             {dashboard.principles.map((principle) => (
               <li key={principle}>{principle}</li>
             ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.integration_links && dashboard.integration_links.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.integrationLinks}</h3>
+          <ul className="mt-2 space-y-1 text-sm">
+            {dashboard.integration_links.map((link) => {
+              const route = typeof link.route === "string" ? link.route : null;
+              const label = typeof link.label === "string" ? link.label : route ?? "";
+              return (
+                <li key={label}>
+                  {route ? (
+                    <Link href={route} className="text-violet-600 hover:underline">
+                      {label}
+                    </Link>
+                  ) : (
+                    label
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </section>
       ) : null}

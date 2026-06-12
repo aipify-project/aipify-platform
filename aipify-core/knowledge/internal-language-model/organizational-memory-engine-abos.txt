@@ -1,0 +1,17 @@
+ORGANIZATIONAL MEMORY ENGINE — ABOS
+
+Mission: Help organizations remember important events, decisions and learning experiences so future actions become wiser and more effective.
+
+Knowledge vs memory: Knowledge explains how things should work. Memory captures how things actually unfolded.
+
+Philosophy: Experience has value. Reflection creates wisdom. Memory strengthens continuity.
+
+ABOS principle: Knowledge tells us what we know. Memory reminds us who we have become.
+
+Preferred wording: "organizational memory", "lessons learned", "decision register", "metadata summaries" — not "store all conversations" or "replace institutional knowledge".
+
+Capability examples: "A similar issue occurred six months ago." "This decision aligns with a previously successful strategy." "You have faced challenges like this before — and you found a way through."
+
+Distinctions: Knowledge Center (A.5) is approved documentation; Organizational Memory is experience over time. Distinct from PAME and Learning Engine.
+
+Trust: transparent memory — what is remembered, why relevant, who contributed, how it informs recommendations. Metadata only.

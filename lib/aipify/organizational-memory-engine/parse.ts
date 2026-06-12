@@ -1,4 +1,8 @@
 import type {
+  AbosSuccessCriterion,
+  IntegrationLink,
+  MemoryCapability,
+  MemoryCategoryBlock,
   MemoryLevelSummary,
   OrganizationDecisionRegisterEntry,
   OrganizationMemoryRecord,
@@ -43,7 +47,22 @@ export function parseOrganizationalMemoryEngineDashboard(
     philosophy: asString(d.philosophy) || undefined,
     mission: asString(d.mission) || undefined,
     abos_principle: asString(d.abos_principle) || undefined,
+    vision: asString(d.vision) || undefined,
+    knowledge_vs_memory_note: asString(d.knowledge_vs_memory_note) || undefined,
+    core_philosophy: Array.isArray(d.core_philosophy) ? (d.core_philosophy as string[]) : undefined,
+    memory_categories: asRecordList<MemoryCategoryBlock>(d.memory_categories),
+    memory_capabilities: asRecordList<MemoryCapability>(d.memory_capabilities),
+    capability_examples: Array.isArray(d.capability_examples)
+      ? (d.capability_examples as string[])
+      : undefined,
     self_love_note: asString(d.self_love_note) || undefined,
+    trust_connection:
+      typeof d.trust_connection === "object" && d.trust_connection
+        ? (d.trust_connection as OrganizationalMemoryEngineDashboard["trust_connection"])
+        : undefined,
+    distinction_note: asString(d.distinction_note) || undefined,
+    success_criteria: asRecordList<AbosSuccessCriterion>(d.success_criteria),
+    integration_links: asRecordList<IntegrationLink>(d.integration_links),
     memory_levels: asRecordList<MemoryLevelSummary>(d.memory_levels),
     knowledge_domains: Array.isArray(d.knowledge_domains)
       ? (d.knowledge_domains as string[])
