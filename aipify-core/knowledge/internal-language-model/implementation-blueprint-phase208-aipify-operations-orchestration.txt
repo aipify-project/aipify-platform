@@ -1,0 +1,11 @@
+ABOS Phase 208 — Aipify Operations Orchestration
+Route: /app/aipify-operations-orchestration-engine
+
+Operations Command Dashboard: critical activity health, workflow visibility center, dependency management engine, escalation management framework, initiative tracking center, operational health monitor, action/decision center integration, operations knowledge libraries.
+Operations Reflection Engine prompts: Is operational coordination clear? Where does process fragmentation emerge? Is execution consistency maintained? Does cross-functional visibility support leadership? Where can proactive leadership improve outcomes?
+Operations Framework: workflow visibility, dependencies, escalations, initiative tracking, operational health, enterprise scale, integration with actions/decisions.
+Executive Operations Reviews, Operations Companion, Workflow Visibility Center, Dependency Management Engine, Operational Health Monitor tracks.
+Design principles: visibility before assumptions, coordination before chaos, simplicity before complexity.
+Companion limitations: no auto-executing workflows, no overriding escalation governance, no exposing sensitive operational data, no replacing human coordination, no bypassing RBAC.
+Cross-links only: Phase 205 action center, Phase 207 decision center, Phase 198 organizational health — never auto-execute workflows, override escalation governance, or bypass RBAC.
+People First. Growth Partner — never Affiliate.

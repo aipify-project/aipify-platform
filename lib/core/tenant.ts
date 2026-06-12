@@ -156,6 +156,7 @@ export * from "./aipify-executive-operating-system-founders-cockpit-engine";
 export * from "./aipify-knowledge-discovery-intelligent-search-engine";
 export * from "./aipify-action-center-execution-engine";
 export * from "./aipify-operations-orchestration-engine";
+export * from "./aipify-decision-center-governance-engine";
 export * from "./aipify-meeting-intelligence-follow-up-engine";
 export * from "./aipify-unified-workspace-engine";
 export * from "./aipify-global-command-center-engine";

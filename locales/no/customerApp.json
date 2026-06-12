@@ -6080,7 +6080,8 @@
     "aipifyExecutiveOperatingSystemFoundersCockpitEngine": "Executive cockpit",
     "aipifyActionCenterExecutionEngine": "Handlingssenter",
     "aipifyMeetingIntelligenceFollowUpEngine": "Møteoppfølging",
-    "aipifyOperationsOrchestrationEngine": "Operasjonsorkestrering"
+    "aipifyOperationsOrchestrationEngine": "Operasjonsorkestrering",
+    "aipifyResourceCapacityWorkloadBalanceEngine": "Ressurskapasitet"
   },
   "identity": {
     "title": "Din identitet",
@@ -11883,6 +11884,40 @@
     "phase208": {
       "mission": "Operations Companion supports operational visibility — humans retain coordination authority for operational changes.",
       "philosophy": "People First. Metadata-only operations scaffolds. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
+    }
+  },
+  "aipifyResourceCapacityWorkloadBalanceEngine": {
+    "title": "Resource Capacity Center",
+    "subtitle": "Global Command & Enterprise Operations Era (201–210). Capacity Companion supports trend summaries, planning insights, and review reminders. Supports humans — does NOT surveil individuals or auto-reassign resources. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Resource Capacity & Workload Balance dashboard…",
+    "engineTitle": "Aipify Resource Capacity & Workload Balance Engine (Phase 209)",
+    "scoreLabel": "Capacity score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Capacity balance level",
+    "executiveReviews": "Executive capacity reviews",
+    "activeReflections": "Active reflections",
+    "humanOversightRequired": "Human oversight required — humans steward allocation decisions; Capacity Companion supports only",
+    "eraOpenerSummary": "Global Command Era — Phases 201–210",
+    "eraOpenerNote": "Cross-link only — do not duplicate operations orchestration or action center RPCs.",
+    "centerLabel": "Resource Capacity Center capabilities",
+    "engineLabel": "Capacity reflection engine — reflection prompts",
+    "frameworkLabel": "Capacity framework",
+    "reviewsLabel": "Executive capacity reviews",
+    "companionLabel": "Capacity Companion — supports, does not surveil",
+    "subEngineLabel": "Workload Balance Monitor",
+    "reflections": "Capacity reflection scaffolds",
+    "executiveReviewEntries": "Capacity review entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 209)",
+    "companionLimitations": "Capacity Companion limitations — does NOT surveil individuals or auto-reassign resources",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase209": {
+      "mission": "Capacity Companion supports capacity planning — humans retain allocation authority for resource decisions.",
+      "philosophy": "People First. Aggregate-only capacity scaffolds. Growth Partner terminology — never Affiliate.",
       "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
     }
   }
