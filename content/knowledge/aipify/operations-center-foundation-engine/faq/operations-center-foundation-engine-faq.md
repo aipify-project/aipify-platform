@@ -4,7 +4,7 @@
 
 **Question:** What is the Operations Center?
 
-**Answer:** The Operations Center provides a centralized view of important activities and priorities across Aipify.
+**Answer:** The Operations Center Foundation Engine (Phase A.32) at `/app/operations-center-foundation-engine` provides a centralized operational experience — visibility, coordination, and control across Support, Tasks, Knowledge, Executive, and Recognition modules. ABOS Implementation Blueprint Phase 18 extends A.32 with module overviews, Since Last Time counts, and live success criteria — no new tables.
 
 ## FAQ 2
 
