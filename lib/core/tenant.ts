@@ -113,3 +113,28 @@ export * from "./civic-collaboration-engine";
 export * from "./intergenerational-guardianship-engine";
 export * from "./multi-generational-futures-engine";
 export * from "./human-identity-meaning-engine";
+export {
+  getHumanCreativityImaginationEngineDashboard,
+  getHumanCreativityImaginationEngineCard,
+  createHumanCreativityImaginationEngineAuditEntry,
+} from "./human-creativity-imagination-engine";
+export {
+  getHumanWisdomAugmentedJudgmentEngineDashboard,
+  getHumanWisdomAugmentedJudgmentEngineCard,
+  createHumanWisdomAugmentedJudgmentEngineAuditEntry,
+} from "./human-wisdom-augmented-judgment-engine";
+export {
+  getHumanAgencyAutonomyEngineDashboard,
+  getHumanAgencyAutonomyEngineCard,
+  createHumanAgencyAutonomyEngineAuditEntry,
+} from "./human-agency-autonomy-engine";
+
+export * from "./human-dignity-humility-engine";
+export * from "./human-hope-possibility-engine";
+export * from "./human-wonder-exploration-engine";
+export * from "./human-legacy-eternal-stewardship-engine";
+export * from "./universal-stewardship-shared-futures-engine";
+export * from "./collective-wisdom-shared-learning-engine";
+export * from "./shared-purpose-contribution-engine";
+export * from "./shared-resilience-adaptive-capacity-engine";
+export * from "./shared-trust-cooperative-intelligence-engine";

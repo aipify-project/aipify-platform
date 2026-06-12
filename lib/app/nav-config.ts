@@ -75,6 +75,18 @@ export type AppNavId =
   | "multiGenerationalFuturesEngine"
   | "intergenerationalGuardianshipEngine"
   | "humanIdentityMeaningEngine"
+  | "humanCreativityImaginationEngine"
+  | "humanWisdomAugmentedJudgmentEngine"
+  | "humanAgencyAutonomyEngine"
+  | "humanDignityHumilityEngine"
+  | "humanHopePossibilityEngine"
+  | "sharedTrustCooperativeIntelligenceEngine"
+  | "sharedResilienceAdaptiveCapacityEngine"
+  | "sharedPurposeContributionEngine"
+  | "humanWonderExplorationEngine"
+  | "humanLegacyEternalStewardshipEngine"
+  | "universalStewardshipSharedFuturesEngine"
+  | "collectiveWisdomSharedLearningEngine"
   | "businessPacksFoundationEngine"
   | "industryIntelligenceFoundationEngine"
   | "marketplacePartnerEcosystemFoundationEngine"
@@ -490,6 +502,51 @@ export const APP_NAV: AppNavItem[] = [
     id: "humanIdentityMeaningEngine",
     href: "/app/human-identity-meaning-engine",
     labelKey: "customerApp.nav.humanIdentityMeaningEngine",
+  },
+  {
+    id: "humanCreativityImaginationEngine",
+    href: "/app/human-creativity-imagination-engine",
+    labelKey: "customerApp.nav.humanCreativityImaginationEngine",
+  },
+  {
+    id: "humanWisdomAugmentedJudgmentEngine",
+    href: "/app/human-wisdom-augmented-judgment-engine",
+    labelKey: "customerApp.nav.humanWisdomAugmentedJudgmentEngine",
+  },
+  {
+    id: "humanAgencyAutonomyEngine",
+    href: "/app/human-agency-autonomy-engine",
+    labelKey: "customerApp.nav.humanAgencyAutonomyEngine",
+  },
+  {
+    id: "humanDignityHumilityEngine",
+    href: "/app/human-dignity-humility-engine",
+    labelKey: "customerApp.nav.humanDignityHumilityEngine",
+  },
+  {
+    id: "humanHopePossibilityEngine",
+    href: "/app/human-hope-possibility-engine",
+    labelKey: "customerApp.nav.humanHopePossibilityEngine",
+  },
+  {
+    id: "humanWonderExplorationEngine",
+    href: "/app/human-wonder-exploration-engine",
+    labelKey: "customerApp.nav.humanWonderExplorationEngine",
+  },
+  {
+    id: "humanLegacyEternalStewardshipEngine",
+    href: "/app/human-legacy-eternal-stewardship-engine",
+    labelKey: "customerApp.nav.humanLegacyEternalStewardshipEngine",
+  },
+  {
+    id: "universalStewardshipSharedFuturesEngine",
+    href: "/app/universal-stewardship-shared-futures-engine",
+    labelKey: "customerApp.nav.universalStewardshipSharedFuturesEngine",
+  },
+  {
+    id: "collectiveWisdomSharedLearningEngine",
+    href: "/app/collective-wisdom-shared-learning-engine",
+    labelKey: "customerApp.nav.collectiveWisdomSharedLearningEngine",
   },
   {
     id: "businessPacksFoundationEngine",
@@ -1136,6 +1193,42 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/human-identity-meaning-engine")) {
     return "humanIdentityMeaningEngine";
+  }
+  if (pathname.startsWith("/app/human-creativity-imagination-engine")) {
+    return "humanCreativityImaginationEngine";
+  }
+  if (pathname.startsWith("/app/human-wisdom-augmented-judgment-engine")) {
+    return "humanWisdomAugmentedJudgmentEngine";
+  }
+  if (pathname.startsWith("/app/human-agency-autonomy-engine")) {
+    return "humanAgencyAutonomyEngine";
+  }
+  if (pathname.startsWith("/app/human-dignity-humility-engine")) {
+    return "humanDignityHumilityEngine";
+  }
+  if (pathname.startsWith("/app/human-hope-possibility-engine")) {
+    return "humanHopePossibilityEngine";
+  }
+  if (pathname.startsWith("/app/shared-trust-cooperative-intelligence-engine")) {
+    return "sharedTrustCooperativeIntelligenceEngine";
+  }
+  if (pathname.startsWith("/app/shared-resilience-adaptive-capacity-engine")) {
+    return "sharedResilienceAdaptiveCapacityEngine";
+  }
+  if (pathname.startsWith("/app/shared-purpose-contribution-engine")) {
+    return "sharedPurposeContributionEngine";
+  }
+  if (pathname.startsWith("/app/human-wonder-exploration-engine")) {
+    return "humanWonderExplorationEngine";
+  }
+  if (pathname.startsWith("/app/human-legacy-eternal-stewardship-engine")) {
+    return "humanLegacyEternalStewardshipEngine";
+  }
+  if (pathname.startsWith("/app/universal-stewardship-shared-futures-engine")) {
+    return "universalStewardshipSharedFuturesEngine";
+  }
+  if (pathname.startsWith("/app/collective-wisdom-shared-learning-engine")) {
+    return "collectiveWisdomSharedLearningEngine";
   }
   if (pathname.startsWith("/app/executive")) return "executive";
   if (

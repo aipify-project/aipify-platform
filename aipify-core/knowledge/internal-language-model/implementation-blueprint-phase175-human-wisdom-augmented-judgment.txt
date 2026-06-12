@@ -1,0 +1,7 @@
+Implementation Blueprint Phase 175 — Human Wisdom & Augmented Judgment Engine (Phase 175)
+Route: /app/human-wisdom-augmented-judgment-engine
+Era: Cosmic Stewardship & Multi-Generational Futures (171–180)
+Helpers: _hwaj_* and _hwajbp175_*
+
+People First. Companion supports — humans decide. Growth Partner — never Affiliate.
+Metadata scaffolds only. Cross-link related era engines — do not duplicate RPCs.
