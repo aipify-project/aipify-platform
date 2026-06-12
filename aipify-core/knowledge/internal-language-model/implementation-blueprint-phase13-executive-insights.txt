@@ -1,0 +1,37 @@
+IMPLEMENTATION BLUEPRINT — PHASE 13: EXECUTIVE INSIGHTS ENGINE FOUNDATION
+
+Mission: Clear executive guidance from organizational data — healthier decisions, stronger operations, sustainable growth.
+
+Philosophy: Executives need clarity, not more dashboards — surface what matters with explainable metadata summaries.
+
+ABOS principle: Clarity beats noise — explainable executive insights help leaders decide with confidence.
+
+Executive objectives: what changed, why it matters, what needs attention, what is improving, recommended actions.
+
+Overview capabilities: daily/weekly/monthly summaries, risk notifications, growth opportunities, priority recommendations.
+
+Insight categories:
+- Operational: health scores, quality findings, operations alerts, workflow bottlenecks.
+- Support: case resolution trends, escalation patterns, support AI metrics.
+- Knowledge: KC article updates, knowledge gaps, procedure coverage.
+- Companion: proactive guidance, bell moments (🔔), gratitude (🌹), reflective pacing (🦉).
+- Strategic: opportunities, alignment signals, predictive insights.
+
+Since Last Time: metadata counts since previous login or 7-day fallback — support resolved, KC updated, high-priority tasks completed, bottlenecks, bell moments. No PII.
+
+Companion examples:
+- 🔔 Your team resolved 12 support cases since your last visit — steady progress worth celebrating.
+- 🌹 Three teammates completed high-priority tasks — would you like to send recognition?
+- 🦉 Before the quarterly review — here is what changed in operations health.
+
+Self Love (A.76): perspective, sustainable decisions, team recognition, healthy prioritization — principle only, no ™. Route /app/self-love-engine.
+
+Trust: explain data sources, assumptions, contributing systems — metadata only, full audit via _eie_log.
+
+Distinct from Platform Admin /platform/executive and customer /app/executive briefings.
+
+Dogfooding: Aipify Group — weekly summaries, risk surfacing. Unonight — commerce executive visibility pilot.
+
+Preferred wording: "executive summary", "explainable insight", "leadership review", "metadata only", not "AI runs the company" or "automated executive decisions".
+
+Integration links: Analytics A.16, Operations A.9/A.32, Support A.7, KC A.5, Tasks A.62, Predictive A.66, Strategic Alignment A.55, Self Love A.76, Gratitude A.89.

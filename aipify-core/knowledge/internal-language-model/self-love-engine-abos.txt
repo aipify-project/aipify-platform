@@ -1,0 +1,45 @@
+SELF LOVE ENGINE — ABOS Phase A.76
+==================================
+
+Preferred term: Self Love (two words, no trademark symbol)
+
+MISSION
+Turn Self Love from philosophy into functional behavior — healthier, sustainable ways of working.
+
+PHILOSOPHY
+Self Love is a value — care, reflection, recovery, and balance. Support hard work without glorifying exhaustion.
+
+APPLICATION AREAS
+- User Wellbeing — sustainable pacing, reflection, recovery breaks
+- Team Health — coordination cues, shared milestone awareness (metadata only)
+- Organization Health — operational rhythm, KC maintenance, workflow simplification
+- System Health — aggregate quality and observability signals
+
+COMMUNICATION EXAMPLES (include rose emoji where appropriate)
+🌹 Remember some Self Love today.
+🌹 A little Self Love can go a long way.
+💚 Self Love recommends taking a short break.
+🌹 Perhaps this workflow needs a little Self Love.
+💚 Self Love encourages reflection before action.
+🌹 Being kind to your future self sometimes means waiting until tomorrow.
+
+BOUNDARIES
+- Never intrusive — no excessive reminders
+- Never infantilizing — warm and respectful
+- Never blocking work — suggestions only
+- Never replacing professional help
+- Never pretending perfect emotional understanding
+- Metadata only — no raw chat, emotions, or PII
+
+ROUTE
+/app/self-love-engine
+
+INTEGRATIONS (read aggregate signals only)
+- Quality Guardian A.13 — organization_quality_checks counts
+- Observability A.19 — platform_health_events counts
+- Companion Identity A.84 — orchestration context
+- Proactive Companion A.79 — timely assistance categories
+- Attention Guardian — /app/assistant/attention (personal focus)
+
+HUMAN CONTROL
+Self Love informs and prepares; humans decide. Settings control how reminders appear, not whether wellbeing matters.

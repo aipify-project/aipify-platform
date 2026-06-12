@@ -1,6 +1,6 @@
 # Aipify — Development Priority Roadmap
 
-**Version:** Updated with Self Love Engine™
+**Version:** Updated with Self Love Engine (A.76 shipped)
 
 ## Purpose
 
@@ -60,7 +60,9 @@ This roadmap defines the recommended development order for Aipify. The goal is t
 - Learning customer environments
 - Context-aware setup assistance
 
-### 7. Self Love Engine™
+### 7. Self Love Engine (A.76 shipped)
+
+**Route:** `/app/self-love-engine` · **Doc:** [SELF_LOVE_ENGINE_PHASE_A76.md](./SELF_LOVE_ENGINE_PHASE_A76.md) · **Blueprint:** [IMPLEMENTATION_BLUEPRINT_PHASE7_SELF_LOVE_FOUNDATION.md](./IMPLEMENTATION_BLUEPRINT_PHASE7_SELF_LOVE_FOUNDATION.md)
 
 **Purpose:** Aipify continuously monitors its own operational health, performs self-maintenance, attempts safe recovery actions, learns from incidents, and communicates openly about its wellbeing.
 
@@ -252,13 +254,13 @@ This section maps roadmap priorities to implemented phases in the repository. Us
 | 4. Knowledge Center | [A.5 Knowledge Center Engine](./KNOWLEDGE_CENTER_ENGINE_PHASE_A5.md) | Implemented |
 | 5. Aipify Support AI | [A.7 Support AI Engine](./SUPPORT_AI_ENGINE_PHASE_A7.md) | Implemented |
 | 6. Aipify Install Engine | [A.22 Aipify Install Engine](./AIPIFY_INSTALL_ENGINE_PHASE_A22.md) · Install Engine (Phase 17) | Implemented |
-| 7. Self Love Engine™ | — | **Not yet implemented** — recommended next phase **A.76** |
+| 7. Self Love Engine (A.76) | A.76 | **Shipped** — `/app/self-love-engine` |
 | 8. Tool Engine | [A.3 Secure AI Action Engine](./SECURE_AI_ACTION_ENGINE_PHASE_A3.md) | Implemented |
 | 9. Governance & Security Framework | [A.14 Governance & Policy Engine](./GOVERNANCE_POLICY_ENGINE_PHASE_A14.md) | Implemented |
 
 **Organization & workspace layer:** [A.75 Organization & Workspace Engine](./ORGANIZATION_WORKSPACE_ENGINE_PHASE_A75.md) adds Organization → Workspace → Users → Roles → Permissions on top of A.1/A.2 — required for enterprise department/team isolation and workspace-specific KC, support, and automations.
 
-**Self Love partial overlap (scaffold only):** [A.13 Quality Guardian Engine](./QUALITY_GUARDIAN_ENGINE_PHASE_A13.md) and [A.19 Observability & Platform Health Engine](./OBSERVABILITY_PLATFORM_HEALTH_ENGINE_PHASE_A19.md) cover operational quality and platform health monitoring, but do not implement Self Love self-healing routines, positive wellbeing communication, or KC-integrated maintenance narratives. A dedicated **A.76 Self Love Engine** should unify these concerns.
+**Self Love Engine (A.76 shipped):** [SELF_LOVE_ENGINE_PHASE_A76.md](./SELF_LOVE_ENGINE_PHASE_A76.md) unifies wellbeing across user, team, organization, and system health. [A.13 Quality Guardian Engine](./QUALITY_GUARDIAN_ENGINE_PHASE_A13.md) and [A.19 Observability & Platform Health Engine](./OBSERVABILITY_PLATFORM_HEALTH_ENGINE_PHASE_A19.md) remain authoritative for operational quality and platform health — Self Love reads aggregate counts only.
 
 ### Phase B — Business Operations Platform
 
@@ -270,7 +272,7 @@ This section maps roadmap priorities to implemented phases in the repository. Us
 | 4. Operations Center | [A.9 Operations Dashboard Engine](./OPERATIONS_DASHBOARD_ENGINE_PHASE_A9.md) · [A.32 Operations Center Foundation Engine](./OPERATIONS_CENTER_FOUNDATION_ENGINE_PHASE_A32.md) | Implemented |
 | 5. Executive Dashboard | [A.35 Executive Insights Engine](./EXECUTIVE_INSIGHTS_ENGINE_PHASE_A35.md) | Implemented |
 | 6. Analytics Engine | [A.16 Analytics & Insights Engine](./ANALYTICS_INSIGHTS_ENGINE_PHASE_A16.md) | Implemented |
-| 7. Self-Healing Support | A.13 · A.19 (partial) | Partial — overlaps Self Love roadmap intent; full self-healing support awaits A.76 |
+| 7. Self-Healing Support | A.13 · A.19 · **A.76** | Shipped — Self Love reads aggregate signals; Quality/Observability remain authoritative |
 | 8. Marketplace Foundation | [A.23 Module Marketplace Foundation Engine](./MODULE_MARKETPLACE_FOUNDATION_ENGINE_PHASE_A23.md) · [A.43 Business Packs Foundation Engine](./BUSINESS_PACKS_FOUNDATION_ENGINE_PHASE_A43.md) | Implemented |
 
 ### Phase C — Advanced Enterprise Capabilities
@@ -300,4 +302,4 @@ This section maps roadmap priorities to implemented phases in the repository. Us
 ### Recommended next steps
 
 1. **Phase A.75 — Organization & Workspace Engine** — nested workspaces, workspace-scoped permissions, and dogfood seeds for Aipify Group and Unonight (extends A.1/A.2).
-2. **Phase A.76 — Self Love Engine™** — highest-priority remaining Core Foundation gap after A.75. Should integrate with A.13 Quality Guardian, A.19 Observability, A.5 Knowledge Center, and A.3 Secure AI Actions — with human approval gates for any recovery action above low risk.
+2. **Phase A.76 — Self Love Engine** — **shipped** at `/app/self-love-engine`. Integrates with A.13 Quality Guardian, A.19 Observability, A.5 Knowledge Center, and companion engines — human approval gates for recovery actions above low risk remain in Trust & Action Engine.

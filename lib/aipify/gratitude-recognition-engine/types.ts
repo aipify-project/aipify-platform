@@ -43,6 +43,84 @@ export type RecentRosesSummary = {
   [key: string]: unknown;
 };
 
+export type SuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+  [key: string]: unknown;
+};
+
+export type RecognitionCategory = {
+  key?: string;
+  label?: string;
+  focus?: string[];
+  moment_type_keys?: string[];
+  examples?: string[];
+  [key: string]: unknown;
+};
+
+export type BellMomentsBlueprint = {
+  emoji?: string;
+  label?: string;
+  principle?: string;
+  frequency_note?: string;
+  examples?: Array<{ key?: string; text?: string; [key: string]: unknown }>;
+  disabled_when?: string[];
+  [key: string]: unknown;
+};
+
+export type RecognitionRosesBlueprint = {
+  emoji?: string;
+  label?: string;
+  principle?: string;
+  boundary_note?: string;
+  examples?: Array<{ key?: string; text?: string; [key: string]: unknown }>;
+  digital_rose_symbol?: string;
+  [key: string]: unknown;
+};
+
+export type SelfRecognitionBlueprint = {
+  principle?: string;
+  examples?: string[];
+  target_role?: string;
+  self_love_note?: string;
+  [key: string]: unknown;
+};
+
+export type SelfLoveConnection = {
+  principle?: string;
+  not_a_toggle?: boolean;
+  influences?: string[];
+  naming_doc?: string;
+  boundary_note?: string;
+  [key: string]: unknown;
+};
+
+export type TrustConnection = {
+  principle?: string;
+  prefer?: string[];
+  avoid?: string[];
+  audit_note?: string;
+  [key: string]: unknown;
+};
+
+export type OrgConfigurationBoundaries = {
+  configurable?: Array<{ key?: string; label?: string; via?: string; [key: string]: unknown }>;
+  consistent?: string[];
+  boundary_note?: string;
+  [key: string]: unknown;
+};
+
+export type ImplementationBlueprintMeta = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+  [key: string]: unknown;
+};
+
 export type GratitudeRecognitionSettings = {
   organization_id?: string;
   enabled?: boolean;
@@ -71,6 +149,18 @@ export type GratitudeRecognitionDashboard = {
   abos_principle?: string;
   vision?: string;
   distinction_note?: string;
+  implementation_blueprint?: ImplementationBlueprintMeta;
+  gratitude_recognition_engine_note?: string;
+  recognition_categories?: RecognitionCategory[];
+  bell_moments?: BellMomentsBlueprint;
+  recognition_roses?: RecognitionRosesBlueprint;
+  self_recognition?: SelfRecognitionBlueprint;
+  self_love_connection?: SelfLoveConnection;
+  trust_connection?: TrustConnection;
+  org_configuration_boundaries?: OrgConfigurationBoundaries;
+  dogfooding?: Record<string, unknown>;
+  success_criteria?: SuccessCriterion[];
+  vision_phrases?: string[];
   gratitude_moment_types?: GratitudeMomentTypeInfo[];
   red_rose_moment?: RedRoseMoment;
   boundary_phrases?: BoundaryPhrases;

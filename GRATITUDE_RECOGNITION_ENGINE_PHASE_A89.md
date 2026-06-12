@@ -41,6 +41,22 @@ ABOS engine for peer appreciation, digital rose gestures, and gratitude moments 
 
 Dashboard includes: philosophy, mission, abos_principle, vision, gratitude_moment_types, red_rose_moment, boundary_phrases, self_love_note, integration_links, settings, recent_moments, recent_roses (count only), summary.
 
+## Implementation Blueprint Phase 9
+
+**Recognition & Celebration Foundation** — [IMPLEMENTATION_BLUEPRINT_PHASE9_RECOGNITION_CELEBRATION_FOUNDATION.md](./IMPLEMENTATION_BLUEPRINT_PHASE9_RECOGNITION_CELEBRATION_FOUNDATION.md)
+
+> ABOS Blueprint Phase 9 maps to this engine (A.89) — extend, do not duplicate.
+
+Migration: `supabase/migrations/20260956000000_implementation_blueprint_phase9_recognition_celebration.sql`
+
+Blueprint dashboard fields: `implementation_blueprint`, `recognition_categories`, `bell_moments`, `recognition_roses`, `self_recognition`, `self_love_connection`, `trust_connection`, `org_configuration_boundaries`, `dogfooding`, `success_criteria`, `vision_phrases`.
+
+**Boundary:** Distinct from Presence & Comfort A.90 comfort roses — recognition roses here are peer appreciation only.
+
+ILM: `implementation-blueprint-phase9-recognition-celebration.txt` · `lib/internal-language-model/implementation-blueprint-phase9-vocabulary.ts`
+
+FAQ: `content/knowledge/aipify/gratitude-recognition-engine/faq/implementation-blueprint-phase9-faq.md`
+
 ## Code paths
 
 - `lib/core/gratitude-recognition.ts`

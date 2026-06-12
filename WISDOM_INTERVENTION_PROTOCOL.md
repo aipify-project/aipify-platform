@@ -82,6 +82,9 @@ Legacy alias: `/app/pause-reflection-protocol` → redirects to wisdom intervent
 ## Cross-links
 
 - [PAUSE_REFLECTION_PROTOCOL.md](./PAUSE_REFLECTION_PROTOCOL.md)
+- [IMPLEMENTATION_BLUEPRINT_PHASE10_WISDOM_REFLECTION_INTERVENTIONS_FOUNDATION.md](./IMPLEMENTATION_BLUEPRINT_PHASE10_WISDOM_REFLECTION_INTERVENTIONS_FOUNDATION.md) — ABOS Phase 10 spec alignment
+- Wisdom Engine A.93 — `/app/wisdom-engine` (experience synthesis; distinct)
+- Self Love A.76 — `/app/self-love-engine`
 - Presence & Comfort A.90 — emotional reassurance after difficulty
 - Purpose & Values A.80 — values-aligned communication
 

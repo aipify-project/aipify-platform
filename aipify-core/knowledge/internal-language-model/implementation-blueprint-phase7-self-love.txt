@@ -1,0 +1,36 @@
+IMPLEMENTATION BLUEPRINT — PHASE 7: SELF LOVE FOUNDATION
+=========================================================
+
+Phase: 7
+Engine: Self Love Engine (A.76)
+Route: /app/self-love-engine
+
+MISSION
+Turn Self Love from philosophy into functional behavior — healthier, sustainable ways of working.
+
+PHILOSOPHY
+Self Love is a value (not trademark); care, reflection, recovery, balance; support hard work without glorifying exhaustion.
+
+ABOS PRINCIPLE
+Systems that care for themselves are better equipped to care for others.
+
+VISION
+Self Love should be a recognizable expression of care through experience — natural, warm, human, and approachable.
+
+SUCCESS CRITERIA (LIVE)
+- Natural companion interactions with Self Love language
+- User configuration (preferences)
+- Organization workspace settings
+- Explainable recommendations with reason strings
+- System health connected via aggregate signals
+- Clarity without annoyance
+
+DOGFOODING
+- Aipify Group internal: admin workload, KC maintenance, platform health
+- Unonight pilot: support pressure, KC cleanup, workflow simplification, system health
+
+DISTINCTION
+Not Attention Guardian, LifeOS, Companion Identity orchestration, Presence & Comfort, or duplicate Quality/Observability engines.
+
+NAMING
+See SELF_LOVE_NAMING_STANDARD.md — always "Self Love" user-facing, never Self Love™.

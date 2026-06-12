@@ -60,3 +60,36 @@ Healthcare · Education · Manufacturing · Hospitality · Enterprise Governance
 ## Principle
 
 Business logic in RPCs; panels are thin clients. Metadata-only pack definitions. Tenant-scoped via `organizations.id = customers.id`.
+
+## Implementation Blueprint Phase 15 — Productization
+
+**Doc:** [IMPLEMENTATION_BLUEPRINT_PHASE15_BUSINESS_PACKS_PRODUCTIZATION_FOUNDATION.md](./IMPLEMENTATION_BLUEPRINT_PHASE15_BUSINESS_PACKS_PRODUCTIZATION_FOUNDATION.md)  
+**Migration:** `supabase/migrations/20260962000000_implementation_blueprint_phase15_business_packs_productization.sql`
+
+Productization is an **outcome-oriented presentation layer** on this engine — distinct from Commercial Packages subscription tiers.
+
+### Blueprint pack → catalog `pack_key` mapping
+
+| Blueprint pack | `pack_key` (seed) |
+|----------------|-------------------|
+| Aipify Essentials | `general_business` |
+| Aipify Support | `support_operations` |
+| Aipify Operations | `general_business` (+ operations modules in metadata) |
+| Aipify Commerce | `e_commerce` |
+| Aipify Enterprise | `enterprise_governance` (reserved) |
+
+**Rule:** Blueprint `display_name` labels only — never rename database `pack_key` seeds.
+
+### Dashboard blueprint fields (Phase 15)
+
+`implementation_blueprint`, `mission`, `packaging_principles`, `productization_packs`, `modular_addons`, `self_love_connection`, `trust_connection`, `website_presentation_principles`, `dogfooding`, `success_criteria`, `vision_phrases`, `integration_links`, `commercial_packages_distinction`
+
+### Cross-references
+
+- Module Marketplace (A.23): `/app/module-marketplace-foundation-engine`
+- Commercial Packages: `/app/settings/modules`, `/app/settings/billing`
+- Install Engine (A.22): `/app/aipify-install-engine`
+- Industry Intelligence (A.44): `/app/industry-intelligence-foundation-engine`
+- [POSITIONING_FOUNDATION.md](./POSITIONING_FOUNDATION.md)
+- KC FAQ: `content/knowledge/aipify/business-packs-foundation-engine/faq/implementation-blueprint-phase15-faq.md`
+- ILM: `implementation-blueprint-phase15-business-packs.txt`

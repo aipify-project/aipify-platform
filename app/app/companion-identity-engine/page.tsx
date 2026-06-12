@@ -48,6 +48,19 @@ export default async function CompanionIdentityEnginePage() {
           exportReport: t(`${p}.exportReport`),
           exporting: t(`${p}.exporting`),
           exportFailed: t(`${p}.exportFailed`),
+          successCriteria: t(`${p}.successCriteria`),
+          companionCharacteristics: t(`${p}.companionCharacteristics`),
+          communicationStandards: t(`${p}.communicationStandards`),
+          playfulMoments: t(`${p}.playfulMoments`),
+          playfulMomentsNote: t(`${p}.playfulMomentsNote`),
+          selfLoveImplementation: t(`${p}.selfLoveImplementation`),
+          companionMemory: t(`${p}.companionMemory`),
+          memoryAllowed: t(`${p}.memoryAllowed`),
+          memoryForbidden: t(`${p}.memoryForbidden`),
+          orgConfigBoundaries: t(`${p}.orgConfigBoundaries`),
+          orgConfigurable: t(`${p}.orgConfigurable`),
+          orgAlwaysConsistent: t(`${p}.orgAlwaysConsistent`),
+          visionPhrases: t(`${p}.visionPhrases`),
         }}
       />
     </div>

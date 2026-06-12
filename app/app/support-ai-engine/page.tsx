@@ -47,6 +47,11 @@ export default async function SupportAiEnginePage() {
           noApprovals: t(`${p}.noApprovals`),
           approve: t(`${p}.approve`),
           send: t(`${p}.send`),
+          supportTiers: t(`${p}.supportTiers`),
+          kcConnection: t(`${p}.kcConnection`),
+          successCriteria: t(`${p}.successCriteria`),
+          trustConnection: t(`${p}.trustConnection`),
+          dogfooding: t(`${p}.dogfooding`),
         }}
       />
     </div>

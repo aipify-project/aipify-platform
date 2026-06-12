@@ -14,7 +14,8 @@ export default async function BusinessPacksFoundationEnginePage() {
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t(`${p}.title`)}</h1>
         <p className="mt-2 text-gray-600">{t(`${p}.subtitle`)}</p>
       </div>
-      <BusinessPacksFoundationEngineDashboardPanel labels={{
+      <BusinessPacksFoundationEngineDashboardPanel
+        labels={{
           loading: t(`${p}.loading`),
           engineTitle: t(`${p}.engineTitle`),
           summary: t(`${p}.summary`),
@@ -27,7 +28,21 @@ export default async function BusinessPacksFoundationEnginePage() {
           activating: t(`${p}.activating`),
           activateFailed: t(`${p}.activateFailed`),
           comingSoon: t(`${p}.comingSoon`),
-        }} />
+          productizationPacks: t(`${p}.productizationPacks`),
+          productizationPacksNote: t(`${p}.productizationPacksNote`),
+          modularAddons: t(`${p}.modularAddons`),
+          packagingPrinciples: t(`${p}.packagingPrinciples`),
+          successCriteria: t(`${p}.successCriteria`),
+          selfLoveConnection: t(`${p}.selfLoveConnection`),
+          trustConnection: t(`${p}.trustConnection`),
+          websitePresentation: t(`${p}.websitePresentation`),
+          visionPhrases: t(`${p}.visionPhrases`),
+          commercialPackagesDistinction: t(`${p}.commercialPackagesDistinction`),
+          targetAudience: t(`${p}.targetAudience`),
+          mappedCatalogPack: t(`${p}.mappedCatalogPack`),
+          activateCatalogPack: t(`${p}.activateCatalogPack`),
+        }}
+      />
     </div>
   );
 }

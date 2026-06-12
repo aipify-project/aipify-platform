@@ -3,6 +3,12 @@
 Official product category: Aipify Business Operating System (ABOS)
 Official abbreviation: ABOS
 
+## Plain-language positioning
+Digital coworker — approved for hero copy and quick explanations.
+Aipify is a digital coworker that helps your business stay organized, respond faster, and work smarter.
+Formal category remains Aipify Business Operating System (ABOS).
+Full standard: POSITIONING_FOUNDATION.md · positioning-foundation-abos.txt
+
 ## Use
 Aipify Business Operating System (ABOS)
 Aipify is an Aipify Business Operating System designed to help organizations operate more efficiently.
@@ -18,6 +24,9 @@ AI helpdesk solution
 AI Business Operating System
 
 ## Self Love (ABOS capability)
+Preferred: Self Love (two words, no trademark symbol). Engine: Self Love Engine (A.76 planned).
+Avoid: Self Love™, SelfLove™, SELF LOVE™, Self Love Engine™, SelfLove in user-facing copy.
+Full standard: SELF_LOVE_NAMING_STANDARD.md · ILM self-love-naming-standard.txt · adaptReplyToSelfLoveNaming()
 Self Love is an official ABOS capability — self-awareness, self-maintenance, safe recovery, continuous learning, transparent communication.
 Systems that care for themselves are better equipped to care for others.
 Self Love never performs irreversible actions without explicit human approval.

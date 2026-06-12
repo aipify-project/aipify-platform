@@ -46,3 +46,14 @@ Dashboard sections: my tasks, team tasks, overdue, upcoming deadlines, critical,
 - **Desktop Companion (A.38):** notification hook scaffold — metadata only
 
 Metadata only — no raw chat, email, or PII in task payloads.
+
+## Implementation Blueprint Phase 12
+
+**Task & Priority Engine Foundation** extends A.62 with ABOS priority framework, companion assistance examples, Self Love connection, Bell Moments, KC and Organizational Memory links, live success criteria, and Priority & Focus Engine A.80 cross-links.
+
+- Spec: [IMPLEMENTATION_BLUEPRINT_PHASE12_TASK_PRIORITY_ENGINE_FOUNDATION.md](./IMPLEMENTATION_BLUEPRINT_PHASE12_TASK_PRIORITY_ENGINE_FOUNDATION.md)
+- Migration: `20260959000000_implementation_blueprint_phase12_task_priority_engine.sql`
+- ILM: `implementation-blueprint-phase12-task-priority.txt`, `lib/internal-language-model/implementation-blueprint-phase12-vocabulary.ts`
+- FAQ: `content/knowledge/aipify/unified-task-follow-up-engine/faq/implementation-blueprint-phase12-faq.md`
+
+Distinct from PAME personal tasks (`/app/assistant`) and Priority & Focus Engine A.80 (`/app/priority-focus-engine`) — cross-link only for priority recommendations.

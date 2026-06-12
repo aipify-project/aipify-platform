@@ -1,0 +1,33 @@
+# Self Love Naming Standard — ILM corpus
+
+Preferred: Self Love (two words, no trademark symbol)
+Engine reference: Self Love Engine (A.76 planned)
+
+## Avoid (user-facing copy)
+Self Love™
+SelfLove™
+SELF LOVE™
+Self Love Engine™
+SelfLove (one word in customer-facing text)
+
+## What Self Love is
+Self Love is a principle, value, philosophy, and reminder within ABOS — not primarily a trademarked product name.
+Purpose: balance, wellbeing, reflection, sustainable growth, compassion.
+ABOS principle: natural, warm, human, approachable — never overly commercialized.
+Vision: recognizable expression of care through experience, not heavy marketing.
+
+## Usage examples
+Perhaps this workflow needs a little Self Love.
+Remember some Self Love today.
+Self Love recommends taking a short break.
+A little Self Love can go a long way.
+Self Love encourages reflection before action.
+
+## Self Love Engine (A.76 planned)
+Scaffold only in other engines — do not build dedicated engine tables until A.76 is approved.
+Operational wellbeing monitoring, KC maintenance guidance, positive non-alarmist communication, human approval gates for recovery above low risk.
+Systems that care for themselves are better equipped to care for others.
+Self Love never performs irreversible actions without explicit human approval.
+
+## i18n
+Keys may stay selfLove* camelCase; display strings use Self Love without ™.

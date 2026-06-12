@@ -87,6 +87,42 @@ export function parseKnowledgeCenterEngineDashboard(data: unknown): KnowledgeCen
       ? (d.recent_faqs as KnowledgeCenterEngineDashboard["recent_faqs"])
       : [],
     import_formats: Array.isArray(d.import_formats) ? (d.import_formats as string[]) : undefined,
+    implementation_blueprint_phase14:
+      typeof d.implementation_blueprint_phase14 === "object" && d.implementation_blueprint_phase14
+        ? (d.implementation_blueprint_phase14 as Record<string, unknown>)
+        : undefined,
+    evolution_objectives: Array.isArray(d.evolution_objectives)
+      ? (d.evolution_objectives as string[])
+      : undefined,
+    health_indicators:
+      typeof d.health_indicators === "object" && d.health_indicators
+        ? (d.health_indicators as KnowledgeCenterEngineDashboard["health_indicators"])
+        : undefined,
+    proactive_recommendations: Array.isArray(d.proactive_recommendations)
+      ? (d.proactive_recommendations as KnowledgeCenterEngineDashboard["proactive_recommendations"])
+      : undefined,
+    creation_opportunities: Array.isArray(d.creation_opportunities)
+      ? (d.creation_opportunities as KnowledgeCenterEngineDashboard["creation_opportunities"])
+      : undefined,
+    self_love_connection:
+      typeof d.self_love_connection === "object" && d.self_love_connection
+        ? (d.self_love_connection as KnowledgeCenterEngineDashboard["self_love_connection"])
+        : undefined,
+    organizational_memory_connection:
+      typeof d.organizational_memory_connection === "object" && d.organizational_memory_connection
+        ? (d.organizational_memory_connection as KnowledgeCenterEngineDashboard["organizational_memory_connection"])
+        : undefined,
+    trust_connection:
+      typeof d.trust_connection === "object" && d.trust_connection
+        ? (d.trust_connection as KnowledgeCenterEngineDashboard["trust_connection"])
+        : undefined,
+    evolution_success_criteria: Array.isArray(d.evolution_success_criteria)
+      ? (d.evolution_success_criteria as KnowledgeCenterEngineDashboard["evolution_success_criteria"])
+      : undefined,
+    vision_phrases: Array.isArray(d.vision_phrases) ? (d.vision_phrases as string[]) : undefined,
+    integration_links: Array.isArray(d.integration_links)
+      ? (d.integration_links as KnowledgeCenterEngineDashboard["integration_links"])
+      : undefined,
     ...d,
   } as KnowledgeCenterEngineDashboard;
 }

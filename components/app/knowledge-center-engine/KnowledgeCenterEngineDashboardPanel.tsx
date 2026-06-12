@@ -107,6 +107,56 @@ export function KnowledgeCenterEngineDashboardPanel({ labels }: KnowledgeCenterE
     typeof dashboard.knowledge_evolution === "object" && dashboard.knowledge_evolution
       ? dashboard.knowledge_evolution
       : null;
+  const phase14 =
+    typeof dashboard.implementation_blueprint_phase14 === "object" && dashboard.implementation_blueprint_phase14
+      ? dashboard.implementation_blueprint_phase14
+      : null;
+  const healthIndicators =
+    typeof dashboard.health_indicators === "object" && dashboard.health_indicators
+      ? dashboard.health_indicators
+      : null;
+  const healthMeta =
+    healthIndicators && typeof healthIndicators.metadata === "object" && healthIndicators.metadata
+      ? (healthIndicators.metadata as Record<string, unknown>)
+      : null;
+  const recommendations = Array.isArray(dashboard.proactive_recommendations)
+    ? dashboard.proactive_recommendations
+    : [];
+  const creationOpportunities = Array.isArray(dashboard.creation_opportunities)
+    ? dashboard.creation_opportunities
+    : [];
+  const evolutionObjectives = Array.isArray(dashboard.evolution_objectives)
+    ? dashboard.evolution_objectives
+    : [];
+  const evolutionSuccessCriteria = Array.isArray(dashboard.evolution_success_criteria)
+    ? dashboard.evolution_success_criteria
+    : [];
+  const visionPhrases = Array.isArray(dashboard.vision_phrases) ? dashboard.vision_phrases : [];
+  const integrationLinks = Array.isArray(dashboard.integration_links) ? dashboard.integration_links : [];
+  const selfLoveConnection =
+    typeof dashboard.self_love_connection === "object" && dashboard.self_love_connection
+      ? dashboard.self_love_connection
+      : null;
+  const orgMemoryConnection =
+    typeof dashboard.organizational_memory_connection === "object" &&
+    dashboard.organizational_memory_connection
+      ? dashboard.organizational_memory_connection
+      : null;
+  const trustConnection =
+    typeof dashboard.trust_connection === "object" && dashboard.trust_connection
+      ? dashboard.trust_connection
+      : null;
+
+  function priorityClass(priority?: string) {
+    switch (priority) {
+      case "high":
+        return "border-rose-200 bg-rose-50/50";
+      case "medium":
+        return "border-amber-200 bg-amber-50/50";
+      default:
+        return "border-gray-100 bg-gray-50";
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -218,6 +268,10 @@ export function KnowledgeCenterEngineDashboardPanel({ labels }: KnowledgeCenterE
                 ["evolution_tracking_enabled", labels.evolutionTracking],
                 ["self_love_integration_enabled", labels.selfLoveIntegration],
                 ["companion_guidance_priority", labels.companionGuidance],
+                ["proactive_recommendations_enabled", labels.proactiveRecommendationsEnabled],
+                ["health_scoring_enabled", labels.healthScoringEnabled],
+                ["duplicate_detection_scaffold", labels.duplicateDetectionScaffold],
+                ["organizational_memory_sync_scaffold", labels.organizationalMemorySync],
               ] as const
             ).map(([key, label]) => (
               <li key={key}>
@@ -229,6 +283,214 @@ export function KnowledgeCenterEngineDashboardPanel({ labels }: KnowledgeCenterE
                 {labels.reviewCycle}: {evolution.review_cycle_days} {labels.days}
               </li>
             )}
+          </ul>
+        </section>
+      )}
+
+      {phase14 && (
+        <section className="rounded-xl border border-violet-200 bg-violet-50/40 p-6">
+          <h2 className="text-sm font-semibold text-violet-900">{labels.knowledgeEvolution}</h2>
+          {typeof phase14.mission === "string" && (
+            <p className="mt-2 text-sm font-medium text-violet-900">
+              <span className="text-xs text-violet-700">{labels.phase14Mission}: </span>
+              {phase14.mission}
+            </p>
+          )}
+          {typeof phase14.philosophy === "string" && (
+            <p className="mt-2 text-sm text-violet-900">
+              <span className="text-xs text-violet-700">{labels.phase14Philosophy}: </span>
+              {phase14.philosophy}
+            </p>
+          )}
+        </section>
+      )}
+
+      {evolutionObjectives.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.evolutionObjectives}</h3>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-gray-700">
+            {evolutionObjectives.map((obj) => (
+              <li key={obj}>{obj}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {healthIndicators && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.healthIndicators}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-3">
+            {(
+              [
+                ["freshness_score", labels.freshnessScore],
+                ["coverage_score", labels.coverageScore],
+                ["quality_score", labels.qualityScore],
+              ] as const
+            ).map(([key, label]) => (
+              <div key={key} className="rounded-lg border border-gray-100 bg-white p-3 text-center">
+                <p className="text-xs font-medium text-gray-600">{label}</p>
+                <p className="mt-1 text-2xl font-semibold text-gray-900">
+                  {typeof healthIndicators[key] === "number" ? healthIndicators[key] : "—"}
+                </p>
+              </div>
+            ))}
+          </div>
+          {healthMeta && (
+            <p className="mt-3 text-xs text-gray-500">
+              {labels.healthMetadata}:{" "}
+              {[
+                healthMeta.published_articles != null ? `${healthMeta.published_articles} articles` : null,
+                healthMeta.published_faqs != null ? `${healthMeta.published_faqs} FAQs` : null,
+                healthMeta.stale_articles != null ? `${healthMeta.stale_articles} stale` : null,
+                healthMeta.open_support_gaps != null ? `${healthMeta.open_support_gaps} gaps` : null,
+              ]
+                .filter(Boolean)
+                .join(" · ")}
+            </p>
+          )}
+        </section>
+      )}
+
+      <section className="rounded-lg border border-gray-200 p-4">
+        <h3 className="text-sm font-semibold">{labels.proactiveRecommendations}</h3>
+        {recommendations.length === 0 ? (
+          <p className="mt-2 text-xs text-gray-500">{labels.noRecommendations}</p>
+        ) : (
+          <ul className="mt-3 space-y-2">
+            {recommendations.map((rec) => {
+              const key = typeof rec.key === "string" ? rec.key : String(rec.title ?? "");
+              const title = typeof rec.title === "string" ? rec.title : key;
+              const explanation = typeof rec.explanation === "string" ? rec.explanation : null;
+              const source = typeof rec.source === "string" ? rec.source : null;
+              const actionHint = typeof rec.action_hint === "string" ? rec.action_hint : null;
+              const priority = typeof rec.priority === "string" ? rec.priority : undefined;
+              return (
+                <li key={key} className={`rounded-lg border px-3 py-2 text-sm ${priorityClass(priority)}`}>
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="font-medium text-gray-900">{title}</span>
+                    {rec.type ? (
+                      <span className="rounded-full bg-white px-2 py-0.5 text-xs capitalize text-gray-600">
+                        {String(rec.type).replace(/_/g, " ")}
+                      </span>
+                    ) : null}
+                  </div>
+                  {explanation && <p className="mt-1 text-xs text-gray-700">{explanation}</p>}
+                  {source && (
+                    <p className="mt-1 text-xs text-gray-500">
+                      {labels.recommendationSource}: {source}
+                    </p>
+                  )}
+                  {actionHint && (
+                    <p className="mt-1 text-xs text-indigo-700">
+                      {labels.recommendationAction}: {actionHint}
+                    </p>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </section>
+
+      {creationOpportunities.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.creationOpportunities}</h3>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {creationOpportunities.map((item) => {
+              const key = typeof item.key === "string" ? item.key : String(item.label ?? "");
+              const label = typeof item.label === "string" ? item.label : key;
+              const description = typeof item.description === "string" ? item.description : null;
+              return (
+                <div key={key} className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 text-xs">
+                  <p className="font-medium text-gray-900">{label}</p>
+                  {description && <p className="mt-1 text-gray-600">{description}</p>}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {evolutionSuccessCriteria.length > 0 && (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/30 p-4">
+          <h3 className="text-sm font-semibold text-violet-900">{labels.evolutionSuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {evolutionSuccessCriteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={label} className="flex flex-col gap-0.5">
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note && <span className="text-xs text-gray-500">{note}</span>}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {(selfLoveConnection || orgMemoryConnection || trustConnection) && (
+        <section className="grid gap-4 lg:grid-cols-3">
+          {selfLoveConnection && (
+            <div className="rounded-lg border border-gray-200 p-4">
+              <h3 className="text-sm font-semibold">{labels.selfLoveConnection}</h3>
+              {typeof selfLoveConnection.principle === "string" && (
+                <p className="mt-2 text-xs text-gray-600">{selfLoveConnection.principle}</p>
+              )}
+            </div>
+          )}
+          {orgMemoryConnection && (
+            <div className="rounded-lg border border-gray-200 p-4">
+              <h3 className="text-sm font-semibold">{labels.organizationalMemoryConnection}</h3>
+              {typeof orgMemoryConnection.principle === "string" && (
+                <p className="mt-2 text-xs text-gray-600">{orgMemoryConnection.principle}</p>
+              )}
+            </div>
+          )}
+          {trustConnection && (
+            <div className="rounded-lg border border-gray-200 p-4">
+              <h3 className="text-sm font-semibold">{labels.trustConnection}</h3>
+              {typeof trustConnection.principle === "string" && (
+                <p className="mt-2 text-xs text-gray-600">{trustConnection.principle}</p>
+              )}
+            </div>
+          )}
+        </section>
+      )}
+
+      {visionPhrases.length > 0 && (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/30 p-4">
+          <h3 className="text-sm font-semibold text-indigo-900">{labels.visionPhrases}</h3>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-indigo-800">
+            {visionPhrases.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {integrationLinks.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.integrationLinks}</h3>
+          <ul className="mt-2 space-y-1 text-sm">
+            {integrationLinks.map((link) => {
+              const route = typeof link.route === "string" ? link.route : null;
+              const label = typeof link.label === "string" ? link.label : route ?? "";
+              return (
+                <li key={label}>
+                  {route ? (
+                    <Link href={route} className="text-indigo-600 hover:underline">
+                      {label}
+                    </Link>
+                  ) : (
+                    label
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </section>
       )}

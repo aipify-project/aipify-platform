@@ -45,6 +45,17 @@ export default async function PersonalityPage() {
           whenToUse: t("customerApp.personality.playfulBell.whenToUse"),
           whenNotToUse: t("customerApp.personality.playfulBell.whenNotToUse"),
           foxExchange: t("customerApp.personality.playfulBell.foxExchange"),
+          successCriteria: t(`${p}.successCriteria`),
+          communicationPreferences: t(`${p}.communicationPreferences`),
+          harmlessMemory: t(`${p}.harmlessMemory`),
+          allowed: t(`${p}.allowed`),
+          forbidden: t(`${p}.forbidden`),
+          humorBoundaries: t(`${p}.humorBoundaries`),
+          playfulMomentsBlueprint: t(`${p}.playfulMomentsBlueprint`),
+          selfLoveConnection: t(`${p}.selfLoveConnection`),
+          trustConnection: t(`${p}.trustConnection`),
+          visionPhrases: t(`${p}.visionPhrases`),
+          mapsToMode: t(`${p}.mapsToMode`),
         }}
       />
     </div>

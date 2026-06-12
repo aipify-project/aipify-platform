@@ -1,0 +1,35 @@
+IMPLEMENTATION BLUEPRINT — PHASE 18: OPERATIONS CENTER ENGINE FOUNDATION
+
+Mission: Centralized operational experience — visibility, coordination, and control across modules.
+
+Philosophy: Operational clarity creates confidence — reduce noise, increase focus, enable informed action.
+
+ABOS principle: Reduce noise, increase focus — one operations center for cross-module operational awareness.
+
+Operational objectives: monitor activities, surface developments, coordinate teams, track priorities, identify bottlenecks, enable informed action.
+
+Module overviews (metadata counts only):
+- Support Overview: open cases, escalations, resolution trends — organization_support_cases.
+- Task Overview: high-priority, overdue, due within 7 days — organization_tasks.
+- Knowledge Overview: published, draft/review, open gaps, updates — knowledge_articles, support_ai_knowledge_gaps.
+- Executive Overview: reports, operational risks, operations concerns — executive_reports, operations_events.
+- Recognition Overview: gratitude moments, recognition opportunities, celebrations, bell moments.
+
+Since Last Time: metadata counts since previous login or 7-day fallback — support resolved, KC updated, high-priority tasks completed, bottlenecks, bell moments, recognition moments. No PII.
+
+Companion examples:
+- 🔔 Your team resolved 12 support cases since your last visit — steady progress worth noting.
+- 🌹 Three teammates completed high-priority tasks — would you like to send recognition?
+- 🦉 Before the weekly operations review — here is what changed across support, tasks, and knowledge.
+
+Self Love (A.76): reduce stress, clarify priorities, highlight accomplishments, calm not overwhelm — principle only, no ™. Route /app/self-love-engine.
+
+Trust: explain why information appears, source modules, available actions — metadata only, audit via _ocf_log.
+
+Distinct from Operations Dashboard A.9 (/app/operations-dashboard-engine), Command Center Phase 26 (/app/command-center), AOC Phase 79 (/app/operations). Executive Overview cross-links Executive Insights A.35.
+
+Dogfooding: Aipify Group — cross-module visibility, Since Last Time. Unonight — commerce operational coordination pilot.
+
+Preferred wording: "operations center", "module overview", "Since Last Time", "operational clarity", not "AI runs operations" or "automated command center".
+
+Integration links: Support A.7, Tasks A.62, KC A.5, Executive Insights A.35, Gratitude A.89, Self Love A.76, Operations Dashboard A.9, Command Center, AOC Phase 79.

@@ -72,6 +72,7 @@ export type AppNavId =
   | "aiCostGovernanceEngine"
   | "personalProductivityEngine"
   | "proactiveCompanionEngine"
+  | "selfLoveEngine"
   | "growthEvolutionEngine"
   | "priorityFocusEngine"
   | "purposeValuesEngine"
@@ -446,6 +447,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.proactiveCompanionEngine",
   },
   {
+    id: "selfLoveEngine",
+    href: "/app/self-love-engine",
+    labelKey: "customerApp.nav.selfLoveEngine",
+  },
+  {
     id: "growthEvolutionEngine",
     href: "/app/growth-evolution-engine",
     labelKey: "customerApp.nav.growthEvolutionEngine",
@@ -717,6 +723,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/proactive-companion-engine")) {
     return "proactiveCompanionEngine";
+  }
+  if (pathname.startsWith("/app/self-love-engine")) {
+    return "selfLoveEngine";
   }
   if (pathname.startsWith("/app/growth-evolution-engine")) {
     return "growthEvolutionEngine";

@@ -11,6 +11,9 @@ import {
   type SleepOnItExample,
   type WisdomInterventionDashboard,
   type WisdomInterventionSignal,
+  type CommunicationExample,
+  type InterventionScenario,
+  type AbosSuccessCriterion,
 } from "@/lib/aipify/wisdom-intervention-protocol";
 
 type Props = { labels: Record<string, string> };
@@ -136,6 +139,21 @@ export function WisdomInterventionProtocolDashboardPanel({ labels }: Props) {
   const mayNotItems = Array.isArray(boundaries.may_not) ? boundaries.may_not : [];
   const integrationLinks = dashboard.integration_links ?? {};
   const activePrompts = dashboard.active_prompts ?? [];
+  const interventionPrinciples = dashboard.intervention_principles ?? [];
+  const interventionScenarios = dashboard.intervention_scenarios ?? {};
+  const communicationExamples = dashboard.communication_examples ?? [];
+  const sleepOnItPrinciple = dashboard.sleep_on_it_principle;
+  const selfLoveConnection = dashboard.self_love_connection;
+  const trustConnection = dashboard.trust_connection;
+  const successCriteria = dashboard.success_criteria ?? [];
+  const visionPhrases = dashboard.vision_phrases ?? [];
+  const dogfooding = dashboard.dogfooding;
+
+  const scenarioEntries: Array<[string, InterventionScenario | undefined]> = [
+    ["communication", interventionScenarios.communication],
+    ["decision", interventionScenarios.decision],
+    ["operational", interventionScenarios.operational],
+  ];
 
   return (
     <div className="space-y-6">
@@ -151,7 +169,104 @@ export function WisdomInterventionProtocolDashboardPanel({ labels }: Props) {
         {dashboard.combined_protocol_note ? (
           <p className="mt-2 text-xs text-indigo-600">{dashboard.combined_protocol_note}</p>
         ) : null}
+        {dashboard.wisdom_intervention_note ? (
+          <p className="mt-1 text-xs text-indigo-600">{dashboard.wisdom_intervention_note}</p>
+        ) : null}
       </section>
+
+      {Array.isArray(successCriteria) && successCriteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h2 className="text-sm font-semibold">{labels.successCriteria}</h2>
+          <ul className="mt-3 space-y-2">
+            {successCriteria.map((item: AbosSuccessCriterion) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={item.key ?? label} className="text-sm">
+                  <span className={met ? "text-emerald-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="mt-0.5 text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {interventionPrinciples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h2 className="text-sm font-semibold">{labels.interventionPrinciples}</h2>
+          <ul className="mt-3 list-disc space-y-1 pl-4 text-sm text-gray-700">
+            {interventionPrinciples.map((principle, i) => (
+              <li key={i}>{principle}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {scenarioEntries.some(([, s]) => s?.triggers?.length) ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h2 className="text-sm font-semibold">{labels.interventionScenarios}</h2>
+          <div className="mt-3 grid gap-4 sm:grid-cols-3">
+            {scenarioEntries.map(([key, scenario]) =>
+              scenario ? (
+                <div key={key} className="rounded-lg border border-indigo-100 bg-indigo-50/30 px-3 py-3">
+                  <h3 className="text-sm font-medium text-indigo-900">{scenario.label ?? key}</h3>
+                  {scenario.triggers && scenario.triggers.length > 0 ? (
+                    <ul className="mt-2 list-disc space-y-1 pl-4 text-xs text-gray-700">
+                      {scenario.triggers.map((trigger, i) => (
+                        <li key={i}>{trigger}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  {scenario.examples && scenario.examples.length > 0 ? (
+                    <ul className="mt-2 space-y-1 text-xs italic text-indigo-800">
+                      {scenario.examples.map((ex, i) => (
+                        <li key={i}>{ex}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </div>
+              ) : null
+            )}
+          </div>
+        </section>
+      ) : null}
+
+      {communicationExamples.length > 0 ? (
+        <section className="rounded-xl border border-amber-100 bg-amber-50/40 p-6">
+          <h2 className="text-sm font-semibold">{labels.communicationExamples}</h2>
+          <ul className="mt-3 space-y-2">
+            {communicationExamples.map((item: CommunicationExample, i) => (
+              <li key={i} className="rounded-lg border border-amber-100 bg-white px-3 py-2 text-sm">
+                {item.emoji ? `${item.emoji} ` : ""}
+                {item.example}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {sleepOnItPrinciple ? (
+        <section className="rounded-xl border border-sky-200 bg-sky-50/40 p-6">
+          <h2 className="text-sm font-semibold">{labels.sleepOnItPrinciple}</h2>
+          {sleepOnItPrinciple.principle ? (
+            <p className="mt-2 text-sm text-sky-900">{sleepOnItPrinciple.principle}</p>
+          ) : null}
+          {sleepOnItPrinciple.practices && sleepOnItPrinciple.practices.length > 0 ? (
+            <ul className="mt-3 list-disc space-y-1 pl-4 text-sm text-gray-700">
+              {sleepOnItPrinciple.practices.map((practice, i) => (
+                <li key={i}>{practice}</li>
+              ))}
+            </ul>
+          ) : null}
+          {sleepOnItPrinciple.note ? (
+            <p className="mt-2 text-xs italic text-sky-800">{sleepOnItPrinciple.note}</p>
+          ) : null}
+        </section>
+      ) : null}
 
       {actionError && (
         <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{actionError}</div>
@@ -341,8 +456,80 @@ export function WisdomInterventionProtocolDashboardPanel({ labels }: Props) {
       {dashboard.self_love_note || dashboard.wisdom_engine_note ? (
         <section className="rounded-xl border border-gray-100 bg-gray-50 p-4 text-xs text-gray-600">
           {dashboard.self_love_note ? <p>{dashboard.self_love_note}</p> : null}
+          {selfLoveConnection?.principle ? <p className="mt-2">{selfLoveConnection.principle}</p> : null}
+          {selfLoveConnection?.examples && selfLoveConnection.examples.length > 0 ? (
+            <ul className="mt-2 list-disc space-y-1 pl-4">
+              {selfLoveConnection.examples.map((ex, i) => (
+                <li key={i}>{ex}</li>
+              ))}
+            </ul>
+          ) : null}
           {dashboard.wisdom_engine_note ? <p className="mt-2">{dashboard.wisdom_engine_note}</p> : null}
           {dashboard.trust_note ? <p className="mt-2">{dashboard.trust_note}</p> : null}
+        </section>
+      ) : null}
+
+      {trustConnection ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h2 className="text-sm font-semibold">{labels.trustConnection}</h2>
+          {trustConnection.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{trustConnection.principle}</p>
+          ) : null}
+          {trustConnection.qualities && trustConnection.qualities.length > 0 ? (
+            <ul className="mt-3 list-disc space-y-1 pl-4 text-sm text-gray-600">
+              {trustConnection.qualities.map((q, i) => (
+                <li key={i}>{q}</li>
+              ))}
+            </ul>
+          ) : null}
+          {trustConnection.autonomy_note ? (
+            <p className="mt-3 text-xs text-gray-500">{trustConnection.autonomy_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {visionPhrases.length > 0 ? (
+        <section className="rounded-xl border border-indigo-100 bg-indigo-50/30 p-4">
+          <h2 className="text-sm font-semibold">{labels.visionPhrases}</h2>
+          <ul className="mt-2 space-y-2">
+            {visionPhrases.map((item, i) => (
+              <li key={i} className="text-sm italic text-indigo-900">
+                {item.emoji ? `${item.emoji} ` : ""}
+                {item.phrase}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dogfooding ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h2 className="text-sm font-semibold">{labels.dogfooding}</h2>
+          {dogfooding.principle ? <p className="mt-2 text-sm text-gray-700">{dogfooding.principle}</p> : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dogfooding.aipify_group ? (
+              <div className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                <p className="font-medium">Aipify Group ({dogfooding.aipify_group.slug})</p>
+                <p className="text-xs text-gray-600">{dogfooding.aipify_group.role}</p>
+                {dogfooding.aipify_group.focus?.map((f, i) => (
+                  <p key={i} className="mt-1 text-xs text-gray-500">
+                    · {f}
+                  </p>
+                ))}
+              </div>
+            ) : null}
+            {dogfooding.unonight ? (
+              <div className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                <p className="font-medium">Unonight ({dogfooding.unonight.slug})</p>
+                <p className="text-xs text-gray-600">{dogfooding.unonight.role}</p>
+                {dogfooding.unonight.focus?.map((f, i) => (
+                  <p key={i} className="mt-1 text-xs text-gray-500">
+                    · {f}
+                  </p>
+                ))}
+              </div>
+            ) : null}
+          </div>
         </section>
       ) : null}
 

@@ -102,6 +102,79 @@ export type BellMomentResult = {
   metadata_only?: boolean;
 };
 
+export type SuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+};
+
+export type ImplementationObjective = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type CommunicationPreference = {
+  key?: string;
+  label?: string;
+  maps_to_mode?: string;
+  description?: string;
+  recommended?: boolean;
+};
+
+export type HarmlessMemoryPrinciples = {
+  principle?: string;
+  allowed?: string[];
+  forbidden?: string[];
+  storage?: string;
+  metadata_only?: boolean;
+};
+
+export type PlayfulMomentType = {
+  key?: string;
+  emoji?: string;
+  label?: string;
+  description?: string;
+};
+
+export type BlueprintPlayfulMoments = {
+  types?: PlayfulMomentType[];
+  fox_exchange?: FoxExchange;
+  boundary_note?: string;
+};
+
+export type HumorBoundaries = {
+  never?: string[];
+  timing_note?: string;
+  principle?: string;
+};
+
+export type SelfLoveConnection = {
+  principle?: string;
+  influences?: string[];
+  naming_doc?: string;
+  naming_note?: string;
+};
+
+export type TrustConnection = {
+  principle?: string;
+  avoid?: string[];
+  prefer?: string[];
+};
+
+export type DogfoodingInfo = {
+  principle?: string;
+  aipify_group?: { slug?: string; role?: string; focus?: string[] };
+  unonight?: { slug?: string; role?: string; focus?: string[] };
+};
+
+export type ImplementationBlueprintMeta = {
+  phase?: string;
+  doc?: string;
+  distinction?: string;
+};
+
 export type PersonalityCard = {
   has_customer: boolean;
   personality_mode?: string;
@@ -115,6 +188,8 @@ export type PersonalityCard = {
   playful_moments_enabled?: boolean;
   bell_moments_enabled?: boolean;
   playful_moments_seed?: PlayfulMomentsSeed;
+  implementation_blueprint?: ImplementationBlueprintMeta;
+  humor_personal_connection_note?: string;
 };
 
 export type PersonalityDashboard = {
@@ -155,6 +230,18 @@ export type PersonalityDashboard = {
   safeguards?: Record<string, boolean>;
   distinction_note?: string;
   playful_moments_seed?: PlayfulMomentsSeed;
+  implementation_blueprint?: ImplementationBlueprintMeta;
+  humor_personal_connection_note?: string;
+  implementation_objectives?: ImplementationObjective[];
+  communication_preferences?: CommunicationPreference[];
+  harmless_memory_principles?: HarmlessMemoryPrinciples;
+  playful_moments?: BlueprintPlayfulMoments;
+  humor_boundaries?: HumorBoundaries;
+  self_love_connection?: SelfLoveConnection;
+  trust_connection?: TrustConnection;
+  dogfooding?: DogfoodingInfo;
+  success_criteria?: SuccessCriterion[];
+  vision_phrases?: string[];
 };
 
 export type PersonalitySettingsResult = {

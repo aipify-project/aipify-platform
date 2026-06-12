@@ -47,6 +47,13 @@ export default async function UnifiedTaskFollowUpEnginePage() {
           defaultTaskTitle: t(`${p}.defaultTaskTitle`),
           defaultTaskDescription: t(`${p}.defaultTaskDescription`),
           defaultEscalationReason: t(`${p}.defaultEscalationReason`),
+          successCriteria: t(`${p}.successCriteria`),
+          taskObjectives: t(`${p}.taskObjectives`),
+          priorityFramework: t(`${p}.priorityFramework`),
+          companionAssistance: t(`${p}.companionAssistance`),
+          bellMoments: t(`${p}.bellMoments`),
+          integrationLinks: t(`${p}.integrationLinks`),
+          visionPhrases: t(`${p}.visionPhrases`),
         }} />
     </div>
   );

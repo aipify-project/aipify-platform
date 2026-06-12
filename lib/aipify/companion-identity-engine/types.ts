@@ -31,6 +31,72 @@ export type FoxExchangeExample = {
   [key: string]: unknown;
 };
 
+export type SuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+  [key: string]: unknown;
+};
+
+export type CompanionCharacteristic = {
+  key?: string;
+  emoji?: string;
+  label?: string;
+  description?: string;
+  route?: string | null;
+  doc?: string;
+  phase?: string;
+  principle_note?: string;
+  [key: string]: unknown;
+};
+
+export type CommunicationStandard = {
+  key?: string;
+  label?: string;
+  rule?: string;
+  [key: string]: unknown;
+};
+
+export type PlayfulMoment = {
+  key?: string;
+  emoji?: string;
+  label?: string;
+  description?: string;
+  [key: string]: unknown;
+};
+
+export type SelfLoveImplementation = {
+  principle?: string;
+  not_a_toggle?: boolean;
+  boundary_note?: string;
+  influences?: string[];
+  naming_doc?: string;
+  [key: string]: unknown;
+};
+
+export type CompanionMemoryRules = {
+  principle?: string;
+  allowed?: string[];
+  forbidden?: string[];
+  metadata_only?: boolean;
+  [key: string]: unknown;
+};
+
+export type OrgConfigurationBoundaries = {
+  configurable?: { key?: string; label?: string; via?: string }[];
+  consistent?: string[];
+  boundary_note?: string;
+  [key: string]: unknown;
+};
+
+export type ImplementationBlueprintMeta = {
+  phase?: string;
+  doc?: string;
+  distinction?: string;
+  [key: string]: unknown;
+};
+
 export type CapabilityGapExamples = {
   avoid?: string[];
   prefer?: string[];
@@ -58,6 +124,8 @@ export type CompanionIdentityEngineCard = {
   learning_journey_philosophy?: string;
   vision_rose_phrase?: string;
   learning_journey_standard_note?: string;
+  implementation_blueprint?: ImplementationBlueprintMeta;
+  companion_identity_engine_note?: string;
   [key: string]: unknown;
 };
 
@@ -85,6 +153,17 @@ export type CompanionIdentityEngineDashboard = {
   summary?: Record<string, unknown>;
   integration_links?: Record<string, unknown>;
   permissions?: Record<string, unknown>;
+  implementation_blueprint?: ImplementationBlueprintMeta;
+  companion_identity_engine_note?: string;
+  companion_characteristics?: CompanionCharacteristic[];
+  communication_standards?: CommunicationStandard[];
+  playful_moments?: PlayfulMoment[];
+  self_love_implementation?: SelfLoveImplementation;
+  companion_memory_rules?: CompanionMemoryRules;
+  org_configuration_boundaries?: OrgConfigurationBoundaries;
+  dogfooding?: Record<string, unknown>;
+  success_criteria?: SuccessCriterion[];
+  vision_phrases?: string[];
   [key: string]: unknown;
 };
 

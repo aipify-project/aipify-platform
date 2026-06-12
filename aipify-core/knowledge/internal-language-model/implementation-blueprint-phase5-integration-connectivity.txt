@@ -1,0 +1,29 @@
+IMPLEMENTATION BLUEPRINT — PHASE 5: INTEGRATION & CONNECTIVITY FOUNDATION
+
+Mission: Secure, scalable, extensible integration framework connecting Aipify to systems organizations already use.
+
+Philosophy: Meet organizations where they work. Reduce friction. Technology adapts to people.
+
+ABOS principle: Technology should adapt to people. Integrations extend existing workflows — not replace them.
+
+Integration principles: secure, transparent, permission-aware, auditable, easy to configure and disable.
+
+Platform priorities: Commerce (Shopify, WooCommerce, WordPress), Communication (Gmail, Outlook, Slack, Teams), Productivity (Google/MS Calendar, tasks), Support (Native Aipify, future ticketing).
+
+Install connection: detect systems, recommend integrations, guide setup, validate connectivity — via Install & Adoption Engine and Install Wizard.
+
+Permission requirements: explicit consent, scoped integrations.* permissions, approval for sensitive scopes, access reviews, revocation.
+
+Audit: established, granted, revoked, sync events, failures, approvals — organization_audit_logs and integration_sync_logs.
+
+Self Love (A.76 scaffold): reduce integration burden, minimize duplicate work — scaffold only; Integration Engine does not store wellbeing content.
+
+Trust: transparency on connected systems, shared info, actions, disable path.
+
+Connector architecture: modular — catalog, credentials, sync, webhooks, audit per connector.
+
+Dogfooding: Aipify Group — Gmail, Google Calendar, KC sync. Unonight — Shopify (planned), support workflows.
+
+Preferred wording: "connect securely", "permission-aware integration", "disable when needed", "metadata only by default", not "automatic full access" or "replace your systems".
+
+Gaps (scaffold only): Gmail/Outlook/Slack/Teams connectors, Shopify live connector, Self Love A.76 full integration, automated access review scheduling.

@@ -54,6 +54,47 @@ export type KnowledgeEvolutionSettings = {
   self_love_integration_enabled?: boolean;
   review_cycle_days?: number;
   companion_guidance_priority?: boolean;
+  proactive_recommendations_enabled?: boolean;
+  health_scoring_enabled?: boolean;
+  duplicate_detection_scaffold?: boolean;
+  organizational_memory_sync_scaffold?: boolean;
+  creation_opportunity_tracking_scaffold?: boolean;
+  [key: string]: unknown;
+};
+
+export type KnowledgeHealthIndicators = {
+  freshness_score?: number;
+  coverage_score?: number;
+  quality_score?: number;
+  metadata?: Record<string, unknown>;
+  [key: string]: unknown;
+};
+
+export type KnowledgeEvolutionRecommendation = {
+  key?: string;
+  type?: string;
+  priority?: string;
+  title?: string;
+  explanation?: string;
+  source?: string;
+  action_hint?: string;
+  article_id?: string;
+  [key: string]: unknown;
+};
+
+export type KnowledgeCreationOpportunity = {
+  key?: string;
+  label?: string;
+  description?: string;
+  source?: string;
+  action?: string;
+  [key: string]: unknown;
+};
+
+export type EvolutionConnectionBlueprint = {
+  principle?: string;
+  flows?: { key?: string; action?: string }[];
+  boundary_note?: string;
   [key: string]: unknown;
 };
 
@@ -87,6 +128,17 @@ export type KnowledgeCenterEngineDashboard = {
   dogfooding?: Record<string, unknown>;
   success_criteria?: BlueprintSuccessCriterion[];
   blueprint_integration_links?: { label?: string; route?: string }[];
+  implementation_blueprint_phase14?: Record<string, unknown>;
+  evolution_objectives?: string[];
+  health_indicators?: KnowledgeHealthIndicators;
+  proactive_recommendations?: KnowledgeEvolutionRecommendation[];
+  creation_opportunities?: KnowledgeCreationOpportunity[];
+  self_love_connection?: EvolutionConnectionBlueprint;
+  organizational_memory_connection?: EvolutionConnectionBlueprint;
+  trust_connection?: EvolutionConnectionBlueprint;
+  evolution_success_criteria?: BlueprintSuccessCriterion[];
+  vision_phrases?: string[];
+  integration_links?: { label?: string; route?: string; note?: string }[];
   organization?: Record<string, unknown>;
   published_articles?: number;
   drafts_awaiting_review?: number;

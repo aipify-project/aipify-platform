@@ -20,6 +20,7 @@ export default async function QualityGuardianEnginePage() {
           qualityGuardian: t(`${p}.qualityGuardian`),
           supportAi: t(`${p}.supportAi`),
           knowledgeCenter: t(`${p}.knowledgeCenter`),
+          governancePolicy: t(`${p}.governancePolicy`),
           operationsDashboard: t(`${p}.operationsDashboard`),
           secureAiActions: t(`${p}.secureAiActions`),
           runScan: t(`${p}.runScan`),
@@ -38,6 +39,18 @@ export default async function QualityGuardianEnginePage() {
           reject: t(`${p}.reject`),
           recentlyResolved: t(`${p}.recentlyResolved`),
           principles: t(`${p}.principles`),
+          governanceSummary: t(`${p}.governanceSummary`),
+          configureGovernance: t(`${p}.configureGovernance`),
+          activePolicies: t(`${p}.activePolicies`),
+          openViolations: t(`${p}.openViolations`),
+          pendingApprovals: t(`${p}.pendingApprovals`),
+          autonomyLevel: t(`${p}.autonomyLevel`),
+          reviewCadence: t(`${p}.reviewCadence`),
+          days: t(`${p}.days`),
+          companionQualityPrinciples: t(`${p}.companionQualityPrinciples`),
+          successCriteria: t(`${p}.successCriteria`),
+          trustConnection: t(`${p}.trustConnection`),
+          dogfooding: t(`${p}.dogfooding`),
         }}
       />
     </div>

@@ -55,6 +55,15 @@ export default async function GratitudeRecognitionEnginePage() {
           exportReport: t(`${p}.exportReport`),
           exporting: t(`${p}.exporting`),
           exportFailed: t(`${p}.exportFailed`),
+          successCriteria: t(`${p}.successCriteria`),
+          recognitionCategories: t(`${p}.recognitionCategories`),
+          bellMoments: t(`${p}.bellMoments`),
+          recognitionRoses: t(`${p}.recognitionRoses`),
+          selfRecognition: t(`${p}.selfRecognition`),
+          selfLoveConnection: t(`${p}.selfLoveConnection`),
+          trustConnection: t(`${p}.trustConnection`),
+          orgConfiguration: t(`${p}.orgConfiguration`),
+          visionPhrases: t(`${p}.visionPhrases`),
         }}
       />
     </div>

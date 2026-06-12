@@ -6,9 +6,9 @@ This document defines **ABOS** — the product architecture framing for Aipify. 
 
 **Governance order:** [CORE_FOUNDATION.md](./CORE_FOUNDATION.md) → [OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md) → **ABOS (this document)** → [ARCHITECTURE.md](./ARCHITECTURE.md) → Implementation → Skills
 
-**Related:** [DEVELOPMENT_PRIORITY_ROADMAP.md](./DEVELOPMENT_PRIORITY_ROADMAP.md) · [HUMAN_VALUES_CHARTER.md](./HUMAN_VALUES_CHARTER.md) · [INCLUSION_HUMANITY_ENGINE_PHASE_A83.md](./INCLUSION_HUMANITY_ENGINE_PHASE_A83.md) · [BRAND_IDENTITY_PERSONHOOD_STANDARD.md](./BRAND_IDENTITY_PERSONHOOD_STANDARD.md) · [INTERNAL_LANGUAGE_MODEL.md](./INTERNAL_LANGUAGE_MODEL.md)
+**Related:** [DEVELOPMENT_PRIORITY_ROADMAP.md](./DEVELOPMENT_PRIORITY_ROADMAP.md) · [POSITIONING_FOUNDATION.md](./POSITIONING_FOUNDATION.md) · [HUMAN_VALUES_CHARTER.md](./HUMAN_VALUES_CHARTER.md) · [INCLUSION_HUMANITY_ENGINE_PHASE_A83.md](./INCLUSION_HUMANITY_ENGINE_PHASE_A83.md) · [BRAND_IDENTITY_PERSONHOOD_STANDARD.md](./BRAND_IDENTITY_PERSONHOOD_STANDARD.md) · [INTERNAL_LANGUAGE_MODEL.md](./INTERNAL_LANGUAGE_MODEL.md)
 
-ILM corpus: `aipify-core/knowledge/internal-language-model/abos-foundation.txt` · Code: `lib/internal-language-model/abos-vocabulary.ts`
+ILM corpus: `aipify-core/knowledge/internal-language-model/abos-foundation.txt` · Code: `lib/internal-language-model/abos-vocabulary.ts` · Positioning: `positioning-foundation-abos.txt` · `lib/internal-language-model/positioning-foundation-vocabulary.ts`
 
 ---
 
@@ -27,6 +27,8 @@ KC article: `content/knowledge/aipify/abos/articles/human-values-charter.md`
 ---
 
 ## 1. What is ABOS?
+
+**Plain language:** Aipify is a **digital coworker** for business. See [POSITIONING_FOUNDATION.md](./POSITIONING_FOUNDATION.md) for hero copy, outcomes, and website messaging.
 
 **Aipify Business Operating System (ABOS)** is the coordinated product architecture for how Aipify operates inside customer organizations.
 
@@ -60,7 +62,7 @@ ABOS organizes Aipify capabilities into six pillars. Each pillar maps to impleme
 
 **Knowledge** — Organizations need one place for approved documentation, FAQs, business DNA, employee knowledge, and organizational memory. Knowledge powers Support AI, Admin Assistant, and every explainable recommendation. Raw customer content is never stored without approval.
 
-**Assistance** — Aipify augments administrators, support staff, and individual users through assistants that understand context — not command syntax. Assistance includes operational modules (admin, support), **Proactive Companion Engine (A.79)** for timely organizational nudges with human control, **Priority & Focus Engine (A.80)** for organizational priority dimensions and P1–P4 focus support, and personal companion capabilities (memory, life, relationships, identity). **Self Love Engine™ (A.76, planned)** is a core ABOS assistance capability: Aipify maintains its own operational wellbeing — quality checks, health narratives, and gentle recovery guidance — so the platform can better support others.
+**Assistance** — Aipify augments administrators, support staff, and individual users through assistants that understand context — not command syntax. Assistance includes operational modules (admin, support), **Proactive Companion Engine (A.79)** for timely organizational nudges with human control, **Priority & Focus Engine (A.80)** for organizational priority dimensions and P1–P4 focus support, and personal companion capabilities (memory, life, relationships, identity). **Self Love Engine (A.76, planned)** is a core ABOS assistance capability: Aipify maintains its own operational wellbeing — quality checks, health narratives, and gentle recovery guidance — so the platform can better support others.
 
 **Automation** — Repetitive, reversible work may run within approved boundaries. High-risk and critical actions require explicit human approval. Automation never bypasses governance or tenant isolation.
 
@@ -90,7 +92,7 @@ Full mapping of ABOS pillars to A-phases and related engines in this repository.
 | | Personal Assistant Memory (PAME) | [ASSISTANT_MEMORY_ENGINE.md](./ASSISTANT_MEMORY_ENGINE.md) |
 | | LifeOS · RSI · Identity · Context · GDE · TAG · DSE | Companion assistant modules under `/app/assistant/*` |
 | | A.78 Relationship Intelligence Engine (organizational) | [RELATIONSHIP_INTELLIGENCE_ENGINE.md](./RELATIONSHIP_INTELLIGENCE_ENGINE.md) — tenant-level; distinct from personal RSI |
-| | **A.76 Self Love Engine™ (planned)** | Roadmap — [DEVELOPMENT_PRIORITY_ROADMAP.md](./DEVELOPMENT_PRIORITY_ROADMAP.md) |
+| | **A.76 Self Love Engine (planned)** | Roadmap — [DEVELOPMENT_PRIORITY_ROADMAP.md](./DEVELOPMENT_PRIORITY_ROADMAP.md) |
 | **Automation** | A.3 Secure AI Action Engine | [SECURE_AI_ACTION_ENGINE_PHASE_A3.md](./SECURE_AI_ACTION_ENGINE_PHASE_A3.md) |
 | | Autonomous Execution Framework (AEF) | [AUTONOMOUS_EXECUTION_FRAMEWORK.md](./AUTONOMOUS_EXECUTION_FRAMEWORK.md) |
 | | Autonomous Support Operations (ASO) | [AUTONOMOUS_SUPPORT_OPERATIONS.md](./AUTONOMOUS_SUPPORT_OPERATIONS.md) |
@@ -120,7 +122,9 @@ Foundation phases A.1 (Multi-Tenant) underpin all pillars.
 
 ## 4. Self Love within ABOS
 
-**Self Love Engine™** is a planned core ABOS capability (Phase **A.76**). It is not a separate product — it is how ABOS maintains operational wellbeing.
+**Self Love Engine (A.76 planned)** is a planned core ABOS capability (Phase **A.76**). It is not a separate product — it is how ABOS maintains operational wellbeing.
+
+Naming: [SELF_LOVE_NAMING_STANDARD.md](./SELF_LOVE_NAMING_STANDARD.md) — use **Self Love** (two words, no ™) in all user-facing copy.
 
 Self Love covers:
 
@@ -211,7 +215,7 @@ Category seed: migration `20260919000000_abos_foundation_knowledge_seed.sql`
 | Embedded `/api/install/*`, `/api/embed/*` | Install-first operational delivery |
 | Platform `/platform/*` | Global governance — never customer daily workspace |
 | ILM `lib/internal-language-model/` | Preferred ABOS phrasing in assistant and system copy |
-| Marketing & KC | Consistent "Aipify Business Operating System (ABOS)" positioning |
+| Marketing & KC | [POSITIONING_FOUNDATION.md](./POSITIONING_FOUNDATION.md) — digital coworker (plain) + ABOS (formal) |
 
 ---
 
@@ -226,4 +230,5 @@ Category seed: migration `20260919000000_abos_foundation_knowledge_seed.sql`
 | [HUMAN_VALUES_CHARTER.md](./HUMAN_VALUES_CHARTER.md) | Cultural foundation — dignity, inclusion, respect |
 | [INCLUSION_HUMANITY_ENGINE.md](./INCLUSION_HUMANITY_ENGINE.md) | Operational inclusion and de-escalation (A.83) |
 | [INTERNAL_LANGUAGE_MODEL.md](./INTERNAL_LANGUAGE_MODEL.md) | ILM corpus and detection |
+| [SELF_LOVE_NAMING_STANDARD.md](./SELF_LOVE_NAMING_STANDARD.md) | Self Love preferred wording — no ™ |
 | [INSTALL_ENGINE.md](./INSTALL_ENGINE.md) | Install-first runtime |

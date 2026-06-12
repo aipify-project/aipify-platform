@@ -84,29 +84,53 @@ export function QualityGuardianEngineDashboardPanel({
   if (!dashboard?.has_organization) return null;
 
   const trends = dashboard.trends ?? {};
+  const governance = dashboard.governance_summary ?? {};
+  const integrationLinks = dashboard.integration_links ?? [];
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap gap-2">
-        <Link href="/app/support-ai-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.supportAi}
-        </Link>
-        <Link href="/app/knowledge-center-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.knowledgeCenter}
-        </Link>
-        <Link href="/app/operations-dashboard-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.operationsDashboard}
-        </Link>
-        <Link href="/app/secure-ai-actions" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.secureAiActions}
-        </Link>
-      </div>
+      {integrationLinks.length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {integrationLinks.map((link) =>
+            typeof link.route === "string" && link.route.startsWith("/") ? (
+              <Link
+                key={link.key ?? link.route}
+                href={link.route}
+                className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm"
+              >
+                {link.label ?? link.key?.replace(/_/g, " ")}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : (
+        <div className="flex flex-wrap gap-2">
+          <Link href="/app/support-ai-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.supportAi}
+          </Link>
+          <Link href="/app/knowledge-center-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.knowledgeCenter}
+          </Link>
+          <Link href="/app/governance-policy-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.governancePolicy}
+          </Link>
+          <Link href="/app/secure-ai-actions" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.secureAiActions}
+          </Link>
+        </div>
+      )}
 
       <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <h2 className="text-sm font-semibold text-violet-900">{labels.qualityGuardian}</h2>
+            {dashboard.mission ? (
+              <p className="mt-2 text-sm font-medium text-violet-900">{dashboard.mission}</p>
+            ) : null}
             <p className="mt-2 text-sm text-violet-900">{dashboard.philosophy}</p>
+            {dashboard.abos_principle ? (
+              <p className="mt-2 text-xs text-violet-800">{dashboard.abos_principle}</p>
+            ) : null}
             <p className="mt-1 text-xs text-violet-700">{dashboard.safety_note}</p>
           </div>
           <button
@@ -119,6 +143,110 @@ export function QualityGuardianEngineDashboardPanel({
           </button>
         </div>
       </section>
+
+      {governance && typeof governance.active_policies === "number" ? (
+        <section className="rounded-xl border border-sky-200 bg-sky-50/50 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h3 className="text-sm font-semibold text-sky-900">{labels.governanceSummary}</h3>
+              {typeof governance.note === "string" ? (
+                <p className="mt-1 text-xs text-sky-700">{governance.note}</p>
+              ) : null}
+            </div>
+            {typeof governance.governance_route === "string" ? (
+              <Link
+                href={governance.governance_route}
+                className="rounded-lg border border-sky-300 bg-white px-3 py-1.5 text-xs text-sky-900"
+              >
+                {labels.configureGovernance}
+              </Link>
+            ) : null}
+          </div>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-lg border border-sky-100 bg-white p-3">
+              <p className="text-xs font-medium text-gray-700">{labels.activePolicies}</p>
+              <p className="mt-1 text-2xl font-semibold text-gray-900">{governance.active_policies ?? 0}</p>
+            </div>
+            <div className="rounded-lg border border-sky-100 bg-white p-3">
+              <p className="text-xs font-medium text-gray-700">{labels.openViolations}</p>
+              <p className="mt-1 text-2xl font-semibold text-gray-900">{governance.open_violations ?? 0}</p>
+            </div>
+            <div className="rounded-lg border border-sky-100 bg-white p-3">
+              <p className="text-xs font-medium text-gray-700">{labels.pendingApprovals}</p>
+              <p className="mt-1 text-2xl font-semibold text-gray-900">{governance.pending_approvals ?? 0}</p>
+            </div>
+            <div className="rounded-lg border border-sky-100 bg-white p-3">
+              <p className="text-xs font-medium text-gray-700">{labels.autonomyLevel}</p>
+              <p className="mt-1 text-sm font-semibold capitalize text-gray-900">
+                {(governance.ai_autonomy_level ?? "—").replace(/_/g, " ")}
+              </p>
+              <p className="mt-1 text-xs text-gray-500">
+                {labels.reviewCadence}: {governance.review_cadence_days ?? "—"} {labels.days}
+              </p>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {(dashboard.companion_quality_principles?.length ?? 0) > 0 && (
+        <section className="rounded-xl border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionQualityPrinciples}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {dashboard.companion_quality_principles!.map((principle) => (
+              <li key={principle.key} className="rounded-lg border border-gray-100 p-3 text-sm">
+                <span className="mr-1">{principle.emoji}</span>
+                <span className="text-gray-900">{principle.label}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {Array.isArray(dashboard.success_criteria) && dashboard.success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.successCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.trust_connection ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.trustConnection}</h3>
+          {dashboard.trust_connection.principle ? (
+            <p className="mt-2 text-gray-600">{dashboard.trust_connection.principle}</p>
+          ) : null}
+          {dashboard.trust_connection.audit_note ? (
+            <p className="mt-2 text-xs text-gray-500">{dashboard.trust_connection.audit_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.self_love_note ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          {dashboard.self_love_note}
+        </section>
+      ) : null}
+
+      {dashboard.dogfooding ? (
+        <section className="rounded-lg border border-gray-100 bg-gray-50 px-4 py-3 text-xs text-gray-600">
+          <span className="font-semibold text-gray-800">{labels.dogfooding}: </span>
+          {dashboard.dogfooding.principle}
+        </section>
+      ) : null}
 
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-lg border border-gray-100 bg-white p-3">

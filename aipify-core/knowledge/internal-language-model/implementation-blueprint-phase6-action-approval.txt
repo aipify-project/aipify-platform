@@ -1,0 +1,30 @@
+IMPLEMENTATION BLUEPRINT — PHASE 6: ACTION & APPROVAL FOUNDATION
+
+Mission: Allow Aipify to automate and perform approved actions while ensuring humans remain informed and empowered.
+
+Philosophy: Assist. Recommend. Execute responsibly. Never perform irreversible or sensitive actions without appropriate authorization.
+
+Action categories (ABOS blueprint):
+- Low risk: draft responses, create reminders, organize information, generate reports, recommend knowledge articles — automatic execution permitted (Trust Action levels 0–1).
+- Medium risk: send approved emails, update documentation, create support tickets, schedule meetings, modify operational records — human review recommended (Trust Action levels 1–2).
+- High risk: delete data, change permissions, execute financial actions, publish externally, modify governance settings — explicit approval required (Trust Action levels 3–4; level 4 critical is AI prohibited).
+
+Approval principles: low — automatic execution permitted; medium — human review recommended; high — explicit approval required.
+
+Transparency: users understand what is proposed, why recommended, systems affected, approval requirement, and success outcome.
+
+ABOS principle: Automation should strengthen human capability. Not replace human responsibility.
+
+Self Love connection (A.76 scaffold): encourages thoughtful action — discouraging impulsive decisions, recommending reflection, and promoting sustainable operational practices. Boundary note: scaffold only until Self Love Engine ships.
+
+Audit: who initiated, who approved, what occurred, when, which systems were affected — immutable audit trails via action_audit_logs.
+
+Dogfooding: Aipify Group validates action workflows internally; Unonight is the first external pilot.
+
+Success criteria: recommend actions, approval workflows function, high-risk authorization enforced, audit trails preserved, user trust in the action framework.
+
+Vision: Organizations move faster without sacrificing trust, governance, or accountability. Yes, Aipify can handle that — because they understand exactly how and why it works.
+
+Preferred wording: "approval center", "human oversight", "explain before execute", "emergency stop", not "AI runs your business" or "automatic without accountability".
+
+Integration: Human Oversight (A.40), Secure AI Actions (A.3), Trust & Explainability, Governance & Policy (A.14), Action Center (AEF).

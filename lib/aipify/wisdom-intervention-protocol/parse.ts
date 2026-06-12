@@ -13,6 +13,15 @@ import type {
   RecentSummary,
   WisdomInterventionOutcome,
   WisdomInterventionSuggestion,
+  AbosSuccessCriterion,
+  ImplementationBlueprint,
+  InterventionScenarios,
+  CommunicationExample,
+  SleepOnItPrinciple,
+  SelfLoveConnection,
+  TrustConnection,
+  VisionPhrase,
+  Dogfooding,
 } from "./types";
 
 function parseRecordList<T>(data: unknown): T[] | undefined {
@@ -38,6 +47,36 @@ function parseBoundaries(data: unknown): InterventionBoundaries | undefined {
 function parseRecentSummary(data: unknown): RecentSummary | undefined {
   if (typeof data !== "object" || !data) return undefined;
   return data as RecentSummary;
+}
+
+function parseImplementationBlueprint(data: unknown): ImplementationBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as ImplementationBlueprint;
+}
+
+function parseInterventionScenarios(data: unknown): InterventionScenarios | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as InterventionScenarios;
+}
+
+function parseSleepOnItPrinciple(data: unknown): SleepOnItPrinciple | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as SleepOnItPrinciple;
+}
+
+function parseSelfLoveConnection(data: unknown): SelfLoveConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as SelfLoveConnection;
+}
+
+function parseTrustConnection(data: unknown): TrustConnection | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as TrustConnection;
+}
+
+function parseDogfooding(data: unknown): Dogfooding | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as Dogfooding;
 }
 
 export function parseWisdomInterventionCard(data: unknown): WisdomInterventionCard {
@@ -69,6 +108,18 @@ export function parseWisdomInterventionDashboard(data: unknown): WisdomIntervent
     pause_abos_principle: typeof d.pause_abos_principle === "string" ? d.pause_abos_principle : undefined,
     combined_protocol_note:
       typeof d.combined_protocol_note === "string" ? d.combined_protocol_note : undefined,
+    implementation_blueprint: parseImplementationBlueprint(d.implementation_blueprint),
+    wisdom_intervention_note:
+      typeof d.wisdom_intervention_note === "string" ? d.wisdom_intervention_note : undefined,
+    intervention_principles: parseStringList(d.intervention_principles),
+    intervention_scenarios: parseInterventionScenarios(d.intervention_scenarios),
+    communication_examples: parseRecordList<CommunicationExample>(d.communication_examples),
+    sleep_on_it_principle: parseSleepOnItPrinciple(d.sleep_on_it_principle),
+    self_love_connection: parseSelfLoveConnection(d.self_love_connection),
+    trust_connection: parseTrustConnection(d.trust_connection),
+    vision_phrases: parseRecordList<VisionPhrase>(d.vision_phrases),
+    dogfooding: parseDogfooding(d.dogfooding),
+    success_criteria: parseRecordList<AbosSuccessCriterion>(d.success_criteria),
     settings: parseSettings(d.settings),
     active_prompts: parseRecordList<WisdomInterventionPrompt>(d.active_prompts),
     recent_signals: parseRecordList<WisdomInterventionSignal>(d.recent_signals),

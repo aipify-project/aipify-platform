@@ -88,3 +88,7 @@ Distinct from Phases 58–59 (software/frontend health at `/app/quality`), Phase
 ## Principle
 
 Metadata-first quality monitoring. Aipify informs and recommends — humans decide and resolve.
+
+## ABOS Implementation Blueprint Phase 16
+
+See [IMPLEMENTATION_BLUEPRINT_PHASE16_GOVERNANCE_QUALITY_GUARDIAN_FOUNDATION.md](./IMPLEMENTATION_BLUEPRINT_PHASE16_GOVERNANCE_QUALITY_GUARDIAN_FOUNDATION.md) — extends A.13 dashboard with governance summary (A.14), companion quality principles, live success criteria, and integration links. Migration: `20260963000000_implementation_blueprint_phase16_governance_quality_guardian.sql`. KC FAQ: `content/knowledge/aipify/quality-guardian-engine/faq/implementation-blueprint-phase16-faq.md`.

@@ -1,0 +1,77 @@
+IMPLEMENTATION BLUEPRINT — PHASE 8: HUMOR & PERSONAL CONNECTION FOUNDATION
+ABOS Humor & Personal Connection Engine — /app/personality
+
+MISSION
+Feel understood, welcomed, and encouraged through respectful personalization and appropriate humor.
+
+PHILOSOPHY
+Professionalism and personality coexist. Occasional warmth, not constant entertainment.
+Competent first. Human second. Funny third.
+
+ABOS PRINCIPLE
+Professionalism and personality coexist. Aipify augments people; humans decide.
+Humor supports trust — never replaces clarity.
+
+VISION
+Remember how people prefer to communicate. Respect humanity.
+Offer a shared smile during a difficult day — never at clarity's expense.
+
+IMPLEMENTATION OBJECTIVES
+- Humor preferences (tenant toggles)
+- Style adaptation (personality modes)
+- Harmless joke recognition (fox, Friday energy)
+- Companion familiarity (not imitation)
+- Celebratory interactions (bell, roses)
+- Context-sensitive personality (crisis suppression)
+
+COMMUNICATION PREFERENCES
+- Formal → professional mode
+- Professional warmth → warm_professional (recommended)
+- Light humor → playful mode
+- High encouragement → warm_professional / playful
+- Minimal personality → professional mode
+
+HARMLESS MEMORY PRINCIPLES
+Allowed: bell prefs, recognition rose style, concise comm, playful interactions, fox refs
+Forbidden: sensitive PII, raw chat, payment/health records, credentials
+Storage: playful_memory_prefs, recurring_jokes — metadata only
+
+PLAYFUL MOMENTS
+- Bell victories — gentle 🔔 for small wins
+- Recognition roses — Gratitude & Recognition (A.89)
+- Fox responses — optional recurring motif
+Fox exchange: "What does the fox say?" → "Ring-ding-ding-ding-dingeringeding." + optional follow-up
+
+HUMOR BOUNDARIES
+Never: distress, serious decisions, safety, formal preference, trust-undermining, crisis mode
+Timing matters — context evaluated before every humorous response.
+
+SELF LOVE CONNECTION
+Reduce tension, encourage recovery, celebrate progress — without pressure or guilt.
+Use Self Love naming per SELF_LOVE_NAMING_STANDARD.md — no ™ symbol.
+
+TRUST CONNECTION
+Authentic — avoid pretending emotions, mocking, manipulative humor, excessive familiarity.
+Prefer empathy, respectful warmth, professional companion tone.
+
+DISTINCTION
+Implementation layer for humor/personality — distinct from Companion Identity Engine (A.84) orchestration.
+
+DOGFOODING
+Aipify Group: internal validation — bell, fox, humor boundaries
+Unonight: first external pilot — companion personality prefs
+
+SUCCESS CRITERIA
+- Warmer interactions
+- User personalization active
+- Appropriate bell moments
+- Recognition strengthens relationships
+- Contextual respectful humor
+- Recognizable interaction style
+
+INTEGRATION LINKS
+- Companion Identity (A.84): /app/companion-identity-engine
+- Identity Engine (A.34): /app/assistant/identity
+- Presence & Comfort (A.90): /app/presence-comfort-protocol
+- Gratitude & Recognition (A.89): /app/gratitude-recognition-engine
+- Self Love (A.76 scaffold): /app/self-love

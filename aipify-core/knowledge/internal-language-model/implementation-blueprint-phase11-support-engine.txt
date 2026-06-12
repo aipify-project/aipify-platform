@@ -1,0 +1,30 @@
+IMPLEMENTATION BLUEPRINT — PHASE 11: SUPPORT ENGINE FOUNDATION
+
+Mission: Faster support and higher quality through intelligent assistance, Knowledge Center utilization, and responsible escalation.
+
+Philosophy: People want help solved — quick, accurate, respectful resolution. AI assists; humans decide on sensitive topics.
+
+ABOS principle: Support should feel human — technology accelerates routine work while keeping people in control of sensitive decisions.
+
+Support objectives: FAQs, KC utilization, assist agents, drafts, escalate, consistency.
+
+Support tiers:
+- Tier 1 Self-Service: FAQs, articles, guided troubleshooting, widget self-help (automatic mode).
+- Tier 2 Assisted: recommendations, drafts, enrichment, context (draft mode).
+- Tier 3 Human Escalation: sensitive, high-risk, complex, exceptional (manual/draft with escalation).
+
+Case management: priority, status, ownership, AI summary, escalation, resolution, satisfaction — maps to organization_support_cases.
+
+KC connection: repeated questions → FAQ gaps; resolutions → article suggestions; outdated docs → review recs; retrieve_knowledge_for_ai in suggest_support_ai_response.
+
+Self Love (A.76): reduce repetitive work, workload balance, bottlenecks, celebrate resolutions — principle only, no ™. Route /app/self-love-engine.
+
+Trust: customers know when AI assists; orgs understand recommendations, escalations, generation — transparency via _sai_log metadata.
+
+Distinct from ASO at /app/settings/support-operations — ASO governs autonomy/triage; Support AI A.7 handles customer-facing cases.
+
+Dogfooding: Aipify Group — response times, KC gaps, escalation. Unonight — commerce support pilot.
+
+Preferred wording: "AI-assisted draft", "human review", "knowledge-driven answer", "escalate when uncertain", not "fully automated support" or "AI replaces agents".
+
+Integration links: KC A.5, Approvals, Human Oversight A.40, Quality Guardian A.13, Self Love A.76, Unonight Pilot.

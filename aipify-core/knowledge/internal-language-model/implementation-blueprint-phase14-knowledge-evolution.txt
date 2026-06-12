@@ -1,0 +1,27 @@
+IMPLEMENTATION BLUEPRINT — PHASE 14: KNOWLEDGE EVOLUTION FOUNDATION
+
+Mission: Maintain relevant, accurate, useful knowledge through proactive, explainable recommendations.
+
+Philosophy: Knowledge is not static — organizations, processes, and customers evolve. Humans approve every change.
+
+ABOS principle: Evolution without transparency creates distrust — Aipify recommends; humans decide.
+
+Health indicators: Freshness Score, Coverage Score, Quality Score — computed metadata from articles (updated_at, review_due_at), published counts, FAQ counts, support_ai_knowledge_gaps open count.
+
+Proactive recommendations: stale articles beyond review cycle, review queue items, support knowledge gaps, overlapping title heuristic (same category + similar prefix — scaffold), frequent topics by view_count.
+
+Knowledge creation opportunities: repeated questions, similar agent responses (scaffold), new workflows, lessons learned from Organizational Memory A.34.
+
+Self Love A.76: simplify docs, reduce complexity, sustainable onboarding — gentle review reminders, never guilt language. Self Love — no trademark symbol.
+
+Organizational Memory A.34: retrospectives, interventions, process improvements feed evolving knowledge — metadata only.
+
+Trust: transparent why, sources, approvers — no raw support chat or email in recommendations.
+
+Dogfooding: Aipify Group — product, support, engineering, executive playbooks. Unonight pilot — marketplace operations, escalation reviews.
+
+Integration links: Organizational Memory A.34, Support AI A.7, Continuous Improvement A.33, Self Love A.76, Legacy A.86, KC A.5, KC Phase 55 self-knowledge.
+
+Preferred wording: "proactive recommendation", "health indicator", "review cycle", "knowledge evolution", "explainable source", not "AI auto-updates documentation" or "silent knowledge changes".
+
+Route: /app/knowledge-center-engine — extends Phase 3 foundation, not a separate product surface.

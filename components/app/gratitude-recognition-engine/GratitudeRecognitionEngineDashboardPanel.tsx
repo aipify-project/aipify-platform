@@ -4,11 +4,15 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseGratitudeRecognitionDashboard,
+  type BellMomentsBlueprint,
   type BoundaryPhrases,
   type GratitudeMoment,
   type GratitudeMomentTypeInfo,
   type GratitudeRecognitionDashboard,
+  type RecognitionCategory,
+  type RecognitionRosesBlueprint,
   type RedRoseMoment,
+  type SelfRecognitionBlueprint,
 } from "@/lib/aipify/gratitude-recognition-engine";
 
 type Props = { labels: Record<string, string> };
@@ -155,6 +159,16 @@ export function GratitudeRecognitionEngineDashboardPanel({ labels }: Props) {
   const boundaryPhrases = dashboard.boundary_phrases;
   const recentRoses = dashboard.recent_roses ?? {};
   const integrationLinks = dashboard.integration_links ?? {};
+  const blueprint = dashboard.implementation_blueprint;
+  const recognitionCategories = dashboard.recognition_categories ?? [];
+  const bellMoments = dashboard.bell_moments;
+  const recognitionRoses = dashboard.recognition_roses;
+  const selfRecognition = dashboard.self_recognition;
+  const selfLoveConnection = dashboard.self_love_connection;
+  const trustConnection = dashboard.trust_connection;
+  const orgBoundaries = dashboard.org_configuration_boundaries;
+  const successCriteria = dashboard.success_criteria ?? [];
+  const visionPhrases = dashboard.vision_phrases ?? [];
 
   return (
     <div className="space-y-6">
@@ -167,6 +181,12 @@ export function GratitudeRecognitionEngineDashboardPanel({ labels }: Props) {
         ) : null}
         {dashboard.vision ? <p className="mt-1 text-xs italic text-rose-700">{dashboard.vision}</p> : null}
         <p className="mt-2 text-xs text-rose-700">{dashboard.distinction_note ?? labels.distinctionNote}</p>
+        {blueprint?.phase ? (
+          <p className="mt-2 text-xs font-medium text-rose-800">{blueprint.phase}</p>
+        ) : null}
+        {dashboard.gratitude_recognition_engine_note ? (
+          <p className="mt-1 text-xs text-rose-600">{dashboard.gratitude_recognition_engine_note}</p>
+        ) : null}
       </section>
 
       {actionError && (
@@ -190,6 +210,194 @@ export function GratitudeRecognitionEngineDashboardPanel({ labels }: Props) {
           </button>
         ) : null}
       </div>
+
+      {successCriteria.length > 0 && (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.successCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {successCriteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {recognitionCategories.length > 0 && (
+        <section className="rounded-lg border border-rose-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.recognitionCategories}</h3>
+          <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {recognitionCategories.map((cat: RecognitionCategory) => (
+              <li key={cat.key ?? cat.label} className="rounded border border-rose-50 p-3 text-sm">
+                <div className="font-medium">{cat.label}</div>
+                {(cat.focus?.length ?? 0) > 0 ? (
+                  <p className="mt-1 text-xs text-gray-500">{cat.focus?.join(" · ")}</p>
+                ) : null}
+                {(cat.examples?.length ?? 0) > 0 ? (
+                  <ul className="mt-2 list-inside list-disc text-xs text-gray-600">
+                    {cat.examples?.map((ex, i) => (
+                      <li key={i}>{ex}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {bellMoments && (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/30 p-4">
+          <h3 className="text-sm font-semibold">
+            {bellMoments.emoji ? `${bellMoments.emoji} ` : ""}
+            {labels.bellMoments}
+          </h3>
+          {bellMoments.principle ? <p className="mt-2 text-xs text-amber-900">{bellMoments.principle}</p> : null}
+          {bellMoments.frequency_note ? (
+            <p className="mt-1 text-xs text-gray-600">{bellMoments.frequency_note}</p>
+          ) : null}
+          {(bellMoments.examples?.length ?? 0) > 0 ? (
+            <ul className="mt-3 space-y-2 text-sm">
+              {(bellMoments as BellMomentsBlueprint).examples!.map((ex, i) => (
+                <li key={ex.key ?? i} className="rounded border border-amber-100 bg-white px-3 py-2 text-xs">
+                  {ex.text}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {recognitionRoses && (
+        <section className="rounded-lg border border-rose-200 bg-rose-50/30 p-4">
+          <h3 className="text-sm font-semibold">
+            {recognitionRoses.emoji ? `${recognitionRoses.emoji} ` : ""}
+            {labels.recognitionRoses}
+          </h3>
+          {recognitionRoses.principle ? (
+            <p className="mt-2 text-xs text-rose-900">{recognitionRoses.principle}</p>
+          ) : null}
+          {recognitionRoses.boundary_note ? (
+            <p className="mt-2 rounded border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-800">
+              {recognitionRoses.boundary_note}
+            </p>
+          ) : null}
+          {(recognitionRoses.examples?.length ?? 0) > 0 ? (
+            <ul className="mt-3 space-y-2 text-sm">
+              {(recognitionRoses as RecognitionRosesBlueprint).examples!.map((ex, i) => (
+                <li key={ex.key ?? i} className="rounded border border-rose-100 bg-white px-3 py-2 text-xs">
+                  {ex.text}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {selfRecognition && (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.selfRecognition}</h3>
+          {selfRecognition.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{selfRecognition.principle}</p>
+          ) : null}
+          {(selfRecognition.examples?.length ?? 0) > 0 ? (
+            <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+              {(selfRecognition as SelfRecognitionBlueprint).examples!.map((ex, i) => (
+                <li key={i}>{ex}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {selfLoveConnection && (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.selfLoveConnection}</h3>
+          {selfLoveConnection.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{selfLoveConnection.principle}</p>
+          ) : null}
+          {selfLoveConnection.boundary_note ? (
+            <p className="mt-2 rounded border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-900">
+              {selfLoveConnection.boundary_note}
+            </p>
+          ) : null}
+          {(selfLoveConnection.influences?.length ?? 0) > 0 ? (
+            <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+              {selfLoveConnection.influences?.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {trustConnection && (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.trustConnection}</h3>
+          {trustConnection.principle ? (
+            <p className="mt-2 text-gray-600">{trustConnection.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-4 sm:grid-cols-2 text-xs">
+            {(trustConnection.prefer?.length ?? 0) > 0 && (
+              <div>
+                <h4 className="font-semibold text-emerald-700">{labels.preferPhrases}</h4>
+                <ul className="mt-2 list-inside list-disc text-gray-600">
+                  {trustConnection.prefer?.map((p, i) => (
+                    <li key={i}>{p}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {(trustConnection.avoid?.length ?? 0) > 0 && (
+              <div>
+                <h4 className="font-semibold text-red-700">{labels.avoidPhrases}</h4>
+                <ul className="mt-2 list-inside list-disc text-gray-600">
+                  {trustConnection.avoid?.map((p, i) => (
+                    <li key={i}>{p}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {orgBoundaries && (
+        <section className="rounded-lg border border-gray-100 bg-gray-50 p-4 text-xs text-gray-600">
+          <h3 className="text-sm font-semibold text-gray-800">{labels.orgConfiguration}</h3>
+          {orgBoundaries.boundary_note ? <p className="mt-2">{orgBoundaries.boundary_note}</p> : null}
+          {(orgBoundaries.configurable?.length ?? 0) > 0 ? (
+            <ul className="mt-2 list-inside list-disc">
+              {orgBoundaries.configurable?.map((item, i) => (
+                <li key={item.key ?? i}>
+                  {item.label}
+                  {item.via ? ` — ${item.via}` : ""}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      )}
+
+      {(visionPhrases.length ?? 0) > 0 && (
+        <section className="rounded-lg border border-rose-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.visionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+            {visionPhrases.map((phrase, i) => (
+              <li key={i}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section className="rounded-lg border border-gray-200 p-4">
         <h3 className="text-sm font-semibold">{labels.summary}</h3>
@@ -408,15 +616,21 @@ export function GratitudeRecognitionEngineDashboardPanel({ labels }: Props) {
         <section className="rounded-lg border border-gray-200 p-4">
           <h3 className="text-sm font-semibold">{labels.integrationLinks}</h3>
           <ul className="mt-2 flex flex-wrap gap-2 text-xs">
-            {Object.entries(integrationLinks).map(([key, href]) =>
-              typeof href === "string" ? (
+            {Object.entries(integrationLinks).map(([key, href]) => {
+              const path = String(href);
+              const isExternalDoc = path.endsWith(".md");
+              return (
                 <li key={key}>
-                  <Link href={href} className="text-rose-700 underline">
-                    {key.replace(/_/g, " ")}
-                  </Link>
+                  {isExternalDoc ? (
+                    <span className="text-gray-600">{key.replace(/_/g, " ")}: {path}</span>
+                  ) : (
+                    <Link href={path} className="text-rose-700 underline">
+                      {key.replace(/_/g, " ")}
+                    </Link>
+                  )}
                 </li>
-              ) : null
-            )}
+              );
+            })}
           </ul>
         </section>
       )}

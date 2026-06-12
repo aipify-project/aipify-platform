@@ -43,3 +43,7 @@ Self Love (A.76 planned) will detect approval bottlenecks, recommend workflow si
 ## What is the ABOS principle?
 
 Trust is built through transparency. The goal is not to remove humans from decision-making — it is to help humans make better decisions faster. Core **Governance** pillar of ABOS.
+
+## What is Implementation Blueprint Phase 6?
+
+Phase 6 aligns the Trust & Action Approval Center with ABOS action governance — low/medium/high categories, success criteria, transparency requirements, and integration links. See [implementation-blueprint-phase6-faq.md](./implementation-blueprint-phase6-faq.md).

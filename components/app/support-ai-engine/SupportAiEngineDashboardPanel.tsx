@@ -65,23 +65,142 @@ export function SupportAiEngineDashboardPanel({ labels }: SupportAiEngineDashboa
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap gap-2">
-        <Link href="/app/knowledge-center-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.knowledgeCenter}
-        </Link>
-        <Link href="/app/admin-assistant-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.adminAssistant}
-        </Link>
-        <Link href="/app/secure-ai-actions" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.secureAiActions}
-        </Link>
-      </div>
+      {(dashboard.integration_links ?? []).length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {dashboard.integration_links?.map((link) =>
+            link.route ? (
+              <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+                {link.label}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : (
+        <div className="flex flex-wrap gap-2">
+          <Link href="/app/knowledge-center-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.knowledgeCenter}
+          </Link>
+          <Link href="/app/admin-assistant-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.adminAssistant}
+          </Link>
+          <Link href="/app/secure-ai-actions" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.secureAiActions}
+          </Link>
+        </div>
+      )}
 
       <section className="rounded-xl border border-sky-200 bg-sky-50/50 p-6">
         <h2 className="text-sm font-semibold text-sky-900">{labels.supportEngine}</h2>
+        {dashboard.mission ? (
+          <p className="mt-2 text-sm font-medium text-sky-900">{dashboard.mission}</p>
+        ) : null}
         <p className="mt-2 text-sm text-sky-900">{dashboard.philosophy}</p>
-        <p className="mt-1 text-xs text-sky-700">{dashboard.safety_note}</p>
+        {dashboard.abos_principle ? (
+          <p className="mt-2 text-xs text-sky-800">{dashboard.abos_principle}</p>
+        ) : null}
+        {dashboard.vision ? <p className="mt-2 text-xs text-gray-600">{dashboard.vision}</p> : null}
+        {dashboard.support_ai_engine_note ? (
+          <p className="mt-1 text-xs text-sky-700">{dashboard.support_ai_engine_note}</p>
+        ) : null}
+        {dashboard.distinction_note ? (
+          <p className="mt-1 text-xs text-sky-700">{dashboard.distinction_note}</p>
+        ) : null}
+        {dashboard.safety_note ? (
+          <p className="mt-1 text-xs text-sky-700">{dashboard.safety_note}</p>
+        ) : null}
       </section>
+
+      {dashboard.support_tiers && dashboard.support_tiers.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.supportTiers}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-3">
+            {dashboard.support_tiers.map((tier) => (
+              <div key={tier.key ?? tier.label} className="rounded-lg border border-sky-100 bg-sky-50/30 px-3 py-2">
+                <p className="text-sm font-medium text-sky-900">{tier.label}</p>
+                {tier.focus && tier.focus.length > 0 ? (
+                  <ul className="mt-1 flex flex-wrap gap-1">
+                    {tier.focus.map((item) => (
+                      <li key={item} className="rounded-full bg-white px-2 py-0.5 text-xs text-sky-800">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+                {tier.examples && tier.examples.length > 0 ? (
+                  <ul className="mt-2 list-disc space-y-0.5 pl-4 text-xs text-gray-600">
+                    {tier.examples.slice(0, 2).map((ex) => (
+                      <li key={ex}>{ex}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.kc_connection ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.kcConnection}</h3>
+          {dashboard.kc_connection.principle ? (
+            <p className="mt-2 text-gray-600">{dashboard.kc_connection.principle}</p>
+          ) : null}
+          {dashboard.kc_connection.knowledge_center_route ? (
+            <Link
+              href={dashboard.kc_connection.knowledge_center_route}
+              className="mt-2 inline-block text-xs text-sky-700 underline"
+            >
+              {labels.knowledgeCenter}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.success_criteria) && dashboard.success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.successCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.self_love_note ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          {dashboard.self_love_note}
+        </section>
+      ) : null}
+
+      {dashboard.trust_connection ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.trustConnection}</h3>
+          {dashboard.trust_connection.principle ? (
+            <p className="mt-2 text-gray-600">{dashboard.trust_connection.principle}</p>
+          ) : null}
+          {dashboard.trust_connection.audit_note ? (
+            <p className="mt-2 text-xs text-gray-500">{dashboard.trust_connection.audit_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.dogfooding ? (
+        <section className="rounded-lg border border-gray-100 bg-gray-50 px-4 py-3 text-xs text-gray-600">
+          <span className="font-semibold text-gray-800">{labels.dogfooding}: </span>
+          {dashboard.dogfooding.principle}
+        </section>
+      ) : null}
 
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-lg border border-gray-100 bg-white p-3">

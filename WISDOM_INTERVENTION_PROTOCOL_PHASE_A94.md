@@ -31,6 +31,8 @@ Pause & Reflection Protocol fields are merged into the same dashboard via migrat
 
 Extension: `supabase/migrations/20260944000000_pause_reflection_protocol_abos_spec_alignment.sql`
 
+Blueprint Phase 10: `supabase/migrations/20260957000000_implementation_blueprint_phase10_wisdom_reflection.sql`
+
 ## Tables
 
 - `organization_wisdom_intervention_settings`
@@ -47,6 +49,29 @@ Extension: `supabase/migrations/20260944000000_pause_reflection_protocol_abos_sp
 
 Dashboard includes: philosophy, mission, abos_principle, vision, when_to_intervene, response_style_examples, sleep_on_it_examples, self_love_note, wisdom_engine_note, boundaries (may/may_not), pause/reflection fields, settings, recent_signals, summary, integration_links.
 
+### Dashboard fields (Implementation Blueprint Phase 10)
+
+- `implementation_blueprint`
+- `intervention_principles`
+- `intervention_scenarios` (communication · decision · operational)
+- `communication_examples` (🌹 Self Love · 🦉 Wisdom)
+- `sleep_on_it_principle`
+- `self_love_connection`
+- `trust_connection`
+- `vision_phrases`
+- `dogfooding`
+- `success_criteria` (live checks via `_wip_blueprint_success_criteria`)
+
+## Implementation Blueprint Phase 10
+
+**Spec:** [IMPLEMENTATION_BLUEPRINT_PHASE10_WISDOM_REFLECTION_INTERVENTIONS_FOUNDATION.md](./IMPLEMENTATION_BLUEPRINT_PHASE10_WISDOM_REFLECTION_INTERVENTIONS_FOUNDATION.md)
+
+**Migration:** `supabase/migrations/20260957000000_implementation_blueprint_phase10_wisdom_reflection.sql`
+
+**ILM:** `implementation-blueprint-phase10-wisdom-reflection.txt` · `lib/internal-language-model/implementation-blueprint-phase10-vocabulary.ts`
+
+**FAQ:** `content/knowledge/aipify/wisdom-intervention-protocol/faq/implementation-blueprint-phase10-faq.md`
+
 ## Code paths
 
 - `lib/core/wisdom-intervention.ts`
@@ -55,8 +80,11 @@ Dashboard includes: philosophy, mission, abos_principle, vision, when_to_interve
 - `app/app/wisdom-intervention-protocol/page.tsx`
 - `components/app/wisdom-intervention-protocol/`
 - `lib/internal-language-model/wisdom-intervention-vocabulary.ts`
+- `lib/internal-language-model/implementation-blueprint-phase10-vocabulary.ts`
 - `aipify-core/knowledge/internal-language-model/wisdom-intervention-protocol-abos.txt`
+- `aipify-core/knowledge/internal-language-model/implementation-blueprint-phase10-wisdom-reflection.txt`
 - `content/knowledge/aipify/wisdom-intervention-protocol/faq/wisdom-intervention-protocol-faq.md`
+- `content/knowledge/aipify/wisdom-intervention-protocol/faq/implementation-blueprint-phase10-faq.md`
 
 ## decision_explanations
 

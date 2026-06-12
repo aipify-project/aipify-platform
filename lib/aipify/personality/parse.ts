@@ -10,7 +10,103 @@ import type {
   PlayfulMomentsSeed,
   RecurringJoke,
   BellMomentResult,
+  ImplementationBlueprintMeta,
+  ImplementationObjective,
+  CommunicationPreference,
+  HarmlessMemoryPrinciples,
+  BlueprintPlayfulMoments,
+  HumorBoundaries,
+  SelfLoveConnection,
+  TrustConnection,
+  DogfoodingInfo,
+  SuccessCriterion,
 } from "./types";
+
+function parseImplementationBlueprint(data: unknown): ImplementationBlueprintMeta | undefined {
+  if (!data || typeof data !== "object") return undefined;
+  const d = data as Record<string, unknown>;
+  return {
+    phase: d.phase as string | undefined,
+    doc: d.doc as string | undefined,
+    distinction: d.distinction as string | undefined,
+  };
+}
+
+function parseHarmlessMemoryPrinciples(data: unknown): HarmlessMemoryPrinciples | undefined {
+  if (!data || typeof data !== "object") return undefined;
+  const d = data as Record<string, unknown>;
+  return {
+    principle: d.principle as string | undefined,
+    allowed: Array.isArray(d.allowed) ? (d.allowed as string[]) : undefined,
+    forbidden: Array.isArray(d.forbidden) ? (d.forbidden as string[]) : undefined,
+    storage: d.storage as string | undefined,
+    metadata_only: d.metadata_only as boolean | undefined,
+  };
+}
+
+function parseBlueprintPlayfulMoments(data: unknown): BlueprintPlayfulMoments | undefined {
+  if (!data || typeof data !== "object") return undefined;
+  const d = data as Record<string, unknown>;
+  return {
+    types: Array.isArray(d.types) ? (d.types as BlueprintPlayfulMoments["types"]) : undefined,
+    fox_exchange: d.fox_exchange as BlueprintPlayfulMoments["fox_exchange"],
+    boundary_note: d.boundary_note as string | undefined,
+  };
+}
+
+function parseHumorBoundaries(data: unknown): HumorBoundaries | undefined {
+  if (!data || typeof data !== "object") return undefined;
+  const d = data as Record<string, unknown>;
+  return {
+    never: Array.isArray(d.never) ? (d.never as string[]) : undefined,
+    timing_note: d.timing_note as string | undefined,
+    principle: d.principle as string | undefined,
+  };
+}
+
+function parseSelfLoveConnection(data: unknown): SelfLoveConnection | undefined {
+  if (!data || typeof data !== "object") return undefined;
+  const d = data as Record<string, unknown>;
+  return {
+    principle: d.principle as string | undefined,
+    influences: Array.isArray(d.influences) ? (d.influences as string[]) : undefined,
+    naming_doc: d.naming_doc as string | undefined,
+    naming_note: d.naming_note as string | undefined,
+  };
+}
+
+function parseTrustConnection(data: unknown): TrustConnection | undefined {
+  if (!data || typeof data !== "object") return undefined;
+  const d = data as Record<string, unknown>;
+  return {
+    principle: d.principle as string | undefined,
+    avoid: Array.isArray(d.avoid) ? (d.avoid as string[]) : undefined,
+    prefer: Array.isArray(d.prefer) ? (d.prefer as string[]) : undefined,
+  };
+}
+
+function parseDogfooding(data: unknown): DogfoodingInfo | undefined {
+  if (!data || typeof data !== "object") return undefined;
+  const d = data as Record<string, unknown>;
+  return {
+    principle: d.principle as string | undefined,
+    aipify_group: d.aipify_group as DogfoodingInfo["aipify_group"],
+    unonight: d.unonight as DogfoodingInfo["unonight"],
+  };
+}
+
+function parseSuccessCriteria(data: unknown): SuccessCriterion[] {
+  if (!Array.isArray(data)) return [];
+  return data.map((item) => {
+    const d = (item ?? {}) as Record<string, unknown>;
+    return {
+      key: d.key as string | undefined,
+      label: d.label as string | undefined,
+      met: d.met as boolean | undefined,
+      note: (d.note as string | null | undefined) ?? null,
+    };
+  });
+}
 
 function parsePlayfulMomentsSeed(data: unknown): PlayfulMomentsSeed | undefined {
   if (!data || typeof data !== "object") return undefined;
@@ -61,6 +157,8 @@ export function parsePersonalityCard(data: unknown): PersonalityCard {
     playful_moments_enabled: d.playful_moments_enabled as boolean | undefined,
     bell_moments_enabled: d.bell_moments_enabled as boolean | undefined,
     playful_moments_seed: parsePlayfulMomentsSeed(d.playful_moments_seed),
+    implementation_blueprint: parseImplementationBlueprint(d.implementation_blueprint),
+    humor_personal_connection_note: d.humor_personal_connection_note as string | undefined,
   };
 }
 
@@ -118,6 +216,22 @@ export function parsePersonalityDashboard(data: unknown): PersonalityDashboard {
     safeguards: d.safeguards as Record<string, boolean> | undefined,
     distinction_note: d.distinction_note as string | undefined,
     playful_moments_seed: parsePlayfulMomentsSeed(d.playful_moments_seed),
+    implementation_blueprint: parseImplementationBlueprint(d.implementation_blueprint),
+    humor_personal_connection_note: d.humor_personal_connection_note as string | undefined,
+    implementation_objectives: Array.isArray(d.implementation_objectives)
+      ? (d.implementation_objectives as ImplementationObjective[])
+      : [],
+    communication_preferences: Array.isArray(d.communication_preferences)
+      ? (d.communication_preferences as CommunicationPreference[])
+      : [],
+    harmless_memory_principles: parseHarmlessMemoryPrinciples(d.harmless_memory_principles),
+    playful_moments: parseBlueprintPlayfulMoments(d.playful_moments),
+    humor_boundaries: parseHumorBoundaries(d.humor_boundaries),
+    self_love_connection: parseSelfLoveConnection(d.self_love_connection),
+    trust_connection: parseTrustConnection(d.trust_connection),
+    dogfooding: parseDogfooding(d.dogfooding),
+    success_criteria: parseSuccessCriteria(d.success_criteria),
+    vision_phrases: Array.isArray(d.vision_phrases) ? (d.vision_phrases as string[]) : [],
   };
 }
 

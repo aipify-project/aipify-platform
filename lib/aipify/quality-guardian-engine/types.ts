@@ -76,17 +76,119 @@ export type ResolvedCheck = {
   resolved_at?: string | null;
 };
 
+export type AbosSuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+};
+
+export type QualityObjective = {
+  key?: string;
+  label?: string;
+};
+
+export type GovernanceObjective = {
+  key?: string;
+  label?: string;
+};
+
+export type QgCapability = {
+  key?: string;
+  label?: string;
+};
+
+export type CompanionQualityPrinciple = {
+  key?: string;
+  emoji?: string;
+  label?: string;
+};
+
+export type GovernanceSummary = {
+  active_policies?: number;
+  open_violations?: number;
+  pending_approvals?: number;
+  review_cadence_days?: number;
+  ai_autonomy_level?: string;
+  governance_route?: string;
+  note?: string;
+};
+
+export type SelfLoveConnection = {
+  principle?: string;
+  patterns?: string[];
+  self_love_route?: string;
+  naming_doc?: string;
+  boundary_note?: string;
+};
+
+export type TrustConnection = {
+  principle?: string;
+  qualities?: string[];
+  metadata_only?: boolean;
+  audit_note?: string;
+};
+
+export type VisionPhrase = {
+  emoji?: string;
+  phrase?: string;
+};
+
+export type IntegrationLink = {
+  key?: string;
+  label?: string;
+  route?: string;
+  note?: string;
+};
+
+export type ImplementationBlueprint = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  integrated_engine?: string;
+  route?: string;
+  mapping_note?: string;
+};
+
+export type DogfoodingInfo = {
+  principle?: string;
+  aipify_group?: Record<string, unknown>;
+  unonight?: Record<string, unknown>;
+};
+
 export type QualityGuardianEngineCard = {
   has_organization: boolean;
   open_checks?: number;
   critical_checks?: number;
   pending_recommendations?: number;
   philosophy?: string;
+  mission?: string;
+  abos_principle?: string;
+  implementation_blueprint?: ImplementationBlueprint;
+  quality_guardian_engine_note?: string;
 };
 
 export type QualityGuardianEngineDashboard = {
   has_organization: boolean;
+  implementation_blueprint?: ImplementationBlueprint;
+  mission?: string;
   philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  quality_guardian_engine_note?: string;
+  distinction_note?: string;
+  quality_objectives?: QualityObjective[];
+  governance_objectives?: GovernanceObjective[];
+  qg_capabilities?: QgCapability[];
+  companion_quality_principles?: CompanionQualityPrinciple[];
+  self_love_connection?: SelfLoveConnection;
+  self_love_note?: string;
+  trust_connection?: TrustConnection;
+  governance_summary?: GovernanceSummary;
+  dogfooding?: DogfoodingInfo;
+  success_criteria?: AbosSuccessCriterion[];
+  vision_phrases?: VisionPhrase[];
+  integration_links?: IntegrationLink[];
   safety_note?: string;
   principles?: string[];
   settings?: Record<string, unknown>;

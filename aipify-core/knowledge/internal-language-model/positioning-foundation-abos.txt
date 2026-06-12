@@ -1,0 +1,88 @@
+# ABOS Positioning Foundation — ILM corpus
+
+Mission: Simple, human communication — understand Aipify in seconds.
+Philosophy: People buy outcomes — time, clarity, support, confidence, experiences, sustainable growth.
+
+## Plain language (digital coworker)
+Aipify is a digital coworker for business.
+Aipify is a digital coworker that helps your business stay organized, respond faster, and work smarter.
+Meet Aipify – Your Digital Coworker.
+
+## Formal category (ABOS)
+Aipify Business Operating System (ABOS) — use in product, enterprise, and governance contexts.
+Digital coworker is plain-language positioning for first contact and quick explanations.
+
+## What Aipify is
+Digital coworker for business — support, knowledge, task follow-up, daily operations.
+Install-first operational intelligence inside existing business systems.
+Efficiency with humanity — a capable colleague, not a generic bot.
+
+## What Aipify is not
+Not a chatbot.
+Not just automation.
+Not replacing people.
+Not another dashboard customers must log into daily.
+Not employee surveillance.
+
+## Simple explanation
+Aipify is a digital coworker that helps your business stay organized, respond faster, and work smarter.
+
+## What Aipify does (seven areas)
+💬 Support — respond faster with triage, drafts, and escalation.
+📚 Knowledge — approved answers and procedures teams trust.
+✅ Follow-up — tasks and reminders so work does not slip.
+⚙️ Operations — daily admin inside existing systems.
+📄 Deliverables — reports, summaries, business-ready documents.
+🔐 Trust — approvals, audit logs, human control on sensitive work.
+📊 Clarity — insights and recommendations with explainable reasoning.
+
+## Aipify difference
+Efficiency + humanity.
+Prepared work and faster responses — with calm tone, respect, and transparent limits.
+
+## How it works (three steps)
+1. Install — connect Aipify to your business systems.
+2. Teach — share knowledge, workflows, and how your organization operates.
+3. Work alongside — Aipify assists daily work; your team approves what matters.
+
+## Common questions
+Q: Is Aipify just a chatbot?
+A: No. Aipify is a digital coworker — an Aipify Business Operating System (ABOS) for support, knowledge, follow-up, operations, deliverables, trust, and clarity. Chat is one surface; the product is operational assistance with human control.
+
+Q: Will Aipify replace our employees?
+A: No. Aipify augments people. It prepares drafts, organizes knowledge, and handles repeatable work within approved boundaries. Your team makes important decisions.
+
+Q: What does Aipify actually do?
+A: Aipify helps your business stay organized, respond faster, and work smarter — through support, knowledge, follow-up, operations, deliverables, trust controls, and explainable clarity.
+
+## Website messaging
+Headline: Meet Aipify – Your Digital Coworker
+Subheadline: Aipify helps your business stay organized, respond faster, and work smarter — inside the systems your team already uses.
+Primary CTA: Request early access
+Secondary CTA: See how it works
+Not-a-chatbot: Not a chatbot. A calm digital coworker with human control built in.
+
+## Under the hood (builder copy — not hero)
+ABOS six pillars: Knowledge, Assistance, Automation, Intelligence, Governance, Operations.
+Install Engine, Trust & Action, Learning Engine, Business DNA, Knowledge Center.
+Self Love — platform self-maintenance; two words, no trademark symbol.
+Multi-tenant architecture, model-agnostic intelligence.
+Customers experience outcomes; engines compose capabilities underneath.
+
+## Self Love
+Self Love (no ™) — ABOS cares for the platform so it can better support organizations.
+Calm, non-alarmist language. Irreversible actions require explicit human approval.
+Sustainable growth includes systems that do not burn out teams or the platform.
+
+## ABOS principle
+Efficiency with humanity — technology augments people; it does not replace judgment, dignity, or trust.
+
+## Vision
+Establish Aipify Business Operating System (ABOS) as the trusted operational layer — introduced as a digital coworker — helping organizations work smarter, respond faster, and grow sustainably.
+
+## Avoid
+AI chatbot, AI assistant platform, AI automation tool, business chatbot, AI helpdesk solution.
+Aipify replaces your employees. Aipify runs your company alone. Another dashboard you must check every day.
+
+## Cross-reference
+POSITIONING_FOUNDATION.md · ABOS_BRAND_TERMINOLOGY_STANDARD.md · BRAND_IDENTITY_PERSONHOOD_STANDARD.md · SELF_LOVE_NAMING_STANDARD.md

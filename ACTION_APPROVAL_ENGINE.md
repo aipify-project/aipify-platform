@@ -121,4 +121,14 @@ Organizations should always understand what is happening, why it is happening, a
 
 Programmatic tiers: `lib/internal-language-model/action-approval-vocabulary.ts` · ILM corpus: `action-approval-engine.txt`
 
-KC FAQ: `content/knowledge/aipify/action-approval-engine/faq/action-approval-engine-faq.md`
+Blueprint Phase 6: `lib/internal-language-model/implementation-blueprint-phase6-vocabulary.ts` · ILM corpus: `implementation-blueprint-phase6-action-approval.txt`
+
+KC FAQ: `content/knowledge/aipify/action-approval-engine/faq/action-approval-engine-faq.md` · Phase 6: `implementation-blueprint-phase6-faq.md`
+
+---
+
+## Implementation Blueprint Phase 6
+
+Aligns Trust & Action Engine (Phase 30) Approval Center with ABOS action governance — no new tables. Spec: [IMPLEMENTATION_BLUEPRINT_PHASE6_ACTION_APPROVAL_FOUNDATION.md](./IMPLEMENTATION_BLUEPRINT_PHASE6_ACTION_APPROVAL_FOUNDATION.md), migration `20260951000000_implementation_blueprint_phase6_action_approval.sql`.
+
+Adds mission, philosophy (Assist/Recommend/Execute responsibly), low/medium/high action categories, approval principles, transparency requirements, Self Love connection (A.76 scaffold with boundary note), audit requirements, dogfooding metadata, live success criteria, vision phrases, and integration links on `/app/approvals` via `get_customer_approvals_center()`.

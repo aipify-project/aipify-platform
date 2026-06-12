@@ -27,3 +27,7 @@ Yes. Organizations can disable integrations when appropriate.
 ## Why is Unonight the first integration?
 
 Unonight serves as the pilot environment used to validate Aipify functionality.
+
+## Where is ABOS Implementation Blueprint Phase 5 documented?
+
+See [Implementation Blueprint Phase 5 FAQ](./implementation-blueprint-phase5-faq.md) and [IMPLEMENTATION_BLUEPRINT_PHASE5_INTEGRATION_CONNECTIVITY_FOUNDATION.md](../../../../IMPLEMENTATION_BLUEPRINT_PHASE5_INTEGRATION_CONNECTIVITY_FOUNDATION.md).

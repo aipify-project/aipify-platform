@@ -101,6 +101,15 @@ export function CompanionIdentityEngineDashboardPanel({ labels }: Props) {
   const modules = dashboard.module_consistency ?? [];
   const integrationLinks = dashboard.integration_links ?? {};
   const fox = dashboard.fox_exchange;
+  const characteristics = dashboard.companion_characteristics ?? [];
+  const commStandards = dashboard.communication_standards ?? [];
+  const playfulMoments = dashboard.playful_moments ?? [];
+  const selfLoveImpl = dashboard.self_love_implementation;
+  const memoryRules = dashboard.companion_memory_rules;
+  const orgBoundaries = dashboard.org_configuration_boundaries;
+  const successCriteria = dashboard.success_criteria ?? [];
+  const visionPhrases = dashboard.vision_phrases ?? [];
+  const blueprint = dashboard.implementation_blueprint;
 
   return (
     <div className="space-y-6">
@@ -115,6 +124,12 @@ export function CompanionIdentityEngineDashboardPanel({ labels }: Props) {
         <p className="mt-2 text-xs text-indigo-700">
           {dashboard.distinction_note ?? labels.distinctionNote}
         </p>
+        {blueprint?.phase ? (
+          <p className="mt-2 text-xs font-medium text-indigo-800">{blueprint.phase}</p>
+        ) : null}
+        {dashboard.companion_identity_engine_note ? (
+          <p className="mt-1 text-xs text-indigo-600">{dashboard.companion_identity_engine_note}</p>
+        ) : null}
       </section>
 
       {actionError && (
@@ -133,6 +148,179 @@ export function CompanionIdentityEngineDashboardPanel({ labels }: Props) {
           </button>
         ) : null}
       </div>
+
+      {successCriteria.length > 0 && (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.successCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {successCriteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      {characteristics.length > 0 && (
+        <section className="rounded-lg border border-indigo-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.companionCharacteristics}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {characteristics.map((c) => (
+              <li key={c.key ?? c.label} className="rounded border border-indigo-50 p-3 text-sm">
+                <div className="font-medium">
+                  {c.emoji ? `${c.emoji} ` : ""}
+                  {c.label}
+                </div>
+                {c.description ? <p className="mt-1 text-xs text-gray-600">{c.description}</p> : null}
+                {c.principle_note ? (
+                  <p className="mt-1 text-xs text-emerald-700">{c.principle_note}</p>
+                ) : null}
+                {c.route ? (
+                  <Link href={c.route} className="mt-1 inline-block text-xs text-indigo-600 hover:underline">
+                    {c.route}
+                  </Link>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {commStandards.length > 0 && (
+        <section className="rounded-lg border border-gray-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.communicationStandards}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {commStandards.map((s) => (
+              <li key={s.key ?? s.label}>
+                <span className="font-medium">{s.label}</span>
+                {s.rule ? <span className="text-gray-600"> — {s.rule}</span> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {playfulMoments.length > 0 && (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.playfulMoments}</h3>
+          <p className="mt-1 text-xs text-amber-800">{labels.playfulMomentsNote}</p>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {playfulMoments.map((m) => (
+              <li key={m.key ?? m.label} className="rounded border border-amber-100 bg-white p-2 text-sm">
+                <div className="font-medium">
+                  {m.emoji ? `${m.emoji} ` : ""}
+                  {m.label}
+                </div>
+                {m.description ? <p className="mt-1 text-xs text-gray-600">{m.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {selfLoveImpl && (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.selfLoveImplementation}</h3>
+          {selfLoveImpl.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{selfLoveImpl.principle}</p>
+          ) : null}
+          {selfLoveImpl.boundary_note ? (
+            <p className="mt-2 rounded border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-900">
+              {selfLoveImpl.boundary_note}
+            </p>
+          ) : null}
+          {(selfLoveImpl.influences?.length ?? 0) > 0 && (
+            <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+              {selfLoveImpl.influences?.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
+
+      {memoryRules && (
+        <section className="rounded-lg border border-gray-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.companionMemory}</h3>
+          {memoryRules.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{memoryRules.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-4 sm:grid-cols-2">
+            {(memoryRules.allowed?.length ?? 0) > 0 && (
+              <div>
+                <h4 className="text-xs font-medium text-emerald-700">{labels.memoryAllowed}</h4>
+                <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+                  {memoryRules.allowed?.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {(memoryRules.forbidden?.length ?? 0) > 0 && (
+              <div>
+                <h4 className="text-xs font-medium text-red-700">{labels.memoryForbidden}</h4>
+                <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+                  {memoryRules.forbidden?.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {orgBoundaries && (
+        <section className="rounded-lg border border-gray-100 bg-white p-4">
+          <h3 className="text-sm font-semibold">{labels.orgConfigBoundaries}</h3>
+          {orgBoundaries.boundary_note ? (
+            <p className="mt-2 text-xs text-gray-600">{orgBoundaries.boundary_note}</p>
+          ) : null}
+          {(orgBoundaries.configurable?.length ?? 0) > 0 && (
+            <div className="mt-3">
+              <h4 className="text-xs font-medium text-gray-700">{labels.orgConfigurable}</h4>
+              <ul className="mt-2 space-y-1 text-sm text-gray-700">
+                {orgBoundaries.configurable?.map((item) => (
+                  <li key={item.key ?? item.label}>
+                    <span className="font-medium">{item.label}</span>
+                    {item.via ? <span className="text-gray-500"> — {item.via}</span> : null}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {(orgBoundaries.consistent?.length ?? 0) > 0 && (
+            <div className="mt-3">
+              <h4 className="text-xs font-medium text-gray-700">{labels.orgAlwaysConsistent}</h4>
+              <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+                {orgBoundaries.consistent?.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
+      )}
+
+      {visionPhrases.length > 0 && (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/30 p-4">
+          <h3 className="text-sm font-semibold">{labels.visionPhrases}</h3>
+          <ul className="mt-2 space-y-1 text-sm italic text-violet-900">
+            {visionPhrases.map((phrase, i) => (
+              <li key={i}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section className="rounded-lg border border-gray-200 bg-white p-4">
         <h3 className="text-sm font-semibold">{labels.summary}</h3>

@@ -47,6 +47,14 @@ export default async function WisdomInterventionProtocolPage() {
           exportReport: t(`${p}.exportReport`),
           exporting: t(`${p}.exporting`),
           exportFailed: t(`${p}.exportFailed`),
+          successCriteria: t(`${p}.successCriteria`),
+          interventionPrinciples: t(`${p}.interventionPrinciples`),
+          interventionScenarios: t(`${p}.interventionScenarios`),
+          communicationExamples: t(`${p}.communicationExamples`),
+          sleepOnItPrinciple: t(`${p}.sleepOnItPrinciple`),
+          trustConnection: t(`${p}.trustConnection`),
+          visionPhrases: t(`${p}.visionPhrases`),
+          dogfooding: t(`${p}.dogfooding`),
         }}
       />
     </div>

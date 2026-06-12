@@ -62,6 +62,18 @@ Aggregates metadata from:
 - Audit via `_mta_create_audit_log` for report generation, exports, and schedule changes
 - Professional tone aligned with `lib/presence/personality.ts`
 
+## ABOS Blueprint Phase 13
+
+See [IMPLEMENTATION_BLUEPRINT_PHASE13_EXECUTIVE_INSIGHTS_FOUNDATION.md](./IMPLEMENTATION_BLUEPRINT_PHASE13_EXECUTIVE_INSIGHTS_FOUNDATION.md) — extends A.35 with Since Last Time summaries, five insight categories (Operational · Support · Knowledge · Companion · Strategic), companion communication examples (🔔🌹🦉), Self Love cross-links, trust/data sources transparency, and live success criteria.
+
+| Layer | Location |
+|-------|----------|
+| Blueprint migration | `supabase/migrations/20260960000000_implementation_blueprint_phase13_executive_insights.sql` |
+| ILM | `implementation-blueprint-phase13-executive-insights.txt` |
+| KC FAQ | `content/knowledge/aipify/executive-insights-engine/faq/implementation-blueprint-phase13-faq.md` |
+
+New helpers: `_eie_since_last_time_summary()`, `_eie_blueprint_success_criteria()`. No new tables.
+
 ## Principle
 
 Business logic in RPCs; panels are thin clients. Humans decide; Aipify informs and prepares.

@@ -72,26 +72,39 @@ export function ExecutiveInsightsEngineDashboardPanel({ labels }: Props) {
 
   const summary = dashboard.summary ?? {};
   const health = dashboard.organization_health ?? {};
+  const since = dashboard.since_last_time;
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap gap-2">
-        <Link href="/app/analytics-insights-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.analytics}
-        </Link>
-        <Link href="/app/operations-dashboard-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.operations}
-        </Link>
-        <Link href="/app/customer-success-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.customerSuccess}
-        </Link>
-        <Link href="/app/strategy" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.strategicIntelligence}
-        </Link>
-        <Link href="/app/executive" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
-          {labels.executiveDashboard}
-        </Link>
-      </div>
+      {(dashboard.integration_links ?? []).length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {dashboard.integration_links?.map((link) =>
+            link.route ? (
+              <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+                {link.label}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : (
+        <div className="flex flex-wrap gap-2">
+          <Link href="/app/analytics-insights-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.analytics}
+          </Link>
+          <Link href="/app/operations-dashboard-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.operations}
+          </Link>
+          <Link href="/app/customer-success-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.customerSuccess}
+          </Link>
+          <Link href="/app/strategy" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.strategicIntelligence}
+          </Link>
+          <Link href="/app/executive" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+            {labels.executiveDashboard}
+          </Link>
+        </div>
+      )}
 
       <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">
         <div className="flex flex-wrap items-center gap-3">
@@ -102,11 +115,56 @@ export function ExecutiveInsightsEngineDashboardPanel({ labels }: Props) {
             {String(summary.health_status ?? "healthy")}
           </span>
         </div>
+        {dashboard.mission ? <p className="mt-2 text-sm font-medium">{dashboard.mission}</p> : null}
         <p className="mt-2 text-sm">{dashboard.philosophy}</p>
+        {dashboard.abos_principle ? (
+          <p className="mt-2 text-xs text-violet-800">{dashboard.abos_principle}</p>
+        ) : null}
+        {dashboard.vision ? <p className="mt-2 text-xs text-gray-600">{dashboard.vision}</p> : null}
+        {dashboard.executive_insights_engine_note ? (
+          <p className="mt-1 text-xs text-violet-700">{dashboard.executive_insights_engine_note}</p>
+        ) : null}
+        {dashboard.distinction_note ? (
+          <p className="mt-1 text-xs text-violet-700">{dashboard.distinction_note}</p>
+        ) : null}
         {dashboard.safety_note ? (
           <p className="mt-2 text-xs text-gray-500">{dashboard.safety_note}</p>
         ) : null}
       </section>
+
+      {since ? (
+        <section className="rounded-xl border border-indigo-200 bg-indigo-50/40 p-6">
+          <h3 className="text-sm font-semibold text-indigo-900">{labels.sinceLastTime}</h3>
+          {since.trend_summary ? (
+            <p className="mt-2 text-sm text-indigo-900">{since.trend_summary}</p>
+          ) : null}
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            <div className="rounded-lg border border-indigo-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.supportResolved}</p>
+              <p className="mt-1 text-xl font-semibold">{since.support_cases_resolved ?? 0}</p>
+            </div>
+            <div className="rounded-lg border border-indigo-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.kcUpdated}</p>
+              <p className="mt-1 text-xl font-semibold">{since.kc_articles_updated ?? 0}</p>
+            </div>
+            <div className="rounded-lg border border-indigo-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.tasksCompleted}</p>
+              <p className="mt-1 text-xl font-semibold">{since.high_priority_tasks_completed ?? 0}</p>
+            </div>
+            <div className="rounded-lg border border-indigo-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.bottlenecks}</p>
+              <p className="mt-1 text-xl font-semibold">{since.bottlenecks_open ?? 0}</p>
+            </div>
+            <div className="rounded-lg border border-indigo-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.bellMoments}</p>
+              <p className="mt-1 text-xl font-semibold">{since.bell_moments ?? 0}</p>
+            </div>
+          </div>
+          {since.assumption_note ? (
+            <p className="mt-3 text-xs text-gray-500">{since.assumption_note}</p>
+          ) : null}
+        </section>
+      ) : null}
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-lg border border-gray-200 bg-white p-4">
@@ -145,6 +203,29 @@ export function ExecutiveInsightsEngineDashboardPanel({ labels }: Props) {
           {actionId === "report-monthly" ? labels.generating : labels.generateMonthly}
         </button>
       </div>
+
+      {dashboard.insight_categories && dashboard.insight_categories.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.insightCategories}</h3>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {dashboard.insight_categories.map((category) => (
+              <div key={category.key ?? category.label} className="rounded-lg border border-violet-100 bg-violet-50/30 p-4">
+                <p className="text-sm font-medium text-violet-900">{category.label}</p>
+                {category.description ? (
+                  <p className="mt-1 text-xs text-gray-600">{category.description}</p>
+                ) : null}
+                {(category.examples ?? []).length > 0 ? (
+                  <ul className="mt-2 list-disc space-y-1 pl-4 text-xs text-gray-600">
+                    {category.examples!.slice(0, 2).map((ex) => (
+                      <li key={ex}>{ex}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="rounded-xl border border-gray-200 bg-white p-6">
         <h3 className="text-sm font-semibold text-gray-900">{labels.majorAchievements}</h3>
@@ -267,6 +348,75 @@ export function ExecutiveInsightsEngineDashboardPanel({ labels }: Props) {
           </ul>
         )}
       </section>
+
+      {dashboard.success_criteria && dashboard.success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.successCriteria}</h3>
+          <ul className="mt-3 space-y-2">
+            {dashboard.success_criteria.map((criterion) => (
+              <li
+                key={criterion.key ?? criterion.label}
+                className="flex flex-wrap items-start gap-2 rounded-lg border border-gray-100 px-3 py-2 text-sm"
+              >
+                <span
+                  className={`rounded-full px-2 py-0.5 text-xs ${criterion.met ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"}`}
+                >
+                  {criterion.met ? labels.criterionMet : labels.criterionPending}
+                </span>
+                <div>
+                  <p className="font-medium text-gray-900">{criterion.label}</p>
+                  {criterion.note ? <p className="mt-1 text-xs text-gray-500">{criterion.note}</p> : null}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.trust_connection ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.trustConnection}</h3>
+          {dashboard.trust_connection.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.trust_connection.principle}</p>
+          ) : null}
+          {(dashboard.trust_connection.executives_should_know ?? []).length > 0 ? (
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-gray-600">
+              {dashboard.trust_connection.executives_should_know!.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.data_sources ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.dataSources}</h3>
+          {dashboard.data_sources.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.data_sources.principle}</p>
+          ) : null}
+          {(dashboard.data_sources.modules ?? []).length > 0 ? (
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {dashboard.data_sources.modules!.map((mod) => {
+                const route = typeof mod.route === "string" ? mod.route : undefined;
+                const label = typeof mod.label === "string" ? mod.label : String(mod.key ?? "");
+                return route ? (
+                  <Link key={route} href={route} className="rounded border border-gray-200 px-2 py-1 text-xs">
+                    {label}
+                  </Link>
+                ) : (
+                  <span key={label} className="rounded border border-gray-200 px-2 py-1 text-xs">
+                    {label}
+                  </span>
+                );
+              })}
+            </ul>
+          ) : null}
+          {dashboard.data_sources.privacy_note ? (
+            <p className="mt-3 text-xs text-gray-500">{dashboard.data_sources.privacy_note}</p>
+          ) : null}
+        </section>
+      ) : null}
 
       {dashboard.principles && dashboard.principles.length > 0 ? (
         <section className="rounded-xl border border-gray-200 bg-white p-6">

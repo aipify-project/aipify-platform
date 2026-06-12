@@ -69,4 +69,4 @@
 - **Trust & Action Engine:** `_gpe_check_approval_requirements` consults `action_policies` and enforces Level 4 AI prohibition
 - **Secure AI Actions (A.3):** Dashboard surfaces `ai_action_requests` pending approvals
 - **Audit (A.4):** All governance mutations dual-write via `_mta_create_audit_log`; `_ala_should_audit` extended
-- **Quality Guardian (A.13):** Complementary — quality scans operational health; governance enforces policy compliance
+- **Quality Guardian (A.13):** Complementary — quality scans operational health; governance enforces policy compliance. ABOS Phase 16 adds read-only governance summary on QG dashboard — see [IMPLEMENTATION_BLUEPRINT_PHASE16_GOVERNANCE_QUALITY_GUARDIAN_FOUNDATION.md](./IMPLEMENTATION_BLUEPRINT_PHASE16_GOVERNANCE_QUALITY_GUARDIAN_FOUNDATION.md).

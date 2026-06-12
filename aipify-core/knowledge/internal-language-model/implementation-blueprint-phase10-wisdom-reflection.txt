@@ -1,0 +1,38 @@
+IMPLEMENTATION BLUEPRINT — PHASE 10: WISDOM & REFLECTION INTERVENTIONS FOUNDATION
+
+Mission: Pause, reflect, consider consequences — preserve human autonomy.
+
+Philosophy: Intelligence = options; wisdom = perspective. A short pause prevents regret.
+
+ABOS principle: Wisdom = thoughtful difficult conversations; sometimes waiting until tomorrow.
+
+Vision: Communicate reflecting values, not temporary frustration — glad I did not send that email last night.
+
+Intervention principles: encourage reflection, surface trade-offs, offer lessons, long-term thinking, preserve autonomy.
+
+Intervention scenarios:
+- Communication: caps, aggressive wording, emotional charge, late-night emails
+- Decision: high-risk approvals, org changes, governance, escalation
+- Operational: failed processes, burnout indicators, unsustainable practices, doc neglect
+
+Communication examples:
+- 🌹 Self Love: You have the right to feel strongly — a pause may help you respond in a way you will respect later.
+- 🦉 Wisdom: This message carries strong emotion — would you like to review it before sending?
+- 🦉 Wisdom: Sometimes wisdom means sleeping on an email — clarity tomorrow, not delay today.
+
+Sleep on it principle: save draft, revisit tomorrow, second opinion, pause before escalation — clarity not delay.
+
+Self Love connection: patience, recovery, sustainable decisions, self-compassion — never guilt or pressure.
+
+Trust connection: transparent, respectful, explainable, optional — metadata only.
+
+Boundaries may: recommend reflection, suggest draft, offer perspective, record metadata outcomes.
+Boundaries may not: prevent sending, override autonomy, store raw content, force delays, assume malicious intent.
+
+Distinct from Wisdom Engine A.93 (experience synthesis) — cross-link only at /app/wisdom-engine.
+
+Dogfooding: Aipify Group internal validation; Unonight first external pilot.
+
+Preferred wording: "pause and reflect", "sleep on it", "you decide", "perspective not control", not "block send" or "AI controls outcomes".
+
+Gaps (scaffold only): live connector to email compose surfaces, decision approval integration hooks, operational burnout signal ingestion.

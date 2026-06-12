@@ -2,7 +2,7 @@
 
 **Feature owner:** Customer App (public marketing surface)
 
-Interactive public marketing site and product story — install-first positioning as an Aipify Business Operating System (ABOS), not a chatbot.
+Interactive public marketing site and product story — install-first positioning as a **digital coworker** and **Aipify Business Operating System (ABOS)**, not a chatbot. Canonical copy: [POSITIONING_FOUNDATION.md](./POSITIONING_FOUNDATION.md) · ILM `getPositioningFoundationVocabulary()` · KC `content/knowledge/aipify/abos/articles/positioning-foundation.md`.
 
 ## Extends
 
@@ -54,7 +54,8 @@ Interactive public marketing site and product story — install-first positionin
 
 ## Privacy & messaging
 
-- **Not a chatbot** — Aipify Business Operating System (ABOS)
+- **Headline** — "Meet Aipify – Your Digital Coworker" per [POSITIONING_FOUNDATION.md](./POSITIONING_FOUNDATION.md)
+- **Not a chatbot** — digital coworker / Aipify Business Operating System (ABOS)
 - **No employee monitoring** — prominent in hero, footer, security, FAQ
 - `prefers-reduced-motion` respected on animated demos
 

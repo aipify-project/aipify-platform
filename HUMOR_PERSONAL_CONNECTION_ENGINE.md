@@ -93,6 +93,7 @@ Aipify stays authentic — warm and supportive without false human intimacy.
 | `GET /api/aipify/personality/card` | `get_personality_card()` |
 | Migration (base) | `20260617400000_humor_warmth_human_connection.sql` |
 | Migration (ABOS alignment) | `20260931000000_humor_personal_connection_engine_abos_spec_alignment.sql` |
+| Migration (Blueprint Phase 8) | `20260955000000_implementation_blueprint_phase8_humor_personal_connection.sql` |
 
 ## Integrations
 
@@ -116,9 +117,26 @@ Extends this layer — not a new engine. See [PLAYFUL_MOMENTS_BELL_PERSONALITY_S
 - **Migration:** `20260932000000_playful_moments_bell_personality_seed.sql`
 - **API:** `GET /api/aipify/personality/bell-moment?context=task_complete` → `get_playful_bell_moment()`
 
+## Implementation Blueprint Phase 8
+
+See [IMPLEMENTATION_BLUEPRINT_PHASE8_HUMOR_PERSONAL_CONNECTION_FOUNDATION.md](./IMPLEMENTATION_BLUEPRINT_PHASE8_HUMOR_PERSONAL_CONNECTION_FOUNDATION.md).
+
+- **Mission:** Feel understood, welcomed, encouraged — respectful personalization and appropriate humor
+- **Objectives:** Humor prefs, style adaptation, harmless joke recognition, companion familiarity, celebratory interactions, context-sensitive personality
+- **Communication preferences:** Formal · professional warmth · light humor · high encouragement · minimal personality
+- **Playful moments:** Bell victories, recognition roses, fox exchange (*"What does the fox say?"* → *"Ring-ding-ding-ding-dingeringeding."*)
+- **Boundaries:** No humor in distress, serious decisions, safety, formal preference, trust-undermining; timing matters
+- **Self Love:** Reduce tension, encourage recovery, celebrate progress — [SELF_LOVE_NAMING_STANDARD.md](./SELF_LOVE_NAMING_STANDARD.md)
+- **Dogfooding:** Aipify Group internal; Unonight first external pilot for companion personality prefs
+- **Success criteria:** Live checks via `_per_blueprint_success_criteria()` on dashboard
+- **ILM:** `implementation-blueprint-phase8-humor-personal-connection.txt` · `implementation-blueprint-phase8-vocabulary.ts`
+
+Distinct from **Companion Identity Engine (A.84)** — orchestration vs humor/personality implementation layer.
+
 ## Knowledge Center
 
 - FAQ: `content/knowledge/aipify/personality/faq/humor-personal-connection-abos-faq.md`
+- Blueprint FAQ: `content/knowledge/aipify/personality/faq/implementation-blueprint-phase8-faq.md`
 - ABOS article: `content/knowledge/aipify/abos/articles/humor-and-human-connection.md`
 - Playful seed FAQ: `content/knowledge/aipify/personality/faq/playful-moments-bell-faq.md`
 - Playful seed article: `content/knowledge/aipify/abos/articles/playful-moments-and-bell-personality.md`

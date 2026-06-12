@@ -39,6 +39,18 @@ export default async function ExecutiveInsightsEnginePage() {
           generating: t(`${p}.generating`),
           noItems: t(`${p}.noItems`),
           principles: t(`${p}.principles`),
+          sinceLastTime: t(`${p}.sinceLastTime`),
+          supportResolved: t(`${p}.supportResolved`),
+          kcUpdated: t(`${p}.kcUpdated`),
+          tasksCompleted: t(`${p}.tasksCompleted`),
+          bottlenecks: t(`${p}.bottlenecks`),
+          bellMoments: t(`${p}.bellMoments`),
+          insightCategories: t(`${p}.insightCategories`),
+          successCriteria: t(`${p}.successCriteria`),
+          criterionMet: t(`${p}.criterionMet`),
+          criterionPending: t(`${p}.criterionPending`),
+          trustConnection: t(`${p}.trustConnection`),
+          dataSources: t(`${p}.dataSources`),
         }}
       />
     </div>

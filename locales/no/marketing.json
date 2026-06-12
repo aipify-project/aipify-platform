@@ -1,7 +1,7 @@
 {
   "meta": {
-    "homeTitle": "Aipify — Business Operating System",
-    "homeDescription": "Install Aipify into your business systems. An intelligent operating layer for support, operations, governance, and decisions — not a chatbot.",
+    "homeTitle": "Møt Aipify – din digitale medarbeider",
+    "homeDescription": "Aipify er en digital medarbeider som hjelper virksomheten din med å holde orden, svare raskere og jobbe smartere — med menneskelig kontroll og sikkerhet. Ikke en chatbot.",
     "productTitle": "Product — Aipify Business Operating System",
     "productDescription": "See how Aipify learns your systems, prepares actions, and keeps humans in control.",
     "modulesTitle": "Modules — Aipify",
@@ -49,11 +49,12 @@
   },
   "hero": {
     "badge": "Aipify Business Operating System",
-    "title": "Operational intelligence that works inside your business.",
-    "subtitle": "Aipify installs into your existing systems, learns how your organization operates, and prepares actions your team can approve — support, workflows, insights, and governance in one layer.",
-    "notChatbot": "Not a chatbot. Not surveillance. A calm operational partner.",
-    "ctaPrimary": "Request Early Access",
-    "ctaSecondary": "See How It Works",
+    "title": "Møt Aipify – din digitale medarbeider",
+    "subtitle": "Aipify hjelper virksomheten din med å holde orden, svare raskere og jobbe smartere — i systemene teamet ditt allerede bruker.",
+    "simpleExplanation": "Aipify er en digital medarbeider som hjelper virksomheten din med å holde orden, svare raskere og jobbe smartere.",
+    "notChatbot": "Ikke en chatbot. En rolig digital medarbeider med menneskelig kontroll innebygd.",
+    "ctaPrimary": "Be om tidlig tilgang",
+    "ctaSecondary": "Se hvordan det fungerer",
     "statInstall": "2 min",
     "statInstallLabel": "Typical install start",
     "statModules": "10+",
@@ -223,9 +224,19 @@
   },
   "knowledgePage": {
     "title": "Knowledge Center",
-    "subtitle": "Transparent documentation on how Aipify works.",
-    "faqIntro": "Common questions about the public website and product story.",
-    "readFaq": "Read full FAQ"
+    "subtitle": "Vanlige spørsmål om Aipify.",
+    "faqIntro": "Åpne svar om produktet, tillit og enterprise-beredskap.",
+    "readFaq": "Les full FAQ",
+    "faqs": {
+      "1": { "q": "Hva er Aipify?", "a": "Aipify er en digital medarbeider som hjelper virksomheten din med å holde orden, svare raskere og jobbe smartere. Formelt er det et Aipify Business Operating System (ABOS) for support, kunnskap, oppfølging, drift, leveranser, tillit og klarhet." },
+      "2": { "q": "Er Aipify bare en chatbot?", "a": "Nei. Aipify er en digital medarbeider — et Aipify Business Operating System (ABOS) for support, kunnskap, oppfølging, drift, leveranser, tillit og klarhet. Chat er én flate; produktet er operativ assistanse med menneskelig kontroll." },
+      "3": { "q": "Vil Aipify erstatte våre ansatte?", "a": "Nei. Aipify forsterker mennesker. Den forbereder utkast, organiserer kunnskap og håndterer repeterende arbeid innen godkjente rammer. Teamet ditt tar de viktige beslutningene." },
+      "4": { "q": "Hva gjør Aipify egentlig?", "a": "Aipify hjelper virksomheten din med å holde orden, svare raskere og jobbe smartere — gjennom support, kunnskap, oppfølging, drift, leveranser, tillitskontroller og forklarbar klarhet." },
+      "5": { "q": "Overvåker Aipify ansatte?", "a": "Nei. Aipify er ikke overvåkingsprogramvare. Den skal ikke overvåke skjermer, tastetrykk, private filer eller nettleserhistorikk." },
+      "6": { "q": "Kan Aipify generere forretningsdokumenter?", "a": "Ja. Aipify kan generere rapporter, sammendrag, sertifikater, regneark, presentasjoner og andre forretningsleveranser." },
+      "7": { "q": "Kan Aipify brukes av større selskaper?", "a": "Ja. Aipify er bygget med multi-tenant-arkitektur, roller, tillatelser, revisjonslogger, SSO-beredskap og enterprise-utrulling." },
+      "8": { "q": "Hvordan blir Aipify mer nyttig over tid?", "a": "Organisasjoner kan gradvis delegere godkjente arbeidsflyter til Aipify gjennom eksplisitte, reversible og reviderbare tillitspolicyer." }
+    }
   },
   "productPage": {
     "title": "The Aipify Business Operating System",

@@ -1,0 +1,35 @@
+IMPLEMENTATION BLUEPRINT — PHASE 12: TASK & PRIORITY ENGINE FOUNDATION
+
+Mission: Help organizations prioritize effectively, reduce friction, and maintain steady progress on what matters.
+
+Philosophy: Not all tasks are equal — focus on what matters, reduce friction, and make steady sustainable progress.
+
+ABOS principle: Focus on what matters — sustainable progress beats constant urgency.
+
+Task objectives: create, assign, priority recommendations, due dates, follow-up, status, completion.
+
+Task attributes: title, description, priority, owner, workspace, due date, status, KC articles, linked support cases, tags, audit — maps to organization_tasks.
+
+Priority framework: Critical / High / Medium / Low. Aipify may recommend adjustments with explainable reasoning — humans approve.
+
+Priority Focus A.80: P1–P4 dimensions and focus recommendations at /app/priority-focus-engine — cross-link only, do not merge engines.
+
+Companion assistance: priority suggestions, gentle overdue reminders, workload balance, completion celebration, KC procedure surfacing.
+
+Self Love (A.76): reduce task stress, discourage unrealistic workloads, celebrate completion, avoid constant urgency — principle only, no ™. Route /app/self-love-engine.
+
+Bell Moments: small celebrations on milestones and completion — coordinate with Gratitude & Recognition A.89. Not alert spam.
+
+KC connection: procedures, playbooks, lessons learned — metadata.kc_article_ids, create_task_from_source(support), KC A.5 route.
+
+Organizational Memory A.34: completed tasks → lessons, improvements, recommendations via _utfe_memory_hook — metadata only.
+
+Trust: explainable priority recommendations and reminders — utfe_* audit events, no raw chat or email content.
+
+Distinct from PAME personal tasks at /app/assistant — organization_tasks is organizational metadata only.
+
+Dogfooding: Aipify Group — task capture, priority framework, reminders. Unonight — commerce operational task pilot.
+
+Preferred wording: "clear ownership", "gentle follow-up", "steady progress", "priority recommendation", not "urgent everything" or "you forgot".
+
+Integration links: Priority Focus A.80, KC A.5, Organizational Memory A.34, Support AI A.7, Gratitude A.89, Self Love A.76, Proactive Companion A.79.

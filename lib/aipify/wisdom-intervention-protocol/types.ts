@@ -23,6 +23,78 @@ export type InterventionBoundaries = {
   [key: string]: unknown;
 };
 
+export type AbosSuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+};
+
+export type ImplementationBlueprint = {
+  phase?: number;
+  title?: string;
+  extends?: string;
+  includes?: string;
+  distinct_from?: string;
+  doc?: string;
+};
+
+export type InterventionScenario = {
+  label?: string;
+  triggers?: string[];
+  examples?: string[];
+};
+
+export type InterventionScenarios = {
+  communication?: InterventionScenario;
+  decision?: InterventionScenario;
+  operational?: InterventionScenario;
+};
+
+export type CommunicationExample = {
+  emoji?: string;
+  category?: string;
+  example?: string;
+};
+
+export type SleepOnItPrinciple = {
+  principle?: string;
+  practices?: string[];
+  note?: string;
+};
+
+export type SelfLoveConnection = {
+  principle?: string;
+  examples?: string[];
+  route?: string;
+  phase?: string;
+  boundary?: string;
+};
+
+export type TrustConnection = {
+  principle?: string;
+  qualities?: string[];
+  metadata_only?: boolean;
+  autonomy_note?: string;
+};
+
+export type VisionPhrase = {
+  emoji?: string;
+  phrase?: string;
+};
+
+export type DogfoodingFocus = {
+  slug?: string;
+  role?: string;
+  focus?: string[];
+};
+
+export type Dogfooding = {
+  principle?: string;
+  aipify_group?: DogfoodingFocus;
+  unonight?: DogfoodingFocus;
+};
+
 export type SelfLoveRosePhrase = {
   phrase?: string;
   rose?: boolean;
@@ -74,9 +146,13 @@ export type RecentSummary = {
 export type WisdomInterventionCard = {
   has_organization: boolean;
   philosophy?: string;
+  mission?: string;
+  abos_principle?: string;
   signal_count?: number;
   postponed_count?: number;
   enabled?: boolean;
+  implementation_blueprint?: ImplementationBlueprint;
+  wisdom_intervention_note?: string;
   [key: string]: unknown;
 };
 
@@ -105,6 +181,17 @@ export type WisdomInterventionDashboard = {
   recent_signals?: WisdomInterventionSignal[];
   recent_summary?: RecentSummary;
   summary?: Record<string, unknown>;
+  implementation_blueprint?: ImplementationBlueprint;
+  wisdom_intervention_note?: string;
+  intervention_principles?: string[];
+  intervention_scenarios?: InterventionScenarios;
+  communication_examples?: CommunicationExample[];
+  sleep_on_it_principle?: SleepOnItPrinciple;
+  self_love_connection?: SelfLoveConnection;
+  trust_connection?: TrustConnection;
+  vision_phrases?: VisionPhrase[];
+  dogfooding?: Dogfooding;
+  success_criteria?: AbosSuccessCriterion[];
   integration_links?: Record<string, unknown>;
   permissions?: Record<string, unknown>;
   [key: string]: unknown;
