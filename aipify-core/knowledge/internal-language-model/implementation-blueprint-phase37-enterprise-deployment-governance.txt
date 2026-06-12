@@ -1,0 +1,92 @@
+Implementation Blueprint Phase 37 — Enterprise Deployment & Governance Engine
+================================================================================
+
+Source: IMPLEMENTATION_BLUEPRINT_PHASE37_ENTERPRISE_DEPLOYMENT_GOVERNANCE.md
+Engine: Enterprise Readiness Engine Phase A.30 at /app/enterprise-readiness-engine
+RPC helpers: _edgbp_* (Enterprise Deployment Governance Blueprint Phase)
+
+Mission
+-------
+Enterprise requires trust → visibility → governance — approachable while meeting
+enterprise expectations for deployment flexibility, IAM, and executive oversight.
+
+Philosophy
+----------
+Enterprise adoption succeeds when organizations see clear responsibilities, honest
+scaffolds, and accountable governance — not complexity disguised as control.
+
+ABOS principle
+--------------
+One Aipify Business Operating System — deployable where the enterprise needs it,
+governed how leadership requires it, transparent to every stakeholder.
+
+Enterprise objectives
+---------------------
+- Multi-org structures — parent org, regional orgs, departments, teams
+- Advanced governance — approval workflows, retention, permission reviews
+- Regional administrators — delegated admin scopes
+- Enterprise IAM — SSO, SAML, directory sync, advanced roles (scaffolds)
+- Deployment flexibility — cloud, hybrid, on-premise
+- Executive oversight — cross-org trends, milestones, recognition
+
+Deployment models (metadata scaffold)
+-------------------------------------
+Cloud: fully managed, auto updates, simplified admin — Aipify operates infrastructure.
+Hybrid: shared responsibility, controlled integrations, regional requirements.
+On-premise: customer-managed, internal hosting, enhanced control.
+
+Configure actual deployment in Phase 66 (/app/enterprise), Phase 92
+(/app/enterprise/framework), and Device Rollout A.39
+(/app/enterprise-deployment-device-rollout-engine).
+
+Identity & Access Management
+----------------------------
+SSO, SAML, directory sync — future-ready scaffolds; configure in A.39 when available.
+Advanced roles and regional administrators extend A.30 delegated admins.
+Never expose fake connected state for SSO/SAML until integration completes.
+
+Multi-entity support hierarchy
+------------------------------
+Parent org → regional orgs → departments → teams → users
+Organization & Workspace A.75 at /app/organization-workspace-engine.
+
+Governance controls
+-------------------
+Approval workflows, retention policies, audit reporting, compliance visibility,
+permission reviews — cross-link Governance A.14, Compliance A.29, Human Oversight A.40.
+
+Executive capabilities
+----------------------
+🦉 Executive insights — Executive Insights A.35
+📈 Cross-org trends — readiness dimension aggregates
+🔔 Enterprise milestones — onboarding and deployment readiness
+🌹 Recognition — human-centered leadership at scale
+
+Self Love connection
+--------------------
+Sustainable decision-making, healthy communication, human-centered leadership at scale.
+Route /app/self-love-engine — principle only; no wellbeing content stored here.
+
+Trust connection
+----------------
+Deployment responsibilities, security boundaries, governance capabilities, compliance
+expectations — metadata only, Level 4 critical actions prohibited for AI.
+
+Distinctions
+------------
+Phase 37 extends A.30 — NOT duplicate of:
+- Enterprise Deployment Phase 66 (/app/enterprise)
+- Enterprise Framework Phase 92 (/app/enterprise/framework)
+- Governance & Policy A.14 (/app/governance-policy-engine)
+- Device Rollout A.39 (/app/enterprise-deployment-device-rollout-engine)
+
+Dogfooding
+----------
+Aipify Group: internal validation of enterprise governance scaffolds.
+Unonight: first external pilot for enterprise readiness in production.
+
+Vision
+------
+Enterprise trust grows when deployment responsibilities are clear.
+Visibility before control — executives see readiness; operators configure accountability.
+Governance that protects without overwhelming — metadata only, humans decide.

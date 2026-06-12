@@ -1,0 +1,60 @@
+Implementation Blueprint Phase 46 — Sales Coach Certification & Field Enablement Engine
+
+Extends Sales Expert Operating System A.95 at /app/sales-expert-engine.
+Tab: Certification & Field Enablement — not a separate engine route.
+
+Mission: Develop competent professionals — training strengthens confidence; certification reflects genuine competence.
+
+Philosophy: Assessment encourages growth, not fear. Mastery not exclusion. Field enablement supports excellence at a sustainable pace.
+
+ABOS principle: Partners grow through genuine capability — certification means readiness to help organizations work smarter.
+
+Sales training pathway (6 modules):
+1. Introduction to Aipify — philosophy, companion, business value
+2. Ethical Sales Practices
+3. Discovery Conversations
+4. Aipify Demonstrations
+5. Implementation Fundamentals
+6. Customer Success
+
+Sales simulation engine (metadata scaffold): cold conversations, discovery, demos, objections, renewals — Aipify acts as customer.
+
+Telephone sales coaching — five steps: intro, curiosity/discovery, opportunities, demo invitation, next steps. Structure not scripts.
+
+Assessment principles: product understanding, communication, ethical judgment, customer focus, demo readiness — growth not fear.
+
+Certification tiers:
+- Certified Sales Representative — 75% minimum
+- Sales Expert — 85% minimum
+- Elite Sales Expert — 95% minimum + practical excellence
+
+Never use Affiliate publicly — official partner terminology only.
+
+Reassessment: retakes allowed; max 3 attempts before material review — mastery not exclusion.
+
+Certification display: profiles, partner directories, dashboards — dates and identifiers scaffold.
+
+Email enablement: templates with expert details, booking links, certification status — NO mass unsolicited outreach.
+
+Implementation pricing: non-binding illustrative examples — Sales Experts set own pricing.
+
+Installation journey: subscribe → welcome → onboarding → install → companion-led training (5 steps).
+
+Field sales enablement: in-person demos, sector opportunities, certified follow-ups — companion nudges.
+
+Performance culture: customer satisfaction, sustainable growth, implementation excellence, professional development — not revenue comparison.
+
+Cross-links:
+- Certification & Achievement A.37 → /app/certification-achievement-engine
+- Learning & Training A.36 → /app/learning-training-engine
+- Partner Certification Phase 91 → /app/partners
+- Coach & Enablement Phase 45 → same dashboard Coach tab
+- Performance & Recognition Phase 41
+- Gratitude & Recognition A.89
+- Self Love A.76 → /app/self-love-engine
+
+Dogfooding: Aipify uses Sales Coach certification pathway internally first.
+
+Trust: transparent criteria, honest scaffolds, email boundary, metadata-only certification summary.
+
+Distinction: Phase 46 certifies and enables field work; Phase 45 coaches daily; Phase 41 celebrates milestones.

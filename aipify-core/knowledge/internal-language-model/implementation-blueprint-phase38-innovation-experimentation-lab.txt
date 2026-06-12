@@ -1,0 +1,59 @@
+# Implementation Blueprint Phase 38 — Innovation & Experimentation Lab (ABOS)
+
+Mission: Structured experimentation — curiosity not recklessness. Innovation as a repeatable organizational capability.
+
+Philosophy: Innovation without chaos — responsible creativity with accountability, visibility, and learning from every outcome.
+
+ABOS principle: Curiosity with structure — experiments teach the organization; failure defines learning, not people.
+
+Core distinction: Innovation Lab validates ideas through controlled experiments, pilots, and feature flags. Simulation Lab Phase 78 predicts without acting — route /app/simulations.
+
+Innovation objectives:
+- Idea generation — capture opportunities from support, operations, leadership, partners, analytics
+- Experiment tracking — hypothesis through recommendation with visible stages
+- Pilot programs — controlled participant cohorts with success criteria
+- Controlled testing — sandbox isolation, feature flags, exposure limits
+- Learning documentation — lessons routed toward Organizational Memory A.34
+- Innovation recognition — celebrate effort and learning, not only outcomes
+
+Idea management:
+- Submit, categorize, prioritize, collaborate, monitor status
+- Examples: support workflows, KC improvements, CX enhancements, process innovations
+
+Experimentation principles:
+- Objectives, success criteria, timeframes, risks, evaluation methods, responsible stakeholders
+- Experiments remain visible — no hidden trials
+
+Companion innovation support:
+- 🦉 Aligned with priorities — thoughtful innovation pacing
+- 🌹 Collaboration opportunity — cross-team co-creation
+- 🔔 Experiment milestone — visible progress for review
+- ❤️ Learning from unsuccessful experiments — psychological safety; failure defines learning, not people
+
+Learning capture:
+- What worked, what did not, unexpected observations, next steps, reusable insights
+- Route /app/organizational-memory-engine — metadata only, no PII
+
+Self Love: psychological safety, healthy curiosity, celebrate learning, compassion toward imperfection. Route /app/self-love-engine — principle only, no ™.
+
+Recognition experiences:
+- 🔔 Innovation Contributor · 🌹 Collaboration Champion · 🦉 Insight Discovery
+- Effort and learning — not only successful outcomes. Route /app/gratitude-recognition-engine
+
+Trust: experimental vs production separation, documented risks, transparent evaluation, approval ownership. Governance A.14 at /app/governance.
+
+Dogfooding: Aipify Group internal validation; Unonight early external experimentation environment.
+
+Cross-links — do not duplicate:
+- Innovation & Impact A.28 /app/innovation-impact-engine
+- Curiosity & Discovery A.87 /app/curiosity-discovery-engine
+- Organizational Memory A.34 /app/organizational-memory-engine
+- Gratitude & Recognition A.89 /app/gratitude-recognition-engine
+- Self Love A.76 /app/self-love-engine
+- Governance A.14 /app/governance
+- Continuous Improvement A.33 /app/continuous-improvement-engine
+- Growth & Evolution A.81 /app/growth-evolution-engine
+- Simulation Lab Phase 78 / Blueprint 22 /app/simulations
+
+Dashboard: /app/innovation-lab — RPCs get_innovation_lab_dashboard() and get_innovation_lab_card().
+Migration: supabase/migrations/20260989000000_implementation_blueprint_phase38_innovation_experimentation_lab.sql

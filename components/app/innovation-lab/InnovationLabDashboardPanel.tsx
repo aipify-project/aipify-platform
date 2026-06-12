@@ -5,6 +5,13 @@ import { useCallback, useEffect, useState } from "react";
 import {
   parseInnovationLabDashboard,
   type InnovationLabDashboard,
+  type CompanionInnovationExample,
+  type BlueprintObjective,
+  type IdeaManagementDomain,
+  type BlueprintCapability,
+  type RecognitionExperience,
+  type IntegrationLink,
+  type DogfoodingEntry,
 } from "@/lib/aipify/innovation-lab";
 
 type InnovationLabDashboardPanelProps = {
@@ -46,6 +53,82 @@ function riskClass(risk?: string) {
   }
 }
 
+function ObjectiveCard({ objective }: { objective: BlueprintObjective }) {
+  return (
+    <article className="rounded-lg border border-gray-100 bg-gray-50 p-4">
+      <p className="font-medium text-gray-900">{objective.label}</p>
+      {objective.description ? <p className="mt-1 text-xs text-gray-600">{objective.description}</p> : null}
+    </article>
+  );
+}
+
+function CapabilityList({ items }: { items?: BlueprintCapability[] }) {
+  if (!items?.length) return null;
+  return (
+    <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+      {items.map((item) => (
+        <li key={item.key ?? item.label}>
+          <span className="font-medium">{item.label}</span>
+          {item.description ? ` — ${item.description}` : ""}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function IdeaDomainCard({ domain }: { domain: IdeaManagementDomain }) {
+  return (
+    <article className="rounded-lg border border-gray-100 bg-gray-50 p-4">
+      <p className="font-medium text-gray-900">{domain.label}</p>
+      {domain.examples && domain.examples.length > 0 ? (
+        <ul className="mt-2 list-inside list-disc text-xs text-gray-600">
+          {domain.examples.map((example) => (
+            <li key={example}>{example}</li>
+          ))}
+        </ul>
+      ) : null}
+    </article>
+  );
+}
+
+function CompanionExampleCard({ example }: { example: CompanionInnovationExample }) {
+  return (
+    <article className="rounded-lg border border-gray-100 bg-gray-50 p-3">
+      <p className="text-sm font-medium text-gray-900">
+        {example.emoji} {example.scenario}
+      </p>
+      {example.example ? <p className="mt-1 text-xs italic text-gray-600">{example.example}</p> : null}
+    </article>
+  );
+}
+
+function RecognitionCard({ experience }: { experience: RecognitionExperience }) {
+  return (
+    <article className="rounded-lg border border-rose-100 bg-rose-50/40 p-3">
+      <p className="text-sm font-medium text-rose-900">
+        {experience.emoji} {experience.label}
+      </p>
+      {experience.description ? <p className="mt-1 text-xs text-rose-800">{experience.description}</p> : null}
+    </article>
+  );
+}
+
+function DogfoodingCard({ entry, title }: { entry: DogfoodingEntry; title: string }) {
+  return (
+    <article className="rounded-lg border border-gray-100 bg-gray-50 p-3">
+      <p className="text-sm font-medium text-gray-900">{title}</p>
+      {entry.role ? <p className="mt-1 text-xs text-gray-600">{entry.role}</p> : null}
+      {entry.focus && entry.focus.length > 0 ? (
+        <ul className="mt-2 list-inside list-disc text-xs text-gray-500">
+          {entry.focus.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      ) : null}
+    </article>
+  );
+}
+
 export function InnovationLabDashboardPanel({ labels }: InnovationLabDashboardPanelProps) {
   const [dashboard, setDashboard] = useState<InnovationLabDashboard | null>(null);
   const [loading, setLoading] = useState(true);
@@ -84,6 +167,8 @@ export function InnovationLabDashboardPanel({ labels }: InnovationLabDashboardPa
   if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
   if (!dashboard?.has_customer) return null;
 
+  const engagement = dashboard.innovation_engagement_summary;
+
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap gap-2">
@@ -93,13 +178,225 @@ export function InnovationLabDashboardPanel({ labels }: InnovationLabDashboardPa
         <Link href="/app/simulations" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.simulationLab}
         </Link>
+        <Link href="/app/organizational-memory-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.organizationalMemory}
+        </Link>
         <Link href="/app/academy" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.academy}
         </Link>
         <Link href="/app/knowledge-center" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.knowledgeCenter}
         </Link>
+        {(dashboard.innovation_integration_links ?? []).slice(0, 4).map((link: IntegrationLink) =>
+          link.route ? (
+            <Link key={link.route} href={link.route} className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+              {link.label ?? link.route}
+            </Link>
+          ) : null
+        )}
       </div>
+
+      {dashboard.implementation_blueprint_phase38 ? (
+        <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">
+          <h2 className="text-sm font-semibold text-violet-900">{labels.blueprintTitle}</h2>
+          <p className="mt-1 text-xs uppercase tracking-wide text-violet-700">
+            {dashboard.implementation_blueprint_phase38.title ?? labels.blueprintPhase38}
+            {dashboard.implementation_blueprint_phase38.engine_phase
+              ? ` · ${dashboard.implementation_blueprint_phase38.engine_phase}`
+              : ""}
+          </p>
+          {dashboard.innovation_lab_mission ? (
+            <p className="mt-2 text-sm font-medium text-violet-900">{dashboard.innovation_lab_mission}</p>
+          ) : null}
+          {dashboard.innovation_lab_philosophy ? (
+            <p className="mt-2 text-sm text-violet-900">{dashboard.innovation_lab_philosophy}</p>
+          ) : null}
+          {dashboard.innovation_abos_principle ? (
+            <p className="mt-2 text-xs text-violet-800">{dashboard.innovation_abos_principle}</p>
+          ) : null}
+          {dashboard.innovation_distinction_note ? (
+            <p className="mt-2 text-xs text-violet-700">{dashboard.innovation_distinction_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {engagement ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.engagementSummary}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>{labels.ideasTotal}: {engagement.ideas_total ?? 0}</span>
+            <span>{labels.experimentsTotal}: {engagement.experiments_total ?? 0}</span>
+            <span>{labels.experimentsActive}: {engagement.experiments_active ?? 0}</span>
+            <span>{labels.pilotsTotal}: {engagement.pilots_total ?? 0}</span>
+            <span>{labels.lessonsTotal}: {engagement.lessons_total ?? 0}</span>
+            <span>{labels.featureFlagsControlled}: {engagement.feature_flags_controlled ?? 0}</span>
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.innovation_objectives && dashboard.innovation_objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.innovationObjectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.innovation_objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.idea_management?.principle ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.ideaManagement}</h3>
+          <p className="mt-2 text-xs text-gray-600">{dashboard.idea_management.principle}</p>
+          <CapabilityList items={dashboard.idea_management.capabilities} />
+          {dashboard.idea_management.example_domains && dashboard.idea_management.example_domains.length > 0 ? (
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {dashboard.idea_management.example_domains.map((domain) => (
+                <IdeaDomainCard key={domain.domain ?? domain.label} domain={domain} />
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.experimentation_principles?.principle ? (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/40 p-4 text-sm text-indigo-900">
+          <h3 className="text-sm font-semibold">{labels.experimentationPrinciples}</h3>
+          <p className="mt-2">{dashboard.experimentation_principles.principle}</p>
+          <CapabilityList items={dashboard.experimentation_principles.required_elements} />
+          {dashboard.experimentation_principles.boundary ? (
+            <p className="mt-2 text-xs text-indigo-700">{dashboard.experimentation_principles.boundary}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.companion_innovation_support && dashboard.companion_innovation_support.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionInnovationSupport}</h3>
+          <div className="mt-3 space-y-3">
+            {dashboard.companion_innovation_support.map((example) => (
+              <CompanionExampleCard key={example.key ?? example.scenario} example={example} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.learning_capture?.principle ? (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/40 p-4 text-sm text-violet-900">
+          <h3 className="text-sm font-semibold">{labels.learningCapture}</h3>
+          <p className="mt-2">{dashboard.learning_capture.principle}</p>
+          <CapabilityList items={dashboard.learning_capture.capture_fields} />
+          {dashboard.learning_capture.failure_framing ? (
+            <p className="mt-2 text-xs font-medium text-violet-800">{dashboard.learning_capture.failure_framing}</p>
+          ) : null}
+          {dashboard.learning_capture.organizational_memory_route ? (
+            <Link
+              href={dashboard.learning_capture.organizational_memory_route}
+              className="mt-2 inline-block text-xs underline"
+            >
+              {labels.openOrganizationalMemory}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.innovation_recognition_experiences?.experiences &&
+      dashboard.innovation_recognition_experiences.experiences.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.recognitionExperiences}</h3>
+          {dashboard.innovation_recognition_experiences.principle ? (
+            <p className="mt-2 text-xs text-gray-600">{dashboard.innovation_recognition_experiences.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-3">
+            {dashboard.innovation_recognition_experiences.experiences.map((experience) => (
+              <RecognitionCard key={experience.key ?? experience.label} experience={experience} />
+            ))}
+          </div>
+          {dashboard.innovation_recognition_experiences.gratitude_route ? (
+            <Link
+              href={dashboard.innovation_recognition_experiences.gratitude_route}
+              className="mt-3 inline-block text-xs underline"
+            >
+              {labels.openGratitudeRecognition}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.innovation_success_criteria) && dashboard.innovation_success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-gray-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.successCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.innovation_success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={item.key ?? label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.innovation_self_love_connection?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.selfLoveConnection}</h3>
+          <p className="mt-2">{dashboard.innovation_self_love_connection.principle}</p>
+          {dashboard.innovation_self_love_connection.self_love_route ? (
+            <Link
+              href={dashboard.innovation_self_love_connection.self_love_route}
+              className="mt-2 inline-block text-xs underline"
+            >
+              {labels.openSelfLove}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.innovation_trust_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.trustConnection}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.innovation_trust_connection.principle}</p>
+          {dashboard.innovation_trust_connection.governance_route ? (
+            <Link href={dashboard.innovation_trust_connection.governance_route} className="mt-2 inline-block text-xs underline">
+              {labels.openGovernance}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.innovation_dogfooding?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.dogfooding}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.innovation_dogfooding.principle}</p>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.innovation_dogfooding.aipify_group ? (
+              <DogfoodingCard entry={dashboard.innovation_dogfooding.aipify_group} title={labels.aipifyGroup} />
+            ) : null}
+            {dashboard.innovation_dogfooding.unonight ? (
+              <DogfoodingCard entry={dashboard.innovation_dogfooding.unonight} title={labels.unonightPilot} />
+            ) : null}
+          </div>
+        </section>
+      ) : null}
+
+      {(dashboard.innovation_vision_phrases ?? []).length > 0 ? (
+        <section className="rounded-lg border border-fuchsia-100 bg-fuchsia-50/30 p-4 text-sm text-fuchsia-900">
+          <h3 className="text-sm font-semibold">{labels.visionPhrases}</h3>
+          <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+            {dashboard.innovation_vision_phrases?.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <section className="rounded-xl border border-fuchsia-200 bg-fuchsia-50/50 p-6">
         <h2 className="text-sm font-semibold text-fuchsia-900">{labels.innovationScore}</h2>
