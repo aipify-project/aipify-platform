@@ -17,8 +17,13 @@ export * from "./brand-identity";
 export * from "./abos-vocabulary";
 export * from "./abos-terminology";
 export * from "./action-approval-vocabulary";
+export * from "./proactive-companion-vocabulary";
+export * from "./priority-focus-vocabulary";
 export * from "./context-intelligence-vocabulary";
 export * from "./relationship-intelligence-vocabulary";
+export * from "./growth-evolution-vocabulary";
+export * from "./trust-engine-vocabulary";
+export * from "./purpose-values-vocabulary";
 
 /** Canonical knowledge corpus paths (source of truth). */
 export const FUNCTION_VOCABULARY_PATH =
@@ -51,8 +56,20 @@ export const ABOS_BRAND_TERMINOLOGY_PATH =
 export const ACTION_APPROVAL_ENGINE_PATH =
   "aipify-core/knowledge/internal-language-model/action-approval-engine.txt";
 
+export const PROACTIVE_COMPANION_ENGINE_PATH =
+  "aipify-core/knowledge/internal-language-model/proactive-companion-engine.txt";
+
 export const CONTEXT_INTELLIGENCE_ENGINE_PATH =
   "aipify-core/knowledge/internal-language-model/context-intelligence-engine.txt";
 
 export const RELATIONSHIP_INTELLIGENCE_ENGINE_PATH =
   "aipify-core/knowledge/internal-language-model/relationship-intelligence-engine.txt";
+
+export const GROWTH_EVOLUTION_ENGINE_PATH =
+  "aipify-core/knowledge/internal-language-model/growth-evolution-engine-abos.txt";
+
+export const TRUST_ENGINE_ABOS_PATH =
+  "aipify-core/knowledge/internal-language-model/trust-engine-abos.txt";
+
+export const PURPOSE_VALUES_ENGINE_PATH =
+  "aipify-core/knowledge/internal-language-model/purpose-values-engine-abos.txt";

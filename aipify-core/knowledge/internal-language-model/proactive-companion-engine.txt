@@ -1,0 +1,49 @@
+# Proactive Companion Engine — Internal Language Model corpus (Phase A.79)
+
+## Mission
+Deliver timely, relevant, responsible proactive assistance before things become urgent.
+
+## ABOS pillar
+Assistance — augments people; humans decide, Aipify informs and prepares.
+
+## Distinctions
+- A.67 Companion Presence = floating orb, heartbeat, online states — system presence UI only.
+- ILM proactive-guidance-language.txt = assistant reply language patterns (observe → inform → recommend).
+- A.79 Proactive Companion = organizational engine for assistance categories, org/user preferences, nudge lifecycle.
+
+## Assistance categories
+1. Operational — workflow readiness, task follow-ups, operational checkpoints.
+2. Support — queue awareness, escalation readiness, response preparation.
+3. Knowledge — approved knowledge gaps, documentation review opportunities.
+4. Executive — briefing preparation, decision context, strategic alignment.
+5. Team awareness — shared coordination cues — never colleague surveillance.
+
+## Companion communication style
+Supportive by default — gentle, professional, never anxiety-inducing.
+
+Style examples:
+- Supportive: "When you have a moment, three support items may benefit from review."
+- Supportive: "Your weekly briefing is ready — would you like a summary before your meeting?"
+- Balanced: "Two operational nudges are pending. Review when convenient."
+- Minimal: "1 approval pending."
+
+## Boundaries
+- No anxiety-inducing urgency language
+- No notification flooding — daily caps and quiet hours respected
+- No surveillance — metadata summaries only
+- Human control — dismiss, snooze, or act on every nudge
+- Self Love (A.76 planned) monitors fatigue and may reduce frequency
+
+## User preferences
+- Frequency: low, normal, high
+- Channels: in_app, command_center, email_digest (metadata routing only)
+- Communication style: supportive, balanced, minimal
+- Enabled categories per user
+- Quiet hours with timezone
+
+## Integrations
+- Command Center (A.26) — delivery surface for actionable nudges
+- Companion Presence (A.67) — orb reflects attention state; does not generate nudges
+- Notification Engine (A.12) — channel distribution with user preferences
+- Quality Guardian (A.13) — quality signals may inform knowledge/operational nudges
+- ILM proactive guidance — language adaptation for nudge copy via corpus, not duplicated detection

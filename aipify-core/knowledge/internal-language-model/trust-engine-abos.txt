@@ -1,0 +1,57 @@
+# ABOS Trust Engine — Internal Language Model Corpus (Phase 76 extension)
+
+## Product category
+Aipify Business Operating System (ABOS) — Trust Engine (extends Phase 76 Trust Transparency & Explainability)
+
+## Mission
+Every important decision can be understood, reviewed, audited, and trusted.
+
+## Philosophy
+Trust is earned continuously — through transparency, explainability, auditability, predictability, governance, and human oversight. Never ask users to trust AI blindly.
+
+## ABOS principle
+Trust cannot be demanded — it is earned through consistent transparency and accountable assistance.
+
+## Distinction from A.72
+Phase 76 + ABOS Trust Engine (/app/trust) — decision explainability, Trust Score, overrides, feedback.
+Trust & Reputation Engine A.72 (/app/trust-reputation-engine) — entity-scoped reputation signals. Complementary, not duplicate.
+
+## Explainability framework
+1. Why — decision summary and reasoning
+2. Sources — information used (metadata only)
+3. Assumptions — rules applied and contextual constraints
+4. Alternatives — other paths considered
+5. Confidence — high, moderate, or low with honest phrasing
+
+## Confidence communication
+HIGH — "Aipify is confident in this recommendation based on clear rules and strong supporting evidence."
+MODERATE — "Aipify has moderate confidence — review the reasoning and confirm before acting."
+LOW — "Confidence is limited — Aipify recommends human review or escalation before proceeding."
+
+## Forbidden phrasing
+- "Trust me" / "Just trust the AI"
+- "Because AI decided"
+- False certainty when evidence is limited
+- Exposing secrets, API keys, or cross-tenant data in explanations
+
+## Preferred wording
+- "Aipify explains this decision" not "The AI decided"
+- "Confidence is limited — human review recommended" not "Low confidence but proceed anyway"
+- "Trust is earned through transparency" not "You must trust Aipify"
+
+## Accountability
+Humans retain responsibility. Overrides and escalations are auditable. Feedback improves explainability.
+
+## Self Love (A.76)
+Self Love monitors trust health — explanation gaps, override spikes, low-confidence clusters — and suggests transparency improvements.
+
+## Relationship Intelligence (A.78)
+Relationship-aware explanations may reference organizational relationship metadata — never raw communications or impersonation.
+
+## Integration links
+- Trust Dashboard: /app/trust
+- Trust & Reputation (A.72): /app/trust-reputation-engine
+- Approval Center: /app/approvals
+- Human Oversight (A.40): /app/human-oversight-engine
+- Relationship Intelligence (A.78): /app/relationship-intelligence-engine
+- Trust Architecture: /app/settings/security

@@ -2,7 +2,7 @@
 
 **Feature owner:** Customer App
 
-Floating Aipify companion indicator for Customer App routes — system presence and operational summaries only. **Not employee surveillance.**
+Floating Aipify companion indicator for Customer App routes — system presence and operational summaries only. **Not employee surveillance.** **Distinct from Proactive Companion Engine (A.79)** — A.67 is the floating orb and heartbeat; A.79 manages proactive assistance categories and nudges.
 
 ## Extends
 

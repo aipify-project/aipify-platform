@@ -39,6 +39,17 @@ export function TrustDashboardPanel({ labels }: TrustDashboardPanelProps) {
 
   return (
     <div className="space-y-6">
+      {dashboard.mission || dashboard.abos_principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          {dashboard.mission ? (
+            <p className="text-sm font-medium text-gray-900">{dashboard.mission}</p>
+          ) : null}
+          {dashboard.abos_principle ? (
+            <p className="mt-2 text-sm text-gray-600">{dashboard.abos_principle}</p>
+          ) : null}
+        </section>
+      ) : null}
+
       <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">
         <h2 className="text-sm font-semibold text-violet-900">{labels.trustScore}</h2>
         <p className="mt-2 text-4xl font-bold text-gray-900">
@@ -52,6 +63,21 @@ export function TrustDashboardPanel({ labels }: TrustDashboardPanelProps) {
           <p className="text-sm text-gray-700">{labels.escalations}: {dashboard.escalations ?? 0}</p>
         </div>
       </section>
+
+      {dashboard.confidence_communication && dashboard.confidence_communication.length > 0 ? (
+        <section>
+          <h2 className="text-sm font-semibold text-gray-900">{labels.confidenceCommunication}</h2>
+          <ul className="mt-3 space-y-2">
+            {dashboard.confidence_communication.map((item) => (
+              <li key={item.level} className="rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm">
+                <p className="font-medium text-gray-900">{item.label}</p>
+                <p className="mt-1 text-xs text-gray-500">{item.when}</p>
+                <p className="mt-2 text-gray-700">{item.example}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <section>
         <h2 className="text-sm font-semibold text-gray-900">{labels.recentExplanations}</h2>

@@ -72,6 +72,9 @@ export type AppNavId =
   | "aiCostGovernanceEngine"
   | "personalProductivityEngine"
   | "proactiveCompanionEngine"
+  | "growthEvolutionEngine"
+  | "priorityFocusEngine"
+  | "purposeValuesEngine"
   | "briefing"
   | "executive"
   | "presence"
@@ -430,6 +433,21 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/proactive-companion-engine",
     labelKey: "customerApp.nav.proactiveCompanionEngine",
   },
+  {
+    id: "growthEvolutionEngine",
+    href: "/app/growth-evolution-engine",
+    labelKey: "customerApp.nav.growthEvolutionEngine",
+  },
+  {
+    id: "priorityFocusEngine",
+    href: "/app/priority-focus-engine",
+    labelKey: "customerApp.nav.priorityFocusEngine",
+  },
+  {
+    id: "purposeValuesEngine",
+    href: "/app/purpose-values-engine",
+    labelKey: "customerApp.nav.purposeValuesEngine",
+  },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -627,6 +645,15 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/proactive-companion-engine")) {
     return "proactiveCompanionEngine";
+  }
+  if (pathname.startsWith("/app/growth-evolution-engine")) {
+    return "growthEvolutionEngine";
+  }
+  if (pathname.startsWith("/app/priority-focus-engine")) {
+    return "priorityFocusEngine";
+  }
+  if (pathname.startsWith("/app/purpose-values-engine")) {
+    return "purposeValuesEngine";
   }
   if (pathname.startsWith("/app/aipify-install-engine")) return "aipifyInstallEngine";
   if (pathname.startsWith("/app/module-marketplace-foundation-engine")) {

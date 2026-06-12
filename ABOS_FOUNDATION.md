@@ -36,9 +36,9 @@ ABOS organizes Aipify capabilities into six pillars. Each pillar maps to impleme
 | Pillar | Purpose | Representative phases |
 |--------|---------|----------------------|
 | **Knowledge** | Trusted, approved information for people and AI | A.5 KC · A.34 Org Memory · BDE · EKE · Learning Engine |
-| **Assistance** | Human-centered help across admin, support, and personal work | A.6 · A.7 · A.12 · PAME · LifeOS · RSI · A.76 Self Love (planned) |
+| **Assistance** | Human-centered help across admin, support, and personal work | A.6 · A.7 · A.12 · A.79 Proactive Companion · A.80 Priority & Focus · PAME · LifeOS · RSI · A.76 Self Love (planned) |
 | **Automation** | Safe, approved execution of repeatable work | A.3 Secure AI Actions · AEF · ASO · Install Engine |
-| **Intelligence** | Explainable insights, recommendations, and strategic context | A.16 · A.31 · A.35 · A.44 · DSE · Learning Engine |
+| **Intelligence** | Explainable insights, recommendations, and strategic context | A.16 · A.31 · A.35 · A.44 · A.77 · DSE · Learning Engine |
 | **Governance** | Permissions, policies, audit, trust, and compliance | A.2 · A.4 · A.14 · A.29 · Trust & Action · License Center |
 | **Operations** | Day-to-day operational visibility, integrations, and health | A.8 · A.9 · A.13 · A.19 · A.22 · A.32 · A.75 Org & Workspace |
 
@@ -46,7 +46,7 @@ ABOS organizes Aipify capabilities into six pillars. Each pillar maps to impleme
 
 **Knowledge** — Organizations need one place for approved documentation, FAQs, business DNA, employee knowledge, and organizational memory. Knowledge powers Support AI, Admin Assistant, and every explainable recommendation. Raw customer content is never stored without approval.
 
-**Assistance** — Aipify augments administrators, support staff, and individual users through assistants that understand context — not command syntax. Assistance includes operational modules (admin, support) and personal companion capabilities (memory, life, relationships, identity). **Self Love Engine™ (A.76, planned)** is a core ABOS assistance capability: Aipify maintains its own operational wellbeing — quality checks, health narratives, and gentle recovery guidance — so the platform can better support others.
+**Assistance** — Aipify augments administrators, support staff, and individual users through assistants that understand context — not command syntax. Assistance includes operational modules (admin, support), **Proactive Companion Engine (A.79)** for timely organizational nudges with human control, **Priority & Focus Engine (A.80)** for organizational priority dimensions and P1–P4 focus support, and personal companion capabilities (memory, life, relationships, identity). **Self Love Engine™ (A.76, planned)** is a core ABOS assistance capability: Aipify maintains its own operational wellbeing — quality checks, health narratives, and gentle recovery guidance — so the platform can better support others.
 
 **Automation** — Repetitive, reversible work may run within approved boundaries. High-risk and critical actions require explicit human approval. Automation never bypasses governance or tenant isolation.
 
@@ -72,6 +72,7 @@ Full mapping of ABOS pillars to A-phases and related engines in this repository.
 | **Assistance** | A.6 Admin Assistant Engine | [ADMIN_ASSISTANT_ENGINE_PHASE_A6.md](./ADMIN_ASSISTANT_ENGINE_PHASE_A6.md) |
 | | A.7 Support AI Engine | [SUPPORT_AI_ENGINE_PHASE_A7.md](./SUPPORT_AI_ENGINE_PHASE_A7.md) |
 | | A.12 Aipify Self-Support Engine | [AIPIFY_SELF_SUPPORT_ENGINE_PHASE_A12.md](./AIPIFY_SELF_SUPPORT_ENGINE_PHASE_A12.md) |
+| | A.79 Proactive Companion Engine | [PROACTIVE_COMPANION_ENGINE_PHASE_A79.md](./PROACTIVE_COMPANION_ENGINE_PHASE_A79.md) |
 | | Personal Assistant Memory (PAME) | [ASSISTANT_MEMORY_ENGINE.md](./ASSISTANT_MEMORY_ENGINE.md) |
 | | LifeOS · RSI · Identity · Context · GDE · TAG · DSE | Companion assistant modules under `/app/assistant/*` |
 | | A.78 Relationship Intelligence Engine (organizational) | [RELATIONSHIP_INTELLIGENCE_ENGINE.md](./RELATIONSHIP_INTELLIGENCE_ENGINE.md) — tenant-level; distinct from personal RSI |
@@ -84,6 +85,7 @@ Full mapping of ABOS pillars to A-phases and related engines in this repository.
 | | A.31 Strategic Intelligence Foundation | [STRATEGIC_INTELLIGENCE_FOUNDATION_ENGINE_PHASE_A31.md](./STRATEGIC_INTELLIGENCE_FOUNDATION_ENGINE_PHASE_A31.md) |
 | | A.35 Executive Insights Engine | [EXECUTIVE_INSIGHTS_ENGINE_PHASE_A35.md](./EXECUTIVE_INSIGHTS_ENGINE_PHASE_A35.md) |
 | | A.44 Industry Intelligence Foundation | [INDUSTRY_INTELLIGENCE_FOUNDATION_ENGINE_PHASE_A44.md](./INDUSTRY_INTELLIGENCE_FOUNDATION_ENGINE_PHASE_A44.md) |
+| | A.77 Context Intelligence Engine | [CONTEXT_INTELLIGENCE_ENGINE.md](./CONTEXT_INTELLIGENCE_ENGINE.md) |
 | | Decision Support Engine (DSE) | [DECISION_SUPPORT_ENGINE.md](./DECISION_SUPPORT_ENGINE.md) |
 | **Governance** | A.2 Identity, Roles & Permission Engine | [IDENTITY_PERMISSIONS_ENGINE_PHASE_A2.md](./IDENTITY_PERMISSIONS_ENGINE_PHASE_A2.md) |
 | | A.4 Audit Log & Accountability Engine | [AUDIT_ACCOUNTABILITY_ENGINE_PHASE_A4.md](./AUDIT_ACCOUNTABILITY_ENGINE_PHASE_A4.md) |

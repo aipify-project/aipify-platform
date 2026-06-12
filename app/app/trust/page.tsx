@@ -24,6 +24,7 @@ export default async function TrustPage() {
           escalations: t(`${p}.escalations`),
           recentExplanations: t(`${p}.recentExplanations`),
           recentFeedback: t(`${p}.recentFeedback`),
+          confidenceCommunication: t(`${p}.confidenceCommunication`),
           safetyNote: t(`${p}.safetyNote`),
         }}
       />

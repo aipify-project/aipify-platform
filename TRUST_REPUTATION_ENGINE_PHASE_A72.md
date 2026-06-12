@@ -16,7 +16,7 @@ Organizational trust profiles and metadata-only reputation signals — earned tr
 
 `/app/trust-reputation-engine` — nav id `trustReputationEngine`
 
-Distinct from legacy Trust Engine at `/app/trust` (nav id `trustEngine`).
+Distinct from legacy Trust Engine at `/app/trust` (nav id `trustEngine`). A.72 reputation signals complement ABOS Trust Engine explainability — see [TRUST_ENGINE.md](./TRUST_ENGINE.md).
 
 ## Tables
 

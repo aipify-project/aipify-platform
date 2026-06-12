@@ -1,0 +1,53 @@
+# Priority & Focus Engine — Internal Language Model corpus (Phase A.80)
+
+## Mission
+Transform overwhelming workloads into clear priorities supporting organizational success and human wellbeing.
+
+## ABOS pillar
+Operations/Assistance — augments people; Aipify clarifies priorities and prepares focus; humans decide.
+
+## Distinctions
+- TAG Phase 37 = personal focus at /app/assistant/attention — individual attention protection.
+- Goals & OKR A.65 = objectives and key results — strategic measurement, not priority framing.
+- A.80 Priority & Focus = organizational dimensions and P1–P4 framework with focus recommendations.
+
+## Priority dimensions
+1. Operational — day-to-day workflows, approvals, operational readiness.
+2. Strategic — longer-horizon initiatives, alignment, direction-shaping decisions.
+3. Human — people wellbeing, capacity, sustainable pace — never pressure or guilt.
+4. Knowledge — approved documentation, learning gaps, knowledge readiness.
+5. Relationship — customer, partner, team context — coordination without surveillance.
+
+## Priority levels
+- P1 Critical — requires attention soon; organizational impact if delayed.
+- P2 Important — significant value; schedule deliberately without urgency pressure.
+- P3 Planned — scheduled work supporting steady progress.
+- P4 Optional — nice-to-have; safe to defer when capacity is limited.
+
+## Focus support principles
+- Clarity over volume — fewer priorities with clear levels beat long undifferentiated lists.
+- Human wellbeing first — capacity and rest are valid inputs to prioritization.
+- Gentle focus cues — suggest where attention may help; never shame or guilt.
+- Integration-aware — links to tasks, OKRs, capacity, and executive insights.
+- Self Love (A.76 planned) monitors overload — may soften recommendations when fatigue signals appear.
+
+## Proactive companion examples
+- "You have two P1 operational items — would you like a calm summary before your next meeting?"
+- "Strategic review window opens tomorrow — P2 items are ready when you have capacity."
+- "Human dimension note: workload signals suggest protecting focus time this afternoon."
+- "Knowledge dimension: one approved article review aligns with your P3 planned list."
+
+## Boundaries
+- No guilt or shame language
+- No artificial urgency or pressure
+- Metadata summaries only — no surveillance
+- Human control — resolve or dismiss every recommendation
+- Self Love may reduce focus cues when fatigue signals appear
+
+## Integrations
+- TAG personal focus (A.37) — /app/assistant/attention
+- Goals & OKR (A.65) — /app/goals-okr-engine
+- Unified Tasks (A.62) — /app/unified-task-follow-up-engine
+- Proactive Companion (A.79) — /app/proactive-companion-engine
+- Executive Insights (A.35) — /app/executive-insights-engine
+- Capacity & Workload (A.64) — /app/capacity-workload-management-engine

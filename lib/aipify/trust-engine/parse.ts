@@ -49,8 +49,47 @@ export function parseTrustCard(data: unknown): TrustCard {
     trust_score: d.trust_score as number | undefined,
     explanation_count: d.explanation_count as number | undefined,
     philosophy: d.philosophy as string | undefined,
+    mission: d.mission as string | undefined,
+    abos_principle: d.abos_principle as string | undefined,
     privacy_note: d.privacy_note as string | undefined,
   };
+}
+
+function parseExplainabilityFramework(row: unknown): TrustDashboard["explainability_framework"] {
+  const s = (row ?? {}) as Record<string, unknown>;
+  if (!s.why && !s.sources) return undefined;
+  return {
+    why: String(s.why ?? ""),
+    sources: String(s.sources ?? ""),
+    assumptions: String(s.assumptions ?? ""),
+    alternatives: String(s.alternatives ?? ""),
+    confidence: String(s.confidence ?? ""),
+  };
+}
+
+function parseConfidenceCommunication(row: unknown): TrustDashboard["confidence_communication"] {
+  if (!Array.isArray(row)) return undefined;
+  return row.map((item) => {
+    const s = (item ?? {}) as Record<string, unknown>;
+    return {
+      level: String(s.level ?? ""),
+      label: String(s.label ?? ""),
+      when: String(s.when ?? ""),
+      example: String(s.example ?? ""),
+    };
+  });
+}
+
+function parseIntegrationLinks(row: unknown): TrustDashboard["integration_links"] {
+  if (!Array.isArray(row)) return undefined;
+  return row.map((item) => {
+    const s = (item ?? {}) as Record<string, unknown>;
+    return {
+      label: String(s.label ?? ""),
+      route: String(s.route ?? ""),
+      description: String(s.description ?? ""),
+    };
+  });
 }
 
 export function parseTrustDashboard(data: unknown): TrustDashboard {
@@ -69,6 +108,27 @@ export function parseTrustDashboard(data: unknown): TrustDashboard {
     recent_feedback: Array.isArray(d.recent_feedback)
       ? (d.recent_feedback as TrustDashboard["recent_feedback"])
       : [],
+    philosophy: d.philosophy as string | undefined,
+    mission: d.mission as string | undefined,
+    abos_principle: d.abos_principle as string | undefined,
+    self_love_note: d.self_love_note as string | undefined,
+    explainability_framework: parseExplainabilityFramework(d.explainability_framework),
+    transparency_requirements: Array.isArray(d.transparency_requirements)
+      ? (d.transparency_requirements as string[])
+      : undefined,
+    confidence_communication: parseConfidenceCommunication(d.confidence_communication),
+    accountability_principles: Array.isArray(d.accountability_principles)
+      ? (d.accountability_principles as string[])
+      : undefined,
+    auditability_fields: Array.isArray(d.auditability_fields)
+      ? (d.auditability_fields as string[])
+      : undefined,
+    consistency_monitoring: Array.isArray(d.consistency_monitoring)
+      ? (d.consistency_monitoring as string[])
+      : undefined,
+    relationship_intelligence_note: d.relationship_intelligence_note as string | undefined,
+    integration_links: parseIntegrationLinks(d.integration_links),
+    privacy_note: d.privacy_note as string | undefined,
   };
 }
 

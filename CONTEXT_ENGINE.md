@@ -2,6 +2,8 @@
 
 **Phase 35 · The intelligence layer above the calendars people already trust**
 
+> **Note:** Phase 35 Context Engine (this document) covers personal calendar orchestration and UCL at `/app/assistant/context`. **Phase A.77 Context Intelligence Engine** ([CONTEXT_INTELLIGENCE_ENGINE.md](./CONTEXT_INTELLIGENCE_ENGINE.md)) provides **organizational ABOS context intelligence** at `/app/context-intelligence-engine` — a different scope.
+
 Aipify orchestrates calendars — it does not replace them. Users connect what they use; Aipify understands context and coordinates scheduling.
 
 **Prerequisites:** [ASSISTANT_MEMORY_ENGINE.md](./ASSISTANT_MEMORY_ENGINE.md) · [LIFE_OPERATING_SYSTEM.md](./LIFE_OPERATING_SYSTEM.md) · [IDENTITY_ENGINE.md](./IDENTITY_ENGINE.md)

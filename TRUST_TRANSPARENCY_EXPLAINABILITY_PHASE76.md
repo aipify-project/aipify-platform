@@ -1,5 +1,7 @@
 # Trust, Transparency & Explainability Engine — Phase 76
 
+> **ABOS Trust Engine:** See [TRUST_ENGINE.md](./TRUST_ENGINE.md) — canonical ABOS trust foundation spec that extends this phase (philosophy, confidence communication, accountability, Self Love, Relationship Intelligence integration). Migration `20260926000000_trust_engine_abos_spec_alignment.sql`.
+
 Build a comprehensive Trust, Transparency and Explainability framework so every important Aipify decision can be understood, reviewed, audited, and trusted.
 
 ## Philosophy
@@ -42,7 +44,8 @@ Inputs: explanation coverage, view rate, satisfaction, override frequency, escal
 
 ## Migration
 
-`supabase/migrations/20260616700000_trust_transparency_explainability_phase76.sql`
+`supabase/migrations/20260616700000_trust_transparency_explainability_phase76.sql`  
+ABOS spec alignment: `supabase/migrations/20260926000000_trust_engine_abos_spec_alignment.sql` — see [TRUST_ENGINE.md](./TRUST_ENGINE.md)
 
 Tables: `decision_explanations`, `explanation_events`, `explainability_trust_metrics`, `explanation_feedback`, `explainability_audit_log`
 

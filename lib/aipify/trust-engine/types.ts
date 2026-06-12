@@ -52,11 +52,34 @@ export type TrustMetric = {
   recorded_at?: string;
 };
 
+export type ConfidenceCommunication = {
+  level: string;
+  label: string;
+  when: string;
+  example: string;
+};
+
+export type IntegrationLink = {
+  label: string;
+  route: string;
+  description: string;
+};
+
+export type ExplainabilityFramework = {
+  why: string;
+  sources: string;
+  assumptions: string;
+  alternatives: string;
+  confidence: string;
+};
+
 export type TrustCard = {
   has_customer: boolean;
   trust_score?: number;
   explanation_count?: number;
   philosophy?: string;
+  mission?: string;
+  abos_principle?: string;
   privacy_note?: string;
 };
 
@@ -70,6 +93,19 @@ export type TrustDashboard = {
   explanations: DecisionExplanation[];
   metrics: TrustMetric[];
   recent_feedback: Array<{ rating: string; comment?: string | null; created_at?: string }>;
+  philosophy?: string;
+  mission?: string;
+  abos_principle?: string;
+  self_love_note?: string;
+  explainability_framework?: ExplainabilityFramework;
+  transparency_requirements?: string[];
+  confidence_communication?: ConfidenceCommunication[];
+  accountability_principles?: string[];
+  auditability_fields?: string[];
+  consistency_monitoring?: string[];
+  relationship_intelligence_note?: string;
+  integration_links?: IntegrationLink[];
+  privacy_note?: string;
 };
 
 export type ExplanationDetail = {

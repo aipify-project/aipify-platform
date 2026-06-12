@@ -8,6 +8,8 @@ Helps users focus on what matters most — not do more, but do what matters. Sup
 
 **Code:** `lib/attention-guardian/` · migration `20260612500000_attention_guardian_phase37.sql`
 
+**Distinct from Priority & Focus Engine (A.80)** — TAG is personal focus at `/app/assistant/attention`; A.80 is organizational priority dimensions and P1–P4 at `/app/priority-focus-engine`.
+
 ---
 
 ## Vision
