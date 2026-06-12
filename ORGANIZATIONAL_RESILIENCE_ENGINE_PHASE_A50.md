@@ -1,5 +1,7 @@
 # Organizational Resilience Engine — Phase A.50
 
+> **ABOS Resilience Engine:** User-facing spec and ABOS framing in [RESILIENCE_ENGINE.md](./RESILIENCE_ENGINE.md). Same route `/app/organizational-resilience-engine` — not a duplicate engine. Complements [CONTINUITY_RESILIENCE_CRISIS_PHASE80.md](./CONTINUITY_RESILIENCE_CRISIS_PHASE80.md) at `/app/continuity`.
+
 ## Vision
 
 **Organizational Resilience Engine** — Customer App engine with Core RPCs in Supabase. Preparedness, operational continuity, role clarity, structured recovery, continuous learning, and audit accountability.

@@ -38,9 +38,24 @@ export type ResilienceReviewRecord = {
   [key: string]: unknown;
 };
 
+export type ResilienceDimension = {
+  key?: string;
+  label?: string;
+  examples?: string[];
+};
+
+export type IntegrationLink = {
+  label?: string;
+  route?: string;
+  description?: string;
+};
+
 export type OrganizationalResilienceEngineCard = {
   has_organization: boolean;
   philosophy?: string;
+  mission?: string;
+  abos_principle?: string;
+  vision?: string;
   active_plans?: number;
   open_vulnerabilities?: number;
   [key: string]: unknown;
@@ -48,8 +63,21 @@ export type OrganizationalResilienceEngineCard = {
 
 export type OrganizationalResilienceEngineDashboard = {
   has_organization: boolean;
+  purpose?: string;
   philosophy?: string;
+  mission?: string;
+  abos_principle?: string;
+  vision?: string;
   principles?: string[];
+  resilience_dimensions?: ResilienceDimension[];
+  crisis_support_guidance?: string;
+  crisis_examples?: string[];
+  self_love_note?: string;
+  growth_evolution_note?: string;
+  trust_engine_note?: string;
+  continuity_phase80_note?: string;
+  distinction_note?: string;
+  integration_links?: IntegrationLink[];
   summary?: Record<string, unknown>;
   plans?: ResiliencePlanRecord[];
   simulations?: ResilienceSimulationRecord[];

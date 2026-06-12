@@ -6,9 +6,23 @@ This document defines **ABOS** — the product architecture framing for Aipify. 
 
 **Governance order:** [CORE_FOUNDATION.md](./CORE_FOUNDATION.md) → [OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md) → **ABOS (this document)** → [ARCHITECTURE.md](./ARCHITECTURE.md) → Implementation → Skills
 
-**Related:** [DEVELOPMENT_PRIORITY_ROADMAP.md](./DEVELOPMENT_PRIORITY_ROADMAP.md) · [BRAND_IDENTITY_PERSONHOOD_STANDARD.md](./BRAND_IDENTITY_PERSONHOOD_STANDARD.md) · [INTERNAL_LANGUAGE_MODEL.md](./INTERNAL_LANGUAGE_MODEL.md)
+**Related:** [DEVELOPMENT_PRIORITY_ROADMAP.md](./DEVELOPMENT_PRIORITY_ROADMAP.md) · [HUMAN_VALUES_CHARTER.md](./HUMAN_VALUES_CHARTER.md) · [INCLUSION_HUMANITY_ENGINE_PHASE_A83.md](./INCLUSION_HUMANITY_ENGINE_PHASE_A83.md) · [BRAND_IDENTITY_PERSONHOOD_STANDARD.md](./BRAND_IDENTITY_PERSONHOOD_STANDARD.md) · [INTERNAL_LANGUAGE_MODEL.md](./INTERNAL_LANGUAGE_MODEL.md)
 
 ILM corpus: `aipify-core/knowledge/internal-language-model/abos-foundation.txt` · Code: `lib/internal-language-model/abos-vocabulary.ts`
+
+---
+
+## 0. Human Values Charter (cultural foundation)
+
+The [Human Values Charter](./HUMAN_VALUES_CHARTER.md) defines how ABOS approaches people, inclusion, and assistance — before any single engine or feature.
+
+Eight principles: dignity · respect as default · inclusion · curiosity over hostility · empowerment over replacement · transparency · wellbeing over unchecked growth · Self Love for sustainable success.
+
+> We support people — we do not demand perfection. Technology should help us become more human.
+
+The charter is canonical in ILM (`human-values-charter.txt`) and operationalized by the [Inclusion & Humanity Engine (Phase A.83)](./INCLUSION_HUMANITY_ENGINE_PHASE_A83.md) at `/app/inclusion-humanity-engine`. Distinct from tenant [Purpose & Values (A.82)](./PURPOSE_VALUES_ENGINE_PHASE_A82.md), AI Ethics governance, and Brand Identity.
+
+KC article: `content/knowledge/aipify/abos/articles/human-values-charter.md`
 
 ---
 
@@ -181,6 +195,7 @@ Required articles (ABOS Brand Terminology Standard):
 - `content/knowledge/aipify/abos/articles/how-aipify-assists-organizations.md`
 - `content/knowledge/aipify/abos/articles/governance-and-approvals.md`
 - `content/knowledge/aipify/abos/articles/security-principles.md`
+- `content/knowledge/aipify/abos/articles/human-values-charter.md`
 
 Terminology standard: [ABOS_BRAND_TERMINOLOGY_STANDARD.md](./ABOS_BRAND_TERMINOLOGY_STANDARD.md)
 
@@ -208,5 +223,7 @@ Category seed: migration `20260919000000_abos_foundation_knowledge_seed.sql`
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | Three-layer placement rules |
 | [DEVELOPMENT_PRIORITY_ROADMAP.md](./DEVELOPMENT_PRIORITY_ROADMAP.md) | Build order and phase alignment |
 | [BRAND_IDENTITY_PERSONHOOD_STANDARD.md](./BRAND_IDENTITY_PERSONHOOD_STANDARD.md) | Aipify naming — not generic AI |
+| [HUMAN_VALUES_CHARTER.md](./HUMAN_VALUES_CHARTER.md) | Cultural foundation — dignity, inclusion, respect |
+| [INCLUSION_HUMANITY_ENGINE.md](./INCLUSION_HUMANITY_ENGINE.md) | Operational inclusion and de-escalation (A.83) |
 | [INTERNAL_LANGUAGE_MODEL.md](./INTERNAL_LANGUAGE_MODEL.md) | ILM corpus and detection |
 | [INSTALL_ENGINE.md](./INSTALL_ENGINE.md) | Install-first runtime |

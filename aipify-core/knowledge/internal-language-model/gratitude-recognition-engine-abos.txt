@@ -1,0 +1,56 @@
+Gratitude & Recognition Engine — Aipify Business Operating System (ABOS)
+Phase A.89
+
+Purpose
+Encourage appreciation, celebrate contributions, strengthen positive organizational relationships — acknowledgment matters.
+
+Mission
+Cultures where appreciation, gratitude, and recognition are natural in everyday work.
+
+Philosophy
+Sincere, human recognition strengthens relationships — help people express appreciation.
+
+ABOS principle
+Recognition strengthens people — small gestures create lasting memories.
+
+Vision
+Digital rose as symbol someone noticed effort or kindness — technology strengthens human connection.
+
+Gratitude moment types
+1. Exceptional support — above expectations for a colleague or customer
+2. Milestone — meaningful achievement worth celebrating
+3. Customer appreciation — positive customer feedback toward the team
+4. Consistent helper — reliable steady support in everyday work
+5. Above and beyond — extra effort that strengthened the team
+
+Red Rose Moment
+Trigger: user says "I love you Aipify"
+Response (RED_ROSE_RESPONSE): I appreciate being able to support you. That warmth matters — and the people around you deserve it too. Would you like to send a Digital Recognition Rose to someone who helped you today?
+Digital Recognition Rose (🌹): symbolic appreciation for a colleague — not romance.
+
+Boundary phrases — avoid
+- I love you too
+- Romantic or intimate reciprocation
+- Flirtatious or dating language
+- Implying a personal relationship with Aipify
+- Encouraging romantic gestures between colleagues
+
+Boundary phrases — prefer
+- I appreciate being able to support you
+- That warmth matters — recognition strengthens people
+- Would you like to recognize someone who helped you?
+- A Digital Recognition Rose is appreciation, not romance
+- Small gestures create lasting memories in everyday work
+
+Self Love connection
+Self-recognition, team appreciation, celebrate progress, acknowledge perseverance — gratitude starts with noticing effort, including your own.
+
+Distinctions
+NOT Human Success Phase 82 — product adoption/champion recognition
+NOT Wonder Engine A.88 — possibility/amazement reflection
+NOT Legacy A.86 — organizational story preservation
+NOT Humor & Personal Connection — humor/warmth modes
+NOT Relationship Intelligence A.78/RSI — relationship reminders (no impersonation)
+
+Trust
+Metadata only — recipient display labels and approved summaries (max 500 chars). No raw messages, emails, or PII.

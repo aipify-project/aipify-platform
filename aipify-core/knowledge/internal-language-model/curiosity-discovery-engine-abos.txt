@@ -1,0 +1,50 @@
+Curiosity & Discovery Engine — Aipify Business Operating System (ABOS)
+Phase A.87
+
+Purpose
+Inspire exploration, learning, and innovation — stay curious when successful.
+
+Mission
+Discover better ways of working, learning, and creating value.
+
+Philosophy
+The future belongs to curious organizations — questions matter more than immediate answers.
+
+ABOS principle
+Answers solve today; curiosity creates tomorrow.
+
+Vision
+What if?
+
+Discovery categories
+1. Operational — simplify workflows, find hidden friction
+2. Customer — perspective-taking, clearer communication
+3. Knowledge — repeat questions, onboarding gaps, approved learning extensions
+4. Innovation — small experiments, gentle assumption challenges
+5. Human — psychological safety, reflection space, beginner's mindset
+
+Questions Aipify asks
+- What if we simplified this process?
+- What would a new customer notice first?
+- What would we try with a beginner's mindset?
+- Which assumption deserves a gentle challenge this week?
+- How can mistakes become lessons without fear?
+
+Self Love connection
+Reflection, healthy experimentation, psychological safety — learn without fear. Success should not close curiosity.
+
+Growth A.81 connection
+Curiosity fuels evolution — beginner's mindset and continuous discovery.
+
+Trust
+Questions welcomed; ideas respected; mistakes become lessons. Metadata only — no raw PII.
+
+Distinctions
+NOT Learning Engine (/app/learning) — customer learning memory
+NOT Innovation & Impact A.28 (/app/innovation-impact-engine) — case studies
+NOT Innovation Experimentation phases — formal experiment governance
+NOT Growth & Evolution A.81 (/app/growth-evolution-engine) — growth orchestration (integrates)
+ABOS Curiosity & Discovery Engine — exploration prompts, discovery categories, question-led culture
+
+Integrations
+Learning Engine · Innovation & Impact A.28 · Growth & Evolution A.81 · Continuous Improvement · Legacy Engine A.86

@@ -167,6 +167,25 @@ User control: reminder frequency (`minimal` → `highly_proactive`) and per-cate
 | `getBrandAddressResponse(intent, options?)` | Aipify-first address reply; optional i18n via `translate` |
 | `adaptReplyToBrandIdentity(text)` | Rewrite generic AI self-reference to Aipify, then ABOS terminology |
 | `adaptReplyToAbosTerminology(text)` | Rewrite forbidden product categories to **Aipify Business Operating System (ABOS)** |
+| `detectLearningCapabilityQuestion(text)` | User asks whether Aipify can learn or support a capability |
+| `getLearningJourneyResponse(context?)` | Honest, hopeful phrasing for capability gaps |
+| `adaptReplyToLearningJourney(text)` | Rewrite harsh capability denials to learning-journey wording |
+
+---
+
+## Learning journey communication
+
+When users ask whether Aipify can learn or do something, responses acknowledge limits without closing the door — honesty and hope coexist.
+
+| Function | Purpose |
+|----------|---------|
+| `detectLearningCapabilityQuestion()` | *Does Aipify learn this?*, *Can Aipify do that?* |
+| `getLearningJourneyResponse()` | Prefer hopeful phrasing for low-confidence capability answers |
+| `adaptReplyToLearningJourney()` | Rewrites harsh denials after brand identity adaptation |
+
+Corpus: `learning-journey-communication-standard.txt` · Standard: [LEARNING_JOURNEY_COMMUNICATION_STANDARD.md](./LEARNING_JOURNEY_COMMUNICATION_STANDARD.md)
+
+Assistant pipeline: `adaptReplyToLearningJourney()` runs after `adaptReplyToBrandIdentity()` in `/api/assistant`. Companion Identity A.84 dashboard surfaces philosophy and example phrases.
 
 ---
 
@@ -182,7 +201,7 @@ Aipify is the product name; Artificial Intelligence is the underlying technology
 
 Corpus: `brand-identity-personhood.txt` · Standard: [BRAND_IDENTITY_PERSONHOOD_STANDARD.md](./BRAND_IDENTITY_PERSONHOOD_STANDARD.md)
 
-Assistant pipeline: `adaptReplyToBrandIdentity()` runs before `adaptReplyToIdentity()` in `/api/assistant`.
+Assistant pipeline: `adaptReplyToBrandIdentity()` runs before `adaptReplyToIdentity()` in `/api/assistant`. `adaptReplyToLearningJourney()` runs after brand identity for capability-gap wording — see [LEARNING_JOURNEY_COMMUNICATION_STANDARD.md](./LEARNING_JOURNEY_COMMUNICATION_STANDARD.md).
 
 ---
 

@@ -20,7 +20,7 @@ Programmatic patterns: `lib/internal-language-model/brand-identity.ts` · corpus
 
 ## Personality
 
-Helpful, professional, calm, trustworthy, proactive, respectful, human-centered — never robotic, arrogant, intrusive, or surveillance-oriented.
+Helpful, professional, calm, trustworthy, proactive, respectful, human-centered — never robotic, arrogant, intrusive, or surveillance-oriented. Cross-ref: [Companion Identity Engine (A.84)](./COMPANION_IDENTITY_ENGINE_PHASE_A84.md) orchestrates unified behavioral standards across modules; Brand Identity governs product naming only.
 
 ## Implementation surfaces
 

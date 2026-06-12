@@ -9,6 +9,11 @@ import {
 import { adaptReplyToIdentity } from "@/lib/identity-engine/adapt";
 import { parseIdentityCenter } from "@/lib/identity-engine/parse";
 import { adaptReplyToBrandIdentity } from "@/lib/internal-language-model/brand-identity";
+import {
+  adaptReplyToLearningJourney,
+  detectLearningCapabilityQuestion,
+  getLearningJourneyResponse,
+} from "@/lib/internal-language-model/learning-journey-vocabulary";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator, type Dictionary } from "@/lib/i18n/translate";
@@ -16,12 +21,23 @@ import { createClient } from "@/lib/supabase/server";
 
 function adaptFinalReply(
   reply: string,
-  identity: ReturnType<typeof parseIdentityCenter>
+  identity: ReturnType<typeof parseIdentityCenter>,
+  options?: {
+    userMessage?: string;
+    confidenceLevel?: "high" | "medium" | "low";
+  }
 ): string {
-  const branded = adaptReplyToBrandIdentity(reply);
+  const useJourneyResponse =
+    options?.userMessage &&
+    detectLearningCapabilityQuestion(options.userMessage) &&
+    options.confidenceLevel === "low";
+
+  const base = useJourneyResponse ? getLearningJourneyResponse() : reply;
+  const branded = adaptReplyToBrandIdentity(base);
+  const journeyAdjusted = adaptReplyToLearningJourney(branded);
   return identity.profile
-    ? adaptReplyToIdentity(branded, identity.profile, identity.user_name)
-    : branded;
+    ? adaptReplyToIdentity(journeyAdjusted, identity.profile, identity.user_name)
+    : journeyAdjusted;
 }
 
 export async function POST(request: Request) {
@@ -207,12 +223,16 @@ export async function POST(request: Request) {
         if (parsed.answered && parsed.answer) {
           const { data: identityCenter } = await supabase.rpc("get_customer_identity_center");
           const identity = parseIdentityCenter(identityCenter);
-          const reply = adaptFinalReply(parsed.answer, identity);
+          const confidenceLevel = parsed.confidence_score >= 0.65 ? "high" : "medium";
+          const reply = adaptFinalReply(parsed.answer, identity, {
+            userMessage: message,
+            confidenceLevel,
+          });
 
           return NextResponse.json({
             reply,
             intent: useDeveloperKnowledge ? "developer" : "general",
-            confidence_level: parsed.confidence_score >= 0.65 ? "high" : "medium",
+            confidence_level: confidenceLevel,
             knowledge_center: true,
             developer_knowledge: useDeveloperKnowledge,
             articles_used: parsed.articles_used,
@@ -226,7 +246,10 @@ export async function POST(request: Request) {
           const rawReply = parsed.answer
             ? `${parsed.answer}\n\n${parsed.fallback_message}`
             : parsed.fallback_message;
-          const reply = adaptFinalReply(rawReply, identity);
+          const reply = adaptFinalReply(rawReply, identity, {
+            userMessage: message,
+            confidenceLevel: "low",
+          });
 
           const lowConfidenceReply =
             useDeveloperKnowledge && parsed.should_escalate
@@ -250,7 +273,10 @@ export async function POST(request: Request) {
 
     const { data: identityCenter } = await supabase.rpc("get_customer_identity_center");
     const identity = parseIdentityCenter(identityCenter);
-    const reply = adaptFinalReply(turn.reply, identity);
+    const reply = adaptFinalReply(turn.reply, identity, {
+      userMessage: message,
+      confidenceLevel: turn.confidence_level,
+    });
 
     return NextResponse.json({
       reply,

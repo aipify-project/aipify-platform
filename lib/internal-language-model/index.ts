@@ -24,6 +24,21 @@ export * from "./relationship-intelligence-vocabulary";
 export * from "./growth-evolution-vocabulary";
 export * from "./trust-engine-vocabulary";
 export * from "./purpose-values-vocabulary";
+export * from "./human-values-charter-vocabulary";
+export * from "./resilience-engine-vocabulary";
+export * from "./inclusion-humanity-vocabulary";
+export * from "./impact-engine-vocabulary";
+export * from "./legacy-engine-vocabulary";
+export * from "./curiosity-discovery-vocabulary";
+export * from "./gratitude-recognition-vocabulary";
+export * from "./companion-identity-vocabulary";
+export * from "./wonder-engine-vocabulary";
+export * from "./dedication-engine-vocabulary";
+export * from "./presence-comfort-vocabulary";
+export * from "./wisdom-intervention-vocabulary";
+export * from "./wisdom-engine-vocabulary";
+export * from "./hope-engine-vocabulary";
+export * from "./learning-journey-vocabulary";
 
 /** Canonical knowledge corpus paths (source of truth). */
 export const FUNCTION_VOCABULARY_PATH =
@@ -73,3 +88,53 @@ export const TRUST_ENGINE_ABOS_PATH =
 
 export const PURPOSE_VALUES_ENGINE_PATH =
   "aipify-core/knowledge/internal-language-model/purpose-values-engine-abos.txt";
+
+export const HUMAN_VALUES_CHARTER_PATH =
+  "aipify-core/knowledge/internal-language-model/human-values-charter.txt";
+
+export const INCLUSION_HUMANITY_ENGINE_PATH =
+  "aipify-core/knowledge/internal-language-model/inclusion-humanity-engine-abos.txt";
+
+export const IMPACT_ENGINE_ABOS_PATH =
+  "aipify-core/knowledge/internal-language-model/impact-engine-abos.txt";
+
+export const LEGACY_ENGINE_ABOS_PATH =
+  "aipify-core/knowledge/internal-language-model/legacy-engine-abos.txt";
+
+export const CURIOSITY_DISCOVERY_ENGINE_ABOS_PATH =
+  "aipify-core/knowledge/internal-language-model/curiosity-discovery-engine-abos.txt";
+
+export const GRATITUDE_RECOGNITION_ENGINE_PATH =
+  "aipify-core/knowledge/internal-language-model/gratitude-recognition-engine-abos.txt";
+
+export const COMPANION_IDENTITY_ENGINE_PATH =
+  "aipify-core/knowledge/internal-language-model/companion-identity-engine-abos.txt";
+
+export const WONDER_ENGINE_ABOS_PATH =
+  "aipify-core/knowledge/internal-language-model/wonder-engine-abos.txt";
+
+export const DEDICATION_ENGINE_ABOS_PATH =
+  "aipify-core/knowledge/internal-language-model/dedication-engine-abos.txt";
+
+export const PRESENCE_COMFORT_PROTOCOL_PATH =
+  "aipify-core/knowledge/internal-language-model/presence-comfort-protocol-abos.txt";
+
+export const WISDOM_INTERVENTION_PROTOCOL_PATH =
+  "aipify-core/knowledge/internal-language-model/wisdom-intervention-protocol-abos.txt";
+
+export const HOPE_ENGINE_ABOS_PATH =
+  "aipify-core/knowledge/internal-language-model/hope-engine-abos.txt";
+
+export const WISDOM_ENGINE_ABOS_PATH =
+  "aipify-core/knowledge/internal-language-model/wisdom-engine-abos.txt";
+
+export const RESILIENCE_ENGINE_ABOS_PATH =
+  "aipify-core/knowledge/internal-language-model/resilience-engine-abos.txt";
+
+export const PLAYFUL_MOMENTS_BELL_PATH =
+  "aipify-core/knowledge/internal-language-model/playful-moments-bell-personality-seed.txt";
+
+export const LEARNING_JOURNEY_COMMUNICATION_PATH =
+  "aipify-core/knowledge/internal-language-model/learning-journey-communication-standard.txt";
+
+export * from "./playful-moments-bell-vocabulary";

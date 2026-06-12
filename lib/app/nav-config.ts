@@ -75,6 +75,18 @@ export type AppNavId =
   | "growthEvolutionEngine"
   | "priorityFocusEngine"
   | "purposeValuesEngine"
+  | "inclusionHumanityEngine"
+  | "companionIdentityEngine"
+  | "abosImpactEngine"
+  | "wonderEngine"
+  | "legacyEngine"
+  | "curiosityDiscoveryEngine"
+  | "gratitudeRecognitionEngine"
+  | "presenceComfortProtocol"
+  | "dedicationEngine"
+  | "hopeEngine"
+  | "wisdomEngine"
+  | "wisdomInterventionProtocol"
   | "briefing"
   | "executive"
   | "presence"
@@ -448,6 +460,66 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/purpose-values-engine",
     labelKey: "customerApp.nav.purposeValuesEngine",
   },
+  {
+    id: "inclusionHumanityEngine",
+    href: "/app/inclusion-humanity-engine",
+    labelKey: "customerApp.nav.inclusionHumanityEngine",
+  },
+  {
+    id: "companionIdentityEngine",
+    href: "/app/companion-identity-engine",
+    labelKey: "customerApp.nav.companionIdentityEngine",
+  },
+  {
+    id: "abosImpactEngine",
+    href: "/app/impact-engine",
+    labelKey: "customerApp.nav.abosImpactEngine",
+  },
+  {
+    id: "legacyEngine",
+    href: "/app/legacy-engine",
+    labelKey: "customerApp.nav.legacyEngine",
+  },
+  {
+    id: "curiosityDiscoveryEngine",
+    href: "/app/curiosity-discovery-engine",
+    labelKey: "customerApp.nav.curiosityDiscoveryEngine",
+  },
+  {
+    id: "wonderEngine",
+    href: "/app/wonder-engine",
+    labelKey: "customerApp.nav.wonderEngine",
+  },
+  {
+    id: "gratitudeRecognitionEngine",
+    href: "/app/gratitude-recognition-engine",
+    labelKey: "customerApp.nav.gratitudeRecognitionEngine",
+  },
+  {
+    id: "presenceComfortProtocol",
+    href: "/app/presence-comfort-protocol",
+    labelKey: "customerApp.nav.presenceComfortProtocol",
+  },
+  {
+    id: "dedicationEngine",
+    href: "/app/dedication-engine",
+    labelKey: "customerApp.nav.dedicationEngine",
+  },
+  {
+    id: "hopeEngine",
+    href: "/app/hope-engine",
+    labelKey: "customerApp.nav.hopeEngine",
+  },
+  {
+    id: "wisdomEngine",
+    href: "/app/wisdom-engine",
+    labelKey: "customerApp.nav.wisdomEngine",
+  },
+  {
+    id: "wisdomInterventionProtocol",
+    href: "/app/wisdom-intervention-protocol",
+    labelKey: "customerApp.nav.wisdomInterventionProtocol",
+  },
   { id: "briefing", href: "/app/briefing", labelKey: "customerApp.nav.briefing" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
@@ -654,6 +726,45 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/purpose-values-engine")) {
     return "purposeValuesEngine";
+  }
+  if (pathname.startsWith("/app/inclusion-humanity-engine")) {
+    return "inclusionHumanityEngine";
+  }
+  if (pathname.startsWith("/app/companion-identity-engine")) {
+    return "companionIdentityEngine";
+  }
+  if (pathname.startsWith("/app/impact-engine")) {
+    return "abosImpactEngine";
+  }
+  if (pathname.startsWith("/app/legacy-engine")) {
+    return "legacyEngine";
+  }
+  if (pathname.startsWith("/app/curiosity-discovery-engine")) {
+    return "curiosityDiscoveryEngine";
+  }
+  if (pathname.startsWith("/app/wonder-engine")) {
+    return "wonderEngine";
+  }
+  if (pathname.startsWith("/app/gratitude-recognition-engine")) {
+    return "gratitudeRecognitionEngine";
+  }
+  if (pathname.startsWith("/app/presence-comfort-protocol")) {
+    return "presenceComfortProtocol";
+  }
+  if (pathname.startsWith("/app/dedication-engine")) {
+    return "dedicationEngine";
+  }
+  if (pathname.startsWith("/app/hope-engine")) {
+    return "hopeEngine";
+  }
+  if (pathname.startsWith("/app/wisdom-engine")) {
+    return "wisdomEngine";
+  }
+  if (pathname.startsWith("/app/wisdom-intervention-protocol")) {
+    return "wisdomInterventionProtocol";
+  }
+  if (pathname.startsWith("/app/pause-reflection-protocol")) {
+    return "wisdomInterventionProtocol";
   }
   if (pathname.startsWith("/app/aipify-install-engine")) return "aipifyInstallEngine";
   if (pathname.startsWith("/app/module-marketplace-foundation-engine")) {

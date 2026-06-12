@@ -114,8 +114,39 @@ export function OrganizationalResilienceEngineDashboardPanel({ labels }: Props) 
     <div className="space-y-6">
       <section className="rounded-xl border border-teal-200 bg-teal-50/50 p-6">
         <h2 className="text-sm font-semibold">{labels.engineTitle}</h2>
-        <p className="mt-2 text-sm">{dashboard.philosophy}</p>
+        {dashboard.mission ? (
+          <p className="mt-2 text-sm font-medium text-gray-900">{dashboard.mission}</p>
+        ) : null}
+        {dashboard.abos_principle ? (
+          <p className="mt-2 text-sm text-gray-700">{dashboard.abos_principle}</p>
+        ) : null}
+        {dashboard.philosophy ? (
+          <p className="mt-2 text-sm text-gray-600">{dashboard.philosophy}</p>
+        ) : null}
+        {dashboard.vision ? (
+          <p className="mt-2 text-xs italic text-gray-500">{dashboard.vision}</p>
+        ) : null}
       </section>
+
+      {dashboard.resilience_dimensions && dashboard.resilience_dimensions.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.dimensions}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {dashboard.resilience_dimensions.map((dimension) => (
+              <div key={dimension.key ?? dimension.label} className="rounded-lg border border-gray-100 p-3 text-sm">
+                <p className="font-medium text-gray-900">{dimension.label}</p>
+                {dimension.examples && dimension.examples.length > 0 ? (
+                  <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+                    {dimension.examples.map((example) => (
+                      <li key={example}>{example}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {actionError && (
         <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{actionError}</div>

@@ -1,5 +1,7 @@
 # Continuity, Resilience & Crisis Management Engine — Phase 80
 
+> **Complements ABOS Resilience Engine (A.50):** Scenario-based continuity plans, simulations, and structured reviews at `/app/organizational-resilience-engine` — see [RESILIENCE_ENGINE.md](./RESILIENCE_ENGINE.md). Phase 80 focuses on backup ownership, incident mode, and readiness score at `/app/continuity`.
+
 Build a Continuity, Resilience & Crisis Management Engine that helps organizations prepare for disruptions, coordinate responses during incidents, and recover efficiently while preserving human leadership and Governance controls.
 
 ## Core principle

@@ -17,6 +17,8 @@ export default async function OrganizationalResilienceEnginePage() {
       <OrganizationalResilienceEngineDashboardPanel labels={{
           loading: t(`${p}.loading`),
           engineTitle: t(`${p}.engineTitle`),
+          mission: t(`${p}.mission`),
+          dimensions: t(`${p}.dimensions`),
           summary: t(`${p}.summary`),
           principles: t(`${p}.principles`),
           plans: t(`${p}.plans`),

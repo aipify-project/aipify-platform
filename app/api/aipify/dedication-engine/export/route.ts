@@ -1,0 +1,21 @@
+import { NextResponse } from "next/server";
+import { parseDedicationEngineExport } from "@/lib/aipify/dedication-engine";
+import { createClient } from "@/lib/supabase/server";
+
+export async function POST(request: Request) {
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const body = await request.json().catch(() => ({}));
+    const format = typeof body.format === "string" ? body.format : "json";
+    const { data, error } = await supabase.rpc("export_dedication_report", {
+      p_format: format,
+    });
+    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+    return NextResponse.json(parseDedicationEngineExport(data));
+  } catch {
+    return NextResponse.json({ error: "Failed to export report" }, { status: 500 });
+  }
+}

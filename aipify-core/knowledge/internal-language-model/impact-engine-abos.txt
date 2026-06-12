@@ -1,0 +1,49 @@
+Impact Engine — Aipify Business Operating System (ABOS)
+Phase A.85
+
+Purpose
+Measure and communicate positive outcomes — impact, not activity. Meaningful improvements for people, teams, and organizations.
+
+Mission
+Help organizations understand how Aipify contributes to healthier operations, relationships, and outcomes.
+
+Philosophy
+Activity ≠ progress. Measure value for people, teams, and organizations — not busyness for its own sake.
+
+ABOS principle
+Improve lives, not busyness.
+
+Vision
+We are doing better than we were before.
+
+Impact dimensions
+1. Operational — smoother workflows, faster resolution, reduced friction
+2. Customer — better experience, faster support, clearer communication
+3. Human — wellbeing, sustainable workload, reduced burnout signals
+4. Knowledge — fewer repeat questions, KC articles preventing requests
+5. Strategic — clearer priorities, aligned decisions, evidence of progress
+
+Impact reporting examples
+- Support response improvement %
+- Knowledge Center prevented requests
+- Priority clarity improvements
+- Self Love workload distribution
+
+Celebrating progress
+Bell milestone examples celebrate meaningful progress — not activity volume. Quiet bells for support improvements, KC deflection, workload balance, priority clarity, and strategic progress.
+
+Self Love connection
+Sustainability, wellbeing, recovery, and long-term success — not output-only metrics. Growth never at the expense of dignity or rest.
+
+Trust
+Transparent calculations, limitations, and assumptions. Metadata only — no raw customer conversations, emails, or PII.
+
+Distinctions
+NOT Platform Anonymised Impact (/platform/impact) — marketing aggregates
+NOT Value Engine Phase 73 (/app/value) — Impact Score, ROI snapshots
+NOT Value Realization A.48 (/app/value-realization-engine) — baselines and milestones
+NOT Innovation & Impact A.28 (/app/innovation-impact-engine) — innovation case studies
+ABOS Impact Engine — outcome-focused impact orchestration across five dimensions
+
+Integrations
+Value Realization A.48 · Innovation & Impact A.28 · Value Engine Phase 73 · Platform Anonymised Impact · Organizational Health · Priority Focus · Purpose & Values
