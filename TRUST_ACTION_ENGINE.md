@@ -2,6 +2,8 @@
 
 **Phase 30 · Critical priority**
 
+**Action & Approval tiers:** See [ACTION_APPROVAL_ENGINE.md](./ACTION_APPROVAL_ENGINE.md) — five-tier model (Informational → Restricted) mapped to action levels 0–4 below.
+
 Safety layer for performing real actions on behalf of customers — explainable, auditable, reversible when possible, and always governed by policies and approvals.
 
 **Prerequisites:** [TRUST_ARCHITECTURE.md](./TRUST_ARCHITECTURE.md) · [LEARNING_ENGINE.md](./LEARNING_ENGINE.md) · Phase 13 Action Engine

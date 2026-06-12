@@ -36,7 +36,7 @@
     "getStarted": "Get Started"
   },
   "footer": {
-    "tagline": "Aipify Business Operating System — operational intelligence with human control built in.",
+    "tagline": "Aipify Business Operating System (ABOS) — operational intelligence with human control built in.",
     "product": "Product",
     "company": "Company",
     "legal": "Legal",
@@ -243,8 +243,8 @@
     "faqIntro": "Transparent answers about the product, trust, and enterprise readiness.",
     "readFaq": "Read full FAQ",
     "faqs": {
-      "1": { "q": "What is Aipify?", "a": "Aipify is a Business Operating System that helps organizations manage support, administration, operations, knowledge, reports, approvals, and follow-up." },
-      "2": { "q": "Is Aipify just a chatbot?", "a": "No. Aipify is designed as a business companion that can recommend actions, generate documents, manage workflows, and support daily operations." },
+      "1": { "q": "What is Aipify?", "a": "Aipify is an Aipify Business Operating System (ABOS) that helps organizations manage support, administration, operations, knowledge, reports, approvals, and follow-up." },
+      "2": { "q": "Is Aipify just a chatbot?", "a": "No. Aipify is an Aipify Business Operating System (ABOS) — a business companion that recommends actions, generates documents, manages workflows, and supports daily operations." },
       "3": { "q": "Does Aipify monitor employees?", "a": "No. Aipify is not employee surveillance software. It should not monitor screens, keystrokes, private files, or browsing history." },
       "4": { "q": "Can Aipify generate business documents?", "a": "Yes. Aipify can generate reports, summaries, certificates, spreadsheets, presentations, and other business deliverables." },
       "5": { "q": "Can Aipify be used by larger companies?", "a": "Yes. Aipify is designed with multi-tenant architecture, roles, permissions, audit logs, SSO readiness, and enterprise deployment readiness." },

@@ -2,6 +2,8 @@
 
 **Prerequisites:** Read **[CORE_FOUNDATION.md](./CORE_FOUNDATION.md)** then **[OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md)** — foundation, behaviour, safety, and packages are decided before architecture and implementation. New skills come last.
 
+**Aipify Business Operating System (ABOS):** See [ABOS_FOUNDATION.md](./ABOS_FOUNDATION.md). Terminology: [ABOS_BRAND_TERMINOLOGY_STANDARD.md](./ABOS_BRAND_TERMINOLOGY_STANDARD.md). **Action & Approval Engine:** [ACTION_APPROVAL_ENGINE.md](./ACTION_APPROVAL_ENGINE.md) — five-tier governance (Phase 30 Trust Actions · A.3 · A.40).
+
 Aipify is split into **three layers**. Before adding a feature, decide which layer it belongs to.
 
 | Question | Layer | Route prefix |
@@ -242,6 +244,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 
 **Aipify Manifesto & Founding Vision (Phase 99):** See [AIPIFY_MANIFESTO_FOUNDING_VISION_PHASE99.md](./AIPIFY_MANIFESTO_FOUNDING_VISION_PHASE99.md) — founding statements, strategic themes, organizational commitments, vision updates, publications. `/app/manifesto`, `lib/aipify/manifesto/`, migration `20260628000000_aipify_manifesto_founding_vision_phase99.sql`. Purpose beyond functionality.
 
+**Development Priority Roadmap:** See [DEVELOPMENT_PRIORITY_ROADMAP.md](./DEVELOPMENT_PRIORITY_ROADMAP.md) — recommended build order for Phases A–D (Core Foundation, Business Operations, Advanced Enterprise, Commerce Intelligence), Self Love Engine™ placement, and current alignment with implemented repo phases.
+
 **Platform Install Connectors (Phase 100):** See [PLATFORM_INSTALL_CONNECTORS_PHASE100.md](./PLATFORM_INSTALL_CONNECTORS_PHASE100.md) — WordPress, Shopify, WooCommerce, Other Platforms connectors, 14-day trial billing, install wizard, health checks, Stripe Checkout. `/app/platform-install`, `lib/aipify/platform-install/`, migration `20260629000000_platform_install_connectors_phase100.sql`. Installation should feel simple.
 
 **Commerce Intelligence Engine (Phase 101):** See [COMMERCE_INTELLIGENCE_ENGINE_PHASE101.md](./COMMERCE_INTELLIGENCE_ENGINE_PHASE101.md) — trend products, product discovery, margin analysis, supplier insights, opportunity scores, risk detection, store fit. `/app/commerce-intelligence`, `lib/aipify/commerce-intelligence/`, migration `20260630000000_commerce_intelligence_engine_phase101.sql`. Find better products. Grow smarter.
@@ -368,6 +372,8 @@ This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). 
 **Trust & Reputation Engine (Phase A.72):** See [TRUST_REPUTATION_ENGINE_PHASE_A72.md](./TRUST_REPUTATION_ENGINE_PHASE_A72.md) — organizational trust profiles and metadata-only reputation signals with human-reviewed expansion. `/app/trust-reputation-engine`, nav id `trustReputationEngine`, `lib/aipify/trust-reputation-engine/`, migration `20260914000000_trust_reputation_engine_phase_a72.sql`. Integrates Human Oversight (A.40), Secure AI Actions (A.3), Workflow (A.42), Governance (A.14), enterprise_delegated_admins (A.30/A.41). Permissions `trust.*`. Distinct from legacy Trust Engine at `/app/trust`.
 
 **Partner Success Engine (Phase A.73):** See [PARTNER_SUCCESS_ENGINE_PHASE_A73.md](./PARTNER_SUCCESS_ENGINE_PHASE_A73.md) — partner portfolio health, onboarding, adoption, and renewal readiness. `/app/partner-success-engine`, nav id `partnerSuccessEngine`, `lib/aipify/partner-success-engine/`, migration `20260915000000_partner_success_engine_phase_a73.sql`. Extends Customer Success (A.26), Enterprise Deployment (A.39), Change Management (A.47), Organizational Benchmarking (A.58). Permissions `partners.*`. Distinct from Partner Certification at `/app/partners`.
+
+**Organization & Workspace Engine (Phase A.75):** See [ORGANIZATION_WORKSPACE_ENGINE_PHASE_A75.md](./ORGANIZATION_WORKSPACE_ENGINE_PHASE_A75.md) — Organization → Workspace → Users → Roles → Permissions hierarchy with isolated operational contexts. `/app/organization-workspace-engine`, nav id `organizationWorkspaceEngine`, `lib/aipify/organization-workspace-engine/`, migration `20260918000000_organization_workspace_engine_phase_a75.sql`. Extends Multi-Tenant Architecture (A.1) and Identity & Permissions (A.2). Permissions `workspaces.*`. Workspace switching is distinct from organization switcher. Dogfood workspaces for `aipify-group` and `unonight`.
 
 **AI Cost Governance Engine (Phase A.74):** See [AI_COST_GOVERNANCE_ENGINE_PHASE_A74.md](./AI_COST_GOVERNANCE_ENGINE_PHASE_A74.md) — budget enforcement, usage tracking, and cost optimization with task-tier routing. `/app/ai-cost-governance-engine`, nav id `aiCostGovernanceEngine`, `lib/aipify/ai-cost-governance-engine/`, migration `20260916000000_ai_cost_governance_engine_phase_a74.sql`. Integrates Secure AI Actions (A.3), Analytics Insights (A.16), Document Output (A.59). Permissions `ai_costs.*`, `ai_budgets.manage`, `ai_overages.approve`, `ai_usage.block`. Customer UI shows cost-efficient/standard/high-accuracy tiers only — provider brands never exposed.
 

@@ -2,6 +2,8 @@
 
 **Aipify Knowledge Center directive**
 
+Product architecture: [ABOS_FOUNDATION.md](./ABOS_FOUNDATION.md) · Terminology: [ABOS_BRAND_TERMINOLOGY_STANDARD.md](./ABOS_BRAND_TERMINOLOGY_STANDARD.md) — use **Aipify Business Operating System (ABOS)**; never generic "AI chatbot" as product category.
+
 Aipify is the product name. Artificial Intelligence is the underlying technology. Users should build familiarity with **Aipify** as a trusted business companion — not only generic AI terminology.
 
 ## Naming principle

@@ -4,6 +4,8 @@ export type AppNavId =
   | "overview"
   | "aipifyCorePlatformEngine"
   | "multiTenantArchitectureEngine"
+  | "organizationWorkspaceEngine"
+  | "contextIntelligenceEngine"
   | "identityPermissionsEngine"
   | "secureAiActionEngine"
   | "auditAccountabilityEngine"
@@ -65,6 +67,7 @@ export type AppNavId =
   | "predictiveInsightsEngine"
   | "crossTenantIntelligenceEngine"
   | "partnerSuccessEngine"
+  | "relationshipIntelligenceEngine"
   | "trustReputationEngine"
   | "aiCostGovernanceEngine"
   | "personalProductivityEngine"
@@ -143,6 +146,16 @@ export const APP_NAV: AppNavItem[] = [
   { id: "overview", href: "/app", labelKey: "customerApp.nav.overview" },
   { id: "aipifyCorePlatformEngine", href: "/app/aipify-core", labelKey: "customerApp.nav.aipifyCorePlatformEngine" },
   { id: "multiTenantArchitectureEngine", href: "/app/multi-tenant", labelKey: "customerApp.nav.multiTenantArchitectureEngine" },
+  {
+    id: "organizationWorkspaceEngine",
+    href: "/app/organization-workspace-engine",
+    labelKey: "customerApp.nav.organizationWorkspaceEngine",
+  },
+  {
+    id: "contextIntelligenceEngine",
+    href: "/app/context-intelligence-engine",
+    labelKey: "customerApp.nav.contextIntelligenceEngine",
+  },
   { id: "identityPermissionsEngine", href: "/app/identity-access", labelKey: "customerApp.nav.identityPermissionsEngine" },
   { id: "secureAiActionEngine", href: "/app/secure-ai-actions", labelKey: "customerApp.nav.secureAiActionEngine" },
   { id: "auditAccountabilityEngine", href: "/app/audit-accountability", labelKey: "customerApp.nav.auditAccountabilityEngine" },
@@ -392,6 +405,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.partnerSuccessEngine",
   },
   {
+    id: "relationshipIntelligenceEngine",
+    href: "/app/relationship-intelligence-engine",
+    labelKey: "customerApp.nav.relationshipIntelligenceEngine",
+  },
+  {
     id: "trustReputationEngine",
     href: "/app/trust-reputation-engine",
     labelKey: "customerApp.nav.trustReputationEngine",
@@ -486,6 +504,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname === "/app" || pathname === "/dashboard") return "overview";
   if (pathname.startsWith("/app/aipify-core")) return "aipifyCorePlatformEngine";
   if (pathname.startsWith("/app/multi-tenant")) return "multiTenantArchitectureEngine";
+  if (pathname.startsWith("/app/organization-workspace-engine")) return "organizationWorkspaceEngine";
+  if (pathname.startsWith("/app/context-intelligence-engine")) return "contextIntelligenceEngine";
   if (pathname.startsWith("/app/identity-access")) return "identityPermissionsEngine";
   if (pathname.startsWith("/app/secure-ai-actions")) return "secureAiActionEngine";
   if (pathname.startsWith("/app/audit-accountability")) return "auditAccountabilityEngine";
@@ -586,6 +606,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/partner-success-engine")) {
     return "partnerSuccessEngine";
+  }
+  if (pathname.startsWith("/app/relationship-intelligence-engine")) {
+    return "relationshipIntelligenceEngine";
   }
   if (pathname.startsWith("/app/trust-reputation-engine")) {
     return "trustReputationEngine";

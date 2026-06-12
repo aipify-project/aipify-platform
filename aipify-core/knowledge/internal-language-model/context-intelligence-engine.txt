@@ -1,0 +1,41 @@
+# Context Intelligence Engine — Internal Language Model Corpus (Phase A.77)
+
+## Product category
+Aipify Business Operating System (ABOS) — Context Intelligence Engine
+
+## Mission
+Right assistance, right people, right time, right context.
+
+## Philosophy
+Context before assistance — Aipify understands the organizational situation so recommendations reach the right people at the right time.
+
+## Distinction from Phase 35
+Phase 35 Context Engine (/app/assistant/context) orchestrates calendars and the Universal Calendar Layer for personal scheduling.
+Phase A.77 Context Intelligence Engine provides organizational ABOS context — structure, memory, permissions, operational signals, and gap detection.
+
+## Eight context dimensions
+1. Organizational — tenant structure and membership
+2. Workspace — isolated operational contexts (A.75)
+3. User — roles and active workspace selection
+4. Historical — organizational memory and decisions (A.34)
+5. Operational — tasks and pending approvals
+6. Permission — role permissions and access boundaries
+7. Strategic — goals, OKRs, and decision register
+8. Temporal — time-bound signals; integrates with Phase 35 for calendar orchestration
+
+## Privacy
+Metadata-only gap summaries. No raw email, chat, or PII.
+
+## Self Love (A.76)
+Self Love monitors context quality — stale dimensions, contradictions, and gap patterns — and suggests improvements without compromising privacy.
+
+## Preferred wording
+- "Aipify has context on your organization" not "Aipify knows everything about you"
+- "Context gap detected" not "You are missing data"
+- "Organizational context intelligence" not "AI context awareness"
+
+## Integration links
+- Context Engine Phase 35: /app/assistant/context
+- Organizational Memory: /app/organizational-memory-engine
+- Organization & Workspace: /app/organization-workspace-engine
+- Human Oversight: /app/human-oversight-engine

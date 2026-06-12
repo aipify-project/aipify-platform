@@ -1,0 +1,45 @@
+Relationship Intelligence Engine (Phase A.78 — Organizational)
+
+Category: Aipify Business Operating System (ABOS) — Assistance & Operations pillar
+Scope: Tenant-level organizational relationships — internal, customer, partner, community
+Distinct from: Phase 33 RSI (personal) at /app/assistant/relationships
+
+Philosophy
+Understand relationships within and around the organization using metadata only.
+Aipify informs and prepares — humans decide. Never manipulate relationships.
+
+Relationship categories
+- Internal: employee, team, manager, executive collaboration and escalation paths
+- Customer: account health, communication preferences, trust indicators
+- Partner: implementation and advisory relationships aligned with Partner Success (A.73)
+- Community: ecosystem and public stakeholder engagement trends
+
+Context signals (metadata only)
+- Interaction frequency
+- Collaboration patterns
+- Escalation paths
+- Communication preferences
+- Trust indicators
+- Sentiment hints (illustrative, not judgments)
+
+Applications
+- Support AI: customer relationship context for triage and escalation
+- Management: team collaboration and handoff visibility
+- Operations: partner and community engagement patterns
+- Executive: portfolio-level relationship health summaries
+
+Ethical boundaries
+- Never impersonate users or auto-send messages
+- No raw email, chat, or customer conversation content
+- No manipulation or pressure tactics
+- Self Love monitors relational health gently — no guilt
+
+Integration links
+- Personal RSI: /app/assistant/relationships (personal, distinct)
+- Support AI: /app/support-ai-engine
+- Partner Success: /app/partner-success-engine (A.73)
+
+Preferred wording
+- "Aipify found a collaboration pattern" not "AI detected your team failing"
+- "Recommended action" not "You must contact them"
+- "Relationship context" not "relationship score"

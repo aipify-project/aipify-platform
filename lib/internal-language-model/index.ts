@@ -14,6 +14,11 @@ export * from "./reminder-followup-vocabulary";
 export * from "./reminder-followup";
 export * from "./brand-identity-vocabulary";
 export * from "./brand-identity";
+export * from "./abos-vocabulary";
+export * from "./abos-terminology";
+export * from "./action-approval-vocabulary";
+export * from "./context-intelligence-vocabulary";
+export * from "./relationship-intelligence-vocabulary";
 
 /** Canonical knowledge corpus paths (source of truth). */
 export const FUNCTION_VOCABULARY_PATH =
@@ -36,3 +41,18 @@ export const REMINDER_FOLLOWUP_LANGUAGE_PATH =
 
 export const BRAND_IDENTITY_PERSONHOOD_PATH =
   "aipify-core/knowledge/internal-language-model/brand-identity-personhood.txt";
+
+export const ABOS_FOUNDATION_PATH =
+  "aipify-core/knowledge/internal-language-model/abos-foundation.txt";
+
+export const ABOS_BRAND_TERMINOLOGY_PATH =
+  "aipify-core/knowledge/internal-language-model/abos-brand-terminology.txt";
+
+export const ACTION_APPROVAL_ENGINE_PATH =
+  "aipify-core/knowledge/internal-language-model/action-approval-engine.txt";
+
+export const CONTEXT_INTELLIGENCE_ENGINE_PATH =
+  "aipify-core/knowledge/internal-language-model/context-intelligence-engine.txt";
+
+export const RELATIONSHIP_INTELLIGENCE_ENGINE_PATH =
+  "aipify-core/knowledge/internal-language-model/relationship-intelligence-engine.txt";

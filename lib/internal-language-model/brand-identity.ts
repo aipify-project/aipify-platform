@@ -4,6 +4,7 @@ import {
   BRAND_SELF_REFERENCE_REWRITES,
   type BrandAddressIntent,
 } from "./brand-identity-vocabulary";
+import { adaptReplyToAbosTerminology } from "./abos-terminology";
 
 export type { BrandAddressIntent };
 
@@ -47,11 +48,11 @@ export function getBrandAddressResponse(
   return options?.overrides?.[intent] ?? BRAND_ADDRESS_RESPONSES[intent];
 }
 
-/** Normalize assistant or template copy to Aipify-first self-reference. */
+/** Normalize assistant or template copy to Aipify-first self-reference and ABOS terminology. */
 export function adaptReplyToBrandIdentity(text: string): string {
   let result = text;
   for (const [pattern, replacement] of BRAND_SELF_REFERENCE_REWRITES) {
     result = result.replace(pattern, replacement);
   }
-  return result;
+  return adaptReplyToAbosTerminology(result);
 }

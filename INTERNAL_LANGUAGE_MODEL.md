@@ -13,6 +13,10 @@ Defines how Aipify describes its own functionality and understands how people na
 - `aipify-core/knowledge/internal-language-model/proactive-guidance-language.txt` — proactive assistance and gentle guidance
 - `aipify-core/knowledge/internal-language-model/reminder-and-followup-language.txt` — reminders and follow-up language
 - `aipify-core/knowledge/internal-language-model/brand-identity-personhood.txt` — Aipify naming and self-reference (not generic "AI")
+- `aipify-core/knowledge/internal-language-model/abos-foundation.txt` — ABOS definition, six pillars, preferred phrasing
+- `aipify-core/knowledge/internal-language-model/abos-brand-terminology.txt` — official ABOS product category; forbidden generic terms
+
+See also [ABOS_FOUNDATION.md](./ABOS_FOUNDATION.md) · [ABOS_BRAND_TERMINOLOGY_STANDARD.md](./ABOS_BRAND_TERMINOLOGY_STANDARD.md).
 
 **Code:** `lib/internal-language-model/`
 
@@ -161,7 +165,8 @@ User control: reminder frequency (`minimal` → `highly_proactive`) and per-cate
 | `getNbleVision()` | NBLE long-term vision phrase |
 | `detectBrandAddressIntent(message)` | Greetings and help phrasing ("Hi Aipify", "Hi AI", "Can you help") |
 | `getBrandAddressResponse(intent, options?)` | Aipify-first address reply; optional i18n via `translate` |
-| `adaptReplyToBrandIdentity(text)` | Rewrite generic AI self-reference to Aipify in replies and copy |
+| `adaptReplyToBrandIdentity(text)` | Rewrite generic AI self-reference to Aipify, then ABOS terminology |
+| `adaptReplyToAbosTerminology(text)` | Rewrite forbidden product categories to **Aipify Business Operating System (ABOS)** |
 
 ---
 

@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Aipify Core Foundation
 
-Read **[CORE_FOUNDATION.md](../../CORE_FOUNDATION.md)** before any new feature or skill.
+Read **[CORE_FOUNDATION.md](../../CORE_FOUNDATION.md)** before any new feature or skill. Product architecture: **[ABOS_FOUNDATION.md](../../ABOS_FOUNDATION.md)** · Terminology: **[ABOS_BRAND_TERMINOLOGY_STANDARD.md](../../ABOS_BRAND_TERMINOLOGY_STANDARD.md)**.
 
 ## Identity (calm, not alarmist)
 

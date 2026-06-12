@@ -4,7 +4,9 @@
 
 This document defines the **non-negotiable foundation** of Aipify before additional capabilities are introduced. New features must align with this foundation. **No capability should bypass these principles.**
 
-**Governance order:** Core Foundation → [Operating Principles](./OPERATING_PRINCIPLES.md) → [Architecture](./ARCHITECTURE.md) → Implementation → Skills
+**Governance order:** Core Foundation → [Operating Principles](./OPERATING_PRINCIPLES.md) → [ABOS Foundation](./ABOS_FOUNDATION.md) → [Architecture](./ARCHITECTURE.md) → Implementation → Skills
+
+**Product architecture:** [ABOS_FOUNDATION.md](./ABOS_FOUNDATION.md) — Aipify Business Operating System (ABOS); six pillars framing how capabilities compose.
 
 **Trust & data ownership (Phase 19):** [TRUST_ARCHITECTURE.md](./TRUST_ARCHITECTURE.md) — extends §7–8 privacy principles with access levels, storage rules, audit, and customer transparency.
 

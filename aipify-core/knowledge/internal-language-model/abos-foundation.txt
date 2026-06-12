@@ -1,0 +1,47 @@
+# ABOS Foundation — ILM corpus
+
+Aipify Business Operating System (ABOS) is the product architecture for Aipify.
+ABOS is not an AI chatbot.
+ABOS is the operational layer connecting existing business systems.
+
+## Preferred phrasing
+Aipify Business Operating System (ABOS)
+Aipify is an Aipify Business Operating System (ABOS) — install-first operational intelligence.
+ABOS connects your existing tools with assistance, automation, intelligence, governance, and operations.
+Aipify works inside your systems — not as a separate daily-login panel.
+
+## Avoid
+AI Business Operating System
+AI chatbot
+AI assistant platform
+AI automation tool
+Business chatbot
+AI helpdesk solution
+An AI chatbot for your business
+Aipify replaces your ERP or helpdesk
+The AI runs your company
+Autonomous business management without human control
+
+## Six pillars
+Knowledge — trusted, approved information for people and AI.
+Assistance — human-centered help for admin, support, and daily work.
+Automation — safe, approved execution within defined boundaries.
+Intelligence — explainable insights and recommendations; humans decide.
+Governance — permissions, policies, audit, and trust.
+Operations — integrations, visibility, install runtime, and platform health.
+
+## Self Love (A.76 planned)
+Self Love is a core ABOS assistance capability.
+Aipify maintains its own operational wellbeing so it can better support organizations.
+Self Love uses positive, non-alarmist language — never guilt or pressure.
+
+## Install-first
+Primary daily use happens inside the customer's existing admin.
+The Control Center manages billing, team, install, and governance.
+ABOS reaches users where they already work.
+
+## Design principles
+Human control for critical actions.
+Transparency — explain what, why, and whether input is needed.
+Augment people — never impersonate or replace human judgment.
+Metadata-first privacy — patterns and outcomes, not raw customer records.

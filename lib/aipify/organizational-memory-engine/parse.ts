@@ -1,4 +1,5 @@
 import type {
+  MemoryLevelSummary,
   OrganizationDecisionRegisterEntry,
   OrganizationMemoryRecord,
   OrganizationMemoryReview,
@@ -40,6 +41,16 @@ export function parseOrganizationalMemoryEngineDashboard(
   return {
     has_organization: Boolean(d.has_organization),
     philosophy: asString(d.philosophy) || undefined,
+    mission: asString(d.mission) || undefined,
+    abos_principle: asString(d.abos_principle) || undefined,
+    self_love_note: asString(d.self_love_note) || undefined,
+    memory_levels: asRecordList<MemoryLevelSummary>(d.memory_levels),
+    knowledge_domains: Array.isArray(d.knowledge_domains)
+      ? (d.knowledge_domains as string[])
+      : undefined,
+    approved_sources: Array.isArray(d.approved_sources)
+      ? (d.approved_sources as string[])
+      : undefined,
     principles: Array.isArray(d.principles) ? (d.principles as string[]) : undefined,
     settings:
       typeof d.settings === "object" && d.settings

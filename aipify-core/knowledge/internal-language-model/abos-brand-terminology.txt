@@ -1,0 +1,26 @@
+# ABOS Brand Terminology — ILM corpus
+
+Official product category: Aipify Business Operating System (ABOS)
+Official abbreviation: ABOS
+
+## Use
+Aipify Business Operating System (ABOS)
+Aipify is an Aipify Business Operating System designed to help organizations operate more efficiently.
+ABOS combines intelligence, knowledge, automation, and operational support within one unified environment.
+Our organization runs on Aipify.
+
+## Do not use (product category)
+AI chatbot
+AI assistant platform
+AI automation tool
+Business chatbot
+AI helpdesk solution
+AI Business Operating System
+
+## Self Love (ABOS capability)
+Self Love is an official ABOS capability — self-awareness, self-maintenance, safe recovery, continuous learning, transparent communication.
+Systems that care for themselves are better equipped to care for others.
+Self Love never performs irreversible actions without explicit human approval.
+
+## Cursor rule
+Reference Aipify as "Aipify Business Operating System (ABOS)" unless a specific module name is required.

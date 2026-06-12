@@ -2,7 +2,9 @@
 
 Route: `/app/human-oversight-engine`
 
-Migration: `supabase/migrations/20260816000000_human_oversight_engine_phase_a40.sql`
+Migration: `supabase/migrations/20260816000000_human_oversight_engine_phase_a40.sql` · spec alignment: `20260921000000_action_approval_engine_spec_alignment.sql`
+
+**Action & Approval Engine:** See [ACTION_APPROVAL_ENGINE.md](./ACTION_APPROVAL_ENGINE.md) — five-tier governance model surfaced on the Human Oversight dashboard.
 
 Extends Secure AI Actions (A.3), Governance & Policy Engine (A.14), and Trust & Action Engine — human accountability layer for AI recommendations and operational actions.
 

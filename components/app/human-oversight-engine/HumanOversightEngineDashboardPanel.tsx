@@ -144,9 +144,33 @@ export function HumanOversightEngineDashboardPanel({ labels }: Props) {
 
       <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">
         <h2 className="text-sm font-semibold text-violet-900">{labels.engineTitle}</h2>
+        {typeof dashboard.mission === "string" ? (
+          <p className="mt-2 text-sm font-medium text-violet-900">{dashboard.mission}</p>
+        ) : null}
         <p className="mt-2 text-sm text-violet-900">{dashboard.philosophy}</p>
+        {typeof dashboard.abos_principle === "string" ? (
+          <p className="mt-2 text-xs text-violet-800">{dashboard.abos_principle}</p>
+        ) : null}
         {dashboard.safety_note ? <p className="mt-1 text-xs text-violet-700">{dashboard.safety_note}</p> : null}
       </section>
+
+      {Array.isArray(dashboard.action_tiers) && dashboard.action_tiers.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.actionTiers}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {(dashboard.action_tiers as Array<{ tier?: number; label?: string; approval?: string }>).map(
+              (tier) => (
+                <li key={tier.tier} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                  <span className="font-medium">
+                    {tier.tier}. {tier.label}
+                  </span>
+                  <p className="mt-1 text-xs capitalize text-gray-500">{tier.approval?.replace(/_/g, " ")}</p>
+                </li>
+              )
+            )}
+          </ul>
+        </section>
+      ) : null}
 
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-lg border border-gray-100 bg-white p-3">

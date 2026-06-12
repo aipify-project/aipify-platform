@@ -45,11 +45,37 @@ export function OrganizationalMemoryEngineDashboardPanel({ labels }: Props) {
 
       <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">
         <h2 className="text-sm font-semibold">{labels.engineTitle}</h2>
+        {dashboard.mission ? (
+          <p className="mt-2 text-sm font-medium text-violet-900">{dashboard.mission}</p>
+        ) : null}
         <p className="mt-2 text-sm">{dashboard.philosophy}</p>
+        {dashboard.abos_principle ? (
+          <p className="mt-2 text-xs text-violet-800">{dashboard.abos_principle}</p>
+        ) : null}
         {dashboard.privacy_note ? (
           <p className="mt-2 text-xs text-gray-500">{dashboard.privacy_note}</p>
         ) : null}
       </section>
+
+      {dashboard.memory_levels && dashboard.memory_levels.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.memoryLevels}</h3>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+            {dashboard.memory_levels.map((level) => (
+              <li key={level.level} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                <span className="font-medium">{level.label}</span>
+                <p className="mt-1 text-xs text-gray-500">{level.description}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.self_love_note ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          {dashboard.self_love_note}
+        </section>
+      ) : null}
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-lg border border-gray-200 bg-white p-4">
@@ -79,6 +105,9 @@ export function OrganizationalMemoryEngineDashboardPanel({ labels }: Props) {
             {dashboard.recent_learnings.map((item) => (
               <li key={item.id} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
                 <span className="font-medium">{item.title}</span>
+                {item.memory_level ? (
+                  <span className="ml-2 text-xs text-gray-400">({item.memory_level})</span>
+                ) : null}
                 {item.category ? (
                   <span className="ml-2 text-xs text-gray-500">{item.category}</span>
                 ) : null}

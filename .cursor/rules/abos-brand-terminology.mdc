@@ -1,0 +1,22 @@
+---
+description: ABOS official product terminology — mandatory for all generated docs, marketing, and KC copy
+alwaysApply: true
+---
+
+# ABOS Brand Terminology
+
+Read **[ABOS_BRAND_TERMINOLOGY_STANDARD.md](../../ABOS_BRAND_TERMINOLOGY_STANDARD.md)** before product copy, marketing, KC articles, or phase docs.
+
+## Official category
+
+**Aipify Business Operating System (ABOS)** — abbreviation **ABOS**
+
+## Do not use as product category
+
+AI chatbot · AI assistant platform · AI automation tool · Business chatbot · AI helpdesk solution · AI Business Operating System
+
+## Cursor rule
+
+Reference Aipify as **"Aipify Business Operating System (ABOS)"** unless a specific module name is required.
+
+Code: `adaptReplyToAbosTerminology()` · `lib/internal-language-model/abos-terminology.ts` · corpus `abos-brand-terminology.txt`

@@ -2,7 +2,7 @@
 
 **Feature owner:** Customer App (public marketing surface)
 
-Interactive public marketing site and product story — install-first positioning as an AI Business Operating System, not a chatbot.
+Interactive public marketing site and product story — install-first positioning as an Aipify Business Operating System (ABOS), not a chatbot.
 
 ## Extends
 
@@ -54,7 +54,7 @@ Interactive public marketing site and product story — install-first positionin
 
 ## Privacy & messaging
 
-- **Not a chatbot** — AI Business Operating System
+- **Not a chatbot** — Aipify Business Operating System (ABOS)
 - **No employee monitoring** — prominent in hero, footer, security, FAQ
 - `prefers-reduced-motion` respected on animated demos
 

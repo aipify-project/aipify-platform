@@ -75,3 +75,5 @@ export * from "./cross-tenant-intelligence";
 export * from "./trust-reputation";
 export * from "./partner-success";
 export * from "./ai-cost-governance";
+export * from "./organization-workspace";
+export * from "./context-intelligence";

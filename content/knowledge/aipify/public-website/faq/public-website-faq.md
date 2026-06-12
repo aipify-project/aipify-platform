@@ -5,7 +5,7 @@ category: public-website
 audience: public
 ---
 
-The Aipify public website at aipify.ai explains the product story for prospective customers. It positions Aipify as an **AI Business Operating System** — install-first operational intelligence — not a generic chatbot.
+The Aipify public website at aipify.ai explains the product story for prospective customers. It positions Aipify as an **Aipify Business Operating System (ABOS)** — install-first operational intelligence — not a generic chatbot or AI assistant platform.
 
 ---
 title: Does Aipify monitor employees?
