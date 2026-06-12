@@ -29,6 +29,17 @@ export default async function BillingSettingsPage() {
           recommendations: t("customerApp.commercialPackages.billing.sections.recommendations"),
           history: t("customerApp.commercialPackages.billing.sections.history"),
           suites: t("customerApp.commercialPackages.billing.sections.suites"),
+          pricingPhilosophy: t("customerApp.commercialPackages.pricingPhilosophy.title"),
+        },
+        pricingPhilosophy: {
+          principle: t("customerApp.commercialPackages.pricingPhilosophy.principleLead"),
+          priceOn: t("customerApp.commercialPackages.pricingPhilosophy.priceOn"),
+          avoid: t("customerApp.commercialPackages.pricingPhilosophy.avoid"),
+          planGuidance: t("customerApp.commercialPackages.pricingPhilosophy.planGuidance"),
+          positioning: t("customerApp.commercialPackages.pricingPhilosophy.positioning"),
+          abosPrinciple: t("customerApp.commercialPackages.pricingPhilosophy.abosPrinciple"),
+          guidanceNote: t("customerApp.commercialPackages.pricingPhilosophy.guidanceNote"),
+          usdRange: t("customerApp.commercialPackages.pricingPhilosophy.usdRange"),
         },
         usage: {
           support_cases_handled: t("customerApp.commercialPackages.billing.usage.supportCases"),

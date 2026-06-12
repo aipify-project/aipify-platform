@@ -15,7 +15,7 @@
     "modules": {
       "assistant": "Summaries, insights, and recommended actions.",
       "install": "Connect and monitor your Aipify installation.",
-      "support": "Support AI configuration and ticket insights.",
+      "support": "Aipify Support configuration and ticket insights.",
       "analytics": "Business analytics and performance signals.",
       "commerce": "Commerce AI and sales intelligence.",
       "notifications": "Alerts and notification preferences."
@@ -30,7 +30,7 @@
     },
     "support": {
       "title": "Support",
-      "subtitle": "Configure Support AI and review handled tickets.",
+      "subtitle": "Configure Aipify Support and review handled tickets.",
       "description": "Support-AI svarer automatisk på vanlige kundespørsmål og eskalerer viktige saker når det trengs.",
       "comingSoon": "Kommer snart."
     },
@@ -235,7 +235,7 @@
     "services": {
       "api": "API",
       "email": "Email",
-      "aiAssistant": "AI Assistant",
+      "aiAssistant": "Aipify Companion",
       "database": "Database"
     },
     "operational": "Operational"

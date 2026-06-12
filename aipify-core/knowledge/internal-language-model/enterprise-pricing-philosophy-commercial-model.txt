@@ -1,0 +1,47 @@
+# Enterprise Pricing Philosophy & Commercial Model — ILM corpus
+
+Aipify is priced as a Business Operating System (ABOS) — not a chatbot or token meter.
+
+## Core principle
+Value follows operational scope, outcomes, and trust governance — not token consumption or chat volume.
+
+## Avoid pricing comparisons
+Per-token or per-message chatbot pricing
+Generic AI API meter billing as the primary product
+Consumer chatbot subscription comparisons
+Usage-only pricing without operational context
+
+## Price on
+Operational scope — installs, domains, users, licensed modules
+Business outcomes — support resolution, knowledge retention, workflow automation
+Governance depth — approvals, audit, enterprise security, SLA
+Enterprise implementation and change management
+Partner-led consulting via Sales Experts
+
+## Positioning language (avoid → prefer)
+AI chatbot with per-message pricing → Aipify Business Operating System with modular suites
+Helpdesk AI add-on → Aipify Support installed inside customer systems
+Token meter like a generic LLM API → Licensed modules and operational outcomes
+Consumer AI subscription → Professional operations platform with human approval and audit
+
+## Plan guidance (USD monthly — sales guidance, not enforcement)
+Starter $79–$149 — Aipify Core, Install Engine, Aipify Companion, Aipify Support FAQ, human approval
+Growth $199–$399 — Business DNA, autonomous Aipify Support, Workflow Orchestration, Proactive Companion
+Business $499–$999 — Employee Knowledge, Onboarding Companion, Meeting Companion, Action Center
+Enterprise custom ($1,500+ typical) — all suites, Executive Insights, SLA, dedicated success
+
+## Enterprise implementation (NOK)
+NOK 100,000–500,000+ for discovery, integration, governance design, rollout, and training.
+
+## Sales Expert model
+Independent business — Customer ↔ Sales Expert for consulting and implementation.
+Aipify subscription: Customer ↔ Aipify.
+Discovery NOK 2,500–5,000 · SMB implementation NOK 50,000–150,000 · Enterprise rollout NOK 150,000–500,000+
+
+## ABOS principle
+Companions (Support, Meeting, Onboarding) are Aipify product capabilities — not separate AI tools.
+Never describe Aipify as replacing employees or as a cheap chatbot alternative.
+
+## Vision
+Organizations pay for operational partnership — not for counting messages.
+Enterprise trust requires governance pricing — not cheapest token rates.

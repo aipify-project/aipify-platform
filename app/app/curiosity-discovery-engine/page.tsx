@@ -7,6 +7,7 @@ export default async function CuriosityDiscoveryEnginePage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
   const p = "customerApp.curiosityDiscoveryEngine";
+  const p80 = `${p}.blueprint.phase80`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -47,6 +48,24 @@ export default async function CuriosityDiscoveryEnginePage() {
           exportReport: t(`${p}.exportReport`),
           exporting: t(`${p}.exporting`),
           exportFailed: t(`${p}.exportFailed`),
+          blueprintPhase80Title: t(`${p80}.title`),
+          blueprintDistinctionNote: t(`${p80}.distinctionNote`),
+          blueprintEngagementSummary: t(`${p80}.engagementSummary`),
+          blueprintObjectives: t(`${p80}.objectives`),
+          blueprintOpportunitySources: t(`${p80}.opportunitySources`),
+          blueprintOpportunityQuestions: t(`${p80}.opportunityQuestions`),
+          blueprintOpportunityEvaluation: t(`${p80}.opportunityEvaluation`),
+          blueprintCompanionGuidance: t(`${p80}.companionGuidance`),
+          blueprintInnovationConnection: t(`${p80}.innovationConnection`),
+          blueprintLeadershipInsights: t(`${p80}.leadershipInsights`),
+          blueprintLimitationPrinciples: t(`${p80}.limitationPrinciples`),
+          blueprintSelfLoveConnection: t(`${p80}.selfLoveConnection`),
+          blueprintTrustConnection: t(`${p80}.trustConnection`),
+          blueprintSuccessCriteria: t(`${p80}.successCriteria`),
+          blueprintVisionPhrases: t(`${p80}.visionPhrases`),
+          blueprintIntegrationLinks: t(`${p80}.integrationLinks`),
+          criterionMet: t(`${p80}.criterionMet`),
+          criterionPending: t(`${p80}.criterionPending`),
         }}
       />
     </div>

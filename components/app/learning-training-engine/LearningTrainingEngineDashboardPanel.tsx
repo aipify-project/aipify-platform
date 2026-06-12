@@ -365,6 +365,238 @@ export function LearningTrainingEngineDashboardPanel({ labels }: Props) {
           </ul>
         </section>
       ) : null}
+
+      {dashboard.human_potential_mission ? (
+        <section className="rounded-xl border border-rose-200 bg-rose-50/50 p-6">
+          <h2 className="text-sm font-semibold text-rose-900">{labels.humanPotentialTitle}</h2>
+          <p className="mt-2 text-sm text-rose-900">{dashboard.human_potential_mission}</p>
+          {dashboard.human_potential_philosophy ? (
+            <p className="mt-2 text-sm text-rose-800">{dashboard.human_potential_philosophy}</p>
+          ) : null}
+          {dashboard.human_potential_distinction_note ? (
+            <p className="mt-2 text-xs text-rose-700">{dashboard.human_potential_distinction_note}</p>
+          ) : null}
+          {dashboard.human_potential_vision ? (
+            <p className="mt-2 text-sm font-medium italic text-rose-900">{dashboard.human_potential_vision}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.human_potential_objectives && dashboard.human_potential_objectives.length > 0 ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4">
+          <h3 className="text-sm font-semibold text-rose-900">{labels.humanPotentialObjectives}</h3>
+          <ul className="mt-3 space-y-2 text-sm text-rose-900">
+            {dashboard.human_potential_objectives.map((item) => (
+              <li key={String(item.key ?? item.label)}>
+                <span className="font-medium">{String(item.label ?? "")}</span>
+                {item.description ? <span className="text-rose-700"> — {String(item.description)}</span> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.human_potential_development_questions?.questions &&
+      dashboard.human_potential_development_questions.questions.length > 0 ? (
+        <section className="rounded-lg border border-rose-100 bg-white p-4">
+          <h3 className="text-sm font-semibold text-rose-900">{labels.humanPotentialDevelopmentQuestions}</h3>
+          <ul className="mt-3 space-y-2 text-sm text-rose-900">
+            {dashboard.human_potential_development_questions.questions.map((q) => (
+              <li key={q.key ?? q.question}>
+                {q.emoji ? `${q.emoji} ` : ""}
+                <span className="font-medium">{q.question}</span>
+                {q.description ? <p className="text-xs text-rose-700">{q.description}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.human_potential_strength_based_development?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.humanPotentialStrengthBased}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.human_potential_strength_based_development.principle}</p>
+          {dashboard.human_potential_strength_based_development.practices?.map((p) => (
+            <p key={p} className="mt-1 text-xs text-gray-500">
+              {p}
+            </p>
+          ))}
+        </section>
+      ) : null}
+
+      {dashboard.human_potential_learning_pathways && dashboard.human_potential_learning_pathways.length > 0 ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4">
+          <h3 className="text-sm font-semibold text-rose-900">{labels.humanPotentialLearningPathways}</h3>
+          <ul className="mt-3 space-y-3">
+            {dashboard.human_potential_learning_pathways.map((path) => (
+              <li key={String(path.key ?? path.title)} className="rounded-lg border border-rose-100 bg-white px-3 py-2 text-sm">
+                <p className="font-medium text-rose-900">{path.title}</p>
+                {path.designed_for && path.designed_for.length > 0 ? (
+                  <p className="mt-1 text-xs text-rose-700">
+                    {labels.designedFor}: {path.designed_for.join(", ")}
+                  </p>
+                ) : null}
+                {path.topics && path.topics.length > 0 ? (
+                  <ul className="mt-1 list-inside list-disc text-xs text-rose-800">
+                    {path.topics.map((topic) => (
+                      <li key={topic}>{topic}</li>
+                    ))}
+                  </ul>
+                ) : null}
+                {path.cross_link ? (
+                  <Link href={path.cross_link} className="mt-1 inline-block text-xs text-teal-700 hover:underline">
+                    {path.cross_link_note ?? path.cross_link}
+                  </Link>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.human_potential_career_companion_support?.principle ? (
+        <section className="rounded-lg border border-emerald-100 bg-emerald-50/40 p-4">
+          <h3 className="text-sm font-semibold text-emerald-900">{labels.humanPotentialCareerCompanion}</h3>
+          <p className="mt-2 text-sm text-emerald-900">{dashboard.human_potential_career_companion_support.principle}</p>
+          {dashboard.human_potential_career_companion_support.companion_name ? (
+            <p className="mt-1 text-xs text-emerald-700">
+              {dashboard.human_potential_career_companion_support.companion_name}
+              {dashboard.human_potential_career_companion_support.not_label
+                ? ` — ${labels.humanPotentialNotAiCoach}`
+                : null}
+            </p>
+          ) : null}
+          {dashboard.human_potential_career_companion_support.examples?.map((exp) => (
+            <p key={exp.key ?? exp.prompt} className="mt-2 text-sm text-emerald-900">
+              {exp.emoji ? `${exp.emoji} ` : ""}
+              {exp.prompt}
+            </p>
+          ))}
+        </section>
+      ) : null}
+
+      {dashboard.human_potential_talent_mobility?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.humanPotentialTalentMobility}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.human_potential_talent_mobility.principle}</p>
+          {dashboard.human_potential_talent_mobility.dimensions?.map((dim) => (
+            <p key={dim.key ?? dim.label} className="mt-1 text-xs text-gray-500">
+              <span className="font-medium text-gray-700">{dim.label}</span>
+              {dim.description ? ` — ${dim.description}` : ""}
+            </p>
+          ))}
+        </section>
+      ) : null}
+
+      {dashboard.human_potential_recognition_connection?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.humanPotentialRecognition}</h3>
+          <p className="mt-2">{dashboard.human_potential_recognition_connection.principle}</p>
+          {dashboard.human_potential_recognition_connection.recognition_types?.map((rt) => (
+            <p key={rt.key ?? rt.label} className="mt-1 text-xs">
+              {rt.emoji ? `${rt.emoji} ` : ""}
+              {rt.label}
+            </p>
+          ))}
+        </section>
+      ) : null}
+
+      {dashboard.human_potential_privacy_principles?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.humanPotentialPrivacy}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.human_potential_privacy_principles.principle}</p>
+          {dashboard.human_potential_privacy_principles.forbidden?.map((f) => (
+            <p key={f} className="mt-1 text-xs text-gray-500">
+              {f}
+            </p>
+          ))}
+        </section>
+      ) : null}
+
+      {Array.isArray(dashboard.human_potential_success_criteria) &&
+      dashboard.human_potential_success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-rose-100 p-4">
+          <h3 className="text-sm font-semibold text-rose-900">{labels.humanPotentialSuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.human_potential_success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={item.key ?? label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.human_potential_self_love_connection?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.humanPotentialSelfLove}</h3>
+          <p className="mt-2">{dashboard.human_potential_self_love_connection.principle}</p>
+        </section>
+      ) : null}
+
+      {dashboard.human_potential_trust_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.humanPotentialTrust}</h3>
+          <p className="mt-2 text-gray-600">{dashboard.human_potential_trust_connection.principle}</p>
+        </section>
+      ) : null}
+
+      {dashboard.human_potential_engagement_summary ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.humanPotentialEngagement}</h3>
+          <dl className="mt-2 grid gap-2 sm:grid-cols-2">
+            <div>
+              <dt className="text-xs text-gray-500">{labels.humanPotentialPathways}</dt>
+              <dd className="font-medium">{dashboard.human_potential_engagement_summary.learning_pathways ?? 0}</dd>
+            </div>
+            <div>
+              <dt className="text-xs text-gray-500">{labels.userCompletedPaths}</dt>
+              <dd className="font-medium">{dashboard.human_potential_engagement_summary.user_completed_paths ?? 0}</dd>
+            </div>
+            <div>
+              <dt className="text-xs text-gray-500">{labels.humanPotentialMobilityDimensions}</dt>
+              <dd className="font-medium">
+                {dashboard.human_potential_engagement_summary.talent_mobility_dimensions ?? 0}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-xs text-gray-500">{labels.humanPotentialDevelopmentQuestionsCount}</dt>
+              <dd className="font-medium">{dashboard.human_potential_engagement_summary.development_questions ?? 0}</dd>
+            </div>
+          </dl>
+          {dashboard.human_potential_engagement_summary.privacy_note ? (
+            <p className="mt-2 text-xs text-gray-500">{dashboard.human_potential_engagement_summary.privacy_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.human_potential_integration_links && dashboard.human_potential_integration_links.length > 0 ? (
+        <section className="rounded-lg border border-rose-100 p-4">
+          <h3 className="text-sm font-semibold text-rose-900">{labels.humanPotentialIntegrationLinks}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {dashboard.human_potential_integration_links.map((link) => (
+              <li key={String(link.key ?? link.route)}>
+                {link.route ? (
+                  <Link href={link.route} className="font-medium text-teal-700 hover:underline">
+                    {link.label}
+                  </Link>
+                ) : (
+                  <span className="font-medium">{link.label}</span>
+                )}
+                {link.note ? <p className="text-xs text-gray-500">{link.note}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
     </div>
   );
 }

@@ -110,6 +110,16 @@ export function CompanionIdentityEngineDashboardPanel({ labels }: Props) {
   const successCriteria = dashboard.success_criteria ?? [];
   const visionPhrases = dashboard.vision_phrases ?? [];
   const blueprint = dashboard.implementation_blueprint;
+  const namingPolicy = dashboard.companion_naming_policy;
+  const labelReplacements = namingPolicy?.label_replacements ?? [];
+  const supportExamples = namingPolicy?.support_panel_examples ?? [];
+  const namingPhilosophy = namingPolicy?.companion_philosophy ?? [];
+  const namingVisionPhrases = namingPolicy?.vision_phrases ?? [];
+  const namingFaq = namingPolicy?.faq_items ?? [];
+  const globalPolicy = dashboard.aipify_first_language_policy;
+  const globalLabelReplacements = globalPolicy?.label_replacements ?? [];
+  const appliesToSurfaces = globalPolicy?.applies_to_surfaces ?? [];
+  const technicalExceptions = globalPolicy?.technical_exceptions ?? [];
 
   return (
     <div className="space-y-6">
@@ -134,6 +144,125 @@ export function CompanionIdentityEngineDashboardPanel({ labels }: Props) {
 
       {actionError && (
         <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{actionError}</div>
+      )}
+
+      {namingPolicy && (
+        <section className="rounded-lg border border-sky-200 bg-sky-50/40 p-4">
+          <h3 className="text-sm font-semibold">{labels.companionNamingTitle}</h3>
+          <p className="mt-1 text-xs text-sky-900">{labels.companionNamingSubtitle}</p>
+          {namingPolicy.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{namingPolicy.principle}</p>
+          ) : null}
+          {labelReplacements.length > 0 && (
+            <div className="mt-4">
+              <h4 className="text-xs font-medium text-gray-700">{labels.companionNamingReplacements}</h4>
+              <ul className="mt-2 space-y-1 text-sm">
+                {labelReplacements.map((item) => (
+                  <li key={item.avoid ?? item.use} className="flex flex-wrap gap-2">
+                    <span className="text-red-700 line-through">{item.avoid}</span>
+                    <span className="text-gray-500">→</span>
+                    <span className="font-medium text-emerald-800">{item.use}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {supportExamples.length > 0 && (
+            <div className="mt-4">
+              <h4 className="text-xs font-medium text-gray-700">{labels.companionNamingSupportExamples}</h4>
+              <ul className="mt-2 space-y-1 text-sm">
+                {supportExamples.map((item) => (
+                  <li key={item.old ?? item.new} className="flex flex-wrap gap-2">
+                    <span className="text-red-700 line-through">{item.old}</span>
+                    <span className="text-gray-500">→</span>
+                    <span className="font-medium text-emerald-800">{item.new}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {namingPhilosophy.length > 0 && (
+            <div className="mt-4">
+              <h4 className="text-xs font-medium text-gray-700">{labels.companionNamingPhilosophy}</h4>
+              <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+                {namingPhilosophy.map((phrase, i) => (
+                  <li key={i}>{phrase}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {namingVisionPhrases.length > 0 && (
+            <div className="mt-4">
+              <h4 className="text-xs font-medium text-gray-700">{labels.companionNamingVision}</h4>
+              <ul className="mt-2 space-y-1 text-sm italic text-sky-900">
+                {namingVisionPhrases.map((phrase, i) => (
+                  <li key={i}>{phrase}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {namingFaq.length > 0 && (
+            <div className="mt-4 space-y-3">
+              <h4 className="text-xs font-medium text-gray-700">{labels.companionNamingFaq}</h4>
+              {namingFaq.map((item) => (
+                <div key={item.key ?? item.question} className="rounded border border-sky-100 bg-white p-3 text-sm">
+                  <div className="font-medium">{item.question}</div>
+                  {item.answer ? <p className="mt-1 text-xs text-gray-600">{item.answer}</p> : null}
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
+      {globalPolicy && (
+        <section className="rounded-lg border border-violet-200 bg-violet-50/40 p-4">
+          <h3 className="text-sm font-semibold">{labels.aipifyFirstLanguageTitle}</h3>
+          <p className="mt-1 text-xs text-violet-900">{labels.aipifyFirstLanguageSubtitle}</p>
+          {globalPolicy.core_principle ? (
+            <p className="mt-2 text-sm text-gray-700">{globalPolicy.core_principle}</p>
+          ) : null}
+          {globalPolicy.marketing_principle ? (
+            <p className="mt-2 text-xs text-violet-800">{globalPolicy.marketing_principle}</p>
+          ) : null}
+          {globalLabelReplacements.length > 0 && (
+            <div className="mt-4">
+              <h4 className="text-xs font-medium text-gray-700">{labels.aipifyFirstLanguageReplacements}</h4>
+              <ul className="mt-2 space-y-1 text-sm">
+                {globalLabelReplacements.map((item) => (
+                  <li key={item.avoid ?? item.use} className="flex flex-wrap gap-2">
+                    <span className="text-red-700 line-through">{item.avoid}</span>
+                    <span className="text-gray-500">→</span>
+                    <span className="font-medium text-emerald-800">{item.use}</span>
+                    {item.example ? (
+                      <span className="w-full text-xs text-gray-500">{item.example}</span>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {appliesToSurfaces.length > 0 && (
+            <div className="mt-4">
+              <h4 className="text-xs font-medium text-gray-700">{labels.aipifyFirstLanguageAppliesTo}</h4>
+              <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+                {appliesToSurfaces.map((surface, i) => (
+                  <li key={i}>{surface}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {technicalExceptions.length > 0 && (
+            <div className="mt-4">
+              <h4 className="text-xs font-medium text-gray-700">{labels.aipifyFirstLanguageExceptions}</h4>
+              <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
+                {technicalExceptions.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
       )}
 
       <div className="flex flex-wrap gap-2">

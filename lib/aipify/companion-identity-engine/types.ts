@@ -97,6 +97,55 @@ export type ImplementationBlueprintMeta = {
   [key: string]: unknown;
 };
 
+export type LabelReplacement = {
+  avoid?: string;
+  use?: string;
+  example?: string;
+  old?: string;
+  new?: string;
+  [key: string]: unknown;
+};
+
+export type FaqItem = {
+  key?: string;
+  question?: string;
+  answer?: string;
+  [key: string]: unknown;
+};
+
+export type AipifyFirstLanguagePolicy = {
+  doc?: string;
+  distinction_note?: string;
+  core_principle?: string;
+  marketing_principle?: string;
+  abos_principle?: string;
+  label_replacements?: LabelReplacement[];
+  applies_to_surfaces?: string[];
+  technical_exceptions?: string[];
+  companion_phrases?: string[];
+  implementation_requirements?: string[];
+  faq_items?: FaqItem[];
+  vision_phrases?: string[];
+  support_panel_examples?: LabelReplacement[];
+  companion_naming_policy?: CompanionNamingPolicy;
+  cross_links?: string[];
+  ilm_corpus?: string;
+  ilm_module?: string;
+  kc_faq?: string;
+  [key: string]: unknown;
+};
+
+export type CompanionNamingPolicy = {
+  doc?: string;
+  principle?: string;
+  label_replacements?: LabelReplacement[];
+  support_panel_examples?: LabelReplacement[];
+  companion_philosophy?: string[];
+  vision_phrases?: string[];
+  faq_items?: FaqItem[];
+  [key: string]: unknown;
+};
+
 export type CapabilityGapExamples = {
   avoid?: string[];
   prefer?: string[];
@@ -126,6 +175,8 @@ export type CompanionIdentityEngineCard = {
   learning_journey_standard_note?: string;
   implementation_blueprint?: ImplementationBlueprintMeta;
   companion_identity_engine_note?: string;
+  companion_naming_policy?: CompanionNamingPolicy;
+  aipify_first_language_policy?: AipifyFirstLanguagePolicy;
   [key: string]: unknown;
 };
 
@@ -164,6 +215,8 @@ export type CompanionIdentityEngineDashboard = {
   dogfooding?: Record<string, unknown>;
   success_criteria?: SuccessCriterion[];
   vision_phrases?: string[];
+  companion_naming_policy?: CompanionNamingPolicy;
+  aipify_first_language_policy?: AipifyFirstLanguagePolicy;
   [key: string]: unknown;
 };
 

@@ -15,6 +15,23 @@ export type PackageKey =
   | "insights"
   | "enterprise";
 
+export type EnterprisePricingPhilosophy = {
+  doc?: string;
+  principle?: string;
+  value_based_avoid?: string[];
+  value_based_price_on?: string[];
+  customer_segments?: Array<Record<string, unknown>>;
+  plan_pricing_guidance?: Array<Record<string, unknown>>;
+  enterprise_implementation?: Record<string, unknown>;
+  sales_expert_examples?: Array<Record<string, unknown>>;
+  revenue_model?: Record<string, unknown>;
+  positioning_comparisons?: Array<{ avoid?: string; prefer?: string }>;
+  pricing_signal_expectations?: string[];
+  abos_principle?: string;
+  vision?: string[];
+  guidance_note?: string;
+};
+
 export type BillingCenter = {
   has_customer: boolean;
   current_package?: {
@@ -33,6 +50,7 @@ export type BillingCenter = {
   suites?: Array<{ key: string; label: string }>;
   privacy_note?: string;
   positioning?: string;
+  enterprise_pricing_philosophy?: EnterprisePricingPhilosophy;
 };
 
 export type ModulesCenter = {

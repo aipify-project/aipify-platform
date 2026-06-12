@@ -1,0 +1,65 @@
+ABOS Implementation Blueprint Phase 84 — Ecosystem Scenario Planning Engine
+Route: /app/simulations
+Extends: Simulation & Decision Lab Phase 78 (layered with Blueprint Phases 22, 76, 78)
+Helper prefix: _espe84bp_*
+
+PHASE NUMBER COLLISION
+Repo Phase 84 = Evolution Governance & Change Management at /app/evolution
+ABOS Blueprint Phase 84 = Ecosystem Scenario Planning at /app/simulations
+Document distinction in _espe84bp_distinction_note(), spec, FAQ, ARCHITECTURE.md
+
+MISSION
+Help organizations strengthen resilience and strategic preparedness by exploring how ecosystem changes influence future outcomes.
+
+PHILOSOPHY
+Organizations exist within interconnected ecosystems — customers, suppliers, communities, tech partners.
+
+OBJECTIVES
+- Ecosystem awareness
+- External dependency mapping
+- Scenario preparedness
+- Partnership resilience
+- Strategic adaptability
+- Opportunity exploration
+
+ECOSYSTEM COMPONENTS
+Customers · Technology partners · Suppliers · Sales Expert networks · Strategic alliances · Regulatory bodies · Communities · Service providers
+
+SCENARIO QUESTIONS
+🦉 How might shifts in our ecosystem partners influence our strategic options?
+🌹 Which partnerships strengthen our resilience — and which deserve renewed attention?
+🔔 If a key external dependency changed, what preparedness would reduce disruption?
+
+COMPANION GUIDANCE (Aipify Companion — not AI Assistant)
+🦉 Several ecosystem connections may influence this scenario — shall I summarize dependency patterns for review?
+🌹 Exploring partnership resilience may strengthen strategic preparedness — worth discussing with leadership.
+🔔 If external conditions shifted, preparedness planning often reduces disruption — would a scenario outline help?
+
+LIMITATION PRINCIPLES
+Avoid certainty · Avoid fear-driven interpretations · Avoid overstating predictive capability
+Preparedness not prediction
+
+DOGFOODING
+Microsoft · Shopify · Fiken · Stripe · Sales Expert networks · Technology provider resilience
+Aipify Group internal validation · Unonight first external pilot
+
+VISION
+We are not navigating the future alone. We are part of something larger.
+
+ABOS PRINCIPLE
+Ecosystem awareness strengthens strategic preparedness — Aipify informs and prepares; humans decide.
+
+INTEGRATION CROSS-LINKS (extend, do not duplicate)
+Organizational Resilience A.50 → /app/organizational-resilience-engine
+Curiosity & Discovery A.87 → /app/curiosity-discovery-engine
+Integration Engine A.8 → /app/integration-engine
+Strategic Intelligence A.31 → /app/strategic-intelligence-foundation-engine
+Risk Navigation Blueprint Phase 81 → /app/organizational-resilience-engine
+Evolution Governance Repo Phase 84 → /app/evolution (collision — cross-link only)
+Ecosystem Intelligence Phase 88 → /app/ecosystem
+
+CORE RULE
+Simulation predicts. Simulation never acts. Production isolated on every run.
+
+RPCs: get_simulation_lab_dashboard(), get_simulation_lab_card()
+Migration: 20261106000000_implementation_blueprint_phase84_ecosystem_scenario_planning.sql

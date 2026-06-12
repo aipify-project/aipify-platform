@@ -8,6 +8,8 @@ Defines how Aipify is packaged, licensed, sold, and expanded as a modular SaaS p
 
 **Code:** `lib/commercial-packages/` · migration `20260613000000_commercial_packages_phase42.sql`
 
+**Pricing philosophy:** [AIPIFY_ENTERPRISE_PRICING_PHILOSOPHY_COMMERCIAL_MODEL.md](./AIPIFY_ENTERPRISE_PRICING_PHILOSOPHY_COMMERCIAL_MODEL.md) — value-based ABOS pricing guidance (not token/chatbot metering); `lib/commercial-packages/pricing-philosophy.ts`; migration `20261114000000_enterprise_pricing_philosophy_commercial_model.sql`; `enterprise_pricing_philosophy` block in `get_customer_billing_center()` (owner/admin).
+
 ---
 
 ## Vision

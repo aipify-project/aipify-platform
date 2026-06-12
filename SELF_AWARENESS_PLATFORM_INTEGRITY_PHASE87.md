@@ -60,6 +60,18 @@ Healthy, Monitor, Attention Required, Critical Review Required
 - **Knowledge Center** — gap and freshness analysis
 - **Executive Briefing** — `generate_integrity_briefing()`
 
+## ABOS Implementation Blueprint Phase 87
+
+See [IMPLEMENTATION_BLUEPRINT_PHASE87_SELF_AWARENESS_PLATFORM_INTEGRITY.md](./IMPLEMENTATION_BLUEPRINT_PHASE87_SELF_AWARENESS_PLATFORM_INTEGRITY.md) — extends repo Phase 87 with continuous self-monitoring, capability boundaries, integrity safeguards, companion guidance, and live success criteria via `_sapibp87_*` helpers. Migration `20261109000000_implementation_blueprint_phase87_self_awareness_platform_integrity.sql`.
+
+| Surface | Route | Note |
+|---------|-------|------|
+| **Self-Awareness & Platform Integrity (Blueprint Phase 87)** | `/app/integrity` | This blueprint extends repo Phase 87 |
+| **Curiosity & Discovery Engine (Phase A.87)** | `/app/curiosity-discovery-engine` | Engine phase number collision only |
+| **Blueprint Phase 80 Opportunity Exploration** | `/app/curiosity-discovery-engine` | Extends A.87 Curiosity — unrelated |
+
+Cross-links: Observability A.19, Governance A.14, Security & Trust A.18, Quality Guardian A.13, Companion Evolution Council Phase 65, Continuous Improvement A.33, Trust Engine `/app/trust`.
+
 ## Safety guarantees
 
 - No concealed quality concerns

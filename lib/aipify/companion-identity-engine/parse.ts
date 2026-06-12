@@ -1,9 +1,11 @@
 import type {
+  AipifyFirstLanguagePolicy,
   CapabilityGapExamples,
   CompanionIdentityEngineCard,
   CompanionIdentityEngineDashboard,
   CompanionIdentityExport,
   CompanionIdentitySettings,
+  CompanionNamingPolicy,
   FoxExchangeExample,
   IdentityTrait,
   ModuleConsistencyEntry,
@@ -30,9 +32,65 @@ function parseFoxExchange(data: unknown): FoxExchangeExample | undefined {
   return data as FoxExchangeExample;
 }
 
+function parseCompanionNamingPolicy(data: unknown): CompanionNamingPolicy | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  const d = data as Record<string, unknown>;
+  return {
+    doc: typeof d.doc === "string" ? d.doc : undefined,
+    principle: typeof d.principle === "string" ? d.principle : undefined,
+    label_replacements: parseRecordList(d.label_replacements),
+    support_panel_examples: parseRecordList(d.support_panel_examples),
+    companion_philosophy: Array.isArray(d.companion_philosophy)
+      ? (d.companion_philosophy as string[])
+      : undefined,
+    vision_phrases: Array.isArray(d.vision_phrases) ? (d.vision_phrases as string[]) : undefined,
+    faq_items: parseRecordList(d.faq_items),
+    ...d,
+  } as CompanionNamingPolicy;
+}
+
+function parseAipifyFirstLanguagePolicy(data: unknown): AipifyFirstLanguagePolicy | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  const d = data as Record<string, unknown>;
+  return {
+    doc: typeof d.doc === "string" ? d.doc : undefined,
+    distinction_note: typeof d.distinction_note === "string" ? d.distinction_note : undefined,
+    core_principle: typeof d.core_principle === "string" ? d.core_principle : undefined,
+    marketing_principle: typeof d.marketing_principle === "string" ? d.marketing_principle : undefined,
+    abos_principle: typeof d.abos_principle === "string" ? d.abos_principle : undefined,
+    label_replacements: parseRecordList(d.label_replacements),
+    applies_to_surfaces: Array.isArray(d.applies_to_surfaces)
+      ? (d.applies_to_surfaces as string[])
+      : undefined,
+    technical_exceptions: Array.isArray(d.technical_exceptions)
+      ? (d.technical_exceptions as string[])
+      : undefined,
+    companion_phrases: Array.isArray(d.companion_phrases)
+      ? (d.companion_phrases as string[])
+      : undefined,
+    implementation_requirements: Array.isArray(d.implementation_requirements)
+      ? (d.implementation_requirements as string[])
+      : undefined,
+    faq_items: parseRecordList(d.faq_items),
+    vision_phrases: Array.isArray(d.vision_phrases) ? (d.vision_phrases as string[]) : undefined,
+    support_panel_examples: parseRecordList(d.support_panel_examples),
+    companion_naming_policy: parseCompanionNamingPolicy(d.companion_naming_policy),
+    cross_links: Array.isArray(d.cross_links) ? (d.cross_links as string[]) : undefined,
+    ilm_corpus: typeof d.ilm_corpus === "string" ? d.ilm_corpus : undefined,
+    ilm_module: typeof d.ilm_module === "string" ? d.ilm_module : undefined,
+    kc_faq: typeof d.kc_faq === "string" ? d.kc_faq : undefined,
+    ...d,
+  } as AipifyFirstLanguagePolicy;
+}
+
 export function parseCompanionIdentityEngineCard(data: unknown): CompanionIdentityEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
-  return { has_organization: Boolean(d.has_organization), ...d } as CompanionIdentityEngineCard;
+  return {
+    has_organization: Boolean(d.has_organization),
+    companion_naming_policy: parseCompanionNamingPolicy(d.companion_naming_policy),
+    aipify_first_language_policy: parseAipifyFirstLanguagePolicy(d.aipify_first_language_policy),
+    ...d,
+  } as CompanionIdentityEngineCard;
 }
 
 export function parseCompanionIdentityEngineDashboard(data: unknown): CompanionIdentityEngineDashboard {
@@ -74,6 +132,8 @@ export function parseCompanionIdentityEngineDashboard(data: unknown): CompanionI
       typeof d.permissions === "object" && d.permissions
         ? (d.permissions as Record<string, unknown>)
         : undefined,
+    companion_naming_policy: parseCompanionNamingPolicy(d.companion_naming_policy),
+    aipify_first_language_policy: parseAipifyFirstLanguagePolicy(d.aipify_first_language_policy),
     ...d,
   } as CompanionIdentityEngineDashboard;
 }

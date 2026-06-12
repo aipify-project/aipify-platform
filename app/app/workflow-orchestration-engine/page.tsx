@@ -57,6 +57,23 @@ export default async function WorkflowOrchestrationEnginePage() {
           marketplace: t(`${p}.marketplace`),
           selfLove: t(`${p}.selfLove`),
           integrationLinks: t(`${p}.integrationLinks`),
+          actionCenter: t(`${p}.actionCenter`),
+          actionHub: t(`${p}.actionHub`),
+          operationsCenter79: t(`${p}.operationsCenter79`),
+          aoobpTitle: t(`${p}.autonomousOperationsOrchestration.title`),
+          aoobpPhase86: t(`${p}.autonomousOperationsOrchestration.phase86`),
+          aoobpObjectives: t(`${p}.autonomousOperationsOrchestration.objectives`),
+          aoobpAutonomyLevels: t(`${p}.autonomousOperationsOrchestration.autonomyLevels`),
+          aoobpApprovalRequired: t(`${p}.autonomousOperationsOrchestration.approvalRequired`),
+          aoobpOperationalExamples: t(`${p}.autonomousOperationsOrchestration.operationalExamples`),
+          aoobpHumanApproval: t(`${p}.autonomousOperationsOrchestration.humanApproval`),
+          aoobpAuditTransparency: t(`${p}.autonomousOperationsOrchestration.auditTransparency`),
+          aoobpSafetyPrinciples: t(`${p}.autonomousOperationsOrchestration.safetyPrinciples`),
+          aoobpCompanionGuidance: t(`${p}.autonomousOperationsOrchestration.companionGuidance`),
+          aoobpTrustConnection: t(`${p}.autonomousOperationsOrchestration.trustConnection`),
+          aoobpDogfooding: t(`${p}.autonomousOperationsOrchestration.dogfooding`),
+          aoobpSuccessCriteria: t(`${p}.autonomousOperationsOrchestration.successCriteria`),
+          aoobpIntegrationLinks: t(`${p}.autonomousOperationsOrchestration.integrationLinks`),
         }}
       />
     </div>

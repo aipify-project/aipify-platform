@@ -9,6 +9,7 @@ export default async function SimulationsPage() {
   const p = "customerApp.simulationLab";
   const bp76 = `${p}.blueprint.phase76`;
   const bp78 = `${p}.blueprint.phase78`;
+  const bp84 = `${p}.blueprint.phase84`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -87,6 +88,22 @@ export default async function SimulationsPage() {
           phase78TrustConnection: t(`${bp78}.trustConnection`),
           phase78Dogfooding: t(`${bp78}.dogfooding`),
           phase78VisionPhrases: t(`${bp78}.visionPhrases`),
+          phase84SectionTitle: t(`${bp84}.sectionTitle`),
+          phase84EngagementSummary: t(`${bp84}.engagementSummary`),
+          phase84Objectives: t(`${bp84}.objectives`),
+          phase84EcosystemComponents: t(`${bp84}.ecosystemComponents`),
+          phase84ScenarioQuestions: t(`${bp84}.scenarioQuestions`),
+          phase84ExternalDependencyAwareness: t(`${bp84}.externalDependencyAwareness`),
+          phase84PartnershipResilience: t(`${bp84}.partnershipResilience`),
+          phase84OpportunityExploration: t(`${bp84}.opportunityExploration`),
+          phase84CompanionGuidance: t(`${bp84}.companionGuidance`),
+          phase84LeadershipInsights: t(`${bp84}.leadershipInsights`),
+          phase84LimitationPrinciples: t(`${bp84}.limitationPrinciples`),
+          phase84SuccessCriteria: t(`${bp84}.successCriteria`),
+          phase84SelfLoveConnection: t(`${bp84}.selfLoveConnection`),
+          phase84TrustConnection: t(`${bp84}.trustConnection`),
+          phase84Dogfooding: t(`${bp84}.dogfooding`),
+          phase84VisionPhrases: t(`${bp84}.visionPhrases`),
         }}
       />
     </div>

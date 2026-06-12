@@ -1,7 +1,34 @@
-import type { BillingCenter, ModulesCenter } from "./types";
+import type { BillingCenter, EnterprisePricingPhilosophy, ModulesCenter } from "./types";
 
 function asArray<T>(value: unknown): T[] {
   return Array.isArray(value) ? (value as T[]) : [];
+}
+
+function parseEnterprisePricingPhilosophy(value: unknown): EnterprisePricingPhilosophy | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  const d = value as Record<string, unknown>;
+  return {
+    doc: typeof d.doc === "string" ? d.doc : undefined,
+    principle: typeof d.principle === "string" ? d.principle : undefined,
+    value_based_avoid: asArray<string>(d.value_based_avoid),
+    value_based_price_on: asArray<string>(d.value_based_price_on),
+    customer_segments: asArray(d.customer_segments),
+    plan_pricing_guidance: asArray(d.plan_pricing_guidance),
+    enterprise_implementation:
+      d.enterprise_implementation && typeof d.enterprise_implementation === "object"
+        ? (d.enterprise_implementation as Record<string, unknown>)
+        : undefined,
+    sales_expert_examples: asArray(d.sales_expert_examples),
+    revenue_model:
+      d.revenue_model && typeof d.revenue_model === "object"
+        ? (d.revenue_model as Record<string, unknown>)
+        : undefined,
+    positioning_comparisons: asArray<{ avoid?: string; prefer?: string }>(d.positioning_comparisons),
+    pricing_signal_expectations: asArray<string>(d.pricing_signal_expectations),
+    abos_principle: typeof d.abos_principle === "string" ? d.abos_principle : undefined,
+    vision: asArray<string>(d.vision),
+    guidance_note: typeof d.guidance_note === "string" ? d.guidance_note : undefined,
+  };
 }
 
 export function parseBillingCenter(data: unknown): BillingCenter {
@@ -30,6 +57,7 @@ export function parseBillingCenter(data: unknown): BillingCenter {
     suites: asArray(d.suites) as BillingCenter["suites"],
     privacy_note: typeof d.privacy_note === "string" ? d.privacy_note : undefined,
     positioning: typeof d.positioning === "string" ? d.positioning : undefined,
+    enterprise_pricing_philosophy: parseEnterprisePricingPhilosophy(d.enterprise_pricing_philosophy),
   };
 }
 

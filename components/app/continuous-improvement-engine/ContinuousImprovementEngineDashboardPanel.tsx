@@ -1,14 +1,229 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parseContinuousImprovementEngineDashboard,
+  type BlueprintCompanionExample,
+  type BlueprintIntegrationLink,
+  type BlueprintObjective,
+  type BlueprintSuccessCriterion,
   type ContinuousImprovementEngineDashboard,
+  type ContinuousImprovementOrganizationalEvolutionBlueprint,
   type ImprovementInitiativeRecord,
   type ImprovementSuggestion,
 } from "@/lib/aipify/continuous-improvement-engine";
 
 type Props = { labels: Record<string, string> };
+
+function ObjectiveCard({ objective }: { objective: BlueprintObjective }) {
+  return (
+    <div className="rounded-lg border border-gray-100 p-3 text-sm">
+      <span className="font-medium text-gray-900">{objective.label}</span>
+      {objective.description ? <p className="mt-1 text-xs text-gray-600">{objective.description}</p> : null}
+    </div>
+  );
+}
+
+function CompanionCard({ example }: { example: BlueprintCompanionExample }) {
+  return (
+    <div className="rounded-lg border border-gray-100 p-3 text-sm text-gray-700">
+      {example.scenario ? <p className="text-xs font-medium uppercase text-gray-500">{example.scenario}</p> : null}
+      <p className="mt-1">{example.question ?? example.prompt ?? example.example}</p>
+    </div>
+  );
+}
+
+function IntegrationLinkRow({ link }: { link: BlueprintIntegrationLink }) {
+  if (!link.route) {
+    return (
+      <div className="text-sm">
+        <span className="font-medium text-gray-900">{link.label}</span>
+        {link.note ? <p className="mt-0.5 text-xs text-gray-600">{link.note}</p> : null}
+      </div>
+    );
+  }
+  return (
+    <div className="text-sm">
+      <Link href={link.route} className="font-medium text-indigo-700 underline">
+        {link.label}
+      </Link>
+      {link.note ? <p className="mt-0.5 text-xs text-gray-600">{link.note}</p> : null}
+    </div>
+  );
+}
+
+function SuccessCriterionRow({ criterion }: { criterion: BlueprintSuccessCriterion }) {
+  return (
+    <div className="flex items-start gap-2 text-sm">
+      <span className={criterion.met ? "text-green-600" : "text-gray-400"}>{criterion.met ? "✓" : "○"}</span>
+      <div>
+        <span className="text-gray-900">{criterion.label}</span>
+        {criterion.note ? <p className="mt-0.5 text-xs text-gray-600">{criterion.note}</p> : null}
+      </div>
+    </div>
+  );
+}
+
+function BlueprintSection({ blueprint, labels }: { blueprint: ContinuousImprovementOrganizationalEvolutionBlueprint; labels: Record<string, string> }) {
+  const engagement = blueprint.engagement_summary;
+
+  return (
+    <>
+      <section className="rounded-xl border border-teal-200 bg-teal-50/50 p-6">
+        <h2 className="text-sm font-semibold text-teal-900">{labels.blueprintTitle}</h2>
+        <p className="mt-1 text-xs uppercase tracking-wide text-teal-700">
+          {blueprint.title ?? labels.blueprintPhase90}
+          {blueprint.engine_phase ? ` · ${blueprint.engine_phase}` : ""}
+        </p>
+        {blueprint.mission ? <p className="mt-2 text-sm font-medium text-teal-900">{blueprint.mission}</p> : null}
+        {blueprint.philosophy ? <p className="mt-2 text-sm text-teal-900">{blueprint.philosophy}</p> : null}
+        {blueprint.abos_principle ? <p className="mt-2 text-xs text-teal-800">{blueprint.abos_principle}</p> : null}
+        {blueprint.vision ? <p className="mt-2 text-xs font-medium italic text-teal-800">{blueprint.vision}</p> : null}
+        {blueprint.distinction_note ? <p className="mt-2 text-xs text-teal-700">{blueprint.distinction_note}</p> : null}
+      </section>
+
+      {engagement ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.engagementSummary}</h3>
+          <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+            <span>{labels.initiativesActive}: {String(engagement.initiatives_active ?? 0)}</span>
+            <span>{labels.initiativesCompleted}: {String(engagement.initiatives_completed ?? 0)}</span>
+            <span>{labels.feedbackCount}: {String(engagement.feedback_count ?? 0)}</span>
+            <span>{labels.reviewCyclesCompleted}: {String(engagement.review_cycles_completed ?? 0)}</span>
+            <span>{labels.avgImprovementPct}: {String(engagement.avg_improvement_pct ?? 0)}%</span>
+          </div>
+        </section>
+      ) : null}
+
+      {blueprint.objectives && blueprint.objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.objectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {blueprint.objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {blueprint.improvement_questions && blueprint.improvement_questions.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.improvementQuestions}</h3>
+          <div className="mt-3 space-y-3">
+            {blueprint.improvement_questions.map((question) => (
+              <CompanionCard key={question.key ?? question.scenario} example={question} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {blueprint.learning_cycles?.cycle_phrase ? (
+        <section className="rounded-lg border border-indigo-100 bg-indigo-50/40 p-4 text-sm text-indigo-900">
+          <h3 className="text-sm font-semibold">{labels.learningCycles}</h3>
+          <p className="mt-2 font-medium">{String(blueprint.learning_cycles.cycle_phrase)}</p>
+          {typeof blueprint.learning_cycles.principle === "string" ? (
+            <p className="mt-2 text-xs">{blueprint.learning_cycles.principle}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {blueprint.experimentation_principles?.principle ? (
+        <section className="rounded-lg border border-violet-100 bg-violet-50/40 p-4 text-sm text-violet-900">
+          <h3 className="text-sm font-semibold">{labels.experimentationPrinciples}</h3>
+          <p className="mt-2">{String(blueprint.experimentation_principles.principle)}</p>
+        </section>
+      ) : null}
+
+      {blueprint.organizational_evolution?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/40 p-4 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.organizationalEvolution}</h3>
+          <p className="mt-2">{String(blueprint.organizational_evolution.principle)}</p>
+        </section>
+      ) : null}
+
+      {blueprint.companion_guidance && blueprint.companion_guidance.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionGuidance}</h3>
+          <p className="mt-1 text-xs text-gray-500">{labels.companionGuidanceHint}</p>
+          <div className="mt-3 space-y-3">
+            {blueprint.companion_guidance.map((example) => (
+              <CompanionCard key={example.key ?? example.scenario} example={example} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {blueprint.improvement_sources && blueprint.improvement_sources.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.improvementSources}</h3>
+          <div className="mt-3 space-y-3">
+            {blueprint.improvement_sources.map((source) => (
+              <IntegrationLinkRow key={source.key ?? source.label} link={source} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {blueprint.self_love_connection?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.selfLoveConnection}</h3>
+          <p className="mt-2">{String(blueprint.self_love_connection.principle)}</p>
+        </section>
+      ) : null}
+
+      {blueprint.leadership_insights?.principle ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4 text-sm text-gray-700">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.leadershipInsights}</h3>
+          <p className="mt-2">{String(blueprint.leadership_insights.principle)}</p>
+        </section>
+      ) : null}
+
+      {blueprint.limitation_principles?.principle ? (
+        <section className="rounded-lg border border-orange-100 bg-orange-50/40 p-4 text-sm text-orange-900">
+          <h3 className="text-sm font-semibold">{labels.limitationPrinciples}</h3>
+          <p className="mt-2">{String(blueprint.limitation_principles.principle)}</p>
+        </section>
+      ) : null}
+
+      {blueprint.trust_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4 text-sm text-gray-700">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.trustConnection}</h3>
+          <p className="mt-2">{String(blueprint.trust_connection.principle)}</p>
+        </section>
+      ) : null}
+
+      {blueprint.dogfooding?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.dogfooding}</h3>
+          <p className="mt-2 text-sm text-gray-600">{String(blueprint.dogfooding.principle)}</p>
+        </section>
+      ) : null}
+
+      {blueprint.integration_links && blueprint.integration_links.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.integrationLinks}</h3>
+          <div className="mt-3 space-y-3">
+            {blueprint.integration_links.map((link) => (
+              <IntegrationLinkRow key={link.key ?? link.label} link={link} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {blueprint.success_criteria && blueprint.success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.successCriteria}</h3>
+          <div className="mt-3 space-y-2">
+            {blueprint.success_criteria.map((criterion) => (
+              <SuccessCriterionRow key={criterion.key ?? criterion.label} criterion={criterion} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+    </>
+  );
+}
 
 export function ContinuousImprovementEngineDashboardPanel({ labels }: Props) {
   const [dashboard, setDashboard] = useState<ContinuousImprovementEngineDashboard | null>(null);
@@ -58,6 +273,7 @@ export function ContinuousImprovementEngineDashboardPanel({ labels }: Props) {
   if (!dashboard?.has_organization) return null;
 
   const summary = dashboard.summary ?? {};
+  const blueprint = dashboard.continuous_improvement_organizational_evolution_blueprint;
 
   return (
     <div className="space-y-6">
@@ -65,6 +281,8 @@ export function ContinuousImprovementEngineDashboardPanel({ labels }: Props) {
         <h2 className="text-sm font-semibold">{labels.engineTitle}</h2>
         <p className="mt-2 text-sm">{dashboard.philosophy}</p>
       </section>
+
+      {blueprint ? <BlueprintSection blueprint={blueprint} labels={labels} /> : null}
 
       {actionError && (
         <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{actionError}</div>

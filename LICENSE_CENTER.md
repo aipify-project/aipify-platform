@@ -8,6 +8,8 @@ Transparent ownership and licensing framework built directly into the customer e
 
 **Code:** `lib/license/` · Route: `/app/license` · Sidebar: `LicenseSidebarPanel`
 
+**Pricing philosophy note:** Read-only `pricing_philosophy_note` from `get_customer_license_center()` — see [AIPIFY_ENTERPRISE_PRICING_PHILOSOPHY_COMMERCIAL_MODEL.md](./AIPIFY_ENTERPRISE_PRICING_PHILOSOPHY_COMMERCIAL_MODEL.md).
+
 ---
 
 ## 1. Purpose

@@ -219,6 +219,106 @@ export type ImplementationBlueprintMeta = {
   route?: string;
   admin_route?: string;
   mapping_note?: string;
+  extends?: string;
+};
+
+export type CollectiveIntelligenceSource = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type CollectiveIntelligenceSources = {
+  principle?: string;
+  sources?: CollectiveIntelligenceSource[];
+};
+
+export type IdeaDiscoveryCategory = {
+  key?: string;
+  label?: string;
+  signals?: string[];
+};
+
+export type IdeaDiscovery = {
+  principle?: string;
+  categories?: IdeaDiscoveryCategory[];
+};
+
+export type CompanionGuidanceExample = {
+  emoji?: string;
+  key?: string;
+  prompt?: string;
+  consideration?: string;
+};
+
+export type CompanionGuidance = {
+  principle?: string;
+  examples?: CompanionGuidanceExample[];
+};
+
+export type CommunityRecognitionDomain = {
+  emoji?: string;
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type CommunityRecognition = {
+  principle?: string;
+  domains?: CommunityRecognitionDomain[];
+  gratitude_route?: string;
+  boundary_note?: string;
+};
+
+export type LearningOrganizationConnection = {
+  principle?: string;
+  surfaces?: KnowledgeCenterSurface[];
+};
+
+export type Ccibp89EngagementSummary = {
+  collective_intelligence_sources?: number;
+  community_observation_examples?: number;
+  idea_discovery_categories?: number;
+  companion_guidance_examples?: number;
+  recognition_domains?: number;
+  learning_organization_surfaces?: number;
+  integration_links?: number;
+  tenant_contributions_total?: number;
+  ecosystem_published_total?: number;
+  contributions_total?: number;
+  published_contributions?: number;
+  participation_enabled?: boolean;
+  privacy_note?: string;
+};
+
+export type CommunityCollectiveIntelligenceBlueprintPhase89 = {
+  implementation_blueprint_phase89?: ImplementationBlueprintMeta;
+  community_collective_intelligence_note?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: CommunityObjective[];
+  collective_intelligence_sources?: CollectiveIntelligenceSources;
+  community_observations?: CollectiveObservations;
+  idea_discovery?: IdeaDiscovery;
+  companion_guidance?: CompanionGuidance;
+  community_recognition?: CommunityRecognition;
+  learning_organization_connection?: LearningOrganizationConnection;
+  self_love_connection?: SelfLoveConnection;
+  trust_connection?: TrustConnection;
+  privacy_principles?: PrivacyPrinciples;
+  dogfooding?: {
+    principle?: string;
+    aipify_group?: DogfoodingEntry;
+    unonight?: DogfoodingEntry;
+  };
+  success_criteria?: AbosSuccessCriterion[];
+  integration_links?: IntegrationLink[];
+  engagement_summary?: Ccibp89EngagementSummary;
+  shared_learning_not_surveillance_note?: string;
+  privacy_note?: string;
 };
 
 export type CommunityIntelligenceCard = {
@@ -240,6 +340,14 @@ export type CommunityIntelligenceCard = {
   collective_summary?: CollectiveSummary;
   inform_not_prescribe_note?: string;
   clwbp_distinction_note?: string;
+  ccibp89_distinction_note?: string;
+  ccibp89_mission?: string;
+  ccibp89_philosophy?: string;
+  ccibp89_abos_principle?: string;
+  ccibp89_vision?: string;
+  ccibp89_engagement_summary?: Ccibp89EngagementSummary;
+  shared_learning_not_surveillance_note?: string;
+  community_collective_intelligence_blueprint_phase89?: ImplementationBlueprintMeta;
   blueprint_note?: string;
 };
 
@@ -318,6 +426,7 @@ export type CommunityIntelligenceDashboard = {
   clwbp_distinction_note?: string;
   clwbp_vision_phrases?: string[];
   inform_not_prescribe_note?: string;
+  community_collective_intelligence_blueprint_phase89?: CommunityCollectiveIntelligenceBlueprintPhase89;
 };
 
 export type CommunityIntelligenceAdmin = {

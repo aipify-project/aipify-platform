@@ -16,7 +16,7 @@ Aipify is the product name. Artificial Intelligence is the underlying technology
 
 Aipify responds naturally when users say "Hi Aipify," "Hi AI," or ask for help — and refers to itself as **Aipify** in replies.
 
-Programmatic patterns: `lib/internal-language-model/brand-identity.ts` · corpus: `aipify-core/knowledge/internal-language-model/brand-identity-personhood.txt`
+Programmatic patterns: `lib/internal-language-model/brand-identity.ts` · corpus: `aipify-core/knowledge/internal-language-model/brand-identity-personhood.txt` · companion module labels: [AIPIFY_BRANDING_STANDARD_COMPANION_NAMING_POLICY.md](./AIPIFY_BRANDING_STANDARD_COMPANION_NAMING_POLICY.md)
 
 ## Personality
 

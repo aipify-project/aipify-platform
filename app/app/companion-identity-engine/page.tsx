@@ -61,6 +61,18 @@ export default async function CompanionIdentityEnginePage() {
           orgConfigurable: t(`${p}.orgConfigurable`),
           orgAlwaysConsistent: t(`${p}.orgAlwaysConsistent`),
           visionPhrases: t(`${p}.visionPhrases`),
+          companionNamingTitle: t("customerApp.brandIdentity.companionNaming.title"),
+          companionNamingSubtitle: t("customerApp.brandIdentity.companionNaming.subtitle"),
+          companionNamingReplacements: t("customerApp.brandIdentity.companionNaming.labelReplacements"),
+          companionNamingSupportExamples: t("customerApp.brandIdentity.companionNaming.supportExamples"),
+          companionNamingPhilosophy: t("customerApp.brandIdentity.companionNaming.philosophy"),
+          companionNamingVision: t("customerApp.brandIdentity.companionNaming.vision"),
+          companionNamingFaq: t("customerApp.brandIdentity.companionNaming.faq"),
+          aipifyFirstLanguageTitle: t("customerApp.brandIdentity.aipifyFirstLanguage.title"),
+          aipifyFirstLanguageSubtitle: t("customerApp.brandIdentity.aipifyFirstLanguage.subtitle"),
+          aipifyFirstLanguageReplacements: t("customerApp.brandIdentity.aipifyFirstLanguage.labelReplacements"),
+          aipifyFirstLanguageAppliesTo: t("customerApp.brandIdentity.aipifyFirstLanguage.appliesTo"),
+          aipifyFirstLanguageExceptions: t("customerApp.brandIdentity.aipifyFirstLanguage.technicalExceptions"),
         }}
       />
     </div>

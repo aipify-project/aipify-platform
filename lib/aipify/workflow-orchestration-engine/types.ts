@@ -133,7 +133,125 @@ export type WorkflowOrchestrationEngineCard = {
   workflow_abos_principle?: string;
   workflow_orchestration_summary?: OrchestrationSummary;
   blueprint_note?: string;
+  autonomous_operations_orchestration?: ImplementationBlueprintPhase86;
   [key: string]: unknown;
+};
+
+export type AutonomyLevel = {
+  level?: number;
+  key?: string;
+  label?: string;
+  approval_required?: boolean;
+  description?: string;
+  examples?: string[];
+};
+
+export type OperationalStep = {
+  order?: number;
+  action?: string;
+  system?: string;
+  approval?: string;
+  note?: string;
+};
+
+export type OperationalExample = {
+  key?: string;
+  label?: string;
+  category?: string;
+  route?: string;
+  autonomy_level?: number;
+  description?: string;
+  steps?: OperationalStep[];
+};
+
+export type HumanApprovalCategory = {
+  key?: string;
+  label?: string;
+  description?: string;
+  trust_action_level?: number;
+  route?: string;
+};
+
+export type HumanApprovalPrinciple = {
+  principle?: string;
+  categories?: HumanApprovalCategory[];
+  human_oversight_route?: string;
+  delegated_trust_route?: string;
+  boundary?: string;
+};
+
+export type CompanionGuidanceExample = {
+  emoji?: string;
+  cue?: string;
+  example?: string;
+};
+
+export type CompanionGuidance = {
+  principle?: string;
+  examples?: CompanionGuidanceExample[];
+  boundary?: string;
+};
+
+export type AuditTransparency = {
+  principle?: string;
+  required_fields?: BlueprintObjective[];
+  audit_routes?: Record<string, string>;
+  privacy_note?: string;
+};
+
+export type TrustConnection = {
+  principle?: string;
+  connections?: string[];
+  approvals_route?: string;
+  action_center_route?: string;
+  actions_route?: string;
+  boundary?: string;
+};
+
+export type SafetyAvoidItem = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type SafetyPrinciples = {
+  principle?: string;
+  avoid?: SafetyAvoidItem[];
+  safety_note?: string;
+};
+
+export type AutonomousOperationsDogfooding = {
+  principle?: string;
+  focus_areas?: string[];
+  aipify_group?: DogfoodingEntry;
+  unonight?: DogfoodingEntry;
+};
+
+export type ImplementationBlueprintPhase86 = {
+  phase?: number;
+  title?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: BlueprintObjective[];
+  autonomy_levels?: AutonomyLevel[];
+  operational_examples?: OperationalExample[];
+  human_approval_principle?: HumanApprovalPrinciple;
+  companion_guidance?: CompanionGuidance;
+  audit_transparency?: AuditTransparency;
+  self_love_connection?: SelfLoveConnection;
+  trust_connection?: TrustConnection;
+  safety_principles?: SafetyPrinciples;
+  dogfooding?: AutonomousOperationsDogfooding;
+  integration_links?: BlueprintIntegrationLink[];
+  success_criteria?: BlueprintSuccessCriterion[];
+  orchestration_summary?: OrchestrationSummary;
 };
 
 export type WorkflowOrchestrationEngineDashboard = {
@@ -162,5 +280,6 @@ export type WorkflowOrchestrationEngineDashboard = {
   workflow_abos_principle?: string;
   workflow_distinction_note?: string;
   workflow_integration_links?: BlueprintIntegrationLink[];
+  autonomous_operations_orchestration?: ImplementationBlueprintPhase86;
   [key: string]: unknown;
 };

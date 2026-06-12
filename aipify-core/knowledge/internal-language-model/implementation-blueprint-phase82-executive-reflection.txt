@@ -1,0 +1,53 @@
+ABOS Implementation Blueprint Phase 82 — Executive Reflection Engine
+
+Route: /app/executive-insights-engine
+Engine: Executive Insights Engine Phase A.35
+Layered with: Phase 13 Executive Insights Foundation, Phase 59 Strategic Thinking, Phase 66 Executive Companion
+
+Mission
+Strengthen self-awareness, decision quality, and long-term effectiveness through guided reflection and thoughtful executive practices.
+
+Philosophy
+The strongest leaders pause to learn from experience — reflection transforms experience into wisdom.
+
+ABOS principle
+Leadership development emerges when people reflect upon experience thoughtfully and consistently — growth, not evaluation.
+
+Distinctions
+- Human Success repo Phase 82 at /app/human-success — repo phase number collision
+- Purpose & Values A.82 at /app/purpose-values-engine — Blueprint Phase 64 organizational values, not executive leadership reflection
+- Self Love A.76 at /app/self-love-engine — personal wellbeing cross-link
+- Wisdom A.93 at /app/wisdom-engine — synthesis cross-link
+- Legacy A.86 at /app/legacy-engine — cross-link only
+- Gratitude & Recognition A.89 — recognition connection cross-link
+- Phase 66 Executive Companion _ecbp_* — preparation preserved; Phase 82 deepens reflection practice
+
+Objectives
+Leadership reflection, perspective building, decision learning, personal growth, executive wellbeing, sustainable leadership practices.
+
+Reflection prompts (🦉 🌹 ❤️ 🔔)
+Positive impact decisions, challenges that taught lessons, approach differently, accomplishments deserve recognition.
+
+Decision learning
+Accurate vs incomplete assumptions, unexpected outcomes, lessons for future decisions.
+
+Leadership growth
+Communication, delegation, relationships, strategic thinking, team development — lifelong journey.
+
+Companion guidance (🦉 🌹 ❤️)
+Quarter experiences deserve reflection, meaningful growth recognition, learning through imperfect circumstances.
+
+Self Love connection
+Self-compassion, perspective, progress recognition, sustainable expectations.
+Extraordinary leaders are rarely perfect. They remain willing to learn.
+
+Recognition connection (🌹)
+Celebrating milestones, recognizing resilience, appreciating collective achievements.
+
+Privacy
+Executive reflections private unless intentionally shared — growth not evaluation. No stored journal content in new tables.
+
+Vision
+I am becoming a better leader because I take time to understand what my experiences are teaching me.
+
+Helpers: _erbp_* (Phase 82), _ecbp_* (Phase 66), _stbp_* (Phase 59), _eie_* (A.35)

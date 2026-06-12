@@ -1,16 +1,275 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parsePlatformIntegrityDashboard,
   type PlatformIntegrityDashboard,
   type IntegrityFinding,
   type IntegrityAction,
+  type SelfAwarenessPlatformIntegrityBlueprint,
+  type BlueprintObjective,
+  type AbosSuccessCriterion,
 } from "@/lib/aipify/platform-integrity";
 
 type PlatformIntegrityDashboardPanelProps = {
   labels: Record<string, string>;
 };
+
+function ObjectiveCard({ objective }: { objective: BlueprintObjective }) {
+  return (
+    <div className="rounded-lg border border-gray-100 p-3 text-sm">
+      <p className="font-medium text-gray-900">{objective.label}</p>
+      {objective.description ? <p className="mt-1 text-xs text-gray-600">{objective.description}</p> : null}
+    </div>
+  );
+}
+
+function GuidanceList({ items }: { items?: Array<Record<string, unknown>> }) {
+  if (!items || items.length === 0) return null;
+  return (
+    <ul className="mt-3 space-y-2">
+      {items.map((item) => (
+        <li key={String(item.key ?? item.observation ?? item.prompt ?? item.label)} className="rounded border border-gray-100 p-2 text-sm">
+          <p className="font-medium text-gray-900">
+            {item.emoji ? `${String(item.emoji)} ` : ""}
+            {String(item.observation ?? item.prompt ?? item.label ?? "")}
+          </p>
+          {item.description || item.consideration ? (
+            <p className="mt-1 text-xs text-gray-600">{String(item.description ?? item.consideration ?? "")}</p>
+          ) : null}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function DimensionGrid({ block }: { block?: { principle?: string; dimensions?: Array<Record<string, unknown>> } }) {
+  if (!block?.dimensions || block.dimensions.length === 0) return null;
+  return (
+    <div className="mt-4 grid gap-3 sm:grid-cols-2">
+      {block.dimensions.map((dim) => (
+        <ObjectiveCard
+          key={String(dim.key ?? dim.label)}
+          objective={{
+            key: String(dim.key ?? ""),
+            label: String(dim.label ?? ""),
+            description: String(dim.description ?? ""),
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function BoundaryGrid({ block }: { block?: { principle?: string; boundaries?: Array<Record<string, unknown>>; safeguards?: Array<Record<string, unknown>> } }) {
+  const items = block?.boundaries ?? block?.safeguards;
+  if (!items || items.length === 0) return null;
+  return (
+    <div className="mt-4 grid gap-3 sm:grid-cols-2">
+      {items.map((item) => (
+        <ObjectiveCard
+          key={String(item.key ?? item.label)}
+          objective={{
+            key: String(item.key ?? ""),
+            label: String(item.label ?? ""),
+            description: String(item.description ?? ""),
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function SuccessCriteriaList({
+  criteria,
+  labels,
+}: {
+  criteria?: AbosSuccessCriterion[];
+  labels: Record<string, string>;
+}) {
+  if (!criteria || criteria.length === 0) return null;
+  return (
+    <ul className="mt-3 space-y-2 text-sm">
+      {criteria.map((criterion) => (
+        <li key={criterion.key ?? criterion.label} className="rounded border border-gray-100 p-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="font-medium text-gray-900">{criterion.label}</span>
+            <span className={`rounded px-2 py-0.5 text-xs ${criterion.met ? "bg-teal-100 text-teal-800" : "bg-gray-100 text-gray-600"}`}>
+              {criterion.met ? labels.criterionMet : labels.criterionPending}
+            </span>
+          </div>
+          {criterion.note ? <p className="mt-1 text-xs text-gray-600">{criterion.note}</p> : null}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function SelfAwarenessBlueprintSections({
+  blueprint,
+  labels,
+}: {
+  blueprint: SelfAwarenessPlatformIntegrityBlueprint;
+  labels: Record<string, string>;
+}) {
+  return (
+    <>
+      <section className="rounded-xl border border-violet-200 bg-violet-50/50 p-6">
+        <h2 className="text-sm font-semibold text-violet-900">{labels.blueprintTitle}</h2>
+        {blueprint.distinction_note ? (
+          <p className="mt-2 text-xs text-violet-800">{blueprint.distinction_note}</p>
+        ) : null}
+        {blueprint.mission ? <p className="mt-3 text-sm font-medium text-violet-900">{blueprint.mission}</p> : null}
+        {blueprint.philosophy ? <p className="mt-1 text-sm text-violet-800">{blueprint.philosophy}</p> : null}
+        {blueprint.abos_principle ? <p className="mt-2 text-xs text-violet-700">{blueprint.abos_principle}</p> : null}
+        {blueprint.vision ? <p className="mt-2 text-xs italic text-violet-700">{blueprint.vision}</p> : null}
+        {blueprint.privacy_note ? <p className="mt-2 text-xs text-violet-600">{blueprint.privacy_note}</p> : null}
+      </section>
+
+      {blueprint.objectives && blueprint.objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.blueprintObjectives}</h3>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {blueprint.objectives.map((obj) => (
+              <ObjectiveCard key={obj.key ?? obj.label} objective={obj} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {blueprint.platform_health_monitoring?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.platformHealthMonitoring}</h3>
+          <p className="mt-2 text-sm text-gray-700">{blueprint.platform_health_monitoring.principle}</p>
+          <DimensionGrid block={blueprint.platform_health_monitoring} />
+        </section>
+      ) : null}
+
+      {blueprint.self_observation_examples?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.selfObservationExamples}</h3>
+          <p className="mt-2 text-sm text-gray-700">{blueprint.self_observation_examples.principle}</p>
+          <GuidanceList items={blueprint.self_observation_examples.examples ?? blueprint.self_observation_examples.observations} />
+        </section>
+      ) : null}
+
+      {blueprint.capability_boundaries?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.capabilityBoundaries}</h3>
+          <p className="mt-2 text-sm text-gray-700">{blueprint.capability_boundaries.principle}</p>
+          <BoundaryGrid block={blueprint.capability_boundaries} />
+        </section>
+      ) : null}
+
+      {blueprint.self_improvement_opportunities?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.selfImprovementOpportunities}</h3>
+          <p className="mt-2 text-sm text-gray-700">{blueprint.self_improvement_opportunities.principle}</p>
+          <GuidanceList items={blueprint.self_improvement_opportunities.examples ?? blueprint.self_improvement_opportunities.opportunities} />
+        </section>
+      ) : null}
+
+      {blueprint.integrity_safeguards?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.integritySafeguards}</h3>
+          <p className="mt-2 text-sm text-gray-700">{blueprint.integrity_safeguards.principle}</p>
+          <BoundaryGrid block={blueprint.integrity_safeguards} />
+        </section>
+      ) : null}
+
+      {blueprint.companion_guidance?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionGuidance}</h3>
+          <p className="mt-2 text-sm text-gray-700">{blueprint.companion_guidance.principle}</p>
+          <GuidanceList items={blueprint.companion_guidance.examples} />
+        </section>
+      ) : null}
+
+      {blueprint.self_love_connection?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.selfLoveConnection}</h3>
+          <p className="mt-2 text-sm text-gray-700">{String(blueprint.self_love_connection.principle)}</p>
+          {blueprint.self_love_connection.journey_phrase ? (
+            <p className="mt-2 text-xs italic text-gray-600">{String(blueprint.self_love_connection.journey_phrase)}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {blueprint.trust_connection?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.trustConnection}</h3>
+          <p className="mt-2 text-sm text-gray-700">{String(blueprint.trust_connection.principle)}</p>
+        </section>
+      ) : null}
+
+      {blueprint.privacy_principles?.principle ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.privacyPrinciples}</h3>
+          <p className="mt-2 text-sm text-gray-700">{blueprint.privacy_principles.principle}</p>
+          {blueprint.privacy_principles.forbidden && blueprint.privacy_principles.forbidden.length > 0 ? (
+            <>
+              <p className="mt-3 text-xs font-medium text-gray-500">{labels.forbidden}</p>
+              <ul className="mt-1 list-inside list-disc space-y-1 text-sm text-gray-600">
+                {blueprint.privacy_principles.forbidden.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+          {blueprint.privacy_principles.required && blueprint.privacy_principles.required.length > 0 ? (
+            <>
+              <p className="mt-3 text-xs font-medium text-gray-500">{labels.required}</p>
+              <ul className="mt-1 list-inside list-disc space-y-1 text-sm text-gray-600">
+                {blueprint.privacy_principles.required.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+        </section>
+      ) : null}
+
+      {blueprint.integration_links && blueprint.integration_links.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.integrationLinks}</h3>
+          <ul className="mt-3 space-y-2 text-sm">
+            {blueprint.integration_links.map((link) => (
+              <li key={link.label}>
+                {link.route ? (
+                  <Link href={link.route} className="font-medium text-indigo-700 hover:underline">
+                    {link.label}
+                  </Link>
+                ) : (
+                  <span className="font-medium text-gray-900">{link.label}</span>
+                )}
+                {link.note ? <p className="text-xs text-gray-600">{link.note}</p> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {blueprint.engagement_summary ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.engagementSummary}</h3>
+          <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-2 lg:grid-cols-3">
+            <div><dt className="text-gray-500">{labels.openFindingsCount}</dt><dd>{String(blueprint.engagement_summary.open_findings ?? 0)}</dd></div>
+            <div><dt className="text-gray-500">{labels.criticalFindingsCount}</dt><dd>{String(blueprint.engagement_summary.critical_findings ?? 0)}</dd></div>
+            <div><dt className="text-gray-500">{labels.pendingActionsCount}</dt><dd>{String(blueprint.engagement_summary.pending_actions ?? 0)}</dd></div>
+          </dl>
+        </section>
+      ) : null}
+
+      {blueprint.success_criteria && blueprint.success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.successCriteria}</h3>
+          <SuccessCriteriaList criteria={blueprint.success_criteria} labels={labels} />
+        </section>
+      ) : null}
+    </>
+  );
+}
 
 function bandClass(band?: string) {
   switch (band) {
@@ -258,6 +517,13 @@ export function PlatformIntegrityDashboardPanel({ labels }: PlatformIntegrityDas
             ))}
           </div>
         </section>
+      ) : null}
+
+      {dashboard.self_awareness_platform_integrity_blueprint ? (
+        <SelfAwarenessBlueprintSections
+          blueprint={dashboard.self_awareness_platform_integrity_blueprint}
+          labels={labels}
+        />
       ) : null}
     </div>
   );

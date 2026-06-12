@@ -121,6 +121,9 @@ export type TrustConnection = {
   what_informs_observations?: string[];
   optional_recommendations?: string[];
   uncertainty_areas?: string[];
+  what_contributes?: string[];
+  what_remains_private?: string[];
+  optional_insights?: string[];
 };
 
 export type StrategicConversation = {
@@ -129,6 +132,7 @@ export type StrategicConversation = {
   scenario?: string;
   question?: string;
   example?: string;
+  prompt?: string;
 };
 
 export type StrategicObjective = {
@@ -181,6 +185,53 @@ export type CompanionEngagementSummary = {
   active_okr_objectives?: number;
   pending_org_decisions?: number;
   summary_note?: string;
+};
+
+export type ReflectionEngagementSummary = {
+  organization_health_score?: number;
+  health_status?: string;
+  executive_reports_total?: number;
+  operational_risks_count?: number;
+  recommended_actions_count?: number;
+  strategic_objectives_active?: number;
+  reflection_prompts_available?: number;
+  summary_note?: string;
+};
+
+export type ReflectionDecisionLearning = {
+  principle?: string;
+  dimensions?: Array<Record<string, unknown>>;
+  personal_dse_route?: string;
+  boundary_note?: string;
+};
+
+export type ReflectionLeadershipGrowth = {
+  principle?: string;
+  growth_areas?: Array<Record<string, unknown>>;
+  journey_note?: string;
+  boundary_note?: string;
+};
+
+export type ReflectionSelfLoveConnection = {
+  principle?: string;
+  reflection_patterns?: string[];
+  learning_phrase?: string;
+  self_love_route?: string;
+  naming_doc?: string;
+  boundary_note?: string;
+};
+
+export type ReflectionRecognitionConnection = {
+  principle?: string;
+  recognition_patterns?: string[];
+  gratitude_route?: string;
+  boundary_note?: string;
+};
+
+export type ReflectionPrivacyPrinciples = {
+  principle?: string;
+  privacy_rules?: string[];
+  growth_not_evaluation_note?: string;
 };
 
 export type LeadershipPreparation = {
@@ -250,13 +301,16 @@ export type ExecutiveInsightsEngineCard = {
   implementation_blueprint?: ImplementationBlueprint;
   implementation_blueprint_phase59?: ImplementationBlueprint;
   implementation_blueprint_phase66?: ImplementationBlueprint;
+  implementation_blueprint_phase82?: ImplementationBlueprint;
   executive_insights_engine_note?: string;
   strategic_thinking_note?: string;
   executive_companion_note?: string;
+  executive_reflection_note?: string;
   blueprint_note?: string;
   since_last_time?: SinceLastTimeSummary;
   strategic_engagement_summary?: StrategicEngagementSummary;
   companion_engagement_summary?: CompanionEngagementSummary;
+  reflection_engagement_summary?: ReflectionEngagementSummary;
 };
 
 export type ExecutiveInsightsEngineDashboard = {
@@ -264,6 +318,7 @@ export type ExecutiveInsightsEngineDashboard = {
   implementation_blueprint?: ImplementationBlueprint;
   implementation_blueprint_phase59?: ImplementationBlueprint;
   implementation_blueprint_phase66?: ImplementationBlueprint;
+  implementation_blueprint_phase82?: ImplementationBlueprint;
   mission?: string;
   philosophy?: string;
   abos_principle?: string;
@@ -271,9 +326,11 @@ export type ExecutiveInsightsEngineDashboard = {
   executive_insights_engine_note?: string;
   strategic_thinking_note?: string;
   executive_companion_note?: string;
+  executive_reflection_note?: string;
   distinction_note?: string;
   blueprint_distinction_note?: string;
   companion_blueprint_distinction_note?: string;
+  reflection_blueprint_distinction_note?: string;
   blueprint_mission?: string;
   blueprint_philosophy?: string;
   blueprint_abos_principle?: string;
@@ -307,6 +364,23 @@ export type ExecutiveInsightsEngineDashboard = {
   companion_engagement_summary?: CompanionEngagementSummary;
   companion_success_criteria?: AbosSuccessCriterion[];
   companion_vision_phrases?: string[];
+  reflection_mission?: string;
+  reflection_philosophy?: string;
+  reflection_abos_principle?: string;
+  executive_reflection_objectives?: StrategicObjective[];
+  reflection_prompts?: StrategicConversation[];
+  reflection_decision_learning?: ReflectionDecisionLearning;
+  reflection_leadership_growth?: ReflectionLeadershipGrowth;
+  reflection_companion_guidance?: StrategicConversation[];
+  reflection_self_love?: ReflectionSelfLoveConnection;
+  reflection_recognition_connection?: ReflectionRecognitionConnection;
+  reflection_trust?: TrustConnection;
+  reflection_privacy_principles?: ReflectionPrivacyPrinciples;
+  reflection_dogfooding?: Record<string, unknown>;
+  reflection_integration_links?: IntegrationLink[];
+  reflection_engagement_summary?: ReflectionEngagementSummary;
+  reflection_success_criteria?: AbosSuccessCriterion[];
+  reflection_vision_phrases?: string[];
   executive_objectives?: ExecutiveObjective[];
   overview_capabilities?: OverviewCapability[];
   insight_categories?: InsightCategory[];

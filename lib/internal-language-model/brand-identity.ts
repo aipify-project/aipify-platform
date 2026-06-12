@@ -1,10 +1,17 @@
 import {
   BRAND_ADDRESS_I18N_KEYS,
   BRAND_ADDRESS_RESPONSES,
-  BRAND_SELF_REFERENCE_REWRITES,
+  applyAipifyFirstLanguagePolicy,
   type BrandAddressIntent,
 } from "./brand-identity-vocabulary";
 import { adaptReplyToAbosTerminology } from "./abos-terminology";
+
+export {
+  AIPIFY_FIRST_LABEL_REPLACEMENTS,
+  COMPANION_NAMING_LABEL_REPLACEMENTS,
+  applyAipifyFirstLanguagePolicy,
+  applyCompanionNamingPolicy,
+} from "./brand-identity-vocabulary";
 
 export type { BrandAddressIntent };
 
@@ -50,9 +57,5 @@ export function getBrandAddressResponse(
 
 /** Normalize assistant or template copy to Aipify-first self-reference and ABOS terminology. */
 export function adaptReplyToBrandIdentity(text: string): string {
-  let result = text;
-  for (const [pattern, replacement] of BRAND_SELF_REFERENCE_REWRITES) {
-    result = result.replace(pattern, replacement);
-  }
-  return adaptReplyToAbosTerminology(result);
+  return adaptReplyToAbosTerminology(applyAipifyFirstLanguagePolicy(text));
 }

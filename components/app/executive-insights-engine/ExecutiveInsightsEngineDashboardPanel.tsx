@@ -133,6 +133,9 @@ export function ExecutiveInsightsEngineDashboardPanel({ labels }: Props) {
         {dashboard.executive_companion_note ? (
           <p className="mt-1 text-xs text-teal-800">{dashboard.executive_companion_note}</p>
         ) : null}
+        {dashboard.executive_reflection_note ? (
+          <p className="mt-1 text-xs text-rose-800">{dashboard.executive_reflection_note}</p>
+        ) : null}
         {dashboard.companion_mission ? (
           <p className="mt-2 text-sm font-medium text-teal-900">{dashboard.companion_mission}</p>
         ) : null}
@@ -147,6 +150,18 @@ export function ExecutiveInsightsEngineDashboardPanel({ labels }: Props) {
         ) : null}
         {dashboard.companion_blueprint_distinction_note ? (
           <p className="mt-1 text-xs text-gray-500">{dashboard.companion_blueprint_distinction_note}</p>
+        ) : null}
+        {dashboard.reflection_blueprint_distinction_note ? (
+          <p className="mt-1 text-xs text-gray-500">{dashboard.reflection_blueprint_distinction_note}</p>
+        ) : null}
+        {dashboard.reflection_mission ? (
+          <p className="mt-2 text-sm font-medium text-rose-900">{dashboard.reflection_mission}</p>
+        ) : null}
+        {dashboard.reflection_philosophy ? (
+          <p className="mt-1 text-sm text-rose-800">{dashboard.reflection_philosophy}</p>
+        ) : null}
+        {dashboard.reflection_abos_principle ? (
+          <p className="mt-1 text-xs text-rose-700">{dashboard.reflection_abos_principle}</p>
         ) : null}
         {dashboard.safety_note ? (
           <p className="mt-2 text-xs text-gray-500">{dashboard.safety_note}</p>
@@ -885,6 +900,259 @@ export function ExecutiveInsightsEngineDashboardPanel({ labels }: Props) {
                   {criterion.note ? <p className="mt-1 text-xs text-gray-500">{criterion.note}</p> : null}
                 </div>
               </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {(dashboard.reflection_integration_links ?? []).length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {dashboard.reflection_integration_links!.map((link) =>
+            link.route ? (
+              <Link key={link.route} href={link.route} className="rounded-lg border border-rose-200 px-3 py-1.5 text-sm">
+                {link.label}
+              </Link>
+            ) : null
+          )}
+        </div>
+      ) : null}
+
+      {dashboard.reflection_engagement_summary ? (
+        <section className="rounded-xl border border-rose-200 bg-rose-50/40 p-6">
+          <h3 className="text-sm font-semibold text-rose-900">{labels.reflectionEngagement}</h3>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-lg border border-rose-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.reflectionHealthScore}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.reflection_engagement_summary.organization_health_score ?? 0}
+              </p>
+            </div>
+            <div className="rounded-lg border border-rose-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.reflectionReports}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.reflection_engagement_summary.executive_reports_total ?? 0}
+              </p>
+            </div>
+            <div className="rounded-lg border border-rose-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.reflectionPromptsAvailable}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.reflection_engagement_summary.reflection_prompts_available ?? 0}
+              </p>
+            </div>
+            <div className="rounded-lg border border-rose-100 bg-white p-3 text-sm">
+              <p className="text-xs text-gray-500">{labels.strategicObjectives}</p>
+              <p className="mt-1 text-xl font-semibold">
+                {dashboard.reflection_engagement_summary.strategic_objectives_active ?? 0}
+              </p>
+            </div>
+          </div>
+          {dashboard.reflection_engagement_summary.summary_note ? (
+            <p className="mt-3 text-xs text-gray-500">{dashboard.reflection_engagement_summary.summary_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.executive_reflection_objectives && dashboard.executive_reflection_objectives.length > 0 ? (
+        <section className="rounded-xl border border-rose-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.reflectionObjectivesTitle}</h3>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {dashboard.executive_reflection_objectives.map((obj) => (
+              <div key={obj.key ?? obj.label} className="rounded-lg border border-rose-100 bg-rose-50/30 p-4">
+                <p className="text-sm font-medium text-rose-900">{obj.label}</p>
+                {obj.description ? <p className="mt-1 text-xs text-gray-600">{obj.description}</p> : null}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {dashboard.reflection_prompts && dashboard.reflection_prompts.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.reflectionPromptsTitle}</h3>
+          <ul className="mt-3 space-y-3">
+            {dashboard.reflection_prompts.map((item) => (
+              <li key={item.key ?? item.scenario} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                {item.scenario ? <p className="text-xs text-gray-500">{item.scenario}</p> : null}
+                <p className="mt-1">{item.question ?? item.example}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.reflection_decision_learning ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.decisionLearning}</h3>
+          {dashboard.reflection_decision_learning.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.reflection_decision_learning.principle}</p>
+          ) : null}
+          {(dashboard.reflection_decision_learning.dimensions ?? []).length > 0 ? (
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {dashboard.reflection_decision_learning.dimensions!.map((item) => (
+                <div key={String(item.key ?? item.label)} className="rounded-lg border border-gray-100 p-3 text-sm">
+                  <p className="font-medium">{String(item.label ?? "")}</p>
+                  {item.description ? <p className="mt-1 text-xs text-gray-600">{String(item.description)}</p> : null}
+                </div>
+              ))}
+            </div>
+          ) : null}
+          {dashboard.reflection_decision_learning.boundary_note ? (
+            <p className="mt-3 text-xs text-gray-500">{dashboard.reflection_decision_learning.boundary_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.reflection_leadership_growth ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.leadershipGrowth}</h3>
+          {dashboard.reflection_leadership_growth.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.reflection_leadership_growth.principle}</p>
+          ) : null}
+          {(dashboard.reflection_leadership_growth.growth_areas ?? []).length > 0 ? (
+            <ul className="mt-3 space-y-2">
+              {dashboard.reflection_leadership_growth.growth_areas!.map((item) => (
+                <li key={String(item.key ?? item.label)} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                  <p className="font-medium">{String(item.label ?? "")}</p>
+                  {item.description ? <p className="mt-1 text-xs text-gray-600">{String(item.description)}</p> : null}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          {dashboard.reflection_leadership_growth.journey_note ? (
+            <p className="mt-3 text-sm italic text-rose-800">{dashboard.reflection_leadership_growth.journey_note}</p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.reflection_companion_guidance && dashboard.reflection_companion_guidance.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.reflectionCompanionGuidance}</h3>
+          <ul className="mt-3 space-y-2">
+            {dashboard.reflection_companion_guidance.map((item) => (
+              <li key={item.key ?? item.scenario} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                {item.scenario ? <p className="text-xs text-gray-500">{item.scenario}</p> : null}
+                <p className="mt-1">{item.prompt ?? item.question ?? item.example}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {dashboard.reflection_trust ? (
+        <section className="rounded-xl border border-amber-200 bg-amber-50/30 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.reflectionTrust}</h3>
+          {dashboard.reflection_trust.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.reflection_trust.principle}</p>
+          ) : null}
+          {(dashboard.reflection_trust.what_contributes ?? []).length > 0 ? (
+            <div className="mt-4">
+              <p className="text-xs font-semibold uppercase text-emerald-800">{labels.whatContributes}</p>
+              <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-gray-600">
+                {dashboard.reflection_trust.what_contributes!.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {(dashboard.reflection_trust.what_remains_private ?? []).length > 0 ? (
+            <div className="mt-4">
+              <p className="text-xs font-semibold uppercase text-amber-800">{labels.whatRemainsPrivate}</p>
+              <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-gray-600">
+                {dashboard.reflection_trust.what_remains_private!.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.reflection_self_love ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.reflectionSelfLove}</h3>
+          {dashboard.reflection_self_love.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.reflection_self_love.principle}</p>
+          ) : null}
+          {dashboard.reflection_self_love.learning_phrase ? (
+            <p className="mt-2 text-sm italic text-rose-800">{dashboard.reflection_self_love.learning_phrase}</p>
+          ) : null}
+          {(dashboard.reflection_self_love.reflection_patterns ?? []).length > 0 ? (
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-gray-600">
+              {dashboard.reflection_self_love.reflection_patterns!.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.reflection_recognition_connection ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.recognitionConnection}</h3>
+          {dashboard.reflection_recognition_connection.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.reflection_recognition_connection.principle}</p>
+          ) : null}
+          {(dashboard.reflection_recognition_connection.recognition_patterns ?? []).length > 0 ? (
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-gray-600">
+              {dashboard.reflection_recognition_connection.recognition_patterns!.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.reflection_privacy_principles ? (
+        <section className="rounded-xl border border-rose-200 bg-rose-50/30 p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.privacyPrinciples}</h3>
+          {dashboard.reflection_privacy_principles.principle ? (
+            <p className="mt-2 text-sm text-gray-700">{dashboard.reflection_privacy_principles.principle}</p>
+          ) : null}
+          {(dashboard.reflection_privacy_principles.privacy_rules ?? []).length > 0 ? (
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-gray-600">
+              {dashboard.reflection_privacy_principles.privacy_rules!.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+          {dashboard.reflection_privacy_principles.growth_not_evaluation_note ? (
+            <p className="mt-3 text-xs text-gray-500">
+              {dashboard.reflection_privacy_principles.growth_not_evaluation_note}
+            </p>
+          ) : null}
+        </section>
+      ) : null}
+
+      {dashboard.reflection_success_criteria && dashboard.reflection_success_criteria.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.reflectionSuccessCriteria}</h3>
+          <ul className="mt-3 space-y-2">
+            {dashboard.reflection_success_criteria.map((criterion) => (
+              <li
+                key={criterion.key ?? criterion.label}
+                className="flex flex-wrap items-start gap-2 rounded-lg border border-gray-100 px-3 py-2 text-sm"
+              >
+                <span
+                  className={`rounded-full px-2 py-0.5 text-xs ${criterion.met ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"}`}
+                >
+                  {criterion.met ? labels.criterionMet : labels.criterionPending}
+                </span>
+                <div>
+                  <p className="font-medium text-gray-900">{criterion.label}</p>
+                  {criterion.note ? <p className="mt-1 text-xs text-gray-500">{criterion.note}</p> : null}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {(dashboard.reflection_vision_phrases ?? []).length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.reflectionVisionPhrases}</h3>
+          <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-gray-600">
+            {dashboard.reflection_vision_phrases!.map((phrase) => (
+              <li key={phrase}>{phrase}</li>
             ))}
           </ul>
         </section>

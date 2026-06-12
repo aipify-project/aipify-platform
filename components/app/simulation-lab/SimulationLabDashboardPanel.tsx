@@ -769,6 +769,278 @@ export function SimulationLabDashboardPanel({ labels }: SimulationLabDashboardPa
         <p className="text-xs text-gray-500">{dashboard.blueprint_phase78_safety_note}</p>
       ) : null}
 
+      {(() => {
+        const esp = dashboard.ecosystem_scenario_planning;
+        if (!esp?.mission && !esp?.distinction_note) return null;
+        return (
+          <>
+            <section className="rounded-xl border border-emerald-200 bg-emerald-50/30 p-6">
+              <h2 className="text-sm font-semibold text-emerald-900">{labels.phase84SectionTitle}</h2>
+              {esp.implementation_blueprint?.phase ? (
+                <p className="mt-1 text-xs text-emerald-700">
+                  {esp.implementation_blueprint.phase}
+                  {esp.implementation_blueprint.engine_phase ? ` · ${esp.implementation_blueprint.engine_phase}` : ""}
+                </p>
+              ) : null}
+              {esp.distinction_note ? (
+                <p className="mt-2 text-xs text-emerald-800">{esp.distinction_note}</p>
+              ) : null}
+              {esp.mission ? <p className="mt-2 text-sm font-medium text-emerald-900">{esp.mission}</p> : null}
+              {esp.philosophy ? <p className="mt-2 text-sm text-emerald-900">{esp.philosophy}</p> : null}
+              {esp.abos_principle ? <p className="mt-2 text-xs text-emerald-800">{esp.abos_principle}</p> : null}
+              {esp.vision ? <p className="mt-2 text-xs italic text-emerald-800">{esp.vision}</p> : null}
+              {esp.ecosystem_scenario_planning_note ? (
+                <p className="mt-2 text-xs text-emerald-800">{esp.ecosystem_scenario_planning_note}</p>
+              ) : null}
+            </section>
+
+            {(esp.integration_links ?? []).length > 0 ? (
+              <div className="flex flex-wrap gap-2">
+                {esp.integration_links?.map((link) =>
+                  link.route ? (
+                    <Link
+                      key={`p84-${link.route}`}
+                      href={link.route}
+                      className="rounded-lg border border-emerald-200 px-3 py-1.5 text-sm"
+                    >
+                      {link.label ?? link.route}
+                    </Link>
+                  ) : null
+                )}
+              </div>
+            ) : null}
+
+            {esp.engagement_summary ? (
+              <section className="rounded-lg border border-gray-200 bg-white p-4">
+                <h3 className="text-sm font-semibold text-gray-900">{labels.phase84EngagementSummary}</h3>
+                <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+                  <span>{labels.scenariosTotal}: {esp.engagement_summary.scenarios_total ?? 0}</span>
+                  <span>{labels.scenariosReady}: {esp.engagement_summary.scenarios_ready ?? 0}</span>
+                  <span>{labels.simulationRuns}: {esp.engagement_summary.simulation_runs_total ?? 0}</span>
+                  <span>{labels.runsLast30d}: {esp.engagement_summary.simulation_runs_last_30d ?? 0}</span>
+                  <span>{labels.comparisonsTotal}: {esp.engagement_summary.comparisons_total ?? 0}</span>
+                  <span>{labels.categoriesUsed}: {esp.engagement_summary.categories_used ?? 0}</span>
+                </div>
+              </section>
+            ) : null}
+
+            {esp.objectives && esp.objectives.length > 0 ? (
+              <section className="rounded-xl border border-gray-200 bg-white p-6">
+                <h3 className="text-sm font-semibold text-gray-900">{labels.phase84Objectives}</h3>
+                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                  {esp.objectives.map((objective) => (
+                    <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            {esp.ecosystem_components?.components && esp.ecosystem_components.components.length > 0 ? (
+              <section className="rounded-xl border border-gray-200 bg-white p-6">
+                <h3 className="text-sm font-semibold text-gray-900">{labels.phase84EcosystemComponents}</h3>
+                {esp.ecosystem_components.principle ? (
+                  <p className="mt-1 text-xs text-gray-500">{esp.ecosystem_components.principle}</p>
+                ) : null}
+                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                  {esp.ecosystem_components.components.map((component) => (
+                    <ObjectiveCard key={component.key ?? component.label} objective={component} />
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            {esp.scenario_questions?.questions && esp.scenario_questions.questions.length > 0 ? (
+              <section className="rounded-xl border border-gray-200 bg-white p-6">
+                <h3 className="text-sm font-semibold text-gray-900">{labels.phase84ScenarioQuestions}</h3>
+                <div className="mt-3 space-y-3">
+                  {esp.scenario_questions.questions.map((question) => (
+                    <div key={question.key ?? question.question} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                      <p className="font-medium text-gray-900">
+                        {question.emoji ? `${question.emoji} ` : ""}
+                        {question.question}
+                      </p>
+                      {question.consideration ? (
+                        <p className="mt-1 text-xs text-gray-600">{question.consideration}</p>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            {esp.external_dependency_awareness?.dependency_types &&
+            esp.external_dependency_awareness.dependency_types.length > 0 ? (
+              <section className="rounded-xl border border-gray-200 bg-white p-6">
+                <h3 className="text-sm font-semibold text-gray-900">{labels.phase84ExternalDependencyAwareness}</h3>
+                {esp.external_dependency_awareness.principle ? (
+                  <p className="mt-1 text-xs text-gray-500">{esp.external_dependency_awareness.principle}</p>
+                ) : null}
+                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                  {esp.external_dependency_awareness.dependency_types.map((dep) => (
+                    <ObjectiveCard key={dep.key ?? dep.label} objective={dep} />
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            {esp.partnership_resilience?.examples && esp.partnership_resilience.examples.length > 0 ? (
+              <section className="rounded-xl border border-gray-200 bg-white p-6">
+                <h3 className="text-sm font-semibold text-gray-900">{labels.phase84PartnershipResilience}</h3>
+                <div className="mt-3 space-y-3">
+                  {esp.partnership_resilience.examples.map((example) => (
+                    <CompanionExampleCard key={example.key ?? example.scenario} example={example} />
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            {esp.opportunity_exploration?.signals && esp.opportunity_exploration.signals.length > 0 ? (
+              <section className="rounded-xl border border-gray-200 bg-white p-6">
+                <h3 className="text-sm font-semibold text-gray-900">{labels.phase84OpportunityExploration}</h3>
+                {esp.opportunity_exploration.principle ? (
+                  <p className="mt-1 text-xs text-gray-500">{esp.opportunity_exploration.principle}</p>
+                ) : null}
+                <div className="mt-3 space-y-3">
+                  {esp.opportunity_exploration.signals.map((signal) => (
+                    <div key={signal.key ?? signal.signal} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                      <p className="font-medium text-gray-900">
+                        {signal.emoji ? `${signal.emoji} ` : ""}
+                        {signal.signal}
+                      </p>
+                      {signal.description ? <p className="mt-1 text-xs text-gray-600">{signal.description}</p> : null}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            {esp.companion_guidance?.examples && esp.companion_guidance.examples.length > 0 ? (
+              <section className="rounded-xl border border-gray-200 bg-white p-6">
+                <h3 className="text-sm font-semibold text-gray-900">{labels.phase84CompanionGuidance}</h3>
+                <div className="mt-3 space-y-3">
+                  {esp.companion_guidance.examples.map((example) => (
+                    <div key={example.key ?? example.prompt} className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+                      <p className="font-medium text-gray-900">
+                        {example.emoji ? `${example.emoji} ` : ""}
+                        {example.prompt}
+                      </p>
+                      {example.consideration ? (
+                        <p className="mt-1 text-xs text-gray-600">{example.consideration}</p>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            {esp.leadership_insights?.insight_types && esp.leadership_insights.insight_types.length > 0 ? (
+              <section className="rounded-xl border border-gray-200 bg-white p-6">
+                <h3 className="text-sm font-semibold text-gray-900">{labels.phase84LeadershipInsights}</h3>
+                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                  {esp.leadership_insights.insight_types.map((insight) => (
+                    <div key={insight.key ?? insight.label} className="rounded-lg border border-gray-100 p-3 text-sm">
+                      <p className="font-medium text-gray-900">
+                        {insight.emoji ? `${insight.emoji} ` : ""}
+                        {insight.label}
+                      </p>
+                      {insight.description ? <p className="mt-1 text-xs text-gray-600">{insight.description}</p> : null}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            {esp.limitation_principles?.forbidden && esp.limitation_principles.forbidden.length > 0 ? (
+              <section className="rounded-lg border border-amber-100 bg-amber-50/40 p-4 text-sm text-amber-900">
+                <h3 className="text-sm font-semibold">{labels.phase84LimitationPrinciples}</h3>
+                {esp.limitation_principles.principle ? (
+                  <p className="mt-2">{esp.limitation_principles.principle}</p>
+                ) : null}
+                <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+                  {esp.limitation_principles.forbidden.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
+
+            {Array.isArray(esp.success_criteria) && esp.success_criteria.length > 0 ? (
+              <section className="rounded-lg border border-gray-200 p-4">
+                <h3 className="text-sm font-semibold">{labels.phase84SuccessCriteria}</h3>
+                <ul className="mt-2 space-y-2 text-sm">
+                  {esp.success_criteria.map((item) => {
+                    const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+                    const met = Boolean(item.met);
+                    const note = typeof item.note === "string" ? item.note : null;
+                    return (
+                      <li key={item.key ?? label}>
+                        <span className={met ? "text-green-800" : "text-gray-700"}>
+                          {met ? "✓" : "○"} {label}
+                        </span>
+                        {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            ) : null}
+
+            {esp.self_love_connection?.principle ? (
+              <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+                <h3 className="text-sm font-semibold">{labels.phase84SelfLoveConnection}</h3>
+                <p className="mt-2">{esp.self_love_connection.principle}</p>
+                {esp.self_love_connection.journey_phrase ? (
+                  <p className="mt-2 text-xs italic">{esp.self_love_connection.journey_phrase}</p>
+                ) : null}
+                {esp.self_love_connection.self_love_route ? (
+                  <Link
+                    href={esp.self_love_connection.self_love_route}
+                    className="mt-2 inline-block text-xs underline"
+                  >
+                    {labels.openSelfLove}
+                  </Link>
+                ) : null}
+              </section>
+            ) : null}
+
+            {esp.trust_connection?.principle ? (
+              <section className="rounded-lg border border-gray-200 p-4 text-sm">
+                <h3 className="text-sm font-semibold">{labels.phase84TrustConnection}</h3>
+                <p className="mt-2 text-gray-600">{esp.trust_connection.principle}</p>
+              </section>
+            ) : null}
+
+            {esp.dogfooding?.principle ? (
+              <section className="rounded-lg border border-gray-200 p-4 text-sm">
+                <h3 className="text-sm font-semibold">{labels.phase84Dogfooding}</h3>
+                <p className="mt-2 text-gray-600">{esp.dogfooding.principle}</p>
+                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                  {esp.dogfooding.aipify_group ? (
+                    <DogfoodingCard entry={esp.dogfooding.aipify_group} title={labels.aipifyGroup} />
+                  ) : null}
+                  {esp.dogfooding.unonight ? (
+                    <DogfoodingCard entry={esp.dogfooding.unonight} title={labels.unonightPilot} />
+                  ) : null}
+                </div>
+              </section>
+            ) : null}
+
+            {(esp.vision_phrases ?? []).length > 0 ? (
+              <section className="rounded-lg border border-emerald-100 bg-emerald-50/30 p-4 text-sm text-emerald-900">
+                <h3 className="text-sm font-semibold">{labels.phase84VisionPhrases}</h3>
+                <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+                  {esp.vision_phrases?.map((phrase) => (
+                    <li key={phrase}>{phrase}</li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
+
+            {esp.safety_note ? <p className="text-xs text-gray-500">{esp.safety_note}</p> : null}
+          </>
+        );
+      })()}
+
       <section>
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="text-sm font-semibold text-gray-900">{labels.scenariosSection}</h2>

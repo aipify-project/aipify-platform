@@ -50,6 +50,90 @@ export type DeprecatedAsset = {
   flagged_at?: string;
 };
 
+export type IntegrationLink = {
+  label?: string;
+  route?: string;
+  note?: string;
+};
+
+export type ImplementationBlueprint = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+};
+
+export type BlueprintObjective = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type AbosSuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+};
+
+export type BlueprintPrincipleBlock = {
+  principle?: string;
+  forbidden?: string[];
+  required?: string[];
+  boundary_note?: string;
+  safeguards?: Array<Record<string, unknown>>;
+  boundaries?: Array<Record<string, unknown>>;
+  opportunities?: Array<Record<string, unknown>>;
+  dimensions?: Array<Record<string, unknown>>;
+};
+
+export type BlueprintGuidanceBlock = {
+  principle?: string;
+  examples?: Array<Record<string, unknown>>;
+  observations?: Array<Record<string, unknown>>;
+  opportunities?: Array<Record<string, unknown>>;
+};
+
+export type SelfAwarenessEngagementSummary = {
+  open_findings?: number;
+  critical_findings?: number;
+  pending_actions?: number;
+  monitoring_dimensions?: number;
+  self_observation_examples?: number;
+  improvement_opportunities?: number;
+  integrity_safeguards?: number;
+  companion_examples?: number;
+  capability_boundaries?: number;
+  integration_links?: number;
+  privacy_note?: string;
+};
+
+export type SelfAwarenessPlatformIntegrityBlueprint = {
+  implementation_blueprint_phase87?: ImplementationBlueprint;
+  self_awareness_platform_integrity_note?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: BlueprintObjective[];
+  platform_health_monitoring?: BlueprintPrincipleBlock;
+  self_observation_examples?: BlueprintGuidanceBlock;
+  capability_boundaries?: BlueprintPrincipleBlock;
+  self_improvement_opportunities?: BlueprintGuidanceBlock;
+  integrity_safeguards?: BlueprintPrincipleBlock;
+  companion_guidance?: BlueprintGuidanceBlock;
+  self_love_connection?: Record<string, unknown>;
+  trust_connection?: Record<string, unknown>;
+  privacy_principles?: BlueprintPrincipleBlock;
+  dogfooding?: Record<string, unknown>;
+  success_criteria?: AbosSuccessCriterion[];
+  integration_links?: IntegrationLink[];
+  engagement_summary?: SelfAwarenessEngagementSummary;
+  privacy_note?: string;
+};
+
 export type PlatformIntegrityCard = {
   has_customer: boolean;
   integrity_score?: number;
@@ -58,6 +142,12 @@ export type PlatformIntegrityCard = {
   open_findings?: number;
   philosophy?: string;
   human_oversight_required?: boolean;
+  implementation_blueprint_phase87?: ImplementationBlueprint;
+  blueprint_mission?: string;
+  blueprint_philosophy?: string;
+  blueprint_abos_principle?: string;
+  blueprint_engagement_summary?: SelfAwarenessEngagementSummary;
+  blueprint_note?: string;
 };
 
 export type PlatformIntegrityDashboard = {
@@ -87,6 +177,7 @@ export type PlatformIntegrityDashboard = {
   review_domains?: Array<{ key: string; label: string }>;
   review_frequencies?: Array<{ key: string; label: string; purpose: string }>;
   integrations?: Record<string, string>;
+  self_awareness_platform_integrity_blueprint?: SelfAwarenessPlatformIntegrityBlueprint;
 };
 
 export type IntegrityActionResult = {

@@ -79,6 +79,22 @@ export default async function CommunityPage() {
           clwbpTrustConnection: t(`${p}.clwbpTrustConnection`),
           clwbpDogfooding: t(`${p}.clwbpDogfooding`),
           clwbpVisionPhrases: t(`${p}.clwbpVisionPhrases`),
+          ccibp89EngineTitle: t(`${p}.ccibp89EngineTitle`),
+          ccibp89Objectives: t(`${p}.ccibp89Objectives`),
+          collectiveIntelligenceSources: t(`${p}.collectiveIntelligenceSources`),
+          communityObservations: t(`${p}.communityObservations`),
+          ideaDiscovery: t(`${p}.ideaDiscovery`),
+          ideaDiscoveryCategories: t(`${p}.ideaDiscoveryCategories`),
+          companionGuidance: t(`${p}.companionGuidance`),
+          communityRecognition: t(`${p}.communityRecognition`),
+          openGratitudeRecognition: t(`${p}.openGratitudeRecognition`),
+          learningOrganizationConnection: t(`${p}.learningOrganizationConnection`),
+          ccibp89PrivacyPrinciples: t(`${p}.ccibp89PrivacyPrinciples`),
+          ccibp89SuccessCriteria: t(`${p}.ccibp89SuccessCriteria`),
+          ccibp89SelfLoveConnection: t(`${p}.ccibp89SelfLoveConnection`),
+          ccibp89TrustConnection: t(`${p}.ccibp89TrustConnection`),
+          ccibp89Dogfooding: t(`${p}.ccibp89Dogfooding`),
+          ccibp89EngagementSummary: t(`${p}.ccibp89EngagementSummary`),
         }}
       />
     </div>

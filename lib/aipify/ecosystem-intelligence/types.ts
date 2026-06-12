@@ -52,6 +52,111 @@ export type EcosystemOpportunity = {
   status: string;
 };
 
+export type IntegrationLink = {
+  label?: string;
+  route?: string;
+  description?: string;
+  note?: string;
+};
+
+export type ImplementationBlueprint = {
+  phase?: string;
+  doc?: string;
+  engine_phase?: string;
+  route?: string;
+  mapping_note?: string;
+};
+
+export type BlueprintObjective = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type AbosSuccessCriterion = {
+  key?: string;
+  label?: string;
+  met?: boolean;
+  note?: string | null;
+};
+
+export type BlueprintPrincipleBlock = {
+  principle?: string;
+  forbidden?: string[];
+  required?: string[];
+  boundary_note?: string;
+};
+
+export type BlueprintGuidanceBlock = {
+  principle?: string;
+  examples?: Array<Record<string, unknown>>;
+  insights?: Array<Record<string, unknown>>;
+  connections?: Array<Record<string, unknown>>;
+  questions?: Array<Record<string, unknown>>;
+  guidance?: Array<Record<string, unknown>>;
+  categories?: Array<Record<string, unknown>>;
+  dimensions?: Array<Record<string, unknown>>;
+  signals?: Array<Record<string, unknown>>;
+  insight_types?: Array<Record<string, unknown>>;
+  insights_types?: Array<Record<string, unknown>>;
+};
+
+export type SelfLoveConnection = {
+  principle?: string;
+  practices?: string[];
+  journey_phrase?: string;
+  self_love_route?: string;
+  boundary_note?: string;
+};
+
+export type TrustConnection = {
+  principle?: string;
+  leaders_should_know?: string[];
+  organizations_should_understand?: string[];
+  audit_note?: string;
+};
+
+export type EcosystemBlueprintEngagementSummary = {
+  active_relationships?: number;
+  open_risks?: number;
+  open_opportunities?: number;
+  ecosystem_score?: number;
+  relationship_categories?: number;
+  relationship_insights?: number;
+  partnership_health_dimensions?: number;
+  companion_examples?: number;
+  community_connections?: number;
+  integration_links?: number;
+  privacy_note?: string;
+};
+
+export type EcosystemIntelligenceExternalRelationshipBlueprint = {
+  implementation_blueprint_phase88?: ImplementationBlueprint;
+  ecosystem_intelligence_external_relationship_note?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: BlueprintObjective[];
+  blueprint_relationship_categories?: BlueprintGuidanceBlock;
+  relationship_insights?: BlueprintGuidanceBlock;
+  partnership_health?: BlueprintGuidanceBlock;
+  customer_relationship_intelligence?: BlueprintGuidanceBlock;
+  community_connection?: BlueprintGuidanceBlock;
+  companion_guidance?: BlueprintGuidanceBlock;
+  self_love_connection?: SelfLoveConnection;
+  leadership_insights?: BlueprintGuidanceBlock;
+  trust_connection?: TrustConnection;
+  limitation_principles?: BlueprintPrincipleBlock;
+  dogfooding?: Record<string, unknown>;
+  success_criteria?: AbosSuccessCriterion[];
+  vision_phrases?: string[];
+  integration_links?: IntegrationLink[];
+  engagement_summary?: EcosystemBlueprintEngagementSummary;
+  privacy_note?: string;
+};
+
 export type EcosystemIntelligenceCard = {
   has_customer: boolean;
   ecosystem_score?: number;
@@ -60,6 +165,13 @@ export type EcosystemIntelligenceCard = {
   open_risks?: number;
   philosophy?: string;
   consent_required?: boolean;
+  implementation_blueprint_phase88?: ImplementationBlueprint;
+  blueprint_mission?: string;
+  blueprint_abos_principle?: string;
+  blueprint_vision?: string;
+  stewardship_note?: string;
+  blueprint_engagement_summary?: EcosystemBlueprintEngagementSummary;
+  blueprint_note?: string;
 };
 
 export type EcosystemIntelligenceDashboard = {
@@ -85,6 +197,7 @@ export type EcosystemIntelligenceDashboard = {
   relationship_categories?: Array<{ key: string; label: string }>;
   review_frequencies?: Array<{ key: string; label: string; purpose: string }>;
   integrations?: Record<string, string>;
+  ecosystem_intelligence_external_relationship_blueprint?: EcosystemIntelligenceExternalRelationshipBlueprint;
 };
 
 export type EcosystemBriefingResult = {

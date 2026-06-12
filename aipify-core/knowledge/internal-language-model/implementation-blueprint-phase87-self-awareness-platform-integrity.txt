@@ -1,0 +1,51 @@
+Implementation Blueprint Phase 87 — Self-Awareness & Platform Integrity Engine
+
+Route: /app/integrity
+Engine: Self-Awareness & Platform Integrity repo Phase 87 (_int_* helpers)
+Blueprint helpers: _sapibp87_* only
+
+Mission: Continuous self-monitoring and responsible self-improvement for trustworthiness and reliability.
+
+Philosophy: Self-awareness is recognizing when something deserves attention — humility strengthens intelligence.
+
+ABOS principle: Trustworthy companions recognize strengths and limitations — self-awareness supports responsible growth.
+
+Vision: Aipify is continuously learning how to serve us better without losing sight of the principles that matter most.
+
+Phase number collision:
+- Curiosity & Discovery Engine Phase A.87 at /app/curiosity-discovery-engine — engine phase number collision only
+- Blueprint Phase 80 Opportunity Exploration extends A.87 Curiosity — unrelated to this blueprint
+
+Objectives:
+1. Continuous self-monitoring — platform health, integration status, operational signals
+2. Honest capability boundaries — uncertainty, missing info, integration constraints, confidence levels
+3. Responsible self-improvement — human approval for major changes
+4. Integrity safeguards — audit, approval, governance, escalation, Companion Evolution Council
+5. Trustworthy transparency — cross-link Trust, Governance, Security, Quality Guardian
+6. Privacy restraint — no hidden diagnostics, unauthorized access, unnecessary collection
+
+Platform health monitoring dimensions:
+- Integration status (A.8)
+- Service availability (A.19)
+- Queue health (Action Hub A.64)
+- Workflow completion (Blueprint Phase 86)
+- Notification delivery (Notification Engine)
+- Support response effectiveness (A.7, A.13)
+
+Self-observation examples (🦉🌹🔔):
+🦉 Pattern worth review — knowledge gap patterns
+🌹 Strengths to preserve — integration and delivery health
+🔔 Attention deserved — workflow completion calm review
+
+Companion guidance (🦉🌹🔔):
+🦉 Monthly integrity review summary
+🌹 Trust and governance strength recognition
+🔔 Improvement readiness without urgency
+
+Privacy: Integrity requires restraint — metadata only, approval before expanding visibility.
+
+Safety: No inflated scores. No concealed concerns. No autonomous major corrections.
+
+Cross-links: Observability A.19, Governance A.14, Security A.18, Quality Guardian A.13, Companion Evolution Phase 65, Continuous Improvement A.33, Trust Engine /app/trust, Self Love A.76.
+
+Dogfooding: Aipify Group (Meeting Companion, Sales Expert, support, Executive Companion); Unonight first external pilot.

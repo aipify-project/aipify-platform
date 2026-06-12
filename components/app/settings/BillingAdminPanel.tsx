@@ -24,8 +24,19 @@ type BillingAdminPanelProps = {
       recommendations: string;
       history: string;
       suites: string;
+      pricingPhilosophy: string;
     };
     usage: Record<string, string>;
+    pricingPhilosophy: {
+      principle: string;
+      priceOn: string;
+      avoid: string;
+      planGuidance: string;
+      positioning: string;
+      abosPrinciple: string;
+      guidanceNote: string;
+      usdRange: string;
+    };
   };
 };
 
@@ -173,6 +184,65 @@ export function BillingAdminPanel({ labels }: BillingAdminPanelProps) {
           )) ?? <li>{labels.empty}</li>}
         </ul>
       </section>
+
+      {center?.enterprise_pricing_philosophy ? (
+        <section className="rounded-2xl border border-slate-200 bg-slate-50/60 p-5">
+          <h2 className="font-semibold text-slate-900">{labels.sections.pricingPhilosophy}</h2>
+          <p className="mt-2 text-sm text-slate-800">
+            {center.enterprise_pricing_philosophy.principle}
+          </p>
+          {center.enterprise_pricing_philosophy.abos_principle ? (
+            <p className="mt-2 text-sm text-slate-700">
+              {center.enterprise_pricing_philosophy.abos_principle}
+            </p>
+          ) : null}
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <div>
+              <h3 className="text-sm font-medium text-slate-900">{labels.pricingPhilosophy.priceOn}</h3>
+              <ul className="mt-2 space-y-1 text-sm text-slate-700">
+                {center.enterprise_pricing_philosophy.value_based_price_on?.map((item) => (
+                  <li key={item}>· {item}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-sm font-medium text-slate-900">{labels.pricingPhilosophy.avoid}</h3>
+              <ul className="mt-2 space-y-1 text-sm text-slate-700">
+                {center.enterprise_pricing_philosophy.value_based_avoid?.map((item) => (
+                  <li key={item}>· {item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="mt-4">
+            <h3 className="text-sm font-medium text-slate-900">{labels.pricingPhilosophy.planGuidance}</h3>
+            <ul className="mt-2 space-y-2 text-sm text-slate-700">
+              {center.enterprise_pricing_philosophy.plan_pricing_guidance?.map((plan) => (
+                <li key={String(plan.plan_key)} className="rounded-lg bg-white px-3 py-2">
+                  <span className="font-medium">{String(plan.display_name ?? plan.plan_key)}</span>
+                  {" — "}
+                  {labels.pricingPhilosophy.usdRange}: {String(plan.usd_range_monthly ?? "—")}
+                </li>
+              ))}
+            </ul>
+          </div>
+          {center.enterprise_pricing_philosophy.positioning_comparisons?.length ? (
+            <div className="mt-4">
+              <h3 className="text-sm font-medium text-slate-900">{labels.pricingPhilosophy.positioning}</h3>
+              <ul className="mt-2 space-y-1 text-sm text-slate-700">
+                {center.enterprise_pricing_philosophy.positioning_comparisons.map((row) => (
+                  <li key={String(row.avoid)}>
+                    {String(row.prefer)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {center.enterprise_pricing_philosophy.guidance_note ? (
+            <p className="mt-4 text-xs text-slate-600">{center.enterprise_pricing_philosophy.guidance_note}</p>
+          ) : null}
+        </section>
+      ) : null}
     </div>
   );
 }

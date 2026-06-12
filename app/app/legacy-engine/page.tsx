@@ -47,6 +47,22 @@ export default async function LegacyEnginePage() {
           exportReport: t(`${p}.exportReport`),
           exporting: t(`${p}.exporting`),
           exportFailed: t(`${p}.exportFailed`),
+          blueprintPhase83Title: t(`${p}.blueprint.phase83.title`),
+          blueprintDistinctionNote: t(`${p}.blueprint.phase83.distinctionNote`),
+          blueprintEngagementSummary: t(`${p}.blueprint.phase83.engagementSummary`),
+          blueprintObjectives: t(`${p}.blueprint.phase83.objectives`),
+          blueprintStewardshipQuestions: t(`${p}.blueprint.phase83.stewardshipQuestions`),
+          blueprintSustainableGrowth: t(`${p}.blueprint.phase83.sustainableGrowth`),
+          blueprintLegacyAwareness: t(`${p}.blueprint.phase83.legacyAwareness`),
+          blueprintCompanionGuidance: t(`${p}.blueprint.phase83.companionGuidance`),
+          blueprintLeadershipInsights: t(`${p}.blueprint.phase83.leadershipInsights`),
+          blueprintSelfLoveConnection: t(`${p}.blueprint.phase83.selfLoveConnection`),
+          blueprintTrustConnection: t(`${p}.blueprint.phase83.trustConnection`),
+          blueprintSuccessCriteria: t(`${p}.blueprint.phase83.successCriteria`),
+          blueprintVisionPhrases: t(`${p}.blueprint.phase83.visionPhrases`),
+          blueprintIntegrationLinks: t(`${p}.blueprint.phase83.integrationLinks`),
+          criterionMet: t(`${p}.blueprint.phase83.criterionMet`),
+          criterionPending: t(`${p}.blueprint.phase83.criterionPending`),
         }}
       />
     </div>

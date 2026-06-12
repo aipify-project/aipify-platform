@@ -85,6 +85,12 @@ export default function TrustLicenseCenterPanel({
         </div>
       ) : null}
 
+      {data?.pricing_philosophy_note ? (
+        <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800">
+          {String(data.pricing_philosophy_note)}
+        </div>
+      ) : null}
+
       <section className="rounded-xl border border-gray-200 bg-white p-4">
         <h2 className="text-sm font-semibold text-gray-900">
           {labels.sections.subscription_status.title}

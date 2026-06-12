@@ -1,0 +1,74 @@
+ABOS Implementation Blueprint Phase 80 — Opportunity Exploration Engine
+Extends Curiosity & Discovery Engine Phase A.87 at /app/curiosity-discovery-engine
+Engine helpers: _cde_* — Blueprint helpers: _oebp_* only
+
+Mission
+Cultivate curiosity and strategic awareness by identifying opportunities worthy of exploration and thoughtful consideration.
+
+Philosophy
+Opportunity rarely announces itself — emerges through observation, experimentation, willingness to explore.
+Recognize the right opportunities — NOT chase every one.
+
+ABOS principle
+Open to possibility while grounded in purpose and values — curiosity guided by wisdom.
+Aipify informs and prepares; humans decide what to pursue.
+
+Objectives
+- Opportunity identification — multiple perspectives, metadata only
+- Prioritization — thoughtful evaluation before pursuit
+- Capability alignment — match strengths and readiness
+- Cross-functional exploration — teams contribute perspectives
+- Strategic experimentation — small experiments, learning-oriented initiatives
+- Responsible innovation — intentional innovation with limitation principles
+
+Opportunity sources
+Customer feedback themes, market developments, organizational strengths, emerging technologies, cross-functional insights, sales observations, community experiences — metadata only.
+
+Opportunity questions (🦉 🌹 🔔)
+Insufficient attention opportunities, strengths supporting growth, unmet customer needs — curiosity creates possibility.
+
+Opportunity evaluation
+Strategic alignment, organizational readiness, resource implications, potential impact, risks/uncertainties — thoughtful evaluation.
+
+Companion guidance (🦉 🌹 🔔)
+Capability alignment, teams contribute perspectives, additional exploration clarifies value — disciplined curiosity.
+
+Innovation connection
+Small experiments, pilot programs, controlled testing, learning-oriented initiatives — cross-link Innovation Lab Phase 96.
+
+Self Love connection
+Patience, perspective, sustainable ambition, incremental progress.
+Not every opportunity must be pursued immediately.
+Route /app/self-love-engine — principle only.
+
+Leadership insights (📈 🦉 🌹)
+Emerging opportunity summaries, capability alignment observations, positive experimentation examples.
+
+Trust connection
+Information sources, evaluation assumptions, recommendations optional.
+
+Limitation principles
+NO FOMO. NO excessive chasing. NO possibilities as guarantees.
+Exploration not urgency — humans decide pursuit.
+
+Dogfooding
+Aipify Group — ecosystem expansion, product innovation, Sales Expert evolution, organizational development.
+
+Success criteria
+Meaningful opportunities receive attention, strategic curiosity increases, disciplined innovation, intentional pursuit, long-term adaptability.
+
+Vision
+This opportunity was already within reach. We simply needed to recognize it.
+Awareness of overlooked possibilities — curiosity guided by wisdom.
+
+Critical distinctions
+- Continuity repo Phase 80 at /app/continuity (Blueprint Phase 73 — phase number collision)
+- Legacy Strategic Intelligence & Opportunity Phase 81 at /app/strategy
+- Growth & Evolution A.81 at /app/growth-evolution-engine (cross-link)
+- Innovation Lab Phase 96 / Blueprint 38 at /app/innovation-lab (cross-link)
+- Simulation Decision Lab Phase 78 at /app/simulations
+- Strategic Intelligence A.31 / Blueprint 79 at /app/strategic-intelligence-foundation-engine
+- Wonder Engine A.88, Wisdom A.93 — distinct surfaces
+
+Cross-links
+Innovation Lab Phase 96, Growth A.81, Strategic Intelligence Phase 79, Sales Expert A.79, Knowledge Center A.5

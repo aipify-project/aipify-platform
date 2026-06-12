@@ -18,6 +18,7 @@ import type {
   SimulationEngagementSummary,
   SimulationExamplesBlueprint,
   SimulationInputsBlueprint,
+  EcosystemScenarioPlanningBlueprint,
   SimulationLabCard,
   SimulationLabDashboard,
   SimulationObjective,
@@ -143,6 +144,11 @@ function parseBlueprintMeta(data: unknown): SimulationLabDashboard["implementati
   return data as SimulationLabDashboard["implementation_blueprint_phase76"];
 }
 
+function parseEcosystemScenarioPlanning(data: unknown): EcosystemScenarioPlanningBlueprint | undefined {
+  if (typeof data !== "object" || !data) return undefined;
+  return data as EcosystemScenarioPlanningBlueprint;
+}
+
 export function parseSimulationLabCard(data: unknown): SimulationLabCard {
   const d = (data ?? {}) as Record<string, unknown>;
   return {
@@ -166,6 +172,11 @@ export function parseSimulationLabCard(data: unknown): SimulationLabCard {
     blueprint_phase78_abos_principle: d.blueprint_phase78_abos_principle as string | undefined,
     blueprint_phase78_engagement_summary: parseEngagementSummary(d.blueprint_phase78_engagement_summary),
     blueprint_phase78_note: d.blueprint_phase78_note as string | undefined,
+    implementation_blueprint_phase84: parseBlueprintMeta(d.implementation_blueprint_phase84),
+    blueprint_phase84_mission: d.blueprint_phase84_mission as string | undefined,
+    blueprint_phase84_abos_principle: d.blueprint_phase84_abos_principle as string | undefined,
+    blueprint_phase84_engagement_summary: parseEngagementSummary(d.blueprint_phase84_engagement_summary),
+    blueprint_phase84_note: d.blueprint_phase84_note as string | undefined,
   };
 }
 
@@ -248,6 +259,7 @@ export function parseSimulationLabDashboard(data: unknown): SimulationLabDashboa
     blueprint_phase78_success_criteria: parseSuccessCriteria(d.blueprint_phase78_success_criteria),
     blueprint_phase78_vision_phrases: parseStringArray(d.blueprint_phase78_vision_phrases),
     blueprint_phase78_safety_note: d.blueprint_phase78_safety_note as string | undefined,
+    ecosystem_scenario_planning: parseEcosystemScenarioPlanning(d.ecosystem_scenario_planning),
   };
 }
 

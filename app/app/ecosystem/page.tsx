@@ -7,6 +7,7 @@ export default async function EcosystemPage() {
   const dict = await getDictionary(await getLocale(), ["customerApp"]);
   const t = createTranslator(dict);
   const p = "customerApp.ecosystemIntelligence";
+  const b = `${p}.blueprint.phase88`;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -36,6 +37,28 @@ export default async function EcosystemPage() {
           relationshipCategories: t(`${p}.relationshipCategories`),
           reviewFrequencies: t(`${p}.reviewFrequencies`),
           consentNote: t(`${p}.consentNote`),
+          phase88Title: t(`${b}.phase88Title`),
+          blueprintObjectives: t(`${b}.blueprintObjectives`),
+          blueprintRelationshipCategories: t(`${b}.blueprintRelationshipCategories`),
+          relationshipInsights: t(`${b}.relationshipInsights`),
+          partnershipHealth: t(`${b}.partnershipHealth`),
+          customerRelationshipIntelligence: t(`${b}.customerRelationshipIntelligence`),
+          communityConnection: t(`${b}.communityConnection`),
+          companionGuidance: t(`${b}.companionGuidance`),
+          leadershipInsights: t(`${b}.leadershipInsights`),
+          selfLoveConnection: t(`${b}.selfLoveConnection`),
+          trustConnection: t(`${b}.trustConnection`),
+          limitationPrinciples: t(`${b}.limitationPrinciples`),
+          engagementSummary: t(`${b}.engagementSummary`),
+          activeRelationships: t(`${b}.activeRelationships`),
+          openRisksCount: t(`${b}.openRisksCount`),
+          openOpportunities: t(`${b}.openOpportunities`),
+          successCriteria: t(`${b}.successCriteria`),
+          criterionMet: t(`${b}.criterionMet`),
+          criterionPending: t(`${b}.criterionPending`),
+          visionPhrases: t(`${b}.visionPhrases`),
+          forbidden: t(`${b}.forbidden`),
+          required: t(`${b}.required`),
         }}
       />
     </div>

@@ -290,6 +290,96 @@ export type LearningThroughSimulationBlueprint = {
   boundary_note?: string;
 };
 
+export type EcosystemComponent = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type EcosystemComponentsBlueprint = {
+  principle?: string;
+  components?: EcosystemComponent[];
+  metadata_note?: string;
+};
+
+export type EcosystemScenarioQuestion = {
+  emoji?: string;
+  key?: string;
+  question?: string;
+  consideration?: string;
+};
+
+export type EcosystemScenarioQuestionsBlueprint = {
+  principle?: string;
+  questions?: EcosystemScenarioQuestion[];
+  reflection_note?: string;
+};
+
+export type ExternalDependencyType = {
+  key?: string;
+  label?: string;
+  description?: string;
+};
+
+export type ExternalDependencyAwarenessBlueprint = {
+  principle?: string;
+  dependency_types?: ExternalDependencyType[];
+  awareness_note?: string;
+};
+
+export type PartnershipResilienceExample = {
+  emoji?: string;
+  key?: string;
+  scenario?: string;
+  example?: string;
+};
+
+export type PartnershipResilienceBlueprint = {
+  principle?: string;
+  examples?: PartnershipResilienceExample[];
+  resilience_note?: string;
+};
+
+export type OpportunityExplorationSignal = {
+  emoji?: string;
+  key?: string;
+  signal?: string;
+  description?: string;
+};
+
+export type OpportunityExplorationBlueprint = {
+  principle?: string;
+  signals?: OpportunityExplorationSignal[];
+  balance_note?: string;
+};
+
+export type EcosystemScenarioPlanningBlueprint = {
+  implementation_blueprint?: ImplementationBlueprintMeta;
+  ecosystem_scenario_planning_note?: string;
+  distinction_note?: string;
+  mission?: string;
+  philosophy?: string;
+  abos_principle?: string;
+  vision?: string;
+  objectives?: SimulationObjective[];
+  ecosystem_components?: EcosystemComponentsBlueprint;
+  scenario_questions?: EcosystemScenarioQuestionsBlueprint;
+  external_dependency_awareness?: ExternalDependencyAwarenessBlueprint;
+  partnership_resilience?: PartnershipResilienceBlueprint;
+  opportunity_exploration?: OpportunityExplorationBlueprint;
+  companion_guidance?: CompanionGuidanceBlueprint;
+  self_love_connection?: SelfLoveConnection;
+  leadership_insights?: LeadershipInsightsBlueprint;
+  trust_connection?: TrustConnection;
+  limitation_principles?: LimitationPrinciples;
+  dogfooding?: SimulationLabDashboard["dogfooding"];
+  success_criteria?: AbosSuccessCriterion[];
+  integration_links?: IntegrationLink[];
+  engagement_summary?: SimulationEngagementSummary;
+  vision_phrases?: string[];
+  safety_note?: string;
+};
+
 export type SimulationLabCard = {
   has_customer: boolean;
   scenario_count?: number;
@@ -311,6 +401,11 @@ export type SimulationLabCard = {
   blueprint_phase78_abos_principle?: string;
   blueprint_phase78_engagement_summary?: SimulationEngagementSummary;
   blueprint_phase78_note?: string;
+  implementation_blueprint_phase84?: ImplementationBlueprintMeta;
+  blueprint_phase84_mission?: string;
+  blueprint_phase84_abos_principle?: string;
+  blueprint_phase84_engagement_summary?: SimulationEngagementSummary;
+  blueprint_phase84_note?: string;
 };
 
 export type SimulationLabDashboard = {
@@ -390,6 +485,7 @@ export type SimulationLabDashboard = {
   blueprint_phase78_success_criteria?: AbosSuccessCriterion[];
   blueprint_phase78_vision_phrases?: string[];
   blueprint_phase78_safety_note?: string;
+  ecosystem_scenario_planning?: EcosystemScenarioPlanningBlueprint;
 };
 
 export type SimulationRunDetail = {

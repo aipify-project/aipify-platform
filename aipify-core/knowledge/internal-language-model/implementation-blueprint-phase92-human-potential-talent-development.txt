@@ -1,0 +1,38 @@
+Implementation Blueprint Phase 92 — Human Potential & Talent Development Engine
+
+Engine: Learning & Training Engine Phase A.36 at /app/learning-training-engine
+Layered on: Blueprint Phase 31 Training & Certification (_tcbp_*)
+
+Mission: Create environments where individuals discover strengths, develop capabilities, and contribute meaningfully.
+
+Philosophy: Organizations create conditions for growth — not merely extract productivity. Development supportive and human-led — not evaluative or controlling.
+
+Objectives: Strength discovery, capability development, meaningful contribution, career growth, empowerment not control, sustainable growth.
+
+Development questions: Strengths emerging (🦉), learning milestones recognition (🌹), supportive development (❤️), interest-led pathways (🔔).
+
+Strength-based development: Focus on strengths not deficits, individual interests, growth-oriented support, development not evaluation.
+
+Learning pathways: Onboarding (EKE cross-link), role-specific, leadership development, Sales Expert certification (A.95), cross-functional (Growth A.81).
+
+Career Companion: Development not evaluation — not "AI coach". Aipify informs and prepares; humans decide pace and direction.
+
+Talent mobility: Internal opportunities, expressed interests, cross-functional pathways, leadership readiness — metadata only, no hidden scoring.
+
+Self Love: Sustainable development pace, patient mastery, celebrate progress. /app/self-love-engine as principle (A.76).
+
+Recognition: Learning milestones, resilience through learning, meaningful contributions — cross-link Gratitude & Recognition A.89.
+
+Trust: Transparent development data, optional pathways, empowerment not control, aggregate team readiness only.
+
+Privacy: No hidden scoring, no forced pathways, no reducing to metrics alone, no unfair comparison.
+
+Distinct from Enterprise Deployment repo Phase 92 /app/enterprise/framework, Hope Engine A.92 /app/hope-engine, Learning Engine /app/learning.
+
+Cross-links: EKE /app/settings/employee-knowledge, Human Success /app/human-success, Certification A.37, Inclusion A.83, Change Management A.47.
+
+Dogfooding: Aipify Group — Sales Expert growth, leadership development, product team learning, companion stewardship. Unonight — first external pilot.
+
+ABOS principle: People become more capable when organizations invest in their growth.
+
+Vision: We are helping people become more than they believed possible.

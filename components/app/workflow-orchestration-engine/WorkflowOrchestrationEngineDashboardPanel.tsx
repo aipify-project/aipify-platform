@@ -11,6 +11,12 @@ import {
   type BlueprintSuccessCriterion,
   type BlueprintIntegrationLink,
   type DogfoodingEntry,
+  type AutonomyLevel,
+  type OperationalExample,
+  type OperationalStep,
+  type HumanApprovalCategory,
+  type CompanionGuidanceExample,
+  type SafetyAvoidItem,
 } from "@/lib/aipify/workflow-orchestration-engine";
 
 type Props = { labels: Record<string, string> };
@@ -92,6 +98,99 @@ function DogfoodingCard({ entry, title }: { entry: DogfoodingEntry; title: strin
   );
 }
 
+function AutonomyLevelCard({ level, approvalRequiredLabel }: { level: AutonomyLevel; approvalRequiredLabel?: string }) {
+  const levelClass =
+    level.level === 4
+      ? "border-violet-200 bg-violet-50/40"
+      : level.level === 3
+        ? "border-indigo-200 bg-indigo-50/40"
+        : "border-amber-200 bg-amber-50/40";
+
+  return (
+    <article className={`rounded-lg border p-4 ${levelClass}`}>
+      <p className="font-medium text-gray-900">
+        {level.label}
+        {level.approval_required && approvalRequiredLabel ? (
+          <span className="ml-2 text-xs font-normal text-amber-700">· {approvalRequiredLabel}</span>
+        ) : null}
+      </p>
+      {level.description ? <p className="mt-1 text-xs text-gray-600">{level.description}</p> : null}
+      {level.examples && level.examples.length > 0 ? (
+        <ul className="mt-2 list-inside list-disc text-xs text-gray-500">
+          {level.examples.map((example) => (
+            <li key={example}>{example}</li>
+          ))}
+        </ul>
+      ) : null}
+    </article>
+  );
+}
+
+function OperationalExampleCard({ example }: { example: OperationalExample }) {
+  return (
+    <article className="rounded-lg border border-gray-100 bg-gray-50 p-4">
+      <div className="flex flex-wrap items-start justify-between gap-2">
+        <p className="font-medium text-gray-900">{example.label}</p>
+        {example.route ? (
+          <Link href={example.route} className="text-xs text-indigo-600 hover:underline">
+            {example.route}
+          </Link>
+        ) : null}
+      </div>
+      {example.description ? <p className="mt-1 text-xs text-gray-600">{example.description}</p> : null}
+      {typeof example.autonomy_level === "number" ? (
+        <p className="mt-1 text-xs text-gray-500">Autonomy level {example.autonomy_level}</p>
+      ) : null}
+      {example.steps && example.steps.length > 0 ? (
+        <ol className="mt-3 list-inside list-decimal space-y-1 text-xs text-gray-600">
+          {example.steps.map((step: OperationalStep) => (
+            <li key={`${step.order}-${step.action}`}>
+              <span className="font-medium">{step.action}</span>
+              {step.system ? ` · ${step.system}` : ""}
+              {step.approval && step.approval !== "none" ? ` · approval: ${step.approval}` : ""}
+              {step.note ? ` — ${step.note}` : ""}
+            </li>
+          ))}
+        </ol>
+      ) : null}
+    </article>
+  );
+}
+
+function HumanApprovalCategoryCard({ category }: { category: HumanApprovalCategory }) {
+  return (
+    <article className="rounded-lg border border-rose-100 bg-rose-50/30 p-3">
+      <p className="text-sm font-medium text-gray-900">{category.label}</p>
+      {category.description ? <p className="mt-1 text-xs text-gray-600">{category.description}</p> : null}
+      {category.route ? (
+        <Link href={category.route} className="mt-1 inline-block text-xs text-indigo-600 hover:underline">
+          {category.route}
+        </Link>
+      ) : null}
+    </article>
+  );
+}
+
+function CompanionGuidanceCard({ item }: { item: CompanionGuidanceExample }) {
+  return (
+    <article className="rounded-lg border border-gray-100 bg-gray-50 p-3">
+      <p className="text-sm font-medium text-gray-900">
+        {item.emoji} {item.cue}
+      </p>
+      {item.example ? <p className="mt-1 text-xs text-gray-600">{item.example}</p> : null}
+    </article>
+  );
+}
+
+function SafetyAvoidCard({ item }: { item: SafetyAvoidItem }) {
+  return (
+    <article className="rounded-lg border border-rose-200 bg-rose-50/40 p-3">
+      <p className="text-sm font-medium text-rose-900">{item.label}</p>
+      {item.description ? <p className="mt-1 text-xs text-rose-800">{item.description}</p> : null}
+    </article>
+  );
+}
+
 function SuccessCriterionRow({ criterion }: { criterion: BlueprintSuccessCriterion }) {
   return (
     <li className="flex flex-wrap items-start gap-2 rounded-lg border border-gray-100 p-3 text-sm">
@@ -165,6 +264,7 @@ export function WorkflowOrchestrationEngineDashboardPanel({ labels }: Props) {
   const workflows = (dashboard.workflows ?? []) as Array<Record<string, unknown>>;
   const templates = (dashboard.templates ?? []) as Array<Record<string, unknown>>;
   const orchestrationSummary = dashboard.workflow_orchestration_summary;
+  const aoobp = dashboard.autonomous_operations_orchestration;
 
   return (
     <div className="space-y-6">
@@ -192,6 +292,15 @@ export function WorkflowOrchestrationEngineDashboardPanel({ labels }: Props) {
         </Link>
         <Link href="/app/self-love-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.selfLove}
+        </Link>
+        <Link href="/app/action-center" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.actionCenter}
+        </Link>
+        <Link href="/app/actions" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.actionHub}
+        </Link>
+        <Link href="/app/operations" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
+          {labels.operationsCenter79}
         </Link>
         {(dashboard.workflow_integration_links ?? []).slice(0, 4).map((link: BlueprintIntegrationLink) =>
           link.route ? (
@@ -419,6 +528,198 @@ export function WorkflowOrchestrationEngineDashboardPanel({ labels }: Props) {
             ))}
           </ul>
         </section>
+      ) : null}
+
+      {aoobp ? (
+        <>
+          <section className="rounded-xl border border-teal-200 bg-teal-50/50 p-6">
+            <h2 className="text-sm font-semibold text-teal-900">{labels.aoobpTitle}</h2>
+            <p className="mt-1 text-xs uppercase tracking-wide text-teal-700">
+              {aoobp.title ?? labels.aoobpPhase86}
+              {aoobp.engine_phase ? ` · ${aoobp.engine_phase}` : ""}
+            </p>
+            {aoobp.mission ? <p className="mt-2 text-sm font-medium text-teal-900">{aoobp.mission}</p> : null}
+            {aoobp.philosophy ? <p className="mt-2 text-sm text-teal-900">{aoobp.philosophy}</p> : null}
+            {aoobp.abos_principle ? <p className="mt-2 text-xs text-teal-800">{aoobp.abos_principle}</p> : null}
+            {aoobp.vision ? (
+              <p className="mt-2 text-sm italic text-teal-800">&ldquo;{aoobp.vision}&rdquo;</p>
+            ) : null}
+            {aoobp.distinction_note ? (
+              <p className="mt-2 text-xs text-teal-700">{aoobp.distinction_note}</p>
+            ) : null}
+          </section>
+
+          {aoobp.objectives && aoobp.objectives.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.aoobpObjectives}</h3>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {aoobp.objectives.map((objective) => (
+                  <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {aoobp.autonomy_levels && aoobp.autonomy_levels.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.aoobpAutonomyLevels}</h3>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {aoobp.autonomy_levels.map((level) => (
+                  <AutonomyLevelCard
+                    key={level.key ?? level.label}
+                    level={level}
+                    approvalRequiredLabel={labels.aoobpApprovalRequired}
+                  />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {aoobp.operational_examples && aoobp.operational_examples.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.aoobpOperationalExamples}</h3>
+              <div className="mt-4 grid gap-3 sm:grid-cols-1 lg:grid-cols-2">
+                {aoobp.operational_examples.map((example) => (
+                  <OperationalExampleCard key={example.key ?? example.label} example={example} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {aoobp.human_approval_principle ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.aoobpHumanApproval}</h3>
+              {aoobp.human_approval_principle.principle ? (
+                <p className="mt-2 text-sm text-gray-600">{aoobp.human_approval_principle.principle}</p>
+              ) : null}
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {(aoobp.human_approval_principle.categories ?? []).map((category) => (
+                  <HumanApprovalCategoryCard key={category.key ?? category.label} category={category} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {aoobp.audit_transparency ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.aoobpAuditTransparency}</h3>
+              {aoobp.audit_transparency.principle ? (
+                <p className="mt-2 text-sm text-gray-600">{aoobp.audit_transparency.principle}</p>
+              ) : null}
+              <ul className="mt-3 list-inside list-disc space-y-1 text-sm text-gray-600">
+                {(aoobp.audit_transparency.required_fields ?? []).map((field) => (
+                  <li key={field.key ?? field.label}>
+                    <span className="font-medium">{field.label}</span>
+                    {field.description ? ` — ${field.description}` : ""}
+                  </li>
+                ))}
+              </ul>
+              {aoobp.audit_transparency.privacy_note ? (
+                <p className="mt-2 text-xs text-gray-500">{aoobp.audit_transparency.privacy_note}</p>
+              ) : null}
+            </section>
+          ) : null}
+
+          {aoobp.safety_principles ? (
+            <section className="rounded-xl border border-rose-100 bg-rose-50/30 p-6">
+              <h3 className="text-sm font-semibold text-rose-900">{labels.aoobpSafetyPrinciples}</h3>
+              {aoobp.safety_principles.principle ? (
+                <p className="mt-2 text-sm text-rose-800">{aoobp.safety_principles.principle}</p>
+              ) : null}
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {(aoobp.safety_principles.avoid ?? []).map((item) => (
+                  <SafetyAvoidCard key={item.key ?? item.label} item={item} />
+                ))}
+              </div>
+              {aoobp.safety_principles.safety_note ? (
+                <p className="mt-2 text-xs text-rose-700">{aoobp.safety_principles.safety_note}</p>
+              ) : null}
+            </section>
+          ) : null}
+
+          {aoobp.companion_guidance ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.aoobpCompanionGuidance}</h3>
+              {aoobp.companion_guidance.principle ? (
+                <p className="mt-2 text-sm text-gray-600">{aoobp.companion_guidance.principle}</p>
+              ) : null}
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                {(aoobp.companion_guidance.examples ?? []).map((item) => (
+                  <CompanionGuidanceCard key={item.cue ?? item.example} item={item} />
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {aoobp.trust_connection ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.aoobpTrustConnection}</h3>
+              {aoobp.trust_connection.principle ? (
+                <p className="mt-2 text-sm text-gray-600">{aoobp.trust_connection.principle}</p>
+              ) : null}
+              <ul className="mt-2 list-inside list-disc text-sm text-gray-600">
+                {(aoobp.trust_connection.connections ?? []).map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {aoobp.dogfooding ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.aoobpDogfooding}</h3>
+              {aoobp.dogfooding.principle ? (
+                <p className="mt-2 text-sm text-gray-600">{aoobp.dogfooding.principle}</p>
+              ) : null}
+              {aoobp.dogfooding.focus_areas && aoobp.dogfooding.focus_areas.length > 0 ? (
+                <ul className="mt-2 list-inside list-disc text-sm text-gray-600">
+                  {aoobp.dogfooding.focus_areas.map((area) => (
+                    <li key={area}>{area}</li>
+                  ))}
+                </ul>
+              ) : null}
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {aoobp.dogfooding.aipify_group ? (
+                  <DogfoodingCard entry={aoobp.dogfooding.aipify_group} title={labels.aipifyGroup} />
+                ) : null}
+                {aoobp.dogfooding.unonight ? (
+                  <DogfoodingCard entry={aoobp.dogfooding.unonight} title={labels.unonight} />
+                ) : null}
+              </div>
+            </section>
+          ) : null}
+
+          {aoobp.success_criteria && aoobp.success_criteria.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.aoobpSuccessCriteria}</h3>
+              <ul className="mt-4 space-y-2">
+                {aoobp.success_criteria.map((criterion) => (
+                  <SuccessCriterionRow key={criterion.key ?? criterion.label} criterion={criterion} />
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {aoobp.integration_links && aoobp.integration_links.length > 0 ? (
+            <section className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-sm font-semibold text-gray-900">{labels.aoobpIntegrationLinks}</h3>
+              <ul className="mt-3 space-y-2 text-sm">
+                {aoobp.integration_links.map((link) => (
+                  <li key={String(link.key ?? link.route)}>
+                    {link.route ? (
+                      <Link href={link.route} className="font-medium text-indigo-700 hover:underline">
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <span className="font-medium text-gray-900">{link.label}</span>
+                    )}
+                    {link.note ? <p className="text-xs text-gray-500">{link.note}</p> : null}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+        </>
       ) : null}
 
       <section className="rounded-xl border border-gray-200 bg-white p-6">

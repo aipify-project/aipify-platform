@@ -13,6 +13,11 @@ import {
   type CollectiveObservationExample,
   type CollectiveSummaryCategory,
   type CollectiveSummaryType,
+  type CollectiveIntelligenceSource,
+  type IdeaDiscoveryCategory,
+  type CompanionGuidanceExample,
+  type CommunityRecognitionDomain,
+  type CommunityCollectiveIntelligenceBlueprintPhase89,
 } from "@/lib/aipify/community-intelligence";
 
 type CommunityHubPanelProps = {
@@ -74,6 +79,14 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
   if (!dashboard?.has_customer) return null;
 
   const engagement = dashboard.engagement_summary;
+  const bp89 = dashboard.community_collective_intelligence_blueprint_phase89;
+  const navLinks = [
+    ...(bp89?.integration_links ?? []),
+    ...(dashboard.clwbp_integration_links ?? dashboard.integration_links ?? []),
+  ].filter(
+    (link, index, arr) =>
+      link.route && arr.findIndex((item) => item.route === link.route) === index
+  );
 
   return (
     <div className="space-y-6">
@@ -84,7 +97,7 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
         >
           {labels.adminDashboard}
         </Link>
-        {(dashboard.clwbp_integration_links ?? dashboard.integration_links ?? []).map((link) =>
+        {navLinks.map((link) =>
           link.route ? (
             <Link
               key={link.route + (link.label ?? "")}
@@ -125,6 +138,28 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
           <p className="mt-2 text-xs italic text-violet-800">{dashboard.inform_not_prescribe_note}</p>
         ) : null}
       </section>
+
+      {bp89?.mission ? (
+        <section className="rounded-xl border border-rose-200 bg-rose-50/40 p-6">
+          <h2 className="text-sm font-semibold text-rose-900">{labels.ccibp89EngineTitle}</h2>
+          <p className="mt-2 text-sm font-medium text-rose-900">{bp89.mission}</p>
+          {bp89.philosophy ? (
+            <p className="mt-2 text-sm text-rose-900">{bp89.philosophy}</p>
+          ) : null}
+          {bp89.abos_principle ? (
+            <p className="mt-2 text-xs text-rose-800">{bp89.abos_principle}</p>
+          ) : null}
+          {bp89.shared_learning_not_surveillance_note ? (
+            <p className="mt-2 text-xs italic text-rose-800">{bp89.shared_learning_not_surveillance_note}</p>
+          ) : null}
+          {bp89.distinction_note ? (
+            <p className="mt-2 text-xs text-rose-700">{bp89.distinction_note}</p>
+          ) : null}
+          {bp89.vision ? (
+            <p className="mt-2 text-xs font-medium text-rose-800">{bp89.vision}</p>
+          ) : null}
+        </section>
+      ) : null}
 
       {dashboard.clwbp_mission ? (
         <section className="rounded-xl border border-teal-200 bg-teal-50/40 p-6">
@@ -202,6 +237,193 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
               <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
             ))}
           </div>
+        </section>
+      ) : null}
+
+      {bp89?.objectives && bp89.objectives.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.ccibp89Objectives}</h3>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp89.objectives.map((objective) => (
+              <ObjectiveCard key={objective.key ?? objective.label} objective={objective} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {bp89?.collective_intelligence_sources?.sources &&
+      bp89.collective_intelligence_sources.sources.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.collectiveIntelligenceSources}</h3>
+          {bp89.collective_intelligence_sources.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{bp89.collective_intelligence_sources.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp89.collective_intelligence_sources.sources.map((source) => (
+              <CollectiveIntelligenceSourceCard key={source.key ?? source.label} source={source} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {bp89?.community_observations?.examples && bp89.community_observations.examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.communityObservations}</h3>
+          {bp89.community_observations.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{bp89.community_observations.principle}</p>
+          ) : null}
+          <div className="mt-3 space-y-3">
+            {bp89.community_observations.examples.map((example) => (
+              <CollectiveObservationCard key={example.key ?? example.scenario} example={example} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {bp89?.idea_discovery?.categories && bp89.idea_discovery.categories.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.ideaDiscovery}</h3>
+          {bp89.idea_discovery.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{bp89.idea_discovery.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp89.idea_discovery.categories.map((category) => (
+              <IdeaDiscoveryCategoryCard key={category.key ?? category.label} category={category} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {bp89?.companion_guidance?.examples && bp89.companion_guidance.examples.length > 0 ? (
+        <section className="rounded-xl border border-gray-200 bg-white p-6">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.companionGuidance}</h3>
+          {bp89.companion_guidance.principle ? (
+            <p className="mt-1 text-xs text-gray-500">{bp89.companion_guidance.principle}</p>
+          ) : null}
+          <div className="mt-3 space-y-3">
+            {bp89.companion_guidance.examples.map((example) => (
+              <CompanionGuidanceCard key={example.key ?? example.prompt} example={example} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {bp89?.community_recognition?.domains && bp89.community_recognition.domains.length > 0 ? (
+        <section className="rounded-xl border border-amber-100 bg-amber-50/40 p-6">
+          <h3 className="text-sm font-semibold text-amber-900">{labels.communityRecognition}</h3>
+          {bp89.community_recognition.principle ? (
+            <p className="mt-1 text-xs text-amber-800">{bp89.community_recognition.principle}</p>
+          ) : null}
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp89.community_recognition.domains.map((domain) => (
+              <CommunityRecognitionCard key={domain.key ?? domain.label} domain={domain} />
+            ))}
+          </div>
+          {bp89.community_recognition.gratitude_route ? (
+            <Link href={bp89.community_recognition.gratitude_route} className="mt-3 inline-block text-xs underline text-amber-900">
+              {labels.openGratitudeRecognition}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {bp89?.learning_organization_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.learningOrganizationConnection}</h3>
+          <p className="mt-2 text-gray-600">{bp89.learning_organization_connection.principle}</p>
+          {bp89.learning_organization_connection.surfaces &&
+          bp89.learning_organization_connection.surfaces.length > 0 ? (
+            <ul className="mt-2 space-y-2 text-xs text-gray-600">
+              {bp89.learning_organization_connection.surfaces.map((surface) =>
+                surface.route ? (
+                  <li key={surface.route + (surface.label ?? "")}>
+                    <Link href={surface.route} className="font-medium text-violet-800 underline">
+                      {surface.label}
+                    </Link>
+                    {surface.note ? ` — ${surface.note}` : null}
+                  </li>
+                ) : (
+                  <li key={surface.label}>{surface.label}</li>
+                )
+              )}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {bp89?.privacy_principles?.principle ? (
+        <section className="rounded-lg border border-rose-100 bg-rose-50/40 p-4 text-sm text-rose-900">
+          <h3 className="text-sm font-semibold">{labels.ccibp89PrivacyPrinciples}</h3>
+          <p className="mt-2">{bp89.privacy_principles.principle}</p>
+          {bp89.privacy_principles.must_not && bp89.privacy_principles.must_not.length > 0 ? (
+            <ul className="mt-2 list-inside list-disc space-y-1 text-xs">
+              {bp89.privacy_principles.must_not.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ) : null}
+
+      {Array.isArray(bp89?.success_criteria) && bp89.success_criteria.length > 0 ? (
+        <section className="rounded-lg border border-rose-200 p-4">
+          <h3 className="text-sm font-semibold">{labels.ccibp89SuccessCriteria}</h3>
+          <ul className="mt-2 space-y-2 text-sm">
+            {bp89.success_criteria.map((item) => {
+              const label = typeof item.label === "string" ? item.label : String(item.key ?? "");
+              const met = Boolean(item.met);
+              const note = typeof item.note === "string" ? item.note : null;
+              return (
+                <li key={item.key ?? label}>
+                  <span className={met ? "text-green-800" : "text-gray-700"}>
+                    {met ? "✓" : "○"} {label}
+                  </span>
+                  {note ? <p className="text-xs text-gray-500">{note}</p> : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      {bp89?.self_love_connection?.principle ? (
+        <section className="rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-sm text-amber-900">
+          <h3 className="text-sm font-semibold">{labels.ccibp89SelfLoveConnection}</h3>
+          <p className="mt-2">{bp89.self_love_connection.principle}</p>
+          {bp89.self_love_connection.self_love_route ? (
+            <Link href={bp89.self_love_connection.self_love_route} className="mt-2 inline-block text-xs underline">
+              {labels.openSelfLove}
+            </Link>
+          ) : null}
+        </section>
+      ) : null}
+
+      {bp89?.trust_connection?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.ccibp89TrustConnection}</h3>
+          <p className="mt-2 text-gray-600">{bp89.trust_connection.principle}</p>
+        </section>
+      ) : null}
+
+      {bp89?.dogfooding?.principle ? (
+        <section className="rounded-lg border border-gray-200 p-4 text-sm">
+          <h3 className="text-sm font-semibold">{labels.ccibp89Dogfooding}</h3>
+          <p className="mt-2 text-gray-600">{bp89.dogfooding.principle}</p>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {bp89.dogfooding.aipify_group ? (
+              <DogfoodingCard entry={bp89.dogfooding.aipify_group} title={labels.aipifyGroup} />
+            ) : null}
+            {bp89.dogfooding.unonight ? (
+              <DogfoodingCard entry={bp89.dogfooding.unonight} title={labels.unonightPilot} />
+            ) : null}
+          </div>
+        </section>
+      ) : null}
+
+      {bp89?.engagement_summary ? (
+        <section className="rounded-lg border border-gray-200 bg-white p-4">
+          <h3 className="text-sm font-semibold text-gray-900">{labels.ccibp89EngagementSummary}</h3>
+          <Ccibp89EngagementGrid summary={bp89.engagement_summary} labels={labels} />
         </section>
       ) : null}
 
@@ -731,6 +953,73 @@ function BestPracticeDomainCard({ domain }: { domain: BestPracticeDomain }) {
             <li key={signal}>{signal}</li>
           ))}
         </ul>
+      ) : null}
+    </div>
+  );
+}
+
+function CollectiveIntelligenceSourceCard({ source }: { source: CollectiveIntelligenceSource }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 text-sm">
+      <p className="font-medium text-gray-900">{source.label}</p>
+      {source.description ? <p className="mt-1 text-xs text-gray-600">{source.description}</p> : null}
+    </div>
+  );
+}
+
+function IdeaDiscoveryCategoryCard({ category }: { category: IdeaDiscoveryCategory }) {
+  return (
+    <div className="rounded-lg border border-gray-100 bg-gray-50/50 p-3 text-sm">
+      <p className="font-medium text-gray-900">{category.label ?? category.key}</p>
+      {category.signals && category.signals.length > 0 ? (
+        <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-gray-600">
+          {category.signals.map((signal) => (
+            <li key={signal}>{signal}</li>
+          ))}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
+function CompanionGuidanceCard({ example }: { example: CompanionGuidanceExample }) {
+  return (
+    <div className="rounded-lg border border-gray-100 px-3 py-2 text-sm">
+      {example.prompt ? <p className="text-gray-900">{example.prompt}</p> : null}
+      {example.consideration ? <p className="mt-1 text-xs text-gray-600">{example.consideration}</p> : null}
+    </div>
+  );
+}
+
+function CommunityRecognitionCard({ domain }: { domain: CommunityRecognitionDomain }) {
+  return (
+    <div className="rounded-lg border border-amber-100 bg-amber-50/50 p-3 text-sm">
+      <p className="font-medium text-amber-900">
+        {domain.emoji ? `${domain.emoji} ` : ""}
+        {domain.label}
+      </p>
+      {domain.description ? <p className="mt-1 text-xs text-amber-800">{domain.description}</p> : null}
+    </div>
+  );
+}
+
+function Ccibp89EngagementGrid({
+  summary,
+  labels,
+}: {
+  summary: NonNullable<CommunityCollectiveIntelligenceBlueprintPhase89["engagement_summary"]>;
+  labels: Record<string, string>;
+}) {
+  return (
+    <div className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-3">
+      <span>{labels.contributionsTotal}: {summary.contributions_total ?? 0}</span>
+      <span>{labels.publishedContributions}: {summary.published_contributions ?? 0}</span>
+      <span>{labels.tenantContributionsTotal}: {summary.tenant_contributions_total ?? 0}</span>
+      <span>{labels.ecosystemPublishedTotal}: {summary.ecosystem_published_total ?? 0}</span>
+      <span>{labels.collectiveIntelligenceSources}: {summary.collective_intelligence_sources ?? 0}</span>
+      <span>{labels.ideaDiscoveryCategories}: {summary.idea_discovery_categories ?? 0}</span>
+      {summary.privacy_note ? (
+        <p className="col-span-full mt-1 text-gray-500">{summary.privacy_note}</p>
       ) : null}
     </div>
   );

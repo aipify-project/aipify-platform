@@ -1,15 +1,32 @@
 import type {
   ContinuousImprovementEngineCard,
   ContinuousImprovementEngineDashboard,
+  ContinuousImprovementOrganizationalEvolutionBlueprint,
   ImprovementInitiativeRecord,
   ImprovementReviewCycleRecord,
   ImprovementSuccessMeasurementRecord,
   ImprovementSuggestion,
 } from "./types";
 
+function parseBlueprint(
+  raw: unknown,
+): ContinuousImprovementOrganizationalEvolutionBlueprint | undefined {
+  if (typeof raw !== "object" || !raw) return undefined;
+  return raw as ContinuousImprovementOrganizationalEvolutionBlueprint;
+}
+
 export function parseContinuousImprovementEngineCard(data: unknown): ContinuousImprovementEngineCard {
   const d = (data ?? {}) as Record<string, unknown>;
-  return { has_organization: Boolean(d.has_organization), ...d } as ContinuousImprovementEngineCard;
+  return {
+    has_organization: Boolean(d.has_organization),
+    philosophy: typeof d.philosophy === "string" ? d.philosophy : undefined,
+    active_improvements: typeof d.active_improvements === "number" ? d.active_improvements : undefined,
+    initiatives_active: typeof d.initiatives_active === "number" ? d.initiatives_active : undefined,
+    continuous_improvement_organizational_evolution_blueprint: parseBlueprint(
+      d.continuous_improvement_organizational_evolution_blueprint,
+    ),
+    ...d,
+  } as ContinuousImprovementEngineCard;
 }
 
 function parseInitiatives(raw: unknown): ImprovementInitiativeRecord[] | undefined {
@@ -51,5 +68,14 @@ export function parseContinuousImprovementEngineDashboard(data: unknown): Contin
         : undefined,
     recent_feedback: Array.isArray(d.recent_feedback) ? (d.recent_feedback as Record<string, unknown>[]) : undefined,
     outcomes: Array.isArray(d.outcomes) ? (d.outcomes as Record<string, unknown>[]) : undefined,
+    continuous_improvement_organizational_evolution_blueprint: parseBlueprint(
+      d.continuous_improvement_organizational_evolution_blueprint,
+    ),
   };
+}
+
+export function parseContinuousImprovementOrganizationalEvolutionBlueprint(
+  data: unknown,
+): ContinuousImprovementOrganizationalEvolutionBlueprint | undefined {
+  return parseBlueprint(data);
 }
