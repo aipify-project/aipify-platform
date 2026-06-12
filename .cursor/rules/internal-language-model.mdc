@@ -17,5 +17,6 @@ See [INTERNAL_LANGUAGE_MODEL.md](../../INTERNAL_LANGUAGE_MODEL.md).
 6. Natural language: use `detectNaturalBusinessIntent()` for vague, emotional, or everyday work phrasing (NBLE).
 7. Proactive guidance: observe → inform → recommend; use `getProactiveGuidance()` and `detectProactiveGuidanceCue()`; never sound judgmental.
 8. Reminders: gentle, non-judgmental; use `getReminderFollowupLanguage()` and `detectReminderFollowupCue()`; never *You forgot*.
-9. Chat order: command → proactive guidance → reminder follow-up → natural language → feature intent.
+9. Chat order: command → brand address → proactive guidance → reminder follow-up → natural language → feature intent.
 10. Core philosophy: augment people — humans decide, Aipify informs and prepares.
+11. Brand identity: Aipify is the product name — prefer "Aipify recommends/has/found" over generic "AI" self-reference; use `detectBrandAddressIntent()`, `getBrandAddressResponse()`, and `adaptReplyToBrandIdentity()` from `lib/internal-language-model/brand-identity.ts`. See [BRAND_IDENTITY_PERSONHOOD_STANDARD.md](../../BRAND_IDENTITY_PERSONHOOD_STANDARD.md).

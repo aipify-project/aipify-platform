@@ -8,7 +8,21 @@ import {
 } from "@/lib/aipify/knowledge";
 import { adaptReplyToIdentity } from "@/lib/identity-engine/adapt";
 import { parseIdentityCenter } from "@/lib/identity-engine/parse";
+import { adaptReplyToBrandIdentity } from "@/lib/internal-language-model/brand-identity";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { createTranslator, type Dictionary } from "@/lib/i18n/translate";
 import { createClient } from "@/lib/supabase/server";
+
+function adaptFinalReply(
+  reply: string,
+  identity: ReturnType<typeof parseIdentityCenter>
+): string {
+  const branded = adaptReplyToBrandIdentity(reply);
+  return identity.profile
+    ? adaptReplyToIdentity(branded, identity.profile, identity.user_name)
+    : branded;
+}
 
 export async function POST(request: Request) {
   try {
@@ -170,6 +184,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Message required" }, { status: 400 });
     }
 
+    const locale = await getLocale();
+    const dictionary = await getDictionary(locale, ["customerApp"]);
+    const t = createTranslator(dictionary.customerApp as Dictionary);
+
     const useDeveloperKnowledge = isDeveloperKnowledgeQuestion(message);
     const useKnowledgeCenter = useDeveloperKnowledge || isAipifyKnowledgeQuestion(message);
 
@@ -189,9 +207,7 @@ export async function POST(request: Request) {
         if (parsed.answered && parsed.answer) {
           const { data: identityCenter } = await supabase.rpc("get_customer_identity_center");
           const identity = parseIdentityCenter(identityCenter);
-          const reply = identity.profile
-            ? adaptReplyToIdentity(parsed.answer, identity.profile, identity.user_name)
-            : parsed.answer;
+          const reply = adaptFinalReply(parsed.answer, identity);
 
           return NextResponse.json({
             reply,
@@ -207,17 +223,10 @@ export async function POST(request: Request) {
         if (parsed.fallback_message) {
           const { data: identityCenter } = await supabase.rpc("get_customer_identity_center");
           const identity = parseIdentityCenter(identityCenter);
-          const reply = identity.profile
-            ? adaptReplyToIdentity(
-                parsed.answer
-                  ? `${parsed.answer}\n\n${parsed.fallback_message}`
-                  : parsed.fallback_message,
-                identity.profile,
-                identity.user_name
-              )
-            : parsed.answer
-              ? `${parsed.answer}\n\n${parsed.fallback_message}`
-              : parsed.fallback_message;
+          const rawReply = parsed.answer
+            ? `${parsed.answer}\n\n${parsed.fallback_message}`
+            : parsed.fallback_message;
+          const reply = adaptFinalReply(rawReply, identity);
 
           const lowConfidenceReply =
             useDeveloperKnowledge && parsed.should_escalate
@@ -237,14 +246,11 @@ export async function POST(request: Request) {
       }
     }
 
-    const turn = buildAssistantTurn(message, askBeforeRemembering);
+    const turn = buildAssistantTurn(message, askBeforeRemembering, { translate: t });
 
     const { data: identityCenter } = await supabase.rpc("get_customer_identity_center");
     const identity = parseIdentityCenter(identityCenter);
-    const reply =
-      identity.profile
-        ? adaptReplyToIdentity(turn.reply, identity.profile, identity.user_name)
-        : turn.reply;
+    const reply = adaptFinalReply(turn.reply, identity);
 
     return NextResponse.json({
       reply,

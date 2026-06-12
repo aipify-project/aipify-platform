@@ -11,6 +11,10 @@ import type { EventDraft } from "@/lib/context-engine/types";
 import { detectFocusIntent } from "@/lib/attention-guardian/detection";
 import { detectDecisionIntent } from "@/lib/decision-support-engine/detection";
 import { detectEmployeeKnowledgeIntent } from "@/lib/employee-knowledge-engine/detection";
+import {
+  detectBrandAddressIntent,
+  getBrandAddressResponse,
+} from "@/lib/internal-language-model/brand-identity";
 import { detectUserCommandIntent } from "@/lib/internal-language-model/command-detection";
 import { detectAipifyFeatureIntent } from "@/lib/internal-language-model/detection";
 import { detectNaturalBusinessIntent } from "@/lib/internal-language-model/nble-detection";
@@ -186,9 +190,14 @@ function shouldCreateDraft(memoryIntent: MemoryIntent): boolean {
   );
 }
 
+export type BuildAssistantTurnOptions = {
+  translate?: (key: string) => string;
+};
+
 export function buildAssistantTurn(
   message: string,
-  askBeforeRemembering = true
+  askBeforeRemembering = true,
+  options?: BuildAssistantTurnOptions
 ): AssistantTurnResult {
   const memoryIntent = detectMemoryIntent(message);
   const intent = toAssistantIntent(memoryIntent);
@@ -213,6 +222,18 @@ export function buildAssistantTurn(
       askBeforeRemembering: commandIntent.requiresApproval,
       reply: `${commandIntent.reply}${closing}`,
       confidence_level: commandIntent.requiresApproval ? "medium" : "high",
+    };
+  }
+
+  const brandAddress = detectBrandAddressIntent(message);
+  if (brandAddress) {
+    return {
+      intent: "general",
+      memory_intent: memoryIntent,
+      memoryDraft: null,
+      askBeforeRemembering: false,
+      reply: getBrandAddressResponse(brandAddress, { translate: options?.translate }),
+      confidence_level: "high",
     };
   }
 

@@ -1,8 +1,8 @@
 {
   "meta": {
-    "homeTitle": "Aipify — AI Business Operating System",
+    "homeTitle": "Aipify — Business Operating System",
     "homeDescription": "Install Aipify into your business systems. An intelligent operating layer for support, operations, governance, and decisions — not a chatbot.",
-    "productTitle": "Product — Aipify AI Business Operating System",
+    "productTitle": "Product — Aipify Business Operating System",
     "productDescription": "See how Aipify learns your systems, prepares actions, and keeps humans in control.",
     "modulesTitle": "Modules — Aipify",
     "modulesDescription": "Modular operational intelligence — enable only what your business needs.",
@@ -11,7 +11,7 @@
     "securityTitle": "Security & Trust — Aipify",
     "securityDescription": "Privacy by design. Aipify does not monitor employees or surveil your workforce.",
     "earlyAccessTitle": "Early Access — Aipify",
-    "earlyAccessDescription": "Request early access to the AI Business Operating System.",
+    "earlyAccessDescription": "Request early access to the Aipify Business Operating System.",
     "pilotTitle": "Pilot Program — Aipify",
     "pilotDescription": "Operational validation with real businesses — starting with Unonight.",
     "knowledgeTitle": "Knowledge — Aipify",
@@ -36,7 +36,7 @@
     "getStarted": "Get Started"
   },
   "footer": {
-    "tagline": "AI Business Operating System — install-first operational intelligence for modern teams.",
+    "tagline": "Aipify Business Operating System — install-first operational intelligence for modern teams.",
     "product": "Product",
     "company": "Company",
     "legal": "Legal",
@@ -48,7 +48,7 @@
     "privacyNote": "Aipify does not monitor employees or conduct workplace surveillance."
   },
   "hero": {
-    "badge": "AI Business Operating System",
+    "badge": "Aipify Business Operating System",
     "title": "Operational intelligence that works inside your business.",
     "subtitle": "Aipify installs into your existing systems, learns how your organization operates, and prepares actions your team can approve — support, workflows, insights, and governance in one layer.",
     "notChatbot": "Not a chatbot. Not surveillance. A calm operational partner.",
@@ -167,7 +167,7 @@
   },
   "earlyAccess": {
     "title": "Request early access",
-    "subtitle": "Join businesses preparing for the AI Business Operating System.",
+    "subtitle": "Join businesses preparing for the Aipify Business Operating System.",
     "name": "Full name",
     "company": "Company",
     "email": "Work email",
@@ -228,7 +228,7 @@
     "readFaq": "Read full FAQ"
   },
   "productPage": {
-    "title": "The AI Business Operating System",
+    "title": "The Aipify Business Operating System",
     "subtitle": "Install intelligence into your existing workflow — support, operations, governance, and decisions in one coordinated layer."
   },
   "enterprisePage": {

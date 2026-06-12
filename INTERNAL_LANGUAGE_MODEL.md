@@ -12,8 +12,11 @@ Defines how Aipify describes its own functionality and understands how people na
 - `aipify-core/knowledge/internal-language-model/business-phrase-dataset.txt` — expanded business phrase dataset
 - `aipify-core/knowledge/internal-language-model/proactive-guidance-language.txt` — proactive assistance and gentle guidance
 - `aipify-core/knowledge/internal-language-model/reminder-and-followup-language.txt` — reminders and follow-up language
+- `aipify-core/knowledge/internal-language-model/brand-identity-personhood.txt` — Aipify naming and self-reference (not generic "AI")
 
 **Code:** `lib/internal-language-model/`
+
+See also [BRAND_IDENTITY_PERSONHOOD_STANDARD.md](./BRAND_IDENTITY_PERSONHOOD_STANDARD.md).
 
 ---
 
@@ -156,6 +159,25 @@ User control: reminder frequency (`minimal` → `highly_proactive`) and per-cate
 | `normalizeBusinessConcept(term)` | Industry synonym → canonical concept |
 | `getCorePhilosophy()` | Core positioning phrase |
 | `getNbleVision()` | NBLE long-term vision phrase |
+| `detectBrandAddressIntent(message)` | Greetings and help phrasing ("Hi Aipify", "Hi AI", "Can you help") |
+| `getBrandAddressResponse(intent, options?)` | Aipify-first address reply; optional i18n via `translate` |
+| `adaptReplyToBrandIdentity(text)` | Rewrite generic AI self-reference to Aipify in replies and copy |
+
+---
+
+## Brand identity & personhood
+
+Aipify is the product name; Artificial Intelligence is the underlying technology. Users may say "AI"; Aipify responds as **Aipify**.
+
+| Function | Purpose |
+|----------|---------|
+| `detectBrandAddressIntent()` | "Hi Aipify", "Hi AI", "Can you help", report-generation asks |
+| `getBrandAddressResponse()` | Calm, professional address replies (i18n: `customerApp.brandIdentity.address.*`) |
+| `adaptReplyToBrandIdentity()` | Normalizes legacy/generated copy (`The AI recommends` → `Aipify recommends`) |
+
+Corpus: `brand-identity-personhood.txt` · Standard: [BRAND_IDENTITY_PERSONHOOD_STANDARD.md](./BRAND_IDENTITY_PERSONHOOD_STANDARD.md)
+
+Assistant pipeline: `adaptReplyToBrandIdentity()` runs before `adaptReplyToIdentity()` in `/api/assistant`.
 
 ---
 
@@ -164,10 +186,11 @@ User control: reminder frequency (`minimal` → `highly_proactive`) and per-cate
 Detection order in `buildAssistantTurn()`:
 
 1. `detectUserCommandIntent()` — explicit commands (email, calendar, support, sales, approval, automation)
-2. `detectProactiveGuidanceCue()` — risky expressions needing gentle intervention
-3. `detectReminderFollowupCue()` — follow-up, summary, and review requests
-4. `detectNaturalBusinessIntent()` — natural/vague/emotional language
-5. `detectAipifyFeatureIntent()` — *"What is the Action Center?"* and replacement questions
+2. `detectBrandAddressIntent()` — greetings and direct address ("Hi Aipify", "Hi AI", "Can you help")
+3. `detectProactiveGuidanceCue()` — risky expressions needing gentle intervention
+4. `detectReminderFollowupCue()` — follow-up, summary, and review requests
+5. `detectNaturalBusinessIntent()` — natural/vague/emotional language
+6. `detectAipifyFeatureIntent()` — *"What is the Action Center?"* and replacement questions
 
 Other modules call `getProactiveGuidance(scenarioKey)` or `getReminderFollowupLanguage(scenarioKey)` when system observations trigger a scenario. `daily_assistance` and `evening_reflection` memory intents use ILM daily summary wording.
 

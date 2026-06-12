@@ -12,6 +12,8 @@ export * from "./proactive-guidance-vocabulary";
 export * from "./proactive-guidance";
 export * from "./reminder-followup-vocabulary";
 export * from "./reminder-followup";
+export * from "./brand-identity-vocabulary";
+export * from "./brand-identity";
 
 /** Canonical knowledge corpus paths (source of truth). */
 export const FUNCTION_VOCABULARY_PATH =
@@ -31,3 +33,6 @@ export const PROACTIVE_GUIDANCE_LANGUAGE_PATH =
 
 export const REMINDER_FOLLOWUP_LANGUAGE_PATH =
   "aipify-core/knowledge/internal-language-model/reminder-and-followup-language.txt";
+
+export const BRAND_IDENTITY_PERSONHOOD_PATH =
+  "aipify-core/knowledge/internal-language-model/brand-identity-personhood.txt";

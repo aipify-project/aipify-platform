@@ -63,6 +63,10 @@ export type AppNavId =
   | "capacityWorkloadManagementEngine"
   | "goalsOkrEngine"
   | "predictiveInsightsEngine"
+  | "crossTenantIntelligenceEngine"
+  | "partnerSuccessEngine"
+  | "trustReputationEngine"
+  | "aiCostGovernanceEngine"
   | "personalProductivityEngine"
   | "briefing"
   | "executive"
@@ -378,6 +382,26 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.predictiveInsightsEngine",
   },
   {
+    id: "crossTenantIntelligenceEngine",
+    href: "/app/cross-tenant-intelligence-engine",
+    labelKey: "customerApp.nav.crossTenantIntelligenceEngine",
+  },
+  {
+    id: "partnerSuccessEngine",
+    href: "/app/partner-success-engine",
+    labelKey: "customerApp.nav.partnerSuccessEngine",
+  },
+  {
+    id: "trustReputationEngine",
+    href: "/app/trust-reputation-engine",
+    labelKey: "customerApp.nav.trustReputationEngine",
+  },
+  {
+    id: "aiCostGovernanceEngine",
+    href: "/app/ai-cost-governance-engine",
+    labelKey: "customerApp.nav.aiCostGovernanceEngine",
+  },
+  {
     id: "personalProductivityEngine",
     href: "/app/personal-productivity-engine",
     labelKey: "customerApp.nav.personalProductivityEngine",
@@ -556,6 +580,18 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/predictive-insights-engine")) {
     return "predictiveInsightsEngine";
+  }
+  if (pathname.startsWith("/app/cross-tenant-intelligence-engine")) {
+    return "crossTenantIntelligenceEngine";
+  }
+  if (pathname.startsWith("/app/partner-success-engine")) {
+    return "partnerSuccessEngine";
+  }
+  if (pathname.startsWith("/app/trust-reputation-engine")) {
+    return "trustReputationEngine";
+  }
+  if (pathname.startsWith("/app/ai-cost-governance-engine")) {
+    return "aiCostGovernanceEngine";
   }
   if (pathname.startsWith("/app/personal-productivity-engine")) {
     return "personalProductivityEngine";

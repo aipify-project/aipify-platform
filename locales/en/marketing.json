@@ -1,8 +1,8 @@
 {
   "meta": {
-    "homeTitle": "Aipify — AI Business Companion for Modern Organizations",
+    "homeTitle": "Aipify — Business Companion for Modern Organizations",
     "homeDescription": "Aipify helps teams manage support, operations, knowledge, approvals, and reporting — with human control, audit logs, and enterprise-ready security. Not a chatbot.",
-    "productTitle": "Product — Aipify AI Business Operating System",
+    "productTitle": "Product — Aipify Business Operating System",
     "productDescription": "See how Aipify connects to your organization, assists daily work, and keeps humans in control.",
     "modulesTitle": "Modules — Aipify",
     "modulesDescription": "Modular operational intelligence — activate only what your business needs.",
@@ -11,7 +11,7 @@
     "securityTitle": "Security & Trust — Aipify",
     "securityDescription": "Privacy by design. Aipify assists employees — it does not monitor screens, keystrokes, or browsing history.",
     "earlyAccessTitle": "Early Access — Aipify",
-    "earlyAccessDescription": "Request early access to the AI Business Operating System.",
+    "earlyAccessDescription": "Request early access to the Aipify Business Operating System.",
     "pilotTitle": "Pilot Program — Aipify",
     "pilotDescription": "Operational validation with real businesses — starting with Unonight.",
     "knowledgeTitle": "Knowledge Center — Aipify",
@@ -36,7 +36,7 @@
     "getStarted": "Get Started"
   },
   "footer": {
-    "tagline": "AI Business Operating System — operational intelligence with human control built in.",
+    "tagline": "Aipify Business Operating System — operational intelligence with human control built in.",
     "product": "Product",
     "company": "Company",
     "legal": "Legal",
@@ -48,8 +48,8 @@
     "privacyNote": "Aipify assists employees. It does not monitor screens, keystrokes, private files, or browsing history."
   },
   "hero": {
-    "badge": "AI Business Operating System",
-    "title": "The AI Business Companion for modern organizations.",
+    "badge": "Aipify Business Operating System",
+    "title": "Aipify — the business companion for modern organizations.",
     "subtitle": "Aipify helps teams manage support, operations, knowledge, approvals, reports, and daily follow-up — with human control, audit logs, and enterprise-ready security built in from day one.",
     "notChatbot": "Not a chatbot. A calm operational partner that works inside your business.",
     "ctaPrimary": "Request early access",
@@ -243,7 +243,7 @@
     "faqIntro": "Transparent answers about the product, trust, and enterprise readiness.",
     "readFaq": "Read full FAQ",
     "faqs": {
-      "1": { "q": "What is Aipify?", "a": "Aipify is an AI Business Operating System that helps organizations manage support, administration, operations, knowledge, reports, approvals, and follow-up." },
+      "1": { "q": "What is Aipify?", "a": "Aipify is a Business Operating System that helps organizations manage support, administration, operations, knowledge, reports, approvals, and follow-up." },
       "2": { "q": "Is Aipify just a chatbot?", "a": "No. Aipify is designed as a business companion that can recommend actions, generate documents, manage workflows, and support daily operations." },
       "3": { "q": "Does Aipify monitor employees?", "a": "No. Aipify is not employee surveillance software. It should not monitor screens, keystrokes, private files, or browsing history." },
       "4": { "q": "Can Aipify generate business documents?", "a": "Yes. Aipify can generate reports, summaries, certificates, spreadsheets, presentations, and other business deliverables." },
@@ -252,7 +252,7 @@
     }
   },
   "productPage": {
-    "title": "The AI Business Operating System",
+    "title": "The Aipify Business Operating System",
     "subtitle": "Install intelligence into your existing workflow — support, operations, governance, and decisions in one coordinated layer."
   },
   "enterprisePage": {
