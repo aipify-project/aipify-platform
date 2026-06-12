@@ -17,7 +17,7 @@ const P = {
   helper: "adcge",
   bp: "adcgebp207",
   decisionType: "aipify_decision_center_governance_engine",
-  prevDecision: "aipify_action_center_execution_engine",
+  prevDecision: "aipify_meeting_intelligence_follow_up_engine",
   title: "Aipify Decision Center & Governance",
   centerTitle: "Decision Center",
   companion: "Governance Companion",
