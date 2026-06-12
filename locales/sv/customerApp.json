@@ -202,7 +202,8 @@
       "assistantIdentity": "Assistentidentitet",
       "companionPresence": "Companion-närvaro",
       "enterprise": "Enterprise-utrulling",
-      "compliance": "Säkerhet och compliance"
+      "compliance": "Säkerhet och compliance",
+      "twoFactor": "Inloggningsverifiering (2FA)"
     },
     "intelligence": {
       "title": "Organisatorisk intelligens",
@@ -3894,6 +3895,7 @@
     "approvalRequired": "Godkännande krävs",
     "yourPermissions": "Dina behörigheter",
     "mfaReadiness": "MFA-beredskap",
+    "twoFactorSetup": "Konfigurera inloggningsverifiering",
     "recentAccessEvents": "Senaste åtkomsthändelser",
     "successCriteria": "Fas 2 framgångskriterier",
     "defaultRoles": "Standardroller",
@@ -3915,6 +3917,38 @@
     "companionPrefsSaveFailed": "Kunde inte spara companion-behörighetsinställningar",
     "auditRequirements": "Revisionskrav",
     "blueprintLinks": "Grundlänkar"
+  },
+  "twoFactor": {
+    "title": "Aipify inloggningsverifiering",
+    "subtitle": "Skydda ditt konto med en autentiseringsapp. Aipify använder tidsbaserade koder — inte SMS — för säkrigare inloggning.",
+    "requiredNotice": "Din roll kräver inloggningsverifiering innan du får åtkomst till Aipify.",
+    "statusEnabled": "Inloggningsverifiering är aktiverad för ditt konto.",
+    "statusDisabled": "Inloggningsverifiering är inte aktiverad ännu.",
+    "enableTitle": "Aktivera autentiseringsverifiering",
+    "enableStepScan": "Skanna denna QR-kod med din autentiseringsapp (Google Authenticator, 1Password, Authy eller liknande).",
+    "enableStepConfirm": "Ange den 6-siffriga koden från appen för att bekräfta installationen.",
+    "manualKey": "Manuell installationsnyckel",
+    "confirmCode": "6-siffrig kod",
+    "enable": "Aktivera verifiering",
+    "disable": "Inaktivera verifiering",
+    "regenerate": "Generera nya återställningskoder",
+    "recoveryTitle": "Spara dina återställningskoder",
+    "recoveryNotice": "Förvara koderna på ett säkert ställe. Varje kod fungerar en gång om du förlorar autentiseringsappen.",
+    "recoveryRemaining": "{count} oanvända återställningskoder kvar",
+    "saveCodes": "Jag har sparat koderna på ett säkert ställe.",
+    "loading": "Laddar verifieringsinställningar…",
+    "saving": "Sparar…",
+    "done": "Klart",
+    "backToSettings": "Tillbaka till inställningar",
+    "errors": {
+      "generic": "Något gick fel. Försök igen.",
+      "invalidCode": "Koden är ogiltig. Kontrollera autentiseringsappen och försök igen.",
+      "codeRequired": "Ange din verifieringskod.",
+      "noPendingEnrollment": "Starta installationen igen för att generera en ny QR-kod.",
+      "notEnabled": "Inloggningsverifiering är inte aktiverad för detta konto.",
+      "requiredByPolicy": "Din organisation kräver inloggningsverifiering. Den kan inte inaktiveras.",
+      "configError": "Inloggningsverifiering är tillfälligt otillgänglig. Kontakta support om detta kvarstår."
+    }
   },
   "multiTenantArchitecture": {
     "title": "Multi-Tenant-arkitektur",
