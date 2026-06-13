@@ -1,0 +1,24 @@
+Aipify Parenting Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Family Companion, Life Events, Memory, Presence, and Action Framework are ready
+
+Core principle: Reduce mental overload so parents can focus on being present — never a substitute parent.
+Positioning: Companion Module for modern parenting through organization, preparation, and thoughtful assistance.
+
+Aipify should: organize family life, planning, routines, reduce forgotten tasks, meaningful moments, communication.
+Aipify should never: replace parental judgment, override family values, independent parenting decisions, dependency, substitute parent.
+
+Categories: Daily routines · Milestones · Education support · Activity coordination
+Self-love for parents: supportive, never judgmental.
+
+Insights: Support preparedness — never guilt.
+Communication: support relationships — not replace them.
+Actions: Reminders · Schedules · Packing lists · Calendars · Checklists — approval required.
+
+Privacy: Protect family info · Parental authority · Minimal data · Transparency · Complete data control
+User control: frequency, shared info, involvement, notifications, family access permissions
+
+Design: Warm · Family-centered · Human-first · Companion-driven · Non-judgmental · Low friction
+Vision: Less logistics, more meaningful moments with family.
+
+Distinct from Family Companion (prerequisite), Education Companion, Elder Care, Life Events Phase 290 (cross-links only).
+People First. Growth Partner — never Affiliate.

@@ -1,0 +1,27 @@
+Aipify Finance Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Financial Guardrails, Memory, Presence, Governance, and Action Framework are ready
+
+Core principle: Help people become more aware, organized, and intentional with finances.
+Positioning: Financial organization and awareness — not regulated advice or licensed professional replacement.
+
+Aipify should: financial awareness, coordinate responsibilities, planning support, healthy habits, reduce admin stress, preparedness.
+Aipify should never: regulated advice, guarantee outcomes, replace licensed professionals, autonomous high-risk transactions, irresponsible behavior.
+
+Categories: Personal · Family · Business · Executive finance
+Profile: goals, reminders, budget categories, planning horizons, responsibilities, approval preferences
+
+Insights: Increase awareness — never fear.
+Planning: savings milestones, budget reviews, tax prep, meeting prep, annual reviews
+Actions: Reminders · Print summaries · Checklists · Accountant meetings · Documentation · Reports — approval required.
+
+Accounting integrations (future): Fiken, business systems — visibility only, not replacement.
+Guardrails cross-link: Phase 296 spending awareness, budget notifications, approvals, threshold alerts.
+
+Privacy: Protect financial info · Minimal data · Deletion · Organizational policies · Transparency
+User control: categories, frequency, visibility, approvals, notification sensitivity
+
+Design: Calm · Human-centered · Governance-first · Companion-driven · Privacy-focused · Enterprise-ready
+Vision: Awareness, preparation, intentional choices — organized and confident financial responsibilities.
+
+Distinct from Financial Guardrails Phase 296 (enforcement) — Finance Companion is awareness and organization.
+People First. Growth Partner — never Affiliate.

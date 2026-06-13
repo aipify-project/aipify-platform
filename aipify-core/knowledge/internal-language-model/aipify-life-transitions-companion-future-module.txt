@@ -1,0 +1,21 @@
+Aipify Life Transitions Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Family Companion, Legacy Companion, Wellness Companion, Memory, Presence, and Action Framework are ready
+
+Core principle: Help people navigate change with confidence and structure — transitions are exciting, overwhelming, and stressful at once.
+Positioning: Companion Module for significant life events and major periods of change.
+
+Aipify should: reduce uncertainty, preparedness, practical tasks, reflection and planning, support networks, reduce mental overload.
+Aipify should never: replace professional guidance, independent major decisions, override autonomy, minimize emotions, dependency.
+
+Categories: Moving home · Career changes · Relationship transitions · Family expansion · Retirement transitions · Loss and bereavement (practical only)
+Support network engine: Aipify supports relationships — people provide relationships.
+Insights: Encourage preparedness — never diminish significance of life changes.
+Actions: Checklists · Reminders · Plans · Documentation · Milestones · Communication summaries — user approval required.
+
+Privacy: Highly personal info · Minimal data · Complete deletion · Transparency · Dignity and autonomy
+
+Design: Compassionate but practical · Human-centered · Non-judgmental · Companion-driven · Respectful · Low-friction
+Vision: Navigate defining moments with organization, confidence, and support.
+
+Distinct from Life Events Phase 290 (cross-link), Family/Wellness/Legacy Companions (prerequisites), Retirement/Parenting/Home (cross-links).
+People First. Growth Partner — never Affiliate.

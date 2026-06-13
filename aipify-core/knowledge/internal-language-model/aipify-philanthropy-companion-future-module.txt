@@ -1,0 +1,21 @@
+Aipify Philanthropy Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Purpose Companion, Family Companion, Legacy Companion, Memory, Presence, and Action Framework are ready
+
+Core principle: Help people contribute with greater intention — not greater pressure.
+Positioning: Companion Module for charitable activities, volunteering, impact planning, and community contribution.
+
+Aipify should: thoughtful generosity, charitable planning, volunteering coordination, values-aligned giving, celebrate contributions, impact awareness.
+Aipify should never: pressure to donate, judge contribution levels, political agendas, donations without approval, emotional manipulation.
+
+Categories: Charitable giving · Volunteering · Family giving · Corporate social impact · Personal causes
+Impact reflection engine: Celebrate impact — avoid self-congratulation or pressure.
+Insights: Inspire reflection — never guilt.
+Actions: Volunteer reminders · Event materials · Records · Checklists · Summaries · Planning sessions — explicit approval required.
+
+Privacy: Charitable privacy · No public disclosure without consent · Minimal data · Complete deletion · User autonomy
+
+Design: Warm · Human-centered · Values-driven · Companion-focused · Non-judgmental · Respectful of choice
+Vision: Give with purpose, contribute with intention, strengthen values passed forward.
+
+Distinct from Purpose/Family/Legacy Companions (prerequisites), Community Companion (cross-link), Finance Companion (donation awareness only).
+People First. Growth Partner — never Affiliate.

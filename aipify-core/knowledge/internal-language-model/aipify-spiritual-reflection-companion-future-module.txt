@@ -1,0 +1,22 @@
+Aipify Spiritual & Reflection Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Purpose Companion, Legacy Companion, Wellness Companion, Memory, and Presence are ready
+
+Core principle: Support stillness and reflection without defining what they should look like.
+Positioning: Companion Module for gratitude, contemplation, mindfulness, and spiritual growth per user beliefs.
+
+Aipify should: reflection, mindfulness routines, meaningful rituals, gratitude, intentional living, respect diverse paths.
+Aipify should never: promote religions, challenge beliefs, spiritual guidance beyond user boundaries, judge beliefs, dependency.
+
+Categories: Mindfulness · Gratitude · Spiritual practices · Personal meaning · Community and connection
+Reflection prompts: Invite reflection — never prescribe answers.
+Insights: Encourage awareness — never guilt.
+Actions: Reflection sessions · Gratitude journals · Ritual reminders · Prompts · Summaries · Quiet time — user approval required.
+
+Belief respect: Lawful belief systems · No theological interpretation · Secular and spiritual equally · Neutral · User autonomy
+Privacy: Protect personal reflections · Minimal data · Complete deletion · Transparency · Confidentiality
+
+Design: Calm · Thoughtful · Human-centered · Respectful · Non-judgmental · Companion-driven · Low-pressure
+Vision: Support pause, reflection, and reconnection with respect, warmth, and humility.
+
+Distinct from Purpose/Wellness/Legacy Companions (prerequisites), Philanthropy Companion (cross-link).
+People First. Growth Partner — never Affiliate.

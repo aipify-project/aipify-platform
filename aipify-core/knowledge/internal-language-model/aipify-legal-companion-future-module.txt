@@ -1,0 +1,22 @@
+Aipify Legal Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Governance, Memory, Presence, Document Management, and Action Framework are ready
+
+Core principle: Improve legal preparedness and organization — never replace legal advice.
+Positioning: Companion Module for contracts, deadlines, renewals, and legal responsibilities.
+
+Aipify should: organize legal info, reminders, document prep workflows, obligation awareness, reduce admin stress, encourage professional consultation.
+Aipify should never: legal advice, definitive law interpretation, replace attorneys, represent users, independent legal decisions.
+
+Categories: Personal legal · Business legal · Executive legal
+Insights: Encourage preparation — never legal conclusions.
+Professional network: Lawyers remain responsible for legal advice.
+Actions: Reminders · Checklists · Documentation · Meetings · Summaries · Task lists — approval required.
+
+Privacy: Protect legal info · Minimal data · Complete deletion · Confidentiality · Transparency
+Ethics: Encourage consultation · Avoid overconfidence · Clear limitations · User autonomy · Informed decisions
+
+Design: Professional · Human-centered · Governance-first · Privacy-focused · Companion-driven · Enterprise-ready
+Vision: Stay organized, prepared, and confident alongside qualified legal professionals.
+
+Distinct from Document Intelligence Phase 230 (prerequisite), Finance Companion, Governance Center (cross-links).
+People First. Growth Partner — never Affiliate.

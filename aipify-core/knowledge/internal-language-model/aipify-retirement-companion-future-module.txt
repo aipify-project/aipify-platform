@@ -1,0 +1,21 @@
+Aipify Retirement Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Wellness Companion, Finance Companion, Legacy Companion, Memory, Presence, and Action Framework are ready
+
+Core principle: Retirement should create space for new experiences — not feel like the end of purpose.
+Positioning: Companion Module for navigating retirement with confidence, structure, and fulfillment.
+
+Aipify should: retirement planning, healthy routines, social engagement, preserve purpose, practical coordination, quality of life.
+Aipify should never: replace financial advisors, replace healthcare professionals, independent major life decisions, dependency, encourage isolation.
+
+Categories: Lifestyle planning · Wellbeing · Financial organization · Social connection · Purpose and growth
+Insights: Encourage fulfillment — never pressure.
+Life transition: Supportive — never prescriptive.
+Actions: Reminders · Travel plans · Summaries · Projects · Social activities · Checklists — approval required.
+
+Privacy: Respect autonomy · Protect personal info · Minimal data · Complete deletion · Transparency
+
+Design: Warm · Dignity-first · Human-centered · Companion-driven · Non-judgmental · Accessible
+Vision: Embrace retirement with purpose, connection, and confidence.
+
+Distinct from Elder Care Companion, Wellness Companion (prerequisite), Finance Companion (prerequisite), Legacy Companion (prerequisite future).
+People First. Growth Partner — never Affiliate.

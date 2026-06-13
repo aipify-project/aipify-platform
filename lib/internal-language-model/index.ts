@@ -286,12 +286,24 @@ export * from "./implementation-blueprint-phase295-vocabulary";
 export * from "./implementation-blueprint-phase296-vocabulary";
 export * from "./aipify-match-companion-future-vocabulary";
 export * from "./aipify-family-companion-future-vocabulary";
+export * from "./aipify-parenting-companion-future-vocabulary";
 export * from "./aipify-wellness-companion-future-vocabulary";
 export * from "./aipify-education-companion-future-vocabulary";
 export * from "./aipify-elder-care-companion-future-vocabulary";
 export * from "./aipify-pet-companion-future-vocabulary";
 export * from "./aipify-home-companion-future-vocabulary";
 export * from "./aipify-community-companion-future-vocabulary";
+export * from "./aipify-travel-companion-future-vocabulary";
+export * from "./aipify-finance-companion-future-vocabulary";
+export * from "./aipify-legal-companion-future-vocabulary";
+export * from "./aipify-entrepreneur-companion-future-vocabulary";
+export * from "./aipify-retirement-companion-future-vocabulary";
+export * from "./aipify-purpose-companion-future-vocabulary";
+export * from "./aipify-philanthropy-companion-future-vocabulary";
+export * from "./aipify-spiritual-reflection-companion-future-vocabulary";
+export * from "./aipify-life-transitions-companion-future-vocabulary";
+export * from "./aipify-volunteer-service-companion-future-vocabulary";
+export * from "./aipify-sustainability-companion-future-vocabulary";
 export * from "./implementation-blueprint-phase270-vocabulary";
 export * from "./implementation-blueprint-phase269-vocabulary";
 export * from "./implementation-blueprint-phase219-vocabulary";
@@ -1100,6 +1112,8 @@ export const AIPIFY_MATCH_COMPANION_FUTURE_CORPUS =
   "aipify-core/knowledge/internal-language-model/aipify-match-companion-future-module.txt";
 export const AIPIFY_FAMILY_COMPANION_FUTURE_CORPUS =
   "aipify-core/knowledge/internal-language-model/aipify-family-companion-future-module.txt";
+export const AIPIFY_PARENTING_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-parenting-companion-future-module.txt";
 export const AIPIFY_WELLNESS_COMPANION_FUTURE_CORPUS =
   "aipify-core/knowledge/internal-language-model/aipify-wellness-companion-future-module.txt";
 export const AIPIFY_EDUCATION_COMPANION_FUTURE_CORPUS =
@@ -1112,6 +1126,28 @@ export const AIPIFY_HOME_COMPANION_FUTURE_CORPUS =
   "aipify-core/knowledge/internal-language-model/aipify-home-companion-future-module.txt";
 export const AIPIFY_COMMUNITY_COMPANION_FUTURE_CORPUS =
   "aipify-core/knowledge/internal-language-model/aipify-community-companion-future-module.txt";
+export const AIPIFY_TRAVEL_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-travel-companion-future-module.txt";
+export const AIPIFY_FINANCE_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-finance-companion-future-module.txt";
+export const AIPIFY_LEGAL_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-legal-companion-future-module.txt";
+export const AIPIFY_ENTREPRENEUR_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-entrepreneur-companion-future-module.txt";
+export const AIPIFY_RETIREMENT_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-retirement-companion-future-module.txt";
+export const AIPIFY_PURPOSE_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-purpose-companion-future-module.txt";
+export const AIPIFY_PHILANTHROPY_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-philanthropy-companion-future-module.txt";
+export const AIPIFY_SPIRITUAL_REFLECTION_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-spiritual-reflection-companion-future-module.txt";
+export const AIPIFY_LIFE_TRANSITIONS_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-life-transitions-companion-future-module.txt";
+export const AIPIFY_VOLUNTEER_SERVICE_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-volunteer-service-companion-future-module.txt";
+export const AIPIFY_SUSTAINABILITY_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-sustainability-companion-future-module.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE270_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase270-aipify-enterprise-collective-intelligence.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE269_CORPUS =

@@ -1,0 +1,22 @@
+Aipify Purpose Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Wellness Companion, Legacy Companion, Family Companion, Memory, Presence, and Reflection foundations are ready
+
+Core principle: Help people remember why they are doing what they are doing — productivity without purpose leads to emptiness.
+Positioning: Companion Module for values, meaningful goals, and alignment with long-term intentions.
+
+Aipify should: intentional living, meaningful goals, values alignment, reflection, celebrate progress, reconnect with what matters.
+Aipify should never: define purpose, impose beliefs, judge life choices, emotional dependency, replace counseling.
+
+Categories: Personal values · Life goals · Relationships · Growth · Contribution
+Reflection prompts: Encourage self-discovery — never prescribe answers.
+Life alignment engine: Informative — not judgmental.
+Insights: Support awareness — never guilt.
+Actions: Reflection sessions · Goal summaries · Planning exercises · Reviews · Reminders · Reports — user approval required.
+
+Privacy: Respect deeply personal info · Minimal data · Complete deletion · Transparency · User autonomy
+
+Design: Warm · Thoughtful · Human-centered · Non-judgmental · Companion-driven · Respectful · Low-pressure
+Vision: Live in greater alignment with values, relationships, and aspirations that give life meaning.
+
+Distinct from Goals & Dreams Engine (cross-link), Wellness/Family/Legacy Companions (prerequisites), Retirement Companion.
+People First. Growth Partner — never Affiliate.

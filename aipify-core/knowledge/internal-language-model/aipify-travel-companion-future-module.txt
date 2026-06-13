@@ -1,0 +1,26 @@
+Aipify Travel Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Action Marketplace, Financial Guardrails, Memory, Presence, and Governance are ready
+
+Core principle: Travel should feel exciting and productive — not stressful and overwhelming.
+Positioning: Companion Module for travel planning, preparation, and logistics with confidence.
+
+Aipify should: coordinate planning, reduce stress, improve preparedness, itinerary management, simplify logistics, travel awareness.
+Aipify should never: unauthorized bookings, replace travel professionals, override approval policies, assume preferences without validation, unnecessary spending.
+
+Categories: Personal · Business · Group travel
+Profile: airlines, seats, hotels, documents checklist, notifications, loyalty memberships
+Preparation: passport, visa, packing, weather, currency, transportation
+
+Insights: Encourage preparedness — never anxiety.
+Actions: Taxi · Checklists · Print itineraries · Documents · Reminders · Approved reservations — approval required.
+Business: meeting prep, executive coordination, expense reminders, team travel, conference checklists
+Safety: emergency contacts, document backup, family notification, health prep — human-led safety decisions
+
+User control: preferences, approvals, notification timing, involvement, booking permissions
+Organizational control: approved providers, spending thresholds, executive approvals, policies, department restrictions
+
+Design: Calm · Human-centered · Companion-driven · Practical · Enterprise-ready · Low friction
+Vision: Focus on the journey — not logistics worry.
+
+Distinct from Action Marketplace Phase 293, Financial Guardrails Phase 296, Family Companion, Context Engine (cross-links only).
+People First. Growth Partner — never Affiliate.

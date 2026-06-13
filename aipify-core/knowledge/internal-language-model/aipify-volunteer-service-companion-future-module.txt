@@ -1,0 +1,22 @@
+Aipify Volunteer & Service Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Community Companion, Purpose Companion, Philanthropy Companion, Memory, Presence, and Action Framework are ready
+
+Core principle: Remove friction from doing good — coordination and consistency, not pressure.
+Positioning: Companion Module for volunteers, community leaders, and organizations creating positive impact.
+
+Aipify should: coordinate activities, strengthen participation, reduce admin burden, celebrate contributions, improve communication, sustainable involvement.
+Aipify should never: pressure to volunteer, judge contribution levels, replace human leadership, manipulate emotions, dependency.
+
+Categories: Community service · Skills-based volunteering · Organizational volunteering · Family volunteering
+Volunteer recognition: Authentic celebration — avoid gamification undermining intrinsic motivation.
+Insights: Encourage awareness — never guilt.
+Actions: Reminders · Schedules · Checklists · Records · Follow-ups · Summaries — user approval required.
+Organizations remain responsible for volunteer leadership.
+
+Privacy: Participation privacy · No public disclosure without consent · Minimal data · Complete deletion · Autonomy
+
+Design: Warm · Community-centered · Human-first · Companion-driven · Non-judgmental · Respectful of choice
+Vision: Coordinate acts of service with ease, sustainability, and impact.
+
+Distinct from Community/Purpose/Philanthropy Companions (prerequisites), Family Companion (cross-link).
+People First. Growth Partner — never Affiliate.

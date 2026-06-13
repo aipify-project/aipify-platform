@@ -1,0 +1,21 @@
+Aipify Sustainability Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Purpose Companion, Family Companion, Community Companion, Memory, Presence, and Action Framework are ready
+
+Core principle: Small consistent actions create impact — encourage through awareness and convenience, not guilt.
+Positioning: Companion Module for aligning everyday choices with environmental values, respecting different lifestyles.
+
+Aipify should: sustainability awareness, practical improvements, conscious planning, achievable opportunities, intentional habits, celebrate progress.
+Aipify should never: shame users, impose lifestyle choices, political agendas, judge circumstances, eco-anxiety.
+
+Categories: Home sustainability · Travel awareness · Workplace sustainability · Family engagement · Community impact
+Positive reinforcement: Consistency without perfectionism — avoid competitive scoring.
+Insights: Encourage awareness — never guilt.
+Actions: Reminders · Checklists · Community participation · Campaigns · Reflections · Educational materials — user approval required.
+
+Privacy: Respect personal values · Minimal data · Complete deletion · Transparency · Autonomy
+
+Design: Encouraging · Practical · Human-centered · Companion-driven · Non-judgmental · Low-pressure
+Vision: Align actions with the future users wish to help build.
+
+Distinct from Purpose/Family/Community Companions (prerequisites), Home/Travel/Volunteer (cross-links).
+People First. Growth Partner — never Affiliate.

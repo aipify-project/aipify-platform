@@ -1,0 +1,21 @@
+Aipify Entrepreneur Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Executive Companion, Finance Companion, Wellness Companion, Memory, Presence, and Action Framework are ready
+
+Core principle: Help founders think clearly and focus on what moves the business forward — never replace leadership judgment.
+Positioning: Companion Module for founders navigating growth, uncertainty, and competing priorities.
+
+Aipify should: prioritize effectively, reduce cognitive overload, coordinate operations, surface commitments, strategic thinking, healthier work habits.
+Aipify should never: replace leadership judgment, independent strategic decisions, encourage burnout, override owners, create dependency.
+
+Categories: Operations · Growth · Customer relationships · Financial organization · Personal balance
+Insights: Promote awareness — never guilt.
+Self-love: Supportive — never patronizing.
+Actions: Summaries · Plans · Emails · Meetings · Reminders · Checklists — approval required.
+
+Privacy: Protect business info · Confidentiality · Minimal data · Complete deletion · Transparency
+
+Design: Professional · Human-centered · Entrepreneur-focused · Companion-driven · Non-judgmental · Enterprise-ready
+Vision: Build sustainable businesses without sacrificing founders in the process.
+
+Distinct from Executive Companion (prerequisite), Finance Companion, Wellness Companion (cross-links), Executive Insights Engine A.35.
+People First. Growth Partner — never Affiliate.
