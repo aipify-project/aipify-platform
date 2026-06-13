@@ -1,0 +1,1 @@
+export { AipifyInstallDiscoveryPanel } from "./AipifyInstallDiscoveryPanel";

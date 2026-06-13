@@ -101,6 +101,7 @@ export type AppNavId =
   | "aipifyExecutiveOperatingSystemFoundersCockpitEngine"
   | "aipifyKnowledgeDiscoveryIntelligentSearchEngine"
   | "aipifyActionCenterExecutionEngine"
+  | "aipifyEnterpriseCommitmentAccountabilityEngine"
   | "aipifyOperationsOrchestrationEngine"
   | "aipifyResourceCapacityWorkloadBalanceEngine"
   | "aipifyDecisionCenterGovernanceEngine"
@@ -135,11 +136,18 @@ export type AppNavId =
   | "aipifyEnterpriseOrganizationalAdaptabilityEngine"
   | "aipifyEnterpriseAutonomousCoordinationEngine"
   | "aipifyEnterpriseExecutiveCopilotEngine"
+  | "aipifyEnterpriseOrganizationalFocusEngine"
+  | "aipifyEnterpriseExecutionConfidenceEngine"
+  | "aipifyEnterpriseOrganizationalWisdomEngine"
+  | "aipifyEnterpriseLegacyStewardshipEngine"
+  | "aipifyEnterpriseOrganizationalConsciousnessEngine"
   | "aipifyEnterpriseOrganizationalEnergyEngine"
   | "aipifyEnterpriseCollectiveIntelligenceEngine"
   | "aipifyEnterpriseFutureReadinessEngine"
   | "aipifyEnterprisePurposeValuesAlignmentEngine"
   | "aipifyEnterpriseOrganizationalClarityEngine"
+  | "aipifyEnterpriseOrganizationalSimplicityEngine"
+  | "aipifyEnterpriseOrganizationalTrustEngine"
   | "aipifyWellbeingSustainablePerformanceEngine"
   | "aipifyTalentAcquisitionWorkforcePlanningEngine"
   | "aipifyPerformanceGoalAlignmentEngine"
@@ -724,6 +732,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.aipifyActionCenterExecutionEngine",
   },
   {
+    id: "aipifyEnterpriseCommitmentAccountabilityEngine",
+    href: "/app/aipify-enterprise-commitment-accountability-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseCommitmentAccountabilityEngine",
+  },
+  {
     id: "aipifyOperationsOrchestrationEngine",
     href: "/app/aipify-operations-orchestration-engine",
     labelKey: "customerApp.nav.aipifyOperationsOrchestrationEngine",
@@ -904,6 +917,31 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.aipifyEnterpriseExecutiveCopilotEngine",
   },
   {
+    id: "aipifyEnterpriseOrganizationalFocusEngine",
+    href: "/app/aipify-enterprise-organizational-focus-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseOrganizationalFocusEngine",
+  },
+  {
+    id: "aipifyEnterpriseExecutionConfidenceEngine",
+    href: "/app/aipify-enterprise-execution-confidence-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseExecutionConfidenceEngine",
+  },
+  {
+    id: "aipifyEnterpriseOrganizationalWisdomEngine",
+    href: "/app/aipify-enterprise-organizational-wisdom-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseOrganizationalWisdomEngine",
+  },
+  {
+    id: "aipifyEnterpriseLegacyStewardshipEngine",
+    href: "/app/aipify-enterprise-legacy-stewardship-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseLegacyStewardshipEngine",
+  },
+  {
+    id: "aipifyEnterpriseOrganizationalConsciousnessEngine",
+    href: "/app/aipify-enterprise-organizational-consciousness-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseOrganizationalConsciousnessEngine",
+  },
+  {
     id: "aipifyEnterpriseOrganizationalEnergyEngine",
     href: "/app/aipify-enterprise-organizational-energy-engine",
     labelKey: "customerApp.nav.aipifyEnterpriseOrganizationalEnergyEngine",
@@ -927,6 +965,16 @@ export const APP_NAV: AppNavItem[] = [
     id: "aipifyEnterpriseOrganizationalClarityEngine",
     href: "/app/aipify-enterprise-organizational-clarity-engine",
     labelKey: "customerApp.nav.aipifyEnterpriseOrganizationalClarityEngine",
+  },
+  {
+    id: "aipifyEnterpriseOrganizationalSimplicityEngine",
+    href: "/app/aipify-enterprise-organizational-simplicity-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseOrganizationalSimplicityEngine",
+  },
+  {
+    id: "aipifyEnterpriseOrganizationalTrustEngine",
+    href: "/app/aipify-enterprise-organizational-trust-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseOrganizationalTrustEngine",
   },
   {
     id: "aipifyEmployeeGrowthCareerDevelopmentEngine",
@@ -1785,6 +1833,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/aipify-action-center-execution-engine")) {
     return "aipifyActionCenterExecutionEngine";
   }
+  if (pathname.startsWith("/app/aipify-enterprise-commitment-accountability-engine")) {
+    return "aipifyEnterpriseCommitmentAccountabilityEngine";
+  }
   if (pathname.startsWith("/app/aipify-operations-orchestration-engine")) {
     return "aipifyOperationsOrchestrationEngine";
   }
@@ -1893,6 +1944,21 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/aipify-enterprise-executive-copilot-engine")) {
     return "aipifyEnterpriseExecutiveCopilotEngine";
   }
+  if (pathname.startsWith("/app/aipify-enterprise-organizational-focus-engine")) {
+    return "aipifyEnterpriseOrganizationalFocusEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-execution-confidence-engine")) {
+    return "aipifyEnterpriseExecutionConfidenceEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-organizational-wisdom-engine")) {
+    return "aipifyEnterpriseOrganizationalWisdomEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-legacy-stewardship-engine")) {
+    return "aipifyEnterpriseLegacyStewardshipEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-organizational-consciousness-engine")) {
+    return "aipifyEnterpriseOrganizationalConsciousnessEngine";
+  }
   if (pathname.startsWith("/app/aipify-enterprise-organizational-energy-engine")) {
     return "aipifyEnterpriseOrganizationalEnergyEngine";
   }
@@ -1907,6 +1973,12 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/aipify-enterprise-organizational-clarity-engine")) {
     return "aipifyEnterpriseOrganizationalClarityEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-organizational-simplicity-engine")) {
+    return "aipifyEnterpriseOrganizationalSimplicityEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-organizational-trust-engine")) {
+    return "aipifyEnterpriseOrganizationalTrustEngine";
   }
   if (pathname.startsWith("/app/aipify-employee-growth-career-development-engine")) {
     return "aipifyEmployeeGrowthCareerDevelopmentEngine";

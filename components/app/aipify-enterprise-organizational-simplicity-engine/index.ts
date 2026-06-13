@@ -1,0 +1,1 @@
+export { AipifyEnterpriseOrganizationalSimplicityEngineDashboardPanel } from "./AipifyEnterpriseOrganizationalSimplicityEngineDashboardPanel";

@@ -38,7 +38,8 @@
     "actions": "Action Center",
     "skills": "Skills",
     "languageCenter": "Sprogcenter",
-    "executive": "Executive Center"
+    "executive": "Executive Center",
+    "pilotOperations": "Customer Zero-center"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -198,13 +199,30 @@
     "website": "Website",
     "enterprise": "Enterprise",
     "workspaceTypeLabels": {
-      "company": "Virksomhed", "growth_partner": "Growth Partner", "consultant": "Konsulent",
-      "freelancer": "Freelancer", "internal_team_pilot": "Intern pilot"
+      "company": "Virksomhed",
+      "growth_partner": "Growth Partner",
+      "consultant": "Konsulent",
+      "freelancer": "Freelancer",
+      "internal_team_pilot": "Intern pilot"
     },
-    "verificationLabels": { "pending": "Afventer", "verified": "Verificeret", "rejected": "Afvist" },
-    "twoFactorLabels": { "enabled": "Aktiveret", "skipped": "Sprunget over", "not_enabled": "Ikke aktiveret" },
-    "growthPartnerLabels": { "eligible": "Kvalificeret", "standard": "Standard" },
-    "enterpriseLabels": { "yes": "Ja", "no": "Nej" }
+    "verificationLabels": {
+      "pending": "Afventer",
+      "verified": "Verificeret",
+      "rejected": "Afvist"
+    },
+    "twoFactorLabels": {
+      "enabled": "Aktiveret",
+      "skipped": "Sprunget over",
+      "not_enabled": "Ikke aktiveret"
+    },
+    "growthPartnerLabels": {
+      "eligible": "Kvalificeret",
+      "standard": "Standard"
+    },
+    "enterpriseLabels": {
+      "yes": "Ja",
+      "no": "Nej"
+    }
   },
   "customerDetail": {
     "back": "Back to customers",
@@ -632,20 +650,76 @@
     "loading": "Indlæser Trust Center…",
     "openDomain": "Åbn",
     "accessDenied": "Dette styringsarbejdsområde er ikke tilgængeligt for din platformrolle.",
-    "nav": { "overview": "Oversigt", "domains": "Styringsdomæner", "security": "Sikkerhed", "privacy": "Privatliv", "actions": "Handlinger", "audit": "Revision" },
-    "kpis": { "trustScore": "Tillidsscore", "modulesActive": "Aktive styringsmoduler", "pendingReviews": "Afventende gennemgange", "securityExceptions": "Sikkerhedsundtagelser", "scoreHint": "Aggregeret platformforvaltningssignal" },
-    "status": { "active": "Aktiv", "attention": "Kræver opmærksomhed" },
+    "nav": {
+      "overview": "Oversigt",
+      "domains": "Styringsdomæner",
+      "security": "Sikkerhed",
+      "privacy": "Privatliv",
+      "actions": "Handlinger",
+      "audit": "Revision"
+    },
+    "kpis": {
+      "trustScore": "Tillidsscore",
+      "modulesActive": "Aktive styringsmoduler",
+      "pendingReviews": "Afventende gennemgange",
+      "securityExceptions": "Sikkerhedsundtagelser",
+      "scoreHint": "Aggregeret platformforvaltningssignal"
+    },
+    "status": {
+      "active": "Aktiv",
+      "attention": "Kræver opmærksomhed"
+    },
     "domains": {
-      "identity": { "title": "Identitetsstyring", "description": "Kommunikationsstil, hukommelsesstyring og identitetstilpasning.", "stat": "Identitetsprofiler" },
-      "decisions": { "title": "Beslutningsstyring", "description": "Beslutningsstøtte, konfidens og menneskelig godkendelse.", "stat": "Afventende anbefalinger" },
-      "knowledge": { "title": "Videnstyring", "description": "Medarbejderviden, Business DNA og support.", "stat": "Godkendte videnelementer" },
-      "goals": { "title": "Målstyring", "description": "Ambitioner, milepæle og målforvaltning.", "stat": "Aktive mål" },
-      "life": { "title": "Livsstyring", "description": "LifeOS og opmærksomhedsbeskyttelse.", "stat": "Life-aktiverede tenants" },
-      "relationships": { "title": "Relationsstyring", "description": "Relationsintelligens og social forvaltning.", "stat": "Registrerede personer" },
-      "actions": { "title": "Handlingsstyring", "description": "Tillidshandlinger, autonom udførelse og godkendelse.", "stat": "Afventende godkendelser" },
-      "commercial": { "title": "Kommerciel styring", "description": "Pakkelicensering og modulaktivering.", "stat": "Licenserede moduler" },
-      "security": { "title": "Sikkerhedsstyring", "description": "Sikkerhedsfundament, revision og skill-gennemgang.", "stat": "Revisionshændelser" },
-      "privacy": { "title": "Privatlivsstyring", "description": "Dataejerskab, minimering og hukommelsesprivatliv.", "stat": "Hukommelses-aktiverede tenants" }
+      "identity": {
+        "title": "Identitetsstyring",
+        "description": "Kommunikationsstil, hukommelsesstyring og identitetstilpasning.",
+        "stat": "Identitetsprofiler"
+      },
+      "decisions": {
+        "title": "Beslutningsstyring",
+        "description": "Beslutningsstøtte, konfidens og menneskelig godkendelse.",
+        "stat": "Afventende anbefalinger"
+      },
+      "knowledge": {
+        "title": "Videnstyring",
+        "description": "Medarbejderviden, Business DNA og support.",
+        "stat": "Godkendte videnelementer"
+      },
+      "goals": {
+        "title": "Målstyring",
+        "description": "Ambitioner, milepæle og målforvaltning.",
+        "stat": "Aktive mål"
+      },
+      "life": {
+        "title": "Livsstyring",
+        "description": "LifeOS og opmærksomhedsbeskyttelse.",
+        "stat": "Life-aktiverede tenants"
+      },
+      "relationships": {
+        "title": "Relationsstyring",
+        "description": "Relationsintelligens og social forvaltning.",
+        "stat": "Registrerede personer"
+      },
+      "actions": {
+        "title": "Handlingsstyring",
+        "description": "Tillidshandlinger, autonom udførelse og godkendelse.",
+        "stat": "Afventende godkendelser"
+      },
+      "commercial": {
+        "title": "Kommerciel styring",
+        "description": "Pakkelicensering og modulaktivering.",
+        "stat": "Licenserede moduler"
+      },
+      "security": {
+        "title": "Sikkerhedsstyring",
+        "description": "Sikkerhedsfundament, revision og skill-gennemgang.",
+        "stat": "Revisionshændelser"
+      },
+      "privacy": {
+        "title": "Privatlivsstyring",
+        "description": "Dataejerskab, minimering og hukommelsesprivatliv.",
+        "stat": "Hukommelses-aktiverede tenants"
+      }
     },
     "pageSubtitles": {
       "identity": "Identity Engine og assistenthukommelse — kun aggregater.",
@@ -659,10 +733,18 @@
       "security": "Sikkerhedsfundament og platformansvar.",
       "privacy": "Tillidsarkitektur, dataejerskab og privatliv."
     },
-    "securityDetail": { "title": "Sikkerhedsfundament", "subtitle": "Lagringskategorier, adgangsniveauer og uforanderlig revision." },
+    "securityDetail": {
+      "title": "Sikkerhedsfundament",
+      "subtitle": "Lagringskategorier, adgangsniveauer og uforanderlig revision."
+    },
     "privacyDetail": {
       "responsibility": "Kunden ejer dataene. Aipify ejer intelligenslaget — metadata først.",
-      "areas": { "dataMinimization": "Dataminimering som standard", "customerOwnership": "Transparens om kundedataejerskab", "metadataOnly": "Metadata-grænser for læring", "regulatoryCompliance": "Overholdelse af privatlivsregler" }
+      "areas": {
+        "dataMinimization": "Dataminimering som standard",
+        "customerOwnership": "Transparens om kundedataejerskab",
+        "metadataOnly": "Metadata-grænser for læring",
+        "regulatoryCompliance": "Overholdelse af privatlivsregler"
+      }
     },
     "audit": {
       "title": "Revision",
@@ -675,6 +757,8 @@
       "immutableNote": "Tillidsrevisionshændelser er uforanderlige."
     }
   },
+  "impact": {
+    "title": "Anonymiserede effektmålinger",
     "subtitle": "Dokumenter operationel værdi på tværs af lejere uden at lagre følsomme forretningsdata.",
     "loading": "Indlæser effektmålinger...",
     "empty": "Ingen anonymiserede effektmålinger registreret endnu.",
@@ -813,10 +897,18 @@
       "versions": "Udgivne versioner",
       "installs": "Tenant-installationer"
     },
-    "status": { "title": "Skills efter status" },
-    "category": { "title": "Skills efter kategori" },
-    "pipeline": { "title": "Intern valideringspipeline" },
-    "codeRegistry": { "title": "Koderegister (Fase 16)" },
+    "status": {
+      "title": "Skills efter status"
+    },
+    "category": {
+      "title": "Skills efter kategori"
+    },
+    "pipeline": {
+      "title": "Intern valideringspipeline"
+    },
+    "codeRegistry": {
+      "title": "Koderegister (Fase 16)"
+    },
     "areas": {
       "registry": "Skill-register",
       "governance": "Skill-styring",
@@ -1531,5 +1623,39 @@
       }
     },
     "presence": "Aipify Presence"
+  },
+  "customerZero": {
+    "title": "Customer Zero-center",
+    "subtitle": "Unonight is Aipify's first operational environment — learn, validate, measure value, and improve before external expansion.",
+    "loading": "Loading Customer Zero Center…",
+    "corePrinciple": "Core principle",
+    "customerZeroPrinciple": "Customer Zero principle",
+    "readinessTitle": "Readiness dashboard",
+    "sourcesTitle": "Learning sources",
+    "discoverSources": "Discover sources",
+    "discovering": "Discovering…",
+    "pilotLevelTitle": "Pilot capability level",
+    "recommendationsTitle": "Pending recommendations",
+    "noRecommendations": "No pending recommendations — observation phase active.",
+    "approve": "Approve",
+    "reject": "Reject",
+    "valueTitle": "Value tracking",
+    "expansionTitle": "Expansion gate",
+    "auditTitle": "Pilot audit trail",
+    "noAudit": "No pilot events recorded yet.",
+    "gateStatus": "Gate status",
+    "privacyNote": "Metadata only — no customer operational content, email, chat, or order data.",
+    "pilotLevels": {
+      "observe": "Observe",
+      "recommend": "Recommend",
+      "assist": "Assist",
+      "execute": "Execute"
+    },
+    "readinessStates": {
+      "learning": "Learning",
+      "partiallyReady": "Partially Ready",
+      "readyToAssist": "Ready to Assist",
+      "readyToExecute": "Ready to Execute"
+    }
   }
 }

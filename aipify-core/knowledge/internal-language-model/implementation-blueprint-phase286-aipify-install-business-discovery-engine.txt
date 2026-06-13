@@ -1,0 +1,14 @@
+ABOS Phase 286 — Aipify Install & Business Discovery Engine
+Route: /app/onboarding/aipify-install
+Module: Aipify Install
+Location: Onboarding Center → Aipify Install
+
+Core principle: Do not force organizations to teach Aipify everything manually.
+Philosophy: "I will understand how your business works."
+Discovery phases: 1 Profile · 2 Systems · 3 Knowledge · 4 Workflows · 5 Actions · 6 People · 7 Readiness
+Readiness: Not Ready · Learning · Partially Ready · Ready to Assist · Ready to Execute
+Continuous learning: Discovery is not one-time — it continues after installation.
+Governance: Explicit permissions, data minimization, audit logging.
+Helpers: _abde_* · _abdebp286_*
+Extends Install Engine A.22 and Phase 29 AI Install & Discovery.
+People First. Growth Partner — never Affiliate.

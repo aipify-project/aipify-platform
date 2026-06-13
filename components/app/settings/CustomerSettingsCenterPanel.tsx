@@ -51,6 +51,8 @@ type CustomerSettingsCenterPanelProps = {
       assistantIdentity: string;
       companionPresence: string;
       twoFactor: string;
+      devicesPrinters: string;
+      actionAccess: string;
     };
   };
 };
@@ -209,6 +211,12 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
         </Link>
         <Link href="/app/settings/quality" className="block text-indigo-600 hover:underline">
           {labels.links.quality}
+        </Link>
+        <Link href="/app/settings/action-access" className="block text-indigo-600 hover:underline">
+          {labels.links.actionAccess}
+        </Link>
+        <Link href="/app/settings/devices" className="block text-indigo-600 hover:underline">
+          {labels.links.devicesPrinters}
         </Link>
         <Link href="/app/settings/two-factor" className="block text-indigo-600 hover:underline">
           {labels.links.twoFactor}

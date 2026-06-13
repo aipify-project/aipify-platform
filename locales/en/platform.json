@@ -39,7 +39,8 @@
     "skills": "Skills",
     "languageCenter": "Language Center",
     "executive": "Executive Center",
-    "system": "System status"
+    "system": "System status",
+    "pilotOperations": "Customer Zero Center"
   },
   "executive": {
     "title": "Executive Center",
@@ -1087,10 +1088,18 @@
       "versions": "Released versions",
       "installs": "Tenant installations"
     },
-    "status": { "title": "Skills by status" },
-    "category": { "title": "Skills by category" },
-    "pipeline": { "title": "Internal validation pipeline" },
-    "codeRegistry": { "title": "Code registry (Phase 16)" },
+    "status": {
+      "title": "Skills by status"
+    },
+    "category": {
+      "title": "Skills by category"
+    },
+    "pipeline": {
+      "title": "Internal validation pipeline"
+    },
+    "codeRegistry": {
+      "title": "Code registry (Phase 16)"
+    },
     "areas": {
       "registry": "Skill Registry",
       "governance": "Skill Governance",
@@ -1988,5 +1997,39 @@
     "mode": "Mode",
     "on": "On",
     "off": "Off"
+  },
+  "customerZero": {
+    "title": "Customer Zero Center",
+    "subtitle": "Unonight is Aipify's first operational environment — learn, validate, measure value, and improve before external expansion.",
+    "loading": "Loading Customer Zero Center…",
+    "corePrinciple": "Core principle",
+    "customerZeroPrinciple": "Customer Zero principle",
+    "readinessTitle": "Readiness dashboard",
+    "sourcesTitle": "Learning sources",
+    "discoverSources": "Discover sources",
+    "discovering": "Discovering…",
+    "pilotLevelTitle": "Pilot capability level",
+    "recommendationsTitle": "Pending recommendations",
+    "noRecommendations": "No pending recommendations — observation phase active.",
+    "approve": "Approve",
+    "reject": "Reject",
+    "valueTitle": "Value tracking",
+    "expansionTitle": "Expansion gate",
+    "auditTitle": "Pilot audit trail",
+    "noAudit": "No pilot events recorded yet.",
+    "gateStatus": "Gate status",
+    "privacyNote": "Metadata only — no customer operational content, email, chat, or order data.",
+    "pilotLevels": {
+      "observe": "Observe",
+      "recommend": "Recommend",
+      "assist": "Assist",
+      "execute": "Execute"
+    },
+    "readinessStates": {
+      "learning": "Learning",
+      "partiallyReady": "Partially Ready",
+      "readyToAssist": "Ready to Assist",
+      "readyToExecute": "Ready to Execute"
+    }
   }
 }

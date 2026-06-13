@@ -38,7 +38,8 @@
     "actions": "Action Center",
     "skills": "Skills",
     "languageCenter": "Språkcenter",
-    "executive": "Executive Center"
+    "executive": "Executive Center",
+    "pilotOperations": "Customer Zero-center"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -198,13 +199,30 @@
     "website": "Webbplats",
     "enterprise": "Enterprise",
     "workspaceTypeLabels": {
-      "company": "Företag", "growth_partner": "Growth Partner", "consultant": "Konsult",
-      "freelancer": "Frilansare", "internal_team_pilot": "Intern pilot"
+      "company": "Företag",
+      "growth_partner": "Growth Partner",
+      "consultant": "Konsult",
+      "freelancer": "Frilansare",
+      "internal_team_pilot": "Intern pilot"
     },
-    "verificationLabels": { "pending": "Väntar", "verified": "Verifierad", "rejected": "Avvisad" },
-    "twoFactorLabels": { "enabled": "Aktiverad", "skipped": "Överhoppad", "not_enabled": "Inte aktiverad" },
-    "growthPartnerLabels": { "eligible": "Berättigad", "standard": "Standard" },
-    "enterpriseLabels": { "yes": "Ja", "no": "Nej" }
+    "verificationLabels": {
+      "pending": "Väntar",
+      "verified": "Verifierad",
+      "rejected": "Avvisad"
+    },
+    "twoFactorLabels": {
+      "enabled": "Aktiverad",
+      "skipped": "Överhoppad",
+      "not_enabled": "Inte aktiverad"
+    },
+    "growthPartnerLabels": {
+      "eligible": "Berättigad",
+      "standard": "Standard"
+    },
+    "enterpriseLabels": {
+      "yes": "Ja",
+      "no": "Nej"
+    }
   },
   "customerDetail": {
     "back": "Back to customers",
@@ -632,20 +650,76 @@
     "loading": "Laddar Trust Center…",
     "openDomain": "Öppna",
     "accessDenied": "Denna styrningsyta är inte tillgänglig för din plattformsroll.",
-    "nav": { "overview": "Översikt", "domains": "Styrningsdomäner", "security": "Säkerhet", "privacy": "Integritet", "actions": "Åtgärder", "audit": "Revision" },
-    "kpis": { "trustScore": "Förtroendepoäng", "modulesActive": "Aktiva styrningsmoduler", "pendingReviews": "Väntande granskningar", "securityExceptions": "Säkerhetsundantag", "scoreHint": "Aggregerad plattformsförvaltningssignal" },
-    "status": { "active": "Aktiv", "attention": "Kräver uppmärksamhet" },
+    "nav": {
+      "overview": "Översikt",
+      "domains": "Styrningsdomäner",
+      "security": "Säkerhet",
+      "privacy": "Integritet",
+      "actions": "Åtgärder",
+      "audit": "Revision"
+    },
+    "kpis": {
+      "trustScore": "Förtroendepoäng",
+      "modulesActive": "Aktiva styrningsmoduler",
+      "pendingReviews": "Väntande granskningar",
+      "securityExceptions": "Säkerhetsundantag",
+      "scoreHint": "Aggregerad plattformsförvaltningssignal"
+    },
+    "status": {
+      "active": "Aktiv",
+      "attention": "Kräver uppmärksamhet"
+    },
     "domains": {
-      "identity": { "title": "Identitetsstyrning", "description": "Kommunikationsstil, minnesstyrning och identitetsanpassning.", "stat": "Identitetsprofiler" },
-      "decisions": { "title": "Beslutsstyrning", "description": "Beslutsstöd, konfidens och mänskligt godkännande.", "stat": "Väntande rekommendationer" },
-      "knowledge": { "title": "Kunskapsstyrning", "description": "Medarbetarkunskap, Business DNA och support.", "stat": "Godkända kunskapsobjekt" },
-      "goals": { "title": "Målstyrning", "description": "Ambitioner, milstolpar och målförvaltning.", "stat": "Aktiva mål" },
-      "life": { "title": "Livsstyrning", "description": "LifeOS och uppmärksamhetsskydd.", "stat": "Life-aktiverade tenants" },
-      "relationships": { "title": "Relationsstyrning", "description": "Relationsintelligens och social förvaltning.", "stat": "Registrerade personer" },
-      "actions": { "title": "Åtgärdsstyrning", "description": "Förtroendeåtgärder, autonom exekvering och godkännande.", "stat": "Väntande godkännanden" },
-      "commercial": { "title": "Kommersiell styrning", "description": "Paketlicensiering och modulaktivering.", "stat": "Licensierade moduler" },
-      "security": { "title": "Säkerhetsstyrning", "description": "Säkerhetsfundament, revision och skill-granskning.", "stat": "Revisionshändelser" },
-      "privacy": { "title": "Integritetsstyrning", "description": "Dataägande, minimering och minnesintegritet.", "stat": "Minnes-aktiverade tenants" }
+      "identity": {
+        "title": "Identitetsstyrning",
+        "description": "Kommunikationsstil, minnesstyrning och identitetsanpassning.",
+        "stat": "Identitetsprofiler"
+      },
+      "decisions": {
+        "title": "Beslutsstyrning",
+        "description": "Beslutsstöd, konfidens och mänskligt godkännande.",
+        "stat": "Väntande rekommendationer"
+      },
+      "knowledge": {
+        "title": "Kunskapsstyrning",
+        "description": "Medarbetarkunskap, Business DNA och support.",
+        "stat": "Godkända kunskapsobjekt"
+      },
+      "goals": {
+        "title": "Målstyrning",
+        "description": "Ambitioner, milstolpar och målförvaltning.",
+        "stat": "Aktiva mål"
+      },
+      "life": {
+        "title": "Livsstyrning",
+        "description": "LifeOS och uppmärksamhetsskydd.",
+        "stat": "Life-aktiverade tenants"
+      },
+      "relationships": {
+        "title": "Relationsstyrning",
+        "description": "Relationsintelligens och social förvaltning.",
+        "stat": "Registrerade personer"
+      },
+      "actions": {
+        "title": "Åtgärdsstyrning",
+        "description": "Förtroendeåtgärder, autonom exekvering och godkännande.",
+        "stat": "Väntande godkännanden"
+      },
+      "commercial": {
+        "title": "Kommersiell styrning",
+        "description": "Paketlicensiering och modulaktivering.",
+        "stat": "Licensierade moduler"
+      },
+      "security": {
+        "title": "Säkerhetsstyrning",
+        "description": "Säkerhetsfundament, revision och skill-granskning.",
+        "stat": "Revisionshändelser"
+      },
+      "privacy": {
+        "title": "Integritetsstyrning",
+        "description": "Dataägande, minimering och minnesintegritet.",
+        "stat": "Minnes-aktiverade tenants"
+      }
     },
     "pageSubtitles": {
       "identity": "Identity Engine och assistentminne — endast aggregerat.",
@@ -659,10 +733,18 @@
       "security": "Säkerhetsfundament och plattformsansvar.",
       "privacy": "Förtroendearkitektur, dataägande och integritet."
     },
-    "securityDetail": { "title": "Säkerhetsfundament", "subtitle": "Lagringskategorier, åtkomstnivåer och oföränderlig revision." },
+    "securityDetail": {
+      "title": "Säkerhetsfundament",
+      "subtitle": "Lagringskategorier, åtkomstnivåer och oföränderlig revision."
+    },
     "privacyDetail": {
       "responsibility": "Kunden äger datan. Aipify äger intelligenslagret — metadata först.",
-      "areas": { "dataMinimization": "Dataminimering som standard", "customerOwnership": "Transparens om kunddataägande", "metadataOnly": "Metadata-gränser för inlärning", "regulatoryCompliance": "Efterlevnad av integritetsregler" }
+      "areas": {
+        "dataMinimization": "Dataminimering som standard",
+        "customerOwnership": "Transparens om kunddataägande",
+        "metadataOnly": "Metadata-gränser för inlärning",
+        "regulatoryCompliance": "Efterlevnad av integritetsregler"
+      }
     },
     "audit": {
       "title": "Revision",
@@ -675,6 +757,8 @@
       "immutableNote": "Förtroenderevisionshändelser är oföränderliga."
     }
   },
+  "impact": {
+    "title": "Anonymiserade effektmätningar",
     "subtitle": "Bevisa operativt värde över tenants utan att lagra känsliga kunddata.",
     "loading": "Laddar effektmätningar...",
     "empty": "Inga anonymiserade effektmätningar registrerade ännu.",
@@ -813,10 +897,18 @@
       "versions": "Utgivna versioner",
       "installs": "Tenant-installationer"
     },
-    "status": { "title": "Skills efter status" },
-    "category": { "title": "Skills efter kategori" },
-    "pipeline": { "title": "Intern valideringspipeline" },
-    "codeRegistry": { "title": "Kodregister (Fas 16)" },
+    "status": {
+      "title": "Skills efter status"
+    },
+    "category": {
+      "title": "Skills efter kategori"
+    },
+    "pipeline": {
+      "title": "Intern valideringspipeline"
+    },
+    "codeRegistry": {
+      "title": "Kodregister (Fas 16)"
+    },
     "areas": {
       "registry": "Skill-register",
       "governance": "Skill-styrning",
@@ -1531,5 +1623,39 @@
       }
     },
     "presence": "Aipify Presence"
+  },
+  "customerZero": {
+    "title": "Customer Zero-center",
+    "subtitle": "Unonight is Aipify's first operational environment — learn, validate, measure value, and improve before external expansion.",
+    "loading": "Loading Customer Zero Center…",
+    "corePrinciple": "Core principle",
+    "customerZeroPrinciple": "Customer Zero principle",
+    "readinessTitle": "Readiness dashboard",
+    "sourcesTitle": "Learning sources",
+    "discoverSources": "Discover sources",
+    "discovering": "Discovering…",
+    "pilotLevelTitle": "Pilot capability level",
+    "recommendationsTitle": "Pending recommendations",
+    "noRecommendations": "No pending recommendations — observation phase active.",
+    "approve": "Approve",
+    "reject": "Reject",
+    "valueTitle": "Value tracking",
+    "expansionTitle": "Expansion gate",
+    "auditTitle": "Pilot audit trail",
+    "noAudit": "No pilot events recorded yet.",
+    "gateStatus": "Gate status",
+    "privacyNote": "Metadata only — no customer operational content, email, chat, or order data.",
+    "pilotLevels": {
+      "observe": "Observe",
+      "recommend": "Recommend",
+      "assist": "Assist",
+      "execute": "Execute"
+    },
+    "readinessStates": {
+      "learning": "Learning",
+      "partiallyReady": "Partially Ready",
+      "readyToAssist": "Ready to Assist",
+      "readyToExecute": "Ready to Execute"
+    }
   }
 }

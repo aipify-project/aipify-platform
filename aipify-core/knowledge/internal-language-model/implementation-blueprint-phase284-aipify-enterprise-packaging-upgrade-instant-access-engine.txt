@@ -1,0 +1,15 @@
+ABOS Phase 284 — Enterprise Packaging, Upgrade & Instant Access Engine
+Route: /app/settings/billing/packages
+
+Core principles:
+1. Customers should buy the right package — do not force early upsell.
+2. Gold nugget features strategically placed (taxi, flowers, food → Business; travel → Enterprise).
+3. Paid = access now — instant activation after payment.
+
+Package tiers: Starter · Professional · Business · Enterprise
+Upgrade flow: locked feature → explain → select upgrade → payment → instant unlock
+Confirmation: "Upgrade complete. Business features are now active."
+Permissions: package_access.view · manage · upgrade · billing
+Helpers: _apuiae_* · _apuiaebp284_*
+Extends Commercial Packages Phase 42 — does not replace get_customer_billing_center.
+People First. Growth Partner — never Affiliate.

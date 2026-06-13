@@ -39,7 +39,8 @@
     "actions": "Action Center",
     "skills": "Skills",
     "languageCenter": "Språksenter",
-    "executive": "Executive Center"
+    "executive": "Executive Center",
+    "pilotOperations": "Customer Zero-senter"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -234,13 +235,30 @@
     "website": "Nettsted",
     "enterprise": "Enterprise",
     "workspaceTypeLabels": {
-      "company": "Bedrift", "growth_partner": "Growth Partner", "consultant": "Konsulent",
-      "freelancer": "Frilanser", "internal_team_pilot": "Intern pilot"
+      "company": "Bedrift",
+      "growth_partner": "Growth Partner",
+      "consultant": "Konsulent",
+      "freelancer": "Frilanser",
+      "internal_team_pilot": "Intern pilot"
     },
-    "verificationLabels": { "pending": "Venter", "verified": "Verifisert", "rejected": "Avvist" },
-    "twoFactorLabels": { "enabled": "Aktivert", "skipped": "Hoppet over", "not_enabled": "Ikke aktivert" },
-    "growthPartnerLabels": { "eligible": "Kvalifisert", "standard": "Standard" },
-    "enterpriseLabels": { "yes": "Ja", "no": "Nei" }
+    "verificationLabels": {
+      "pending": "Venter",
+      "verified": "Verifisert",
+      "rejected": "Avvist"
+    },
+    "twoFactorLabels": {
+      "enabled": "Aktivert",
+      "skipped": "Hoppet over",
+      "not_enabled": "Ikke aktivert"
+    },
+    "growthPartnerLabels": {
+      "eligible": "Kvalifisert",
+      "standard": "Standard"
+    },
+    "enterpriseLabels": {
+      "yes": "Ja",
+      "no": "Nei"
+    }
   },
   "customerDetail": {
     "back": "Back to customers",
@@ -688,16 +706,56 @@
       "attention": "Krever oppmerksomhet"
     },
     "domains": {
-      "identity": { "title": "Identitetsstyring", "description": "Kommunikasjonsstil, minnestyring og identitetstilpasning.", "stat": "Identitetsprofiler" },
-      "decisions": { "title": "Beslutningsstyring", "description": "Beslutningsstøtte, konfidens og menneskelig godkjenning.", "stat": "Ventende anbefalinger" },
-      "knowledge": { "title": "Kunnskapsstyring", "description": "Ansattkunnskap, Business DNA og supportoperasjoner.", "stat": "Godkjente kunnskapselementer" },
-      "goals": { "title": "Målstyring", "description": "Ambisjoner, milepæler og målforvaltning.", "stat": "Aktive mål" },
-      "life": { "title": "Livsstyring", "description": "LifeOS og oppmerksomhetsbeskyttelse.", "stat": "Life-aktiverte tenants" },
-      "relationships": { "title": "Relasjonsstyring", "description": "Relasjonsintelligens og sosial forvaltning.", "stat": "Registrerte personer" },
-      "actions": { "title": "Handlingsstyring", "description": "Tillitshandlinger, autonom utførelse og godkjenning.", "stat": "Ventende godkjenninger" },
-      "commercial": { "title": "Kommersiell styring", "description": "Pakkelisensiering og modulaktivering.", "stat": "Lisensierte moduler" },
-      "security": { "title": "Sikkerhetsstyring", "description": "Sikkerhetsfundament, revisjon og skill-gjennomgang.", "stat": "Revisjonshendelser" },
-      "privacy": { "title": "Personvernstyring", "description": "Dataeierskap, minimering og minne-personvern.", "stat": "Minne-aktiverte tenants" }
+      "identity": {
+        "title": "Identitetsstyring",
+        "description": "Kommunikasjonsstil, minnestyring og identitetstilpasning.",
+        "stat": "Identitetsprofiler"
+      },
+      "decisions": {
+        "title": "Beslutningsstyring",
+        "description": "Beslutningsstøtte, konfidens og menneskelig godkjenning.",
+        "stat": "Ventende anbefalinger"
+      },
+      "knowledge": {
+        "title": "Kunnskapsstyring",
+        "description": "Ansattkunnskap, Business DNA og supportoperasjoner.",
+        "stat": "Godkjente kunnskapselementer"
+      },
+      "goals": {
+        "title": "Målstyring",
+        "description": "Ambisjoner, milepæler og målforvaltning.",
+        "stat": "Aktive mål"
+      },
+      "life": {
+        "title": "Livsstyring",
+        "description": "LifeOS og oppmerksomhetsbeskyttelse.",
+        "stat": "Life-aktiverte tenants"
+      },
+      "relationships": {
+        "title": "Relasjonsstyring",
+        "description": "Relasjonsintelligens og sosial forvaltning.",
+        "stat": "Registrerte personer"
+      },
+      "actions": {
+        "title": "Handlingsstyring",
+        "description": "Tillitshandlinger, autonom utførelse og godkjenning.",
+        "stat": "Ventende godkjenninger"
+      },
+      "commercial": {
+        "title": "Kommersiell styring",
+        "description": "Pakkelisensiering og modulaktivering.",
+        "stat": "Lisensierte moduler"
+      },
+      "security": {
+        "title": "Sikkerhetsstyring",
+        "description": "Sikkerhetsfundament, revisjon og skill-gjennomgang.",
+        "stat": "Revisjonshendelser"
+      },
+      "privacy": {
+        "title": "Personvernstyring",
+        "description": "Dataeierskap, minimering og minne-personvern.",
+        "stat": "Minne-aktiverte tenants"
+      }
     },
     "pageSubtitles": {
       "identity": "Identity Engine og assistentminne — kun aggregater.",
@@ -735,6 +793,8 @@
       "immutableNote": "Tillitsrevisjonshendelser er uforanderlige."
     }
   },
+  "impact": {
+    "title": "Anonymiserte effektmålinger",
     "subtitle": "Dokumenter operativ verdi på tvers av leietakere uten å lagre sensitive forretningsdata.",
     "loading": "Laster effektmålinger...",
     "empty": "Ingen anonymiserte effektmålinger registrert ennå.",
@@ -873,10 +933,18 @@
       "versions": "Utgitte versjoner",
       "installs": "Tenant-installasjoner"
     },
-    "status": { "title": "Skills etter status" },
-    "category": { "title": "Skills etter kategori" },
-    "pipeline": { "title": "Intern valideringspipeline" },
-    "codeRegistry": { "title": "Koderegister (Fase 16)" },
+    "status": {
+      "title": "Skills etter status"
+    },
+    "category": {
+      "title": "Skills etter kategori"
+    },
+    "pipeline": {
+      "title": "Intern valideringspipeline"
+    },
+    "codeRegistry": {
+      "title": "Koderegister (Fase 16)"
+    },
     "areas": {
       "registry": "Skill-register",
       "governance": "Skill-styring",
@@ -1826,5 +1894,39 @@
     "mode": "Modus",
     "on": "På",
     "off": "Av"
+  },
+  "customerZero": {
+    "title": "Customer Zero-senter",
+    "subtitle": "Unonight er Aipifys første operative miljø — lær, valider, mål verdi og forbedre før ekstern ekspansjon.",
+    "loading": "Laster Customer Zero-senter…",
+    "corePrinciple": "Core principle",
+    "customerZeroPrinciple": "Customer Zero principle",
+    "readinessTitle": "Readiness dashboard",
+    "sourcesTitle": "Learning sources",
+    "discoverSources": "Oppdag kilder",
+    "discovering": "Discovering…",
+    "pilotLevelTitle": "Pilot capability level",
+    "recommendationsTitle": "Ventende anbefalinger",
+    "noRecommendations": "No pending recommendations — observation phase active.",
+    "approve": "Godkjenn",
+    "reject": "Avvis",
+    "valueTitle": "Value tracking",
+    "expansionTitle": "Ekspansjonsport",
+    "auditTitle": "Pilot audit trail",
+    "noAudit": "No pilot events recorded yet.",
+    "gateStatus": "Gate status",
+    "privacyNote": "Metadata only — no customer operational content, email, chat, or order data.",
+    "pilotLevels": {
+      "observe": "Observe",
+      "recommend": "Recommend",
+      "assist": "Assist",
+      "execute": "Execute"
+    },
+    "readinessStates": {
+      "learning": "Learning",
+      "partiallyReady": "Partially Ready",
+      "readyToAssist": "Ready to Assist",
+      "readyToExecute": "Ready to Execute"
+    }
   }
 }

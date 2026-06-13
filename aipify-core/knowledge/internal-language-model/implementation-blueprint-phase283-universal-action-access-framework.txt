@@ -1,0 +1,12 @@
+ABOS Phase 283 — Universal Action Access Framework (FOUNDATIONAL)
+Route: /app/settings/action-access
+
+Core principle: Aipify can do anything it has permission and access to do.
+Rules: permission first, governance by default, human control.
+Categories: personal, business, commerce, workforce, device, future.
+Approval levels: automatic, user_confirmation, multi_step_approval.
+UX offers: print, email, taxi, flowers, calendar prompts en/no.
+Philosophy: From "I found the answer." to "I've taken care of it."
+Cross-links: Trust & Action /app/approvals, Action Center /app/action-center, Print /app/settings/devices/printers.
+Desktop Companion: local execution bridge for device actions.
+People First. Growth Partner — never Affiliate.

@@ -1,0 +1,13 @@
+ABOS Phase 285 — Pilot Learning & Customer Zero Engine
+Route: /platform/pilot-operations
+Module: Customer Zero Center
+Location: Aipify Internal → Pilot Operations
+
+Core principle: Before Aipify serves the world, Aipify must successfully serve its own ecosystem.
+Customer Zero: Unonight — first pilot, learning environment, validation environment.
+Pilot levels: 1 Observe · 2 Recommend · 3 Assist · 4 Execute
+Readiness: Learning · Partially Ready · Ready to Assist · Ready to Execute
+Expansion gate: KPIs, governance, admin feedback, time savings, operational value, error rates.
+Helpers: _acz_* · _aczebp285_*
+Extends Unonight Pilot Operations Engine Phase A.15.
+People First. Growth Partner — never Affiliate.

@@ -71,6 +71,8 @@ export default async function SettingsPage() {
           enterprise: t("customerApp.settings.links.enterprise"),
           compliance: t("customerApp.settings.links.compliance"),
           twoFactor: t("customerApp.settings.links.twoFactor"),
+          devicesPrinters: t("customerApp.settings.links.devicesPrinters"),
+          actionAccess: t("customerApp.settings.links.actionAccess"),
         },
       }}
     />

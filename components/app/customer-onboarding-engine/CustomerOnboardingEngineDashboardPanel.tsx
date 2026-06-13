@@ -110,6 +110,9 @@ export function CustomerOnboardingEngineDashboardPanel({
         <Link href="/app/integration-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.integrationEngine}
         </Link>
+        <Link href="/app/onboarding/aipify-install" className="rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-sm text-indigo-800">
+          {labels.aipifyInstall ?? "Aipify Install"}
+        </Link>
         <Link href="/app/aipify-install-engine" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.installEngine}
         </Link>
