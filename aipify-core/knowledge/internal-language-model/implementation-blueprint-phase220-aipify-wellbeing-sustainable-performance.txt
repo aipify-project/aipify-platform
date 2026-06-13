@@ -1,0 +1,13 @@
+ABOS Phase 220 — Aipify Wellbeing & Sustainable Performance
+Route: /app/aipify-wellbeing-sustainable-performance-engine
+
+Wellbeing Center: wellbeing dashboard, sustainable performance monitor, leadership care insights, wellbeing resource center, resilience development framework, executive wellbeing overview, capacity/health integration (cross-links), wellbeing knowledge libraries.
+Sustainable Performance Monitor: aggregated workload rhythm indicators, resilience prompts, and stewardship questions.
+Leadership Care Insights: team-level awareness and supportive leadership conversation prompts.
+Wellbeing Resource Center: organizational support resources, healthy habits guidance, and wellbeing initiatives.
+Resilience Development Framework: reflection, resilience-building initiatives, and preparedness support.
+Executive Wellbeing Overview: systemic risk indicators and long-term workforce stewardship visibility.
+Design principles: Care before exhaustion, sustainability before short-term gains, privacy before convenience.
+Companion limitations: no health inference, no surveillance, no bypassing privacy-preserving aggregation controls.
+Cross-links only: Phase 209 resource capacity engine and Phase 198 organizational health engine — never collect or infer personal health information, enable surveillance, or bypass privacy-preserving aggregation controls.
+People First. Growth Partner — never Affiliate.

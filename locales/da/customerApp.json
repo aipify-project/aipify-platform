@@ -5797,7 +5797,8 @@
     "aipifyOrganizationalCommunicationAnnouncementsEngine": "Onboarding og adoption",
     "aipifyInnovationOpportunityDiscoveryEngine": "Innovationsopdagelse",
     "aipifyEmployeeRecognitionCelebrationEngine": "Anerkendelse og fejring",
-    "aipifyEmployeeGrowthCareerDevelopmentEngine": "Vækst og karriereudvikling"
+    "aipifyEmployeeGrowthCareerDevelopmentEngine": "Vækst og karriereudvikling",
+    "aipifyWellbeingSustainablePerformanceEngine": "Trivsel og baeredygtig performance"
   },
   "identity": {
     "title": "Din identitet",
@@ -12054,6 +12055,41 @@
       "philosophy": "People First. Metadata-only career development scaffolds. Growth Partner terminology — never Affiliate.",
       "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
       "growthEra": "Innovation & Adaptive Excellence Era (211–220) — Phase 219."
+    }
+  },
+  "aipifyWellbeingSustainablePerformanceEngine": {
+    "title": "Wellbeing Center",
+    "subtitle": "Innovation & Adaptive Excellence Era (211–220). Wellbeing Companion supports wellbeing stewardship, sustainable performance rhythms, and resilience opportunities. Supports humans — does NOT infer health states or enable surveillance. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Wellbeing & Sustainable Performance dashboard…",
+    "engineTitle": "Aipify Wellbeing & Sustainable Performance Engine (Phase 220)",
+    "scoreLabel": "Wellbeing resilience score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Sustainable performance level",
+    "executiveReviews": "Executive wellbeing overview",
+    "activeReflections": "Active wellbeing scaffolds",
+    "humanOversightRequired": "Human oversight required — humans steward wellbeing decisions; Wellbeing Companion supports only",
+    "eraOpenerSummary": "Innovation Era — Phases 211–220",
+    "eraOpenerNote": "Cross-link only — do not duplicate resource capacity or organizational health RPCs.",
+    "centerLabel": "Wellbeing Center capabilities",
+    "engineLabel": "Sustainable performance monitor — stewardship prompts",
+    "frameworkLabel": "Leadership care insights",
+    "reviewsLabel": "Executive wellbeing overview",
+    "companionLabel": "Wellbeing Companion — supports, never infers health states or enables surveillance",
+    "subEngineLabel": "Wellbeing resource center",
+    "reflections": "Wellbeing scaffolds",
+    "executiveReviewEntries": "Wellbeing insight entries",
+    "scaffoldNotes": "Aggregated wellbeing scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 220)",
+    "companionLimitations": "Wellbeing Companion limitations — does NOT infer health states, enable surveillance, or bypass privacy controls",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase220": {
+      "mission": "Wellbeing Companion supports wellbeing visibility — humans retain wellbeing stewardship authority.",
+      "philosophy": "People First. Aggregated privacy-preserving wellbeing scaffolds. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
+      "growthEra": "Innovation & Adaptive Excellence Era (211–220) — Phase 220."
     }
   }
 }
