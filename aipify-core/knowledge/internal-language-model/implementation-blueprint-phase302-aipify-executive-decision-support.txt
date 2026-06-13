@@ -1,0 +1,4 @@
+ABOS Phase 302 — Executive Decision Support Center
+Route: /app/executive/decision-support
+Core: Humans remain responsible for decisions.
+Helpers: _dsc_* · _dscbp302_*

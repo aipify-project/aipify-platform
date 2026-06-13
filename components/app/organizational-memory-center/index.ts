@@ -1,0 +1,1 @@
+export { OrganizationalMemoryCenterPanel } from "./OrganizationalMemoryCenterPanel";

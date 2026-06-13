@@ -284,6 +284,17 @@ export * from "./implementation-blueprint-phase293-vocabulary";
 export * from "./implementation-blueprint-phase294-vocabulary";
 export * from "./implementation-blueprint-phase295-vocabulary";
 export * from "./implementation-blueprint-phase296-vocabulary";
+export * from "./implementation-blueprint-phase297-vocabulary";
+export * from "./implementation-blueprint-phase298-vocabulary";
+export * from "./implementation-blueprint-phase299-vocabulary";
+export * from "./implementation-blueprint-phase300-vocabulary";
+export * from "./implementation-blueprint-phase301-vocabulary";
+export * from "./implementation-blueprint-phase302-vocabulary";
+export * from "./implementation-blueprint-phase303-vocabulary";
+export * from "./implementation-blueprint-phase304-vocabulary";
+export * from "./implementation-blueprint-phase305-vocabulary";
+export * from "./implementation-blueprint-phase306-vocabulary";
+export * from "./implementation-blueprint-phase307-vocabulary";
 export * from "./aipify-match-companion-future-vocabulary";
 export * from "./aipify-family-companion-future-vocabulary";
 export * from "./aipify-parenting-companion-future-vocabulary";
@@ -304,6 +315,10 @@ export * from "./aipify-spiritual-reflection-companion-future-vocabulary";
 export * from "./aipify-life-transitions-companion-future-vocabulary";
 export * from "./aipify-volunteer-service-companion-future-vocabulary";
 export * from "./aipify-sustainability-companion-future-vocabulary";
+export * from "./aipify-grief-healing-companion-future-vocabulary";
+export * from "./aipify-legacy-business-companion-future-vocabulary";
+export * from "./aipify-childhood-memory-companion-future-vocabulary";
+export * from "./aipify-life-journey-companion-future-vocabulary";
 export * from "./implementation-blueprint-phase270-vocabulary";
 export * from "./implementation-blueprint-phase269-vocabulary";
 export * from "./implementation-blueprint-phase219-vocabulary";
@@ -1108,6 +1123,28 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE295_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase295-aipify-companion-approval-profiles-engine.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE296_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase296-aipify-companion-financial-guardrails-engine.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE297_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase297-aipify-companion-orchestration-engine.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE298_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase298-aipify-automation-control-center-engine.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE299_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase299-aipify-approval-human-oversight-center.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE300_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase300-aipify-permission-access-governance.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE301_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase301-aipify-trust-transparency-center.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE302_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase302-aipify-executive-decision-support.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE303_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase303-aipify-executive-strategic-intelligence.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE304_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase304-aipify-organizational-memory-center.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE305_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase305-aipify-continuous-improvement-center.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE306_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase306-aipify-organizational-resilience-center.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE307_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase307-aipify-opportunity-discovery-center.txt";
 export const AIPIFY_MATCH_COMPANION_FUTURE_CORPUS =
   "aipify-core/knowledge/internal-language-model/aipify-match-companion-future-module.txt";
 export const AIPIFY_FAMILY_COMPANION_FUTURE_CORPUS =
@@ -1148,6 +1185,14 @@ export const AIPIFY_VOLUNTEER_SERVICE_COMPANION_FUTURE_CORPUS =
   "aipify-core/knowledge/internal-language-model/aipify-volunteer-service-companion-future-module.txt";
 export const AIPIFY_SUSTAINABILITY_COMPANION_FUTURE_CORPUS =
   "aipify-core/knowledge/internal-language-model/aipify-sustainability-companion-future-module.txt";
+export const AIPIFY_GRIEF_HEALING_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-grief-healing-companion-future-module.txt";
+export const AIPIFY_LEGACY_BUSINESS_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-legacy-business-companion-future-module.txt";
+export const AIPIFY_CHILDHOOD_MEMORY_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-childhood-memory-companion-future-module.txt";
+export const AIPIFY_LIFE_JOURNEY_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-life-journey-companion-future-module.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE270_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase270-aipify-enterprise-collective-intelligence.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE269_CORPUS =

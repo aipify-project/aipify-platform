@@ -1,0 +1,12 @@
+ABOS Phase 297 — Aipify Companion Orchestration Engine
+Route: /app/companion/orchestration
+Module: Companion Orchestration Engine
+Location: Companion Center → Orchestration
+
+Core principle: Users interact with Aipify — companions are capabilities, not separate assistants.
+Orchestration: context analyzed → companions identified → permissions verified → recommendations coordinated → audit logged.
+Priority: Safety · Time-sensitive · Family · Professional · Lifestyle
+Conflict resolution: competing priorities surfaced calmly — user decides.
+Response principle: user sees Aipify — never internal module names in coordinated responses.
+Helpers: _coe_* · _coebp297_*
+People First. Growth Partner — never Affiliate.

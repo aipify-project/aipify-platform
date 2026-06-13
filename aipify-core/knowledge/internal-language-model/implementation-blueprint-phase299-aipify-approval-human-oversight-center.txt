@@ -1,0 +1,4 @@
+ABOS Phase 299 — Approval & Human Oversight Center
+Route: /app/governance/approval-center
+Core: Aipify may recommend — humans decide.
+Helpers: _aohoc_* · _aohocbp299_*

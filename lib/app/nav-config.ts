@@ -210,6 +210,7 @@ export type AppNavId =
   | "trustReputationEngine"
   | "aiCostGovernanceEngine"
   | "personalProductivityEngine"
+  | "companionOrchestrationEngine"
   | "companionActionMemoryEngine"
   | "presenceContinuityEngine"
   | "companionIdentityRelationshipEngine"
@@ -235,6 +236,11 @@ export type AppNavId =
   | "wisdomEngine"
   | "wisdomInterventionProtocol"
   | "briefing"
+  | "opportunityDiscoveryCenterEngine"
+  | "organizationalResilienceCenterEngine"
+  | "continuousImprovementCenterEngine"
+  | "executiveStrategicIntelligenceEngine"
+  | "executiveDecisionSupportEngine"
   | "executive"
   | "presence"
   | "assistant"
@@ -293,12 +299,17 @@ export type AppNavId =
   | "organizationalMemory"
   | "organizationalIntelligence"
   | "predictiveIntelligence"
+  | "automationControlCenterEngine"
   | "adaptiveAutomation"
   | "financialGuardrailsEngine"
+  | "trustTransparencyEngine"
+  | "permissionAccessGovernanceEngine"
+  | "approvalHumanOversightEngine"
   | "approvalProfilesEngine"
   | "governance"
   | "enterprise"
   | "quality"
+  | "organizationalMemoryCenterEngine"
   | "knowledgeCenter"
   | "installations"
   | "domains"
@@ -1280,6 +1291,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.personalProductivityEngine",
   },
   {
+    id: "companionOrchestrationEngine",
+    href: "/app/companion/orchestration",
+    labelKey: "customerApp.nav.companionOrchestrationEngine",
+  },
+  {
     id: "companionActionMemoryEngine",
     href: "/app/companion/action-memory",
     labelKey: "customerApp.nav.companionActionMemoryEngine",
@@ -1405,6 +1421,11 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/executive-intelligence",
     labelKey: "customerApp.nav.executiveIntelligenceEngine",
   },
+  { id: "opportunityDiscoveryCenterEngine", href: "/app/executive/opportunity-discovery", labelKey: "customerApp.nav.opportunityDiscoveryCenterEngine" },
+  { id: "organizationalResilienceCenterEngine", href: "/app/executive/organizational-resilience", labelKey: "customerApp.nav.organizationalResilienceCenterEngine" },
+  { id: "continuousImprovementCenterEngine", href: "/app/executive/continuous-improvement", labelKey: "customerApp.nav.continuousImprovementCenterEngine" },
+  { id: "executiveStrategicIntelligenceEngine", href: "/app/executive/strategic-intelligence", labelKey: "customerApp.nav.executiveStrategicIntelligenceEngine" },
+  { id: "executiveDecisionSupportEngine", href: "/app/executive/decision-support", labelKey: "customerApp.nav.executiveDecisionSupportEngine" },
   { id: "executive", href: "/app/executive", labelKey: "customerApp.nav.executive" },
   { id: "presence", href: "/app/presence", labelKey: "customerApp.nav.presence" },
   { id: "assistant", href: "/app/assistant", labelKey: "customerApp.nav.assistant" },
@@ -1479,11 +1500,31 @@ export const APP_NAV: AppNavItem[] = [
   { id: "organizationalMemory", href: "/app/memory", labelKey: "customerApp.nav.organizationalMemory" },
   { id: "organizationalIntelligence", href: "/app/insights", labelKey: "customerApp.nav.organizationalIntelligence" },
   { id: "predictiveIntelligence", href: "/app/predictions", labelKey: "customerApp.nav.predictiveIntelligence" },
+  {
+    id: "automationControlCenterEngine",
+    href: "/app/operations/automation-control",
+    labelKey: "customerApp.nav.automationControlCenterEngine",
+  },
   { id: "adaptiveAutomation", href: "/app/automations", labelKey: "customerApp.nav.adaptiveAutomation" },
   {
     id: "financialGuardrailsEngine",
     href: "/app/governance/financial-guardrails",
     labelKey: "customerApp.nav.financialGuardrailsEngine",
+  },
+  {
+    id: "trustTransparencyEngine",
+    href: "/app/governance/trust-transparency",
+    labelKey: "customerApp.nav.trustTransparencyEngine",
+  },
+  {
+    id: "permissionAccessGovernanceEngine",
+    href: "/app/governance/permissions-access",
+    labelKey: "customerApp.nav.permissionAccessGovernanceEngine",
+  },
+  {
+    id: "approvalHumanOversightEngine",
+    href: "/app/governance/approval-center",
+    labelKey: "customerApp.nav.approvalHumanOversightEngine",
   },
   {
     id: "approvalProfilesEngine",
@@ -1493,6 +1534,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "governance", href: "/app/governance", labelKey: "customerApp.nav.governance" },
   { id: "enterprise", href: "/app/enterprise", labelKey: "customerApp.nav.enterprise" },
   { id: "quality", href: "/app/quality", labelKey: "customerApp.nav.quality" },
+  { id: "organizationalMemoryCenterEngine", href: "/app/knowledge-center/organizational-memory", labelKey: "customerApp.nav.organizationalMemoryCenterEngine" },
   { id: "knowledgeCenter", href: "/app/knowledge-center", labelKey: "customerApp.nav.knowledgeCenter" },
   { id: "installations", href: "/app/installations", labelKey: "customerApp.nav.installations" },
   { id: "domains", href: "/app/domains", labelKey: "customerApp.nav.domains" },
@@ -1637,6 +1679,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/personal-productivity-engine")) {
     return "personalProductivityEngine";
   }
+  if (pathname.startsWith("/app/companion/orchestration")) return "companionOrchestrationEngine";
   if (pathname.startsWith("/app/companion/action-memory")) return "companionActionMemoryEngine";
   if (pathname.startsWith("/app/companion/presence-continuity")) return "presenceContinuityEngine";
   if (pathname.startsWith("/app/companion/identity-relationship")) return "companionIdentityRelationshipEngine";
@@ -2120,6 +2163,11 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/shared-compassion-reciprocal-care-engine")) {
     return "sharedCompassionReciprocalCareEngine";
   }
+  if (pathname.startsWith("/app/executive/opportunity-discovery")) return "opportunityDiscoveryCenterEngine";
+  if (pathname.startsWith("/app/executive/organizational-resilience")) return "organizationalResilienceCenterEngine";
+  if (pathname.startsWith("/app/executive/continuous-improvement")) return "continuousImprovementCenterEngine";
+  if (pathname.startsWith("/app/executive/strategic-intelligence")) return "executiveStrategicIntelligenceEngine";
+  if (pathname.startsWith("/app/executive/decision-support")) return "executiveDecisionSupportEngine";
   if (pathname.startsWith("/app/executive")) return "executive";
   if (
     pathname.startsWith("/app/presence") ||
@@ -2209,6 +2257,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
     return "adaptiveAutomation";
   }
   if (pathname.startsWith("/app/governance/financial-guardrails")) return "financialGuardrailsEngine";
+  if (pathname.startsWith("/app/governance/trust-transparency")) return "trustTransparencyEngine";
+  if (pathname.startsWith("/app/governance/permissions-access")) return "permissionAccessGovernanceEngine";
+  if (pathname.startsWith("/app/governance/approval-center")) return "approvalHumanOversightEngine";
   if (pathname.startsWith("/app/governance/approval-profiles")) return "approvalProfilesEngine";
   if (pathname.startsWith("/app/governance")) {
     return "governance";
@@ -2219,6 +2270,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/quality")) {
     return "quality";
   }
+  if (pathname.startsWith("/app/knowledge-center/organizational-memory")) return "organizationalMemoryCenterEngine";
   if (pathname.startsWith("/app/knowledge-center")) {
     return "knowledgeCenter";
   }

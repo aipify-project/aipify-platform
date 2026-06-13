@@ -1,0 +1,4 @@
+ABOS Phase 306 — Organizational Resilience Center
+Route: /app/executive/organizational-resilience
+Core: Resilient organizations prepare for disruption.
+Helpers: _orc_* · _orcbp306_*

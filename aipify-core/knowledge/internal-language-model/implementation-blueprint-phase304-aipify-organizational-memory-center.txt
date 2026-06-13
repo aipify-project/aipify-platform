@@ -1,0 +1,4 @@
+ABOS Phase 304 — Organizational Memory Center
+Route: /app/knowledge-center/organizational-memory
+Core: Organizations should not lose critical knowledge when employees leave.
+Helpers: _omc_* · _omcbp304_*

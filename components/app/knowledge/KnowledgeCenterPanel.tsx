@@ -19,7 +19,7 @@ type KnowledgeCenterPanelProps = {
     actions: { createArticle: string; importSeed: string; createFromGap: string; dismiss: string; publish: string };
     emptyArticles: string;
     emptyGaps: string;
-    links: { gaps: string; settings: string };
+    links: { gaps: string; settings: string; organizationalMemory?: string };
     statuses: Record<string, string>;
   };
 };
@@ -104,6 +104,7 @@ export function KnowledgeCenterPanel({ labels }: KnowledgeCenterPanelProps) {
         </div>
         <div className="flex flex-wrap gap-2">
           <Link href="/app/knowledge-center/gaps" className="rounded-lg border px-3 py-1.5 text-sm">{labels.links.gaps}</Link>
+          <Link href="/app/knowledge-center/organizational-memory" className="rounded-lg border px-3 py-1.5 text-sm">{labels.links.organizationalMemory ?? "Organizational Memory"}</Link>
           <Link href="/app/settings/knowledge" className="rounded-lg border px-3 py-1.5 text-sm">{labels.links.settings}</Link>
           <button type="button" onClick={() => void importSeed()} className="rounded-lg border px-3 py-1.5 text-sm">{labels.actions.importSeed}</button>
         </div>

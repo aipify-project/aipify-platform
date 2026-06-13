@@ -1,0 +1,4 @@
+ABOS Phase 303 — Executive Strategic Intelligence Center
+Route: /app/executive/strategic-intelligence
+Core: Help leaders see what they might otherwise miss.
+Helpers: _sic_* · _sicbp303_*

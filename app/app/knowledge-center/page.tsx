@@ -47,6 +47,7 @@ export default async function KnowledgeCenterPage() {
         links: {
           gaps: t("customerApp.knowledge.links.gaps"),
           settings: t("customerApp.knowledge.links.settings"),
+          organizationalMemory: t("customerApp.knowledge.organizationalMemoryLink"),
         },
         statuses,
       }}

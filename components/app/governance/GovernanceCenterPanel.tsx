@@ -47,6 +47,9 @@ type GovernanceCenterPanelProps = {
       audit: string;
       trust: string;
       settings: string;
+      approvalCenter: string;
+      permissionsAccess: string;
+      trustTransparency: string;
       approvalProfiles: string;
       financialGuardrails: string;
     };
@@ -149,6 +152,9 @@ export function GovernanceCenterPanel({ labels }: GovernanceCenterPanelProps) {
           <Link href="/app/governance/audit" className="rounded-lg border px-3 py-1.5 text-sm">{labels.links.audit}</Link>
           <Link href="/app/governance/trust" className="rounded-lg border px-3 py-1.5 text-sm">{labels.links.trust}</Link>
           <Link href="/app/governance/financial-guardrails" className="rounded-lg border px-3 py-1.5 text-sm">{labels.links.financialGuardrails}</Link>
+          <Link href="/app/governance/approval-center" className="rounded-lg border px-3 py-1.5 text-sm">{labels.links.approvalCenter}</Link>
+          <Link href="/app/governance/permissions-access" className="rounded-lg border px-3 py-1.5 text-sm">{labels.links.permissionsAccess}</Link>
+          <Link href="/app/governance/trust-transparency" className="rounded-lg border px-3 py-1.5 text-sm">{labels.links.trustTransparency}</Link>
           <Link href="/app/governance/approval-profiles" className="rounded-lg border px-3 py-1.5 text-sm">{labels.links.approvalProfiles}</Link>
           <Link href="/app/settings/governance" className="rounded-lg border px-3 py-1.5 text-sm">{labels.links.settings}</Link>
         </div>

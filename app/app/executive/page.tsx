@@ -37,6 +37,11 @@ export default async function ExecutivePage() {
         noActivity: t("customerApp.executive.noActivity"),
         installationsHealthy: t("customerApp.executive.installationsHealthy"),
         viewApprovals: t("customerApp.executive.viewApprovals"),
+        decisionSupportLink: t("customerApp.executive.decisionSupportLink"),
+        strategicIntelligenceLink: t("customerApp.executive.strategicIntelligenceLink"),
+        continuousImprovementLink: t("customerApp.executive.continuousImprovementLink"),
+        organizationalResilienceLink: t("customerApp.executive.organizationalResilienceLink"),
+        opportunityDiscoveryLink: t("customerApp.executive.opportunityDiscoveryLink"),
       }}
     />
   );

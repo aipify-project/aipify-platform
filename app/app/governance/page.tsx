@@ -61,6 +61,9 @@ export default async function GovernancePage() {
           trust: t("customerApp.governance.links.trust"),
           settings: t("customerApp.governance.links.settings"),
           approvalProfiles: t("customerApp.governance.approvalProfilesLink"),
+          approvalCenter: t("customerApp.governance.approvalCenterLink"),
+          permissionsAccess: t("customerApp.governance.permissionsAccessLink"),
+          trustTransparency: t("customerApp.governance.trustTransparencyLink"),
           financialGuardrails: t("customerApp.governance.financialGuardrailsLink"),
         },
       }}

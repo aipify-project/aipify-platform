@@ -1,0 +1,4 @@
+ABOS Phase 305 — Continuous Improvement Center
+Route: /app/executive/continuous-improvement
+Core: Organizations should become better over time.
+Helpers: _cic_* · _cicbp305_*

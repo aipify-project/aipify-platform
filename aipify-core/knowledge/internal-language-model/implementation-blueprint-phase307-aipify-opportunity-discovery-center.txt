@@ -1,0 +1,4 @@
+ABOS Phase 307 — Opportunity Discovery Center
+Route: /app/executive/opportunity-discovery
+Core: Organizations should discover opportunities, not only solve problems.
+Helpers: _odc_* · _odcbp307_*

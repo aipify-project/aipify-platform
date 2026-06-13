@@ -1,0 +1,10 @@
+ABOS Phase 298 — Aipify Automation Control Center Engine
+Route: /app/operations/automation-control
+Module: Automation Control Center
+Location: Operations Center → Automation Control Center
+
+Core principle: Automation should feel trustworthy, understandable, and valuable — not invisible.
+Sections: Executive Overview · Aipify Insights · Business Automations · Self-Healing · Activity Feed · Recommendations · Analytics
+Language: Always Aipify — never AI or AI Assistant in customer-facing automation copy.
+Helpers: _acc_* · _accbp298_*
+People First. Growth Partner — never Affiliate.

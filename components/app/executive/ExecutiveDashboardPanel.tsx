@@ -31,6 +31,11 @@ type ExecutiveDashboardPanelProps = {
     noActivity: string;
     installationsHealthy: string;
     viewApprovals: string;
+    decisionSupportLink: string;
+    strategicIntelligenceLink: string;
+    continuousImprovementLink: string;
+    organizationalResilienceLink: string;
+    opportunityDiscoveryLink: string;
   };
 };
 
@@ -69,6 +74,21 @@ export function ExecutiveDashboardPanel({ locale, labels }: ExecutiveDashboardPa
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
         <p className="mt-2 text-gray-600">{labels.subtitle}</p>
+        <Link href="/app/executive/decision-support" className="mt-3 inline-block text-sm text-indigo-600 hover:underline">
+          {labels.decisionSupportLink}
+        </Link>
+        <Link href="/app/executive/strategic-intelligence" className="ml-4 mt-3 inline-block text-sm text-indigo-600 hover:underline">
+          {labels.strategicIntelligenceLink}
+        </Link>
+        <Link href="/app/executive/continuous-improvement" className="ml-4 mt-3 inline-block text-sm text-indigo-600 hover:underline">
+          {labels.continuousImprovementLink}
+        </Link>
+        <Link href="/app/executive/organizational-resilience" className="ml-4 mt-3 inline-block text-sm text-indigo-600 hover:underline">
+          {labels.organizationalResilienceLink}
+        </Link>
+        <Link href="/app/executive/opportunity-discovery" className="ml-4 mt-3 inline-block text-sm text-indigo-600 hover:underline">
+          {labels.opportunityDiscoveryLink}
+        </Link>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

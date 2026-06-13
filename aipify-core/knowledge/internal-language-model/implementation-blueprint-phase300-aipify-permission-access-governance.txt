@@ -1,0 +1,4 @@
+ABOS Phase 300 — Permission & Access Governance Engine
+Route: /app/governance/permissions-access
+Core: Aipify can only do what it has permission to do.
+Helpers: _pag_* · _pagbp300_*

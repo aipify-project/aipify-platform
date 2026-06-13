@@ -1,0 +1,4 @@
+ABOS Phase 301 — Trust & Transparency Center
+Route: /app/governance/trust-transparency
+Core: People trust what they understand.
+Helpers: _ttc_* · _ttcbp301_*
