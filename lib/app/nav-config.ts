@@ -105,6 +105,7 @@ export type AppNavId =
   | "aipifyDecisionCenterGovernanceEngine"
   | "aipifyOrganizationalRhythmsOperatingCadenceEngine"
   | "continuousImprovementOptimizationEngine"
+  | "aipifyInnovationOpportunityDiscoveryEngine"
   | "aipifyCustomerSuccessValueRealizationEngine"
   | "aipifyCustomerJourneyExperienceOrchestrationEngine"
   | "aipifyOnboardingAdoptionAccelerationEngine"
@@ -690,6 +691,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "continuousImprovementOptimizationEngine",
     href: "/app/aipify-continuous-improvement-optimization-engine",
     labelKey: "customerApp.nav.continuousImprovementOptimizationEngine",
+  },
+  {
+    id: "aipifyInnovationOpportunityDiscoveryEngine",
+    href: "/app/aipify-innovation-opportunity-discovery-engine",
+    labelKey: "customerApp.nav.aipifyInnovationOpportunityDiscoveryEngine",
   },
   {
     id: "aipifyCustomerSuccessValueRealizationEngine",
@@ -1466,6 +1472,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/aipify-continuous-improvement-optimization-engine")) {
     return "continuousImprovementOptimizationEngine";
+  }
+  if (pathname.startsWith("/app/aipify-innovation-opportunity-discovery-engine")) {
+    return "aipifyInnovationOpportunityDiscoveryEngine";
   }
   if (pathname.startsWith("/app/aipify-customer-success-value-realization-engine")) {
     return "aipifyCustomerSuccessValueRealizationEngine";

@@ -6088,7 +6088,8 @@
     "aipifyCustomerJourneyExperienceOrchestrationEngine": "Kundereise",
     "aipifyOnboardingAdoptionAccelerationEngine": "Onboarding og adopsjon",
     "aipifyEnterpriseTrainingCertificationEngine": "Opplæring og sertifisering",
-    "aipifyOrganizationalCommunicationAnnouncementsEngine": "Kommunikasjon og kunngjøringer"
+    "aipifyOrganizationalCommunicationAnnouncementsEngine": "Kommunikasjon og kunngjøringer",
+    "aipifyInnovationOpportunityDiscoveryEngine": "Innovasjonsoppdagelse"
   },
   "identity": {
     "title": "Din identitet",
@@ -12171,6 +12172,41 @@
       "philosophy": "People First. Metadata-only communication scaffolds. Growth Partner terminology — never Affiliate.",
       "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
       "communicationEra": "Innovation & Adaptive Excellence Era (211–220) — Phase 217."
+    }
+  },
+  "aipifyInnovationOpportunityDiscoveryEngine": {
+    "title": "Innovation Discovery Center",
+    "subtitle": "Innovation & Adaptive Excellence Era (211–220). Discovery Companion surfaces opportunity signals and exploration insights. Advises humans — does NOT auto-prioritize innovation bets or launch experiments without approval. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Innovation & Opportunity Discovery dashboard…",
+    "engineTitle": "Aipify Innovation & Opportunity Discovery Engine (Phase 212)",
+    "scoreLabel": "Discovery score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Innovation maturity level",
+    "executiveReviews": "Executive innovation insights dashboard",
+    "activeReflections": "Active opportunity scanning scaffolds",
+    "humanOversightRequired": "Human oversight required — humans steward exploration and approval; Discovery Companion advises only",
+    "eraOpenerSummary": "Innovation Era — Phases 211–220",
+    "eraOpenerNote": "Cross-link only — do not duplicate continuous improvement, innovation lab, curiosity discovery, or executive cockpit RPCs.",
+    "centerLabel": "Innovation Discovery Center capabilities",
+    "engineLabel": "Opportunity scanning engine — scanning prompts",
+    "frameworkLabel": "Innovation opportunity center",
+    "reviewsLabel": "Executive innovation insights dashboard",
+    "companionLabel": "Discovery Companion — advises, does not auto-prioritize",
+    "subEngineLabel": "Idea Exploration Framework",
+    "reflections": "Opportunity scanning scaffolds",
+    "executiveReviewEntries": "Executive innovation insight entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 212)",
+    "companionLimitations": "Discovery Companion limitations — does NOT auto-prioritize innovation bets or launch experiments without approval",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase212": {
+      "mission": "Discovery Companion supports discovery visibility — humans retain exploration approval authority.",
+      "philosophy": "People First. Metadata-only discovery scaffolds. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
+      "innovationEraOpener": "Innovation & Adaptive Excellence Era (211–220) — Phase 212 innovation era opener."
     }
   }
 }

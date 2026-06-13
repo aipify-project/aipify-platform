@@ -159,6 +159,7 @@ export * from "./aipify-operations-orchestration-engine";
 export * from "./aipify-resource-capacity-workload-balance-engine";
 export * from "./aipify-organizational-rhythms-operating-cadence-engine";
 export * from "./aipify-continuous-improvement-optimization-engine";
+export * from "./aipify-innovation-opportunity-discovery-engine";
 export * from "./aipify-customer-success-value-realization-engine";
 export * from "./aipify-customer-journey-experience-orchestration-engine";
 export * from "./aipify-onboarding-adoption-acceleration-engine";
