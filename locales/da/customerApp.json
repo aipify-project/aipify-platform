@@ -5795,7 +5795,8 @@
     "aipifyCustomerJourneyExperienceOrchestrationEngine": "Kunderejse",
     "aipifyEnterpriseTrainingCertificationEngine": "Træning og certificering",
     "aipifyOrganizationalCommunicationAnnouncementsEngine": "Onboarding og adoption",
-    "aipifyInnovationOpportunityDiscoveryEngine": "Innovationsopdagelse"
+    "aipifyInnovationOpportunityDiscoveryEngine": "Innovationsopdagelse",
+    "aipifyEmployeeRecognitionCelebrationEngine": "Anerkendelse og fejring"
   },
   "identity": {
     "title": "Din identitet",
@@ -11982,6 +11983,41 @@
       "philosophy": "People First. Metadata-only discovery scaffolds. Growth Partner terminology — never Affiliate.",
       "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
       "innovationEraOpener": "Innovation & Adaptive Excellence Era (211–220) — Phase 212 innovation era opener."
+    }
+  },
+  "aipifyEmployeeRecognitionCelebrationEngine": {
+    "title": "Recognition Center",
+    "subtitle": "Innovation & Adaptive Excellence Era (211–220). Recognition Companion supports peer recognition, milestone celebrations, and values-aligned appreciation. Supports humans — does NOT auto-publish recognition or bypass privacy controls. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Employee Recognition & Celebration dashboard…",
+    "engineTitle": "Aipify Employee Recognition & Celebration Engine (Phase 218)",
+    "scoreLabel": "Recognition score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Recognition maturity level",
+    "executiveReviews": "Recognition insights dashboard",
+    "activeReflections": "Active recognition scaffolds",
+    "humanOversightRequired": "Human oversight required — humans steward recognition participation and privacy; Recognition Companion supports only",
+    "eraOpenerSummary": "Innovation Era — Phases 211–220",
+    "eraOpenerNote": "Cross-link only — do not duplicate digital headquarters, communication center, or unified workspace RPCs.",
+    "centerLabel": "Recognition Center capabilities",
+    "engineLabel": "Peer recognition framework — recognition prompts",
+    "frameworkLabel": "Leadership appreciation center",
+    "reviewsLabel": "Recognition insights dashboard",
+    "companionLabel": "Recognition Companion — supports, does not auto-publish recognition",
+    "subEngineLabel": "Milestone celebration engine",
+    "reflections": "Recognition activity scaffolds",
+    "executiveReviewEntries": "Recognition insight entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 218)",
+    "companionLimitations": "Recognition Companion limitations — does NOT auto-publish recognition or bypass privacy controls",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase218": {
+      "mission": "Recognition Companion supports recognition visibility — humans retain recognition authority.",
+      "philosophy": "People First. Metadata-only recognition scaffolds. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
+      "recognitionEra": "Innovation & Adaptive Excellence Era (211–220) — Phase 218."
     }
   }
 }

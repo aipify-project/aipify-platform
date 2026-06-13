@@ -109,6 +109,7 @@ export type AppNavId =
   | "aipifyCustomerSuccessValueRealizationEngine"
   | "aipifyEnterpriseTrainingCertificationEngine"
   | "aipifyOrganizationalCommunicationAnnouncementsEngine"
+  | "aipifyEmployeeRecognitionCelebrationEngine"
   | "aipifyCustomerJourneyExperienceOrchestrationEngine"
   | "aipifyOnboardingAdoptionAccelerationEngine"
   | "aipifyMeetingIntelligenceFollowUpEngine"
@@ -723,6 +724,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "aipifyOrganizationalCommunicationAnnouncementsEngine",
     href: "/app/aipify-organizational-communication-announcements-engine",
     labelKey: "customerApp.nav.aipifyOrganizationalCommunicationAnnouncementsEngine",
+  },
+  {
+    id: "aipifyEmployeeRecognitionCelebrationEngine",
+    href: "/app/aipify-employee-recognition-celebration-engine",
+    labelKey: "customerApp.nav.aipifyEmployeeRecognitionCelebrationEngine",
   },
   {
     id: "aipifyMeetingIntelligenceFollowUpEngine",
@@ -1502,6 +1508,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/aipify-organizational-communication-announcements-engine")) {
     return "aipifyOrganizationalCommunicationAnnouncementsEngine";
+  }
+  if (pathname.startsWith("/app/aipify-employee-recognition-celebration-engine")) {
+    return "aipifyEmployeeRecognitionCelebrationEngine";
   }
   if (pathname.startsWith("/app/aipify-meeting-intelligence-follow-up-engine")) {
     return "aipifyMeetingIntelligenceFollowUpEngine";
