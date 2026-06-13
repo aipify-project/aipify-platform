@@ -1,0 +1,12 @@
+ABOS Phase 246 — Skills & Internal Talent Marketplace
+Route: /app/aipify-skills-internal-talent-marketplace-engine
+
+Talent: skill profiles, self-assessments, manager validation, endorsements, internal marketplace, project matching, cross-department discovery, hidden talent, career aspirations, skill gaps, internal mobility, analytics.
+Categories: technical, leadership, communication, creative, language, operational, industry expertise, custom.
+Marketplace: project matching, internal opportunities, rare expertise, cross-functional collaboration, career growth, internal recruitment.
+Intelligence: skill gaps, learning paths, underutilized talent, mentorship, internal candidates, high-potential employees.
+Security: talent RBAC, aspiration privacy, profile visibility controls, audit logging, enterprise permissions, 2FA.
+Design principles: Visibility before external hiring, growth before stagnation, privacy before exposure.
+Companion limitations: no bypassing talent RBAC, no exposing aspirations without consent, no exposing data beyond profile visibility.
+Cross-links only: Employee Growth Engine Phase 219, Learning Center, Mentorship & Knowledge Transfer Engine Phase 243, Succession Planning & Organizational Continuity Engine Phase 244, Enterprise Analytics Engine Phase 235, Enterprise Notification Engine Phase 233, and Aipify Translate Phase 238 — never bypass talent marketplace RBAC, expose career aspirations without employee consent, or expose employee data beyond authorized profile visibility.
+People First. Growth Partner — never Affiliate.

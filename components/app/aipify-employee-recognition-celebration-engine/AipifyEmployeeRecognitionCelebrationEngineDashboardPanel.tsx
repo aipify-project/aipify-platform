@@ -112,11 +112,11 @@ export function AipifyEmployeeRecognitionCelebrationEngineDashboardPanel({ label
   if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
   if (!dashboard?.has_customer) return null;
 
-  const integrationLinks = dashboard.aercebp218_integration_links?.length
-    ? dashboard.aercebp218_integration_links
+  const integrationLinks = dashboard.aercebp242_integration_links?.length
+    ? dashboard.aercebp242_integration_links
     : dashboard.integration_links;
-  const eraOpener = dashboard.aercebp218_era_opener_summary?.length
-    ? dashboard.aercebp218_era_opener_summary
+  const eraOpener = dashboard.aercebp242_era_opener_summary?.length
+    ? dashboard.aercebp242_era_opener_summary
     : dashboard.era_opener_summary ?? [];
 
   return (
@@ -130,8 +130,8 @@ export function AipifyEmployeeRecognitionCelebrationEngineDashboardPanel({ label
         {dashboard.distinction_note ? <p className="mt-2 text-xs text-indigo-700">{dashboard.distinction_note}</p> : null}
         {dashboard.aipify_employee_recognition_celebration_vision ? <p className="mt-2 text-xs italic text-indigo-800">{dashboard.aipify_employee_recognition_celebration_vision}</p> : null}
         <div className="mt-4 flex flex-wrap gap-4 text-sm">
-          <div><span className="font-medium">{labels.modeLabel}:</span> {dashboard.recognition_mode}</div>
-          <div><span className="font-medium">{labels.readinessLabel}:</span> {dashboard.recognition_maturity_level ?? 1}</div>
+          <div><span className="font-medium">{labels.modeLabel}:</span> {dashboard.recognition_celebration_mode}</div>
+          <div><span className="font-medium">{labels.readinessLabel}:</span> {dashboard.recognition_celebration_maturity_level ?? 1}</div>
           <div><span className="font-medium">{labels.executiveReviews}:</span> {dashboard.executive_reviews_count ?? 0}</div>
           <div><span className="font-medium">{labels.activeReflections}:</span> {dashboard.active_reflections_count ?? 0}</div>
         </div>

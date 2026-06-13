@@ -22,7 +22,7 @@ export function PlatformTrustScaffold({
         <h1 className="text-2xl font-semibold text-gray-900">{title}</h1>
         <p className="mt-2 text-sm text-gray-600">{subtitle}</p>
         {statsLabel && statsValue ? (
-          <p className="mt-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-800">
+          <p className="mt-3 rounded-lg border border-sky-100 bg-sky-50 px-3 py-2 text-sm text-sky-900">
             <span className="font-medium">{statsLabel}:</span> {statsValue}
           </p>
         ) : null}

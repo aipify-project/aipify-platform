@@ -110,6 +110,11 @@ export type AppNavId =
   | "aipifyEnterpriseTrainingCertificationEngine"
   | "aipifyOrganizationalCommunicationAnnouncementsEngine"
   | "aipifyEmployeeRecognitionCelebrationEngine"
+  | "aipifyMentorshipKnowledgeTransferEngine"
+  | "aipifySuccessionPlanningOrganizationalContinuityEngine"
+  | "aipifyOrganizationalHealthWorkforceInsightsEngine"
+  | "aipifySkillsInternalTalentMarketplaceEngine"
+  | "aipifyInnovationIdeaManagementEngine"
   | "aipifyWellbeingSustainablePerformanceEngine"
   | "aipifyTalentAcquisitionWorkforcePlanningEngine"
   | "aipifyPerformanceGoalAlignmentEngine"
@@ -751,6 +756,31 @@ export const APP_NAV: AppNavItem[] = [
     id: "aipifyEmployeeRecognitionCelebrationEngine",
     href: "/app/aipify-employee-recognition-celebration-engine",
     labelKey: "customerApp.nav.aipifyEmployeeRecognitionCelebrationEngine",
+  },
+  {
+    id: "aipifyMentorshipKnowledgeTransferEngine",
+    href: "/app/aipify-mentorship-knowledge-transfer-engine",
+    labelKey: "customerApp.nav.aipifyMentorshipKnowledgeTransferEngine",
+  },
+  {
+    id: "aipifySuccessionPlanningOrganizationalContinuityEngine",
+    href: "/app/aipify-succession-planning-organizational-continuity-engine",
+    labelKey: "customerApp.nav.aipifySuccessionPlanningOrganizationalContinuityEngine",
+  },
+  {
+    id: "aipifyOrganizationalHealthWorkforceInsightsEngine",
+    href: "/app/aipify-organizational-health-workforce-insights-engine",
+    labelKey: "customerApp.nav.aipifyOrganizationalHealthWorkforceInsightsEngine",
+  },
+  {
+    id: "aipifySkillsInternalTalentMarketplaceEngine",
+    href: "/app/aipify-skills-internal-talent-marketplace-engine",
+    labelKey: "customerApp.nav.aipifySkillsInternalTalentMarketplaceEngine",
+  },
+  {
+    id: "aipifyInnovationIdeaManagementEngine",
+    href: "/app/aipify-innovation-idea-management-engine",
+    labelKey: "customerApp.nav.aipifyInnovationIdeaManagementEngine",
   },
   {
     id: "aipifyEmployeeGrowthCareerDevelopmentEngine",
@@ -1643,6 +1673,21 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/aipify-employee-recognition-celebration-engine")) {
     return "aipifyEmployeeRecognitionCelebrationEngine";
+  }
+  if (pathname.startsWith("/app/aipify-mentorship-knowledge-transfer-engine")) {
+    return "aipifyMentorshipKnowledgeTransferEngine";
+  }
+  if (pathname.startsWith("/app/aipify-succession-planning-organizational-continuity-engine")) {
+    return "aipifySuccessionPlanningOrganizationalContinuityEngine";
+  }
+  if (pathname.startsWith("/app/aipify-organizational-health-workforce-insights-engine")) {
+    return "aipifyOrganizationalHealthWorkforceInsightsEngine";
+  }
+  if (pathname.startsWith("/app/aipify-skills-internal-talent-marketplace-engine")) {
+    return "aipifySkillsInternalTalentMarketplaceEngine";
+  }
+  if (pathname.startsWith("/app/aipify-innovation-idea-management-engine")) {
+    return "aipifyInnovationIdeaManagementEngine";
   }
   if (pathname.startsWith("/app/aipify-employee-growth-career-development-engine")) {
     return "aipifyEmployeeGrowthCareerDevelopmentEngine";

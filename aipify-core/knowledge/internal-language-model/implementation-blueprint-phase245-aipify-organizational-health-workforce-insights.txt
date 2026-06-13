@@ -1,0 +1,12 @@
+ABOS Phase 245 — Organizational Health & Workforce Insights
+Route: /app/aipify-organizational-health-workforce-insights-engine
+
+Health: organizational dashboard, pulse surveys, team wellbeing, department trends, sentiment, burnout risk, workload, participation, trend reporting, leadership summaries, anonymous feedback, improvement initiatives.
+Categories: engagement, collaboration, workload balance, recognition, learning participation, leadership effectiveness, team morale, organizational trust.
+Surveys: pulse, quarterly engagement, team check-ins, leadership feedback, custom.
+Intelligence: declining engagement, departments needing support, recognition gaps, workload concerns, improvement initiatives, proactive leadership.
+Security: health insights RBAC, individual response confidentiality, aggregated data, audit logging, enterprise permissions, 2FA.
+Design principles: Ethics before exposure, aggregation before identification, wellbeing before metrics pressure.
+Companion limitations: no bypassing health RBAC, no exposing individual responses, no exposing non-aggregated workforce data.
+Cross-links only: Employee Growth Engine Phase 219, Employee Recognition & Celebration Engine Phase 242, Enterprise Analytics Engine Phase 235, Executive Cockpit Phase 200, Enterprise Notification Engine Phase 233, Learning Center, and Aipify Translate Phase 238 — never bypass health insights RBAC, expose individual survey responses without authorization, or expose non-aggregated sensitive workforce data.
+People First. Growth Partner — never Affiliate.

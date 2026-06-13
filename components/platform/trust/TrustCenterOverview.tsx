@@ -162,7 +162,7 @@ export function TrustCenterOverview({ labels }: Props) {
       <header className="space-y-2">
         <h1 className="text-2xl font-semibold tracking-tight text-gray-900">{labels.title}</h1>
         <p className="max-w-3xl text-sm leading-relaxed text-gray-600">{labels.subtitle}</p>
-        <p className="max-w-3xl rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800">
+        <p className="max-w-3xl rounded-lg border border-sky-100 bg-sky-50 px-4 py-3 text-sm text-sky-900">
           {governance?.platform_responsibility ?? labels.responsibility}
         </p>
       </header>

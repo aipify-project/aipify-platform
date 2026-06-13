@@ -1,5 +1,5 @@
 /**
- * Aipify Employee Recognition & Celebration Engine helpers (Phase 218).
+ * Enterprise __TRANSLATE_CENTER__ Engine helpers (Phase 242).
  * Authoritative enforcement lives in Supabase RPCs (_aerce_*).
  */
 

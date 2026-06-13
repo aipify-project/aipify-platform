@@ -233,6 +233,12 @@ export * from "./implementation-blueprint-phase237-vocabulary";
 export * from "./implementation-blueprint-phase238-vocabulary";
 export * from "./implementation-blueprint-phase239-vocabulary";
 export * from "./implementation-blueprint-phase240-vocabulary";
+export * from "./implementation-blueprint-phase242-vocabulary";
+export * from "./implementation-blueprint-phase243-vocabulary";
+export * from "./implementation-blueprint-phase244-vocabulary";
+export * from "./implementation-blueprint-phase245-vocabulary";
+export * from "./implementation-blueprint-phase246-vocabulary";
+export * from "./implementation-blueprint-phase247-vocabulary";
 export * from "./implementation-blueprint-phase219-vocabulary";
 export * from "./implementation-blueprint-phase215-vocabulary";
 export * from "./implementation-blueprint-phase216-vocabulary";
@@ -933,6 +939,18 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE239_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase239-aipify-enterprise-onboarding-guided-adoption.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE240_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase240-aipify-enterprise-meeting-intelligence-collaboration.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE242_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase242-aipify-employee-recognition-celebration.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE243_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase243-aipify-mentorship-knowledge-transfer.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE244_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase244-aipify-succession-planning-organizational-continuity.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE245_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase245-aipify-organizational-health-workforce-insights.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE246_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase246-aipify-skills-internal-talent-marketplace.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE247_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase247-aipify-innovation-idea-management.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE230_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase230-aipify-document-intelligence-enterprise-document.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE215_CORPUS =

@@ -95,7 +95,7 @@ export function TrustAuditPanel({ labels }: Props) {
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
         <h2 className="text-lg font-semibold text-gray-900">{labels.foundationTitle}</h2>
         <p className="mt-2 text-sm text-gray-700">{foundationValue}</p>
-        <p className="mt-3 rounded-lg border border-violet-100 bg-violet-50 px-3 py-2 text-xs text-violet-900">
+        <p className="mt-3 rounded-lg border border-sky-100 bg-sky-50 px-3 py-2 text-xs text-sky-900">
           {labels.immutableNote}
         </p>
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
@@ -138,8 +138,8 @@ export function TrustAuditPanel({ labels }: Props) {
 
 function Stat({ label, value }: { label: string; value: number | string }) {
   return (
-    <div className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2">
-      <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</p>
+    <div className="rounded-lg border border-sky-100 bg-sky-50/60 px-3 py-2">
+      <p className="text-xs font-medium uppercase tracking-wide text-sky-700/80">{label}</p>
       <p className="mt-1 text-xl font-semibold text-gray-900">{value}</p>
     </div>
   );

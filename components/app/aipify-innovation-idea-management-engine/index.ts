@@ -1,0 +1,1 @@
+export { AipifyInnovationIdeaManagementEngineDashboardPanel } from "./AipifyInnovationIdeaManagementEngineDashboardPanel";

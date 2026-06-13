@@ -1,0 +1,12 @@
+ABOS Phase 244 — Succession Planning & Organizational Continuity
+Route: /app/aipify-succession-planning-organizational-continuity-engine
+
+Succession: critical roles, successors, candidate pools, readiness, development plans, leadership pipeline, emergency succession, continuity planning, analytics, executive dashboards, role risk, talent bench.
+Types: executive, leadership, department, technical expert, critical operational, emergency.
+Continuity: single points of failure, knowledge concentration, readiness tracking, development progress, transition planning, organizational stability.
+Intelligence: detect high-risk roles, recommend candidates, development opportunities, continuity risks, proactive planning.
+Security: succession RBAC, executive confidentiality, workforce planning protection, audit logging, enterprise permissions, 2FA.
+Design principles: Planning before disruption, continuity before dependency, readiness before transition risk.
+Companion limitations: no bypassing succession RBAC, no exposing executive plans, no exposing workforce planning data.
+Cross-links only: Employee Growth Engine Phase 219, Mentorship & Knowledge Transfer Engine Phase 243, Learning Center, Enterprise Analytics Engine Phase 235, Executive Cockpit Phase 200, Knowledge Center, and Enterprise Notification Engine Phase 233 — never bypass succession RBAC, expose executive succession plans without authorization, or expose sensitive workforce planning data.
+People First. Growth Partner — never Affiliate.

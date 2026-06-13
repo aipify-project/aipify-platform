@@ -70,11 +70,11 @@ export type LimitationPrinciples = {
 export type AipifyEmployeeRecognitionCelebrationEngineEngagementSummary = {
   aipify_employee_recognition_celebration_score?: number;
   enabled?: boolean;
-  recognition_mode?: string;
-  recognition_maturity_level?: number;
+  recognition_celebration_mode?: string;
+  recognition_celebration_maturity_level?: number;
   executive_reviews_count?: number;
   reflections_count?: number;
-  recognition_notes_count?: number;
+  recognition_celebration_notes_count?: number;
   active_reflections_count?: number;
   era_phases_count?: number;
   cross_links_count?: number;
@@ -108,8 +108,8 @@ export type AipifyEmployeeRecognitionCelebrationEngineCard = {
   has_customer: boolean;
   aipify_employee_recognition_celebration_score?: number;
   enabled?: boolean;
-  recognition_mode?: string;
-  recognition_maturity_level?: number;
+  recognition_celebration_mode?: string;
+  recognition_celebration_maturity_level?: number;
   reflections_count?: number;
   philosophy?: string;
   human_oversight_required?: boolean;
@@ -124,8 +124,8 @@ export type AipifyEmployeeRecognitionCelebrationEngineCard = {
 export type AipifyEmployeeRecognitionCelebrationEngineDashboard = {
   has_customer: boolean;
   enabled?: boolean;
-  recognition_mode?: string;
-  recognition_maturity_level?: number;
+  recognition_celebration_mode?: string;
+  recognition_celebration_maturity_level?: number;
   human_oversight_required?: boolean;
   philosophy?: string;
   safety_note?: string;
@@ -133,7 +133,7 @@ export type AipifyEmployeeRecognitionCelebrationEngineDashboard = {
   aipify_employee_recognition_celebration_score?: number;
   executive_reviews_count?: number;
   reflections_count?: number;
-  recognition_notes_count?: number;
+  recognition_celebration_notes_count?: number;
   active_reflections_count?: number;
   era_phases_count?: number;
   executive_reviews: ExecutiveReview[];
@@ -156,8 +156,8 @@ export type AipifyEmployeeRecognitionCelebrationEngineDashboard = {
   companion_limitations_meta?: LimitationPrinciples;
   self_love_connection_meta?: Record<string, unknown>;
   security_requirements_meta?: Record<string, unknown>;
-  aercebp218_integration_links?: IntegrationLink[];
-  aercebp218_era_opener_summary?: IntegrationLink[];
+  aercebp242_integration_links?: IntegrationLink[];
+  aercebp242_era_opener_summary?: IntegrationLink[];
   aipify_employee_recognition_celebration_engagement_summary?: AipifyEmployeeRecognitionCelebrationEngineEngagementSummary;
   aipify_employee_recognition_celebration_success_criteria?: AbosSuccessCriterion[];
   aipify_employee_recognition_celebration_vision?: string;

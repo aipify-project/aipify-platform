@@ -29,8 +29,8 @@ export default function TrustSubNav({ items }: TrustSubNavProps) {
           href={item.href}
           className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
             activeId === item.id
-              ? "bg-slate-800 text-white shadow-sm"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              ? "border border-sky-200 bg-sky-50 text-sky-900 shadow-sm"
+              : "bg-gray-50 text-gray-600 hover:bg-sky-50 hover:text-sky-800"
           }`}
         >
           {item.label}

@@ -1,0 +1,12 @@
+ABOS Phase 243 — Mentorship & Knowledge Transfer
+Route: /app/aipify-mentorship-knowledge-transfer-engine
+
+Mentorship: mentor/mentee registration, matching, department programs, leadership programs, cross-functional mentoring, goals, progress, sessions, knowledge transfer, analytics, feedback.
+Types: peer, leadership, executive, technical, career development, onboarding, cross-department.
+Knowledge transfer: capture expertise, best practices, role knowledge, gap identification, institutional knowledge, succession support.
+Intelligence: recommend matches, suggest topics, isolation risk, knowledge holders, engagement encouragement.
+Security: mentorship RBAC, development privacy, privacy preferences, audit logging, enterprise permissions, 2FA.
+Design principles: Growth before isolation, knowledge before loss, consent before matching.
+Companion limitations: no bypassing mentorship RBAC, no exposing development info, no forced matching without consent.
+Cross-links only: Employee Growth Engine Phase 219, Learning Center, Calendar Assistant Engine Phase 237, Enterprise Notification Engine Phase 233, Enterprise Analytics Engine Phase 235, Knowledge Center, and Aipify Translate Phase 238 — never bypass mentorship RBAC, expose personal development information without authorization, or ignore mentorship privacy preferences.
+People First. Growth Partner — never Affiliate.

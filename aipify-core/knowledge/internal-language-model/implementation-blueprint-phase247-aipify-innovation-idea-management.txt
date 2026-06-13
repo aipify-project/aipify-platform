@@ -1,0 +1,12 @@
+ABOS Phase 247 — Innovation & Idea Management
+Route: /app/aipify-innovation-idea-management-engine
+
+Innovation: submission portal, department boards, campaigns, categorization, voting, manager reviews, executive workflows, pipelines, status tracking, analytics, rewards, challenges.
+Categories: process, customer experience, product, cost-saving, employee experience, sustainability, technology, custom.
+Lifecycle: submitted, under review, approved, in development, implemented, declined, archived.
+Intelligence: duplicate detection, related initiatives, high-impact ideas, innovation champions, executive attention, underrepresented participation.
+Security: innovation RBAC, restricted visibility, idea ownership policies, audit logging, enterprise permissions, 2FA.
+Design principles: Participation before hierarchy, ideas before ego, impact before volume.
+Companion limitations: no bypassing innovation RBAC, no exposing restricted initiatives, no exposing data beyond ownership policies.
+Cross-links only: Employee Recognition & Celebration Engine Phase 242, Enterprise Analytics Engine Phase 235, Enterprise Workflow Automation Engine Phase 231, Enterprise Notification Engine Phase 233, Executive Cockpit Phase 200, Knowledge Center, and Aipify Translate Phase 238 — never bypass innovation RBAC, expose restricted initiatives without authorization, or expose sensitive idea data beyond idea ownership policies.
+People First. Growth Partner — never Affiliate.
