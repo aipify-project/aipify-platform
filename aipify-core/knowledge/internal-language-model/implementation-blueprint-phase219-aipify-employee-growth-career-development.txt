@@ -1,0 +1,13 @@
+ABOS Phase 219 — Aipify Employee Growth & Career Development
+Route: /app/aipify-employee-growth-career-development-engine
+
+Career Development Center: career dashboard, individual development plans, career path explorer, growth opportunity center, manager development hub, organizational talent dashboard, learning/recognition integration (cross-links), career development knowledge libraries.
+Individual Development Plans: employee + manager growth planning, milestones, short-term and long-term goals, metadata-only scaffolds.
+Career Path Explorer: leadership, specialist, and cross-functional paths with competency transparency.
+Growth Opportunity Center: training, internal projects, and mentorship recommendations.
+Manager Development Hub: team development insights and stewardship prompts.
+Organizational Talent Dashboard: succession readiness indicators and critical skill gap visibility.
+Design principles: Growth before stagnation, opportunity before limitation, stewardship before short-term thinking.
+Companion limitations: no auto-deciding progression, no bypassing confidentiality controls, no exposing personal career information.
+Cross-links only: Phase 216 learning center and Phase 218 recognition engine — never auto-decide career progression, bypass confidentiality controls, or expose personal career information.
+People First. Growth Partner — never Affiliate.

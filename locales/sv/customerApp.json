@@ -5850,7 +5850,8 @@
     "aipifyEnterpriseTrainingCertificationEngine": "Utbildning och certifiering",
     "aipifyOrganizationalCommunicationAnnouncementsEngine": "Onboarding och adoption",
     "aipifyInnovationOpportunityDiscoveryEngine": "Innovationsupptäckt",
-    "aipifyEmployeeRecognitionCelebrationEngine": "Erkännande och firande"
+    "aipifyEmployeeRecognitionCelebrationEngine": "Erkännande och firande",
+    "aipifyEmployeeGrowthCareerDevelopmentEngine": "Tillvaxt och karriarutveckling"
   },
   "identity": {
     "title": "Din identitet",
@@ -12008,6 +12009,41 @@
       "philosophy": "People First. Metadata-only recognition scaffolds. Growth Partner terminology — never Affiliate.",
       "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
       "recognitionEra": "Innovation & Adaptive Excellence Era (211–220) — Phase 218."
+    }
+  },
+  "aipifyEmployeeGrowthCareerDevelopmentEngine": {
+    "title": "Career Development Center",
+    "subtitle": "Innovation & Adaptive Excellence Era (211–220). Growth Companion supports development planning, career path visibility, and growth opportunities. Supports humans — does NOT auto-decide progression or bypass confidentiality controls. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Employee Growth & Career Development dashboard…",
+    "engineTitle": "Aipify Employee Growth & Career Development Engine (Phase 219)",
+    "scoreLabel": "Career development score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Growth readiness level",
+    "executiveReviews": "Organizational talent dashboard",
+    "activeReflections": "Active development scaffolds",
+    "humanOversightRequired": "Human oversight required — humans steward progression decisions; Growth Companion supports only",
+    "eraOpenerSummary": "Innovation Era — Phases 211–220",
+    "eraOpenerNote": "Cross-link only — do not duplicate learning center or recognition engine RPCs.",
+    "centerLabel": "Career Development Center capabilities",
+    "engineLabel": "Individual development plans — career prompts",
+    "frameworkLabel": "Career path explorer",
+    "reviewsLabel": "Organizational talent dashboard",
+    "companionLabel": "Growth Companion — supports, does not auto-decide progression",
+    "subEngineLabel": "Growth opportunity center",
+    "reflections": "Development scaffolds",
+    "executiveReviewEntries": "Talent insight entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 219)",
+    "companionLimitations": "Growth Companion limitations — does NOT auto-decide progression or bypass confidentiality controls",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase219": {
+      "mission": "Growth Companion supports career development visibility — humans retain progression authority.",
+      "philosophy": "People First. Metadata-only career development scaffolds. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
+      "growthEra": "Innovation & Adaptive Excellence Era (211–220) — Phase 219."
     }
   }
 }
