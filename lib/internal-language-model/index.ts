@@ -274,6 +274,24 @@ export * from "./implementation-blueprint-phase283-vocabulary";
 export * from "./implementation-blueprint-phase284-vocabulary";
 export * from "./implementation-blueprint-phase285-vocabulary";
 export * from "./implementation-blueprint-phase286-vocabulary";
+export * from "./implementation-blueprint-phase287-vocabulary";
+export * from "./implementation-blueprint-phase288-vocabulary";
+export * from "./implementation-blueprint-phase289-vocabulary";
+export * from "./implementation-blueprint-phase290-vocabulary";
+export * from "./implementation-blueprint-phase291-vocabulary";
+export * from "./implementation-blueprint-phase292-vocabulary";
+export * from "./implementation-blueprint-phase293-vocabulary";
+export * from "./implementation-blueprint-phase294-vocabulary";
+export * from "./implementation-blueprint-phase295-vocabulary";
+export * from "./implementation-blueprint-phase296-vocabulary";
+export * from "./aipify-match-companion-future-vocabulary";
+export * from "./aipify-family-companion-future-vocabulary";
+export * from "./aipify-wellness-companion-future-vocabulary";
+export * from "./aipify-education-companion-future-vocabulary";
+export * from "./aipify-elder-care-companion-future-vocabulary";
+export * from "./aipify-pet-companion-future-vocabulary";
+export * from "./aipify-home-companion-future-vocabulary";
+export * from "./aipify-community-companion-future-vocabulary";
 export * from "./implementation-blueprint-phase270-vocabulary";
 export * from "./implementation-blueprint-phase269-vocabulary";
 export * from "./implementation-blueprint-phase219-vocabulary";
@@ -1058,6 +1076,42 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE285_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase285-pilot-learning-customer-zero-engine.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE286_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase286-aipify-install-business-discovery-engine.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE287_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase287-aipify-first-day-experience-engine.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE288_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase288-aipify-trust-acceleration-adoption-engine.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE289_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase289-aipify-companion-marketplace-action-ecosystem-engine.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE290_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase290-aipify-life-events-proactive-care-engine.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE291_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase291-aipify-companion-identity-relationship-engine.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE292_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase292-aipify-companion-presence-continuity-engine.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE293_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase293-aipify-companion-action-marketplace-engine.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE294_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase294-aipify-companion-action-memory-engine.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE295_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase295-aipify-companion-approval-profiles-engine.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE296_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase296-aipify-companion-financial-guardrails-engine.txt";
+export const AIPIFY_MATCH_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-match-companion-future-module.txt";
+export const AIPIFY_FAMILY_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-family-companion-future-module.txt";
+export const AIPIFY_WELLNESS_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-wellness-companion-future-module.txt";
+export const AIPIFY_EDUCATION_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-education-companion-future-module.txt";
+export const AIPIFY_ELDER_CARE_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-elder-care-companion-future-module.txt";
+export const AIPIFY_PET_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-pet-companion-future-module.txt";
+export const AIPIFY_HOME_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-home-companion-future-module.txt";
+export const AIPIFY_COMMUNITY_COMPANION_FUTURE_CORPUS =
+  "aipify-core/knowledge/internal-language-model/aipify-community-companion-future-module.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE270_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase270-aipify-enterprise-collective-intelligence.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE269_CORPUS =

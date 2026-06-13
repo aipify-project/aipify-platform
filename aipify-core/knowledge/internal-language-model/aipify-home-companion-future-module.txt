@@ -1,0 +1,26 @@
+Aipify Home Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Family Companion, Memory, Presence, Action Framework, and Governance are ready
+
+Core principle: A home should be a place of comfort — reduce invisible household workload.
+Positioning: Companion Module for practical home life organization and management.
+
+Aipify should: household coordination, maintenance reminders, reduce mental load, family organization, preparedness, simplify everyday life.
+Aipify should never: replace professional judgment, financial commitments without approval, override decision-makers, unnecessary dependence, unauthorized actions.
+
+Categories: Home maintenance · Household operations · Service coordination · Home improvements
+Home profile: members, property type, contacts, service providers, preferences, maintenance history
+Seasonal: Spring outdoor prep · Summer vacation/garden · Autumn heating/weather · Winter snow/emergency
+
+Insights: Encourage preparedness — never anxiety.
+Actions: Reminders · Checklists · Service appointments · Shopping lists · Documentation · Seasonal plans — approval required.
+Emergency: preparedness only — human-led response.
+Household coordination: shared tasks, visitors, hosting, communication
+
+Privacy: Protect household info · Minimal data · Deletion · Transparency · Family boundaries
+User control: household access, reminders, service permissions, action approvals, notifications
+
+Design: Practical · Human-centered · Companion-driven · Non-judgmental · Family-supportive · Low friction
+Vision: Stay prepared and organized — enjoy life at home instead of managing endless details.
+
+Distinct from Family Companion (cross-link), Pet Companion, Financial Guardrails (service spend).
+People First. Growth Partner — never Affiliate.

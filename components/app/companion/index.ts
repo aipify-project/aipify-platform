@@ -1,0 +1,1 @@
+export { TrustAdoptionPanel } from "./TrustAdoptionPanel";

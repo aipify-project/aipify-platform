@@ -1,0 +1,14 @@
+ABOS Phase 292 — Aipify Companion Presence & Continuity Engine
+Route: /app/companion/presence-continuity
+Module: Presence Center
+Location: Companion Center → Presence & Continuity
+
+Core principle: Aipify should feel consistently available — not an app users repeatedly reopen.
+Philosophy: We continue where we left off.
+States: Offline · Available · Focused · Active Companion
+Continuity: conversations, approvals, commitments, initiatives, workflows, drafts — metadata only.
+Since-last-session: brief · standard · executive display modes.
+Focus protection: respect working hours, focus periods, notification preferences.
+Multi-device: desktop, web, mobile — context follows user appropriately.
+Helpers: _cpce_* · _cpcebp292_*
+People First. Growth Partner — never Affiliate.

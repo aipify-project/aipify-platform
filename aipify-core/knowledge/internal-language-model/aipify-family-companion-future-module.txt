@@ -1,0 +1,26 @@
+Aipify Family Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Life Events, Action Framework, and Memory foundations are ready
+
+Core principle: Less time remembering — more time together. Reduce stress, not replace relationships.
+Positioning: Companion Module for modern family life — organizer, coordinator, reminder system.
+
+Aipify should: remember dates, coordinate activities, reduce mental load, support shared responsibilities, encourage quality time, help stay organized.
+Aipify should never: replace parenting decisions, override parental authority, make family choices independently, encourage unhealthy dependence.
+
+Categories: Birthdays · Anniversaries · School · Sports · Holidays · Vacations · Traditions
+Responsibilities: Shopping lists · Appointments · School prep · Household tasks · Pet care · Vehicle maintenance
+Coordination: Calendar sync · Scheduling · Checklists · Gift planning · Vacation planning · Reminders
+
+Care moments: Gentle, timely — reduce stress, not guilt.
+Insights: Encourage coordination success — never guilt.
+
+Actions: Shopping lists · Print schedules · Reminders · Approved gifts · Transportation · Vacation checklists — all permission-gated.
+
+Privacy: Protect family information · Respect parental boundaries · Selective sharing · Minimal data · Transparency
+User control: visibility, reminders, responsibilities, permissions, notifications
+
+Design: Warm · Privacy-first · Family-centered · Simple · Companion-driven · Low friction
+Vision: Remember what matters, prepare for important moments, spend more time together.
+
+Distinct from LifeOS, PAME, Life Events Phase 290, Context Engine (cross-links only).
+People First. Growth Partner — never Affiliate.

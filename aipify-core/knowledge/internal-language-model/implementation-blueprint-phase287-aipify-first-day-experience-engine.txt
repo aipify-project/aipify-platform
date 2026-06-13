@@ -1,0 +1,12 @@
+ABOS Phase 287 — Aipify First Day Experience Engine
+Route: /app/onboarding/first-day-experience
+Module: First Day Experience Center
+Location: Onboarding Center → First Day Experience
+
+Core principle: The first 15 minutes determine whether Aipify becomes essential.
+Journey: 8 steps — Welcome · Discovery · Value · Capability · Permission · Personalization · First Success · Readiness
+Adoption stages: Observer · Assistant · Coordinator · Action Companion · Trusted Companion
+Confidence: Never overstate capability.
+Helpers: _afde_* · _afdebp287_*
+Extends business discovery Phase 286 and customer onboarding.
+People First. Growth Partner — never Affiliate.

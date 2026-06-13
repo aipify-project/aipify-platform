@@ -1,0 +1,12 @@
+ABOS Phase 288 — Aipify Trust Acceleration & Adoption Engine
+Route: /app/companion/trust-adoption
+Module: Adoption Center
+Location: Companion Center → Trust & Adoption
+
+Core principle: Trust is earned through repeated positive experiences. Goal is reliance, not usage.
+Stages: Curiosity · Confidence · Dependence · Companionship
+States: Exploring · Learning · Integrating · Relying · Advocating
+Reliability: Building Trust · Reliable · Highly Reliable · Essential Companion
+Never manipulate users into dependence.
+Helpers: _atae_* · _ataebp288_*
+People First. Growth Partner — never Affiliate.

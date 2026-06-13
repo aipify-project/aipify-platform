@@ -1,0 +1,29 @@
+Aipify Community Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Verify, Community Safety, Memory, Presence, and Governance are ready
+
+Core principle: Communities thrive when people feel welcomed, valued, and connected.
+Positioning: Companion Module for administrators, moderators, and members throughout community lifecycle.
+
+Aipify should: welcome members, healthy participation, engagement, moderator support, safety/trust, relevant connections.
+Aipify should never: replace moderators entirely, independent sensitive moderation, manipulate behavior, unhealthy engagement, override leadership.
+
+Categories: Membership · Interest · Professional · Support · Clubs · Social platforms · Learning communities
+Member journey: Onboarding · Engagement · Retention
+Health engine: Participation · Retention · Moderation workload · Sentiment · Engagement distribution · Safety
+Health levels: Vulnerable · Stable · Healthy · Thriving
+
+Insights: Support community leaders — not replace them.
+Connections: Member value — not platform addiction.
+Moderation: Surface and prioritize — human final decisions.
+
+Verify integration (prerequisite): member verification, trust signals, safety, anti-fraud
+Actions: Welcome comms · Event reminders · Materials · Reports · Announcements · Moderation summaries — approval required.
+
+Privacy: Member privacy · Minimal data · Transparency · Community governance · Member trust
+User control: engagement, notifications, moderation boundaries, policies, companion involvement
+
+Design: Community-centered · Human-first · Trust-oriented · Companion-driven · Non-manipulative · Safety-conscious
+Vision: Spaces where members feel welcomed, supported, connected, and safe.
+
+Distinct from Community & Collective Intelligence Phase 89, Match Companion, Verify (prerequisite).
+People First. Growth Partner — never Affiliate.

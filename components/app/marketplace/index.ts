@@ -3,3 +3,4 @@ export { MarketplaceDashboardPanel } from "./MarketplaceDashboardPanel";
 export { MarketplaceCatalogPanel } from "./MarketplaceCatalogPanel";
 export { MarketplaceItemDetailPanel } from "./MarketplaceItemDetailPanel";
 export { MarketplaceInstalledPanel } from "./MarketplaceInstalledPanel";
+export { CompanionActionMarketplacePanel } from "./CompanionActionMarketplacePanel";

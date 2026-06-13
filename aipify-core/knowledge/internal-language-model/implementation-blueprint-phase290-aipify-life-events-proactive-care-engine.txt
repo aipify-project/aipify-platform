@@ -1,0 +1,14 @@
+ABOS Phase 290 — Aipify Life Events & Proactive Care Engine
+Route: /app/companion/life-events
+Module: Life Events Center
+Location: Companion Center → Life Events
+
+Core principle: People remember how technology helped them care about what matters.
+Categories: Personal · Professional · Health & wellbeing
+Importance: Optional · Important · Very Important · Never Forget
+User control: categories, proactivity, suggested actions, executed actions — always human choice.
+Reminders: supportive, never intrusive — "Would you prefer to handle this personally?"
+Actions require permissions and approvals.
+Vision: Help people show up for the moments that matter.
+Helpers: _lepc_* · _lepcbp290_*
+People First. Growth Partner — never Affiliate.

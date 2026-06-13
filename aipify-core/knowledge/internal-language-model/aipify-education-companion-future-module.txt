@@ -1,0 +1,26 @@
+Aipify Education Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Memory, Presence, Knowledge, and Action Framework are ready
+
+Core principle: Learning should adapt to people — not rigid systems.
+Positioning: Companion Module for lifelong learning through guidance, encouragement, organization, and reinforcement.
+
+Aipify should: continuous learning, educational goals, study organization, concept reinforcement, motivation, learning style adaptation.
+Aipify should never: dishonest assessments, academic misconduct, replace educators, guarantee outcomes, unhealthy pressure.
+
+Categories: Academic · Professional development · Personal learning · Organizational learning
+Learning profile: goals, style, interests, milestones, motivation, review schedules
+Study support: plans, summaries, revision sessions, practice questions, resources, review timing
+Review engine: spaced repetition, knowledge checks, reinforcement
+
+Insights: Encourage growth — never guilt. Motivation: authentic and supportive.
+
+Actions: Study sessions · Print plans · Summaries · Materials · Revision reminders · Training coordination — user approval where appropriate.
+
+Privacy: Educational privacy · Minimal data · History deletion · Transparent recommendations · User autonomy
+User control: objectives, frequency, visibility, motivation, focus areas
+
+Design: Encouraging · Growth-oriented · Non-judgmental · Human-centered · Companion-driven · Low pressure
+Vision: Continue growing throughout every stage of life.
+
+Distinct from Learning Engine (Aipify learns with customer), EKE, Aipify University, GDE (cross-links only).
+People First. Growth Partner — never Affiliate.

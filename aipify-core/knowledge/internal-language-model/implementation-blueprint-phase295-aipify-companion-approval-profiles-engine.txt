@@ -1,0 +1,13 @@
+ABOS Phase 295 — Aipify Companion Approval Profiles Engine
+Route: /app/governance/approval-profiles
+Module: Approval Profiles Center
+Location: Governance Center → Approval Profiles
+
+Core principle: Make approvals easier without removing meaningful control.
+Philosophy: Recognize approved preferences — reserve human attention for what matters.
+Profile types: Personal · Business · Executive · Department
+Modes: Always ask · Simplified · Rule-based (within limits)
+Review states: Current · Needs review · Suspended · Expired
+Manual override always available. RBAC, revocation, audit, escalation.
+Helpers: _cap_* · _capbp295_*
+People First. Growth Partner — never Affiliate.

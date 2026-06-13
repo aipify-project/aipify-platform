@@ -1,0 +1,26 @@
+Aipify Match Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Verify, and Action Framework are ready
+
+Core principle: Better matches, not more matches.
+Positioning: Companion Module for intentional dating — NOT a dating platform.
+
+Aipify should: help users understand themselves, define what they seek, identify compatibility, reduce wasted time, encourage healthy relationships, strengthen trust via Verify.
+Aipify should never: decide who users love, manipulate emotions, create dependency, pressure relationships.
+
+Dimensions: Values · Lifestyle · Communication · Future goals · Interests · Intimacy preferences
+Insights: Encourage understanding — not judgment.
+
+Verify integration (prerequisite): Identity · Adult · Anti-catfish · Trust indicators · Verified status
+
+Business models: Companion add-on · B2B dating platform integration · Future standalone (executive approval only)
+
+Companion may: conversation starters, compatibility strengths, surface differences, healthy communication, milestone reminders, intentional dating support.
+Constraint: Aipify supports relationships — people build relationships.
+
+User control: shared information, matching dimensions, privacy, communication preferences, recommendation frequency.
+
+Design: Human-centered · Trust-first · Privacy-focused · Judgment-free · Warm professional · Companion-driven
+Vision: Date with intention, trust, and understanding — not thousands of profiles.
+
+Distinct from RSI (existing relationships) and Companion Identity Phase 291.
+People First. Growth Partner — never Affiliate.

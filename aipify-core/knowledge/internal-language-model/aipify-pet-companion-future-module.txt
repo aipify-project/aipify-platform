@@ -1,0 +1,28 @@
+Aipify Pet Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Memory, Life Events, Presence, Family Companion, and Action Framework are ready
+
+Core principle: Pets are family members — help people care consistently with less stress.
+Positioning: Companion Module for everyday pet ownership responsibilities and milestones.
+
+Aipify should: pet routines, practical coordination, preventative care planning, enrichment, preparedness, reduce mental load.
+Aipify should never: replace veterinarians, diagnose, recommend treatments, override professional advice, fear or guilt.
+
+Pet categories: Dogs · Cats · Birds · Rabbits · Horses · Fish · Reptiles · Small animals
+Pet profile: name, species, breed, dates, veterinarian, milestones, household
+Care: feeding, walking, grooming, medication scheduling, training, enrichment
+Preventative: vaccinations, checkups, insurance, parasite prevention, dental reminders
+
+Insights: Encourage responsible care — never guilt.
+Actions: Reminders · Print summaries · Travel checklists · Appointments · Documentation · Packing lists — user approval required.
+Travel: preparation, boarding checklists, emergency contacts, medication packing
+Emergency: preparedness only — human-led decisions
+
+Privacy: Minimal data · Transparency · Deletion · Household boundaries · User autonomy
+User control: frequency, household access, involvement, notifications, visibility
+
+Design: Warm · Human-centered · Companion-driven · Non-judgmental · Practical · Low friction
+Vision: Love, attention, and organization pets deserve — everyday ownership made easier.
+
+NOT veterinary care. Medication reminders are scheduling only.
+Distinct from Family Companion, Life Events, Elder Care, Wellness (cross-links only).
+People First. Growth Partner — never Affiliate.

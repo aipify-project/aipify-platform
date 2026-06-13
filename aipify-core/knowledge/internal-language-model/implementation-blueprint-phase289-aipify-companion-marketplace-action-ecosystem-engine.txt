@@ -1,0 +1,13 @@
+ABOS Phase 289 — Aipify Companion Marketplace & Action Ecosystem Engine
+Route: /app/companion-marketplace
+Module: Companion Marketplace
+Location: Marketplace Center → Companion Marketplace
+
+Core principle: Aipify should not attempt to build every capability itself.
+Philosophy: "I can help with that. Would you like to activate this capability?"
+Categories: Personal actions · Business actions · Commerce actions · Companion skills
+Governance: L1 Information · L2 Recommendation · L3 Action+approval · L4 Autonomous within policies
+Companion expansion: grow with organizations — not overwhelm on day one.
+No aggressive upselling — recommendations from observed value only.
+Helpers: _cmae_* · _cmaebp289_*
+People First. Growth Partner — never Affiliate.

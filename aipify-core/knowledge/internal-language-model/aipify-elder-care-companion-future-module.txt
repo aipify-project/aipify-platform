@@ -1,0 +1,26 @@
+Aipify Elder Care Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Life Events, Memory, Presence, Family Companion, and Action Framework are ready
+
+Core principle: Help people remain independent — strengthen support systems, never replace family or caregivers.
+Positioning: Companion Module for aging individuals and those who care about them.
+
+Aipify should: routines, independence, practical coordination, family communication, reminder support, reduce caregiver stress.
+Aipify should never: replace healthcare professionals, medical decisions, override family authority, fear or dependency, diagnose conditions.
+
+Categories: Daily life · Family coordination · Practical assistance · Social wellbeing
+Family access: who assists, shared reminders, notifications, emergency contacts, permission levels
+Reminders: Respectful and supportive — never anxiety-inducing.
+Emergency: Preparedness coordination only — human-led emergency response.
+
+Insights: Promote confidence — never anxiety.
+Actions: Reminders · Transportation · Print summaries · Family updates · Calendars · Checklists — approval required.
+
+Privacy: Dignity · Autonomy · Consent-based sharing · Transparency · Complete data control
+User control: frequency, shared information, involvement, notifications, permissions
+
+Design: Respectful · Dignity-first · Human-centered · Family-supportive · Companion-driven · Simple
+Vision: Maintain dignity, strengthen family connections, navigate later life with confidence.
+
+NOT medical care. NOT emergency response. Medication reminders are scheduling only.
+Distinct from Family Companion (prerequisite), Wellness, Life Events, RSI (cross-links only).
+People First. Growth Partner — never Affiliate.

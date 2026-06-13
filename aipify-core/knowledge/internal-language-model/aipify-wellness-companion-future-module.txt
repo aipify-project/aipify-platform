@@ -1,0 +1,24 @@
+Aipify Wellness Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Life Events, Memory, Presence, and Action Framework are ready
+
+Core principle: People perform better when they are well. Sustainable living — not relentless productivity.
+Positioning: Companion Module for personal wellbeing while navigating busy lives.
+
+Aipify should: healthy routines, balance, self-care, recognize overload, positive habits, reflection.
+Aipify should never: diagnose, replace healthcare professionals, treatment plans, fear or dependency, independent health decisions.
+
+Categories: Physical · Mental · Work-life balance · Self-care
+Insights: Support awareness — never guilt. Self-love: supportive, never patronizing.
+Workload awareness: Late workdays · Meeting overload · Focus deficits · Vacation avoidance · Recovery gaps
+
+Actions: Focus blocks · Breaks · Reminders · Print plans · Recovery days · Vacation checklists — user approval required.
+
+Privacy: Boundaries · Minimal data · Explain observations · Opt-out · Full deletion
+User control: categories, frequency, encouragement, reflection, notification sensitivity
+
+Design: Warm · Non-judgmental · Human-centered · Privacy-first · Low-pressure · Companion-driven
+Vision: Healthier, more sustainable lives while pursuing what matters most.
+
+NOT medical advice. NOT a healthcare service.
+Distinct from TAG, LifeOS, PAME, Presence Phase 292 (cross-links only).
+People First. Growth Partner — never Affiliate.

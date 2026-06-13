@@ -1,0 +1,13 @@
+ABOS Phase 296 — Aipify Companion Financial Guardrails Engine
+Route: /app/governance/financial-guardrails
+Module: Financial Guardrails Center
+Location: Governance Center → Financial Guardrails
+
+Core principle: Help people spend wisely, never recklessly.
+Philosophy: Permission within established boundaries — not open-ended spending.
+Categories: Personal · Business · Enterprise
+Limits: Per transaction · Monthly · Team
+Thresholds: Level 1–4 approval pathways
+RBAC, real-time validation, revocation, audit.
+Helpers: _cfg_* · _cfgbp296_*
+People First. Growth Partner — never Affiliate.

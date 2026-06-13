@@ -60,6 +60,8 @@ export default async function GovernancePage() {
           audit: t("customerApp.governance.links.audit"),
           trust: t("customerApp.governance.links.trust"),
           settings: t("customerApp.governance.links.settings"),
+          approvalProfiles: t("customerApp.governance.approvalProfilesLink"),
+          financialGuardrails: t("customerApp.governance.financialGuardrailsLink"),
         },
       }}
     />

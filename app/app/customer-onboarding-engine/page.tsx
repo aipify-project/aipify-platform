@@ -23,6 +23,7 @@ export default async function CustomerOnboardingEnginePage() {
           integrationEngine: t(`${p}.integrationEngine`),
           installEngine: t(`${p}.installEngine`),
           aipifyInstall: t(`${p}.aipifyInstall`),
+          firstDayExperience: t(`${p}.firstDayExperience`),
           customerSuccess: t(`${p}.customerSuccess`),
           selfLove: t(`${p}.selfLove`),
           currentStep: t(`${p}.currentStep`),

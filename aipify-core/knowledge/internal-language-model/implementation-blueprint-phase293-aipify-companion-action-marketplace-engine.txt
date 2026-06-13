@@ -1,0 +1,13 @@
+ABOS Phase 293 — Aipify Companion Action Marketplace Engine
+Route: /app/marketplace/companion-actions
+Module: Action Marketplace Center
+Location: Marketplace Center → Companion Actions
+
+Core principle: Connect what people genuinely need — not everything.
+Categories: Transportation · Food & delivery · Flowers & gifts · Travel · Business services · Lifestyle services
+Governance: L1 Information · L2 Quotation · L3 Booking prep+confirm · L4 Direct execution after approval
+Execution flow: request → providers → pricing → recommendation → approval → execute → confirm → audit
+No unnecessary spending upsell — convenience with governance.
+Extends Phase 289 action ecosystem conceptually — separate provider registry.
+Helpers: _cam_* · _cambp293_*
+People First. Growth Partner — never Affiliate.

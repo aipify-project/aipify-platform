@@ -1,0 +1,14 @@
+ABOS Phase 294 — Aipify Companion Action Memory Engine
+Route: /app/companion/action-memory
+Module: Action Memory Center
+Location: Companion Center → Action Memory
+
+Core principle: Learn from approved experiences — never repeat the same teaching.
+Philosophy: First time ask how to handle; later ask if same as last time.
+Categories: Transportation · Flowers & gifts · Food & catering · Travel · Business actions
+Confidence: Learned once · Emerging · Established · Strong
+User control: view, edit, delete, disable categories, reset memory.
+Memory validation: inactivity, rejections, context changes — never assume intent.
+Distinct from PAME assistant memory — action preferences only.
+Helpers: _came_* · _camebp294_*
+People First. Growth Partner — never Affiliate.
