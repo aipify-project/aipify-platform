@@ -6963,7 +6963,8 @@
     "aipifyDecisionCenterGovernanceEngine": "Decision Center",
     "aipifyOperationsOrchestrationEngine": "Operations Orchestration",
     "aipifyResourceCapacityWorkloadBalanceEngine": "Resource Capacity",
-    "aipifyOrganizationalRhythmsOperatingCadenceEngine": "Operating Cadence"
+    "aipifyOrganizationalRhythmsOperatingCadenceEngine": "Operating Cadence",
+    "continuousImprovementOptimizationEngine": "Continuous Improvement"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -12115,6 +12116,41 @@
       "philosophy": "People First. Metadata-only cadence scaffolds. Growth Partner terminology — never Affiliate.",
       "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
       "eraCapstone": "Global Command & Enterprise Operations Era (201–210) — Phase 210 era capstone."
+    }
+  },
+  "continuousImprovementOptimizationEngine": {
+    "title": "Improvement Center",
+    "subtitle": "Operational Excellence & Continuous Improvement Era (211+). Improvement Companion surfaces opportunity signals and optimization insights. Advises humans — does NOT auto-prioritize initiatives or launch improvements without approval. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Continuous Improvement & Optimization dashboard…",
+    "engineTitle": "Aipify Continuous Improvement & Optimization Engine (Phase 211)",
+    "scoreLabel": "Improvement score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Improvement maturity level",
+    "executiveReviews": "Continuous improvement reviews",
+    "activeReflections": "Active opportunity scaffolds",
+    "humanOversightRequired": "Human oversight required — humans steward initiatives and approval; Improvement Companion advises only",
+    "eraOpenerSummary": "Operational Excellence Era — Phase 211+",
+    "eraOpenerNote": "Cross-link only — do not duplicate operations center, action center, or executive cockpit RPCs.",
+    "centerLabel": "Improvement Center capabilities",
+    "engineLabel": "Opportunity detection engine — detection prompts",
+    "frameworkLabel": "Improvement initiative center",
+    "reviewsLabel": "Continuous improvement reviews",
+    "companionLabel": "Improvement Companion — advises, does not auto-prioritize",
+    "subEngineLabel": "Lessons Learned Repository",
+    "reflections": "Opportunity detection scaffolds",
+    "executiveReviewEntries": "Improvement review entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 211)",
+    "companionLimitations": "Improvement Companion limitations — does NOT auto-prioritize initiatives or launch improvements without approval",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase211": {
+      "mission": "Improvement Companion supports improvement visibility — humans retain initiative approval authority.",
+      "philosophy": "People First. Metadata-only improvement scaffolds. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
+      "eraOpener": "Operational Excellence & Continuous Improvement Era (211+) — Phase 211 era opener."
     }
   }
 }

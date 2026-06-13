@@ -104,6 +104,7 @@ export type AppNavId =
   | "aipifyResourceCapacityWorkloadBalanceEngine"
   | "aipifyDecisionCenterGovernanceEngine"
   | "aipifyOrganizationalRhythmsOperatingCadenceEngine"
+  | "continuousImprovementOptimizationEngine"
   | "aipifyMeetingIntelligenceFollowUpEngine"
   | "aipifyUnifiedWorkspaceEngine"
   | "aipifyGlobalCommandCenterEngine"
@@ -681,6 +682,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "aipifyOrganizationalRhythmsOperatingCadenceEngine",
     href: "/app/aipify-organizational-rhythms-operating-cadence-engine",
     labelKey: "customerApp.nav.aipifyOrganizationalRhythmsOperatingCadenceEngine",
+  },
+  {
+    id: "continuousImprovementOptimizationEngine",
+    href: "/app/aipify-continuous-improvement-optimization-engine",
+    labelKey: "customerApp.nav.continuousImprovementOptimizationEngine",
   },
   {
     id: "aipifyMeetingIntelligenceFollowUpEngine",
@@ -1439,6 +1445,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/aipify-organizational-rhythms-operating-cadence-engine")) {
     return "aipifyOrganizationalRhythmsOperatingCadenceEngine";
+  }
+  if (pathname.startsWith("/app/aipify-continuous-improvement-optimization-engine")) {
+    return "continuousImprovementOptimizationEngine";
   }
   if (pathname.startsWith("/app/aipify-meeting-intelligence-follow-up-engine")) {
     return "aipifyMeetingIntelligenceFollowUpEngine";
