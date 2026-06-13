@@ -163,6 +163,7 @@ export * from "./aipify-innovation-opportunity-discovery-engine";
 export * from "./aipify-customer-success-value-realization-engine";
 export * from "./aipify-customer-journey-experience-orchestration-engine";
 export * from "./aipify-onboarding-adoption-acceleration-engine";
+export * from "./aipify-organizational-communication-announcements-engine";
 export * from "./aipify-decision-center-governance-engine";
 export * from "./aipify-meeting-intelligence-follow-up-engine";
 export * from "./aipify-unified-workspace-engine";
