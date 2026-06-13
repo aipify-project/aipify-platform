@@ -211,6 +211,7 @@ export * from "./implementation-blueprint-phase212-vocabulary";
 export * from "./implementation-blueprint-phase213-vocabulary";
 export * from "./implementation-blueprint-phase217-vocabulary";
 export * from "./implementation-blueprint-phase215-vocabulary";
+export * from "./implementation-blueprint-phase216-vocabulary";
 export * from "./implementation-blueprint-phase214-vocabulary";
 export * from "./implementation-blueprint-phase207-vocabulary";
 export * from "./implementation-blueprint-phase206-vocabulary";
@@ -866,6 +867,8 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE217_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase217-aipify-organizational-communication-announcements.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE215_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase215-aipify-onboarding-adoption-acceleration.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE216_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase216-aipify-enterprise-training-certification.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE214_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase214-aipify-customer-journey-experience-orchestration.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE207_CORPUS =
