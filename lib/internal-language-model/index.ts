@@ -207,6 +207,7 @@ export * from "./implementation-blueprint-phase208-vocabulary";
 export * from "./implementation-blueprint-phase209-vocabulary";
 export * from "./implementation-blueprint-phase210-vocabulary";
 export * from "./implementation-blueprint-phase211-vocabulary";
+export * from "./implementation-blueprint-phase213-vocabulary";
 export * from "./implementation-blueprint-phase207-vocabulary";
 export * from "./implementation-blueprint-phase206-vocabulary";
 export * from "./implementation-blueprint-phase202-vocabulary";
@@ -853,6 +854,8 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE210_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase210-aipify-organizational-rhythms-operating-cadence.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE211_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase211-aipify-continuous-improvement-optimization.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE213_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase213-aipify-customer-success-value-realization.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE207_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase207-aipify-decision-center-governance.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE206_CORPUS =

@@ -105,6 +105,8 @@ export type AppNavId =
   | "aipifyDecisionCenterGovernanceEngine"
   | "aipifyOrganizationalRhythmsOperatingCadenceEngine"
   | "continuousImprovementOptimizationEngine"
+  | "aipifyCustomerSuccessValueRealizationEngine"
+  | "aipifyOnboardingAdoptionAccelerationEngine"
   | "aipifyMeetingIntelligenceFollowUpEngine"
   | "aipifyUnifiedWorkspaceEngine"
   | "aipifyGlobalCommandCenterEngine"
@@ -687,6 +689,16 @@ export const APP_NAV: AppNavItem[] = [
     id: "continuousImprovementOptimizationEngine",
     href: "/app/aipify-continuous-improvement-optimization-engine",
     labelKey: "customerApp.nav.continuousImprovementOptimizationEngine",
+  },
+  {
+    id: "aipifyCustomerSuccessValueRealizationEngine",
+    href: "/app/aipify-customer-success-value-realization-engine",
+    labelKey: "customerApp.nav.aipifyCustomerSuccessValueRealizationEngine",
+  },
+  {
+    id: "aipifyOnboardingAdoptionAccelerationEngine",
+    href: "/app/aipify-onboarding-adoption-acceleration-engine",
+    labelKey: "customerApp.nav.aipifyOnboardingAdoptionAccelerationEngine",
   },
   {
     id: "aipifyMeetingIntelligenceFollowUpEngine",
@@ -1448,6 +1460,12 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/aipify-continuous-improvement-optimization-engine")) {
     return "continuousImprovementOptimizationEngine";
+  }
+  if (pathname.startsWith("/app/aipify-customer-success-value-realization-engine")) {
+    return "aipifyCustomerSuccessValueRealizationEngine";
+  }
+  if (pathname.startsWith("/app/aipify-onboarding-adoption-acceleration-engine")) {
+    return "aipifyOnboardingAdoptionAccelerationEngine";
   }
   if (pathname.startsWith("/app/aipify-meeting-intelligence-follow-up-engine")) {
     return "aipifyMeetingIntelligenceFollowUpEngine";

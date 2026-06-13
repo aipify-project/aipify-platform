@@ -6083,7 +6083,8 @@
     "aipifyDecisionCenterGovernanceEngine": "Beslutningssenter",
     "aipifyOperationsOrchestrationEngine": "Operasjonsorkestrering",
     "aipifyOrganizationalRhythmsOperatingCadenceEngine": "Operasjonskadens",
-    "continuousImprovementOptimizationEngine": "Kontinuerlig forbedring"
+    "continuousImprovementOptimizationEngine": "Kontinuerlig forbedring",
+    "aipifyCustomerSuccessValueRealizationEngine": "Kundesuksess"
   },
   "identity": {
     "title": "Din identitet",
@@ -11991,6 +11992,41 @@
       "philosophy": "People First. Metadata-only improvement scaffolds. Growth Partner terminology — never Affiliate.",
       "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
       "eraOpener": "Operational Excellence & Continuous Improvement Era (211+) — Phase 211 era opener."
+    }
+  },
+  "aipifyCustomerSuccessValueRealizationEngine": {
+    "title": "Customer Success Center",
+    "subtitle": "Innovation & Adaptive Excellence Era (211–220). Success Companion supports adoption summaries, value insights, and proactive outreach suggestions. Supports humans — does NOT auto-execute outreach or expose sensitive customer business data. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Customer Success & Value Realization dashboard…",
+    "engineTitle": "Aipify Customer Success & Value Realization Engine (Phase 213)",
+    "scoreLabel": "Success score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Success maturity level",
+    "executiveReviews": "Executive customer insights dashboard",
+    "activeReflections": "Active customer health scaffolds",
+    "humanOversightRequired": "Human oversight required — humans steward customer success; Success Companion supports only",
+    "eraOpenerSummary": "Innovation Era — Phases 211–220",
+    "eraOpenerNote": "Cross-link only — do not duplicate executive cockpit or action center RPCs.",
+    "centerLabel": "Customer Success Center capabilities",
+    "engineLabel": "Customer health engine — health prompts",
+    "frameworkLabel": "Value realization tracker",
+    "reviewsLabel": "Executive customer insights dashboard",
+    "companionLabel": "Success Companion — supports, does not auto-execute outreach",
+    "subEngineLabel": "Success Opportunity Center",
+    "reflections": "Customer health scaffolds",
+    "executiveReviewEntries": "Executive customer insight entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 213)",
+    "companionLimitations": "Success Companion limitations — does NOT auto-execute outreach or expose sensitive customer business data",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase213": {
+      "mission": "Success Companion supports value realization — humans retain customer success authority.",
+      "philosophy": "People First. Metadata-only success scaffolds. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
+      "customerSuccessEra": "Innovation & Adaptive Excellence Era (211–220) — Phase 213."
     }
   }
 }
