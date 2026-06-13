@@ -1,0 +1,14 @@
+ABOS Phase 240 — Enterprise Meeting Intelligence & Collaboration
+Route: /app/aipify-enterprise-meeting-intelligence-collaboration-engine
+
+Pre-meeting: agendas, documents, previous summaries, unresolved actions, participant context, prep materials.
+In-meeting: note capture, discussion topics, decisions, commitments, follow-up requirements.
+Post-meeting: summaries, action items, notifications, follow-ups, archive, project updates.
+Action management: Action Center tasks, completion tracking, overdue escalation, accountability workflows.
+Executive: briefings, strategic decisions, cross-meeting trends, commitment tracking, board prep.
+Search: summaries, decisions, action items, participants, meeting topics.
+Security: meeting visibility RBAC, sensitive meeting AI restrictions, retention policies, recording consent, audit logging.
+Design principles: Preparation before meetings, accountability before ambiguity, visibility before volume.
+Companion limitations: no bypassing meeting RBAC, no exposing sensitive content, no processing recordings without consent.
+Cross-links only: Calendar Assistant Engine Phase 237, Action Center, Enterprise Notification Engine Phase 233, Enterprise Search Engine Phase 234, Document Intelligence Engine Phase 230, Executive Cockpit Phase 200, Knowledge Center, and Aipify Translate Phase 238 — never bypass meeting RBAC, expose sensitive meeting content, or process recordings without explicit consent.
+People First. Growth Partner — never Affiliate.
