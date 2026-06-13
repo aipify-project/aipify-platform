@@ -1,0 +1,12 @@
+ABOS Phase 239 — Enterprise Onboarding & Guided Adoption
+Route: /app/aipify-enterprise-onboarding-guided-adoption-engine
+
+Onboarding: journey hub, role-based experiences, department paths, guided tours, milestones, governance, analytics, integration center.
+Types: employee, manager, executive, administrator, Growth Partner, customer, enterprise rollout.
+Components: Welcome Center, Setup Assistant, walkthroughs, task tracker, learning suggestions, milestones, feedback.
+Intelligence: incomplete onboarding detection, next best actions, learning content, adoption barriers, exploration, personalization.
+Security: onboarding progress RBAC, org content protected, audit logging.
+Design principles: Adoption before abandonment, guidance before overwhelm, progress before pressure.
+Companion limitations: no bypassing onboarding RBAC, no exposing org content, no overriding adoption policies.
+Cross-links only: Learning Center, Knowledge Center, Enterprise Notification Engine Phase 233, Executive Cockpit Phase 200, Communication Center, Enterprise Analytics Engine Phase 235, and Aipify Translate Phase 238 — never bypass onboarding RBAC, expose organization onboarding content without authorization, or override adoption policies.
+People First. Growth Partner — never Affiliate.

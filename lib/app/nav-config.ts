@@ -118,6 +118,19 @@ export type AppNavId =
   | "aipifyEnterprisePolicyComplianceManagementEngine"
   | "aipifyEnterpriseRiskResilienceEngine"
   | "aipifyBusinessContinuityCrisisManagementEngine"
+  | "aipifyVendorThirdPartyRelationshipEngine"
+  | "aipifyStudioCreativeIntelligenceEngine"
+  | "aipifyDocumentIntelligenceEnterpriseDocumentEngine"
+  | "aipifyEnterpriseWorkflowAutomationEngine"
+  | "aipifyEnterpriseIntegrationHubEngine"
+  | "aipifyEnterpriseNotificationAttentionManagementEngine"
+  | "aipifyEnterpriseSearchUniversalKnowledgeAccessEngine"
+  | "aipifyEnterpriseAnalyticsOperationalIntelligenceEngine"
+  | "aipifyDesktopCompanionCreativeBridgeEngine"
+  | "aipifyEnterpriseCalendarPersonalAssistantEngine"
+  | "aipifyTranslateMultilingualWorkforceEngine"
+  | "aipifyEnterpriseOnboardingGuidedAdoptionEngine"
+  | "aipifyEnterpriseMeetingIntelligenceCollaborationEngine"
   | "aipifyEmployeeGrowthCareerDevelopmentEngine"
   | "aipifyCustomerJourneyExperienceOrchestrationEngine"
   | "aipifyOnboardingAdoptionAccelerationEngine"
@@ -783,6 +796,71 @@ export const APP_NAV: AppNavItem[] = [
     id: "aipifyBusinessContinuityCrisisManagementEngine",
     href: "/app/aipify-business-continuity-crisis-management-engine",
     labelKey: "customerApp.nav.aipifyBusinessContinuityCrisisManagementEngine",
+  },
+  {
+    id: "aipifyVendorThirdPartyRelationshipEngine",
+    href: "/app/aipify-vendor-third-party-relationship-engine",
+    labelKey: "customerApp.nav.aipifyVendorThirdPartyRelationshipEngine",
+  },
+  {
+    id: "aipifyStudioCreativeIntelligenceEngine",
+    href: "/app/aipify-studio-creative-intelligence-engine",
+    labelKey: "customerApp.nav.aipifyStudioCreativeIntelligenceEngine",
+  },
+  {
+    id: "aipifyDocumentIntelligenceEnterpriseDocumentEngine",
+    href: "/app/aipify-document-intelligence-enterprise-document-engine",
+    labelKey: "customerApp.nav.aipifyDocumentIntelligenceEnterpriseDocumentEngine",
+  },
+  {
+    id: "aipifyEnterpriseWorkflowAutomationEngine",
+    href: "/app/aipify-enterprise-workflow-automation-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseWorkflowAutomationEngine",
+  },
+  {
+    id: "aipifyEnterpriseIntegrationHubEngine",
+    href: "/app/aipify-enterprise-integration-hub-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseIntegrationHubEngine",
+  },
+  {
+    id: "aipifyEnterpriseNotificationAttentionManagementEngine",
+    href: "/app/aipify-enterprise-notification-attention-management-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseNotificationAttentionManagementEngine",
+  },
+  {
+    id: "aipifyEnterpriseSearchUniversalKnowledgeAccessEngine",
+    href: "/app/aipify-enterprise-search-universal-knowledge-access-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseSearchUniversalKnowledgeAccessEngine",
+  },
+  {
+    id: "aipifyEnterpriseAnalyticsOperationalIntelligenceEngine",
+    href: "/app/aipify-enterprise-analytics-operational-intelligence-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseAnalyticsOperationalIntelligenceEngine",
+  },
+  {
+    id: "aipifyDesktopCompanionCreativeBridgeEngine",
+    href: "/app/aipify-desktop-companion-creative-bridge-engine",
+    labelKey: "customerApp.nav.aipifyDesktopCompanionCreativeBridgeEngine",
+  },
+  {
+    id: "aipifyEnterpriseCalendarPersonalAssistantEngine",
+    href: "/app/aipify-enterprise-calendar-personal-assistant-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseCalendarPersonalAssistantEngine",
+  },
+  {
+    id: "aipifyTranslateMultilingualWorkforceEngine",
+    href: "/app/aipify-translate-multilingual-workforce-engine",
+    labelKey: "customerApp.nav.aipifyTranslateMultilingualWorkforceEngine",
+  },
+  {
+    id: "aipifyEnterpriseOnboardingGuidedAdoptionEngine",
+    href: "/app/aipify-enterprise-onboarding-guided-adoption-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseOnboardingGuidedAdoptionEngine",
+  },
+  {
+    id: "aipifyEnterpriseMeetingIntelligenceCollaborationEngine",
+    href: "/app/aipify-enterprise-meeting-intelligence-collaboration-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseMeetingIntelligenceCollaborationEngine",
   },
   {
     id: "aipifyMeetingIntelligenceFollowUpEngine",
@@ -1592,6 +1670,45 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/aipify-business-continuity-crisis-management-engine")) {
     return "aipifyBusinessContinuityCrisisManagementEngine";
+  }
+  if (pathname.startsWith("/app/aipify-vendor-third-party-relationship-engine")) {
+    return "aipifyVendorThirdPartyRelationshipEngine";
+  }
+  if (pathname.startsWith("/app/aipify-studio-creative-intelligence-engine")) {
+    return "aipifyStudioCreativeIntelligenceEngine";
+  }
+  if (pathname.startsWith("/app/aipify-document-intelligence-enterprise-document-engine")) {
+    return "aipifyDocumentIntelligenceEnterpriseDocumentEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-workflow-automation-engine")) {
+    return "aipifyEnterpriseWorkflowAutomationEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-integration-hub-engine")) {
+    return "aipifyEnterpriseIntegrationHubEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-notification-attention-management-engine")) {
+    return "aipifyEnterpriseNotificationAttentionManagementEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-search-universal-knowledge-access-engine")) {
+    return "aipifyEnterpriseSearchUniversalKnowledgeAccessEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-analytics-operational-intelligence-engine")) {
+    return "aipifyEnterpriseAnalyticsOperationalIntelligenceEngine";
+  }
+  if (pathname.startsWith("/app/aipify-desktop-companion-creative-bridge-engine")) {
+    return "aipifyDesktopCompanionCreativeBridgeEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-calendar-personal-assistant-engine")) {
+    return "aipifyEnterpriseCalendarPersonalAssistantEngine";
+  }
+  if (pathname.startsWith("/app/aipify-translate-multilingual-workforce-engine")) {
+    return "aipifyTranslateMultilingualWorkforceEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-onboarding-guided-adoption-engine")) {
+    return "aipifyEnterpriseOnboardingGuidedAdoptionEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-meeting-intelligence-collaboration-engine")) {
+    return "aipifyEnterpriseMeetingIntelligenceCollaborationEngine";
   }
   if (pathname.startsWith("/app/aipify-meeting-intelligence-follow-up-engine")) {
     return "aipifyMeetingIntelligenceFollowUpEngine";

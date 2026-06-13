@@ -1,0 +1,12 @@
+ABOS Phase 235 — Enterprise Analytics & Operational Intelligence
+Route: /app/aipify-enterprise-analytics-operational-intelligence-engine
+
+Analytics Center: analytics dashboard, executive analytics hub, KPI management, trend analysis, comparative reporting, scheduled exports, analytics governance, operational intelligence, analytics integration center.
+Domains: Customer Success, Employee Engagement, Workflow Performance, Document Activity, Learning & Certification, Trust & Governance, Communication, Operational Health, Executive Decision Metrics, Integration Utilization.
+Reporting: executive summaries, weekly/monthly/quarterly reports, department reports, custom reports, PDF/Excel export, shareable dashboards, scheduled delivery.
+Intelligence: emerging trends, anomaly detection, performance improvements, risk highlights, optimization recommendations, proactive leadership.
+Security: RBAC analytics visibility, sensitive metrics protected, configurable export permissions, audit logging.
+Design principles: Insight before assumption, clarity before complexity, stewardship before speed.
+Companion limitations: no bypassing analytics RBAC, no exposing sensitive metrics, no unlogged exports.
+Cross-links only: Executive Cockpit Phase 200, Action Center, Customer Success Center, Workflow Automation Phase 231, Learning Center, Trust Center, Communication Center, Enterprise Search Engine Phase 234, and future Aipify modules — never bypass analytics RBAC, expose sensitive metrics, or export data without configurable permissions.
+People First. Growth Partner — never Affiliate.

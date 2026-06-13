@@ -1,0 +1,1 @@
+export { AipifyVendorThirdPartyRelationshipEngineDashboardPanel } from "./AipifyVendorThirdPartyRelationshipEngineDashboardPanel";

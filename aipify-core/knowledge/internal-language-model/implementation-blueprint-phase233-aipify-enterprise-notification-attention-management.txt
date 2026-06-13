@@ -1,0 +1,12 @@
+ABOS Phase 233 — Enterprise Notification & Attention Management
+Route: /app/aipify-enterprise-notification-attention-management-engine
+
+Notification Center: notification dashboard, central notification center, priority routing, grouping and digest engine, escalation notifications, channel delivery, preference management, notification governance, notification integration center.
+Types: critical alerts, executive briefings, approvals, workflow updates, customer success, security events, Trust Center, meeting follow-ups, tasks, learning, integration failures, announcements.
+Channels: in-app, desktop, email, mobile, daily digests, weekly summaries.
+Intelligence: overload detection, smart grouping, high-impact priority, duplicate suppression, optimization recommendations, focus periods.
+Security: RBAC, security notifications locked, delivery history retained, audit logging.
+Design principles: Clarity before noise, relevance before volume, focus before interruption.
+Companion limitations: no bypassing notification RBAC, no disabling security notifications unauthorized, no suppressing critical alerts.
+Cross-links only: Executive Cockpit Phase 200, Action Center, Workflow Automation Phase 231, Communication Center, Trust Center, Risk Center, Customer Success Center, and Meeting Intelligence Engine — never bypass notification RBAC, disable security notifications without authorization, or suppress critical alerts.
+People First. Growth Partner — never Affiliate.

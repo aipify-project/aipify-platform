@@ -1,0 +1,10 @@
+ABOS Phase 230 — Document Intelligence & Enterprise Document
+Route: /app/aipify-document-intelligence-enterprise-document-engine
+
+Document Center: document dashboard, document generation center, document transformation center, presentation generator, action item extractor, executive summary engine, knowledge center converter, document governance dashboard, document integration center.
+Supported formats: DOCX, PDF, PPTX, XLSX, TXT, MD.
+Features: generate, summarize, rewrite, translate, presentations from text, action items, executive summaries, KC article conversion, templates, version history, approval workflows.
+Design principles: Clarity before complexity, governance before convenience, stewardship before speed.
+Companion limitations: no bypassing document RBAC, no skipping approval workflows, no replacing human document stewardship.
+Cross-links only: Knowledge Center, Action Center, Executive Cockpit Phase 200, and Language Center — never bypass document RBAC, skip approval workflows, or replace human document stewardship.
+People First. Growth Partner — never Affiliate.

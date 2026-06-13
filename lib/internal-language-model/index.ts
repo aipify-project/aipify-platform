@@ -220,6 +220,19 @@ export * from "./implementation-blueprint-phase224-vocabulary";
 export * from "./implementation-blueprint-phase225-vocabulary";
 export * from "./implementation-blueprint-phase226-vocabulary";
 export * from "./implementation-blueprint-phase227-vocabulary";
+export * from "./implementation-blueprint-phase228-vocabulary";
+export * from "./implementation-blueprint-phase229-vocabulary";
+export * from "./implementation-blueprint-phase230-vocabulary";
+export * from "./implementation-blueprint-phase231-vocabulary";
+export * from "./implementation-blueprint-phase232-vocabulary";
+export * from "./implementation-blueprint-phase233-vocabulary";
+export * from "./implementation-blueprint-phase234-vocabulary";
+export * from "./implementation-blueprint-phase235-vocabulary";
+export * from "./implementation-blueprint-phase236-vocabulary";
+export * from "./implementation-blueprint-phase237-vocabulary";
+export * from "./implementation-blueprint-phase238-vocabulary";
+export * from "./implementation-blueprint-phase239-vocabulary";
+export * from "./implementation-blueprint-phase240-vocabulary";
 export * from "./implementation-blueprint-phase219-vocabulary";
 export * from "./implementation-blueprint-phase215-vocabulary";
 export * from "./implementation-blueprint-phase216-vocabulary";
@@ -896,6 +909,32 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE226_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase226-aipify-enterprise-risk-resilience.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE227_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase227-aipify-business-continuity-crisis-management.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE228_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase228-aipify-vendor-third-party-relationship.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE229_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase229-aipify-studio-creative-intelligence.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE231_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase231-aipify-enterprise-workflow-automation.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE232_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase232-aipify-enterprise-integration-hub.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE233_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase233-aipify-enterprise-notification-attention-management.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE234_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase234-aipify-enterprise-search-universal-knowledge-access.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE235_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase235-aipify-enterprise-analytics-operational-intelligence.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE236_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase236-aipify-desktop-companion-creative-bridge.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE237_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase237-aipify-enterprise-calendar-personal-assistant.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE238_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase238-aipify-translate-multilingual-workforce.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE239_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase239-aipify-enterprise-onboarding-guided-adoption.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE240_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase240-aipify-enterprise-meeting-intelligence-collaboration.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE230_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase230-aipify-document-intelligence-enterprise-document.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE215_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase215-aipify-onboarding-adoption-acceleration.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE216_CORPUS =

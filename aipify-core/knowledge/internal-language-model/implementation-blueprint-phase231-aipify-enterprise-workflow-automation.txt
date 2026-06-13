@@ -1,0 +1,10 @@
+ABOS Phase 231 — Enterprise Workflow Automation
+Route: /app/aipify-enterprise-workflow-automation-engine
+
+Workflow Center: workflow dashboard, visual workflow builder, trigger automation center, approval workflow engine, conditional logic engine, execution analytics engine, cross-module automation center, workflow governance dashboard, workflow integration center.
+Triggers: employee onboarding, support request, document approval, meeting completed, customer risk, contract expiration, task overdue, milestones, executive review, custom triggers.
+Actions: create tasks, send notifications, request approvals, generate documents, update records, assign ownership, schedule follow-ups, executive briefings, launch workflows, external integrations.
+Design principles: Process before improvisation, governance before speed, consistency before complexity.
+Companion limitations: no bypassing workflow RBAC, no skipping approval controls, no executing sensitive workflows without governance.
+Cross-links only: Action Center, Decision Center, Executive Cockpit Phase 200, Document Intelligence, Communication Center, Customer Success Center, and Knowledge Center — never bypass workflow RBAC, skip approval controls, or execute sensitive workflows without governance.
+People First. Growth Partner — never Affiliate.

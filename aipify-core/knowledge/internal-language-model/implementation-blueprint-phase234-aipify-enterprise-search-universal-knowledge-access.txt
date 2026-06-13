@@ -1,0 +1,12 @@
+ABOS Phase 234 — Enterprise Search & Universal Knowledge Access
+Route: /app/aipify-enterprise-search-universal-knowledge-access-engine
+
+Search Center: search dashboard, global search bar, natural language search, cross-module search, semantic and filter search, saved searches and analytics, search governance, knowledge gap detection, search integration center.
+Sources: Knowledge Center, documents, policies, Action Center, executive briefings, Customer Success, meetings, training, Communication Center, Trust Center.
+Capabilities: keyword, semantic, filtered, role-aware, recent history, recommended results, previews, favorites, missing knowledge detection.
+Intelligence: natural language questions, relevant results first, related knowledge, gap identification, frequent topics, Knowledge Center article suggestions.
+Security: RBAC search results, privacy-respecting indexing, audit logging, unauthorized content blocked.
+Design principles: Relevance before volume, privacy before convenience, access before assumption.
+Companion limitations: no bypassing search RBAC, no exposing unauthorized content, no indexing without policy compliance.
+Cross-links only: Knowledge Center, Document Intelligence Phase 230, Action Center, Communication Center, Executive Cockpit Phase 200, Learning Center, Trust Center, Customer Success Center, and future Aipify modules — never bypass search RBAC, expose unauthorized content, or index content without privacy policy compliance.
+People First. Growth Partner — never Affiliate.

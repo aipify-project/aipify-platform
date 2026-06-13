@@ -1,0 +1,13 @@
+ABOS Phase 236 — Desktop Companion & Creative Bridge
+Route: /app/aipify-desktop-companion-creative-bridge-engine
+
+Desktop Companion: application detection, consent flows, launch apps, in-app assistance, guided actions, creative bridge, business bridge, governance, session audit, integration center.
+Creative: Photoshop, Illustrator, Lightroom, Premiere Pro, InDesign, Canva Desktop, Blender, Figma Desktop.
+Business: Word, Excel, PowerPoint, Outlook, Teams.
+Consent: Allow Once, Always Allow, Decline — session and persistent access controls.
+Audit: access granted, session started, document generated, session terminated, access revoked, session expired.
+Safety: never access without permission, session expiration, emergency termination, org may disable integrations.
+Design principles: Consent before access, transparency before automation, control before convenience.
+Companion limitations: no accessing apps without permission, no bypassing session consent, no unlogged sessions.
+Cross-links only: Aipify Studio Phase 229, Document Intelligence Phase 230, Executive Cockpit Phase 200, Knowledge Center, Enterprise Notification Engine Phase 233, and Trust Center — never access applications without permission, bypass session consent, or skip application session audit logging.
+People First. Growth Partner — never Affiliate.

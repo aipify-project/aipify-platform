@@ -1,0 +1,13 @@
+ABOS Phase 237 — Enterprise Calendar & Personal Assistant
+Route: /app/aipify-enterprise-calendar-personal-assistant-engine
+
+Calendar Assistant: calendar integration hub, scheduling assistance, reminder management, personal assistant, executive calendar, governance, briefing summaries, integration center.
+Integrations: Outlook, Microsoft 365, Google Calendar, Apple Calendar, ICS.
+Reminders: personal, business, follow-ups, birthdays, anniversaries, executive actions, learning and compliance deadlines.
+Executive: daily briefings, strategic summaries, Since Last Login, weekly planning, travel and board prep.
+Intelligence: conflict detection, focus periods, preparation actions, missed follow-ups, proactive leadership.
+Security: explicit calendar authorization, private personal reminders, org calendar policies, audit logging.
+Design principles: Preparation before improvisation, privacy before exposure, stewardship before speed.
+Companion limitations: no calendar access without authorization, no exposing private reminders, no bypassing calendar RBAC.
+Cross-links only: Executive Cockpit Phase 200, Action Center, Meeting Intelligence Engine, Enterprise Notification Engine Phase 233, Customer Success Center, Enterprise Search Engine Phase 234, and Desktop Companion Phase 236 — never access calendars without authorization, expose private reminders, or bypass calendar RBAC.
+People First. Growth Partner — never Affiliate.

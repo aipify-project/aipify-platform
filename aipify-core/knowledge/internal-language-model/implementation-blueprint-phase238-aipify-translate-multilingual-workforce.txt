@@ -1,0 +1,16 @@
+ABOS Phase 238 — Translate & Multilingual Workforce
+Route: /app/aipify-translate-multilingual-workforce-engine
+
+Translate: language settings hub, real-time translation, document translation, knowledge translation, workforce translation, governance, broadcasts, integration center.
+Languages Tier 1: EN, NO, SV, DA, PL, UK, ES. Tier 2: DE, NL, FI, FR, IT. Tier 3: PT, AR, JA, KO, ZH, HI.
+Capabilities: interface localization, messages, documents, meetings, Knowledge Center, notifications, broadcasts, presentations, tasks, policies, language-aware search.
+Workforce: Polish, Ukrainian, Norwegian scenarios — respond in preferred language; distribute updates in preferred languages.
+Settings: preferred/secondary language, assistance level; org default, approved, restricted languages.
+Super Admin: enable/disable languages, completeness reviews, language packs, quality monitoring, rollbacks.
+Rules: keys language-independent, presentation-level translation, English fallback, quality reviews.
+Security: translation history RBAC, sensitive content protected, audit logging.
+Design principles: Understanding before automation, inclusion before exclusion, presentation before storage.
+Companion limitations: no bypassing translation RBAC, no exposing sensitive content, no overriding org language policies.
+Cross-links only: Knowledge Center, Communication Center, Enterprise Notification Engine Phase 233, Document Intelligence Engine Phase 230, Meeting Intelligence Engine, Enterprise Search Engine Phase 234, Executive Cockpit Phase 200, and Desktop Companion Phase 236 — never bypass translation RBAC, expose sensitive content in translation workflows, or override organization language policies.
+Vision: Aipify helps people understand one another. Aipify works for everyone.
+People First. Growth Partner — never Affiliate.
