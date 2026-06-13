@@ -190,6 +190,8 @@ export * from "./aipify-enterprise-opportunity-discovery-engine";
 export * from "./aipify-enterprise-organizational-adaptability-engine";
 export * from "./aipify-enterprise-autonomous-coordination-engine";
 export * from "./aipify-enterprise-executive-copilot-engine";
+export * from "./aipify-enterprise-organizational-energy-engine";
+export * from "./aipify-enterprise-future-readiness-engine";
 export * from "./aipify-employee-growth-career-development-engine";
 export * from "./aipify-wellbeing-sustainable-performance-engine";
 export * from "./aipify-moderation";

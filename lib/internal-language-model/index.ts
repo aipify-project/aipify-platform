@@ -258,6 +258,8 @@ export * from "./implementation-blueprint-phase264-vocabulary";
 export * from "./implementation-blueprint-phase265-vocabulary";
 export * from "./implementation-blueprint-phase266-vocabulary";
 export * from "./implementation-blueprint-phase267-vocabulary";
+export * from "./implementation-blueprint-phase271-vocabulary";
+export * from "./implementation-blueprint-phase269-vocabulary";
 export * from "./implementation-blueprint-phase219-vocabulary";
 export * from "./implementation-blueprint-phase215-vocabulary";
 export * from "./implementation-blueprint-phase216-vocabulary";
@@ -1008,6 +1010,10 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE266_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase266-aipify-enterprise-autonomous-coordination.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE267_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase267-aipify-enterprise-executive-copilot.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE271_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase271-aipify-enterprise-future-readiness.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE269_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase269-aipify-enterprise-organizational-energy.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE230_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase230-aipify-document-intelligence-enterprise-document.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE215_CORPUS =

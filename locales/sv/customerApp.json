@@ -5939,7 +5939,9 @@
     "aipifyEnterpriseOpportunityDiscoveryEngine": "Möjlighetsupptäckt",
     "aipifyEnterpriseOrganizationalAdaptabilityEngine": "Organisationell anpassningsförmåga",
     "aipifyEnterpriseAutonomousCoordinationEngine": "Autonom koordinering",
-    "aipifyEnterpriseExecutiveCopilotEngine": "Executive Copilot"
+    "aipifyEnterpriseExecutiveCopilotEngine": "Executive Copilot",
+    "aipifyEnterpriseFutureReadinessEngine": "Framtidspreparering",
+    "aipifyEnterpriseOrganizationalEnergyEngine": "Organisationsenergi"
   },
   "identity": {
     "title": "Din identitet",
@@ -13707,6 +13709,76 @@
       "philosophy": "People First. Aipify advises — executives decide. Growth Partner terminology — never Affiliate.",
       "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
       "growthEra": "Opportunity Discovery Era (264–268) — Phase 267 continues the era."
+    }
+  },
+  "aipifyEnterpriseFutureReadinessEngine": {
+    "title": "Future Readiness Center",
+    "subtitle": "Future Readiness Era (269–273) continues. Future Readiness Companion supports future readiness assessment, capability maturity mapping, readiness gap identification, emerging change tracker, future scenario preparation, and executive future dashboard. Aipify prepares — leadership prioritizes. Does NOT replace leadership priorities or make investment decisions for leadership. Growth Partner — never Affiliate.",
+    "loading": "Loading Enterprise Future Readiness dashboard…",
+    "engineTitle": "Enterprise Future Readiness Engine (Phase 271)",
+    "scoreLabel": "Future readiness index",
+    "modeLabel": "Mode",
+    "readinessLabel": "Future readiness index level",
+    "executiveReviews": "Executive future dashboard",
+    "activeReflections": "Active future readiness scaffolds",
+    "humanOversightRequired": "Leadership prioritizes — users retain readiness control; Future Readiness Companion prepares only",
+    "eraOpenerSummary": "Future Readiness Era — Phases 269–273 (continues)",
+    "eraOpenerNote": "Cross-link only — do not duplicate Executive Copilot Engine, Strategic Execution Engine, Organizational Memory Engine, Resilience Engine, or External Intelligence Engine RPCs.",
+    "centerLabel": "Future Readiness Center capabilities",
+    "engineLabel": "Future readiness assessment — assessment prompts",
+    "frameworkLabel": "Capability maturity mapping",
+    "reviewsLabel": "Executive future dashboard",
+    "companionLabel": "Future Readiness Companion — prepares organizations, leadership prioritizes",
+    "subEngineLabel": "Emerging change tracker",
+    "reflections": "Future readiness scaffolds",
+    "executiveReviewEntries": "Readiness evolution entries",
+    "scaffoldNotes": "Leadership-governed readiness scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 271)",
+    "companionLimitations": "Future Readiness Companion limitations — does NOT replace leadership priorities, make investment decisions for leadership, or omit future readiness audit history",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase271": {
+      "mission": "Future Readiness Companion supports enterprise future readiness — leadership prioritizes and preparedness history stays auditable.",
+      "philosophy": "People First. Aipify prepares — leadership prioritizes. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
+      "growthEra": "Future Readiness Era (269–273) — Phase 271 continues the era."
+    }
+  },
+  "aipifyEnterpriseOrganizationalEnergyEngine": {
+    "title": "Organizational Energy Center",
+    "subtitle": "Organizational Vitality Era (269–273) opens. Organizational Energy Companion supports energy signal engine, team energy monitoring, executive energy insights, momentum detection, organizational friction identification, and executive energy dashboard. Aipify recommends — leadership determines action. Does NOT replace leadership action or pressure teams without consent. Growth Partner — never Affiliate.",
+    "loading": "Loading Enterprise Organizational Energy dashboard…",
+    "engineTitle": "Enterprise Organizational Energy Engine (Phase 269)",
+    "scoreLabel": "Organizational energy index",
+    "modeLabel": "Mode",
+    "readinessLabel": "Organizational energy index level",
+    "executiveReviews": "Executive energy dashboard",
+    "activeReflections": "Active organizational energy scaffolds",
+    "humanOversightRequired": "Leadership determines action — users retain workforce control; Organizational Energy Companion recommends only",
+    "eraOpenerSummary": "Organizational Vitality Era — Phases 269–273 (opens)",
+    "eraOpenerNote": "Cross-link only — do not duplicate Wellbeing & Sustainable Performance Engine, Executive Copilot Engine, Time & Attention Guardian, or Workforce Planning Engine RPCs.",
+    "centerLabel": "Organizational Energy Center capabilities",
+    "engineLabel": "Energy signal engine — signal prompts",
+    "frameworkLabel": "Team energy monitoring",
+    "reviewsLabel": "Executive energy dashboard",
+    "companionLabel": "Organizational Energy Companion — recommends sustainable performance, leadership determines action",
+    "subEngineLabel": "Momentum detection",
+    "reflections": "Organizational energy scaffolds",
+    "executiveReviewEntries": "Energy history entries",
+    "scaffoldNotes": "Leadership-governed energy scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 269)",
+    "companionLimitations": "Organizational Energy Companion limitations — does NOT replace leadership action, pressure teams without consent, or omit organizational energy audit history",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase269": {
+      "mission": "Organizational Energy Companion supports enterprise organizational energy — leadership determines action and energy history stays auditable.",
+      "philosophy": "People First. Aipify recommends — leadership determines action. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
+      "growthEra": "Organizational Vitality Era (269–273) — Phase 269 opens the era."
     }
   }
 }

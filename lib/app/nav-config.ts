@@ -135,6 +135,8 @@ export type AppNavId =
   | "aipifyEnterpriseOrganizationalAdaptabilityEngine"
   | "aipifyEnterpriseAutonomousCoordinationEngine"
   | "aipifyEnterpriseExecutiveCopilotEngine"
+  | "aipifyEnterpriseOrganizationalEnergyEngine"
+  | "aipifyEnterpriseFutureReadinessEngine"
   | "aipifyWellbeingSustainablePerformanceEngine"
   | "aipifyTalentAcquisitionWorkforcePlanningEngine"
   | "aipifyPerformanceGoalAlignmentEngine"
@@ -897,6 +899,16 @@ export const APP_NAV: AppNavItem[] = [
     id: "aipifyEnterpriseExecutiveCopilotEngine",
     href: "/app/aipify-enterprise-executive-copilot-engine",
     labelKey: "customerApp.nav.aipifyEnterpriseExecutiveCopilotEngine",
+  },
+  {
+    id: "aipifyEnterpriseOrganizationalEnergyEngine",
+    href: "/app/aipify-enterprise-organizational-energy-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseOrganizationalEnergyEngine",
+  },
+  {
+    id: "aipifyEnterpriseFutureReadinessEngine",
+    href: "/app/aipify-enterprise-future-readiness-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseFutureReadinessEngine",
   },
   {
     id: "aipifyEmployeeGrowthCareerDevelopmentEngine",
@@ -1862,6 +1874,12 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/aipify-enterprise-executive-copilot-engine")) {
     return "aipifyEnterpriseExecutiveCopilotEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-organizational-energy-engine")) {
+    return "aipifyEnterpriseOrganizationalEnergyEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-future-readiness-engine")) {
+    return "aipifyEnterpriseFutureReadinessEngine";
   }
   if (pathname.startsWith("/app/aipify-employee-growth-career-development-engine")) {
     return "aipifyEmployeeGrowthCareerDevelopmentEngine";
