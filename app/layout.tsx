@@ -13,12 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aipify — AI that works for your business",
+  title: "Aipify works for you",
   description:
     "Aipify helps businesses automate support, streamline operations and make smarter decisions through intelligent AI assistants.",
   metadataBase: new URL("https://aipify.ai"),
   openGraph: {
-    title: "Aipify — AI that works for your business",
+    title: "Aipify works for you",
     description:
       "Intelligent AI assistants for support, analytics, commerce and system learning.",
     url: "https://aipify.ai",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Aipify — AI that works for your business",
+    title: "Aipify works for you",
     description:
       "Intelligent AI assistants for support, analytics, commerce and system learning.",
   },

@@ -21,7 +21,7 @@ export default function Hero() {
           </span>
 
           <h1 className="mt-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl lg:leading-[1.1]">
-            AI that works for your business.
+            Aipify works for you.
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-gray-600 sm:text-xl">
