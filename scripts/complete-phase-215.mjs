@@ -408,12 +408,10 @@ function patchDecisionTypeChain(sql) {
     P.decisionType,
   ];
   sql = sql.replace(/,\n    'aipify_enterprise_adoption_enablement_engine'/g, "");
-  const additions = chain.filter((entry) => !sql.includes(`'${entry}'`));
-  if (additions.length === 0) return sql;
-  const anchor = sql.includes("'aipify_innovation_opportunity_discovery_engine'")
-    ? "'aipify_innovation_opportunity_discovery_engine'"
-    : "'aipify_customer_success_value_realization_engine'";
-  return sql.replace(anchor, `${anchor},\n    ${additions.map((e) => `'${e}'`).join(",\n    ")}`);
+  return sql.replace(
+    /'aipify_resource_capacity_workload_balance_engine',\n(?:    '[^']+',\n)*    '[^']+'\n  \)/,
+    `'aipify_resource_capacity_workload_balance_engine',\n    ${chain.map((e) => `'${e}'`).join(",\n    ")}\n  )`,
+  );
 }
 
 function patchMigration(sql) {

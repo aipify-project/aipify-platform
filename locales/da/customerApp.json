@@ -5792,7 +5792,9 @@
     "continuousImprovementOptimizationEngine": "Kontinuerlig forbedring",
     "aipifyCustomerSuccessValueRealizationEngine": "Kundesucces",
     "aipifyOnboardingAdoptionAccelerationEngine": "Onboarding og adoption",
-    "aipifyCustomerJourneyExperienceOrchestrationEngine": "Kunderejse"
+    "aipifyCustomerJourneyExperienceOrchestrationEngine": "Kunderejse",
+    "aipifyEnterpriseTrainingCertificationEngine": "Træning og certificering",
+    "aipifyOrganizationalCommunicationAnnouncementsEngine": "Kommunikation og meddelelser"
   },
   "identity": {
     "title": "Din identitet",
@@ -11874,6 +11876,76 @@
       "philosophy": "People First. Metadata-only journey scaffolds. Empathy before efficiency.",
       "empathyBeforeEfficiency": "Empathy before efficiency — relationships before transactions — clarity before complexity.",
       "customerJourneyEra": "Innovation & Adaptive Excellence Era (211–220) — Phase 214."
+    }
+  },
+  "aipifyEnterpriseTrainingCertificationEngine": {
+    "title": "Learning Center",
+    "subtitle": "Innovation & Adaptive Excellence Era (211–220). Learning Companion supports learning summaries, competency insights, and certification recommendations. Supports humans — does NOT auto-certify or bypass human approval. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Enterprise Training & Certification dashboard…",
+    "engineTitle": "Aipify Enterprise Training & Certification Engine (Phase 216)",
+    "scoreLabel": "Competency score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Competency maturity level",
+    "executiveReviews": "Competency tracking engine",
+    "activeReflections": "Active certification scaffolds",
+    "humanOversightRequired": "Human oversight required — humans steward learning programs; Learning Companion supports only",
+    "eraOpenerSummary": "Innovation Era — Phases 211–220",
+    "eraOpenerNote": "Cross-link only — do not duplicate unified workspace or onboarding center RPCs.",
+    "centerLabel": "Learning Center capabilities",
+    "engineLabel": "Certification center — competency prompts",
+    "frameworkLabel": "Role-based training programs",
+    "reviewsLabel": "Competency tracking engine",
+    "companionLabel": "Learning Companion — supports, does not auto-certify",
+    "subEngineLabel": "Leadership Development Hub",
+    "reflections": "Certification center scaffolds",
+    "executiveReviewEntries": "Competency tracking entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 216)",
+    "companionLimitations": "Learning Companion limitations — does NOT auto-certify or bypass human approval",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase216": {
+      "mission": "Learning Companion supports learning guidance — humans retain certification authority.",
+      "philosophy": "People First. Metadata-only learning scaffolds. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
+      "learningEra": "Innovation & Adaptive Excellence Era (211–220) — Phase 216."
+    }
+  },
+  "aipifyOrganizationalCommunicationAnnouncementsEngine": {
+    "title": "Communication Center",
+    "subtitle": "Innovation & Adaptive Excellence Era (211–220). Communication Companion supports communication summaries, acknowledgement insights, and broadcast recommendations. Supports humans — does NOT auto-broadcast or bypass human approval. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Organizational Communication & Announcements dashboard…",
+    "engineTitle": "Aipify Organizational Communication & Announcements Engine (Phase 217)",
+    "scoreLabel": "Communication score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Communication maturity level",
+    "executiveReviews": "Executive communication insights",
+    "activeReflections": "Active leadership broadcast scaffolds",
+    "humanOversightRequired": "Human oversight required — humans steward organizational communication; Communication Companion supports only",
+    "eraOpenerSummary": "Innovation Era — Phases 211–220",
+    "eraOpenerNote": "Cross-link only — do not duplicate digital headquarters or unified workspace notification hub RPCs.",
+    "centerLabel": "Communication Center capabilities",
+    "engineLabel": "Leadership broadcast center — communication prompts",
+    "frameworkLabel": "Department communication hub",
+    "reviewsLabel": "Executive communication insights",
+    "companionLabel": "Communication Companion — supports, does not auto-broadcast",
+    "subEngineLabel": "Announcement Scheduler",
+    "reflections": "Leadership broadcast scaffolds",
+    "executiveReviewEntries": "Communication insight entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 217)",
+    "companionLimitations": "Communication Companion limitations — does NOT auto-broadcast or bypass human approval",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase217": {
+      "mission": "Communication Companion supports communication clarity — humans retain broadcast authority.",
+      "philosophy": "People First. Metadata-only communication scaffolds. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
+      "communicationEra": "Innovation & Adaptive Excellence Era (211–220) — Phase 217."
     }
   }
 }

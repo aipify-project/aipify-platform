@@ -108,6 +108,8 @@ export type AppNavId =
   | "aipifyCustomerSuccessValueRealizationEngine"
   | "aipifyCustomerJourneyExperienceOrchestrationEngine"
   | "aipifyOnboardingAdoptionAccelerationEngine"
+  | "aipifyOrganizationalCommunicationAnnouncementsEngine"
+  | "aipifyEnterpriseTrainingCertificationEngine"
   | "aipifyMeetingIntelligenceFollowUpEngine"
   | "aipifyUnifiedWorkspaceEngine"
   | "aipifyGlobalCommandCenterEngine"
@@ -705,6 +707,16 @@ export const APP_NAV: AppNavItem[] = [
     id: "aipifyOnboardingAdoptionAccelerationEngine",
     href: "/app/aipify-onboarding-adoption-acceleration-engine",
     labelKey: "customerApp.nav.aipifyOnboardingAdoptionAccelerationEngine",
+  },
+  {
+    id: "aipifyOrganizationalCommunicationAnnouncementsEngine",
+    href: "/app/aipify-organizational-communication-announcements-engine",
+    labelKey: "customerApp.nav.aipifyOrganizationalCommunicationAnnouncementsEngine",
+  },
+  {
+    id: "aipifyEnterpriseTrainingCertificationEngine",
+    href: "/app/aipify-enterprise-training-certification-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseTrainingCertificationEngine",
   },
   {
     id: "aipifyMeetingIntelligenceFollowUpEngine",
@@ -1475,6 +1487,12 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/aipify-onboarding-adoption-acceleration-engine")) {
     return "aipifyOnboardingAdoptionAccelerationEngine";
+  }
+  if (pathname.startsWith("/app/aipify-organizational-communication-announcements-engine")) {
+    return "aipifyOrganizationalCommunicationAnnouncementsEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-training-certification-engine")) {
+    return "aipifyEnterpriseTrainingCertificationEngine";
   }
   if (pathname.startsWith("/app/aipify-meeting-intelligence-follow-up-engine")) {
     return "aipifyMeetingIntelligenceFollowUpEngine";

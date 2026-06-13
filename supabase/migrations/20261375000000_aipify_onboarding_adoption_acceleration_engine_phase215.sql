@@ -148,6 +148,11 @@ alter table public.decision_explanations add constraint decision_explanations_de
     'aipify_decision_center_governance_engine',
     'aipify_operations_orchestration_engine',
     'aipify_resource_capacity_workload_balance_engine',
+    'aipify_organizational_rhythms_operating_cadence_engine',
+    'aipify_continuous_improvement_optimization_engine',
+    'aipify_innovation_opportunity_discovery_engine',
+    'aipify_customer_success_value_realization_engine',
+    'aipify_customer_journey_experience_orchestration_engine',
     'aipify_onboarding_adoption_acceleration_engine'
   )
 );
