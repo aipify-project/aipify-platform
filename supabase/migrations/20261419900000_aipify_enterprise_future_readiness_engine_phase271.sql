@@ -421,8 +421,8 @@ create or replace function public._aefrebp271_security_requirements() returns js
     jsonb_build_object('key', 'two_factor', 'label', 'Two-factor authentication', 'cross_link', '/app/settings/two-factor')
   )); $$;
 create or replace function public._aefrebp271_era_opener_summary() returns jsonb language sql immutable as $$ select jsonb_build_array(
-    jsonb_build_object('phase', 269, 'key', 'enterprise_future_readiness_foundation', 'label', 'Future Readiness Foundation Phase 269', 'route', '/app/aipify-enterprise-future-readiness-engine', 'description', 'Preparedness foundation — cross-link only'),
-    jsonb_build_object('phase', 270, 'key', 'enterprise_scenario_planning', 'label', 'Scenario Planning Phase 270', 'route', '/app/aipify-enterprise-future-readiness-engine', 'description', 'Scenario planning — cross-link only'),
+    jsonb_build_object('phase', 269, 'key', 'enterprise_organizational_energy', 'label', 'Organizational Energy Phase 269', 'route', '/app/aipify-enterprise-organizational-energy-engine', 'description', 'Organizational vitality — cross-link only'),
+    jsonb_build_object('phase', 270, 'key', 'enterprise_collective_intelligence', 'label', 'Collective Intelligence Phase 270', 'route', '/app/aipify-enterprise-collective-intelligence-engine', 'description', 'Collective intelligence — cross-link only'),
     jsonb_build_object('phase', 271, 'key', 'enterprise_future_readiness', 'label', 'Future Readiness Phase 271', 'route', '/app/aipify-enterprise-future-readiness-engine', 'description', 'Enterprise future readiness — continues era')
   ); $$;
 create or replace function public._aefrebp271_extended_cross_links() returns jsonb language sql immutable as $$ select jsonb_build_array(
@@ -468,7 +468,7 @@ create or replace function public._aefrebp271_success_criteria(p_org_id uuid) re
 begin perform public._aefre_ensure_settings(p_org_id); perform public._aefre_seed_reflections(p_org_id); perform public._aefre_seed_enterprise_future_readiness_notes(p_org_id);
   return jsonb_build_array(
     jsonb_build_object('key', 'center', 'label', 'Future Readiness Center — ten capabilities', 'met', jsonb_array_length(public._aefrebp271_future_readiness_dashboard()->'capabilities') = 10, 'note', null),
-    jsonb_build_object('key', 'engine', 'label', 'Strategic objective registry — five reflection questions', 'met', jsonb_array_length(public._aefrebp271_future_readiness_assessment()->'reflection_questions') = 5, 'note', null),
+    jsonb_build_object('key', 'engine', 'label', 'Future readiness assessment — five reflection questions', 'met', jsonb_array_length(public._aefrebp271_future_readiness_assessment()->'reflection_questions') = 5, 'note', null),
     jsonb_build_object('key', 'framework', 'label', 'Framework domains documented', 'met', jsonb_array_length(public._aefrebp271_capability_maturity_mapping()->'domains') >= 6, 'note', null),
     jsonb_build_object('key', 'companion', 'label', 'Future Readiness Companion capabilities', 'met', jsonb_array_length(public._aefrebp271_future_readiness_companion()->'capabilities') = 6, 'note', null),
     jsonb_build_object('key', 'reflections_seeded', 'label', 'Reflections seeded', 'met', (select count(*) >= 8 from public.aipify_enterprise_future_readiness_reflections r where r.tenant_id = p_org_id), 'note', null),

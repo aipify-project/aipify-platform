@@ -1,0 +1,15 @@
+ABOS Phase 270 — Enterprise Collective Intelligence
+Route: /app/aipify-enterprise-collective-intelligence-engine
+
+Collective Intelligence: contribution engine, signal detection, clustering, consensus mapping, prioritization, executive dashboard, collective recommendations, intelligence timeline, participation insights, collective intelligence index.
+Signal strength: weak, developing, significant, strong consensus.
+Cluster categories: customer, workforce, operational, strategic, innovation, governance.
+Consensus levels: fragmented, emerging alignment, strong alignment, organization-wide consensus.
+Priority levels: informational, valuable, high impact, strategic importance.
+Index levels: isolated, developing, connected, collaborative, collectively intelligent.
+Flow: insights generated → signals detected → themes clustered → consensus evaluated → priorities established → recommendations surfaced → leadership actions → outcomes reviewed → intelligence strengthened.
+Security: collective intelligence governance RBAC, leadership gates, audit logging, metadata only, privacy settings, enterprise permissions, 2FA.
+Design principles: Aipify synthesizes — leadership determines direction, low-friction contribution, executive-grade pattern visualization.
+Companion limitations: no replacing leadership direction, no strategic decisions for leadership, no hiding diverging perspectives, no overwhelming with unfiltered signals.
+Cross-links only: Organizational Memory Engine Phase 260, Organizational Insights & Executive Intelligence Engine Phase 223, Employee Knowledge Engine, External Intelligence Engine Phase 255, and Organizational Energy Engine Phase 269 — Aipify synthesizes intelligence; leadership determines direction; never omit collective intelligence audit history.
+People First. Growth Partner — never Affiliate. Era continues 269–273.

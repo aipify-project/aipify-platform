@@ -136,7 +136,10 @@ export type AppNavId =
   | "aipifyEnterpriseAutonomousCoordinationEngine"
   | "aipifyEnterpriseExecutiveCopilotEngine"
   | "aipifyEnterpriseOrganizationalEnergyEngine"
+  | "aipifyEnterpriseCollectiveIntelligenceEngine"
   | "aipifyEnterpriseFutureReadinessEngine"
+  | "aipifyEnterprisePurposeValuesAlignmentEngine"
+  | "aipifyEnterpriseOrganizationalClarityEngine"
   | "aipifyWellbeingSustainablePerformanceEngine"
   | "aipifyTalentAcquisitionWorkforcePlanningEngine"
   | "aipifyPerformanceGoalAlignmentEngine"
@@ -906,9 +909,24 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.aipifyEnterpriseOrganizationalEnergyEngine",
   },
   {
+    id: "aipifyEnterpriseCollectiveIntelligenceEngine",
+    href: "/app/aipify-enterprise-collective-intelligence-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseCollectiveIntelligenceEngine",
+  },
+  {
     id: "aipifyEnterpriseFutureReadinessEngine",
     href: "/app/aipify-enterprise-future-readiness-engine",
     labelKey: "customerApp.nav.aipifyEnterpriseFutureReadinessEngine",
+  },
+  {
+    id: "aipifyEnterprisePurposeValuesAlignmentEngine",
+    href: "/app/aipify-enterprise-purpose-values-alignment-engine",
+    labelKey: "customerApp.nav.aipifyEnterprisePurposeValuesAlignmentEngine",
+  },
+  {
+    id: "aipifyEnterpriseOrganizationalClarityEngine",
+    href: "/app/aipify-enterprise-organizational-clarity-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseOrganizationalClarityEngine",
   },
   {
     id: "aipifyEmployeeGrowthCareerDevelopmentEngine",
@@ -1878,8 +1896,17 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/aipify-enterprise-organizational-energy-engine")) {
     return "aipifyEnterpriseOrganizationalEnergyEngine";
   }
+  if (pathname.startsWith("/app/aipify-enterprise-collective-intelligence-engine")) {
+    return "aipifyEnterpriseCollectiveIntelligenceEngine";
+  }
   if (pathname.startsWith("/app/aipify-enterprise-future-readiness-engine")) {
     return "aipifyEnterpriseFutureReadinessEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-purpose-values-alignment-engine")) {
+    return "aipifyEnterprisePurposeValuesAlignmentEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-organizational-clarity-engine")) {
+    return "aipifyEnterpriseOrganizationalClarityEngine";
   }
   if (pathname.startsWith("/app/aipify-employee-growth-career-development-engine")) {
     return "aipifyEmployeeGrowthCareerDevelopmentEngine";

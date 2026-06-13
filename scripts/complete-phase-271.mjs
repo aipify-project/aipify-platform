@@ -293,8 +293,8 @@ create or replace function public._${bp}_security_requirements() returns jsonb l
     jsonb_build_object('key', 'two_factor', 'label', 'Two-factor authentication', 'cross_link', '/app/settings/two-factor')
   )); $$;
 create or replace function public._${bp}_era_opener_summary() returns jsonb language sql immutable as $$ select jsonb_build_array(
-    jsonb_build_object('phase', 269, 'key', 'enterprise_future_readiness_foundation', 'label', 'Future Readiness Foundation Phase 269', 'route', '/app/aipify-enterprise-future-readiness-engine', 'description', 'Preparedness foundation — cross-link only'),
-    jsonb_build_object('phase', 270, 'key', 'enterprise_scenario_planning', 'label', 'Scenario Planning Phase 270', 'route', '/app/aipify-enterprise-future-readiness-engine', 'description', 'Scenario planning — cross-link only'),
+    jsonb_build_object('phase', 269, 'key', 'enterprise_organizational_energy', 'label', 'Organizational Energy Phase 269', 'route', '/app/aipify-enterprise-organizational-energy-engine', 'description', 'Organizational vitality — cross-link only'),
+    jsonb_build_object('phase', 270, 'key', 'enterprise_collective_intelligence', 'label', 'Collective Intelligence Phase 270', 'route', '/app/aipify-enterprise-collective-intelligence-engine', 'description', 'Collective intelligence — cross-link only'),
     jsonb_build_object('phase', 271, 'key', 'enterprise_future_readiness', 'label', 'Future Readiness Phase 271', 'route', '/app/aipify-enterprise-future-readiness-engine', 'description', 'Enterprise future readiness — continues era')
   ); $$;
 create or replace function public._${bp}_extended_cross_links() returns jsonb language sql immutable as $$ select jsonb_build_array(
