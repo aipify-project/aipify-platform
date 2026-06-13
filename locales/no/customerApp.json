@@ -6084,7 +6084,9 @@
     "aipifyOperationsOrchestrationEngine": "Operasjonsorkestrering",
     "aipifyOrganizationalRhythmsOperatingCadenceEngine": "Operasjonskadens",
     "continuousImprovementOptimizationEngine": "Kontinuerlig forbedring",
-    "aipifyCustomerSuccessValueRealizationEngine": "Kundesuksess"
+    "aipifyCustomerSuccessValueRealizationEngine": "Kundesuksess",
+    "aipifyCustomerJourneyExperienceOrchestrationEngine": "Kundereise",
+    "aipifyOnboardingAdoptionAccelerationEngine": "Onboarding og adopsjon"
   },
   "identity": {
     "title": "Din identitet",
@@ -12027,6 +12029,76 @@
       "philosophy": "People First. Metadata-only success scaffolds. Growth Partner terminology — never Affiliate.",
       "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
       "customerSuccessEra": "Innovation & Adaptive Excellence Era (211–220) — Phase 213."
+    }
+  },
+  "aipifyCustomerJourneyExperienceOrchestrationEngine": {
+    "title": "Customer Journey Center",
+    "subtitle": "Innovation & Adaptive Excellence Era (211–220). Journey Companion supports journey summaries, friction insights, and optimization suggestions. Supports humans — does NOT auto-modify journeys or expose sensitive customer PII.",
+    "loading": "Loading Aipify Customer Journey & Experience Orchestration dashboard…",
+    "engineTitle": "Aipify Customer Journey & Experience Orchestration Engine (Phase 214)",
+    "scoreLabel": "Journey score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Journey maturity level",
+    "executiveReviews": "Executive experience dashboard",
+    "activeReflections": "Active experience friction scaffolds",
+    "humanOversightRequired": "Human oversight required — humans steward customer journey; Journey Companion supports only",
+    "eraOpenerSummary": "Innovation Era — Phases 211–220",
+    "eraOpenerNote": "Cross-link only — do not duplicate customer success or action center RPCs.",
+    "centerLabel": "Customer Journey Center capabilities",
+    "engineLabel": "Experience friction monitor — friction prompts",
+    "frameworkLabel": "Journey optimization center",
+    "reviewsLabel": "Executive experience dashboard",
+    "companionLabel": "Journey Companion — supports, does not auto-modify journeys",
+    "subEngineLabel": "Customer Milestone Framework",
+    "reflections": "Experience friction scaffolds",
+    "executiveReviewEntries": "Executive experience entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 214)",
+    "companionLimitations": "Journey Companion limitations — does NOT auto-modify journeys or expose sensitive customer PII",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase214": {
+      "mission": "Journey Companion supports journey visibility — humans retain customer experience authority.",
+      "philosophy": "People First. Metadata-only journey scaffolds. Empathy before efficiency.",
+      "empathyBeforeEfficiency": "Empathy before efficiency — relationships before transactions — clarity before complexity.",
+      "customerJourneyEra": "Innovation & Adaptive Excellence Era (211–220) — Phase 214."
+    }
+  },
+  "aipifyOnboardingAdoptionAccelerationEngine": {
+    "title": "Onboarding Center",
+    "subtitle": "Innovation & Adaptive Excellence Era (211–220). Onboarding Companion supports adoption summaries, enablement insights, and guided success recommendations. Supports humans — does NOT auto-configure setup or bypass human approval. Growth Partner — never Affiliate.",
+    "loading": "Loading Aipify Onboarding & Adoption Acceleration dashboard…",
+    "engineTitle": "Aipify Onboarding & Adoption Acceleration Engine (Phase 215)",
+    "scoreLabel": "Adoption score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Adoption maturity level",
+    "executiveReviews": "Adoption insights dashboard",
+    "activeReflections": "Active learning path scaffolds",
+    "humanOversightRequired": "Human oversight required — humans steward onboarding setup; Onboarding Companion supports only",
+    "eraOpenerSummary": "Innovation Era — Phases 211–220",
+    "eraOpenerNote": "Cross-link only — do not duplicate customer success, unified workspace, or executive cockpit RPCs.",
+    "centerLabel": "Onboarding Center capabilities",
+    "engineLabel": "Role-based learning paths — enablement prompts",
+    "frameworkLabel": "Setup completion center",
+    "reviewsLabel": "Adoption insights dashboard",
+    "companionLabel": "Onboarding Companion — supports, does not auto-configure",
+    "subEngineLabel": "Guided Success Recommendations",
+    "reflections": "Role-based learning path scaffolds",
+    "executiveReviewEntries": "Adoption insight entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 215)",
+    "companionLimitations": "Onboarding Companion limitations — does NOT auto-configure setup or bypass human approval",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase215": {
+      "mission": "Onboarding Companion supports adoption guidance — humans retain setup authority.",
+      "philosophy": "People First. Metadata-only onboarding scaffolds. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate.",
+      "onboardingEra": "Innovation & Adaptive Excellence Era (211–220) — Phase 215."
     }
   }
 }

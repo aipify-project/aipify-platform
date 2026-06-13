@@ -106,6 +106,7 @@ export type AppNavId =
   | "aipifyOrganizationalRhythmsOperatingCadenceEngine"
   | "continuousImprovementOptimizationEngine"
   | "aipifyCustomerSuccessValueRealizationEngine"
+  | "aipifyCustomerJourneyExperienceOrchestrationEngine"
   | "aipifyOnboardingAdoptionAccelerationEngine"
   | "aipifyMeetingIntelligenceFollowUpEngine"
   | "aipifyUnifiedWorkspaceEngine"
@@ -694,6 +695,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "aipifyCustomerSuccessValueRealizationEngine",
     href: "/app/aipify-customer-success-value-realization-engine",
     labelKey: "customerApp.nav.aipifyCustomerSuccessValueRealizationEngine",
+  },
+  {
+    id: "aipifyCustomerJourneyExperienceOrchestrationEngine",
+    href: "/app/aipify-customer-journey-experience-orchestration-engine",
+    labelKey: "customerApp.nav.aipifyCustomerJourneyExperienceOrchestrationEngine",
   },
   {
     id: "aipifyOnboardingAdoptionAccelerationEngine",
@@ -1463,6 +1469,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/aipify-customer-success-value-realization-engine")) {
     return "aipifyCustomerSuccessValueRealizationEngine";
+  }
+  if (pathname.startsWith("/app/aipify-customer-journey-experience-orchestration-engine")) {
+    return "aipifyCustomerJourneyExperienceOrchestrationEngine";
   }
   if (pathname.startsWith("/app/aipify-onboarding-adoption-acceleration-engine")) {
     return "aipifyOnboardingAdoptionAccelerationEngine";
