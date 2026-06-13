@@ -115,6 +115,14 @@ export type AppNavId =
   | "aipifyOrganizationalHealthWorkforceInsightsEngine"
   | "aipifySkillsInternalTalentMarketplaceEngine"
   | "aipifyInnovationIdeaManagementEngine"
+  | "aipifyOrganizationalGoalsAlignmentEngine"
+  | "aipifyEnterpriseResourcePlanningCapacityIntelligenceEngine"
+  | "aipifyProjectPortfolioStrategicExecutionEngine"
+  | "aipifyDecisionIntelligenceRecommendationEngine"
+  | "aipifyEnterpriseActionPrioritizationFocusEngine"
+  | "aipifyEnterpriseGovernancePolicyAutomationEngine"
+  | "aipifyEnterpriseKnowledgeValidationQualityAssuranceEngine"
+  | "aipifyEnterpriseExternalIntelligenceMarketAwarenessEngine"
   | "aipifyWellbeingSustainablePerformanceEngine"
   | "aipifyTalentAcquisitionWorkforcePlanningEngine"
   | "aipifyPerformanceGoalAlignmentEngine"
@@ -781,6 +789,46 @@ export const APP_NAV: AppNavItem[] = [
     id: "aipifyInnovationIdeaManagementEngine",
     href: "/app/aipify-innovation-idea-management-engine",
     labelKey: "customerApp.nav.aipifyInnovationIdeaManagementEngine",
+  },
+  {
+    id: "aipifyOrganizationalGoalsAlignmentEngine",
+    href: "/app/aipify-organizational-goals-alignment-engine",
+    labelKey: "customerApp.nav.aipifyOrganizationalGoalsAlignmentEngine",
+  },
+  {
+    id: "aipifyEnterpriseResourcePlanningCapacityIntelligenceEngine",
+    href: "/app/aipify-enterprise-resource-planning-capacity-intelligence-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseResourcePlanningCapacityIntelligenceEngine",
+  },
+  {
+    id: "aipifyProjectPortfolioStrategicExecutionEngine",
+    href: "/app/aipify-project-portfolio-strategic-execution-engine",
+    labelKey: "customerApp.nav.aipifyProjectPortfolioStrategicExecutionEngine",
+  },
+  {
+    id: "aipifyDecisionIntelligenceRecommendationEngine",
+    href: "/app/aipify-decision-intelligence-recommendation-engine",
+    labelKey: "customerApp.nav.aipifyDecisionIntelligenceRecommendationEngine",
+  },
+  {
+    id: "aipifyEnterpriseActionPrioritizationFocusEngine",
+    href: "/app/aipify-enterprise-action-prioritization-focus-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseActionPrioritizationFocusEngine",
+  },
+  {
+    id: "aipifyEnterpriseGovernancePolicyAutomationEngine",
+    href: "/app/aipify-enterprise-governance-policy-automation-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseGovernancePolicyAutomationEngine",
+  },
+  {
+    id: "aipifyEnterpriseKnowledgeValidationQualityAssuranceEngine",
+    href: "/app/aipify-enterprise-knowledge-validation-quality-assurance-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseKnowledgeValidationQualityAssuranceEngine",
+  },
+  {
+    id: "aipifyEnterpriseExternalIntelligenceMarketAwarenessEngine",
+    href: "/app/aipify-enterprise-external-intelligence-market-awareness-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseExternalIntelligenceMarketAwarenessEngine",
   },
   {
     id: "aipifyEmployeeGrowthCareerDevelopmentEngine",
@@ -1688,6 +1736,30 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/aipify-innovation-idea-management-engine")) {
     return "aipifyInnovationIdeaManagementEngine";
+  }
+  if (pathname.startsWith("/app/aipify-organizational-goals-alignment-engine")) {
+    return "aipifyOrganizationalGoalsAlignmentEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-resource-planning-capacity-intelligence-engine")) {
+    return "aipifyEnterpriseResourcePlanningCapacityIntelligenceEngine";
+  }
+  if (pathname.startsWith("/app/aipify-project-portfolio-strategic-execution-engine")) {
+    return "aipifyProjectPortfolioStrategicExecutionEngine";
+  }
+  if (pathname.startsWith("/app/aipify-decision-intelligence-recommendation-engine")) {
+    return "aipifyDecisionIntelligenceRecommendationEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-action-prioritization-focus-engine")) {
+    return "aipifyEnterpriseActionPrioritizationFocusEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-governance-policy-automation-engine")) {
+    return "aipifyEnterpriseGovernancePolicyAutomationEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-knowledge-validation-quality-assurance-engine")) {
+    return "aipifyEnterpriseKnowledgeValidationQualityAssuranceEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-external-intelligence-market-awareness-engine")) {
+    return "aipifyEnterpriseExternalIntelligenceMarketAwarenessEngine";
   }
   if (pathname.startsWith("/app/aipify-employee-growth-career-development-engine")) {
     return "aipifyEmployeeGrowthCareerDevelopmentEngine";

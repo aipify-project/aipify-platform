@@ -1,0 +1,1 @@
+export { AipifyEnterpriseResourcePlanningCapacityIntelligenceEngineDashboardPanel } from "./AipifyEnterpriseResourcePlanningCapacityIntelligenceEngineDashboardPanel";

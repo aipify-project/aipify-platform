@@ -1,0 +1,1 @@
+export { AipifyOrganizationalGoalsAlignmentEngineDashboardPanel } from "./AipifyOrganizationalGoalsAlignmentEngineDashboardPanel";

@@ -1,0 +1,12 @@
+ABOS Phase 254 — Enterprise Knowledge Validation & Quality Assurance
+Route: /app/aipify-enterprise-knowledge-validation-quality-assurance-engine
+
+Quality: review workflows, approvals, ownership, expiration, scheduling, scoring, feedback, analytics, versions, executive dashboards, audit trails, certification.
+Types: Knowledge Center articles, FAQs, policies, procedures, onboarding, training, playbooks, guidelines, strategic documents, custom.
+Capabilities: assign owners, review intervals, track completion, archive outdated, request updates, escalate overdue, measure effectiveness, continuous improvement.
+Intelligence: outdated knowledge, low-confidence content, high-usage review needs, duplicates, review priorities, stewardship encouragement.
+Security: knowledge RBAC, immutable version history, retention policies, audit logging, enterprise permissions, 2FA.
+Design principles: Accuracy before volume, stewardship before neglect, trust before assumption.
+Companion limitations: no bypassing knowledge RBAC, no exposing sensitive records, no modifying immutable version history.
+Cross-links only: Knowledge Center, Learning Center, Document Intelligence Engine Phase 230, Enterprise Analytics Engine Phase 235, Enterprise Search Engine, Enterprise Notification Engine Phase 233, Trust Center, Executive Cockpit Phase 200, and Aipify Translate Phase 238 — never bypass knowledge RBAC, expose sensitive knowledge records without authorization, or modify immutable version history.
+People First. Growth Partner — never Affiliate. Era opener 254–258.

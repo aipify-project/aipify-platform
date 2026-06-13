@@ -1,0 +1,12 @@
+ABOS Phase 249 — Enterprise Resource Planning & Capacity Intelligence
+Route: /app/aipify-enterprise-resource-planning-capacity-intelligence-engine
+
+Capacity: team dashboards, workload visibility, allocation planning, staffing recommendations, availability, forecasting, skills matching, utilization analytics, balancing, department insights, executive reporting, risk alerts.
+Categories: employees, contractors, consultants, growth partners, project teams, specialized experts, temporary staff, custom.
+Capabilities: current utilization, future forecast, overallocated, underutilized, hiring support, project planning.
+Intelligence: burnout risk, redistribution, alternative staffing, capacity shortages, bottlenecks, proactive planning.
+Security: resource RBAC, workload protection, visibility rules, audit logging, enterprise permissions, 2FA.
+Design principles: Visibility before overload, capacity before burnout, planning before crisis.
+Companion limitations: no bypassing resource RBAC, no exposing personal workload, no exposing data beyond visibility rules.
+Cross-links only: Organizational Health & Workforce Insights Engine Phase 245, Skills & Internal Talent Marketplace Engine Phase 246, Enterprise Analytics Engine Phase 235, Action Center Phase 205, Executive Cockpit Phase 200, Calendar Assistant Engine, Enterprise Notification Engine Phase 233, and Aipify Translate Phase 238 — never bypass resource RBAC, expose personal workload details without authorization, or expose protected resource data beyond visibility rules.
+People First. Growth Partner — never Affiliate. Era opener 249–253.

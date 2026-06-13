@@ -1,0 +1,12 @@
+ABOS Phase 250 — Project Portfolio & Strategic Execution
+Route: /app/aipify-project-portfolio-strategic-execution-engine
+
+Projects: dashboards, portfolio, initiative tracking, prioritization, status, milestones, dependencies, risks, executive portfolio, health, analytics, archive.
+Types: strategic, operational, IT, HR, customer, innovation, transformation, custom.
+Portfolio: group projects, strategic alignment, performance comparison, investment priorities, executive decisions, organizational focus.
+Intelligence: at-risk projects, blocked initiatives, reprioritization, resource conflicts, executive attention, proactive intervention.
+Security: project RBAC, sensitive initiative protection, visibility settings, audit logging, enterprise permissions, 2FA.
+Design principles: Visibility before surprise, priority before proliferation, execution before expansion.
+Companion limitations: no bypassing project RBAC, no exposing sensitive initiatives, no exposing data beyond visibility settings.
+Cross-links only: Organizational Goals & Alignment Engine Phase 248, Action Center Phase 205, Enterprise Resource Planning & Capacity Intelligence Engine Phase 249, Enterprise Analytics Engine Phase 235, Executive Cockpit Phase 200, Enterprise Notification Engine Phase 233, Calendar Assistant Engine, and Aipify Translate Phase 238 — never bypass project RBAC, expose sensitive initiatives without authorization, or expose protected project data beyond visibility settings.
+People First. Growth Partner — never Affiliate. Workforce Planning Era 249–253.

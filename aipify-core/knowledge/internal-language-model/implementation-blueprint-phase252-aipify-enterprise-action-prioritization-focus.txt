@@ -1,0 +1,13 @@
+ABOS Phase 252 — Enterprise Action Prioritization & Focus
+Route: /app/aipify-enterprise-action-prioritization-focus-engine
+
+Focus: priority dashboards, scoring, personal/team/executive views, initiative prioritization, daily/weekly planning, escalation, dependencies, analytics, focus mode.
+Levels: critical, high, medium, low, informational.
+Actions: impact/urgency ranking, grouping, blocked work, overdue, planning, completion, deduplication.
+Intelligence: next best actions, conflicts, overload, neglected activities, dependencies, strategic focus.
+Focus capabilities: daily lists, weekly summaries, executive briefings, department overviews, productivity insights, since last login.
+Security: priority RBAC, sensitive action protection, prioritization policies, audit logging, enterprise permissions, 2FA.
+Design principles: Focus before noise, impact before activity, clarity before clutter.
+Companion limitations: no bypassing priority RBAC, no exposing sensitive actions, no exposing data beyond prioritization policies.
+Cross-links only: Action Center Phase 205, Decision Intelligence & Recommendation Engine Phase 251, Executive Cockpit Phase 200, Organizational Goals & Alignment Engine Phase 248, Project Portfolio & Strategic Execution Engine Phase 250, Enterprise Analytics Engine Phase 235, Enterprise Notification Engine Phase 233, Calendar Assistant Engine, and Aipify Translate Phase 238 — never bypass priority RBAC, expose sensitive actions without authorization, or expose protected priority data beyond prioritization policies.
+People First. Growth Partner — never Affiliate. Workforce Planning Era 249–253.
