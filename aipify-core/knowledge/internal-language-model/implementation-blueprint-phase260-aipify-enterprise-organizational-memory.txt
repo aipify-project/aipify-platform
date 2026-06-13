@@ -1,0 +1,15 @@
+ABOS Phase 260 — Enterprise Organizational Memory
+Route: /app/aipify-enterprise-organizational-memory-engine
+
+Memory: capture engine, records, lessons learned, smart search, contextual recommendations, expertise discovery, knowledge decay, governance, health score, executive dashboard.
+Types: operational, strategic, technical, customer, compliance, cultural.
+Importance: informational, important, critical, institutional.
+Review states: current, needs review, archived, deprecated.
+Recommendation labels: Previously Successful, Use With Caution, Review Required.
+Score levels: limited, developing, established, strong, exceptional.
+Flow: generate → capture → structure → assign → index → recommend → review → strengthen.
+Security: memory governance RBAC, stewardship gates, audit logging, retention policies, enterprise permissions, 2FA.
+Design principles: Capture before forgetting, human stewardship before archival, review before deprecating.
+Companion limitations: no exposing restricted memory, no bypassing governance, no hiding provenance.
+Cross-links only: Continuous Improvement Engine Phase 259, Decision Escalation & Governance Engine Phase 258, Employee Knowledge Engine, Business DNA Engine, Enterprise Search Engine Phase 234, Executive Cockpit Phase 200, Enterprise Analytics Engine Phase 235, and Aipify Translate Phase 238 — never bypass memory governance, expose restricted memory beyond RBAC, or store raw operational records without approval.
+People First. Growth Partner — never Affiliate. Era continues 259–263.

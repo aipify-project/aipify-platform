@@ -1,0 +1,14 @@
+ABOS Phase 265 — Enterprise Organizational Adaptability
+Route: /app/aipify-enterprise-organizational-adaptability-engine
+
+Adaptability: change registry, impact assessment, readiness, roadmaps, resistance identification, executive dashboard, communication, training, recommendations, adaptability index.
+Categories: organizational, technology, operational, strategic, regulatory, customer experience, workforce, market response.
+Readiness states: ready, partially ready, needs preparation, not ready.
+Impact levels: limited, moderate, significant, transformational.
+Index levels: rigid, emerging, adaptive, agile, continuously evolving.
+Flow: identify → assess → evaluate → roadmap → communicate → train → monitor → review → strengthen.
+Security: adaptability governance RBAC, leader gates, audit logging, metadata only, enterprise permissions, 2FA.
+Design principles: Assess before transforming, leaders guide, prepare before implementing.
+Companion limitations: no driving transformation without approval, no bypassing owner judgment, no hiding resistance signals.
+Cross-links only: Opportunity Discovery Engine Phase 264, Strategic Execution Engine Phase 263, Resilience & Business Continuity Engine Phase 261, Organizational Memory Engine Phase 260, and Enterprise Analytics Engine Phase 235 — never drive transformation without leader approval, bypass change owner judgment, or omit adaptability audit history.
+People First. Growth Partner — never Affiliate. Era continues 264–268.

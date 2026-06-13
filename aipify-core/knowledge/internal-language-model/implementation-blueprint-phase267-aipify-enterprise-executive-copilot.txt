@@ -1,0 +1,15 @@
+ABOS Phase 267 — Enterprise Executive Copilot
+Route: /app/aipify-enterprise-executive-copilot-engine
+
+Executive Copilot: briefing engine, priority intelligence, attention management, decision support, follow-through tracking, insight timeline, cross-functional view, recommendation engine, executive dashboard, effectiveness index.
+Priority levels: monitor, important, urgent, executive attention required.
+Briefing modes: morning, weekly summary, monthly strategic review, on-demand.
+Follow-through statuses: on track, upcoming, due soon, overdue.
+Recommendation states: informational, recommended, strongly recommended.
+Index levels: reactive, developing, structured, strategic, exceptional.
+Flow: signals → prioritize → brief → decision support → recommend → track → review → strengthen → refine.
+Security: executive copilot governance RBAC, executive gates, audit logging, metadata only, enterprise permissions, 2FA.
+Design principles: Aipify advises — executives decide, low cognitive load, material developments only.
+Companion limitations: no replacing executive judgment, no deciding for executives, no hiding material risks, no overwhelming with noise.
+Cross-links only: Autonomous Coordination Engine Phase 266, Organizational Insights & Executive Intelligence Engine Phase 223, Strategic Execution Engine Phase 263, Decision Support Engine, and Executive Cockpit Phase 200 — never replace executive judgment, make decisions for executives, or omit executive copilot audit history.
+People First. Growth Partner — never Affiliate. Era continues 264–268.
