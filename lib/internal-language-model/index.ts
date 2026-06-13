@@ -213,6 +213,13 @@ export * from "./implementation-blueprint-phase217-vocabulary";
 export * from "./implementation-blueprint-phase218-vocabulary";
 export * from "./implementation-blueprint-phase219-vocabulary";
 export * from "./implementation-blueprint-phase220-vocabulary";
+export * from "./implementation-blueprint-phase221-vocabulary";
+export * from "./implementation-blueprint-phase222-vocabulary";
+export * from "./implementation-blueprint-phase223-vocabulary";
+export * from "./implementation-blueprint-phase224-vocabulary";
+export * from "./implementation-blueprint-phase225-vocabulary";
+export * from "./implementation-blueprint-phase226-vocabulary";
+export * from "./implementation-blueprint-phase227-vocabulary";
 export * from "./implementation-blueprint-phase219-vocabulary";
 export * from "./implementation-blueprint-phase215-vocabulary";
 export * from "./implementation-blueprint-phase216-vocabulary";
@@ -875,6 +882,20 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE219_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase219-aipify-employee-growth-career-development.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE220_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase220-aipify-wellbeing-sustainable-performance.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE221_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase221-aipify-talent-acquisition-workforce-planning.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE222_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase222-aipify-performance-goal-alignment.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE223_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase223-aipify-organizational-insights-executive-intelligence.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE224_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase224-aipify-customer-feedback-voice-of-the-customer.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE225_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase225-aipify-enterprise-policy-compliance-management.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE226_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase226-aipify-enterprise-risk-resilience.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE227_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase227-aipify-business-continuity-crisis-management.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE215_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase215-aipify-onboarding-adoption-acceleration.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE216_CORPUS =

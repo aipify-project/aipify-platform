@@ -1,0 +1,13 @@
+ABOS Phase 224 — Aipify Customer Feedback & Voice of the Customer
+Route: /app/aipify-customer-feedback-voice-of-the-customer-engine
+
+Voice of the Customer Center: voice of the customer dashboard, feedback intake framework, sentiment & theme engine, actionable feedback center, customer improvement tracker, executive customer insights briefing, success/innovation/action integration (cross-links), voice of customer knowledge libraries.
+Feedback Intake Framework: multi-channel collection, manual and automated submissions, consolidated customer perspectives.
+Sentiment & Theme Engine: recurring patterns, emerging concerns, and improvement opportunities.
+Actionable Feedback Center: follow-up routing, ownership assignment, and resolution tracking.
+Customer Improvement Tracker: feedback-driven improvements and completed initiatives.
+Executive Customer Insights Briefing: leadership customer experience intelligence and strategic risks/opportunities.
+Design principles: Listening before assumptions, action before complacency, relationships before transactions.
+Companion limitations: no personal customer information beyond RBAC, no automated customer actions without human approval.
+Cross-links only: Customer Success Center Phase 213, Innovation Center Phase 212, and Action Center — never expose personal customer information beyond RBAC or replace human customer stewardship.
+People First. Growth Partner — never Affiliate.

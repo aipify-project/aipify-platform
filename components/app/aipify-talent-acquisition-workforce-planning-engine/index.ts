@@ -1,0 +1,1 @@
+export { AipifyTalentAcquisitionWorkforcePlanningEngineDashboardPanel } from "./AipifyTalentAcquisitionWorkforcePlanningEngineDashboardPanel";

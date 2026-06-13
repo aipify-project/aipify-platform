@@ -25,7 +25,7 @@
     "installations": "Installations",
     "installEngine": "Install Engine",
     "updates": "Oppdateringer",
-    "trust": "Tillit og sikkerhet",
+    "trust": "Trust Center",
     "impact": "Effektmålinger",
     "presencePilot": "Tilstedeværelsespilot",
     "pilotInstall": "Pilotinstallasjon",
@@ -38,6 +38,7 @@
     "intelligence": "Intelligence",
     "actions": "Action Center",
     "skills": "Skills",
+    "languageCenter": "Språksenter",
     "executive": "Executive Center"
   },
   "overview": {
@@ -659,8 +660,81 @@
       "offboarding": "Offboarding-prinsipper"
     }
   },
-  "impact": {
-    "title": "Anonymiserte effektmålinger",
+  "trustCenter": {
+    "title": "Trust Center",
+    "subtitle": "Enterprise-styring, sikkerhet og ansvarlig forvaltning i Aipify-økosystemet.",
+    "domainsTitle": "Tillitsdomener",
+    "domainsSubtitle": "Åpne et styringarbeidsområde for detaljerte målinger, kontroller og revisjonssammendrag.",
+    "loading": "Laster Trust Center…",
+    "openDomain": "Åpne",
+    "accessDenied": "Dette styringarbeidsområdet er ikke tilgjengelig for din plattformrolle.",
+    "nav": {
+      "overview": "Oversikt",
+      "domains": "Styringsdomener",
+      "security": "Sikkerhet",
+      "privacy": "Personvern",
+      "actions": "Handlinger",
+      "audit": "Revisjon"
+    },
+    "kpis": {
+      "trustScore": "Tillitsscore",
+      "modulesActive": "Aktive styringsmoduler",
+      "pendingReviews": "Ventende gjennomganger",
+      "securityExceptions": "Sikkerhetsunntak",
+      "scoreHint": "Aggregert plattformforvaltningssignal"
+    },
+    "status": {
+      "active": "Aktiv",
+      "attention": "Krever oppmerksomhet"
+    },
+    "domains": {
+      "identity": { "title": "Identitetsstyring", "description": "Kommunikasjonsstil, minnestyring og identitetstilpasning.", "stat": "Identitetsprofiler" },
+      "decisions": { "title": "Beslutningsstyring", "description": "Beslutningsstøtte, konfidens og menneskelig godkjenning.", "stat": "Ventende anbefalinger" },
+      "knowledge": { "title": "Kunnskapsstyring", "description": "Ansattkunnskap, Business DNA og supportoperasjoner.", "stat": "Godkjente kunnskapselementer" },
+      "goals": { "title": "Målstyring", "description": "Ambisjoner, milepæler og målforvaltning.", "stat": "Aktive mål" },
+      "life": { "title": "Livsstyring", "description": "LifeOS og oppmerksomhetsbeskyttelse.", "stat": "Life-aktiverte tenants" },
+      "relationships": { "title": "Relasjonsstyring", "description": "Relasjonsintelligens og sosial forvaltning.", "stat": "Registrerte personer" },
+      "actions": { "title": "Handlingsstyring", "description": "Tillitshandlinger, autonom utførelse og godkjenning.", "stat": "Ventende godkjenninger" },
+      "commercial": { "title": "Kommersiell styring", "description": "Pakkelisensiering og modulaktivering.", "stat": "Lisensierte moduler" },
+      "security": { "title": "Sikkerhetsstyring", "description": "Sikkerhetsfundament, revisjon og skill-gjennomgang.", "stat": "Revisjonshendelser" },
+      "privacy": { "title": "Personvernstyring", "description": "Dataeierskap, minimering og minne-personvern.", "stat": "Minne-aktiverte tenants" }
+    },
+    "pageSubtitles": {
+      "identity": "Identity Engine og assistentminne — kun aggregater.",
+      "decisions": "Decision Support — anbefalinger forblir menneskelig styrt.",
+      "knowledge": "Employee Knowledge, Business DNA og Support Operations.",
+      "goals": "Goals & Dreams — støttende forvaltning uten press.",
+      "life": "LifeOS og Attention Guardian — kun metadata-aggregater.",
+      "relationships": "Relationship Intelligence — aldri impersonering.",
+      "actions": "Trust & Action Engine og AEF — godkjenning og revisjon.",
+      "commercial": "Kommersielle pakker og modullisensiering.",
+      "security": "Sikkerhetsfundament og plattformansvar.",
+      "privacy": "Tillitsarkitektur, dataeierskap og personvern."
+    },
+    "securityDetail": {
+      "title": "Sikkerhetsfundament",
+      "subtitle": "Lagringskategorier, tilgangsnivåer og uforanderlig revisjon."
+    },
+    "privacyDetail": {
+      "responsibility": "Kunden eier dataene. Aipify eier intelligenslaget — metadata først.",
+      "areas": {
+        "dataMinimization": "Dataminimering som standard",
+        "customerOwnership": "Transparens om kundedataeierskap",
+        "metadataOnly": "Metadata-begrensninger for læring",
+        "regulatoryCompliance": "Overholdelse av personvernregler"
+      }
+    },
+    "audit": {
+      "title": "Revisjon",
+      "subtitle": "Uforanderlig tillitsrevisjon og nylig handlingsaktivitet.",
+      "foundationTitle": "Tillitsarkitektur-fundament",
+      "auditEvents": "Revisjonshendelser",
+      "tenantsWithAudits": "Tenants med revisjonshendelser",
+      "defaultAccess": "Standard tilgangsnivå",
+      "actionSummaryTitle": "Tillitshandlingsaktivitet",
+      "immutableNote": "Tillitsrevisjonshendelser er uforanderlige."
+    }
+  },
     "subtitle": "Dokumenter operativ verdi på tvers av leietakere uten å lagre sensitive forretningsdata.",
     "loading": "Laster effektmålinger...",
     "empty": "Ingen anonymiserte effektmålinger registrert ennå.",
@@ -695,6 +769,44 @@
     "units": {
       "minutes": "minutter",
       "tenants": "leietakere"
+    }
+  },
+  "languageCenter": {
+    "title": "Språksenter",
+    "subtitle": "Utvid Aipify internasjonalt uten utviklerinvolvering — administrer språk sentralt fra Platform Admin.",
+    "loading": "Laster språksenter...",
+    "empty": "Språksenter er ikke tilgjengelig ennå.",
+    "principle": "Det skal ta minutter — ikke måneder — å legge til et nytt språk.",
+    "addLanguage": "Legg til språk",
+    "generatePack": "Generer pakke",
+    "publish": "Publiser",
+    "disable": "Deaktiver",
+    "enable": "Aktiver",
+    "review": "Be om gjennomgang",
+    "rollback": "Tilbakestill",
+    "confirmPublish": "Publisering krever Super Admin-tilgang og verifisert tofaktorautentisering.",
+    "twoFactorRequired": "Tofaktorautentisering kreves for denne handlingen.",
+    "activeLanguages": "Aktive språk",
+    "inactiveLanguages": "Inaktive språk",
+    "qualityCenter": "Språkkvalitetssenter",
+    "completeness": "Fullstendighet",
+    "missingKeys": "Manglende nøkler",
+    "fallbackWarnings": "Fallback-advarsler",
+    "auditLog": "Revisjonslogg",
+    "expansion": "Aktive språk",
+    "status": {
+      "active": "Aktiv",
+      "in_review": "Under gjennomgang",
+      "translation_required": "Oversettelse kreves",
+      "draft": "Utkast",
+      "disabled": "Deaktivert"
+    },
+    "columns": {
+      "language": "Språk",
+      "status": "Status",
+      "completeness": "Fullstendighet",
+      "phase": "Fase",
+      "actions": "Handlinger"
     }
   },
   "updates": {

@@ -111,6 +111,13 @@ export type AppNavId =
   | "aipifyOrganizationalCommunicationAnnouncementsEngine"
   | "aipifyEmployeeRecognitionCelebrationEngine"
   | "aipifyWellbeingSustainablePerformanceEngine"
+  | "aipifyTalentAcquisitionWorkforcePlanningEngine"
+  | "aipifyPerformanceGoalAlignmentEngine"
+  | "aipifyOrganizationalInsightsExecutiveIntelligenceEngine"
+  | "aipifyCustomerFeedbackVoiceOfTheCustomerEngine"
+  | "aipifyEnterprisePolicyComplianceManagementEngine"
+  | "aipifyEnterpriseRiskResilienceEngine"
+  | "aipifyBusinessContinuityCrisisManagementEngine"
   | "aipifyEmployeeGrowthCareerDevelopmentEngine"
   | "aipifyCustomerJourneyExperienceOrchestrationEngine"
   | "aipifyOnboardingAdoptionAccelerationEngine"
@@ -741,6 +748,41 @@ export const APP_NAV: AppNavItem[] = [
     id: "aipifyWellbeingSustainablePerformanceEngine",
     href: "/app/aipify-wellbeing-sustainable-performance-engine",
     labelKey: "customerApp.nav.aipifyWellbeingSustainablePerformanceEngine",
+  },
+  {
+    id: "aipifyTalentAcquisitionWorkforcePlanningEngine",
+    href: "/app/aipify-talent-acquisition-workforce-planning-engine",
+    labelKey: "customerApp.nav.aipifyTalentAcquisitionWorkforcePlanningEngine",
+  },
+  {
+    id: "aipifyPerformanceGoalAlignmentEngine",
+    href: "/app/aipify-performance-goal-alignment-engine",
+    labelKey: "customerApp.nav.aipifyPerformanceGoalAlignmentEngine",
+  },
+  {
+    id: "aipifyOrganizationalInsightsExecutiveIntelligenceEngine",
+    href: "/app/aipify-organizational-insights-executive-intelligence-engine",
+    labelKey: "customerApp.nav.aipifyOrganizationalInsightsExecutiveIntelligenceEngine",
+  },
+  {
+    id: "aipifyCustomerFeedbackVoiceOfTheCustomerEngine",
+    href: "/app/aipify-customer-feedback-voice-of-the-customer-engine",
+    labelKey: "customerApp.nav.aipifyCustomerFeedbackVoiceOfTheCustomerEngine",
+  },
+  {
+    id: "aipifyEnterprisePolicyComplianceManagementEngine",
+    href: "/app/aipify-enterprise-policy-compliance-management-engine",
+    labelKey: "customerApp.nav.aipifyEnterprisePolicyComplianceManagementEngine",
+  },
+  {
+    id: "aipifyEnterpriseRiskResilienceEngine",
+    href: "/app/aipify-enterprise-risk-resilience-engine",
+    labelKey: "customerApp.nav.aipifyEnterpriseRiskResilienceEngine",
+  },
+  {
+    id: "aipifyBusinessContinuityCrisisManagementEngine",
+    href: "/app/aipify-business-continuity-crisis-management-engine",
+    labelKey: "customerApp.nav.aipifyBusinessContinuityCrisisManagementEngine",
   },
   {
     id: "aipifyMeetingIntelligenceFollowUpEngine",
@@ -1529,6 +1571,27 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/aipify-wellbeing-sustainable-performance-engine")) {
     return "aipifyWellbeingSustainablePerformanceEngine";
+  }
+  if (pathname.startsWith("/app/aipify-talent-acquisition-workforce-planning-engine")) {
+    return "aipifyTalentAcquisitionWorkforcePlanningEngine";
+  }
+  if (pathname.startsWith("/app/aipify-performance-goal-alignment-engine")) {
+    return "aipifyPerformanceGoalAlignmentEngine";
+  }
+  if (pathname.startsWith("/app/aipify-organizational-insights-executive-intelligence-engine")) {
+    return "aipifyOrganizationalInsightsExecutiveIntelligenceEngine";
+  }
+  if (pathname.startsWith("/app/aipify-customer-feedback-voice-of-the-customer-engine")) {
+    return "aipifyCustomerFeedbackVoiceOfTheCustomerEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-policy-compliance-management-engine")) {
+    return "aipifyEnterprisePolicyComplianceManagementEngine";
+  }
+  if (pathname.startsWith("/app/aipify-enterprise-risk-resilience-engine")) {
+    return "aipifyEnterpriseRiskResilienceEngine";
+  }
+  if (pathname.startsWith("/app/aipify-business-continuity-crisis-management-engine")) {
+    return "aipifyBusinessContinuityCrisisManagementEngine";
   }
   if (pathname.startsWith("/app/aipify-meeting-intelligence-follow-up-engine")) {
     return "aipifyMeetingIntelligenceFollowUpEngine";

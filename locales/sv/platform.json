@@ -25,7 +25,7 @@
     "installations": "Installations",
     "installEngine": "Install Engine",
     "updates": "Uppdateringar",
-    "trust": "Förtroende och säkerhet",
+    "trust": "Trust Center",
     "impact": "Effektmätningar",
     "presencePilot": "Närvaropilot",
     "metrics": "Platform Metrics",
@@ -37,6 +37,7 @@
     "intelligence": "Intelligence",
     "actions": "Action Center",
     "skills": "Skills",
+    "languageCenter": "Språkcenter",
     "executive": "Executive Center"
   },
   "overview": {
@@ -623,8 +624,57 @@
       "offboarding": "Offboarding-principer"
     }
   },
-  "impact": {
-    "title": "Anonymiserade effektmätningar",
+  "trustCenter": {
+    "title": "Trust Center",
+    "subtitle": "Enterprise-styrning, säkerhet och ansvarsfull förvaltning i Aipify-ekosystemet.",
+    "domainsTitle": "Förtroendedomäner",
+    "domainsSubtitle": "Öppna en styrningsyta för detaljerade mått, kontroller och revisionssammanfattningar.",
+    "loading": "Laddar Trust Center…",
+    "openDomain": "Öppna",
+    "accessDenied": "Denna styrningsyta är inte tillgänglig för din plattformsroll.",
+    "nav": { "overview": "Översikt", "domains": "Styrningsdomäner", "security": "Säkerhet", "privacy": "Integritet", "actions": "Åtgärder", "audit": "Revision" },
+    "kpis": { "trustScore": "Förtroendepoäng", "modulesActive": "Aktiva styrningsmoduler", "pendingReviews": "Väntande granskningar", "securityExceptions": "Säkerhetsundantag", "scoreHint": "Aggregerad plattformsförvaltningssignal" },
+    "status": { "active": "Aktiv", "attention": "Kräver uppmärksamhet" },
+    "domains": {
+      "identity": { "title": "Identitetsstyrning", "description": "Kommunikationsstil, minnesstyrning och identitetsanpassning.", "stat": "Identitetsprofiler" },
+      "decisions": { "title": "Beslutsstyrning", "description": "Beslutsstöd, konfidens och mänskligt godkännande.", "stat": "Väntande rekommendationer" },
+      "knowledge": { "title": "Kunskapsstyrning", "description": "Medarbetarkunskap, Business DNA och support.", "stat": "Godkända kunskapsobjekt" },
+      "goals": { "title": "Målstyrning", "description": "Ambitioner, milstolpar och målförvaltning.", "stat": "Aktiva mål" },
+      "life": { "title": "Livsstyrning", "description": "LifeOS och uppmärksamhetsskydd.", "stat": "Life-aktiverade tenants" },
+      "relationships": { "title": "Relationsstyrning", "description": "Relationsintelligens och social förvaltning.", "stat": "Registrerade personer" },
+      "actions": { "title": "Åtgärdsstyrning", "description": "Förtroendeåtgärder, autonom exekvering och godkännande.", "stat": "Väntande godkännanden" },
+      "commercial": { "title": "Kommersiell styrning", "description": "Paketlicensiering och modulaktivering.", "stat": "Licensierade moduler" },
+      "security": { "title": "Säkerhetsstyrning", "description": "Säkerhetsfundament, revision och skill-granskning.", "stat": "Revisionshändelser" },
+      "privacy": { "title": "Integritetsstyrning", "description": "Dataägande, minimering och minnesintegritet.", "stat": "Minnes-aktiverade tenants" }
+    },
+    "pageSubtitles": {
+      "identity": "Identity Engine och assistentminne — endast aggregerat.",
+      "decisions": "Decision Support — rekommendationer förblir mänskligt styrda.",
+      "knowledge": "Employee Knowledge, Business DNA och Support Operations.",
+      "goals": "Goals & Dreams — stödjande förvaltning utan press.",
+      "life": "LifeOS och Attention Guardian — endast metadata.",
+      "relationships": "Relationship Intelligence — aldrig impersonering.",
+      "actions": "Trust & Action Engine och AEF — godkännande och revision.",
+      "commercial": "Kommersiella paket och modullicensiering.",
+      "security": "Säkerhetsfundament och plattformsansvar.",
+      "privacy": "Förtroendearkitektur, dataägande och integritet."
+    },
+    "securityDetail": { "title": "Säkerhetsfundament", "subtitle": "Lagringskategorier, åtkomstnivåer och oföränderlig revision." },
+    "privacyDetail": {
+      "responsibility": "Kunden äger datan. Aipify äger intelligenslagret — metadata först.",
+      "areas": { "dataMinimization": "Dataminimering som standard", "customerOwnership": "Transparens om kunddataägande", "metadataOnly": "Metadata-gränser för inlärning", "regulatoryCompliance": "Efterlevnad av integritetsregler" }
+    },
+    "audit": {
+      "title": "Revision",
+      "subtitle": "Oföränderlig förtroenderevision och senaste åtgärdsaktivitet.",
+      "foundationTitle": "Förtroendearkitektur-fundament",
+      "auditEvents": "Revisionshändelser",
+      "tenantsWithAudits": "Tenants med revisionshändelser",
+      "defaultAccess": "Standard åtkomstnivå",
+      "actionSummaryTitle": "Förtroendeåtgärdsaktivitet",
+      "immutableNote": "Förtroenderevisionshändelser är oföränderliga."
+    }
+  },
     "subtitle": "Bevisa operativt värde över tenants utan att lagra känsliga kunddata.",
     "loading": "Laddar effektmätningar...",
     "empty": "Inga anonymiserade effektmätningar registrerade ännu.",
@@ -659,6 +709,44 @@
     "units": {
       "minutes": "minuter",
       "tenants": "tenants"
+    }
+  },
+  "languageCenter": {
+    "title": "Språkcenter",
+    "subtitle": "Expandera Aipify internationellt utan utvecklarinvolvering — hantera språk centralt från Platform Admin.",
+    "loading": "Laddar språkcenter...",
+    "empty": "Språkcenter är inte tillgängligt ännu.",
+    "principle": "Att lägga till ett nytt språk ska ta minuter — inte månader.",
+    "addLanguage": "Lägg till språk",
+    "generatePack": "Generera paket",
+    "publish": "Publicera",
+    "disable": "Inaktivera",
+    "enable": "Aktivera",
+    "review": "Begär granskning",
+    "rollback": "Återställ",
+    "confirmPublish": "Publicering kräver Super Admin-behörighet och verifierad tvåfaktorsautentisering.",
+    "twoFactorRequired": "Tvåfaktorsautentisering krävs för denna åtgärd.",
+    "activeLanguages": "Aktiva språk",
+    "inactiveLanguages": "Inaktiva språk",
+    "qualityCenter": "Språkkvalitetscenter",
+    "completeness": "Fullständighet",
+    "missingKeys": "Saknade nycklar",
+    "fallbackWarnings": "Fallback-varningar",
+    "auditLog": "Revisionslogg",
+    "expansion": "Aktiva språk",
+    "status": {
+      "active": "Aktiv",
+      "in_review": "Under granskning",
+      "translation_required": "Översättning krävs",
+      "draft": "Utkast",
+      "disabled": "Inaktiverad"
+    },
+    "columns": {
+      "language": "Språk",
+      "status": "Status",
+      "completeness": "Fullständighet",
+      "phase": "Fas",
+      "actions": "Åtgärder"
     }
   },
   "updates": {

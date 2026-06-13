@@ -25,7 +25,7 @@
     "installations": "Installations",
     "installEngine": "Install Engine",
     "updates": "Updates",
-    "trust": "Trust & Security",
+    "trust": "Trust Center",
     "impact": "Impact Metrics",
     "presencePilot": "Presence Pilot",
     "pilotInstall": "Pilot Install",
@@ -37,6 +37,7 @@
     "intelligence": "Intelligence",
     "actions": "Action Center",
     "skills": "Skills",
+    "languageCenter": "Language Center",
     "executive": "Executive Center",
     "system": "System status"
   },
@@ -831,6 +832,121 @@
       "offboarding": "Offboarding Principles"
     }
   },
+  "trustCenter": {
+    "title": "Trust Center",
+    "subtitle": "Enterprise governance, security and responsible stewardship across the Aipify ecosystem.",
+    "domainsTitle": "Trust domains",
+    "domainsSubtitle": "Open a governance workspace for detailed metrics, controls, and audit summaries.",
+    "loading": "Loading Trust Center…",
+    "openDomain": "Open",
+    "accessDenied": "This governance workspace is not available for your platform role.",
+    "nav": {
+      "overview": "Overview",
+      "domains": "Governance Domains",
+      "security": "Security",
+      "privacy": "Privacy",
+      "actions": "Actions",
+      "audit": "Audit"
+    },
+    "kpis": {
+      "trustScore": "Trust Score",
+      "modulesActive": "Governance Modules Active",
+      "pendingReviews": "Pending Reviews",
+      "securityExceptions": "Security Exceptions",
+      "scoreHint": "Aggregate platform stewardship signal"
+    },
+    "status": {
+      "active": "Active",
+      "attention": "Needs attention"
+    },
+    "domains": {
+      "identity": {
+        "title": "Identity Governance",
+        "description": "Communication style, memory governance, and identity adaptation oversight.",
+        "stat": "Identity profiles"
+      },
+      "decisions": {
+        "title": "Decision Governance",
+        "description": "Decision support recommendations, confidence signals, and human approval patterns.",
+        "stat": "Pending recommendations"
+      },
+      "knowledge": {
+        "title": "Knowledge Governance",
+        "description": "Employee knowledge, business DNA, and support operations governance.",
+        "stat": "Approved knowledge items"
+      },
+      "goals": {
+        "title": "Goal Governance",
+        "description": "Aspirations, milestones, and goal stewardship across tenants.",
+        "stat": "Active goals"
+      },
+      "life": {
+        "title": "Life Governance",
+        "description": "Life operating system and attention protection aggregate oversight.",
+        "stat": "Life-enabled tenants"
+      },
+      "relationships": {
+        "title": "Relationship Governance",
+        "description": "Relationship intelligence metadata and social stewardship signals.",
+        "stat": "People tracked"
+      },
+      "actions": {
+        "title": "Action Governance",
+        "description": "Trust actions, autonomous execution, and approval accountability.",
+        "stat": "Pending approvals"
+      },
+      "commercial": {
+        "title": "Commercial Governance",
+        "description": "Package licensing, module enablement, and commercial stewardship.",
+        "stat": "Licensed modules"
+      },
+      "security": {
+        "title": "Security Governance",
+        "description": "Platform security foundation, audit integrity, and skill review posture.",
+        "stat": "Audit events"
+      },
+      "privacy": {
+        "title": "Privacy Governance",
+        "description": "Data ownership, minimization principles, and memory privacy controls.",
+        "stat": "Memory-enabled tenants"
+      }
+    },
+    "pageSubtitles": {
+      "identity": "Identity Engine and assistant memory governance — aggregates only, never customer content.",
+      "decisions": "Decision Support Engine governance — recommendations remain human-stewarded.",
+      "knowledge": "Employee Knowledge, Business DNA, and Support Operations — approved sources and audit visibility.",
+      "goals": "Goals & Dreams Engine governance — supportive stewardship without pressure metrics.",
+      "life": "LifeOS and Attention Guardian governance — personal metadata aggregates only.",
+      "relationships": "Relationship Intelligence governance — never impersonation or automated messaging.",
+      "actions": "Trust & Action Engine and Autonomous Execution Framework — approval and audit accountability.",
+      "commercial": "Commercial packages and module licensing governance across the platform.",
+      "security": "Security foundation, immutable audit posture, and platform responsibility boundaries.",
+      "privacy": "Trust architecture, data ownership, and privacy-by-design enforcement."
+    },
+    "securityDetail": {
+      "title": "Security foundation",
+      "subtitle": "Storage categories, access levels, and immutable audit expectations for platform stewardship."
+    },
+    "privacyDetail": {
+      "responsibility": "The customer owns the data. Aipify owns the intelligence layer — metadata first, explicit approval for more.",
+      "areas": {
+        "dataMinimization": "Data minimization defaults",
+        "customerOwnership": "Customer data ownership transparency",
+        "metadataOnly": "Metadata-only learning boundaries",
+        "regulatoryCompliance": "Applicable privacy regulation compliance"
+      }
+    },
+    "audit": {
+      "title": "Audit",
+      "subtitle": "Immutable trust audit foundation and recent trust action activity — aggregates only.",
+      "foundationTitle": "Trust architecture foundation",
+      "auditEvents": "Audit events",
+      "tenantsWithAudits": "Tenants with audit events",
+      "defaultAccess": "Default access level",
+      "actionSummaryTitle": "Trust action activity",
+      "immutableNote": "Trust audit events are immutable — no updates or deletes."
+    }
+  },
   "impact": {
     "title": "Anonymised Impact Metrics",
     "subtitle": "Prove operational value across tenants without storing sensitive customer business data.",
@@ -867,6 +983,44 @@
     "units": {
       "minutes": "minutes",
       "tenants": "tenants"
+    }
+  },
+  "languageCenter": {
+    "title": "Language Center",
+    "subtitle": "Expand Aipify internationally without developer involvement — manage languages centrally from Platform Admin.",
+    "loading": "Loading Language Center...",
+    "empty": "Language Center is not available yet.",
+    "principle": "Adding a new language should take minutes — not months.",
+    "addLanguage": "Add language",
+    "generatePack": "Generate pack",
+    "publish": "Publish",
+    "disable": "Disable",
+    "enable": "Enable",
+    "review": "Request review",
+    "rollback": "Rollback",
+    "confirmPublish": "Publishing requires Super Admin permissions and verified two-factor authentication.",
+    "twoFactorRequired": "Two-factor authentication verification is required for this action.",
+    "activeLanguages": "Active languages",
+    "inactiveLanguages": "Inactive languages",
+    "qualityCenter": "Language Quality Center",
+    "completeness": "Completeness",
+    "missingKeys": "Missing keys",
+    "fallbackWarnings": "Fallback warnings",
+    "auditLog": "Audit log",
+    "expansion": "Active languages",
+    "status": {
+      "active": "Active",
+      "in_review": "In review",
+      "translation_required": "Translation required",
+      "draft": "Draft",
+      "disabled": "Disabled"
+    },
+    "columns": {
+      "language": "Language",
+      "status": "Status",
+      "completeness": "Completeness",
+      "phase": "Phase",
+      "actions": "Actions"
     }
   },
   "updates": {

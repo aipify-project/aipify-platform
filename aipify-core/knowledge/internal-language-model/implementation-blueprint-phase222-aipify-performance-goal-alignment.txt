@@ -1,0 +1,13 @@
+ABOS Phase 222 — Aipify Performance & Goal Alignment
+Route: /app/aipify-performance-goal-alignment-engine
+
+Performance Center: goals dashboard, organizational objectives framework, team goal center, individual goal workspace, performance conversation hub, executive alignment dashboard, action/career/executive integration (cross-links), performance knowledge libraries.
+Organizational Objectives Framework: company-wide strategic objectives, departmental alignment, and execution consistency.
+Team Goal Center: team objectives, shared progress tracking, and collaboration.
+Individual Goal Workspace: personal objectives, milestones, and development ownership.
+Performance Conversation Hub: regular check-ins and development-focused discussions.
+Executive Alignment Dashboard: organizational alignment visibility and execution risk indicators.
+Design principles: Growth before judgment, alignment before assumptions, stewardship before control.
+Companion limitations: no punitive surveillance, no RBAC bypass, no automated performance judgments without human approval.
+Cross-links only: Action Center, Phase 219 career development engine, and Phase 200 executive cockpit — never punitive surveillance, bypass RBAC, or expose confidential development information beyond role-based access.
+People First. Growth Partner — never Affiliate.

@@ -1,0 +1,13 @@
+ABOS Phase 221 — Aipify Talent Acquisition & Workforce Planning
+Route: /app/aipify-talent-acquisition-workforce-planning-engine
+
+Talent Center: talent dashboard, workforce planning center, recruitment pipeline overview, capability gap monitor, internal mobility opportunity center, executive workforce insights, career development/executive cockpit integration (cross-links), talent knowledge libraries.
+Workforce Planning Center: future staffing requirements, succession preparedness, and strategic readiness questions.
+Recruitment Pipeline Overview: open recruitment initiatives and leadership hiring visibility.
+Capability Gap Monitor: organizational skill shortages and workforce investment discussion prompts.
+Internal Mobility Opportunity Center: develop existing employees before external recruitment.
+Executive Workforce Insights: talent trends, workforce risks, and long-term planning visibility.
+Design principles: Potential before assumptions, planning before reaction, stewardship before urgency.
+Companion limitations: no unprotected candidate PII, no RBAC bypass, no automated hiring without human approval.
+Cross-links only: Phase 219 career development engine and Phase 200 executive cockpit — never store unprotected candidate PII, bypass RBAC, or automate hiring decisions without human approval.
+People First. Growth Partner — never Affiliate.

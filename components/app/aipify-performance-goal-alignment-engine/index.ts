@@ -1,0 +1,1 @@
+export { AipifyPerformanceGoalAlignmentEngineDashboardPanel } from "./AipifyPerformanceGoalAlignmentEngineDashboardPanel";

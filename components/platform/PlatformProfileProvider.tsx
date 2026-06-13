@@ -64,7 +64,8 @@ export function PlatformProfileProvider({ children }: { children: ReactNode }) {
 }
 
 export function usePlatformProfile() {
-  return useContext(PlatformProfileContext);
+  const ctx = useContext(PlatformProfileContext);
+  return ctx ?? { platformAdmin: null, displayName: "Platform Admin", loading: true };
 }
 
 export function platformRoleLabel(
