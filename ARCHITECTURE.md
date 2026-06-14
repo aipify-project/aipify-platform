@@ -1208,3 +1208,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Harmony Center Engine (Phase 347):** See [AIPIFY_ORGANIZATIONAL_HARMONY_CENTER_ENGINE_PHASE347.md](./AIPIFY_ORGANIZATIONAL_HARMONY_CENTER_ENGINE_PHASE347.md) — Harmony Center at Executive Center → Organizational Harmony. Harmony dashboard, harmony engine, constructive dialogue engine, reviews, and executive harmony view. `/app/executive/organizational-harmony`, migration `20261427600000_aipify_organizational_harmony_center_engine_phase347.sql`. Helpers `_ohc_*`, `_ohcbp347_*`. APIs at `/api/organizational-harmony/*`. Cross-links awareness and intentionality centers.
+
+
+**Aipify Organizational Curiosity Center Engine (Phase 348):** See [AIPIFY_ORGANIZATIONAL_CURIOSITY_CENTER_ENGINE_PHASE348.md](./AIPIFY_ORGANIZATIONAL_CURIOSITY_CENTER_ENGINE_PHASE348.md) — Curiosity Center at Executive Center → Organizational Curiosity. Curiosity dashboard, question engine, discovery engine, reviews, and executive curiosity view. `/app/executive/organizational-curiosity`, migration `20261427700000_aipify_organizational_curiosity_center_engine_phase348.sql`. Helpers `_occ_*`, `_occbp348_*`. APIs at `/api/organizational-curiosity/*`. Cross-links harmony and awareness centers.

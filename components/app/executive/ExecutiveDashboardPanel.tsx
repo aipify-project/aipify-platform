@@ -69,6 +69,7 @@ type ExecutiveDashboardPanelProps = {
     organizationalIntentionalityLink: string;
     organizationalAwarenessLink: string;
     organizationalHarmonyLink: string;
+    organizationalCuriosityLink: string;
   };
 };
 
@@ -220,6 +221,9 @@ export function ExecutiveDashboardPanel({ locale, labels }: ExecutiveDashboardPa
         </Link>
         <Link href="/app/executive/organizational-harmony" className="ml-4 mt-3 inline-block text-sm text-indigo-600 hover:underline">
           {labels.organizationalHarmonyLink}
+        </Link>
+        <Link href="/app/executive/organizational-curiosity" className="ml-4 mt-3 inline-block text-sm text-indigo-600 hover:underline">
+          {labels.organizationalCuriosityLink}
         </Link>
       </div>
 

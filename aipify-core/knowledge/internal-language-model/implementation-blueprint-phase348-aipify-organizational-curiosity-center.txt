@@ -1,0 +1,4 @@
+ABOS Phase 348 — Organizational Curiosity Center
+Route: /app/executive/organizational-curiosity
+Core: Organizations stop growing when they stop asking questions.
+Helpers: _occ_* · _occbp348_*

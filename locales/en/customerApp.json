@@ -88,7 +88,8 @@
     "organizationalClarityLink": "Organizational Clarity",
     "organizationalIntentionalityLink": "Organizational Intentionality",
     "organizationalAwarenessLink": "Organizational Awareness",
-    "organizationalHarmonyLink": "Organizational Harmony"
+    "organizationalHarmonyLink": "Organizational Harmony",
+    "organizationalCuriosityLink": "Organizational Curiosity"
   },
   "presence": {
     "title": "Presence center",
@@ -7198,7 +7199,8 @@
     "organizationalClarityCenterEngine": "Organizational Clarity",
     "organizationalIntentionalityCenterEngine": "Organizational Intentionality",
     "organizationalAwarenessCenterEngine": "Organizational Awareness",
-    "organizationalHarmonyCenterEngine": "Organizational Harmony"
+    "organizationalHarmonyCenterEngine": "Organizational Harmony",
+    "organizationalCuriosityCenterEngine": "Organizational Curiosity"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -20024,5 +20026,126 @@
     },
     "settingsLink": "Organizational Harmony",
     "organizationalHarmonyLink": "Organizational Harmony"
+  },
+  "organizationalCuriosityCenter": {
+    "title": "Organizational Curiosity",
+    "subtitle": "Cultivate healthy curiosity, encourage exploration, strengthen learning cultures, and continuously ask better questions that lead to deeper understanding and meaningful innovation.",
+    "loading": "Loading Curiosity Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Curiosity philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalHarmonyLink": "Organizational Harmony →",
+    "dashboardTitle": "Curiosity dashboard",
+    "signalsTitle": "Curiosity engine",
+    "questionTitle": "Question engine",
+    "discoveryTitle": "Discovery engine",
+    "initiativesTitle": "Curiosity initiatives",
+    "reviewsTitle": "Curiosity reviews",
+    "timelineTitle": "Curiosity timeline",
+    "milestonesTitle": "Curiosity milestones",
+    "snapshotsTitle": "Learning snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive curiosity view",
+    "sessionsTitle": "Curiosity sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate curiosity report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export learning snapshot",
+    "coordinateReview": "Coordinate exploration workshop",
+    "archiveMilestone": "Archive curiosity milestone",
+    "humansDecide": "Aipify supports inquiry — leaders retain strategic focus; curiosity encourages learning without reckless experimentation, novelty for its own sake, or endless analysis.",
+    "privacyNote": "Privacy",
+    "curiosityScore": "Organizational curiosity score",
+    "learningEngagement": "Learning engagement",
+    "domains": {
+      "strategic": "Strategic curiosity",
+      "customer": "Customer curiosity",
+      "leadership": "Leadership curiosity",
+      "operational": "Operational curiosity",
+      "workforce": "Workforce curiosity",
+      "innovation": "Innovation curiosity"
+    },
+    "signalTypes": {
+      "valuable_question": "Valuable question",
+      "learning_breakthrough": "Learning breakthrough",
+      "unexpected_opportunity": "Unexpected opportunity",
+      "cross_functional_insight": "Cross-functional insight",
+      "innovation_theme": "Innovation theme"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "questionTypes": {
+      "assumptions_check": "Assumptions check",
+      "overlooked_factors": "Overlooked factors",
+      "learn_from_others": "Learn from others",
+      "unexplored_opportunities": "Unexplored opportunities",
+      "improvement_paths": "Improvement paths"
+    },
+    "discoveryTypes": {
+      "valuable_question": "Valuable question emerging",
+      "learning_breakthrough": "Learning breakthrough",
+      "unexpected_opportunity": "Unexpected opportunity",
+      "cross_functional_insight": "Cross-functional insight",
+      "innovation_theme": "Innovation theme"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "curiosity_encouraged": "Curiosity encouraged"
+    },
+    "timelineTypes": {
+      "learning_milestone": "Learning milestone",
+      "reflection_development": "Reflection development",
+      "innovation_discovery": "Innovation discovery",
+      "cross_functional_insight": "Cross-functional insight",
+      "strategic_exploration": "Strategic exploration"
+    },
+    "reviewTypes": {
+      "quarterly_learning": "Quarterly learning review",
+      "leadership_reflection": "Leadership reflection session",
+      "innovation_discussion": "Innovation discussion",
+      "annual_exploration_assessment": "Annual exploration assessment"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "innovation_discussion": "Innovation discussion",
+      "exploration_workshop": "Exploration workshop"
+    },
+    "metrics": {
+      "learningParticipation": "Learning participation",
+      "reflectionEngagement": "Reflection engagement",
+      "crossFunctionalExploration": "Cross-functional exploration",
+      "knowledgeSharing": "Knowledge sharing effectiveness",
+      "innovationDiscipline": "Innovation discipline",
+      "explorationInitiatives": "Exploration initiatives",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "leadershipLearning": "Leadership learning indicators",
+      "explorationTrends": "Exploration trends",
+      "innovationOpportunities": "Innovation opportunities",
+      "organizationalInquiry": "Organizational inquiry measures"
+    },
+    "settingsLink": "Organizational Curiosity",
+    "organizationalCuriosityLink": "Organizational Curiosity"
   }
 }
