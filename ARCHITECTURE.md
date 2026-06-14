@@ -1136,3 +1136,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Adaptability Center Engine (Phase 323):** See [AIPIFY_ORGANIZATIONAL_ADAPTABILITY_CENTER_ENGINE_PHASE323.md](./AIPIFY_ORGANIZATIONAL_ADAPTABILITY_CENTER_ENGINE_PHASE323.md) — Adaptability Center at Executive Center → Organizational Adaptability. Change signals, adaptation opportunities, responsiveness indicators, and executive adaptability view. `/app/executive/organizational-adaptability`, migration `20261425100000_aipify_organizational_adaptability_center_engine_phase323.sql`. Helpers `_oad_*`, `_oadbp323_*`. APIs at `/api/organizational-adaptability/*`. Cross-links executive centers — does not modify their RPCs.
+
+
+**Aipify Organizational Wisdom Center Engine (Phase 324):** See [AIPIFY_ORGANIZATIONAL_WISDOM_CENTER_ENGINE_PHASE324.md](./AIPIFY_ORGANIZATIONAL_WISDOM_CENTER_ENGINE_PHASE324.md) — Wisdom Center at Executive Center → Organizational Wisdom. Reflection engine, values alignment, wisdom synthesis, and executive wisdom view. `/app/executive/organizational-wisdom`, migration `20261425200000_aipify_organizational_wisdom_center_engine_phase324.sql`. Helpers `_owc_*`, `_owcbp324_*`. APIs at `/api/organizational-wisdom/*`. Cross-links executive and knowledge centers — does not modify their RPCs.

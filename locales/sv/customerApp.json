@@ -64,7 +64,8 @@
     "organizationalAlignmentLink": "Organizational Alignment",
     "organizationalFocusLink": "Organizational Focus",
     "organizationalEnergyLink": "Organizational Energy",
-    "organizationalAdaptabilityLink": "Organizational Adaptability"
+    "organizationalAdaptabilityLink": "Organizational Adaptability",
+    "organizationalWisdomLink": "Organizational Wisdom"
   },
   "presence": {
     "title": "Presence center",
@@ -6028,7 +6029,8 @@
     "organizationalAlignmentCenterEngine": "Organisationsalignment",
     "organizationalFocusCenterEngine": "Organisationsfokus",
     "organizationalEnergyCenterEngine": "Organisationsenergi",
-    "organizationalAdaptabilityCenterEngine": "Organisationsanpassning"
+    "organizationalAdaptabilityCenterEngine": "Organisationsanpassning",
+    "organizationalWisdomCenterEngine": "Organisationsvisdom"
   },
   "identity": {
     "title": "Din identitet",
@@ -16955,5 +16957,87 @@
     },
     "settingsLink": "Organisationsanpassning",
     "organizationalAdaptabilityLink": "Organizational Adaptability"
+  },
+  "organizationalWisdomCenter": {
+    "title": "Visdomscenter",
+    "subtitle": "Transform accumulated experience, knowledge, learning, decisions, and values into practical wisdom that supports better leadership and long-term sustainability.",
+    "loading": "Loading Wisdom Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Wisdom philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalMemoryLink": "Organizational Memory →",
+    "organizationalLearningLink": "Organizational Learning →",
+    "knowledgeEvolutionLink": "Knowledge Evolution →",
+    "strategicIntelligenceLink": "Strategic Intelligence →",
+    "decisionSupportLink": "Decision Support →",
+    "purposeValuesLink": "Purpose & Values →",
+    "dashboardTitle": "Wisdom dashboard",
+    "lessonsTitle": "Lessons integrated",
+    "reflectionsTitle": "Reflection engine",
+    "valuesTitle": "Values alignment",
+    "patternsTitle": "Historical patterns",
+    "synthesisTitle": "Wisdom synthesis sources",
+    "timelineTitle": "Wisdom timeline",
+    "snapshotsTitle": "Wisdom snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive wisdom view",
+    "reviewsTitle": "Wisdom reviews",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "scheduleReview": "Schedule wisdom review",
+    "generateReflection": "Generate reflection report",
+    "generateSummary": "Generate executive summary",
+    "exportInsights": "Export historical insights",
+    "humansDecide": "Aipify supports perspective and reflection — leadership owns judgment and decisions.",
+    "privacyNote": "Privacy",
+    "wisdomScore": "Wisdom score",
+    "domains": {
+      "strategic": "Strategic wisdom",
+      "operational": "Operational wisdom",
+      "leadership": "Leadership wisdom",
+      "customer": "Customer wisdom",
+      "organizational": "Organizational wisdom"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "maturing": "Maturing",
+      "developing": "Developing",
+      "emerging": "Emerging"
+    },
+    "timelineTypes": {
+      "major_lesson": "Major lesson learned",
+      "significant_decision": "Significant decision",
+      "cultural_milestone": "Cultural milestone",
+      "strategic_turning_point": "Strategic turning point",
+      "leadership_reflection": "Leadership reflection"
+    },
+    "reviewTypes": {
+      "monthly": "Monthly leadership reflection",
+      "quarterly": "Quarterly wisdom session",
+      "annual": "Annual organizational reflection",
+      "executive_learning": "Executive learning discussion"
+    },
+    "metrics": {
+      "insights": "Wisdom insights",
+      "lessons": "Lessons integrated",
+      "reflection": "Reflection participation",
+      "patterns": "Historical patterns",
+      "learning": "Executive learning trend",
+      "quality": "Decision quality satisfaction",
+      "confidence": "Leadership confidence"
+    },
+    "executiveFields": {
+      "themes": "Emerging themes",
+      "learning": "Leadership learning patterns",
+      "lessons": "Historical lessons revisited",
+      "indicators": "Wisdom indicators"
+    },
+    "settingsLink": "Organisationsvisdom",
+    "organizationalWisdomLink": "Organizational Wisdom"
   }
 }

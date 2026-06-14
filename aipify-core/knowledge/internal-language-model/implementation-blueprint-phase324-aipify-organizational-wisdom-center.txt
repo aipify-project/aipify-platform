@@ -1,0 +1,4 @@
+ABOS Phase 324 — Organizational Wisdom Center
+Route: /app/executive/organizational-wisdom
+Core: Knowledge explains what happened. Wisdom helps determine what should be considered next.
+Helpers: _owc_* · _owcbp324_*
