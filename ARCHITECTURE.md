@@ -1211,3 +1211,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Curiosity Center Engine (Phase 348):** See [AIPIFY_ORGANIZATIONAL_CURIOSITY_CENTER_ENGINE_PHASE348.md](./AIPIFY_ORGANIZATIONAL_CURIOSITY_CENTER_ENGINE_PHASE348.md) — Curiosity Center at Executive Center → Organizational Curiosity. Curiosity dashboard, question engine, discovery engine, reviews, and executive curiosity view. `/app/executive/organizational-curiosity`, migration `20261427700000_aipify_organizational_curiosity_center_engine_phase348.sql`. Helpers `_occ_*`, `_occbp348_*`. APIs at `/api/organizational-curiosity/*`. Cross-links harmony and awareness centers.
+
+
+**Aipify Organizational Courage Center Engine (Phase 349):** See [AIPIFY_ORGANIZATIONAL_COURAGE_CENTER_ENGINE_PHASE349.md](./AIPIFY_ORGANIZATIONAL_COURAGE_CENTER_ENGINE_PHASE349.md) — Courage Center at Executive Center → Organizational Courage. Courage dashboard, difficult conversation engine, reviews, and executive courage view. `/app/executive/organizational-courage`, migration `20261427800000_aipify_organizational_courage_center_engine_phase349.sql`. Helpers `_occe_*`, `_occebp349_*`. APIs at `/api/organizational-courage/*`. Cross-links curiosity center.

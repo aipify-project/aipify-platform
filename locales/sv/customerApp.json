@@ -89,7 +89,8 @@
     "organizationalIntentionalityLink": "Organizational Intentionality",
     "organizationalAwarenessLink": "Organizational Awareness",
     "organizationalHarmonyLink": "Organizational Harmony",
-    "organizationalCuriosityLink": "Organizational Curiosity"
+    "organizationalCuriosityLink": "Organizational Curiosity",
+    "organizationalCourageLink": "Organizational Courage"
   },
   "presence": {
     "title": "Presence center",
@@ -6078,7 +6079,8 @@
     "organizationalIntentionalityCenterEngine": "Organisatorisk intention",
     "organizationalAwarenessCenterEngine": "Organisatorisk medvetenhet",
     "organizationalHarmonyCenterEngine": "Organisatorisk harmoni",
-    "organizationalCuriosityCenterEngine": "Organisatorisk nyfikenhet"
+    "organizationalCuriosityCenterEngine": "Organisatorisk nyfikenhet",
+    "organizationalCourageCenterEngine": "Organisatoriskt mod"
   },
   "identity": {
     "title": "Din identitet",
@@ -19752,5 +19754,118 @@
     },
     "settingsLink": "Organisatorisk nyfikenhet",
     "organizationalCuriosityLink": "Organizational Curiosity"
+  },
+  "organizationalCourageCenter": {
+    "title": "Organisatoriskt mod",
+    "subtitle": "Cultivate responsible courage by supporting difficult conversations, principled decision-making, ethical leadership, innovation under uncertainty, and the willingness to act despite discomfort when circumstances require it.",
+    "loading": "Loading Courage Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Courage philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalCuriosityLink": "Organizational Curiosity →",
+    "dashboardTitle": "Courage dashboard",
+    "signalsTitle": "Courage engine",
+    "conversationTitle": "Difficult conversation engine",
+    "initiativesTitle": "Courage initiatives",
+    "reviewsTitle": "Courage reviews",
+    "timelineTitle": "Courage timeline",
+    "milestonesTitle": "Courage milestones",
+    "snapshotsTitle": "Courage snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive courage view",
+    "sessionsTitle": "Courage sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate courage report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export courage snapshot",
+    "coordinateDiscussion": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive courage milestone",
+    "humansDecide": "Aipify supports principled action — leaders retain judgment; courage encourages honesty and wisdom without recklessness, hero narratives, or conflict for its own sake.",
+    "privacyNote": "Privacy",
+    "courageScore": "Organizational courage score",
+    "valuesAlignedDecisions": "Values-aligned decisions",
+    "domains": {
+      "leadership": "Leadership courage",
+      "ethical": "Ethical courage",
+      "strategic": "Strategic courage",
+      "workforce": "Workforce courage",
+      "customer": "Customer courage",
+      "innovation": "Innovation courage"
+    },
+    "signalTypes": {
+      "values_based_leadership": "Values-based leadership",
+      "healthy_challenge": "Healthy challenge",
+      "responsible_innovation": "Responsible innovation",
+      "ethical_consistency": "Ethical consistency",
+      "learning_from_setbacks": "Learning from setbacks"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "conversationTypes": {
+      "avoiding_conversation": "Avoided conversation",
+      "values_guidance": "Values guidance",
+      "truth_communication": "Truth communication",
+      "thoughtful_risks": "Thoughtful risks",
+      "honesty_compassion": "Honesty and compassion"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "courage_development_recommended": "Courage development recommended"
+    },
+    "timelineTypes": {
+      "leadership_decision": "Leadership decision",
+      "ethical_milestone": "Ethical milestone",
+      "innovation_breakthrough": "Innovation breakthrough",
+      "reflection_development": "Reflection development",
+      "organizational_learning": "Organizational learning"
+    },
+    "reviewTypes": {
+      "quarterly_courage": "Quarterly courage review",
+      "leadership_reflection": "Leadership reflection session",
+      "ethical_decision_discussion": "Ethical decision discussion",
+      "annual_organizational_assessment": "Annual organizational assessment"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "ethical_decision_discussion": "Ethical decision discussion",
+      "leadership_discussion": "Leadership discussion"
+    },
+    "metrics": {
+      "leadershipTransparency": "Leadership transparency",
+      "reflectionParticipation": "Reflection participation",
+      "ethicalConsistencyMetric": "Ethical consistency",
+      "learningIntegration": "Learning integration",
+      "responsibleInnovation": "Responsible innovation practices",
+      "leadershipReflection": "Leadership reflection trends",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "leadershipIntegrity": "Leadership integrity indicators",
+      "innovationConfidence": "Innovation confidence measures",
+      "ethicalConsistency": "Ethical consistency trends",
+      "valuesBasedDecisions": "Values-based decision opportunities"
+    },
+    "settingsLink": "Organisatoriskt mod",
+    "organizationalCourageLink": "Organizational Courage"
   }
 }

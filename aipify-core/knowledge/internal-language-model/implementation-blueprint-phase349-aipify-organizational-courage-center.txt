@@ -1,0 +1,4 @@
+ABOS Phase 349 — Organizational Courage Center
+Route: /app/executive/organizational-courage
+Core: Courage is not the absence of fear.
+Helpers: _occe_* · _occebp349_*
