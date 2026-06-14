@@ -1,0 +1,4 @@
+ABOS Phase 343 — Organizational Steadfastness Center
+Route: /app/executive/organizational-steadfastness
+Core: Organizations are defined by how they respond when circumstances become difficult.
+Helpers: _osfc_* · _osfcbp343_*

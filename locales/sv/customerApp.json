@@ -83,7 +83,8 @@
     "organizationalRenewalLink": "Organizational Renewal",
     "organizationalSustainabilityLink": "Organizational Sustainability",
     "organizationalTransformationLink": "Organizational Transformation",
-    "organizationalCompoundingLink": "Organizational Compounding"
+    "organizationalCompoundingLink": "Organizational Compounding",
+    "organizationalSteadfastnessLink": "Organizational Steadfastness"
   },
   "presence": {
     "title": "Presence center",
@@ -6066,7 +6067,8 @@
     "organizationalRenewalCenterEngine": "Organisatorisk förnyelse",
     "organizationalSustainabilityCenterEngine": "Organisatorisk hållbarhet",
     "organizationalTransformationCenterEngine": "Organisatorisk transformation",
-    "organizationalCompoundingCenterEngine": "Organisatorisk sammansattning"
+    "organizationalCompoundingCenterEngine": "Organisatorisk sammansattning",
+    "organizationalSteadfastnessCenterEngine": "Organisatorisk standfasthet"
   },
   "identity": {
     "title": "Din identitet",
@@ -19054,5 +19056,118 @@
     },
     "settingsLink": "Organisatorisk sammansattning",
     "organizationalCompoundingLink": "Organizational Compounding"
+  },
+  "organizationalSteadfastnessCenter": {
+    "title": "Organisatorisk standfasthet",
+    "subtitle": "Remain resilient, disciplined, and committed to values and strategic priorities during uncertainty, adversity, disruption, and prolonged pressure.",
+    "loading": "Loading Steadfastness Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Steadfastness philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalCompoundingLink": "Organizational Compounding →",
+    "dashboardTitle": "Steadfastness dashboard",
+    "signalsTitle": "Steadfastness engine",
+    "persistenceTitle": "Balanced persistence engine",
+    "initiativesTitle": "Resilience initiatives",
+    "reviewsTitle": "Steadfastness reviews",
+    "timelineTitle": "Steadfastness timeline",
+    "milestonesTitle": "Steadfastness milestones",
+    "snapshotsTitle": "Resilience snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive steadfastness view",
+    "sessionsTitle": "Steadfastness sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate steadfastness report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export resilience snapshot",
+    "coordinateReview": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive steadfastness milestone",
+    "humansDecide": "Aipify supports grounded leadership — leaders retain judgment; steadfastness balances perseverance with responsible adaptation, never rigidity or denial of reality.",
+    "privacyNote": "Privacy",
+    "steadfastnessScore": "Organizational steadfastness score",
+    "resilienceIndicators": "Resilience indicators",
+    "domains": {
+      "strategic": "Strategic steadfastness",
+      "leadership": "Leadership steadfastness",
+      "workforce": "Workforce steadfastness",
+      "customer": "Customer steadfastness",
+      "operational": "Operational steadfastness",
+      "cultural": "Cultural steadfastness"
+    },
+    "signalTypes": {
+      "consistent_pressure_behavior": "Consistent behavior under pressure",
+      "positive_recovery": "Positive recovery pattern",
+      "leadership_reliability": "Leadership reliability",
+      "cultural_resilience": "Cultural resilience",
+      "commitment_fulfillment": "Commitment fulfillment"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "persistenceTypes": {
+      "essential_commitment": "Essential commitment",
+      "adaptation_point": "Adaptation point",
+      "unchanged_values": "Unchanged values",
+      "renewed_priority": "Renewed priority",
+      "responsible_resilience": "Responsible resilience"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "stable": "Stable",
+      "developing": "Developing",
+      "support_recommended": "Support recommended"
+    },
+    "timelineTypes": {
+      "recovery_milestone": "Recovery milestone",
+      "leadership_reflection": "Leadership reflection",
+      "cultural_reaffirmation": "Cultural reaffirmation",
+      "strategic_perseverance": "Strategic perseverance",
+      "customer_trust_achievement": "Customer trust achievement"
+    },
+    "reviewTypes": {
+      "quarterly_resilience": "Quarterly resilience review",
+      "leadership_reflection": "Leadership reflection session",
+      "strategic_commitment": "Strategic commitment discussion",
+      "annual_stewardship": "Annual stewardship assessment"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "leadership_discussion": "Leadership discussion",
+      "stewardship_assessment": "Stewardship assessment"
+    },
+    "metrics": {
+      "values": "Values consistency",
+      "leadershipReliability": "Leadership reliability",
+      "recovery": "Recovery effectiveness",
+      "strategic": "Strategic persistence",
+      "resilience": "Organizational resilience",
+      "commitment": "Commitment consistency",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "leadershipConsistency": "Leadership consistency indicators",
+      "strategicResilience": "Strategic resilience measures",
+      "valuesContinuity": "Values continuity trends",
+      "confidence": "Organizational confidence opportunities"
+    },
+    "settingsLink": "Organisatorisk standfasthet",
+    "organizationalSteadfastnessLink": "Organizational Steadfastness"
   }
 }
