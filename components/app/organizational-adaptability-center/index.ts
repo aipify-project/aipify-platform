@@ -1,0 +1,1 @@
+export { OrganizationalAdaptabilityCenterPanel } from "./OrganizationalAdaptabilityCenterPanel";

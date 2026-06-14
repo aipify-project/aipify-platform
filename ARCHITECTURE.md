@@ -1133,3 +1133,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Energy Center Engine (Phase 322):** See [AIPIFY_ORGANIZATIONAL_ENERGY_CENTER_ENGINE_PHASE322.md](./AIPIFY_ORGANIZATIONAL_ENERGY_CENTER_ENGINE_PHASE322.md) — Organizational Energy Center at Executive Center → Organizational Energy. Capacity indicators, energy patterns, recovery support, and executive energy view. `/app/executive/organizational-energy`, migration `20261425000000_aipify_organizational_energy_center_engine_phase322.sql`. Helpers `_oec_*`, `_oecbp322_*`. APIs at `/api/organizational-energy/*`. Cross-links executive centers — does not modify their RPCs.
+
+
+**Aipify Organizational Adaptability Center Engine (Phase 323):** See [AIPIFY_ORGANIZATIONAL_ADAPTABILITY_CENTER_ENGINE_PHASE323.md](./AIPIFY_ORGANIZATIONAL_ADAPTABILITY_CENTER_ENGINE_PHASE323.md) — Adaptability Center at Executive Center → Organizational Adaptability. Change signals, adaptation opportunities, responsiveness indicators, and executive adaptability view. `/app/executive/organizational-adaptability`, migration `20261425100000_aipify_organizational_adaptability_center_engine_phase323.sql`. Helpers `_oad_*`, `_oadbp323_*`. APIs at `/api/organizational-adaptability/*`. Cross-links executive centers — does not modify their RPCs.

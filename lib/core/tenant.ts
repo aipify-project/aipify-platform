@@ -270,3 +270,4 @@ export * from "./aipify-execution-excellence-center-engine";
 export * from "./aipify-organizational-alignment-center-engine";
 export * from "./aipify-organizational-focus-center-engine";
 export * from "./aipify-organizational-energy-center-engine";
+export * from "./aipify-organizational-adaptability-center-engine";

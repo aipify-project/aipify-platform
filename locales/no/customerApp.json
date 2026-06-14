@@ -63,7 +63,8 @@
     "executionExcellenceLink": "Execution Excellence",
     "organizationalAlignmentLink": "Organizational Alignment",
     "organizationalFocusLink": "Organizational Focus",
-    "organizationalEnergyLink": "Organizational Energy"
+    "organizationalEnergyLink": "Organizational Energy",
+    "organizationalAdaptabilityLink": "Organizational Adaptability"
   },
   "presence": {
     "title": "Presence center",
@@ -6266,7 +6267,8 @@
     "executionExcellenceCenterEngine": "Gjennomføringsexcellence",
     "organizationalAlignmentCenterEngine": "Organisasjonsalignment",
     "organizationalFocusCenterEngine": "Organisasjonsfokus",
-    "organizationalEnergyCenterEngine": "Organisasjonsenergi"
+    "organizationalEnergyCenterEngine": "Organisasjonsenergi",
+    "organizationalAdaptabilityCenterEngine": "Organisasjonstilpasning"
   },
   "identity": {
     "title": "Din identitet",
@@ -17098,5 +17100,95 @@
     },
     "settingsLink": "Organisasjonsenergi",
     "organizationalEnergyLink": "Organizational Energy"
+  },
+  "organizationalAdaptabilityCenter": {
+    "title": "Tilpasningssenter",
+    "subtitle": "Recognize change early, adjust priorities effectively, and strengthen adaptability without sacrificing stability or purpose.",
+    "loading": "Loading Adaptability Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Adaptability philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalResilienceLink": "Organizational Resilience →",
+    "changeManagementLink": "Change Management →",
+    "organizationalLearningLink": "Organizational Learning →",
+    "organizationalEnergyLink": "Organizational Energy →",
+    "dashboardTitle": "Adaptability dashboard",
+    "signalsTitle": "Emerging changes detected",
+    "opportunitiesTitle": "Adaptation opportunities",
+    "responsivenessTitle": "Strategic responsiveness indicators",
+    "prioritiesTitle": "Executive priorities",
+    "historyTitle": "Adaptation history",
+    "snapshotsTitle": "Trend snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive adaptability view",
+    "reviewsTitle": "Adaptability reviews",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "discussSignal": "Mark for discussion",
+    "scheduleReflection": "Schedule reflection session",
+    "generateSummary": "Generate executive summary",
+    "generateReport": "Generate adaptability report",
+    "exportSnapshot": "Export trend snapshot",
+    "humansDecide": "Aipify supports awareness and responsiveness — leadership owns adaptation decisions.",
+    "privacyNote": "Privacy",
+    "owner": "Owner",
+    "adaptabilityScore": "Adaptability score",
+    "domains": {
+      "strategic": "Strategic adaptability",
+      "operational": "Operational adaptability",
+      "workforce": "Workforce adaptability",
+      "technology": "Technology adaptability",
+      "customer": "Customer adaptability",
+      "leadership": "Leadership adaptability"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "stable": "Stable",
+      "developing": "Developing",
+      "rigid": "Rigid"
+    },
+    "signalTypes": {
+      "emerging_trend": "Emerging trend",
+      "customer_shift": "Customer expectation shift",
+      "operational_pressure": "Operational pressure",
+      "technology_development": "Technology development",
+      "workforce_change": "Workforce change",
+      "strategic_disruption": "Strategic disruption"
+    },
+    "historyTypes": {
+      "org_adjustment": "Organizational adjustment",
+      "strategic_shift": "Strategic shift",
+      "initiative_recalibration": "Initiative recalibration",
+      "recovery_response": "Recovery response",
+      "learning_application": "Learning application"
+    },
+    "reviewTypes": {
+      "monthly": "Monthly adaptability review",
+      "quarterly": "Quarterly strategic recalibration",
+      "annual": "Annual resilience reflection",
+      "executive_learning": "Executive learning discussion"
+    },
+    "metrics": {
+      "opportunities": "Adaptation opportunities",
+      "emergingChanges": "Emerging changes",
+      "responsiveness": "Responsiveness",
+      "learning": "Learning integration",
+      "readiness": "Change readiness",
+      "recovery": "Recovery flexibility",
+      "confidence": "Leadership confidence"
+    },
+    "executiveFields": {
+      "flexibility": "Strategic flexibility",
+      "responsiveness": "Responsiveness trends",
+      "learning": "Learning integration",
+      "opportunities": "Adaptation opportunities"
+    },
+    "settingsLink": "Organisasjonstilpasning",
+    "organizationalAdaptabilityLink": "Organizational Adaptability"
   }
 }
