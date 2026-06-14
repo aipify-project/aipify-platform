@@ -73,6 +73,7 @@ type ExecutiveDashboardPanelProps = {
     organizationalCourageLink: string;
     organizationalHopeLink: string;
     organizationalWisdomTransferLink: string;
+    organizationalAdaptiveIntelligenceLink: string;
   };
 };
 
@@ -236,6 +237,9 @@ export function ExecutiveDashboardPanel({ locale, labels }: ExecutiveDashboardPa
         </Link>
         <Link href="/app/executive/organizational-wisdom-transfer" className="ml-4 mt-3 inline-block text-sm text-indigo-600 hover:underline">
           {labels.organizationalWisdomTransferLink}
+        </Link>
+        <Link href="/app/executive/organizational-adaptive-intelligence" className="ml-4 mt-3 inline-block text-sm text-indigo-600 hover:underline">
+          {labels.organizationalAdaptiveIntelligenceLink}
         </Link>
       </div>
 

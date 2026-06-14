@@ -92,7 +92,8 @@
     "organizationalCuriosityLink": "Organizational Curiosity",
     "organizationalCourageLink": "Organizational Courage",
     "organizationalHopeLink": "Organizational Hope",
-    "organizationalWisdomTransferLink": "Organizational Wisdom Transfer"
+    "organizationalWisdomTransferLink": "Organizational Wisdom Transfer",
+    "organizationalAdaptiveIntelligenceLink": "Organizational Adaptive Intelligence"
   },
   "presence": {
     "title": "Presence center",
@@ -7206,7 +7207,8 @@
     "organizationalCuriosityCenterEngine": "Organizational Curiosity",
     "organizationalCourageCenterEngine": "Organizational Courage",
     "organizationalHopeCenterEngine": "Organizational Hope",
-    "organizationalWisdomTransferCenterEngine": "Organizational Wisdom Transfer"
+    "organizationalWisdomTransferCenterEngine": "Organizational Wisdom Transfer",
+    "organizationalAdaptiveIntelligenceCenterEngine": "Organizational Adaptive Intelligence"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -20492,5 +20494,118 @@
     },
     "settingsLink": "Organizational Wisdom Transfer",
     "organizationalWisdomTransferLink": "Organizational Wisdom Transfer"
+  },
+  "organizationalAdaptiveIntelligenceCenter": {
+    "title": "Organizational Adaptive Intelligence",
+    "subtitle": "Help your organization sense, interpret, learn from, and respond intelligently to changing conditions while preserving strategic coherence and identity.",
+    "loading": "Loading Adaptive Intelligence Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Adaptive intelligence philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalWisdomTransferLink": "Organizational Wisdom Transfer →",
+    "dashboardTitle": "Adaptive intelligence dashboard",
+    "signalsTitle": "Adaptive intelligence engine",
+    "learningApplicationTitle": "Learning application engine",
+    "initiativesTitle": "Adaptive intelligence initiatives",
+    "reviewsTitle": "Adaptive intelligence reviews",
+    "timelineTitle": "Adaptive intelligence timeline",
+    "milestonesTitle": "Adaptive intelligence milestones",
+    "snapshotsTitle": "Adaptive intelligence snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive adaptive intelligence view",
+    "sessionsTitle": "Adaptive intelligence sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate adaptive intelligence report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export adaptive intelligence snapshot",
+    "coordinateDiscussion": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive adaptive intelligence milestone",
+    "humansDecide": "Aipify supports intelligent evolution — leaders retain judgment; adaptation is intentional growth, never reactive change or abandonment of identity.",
+    "privacyNote": "Privacy",
+    "adaptiveIntelligenceScore": "Organizational adaptive intelligence score",
+    "capabilityEvolutionMetric": "Capability evolution",
+    "domains": {
+      "strategic": "Strategic adaptive intelligence",
+      "leadership": "Leadership adaptive intelligence",
+      "operational": "Operational adaptive intelligence",
+      "customer": "Customer adaptive intelligence",
+      "workforce": "Workforce adaptive intelligence",
+      "organizational": "Organizational adaptive intelligence"
+    },
+    "signalTypes": {
+      "emerging_capabilities": "Emerging capabilities",
+      "learning_applications": "Learning applications",
+      "positive_adaptation": "Positive adaptation",
+      "strategic_responsiveness": "Strategic responsiveness",
+      "high_value_adjustments": "High-value adjustments"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "learningApplicationTypes": {
+      "recent_learning": "Recent learning",
+      "applying_lessons": "Applying lessons",
+      "capability_development": "Capability development",
+      "strengthening_adaptations": "Strengthening adaptations",
+      "unchanged_practices": "Unchanged practices"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "adaptation_opportunities_identified": "Adaptation opportunities identified"
+    },
+    "timelineTypes": {
+      "learning_breakthrough": "Learning breakthrough",
+      "strategic_adaptation": "Strategic adaptation",
+      "capability_development": "Capability development",
+      "leadership_reflection": "Leadership reflection",
+      "organizational_milestone": "Organizational milestone"
+    },
+    "reviewTypes": {
+      "quarterly_adaptive_intelligence": "Quarterly adaptive intelligence review",
+      "leadership_reflection": "Leadership reflection session",
+      "strategic_learning_discussion": "Strategic learning discussion",
+      "annual_organizational_assessment": "Annual organizational assessment"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "strategic_learning_discussion": "Strategic learning discussion",
+      "leadership_discussion": "Leadership discussion"
+    },
+    "metrics": {
+      "learningEffectiveness": "Learning effectiveness",
+      "reflectionParticipation": "Reflection participation",
+      "strategicResponsivenessMetric": "Strategic responsiveness",
+      "capabilityEvolutionMetric": "Capability evolution",
+      "decisionAdaptability": "Decision adaptability",
+      "responsivenessTrends": "Responsiveness trends",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "leadershipLearning": "Leadership learning indicators",
+      "strategicResponsiveness": "Strategic responsiveness measures",
+      "capabilityEvolution": "Capability evolution trends",
+      "futureReadiness": "Future readiness opportunities"
+    },
+    "settingsLink": "Organizational Adaptive Intelligence",
+    "organizationalAdaptiveIntelligenceLink": "Organizational Adaptive Intelligence"
   }
 }

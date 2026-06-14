@@ -1,0 +1,4 @@
+ABOS Phase 352 — Organizational Adaptive Intelligence Center
+Route: /app/executive/organizational-adaptive-intelligence
+Core: Intelligence is demonstrated by how effectively an organization learns, adapts, and responds over time.
+Helpers: _ocai_* · _ocaibp352_*

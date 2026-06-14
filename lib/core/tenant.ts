@@ -299,3 +299,4 @@ export * from "./aipify-organizational-curiosity-center-engine";
 export * from "./aipify-organizational-courage-center-engine";
 export * from "./aipify-organizational-hope-center-engine";
 export * from "./aipify-organizational-wisdom-transfer-center-engine";
+export * from "./aipify-organizational-adaptive-intelligence-center-engine";
