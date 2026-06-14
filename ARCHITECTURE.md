@@ -1103,3 +1103,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Platform Observability Engine (Phase 312):** See [AIPIFY_PLATFORM_OBSERVABILITY_ENGINE_PHASE312.md](./AIPIFY_PLATFORM_OBSERVABILITY_ENGINE_PHASE312.md) — Observability Center at Operations Center → Platform Observability. Platform health score, alerts, event correlation, root cause support, real-time feeds, and executive observability view. `/app/operations/platform-observability`, migration `20261424000000_aipify_platform_observability_engine_phase312.sql`. Helpers `_obs_*`, `_obsbp312_*`. APIs at `/api/platform-observability/*`. Cross-links operations, deployments, and automation — does not modify their RPCs.
+
+
+**Aipify Incident Command & Recovery Engine (Phase 313):** See [AIPIFY_INCIDENT_COMMAND_RECOVERY_ENGINE_PHASE313.md](./AIPIFY_INCIDENT_COMMAND_RECOVERY_ENGINE_PHASE313.md) — Incident Command Center at Operations Center → Incident Command. Incident coordination, severity workflow, communications, self-healing integration, and post-incident reviews. `/app/operations/incident-command`, migration `20261424100000_aipify_incident_command_recovery_engine_phase313.sql`. Helpers `_icr_*`, `_icrbp313_*`. APIs at `/api/incident-command/*`. Cross-links observability and deployments — does not modify their RPCs.

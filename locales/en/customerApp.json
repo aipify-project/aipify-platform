@@ -3343,7 +3343,8 @@
     "automationControlLink": "Automation Control Center",
     "databaseGovernanceLink": "Database Governance",
     "deploymentsLink": "Deployments",
-    "platformObservabilityLink": "Platform Observability"
+    "platformObservabilityLink": "Platform Observability",
+    "incidentCommandLink": "Incident Command"
   },
   "continuityEngine": {
     "title": "Continuity & Resilience",
@@ -7128,7 +7129,8 @@
     "organizationalHealthCenterEngine": "Organizational Health",
     "databaseGovernanceCenterEngine": "Database Governance",
     "deploymentGovernanceCenterEngine": "Deployments",
-    "platformObservabilityCenterEngine": "Platform Observability"
+    "platformObservabilityCenterEngine": "Platform Observability",
+    "incidentCommandCenterEngine": "Incident Command"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -16325,5 +16327,97 @@
       "strategy": "Strategic implication"
     },
     "settingsLink": "Platform Observability"
+  },
+  "incidentCommandCenter": {
+    "title": "Incident Command Center",
+    "subtitle": "Coordinate, monitor, and accelerate incident resolution — clarity, speed, and confidence during operational disruptions.",
+    "loading": "Loading Incident Command Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Incident philosophy",
+    "visionTitle": "Vision",
+    "operationsLink": "Operations Center →",
+    "observabilityLink": "Platform Observability →",
+    "deploymentsLink": "Deployments →",
+    "automationControlLink": "Automation Control →",
+    "executiveLink": "Executive Center →",
+    "dashboardTitle": "Incident dashboard",
+    "incidentsTitle": "Active incidents",
+    "timelineTitle": "Incident timeline",
+    "communicationsTitle": "Incident communications",
+    "recoveryTitle": "Recovery actions",
+    "selfHealingTitle": "Self-healing activity",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "postReviewsTitle": "Post-incident reviews",
+    "executiveTitle": "Executive incident view",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "advanceStatus": "Advance status",
+    "completeAction": "Mark complete",
+    "sendCommunication": "Send communication",
+    "completeReview": "Complete review",
+    "closeIncident": "Close incident",
+    "generateReport": "Generate incident report",
+    "generateSummary": "Generate executive summary",
+    "humansDecide": "Aipify coordinates and informs — your team owns the response and recovery decisions.",
+    "privacyNote": "Privacy",
+    "severityLevels": {
+      "sev1": "SEV-1 Critical",
+      "sev2": "SEV-2 High",
+      "sev3": "SEV-3 Moderate",
+      "sev4": "SEV-4 Low",
+      "sev5": "SEV-5 Informational"
+    },
+    "incidentCategories": {
+      "technical": "Technical",
+      "customer": "Customer",
+      "security": "Security",
+      "operational": "Operational",
+      "executive": "Executive"
+    },
+    "incidentStatuses": {
+      "investigating": "Investigating",
+      "identified": "Identified",
+      "mitigating": "Mitigating",
+      "monitoring": "Monitoring",
+      "resolved": "Resolved",
+      "closed": "Closed"
+    },
+    "communicationAudiences": {
+      "internal": "Internal update",
+      "executive": "Executive summary",
+      "customer": "Customer-facing",
+      "team": "Team notification"
+    },
+    "healingOutcomes": {
+      "success": "Successful recovery",
+      "failed": "Recovery failed",
+      "escalated": "Manual escalation recommended"
+    },
+    "metrics": {
+      "active": "Active incidents",
+      "major": "Major incidents",
+      "mttr": "Mean time to recovery",
+      "recoveryProgress": "Recovery progress",
+      "selfHealing": "Self-healing success rate",
+      "detection": "Mean time to detection",
+      "acknowledgment": "Mean time to acknowledgment",
+      "resilience": "Operational resilience score"
+    },
+    "executiveFields": {
+      "major": "Active major incidents",
+      "impact": "Business impact summary",
+      "confidence": "Recovery confidence",
+      "strategy": "Strategic implication"
+    },
+    "reviewFields": {
+      "what": "What happened",
+      "causes": "Root causes identified",
+      "recovery": "Recovery effectiveness",
+      "lessons": "Lessons learned",
+      "improvements": "Improvements required"
+    },
+    "settingsLink": "Incident Command"
   }
 }

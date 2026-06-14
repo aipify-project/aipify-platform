@@ -260,3 +260,4 @@ export * from "./aipify-organizational-health-center-engine";
 export * from "./aipify-database-governance-migration-engine";
 export * from "./aipify-deployment-governance-engine";
 export * from "./aipify-platform-observability-engine";
+export * from "./aipify-incident-command-recovery-engine";

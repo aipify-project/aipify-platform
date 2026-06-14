@@ -1,0 +1,4 @@
+ABOS Phase 313 — Incident Command Center
+Route: /app/operations/incident-command
+Core: Incidents are inevitable. Chaos is optional.
+Helpers: _icr_* · _icrbp313_*

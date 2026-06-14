@@ -39,6 +39,12 @@ export default async function OperationsPage() {
         >
           {t(`${p}.platformObservabilityLink`)} →
         </Link>
+        <Link
+          href="/app/operations/incident-command"
+          className="ml-4 mt-3 inline-block text-sm font-medium text-indigo-600 hover:underline"
+        >
+          {t(`${p}.incidentCommandLink`)} →
+        </Link>
       </div>
       <AocDashboardPanel
         labels={{
