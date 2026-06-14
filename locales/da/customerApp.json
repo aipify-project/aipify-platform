@@ -1176,7 +1176,8 @@
       "published": "Publiceret",
       "archived": "Arkiveret"
     },
-    "organizationalMemoryLink": "Organizational Memory"
+    "organizationalMemoryLink": "Organizational Memory",
+    "organizationalLearningLink": "Organizational Learning"
   },
   "learningEngine": {
     "title": "Learning Engine",
@@ -5958,7 +5959,8 @@
     "platformObservabilityCenterEngine": "Platform-observability",
     "incidentCommandCenterEngine": "Incident Command",
     "changeManagementCenterEngine": "Forandringsledelse",
-    "organizationalDigitalTwinCenterEngine": "Organisationens digitale tvilling"
+    "organizationalDigitalTwinCenterEngine": "Organisationens digitale tvilling",
+    "organizationalLearningCenterEngine": "Organisationslæring"
   },
   "identity": {
     "title": "Din identitet",
@@ -16225,5 +16227,95 @@
     },
     "settingsLink": "Organisationens digitale tvilling",
     "organizationalDigitalTwinLink": "Organizational Digital Twin"
+  },
+  "organizationalLearningCenter": {
+    "title": "Organisationslæringscenter",
+    "subtitle": "Transform everyday experiences into organizational learning — capture, validate, and apply lessons constructively without blame.",
+    "loading": "Loading Organizational Learning Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Learning philosophy",
+    "visionTitle": "Vision",
+    "knowledgeCenterLink": "Knowledge Center →",
+    "organizationalMemoryLink": "Organizational Memory →",
+    "learningReviewLink": "Learning Review →",
+    "knowledgeEngineLink": "Knowledge Center Engine →",
+    "continuousImprovementLink": "Continuous Improvement →",
+    "dashboardTitle": "Learning dashboard",
+    "domainsTitle": "Learning domains",
+    "lessonsTitle": "Lessons learned",
+    "patternsTitle": "Recurring patterns",
+    "bestPracticesTitle": "Best practice library",
+    "validationTitle": "Validation workflow",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive learning view",
+    "reviewsTitle": "Learning reviews",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "publishLesson": "Publish lesson",
+    "completeReview": "Complete review",
+    "generateSummary": "Generate learning summary",
+    "generateReport": "Generate lessons report",
+    "humansDecide": "Aipify supports reflection — humans validate lessons and decide what to apply.",
+    "privacyNote": "Privacy",
+    "whatHappened": "What happened?",
+    "whatWorked": "What worked well?",
+    "whatDidNotWork": "What did not work?",
+    "whatShouldChange": "What should change?",
+    "whatShouldRemain": "What should remain the same?",
+    "validationStage": "Validation stage",
+    "domains": {
+      "support": "Support learning",
+      "operational": "Operational learning",
+      "incident": "Incident learning",
+      "executive": "Executive learning",
+      "workforce": "Workforce learning",
+      "customer": "Customer learning"
+    },
+    "patternTypes": {
+      "recurring_issue": "Recurring issue",
+      "operational_failure": "Operational failure",
+      "successful_intervention": "Successful intervention",
+      "emerging_opportunity": "Emerging opportunity"
+    },
+    "practiceTypes": {
+      "workflow": "Proven workflow",
+      "communication": "Communication template",
+      "operational": "Operational guidance",
+      "leadership": "Leadership recommendation",
+      "customer_success": "Customer success example"
+    },
+    "healthLabels": {
+      "excellent": "Excellent",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "needs_attention": "Needs attention"
+    },
+    "validationStages": {
+      "captured": "Insight captured",
+      "review": "Review conducted",
+      "confirmed": "Lesson confirmed",
+      "published": "Knowledge published",
+      "informed": "Organization informed",
+      "monitored": "Impact monitored"
+    },
+    "metrics": {
+      "lessonsCaptured": "Lessons captured",
+      "lessonsPublished": "Lessons published",
+      "validation": "Validation completion",
+      "utilization": "Knowledge utilization",
+      "adoption": "Improvement adoption",
+      "participation": "Participation satisfaction",
+      "trust": "Executive trust"
+    },
+    "executiveFields": {
+      "strategic": "Strategic lessons",
+      "maturity": "Maturity trends",
+      "opportunities": "High-value opportunities",
+      "momentum": "Improvement momentum"
+    },
+    "settingsLink": "Organisationslæring",
+    "organizationalLearningLink": "Organizational Learning"
   }
 }

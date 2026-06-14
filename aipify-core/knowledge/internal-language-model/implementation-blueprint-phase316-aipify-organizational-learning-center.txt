@@ -1,0 +1,4 @@
+ABOS Phase 316 — Organizational Learning Center
+Route: /app/knowledge-center/organizational-learning
+Core: Experience has little value if nothing is learned from it.
+Helpers: _olc_* · _olcbp316_*
