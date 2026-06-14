@@ -483,7 +483,8 @@ begin
 
   select c.id into v_pilot_id
   from public.customers c
-  where c.slug = 'unonight'
+  join public.companies co on co.id = c.company_id
+  where co.slug = 'unonight'
   limit 1;
 
   if v_pilot_id is null then
@@ -526,7 +527,10 @@ grant execute on function public.get_presence_pilot_metrics() to authenticated;
 -- 10. Seed pilot notifications
 -- ---------------------------------------------------------------------------
 insert into public.presence_notification_preferences (tenant_id)
-select c.id from public.customers c where c.slug = 'unonight'
+select c.id
+from public.customers c
+join public.companies co on co.id = c.company_id
+where co.slug = 'unonight'
 on conflict (tenant_id) do nothing;
 
 insert into public.presence_notifications (
@@ -543,6 +547,7 @@ select
   v.actions,
   v.href
 from public.customers c
+join public.companies co on co.id = c.company_id
 cross join (
   values
     (
@@ -564,7 +569,7 @@ cross join (
       '/app/recommendations'
     )
 ) as v(event_type, level, title, body, actions, href)
-where c.slug = 'unonight'
+where co.slug = 'unonight'
   and not exists (
     select 1 from public.presence_notifications n
     where n.tenant_id = c.id and n.title = v.title

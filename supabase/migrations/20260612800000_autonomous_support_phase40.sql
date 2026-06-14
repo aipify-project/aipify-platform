@@ -59,6 +59,20 @@ revoke all on public.support_categories from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 3. support_cases
 -- ---------------------------------------------------------------------------
+-- Phase 7 metrics used customer_id; ASO phase 40 needs tenant_id + triage fields.
+do $$
+begin
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'support_cases' and column_name = 'customer_id'
+  ) and not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'support_cases' and column_name = 'tenant_id'
+  ) then
+    alter table public.support_cases rename to support_cases_phase7_legacy;
+  end if;
+end $$;
+
 create table if not exists public.support_cases (
   id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null references public.customers (id) on delete cascade,

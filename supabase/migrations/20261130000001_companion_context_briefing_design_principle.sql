@@ -163,8 +163,8 @@ begin
     where cp.tenant_id = v_tenant_id;
   end if;
 
-  case v_context
-    when 'home' then
+  case
+    when v_context = 'home' then
       v_summary := case
         when v_briefing_events > 0 then
           format('Aipify gathered %s operational signals since your last visit.', v_briefing_events)
@@ -182,7 +182,7 @@ begin
         );
       end if;
 
-    when 'customers', 'customer_success' then
+    when v_context in ('customers', 'customer_success') then
       v_summary := case
         when v_health_band in ('at_risk', 'critical') then
           'Aipify noticed your customer journey needs additional attention.'
@@ -205,7 +205,7 @@ begin
         );
       end if;
 
-    when 'billing', 'license' then
+    when v_context in ('billing', 'license') then
       v_summary := case
         when coalesce(v_sub_status, 'active') in ('active', 'trialing') and v_invoices_due > 0 then
           format('Revenue remains healthy. %s invoice(s) are approaching due dates.', v_invoices_due)
@@ -230,7 +230,7 @@ begin
         );
       end if;
 
-    when 'support' then
+    when v_context = 'support' then
       v_summary := case
         when v_resolved_today > 0 then
           format('Aipify resolved %s support request(s) today.', v_resolved_today)
@@ -262,7 +262,7 @@ begin
         );
       end if;
 
-    when 'approvals' then
+    when v_context = 'approvals' then
       v_summary := case
         when v_pending_approvals > 0 then
           format('Aipify prepared %s action(s) awaiting your approval.', v_pending_approvals)
@@ -291,7 +291,7 @@ begin
         );
       end if;
 
-    when 'command_center' then
+    when v_context = 'command_center' then
       v_summary := case
         when v_briefing_events > 0 then
           format('Aipify noticed %s signal(s) across your command center in the last day.', v_briefing_events)
@@ -312,7 +312,7 @@ begin
         );
       end if;
 
-    when 'commerce', 'commerce_intelligence' then
+    when v_context in ('commerce', 'commerce_intelligence') then
       v_summary := 'Aipify is watching commerce signals — opportunities, margins, and store fit.';
       v_companion_note := 'Commerce intelligence uses product and trend metadata — not customer PII.';
       v_key_items := v_key_items || public._acb_key_item(
@@ -322,7 +322,7 @@ begin
         '/app/commerce-intelligence'
       );
 
-    when 'commerce_performance' then
+    when v_context = 'commerce_performance' then
       v_summary := 'Aipify is tracking profitability patterns across your commerce portfolio.';
       v_companion_note := 'Performance briefings summarize margin and revenue trends — metadata only.';
       v_key_items := v_key_items || public._acb_key_item(
@@ -332,7 +332,7 @@ begin
         '/app/commerce-performance'
       );
 
-    when 'product_automation' then
+    when v_context = 'product_automation' then
       v_summary := 'Aipify is ready to guide catalog automation — drafts and approvals stay in your control.';
       v_companion_note := 'Product automation briefings describe pipeline status, not raw catalog content.';
       v_key_items := v_key_items || public._acb_key_item(
@@ -342,7 +342,7 @@ begin
         '/app/product-automation'
       );
 
-    when 'dropshipping' then
+    when v_context = 'dropshipping' then
       v_summary := 'Aipify is monitoring dropshipping operations — delivery risks and supplier awareness.';
       v_companion_note := 'Operations briefings use alert counts and health bands only.';
       v_key_items := v_key_items || public._acb_key_item(
@@ -352,7 +352,7 @@ begin
         '/app/dropshipping-operations'
       );
 
-    when 'learning' then
+    when v_context = 'learning' then
       v_summary := case
         when v_learning_active > 0 then
           format('Aipify has %s active learning pattern(s) improving suggestions with you.', v_learning_active)
@@ -373,7 +373,7 @@ begin
         );
       end if;
 
-    when 'install' then
+    when v_context = 'install' then
       v_summary := case
         when v_install_pending > 0 then
           format('Aipify noticed %s installation(s) still completing setup.', v_install_pending)

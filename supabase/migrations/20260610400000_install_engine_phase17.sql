@@ -80,10 +80,10 @@ begin
     raise exception 'Installation not found';
   end if;
 
-  v_mapped_status := case p_status
-    when 'healthy' then 'active'
-    when 'warning', 'pending_update' then 'warning'
-    when 'disconnected', 'paused' then 'suspended'
+  v_mapped_status := case
+    when p_status = 'healthy' then 'active'
+    when p_status in ('warning', 'pending_update') then 'warning'
+    when p_status in ('disconnected', 'paused') then 'suspended'
   end;
 
   update public.installations
@@ -93,9 +93,9 @@ begin
       when v_installation.status = 'archived' then v_installation.status
       else v_mapped_status
     end,
-    health_status = case p_status
-      when 'healthy' then 'healthy'
-      when 'warning', 'pending_update' then 'needs_attention'
+    health_status = case
+      when p_status = 'healthy' then 'healthy'
+      when p_status in ('warning', 'pending_update') then 'needs_attention'
       else 'critical'
     end,
     provisioning_config = coalesce(provisioning_config, '{}'::jsonb) || jsonb_build_object(

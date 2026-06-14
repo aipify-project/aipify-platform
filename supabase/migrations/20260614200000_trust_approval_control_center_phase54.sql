@@ -245,6 +245,8 @@ begin
 end;
 $$;
 
+drop function if exists public.ensure_tacc_emergency_stop(uuid);
+
 create or replace function public.ensure_tacc_emergency_stop(p_tenant_id uuid)
 returns public.aipify_emergency_stop_state
 language plpgsql security definer set search_path = public

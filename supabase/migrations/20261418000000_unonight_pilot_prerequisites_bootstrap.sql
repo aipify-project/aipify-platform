@@ -234,18 +234,41 @@ revoke all on public.aipify_workflow_definitions from authenticated, anon;
 grant execute on function public._tacc_is_emergency_active(uuid) to authenticated;
 
 -- Stubs required by provision_pilot_tenant (Phase 54 TACC) when Phase 54 is not yet applied
-create or replace function public.seed_tacc_action_permissions(p_tenant_id uuid)
-returns void language plpgsql security definer set search_path = public as $$
+do $stub$
 begin
-  null;
-end;
-$$;
+  if exists (
+    select 1
+    from pg_proc p
+    join pg_namespace n on n.oid = p.pronamespace
+    join pg_type t on t.oid = p.prorettype
+    where n.nspname = 'public'
+      and p.proname = 'ensure_tacc_emergency_stop'
+      and t.typname = 'aipify_emergency_stop_state'
+  ) then
+    null;
+  else
+    drop function if exists public.ensure_tacc_emergency_stop(uuid);
+    execute $sql$
+      create function public.ensure_tacc_emergency_stop(p_tenant_id uuid)
+      returns void language plpgsql security definer set search_path = public as $fn$
+      begin
+        insert into public.aipify_emergency_stop_state (tenant_id, enabled)
+        values (p_tenant_id, false)
+        on conflict (tenant_id) do nothing;
+      end;
+      $fn$;
+    $sql$;
+  end if;
 
-create or replace function public.ensure_tacc_emergency_stop(p_tenant_id uuid)
-returns void language plpgsql security definer set search_path = public as $$
-begin
-  insert into public.aipify_emergency_stop_state (tenant_id, enabled)
-  values (p_tenant_id, false)
-  on conflict (tenant_id) do nothing;
-end;
-$$;
+  if not exists (
+    select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+    where n.nspname = 'public' and p.proname = 'seed_tacc_action_permissions'
+  ) then
+    execute $sql$
+      create function public.seed_tacc_action_permissions(p_tenant_id uuid)
+      returns void language plpgsql security definer set search_path = public as $fn$
+      begin null; end;
+      $fn$;
+    $sql$;
+  end if;
+end $stub$;

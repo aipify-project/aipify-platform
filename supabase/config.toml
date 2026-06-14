@@ -1,0 +1,11 @@
+# Aipify Core — Supabase project configuration
+# Link: npx supabase link --project-ref qbcqoixhrvhnuwphefvw
+# Push: npm run supabase:push
+
+project_id = "qbcqoixhrvhnuwphefvw"
+
+[db]
+major_version = 17
+
+[db.migrations]
+enabled = true

@@ -81,10 +81,10 @@ begin
   where c.company_id = v_company_id
   limit 1;
 
-  v_system_type := case p_platform
-    when 'shopify' then 'shopify'
-    when 'wordpress', 'woocommerce' then 'wordpress'
-    when 'developer_setup' then 'custom'
+  v_system_type := case
+    when p_platform = 'shopify' then 'shopify'
+    when p_platform in ('wordpress', 'woocommerce') then 'wordpress'
+    when p_platform = 'developer_setup' then 'custom'
     else 'other'
   end;
 
