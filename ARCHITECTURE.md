@@ -1202,3 +1202,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Intentionality Center Engine (Phase 345):** See [AIPIFY_ORGANIZATIONAL_INTENTIONALITY_CENTER_ENGINE_PHASE345.md](./AIPIFY_ORGANIZATIONAL_INTENTIONALITY_CENTER_ENGINE_PHASE345.md) — Intentionality Center at Executive Center → Organizational Intentionality. Intentionality dashboard, intentionality engine, purpose check engine, reviews, and executive intentionality view. `/app/executive/organizational-intentionality`, migration `20261427400000_aipify_organizational_intentionality_center_engine_phase345.sql`. Helpers `_oic_*`, `_oicbp345_*`. APIs at `/api/organizational-intentionality/*`. Cross-links clarity and steadfastness centers.
+
+
+**Aipify Organizational Awareness Center Engine (Phase 346):** See [AIPIFY_ORGANIZATIONAL_AWARENESS_CENTER_ENGINE_PHASE346.md](./AIPIFY_ORGANIZATIONAL_AWARENESS_CENTER_ENGINE_PHASE346.md) — Awareness Center at Executive Center → Organizational Awareness. Awareness dashboard, awareness engine, observation engine, reviews, and executive awareness view. `/app/executive/organizational-awareness`, migration `20261427500000_aipify_organizational_awareness_center_engine_phase346.sql`. Helpers `_oac_*`, `_oacbp346_*`. APIs at `/api/organizational-awareness/*`. Cross-links intentionality and clarity centers.

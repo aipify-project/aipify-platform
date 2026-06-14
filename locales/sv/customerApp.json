@@ -86,7 +86,8 @@
     "organizationalCompoundingLink": "Organizational Compounding",
     "organizationalSteadfastnessLink": "Organizational Steadfastness",
     "organizationalClarityLink": "Organizational Clarity",
-    "organizationalIntentionalityLink": "Organizational Intentionality"
+    "organizationalIntentionalityLink": "Organizational Intentionality",
+    "organizationalAwarenessLink": "Organizational Awareness"
   },
   "presence": {
     "title": "Presence center",
@@ -6072,7 +6073,8 @@
     "organizationalCompoundingCenterEngine": "Organisatorisk sammansattning",
     "organizationalSteadfastnessCenterEngine": "Organisatorisk standfasthet",
     "organizationalClarityCenterEngine": "Organisatorisk tydlighet",
-    "organizationalIntentionalityCenterEngine": "Organisatorisk intention"
+    "organizationalIntentionalityCenterEngine": "Organisatorisk intention",
+    "organizationalAwarenessCenterEngine": "Organisatorisk medvetenhet"
   },
   "identity": {
     "title": "Din identitet",
@@ -19399,5 +19401,118 @@
     },
     "settingsLink": "Organisatorisk intention",
     "organizationalIntentionalityLink": "Organizational Intentionality"
+  },
+  "organizationalAwarenessCenter": {
+    "title": "Organisatorisk medvetenhet",
+    "subtitle": "Strengthen awareness of internal conditions, external environments, emerging opportunities, evolving risks, and organizational realities so leaders can respond with clarity and wisdom.",
+    "loading": "Loading Awareness Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Awareness philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalIntentionalityLink": "Organizational Intentionality →",
+    "dashboardTitle": "Awareness dashboard",
+    "signalsTitle": "Awareness engine",
+    "observationTitle": "Observation engine",
+    "initiativesTitle": "Awareness initiatives",
+    "reviewsTitle": "Awareness reviews",
+    "timelineTitle": "Awareness timeline",
+    "milestonesTitle": "Awareness milestones",
+    "snapshotsTitle": "Awareness snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive awareness view",
+    "sessionsTitle": "Awareness sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate awareness report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export awareness snapshot",
+    "coordinateReview": "Coordinate strategic discussion",
+    "archiveMilestone": "Archive awareness milestone",
+    "humansDecide": "Aipify supports attentive leadership — leaders retain judgment; awareness encourages observation without surveillance, hyper-vigilance, or fear-based oversight.",
+    "privacyNote": "Privacy",
+    "awarenessScore": "Organizational awareness score",
+    "emergingThemes": "Emerging themes identified",
+    "domains": {
+      "organizational": "Organizational awareness",
+      "strategic": "Strategic awareness",
+      "leadership": "Leadership awareness",
+      "customer": "Customer awareness",
+      "workforce": "Workforce awareness",
+      "risk": "Risk awareness"
+    },
+    "signalTypes": {
+      "emerging_pattern": "Emerging pattern",
+      "significant_observation": "Significant observation",
+      "shifting_condition": "Shifting condition",
+      "hidden_dependency": "Hidden dependency",
+      "executive_attention": "Executive attention area"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "observationTypes": {
+      "what_noticing": "What are we noticing",
+      "what_overlooking": "What might we overlook",
+      "patterns_attention": "Patterns deserving attention",
+      "assumptions_revisit": "Assumptions to revisit",
+      "emerging_developments": "Emerging developments"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "awareness_improvement_recommended": "Awareness improvement recommended"
+    },
+    "timelineTypes": {
+      "emerging_theme": "Emerging theme identified",
+      "leadership_reflection": "Leadership reflection",
+      "strategic_observation": "Strategic observation",
+      "organizational_insight": "Organizational insight",
+      "learning_development": "Learning development"
+    },
+    "reviewTypes": {
+      "monthly_awareness": "Monthly awareness review",
+      "quarterly_strategic": "Quarterly strategic discussion",
+      "leadership_reflection": "Leadership reflection session",
+      "annual_organizational_assessment": "Annual organizational assessment"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "strategic_discussion": "Strategic discussion",
+      "organizational_assessment": "Organizational assessment"
+    },
+    "metrics": {
+      "reflectionParticipation": "Reflection participation",
+      "reviewDiscipline": "Review discipline",
+      "environmentalScanning": "Environmental scanning effectiveness",
+      "insightUtilization": "Organizational insight utilization",
+      "leadershipResponsiveness": "Leadership responsiveness",
+      "strategicObservations": "Strategic observations",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "leadershipAttentiveness": "Leadership attentiveness indicators",
+      "strategicObservation": "Strategic observation trends",
+      "environmentalAwareness": "Environmental awareness measures",
+      "insightOpportunities": "Organizational insight opportunities"
+    },
+    "settingsLink": "Organisatorisk medvetenhet",
+    "organizationalAwarenessLink": "Organizational Awareness"
   }
 }

@@ -1,0 +1,4 @@
+ABOS Phase 346 — Organizational Awareness Center
+Route: /app/executive/organizational-awareness
+Core: Organizations cannot respond effectively to what they fail to notice.
+Helpers: _oac_* · _oacbp346_*
