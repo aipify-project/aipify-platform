@@ -1130,3 +1130,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Focus Center Engine (Phase 321):** See [AIPIFY_ORGANIZATIONAL_FOCUS_CENTER_ENGINE_PHASE321.md](./AIPIFY_ORGANIZATIONAL_FOCUS_CENTER_ENGINE_PHASE321.md) — Focus Center at Executive Center → Organizational Focus. Initiative concentration, focus overload detection, prioritization support, and executive focus view. `/app/executive/organizational-focus`, migration `20261424900000_aipify_organizational_focus_center_engine_phase321.sql`. Helpers `_ofc_*`, `_ofcbp321_*`. APIs at `/api/organizational-focus/*`. Cross-links executive centers — does not modify their RPCs.
+
+
+**Aipify Organizational Energy Center Engine (Phase 322):** See [AIPIFY_ORGANIZATIONAL_ENERGY_CENTER_ENGINE_PHASE322.md](./AIPIFY_ORGANIZATIONAL_ENERGY_CENTER_ENGINE_PHASE322.md) — Organizational Energy Center at Executive Center → Organizational Energy. Capacity indicators, energy patterns, recovery support, and executive energy view. `/app/executive/organizational-energy`, migration `20261425000000_aipify_organizational_energy_center_engine_phase322.sql`. Helpers `_oec_*`, `_oecbp322_*`. APIs at `/api/organizational-energy/*`. Cross-links executive centers — does not modify their RPCs.

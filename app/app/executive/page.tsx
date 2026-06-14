@@ -49,6 +49,7 @@ export default async function ExecutivePage() {
         executionExcellenceLink: t("customerApp.executive.executionExcellenceLink"),
         organizationalAlignmentLink: t("customerApp.executive.organizationalAlignmentLink"),
         organizationalFocusLink: t("customerApp.executive.organizationalFocusLink"),
+        organizationalEnergyLink: t("customerApp.executive.organizationalEnergyLink"),
       }}
     />
   );

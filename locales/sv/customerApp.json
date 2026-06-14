@@ -62,7 +62,8 @@
     "capabilityMaturityLink": "Capability Maturity",
     "executionExcellenceLink": "Execution Excellence",
     "organizationalAlignmentLink": "Organizational Alignment",
-    "organizationalFocusLink": "Organizational Focus"
+    "organizationalFocusLink": "Organizational Focus",
+    "organizationalEnergyLink": "Organizational Energy"
   },
   "presence": {
     "title": "Presence center",
@@ -6024,7 +6025,8 @@
     "capabilityMaturityCenterEngine": "Kapabilitetsmognad",
     "executionExcellenceCenterEngine": "Genomföringsexcellence",
     "organizationalAlignmentCenterEngine": "Organisationsalignment",
-    "organizationalFocusCenterEngine": "Organisationsfokus"
+    "organizationalFocusCenterEngine": "Organisationsfokus",
+    "organizationalEnergyCenterEngine": "Organisationsenergi"
   },
   "identity": {
     "title": "Din identitet",
@@ -16774,5 +16776,92 @@
     },
     "settingsLink": "Organisationsfokus",
     "organizationalFocusLink": "Organizational Focus"
+  },
+  "organizationalEnergyCenter": {
+    "title": "Organisationsenergicenter",
+    "subtitle": "Understand, protect, and optimize the sustainable use of organizational energy by balancing ambition, capacity, recovery, and execution effectiveness.",
+    "loading": "Loading Organizational Energy Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Energy philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalFocusLink": "Organizational Focus →",
+    "organizationalHealthLink": "Organizational Health →",
+    "organizationalResilienceLink": "Organizational Resilience →",
+    "changeManagementLink": "Change Management →",
+    "dashboardTitle": "Energy dashboard",
+    "capacityTitle": "Capacity indicators",
+    "patternsTitle": "Energy patterns",
+    "recoveryTitle": "Recovery opportunities",
+    "loadTrendsTitle": "Initiative load trends",
+    "timelineTitle": "Energy timeline",
+    "snapshotsTitle": "Energy snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive energy view",
+    "reviewsTitle": "Energy reviews",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "discussPattern": "Mark for discussion",
+    "scheduleRecovery": "Schedule recovery",
+    "generateSummary": "Generate executive summary",
+    "generateReport": "Generate sustainability report",
+    "exportSnapshot": "Export energy snapshot",
+    "humansDecide": "Aipify supports awareness and balance — leadership owns pacing and sustainability decisions.",
+    "privacyNote": "Privacy",
+    "energyScore": "Energy score",
+    "domains": {
+      "leadership": "Leadership energy",
+      "team": "Team energy",
+      "organizational": "Organizational energy",
+      "customer": "Customer energy",
+      "change": "Change energy"
+    },
+    "healthLabels": {
+      "thriving": "Thriving",
+      "healthy": "Healthy",
+      "balanced": "Balanced",
+      "strained": "Strained",
+      "exhausted": "Exhausted"
+    },
+    "patternTypes": {
+      "sustained_overload": "Sustained overload period",
+      "healthy_momentum": "Healthy momentum cycle",
+      "recovery_opportunity": "Recovery opportunity",
+      "seasonal_intensity": "Seasonal intensity pattern",
+      "change_fatigue": "Change fatigue indicator"
+    },
+    "timelineTypes": {
+      "intensity_period": "Intensity period",
+      "recovery_period": "Recovery period",
+      "initiative_peak": "Initiative peak",
+      "strategic_pause": "Strategic pause",
+      "org_transition": "Organizational transition"
+    },
+    "reviewTypes": {
+      "monthly": "Monthly energy review",
+      "quarterly": "Quarterly sustainability assessment",
+      "annual": "Annual reflection session",
+      "executive_wellbeing": "Executive wellbeing discussion"
+    },
+    "metrics": {
+      "recovery": "Recovery opportunities",
+      "focusAlerts": "Executive focus alerts",
+      "initiativeLoad": "Initiative load",
+      "reviewIntensity": "Review intensity",
+      "changeSaturation": "Change saturation",
+      "recoveryHeadroom": "Recovery headroom",
+      "confidence": "Leadership confidence"
+    },
+    "executiveFields": {
+      "leadership": "Leadership demand",
+      "pacing": "Strategic pacing",
+      "recovery": "Recovery opportunities",
+      "execution": "Sustainable execution"
+    },
+    "settingsLink": "Organisationsenergi",
+    "organizationalEnergyLink": "Organizational Energy"
   }
 }

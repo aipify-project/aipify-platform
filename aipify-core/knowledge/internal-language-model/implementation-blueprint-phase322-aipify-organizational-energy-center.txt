@@ -1,0 +1,4 @@
+ABOS Phase 322 — Organizational Energy Center
+Route: /app/executive/organizational-energy
+Core: Organizations do not run on time alone — they run on human energy.
+Helpers: _oec_* · _oecbp322_*
