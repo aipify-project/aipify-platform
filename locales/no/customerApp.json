@@ -87,7 +87,8 @@
     "organizationalSteadfastnessLink": "Organizational Steadfastness",
     "organizationalClarityLink": "Organizational Clarity",
     "organizationalIntentionalityLink": "Organizational Intentionality",
-    "organizationalAwarenessLink": "Organizational Awareness"
+    "organizationalAwarenessLink": "Organizational Awareness",
+    "organizationalHarmonyLink": "Organizational Harmony"
   },
   "presence": {
     "title": "Presence center",
@@ -6314,7 +6315,8 @@
     "organizationalSteadfastnessCenterEngine": "Organisatorisk standhaftighet",
     "organizationalClarityCenterEngine": "Organisatorisk klarhet",
     "organizationalIntentionalityCenterEngine": "Organisatorisk intensjon",
-    "organizationalAwarenessCenterEngine": "Organisatorisk bevissthet"
+    "organizationalAwarenessCenterEngine": "Organisatorisk bevissthet",
+    "organizationalHarmonyCenterEngine": "Organisatorisk harmoni"
   },
   "identity": {
     "title": "Din identitet",
@@ -19749,5 +19751,118 @@
     },
     "settingsLink": "Organisatorisk bevissthet",
     "organizationalAwarenessLink": "Organizational Awareness"
+  },
+  "organizationalHarmonyCenter": {
+    "title": "Organisatorisk harmoni",
+    "subtitle": "Strengthen harmony between people, teams, leadership, systems, priorities, and ways of working so progress occurs through cooperation rather than friction.",
+    "loading": "Loading Harmony Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Harmony philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalAwarenessLink": "Organizational Awareness →",
+    "dashboardTitle": "Harmony dashboard",
+    "signalsTitle": "Harmony engine",
+    "dialogueTitle": "Constructive dialogue engine",
+    "initiativesTitle": "Harmony initiatives",
+    "reviewsTitle": "Harmony reviews",
+    "timelineTitle": "Harmony timeline",
+    "milestonesTitle": "Harmony milestones",
+    "snapshotsTitle": "Harmony snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive harmony view",
+    "sessionsTitle": "Harmony sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleWorkshop": "Schedule collaboration workshop",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate harmony report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export harmony snapshot",
+    "coordinateReview": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive harmony milestone",
+    "humansDecide": "Aipify supports healthy collaboration — leaders retain responsibility; harmony welcomes disagreement without artificial consensus, conflict avoidance, or suppressing diverse perspectives.",
+    "privacyNote": "Privacy",
+    "harmonyScore": "Organizational harmony score",
+    "collaborationIndicators": "Collaboration indicators",
+    "domains": {
+      "team": "Team harmony",
+      "leadership": "Leadership harmony",
+      "cross_functional": "Cross-functional harmony",
+      "customer": "Customer harmony",
+      "cultural": "Cultural harmony",
+      "operational": "Operational harmony"
+    },
+    "signalTypes": {
+      "collaboration_strength": "Collaboration strength",
+      "cross_functional_friction": "Cross-functional friction",
+      "communication_breakdown": "Communication breakdown",
+      "shared_success_opportunity": "Shared success opportunity",
+      "relationship_development": "Relationship development"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "dialogueTypes": {
+      "diverse_perspectives": "Diverse perspectives",
+      "respectful_disagreement": "Respectful disagreement",
+      "shared_goals_alignment": "Shared goals alignment",
+      "communication_effectiveness": "Communication effectiveness",
+      "relationship_support": "Relationship support"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "harmony_improvement_recommended": "Harmony improvement recommended"
+    },
+    "timelineTypes": {
+      "collaboration_milestone": "Collaboration milestone",
+      "leadership_reflection": "Leadership reflection",
+      "cross_functional_achievement": "Cross-functional achievement",
+      "cultural_development": "Cultural development",
+      "organizational_breakthrough": "Organizational breakthrough"
+    },
+    "reviewTypes": {
+      "quarterly_harmony": "Quarterly harmony review",
+      "leadership_reflection": "Leadership reflection session",
+      "cross_functional_discussion": "Cross-functional discussion",
+      "annual_organizational_assessment": "Annual organizational assessment"
+    },
+    "sessionTypes": {
+      "collaboration_workshop": "Collaboration workshop",
+      "leadership_discussion": "Leadership discussion",
+      "organizational_assessment": "Organizational assessment"
+    },
+    "metrics": {
+      "collaborationEffectiveness": "Collaboration effectiveness",
+      "leadershipConsistency": "Leadership consistency",
+      "crossFunctionalCooperation": "Cross-functional cooperation",
+      "communicationQuality": "Communication quality",
+      "sharedOwnership": "Shared ownership participation",
+      "crossFunctionalAlignment": "Cross-functional alignment",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "leadershipAlignment": "Leadership alignment indicators",
+      "collaborationEffectiveness": "Collaboration effectiveness measures",
+      "crossFunctionalRelationships": "Cross-functional relationship trends",
+      "cohesionOpportunities": "Organizational cohesion opportunities"
+    },
+    "settingsLink": "Organisatorisk harmoni",
+    "organizationalHarmonyLink": "Organizational Harmony"
   }
 }

@@ -294,3 +294,4 @@ export * from "./aipify-organizational-steadfastness-center-engine";
 export * from "./aipify-organizational-clarity-center-engine";
 export * from "./aipify-organizational-intentionality-center-engine";
 export * from "./aipify-organizational-awareness-center-engine";
+export * from "./aipify-organizational-harmony-center-engine";
