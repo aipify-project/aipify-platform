@@ -41,6 +41,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# supabase local CLI cache
+supabase/.temp/
+
 # Desktop Command Center (Tauri)
 apps/command-center/node_modules
 apps/command-center/dist
