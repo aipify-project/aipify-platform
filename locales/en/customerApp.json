@@ -81,7 +81,8 @@
     "organizationalConfidenceLink": "Organizational Confidence",
     "organizationalFlourishingLink": "Organizational Flourishing",
     "organizationalRenewalLink": "Organizational Renewal",
-    "organizationalSustainabilityLink": "Organizational Sustainability"
+    "organizationalSustainabilityLink": "Organizational Sustainability",
+    "organizationalTransformationLink": "Organizational Transformation"
   },
   "presence": {
     "title": "Presence center",
@@ -7184,7 +7185,8 @@
     "organizationalConfidenceCenterEngine": "Organizational Confidence",
     "organizationalFlourishingCenterEngine": "Organizational Flourishing",
     "organizationalRenewalCenterEngine": "Organizational Renewal",
-    "organizationalSustainabilityCenterEngine": "Organizational Sustainability"
+    "organizationalSustainabilityCenterEngine": "Organizational Sustainability",
+    "organizationalTransformationCenterEngine": "Organizational Transformation"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -19217,5 +19219,120 @@
     },
     "settingsLink": "Organizational Sustainability",
     "organizationalSustainabilityLink": "Organizational Sustainability"
+  },
+  "organizationalTransformationCenter": {
+    "title": "Organizational Transformation",
+    "subtitle": "Navigate large-scale transformation initiatives with clarity, discipline, adaptability, and human-centered leadership while preserving trust and operational continuity.",
+    "loading": "Loading Transformation Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Transformation philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalSustainabilityLink": "Organizational Sustainability →",
+    "organizationalRenewalLink": "Organizational Renewal →",
+    "dashboardTitle": "Transformation dashboard",
+    "signalsTitle": "Transformation engine",
+    "adoptionTitle": "Adoption engine",
+    "initiativesTitle": "Transformation initiatives",
+    "reviewsTitle": "Transformation reviews",
+    "workflowTitle": "Transformation workflow",
+    "timelineTitle": "Transformation timeline",
+    "milestonesTitle": "Transformation milestones",
+    "snapshotsTitle": "Transformation snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive transformation view",
+    "sessionsTitle": "Transformation sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "scheduleWorkshop": "Schedule leadership workshop",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate transformation report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export transformation snapshot",
+    "coordinateReview": "Coordinate stakeholder review",
+    "archiveMilestone": "Archive transformation milestone",
+    "humansDecide": "Aipify supports responsible transformation — leaders retain ownership; transformation is intentional evolution toward a stronger future, never change for its own sake.",
+    "privacyNote": "Privacy",
+    "readinessScore": "Transformation readiness score",
+    "adoptionMomentum": "Adoption momentum",
+    "domains": {
+      "strategic": "Strategic transformation",
+      "digital": "Digital transformation",
+      "cultural": "Cultural transformation",
+      "leadership": "Leadership transformation",
+      "operational": "Operational transformation"
+    },
+    "signalTypes": {
+      "initiative_momentum": "Initiative momentum",
+      "adoption_effectiveness": "Adoption effectiveness",
+      "capability_development": "Capability development",
+      "leadership_participation": "Leadership participation",
+      "risk_indicator": "Risk indicator"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "adoptionTypes": {
+      "behavioral_adoption": "Behavioral adoption",
+      "workflow_integration": "Workflow integration",
+      "capability_utilization": "Capability utilization",
+      "leadership_reinforcement": "Leadership reinforcement",
+      "long_term_sustainability": "Long-term sustainability"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "readinessLabels": {
+      "highly_ready": "Highly ready",
+      "prepared": "Prepared",
+      "developing": "Developing",
+      "limited_readiness": "Limited readiness",
+      "transformation_risk": "Transformation risk"
+    },
+    "timelineTypes": {
+      "transformation_milestone": "Transformation milestone",
+      "leadership_initiative": "Leadership initiative",
+      "adoption_breakthrough": "Adoption breakthrough",
+      "capability_development": "Capability development",
+      "organizational_achievement": "Organizational achievement"
+    },
+    "reviewTypes": {
+      "monthly_transformation": "Monthly transformation review",
+      "quarterly_executive_reflection": "Quarterly executive reflection",
+      "adoption_discussion": "Adoption discussion",
+      "annual_transformation_assessment": "Annual transformation assessment"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "leadership_workshop": "Leadership workshop",
+      "stakeholder_review": "Stakeholder review"
+    },
+    "metrics": {
+      "leadership": "Leadership commitment",
+      "workforce": "Workforce preparedness",
+      "capability": "Capability maturity",
+      "communication": "Communication effectiveness",
+      "governance": "Governance readiness",
+      "risks": "Risks identified",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "strategic": "Strategic progress indicators",
+      "leadership": "Leadership participation measures",
+      "adoption": "Adoption confidence trends",
+      "opportunities": "Transformation opportunities"
+    },
+    "settingsLink": "Organizational Transformation",
+    "organizationalTransformationLink": "Organizational Transformation"
   }
 }

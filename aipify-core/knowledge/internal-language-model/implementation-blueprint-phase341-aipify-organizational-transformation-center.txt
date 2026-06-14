@@ -1,0 +1,4 @@
+ABOS Phase 341 — Organizational Transformation Center
+Route: /app/executive/organizational-transformation
+Core: Transformation is intentional evolution toward a stronger future.
+Helpers: _otrc_* · _otrcbp341_*
