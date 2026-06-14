@@ -326,6 +326,7 @@ export * from "./implementation-blueprint-phase336-vocabulary";
 export * from "./implementation-blueprint-phase337-vocabulary";
 export * from "./implementation-blueprint-phase338-vocabulary";
 export * from "./implementation-blueprint-phase339-vocabulary";
+export * from "./implementation-blueprint-phase340-vocabulary";
 export * from "./aipify-match-companion-future-vocabulary";
 export * from "./aipify-family-companion-future-vocabulary";
 export * from "./aipify-parenting-companion-future-vocabulary";
@@ -1238,6 +1239,8 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE338_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase338-aipify-organizational-flourishing-center.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE339_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase339-aipify-organizational-renewal-center.txt";
+export const IMPLEMENTATION_BLUEPRINT_PHASE340_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase340-aipify-organizational-sustainability-center.txt";
 export const AIPIFY_MATCH_COMPANION_FUTURE_CORPUS =
   "aipify-core/knowledge/internal-language-model/aipify-match-companion-future-module.txt";
 export const AIPIFY_FAMILY_COMPANION_FUTURE_CORPUS =

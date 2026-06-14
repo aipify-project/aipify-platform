@@ -1,0 +1,4 @@
+ABOS Phase 340 — Organizational Sustainability Center
+Route: /app/executive/organizational-sustainability
+Core: Success that cannot be sustained eventually becomes failure.
+Helpers: _oslc_* · _oslcbp340_*

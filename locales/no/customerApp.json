@@ -80,7 +80,8 @@
     "organizationalDecisionQualityLink": "Decision Quality",
     "organizationalConfidenceLink": "Organizational Confidence",
     "organizationalFlourishingLink": "Organizational Flourishing",
-    "organizationalRenewalLink": "Organizational Renewal"
+    "organizationalRenewalLink": "Organizational Renewal",
+    "organizationalSustainabilityLink": "Organizational Sustainability"
   },
   "presence": {
     "title": "Presence center",
@@ -6300,7 +6301,8 @@
     "organizationalDecisionQualityCenterEngine": "Beslutningskvalitet",
     "organizationalConfidenceCenterEngine": "Organisatorisk selvtillit",
     "organizationalFlourishingCenterEngine": "Organisatorisk blomstring",
-    "organizationalRenewalCenterEngine": "Organisatorisk fornyelse"
+    "organizationalRenewalCenterEngine": "Organisatorisk fornyelse",
+    "organizationalSustainabilityCenterEngine": "Organisatorisk bærekraft"
   },
   "identity": {
     "title": "Din identitet",
@@ -18940,5 +18942,120 @@
     },
     "settingsLink": "Organisatorisk fornyelse",
     "organizationalRenewalLink": "Organizational Renewal"
+  },
+  "organizationalSustainabilityCenter": {
+    "title": "Organisatorisk bærekraft",
+    "subtitle": "Sustain performance, resilience, capability growth, customer trust, and long-term viability through balanced decision-making and responsible stewardship.",
+    "loading": "Loading Sustainability Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Sustainability philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalRenewalLink": "Organizational Renewal →",
+    "organizationalFlourishingLink": "Organizational Flourishing →",
+    "organizationalResilienceLink": "Organizational Resilience →",
+    "dashboardTitle": "Sustainability dashboard",
+    "concernsTitle": "Sustainability engine",
+    "growthTitle": "Balanced growth engine",
+    "initiativesTitle": "Sustainability initiatives",
+    "reviewsTitle": "Sustainability reviews",
+    "timelineTitle": "Sustainability timeline",
+    "milestonesTitle": "Sustainability milestones",
+    "snapshotsTitle": "Sustainability snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive sustainability view",
+    "sessionsTitle": "Sustainability sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate sustainability report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export sustainability snapshot",
+    "coordinateReview": "Coordinate leadership review",
+    "archiveMilestone": "Archive sustainability milestone",
+    "humansDecide": "Aipify supports long-term stewardship — leaders retain judgment; sustainability means creating value that can be maintained over time.",
+    "privacyNote": "Privacy",
+    "sustainabilityScore": "Organizational sustainability score",
+    "sustainabilityTrend": "Sustainability trend",
+    "domains": {
+      "workforce": "Workforce sustainability",
+      "customer": "Customer sustainability",
+      "operational": "Operational sustainability",
+      "financial": "Financial sustainability",
+      "leadership": "Leadership sustainability",
+      "strategic": "Strategic sustainability"
+    },
+    "concernTypes": {
+      "overextension_risk": "Overextension risk",
+      "resource_imbalance": "Resource imbalance",
+      "recovery_limitation": "Recovery limitation",
+      "growth_sustainability": "Growth sustainability",
+      "long_term_opportunity": "Long-term opportunity"
+    },
+    "concernTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "growthTypes": {
+      "maintainable_growth": "Maintainable growth",
+      "resource_alignment": "Resource alignment",
+      "people_support": "People support",
+      "system_preparedness": "System preparedness",
+      "responsible_success": "Responsible success"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "thriving": "Thriving",
+      "healthy": "Healthy",
+      "stable": "Stable",
+      "attention_recommended": "Attention recommended",
+      "unsustainable_risk": "Unsustainable risk"
+    },
+    "timelineTypes": {
+      "resilience_milestone": "Resilience milestone",
+      "leadership_development": "Leadership development",
+      "operational_improvement": "Operational improvement",
+      "strategic_reassessment": "Strategic reassessment",
+      "sustainability_initiative": "Sustainability initiative"
+    },
+    "reviewTypes": {
+      "quarterly_sustainability": "Quarterly sustainability review",
+      "annual_viability": "Annual viability discussion",
+      "leadership_reflection": "Leadership reflection session",
+      "strategic_sustainability": "Strategic sustainability workshop"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "viability_discussion": "Viability discussion",
+      "sustainability_workshop": "Sustainability workshop"
+    },
+    "metrics": {
+      "workforce": "Workforce resilience",
+      "operational": "Operational maintainability",
+      "strategic": "Strategic consistency",
+      "leadership": "Leadership preparedness",
+      "financial": "Financial stability",
+      "resilience": "Resilience measures",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "viability": "Long-term viability indicators",
+      "leadership": "Leadership preparedness measures",
+      "resilience": "Organizational resilience trends",
+      "opportunities": "Sustainability opportunities"
+    },
+    "settingsLink": "Organisatorisk bærekraft",
+    "organizationalSustainabilityLink": "Organizational Sustainability"
   }
 }
