@@ -268,3 +268,4 @@ export * from "./aipify-knowledge-evolution-center-engine";
 export * from "./aipify-capability-maturity-center-engine";
 export * from "./aipify-execution-excellence-center-engine";
 export * from "./aipify-organizational-alignment-center-engine";
+export * from "./aipify-organizational-focus-center-engine";

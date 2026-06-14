@@ -1127,3 +1127,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Alignment Center Engine (Phase 320):** See [AIPIFY_ORGANIZATIONAL_ALIGNMENT_CENTER_ENGINE_PHASE320.md](./AIPIFY_ORGANIZATIONAL_ALIGNMENT_CENTER_ENGINE_PHASE320.md) — Alignment Center at Executive Center → Organizational Alignment. Vision, strategic, team, customer, and governance alignment with misalignment detection and executive alignment view. `/app/executive/organizational-alignment`, migration `20261424800000_aipify_organizational_alignment_center_engine_phase320.sql`. Helpers `_oac_*`, `_oacbp320_*`. APIs at `/api/organizational-alignment/*`. Cross-links executive centers — does not modify their RPCs.
+
+
+**Aipify Organizational Focus Center Engine (Phase 321):** See [AIPIFY_ORGANIZATIONAL_FOCUS_CENTER_ENGINE_PHASE321.md](./AIPIFY_ORGANIZATIONAL_FOCUS_CENTER_ENGINE_PHASE321.md) — Focus Center at Executive Center → Organizational Focus. Initiative concentration, focus overload detection, prioritization support, and executive focus view. `/app/executive/organizational-focus`, migration `20261424900000_aipify_organizational_focus_center_engine_phase321.sql`. Helpers `_ofc_*`, `_ofcbp321_*`. APIs at `/api/organizational-focus/*`. Cross-links executive centers — does not modify their RPCs.

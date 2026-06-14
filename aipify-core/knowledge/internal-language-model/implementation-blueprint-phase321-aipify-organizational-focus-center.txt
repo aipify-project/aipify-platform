@@ -1,0 +1,4 @@
+ABOS Phase 321 — Organizational Focus Center
+Route: /app/executive/organizational-focus
+Core: Organizations struggle because they pursue too many initiatives at the same time.
+Helpers: _ofc_* · _ofcbp321_*

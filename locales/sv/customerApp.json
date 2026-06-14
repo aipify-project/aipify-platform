@@ -61,7 +61,8 @@
     "organizationalDigitalTwinLink": "Organizational Digital Twin",
     "capabilityMaturityLink": "Capability Maturity",
     "executionExcellenceLink": "Execution Excellence",
-    "organizationalAlignmentLink": "Organizational Alignment"
+    "organizationalAlignmentLink": "Organizational Alignment",
+    "organizationalFocusLink": "Organizational Focus"
   },
   "presence": {
     "title": "Presence center",
@@ -6022,7 +6023,8 @@
     "knowledgeEvolutionCenterEngine": "Kunskapsevolution",
     "capabilityMaturityCenterEngine": "Kapabilitetsmognad",
     "executionExcellenceCenterEngine": "Genomföringsexcellence",
-    "organizationalAlignmentCenterEngine": "Organisationsalignment"
+    "organizationalAlignmentCenterEngine": "Organisationsalignment",
+    "organizationalFocusCenterEngine": "Organisationsfokus"
   },
   "identity": {
     "title": "Din identitet",
@@ -16684,5 +16686,93 @@
     },
     "settingsLink": "Organisationsalignment",
     "organizationalAlignmentLink": "Organizational Alignment"
+  },
+  "organizationalFocusCenter": {
+    "title": "Fokuscenter",
+    "subtitle": "Protect attention, prioritize effectively, reduce initiative overload, and maintain focus on activities that generate the greatest long-term value.",
+    "loading": "Loading Focus Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Focus philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalAlignmentLink": "Organizational Alignment →",
+    "executionExcellenceLink": "Execution Excellence →",
+    "organizationalHealthLink": "Organizational Health →",
+    "attentionGuardianLink": "Attention Guardian →",
+    "dashboardTitle": "Focus dashboard",
+    "initiativesTitle": "Active strategic initiatives",
+    "priorityDistributionTitle": "Priority distribution",
+    "overloadsTitle": "Focus risks identified",
+    "prioritizationTitle": "Prioritization support",
+    "timelineTitle": "Focus timeline",
+    "snapshotsTitle": "Initiative snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive focus view",
+    "reviewsTitle": "Focus reviews",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "discussOverload": "Mark for discussion",
+    "scheduleWorkshop": "Schedule prioritization workshop",
+    "generateSummary": "Generate focus summary",
+    "generateReport": "Generate executive report",
+    "exportSnapshot": "Export initiative snapshot",
+    "humansDecide": "Aipify supports clarity and prioritization — leadership owns decisions and focus.",
+    "privacyNote": "Privacy",
+    "owner": "Owner",
+    "focusScore": "Focus score",
+    "domains": {
+      "strategic": "Strategic focus",
+      "operational": "Operational focus",
+      "team": "Team focus",
+      "customer": "Customer focus",
+      "leadership": "Leadership focus"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "stable": "Stable",
+      "attention_required": "Attention required",
+      "fragmented": "Fragmented"
+    },
+    "overloadTypes": {
+      "excessive_initiatives": "Excessive concurrent initiatives",
+      "competing_priorities": "Competing priorities",
+      "resource_fragmentation": "Resource fragmentation",
+      "meeting_overload": "Meeting overload",
+      "review_fatigue": "Review fatigue"
+    },
+    "timelineTypes": {
+      "priority_shift": "Priority shift",
+      "initiative_added": "Initiative added",
+      "initiative_completed": "Initiative completed",
+      "focus_improvement": "Focus improvement",
+      "executive_intervention": "Executive intervention"
+    },
+    "reviewTypes": {
+      "weekly": "Weekly leadership review",
+      "monthly": "Monthly focus assessment",
+      "quarterly": "Quarterly strategic review",
+      "annual": "Annual reflection session"
+    },
+    "metrics": {
+      "activeInitiatives": "Active initiatives",
+      "strongFocus": "Strong focus areas",
+      "focusRisks": "Focus risks",
+      "concentration": "Initiative concentration",
+      "priorityClarity": "Priority clarity",
+      "reviewDiscipline": "Review discipline",
+      "confidence": "Leadership confidence"
+    },
+    "executiveFields": {
+      "attention": "Leadership attention trends",
+      "concentration": "Strategic concentration",
+      "overload": "Initiative overload risks",
+      "alignment": "Priority alignment"
+    },
+    "settingsLink": "Organisationsfokus",
+    "organizationalFocusLink": "Organizational Focus"
   }
 }
