@@ -68,7 +68,8 @@
     "organizationalWisdomLink": "Organizational Wisdom",
     "organizationalLegacyLink": "Organizational Legacy",
     "organizationalPurposeLink": "Organizational Purpose",
-    "organizationalStewardshipLink": "Organizational Stewardship"
+    "organizationalStewardshipLink": "Organizational Stewardship",
+    "organizationalSimplicityLink": "Organizational Simplicity"
   },
   "presence": {
     "title": "Presence center",
@@ -6036,7 +6037,8 @@
     "organizationalWisdomCenterEngine": "Organisationsvisdom",
     "organizationalLegacyCenterEngine": "Organisationsarv",
     "organizationalPurposeCenterEngine": "Organisationsändamål",
-    "organizationalStewardshipCenterEngine": "Organisationsförvaltning"
+    "organizationalStewardshipCenterEngine": "Organisationsförvaltning",
+    "organizationalSimplicityCenterEngine": "Organisationsenkelhet"
   },
   "identity": {
     "title": "Din identitet",
@@ -17308,5 +17310,107 @@
     },
     "settingsLink": "Organisationsförvaltning",
     "organizationalStewardshipLink": "Organizational Stewardship"
+  },
+  "organizationalSimplicityCenter": {
+    "title": "Organisationsenkelhet",
+    "subtitle": "Identify unnecessary complexity and help leaders simplify systems, processes, communications, governance structures, and experiences without sacrificing effectiveness.",
+    "loading": "Loading Simplicity Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Simplicity philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalFocusLink": "Organizational Focus →",
+    "organizationalAlignmentLink": "Organizational Alignment →",
+    "executionExcellenceLink": "Execution Excellence →",
+    "continuousImprovementLink": "Continuous Improvement →",
+    "dashboardTitle": "Simplicity dashboard",
+    "complexityTitle": "Complexity detection",
+    "opportunitiesTitle": "Simplification opportunities",
+    "reviewsTitle": "Simplicity reviews",
+    "timelineTitle": "Simplicity timeline",
+    "milestonesTitle": "Simplification milestones",
+    "snapshotsTitle": "Complexity snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive simplicity view",
+    "sessionsTitle": "Simplicity sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReview": "Schedule workflow review",
+    "generateReport": "Generate simplification report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export complexity snapshot",
+    "coordinateDiscussion": "Coordinate cross-functional discussion",
+    "archiveMilestone": "Archive simplification milestone",
+    "humansDecide": "Aipify supports clarity and simplification — leadership owns judgment and necessary controls.",
+    "privacyNote": "Privacy",
+    "simplicityScore": "Simplicity score",
+    "domains": {
+      "process": "Process simplicity",
+      "communication": "Communication simplicity",
+      "technology": "Technology simplicity",
+      "governance": "Governance simplicity",
+      "customer": "Customer simplicity",
+      "leadership": "Leadership simplicity"
+    },
+    "detectionTypes": {
+      "duplicate_process": "Duplicate process",
+      "unnecessary_approval": "Unnecessary approval",
+      "excessive_handoff": "Excessive handoff",
+      "documentation_overload": "Documentation overload",
+      "tool_fragmentation": "Tool fragmentation",
+      "initiative_congestion": "Initiative congestion"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "simple": "Simple",
+      "manageable": "Manageable",
+      "complex": "Complex",
+      "overcomplicated": "Overcomplicated"
+    },
+    "timelineTypes": {
+      "process_improvement": "Process improvement",
+      "approval_reduction": "Approval reduction",
+      "tool_consolidation": "Tool consolidation",
+      "communication_enhancement": "Communication enhancement",
+      "strategic_simplification": "Strategic simplification"
+    },
+    "reviewTypes": {
+      "quarterly_simplicity": "Quarterly simplicity review",
+      "executive_clarity": "Executive clarity session",
+      "workflow_optimization": "Workflow optimization workshop",
+      "annual_simplification": "Annual simplification initiative"
+    },
+    "sessionTypes": {
+      "workflow_review": "Workflow review",
+      "cross_functional_discussion": "Cross-functional discussion",
+      "executive_clarity": "Executive clarity session"
+    },
+    "severityLabels": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "metrics": {
+      "complexity": "Complexity indicators",
+      "opportunities": "Simplification opportunities",
+      "momentum": "Improvement momentum",
+      "workflow": "Workflow efficiency",
+      "clarity": "Organizational clarity",
+      "focus": "Executive focus",
+      "approvals": "Avg. approval layers",
+      "confidence": "Leadership confidence"
+    },
+    "executiveFields": {
+      "complexity": "Complexity trends",
+      "focus": "Executive focus",
+      "governance": "Governance efficiency",
+      "opportunities": "Simplification opportunities"
+    },
+    "settingsLink": "Organisationsenkelhet",
+    "organizationalSimplicityLink": "Organizational Simplicity"
   }
 }

@@ -1,0 +1,4 @@
+ABOS Phase 328 — Organizational Simplicity Center
+Route: /app/executive/organizational-simplicity
+Core: Complexity increases naturally — simplicity must be designed intentionally.
+Helpers: _osim_* · _osimbp328_*
