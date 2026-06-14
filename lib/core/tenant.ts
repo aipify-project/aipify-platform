@@ -289,3 +289,4 @@ export * from "./aipify-organizational-flourishing-center-engine";
 export * from "./aipify-organizational-renewal-center-engine";
 export * from "./aipify-organizational-sustainability-center-engine";
 export * from "./aipify-organizational-transformation-center-engine";
+export * from "./aipify-organizational-compounding-center-engine";

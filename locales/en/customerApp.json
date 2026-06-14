@@ -82,7 +82,8 @@
     "organizationalFlourishingLink": "Organizational Flourishing",
     "organizationalRenewalLink": "Organizational Renewal",
     "organizationalSustainabilityLink": "Organizational Sustainability",
-    "organizationalTransformationLink": "Organizational Transformation"
+    "organizationalTransformationLink": "Organizational Transformation",
+    "organizationalCompoundingLink": "Organizational Compounding"
   },
   "presence": {
     "title": "Presence center",
@@ -7186,7 +7187,8 @@
     "organizationalFlourishingCenterEngine": "Organizational Flourishing",
     "organizationalRenewalCenterEngine": "Organizational Renewal",
     "organizationalSustainabilityCenterEngine": "Organizational Sustainability",
-    "organizationalTransformationCenterEngine": "Organizational Transformation"
+    "organizationalTransformationCenterEngine": "Organizational Transformation",
+    "organizationalCompoundingCenterEngine": "Organizational Compounding"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -19334,5 +19336,118 @@
     },
     "settingsLink": "Organizational Transformation",
     "organizationalTransformationLink": "Organizational Transformation"
+  },
+  "organizationalCompoundingCenter": {
+    "title": "Organizational Compounding",
+    "subtitle": "Recognize, accelerate, and benefit from the compounding effects of small improvements, disciplined execution, learning, trust, and strategic consistency over time.",
+    "loading": "Loading Compounding Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Compounding philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalTransformationLink": "Organizational Transformation →",
+    "dashboardTitle": "Compounding dashboard",
+    "signalsTitle": "Compounding engine",
+    "leverageTitle": "High-leverage activity engine",
+    "initiativesTitle": "Improvement initiatives",
+    "reviewsTitle": "Compounding reviews",
+    "timelineTitle": "Compounding timeline",
+    "milestonesTitle": "Compounding milestones",
+    "snapshotsTitle": "Progress snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive compounding view",
+    "sessionsTitle": "Compounding sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate compounding report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export progress snapshot",
+    "coordinateReview": "Coordinate leadership review",
+    "archiveMilestone": "Archive compounding milestone",
+    "humansDecide": "Aipify supports patient leadership — leaders retain judgment; compounding rewards consistency and perseverance, never instant gratification.",
+    "privacyNote": "Privacy",
+    "compoundingScore": "Organizational compounding score",
+    "positiveMomentum": "Positive momentum",
+    "domains": {
+      "learning": "Learning compounding",
+      "trust": "Trust compounding",
+      "execution": "Execution compounding",
+      "leadership": "Leadership compounding",
+      "customer": "Customer compounding",
+      "organizational": "Organizational compounding"
+    },
+    "signalTypes": {
+      "repeated_positive_behavior": "Repeated positive behavior",
+      "improvement_trajectory": "Improvement trajectory",
+      "sustainable_progress": "Sustainable progress",
+      "high_leverage_activity": "High-leverage activity",
+      "long_term_value": "Long-term value"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "leverageTypes": {
+      "disproportionate_value": "Disproportionate value",
+      "resilience_habit": "Resilience habit",
+      "continuing_benefit": "Continuing benefit",
+      "relationship_investment": "Relationship investment",
+      "practice_reinforcement": "Practice reinforcement"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "interrupted": "Interrupted"
+    },
+    "timelineTypes": {
+      "improvement_milestone": "Improvement milestone",
+      "trust_development": "Trust development",
+      "learning_integration": "Learning integration",
+      "capability_breakthrough": "Capability breakthrough",
+      "strategic_achievement": "Strategic achievement"
+    },
+    "reviewTypes": {
+      "quarterly_compounding": "Quarterly compounding review",
+      "annual_reflection": "Annual reflection session",
+      "leadership_discussion": "Leadership discussion",
+      "long_term_planning": "Long-term planning workshop"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "leadership_review": "Leadership review",
+      "planning_workshop": "Planning workshop"
+    },
+    "metrics": {
+      "consistency": "Consistency of execution",
+      "learning": "Learning integration",
+      "leadership": "Leadership participation",
+      "relationships": "Relationship stability",
+      "sustainability": "Improvement sustainability",
+      "improvement": "Long-term improvement",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "value": "Long-term value indicators",
+      "consistency": "Leadership consistency measures",
+      "growth": "Organizational growth trends",
+      "patience": "Strategic patience opportunities"
+    },
+    "settingsLink": "Organizational Compounding",
+    "organizationalCompoundingLink": "Organizational Compounding"
   }
 }
