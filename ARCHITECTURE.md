@@ -1160,3 +1160,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Futures Center Engine (Phase 331):** See [AIPIFY_ORGANIZATIONAL_FUTURES_CENTER_ENGINE_PHASE331.md](./AIPIFY_ORGANIZATIONAL_FUTURES_CENTER_ENGINE_PHASE331.md) — Futures Center at Executive Center → Organizational Futures. Scenario exploration, signal detection, readiness engine, and executive futures view. `/app/executive/organizational-futures`, migration `20261425900000_aipify_organizational_futures_center_engine_phase331.sql`. Helpers `_ofc_*`, `_ofcbp331_*`. APIs at `/api/organizational-futures/*`. Cross-links momentum, trust, stewardship, simplicity, and purpose centers.
+
+
+**Aipify Organizational Coherence Center Engine (Phase 332):** See [AIPIFY_ORGANIZATIONAL_COHERENCE_CENTER_ENGINE_PHASE332.md](./AIPIFY_ORGANIZATIONAL_COHERENCE_CENTER_ENGINE_PHASE332.md) — Coherence Center at Executive Center → Organizational Coherence. Fragmentation detection, alignment indicators, reviews, and executive coherence view. `/app/executive/organizational-coherence`, migration `20261426000000_aipify_organizational_coherence_center_engine_phase332.sql`. Helpers `_occ_*`, `_occbp332_*`. APIs at `/api/organizational-coherence/*`. Cross-links futures, momentum, trust, purpose, and stewardship centers.

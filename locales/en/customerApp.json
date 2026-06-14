@@ -72,7 +72,8 @@
     "organizationalSimplicityLink": "Organizational Simplicity",
     "organizationalTrustLink": "Organizational Trust",
     "organizationalMomentumLink": "Organizational Momentum",
-    "organizationalFuturesLink": "Organizational Futures"
+    "organizationalFuturesLink": "Organizational Futures",
+    "organizationalCoherenceLink": "Organizational Coherence"
   },
   "presence": {
     "title": "Presence center",
@@ -7166,7 +7167,8 @@
     "organizationalSimplicityCenterEngine": "Organizational Simplicity",
     "organizationalTrustCenterEngine": "Organizational Trust",
     "organizationalMomentumCenterEngine": "Organizational Momentum",
-    "organizationalFuturesCenterEngine": "Organizational Futures"
+    "organizationalFuturesCenterEngine": "Organizational Futures",
+    "organizationalCoherenceCenterEngine": "Organizational Coherence"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -18159,5 +18161,117 @@
     },
     "settingsLink": "Organizational Futures",
     "organizationalFuturesLink": "Organizational Futures"
+  },
+  "organizationalCoherenceCenter": {
+    "title": "Organizational Coherence",
+    "subtitle": "Maintain coherence between vision, values, strategy, culture, governance, execution, and everyday behaviors as the organization grows and evolves.",
+    "loading": "Loading Coherence Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Coherence philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalFuturesLink": "Organizational Futures →",
+    "organizationalMomentumLink": "Organizational Momentum →",
+    "organizationalTrustLink": "Organizational Trust →",
+    "organizationalPurposeLink": "Organizational Purpose →",
+    "organizationalStewardshipLink": "Organizational Stewardship →",
+    "dashboardTitle": "Coherence dashboard",
+    "fragmentationTitle": "Fragmentation detection",
+    "alignmentTitle": "Alignment indicators",
+    "reviewsTitle": "Coherence reviews",
+    "timelineTitle": "Coherence timeline",
+    "milestonesTitle": "Coherence milestones",
+    "snapshotsTitle": "Coherence snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive coherence view",
+    "sessionsTitle": "Coherence sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleWorkshop": "Schedule leadership workshop",
+    "addressSignal": "Mark signal addressed",
+    "generateReport": "Generate coherence report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export coherence snapshot",
+    "coordinateDiscussion": "Coordinate cross-functional discussion",
+    "archiveMilestone": "Archive coherence milestone",
+    "humansDecide": "Aipify supports alignment awareness — leadership owns coherence, integrity, and authentic organizational evolution.",
+    "privacyNote": "Privacy",
+    "coherenceScore": "Organizational coherence score",
+    "domains": {
+      "vision": "Vision coherence",
+      "values": "Values coherence",
+      "execution": "Execution coherence",
+      "governance": "Governance coherence",
+      "customer": "Customer coherence",
+      "leadership": "Leadership coherence"
+    },
+    "signalTypes": {
+      "conflicting_priorities": "Conflicting priorities",
+      "mixed_leadership_signals": "Mixed leadership signals",
+      "competing_initiatives": "Competing initiatives",
+      "policy_inconsistencies": "Policy inconsistencies",
+      "customer_promise_gaps": "Customer promise gaps"
+    },
+    "signalTones": {
+      "positive": "Positive signal",
+      "neutral": "Neutral signal",
+      "attention": "Needs attention"
+    },
+    "signalStatuses": {
+      "open": "Open",
+      "addressed": "Addressed"
+    },
+    "alignmentStatuses": {
+      "aligned": "Aligned",
+      "developing": "Developing",
+      "review": "Under review"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "stable": "Stable",
+      "developing": "Developing",
+      "fragmented": "Fragmented"
+    },
+    "timelineTypes": {
+      "strategic_transition": "Strategic transition",
+      "cultural_milestone": "Cultural milestone",
+      "governance_improvement": "Governance improvement",
+      "leadership_reflection": "Leadership reflection",
+      "alignment_achievement": "Alignment achievement"
+    },
+    "reviewTypes": {
+      "quarterly_coherence": "Quarterly coherence review",
+      "executive_reflection": "Executive reflection session",
+      "strategic_alignment": "Strategic alignment discussion",
+      "annual_assessment": "Annual organizational assessment"
+    },
+    "sessionTypes": {
+      "leadership_workshop": "Leadership workshop",
+      "executive_reflection": "Executive reflection",
+      "cross_functional_discussion": "Cross-functional discussion"
+    },
+    "metrics": {
+      "consistency": "Strategic consistency",
+      "alignment": "Alignment trend",
+      "vision": "Vision alignment",
+      "values": "Values consistency",
+      "governance": "Governance integrity",
+      "initiatives": "Initiative coordination",
+      "fragmentation": "Fragmentation risks",
+      "confidence": "Leadership confidence"
+    },
+    "executiveFields": {
+      "leadership": "Leadership alignment",
+      "consistency": "Strategic consistency",
+      "integrity": "Organizational integrity",
+      "opportunities": "Coherence opportunities"
+    },
+    "settingsLink": "Organizational Coherence",
+    "organizationalCoherenceLink": "Organizational Coherence"
   }
 }

@@ -1,0 +1,4 @@
+ABOS Phase 332 — Organizational Coherence Center
+Route: /app/executive/organizational-coherence
+Core: Growth often increases complexity — complexity often creates fragmentation.
+Helpers: _occ_* · _occbp332_*
