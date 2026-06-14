@@ -1166,3 +1166,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Continuity Center Engine (Phase 333):** See [AIPIFY_ORGANIZATIONAL_CONTINUITY_CENTER_ENGINE_PHASE333.md](./AIPIFY_ORGANIZATIONAL_CONTINUITY_CENTER_ENGINE_PHASE333.md) — Continuity Center at Executive Center → Organizational Continuity. Key person dependency detection, succession support, reviews, and executive continuity view. `/app/executive/organizational-continuity`, migration `20261426100000_aipify_organizational_continuity_center_engine_phase333.sql`. Helpers `_ocnc_*`, `_ocncbp333_*`. APIs at `/api/organizational-continuity/*`. Cross-links coherence, futures, momentum, trust, and legacy centers.
+
+
+**Aipify Organizational Excellence Center Engine (Phase 334):** See [AIPIFY_ORGANIZATIONAL_EXCELLENCE_CENTER_ENGINE_PHASE334.md](./AIPIFY_ORGANIZATIONAL_EXCELLENCE_CENTER_ENGINE_PHASE334.md) — Excellence Center at Executive Center → Organizational Excellence. Excellence dashboard, best practice engine, reviews, timeline, and executive excellence view. `/app/executive/organizational-excellence`, migration `20261426200000_aipify_organizational_excellence_center_engine_phase334.sql`. Helpers `_oexc_*`, `_oexcbp334_*`. APIs at `/api/organizational-excellence/*`. Cross-links continuity, coherence, momentum, trust, and continuous improvement centers.

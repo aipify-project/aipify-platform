@@ -1,0 +1,4 @@
+ABOS Phase 334 — Organizational Excellence Center
+Route: /app/executive/organizational-excellence
+Core: Excellence is not an event — it is the result of thousands of intentional decisions made consistently over time.
+Helpers: _oexc_* · _oexcbp334_*
