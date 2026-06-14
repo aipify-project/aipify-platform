@@ -18,17 +18,16 @@ type PanelLabels = {
   philosophyTitle: string;
   visionTitle: string;
   executiveLink: string;
+  organizationalIdentityLink: string;
+  organizationalStewardshipLink: string;
   organizationalWisdomLink: string;
-  organizationalMemoryLink: string;
-  organizationalLearningLink: string;
-  purposeValuesLink: string;
   dashboardTitle: string;
-  projectsTitle: string;
-  milestonesTitle: string;
-  valuesTitle: string;
-  archiveTitle: string;
-  reflectionsTitle: string;
+  signalsTitle: string;
+  legacyQuestionsTitle: string;
+  initiativesTitle: string;
+  reviewsTitle: string;
   timelineTitle: string;
+  milestonesTitle: string;
   snapshotsTitle: string;
   insightsTitle: string;
   recommendationsTitle: string;
@@ -37,22 +36,37 @@ type PanelLabels = {
   emptySection: string;
   dismiss: string;
   accept: string;
+  completeReview: string;
   completeSession: string;
-  scheduleSession: string;
+  scheduleReflection: string;
+  completeInitiative: string;
   generateReport: string;
-  printTimeline: string;
-  exportReflection: string;
-  archiveRecord: string;
-  createCollection: string;
+  printSummary: string;
+  exportSnapshot: string;
+  coordinateDiscussion: string;
+  archiveMilestone: string;
+  archiveMilestoneDefaultTitle: string;
+  archiveMilestoneDefaultSummary: string;
   humansDecide: string;
   privacyNote: string;
   legacyScore: string;
+  positiveImpact: string;
   domains: Record<string, string>;
+  signalTypes: Record<string, string>;
+  signalTones: Record<string, string>;
+  legacyQuestionTypes: Record<string, string>;
+  initiativeStatuses: Record<string, string>;
   healthLabels: Record<string, string>;
   timelineTypes: Record<string, string>;
+  reviewTypes: Record<string, string>;
   sessionTypes: Record<string, string>;
   metrics: Record<string, string>;
-  executiveFields: Record<string, string>;
+  executiveFields: {
+    stewardshipIndicators: string;
+    leadershipContinuity: string;
+    knowledgePreservation: string;
+    contributionOpportunities: string;
+  };
 };
 
 type Props = { labels: PanelLabels };
@@ -60,9 +74,17 @@ type Props = { labels: PanelLabels };
 const HEALTH_STYLES: Record<string, string> = {
   exceptional: "border-emerald-200 bg-emerald-50",
   strong: "border-teal-200 bg-teal-50",
-  maturing: "border-slate-200 bg-slate-50",
+  healthy: "border-slate-200 bg-slate-50",
   developing: "border-amber-200 bg-amber-50",
+  legacy_reinforcement_recommended: "border-rose-200 bg-rose-50",
+  maturing: "border-slate-200 bg-slate-50",
   emerging: "border-rose-200 bg-rose-50",
+};
+
+const TONE_STYLES: Record<string, string> = {
+  positive: "border-emerald-100 bg-emerald-50/30",
+  neutral: "border-slate-100 bg-slate-50/30",
+  attention: "border-amber-100 bg-amber-50/30",
 };
 
 export function OrganizationalLegacyCenterPanel({ labels }: Props) {
@@ -92,24 +114,45 @@ export function OrganizationalLegacyCenterPanel({ labels }: Props) {
   if (loading) return <p className="p-6 text-sm text-gray-500">{labels.loading}</p>;
 
   const dash = center?.dashboard;
-  const healthStyle = HEALTH_STYLES[dash?.legacy_health_label ?? "maturing"] ?? HEALTH_STYLES.maturing;
+  const healthStyle = HEALTH_STYLES[dash?.legacy_health_label ?? "healthy"] ?? HEALTH_STYLES.healthy;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
       <div className="flex flex-wrap gap-3 text-sm">
-        {center?.links?.executive && <Link href={center.links.executive} className="text-slate-600 hover:underline">{labels.executiveLink}</Link>}
-        {center?.links?.organizational_wisdom && <Link href={center.links.organizational_wisdom} className="text-slate-600 hover:underline">{labels.organizationalWisdomLink}</Link>}
-        {center?.links?.organizational_memory && <Link href={center.links.organizational_memory} className="text-slate-600 hover:underline">{labels.organizationalMemoryLink}</Link>}
-        {center?.links?.organizational_learning && <Link href={center.links.organizational_learning} className="text-slate-600 hover:underline">{labels.organizationalLearningLink}</Link>}
-        {center?.links?.purpose_values && <Link href={center.links.purpose_values} className="text-slate-600 hover:underline">{labels.purposeValuesLink}</Link>}
+        {center?.links?.executive && (
+          <Link href={center.links.executive} className="text-slate-600 hover:underline">
+            {labels.executiveLink}
+          </Link>
+        )}
+        {center?.links?.organizational_identity && (
+          <Link href={center.links.organizational_identity} className="text-slate-600 hover:underline">
+            {labels.organizationalIdentityLink}
+          </Link>
+        )}
+        {center?.links?.organizational_stewardship && (
+          <Link href={center.links.organizational_stewardship} className="text-slate-600 hover:underline">
+            {labels.organizationalStewardshipLink}
+          </Link>
+        )}
+        {center?.links?.organizational_wisdom && (
+          <Link href={center.links.organizational_wisdom} className="text-slate-600 hover:underline">
+            {labels.organizationalWisdomLink}
+          </Link>
+        )}
       </div>
 
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
         <p className="mt-2 text-gray-600">{labels.subtitle}</p>
-        <p className="mt-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900">{labels.corePrinciple}: {OLC_CORE_PRINCIPLE}</p>
-        <p className="mt-2 text-sm text-gray-600">{labels.philosophyTitle}: {OLC_PHILOSOPHY}</p>
-        <p className="mt-1 text-sm text-gray-600">{labels.visionTitle}: {OLC_VISION}</p>
+        <p className="mt-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900">
+          {labels.corePrinciple}: {OLC_CORE_PRINCIPLE}
+        </p>
+        <p className="mt-2 text-sm text-gray-600">
+          {labels.philosophyTitle}: {OLC_PHILOSOPHY}
+        </p>
+        <p className="mt-1 text-sm text-gray-600">
+          {labels.visionTitle}: {OLC_VISION}
+        </p>
         <p className="mt-3 text-sm font-medium text-indigo-900">{labels.humansDecide}</p>
       </div>
 
@@ -117,78 +160,85 @@ export function OrganizationalLegacyCenterPanel({ labels }: Props) {
         <section className={`rounded-2xl border p-5 shadow-sm ${healthStyle}`}>
           <h2 className="text-lg font-semibold text-gray-900">{labels.dashboardTitle}</h2>
           <p className="mt-1 text-sm text-gray-600">
-            {labels.healthLabels[dash.legacy_health_label] ?? dash.legacy_health_label} · {labels.legacyScore}: {dash.legacy_score}/100
+            {labels.healthLabels[dash.legacy_health_label] ?? dash.legacy_health_label} · {labels.legacyScore}:{" "}
+            {dash.legacy_score}/100 · {labels.positiveImpact}: {dash.positive_impact_pct}%
           </p>
           <dl className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <Metric label={labels.metrics.projects} value={dash.projects_in_progress} />
-            <Metric label={labels.metrics.milestones} value={dash.milestones_documented} />
-            <Metric label={labels.metrics.values} value={dash.values_preserved} />
-            <Metric label={labels.metrics.archives} value={dash.archives_maintained} />
-            <Metric label={labels.metrics.reflection} value={`${dash.reflection_participation_pct}%`} />
-            <Metric label={labels.metrics.continuity} value={`${dash.institutional_continuity_pct}%`} />
-            <Metric label={labels.metrics.awareness} value={`${dash.values_awareness_pct}%`} />
-            <Metric label={labels.metrics.confidence} value={`${dash.leadership_confidence}/5`} />
+            <Metric label={labels.metrics.stewardshipQuality} value={`${dash.stewardship_quality_pct}%`} />
+            <Metric label={labels.metrics.knowledgePreservation} value={`${dash.knowledge_preservation_pct}%`} />
+            <Metric label={labels.metrics.leadershipSuccession} value={`${dash.leadership_succession_pct}%`} />
+            <Metric label={labels.metrics.customerTrust} value={`${dash.customer_trust_pct}%`} />
+            <Metric label={labels.metrics.culturalResilience} value={`${dash.cultural_resilience_pct}%`} />
+            <Metric label={labels.metrics.valuesConsistency} value={`${dash.values_consistency_pct}%`} />
+            <Metric label={labels.metrics.initiatives} value={dash.initiatives_in_progress} />
+            <Metric label={labels.metrics.reviews} value={dash.reviews_completed} />
           </dl>
           {center?.can_manage && (
             <div className="mt-4 flex flex-wrap gap-2">
               <ActionBtn label={labels.generateReport} onClick={() => void postAction({ action: "generate_legacy_report" })} />
-              <ActionBtn label={labels.printTimeline} variant="muted" onClick={() => void postAction({ action: "print_organizational_timeline" })} />
-              <ActionBtn label={labels.exportReflection} variant="muted" onClick={() => void postAction({ action: "export_reflection_summary", period_label: "Current period" })} />
-              <ActionBtn label={labels.createCollection} variant="muted" onClick={() => void postAction({ action: "create_milestone_collection" })} />
+              <ActionBtn label={labels.printSummary} variant="muted" onClick={() => void postAction({ action: "print_executive_summary" })} />
+              <ActionBtn
+                label={labels.exportSnapshot}
+                variant="muted"
+                onClick={() => void postAction({ action: "export_legacy_snapshot", period_label: "Current quarter" })}
+              />
+              <ActionBtn label={labels.coordinateDiscussion} variant="muted" onClick={() => void postAction({ action: "coordinate_leadership_discussion" })} />
             </div>
           )}
         </section>
       )}
 
-      <Section title={labels.projectsTitle} empty={center?.legacy_projects.length === 0} emptyLabel={labels.emptySection}>
-        {center?.legacy_projects.map((proj) => (
-          <li key={proj.project_key} className="rounded-xl border border-gray-100 p-4 text-sm">
-            <p className="text-xs text-gray-500">{labels.domains[proj.domain] ?? proj.domain}</p>
-            <p className="mt-1 font-medium text-gray-900">{proj.title}</p>
-            <p className="mt-2 text-gray-700">{proj.summary}</p>
+      <Section title={labels.signalsTitle} empty={center?.legacy_signals.length === 0} emptyLabel={labels.emptySection}>
+        {center?.legacy_signals.map((sig) => (
+          <li key={sig.signal_key} className={`rounded-xl border p-4 text-sm ${TONE_STYLES[sig.signal_tone] ?? TONE_STYLES.neutral}`}>
+            <p className="text-xs text-gray-500">
+              {labels.domains[sig.domain] ?? sig.domain} · {labels.signalTypes[sig.signal_type] ?? sig.signal_type}
+            </p>
+            <p className="mt-1 font-medium text-gray-900">{sig.title}</p>
+            <p className="mt-2 text-gray-700">{sig.summary}</p>
           </li>
         ))}
       </Section>
 
-      <Section title={labels.milestonesTitle} empty={center?.milestones.length === 0} emptyLabel={labels.emptySection}>
-        {center?.milestones.map((ms) => (
-          <li key={ms.milestone_key} className="rounded-xl border border-gray-100 p-4 text-sm">
-            <p className="text-xs text-gray-500">{labels.domains[ms.domain] ?? ms.domain}</p>
-            <p className="mt-1 font-medium text-gray-900">{ms.title}</p>
-            <p className="mt-2 text-gray-700">{ms.summary}</p>
+      <Section title={labels.legacyQuestionsTitle} empty={center?.legacy_questions.length === 0} emptyLabel={labels.emptySection}>
+        {center?.legacy_questions.map((que) => (
+          <li key={que.question_key} className="rounded-xl border border-indigo-100 bg-indigo-50/20 p-4 text-sm">
+            <p className="text-xs text-gray-500">{labels.legacyQuestionTypes[que.question_type] ?? que.question_type}</p>
+            <p className="mt-1 font-medium text-gray-900">{que.title}</p>
+            <p className="mt-2 text-gray-700">{que.summary}</p>
           </li>
         ))}
       </Section>
 
-      <Section title={labels.valuesTitle} empty={center?.values_preserved.length === 0} emptyLabel={labels.emptySection}>
-        {center?.values_preserved.map((val) => (
-          <li key={val.value_key} className="rounded-xl border border-emerald-100 bg-emerald-50/20 p-3 text-sm">
-            <p className="font-medium text-gray-900">{val.label}</p>
-            <p className="mt-1 text-gray-700">{val.principle}</p>
+      <Section title={labels.initiativesTitle} empty={center?.legacy_initiatives.length === 0} emptyLabel={labels.emptySection}>
+        {center?.legacy_initiatives.map((ini) => (
+          <li key={ini.initiative_key} className="rounded-xl border border-gray-100 p-4 text-sm">
+            <div className="flex flex-wrap items-start justify-between gap-2">
+              <p className="text-xs text-gray-500">{labels.domains[ini.domain] ?? ini.domain}</p>
+              <span className="text-xs font-medium text-indigo-700">{labels.initiativeStatuses[ini.status] ?? ini.status}</span>
+            </div>
+            <p className="mt-1 font-medium text-gray-900">{ini.title}</p>
+            <p className="mt-2 text-gray-700">{ini.summary}</p>
+            {ini.status !== "completed" && center?.can_manage && (
+              <div className="mt-3">
+                <ActionBtn label={labels.completeInitiative} onClick={() => void postAction({ action: "complete_initiative", initiative_key: ini.initiative_key })} />
+              </div>
+            )}
           </li>
         ))}
       </Section>
 
-      <Section title={labels.archiveTitle} empty={center?.legacy_archive.length === 0} emptyLabel={labels.emptySection}>
-        {center?.legacy_archive.map((arc) => (
-          <li key={arc.archive_key} className="rounded-xl border border-gray-100 p-3 text-sm">
-            <p className="text-xs text-gray-500">{arc.archive_type}</p>
-            <p className="mt-1 font-medium text-gray-900">{arc.title}</p>
-            <p className="mt-1 text-gray-700">{arc.summary}</p>
-          </li>
-        ))}
-        {center?.can_manage && (
-          <li className="pt-2">
-            <ActionBtn label={labels.archiveRecord} onClick={() => void postAction({ action: "archive_historical_record", title: "Historical record", summary: "Record archived via Legacy Center." })} />
-          </li>
-        )}
-      </Section>
-
-      <Section title={labels.reflectionsTitle} empty={center?.reflection_prompts.length === 0} emptyLabel={labels.emptySection}>
-        {center?.reflection_prompts.map((ref) => (
-          <li key={ref.reflection_key} className="rounded-xl border border-gray-100 p-3 text-sm">
-            <p className="text-xs text-gray-500">{labels.domains[ref.domain] ?? ref.domain}</p>
-            <p className="mt-1 text-gray-800">{ref.prompt}</p>
+      <Section title={labels.reviewsTitle} empty={center?.legacy_reviews.length === 0} emptyLabel={labels.emptySection}>
+        {center?.legacy_reviews.map((rev) => (
+          <li key={rev.review_key} className="rounded-xl border border-gray-100 p-4 text-sm">
+            <p className="text-xs text-gray-500">{labels.reviewTypes[rev.review_type] ?? rev.review_type}</p>
+            <p className="mt-1 text-gray-700">{rev.prompt}</p>
+            {rev.status !== "completed" && center?.can_manage && (
+              <div className="mt-3 flex flex-wrap gap-2">
+                <ActionBtn label={labels.completeReview} onClick={() => void postAction({ action: "complete_review", review_key: rev.review_key })} />
+                <ActionBtn label={labels.scheduleReflection} variant="muted" onClick={() => void postAction({ action: "schedule_reflection_session", review_key: rev.review_key })} />
+              </div>
+            )}
           </li>
         ))}
       </Section>
@@ -196,11 +246,37 @@ export function OrganizationalLegacyCenterPanel({ labels }: Props) {
       <Section title={labels.timelineTitle} empty={center?.timeline.length === 0} emptyLabel={labels.emptySection}>
         {center?.timeline.map((evt) => (
           <li key={evt.timeline_key} className="rounded-xl border border-gray-100 p-3 text-sm">
-            <p className="text-xs text-gray-500">{labels.timelineTypes[evt.event_type] ?? evt.event_type}</p>
+            <p className="text-xs text-gray-500">
+              {labels.timelineTypes[evt.event_type] ?? evt.event_type} · {labels.domains[evt.domain] ?? evt.domain}
+            </p>
             <p className="mt-1 font-medium text-gray-900">{evt.label}</p>
             {evt.summary && <p className="mt-1 text-gray-700">{evt.summary}</p>}
           </li>
         ))}
+      </Section>
+
+      <Section title={labels.milestonesTitle} empty={center?.legacy_milestones.length === 0} emptyLabel={labels.emptySection}>
+        {center?.legacy_milestones.map((ms) => (
+          <li key={ms.milestone_key} className="rounded-xl border border-gray-100 p-3 text-sm">
+            <p className="text-xs text-gray-500">{labels.domains[ms.domain] ?? ms.domain}</p>
+            <p className="mt-1 font-medium text-gray-900">{ms.title}</p>
+            <p className="mt-1 text-gray-700">{ms.summary}</p>
+          </li>
+        ))}
+        {center?.can_manage && (
+          <li className="pt-2">
+            <ActionBtn
+              label={labels.archiveMilestone}
+              onClick={() =>
+                void postAction({
+                  action: "archive_legacy_milestone",
+                  title: labels.archiveMilestoneDefaultTitle,
+                  summary: labels.archiveMilestoneDefaultSummary,
+                })
+              }
+            />
+          </li>
+        )}
       </Section>
 
       <Section title={labels.snapshotsTitle} empty={center?.snapshots.length === 0} emptyLabel={labels.emptySection}>
@@ -208,7 +284,9 @@ export function OrganizationalLegacyCenterPanel({ labels }: Props) {
           <li key={snap.snapshot_key} className="rounded-xl border border-gray-100 p-3 text-sm">
             <div className="flex flex-wrap items-start justify-between gap-2">
               <p className="font-medium text-gray-900">{snap.period_label}</p>
-              <span className="text-xs text-indigo-700">{labels.legacyScore}: {snap.legacy_score}</span>
+              <span className="text-xs text-indigo-700">
+                {labels.legacyScore}: {snap.legacy_score}
+              </span>
             </div>
             <p className="mt-1 text-gray-700">{snap.summary}</p>
           </li>
@@ -219,10 +297,10 @@ export function OrganizationalLegacyCenterPanel({ labels }: Props) {
         <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
           <h2 className="text-lg font-semibold text-gray-900">{labels.executiveTitle}</h2>
           <dl className="mt-4 space-y-3 text-sm">
-            <ExecField label={labels.executiveFields.milestones} value={center.executive_view.historical_milestones} />
-            <ExecField label={labels.executiveFields.continuity} value={center.executive_view.values_continuity} />
-            <ExecField label={labels.executiveFields.reflection} value={center.executive_view.reflection_trends} />
-            <ExecField label={labels.executiveFields.stewardship} value={center.executive_view.stewardship_opportunities} />
+            <ExecField label={labels.executiveFields.stewardshipIndicators} value={center.executive_view.stewardship_indicators} />
+            <ExecField label={labels.executiveFields.leadershipContinuity} value={center.executive_view.leadership_continuity} />
+            <ExecField label={labels.executiveFields.knowledgePreservation} value={center.executive_view.knowledge_preservation} />
+            <ExecField label={labels.executiveFields.contributionOpportunities} value={center.executive_view.contribution_opportunities} />
           </dl>
         </section>
       )}
@@ -238,14 +316,18 @@ export function OrganizationalLegacyCenterPanel({ labels }: Props) {
             {sess.status !== "completed" && center?.can_manage && (
               <div className="mt-3 flex flex-wrap gap-2">
                 <ActionBtn label={labels.completeSession} onClick={() => void postAction({ action: "complete_session", session_key: sess.session_key })} />
-                <ActionBtn label={labels.scheduleSession} variant="muted" onClick={() => void postAction({ action: "schedule_reflection_session", session_key: sess.session_key })} />
+                <ActionBtn label={labels.scheduleReflection} variant="muted" onClick={() => void postAction({ action: "schedule_reflection_session", session_key: sess.session_key })} />
               </div>
             )}
           </li>
         ))}
       </Section>
 
-      {center?.privacy_note && <p className="text-xs text-gray-500">{labels.privacyNote}: {center.privacy_note}</p>}
+      {center?.privacy_note && (
+        <p className="text-xs text-gray-500">
+          {labels.privacyNote}: {center.privacy_note}
+        </p>
+      )}
     </div>
   );
 }
@@ -267,7 +349,11 @@ function InsightSection({ title, items, canManage, dismissLabel, onDismiss }: { 
         {items.map((ins) => (
           <li key={ins.insight_key} className="rounded-xl border border-indigo-100 bg-indigo-50/30 p-3 text-sm">
             <p className="text-gray-800">{ins.message}</p>
-            {canManage && <button type="button" className="mt-2 text-xs text-slate-600 hover:underline" onClick={() => onDismiss(ins.insight_key)}>{dismissLabel}</button>}
+            {canManage && (
+              <button type="button" className="mt-2 text-xs text-slate-600 hover:underline" onClick={() => onDismiss(ins.insight_key)}>
+                {dismissLabel}
+              </button>
+            )}
           </li>
         ))}
       </ul>
@@ -315,8 +401,10 @@ function Metric({ label, value }: { label: string; value: string | number }) {
 }
 
 function ActionBtn({ label, onClick, variant = "primary", className = "" }: { label: string; onClick: () => void; variant?: "primary" | "muted"; className?: string }) {
-  const styles = variant === "primary"
-    ? "rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-700"
-    : "rounded-lg border border-gray-200 px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-50";
-  return <button type="button" className={`${styles} ${className}`} onClick={onClick}>{label}</button>;
+  const styles = variant === "primary" ? "rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-700" : "rounded-lg border border-gray-200 px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-50";
+  return (
+    <button type="button" className={`${styles} ${className}`} onClick={onClick}>
+      {label}
+    </button>
+  );
 }

@@ -1,38 +1,33 @@
-export type LegacyProject = {
-  project_key: string;
+export type LegacySignal = {
+  signal_key: string;
+  domain: string;
+  signal_type: string;
+  title: string;
+  summary: string;
+  signal_tone: string;
+};
+
+export type LegacyQuestion = {
+  question_key: string;
+  question_type: string;
+  title: string;
+  summary: string;
+};
+
+export type LegacyInitiative = {
+  initiative_key: string;
   domain: string;
   title: string;
   summary: string;
   status: string;
 };
 
-export type LegacyMilestone = {
-  milestone_key: string;
-  domain: string;
-  title: string;
-  summary: string;
-  documented_at: string | null;
-  status: string;
-};
-
-export type PreservedValue = {
-  value_key: string;
-  label: string;
-  principle: string;
-};
-
-export type ArchiveItem = {
-  archive_key: string;
-  archive_type: string;
-  title: string;
-  summary: string;
-  archived_at: string | null;
-};
-
-export type LegacyReflectionPrompt = {
-  reflection_key: string;
+export type LegacyReview = {
+  review_key: string;
+  review_type: string;
   prompt: string;
-  domain: string;
+  status: string;
+  completed_at: string | null;
 };
 
 export type LegacyTimelineEvent = {
@@ -42,6 +37,14 @@ export type LegacyTimelineEvent = {
   label: string;
   summary: string;
   recorded_at: string | null;
+};
+
+export type LegacyMilestone = {
+  milestone_key: string;
+  domain: string;
+  title: string;
+  summary: string;
+  archived_at: string | null;
 };
 
 export type LegacySnapshot = {
@@ -76,30 +79,31 @@ export type OrganizationalLegacyCenter = {
   dashboard: {
     legacy_score: number;
     legacy_health_label: string;
-    projects_in_progress: number;
-    milestones_documented: number;
-    values_preserved: number;
-    archives_maintained: number;
-    reflection_participation_pct: number;
-    institutional_continuity_pct: number;
-    values_awareness_pct: number;
-    leadership_confidence: number;
+    positive_impact_pct: number;
+    stewardship_quality_pct: number;
+    knowledge_preservation_pct: number;
+    leadership_succession_pct: number;
+    customer_trust_pct: number;
+    cultural_resilience_pct: number;
+    values_consistency_pct: number;
+    initiatives_in_progress: number;
+    reviews_completed: number;
   } | null;
-  legacy_projects: LegacyProject[];
-  milestones: LegacyMilestone[];
-  values_preserved: PreservedValue[];
-  legacy_archive: ArchiveItem[];
-  reflection_prompts: LegacyReflectionPrompt[];
+  legacy_signals: LegacySignal[];
+  legacy_questions: LegacyQuestion[];
+  legacy_initiatives: LegacyInitiative[];
+  legacy_reviews: LegacyReview[];
   timeline: LegacyTimelineEvent[];
+  legacy_milestones: LegacyMilestone[];
   snapshots: LegacySnapshot[];
   insights: LegacyInsight[];
   recommendations: LegacyRecommendation[];
   legacy_sessions: LegacySession[];
   executive_view: {
-    historical_milestones: string;
-    values_continuity: string;
-    reflection_trends: string;
-    stewardship_opportunities: string;
+    stewardship_indicators: string;
+    leadership_continuity: string;
+    knowledge_preservation: string;
+    contribution_opportunities: string;
   } | null;
   links: Record<string, string> | null;
   can_manage: boolean;

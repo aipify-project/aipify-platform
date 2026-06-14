@@ -1,15 +1,15 @@
 import type {
-  ArchiveItem,
+  LegacyInitiative,
   LegacyInsight,
   LegacyMilestone,
+  LegacyQuestion,
   LegacyRecommendation,
-  LegacyReflectionPrompt,
+  LegacyReview,
   LegacySession,
+  LegacySignal,
   LegacySnapshot,
   LegacyTimelineEvent,
-  LegacyProject,
   OrganizationalLegacyCenter,
-  PreservedValue,
 } from "./types";
 
 function asRecord(value: unknown): Record<string, unknown> {
@@ -28,72 +28,64 @@ export function parseOrganizationalLegacyCenter(raw: unknown): OrganizationalLeg
       Object.keys(dash).length > 0
         ? {
             legacy_score: Number(dash.legacy_score ?? 0),
-            legacy_health_label: String(dash.legacy_health_label ?? "maturing"),
-            projects_in_progress: Number(dash.projects_in_progress ?? 0),
-            milestones_documented: Number(dash.milestones_documented ?? 0),
-            values_preserved: Number(dash.values_preserved ?? 0),
-            archives_maintained: Number(dash.archives_maintained ?? 0),
-            reflection_participation_pct: Number(dash.reflection_participation_pct ?? 0),
-            institutional_continuity_pct: Number(dash.institutional_continuity_pct ?? 0),
-            values_awareness_pct: Number(dash.values_awareness_pct ?? 0),
-            leadership_confidence: Number(dash.leadership_confidence ?? 0),
+            legacy_health_label: String(dash.legacy_health_label ?? "healthy"),
+            positive_impact_pct: Number(dash.positive_impact_pct ?? 0),
+            stewardship_quality_pct: Number(dash.stewardship_quality_pct ?? 0),
+            knowledge_preservation_pct: Number(dash.knowledge_preservation_pct ?? 0),
+            leadership_succession_pct: Number(dash.leadership_succession_pct ?? 0),
+            customer_trust_pct: Number(dash.customer_trust_pct ?? 0),
+            cultural_resilience_pct: Number(dash.cultural_resilience_pct ?? 0),
+            values_consistency_pct: Number(dash.values_consistency_pct ?? 0),
+            initiatives_in_progress: Number(dash.initiatives_in_progress ?? 0),
+            reviews_completed: Number(dash.reviews_completed ?? 0),
           }
         : null,
-    legacy_projects: Array.isArray(row.legacy_projects)
-      ? row.legacy_projects.map((p) => {
-          const item = asRecord(p);
+    legacy_signals: Array.isArray(row.legacy_signals)
+      ? row.legacy_signals.map((c) => {
+          const item = asRecord(c);
           return {
-            project_key: String(item.project_key ?? ""),
+            signal_key: String(item.signal_key ?? ""),
+            domain: String(item.domain ?? ""),
+            signal_type: String(item.signal_type ?? ""),
+            title: String(item.title ?? ""),
+            summary: String(item.summary ?? ""),
+            signal_tone: String(item.signal_tone ?? "neutral"),
+          } satisfies LegacySignal;
+        })
+      : [],
+    legacy_questions: Array.isArray(row.legacy_questions)
+      ? row.legacy_questions.map((g) => {
+          const item = asRecord(g);
+          return {
+            question_key: String(item.question_key ?? ""),
+            question_type: String(item.question_type ?? ""),
+            title: String(item.title ?? ""),
+            summary: String(item.summary ?? ""),
+          } satisfies LegacyQuestion;
+        })
+      : [],
+    legacy_initiatives: Array.isArray(row.legacy_initiatives)
+      ? row.legacy_initiatives.map((i) => {
+          const item = asRecord(i);
+          return {
+            initiative_key: String(item.initiative_key ?? ""),
             domain: String(item.domain ?? ""),
             title: String(item.title ?? ""),
             summary: String(item.summary ?? ""),
-            status: String(item.status ?? "in_progress"),
-          } satisfies LegacyProject;
+            status: String(item.status ?? "planned"),
+          } satisfies LegacyInitiative;
         })
       : [],
-    milestones: Array.isArray(row.milestones)
-      ? row.milestones.map((m) => {
-          const item = asRecord(m);
-          return {
-            milestone_key: String(item.milestone_key ?? ""),
-            domain: String(item.domain ?? ""),
-            title: String(item.title ?? ""),
-            summary: String(item.summary ?? ""),
-            documented_at: item.documented_at ? String(item.documented_at) : null,
-            status: String(item.status ?? "documented"),
-          } satisfies LegacyMilestone;
-        })
-      : [],
-    values_preserved: Array.isArray(row.values_preserved)
-      ? row.values_preserved.map((v) => {
-          const item = asRecord(v);
-          return {
-            value_key: String(item.value_key ?? ""),
-            label: String(item.label ?? ""),
-            principle: String(item.principle ?? ""),
-          } satisfies PreservedValue;
-        })
-      : [],
-    legacy_archive: Array.isArray(row.legacy_archive)
-      ? row.legacy_archive.map((a) => {
-          const item = asRecord(a);
-          return {
-            archive_key: String(item.archive_key ?? ""),
-            archive_type: String(item.archive_type ?? ""),
-            title: String(item.title ?? ""),
-            summary: String(item.summary ?? ""),
-            archived_at: item.archived_at ? String(item.archived_at) : null,
-          } satisfies ArchiveItem;
-        })
-      : [],
-    reflection_prompts: Array.isArray(row.reflection_prompts)
-      ? row.reflection_prompts.map((r) => {
+    legacy_reviews: Array.isArray(row.legacy_reviews)
+      ? row.legacy_reviews.map((r) => {
           const item = asRecord(r);
           return {
-            reflection_key: String(item.reflection_key ?? ""),
+            review_key: String(item.review_key ?? ""),
+            review_type: String(item.review_type ?? ""),
             prompt: String(item.prompt ?? ""),
-            domain: String(item.domain ?? ""),
-          } satisfies LegacyReflectionPrompt;
+            status: String(item.status ?? "pending"),
+            completed_at: item.completed_at ? String(item.completed_at) : null,
+          } satisfies LegacyReview;
         })
       : [],
     timeline: Array.isArray(row.timeline)
@@ -107,6 +99,18 @@ export function parseOrganizationalLegacyCenter(raw: unknown): OrganizationalLeg
             summary: String(item.summary ?? ""),
             recorded_at: item.recorded_at ? String(item.recorded_at) : null,
           } satisfies LegacyTimelineEvent;
+        })
+      : [],
+    legacy_milestones: Array.isArray(row.legacy_milestones)
+      ? row.legacy_milestones.map((m) => {
+          const item = asRecord(m);
+          return {
+            milestone_key: String(item.milestone_key ?? ""),
+            domain: String(item.domain ?? ""),
+            title: String(item.title ?? ""),
+            summary: String(item.summary ?? ""),
+            archived_at: item.archived_at ? String(item.archived_at) : null,
+          } satisfies LegacyMilestone;
         })
       : [],
     snapshots: Array.isArray(row.snapshots)
@@ -156,10 +160,10 @@ export function parseOrganizationalLegacyCenter(raw: unknown): OrganizationalLeg
     executive_view:
       Object.keys(exec).length > 0
         ? {
-            historical_milestones: String(exec.historical_milestones ?? ""),
-            values_continuity: String(exec.values_continuity ?? ""),
-            reflection_trends: String(exec.reflection_trends ?? ""),
-            stewardship_opportunities: String(exec.stewardship_opportunities ?? ""),
+            stewardship_indicators: String(exec.stewardship_indicators ?? ""),
+            leadership_continuity: String(exec.leadership_continuity ?? ""),
+            knowledge_preservation: String(exec.knowledge_preservation ?? ""),
+            contribution_opportunities: String(exec.contribution_opportunities ?? ""),
           }
         : null,
     links: row.links

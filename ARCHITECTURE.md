@@ -1232,3 +1232,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Identity Center Engine (Phase 356):** See [AIPIFY_ORGANIZATIONAL_IDENTITY_CENTER_ENGINE_PHASE356.md](./AIPIFY_ORGANIZATIONAL_IDENTITY_CENTER_ENGINE_PHASE356.md) — Identity Center at Executive Center → Organizational Identity. Identity dashboard, purpose alignment engine, reviews, and executive view. `/app/executive/organizational-identity`, migration `20261428400000_aipify_organizational_identity_center_engine_phase356.sql`. Helpers `_oci_*`, `_ocibp356_*`. APIs at `/api/organizational-identity/*`. Cross-links presence and balance centers.
+
+
+**Aipify Organizational Legacy Engine (Phase 357):** See [AIPIFY_ORGANIZATIONAL_LEGACY_ENGINE_PHASE357.md](./AIPIFY_ORGANIZATIONAL_LEGACY_ENGINE_PHASE357.md) — Legacy Center at Executive Center → Organizational Legacy. Legacy dashboard, questions engine, reviews, and executive view. `/app/executive/organizational-legacy`, migration `20261428500000_aipify_organizational_legacy_engine_phase357.sql`. Helpers `_olc_*`, `_olcbp357_*`. APIs at `/api/organizational-legacy/*`. Cross-links identity and stewardship centers.

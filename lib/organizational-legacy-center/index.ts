@@ -6,15 +6,15 @@ export {
 } from "./constants";
 export { parseOrganizationalLegacyCenter } from "./parse";
 export type {
-  ArchiveItem,
+  LegacyInitiative,
   LegacyInsight,
   LegacyMilestone,
-  LegacyProject,
+  LegacyQuestion,
   LegacyRecommendation,
-  LegacyReflectionPrompt,
+  LegacyReview,
   LegacySession,
+  LegacySignal,
   LegacySnapshot,
   LegacyTimelineEvent,
   OrganizationalLegacyCenter,
-  PreservedValue,
 } from "./types";

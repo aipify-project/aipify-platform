@@ -1,0 +1,4 @@
+ABOS Phase 357 — Organizational Legacy Engine
+Route: /app/executive/organizational-legacy
+Core: Organizations are remembered not only for what they achieve, but for how they achieve it.
+Helpers: _olc_* · _olcbp357_*
