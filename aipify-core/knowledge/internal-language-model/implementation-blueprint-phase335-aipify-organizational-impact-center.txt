@@ -1,0 +1,4 @@
+ABOS Phase 335 — Organizational Impact Center
+Route: /app/executive/organizational-impact
+Core: Success should not be measured only by financial outcomes.
+Helpers: _oimc_* · _oimcbp335_*

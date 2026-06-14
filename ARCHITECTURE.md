@@ -1169,3 +1169,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Excellence Center Engine (Phase 334):** See [AIPIFY_ORGANIZATIONAL_EXCELLENCE_CENTER_ENGINE_PHASE334.md](./AIPIFY_ORGANIZATIONAL_EXCELLENCE_CENTER_ENGINE_PHASE334.md) — Excellence Center at Executive Center → Organizational Excellence. Excellence dashboard, best practice engine, reviews, timeline, and executive excellence view. `/app/executive/organizational-excellence`, migration `20261426200000_aipify_organizational_excellence_center_engine_phase334.sql`. Helpers `_oexc_*`, `_oexcbp334_*`. APIs at `/api/organizational-excellence/*`. Cross-links continuity, coherence, momentum, trust, and continuous improvement centers.
+
+
+**Aipify Organizational Impact Center Engine (Phase 335):** See [AIPIFY_ORGANIZATIONAL_IMPACT_CENTER_ENGINE_PHASE335.md](./AIPIFY_ORGANIZATIONAL_IMPACT_CENTER_ENGINE_PHASE335.md) — Impact Center at Executive Center → Organizational Impact. Impact dashboard, reflection engine, reviews, timeline, and executive impact view. `/app/executive/organizational-impact`, migration `20261426300000_aipify_organizational_impact_center_engine_phase335.sql`. Helpers `_oimc_*`, `_oimcbp335_*`. APIs at `/api/organizational-impact/*`. Cross-links excellence, purpose, legacy, and stewardship centers.

@@ -1,0 +1,1 @@
+export { OrganizationalImpactCenterPanel } from "./OrganizationalImpactCenterPanel";

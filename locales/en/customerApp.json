@@ -75,7 +75,8 @@
     "organizationalFuturesLink": "Organizational Futures",
     "organizationalCoherenceLink": "Organizational Coherence",
     "organizationalContinuityLink": "Organizational Continuity",
-    "organizationalExcellenceLink": "Organizational Excellence"
+    "organizationalExcellenceLink": "Organizational Excellence",
+    "organizationalImpactLink": "Organizational Impact"
   },
   "presence": {
     "title": "Presence center",
@@ -7172,7 +7173,8 @@
     "organizationalFuturesCenterEngine": "Organizational Futures",
     "organizationalCoherenceCenterEngine": "Organizational Coherence",
     "organizationalContinuityCenterEngine": "Organizational Continuity",
-    "organizationalExcellenceCenterEngine": "Organizational Excellence"
+    "organizationalExcellenceCenterEngine": "Organizational Excellence",
+    "organizationalImpactCenterEngine": "Organizational Impact"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -18518,5 +18520,121 @@
     },
     "settingsLink": "Organizational Excellence",
     "organizationalExcellenceLink": "Organizational Excellence"
+  },
+  "organizationalImpactCenter": {
+    "title": "Organizational Impact",
+    "subtitle": "Understand, measure, strengthen, and communicate the positive impact your organization creates for customers, employees, partners, communities, and society.",
+    "loading": "Loading Impact Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Impact philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalExcellenceLink": "Organizational Excellence →",
+    "organizationalPurposeLink": "Organizational Purpose →",
+    "organizationalLegacyLink": "Organizational Legacy →",
+    "organizationalStewardshipLink": "Organizational Stewardship →",
+    "dashboardTitle": "Impact dashboard",
+    "reflectionsTitle": "Impact reflection engine",
+    "indicatorsTitle": "Impact engine",
+    "initiativesTitle": "Impact initiatives",
+    "reviewsTitle": "Impact reviews",
+    "timelineTitle": "Impact timeline",
+    "milestonesTitle": "Impact milestones",
+    "snapshotsTitle": "Impact snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive impact view",
+    "sessionsTitle": "Impact sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "markReflection": "Mark as reflected",
+    "documentInitiative": "Document initiative",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate impact report",
+    "printSummary": "Print stakeholder summary",
+    "exportSnapshot": "Export impact snapshot",
+    "coordinateDiscussion": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive impact milestone",
+    "humansDecide": "Aipify supports impact awareness — leaders own authentic stewardship and meaningful contribution.",
+    "privacyNote": "Privacy",
+    "impactProfile": "Organizational impact profile",
+    "positiveTrend": "Positive outcome trend",
+    "domains": {
+      "customer": "Customer impact",
+      "employee": "Employee impact",
+      "community": "Community impact",
+      "industry": "Industry impact",
+      "economic": "Economic impact",
+      "organizational": "Organizational impact"
+    },
+    "indicatorTypes": {
+      "customer_outcome": "Customer outcome",
+      "employee_experience": "Employee experience",
+      "community_engagement": "Community engagement",
+      "strategic_contribution": "Strategic contribution",
+      "long_term_influence": "Long-term influence"
+    },
+    "indicatorTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed",
+      "documented": "Documented"
+    },
+    "reflectionStatuses": {
+      "open": "Open",
+      "reflected": "Reflected"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "meaningful": "Meaningful",
+      "developing": "Developing",
+      "reflection_recommended": "Reflection recommended"
+    },
+    "timelineTypes": {
+      "customer_milestone": "Customer milestone",
+      "community_initiative": "Community initiative",
+      "employee_development": "Employee development achievement",
+      "industry_contribution": "Industry contribution",
+      "organizational_breakthrough": "Organizational breakthrough"
+    },
+    "reviewTypes": {
+      "quarterly_impact": "Quarterly impact review",
+      "annual_reflection": "Annual reflection session",
+      "executive_stewardship": "Executive stewardship discussion",
+      "legacy_planning": "Legacy planning workshop"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "stewardship_discussion": "Stewardship discussion",
+      "legacy_workshop": "Legacy workshop"
+    },
+    "metrics": {
+      "customer": "Customer outcomes",
+      "employee": "Employee development",
+      "community": "Community engagement",
+      "purpose": "Purpose alignment",
+      "mission": "Mission fulfillment",
+      "initiatives": "Initiatives in progress",
+      "stakeholders": "Stakeholder summaries",
+      "confidence": "Executive confidence"
+    },
+    "executiveFields": {
+      "stakeholders": "Stakeholder impact indicators",
+      "mission": "Mission fulfillment trends",
+      "opportunities": "Long-term contribution opportunities",
+      "influence": "Organizational influence"
+    },
+    "settingsLink": "Organizational Impact",
+    "organizationalImpactLink": "Organizational Impact"
   }
 }
