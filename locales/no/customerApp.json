@@ -2544,7 +2544,8 @@
     "linkedRecommendation": "Tilknyttet anbefaling",
     "expectedBenefit": "Forventet nytte",
     "automationControlLink": "Automatiseringskontrollsenter",
-    "databaseGovernanceLink": "Database-styring"
+    "databaseGovernanceLink": "Database-styring",
+    "deploymentsLink": "Deployments"
   },
   "continuityEngine": {
     "title": "Continuity & Resilience",
@@ -6242,7 +6243,8 @@
     "organizationalResilienceCenterEngine": "Organisasjonsmotstand",
     "opportunityDiscoveryCenterEngine": "Mulighetsoppdagelse",
     "organizationalHealthCenterEngine": "Organisasjonshelse",
-    "databaseGovernanceCenterEngine": "Database-styring"
+    "databaseGovernanceCenterEngine": "Database-styring",
+    "deploymentGovernanceCenterEngine": "Deployments"
   },
   "identity": {
     "title": "Din identitet",
@@ -15990,5 +15992,93 @@
       "confidence": "Deployment confidence"
     },
     "settingsLink": "Database-styring"
+  },
+  "deploymentGovernanceCenter": {
+    "title": "Deployment-senter",
+    "subtitle": "Safe, traceable, governed deployments — pipeline visibility, validation, approvals, rollback readiness, and release confidence.",
+    "loading": "Loading Deployment Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Deployment philosophy",
+    "visionTitle": "Vision",
+    "operationsLink": "Operations Center →",
+    "databaseGovernanceLink": "Database Governance →",
+    "automationControlLink": "Automation Control →",
+    "updatesLink": "Updates →",
+    "executiveLink": "Executive Center →",
+    "dashboardTitle": "Deployment dashboard",
+    "deploymentsTitle": "Deployments",
+    "checklistTitle": "Pre-deployment checklist",
+    "postValidationTitle": "Post-deployment validation",
+    "rollbackTitle": "Rollback center",
+    "approvalsTitle": "Deployment approvals",
+    "releaseNotesTitle": "Release notes",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "reviewsTitle": "Governance reviews",
+    "emptySection": "No items in this section yet.",
+    "healthScore": "Deployment health score",
+    "productionVersion": "Current production version",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "approve": "Approve",
+    "advance": "Advance pipeline",
+    "passCheck": "Mark passed",
+    "validate": "Run validation",
+    "completeReview": "Mark review complete",
+    "generateReport": "Generate deployment report",
+    "rollbackReview": "Request rollback review",
+    "humansDecide": "Deployments require human approval — Aipify prepares and validates; your team decides.",
+    "privacyNote": "Privacy",
+    "deploymentTypes": {
+      "development": "Development",
+      "staging": "Staging",
+      "production": "Production",
+      "hotfix": "Hotfix"
+    },
+    "deploymentStatuses": {
+      "pending": "Pending",
+      "validating": "Validating",
+      "staging": "Staging",
+      "awaiting_approval": "Awaiting approval",
+      "deploying": "Deploying",
+      "deployed": "Deployed",
+      "failed": "Failed",
+      "rolled_back": "Rolled back",
+      "archived": "Archived"
+    },
+    "pipelineStages": {
+      "development_complete": "Development complete",
+      "automated_validation": "Automated validation",
+      "migration_verification": "Migration verification",
+      "staging_deployment": "Staging deployment",
+      "qa_approval": "QA approval",
+      "production_approval": "Production approval",
+      "production_deployment": "Production deployment",
+      "post_validation": "Post-deployment validation",
+      "archived": "Archived"
+    },
+    "healthBands": {
+      "excellent": "Excellent",
+      "healthy": "Healthy",
+      "needs_attention": "Needs attention",
+      "critical": "Critical"
+    },
+    "approvalLevels": {
+      "level1": "Level 1 — Developer approval",
+      "level2": "Level 2 — Technical lead approval",
+      "level3": "Level 3 — Operations approval",
+      "level4": "Level 4 — Executive approval"
+    },
+    "metrics": {
+      "pending": "Pending deployments",
+      "failed": "Failed deployments",
+      "releases": "Recent releases",
+      "rollbackReady": "Rollback-ready points",
+      "successRate": "Deployment success rate",
+      "validationRate": "Validation completion rate",
+      "mttr": "Mean time to recovery",
+      "confidence": "Operational confidence"
+    },
+    "settingsLink": "Deployments"
   }
 }

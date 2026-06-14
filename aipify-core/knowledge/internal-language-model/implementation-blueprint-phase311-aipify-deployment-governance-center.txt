@@ -1,0 +1,4 @@
+ABOS Phase 311 — Deployment Governance Center
+Route: /app/operations/deployments
+Core: Shipping safely is essential.
+Helpers: _dpl_* · _dplbp311_*

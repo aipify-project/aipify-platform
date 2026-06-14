@@ -27,6 +27,12 @@ export default async function OperationsPage() {
         >
           {t(`${p}.databaseGovernanceLink`)} →
         </Link>
+        <Link
+          href="/app/operations/deployments"
+          className="ml-4 mt-3 inline-block text-sm font-medium text-indigo-600 hover:underline"
+        >
+          {t(`${p}.deploymentsLink`)} →
+        </Link>
       </div>
       <AocDashboardPanel
         labels={{

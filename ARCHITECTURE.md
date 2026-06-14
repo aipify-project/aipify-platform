@@ -1097,3 +1097,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Database Governance & Migration Engine (Phase 310):** See [AIPIFY_DATABASE_GOVERNANCE_MIGRATION_ENGINE_PHASE310.md](./AIPIFY_DATABASE_GOVERNANCE_MIGRATION_ENGINE_PHASE310.md) — Database Governance Center at Operations Center → Database Governance. Migration registry, schema validation, drift detection, environment comparison, rollback readiness, and governance reviews. `/app/operations/database-governance`, migration `20261423800000_aipify_database_governance_migration_engine_phase310.sql`. Helpers `_dgc_*`, `_dgcbp310_*`. APIs at `/api/database-governance/*`. Cross-links operations and updates — does not modify their RPCs.
+
+
+**Aipify Deployment Governance Engine (Phase 311):** See [AIPIFY_DEPLOYMENT_GOVERNANCE_ENGINE_PHASE311.md](./AIPIFY_DEPLOYMENT_GOVERNANCE_ENGINE_PHASE311.md) — Deployment Center at Operations Center → Deployments. Pipeline governance, pre/post validation, approvals, rollback center, release notes, and deployment health. `/app/operations/deployments`, migration `20261423900000_aipify_deployment_governance_engine_phase311.sql`. Helpers `_dpl_*`, `_dplbp311_*`. APIs at `/api/deployment-governance/*`. Cross-links operations, database governance, and updates — does not modify their RPCs.

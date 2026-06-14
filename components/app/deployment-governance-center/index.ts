@@ -1,0 +1,1 @@
+export { DeploymentGovernanceCenterPanel } from "./DeploymentGovernanceCenterPanel";
