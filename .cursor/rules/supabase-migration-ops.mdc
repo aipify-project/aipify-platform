@@ -1,0 +1,42 @@
+---
+description: Supabase migration sync, remote apply, and standing commit/push permission for migration work.
+alwaysApply: true
+---
+
+# Supabase Migration Operations
+
+## Standing permission (project owner approved)
+
+When migration or database sync work requires it, the agent may **without asking each time**:
+
+1. **Apply SQL to remote Aipify Core** — run `npm run supabase:apply-pending`, fix blocking migration SQL, or apply targeted SQL via Supabase CLI/Management API when needed to keep remote in sync with repo.
+2. **Commit and push** — stage, commit, and push migration fixes, apply scripts, and directly related changes on `main` (or the active feature branch). Exclude unrelated WIP, secrets, and `supabase/.temp/`.
+
+Still avoid: force-push to main, committing `.env*` or credentials, baselining migrations without actual DDL success.
+
+## Keep repo and remote in sync
+
+After shipping migration files or phase SQL:
+
+1. Apply pending migrations to remote Supabase (Aipify Core).
+2. Verify nothing pending (`--start-index` at end of queue returns Done; remote `schema_migrations` matches expectation).
+3. Commit migration fixes and push before moving to the next phase batch.
+
+## Apply discipline
+
+- Migrations run **sequentially** — one failure blocks all later phases.
+- Never record a migration in `schema_migrations` unless its DDL succeeded (no false baselines on "already exists").
+- Prefer filename-based version keys when applying via Management API to avoid timestamp collisions.
+- Test new migration SQL against remote or a clean database before assuming a phase is complete.
+
+## Common blockers to fix in SQL (not skip)
+
+- Reserved aliases: `desc`, `limit`, `end`
+- Legacy table name conflicts — rename before `CREATE`
+- Unclosed `jsonb_build_object` in blueprint blocks
+- `DROP FUNCTION` before return-type changes
+- `extensions.digest()` when `search_path=public`
+
+## Reminder for the user
+
+When finishing a phase with database changes: **apply → verify → commit → push**. Do not accumulate hundreds of unapplied migrations.
