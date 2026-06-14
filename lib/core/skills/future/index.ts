@@ -21,6 +21,10 @@ export { spiritualReflectionCompanionSkill } from "./spiritual-reflection-compan
 export { lifeTransitionsCompanionSkill } from "./life-transitions-companion";
 export { volunteerServiceCompanionSkill } from "./volunteer-service-companion";
 export { sustainabilityCompanionSkill } from "./sustainability-companion";
+export { griefHealingCompanionSkill } from "./grief-healing-companion";
+export { legacyBusinessCompanionSkill } from "./legacy-business-companion";
+export { childhoodMemoryCompanionSkill } from "./childhood-memory-companion";
+export { lifeJourneyCompanionSkill } from "./life-journey-companion";
 
 import { marketingAssistantSkill } from "./marketing-assistant";
 import { commerceAssistantSkill } from "./commerce-assistant";
@@ -45,6 +49,10 @@ import { spiritualReflectionCompanionSkill } from "./spiritual-reflection-compan
 import { lifeTransitionsCompanionSkill } from "./life-transitions-companion";
 import { volunteerServiceCompanionSkill } from "./volunteer-service-companion";
 import { sustainabilityCompanionSkill } from "./sustainability-companion";
+import { griefHealingCompanionSkill } from "./grief-healing-companion";
+import { legacyBusinessCompanionSkill } from "./legacy-business-companion";
+import { childhoodMemoryCompanionSkill } from "./childhood-memory-companion";
+import { lifeJourneyCompanionSkill } from "./life-journey-companion";
 
 export const FUTURE_SKILLS = [
   marketingAssistantSkill,
@@ -70,4 +78,8 @@ export const FUTURE_SKILLS = [
   lifeTransitionsCompanionSkill,
   volunteerServiceCompanionSkill,
   sustainabilityCompanionSkill,
+  griefHealingCompanionSkill,
+  legacyBusinessCompanionSkill,
+  childhoodMemoryCompanionSkill,
+  lifeJourneyCompanionSkill,
 ] as const;

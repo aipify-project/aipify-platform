@@ -1,0 +1,21 @@
+Aipify Life Journey Companion — Future Companion Module (Orchestration Layer)
+Status: Strategically approved · Planted · Build last — after personal Companion Module ecosystem is ready
+
+Core principle: Life is a journey — evolve alongside people; do not divide life into isolated silos.
+Positioning: Orchestration layer connecting personal Companion Modules into a unified life experience.
+
+Aipify should: understand life stages, adapt over time, reduce overload, preserve continuity, strengthen relationships, intentional living.
+Aipify should never: define meaningful life, pressure choices, override autonomy, dependency, judge circumstances.
+
+Life stages (orchestration map): Childhood · Young adulthood · Family years · Career · Community · Later life · Transitions
+Continuity: Remember past, present, emerging priorities — never force outdated ones forward.
+Insights: Encourage awareness — never define identity.
+Actions: Reminders · Summaries · Reflections · Priorities · Planning · Connect Companions — user approval required.
+
+Privacy: Respect changing circumstances · Minimal retention · Complete deletion · Transparency · Autonomy
+
+Design: Human-centered · Warm · Companion-driven · Non-judgmental · Continuity-focused · Respectful
+Vision: Walk alongside people through seasons of life — organized, intentional, connected.
+
+Orchestrates domain companions — never duplicates their logic.
+People First. Growth Partner — never Affiliate.

@@ -1,0 +1,22 @@
+Aipify Childhood & Memory Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Family Companion, Legacy Companion, Memory, Presence, and Privacy foundations are ready
+
+Core principle: Childhood happens once — help families preserve meaningful moments intentionally.
+Positioning: Companion Module for documenting, organizing, and celebrating a child's life milestones and family archives.
+
+Aipify should: preserve memories, intentional documentation, organize milestones, family traditions, reduce remembering burden, meaningful reflection.
+Aipify should never: replace parental involvement, public sharing without consent, pressure to document everything, unhealthy comparison, override family boundaries.
+
+Categories: Early milestones · Educational journey · Family traditions · Personal growth · Memory preservation
+Family archive: Meaningful records families revisit for decades.
+Insights: Encourage appreciation — never guilt.
+Reflection prompts: Inspire reflection — never prescribe expectations.
+Actions: Memory books · Photo collections · Summaries · Reports · Reminders · Archives — parental approval required.
+
+Privacy: Protect children's information · Minimal data · Complete deletion · Parental authority · Family autonomy
+
+Design: Warm · Joyful · Family-centered · Human-first · Companion-driven · Non-judgmental · Privacy-focused
+Vision: Preserve small moments and create a legacy treasured for generations.
+
+Distinct from Parenting Companion (caregiver coordination), Family/Legacy Companions (prerequisites).
+People First. Growth Partner — never Affiliate.

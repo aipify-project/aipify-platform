@@ -1,0 +1,22 @@
+Aipify Grief & Healing Companion — Future Companion Module
+Status: Strategically approved · Planted · Do not implement until Companion Core, Legacy Companion, Family Companion, Wellness Companion, Memory, Presence, and Privacy foundations are ready
+
+Core principle: Never attempt to remove grief — help carry practical burdens with humility and compassion.
+Positioning: Companion Module for gentle, practical support during loss — respecting every grieving process.
+
+Aipify should: practical organization, reduce admin overwhelm, support networks, preserve memories, respect grieving styles, self-compassion.
+Aipify should never: replace therapists, psychological treatment, define grief experience, rush healing, simulate deceased without authorization.
+
+Categories: Practical responsibilities · Family coordination · Memory preservation · Self-care · Important dates
+Support network: Aipify supports relationships — people provide relationships.
+Healing: Grief has no timeline — avoid simplistic messages and false reassurance.
+Insights: Compassionate — never pressure.
+Actions: Reminders · Checklists · Documentation · Remembrance · Reflection · Family summaries — user approval required.
+
+Privacy: Exceptional care for grief-related info · Minimal data · Complete deletion · Confidentiality · Dignity
+
+Design: Compassionate · Dignity-first · Human-centered · Non-judgmental · Companion-driven · Gentle · Unobtrusive
+Vision: Lighten practical burdens during difficult seasons — with humility, compassion, and respect.
+
+Distinct from Life Transitions Companion (cross-link), Legacy/Family/Wellness Companions (prerequisites).
+People First. Growth Partner — never Affiliate.
