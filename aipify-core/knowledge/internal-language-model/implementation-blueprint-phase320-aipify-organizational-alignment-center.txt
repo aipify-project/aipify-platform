@@ -1,0 +1,4 @@
+ABOS Phase 320 — Organizational Alignment Center
+Route: /app/executive/organizational-alignment
+Core: Organizations struggle when people work hard toward different objectives.
+Helpers: _oac_* · _oacbp320_*

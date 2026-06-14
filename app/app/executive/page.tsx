@@ -47,6 +47,7 @@ export default async function ExecutivePage() {
         organizationalDigitalTwinLink: t("customerApp.executive.organizationalDigitalTwinLink"),
         capabilityMaturityLink: t("customerApp.executive.capabilityMaturityLink"),
         executionExcellenceLink: t("customerApp.executive.executionExcellenceLink"),
+        organizationalAlignmentLink: t("customerApp.executive.organizationalAlignmentLink"),
       }}
     />
   );

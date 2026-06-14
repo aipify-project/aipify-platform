@@ -41,6 +41,7 @@ type ExecutiveDashboardPanelProps = {
     organizationalDigitalTwinLink: string;
     capabilityMaturityLink: string;
     executionExcellenceLink: string;
+    organizationalAlignmentLink: string;
   };
 };
 
@@ -108,6 +109,9 @@ export function ExecutiveDashboardPanel({ locale, labels }: ExecutiveDashboardPa
         </Link>
         <Link href="/app/executive/execution-excellence" className="ml-4 mt-3 inline-block text-sm text-indigo-600 hover:underline">
           {labels.executionExcellenceLink}
+        </Link>
+        <Link href="/app/executive/organizational-alignment" className="ml-4 mt-3 inline-block text-sm text-indigo-600 hover:underline">
+          {labels.organizationalAlignmentLink}
         </Link>
       </div>
 

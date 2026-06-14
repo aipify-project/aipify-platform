@@ -1124,3 +1124,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Execution Excellence Center Engine (Phase 319):** See [AIPIFY_EXECUTION_EXCELLENCE_CENTER_ENGINE_PHASE319.md](./AIPIFY_EXECUTION_EXCELLENCE_CENTER_ENGINE_PHASE319.md) — Execution Excellence Center at Executive Center → Execution Excellence. Initiative tracking, dependency management, milestones, execution risks, and executive execution view. `/app/executive/execution-excellence`, migration `20261424700000_aipify_execution_excellence_center_engine_phase319.sql`. Helpers `_eec_*`, `_eecbp319_*`. APIs at `/api/execution-excellence/*`. Cross-links executive centers — does not modify their RPCs.
+
+
+**Aipify Organizational Alignment Center Engine (Phase 320):** See [AIPIFY_ORGANIZATIONAL_ALIGNMENT_CENTER_ENGINE_PHASE320.md](./AIPIFY_ORGANIZATIONAL_ALIGNMENT_CENTER_ENGINE_PHASE320.md) — Alignment Center at Executive Center → Organizational Alignment. Vision, strategic, team, customer, and governance alignment with misalignment detection and executive alignment view. `/app/executive/organizational-alignment`, migration `20261424800000_aipify_organizational_alignment_center_engine_phase320.sql`. Helpers `_oac_*`, `_oacbp320_*`. APIs at `/api/organizational-alignment/*`. Cross-links executive centers — does not modify their RPCs.

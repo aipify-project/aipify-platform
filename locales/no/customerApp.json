@@ -60,7 +60,8 @@
     "changeManagementLink": "Change Management",
     "organizationalDigitalTwinLink": "Organizational Digital Twin",
     "capabilityMaturityLink": "Capability Maturity",
-    "executionExcellenceLink": "Execution Excellence"
+    "executionExcellenceLink": "Execution Excellence",
+    "organizationalAlignmentLink": "Organizational Alignment"
   },
   "presence": {
     "title": "Presence center",
@@ -6260,7 +6261,8 @@
     "organizationalLearningCenterEngine": "Organisasjonslæring",
     "knowledgeEvolutionCenterEngine": "Kunnskapsevolusjon",
     "capabilityMaturityCenterEngine": "Kapabilitetsmodenhet",
-    "executionExcellenceCenterEngine": "Gjennomføringsexcellence"
+    "executionExcellenceCenterEngine": "Gjennomføringsexcellence",
+    "organizationalAlignmentCenterEngine": "Organisasjonsalignment"
   },
   "identity": {
     "title": "Din identitet",
@@ -16829,5 +16831,93 @@
     },
     "settingsLink": "Gjennomføringsexcellence",
     "executionExcellenceLink": "Execution Excellence"
+  },
+  "organizationalAlignmentCenter": {
+    "title": "Alignmentssenter",
+    "subtitle": "Strengthen alignment between vision, strategy, departments, teams, and day-to-day activities so everyone moves in the same direction.",
+    "loading": "Loading Alignment Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Alignment philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "executionExcellenceLink": "Execution Excellence →",
+    "capabilityMaturityLink": "Capability Maturity →",
+    "changeManagementLink": "Change Management →",
+    "organizationalHealthLink": "Organizational Health →",
+    "purposeValuesLink": "Purpose & Values →",
+    "dashboardTitle": "Alignment dashboard",
+    "indicatorsTitle": "Strategic alignment indicators",
+    "prioritiesTitle": "Organizational priorities",
+    "misalignmentsTitle": "Alignment opportunities",
+    "timelineTitle": "Alignment timeline",
+    "snapshotsTitle": "Department snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive alignment view",
+    "reviewsTitle": "Alignment reviews",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "discussMisalignment": "Mark for discussion",
+    "scheduleWorkshop": "Schedule workshop",
+    "generateSummary": "Generate alignment summary",
+    "generateReport": "Generate executive report",
+    "exportSnapshot": "Export department snapshot",
+    "humansDecide": "Aipify supports clarity and collaboration — leadership owns direction and decisions.",
+    "privacyNote": "Privacy",
+    "owner": "Owner",
+    "alignmentScore": "Alignment score",
+    "domains": {
+      "vision": "Vision alignment",
+      "strategic": "Strategic alignment",
+      "team": "Team alignment",
+      "customer": "Customer alignment",
+      "governance": "Governance alignment"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "stable": "Stable",
+      "needs_attention": "Needs attention",
+      "misaligned": "Misaligned"
+    },
+    "misalignmentTypes": {
+      "conflicting_priorities": "Conflicting priorities",
+      "duplicate_initiatives": "Duplicate initiatives",
+      "resource_competition": "Resource competition",
+      "strategic_disconnect": "Strategic disconnect",
+      "communication_inconsistency": "Communication inconsistency"
+    },
+    "timelineTypes": {
+      "alignment_improvement": "Alignment improvement",
+      "strategic_shift": "Strategic shift",
+      "org_change": "Organizational change",
+      "collaboration_milestone": "Collaboration milestone",
+      "executive_intervention": "Executive intervention"
+    },
+    "reviewTypes": {
+      "monthly": "Monthly alignment review",
+      "quarterly": "Quarterly strategic review",
+      "annual": "Annual organizational review",
+      "executive_reflection": "Executive reflection session"
+    },
+    "metrics": {
+      "strongAlignment": "Strong alignment areas",
+      "opportunities": "Alignment opportunities",
+      "misalignments": "Open misalignments",
+      "crossFunctional": "Cross-functional trend",
+      "goalConsistency": "Goal consistency",
+      "initiativeOverlap": "Initiative overlap",
+      "confidence": "Leadership confidence"
+    },
+    "executiveFields": {
+      "vision": "Vision clarity",
+      "strategic": "Strategic consistency",
+      "collaboration": "Collaboration trends",
+      "focus": "Executive focus areas"
+    },
+    "settingsLink": "Organisasjonsalignment",
+    "organizationalAlignmentLink": "Organizational Alignment"
   }
 }

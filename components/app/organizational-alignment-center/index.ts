@@ -1,0 +1,1 @@
+export { OrganizationalAlignmentCenterPanel } from "./OrganizationalAlignmentCenterPanel";
