@@ -2234,7 +2234,8 @@
     "recommendation": "Watcher-anbefaling",
     "linkedRecommendation": "Tilknyttet anbefaling",
     "expectedBenefit": "Forventet fordel",
-    "automationControlLink": "Automationskontrolcenter"
+    "automationControlLink": "Automationskontrolcenter",
+    "databaseGovernanceLink": "Database-styring"
   },
   "continuityEngine": {
     "title": "Continuity & Resilience",
@@ -5946,7 +5947,8 @@
     "continuousImprovementCenterEngine": "Løbende forbedring",
     "organizationalResilienceCenterEngine": "Organisationsmodstand",
     "opportunityDiscoveryCenterEngine": "Mulighedsopdagelse",
-    "organizationalHealthCenterEngine": "Organisationshelbred"
+    "organizationalHealthCenterEngine": "Organisationshelbred",
+    "databaseGovernanceCenterEngine": "Database-styring"
   },
   "identity": {
     "title": "Din identitet",
@@ -15688,5 +15690,80 @@
       "satisfaction": "Leadership satisfaction"
     },
     "settingsLink": "Organisationshelbred"
+  },
+  "databaseGovernanceCenter": {
+    "title": "Database-styringscenter",
+    "subtitle": "Controlled, traceable database evolution — migration registry, schema validation, drift detection, and environment parity.",
+    "loading": "Loading Database Governance Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Database philosophy",
+    "visionTitle": "Vision",
+    "operationsLink": "Operations Center →",
+    "automationControlLink": "Automation Control →",
+    "updatesLink": "Updates →",
+    "securityLink": "Security →",
+    "executiveLink": "Executive Center →",
+    "dashboardTitle": "Migration health dashboard",
+    "migrationsTitle": "Migration registry",
+    "validationTitle": "Schema validation",
+    "driftTitle": "Schema drift detection",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "environmentTitle": "Environment comparison",
+    "reviewsTitle": "Governance reviews",
+    "emptySection": "No items in this section yet.",
+    "healthScore": "Database health score",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "acknowledge": "Acknowledge",
+    "review": "Review migration",
+    "validate": "Validate schema",
+    "archive": "Archive",
+    "completeReview": "Mark review complete",
+    "generateReport": "Generate migration report",
+    "resolve": "Resolve",
+    "humansDecide": "Validation informs discipline — schema changes require human approval before execution.",
+    "privacyNote": "Privacy",
+    "migrationStatus": "Status",
+    "riskLevel": "Risk level",
+    "environment": "Environment",
+    "rollbackNotes": "Rollback notes",
+    "databaseGovernanceLink": "Database Governance",
+    "healthBands": {
+      "excellent": "Excellent",
+      "healthy": "Healthy",
+      "attention_required": "Attention required",
+      "critical": "Critical"
+    },
+    "migrationStatuses": {
+      "pending": "Pending",
+      "applied": "Applied",
+      "failed": "Failed",
+      "rolled_back": "Rolled back",
+      "archived": "Archived"
+    },
+    "riskLevels": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "reviewTypes": {
+      "weekly": "Weekly migration review",
+      "pre_release": "Pre-release validation",
+      "quarterly_audit": "Quarterly database audit",
+      "executive_summary": "Executive technical summary"
+    },
+    "metrics": {
+      "pending": "Pending migrations",
+      "failed": "Failed migrations",
+      "applied": "Applied migrations",
+      "validationFindings": "Open validation findings",
+      "driftEvents": "Open drift events",
+      "consistency": "Environment consistency",
+      "successRate": "Migration success rate",
+      "confidence": "Deployment confidence"
+    },
+    "settingsLink": "Database-styring"
   }
 }

@@ -1094,3 +1094,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Health Center (Phase 308):** See [AIPIFY_ORGANIZATIONAL_HEALTH_CENTER_PHASE308.md](./AIPIFY_ORGANIZATIONAL_HEALTH_CENTER_PHASE308.md) — Organizational Health Center at Executive Center → Organizational Health. Unified health scores, domain trends, early warnings, reviews, and executive timeline. `/app/executive/organizational-health`, migration `20261423600000_aipify_organizational_health_center_engine_phase308.sql`. Helpers `_ohc_*`, `_ohcbp308_*`. APIs at `/api/organizational-health/*`. Cross-links existing organizational health engines — does not modify their RPCs.
+
+
+**Aipify Database Governance & Migration Engine (Phase 310):** See [AIPIFY_DATABASE_GOVERNANCE_MIGRATION_ENGINE_PHASE310.md](./AIPIFY_DATABASE_GOVERNANCE_MIGRATION_ENGINE_PHASE310.md) — Database Governance Center at Operations Center → Database Governance. Migration registry, schema validation, drift detection, environment comparison, rollback readiness, and governance reviews. `/app/operations/database-governance`, migration `20261423800000_aipify_database_governance_migration_engine_phase310.sql`. Helpers `_dgc_*`, `_dgcbp310_*`. APIs at `/api/database-governance/*`. Cross-links operations and updates — does not modify their RPCs.

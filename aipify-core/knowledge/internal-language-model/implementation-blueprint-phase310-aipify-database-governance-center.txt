@@ -1,0 +1,4 @@
+ABOS Phase 310 — Database Governance Center
+Route: /app/operations/database-governance
+Core: The database is the foundation of Aipify.
+Helpers: _dgc_* · _dgcbp310_*

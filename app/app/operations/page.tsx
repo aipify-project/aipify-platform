@@ -21,6 +21,12 @@ export default async function OperationsPage() {
         >
           {t(`${p}.automationControlLink`)} →
         </Link>
+        <Link
+          href="/app/operations/database-governance"
+          className="ml-4 mt-3 inline-block text-sm font-medium text-indigo-600 hover:underline"
+        >
+          {t(`${p}.databaseGovernanceLink`)} →
+        </Link>
       </div>
       <AocDashboardPanel
         labels={{

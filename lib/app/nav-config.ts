@@ -300,6 +300,7 @@ export type AppNavId =
   | "organizationalMemory"
   | "organizationalIntelligence"
   | "predictiveIntelligence"
+  | "databaseGovernanceCenterEngine"
   | "automationControlCenterEngine"
   | "adaptiveAutomation"
   | "financialGuardrailsEngine"
@@ -1502,6 +1503,11 @@ export const APP_NAV: AppNavItem[] = [
   { id: "organizationalMemory", href: "/app/memory", labelKey: "customerApp.nav.organizationalMemory" },
   { id: "organizationalIntelligence", href: "/app/insights", labelKey: "customerApp.nav.organizationalIntelligence" },
   { id: "predictiveIntelligence", href: "/app/predictions", labelKey: "customerApp.nav.predictiveIntelligence" },
+  {
+    id: "databaseGovernanceCenterEngine",
+    href: "/app/operations/database-governance",
+    labelKey: "customerApp.nav.databaseGovernanceCenterEngine",
+  },
   {
     id: "automationControlCenterEngine",
     href: "/app/operations/automation-control",
