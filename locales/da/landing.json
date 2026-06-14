@@ -4,19 +4,21 @@
     "solutions": "Løsninger",
     "pricing": "Priser",
     "about": "Om os",
-    "controlCenter": "Kontrolcenter"
+    "controlCenter": "Platform"
   },
   "hero": {
-    "title": "AI der virker for din virksomhed.",
-    "subtitle": "Aipify hjælper virksomheder med at automatisere support, strømline drift og træffe klogere beslutninger gennem intelligente AI-assistenter."
+    "title": "Aipify arbejder for dig.",
+    "subtitle": "Aipify hjælper organisationer med at strømline drift, støtte teams, automatisere godkendte arbejdsgange og træffe klogere beslutninger gennem intelligent forretningsstøtte."
   },
   "modules": {
     "title": "Kernemoduler",
-    "supportAi": "Support AI",
-    "installAi": "Install AI"
+    "supportAi": "Aipify Support",
+    "installAi": "Aipify Install",
+    "insightsAi": "Aipify Insights",
+    "commerceAi": "Aipify Commerce"
   },
   "cta": {
-    "title": "Klar til at bringe AI ind i din virksomhed?",
+    "title": "Klar til at tage Aipify ind i din organisation?",
     "startFree": "Start gratis"
   }
 }

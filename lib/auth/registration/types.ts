@@ -2,7 +2,9 @@ import type {
   EmployeeRange,
   Industry,
   OrganizationType,
+  PackagePlan,
   PrimaryUseCase,
+  WorkspaceLanguage,
 } from "./constants";
 
 export type RegistrationDraft = {
@@ -23,12 +25,17 @@ export type RegistrationDraft = {
     country: string;
     website: string;
     logoUrl: string;
+    primaryLanguage: WorkspaceLanguage | "";
+    secondaryLanguages: WorkspaceLanguage[];
   };
   profile: {
     industry: Industry | "";
     employeeRange: EmployeeRange | "";
     primaryUseCases: PrimaryUseCase[];
     organizationType: OrganizationType | "";
+  };
+  package: {
+    selectedPlan: PackagePlan | "";
   };
   security: {
     twoFactorChoice: "skip" | "enable_later";
@@ -90,12 +97,17 @@ export const EMPTY_REGISTRATION_DRAFT: RegistrationDraft = {
     country: "NO",
     website: "",
     logoUrl: "",
+    primaryLanguage: "en",
+    secondaryLanguages: [],
   },
   profile: {
     industry: "",
     employeeRange: "",
     primaryUseCases: [],
     organizationType: "company",
+  },
+  package: {
+    selectedPlan: "",
   },
   security: {
     twoFactorChoice: "skip",

@@ -4,19 +4,21 @@
     "solutions": "Solutions",
     "pricing": "Pricing",
     "about": "About",
-    "controlCenter": "Control Center"
+    "controlCenter": "Platform"
   },
   "hero": {
     "title": "Aipify works for you.",
-    "subtitle": "Aipify helps businesses automate support, streamline operations and make smarter decisions through intelligent AI assistants."
+    "subtitle": "Aipify helps organizations streamline operations, support teams, automate approved workflows and make smarter decisions through intelligent business assistance."
   },
   "modules": {
     "title": "Core Modules",
-    "supportAi": "Support AI",
-    "installAi": "Install AI"
+    "supportAi": "Aipify Support",
+    "installAi": "Aipify Install",
+    "insightsAi": "Aipify Insights",
+    "commerceAi": "Aipify Commerce"
   },
   "cta": {
-    "title": "Ready to bring AI into your business?",
+    "title": "Ready to bring Aipify into your organization?",
     "startFree": "Start Free"
   }
 }

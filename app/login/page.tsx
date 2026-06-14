@@ -28,6 +28,8 @@ export default async function LoginPage() {
             invalidCredentials: t("auth.errors.invalidCredentials"),
             requiredFields: t("auth.errors.requiredFields"),
             generic: t("auth.errors.generic"),
+            trustSecurity: t("auth.login.trustSecurity"),
+            trustTwoFactor: t("auth.login.trustTwoFactor"),
           }}
         />
       </Suspense>

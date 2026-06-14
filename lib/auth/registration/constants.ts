@@ -21,13 +21,14 @@ export type OrganizationType = (typeof ORGANIZATION_TYPES)[number];
 
 export const PRIMARY_USE_CASES = [
   "customer_support",
-  "operations_automation",
-  "executive_intelligence",
-  "knowledge_management",
-  "team_productivity",
-  "commerce_operations",
-  "growth_partner_services",
-  "internal_pilot",
+  "admin_assistance",
+  "operations",
+  "executive_insights",
+  "commerce",
+  "knowledge_center",
+  "automations",
+  "self_healing",
+  "integrations",
 ] as const;
 
 export type PrimaryUseCase = (typeof PRIMARY_USE_CASES)[number];
@@ -79,3 +80,16 @@ export const COUNTRY_OPTIONS = [
 ] as const;
 
 export const REGISTRATION_STORAGE_KEY = "aipify-registration-wizard";
+
+export const WORKSPACE_LANGUAGES = ["en", "no", "sv", "da"] as const;
+
+export type WorkspaceLanguage = (typeof WORKSPACE_LANGUAGES)[number];
+
+export const PACKAGE_PLANS = [
+  "starter",
+  "professional",
+  "business",
+  "enterprise",
+] as const;
+
+export type PackagePlan = (typeof PACKAGE_PLANS)[number];

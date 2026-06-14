@@ -31,8 +31,8 @@ export default function Footer() {
               </span>
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-gray-600">
-              Intelligent AI assistants that learn your systems and help your
-              team work smarter.
+              Aipify Business Operating System helps organizations connect knowledge, workflows,
+              teams and intelligent business assistance in one platform.
             </p>
           </div>
 
@@ -80,7 +80,7 @@ export default function Footer() {
 
         <div id="login" className="mt-12 border-t border-gray-200 pt-8">
           <p className="text-center text-sm text-gray-500">
-            &copy; {new Date().getFullYear()} Aipify AI
+            &copy; {new Date().getFullYear()} Aipify
           </p>
         </div>
       </div>

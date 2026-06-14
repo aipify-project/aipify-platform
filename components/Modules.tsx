@@ -1,8 +1,9 @@
 const modules = [
   {
-    title: "Support AI",
-    description: "Reduce response times from days to minutes.",
-    detail: "Handles customer inquiries automatically while your team focuses on complex cases.",
+    title: "Aipify Support",
+    description: "Reduce response times and handle inquiries with confidence.",
+    detail:
+      "Prepare high-quality replies, triage customer requests, and help teams respond thoughtfully with human oversight.",
     tag: "Customer support",
     icon: (
       <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
@@ -12,9 +13,10 @@ const modules = [
     gradient: "from-blue-500 to-blue-600",
   },
   {
-    title: "Install AI",
-    description: "Learn from your existing systems automatically.",
-    detail: "Connects to your tools and builds knowledge of how your business operates — no manual setup.",
+    title: "Aipify Install",
+    description: "Connect your existing systems and learn your operations.",
+    detail:
+      "Connect your existing systems and let Aipify understand your workflows, knowledge and business structure.",
     tag: "System learning",
     highlight: true,
     icon: (
@@ -26,9 +28,10 @@ const modules = [
     gradient: "from-violet-500 to-violet-600",
   },
   {
-    title: "Analytics AI",
-    description: "Understand what matters and what to do next.",
-    detail: "Surfaces trends, anomalies and recommended actions from across your business data.",
+    title: "Aipify Insights",
+    description: "Surface trends, risks, and recommended actions.",
+    detail:
+      "Surface trends, risks, opportunities and recommended actions from your business data with executive-grade clarity.",
     tag: "Insights",
     icon: (
       <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
@@ -38,9 +41,10 @@ const modules = [
     gradient: "from-blue-600 to-indigo-600",
   },
   {
-    title: "Commerce AI",
-    description: "Optimize products, margins and opportunities.",
-    detail: "Identifies growth opportunities, pricing improvements and product performance trends.",
+    title: "Aipify Commerce",
+    description: "Optimize products, margins, and commerce performance.",
+    detail:
+      "Optimize products, margins, supplier workflows and commerce performance with permission-based recommendations.",
     tag: "Revenue",
     icon: (
       <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
@@ -60,8 +64,8 @@ export default function Modules() {
             Core Modules
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-gray-600">
-            Four intelligent AI assistants — powered by Aipify Assistant — built
-            for every part of your business.
+            Core Aipify modules designed to support your operations, knowledge, customers and
+            growth.
           </p>
         </div>
 
@@ -86,20 +90,16 @@ export default function Modules() {
                 </span>
               </div>
 
-              <h3 className="mt-6 text-xl font-semibold text-gray-900">
-                {mod.title}
-              </h3>
+              <h3 className="mt-6 text-xl font-semibold text-gray-900">{mod.title}</h3>
               <p className="mt-2 text-base font-medium leading-relaxed text-gray-700">
                 {mod.description}
               </p>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-gray-500">
-                {mod.detail}
-              </p>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-gray-500">{mod.detail}</p>
 
               {mod.highlight && (
                 <p className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-violet-700">
                   <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
-                  Learns your systems automatically
+                  Learns your systems with human validation
                 </p>
               )}
             </article>

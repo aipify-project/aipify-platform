@@ -10,16 +10,15 @@ export default function CTA() {
 
       <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
-          Ready to bring AI into your business?
+          Ready to bring Aipify into your organization?
         </h2>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-600 sm:text-xl">
-          Get started with Aipify and discover how intelligent assistants can
-          support your team.
+          Start building a smarter operating system for support, operations, insights and growth.
         </p>
 
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <a
-            href="#get-started"
+            href="/register"
             className="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-10 py-4 text-base font-semibold text-white shadow-lg shadow-blue-500/25 transition hover:from-blue-700 hover:to-violet-700 sm:w-auto"
           >
             Start Free
@@ -33,7 +32,7 @@ export default function CTA() {
         </div>
 
         <p className="mt-6 text-sm text-gray-500">
-          No credit card required · Setup in minutes · Cancel anytime
+          Built for professional organizations · Governance-ready · Human oversight
         </p>
       </div>
     </section>

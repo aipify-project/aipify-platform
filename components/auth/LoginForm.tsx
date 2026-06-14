@@ -18,6 +18,8 @@ type LoginFormProps = {
     invalidCredentials: string;
     requiredFields: string;
     generic: string;
+    trustSecurity: string;
+    trustTwoFactor: string;
   };
 };
 
@@ -141,6 +143,11 @@ export default function LoginForm({ labels }: LoginFormProps) {
       >
         {loading ? `${labels.signIn}...` : labels.signIn}
       </button>
+
+      <div className="space-y-1 text-center text-xs text-gray-500">
+        <p>{labels.trustSecurity}</p>
+        <p>{labels.trustTwoFactor}</p>
+      </div>
 
       <p className="text-center text-sm text-gray-600">
         {labels.noAccount}{" "}

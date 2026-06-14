@@ -1,7 +1,7 @@
 const assistantUpdates = [
-  { label: "3 supporthenvendelser besvart", color: "bg-blue-500", module: "Support AI" },
-  { label: "1 anbefalt handling", color: "bg-violet-500", module: "Analytics AI" },
-  { label: "2 nye innsikter", color: "bg-indigo-400", module: "Commerce AI" },
+  { label: "3 support inquiries prepared", color: "bg-blue-500", module: "Aipify Support" },
+  { label: "1 recommended action", color: "bg-violet-500", module: "Aipify Insights" },
+  { label: "2 operational insights", color: "bg-indigo-400", module: "Aipify Commerce" },
 ];
 
 const connectedSystems = ["CRM", "Support", "Shop", "Analytics"];
@@ -17,7 +17,7 @@ export default function Hero() {
       <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:py-32">
         <div className="order-2 lg:order-1">
           <span className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-700">
-            AI Platform for Business
+            Aipify Business Operating System
           </span>
 
           <h1 className="mt-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl lg:leading-[1.1]">
@@ -25,13 +25,13 @@ export default function Hero() {
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-gray-600 sm:text-xl">
-            Aipify helps businesses automate support, streamline operations and
-            make smarter decisions through intelligent AI assistants.
+            Aipify helps organizations streamline operations, support teams, automate approved
+            workflows and make smarter decisions through intelligent business assistance.
           </p>
 
           <p className="mt-4 max-w-xl text-base text-gray-500">
-            Connect your systems once — Aipify learns how your business works
-            and starts helping your team from day one.
+            Connect your systems once. Aipify learns how your organization works, understands your
+            workflows and starts supporting your team from day one.
           </p>
 
           <div id="demo" className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -56,11 +56,11 @@ export default function Hero() {
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">4</p>
-              <p className="text-sm text-gray-500">AI modules included</p>
+              <p className="text-sm text-gray-500">Core modules</p>
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">24/7</p>
-              <p className="text-sm text-gray-500">Assistant availability</p>
+              <p className="text-sm text-gray-500">Aipify availability</p>
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@ export default function Hero() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-base font-semibold text-gray-900">Aipify Assistant</p>
-                  <p className="text-xs text-gray-500">Always learning, always helping</p>
+                  <p className="text-xs text-gray-500">Attentive, governance-ready support</p>
                 </div>
                 <span className="relative flex h-2.5 w-2.5 shrink-0">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
@@ -101,7 +101,7 @@ export default function Hero() {
                 </div>
                 <div className="mt-3">
                   <div className="flex items-center justify-between text-xs text-gray-500">
-                    <span>Install AI — system knowledge</span>
+                    <span>Aipify Install — workflow knowledge</span>
                     <span className="font-medium text-violet-700">78%</span>
                   </div>
                   <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-violet-100">
@@ -112,7 +112,7 @@ export default function Hero() {
 
               <div className="space-y-3">
                 <div className="rounded-xl bg-white p-4 shadow-sm">
-                  <p className="text-sm font-semibold text-gray-900">Siden sist:</p>
+                  <p className="text-sm font-semibold text-gray-900">Since last visit:</p>
                   <ul className="mt-3 space-y-3">
                     {assistantUpdates.map((item) => (
                       <li key={item.label} className="flex items-start justify-between gap-3">
@@ -148,7 +148,7 @@ export default function Hero() {
           </div>
 
           <div className="absolute -right-2 -top-3 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-lg sm:-right-3">
-            <p className="text-xs font-medium text-gray-500">Tasks automated</p>
+            <p className="text-xs font-medium text-gray-500">Approved actions</p>
             <p className="text-lg font-bold text-gray-900">847</p>
           </div>
         </div>

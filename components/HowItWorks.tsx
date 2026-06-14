@@ -1,24 +1,38 @@
 const steps = [
   {
     number: "01",
-    title: "Connect your business.",
+    title: "Connect your organization.",
     description:
-      "Link your tools, data sources and workflows in minutes. Aipify integrates with the systems you already use.",
-    systems: ["CRM", "Support desk", "E-commerce", "Analytics"],
+      "Link your systems, knowledge sources and workflows. Aipify begins understanding the tools your business already uses.",
+    systems: ["CRM", "Support", "Knowledge", "Commerce"],
   },
   {
     number: "02",
-    title: "Aipify learns your workflows.",
+    title: "Aipify learns your operations.",
     description:
-      "Install AI studies how your team operates — understanding patterns, priorities and the way work gets done across your connected systems.",
-    systems: ["Processes", "Data flows", "Team habits", "Business rules"],
+      "Aipify studies workflows, support patterns, policies, team structures and business rules.",
+    systems: ["Workflows", "Policies", "Teams", "Business rules"],
   },
   {
     number: "03",
-    title: "Aipify starts helping your team.",
+    title: "Aipify supports your teams.",
     description:
-      "Aipify Assistant takes action — answering support, surfacing insights and recommending next steps through Support, Analytics and Commerce AI.",
-    systems: ["Support AI", "Analytics AI", "Commerce AI", "Install AI"],
+      "Aipify prepares summaries, recommendations, replies, reports and approved workflow actions.",
+    systems: ["Aipify Support", "Aipify Insights", "Aipify Commerce", "Aipify Install"],
+  },
+  {
+    number: "04",
+    title: "Gain executive insight.",
+    description:
+      "Aipify surfaces priorities, risks, opportunities and health indicators across your organization.",
+    systems: ["Executive view", "Health scores", "Risk signals", "Recommendations"],
+  },
+  {
+    number: "05",
+    title: "Scale with confidence.",
+    description:
+      "Add modules, permissions, automations and governance as your organization grows.",
+    systems: ["Modules", "Permissions", "Governance", "Audit-ready workflows"],
   },
 ];
 
@@ -31,33 +45,28 @@ export default function HowItWorks() {
             How It Works
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-gray-600">
-            From setup to impact in three simple steps.
+            From setup to operational value in a guided onboarding flow.
           </p>
         </div>
 
-        {/* Desktop & tablet horizontal timeline */}
-        <div className="relative mt-16 hidden md:block">
+        <div className="relative mt-16 hidden lg:block">
           <div
-            className="absolute left-[16.67%] right-[16.67%] top-8 h-px bg-gradient-to-r from-blue-300 via-violet-400 to-blue-300"
+            className="absolute left-[10%] right-[10%] top-8 h-px bg-gradient-to-r from-blue-300 via-violet-400 to-blue-300"
             aria-hidden="true"
           />
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-5 gap-4">
             {steps.map((step) => (
               <div key={step.number} className="relative text-center">
-                <div className="relative z-10 mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 text-lg font-bold text-white shadow-lg shadow-blue-500/25">
+                <div className="relative z-10 mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 text-sm font-bold text-white shadow-lg shadow-blue-500/25">
                   {step.number}
                 </div>
-                <h3 className="mt-6 text-lg font-semibold text-gray-900 lg:text-xl">
-                  {step.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-gray-600 lg:text-base">
-                  {step.description}
-                </p>
-                <div className="mt-4 flex flex-wrap justify-center gap-2">
+                <h3 className="mt-5 text-sm font-semibold text-gray-900">{step.title}</h3>
+                <p className="mt-2 text-xs leading-relaxed text-gray-600">{step.description}</p>
+                <div className="mt-3 flex flex-wrap justify-center gap-1.5">
                   {step.systems.map((system) => (
                     <span
                       key={system}
-                      className="rounded-lg border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-600"
+                      className="rounded-lg border border-gray-200 bg-gray-50 px-2 py-0.5 text-[10px] font-medium text-gray-600"
                     >
                       {system}
                     </span>
@@ -68,8 +77,7 @@ export default function HowItWorks() {
           </div>
         </div>
 
-        {/* Mobile vertical timeline */}
-        <div className="relative mx-auto mt-12 max-w-3xl md:hidden">
+        <div className="relative mx-auto mt-12 max-w-3xl lg:hidden">
           <div
             className="absolute left-8 top-0 h-full w-px bg-gradient-to-b from-blue-500 via-violet-500 to-blue-300"
             aria-hidden="true"
@@ -83,12 +91,8 @@ export default function HowItWorks() {
                   </div>
                 </div>
                 <div className="pb-2 pt-2">
-                  <h3 className="text-xl font-semibold text-gray-900">
-                    {step.title}
-                  </h3>
-                  <p className="mt-3 text-base leading-relaxed text-gray-600">
-                    {step.description}
-                  </p>
+                  <h3 className="text-xl font-semibold text-gray-900">{step.title}</h3>
+                  <p className="mt-3 text-base leading-relaxed text-gray-600">{step.description}</p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {step.systems.map((system) => (
                       <span

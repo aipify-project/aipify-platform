@@ -123,7 +123,7 @@
     "steps": {
       "1": { "title": "Connect your organization", "description": "Link Aipify to your admin, store, or custom system." },
       "2": { "title": "Import or create your Knowledge Center", "description": "Approved sources, FAQs, and procedures your team trusts." },
-      "3": { "title": "Activate modules", "description": "Enable Support AI, Operations, Documents, and more — only what you need." },
+      "3": { "title": "Activate modules", "description": "Enable Aipify Support, Operations, Documents, and more — only what you need." },
       "4": { "title": "Let Aipify recommend and assist", "description": "Drafts, insights, and prepared actions inside your existing workflow." },
       "5": { "title": "Delegate safe workflows over time", "description": "Explicit trust policies for low-risk, reversible automation." }
     }
@@ -132,7 +132,7 @@
     "title": "Module showcase",
     "subtitle": "Operational modules you can activate as your organization grows.",
     "items": {
-      "support": { "name": "Support AI", "description": "Triage, draft responses, and escalate with confidence scoring.", "status": "Available" },
+      "support": { "name": "Aipify Support", "description": "Triage, draft responses, and escalate with confidence scoring.", "status": "Available" },
       "admin": { "name": "Admin Assistant", "description": "Daily administration, follow-up, and operational coordination.", "status": "Available" },
       "knowledge": { "name": "Knowledge Center", "description": "Approved sources, FAQs, gaps, and role-based access.", "status": "Available" },
       "operations": { "name": "Operations Center", "description": "Operational dashboards, alerts, and coordinated workflows.", "status": "Available" },
@@ -203,7 +203,7 @@
       "1000+": "1,000+"
     },
     "interests": {
-      "support": "Support AI",
+      "support": "Aipify Support",
       "admin": "Admin Assistant",
       "operations": "Operations",
       "enterprise": "Enterprise deployment",

@@ -6,6 +6,7 @@ type AuthLayoutProps = {
   subtitle: string;
   children: React.ReactNode;
   wide?: boolean;
+  trustNote?: string;
 };
 
 export default function AuthLayout({
@@ -14,6 +15,7 @@ export default function AuthLayout({
   subtitle,
   children,
   wide = false,
+  trustNote,
 }: AuthLayoutProps) {
   return (
     <div className="relative flex min-h-screen flex-col bg-gray-50">
@@ -47,6 +49,9 @@ export default function AuthLayout({
           <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-xl shadow-gray-200/50 sm:p-8">
             {children}
           </div>
+          {trustNote ? (
+            <p className="mt-4 text-center text-sm text-gray-500">{trustNote}</p>
+          ) : null}
         </div>
       </main>
     </div>

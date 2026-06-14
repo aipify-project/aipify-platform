@@ -7,14 +7,17 @@ import {
   EMPLOYEE_RANGES,
   EMPTY_REGISTRATION_DRAFT,
   INDUSTRIES,
-  ORGANIZATION_TYPES,
+  PACKAGE_PLANS,
   PRIMARY_USE_CASES,
   REGISTRATION_STORAGE_KEY,
+  WORKSPACE_LANGUAGES,
   formatPhoneWithCountryCode,
   getPasswordStrength,
   isBusinessEmail,
   isValidPhone,
+  type PackagePlan,
   type RegistrationDraft,
+  type WorkspaceLanguage,
   type WorkspaceRegistrationPayload,
 } from "@/lib/auth/registration";
 import { createClient } from "@/lib/supabase/client";
@@ -34,13 +37,24 @@ type RegistrationWizardLabels = {
   steps: {
     owner: { title: string; subtitle: string };
     organization: { title: string; subtitle: string };
-    profile: { title: string; subtitle: string };
-    security: { title: string; subtitle: string };
+    package: { title: string; subtitle: string };
+    needs: { title: string; subtitle: string };
     confirmation: { title: string; subtitle: string };
   };
   fields: Record<string, string>;
   placeholders: Record<string, string>;
   passwordStrength: Record<string, string>;
+  packages: Record<PackagePlan, { name: string; description: string }>;
+  languages: Record<WorkspaceLanguage, string>;
+  confirmation: {
+    selectedPackage: string;
+    organization: string;
+    trialStatus: string;
+    trialActive: string;
+    nextStep: string;
+    nextStepDetail: string;
+    securityNote: string;
+  };
   security: {
     infoTitle: string;
     infoBody: string;
@@ -55,7 +69,6 @@ type RegistrationWizardLabels = {
     termsLink: string;
     privacyLink: string;
   };
-  organizationTypes: Record<string, string>;
   industries: Record<string, string>;
   useCases: Record<string, string>;
   errors: Record<string, string>;
@@ -91,6 +104,8 @@ const inputClass =
 
 const labelClass = "block text-sm font-medium text-gray-700";
 
+const ADDRESS_PENDING = "Pending — complete in workspace settings";
+
 export default function RegistrationWizard({ labels }: RegistrationWizardProps) {
   const [draft, setDraft] = useState<RegistrationDraft>(EMPTY_REGISTRATION_DRAFT);
   const [password, setPassword] = useState("");
@@ -119,7 +134,13 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
     return map[passwordStrength];
   }, [passwordStrength]);
 
-  const progressLabel = labels.progress.replace("{current}", String(draft.step)).replace("{total}", String(TOTAL_STEPS));
+  const progressLabel = labels.progress
+    .replace("{current}", String(draft.step))
+    .replace("{total}", String(TOTAL_STEPS));
+
+  const selectedPackageLabel = draft.package.selectedPlan
+    ? labels.packages[draft.package.selectedPlan as PackagePlan]?.name ?? draft.package.selectedPlan
+    : "";
 
   async function ensureAccountCreated(): Promise<boolean> {
     if (draft.accountCreated) return true;
@@ -179,21 +200,20 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
       }
       case 2: {
         const org = draft.organization;
-        if (!org.companyName.trim() || !org.businessAddress.trim() || !org.postalCode.trim() || !org.city.trim() || !org.country) {
-          return labels.errors.requiredFields;
-        }
+        const profile = draft.profile;
+        if (!org.companyName.trim()) return labels.errors.requiredFields;
+        if (!profile.industry || !profile.employeeRange) return labels.errors.requiredFields;
+        if (!org.primaryLanguage) return labels.errors.requiredFields;
         return null;
       }
       case 3: {
-        const profile = draft.profile;
-        if (!profile.industry || !profile.employeeRange || !profile.organizationType) {
-          return labels.errors.requiredFields;
-        }
-        if (profile.primaryUseCases.length === 0) return labels.errors.useCasesRequired;
+        if (!draft.package.selectedPlan) return labels.errors.packageRequired;
         return null;
       }
-      case 4:
+      case 4: {
+        if (draft.profile.primaryUseCases.length === 0) return labels.errors.useCasesRequired;
         return null;
+      }
       case 5: {
         if (!draft.confirmation.termsAccepted || !draft.confirmation.authorityAccepted) {
           return labels.errors.termsRequired;
@@ -235,6 +255,7 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
     setError(null);
 
     try {
+      const orgCountry = draft.organization.country || draft.owner.country;
       const payload: WorkspaceRegistrationPayload = {
         owner_full_name: draft.owner.fullName.trim(),
         business_email: draft.owner.businessEmail.trim().toLowerCase(),
@@ -242,16 +263,16 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
         owner_country: draft.owner.country,
         company_name: draft.organization.companyName.trim(),
         organization_number: draft.organization.organizationNumber.trim(),
-        business_address: draft.organization.businessAddress.trim(),
-        postal_code: draft.organization.postalCode.trim(),
-        city: draft.organization.city.trim(),
-        organization_country: draft.organization.country,
+        business_address: draft.organization.businessAddress.trim() || ADDRESS_PENDING,
+        postal_code: draft.organization.postalCode.trim() || "0000",
+        city: draft.organization.city.trim() || "Pending",
+        organization_country: orgCountry,
         website: draft.organization.website.trim(),
         logo_url: draft.organization.logoUrl.trim(),
         industry: draft.profile.industry,
         employee_range: draft.profile.employeeRange,
         primary_use_cases: draft.profile.primaryUseCases,
-        organization_type: draft.profile.organizationType,
+        organization_type: draft.profile.organizationType || "company",
         product_updates_opt_in: draft.confirmation.productUpdatesOptIn,
         registration_2fa_skipped: draft.security.twoFactorChoice === "skip",
         registration_2fa_enabled: draft.security.twoFactorChoice === "enable_later",
@@ -293,6 +314,14 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
     void handleContinue();
   }
 
+  function toggleSecondaryLanguage(lang: WorkspaceLanguage) {
+    const current = draft.organization.secondaryLanguages;
+    const next = current.includes(lang)
+      ? current.filter((l) => l !== lang)
+      : [...current, lang].filter((l) => l !== draft.organization.primaryLanguage);
+    updateDraft({ organization: { ...draft.organization, secondaryLanguages: next } });
+  }
+
   useEffect(() => {
     if (!completed) return;
     const timer = window.setTimeout(() => {
@@ -316,8 +345,8 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
   const stepMeta = [
     labels.steps.owner,
     labels.steps.organization,
-    labels.steps.profile,
-    labels.steps.security,
+    labels.steps.package,
+    labels.steps.needs,
     labels.steps.confirmation,
   ][draft.step - 1];
 
@@ -435,53 +464,6 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
               className={inputClass} placeholder={labels.placeholders.organizationNumber} />
           </div>
           <div>
-            <label htmlFor="businessAddress" className={labelClass}>{labels.fields.businessAddress}</label>
-            <input id="businessAddress" type="text" autoComplete="street-address" value={draft.organization.businessAddress}
-              onChange={(e) => updateDraft({ organization: { ...draft.organization, businessAddress: e.target.value } })}
-              className={inputClass} required />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label htmlFor="postalCode" className={labelClass}>{labels.fields.postalCode}</label>
-              <input id="postalCode" type="text" autoComplete="postal-code" value={draft.organization.postalCode}
-                onChange={(e) => updateDraft({ organization: { ...draft.organization, postalCode: e.target.value } })}
-                className={inputClass} required />
-            </div>
-            <div>
-              <label htmlFor="city" className={labelClass}>{labels.fields.city}</label>
-              <input id="city" type="text" autoComplete="address-level2" value={draft.organization.city}
-                onChange={(e) => updateDraft({ organization: { ...draft.organization, city: e.target.value } })}
-                className={inputClass} required />
-            </div>
-          </div>
-          <div>
-            <label htmlFor="orgCountry" className={labelClass}>{labels.fields.organizationCountry}</label>
-            <select id="orgCountry" value={draft.organization.country}
-              onChange={(e) => updateDraft({ organization: { ...draft.organization, country: e.target.value } })}
-              className={inputClass}>
-              {COUNTRY_OPTIONS.map((c) => (
-                <option key={c.code} value={c.code}>{c.code}</option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label htmlFor="website" className={labelClass}>{labels.fields.website}</label>
-            <input id="website" type="url" value={draft.organization.website}
-              onChange={(e) => updateDraft({ organization: { ...draft.organization, website: e.target.value } })}
-              className={inputClass} placeholder={labels.placeholders.website} />
-          </div>
-          <div>
-            <label htmlFor="logoUrl" className={labelClass}>{labels.fields.logoUrl}</label>
-            <input id="logoUrl" type="url" value={draft.organization.logoUrl}
-              onChange={(e) => updateDraft({ organization: { ...draft.organization, logoUrl: e.target.value } })}
-              className={inputClass} placeholder={labels.placeholders.logoUrl} />
-          </div>
-        </div>
-      )}
-
-      {draft.step === 3 && (
-        <div className="space-y-4">
-          <div>
             <label htmlFor="industry" className={labelClass}>{labels.fields.industry}</label>
             <select id="industry" value={draft.profile.industry}
               onChange={(e) => updateDraft({ profile: { ...draft.profile, industry: e.target.value as RegistrationDraft["profile"]["industry"] } })}
@@ -504,47 +486,112 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
             </select>
           </div>
           <div>
-            <span className={labelClass}>{labels.fields.primaryUseCases}</span>
-            <div className="mt-2 grid gap-2 sm:grid-cols-2">
-              {PRIMARY_USE_CASES.map((useCase) => {
-                const checked = draft.profile.primaryUseCases.includes(useCase);
+            <label htmlFor="website" className={labelClass}>{labels.fields.website}</label>
+            <input id="website" type="url" value={draft.organization.website}
+              onChange={(e) => updateDraft({ organization: { ...draft.organization, website: e.target.value } })}
+              className={inputClass} placeholder={labels.placeholders.website} />
+          </div>
+          <div>
+            <label htmlFor="primaryLanguage" className={labelClass}>{labels.fields.primaryLanguage}</label>
+            <select id="primaryLanguage" value={draft.organization.primaryLanguage}
+              onChange={(e) => {
+                const primaryLanguage = e.target.value as WorkspaceLanguage;
+                updateDraft({
+                  organization: {
+                    ...draft.organization,
+                    primaryLanguage,
+                    secondaryLanguages: draft.organization.secondaryLanguages.filter((l) => l !== primaryLanguage),
+                  },
+                });
+              }}
+              className={inputClass} required>
+              {WORKSPACE_LANGUAGES.map((lang) => (
+                <option key={lang} value={lang}>{labels.languages[lang]}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <span className={labelClass}>{labels.fields.secondaryLanguages}</span>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {WORKSPACE_LANGUAGES.filter((lang) => lang !== draft.organization.primaryLanguage).map((lang) => {
+                const checked = draft.organization.secondaryLanguages.includes(lang);
                 return (
-                  <label key={useCase} className="flex cursor-pointer items-center gap-2 rounded-lg border border-gray-200 px-3 py-2 text-sm hover:bg-gray-50">
+                  <label key={lang} className="flex cursor-pointer items-center gap-2 rounded-lg border border-gray-200 px-3 py-2 text-sm hover:bg-gray-50">
                     <input type="checkbox" checked={checked}
-                      onChange={() => {
-                        const next = checked
-                          ? draft.profile.primaryUseCases.filter((u) => u !== useCase)
-                          : [...draft.profile.primaryUseCases, useCase];
-                        updateDraft({ profile: { ...draft.profile, primaryUseCases: next } });
-                      }}
+                      onChange={() => toggleSecondaryLanguage(lang)}
                       className="rounded border-gray-300 text-violet-600 focus:ring-violet-500" />
-                    {labels.useCases[useCase]}
+                    {labels.languages[lang]}
                   </label>
                 );
               })}
             </div>
           </div>
-          <div>
-            <label htmlFor="organizationType" className={labelClass}>{labels.fields.organizationType}</label>
-            <select id="organizationType" value={draft.profile.organizationType}
-              onChange={(e) => updateDraft({ profile: { ...draft.profile, organizationType: e.target.value as RegistrationDraft["profile"]["organizationType"] } })}
-              className={inputClass} required>
-              {ORGANIZATION_TYPES.map((type) => (
-                <option key={type} value={type}>{labels.organizationTypes[type]}</option>
-              ))}
-            </select>
+        </div>
+      )}
+
+      {draft.step === 3 && (
+        <div className="grid gap-3 sm:grid-cols-2">
+          {PACKAGE_PLANS.map((plan) => (
+            <button key={plan} type="button"
+              onClick={() => updateDraft({ package: { selectedPlan: plan } })}
+              className={`rounded-xl border px-4 py-4 text-left text-sm transition ${
+                draft.package.selectedPlan === plan
+                  ? "border-violet-400 bg-violet-50 ring-2 ring-violet-100"
+                  : "border-gray-200 bg-white hover:border-gray-300"
+              }`}>
+              <span className="font-semibold text-gray-900">{labels.packages[plan].name}</span>
+              <p className="mt-1 text-xs text-gray-500">{labels.packages[plan].description}</p>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {draft.step === 4 && (
+        <div className="space-y-4">
+          <span className={labelClass}>{labels.fields.primaryUseCases}</span>
+          <div className="mt-2 grid gap-2 sm:grid-cols-2">
+            {PRIMARY_USE_CASES.map((useCase) => {
+              const checked = draft.profile.primaryUseCases.includes(useCase);
+              return (
+                <label key={useCase} className="flex cursor-pointer items-center gap-2 rounded-lg border border-gray-200 px-3 py-2 text-sm hover:bg-gray-50">
+                  <input type="checkbox" checked={checked}
+                    onChange={() => {
+                      const next = checked
+                        ? draft.profile.primaryUseCases.filter((u) => u !== useCase)
+                        : [...draft.profile.primaryUseCases, useCase];
+                      updateDraft({ profile: { ...draft.profile, primaryUseCases: next } });
+                    }}
+                    className="rounded border-gray-300 text-violet-600 focus:ring-violet-500" />
+                  {labels.useCases[useCase]}
+                </label>
+              );
+            })}
           </div>
         </div>
       )}
 
-      {/*
-        Step 4 — Security: informational preview only during registration.
-        Full TOTP enrollment requires an authenticated session tied to a provisioned workspace user.
-        Pragmatic flow: user may skip now or opt to enable immediately after workspace creation;
-        the API redirects to /app/settings/two-factor when enable_later is chosen.
-      */}
-      {draft.step === 4 && (
+      {draft.step === 5 && (
         <div className="space-y-4">
+          <div className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-4 text-sm text-gray-700 space-y-2">
+            <div className="flex justify-between gap-4">
+              <span className="text-gray-500">{labels.confirmation.selectedPackage}</span>
+              <span className="font-medium text-gray-900">{selectedPackageLabel}</span>
+            </div>
+            <div className="flex justify-between gap-4">
+              <span className="text-gray-500">{labels.confirmation.organization}</span>
+              <span className="font-medium text-gray-900">{draft.organization.companyName}</span>
+            </div>
+            <div className="flex justify-between gap-4">
+              <span className="text-gray-500">{labels.confirmation.trialStatus}</span>
+              <span className="font-medium text-emerald-700">{labels.confirmation.trialActive}</span>
+            </div>
+            <div>
+              <p className="text-gray-500">{labels.confirmation.nextStep}</p>
+              <p className="mt-1 font-medium text-gray-900">{labels.confirmation.nextStepDetail}</p>
+            </div>
+            <p className="border-t border-gray-200 pt-3 text-xs text-gray-600">{labels.confirmation.securityNote}</p>
+          </div>
+
           <div className="rounded-xl border border-violet-100 bg-violet-50/60 px-4 py-4">
             <h3 className="text-sm font-semibold text-violet-900">{labels.security.infoTitle}</h3>
             <p className="mt-2 text-sm text-violet-800/90">{labels.security.infoBody}</p>
@@ -570,18 +617,7 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
               <p className="mt-1 text-xs text-gray-500">{labels.security.enableNote}</p>
             </button>
           </div>
-        </div>
-      )}
 
-      {draft.step === 5 && (
-        <div className="space-y-4">
-          <div className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-4 text-sm text-gray-700">
-            <p className="font-medium text-gray-900">{draft.organization.companyName}</p>
-            <p>{draft.owner.fullName} · {draft.owner.businessEmail}</p>
-            <p className="mt-1 text-gray-500">
-              {labels.organizationTypes[draft.profile.organizationType]} · {draft.profile.employeeRange}
-            </p>
-          </div>
           <label className="flex items-start gap-3 text-sm text-gray-700">
             <input type="checkbox" checked={draft.confirmation.termsAccepted}
               onChange={(e) => updateDraft({ confirmation: { ...draft.confirmation, termsAccepted: e.target.checked } })}
