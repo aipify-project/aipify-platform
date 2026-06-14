@@ -73,7 +73,8 @@
     "organizationalTrustLink": "Organizational Trust",
     "organizationalMomentumLink": "Organizational Momentum",
     "organizationalFuturesLink": "Organizational Futures",
-    "organizationalCoherenceLink": "Organizational Coherence"
+    "organizationalCoherenceLink": "Organizational Coherence",
+    "organizationalContinuityLink": "Organizational Continuity"
   },
   "presence": {
     "title": "Presence center",
@@ -5992,7 +5993,8 @@
     "organizationalTrustCenterEngine": "Organisatorisk tillid",
     "organizationalMomentumCenterEngine": "Organisatorisk momentum",
     "organizationalFuturesCenterEngine": "Organisatorisk fremtid",
-    "organizationalCoherenceCenterEngine": "Organisatorisk sammenhæng"
+    "organizationalCoherenceCenterEngine": "Organisatorisk sammenhæng",
+    "organizationalContinuityCenterEngine": "Organisatorisk kontinuitet"
   },
   "identity": {
     "title": "Din identitet",
@@ -17888,5 +17890,123 @@
     },
     "settingsLink": "Organisatorisk sammenhæng",
     "organizationalCoherenceLink": "Organizational Coherence"
+  },
+  "organizationalContinuityCenter": {
+    "title": "Organisatorisk kontinuitet",
+    "subtitle": "Preserve continuity across leadership transitions, workforce changes, operational disruptions, strategic pivots, and periods of accelerated growth.",
+    "loading": "Loading Continuity Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Continuity philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalCoherenceLink": "Organizational Coherence →",
+    "organizationalFuturesLink": "Organizational Futures →",
+    "organizationalMomentumLink": "Organizational Momentum →",
+    "organizationalTrustLink": "Organizational Trust →",
+    "organizationalLegacyLink": "Organizational Legacy →",
+    "dashboardTitle": "Continuity dashboard",
+    "dependencyTitle": "Key person dependency",
+    "successionTitle": "Succession support",
+    "reviewsTitle": "Continuity reviews",
+    "timelineTitle": "Continuity timeline",
+    "milestonesTitle": "Continuity milestones",
+    "snapshotsTitle": "Continuity snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive continuity view",
+    "sessionsTitle": "Continuity sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleDiscussion": "Schedule succession discussion",
+    "addressDependency": "Mark dependency addressed",
+    "advanceSuccession": "Advance succession item",
+    "generateReport": "Generate continuity report",
+    "printSummary": "Print preparedness summary",
+    "exportSnapshot": "Export continuity snapshot",
+    "coordinateTransfer": "Coordinate knowledge transfer",
+    "archiveMilestone": "Archive continuity milestone",
+    "humansDecide": "Aipify supports continuity planning — leadership owns succession, knowledge preservation, and institutional stewardship.",
+    "privacyNote": "Privacy",
+    "continuityScore": "Organizational continuity score",
+    "domains": {
+      "leadership": "Leadership continuity",
+      "knowledge": "Knowledge continuity",
+      "operational": "Operational continuity",
+      "customer": "Customer continuity",
+      "strategic": "Strategic continuity",
+      "cultural": "Cultural continuity"
+    },
+    "signalTypes": {
+      "critical_knowledge_concentration": "Critical knowledge concentration",
+      "leadership_dependency": "Leadership dependency risk",
+      "process_ownership_vulnerability": "Process ownership vulnerability",
+      "operational_bottleneck": "Operational bottleneck"
+    },
+    "signalTones": {
+      "positive": "Positive signal",
+      "neutral": "Neutral signal",
+      "attention": "Needs attention"
+    },
+    "signalStatuses": {
+      "open": "Open",
+      "addressed": "Addressed"
+    },
+    "successionTypes": {
+      "leadership_transition": "Leadership transition",
+      "knowledge_handover": "Knowledge handover",
+      "responsibility_mapping": "Responsibility mapping",
+      "executive_onboarding": "Executive onboarding"
+    },
+    "successionStatuses": {
+      "pending": "Pending",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "stable": "Stable",
+      "developing": "Developing",
+      "vulnerable": "Vulnerable"
+    },
+    "timelineTypes": {
+      "leadership_transition": "Leadership transition",
+      "knowledge_preservation": "Knowledge preservation",
+      "operational_milestone": "Operational milestone",
+      "strategic_reaffirmation": "Strategic reaffirmation",
+      "cultural_continuity": "Cultural continuity"
+    },
+    "reviewTypes": {
+      "quarterly_continuity": "Quarterly continuity review",
+      "annual_succession": "Annual succession discussion",
+      "knowledge_preservation": "Knowledge preservation session",
+      "executive_preparedness": "Executive preparedness assessment"
+    },
+    "sessionTypes": {
+      "succession_discussion": "Succession discussion",
+      "knowledge_transfer": "Knowledge transfer",
+      "preparedness_assessment": "Preparedness assessment"
+    },
+    "metrics": {
+      "leadership": "Leadership preparedness",
+      "knowledge": "Knowledge continuity",
+      "operational": "Operational resilience",
+      "strategic": "Strategic stability",
+      "succession": "Succession readiness",
+      "documentation": "Documentation maturity",
+      "dependencies": "Dependency risks",
+      "confidence": "Executive confidence"
+    },
+    "executiveFields": {
+      "leadership": "Leadership continuity",
+      "consistency": "Strategic consistency",
+      "knowledge": "Knowledge preservation",
+      "opportunities": "Resilience opportunities"
+    },
+    "settingsLink": "Organisatorisk kontinuitet",
+    "organizationalContinuityLink": "Organizational Continuity"
   }
 }

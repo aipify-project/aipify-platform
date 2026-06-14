@@ -1,0 +1,4 @@
+ABOS Phase 333 — Organizational Continuity Center
+Route: /app/executive/organizational-continuity
+Core: Organizations should remain stable even when people, systems, markets, and circumstances change.
+Helpers: _ocnc_* · _ocncbp333_*

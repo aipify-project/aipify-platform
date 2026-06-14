@@ -280,3 +280,4 @@ export * from "./aipify-organizational-trust-center-engine";
 export * from "./aipify-organizational-momentum-center-engine";
 export * from "./aipify-organizational-futures-center-engine";
 export * from "./aipify-organizational-coherence-center-engine";
+export * from "./aipify-organizational-continuity-center-engine";
