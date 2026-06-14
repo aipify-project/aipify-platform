@@ -55,7 +55,8 @@
     "strategicIntelligenceLink": "Strategic Intelligence",
     "continuousImprovementLink": "Continuous Improvement",
     "organizationalResilienceLink": "Organizational Resilience",
-    "opportunityDiscoveryLink": "Opportunity Discovery"
+    "opportunityDiscoveryLink": "Opportunity Discovery",
+    "organizationalHealthLink": "Organizational Health"
   },
   "presence": {
     "title": "Presence center",
@@ -7120,7 +7121,8 @@
     "organizationalMemoryCenterEngine": "Organizational Memory",
     "continuousImprovementCenterEngine": "Continuous Improvement",
     "organizationalResilienceCenterEngine": "Organizational Resilience",
-    "opportunityDiscoveryCenterEngine": "Opportunity Discovery"
+    "opportunityDiscoveryCenterEngine": "Opportunity Discovery",
+    "organizationalHealthCenterEngine": "Organizational Health"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -15995,5 +15997,81 @@
       "usefulness": "Companion usefulness"
     },
     "settingsLink": "Opportunity Discovery"
+  },
+  "organizationalHealthCenter": {
+    "title": "Organizational Health Center",
+    "subtitle": "Unified executive health across customer, workforce, operational, governance, strategic, and financial indicators — balanced insight for leadership reflection.",
+    "loading": "Loading Organizational Health Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Health philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "decisionSupportLink": "Decision Support →",
+    "strategicIntelligenceLink": "Strategic Intelligence →",
+    "continuousImprovementLink": "Continuous Improvement →",
+    "organizationalResilienceLink": "Organizational Resilience →",
+    "opportunityDiscoveryLink": "Opportunity Discovery →",
+    "earlyWarningLink": "Early Warning →",
+    "workforceInsightsLink": "Workforce Insights →",
+    "organizationalHealthEngineLink": "Organizational Health Engine →",
+    "dashboardTitle": "Health dashboard",
+    "domainScoresTitle": "Health domain scores",
+    "indicatorsTitle": "Trend indicators",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "earlyWarningsTitle": "Early warnings",
+    "healthReviewsTitle": "Health reviews",
+    "timelineTitle": "Executive health timeline",
+    "emptySection": "No items in this section yet.",
+    "overallScore": "Overall health score",
+    "trend": "Trend",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "acknowledge": "Acknowledge",
+    "completeReview": "Mark review complete",
+    "generateReport": "Generate executive report",
+    "archiveSnapshot": "Archive health snapshot",
+    "humansDecide": "Health scores support discussion — leaders decide what action, if any, is appropriate.",
+    "privacyNote": "Privacy",
+    "organizationalHealthLink": "Organizational Health",
+    "domains": {
+      "customer": "Customer health",
+      "workforce": "Workforce health",
+      "operational": "Operational health",
+      "governance": "Governance health",
+      "strategic": "Strategic health",
+      "financial": "Financial health"
+    },
+    "healthBands": {
+      "thriving": "Thriving",
+      "healthy": "Healthy",
+      "stable": "Stable",
+      "needs_attention": "Needs attention",
+      "critical_review": "Critical review recommended"
+    },
+    "trendDirections": {
+      "improving": "Improving",
+      "stable": "Stable",
+      "declining": "Declining",
+      "seasonal": "Seasonal variation",
+      "recovering": "Recovering"
+    },
+    "reviewTypes": {
+      "monthly": "Monthly health review",
+      "quarterly": "Quarterly health review",
+      "annual": "Annual health assessment",
+      "leadership_reflection": "Leadership reflection session"
+    },
+    "metrics": {
+      "improving": "Domains improving",
+      "needsAttention": "Domains needing attention",
+      "openWarnings": "Open early warnings",
+      "reviewsPending": "Reviews pending",
+      "confidence": "Executive confidence",
+      "reviewCompletion": "Review completion",
+      "usefulness": "Recommendation usefulness",
+      "satisfaction": "Leadership satisfaction"
+    },
+    "settingsLink": "Organizational Health"
   }
 }

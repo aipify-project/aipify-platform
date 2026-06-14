@@ -1,0 +1,4 @@
+ABOS Phase 308 — Organizational Health Center
+Route: /app/executive/organizational-health
+Core: Organizations rarely fail because of one major issue — Aipify helps leaders notice trends early.
+Helpers: _ohc_* · _ohcbp308_*

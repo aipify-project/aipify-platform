@@ -1091,3 +1091,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Opportunity Discovery Center (Phase 307):** See [AIPIFY_OPPORTUNITY_DISCOVERY_CENTER_PHASE307.md](./AIPIFY_OPPORTUNITY_DISCOVERY_CENTER_PHASE307.md) — Opportunity Center at Executive Center → Opportunity Discovery. Opportunity scoring, discovery signals, workflow, executive reviews, and learning engine. `/app/executive/opportunity-discovery`, migration `20261423500000_aipify_opportunity_discovery_center_engine_phase307.sql`. Helpers `_odc_*`, `_odcbp307_*`. APIs at `/api/opportunity-discovery/*`. Cross-links strategic intelligence and innovation lab — does not modify their RPCs.
+
+
+**Aipify Organizational Health Center (Phase 308):** See [AIPIFY_ORGANIZATIONAL_HEALTH_CENTER_PHASE308.md](./AIPIFY_ORGANIZATIONAL_HEALTH_CENTER_PHASE308.md) — Organizational Health Center at Executive Center → Organizational Health. Unified health scores, domain trends, early warnings, reviews, and executive timeline. `/app/executive/organizational-health`, migration `20261423600000_aipify_organizational_health_center_engine_phase308.sql`. Helpers `_ohc_*`, `_ohcbp308_*`. APIs at `/api/organizational-health/*`. Cross-links existing organizational health engines — does not modify their RPCs.

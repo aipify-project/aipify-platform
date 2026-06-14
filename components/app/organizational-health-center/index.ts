@@ -1,0 +1,1 @@
+export { OrganizationalHealthCenterPanel } from "./OrganizationalHealthCenterPanel";
