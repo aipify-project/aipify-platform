@@ -7,18 +7,92 @@
     "controlCenter": "Platform"
   },
   "hero": {
+    "badge": "Aipify Business Operating System",
     "title": "Aipify arbejder for dig.",
-    "subtitle": "Aipify hjælper organisationer med at strømline drift, støtte teams, automatisere godkendte arbejdsgange og træffe klogere beslutninger gennem intelligent forretningsstøtte."
+    "subtitle": "Aipify hjælper organisationer med at forbinde viden, arbejdsgange og forretningssystemer, så teams kan arbejde smartere, ledere kan se det, der betyder noget, og godkendt arbejde kan flyde hurtigere.",
+    "ctaPrimary": "Kom i gang",
+    "ctaSecondary": "Book demo",
+    "statResponse": "2 min",
+    "statResponseLabel": "Gns. svartid",
+    "statModules": "4",
+    "statModulesLabel": "Kernemoduler",
+    "statAvailability": "24/7",
+    "statAvailabilityLabel": "Aipify-tilgængelighed"
   },
   "modules": {
     "title": "Kernemoduler",
-    "supportAi": "Aipify Support",
-    "installAi": "Aipify Install",
-    "insightsAi": "Aipify Insights",
-    "commerceAi": "Aipify Commerce"
+    "subtitle": "Kernemoduler designet til at forbinde dine systemer, støtte dine teams, give ledelsen indsigt og styrke forretningsresultater.",
+    "items": {
+      "support": {
+        "title": "Aipify Support",
+        "description": "Reducer svartider og håndter henvendelser med tryghed.",
+        "detail": "Forbered svar af høj kvalitet, triager kundehenvendelser og hjælp teams med at svare gennemtænkt med menneskeligt tilsyn."
+      },
+      "install": {
+        "title": "Aipify Install",
+        "description": "Forbind eksisterende systemer og lær din drift.",
+        "detail": "Forbind eksisterende systemer og lad Aipify forstå arbejdsgange, viden og forretningsstruktur.",
+        "highlight": "Lærer godkendte arbejdsgange med menneskelig validering"
+      },
+      "insights": {
+        "title": "Aipify Insights",
+        "description": "Vis tendenser, risici og anbefalede handlinger.",
+        "detail": "Vis tendenser, risici, muligheder og anbefalede handlinger fra forretningsdata med ledelsesklar tydelighed."
+      },
+      "commerce": {
+        "title": "Aipify Commerce",
+        "description": "Optimer produkter, marginer og handelsydelse.",
+        "detail": "Optimer produkter, marginer, leverandør-arbejdsgange og handelsydelse med rollebaserede anbefalinger."
+      }
+    }
+  },
+  "howItWorks": {
+    "title": "Sådan bliver Aipify en del af din organisation",
+    "subtitle": "Et vejledt implementeringsforløb designet til sikker, skalerbar og målbar forretningsværdi.",
+    "steps": {
+      "1": {
+        "title": "Forbind din organisation.",
+        "description": "Forbind systemer, videnskilder, arbejdsgange og forretningsværktøjer. Aipify begynder at forstå, hvordan din organisation allerede arbejder.",
+        "enterpriseNote": "Sikre integrationer. Adgangsstyring. Menneskeligt kontrolleret onboarding."
+      },
+      "2": {
+        "title": "Aipify lærer din drift.",
+        "description": "Aipify analyserer godkendte arbejdsgange, supportmønstre, politikker, viden, teamstrukturer og forretningsregler for at opbygge operationel forståelse.",
+        "enterpriseNote": "Valideret viden. Revisionsklart setup. Ingen skjult automatisering."
+      },
+      "3": {
+        "title": "Aipify støtter dine teams.",
+        "description": "Aipify forbereder svar, sammenfatninger, anbefalinger, rapporter og godkendte arbejdsgangshandlinger på tværs af support, drift, indsigt og handel.",
+        "enterpriseNote": "Menneskeligt tilsyn. Rollebaserede tilladelser. Tydelige godkendelsesflows."
+      },
+      "4": {
+        "title": "Ledere får ledelsesindsigt.",
+        "description": "Aipify viser prioriteter, risici, muligheder, operationel sundhed og anbefalede næste skridt, så ledelsen kan træffe bedre beslutninger hurtigere.",
+        "enterpriseNote": "Ledelsesklar rapportering. Styringsindsigt. Strategisk klarhed."
+      },
+      "5": {
+        "title": "Skaler med tryghed.",
+        "description": "Tilføj moduler, automatisering, tilladelser, integrationer og forretningspakker, efterhånden som organisationen vokser.",
+        "enterpriseNote": "Multi-tenant-arkitektur. Sikker udvidelse. Øjeblikkelig opgradering efter betaling."
+      }
+    }
+  },
+  "socialProof": {
+    "title": "Designet til voksende organisationer.",
+    "segments": {
+      "1": { "label": "Supportdrift", "initials": "SD" },
+      "2": { "label": "Handelsteams", "initials": "HT" },
+      "3": { "label": "Topledelse", "initials": "TL" },
+      "4": { "label": "Driftsledere", "initials": "DL" },
+      "5": { "label": "Professionelle tjenester", "initials": "PT" },
+      "6": { "label": "Vækstorganisationer", "initials": "VO" }
+    }
   },
   "cta": {
     "title": "Klar til at tage Aipify ind i din organisation?",
-    "startFree": "Start gratis"
+    "subtitle": "Implementer et intelligent forretningsoperativsystem til support, drift, styring, indsigt og vækst.",
+    "primary": "Start gratis",
+    "secondary": "Book demo",
+    "trustLine": "Bygget til professionelle organisationer. Styringsklar. Menneskeligt tilsyn. Sikkerhed by design."
   }
 }

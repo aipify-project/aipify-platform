@@ -1,3 +1,17 @@
+type HeroProps = {
+  badge: string;
+  title: string;
+  subtitle: string;
+  ctaPrimary: string;
+  ctaSecondary: string;
+  statResponse: string;
+  statResponseLabel: string;
+  statModules: string;
+  statModulesLabel: string;
+  statAvailability: string;
+  statAvailabilityLabel: string;
+};
+
 const assistantUpdates = [
   { label: "3 support inquiries prepared", color: "bg-blue-500", module: "Aipify Support" },
   { label: "1 recommended action", color: "bg-violet-500", module: "Aipify Insights" },
@@ -6,7 +20,19 @@ const assistantUpdates = [
 
 const connectedSystems = ["CRM", "Support", "Shop", "Analytics"];
 
-export default function Hero() {
+export default function Hero({
+  badge,
+  title,
+  subtitle,
+  ctaPrimary,
+  ctaSecondary,
+  statResponse,
+  statResponseLabel,
+  statModules,
+  statModulesLabel,
+  statAvailability,
+  statAvailabilityLabel,
+}: HeroProps) {
   return (
     <section className="relative overflow-hidden bg-white">
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
@@ -17,21 +43,15 @@ export default function Hero() {
       <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 sm:py-20 md:py-24 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:py-32">
         <div className="order-2 lg:order-1">
           <span className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-700">
-            Aipify Business Operating System
+            {badge}
           </span>
 
           <h1 className="mt-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl lg:leading-[1.1]">
-            Aipify works for you.
+            {title}
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-gray-600 sm:text-xl">
-            Aipify helps organizations streamline operations, support teams, automate approved
-            workflows and make smarter decisions through intelligent business assistance.
-          </p>
-
-          <p className="mt-4 max-w-xl text-base text-gray-500">
-            Connect your systems once. Aipify learns how your organization works, understands your
-            workflows and starts supporting your team from day one.
+            {subtitle}
           </p>
 
           <div id="demo" className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -39,28 +59,28 @@ export default function Hero() {
               href="#get-started"
               className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:from-blue-700 hover:to-violet-700"
             >
-              Get Started
+              {ctaPrimary}
             </a>
             <a
               href="#demo"
               className="inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white px-8 py-4 text-base font-semibold text-gray-700 transition hover:border-gray-400 hover:bg-gray-50"
             >
-              Book a Demo
+              {ctaSecondary}
             </a>
           </div>
 
-          <div className="mt-10 flex flex-wrap gap-6 border-t border-gray-100 pt-8">
+          <div className="mt-10 flex flex-wrap gap-8 border-t border-gray-100 pt-8 sm:gap-10">
             <div>
-              <p className="text-2xl font-bold text-gray-900">2 min</p>
-              <p className="text-sm text-gray-500">Avg. response time</p>
+              <p className="text-2xl font-bold text-gray-900">{statResponse}</p>
+              <p className="mt-1 text-sm text-gray-500">{statResponseLabel}</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">4</p>
-              <p className="text-sm text-gray-500">Core modules</p>
+              <p className="text-2xl font-bold text-gray-900">{statModules}</p>
+              <p className="mt-1 text-sm text-gray-500">{statModulesLabel}</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900">24/7</p>
-              <p className="text-sm text-gray-500">Aipify availability</p>
+              <p className="text-2xl font-bold text-gray-900">{statAvailability}</p>
+              <p className="mt-1 text-sm text-gray-500">{statAvailabilityLabel}</p>
             </div>
           </div>
         </div>
@@ -75,81 +95,45 @@ export default function Hero() {
                   </svg>
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-base font-semibold text-gray-900">Aipify Assistant</p>
-                  <p className="text-xs text-gray-500">Attentive, governance-ready support</p>
+                  <p className="text-base font-semibold text-gray-900">Aipify Companion</p>
+                  <p className="text-xs text-gray-500">Governance-ready operational support</p>
                 </div>
-                <span className="relative flex h-2.5 w-2.5 shrink-0">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
+                <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-700">
+                  Active
                 </span>
               </div>
 
-              <div className="mb-4 rounded-xl border border-violet-100 bg-violet-50/60 p-3">
-                <p className="text-xs font-semibold uppercase tracking-wide text-violet-700">
-                  Learning from your systems
+              <div className="space-y-3">
+                {assistantUpdates.map((item) => (
+                  <div
+                    key={item.label}
+                    className="flex items-center gap-3 rounded-xl border border-white bg-white/80 p-3 shadow-sm"
+                  >
+                    <span className={`h-2 w-2 shrink-0 rounded-full ${item.color}`} aria-hidden="true" />
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-medium text-gray-900">{item.label}</p>
+                      <p className="text-xs text-gray-500">{item.module}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-5 rounded-xl border border-gray-200 bg-white p-4">
+                <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">
+                  Connected systems
                 </p>
-                <div className="mt-2 flex flex-wrap gap-2">
+                <div className="mt-3 flex flex-wrap gap-2">
                   {connectedSystems.map((system) => (
                     <span
                       key={system}
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-white bg-white px-2.5 py-1 text-xs font-medium text-gray-700 shadow-sm"
+                      className="rounded-lg bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-600"
                     >
-                      <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
                       {system}
                     </span>
                   ))}
                 </div>
-                <div className="mt-3">
-                  <div className="flex items-center justify-between text-xs text-gray-500">
-                    <span>Aipify Install — workflow knowledge</span>
-                    <span className="font-medium text-violet-700">78%</span>
-                  </div>
-                  <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-violet-100">
-                    <div className="h-full w-[78%] rounded-full bg-gradient-to-r from-blue-500 to-violet-500" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <div className="rounded-xl bg-white p-4 shadow-sm">
-                  <p className="text-sm font-semibold text-gray-900">Since last visit:</p>
-                  <ul className="mt-3 space-y-3">
-                    {assistantUpdates.map((item) => (
-                      <li key={item.label} className="flex items-start justify-between gap-3">
-                        <div className="flex items-start gap-2 text-sm text-gray-600">
-                          <span className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${item.color}`} />
-                          {item.label}
-                        </div>
-                        <span className="shrink-0 rounded-md bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
-                          {item.module}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="flex items-center gap-2 rounded-xl bg-white p-3 shadow-sm">
-                  <div className="h-9 flex-1 rounded-lg border border-gray-200 bg-gray-50 px-3 text-xs leading-9 text-gray-400">
-                    Ask Aipify anything...
-                  </div>
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-violet-600">
-                    <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                    </svg>
-                  </div>
-                </div>
               </div>
             </div>
-          </div>
-
-          <div className="absolute -bottom-4 -left-2 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-lg sm:-left-4">
-            <p className="text-xs font-medium text-gray-500">Response time</p>
-            <p className="text-lg font-bold text-gray-900">2 min</p>
-          </div>
-
-          <div className="absolute -right-2 -top-3 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-lg sm:-right-3">
-            <p className="text-xs font-medium text-gray-500">Approved actions</p>
-            <p className="text-lg font-bold text-gray-900">847</p>
           </div>
         </div>
       </div>

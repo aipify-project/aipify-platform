@@ -7,18 +7,92 @@
     "controlCenter": "Platform"
   },
   "hero": {
+    "badge": "Aipify Business Operating System",
     "title": "Aipify works for you.",
-    "subtitle": "Aipify helps organizations streamline operations, support teams, automate approved workflows and make smarter decisions through intelligent business assistance."
+    "subtitle": "Aipify helps organizations connect knowledge, workflows and business systems so teams can work smarter, leaders can see what matters and approved work can move faster.",
+    "ctaPrimary": "Get Started",
+    "ctaSecondary": "Book a Demo",
+    "statResponse": "2 min",
+    "statResponseLabel": "Avg. response time",
+    "statModules": "4",
+    "statModulesLabel": "Core modules",
+    "statAvailability": "24/7",
+    "statAvailabilityLabel": "Aipify availability"
   },
   "modules": {
     "title": "Core Modules",
-    "supportAi": "Aipify Support",
-    "installAi": "Aipify Install",
-    "insightsAi": "Aipify Insights",
-    "commerceAi": "Aipify Commerce"
+    "subtitle": "Core modules designed to connect your systems, support your teams, surface executive insight and strengthen business performance.",
+    "items": {
+      "support": {
+        "title": "Aipify Support",
+        "description": "Reduce response times and handle inquiries with confidence.",
+        "detail": "Prepare high-quality replies, triage customer requests, and help teams respond thoughtfully with human oversight."
+      },
+      "install": {
+        "title": "Aipify Install",
+        "description": "Connect your existing systems and learn your operations.",
+        "detail": "Connect your existing systems and let Aipify understand your workflows, knowledge and business structure.",
+        "highlight": "Learns approved workflows with human validation"
+      },
+      "insights": {
+        "title": "Aipify Insights",
+        "description": "Surface trends, risks, and recommended actions.",
+        "detail": "Surface trends, risks, opportunities and recommended actions from your business data with executive-grade clarity."
+      },
+      "commerce": {
+        "title": "Aipify Commerce",
+        "description": "Optimize products, margins, and commerce performance.",
+        "detail": "Optimize products, margins, supplier workflows and commerce performance with permission-based recommendations."
+      }
+    }
+  },
+  "howItWorks": {
+    "title": "How Aipify Becomes Part of Your Organization",
+    "subtitle": "A guided implementation flow designed for secure, scalable and measurable business value.",
+    "steps": {
+      "1": {
+        "title": "Connect your organization.",
+        "description": "Connect your systems, knowledge sources, workflows and business tools. Aipify begins understanding how your organization already operates.",
+        "enterpriseNote": "Secure integrations. Permission-based access. Human-controlled onboarding."
+      },
+      "2": {
+        "title": "Aipify learns your operations.",
+        "description": "Aipify analyzes approved workflows, support patterns, policies, knowledge, team structures and business rules to build operational understanding.",
+        "enterpriseNote": "Validated knowledge. Audit-ready setup. No hidden automation."
+      },
+      "3": {
+        "title": "Aipify supports your teams.",
+        "description": "Aipify prepares replies, summaries, recommendations, reports and approved workflow actions across support, operations, insights and commerce.",
+        "enterpriseNote": "Human oversight. Role-based permissions. Clear approval flows."
+      },
+      "4": {
+        "title": "Leaders gain executive insight.",
+        "description": "Aipify surfaces priorities, risks, opportunities, operational health and recommended next actions so leadership can make better decisions faster.",
+        "enterpriseNote": "Executive-ready reporting. Governance visibility. Strategic clarity."
+      },
+      "5": {
+        "title": "Scale with confidence.",
+        "description": "Add modules, automations, permissions, integrations and business packs as your organization grows.",
+        "enterpriseNote": "Multi-tenant architecture. Secure expansion. Instant upgrade access after payment."
+      }
+    }
+  },
+  "socialProof": {
+    "title": "Designed for growing organizations.",
+    "segments": {
+      "1": { "label": "Support operations", "initials": "SO" },
+      "2": { "label": "Commerce teams", "initials": "CT" },
+      "3": { "label": "Executive leadership", "initials": "EL" },
+      "4": { "label": "Operations leaders", "initials": "OL" },
+      "5": { "label": "Professional services", "initials": "PS" },
+      "6": { "label": "Growth organizations", "initials": "GO" }
+    }
   },
   "cta": {
     "title": "Ready to bring Aipify into your organization?",
-    "startFree": "Start Free"
+    "subtitle": "Deploy an intelligent business operating system for support, operations, governance, insights and growth.",
+    "primary": "Start Free",
+    "secondary": "Book a Demo",
+    "trustLine": "Built for professional organizations. Governance-ready. Human oversight. Secure by design."
   }
 }
