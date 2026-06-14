@@ -1,40 +1,50 @@
-export type CapacityIndicator = {
-  capacity_key: string;
+export type EnergySignal = {
+  signal_key: string;
   domain: string;
-  label: string;
-  value_label: string;
-  trend: string;
+  signal_type: string;
+  title: string;
+  summary: string;
+  signal_tone: string;
 };
 
-export type EnergyPattern = {
-  pattern_key: string;
-  pattern_type: string;
-  message: string;
-  priority: string;
+export type BalancePrompt = {
+  question_key: string;
+  question_type: string;
+  title: string;
+  summary: string;
+};
+
+export type EnergyInitiative = {
+  initiative_key: string;
+  domain: string;
+  title: string;
+  summary: string;
   status: string;
 };
 
-export type RecoveryOpportunity = {
-  recovery_key: string;
-  label: string;
-  guidance: string;
-  priority: string;
+export type EnergyReview = {
+  review_key: string;
+  review_type: string;
+  prompt: string;
   status: string;
-};
-
-export type LoadTrend = {
-  trend_key: string;
-  label: string;
-  load_pct: number;
-  period_label: string;
+  completed_at: string | null;
 };
 
 export type EnergyTimelineEvent = {
   timeline_key: string;
   event_type: string;
+  domain: string;
   label: string;
   summary: string;
   recorded_at: string | null;
+};
+
+export type EnergyMilestone = {
+  milestone_key: string;
+  domain: string;
+  title: string;
+  summary: string;
+  archived_at: string | null;
 };
 
 export type EnergySnapshot = {
@@ -57,9 +67,9 @@ export type EnergyRecommendation = {
   priority: string;
 };
 
-export type EnergyReview = {
-  review_key: string;
-  review_type: string;
+export type EnergySession = {
+  session_key: string;
+  session_type: string;
   prompt: string;
   status: string;
   completed_at: string | null;
@@ -69,29 +79,32 @@ export type OrganizationalEnergyCenter = {
   dashboard: {
     energy_score: number;
     energy_health_label: string;
-    capacity_indicators: number;
-    recovery_opportunities: number;
-    focus_alerts: number;
-    initiative_load_pct: number;
-    review_intensity_pct: number;
-    change_saturation_pct: number;
-    recovery_headroom: number;
-    leadership_confidence: number;
+    momentum_indicators_pct: number;
+    recovery_awareness_pct: number;
+    engagement_trends_pct: number;
+    sustainable_pacing_pct: number;
+    collaboration_quality_pct: number;
+    leadership_consistency_pct: number;
+    operational_friction_pct: number;
+    recovery_effectiveness_pct: number;
+    initiatives_in_progress: number;
+    reviews_completed: number;
   } | null;
-  capacity_indicators: CapacityIndicator[];
-  energy_patterns: EnergyPattern[];
-  recovery_opportunities: RecoveryOpportunity[];
-  load_trends: LoadTrend[];
+  energy_signals: EnergySignal[];
+  balance_prompts: BalancePrompt[];
+  energy_initiatives: EnergyInitiative[];
+  energy_reviews: EnergyReview[];
   timeline: EnergyTimelineEvent[];
+  energy_milestones: EnergyMilestone[];
   snapshots: EnergySnapshot[];
   insights: EnergyInsight[];
   recommendations: EnergyRecommendation[];
-  energy_reviews: EnergyReview[];
+  energy_sessions: EnergySession[];
   executive_view: {
-    leadership_demand: string;
-    strategic_pacing: string;
-    recovery_opportunities: string;
-    sustainable_execution: string;
+    organizational_momentum: string;
+    leadership_sustainability: string;
+    collaboration_effectiveness: string;
+    capacity_preservation_opportunities: string;
   } | null;
   links: Record<string, string> | null;
   can_manage: boolean;

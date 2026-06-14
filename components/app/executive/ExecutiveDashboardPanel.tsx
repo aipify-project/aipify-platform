@@ -50,6 +50,7 @@ type ExecutiveDashboardPanelProps = {
     organizationalPurposeLink: string;
     organizationalStewardshipLink: string;
     organizationalSimplicityLink: string;
+    organizationalSignalLink: string;
     organizationalTrustLink: string;
     organizationalMomentumLink: string;
     organizationalFuturesLink: string;
@@ -172,6 +173,9 @@ export function ExecutiveDashboardPanel({ locale, labels }: ExecutiveDashboardPa
         </Link>
         <Link href="/app/executive/organizational-simplicity" className="ml-4 mt-3 inline-block text-sm text-indigo-600 hover:underline">
           {labels.organizationalSimplicityLink}
+        </Link>
+        <Link href="/app/executive/organizational-signals" className="ml-4 mt-3 inline-block text-sm text-indigo-600 hover:underline">
+          {labels.organizationalSignalLink}
         </Link>
         <Link href="/app/executive/organizational-trust" className="ml-4 mt-3 inline-block text-sm text-indigo-600 hover:underline">
           {labels.organizationalTrustLink}

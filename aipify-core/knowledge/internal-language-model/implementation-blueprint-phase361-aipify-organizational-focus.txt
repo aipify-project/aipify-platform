@@ -1,0 +1,4 @@
+ABOS Phase 361 — Organizational Focus Engine
+Route: /app/executive/organizational-focus
+Core: Organizations rarely fail because they care about too little. Focus creates clarity.
+Helpers: _ofc_* · _ofcbp361_*

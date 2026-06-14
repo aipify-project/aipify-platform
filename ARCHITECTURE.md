@@ -1241,3 +1241,15 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Purposeful Execution Engine (Phase 359):** See [AIPIFY_ORGANIZATIONAL_PURPOSEFUL_EXECUTION_ENGINE_PHASE359.md](./AIPIFY_ORGANIZATIONAL_PURPOSEFUL_EXECUTION_ENGINE_PHASE359.md) — Purposeful Execution Center at Executive Center → Purposeful Execution. Execution dashboard, alignment engine, reviews, and executive view. `/app/executive/purposeful-execution`, migration `20261428700000_aipify_organizational_purposeful_execution_engine_phase359.sql`. Helpers `_ope_*`, `_opebp359_*`. APIs at `/api/organizational-purposeful-execution/*`. Cross-links identity and stewardship centers.
+
+
+**Aipify Organizational Energy Engine (Phase 360):** See [AIPIFY_ORGANIZATIONAL_ENERGY_ENGINE_PHASE360.md](./AIPIFY_ORGANIZATIONAL_ENERGY_ENGINE_PHASE360.md) — Energy Center at Executive Center → Organizational Energy. Energy dashboard, balance engine, reviews, and executive view. `/app/executive/organizational-energy`, migration `20261428800000_aipify_organizational_energy_engine_phase360.sql`. Helpers `_oec_*`, `_oecbp360_*`. APIs at `/api/organizational-energy/*`. Cross-links focus, health, and resilience centers.
+
+
+**Aipify Organizational Focus Engine (Phase 361):** See [AIPIFY_ORGANIZATIONAL_FOCUS_ENGINE_PHASE361.md](./AIPIFY_ORGANIZATIONAL_FOCUS_ENGINE_PHASE361.md) — Focus Center at Executive Center → Organizational Focus. Focus dashboard, priority engine, reviews, and executive view. `/app/executive/organizational-focus`, migration `20261428900000_aipify_organizational_focus_engine_phase361.sql`. Helpers `_ofc_*`, `_ofcbp361_*`. APIs at `/api/organizational-focus/*`. Cross-links energy, clarity, and simplicity centers.
+
+
+**Aipify Organizational Simplicity Engine (Phase 362):** See [AIPIFY_ORGANIZATIONAL_SIMPLICITY_ENGINE_PHASE362.md](./AIPIFY_ORGANIZATIONAL_SIMPLICITY_ENGINE_PHASE362.md) — Simplicity Center at Executive Center → Organizational Simplicity. Simplicity dashboard, friction reduction engine, reviews, and executive view. `/app/executive/organizational-simplicity`, migration `20261429000000_aipify_organizational_simplicity_engine_phase362.sql`. Helpers `_osim_*`, `_osimbp362_*`. APIs at `/api/organizational-simplicity/*`. Cross-links focus, energy, and clarity centers.
+
+
+**Aipify Organizational Signal Engine (Phase 363):** See [AIPIFY_ORGANIZATIONAL_SIGNAL_ENGINE_PHASE363.md](./AIPIFY_ORGANIZATIONAL_SIGNAL_ENGINE_PHASE363.md) — Signal Center at Executive Center → Organizational Signals. Signal dashboard, interpretation engine, reviews, and executive view. `/app/executive/organizational-signals`, migration `20261429100000_aipify_organizational_signal_engine_phase363.sql`. Helpers `_osig_*`, `_osigbp363_*`. APIs at `/api/organizational-signal/*`. Cross-links focus, simplicity, and clarity centers.

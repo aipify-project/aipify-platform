@@ -3,5 +3,5 @@ export const AIPIFY_ORGANIZATIONAL_ENERGY_CENTER_ENGINE_ROUTE =
 
 export const AIPIFY_ORGANIZATIONAL_ENERGY_CENTER_ENGINE_HELPERS = {
   engine: "_oec_*",
-  blueprint: "_oecbp322_*",
+  blueprint: "_oecbp360_*",
 } as const;

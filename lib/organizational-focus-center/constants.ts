@@ -1,10 +1,10 @@
 export const ORGANIZATIONAL_FOCUS_CENTER_ROUTE = "/app/executive/organizational-focus";
 
 export const OFC_CORE_PRINCIPLE =
-  "Organizations struggle because they pursue too many initiatives at the same time. Aipify should help organizations focus on what matters most.";
+  "Organizations rarely fail because they care about too little. They often struggle because they attempt to focus on too much at the same time. Focus creates clarity.";
 
 export const OFC_PHILOSOPHY =
-  "Focus is not about doing less — it is about doing the right things exceptionally well with priority clarity and intentional decision-making.";
+  "Focus is not doing fewer important things. Focus is intentionally directing limited attention toward what creates the greatest value.";
 
 export const OFC_VISION =
-  "Help leaders strengthen clarity, reduce fragmentation, and direct energy toward meaningful outcomes.";
+  "Help leaders strengthen clarity, reduce distraction and ensure that the organization's energy remains directed toward what matters most.";

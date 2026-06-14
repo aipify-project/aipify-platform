@@ -6,14 +6,15 @@ export {
 } from "./constants";
 export { parseOrganizationalEnergyCenter } from "./parse";
 export type {
-  CapacityIndicator,
+  BalancePrompt,
+  EnergyInitiative,
   EnergyInsight,
-  EnergyPattern,
+  EnergyMilestone,
   EnergyRecommendation,
   EnergyReview,
+  EnergySession,
+  EnergySignal,
   EnergySnapshot,
   EnergyTimelineEvent,
-  LoadTrend,
   OrganizationalEnergyCenter,
-  RecoveryOpportunity,
 } from "./types";

@@ -1,14 +1,15 @@
 import type {
-  CapacityIndicator,
+  OrganizationalEnergyCenter,
+  BalancePrompt,
+  EnergyInitiative,
   EnergyInsight,
-  EnergyPattern,
+  EnergyMilestone,
   EnergyRecommendation,
   EnergyReview,
+  EnergySession,
+  EnergySignal,
   EnergySnapshot,
   EnergyTimelineEvent,
-  LoadTrend,
-  OrganizationalEnergyCenter,
-  RecoveryOpportunity,
 } from "./types";
 
 function asRecord(value: unknown): Record<string, unknown> {
@@ -28,61 +29,64 @@ export function parseOrganizationalEnergyCenter(raw: unknown): OrganizationalEne
         ? {
             energy_score: Number(dash.energy_score ?? 0),
             energy_health_label: String(dash.energy_health_label ?? "balanced"),
-            capacity_indicators: Number(dash.capacity_indicators ?? 0),
-            recovery_opportunities: Number(dash.recovery_opportunities ?? 0),
-            focus_alerts: Number(dash.focus_alerts ?? 0),
-            initiative_load_pct: Number(dash.initiative_load_pct ?? 0),
-            review_intensity_pct: Number(dash.review_intensity_pct ?? 0),
-            change_saturation_pct: Number(dash.change_saturation_pct ?? 0),
-            recovery_headroom: Number(dash.recovery_headroom ?? 0),
-            leadership_confidence: Number(dash.leadership_confidence ?? 0),
+            momentum_indicators_pct: Number(dash.momentum_indicators_pct ?? 0),
+            recovery_awareness_pct: Number(dash.recovery_awareness_pct ?? 0),
+            engagement_trends_pct: Number(dash.engagement_trends_pct ?? 0),
+            sustainable_pacing_pct: Number(dash.sustainable_pacing_pct ?? 0),
+            collaboration_quality_pct: Number(dash.collaboration_quality_pct ?? 0),
+            leadership_consistency_pct: Number(dash.leadership_consistency_pct ?? 0),
+            operational_friction_pct: Number(dash.operational_friction_pct ?? 0),
+            recovery_effectiveness_pct: Number(dash.recovery_effectiveness_pct ?? 0),
+            initiatives_in_progress: Number(dash.initiatives_in_progress ?? 0),
+            reviews_completed: Number(dash.reviews_completed ?? 0),
           }
         : null,
-    capacity_indicators: Array.isArray(row.capacity_indicators)
-      ? row.capacity_indicators.map((c) => {
+    energy_signals: Array.isArray(row.energy_signals)
+      ? row.energy_signals.map((c) => {
           const item = asRecord(c);
           return {
-            capacity_key: String(item.capacity_key ?? ""),
+            signal_key: String(item.signal_key ?? ""),
             domain: String(item.domain ?? ""),
-            label: String(item.label ?? ""),
-            value_label: String(item.value_label ?? ""),
-            trend: String(item.trend ?? "stable"),
-          } satisfies CapacityIndicator;
+            signal_type: String(item.signal_type ?? ""),
+            title: String(item.title ?? ""),
+            summary: String(item.summary ?? ""),
+            signal_tone: String(item.signal_tone ?? "neutral"),
+          } satisfies EnergySignal;
         })
       : [],
-    energy_patterns: Array.isArray(row.energy_patterns)
-      ? row.energy_patterns.map((p) => {
-          const item = asRecord(p);
+    balance_prompts: Array.isArray(row.balance_prompts)
+      ? row.balance_prompts.map((g) => {
+          const item = asRecord(g);
           return {
-            pattern_key: String(item.pattern_key ?? ""),
-            pattern_type: String(item.pattern_type ?? ""),
-            message: String(item.message ?? ""),
-            priority: String(item.priority ?? "medium"),
-            status: String(item.status ?? "open"),
-          } satisfies EnergyPattern;
+            question_key: String(item.question_key ?? ""),
+            question_type: String(item.question_type ?? ""),
+            title: String(item.title ?? ""),
+            summary: String(item.summary ?? ""),
+          } satisfies BalancePrompt;
         })
       : [],
-    recovery_opportunities: Array.isArray(row.recovery_opportunities)
-      ? row.recovery_opportunities.map((r) => {
+    energy_initiatives: Array.isArray(row.energy_initiatives)
+      ? row.energy_initiatives.map((i) => {
+          const item = asRecord(i);
+          return {
+            initiative_key: String(item.initiative_key ?? ""),
+            domain: String(item.domain ?? ""),
+            title: String(item.title ?? ""),
+            summary: String(item.summary ?? ""),
+            status: String(item.status ?? "planned"),
+          } satisfies EnergyInitiative;
+        })
+      : [],
+    energy_reviews: Array.isArray(row.energy_reviews)
+      ? row.energy_reviews.map((r) => {
           const item = asRecord(r);
           return {
-            recovery_key: String(item.recovery_key ?? ""),
-            label: String(item.label ?? ""),
-            guidance: String(item.guidance ?? ""),
-            priority: String(item.priority ?? "medium"),
-            status: String(item.status ?? "open"),
-          } satisfies RecoveryOpportunity;
-        })
-      : [],
-    load_trends: Array.isArray(row.load_trends)
-      ? row.load_trends.map((t) => {
-          const item = asRecord(t);
-          return {
-            trend_key: String(item.trend_key ?? ""),
-            label: String(item.label ?? ""),
-            load_pct: Number(item.load_pct ?? 0),
-            period_label: String(item.period_label ?? ""),
-          } satisfies LoadTrend;
+            review_key: String(item.review_key ?? ""),
+            review_type: String(item.review_type ?? ""),
+            prompt: String(item.prompt ?? ""),
+            status: String(item.status ?? "pending"),
+            completed_at: item.completed_at ? String(item.completed_at) : null,
+          } satisfies EnergyReview;
         })
       : [],
     timeline: Array.isArray(row.timeline)
@@ -91,10 +95,23 @@ export function parseOrganizationalEnergyCenter(raw: unknown): OrganizationalEne
           return {
             timeline_key: String(item.timeline_key ?? ""),
             event_type: String(item.event_type ?? ""),
+            domain: String(item.domain ?? ""),
             label: String(item.label ?? ""),
             summary: String(item.summary ?? ""),
             recorded_at: item.recorded_at ? String(item.recorded_at) : null,
           } satisfies EnergyTimelineEvent;
+        })
+      : [],
+    energy_milestones: Array.isArray(row.energy_milestones)
+      ? row.energy_milestones.map((m) => {
+          const item = asRecord(m);
+          return {
+            milestone_key: String(item.milestone_key ?? ""),
+            domain: String(item.domain ?? ""),
+            title: String(item.title ?? ""),
+            summary: String(item.summary ?? ""),
+            archived_at: item.archived_at ? String(item.archived_at) : null,
+          } satisfies EnergyMilestone;
         })
       : [],
     snapshots: Array.isArray(row.snapshots)
@@ -129,25 +146,25 @@ export function parseOrganizationalEnergyCenter(raw: unknown): OrganizationalEne
           } satisfies EnergyRecommendation;
         })
       : [],
-    energy_reviews: Array.isArray(row.energy_reviews)
-      ? row.energy_reviews.map((r) => {
-          const item = asRecord(r);
+    energy_sessions: Array.isArray(row.energy_sessions)
+      ? row.energy_sessions.map((s) => {
+          const item = asRecord(s);
           return {
-            review_key: String(item.review_key ?? ""),
-            review_type: String(item.review_type ?? ""),
+            session_key: String(item.session_key ?? ""),
+            session_type: String(item.session_type ?? ""),
             prompt: String(item.prompt ?? ""),
             status: String(item.status ?? "pending"),
             completed_at: item.completed_at ? String(item.completed_at) : null,
-          } satisfies EnergyReview;
+          } satisfies EnergySession;
         })
       : [],
     executive_view:
       Object.keys(exec).length > 0
         ? {
-            leadership_demand: String(exec.leadership_demand ?? ""),
-            strategic_pacing: String(exec.strategic_pacing ?? ""),
-            recovery_opportunities: String(exec.recovery_opportunities ?? ""),
-            sustainable_execution: String(exec.sustainable_execution ?? ""),
+            organizational_momentum: String(exec.organizational_momentum ?? ""),
+            leadership_sustainability: String(exec.leadership_sustainability ?? ""),
+            collaboration_effectiveness: String(exec.collaboration_effectiveness ?? ""),
+            capacity_preservation_opportunities: String(exec.capacity_preservation_opportunities ?? ""),
           }
         : null,
     links: row.links

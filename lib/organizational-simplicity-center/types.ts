@@ -1,18 +1,25 @@
-export type ComplexityDetection = {
-  complexity_key: string;
+export type SimplicitySignal = {
+  signal_key: string;
   domain: string;
-  detection_type: string;
+  signal_type: string;
   title: string;
   summary: string;
-  severity: string;
+  signal_tone: string;
 };
 
-export type SimplificationOpportunity = {
-  opportunity_key: string;
+export type FrictionPrompt = {
+  question_key: string;
+  question_type: string;
+  title: string;
+  summary: string;
+};
+
+export type SimplificationInitiative = {
+  initiative_key: string;
   domain: string;
   title: string;
   summary: string;
-  impact_score: number;
+  status: string;
 };
 
 export type SimplicityReview = {
@@ -72,20 +79,19 @@ export type OrganizationalSimplicityCenter = {
   dashboard: {
     simplicity_score: number;
     simplicity_health_label: string;
-    complexity_indicators: number;
-    simplification_opportunities: number;
-    improvement_momentum_pct: number;
-    process_complexity_pct: number;
-    approval_layers_avg: number;
+    complexity_reduction_pct: number;
     workflow_efficiency_pct: number;
-    information_overload_pct: number;
-    organizational_clarity_pct: number;
-    executive_focus_pct: number;
-    leadership_confidence: number;
+    process_clarity_pct: number;
+    navigation_simplicity_pct: number;
+    communication_effectiveness_pct: number;
+    bureaucratic_burden_pct: number;
+    accessibility_pct: number;
+    initiatives_in_progress: number;
     reviews_completed: number;
   } | null;
-  complexity_detection: ComplexityDetection[];
-  simplification_opportunities: SimplificationOpportunity[];
+  simplicity_signals: SimplicitySignal[];
+  friction_prompts: FrictionPrompt[];
+  simplification_initiatives: SimplificationInitiative[];
   simplicity_reviews: SimplicityReview[];
   timeline: SimplicityTimelineEvent[];
   simplicity_milestones: SimplicityMilestone[];
@@ -94,9 +100,9 @@ export type OrganizationalSimplicityCenter = {
   recommendations: SimplicityRecommendation[];
   simplicity_sessions: SimplicitySession[];
   executive_view: {
-    complexity_trends: string;
-    executive_focus: string;
-    governance_efficiency: string;
+    complexity_reduction: string;
+    workflow_efficiency: string;
+    leadership_communication: string;
     simplification_opportunities: string;
   } | null;
   links: Record<string, string> | null;

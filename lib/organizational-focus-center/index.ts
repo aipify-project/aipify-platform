@@ -8,12 +8,13 @@ export { parseOrganizationalFocusCenter } from "./parse";
 export type {
   FocusInitiative,
   FocusInsight,
-  FocusOverload,
+  FocusMilestone,
   FocusRecommendation,
   FocusReview,
+  FocusSession,
+  FocusSignal,
   FocusSnapshot,
   FocusTimelineEvent,
   OrganizationalFocusCenter,
-  PrioritizationFactor,
-  PriorityDistribution,
+  PriorityPrompt,
 } from "./types";

@@ -6,14 +6,15 @@ export {
 } from "./constants";
 export { parseOrganizationalSimplicityCenter } from "./parse";
 export type {
-  ComplexityDetection,
+  FrictionPrompt,
   OrganizationalSimplicityCenter,
   SimplicityInsight,
   SimplicityMilestone,
   SimplicityRecommendation,
   SimplicityReview,
   SimplicitySession,
+  SimplicitySignal,
   SimplicitySnapshot,
   SimplicityTimelineEvent,
-  SimplificationOpportunity,
+  SimplificationInitiative,
 } from "./types";

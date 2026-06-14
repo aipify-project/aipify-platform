@@ -1,0 +1,4 @@
+ABOS Phase 363 — Organizational Signal Engine
+Route: /app/executive/organizational-signals
+Core: Organizations rarely fail without warning. Signals appear long before outcomes become visible.
+Helpers: _osig_* · _osigbp363_*

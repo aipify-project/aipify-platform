@@ -1,14 +1,15 @@
 import type {
-  ComplexityDetection,
+  FrictionPrompt,
   OrganizationalSimplicityCenter,
   SimplicityInsight,
   SimplicityMilestone,
   SimplicityRecommendation,
   SimplicityReview,
   SimplicitySession,
+  SimplicitySignal,
   SimplicitySnapshot,
   SimplicityTimelineEvent,
-  SimplificationOpportunity,
+  SimplificationInitiative,
 } from "./types";
 
 function asRecord(value: unknown): Record<string, unknown> {
@@ -27,43 +28,52 @@ export function parseOrganizationalSimplicityCenter(raw: unknown): Organizationa
       Object.keys(dash).length > 0
         ? {
             simplicity_score: Number(dash.simplicity_score ?? 0),
-            simplicity_health_label: String(dash.simplicity_health_label ?? "manageable"),
-            complexity_indicators: Number(dash.complexity_indicators ?? 0),
-            simplification_opportunities: Number(dash.simplification_opportunities ?? 0),
-            improvement_momentum_pct: Number(dash.improvement_momentum_pct ?? 0),
-            process_complexity_pct: Number(dash.process_complexity_pct ?? 0),
-            approval_layers_avg: Number(dash.approval_layers_avg ?? 0),
+            simplicity_health_label: String(dash.simplicity_health_label ?? "healthy"),
+            complexity_reduction_pct: Number(dash.complexity_reduction_pct ?? 0),
             workflow_efficiency_pct: Number(dash.workflow_efficiency_pct ?? 0),
-            information_overload_pct: Number(dash.information_overload_pct ?? 0),
-            organizational_clarity_pct: Number(dash.organizational_clarity_pct ?? 0),
-            executive_focus_pct: Number(dash.executive_focus_pct ?? 0),
-            leadership_confidence: Number(dash.leadership_confidence ?? 0),
+            process_clarity_pct: Number(dash.process_clarity_pct ?? 0),
+            navigation_simplicity_pct: Number(dash.navigation_simplicity_pct ?? 0),
+            communication_effectiveness_pct: Number(dash.communication_effectiveness_pct ?? 0),
+            bureaucratic_burden_pct: Number(dash.bureaucratic_burden_pct ?? 0),
+            accessibility_pct: Number(dash.accessibility_pct ?? 0),
+            initiatives_in_progress: Number(dash.initiatives_in_progress ?? 0),
             reviews_completed: Number(dash.reviews_completed ?? 0),
           }
         : null,
-    complexity_detection: Array.isArray(row.complexity_detection)
-      ? row.complexity_detection.map((c) => {
+    simplicity_signals: Array.isArray(row.simplicity_signals)
+      ? row.simplicity_signals.map((c) => {
           const item = asRecord(c);
           return {
-            complexity_key: String(item.complexity_key ?? ""),
+            signal_key: String(item.signal_key ?? ""),
             domain: String(item.domain ?? ""),
-            detection_type: String(item.detection_type ?? ""),
+            signal_type: String(item.signal_type ?? ""),
             title: String(item.title ?? ""),
             summary: String(item.summary ?? ""),
-            severity: String(item.severity ?? "medium"),
-          } satisfies ComplexityDetection;
+            signal_tone: String(item.signal_tone ?? "neutral"),
+          } satisfies SimplicitySignal;
         })
       : [],
-    simplification_opportunities: Array.isArray(row.simplification_opportunities)
-      ? row.simplification_opportunities.map((o) => {
-          const item = asRecord(o);
+    friction_prompts: Array.isArray(row.friction_prompts)
+      ? row.friction_prompts.map((g) => {
+          const item = asRecord(g);
           return {
-            opportunity_key: String(item.opportunity_key ?? ""),
+            question_key: String(item.question_key ?? ""),
+            question_type: String(item.question_type ?? ""),
+            title: String(item.title ?? ""),
+            summary: String(item.summary ?? ""),
+          } satisfies FrictionPrompt;
+        })
+      : [],
+    simplification_initiatives: Array.isArray(row.simplification_initiatives)
+      ? row.simplification_initiatives.map((i) => {
+          const item = asRecord(i);
+          return {
+            initiative_key: String(item.initiative_key ?? ""),
             domain: String(item.domain ?? ""),
             title: String(item.title ?? ""),
             summary: String(item.summary ?? ""),
-            impact_score: Number(item.impact_score ?? 0),
-          } satisfies SimplificationOpportunity;
+            status: String(item.status ?? "planned"),
+          } satisfies SimplificationInitiative;
         })
       : [],
     simplicity_reviews: Array.isArray(row.simplicity_reviews)
@@ -150,9 +160,9 @@ export function parseOrganizationalSimplicityCenter(raw: unknown): Organizationa
     executive_view:
       Object.keys(exec).length > 0
         ? {
-            complexity_trends: String(exec.complexity_trends ?? ""),
-            executive_focus: String(exec.executive_focus ?? ""),
-            governance_efficiency: String(exec.governance_efficiency ?? ""),
+            complexity_reduction: String(exec.complexity_reduction ?? ""),
+            workflow_efficiency: String(exec.workflow_efficiency ?? ""),
+            leadership_communication: String(exec.leadership_communication ?? ""),
             simplification_opportunities: String(exec.simplification_opportunities ?? ""),
           }
         : null,

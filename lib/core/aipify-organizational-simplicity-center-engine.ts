@@ -3,5 +3,5 @@ export const AIPIFY_ORGANIZATIONAL_SIMPLICITY_CENTER_ENGINE_ROUTE =
 
 export const AIPIFY_ORGANIZATIONAL_SIMPLICITY_CENTER_ENGINE_HELPERS = {
   engine: "_osim_*",
-  blueprint: "_osimbp328_*",
+  blueprint: "_osimbp362_*",
 } as const;

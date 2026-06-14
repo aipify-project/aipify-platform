@@ -3,5 +3,5 @@ export const AIPIFY_ORGANIZATIONAL_FOCUS_CENTER_ENGINE_ROUTE =
 
 export const AIPIFY_ORGANIZATIONAL_FOCUS_CENTER_ENGINE_HELPERS = {
   engine: "_ofc_*",
-  blueprint: "_ofcbp321_*",
+  blueprint: "_ofcbp361_*",
 } as const;

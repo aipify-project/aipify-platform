@@ -97,7 +97,8 @@
     "organizationalBalanceLink": "Organizational Balance",
     "organizationalPresenceLink": "Organizational Presence",
     "organizationalIdentityLink": "Organizational Identity",
-    "organizationalPurposefulExecutionLink": "Purposeful Execution"
+    "organizationalPurposefulExecutionLink": "Purposeful Execution",
+    "organizationalSignalLink": "Organizational Signals"
   },
   "presence": {
     "title": "Presence center",
@@ -6005,14 +6006,14 @@
     "capabilityMaturityCenterEngine": "Kapabilitetsmodenhed",
     "executionExcellenceCenterEngine": "Gennemførelsesexcellence",
     "organizationalAlignmentCenterEngine": "Organisationsalignment",
-    "organizationalFocusCenterEngine": "Organisationsfokus",
-    "organizationalEnergyCenterEngine": "Organisationsenergi",
+    "organizationalFocusCenterEngine": "Organisatorisk fokus",
+    "organizationalEnergyCenterEngine": "Organisatorisk energi",
     "organizationalAdaptabilityCenterEngine": "Organisationstilpasning",
     "organizationalWisdomCenterEngine": "Organisationsvisdom",
     "organizationalLegacyCenterEngine": "Organisatorisk arv",
     "organizationalPurposeCenterEngine": "Organisationsformål",
     "organizationalStewardshipCenterEngine": "Organisatorisk forvaltning",
-    "organizationalSimplicityCenterEngine": "Organisationsenkelhed",
+    "organizationalSimplicityCenterEngine": "Organisatorisk enkelhed",
     "organizationalTrustCenterEngine": "Organisatorisk tillid",
     "organizationalMomentumCenterEngine": "Organisatorisk momentum",
     "organizationalFuturesCenterEngine": "Organisatorisk fremtid",
@@ -6040,7 +6041,8 @@
     "organizationalBalanceCenterEngine": "Organisatorisk balance",
     "organizationalPresenceCenterEngine": "Organisatorisk tilstedeværelse",
     "organizationalIdentityCenterEngine": "Organisatorisk identitet",
-    "organizationalPurposefulExecutionCenterEngine": "Målrettet gennemførelse"
+    "organizationalPurposefulExecutionCenterEngine": "Målrettet gennemførelse",
+    "organizationalSignalCenterEngine": "Organisatoriske signaler"
   },
   "identity": {
     "title": "Din identitet",
@@ -16769,96 +16771,126 @@
   },
   "organizationalFocusCenter": {
     "title": "Fokuscenter",
-    "subtitle": "Protect attention, prioritize effectively, reduce initiative overload, and maintain focus on activities that generate the greatest long-term value.",
+    "subtitle": "Strengthen focus by identifying what matters most, reducing distractions, aligning attention with priorities and protecting meaningful execution.",
     "loading": "Loading Focus Center…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Focus philosophy",
     "visionTitle": "Vision",
     "executiveLink": "Executive Center →",
-    "organizationalAlignmentLink": "Organizational Alignment →",
-    "executionExcellenceLink": "Execution Excellence →",
-    "organizationalHealthLink": "Organizational Health →",
-    "attentionGuardianLink": "Attention Guardian →",
+    "organizationalEnergyLink": "Organizational Energy →",
+    "organizationalClarityLink": "Organizational Clarity →",
+    "organizationalSimplicityLink": "Organizational Simplicity →",
     "dashboardTitle": "Focus dashboard",
-    "initiativesTitle": "Active strategic initiatives",
-    "priorityDistributionTitle": "Priority distribution",
-    "overloadsTitle": "Focus risks identified",
-    "prioritizationTitle": "Prioritization support",
+    "signalsTitle": "Focus engine",
+    "priorityTitle": "Priority engine",
+    "initiativesTitle": "Focus actions",
+    "reviewsTitle": "Focus reviews",
     "timelineTitle": "Focus timeline",
-    "snapshotsTitle": "Initiative snapshots",
+    "milestonesTitle": "Focus milestones",
+    "snapshotsTitle": "Focus snapshots",
     "insightsTitle": "Aipify insights",
     "recommendationsTitle": "Aipify recommendations",
     "executiveTitle": "Executive focus view",
-    "reviewsTitle": "Focus reviews",
+    "sessionsTitle": "Reflection sessions",
     "emptySection": "No items in this section yet.",
     "dismiss": "Dismiss",
     "accept": "Accept",
     "completeReview": "Complete review",
-    "discussOverload": "Mark for discussion",
-    "scheduleWorkshop": "Schedule prioritization workshop",
-    "generateSummary": "Generate focus summary",
-    "generateReport": "Generate executive report",
-    "exportSnapshot": "Export initiative snapshot",
-    "humansDecide": "Aipify supports clarity and prioritization — leadership owns decisions and focus.",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule prioritization session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate focus report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export focus snapshot",
+    "coordinateDiscussion": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive focus milestone",
+    "archiveMilestoneDefaultTitle": "Strategic focus milestone",
+    "archiveMilestoneDefaultSummary": "Focus milestone archived via Focus Center.",
+    "humansDecide": "Aipify supports focus awareness — leaders retain judgment; focus strengthens clarity without tunnel vision or rigid thinking.",
     "privacyNote": "Privacy",
-    "owner": "Owner",
-    "focusScore": "Focus score",
+    "focusScore": "Organizational focus score",
+    "priorityAlignment": "Priority alignment indicators",
     "domains": {
       "strategic": "Strategic focus",
-      "operational": "Operational focus",
+      "leadership": "Leadership focus",
       "team": "Team focus",
       "customer": "Customer focus",
-      "leadership": "Leadership focus"
+      "operational": "Operational focus",
+      "organizational": "Organizational focus"
+    },
+    "signalTypes": {
+      "competing_priorities": "Competing priorities",
+      "attention_fragmentation": "Attention fragmentation",
+      "initiative_overload": "Initiative overload",
+      "concentration_opportunities": "High-value concentration opportunities",
+      "execution_distractions": "Execution distractions"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "priorityTypes": {
+      "what_matters_most": "What matters most right now",
+      "initiatives_deserve_attention": "Initiatives deserving full attention",
+      "what_to_stop": "What to stop doing",
+      "attention_diluted": "Where attention is diluted",
+      "simplify_execution": "How to simplify execution"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
     },
     "healthLabels": {
       "exceptional": "Exceptional",
       "strong": "Strong",
-      "stable": "Stable",
-      "attention_required": "Attention required",
-      "fragmented": "Fragmented"
-    },
-    "overloadTypes": {
-      "excessive_initiatives": "Excessive concurrent initiatives",
-      "competing_priorities": "Competing priorities",
-      "resource_fragmentation": "Resource fragmentation",
-      "meeting_overload": "Meeting overload",
-      "review_fatigue": "Review fatigue"
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "focus_reinforcement_recommended": "Focus reinforcement recommended"
     },
     "timelineTypes": {
-      "priority_shift": "Priority shift",
-      "initiative_added": "Initiative added",
-      "initiative_completed": "Initiative completed",
-      "focus_improvement": "Focus improvement",
-      "executive_intervention": "Executive intervention"
+      "strategic_priorities_established": "Strategic priorities established",
+      "initiative_consolidation": "Initiative consolidation",
+      "leadership_reflection": "Leadership reflection",
+      "execution_breakthrough": "Execution breakthrough",
+      "organizational_simplification": "Organizational simplification"
     },
     "reviewTypes": {
-      "weekly": "Weekly leadership review",
-      "monthly": "Monthly focus assessment",
-      "quarterly": "Quarterly strategic review",
-      "annual": "Annual reflection session"
+      "monthly_focus": "Monthly focus review",
+      "quarterly_prioritization": "Quarterly prioritization discussion",
+      "leadership_reflection": "Leadership reflection session",
+      "annual_strategic_assessment": "Annual strategic assessment"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "prioritization_session": "Prioritization session",
+      "leadership_discussion": "Leadership discussion"
     },
     "metrics": {
-      "activeInitiatives": "Active initiatives",
-      "strongFocus": "Strong focus areas",
-      "focusRisks": "Focus risks",
-      "concentration": "Initiative concentration",
+      "priorityAlignment": "Priority alignment",
+      "initiativeConcentration": "Initiative concentration",
+      "executionClarity": "Execution clarity",
       "priorityClarity": "Priority clarity",
-      "reviewDiscipline": "Review discipline",
-      "confidence": "Leadership confidence"
+      "initiativeOverloadRisk": "Initiative overload risk",
+      "leadershipConsistency": "Leadership consistency",
+      "resourceConcentration": "Resource concentration",
+      "strategicDiscipline": "Strategic discipline",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
     },
     "executiveFields": {
-      "attention": "Leadership attention trends",
-      "concentration": "Strategic concentration",
-      "overload": "Initiative overload risks",
-      "alignment": "Priority alignment"
+      "priorityAlignment": "Priority alignment indicators",
+      "strategicConcentration": "Strategic concentration trends",
+      "leadershipReinforcement": "Leadership reinforcement measures",
+      "focusOpportunities": "Organizational focus opportunities"
     },
-    "settingsLink": "Organisationsfokus",
-    "organizationalFocusLink": "Organizational Focus"
+    "settingsLink": "Organisatorisk fokus"
   },
   "organizationalEnergyCenter": {
-    "title": "Organisationsenergicenter",
-    "subtitle": "Understand, protect, and optimize the sustainable use of organizational energy by balancing ambition, capacity, recovery, and execution effectiveness.",
-    "loading": "Loading Organizational Energy Center…",
+    "title": "Energicenter",
+    "subtitle": "Understand, protect and strengthen organizational energy by identifying what creates momentum, what drains capacity and how teams can sustain healthy performance over time.",
+    "loading": "Loading Energy Center…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Energy philosophy",
     "visionTitle": "Vision",
@@ -16866,81 +16898,112 @@
     "organizationalFocusLink": "Organizational Focus →",
     "organizationalHealthLink": "Organizational Health →",
     "organizationalResilienceLink": "Organizational Resilience →",
-    "changeManagementLink": "Change Management →",
     "dashboardTitle": "Energy dashboard",
-    "capacityTitle": "Capacity indicators",
-    "patternsTitle": "Energy patterns",
-    "recoveryTitle": "Recovery opportunities",
-    "loadTrendsTitle": "Initiative load trends",
+    "signalsTitle": "Energy engine",
+    "balanceTitle": "Energy balance engine",
+    "initiativesTitle": "Energy actions",
+    "reviewsTitle": "Energy reviews",
     "timelineTitle": "Energy timeline",
+    "milestonesTitle": "Energy milestones",
     "snapshotsTitle": "Energy snapshots",
     "insightsTitle": "Aipify insights",
     "recommendationsTitle": "Aipify recommendations",
     "executiveTitle": "Executive energy view",
-    "reviewsTitle": "Energy reviews",
+    "sessionsTitle": "Reflection sessions",
     "emptySection": "No items in this section yet.",
     "dismiss": "Dismiss",
     "accept": "Accept",
     "completeReview": "Complete review",
-    "discussPattern": "Mark for discussion",
-    "scheduleRecovery": "Schedule recovery",
-    "generateSummary": "Generate executive summary",
-    "generateReport": "Generate sustainability report",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate energy report",
+    "printSummary": "Print executive summary",
     "exportSnapshot": "Export energy snapshot",
-    "humansDecide": "Aipify supports awareness and balance — leadership owns pacing and sustainability decisions.",
+    "coordinateDiscussion": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive energy milestone",
+    "archiveMilestoneDefaultTitle": "Recovery milestone",
+    "archiveMilestoneDefaultSummary": "Energy milestone archived via Energy Center.",
+    "humansDecide": "Aipify supports energy awareness — leaders retain responsibility; energy insights strengthen sustainability without burnout culture or individual surveillance.",
     "privacyNote": "Privacy",
-    "energyScore": "Energy score",
+    "energyScore": "Organizational energy score",
+    "momentumIndicators": "Momentum indicators",
     "domains": {
-      "leadership": "Leadership energy",
+      "individual": "Individual energy",
       "team": "Team energy",
-      "organizational": "Organizational energy",
+      "leadership": "Leadership energy",
       "customer": "Customer energy",
-      "change": "Change energy"
+      "operational": "Operational energy",
+      "organizational": "Organizational energy"
+    },
+    "signalTypes": {
+      "energy_sources": "Sources of organizational energy",
+      "energy_drains": "Common energy drains",
+      "sustainable_momentum_patterns": "Sustainable momentum patterns",
+      "friction_points": "Friction points",
+      "recovery_opportunities": "Recovery opportunities"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "balanceTypes": {
+      "current_energizers": "What energizes the organization",
+      "unnecessary_drains": "Unnecessary drains",
+      "sustainable_pacing": "Sustainable pacing",
+      "systems_supporting_people": "Systems supporting people",
+      "strengthen_momentum": "Strengthen momentum"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
     },
     "healthLabels": {
       "thriving": "Thriving",
       "healthy": "Healthy",
       "balanced": "Balanced",
       "strained": "Strained",
-      "exhausted": "Exhausted"
-    },
-    "patternTypes": {
-      "sustained_overload": "Sustained overload period",
-      "healthy_momentum": "Healthy momentum cycle",
-      "recovery_opportunity": "Recovery opportunity",
-      "seasonal_intensity": "Seasonal intensity pattern",
-      "change_fatigue": "Change fatigue indicator"
+      "energy_reinforcement_recommended": "Energy reinforcement recommended"
     },
     "timelineTypes": {
-      "intensity_period": "Intensity period",
-      "recovery_period": "Recovery period",
-      "initiative_peak": "Initiative peak",
-      "strategic_pause": "Strategic pause",
-      "org_transition": "Organizational transition"
+      "recovery_milestone": "Recovery milestone",
+      "momentum_breakthrough": "Momentum breakthrough",
+      "leadership_reflection": "Leadership reflection",
+      "collaboration_achievement": "Collaboration achievement",
+      "sustainability_initiative": "Sustainability initiative"
     },
     "reviewTypes": {
-      "monthly": "Monthly energy review",
-      "quarterly": "Quarterly sustainability assessment",
-      "annual": "Annual reflection session",
-      "executive_wellbeing": "Executive wellbeing discussion"
+      "monthly_energy": "Monthly energy review",
+      "quarterly_leadership_reflection": "Quarterly leadership reflection",
+      "team_sustainability": "Team sustainability discussion",
+      "annual_assessment": "Annual organizational assessment"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "stewardship_session": "Stewardship session",
+      "leadership_discussion": "Leadership discussion"
     },
     "metrics": {
-      "recovery": "Recovery opportunities",
-      "focusAlerts": "Executive focus alerts",
-      "initiativeLoad": "Initiative load",
-      "reviewIntensity": "Review intensity",
-      "changeSaturation": "Change saturation",
-      "recoveryHeadroom": "Recovery headroom",
-      "confidence": "Leadership confidence"
+      "momentumIndicators": "Momentum indicators",
+      "recoveryAwareness": "Recovery awareness",
+      "engagementTrends": "Engagement trends",
+      "sustainablePacing": "Sustainable pacing",
+      "collaborationQuality": "Collaboration quality",
+      "leadershipConsistency": "Leadership consistency",
+      "operationalFriction": "Operational friction",
+      "recoveryEffectiveness": "Recovery effectiveness",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
     },
     "executiveFields": {
-      "leadership": "Leadership demand",
-      "pacing": "Strategic pacing",
-      "recovery": "Recovery opportunities",
-      "execution": "Sustainable execution"
+      "organizationalMomentum": "Organizational momentum indicators",
+      "leadershipSustainability": "Leadership sustainability measures",
+      "collaborationEffectiveness": "Collaboration effectiveness trends",
+      "capacityPreservationOpportunities": "Capacity preservation opportunities"
     },
-    "settingsLink": "Organisationsenergi",
-    "organizationalEnergyLink": "Organizational Energy"
+    "settingsLink": "Organisatorisk energi"
   },
   "organizationalAdaptabilityCenter": {
     "title": "Tilpasningscenter",
@@ -17467,24 +17530,24 @@
     "organizationalStewardshipLink": "Organizational Stewardship"
   },
   "organizationalSimplicityCenter": {
-    "title": "Organisationsenkelhed",
-    "subtitle": "Identify unnecessary complexity and help leaders simplify systems, processes, communications, governance structures, and experiences without sacrificing effectiveness.",
+    "title": "Enkelhedscenter",
+    "subtitle": "Reduce unnecessary complexity, simplify workflows, improve usability and create environments where people can focus on meaningful work without excessive friction.",
     "loading": "Loading Simplicity Center…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Simplicity philosophy",
     "visionTitle": "Vision",
     "executiveLink": "Executive Center →",
     "organizationalFocusLink": "Organizational Focus →",
-    "organizationalAlignmentLink": "Organizational Alignment →",
-    "executionExcellenceLink": "Execution Excellence →",
-    "continuousImprovementLink": "Continuous Improvement →",
+    "organizationalEnergyLink": "Organizational Energy →",
+    "organizationalClarityLink": "Organizational Clarity →",
     "dashboardTitle": "Simplicity dashboard",
-    "complexityTitle": "Complexity detection",
-    "opportunitiesTitle": "Simplification opportunities",
+    "signalsTitle": "Simplicity engine",
+    "frictionTitle": "Friction reduction engine",
+    "initiativesTitle": "Simplicity actions",
     "reviewsTitle": "Simplicity reviews",
     "timelineTitle": "Simplicity timeline",
     "milestonesTitle": "Simplification milestones",
-    "snapshotsTitle": "Complexity snapshots",
+    "snapshotsTitle": "Simplicity snapshots",
     "insightsTitle": "Aipify insights",
     "recommendationsTitle": "Aipify recommendations",
     "executiveTitle": "Executive simplicity view",
@@ -17494,79 +17557,94 @@
     "accept": "Accept",
     "completeReview": "Complete review",
     "completeSession": "Complete session",
-    "scheduleReview": "Schedule workflow review",
-    "generateReport": "Generate simplification report",
+    "scheduleWorkshop": "Schedule simplification workshop",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate simplicity report",
     "printSummary": "Print executive summary",
-    "exportSnapshot": "Export complexity snapshot",
-    "coordinateDiscussion": "Coordinate cross-functional discussion",
+    "exportSnapshot": "Export simplicity snapshot",
+    "coordinateDiscussion": "Coordinate leadership discussion",
     "archiveMilestone": "Archive simplification milestone",
-    "humansDecide": "Aipify supports clarity and simplification — leadership owns judgment and necessary controls.",
+    "archiveMilestoneDefaultTitle": "Organizational simplification milestone",
+    "archiveMilestoneDefaultSummary": "Simplification milestone archived via Simplicity Center.",
+    "humansDecide": "Aipify supports thoughtful simplification — leaders retain judgment; simplicity strengthens capacity without removing necessary safeguards.",
     "privacyNote": "Privacy",
-    "simplicityScore": "Simplicity score",
+    "simplicityScore": "Organizational simplicity score",
+    "complexityReduction": "Complexity reduction indicators",
     "domains": {
-      "process": "Process simplicity",
-      "communication": "Communication simplicity",
-      "technology": "Technology simplicity",
-      "governance": "Governance simplicity",
+      "strategic": "Strategic simplicity",
+      "operational": "Operational simplicity",
+      "technical": "Technical simplicity",
+      "leadership": "Leadership simplicity",
       "customer": "Customer simplicity",
-      "leadership": "Leadership simplicity"
+      "organizational": "Organizational simplicity"
     },
-    "detectionTypes": {
-      "duplicate_process": "Duplicate process",
-      "unnecessary_approval": "Unnecessary approval",
-      "excessive_handoff": "Excessive handoff",
-      "documentation_overload": "Documentation overload",
-      "tool_fragmentation": "Tool fragmentation",
-      "initiative_congestion": "Initiative congestion"
+    "signalTypes": {
+      "unnecessary_complexity": "Unnecessary complexity",
+      "duplicate_workflows": "Duplicate workflows",
+      "excessive_approval_layers": "Excessive approval layers",
+      "communication_overload": "Communication overload",
+      "usability_barriers": "Usability barriers"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "frictionTypes": {
+      "what_complicates_work": "What unnecessarily complicates work",
+      "easier_to_understand": "What can be made easier to understand",
+      "approvals_little_value": "Approvals that add little value",
+      "avoidable_frustration": "Avoidable frustration",
+      "improve_usability": "How to improve usability responsibly"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
     },
     "healthLabels": {
       "exceptional": "Exceptional",
-      "simple": "Simple",
-      "manageable": "Manageable",
-      "complex": "Complex",
-      "overcomplicated": "Overcomplicated"
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "simplification_recommended": "Simplification recommended"
     },
     "timelineTypes": {
-      "process_improvement": "Process improvement",
-      "approval_reduction": "Approval reduction",
-      "tool_consolidation": "Tool consolidation",
-      "communication_enhancement": "Communication enhancement",
-      "strategic_simplification": "Strategic simplification"
+      "workflow_improvement": "Workflow improvement",
+      "bureaucracy_reduction": "Bureaucracy reduction",
+      "communication_refinement": "Communication refinement",
+      "system_consolidation": "System consolidation",
+      "organizational_breakthrough": "Organizational breakthrough"
     },
     "reviewTypes": {
       "quarterly_simplicity": "Quarterly simplicity review",
-      "executive_clarity": "Executive clarity session",
-      "workflow_optimization": "Workflow optimization workshop",
-      "annual_simplification": "Annual simplification initiative"
+      "workflow_assessment": "Workflow assessment",
+      "leadership_reflection": "Leadership reflection session",
+      "annual_evaluation": "Annual organizational evaluation"
     },
     "sessionTypes": {
-      "workflow_review": "Workflow review",
-      "cross_functional_discussion": "Cross-functional discussion",
-      "executive_clarity": "Executive clarity session"
-    },
-    "severityLabels": {
-      "low": "Low",
-      "medium": "Medium",
-      "high": "High"
+      "simplification_workshop": "Simplification workshop",
+      "leadership_discussion": "Leadership discussion",
+      "workflow_session": "Workflow session"
     },
     "metrics": {
-      "complexity": "Complexity indicators",
-      "opportunities": "Simplification opportunities",
-      "momentum": "Improvement momentum",
-      "workflow": "Workflow efficiency",
-      "clarity": "Organizational clarity",
-      "focus": "Executive focus",
-      "approvals": "Avg. approval layers",
-      "confidence": "Leadership confidence"
+      "complexityReduction": "Complexity reduction",
+      "workflowEfficiency": "Workflow efficiency",
+      "processClarity": "Process clarity",
+      "navigationSimplicity": "Navigation simplicity",
+      "communicationEffectiveness": "Communication effectiveness",
+      "bureaucraticBurden": "Bureaucratic burden",
+      "accessibility": "Accessibility measures",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
     },
     "executiveFields": {
-      "complexity": "Complexity trends",
-      "focus": "Executive focus",
-      "governance": "Governance efficiency",
-      "opportunities": "Simplification opportunities"
+      "complexityReduction": "Complexity reduction indicators",
+      "workflowEfficiency": "Workflow efficiency measures",
+      "leadershipCommunication": "Leadership communication trends",
+      "simplificationOpportunities": "Organizational simplification opportunities"
     },
-    "settingsLink": "Organisationsenkelhed",
-    "organizationalSimplicityLink": "Organizational Simplicity"
+    "settingsLink": "Organisatorisk enkelhed"
   },
   "organizationalTrustCenter": {
     "title": "Organisatorisk tillid",
@@ -20775,5 +20853,123 @@
     },
     "settingsLink": "Målrettet gennemførelse",
     "organizationalPurposefulExecutionLink": "Purposeful Execution"
+  },
+  "organizationalSignalCenter": {
+    "title": "Signalcenter",
+    "subtitle": "Detect, interpret and respond to meaningful organizational signals before they become significant opportunities or major problems.",
+    "loading": "Loading Signal Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Signal philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalFocusLink": "Organizational Focus →",
+    "organizationalSimplicityLink": "Organizational Simplicity →",
+    "organizationalClarityLink": "Organizational Clarity →",
+    "dashboardTitle": "Signal dashboard",
+    "signalsTitle": "Signal engine",
+    "interpretationTitle": "Signal interpretation engine",
+    "initiativesTitle": "Signal actions",
+    "reviewsTitle": "Signal reviews",
+    "timelineTitle": "Signal timeline",
+    "milestonesTitle": "Signal milestones",
+    "snapshotsTitle": "Signal snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive signal view",
+    "sessionsTitle": "Signal sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate signal report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export signal snapshot",
+    "coordinateDiscussion": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive signal milestone",
+    "archiveMilestoneDefaultTitle": "Organizational signal milestone",
+    "archiveMilestoneDefaultSummary": "Signal milestone archived via Signal Center.",
+    "humansDecide": "Aipify supports signal awareness — leaders retain judgment; signals are indicators, not certainties.",
+    "privacyNote": "Privacy",
+    "signalScore": "Organizational signal health score",
+    "emergingThemes": "Emerging themes detected",
+    "domains": {
+      "customer": "Customer signals",
+      "workforce": "Workforce signals",
+      "leadership": "Leadership signals",
+      "strategic": "Strategic signals",
+      "operational": "Operational signals",
+      "external": "External signals"
+    },
+    "signalTypes": {
+      "weak_signals": "Weak signals",
+      "emerging_trends": "Emerging trends",
+      "repeating_patterns": "Repeating patterns",
+      "discussion_areas": "Areas requiring discussion",
+      "proactive_opportunities": "Proactive action opportunities"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Warrants attention"
+    },
+    "interpretationTypes": {
+      "what_patterns_emerging": "What patterns are emerging",
+      "observations_deserve_attention": "Observations deserving attention",
+      "additional_context_needed": "Additional context needed",
+      "signals_as_opportunities": "Signals as opportunities",
+      "responding_proportionately": "Responding proportionately"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "signal_awareness_recommended": "Signal awareness recommended"
+    },
+    "timelineTypes": {
+      "emerging_trend": "Emerging trend",
+      "leadership_reflection": "Leadership reflection",
+      "strategic_observation": "Strategic observation",
+      "organizational_response": "Organizational response",
+      "learning_development": "Learning development"
+    },
+    "reviewTypes": {
+      "monthly_signal": "Monthly signal review",
+      "quarterly_strategic": "Quarterly strategic discussion",
+      "leadership_reflection": "Leadership reflection session",
+      "annual_assessment": "Annual organizational assessment"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "strategic_discussion": "Strategic discussion",
+      "leadership_session": "Leadership session"
+    },
+    "metrics": {
+      "significantTrends": "Significant trends observed",
+      "executiveAttention": "Executive attention recommendations",
+      "observationEffectiveness": "Observation effectiveness",
+      "reflectionParticipation": "Reflection participation",
+      "responseReadiness": "Response readiness",
+      "patternAwareness": "Pattern awareness",
+      "learningIntegration": "Learning integration",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "emergingThemes": "Emerging organizational themes",
+      "strategicObservation": "Strategic observation indicators",
+      "responseReadiness": "Response readiness measures",
+      "opportunityAwareness": "Opportunity awareness trends"
+    },
+    "settingsLink": "Organisatoriske signaler",
+    "organizationalSignalLink": "Organizational Signals"
   }
 }

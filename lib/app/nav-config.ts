@@ -263,6 +263,7 @@ export type AppNavId =
   | "organizationalFuturesCenterEngine"
   | "organizationalMomentumCenterEngine"
   | "organizationalTrustCenterEngine"
+  | "organizationalSignalCenterEngine"
   | "organizationalSimplicityCenterEngine"
   | "organizationalStewardshipCenterEngine"
   | "organizationalPurposeCenterEngine"
@@ -1496,6 +1497,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "organizationalFuturesCenterEngine", href: "/app/executive/organizational-futures", labelKey: "customerApp.nav.organizationalFuturesCenterEngine" },
   { id: "organizationalMomentumCenterEngine", href: "/app/executive/organizational-momentum", labelKey: "customerApp.nav.organizationalMomentumCenterEngine" },
   { id: "organizationalTrustCenterEngine", href: "/app/executive/organizational-trust", labelKey: "customerApp.nav.organizationalTrustCenterEngine" },
+  { id: "organizationalSignalCenterEngine", href: "/app/executive/organizational-signals", labelKey: "customerApp.nav.organizationalSignalCenterEngine" },
   { id: "organizationalSimplicityCenterEngine", href: "/app/executive/organizational-simplicity", labelKey: "customerApp.nav.organizationalSimplicityCenterEngine" },
   { id: "organizationalStewardshipCenterEngine", href: "/app/executive/organizational-stewardship", labelKey: "customerApp.nav.organizationalStewardshipCenterEngine" },
   { id: "organizationalPurposeCenterEngine", href: "/app/executive/organizational-purpose", labelKey: "customerApp.nav.organizationalPurposeCenterEngine" },
@@ -2302,6 +2304,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/executive/organizational-futures")) return "organizationalFuturesCenterEngine";
   if (pathname.startsWith("/app/executive/organizational-momentum")) return "organizationalMomentumCenterEngine";
   if (pathname.startsWith("/app/executive/organizational-trust")) return "organizationalTrustCenterEngine";
+  if (pathname.startsWith("/app/executive/organizational-signals")) return "organizationalSignalCenterEngine";
   if (pathname.startsWith("/app/executive/organizational-simplicity")) return "organizationalSimplicityCenterEngine";
   if (pathname.startsWith("/app/executive/organizational-stewardship")) return "organizationalStewardshipCenterEngine";
   if (pathname.startsWith("/app/executive/organizational-purpose")) return "organizationalPurposeCenterEngine";

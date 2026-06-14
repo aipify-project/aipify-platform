@@ -19,12 +19,12 @@ type PanelLabels = {
   visionTitle: string;
   executiveLink: string;
   organizationalFocusLink: string;
-  organizationalAlignmentLink: string;
-  executionExcellenceLink: string;
-  continuousImprovementLink: string;
+  organizationalEnergyLink: string;
+  organizationalClarityLink: string;
   dashboardTitle: string;
-  complexityTitle: string;
-  opportunitiesTitle: string;
+  signalsTitle: string;
+  frictionTitle: string;
+  initiativesTitle: string;
   reviewsTitle: string;
   timelineTitle: string;
   milestonesTitle: string;
@@ -38,34 +38,51 @@ type PanelLabels = {
   accept: string;
   completeReview: string;
   completeSession: string;
-  scheduleReview: string;
+  scheduleWorkshop: string;
+  completeInitiative: string;
   generateReport: string;
   printSummary: string;
   exportSnapshot: string;
   coordinateDiscussion: string;
   archiveMilestone: string;
+  archiveMilestoneDefaultTitle: string;
+  archiveMilestoneDefaultSummary: string;
   humansDecide: string;
   privacyNote: string;
   simplicityScore: string;
+  complexityReduction: string;
   domains: Record<string, string>;
-  detectionTypes: Record<string, string>;
+  signalTypes: Record<string, string>;
+  signalTones: Record<string, string>;
+  frictionTypes: Record<string, string>;
+  initiativeStatuses: Record<string, string>;
   healthLabels: Record<string, string>;
   timelineTypes: Record<string, string>;
   reviewTypes: Record<string, string>;
   sessionTypes: Record<string, string>;
-  severityLabels: Record<string, string>;
   metrics: Record<string, string>;
-  executiveFields: Record<string, string>;
+  executiveFields: {
+    complexityReduction: string;
+    workflowEfficiency: string;
+    leadershipCommunication: string;
+    simplificationOpportunities: string;
+  };
 };
 
 type Props = { labels: PanelLabels };
 
 const HEALTH_STYLES: Record<string, string> = {
   exceptional: "border-emerald-200 bg-emerald-50",
-  simple: "border-teal-200 bg-teal-50",
-  manageable: "border-slate-200 bg-slate-50",
-  complex: "border-amber-200 bg-amber-50",
-  overcomplicated: "border-rose-200 bg-rose-50",
+  strong: "border-teal-200 bg-teal-50",
+  healthy: "border-slate-200 bg-slate-50",
+  developing: "border-amber-200 bg-amber-50",
+  simplification_recommended: "border-rose-200 bg-rose-50",
+};
+
+const TONE_STYLES: Record<string, string> = {
+  positive: "border-emerald-100 bg-emerald-50/30",
+  neutral: "border-slate-100 bg-slate-50/30",
+  attention: "border-amber-100 bg-amber-50/30",
 };
 
 export function OrganizationalSimplicityCenterPanel({ labels }: Props) {
@@ -95,24 +112,45 @@ export function OrganizationalSimplicityCenterPanel({ labels }: Props) {
   if (loading) return <p className="p-6 text-sm text-gray-500">{labels.loading}</p>;
 
   const dash = center?.dashboard;
-  const healthStyle = HEALTH_STYLES[dash?.simplicity_health_label ?? "manageable"] ?? HEALTH_STYLES.manageable;
+  const healthStyle = HEALTH_STYLES[dash?.simplicity_health_label ?? "healthy"] ?? HEALTH_STYLES.healthy;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
       <div className="flex flex-wrap gap-3 text-sm">
-        {center?.links?.executive && <Link href={center.links.executive} className="text-slate-600 hover:underline">{labels.executiveLink}</Link>}
-        {center?.links?.organizational_focus && <Link href={center.links.organizational_focus} className="text-slate-600 hover:underline">{labels.organizationalFocusLink}</Link>}
-        {center?.links?.organizational_alignment && <Link href={center.links.organizational_alignment} className="text-slate-600 hover:underline">{labels.organizationalAlignmentLink}</Link>}
-        {center?.links?.execution_excellence && <Link href={center.links.execution_excellence} className="text-slate-600 hover:underline">{labels.executionExcellenceLink}</Link>}
-        {center?.links?.continuous_improvement && <Link href={center.links.continuous_improvement} className="text-slate-600 hover:underline">{labels.continuousImprovementLink}</Link>}
+        {center?.links?.executive && (
+          <Link href={center.links.executive} className="text-slate-600 hover:underline">
+            {labels.executiveLink}
+          </Link>
+        )}
+        {center?.links?.organizational_focus && (
+          <Link href={center.links.organizational_focus} className="text-slate-600 hover:underline">
+            {labels.organizationalFocusLink}
+          </Link>
+        )}
+        {center?.links?.organizational_energy && (
+          <Link href={center.links.organizational_energy} className="text-slate-600 hover:underline">
+            {labels.organizationalEnergyLink}
+          </Link>
+        )}
+        {center?.links?.organizational_clarity && (
+          <Link href={center.links.organizational_clarity} className="text-slate-600 hover:underline">
+            {labels.organizationalClarityLink}
+          </Link>
+        )}
       </div>
 
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
         <p className="mt-2 text-gray-600">{labels.subtitle}</p>
-        <p className="mt-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900">{labels.corePrinciple}: {OSIM_CORE_PRINCIPLE}</p>
-        <p className="mt-2 text-sm text-gray-600">{labels.philosophyTitle}: {OSIM_PHILOSOPHY}</p>
-        <p className="mt-1 text-sm text-gray-600">{labels.visionTitle}: {OSIM_VISION}</p>
+        <p className="mt-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900">
+          {labels.corePrinciple}: {OSIM_CORE_PRINCIPLE}
+        </p>
+        <p className="mt-2 text-sm text-gray-600">
+          {labels.philosophyTitle}: {OSIM_PHILOSOPHY}
+        </p>
+        <p className="mt-1 text-sm text-gray-600">
+          {labels.visionTitle}: {OSIM_VISION}
+        </p>
         <p className="mt-3 text-sm font-medium text-indigo-900">{labels.humansDecide}</p>
       </div>
 
@@ -120,51 +158,71 @@ export function OrganizationalSimplicityCenterPanel({ labels }: Props) {
         <section className={`rounded-2xl border p-5 shadow-sm ${healthStyle}`}>
           <h2 className="text-lg font-semibold text-gray-900">{labels.dashboardTitle}</h2>
           <p className="mt-1 text-sm text-gray-600">
-            {labels.healthLabels[dash.simplicity_health_label] ?? dash.simplicity_health_label} · {labels.simplicityScore}: {dash.simplicity_score}/100
+            {labels.healthLabels[dash.simplicity_health_label] ?? dash.simplicity_health_label} · {labels.simplicityScore}:{" "}
+            {dash.simplicity_score}/100 · {labels.complexityReduction}: {dash.complexity_reduction_pct}%
           </p>
           <dl className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <Metric label={labels.metrics.complexity} value={dash.complexity_indicators} />
-            <Metric label={labels.metrics.opportunities} value={dash.simplification_opportunities} />
-            <Metric label={labels.metrics.momentum} value={`${dash.improvement_momentum_pct}%`} />
-            <Metric label={labels.metrics.workflow} value={`${dash.workflow_efficiency_pct}%`} />
-            <Metric label={labels.metrics.clarity} value={`${dash.organizational_clarity_pct}%`} />
-            <Metric label={labels.metrics.focus} value={`${dash.executive_focus_pct}%`} />
-            <Metric label={labels.metrics.approvals} value={dash.approval_layers_avg} />
-            <Metric label={labels.metrics.confidence} value={`${dash.leadership_confidence}/5`} />
+            <Metric label={labels.metrics.complexityReduction} value={`${dash.complexity_reduction_pct}%`} />
+            <Metric label={labels.metrics.workflowEfficiency} value={`${dash.workflow_efficiency_pct}%`} />
+            <Metric label={labels.metrics.processClarity} value={`${dash.process_clarity_pct}%`} />
+            <Metric label={labels.metrics.navigationSimplicity} value={`${dash.navigation_simplicity_pct}%`} />
+            <Metric label={labels.metrics.communicationEffectiveness} value={`${dash.communication_effectiveness_pct}%`} />
+            <Metric label={labels.metrics.bureaucraticBurden} value={`${dash.bureaucratic_burden_pct}%`} />
+            <Metric label={labels.metrics.accessibility} value={`${dash.accessibility_pct}%`} />
+            <Metric label={labels.metrics.initiatives} value={dash.initiatives_in_progress} />
+            <Metric label={labels.metrics.reviews} value={dash.reviews_completed} />
           </dl>
           {center?.can_manage && (
             <div className="mt-4 flex flex-wrap gap-2">
               <ActionBtn label={labels.generateReport} onClick={() => void postAction({ action: "generate_simplification_report" })} />
               <ActionBtn label={labels.printSummary} variant="muted" onClick={() => void postAction({ action: "print_executive_summary" })} />
-              <ActionBtn label={labels.exportSnapshot} variant="muted" onClick={() => void postAction({ action: "export_complexity_snapshot", period_label: "Current period" })} />
-              <ActionBtn label={labels.coordinateDiscussion} variant="muted" onClick={() => void postAction({ action: "coordinate_cross_functional_discussion" })} />
+              <ActionBtn
+                label={labels.exportSnapshot}
+                variant="muted"
+                onClick={() => void postAction({ action: "export_simplicity_snapshot", period_label: "Current quarter" })}
+              />
+              <ActionBtn label={labels.coordinateDiscussion} variant="muted" onClick={() => void postAction({ action: "coordinate_leadership_discussion" })} />
             </div>
           )}
         </section>
       )}
 
-      <Section title={labels.complexityTitle} empty={center?.complexity_detection.length === 0} emptyLabel={labels.emptySection}>
-        {center?.complexity_detection.map((item) => (
-          <li key={item.complexity_key} className="rounded-xl border border-amber-100 bg-amber-50/20 p-4 text-sm">
-            <div className="flex flex-wrap items-start justify-between gap-2">
-              <p className="text-xs text-gray-500">{labels.domains[item.domain] ?? item.domain} · {labels.detectionTypes[item.detection_type] ?? item.detection_type}</p>
-              <span className="text-xs font-medium text-amber-800">{labels.severityLabels[item.severity] ?? item.severity}</span>
-            </div>
-            <p className="mt-1 font-medium text-gray-900">{item.title}</p>
-            <p className="mt-2 text-gray-700">{item.summary}</p>
+      <Section title={labels.signalsTitle} empty={center?.simplicity_signals.length === 0} emptyLabel={labels.emptySection}>
+        {center?.simplicity_signals.map((sig) => (
+          <li key={sig.signal_key} className={`rounded-xl border p-4 text-sm ${TONE_STYLES[sig.signal_tone] ?? TONE_STYLES.neutral}`}>
+            <p className="text-xs text-gray-500">
+              {labels.domains[sig.domain] ?? sig.domain} · {labels.signalTypes[sig.signal_type] ?? sig.signal_type}
+            </p>
+            <p className="mt-1 font-medium text-gray-900">{sig.title}</p>
+            <p className="mt-2 text-gray-700">{sig.summary}</p>
           </li>
         ))}
       </Section>
 
-      <Section title={labels.opportunitiesTitle} empty={center?.simplification_opportunities.length === 0} emptyLabel={labels.emptySection}>
-        {center?.simplification_opportunities.map((opp) => (
-          <li key={opp.opportunity_key} className="rounded-xl border border-gray-100 p-4 text-sm">
+      <Section title={labels.frictionTitle} empty={center?.friction_prompts.length === 0} emptyLabel={labels.emptySection}>
+        {center?.friction_prompts.map((que) => (
+          <li key={que.question_key} className="rounded-xl border border-indigo-100 bg-indigo-50/20 p-4 text-sm">
+            <p className="text-xs text-gray-500">{labels.frictionTypes[que.question_type] ?? que.question_type}</p>
+            <p className="mt-1 font-medium text-gray-900">{que.title}</p>
+            <p className="mt-2 text-gray-700">{que.summary}</p>
+          </li>
+        ))}
+      </Section>
+
+      <Section title={labels.initiativesTitle} empty={center?.simplification_initiatives.length === 0} emptyLabel={labels.emptySection}>
+        {center?.simplification_initiatives.map((ini) => (
+          <li key={ini.initiative_key} className="rounded-xl border border-gray-100 p-4 text-sm">
             <div className="flex flex-wrap items-start justify-between gap-2">
-              <p className="text-xs text-gray-500">{labels.domains[opp.domain] ?? opp.domain}</p>
-              <span className="text-xs font-medium text-indigo-700">{opp.impact_score}%</span>
+              <p className="text-xs text-gray-500">{labels.domains[ini.domain] ?? ini.domain}</p>
+              <span className="text-xs font-medium text-indigo-700">{labels.initiativeStatuses[ini.status] ?? ini.status}</span>
             </div>
-            <p className="mt-1 font-medium text-gray-900">{opp.title}</p>
-            <p className="mt-2 text-gray-700">{opp.summary}</p>
+            <p className="mt-1 font-medium text-gray-900">{ini.title}</p>
+            <p className="mt-2 text-gray-700">{ini.summary}</p>
+            {ini.status !== "completed" && center?.can_manage && (
+              <div className="mt-3">
+                <ActionBtn label={labels.completeInitiative} onClick={() => void postAction({ action: "complete_initiative", initiative_key: ini.initiative_key })} />
+              </div>
+            )}
           </li>
         ))}
       </Section>
@@ -177,7 +235,7 @@ export function OrganizationalSimplicityCenterPanel({ labels }: Props) {
             {rev.status !== "completed" && center?.can_manage && (
               <div className="mt-3 flex flex-wrap gap-2">
                 <ActionBtn label={labels.completeReview} onClick={() => void postAction({ action: "complete_review", review_key: rev.review_key })} />
-                <ActionBtn label={labels.scheduleReview} variant="muted" onClick={() => void postAction({ action: "schedule_workflow_review", review_key: rev.review_key })} />
+                <ActionBtn label={labels.scheduleWorkshop} variant="muted" onClick={() => void postAction({ action: "schedule_simplification_workshop", review_key: rev.review_key })} />
               </div>
             )}
           </li>
@@ -187,7 +245,9 @@ export function OrganizationalSimplicityCenterPanel({ labels }: Props) {
       <Section title={labels.timelineTitle} empty={center?.timeline.length === 0} emptyLabel={labels.emptySection}>
         {center?.timeline.map((evt) => (
           <li key={evt.timeline_key} className="rounded-xl border border-gray-100 p-3 text-sm">
-            <p className="text-xs text-gray-500">{labels.timelineTypes[evt.event_type] ?? evt.event_type}</p>
+            <p className="text-xs text-gray-500">
+              {labels.timelineTypes[evt.event_type] ?? evt.event_type} · {labels.domains[evt.domain] ?? evt.domain}
+            </p>
             <p className="mt-1 font-medium text-gray-900">{evt.label}</p>
             {evt.summary && <p className="mt-1 text-gray-700">{evt.summary}</p>}
           </li>
@@ -204,7 +264,16 @@ export function OrganizationalSimplicityCenterPanel({ labels }: Props) {
         ))}
         {center?.can_manage && (
           <li className="pt-2">
-            <ActionBtn label={labels.archiveMilestone} onClick={() => void postAction({ action: "archive_simplification_milestone", title: "Simplification milestone", summary: "Milestone archived via Simplicity Center." })} />
+            <ActionBtn
+              label={labels.archiveMilestone}
+              onClick={() =>
+                void postAction({
+                  action: "archive_simplification_milestone",
+                  title: labels.archiveMilestoneDefaultTitle,
+                  summary: labels.archiveMilestoneDefaultSummary,
+                })
+              }
+            />
           </li>
         )}
       </Section>
@@ -214,7 +283,9 @@ export function OrganizationalSimplicityCenterPanel({ labels }: Props) {
           <li key={snap.snapshot_key} className="rounded-xl border border-gray-100 p-3 text-sm">
             <div className="flex flex-wrap items-start justify-between gap-2">
               <p className="font-medium text-gray-900">{snap.period_label}</p>
-              <span className="text-xs text-indigo-700">{labels.simplicityScore}: {snap.simplicity_score}</span>
+              <span className="text-xs text-indigo-700">
+                {labels.simplicityScore}: {snap.simplicity_score}
+              </span>
             </div>
             <p className="mt-1 text-gray-700">{snap.summary}</p>
           </li>
@@ -225,10 +296,10 @@ export function OrganizationalSimplicityCenterPanel({ labels }: Props) {
         <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
           <h2 className="text-lg font-semibold text-gray-900">{labels.executiveTitle}</h2>
           <dl className="mt-4 space-y-3 text-sm">
-            <ExecField label={labels.executiveFields.complexity} value={center.executive_view.complexity_trends} />
-            <ExecField label={labels.executiveFields.focus} value={center.executive_view.executive_focus} />
-            <ExecField label={labels.executiveFields.governance} value={center.executive_view.governance_efficiency} />
-            <ExecField label={labels.executiveFields.opportunities} value={center.executive_view.simplification_opportunities} />
+            <ExecField label={labels.executiveFields.complexityReduction} value={center.executive_view.complexity_reduction} />
+            <ExecField label={labels.executiveFields.workflowEfficiency} value={center.executive_view.workflow_efficiency} />
+            <ExecField label={labels.executiveFields.leadershipCommunication} value={center.executive_view.leadership_communication} />
+            <ExecField label={labels.executiveFields.simplificationOpportunities} value={center.executive_view.simplification_opportunities} />
           </dl>
         </section>
       )}
@@ -244,14 +315,18 @@ export function OrganizationalSimplicityCenterPanel({ labels }: Props) {
             {sess.status !== "completed" && center?.can_manage && (
               <div className="mt-3 flex flex-wrap gap-2">
                 <ActionBtn label={labels.completeSession} onClick={() => void postAction({ action: "complete_session", session_key: sess.session_key })} />
-                <ActionBtn label={labels.scheduleReview} variant="muted" onClick={() => void postAction({ action: "schedule_workflow_review", session_key: sess.session_key })} />
+                <ActionBtn label={labels.scheduleWorkshop} variant="muted" onClick={() => void postAction({ action: "schedule_simplification_workshop", session_key: sess.session_key })} />
               </div>
             )}
           </li>
         ))}
       </Section>
 
-      {center?.privacy_note && <p className="text-xs text-gray-500">{labels.privacyNote}: {center.privacy_note}</p>}
+      {center?.privacy_note && (
+        <p className="text-xs text-gray-500">
+          {labels.privacyNote}: {center.privacy_note}
+        </p>
+      )}
     </div>
   );
 }
@@ -273,7 +348,11 @@ function InsightSection({ title, items, canManage, dismissLabel, onDismiss }: { 
         {items.map((ins) => (
           <li key={ins.insight_key} className="rounded-xl border border-indigo-100 bg-indigo-50/30 p-3 text-sm">
             <p className="text-gray-800">{ins.message}</p>
-            {canManage && <button type="button" className="mt-2 text-xs text-slate-600 hover:underline" onClick={() => onDismiss(ins.insight_key)}>{dismissLabel}</button>}
+            {canManage && (
+              <button type="button" className="mt-2 text-xs text-slate-600 hover:underline" onClick={() => onDismiss(ins.insight_key)}>
+                {dismissLabel}
+              </button>
+            )}
           </li>
         ))}
       </ul>
@@ -321,8 +400,10 @@ function Metric({ label, value }: { label: string; value: string | number }) {
 }
 
 function ActionBtn({ label, onClick, variant = "primary", className = "" }: { label: string; onClick: () => void; variant?: "primary" | "muted"; className?: string }) {
-  const styles = variant === "primary"
-    ? "rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-700"
-    : "rounded-lg border border-gray-200 px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-50";
-  return <button type="button" className={`${styles} ${className}`} onClick={onClick}>{label}</button>;
+  const styles = variant === "primary" ? "rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-700" : "rounded-lg border border-gray-200 px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-50";
+  return (
+    <button type="button" className={`${styles} ${className}`} onClick={onClick}>
+      {label}
+    </button>
+  );
 }

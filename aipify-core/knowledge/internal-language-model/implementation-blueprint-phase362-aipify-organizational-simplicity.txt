@@ -1,0 +1,4 @@
+ABOS Phase 362 — Organizational Simplicity Engine
+Route: /app/executive/organizational-simplicity
+Core: Complexity consumes attention. Simplicity creates capacity.
+Helpers: _osim_* · _osimbp362_*

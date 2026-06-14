@@ -1,0 +1,4 @@
+ABOS Phase 360 — Organizational Energy Engine
+Route: /app/executive/organizational-energy
+Core: Organizations do not run on strategy alone. They run on human energy.
+Helpers: _oec_* · _oecbp360_*
