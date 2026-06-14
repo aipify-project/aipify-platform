@@ -1106,3 +1106,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Incident Command & Recovery Engine (Phase 313):** See [AIPIFY_INCIDENT_COMMAND_RECOVERY_ENGINE_PHASE313.md](./AIPIFY_INCIDENT_COMMAND_RECOVERY_ENGINE_PHASE313.md) — Incident Command Center at Operations Center → Incident Command. Incident coordination, severity workflow, communications, self-healing integration, and post-incident reviews. `/app/operations/incident-command`, migration `20261424100000_aipify_incident_command_recovery_engine_phase313.sql`. Helpers `_icr_*`, `_icrbp313_*`. APIs at `/api/incident-command/*`. Cross-links observability and deployments — does not modify their RPCs.
+
+
+**Aipify Change Management Engine (Phase 314):** See [AIPIFY_CHANGE_MANAGEMENT_CENTER_ENGINE_PHASE314.md](./AIPIFY_CHANGE_MANAGEMENT_CENTER_ENGINE_PHASE314.md) — Change Management Center at Executive Center → Change Management. Initiative workflow, stakeholder mapping, communications, training coordination, adoption analytics, and feedback. `/app/executive/change-management`, migration `20261424200000_aipify_change_management_center_engine_phase314.sql`. Helpers `_cmg_*`, `_cmgbp314_*`. APIs at `/api/change-management/*`. Cross-links executive centers — does not modify their RPCs.

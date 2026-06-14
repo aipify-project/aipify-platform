@@ -56,7 +56,8 @@
     "continuousImprovementLink": "Continuous Improvement",
     "organizationalResilienceLink": "Organizational Resilience",
     "opportunityDiscoveryLink": "Opportunity Discovery",
-    "organizationalHealthLink": "Organizational Health"
+    "organizationalHealthLink": "Organizational Health",
+    "changeManagementLink": "Change Management"
   },
   "presence": {
     "title": "Presence center",
@@ -7130,7 +7131,8 @@
     "databaseGovernanceCenterEngine": "Database Governance",
     "deploymentGovernanceCenterEngine": "Deployments",
     "platformObservabilityCenterEngine": "Platform Observability",
-    "incidentCommandCenterEngine": "Incident Command"
+    "incidentCommandCenterEngine": "Incident Command",
+    "changeManagementCenterEngine": "Change Management"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -16419,5 +16421,102 @@
       "improvements": "Improvements required"
     },
     "settingsLink": "Incident Command"
+  },
+  "changeManagementCenter": {
+    "title": "Change Management Center",
+    "subtitle": "Plan, communicate, and sustain change initiatives — adoption-focused support with empathy, clarity, and operational excellence.",
+    "loading": "Loading Change Management Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Change philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalHealthLink": "Organizational Health →",
+    "continuousImprovementLink": "Continuous Improvement →",
+    "organizationalResilienceLink": "Organizational Resilience →",
+    "decisionSupportLink": "Decision Support →",
+    "dashboardTitle": "Change dashboard",
+    "initiativesTitle": "Active initiatives",
+    "stakeholdersTitle": "Stakeholders",
+    "communicationsTitle": "Communication center",
+    "trainingTitle": "Training coordination",
+    "adoptionTitle": "Adoption analytics",
+    "feedbackTitle": "Feedback",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive change view",
+    "reviewsTitle": "Change reviews",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "advanceWorkflow": "Advance workflow",
+    "sendCommunication": "Send communication",
+    "completeTraining": "Mark training complete",
+    "reviewFeedback": "Mark reviewed",
+    "completeReview": "Complete review",
+    "generatePlan": "Generate communication plan",
+    "generateReport": "Generate adoption report",
+    "humansDecide": "Aipify supports adoption — leadership owns change decisions and never forces compliance.",
+    "privacyNote": "Privacy",
+    "readinessBands": {
+      "ready": "Ready",
+      "mostly_ready": "Mostly ready",
+      "attention_needed": "Attention needed",
+      "not_ready": "Not ready"
+    },
+    "changeCategories": {
+      "technology": "Technology change",
+      "process": "Process change",
+      "organizational": "Organizational change",
+      "cultural": "Cultural change",
+      "strategic": "Strategic change"
+    },
+    "workflowStages": {
+      "identified": "Change identified",
+      "business_case": "Business case developed",
+      "stakeholders_mapped": "Stakeholders mapped",
+      "communication_planned": "Communication planned",
+      "training_coordinated": "Training coordinated",
+      "implementation_executed": "Implementation executed",
+      "adoption_measured": "Adoption measured",
+      "lessons_captured": "Lessons learned captured"
+    },
+    "stakeholderRoles": {
+      "sponsor": "Sponsor",
+      "leader": "Leader",
+      "champion": "Change champion",
+      "impacted_employee": "Impacted employee",
+      "external": "External stakeholder"
+    },
+    "communicationAudiences": {
+      "executive": "Executive announcement",
+      "team": "Team update",
+      "faq": "FAQ",
+      "progress": "Progress summary",
+      "reinforcement": "Reinforcement campaign"
+    },
+    "feedbackTypes": {
+      "concern": "Concern",
+      "suggestion": "Suggestion",
+      "barrier": "Adoption barrier",
+      "positive": "Positive outcome",
+      "lesson": "Lesson learned"
+    },
+    "metrics": {
+      "active": "Active initiatives",
+      "adoption": "Average adoption",
+      "readiness": "Readiness score",
+      "training": "Training completion",
+      "communications": "Communications sent",
+      "engagement": "Stakeholder engagement",
+      "confidence": "Employee confidence",
+      "success": "Initiative success rate"
+    },
+    "executiveFields": {
+      "adoption": "Adoption confidence",
+      "sentiment": "Stakeholder sentiment",
+      "actions": "Leadership action items"
+    },
+    "settingsLink": "Change Management",
+    "changeManagementLink": "Change Management"
   }
 }

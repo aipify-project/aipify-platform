@@ -1,0 +1,4 @@
+ABOS Phase 314 — Change Management Center
+Route: /app/executive/change-management
+Core: Technology changes quickly. People adapt gradually.
+Helpers: _cmg_* · _cmgbp314_*
