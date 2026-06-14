@@ -69,7 +69,8 @@
     "organizationalLegacyLink": "Organizational Legacy",
     "organizationalPurposeLink": "Organizational Purpose",
     "organizationalStewardshipLink": "Organizational Stewardship",
-    "organizationalSimplicityLink": "Organizational Simplicity"
+    "organizationalSimplicityLink": "Organizational Simplicity",
+    "organizationalTrustLink": "Organizational Trust"
   },
   "presence": {
     "title": "Presence center",
@@ -7160,7 +7161,8 @@
     "organizationalLegacyCenterEngine": "Organizational Legacy",
     "organizationalPurposeCenterEngine": "Organizational Purpose",
     "organizationalStewardshipCenterEngine": "Organizational Stewardship",
-    "organizationalSimplicityCenterEngine": "Organizational Simplicity"
+    "organizationalSimplicityCenterEngine": "Organizational Simplicity",
+    "organizationalTrustCenterEngine": "Organizational Trust"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -17807,5 +17809,111 @@
     },
     "settingsLink": "Organizational Simplicity",
     "organizationalSimplicityLink": "Organizational Simplicity"
+  },
+  "organizationalTrustCenter": {
+    "title": "Organizational Trust",
+    "subtitle": "Strengthen trust across leadership, teams, customers, partners, and stakeholders through transparency, consistency, accountability, and reliability.",
+    "loading": "Loading Trust Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Trust philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalStewardshipLink": "Organizational Stewardship →",
+    "organizationalSimplicityLink": "Organizational Simplicity →",
+    "organizationalPurposeLink": "Organizational Purpose →",
+    "trustTransparencyLink": "Trust & Transparency →",
+    "dashboardTitle": "Trust dashboard",
+    "signalsTitle": "Trust signal engine",
+    "accountabilityTitle": "Accountability engine",
+    "reviewsTitle": "Trust reviews",
+    "timelineTitle": "Trust timeline",
+    "milestonesTitle": "Trust milestones",
+    "snapshotsTitle": "Trust snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive trust view",
+    "sessionsTitle": "Trust sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleSession": "Schedule reflection session",
+    "fulfillCommitment": "Mark commitment fulfilled",
+    "generateSummary": "Generate trust summary",
+    "printReport": "Print executive report",
+    "exportSnapshot": "Export trust snapshot",
+    "coordinateReview": "Coordinate leadership review",
+    "archiveMilestone": "Archive trust milestone",
+    "humansDecide": "Aipify supports reflection and accountability — leadership owns authentic trust-building and relationships.",
+    "privacyNote": "Privacy",
+    "trustScore": "Organizational trust score",
+    "domains": {
+      "leadership": "Leadership trust",
+      "team": "Team trust",
+      "customer": "Customer trust",
+      "partner": "Partner trust",
+      "organizational": "Organizational trust"
+    },
+    "signalTypes": {
+      "follow_through": "Consistent follow-through",
+      "communication_gap": "Communication gap",
+      "governance_reliability": "Governance reliability",
+      "service_consistency": "Service consistency",
+      "accountability_pattern": "Accountability pattern"
+    },
+    "signalTones": {
+      "positive": "Positive signal",
+      "neutral": "Neutral signal",
+      "attention": "Needs attention"
+    },
+    "commitmentStatuses": {
+      "open": "Open",
+      "fulfilled": "Fulfilled",
+      "review": "Under review"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "developing": "Developing",
+      "needs_attention": "Needs attention",
+      "fragile": "Fragile"
+    },
+    "timelineTypes": {
+      "commitment_fulfilled": "Commitment fulfilled",
+      "recovery_effort": "Recovery effort",
+      "governance_improvement": "Governance improvement",
+      "customer_trust_milestone": "Customer trust milestone",
+      "leadership_reflection": "Leadership reflection"
+    },
+    "reviewTypes": {
+      "quarterly_trust": "Quarterly trust review",
+      "leadership_reflection": "Leadership reflection session",
+      "customer_trust": "Customer trust discussion",
+      "governance_transparency": "Governance transparency review"
+    },
+    "sessionTypes": {
+      "leadership_reflection": "Leadership reflection",
+      "leadership_review": "Leadership review",
+      "customer_trust_discussion": "Customer trust discussion"
+    },
+    "metrics": {
+      "trend": "Trust-building trend",
+      "reliability": "Reliability",
+      "accountability": "Accountability participation",
+      "fulfillment": "Commitment fulfillment",
+      "communication": "Communication consistency",
+      "transparency": "Transparency practices",
+      "openCommitments": "Open commitments",
+      "confidence": "Leadership confidence"
+    },
+    "executiveFields": {
+      "consistency": "Leadership consistency",
+      "reliability": "Reliability trends",
+      "governance": "Governance confidence",
+      "stakeholders": "Stakeholder opportunities"
+    },
+    "settingsLink": "Organizational Trust",
+    "organizationalTrustLink": "Organizational Trust"
   }
 }

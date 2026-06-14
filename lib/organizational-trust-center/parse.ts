@@ -1,0 +1,167 @@
+import type {
+  AccountabilityCommitment,
+  OrganizationalTrustCenter,
+  TrustInsight,
+  TrustMilestone,
+  TrustRecommendation,
+  TrustReview,
+  TrustSession,
+  TrustSignal,
+  TrustSnapshot,
+  TrustTimelineEvent,
+} from "./types";
+
+function asRecord(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" && !Array.isArray(value)
+    ? (value as Record<string, unknown>)
+    : {};
+}
+
+export function parseOrganizationalTrustCenter(raw: unknown): OrganizationalTrustCenter {
+  const row = asRecord(raw);
+  const dash = asRecord(row.dashboard);
+  const exec = asRecord(row.executive_view);
+
+  return {
+    dashboard:
+      Object.keys(dash).length > 0
+        ? {
+            trust_score: Number(dash.trust_score ?? 0),
+            trust_health_label: String(dash.trust_health_label ?? "developing"),
+            trust_building_trend_pct: Number(dash.trust_building_trend_pct ?? 0),
+            reliability_pct: Number(dash.reliability_pct ?? 0),
+            accountability_participation_pct: Number(dash.accountability_participation_pct ?? 0),
+            commitment_fulfillment_pct: Number(dash.commitment_fulfillment_pct ?? 0),
+            communication_consistency_pct: Number(dash.communication_consistency_pct ?? 0),
+            governance_participation_pct: Number(dash.governance_participation_pct ?? 0),
+            resolution_effectiveness_pct: Number(dash.resolution_effectiveness_pct ?? 0),
+            transparency_practices_pct: Number(dash.transparency_practices_pct ?? 0),
+            leadership_confidence: Number(dash.leadership_confidence ?? 0),
+            open_commitments: Number(dash.open_commitments ?? 0),
+            reviews_completed: Number(dash.reviews_completed ?? 0),
+          }
+        : null,
+    trust_signals: Array.isArray(row.trust_signals)
+      ? row.trust_signals.map((s) => {
+          const item = asRecord(s);
+          return {
+            signal_key: String(item.signal_key ?? ""),
+            domain: String(item.domain ?? ""),
+            signal_type: String(item.signal_type ?? ""),
+            title: String(item.title ?? ""),
+            summary: String(item.summary ?? ""),
+            signal_tone: String(item.signal_tone ?? "neutral"),
+          } satisfies TrustSignal;
+        })
+      : [],
+    accountability_commitments: Array.isArray(row.accountability_commitments)
+      ? row.accountability_commitments.map((c) => {
+          const item = asRecord(c);
+          return {
+            commitment_key: String(item.commitment_key ?? ""),
+            domain: String(item.domain ?? ""),
+            title: String(item.title ?? ""),
+            owner_label: String(item.owner_label ?? ""),
+            summary: String(item.summary ?? ""),
+            status: String(item.status ?? "open"),
+          } satisfies AccountabilityCommitment;
+        })
+      : [],
+    trust_reviews: Array.isArray(row.trust_reviews)
+      ? row.trust_reviews.map((r) => {
+          const item = asRecord(r);
+          return {
+            review_key: String(item.review_key ?? ""),
+            review_type: String(item.review_type ?? ""),
+            prompt: String(item.prompt ?? ""),
+            status: String(item.status ?? "pending"),
+            completed_at: item.completed_at ? String(item.completed_at) : null,
+          } satisfies TrustReview;
+        })
+      : [],
+    timeline: Array.isArray(row.timeline)
+      ? row.timeline.map((t) => {
+          const item = asRecord(t);
+          return {
+            timeline_key: String(item.timeline_key ?? ""),
+            event_type: String(item.event_type ?? ""),
+            domain: String(item.domain ?? ""),
+            label: String(item.label ?? ""),
+            summary: String(item.summary ?? ""),
+            recorded_at: item.recorded_at ? String(item.recorded_at) : null,
+          } satisfies TrustTimelineEvent;
+        })
+      : [],
+    trust_milestones: Array.isArray(row.trust_milestones)
+      ? row.trust_milestones.map((m) => {
+          const item = asRecord(m);
+          return {
+            milestone_key: String(item.milestone_key ?? ""),
+            domain: String(item.domain ?? ""),
+            title: String(item.title ?? ""),
+            summary: String(item.summary ?? ""),
+            archived_at: item.archived_at ? String(item.archived_at) : null,
+          } satisfies TrustMilestone;
+        })
+      : [],
+    snapshots: Array.isArray(row.snapshots)
+      ? row.snapshots.map((s) => {
+          const item = asRecord(s);
+          return {
+            snapshot_key: String(item.snapshot_key ?? ""),
+            period_label: String(item.period_label ?? ""),
+            trust_score: Number(item.trust_score ?? 0),
+            summary: String(item.summary ?? ""),
+            captured_at: item.captured_at ? String(item.captured_at) : null,
+          } satisfies TrustSnapshot;
+        })
+      : [],
+    insights: Array.isArray(row.insights)
+      ? row.insights.map((i) => {
+          const item = asRecord(i);
+          return {
+            insight_key: String(item.insight_key ?? ""),
+            message: String(item.message ?? ""),
+            priority: String(item.priority ?? "medium"),
+          } satisfies TrustInsight;
+        })
+      : [],
+    recommendations: Array.isArray(row.recommendations)
+      ? row.recommendations.map((r) => {
+          const item = asRecord(r);
+          return {
+            recommendation_key: String(item.recommendation_key ?? ""),
+            message: String(item.message ?? ""),
+            priority: String(item.priority ?? "medium"),
+          } satisfies TrustRecommendation;
+        })
+      : [],
+    trust_sessions: Array.isArray(row.trust_sessions)
+      ? row.trust_sessions.map((s) => {
+          const item = asRecord(s);
+          return {
+            session_key: String(item.session_key ?? ""),
+            session_type: String(item.session_type ?? ""),
+            prompt: String(item.prompt ?? ""),
+            status: String(item.status ?? "pending"),
+            completed_at: item.completed_at ? String(item.completed_at) : null,
+          } satisfies TrustSession;
+        })
+      : [],
+    executive_view:
+      Object.keys(exec).length > 0
+        ? {
+            leadership_consistency: String(exec.leadership_consistency ?? ""),
+            reliability_trends: String(exec.reliability_trends ?? ""),
+            governance_confidence: String(exec.governance_confidence ?? ""),
+            stakeholder_opportunities: String(exec.stakeholder_opportunities ?? ""),
+          }
+        : null,
+    links: row.links
+      ? Object.fromEntries(Object.entries(asRecord(row.links)).map(([k, v]) => [k, String(v)]))
+      : null,
+    can_manage: Boolean(row.can_manage),
+    can_contribute: Boolean(row.can_contribute),
+    privacy_note: row.privacy_note ? String(row.privacy_note) : null,
+  };
+}
