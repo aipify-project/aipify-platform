@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyBriefingCard } from "@/components/app/briefing";
+import type { SinceLastLoginSummaryLabels } from "@/components/shared/since-last-login/SinceLastLoginSummaryPanel";
 import { DesktopCompanionCard } from "@/components/app/desktop";
 import { MemoryEngineCard } from "@/components/app/memory";
 import { SecurityComplianceCard } from "@/components/app/security-compliance";
@@ -40,6 +41,7 @@ import { createClient } from "@/lib/supabase/client";
 
 type CustomerHomePanelProps = {
   locale: string;
+  sinceLastLoginLabels: SinceLastLoginSummaryLabels;
   labels: {
     loading: string;
     empty: string;
@@ -211,7 +213,11 @@ type CustomerHomePanelProps = {
   };
 };
 
-export function CustomerHomePanel({ locale, labels }: CustomerHomePanelProps) {
+export function CustomerHomePanel({
+  locale,
+  sinceLastLoginLabels,
+  labels,
+}: CustomerHomePanelProps) {
   const [bundle, setBundle] = useState<CustomerAppHomeBundle | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -259,7 +265,7 @@ export function CustomerHomePanel({ locale, labels }: CustomerHomePanelProps) {
         <p className="mt-3 text-sm text-indigo-700">{labels.principle}</p>
       </div>
 
-      <AipifyBriefingCard labels={labels.briefing} />
+      <AipifyBriefingCard labels={labels.briefing} sinceLastLoginLabels={sinceLastLoginLabels} />
       <AssistantIdentityWelcomeBanner labels={labels.assistantIdentity} />
       <EnterpriseDeploymentCard labels={labels.enterpriseDeployment} />
       <SecurityComplianceCard labels={labels.securityCompliance} />

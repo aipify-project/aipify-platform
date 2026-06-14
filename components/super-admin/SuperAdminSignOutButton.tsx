@@ -28,7 +28,7 @@ export default function SuperAdminSignOutButton({ label }: SuperAdminSignOutButt
       type="button"
       onClick={() => void handleSignOut()}
       disabled={signingOut}
-      className="rounded-md border border-zinc-700 px-3 py-1.5 text-xs font-medium text-zinc-300 transition hover:border-zinc-500 hover:text-zinc-100 disabled:opacity-60"
+      className="rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-xs font-medium text-zinc-700 transition hover:border-zinc-400 hover:text-zinc-900 disabled:opacity-60"
     >
       {signingOut ? "…" : label}
     </button>

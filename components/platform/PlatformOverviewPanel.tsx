@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
+import SinceLastLoginSummaryPanel, {
+  type SinceLastLoginSummaryLabels,
+} from "@/components/shared/since-last-login/SinceLastLoginSummaryPanel";
 import PriorityBadge from "@/components/platform/PriorityBadge";
 import RecommendedActionsPanel from "@/components/platform/RecommendedActionsPanel";
 import AipifyBrainOverviewSection from "@/components/platform/AipifyBrainOverviewSection";
@@ -23,6 +26,7 @@ import { getSystemHealth } from "@/lib/platform/metrics-dashboard";
 import type { PlatformMetrics } from "@/lib/platform/types";
 
 type PlatformOverviewPanelProps = {
+  sinceLastLoginLabels: SinceLastLoginSummaryLabels;
   labels: {
     title: string;
     subtitle: string;
@@ -145,7 +149,10 @@ const EMPTY_SNAPSHOT: PlatformDashboardSnapshot = {
   revenue_events: 0,
 };
 
-export default function PlatformOverviewPanel({ labels }: PlatformOverviewPanelProps) {
+export default function PlatformOverviewPanel({
+  sinceLastLoginLabels,
+  labels,
+}: PlatformOverviewPanelProps) {
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<PlatformAdminSession | null>(null);
   const [snapshot, setSnapshot] = useState<PlatformDashboardSnapshot | null>(null);
@@ -249,6 +256,13 @@ export default function PlatformOverviewPanel({ labels }: PlatformOverviewPanelP
         </h1>
         <p className="mt-2 text-base text-gray-500">{labels.subtitle}</p>
       </header>
+
+      <SinceLastLoginSummaryPanel
+        scope="platform_admin"
+        labels={sinceLastLoginLabels}
+        variant="compact"
+        touchLogin={false}
+      />
 
       <section className="rounded-3xl border border-violet-100 bg-gradient-to-br from-violet-50/70 via-white to-indigo-50/40 p-6 shadow-sm sm:p-8">
         <h2 className="text-lg font-semibold text-violet-900">{labels.briefing.title}</h2>

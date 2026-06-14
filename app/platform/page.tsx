@@ -2,6 +2,7 @@ import PlatformOverviewPanel from "@/components/platform/PlatformOverviewPanel";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { buildSinceLastLoginLabels } from "@/lib/since-last-login";
 
 export default async function PlatformOverviewPage() {
   const locale = await getLocale();
@@ -10,6 +11,7 @@ export default async function PlatformOverviewPage() {
 
   return (
     <PlatformOverviewPanel
+      sinceLastLoginLabels={buildSinceLastLoginLabels(t)}
       labels={{
         title: t("platform.overview.title"),
         subtitle: t("platform.overview.subtitle"),

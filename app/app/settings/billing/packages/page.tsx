@@ -1,4 +1,5 @@
 import { PackageAccessCenterPanel } from "@/components/app/settings/billing";
+import { buildPaymentProviderLabels } from "@/lib/payment-providers";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -8,6 +9,7 @@ export default async function PackageAccessSettingsPage() {
   const dict = await getDictionary(locale, ["customerApp"]);
   const t = createTranslator(dict);
   const ns = "customerApp.packageAccess";
+  const providerLabels = buildPaymentProviderLabels(t, "customerApp");
 
   return (
     <PackageAccessCenterPanel
@@ -40,6 +42,8 @@ export default async function PackageAccessSettingsPage() {
           business: t(`${ns}.tiers.business`),
           enterprise: t(`${ns}.tiers.enterprise`),
         },
+        upgradeFlow: providerLabels.upgrade,
+        providerNames: providerLabels.providers,
       }}
     />
   );

@@ -5,6 +5,7 @@ import type { HealthScoreBand } from "@/lib/app/customer-app";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { buildCustomerSinceLastLoginLabels } from "@/lib/since-last-login";
 
 type AppPageProps = {
   params: Promise<{ slug?: string[] }>;
@@ -28,6 +29,7 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
     return (
       <CustomerHomePanel
         locale={locale}
+        sinceLastLoginLabels={buildCustomerSinceLastLoginLabels(t)}
         labels={{
           loading: t("customerApp.home.loading"),
           empty: t("customerApp.home.empty"),

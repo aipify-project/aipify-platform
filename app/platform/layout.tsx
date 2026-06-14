@@ -7,6 +7,7 @@ import {
   PLATFORM_ADMIN_NAV,
   PLATFORM_MOBILE_NAV_IDS,
 } from "@/lib/platform/nav-config";
+import { buildCommandBarLabels, platformNavSources } from "@/lib/command-bar";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -18,7 +19,7 @@ export default async function PlatformLayout({
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["common", "auth", "platform", "branding", "presence"]);
+  const dict = await getDictionary(locale, ["common", "auth", "platform", "branding", "presence", "commandBar"]);
   const t = createTranslator(dict);
 
   return (
@@ -62,6 +63,11 @@ export default async function PlatformLayout({
           }}
           presenceLabels={buildPresenceLabels(t)}
           locale={locale}
+          commandBar={{
+            portal: "platform",
+            labels: buildCommandBarLabels(t),
+            navSources: platformNavSources(t),
+          }}
         >
           <PlatformPortalBanner
             title={t("platform.portal.bannerTitle")}

@@ -18,14 +18,19 @@ export async function POST(request: Request) {
       target_package?: string;
       upgrade_event_id?: string;
       payment_reference?: string;
+      payment_provider?: string;
     };
 
     if (body.action === "complete") {
-      const { data, error } = await supabase.rpc("complete_package_upgrade_instant", {
+      const rpcName = body.payment_provider
+        ? "complete_package_upgrade_with_provider"
+        : "complete_package_upgrade_instant";
+      const { data, error } = await supabase.rpc(rpcName, {
         p_payload: {
           target_package: body.target_package,
           upgrade_event_id: body.upgrade_event_id,
           payment_reference: body.payment_reference ?? `mock_${Date.now()}`,
+          payment_provider: body.payment_provider ?? "stripe",
           instant_activation: true,
         },
       });

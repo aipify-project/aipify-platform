@@ -1,4 +1,5 @@
 import { ActionCenterPanel } from "@/components/app/action-center/ActionCenterPanel";
+import { buildActionImpactLabels } from "@/lib/action-center-impact";
 import { ACTION_STATUSES, EXECUTION_LEVELS, RISK_LEVELS } from "@/lib/aipify/execution";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -73,6 +74,7 @@ export default async function ActionCenterPage() {
           history: t("customerApp.actionCenter.detail.history"),
         },
       }}
+      impactLabels={buildActionImpactLabels(t)}
     />
   );
 }

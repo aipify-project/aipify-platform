@@ -35,6 +35,7 @@ export const SUPER_ADMIN_SECTIONS: SuperAdminSection[] = [
     purposeKey: "superAdmin.sections.commercialOperations.purpose",
     modules: [
       { id: "billingOverview", labelKey: "superAdmin.modules.billingOverview", descriptionKey: "superAdmin.modules.billingOverviewDescription", href: "/platform/billing" },
+      { id: "paymentProviders", labelKey: "superAdmin.modules.paymentProviders", descriptionKey: "superAdmin.modules.paymentProvidersDescription", href: "/platform/payment-providers" },
       { id: "subscriptionMonitoring", labelKey: "superAdmin.modules.subscriptionMonitoring", descriptionKey: "superAdmin.modules.subscriptionMonitoringDescription", href: "/platform/subscriptions" },
       { id: "revenueAnalytics", labelKey: "superAdmin.modules.revenueAnalytics", descriptionKey: "superAdmin.modules.revenueAnalyticsDescription", href: "/platform/metrics" },
       { id: "enterpriseContracts", labelKey: "superAdmin.modules.enterpriseContracts", descriptionKey: "superAdmin.modules.enterpriseContractsDescription", href: "/platform/billing" },

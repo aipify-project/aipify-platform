@@ -23,17 +23,61 @@ export type ExecutiveTimelineEvent = {
   technical_title: string;
   executive_title: string;
   created_at: string;
+  href?: string | null;
+};
+
+export type ExecutiveSinceLoginBullet = {
+  text: string;
+  status: "neutral" | "green" | "yellow" | "red";
+};
+
+export type ExecutiveSinceLogin = {
+  bullets: ExecutiveSinceLoginBullet[];
+  footer_status: "green" | "yellow" | "red";
+  footer_message: string;
+};
+
+export type ExecutiveOperationalHealth = {
+  score: number;
+  label: string;
+  signals: string[];
+};
+
+export type ExecutiveRequiresAttentionItem = {
+  id: string;
+  message: string;
+  href: string;
+  priority: string;
+};
+
+export type ExecutiveMetrics = {
+  active_customers: number;
+  mrr: number;
+  automation_success_pct: number;
+  customer_satisfaction: number;
+  mrr_trend_pct?: number;
+  customers_trend_pct?: number;
+};
+
+export type CustomerHealthSnapshotItem = {
+  id: string;
+  name: string;
+  health_score: number;
+  status: "healthy" | "needs_review";
+  href: string;
 };
 
 export type ExecutiveRecommendation = {
   id: string;
   impact_level: "high" | "medium" | "low";
   title: string;
+  observation?: string;
   business_impact: string;
   suggested_action: string;
   expected_benefit: string;
   confidence: number;
   action_id: string | null;
+  review_href?: string | null;
 };
 
 export type ExecutiveInsight = {
@@ -76,6 +120,11 @@ export type ExecutiveWeeklySummary = {
 export type ExecutiveCenterBundle = {
   since: string;
   since_visit: ExecutiveSinceVisit;
+  since_login?: ExecutiveSinceLogin;
+  operational_health?: ExecutiveOperationalHealth;
+  requires_attention?: ExecutiveRequiresAttentionItem[];
+  executive_metrics?: ExecutiveMetrics;
+  customer_health_snapshot?: CustomerHealthSnapshotItem[];
   cards: ExecutiveCards;
   timeline: ExecutiveTimelineEvent[];
   recommendations: ExecutiveRecommendation[];
@@ -120,6 +169,98 @@ export function formatTimeSaved(hours: number, minutes: number): string {
   return parts.join(" ");
 }
 
+function parseSinceLogin(value: unknown): ExecutiveSinceLogin | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  const raw = value as Record<string, unknown>;
+  const bullets = Array.isArray(raw.bullets)
+    ? (raw.bullets as Record<string, unknown>[])
+        .map((item) => {
+          const status = item.status;
+          if (
+            status !== "neutral" &&
+            status !== "green" &&
+            status !== "yellow" &&
+            status !== "red"
+          ) {
+            return null;
+          }
+          return {
+            text: String(item.text ?? ""),
+            status,
+          };
+        })
+        .filter((item): item is ExecutiveSinceLoginBullet => item !== null)
+        .slice(0, 6)
+    : [];
+  const footerStatus = raw.footer_status;
+  return {
+    bullets,
+    footer_status:
+      footerStatus === "yellow" || footerStatus === "red" ? footerStatus : "green",
+    footer_message: String(raw.footer_message ?? ""),
+  };
+}
+
+function parseOperationalHealth(value: unknown): ExecutiveOperationalHealth | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  const raw = value as Record<string, unknown>;
+  return {
+    score: Number(raw.score ?? 0),
+    label: String(raw.label ?? ""),
+    signals: Array.isArray(raw.signals) ? raw.signals.map(String) : [],
+  };
+}
+
+function parseRequiresAttention(value: unknown): ExecutiveRequiresAttentionItem[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => {
+      if (!item || typeof item !== "object") return null;
+      const row = item as Record<string, unknown>;
+      return {
+        id: String(row.id ?? ""),
+        message: String(row.message ?? ""),
+        href: String(row.href ?? "/platform/executive"),
+        priority: String(row.priority ?? "attention"),
+      };
+    })
+    .filter((item): item is ExecutiveRequiresAttentionItem => item !== null);
+}
+
+function parseExecutiveMetrics(value: unknown): ExecutiveMetrics | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  const raw = value as Record<string, unknown>;
+  return {
+    active_customers: Number(raw.active_customers ?? 0),
+    mrr: Number(raw.mrr ?? 0),
+    automation_success_pct: Number(raw.automation_success_pct ?? 0),
+    customer_satisfaction: Number(raw.customer_satisfaction ?? 0),
+    mrr_trend_pct:
+      typeof raw.mrr_trend_pct === "number" ? raw.mrr_trend_pct : undefined,
+    customers_trend_pct:
+      typeof raw.customers_trend_pct === "number" ? raw.customers_trend_pct : undefined,
+  };
+}
+
+function parseCustomerHealthSnapshot(value: unknown): CustomerHealthSnapshotItem[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => {
+      if (!item || typeof item !== "object") return null;
+      const row = item as Record<string, unknown>;
+      const status = row.status === "needs_review" ? "needs_review" : "healthy";
+      return {
+        id: String(row.id ?? ""),
+        name: String(row.name ?? ""),
+        health_score: Number(row.health_score ?? 0),
+        status,
+        href: String(row.href ?? "/platform/customers"),
+      };
+    })
+    .filter((item): item is CustomerHealthSnapshotItem => item !== null)
+    .slice(0, 5);
+}
+
 export function parseExecutiveCenterBundle(data: unknown): ExecutiveCenterBundle {
   const raw = (data ?? {}) as Record<string, unknown>;
   const sinceVisit = (raw.since_visit ?? {}) as Record<string, number>;
@@ -138,6 +279,11 @@ export function parseExecutiveCenterBundle(data: unknown): ExecutiveCenterBundle
       overall_health: sinceVisit.overall_health ?? 0,
       health_delta: sinceVisit.health_delta ?? 0,
     },
+    since_login: parseSinceLogin(raw.since_login),
+    operational_health: parseOperationalHealth(raw.operational_health),
+    requires_attention: parseRequiresAttention(raw.requires_attention),
+    executive_metrics: parseExecutiveMetrics(raw.executive_metrics),
+    customer_health_snapshot: parseCustomerHealthSnapshot(raw.customer_health_snapshot),
     cards: {
       business_health: {
         score: businessHealth.score ?? 0,
@@ -159,6 +305,7 @@ export function parseExecutiveCenterBundle(data: unknown): ExecutiveCenterBundle
           technical_title: String(item.technical_title ?? ""),
           executive_title: String(item.executive_title ?? item.technical_title ?? ""),
           created_at: String(item.created_at ?? ""),
+          href: item.href != null ? String(item.href) : null,
         }))
       : [],
     recommendations: Array.isArray(raw.recommendations)
@@ -166,11 +313,13 @@ export function parseExecutiveCenterBundle(data: unknown): ExecutiveCenterBundle
           id: String(item.id ?? ""),
           impact_level: (item.impact_level as ExecutiveRecommendation["impact_level"]) ?? "medium",
           title: String(item.title ?? ""),
+          observation: item.observation != null ? String(item.observation) : undefined,
           business_impact: String(item.business_impact ?? ""),
           suggested_action: String(item.suggested_action ?? ""),
           expected_benefit: String(item.expected_benefit ?? ""),
           confidence: Number(item.confidence ?? 0),
           action_id: item.action_id != null ? String(item.action_id) : null,
+          review_href: item.review_href != null ? String(item.review_href) : null,
         }))
       : [],
     insights: Array.isArray(raw.insights)

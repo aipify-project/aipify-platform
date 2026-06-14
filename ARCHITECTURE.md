@@ -34,6 +34,14 @@ Aipify is separated into **three portals** so customer operations, platform admi
 
 **Design intent:** Customer portal — premium, supportive, enterprise-ready. Platform Admin — operational, technical, controlled. Super Admin — powerful, serious, restricted.
 
+**Command Bar Engine (Phase 259):** See [AIPIFY_COMMAND_BAR_ENGINE_PHASE259.md](./AIPIFY_COMMAND_BAR_ENGINE_PHASE259.md) — global `⌘K` / `Ctrl+K` command modal on all authenticated portals (`/app`, `/platform`, `/super`). Shared UI at `components/command-bar/`; registries and search at `lib/command-bar/`; APIs at `/api/command-bar/context` and `/api/command-bar/search`. Role-aware navigation, actions, server search, recommendations (since last login + contextual), and recent destinations. i18n: `locales/*/commandBar.json`.
+
+**Skills Marketplace Experience (Phase 260):** See [AIPIFY_SKILLS_MARKETPLACE_EXPERIENCE_ENGINE_PHASE260.md](./AIPIFY_SKILLS_MARKETPLACE_EXPERIENCE_ENGINE_PHASE260.md) — premium Skills Marketplace at `/app/skills` and `/platform/skills`. RPC `get_skills_marketplace_experience(p_scope)`; UI at `components/shared/skills-marketplace/`; detail tabs at `components/app/skills/SkillDetailExperiencePanel.tsx`. Seven sections: overview, installed, recommended, marketplace, pipeline, governance, performance. Business-capability language — not technical module lists.
+
+**Action Center Impact Analysis (Phase 261):** See [AIPIFY_ACTION_CENTER_IMPACT_ANALYSIS_ENGINE_PHASE261.md](./AIPIFY_ACTION_CENTER_IMPACT_ANALYSIS_ENGINE_PHASE261.md) — trusted enterprise decision environment at `/app/action-center`. RPC `get_action_center_impact_analysis(p_action_id)`; UI at `components/shared/action-center-impact/ActionImpactAnalysisView.tsx`; API at `/api/aipify/actions/[id]/impact`. Impact, risk, confidence, rollback, affected systems, approval chain, audit preview, related actions, execution timeline, and post-execution review. Executive business language — no developer jargon.
+
+**Payment Provider Credentials & Billing Integration (Phase 262):** See [AIPIFY_PAYMENT_PROVIDER_CREDENTIALS_BILLING_INTEGRATION_PHASE262.md](./AIPIFY_PAYMENT_PROVIDER_CREDENTIALS_BILLING_INTEGRATION_PHASE262.md) — multi-provider billing foundation (Klarna, Vipps MobilePay, Stripe, DNB). Visual standards: [AIPIFY_PAYMENT_PROVIDER_VISUAL_STANDARDS.md](./AIPIFY_PAYMENT_PROVIDER_VISUAL_STANDARDS.md). Official logos at `public/branding/payment-providers/`; premium cards at `components/shared/payment-providers/PaymentProviderCard.tsx`.
+
 ---
 
 ## Layer 1 — Platform Admin

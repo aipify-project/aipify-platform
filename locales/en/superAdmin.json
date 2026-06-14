@@ -14,6 +14,82 @@
     "body": "You are accessing Aipify Super Admin. Actions performed here may affect multiple organizations. Proceed carefully.",
     "proceed": "Proceed carefully"
   },
+  "identity": {
+    "role": "SUPER ADMIN",
+    "verifiedAccess": "Verified Executive Access"
+  },
+  "statusBar": {
+    "operational": "All systems operational.",
+    "warning": "Items require review.",
+    "warningCount": "{count} items require review.",
+    "critical": "Immediate action required.",
+    "openActionCenter": "Open Action Center"
+  },
+  "status": {
+    "operational": "Operational",
+    "pendingSetup": "Pending setup",
+    "attentionRequired": "Requires attention"
+  },
+  "executiveHeader": {
+    "headquarters": "Aipify Headquarters",
+    "operationsCenter": "Global Operations Center",
+    "subtext": "Central command layer for Aipify Group operations.",
+    "platformStatus": "Platform Status",
+    "organizationsServed": "Organizations Served",
+    "activeWorkspaces": "Active Workspaces",
+    "actionsToday": "Aipify Actions Today",
+    "systemUptime": "System Uptime"
+  },
+  "executiveSummary": {
+    "title": "Executive Summary",
+    "greetingMorning": "Good morning, {name}.",
+    "greetingAfternoon": "Good afternoon, {name}.",
+    "greetingEvening": "Good evening, {name}.",
+    "allSystemsOperational": "All critical systems are operational.",
+    "subscriptionsReview": "{count} organizations require subscription review.",
+    "growthPartnerActivity": "Growth Partner activity increased — {count} applications pending.",
+    "marketplaceReviews": "{count} marketplace reviews await approval.",
+    "criticalIncidents": "{count} critical incidents require executive attention.",
+    "noInterventionRequired": "No executive intervention is currently required.",
+    "platformStable": "Platform remains stable — review open items when convenient."
+  },
+  "systemStatus": {
+    "title": "System Status",
+    "lastCheck": "Last check:",
+    "lastCheckSeconds": "{seconds} seconds ago",
+    "avgResponse": "Average response:",
+    "avgResponseMs": "{ms} ms",
+    "services": {
+      "supabase": "Supabase",
+      "resend": "Resend",
+      "stripe": "Stripe",
+      "klarna": "Klarna",
+      "aipifyApi": "Aipify API",
+      "webhooks": "Webhooks"
+    }
+  },
+  "trustSignals": {
+    "title": "Trust Signals",
+    "backupOk": "Last backup completed successfully.",
+    "twoFactorEnforced": "2FA enforced for executive access.",
+    "auditLoggingActive": "Audit logging active.",
+    "complianceMonitoringActive": "Compliance monitoring active."
+  },
+  "actionCenter": {
+    "title": "Action Center",
+    "subtitle": "Every recommendation leads to a governed platform action.",
+    "open": "Open",
+    "priorityCritical": "Critical",
+    "priorityAttention": "Requires attention",
+    "priorityInformational": "Informational",
+    "criticalIncidents": "Review critical incidents",
+    "subscriptionReview": "Subscription review required",
+    "growthPartnerApplications": "Growth Partner applications pending",
+    "marketplaceReviews": "Marketplace reviews awaiting approval",
+    "organizationHealth": "Review organization health",
+    "supportEscalations": "Internal support escalation queue",
+    "globalGovernance": "Global governance and audit logs"
+  },
   "controlCenter": {
     "loading": "Loading control center…",
     "loadError": "Unable to load Super Admin Control Center.",
@@ -93,6 +169,8 @@
     "recoveryActionsDescription": "Execute controlled recovery for affected tenants.",
     "billingOverview": "Billing Overview",
     "billingOverviewDescription": "Global billing posture and payment health.",
+    "paymentProviders": "Payment Providers",
+    "paymentProvidersDescription": "Configure Klarna, Vipps MobilePay, Stripe, and DNB credentials.",
     "subscriptionMonitoring": "Subscription Monitoring",
     "subscriptionMonitoringDescription": "Track subscription state across the platform.",
     "revenueAnalytics": "Revenue Analytics",

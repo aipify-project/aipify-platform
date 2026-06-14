@@ -68,6 +68,10 @@ export function usePlatformProfile() {
   return ctx ?? { platformAdmin: null, displayName: "Platform Admin", loading: true };
 }
 
+export function useOptionalPlatformProfile() {
+  return useContext(PlatformProfileContext);
+}
+
 export function platformRoleLabel(
   role: PlatformRole,
   labels: Record<PlatformRole, string>

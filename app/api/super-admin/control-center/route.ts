@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { parseSuperAdminControlCenter } from "@/lib/super-admin/parse";
+import { buildSuperAdminSystemServices } from "@/lib/super-admin/system-services";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {
@@ -18,7 +19,11 @@ export async function GET() {
       return NextResponse.json({ error: "Super Admin access required" }, { status: 403 });
     }
 
-    return NextResponse.json(parsed);
+    return NextResponse.json({
+      ...parsed,
+      system_services: buildSuperAdminSystemServices(),
+      checked_at: new Date().toISOString(),
+    });
   } catch {
     return NextResponse.json({ error: "Failed to load Super Admin Control Center" }, { status: 500 });
   }

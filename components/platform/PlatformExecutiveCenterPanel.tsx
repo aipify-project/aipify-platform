@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import SinceLastLoginSummaryPanel, {
+  type SinceLastLoginSummaryLabels,
+} from "@/components/shared/since-last-login/SinceLastLoginSummaryPanel";
 import { AipifyEmptyState } from "@/components/branding";
 import {
-  formatTimeSaved,
   getExecutiveImpactStyle,
-  getExecutiveRiskStyle,
   parseExecutiveCenterBundle,
   type ExecutiveCenterBundle,
 } from "@/lib/platform/executive-center";
@@ -17,16 +18,20 @@ import { createClient } from "@/lib/supabase/client";
 
 type PlatformExecutiveCenterPanelProps = {
   labels: ExecutiveCenterLabels;
+  sinceLastLoginLabels: SinceLastLoginSummaryLabels;
 };
+
+const CARD = "rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm lg:p-8";
 
 export default function PlatformExecutiveCenterPanel({
   labels,
+  sinceLastLoginLabels,
 }: PlatformExecutiveCenterPanelProps) {
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<PlatformAdminSession | null>(null);
   const [bundle, setBundle] = useState<ExecutiveCenterBundle | null>(null);
-  const [dismissed, setDismissed] = useState<Set<string>>(new Set());
-  const [busyId, setBusyId] = useState<string | null>(null);
+  const [askQuery, setAskQuery] = useState("");
+  const [askResponse, setAskResponse] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     const supabase = createClient();
@@ -62,419 +67,396 @@ export default function PlatformExecutiveCenterPanel({
     void load();
   }, [load]);
 
+  const adminFirstName = useMemo(() => {
+    const name = session?.admin_name?.trim();
+    if (!name) return null;
+    return name.split(/\s+/)[0] ?? null;
+  }, [session?.admin_name]);
+
   const greeting = useMemo(() => {
     const part = getGreetingPeriodForTimezone(getBrowserTimezone());
-    if (part === "morning") return labels.greetingMorning;
-    if (part === "afternoon") return labels.greetingAfternoon;
-    return labels.greetingEvening;
-  }, [labels]);
-
-  const visibleRecommendations = useMemo(
-    () => bundle?.recommendations.filter((r) => !dismissed.has(r.id)) ?? [],
-    [bundle?.recommendations, dismissed]
-  );
-
-  async function postAction(id: string, endpoint: string) {
-    setBusyId(id);
-    try {
-      const response = await fetch(`/api/platform/actions/${id}/${endpoint}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({}),
-      });
-      if (response.ok) await load();
-    } finally {
-      setBusyId(null);
+    if (adminFirstName) {
+      if (part === "morning") return labels.greetingMorning.replace("{name}", adminFirstName);
+      if (part === "afternoon") return labels.greetingAfternoon.replace("{name}", adminFirstName);
+      return labels.greetingEvening.replace("{name}", adminFirstName);
     }
+    if (part === "morning") return labels.greetingMorningNoName;
+    if (part === "afternoon") return labels.greetingAfternoonNoName;
+    return labels.greetingEveningNoName;
+  }, [adminFirstName, labels]);
+
+  const metrics = bundle?.executive_metrics;
+  const operationalHealth = bundle?.operational_health ?? {
+    score: bundle?.since_visit.overall_health ?? 98,
+    label: "Excellent",
+    signals: [],
+  };
+  const healthSignals =
+    operationalHealth.signals.length > 0
+      ? operationalHealth.signals
+      : labels.operationalHealth.defaultSignals;
+  const attentionItems = bundle?.requires_attention ?? [];
+  const customers = bundle?.customer_health_snapshot ?? [];
+
+  const suggestedPrompts = [
+    labels.askAipify.prompts.attention,
+    labels.askAipify.prompts.support,
+    labels.askAipify.prompts.atRisk,
+    labels.askAipify.prompts.failedAutomations,
+    labels.askAipify.prompts.sinceLogin,
+  ];
+
+  function handleAskSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    setAskResponse(labels.askAipify.placeholderResponse);
   }
 
   if (loading) {
-    return <p className="text-sm text-gray-500">{labels.loading}</p>;
+    return <p className="text-sm text-zinc-500">{labels.loading}</p>;
   }
 
   if (!session || !bundle) {
-    return <AipifyEmptyState message={labels.subtitle} pulseLabel={labels.presence} />;
+    return <AipifyEmptyState message={labels.loadError} pulseLabel={labels.presence} />;
   }
 
-  const adminName = session.admin_name.split(" ")[0] ?? session.admin_name;
-  const sv = bundle.since_visit;
-  const cards = bundle.cards;
-
   return (
-    <div className="mx-auto max-w-6xl space-y-8">
-      <header>
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-          {labels.title}
+    <div className="mx-auto max-w-6xl space-y-6">
+      <section>
+        <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl">
+          {greeting}
         </h1>
-        <p className="mt-2 text-base text-gray-500">{labels.subtitle}</p>
-      </header>
-
-      <section className="rounded-3xl border border-violet-100 bg-gradient-to-br from-violet-50/80 via-white to-indigo-50/50 p-6 shadow-sm sm:p-8">
-        <p className="text-xl font-semibold text-gray-900">
-          {greeting.replace("{name}", adminName.toUpperCase())}
-        </p>
-        <p className="mt-3 text-sm font-medium text-gray-600">{labels.sinceVisit}</p>
-
-        <div className="mt-5 grid gap-6 lg:grid-cols-2">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-violet-800">
-              Aipify resolved
-            </p>
-            <ul className="mt-2 space-y-1.5 text-sm text-gray-800">
-              <li>{labels.resolved.incidents.replace("{count}", String(sv.incidents_resolved))}</li>
-              <li>{labels.resolved.webhooks.replace("{count}", String(sv.webhook_failures_fixed))}</li>
-              <li>{labels.resolved.support.replace("{count}", String(sv.support_requests_handled))}</li>
-            </ul>
-          </div>
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-amber-800">
-              Needs attention
-            </p>
-            <ul className="mt-2 space-y-1.5 text-sm text-gray-800">
-              {sv.pending_approvals > 0 && (
-                <li>{labels.waiting.approvals.replace("{count}", String(sv.pending_approvals))}</li>
-              )}
-              {sv.recommendations_discovered > 0 && (
-                <li>
-                  {labels.waiting.recommendations.replace(
-                    "{count}",
-                    String(sv.recommendations_discovered)
-                  )}
-                </li>
-              )}
-            </ul>
-            <p className="mt-4 text-sm font-semibold text-emerald-700">
-              {labels.overallHealth.replace("{score}", String(sv.overall_health))}
-            </p>
-          </div>
-        </div>
+        <p className="mt-2 text-sm text-zinc-600">{labels.greetingSubtext}</p>
       </section>
 
-      <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <ExecutiveMetricCard
-          title={labels.cards.businessHealth}
-          value={`${cards.business_health.score}%`}
-          sub={
-            cards.business_health.delta > 0
-              ? labels.cards.deltaUp.replace("{delta}", String(cards.business_health.delta))
-              : undefined
-          }
-          accent="violet"
-        />
-        <ExecutiveMetricCard
-          title={labels.cards.aiActivity}
-          value={String(cards.ai_activity_today)}
-          sub={labels.cards.aiActivitySub}
-          accent="indigo"
-        />
-        <ExecutiveMetricCard
-          title={labels.cards.timeSaved}
-          value={formatTimeSaved(cards.time_saved.hours, cards.time_saved.minutes)}
-          sub={labels.cards.timeSavedSub}
-          accent="emerald"
-        />
-        <ExecutiveMetricCard
-          title={labels.cards.pendingApprovals}
-          value={String(cards.pending_approvals)}
-          sub={labels.cards.pendingApprovalsSub}
-          accent="amber"
-        />
-        <ExecutiveMetricCard
-          title={labels.cards.customerSatisfaction}
-          value={`${cards.customer_satisfaction}%`}
-          sub={labels.cards.customerSatisfactionSub}
-          accent="sky"
-        />
-        <ExecutiveMetricCard
-          title={labels.cards.revenueOpportunities}
-          value={String(cards.revenue_opportunities)}
-          sub={labels.cards.revenueOpportunitiesSub}
-          accent="rose"
-        />
-      </dl>
+      <SinceLastLoginSummaryPanel
+        scope="platform_executive"
+        labels={sinceLastLoginLabels}
+        touchLogin={false}
+      />
 
-      <div className="grid gap-8 lg:grid-cols-2">
-        <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900">{labels.timeline.title}</h2>
-          {bundle.timeline.length === 0 ? (
-            <p className="mt-4 text-sm text-gray-500">{labels.timeline.empty}</p>
-          ) : (
-            <ul className="mt-4 space-y-4">
-              {bundle.timeline.map((event) => (
-                <li key={event.id} className="border-l-2 border-violet-200 pl-4">
-                  <p className="text-xs font-semibold text-violet-600">{event.time}</p>
-                  <p className="mt-1 text-sm text-gray-800">{event.executive_title}</p>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+      <OperationalHealthModule
+        health={{ ...operationalHealth, signals: healthSignals }}
+        labels={labels}
+      />
 
-        <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900">{labels.workload.title}</h2>
-          <dl className="mt-4 grid gap-3 sm:grid-cols-2">
-            <WorkloadItem label={labels.workload.monitoring} value={bundle.workload.monitoring} />
-            <WorkloadItem label={labels.workload.learning} value={bundle.workload.learning} />
-            <WorkloadItem label={labels.workload.healing} value={bundle.workload.healing} />
-            <WorkloadItem label={labels.workload.automations} value={bundle.workload.automations} />
-            <WorkloadItem label={labels.workload.support} value={bundle.workload.support} />
-          </dl>
-        </section>
-      </div>
+      <RequiresAttentionCard items={attentionItems} labels={labels} />
 
-      {bundle.pending_approval_actions.length > 0 && (
-        <section className="rounded-2xl border border-amber-100 bg-amber-50/30 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900">{labels.approvals.title}</h2>
-          <ul className="mt-4 space-y-4">
-            {bundle.pending_approval_actions.map((action) => (
-              <li
-                key={action.id}
-                className="rounded-xl border border-amber-100 bg-white p-4 shadow-sm"
-              >
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <p className="font-semibold text-gray-900">{action.title}?</p>
-                    {action.expected_impact && (
-                      <p className="mt-1 text-sm text-gray-600">{action.expected_impact}</p>
-                    )}
-                  </div>
-                  <span
-                    className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset ${getExecutiveRiskStyle(action.risk_level)}`}
-                  >
-                    {labels.approvals.impact}:{" "}
-                    {labels.approvals.riskLabels[
-                      action.risk_level as keyof typeof labels.approvals.riskLabels
-                    ] ?? action.risk_level}
-                  </span>
-                </div>
-                <p className="mt-2 text-sm text-gray-600">
-                  {labels.approvals.affectedCustomers.replace(
-                    "{count}",
-                    String(action.affected_customers)
-                  )}
-                </p>
-                <p className="text-sm text-gray-600">
-                  {labels.approvals.rollback}:{" "}
-                  {action.rollback_available
-                    ? labels.approvals.rollbackYes
-                    : labels.approvals.rollbackNo}
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    disabled={busyId === action.id}
-                    onClick={() => void postAction(action.id, "approve")}
-                    className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:opacity-50"
-                  >
-                    {busyId === action.id ? labels.approvals.processing : labels.approvals.approve}
-                  </button>
-                  <button
-                    type="button"
-                    disabled={busyId === action.id}
-                    onClick={() => void postAction(action.id, "reject")}
-                    className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 hover:border-rose-200 hover:text-rose-700 disabled:opacity-50"
-                  >
-                    {labels.approvals.decline}
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-        <h2 className="text-lg font-semibold text-gray-900">{labels.recommendations.title}</h2>
-        {visibleRecommendations.length === 0 ? (
-          <p className="mt-4 text-sm text-gray-500">{labels.recommendations.empty}</p>
-        ) : (
-          <ul className="mt-4 space-y-4">
-            {visibleRecommendations.map((rec) => (
-              <li
-                key={rec.id}
-                className="rounded-xl border border-gray-100 bg-gray-50/50 p-5 ring-1 ring-gray-100"
-              >
-                <div className="flex flex-wrap items-center gap-2">
-                  <span
-                    className={`rounded-full px-2.5 py-0.5 text-xs font-semibold uppercase ring-1 ring-inset ${getExecutiveImpactStyle(rec.impact_level)}`}
-                  >
-                    {labels.recommendations.impactLabels[rec.impact_level]}
-                  </span>
-                  <h3 className="font-semibold text-gray-900">{rec.title}</h3>
-                </div>
-                <dl className="mt-3 space-y-2 text-sm text-gray-700">
-                  <div>
-                    <dt className="font-medium text-gray-500">
-                      {labels.recommendations.businessImpact}
-                    </dt>
-                    <dd>{rec.business_impact}</dd>
-                  </div>
-                  <div>
-                    <dt className="font-medium text-gray-500">
-                      {labels.recommendations.suggestedAction}
-                    </dt>
-                    <dd>{rec.suggested_action}</dd>
-                  </div>
-                  <div>
-                    <dt className="font-medium text-gray-500">
-                      {labels.recommendations.expectedBenefit}
-                    </dt>
-                    <dd>{rec.expected_benefit}</dd>
-                  </div>
-                </dl>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {rec.action_id && (
-                    <button
-                      type="button"
-                      disabled={busyId === rec.action_id}
-                      onClick={() => void postAction(rec.action_id!, "approve")}
-                      className="rounded-lg bg-violet-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-violet-700 disabled:opacity-50"
-                    >
-                      {labels.recommendations.approve}
-                    </button>
-                  )}
-                  <Link
-                    href="/platform/intelligence/global-patterns"
-                    className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm font-semibold text-gray-700 hover:border-violet-200 hover:text-violet-700"
-                  >
-                    {labels.recommendations.review}
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={() => setDismissed((prev) => new Set(prev).add(rec.id))}
-                    className="rounded-lg px-3 py-1.5 text-sm font-medium text-gray-500 hover:text-gray-700"
-                  >
-                    {labels.recommendations.dismiss}
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-
-      <section className="rounded-2xl border border-indigo-100 bg-indigo-50/20 p-6 shadow-sm">
-        <h2 className="text-lg font-semibold text-gray-900">{labels.insights.title}</h2>
-        <ul className="mt-4 space-y-4">
-          {bundle.insights.map((insight) => (
-            <li key={insight.id} className="rounded-xl bg-white/80 p-4 ring-1 ring-indigo-100">
-              <p className="font-semibold text-indigo-900">{insight.question}</p>
-              <p className="mt-2 text-sm text-gray-700">{insight.answer}</p>
-              <p className="mt-2 text-sm font-medium text-violet-700">
-                {labels.insights.recommendation}: {insight.recommendation}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="rounded-2xl border border-violet-100 bg-gradient-to-br from-violet-50/40 to-white p-6 shadow-sm">
-        <h2 className="text-lg font-semibold text-gray-900">{labels.weekly.title}</h2>
-        <p className="mt-1 text-sm text-gray-500">{labels.weekly.subtitle}</p>
-        <dl className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          <SummaryItem
-            label={labels.weekly.healthTrend}
-            value={`+${bundle.weekly_summary.health_trend}%`}
+      <section>
+        <dl className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <MetricCard
+            label={labels.metrics.activeCustomers}
+            value={String(metrics?.active_customers ?? 0)}
+            trend={
+              metrics?.customers_trend_pct
+                ? labels.metrics.trendUp.replace("{value}", String(metrics.customers_trend_pct))
+                : undefined
+            }
           />
-          <SummaryItem
-            label={labels.weekly.revenueOpportunities}
-            value={String(bundle.weekly_summary.revenue_opportunities)}
+          <MetricCard
+            label={labels.metrics.mrr}
+            value={`$${Number(metrics?.mrr ?? 0).toLocaleString()}`}
+            trend={
+              metrics?.mrr_trend_pct
+                ? labels.metrics.trendUp.replace("{value}", String(metrics.mrr_trend_pct))
+                : undefined
+            }
           />
-          <SummaryItem
-            label={labels.weekly.supportTrend}
-            value={bundle.weekly_summary.support_trend}
+          <MetricCard
+            label={labels.metrics.automationSuccess}
+            value={`${metrics?.automation_success_pct ?? 96}%`}
           />
-          <SummaryItem
-            label={labels.weekly.learningDiscoveries}
-            value={String(bundle.weekly_summary.learning_discoveries)}
-          />
-          <SummaryItem
-            label={labels.weekly.healingEffectiveness}
-            value={bundle.weekly_summary.healing_effectiveness}
+          <MetricCard
+            label={labels.metrics.customerSatisfaction}
+            value={`${metrics?.customer_satisfaction ?? 4.8} / 5`}
           />
         </dl>
-        <div className="mt-4">
-          <p className="text-sm font-medium text-gray-700">{labels.weekly.priorities}</p>
-          <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-gray-600">
-            {bundle.weekly_summary.priorities.map((priority) => (
-              <li key={priority}>{priority}</li>
+      </section>
+
+      <RecommendationsSection bundle={bundle} labels={labels} />
+
+      <TimelineSection bundle={bundle} labels={labels} />
+
+      <CustomerHealthSection customers={customers} labels={labels} />
+
+      <section className={CARD}>
+        <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
+          {labels.askAipify.title}
+        </h2>
+        <form onSubmit={handleAskSubmit} className="mt-5 space-y-4">
+          <textarea
+            value={askQuery}
+            onChange={(event) => setAskQuery(event.target.value)}
+            placeholder={labels.askAipify.placeholder}
+            rows={3}
+            className="w-full rounded-xl border border-zinc-200 bg-zinc-50/80 px-4 py-3 text-sm text-zinc-900 outline-none transition focus:border-zinc-400 focus:bg-white"
+          />
+          <div className="flex flex-wrap gap-2">
+            {suggestedPrompts.map((prompt) => (
+              <button
+                key={prompt}
+                type="button"
+                onClick={() => setAskQuery(prompt)}
+                className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs font-medium text-zinc-700 transition hover:border-zinc-300 hover:bg-white"
+              >
+                {prompt}
+              </button>
+            ))}
+          </div>
+          <button
+            type="submit"
+            className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-zinc-800"
+          >
+            {labels.askAipify.submit}
+          </button>
+        </form>
+        {askResponse ? (
+          <p className="mt-4 rounded-xl border border-zinc-100 bg-zinc-50/80 px-4 py-3 text-sm text-zinc-700">
+            {askResponse}
+          </p>
+        ) : null}
+      </section>
+    </div>
+  );
+}
+
+function OperationalHealthModule({
+  health,
+  labels,
+}: {
+  health: { score: number; label: string; signals: string[] };
+  labels: ExecutiveCenterLabels;
+}) {
+  return (
+    <section className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 shadow-sm lg:p-10">
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
+            {labels.operationalHealth.title}
+          </h2>
+          <p className="mt-3 text-5xl font-semibold tracking-tight text-zinc-900">{health.score}%</p>
+          <p className="mt-2 text-lg font-medium text-zinc-700">{health.label}</p>
+        </div>
+        <div className="lg:max-w-md">
+          <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+            {labels.operationalHealth.signalsTitle}
+          </p>
+          <ul className="mt-3 space-y-2">
+            {health.signals.map((signal) => (
+              <li key={signal} className="flex items-center gap-2 text-sm text-zinc-700">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden />
+                {signal}
+              </li>
             ))}
           </ul>
         </div>
-      </section>
+      </div>
+    </section>
+  );
+}
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h2 className="text-lg font-semibold text-gray-900">{labels.monthly.title}</h2>
-            <p className="mt-1 text-sm text-gray-500">
-              {labels.monthly.subtitle.replace("{period}", bundle.monthly_report.period)}
-            </p>
-          </div>
-          <a
-            href="/api/platform/executive/monthly-report"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800"
-          >
-            {labels.monthly.download}
-          </a>
-        </div>
-        <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {Object.values(labels.monthly.sections).map((section) => (
-            <li key={section} className="text-sm text-gray-600">
-              • {section}
+function RequiresAttentionCard({
+  items,
+  labels,
+}: {
+  items: Array<{ id: string; message: string; href: string }>;
+  labels: ExecutiveCenterLabels;
+}) {
+  return (
+    <section className={CARD}>
+      <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
+        {labels.requiresAttention.title}
+      </h2>
+      {items.length === 0 ? (
+        <p className="mt-4 text-sm text-emerald-700">{labels.requiresAttention.empty}</p>
+      ) : (
+        <ul className="mt-4 space-y-3">
+          {items.map((item) => (
+            <li key={item.id}>
+              <Link
+                href={item.href}
+                className="flex items-center justify-between gap-4 rounded-xl border border-zinc-100 bg-zinc-50/70 px-4 py-3 transition hover:border-zinc-300 hover:bg-white"
+              >
+                <span className="text-sm font-medium text-zinc-900">{item.message}</span>
+                <span className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                  {labels.requiresAttention.open}
+                </span>
+              </Link>
             </li>
           ))}
         </ul>
-      </section>
-    </div>
+      )}
+    </section>
   );
 }
 
-function ExecutiveMetricCard({
-  title,
+function MetricCard({
+  label,
   value,
-  sub,
-  accent,
+  trend,
 }: {
-  title: string;
+  label: string;
   value: string;
-  sub?: string;
-  accent: "violet" | "indigo" | "emerald" | "amber" | "sky" | "rose";
+  trend?: string;
 }) {
-  const ring: Record<string, string> = {
-    violet: "ring-violet-100",
-    indigo: "ring-indigo-100",
-    emerald: "ring-emerald-100",
-    amber: "ring-amber-100",
-    sky: "ring-sky-100",
-    rose: "ring-rose-100",
-  };
-
   return (
-    <div className={`rounded-2xl bg-white p-5 shadow-sm ring-1 ${ring[accent]}`}>
-      <dt className="text-sm font-medium text-gray-500">{title}</dt>
-      <dd className="mt-2 text-3xl font-bold tracking-tight text-gray-900">{value}</dd>
-      {sub && <p className="mt-1 text-xs text-gray-500">{sub}</p>}
+    <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+      <dt className="text-sm font-medium text-zinc-500">{label}</dt>
+      <dd className="mt-2 text-3xl font-semibold tracking-tight text-zinc-900">{value}</dd>
+      {trend ? <p className="mt-1 text-xs font-medium text-emerald-700">{trend}</p> : null}
     </div>
   );
 }
 
-function WorkloadItem({ label, value }: { label: string; value: number }) {
+function RecommendationsSection({
+  bundle,
+  labels,
+}: {
+  bundle: ExecutiveCenterBundle;
+  labels: ExecutiveCenterLabels;
+}) {
+  const recommendations = bundle.recommendations;
+
   return (
-    <div className="rounded-xl bg-gray-50 px-4 py-3">
-      <dt className="text-xs font-medium text-gray-500">{label}</dt>
-      <dd className="mt-1 text-xl font-bold text-gray-900">{value}</dd>
-    </div>
+    <section className={CARD}>
+      <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
+        {labels.recommendations.title}
+      </h2>
+      {recommendations.length === 0 ? (
+        <p className="mt-4 text-sm text-zinc-500">{labels.recommendations.empty}</p>
+      ) : (
+        <ul className="mt-5 space-y-4">
+          {recommendations.map((rec) => (
+            <li key={rec.id} className="rounded-xl border border-zinc-100 bg-zinc-50/70 p-5">
+              <div className="flex flex-wrap items-center gap-2">
+                <span
+                  className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold uppercase ring-1 ring-inset ${getExecutiveImpactStyle(rec.impact_level)}`}
+                >
+                  {rec.impact_level}
+                </span>
+                <h3 className="font-semibold text-zinc-900">{rec.title}</h3>
+              </div>
+              <dl className="mt-3 space-y-2 text-sm text-zinc-700">
+                <div>
+                  <dt className="font-medium text-zinc-500">{labels.recommendations.observation}</dt>
+                  <dd>{rec.observation ?? rec.business_impact}</dd>
+                </div>
+                <div>
+                  <dt className="font-medium text-zinc-500">
+                    {labels.recommendations.recommendedAction}
+                  </dt>
+                  <dd>{rec.suggested_action}</dd>
+                </div>
+                <div>
+                  <dt className="font-medium text-zinc-500">
+                    {labels.recommendations.potentialImpact}
+                  </dt>
+                  <dd>{rec.expected_benefit}</dd>
+                </div>
+              </dl>
+              <Link
+                href={rec.review_href ?? "/platform/intelligence/global-patterns"}
+                className="mt-4 inline-flex rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-sm font-semibold text-zinc-800 transition hover:border-zinc-300"
+              >
+                {labels.recommendations.review}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
 
-function SummaryItem({ label, value }: { label: string; value: string }) {
+function TimelineSection({
+  bundle,
+  labels,
+}: {
+  bundle: ExecutiveCenterBundle;
+  labels: ExecutiveCenterLabels;
+}) {
   return (
-    <div className="rounded-xl bg-white/90 px-4 py-3 ring-1 ring-violet-100">
-      <dt className="text-xs text-gray-500">{label}</dt>
-      <dd className="mt-1 text-lg font-semibold text-gray-900">{value}</dd>
-    </div>
+    <section className={CARD}>
+      <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
+        {labels.timeline.title}
+      </h2>
+      {bundle.timeline.length === 0 ? (
+        <p className="mt-4 text-sm text-zinc-500">{labels.timeline.empty}</p>
+      ) : (
+        <ul className="mt-5 space-y-4">
+          {bundle.timeline.map((event) => (
+            <li key={event.id} className="flex gap-4 border-l-2 border-zinc-200 pl-4">
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-semibold text-zinc-500">{event.time}</p>
+                <p className="mt-1 text-sm text-zinc-800">{event.executive_title}</p>
+              </div>
+              {event.href ? (
+                <Link
+                  href={event.href}
+                  className="shrink-0 text-xs font-semibold uppercase tracking-wide text-zinc-600 hover:text-zinc-900"
+                >
+                  {labels.timeline.open}
+                </Link>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
+}
+
+function CustomerHealthSection({
+  customers,
+  labels,
+}: {
+  customers: Array<{
+    id: string;
+    name: string;
+    health_score: number;
+    status: "healthy" | "needs_review";
+    href: string;
+  }>;
+  labels: ExecutiveCenterLabels;
+}) {
+  return (
+    <section className={CARD}>
+      <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
+        {labels.customerHealth.title}
+      </h2>
+      {customers.length === 0 ? (
+        <p className="mt-4 text-sm text-zinc-500">{labels.customerHealth.empty}</p>
+      ) : (
+        <ul className="mt-5 space-y-3">
+          {customers.map((customer) => (
+            <li key={customer.id}>
+              <Link
+                href={customer.href}
+                className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-zinc-100 bg-zinc-50/70 px-4 py-3 transition hover:border-zinc-300 hover:bg-white"
+              >
+                <div>
+                  <p className="font-semibold text-zinc-900">{customer.name}</p>
+                  <p className="mt-0.5 text-sm text-zinc-600">
+                    {labels.customerHealth.operationalHealth.replace(
+                      "{score}",
+                      String(customer.health_score)
+                    )}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm font-medium text-zinc-700">
+                    {customer.status === "healthy"
+                      ? labels.customerHealth.statusHealthy
+                      : labels.customerHealth.statusNeedsReview}
+                  </p>
+                  <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                    {labels.customerHealth.open}
+                  </p>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }

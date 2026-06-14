@@ -3,9 +3,15 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
+import { CommandBarProvider } from "@/components/command-bar";
+import SuperAdminCommandBarTrigger from "./SuperAdminCommandBarTrigger";
 import SuperAdminWarningBanner from "./SuperAdminWarningBanner";
 import SuperAdminSignOutButton from "./SuperAdminSignOutButton";
+import SuperAdminOperationsProvider from "./SuperAdminOperationsProvider";
+import SuperAdminGlobalStatusBar from "./executive/SuperAdminGlobalStatusBar";
+import SuperAdminIdentityBadge from "./executive/SuperAdminIdentityBadge";
 import { SUPER_ADMIN_HOME_ROUTE, SUPER_ADMIN_SECTIONS } from "@/lib/super-admin/nav-config";
+import type { CommandBarLabels, CommandBarNavSource } from "@/lib/command-bar";
 
 const WARNING_ACK_KEY = "aipify-super-admin-warning-ack";
 
@@ -17,8 +23,20 @@ type SuperAdminShellProps = {
   warningTitle: string;
   warningBody: string;
   warningProceedLabel: string;
+  loadErrorLabel: string;
+  identityRoleLabel: string;
+  identityVerifiedLabel: string;
+  statusBarLabels: {
+    operational: string;
+    warning: string;
+    warningCount: string;
+    critical: string;
+    openActionCenter: string;
+  };
   sectionLabels: Record<string, { title: string; purpose: string }>;
   moduleLabels: Record<string, { label: string; description: string }>;
+  commandBarLabels: CommandBarLabels;
+  commandBarNavSources: CommandBarNavSource[];
   children: ReactNode;
 };
 
@@ -30,8 +48,14 @@ export default function SuperAdminShell({
   warningTitle,
   warningBody,
   warningProceedLabel,
+  loadErrorLabel,
+  identityRoleLabel,
+  identityVerifiedLabel,
+  statusBarLabels,
   sectionLabels,
   moduleLabels,
+  commandBarLabels,
+  commandBarNavSources,
   children,
 }: SuperAdminShellProps) {
   const pathname = usePathname();
@@ -53,75 +77,103 @@ export default function SuperAdminShell({
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      {!warningAcknowledged ? (
-        <SuperAdminWarningBanner
-          title={warningTitle}
-          body={warningBody}
-          proceedLabel={warningProceedLabel}
-          onProceed={acknowledgeWarning}
-        />
-      ) : null}
+    <CommandBarProvider
+      portal="super_admin"
+      labels={commandBarLabels}
+      navSources={commandBarNavSources}
+      platformRole="super_admin"
+    >
+      <SuperAdminOperationsProvider loadErrorLabel={loadErrorLabel}>
+      <div className="min-h-screen bg-zinc-950 text-zinc-100">
+        {!warningAcknowledged ? (
+          <SuperAdminWarningBanner
+            title={warningTitle}
+            body={warningBody}
+            proceedLabel={warningProceedLabel}
+            onProceed={acknowledgeWarning}
+          />
+        ) : null}
 
-      <div className="flex min-h-screen">
-        <aside className="hidden w-72 shrink-0 border-r border-zinc-800 bg-zinc-900/50 lg:block">
-          <div className="border-b border-zinc-800 px-5 py-6">
-            <Link href={SUPER_ADMIN_HOME_ROUTE} className="block">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">
-                {organizationLabel}
-              </p>
-              <h1 className="mt-1 text-lg font-semibold text-zinc-100">{portalTitle}</h1>
-              <p className="mt-1 text-xs text-zinc-500">{portalSubtitle}</p>
-            </Link>
-          </div>
-
-          <nav className="space-y-6 overflow-y-auto px-3 py-4" style={{ maxHeight: "calc(100vh - 7rem)" }}>
-            {SUPER_ADMIN_SECTIONS.map((section) => {
-              const labels = sectionLabels[section.id];
-              return (
-                <div key={section.id}>
-                  <p className="px-2 text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
-                    {labels?.title}
-                  </p>
-                  <p className="px-2 pb-2 text-[11px] leading-snug text-zinc-600">{labels?.purpose}</p>
-                  <ul className="space-y-0.5">
-                    {section.modules.map((module) => {
-                      const moduleLabel = moduleLabels[module.id];
-                      const active = pathname === module.href;
-                      return (
-                        <li key={module.id}>
-                          <Link
-                            href={module.href}
-                            className={`block rounded-md px-2 py-1.5 text-sm transition ${
-                              active
-                                ? "bg-zinc-800 text-zinc-50"
-                                : "text-zinc-400 hover:bg-zinc-800/60 hover:text-zinc-200"
-                            }`}
-                          >
-                            {moduleLabel?.label ?? module.id}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              );
-            })}
-          </nav>
-        </aside>
-
-        <div className="flex min-w-0 flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-zinc-800 px-4 py-3 lg:px-8">
-            <div className="lg:hidden">
-              <p className="text-sm font-semibold text-zinc-100">{portalTitle}</p>
-              <p className="text-xs text-zinc-500">{portalSubtitle}</p>
+        <div className="flex min-h-screen">
+          <aside className="hidden w-72 shrink-0 border-r border-zinc-800 bg-zinc-900/50 lg:block">
+            <div className="border-b border-zinc-800 px-5 py-6">
+              <Link href={SUPER_ADMIN_HOME_ROUTE} className="block">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">
+                  {organizationLabel}
+                </p>
+                <h1 className="mt-1 text-lg font-semibold text-zinc-100">{portalTitle}</h1>
+                <p className="mt-1 text-xs text-zinc-500">{portalSubtitle}</p>
+              </Link>
             </div>
-            <SuperAdminSignOutButton label={signOutLabel} />
-          </header>
 
-          <main className="flex-1 px-4 py-6 lg:px-8">{children}</main>
+            <nav
+              className="space-y-6 overflow-y-auto px-3 py-4"
+              style={{ maxHeight: "calc(100vh - 7rem)" }}
+            >
+              {SUPER_ADMIN_SECTIONS.map((section) => {
+                const labels = sectionLabels[section.id];
+                return (
+                  <div key={section.id}>
+                    <p className="px-2 text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
+                      {labels?.title}
+                    </p>
+                    <p className="px-2 pb-2 text-[11px] leading-snug text-zinc-600">
+                      {labels?.purpose}
+                    </p>
+                    <ul className="space-y-0.5">
+                      {section.modules.map((module) => {
+                        const moduleLabel = moduleLabels[module.id];
+                        const active = pathname === module.href;
+                        return (
+                          <li key={module.id}>
+                            <Link
+                              href={module.href}
+                              className={`block rounded-md px-2 py-1.5 text-sm transition ${
+                                active
+                                  ? "bg-zinc-800 text-zinc-50"
+                                  : "text-zinc-400 hover:bg-zinc-800/60 hover:text-zinc-200"
+                              }`}
+                            >
+                              {moduleLabel?.label ?? module.id}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                );
+              })}
+            </nav>
+          </aside>
+
+          <div className="flex min-w-0 flex-1 flex-col bg-zinc-50">
+            <SuperAdminGlobalStatusBar labels={statusBarLabels} />
+
+            <header className="flex items-center justify-between gap-4 border-b border-zinc-200 bg-white px-4 py-3 lg:px-8">
+              <div className="flex min-w-0 flex-1 items-center gap-4">
+                <div className="lg:hidden">
+                  <p className="text-sm font-semibold text-zinc-900">{portalTitle}</p>
+                  <p className="text-xs text-zinc-500">{portalSubtitle}</p>
+                </div>
+                <SuperAdminCommandBarTrigger
+                  placeholder={commandBarLabels.placeholder}
+                  openLabel={commandBarLabels.openCommandBar}
+                />
+              </div>
+              <div className="flex shrink-0 items-center gap-3">
+                <SuperAdminIdentityBadge
+                  roleLabel={identityRoleLabel}
+                  verifiedLabel={identityVerifiedLabel}
+                />
+                <SuperAdminSignOutButton label={signOutLabel} />
+              </div>
+            </header>
+
+            <main className="flex-1 px-4 py-6 lg:px-8">{children}</main>
+          </div>
         </div>
       </div>
-    </div>
+    </SuperAdminOperationsProvider>
+    </CommandBarProvider>
   );
 }

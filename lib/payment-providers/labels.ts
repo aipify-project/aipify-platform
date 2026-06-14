@@ -1,0 +1,114 @@
+import type { PaymentProviderLabels } from "./types";
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildPaymentProviderLabels(t: Translator, namespace: "customerApp" | "platform" | "superAdmin"): PaymentProviderLabels {
+  const p = `${namespace}.paymentProviders`;
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    loading: t(`${p}.loading`),
+    principle: t(`${p}.principle`),
+    paidAccessNow: t(`${p}.paidAccessNow`),
+    configure: t(`${p}.configure`),
+    testConnection: t(`${p}.testConnection`),
+    testing: t(`${p}.testing`),
+    save: t(`${p}.save`),
+    saving: t(`${p}.saving`),
+    copyUrl: t(`${p}.copyUrl`),
+    copied: t(`${p}.copied`),
+    back: t(`${p}.back`),
+    auditTitle: t(`${p}.auditTitle`),
+    noAudit: t(`${p}.noAudit`),
+    regionalStrategy: t(`${p}.regionalStrategy`),
+    fields: {
+      status: t(`${p}.fields.status`),
+      mode: t(`${p}.fields.mode`),
+      regions: t(`${p}.fields.regions`),
+      capabilities: t(`${p}.fields.capabilities`),
+      lastHealthCheck: t(`${p}.fields.lastHealthCheck`),
+      setupStatus: t(`${p}.fields.setupStatus`),
+      webhookUrl: t(`${p}.fields.webhookUrl`),
+      webhookStatus: t(`${p}.fields.webhookStatus`),
+      lastWebhook: t(`${p}.fields.lastWebhook`),
+      enabled: t(`${p}.fields.enabled`),
+    },
+    statuses: {
+      operational: t(`${p}.statuses.operational`),
+      pending_setup: t(`${p}.statuses.pendingSetup`),
+      requires_attention: t(`${p}.statuses.requiresAttention`),
+      disabled: t(`${p}.statuses.disabled`),
+    },
+    modes: {
+      test: t(`${p}.modes.test`),
+      live: t(`${p}.modes.live`),
+    },
+    webhookStatuses: {
+      receiving_events: t(`${p}.webhookStatuses.receivingEvents`),
+      not_configured: t(`${p}.webhookStatuses.notConfigured`),
+      failed_verification: t(`${p}.webhookStatuses.failedVerification`),
+    },
+    capabilities: {
+      subscriptions: t(`${p}.capabilities.subscriptions`),
+      one_time: t(`${p}.capabilities.oneTime`),
+      refunds: t(`${p}.capabilities.refunds`),
+      invoices: t(`${p}.capabilities.invoices`),
+      webhooks: t(`${p}.capabilities.webhooks`),
+      upgrades: t(`${p}.capabilities.upgrades`),
+      downgrades: t(`${p}.capabilities.downgrades`),
+      enterprise_contracts: t(`${p}.capabilities.enterpriseContracts`),
+    },
+    setupStatus: {
+      complete: t(`${p}.setupStatus.complete`),
+      inProgress: t(`${p}.setupStatus.inProgress`),
+    },
+    testResult: {
+      success: t(`${p}.testResult.success`),
+      failure: t(`${p}.testResult.failure`),
+    },
+    upgrade: {
+      title: t(`${p}.upgrade.title`),
+      currentPlan: t(`${p}.upgrade.currentPlan`),
+      newPlan: t(`${p}.upgrade.newPlan`),
+      currentPrice: t(`${p}.upgrade.currentPrice`),
+      newPrice: t(`${p}.upgrade.newPrice`),
+      difference: t(`${p}.upgrade.difference`),
+      paymentProvider: t(`${p}.upgrade.paymentProvider`),
+      access: t(`${p}.upgrade.access`),
+      confirm: t(`${p}.upgrade.confirm`),
+      confirming: t(`${p}.upgrade.confirming`),
+      perMonth: t(`${p}.upgrade.perMonth`),
+    },
+    providers: {
+      klarna: t(`${p}.providers.klarna`),
+      vipps: t(`${p}.providers.vipps`),
+      stripe: t(`${p}.providers.stripe`),
+      dnb: t(`${p}.providers.dnb`),
+    },
+    viewLogs: t(`${p}.viewLogs`),
+    documentation: t(`${p}.documentation`),
+    visualStandards: t(`${p}.visualStandards`),
+    clearLogFilter: t(`${p}.clearLogFilter`),
+    providerProfiles: {
+      stripe: {
+        tagline: t(`${p}.providerProfiles.globalPayments`),
+        positioning: t(`${p}.providerProfiles.stripePositioning`),
+        logoAlt: t(`${p}.providers.stripe`),
+      },
+      klarna: {
+        tagline: t(`${p}.providerProfiles.nordicPayments`),
+        positioning: t(`${p}.providerProfiles.klarnaPositioning`),
+        logoAlt: t(`${p}.providers.klarna`),
+      },
+      vipps: {
+        tagline: t(`${p}.providerProfiles.scandinavianPayments`),
+        positioning: t(`${p}.providerProfiles.vippsPositioning`),
+        logoAlt: t(`${p}.providers.vipps`),
+      },
+      dnb: {
+        tagline: t(`${p}.providerProfiles.enterpriseBilling`),
+        positioning: t(`${p}.providerProfiles.dnbPositioning`),
+        logoAlt: t(`${p}.providers.dnb`),
+      },
+    },
+  };
+}

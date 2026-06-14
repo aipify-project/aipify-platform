@@ -1,0 +1,51 @@
+{
+  "placeholder": "Søg efter hvad som helst...",
+  "close": "Luk kommandolinjen",
+  "noResults": "Ingen matchende kommandoer eller destinationer.",
+  "sections": {
+    "navigation": "Navigation",
+    "action": "Handlinger",
+    "search": "Søgeresultater",
+    "recommendation": "Anbefalinger",
+    "recent": "Seneste"
+  },
+  "shortcuts": {
+    "title": "Tastatur",
+    "navigate": "↑↓ Naviger",
+    "select": "↵ Vælg",
+    "close": "Esc Luk",
+    "open": "⌘K / Ctrl+K Åbn"
+  },
+  "recommendations": {
+    "pendingApprovals": "Gennemgå afventende godkendelser",
+    "failedAutomations": "Gennemgå mislykkede automatiseringer",
+    "growthPartnerApplications": "Growth Partner-ansøgninger kræver opmærksomhed",
+    "executiveSummary": "Bed Aipify om et executive resumé"
+  },
+  "openCommandBar": "Åbn kommandolinje",
+  "actions": {
+    "createAutomation": "Opret automatisering",
+    "exportAuditLogs": "Eksporter revisionslogge",
+    "viewFailedWorkflows": "Vis mislykkede arbejdsgange",
+    "launchInstallWizard": "Start installationsguide",
+    "generateExecutiveReport": "Generer executive-rapport",
+    "findGrowthPartners": "Find Growth Partners",
+    "superAdminAudit": "Åbn Super Admin-revision",
+    "searchKnowledgeCenter": "Søg i Knowledge Center",
+    "inviteGrowthPartner": "Inviter Growth Partner",
+    "openCustomerProfile": "Åbn kundeprofil",
+    "restartFailedWorkflow": "Genstart mislykket arbejdsgang"
+  },
+  "categories": {
+    "customers": "Kunder",
+    "support": "Support",
+    "knowledge": "Viden",
+    "skills": "Skills",
+    "actions": "Handlinger",
+    "growthPartners": "Growth Partners",
+    "automations": "Automatiseringer",
+    "users": "Brugere",
+    "subscriptions": "Abonnementer",
+    "modules": "Moduler"
+  }
+}

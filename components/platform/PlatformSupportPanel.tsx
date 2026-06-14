@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
+import SinceLastLoginSummaryPanel, {
+  type SinceLastLoginSummaryLabels,
+} from "@/components/shared/since-last-login/SinceLastLoginSummaryPanel";
 import { formatDate } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
 import { parseSupportAiPerformance } from "@/lib/platform/executive-intelligence";
@@ -13,6 +16,7 @@ import SupportAiPerformancePanel from "./SupportAiPerformancePanel";
 
 type PlatformSupportPanelProps = {
   locale: string;
+  sinceLastLoginLabels: SinceLastLoginSummaryLabels;
   labels: {
     title: string;
     subtitle: string;
@@ -57,6 +61,7 @@ type PlatformSupportPanelProps = {
 
 export default function PlatformSupportPanel({
   locale,
+  sinceLastLoginLabels,
   labels,
 }: PlatformSupportPanelProps) {
   const [cases, setCases] = useState<PlatformSupportQueueRow[]>([]);
@@ -135,6 +140,14 @@ export default function PlatformSupportPanel({
         </h1>
         <p className="mt-2 text-base text-gray-500">{labels.subtitle}</p>
       </div>
+
+      <SinceLastLoginSummaryPanel
+        scope="support"
+        labels={sinceLastLoginLabels}
+        variant="compact"
+        touchLogin={false}
+        className="mb-6"
+      />
 
       {loading ? (
         <p className="text-sm text-gray-500">{labels.loading}</p>

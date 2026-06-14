@@ -1,35 +1,86 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useMemo } from "react";
 import {
-  POLL_INTERVAL_SUPER_ADMIN_HEALTH_MS,
-  allowsSuperAdminHealthPolling,
-  dedupeFetch,
-  usePollingTask,
-} from "@/lib/polling";
-import type { SuperAdminControlCenter } from "@/lib/super-admin/types";
+  buildActionCenterItems,
+  buildExecutiveSummary,
+} from "@/lib/super-admin/executive-summary";
 import { SUPER_ADMIN_SECTIONS } from "@/lib/super-admin/nav-config";
-import { usePathname } from "next/navigation";
+import { useSuperAdminOperations } from "./SuperAdminOperationsProvider";
+import SuperAdminExecutiveHeader from "./executive/SuperAdminExecutiveHeader";
+import SuperAdminExecutiveSummary from "./executive/SuperAdminExecutiveSummary";
+import SuperAdminSystemStatusCards from "./executive/SuperAdminSystemStatusCards";
+import SuperAdminTrustSignalsPanel, {
+  SuperAdminActionCenterPanel,
+} from "./executive/SuperAdminTrustSignals";
 
 type SuperAdminControlCenterPanelProps = {
   labels: {
     loading: string;
     loadError: string;
-    welcome: string;
-    globalPlatformHealth: string;
-    organizations: string;
-    organizationsActive: string;
-    growthPartnerApplications: string;
-    growthPartnerPending: string;
-    marketplaceReviews: string;
-    marketplaceAwaiting: string;
-    criticalIncidents: string;
-    criticalIncidentsNone: string;
-    criticalIncidentsCount: string;
     privacyNote: string;
     sectionsTitle: string;
     openModule: string;
+    executiveHeader: {
+      headquarters: string;
+      operationsCenter: string;
+      subtext: string;
+      platformStatus: string;
+      organizationsServed: string;
+      activeWorkspaces: string;
+      actionsToday: string;
+      systemUptime: string;
+      statusOperational: string;
+      statusPendingSetup: string;
+      statusAttentionRequired: string;
+    };
+    executiveSummary: {
+      title: string;
+      greetingMorning: string;
+      greetingAfternoon: string;
+      greetingEvening: string;
+      allSystemsOperational: string;
+      subscriptionsReview: string;
+      growthPartnerActivity: string;
+      marketplaceReviews: string;
+      criticalIncidents: string;
+      noInterventionRequired: string;
+      platformStable: string;
+    };
+    systemStatus: {
+      title: string;
+      lastCheck: string;
+      lastCheckSeconds: string;
+      avgResponse: string;
+      avgResponseMs: string;
+      statusOperational: string;
+      statusPendingSetup: string;
+      statusAttentionRequired: string;
+      services: Record<string, string>;
+    };
+    trustSignals: {
+      title: string;
+      backupOk: string;
+      twoFactorEnforced: string;
+      auditLoggingActive: string;
+      complianceMonitoringActive: string;
+    };
+    actionCenter: {
+      title: string;
+      subtitle: string;
+      open: string;
+      priorityCritical: string;
+      priorityAttention: string;
+      priorityInformational: string;
+      criticalIncidents: string;
+      subscriptionReview: string;
+      growthPartnerApplications: string;
+      marketplaceReviews: string;
+      organizationHealth: string;
+      supportEscalations: string;
+      globalGovernance: string;
+    };
   };
   sectionLabels: Record<string, { title: string; purpose: string }>;
   moduleLabels: Record<string, { label: string; description: string }>;
@@ -40,107 +91,58 @@ export default function SuperAdminControlCenterPanel({
   sectionLabels,
   moduleLabels,
 }: SuperAdminControlCenterPanelProps) {
-  const pathname = usePathname();
-  const [center, setCenter] = useState<SuperAdminControlCenter | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { center, loading, error } = useSuperAdminOperations();
 
-  const load = useCallback(async () => {
-    try {
-      const ok = await dedupeFetch("super-admin-control-center", async () => {
-        const res = await fetch("/api/super-admin/control-center");
-        if (!res.ok) {
-          const body = (await res.json().catch(() => ({}))) as { error?: string };
-          throw new Error(body.error ?? labels.loadError);
-        }
-        const data = (await res.json()) as SuperAdminControlCenter;
-        setCenter(data);
-        return true;
-      });
-      return ok;
-    } catch (err) {
-      setError(err instanceof Error ? err.message : labels.loadError);
-      return false;
-    } finally {
-      setLoading(false);
-    }
-  }, [labels.loadError]);
+  const summaryLines = useMemo(() => {
+    if (!center) return [];
+    return buildExecutiveSummary(center, labels.executiveSummary);
+  }, [center, labels.executiveSummary]);
 
-  useEffect(() => {
-    void load();
-  }, [load]);
-
-  const pollingEnabled = allowsSuperAdminHealthPolling(pathname);
-
-  usePollingTask({
-    taskKey: "super-admin-control-center",
-    intervalMs: pollingEnabled ? POLL_INTERVAL_SUPER_ADMIN_HEALTH_MS : 0,
-    enabled: pollingEnabled,
-    runImmediately: false,
-    refreshOnVisible: true,
-    execute: load,
-  });
+  const actionItems = useMemo(() => {
+    if (!center) return [];
+    return buildActionCenterItems(center, {
+      criticalIncidents: labels.actionCenter.criticalIncidents,
+      subscriptionReview: labels.actionCenter.subscriptionReview,
+      growthPartnerApplications: labels.actionCenter.growthPartnerApplications,
+      marketplaceReviews: labels.actionCenter.marketplaceReviews,
+      organizationHealth: labels.actionCenter.organizationHealth,
+      supportEscalations: labels.actionCenter.supportEscalations,
+      globalGovernance: labels.actionCenter.globalGovernance,
+    });
+  }, [center, labels.actionCenter]);
 
   if (loading) {
-    return <p className="text-sm text-zinc-400">{labels.loading}</p>;
+    return <p className="text-sm text-zinc-500">{labels.loading}</p>;
   }
 
   if (error || !center) {
-    return <p className="text-sm text-red-400">{error ?? labels.loadError}</p>;
+    return <p className="text-sm text-red-600">{error ?? labels.loadError}</p>;
   }
 
-  const displayName = center.display_name ?? "Administrator";
-  const criticalCount = center.critical_incidents ?? 0;
+  const services = center.system_services ?? [];
 
   return (
-    <div className="space-y-8">
-      <section>
-        <h2 className="text-2xl font-semibold text-zinc-50">
-          {labels.welcome.replace("{name}", displayName)}
-        </h2>
-        <p className="mt-2 text-xs text-zinc-500">{labels.privacyNote}</p>
-      </section>
+    <div className="space-y-6">
+      <SuperAdminExecutiveHeader center={center} labels={labels.executiveHeader} />
 
-      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        <MetricCard
-          label={labels.globalPlatformHealth}
-          value={`${center.platform_health_score ?? 0}%`}
-          tone="healthy"
-        />
-        <MetricCard
-          label={labels.organizations}
-          value={labels.organizationsActive.replace(
-            "{count}",
-            String(center.active_organizations ?? 0)
-          )}
-        />
-        <MetricCard
-          label={labels.growthPartnerApplications}
-          value={labels.growthPartnerPending.replace(
-            "{count}",
-            String(center.growth_partner_applications_pending ?? 0)
-          )}
-        />
-        <MetricCard
-          label={labels.marketplaceReviews}
-          value={labels.marketplaceAwaiting.replace(
-            "{count}",
-            String(center.marketplace_reviews_pending ?? 0)
-          )}
-        />
-        <MetricCard
-          label={labels.criticalIncidents}
-          value={
-            criticalCount === 0
-              ? labels.criticalIncidentsNone
-              : labels.criticalIncidentsCount.replace("{count}", String(criticalCount))
-          }
-          tone={criticalCount > 0 ? "critical" : "neutral"}
-        />
-      </section>
+      <SuperAdminExecutiveSummary
+        lines={summaryLines}
+        title={labels.executiveSummary.title}
+        openActionLabel={labels.actionCenter.open}
+      />
+
+      <SuperAdminSystemStatusCards services={services} labels={labels.systemStatus} />
+
+      {center.trust_signals ? (
+        <SuperAdminTrustSignalsPanel signals={center.trust_signals} labels={labels.trustSignals} />
+      ) : null}
+
+      <SuperAdminActionCenterPanel items={actionItems} labels={labels.actionCenter} />
+
+      <p className="text-xs text-zinc-500">{labels.privacyNote}</p>
 
       <section>
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
+        <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
           {labels.sectionsTitle}
         </h3>
         <div className="mt-4 space-y-6">
@@ -149,10 +151,10 @@ export default function SuperAdminControlCenterPanel({
             return (
               <div
                 key={section.id}
-                className="rounded-lg border border-zinc-800 bg-zinc-900/40 p-5"
+                className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm lg:p-8"
               >
-                <h4 className="text-base font-semibold text-zinc-100">{sectionLabel?.title}</h4>
-                <p className="mt-1 text-sm text-zinc-500">{sectionLabel?.purpose}</p>
+                <h4 className="text-base font-semibold text-zinc-900">{sectionLabel?.title}</h4>
+                <p className="mt-1 text-sm text-zinc-600">{sectionLabel?.purpose}</p>
                 <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {section.modules.map((module) => {
                     const moduleLabel = moduleLabels[module.id];
@@ -160,15 +162,13 @@ export default function SuperAdminControlCenterPanel({
                       <li key={module.id}>
                         <Link
                           href={module.href}
-                          className="block rounded-md border border-zinc-800 bg-zinc-950/60 p-4 transition hover:border-zinc-600"
+                          className="block rounded-xl border border-zinc-100 bg-zinc-50/60 p-4 transition hover:border-zinc-300 hover:bg-white"
                         >
-                          <p className="text-sm font-medium text-zinc-200">
-                            {moduleLabel?.label}
-                          </p>
-                          <p className="mt-1 text-xs leading-relaxed text-zinc-500">
+                          <p className="text-sm font-medium text-zinc-900">{moduleLabel?.label}</p>
+                          <p className="mt-1 text-xs leading-relaxed text-zinc-600">
                             {moduleLabel?.description}
                           </p>
-                          <p className="mt-3 text-[11px] font-medium uppercase tracking-wide text-zinc-600">
+                          <p className="mt-3 text-[11px] font-semibold uppercase tracking-wide text-zinc-500">
                             {labels.openModule}
                           </p>
                         </Link>
@@ -181,30 +181,6 @@ export default function SuperAdminControlCenterPanel({
           })}
         </div>
       </section>
-    </div>
-  );
-}
-
-function MetricCard({
-  label,
-  value,
-  tone = "neutral",
-}: {
-  label: string;
-  value: string;
-  tone?: "neutral" | "healthy" | "critical";
-}) {
-  const valueClass =
-    tone === "healthy"
-      ? "text-emerald-400"
-      : tone === "critical"
-        ? "text-amber-400"
-        : "text-zinc-100";
-
-  return (
-    <div className="rounded-lg border border-zinc-800 bg-zinc-900/60 p-5">
-      <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">{label}</p>
-      <p className={`mt-2 text-xl font-semibold ${valueClass}`}>{value}</p>
     </div>
   );
 }

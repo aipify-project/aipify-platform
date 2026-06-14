@@ -22,6 +22,9 @@ type TopbarProps = {
     required: string;
   };
   onMenuClick?: () => void;
+  onCommandBarClick?: () => void;
+  commandBarPlaceholder?: string;
+  commandBarOpenLabel?: string;
 };
 
 export default function Topbar({
@@ -39,6 +42,9 @@ export default function Topbar({
   signOutLabel,
   twoFactorBadgeLabels,
   onMenuClick,
+  onCommandBarClick,
+  commandBarPlaceholder,
+  commandBarOpenLabel,
 }: TopbarProps) {
   return (
     <header className="sticky top-0 z-20 flex h-16 shrink-0 items-center justify-between gap-3 border-b border-gray-200 bg-white/95 px-4 backdrop-blur-sm sm:gap-4 sm:px-6 lg:px-8">
@@ -66,28 +72,58 @@ export default function Topbar({
         </button>
 
         <div className="relative min-w-0 flex-1 max-w-md">
-          <svg
-            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-            />
-          </svg>
-          <input
-            id="app-nav-search"
-            type="search"
-            value={searchQuery}
-            onChange={(event) => onSearchChange?.(event.target.value)}
-            placeholder={searchPlaceholder}
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2.5 pl-10 pr-4 text-sm text-gray-900 placeholder:text-gray-400 transition focus:border-violet-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-violet-100"
-          />
+          {onCommandBarClick ? (
+            <button
+              type="button"
+              onClick={onCommandBarClick}
+              aria-label={commandBarOpenLabel ?? commandBarPlaceholder ?? "Open command bar"}
+              className="flex w-full items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 py-2.5 pl-10 pr-3 text-left text-sm text-gray-400 transition hover:border-violet-200 hover:bg-white focus:border-violet-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-violet-100"
+            >
+              <svg
+                className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                />
+              </svg>
+              <span className="truncate">{commandBarPlaceholder}</span>
+              <span className="ml-auto hidden shrink-0 rounded-md border border-gray-200 bg-white px-1.5 py-0.5 text-[10px] font-medium text-gray-500 sm:inline">
+                ⌘K
+              </span>
+            </button>
+          ) : (
+            <>
+              <svg
+                className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                />
+              </svg>
+              <input
+                id="app-nav-search"
+                type="search"
+                value={searchQuery}
+                onChange={(event) => onSearchChange?.(event.target.value)}
+                placeholder={searchPlaceholder}
+                className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2.5 pl-10 pr-4 text-sm text-gray-900 placeholder:text-gray-400 transition focus:border-violet-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-violet-100"
+              />
+            </>
+          )}
         </div>
       </div>
 

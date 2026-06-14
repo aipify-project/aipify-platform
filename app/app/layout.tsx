@@ -5,6 +5,7 @@ import { DashboardProfileProvider } from "@/components/dashboard/DashboardProfil
 import { buildAppNavConfig, buildAppNavGroupConfig } from "@/lib/app/build-nav";
 import { buildAppNavSearchIndex } from "@/lib/app/nav-search";
 import { APP_MOBILE_NAV_IDS } from "@/lib/app/nav-config";
+import { buildCommandBarLabels, customerNavSourcesFromSearchIndex } from "@/lib/command-bar";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -26,6 +27,7 @@ export default async function AppLayout({
     "presence",
     "license",
     "customerApp",
+    "commandBar",
   ]);
   const t = createTranslator(dict);
   const navGroups = buildAppNavGroupConfig(t);
@@ -79,6 +81,11 @@ export default async function AppLayout({
           twoFactorBadgeLabels={{
             enabled: t("customerApp.twoFactor.badge.enabled"),
             required: t("customerApp.twoFactor.badge.required"),
+          }}
+          commandBar={{
+            portal: "customer",
+            labels: buildCommandBarLabels(t),
+            navSources: customerNavSourcesFromSearchIndex(navSearchIndex),
           }}
         >
           {children}

@@ -49,106 +49,91 @@
   },
   "executive": {
     "title": "Executive Center",
-    "subtitle": "One screen. One truth. Everything that matters for your business — without browsing modules.",
-    "loading": "Preparing your executive briefing...",
+    "subtitle": "Executive command view for Aipify Group AS.",
+    "loading": "Preparing your executive briefing…",
+    "loadError": "Unable to load the executive dashboard.",
     "greetingMorning": "Good morning, {name}.",
     "greetingAfternoon": "Good afternoon, {name}.",
     "greetingEvening": "Good evening, {name}.",
-    "sinceVisit": "Here's what happened since your last visit.",
-    "resolved": {
-      "incidents": "{count} operational incidents resolved.",
-      "webhooks": "{count} webhook failures repaired.",
-      "support": "{count} support requests handled."
+    "greetingMorningNoName": "Good morning.",
+    "greetingAfternoonNoName": "Good afternoon.",
+    "greetingEveningNoName": "Good evening.",
+    "greetingSubtext": "Here is what Aipify has handled since your last visit.",
+    "sinceLogin": {
+      "title": "Since your last login",
+      "supportResolved": "{count} support requests resolved",
+      "automationsCompleted": "{count} automations completed",
+      "approvalWaiting": "{count} approval awaiting review",
+      "criticalIncidents": "{count} critical incidents detected",
+      "revenueIncreased": "Revenue increased by {percent}%",
+      "footerGreen": "No critical incidents require attention.",
+      "footerYellow": "Review open items when convenient.",
+      "footerRed": "Critical incidents require executive attention."
     },
-    "waiting": {
-      "approvals": "{count} medium-risk action awaiting approval.",
-      "recommendations": "{count} business improvements discovered."
+    "operationalHealth": {
+      "title": "Aipify Operational Health",
+      "signalsTitle": "Signals",
+      "signalInfrastructure": "Infrastructure healthy",
+      "signalSupport": "Support response time normal",
+      "signalSecurity": "No critical security alerts",
+      "signalWorkspaces": "Customer workspaces operational"
     },
-    "overallHealth": "Overall health: {score}%.",
-    "cards": {
-      "businessHealth": "Business health",
-      "aiActivity": "AI activity today",
-      "aiActivitySub": "Actions performed.",
-      "timeSaved": "Time saved",
-      "timeSavedSub": "Estimated.",
-      "pendingApprovals": "Pending approvals",
-      "pendingApprovalsSub": "Needs review.",
-      "customerSatisfaction": "Customer satisfaction",
-      "customerSatisfactionSub": "Estimated trend.",
-      "revenueOpportunities": "Revenue opportunities",
-      "revenueOpportunitiesSub": "Potential upgrades identified.",
-      "deltaUp": "↑ +{delta}%"
+    "requiresAttention": {
+      "title": "Requires Attention",
+      "empty": "No executive action required right now.",
+      "open": "Review"
     },
-    "timeline": {
-      "title": "Executive timeline",
-      "empty": "No executive events recorded today."
+    "metrics": {
+      "activeCustomers": "Active Customers",
+      "mrr": "MRR",
+      "automationSuccess": "Automation Success",
+      "customerSatisfaction": "Customer Satisfaction",
+      "trendUp": "↑ +{value}%"
     },
     "recommendations": {
-      "title": "Executive recommendations",
+      "title": "Aipify Recommendations",
       "empty": "No high-priority recommendations right now.",
-      "impact": "Impact",
-      "businessImpact": "Business impact",
-      "suggestedAction": "Suggested action",
-      "expectedBenefit": "Expected benefit",
-      "approve": "Approve",
-      "review": "Review",
-      "dismiss": "Dismiss",
-      "impactHigh": "High impact",
-      "impactMedium": "Medium impact",
-      "impactLow": "Low impact"
+      "observation": "Observation",
+      "recommendedAction": "Recommended action",
+      "potentialImpact": "Potential impact",
+      "review": "Review"
     },
-    "insights": {
-      "title": "Executive insights",
-      "recommendation": "Recommendation"
+    "timeline": {
+      "title": "Platform Activity Timeline",
+      "empty": "No executive events recorded today.",
+      "open": "Open"
     },
-    "workload": {
-      "title": "AI workload",
-      "monitoring": "Monitoring environments",
-      "learning": "Learning patterns",
-      "healing": "Recoveries",
-      "automations": "Automation executions",
-      "support": "Support resolutions"
+    "customerHealth": {
+      "title": "Customer Health Snapshot",
+      "operationalHealth": "Operational Health: {score}%",
+      "statusHealthy": "Healthy",
+      "statusNeedsReview": "Needs review",
+      "open": "Open profile",
+      "empty": "No customer health signals to review."
     },
-    "approvals": {
-      "title": "Executive approvals",
-      "empty": "No approvals waiting.",
-      "impact": "Impact",
-      "affectedCustomers": "Affected customers: {count}.",
-      "rollback": "Rollback available",
-      "rollbackYes": "Yes",
-      "rollbackNo": "No",
-      "approve": "Approve",
-      "decline": "Decline",
-      "processing": "Processing...",
-      "riskLow": "Low",
-      "riskMedium": "Medium",
-      "riskHigh": "High",
-      "riskCritical": "Critical"
-    },
-    "weekly": {
-      "title": "Weekly executive summary",
-      "subtitle": "Generated automatically every Monday morning.",
-      "healthTrend": "Health trend",
-      "revenueOpportunities": "Revenue opportunities",
-      "supportTrend": "Support trend",
-      "learningDiscoveries": "Learning discoveries",
-      "healingEffectiveness": "Healing effectiveness",
-      "priorities": "Recommended priorities"
-    },
-    "monthly": {
-      "title": "Monthly executive report",
-      "subtitle": "PDF-ready report for {period}.",
-      "download": "Generate report",
-      "sections": {
-        "executiveSummary": "Executive Summary",
-        "operationalPerformance": "Operational Performance",
-        "aiImpact": "AI Impact",
-        "timeSaved": "Time Saved",
-        "growthOpportunities": "Growth Opportunities",
-        "strategicRecommendations": "Strategic Recommendations"
+    "askAipify": {
+      "title": "Ask Aipify",
+      "placeholder": "Ask what needs your attention today…",
+      "submit": "Ask",
+      "placeholderResponse": "Aipify executive guidance will appear here. Full conversational intelligence is coming in a later phase — use the sections above for live operational status.",
+      "prompts": {
+        "attention": "What needs my attention today?",
+        "support": "Summarize support performance.",
+        "atRisk": "Show customers at risk.",
+        "failedAutomations": "Explain failed automations.",
+        "sinceLogin": "What changed since my last login?"
       }
     },
     "presence": "Aipify Presence"
+  },
+  "sinceLastLogin": {
+    "title": "Since your last login",
+    "criticalHeader": "Immediate attention required",
+    "emptyTitle": "Aipify worked quietly while you were away.",
+    "emptyBody": "No significant updates require your attention.",
+    "reviewNow": "Review now",
+    "loading": "Preparing your summary…",
+    "loadError": "Unable to load since-last-login summary."
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -466,9 +451,99 @@
   },
   "paymentProviders": {
     "title": "Payment providers",
-    "subtitle": "Provider-agnostic overview — Klarna first, Stripe and Vipps later.",
-    "loading": "Loading providers...",
-    "empty": "No payment providers configured yet.",
+    "subtitle": "Multi-provider billing foundation — Klarna, Vipps MobilePay, Stripe, and DNB Payment Services.",
+    "loading": "Preparing payment provider overview…",
+    "principle": "Aipify owns the billing experience. Customers choose the payment provider.",
+    "paidAccessNow": "Paid = access now — subscriptions unlock immediately after payment confirmation.",
+    "configure": "Configure",
+    "testConnection": "Test connection",
+    "testing": "Testing…",
+    "save": "Save credentials",
+    "saving": "Saving…",
+    "copyUrl": "Copy URL",
+    "copied": "Copied",
+    "back": "Back to billing",
+    "auditTitle": "Provider audit log",
+    "noAudit": "No provider events recorded yet.",
+    "regionalStrategy": "Regional provider strategy",
+    "fields": {
+      "status": "Status",
+      "mode": "Mode",
+      "regions": "Supported regions",
+      "capabilities": "Supported capabilities",
+      "lastHealthCheck": "Last health check",
+      "setupStatus": "Setup status",
+      "webhookUrl": "Webhook URL",
+      "webhookStatus": "Webhook status",
+      "lastWebhook": "Last event received",
+      "enabled": "Enabled"
+    },
+    "statuses": {
+      "operational": "Operational",
+      "pendingSetup": "Pending setup",
+      "requiresAttention": "Requires attention",
+      "disabled": "Disabled"
+    },
+    "modes": {
+      "test": "Test",
+      "live": "Live"
+    },
+    "webhookStatuses": {
+      "receivingEvents": "Receiving events",
+      "notConfigured": "Not configured",
+      "failedVerification": "Failed verification"
+    },
+    "capabilities": {
+      "subscriptions": "Subscriptions",
+      "oneTime": "One-time payments",
+      "refunds": "Refunds",
+      "invoices": "Invoices",
+      "webhooks": "Webhooks",
+      "upgrades": "Upgrades",
+      "downgrades": "Downgrades",
+      "enterpriseContracts": "Enterprise contracts"
+    },
+    "setupStatus": {
+      "complete": "Setup complete",
+      "inProgress": "Setup in progress"
+    },
+    "testResult": {
+      "success": "Connection verified.",
+      "failure": "Connection failed."
+    },
+    "upgrade": {
+      "title": "Confirm upgrade",
+      "currentPlan": "Current plan",
+      "newPlan": "New plan",
+      "currentPrice": "Current price",
+      "newPrice": "New price",
+      "difference": "Difference",
+      "paymentProvider": "Payment provider",
+      "access": "Access",
+      "confirm": "Confirm upgrade",
+      "confirming": "Processing payment…",
+      "perMonth": "/ month"
+    },
+    "providers": {
+      "klarna": "Klarna",
+      "vipps": "Vipps MobilePay",
+      "stripe": "Stripe",
+      "dnb": "DNB Invoice"
+    },
+    "viewLogs": "View logs",
+    "documentation": "Documentation",
+    "visualStandards": "Respect the brand. Elevate the presentation — official logos on premium Aipify cards.",
+    "clearLogFilter": "Show all logs",
+    "providerProfiles": {
+      "globalPayments": "Global Payments",
+      "nordicPayments": "Nordic Payments",
+      "scandinavianPayments": "Scandinavian Payments",
+      "enterpriseBilling": "Enterprise Billing",
+      "stripePositioning": "International reach and enterprise flexibility.",
+      "klarnaPositioning": "Trusted European payment experiences.",
+      "vippsPositioning": "Simple and trusted local payments.",
+      "dnbPositioning": "Large organizations and invoice-based payment operations."
+    },
     "provider": "Provider",
     "customers": "Customers",
     "active": "Active payments",
@@ -477,7 +552,8 @@
     "recentEvents": "Recent payment events",
     "noEvents": "No payment events yet.",
     "eventType": "Event type",
-    "customer": "Customer"
+    "customer": "Customer",
+    "empty": "No payment providers configured yet."
   },
   "invoices": {
     "title": "Invoices",
@@ -1111,6 +1187,145 @@
       "testing": "Internal Skill Testing",
       "rollouts": "Rollout Management",
       "metrics": "Global Skill Metrics"
+    }
+  },
+  "skillsMarketplace": {
+    "title": "Skills Marketplace",
+    "subtitle": "Govern and discover business capabilities across the platform — premium marketplace experience with deployment pipeline visibility.",
+    "loading": "Preparing Skills Marketplace…",
+    "empty": "Skills Marketplace is not available yet.",
+    "principle": "Skills are business capabilities — expand what organizations can do with trust and governance.",
+    "privacy": "Platform aggregates only — no customer operational content in marketplace governance views.",
+    "sections": {
+      "overview": "Skills Overview",
+      "installed": "Deployed Skills",
+      "recommended": "Recommended Skills",
+      "marketplace": "Skills Marketplace",
+      "pipeline": "Skill Deployment Pipeline",
+      "governance": "Skill Governance",
+      "performance": "Skill Performance"
+    },
+    "overview": {
+      "installed": "Tenant Installations",
+      "available": "Available Skills",
+      "pilot": "Pilot Skills",
+      "pendingReviews": "Pending Reviews"
+    },
+    "status": {
+      "operational": "Operational",
+      "pilot": "Pilot",
+      "beta": "Beta",
+      "paused": "Paused",
+      "requiresAttention": "Requires Attention"
+    },
+    "environment": {
+      "production": "Production",
+      "testing": "Testing"
+    },
+    "categories": {
+      "executive": "Executive",
+      "support": "Support",
+      "commerce": "Commerce",
+      "operations": "Operations",
+      "knowledge": "Knowledge",
+      "growth": "Growth",
+      "compliance": "Compliance",
+      "automation": "Automation",
+      "companion": "Companion"
+    },
+    "pipelineStages": {
+      "internalDevelopment": "Internal Development",
+      "customerZero": "Customer Zero",
+      "pilotCustomers": "Pilot Customers",
+      "growthPartners": "Growth Partners",
+      "stableRelease": "Stable Release"
+    },
+    "activation": {
+      "activate": "Activate",
+      "requestAccess": "Request Access",
+      "comingSoon": "Coming Soon",
+      "active": "Active"
+    },
+    "actions": {
+      "activate": "Activate",
+      "learnMore": "Learn More",
+      "requestAccess": "Request Access",
+      "comingSoon": "Coming Soon",
+      "viewDetails": "View Details",
+      "manage": "Manage",
+      "history": "History"
+    },
+    "installed": {
+      "version": "Version",
+      "environment": "Environment",
+      "owner": "Owner",
+      "status": "Status",
+      "empty": "No skills deployed yet."
+    },
+    "recommended": {
+      "why": "Why recommended",
+      "impact": "Expected business impact",
+      "empty": "No platform recommendations right now."
+    },
+    "marketplace": {
+      "allCategories": "All categories",
+      "estimatedValue": "Estimated value",
+      "empty": "No skills match this category."
+    },
+    "governance": {
+      "permissionScope": "Permission scope",
+      "riskLevel": "Risk level",
+      "owner": "Owner",
+      "lastReview": "Last review",
+      "empty": "No governance items require attention.",
+      "pendingApproval": "Pending approval",
+      "underReview": "Under review"
+    },
+    "performance": {
+      "successRate": "Success rate",
+      "usage": "Usage",
+      "satisfaction": "Satisfaction",
+      "actionsPerWeek": "Installations",
+      "empty": "Performance metrics appear after tenant adoption."
+    },
+    "reasons": {
+      "executiveVisibility": "Executive Intelligence strengthens platform leadership visibility.",
+      "supportEfficiency": "Support Optimizer reduces operational load across tenants.",
+      "commerceMargins": "Commerce Intelligence improves margin discovery.",
+      "knowledgeRetention": "Knowledge Guardian preserves institutional knowledge.",
+      "growthExpansion": "Growth Partner Assistant supports partner operations.",
+      "automationEfficiency": "Operations Assistant automates repeatable workflows.",
+      "companionProductivity": "Meeting Assistant improves daily productivity.",
+      "complianceConfidence": "Governance skills maintain enterprise confidence.",
+      "operationsEfficiency": "Operations capabilities improve platform efficiency."
+    },
+    "impacts": {
+      "executiveImpact": "Clearer executive context across the platform.",
+      "supportImpact": "Lower support burden and faster resolution.",
+      "commerceImpact": "Better commerce intelligence for customers.",
+      "knowledgeImpact": "Stronger knowledge retention across tenants.",
+      "growthImpact": "Faster Growth Partner onboarding and operations.",
+      "automationImpact": "Measurable automation value for customers.",
+      "companionImpact": "Productivity gains through contextual assistance.",
+      "complianceImpact": "Visible governance and approval workflows.",
+      "operationsImpact": "Smoother operations at scale."
+    },
+    "detail": {
+      "overview": "Overview",
+      "capabilities": "Capabilities",
+      "permissions": "Permissions",
+      "audit": "Audit History",
+      "performance": "Performance Metrics",
+      "deployment": "Deployment History",
+      "faq": "FAQs",
+      "controls": "Governance Controls",
+      "back": "Back to Skills Marketplace",
+      "notFound": "Skill not found.",
+      "install": "Activate",
+      "installWithApproval": "Request Access",
+      "disable": "Pause",
+      "noPermissions": "No special permissions required.",
+      "noAudit": "No audit events recorded yet."
     }
   },
   "system": {

@@ -14,6 +14,7 @@ type BillingAdminPanelProps = {
     viewModules: string;
     viewCommercial: string;
     viewPackages: string;
+    viewPaymentProviders: string;
     empty: string;
     sections: {
       package: string;
@@ -85,6 +86,9 @@ export function BillingAdminPanel({ labels }: BillingAdminPanelProps) {
           </Link>
           <Link href="/app/settings/billing/packages" className="text-indigo-600 hover:underline">
             {labels.viewPackages}
+          </Link>
+          <Link href="/app/settings/billing/payment-providers" className="text-indigo-600 hover:underline">
+            {labels.viewPaymentProviders}
           </Link>
           <Link href="/app/commercial" className="text-indigo-600 hover:underline">
             {labels.viewCommercial}

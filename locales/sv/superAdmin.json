@@ -10,9 +10,85 @@
     "recoveryRequired": "Super Admin requires two-factor authentication and recovery codes before entry."
   },
   "warning": {
-    "title": "Warning",
-    "body": "You are accessing Aipify Super Admin. Actions performed here may affect multiple organizations. Proceed carefully.",
-    "proceed": "Proceed carefully"
+    "title": "Varning",
+    "body": "Du öppnar Aipify Super Admin. Åtgärder här kan påverka flera organisationer. Fortsätt försiktigt.",
+    "proceed": "Fortsätt försiktigt"
+  },
+  "identity": {
+    "role": "SUPER ADMIN",
+    "verifiedAccess": "Verifierad executive-åtkomst"
+  },
+  "statusBar": {
+    "operational": "Alla system är operativa.",
+    "warning": "Objekt kräver granskning.",
+    "warningCount": "{count} objekt kräver granskning.",
+    "critical": "Omedelbar åtgärd krävs.",
+    "openActionCenter": "Öppna Action Center"
+  },
+  "status": {
+    "operational": "Operativ",
+    "pendingSetup": "Väntar på konfiguration",
+    "attentionRequired": "Kräver uppmärksamhet"
+  },
+  "executiveHeader": {
+    "headquarters": "Aipify Headquarters",
+    "operationsCenter": "Global Operations Center",
+    "subtext": "Centralt kommandolager för Aipify Group.",
+    "platformStatus": "Plattformsstatus",
+    "organizationsServed": "Organisationer betjänade",
+    "activeWorkspaces": "Aktiva arbetsytor",
+    "actionsToday": "Aipify-åtgärder idag",
+    "systemUptime": "Systemdrift"
+  },
+  "executiveSummary": {
+    "title": "Executive Summary",
+    "greetingMorning": "God morgon, {name}.",
+    "greetingAfternoon": "God eftermiddag, {name}.",
+    "greetingEvening": "God kväll, {name}.",
+    "allSystemsOperational": "Alla kritiska system är operativa.",
+    "subscriptionsReview": "{count} organisationer kräver prenumerationsgranskning.",
+    "growthPartnerActivity": "Growth Partner-aktivitet ökade — {count} ansökningar väntar.",
+    "marketplaceReviews": "{count} marketplace-granskningar väntar godkännande.",
+    "criticalIncidents": "{count} kritiska incidenter kräver executive-uppmärksamhet.",
+    "noInterventionRequired": "Ingen executive-inblandning krävs just nu.",
+    "platformStable": "Plattformen är stabil — granska öppna objekt när det passar."
+  },
+  "systemStatus": {
+    "title": "Systemstatus",
+    "lastCheck": "Senaste kontroll:",
+    "lastCheckSeconds": "för {seconds} sekunder sedan",
+    "avgResponse": "Genomsnittlig respons:",
+    "avgResponseMs": "{ms} ms",
+    "services": {
+      "supabase": "Supabase",
+      "resend": "Resend",
+      "stripe": "Stripe",
+      "klarna": "Klarna",
+      "aipifyApi": "Aipify API",
+      "webhooks": "Webhooks"
+    }
+  },
+  "trustSignals": {
+    "title": "Förtroendesignaler",
+    "backupOk": "Senaste backup slutförd.",
+    "twoFactorEnforced": "2FA krävs för executive-åtkomst.",
+    "auditLoggingActive": "Revisionsloggning aktiv.",
+    "complianceMonitoringActive": "Compliance-övervakning aktiv."
+  },
+  "actionCenter": {
+    "title": "Action Center",
+    "subtitle": "Varje rekommendation leder till en styrd plattformsåtgärd.",
+    "open": "Öppna",
+    "priorityCritical": "Kritisk",
+    "priorityAttention": "Kräver uppmärksamhet",
+    "priorityInformational": "Information",
+    "criticalIncidents": "Granska kritiska incidenter",
+    "subscriptionReview": "Prenumerationsgranskning krävs",
+    "growthPartnerApplications": "Growth Partner-ansökningar väntar",
+    "marketplaceReviews": "Marketplace-granskningar väntar godkännande",
+    "organizationHealth": "Granska organisationshälsa",
+    "supportEscalations": "Intern support-eskalering",
+    "globalGovernance": "Global governance och revisionsloggar"
   },
   "controlCenter": {
     "loading": "Loading control center…",
@@ -154,6 +230,8 @@
     "supportIntelligence": "Support Intelligence",
     "supportIntelligenceDescription": "Analyze support intelligence signals.",
     "serviceReviews": "Service Reviews",
-    "serviceReviewsDescription": "Conduct service quality and impact reviews."
+    "serviceReviewsDescription": "Conduct service quality and impact reviews.",
+    "paymentProviders": "Payment Providers",
+    "paymentProvidersDescription": "Configure Klarna, Vipps MobilePay, Stripe, and DNB credentials."
   }
 }

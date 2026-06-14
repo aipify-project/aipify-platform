@@ -1,0 +1,51 @@
+{
+  "placeholder": "Search anything...",
+  "close": "Close command bar",
+  "noResults": "No matching commands or destinations.",
+  "sections": {
+    "navigation": "Navigation",
+    "action": "Actions",
+    "search": "Search results",
+    "recommendation": "Recommendations",
+    "recent": "Recent"
+  },
+  "shortcuts": {
+    "title": "Keyboard",
+    "navigate": "↑↓ Navigate",
+    "select": "↵ Select",
+    "close": "Esc Close",
+    "open": "⌘K / Ctrl+K Open"
+  },
+  "recommendations": {
+    "pendingApprovals": "Review pending approvals",
+    "failedAutomations": "Review failed automations",
+    "growthPartnerApplications": "Growth Partner applications require attention",
+    "executiveSummary": "Ask Aipify for an executive summary"
+  },
+  "openCommandBar": "Open command bar",
+  "actions": {
+    "createAutomation": "Create automation",
+    "exportAuditLogs": "Export audit logs",
+    "viewFailedWorkflows": "View failed workflows",
+    "launchInstallWizard": "Launch installation wizard",
+    "generateExecutiveReport": "Generate executive report",
+    "findGrowthPartners": "Find Growth Partners",
+    "superAdminAudit": "Open Super Admin audit",
+    "searchKnowledgeCenter": "Search Knowledge Center",
+    "inviteGrowthPartner": "Invite Growth Partner",
+    "openCustomerProfile": "Open customer profile",
+    "restartFailedWorkflow": "Restart failed workflow"
+  },
+  "categories": {
+    "customers": "Customers",
+    "support": "Support",
+    "knowledge": "Knowledge",
+    "skills": "Skills",
+    "actions": "Actions",
+    "growthPartners": "Growth Partners",
+    "automations": "Automations",
+    "users": "Users",
+    "subscriptions": "Subscriptions",
+    "modules": "Modules"
+  }
+}

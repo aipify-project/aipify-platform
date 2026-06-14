@@ -1,0 +1,51 @@
+{
+  "placeholder": "Sök vad som helst...",
+  "close": "Stäng kommandofältet",
+  "noResults": "Inga matchande kommandon eller destinationer.",
+  "sections": {
+    "navigation": "Navigering",
+    "action": "Åtgärder",
+    "search": "Sökresultat",
+    "recommendation": "Rekommendationer",
+    "recent": "Senaste"
+  },
+  "shortcuts": {
+    "title": "Tangentbord",
+    "navigate": "↑↓ Navigera",
+    "select": "↵ Välj",
+    "close": "Esc Stäng",
+    "open": "⌘K / Ctrl+K Öppna"
+  },
+  "recommendations": {
+    "pendingApprovals": "Granska väntande godkännanden",
+    "failedAutomations": "Granska misslyckade automatiseringar",
+    "growthPartnerApplications": "Growth Partner-ansökningar kräver uppmärksamhet",
+    "executiveSummary": "Be Aipify om en executive sammanfattning"
+  },
+  "openCommandBar": "Öppna kommandofält",
+  "actions": {
+    "createAutomation": "Skapa automatisering",
+    "exportAuditLogs": "Exportera granskningsloggar",
+    "viewFailedWorkflows": "Visa misslyckade arbetsflöden",
+    "launchInstallWizard": "Starta installationsguide",
+    "generateExecutiveReport": "Generera executive-rapport",
+    "findGrowthPartners": "Hitta Growth Partners",
+    "superAdminAudit": "Öppna Super Admin-granskning",
+    "searchKnowledgeCenter": "Sök i Knowledge Center",
+    "inviteGrowthPartner": "Bjud in Growth Partner",
+    "openCustomerProfile": "Öppna kundprofil",
+    "restartFailedWorkflow": "Starta om misslyckat arbetsflöde"
+  },
+  "categories": {
+    "customers": "Kunder",
+    "support": "Support",
+    "knowledge": "Kunskap",
+    "skills": "Skills",
+    "actions": "Åtgärder",
+    "growthPartners": "Growth Partners",
+    "automations": "Automatiseringar",
+    "users": "Användare",
+    "subscriptions": "Prenumerationer",
+    "modules": "Moduler"
+  }
+}

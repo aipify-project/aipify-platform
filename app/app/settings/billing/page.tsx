@@ -25,6 +25,7 @@ export default async function BillingSettingsPage() {
         viewModules: t("customerApp.commercialPackages.billing.viewModules"),
         viewCommercial: t("customerApp.commercialPackages.billing.viewCommercial"),
         viewPackages: t("customerApp.commercialPackages.billing.viewPackages"),
+        viewPaymentProviders: t("customerApp.commercialPackages.billing.viewPaymentProviders"),
         empty: t("customerApp.commercialPackages.billing.empty"),
         sections: {
           package: t("customerApp.commercialPackages.billing.sections.package"),

@@ -15,6 +15,14 @@ import type { CompanionPresenceLabels } from "@/components/app/companion-presenc
 import { PresenceProvider, type PresenceLabels } from "@/components/presence/PresenceProvider";
 import Topbar from "./Topbar";
 import { OrganizationSwitcher } from "@/components/app/organization";
+import { CommandBarProvider, useOptionalCommandBar } from "@/components/command-bar";
+import type {
+  CommandBarLabels,
+  CommandBarNavSource,
+  CommandBarPortal,
+  CustomerRole,
+  PlatformRole,
+} from "@/lib/command-bar";
 import { buildAppNavConfig, type AppNavGroupConfig, type AppNavLink } from "@/lib/app/build-nav";
 import { getAppActiveNavId } from "@/lib/app/nav-config";
 import { getCustomerActiveNavId } from "@/lib/dashboard/nav-config";
@@ -76,6 +84,12 @@ type DashboardShellProps = {
     enabled: string;
     required: string;
   };
+  commandBar?: {
+    portal: CommandBarPortal;
+    labels: CommandBarLabels;
+    navSources: CommandBarNavSource[];
+  };
+  onMenuClick?: () => void;
   children: React.ReactNode;
 };
 
@@ -107,8 +121,122 @@ export default function DashboardShell({
   locale = "en",
   organizationSwitcherLabels,
   twoFactorBadgeLabels,
+  commandBar,
   children,
 }: DashboardShellProps) {
+  if (commandBar) {
+    return (
+      <CommandBarProvider
+        portal={commandBar.portal}
+        labels={commandBar.labels}
+        navSources={commandBar.navSources}
+      >
+        <DashboardShellFrame
+          appName={appName}
+          planName={planName}
+          shellLabel={shellLabel}
+          searchPlaceholder={searchPlaceholder}
+          companySelectorLabel={companySelectorLabel}
+          notificationsLabel={notificationsLabel}
+          roleLabels={roleLabels}
+          profileFallbackName={profileFallbackName}
+          companyFallbackName={companyFallbackName}
+          signOutLabel={signOutLabel}
+          navConfig={navConfig}
+          navGroups={navGroups}
+          navSearchIndex={navSearchIndex}
+          navSearchNoResultsLabel={navSearchNoResultsLabel}
+          shellVariant={shellVariant}
+          mobileNavIds={mobileNavIds}
+          navSearchHint={navSearchHint}
+          navCompactToggleLabel={navCompactToggleLabel}
+          navSearchResultsLabel={navSearchResultsLabel}
+          companyNameOverride={companyNameOverride}
+          platformBrandMark={platformBrandMark}
+          licensePanelLabels={licensePanelLabels}
+          presenceLabels={presenceLabels}
+          companionPresenceLabels={companionPresenceLabels}
+          locale={locale}
+          organizationSwitcherLabels={organizationSwitcherLabels}
+          twoFactorBadgeLabels={twoFactorBadgeLabels}
+          commandBarLabels={commandBar.labels}
+        >
+          {children}
+        </DashboardShellFrame>
+      </CommandBarProvider>
+    );
+  }
+
+  return (
+    <DashboardShellFrame
+      appName={appName}
+      planName={planName}
+      shellLabel={shellLabel}
+      searchPlaceholder={searchPlaceholder}
+      companySelectorLabel={companySelectorLabel}
+      notificationsLabel={notificationsLabel}
+      roleLabels={roleLabels}
+      profileFallbackName={profileFallbackName}
+      companyFallbackName={companyFallbackName}
+      signOutLabel={signOutLabel}
+      navConfig={navConfig}
+      navGroups={navGroups}
+      navSearchIndex={navSearchIndex}
+      navSearchNoResultsLabel={navSearchNoResultsLabel}
+      shellVariant={shellVariant}
+      mobileNavIds={mobileNavIds}
+      navSearchHint={navSearchHint}
+      navCompactToggleLabel={navCompactToggleLabel}
+      navSearchResultsLabel={navSearchResultsLabel}
+      companyNameOverride={companyNameOverride}
+      platformBrandMark={platformBrandMark}
+      licensePanelLabels={licensePanelLabels}
+      presenceLabels={presenceLabels}
+      companionPresenceLabels={companionPresenceLabels}
+      locale={locale}
+      organizationSwitcherLabels={organizationSwitcherLabels}
+      twoFactorBadgeLabels={twoFactorBadgeLabels}
+    >
+      {children}
+    </DashboardShellFrame>
+  );
+}
+
+type DashboardShellFrameProps = Omit<DashboardShellProps, "commandBar"> & {
+  commandBarLabels?: CommandBarLabels;
+};
+
+function DashboardShellFrame({
+  appName,
+  planName,
+  shellLabel,
+  searchPlaceholder,
+  companySelectorLabel,
+  notificationsLabel,
+  roleLabels,
+  profileFallbackName,
+  companyFallbackName,
+  signOutLabel,
+  navConfig,
+  navGroups,
+  navSearchIndex,
+  navSearchNoResultsLabel,
+  shellVariant,
+  mobileNavIds,
+  navSearchHint,
+  navCompactToggleLabel,
+  navSearchResultsLabel,
+  companyNameOverride,
+  platformBrandMark,
+  licensePanelLabels,
+  presenceLabels,
+  companionPresenceLabels,
+  locale = "en",
+  organizationSwitcherLabels,
+  twoFactorBadgeLabels,
+  commandBarLabels,
+  children,
+}: DashboardShellFrameProps) {
   const pathname = usePathname();
   const activeNav = useMemo(() => {
     if (shellVariant === "platform") {
@@ -121,6 +249,7 @@ export default function DashboardShell({
   }, [shellVariant, pathname]);
   const customerContext = useOptionalDashboardProfile();
   const platformContext = usePlatformProfile();
+  const commandBarContext = useOptionalCommandBar();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [navSearchQuery, setNavSearchQuery] = useState("");
 
@@ -157,6 +286,8 @@ export default function DashboardShell({
     customerContext?.loading ?? platformContext?.loading ?? false;
 
   useEffect(() => {
+    if (commandBarContext) return;
+
     function handleKeyDown(event: KeyboardEvent) {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
@@ -165,7 +296,7 @@ export default function DashboardShell({
     }
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [commandBarContext]);
 
   const sidebarNav =
     shellVariant === "customer" && navGroups && navSearchIndex ? (
@@ -315,6 +446,9 @@ export default function DashboardShell({
           signOutLabel={signOutLabel}
           twoFactorBadgeLabels={twoFactorBadgeLabels}
           onMenuClick={() => setSidebarOpen(true)}
+          onCommandBarClick={commandBarContext ? commandBarContext.open : undefined}
+          commandBarPlaceholder={commandBarLabels?.placeholder}
+          commandBarOpenLabel={commandBarLabels?.openCommandBar}
         />
 
         <main className="flex-1 overflow-y-auto px-4 py-6 pb-24 sm:px-6 sm:py-8 lg:px-8 lg:pb-8">

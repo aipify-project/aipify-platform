@@ -7,6 +7,7 @@ import {
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { buildSinceLastLoginLabels } from "@/lib/since-last-login";
 
 export default async function PlatformSupportPage() {
   const locale = await getLocale();
@@ -16,6 +17,7 @@ export default async function PlatformSupportPage() {
   return (
     <PlatformSupportPanel
       locale={locale}
+      sinceLastLoginLabels={buildSinceLastLoginLabels(t)}
       labels={{
         title: t("platform.support.title"),
         subtitle: t("platform.support.subtitle"),

@@ -2,6 +2,12 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { ActionImpactAnalysisView } from "@/components/shared/action-center-impact";
+import {
+  parseActionImpactAnalysis,
+  type ActionImpactAnalysis,
+  type ActionImpactLabels,
+} from "@/lib/action-center-impact";
 import { parseActionCenter, type ActionCenter, type AipifyAction } from "@/lib/aipify/execution";
 
 type ActionCenterPanelProps = {
@@ -57,6 +63,7 @@ type ActionCenterPanelProps = {
       history: string;
     };
   };
+  impactLabels: ActionImpactLabels;
 };
 
 const RISK_STYLES: Record<string, string> = {
@@ -76,11 +83,11 @@ const STATUS_STYLES: Record<string, string> = {
   scheduled: "bg-indigo-100 text-indigo-900",
 };
 
-export function ActionCenterPanel({ labels }: ActionCenterPanelProps) {
+export function ActionCenterPanel({ labels, impactLabels }: ActionCenterPanelProps) {
   const [center, setCenter] = useState<ActionCenter | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [detail, setDetail] = useState<Record<string, unknown> | null>(null);
+  const [impactAnalysis, setImpactAnalysis] = useState<ActionImpactAnalysis | null>(null);
   const [actingId, setActingId] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
@@ -95,8 +102,8 @@ export function ActionCenterPanel({ labels }: ActionCenterPanelProps) {
 
   async function loadDetail(id: string) {
     setSelectedId(id);
-    const res = await fetch(`/api/aipify/actions/${id}`);
-    if (res.ok) setDetail(await res.json());
+    const res = await fetch(`/api/aipify/actions/${id}/impact`);
+    if (res.ok) setImpactAnalysis(parseActionImpactAnalysis(await res.json()));
   }
 
   async function approveAction(id: string) {
@@ -115,7 +122,7 @@ export function ActionCenterPanel({ labels }: ActionCenterPanelProps) {
       body: JSON.stringify({ reason: "Rejected from Action Center" }),
     });
     setSelectedId(null);
-    setDetail(null);
+    setImpactAnalysis(null);
     await refresh();
     setActingId(null);
   }
@@ -205,14 +212,17 @@ export function ActionCenterPanel({ labels }: ActionCenterPanelProps) {
         </div>
       </section>
 
-      {selectedId && detail?.found ? (
-        <ActionDetailView
-          detail={detail}
-          labels={labels}
+      {selectedId && impactAnalysis?.found && impactAnalysis.action ? (
+        <ActionImpactAnalysisView
+          analysis={impactAnalysis}
+          action={impactAnalysis.action}
+          labels={impactLabels}
+          statusLabels={labels.statusLabels}
+          riskLabels={labels.riskLevels}
           actingId={actingId}
           onBack={() => {
             setSelectedId(null);
-            setDetail(null);
+            setImpactAnalysis(null);
           }}
           onApprove={() => void approveAction(selectedId)}
           onReject={() => void rejectAction(selectedId)}
@@ -222,7 +232,10 @@ export function ActionCenterPanel({ labels }: ActionCenterPanelProps) {
         <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
           <h2 className="font-semibold text-gray-900">{labels.sections.pending}</h2>
           {pending.length === 0 ? (
-            <p className="mt-3 text-sm text-gray-500">{labels.empty}</p>
+            <div className="mt-4 rounded-xl border border-slate-100 bg-slate-50 px-4 py-6 text-center">
+              <p className="text-sm font-medium text-gray-800">{impactLabels.empty}</p>
+              <p className="mt-2 text-sm text-gray-500">{impactLabels.emptyMonitoring}</p>
+            </div>
           ) : (
             <ul className="mt-4 space-y-3">
               {pending.map((action) => (
@@ -366,89 +379,5 @@ function ActionCard({
         </div>
       </div>
     </li>
-  );
-}
-
-function ActionDetailView({
-  detail,
-  labels,
-  actingId,
-  onBack,
-  onApprove,
-  onReject,
-  onExecute,
-}: {
-  detail: Record<string, unknown>;
-  labels: ActionCenterPanelProps["labels"];
-  actingId: string | null;
-  onBack: () => void;
-  onApprove: () => void;
-  onReject: () => void;
-  onExecute: () => void;
-}) {
-  const action = detail.action as AipifyAction;
-  const safety = detail.safety as Record<string, unknown> | undefined;
-  const logs = Array.isArray(detail.logs) ? detail.logs : [];
-  const busy = actingId === action.id;
-
-  return (
-    <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-      <button type="button" onClick={onBack} className="text-sm text-indigo-600 hover:underline">
-        ← {labels.detail.back}
-      </button>
-      <h2 className="mt-3 text-xl font-semibold text-gray-900">{action.title}</h2>
-      <p className="mt-2 text-sm text-gray-600">{action.description}</p>
-      <p className="mt-3 text-sm">
-        <span className="font-medium">{labels.detail.impact}:</span> {action.estimated_impact ?? "—"}
-      </p>
-      <p className="mt-2 text-sm">
-        <span className="font-medium">{labels.detail.preview}:</span> {action.preview_text ?? "—"}
-      </p>
-      {safety && (
-        <p className="mt-2 rounded-lg bg-slate-50 px-3 py-2 text-sm text-slate-800">
-          {labels.detail.safety}: {String(safety.reason ?? "Passed")}
-        </p>
-      )}
-      <div className="mt-4 flex flex-wrap gap-2">
-        {action.status === "pending_approval" && (
-          <>
-            <button
-              type="button"
-              disabled={busy}
-              onClick={onApprove}
-              className="rounded-lg bg-emerald-600 px-4 py-2 text-sm text-white hover:bg-emerald-700"
-            >
-              {labels.actions.approve}
-            </button>
-            <button
-              type="button"
-              disabled={busy}
-              onClick={onReject}
-              className="rounded-lg border border-gray-200 px-4 py-2 text-sm"
-            >
-              {labels.actions.reject}
-            </button>
-          </>
-        )}
-        {action.status === "approved" && (
-          <button
-            type="button"
-            disabled={busy}
-            onClick={onExecute}
-            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700"
-          >
-            {labels.actions.execute}
-          </button>
-        )}
-      </div>
-      <h3 className="mt-6 font-medium text-gray-900">{labels.detail.history}</h3>
-      <ul className="mt-2 space-y-1 text-sm text-gray-600">
-        {logs.map((log: Record<string, unknown>) => (
-          <li key={String(log.id)}>
-            {String(log.event_type)} — {String(log.event_description)}
-          </li>
-        ))}
-      </ul>
-    </section>
   );
 }

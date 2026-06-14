@@ -3,6 +3,7 @@ import {
   SuperAdminAuthGuard,
   SuperAdminShell,
 } from "@/components/super-admin";
+import { buildCommandBarLabels, superAdminNavSources } from "@/lib/command-bar";
 import { SUPER_ADMIN_SECTIONS } from "@/lib/super-admin/nav-config";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -42,7 +43,7 @@ export default async function SuperAdminLayout({
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["common", "auth", "superAdmin"]);
+  const dict = await getDictionary(locale, ["common", "auth", "superAdmin", "commandBar"]);
   const t = createTranslator(dict);
 
   const sectionLabels = buildSectionLabels(t);
@@ -66,8 +67,20 @@ export default async function SuperAdminLayout({
           warningTitle={t("superAdmin.warning.title")}
           warningBody={t("superAdmin.warning.body")}
           warningProceedLabel={t("superAdmin.warning.proceed")}
+          loadErrorLabel={t("superAdmin.controlCenter.loadError")}
+          identityRoleLabel={t("superAdmin.identity.role")}
+          identityVerifiedLabel={t("superAdmin.identity.verifiedAccess")}
+          statusBarLabels={{
+            operational: t("superAdmin.statusBar.operational"),
+            warning: t("superAdmin.statusBar.warning"),
+            warningCount: t("superAdmin.statusBar.warningCount"),
+            critical: t("superAdmin.statusBar.critical"),
+            openActionCenter: t("superAdmin.statusBar.openActionCenter"),
+          }}
           sectionLabels={sectionLabels}
           moduleLabels={moduleLabels}
+          commandBarLabels={buildCommandBarLabels(t)}
+          commandBarNavSources={superAdminNavSources(t)}
         >
           {children}
         </SuperAdminShell>

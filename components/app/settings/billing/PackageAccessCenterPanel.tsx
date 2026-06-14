@@ -3,6 +3,13 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
+  parsePackageUpgradeCheckout,
+  type PackageUpgradeCheckout,
+  type PaymentProviderKey,
+  type PaymentProviderLabels,
+} from "@/lib/payment-providers";
+import { PaymentProviderLogo } from "@/components/shared/payment-providers";
+import {
   PACKAGE_TIER_LABELS,
   parsePackageAccessCenter,
   type PackageAccessCenter,
@@ -33,6 +40,8 @@ type PackageAccessCenterPanelLabels = {
   instantAccess: string;
   privacyNote: string;
   tiers: Record<string, string>;
+  upgradeFlow?: PaymentProviderLabels["upgrade"];
+  providerNames?: Record<string, string>;
 };
 
 type PackageAccessCenterPanelProps = {
@@ -48,6 +57,10 @@ export function PackageAccessCenterPanel({ labels }: PackageAccessCenterPanelPro
     eventId: string;
     target: string;
   } | null>(null);
+  const [checkoutOpen, setCheckoutOpen] = useState<PackageComparison | null>(null);
+  const [checkout, setCheckout] = useState<PackageUpgradeCheckout | null>(null);
+  const [selectedProvider, setSelectedProvider] = useState<PaymentProviderKey>("stripe");
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -60,8 +73,31 @@ export function PackageAccessCenterPanel({ labels }: PackageAccessCenterPanelPro
     void load();
   }, [load]);
 
+  async function loadCheckoutPreview(pkg: PackageComparison, provider: PaymentProviderKey) {
+    setCheckoutLoading(true);
+    const res = await fetch(
+      `/api/package-access/upgrade/checkout?target_package=${pkg.package_key}&payment_provider=${provider}`
+    );
+    if (res.ok) setCheckout(parsePackageUpgradeCheckout(await res.json()));
+    setCheckoutLoading(false);
+  }
+
+  async function openUpgrade(pkg: PackageComparison) {
+    setCheckoutOpen(pkg);
+    setSelectedProvider("stripe");
+    await loadCheckoutPreview(pkg, "stripe");
+  }
+
   async function handleUpgrade(pkg: PackageComparison) {
     if (!center?.can_upgrade || !pkg.is_upgrade) return;
+    if (labels.upgradeFlow) {
+      await openUpgrade(pkg);
+      return;
+    }
+    await executeUpgrade(pkg, "stripe");
+  }
+
+  async function executeUpgrade(pkg: PackageComparison, provider: PaymentProviderKey) {
     setUpgrading(pkg.package_key);
     setUpgradeMessage(null);
 
@@ -86,11 +122,14 @@ export function PackageAccessCenterPanel({ labels }: PackageAccessCenterPanelPro
         action: "complete",
         target_package: pkg.package_key,
         upgrade_event_id: start.upgrade_event_id,
+        payment_provider: provider,
       }),
     });
 
     setUpgrading(null);
     setPendingUpgrade(null);
+    setCheckoutOpen(null);
+    setCheckout(null);
 
     if (completeRes.ok) {
       const result = await completeRes.json();
@@ -229,6 +268,101 @@ export function PackageAccessCenterPanel({ labels }: PackageAccessCenterPanelPro
           <p className="mt-3 text-sm text-gray-500">{labels.noLocked}</p>
         )}
       </section>
+
+      {checkoutOpen && labels.upgradeFlow && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
+            <h2 className="text-xl font-semibold text-gray-900">{labels.upgradeFlow.title}</h2>
+            {checkoutLoading || !checkout ? (
+              <p className="mt-4 text-sm text-gray-500">{labels.upgrading}</p>
+            ) : (
+              <dl className="mt-4 space-y-3 text-sm">
+                <div className="flex justify-between">
+                  <dt className="text-gray-500">{labels.upgradeFlow.currentPlan}</dt>
+                  <dd className="font-medium">{labels.tiers[checkout.current_plan] ?? checkout.current_plan}</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-gray-500">{labels.upgradeFlow.newPlan}</dt>
+                  <dd className="font-medium">{labels.tiers[checkout.new_plan] ?? checkout.new_plan}</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-gray-500">{labels.upgradeFlow.currentPrice}</dt>
+                  <dd>${checkout.current_price_monthly} {labels.upgradeFlow.perMonth}</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-gray-500">{labels.upgradeFlow.newPrice}</dt>
+                  <dd>${checkout.new_price_monthly} {labels.upgradeFlow.perMonth}</dd>
+                </div>
+                <div className="flex justify-between border-t border-gray-100 pt-3">
+                  <dt className="font-medium text-gray-700">{labels.upgradeFlow.difference}</dt>
+                  <dd className="font-semibold text-indigo-700">
+                    +${checkout.price_difference_monthly} {labels.upgradeFlow.perMonth}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-gray-500">{labels.upgradeFlow.paymentProvider}</dt>
+                  <div className="mt-2 grid gap-2">
+                    {(["stripe", "klarna", "vipps", "dnb"] as PaymentProviderKey[]).map((key) => (
+                      <label
+                        key={key}
+                        className={`flex cursor-pointer items-center gap-3 rounded-xl border px-3 py-2 ${
+                          selectedProvider === key
+                            ? "border-indigo-300 bg-indigo-50/60"
+                            : "border-gray-200 bg-white"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="payment_provider"
+                          value={key}
+                          checked={selectedProvider === key}
+                          onChange={() => {
+                            setSelectedProvider(key);
+                            void loadCheckoutPreview(checkoutOpen, key);
+                          }}
+                          className="sr-only"
+                        />
+                        <PaymentProviderLogo
+                          provider={key}
+                          alt={labels.providerNames?.[key] ?? key}
+                        />
+                        <span className="text-sm font-medium text-gray-800">
+                          {labels.providerNames?.[key] ?? key}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                <p className="rounded-lg bg-emerald-50 px-3 py-2 text-emerald-900">
+                  {labels.upgradeFlow.access}: {checkout.instant_access_message}
+                </p>
+              </dl>
+            )}
+            <div className="mt-6 flex gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setCheckoutOpen(null);
+                  setCheckout(null);
+                }}
+                className="rounded-lg border border-gray-200 px-4 py-2 text-sm"
+              >
+                {labels.back}
+              </button>
+              <button
+                type="button"
+                disabled={upgrading === checkoutOpen.package_key || checkoutLoading}
+                onClick={() => void executeUpgrade(checkoutOpen, selectedProvider)}
+                className="rounded-lg bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700 disabled:opacity-60"
+              >
+                {upgrading === checkoutOpen.package_key
+                  ? labels.upgradeFlow.confirming
+                  : labels.upgradeFlow.confirm}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
         <h2 className="text-base font-semibold text-gray-900">{labels.auditTitle}</h2>

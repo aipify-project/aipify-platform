@@ -1,0 +1,51 @@
+{
+  "placeholder": "Søk etter hva som helst...",
+  "close": "Lukk kommandolinjen",
+  "noResults": "Ingen treff for kommandoer eller destinasjoner.",
+  "sections": {
+    "navigation": "Navigasjon",
+    "action": "Handlinger",
+    "search": "Søkeresultater",
+    "recommendation": "Anbefalinger",
+    "recent": "Nylig"
+  },
+  "shortcuts": {
+    "title": "Tastatur",
+    "navigate": "↑↓ Naviger",
+    "select": "↵ Velg",
+    "close": "Esc Lukk",
+    "open": "⌘K / Ctrl+K Åpne"
+  },
+  "recommendations": {
+    "pendingApprovals": "Gjennomgå ventende godkjenninger",
+    "failedAutomations": "Gjennomgå mislykkede automatiseringer",
+    "growthPartnerApplications": "Growth Partner-søknader krever oppmerksomhet",
+    "executiveSummary": "Be Aipify om et executive sammendrag"
+  },
+  "openCommandBar": "Åpne kommandolinje",
+  "actions": {
+    "createAutomation": "Opprett automatisering",
+    "exportAuditLogs": "Eksporter revisjonslogger",
+    "viewFailedWorkflows": "Vis mislykkede arbeidsflyter",
+    "launchInstallWizard": "Start installasjonsveiviser",
+    "generateExecutiveReport": "Generer executive-rapport",
+    "findGrowthPartners": "Finn Growth Partners",
+    "superAdminAudit": "Åpne Super Admin-revisjon",
+    "searchKnowledgeCenter": "Søk i Knowledge Center",
+    "inviteGrowthPartner": "Inviter Growth Partner",
+    "openCustomerProfile": "Åpne kundeprofil",
+    "restartFailedWorkflow": "Start mislykket arbeidsflyt på nytt"
+  },
+  "categories": {
+    "customers": "Kunder",
+    "support": "Support",
+    "knowledge": "Kunnskap",
+    "skills": "Skills",
+    "actions": "Handlinger",
+    "growthPartners": "Growth Partners",
+    "automations": "Automatiseringer",
+    "users": "Brukere",
+    "subscriptions": "Abonnementer",
+    "modules": "Moduler"
+  }
+}
