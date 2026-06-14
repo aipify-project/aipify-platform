@@ -57,7 +57,8 @@
     "organizationalResilienceLink": "Organizational Resilience",
     "opportunityDiscoveryLink": "Opportunity Discovery",
     "organizationalHealthLink": "Organizational Health",
-    "changeManagementLink": "Change Management"
+    "changeManagementLink": "Change Management",
+    "organizationalDigitalTwinLink": "Organizational Digital Twin"
   },
   "presence": {
     "title": "Presence center",
@@ -7132,7 +7133,8 @@
     "deploymentGovernanceCenterEngine": "Deployments",
     "platformObservabilityCenterEngine": "Platform Observability",
     "incidentCommandCenterEngine": "Incident Command",
-    "changeManagementCenterEngine": "Change Management"
+    "changeManagementCenterEngine": "Change Management",
+    "organizationalDigitalTwinCenterEngine": "Organizational Digital Twin"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -16518,5 +16520,95 @@
     },
     "settingsLink": "Change Management",
     "changeManagementLink": "Change Management"
+  },
+  "organizationalDigitalTwinCenter": {
+    "title": "Organizational Digital Twin",
+    "subtitle": "A living operational representation of structure, workflows, automations, systems, and knowledge — for understanding, not surveillance.",
+    "loading": "Loading Organizational Digital Twin…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Digital Twin philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "digitalTwinEngineLink": "Digital Twin Engine →",
+    "changeManagementLink": "Change Management →",
+    "organizationalHealthLink": "Organizational Health →",
+    "simulationsLink": "Simulations →",
+    "dashboardTitle": "Digital Twin dashboard",
+    "domainsTitle": "Structural domains",
+    "nodesTitle": "Structural nodes",
+    "relationshipsTitle": "Relationship map",
+    "dependenciesTitle": "Critical dependencies",
+    "visualizationsTitle": "Visualizations",
+    "impactTitle": "Impact analysis",
+    "snapshotsTitle": "Organizational snapshots",
+    "comparisonsTitle": "Change comparison",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive view",
+    "reviewsTitle": "Governance reviews",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "captureSnapshot": "Capture snapshot",
+    "completeReview": "Complete review",
+    "generateSummary": "Generate executive summary",
+    "exportMap": "Export dependency map",
+    "generateDiagram": "Generate workflow diagram",
+    "humansDecide": "Aipify visualizes reality — leaders decide what to change.",
+    "privacyNote": "Privacy",
+    "domains": {
+      "organizational": "Organizational structure",
+      "workflow": "Workflow structure",
+      "automation": "Automation structure",
+      "technology": "Technology structure",
+      "knowledge": "Knowledge structure"
+    },
+    "nodeTypes": {
+      "department": "Department",
+      "team": "Team",
+      "workflow": "Workflow",
+      "automation": "Automation",
+      "integration": "Integration",
+      "knowledge": "Knowledge asset"
+    },
+    "relationshipTypes": {
+      "handoff": "Workflow handoff",
+      "approval": "Approval dependency",
+      "dependency": "System dependency",
+      "knowledge": "Knowledge dependency",
+      "system": "System relationship"
+    },
+    "vizTypes": {
+      "org_map": "Organization map",
+      "workflow_diagram": "Workflow diagram",
+      "dependency_network": "Dependency network",
+      "escalation_structure": "Escalation structure",
+      "automation_map": "Automation map"
+    },
+    "riskLevels": {
+      "low": "Low risk",
+      "medium": "Medium risk",
+      "high": "High risk",
+      "critical": "Critical risk"
+    },
+    "metrics": {
+      "nodes": "Structural nodes",
+      "relationships": "Relationships mapped",
+      "dependencies": "Critical dependencies",
+      "workflowHealth": "Workflow health",
+      "automation": "Automation coverage",
+      "knowledge": "Knowledge distribution",
+      "maturity": "Workflow maturity",
+      "confidence": "Leadership confidence"
+    },
+    "executiveFields": {
+      "complexity": "Complexity indicators",
+      "risks": "Dependency risks",
+      "maturity": "Workflow maturity",
+      "opportunities": "Structural opportunities",
+      "priorities": "Executive priorities"
+    },
+    "settingsLink": "Organizational Digital Twin",
+    "organizationalDigitalTwinLink": "Organizational Digital Twin"
   }
 }

@@ -1109,3 +1109,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Change Management Engine (Phase 314):** See [AIPIFY_CHANGE_MANAGEMENT_CENTER_ENGINE_PHASE314.md](./AIPIFY_CHANGE_MANAGEMENT_CENTER_ENGINE_PHASE314.md) — Change Management Center at Executive Center → Change Management. Initiative workflow, stakeholder mapping, communications, training coordination, adoption analytics, and feedback. `/app/executive/change-management`, migration `20261424200000_aipify_change_management_center_engine_phase314.sql`. Helpers `_cmg_*`, `_cmgbp314_*`. APIs at `/api/change-management/*`. Cross-links executive centers — does not modify their RPCs.
+
+
+**Aipify Organizational Digital Twin Center Engine (Phase 315):** See [AIPIFY_ORGANIZATIONAL_DIGITAL_TWIN_CENTER_ENGINE_PHASE315.md](./AIPIFY_ORGANIZATIONAL_DIGITAL_TWIN_CENTER_ENGINE_PHASE315.md) — Digital Twin Center at Executive Center → Organizational Digital Twin. Structural domains, dependency maps, impact analysis, snapshots, and change comparison. `/app/executive/organizational-digital-twin`, migration `20261424300000_aipify_organizational_digital_twin_center_engine_phase315.sql`. Helpers `_dtc_*`, `_dtcbp315_*`. APIs at `/api/organizational-digital-twin/*`. Cross-links legacy Digital Twin Engine — does not modify its RPCs.

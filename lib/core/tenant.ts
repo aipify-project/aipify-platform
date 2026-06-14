@@ -262,3 +262,4 @@ export * from "./aipify-deployment-governance-engine";
 export * from "./aipify-platform-observability-engine";
 export * from "./aipify-incident-command-recovery-engine";
 export * from "./aipify-change-management-center-engine";
+export * from "./aipify-organizational-digital-twin-center-engine";
