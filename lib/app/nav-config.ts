@@ -236,6 +236,7 @@ export type AppNavId =
   | "wisdomEngine"
   | "wisdomInterventionProtocol"
   | "briefing"
+  | "organizationalHopeCenterEngine"
   | "organizationalCourageCenterEngine"
   | "organizationalCuriosityCenterEngine"
   | "organizationalHarmonyCenterEngine"
@@ -1462,6 +1463,7 @@ export const APP_NAV: AppNavItem[] = [
     href: "/app/executive-intelligence",
     labelKey: "customerApp.nav.executiveIntelligenceEngine",
   },
+  { id: "organizationalHopeCenterEngine", href: "/app/executive/organizational-hope", labelKey: "customerApp.nav.organizationalHopeCenterEngine" },
   { id: "organizationalCourageCenterEngine", href: "/app/executive/organizational-courage", labelKey: "customerApp.nav.organizationalCourageCenterEngine" },
   { id: "organizationalCuriosityCenterEngine", href: "/app/executive/organizational-curiosity", labelKey: "customerApp.nav.organizationalCuriosityCenterEngine" },
   { id: "organizationalHarmonyCenterEngine", href: "/app/executive/organizational-harmony", labelKey: "customerApp.nav.organizationalHarmonyCenterEngine" },
@@ -2261,6 +2263,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/shared-compassion-reciprocal-care-engine")) {
     return "sharedCompassionReciprocalCareEngine";
   }
+  if (pathname.startsWith("/app/executive/organizational-hope")) return "organizationalHopeCenterEngine";
   if (pathname.startsWith("/app/executive/organizational-courage")) return "organizationalCourageCenterEngine";
   if (pathname.startsWith("/app/executive/organizational-curiosity")) return "organizationalCuriosityCenterEngine";
   if (pathname.startsWith("/app/executive/organizational-harmony")) return "organizationalHarmonyCenterEngine";

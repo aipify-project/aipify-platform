@@ -1214,3 +1214,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Courage Center Engine (Phase 349):** See [AIPIFY_ORGANIZATIONAL_COURAGE_CENTER_ENGINE_PHASE349.md](./AIPIFY_ORGANIZATIONAL_COURAGE_CENTER_ENGINE_PHASE349.md) — Courage Center at Executive Center → Organizational Courage. Courage dashboard, difficult conversation engine, reviews, and executive courage view. `/app/executive/organizational-courage`, migration `20261427800000_aipify_organizational_courage_center_engine_phase349.sql`. Helpers `_occe_*`, `_occebp349_*`. APIs at `/api/organizational-courage/*`. Cross-links curiosity center.
+
+
+**Aipify Organizational Hope Center Engine (Phase 350):** See [AIPIFY_ORGANIZATIONAL_HOPE_CENTER_ENGINE_PHASE350.md](./AIPIFY_ORGANIZATIONAL_HOPE_CENTER_ENGINE_PHASE350.md) — Hope Center at Executive Center → Organizational Hope. Hope dashboard, progress recognition engine, reviews, and executive hope view. `/app/executive/organizational-hope`, migration `20261427900000_aipify_organizational_hope_center_engine_phase350.sql`. Helpers `_oceh_*`, `_ocehbp350_*`. APIs at `/api/organizational-hope/*`. Cross-links courage center.

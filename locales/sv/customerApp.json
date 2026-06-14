@@ -90,7 +90,8 @@
     "organizationalAwarenessLink": "Organizational Awareness",
     "organizationalHarmonyLink": "Organizational Harmony",
     "organizationalCuriosityLink": "Organizational Curiosity",
-    "organizationalCourageLink": "Organizational Courage"
+    "organizationalCourageLink": "Organizational Courage",
+    "organizationalHopeLink": "Organizational Hope"
   },
   "presence": {
     "title": "Presence center",
@@ -6080,7 +6081,8 @@
     "organizationalAwarenessCenterEngine": "Organisatorisk medvetenhet",
     "organizationalHarmonyCenterEngine": "Organisatorisk harmoni",
     "organizationalCuriosityCenterEngine": "Organisatorisk nyfikenhet",
-    "organizationalCourageCenterEngine": "Organisatoriskt mod"
+    "organizationalCourageCenterEngine": "Organisatoriskt mod",
+    "organizationalHopeCenterEngine": "Organisatoriskt hopp"
   },
   "identity": {
     "title": "Din identitet",
@@ -19867,5 +19869,118 @@
     },
     "settingsLink": "Organisatoriskt mod",
     "organizationalCourageLink": "Organizational Courage"
+  },
+  "organizationalHopeCenter": {
+    "title": "Organisatoriskt hopp",
+    "subtitle": "Cultivate realistic hope by strengthening confidence in the future through purpose, progress, resilience, learning, and collective belief in the organization's ability to overcome challenges and achieve meaningful outcomes.",
+    "loading": "Loading Hope Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Hope philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalCourageLink": "Organizational Courage →",
+    "dashboardTitle": "Hope dashboard",
+    "signalsTitle": "Hope engine",
+    "progressTitle": "Progress recognition engine",
+    "initiativesTitle": "Hope initiatives",
+    "reviewsTitle": "Hope reviews",
+    "timelineTitle": "Hope timeline",
+    "milestonesTitle": "Hope milestones",
+    "snapshotsTitle": "Hope snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive hope view",
+    "sessionsTitle": "Hope sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate hope report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export hope snapshot",
+    "coordinateDiscussion": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive hope milestone",
+    "humansDecide": "Aipify supports grounded optimism — leaders retain honest communication; hope encourages realistic confidence without false promises, toxic positivity, or minimizing real challenges.",
+    "privacyNote": "Privacy",
+    "hopeScore": "Organizational hope score",
+    "progressIndicators": "Progress indicators",
+    "domains": {
+      "leadership": "Leadership hope",
+      "workforce": "Workforce hope",
+      "customer": "Customer hope",
+      "strategic": "Strategic hope",
+      "organizational": "Organizational hope",
+      "community": "Community hope"
+    },
+    "signalTypes": {
+      "positive_momentum": "Positive momentum",
+      "future_confidence": "Future confidence",
+      "leadership_encouragement": "Leadership encouragement",
+      "resilience_development": "Resilience development",
+      "meaningful_progress": "Meaningful progress"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "progressTypes": {
+      "progress_made": "Progress made",
+      "strengths_emerged": "Strengths emerged",
+      "opportunities_available": "Opportunities available",
+      "confidence_forward": "Confidence forward",
+      "reinforce_resilience": "Reinforce resilience"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "hope_reinforcement_recommended": "Hope reinforcement recommended"
+    },
+    "timelineTypes": {
+      "organizational_breakthrough": "Organizational breakthrough",
+      "recovery_milestone": "Recovery milestone",
+      "leadership_reflection": "Leadership reflection",
+      "strategic_achievement": "Strategic achievement",
+      "cultural_development": "Cultural development"
+    },
+    "reviewTypes": {
+      "quarterly_hope": "Quarterly hope review",
+      "leadership_reflection": "Leadership reflection session",
+      "purpose_discussion": "Purpose discussion",
+      "annual_organizational_assessment": "Annual organizational assessment"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "purpose_discussion": "Purpose discussion",
+      "leadership_discussion": "Leadership discussion"
+    },
+    "metrics": {
+      "progressRecognitionMetric": "Progress recognition",
+      "leadershipCommunication": "Leadership communication consistency",
+      "purposeAlignment": "Purpose alignment",
+      "learningParticipation": "Learning participation",
+      "organizationalResilienceMetric": "Organizational resilience",
+      "futureConfidence": "Future confidence trends",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "leadershipConfidence": "Leadership confidence indicators",
+      "organizationalResilience": "Organizational resilience measures",
+      "progressRecognition": "Progress recognition trends",
+      "futureOpportunity": "Future opportunity perspectives"
+    },
+    "settingsLink": "Organisatoriskt hopp",
+    "organizationalHopeLink": "Organizational Hope"
   }
 }
