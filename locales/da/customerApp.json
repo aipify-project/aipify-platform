@@ -1177,7 +1177,8 @@
       "archived": "Arkiveret"
     },
     "organizationalMemoryLink": "Organizational Memory",
-    "organizationalLearningLink": "Organizational Learning"
+    "organizationalLearningLink": "Organizational Learning",
+    "knowledgeEvolutionLink": "Knowledge Evolution"
   },
   "learningEngine": {
     "title": "Learning Engine",
@@ -5960,7 +5961,8 @@
     "incidentCommandCenterEngine": "Incident Command",
     "changeManagementCenterEngine": "Forandringsledelse",
     "organizationalDigitalTwinCenterEngine": "Organisationens digitale tvilling",
-    "organizationalLearningCenterEngine": "Organisationslæring"
+    "organizationalLearningCenterEngine": "Organisationslæring",
+    "knowledgeEvolutionCenterEngine": "Vidensudvikling"
   },
   "identity": {
     "title": "Din identitet",
@@ -16317,5 +16319,95 @@
     },
     "settingsLink": "Organisationslæring",
     "organizationalLearningLink": "Organizational Learning"
+  },
+  "knowledgeEvolutionCenter": {
+    "title": "Vidensudviklingscenter",
+    "subtitle": "Continuously improve, refine, and evolve organizational knowledge — accurate, relevant, discoverable, and useful over time.",
+    "loading": "Loading Knowledge Evolution Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Evolution philosophy",
+    "visionTitle": "Vision",
+    "knowledgeCenterLink": "Knowledge Center →",
+    "organizationalLearningLink": "Organizational Learning →",
+    "organizationalMemoryLink": "Organizational Memory →",
+    "knowledgeEngineLink": "Knowledge Center Engine →",
+    "employeeKnowledgeLink": "Employee Knowledge →",
+    "dashboardTitle": "Knowledge dashboard",
+    "domainsTitle": "Knowledge domains",
+    "assetsTitle": "Knowledge assets",
+    "reviewQueueTitle": "Review queue",
+    "versionHistoryTitle": "Version history",
+    "smeTitle": "SME validation",
+    "lifecycleTitle": "Knowledge lifecycle",
+    "searchTitle": "Search optimization",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive knowledge view",
+    "reviewsTitle": "Governance reviews",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "scheduleReview": "Schedule review",
+    "completeReview": "Complete review",
+    "markImproved": "Mark improved",
+    "generateReport": "Generate knowledge report",
+    "exportSnapshot": "Export health snapshot",
+    "humansDecide": "Aipify identifies evolution opportunities — SMEs and leaders approve all knowledge changes.",
+    "privacyNote": "Privacy",
+    "usage": "Usage",
+    "daysSinceReview": "Days since review",
+    "domains": {
+      "support": "Support knowledge",
+      "operational": "Operational knowledge",
+      "technical": "Technical knowledge",
+      "executive": "Executive knowledge",
+      "learning": "Learning knowledge"
+    },
+    "healthLabels": {
+      "excellent": "Excellent",
+      "healthy": "Healthy",
+      "needs_review": "Needs review",
+      "critical": "Critical"
+    },
+    "lifecycleStages": {
+      "created": "Knowledge created",
+      "validated": "Knowledge validated",
+      "published": "Knowledge published",
+      "utilized": "Knowledge utilized",
+      "reviewed": "Knowledge reviewed",
+      "improved": "Knowledge improved",
+      "archived": "Knowledge archived"
+    },
+    "reviewTypes": {
+      "aging": "Aging article",
+      "low_confidence": "Low confidence",
+      "frequently_questioned": "Frequently questioned",
+      "contradictory": "Contradictory information",
+      "underutilized": "Underutilized resource"
+    },
+    "validationTypes": {
+      "subject_matter": "Subject matter expert",
+      "technical": "Technical approval",
+      "leadership": "Leadership validation",
+      "cross_functional": "Cross-functional contribution"
+    },
+    "metrics": {
+      "totalAssets": "Total knowledge assets",
+      "requiringReview": "Requiring review",
+      "outdated": "Outdated indicators",
+      "recentlyImproved": "Recently improved",
+      "reviewCompletion": "Review completion",
+      "searchEffectiveness": "Search effectiveness",
+      "utilization": "Utilization rate",
+      "trust": "Executive trust"
+    },
+    "executiveFields": {
+      "maturity": "Knowledge maturity",
+      "risks": "Risk indicators",
+      "validation": "Validation participation",
+      "momentum": "Improvement momentum"
+    },
+    "settingsLink": "Vidensudvikling",
+    "knowledgeEvolutionLink": "Knowledge Evolution"
   }
 }

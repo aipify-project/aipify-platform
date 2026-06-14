@@ -19,7 +19,7 @@ type KnowledgeCenterPanelProps = {
     actions: { createArticle: string; importSeed: string; createFromGap: string; dismiss: string; publish: string };
     emptyArticles: string;
     emptyGaps: string;
-    links: { gaps: string; settings: string; organizationalMemory?: string; organizationalLearning?: string };
+    links: { gaps: string; settings: string; organizationalMemory?: string; organizationalLearning?: string; knowledgeEvolution?: string };
     statuses: Record<string, string>;
   };
 };
@@ -104,6 +104,7 @@ export function KnowledgeCenterPanel({ labels }: KnowledgeCenterPanelProps) {
         </div>
         <div className="flex flex-wrap gap-2">
           <Link href="/app/knowledge-center/gaps" className="rounded-lg border px-3 py-1.5 text-sm">{labels.links.gaps}</Link>
+          <Link href="/app/knowledge-center/knowledge-evolution" className="rounded-lg border px-3 py-1.5 text-sm">{labels.links.knowledgeEvolution ?? "Knowledge Evolution"}</Link>
           <Link href="/app/knowledge-center/organizational-learning" className="rounded-lg border px-3 py-1.5 text-sm">{labels.links.organizationalLearning ?? "Organizational Learning"}</Link>
           <Link href="/app/knowledge-center/organizational-memory" className="rounded-lg border px-3 py-1.5 text-sm">{labels.links.organizationalMemory ?? "Organizational Memory"}</Link>
           <Link href="/app/settings/knowledge" className="rounded-lg border px-3 py-1.5 text-sm">{labels.links.settings}</Link>

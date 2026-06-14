@@ -1,0 +1,4 @@
+ABOS Phase 317 — Knowledge Evolution Center
+Route: /app/knowledge-center/knowledge-evolution
+Core: Knowledge loses value when it becomes outdated.
+Helpers: _kec_* · _kecbp317_*

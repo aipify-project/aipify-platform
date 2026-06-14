@@ -1115,3 +1115,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Learning Center Engine (Phase 316):** See [AIPIFY_ORGANIZATIONAL_LEARNING_CENTER_ENGINE_PHASE316.md](./AIPIFY_ORGANIZATIONAL_LEARNING_CENTER_ENGINE_PHASE316.md) — Organizational Learning Center at Knowledge Center → Organizational Learning. Lessons learned, validation workflow, pattern detection, best practices, and executive learning view. `/app/knowledge-center/organizational-learning`, migration `20261424400000_aipify_organizational_learning_center_engine_phase316.sql`. Helpers `_olc_*`, `_olcbp316_*`. APIs at `/api/organizational-learning/*`. Cross-links Knowledge Center, OMC, Learning Review — does not modify their RPCs.
+
+
+**Aipify Knowledge Evolution Center Engine (Phase 317):** See [AIPIFY_KNOWLEDGE_EVOLUTION_CENTER_ENGINE_PHASE317.md](./AIPIFY_KNOWLEDGE_EVOLUTION_CENTER_ENGINE_PHASE317.md) — Knowledge Evolution Center at Knowledge Center → Knowledge Evolution. Knowledge health, review queue, lifecycle, SME validation, version history, and search optimization. `/app/knowledge-center/knowledge-evolution`, migration `20261424500000_aipify_knowledge_evolution_center_engine_phase317.sql`. Helpers `_kec_*`, `_kecbp317_*`. APIs at `/api/knowledge-evolution/*`. Cross-links Knowledge Center, OLC, OMC — does not modify their RPCs.

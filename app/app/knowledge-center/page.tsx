@@ -49,6 +49,7 @@ export default async function KnowledgeCenterPage() {
           settings: t("customerApp.knowledge.links.settings"),
           organizationalMemory: t("customerApp.knowledge.organizationalMemoryLink"),
           organizationalLearning: t("customerApp.knowledge.organizationalLearningLink"),
+          knowledgeEvolution: t("customerApp.knowledge.knowledgeEvolutionLink"),
         },
         statuses,
       }}
