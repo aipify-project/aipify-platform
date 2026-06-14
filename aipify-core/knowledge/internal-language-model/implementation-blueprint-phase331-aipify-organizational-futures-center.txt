@@ -1,0 +1,4 @@
+ABOS Phase 331 — Organizational Futures Center
+Route: /app/executive/organizational-futures
+Core: The future cannot be predicted with certainty — it can be explored thoughtfully.
+Helpers: _ofc_* · _ofcbp331_*

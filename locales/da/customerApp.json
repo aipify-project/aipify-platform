@@ -71,7 +71,8 @@
     "organizationalStewardshipLink": "Organizational Stewardship",
     "organizationalSimplicityLink": "Organizational Simplicity",
     "organizationalTrustLink": "Organizational Trust",
-    "organizationalMomentumLink": "Organizational Momentum"
+    "organizationalMomentumLink": "Organizational Momentum",
+    "organizationalFuturesLink": "Organizational Futures"
   },
   "presence": {
     "title": "Presence center",
@@ -5988,7 +5989,8 @@
     "organizationalStewardshipCenterEngine": "Organisationsforvaltning",
     "organizationalSimplicityCenterEngine": "Organisationsenkelhed",
     "organizationalTrustCenterEngine": "Organisatorisk tillid",
-    "organizationalMomentumCenterEngine": "Organisatorisk momentum"
+    "organizationalMomentumCenterEngine": "Organisatorisk momentum",
+    "organizationalFuturesCenterEngine": "Organisatorisk fremtid"
   },
   "identity": {
     "title": "Din identitet",
@@ -17644,5 +17646,133 @@
     },
     "settingsLink": "Organisatorisk momentum",
     "organizationalMomentumLink": "Organizational Momentum"
+  },
+  "organizationalFuturesCenter": {
+    "title": "Organisatorisk fremtid",
+    "subtitle": "Explore possible futures, strengthen preparedness, improve long-term thinking, and make more informed strategic decisions in the face of uncertainty.",
+    "loading": "Loading Futures Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Futures philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalMomentumLink": "Organizational Momentum →",
+    "organizationalTrustLink": "Organizational Trust →",
+    "organizationalStewardshipLink": "Organizational Stewardship →",
+    "organizationalSimplicityLink": "Organizational Simplicity →",
+    "organizationalPurposeLink": "Organizational Purpose →",
+    "dashboardTitle": "Futures dashboard",
+    "scenariosTitle": "Scenario exploration",
+    "signalsTitle": "Signal detection",
+    "readinessTitle": "Readiness engine",
+    "reviewsTitle": "Futures reviews",
+    "timelineTitle": "Futures timeline",
+    "archivesTitle": "Archived scenarios",
+    "snapshotsTitle": "Foresight snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive futures view",
+    "sessionsTitle": "Futures sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleWorkshop": "Schedule executive workshop",
+    "exploreScenario": "Mark scenario explored",
+    "generateReport": "Generate futures report",
+    "printSummary": "Print scenario summary",
+    "exportSnapshot": "Export foresight snapshot",
+    "coordinateReflection": "Coordinate leadership reflection",
+    "archiveHistory": "Archive scenario history",
+    "humansDecide": "Aipify supports thoughtful exploration — leadership owns strategic judgment and preparedness decisions.",
+    "privacyNote": "Privacy",
+    "readinessScore": "Future readiness score",
+    "domains": {
+      "market": "Market futures",
+      "technology": "Technology futures",
+      "workforce": "Workforce futures",
+      "customer": "Customer futures",
+      "organizational": "Organizational futures"
+    },
+    "scenarioTypes": {
+      "best_case": "Best case scenario",
+      "expected": "Expected scenario",
+      "challenging": "Challenging scenario",
+      "transformational": "Transformational scenario"
+    },
+    "scenarioStatuses": {
+      "draft": "Draft",
+      "explored": "Explored"
+    },
+    "signalTypes": {
+      "emerging_opportunity": "Emerging opportunity",
+      "environmental_shift": "Environmental shift",
+      "customer_change": "Customer change",
+      "technology_development": "Technology development",
+      "workforce_transition": "Workforce transition"
+    },
+    "signalTones": {
+      "positive": "Positive signal",
+      "neutral": "Neutral signal",
+      "attention": "Needs attention"
+    },
+    "readinessLevels": {
+      "highly_prepared": "Highly prepared",
+      "prepared": "Prepared",
+      "developing": "Developing",
+      "limited_readiness": "Limited readiness",
+      "review_recommended": "Review recommended"
+    },
+    "readinessDimensions": {
+      "capabilities": "Capabilities",
+      "governance": "Governance",
+      "technology": "Technology",
+      "leadership": "Leadership",
+      "knowledge": "Knowledge",
+      "strategic_flexibility": "Strategic flexibility"
+    },
+    "healthLabels": {
+      "highly_prepared": "Highly prepared",
+      "prepared": "Prepared",
+      "developing": "Developing",
+      "limited_readiness": "Limited readiness",
+      "review_recommended": "Review recommended"
+    },
+    "timelineTypes": {
+      "scenario_explored": "Scenario explored",
+      "signal_detected": "Signal detected",
+      "strategic_adjustment": "Strategic adjustment",
+      "preparedness_initiative": "Preparedness initiative",
+      "executive_reflection": "Executive reflection"
+    },
+    "reviewTypes": {
+      "quarterly_futures": "Quarterly futures discussion",
+      "annual_scenario_planning": "Annual scenario planning",
+      "strategic_foresight": "Strategic foresight workshop",
+      "executive_reflection": "Executive reflection meeting"
+    },
+    "sessionTypes": {
+      "executive_workshop": "Executive workshop",
+      "leadership_reflection": "Leadership reflection",
+      "scenario_planning": "Scenario planning"
+    },
+    "metrics": {
+      "scenariosExplored": "Scenarios explored",
+      "signals": "Signals identified",
+      "preparedness": "Preparedness initiatives",
+      "reviews": "Review participation",
+      "capabilities": "Capabilities readiness",
+      "technology": "Technology readiness",
+      "flexibility": "Strategic flexibility",
+      "confidence": "Executive confidence"
+    },
+    "executiveFields": {
+      "scenarioReadiness": "Scenario readiness",
+      "resilience": "Strategic resilience",
+      "signals": "Emerging signals",
+      "opportunities": "Long-term opportunities"
+    },
+    "settingsLink": "Organisatorisk fremtid",
+    "organizationalFuturesLink": "Organizational Futures"
   }
 }

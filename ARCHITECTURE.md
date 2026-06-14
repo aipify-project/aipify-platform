@@ -1157,3 +1157,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Momentum Center Engine (Phase 330):** See [AIPIFY_ORGANIZATIONAL_MOMENTUM_CENTER_ENGINE_PHASE330.md](./AIPIFY_ORGANIZATIONAL_MOMENTUM_CENTER_ENGINE_PHASE330.md) — Momentum Center at Executive Center → Organizational Momentum. Momentum engine, milestone recognition, reviews, and executive momentum view. `/app/executive/organizational-momentum`, migration `20261425800000_aipify_organizational_momentum_center_engine_phase330.sql`. Helpers `_ommc_*`, `_ommcbp330_*`. APIs at `/api/organizational-momentum/*`. Cross-links trust, stewardship, simplicity, and purpose centers.
+
+
+**Aipify Organizational Futures Center Engine (Phase 331):** See [AIPIFY_ORGANIZATIONAL_FUTURES_CENTER_ENGINE_PHASE331.md](./AIPIFY_ORGANIZATIONAL_FUTURES_CENTER_ENGINE_PHASE331.md) — Futures Center at Executive Center → Organizational Futures. Scenario exploration, signal detection, readiness engine, and executive futures view. `/app/executive/organizational-futures`, migration `20261425900000_aipify_organizational_futures_center_engine_phase331.sql`. Helpers `_ofc_*`, `_ofcbp331_*`. APIs at `/api/organizational-futures/*`. Cross-links momentum, trust, stewardship, simplicity, and purpose centers.
