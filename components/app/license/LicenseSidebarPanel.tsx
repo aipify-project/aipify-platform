@@ -9,31 +9,35 @@ import { resolveAppHref } from "@/lib/app/route-aliases";
 import { createClient } from "@/lib/supabase/client";
 
 type LicenseSidebarPanelProps = {
-  companyName: string;
   labels: {
-    poweredBy: string;
+    workspace: string;
     licensedTo: string;
-    subscription: string;
+    plan: string;
     status: string;
     version: string;
+    poweredBy: string;
     copyright: string;
     statusActive: string;
     statusGrace: string;
     statusPaused: string;
+    statusUnknown: string;
+    notConfigured: string;
+    notAssigned: string;
     pulseLabel: string;
   };
 };
 
 type LicenseSummary = {
+  licensed_to: string | null;
   plan_name: string | null;
-  license_status: string;
-  software_version: string;
+  license_status: string | null;
+  software_version: string | null;
+  software_owner: string | null;
+  has_customer: boolean;
 };
 
-export default function LicenseSidebarPanel({
-  companyName,
-  labels,
-}: LicenseSidebarPanelProps) {
+export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps) {
+  const [workspaceName, setWorkspaceName] = useState<string | null>(null);
   const [summary, setSummary] = useState<LicenseSummary | null>(null);
   const licenseHref = resolveAppHref("/app/license");
   const { sidebarMark } = AIPIFY_BRAND;
@@ -41,12 +45,38 @@ export default function LicenseSidebarPanel({
   useEffect(() => {
     async function load() {
       const supabase = createClient();
-      const { data } = await supabase.rpc("get_customer_license_center");
-      if (data && typeof data === "object" && data.has_customer) {
+
+      const [orgRes, licenseRes] = await Promise.all([
+        fetch("/api/organizations"),
+        supabase.rpc("get_customer_license_center"),
+      ]);
+
+      if (orgRes.ok) {
+        const orgData = (await orgRes.json()) as {
+          current?: { name?: string } | null;
+          organizations?: Array<{ name?: string }>;
+        };
+        const name =
+          orgData.current?.name ??
+          orgData.organizations?.[0]?.name ??
+          null;
+        setWorkspaceName(name);
+      }
+
+      const data = licenseRes.data;
+      if (data && typeof data === "object") {
+        const record = data as Record<string, unknown>;
+        const hasCustomer = record.has_customer === true;
         setSummary({
-          plan_name: (data.subscription as { plan_name?: string })?.plan_name ?? null,
-          license_status: String(data.license_status ?? "active"),
-          software_version: String(data.software_version ?? "1.0.0"),
+          has_customer: hasCustomer,
+          licensed_to:
+            typeof record.company_name === "string" ? record.company_name : null,
+          plan_name: (record.subscription as { plan_name?: string } | undefined)?.plan_name ?? null,
+          license_status: hasCustomer ? String(record.license_status ?? "active") : null,
+          software_version:
+            typeof record.software_version === "string" ? record.software_version : null,
+          software_owner:
+            typeof record.software_owner === "string" ? record.software_owner : null,
         });
       }
     }
@@ -58,7 +88,16 @@ export default function LicenseSidebarPanel({
       ? labels.statusGrace
       : summary?.license_status === "paused"
         ? labels.statusPaused
-        : labels.statusActive;
+        : summary?.license_status === "active"
+          ? labels.statusActive
+          : labels.statusUnknown;
+
+  const workspaceDisplay = workspaceName?.trim() || labels.notConfigured;
+  const licensedToDisplay =
+    summary?.licensed_to?.trim() ||
+    summary?.software_owner?.trim() ||
+    labels.notConfigured;
+  const planDisplay = summary?.plan_name?.trim() || labels.notAssigned;
 
   return (
     <Link
@@ -76,22 +115,26 @@ export default function LicenseSidebarPanel({
           className="mt-0.5 shrink-0 text-violet-600/80"
         />
         <div className="min-w-0 text-[11px] leading-snug text-gray-600">
-          <p className="font-medium text-gray-700">{labels.poweredBy} Aipify™</p>
-          <p className="mt-1 truncate">
-            <span className="text-gray-500">{labels.licensedTo}</span> {companyName}
+          <p className="truncate" title={`${labels.workspace} ${workspaceDisplay}`}>
+            <span className="text-gray-500">{labels.workspace}</span> {workspaceDisplay}
           </p>
-          <p className="truncate">
-            <span className="text-gray-500">{labels.subscription}</span>{" "}
-            {summary?.plan_name ?? "—"}
+          <p className="mt-1 truncate" title={`${labels.licensedTo} ${licensedToDisplay}`}>
+            <span className="text-gray-500">{labels.licensedTo}</span> {licensedToDisplay}
           </p>
-          <p>
+          <p className="truncate" title={`${labels.plan} ${planDisplay}`}>
+            <span className="text-gray-500">{labels.plan}</span> {planDisplay}
+          </p>
+          <p title={`${labels.status} ${statusLabel}`}>
             <span className="text-gray-500">{labels.status}</span> {statusLabel}
           </p>
           <p>
             <span className="text-gray-500">{labels.version}</span>{" "}
-            {formatSoftwareVersion(summary?.software_version)}
+            {formatSoftwareVersion(summary?.software_version ?? "1.0.0")}
           </p>
-          <p className="mt-2 text-[10px] text-gray-400">{labels.copyright}</p>
+          <p className="mt-2 font-medium text-gray-700">
+            {labels.poweredBy} Aipify™
+          </p>
+          <p className="mt-1 text-[10px] text-gray-400">{labels.copyright}</p>
         </div>
       </div>
     </Link>

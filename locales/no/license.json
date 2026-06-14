@@ -1,14 +1,19 @@
 {
   "sidebar": {
+    "workspace": "Workspace:",
     "poweredBy": "Drevet av",
     "licensedTo": "Lisensiert til:",
+    "plan": "Plan:",
     "subscription": "Abonnement:",
     "status": "Status:",
     "version": "Versjon:",
     "copyright": "© Aipify Group AS",
     "statusActive": "Aktiv",
     "statusGrace": "Utsettelsesperiode",
-    "statusPaused": "Pauset"
+    "statusPaused": "Pauset",
+    "statusUnknown": "Ukjent",
+    "notConfigured": "Ikke konfigurert",
+    "notAssigned": "Ikke tildelt"
   },
   "center": {
     "title": "Tillits- og lisensenter",

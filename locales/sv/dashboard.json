@@ -1,12 +1,19 @@
 {
   "greeting": "Welcome back",
   "subtitle": "Manage installations, team access, and platform settings.",
-  "search": "Search...",
+  "search": "Sök moduler, inställningar och åtgärder...",
   "sidebar": {
     "companyName": "Acme Corporation",
     "plan": "Business Plan",
     "controlCenter": "Control Center",
-    "customerControlCenter": "Customer Control Center"
+    "customerControlCenter": "Customer Control Center",
+    "workspaceControlCenter": "Workspace Control Center"
+  },
+  "navSearch": {
+    "hint": "⌘K search menu",
+    "compactToggle": "Compact navigation",
+    "results": "Search results",
+    "noResults": "Inga träffar"
   },
   "customerOverview": {
     "title": "Overview",

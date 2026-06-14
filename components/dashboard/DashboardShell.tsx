@@ -8,12 +8,14 @@ import { useOptionalDashboardProfile } from "./DashboardProfileProvider";
 import { AipifyPlatformBrandMark } from "@/components/branding";
 import { LicenseSidebarPanel } from "@/components/app/license";
 import Sidebar, { type NavItem } from "./Sidebar";
-import SidebarBrand from "./SidebarBrand";
+import GroupedSidebar from "./GroupedSidebar";
+import SidebarBrand, { SidebarBrandLegacy } from "./SidebarBrand";
 import { CompanionPresenceIndicator } from "@/components/app/companion-presence";
 import type { CompanionPresenceLabels } from "@/components/app/companion-presence";
 import { PresenceProvider, type PresenceLabels } from "@/components/presence/PresenceProvider";
 import Topbar from "./Topbar";
 import { OrganizationSwitcher } from "@/components/app/organization";
+import { buildAppNavConfig, type AppNavGroupConfig, type AppNavLink } from "@/lib/app/build-nav";
 import { getAppActiveNavId } from "@/lib/app/nav-config";
 import { getCustomerActiveNavId } from "@/lib/dashboard/nav-config";
 import { getPlatformActiveNavId } from "@/lib/platform/nav-config";
@@ -30,9 +32,15 @@ type DashboardShellProps = {
   profileFallbackName: string;
   companyFallbackName: string;
   signOutLabel: string;
-  navConfig: Array<{ id: string; href: string; label: string }>;
+  navConfig: AppNavLink[];
+  navGroups?: AppNavGroupConfig[];
+  navSearchIndex?: import("@/lib/app/nav-search").AppNavSearchEntry[];
+  navSearchNoResultsLabel?: string;
   shellVariant: "platform" | "customer";
   mobileNavIds: string[];
+  navSearchHint?: string;
+  navCompactToggleLabel?: string;
+  navSearchResultsLabel?: string;
   companyNameOverride?: string;
   platformBrandMark?: {
     poweredBy: string;
@@ -42,15 +50,19 @@ type DashboardShellProps = {
     pulseLabel: string;
   };
   licensePanelLabels?: {
-    poweredBy: string;
+    workspace: string;
     licensedTo: string;
-    subscription: string;
+    plan: string;
     status: string;
     version: string;
+    poweredBy: string;
     copyright: string;
     statusActive: string;
     statusGrace: string;
     statusPaused: string;
+    statusUnknown: string;
+    notConfigured: string;
+    notAssigned: string;
     pulseLabel: string;
   };
   presenceLabels?: PresenceLabels;
@@ -59,6 +71,10 @@ type DashboardShellProps = {
   organizationSwitcherLabels?: {
     label: string;
     switching: string;
+  };
+  twoFactorBadgeLabels?: {
+    enabled: string;
+    required: string;
   };
   children: React.ReactNode;
 };
@@ -75,8 +91,14 @@ export default function DashboardShell({
   companyFallbackName,
   signOutLabel,
   navConfig,
+  navGroups,
+  navSearchIndex,
+  navSearchNoResultsLabel,
   shellVariant,
   mobileNavIds,
+  navSearchHint,
+  navCompactToggleLabel,
+  navSearchResultsLabel,
   companyNameOverride,
   platformBrandMark,
   licensePanelLabels,
@@ -84,6 +106,7 @@ export default function DashboardShell({
   companionPresenceLabels,
   locale = "en",
   organizationSwitcherLabels,
+  twoFactorBadgeLabels,
   children,
 }: DashboardShellProps) {
   const pathname = usePathname();
@@ -99,6 +122,7 @@ export default function DashboardShell({
   const customerContext = useOptionalDashboardProfile();
   const platformContext = usePlatformProfile();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [navSearchQuery, setNavSearchQuery] = useState("");
 
   const navItems = useMemo<NavItem[]>(
     () =>
@@ -119,14 +143,61 @@ export default function DashboardShell({
     customerContext?.profile?.company.name ??
     companyFallbackName;
 
+  const profileRoleKey = customerContext?.profile?.user.role
+    ?? platformContext?.platformAdmin?.role
+    ?? "owner";
+
   const profileRole = customerContext?.profile
-    ? roleLabels[customerContext.profile.user.role]
+    ? roleLabels[customerContext.profile.user.role] ?? customerContext.profile.user.role
     : platformContext?.platformAdmin
-      ? roleLabels[platformContext.platformAdmin.role]
+      ? roleLabels[platformContext.platformAdmin.role] ?? platformContext.platformAdmin.role
       : roleLabels.owner;
 
   const profileLoading =
     customerContext?.loading ?? platformContext?.loading ?? false;
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        document.getElementById("app-nav-search")?.focus();
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const sidebarNav =
+    shellVariant === "customer" && navGroups && navSearchIndex ? (
+      <GroupedSidebar
+        groups={navGroups}
+        searchIndex={navSearchIndex}
+        activeId={activeNav}
+        searchQuery={navSearchQuery}
+        compactToggleLabel={navCompactToggleLabel}
+        searchResultsLabel={navSearchResultsLabel}
+        keyboardHint={navSearchHint}
+        noSearchResultsLabel={navSearchNoResultsLabel}
+      />
+    ) : (
+      <Sidebar
+        items={navItems}
+        activeId={activeNav}
+        activeAccent={shellVariant === "customer" ? "soft" : "default"}
+      />
+    );
+
+  const brandBlock =
+    shellVariant === "customer" ? (
+      <SidebarBrand companyName={companyName} shellLabel={shellLabel} />
+    ) : (
+      <SidebarBrandLegacy
+        appName={appName}
+        companyName={companyName}
+        plan={planName}
+        subtitle={shellLabel}
+      />
+    );
 
   useEffect(() => {
     document.body.style.overflow = sidebarOpen ? "hidden" : "";
@@ -142,24 +213,12 @@ export default function DashboardShell({
   const shell = (
     <div className="flex min-h-screen bg-gray-50">
       <aside className="hidden h-screen w-64 shrink-0 flex-col overflow-visible border-r border-gray-200 bg-white lg:flex">
-        <SidebarBrand
-          appName={appName}
-          companyName={companyName}
-          plan={planName}
-          subtitle={shellLabel}
-        />
+        {brandBlock}
         <div className="flex-1 overflow-y-auto p-4">
-          <Sidebar
-            items={navItems}
-            activeId={activeNav}
-            activeAccent={shellVariant === "customer" ? "soft" : "default"}
-          />
+          {sidebarNav}
         </div>
         {shellVariant === "customer" && licensePanelLabels ? (
-          <LicenseSidebarPanel
-            companyName={companyName}
-            labels={licensePanelLabels}
-          />
+          <LicenseSidebarPanel labels={licensePanelLabels} />
         ) : platformBrandMark ? (
           <AipifyPlatformBrandMark
             appName={appName}
@@ -182,12 +241,7 @@ export default function DashboardShell({
           />
           <aside className="absolute left-0 top-0 flex h-full w-72 flex-col overflow-visible bg-white shadow-xl">
             <div className="relative border-b border-gray-200">
-              <SidebarBrand
-                appName={appName}
-                companyName={companyName}
-                plan={planName}
-                subtitle={shellLabel}
-              />
+              {brandBlock}
               <button
                 type="button"
                 onClick={() => setSidebarOpen(false)}
@@ -200,18 +254,29 @@ export default function DashboardShell({
               </button>
             </div>
             <div className="flex-1 overflow-y-auto p-4">
-              <Sidebar
-                items={navItems}
-                activeId={activeNav}
-                onNavigate={() => setSidebarOpen(false)}
-                activeAccent={shellVariant === "customer" ? "soft" : "default"}
-              />
+              {shellVariant === "customer" && navGroups && navSearchIndex ? (
+                <GroupedSidebar
+                  groups={navGroups}
+                  searchIndex={navSearchIndex}
+                  activeId={activeNav}
+                  searchQuery={navSearchQuery}
+                  onNavigate={() => setSidebarOpen(false)}
+                  compactToggleLabel={navCompactToggleLabel}
+                  searchResultsLabel={navSearchResultsLabel}
+                  keyboardHint={navSearchHint}
+                  noSearchResultsLabel={navSearchNoResultsLabel}
+                />
+              ) : (
+                <Sidebar
+                  items={navItems}
+                  activeId={activeNav}
+                  onNavigate={() => setSidebarOpen(false)}
+                  activeAccent={shellVariant === "customer" ? "soft" : "default"}
+                />
+              )}
             </div>
             {shellVariant === "customer" && licensePanelLabels ? (
-              <LicenseSidebarPanel
-                companyName={companyName}
-                labels={licensePanelLabels}
-              />
+              <LicenseSidebarPanel labels={licensePanelLabels} />
             ) : platformBrandMark ? (
               <AipifyPlatformBrandMark
                 appName={appName}
@@ -229,6 +294,8 @@ export default function DashboardShell({
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar
           searchPlaceholder={searchPlaceholder}
+          searchQuery={navSearchQuery}
+          onSearchChange={setNavSearchQuery}
           companyName={companyName}
           companySelectorLabel={companySelectorLabel}
           organizationSwitcher={
@@ -243,8 +310,10 @@ export default function DashboardShell({
           notificationsLabel={notificationsLabel}
           profileName={profileName}
           profileRole={profileRole}
+          profileRoleKey={profileRoleKey}
           profileLoading={profileLoading}
           signOutLabel={signOutLabel}
+          twoFactorBadgeLabels={twoFactorBadgeLabels}
           onMenuClick={() => setSidebarOpen(true)}
         />
 

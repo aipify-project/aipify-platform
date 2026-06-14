@@ -1,14 +1,19 @@
 {
   "sidebar": {
+    "workspace": "Arbetsyta:",
     "poweredBy": "Drivs av",
     "licensedTo": "Licensierad till:",
+    "plan": "Plan:",
     "subscription": "Prenumeration:",
     "status": "Status:",
     "version": "Version:",
     "copyright": "© Aipify Group AS",
     "statusActive": "Aktiv",
     "statusGrace": "Anståndperiod",
-    "statusPaused": "Pausad"
+    "statusPaused": "Pausad",
+    "statusUnknown": "Okänd",
+    "notConfigured": "Inte konfigurerad",
+    "notAssigned": "Inte tilldelad"
   },
   "center": {
     "title": "Förtroende- och licenscenter",

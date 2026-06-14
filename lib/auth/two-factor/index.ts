@@ -2,6 +2,7 @@ export {
   generateTotpSecret,
   buildOtpAuthUrl,
   verifyTotpCode,
+  normalizeTotpSecret,
 } from "./totp";
 export { encryptTotpSecret, decryptTotpSecret } from "./encryption";
 export {

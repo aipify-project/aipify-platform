@@ -19,15 +19,19 @@ function getLicenseSections(dict: Dictionary) {
 
 export function buildLicensePanelLabels(t: Translator) {
   return {
-    poweredBy: t("license.sidebar.poweredBy"),
+    workspace: t("license.sidebar.workspace"),
     licensedTo: t("license.sidebar.licensedTo"),
-    subscription: t("license.sidebar.subscription"),
+    plan: t("license.sidebar.plan"),
     status: t("license.sidebar.status"),
     version: t("license.sidebar.version"),
+    poweredBy: t("license.sidebar.poweredBy"),
     copyright: t("license.sidebar.copyright"),
     statusActive: t("license.sidebar.statusActive"),
     statusGrace: t("license.sidebar.statusGrace"),
     statusPaused: t("license.sidebar.statusPaused"),
+    statusUnknown: t("license.sidebar.statusUnknown"),
+    notConfigured: t("license.sidebar.notConfigured"),
+    notAssigned: t("license.sidebar.notAssigned"),
     pulseLabel: t("branding.pulseLabel"),
   };
 }

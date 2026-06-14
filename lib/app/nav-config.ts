@@ -2,6 +2,8 @@ import { resolveAppHref } from "./route-aliases";
 
 export type AppNavId =
   | "overview"
+  | "securityHub"
+  | "signInVerification"
   | "aipifyCorePlatformEngine"
   | "multiTenantArchitectureEngine"
   | "organizationWorkspaceEngine"
@@ -2447,7 +2449,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/license") || pathname.startsWith("/dashboard/license")) {
     return "license";
   }
-  if (pathname.startsWith("/app/security") || pathname.startsWith("/app/settings/security")) {
+  if (pathname.startsWith("/app/settings/two-factor")) return "signInVerification";
+  if (pathname.startsWith("/app/settings/security")) return "securityHub";
+  if (pathname.startsWith("/app/security")) {
     return "security";
   }
   if (pathname.startsWith("/app/compliance")) {

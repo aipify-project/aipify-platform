@@ -3,23 +3,44 @@ import {
   decryptTotpSecret,
   verifyTotpCode,
 } from "@/lib/auth/two-factor";
+import { logTwoFactorAuditEvent } from "@/lib/auth/two-factor/audit";
 import { requireAuthenticatedUser } from "@/lib/auth/two-factor/api";
+import { verifyUserPassword } from "@/lib/auth/two-factor/verify-password";
 import { createClient } from "@/lib/supabase/server";
 
-type Body = { code?: string };
+type Body = { code?: string; password?: string };
 
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as Body;
     const code = body.code?.trim();
+    const password = body.password ?? "";
     if (!code) {
       return NextResponse.json({ error: "codeRequired" }, { status: 400 });
+    }
+    if (!password) {
+      return NextResponse.json({ error: "passwordRequired" }, { status: 400 });
     }
 
     const supabase = await createClient();
     const user = await requireAuthenticatedUser(supabase);
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const passwordOk = await verifyUserPassword(
+      supabase,
+      user.email ?? "",
+      password
+    );
+    if (!passwordOk) {
+      await logTwoFactorAuditEvent(
+        supabase,
+        "verification_failed",
+        "Sign-in verification disable blocked — invalid password",
+        { step: "password_confirmation" }
+      );
+      return NextResponse.json({ error: "invalidPassword" }, { status: 400 });
     }
 
     const { data: encrypted, error: secretError } = await supabase.rpc(
@@ -37,6 +58,11 @@ export async function POST(request: Request) {
     }
 
     if (!(await verifyTotpCode(secret, code))) {
+      await logTwoFactorAuditEvent(
+        supabase,
+        "verification_failed",
+        "Sign-in verification disable blocked — invalid authenticator code"
+      );
       return NextResponse.json({ error: "invalidCode" }, { status: 400 });
     }
 

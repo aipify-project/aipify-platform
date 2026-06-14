@@ -42,6 +42,8 @@ export function mapTwoFactorError(code: string): string {
     totp_verify_app_layer: "invalidCode",
     complete_failed: "generic",
     invalid_code: "invalidCode",
+    passwordRequired: "passwordRequired",
+    invalid_password: "invalidPassword",
     encryption_unavailable: "configError",
   };
   return map[code] ?? "generic";

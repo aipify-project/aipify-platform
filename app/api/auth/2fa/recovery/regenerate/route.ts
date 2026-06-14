@@ -5,6 +5,7 @@ import {
   hashRecoveryCode,
   verifyTotpCode,
 } from "@/lib/auth/two-factor";
+import { logTwoFactorAuditEvent } from "@/lib/auth/two-factor/audit";
 import { requireAuthenticatedUser } from "@/lib/auth/two-factor/api";
 import { createClient } from "@/lib/supabase/server";
 
@@ -39,6 +40,11 @@ export async function POST(request: Request) {
     }
 
     if (!(await verifyTotpCode(secret, code))) {
+      await logTwoFactorAuditEvent(
+        supabase,
+        "verification_failed",
+        "Recovery code regeneration failed — invalid authenticator code"
+      );
       return NextResponse.json({ error: "invalidCode" }, { status: 400 });
     }
 

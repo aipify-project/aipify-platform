@@ -1,14 +1,19 @@
 {
   "sidebar": {
+    "workspace": "Workspace:",
     "poweredBy": "Powered by",
     "licensedTo": "Licensed to:",
+    "plan": "Plan:",
     "subscription": "Subscription:",
     "status": "Status:",
     "version": "Version:",
     "copyright": "© Aipify Group AS",
     "statusActive": "Active",
     "statusGrace": "Grace period",
-    "statusPaused": "Paused"
+    "statusPaused": "Paused",
+    "statusUnknown": "Unknown",
+    "notConfigured": "Not configured",
+    "notAssigned": "Not assigned"
   },
   "center": {
     "title": "Trust & License Center",

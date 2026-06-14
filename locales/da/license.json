@@ -1,14 +1,19 @@
 {
   "sidebar": {
+    "workspace": "Workspace:",
     "poweredBy": "Drevet af",
     "licensedTo": "Licenseret til:",
+    "plan": "Plan:",
     "subscription": "Abonnement:",
     "status": "Status:",
     "version": "Version:",
     "copyright": "© Aipify Group AS",
     "statusActive": "Aktiv",
     "statusGrace": "Henstandsperiode",
-    "statusPaused": "Pauset"
+    "statusPaused": "Pauset",
+    "statusUnknown": "Ukendt",
+    "notConfigured": "Ikke konfigureret",
+    "notAssigned": "Ikke tildelt"
   },
   "center": {
     "title": "Tillids- og licenscenter",

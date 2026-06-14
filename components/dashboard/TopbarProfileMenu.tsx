@@ -2,11 +2,14 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { resolveProfileHeaderDisplay } from "@/lib/app/profile-display";
+import { RoleBadge } from "@/components/ui/RoleBadge";
 
 type TopbarProfileMenuProps = {
   profileName: string;
   companyName: string;
   profileRole: string;
+  profileRoleKey: string;
   profileLoading?: boolean;
   signOutLabel: string;
 };
@@ -15,6 +18,7 @@ export default function TopbarProfileMenu({
   profileName,
   companyName,
   profileRole,
+  profileRoleKey,
   profileLoading = false,
   signOutLabel,
 }: TopbarProfileMenuProps) {
@@ -22,7 +26,29 @@ export default function TopbarProfileMenu({
   const containerRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
+  const [workspaceName, setWorkspaceName] = useState<string | null>(null);
   const profileInitial = profileName.charAt(0).toUpperCase() || "?";
+
+  useEffect(() => {
+    void fetch("/api/organizations")
+      .then(async (res) => {
+        if (!res.ok) return;
+        const data = (await res.json()) as {
+          current?: { name?: string } | null;
+          organizations?: Array<{ name?: string }>;
+        };
+        setWorkspaceName(data.current?.name ?? data.organizations?.[0]?.name ?? null);
+      })
+      .catch(() => undefined);
+  }, []);
+
+  const display = resolveProfileHeaderDisplay(
+    profileLoading ? "…" : profileName,
+    profileLoading ? "…" : companyName,
+    profileRoleKey,
+    profileLoading ? "…" : profileRole,
+    profileLoading ? null : workspaceName
+  );
 
   useEffect(() => {
     if (!open) return;
@@ -78,14 +104,14 @@ export default function TopbarProfileMenu({
         </div>
         <div className="hidden min-w-0 sm:block">
           <p className="truncate text-left text-sm font-semibold text-gray-900">
-            {profileLoading ? "…" : profileName}
+            {display.primary}
           </p>
-          <p className="truncate text-left text-xs text-gray-500">
-            {profileLoading ? "…" : companyName}
-          </p>
-          <p className="truncate text-left text-xs font-medium text-violet-600">
-            {profileLoading ? "…" : profileRole}
-          </p>
+          {display.secondary ? (
+            <p className="truncate text-left text-xs text-gray-500">{display.secondary}</p>
+          ) : null}
+          <div className="mt-0.5">
+            <RoleBadge roleKey={display.roleKey} label={profileRole} />
+          </div>
         </div>
         <svg
           className={`hidden h-4 w-4 shrink-0 text-gray-400 transition sm:block ${open ? "rotate-180" : ""}`}
@@ -106,13 +132,13 @@ export default function TopbarProfileMenu({
           className="absolute right-0 z-30 mt-2 w-56 rounded-xl border border-gray-200 bg-white py-1 shadow-lg"
         >
           <div className="border-b border-gray-100 px-4 py-3 sm:hidden">
-            <p className="truncate text-sm font-semibold text-gray-900">
-              {profileName}
-            </p>
-            <p className="truncate text-xs text-gray-500">{companyName}</p>
-            <p className="truncate text-xs font-medium text-violet-600">
-              {profileRole}
-            </p>
+            <p className="truncate text-sm font-semibold text-gray-900">{display.primary}</p>
+            {display.secondary ? (
+              <p className="truncate text-xs text-gray-500">{display.secondary}</p>
+            ) : null}
+            <div className="mt-1">
+              <RoleBadge roleKey={display.roleKey} label={profileRole} />
+            </div>
           </div>
           <button
             type="button"
