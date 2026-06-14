@@ -272,3 +272,4 @@ export * from "./aipify-organizational-focus-center-engine";
 export * from "./aipify-organizational-energy-center-engine";
 export * from "./aipify-organizational-adaptability-center-engine";
 export * from "./aipify-organizational-wisdom-center-engine";
+export * from "./aipify-organizational-legacy-center-engine";

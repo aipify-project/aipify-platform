@@ -1,0 +1,4 @@
+ABOS Phase 325 — Organizational Legacy Center
+Route: /app/executive/organizational-legacy
+Core: Organizations leave behind more than products and profits — they leave behind impact, values, relationships, and stories.
+Helpers: _olc_* · _olcbp325_*

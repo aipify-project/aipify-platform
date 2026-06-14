@@ -65,7 +65,8 @@
     "organizationalFocusLink": "Organizational Focus",
     "organizationalEnergyLink": "Organizational Energy",
     "organizationalAdaptabilityLink": "Organizational Adaptability",
-    "organizationalWisdomLink": "Organizational Wisdom"
+    "organizationalWisdomLink": "Organizational Wisdom",
+    "organizationalLegacyLink": "Organizational Legacy"
   },
   "presence": {
     "title": "Presence center",
@@ -5976,7 +5977,8 @@
     "organizationalFocusCenterEngine": "Organisationsfokus",
     "organizationalEnergyCenterEngine": "Organisationsenergi",
     "organizationalAdaptabilityCenterEngine": "Organisationstilpasning",
-    "organizationalWisdomCenterEngine": "Organisationsvisdom"
+    "organizationalWisdomCenterEngine": "Organisationsvisdom",
+    "organizationalLegacyCenterEngine": "Organisationsarv"
   },
   "identity": {
     "title": "Din identitet",
@@ -17049,5 +17051,90 @@
     },
     "settingsLink": "Organisationsvisdom",
     "organizationalWisdomLink": "Organizational Wisdom"
+  },
+  "organizationalLegacyCenter": {
+    "title": "Organisationsarv",
+    "subtitle": "Preserve values, culture, principles, stories, milestones, and long-term contributions so future generations understand not only what the organization achieved, but who it chose to become.",
+    "loading": "Loading Legacy Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Legacy philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalWisdomLink": "Organizational Wisdom →",
+    "organizationalMemoryLink": "Organizational Memory →",
+    "organizationalLearningLink": "Organizational Learning →",
+    "purposeValuesLink": "Purpose & Values →",
+    "dashboardTitle": "Legacy dashboard",
+    "projectsTitle": "Legacy projects in progress",
+    "milestonesTitle": "Milestones documented",
+    "valuesTitle": "Values preserved",
+    "archiveTitle": "Legacy archive",
+    "reflectionsTitle": "Reflection engine",
+    "timelineTitle": "Legacy timeline",
+    "snapshotsTitle": "Legacy snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive legacy view",
+    "sessionsTitle": "Legacy sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeSession": "Complete session",
+    "scheduleSession": "Schedule reflection session",
+    "generateReport": "Generate legacy report",
+    "printTimeline": "Print organizational timeline",
+    "exportReflection": "Export reflection summary",
+    "archiveRecord": "Archive historical record",
+    "createCollection": "Create milestone collection",
+    "humansDecide": "Aipify supports preservation and reflection — leadership owns storytelling, values, and historical judgment.",
+    "privacyNote": "Privacy",
+    "legacyScore": "Legacy score",
+    "domains": {
+      "founding": "Founding legacy",
+      "cultural": "Cultural legacy",
+      "community": "Community legacy",
+      "customer": "Customer legacy",
+      "employee": "Employee legacy",
+      "leadership": "Leadership legacy"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "maturing": "Maturing",
+      "developing": "Developing",
+      "emerging": "Emerging"
+    },
+    "timelineTypes": {
+      "founding_event": "Founding event",
+      "growth_milestone": "Growth milestone",
+      "major_achievement": "Major achievement",
+      "organizational_transition": "Organizational transition",
+      "significant_lesson": "Significant lesson",
+      "cultural_moment": "Cultural moment"
+    },
+    "sessionTypes": {
+      "leadership_reflection": "Leadership reflection",
+      "quarterly_stewardship": "Quarterly stewardship",
+      "annual_legacy_review": "Annual legacy review",
+      "values_preservation": "Values preservation"
+    },
+    "metrics": {
+      "projects": "Projects in progress",
+      "milestones": "Milestones documented",
+      "values": "Values preserved",
+      "archives": "Archives maintained",
+      "reflection": "Reflection participation",
+      "continuity": "Institutional continuity",
+      "awareness": "Values awareness",
+      "confidence": "Leadership confidence"
+    },
+    "executiveFields": {
+      "milestones": "Historical milestones",
+      "continuity": "Values continuity",
+      "reflection": "Reflection trends",
+      "stewardship": "Stewardship opportunities"
+    },
+    "settingsLink": "Organisationsarv",
+    "organizationalLegacyLink": "Organizational Legacy"
   }
 }

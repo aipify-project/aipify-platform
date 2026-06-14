@@ -1139,3 +1139,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Wisdom Center Engine (Phase 324):** See [AIPIFY_ORGANIZATIONAL_WISDOM_CENTER_ENGINE_PHASE324.md](./AIPIFY_ORGANIZATIONAL_WISDOM_CENTER_ENGINE_PHASE324.md) — Wisdom Center at Executive Center → Organizational Wisdom. Reflection engine, values alignment, wisdom synthesis, and executive wisdom view. `/app/executive/organizational-wisdom`, migration `20261425200000_aipify_organizational_wisdom_center_engine_phase324.sql`. Helpers `_owc_*`, `_owcbp324_*`. APIs at `/api/organizational-wisdom/*`. Cross-links executive and knowledge centers — does not modify their RPCs.
+
+
+**Aipify Organizational Legacy Center Engine (Phase 325):** See [AIPIFY_ORGANIZATIONAL_LEGACY_CENTER_ENGINE_PHASE325.md](./AIPIFY_ORGANIZATIONAL_LEGACY_CENTER_ENGINE_PHASE325.md) — Organizational Legacy Center at Executive Center → Organizational Legacy. Legacy dashboard, timeline, reflection engine, values preservation, and executive legacy view. `/app/executive/organizational-legacy`, migration `20261425300000_aipify_organizational_legacy_center_engine_phase325.sql`. Helpers `_olc_*`, `_olcbp325_*`. APIs at `/api/organizational-legacy/*`. Cross-links wisdom, memory, purpose, and learning centers — does not modify their RPCs.
