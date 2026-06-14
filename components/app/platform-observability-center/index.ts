@@ -1,0 +1,1 @@
+export { PlatformObservabilityCenterPanel } from "./PlatformObservabilityCenterPanel";

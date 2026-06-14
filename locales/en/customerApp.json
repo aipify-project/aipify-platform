@@ -3342,7 +3342,8 @@
     "expectedBenefit": "Expected benefit",
     "automationControlLink": "Automation Control Center",
     "databaseGovernanceLink": "Database Governance",
-    "deploymentsLink": "Deployments"
+    "deploymentsLink": "Deployments",
+    "platformObservabilityLink": "Platform Observability"
   },
   "continuityEngine": {
     "title": "Continuity & Resilience",
@@ -7126,7 +7127,8 @@
     "opportunityDiscoveryCenterEngine": "Opportunity Discovery",
     "organizationalHealthCenterEngine": "Organizational Health",
     "databaseGovernanceCenterEngine": "Database Governance",
-    "deploymentGovernanceCenterEngine": "Deployments"
+    "deploymentGovernanceCenterEngine": "Deployments",
+    "platformObservabilityCenterEngine": "Platform Observability"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -16240,5 +16242,88 @@
       "confidence": "Operational confidence"
     },
     "settingsLink": "Deployments"
+  },
+  "platformObservabilityCenter": {
+    "title": "Observability Center",
+    "subtitle": "Real-time platform visibility — system performance, user experience, integrations, automations, and operational health explained with confidence.",
+    "loading": "Loading Observability Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Observability philosophy",
+    "visionTitle": "Vision",
+    "operationsLink": "Operations Center →",
+    "deploymentsLink": "Deployments →",
+    "databaseGovernanceLink": "Database Governance →",
+    "automationControlLink": "Automation Control →",
+    "executiveLink": "Executive Center →",
+    "dashboardTitle": "Observability dashboard",
+    "domainsTitle": "Observability domains",
+    "servicesTitle": "Service availability",
+    "alertsTitle": "Alerts",
+    "correlationsTitle": "Event correlations",
+    "investigationsTitle": "Root cause support",
+    "feedsTitle": "Real-time feeds",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive observability view",
+    "reviewsTitle": "Operational reviews",
+    "emptySection": "No items in this section yet.",
+    "healthScore": "Platform health score",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "acknowledge": "Acknowledge",
+    "resolve": "Resolve",
+    "investigate": "Start investigation",
+    "completeInvestigation": "Complete investigation",
+    "completeReview": "Mark review complete",
+    "generateReport": "Generate health report",
+    "generateSummary": "Generate incident summary",
+    "humansDecide": "Observability informs understanding — humans decide how to respond.",
+    "privacyNote": "Privacy",
+    "healthBands": {
+      "thriving": "Thriving",
+      "healthy": "Healthy",
+      "stable": "Stable",
+      "attention_required": "Attention required",
+      "critical": "Critical"
+    },
+    "alertSeverities": {
+      "informational": "Informational",
+      "minor": "Minor",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "domains": {
+      "application": "Application observability",
+      "user_experience": "User experience observability",
+      "automation": "Automation observability",
+      "integration": "Integration observability",
+      "companion": "Companion observability"
+    },
+    "feedTypes": {
+      "platform_activity": "Platform activity",
+      "integration_status": "Integration status",
+      "self_healing": "Self-healing event",
+      "automation_outcome": "Automation outcome",
+      "deployment_update": "Deployment update"
+    },
+    "metrics": {
+      "criticalAlerts": "Critical alerts",
+      "openAlerts": "Open alerts",
+      "availability": "Service availability",
+      "selfHealing": "Self-healing events",
+      "mttr": "Mean time to understanding",
+      "detection": "Incident detection speed",
+      "alertUsefulness": "Alert usefulness",
+      "confidence": "Operational confidence"
+    },
+    "executiveFields": {
+      "impact": "Organizational impact",
+      "reliability": "Service reliability",
+      "maturity": "Operational maturity",
+      "experience": "Customer experience trend",
+      "strategy": "Strategic implication"
+    },
+    "settingsLink": "Platform Observability"
   }
 }

@@ -33,6 +33,12 @@ export default async function OperationsPage() {
         >
           {t(`${p}.deploymentsLink`)} →
         </Link>
+        <Link
+          href="/app/operations/platform-observability"
+          className="ml-4 mt-3 inline-block text-sm font-medium text-indigo-600 hover:underline"
+        >
+          {t(`${p}.platformObservabilityLink`)} →
+        </Link>
       </div>
       <AocDashboardPanel
         labels={{

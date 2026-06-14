@@ -1100,3 +1100,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Deployment Governance Engine (Phase 311):** See [AIPIFY_DEPLOYMENT_GOVERNANCE_ENGINE_PHASE311.md](./AIPIFY_DEPLOYMENT_GOVERNANCE_ENGINE_PHASE311.md) — Deployment Center at Operations Center → Deployments. Pipeline governance, pre/post validation, approvals, rollback center, release notes, and deployment health. `/app/operations/deployments`, migration `20261423900000_aipify_deployment_governance_engine_phase311.sql`. Helpers `_dpl_*`, `_dplbp311_*`. APIs at `/api/deployment-governance/*`. Cross-links operations, database governance, and updates — does not modify their RPCs.
+
+
+**Aipify Platform Observability Engine (Phase 312):** See [AIPIFY_PLATFORM_OBSERVABILITY_ENGINE_PHASE312.md](./AIPIFY_PLATFORM_OBSERVABILITY_ENGINE_PHASE312.md) — Observability Center at Operations Center → Platform Observability. Platform health score, alerts, event correlation, root cause support, real-time feeds, and executive observability view. `/app/operations/platform-observability`, migration `20261424000000_aipify_platform_observability_engine_phase312.sql`. Helpers `_obs_*`, `_obsbp312_*`. APIs at `/api/platform-observability/*`. Cross-links operations, deployments, and automation — does not modify their RPCs.

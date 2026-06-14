@@ -300,6 +300,7 @@ export type AppNavId =
   | "organizationalMemory"
   | "organizationalIntelligence"
   | "predictiveIntelligence"
+  | "platformObservabilityCenterEngine"
   | "deploymentGovernanceCenterEngine"
   | "databaseGovernanceCenterEngine"
   | "automationControlCenterEngine"
@@ -1505,6 +1506,11 @@ export const APP_NAV: AppNavItem[] = [
   { id: "organizationalIntelligence", href: "/app/insights", labelKey: "customerApp.nav.organizationalIntelligence" },
   { id: "predictiveIntelligence", href: "/app/predictions", labelKey: "customerApp.nav.predictiveIntelligence" },
   {
+    id: "platformObservabilityCenterEngine",
+    href: "/app/operations/platform-observability",
+    labelKey: "customerApp.nav.platformObservabilityCenterEngine",
+  },
+  {
     id: "deploymentGovernanceCenterEngine",
     href: "/app/operations/deployments",
     labelKey: "customerApp.nav.deploymentGovernanceCenterEngine",
@@ -2209,6 +2215,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/trust")) return "trustEngine";
   if (pathname.startsWith("/app/digital-twin")) return "digitalTwin";
   if (pathname.startsWith("/app/simulations")) return "simulationLab";
+  if (pathname.startsWith("/app/operations/platform-observability")) return "platformObservabilityCenterEngine";
   if (pathname.startsWith("/app/operations/deployments")) return "deploymentGovernanceCenterEngine";
   if (pathname.startsWith("/app/operations/database-governance")) return "databaseGovernanceCenterEngine";
   if (pathname.startsWith("/app/operations/automation-control")) return "automationControlCenterEngine";

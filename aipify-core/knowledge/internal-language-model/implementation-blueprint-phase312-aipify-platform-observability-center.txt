@@ -1,0 +1,4 @@
+ABOS Phase 312 — Platform Observability Center
+Route: /app/operations/platform-observability
+Core: You cannot improve what you cannot see.
+Helpers: _obs_* · _obsbp312_*
