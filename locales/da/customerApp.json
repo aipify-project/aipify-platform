@@ -95,7 +95,8 @@
     "organizationalWisdomTransferLink": "Organizational Wisdom Transfer",
     "organizationalAdaptiveIntelligenceLink": "Organizational Adaptive Intelligence",
     "organizationalBalanceLink": "Organizational Balance",
-    "organizationalPresenceLink": "Organizational Presence"
+    "organizationalPresenceLink": "Organizational Presence",
+    "organizationalIdentityLink": "Organizational Identity"
   },
   "presence": {
     "title": "Presence center",
@@ -6036,7 +6037,8 @@
     "organizationalWisdomTransferCenterEngine": "Organisatorisk visdomsoverførsel",
     "organizationalAdaptiveIntelligenceCenterEngine": "Organisatorisk adaptiv intelligens",
     "organizationalBalanceCenterEngine": "Organisatorisk balance",
-    "organizationalPresenceCenterEngine": "Organisatorisk tilstedeværelse"
+    "organizationalPresenceCenterEngine": "Organisatorisk tilstedeværelse",
+    "organizationalIdentityCenterEngine": "Organisatorisk identitet"
   },
   "identity": {
     "title": "Din identitet",
@@ -20450,5 +20452,120 @@
     },
     "settingsLink": "Organisatorisk tilstedeværelse",
     "organizationalPresenceLink": "Organizational Presence"
+  },
+  "organizationalIdentityCenter": {
+    "title": "Identitetscenter",
+    "subtitle": "Understand, preserve, strengthen and evolve organizational identity — values, purpose, culture, legacy and principled leadership through change.",
+    "loading": "Loading Identity Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Identity philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalBalanceLink": "Organizational Balance →",
+    "organizationalPresenceLink": "Organizational Presence →",
+    "dashboardTitle": "Identity dashboard",
+    "signalsTitle": "Identity engine",
+    "purposeAlignmentTitle": "Purpose alignment engine",
+    "initiativesTitle": "Identity actions",
+    "reviewsTitle": "Identity reviews",
+    "timelineTitle": "Identity timeline",
+    "milestonesTitle": "Identity milestones",
+    "snapshotsTitle": "Identity snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive identity view",
+    "sessionsTitle": "Stewardship sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate identity report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export identity snapshot",
+    "coordinateDiscussion": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive identity milestone",
+    "archiveMilestoneDefaultTitle": "Purpose alignment milestone",
+    "archiveMilestoneDefaultSummary": "Purpose alignment milestone archived via Identity Center.",
+    "humansDecide": "Aipify supports identity awareness — leaders retain responsibility; identity strengthens continuity without rigid branding exercises or autonomous redefinition.",
+    "privacyNote": "Privacy",
+    "identityScore": "Organizational identity health score",
+    "valuesAlignment": "Values alignment indicators",
+    "domains": {
+      "purpose": "Purpose identity",
+      "values": "Values identity",
+      "cultural": "Cultural identity",
+      "customer": "Customer identity",
+      "leadership": "Leadership identity",
+      "legacy": "Legacy identity"
+    },
+    "signalTypes": {
+      "strengthening_identity_signals": "Strengthening identity signals",
+      "cultural_consistency": "Cultural consistency",
+      "clarification_opportunities": "Clarification opportunities",
+      "identity_tensions": "Identity tensions",
+      "legacy_preservation_needs": "Legacy preservation needs"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "purposeAlignmentTypes": {
+      "why_exist": "Why we exist",
+      "values_guide_decisions": "Values guide decisions",
+      "never_change": "What should never change",
+      "should_evolve": "What should evolve",
+      "actions_consistent": "Actions consistent with identity"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "identity_reinforcement_recommended": "Identity reinforcement recommended"
+    },
+    "timelineTypes": {
+      "founding_milestone": "Founding milestone",
+      "strategic_evolution": "Strategic evolution",
+      "cultural_development": "Cultural development",
+      "leadership_reflection": "Leadership reflection",
+      "legacy_achievement": "Legacy achievement"
+    },
+    "reviewTypes": {
+      "quarterly_identity": "Quarterly identity review",
+      "annual_purpose_reflection": "Annual purpose reflection",
+      "leadership_stewardship": "Leadership stewardship session",
+      "legacy_preservation": "Legacy preservation discussion"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "stewardship_session": "Stewardship session",
+      "leadership_discussion": "Leadership discussion"
+    },
+    "metrics": {
+      "valuesAlignment": "Values alignment",
+      "culturalConsistency": "Cultural consistency",
+      "leadershipParticipation": "Leadership participation",
+      "legacyPreservation": "Legacy preservation",
+      "purposeClarity": "Purpose clarity",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "purposeAlignment": "Purpose alignment indicators",
+      "leadershipConsistency": "Leadership consistency trends",
+      "valuesReinforcement": "Values reinforcement measures",
+      "stewardshipOpportunities": "Identity stewardship opportunities"
+    },
+    "settingsLink": "Organisatorisk identitet",
+    "organizationalIdentityLink": "Organizational Identity"
   }
 }

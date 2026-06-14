@@ -1229,3 +1229,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Presence Center Engine (Phase 354):** See [AIPIFY_ORGANIZATIONAL_PRESENCE_CENTER_ENGINE_PHASE354.md](./AIPIFY_ORGANIZATIONAL_PRESENCE_CENTER_ENGINE_PHASE354.md) — Presence Center at Executive Center → Organizational Presence. Presence dashboard, attentiveness engine, reviews, and executive view. `/app/executive/organizational-presence`, migration `20261428300000_aipify_organizational_presence_center_engine_phase354.sql`. Helpers `_ocp_*`, `_ocpbp354_*`. APIs at `/api/organizational-presence/*`. Cross-links balance center.
+
+
+**Aipify Organizational Identity Center Engine (Phase 356):** See [AIPIFY_ORGANIZATIONAL_IDENTITY_CENTER_ENGINE_PHASE356.md](./AIPIFY_ORGANIZATIONAL_IDENTITY_CENTER_ENGINE_PHASE356.md) — Identity Center at Executive Center → Organizational Identity. Identity dashboard, purpose alignment engine, reviews, and executive view. `/app/executive/organizational-identity`, migration `20261428400000_aipify_organizational_identity_center_engine_phase356.sql`. Helpers `_oci_*`, `_ocibp356_*`. APIs at `/api/organizational-identity/*`. Cross-links presence and balance centers.
