@@ -76,7 +76,8 @@
     "organizationalCoherenceLink": "Organizational Coherence",
     "organizationalContinuityLink": "Organizational Continuity",
     "organizationalExcellenceLink": "Organizational Excellence",
-    "organizationalImpactLink": "Organizational Impact"
+    "organizationalImpactLink": "Organizational Impact",
+    "organizationalDecisionQualityLink": "Decision Quality"
   },
   "presence": {
     "title": "Presence center",
@@ -5998,7 +5999,8 @@
     "organizationalCoherenceCenterEngine": "Organisatorisk sammenhæng",
     "organizationalContinuityCenterEngine": "Organisatorisk kontinuitet",
     "organizationalExcellenceCenterEngine": "Organisatorisk excellens",
-    "organizationalImpactCenterEngine": "Organisatorisk påvirkning"
+    "organizationalImpactCenterEngine": "Organisatorisk påvirkning",
+    "organizationalDecisionQualityCenterEngine": "Beslutningskvalitet"
   },
   "identity": {
     "title": "Din identitet",
@@ -18251,5 +18253,118 @@
     },
     "settingsLink": "Organisatorisk påvirkning",
     "organizationalImpactLink": "Organizational Impact"
+  },
+  "organizationalDecisionQualityCenter": {
+    "title": "Beslutningskvalitet",
+    "subtitle": "Continuously improve the quality, consistency, transparency, and effectiveness of decision-making across leadership, teams, and governance.",
+    "loading": "Loading Decision Quality Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Decision quality philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalImpactLink": "Organizational Impact →",
+    "organizationalWisdomLink": "Organizational Wisdom →",
+    "organizationalLearningLink": "Organizational Learning →",
+    "executiveDecisionSupportLink": "Decision Support →",
+    "dashboardTitle": "Decision dashboard",
+    "reflectionsTitle": "Decision reflection engine",
+    "decisionsTitle": "Major decisions under review",
+    "workflowTitle": "Decision review workflow",
+    "biasTitle": "Bias awareness support",
+    "reviewsTitle": "Decision reviews",
+    "timelineTitle": "Decision timeline",
+    "milestonesTitle": "Decision milestones",
+    "snapshotsTitle": "Decision snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive decision view",
+    "sessionsTitle": "Decision sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "markReflection": "Mark as reflected",
+    "advanceDecision": "Advance decision workflow",
+    "generateReport": "Generate decision report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export decision snapshot",
+    "coordinateDiscussion": "Coordinate review discussion",
+    "archiveMilestone": "Archive decision milestone",
+    "humansDecide": "Aipify supports decision quality — executives retain authority; reflection encourages learning, not blame.",
+    "privacyNote": "Privacy",
+    "decisionQualityScore": "Decision quality score",
+    "reflectionParticipation": "Reflection participation",
+    "domains": {
+      "strategic": "Strategic decisions",
+      "operational": "Operational decisions",
+      "customer": "Customer decisions",
+      "leadership": "Leadership decisions",
+      "innovation": "Innovation decisions"
+    },
+    "workflowStatuses": {
+      "recorded": "Decision recorded",
+      "context_documented": "Context documented",
+      "stakeholder_input": "Stakeholder input captured",
+      "implemented": "Decision implemented",
+      "outcomes_observed": "Outcomes observed",
+      "lessons_reflected": "Lessons reflected upon",
+      "learning_integrated": "Learning integrated"
+    },
+    "biasTypes": {
+      "confirmation_bias": "Confirmation bias",
+      "short_term_thinking": "Short-term thinking",
+      "groupthink_risk": "Groupthink risk",
+      "overconfidence": "Overconfidence tendency",
+      "historical_assumptions": "Historical assumptions"
+    },
+    "reflectionStatuses": {
+      "open": "Open",
+      "reflected": "Reflected"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "review_recommended": "Review recommended"
+    },
+    "timelineTypes": {
+      "significant_decision": "Significant decision",
+      "reflection_milestone": "Reflection milestone",
+      "learning_integration": "Learning integration",
+      "strategic_turning_point": "Strategic turning point",
+      "governance_discussion": "Governance discussion"
+    },
+    "reviewTypes": {
+      "decision_review": "Decision review",
+      "reflection_session": "Reflection session",
+      "governance_discussion": "Governance discussion",
+      "learning_integration": "Learning integration review"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "review_discussion": "Review discussion",
+      "learning_workshop": "Learning workshop"
+    },
+    "metrics": {
+      "context": "Context consideration",
+      "stakeholders": "Stakeholder involvement",
+      "learning": "Learning utilization",
+      "governance": "Governance alignment",
+      "underReview": "Decisions under review",
+      "documented": "Decisions documented",
+      "reviews": "Reviews completed",
+      "confidence": "Executive confidence"
+    },
+    "executiveFields": {
+      "strategic": "Strategic decision trends",
+      "reflection": "Reflection participation",
+      "learning": "Learning integration",
+      "opportunities": "Decision quality opportunities"
+    },
+    "settingsLink": "Beslutningskvalitet",
+    "organizationalDecisionQualityLink": "Decision Quality"
   }
 }

@@ -1,0 +1,1 @@
+export { OrganizationalDecisionQualityCenterPanel } from "./OrganizationalDecisionQualityCenterPanel";

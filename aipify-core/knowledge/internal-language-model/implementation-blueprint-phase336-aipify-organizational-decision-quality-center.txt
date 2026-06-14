@@ -1,0 +1,4 @@
+ABOS Phase 336 — Organizational Decision Quality Center
+Route: /app/executive/organizational-decision-quality
+Core: The future of an organization is shaped by the quality of its decisions.
+Helpers: _odqc_* · _odqcbp336_*

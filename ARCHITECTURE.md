@@ -1172,3 +1172,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Impact Center Engine (Phase 335):** See [AIPIFY_ORGANIZATIONAL_IMPACT_CENTER_ENGINE_PHASE335.md](./AIPIFY_ORGANIZATIONAL_IMPACT_CENTER_ENGINE_PHASE335.md) — Impact Center at Executive Center → Organizational Impact. Impact dashboard, reflection engine, reviews, timeline, and executive impact view. `/app/executive/organizational-impact`, migration `20261426300000_aipify_organizational_impact_center_engine_phase335.sql`. Helpers `_oimc_*`, `_oimcbp335_*`. APIs at `/api/organizational-impact/*`. Cross-links excellence, purpose, legacy, and stewardship centers.
+
+
+**Aipify Organizational Decision Quality Center Engine (Phase 336):** See [AIPIFY_ORGANIZATIONAL_DECISION_QUALITY_CENTER_ENGINE_PHASE336.md](./AIPIFY_ORGANIZATIONAL_DECISION_QUALITY_CENTER_ENGINE_PHASE336.md) — Decision Quality Center at Executive Center → Decision Quality. Decision dashboard, reflection engine, review workflow, bias awareness, and executive decision view. `/app/executive/organizational-decision-quality`, migration `20261426400000_aipify_organizational_decision_quality_center_engine_phase336.sql`. Helpers `_odqc_*`, `_odqcbp336_*`. APIs at `/api/organizational-decision-quality/*`. Cross-links impact, wisdom, learning, and decision support.
