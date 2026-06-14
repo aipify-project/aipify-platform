@@ -94,7 +94,8 @@
     "organizationalHopeLink": "Organizational Hope",
     "organizationalWisdomTransferLink": "Organizational Wisdom Transfer",
     "organizationalAdaptiveIntelligenceLink": "Organizational Adaptive Intelligence",
-    "organizationalBalanceLink": "Organizational Balance"
+    "organizationalBalanceLink": "Organizational Balance",
+    "organizationalPresenceLink": "Organizational Presence"
   },
   "presence": {
     "title": "Presence center",
@@ -6034,7 +6035,8 @@
     "organizationalHopeCenterEngine": "Organisatorisk håb",
     "organizationalWisdomTransferCenterEngine": "Organisatorisk visdomsoverførsel",
     "organizationalAdaptiveIntelligenceCenterEngine": "Organisatorisk adaptiv intelligens",
-    "organizationalBalanceCenterEngine": "Organisatorisk balance"
+    "organizationalBalanceCenterEngine": "Organisatorisk balance",
+    "organizationalPresenceCenterEngine": "Organisatorisk tilstedeværelse"
   },
   "identity": {
     "title": "Din identitet",
@@ -20336,5 +20338,117 @@
     },
     "settingsLink": "Organisatorisk balance",
     "organizationalBalanceLink": "Organizational Balance"
+  },
+  "organizationalPresenceCenter": {
+    "title": "Organisatorisk tilstedeværelse",
+    "subtitle": "Cultivate intentional presence by improving attentiveness, engagement, responsiveness, and the quality of interactions between leaders, teams, customers, and stakeholders.",
+    "loading": "Loading Presence Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Presence philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalBalanceLink": "Organizational Balance →",
+    "dashboardTitle": "Presence dashboard",
+    "signalsTitle": "Presence engine",
+    "attentivenessTitle": "Attentiveness engine",
+    "initiativesTitle": "Presence initiatives",
+    "reviewsTitle": "Presence reviews",
+    "timelineTitle": "Presence timeline",
+    "milestonesTitle": "Presence milestones",
+    "snapshotsTitle": "Presence snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive presence view",
+    "sessionsTitle": "Presence sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate presence report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export presence snapshot",
+    "coordinateDiscussion": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive presence milestone",
+    "humansDecide": "Aipify supports authentic engagement — leaders retain judgment; presence strengthens connection without constant availability, surveillance, or performative engagement.",
+    "privacyNote": "Privacy",
+    "presenceScore": "Organizational presence score",
+    "engagementIndicators": "Engagement indicators",
+    "domains": {
+      "leadership": "Leadership presence",
+      "team": "Team presence",
+      "customer": "Customer presence",
+      "strategic": "Strategic presence",
+      "cultural": "Cultural presence",
+      "community": "Community presence"
+    },
+    "signalTypes": {
+      "strong_engagement_practices": "Strong engagement practices",
+      "meaningful_interactions": "Meaningful interactions",
+      "deeper_connection_opportunities": "Deeper connection opportunities",
+      "responsiveness_improvements": "Responsiveness improvements",
+      "reflection_participation": "Reflection participation"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "attentivenessTypes": {
+      "truly_listening": "Truly listening",
+      "customers_supported": "Customers supported",
+      "people_valued": "People valued",
+      "conversation_attention": "Conversation attention",
+      "engaging_intentionally": "Engaging intentionally"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "presence_reinforcement_recommended": "Presence reinforcement recommended"
+    },
+    "timelineTypes": {
+      "recognition_milestone": "Recognition milestone",
+      "leadership_reflection": "Leadership reflection",
+      "customer_relationship_achievement": "Customer relationship achievement",
+      "communication_development": "Communication development",
+      "cultural_celebration": "Cultural celebration"
+    },
+    "reviewTypes": {
+      "quarterly_presence": "Quarterly presence review",
+      "leadership_reflection": "Leadership reflection session",
+      "communication_assessment": "Communication assessment",
+      "annual_organizational_evaluation": "Annual organizational evaluation"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "communication_assessment": "Communication assessment",
+      "leadership_discussion": "Leadership discussion"
+    },
+    "metrics": {
+      "engagementIndicators": "Engagement indicators",
+      "leadershipAttentiveness": "Leadership attentiveness",
+      "customerResponsiveness": "Customer responsiveness",
+      "communicationQuality": "Communication quality",
+      "leadershipParticipation": "Leadership participation",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "leadershipEngagement": "Leadership engagement indicators",
+      "communicationEffectiveness": "Communication effectiveness trends",
+      "relationshipQuality": "Relationship quality measures",
+      "connectionOpportunities": "Organizational connection opportunities"
+    },
+    "settingsLink": "Organisatorisk tilstedeværelse",
+    "organizationalPresenceLink": "Organizational Presence"
   }
 }
