@@ -1145,3 +1145,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Purpose Center Engine (Phase 326):** See [AIPIFY_ORGANIZATIONAL_PURPOSE_CENTER_ENGINE_PHASE326.md](./AIPIFY_ORGANIZATIONAL_PURPOSE_CENTER_ENGINE_PHASE326.md) — Purpose Center at Executive Center → Organizational Purpose. Purpose dashboard, alignment engine, reflection engine, and executive purpose view. `/app/executive/organizational-purpose`, migration `20261425400000_aipify_organizational_purpose_center_engine_phase326.sql`. Helpers `_opc_*`, `_opcbp326_*`. APIs at `/api/organizational-purpose/*`. Cross-links legacy, wisdom, alignment, and purpose values — does not modify their RPCs.
+
+
+**Aipify Organizational Stewardship Center Engine (Phase 327):** See [AIPIFY_ORGANIZATIONAL_STEWARDSHIP_CENTER_ENGINE_PHASE327.md](./AIPIFY_ORGANIZATIONAL_STEWARDSHIP_CENTER_ENGINE_PHASE327.md) — Stewardship Center at Executive Center → Organizational Stewardship. Stewardship health score, reflection engine, reviews, and succession integration. `/app/executive/organizational-stewardship`, migration `20261425500000_aipify_organizational_stewardship_center_engine_phase327.sql`. Helpers `_osc_*`, `_oscbp327_*`. APIs at `/api/organizational-stewardship/*`. Cross-links legacy, memory, knowledge evolution, wisdom, and capability maturity — does not modify their RPCs.

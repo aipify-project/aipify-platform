@@ -67,7 +67,8 @@
     "organizationalAdaptabilityLink": "Organizational Adaptability",
     "organizationalWisdomLink": "Organizational Wisdom",
     "organizationalLegacyLink": "Organizational Legacy",
-    "organizationalPurposeLink": "Organizational Purpose"
+    "organizationalPurposeLink": "Organizational Purpose",
+    "organizationalStewardshipLink": "Organizational Stewardship"
   },
   "presence": {
     "title": "Presence center",
@@ -6034,7 +6035,8 @@
     "organizationalAdaptabilityCenterEngine": "Organisationsanpassning",
     "organizationalWisdomCenterEngine": "Organisationsvisdom",
     "organizationalLegacyCenterEngine": "Organisationsarv",
-    "organizationalPurposeCenterEngine": "Organisationsändamål"
+    "organizationalPurposeCenterEngine": "Organisationsändamål",
+    "organizationalStewardshipCenterEngine": "Organisationsförvaltning"
   },
   "identity": {
     "title": "Din identitet",
@@ -17222,5 +17224,89 @@
     },
     "settingsLink": "Organisationsändamål",
     "organizationalPurposeLink": "Organizational Purpose"
+  },
+  "organizationalStewardshipCenter": {
+    "title": "Organisationsförvaltning",
+    "subtitle": "Practice responsible stewardship of people, resources, relationships, knowledge, technology, and opportunities entrusted to the organization.",
+    "loading": "Loading Stewardship Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Stewardship philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalLegacyLink": "Organizational Legacy →",
+    "organizationalMemoryLink": "Organizational Memory →",
+    "knowledgeEvolutionLink": "Knowledge Evolution →",
+    "organizationalWisdomLink": "Organizational Wisdom →",
+    "capabilityMaturityLink": "Capability Maturity →",
+    "dashboardTitle": "Stewardship dashboard",
+    "indicatorsTitle": "Stewardship indicators",
+    "reflectionsTitle": "Reflection engine",
+    "reviewsTitle": "Stewardship reviews",
+    "highlightsTitle": "Organizational impact highlights",
+    "milestonesTitle": "Stewardship milestones",
+    "snapshotsTitle": "Stewardship snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive stewardship view",
+    "sessionsTitle": "Stewardship sessions",
+    "successionTitle": "Succession integration",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule leadership reflection",
+    "generateReport": "Generate stewardship report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export stewardship snapshot",
+    "coordinateSuccession": "Coordinate succession discussion",
+    "archiveMilestone": "Archive stewardship milestone",
+    "humansDecide": "Aipify supports awareness and reflection — leadership owns judgment, responsibility, and long-term stewardship.",
+    "privacyNote": "Privacy",
+    "stewardshipScore": "Stewardship health score",
+    "domains": {
+      "people": "People stewardship",
+      "customer": "Customer stewardship",
+      "resource": "Resource stewardship",
+      "knowledge": "Knowledge stewardship",
+      "technology": "Technology stewardship",
+      "community": "Community stewardship"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "developing": "Developing",
+      "needs_attention": "Needs attention",
+      "reactive": "Reactive"
+    },
+    "reviewTypes": {
+      "quarterly_stewardship": "Quarterly stewardship review",
+      "annual_leadership": "Annual leadership reflection",
+      "succession_preparedness": "Succession preparedness discussion",
+      "long_term_planning": "Long-term planning session"
+    },
+    "sessionTypes": {
+      "leadership_reflection": "Leadership reflection",
+      "succession_discussion": "Succession discussion",
+      "long_term_planning": "Long-term planning"
+    },
+    "metrics": {
+      "leadership": "Leadership participation",
+      "resources": "Resource stewardship",
+      "knowledge": "Knowledge continuity",
+      "governance": "Governance participation",
+      "reflection": "Reflection frequency",
+      "sustainable": "Sustainable decisions",
+      "succession": "Succession preparedness",
+      "confidence": "Leadership confidence"
+    },
+    "executiveFields": {
+      "continuity": "Leadership continuity",
+      "readiness": "Long-term readiness",
+      "responsibility": "Responsibility measures",
+      "opportunities": "Stewardship opportunities"
+    },
+    "settingsLink": "Organisationsförvaltning",
+    "organizationalStewardshipLink": "Organizational Stewardship"
   }
 }

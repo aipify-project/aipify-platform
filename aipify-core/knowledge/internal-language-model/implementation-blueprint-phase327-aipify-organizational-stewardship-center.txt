@@ -1,0 +1,4 @@
+ABOS Phase 327 — Organizational Stewardship Center
+Route: /app/executive/organizational-stewardship
+Core: Leadership is not ownership — leadership is stewardship.
+Helpers: _osc_* · _oscbp327_*

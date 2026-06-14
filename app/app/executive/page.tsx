@@ -54,6 +54,7 @@ export default async function ExecutivePage() {
         organizationalWisdomLink: t("customerApp.executive.organizationalWisdomLink"),
         organizationalLegacyLink: t("customerApp.executive.organizationalLegacyLink"),
         organizationalPurposeLink: t("customerApp.executive.organizationalPurposeLink"),
+        organizationalStewardshipLink: t("customerApp.executive.organizationalStewardshipLink"),
       }}
     />
   );
