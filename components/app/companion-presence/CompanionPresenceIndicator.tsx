@@ -8,6 +8,11 @@ import {
   type CompanionPresenceState,
   resolveCompanionDeviceId,
 } from "@/lib/presence/companion-presence";
+import {
+  COMPANION_HEARTBEAT_INTERVAL_COLLAPSED_MS,
+  COMPANION_HEARTBEAT_INTERVAL_MS,
+} from "@/lib/presence/polling-config";
+import { useVisibilityAwareInterval } from "@/lib/polling/visibility-aware-interval";
 
 export type CompanionPresenceLabels = {
   ariaIndicator: string;
@@ -89,15 +94,30 @@ export default function CompanionPresenceIndicator({
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  useEffect(() => {
-    void sendHeartbeat();
-  }, [sendHeartbeat]);
+  const pollingEnabled = Boolean(
+    bundle?.has_organization && bundle.indicator_enabled !== false
+  );
+
+  const heartbeatIntervalMs = Math.max(
+    collapsed || !panelOpen
+      ? COMPANION_HEARTBEAT_INTERVAL_COLLAPSED_MS
+      : COMPANION_HEARTBEAT_INTERVAL_MS,
+    (bundle?.heartbeat_interval_seconds ?? 90) * 1000
+  );
 
   useEffect(() => {
-    const intervalMs = (bundle?.heartbeat_interval_seconds ?? 60) * 1000;
-    const id = window.setInterval(() => void sendHeartbeat(), intervalMs);
-    return () => window.clearInterval(id);
-  }, [sendHeartbeat, bundle?.heartbeat_interval_seconds]);
+    void loadBundle();
+  }, [loadBundle]);
+
+  useVisibilityAwareInterval(
+    () => sendHeartbeat(),
+    heartbeatIntervalMs,
+    {
+      enabled: pollingEnabled,
+      runImmediately: pollingEnabled,
+      refreshOnVisible: true,
+    }
+  );
 
   const counts = bundle?.counts;
   const since = bundle?.since_last_login as Record<string, unknown> | undefined;

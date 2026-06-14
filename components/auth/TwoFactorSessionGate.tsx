@@ -2,8 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
-import { twoFactorRedirectPath, type TwoFactorStatus } from "@/lib/auth/two-factor";
-import { createClient } from "@/lib/supabase/client";
+import { twoFactorRedirectPath, fetchTwoFactorStatusCached } from "@/lib/auth/two-factor";
 
 export function useTwoFactorSessionGate() {
   const router = useRouter();
@@ -16,13 +15,12 @@ export function useTwoFactorSessionGate() {
       return;
     }
 
-    fetch("/api/auth/2fa/status")
-      .then(async (res) => {
-        if (!res.ok) {
+    fetchTwoFactorStatusCached()
+      .then((status) => {
+        if (!status) {
           setReady(true);
           return;
         }
-        const status = (await res.json()) as TwoFactorStatus;
         const gate = twoFactorRedirectPath(status, pathname);
         if (gate) {
           router.replace(gate);

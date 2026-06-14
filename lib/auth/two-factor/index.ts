@@ -16,3 +16,7 @@ export {
   twoFactorRedirectPath,
   type TwoFactorStatus,
 } from "./requires-2fa";
+export {
+  fetchTwoFactorStatusCached,
+  invalidateTwoFactorStatusCache,
+} from "./session-status-cache";

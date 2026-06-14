@@ -21,6 +21,11 @@ import {
 } from "@/lib/presence/presence-engine";
 import DailyBriefingBanner from "./DailyBriefingBanner";
 import PresenceCenterPanel from "./PresenceCenterPanel";
+import { useVisibilityAwareInterval } from "@/lib/polling/visibility-aware-interval";
+import {
+  PRESENCE_POLL_INTERVAL_CLOSED_MS,
+  PRESENCE_POLL_INTERVAL_OPEN_MS,
+} from "@/lib/presence/polling-config";
 
 export type PresenceLabels = {
   indicatorTitle: string;
@@ -176,41 +181,65 @@ export function PresenceProvider({ surface, labels, locale, children }: Presence
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
 
-  const refresh = useCallback(async () => {
-    const supabase = createClient();
-    const [bundleResult, briefingResult] = await Promise.all([
-      supabase.rpc("get_presence_center_bundle", { p_surface: surface }),
-      supabase.rpc("get_daily_briefing", { p_surface: surface, p_locale: locale }),
-    ]);
+  const refresh = useCallback(
+    async (options?: { includeBriefing?: boolean }) => {
+      const supabase = createClient();
+      const includeBriefing = options?.includeBriefing ?? false;
 
-    if (!bundleResult.error && bundleResult.data) {
-      const parsed = parsePresenceCenterBundle(bundleResult.data);
-      const dailyBriefing = briefingResult.error
-        ? null
-        : parseDailyBriefing(briefingResult.data);
-      if (dailyBriefing) {
-        parsed.settings = {
-          ...parsed.settings,
-          briefing_morning_enabled: dailyBriefing.preferences.morning,
-          briefing_evening_enabled: dailyBriefing.preferences.evening,
-          briefing_weekend_enabled: dailyBriefing.preferences.weekend,
-          briefing_positive_enabled: dailyBriefing.preferences.positive,
-          briefing_attention_enabled: dailyBriefing.preferences.attention,
-          briefing_critical_enabled: dailyBriefing.preferences.critical,
-        };
+      const bundleResult = await supabase.rpc("get_presence_center_bundle", {
+        p_surface: surface,
+      });
+
+      let briefingResult: { data: unknown; error: unknown } | null = null;
+      if (includeBriefing) {
+        briefingResult = await supabase.rpc("get_daily_briefing", {
+          p_surface: surface,
+          p_locale: locale,
+        });
       }
-      setBundle({ ...parsed, daily_briefing: dailyBriefing });
-    }
-    setLoading(false);
-  }, [surface, locale]);
+
+      if (!bundleResult.error && bundleResult.data) {
+        const parsed = parsePresenceCenterBundle(bundleResult.data);
+        const dailyBriefing =
+          briefingResult && !briefingResult.error
+            ? parseDailyBriefing(briefingResult.data)
+            : null;
+        if (dailyBriefing) {
+          parsed.settings = {
+            ...parsed.settings,
+            briefing_morning_enabled: dailyBriefing.preferences.morning,
+            briefing_evening_enabled: dailyBriefing.preferences.evening,
+            briefing_weekend_enabled: dailyBriefing.preferences.weekend,
+            briefing_positive_enabled: dailyBriefing.preferences.positive,
+            briefing_attention_enabled: dailyBriefing.preferences.attention,
+            briefing_critical_enabled: dailyBriefing.preferences.critical,
+          };
+        }
+        setBundle((current) => ({
+          ...parsed,
+          daily_briefing: dailyBriefing ?? current.daily_briefing,
+        }));
+      }
+      setLoading(false);
+    },
+    [surface, locale]
+  );
 
   useEffect(() => {
-    void refresh();
-    const interval = window.setInterval(() => {
-      void refresh();
-    }, 30_000);
-    return () => window.clearInterval(interval);
+    void refresh({ includeBriefing: true });
   }, [refresh]);
+
+  useVisibilityAwareInterval(
+    () => refresh({ includeBriefing: open }),
+    open ? PRESENCE_POLL_INTERVAL_OPEN_MS : PRESENCE_POLL_INTERVAL_CLOSED_MS,
+    { enabled: true, runImmediately: false, refreshOnVisible: true }
+  );
+
+  useEffect(() => {
+    if (open) {
+      void refresh({ includeBriefing: true });
+    }
+  }, [open, refresh]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";

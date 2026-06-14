@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
-import { twoFactorRedirectPath, type TwoFactorStatus } from "@/lib/auth/two-factor";
+import { twoFactorRedirectPath, fetchTwoFactorStatusCached, type TwoFactorStatus } from "@/lib/auth/two-factor";
 
 type SuperAdminAccessGateProps = {
   loadingLabel: string;
@@ -26,13 +26,12 @@ export default function SuperAdminAccessGate({
       return;
     }
 
-    fetch("/api/auth/2fa/status")
-      .then(async (res) => {
-        if (!res.ok) {
+    fetchTwoFactorStatusCached()
+      .then(async (status) => {
+        if (!status) {
           setReady(true);
           return;
         }
-        const status = (await res.json()) as TwoFactorStatus;
         const gate = twoFactorRedirectPath(status, pathname);
         if (gate) {
           router.replace(gate);
