@@ -265,3 +265,4 @@ export * from "./aipify-change-management-center-engine";
 export * from "./aipify-organizational-digital-twin-center-engine";
 export * from "./aipify-organizational-learning-center-engine";
 export * from "./aipify-knowledge-evolution-center-engine";
+export * from "./aipify-capability-maturity-center-engine";

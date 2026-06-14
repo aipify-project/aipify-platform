@@ -1118,3 +1118,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Knowledge Evolution Center Engine (Phase 317):** See [AIPIFY_KNOWLEDGE_EVOLUTION_CENTER_ENGINE_PHASE317.md](./AIPIFY_KNOWLEDGE_EVOLUTION_CENTER_ENGINE_PHASE317.md) — Knowledge Evolution Center at Knowledge Center → Knowledge Evolution. Knowledge health, review queue, lifecycle, SME validation, version history, and search optimization. `/app/knowledge-center/knowledge-evolution`, migration `20261424500000_aipify_knowledge_evolution_center_engine_phase317.sql`. Helpers `_kec_*`, `_kecbp317_*`. APIs at `/api/knowledge-evolution/*`. Cross-links Knowledge Center, OLC, OMC — does not modify their RPCs.
+
+
+**Aipify Capability Maturity Center Engine (Phase 318):** See [AIPIFY_CAPABILITY_MATURITY_CENTER_ENGINE_PHASE318.md](./AIPIFY_CAPABILITY_MATURITY_CENTER_ENGINE_PHASE318.md) — Capability Maturity Center at Executive Center → Capability Maturity. Maturity levels, capability profiles, evolution view, improvement roadmap, and executive maturity view. `/app/executive/capability-maturity`, migration `20261424600000_aipify_capability_maturity_center_engine_phase318.sql`. Helpers `_cmc_*`, `_cmcbp318_*`. APIs at `/api/capability-maturity/*`. Cross-links legacy capability maturity engine — does not modify its RPCs.

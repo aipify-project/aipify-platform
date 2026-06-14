@@ -1,0 +1,4 @@
+ABOS Phase 318 — Capability Maturity Center
+Route: /app/executive/capability-maturity
+Core: Organizations do not become world-class overnight.
+Helpers: _cmc_* · _cmcbp318_*

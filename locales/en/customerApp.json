@@ -58,7 +58,8 @@
     "opportunityDiscoveryLink": "Opportunity Discovery",
     "organizationalHealthLink": "Organizational Health",
     "changeManagementLink": "Change Management",
-    "organizationalDigitalTwinLink": "Organizational Digital Twin"
+    "organizationalDigitalTwinLink": "Organizational Digital Twin",
+    "capabilityMaturityLink": "Capability Maturity"
   },
   "presence": {
     "title": "Presence center",
@@ -7138,7 +7139,8 @@
     "changeManagementCenterEngine": "Change Management",
     "organizationalDigitalTwinCenterEngine": "Organizational Digital Twin",
     "organizationalLearningCenterEngine": "Organizational Learning",
-    "knowledgeEvolutionCenterEngine": "Knowledge Evolution"
+    "knowledgeEvolutionCenterEngine": "Knowledge Evolution",
+    "capabilityMaturityCenterEngine": "Capability Maturity"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -16794,5 +16796,86 @@
     },
     "settingsLink": "Knowledge Evolution",
     "knowledgeEvolutionLink": "Knowledge Evolution"
+  },
+  "capabilityMaturityCenter": {
+    "title": "Capability Maturity Center",
+    "subtitle": "Assess, benchmark, and improve organizational capabilities across operations, governance, knowledge, technology, leadership, and workforce development.",
+    "loading": "Loading Capability Maturity Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Maturity philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalHealthLink": "Organizational Health →",
+    "continuousImprovementLink": "Continuous Improvement →",
+    "organizationalLearningLink": "Organizational Learning →",
+    "knowledgeEvolutionLink": "Knowledge Evolution →",
+    "maturityEngineLink": "Capability Maturity Engine →",
+    "dashboardTitle": "Maturity dashboard",
+    "capabilitiesTitle": "Capability profile",
+    "milestonesTitle": "Capability milestones",
+    "roadmapTitle": "Improvement roadmap",
+    "snapshotsTitle": "Maturity snapshots",
+    "maturityLevelsTitle": "Maturity levels",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive maturity view",
+    "reviewsTitle": "Capability reviews",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "captureSnapshot": "Capture snapshot",
+    "completeReview": "Complete review",
+    "launchInitiative": "Launch initiative",
+    "generateReport": "Generate maturity report",
+    "generateSummary": "Generate executive summary",
+    "humansDecide": "Aipify supports awareness — leadership sets priorities and decides what to improve.",
+    "privacyNote": "Privacy",
+    "currentLevel": "Current level",
+    "previousLevel": "Previous level",
+    "score": "Score",
+    "domains": {
+      "customer_experience": "Customer experience",
+      "operational": "Operational",
+      "governance": "Governance",
+      "knowledge": "Knowledge",
+      "technology": "Technology",
+      "leadership": "Leadership",
+      "workforce": "Workforce"
+    },
+    "maturityLevels": {
+      "emerging": "Emerging",
+      "developing": "Developing",
+      "established": "Established",
+      "advanced": "Advanced",
+      "transformational": "Transformational"
+    },
+    "priorityTypes": {
+      "quick_win": "Quick win",
+      "strategic_initiative": "Strategic initiative",
+      "long_term_investment": "Long-term investment",
+      "capability_building": "Capability building"
+    },
+    "momentumLabels": {
+      "up": "Improving",
+      "stable": "Stable",
+      "down": "Needs attention"
+    },
+    "metrics": {
+      "assessed": "Capabilities assessed",
+      "strongest": "Strongest capabilities",
+      "developing": "Developing capabilities",
+      "improving": "Improving capabilities",
+      "opportunities": "Improvement opportunities",
+      "confidence": "Executive confidence",
+      "participation": "Participation satisfaction"
+    },
+    "executiveFields": {
+      "strengths": "Organizational strengths",
+      "gaps": "Capability gaps",
+      "momentum": "Improvement momentum",
+      "readiness": "Strategic readiness"
+    },
+    "settingsLink": "Capability Maturity",
+    "capabilityMaturityLink": "Capability Maturity"
   }
 }

@@ -45,6 +45,7 @@ export default async function ExecutivePage() {
         organizationalHealthLink: t("customerApp.executive.organizationalHealthLink"),
         changeManagementLink: t("customerApp.executive.changeManagementLink"),
         organizationalDigitalTwinLink: t("customerApp.executive.organizationalDigitalTwinLink"),
+        capabilityMaturityLink: t("customerApp.executive.capabilityMaturityLink"),
       }}
     />
   );
