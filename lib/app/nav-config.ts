@@ -1315,11 +1315,6 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.partnerSuccessEngine",
   },
   {
-    id: "salesExpertEngine",
-    href: "/app/sales-expert-engine",
-    labelKey: "customerApp.nav.salesExpertEngine",
-  },
-  {
     id: "relationshipIntelligenceEngine",
     href: "/app/relationship-intelligence-engine",
     labelKey: "customerApp.nav.relationshipIntelligenceEngine",
