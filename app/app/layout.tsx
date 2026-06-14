@@ -1,4 +1,4 @@
-import DashboardAuthGuard from "@/components/dashboard/DashboardAuthGuard";
+import CustomerPortalGuard from "@/components/app/CustomerPortalGuard";
 import TwoFactorSessionGate from "@/components/auth/TwoFactorSessionGate";
 import DashboardShell from "@/components/dashboard/DashboardShell";
 import { DashboardProfileProvider } from "@/components/dashboard/DashboardProfileProvider";
@@ -33,7 +33,7 @@ export default async function AppLayout({
   const navSearchIndex = buildAppNavSearchIndex(navGroups, navConfig, t);
 
   return (
-    <DashboardAuthGuard loadingLabel={t("common.loading")}>
+    <CustomerPortalGuard loadingLabel={t("common.loading")}>
       <TwoFactorSessionGate loadingLabel={t("common.loading")}>
       <DashboardProfileProvider>
         <DashboardShell
@@ -85,6 +85,6 @@ export default async function AppLayout({
         </DashboardShell>
       </DashboardProfileProvider>
       </TwoFactorSessionGate>
-    </DashboardAuthGuard>
+    </CustomerPortalGuard>
   );
 }

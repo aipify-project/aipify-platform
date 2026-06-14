@@ -1,0 +1,26 @@
+# Aipify Portal Architecture
+
+See [ARCHITECTURE.md](../../ARCHITECTURE.md) — Portal architecture section.
+
+## Three portals — never mix
+
+| Portal | Domain | Route | Code |
+|--------|--------|-------|------|
+| Customer | `app.aipify.ai` | `/app/*` | `app/app/`, `components/app/`, `lib/app/` |
+| Platform Admin | Shared host | `/platform/*` | `app/platform/`, `components/platform/`, `lib/platform/` |
+| Super Admin | `super.aipify.ai` | `/super/*` | `app/super/`, `components/super-admin/`, `lib/super-admin/` |
+
+## Rules
+
+1. Portal routing and access: `lib/portals/` — use `resolvePortalRouteDecision()` in middleware; do not bypass.
+2. Customer portal: standard customer auth; no Super Admin or Platform Admin surfaces.
+3. Platform Admin: `platform_admins` role + mandatory 2FA + `platform_admin_audit_logs`.
+4. Super Admin: `super_admin` role only + mandatory 2FA + recovery codes + `super_admin_audit_logs` + dangerous-action confirmation.
+5. Never add Super Admin nav, links, or controls under `/app/*`.
+6. Never expose customer workspace settings in Platform Admin except through controlled support tools.
+
+## Before adding a route
+
+1. Which portal owns this feature?
+2. Does middleware enforce the correct portal access?
+3. Does the guard match portal security rules (2FA, audit)?

@@ -25,7 +25,7 @@ export default function PlatformAuthGuard({
 
     getPlatformProfile(supabase).then((profile) => {
       if (!profile) {
-        router.replace("/dashboard");
+        router.replace("/app");
       } else {
         setAuthorized(true);
       }
@@ -35,10 +35,10 @@ export default function PlatformAuthGuard({
 
   if (checking) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50">
+      <div className="flex min-h-screen items-center justify-center bg-slate-100">
         <div className="flex flex-col items-center gap-3">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-violet-200 border-t-violet-600" />
-          <p className="text-sm font-medium text-gray-500">{loadingLabel}</p>
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-300 border-t-slate-700" />
+          <p className="text-sm font-medium text-slate-600">{loadingLabel}</p>
         </div>
       </div>
     );
@@ -46,8 +46,8 @@ export default function PlatformAuthGuard({
 
   if (!authorized) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-        <p className="text-sm font-medium text-gray-500">{deniedLabel}</p>
+      <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4">
+        <p className="text-sm font-medium text-slate-600">{deniedLabel}</p>
       </div>
     );
   }

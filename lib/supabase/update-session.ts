@@ -1,6 +1,17 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-import { isSuperAdminHost, superAdminLoginRedirectPath } from "@/lib/super-admin/host";
+import {
+  getPlatformAccessProfile,
+  isSuperAdminHost,
+  resolvePortalRouteDecision,
+  resolvePostLoginPath,
+} from "@/lib/portals";
+
+const PROTECTED_PREFIXES = ["/dashboard", "/app", "/platform", "/super"];
+
+function isProtectedPath(pathname: string): boolean {
+  return PROTECTED_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+}
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
@@ -36,34 +47,37 @@ export async function updateSession(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const host = request.headers.get("host");
 
-  if (
-    !user &&
-    (pathname.startsWith("/dashboard") ||
-      pathname.startsWith("/app") ||
-      pathname.startsWith("/platform") ||
-      pathname.startsWith("/super"))
-  ) {
+  if (!user && isProtectedPath(pathname)) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
     loginUrl.searchParams.set("next", pathname);
     return NextResponse.redirect(loginUrl);
   }
 
-  if (user && (pathname === "/login" || pathname === "/register")) {
-    const { data: platformAdmin } = await supabase
-      .from("platform_admins")
-      .select("role")
-      .maybeSingle();
+  if (user) {
+    const access = await getPlatformAccessProfile(supabase);
+    const decision = resolvePortalRouteDecision(pathname, host, access);
 
-    const next = request.nextUrl.searchParams.get("next");
-    const redirectUrl = request.nextUrl.clone();
-    if (next?.startsWith("/") && !next.startsWith("//")) {
-      redirectUrl.pathname = next;
+    if (decision.action === "redirect") {
+      const redirectUrl = request.nextUrl.clone();
+      redirectUrl.pathname = decision.pathname;
       redirectUrl.search = "";
-    } else {
-      redirectUrl.pathname = superAdminLoginRedirectPath(host, platformAdmin?.role ?? null);
+      return NextResponse.redirect(redirectUrl);
     }
-    return NextResponse.redirect(redirectUrl);
+
+    if (decision.action === "rewrite") {
+      const rewriteUrl = request.nextUrl.clone();
+      rewriteUrl.pathname = decision.pathname;
+      return NextResponse.rewrite(rewriteUrl);
+    }
+
+    if (pathname === "/login" || pathname === "/register") {
+      const next = request.nextUrl.searchParams.get("next");
+      const redirectUrl = request.nextUrl.clone();
+      redirectUrl.pathname = resolvePostLoginPath(host, access.role, next);
+      redirectUrl.search = "";
+      return NextResponse.redirect(redirectUrl);
+    }
   }
 
   if (isSuperAdminHost(host) && (pathname === "/" || pathname === "")) {

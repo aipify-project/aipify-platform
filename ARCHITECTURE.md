@@ -14,7 +14,25 @@ Aipify is split into **three layers**. Before adding a feature, decide which lay
 
 **Do not mix layers.**
 
-This repo uses Next.js App Router at the project root (`app/`, not `src/app/`). The tables below map spec paths to actual paths.
+## Portal architecture (approved)
+
+Aipify is separated into **three portals** so customer operations, platform administration, and Super Admin control never mix.
+
+| Portal | Domain | Route | Purpose | Access |
+|--------|--------|-------|---------|--------|
+| **Customer** | `app.aipify.ai` | `/app/*` | Customer Business Panel — paying organizations operate here | Customer auth |
+| **Platform Admin** | Shared host | `/platform/*` | Internal platform administration | Platform role + **2FA** + audit |
+| **Super Admin** | `super.aipify.ai` | `/super/*` | Aipify Group global control center | **Super Admin only** + **2FA** + recovery codes + audit |
+
+**Routing enforcement:** `lib/portals/` · `lib/supabase/update-session.ts` (middleware)
+
+| Rule | Enforcement |
+|------|-------------|
+| `/app/*` never exposes Super Admin | No `/super` routes in Customer App; host blocks on `app.aipify.ai` |
+| `/platform/*` never exposes customer-only workspace settings except controlled support tools | Platform Admin banner + layer separation |
+| `/super/*` never accessible to customers, Growth Partners, or customer admins | `super_admin` role guard + middleware redirect |
+
+**Design intent:** Customer portal — premium, supportive, enterprise-ready. Platform Admin — operational, technical, controlled. Super Admin — powerful, serious, restricted.
 
 ---
 

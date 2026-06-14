@@ -1,5 +1,10 @@
 {
   "accessDenied": "You do not have access to Aipify Platform Admin.",
+  "portal": {
+    "bannerTitle": "Platform Admin",
+    "bannerBody": "Internal operations layer for Aipify Group. Customer workspace settings remain in the Customer Portal unless accessed through controlled support tools.",
+    "twoFactorRequired": "Platform Admin requires two-factor authentication before entry."
+  },
   "search": "Search customers...",
   "sidebar": {
     "plan": "Platform Admin",
