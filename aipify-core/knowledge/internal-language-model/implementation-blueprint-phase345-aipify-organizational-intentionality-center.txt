@@ -1,0 +1,4 @@
+ABOS Phase 345 — Organizational Intentionality Center
+Route: /app/executive/organizational-intentionality
+Core: Organizations drift when they stop acting intentionally.
+Helpers: _oic_* · _oicbp345_*

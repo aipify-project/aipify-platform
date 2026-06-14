@@ -1,0 +1,1 @@
+export { OrganizationalIntentionalityCenterPanel } from "./OrganizationalIntentionalityCenterPanel";

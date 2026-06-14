@@ -85,7 +85,8 @@
     "organizationalTransformationLink": "Organizational Transformation",
     "organizationalCompoundingLink": "Organizational Compounding",
     "organizationalSteadfastnessLink": "Organizational Steadfastness",
-    "organizationalClarityLink": "Organizational Clarity"
+    "organizationalClarityLink": "Organizational Clarity",
+    "organizationalIntentionalityLink": "Organizational Intentionality"
   },
   "presence": {
     "title": "Presence center",
@@ -7192,7 +7193,8 @@
     "organizationalTransformationCenterEngine": "Organizational Transformation",
     "organizationalCompoundingCenterEngine": "Organizational Compounding",
     "organizationalSteadfastnessCenterEngine": "Organizational Steadfastness",
-    "organizationalClarityCenterEngine": "Organizational Clarity"
+    "organizationalClarityCenterEngine": "Organizational Clarity",
+    "organizationalIntentionalityCenterEngine": "Organizational Intentionality"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -19679,5 +19681,118 @@
     },
     "settingsLink": "Organizational Clarity",
     "organizationalClarityLink": "Organizational Clarity"
+  },
+  "organizationalIntentionalityCenter": {
+    "title": "Organizational Intentionality",
+    "subtitle": "Operate with greater intentionality by ensuring decisions, initiatives, behaviors, investments, and priorities align with purpose, strategy, and long-term aspirations.",
+    "loading": "Loading Intentionality Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Intentionality philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalClarityLink": "Organizational Clarity →",
+    "dashboardTitle": "Intentionality dashboard",
+    "signalsTitle": "Intentionality engine",
+    "purposeTitle": "Purpose check engine",
+    "initiativesTitle": "Intentionality initiatives",
+    "reviewsTitle": "Intentionality reviews",
+    "timelineTitle": "Intentionality timeline",
+    "milestonesTitle": "Intentionality milestones",
+    "snapshotsTitle": "Alignment snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive intentionality view",
+    "sessionsTitle": "Intentionality sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate intentionality report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export alignment snapshot",
+    "coordinateReview": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive intentionality milestone",
+    "humansDecide": "Aipify supports conscious leadership — leaders retain judgment; intentionality encourages awareness without over-planning, perfectionism, or decision paralysis.",
+    "privacyNote": "Privacy",
+    "intentionalityScore": "Organizational intentionality score",
+    "priorityAlignment": "Priority alignment",
+    "domains": {
+      "strategic": "Strategic intentionality",
+      "leadership": "Leadership intentionality",
+      "operational": "Operational intentionality",
+      "customer": "Customer intentionality",
+      "cultural": "Cultural intentionality",
+      "innovation": "Innovation intentionality"
+    },
+    "signalTypes": {
+      "misaligned_initiative": "Misaligned initiative",
+      "reactive_decision": "Reactive decision pattern",
+      "resource_fragmentation": "Resource fragmentation",
+      "opportunity_dilution": "Opportunity dilution",
+      "priority_inconsistency": "Priority inconsistency"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "purposeTypes": {
+      "why_initiative": "Why this initiative",
+      "mission_alignment": "Mission alignment",
+      "investment_priority": "Investment priority",
+      "trade_off_acceptance": "Trade-off acceptance",
+      "intentional_vs_reactive": "Intentional vs reactive"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "reactive": "Reactive"
+    },
+    "timelineTypes": {
+      "strategic_decision": "Strategic decision",
+      "reflection_milestone": "Reflection milestone",
+      "priority_shift": "Priority shift",
+      "resource_allocation_change": "Resource allocation change",
+      "leadership_initiative": "Leadership initiative"
+    },
+    "reviewTypes": {
+      "quarterly_intentionality": "Quarterly intentionality review",
+      "annual_strategic_reflection": "Annual strategic reflection",
+      "leadership_stewardship": "Leadership stewardship discussion",
+      "resource_allocation_assessment": "Resource allocation assessment"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "leadership_discussion": "Leadership discussion",
+      "stewardship_assessment": "Stewardship assessment"
+    },
+    "metrics": {
+      "strategicConsistency": "Strategic consistency",
+      "valuesAlignment": "Values alignment",
+      "leadershipReflection": "Leadership reflection participation",
+      "resourceAllocation": "Resource allocation effectiveness",
+      "purposeIntegration": "Purpose integration",
+      "strategicDiscipline": "Strategic discipline",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "strategicDiscipline": "Strategic discipline indicators",
+      "purposeAlignment": "Purpose alignment measures",
+      "leadershipReflection": "Leadership reflection trends",
+      "opportunityPrioritization": "Opportunity prioritization insights"
+    },
+    "settingsLink": "Organizational Intentionality",
+    "organizationalIntentionalityLink": "Organizational Intentionality"
   }
 }
