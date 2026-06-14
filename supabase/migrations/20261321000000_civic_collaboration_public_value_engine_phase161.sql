@@ -242,7 +242,7 @@ revoke all on public.civic_collaboration_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'civic_collaboration_engine', v.description
 from (values
   ('civic_collaboration.view', 'View Civic Collaboration Center', 'View community partnerships, public value initiatives, and trust reflection scaffolds'),

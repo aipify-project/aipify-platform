@@ -190,7 +190,7 @@ revoke all on public.ai_cost_governance_settings from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'ai_cost_governance', v.description
 from (values
   ('ai_costs.view', 'View AI Costs', 'View AI usage and cost dashboards'),
@@ -483,7 +483,7 @@ begin
     return;
   end if;
 
-  select id into v_user_id from public.users where organization_id = p_organization_id limit 1;
+  select id into v_user_id from public.users where company_id = p_organization_id limit 1;
 
   insert into public.ai_budgets (
     organization_id, budget_name, scope_type, period,

@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_execution_confidence_audit_l
 alter table public.aipify_enterprise_execution_confidence_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_execution_confidence_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_execution_confidence_engine', v.description
 from (values
   ('aipify_enterprise_execution_confidence.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -479,7 +479,7 @@ end; $$;
 
 create or replace function public._aeexcebp276_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 276 — Enterprise Execution Confidence Engine', 'title', 'Enterprise Execution Confidence Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE276_AIPIFY_ENTERPRISE_EXECUTION_CONFIDENCE.md', 'engine_phase', 'Repo Phase 276', 'route', '/app/aipify-enterprise-execution-confidence-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 276 — Enterprise Execution Confidence Engine', 'title', 'Enterprise Execution Confidence Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE276_AIPIFY_ENTERPRISE_EXECUTION_CONFIDENCE.md', 'engine_phase', 'Repo Phase 276', 'route', '/app/aipify-enterprise-execution-confidence-engine'),
     'distinction_note', public._aeexcebp276_distinction_note(), 'mission', public._aeexcebp276_mission(), 'philosophy', public._aeexcebp276_philosophy(),
     'abos_principle', public._aeexcebp276_abos_principle(), 'vision', public._aeexcebp276_vision(), 'objectives', public._aeexcebp276_objectives(),
     'execution_confidence_center_dashboard', public._aeexcebp276_execution_confidence_center_dashboard(), 'execution_confidence_registry', public._aeexcebp276_execution_confidence_registry(),

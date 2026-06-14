@@ -112,7 +112,7 @@ revoke all on public.organization_predictive_settings from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 3. Permissions — predictions.*
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'predictive_insights', v.description
 from (values
   ('predictions.view', 'View Predictions', 'View predictive insights and dashboards'),

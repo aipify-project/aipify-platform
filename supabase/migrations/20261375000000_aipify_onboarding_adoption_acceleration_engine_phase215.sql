@@ -239,7 +239,7 @@ create table if not exists public.aipify_onboarding_adoption_acceleration_audit_
 alter table public.aipify_onboarding_adoption_acceleration_audit_logs enable row level security;
 revoke all on public.aipify_onboarding_adoption_acceleration_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_onboarding_adoption_acceleration_engine', v.description
 from (values
   ('aipify_onboarding_adoption_acceleration.view', 'View Onboarding Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -468,7 +468,7 @@ end; $$;
 
 create or replace function public._aoaaebp215_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 215 — Aipify Onboarding & Adoption Acceleration Engine', 'title', 'Aipify Onboarding & Adoption Acceleration Engine (Onboarding Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE215_AIPIFY_ONBOARDING_ADOPTION_ACCELERATION_ENGINE.md', 'engine_phase', 'Repo Phase 215', 'route', '/app/aipify-onboarding-adoption-acceleration-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 215 — Aipify Onboarding & Adoption Acceleration Engine', 'title', 'Aipify Onboarding & Adoption Acceleration Engine (Onboarding Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE215_AIPIFY_ONBOARDING_ADOPTION_ACCELERATION_ENGINE.md', 'engine_phase', 'Repo Phase 215', 'route', '/app/aipify-onboarding-adoption-acceleration-engine'),
     'distinction_note', public._aoaaebp215_distinction_note(), 'mission', public._aoaaebp215_mission(), 'philosophy', public._aoaaebp215_philosophy(),
     'abos_principle', public._aoaaebp215_abos_principle(), 'vision', public._aoaaebp215_vision(), 'objectives', public._aoaaebp215_objectives(),
     'onboarding_dashboard', public._aoaaebp215_onboarding_dashboard(), 'role_based_learning_paths', public._aoaaebp215_role_based_learning_paths(),

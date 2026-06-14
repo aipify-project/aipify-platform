@@ -152,7 +152,7 @@ revoke all on public.organization_growth_recommendations from authenticated, ano
 -- ---------------------------------------------------------------------------
 -- 4. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'growth_evolution_engine', v.description
 from (values
   ('growth_evolution.view', 'View Growth & Evolution', 'View growth and evolution dashboard, signals, and recommendations'),

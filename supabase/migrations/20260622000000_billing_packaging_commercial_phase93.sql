@@ -300,7 +300,7 @@ begin
   on conflict (tenant_id, pack_key) do nothing;
 
   insert into public.commercial_addon_entitlements (tenant_id, addon_key, title, description, status, monthly_price)
-  select p_tenant_id, v.key, v.title, v.desc, 'available', v.price
+  select p_tenant_id, v.key, v.title, v.item_description, 'available', v.price
   from (values
     ('marketplace_governance', 'Marketplace Governance', 'Commerce quality and fraud monitoring.', 59),
     ('compliance_reporting', 'Compliance Reporting', 'Advanced compliance evidence generation.', 49),
@@ -309,11 +309,11 @@ begin
     ('workflow_automation', 'Workflow Automation', 'Advanced automation and orchestration.', 49),
     ('executive_insights', 'Executive Insights', 'Strategic intelligence briefings.', 69),
     ('partner_management', 'Partner Management', 'Partner portal and certification tracking.', 49)
-  ) as v(key, title, desc, price)
+  ) as v(key, title, item_description, price)
   where not exists (select 1 from public.commercial_addon_entitlements a where a.tenant_id = p_tenant_id and a.addon_key = v.key);
 
   insert into public.commercial_enterprise_services (tenant_id, service_key, title, description, status)
-  select p_tenant_id, v.key, v.title, v.desc,
+  select p_tenant_id, v.key, v.title, v.item_description,
     case when v_tier in ('enterprise', 'enterprise_plus') and v.key = 'dedicated_success' then 'active' else 'available' end
   from (values
     ('dedicated_success', 'Dedicated Success Manager', 'Named customer success partner.'),
@@ -322,7 +322,7 @@ begin
     ('onboarding_services', 'Onboarding Services', 'Guided enterprise onboarding program.'),
     ('custom_integrations', 'Custom Integrations', 'Bespoke connector and integration development.'),
     ('private_training', 'Private Training Programs', 'Organization-specific training sessions.')
-  ) as v(key, title, desc)
+  ) as v(key, title, item_description)
   on conflict (tenant_id, service_key) do nothing;
 end; $$;
 

@@ -182,7 +182,7 @@ revoke all on public.organization_task_settings from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 6. Permissions — tasks.*
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'unified_task_follow_up', v.description
 from (values
   ('tasks.view', 'View Tasks', 'View organizational tasks, dashboards, and follow-up status'),

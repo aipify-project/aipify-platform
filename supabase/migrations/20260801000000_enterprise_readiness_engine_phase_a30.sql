@@ -122,6 +122,22 @@ revoke all on public.enterprise_onboarding_milestones from authenticated, anon;
 -- ---------------------------------------------------------------------------
 do $$
 begin
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'enterprise_readiness_assessments' and column_name = 'tenant_id'
+  ) and exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'enterprise_readiness_assessments' and column_name = 'assessment_area'
+  ) and not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'enterprise_readiness_assessments' and column_name = 'assessment_dimension'
+  ) then
+    alter table public.enterprise_readiness_assessments rename to enterprise_readiness_assessments_phase92_legacy;
+  end if;
+end $$;
+
+do $$
+begin
   if not exists (
     select 1 from pg_tables where schemaname = 'public' and tablename = 'enterprise_readiness_assessments'
   ) then
@@ -179,7 +195,7 @@ revoke all on public.enterprise_readiness_assessments from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'enterprise_readiness', v.description
 from (values
   ('enterprise.view', 'View Enterprise Readiness', 'View enterprise health and readiness dashboards'),

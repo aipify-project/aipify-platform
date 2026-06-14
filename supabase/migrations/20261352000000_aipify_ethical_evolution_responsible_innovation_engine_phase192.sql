@@ -220,7 +220,7 @@ create table if not exists public.aipify_ethical_evolution_responsible_innovatio
 alter table public.aipify_ethical_evolution_responsible_innovation_audit_logs enable row level security;
 revoke all on public.aipify_ethical_evolution_responsible_innovation_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_ethical_evolution_responsible_innovation_engine', v.description
 from (values
   ('aipify_ethical_evolution_responsible_innovation.view', 'View Responsible Innovation Center', 'View executive reviews, reflections, and metadata scaffolds'),

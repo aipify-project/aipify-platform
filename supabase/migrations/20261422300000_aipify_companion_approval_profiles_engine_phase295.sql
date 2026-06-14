@@ -273,7 +273,7 @@ revoke all on public.aipify_approval_profile_audit_logs from authenticated, anon
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_companion_approval_profiles_engine', v.description
 from (values
   (

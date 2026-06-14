@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_organizational_wisdom_audit_
 alter table public.aipify_enterprise_organizational_wisdom_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_organizational_wisdom_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_organizational_wisdom_engine', v.description
 from (values
   ('aipify_enterprise_organizational_wisdom.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -479,7 +479,7 @@ end; $$;
 
 create or replace function public._aeowebp279_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 279 — Enterprise Organizational Wisdom Engine', 'title', 'Enterprise Organizational Wisdom Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE279_AIPIFY_ENTERPRISE_ORGANIZATIONAL_WISDOM.md', 'engine_phase', 'Repo Phase 279', 'route', '/app/aipify-enterprise-organizational-wisdom-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 279 — Enterprise Organizational Wisdom Engine', 'title', 'Enterprise Organizational Wisdom Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE279_AIPIFY_ENTERPRISE_ORGANIZATIONAL_WISDOM.md', 'engine_phase', 'Repo Phase 279', 'route', '/app/aipify-enterprise-organizational-wisdom-engine'),
     'distinction_note', public._aeowebp279_distinction_note(), 'mission', public._aeowebp279_mission(), 'philosophy', public._aeowebp279_philosophy(),
     'abos_principle', public._aeowebp279_abos_principle(), 'vision', public._aeowebp279_vision(), 'objectives', public._aeowebp279_objectives(),
     'wisdom_center_dashboard', public._aeowebp279_wisdom_center_dashboard(), 'wisdom_registry', public._aeowebp279_wisdom_registry(),

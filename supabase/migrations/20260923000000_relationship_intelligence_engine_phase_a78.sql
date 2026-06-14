@@ -182,7 +182,7 @@ revoke all on public.organization_relationship_intelligence_settings from authen
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'relationship_intelligence', v.description
 from (values
   ('relationship_intelligence.view', 'View Relationship Intelligence', 'View organizational relationship profiles and insights'),

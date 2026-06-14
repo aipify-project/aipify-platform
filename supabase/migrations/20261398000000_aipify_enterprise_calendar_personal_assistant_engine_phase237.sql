@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_calendar_personal_assistant_
 alter table public.aipify_enterprise_calendar_personal_assistant_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_calendar_personal_assistant_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_calendar_personal_assistant_engine', v.description
 from (values
   ('aipify_enterprise_calendar_personal_assistant.view', 'View Calendar Assistant', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -491,7 +491,7 @@ end; $$;
 
 create or replace function public._aecpaebp237_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 237 — Enterprise Calendar Assistant Engine', 'title', 'Enterprise Calendar Assistant Engine (Calendar Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE237_AIPIFY_ENTERPRISE_CALENDAR_PERSONAL_ASSISTANT_ENGINE.md', 'engine_phase', 'Repo Phase 237', 'route', '/app/aipify-enterprise-calendar-personal-assistant-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 237 — Enterprise Calendar Assistant Engine', 'title', 'Enterprise Calendar Assistant Engine (Calendar Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE237_AIPIFY_ENTERPRISE_CALENDAR_PERSONAL_ASSISTANT_ENGINE.md', 'engine_phase', 'Repo Phase 237', 'route', '/app/aipify-enterprise-calendar-personal-assistant-engine'),
     'distinction_note', public._aecpaebp237_distinction_note(), 'mission', public._aecpaebp237_mission(), 'philosophy', public._aecpaebp237_philosophy(),
     'abos_principle', public._aecpaebp237_abos_principle(), 'vision', public._aecpaebp237_vision(), 'objectives', public._aecpaebp237_objectives(),
     'calendar_assistant_dashboard', public._aecpaebp237_calendar_assistant_dashboard(), 'calendar_integration_hub', public._aecpaebp237_calendar_integration_hub(),

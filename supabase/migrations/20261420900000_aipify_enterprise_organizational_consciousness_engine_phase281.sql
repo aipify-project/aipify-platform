@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_organizational_consciousness
 alter table public.aipify_enterprise_organizational_consciousness_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_organizational_consciousness_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_organizational_consciousness_engine', v.description
 from (values
   ('aipify_enterprise_organizational_consciousness.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -479,7 +479,7 @@ end; $$;
 
 create or replace function public._aeocebp281_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 281 — Enterprise Organizational Consciousness Engine', 'title', 'Enterprise Organizational Consciousness Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE281_AIPIFY_ENTERPRISE_ORGANIZATIONAL_CONSCIOUSNESS.md', 'engine_phase', 'Repo Phase 281', 'route', '/app/aipify-enterprise-organizational-consciousness-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 281 — Enterprise Organizational Consciousness Engine', 'title', 'Enterprise Organizational Consciousness Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE281_AIPIFY_ENTERPRISE_ORGANIZATIONAL_CONSCIOUSNESS.md', 'engine_phase', 'Repo Phase 281', 'route', '/app/aipify-enterprise-organizational-consciousness-engine'),
     'distinction_note', public._aeocebp281_distinction_note(), 'mission', public._aeocebp281_mission(), 'philosophy', public._aeocebp281_philosophy(),
     'abos_principle', public._aeocebp281_abos_principle(), 'vision', public._aeocebp281_vision(), 'objectives', public._aeocebp281_objectives(),
     'organizational_consciousness_center_dashboard', public._aeocebp281_organizational_consciousness_center_dashboard(), 'awareness_registry', public._aeocebp281_awareness_registry(),

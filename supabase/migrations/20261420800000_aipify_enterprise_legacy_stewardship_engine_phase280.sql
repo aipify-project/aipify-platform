@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_legacy_stewardship_audit_log
 alter table public.aipify_enterprise_legacy_stewardship_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_legacy_stewardship_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_legacy_stewardship_engine', v.description
 from (values
   ('aipify_enterprise_legacy_stewardship.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -479,7 +479,7 @@ end; $$;
 
 create or replace function public._aelsebp280_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 280 — Enterprise Legacy & Stewardship Engine', 'title', 'Enterprise Legacy & Stewardship Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE280_AIPIFY_ENTERPRISE_LEGACY_STEWARDSHIP.md', 'engine_phase', 'Repo Phase 280', 'route', '/app/aipify-enterprise-legacy-stewardship-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 280 — Enterprise Legacy & Stewardship Engine', 'title', 'Enterprise Legacy & Stewardship Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE280_AIPIFY_ENTERPRISE_LEGACY_STEWARDSHIP.md', 'engine_phase', 'Repo Phase 280', 'route', '/app/aipify-enterprise-legacy-stewardship-engine'),
     'distinction_note', public._aelsebp280_distinction_note(), 'mission', public._aelsebp280_mission(), 'philosophy', public._aelsebp280_philosophy(),
     'abos_principle', public._aelsebp280_abos_principle(), 'vision', public._aelsebp280_vision(), 'objectives', public._aelsebp280_objectives(),
     'stewardship_center_dashboard', public._aelsebp280_stewardship_center_dashboard(), 'stewardship_registry', public._aelsebp280_stewardship_registry(),

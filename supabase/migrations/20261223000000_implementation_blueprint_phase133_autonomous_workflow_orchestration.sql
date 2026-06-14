@@ -481,7 +481,7 @@ create or replace function public._awobp133_seed_templates()
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.workflow_templates (template_key, template_name, description, category, default_trust_level, steps)
-  select v.key, v.name, v.desc, v.cat, v.trust, v.steps
+  select v.key, v.name, v.item_description, v.cat, v.trust, v.steps
   from (values
     (
       'executive_briefing',
@@ -519,7 +519,7 @@ begin
         {"trigger_type":"approval_requested","action_type":"request_approval","approval_required":true,"approver_role":"manager","step_order":3}
       ]'::jsonb
     )
-  ) as v(key, name, desc, cat, trust, steps)
+  ) as v(key, name, item_description, cat, trust, steps)
   where not exists (
     select 1 from public.workflow_templates t where t.template_key = v.key
   );

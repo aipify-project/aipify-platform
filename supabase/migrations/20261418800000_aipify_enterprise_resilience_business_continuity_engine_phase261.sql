@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_resilience_business_continui
 alter table public.aipify_enterprise_resilience_business_continuity_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_resilience_business_continuity_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_resilience_business_continuity_engine', v.description
 from (values
   ('aipify_enterprise_resilience_business_continuity.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -489,7 +489,7 @@ end; $$;
 
 create or replace function public._aerbcebp261_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 261 — Enterprise Resilience & Business Continuity Engine', 'title', 'Enterprise Resilience & Business Continuity Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE261_AIPIFY_ENTERPRISE_RESILIENCE_BUSINESS_CONTINUITY_ENGINE.md', 'engine_phase', 'Repo Phase 261', 'route', '/app/aipify-enterprise-resilience-business-continuity-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 261 — Enterprise Resilience & Business Continuity Engine', 'title', 'Enterprise Resilience & Business Continuity Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE261_AIPIFY_ENTERPRISE_RESILIENCE_BUSINESS_CONTINUITY_ENGINE.md', 'engine_phase', 'Repo Phase 261', 'route', '/app/aipify-enterprise-resilience-business-continuity-engine'),
     'distinction_note', public._aerbcebp261_distinction_note(), 'mission', public._aerbcebp261_mission(), 'philosophy', public._aerbcebp261_philosophy(),
     'abos_principle', public._aerbcebp261_abos_principle(), 'vision', public._aerbcebp261_vision(), 'objectives', public._aerbcebp261_objectives(),
     'resilience_dashboard', public._aerbcebp261_resilience_dashboard(), 'critical_function_registry_hub', public._aerbcebp261_critical_function_registry_hub(),

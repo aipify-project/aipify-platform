@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_organizational_adaptability_
 alter table public.aipify_enterprise_organizational_adaptability_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_organizational_adaptability_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_organizational_adaptability_engine', v.description
 from (values
   ('aipify_enterprise_organizational_adaptability.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -484,7 +484,7 @@ end; $$;
 
 create or replace function public._aeoaebp265_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 265 — Enterprise Organizational Adaptability Engine', 'title', 'Enterprise Organizational Adaptability Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE265_AIPIFY_ENTERPRISE_ORGANIZATIONAL_ADAPTABILITY.md', 'engine_phase', 'Repo Phase 265', 'route', '/app/aipify-enterprise-organizational-adaptability-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 265 — Enterprise Organizational Adaptability Engine', 'title', 'Enterprise Organizational Adaptability Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE265_AIPIFY_ENTERPRISE_ORGANIZATIONAL_ADAPTABILITY.md', 'engine_phase', 'Repo Phase 265', 'route', '/app/aipify-enterprise-organizational-adaptability-engine'),
     'distinction_note', public._aeoaebp265_distinction_note(), 'mission', public._aeoaebp265_mission(), 'philosophy', public._aeoaebp265_philosophy(),
     'abos_principle', public._aeoaebp265_abos_principle(), 'vision', public._aeoaebp265_vision(), 'objectives', public._aeoaebp265_objectives(),
     'adaptability_dashboard', public._aeoaebp265_adaptability_dashboard(), 'change_registry_hub', public._aeoaebp265_change_registry_hub(),

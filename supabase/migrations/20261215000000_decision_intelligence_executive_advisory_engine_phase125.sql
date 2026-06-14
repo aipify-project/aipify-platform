@@ -255,7 +255,7 @@ revoke all on public.decision_intelligence_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 7. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'decision_intelligence_engine', v.description
 from (values
   ('decision_intelligence.view', 'View Decision Intelligence Engine', 'View Decision Intelligence Center — workspaces, journals, and advisory scaffolds'),

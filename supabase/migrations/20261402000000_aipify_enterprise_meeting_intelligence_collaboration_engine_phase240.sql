@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_meeting_intelligence_collabo
 alter table public.aipify_enterprise_meeting_intelligence_collaboration_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_meeting_intelligence_collaboration_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_meeting_intelligence_collaboration_engine', v.description
 from (values
   ('aipify_enterprise_meeting_intelligence_collaboration.view', 'View __TRANSLATE_CENTER__', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -492,7 +492,7 @@ end; $$;
 
 create or replace function public._aemicebp240_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 240 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE240_AIPIFY_ENTERPRISE_MEETING_INTELLIGENCE_COLLABORATION_ENGINE.md', 'engine_phase', 'Repo Phase 240', 'route', '/app/aipify-enterprise-meeting-intelligence-collaboration-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 240 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE240_AIPIFY_ENTERPRISE_MEETING_INTELLIGENCE_COLLABORATION_ENGINE.md', 'engine_phase', 'Repo Phase 240', 'route', '/app/aipify-enterprise-meeting-intelligence-collaboration-engine'),
     'distinction_note', public._aemicebp240_distinction_note(), 'mission', public._aemicebp240_mission(), 'philosophy', public._aemicebp240_philosophy(),
     'abos_principle', public._aemicebp240_abos_principle(), 'vision', public._aemicebp240_vision(), 'objectives', public._aemicebp240_objectives(),
     'meeting_intelligence_dashboard', public._aemicebp240_meeting_intelligence_dashboard(), 'meeting_preparation_hub', public._aemicebp240_meeting_preparation_hub(),

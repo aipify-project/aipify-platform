@@ -234,7 +234,7 @@ create table if not exists public.aipify_customer_feedback_voice_of_the_customer
 alter table public.aipify_customer_feedback_voice_of_the_customer_audit_logs enable row level security;
 revoke all on public.aipify_customer_feedback_voice_of_the_customer_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_customer_feedback_voice_of_the_customer_engine', v.description
 from (values
   ('aipify_customer_feedback_voice_of_the_customer.view', 'View Voice of the Customer Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -462,7 +462,7 @@ end; $$;
 
 create or replace function public._acfvotcebp224_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 224 — Aipify Customer Feedback & Voice of the Customer Engine', 'title', 'Aipify Customer Feedback & Voice of the Customer Engine (Voice of the Customer Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE224_AIPIFY_CUSTOMER_FEEDBACK_VOICE_OF_THE_CUSTOMER_ENGINE.md', 'engine_phase', 'Repo Phase 224', 'route', '/app/aipify-customer-feedback-voice-of-the-customer-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 224 — Aipify Customer Feedback & Voice of the Customer Engine', 'title', 'Aipify Customer Feedback & Voice of the Customer Engine (Voice of the Customer Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE224_AIPIFY_CUSTOMER_FEEDBACK_VOICE_OF_THE_CUSTOMER_ENGINE.md', 'engine_phase', 'Repo Phase 224', 'route', '/app/aipify-customer-feedback-voice-of-the-customer-engine'),
     'distinction_note', public._acfvotcebp224_distinction_note(), 'mission', public._acfvotcebp224_mission(), 'philosophy', public._acfvotcebp224_philosophy(),
     'abos_principle', public._acfvotcebp224_abos_principle(), 'vision', public._acfvotcebp224_vision(), 'objectives', public._acfvotcebp224_objectives(),
     'voice_of_the_customer_dashboard', public._acfvotcebp224_voice_of_the_customer_dashboard(), 'feedback_intake_framework', public._acfvotcebp224_feedback_intake_framework(),

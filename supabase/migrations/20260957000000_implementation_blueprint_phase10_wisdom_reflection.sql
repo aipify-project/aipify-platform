@@ -490,5 +490,5 @@ end; $$;
 grant execute on function public._wip_blueprint_success_criteria(uuid) to authenticated;
 
 insert into public.aipify_knowledge_categories (slug, name, description, visibility, sort_order)
-values ('wisdom-intervention-protocol', 'Wisdom Intervention Protocol', 'Pre-send reflection and Pause & Reflection guidance', 'customer', 194)
-on conflict (slug) do nothing;
+select 'wisdom-intervention-protocol', 'Wisdom Intervention Protocol', 'Pre-send reflection and Pause & Reflection guidance', 'authenticated', 194
+where not exists (select 1 from public.aipify_knowledge_categories where slug = 'wisdom-intervention-protocol' and tenant_id is null);

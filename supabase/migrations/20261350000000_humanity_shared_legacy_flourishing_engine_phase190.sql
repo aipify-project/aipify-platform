@@ -217,7 +217,7 @@ create table if not exists public.humanity_shared_legacy_flourishing_audit_logs 
 alter table public.humanity_shared_legacy_flourishing_audit_logs enable row level security;
 revoke all on public.humanity_shared_legacy_flourishing_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'humanity_shared_legacy_flourishing_engine', v.description
 from (values
   ('humanity_shared_legacy_flourishing.view', 'View Flourishing Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -294,7 +294,7 @@ create or replace function public._hslfbp190_objectives() returns jsonb language
     jsonb_build_object('key', 'knowledge_libraries', 'label', 'Knowledge libraries', 'emoji', '📖', 'description', 'Approved resources'),
     jsonb_build_object('key', 'empowerment', 'label', 'Empowerment themes', 'emoji', '🌱', 'description', 'Participation and learning')
   ); $$;
-create or replace function public._hslfbp190_flourishing_center() returns jsonb language sql immutable as $
+create or replace function public._hslfbp190_flourishing_center() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Flourishing Center — eight capabilities.', 'capabilities', jsonb_build_array(
     jsonb_build_object('key', 'flourishing_reviews', 'label', 'Human flourishing reviews'),
     jsonb_build_object('key', 'legacy_sessions', 'label', 'Leadership legacy sessions'),
@@ -305,7 +305,7 @@ create or replace function public._hslfbp190_flourishing_center() returns jsonb 
     jsonb_build_object('key', 'intergenerational_dashboards', 'label', 'Intergenerational opportunity dashboards'),
     jsonb_build_object('key', 'legacy_libraries', 'label', 'Legacy knowledge libraries')
   )); $$;
-create or replace function public._hslfbp190_flourishing_engine() returns jsonb language sql immutable as $
+create or replace function public._hslfbp190_flourishing_engine() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Flourishing reflection prompts — humans decide.', 'reflection_questions', jsonb_build_array(
     jsonb_build_object('key', 'people_growing', 'label', 'How are people growing here?'),
     jsonb_build_object('key', 'belonging', 'label', 'How do we strengthen belonging?'),
@@ -313,7 +313,7 @@ create or replace function public._hslfbp190_flourishing_engine() returns jsonb 
     jsonb_build_object('key', 'dignity', 'label', 'How do we preserve dignity?'),
     jsonb_build_object('key', 'legacy_together', 'label', 'What legacy are we creating together?')
   )); $$;
-create or replace function public._hslfbp190_shared_legacy_framework() returns jsonb language sql immutable as $
+create or replace function public._hslfbp190_shared_legacy_framework() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Shared legacy framework — periodic reflection.', 'domains', jsonb_build_array(
     jsonb_build_object('key', 'people_development', 'label', 'People development'),
     jsonb_build_object('key', 'leadership_stewardship', 'label', 'Leadership stewardship'),
@@ -323,7 +323,7 @@ create or replace function public._hslfbp190_shared_legacy_framework() returns j
     jsonb_build_object('key', 'legacy_practices', 'label', 'Legacy practices'),
     jsonb_build_object('key', 'future_preparedness', 'label', 'Future preparedness')
   )); $$;
-create or replace function public._hslfbp190_executive_legacy_reviews() returns jsonb language sql immutable as $
+create or replace function public._hslfbp190_executive_legacy_reviews() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Executive legacy reviews — leadership reflection.', 'review_themes', jsonb_build_array(
     jsonb_build_object('key', 'remembered_actions', 'label', 'How will our actions be remembered?'),
     jsonb_build_object('key', 'opportunities_created', 'label', 'What opportunities are we creating?'),
@@ -331,7 +331,7 @@ create or replace function public._hslfbp190_executive_legacy_reviews() returns 
     jsonb_build_object('key', 'preserve_values', 'label', 'How do we preserve our values?'),
     jsonb_build_object('key', 'future_generations', 'label', 'How do we support future generations?')
   )); $$;
-create or replace function public._hslfbp190_legacy_companion() returns jsonb language sql immutable as $
+create or replace function public._hslfbp190_legacy_companion() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Legacy Companion — supports, does not define meaning.', 'capabilities', jsonb_build_array(
     jsonb_build_object('key', 'reflection_prompts', 'label', 'Reflection prompts'),
     jsonb_build_object('key', 'leadership_briefings', 'label', 'Leadership briefings'),
@@ -340,7 +340,7 @@ create or replace function public._hslfbp190_legacy_companion() returns jsonb la
     jsonb_build_object('key', 'legacy_insights', 'label', 'Legacy insights'),
     jsonb_build_object('key', 'intergenerational_learning', 'label', 'Intergenerational learning resources')
   )); $$;
-create or replace function public._hslfbp190_flourishing_culture_engine() returns jsonb language sql immutable as $
+create or replace function public._hslfbp190_flourishing_culture_engine() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Flourishing culture engine — metadata only.', 'practices', jsonb_build_array(
     jsonb_build_object('key', 'mentorship', 'label', 'Mentorship programs'),
     jsonb_build_object('key', 'leadership_development', 'label', 'Leadership development'),
@@ -349,12 +349,12 @@ create or replace function public._hslfbp190_flourishing_culture_engine() return
     jsonb_build_object('key', 'learning_communities', 'label', 'Learning communities'),
     jsonb_build_object('key', 'cross_generational', 'label', 'Cross-generational collaboration')
   )); $$;
-create or replace function public._hslfbp190_companion_limitations() returns jsonb language sql immutable as $
+create or replace function public._hslfbp190_companion_limitations() returns jsonb language sql immutable as $$
   select jsonb_build_object('must_avoid', jsonb_build_array('Define human worth',
       'Replace authentic relationships',
       'Override leadership responsibilities',
       'Determine personal purpose',
-      'Suppress individuality'), 'principle', 'Legacy Companion supports — humans decide.'); $;
+      'Suppress individuality'), 'principle', 'Legacy Companion supports — humans decide.'); $$;
 create or replace function public._hslfbp190_self_love_connection() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Self Love — self-awareness, compassion, gratitude, confidence, humility.', 'values', jsonb_build_array('self_awareness','compassion','gratitude','confidence','humility','intrinsic_worth'), 'cross_link', '/app/self-love-engine'); $$;
 create or replace function public._hslfbp190_security_requirements() returns jsonb language sql immutable as $$
@@ -375,13 +375,13 @@ create or replace function public._hslfbp190_era_opener_summary() returns jsonb 
     jsonb_build_object('phase', 187, 'key', 'shared_courage', 'label', 'Shared Courage Phase 187', 'route', '/app/shared-courage-responsible-action-engine', 'description', 'Responsible action'),
     jsonb_build_object('phase', 188, 'key', 'shared_gratitude', 'label', 'Shared Gratitude Phase 188', 'route', '/app/shared-gratitude-appreciative-stewardship-engine', 'description', 'Appreciative stewardship'),
     jsonb_build_object('phase', 189, 'key', 'shared_humility', 'label', 'Shared Humility Phase 189', 'route', '/app/shared-humility-continuous-renewal-engine', 'description', 'Continuous renewal — cross-link only')
-  ); $;
+  ); $$;
 create or replace function public._hslfbp190_extended_cross_links() returns jsonb language sql immutable as $$ select jsonb_build_array(
     jsonb_build_object('key', 'human_flourishing', 'label', 'Human Flourishing Engine', 'route', '/app/human-flourishing-engine', 'relationship', 'Flourishing — cross-link only'),
     jsonb_build_object('key', 'legacy_engine', 'label', 'Legacy Engine', 'route', '/app/legacy-engine', 'relationship', 'Legacy stewardship — cross-link only'),
     jsonb_build_object('key', 'shared_gratitude', 'label', 'Shared Gratitude Phase 188', 'route', '/app/shared-gratitude-appreciative-stewardship-engine', 'relationship', 'Gratitude — cross-link only'),
     jsonb_build_object('key', 'shared_humility', 'label', 'Shared Humility Phase 189', 'route', '/app/shared-humility-continuous-renewal-engine', 'relationship', 'Renewal — cross-link only')
-  ); $;
+  ); $$;
 create or replace function public._hslfbp190_integration_links() returns jsonb language sql stable as $$ select public._hslfbp190_era_opener_summary() || public._hslfbp190_extended_cross_links(); $$;
 create or replace function public._hslfbp190_dogfooding() returns text language sql immutable as $$
   select 'Aipify uses Flourishing Center internally with metadata-only executive reviews and reflection scaffolds. Growth Partner terminology. Legacy Companion supports — never replaces human responsibility.'; $$;

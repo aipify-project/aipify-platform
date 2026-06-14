@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_organizational_trust_audit_l
 alter table public.aipify_enterprise_organizational_trust_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_organizational_trust_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_organizational_trust_engine', v.description
 from (values
   ('aipify_enterprise_organizational_trust.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -479,7 +479,7 @@ end; $$;
 
 create or replace function public._aeotebp278_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 278 — Enterprise Organizational Trust Engine', 'title', 'Enterprise Organizational Trust Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE278_AIPIFY_ENTERPRISE_ORGANIZATIONAL_TRUST.md', 'engine_phase', 'Repo Phase 278', 'route', '/app/aipify-enterprise-organizational-trust-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 278 — Enterprise Organizational Trust Engine', 'title', 'Enterprise Organizational Trust Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE278_AIPIFY_ENTERPRISE_ORGANIZATIONAL_TRUST.md', 'engine_phase', 'Repo Phase 278', 'route', '/app/aipify-enterprise-organizational-trust-engine'),
     'distinction_note', public._aeotebp278_distinction_note(), 'mission', public._aeotebp278_mission(), 'philosophy', public._aeotebp278_philosophy(),
     'abos_principle', public._aeotebp278_abos_principle(), 'vision', public._aeotebp278_vision(), 'objectives', public._aeotebp278_objectives(),
     'trust_center_dashboard', public._aeotebp278_trust_center_dashboard(), 'trust_registry', public._aeotebp278_trust_registry(),

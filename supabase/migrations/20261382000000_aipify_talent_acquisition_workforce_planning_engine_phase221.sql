@@ -234,7 +234,7 @@ create table if not exists public.aipify_talent_acquisition_workforce_planning_a
 alter table public.aipify_talent_acquisition_workforce_planning_audit_logs enable row level security;
 revoke all on public.aipify_talent_acquisition_workforce_planning_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_talent_acquisition_workforce_planning_engine', v.description
 from (values
   ('aipify_talent_acquisition_workforce_planning.view', 'View Talent Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -461,7 +461,7 @@ end; $$;
 
 create or replace function public._atawpebp221_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 221 — Aipify Talent Acquisition & Workforce Planning Engine', 'title', 'Aipify Talent Acquisition & Workforce Planning Engine (Talent Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE221_AIPIFY_TALENT_ACQUISITION_WORKFORCE_PLANNING_ENGINE.md', 'engine_phase', 'Repo Phase 221', 'route', '/app/aipify-talent-acquisition-workforce-planning-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 221 — Aipify Talent Acquisition & Workforce Planning Engine', 'title', 'Aipify Talent Acquisition & Workforce Planning Engine (Talent Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE221_AIPIFY_TALENT_ACQUISITION_WORKFORCE_PLANNING_ENGINE.md', 'engine_phase', 'Repo Phase 221', 'route', '/app/aipify-talent-acquisition-workforce-planning-engine'),
     'distinction_note', public._atawpebp221_distinction_note(), 'mission', public._atawpebp221_mission(), 'philosophy', public._atawpebp221_philosophy(),
     'abos_principle', public._atawpebp221_abos_principle(), 'vision', public._atawpebp221_vision(), 'objectives', public._atawpebp221_objectives(),
     'talent_dashboard', public._atawpebp221_talent_dashboard(), 'workforce_planning_center', public._atawpebp221_workforce_planning_center(),

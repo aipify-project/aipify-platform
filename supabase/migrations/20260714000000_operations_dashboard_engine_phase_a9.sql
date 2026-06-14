@@ -103,7 +103,7 @@ revoke all on public.operations_alerts from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 4. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'operations_dashboard', v.description
 from (values
   ('dashboard.view', 'View Operations Dashboard', 'Access the operations dashboard'),

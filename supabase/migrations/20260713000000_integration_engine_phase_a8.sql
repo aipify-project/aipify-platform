@@ -1,6 +1,8 @@
 -- Phase A.8 — Integration Engine
 -- Principle: secure, tenant-isolated connections to external platforms with full auditability.
 
+create extension if not exists pgcrypto with schema extensions;
+
 alter table public.decision_explanations drop constraint if exists decision_explanations_decision_type_check;
 alter table public.decision_explanations add constraint decision_explanations_decision_type_check check (
   decision_type in (
@@ -24,6 +26,20 @@ alter table public.decision_explanations add constraint decision_explanations_de
 -- ---------------------------------------------------------------------------
 -- 1. organization_integrations
 -- ---------------------------------------------------------------------------
+-- Phase A.1 used integration_type/name; A.8 uses integration_key/integration_name/enabled.
+do $$
+begin
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'organization_integrations' and column_name = 'integration_type'
+  ) and not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'organization_integrations' and column_name = 'integration_key'
+  ) then
+    alter table public.organization_integrations rename to organization_integrations_mta_legacy;
+  end if;
+end $$;
+
 create table if not exists public.organization_integrations (
   id uuid primary key default gen_random_uuid(),
   organization_id uuid not null references public.organizations (id) on delete cascade,
@@ -135,7 +151,7 @@ alter table public.integration_catalog enable row level security;
 revoke all on public.integration_catalog from authenticated, anon;
 
 insert into public.integration_catalog (integration_key, integration_name, category, description, is_available, is_future, sort_order)
-select v.key, v.name, v.cat, v.desc, v.avail, v.future, v.ord
+select v.key, v.name, v.cat, v.item_description, v.avail, v.future, v.ord
 from (values
   ('unonight', 'Unonight', 'pilot', 'Pilot integration for secure data exchange and support events.', true, false, 1),
   ('email_provider', 'Email Provider', 'email', 'Connect transactional email providers.', true, false, 2),
@@ -148,13 +164,13 @@ from (values
   ('slack', 'Slack', 'communication', 'Team communication integration.', false, true, 15),
   ('crm', 'CRM System', 'crm', 'Customer relationship management.', false, true, 16),
   ('erp', 'ERP System', 'erp', 'Enterprise resource planning.', false, true, 17)
-) as v(key, name, cat, desc, avail, future, ord)
+) as v(key, name, cat, item_description, avail, future, ord)
 where not exists (select 1 from public.integration_catalog c where c.integration_key = v.key);
 
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'integrations', v.description
 from (values
   ('integrations.view', 'View Integrations', 'View connected integrations'),
@@ -206,12 +222,12 @@ create or replace function public._ige_store_credentials(
 returns uuid language plpgsql security definer set search_path = public as $$
 declare v_vault_id uuid; v_key text;
 begin
-  v_key := 'vault_' || encode(digest(p_secret || p_integration_id::text, 'sha256'), 'hex');
+  v_key := 'vault_' || encode(extensions.extensions.digest(p_secret || p_integration_id::text, 'sha256'), 'hex');
   insert into public.integration_credential_vault (
     organization_id, integration_id, vault_key, encrypted_payload
   ) values (
     p_organization_id, p_integration_id, v_key,
-    encode(digest(p_secret, 'sha256'), 'hex')
+    encode(extensions.extensions.digest(p_secret, 'sha256'), 'hex')
   ) returning id into v_vault_id;
 
   update public.organization_integrations set credentials_reference = v_vault_id, updated_at = now()

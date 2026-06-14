@@ -234,7 +234,7 @@ create table if not exists public.aipify_employee_recognition_celebration_audit_
 alter table public.aipify_employee_recognition_celebration_audit_logs enable row level security;
 revoke all on public.aipify_employee_recognition_celebration_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_employee_recognition_celebration_engine', v.description
 from (values
   ('aipify_employee_recognition_celebration.view', 'View __TRANSLATE_CENTER__', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -488,7 +488,7 @@ end; $$;
 
 create or replace function public._aercebp242_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 242 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE242_AIPIFY_EMPLOYEE_RECOGNITION_CELEBRATION_ENGINE.md', 'engine_phase', 'Repo Phase 242', 'route', '/app/aipify-employee-recognition-celebration-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 242 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE242_AIPIFY_EMPLOYEE_RECOGNITION_CELEBRATION_ENGINE.md', 'engine_phase', 'Repo Phase 242', 'route', '/app/aipify-employee-recognition-celebration-engine'),
     'distinction_note', public._aercebp242_distinction_note(), 'mission', public._aercebp242_mission(), 'philosophy', public._aercebp242_philosophy(),
     'abos_principle', public._aercebp242_abos_principle(), 'vision', public._aercebp242_vision(), 'objectives', public._aercebp242_objectives(),
     'recognition_celebration_dashboard', public._aercebp242_recognition_celebration_dashboard(), 'recognition_feed_hub', public._aercebp242_recognition_feed_hub(),

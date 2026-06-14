@@ -292,7 +292,7 @@ revoke all on public.aipify_first_day_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_first_day_experience_engine', v.description
 from (values
   ('first_day.view', 'View First Day Experience', 'View first-day journey, value moments, and readiness report'),

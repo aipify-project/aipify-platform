@@ -278,7 +278,7 @@ revoke all on public.aipify_strategic_intelligence_audit_logs from authenticated
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_executive_strategic_intelligence_engine', v.description
 from (values
   ('strategic_intelligence.view', 'View Strategic Intelligence Center', 'Review opportunities, risks, trends, and executive insights'),

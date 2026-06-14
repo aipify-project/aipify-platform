@@ -108,7 +108,7 @@ revoke all on public.companion_device_ecosystem_settings from authenticated, ano
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'companion_device_ecosystem_engine', v.description
 from (values
   ('companion_device_ecosystem.view', 'View Companion Device Ecosystem', 'View device ecosystem dashboard and continuity metadata'),

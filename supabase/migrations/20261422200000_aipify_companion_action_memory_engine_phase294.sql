@@ -269,7 +269,7 @@ revoke all on public.aipify_companion_action_memory_audit_logs from authenticate
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_companion_action_memory_engine', v.description
 from (values
   (

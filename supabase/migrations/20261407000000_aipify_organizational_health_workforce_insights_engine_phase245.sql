@@ -234,7 +234,7 @@ create table if not exists public.aipify_organizational_health_workforce_insight
 alter table public.aipify_organizational_health_workforce_insights_audit_logs enable row level security;
 revoke all on public.aipify_organizational_health_workforce_insights_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_organizational_health_workforce_insights_engine', v.description
 from (values
   ('aipify_organizational_health_workforce_insights.view', 'View __TRANSLATE_CENTER__', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -489,7 +489,7 @@ end; $$;
 
 create or replace function public._aohwiebp245_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 245 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE245_AIPIFY_ORGANIZATIONAL_HEALTH_WORKFORCE_INSIGHTS_ENGINE.md', 'engine_phase', 'Repo Phase 245', 'route', '/app/aipify-organizational-health-workforce-insights-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 245 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE245_AIPIFY_ORGANIZATIONAL_HEALTH_WORKFORCE_INSIGHTS_ENGINE.md', 'engine_phase', 'Repo Phase 245', 'route', '/app/aipify-organizational-health-workforce-insights-engine'),
     'distinction_note', public._aohwiebp245_distinction_note(), 'mission', public._aohwiebp245_mission(), 'philosophy', public._aohwiebp245_philosophy(),
     'abos_principle', public._aohwiebp245_abos_principle(), 'vision', public._aohwiebp245_vision(), 'objectives', public._aohwiebp245_objectives(),
     'organizational_health_dashboard', public._aohwiebp245_organizational_health_dashboard(), 'pulse_survey_hub', public._aohwiebp245_pulse_survey_hub(),

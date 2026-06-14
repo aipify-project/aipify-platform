@@ -131,7 +131,7 @@ revoke all on public.status_transparency_settings from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_status_transparency', v.description
 from (values
   ('status.view', 'View Status', 'View platform status and incident communications'),
@@ -172,6 +172,8 @@ begin
     p_organization_id, p_action_type, p_entity_type, p_entity_id, false, false, null, p_metadata
   );
 end; $$;
+
+drop function if exists public._ste_ensure_settings(uuid);
 
 create or replace function public._ste_ensure_settings(p_organization_id uuid)
 returns public.status_transparency_settings language plpgsql security definer set search_path = public as $$

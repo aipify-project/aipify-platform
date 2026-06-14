@@ -356,14 +356,14 @@ create or replace function public._mpg_seed_policies(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.marketplace_policy_rules (tenant_id, rule_key, title, description, rule_type, threshold_value)
-  select p_tenant_id, v.key, v.title, v.desc, v.type, v.threshold
+  select p_tenant_id, v.key, v.title, v.item_description, v.type, v.threshold
   from (values
     ('min_star_rating', 'Minimum product rating', 'No products below 3 stars without review.', 'threshold', 3.0),
     ('max_refund_rate', 'Maximum refund rate', 'Refund rate may not exceed 8% without investigation.', 'threshold', 8.0),
     ('digital_manual_approval', 'Digital product approval', 'Digital products require manual approval before publish.', 'approval', null),
     ('new_supplier_probation', 'New supplier probation', 'New suppliers require probation monitoring period.', 'monitoring', 30),
     ('legal_category_review', 'Legal category review', 'Certain product categories require legal review.', 'approval', null)
-  ) as v(key, title, desc, type, threshold)
+  ) as v(key, title, item_description, type, threshold)
   where not exists (
     select 1 from public.marketplace_policy_rules r where r.tenant_id = p_tenant_id and r.rule_key = v.key
   );

@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_organizational_memory_audit_
 alter table public.aipify_enterprise_organizational_memory_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_organizational_memory_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_organizational_memory_engine', v.description
 from (values
   ('aipify_enterprise_organizational_memory.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -491,7 +491,7 @@ end; $$;
 
 create or replace function public._aeomebp260_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 260 — Enterprise Organizational Memory Engine', 'title', 'Enterprise Organizational Memory Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE260_AIPIFY_ENTERPRISE_ORGANIZATIONAL_MEMORY_ENGINE.md', 'engine_phase', 'Repo Phase 260', 'route', '/app/aipify-enterprise-organizational-memory-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 260 — Enterprise Organizational Memory Engine', 'title', 'Enterprise Organizational Memory Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE260_AIPIFY_ENTERPRISE_ORGANIZATIONAL_MEMORY_ENGINE.md', 'engine_phase', 'Repo Phase 260', 'route', '/app/aipify-enterprise-organizational-memory-engine'),
     'distinction_note', public._aeomebp260_distinction_note(), 'mission', public._aeomebp260_mission(), 'philosophy', public._aeomebp260_philosophy(),
     'abos_principle', public._aeomebp260_abos_principle(), 'vision', public._aeomebp260_vision(), 'objectives', public._aeomebp260_objectives(),
     'memory_dashboard', public._aeomebp260_memory_dashboard(), 'memory_capture_hub', public._aeomebp260_memory_capture_hub(),

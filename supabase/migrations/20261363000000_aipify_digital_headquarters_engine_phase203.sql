@@ -229,7 +229,7 @@ create table if not exists public.aipify_digital_headquarters_audit_logs (
 alter table public.aipify_digital_headquarters_audit_logs enable row level security;
 revoke all on public.aipify_digital_headquarters_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_digital_headquarters_engine', v.description
 from (values
   ('aipify_digital_headquarters.view', 'View Digital Headquarters', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -461,7 +461,7 @@ end; $$;
 
 create or replace function public._adhebp203_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 203 — Aipify Digital Headquarters Engine', 'title', 'Aipify Digital Headquarters Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE203_AIPIFY_DIGITAL_HEADQUARTERS_ENGINE.md', 'engine_phase', 'Repo Phase 203', 'route', '/app/aipify-digital-headquarters-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 203 — Aipify Digital Headquarters Engine', 'title', 'Aipify Digital Headquarters Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE203_AIPIFY_DIGITAL_HEADQUARTERS_ENGINE.md', 'engine_phase', 'Repo Phase 203', 'route', '/app/aipify-digital-headquarters-engine'),
     'distinction_note', public._adhebp203_distinction_note(), 'mission', public._adhebp203_mission(), 'philosophy', public._adhebp203_philosophy(),
     'abos_principle', public._adhebp203_abos_principle(), 'vision', public._adhebp203_vision(), 'objectives', public._adhebp203_objectives(),
     'digital_headquarters_dashboard', public._adhebp203_digital_headquarters_dashboard(), 'alignment_reflection_engine', public._adhebp203_alignment_reflection_engine(),

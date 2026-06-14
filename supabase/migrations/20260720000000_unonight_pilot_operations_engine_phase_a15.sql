@@ -137,7 +137,7 @@ revoke all on public.pilot_milestones from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'unonight_pilot', v.description
 from (values
   ('pilot.view', 'View Pilot Operations', 'View Unonight pilot dashboard and metrics'),

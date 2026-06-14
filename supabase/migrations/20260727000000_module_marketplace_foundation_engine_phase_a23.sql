@@ -53,6 +53,20 @@ revoke all on public.marketplace_modules from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 2. organization_modules (tenant activation — complements tenant_modules)
 -- ---------------------------------------------------------------------------
+-- Phase A.1 used enabled/plan_required; A.23 uses status/marketplace_modules FK.
+do $$
+begin
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'organization_modules' and column_name = 'enabled'
+  ) and not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'organization_modules' and column_name = 'status'
+  ) then
+    alter table public.organization_modules rename to organization_modules_mta_legacy;
+  end if;
+end $$;
+
 create table if not exists public.organization_modules (
   id uuid primary key default gen_random_uuid(),
   organization_id uuid not null references public.organizations (id) on delete cascade,
@@ -114,7 +128,7 @@ revoke all on public.module_configurations from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'module_marketplace', v.description
 from (values
   ('modules.activate', 'Activate Modules', 'Activate marketplace modules for organization'),
@@ -159,7 +173,7 @@ create or replace function public._mmf_seed_catalog()
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.marketplace_modules (module_key, module_name, description, category, status, is_core)
-  select v.key, v.name, v.desc, v.cat, v.status, v.core
+  select v.key, v.name, v.item_description, v.cat, v.status, v.core
   from (values
     ('admin_assistant', 'Admin Assistant', 'Operational admin guidance and task management.', 'operational', 'active', true),
     ('support_ai', 'Support AI', 'AI-assisted customer support operations.', 'customer', 'active', true),
@@ -169,11 +183,11 @@ begin
     ('quality_guardian', 'Quality Guardian', 'Operational quality monitoring and alerts.', 'operational', 'active', true),
     ('notification_communication', 'Notifications', 'Notification and communication engine.', 'operational', 'active', true),
     ('integration_engine', 'Integrations', 'Third-party integration management.', 'operational', 'active', true)
-  ) as v(key, name, desc, cat, status, core)
+  ) as v(key, name, item_description, cat, status, core)
   on conflict (module_key) do nothing;
 
   insert into public.marketplace_modules (module_key, module_name, description, category, status, is_future)
-  select v.key, v.name, v.desc, v.cat, 'inactive', true
+  select v.key, v.name, v.item_description, v.cat, 'inactive', true
   from (values
     ('commerce_intelligence', 'Commerce', 'Commerce intelligence and operations.', 'commerce', 'archived'),
     ('marketing_automation', 'Marketing', 'Marketing automation and campaigns.', 'commerce', 'archived'),
@@ -181,7 +195,7 @@ begin
     ('strategic_intelligence', 'Strategic Intelligence', 'Strategic planning and intelligence.', 'executive', 'archived'),
     ('operations_center', 'Operations Center', 'Unified operations command center.', 'operational', 'archived'),
     ('desktop_companion', 'Desktop Companion', 'Desktop Command Center companion.', 'companion', 'archived')
-  ) as v(key, name, desc, cat)
+  ) as v(key, name, item_description, cat)
   on conflict (module_key) do nothing;
 
   insert into public.module_dependencies (module_key, depends_on_key, required)

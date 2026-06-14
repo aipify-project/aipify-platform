@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_strategic_execution_audit_lo
 alter table public.aipify_enterprise_strategic_execution_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_strategic_execution_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_strategic_execution_engine', v.description
 from (values
   ('aipify_enterprise_strategic_execution.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -490,7 +490,7 @@ end; $$;
 
 create or replace function public._aeseebp263_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 263 — Enterprise Strategic Execution Engine', 'title', 'Enterprise Strategic Execution Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE263_AIPIFY_ENTERPRISE_STRATEGIC_EXECUTION_ENGINE.md', 'engine_phase', 'Repo Phase 263', 'route', '/app/aipify-enterprise-strategic-execution-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 263 — Enterprise Strategic Execution Engine', 'title', 'Enterprise Strategic Execution Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE263_AIPIFY_ENTERPRISE_STRATEGIC_EXECUTION_ENGINE.md', 'engine_phase', 'Repo Phase 263', 'route', '/app/aipify-enterprise-strategic-execution-engine'),
     'distinction_note', public._aeseebp263_distinction_note(), 'mission', public._aeseebp263_mission(), 'philosophy', public._aeseebp263_philosophy(),
     'abos_principle', public._aeseebp263_abos_principle(), 'vision', public._aeseebp263_vision(), 'objectives', public._aeseebp263_objectives(),
     'strategic_execution_dashboard', public._aeseebp263_strategic_execution_dashboard(), 'strategic_objective_registry_hub', public._aeseebp263_strategic_objective_registry_hub(),

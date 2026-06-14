@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_governance_policy_automation
 alter table public.aipify_enterprise_governance_policy_automation_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_governance_policy_automation_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_governance_policy_automation_engine', v.description
 from (values
   ('aipify_enterprise_governance_policy_automation.view', 'View __TRANSLATE_CENTER__', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -491,7 +491,7 @@ end; $$;
 
 create or replace function public._aegpaebp253_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 253 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE253_AIPIFY_ENTERPRISE_GOVERNANCE_POLICY_AUTOMATION_ENGINE.md', 'engine_phase', 'Repo Phase 253', 'route', '/app/aipify-enterprise-governance-policy-automation-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 253 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE253_AIPIFY_ENTERPRISE_GOVERNANCE_POLICY_AUTOMATION_ENGINE.md', 'engine_phase', 'Repo Phase 253', 'route', '/app/aipify-enterprise-governance-policy-automation-engine'),
     'distinction_note', public._aegpaebp253_distinction_note(), 'mission', public._aegpaebp253_mission(), 'philosophy', public._aegpaebp253_philosophy(),
     'abos_principle', public._aegpaebp253_abos_principle(), 'vision', public._aegpaebp253_vision(), 'objectives', public._aegpaebp253_objectives(),
     'governance_dashboard', public._aegpaebp253_governance_dashboard(), 'policy_lifecycle_hub', public._aegpaebp253_policy_lifecycle_hub(),

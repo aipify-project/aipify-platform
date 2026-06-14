@@ -155,7 +155,7 @@ revoke all on public.certification_requirements from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'certification_achievement', v.description
 from (values
   ('certifications.view', 'View Certifications', 'View certifications and achievement badges'),
@@ -236,9 +236,10 @@ begin
 end; $$;
 
 create or replace function public._cae_user_display_name(p_user_id uuid)
-returns text language sql stable security definer set search_path = public as $$
-  select coalesce(nullif(trim(u.name), ''), split_part(u.email, '@', 1), 'Team Member')
+returns text language sql stable security definer set search_path = public, auth as $$
+  select coalesce(nullif(trim(u.full_name), ''), split_part(au.email, '@', 1), 'Team Member')
   from public.users u
+  left join auth.users au on au.id = u.auth_user_id
   where u.id = p_user_id
   limit 1;
 $$;
@@ -294,12 +295,12 @@ begin
     organization_id, certification_key, name, description, target_role,
     expiration_policy, validity_period_days, certificate_prefix
   )
-  select p_organization_id, v.key, v.name, v.desc, v.role, v.policy, v.days, v.prefix
+  select p_organization_id, v.key, v.name, v.item_description, v.role, v.policy, v.days, v.prefix
   from (values
     ('support_ai_certified', 'Support AI Certified', 'Certifies Support AI module readiness.', 'support_agent', 'fixed_days', 365, 'SUP'),
     ('admin_operations_certified', 'Admin Operations Certified', 'Certifies operations dashboard and approval workflows.', 'administrator', 'fixed_days', 365, 'ADM'),
     ('owner_governance_certified', 'Governance Certified', 'Certifies enterprise governance foundations.', 'owner', 'annual_renewal', 365, 'GOV')
-  ) as v(key, name, desc, role, policy, days, prefix)
+  ) as v(key, name, item_description, role, policy, days, prefix)
   on conflict (organization_id, certification_key) do nothing;
 
   select id into v_support_cert_id from public.certification_definitions
@@ -343,12 +344,12 @@ begin
   insert into public.achievement_badges (
     organization_id, badge_key, name, description, module_key, display_on_profile, icon_ref
   )
-  select p_organization_id, v.key, v.name, v.desc, v.module, true, v.icon
+  select p_organization_id, v.key, v.name, v.item_description, v.module, true, v.icon
   from (values
     ('support_ai_expert', 'Support AI Expert', 'Completed Support AI certification.', 'support_ai_engine', 'badge-support'),
     ('admin_ops_ready', 'Operations Ready', 'Completed Admin Operations certification.', 'operations_dashboard_engine', 'badge-admin'),
     ('governance_leader', 'Governance Leader', 'Completed Governance certification.', 'governance_policy_engine', 'badge-governance')
-  ) as v(key, name, desc, module, icon)
+  ) as v(key, name, item_description, module, icon)
   on conflict (organization_id, badge_key) do nothing;
 
   select id into v_support_badge_id from public.achievement_badges

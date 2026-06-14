@@ -147,7 +147,7 @@ revoke all on public.companion_presence_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 5. Permissions — companion.view / companion.manage
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'companion_presence', v.description
 from (values
   ('companion.view', 'View Companion Presence', 'View companion presence indicator and status summaries'),

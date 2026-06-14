@@ -234,7 +234,7 @@ create table if not exists public.aipify_employee_recognition_celebration_audit_
 alter table public.aipify_employee_recognition_celebration_audit_logs enable row level security;
 revoke all on public.aipify_employee_recognition_celebration_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_employee_recognition_celebration_engine', v.description
 from (values
   ('aipify_employee_recognition_celebration.view', 'View Recognition Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -387,6 +387,9 @@ create or replace function public._aercebp218_unified_workspace_recognition_inte
     jsonb_build_object('key', 'recognition_stewardship_loops', 'label', 'Recognition stewardship loops'),
     jsonb_build_object('key', 'no_auto_recognition', 'label', 'Never auto-publish recognition without approval')
   )); $$;
+create or replace function public._aercebp218_executive_cockpit_integration() returns jsonb language sql immutable as $$
+  select public._aercebp218_unified_workspace_recognition_integration();
+$$;
 create or replace function public._aercebp218_companion_limitations() returns jsonb language sql immutable as $$
   select jsonb_build_object('must_avoid', jsonb_build_array('Auto-publishing recognition without approval',
       'Bypassing privacy controls for recognition participation',
@@ -466,7 +469,7 @@ end; $$;
 
 create or replace function public._aercebp218_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 218 — Aipify Employee Recognition & Celebration Engine', 'title', 'Aipify Employee Recognition & Celebration Engine (Communication Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE217_AIPIFY_EMPLOYEE_RECOGNITION_CELEBRATION_ENGINE.md', 'engine_phase', 'Repo Phase 218', 'route', '/app/aipify-employee-recognition-celebration-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 218 — Aipify Employee Recognition & Celebration Engine', 'title', 'Aipify Employee Recognition & Celebration Engine (Communication Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE217_AIPIFY_EMPLOYEE_RECOGNITION_CELEBRATION_ENGINE.md', 'engine_phase', 'Repo Phase 218', 'route', '/app/aipify-employee-recognition-celebration-engine'),
     'distinction_note', public._aercebp218_distinction_note(), 'mission', public._aercebp218_mission(), 'philosophy', public._aercebp218_philosophy(),
     'abos_principle', public._aercebp218_abos_principle(), 'vision', public._aercebp218_vision(), 'objectives', public._aercebp218_objectives(),
     'recognition_dashboard', public._aercebp218_recognition_dashboard(), 'peer_recognition_framework', public._aercebp218_peer_recognition_framework(),

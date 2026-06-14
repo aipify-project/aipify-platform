@@ -132,7 +132,7 @@ revoke all on public.industry_insights from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'industry_intelligence', v.description
 from (values
   ('industry.view', 'View Industry Intelligence', 'View industry profiles, benchmarks, and insights'),

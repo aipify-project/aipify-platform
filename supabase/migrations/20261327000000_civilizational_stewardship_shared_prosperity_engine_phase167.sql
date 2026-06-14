@@ -255,7 +255,7 @@ revoke all on public.shared_prosperity_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'shared_prosperity_engine', v.description
 from (values
   ('shared_prosperity.view', 'View Shared Prosperity Center', 'View stewardship reviews, opportunity initiatives, prosperity memory, and era cross-links'),

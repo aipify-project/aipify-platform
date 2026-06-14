@@ -254,7 +254,7 @@ revoke all on public.civilizational_learning_audit_logs from authenticated, anon
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'civilizational_learning_engine', v.description
 from (values
   ('civilizational_learning.view', 'View Collective Adaptation Center', 'View collective learning programs, adaptation reviews, and lessons learned metadata'),

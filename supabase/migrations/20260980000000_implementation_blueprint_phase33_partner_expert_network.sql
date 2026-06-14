@@ -2,9 +2,366 @@
 -- Partner Terminology Update: official tiers sales_representative, sales_expert, certified, expert
 -- Extends Marketplace & Partner Ecosystem Foundation Engine (Phase A.45). Preserves ALL Phase 19 dashboard/card fields.
 
+
+-- Bootstrap Phase 91 partner ecosystem DDL (record-only baseline recovery)
+-- ---------------------------------------------------------------------------
+-- 1. partner_ecosystem_settings
+-- ---------------------------------------------------------------------------
+create table if not exists public.partner_ecosystem_settings (
+  id uuid primary key default gen_random_uuid(),
+  tenant_id uuid not null references public.customers (id) on delete cascade unique,
+  program_enabled boolean not null default true,
+  lead_referral_enabled boolean not null default true,
+  public_directory_enabled boolean not null default true,
+  certification_renewal_months int not null default 24,
+  require_compliance_agreement boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.partner_ecosystem_settings enable row level security;
+revoke all on public.partner_ecosystem_settings from authenticated, anon;
+
+-- ---------------------------------------------------------------------------
+-- 2. partner_ecosystem_profiles
+-- ---------------------------------------------------------------------------
+create table if not exists public.partner_ecosystem_profiles (
+  id uuid primary key default gen_random_uuid(),
+  tenant_id uuid not null references public.customers (id) on delete cascade,
+  partner_name text not null,
+  partner_type text not null default 'implementation' check (
+    partner_type in (
+      'implementation', 'certified_consultant', 'development', 'technology',
+      'strategic_alliance', 'training', 'managed_service', 'reseller'
+    )
+  ),
+  partner_tier text not null default 'registered' check (
+    partner_tier in ('registered', 'certified', 'advanced', 'premier', 'strategic')
+  ),
+  status text not null default 'active' check (
+    status in ('pending', 'active', 'probation', 'review', 'suspended', 'archived')
+  ),
+  country text,
+  industry_expertise text[] not null default '{}',
+  languages text[] not null default '{}',
+  service_offerings text[] not null default '{}',
+  contact_email text,
+  website_url text,
+  description text,
+  metadata jsonb not null default '{}'::jsonb,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique (tenant_id, partner_name)
+);
+
+create index if not exists partner_ecosystem_profiles_tenant_idx
+  on public.partner_ecosystem_profiles (tenant_id, partner_tier, status);
+
+alter table public.partner_ecosystem_profiles enable row level security;
+revoke all on public.partner_ecosystem_profiles from authenticated, anon;
+
+-- ---------------------------------------------------------------------------
+-- 3. partner_certification_tracks
+-- ---------------------------------------------------------------------------
+create table if not exists public.partner_certification_tracks (
+  id uuid primary key default gen_random_uuid(),
+  tenant_id uuid not null references public.customers (id) on delete cascade,
+  track_key text not null,
+  title text not null,
+  description text not null,
+  certification_area text not null check (
+    certification_area in (
+      'aipify_foundations', 'support_ai_specialist', 'governance_specialist',
+      'enterprise_deployment', 'commerce_specialist', 'integration_specialist',
+      'strategic_intelligence'
+    )
+  ),
+  requirements jsonb not null default '[]'::jsonb,
+  renewal_months int not null default 24,
+  status text not null default 'active' check (status in ('active', 'archived')),
+  created_at timestamptz not null default now(),
+  unique (tenant_id, track_key)
+);
+
+alter table public.partner_certification_tracks enable row level security;
+revoke all on public.partner_certification_tracks from authenticated, anon;
+
+-- ---------------------------------------------------------------------------
+-- 4. partner_certification_progress
+-- ---------------------------------------------------------------------------
+create table if not exists public.partner_certification_progress (
+  id uuid primary key default gen_random_uuid(),
+  tenant_id uuid not null references public.customers (id) on delete cascade,
+  partner_id uuid not null references public.partner_ecosystem_profiles (id) on delete cascade,
+  track_id uuid not null references public.partner_certification_tracks (id) on delete cascade,
+  status text not null default 'not_started' check (
+    status in ('not_started', 'in_progress', 'completed', 'expired', 'renewal_required')
+  ),
+  progress_pct numeric(5, 2) not null default 0 check (progress_pct between 0 and 100),
+  completed_at timestamptz,
+  expires_at timestamptz,
+  metadata jsonb not null default '{}'::jsonb,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique (partner_id, track_id)
+);
+
+alter table public.partner_certification_progress enable row level security;
+revoke all on public.partner_certification_progress from authenticated, anon;
+
+-- ---------------------------------------------------------------------------
+-- 5. partner_certification_attempts
+-- ---------------------------------------------------------------------------
+create table if not exists public.partner_certification_attempts (
+  id uuid primary key default gen_random_uuid(),
+  tenant_id uuid not null references public.customers (id) on delete cascade,
+  partner_id uuid not null references public.partner_ecosystem_profiles (id) on delete cascade,
+  track_id uuid not null references public.partner_certification_tracks (id) on delete cascade,
+  attempt_type text not null default 'examination' check (
+    attempt_type in ('examination', 'simulation', 'case_study', 'practical_assessment')
+  ),
+  score numeric(5, 2),
+  passed boolean not null default false,
+  status text not null default 'pending' check (
+    status in ('pending', 'in_progress', 'completed', 'failed')
+  ),
+  metadata jsonb not null default '{}'::jsonb,
+  created_at timestamptz not null default now()
+);
+
+alter table public.partner_certification_attempts enable row level security;
+revoke all on public.partner_certification_attempts from authenticated, anon;
+
+-- ---------------------------------------------------------------------------
+-- 6. partner_digital_credentials
+-- ---------------------------------------------------------------------------
+create table if not exists public.partner_digital_credentials (
+  id uuid primary key default gen_random_uuid(),
+  tenant_id uuid not null references public.customers (id) on delete cascade,
+  partner_id uuid not null references public.partner_ecosystem_profiles (id) on delete cascade,
+  track_id uuid references public.partner_certification_tracks (id) on delete set null,
+  credential_code text not null,
+  title text not null,
+  badge_label text,
+  status text not null default 'active' check (
+    status in ('active', 'expired', 'revoked', 'pending_renewal')
+  ),
+  issued_at timestamptz not null default now(),
+  expires_at timestamptz,
+  verification_url text,
+  metadata jsonb not null default '{}'::jsonb,
+  unique (tenant_id, credential_code)
+);
+
+alter table public.partner_digital_credentials enable row level security;
+revoke all on public.partner_digital_credentials from authenticated, anon;
+
+-- ---------------------------------------------------------------------------
+-- 7. partner_ecosystem_scorecards
+-- ---------------------------------------------------------------------------
+create table if not exists public.partner_ecosystem_scorecards (
+  id uuid primary key default gen_random_uuid(),
+  tenant_id uuid not null references public.customers (id) on delete cascade,
+  partner_id uuid not null references public.partner_ecosystem_profiles (id) on delete cascade,
+  overall_score numeric(5, 2) not null default 0 check (overall_score between 0 and 100),
+  certification_completion numeric(5, 2) not null default 0,
+  customer_feedback_score numeric(5, 2) not null default 0,
+  implementation_success numeric(5, 2) not null default 0,
+  support_quality numeric(5, 2) not null default 0,
+  revenue_contribution numeric(5, 2) not null default 0,
+  ecosystem_participation numeric(5, 2) not null default 0,
+  calculated_at timestamptz not null default now()
+);
+
+alter table public.partner_ecosystem_scorecards enable row level security;
+revoke all on public.partner_ecosystem_scorecards from authenticated, anon;
+
+-- ---------------------------------------------------------------------------
+-- 8. partner_ecosystem_resources
+-- ---------------------------------------------------------------------------
+create table if not exists public.partner_ecosystem_resources (
+  id uuid primary key default gen_random_uuid(),
+  tenant_id uuid not null references public.customers (id) on delete cascade,
+  resource_key text not null,
+  title text not null,
+  description text not null,
+  resource_type text not null default 'guide' check (
+    resource_type in ('guide', 'best_practice', 'sales_enablement', 'technical_doc', 'training_video', 'case_study', 'template')
+  ),
+  url text,
+  status text not null default 'active' check (status in ('active', 'archived')),
+  created_at timestamptz not null default now(),
+  unique (tenant_id, resource_key)
+);
+
+alter table public.partner_ecosystem_resources enable row level security;
+revoke all on public.partner_ecosystem_resources from authenticated, anon;
+
+-- ---------------------------------------------------------------------------
+-- 9. partner_lead_registrations
+-- ---------------------------------------------------------------------------
+create table if not exists public.partner_lead_registrations (
+  id uuid primary key default gen_random_uuid(),
+  tenant_id uuid not null references public.customers (id) on delete cascade,
+  partner_id uuid references public.partner_ecosystem_profiles (id) on delete set null,
+  opportunity_name text not null,
+  company_name text,
+  country text,
+  estimated_value numeric(12, 2),
+  status text not null default 'registered' check (
+    status in ('registered', 'qualified', 'protected', 'won', 'lost', 'expired')
+  ),
+  protection_expires_at timestamptz,
+  metadata jsonb not null default '{}'::jsonb,
+  created_at timestamptz not null default now()
+);
+
+alter table public.partner_lead_registrations enable row level security;
+revoke all on public.partner_lead_registrations from authenticated, anon;
+
+-- ---------------------------------------------------------------------------
+-- 10. partner_ecosystem_feedback
+-- ---------------------------------------------------------------------------
+create table if not exists public.partner_ecosystem_feedback (
+  id uuid primary key default gen_random_uuid(),
+  tenant_id uuid not null references public.customers (id) on delete cascade,
+  partner_id uuid not null references public.partner_ecosystem_profiles (id) on delete cascade,
+  rating numeric(3, 1) not null check (rating between 1 and 5),
+  feedback_text text,
+  deployment_success boolean,
+  created_at timestamptz not null default now()
+);
+
+alter table public.partner_ecosystem_feedback enable row level security;
+revoke all on public.partner_ecosystem_feedback from authenticated, anon;
+
+-- ---------------------------------------------------------------------------
+-- 11. partner_recognition_awards
+-- ---------------------------------------------------------------------------
+create table if not exists public.partner_recognition_awards (
+  id uuid primary key default gen_random_uuid(),
+  tenant_id uuid not null references public.customers (id) on delete cascade,
+  partner_id uuid references public.partner_ecosystem_profiles (id) on delete set null,
+  award_type text not null check (
+    award_type in (
+      'partner_of_the_year', 'innovation_partner', 'customer_success',
+      'technical_excellence', 'community_champion'
+    )
+  ),
+  title text not null,
+  description text,
+  awarded_at timestamptz not null default now(),
+  year int not null default extract(year from now())::int
+);
+
+alter table public.partner_recognition_awards enable row level security;
+revoke all on public.partner_recognition_awards from authenticated, anon;
+
+-- ---------------------------------------------------------------------------
+-- 12. partner_compliance_records
+-- ---------------------------------------------------------------------------
+create table if not exists public.partner_compliance_records (
+  id uuid primary key default gen_random_uuid(),
+  tenant_id uuid not null references public.customers (id) on delete cascade,
+  partner_id uuid not null references public.partner_ecosystem_profiles (id) on delete cascade,
+  compliance_type text not null check (
+    compliance_type in (
+      'code_of_conduct', 'data_protection', 'ethical_ai', 'brand_usage', 'confidentiality'
+    )
+  ),
+  status text not null default 'pending' check (
+    status in ('pending', 'accepted', 'expired', 'violation')
+  ),
+  accepted_at timestamptz,
+  expires_at timestamptz,
+  created_at timestamptz not null default now(),
+  unique (partner_id, compliance_type)
+);
+
+alter table public.partner_compliance_records enable row level security;
+revoke all on public.partner_compliance_records from authenticated, anon;
+
+-- ---------------------------------------------------------------------------
+-- 13. partner_ecosystem_briefings + audit log
+-- ---------------------------------------------------------------------------
+create table if not exists public.partner_ecosystem_briefings (
+  id uuid primary key default gen_random_uuid(),
+  tenant_id uuid not null references public.customers (id) on delete cascade,
+  summary text not null,
+  content jsonb not null default '{}'::jsonb,
+  created_at timestamptz not null default now()
+);
+
+alter table public.partner_ecosystem_briefings enable row level security;
+revoke all on public.partner_ecosystem_briefings from authenticated, anon;
+
+create table if not exists public.partner_ecosystem_audit_log (
+  id uuid primary key default gen_random_uuid(),
+  tenant_id uuid not null references public.customers (id) on delete cascade,
+  event_type text not null,
+  summary text,
+  trigger_source text,
+  metadata jsonb not null default '{}'::jsonb,
+  created_at timestamptz not null default now()
+);
+
+alter table public.partner_ecosystem_audit_log enable row level security;
+revoke all on public.partner_ecosystem_audit_log from authenticated, anon;
+
+-- ---------------------------------------------------------------------------
+-- 14. Helpers (_partner_eco_)
+-- ---------------------------------------------------------------------------
+create or replace function public._partner_eco_require_tenant()
+returns uuid language plpgsql security definer set search_path = public as $$
+declare v_tenant_id uuid;
+begin
+  v_tenant_id := public._presence_tenant_for_auth();
+  if v_tenant_id is null then raise exception 'No tenant context'; end if;
+  return v_tenant_id;
+end; $$;
+
+create or replace function public._partner_eco_auth_user_id()
+returns uuid language sql stable security definer set search_path = public as $$
+  select id from public.users where auth_user_id = auth.uid() limit 1;
+$$;
+
+create or replace function public._partner_eco_log_audit(
+  p_tenant_id uuid, p_event_type text, p_summary text default null,
+  p_trigger_source text default null, p_metadata jsonb default '{}'::jsonb
+)
+returns uuid language plpgsql security definer set search_path = public as $$
+declare v_id uuid;
+begin
+  insert into public.partner_ecosystem_audit_log (tenant_id, event_type, summary, trigger_source, metadata)
+  values (p_tenant_id, p_event_type, p_summary, p_trigger_source, p_metadata)
+  returning id into v_id;
+  perform public._tacc_log_audit(p_tenant_id, 'user', 'partner_certification_' || p_event_type, 'partner_certification', 'logged', null, p_metadata);
+  return v_id;
+end; $$;
+
+create or replace function public._partner_eco_ensure_settings(p_tenant_id uuid)
+returns public.partner_ecosystem_settings language plpgsql security definer set search_path = public as $$
+declare v_settings public.partner_ecosystem_settings;
+begin
+  insert into public.partner_ecosystem_settings (tenant_id)
+  values (p_tenant_id)
+  on conflict (tenant_id) do nothing;
+  select * into v_settings from public.partner_ecosystem_settings where tenant_id = p_tenant_id;
+  return v_settings;
+end; $$;
+
 -- ---------------------------------------------------------------------------
 -- 1. Schema: certification_level / partner_tier — extend constraints + migrate data
 -- ---------------------------------------------------------------------------
+alter table public.partners drop constraint if exists partners_certification_level_check;
+
+do $$
+begin
+  if to_regclass('public.partner_ecosystem_profiles') is not null then
+    alter table public.partner_ecosystem_profiles drop constraint if exists partner_ecosystem_profiles_partner_tier_check;
+  end if;
+end $$;
+
 update public.partners
 set certification_level = 'sales_representative'
 where certification_level = 'registered';
@@ -13,25 +370,33 @@ update public.partners
 set certification_level = 'expert'
 where certification_level in ('advanced', 'strategic');
 
-update public.partner_ecosystem_profiles
-set partner_tier = 'sales_representative'
-where partner_tier = 'registered';
+do $$
+begin
+  if to_regclass('public.partner_ecosystem_profiles') is not null then
+    update public.partner_ecosystem_profiles
+    set partner_tier = 'sales_representative'
+    where partner_tier = 'registered';
 
-update public.partner_ecosystem_profiles
-set partner_tier = 'expert'
-where partner_tier in ('advanced', 'premier', 'strategic');
+    update public.partner_ecosystem_profiles
+    set partner_tier = 'expert'
+    where partner_tier in ('advanced', 'premier', 'strategic');
+  end if;
+end $$;
 
-alter table public.partners drop constraint if exists partners_certification_level_check;
 alter table public.partners
   add constraint partners_certification_level_check check (
     certification_level in ('sales_representative', 'sales_expert', 'certified', 'expert')
   );
 
-alter table public.partner_ecosystem_profiles drop constraint if exists partner_ecosystem_profiles_partner_tier_check;
-alter table public.partner_ecosystem_profiles
-  add constraint partner_ecosystem_profiles_partner_tier_check check (
-    partner_tier in ('sales_representative', 'sales_expert', 'certified', 'expert')
-  );
+do $$
+begin
+  if to_regclass('public.partner_ecosystem_profiles') is not null then
+    alter table public.partner_ecosystem_profiles
+      add constraint partner_ecosystem_profiles_partner_tier_check check (
+        partner_tier in ('sales_representative', 'sales_expert', 'certified', 'expert')
+      );
+  end if;
+end $$;
 
 -- ---------------------------------------------------------------------------
 -- 2. Tier label helper (A.45 + Phase 91)
@@ -51,7 +416,7 @@ returns text language sql immutable as $$
   end;
 $$;
 
-create or replace function public._pce_tier_label(p_tier text)
+create or replace function public._partner_eco_tier_label(p_tier text)
 returns text language sql immutable as $$
   select public._mpfe_tier_label(p_tier);
 $$;
@@ -165,7 +530,7 @@ end; $$;
 -- ---------------------------------------------------------------------------
 -- 4. Phase 91 seed helpers — new tier keys
 -- ---------------------------------------------------------------------------
-create or replace function public._pce_seed_partners(p_tenant_id uuid)
+create or replace function public._partner_eco_seed_partners(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.partner_ecosystem_profiles (
@@ -207,7 +572,7 @@ begin
   );
 end; $$;
 
-create or replace function public._pce_seed_certifications(p_tenant_id uuid)
+create or replace function public._partner_eco_seed_certifications(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 declare
   v_partner record;
@@ -260,7 +625,7 @@ begin
   end loop;
 end; $$;
 
-create or replace function public._pce_seed_leads(p_tenant_id uuid)
+create or replace function public._partner_eco_seed_leads(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.partner_lead_registrations (
@@ -283,7 +648,7 @@ begin
   end if;
 end; $$;
 
-create or replace function public._pce_seed_compliance(p_tenant_id uuid)
+create or replace function public._partner_eco_seed_compliance(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.partner_compliance_records (tenant_id, partner_id, compliance_type, status, accepted_at, expires_at)
@@ -299,7 +664,7 @@ begin
   on conflict (partner_id, compliance_type) do nothing;
 end; $$;
 
-create or replace function public._pce_ecosystem_health(p_tenant_id uuid)
+create or replace function public._partner_eco_ecosystem_health(p_tenant_id uuid)
 returns jsonb language plpgsql security definer set search_path = public as $$
 declare
   v_partners int;
@@ -906,17 +1271,17 @@ declare
   v_settings public.partner_ecosystem_settings;
   v_health jsonb;
 begin
-  v_tenant_id := public._pce_require_tenant();
-  v_settings := public._pce_ensure_settings(v_tenant_id);
-  perform public._pce_seed_tracks(v_tenant_id);
-  perform public._pce_seed_resources(v_tenant_id);
-  perform public._pce_seed_partners(v_tenant_id);
-  perform public._pce_seed_certifications(v_tenant_id);
-  perform public._pce_seed_leads(v_tenant_id);
-  perform public._pce_seed_compliance(v_tenant_id);
-  perform public._pce_calculate_scorecards(v_tenant_id);
-  v_health := public._pce_ecosystem_health(v_tenant_id);
-  perform public._pce_trust_explanation(v_tenant_id,
+  v_tenant_id := public._partner_eco_require_tenant();
+  v_settings := public._partner_eco_ensure_settings(v_tenant_id);
+  perform public._partner_eco_seed_tracks(v_tenant_id);
+  perform public._partner_eco_seed_resources(v_tenant_id);
+  perform public._partner_eco_seed_partners(v_tenant_id);
+  perform public._partner_eco_seed_certifications(v_tenant_id);
+  perform public._partner_eco_seed_leads(v_tenant_id);
+  perform public._partner_eco_seed_compliance(v_tenant_id);
+  perform public._partner_eco_calculate_scorecards(v_tenant_id);
+  v_health := public._partner_eco_ecosystem_health(v_tenant_id);
+  perform public._partner_eco_trust_explanation(v_tenant_id,
     (v_health->>'ecosystem_score')::numeric, 'Partner Ecosystem Health');
 
   return jsonb_build_object(
@@ -939,15 +1304,15 @@ begin
       'Managed Service Providers', 'Sales Partners'
     ),
     'partner_tiers', jsonb_build_array(
-      jsonb_build_object('tier', 'sales_representative', 'label', public._pce_tier_label('sales_representative')),
-      jsonb_build_object('tier', 'sales_expert', 'label', public._pce_tier_label('sales_expert')),
-      jsonb_build_object('tier', 'certified', 'label', public._pce_tier_label('certified')),
-      jsonb_build_object('tier', 'expert', 'label', public._pce_tier_label('expert'))
+      jsonb_build_object('tier', 'sales_representative', 'label', public._partner_eco_tier_label('sales_representative')),
+      jsonb_build_object('tier', 'sales_expert', 'label', public._partner_eco_tier_label('sales_expert')),
+      jsonb_build_object('tier', 'certified', 'label', public._partner_eco_tier_label('certified')),
+      jsonb_build_object('tier', 'expert', 'label', public._partner_eco_tier_label('expert'))
     ),
     'partners', coalesce((
       select jsonb_agg(jsonb_build_object(
         'id', p.id, 'partner_name', p.partner_name, 'partner_type', p.partner_type,
-        'partner_tier', p.partner_tier, 'partner_tier_label', public._pce_tier_label(p.partner_tier),
+        'partner_tier', p.partner_tier, 'partner_tier_label', public._partner_eco_tier_label(p.partner_tier),
         'status', p.status, 'country', p.country, 'industry_expertise', p.industry_expertise,
         'languages', p.languages, 'service_offerings', p.service_offerings, 'description', p.description
       ) order by case p.partner_tier
@@ -984,7 +1349,7 @@ begin
     'scorecards', coalesce((
       select jsonb_agg(jsonb_build_object(
         'partner_name', p.partner_name, 'partner_tier', p.partner_tier,
-        'partner_tier_label', public._pce_tier_label(p.partner_tier),
+        'partner_tier_label', public._partner_eco_tier_label(p.partner_tier),
         'overall_score', sc.overall_score, 'certification_completion', sc.certification_completion,
         'customer_feedback_score', sc.customer_feedback_score, 'implementation_success', sc.implementation_success
       ) order by sc.overall_score desc)

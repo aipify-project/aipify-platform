@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_collective_intelligence_audi
 alter table public.aipify_enterprise_collective_intelligence_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_collective_intelligence_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_collective_intelligence_engine', v.description
 from (values
   ('aipify_enterprise_collective_intelligence.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -264,6 +264,7 @@ create or replace function public._aecie_log_audit(p_tenant_id uuid, p_action_ty
 returns uuid language plpgsql security definer set search_path = public as $$
 declare v_id uuid; begin insert into public.aipify_enterprise_collective_intelligence_audit_logs (tenant_id, action_type, summary, context) values (p_tenant_id, p_action_type, p_summary, p_context) returning id into v_id; return v_id; end; $$;
 
+drop function if exists public._aecie_ensure_settings(uuid);
 create or replace function public._aecie_ensure_settings(p_tenant_id uuid) returns public.aipify_enterprise_collective_intelligence_settings language plpgsql security definer set search_path = public as $$
 declare v_settings public.aipify_enterprise_collective_intelligence_settings; begin
   insert into public.aipify_enterprise_collective_intelligence_settings (tenant_id, enabled, enterprise_collective_intelligence_mode) values (p_tenant_id, true, 'guided') on conflict (tenant_id) do nothing;
@@ -481,7 +482,7 @@ end; $$;
 
 create or replace function public._aeciebp270_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 270 — Enterprise Collective Intelligence Engine', 'title', 'Enterprise Collective Intelligence Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE270_AIPIFY_ENTERPRISE_COLLECTIVE_INTELLIGENCE.md', 'engine_phase', 'Repo Phase 270', 'route', '/app/aipify-enterprise-collective-intelligence-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 270 — Enterprise Collective Intelligence Engine', 'title', 'Enterprise Collective Intelligence Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE270_AIPIFY_ENTERPRISE_COLLECTIVE_INTELLIGENCE.md', 'engine_phase', 'Repo Phase 270', 'route', '/app/aipify-enterprise-collective-intelligence-engine'),
     'distinction_note', public._aeciebp270_distinction_note(), 'mission', public._aeciebp270_mission(), 'philosophy', public._aeciebp270_philosophy(),
     'abos_principle', public._aeciebp270_abos_principle(), 'vision', public._aeciebp270_vision(), 'objectives', public._aeciebp270_objectives(),
     'collective_intelligence_dashboard', public._aeciebp270_collective_intelligence_dashboard(), 'intelligence_contribution_engine', public._aeciebp270_intelligence_contribution_engine(),

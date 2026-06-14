@@ -66,7 +66,7 @@ create table if not exists public.impact_reports (
 alter table public.impact_reports enable row level security;
 revoke all on public.impact_reports from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'innovation_impact', v.description
 from (values
   ('impact.view', 'View Impact', 'View impact metrics and dashboards'),

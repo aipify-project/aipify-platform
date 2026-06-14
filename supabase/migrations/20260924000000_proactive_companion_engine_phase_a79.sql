@@ -169,7 +169,7 @@ revoke all on public.organization_proactive_companion_audit_logs from authentica
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'proactive_companion', v.description
 from (values
   ('proactive_companion.view', 'View Proactive Companion', 'View proactive companion dashboard and nudges'),
@@ -189,13 +189,10 @@ cross join (values
   ('administrator', 'proactive_companion.nudges.dismiss'), ('administrator', 'proactive_companion.preferences.manage'),
   ('manager', 'proactive_companion.view'), ('manager', 'proactive_companion.nudges.dismiss'),
   ('manager', 'proactive_companion.preferences.manage'),
-  ('employee', 'proactive_companion.view'), ('employee', 'proactive_companion.nudges.dismiss'),
-  ('employee', 'proactive_companion.preferences.manage'),
   ('support_agent', 'proactive_companion.view'), ('support_agent', 'proactive_companion.nudges.dismiss'),
   ('support_agent', 'proactive_companion.preferences.manage'),
-  ('moderator', 'proactive_companion.view'), ('moderator', 'proactive_companion.nudges.dismiss'),
-  ('moderator', 'proactive_companion.preferences.manage'),
-  ('viewer', 'proactive_companion.view'), ('viewer', 'proactive_companion.preferences.manage')
+  ('viewer', 'proactive_companion.view'), ('viewer', 'proactive_companion.nudges.dismiss'),
+  ('viewer', 'proactive_companion.preferences.manage')
 ) as v(role, key)
 where not exists (
   select 1 from public.organization_role_permissions rp

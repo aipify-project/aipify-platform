@@ -207,7 +207,7 @@ create table if not exists public.universal_stewardship_shared_futures_audit_log
 alter table public.universal_stewardship_shared_futures_audit_logs enable row level security;
 revoke all on public.universal_stewardship_shared_futures_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'universal_stewardship_shared_futures_engine', v.description
 from (values
   ('universal_stewardship_shared_futures.view', 'View Universal Stewardship Center', 'View executive reviews, reflections, and metadata scaffolds'),

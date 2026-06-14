@@ -86,6 +86,20 @@ revoke all on public.customer_health_scores from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 4. customer_recommendations
 -- ---------------------------------------------------------------------------
+-- Phase 25 workspace automation used customer_id; phase 86 uses tenant_id/category/status.
+do $$
+begin
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'customer_recommendations' and column_name = 'customer_id'
+  ) and not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'customer_recommendations' and column_name = 'tenant_id'
+  ) then
+    alter table public.customer_recommendations rename to customer_recommendations_workspace_legacy;
+  end if;
+end $$;
+
 create table if not exists public.customer_recommendations (
   id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null references public.customers (id) on delete cascade,

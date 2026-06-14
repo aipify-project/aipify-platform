@@ -222,7 +222,7 @@ create table if not exists public.aipify_legacy_preservation_knowledge_continuit
 alter table public.aipify_legacy_preservation_knowledge_continuity_audit_logs enable row level security;
 revoke all on public.aipify_legacy_preservation_knowledge_continuity_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_legacy_preservation_knowledge_continuity_engine', v.description
 from (values
   ('aipify_legacy_preservation_knowledge_continuity.view', 'View Knowledge Continuity Center', 'View executive reviews, reflections, and metadata scaffolds'),

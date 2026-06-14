@@ -239,7 +239,7 @@ revoke all on public.global_ecosystem_marketplace_audit_logs from authenticated,
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'global_ecosystem_marketplace_engine', v.description
 from (values
   ('global_ecosystem_marketplace.view', 'View Global Solution Marketplace', 'View solution listings, validations, and procurement metadata'),

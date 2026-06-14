@@ -261,7 +261,7 @@ revoke all on public.multi_generational_futures_audit_logs from authenticated, a
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'multi_generational_futures_engine', v.description
 from (values
   ('multi_generational_futures.view', 'View Multi-Generational Futures Center', 'View executive futures reviews, long-horizon reflections, and legacy continuity metadata'),

@@ -136,7 +136,7 @@ revoke all on public.analytics_settings from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'analytics_insights', v.description
 from (values
   ('analytics.view', 'View Analytics', 'Access analytics dashboards and insights'),
@@ -356,7 +356,8 @@ begin
     count(*) filter (where status = 'rejected')
   into v_rec_accepted, v_rec_rejected
   from public.admin_assistant_recommendations
-  where organization_id = p_organization_id and updated_at > now() - interval '30 days';
+  where organization_id = p_organization_id
+    and coalesce(resolved_at, created_at) > now() - interval '30 days';
 
   select count(*) into v_pending_approvals
   from public.ai_action_requests

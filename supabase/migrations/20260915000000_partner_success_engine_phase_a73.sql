@@ -164,7 +164,7 @@ revoke all on public.organization_partner_success_settings from authenticated, a
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'partner_success', v.description
 from (values
   ('partners.view', 'View Partner Success', 'View partner portfolio and success metrics'),

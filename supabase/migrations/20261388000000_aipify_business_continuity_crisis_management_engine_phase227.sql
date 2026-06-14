@@ -234,7 +234,7 @@ create table if not exists public.aipify_business_continuity_crisis_management_a
 alter table public.aipify_business_continuity_crisis_management_audit_logs enable row level security;
 revoke all on public.aipify_business_continuity_crisis_management_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_business_continuity_crisis_management_engine', v.description
 from (values
   ('aipify_business_continuity_crisis_management.view', 'View Crisis Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -472,7 +472,7 @@ end; $$;
 
 create or replace function public._abccebp227_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 227 — Aipify Business Continuity & Crisis Management Engine', 'title', 'Aipify Business Continuity & Crisis Management Engine (Continuity & Crisis Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE227_AIPIFY_BUSINESS_CONTINUITY_CRISIS_MANAGEMENT_ENGINE.md', 'engine_phase', 'Repo Phase 227', 'route', '/app/aipify-business-continuity-crisis-management-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 227 — Aipify Business Continuity & Crisis Management Engine', 'title', 'Aipify Business Continuity & Crisis Management Engine (Continuity & Crisis Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE227_AIPIFY_BUSINESS_CONTINUITY_CRISIS_MANAGEMENT_ENGINE.md', 'engine_phase', 'Repo Phase 227', 'route', '/app/aipify-business-continuity-crisis-management-engine'),
     'distinction_note', public._abccebp227_distinction_note(), 'mission', public._abccebp227_mission(), 'philosophy', public._abccebp227_philosophy(),
     'abos_principle', public._abccebp227_abos_principle(), 'vision', public._abccebp227_vision(), 'objectives', public._abccebp227_objectives(),
     'crisis_command_dashboard', public._abccebp227_crisis_command_dashboard(), 'incident_response_center', public._abccebp227_incident_response_center(),

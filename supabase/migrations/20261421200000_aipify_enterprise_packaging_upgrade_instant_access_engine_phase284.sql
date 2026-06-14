@@ -336,7 +336,7 @@ on conflict (feature_key) do update set
 -- ---------------------------------------------------------------------------
 -- 3. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_packaging_upgrade_instant_access_engine', v.description
 from (values
   ('package_access.view', 'View Package Access', 'View package tiers, feature access, and usage limits'),

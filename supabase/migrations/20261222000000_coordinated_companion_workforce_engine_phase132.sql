@@ -266,7 +266,7 @@ revoke all on public.companion_workforce_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 7. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'companion_workforce_engine', v.description
 from (values
   ('companion_workforce.view', 'View Companion Workforce Center', 'View coordinated companion directory, collaborations, and aggregate workforce health'),

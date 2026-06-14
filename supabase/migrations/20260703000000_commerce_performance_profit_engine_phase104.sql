@@ -334,12 +334,12 @@ begin
   where not exists (select 1 from public.customer_value_observations c where c.tenant_id = p_tenant_id limit 1);
 
   insert into public.revenue_trend_reports (tenant_id, period_label, revenue_amount, profit_amount, margin_percent, trend_signal, summary, period_start, period_end)
-  select p_tenant_id, v.label, v.rev, v.profit, v.margin, v.signal, v.summary, v.start, v.end
+  select p_tenant_id, v.label, v.rev, v.profit, v.margin, v.signal, v.summary, v.period_start, v.period_end
   from (values
     ('Q1 2026', 284600.00, 68200.00, 24.0, 'positive_momentum', 'Revenue up 12% with improving fitness category contribution.', now() - interval '90 days', now() - interval '1 day'),
     ('Q4 2025', 254100.00, 54800.00, 21.6, 'stable', 'Stable quarter with seasonal hydration push.', now() - interval '180 days', now() - interval '91 days'),
     ('Q3 2025', 231800.00, 49200.00, 21.2, 'growth_acceleration', 'Growth acceleration driven by active lifestyle expansion.', now() - interval '270 days', now() - interval '181 days')
-  ) as v(label, rev, profit, margin, signal, summary, start, end)
+  ) as v(label, rev, profit, margin, signal, summary, period_start, period_end)
   where not exists (select 1 from public.revenue_trend_reports r where r.tenant_id = p_tenant_id limit 1);
 
   insert into public.performance_opportunity_recommendations (tenant_id, opportunity_type, title, summary, rationale, priority)

@@ -96,7 +96,7 @@ revoke all on public.improvement_memory_links from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 5. improvements.review permission
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'continuous_improvement', v.description
 from (values
   ('improvements.review', 'Review Improvements', 'Review improvement initiatives and success measurements')
@@ -145,12 +145,12 @@ create or replace function public._cie_seed_initiatives(p_organization_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.improvement_initiatives (organization_id, initiative_title, source, priority, status, description)
-  select p_organization_id, v.title, v.src, v.pri, v.status, v.desc
+  select p_organization_id, v.title, v.src, v.pri, v.status, v.item_description
   from (values
     ('Reduce support escalation friction', 'quality_guardian', 'high', 'proposed', 'Review escalation patterns and propose workflow refinements'),
     ('Accelerate module adoption onboarding', 'customer_success', 'strategic', 'approved', 'Low adoption scores suggest guided onboarding improvements'),
     ('Expand Knowledge Center coverage', 'user_feedback', 'medium', 'in_progress', 'Recurring support topics indicate documentation gaps')
-  ) as v(title, src, pri, status, desc)
+  ) as v(title, src, pri, status, item_description)
   where not exists (select 1 from public.improvement_initiatives where organization_id = p_organization_id limit 1);
 end; $$;
 

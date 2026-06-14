@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_continuous_improvement_audit
 alter table public.aipify_enterprise_continuous_improvement_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_continuous_improvement_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_continuous_improvement_engine', v.description
 from (values
   ('aipify_enterprise_continuous_improvement.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -490,7 +490,7 @@ end; $$;
 
 create or replace function public._aeciebp259_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 259 — Enterprise Continuous Improvement Engine', 'title', 'Enterprise Continuous Improvement Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE259_AIPIFY_ENTERPRISE_CONTINUOUS_IMPROVEMENT_ENGINE.md', 'engine_phase', 'Repo Phase 259', 'route', '/app/aipify-enterprise-continuous-improvement-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 259 — Enterprise Continuous Improvement Engine', 'title', 'Enterprise Continuous Improvement Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE259_AIPIFY_ENTERPRISE_CONTINUOUS_IMPROVEMENT_ENGINE.md', 'engine_phase', 'Repo Phase 259', 'route', '/app/aipify-enterprise-continuous-improvement-engine'),
     'distinction_note', public._aeciebp259_distinction_note(), 'mission', public._aeciebp259_mission(), 'philosophy', public._aeciebp259_philosophy(),
     'abos_principle', public._aeciebp259_abos_principle(), 'vision', public._aeciebp259_vision(), 'objectives', public._aeciebp259_objectives(),
     'improvement_dashboard', public._aeciebp259_improvement_dashboard(), 'improvement_opportunity_hub', public._aeciebp259_improvement_opportunity_hub(),

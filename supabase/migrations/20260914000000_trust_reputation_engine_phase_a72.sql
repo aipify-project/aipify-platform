@@ -156,7 +156,7 @@ revoke all on public.organization_trust_outcomes from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 5. Permissions — trust.*
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'trust_reputation', v.description
 from (values
   ('trust.view', 'View Trust Profiles', 'View trust and reputation dashboards'),

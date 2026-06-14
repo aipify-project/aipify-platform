@@ -140,7 +140,7 @@ revoke all on public.support_ai_knowledge_gaps from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'support_ai', v.description
 from (values
   ('support.assign', 'Assign Support Cases', 'Assign support cases to team members'),

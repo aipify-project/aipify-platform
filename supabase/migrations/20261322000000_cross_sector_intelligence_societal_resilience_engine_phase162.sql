@@ -249,7 +249,7 @@ revoke all on public.cross_sector_resilience_audit_logs from authenticated, anon
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'cross_sector_intelligence_engine', v.description
 from (values
   ('cross_sector_intelligence.view', 'View Cross-Sector Intelligence', 'View societal resilience center, preparedness metadata, and learning programs'),
@@ -979,7 +979,7 @@ end; $$;
 insert into public.aipify_knowledge_categories (slug, name, description, visibility, sort_order)
 select 'cross-sector-intelligence-engine', 'Cross-Sector Intelligence Engine',
   'Post-Enterprise & Civilizational Era (161–170) — cross-sector societal resilience and collective learning. People First.',
-  'customer', 162
+  'authenticated', 162
 where not exists (
   select 1 from public.aipify_knowledge_categories where slug = 'cross-sector-intelligence-engine' and tenant_id is null
 );

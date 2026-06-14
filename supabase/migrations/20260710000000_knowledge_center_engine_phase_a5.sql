@@ -40,6 +40,28 @@ create index if not exists knowledge_categories_org_idx
 alter table public.knowledge_categories enable row level security;
 revoke all on public.knowledge_categories from authenticated, anon;
 
+-- Phase 55 bootstrap linked FAQ items to aipify_knowledge_categories; A.5 uses organization-scoped knowledge_categories.
+do $$
+begin
+  if exists (
+    select 1 from pg_constraint c
+    join pg_class t on t.oid = c.conrelid
+    where t.relname = 'knowledge_faq_items'
+      and c.conname = 'knowledge_faq_items_category_id_fkey'
+      and pg_get_constraintdef(c.oid) like '%aipify_knowledge_categories%'
+  ) then
+    alter table public.knowledge_faq_items drop constraint knowledge_faq_items_category_id_fkey;
+    update public.knowledge_faq_items set category_id = null
+    where category_id is not null
+      and not exists (
+        select 1 from public.knowledge_categories kc where kc.id = knowledge_faq_items.category_id
+      );
+    alter table public.knowledge_faq_items
+      add constraint knowledge_faq_items_category_id_fkey
+      foreign key (category_id) references public.knowledge_categories (id) on delete set null;
+  end if;
+end $$;
+
 -- ---------------------------------------------------------------------------
 -- 2. knowledge_articles (organization-scoped)
 -- ---------------------------------------------------------------------------
@@ -128,7 +150,7 @@ alter table public.knowledge_faq_items add constraint knowledge_faq_items_status
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'knowledge_center', v.description
 from (values
   ('knowledge.edit', 'Edit Knowledge', 'Update knowledge articles and FAQs'),

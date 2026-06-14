@@ -163,7 +163,7 @@ revoke all on public.organization_inclusion_reflections from authenticated, anon
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'inclusion_humanity_engine', v.description
 from (values
   ('inclusion_humanity.view', 'View Inclusion & Humanity', 'View inclusion dashboard and communication incident metadata'),

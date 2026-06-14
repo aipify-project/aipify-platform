@@ -157,7 +157,7 @@ revoke all on public.organization_values_reflections from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'purpose_values_engine', v.description
 from (values
   ('purpose_values.view', 'View Purpose & Values', 'View purpose and values dashboard and alignment signals'),

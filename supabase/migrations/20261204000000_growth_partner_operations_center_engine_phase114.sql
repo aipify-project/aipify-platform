@@ -89,6 +89,12 @@ alter table public.decision_explanations add constraint decision_explanations_de
   )
 );
 
+-- Phase 91 alias — _pce_* renamed to _partner_eco_* in Blueprint Phase 33
+create or replace function public._pce_tier_label(p_tier text)
+returns text language sql immutable as $$
+  select public._mpfe_tier_label(p_tier);
+$$;
+
 -- ---------------------------------------------------------------------------
 -- 1. growth_partner_operations_settings
 -- ---------------------------------------------------------------------------

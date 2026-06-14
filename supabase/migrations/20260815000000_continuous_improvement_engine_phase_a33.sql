@@ -77,7 +77,7 @@ create table if not exists public.improvement_outcomes (
 alter table public.improvement_outcomes enable row level security;
 revoke all on public.improvement_outcomes from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'continuous_improvement', v.description
 from (values
   ('improvements.view', 'View Improvements', 'View improvement items'),
@@ -99,12 +99,12 @@ create or replace function public._cie_seed_items(p_organization_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.improvement_items (organization_id, source, category, title, description, priority, status)
-  select p_organization_id, v.src, v.cat, v.title, v.desc, v.pri, v.status
+  select p_organization_id, v.src, v.cat, v.title, v.item_description, v.pri, v.status
   from (values
     ('quality_guardian', 'support', 'Reduce support escalations', 'Review escalation patterns from quality findings', 'high', 'identified'),
     ('customer_success', 'adoption', 'Improve module adoption', 'Low adoption scores suggest onboarding enhancements', 'strategic', 'under_review'),
     ('user_feedback', 'knowledge', 'Expand Knowledge Center FAQs', 'Recurring support topics indicate documentation gaps', 'medium', 'identified')
-  ) as v(src, cat, title, desc, pri, status)
+  ) as v(src, cat, title, item_description, pri, status)
   where not exists (select 1 from public.improvement_items where organization_id = p_organization_id limit 1);
 end; $$;
 

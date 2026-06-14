@@ -374,7 +374,7 @@ begin
     tenant_id, import_job_id, product_key, title, description, source_type, status,
     price, category, tags, images, supplier_metadata, inventory_count
   )
-  select p_tenant_id, v_job_id, v.key, v.title, v.desc, v.source, v.status, v.price, v.cat, v.tags, v.images, v.meta, v.stock
+  select p_tenant_id, v_job_id, v.key, v.title, v.item_description, v.source, v.status, v.price, v.cat, v.tags, v.images, v.meta, v.stock
   from (values
     (
       'portable_blender_pro', 'Portable Blender Pro 600ml',
@@ -408,7 +408,7 @@ begin
       '["https://example.com/yogamat.jpg"]'::jsonb,
       '{"supplier":"Premium Active Goods","sku":"PAG-YM01"}'::jsonb, 45
     )
-  ) as v(key, title, desc, source, status, price, cat, tags, images, meta, stock)
+  ) as v(key, title, item_description, source, status, price, cat, tags, images, meta, stock)
   where not exists (select 1 from public.imported_products p where p.tenant_id = p_tenant_id and p.product_key = v.key);
 end; $$;
 

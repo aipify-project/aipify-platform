@@ -234,7 +234,7 @@ create table if not exists public.aipify_innovation_opportunity_discovery_audit_
 alter table public.aipify_innovation_opportunity_discovery_audit_logs enable row level security;
 revoke all on public.aipify_innovation_opportunity_discovery_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_innovation_opportunity_discovery_engine', v.description
 from (values
   ('aipify_innovation_opportunity_discovery.view', 'View Innovation Discovery Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -464,7 +464,7 @@ end; $$;
 
 create or replace function public._aiodebp212_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 212 — Aipify Innovation & Opportunity Discovery Engine', 'title', 'Aipify Innovation & Opportunity Discovery Engine (Innovation Era Opener)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE212_AIPIFY_INNOVATION_OPPORTUNITY_DISCOVERY_ENGINE.md', 'engine_phase', 'Repo Phase 212', 'route', '/app/aipify-innovation-opportunity-discovery-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 212 — Aipify Innovation & Opportunity Discovery Engine', 'title', 'Aipify Innovation & Opportunity Discovery Engine (Innovation Era Opener)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE212_AIPIFY_INNOVATION_OPPORTUNITY_DISCOVERY_ENGINE.md', 'engine_phase', 'Repo Phase 212', 'route', '/app/aipify-innovation-opportunity-discovery-engine'),
     'distinction_note', public._aiodebp212_distinction_note(), 'mission', public._aiodebp212_mission(), 'philosophy', public._aiodebp212_philosophy(),
     'abos_principle', public._aiodebp212_abos_principle(), 'vision', public._aiodebp212_vision(), 'objectives', public._aiodebp212_objectives(),
     'innovation_dashboard', public._aiodebp212_innovation_dashboard(), 'opportunity_scanning_engine', public._aiodebp212_opportunity_scanning_engine(),

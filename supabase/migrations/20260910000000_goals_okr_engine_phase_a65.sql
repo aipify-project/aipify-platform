@@ -133,7 +133,7 @@ revoke all on public.organization_okr_settings from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 4. Permissions — okr.*
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'goals_okr', v.description
 from (values
   ('okr.view', 'View OKRs', 'View objectives, key results, and OKR dashboards'),

@@ -234,7 +234,7 @@ create table if not exists public.aipify_project_portfolio_strategic_execution_a
 alter table public.aipify_project_portfolio_strategic_execution_audit_logs enable row level security;
 revoke all on public.aipify_project_portfolio_strategic_execution_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_project_portfolio_strategic_execution_engine', v.description
 from (values
   ('aipify_project_portfolio_strategic_execution.view', 'View __TRANSLATE_CENTER__', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -491,7 +491,7 @@ end; $$;
 
 create or replace function public._appseebp250_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 250 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE250_AIPIFY_PROJECT_PORTFOLIO_STRATEGIC_EXECUTION_ENGINE.md', 'engine_phase', 'Repo Phase 250', 'route', '/app/aipify-project-portfolio-strategic-execution-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 250 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE250_AIPIFY_PROJECT_PORTFOLIO_STRATEGIC_EXECUTION_ENGINE.md', 'engine_phase', 'Repo Phase 250', 'route', '/app/aipify-project-portfolio-strategic-execution-engine'),
     'distinction_note', public._appseebp250_distinction_note(), 'mission', public._appseebp250_mission(), 'philosophy', public._appseebp250_philosophy(),
     'abos_principle', public._appseebp250_abos_principle(), 'vision', public._appseebp250_vision(), 'objectives', public._appseebp250_objectives(),
     'portfolio_dashboard', public._appseebp250_portfolio_dashboard(), 'project_management_hub', public._appseebp250_project_management_hub(),

@@ -216,7 +216,7 @@ create table if not exists public.humanity_shared_gratitude_appreciative_steward
 alter table public.humanity_shared_gratitude_appreciative_stewardship_audit_logs enable row level security;
 revoke all on public.humanity_shared_gratitude_appreciative_stewardship_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'humanity_shared_gratitude_appreciative_stewardship_engine', v.description
 from (values
   ('humanity_shared_gratitude_appreciative_stewardship.view', 'View Appreciative Stewardship Center', 'View executive reviews, reflections, and metadata scaffolds'),

@@ -234,7 +234,7 @@ create table if not exists public.aipify_organizational_goals_alignment_audit_lo
 alter table public.aipify_organizational_goals_alignment_audit_logs enable row level security;
 revoke all on public.aipify_organizational_goals_alignment_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_organizational_goals_alignment_engine', v.description
 from (values
   ('aipify_organizational_goals_alignment.view', 'View __TRANSLATE_CENTER__', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -492,7 +492,7 @@ end; $$;
 
 create or replace function public._aogaebp248_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 248 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE248_AIPIFY_ORGANIZATIONAL_GOALS_ALIGNMENT_ENGINE.md', 'engine_phase', 'Repo Phase 248', 'route', '/app/aipify-organizational-goals-alignment-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 248 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE248_AIPIFY_ORGANIZATIONAL_GOALS_ALIGNMENT_ENGINE.md', 'engine_phase', 'Repo Phase 248', 'route', '/app/aipify-organizational-goals-alignment-engine'),
     'distinction_note', public._aogaebp248_distinction_note(), 'mission', public._aogaebp248_mission(), 'philosophy', public._aogaebp248_philosophy(),
     'abos_principle', public._aogaebp248_abos_principle(), 'vision', public._aogaebp248_vision(), 'objectives', public._aogaebp248_objectives(),
     'goals_dashboard', public._aogaebp248_goals_dashboard(), 'company_goals_hub', public._aogaebp248_company_goals_hub(),

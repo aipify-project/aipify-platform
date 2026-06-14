@@ -64,6 +64,13 @@ create table if not exists public.aipify_knowledge_articles (
   updated_at timestamptz not null default now()
 );
 
+-- Pilot bootstrap may have created articles without full-text search columns.
+alter table public.aipify_knowledge_articles
+  add column if not exists review_due_at timestamptz,
+  add column if not exists created_by_user_id uuid references public.users (id) on delete set null,
+  add column if not exists updated_by_user_id uuid references public.users (id) on delete set null,
+  add column if not exists search_vector tsvector;
+
 create unique index if not exists aipify_knowledge_articles_global_slug_lang_idx
   on public.aipify_knowledge_articles (slug, language) where tenant_id is null;
 create unique index if not exists aipify_knowledge_articles_tenant_slug_lang_idx

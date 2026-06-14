@@ -303,7 +303,7 @@ revoke all on public.aipify_permission_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_permission_access_governance_engine', v.description
 from (values
   ('permission_access.view', 'View Permission Center', 'Review active permissions, requests, and governance recommendations'),

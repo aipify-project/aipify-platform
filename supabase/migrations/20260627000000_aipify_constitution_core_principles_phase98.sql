@@ -265,7 +265,7 @@ begin
   v_version_id := public._aco_seed_version(p_tenant_id);
 
   insert into public.constitution_core_principles (tenant_id, version_id, principle_key, principle_number, title, description, category, sort_order)
-  select p_tenant_id, v_version_id, v.key, v.num, v.title, v.desc, 'core', v.num
+  select p_tenant_id, v_version_id, v.key, v.num, v.title, v.item_description, 'core', v.num
   from (values
     ('humans_responsible', 1, 'Humans Remain Responsible', 'Aipify exists to assist people. It shall support human judgment rather than replace it. Organizations remain accountable for their decisions.'),
     ('trust_earned', 2, 'Trust Must Be Earned', 'Trust is built through transparency, consistency and reliability. Aipify shall strive to justify the confidence placed in it every day.'),
@@ -279,18 +279,18 @@ begin
     ('learning_never_ends', 10, 'Learning Never Ends', 'Organizations evolve. People evolve. Technology evolves. Aipify shall support continuous learning and adaptation.'),
     ('partnership_strength', 11, 'Partnership Creates Strength', 'Meaningful progress occurs through collaboration. Customers, partners and communities contribute to ecosystem growth.'),
     ('long_term_thinking', 12, 'Long-Term Thinking Matters', 'Short-term gains should not undermine long-term sustainability. Aipify shall seek enduring value creation.')
-  ) as v(key, num, title, desc)
+  ) as v(key, num, title, item_description)
   where not exists (select 1 from public.constitution_core_principles p where p.tenant_id = p_tenant_id and p.principle_key = v.key);
 
   insert into public.constitution_core_principles (tenant_id, version_id, principle_key, principle_number, title, description, category, sort_order)
-  select p_tenant_id, v_version_id, v.key, v.num, v.title, v.desc, v.cat, v.num
+  select p_tenant_id, v_version_id, v.key, v.num, v.title, v.item_description, v.cat, v.num
   from (values
     ('ai_fairness', 13, 'Promote Fairness', 'Aipify shall strive to promote fairness in AI-assisted experiences.', 'responsible_ai'),
     ('ai_accountability', 14, 'Encourage Accountability', 'Aipify shall support accountability and enable human oversight.', 'responsible_ai'),
     ('ai_transparency', 15, 'Support Transparency', 'Explainability shall be prioritized where appropriate.', 'responsible_ai'),
     ('customer_improvement', 16, 'Continuous Improvement', 'Aipify commits to continuous improvement and honest communication.', 'customer_commitment'),
     ('partner_integrity', 17, 'Demonstrate Integrity', 'Partners shall demonstrate integrity and respect confidentiality.', 'partner_expectation')
-  ) as v(key, num, title, desc, cat)
+  ) as v(key, num, title, item_description, cat)
   where not exists (select 1 from public.constitution_core_principles p where p.tenant_id = p_tenant_id and p.principle_key = v.key);
 end; $$;
 
@@ -298,7 +298,7 @@ create or replace function public._aco_seed_commitments(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.constitution_commitment_records (tenant_id, commitment_key, title, description, commitment_type)
-  select p_tenant_id, v.key, v.title, v.desc, v.type
+  select p_tenant_id, v.key, v.title, v.item_description, v.type
   from (values
     ('continuous_improvement', 'Continuous Improvement', 'Aipify commits to ongoing platform improvement.', 'customer'),
     ('honest_communication', 'Honest Communication', 'Clear, professional and respectful communication.', 'customer'),
@@ -306,7 +306,7 @@ begin
     ('ai_oversight', 'Enable Oversight', 'Human approval principles remain in place.', 'responsible_ai'),
     ('reduce_harm', 'Reduce Avoidable Harm', 'Strive to reduce avoidable harm and foster trust.', 'responsible_ai'),
     ('partner_success', 'Prioritize Customer Success', 'Partners prioritize customer success and responsible practices.', 'employee_partner')
-  ) as v(key, title, desc, type)
+  ) as v(key, title, item_description, type)
   where not exists (select 1 from public.constitution_commitment_records c where c.tenant_id = p_tenant_id and c.commitment_key = v.key);
 end; $$;
 

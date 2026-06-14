@@ -232,7 +232,7 @@ create table if not exists public.aipify_decision_center_governance_audit_logs (
 alter table public.aipify_decision_center_governance_audit_logs enable row level security;
 revoke all on public.aipify_decision_center_governance_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_decision_center_governance_engine', v.description
 from (values
   ('aipify_decision_center_governance.view', 'View Decision Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -463,7 +463,7 @@ end; $$;
 
 create or replace function public._adcgebp207_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 207 — Aipify Decision Center & Governance Engine', 'title', 'Aipify Decision Center & Governance Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE207_AIPIFY_DECISION_CENTER_GOVERNANCE_ENGINE.md', 'engine_phase', 'Repo Phase 207', 'route', '/app/aipify-decision-center-governance-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 207 — Aipify Decision Center & Governance Engine', 'title', 'Aipify Decision Center & Governance Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE207_AIPIFY_DECISION_CENTER_GOVERNANCE_ENGINE.md', 'engine_phase', 'Repo Phase 207', 'route', '/app/aipify-decision-center-governance-engine'),
     'distinction_note', public._adcgebp207_distinction_note(), 'mission', public._adcgebp207_mission(), 'philosophy', public._adcgebp207_philosophy(),
     'abos_principle', public._adcgebp207_abos_principle(), 'vision', public._adcgebp207_vision(), 'objectives', public._adcgebp207_objectives(),
     'decision_center', public._adcgebp207_decision_center(), 'decision_reflection_engine', public._adcgebp207_decision_reflection_engine(),

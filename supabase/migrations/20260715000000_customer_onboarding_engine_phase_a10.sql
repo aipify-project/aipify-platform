@@ -66,7 +66,7 @@ revoke all on public.onboarding_checklist_items from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 3. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'customer_onboarding', v.description
 from (values
   ('onboarding.view', 'View Onboarding', 'View onboarding progress and checklist'),

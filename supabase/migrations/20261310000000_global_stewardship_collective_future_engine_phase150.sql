@@ -218,7 +218,7 @@ revoke all on public.global_stewardship_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'global_stewardship_collective_future_engine', v.description
 from (values
   ('global_stewardship_collective_future.view', 'View Global Stewardship Center', 'View stewardship maturity, reviews, scenarios, and era cross-links'),

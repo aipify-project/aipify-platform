@@ -131,7 +131,7 @@ revoke all on public.organization_context_gaps from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 3. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'context_intelligence', v.description
 from (values
   ('context_intelligence.view', 'View Context Intelligence', 'View organizational context dimensions and gaps'),
@@ -158,6 +158,8 @@ where not exists (
 -- ---------------------------------------------------------------------------
 -- 4. Helpers (_cie_ prefix)
 -- ---------------------------------------------------------------------------
+drop function if exists public._cie_ensure_settings(uuid);
+
 create or replace function public._cie_ensure_settings(p_organization_id uuid)
 returns public.organization_context_intelligence_settings language plpgsql security definer set search_path = public as $$
 declare v_row public.organization_context_intelligence_settings;

@@ -237,7 +237,7 @@ create table if not exists public.aipify_customer_success_value_realization_audi
 alter table public.aipify_customer_success_value_realization_audit_logs enable row level security;
 revoke all on public.aipify_customer_success_value_realization_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_customer_success_value_realization_engine', v.description
 from (values
   ('aipify_customer_success_value_realization.view', 'View Customer Success Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -464,7 +464,7 @@ end; $$;
 
 create or replace function public._acsvrebp213_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 213 — Aipify Customer Success & Value Realization Engine', 'title', 'Aipify Customer Success & Value Realization Engine (Customer Success Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE213_AIPIFY_CUSTOMER_SUCCESS_VALUE_REALIZATION_ENGINE.md', 'engine_phase', 'Repo Phase 213', 'route', '/app/aipify-customer-success-value-realization-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 213 — Aipify Customer Success & Value Realization Engine', 'title', 'Aipify Customer Success & Value Realization Engine (Customer Success Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE213_AIPIFY_CUSTOMER_SUCCESS_VALUE_REALIZATION_ENGINE.md', 'engine_phase', 'Repo Phase 213', 'route', '/app/aipify-customer-success-value-realization-engine'),
     'distinction_note', public._acsvrebp213_distinction_note(), 'mission', public._acsvrebp213_mission(), 'philosophy', public._acsvrebp213_philosophy(),
     'abos_principle', public._acsvrebp213_abos_principle(), 'vision', public._acsvrebp213_vision(), 'objectives', public._acsvrebp213_objectives(),
     'customer_success_dashboard', public._acsvrebp213_customer_success_dashboard(), 'customer_health_engine', public._acsvrebp213_customer_health_engine(),

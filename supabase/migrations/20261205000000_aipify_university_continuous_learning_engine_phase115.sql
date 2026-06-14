@@ -275,7 +275,7 @@ revoke all on public.aipify_university_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 8. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_university', v.description
 from (values
   ('aipify_university.view', 'View Aipify University', 'View learning pathways, progress, and university dashboard'),

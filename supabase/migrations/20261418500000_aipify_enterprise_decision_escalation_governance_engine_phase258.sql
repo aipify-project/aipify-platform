@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_decision_escalation_governan
 alter table public.aipify_enterprise_decision_escalation_governance_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_decision_escalation_governance_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_decision_escalation_governance_engine', v.description
 from (values
   ('aipify_enterprise_decision_escalation_governance.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -496,7 +496,7 @@ end; $$;
 
 create or replace function public._aedegbebp258_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 258 — Enterprise Decision Escalation & Governance Engine', 'title', 'Enterprise Decision Escalation & Governance Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE258_AIPIFY_ENTERPRISE_DECISION_ESCALATION_GOVERNANCE_ENGINE.md', 'engine_phase', 'Repo Phase 258', 'route', '/app/aipify-enterprise-decision-escalation-governance-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 258 — Enterprise Decision Escalation & Governance Engine', 'title', 'Enterprise Decision Escalation & Governance Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE258_AIPIFY_ENTERPRISE_DECISION_ESCALATION_GOVERNANCE_ENGINE.md', 'engine_phase', 'Repo Phase 258', 'route', '/app/aipify-enterprise-decision-escalation-governance-engine'),
     'distinction_note', public._aedegbebp258_distinction_note(), 'mission', public._aedegbebp258_mission(), 'philosophy', public._aedegbebp258_philosophy(),
     'abos_principle', public._aedegbebp258_abos_principle(), 'vision', public._aedegbebp258_vision(), 'objectives', public._aedegbebp258_objectives(),
     'decision_governance_dashboard', public._aedegbebp258_decision_governance_dashboard(), 'decision_registry_hub', public._aedegbebp258_decision_registry_hub(),

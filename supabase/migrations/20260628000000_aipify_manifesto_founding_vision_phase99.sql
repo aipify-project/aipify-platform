@@ -276,7 +276,7 @@ begin
   v_version_id := public._amf_seed_version(p_tenant_id);
 
   insert into public.strategic_themes (tenant_id, version_id, theme_key, theme_number, title, description, category, sort_order)
-  select p_tenant_id, v_version_id, v.key, v.num, v.title, v.desc, v.cat, v.num
+  select p_tenant_id, v_version_id, v.key, v.num, v.title, v.item_description, v.cat, v.num
   from (values
     ('technology_flourish', 1, 'Technology Should Help People Flourish', 'We believe that technology should help people flourish.', 'belief'),
     ('reduce_complexity', 2, 'Complexity Should Be Reduced', 'We believe complexity should be reduced, not multiplied.', 'belief'),
@@ -290,7 +290,7 @@ begin
     ('technology_adapts', 10, 'Technology Adapts to People', 'Technology should adapt to people. People should not be forced to adapt to technology.', 'philosophy'),
     ('ai_as_amplifier', 11, 'AI as an Amplifier', 'We view AI as an amplifier that strengthens human capability, not diminishes human dignity.', 'view'),
     ('global_local_understanding', 12, 'Global Success Requires Local Understanding', 'AIPIFY aspires to serve organizations across cultures while respecting local understanding.', 'view')
-  ) as v(key, num, title, desc, cat)
+  ) as v(key, num, title, item_description, cat)
   where not exists (select 1 from public.strategic_themes t where t.tenant_id = p_tenant_id and t.theme_key = v.key);
 end; $$;
 
@@ -298,7 +298,7 @@ create or replace function public._amf_seed_commitments(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.organizational_commitments (tenant_id, commitment_key, title, description, commitment_type)
-  select p_tenant_id, v.key, v.title, v.desc, v.type
+  select p_tenant_id, v.key, v.title, v.item_description, v.type
   from (values
     ('listen_carefully', 'Listen Carefully', 'We commit to listening carefully to customers and stakeholders.', 'customer'),
     ('improve_continuously', 'Improve Continuously', 'We commit to improving continuously and communicating honestly.', 'customer'),
@@ -309,7 +309,7 @@ begin
     ('transparency_partners', 'Transparency with Partners', 'Partnerships require transparency and a shared commitment to customer success.', 'partner'),
     ('capability_responsibility', 'Capability Brings Responsibility', 'We shall strive to make decisions that support long-term wellbeing and societal benefit.', 'responsibility'),
     ('cultural_diversity', 'Respect for Diversity', 'Global success requires local understanding. Respect for diversity strengthens innovation.', 'global')
-  ) as v(key, title, desc, type)
+  ) as v(key, title, item_description, type)
   where not exists (select 1 from public.organizational_commitments c where c.tenant_id = p_tenant_id and c.commitment_key = v.key);
 end; $$;
 

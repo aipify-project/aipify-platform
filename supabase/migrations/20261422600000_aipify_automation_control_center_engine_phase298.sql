@@ -274,7 +274,7 @@ revoke all on public.aipify_automation_control_audit_logs from authenticated, an
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_automation_control_center_engine', v.description
 from (values
   (

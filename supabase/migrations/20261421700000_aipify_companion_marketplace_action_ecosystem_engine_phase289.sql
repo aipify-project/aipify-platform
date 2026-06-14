@@ -261,7 +261,7 @@ revoke all on public.aipify_marketplace_action_audit_logs from authenticated, an
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_companion_marketplace_action_ecosystem_engine', v.description
 from (values
   ('marketplace_action.view', 'View Marketplace Actions', 'Browse action capability catalog, installed capabilities, and recommendations'),
@@ -521,7 +521,7 @@ begin
     required_package, permissions_required, pricing_model, rating, governance_level,
     data_accessed, actions_available, approval_requirements, provider_metadata
   )
-  select v.key, v.cat, v.skill, v.provider, v.desc, v.pkg, v.perms, v.pricing, v.rating, v.gov,
+  select v.key, v.cat, v.skill, v.provider, v.item_description, v.pkg, v.perms, v.pricing, v.rating, v.gov,
     v.data, v.actions, v.approval, v.meta
   from (values
     ('taxi_services', 'personal_actions', 'Taxi Booking', 'Local Transport Partners',
@@ -639,7 +639,7 @@ begin
       'business', '["commerce_metadata_read"]'::jsonb, 'included', 4.5, 2,
       '["portfolio","stewardship_signals"]'::jsonb, '["portfolio_briefing","stewardship_prep"]'::jsonb,
       '{"human_approval":true,"risk_level":2}'::jsonb, '{"commerce_companion":true}'::jsonb)
-  ) as v(key, cat, skill, provider, desc, pkg, perms, pricing, rating, gov, data, actions, approval, meta)
+  ) as v(key, cat, skill, provider, item_description, pkg, perms, pricing, rating, gov, data, actions, approval, meta)
   on conflict (capability_key) do update set
     category = excluded.category,
     skill_name = excluded.skill_name,

@@ -233,7 +233,7 @@ revoke all on public.organizational_sensemaking_audit_logs from authenticated, a
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'organizational_sensemaking_engine', v.description
 from (values
   ('organizational_sensemaking.view', 'View Sensemaking Center', 'View organizational themes, signals, and synthesis scaffolds'),

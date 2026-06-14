@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_organizational_energy_audit_
 alter table public.aipify_enterprise_organizational_energy_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_organizational_energy_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_organizational_energy_engine', v.description
 from (values
   ('aipify_enterprise_organizational_energy.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -294,13 +294,13 @@ begin if exists (select 1 from public.aipify_enterprise_organizational_energy_en
 end; $$;
 
 
-create or replace function public._aeooebp269_distinction_note() returns text language sql immutable as $ select 'ABOS Phase 269 — Organizational Energy Center. Organizational Energy Companion supports enterprise organizational energy — NOT replacing leadership action, pressuring teams without consent, or omitting organizational energy audit history. Helpers _aeooebp269_*.'; $;
-create or replace function public._aeooebp269_mission() returns text language sql immutable as $ select 'Understand and monitor organizational momentum and strain for sustainable performance — Organizational Energy Companion recommends; leadership determines action.'; $;
-create or replace function public._aeooebp269_philosophy() returns text language sql immutable as $ select 'People First. Technology Second. Self Love. Wisdom before speed. Companionship before replacement. Growth through support. Stewardship through responsibility. Growth Partner — never Affiliate.'; $;
-create or replace function public._aeooebp269_abos_principle() returns text language sql immutable as $
-  select 'Aipify Business Operating System (ABOS) — Organizational Energy Center within Organizational Vitality Era (269–273). Aipify recommends; leadership determines action; workforce-governed energy signals; full audit logging; Organizational Energy Companion informs and recommends. Continues the era.'; $;
-create or replace function public._aeooebp269_vision() returns text language sql immutable as $ select 'Organizations reduce fatigue indicators, improve workload balance, increase momentum sustainability, lower escalation-related strain, improve organizational energy scores, and strengthen healthier execution patterns with Aipify recommends — leadership determines action.'; $;
-create or replace function public._aeooebp269_objectives() returns jsonb language sql immutable as $
+create or replace function public._aeooebp269_distinction_note() returns text language sql immutable as $$ select 'ABOS Phase 269 — Organizational Energy Center. Organizational Energy Companion supports enterprise organizational energy — NOT replacing leadership action, pressuring teams without consent, or omitting organizational energy audit history. Helpers _aeooebp269_*.'; $$;
+create or replace function public._aeooebp269_mission() returns text language sql immutable as $$ select 'Understand and monitor organizational momentum and strain for sustainable performance — Organizational Energy Companion recommends; leadership determines action.'; $$;
+create or replace function public._aeooebp269_philosophy() returns text language sql immutable as $$ select 'People First. Technology Second. Self Love. Wisdom before speed. Companionship before replacement. Growth through support. Stewardship through responsibility. Growth Partner — never Affiliate.'; $$;
+create or replace function public._aeooebp269_abos_principle() returns text language sql immutable as $$
+  select 'Aipify Business Operating System (ABOS) — Organizational Energy Center within Organizational Vitality Era (269–273). Aipify recommends; leadership determines action; workforce-governed energy signals; full audit logging; Organizational Energy Companion informs and recommends. Continues the era.'; $$;
+create or replace function public._aeooebp269_vision() returns text language sql immutable as $$ select 'Organizations reduce fatigue indicators, improve workload balance, increase momentum sustainability, lower escalation-related strain, improve organizational energy scores, and strengthen healthier execution patterns with Aipify recommends — leadership determines action.'; $$;
+create or replace function public._aeooebp269_objectives() returns jsonb language sql immutable as $$
   select jsonb_build_array(
     jsonb_build_object('key', 'center_capabilities', 'label', 'Organizational Energy Center programs', 'emoji', '✅', 'description', 'Ten organizational energy modules'),
     jsonb_build_object('key', 'energy_signal_engine', 'label', 'Energy signal engine', 'emoji', '📋', 'description', 'Momentum and strain indicators'),
@@ -310,8 +310,8 @@ create or replace function public._aeooebp269_objectives() returns jsonb languag
     jsonb_build_object('key', 'momentum_detection', 'label', 'Momentum detection', 'emoji', '🧪', 'description', 'Strong execution recognition'),
     jsonb_build_object('key', 'organizational_friction_identification', 'label', 'Organizational friction identification', 'emoji', '🛡️', 'description', 'Hidden inefficiency detection'),
     jsonb_build_object('key', 'energy_recovery_recommendations', 'label', 'Energy recovery recommendations', 'emoji', '🔔', 'description', 'Sustainable performance encouragement')
-  ); $;
-create or replace function public._aeooebp269_organizational_energy_dashboard() returns jsonb language sql immutable as $
+  ); $$;
+create or replace function public._aeooebp269_organizational_energy_dashboard() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Organizational Energy Center — ten capabilities. Aipify recommends — leadership determines action.', 'capabilities', jsonb_build_array(
     jsonb_build_object('key', 'energy_signal_engine', 'label', 'Energy Signal Engine'),
     jsonb_build_object('key', 'team_energy_monitoring', 'label', 'Team Energy Monitoring'),
@@ -323,32 +323,32 @@ create or replace function public._aeooebp269_organizational_energy_dashboard() 
     jsonb_build_object('key', 'energy_history_trends', 'label', 'Energy History & Trends'),
     jsonb_build_object('key', 'organizational_energy_index', 'label', 'Organizational Energy Index'),
     jsonb_build_object('key', 'aipify_energy_principles', 'label', 'Aipify Energy Principles')
-  )); $;
-create or replace function public._aeooebp269_energy_signal_engine() returns jsonb language sql immutable as $
+  )); $$;
+create or replace function public._aeooebp269_energy_signal_engine() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Energy signal engine — identify organizational momentum and strain.', 'reflection_questions', jsonb_build_array(
     jsonb_build_object('key', 'workload_trends', 'label', 'Are workload trends monitored?'),
     jsonb_build_object('key', 'escalation_frequency', 'label', 'Is escalation frequency tracked?'),
     jsonb_build_object('key', 'meeting_density', 'label', 'Is meeting density captured?'),
     jsonb_build_object('key', 'signal_states', 'label', 'Are positive, neutral, concerning, and critical states applied?'),
     jsonb_build_object('key', 'leadership_action', 'label', 'How do signals support leadership determines action — not replace action?')
-  )); $;
-create or replace function public._aeooebp269_team_energy_monitoring() returns jsonb language sql immutable as $
+  )); $$;
+create or replace function public._aeooebp269_team_energy_monitoring() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Team energy monitoring — team sustainability awareness.', 'domains', jsonb_build_array(
     jsonb_build_object('key', 'capacity_utilization', 'label', 'Capacity utilization monitored'),
     jsonb_build_object('key', 'work_distribution', 'label', 'Work distribution patterns tracked'),
     jsonb_build_object('key', 'energized', 'label', 'Energized energy state'),
     jsonb_build_object('key', 'stretched', 'label', 'Stretched energy state'),
     jsonb_build_object('key', 'depleted', 'label', 'Depleted energy state')
-  )); $;
-create or replace function public._aeooebp269_executive_energy_dashboard() returns jsonb language sql immutable as $
+  )); $$;
+create or replace function public._aeooebp269_executive_energy_dashboard() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Executive energy dashboard — sustainability perspective for leaders.', 'review_themes', jsonb_build_array(
     jsonb_build_object('key', 'organizational_energy_state', 'label', 'Organizational energy state widget'),
     jsonb_build_object('key', 'teams_at_risk', 'label', 'Teams at risk of fatigue'),
     jsonb_build_object('key', 'momentum_indicators', 'label', 'Momentum indicators'),
     jsonb_build_object('key', 'friction_hotspots', 'label', 'Friction hotspots'),
     jsonb_build_object('key', 'energy_trend_analysis', 'label', 'Energy trend analysis')
-  )); $;
-create or replace function public._aeooebp269_organizational_energy_companion() returns jsonb language sql immutable as $
+  )); $$;
+create or replace function public._aeooebp269_organizational_energy_companion() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Organizational Energy Companion — recommends sustainable performance; never replaces leadership action or pressures teams without consent.', 'capabilities', jsonb_build_array(
     jsonb_build_object('key', 'rebalance_workloads', 'label', 'Rebalance workload recommendations'),
     jsonb_build_object('key', 'adjust_rhythms', 'label', 'Adjust operating rhythm suggestions'),
@@ -356,32 +356,32 @@ create or replace function public._aeooebp269_organizational_energy_companion() 
     jsonb_build_object('key', 'automation_support', 'label', 'Increase automation participation suggestions'),
     jsonb_build_object('key', 'protect_recovery', 'label', 'Protect recovery period recommendations'),
     jsonb_build_object('key', 'energy_guardrails', 'label', 'Organizational energy governance — Trust Architecture enforced')
-  )); $;
-create or replace function public._aeooebp269_executive_energy_insights() returns jsonb language sql immutable as $
+  )); $$;
+create or replace function public._aeooebp269_executive_energy_insights() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Executive energy insights — healthy leadership operating patterns.', 'practices', jsonb_build_array(
     jsonb_build_object('key', 'decision_load', 'label', 'Decision load tracked'),
     jsonb_build_object('key', 'review_load', 'label', 'Review load tracked'),
     jsonb_build_object('key', 'delegate_decisions', 'label', 'Delegate decisions recommendation'),
     jsonb_build_object('key', 'protect_focus', 'label', 'Protect focus time recommendation'),
     jsonb_build_object('key', 'reduce_meetings', 'label', 'Reduce meeting load recommendation')
-  )); $;
-create or replace function public._aeooebp269_momentum_detection() returns jsonb language sql immutable as $
+  )); $$;
+create or replace function public._aeooebp269_momentum_detection() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Momentum detection — recognize strong organizational execution.', 'practices', jsonb_build_array(
     jsonb_build_object('key', 'completion_rates', 'label', 'High completion rate indicator'),
     jsonb_build_object('key', 'collaboration', 'label', 'Strong collaboration indicator'),
     jsonb_build_object('key', 'building', 'label', 'Building momentum state'),
     jsonb_build_object('key', 'sustained', 'label', 'Sustained momentum state'),
     jsonb_build_object('key', 'stalled', 'label', 'Stalled momentum state')
-  )); $;
-create or replace function public._aeooebp269_organizational_friction_identification() returns jsonb language sql immutable as $
+  )); $$;
+create or replace function public._aeooebp269_organizational_friction_identification() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Organizational friction identification — detect hidden inefficiencies draining energy.', 'tracks', jsonb_build_array(
     jsonb_build_object('key', 'repeated_escalations', 'label', 'Repeated escalations source'),
     jsonb_build_object('key', 'duplicate_work', 'label', 'Duplicate work source'),
     jsonb_build_object('key', 'delayed_approvals', 'label', 'Delayed approvals source'),
     jsonb_build_object('key', 'simplify_workflows', 'label', 'Simplify workflow recommendation'),
     jsonb_build_object('key', 'clarity_ownership', 'label', 'Improve ownership clarity recommendation')
-  )); $;
-create or replace function public._aeooebp269_energy_recovery_recommendations() returns jsonb language sql immutable as $
+  )); $$;
+create or replace function public._aeooebp269_energy_recovery_recommendations() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Energy recovery recommendations — encourage sustainable performance.', 'practices', jsonb_build_array(
     jsonb_build_object('key', 'seasonal_fluctuations', 'label', 'Seasonal fluctuation analysis'),
     jsonb_build_object('key', 'initiative_strain', 'label', 'Initiative-related strain analysis'),
@@ -389,8 +389,8 @@ create or replace function public._aeooebp269_energy_recovery_recommendations() 
     jsonb_build_object('key', 'momentum_cycles', 'label', 'Momentum cycles tracked'),
     jsonb_build_object('key', 'leadership_action', 'label', 'Aipify recommends — leadership determines action'),
     jsonb_build_object('key', 'index_levels', 'label', 'Exhausted, Strained, Stable, Energized, Thriving')
-  )); $;
-create or replace function public._aeooebp269_organizational_energy_integration_center() returns jsonb language sql immutable as $
+  )); $$;
+create or replace function public._aeooebp269_organizational_energy_integration_center() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Organizational energy integration center — cross-links to Aipify modules.', 'integrations', jsonb_build_array(
     jsonb_build_object('key', 'wellbeing', 'label', 'Wellbeing & Sustainable Performance Phase 220', 'cross_link', '/app/aipify-wellbeing-sustainable-performance-engine'),
     jsonb_build_object('key', 'executive_copilot', 'label', 'Executive Copilot Phase 267', 'cross_link', '/app/aipify-enterprise-executive-copilot-engine'),
@@ -398,8 +398,8 @@ create or replace function public._aeooebp269_organizational_energy_integration_
     jsonb_build_object('key', 'workforce_planning', 'label', 'Talent Acquisition & Workforce Planning', 'cross_link', '/app/aipify-talent-acquisition-workforce-planning-engine'),
     jsonb_build_object('key', 'self_love', 'label', 'Self Love Engine', 'cross_link', '/app/self-love-engine'),
     jsonb_build_object('key', 'leadership_gates', 'label', 'Leadership gates — Aipify recommends only')
-  )); $;
-create or replace function public._aeooebp269_companion_limitations() returns jsonb language sql immutable as $
+  )); $$;
+create or replace function public._aeooebp269_companion_limitations() returns jsonb language sql immutable as $$
   select jsonb_build_object('must_avoid', jsonb_build_array('Replacing leadership action',
       'Pressuring teams without consent',
       'Hiding fatigue indicators',
@@ -407,10 +407,10 @@ create or replace function public._aeooebp269_companion_limitations() returns js
       'Modifying organizational energy audit trails',
       'Unlogged energy recommendations',
       'Bypassing workforce governance',
-      'Override leadership action'), 'principle', 'Organizational Energy Companion recommends — leadership determines action and energy history stays auditable.'); $;
-create or replace function public._aeooebp269_self_love_connection() returns jsonb language sql immutable as $
-  select jsonb_build_object('principle', 'Self Love — calm workforce energy support without pressure.', 'values', jsonb_build_array('aipify_recommends','leadership_determines_action','human_centered','patience','service','stewardship'), 'cross_link', '/app/self-love-engine'); $;
-create or replace function public._aeooebp269_security_requirements() returns jsonb language sql immutable as $
+      'Override leadership action'), 'principle', 'Organizational Energy Companion recommends — leadership determines action and energy history stays auditable.'); $$;
+create or replace function public._aeooebp269_self_love_connection() returns jsonb language sql immutable as $$
+  select jsonb_build_object('principle', 'Self Love — calm workforce energy support without pressure.', 'values', jsonb_build_array('aipify_recommends','leadership_determines_action','human_centered','patience','service','stewardship'), 'cross_link', '/app/self-love-engine'); $$;
+create or replace function public._aeooebp269_security_requirements() returns jsonb language sql immutable as $$
   select jsonb_build_object('requirements', jsonb_build_array(
     jsonb_build_object('key', 'audit_logs', 'label', 'Organizational energy audit logs via aipify_enterprise_organizational_energy_audit_logs'),
     jsonb_build_object('key', 'rbac', 'label', 'Role-based access via aipify_enterprise_organizational_energy permissions — organizational energy governance RBAC'),
@@ -418,23 +418,23 @@ create or replace function public._aeooebp269_security_requirements() returns js
     jsonb_build_object('key', 'energy_policies', 'label', 'Organization-defined workforce energy and sustainability policies'),
     jsonb_build_object('key', 'metadata_only', 'label', 'Organizational energy metadata only — no raw operational records'),
     jsonb_build_object('key', 'two_factor', 'label', 'Two-factor authentication', 'cross_link', '/app/settings/two-factor')
-  )); $;
-create or replace function public._aeooebp269_era_opener_summary() returns jsonb language sql immutable as $ select jsonb_build_array(
+  )); $$;
+create or replace function public._aeooebp269_era_opener_summary() returns jsonb language sql immutable as $$ select jsonb_build_array(
     jsonb_build_object('phase', 269, 'key', 'enterprise_organizational_energy', 'label', 'Organizational Energy Phase 269', 'route', '/app/aipify-enterprise-organizational-energy-engine', 'description', 'Workforce sustainability — continues era'),
     jsonb_build_object('phase', 271, 'key', 'enterprise_future_readiness', 'label', 'Future Readiness Phase 271', 'route', '/app/aipify-enterprise-future-readiness-engine', 'description', 'Future preparedness — cross-link only')
-  ); $;
-create or replace function public._aeooebp269_extended_cross_links() returns jsonb language sql immutable as $ select jsonb_build_array(
+  ); $$;
+create or replace function public._aeooebp269_extended_cross_links() returns jsonb language sql immutable as $$ select jsonb_build_array(
     jsonb_build_object('key', 'wellbeing', 'label', 'Wellbeing Phase 220', 'route', '/app/aipify-wellbeing-sustainable-performance-engine', 'relationship', 'Sustainable performance — cross-link only'),
     jsonb_build_object('key', 'executive_copilot', 'label', 'Executive Copilot Phase 267', 'route', '/app/aipify-enterprise-executive-copilot-engine', 'relationship', 'Executive load — cross-link only'),
     jsonb_build_object('key', 'self_love', 'label', 'Self Love Engine', 'route', '/app/self-love-engine', 'relationship', 'Human-centered — cross-link only')
-  ); $;
-create or replace function public._aeooebp269_integration_links() returns jsonb language sql stable as $ select public._aeooebp269_era_opener_summary() || public._aeooebp269_extended_cross_links(); $;
-create or replace function public._aeooebp269_dogfooding() returns text language sql immutable as $
-  select 'Aipify uses Organizational Energy Center internally with workforce-governed energy signals and full audit logging. Growth Partner terminology. Organizational Energy Companion recommends — never replaces leadership action or pressures teams without consent.'; $;
-create or replace function public._aeooebp269_vision_phrases() returns jsonb language sql immutable as $
-  select jsonb_build_array('People First — leadership determines action.', 'Organizational Energy Companion recommends sustainable performance.', 'Aipify recommends — leadership determines action.', 'Growth Partner — never Affiliate.', 'Organizational Vitality Era continues — 269–273.'); $;
-create or replace function public._aeooebp269_privacy_note() returns text language sql immutable as $
-  select 'Organizational Energy Center metadata only — energy summaries max ~500 chars. No raw operational records beyond RBAC or PII in audit logs.'; $;
+  ); $$;
+create or replace function public._aeooebp269_integration_links() returns jsonb language sql stable as $$ select public._aeooebp269_era_opener_summary() || public._aeooebp269_extended_cross_links(); $$;
+create or replace function public._aeooebp269_dogfooding() returns text language sql immutable as $$
+  select 'Aipify uses Organizational Energy Center internally with workforce-governed energy signals and full audit logging. Growth Partner terminology. Organizational Energy Companion recommends — never replaces leadership action or pressures teams without consent.'; $$;
+create or replace function public._aeooebp269_vision_phrases() returns jsonb language sql immutable as $$
+  select jsonb_build_array('People First — leadership determines action.', 'Organizational Energy Companion recommends sustainable performance.', 'Aipify recommends — leadership determines action.', 'Growth Partner — never Affiliate.', 'Organizational Vitality Era continues — 269–273.'); $$;
+create or replace function public._aeooebp269_privacy_note() returns text language sql immutable as $$
+  select 'Organizational Energy Center metadata only — energy summaries max ~500 chars. No raw operational records beyond RBAC or PII in audit logs.'; $$;
 
 create or replace function public._aeooe_refresh_metrics(p_tenant_id uuid) returns jsonb language plpgsql security definer set search_path = public as $$
 declare v_settings public.aipify_enterprise_organizational_energy_settings; v_reviews int; v_reflections int; v_notes int; v_active int; v_score numeric;
@@ -479,7 +479,7 @@ end; $$;
 
 create or replace function public._aeooebp269_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 269 — Enterprise Organizational Energy Engine', 'title', 'Enterprise Organizational Energy Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE269_AIPIFY_ENTERPRISE_ORGANIZATIONAL_ENERGY.md', 'engine_phase', 'Repo Phase 269', 'route', '/app/aipify-enterprise-organizational-energy-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 269 — Enterprise Organizational Energy Engine', 'title', 'Enterprise Organizational Energy Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE269_AIPIFY_ENTERPRISE_ORGANIZATIONAL_ENERGY.md', 'engine_phase', 'Repo Phase 269', 'route', '/app/aipify-enterprise-organizational-energy-engine'),
     'distinction_note', public._aeooebp269_distinction_note(), 'mission', public._aeooebp269_mission(), 'philosophy', public._aeooebp269_philosophy(),
     'abos_principle', public._aeooebp269_abos_principle(), 'vision', public._aeooebp269_vision(), 'objectives', public._aeooebp269_objectives(),
     'organizational_energy_dashboard', public._aeooebp269_organizational_energy_dashboard(), 'energy_signal_engine', public._aeooebp269_energy_signal_engine(),

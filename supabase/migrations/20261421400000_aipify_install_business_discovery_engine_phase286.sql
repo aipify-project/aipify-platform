@@ -347,7 +347,7 @@ revoke all on public.aipify_business_discovery_audit_logs from authenticated, an
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_install_business_discovery_engine', v.description
 from (values
   ('business_discovery.view', 'View Business Discovery', 'View business discovery profile, systems, knowledge, workflows, and readiness'),

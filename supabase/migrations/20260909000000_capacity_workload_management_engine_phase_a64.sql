@@ -163,7 +163,7 @@ revoke all on public.organization_capacity_settings from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'capacity_workload_management', v.description
 from (values
   ('capacity.view', 'View Capacity', 'View capacity profiles and workload dashboards'),
@@ -225,7 +225,7 @@ $$;
 
 create or replace function public._cwme_refresh_profile_status(p_organization_id uuid, p_user_id uuid default null)
 returns int language plpgsql security definer set search_path = public as $$
-declare v_count int := 0; v_row record; v_hours numeric; v_limit numeric;
+declare v_count int := 0; v_updated int; v_row record; v_hours numeric; v_limit numeric;
 begin
   for v_row in
     select id, user_id, workload_limit, status
@@ -244,7 +244,8 @@ begin
     end,
     updated_at = now()
     where id = v_row.id and organization_id = p_organization_id;
-    get diagnostics v_count = v_count + row_count;
+    get diagnostics v_updated = row_count;
+    v_count := v_count + v_updated;
   end loop;
   return v_count;
 end; $$;

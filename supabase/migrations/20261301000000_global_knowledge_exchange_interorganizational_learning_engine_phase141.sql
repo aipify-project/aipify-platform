@@ -228,7 +228,7 @@ revoke all on public.global_knowledge_exchange_audit_logs from authenticated, an
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'global_knowledge_exchange_engine', v.description
 from (values
   ('global_knowledge_exchange.view', 'View Global Knowledge Exchange', 'View exchange programs, anonymized benchmarks, and approved contributions'),

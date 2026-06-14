@@ -271,7 +271,7 @@ begin
   insert into public.future_technology_observations (
     tenant_id, observation_key, title, description, observation_area, maturity_level, relevance_score
   )
-  select p_tenant_id, v.key, v.title, v.desc, v.area, v.maturity, v.score
+  select p_tenant_id, v.key, v.title, v.item_description, v.area, v.maturity, v.score
   from (values
     ('agentic_ai', 'Agentic AI Workflows', 'Autonomous multi-step AI agents with human oversight.', 'ai_advancements', 'developing', 92.0),
     ('multimodal_llm', 'Multimodal AI Models', 'Combined text, voice, image and document understanding.', 'ai_advancements', 'maturing', 88.0),
@@ -279,7 +279,7 @@ begin
     ('ambient_workplace', 'Ambient Workplace Computing', 'Context-aware assistance with minimal disruption.', 'digital_workplace', 'emerging', 70.0),
     ('immersive_collab', 'Immersive Collaboration', 'Virtual workspaces for distributed teams.', 'collaboration', 'emerging', 65.0),
     ('edge_ai', 'Edge AI Infrastructure', 'On-device inference for latency-sensitive workflows.', 'infrastructure', 'developing', 78.0)
-  ) as v(key, title, desc, area, maturity, score)
+  ) as v(key, title, item_description, area, maturity, score)
   where not exists (select 1 from public.future_technology_observations o where o.tenant_id = p_tenant_id and o.observation_key = v.key);
 end; $$;
 
@@ -289,7 +289,7 @@ begin
   insert into public.future_emerging_initiatives (
     tenant_id, initiative_key, title, description, interface_type, status, business_value_score, governance_compatible
   )
-  select p_tenant_id, v.key, v.title, v.desc, v.type, v.status, v.score, v.gov
+  select p_tenant_id, v.key, v.title, v.item_description, v.type, v.status, v.score, v.gov
   from (values
     ('voice_briefings', 'Voice Executive Briefings', 'Hands-free daily briefing delivery for executives.', 'voice', 'assessment', 82.0, true),
     ('multimodal_assistant', 'Multimodal Assistant', 'Combine text, voice, documents and visual context.', 'multimodal', 'pilot', 88.0, true),
@@ -297,7 +297,7 @@ begin
     ('wearable_approvals', 'Wearable Quick Approvals', 'Smartwatch notifications for urgent approvals.', 'wearable', 'exploration', 68.0, true),
     ('vr_collab_lab', 'Virtual Collaboration Lab', 'Immersive meeting environments for remote teams.', 'virtual_collaboration', 'exploration', 62.0, true),
     ('digital_companion_v2', 'Proactive Digital Companion', 'Contextual recommendations with human approval.', 'digital_companion', 'assessment', 85.0, true)
-  ) as v(key, title, desc, type, status, score, gov)
+  ) as v(key, title, item_description, type, status, score, gov)
   where not exists (select 1 from public.future_emerging_initiatives i where i.tenant_id = p_tenant_id and i.initiative_key = v.key);
 end; $$;
 
@@ -305,12 +305,12 @@ create or replace function public._ftei_seed_scenarios(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.future_scenario_plans (tenant_id, scenario_key, title, description, time_horizon, status)
-  select p_tenant_id, v.key, v.title, v.desc, v.horizon, v.status
+  select p_tenant_id, v.key, v.title, v.item_description, v.horizon, v.status
   from (values
     ('voice_first_ops', 'Voice-First Operations', 'Operations teams rely on voice for routine guidance.', 'medium_term', 'active'),
     ('multimodal_default', 'Multimodal as Default', 'Most interactions combine text, voice and documents.', 'long_term', 'draft'),
     ('ambient_workforce', 'Ambient Workforce Assistant', 'Proactive assistance integrated into daily workflows.', 'long_term', 'draft')
-  ) as v(key, title, desc, horizon, status)
+  ) as v(key, title, item_description, horizon, status)
   where not exists (select 1 from public.future_scenario_plans s where s.tenant_id = p_tenant_id and s.scenario_key = v.key);
 end; $$;
 
@@ -324,11 +324,11 @@ begin
   on conflict (tenant_id, opportunity_key) do nothing;
 
   insert into public.future_pilot_opportunities (tenant_id, opportunity_key, title, description, status, participant_type)
-  select p_tenant_id, v.key, v.title, v.desc, v.status, v.ptype
+  select p_tenant_id, v.key, v.title, v.item_description, v.status, v.ptype
   from (values
     ('voice_exec_beta', 'Voice Briefing Beta', 'Executive voice briefing pilot with selected customers.', 'open', 'customer'),
     ('partner_immersive', 'Partner Immersive Workshop', 'Partner-led exploration of collaboration interfaces.', 'open', 'partner')
-  ) as v(key, title, desc, status, ptype)
+  ) as v(key, title, item_description, status, ptype)
   where not exists (select 1 from public.future_pilot_opportunities p where p.tenant_id = p_tenant_id and p.opportunity_key = v.key);
 end; $$;
 
@@ -336,13 +336,13 @@ create or replace function public._ftei_seed_recommendations(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.future_recommendations (tenant_id, title, description, recommendation_type, priority)
-  select p_tenant_id, v.title, v.desc, v.type, v.pri
+  select p_tenant_id, v.title, v.item_description, v.type, v.pri
   from (values
     ('Prioritize multimodal assistant pilot', 'Highest business value with strong governance compatibility.', 'pilot_candidate', 'high'),
     ('Assess voice readiness for executive workflows', 'Voice briefings show strong potential for accessibility gains.', 'opportunity', 'medium'),
     ('Review interoperability for wearable integrations', 'Avoid lock-in with emerging wearable ecosystems.', 'interoperability', 'medium'),
     ('Workforce preparedness for ambient assistance', 'Teams may need guidance on proactive AI interactions.', 'readiness_gap', 'low')
-  ) as v(title, desc, type, pri)
+  ) as v(title, item_description, type, pri)
   where not exists (select 1 from public.future_recommendations r where r.tenant_id = p_tenant_id limit 1);
 end; $$;
 

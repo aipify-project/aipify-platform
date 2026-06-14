@@ -155,7 +155,7 @@ revoke all on public.learning_training_settings from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 6. Permissions (learning_training.* — distinct from Phase 29 learning memory)
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'learning_training', v.description
 from (values
   ('learning_training.view', 'View Training', 'View assigned learning paths and progress'),
@@ -232,39 +232,39 @@ begin
 
   -- Owner paths: governance, enterprise
   insert into public.learning_paths (organization_id, path_key, title, description, category, target_role, content_ref)
-  select p_organization_id, v.key, v.title, v.desc, v.cat, v.role, v.ref
+  select p_organization_id, v.key, v.title, v.item_description, v.cat, v.role, v.ref
   from (values
     ('owner_governance', 'Governance Foundations', 'Enterprise governance, policies, and approval workflows.', 'governance', 'owner', 'kc://governance-policy-engine'),
     ('owner_enterprise', 'Enterprise Readiness', 'Enterprise controls, delegated admin, and deployment readiness.', 'governance', 'owner', 'kc://enterprise-readiness-engine')
-  ) as v(key, title, desc, cat, role, ref)
+  ) as v(key, title, item_description, cat, role, ref)
   on conflict (organization_id, path_key) do nothing;
 
   -- Administrator paths: operations, approvals, integrations
   insert into public.learning_paths (organization_id, path_key, title, description, category, target_role, content_ref)
-  select p_organization_id, v.key, v.title, v.desc, v.cat, v.role, v.ref
+  select p_organization_id, v.key, v.title, v.item_description, v.cat, v.role, v.ref
   from (values
     ('admin_operations', 'Operations Dashboard', 'Monitor operations, alerts, and daily workflows.', 'administrator', 'administrator', 'kc://operations-dashboard-engine'),
     ('admin_approvals', 'Approvals & Trust Actions', 'Review and approve AI actions with accountability.', 'administrator', 'administrator', 'kc://secure-ai-action'),
     ('admin_integrations', 'Integration Setup', 'Connect systems safely with read-only-first posture.', 'integration_setup', 'administrator', 'kc://integration-engine')
-  ) as v(key, title, desc, cat, role, ref)
+  ) as v(key, title, item_description, cat, role, ref)
   on conflict (organization_id, path_key) do nothing;
 
   -- Support paths: Support AI, Knowledge Center
   insert into public.learning_paths (organization_id, path_key, title, description, category, target_role, content_ref)
-  select p_organization_id, v.key, v.title, v.desc, v.cat, v.role, v.ref
+  select p_organization_id, v.key, v.title, v.item_description, v.cat, v.role, v.ref
   from (values
     ('support_ai_basics', 'Support AI Essentials', 'Configure and operate Support AI with human review.', 'support_ai', 'support_agent', 'kc://support-ai-engine'),
     ('support_knowledge_center', 'Knowledge Center for Support', 'Publish and maintain support knowledge articles.', 'support_ai', 'support_agent', 'kc://knowledge-center-engine')
-  ) as v(key, title, desc, cat, role, ref)
+  ) as v(key, title, item_description, cat, role, ref)
   on conflict (organization_id, path_key) do nothing;
 
   -- Manager paths: analytics, reporting
   insert into public.learning_paths (organization_id, path_key, title, description, category, target_role, content_ref)
-  select p_organization_id, v.key, v.title, v.desc, v.cat, v.role, v.ref
+  select p_organization_id, v.key, v.title, v.item_description, v.cat, v.role, v.ref
   from (values
     ('manager_analytics', 'Analytics & Insights', 'Understand business metrics and operational insights.', 'module_specific', 'manager', 'kc://analytics-insights-engine'),
     ('manager_reporting', 'Reporting & Exports', 'Generate metadata-only reports for stakeholders.', 'module_specific', 'manager', 'kc://audit-accountability')
-  ) as v(key, title, desc, cat, role, ref)
+  ) as v(key, title, item_description, cat, role, ref)
   on conflict (organization_id, path_key) do nothing;
 
   -- Onboarding path (all roles)

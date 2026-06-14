@@ -255,7 +255,7 @@ revoke all on public.organizational_wisdom_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 7. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'organizational_wisdom_engine', v.description
 from (values
   ('organizational_wisdom.view', 'View Organizational Wisdom Engine', 'View Wisdom Center — reflection workspaces, ethics reviews, and culture theme scaffolds'),

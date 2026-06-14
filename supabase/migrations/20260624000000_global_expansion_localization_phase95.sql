@@ -314,7 +314,7 @@ create or replace function public._gel_seed_projects(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.localization_projects (tenant_id, project_key, title, description, target_language, content_scope, status, progress_pct)
-  select p_tenant_id, v.key, v.title, v.desc, v.lang, v.scope, v.status, v.prog
+  select p_tenant_id, v.key, v.title, v.item_description, v.lang, v.scope, v.status, v.prog
   from (values
     ('kc_da', 'Knowledge Center — Danish', 'Operational guidance in Danish.', 'da', 'knowledge_center', 'published', 95.0),
     ('kc_no', 'Knowledge Center — Norwegian', 'Operational guidance in Norwegian.', 'no', 'knowledge_center', 'published', 92.0),
@@ -322,7 +322,7 @@ begin
     ('ui_de', 'Interface — German', 'Customer app interface translation.', 'de', 'interface', 'planned', 0.0),
     ('notifications_multi', 'Localized Notifications', 'Email and in-app notification localization.', 'en', 'notifications', 'in_progress', 78.0),
     ('partner_assets', 'Partner Enablement Assets', 'Localized partner training materials.', 'en', 'partner_assets', 'review', 65.0)
-  ) as v(key, title, desc, lang, scope, status, prog)
+  ) as v(key, title, item_description, lang, scope, status, prog)
   where not exists (select 1 from public.localization_projects p where p.tenant_id = p_tenant_id and p.project_key = v.key);
 end; $$;
 
@@ -350,13 +350,13 @@ create or replace function public._gel_seed_recommendations(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.localization_recommendations (tenant_id, title, description, recommendation_type, priority, language_code)
-  select p_tenant_id, v.title, v.desc, v.type, v.pri, v.lang
+  select p_tenant_id, v.title, v.item_description, v.type, v.pri, v.lang
   from (values
     ('Complete German interface translations', 'Interface project for de locale is at 0% — prioritize core navigation.', 'missing_translation', 'high', 'de'),
     ('Review Norwegian notification templates', 'Three notification templates flagged as outdated after product update.', 'outdated_content', 'medium', 'no'),
     ('Optimize Danish date formatting', 'Align date presentation with regional business expectations.', 'regional_optimization', 'low', 'da'),
     ('Adapt executive briefing tone for Nordic markets', 'Communication formality may benefit from cultural adaptation.', 'cultural_adaptation', 'medium', 'da')
-  ) as v(title, desc, type, pri, lang)
+  ) as v(title, item_description, type, pri, lang)
   where not exists (select 1 from public.localization_recommendations r where r.tenant_id = p_tenant_id limit 1);
 end; $$;
 
@@ -378,12 +378,12 @@ create or replace function public._gel_seed_regional_content(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.localization_regional_content (tenant_id, content_key, title, description, region_code, language_code, content_type)
-  select p_tenant_id, v.key, v.title, v.desc, v.region, v.lang, v.type
+  select p_tenant_id, v.key, v.title, v.item_description, v.region, v.lang, v.type
   from (values
     ('gdpr_eu', 'GDPR Compliance Readiness', 'Privacy regulation guidance for EU operations.', 'EU', 'en', 'regulatory'),
     ('nordic_support_norms', 'Nordic Customer Service Norms', 'Communication expectations for Nordic markets.', 'NORDIC', 'da', 'guidance'),
     ('invoice_dk', 'Danish Invoice Standards', 'Local invoice and tax presentation requirements.', 'DK', 'da', 'regulatory')
-  ) as v(key, title, desc, region, lang, type)
+  ) as v(key, title, item_description, region, lang, type)
   where not exists (select 1 from public.localization_regional_content rc where rc.tenant_id = p_tenant_id and rc.content_key = v.key);
 end; $$;
 

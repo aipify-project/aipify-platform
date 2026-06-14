@@ -283,7 +283,7 @@ revoke all on public.ecosystem_orchestration_audit_logs from authenticated, anon
 -- ---------------------------------------------------------------------------
 -- 8. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'ecosystem_orchestration_engine', v.description
 from (values
   ('ecosystem_orchestration.view', 'View Ecosystem Orchestration Engine', 'View Ecosystem Orchestration Center and collective evolution scaffolding'),

@@ -234,7 +234,7 @@ create table if not exists public.aipify_skills_internal_talent_marketplace_audi
 alter table public.aipify_skills_internal_talent_marketplace_audit_logs enable row level security;
 revoke all on public.aipify_skills_internal_talent_marketplace_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_skills_internal_talent_marketplace_engine', v.description
 from (values
   ('aipify_skills_internal_talent_marketplace.view', 'View __TRANSLATE_CENTER__', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -489,7 +489,7 @@ end; $$;
 
 create or replace function public._asitmebp246_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 246 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE246_AIPIFY_SKILLS_INTERNAL_TALENT_MARKETPLACE_ENGINE.md', 'engine_phase', 'Repo Phase 246', 'route', '/app/aipify-skills-internal-talent-marketplace-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 246 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE246_AIPIFY_SKILLS_INTERNAL_TALENT_MARKETPLACE_ENGINE.md', 'engine_phase', 'Repo Phase 246', 'route', '/app/aipify-skills-internal-talent-marketplace-engine'),
     'distinction_note', public._asitmebp246_distinction_note(), 'mission', public._asitmebp246_mission(), 'philosophy', public._asitmebp246_philosophy(),
     'abos_principle', public._asitmebp246_abos_principle(), 'vision', public._asitmebp246_vision(), 'objectives', public._asitmebp246_objectives(),
     'talent_marketplace_dashboard', public._asitmebp246_talent_marketplace_dashboard(), 'skill_profiles_hub', public._asitmebp246_skill_profiles_hub(),

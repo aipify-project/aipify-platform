@@ -148,7 +148,7 @@ revoke all on public.service_commitment_reports from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'service_level_commitment', v.description
 from (values
   ('commitments.view', 'View Commitments', 'View service commitments, performance, and alerts'),

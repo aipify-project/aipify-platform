@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_commitment_accountability_au
 alter table public.aipify_enterprise_commitment_accountability_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_commitment_accountability_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_commitment_accountability_engine', v.description
 from (values
   ('aipify_enterprise_commitment_accountability.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -382,6 +382,14 @@ create or replace function public._aecaaebp274_follow_through_monitoring() retur
     jsonb_build_object('key', 'escalation_recommended', 'label', 'Escalation recommended alert level'),
     jsonb_build_object('key', 'critical', 'label', 'Critical alert level')
   )); $$;
+create or replace function public._aecaaebp274_commitment_review_workspaces() returns jsonb language sql immutable as $$
+  select jsonb_build_object('principle', 'Commitment review workspaces — structured review without replacing owner accountability.', 'practices', jsonb_build_array(
+    jsonb_build_object('key', 'review_workspaces', 'label', 'Dedicated commitment review workspaces'),
+    jsonb_build_object('key', 'owner_confirmation', 'label', 'Owner confirmation required before tracking'),
+    jsonb_build_object('key', 'blocker_visibility', 'label', 'Blocker visibility during reviews'),
+    jsonb_build_object('key', 'people_responsible', 'label', 'Aipify supports accountability — people remain responsible for delivery'),
+    jsonb_build_object('key', 'advisory_only', 'label', 'Advisory review scaffolds — not prescriptive assignment')
+  )); $$;
 create or replace function public._aecaaebp274_commitment_history() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Commitment history — preserve execution context over time.', 'practices', jsonb_build_array(
     jsonb_build_object('key', 'ownership_changes', 'label', 'Ownership changes captured'),
@@ -479,7 +487,7 @@ end; $$;
 
 create or replace function public._aecaaebp274_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 274 — Enterprise Commitment & Accountability Engine', 'title', 'Enterprise Commitment & Accountability Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE274_AIPIFY_ENTERPRISE_COMMITMENT_ACCOUNTABILITY.md', 'engine_phase', 'Repo Phase 274', 'route', '/app/aipify-enterprise-commitment-accountability-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 274 — Enterprise Commitment & Accountability Engine', 'title', 'Enterprise Commitment & Accountability Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE274_AIPIFY_ENTERPRISE_COMMITMENT_ACCOUNTABILITY.md', 'engine_phase', 'Repo Phase 274', 'route', '/app/aipify-enterprise-commitment-accountability-engine'),
     'distinction_note', public._aecaaebp274_distinction_note(), 'mission', public._aecaaebp274_mission(), 'philosophy', public._aecaaebp274_philosophy(),
     'abos_principle', public._aecaaebp274_abos_principle(), 'vision', public._aecaaebp274_vision(), 'objectives', public._aecaaebp274_objectives(),
     'commitment_center_dashboard', public._aecaaebp274_commitment_center_dashboard(), 'commitment_registry', public._aecaaebp274_commitment_registry(),

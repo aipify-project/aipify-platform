@@ -270,7 +270,7 @@ create index if not exists aipify_print_audit_logs_tenant_idx on public.aipify_p
 alter table public.aipify_print_audit_logs enable row level security;
 revoke all on public.aipify_print_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_printing_document_output_engine', v.description
 from (values
   ('print.view', 'View Print Output', 'View printers, jobs, policies, and print audit metadata'),

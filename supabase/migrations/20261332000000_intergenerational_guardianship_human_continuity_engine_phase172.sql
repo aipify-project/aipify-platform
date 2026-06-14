@@ -259,7 +259,7 @@ revoke all on public.intergenerational_guardianship_audit_logs from authenticate
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'intergenerational_guardianship_engine', v.description
 from (values
   ('intergenerational_guardianship.view', 'View Guardianship Center', 'View guardianship reviews, continuity reflections, and legacy resilience scaffolds'),

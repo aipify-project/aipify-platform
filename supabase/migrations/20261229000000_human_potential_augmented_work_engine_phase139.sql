@@ -261,7 +261,12 @@ revoke all on public.human_potential_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 7. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+alter table public.organization_role_permissions drop constraint if exists organization_role_permissions_role_check;
+alter table public.organization_role_permissions add constraint organization_role_permissions_role_check check (
+  role in ('owner', 'administrator', 'manager', 'support_agent', 'viewer', 'employee', 'moderator', 'staff', 'read_only')
+);
+
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'human_potential_augmented_work_engine', v.description
 from (values
   ('human_potential.view', 'View Human Potential Center', 'View augmentation scaffolds, learning recommendations, and personal growth companion tools'),

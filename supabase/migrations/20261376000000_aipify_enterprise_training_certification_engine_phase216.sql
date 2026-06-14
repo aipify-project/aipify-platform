@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_training_certification_audit
 alter table public.aipify_enterprise_training_certification_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_training_certification_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_training_certification_engine', v.description
 from (values
   ('aipify_enterprise_training_certification.view', 'View Learning Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -464,7 +464,7 @@ end; $$;
 
 create or replace function public._aetcebp216_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 216 — Aipify Enterprise Training & Certification Engine', 'title', 'Aipify Enterprise Training & Certification Engine (Learning Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE216_AIPIFY_ENTERPRISE_TRAINING_CERTIFICATION_ENGINE.md', 'engine_phase', 'Repo Phase 216', 'route', '/app/aipify-enterprise-training-certification-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 216 — Aipify Enterprise Training & Certification Engine', 'title', 'Aipify Enterprise Training & Certification Engine (Learning Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE216_AIPIFY_ENTERPRISE_TRAINING_CERTIFICATION_ENGINE.md', 'engine_phase', 'Repo Phase 216', 'route', '/app/aipify-enterprise-training-certification-engine'),
     'distinction_note', public._aetcebp216_distinction_note(), 'mission', public._aetcebp216_mission(), 'philosophy', public._aetcebp216_philosophy(),
     'abos_principle', public._aetcebp216_abos_principle(), 'vision', public._aetcebp216_vision(), 'objectives', public._aetcebp216_objectives(),
     'learning_dashboard', public._aetcebp216_learning_dashboard(), 'certification_center', public._aetcebp216_certification_center(),

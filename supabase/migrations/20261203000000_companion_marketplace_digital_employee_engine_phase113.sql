@@ -278,7 +278,7 @@ begin
     creator_info, knowledge_requirements, required_integrations, risk_classification,
     recommended_org_size, maturity_level, governance_status, audit_status, approval_status, is_global
   )
-  select null, v.key, v.cat, v.name, v.role, v.desc,
+  select null, v.key, v.cat, v.name, v.role, v.item_description,
     v.caps, v.langs, v.dept, v.ver, v.creator, v.knowledge, v.integrations,
     v.risk, v.org_size, v.maturity, v.gov, v.audit, v.approval, true
   from (values
@@ -337,7 +337,7 @@ begin
       '["custom_workflows","enterprise_governance","executive_visibility"]'::jsonb, '["en"]'::jsonb,
       'Enterprise', '1.0.0', '{"creator":"Tenant","type":"custom"}'::jsonb,
       '["approved_enterprise_sources"]'::jsonb, '["integration_engine","api_platform_engine"]'::jsonb, 'high', '100+', 'draft', 'restricted', 'not_audited', 'pending')
-  ) as v(key, cat, name, role, desc, caps, langs, dept, ver, creator, knowledge, integrations, risk, org_size, maturity, gov, audit, approval)
+  ) as v(key, cat, name, role, item_description, caps, langs, dept, ver, creator, knowledge, integrations, risk, org_size, maturity, gov, audit, approval)
   on conflict (tenant_id, catalog_key) do nothing;
 end; $$;
 
@@ -1056,7 +1056,7 @@ end; $$;
 -- ---------------------------------------------------------------------------
 -- 10. Permissions, module seed, knowledge category, grants
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'companion_marketplace_engine', v.description
 from (values
   ('companion_marketplace.view', 'View Companion Marketplace', 'Browse catalog, directory, and health metadata'),

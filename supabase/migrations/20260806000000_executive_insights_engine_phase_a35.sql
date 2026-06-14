@@ -101,7 +101,7 @@ revoke all on public.executive_insights_settings from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 4. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'executive_insights', v.description
 from (values
   ('executive.view', 'View Executive Insights', 'Access executive insights dashboards and reports'),

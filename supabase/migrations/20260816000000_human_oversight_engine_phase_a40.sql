@@ -35,6 +35,30 @@ alter table public.decision_explanations add constraint decision_explanations_de
 );
 
 -- ---------------------------------------------------------------------------
+-- 0. governance_settings (A.14 dependency — may be missing if baselined)
+-- ---------------------------------------------------------------------------
+create table if not exists public.governance_settings (
+  id uuid primary key default gen_random_uuid(),
+  organization_id uuid not null unique references public.organizations (id) on delete cascade,
+  ai_autonomy_level text not null default 'approval_required' check (
+    ai_autonomy_level in ('advisory_only', 'approval_required', 'limited_automation', 'organization_defined')
+  ),
+  retention_defaults jsonb not null default '{
+    "audit_logs_days": 365,
+    "support_cases_days": 180,
+    "kc_versions_days": 90,
+    "notifications_days": 90,
+    "approval_records_days": 365
+  }'::jsonb,
+  review_cadence_days int not null default 90,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.governance_settings enable row level security;
+revoke all on public.governance_settings from authenticated, anon;
+
+-- ---------------------------------------------------------------------------
 -- 1. organization_oversight_settings
 -- ---------------------------------------------------------------------------
 create table if not exists public.organization_oversight_settings (
@@ -114,7 +138,7 @@ revoke all on public.organization_oversight_overrides from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 4. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'human_oversight', v.description
 from (values
   ('oversight.view', 'View Oversight', 'View oversight dashboard, pending approvals, and accountability metrics'),

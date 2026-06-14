@@ -289,7 +289,7 @@ declare
   v_reports int := 0;
   v_risks int := 0;
   v_actions int := 0;
-  v_st engagement jsonb;
+  v_st jsonb;
 begin
   v_health := public._eie_compute_health_score(p_org_id);
 

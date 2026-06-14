@@ -274,7 +274,7 @@ revoke all on public.proactive_organization_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 7. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'proactive_organization_engine', v.description
 from (values
   ('proactive_organization.view', 'View Proactive Organization Center', 'View org-level early signals, pulse metrics, and preventative recommendations'),

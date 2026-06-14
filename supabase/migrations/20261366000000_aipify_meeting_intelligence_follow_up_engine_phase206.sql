@@ -231,7 +231,7 @@ create table if not exists public.aipify_meeting_intelligence_follow_up_audit_lo
 alter table public.aipify_meeting_intelligence_follow_up_audit_logs enable row level security;
 revoke all on public.aipify_meeting_intelligence_follow_up_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_meeting_intelligence_follow_up_engine', v.description
 from (values
   ('aipify_meeting_intelligence_follow_up.view', 'View Meeting Follow-Up Dashboard', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -461,7 +461,7 @@ end; $$;
 
 create or replace function public._amifuebp206_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 206 — Aipify Meeting Intelligence & Follow-Up Engine', 'title', 'Aipify Meeting Intelligence & Follow-Up Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE206_AIPIFY_MEETING_INTELLIGENCE_FOLLOW_UP_ENGINE.md', 'engine_phase', 'Repo Phase 206', 'route', '/app/aipify-meeting-intelligence-follow-up-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 206 — Aipify Meeting Intelligence & Follow-Up Engine', 'title', 'Aipify Meeting Intelligence & Follow-Up Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE206_AIPIFY_MEETING_INTELLIGENCE_FOLLOW_UP_ENGINE.md', 'engine_phase', 'Repo Phase 206', 'route', '/app/aipify-meeting-intelligence-follow-up-engine'),
     'distinction_note', public._amifuebp206_distinction_note(), 'mission', public._amifuebp206_mission(), 'philosophy', public._amifuebp206_philosophy(),
     'abos_principle', public._amifuebp206_abos_principle(), 'vision', public._amifuebp206_vision(), 'objectives', public._amifuebp206_objectives(),
     'meeting_follow_up_dashboard', public._amifuebp206_meeting_follow_up_dashboard(), 'meeting_reflection_engine', public._amifuebp206_meeting_reflection_engine(),

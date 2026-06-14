@@ -292,7 +292,7 @@ revoke all on public.aipify_companion_orchestration_audit_logs from authenticate
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_companion_orchestration_engine', v.description
 from (values
   (
@@ -621,7 +621,7 @@ begin
       from jsonb_array_elements(v_matched) e
     ), '[]'::jsonb)
   );
-$$;
+end; $$;
 
 create or replace function public._coe_build_user_response(
   p_request text,

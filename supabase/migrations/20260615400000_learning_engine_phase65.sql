@@ -24,7 +24,11 @@ revoke all on public.learning_settings from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 2. learning_events
 -- ---------------------------------------------------------------------------
-create table if not exists public.learning_events (
+-- Phase 12 exposed ai_learning_events as a view; Phase 65 replaces with a tenant table.
+drop view if exists public.learning_events cascade;
+drop table if exists public.learning_events cascade;
+
+create table public.learning_events (
   id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null references public.customers (id) on delete cascade,
   user_id uuid references public.users (id) on delete set null,

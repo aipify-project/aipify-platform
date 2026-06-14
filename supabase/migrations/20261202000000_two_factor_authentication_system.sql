@@ -131,7 +131,7 @@ $$;
 
 create or replace function public._tfa_hash_text(p_value text)
 returns text language sql immutable as $$
-  select encode(digest(coalesce(p_value, ''), 'sha256'), 'hex');
+  select encode(extensions.digest(coalesce(p_value, ''), 'sha256'), 'hex');
 $$;
 
 create or replace function public._tfa_ip_hash(p_ip text)

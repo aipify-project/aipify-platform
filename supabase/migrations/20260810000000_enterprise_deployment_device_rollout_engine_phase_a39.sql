@@ -279,7 +279,7 @@ revoke all on public.enterprise_deployment_settings from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 11. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'enterprise_deployment', v.description
 from (values
   ('deployment.view', 'View Deployment', 'View deployment dashboard, licenses, and devices'),
@@ -313,7 +313,7 @@ where not exists (
 -- ---------------------------------------------------------------------------
 create or replace function public._edd_hash_secret(p_value text)
 returns text language sql immutable as $$
-  select encode(digest(p_value, 'sha256'), 'hex');
+  select encode(extensions.digest(p_value, 'sha256'), 'hex');
 $$;
 
 revoke execute on function public._edd_hash_secret(text) from public, anon, authenticated;

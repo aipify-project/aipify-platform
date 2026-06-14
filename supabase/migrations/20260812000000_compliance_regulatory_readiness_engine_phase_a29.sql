@@ -44,7 +44,7 @@ create table if not exists public.compliance_review_schedules (
 alter table public.compliance_review_schedules enable row level security;
 revoke all on public.compliance_review_schedules from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'compliance_regulatory', v.description
 from (values
   ('compliance.view', 'View Compliance', 'View compliance status and records'),
@@ -71,12 +71,12 @@ begin
   on conflict (organization_id, data_category) do nothing;
 
   insert into public.compliance_records (organization_id, category, title, description, status, due_date)
-  select p_organization_id, v.cat, v.title, v.desc, v.status, v.due
+  select p_organization_id, v.cat, v.title, v.item_description, v.status, v.due
   from (values
     ('data_protection', 'Data protection review', 'Review data handling practices', 'open', current_date + 30),
     ('access_review', 'Privileged account review', 'Review administrator access', 'open', current_date + 14),
     ('audit_readiness', 'Audit log completeness check', 'Verify audit coverage', 'in_progress', current_date + 7)
-  ) as v(cat, title, desc, status, due)
+  ) as v(cat, title, item_description, status, due)
   where not exists (select 1 from public.compliance_records where organization_id = p_organization_id limit 1);
 
   insert into public.compliance_review_schedules (organization_id, review_type, next_review_at)

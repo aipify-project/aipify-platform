@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_knowledge_validation_quality
 alter table public.aipify_enterprise_knowledge_validation_quality_assurance_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_knowledge_validation_quality_assurance_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_knowledge_validation_quality_assurance_engine', v.description
 from (values
   ('aipify_enterprise_knowledge_validation_quality_assurance.view', 'View Knowledge Validation & Quality', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -495,7 +495,7 @@ end; $$;
 
 create or replace function public._aekvqaebp254_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 254 — Enterprise Knowledge Validation & Quality Engine', 'title', 'Enterprise Knowledge Validation & Quality Engine (Knowledge Validation & Quality Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE254_AIPIFY_ENTERPRISE_KNOWLEDGE_VALIDATION_QUALITY_ASSURANCE_ENGINE.md', 'engine_phase', 'Repo Phase 254', 'route', '/app/aipify-enterprise-knowledge-validation-quality-assurance-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 254 — Enterprise Knowledge Validation & Quality Engine', 'title', 'Enterprise Knowledge Validation & Quality Engine (Knowledge Validation & Quality Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE254_AIPIFY_ENTERPRISE_KNOWLEDGE_VALIDATION_QUALITY_ASSURANCE_ENGINE.md', 'engine_phase', 'Repo Phase 254', 'route', '/app/aipify-enterprise-knowledge-validation-quality-assurance-engine'),
     'distinction_note', public._aekvqaebp254_distinction_note(), 'mission', public._aekvqaebp254_mission(), 'philosophy', public._aekvqaebp254_philosophy(),
     'abos_principle', public._aekvqaebp254_abos_principle(), 'vision', public._aekvqaebp254_vision(), 'objectives', public._aekvqaebp254_objectives(),
     'quality_dashboard', public._aekvqaebp254_quality_dashboard(), 'knowledge_review_hub', public._aekvqaebp254_knowledge_review_hub(),

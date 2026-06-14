@@ -127,7 +127,7 @@ revoke all on public.security_compliance_checks from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'security_trust', v.description
 from (values
   ('security.view', 'View Security', 'View security settings, policies, and compliance status'),
@@ -201,13 +201,13 @@ create or replace function public._ste_seed_default_policies(p_organization_id u
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.security_trust_policies (organization_id, policy_key, policy_name, access_level, description)
-  select p_organization_id, v.key, v.name, v.level, v.desc
+  select p_organization_id, v.key, v.name, v.level, v.item_description
   from (values
     ('metadata_default', 'Metadata-only by default', 'metadata_only', 'Store patterns and outcomes — not raw customer records'),
     ('integration_read_only', 'Integration read-only first', 'read_only', 'New integrations start read-only until approved'),
     ('ai_action_approval', 'AI action human approval', 'metadata_only', 'Sensitive AI actions require explicit approval'),
     ('learning_metadata_only', 'Learning metadata only', 'metadata_only', 'Learning memory excludes PII and conversations')
-  ) as v(key, name, level, desc)
+  ) as v(key, name, level, item_description)
   on conflict (organization_id, policy_key) do nothing;
 end; $$;
 

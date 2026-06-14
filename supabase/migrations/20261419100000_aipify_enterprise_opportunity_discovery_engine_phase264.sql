@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_opportunity_discovery_audit_
 alter table public.aipify_enterprise_opportunity_discovery_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_opportunity_discovery_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_opportunity_discovery_engine', v.description
 from (values
   ('aipify_enterprise_opportunity_discovery.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -484,7 +484,7 @@ end; $$;
 
 create or replace function public._aeodebp264_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 264 — Enterprise Opportunity Discovery Engine', 'title', 'Enterprise Opportunity Discovery Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE264_AIPIFY_ENTERPRISE_OPPORTUNITY_DISCOVERY.md', 'engine_phase', 'Repo Phase 264', 'route', '/app/aipify-enterprise-opportunity-discovery-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 264 — Enterprise Opportunity Discovery Engine', 'title', 'Enterprise Opportunity Discovery Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE264_AIPIFY_ENTERPRISE_OPPORTUNITY_DISCOVERY.md', 'engine_phase', 'Repo Phase 264', 'route', '/app/aipify-enterprise-opportunity-discovery-engine'),
     'distinction_note', public._aeodebp264_distinction_note(), 'mission', public._aeodebp264_mission(), 'philosophy', public._aeodebp264_philosophy(),
     'abos_principle', public._aeodebp264_abos_principle(), 'vision', public._aeodebp264_vision(), 'objectives', public._aeodebp264_objectives(),
     'opportunity_discovery_dashboard', public._aeodebp264_opportunity_discovery_dashboard(), 'opportunity_registry_hub', public._aeodebp264_opportunity_registry_hub(),

@@ -234,7 +234,7 @@ create table if not exists public.aipify_desktop_companion_creative_bridge_audit
 alter table public.aipify_desktop_companion_creative_bridge_audit_logs enable row level security;
 revoke all on public.aipify_desktop_companion_creative_bridge_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_desktop_companion_creative_bridge_engine', v.description
 from (values
   ('aipify_desktop_companion_creative_bridge.view', 'View Desktop Companion', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -491,7 +491,7 @@ end; $$;
 
 create or replace function public._adccbebp236_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 236 — Enterprise Desktop Companion Engine', 'title', 'Enterprise Desktop Companion Engine (Desktop Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE236_AIPIFY_DESKTOP_COMPANION_CREATIVE_BRIDGE_ENGINE.md', 'engine_phase', 'Repo Phase 236', 'route', '/app/aipify-desktop-companion-creative-bridge-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 236 — Enterprise Desktop Companion Engine', 'title', 'Enterprise Desktop Companion Engine (Desktop Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE236_AIPIFY_DESKTOP_COMPANION_CREATIVE_BRIDGE_ENGINE.md', 'engine_phase', 'Repo Phase 236', 'route', '/app/aipify-desktop-companion-creative-bridge-engine'),
     'distinction_note', public._adccbebp236_distinction_note(), 'mission', public._adccbebp236_mission(), 'philosophy', public._adccbebp236_philosophy(),
     'abos_principle', public._adccbebp236_abos_principle(), 'vision', public._adccbebp236_vision(), 'objectives', public._adccbebp236_objectives(),
     'desktop_companion_dashboard', public._adccbebp236_desktop_companion_dashboard(), 'application_detection_hub', public._adccbebp236_application_detection_hub(),

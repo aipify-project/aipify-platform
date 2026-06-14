@@ -268,7 +268,7 @@ revoke all on public.aipify_trust_transparency_governance_recs from authenticate
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_trust_transparency_center_engine', v.description
 from (values
   ('trust_transparency.view', 'View Trust Center', 'Review Aipify activity, explanations, and transparency logs'),

@@ -274,7 +274,7 @@ revoke all on public.aipify_approval_oversight_audit_logs from authenticated, an
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_approval_human_oversight_center_engine', v.description
 from (values
   ('approval_oversight.view', 'View Approval Center', 'Review pending approvals, history, and Aipify recommendations'),

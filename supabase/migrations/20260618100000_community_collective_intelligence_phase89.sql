@@ -240,7 +240,7 @@ begin
     anonymized_title, anonymized_description, anonymization_verified,
     source_module, status, published_at
   )
-  select p_tenant_id, v.type, v.title, v.desc, v.title, v.desc, true,
+  select p_tenant_id, v.type, v.title, v.item_description, v.title, v.item_description, true,
     'community_intelligence', 'published', now()
   from (values
     ('knowledge_article', 'Structured FAQ maintenance reduces support volume',
@@ -249,7 +249,7 @@ begin
      'Celebrating first automation and first briefing milestones within the first two weeks improves long-term adoption.'),
     ('governance_recommendation', 'Governance review before automation expansion',
      'Requiring governance approval for high-impact automations reduces rollback incidents and builds trust.')
-  ) as v(type, title, desc)
+  ) as v(type, title, item_description)
   where not exists (
     select 1 from public.community_contributions cc
     where cc.tenant_id = p_tenant_id and cc.title = v.title and cc.status = 'published'

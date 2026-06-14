@@ -205,7 +205,7 @@ create table if not exists public.human_creativity_imagination_audit_logs (
 alter table public.human_creativity_imagination_audit_logs enable row level security;
 revoke all on public.human_creativity_imagination_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'human_creativity_imagination_engine', v.description
 from (values
   ('human_creativity_imagination.view', 'View Creativity & Imagination Center', 'View executive reviews, reflections, and metadata scaffolds'),

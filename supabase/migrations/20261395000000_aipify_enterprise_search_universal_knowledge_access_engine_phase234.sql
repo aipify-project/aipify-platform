@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_search_universal_knowledge_a
 alter table public.aipify_enterprise_search_universal_knowledge_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_search_universal_knowledge_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_search_universal_knowledge_engine', v.description
 from (values
   ('aipify_enterprise_search_universal_knowledge.view', 'View Search Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -496,7 +496,7 @@ end; $$;
 
 create or replace function public._aesukabp234_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 234 — Enterprise Search Center Engine', 'title', 'Enterprise Search Center Engine (Search Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE234_AIPIFY_ENTERPRISE_SEARCH_UNIVERSAL_KNOWLEDGE_ACCESS_ENGINE.md', 'engine_phase', 'Repo Phase 234', 'route', '/app/aipify-enterprise-search-universal-knowledge-access-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 234 — Enterprise Search Center Engine', 'title', 'Enterprise Search Center Engine (Search Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE234_AIPIFY_ENTERPRISE_SEARCH_UNIVERSAL_KNOWLEDGE_ACCESS_ENGINE.md', 'engine_phase', 'Repo Phase 234', 'route', '/app/aipify-enterprise-search-universal-knowledge-access-engine'),
     'distinction_note', public._aesukabp234_distinction_note(), 'mission', public._aesukabp234_mission(), 'philosophy', public._aesukabp234_philosophy(),
     'abos_principle', public._aesukabp234_abos_principle(), 'vision', public._aesukabp234_vision(), 'objectives', public._aesukabp234_objectives(),
     'search_dashboard', public._aesukabp234_search_dashboard(), 'global_search_hub', public._aesukabp234_global_search_hub(),

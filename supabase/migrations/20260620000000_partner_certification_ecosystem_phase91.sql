@@ -375,7 +375,7 @@ create or replace function public._pce_seed_tracks(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.partner_certification_tracks (tenant_id, track_key, title, description, certification_area, requirements)
-  select p_tenant_id, v.key, v.title, v.desc, v.area, v.reqs
+  select p_tenant_id, v.key, v.title, v.item_description, v.area, v.reqs
   from (values
     ('foundations', 'Aipify Foundations', 'Core platform knowledge and implementation fundamentals.',
       'aipify_foundations', '["Course completion","Knowledge examination"]'::jsonb),
@@ -391,7 +391,7 @@ begin
       'integration_specialist', '["Practical assessment","Case study evaluation"]'::jsonb),
     ('strategic_intel', 'Strategic Intelligence Specialist', 'Strategic intelligence and advisory.',
       'strategic_intelligence', '["Course completion","Knowledge examination","Case study"]'::jsonb)
-  ) as v(key, title, desc, area, reqs)
+  ) as v(key, title, item_description, area, reqs)
   where not exists (
     select 1 from public.partner_certification_tracks t where t.tenant_id = p_tenant_id and t.track_key = v.key
   );
@@ -401,7 +401,7 @@ create or replace function public._pce_seed_resources(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.partner_ecosystem_resources (tenant_id, resource_key, title, description, resource_type)
-  select p_tenant_id, v.key, v.title, v.desc, v.type
+  select p_tenant_id, v.key, v.title, v.item_description, v.type
   from (values
     ('impl_guide', 'Implementation Guide', 'Step-by-step Aipify deployment guide.', 'guide'),
     ('best_practices', 'Best Practices', 'Proven patterns for customer success.', 'best_practice'),
@@ -410,7 +410,7 @@ begin
     ('training_videos', 'Training Videos', 'On-demand certification training.', 'training_video'),
     ('case_studies', 'Case Studies', 'Customer success stories.', 'case_study'),
     ('gov_templates', 'Governance Templates', 'Quality and governance policy templates.', 'template')
-  ) as v(key, title, desc, type)
+  ) as v(key, title, item_description, type)
   where not exists (
     select 1 from public.partner_ecosystem_resources r where r.tenant_id = p_tenant_id and r.resource_key = v.key
   );

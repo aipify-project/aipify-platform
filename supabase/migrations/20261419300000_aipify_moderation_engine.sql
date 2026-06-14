@@ -179,7 +179,7 @@ revoke all on public.moderation_access_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'moderation_ai', v.description
 from (values
   ('moderation.view', 'View Moderation Queue', 'View Aipify Moderation queue and history'),

@@ -103,7 +103,7 @@ revoke all on public.marketplace_offerings from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 3. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'partner_ecosystem', v.description
 from (values
   ('ecosystem.view', 'View Partner Ecosystem', 'View approved partners, offerings, and certification status'),

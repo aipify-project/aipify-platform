@@ -138,7 +138,7 @@ revoke all on public.cross_tenant_intelligence_outcomes from authenticated, anon
 -- ---------------------------------------------------------------------------
 -- 4. Permissions — intelligence.configure_participation (others exist from A.31)
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'cross_tenant_intelligence', v.description
 from (values
   ('intelligence.configure_participation', 'Configure Cross-Tenant Participation', 'Opt in or out of anonymized cross-tenant intelligence contribution')

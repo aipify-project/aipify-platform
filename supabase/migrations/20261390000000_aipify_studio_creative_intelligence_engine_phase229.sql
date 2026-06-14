@@ -234,7 +234,7 @@ create table if not exists public.aipify_studio_creative_intelligence_audit_logs
 alter table public.aipify_studio_creative_intelligence_audit_logs enable row level security;
 revoke all on public.aipify_studio_creative_intelligence_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_studio_creative_intelligence_engine', v.description
 from (values
   ('aipify_studio_creative_intelligence.view', 'View Studio Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -484,7 +484,7 @@ end; $$;
 
 create or replace function public._asciebp229_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 229 — Aipify Studio & Creative Intelligence Engine', 'title', 'Aipify Studio & Creative Intelligence Engine (Studio & Creative Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE229_AIPIFY_STUDIO_CREATIVE_INTELLIGENCE_ENGINE.md', 'engine_phase', 'Repo Phase 229', 'route', '/app/aipify-studio-creative-intelligence-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 229 — Aipify Studio & Creative Intelligence Engine', 'title', 'Aipify Studio & Creative Intelligence Engine (Studio & Creative Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE229_AIPIFY_STUDIO_CREATIVE_INTELLIGENCE_ENGINE.md', 'engine_phase', 'Repo Phase 229', 'route', '/app/aipify-studio-creative-intelligence-engine'),
     'distinction_note', public._asciebp229_distinction_note(), 'mission', public._asciebp229_mission(), 'philosophy', public._asciebp229_philosophy(),
     'abos_principle', public._asciebp229_abos_principle(), 'vision', public._asciebp229_vision(), 'objectives', public._asciebp229_objectives(),
     'creative_dashboard', public._asciebp229_creative_dashboard(), 'image_generation_center', public._asciebp229_image_generation_center(),

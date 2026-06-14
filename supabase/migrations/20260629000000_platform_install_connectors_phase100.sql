@@ -399,13 +399,13 @@ create or replace function public._pic_seed_connectors()
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.platform_connectors (connector_key, name, description, install_method, sort_order)
-  select v.key, v.name, v.desc, v.method, v.ord
+  select v.key, v.name, v.item_description, v.method, v.ord
   from (values
     ('wordpress', 'WordPress', 'Official plugin, manual upload, JavaScript embed, or API key connection.', 'plugin', 1),
     ('shopify', 'Shopify', 'Shopify app installation with OAuth, storefront widget, and webhooks.', 'app', 2),
     ('woocommerce', 'WooCommerce', 'WordPress plugin with WooCommerce REST API connection.', 'hybrid', 3),
     ('other', 'Other Platforms', 'JavaScript embed, API keys, webhooks, and developer documentation.', 'script', 4)
-  ) as v(key, name, desc, method, ord)
+  ) as v(key, name, item_description, method, ord)
   where not exists (select 1 from public.platform_connectors c where c.connector_key = v.key);
 end; $$;
 

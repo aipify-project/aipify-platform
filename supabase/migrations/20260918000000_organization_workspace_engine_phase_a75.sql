@@ -209,7 +209,7 @@ revoke all on public.organization_workspace_settings from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 8. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'organization_workspace', v.description
 from (values
   ('workspaces.view', 'View Workspaces', 'View organization workspaces and structure'),
@@ -873,7 +873,7 @@ begin
 
   if v_workspace_id is not null then
     perform public._owe_log(v_workspace_id, 'owe_permissions_saved',
-      jsonb_build_object('permission_count', jsonb_array_length(coalesce(p_payload->'permissions', '[]'::jsonb)));
+      jsonb_build_object('permission_count', jsonb_array_length(coalesce(p_payload->'permissions', '[]'::jsonb))));
   else
     perform public._mta_create_audit_log(
       v_org_id, 'owe_org_permissions_saved', 'workspace_permissions', null, false, false, null,

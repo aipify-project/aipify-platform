@@ -236,11 +236,11 @@ begin
   where not exists (select 1 from public.core_integration_registry i where i.tenant_id = p_tenant_id and i.integration_key = v.key);
 
   insert into public.core_api_key_registry (tenant_id, key_label, key_prefix, scopes, rate_limit_per_minute)
-  select p_tenant_id, v.label, v.prefix, v.scopes, v.limit
+  select p_tenant_id, v.label, v.prefix, v.scopes, v.rate_limit
   from (values
     ('Production API', 'aip_live_', '["read","write"]'::jsonb, 120),
     ('Integration Webhook', 'aip_hook_', '["webhooks"]'::jsonb, 60)
-  ) as v(label, prefix, scopes, limit)
+  ) as v(label, prefix, scopes, rate_limit)
   where not exists (select 1 from public.core_api_key_registry k where k.tenant_id = p_tenant_id limit 1);
 
   insert into public.core_platform_component_status (tenant_id, component_key, status, summary, health_score)

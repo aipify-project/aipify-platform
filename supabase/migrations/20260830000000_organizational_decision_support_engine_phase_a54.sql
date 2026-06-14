@@ -109,7 +109,7 @@ revoke all on public.organizational_decision_outcomes from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 3. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'organizational_decision_support', v.description
 from (values
   ('decisions.view', 'View Decisions', 'View organizational decision recommendations and outcomes'),

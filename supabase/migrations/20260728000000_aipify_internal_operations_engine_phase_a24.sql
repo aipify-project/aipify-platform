@@ -139,7 +139,7 @@ revoke all on public.internal_success_metrics from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'internal_operations', v.description
 from (values
   ('internal_ops.view', 'View Internal Ops', 'View internal operations dashboard and metrics'),
@@ -168,7 +168,10 @@ end; $$;
 
 create or replace function public._aio_provision_internal_tenant()
 returns uuid language plpgsql security definer set search_path = public as $$
-declare v_org_id uuid; v_company_id uuid;
+declare
+  v_org_id uuid;
+  v_company_id uuid;
+  v_customer_id uuid;
 begin
   select id into v_company_id from public.companies where is_platform = true limit 1;
 
@@ -178,13 +181,52 @@ begin
     returning id into v_company_id;
   end if;
 
-  select id into v_org_id from public.organizations where id = v_company_id;
+  select c.id into v_customer_id
+  from public.customers c
+  where c.company_id = v_company_id
+  order by c.created_at
+  limit 1;
+
+  if v_customer_id is null then
+    select c.id into v_customer_id
+    from public.customers c
+    where c.slug in ('aipify-group', 'aipify-internal', 'aipify')
+    limit 1;
+  end if;
+
+  if v_customer_id is null then
+    insert into public.customers (
+      customer_number, company_id, customer_type, slug, company_name, email, country, language, status
+    ) values (
+      public.format_customer_number(nextval('public.customer_number_seq')),
+      v_company_id,
+      'company',
+      'aipify-group',
+      'Aipify Group AS',
+      'team@aipify.com',
+      'NO',
+      'en',
+      'active'
+    )
+    returning id into v_customer_id;
+  end if;
+
+  if to_regprocedure('public._mta_sync_organization_from_customer(uuid)') is not null then
+    perform public._mta_sync_organization_from_customer(v_customer_id);
+  end if;
+
+  select id into v_org_id from public.organizations where id = v_customer_id;
   if v_org_id is null then
-    insert into public.organizations (id, name, slug, status)
-    values (v_company_id, 'Aipify Group AS', 'aipify-internal', 'active')
-    on conflict (id) do nothing
+    insert into public.organizations (id, name, slug, status, subscription_plan)
+    values (v_customer_id, 'Aipify Group AS', 'aipify-internal', 'active', 'internal')
+    on conflict (id) do update set
+      name = excluded.name,
+      slug = excluded.slug,
+      status = excluded.status,
+      subscription_plan = excluded.subscription_plan,
+      updated_at = now()
     returning id into v_org_id;
-    v_org_id := coalesce(v_org_id, v_company_id);
+    v_org_id := coalesce(v_org_id, v_customer_id);
   end if;
 
   return v_org_id;

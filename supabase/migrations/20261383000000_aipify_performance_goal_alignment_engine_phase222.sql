@@ -234,7 +234,7 @@ create table if not exists public.aipify_performance_goal_alignment_audit_logs (
 alter table public.aipify_performance_goal_alignment_audit_logs enable row level security;
 revoke all on public.aipify_performance_goal_alignment_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_performance_goal_alignment_engine', v.description
 from (values
   ('aipify_performance_goal_alignment.view', 'View Performance Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -462,7 +462,7 @@ end; $$;
 
 create or replace function public._apgaebp222_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 222 — Aipify Performance & Goal Alignment Engine', 'title', 'Aipify Performance & Goal Alignment Engine (Performance Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE222_AIPIFY_PERFORMANCE_GOAL_ALIGNMENT_ENGINE.md', 'engine_phase', 'Repo Phase 222', 'route', '/app/aipify-performance-goal-alignment-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 222 — Aipify Performance & Goal Alignment Engine', 'title', 'Aipify Performance & Goal Alignment Engine (Performance Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE222_AIPIFY_PERFORMANCE_GOAL_ALIGNMENT_ENGINE.md', 'engine_phase', 'Repo Phase 222', 'route', '/app/aipify-performance-goal-alignment-engine'),
     'distinction_note', public._apgaebp222_distinction_note(), 'mission', public._apgaebp222_mission(), 'philosophy', public._apgaebp222_philosophy(),
     'abos_principle', public._apgaebp222_abos_principle(), 'vision', public._apgaebp222_vision(), 'objectives', public._apgaebp222_objectives(),
     'goals_dashboard', public._apgaebp222_goals_dashboard(), 'organizational_objectives_framework', public._apgaebp222_organizational_objectives_framework(),

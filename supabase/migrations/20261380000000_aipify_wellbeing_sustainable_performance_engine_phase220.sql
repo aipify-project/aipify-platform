@@ -234,7 +234,7 @@ create table if not exists public.aipify_wellbeing_sustainable_performance_audit
 alter table public.aipify_wellbeing_sustainable_performance_audit_logs enable row level security;
 revoke all on public.aipify_wellbeing_sustainable_performance_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_wellbeing_sustainable_performance_engine', v.description
 from (values
   ('aipify_wellbeing_sustainable_performance.view', 'View Wellbeing Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -461,7 +461,7 @@ end; $$;
 
 create or replace function public._awspebp220_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 220 — Aipify Wellbeing & Sustainable Performance Engine', 'title', 'Aipify Wellbeing & Sustainable Performance Engine (Wellbeing Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE220_AIPIFY_WELLBEING_SUSTAINABLE_PERFORMANCE_ENGINE.md', 'engine_phase', 'Repo Phase 220', 'route', '/app/aipify-wellbeing-sustainable-performance-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 220 — Aipify Wellbeing & Sustainable Performance Engine', 'title', 'Aipify Wellbeing & Sustainable Performance Engine (Wellbeing Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE220_AIPIFY_WELLBEING_SUSTAINABLE_PERFORMANCE_ENGINE.md', 'engine_phase', 'Repo Phase 220', 'route', '/app/aipify-wellbeing-sustainable-performance-engine'),
     'distinction_note', public._awspebp220_distinction_note(), 'mission', public._awspebp220_mission(), 'philosophy', public._awspebp220_philosophy(),
     'abos_principle', public._awspebp220_abos_principle(), 'vision', public._awspebp220_vision(), 'objectives', public._awspebp220_objectives(),
     'wellbeing_dashboard', public._awspebp220_wellbeing_dashboard(), 'sustainable_performance_monitor', public._awspebp220_sustainable_performance_monitor(),

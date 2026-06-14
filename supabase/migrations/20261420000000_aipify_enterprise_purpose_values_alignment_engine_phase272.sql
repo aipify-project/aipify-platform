@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_purpose_values_alignment_aud
 alter table public.aipify_enterprise_purpose_values_alignment_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_purpose_values_alignment_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_purpose_values_alignment_engine', v.description
 from (values
   ('aipify_enterprise_purpose_values_alignment.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -374,6 +374,14 @@ create or replace function public._aepvaebp272_decision_alignment_checks() retur
     jsonb_build_object('key', 'human_judgment', 'label', 'Human judgment remains essential'),
     jsonb_build_object('key', 'advisory_only', 'label', 'Advisory only — not prescriptive')
   )); $$;
+create or replace function public._aepvaebp272_values_in_action_recognition() returns jsonb language sql immutable as $$
+  select jsonb_build_object('principle', 'Values in action recognition — celebrate behaviors aligned with purpose and values.', 'practices', jsonb_build_array(
+    jsonb_build_object('key', 'peer_recognition', 'label', 'Peer recognition aligned with values', 'cross_link', '/app/aipify-employee-recognition-celebration-engine'),
+    jsonb_build_object('key', 'leadership_appreciation', 'label', 'Leadership appreciation for values-aligned contributions'),
+    jsonb_build_object('key', 'milestone_celebrations', 'label', 'Milestone celebrations reinforcing purpose'),
+    jsonb_build_object('key', 'leaders_define_culture', 'label', 'Aipify encourages reflection — leaders define culture'),
+    jsonb_build_object('key', 'no_auto_publish', 'label', 'Never auto-publish recognition without approval')
+  )); $$;
 create or replace function public._aepvaebp272_cultural_signal_monitoring() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Cultural signal monitoring — identify trends that may affect alignment.', 'tracks', jsonb_build_array(
     jsonb_build_object('key', 'recognition_patterns', 'label', 'Recognition pattern monitoring'),
@@ -480,7 +488,7 @@ end; $$;
 
 create or replace function public._aepvaebp272_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 272 — Enterprise Purpose & Values Alignment Engine', 'title', 'Enterprise Purpose & Values Alignment Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE272_AIPIFY_ENTERPRISE_PURPOSE_VALUES_ALIGNMENT.md', 'engine_phase', 'Repo Phase 272', 'route', '/app/aipify-enterprise-purpose-values-alignment-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 272 — Enterprise Purpose & Values Alignment Engine', 'title', 'Enterprise Purpose & Values Alignment Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE272_AIPIFY_ENTERPRISE_PURPOSE_VALUES_ALIGNMENT.md', 'engine_phase', 'Repo Phase 272', 'route', '/app/aipify-enterprise-purpose-values-alignment-engine'),
     'distinction_note', public._aepvaebp272_distinction_note(), 'mission', public._aepvaebp272_mission(), 'philosophy', public._aepvaebp272_philosophy(),
     'abos_principle', public._aepvaebp272_abos_principle(), 'vision', public._aepvaebp272_vision(), 'objectives', public._aepvaebp272_objectives(),
     'purpose_alignment_dashboard', public._aepvaebp272_purpose_alignment_dashboard(), 'purpose_registry', public._aepvaebp272_purpose_registry(),

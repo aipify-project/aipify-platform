@@ -266,7 +266,7 @@ revoke all on public.future_leaders_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 7. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'future_leaders_engine', v.description
 from (values
   ('future_leaders.view', 'View Future Leaders Center', 'View leadership pathways, mentorship programs, and development scaffolds'),

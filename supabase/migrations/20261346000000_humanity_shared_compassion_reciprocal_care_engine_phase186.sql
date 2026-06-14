@@ -207,7 +207,7 @@ create table if not exists public.humanity_shared_compassion_reciprocal_care_aud
 alter table public.humanity_shared_compassion_reciprocal_care_audit_logs enable row level security;
 revoke all on public.humanity_shared_compassion_reciprocal_care_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'humanity_shared_compassion_reciprocal_care_engine', v.description
 from (values
   ('humanity_shared_compassion_reciprocal_care.view', 'View Reciprocal Care Center', 'View executive reviews, reflections, and metadata scaffolds'),

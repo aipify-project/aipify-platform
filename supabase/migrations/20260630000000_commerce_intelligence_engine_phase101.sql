@@ -373,7 +373,7 @@ create or replace function public._cie_seed_products(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.commerce_products (tenant_id, product_key, name, category, description, supplier_cost, recommended_price_min, recommended_price_max)
-  select p_tenant_id, v.key, v.name, v.cat, v.desc, v.cost, v.pmin, v.pmax
+  select p_tenant_id, v.key, v.name, v.cat, v.item_description, v.cost, v.pmin, v.pmax
   from (values
     ('portable_blender', 'Portable Blender Bottle', 'Active Lifestyle', 'High trend confidence for fitness audience.', 120.0, 349.0, 399.0),
     ('training_accessory', 'Resistance Band Set Pro', 'Fitness', 'Strong bundle potential with existing training products.', 85.0, 249.0, 299.0),
@@ -381,7 +381,7 @@ begin
     ('wireless_earbuds', 'Budget Wireless Earbuds', 'Electronics', 'Trending but saturated market — proceed with caution.', 180.0, 399.0, 449.0),
     ('pet_grooming', 'Pet Grooming Kit', 'Pet Care', 'Rising search interest with medium competition.', 110.0, 299.0, 349.0),
     ('kitchen_gadget', 'Multi-Function Kitchen Chopper', 'Home & Kitchen', 'Good margin but weak store fit for lifestyle store.', 75.0, 199.0, 229.0)
-  ) as v(key, name, cat, desc, cost, pmin, pmax)
+  ) as v(key, name, cat, item_description, cost, pmin, pmax)
   where not exists (select 1 from public.commerce_products p where p.tenant_id = p_tenant_id and p.product_key = v.key);
 end; $$;
 

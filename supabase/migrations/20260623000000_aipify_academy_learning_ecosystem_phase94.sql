@@ -318,7 +318,7 @@ create or replace function public._aac_seed_paths(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.academy_learning_paths (tenant_id, path_key, title, description, pillar, access_level, target_roles, sort_order)
-  select p_tenant_id, v.key, v.title, v.desc, v.pillar, v.access, v.roles, v.ord
+  select p_tenant_id, v.key, v.title, v.item_description, v.pillar, v.access, v.roles, v.ord
   from (values
     ('getting_started', 'Getting Started with Aipify', 'Foundation for new users.', 'customer_learning', 'customer', array['standard_user'], 1),
     ('support_ai_basics', 'Introduction to Support AI', 'Deploy and optimize Support AI.', 'customer_learning', 'customer', array['support_lead', 'standard_user'], 2),
@@ -331,7 +331,7 @@ begin
     ('partner_commercial', 'Partner Commercial Enablement', 'Sales and referral frameworks.', 'partner_education', 'partner', array['partner'], 21),
     ('executive_ai_strategy', 'AI Strategy for Leaders', 'Strategic AI adoption for executives.', 'executive_education', 'enterprise', array['executive_sponsor'], 30),
     ('executive_governance', 'Governance Models for Leadership', 'Risk, oversight, and organizational readiness.', 'executive_education', 'enterprise', array['executive_sponsor', 'governance_officer'], 31)
-  ) as v(key, title, desc, pillar, access, roles, ord)
+  ) as v(key, title, item_description, pillar, access, roles, ord)
   where not exists (select 1 from public.academy_learning_paths lp where lp.tenant_id = p_tenant_id and lp.path_key = v.key);
 end; $$;
 
@@ -339,13 +339,13 @@ create or replace function public._aac_seed_courses(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.academy_courses (tenant_id, path_id, course_key, title, description, format_type, content_type, duration_minutes, access_level)
-  select p_tenant_id, lp.id, v.key, v.title, v.desc, v.format, v.content, v.dur, lp.access_level
+  select p_tenant_id, lp.id, v.key, v.title, v.item_description, v.format, v.content, v.dur, lp.access_level
   from public.academy_learning_paths lp
   cross join lateral (values
     ('welcome', 'Welcome to Aipify', 'Platform overview and first steps.', 'self_paced', 'video', 10),
     ('core_concepts', 'Core Concepts', 'Assistant, Knowledge Center, and Actions.', 'self_paced', 'guide', 25),
     ('hands_on', 'Hands-On Tutorial', 'Interactive first workflow setup.', 'scenario', 'tutorial', 45)
-  ) as v(key, title, desc, format, content, dur)
+  ) as v(key, title, item_description, format, content, dur)
   where lp.tenant_id = p_tenant_id and lp.path_key = 'getting_started'
   on conflict (tenant_id, course_key) do nothing;
 
@@ -357,12 +357,12 @@ begin
   on conflict (tenant_id, course_key) do nothing;
 
   insert into public.academy_courses (tenant_id, course_key, title, description, format_type, content_type, duration_minutes, access_level)
-  select p_tenant_id, v.key, v.title, v.desc, 'self_paced', 'microlearning', v.dur, 'customer'
+  select p_tenant_id, v.key, v.title, v.item_description, 'self_paced', 'microlearning', v.dur, 'customer'
   from (values
     ('daily_tip_actions', 'Daily Tip: Action Center', '5-minute feature introduction.', 5),
     ('daily_tip_briefing', 'Daily Tip: Daily Briefing', 'Get value from briefings quickly.', 5),
     ('refresher_governance', 'Governance Refresher', 'Quick policy and approval recap.', 8)
-  ) as v(key, title, desc, dur)
+  ) as v(key, title, item_description, dur)
   where not exists (select 1 from public.academy_courses c where c.tenant_id = p_tenant_id and c.course_key = v.key);
 end; $$;
 
@@ -394,11 +394,11 @@ begin
     and not exists (select 1 from public.academy_learning_recommendations r where r.tenant_id = p_tenant_id limit 1);
 
   insert into public.academy_learning_recommendations (tenant_id, title, description, reason, priority, target_role)
-  select p_tenant_id, v.title, v.desc, v.reason, v.pri, v.role
+  select p_tenant_id, v.title, v.item_description, v.reason, v.pri, v.role
   from (values
     ('Complete Governance Fundamentals', 'Align with your governance officer responsibilities.', 'Skill gap identified', 'medium', 'governance_officer'),
     ('Partner Implementation Methodology', 'Prepare for certification renewal.', 'Partner track available', 'high', 'implementation_partner')
-  ) as v(title, desc, reason, pri, role)
+  ) as v(title, item_description, reason, pri, role)
   where not exists (select 1 from public.academy_learning_recommendations r where r.tenant_id = p_tenant_id and r.title = v.title);
 end; $$;
 
@@ -433,12 +433,12 @@ create or replace function public._aac_seed_community(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.academy_community_resources (tenant_id, title, description, resource_type, status)
-  select p_tenant_id, v.title, v.desc, v.type, 'published'
+  select p_tenant_id, v.title, v.item_description, v.type, 'published'
   from (values
     ('Community: Workflow Optimization Tips', 'User-generated tutorial on automation patterns.', 'user_tutorial'),
     ('Expert Webinar: Enterprise Deployment', 'Recorded partner session on rollout methodology.', 'expert_webinar'),
     ('Best Practice: Knowledge Center Structure', 'Community-contributed playbook.', 'best_practice')
-  ) as v(title, desc, type)
+  ) as v(title, item_description, type)
   where not exists (select 1 from public.academy_community_resources r where r.tenant_id = p_tenant_id and r.title = v.title);
 end; $$;
 

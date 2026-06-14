@@ -120,7 +120,7 @@ create or replace function public._sae_seed_actions(p_organization_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.ai_actions (organization_id, action_key, category, risk_level, title, description, enabled, requires_approval, rollback_supported)
-  select p_organization_id, v.key, v.cat, v.risk, v.title, v.desc, true, v.approval, v.rollback
+  select p_organization_id, v.key, v.cat, v.risk, v.title, v.item_description, true, v.approval, v.rollback
   from (values
     ('faq_response', 'support', 'low', 'FAQ Response', 'Answer from approved knowledge base', false, false),
     ('internal_summary', 'tasks', 'low', 'Internal Summary', 'Summarize operational context internally', false, false),
@@ -135,7 +135,7 @@ begin
     ('integration_removal', 'integrations', 'high', 'Integration Removal', 'Remove connected integration', true, true),
     ('account_suspension', 'users', 'high', 'Account Suspension', 'Suspend user account', true, true),
     ('destructive_action', 'settings', 'high', 'Destructive Action', 'Irreversible configuration change', true, false)
-  ) as v(key, cat, risk, title, desc, approval, rollback)
+  ) as v(key, cat, risk, title, item_description, approval, rollback)
   on conflict (organization_id, action_key) do nothing;
 end; $$;
 

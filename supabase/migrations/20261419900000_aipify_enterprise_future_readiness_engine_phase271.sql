@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_future_readiness_audit_logs 
 alter table public.aipify_enterprise_future_readiness_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_future_readiness_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_future_readiness_engine', v.description
 from (values
   ('aipify_enterprise_future_readiness.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -481,7 +481,7 @@ end; $$;
 
 create or replace function public._aefrebp271_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 271 — Enterprise Future Readiness Engine', 'title', 'Enterprise Future Readiness Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE271_AIPIFY_ENTERPRISE_FUTURE_READINESS.md', 'engine_phase', 'Repo Phase 271', 'route', '/app/aipify-enterprise-future-readiness-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 271 — Enterprise Future Readiness Engine', 'title', 'Enterprise Future Readiness Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE271_AIPIFY_ENTERPRISE_FUTURE_READINESS.md', 'engine_phase', 'Repo Phase 271', 'route', '/app/aipify-enterprise-future-readiness-engine'),
     'distinction_note', public._aefrebp271_distinction_note(), 'mission', public._aefrebp271_mission(), 'philosophy', public._aefrebp271_philosophy(),
     'abos_principle', public._aefrebp271_abos_principle(), 'vision', public._aefrebp271_vision(), 'objectives', public._aefrebp271_objectives(),
     'future_readiness_dashboard', public._aefrebp271_future_readiness_dashboard(), 'future_readiness_assessment', public._aefrebp271_future_readiness_assessment(),

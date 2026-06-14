@@ -145,7 +145,7 @@ revoke all on public.organization_wonder_reflections from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 4. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'wonder_engine', v.description
 from (values
   ('wonder_engine.view', 'View Wonder Engine', 'View wonder dashboard, moments, and reflection prompts'),

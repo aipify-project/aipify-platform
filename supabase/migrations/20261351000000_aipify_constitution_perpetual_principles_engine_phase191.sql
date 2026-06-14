@@ -219,7 +219,7 @@ create table if not exists public.aipify_constitution_perpetual_principles_audit
 alter table public.aipify_constitution_perpetual_principles_audit_logs enable row level security;
 revoke all on public.aipify_constitution_perpetual_principles_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_constitution_perpetual_principles_engine', v.description
 from (values
   ('aipify_constitution_perpetual_principles.view', 'View Constitutional Governance Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -361,6 +361,8 @@ create or replace function public._acppbp191_companion_limitations() returns jso
       'Replace leadership responsibility',
       'Enforce ideological conformity',
       'Suppress constructive disagreement'), 'principle', 'Constitution Companion supports — humans decide.'); $$;
+create or replace function public._acppbp191_self_love_connection() returns jsonb language sql immutable as $$
+  select jsonb_build_object('principle', 'Self Love — self-awareness, compassion, gratitude, confidence, humility.', 'values', jsonb_build_array('self_awareness','compassion','gratitude','confidence','humility','intrinsic_worth'), 'cross_link', '/app/self-love-engine'); $$;
 create or replace function public._acppbp191_security_requirements() returns jsonb language sql immutable as $$
   select jsonb_build_object('requirements', jsonb_build_array(
     jsonb_build_object('key', 'audit_logs', 'label', 'Decision audit logs via aipify_constitution_perpetual_principles_audit_logs'),

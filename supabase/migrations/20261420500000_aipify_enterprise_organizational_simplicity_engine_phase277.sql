@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_organizational_simplicity_au
 alter table public.aipify_enterprise_organizational_simplicity_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_organizational_simplicity_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_organizational_simplicity_engine', v.description
 from (values
   ('aipify_enterprise_organizational_simplicity.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -479,7 +479,7 @@ end; $$;
 
 create or replace function public._aeosebp277_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 277 — Enterprise Organizational Simplicity Engine', 'title', 'Enterprise Organizational Simplicity Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE277_AIPIFY_ENTERPRISE_ORGANIZATIONAL_SIMPLICITY.md', 'engine_phase', 'Repo Phase 277', 'route', '/app/aipify-enterprise-organizational-simplicity-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 277 — Enterprise Organizational Simplicity Engine', 'title', 'Enterprise Organizational Simplicity Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE277_AIPIFY_ENTERPRISE_ORGANIZATIONAL_SIMPLICITY.md', 'engine_phase', 'Repo Phase 277', 'route', '/app/aipify-enterprise-organizational-simplicity-engine'),
     'distinction_note', public._aeosebp277_distinction_note(), 'mission', public._aeosebp277_mission(), 'philosophy', public._aeosebp277_philosophy(),
     'abos_principle', public._aeosebp277_abos_principle(), 'vision', public._aeosebp277_vision(), 'objectives', public._aeosebp277_objectives(),
     'simplicity_center_dashboard', public._aeosebp277_simplicity_center_dashboard(), 'complexity_registry', public._aeosebp277_complexity_registry(),

@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_trust_relationship_intellige
 alter table public.aipify_enterprise_trust_relationship_intelligence_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_trust_relationship_intelligence_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_trust_relationship_intelligence_engine', v.description
 from (values
   ('aipify_enterprise_trust_relationship_intelligence.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -490,7 +490,7 @@ end; $$;
 
 create or replace function public._aetriebp262_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 262 — Enterprise Trust & Relationship Intelligence Engine', 'title', 'Enterprise Trust & Relationship Intelligence Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE262_AIPIFY_ENTERPRISE_TRUST_RELATIONSHIP_INTELLIGENCE_ENGINE.md', 'engine_phase', 'Repo Phase 262', 'route', '/app/aipify-enterprise-trust-relationship-intelligence-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 262 — Enterprise Trust & Relationship Intelligence Engine', 'title', 'Enterprise Trust & Relationship Intelligence Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE262_AIPIFY_ENTERPRISE_TRUST_RELATIONSHIP_INTELLIGENCE_ENGINE.md', 'engine_phase', 'Repo Phase 262', 'route', '/app/aipify-enterprise-trust-relationship-intelligence-engine'),
     'distinction_note', public._aetriebp262_distinction_note(), 'mission', public._aetriebp262_mission(), 'philosophy', public._aetriebp262_philosophy(),
     'abos_principle', public._aetriebp262_abos_principle(), 'vision', public._aetriebp262_vision(), 'objectives', public._aetriebp262_objectives(),
     'relationship_dashboard', public._aetriebp262_relationship_dashboard(), 'relationship_registry_hub', public._aetriebp262_relationship_registry_hub(),

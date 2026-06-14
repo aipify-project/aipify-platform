@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_integration_hub_audit_logs (
 alter table public.aipify_enterprise_integration_hub_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_integration_hub_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_integration_hub_engine', v.description
 from (values
   ('aipify_enterprise_integration_hub.view', 'View Integration Hub', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -496,7 +496,7 @@ end; $$;
 
 create or replace function public._aeihebp232_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 232 — Enterprise Integration Hub Engine', 'title', 'Enterprise Integration Hub Engine (Integrations Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE232_AIPIFY_ENTERPRISE_INTEGRATION_HUB_ENGINE.md', 'engine_phase', 'Repo Phase 232', 'route', '/app/aipify-enterprise-integration-hub-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 232 — Enterprise Integration Hub Engine', 'title', 'Enterprise Integration Hub Engine (Integrations Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE232_AIPIFY_ENTERPRISE_INTEGRATION_HUB_ENGINE.md', 'engine_phase', 'Repo Phase 232', 'route', '/app/aipify-enterprise-integration-hub-engine'),
     'distinction_note', public._aeihebp232_distinction_note(), 'mission', public._aeihebp232_mission(), 'philosophy', public._aeihebp232_philosophy(),
     'abos_principle', public._aeihebp232_abos_principle(), 'vision', public._aeihebp232_vision(), 'objectives', public._aeihebp232_objectives(),
     'integration_dashboard', public._aeihebp232_integration_dashboard(), 'integration_marketplace_center', public._aeihebp232_integration_marketplace_center(),

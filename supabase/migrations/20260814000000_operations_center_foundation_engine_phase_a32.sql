@@ -22,7 +22,7 @@ create index if not exists operations_events_org_status_idx
 alter table public.operations_events enable row level security;
 revoke all on public.operations_events from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'operations_center_foundation', v.description
 from (values
   ('operations.view', 'View Operations', 'View operations center events'),

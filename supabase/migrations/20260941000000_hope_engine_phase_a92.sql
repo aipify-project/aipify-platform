@@ -145,7 +145,7 @@ revoke all on public.organization_hope_reflections from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 4. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'hope_engine', v.description
 from (values
   ('hope_engine.view', 'View Hope Engine', 'View hope dashboard, signals, and balanced encouragement guidance'),

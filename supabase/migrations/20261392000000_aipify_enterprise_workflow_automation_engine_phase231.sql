@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_workflow_automation_audit_lo
 alter table public.aipify_enterprise_workflow_automation_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_workflow_automation_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_workflow_automation_engine', v.description
 from (values
   ('aipify_enterprise_workflow_automation.view', 'View Workflow Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -489,7 +489,7 @@ end; $$;
 
 create or replace function public._aewaebp231_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 231 — Enterprise Workflow Automation Engine', 'title', 'Enterprise Workflow Automation Engine (Workflows Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE231_AIPIFY_ENTERPRISE_WORKFLOW_AUTOMATION_ENGINE.md', 'engine_phase', 'Repo Phase 231', 'route', '/app/aipify-enterprise-workflow-automation-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 231 — Enterprise Workflow Automation Engine', 'title', 'Enterprise Workflow Automation Engine (Workflows Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE231_AIPIFY_ENTERPRISE_WORKFLOW_AUTOMATION_ENGINE.md', 'engine_phase', 'Repo Phase 231', 'route', '/app/aipify-enterprise-workflow-automation-engine'),
     'distinction_note', public._aewaebp231_distinction_note(), 'mission', public._aewaebp231_mission(), 'philosophy', public._aewaebp231_philosophy(),
     'abos_principle', public._aewaebp231_abos_principle(), 'vision', public._aewaebp231_vision(), 'objectives', public._aewaebp231_objectives(),
     'workflow_dashboard', public._aewaebp231_workflow_dashboard(), 'workflow_builder_center', public._aewaebp231_workflow_builder_center(),

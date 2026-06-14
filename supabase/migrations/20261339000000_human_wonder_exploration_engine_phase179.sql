@@ -208,7 +208,7 @@ create table if not exists public.human_wonder_exploration_audit_logs (
 alter table public.human_wonder_exploration_audit_logs enable row level security;
 revoke all on public.human_wonder_exploration_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'human_wonder_exploration_engine', v.description
 from (values
   ('human_wonder_exploration.view', 'View Wonder & Exploration Center', 'View executive curiosity reviews, reflections, and metadata scaffolds'),

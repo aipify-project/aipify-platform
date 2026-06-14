@@ -234,7 +234,7 @@ create table if not exists public.aipify_innovation_idea_management_audit_logs (
 alter table public.aipify_innovation_idea_management_audit_logs enable row level security;
 revoke all on public.aipify_innovation_idea_management_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_innovation_idea_management_engine', v.description
 from (values
   ('aipify_innovation_idea_management.view', 'View __TRANSLATE_CENTER__', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -489,7 +489,7 @@ end; $$;
 
 create or replace function public._aiimebp247_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 247 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE247_AIPIFY_INNOVATION_IDEA_MANAGEMENT_ENGINE.md', 'engine_phase', 'Repo Phase 247', 'route', '/app/aipify-innovation-idea-management-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 247 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE247_AIPIFY_INNOVATION_IDEA_MANAGEMENT_ENGINE.md', 'engine_phase', 'Repo Phase 247', 'route', '/app/aipify-innovation-idea-management-engine'),
     'distinction_note', public._aiimebp247_distinction_note(), 'mission', public._aiimebp247_mission(), 'philosophy', public._aiimebp247_philosophy(),
     'abos_principle', public._aiimebp247_abos_principle(), 'vision', public._aiimebp247_vision(), 'objectives', public._aiimebp247_objectives(),
     'innovation_dashboard', public._aiimebp247_innovation_dashboard(), 'idea_submission_hub', public._aiimebp247_idea_submission_hub(),

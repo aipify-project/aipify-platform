@@ -158,7 +158,7 @@ revoke all on public.self_support_knowledge_gaps from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 7. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'self_support', v.description
 from (values
   ('self_support.view', 'View Self-Support', 'View self-support conversations and dashboard'),

@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_onboarding_guided_adoption_a
 alter table public.aipify_enterprise_onboarding_guided_adoption_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_onboarding_guided_adoption_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_onboarding_guided_adoption_engine', v.description
 from (values
   ('aipify_enterprise_onboarding_guided_adoption.view', 'View __TRANSLATE_CENTER__', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -491,7 +491,7 @@ end; $$;
 
 create or replace function public._aeogaebp239_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 239 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE239_AIPIFY_ENTERPRISE_ONBOARDING_GUIDED_ADOPTION_ENGINE.md', 'engine_phase', 'Repo Phase 239', 'route', '/app/aipify-enterprise-onboarding-guided-adoption-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 239 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE239_AIPIFY_ENTERPRISE_ONBOARDING_GUIDED_ADOPTION_ENGINE.md', 'engine_phase', 'Repo Phase 239', 'route', '/app/aipify-enterprise-onboarding-guided-adoption-engine'),
     'distinction_note', public._aeogaebp239_distinction_note(), 'mission', public._aeogaebp239_mission(), 'philosophy', public._aeogaebp239_philosophy(),
     'abos_principle', public._aeogaebp239_abos_principle(), 'vision', public._aeogaebp239_vision(), 'objectives', public._aeogaebp239_objectives(),
     'onboarding_adoption_dashboard', public._aeogaebp239_onboarding_adoption_dashboard(), 'onboarding_journey_hub', public._aeogaebp239_onboarding_journey_hub(),

@@ -263,7 +263,7 @@ revoke all on public.human_identity_meaning_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'human_identity_meaning_engine', v.description
 from (values
   ('human_identity_meaning.view', 'View Meaning & Identity Center', 'View executive humanity reviews, meaning reflections, agency notes, and discovery metadata'),

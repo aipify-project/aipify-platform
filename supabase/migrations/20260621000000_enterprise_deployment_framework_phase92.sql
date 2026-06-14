@@ -362,7 +362,7 @@ create or replace function public._edf_seed_roles(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.enterprise_framework_roles (tenant_id, role_key, title, description)
-  select p_tenant_id, v.key, v.title, v.desc
+  select p_tenant_id, v.key, v.title, v.item_description
   from (values
     ('executive_sponsor', 'Executive Sponsor', 'Executive accountability and strategic alignment.'),
     ('platform_administrator', 'Platform Administrator', 'Platform configuration and user management.'),
@@ -372,7 +372,7 @@ begin
     ('analyst', 'Analyst', 'Reporting, insights, and operational analysis.'),
     ('standard_user', 'Standard User', 'Day-to-day Aipify usage.'),
     ('auditor', 'Auditor', 'Read-only access for audit and compliance review.')
-  ) as v(key, title, desc)
+  ) as v(key, title, item_description)
   where not exists (select 1 from public.enterprise_framework_roles r where r.tenant_id = p_tenant_id and r.role_key = v.key);
 end; $$;
 
@@ -380,7 +380,7 @@ create or replace function public._edf_seed_security_policies(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.enterprise_framework_security_policies (tenant_id, policy_key, title, description, control_type, enabled)
-  select p_tenant_id, v.key, v.title, v.desc, v.type, v.enabled
+  select p_tenant_id, v.key, v.title, v.item_description, v.type, v.enabled
   from (values
     ('encryption_rest', 'Encryption at Rest', 'Data encrypted at rest per organizational standards.', 'encryption_at_rest', true),
     ('encryption_transit', 'Encryption in Transit', 'TLS for all data in transit.', 'encryption_in_transit', true),
@@ -389,7 +389,7 @@ begin
     ('session_controls', 'Session Controls', 'Session timeout and concurrent session limits.', 'session_controls', true),
     ('threat_monitoring', 'Threat Monitoring', 'Continuous security monitoring and alerting.', 'threat_monitoring', false),
     ('backup_management', 'Backup Management', 'Automated backups and recovery procedures.', 'backup_management', true)
-  ) as v(key, title, desc, type, enabled)
+  ) as v(key, title, item_description, type, enabled)
   where not exists (select 1 from public.enterprise_framework_security_policies p where p.tenant_id = p_tenant_id and p.policy_key = v.key);
 end; $$;
 
@@ -397,7 +397,7 @@ create or replace function public._edf_seed_governance_policies(p_tenant_id uuid
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.enterprise_framework_governance_policies (tenant_id, policy_key, title, description, policy_type, status)
-  select p_tenant_id, v.key, v.title, v.desc, v.type, 'active'
+  select p_tenant_id, v.key, v.title, v.item_description, v.type, 'active'
   from (values
     ('approval_workflows', 'Approval Workflows', 'Define approval requirements for AI actions.', 'approval_workflow'),
     ('escalation_procedures', 'Escalation Procedures', 'Escalation paths for incidents and exceptions.', 'escalation'),
@@ -405,7 +405,7 @@ begin
     ('risk_tolerance', 'Risk Tolerance Thresholds', 'Organization risk appetite for automated actions.', 'risk_tolerance'),
     ('data_retention', 'Data Retention Standards', 'Retention and deletion requirements.', 'data_retention'),
     ('incident_response', 'Incident Response Procedures', 'Security and operational incident response.', 'incident_response')
-  ) as v(key, title, desc, type)
+  ) as v(key, title, item_description, type)
   where not exists (select 1 from public.enterprise_framework_governance_policies p where p.tenant_id = p_tenant_id and p.policy_key = v.key);
 end; $$;
 
@@ -494,14 +494,14 @@ create or replace function public._edf_seed_change_initiatives(p_tenant_id uuid,
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.enterprise_framework_change_initiatives (tenant_id, project_id, title, description, initiative_type, status)
-  select p_tenant_id, p_project_id, v.title, v.desc, v.type, 'planned'
+  select p_tenant_id, p_project_id, v.title, v.item_description, v.type, 'planned'
   from (values
     ('Executive communication plan', 'Stakeholder briefing and rollout messaging.', 'communication'),
     ('Champion network engagement', 'Identify and enable department champions.', 'stakeholder_engagement'),
     ('Administrator training program', 'Platform admin and governance officer training.', 'training'),
     ('Pilot feedback collection', 'Structured feedback from pilot users.', 'feedback'),
     ('Adoption resistance playbook', 'Address common adoption barriers.', 'resistance_management')
-  ) as v(title, desc, type)
+  ) as v(title, item_description, type)
   where not exists (
     select 1 from public.enterprise_framework_change_initiatives c
     where c.tenant_id = p_tenant_id and c.title = v.title
@@ -512,12 +512,12 @@ create or replace function public._edf_seed_continuity(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.enterprise_framework_continuity_plans (tenant_id, plan_key, title, description, rto_hours, rpo_hours, status)
-  select p_tenant_id, v.key, v.title, v.desc, v.rto, v.rpo, 'active'
+  select p_tenant_id, v.key, v.title, v.item_description, v.rto, v.rpo, 'active'
   from (values
     ('disaster_recovery', 'Disaster Recovery Plan', 'Failover and recovery for critical Aipify services.', 4, 1),
     ('backup_strategy', 'Backup Strategy', 'Regular backups and restoration testing.', 24, 4),
     ('continuity_testing', 'Continuity Testing', 'Scheduled DR and failover validation.', 8, 2)
-  ) as v(key, title, desc, rto, rpo)
+  ) as v(key, title, item_description, rto, rpo)
   where not exists (select 1 from public.enterprise_framework_continuity_plans p where p.tenant_id = p_tenant_id and p.plan_key = v.key);
 end; $$;
 

@@ -1211,8 +1211,7 @@ begin
     'adaptive_continuity_abos_principle', public._oracbp154_abos_principle(),
     'adaptive_continuity_engagement_summary', public._oracbp154_engagement_summary(v_org_id),
     'adaptive_continuity_note', 'Organizational Resilience & Adaptive Continuity Engine (Legacy & Future Stewardship Phase 154) — preparedness and flexibility, collective strength through disruption — not fear or rigid control.',
-    'adaptive_continuity_vision_note', 'When change arrives, the organization adapts together — continuity practiced, leadership prepared, people supported with compassion.',
-
+    'adaptive_continuity_vision_note', 'When change arrives, the organization adapts together — continuity practiced, leadership prepared, people supported with compassion.'
   );
 exception when others then
   return jsonb_build_object('has_organization', false);

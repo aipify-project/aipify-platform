@@ -233,7 +233,7 @@ revoke all on public.global_governance_diplomacy_audit_logs from authenticated, 
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'global_governance_diplomacy_engine', v.description
 from (values
   ('global_governance_diplomacy.view', 'View Global Governance & Diplomacy', 'View governance center, partnership charters, and diplomacy engagement metadata'),

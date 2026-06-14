@@ -144,7 +144,7 @@ revoke all on public.deployment_settings from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'deployment_environment', v.description
 from (values
   ('deployments.view', 'View Deployments', 'View deployment environments, history, and rollout progress'),

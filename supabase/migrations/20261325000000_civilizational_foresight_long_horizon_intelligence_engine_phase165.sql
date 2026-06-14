@@ -254,7 +254,7 @@ revoke all on public.civilizational_foresight_audit_logs from authenticated, ano
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'civilizational_foresight_engine', v.description
 from (values
   ('civilizational_foresight.view', 'View Civilizational Foresight Center', 'View long-horizon foresight programs, scenario scaffolds, and preparedness dashboards'),

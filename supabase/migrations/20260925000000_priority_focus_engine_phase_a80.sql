@@ -163,7 +163,12 @@ revoke all on public.organization_priority_focus_audit_logs from authenticated, 
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+alter table public.organization_role_permissions drop constraint if exists organization_role_permissions_role_check;
+alter table public.organization_role_permissions add constraint organization_role_permissions_role_check check (
+  role in ('owner', 'administrator', 'manager', 'support_agent', 'viewer', 'employee', 'moderator')
+);
+
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'priority_focus', v.description
 from (values
   ('priority_focus.view', 'View Priority & Focus', 'View priority and focus dashboard and items'),

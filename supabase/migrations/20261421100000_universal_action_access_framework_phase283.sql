@@ -234,7 +234,7 @@ create index if not exists aipify_uaaf_action_audit_logs_tenant_idx on public.ai
 alter table public.aipify_uaaf_action_audit_logs enable row level security;
 revoke all on public.aipify_uaaf_action_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'universal_action_access_framework', v.description
 from (values
   ('uaaf.view', 'View Action Access', 'View action access settings, integrations, permissions, and audit metadata'),

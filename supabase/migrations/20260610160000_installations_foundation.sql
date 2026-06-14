@@ -89,7 +89,7 @@ language sql
 immutable
 set search_path = public
 as $$
-  select encode(digest(p_token, 'sha256'), 'hex');
+  select encode(extensions.digest(p_token, 'sha256'), 'hex');
 $$;
 
 revoke execute on function public.hash_installation_token(text) from public, anon, authenticated;

@@ -227,7 +227,7 @@ create table if not exists public.aipify_strategic_alignment_prioritization_audi
 alter table public.aipify_strategic_alignment_prioritization_audit_logs enable row level security;
 revoke all on public.aipify_strategic_alignment_prioritization_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_strategic_alignment_prioritization_engine', v.description
 from (values
   ('aipify_strategic_alignment_prioritization.view', 'View Strategic Priorities Dashboard', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -449,7 +449,7 @@ end; $$;
 
 create or replace function public._asapebp199_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 199 — Aipify Strategic Alignment & Prioritization Engine', 'title', 'Aipify Strategic Alignment & Prioritization Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE199_AIPIFY_STRATEGIC_ALIGNMENT_PRIORITIZATION_ENGINE.md', 'engine_phase', 'Repo Phase 199', 'route', '/app/aipify-strategic-alignment-prioritization-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 199 — Aipify Strategic Alignment & Prioritization Engine', 'title', 'Aipify Strategic Alignment & Prioritization Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE199_AIPIFY_STRATEGIC_ALIGNMENT_PRIORITIZATION_ENGINE.md', 'engine_phase', 'Repo Phase 199', 'route', '/app/aipify-strategic-alignment-prioritization-engine'),
     'distinction_note', public._asapebp199_distinction_note(), 'mission', public._asapebp199_mission(), 'philosophy', public._asapebp199_philosophy(),
     'abos_principle', public._asapebp199_abos_principle(), 'vision', public._asapebp199_vision(), 'objectives', public._asapebp199_objectives(),
     'strategic_priorities_dashboard', public._asapebp199_strategic_priorities_dashboard(), 'alignment_reflection_engine', public._asapebp199_alignment_reflection_engine(),

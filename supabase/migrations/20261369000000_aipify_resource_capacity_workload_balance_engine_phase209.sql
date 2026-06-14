@@ -233,7 +233,7 @@ create table if not exists public.aipify_resource_capacity_workload_balance_audi
 alter table public.aipify_resource_capacity_workload_balance_audit_logs enable row level security;
 revoke all on public.aipify_resource_capacity_workload_balance_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_resource_capacity_workload_balance_engine', v.description
 from (values
   ('aipify_resource_capacity_workload_balance.view', 'View Resource Capacity Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -464,7 +464,7 @@ end; $$;
 
 create or replace function public._arcwbebp209_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 209 — Aipify Resource Capacity & Workload Balance Engine', 'title', 'Aipify Resource Capacity & Workload Balance Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE209_AIPIFY_RESOURCE_CAPACITY_WORKLOAD_BALANCE_ENGINE.md', 'engine_phase', 'Repo Phase 209', 'route', '/app/aipify-resource-capacity-workload-balance-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 209 — Aipify Resource Capacity & Workload Balance Engine', 'title', 'Aipify Resource Capacity & Workload Balance Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE209_AIPIFY_RESOURCE_CAPACITY_WORKLOAD_BALANCE_ENGINE.md', 'engine_phase', 'Repo Phase 209', 'route', '/app/aipify-resource-capacity-workload-balance-engine'),
     'distinction_note', public._arcwbebp209_distinction_note(), 'mission', public._arcwbebp209_mission(), 'philosophy', public._arcwbebp209_philosophy(),
     'abos_principle', public._arcwbebp209_abos_principle(), 'vision', public._arcwbebp209_vision(), 'objectives', public._arcwbebp209_objectives(),
     'capacity_dashboard', public._arcwbebp209_capacity_dashboard(), 'capacity_reflection_engine', public._arcwbebp209_capacity_reflection_engine(),

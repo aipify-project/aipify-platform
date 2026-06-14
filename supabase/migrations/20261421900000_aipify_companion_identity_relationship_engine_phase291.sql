@@ -307,7 +307,7 @@ revoke all on public.aipify_companion_identity_relationship_audit_logs from auth
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_companion_identity_relationship_engine', v.description
 from (values
   (

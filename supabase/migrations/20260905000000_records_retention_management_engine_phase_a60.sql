@@ -54,6 +54,20 @@ alter table public.decision_explanations add constraint decision_explanations_de
 -- ---------------------------------------------------------------------------
 -- 1. retention_policies
 -- ---------------------------------------------------------------------------
+-- Legacy trust retention used tenant_id/data_category; A.60 uses organization_id/record_category.
+do $$
+begin
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'retention_policies' and column_name = 'tenant_id'
+  ) and not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'retention_policies' and column_name = 'organization_id'
+  ) then
+    alter table public.retention_policies rename to retention_policies_trust_legacy;
+  end if;
+end $$;
+
 create table if not exists public.retention_policies (
   id uuid primary key default gen_random_uuid(),
   organization_id uuid not null references public.organizations (id) on delete cascade,
@@ -150,7 +164,7 @@ revoke all on public.retention_compliance_snapshots from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 5. Permissions — records.*
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'records_retention_management', v.description
 from (values
   ('records.view', 'View Records', 'View retention policies, archived records, and compliance snapshots'),

@@ -297,23 +297,23 @@ begin
   insert into public.innovation_experiments (
     tenant_id, idea_id, experiment_key, title, description, experiment_type, status, stage, progress_pct, participant_count
   )
-  select p_tenant_id, i.id, v.key, v.title, v.desc, v.type, v.status, v.stage, v.prog, v.participants
+  select p_tenant_id, i.id, v.key, v.title, v.item_description, v.type, v.status, v.stage, v.prog, v.participants
   from public.innovation_ideas i
   cross join lateral (values
     ('gov_pilot_exp', 'Governance Workflow Simplification', 'Controlled pilot of streamlined governance UX.', 'governance_enhancement', 'active', 'execution', 55.0, 8)
-  ) as v(key, title, desc, type, status, stage, prog, participants)
+  ) as v(key, title, item_description, type, status, stage, prog, participants)
   where i.tenant_id = p_tenant_id and i.idea_key = 'ai_governance_pilot'
   on conflict (tenant_id, experiment_key) do nothing;
 
   insert into public.innovation_experiments (
     tenant_id, experiment_key, title, description, experiment_type, status, stage, progress_pct, participant_count
   )
-  select p_tenant_id, v.key, v.title, v.desc, v.type, v.status, v.stage, v.prog, v.participants
+  select p_tenant_id, v.key, v.title, v.item_description, v.type, v.status, v.stage, v.prog, v.participants
   from (values
     ('ux_messaging', 'Assistant Messaging Tone Test', 'A/B test of communication styles in Assistant.', 'messaging', 'analysis', 'analysis', 90.0, 25),
     ('feature_flags_v2', 'Feature Flag Rollout Framework', 'Evaluate controlled rollout capabilities.', 'feature_pilot', 'design', 'design', 15.0, 0),
     ('workflow_auto', 'Adaptive Automation Discovery', 'Experiment with proactive automation suggestions.', 'workflow', 'completed', 'recommendation', 100.0, 12)
-  ) as v(key, title, desc, type, status, stage, prog, participants)
+  ) as v(key, title, item_description, type, status, stage, prog, participants)
   where not exists (select 1 from public.innovation_experiments e where e.tenant_id = p_tenant_id and e.experiment_key = v.key);
 end; $$;
 
@@ -332,11 +332,11 @@ begin
   insert into public.innovation_pilot_programs (
     tenant_id, program_key, title, description, status, max_participants, current_participants, success_criteria
   )
-  select p_tenant_id, v.key, v.title, v.desc, v.status, v.max, v.current, v.criteria
+  select p_tenant_id, v.key, v.title, v.item_description, v.status, v.max, v.current, v.criteria
   from (values
     ('advisory_board', 'Customer Advisory Board', 'Structured feedback from selected enterprise customers.', 'active', 15, 12, 'Quarterly innovation input with measurable themes.'),
     ('partner_pilot', 'Partner Pilot Facilitation', 'Certified partners facilitate market feedback pilots.', 'recruiting', 5, 2, 'Two completed partner-led pilots per quarter.')
-  ) as v(key, title, desc, status, max, current, criteria)
+  ) as v(key, title, item_description, status, max, current, criteria)
   where not exists (select 1 from public.innovation_pilot_programs p where p.tenant_id = p_tenant_id and p.program_key = v.key);
 end; $$;
 
@@ -344,12 +344,12 @@ create or replace function public._ile_seed_feature_flags(p_tenant_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   insert into public.innovation_feature_flags (tenant_id, flag_key, title, description, status, target_segment, exposure_pct)
-  select p_tenant_id, v.key, v.title, v.desc, v.status, v.segment, v.exposure
+  select p_tenant_id, v.key, v.title, v.item_description, v.status, v.segment, v.exposure
   from (values
     ('adaptive_briefing_v1', 'Adaptive Briefing v1', 'Role-aware briefing sections.', 'pilot', 'pilot_participants', 10.0),
     ('gov_workflow_v2', 'Governance Workflow v2', 'Simplified governance UX in sandbox.', 'sandbox', 'sandbox_users', 5.0),
     ('proactive_automation', 'Proactive Automation Suggestions', 'Surface automation opportunities.', 'rollout', 'early_adopters', 25.0)
-  ) as v(key, title, desc, status, segment, exposure)
+  ) as v(key, title, item_description, status, segment, exposure)
   where not exists (select 1 from public.innovation_feature_flags f where f.tenant_id = p_tenant_id and f.flag_key = v.key);
 end; $$;
 

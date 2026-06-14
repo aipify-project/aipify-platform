@@ -563,8 +563,13 @@ begin
 exception
   when others then
     select c.id into v_org_id from public.customers c
-    join public.aipify_tenant_profiles p on p.tenant_id = c.id
-    where p.slug = p_slug limit 1;
+    where c.slug = p_slug
+    limit 1;
+    if v_org_id is null then
+      select c.id into v_org_id from public.customers c
+      join public.aipify_tenant_profiles p on p.tenant_id = c.id
+      where p.slug = p_slug limit 1;
+    end if;
     if v_org_id is not null then
       v_org := public._mta_sync_organization_from_customer(v_org_id);
       update public.organizations set subscription_plan = p_subscription_plan, status = p_status, name = p_name, slug = p_slug where id = v_org_id;
@@ -589,9 +594,44 @@ begin
   end loop;
 end $$;
 
--- Seed Aipify Group AS and Unonight pilot tenants
-select public._mta_provision_organization('Aipify Group AS', 'aipify-group', 'internal', 'active', 'team@aipify.com');
-select public._mta_provision_organization('Unonight', 'unonight', 'internal', 'active', 'pilot@unonight.com');
+-- Seed Aipify Group AS and Unonight pilot tenants (migration-safe — sync existing customers)
+do $$
+declare
+  v_rec record;
+  v_org_id uuid;
+begin
+  for v_rec in
+    select *
+    from (values
+      ('Aipify Group AS', 'aipify-group', 'internal', 'active', 'team@aipify.com'),
+      ('Unonight', 'unonight', 'internal', 'active', 'pilot@unonight.com')
+    ) as v(name, slug, subscription_plan, status, contact_email)
+  loop
+    v_org_id := null;
+    select c.id into v_org_id from public.customers c where c.slug = v_rec.slug limit 1;
+    if v_org_id is null then
+      select c.id into v_org_id
+      from public.customers c
+      join public.aipify_tenant_profiles p on p.tenant_id = c.id
+      where p.slug = v_rec.slug
+      limit 1;
+    end if;
+    if v_org_id is not null then
+      perform public._mta_sync_organization_from_customer(v_org_id);
+      update public.organizations set
+        subscription_plan = v_rec.subscription_plan,
+        status = v_rec.status,
+        name = v_rec.name,
+        slug = v_rec.slug,
+        updated_at = now()
+      where id = v_org_id;
+      perform public._mta_seed_organization_modules(v_org_id);
+      perform public._mta_seed_organization_settings(v_org_id);
+      perform public._mta_seed_organization_integrations(v_org_id, v_rec.slug);
+      perform public._mta_backfill_memberships(v_org_id);
+    end if;
+  end loop;
+end $$;
 
 -- Fix Phase A unonight slug reference
 create or replace function public._acp_seed_core_data(p_tenant_id uuid)
@@ -642,11 +682,11 @@ begin
   where not exists (select 1 from public.core_integration_registry i where i.tenant_id = p_tenant_id and i.integration_key = v.key);
 
   insert into public.core_api_key_registry (tenant_id, key_label, key_prefix, scopes, rate_limit_per_minute)
-  select p_tenant_id, v.label, v.prefix, v.scopes, v.limit
+  select p_tenant_id, v.label, v.prefix, v.scopes, v.rate_limit
   from (values
     ('Production API', 'aip_live_', '["read","write"]'::jsonb, 120),
     ('Integration Webhook', 'aip_hook_', '["webhooks"]'::jsonb, 60)
-  ) as v(label, prefix, scopes, limit)
+  ) as v(label, prefix, scopes, rate_limit)
   where not exists (select 1 from public.core_api_key_registry k where k.tenant_id = p_tenant_id limit 1);
 
   insert into public.core_platform_component_status (tenant_id, component_key, status, summary, health_score)

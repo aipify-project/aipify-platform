@@ -144,7 +144,7 @@ revoke all on public.organization_digital_rose_recognitions from authenticated, 
 -- ---------------------------------------------------------------------------
 -- 4. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'gratitude_recognition_engine', v.description
 from (values
   ('gratitude_recognition.view', 'View Gratitude & Recognition', 'View gratitude dashboard and moments'),

@@ -277,7 +277,7 @@ revoke all on public.aipify_decision_center_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_executive_decision_support_engine', v.description
 from (values
   ('executive_decision.view', 'View Decision Center', 'Review decision workspaces, frameworks, and Aipify insights'),

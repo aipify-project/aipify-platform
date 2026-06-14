@@ -143,7 +143,7 @@ where not exists (
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'subscription_plan_management', v.description
 from (values
   ('subscription.view', 'View Subscription', 'View subscription plan and module access'),

@@ -234,7 +234,7 @@ revoke all on public.augmented_organization_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'augmented_organization_engine', v.description
 from (values
   ('augmented_organization.view', 'View Augmented Organization Engine', 'View Augmented Organization Center and symbiosis maturity scaffolding'),

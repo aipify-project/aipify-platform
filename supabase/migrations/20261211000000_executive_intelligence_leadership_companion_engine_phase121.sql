@@ -299,7 +299,7 @@ revoke all on public.executive_intelligence_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 8. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'executive_intelligence_engine', v.description
 from (values
   ('executive_intelligence.view', 'View Executive Intelligence Center', 'View leadership companion dashboard, briefings, and aggregate executive signals'),

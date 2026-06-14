@@ -1,6 +1,11 @@
 -- Implementation Blueprint Phase 27 — Financial Operations & Accounting Integration Engine
 -- Spec alignment extending Integration Engine (Phase A.8). No new tables.
 
+alter table public.integration_catalog drop constraint if exists integration_catalog_category_check;
+alter table public.integration_catalog add constraint integration_catalog_category_check check (
+  category in ('pilot', 'email', 'knowledge', 'commerce', 'payments', 'communication', 'crm', 'erp', 'accounting')
+);
+
 insert into public.integration_catalog (
   integration_key, integration_name, category, description, is_available, is_future, sort_order
 )

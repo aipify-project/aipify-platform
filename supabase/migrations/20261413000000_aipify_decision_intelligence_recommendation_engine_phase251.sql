@@ -234,7 +234,7 @@ create table if not exists public.aipify_decision_intelligence_recommendation_au
 alter table public.aipify_decision_intelligence_recommendation_audit_logs enable row level security;
 revoke all on public.aipify_decision_intelligence_recommendation_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_decision_intelligence_recommendation_engine', v.description
 from (values
   ('aipify_decision_intelligence_recommendation.view', 'View __TRANSLATE_CENTER__', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -492,7 +492,7 @@ end; $$;
 
 create or replace function public._adirebp251_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 251 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE251_AIPIFY_DECISION_INTELLIGENCE_RECOMMENDATION_ENGINE.md', 'engine_phase', 'Repo Phase 251', 'route', '/app/aipify-decision-intelligence-recommendation-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 251 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE251_AIPIFY_DECISION_INTELLIGENCE_RECOMMENDATION_ENGINE.md', 'engine_phase', 'Repo Phase 251', 'route', '/app/aipify-decision-intelligence-recommendation-engine'),
     'distinction_note', public._adirebp251_distinction_note(), 'mission', public._adirebp251_mission(), 'philosophy', public._adirebp251_philosophy(),
     'abos_principle', public._adirebp251_abos_principle(), 'vision', public._adirebp251_vision(), 'objectives', public._adirebp251_objectives(),
     'decision_dashboard', public._adirebp251_decision_dashboard(), 'decision_request_hub', public._adirebp251_decision_request_hub(),

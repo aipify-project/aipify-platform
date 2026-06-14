@@ -143,7 +143,7 @@ revoke all on public.organization_discovery_signals from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 4. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'curiosity_discovery_engine', v.description
 from (values
   ('curiosity_discovery.view', 'View Curiosity & Discovery Engine', 'View discovery dashboard and exploration prompts'),

@@ -149,7 +149,7 @@ revoke all on public.organization_presence_protocol_events from authenticated, a
 -- ---------------------------------------------------------------------------
 -- 4. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'presence_comfort_protocol', v.description
 from (values
   ('presence_comfort.view', 'View Presence & Comfort Protocol', 'View presence and comfort dashboard and protocol guidance'),

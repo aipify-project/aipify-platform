@@ -177,7 +177,7 @@ revoke all on public.output_deliveries from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 5. Permissions — outputs.*
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'document_output', v.description
 from (values
   ('outputs.view', 'View Outputs', 'View output templates, generations, schedules, and manifests'),

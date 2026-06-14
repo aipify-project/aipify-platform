@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_risk_resilience_audit_logs (
 alter table public.aipify_enterprise_risk_resilience_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_risk_resilience_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_risk_resilience_engine', v.description
 from (values
   ('aipify_enterprise_risk_resilience.view', 'View Risk Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -472,7 +472,7 @@ end; $$;
 
 create or replace function public._aerrebp226_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 226 — Aipify Enterprise Risk & Resilience Engine', 'title', 'Aipify Enterprise Risk & Resilience Engine (Risk & Resilience Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE226_AIPIFY_ENTERPRISE_RISK_RESILIENCE_ENGINE.md', 'engine_phase', 'Repo Phase 226', 'route', '/app/aipify-enterprise-risk-resilience-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 226 — Aipify Enterprise Risk & Resilience Engine', 'title', 'Aipify Enterprise Risk & Resilience Engine (Risk & Resilience Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE226_AIPIFY_ENTERPRISE_RISK_RESILIENCE_ENGINE.md', 'engine_phase', 'Repo Phase 226', 'route', '/app/aipify-enterprise-risk-resilience-engine'),
     'distinction_note', public._aerrebp226_distinction_note(), 'mission', public._aerrebp226_mission(), 'philosophy', public._aerrebp226_philosophy(),
     'abos_principle', public._aerrebp226_abos_principle(), 'vision', public._aerrebp226_vision(), 'objectives', public._aerrebp226_objectives(),
     'enterprise_risk_dashboard', public._aerrebp226_enterprise_risk_dashboard(), 'risk_register', public._aerrebp226_risk_register(),

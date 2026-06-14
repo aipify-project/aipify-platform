@@ -234,7 +234,7 @@ create table if not exists public.aipify_organizational_rhythms_operating_cadenc
 alter table public.aipify_organizational_rhythms_operating_cadence_audit_logs enable row level security;
 revoke all on public.aipify_organizational_rhythms_operating_cadence_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_organizational_rhythms_operating_cadence_engine', v.description
 from (values
   ('aipify_organizational_rhythms_operating_cadence.view', 'View Operating Cadence Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -471,7 +471,7 @@ end; $$;
 
 create or replace function public._aorocebp210_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 210 — Aipify Organizational Rhythms & Operating Cadence Engine', 'title', 'Aipify Organizational Rhythms & Operating Cadence Engine (Era Capstone)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE210_AIPIFY_ORGANIZATIONAL_RHYTHMS_OPERATING_CADENCE_ENGINE.md', 'engine_phase', 'Repo Phase 210', 'route', '/app/aipify-organizational-rhythms-operating-cadence-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 210 — Aipify Organizational Rhythms & Operating Cadence Engine', 'title', 'Aipify Organizational Rhythms & Operating Cadence Engine (Era Capstone)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE210_AIPIFY_ORGANIZATIONAL_RHYTHMS_OPERATING_CADENCE_ENGINE.md', 'engine_phase', 'Repo Phase 210', 'route', '/app/aipify-organizational-rhythms-operating-cadence-engine'),
     'distinction_note', public._aorocebp210_distinction_note(), 'mission', public._aorocebp210_mission(), 'philosophy', public._aorocebp210_philosophy(),
     'abos_principle', public._aorocebp210_abos_principle(), 'vision', public._aorocebp210_vision(), 'objectives', public._aorocebp210_objectives(),
     'organizational_rhythm_dashboard', public._aorocebp210_organizational_rhythm_dashboard(), 'cadence_reflection_engine', public._aorocebp210_cadence_reflection_engine(),

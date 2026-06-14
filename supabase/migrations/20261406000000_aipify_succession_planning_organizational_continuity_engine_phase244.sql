@@ -234,7 +234,7 @@ create table if not exists public.aipify_succession_planning_organizational_cont
 alter table public.aipify_succession_planning_organizational_continuity_audit_logs enable row level security;
 revoke all on public.aipify_succession_planning_organizational_continuity_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_succession_planning_organizational_continuity_engine', v.description
 from (values
   ('aipify_succession_planning_organizational_continuity.view', 'View __TRANSLATE_CENTER__', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -487,7 +487,7 @@ end; $$;
 
 create or replace function public._aspocbp244_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 244 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE244_AIPIFY_SUCCESSION_PLANNING_ORGANIZATIONAL_CONTINUITY_ENGINE.md', 'engine_phase', 'Repo Phase 244', 'route', '/app/aipify-succession-planning-organizational-continuity-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 244 — Enterprise __TRANSLATE_CENTER__ Engine', 'title', 'Enterprise __TRANSLATE_CENTER__ Engine (__TRANSLATE_CENTER__ Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE244_AIPIFY_SUCCESSION_PLANNING_ORGANIZATIONAL_CONTINUITY_ENGINE.md', 'engine_phase', 'Repo Phase 244', 'route', '/app/aipify-succession-planning-organizational-continuity-engine'),
     'distinction_note', public._aspocbp244_distinction_note(), 'mission', public._aspocbp244_mission(), 'philosophy', public._aspocbp244_philosophy(),
     'abos_principle', public._aspocbp244_abos_principle(), 'vision', public._aspocbp244_vision(), 'objectives', public._aspocbp244_objectives(),
     'succession_continuity_dashboard', public._aspocbp244_succession_continuity_dashboard(), 'successor_identification_hub', public._aspocbp244_successor_identification_hub(),

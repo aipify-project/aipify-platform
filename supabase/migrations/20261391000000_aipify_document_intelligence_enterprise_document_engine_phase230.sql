@@ -234,7 +234,7 @@ create table if not exists public.aipify_document_intelligence_enterprise_docume
 alter table public.aipify_document_intelligence_enterprise_document_audit_logs enable row level security;
 revoke all on public.aipify_document_intelligence_enterprise_document_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_document_intelligence_enterprise_document_engine', v.description
 from (values
   ('aipify_document_intelligence_enterprise_document.view', 'View Document Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -486,7 +486,7 @@ end; $$;
 
 create or replace function public._adiedebp230_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 230 — Document Intelligence & Enterprise Document Engine', 'title', 'Document Intelligence & Enterprise Document Engine (Documents Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE230_AIPIFY_DOCUMENT_INTELLIGENCE_ENTERPRISE_DOCUMENT_ENGINE.md', 'engine_phase', 'Repo Phase 230', 'route', '/app/aipify-document-intelligence-enterprise-document-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 230 — Document Intelligence & Enterprise Document Engine', 'title', 'Document Intelligence & Enterprise Document Engine (Documents Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE230_AIPIFY_DOCUMENT_INTELLIGENCE_ENTERPRISE_DOCUMENT_ENGINE.md', 'engine_phase', 'Repo Phase 230', 'route', '/app/aipify-document-intelligence-enterprise-document-engine'),
     'distinction_note', public._adiedebp230_distinction_note(), 'mission', public._adiedebp230_mission(), 'philosophy', public._adiedebp230_philosophy(),
     'abos_principle', public._adiedebp230_abos_principle(), 'vision', public._adiedebp230_vision(), 'objectives', public._adiedebp230_objectives(),
     'document_dashboard', public._adiedebp230_document_dashboard(), 'document_generation_center', public._adiedebp230_document_generation_center(),

@@ -232,7 +232,7 @@ create table if not exists public.aipify_operations_orchestration_audit_logs (
 alter table public.aipify_operations_orchestration_audit_logs enable row level security;
 revoke all on public.aipify_operations_orchestration_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_operations_orchestration_engine', v.description
 from (values
   ('aipify_operations_orchestration.view', 'View Operations Command Dashboard', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -462,7 +462,7 @@ end; $$;
 
 create or replace function public._aooebp208_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 208 — Aipify Operations Orchestration Engine', 'title', 'Aipify Operations Orchestration Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE208_AIPIFY_OPERATIONS_ORCHESTRATION_ENGINE.md', 'engine_phase', 'Repo Phase 208', 'route', '/app/aipify-operations-orchestration-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 208 — Aipify Operations Orchestration Engine', 'title', 'Aipify Operations Orchestration Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE208_AIPIFY_OPERATIONS_ORCHESTRATION_ENGINE.md', 'engine_phase', 'Repo Phase 208', 'route', '/app/aipify-operations-orchestration-engine'),
     'distinction_note', public._aooebp208_distinction_note(), 'mission', public._aooebp208_mission(), 'philosophy', public._aooebp208_philosophy(),
     'abos_principle', public._aooebp208_abos_principle(), 'vision', public._aooebp208_vision(), 'objectives', public._aooebp208_objectives(),
     'operations_command_dashboard', public._aooebp208_operations_command_dashboard(), 'operations_reflection_engine', public._aooebp208_operations_reflection_engine(),

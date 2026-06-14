@@ -281,7 +281,7 @@ revoke all on public.aipify_trust_adoption_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_trust_acceleration_adoption_engine', v.description
 from (values
   ('trust_adoption.view', 'View Trust & Adoption', 'View trust adoption center, signals, and value moments'),

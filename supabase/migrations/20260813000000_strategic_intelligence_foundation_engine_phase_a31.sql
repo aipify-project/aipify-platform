@@ -33,7 +33,7 @@ create table if not exists public.strategic_insight_recommendations (
 alter table public.strategic_insight_recommendations enable row level security;
 revoke all on public.strategic_insight_recommendations from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'strategic_intelligence', v.description
 from (values
   ('intelligence.view', 'View Intelligence', 'View strategic insights'),

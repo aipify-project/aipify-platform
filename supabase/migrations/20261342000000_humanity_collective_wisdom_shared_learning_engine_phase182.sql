@@ -207,7 +207,7 @@ create table if not exists public.humanity_collective_wisdom_shared_learning_aud
 alter table public.humanity_collective_wisdom_shared_learning_audit_logs enable row level security;
 revoke all on public.humanity_collective_wisdom_shared_learning_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'humanity_collective_wisdom_shared_learning_engine', v.description
 from (values
   ('humanity_collective_wisdom_shared_learning.view', 'View Collective Wisdom Center', 'View executive reviews, reflections, and metadata scaffolds'),

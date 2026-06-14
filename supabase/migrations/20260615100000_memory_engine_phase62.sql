@@ -160,8 +160,13 @@ revoke all on public.memory_feedback from authenticated, anon;
 alter table public.aipify_briefing_settings
   add column if not exists include_memory boolean not null default true;
 
-alter table public.desktop_preferences
-  add column if not exists include_memory boolean not null default true;
+do $$
+begin
+  if to_regclass('public.desktop_preferences') is not null then
+    alter table public.desktop_preferences
+      add column if not exists include_memory boolean not null default true;
+  end if;
+end $$;
 
 -- ---------------------------------------------------------------------------
 -- 8. Helpers

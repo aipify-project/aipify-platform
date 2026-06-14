@@ -258,7 +258,7 @@ revoke all on public.social_impact_purpose_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 7. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'social_impact_purpose_engine', v.description
 from (values
   ('social_impact_purpose.view', 'View Social Impact & Purpose Engine', 'View Purpose Center and social impact initiatives'),

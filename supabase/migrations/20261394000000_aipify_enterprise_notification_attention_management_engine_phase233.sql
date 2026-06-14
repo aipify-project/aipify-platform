@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_notification_attention_audit
 alter table public.aipify_enterprise_notification_attention_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_notification_attention_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_notification_attention_engine', v.description
 from (values
   ('aipify_enterprise_notification_attention.view', 'View Notification Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -497,7 +497,7 @@ end; $$;
 
 create or replace function public._aenamebp233_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 233 — Enterprise Notification Center Engine', 'title', 'Enterprise Notification Center Engine (Notifications Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE233_AIPIFY_ENTERPRISE_NOTIFICATION_ATTENTION_MANAGEMENT_ENGINE.md', 'engine_phase', 'Repo Phase 233', 'route', '/app/aipify-enterprise-notification-attention-management-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 233 — Enterprise Notification Center Engine', 'title', 'Enterprise Notification Center Engine (Notifications Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE233_AIPIFY_ENTERPRISE_NOTIFICATION_ATTENTION_MANAGEMENT_ENGINE.md', 'engine_phase', 'Repo Phase 233', 'route', '/app/aipify-enterprise-notification-attention-management-engine'),
     'distinction_note', public._aenamebp233_distinction_note(), 'mission', public._aenamebp233_mission(), 'philosophy', public._aenamebp233_philosophy(),
     'abos_principle', public._aenamebp233_abos_principle(), 'vision', public._aenamebp233_vision(), 'objectives', public._aenamebp233_objectives(),
     'notification_dashboard', public._aenamebp233_notification_dashboard(), 'notification_center_hub', public._aenamebp233_notification_center_hub(),

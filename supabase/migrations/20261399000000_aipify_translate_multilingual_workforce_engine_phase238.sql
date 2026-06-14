@@ -234,7 +234,7 @@ create table if not exists public.aipify_translate_multilingual_workforce_audit_
 alter table public.aipify_translate_multilingual_workforce_audit_logs enable row level security;
 revoke all on public.aipify_translate_multilingual_workforce_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_translate_multilingual_workforce_engine', v.description
 from (values
   ('aipify_translate_multilingual_workforce.view', 'View Translate', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -492,7 +492,7 @@ end; $$;
 
 create or replace function public._atmwfebp238_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 238 — Enterprise Translate Engine', 'title', 'Enterprise Translate Engine (Translate Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE238_AIPIFY_TRANSLATE_MULTILINGUAL_WORKFORCE_ENGINE.md', 'engine_phase', 'Repo Phase 238', 'route', '/app/aipify-translate-multilingual-workforce-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 238 — Enterprise Translate Engine', 'title', 'Enterprise Translate Engine (Translate Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE238_AIPIFY_TRANSLATE_MULTILINGUAL_WORKFORCE_ENGINE.md', 'engine_phase', 'Repo Phase 238', 'route', '/app/aipify-translate-multilingual-workforce-engine'),
     'distinction_note', public._atmwfebp238_distinction_note(), 'mission', public._atmwfebp238_mission(), 'philosophy', public._atmwfebp238_philosophy(),
     'abos_principle', public._atmwfebp238_abos_principle(), 'vision', public._atmwfebp238_vision(), 'objectives', public._atmwfebp238_objectives(),
     'translate_workforce_dashboard', public._atmwfebp238_translate_workforce_dashboard(), 'language_settings_hub', public._atmwfebp238_language_settings_hub(),

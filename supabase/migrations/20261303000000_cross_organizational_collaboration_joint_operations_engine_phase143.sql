@@ -236,7 +236,7 @@ revoke all on public.joint_operations_collaboration_audit_logs from authenticate
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'joint_operations_engine', v.description
 from (values
   ('joint_operations.view', 'View Joint Operations', 'View partnerships, shared workspaces, and collaboration metadata'),

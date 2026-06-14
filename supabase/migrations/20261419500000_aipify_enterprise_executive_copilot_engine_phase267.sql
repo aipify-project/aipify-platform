@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_executive_copilot_audit_logs
 alter table public.aipify_enterprise_executive_copilot_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_executive_copilot_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_executive_copilot_engine', v.description
 from (values
   ('aipify_enterprise_executive_copilot.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -482,7 +482,7 @@ end; $$;
 
 create or replace function public._aeecpebp267_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 267 — Enterprise Executive Copilot Engine', 'title', 'Enterprise Executive Copilot Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE267_AIPIFY_ENTERPRISE_EXECUTIVE_COPILOT.md', 'engine_phase', 'Repo Phase 267', 'route', '/app/aipify-enterprise-executive-copilot-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 267 — Enterprise Executive Copilot Engine', 'title', 'Enterprise Executive Copilot Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE267_AIPIFY_ENTERPRISE_EXECUTIVE_COPILOT.md', 'engine_phase', 'Repo Phase 267', 'route', '/app/aipify-enterprise-executive-copilot-engine'),
     'distinction_note', public._aeecpebp267_distinction_note(), 'mission', public._aeecpebp267_mission(), 'philosophy', public._aeecpebp267_philosophy(),
     'abos_principle', public._aeecpebp267_abos_principle(), 'vision', public._aeecpebp267_vision(), 'objectives', public._aeecpebp267_objectives(),
     'executive_copilot_dashboard', public._aeecpebp267_executive_copilot_dashboard(), 'executive_briefing_engine', public._aeecpebp267_executive_briefing_engine(),

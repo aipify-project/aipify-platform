@@ -152,7 +152,7 @@ revoke all on public.organization_wisdom_intervention_prompts from authenticated
 -- ---------------------------------------------------------------------------
 -- 4. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'wisdom_intervention_protocol', v.description
 from (values
   ('wisdom_intervention.view', 'View Wisdom Intervention Protocol', 'View wisdom intervention dashboard and gentle pre-send guidance'),

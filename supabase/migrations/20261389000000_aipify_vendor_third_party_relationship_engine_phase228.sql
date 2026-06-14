@@ -234,7 +234,7 @@ create table if not exists public.aipify_vendor_third_party_relationship_audit_l
 alter table public.aipify_vendor_third_party_relationship_audit_logs enable row level security;
 revoke all on public.aipify_vendor_third_party_relationship_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_vendor_third_party_relationship_engine', v.description
 from (values
   ('aipify_vendor_third_party_relationship.view', 'View Vendor Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -473,7 +473,7 @@ end; $$;
 
 create or replace function public._avtprebp228_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 228 — Aipify Vendor & Third-Party Relationship Engine', 'title', 'Aipify Vendor & Third-Party Relationship Engine (Vendors & Partners Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE228_AIPIFY_VENDOR_THIRD_PARTY_RELATIONSHIP_ENGINE.md', 'engine_phase', 'Repo Phase 228', 'route', '/app/aipify-vendor-third-party-relationship-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 228 — Aipify Vendor & Third-Party Relationship Engine', 'title', 'Aipify Vendor & Third-Party Relationship Engine (Vendors & Partners Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE228_AIPIFY_VENDOR_THIRD_PARTY_RELATIONSHIP_ENGINE.md', 'engine_phase', 'Repo Phase 228', 'route', '/app/aipify-vendor-third-party-relationship-engine'),
     'distinction_note', public._avtprebp228_distinction_note(), 'mission', public._avtprebp228_mission(), 'philosophy', public._avtprebp228_philosophy(),
     'abos_principle', public._avtprebp228_abos_principle(), 'vision', public._avtprebp228_vision(), 'objectives', public._avtprebp228_objectives(),
     'vendor_dashboard', public._avtprebp228_vendor_dashboard(), 'vendor_registry', public._avtprebp228_vendor_registry(),

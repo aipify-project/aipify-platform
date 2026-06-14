@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_external_intelligence_market
 alter table public.aipify_enterprise_external_intelligence_market_awareness_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_external_intelligence_market_awareness_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_external_intelligence_market_awareness_engine', v.description
 from (values
   ('aipify_enterprise_external_intelligence_market_awareness.view', 'View External Intelligence & Market Awareness', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -492,7 +492,7 @@ end; $$;
 
 create or replace function public._aeeimaebp255_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 255 — Enterprise External Intelligence & Market Awareness Engine', 'title', 'Enterprise External Intelligence & Market Awareness Engine (External Intelligence & Market Awareness Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE255_AIPIFY_ENTERPRISE_EXTERNAL_INTELLIGENCE_MARKET_AWARENESS_ENGINE.md', 'engine_phase', 'Repo Phase 255', 'route', '/app/aipify-enterprise-external-intelligence-market-awareness-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 255 — Enterprise External Intelligence & Market Awareness Engine', 'title', 'Enterprise External Intelligence & Market Awareness Engine (External Intelligence & Market Awareness Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE255_AIPIFY_ENTERPRISE_EXTERNAL_INTELLIGENCE_MARKET_AWARENESS_ENGINE.md', 'engine_phase', 'Repo Phase 255', 'route', '/app/aipify-enterprise-external-intelligence-market-awareness-engine'),
     'distinction_note', public._aeeimaebp255_distinction_note(), 'mission', public._aeeimaebp255_mission(), 'philosophy', public._aeeimaebp255_philosophy(),
     'abos_principle', public._aeeimaebp255_abos_principle(), 'vision', public._aeeimaebp255_vision(), 'objectives', public._aeeimaebp255_objectives(),
     'intelligence_dashboard', public._aeeimaebp255_intelligence_dashboard(), 'trend_monitoring_hub', public._aeeimaebp255_trend_monitoring_hub(),

@@ -295,7 +295,7 @@ revoke all on public.aipify_org_memory_center_audit_logs from authenticated, ano
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_organizational_memory_center_engine', v.description
 from (values
   ('org_memory_center.view', 'View Organizational Memory Center', 'Review institutional knowledge, gaps, and health scores'),

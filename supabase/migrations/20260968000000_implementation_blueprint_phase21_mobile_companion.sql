@@ -1,6 +1,47 @@
 -- Implementation Blueprint Phase 21 — Mobile Companion Engine
 -- Spec alignment extending Notification & Communication Engine (Phase A.17). No new tables.
 
+-- A.17 dependency — may be missing if baselined without DDL
+create table if not exists public.communication_notification_preferences (
+  id uuid primary key default gen_random_uuid(),
+  organization_id uuid not null references public.organizations (id) on delete cascade,
+  user_id uuid not null references public.users (id) on delete cascade,
+  preferred_channels jsonb not null default '["in_app","dashboard"]'::jsonb,
+  frequency text not null default 'immediate' check (
+    frequency in ('immediate', 'daily_digest', 'weekly_digest')
+  ),
+  quiet_hours jsonb not null default '{"enabled":true,"start":"22:00","end":"07:00","timezone":"Europe/Oslo"}'::jsonb,
+  category_subscriptions jsonb not null default '{
+    "support":true,"approvals":true,"tasks":true,"integrations":true,
+    "governance":true,"quality":true,"onboarding":true,"billing":true,"system_alerts":true
+  }'::jsonb,
+  critical_bypass_quiet_hours boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique (organization_id, user_id)
+);
+
+alter table public.communication_notification_preferences enable row level security;
+revoke all on public.communication_notification_preferences from authenticated, anon;
+
+create or replace function public._nce_ensure_preferences(
+  p_organization_id uuid,
+  p_user_id uuid
+)
+returns public.communication_notification_preferences language plpgsql security definer set search_path = public as $$
+declare v_row public.communication_notification_preferences;
+begin
+  insert into public.communication_notification_preferences (organization_id, user_id)
+  values (p_organization_id, p_user_id)
+  on conflict (organization_id, user_id) do nothing;
+
+  select * into v_row
+  from public.communication_notification_preferences
+  where organization_id = p_organization_id and user_id = p_user_id;
+
+  return v_row;
+end; $$;
+
 create or replace function public._mcbp_blueprint_companion_objectives()
 returns jsonb language sql immutable as $$
   select jsonb_build_array(

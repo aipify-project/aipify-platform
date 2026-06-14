@@ -238,7 +238,7 @@ create table if not exists public.aipify_customer_journey_experience_orchestrati
 alter table public.aipify_customer_journey_experience_orchestration_audit_logs enable row level security;
 revoke all on public.aipify_customer_journey_experience_orchestration_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_customer_journey_experience_orchestration_engine', v.description
 from (values
   ('aipify_customer_journey_experience_orchestration.view', 'View Customer Journey Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -465,7 +465,7 @@ end; $$;
 
 create or replace function public._acjeoebp214_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 214 — Aipify Customer Journey & Experience Orchestration Engine', 'title', 'Aipify Customer Journey & Experience Orchestration Engine (Customer Journey Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE214_AIPIFY_CUSTOMER_JOURNEY_EXPERIENCE_ORCHESTRATION_ENGINE.md', 'engine_phase', 'Repo Phase 214', 'route', '/app/aipify-customer-journey-experience-orchestration-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 214 — Aipify Customer Journey & Experience Orchestration Engine', 'title', 'Aipify Customer Journey & Experience Orchestration Engine (Customer Journey Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE214_AIPIFY_CUSTOMER_JOURNEY_EXPERIENCE_ORCHESTRATION_ENGINE.md', 'engine_phase', 'Repo Phase 214', 'route', '/app/aipify-customer-journey-experience-orchestration-engine'),
     'distinction_note', public._acjeoebp214_distinction_note(), 'mission', public._acjeoebp214_mission(), 'philosophy', public._acjeoebp214_philosophy(),
     'abos_principle', public._acjeoebp214_abos_principle(), 'vision', public._acjeoebp214_vision(), 'objectives', public._acjeoebp214_objectives(),
     'customer_journey_dashboard', public._acjeoebp214_customer_journey_dashboard(), 'experience_friction_monitor', public._acjeoebp214_experience_friction_monitor(),

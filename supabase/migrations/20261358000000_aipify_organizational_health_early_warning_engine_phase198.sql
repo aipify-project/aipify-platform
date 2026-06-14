@@ -226,7 +226,7 @@ create table if not exists public.aipify_organizational_health_early_warning_aud
 alter table public.aipify_organizational_health_early_warning_audit_logs enable row level security;
 revoke all on public.aipify_organizational_health_early_warning_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_organizational_health_early_warning_engine', v.description
 from (values
   ('aipify_organizational_health_early_warning.view', 'View Organizational Health Dashboard', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -449,7 +449,7 @@ end; $$;
 
 create or replace function public._aohewbp198_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 198 — Aipify Organizational Health & Early Warning Engine', 'title', 'Aipify Organizational Health & Early Warning Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE198_AIPIFY_ORGANIZATIONAL_HEALTH_EARLY_WARNING_ENGINE.md', 'engine_phase', 'Repo Phase 198', 'route', '/app/aipify-organizational-health-early-warning-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 198 — Aipify Organizational Health & Early Warning Engine', 'title', 'Aipify Organizational Health & Early Warning Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE198_AIPIFY_ORGANIZATIONAL_HEALTH_EARLY_WARNING_ENGINE.md', 'engine_phase', 'Repo Phase 198', 'route', '/app/aipify-organizational-health-early-warning-engine'),
     'distinction_note', public._aohewbp198_distinction_note(), 'mission', public._aohewbp198_mission(), 'philosophy', public._aohewbp198_philosophy(),
     'abos_principle', public._aohewbp198_abos_principle(), 'vision', public._aohewbp198_vision(), 'objectives', public._aohewbp198_objectives(),
     'organizational_health_dashboard', public._aohewbp198_organizational_health_dashboard(), 'health_reflection_engine', public._aohewbp198_health_reflection_engine(),

@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_policy_compliance_management
 alter table public.aipify_enterprise_policy_compliance_management_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_policy_compliance_management_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_policy_compliance_management_engine', v.description
 from (values
   ('aipify_enterprise_policy_compliance_management.view', 'View Policy Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -460,7 +460,7 @@ end; $$;
 
 create or replace function public._aepcmebp225_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 225 — Aipify Enterprise Policy & Compliance Management Engine', 'title', 'Aipify Enterprise Policy & Compliance Management Engine (Policy & Compliance Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE225_AIPIFY_ENTERPRISE_POLICY_COMPLIANCE_MANAGEMENT_ENGINE.md', 'engine_phase', 'Repo Phase 225', 'route', '/app/aipify-enterprise-policy-compliance-management-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 225 — Aipify Enterprise Policy & Compliance Management Engine', 'title', 'Aipify Enterprise Policy & Compliance Management Engine (Policy & Compliance Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE225_AIPIFY_ENTERPRISE_POLICY_COMPLIANCE_MANAGEMENT_ENGINE.md', 'engine_phase', 'Repo Phase 225', 'route', '/app/aipify-enterprise-policy-compliance-management-engine'),
     'distinction_note', public._aepcmebp225_distinction_note(), 'mission', public._aepcmebp225_mission(), 'philosophy', public._aepcmebp225_philosophy(),
     'abos_principle', public._aepcmebp225_abos_principle(), 'vision', public._aepcmebp225_vision(), 'objectives', public._aepcmebp225_objectives(),
     'policy_dashboard', public._aepcmebp225_policy_dashboard(), 'policy_library', public._aepcmebp225_policy_library(),

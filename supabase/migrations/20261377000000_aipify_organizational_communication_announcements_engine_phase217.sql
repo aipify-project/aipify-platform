@@ -234,7 +234,7 @@ create table if not exists public.aipify_organizational_communication_announceme
 alter table public.aipify_organizational_communication_announcements_audit_logs enable row level security;
 revoke all on public.aipify_organizational_communication_announcements_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_organizational_communication_announcements_engine', v.description
 from (values
   ('aipify_organizational_communication_announcements.view', 'View Communication Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -384,6 +384,9 @@ create or replace function public._aocaebp217_digital_headquarters_notification_
     jsonb_build_object('key', 'communication_stewardship_loops', 'label', 'Communication stewardship loops'),
     jsonb_build_object('key', 'no_auto_broadcast', 'label', 'Never auto-broadcast without approval')
   )); $$;
+create or replace function public._aocaebp217_executive_cockpit_integration() returns jsonb language sql immutable as $$
+  select public._aocaebp217_digital_headquarters_notification_integration();
+$$;
 create or replace function public._aocaebp217_companion_limitations() returns jsonb language sql immutable as $$
   select jsonb_build_object('must_avoid', jsonb_build_array('Auto-broadcasting without approval',
       'Bypassing human approval for sensitive communications',
@@ -463,7 +466,7 @@ end; $$;
 
 create or replace function public._aocaebp217_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 217 — Aipify Organizational Communication & Announcements Engine', 'title', 'Aipify Organizational Communication & Announcements Engine (Communication Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE217_AIPIFY_ORGANIZATIONAL_COMMUNICATION_ANNOUNCEMENTS_ENGINE.md', 'engine_phase', 'Repo Phase 217', 'route', '/app/aipify-organizational-communication-announcements-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 217 — Aipify Organizational Communication & Announcements Engine', 'title', 'Aipify Organizational Communication & Announcements Engine (Communication Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE217_AIPIFY_ORGANIZATIONAL_COMMUNICATION_ANNOUNCEMENTS_ENGINE.md', 'engine_phase', 'Repo Phase 217', 'route', '/app/aipify-organizational-communication-announcements-engine'),
     'distinction_note', public._aocaebp217_distinction_note(), 'mission', public._aocaebp217_mission(), 'philosophy', public._aocaebp217_philosophy(),
     'abos_principle', public._aocaebp217_abos_principle(), 'vision', public._aocaebp217_vision(), 'objectives', public._aocaebp217_objectives(),
     'communication_dashboard', public._aocaebp217_communication_dashboard(), 'leadership_broadcast_center', public._aocaebp217_leadership_broadcast_center(),

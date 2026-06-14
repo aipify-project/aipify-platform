@@ -257,7 +257,7 @@ revoke all on public.constructive_dialogue_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'constructive_dialogue_engine', v.description
 from (values
   ('constructive_dialogue.view', 'View Constructive Dialogue Center', 'View dialogue programs, executive reviews, and dialogue memory metadata'),

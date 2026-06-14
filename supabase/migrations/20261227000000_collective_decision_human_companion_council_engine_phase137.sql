@@ -280,7 +280,7 @@ revoke all on public.collective_decision_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 8. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'collective_decision_council_engine', v.description
 from (values
   ('collective_decision.view', 'View Collective Decision Council Engine', 'View collective decision workspaces, perspectives, and council scaffolds'),

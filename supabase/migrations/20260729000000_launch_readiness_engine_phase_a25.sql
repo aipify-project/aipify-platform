@@ -103,7 +103,7 @@ revoke all on public.post_launch_monitoring from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 4. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'launch_readiness', v.description
 from (values
   ('launch.view', 'View Launch Readiness', 'View launch checklist and readiness status'),

@@ -1,4 +1,4 @@
--- Phase 200 — Aipify Executive Operating System & Founder's Cockpit Engine
+-- Phase 200 — Aipify Executive Operating System & Founder''s Cockpit Engine
 -- Perpetual Stewardship & Constitutional Governance Era (191–200) — Era Capstone.
 -- Helpers: _aeosfce_* (engine), _aeosfcebp200_* (blueprint)
 
@@ -228,7 +228,7 @@ create table if not exists public.aipify_executive_operating_system_founders_coc
 alter table public.aipify_executive_operating_system_founders_cockpit_audit_logs enable row level security;
 revoke all on public.aipify_executive_operating_system_founders_cockpit_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_executive_operating_system_founders_cockpit_engine', v.description
 from (values
   ('aipify_executive_operating_system_founders_cockpit.view', 'View Executive Cockpit Dashboard', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -459,7 +459,7 @@ end; $$;
 
 create or replace function public._aeosfcebp200_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 200 — Aipify Executive Operating System & Founder's Cockpit Engine', 'title', 'Aipify Executive Operating System & Founder's Cockpit Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE200_AIPIFY_EXECUTIVE_OPERATING_SYSTEM_FOUNDERS_COCKPIT_ENGINE.md', 'engine_phase', 'Repo Phase 200', 'route', '/app/aipify-executive-operating-system-founders-cockpit-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 200 — Aipify Executive Operating System & Founder''s Cockpit Engine', 'title', 'Aipify Executive Operating System & Founder''s Cockpit Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE200_AIPIFY_EXECUTIVE_OPERATING_SYSTEM_FOUNDERS_COCKPIT_ENGINE.md', 'engine_phase', 'Repo Phase 200', 'route', '/app/aipify-executive-operating-system-founders-cockpit-engine'),
     'distinction_note', public._aeosfcebp200_distinction_note(), 'mission', public._aeosfcebp200_mission(), 'philosophy', public._aeosfcebp200_philosophy(),
     'abos_principle', public._aeosfcebp200_abos_principle(), 'vision', public._aeosfcebp200_vision(), 'objectives', public._aeosfcebp200_objectives(),
     'executive_cockpit_dashboard', public._aeosfcebp200_executive_cockpit_dashboard(), 'executive_reflection_engine', public._aeosfcebp200_executive_reflection_engine(),
@@ -501,7 +501,7 @@ declare v_tenant_id uuid; v_settings public.aipify_executive_operating_system_fo
   return jsonb_build_object('has_customer', true, 'aipify_executive_operating_system_founders_cockpit_score', v_metrics->'aipify_executive_operating_system_founders_cockpit_score', 'enabled', v_settings.enabled, 'executive_cockpit_mode', v_settings.executive_cockpit_mode,
     'founder_visibility_level', v_settings.founder_visibility_level, 'reflections_count', v_metrics->'reflections_count', 'philosophy', public._aeosfcebp200_philosophy(),
     'human_oversight_required', v_settings.human_oversight_required,
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 200 — Aipify Executive Operating System & Founder's Cockpit Engine', 'title', 'Aipify Executive Operating System & Founder's Cockpit Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE200_AIPIFY_EXECUTIVE_OPERATING_SYSTEM_FOUNDERS_COCKPIT_ENGINE.md', 'route', '/app/aipify-executive-operating-system-founders-cockpit-engine'),
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 200 — Aipify Executive Operating System & Founder''s Cockpit Engine', 'title', 'Aipify Executive Operating System & Founder''s Cockpit Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE200_AIPIFY_EXECUTIVE_OPERATING_SYSTEM_FOUNDERS_COCKPIT_ENGINE.md', 'route', '/app/aipify-executive-operating-system-founders-cockpit-engine'),
     'aipify_executive_operating_system_founders_cockpit_mission', public._aeosfcebp200_mission(), 'aipify_executive_operating_system_founders_cockpit_abos_principle', public._aeosfcebp200_abos_principle(),
     'aipify_executive_operating_system_founders_cockpit_engagement_summary', v_engagement, 'aipify_executive_operating_system_founders_cockpit_note', public._aeosfcebp200_distinction_note(), 'aipify_executive_operating_system_founders_cockpit_vision_note', public._aeosfcebp200_vision());
 end; $$;
@@ -521,7 +521,7 @@ declare v_tenant_id uuid; v_settings public.aipify_executive_operating_system_fo
     'reflections', coalesce((select jsonb_agg(jsonb_build_object('id',b.id,'reflection_key',b.reflection_key,'reflection_type',b.reflection_type,'title',b.title,'reflection_summary',b.reflection_summary,'status',b.status,'created_at',b.created_at) order by b.created_at desc) from public.aipify_executive_operating_system_founders_cockpit_reflections b where b.tenant_id = v_tenant_id), '[]'::jsonb),
     'scaffold_notes', coalesce((select jsonb_agg(jsonb_build_object('id',s.id,'note_key',s.note_key,'note_type',s.note_type,'title',s.title,'summary',s.summary,'status',s.status,'created_at',s.created_at) order by s.created_at) from public.aipify_executive_operating_system_founders_cockpit_cockpit_notes s where s.tenant_id = v_tenant_id), '[]'::jsonb),
     'integration_links', public._aeosfcebp200_integration_links(), 'era_opener_summary', public._aeosfcebp200_era_opener_summary(),
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 200 — Aipify Executive Operating System & Founder's Cockpit Engine', 'title', 'Aipify Executive Operating System & Founder's Cockpit Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE200_AIPIFY_EXECUTIVE_OPERATING_SYSTEM_FOUNDERS_COCKPIT_ENGINE.md', 'route', '/app/aipify-executive-operating-system-founders-cockpit-engine'),
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 200 — Aipify Executive Operating System & Founder''s Cockpit Engine', 'title', 'Aipify Executive Operating System & Founder''s Cockpit Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE200_AIPIFY_EXECUTIVE_OPERATING_SYSTEM_FOUNDERS_COCKPIT_ENGINE.md', 'route', '/app/aipify-executive-operating-system-founders-cockpit-engine'),
     'aipify_executive_operating_system_founders_cockpit_blueprint', public._aeosfcebp200_blueprint_block(v_tenant_id), 'aipify_executive_operating_system_founders_cockpit_mission', public._aeosfcebp200_mission(), 'aipify_executive_operating_system_founders_cockpit_philosophy', public._aeosfcebp200_philosophy(),
     'aipify_executive_operating_system_founders_cockpit_abos_principle', public._aeosfcebp200_abos_principle(), 'aipify_executive_operating_system_founders_cockpit_objectives', public._aeosfcebp200_objectives(),
     'center_meta', public._aeosfcebp200_executive_cockpit_dashboard(), 'engine_meta', public._aeosfcebp200_executive_reflection_engine(), 'framework_meta', public._aeosfcebp200_executive_framework(),
@@ -530,11 +530,11 @@ declare v_tenant_id uuid; v_settings public.aipify_executive_operating_system_fo
     'security_requirements_meta', public._aeosfcebp200_security_requirements(), 'haarbp176_integration_links', public._aeosfcebp200_integration_links(),
     'haarbp176_era_opener_summary', public._aeosfcebp200_era_opener_summary(), 'aipify_executive_operating_system_founders_cockpit_engagement_summary', public._aeosfcebp200_engagement_summary(v_tenant_id),
     'aipify_executive_operating_system_founders_cockpit_success_criteria', public._aeosfcebp200_success_criteria(v_tenant_id), 'aipify_executive_operating_system_founders_cockpit_vision', public._aeosfcebp200_vision(), 'aipify_executive_operating_system_founders_cockpit_vision_phrases', public._aeosfcebp200_vision_phrases(),
-    'aipify_executive_operating_system_founders_cockpit_privacy_note', public._aeosfcebp200_privacy_note(), 'aipify_executive_operating_system_founders_cockpit_dogfooding', public._aeosfcebp200_dogfooding(), 'aipify_executive_operating_system_founders_cockpit_engine_note', 'Phase 200 Aipify Executive Operating System & Founder's Cockpit Engine — executive cockpit era capstone; cross-link only for related engines.'s Cockpit Engine — executive cockpit within Perpetual Stewardship era; cross-link only for related engines.');
+    'aipify_executive_operating_system_founders_cockpit_privacy_note', public._aeosfcebp200_privacy_note(), 'aipify_executive_operating_system_founders_cockpit_dogfooding', public._aeosfcebp200_dogfooding(), 'aipify_executive_operating_system_founders_cockpit_engine_note', 'Phase 200 Aipify Executive Operating System & Founder''s Cockpit Engine — executive cockpit era capstone; cross-link only for related engines.');
 end; $$;
 
 insert into public.aipify_knowledge_categories (slug, name, description, visibility, sort_order)
-select 'aipify-executive-operating-system-founders-cockpit-engine', 'Aipify Executive Operating System & Founder's Cockpit Engine', 'Executive Cockpit Dashboard — Perpetual Stewardship & Constitutional Governance Era (191–200). People First.', 'authenticated', 199
+select 'aipify-executive-operating-system-founders-cockpit-engine', 'Aipify Executive Operating System & Founder''s Cockpit Engine', 'Executive Cockpit Dashboard — Perpetual Stewardship & Constitutional Governance Era (191–200). People First.', 'authenticated', 199
 where not exists (select 1 from public.aipify_knowledge_categories where slug = 'aipify-executive-operating-system-founders-cockpit-engine' and tenant_id is null);
 
 grant execute on function public.get_aipify_executive_operating_system_founders_cockpit_engine_card(uuid) to authenticated;

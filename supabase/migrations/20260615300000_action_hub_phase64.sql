@@ -28,6 +28,20 @@ revoke all on public.action_settings from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 2. action_templates
 -- ---------------------------------------------------------------------------
+-- Phase 13 Action Engine used title/category; Action Hub phase 64 uses action_type/title_template.
+do $$
+begin
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'action_templates' and column_name = 'title'
+  ) and not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'action_templates' and column_name = 'action_type'
+  ) then
+    alter table public.action_templates rename to action_templates_action_engine_legacy;
+  end if;
+end $$;
+
 create table if not exists public.action_templates (
   id uuid primary key default gen_random_uuid(),
   template_key text not null unique,

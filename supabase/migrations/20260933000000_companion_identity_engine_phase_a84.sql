@@ -114,7 +114,7 @@ revoke all on public.companion_identity_module_registry from authenticated, anon
 -- ---------------------------------------------------------------------------
 -- 3. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'companion_identity_engine', v.description
 from (values
   ('companion_identity.view', 'View Companion Identity', 'View companion identity dashboard and module consistency'),
@@ -141,9 +141,9 @@ where not exists (
 );
 
 -- ---------------------------------------------------------------------------
--- 4. Helpers (_cie_ prefix)
+-- 4. Helpers (_companion_id_ prefix)
 -- ---------------------------------------------------------------------------
-create or replace function public._cie_log(
+create or replace function public._companion_id_log(
   p_organization_id uuid,
   p_user_id uuid,
   p_action_type text,
@@ -163,7 +163,7 @@ begin
   );
 end; $$;
 
-create or replace function public._cie_ensure_settings(p_organization_id uuid)
+create or replace function public._companion_id_ensure_settings(p_organization_id uuid)
 returns public.organization_companion_identity_settings language plpgsql security definer set search_path = public as $$
 declare v_row public.organization_companion_identity_settings;
 begin
@@ -178,7 +178,7 @@ begin
   return v_row;
 end; $$;
 
-create or replace function public._cie_core_identity_traits()
+create or replace function public._companion_id_core_identity_traits()
 returns jsonb language sql immutable as $$
   select jsonb_build_array(
     jsonb_build_object('key', 'helpful', 'label', 'Helpful',
@@ -202,7 +202,7 @@ returns jsonb language sql immutable as $$
   );
 $$;
 
-create or replace function public._cie_communication_style_rules()
+create or replace function public._companion_id_communication_style_rules()
 returns jsonb language sql immutable as $$
   select jsonb_build_array(
     'Use clear language — avoid unnecessary jargon',
@@ -213,7 +213,7 @@ returns jsonb language sql immutable as $$
   );
 $$;
 
-create or replace function public._cie_personality_traits()
+create or replace function public._companion_id_personality_traits()
 returns jsonb language sql immutable as $$
   select jsonb_build_array(
     'Encourage progress — celebrate momentum without pressure',
@@ -225,7 +225,7 @@ returns jsonb language sql immutable as $$
   );
 $$;
 
-create or replace function public._cie_signature_elements()
+create or replace function public._companion_id_signature_elements()
 returns jsonb language sql immutable as $$
   select jsonb_build_array(
     jsonb_build_object('key', 'bell_moments', 'label', 'Bell moments',
@@ -241,7 +241,7 @@ returns jsonb language sql immutable as $$
   );
 $$;
 
-create or replace function public._cie_fox_exchange_example()
+create or replace function public._companion_id_fox_exchange_example()
 returns jsonb language sql immutable as $$
   select jsonb_build_object(
     'title', 'Fox exchange (playful recurring motif)',
@@ -251,7 +251,7 @@ returns jsonb language sql immutable as $$
   );
 $$;
 
-create or replace function public._cie_seed_module_registry(p_organization_id uuid)
+create or replace function public._companion_id_seed_module_registry(p_organization_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   if exists (
@@ -283,7 +283,7 @@ begin
   ) as v(module_key, label, route, days_ago);
 end; $$;
 
-create or replace function public._cie_list_module_consistency(p_organization_id uuid)
+create or replace function public._companion_id_list_module_consistency(p_organization_id uuid)
 returns jsonb language sql stable security definer set search_path = public as $$
   select coalesce((
     select jsonb_agg(
@@ -315,7 +315,7 @@ begin
   perform public._irp_require_permission('companion_identity.manage');
   v_org_id := public._mta_require_organization();
   v_user_id := public._mta_app_user_id();
-  v_row := public._cie_ensure_settings(v_org_id);
+  v_row := public._companion_id_ensure_settings(v_org_id);
 
   update public.organization_companion_identity_settings set
     enabled = coalesce((p_payload->>'enabled')::boolean, enabled),
@@ -336,7 +336,7 @@ begin
   where organization_id = v_org_id
   returning * into v_row;
 
-  perform public._cie_log(v_org_id, v_user_id, 'settings_changed', jsonb_build_object(
+  perform public._companion_id_log(v_org_id, v_user_id, 'settings_changed', jsonb_build_object(
     'enabled', v_row.enabled,
     'metadata_only', true
   ));
@@ -356,8 +356,8 @@ declare
 begin
   perform public._irp_require_permission('companion_identity.view');
   v_org_id := public._mta_require_organization();
-  perform public._cie_ensure_settings(v_org_id);
-  perform public._cie_seed_module_registry(v_org_id);
+  perform public._companion_id_ensure_settings(v_org_id);
+  perform public._companion_id_seed_module_registry(v_org_id);
 
   select count(*), count(*) filter (where identity_aligned = true)
   into v_modules, v_aligned
@@ -385,8 +385,8 @@ declare
 begin
   perform public._irp_require_permission('companion_identity.view');
   v_org_id := public._mta_require_organization();
-  v_settings := public._cie_ensure_settings(v_org_id);
-  perform public._cie_seed_module_registry(v_org_id);
+  v_settings := public._companion_id_ensure_settings(v_org_id);
+  perform public._companion_id_seed_module_registry(v_org_id);
 
   select count(*), count(*) filter (where identity_aligned = true)
   into v_modules, v_aligned
@@ -400,12 +400,12 @@ begin
     'abos_principle', 'Reliable technology plus genuine companionship — Aipify augments people; humans decide.',
     'vision', 'Users say "This feels like Aipify" because of how Aipify behaves, not because of branding alone.',
     'distinction_note', 'Distinct from Identity Engine Phase 34 (per-user style observations), Brand Identity & Personhood Standard (product naming), Humor & Personal Connection (/app/personality), Companion Presence A.67 (floating orb), and Purpose & Values A.82 (tenant organizational values). This engine orchestrates unified companion identity across ABOS modules.',
-    'core_identity_traits', public._cie_core_identity_traits(),
-    'communication_style_rules', public._cie_communication_style_rules(),
-    'personality_traits', public._cie_personality_traits(),
-    'signature_elements', public._cie_signature_elements(),
-    'fox_exchange', public._cie_fox_exchange_example(),
-    'module_consistency', public._cie_list_module_consistency(v_org_id),
+    'core_identity_traits', public._companion_id_core_identity_traits(),
+    'communication_style_rules', public._companion_id_communication_style_rules(),
+    'personality_traits', public._companion_id_personality_traits(),
+    'signature_elements', public._companion_id_signature_elements(),
+    'fox_exchange', public._companion_id_fox_exchange_example(),
+    'module_consistency', public._companion_id_list_module_consistency(v_org_id),
     'self_love_note', 'Self Love — healthy pacing, balance, celebrate recovery, recognize effort. Growth never at the expense of wellbeing.',
     'settings', row_to_json(v_settings)::jsonb,
     'summary', jsonb_build_object(
@@ -440,10 +440,10 @@ begin
   perform public._irp_require_permission('companion_identity.export');
   v_org_id := public._mta_require_organization();
   v_user_id := public._mta_app_user_id();
-  v_settings := public._cie_ensure_settings(v_org_id);
-  perform public._cie_seed_module_registry(v_org_id);
+  v_settings := public._companion_id_ensure_settings(v_org_id);
+  perform public._companion_id_seed_module_registry(v_org_id);
 
-  perform public._cie_log(v_org_id, v_user_id, 'report_exported', jsonb_build_object(
+  perform public._companion_id_log(v_org_id, v_user_id, 'report_exported', jsonb_build_object(
     'format', coalesce(p_format, 'json'),
     'metadata_only', true
   ));
@@ -455,11 +455,11 @@ begin
     'format', coalesce(p_format, 'json'),
     'philosophy', 'Consistent companion identity across ABOS modules.',
     'mission', 'Unified Aipify experience across all touchpoints.',
-    'core_identity_traits', public._cie_core_identity_traits(),
-    'communication_style_rules', public._cie_communication_style_rules(),
-    'personality_traits', public._cie_personality_traits(),
-    'signature_elements', public._cie_signature_elements(),
-    'module_consistency', public._cie_list_module_consistency(v_org_id),
+    'core_identity_traits', public._companion_id_core_identity_traits(),
+    'communication_style_rules', public._companion_id_communication_style_rules(),
+    'personality_traits', public._companion_id_personality_traits(),
+    'signature_elements', public._companion_id_signature_elements(),
+    'module_consistency', public._companion_id_list_module_consistency(v_org_id),
     'settings', row_to_json(v_settings)::jsonb,
     'summary', jsonb_build_object(
       'modules_tracked', (select count(*) from public.companion_identity_module_registry where organization_id = v_org_id),
@@ -602,7 +602,7 @@ grant execute on function public.export_companion_identity_report(text) to authe
 -- ---------------------------------------------------------------------------
 do $$ declare v_org_id uuid; begin
   for v_org_id in select id from public.organizations loop
-    perform public._cie_ensure_settings(v_org_id);
-    perform public._cie_seed_module_registry(v_org_id);
+    perform public._companion_id_ensure_settings(v_org_id);
+    perform public._companion_id_seed_module_registry(v_org_id);
   end loop;
 end; $$;

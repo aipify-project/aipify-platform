@@ -827,8 +827,7 @@ begin
     'renewal_expansion_vision_phrases', public._crebp_blueprint_vision_phrases(),
     'renewal_expansion_distinction_note', public._crebp_distinction_note(),
     'renewal_expansion_integration_links', public._crebp_blueprint_integration_links()
-
-  )  ) || jsonb_build_object(
+  ) || jsonb_build_object(
     'implementation_blueprint_phase47', jsonb_build_object(
       'phase', 47,
       'title', 'Sales Community & Mentorship Engine',

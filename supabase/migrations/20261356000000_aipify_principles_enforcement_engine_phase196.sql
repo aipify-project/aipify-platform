@@ -223,7 +223,7 @@ create table if not exists public.aipify_principles_enforcement_audit_logs (
 alter table public.aipify_principles_enforcement_audit_logs enable row level security;
 revoke all on public.aipify_principles_enforcement_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_principles_enforcement_engine', v.description
 from (values
   ('aipify_principles_enforcement.view', 'View Principles Dashboard', 'View executive reviews, reflections, and metadata scaffolds'),

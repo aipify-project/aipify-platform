@@ -258,7 +258,7 @@ revoke all on public.organization_sales_expert_follow_ups from authenticated, an
 -- ---------------------------------------------------------------------------
 -- 8. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'sales_expert', v.description
 from (values
   ('sales_expert.view', 'View Sales Expert Portal', 'View Sales Expert Operating System dashboard and metadata'),
@@ -442,8 +442,6 @@ end; $$;
 
 create or replace function public._seos_seed_org_data(p_organization_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
-declare
-  v_customer_id uuid;
 begin
   perform public._seos_seed_email_templates(p_organization_id);
 
@@ -457,8 +455,7 @@ begin
       (p_organization_id, 'Nordic Retail Pilot', 'onboarding', 'trial', 45, now() + interval '7 days',
         jsonb_build_object('reminder', 'Schedule onboarding checkpoint', 'metadata_only', true)),
       (p_organization_id, 'Workflow Studio Prospect', 'prospect', 'none', 0, now() + interval '3 days',
-        jsonb_build_object('reminder', 'Send discovery meeting invite', 'metadata_only', true))
-    returning id into v_customer_id;
+        jsonb_build_object('reminder', 'Send discovery meeting invite', 'metadata_only', true));
 
     insert into public.organization_sales_expert_opportunities (
       organization_id, customer_id, title, pipeline_stage, estimated_value, next_action, recommended_action

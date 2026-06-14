@@ -121,7 +121,7 @@ revoke all on public.communication_digests from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 4. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'notification_communication', v.description
 from (values
   ('notifications.view', 'View Notifications', 'View organization notifications and history'),

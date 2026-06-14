@@ -229,7 +229,7 @@ create table if not exists public.aipify_knowledge_discovery_intelligent_search_
 alter table public.aipify_knowledge_discovery_intelligent_search_audit_logs enable row level security;
 revoke all on public.aipify_knowledge_discovery_intelligent_search_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_knowledge_discovery_intelligent_search_engine', v.description
 from (values
   ('aipify_knowledge_discovery_intelligent_search.view', 'View Knowledge Result Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -461,7 +461,7 @@ end; $$;
 
 create or replace function public._akdisebp204_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 204 — Aipify Knowledge Discovery & Intelligent Search Engine', 'title', 'Aipify Knowledge Discovery & Intelligent Search Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE204_AIPIFY_KNOWLEDGE_DISCOVERY_INTELLIGENT_SEARCH_ENGINE.md', 'engine_phase', 'Repo Phase 204', 'route', '/app/aipify-knowledge-discovery-intelligent-search-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 204 — Aipify Knowledge Discovery & Intelligent Search Engine', 'title', 'Aipify Knowledge Discovery & Intelligent Search Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE204_AIPIFY_KNOWLEDGE_DISCOVERY_INTELLIGENT_SEARCH_ENGINE.md', 'engine_phase', 'Repo Phase 204', 'route', '/app/aipify-knowledge-discovery-intelligent-search-engine'),
     'distinction_note', public._akdisebp204_distinction_note(), 'mission', public._akdisebp204_mission(), 'philosophy', public._akdisebp204_philosophy(),
     'abos_principle', public._akdisebp204_abos_principle(), 'vision', public._akdisebp204_vision(), 'objectives', public._akdisebp204_objectives(),
     'knowledge_result_center', public._akdisebp204_knowledge_result_center(), 'search_reflection_engine', public._akdisebp204_search_reflection_engine(),

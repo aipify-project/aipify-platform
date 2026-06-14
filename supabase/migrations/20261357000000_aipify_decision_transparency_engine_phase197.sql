@@ -225,7 +225,7 @@ create table if not exists public.aipify_decision_transparency_audit_logs (
 alter table public.aipify_decision_transparency_audit_logs enable row level security;
 revoke all on public.aipify_decision_transparency_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_decision_transparency_engine', v.description
 from (values
   ('aipify_decision_transparency.view', 'View Decision Explanation Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -449,7 +449,7 @@ end; $$;
 
 create or replace function public._adtebp197_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 197 — Aipify Decision Transparency Engine', 'title', 'Aipify Decision Transparency Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE197_AIPIFY_DECISION_TRANSPARENCY_ENGINE.md', 'engine_phase', 'Repo Phase 197', 'route', '/app/aipify-decision-transparency-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 197 — Aipify Decision Transparency Engine', 'title', 'Aipify Decision Transparency Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE197_AIPIFY_DECISION_TRANSPARENCY_ENGINE.md', 'engine_phase', 'Repo Phase 197', 'route', '/app/aipify-decision-transparency-engine'),
     'distinction_note', public._adtebp197_distinction_note(), 'mission', public._adtebp197_mission(), 'philosophy', public._adtebp197_philosophy(),
     'abos_principle', public._adtebp197_abos_principle(), 'vision', public._adtebp197_vision(), 'objectives', public._adtebp197_objectives(),
     'decision_explanation_center', public._adtebp197_decision_explanation_center(), 'transparency_reflection_engine', public._adtebp197_transparency_reflection_engine(),

@@ -171,7 +171,7 @@ revoke all on public.identity_mfa_methods from authenticated, anon;
 -- 8. Seed permission catalog
 -- ---------------------------------------------------------------------------
 insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
-select v.key, v.name, v.module, v.desc
+select v.key, v.name, v.module, v.item_description
 from (values
   ('users.view', 'View Users', 'admin_assistant', 'View organization users'),
   ('users.create', 'Invite Users', 'admin_assistant', 'Invite new organization users'),
@@ -191,7 +191,7 @@ from (values
   ('ai.approve', 'Approve AI Actions', 'admin_assistant', 'Approve AI-suggested actions'),
   ('ai.reject', 'Reject AI Actions', 'admin_assistant', 'Reject AI-suggested actions'),
   ('settings.manage', 'Manage Settings', 'admin_assistant', 'Manage organization settings')
-) as v(key, name, module, desc)
+) as v(key, name, module, item_description)
 where not exists (select 1 from public.aipify_permissions p where p.permission_key = v.key);
 
 -- ---------------------------------------------------------------------------

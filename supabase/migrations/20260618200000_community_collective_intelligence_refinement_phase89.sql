@@ -105,7 +105,7 @@ begin
     anonymized_title, anonymized_description, anonymization_verified,
     source_module, status, published_at
   )
-  select p_tenant_id, v.cat, v.type, v.title, v.desc, v.title, v.desc, true,
+  select p_tenant_id, v.cat, v.type, v.title, v.item_description, v.title, v.item_description, true,
     'community_intelligence', 'published', now()
   from (values
     ('knowledge', 'knowledge_article', 'Structured FAQ maintenance reduces support volume',
@@ -118,7 +118,7 @@ begin
      'Organizations applying vertical Blueprints report faster configuration and fewer governance escalations during rollout.'),
     ('operational', 'operational_lesson', 'Crisis playbooks reduce recovery time',
      'Documented continuity approaches help teams respond to external dependency disruptions with clearer ownership.')
-  ) as v(cat, type, title, desc)
+  ) as v(cat, type, title, item_description)
   where not exists (
     select 1 from public.community_contributions cc
     where cc.tenant_id = p_tenant_id and cc.title = v.title and cc.status = 'published'

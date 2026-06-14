@@ -745,6 +745,11 @@ begin
   perform public._dein_log_audit(v_tenant_id, 'executive_reflection_recorded', trim(p_title),
     jsonb_build_object('reflection_key', v_key, 'reflection_type', p_reflection_type));
 
+  return jsonb_build_object(
+    'success', true,
+    'reflection_id', v_id,
+    'reflection_key', v_key,
+    'status', 'active',
     'companion_limitation', 'Wisdom Companion does NOT replace executive accountability.',
     'privacy_note', public._iwdhbp153_privacy_note()
   );

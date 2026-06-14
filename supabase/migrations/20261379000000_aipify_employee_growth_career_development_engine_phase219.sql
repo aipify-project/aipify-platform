@@ -234,7 +234,7 @@ create table if not exists public.aipify_employee_growth_career_development_audi
 alter table public.aipify_employee_growth_career_development_audit_logs enable row level security;
 revoke all on public.aipify_employee_growth_career_development_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_employee_growth_career_development_engine', v.description
 from (values
   ('aipify_employee_growth_career_development.view', 'View Career Development Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -461,7 +461,7 @@ end; $$;
 
 create or replace function public._aegcdebp219_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 219 — Aipify Employee Growth & Career Development Engine', 'title', 'Aipify Employee Growth & Career Development Engine (Career Development Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE219_AIPIFY_EMPLOYEE_GROWTH_CAREER_DEVELOPMENT_ENGINE.md', 'engine_phase', 'Repo Phase 219', 'route', '/app/aipify-employee-growth-career-development-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 219 — Aipify Employee Growth & Career Development Engine', 'title', 'Aipify Employee Growth & Career Development Engine (Career Development Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE219_AIPIFY_EMPLOYEE_GROWTH_CAREER_DEVELOPMENT_ENGINE.md', 'engine_phase', 'Repo Phase 219', 'route', '/app/aipify-employee-growth-career-development-engine'),
     'distinction_note', public._aegcdebp219_distinction_note(), 'mission', public._aegcdebp219_mission(), 'philosophy', public._aegcdebp219_philosophy(),
     'abos_principle', public._aegcdebp219_abos_principle(), 'vision', public._aegcdebp219_vision(), 'objectives', public._aegcdebp219_objectives(),
     'career_dashboard', public._aegcdebp219_career_dashboard(), 'individual_development_plans', public._aegcdebp219_individual_development_plans(),

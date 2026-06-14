@@ -285,13 +285,13 @@ begin
     tenant_id, relationship_name, category, description,
     strategic_importance, dependency_level, value_contribution, source_module
   )
-  select p_tenant_id, v.name, 'technology_providers', v.desc,
+  select p_tenant_id, v.name, 'technology_providers', v.rel_description,
     v.importance, v.dependency, v.value, 'ecosystem_intelligence'
   from (values
     ('Cloud Infrastructure', 'Primary hosting and compute platform.', 'critical', 'critical', 'Core platform availability'),
     ('Email & Communication', 'External email and messaging services.', 'high', 'significant', 'Customer and team communication'),
     ('Payment Processing', 'Payment gateway for subscriptions and billing.', 'high', 'significant', 'Revenue collection')
-  ) as v(name, desc, importance, dependency, value)
+  ) as v(name, rel_description, importance, dependency, value)
   where not exists (
     select 1 from public.ecosystem_relationships er
     where er.tenant_id = p_tenant_id and er.relationship_name = v.name

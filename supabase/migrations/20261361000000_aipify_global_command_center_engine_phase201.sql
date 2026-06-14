@@ -226,7 +226,7 @@ create table if not exists public.aipify_global_command_center_audit_logs (
 alter table public.aipify_global_command_center_audit_logs enable row level security;
 revoke all on public.aipify_global_command_center_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_global_command_center_engine', v.description
 from (values
   ('aipify_global_command_center.view', 'View Global Command Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -466,7 +466,7 @@ end; $$;
 
 create or replace function public._agccebp201_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 201 — Aipify Global Command Center Engine', 'title', 'Aipify Global Command Center Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE201_AIPIFY_GLOBAL_COMMAND_CENTER_ENGINE.md', 'engine_phase', 'Repo Phase 201', 'route', '/app/aipify-global-command-center-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 201 — Aipify Global Command Center Engine', 'title', 'Aipify Global Command Center Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE201_AIPIFY_GLOBAL_COMMAND_CENTER_ENGINE.md', 'engine_phase', 'Repo Phase 201', 'route', '/app/aipify-global-command-center-engine'),
     'distinction_note', public._agccebp201_distinction_note(), 'mission', public._agccebp201_mission(), 'philosophy', public._agccebp201_philosophy(),
     'abos_principle', public._agccebp201_abos_principle(), 'vision', public._agccebp201_vision(), 'objectives', public._agccebp201_objectives(),
     'global_command_center_dashboard', public._agccebp201_global_command_center_dashboard(), 'command_reflection_engine', public._agccebp201_command_reflection_engine(),

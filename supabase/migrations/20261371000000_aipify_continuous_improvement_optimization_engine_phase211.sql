@@ -234,7 +234,7 @@ create table if not exists public.aipify_continuous_improvement_optimization_aud
 alter table public.aipify_continuous_improvement_optimization_audit_logs enable row level security;
 revoke all on public.aipify_continuous_improvement_optimization_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_continuous_improvement_optimization_engine', v.description
 from (values
   ('aipify_continuous_improvement_optimization.view', 'View Improvement Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -462,7 +462,7 @@ end; $$;
 
 create or replace function public._acioebp211_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 211 — Aipify Continuous Improvement & Optimization Engine', 'title', 'Aipify Continuous Improvement & Optimization Engine (Operational Excellence Opener)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE211_AIPIFY_CONTINUOUS_IMPROVEMENT_OPTIMIZATION_ENGINE.md', 'engine_phase', 'Repo Phase 211', 'route', '/app/aipify-continuous-improvement-optimization-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 211 — Aipify Continuous Improvement & Optimization Engine', 'title', 'Aipify Continuous Improvement & Optimization Engine (Operational Excellence Opener)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE211_AIPIFY_CONTINUOUS_IMPROVEMENT_OPTIMIZATION_ENGINE.md', 'engine_phase', 'Repo Phase 211', 'route', '/app/aipify-continuous-improvement-optimization-engine'),
     'distinction_note', public._acioebp211_distinction_note(), 'mission', public._acioebp211_mission(), 'philosophy', public._acioebp211_philosophy(),
     'abos_principle', public._acioebp211_abos_principle(), 'vision', public._acioebp211_vision(), 'objectives', public._acioebp211_objectives(),
     'improvement_dashboard', public._acioebp211_improvement_dashboard(), 'opportunity_detection_engine', public._acioebp211_opportunity_detection_engine(),

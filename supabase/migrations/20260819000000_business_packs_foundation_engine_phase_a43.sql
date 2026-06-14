@@ -109,7 +109,7 @@ revoke all on public.business_pack_activation_log from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 4. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'business_packs', v.description
 from (values
   ('business_packs.view', 'View Business Packs', 'View business pack catalog and activation status'),
@@ -369,7 +369,7 @@ begin
   end if;
 
   insert into public.business_packs (pack_key, pack_name, industry, description, status, version, is_future, components)
-  select v.key, v.name, v.industry, v.desc, v.status, v.version, v.future, v.components::jsonb
+  select v.key, v.name, v.industry, v.item_description, v.status, v.version, v.future, v.components::jsonb
   from (values
     (
       'general_business', 'General Business', 'general',
@@ -437,7 +437,7 @@ begin
       'archived', '0.1.0', true,
       '{"modules":[],"workflows":[],"kc_templates":[],"dashboard_layout":{},"notifications":[],"governance":{}}'
     )
-  ) as v(key, name, industry, desc, status, version, future, components)
+  ) as v(key, name, industry, item_description, status, version, future, components)
   on conflict (pack_key) do update set
     pack_name = excluded.pack_name,
     industry = excluded.industry,

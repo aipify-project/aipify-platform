@@ -250,7 +250,7 @@ revoke all on public.civilizational_memory_audit_logs from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'civilizational_memory_engine', v.description
 from (values
   ('civilizational_memory.view', 'View Civilizational Memory Center', 'View knowledge archives, wisdom libraries, and institutional memory dashboards'),

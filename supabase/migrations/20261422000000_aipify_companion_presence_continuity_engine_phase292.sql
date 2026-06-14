@@ -292,7 +292,7 @@ revoke all on public.aipify_presence_continuity_audit_logs from authenticated, a
 -- ---------------------------------------------------------------------------
 -- 2. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_companion_presence_continuity_engine', v.description
 from (values
   (

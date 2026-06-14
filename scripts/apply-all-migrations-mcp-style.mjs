@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Apply all pending migrations via Supabase Management API (same endpoint as MCP apply_migration).
- * Handles already-exists errors by baselining schema_migrations via execute_sql equivalent.
+ * Apply pending migrations via Supabase Management API (database/query + schema_migrations).
+ * Uses filename version keys to avoid MCP timestamp collisions.
  *
  * Usage: node scripts/apply-all-migrations-mcp-style.mjs [--start-index N]
  */
@@ -15,7 +15,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
 const PROJECT_REF = "qbcqoixhrvhnuwphefvw";
 const PENDING = "/tmp/aipify-pending-migrations.json";
-const MIGRATIONS_DIR = path.join(ROOT, "supabase", "migrations");
+const MIGRATIONS_DIR = path.join(ROOT, "supabase/migrations");
 const LOG_FILE = "/tmp/aipify-migration-apply-run.log";
 const STATE_FILE = "/tmp/aipify-mcp-apply-state.json";
 
@@ -47,7 +47,7 @@ function loadState() {
   try {
     return JSON.parse(fs.readFileSync(STATE_FILE, "utf8"));
   } catch {
-    return { appliedThisRun: 0, lastIndex: startIndex - 1, lastFile: null, baselined: 0 };
+    return { appliedThisRun: 0, lastIndex: startIndex - 1, lastFile: null };
   }
 }
 
@@ -59,32 +59,40 @@ function isAlreadyExistsError(msg) {
   const lower = msg.toLowerCase();
   return (
     lower.includes("already exists") ||
-    lower.includes("duplicate key") ||
-    lower.includes("relation") && lower.includes("already exists") ||
-    lower.includes("duplicate object")
+    lower.includes("duplicate object") ||
+    (lower.includes("relation") && lower.includes("already exists"))
   );
 }
 
-async function fetchAppliedVersions(token) {
+async function fetchAppliedMigrations(token) {
   const res = await fetch(
     `https://api.supabase.com/v1/projects/${PROJECT_REF}/database/migrations`,
     { headers: { Authorization: `Bearer ${token}` } }
   );
   if (!res.ok) throw new Error(`List migrations failed (${res.status}): ${await res.text()}`);
   const data = await res.json();
-  return new Set((Array.isArray(data) ? data : data.migrations || []).map((m) => m.version));
+  const rows = Array.isArray(data) ? data : data.migrations || [];
+  return {
+    versions: new Set(rows.map((m) => m.version)),
+    names: new Set(rows.map((m) => m.name)),
+    count: rows.length,
+  };
 }
 
-async function applyMigration(token, migration, sql) {
+function escapeSqlLiteral(value) {
+  return value.replace(/'/g, "''");
+}
+
+async function executeQuery(token, query) {
   const res = await fetch(
-    `https://api.supabase.com/v1/projects/${PROJECT_REF}/database/migrations`,
+    `https://api.supabase.com/v1/projects/${PROJECT_REF}/database/query`,
     {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name: migration.name, query: sql }),
+      body: JSON.stringify({ query }),
     }
   );
   const text = await res.text();
@@ -94,27 +102,13 @@ async function applyMigration(token, migration, sql) {
   return text;
 }
 
-async function baselineMigration(token, migration) {
-  const sql = `INSERT INTO supabase_migrations.schema_migrations (version, name) VALUES ('${migration.version}', '${migration.name}') ON CONFLICT (version) DO NOTHING`;
-  const res = await fetch(
-    `https://api.supabase.com/v1/projects/${PROJECT_REF}/database/query`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ query: sql }),
-    }
-  );
-  const text = await res.text();
-  if (!res.ok) {
-    throw new Error(`Baseline failed (${res.status}): ${text}`);
-  }
+async function applyMigration(token, migration, sql) {
+  await executeQuery(token, sql);
+  const recordSql = `INSERT INTO supabase_migrations.schema_migrations (version, name) VALUES ('${escapeSqlLiteral(migration.version)}', '${escapeSqlLiteral(migration.name)}') ON CONFLICT (version) DO NOTHING`;
+  await executeQuery(token, recordSql);
 }
 
 async function main() {
-  fs.writeFileSync(LOG_FILE, "");
   const token = getToken();
   if (!token) {
     log("ERROR: No Supabase access token found.");
@@ -122,18 +116,20 @@ async function main() {
   }
 
   const pending = JSON.parse(fs.readFileSync(PENDING, "utf8"));
-  const appliedRemote = await fetchAppliedVersions(token);
+  const remote = await fetchAppliedMigrations(token);
   const state = loadState();
   const total = pending.length;
 
-  log(`Starting from index ${startIndex}, total migrations: ${total}, remote count: ${appliedRemote.size}`);
+  log(
+    `Starting from index ${startIndex}, total migrations: ${total}, remote count: ${remote.count}`
+  );
 
   for (let i = Math.max(startIndex, state.lastIndex + 1); i < total; i++) {
     const migration = pending[i];
     const n = i + 1;
 
-    if (appliedRemote.has(migration.version)) {
-      if (n % 10 === 0) log(`[${n}/${total}] skipped (already applied) ${migration.file}`);
+    if (remote.versions.has(migration.version) || remote.names.has(migration.name)) {
+      if (n % 20 === 0) log(`[${n}/${total}] skipped (already applied) ${migration.file}`);
       state.lastIndex = i;
       state.lastFile = migration.file;
       saveState(state);
@@ -144,47 +140,53 @@ async function main() {
 
     try {
       await applyMigration(token, migration, sql);
-      appliedRemote.add(migration.version);
+      remote.versions.add(migration.version);
+      remote.names.add(migration.name);
       state.appliedThisRun = (state.appliedThisRun || 0) + 1;
       state.lastIndex = i;
       state.lastFile = migration.file;
+      delete state.failed;
       saveState(state);
 
-      if (n % 10 === 0 || n === total) {
-        const progressLine = `[${n}/${total}] applied ${migration.file}`;
-        log(progressLine);
+      if (n % 5 === 0 || n === total) {
+        log(`[${n}/${total}] applied ${migration.file}`);
       }
     } catch (error) {
       const errMsg = error.message || String(error);
 
       if (isAlreadyExistsError(errMsg)) {
-        log(`[${n}/${total}] baselined (already exists) ${migration.file}`);
+        log(`[${n}/${total}] record-only (objects exist) ${migration.file}`);
         try {
-          await baselineMigration(token, migration);
-          appliedRemote.add(migration.version);
-          state.baselined = (state.baselined || 0) + 1;
+          await executeQuery(
+            token,
+            `INSERT INTO supabase_migrations.schema_migrations (version, name) VALUES ('${escapeSqlLiteral(migration.version)}', '${escapeSqlLiteral(migration.name)}') ON CONFLICT (version) DO NOTHING`
+          );
+          remote.versions.add(migration.version);
+          remote.names.add(migration.name);
           state.lastIndex = i;
           state.lastFile = migration.file;
+          delete state.failed;
           saveState(state);
           continue;
-        } catch (baselineErr) {
-          log(`FAILED baseline [${n}/${total}] ${migration.file}`);
-          log(`ERROR: ${baselineErr.message}`);
+        } catch (recordErr) {
+          log(`FAILED record [${n}/${total}] ${migration.file}`);
+          log(`ERROR: ${recordErr.message}`);
+          state.failed = { index: i, file: migration.file, message: recordErr.message };
+          saveState(state);
           process.exit(1);
         }
       }
 
       log(`FAILED [${n}/${total}] ${migration.file}`);
-      log(`ERROR: ${errMsg}`);
+      log(`ERROR: ${errMsg.slice(0, 1200)}`);
       state.failed = { index: i, file: migration.file, message: errMsg };
       saveState(state);
       process.exit(1);
     }
   }
 
-  log(`Done. Applied ${state.appliedThisRun || 0} migration(s) this run, baselined ${state.baselined || 0}.`);
+  log(`Done. Applied ${state.appliedThisRun || 0} migration(s) this run.`);
   log(`Last successful: ${state.lastFile}`);
-  log(`Final remote count: ${appliedRemote.size}`);
 }
 
 main().catch((e) => {

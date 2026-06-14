@@ -140,7 +140,7 @@ revoke all on public.incident_lessons_learned from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 5. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'incident_response', v.description
 from (values
   ('incidents.view', 'View Incidents', 'View incident records, timeline, and communications'),

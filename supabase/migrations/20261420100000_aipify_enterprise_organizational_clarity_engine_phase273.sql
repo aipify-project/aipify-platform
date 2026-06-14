@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_organizational_clarity_audit
 alter table public.aipify_enterprise_organizational_clarity_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_organizational_clarity_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_organizational_clarity_engine', v.description
 from (values
   ('aipify_enterprise_organizational_clarity.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -382,6 +382,14 @@ create or replace function public._aeoclebp273_communication_clarity_insights() 
     jsonb_build_object('key', 'significant_friction', 'label', 'Significant friction signal state'),
     jsonb_build_object('key', 'critical_confusion', 'label', 'Critical confusion signal state')
   )); $$;
+create or replace function public._aeoclebp273_escalation_path_visibility() returns jsonb language sql immutable as $$
+  select jsonb_build_object('principle', 'Escalation path visibility — confidence and response speed through clear ownership routes.', 'practices', jsonb_build_array(
+    jsonb_build_object('key', 'escalation_routes', 'label', 'Escalation routes documented and visible'),
+    jsonb_build_object('key', 'decision_rights', 'label', 'Decision rights mapped to escalation paths'),
+    jsonb_build_object('key', 'response_expectations', 'label', 'Response time expectations defined'),
+    jsonb_build_object('key', 'leadership_accountability', 'label', 'Aipify improves clarity — leadership establishes accountability'),
+    jsonb_build_object('key', 'advisory_only', 'label', 'Advisory visibility — not prescriptive assignment')
+  )); $$;
 create or replace function public._aeoclebp273_clarity_knowledge_retention() returns jsonb language sql immutable as $$
   select jsonb_build_object('principle', 'Clarity knowledge retention — preserve organizational understanding over time.', 'practices', jsonb_build_array(
     jsonb_build_object('key', 'role_changes', 'label', 'Role changes captured'),
@@ -480,7 +488,7 @@ end; $$;
 
 create or replace function public._aeoclebp273_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 273 — Enterprise Organizational Clarity Engine', 'title', 'Enterprise Organizational Clarity Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE273_AIPIFY_ENTERPRISE_ORGANIZATIONAL_CLARITY.md', 'engine_phase', 'Repo Phase 273', 'route', '/app/aipify-enterprise-organizational-clarity-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 273 — Enterprise Organizational Clarity Engine', 'title', 'Enterprise Organizational Clarity Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE273_AIPIFY_ENTERPRISE_ORGANIZATIONAL_CLARITY.md', 'engine_phase', 'Repo Phase 273', 'route', '/app/aipify-enterprise-organizational-clarity-engine'),
     'distinction_note', public._aeoclebp273_distinction_note(), 'mission', public._aeoclebp273_mission(), 'philosophy', public._aeoclebp273_philosophy(),
     'abos_principle', public._aeoclebp273_abos_principle(), 'vision', public._aeoclebp273_vision(), 'objectives', public._aeoclebp273_objectives(),
     'organizational_clarity_dashboard', public._aeoclebp273_organizational_clarity_dashboard(), 'responsibility_registry', public._aeoclebp273_responsibility_registry(),

@@ -229,7 +229,7 @@ create table if not exists public.aipify_unified_workspace_audit_logs (
 alter table public.aipify_unified_workspace_audit_logs enable row level security;
 revoke all on public.aipify_unified_workspace_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_unified_workspace_engine', v.description
 from (values
   ('aipify_unified_workspace.view', 'View My Workspace Dashboard', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -451,7 +451,7 @@ end; $$;
 
 create or replace function public._auwebp202_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 202 — Aipify Unified Workspace Engine', 'title', 'Aipify Unified Workspace Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE202_AIPIFY_UNIFIED_WORKSPACE_ENGINE.md', 'engine_phase', 'Repo Phase 202', 'route', '/app/aipify-unified-workspace-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 202 — Aipify Unified Workspace Engine', 'title', 'Aipify Unified Workspace Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE202_AIPIFY_UNIFIED_WORKSPACE_ENGINE.md', 'engine_phase', 'Repo Phase 202', 'route', '/app/aipify-unified-workspace-engine'),
     'distinction_note', public._auwebp202_distinction_note(), 'mission', public._auwebp202_mission(), 'philosophy', public._auwebp202_philosophy(),
     'abos_principle', public._auwebp202_abos_principle(), 'vision', public._auwebp202_vision(), 'objectives', public._auwebp202_objectives(),
     'workspace_dashboard', public._auwebp202_workspace_dashboard(), 'workspace_reflection_engine', public._auwebp202_workspace_reflection_engine(),

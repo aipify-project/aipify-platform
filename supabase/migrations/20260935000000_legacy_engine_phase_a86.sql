@@ -135,7 +135,7 @@ revoke all on public.organization_legacy_milestones from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 4. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'legacy_engine', v.description
 from (values
   ('legacy_engine.view', 'View Legacy Engine', 'View legacy dashboard and organizational stories'),

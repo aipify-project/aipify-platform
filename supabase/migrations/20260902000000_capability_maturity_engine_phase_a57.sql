@@ -126,7 +126,7 @@ revoke all on public.capability_maturity_reports from authenticated, anon;
 -- ---------------------------------------------------------------------------
 -- 4. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'capability_maturity', v.description
 from (values
   ('maturity.view', 'View Maturity', 'View capability maturity assessments and roadmaps'),

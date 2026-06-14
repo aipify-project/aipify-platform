@@ -234,7 +234,7 @@ create table if not exists public.aipify_organizational_insights_executive_intel
 alter table public.aipify_organizational_insights_executive_intelligence_audit_logs enable row level security;
 revoke all on public.aipify_organizational_insights_executive_intelligence_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_organizational_insights_executive_intelligence_engine', v.description
 from (values
   ('aipify_organizational_insights_executive_intelligence.view', 'View Executive Intelligence Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -462,7 +462,7 @@ end; $$;
 
 create or replace function public._aoieiebp223_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 223 — Aipify Organizational Insights & Executive Intelligence Engine', 'title', 'Aipify Organizational Insights & Executive Intelligence Engine (Executive Intelligence Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE223_AIPIFY_ORGANIZATIONAL_INSIGHTS_EXECUTIVE_INTELLIGENCE_ENGINE.md', 'engine_phase', 'Repo Phase 223', 'route', '/app/aipify-organizational-insights-executive-intelligence-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 223 — Aipify Organizational Insights & Executive Intelligence Engine', 'title', 'Aipify Organizational Insights & Executive Intelligence Engine (Executive Intelligence Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE223_AIPIFY_ORGANIZATIONAL_INSIGHTS_EXECUTIVE_INTELLIGENCE_ENGINE.md', 'engine_phase', 'Repo Phase 223', 'route', '/app/aipify-organizational-insights-executive-intelligence-engine'),
     'distinction_note', public._aoieiebp223_distinction_note(), 'mission', public._aoieiebp223_mission(), 'philosophy', public._aoieiebp223_philosophy(),
     'abos_principle', public._aoieiebp223_abos_principle(), 'vision', public._aoieiebp223_vision(), 'objectives', public._aoieiebp223_objectives(),
     'executive_intelligence_dashboard', public._aoieiebp223_executive_intelligence_dashboard(), 'trend_analysis_engine', public._aoieiebp223_trend_analysis_engine(),

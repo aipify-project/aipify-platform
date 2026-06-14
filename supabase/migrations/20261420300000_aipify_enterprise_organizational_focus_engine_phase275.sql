@@ -234,7 +234,7 @@ create table if not exists public.aipify_enterprise_organizational_focus_audit_l
 alter table public.aipify_enterprise_organizational_focus_audit_logs enable row level security;
 revoke all on public.aipify_enterprise_organizational_focus_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_enterprise_organizational_focus_engine', v.description
 from (values
   ('aipify_enterprise_organizational_focus.view', 'View Decision Governance Center Center', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -479,7 +479,7 @@ end; $$;
 
 create or replace function public._aeofebp275_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 275 — Enterprise Organizational Focus Engine', 'title', 'Enterprise Organizational Focus Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE275_AIPIFY_ENTERPRISE_ORGANIZATIONAL_FOCUS.md', 'engine_phase', 'Repo Phase 275', 'route', '/app/aipify-enterprise-organizational-focus-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 275 — Enterprise Organizational Focus Engine', 'title', 'Enterprise Organizational Focus Engine (Decision Governance Center Center Era)', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE275_AIPIFY_ENTERPRISE_ORGANIZATIONAL_FOCUS.md', 'engine_phase', 'Repo Phase 275', 'route', '/app/aipify-enterprise-organizational-focus-engine'),
     'distinction_note', public._aeofebp275_distinction_note(), 'mission', public._aeofebp275_mission(), 'philosophy', public._aeofebp275_philosophy(),
     'abos_principle', public._aeofebp275_abos_principle(), 'vision', public._aeofebp275_vision(), 'objectives', public._aeofebp275_objectives(),
     'focus_center_dashboard', public._aeofebp275_focus_center_dashboard(), 'priority_registry', public._aeofebp275_priority_registry(),

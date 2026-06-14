@@ -140,7 +140,7 @@ revoke all on public.stakeholder_communication_outcomes from authenticated, anon
 -- ---------------------------------------------------------------------------
 -- 5. Permissions (communications.* — distinct from notifications.*)
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'stakeholder_communication', v.description
 from (values
   ('communications.view', 'View Communications', 'View stakeholder communication campaigns and delivery status'),

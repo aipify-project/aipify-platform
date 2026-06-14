@@ -230,7 +230,7 @@ create table if not exists public.aipify_action_center_execution_audit_logs (
 alter table public.aipify_action_center_execution_audit_logs enable row level security;
 revoke all on public.aipify_action_center_execution_audit_logs from authenticated, anon;
 
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'aipify_action_center_execution_engine', v.description
 from (values
   ('aipify_action_center_execution.view', 'View Action Center (My Actions Dashboard)', 'View executive reviews, reflections, and metadata scaffolds'),
@@ -460,7 +460,7 @@ end; $$;
 
 create or replace function public._aaceebp205_blueprint_block(p_org_id uuid) returns jsonb language sql stable as $$
   select jsonb_build_object(
-    'implementation_blueprint', jsonb_build_object('phase', 'Phase 205 — Aipify Action Center & Execution Engine', 'title', 'Aipify Action Center & Execution Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE205_AIPIFY_ACTION_CENTER_EXECUTION_ENGINE.md', 'engine_phase', 'Repo Phase 205', 'route', '/app/aipify-action-center-execution-engine',
+    'implementation_blueprint', jsonb_build_object('phase', 'Phase 205 — Aipify Action Center & Execution Engine', 'title', 'Aipify Action Center & Execution Engine', 'doc', 'IMPLEMENTATION_BLUEPRINT_PHASE205_AIPIFY_ACTION_CENTER_EXECUTION_ENGINE.md', 'engine_phase', 'Repo Phase 205', 'route', '/app/aipify-action-center-execution-engine'),
     'distinction_note', public._aaceebp205_distinction_note(), 'mission', public._aaceebp205_mission(), 'philosophy', public._aaceebp205_philosophy(),
     'abos_principle', public._aaceebp205_abos_principle(), 'vision', public._aaceebp205_vision(), 'objectives', public._aaceebp205_objectives(),
     'my_actions_dashboard', public._aaceebp205_my_actions_dashboard(), 'execution_reflection_engine', public._aaceebp205_execution_reflection_engine(),

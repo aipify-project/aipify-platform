@@ -234,7 +234,7 @@ revoke all on public.global_talent_expert_network_audit_logs from authenticated,
 -- ---------------------------------------------------------------------------
 -- 6. Permissions
 -- ---------------------------------------------------------------------------
-insert into public.aipify_permissions (permission_key, label, module_key, description)
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'global_talent_expert_network_engine', v.description
 from (values
   ('global_talent_expert_network.view', 'View Global Talent & Expert Network', 'View expert profiles, discovery metadata, and engagement scaffolds'),
