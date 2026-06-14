@@ -1196,3 +1196,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Steadfastness Center Engine (Phase 343):** See [AIPIFY_ORGANIZATIONAL_STEADFASTNESS_CENTER_ENGINE_PHASE343.md](./AIPIFY_ORGANIZATIONAL_STEADFASTNESS_CENTER_ENGINE_PHASE343.md) — Steadfastness Center at Executive Center → Organizational Steadfastness. Steadfastness dashboard, steadfastness engine, balanced persistence engine, reviews, and executive steadfastness view. `/app/executive/organizational-steadfastness`, migration `20261427100000_aipify_organizational_steadfastness_center_engine_phase343.sql`. Helpers `_osfc_*`, `_osfcbp343_*`. APIs at `/api/organizational-steadfastness/*`. Cross-links compounding and transformation centers.
+
+
+**Aipify Organizational Clarity Center Engine (Phase 344):** See [AIPIFY_ORGANIZATIONAL_CLARITY_CENTER_ENGINE_PHASE344.md](./AIPIFY_ORGANIZATIONAL_CLARITY_CENTER_ENGINE_PHASE344.md) — Clarity Center at Executive Center → Organizational Clarity. Clarity dashboard, clarity engine, expectation alignment engine, reviews, and executive clarity view. `/app/executive/organizational-clarity`, migration `20261427300000_aipify_organizational_clarity_center_engine_phase344.sql`. Helpers `_oclc_*`, `_oclcbp344_*`. APIs at `/api/organizational-clarity/*`. Cross-links steadfastness and compounding centers.

@@ -84,7 +84,8 @@
     "organizationalSustainabilityLink": "Organizational Sustainability",
     "organizationalTransformationLink": "Organizational Transformation",
     "organizationalCompoundingLink": "Organizational Compounding",
-    "organizationalSteadfastnessLink": "Organizational Steadfastness"
+    "organizationalSteadfastnessLink": "Organizational Steadfastness",
+    "organizationalClarityLink": "Organizational Clarity"
   },
   "presence": {
     "title": "Presence center",
@@ -6014,7 +6015,8 @@
     "organizationalSustainabilityCenterEngine": "Organisatorisk bæredygtighed",
     "organizationalTransformationCenterEngine": "Organisatorisk transformation",
     "organizationalCompoundingCenterEngine": "Organisatorisk sammensætning",
-    "organizationalSteadfastnessCenterEngine": "Organisatorisk standhaftighed"
+    "organizationalSteadfastnessCenterEngine": "Organisatorisk standhaftighed",
+    "organizationalClarityCenterEngine": "Organisatorisk klarhed"
   },
   "identity": {
     "title": "Din identitet",
@@ -19179,5 +19181,118 @@
     },
     "settingsLink": "Organisatorisk standhaftighed",
     "organizationalSteadfastnessLink": "Organizational Steadfastness"
+  },
+  "organizationalClarityCenter": {
+    "title": "Organisatorisk klarhed",
+    "subtitle": "Strengthen clarity in communication, priorities, responsibilities, expectations, and decision-making so people can work with greater confidence, alignment, and effectiveness.",
+    "loading": "Loading Clarity Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Clarity philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalSteadfastnessLink": "Organizational Steadfastness →",
+    "dashboardTitle": "Clarity dashboard",
+    "signalsTitle": "Clarity engine",
+    "alignmentTitle": "Expectation alignment engine",
+    "initiativesTitle": "Clarity initiatives",
+    "reviewsTitle": "Clarity reviews",
+    "timelineTitle": "Clarity timeline",
+    "milestonesTitle": "Clarity milestones",
+    "snapshotsTitle": "Clarity snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive clarity view",
+    "sessionsTitle": "Clarity sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleCommunicationReview": "Schedule communication review",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate clarity report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export clarity snapshot",
+    "coordinateReview": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive clarity milestone",
+    "humansDecide": "Aipify supports understanding — leaders retain judgment; clarity makes complexity understandable without eliminating necessary nuance or replacing leadership conversations.",
+    "privacyNote": "Privacy",
+    "clarityScore": "Organizational clarity score",
+    "communicationIndicators": "Communication effectiveness",
+    "domains": {
+      "strategic": "Strategic clarity",
+      "role": "Role clarity",
+      "operational": "Operational clarity",
+      "communication": "Communication clarity",
+      "governance": "Governance clarity",
+      "customer": "Customer clarity"
+    },
+    "signalTypes": {
+      "ambiguous_responsibility": "Ambiguous responsibility",
+      "conflicting_priority": "Conflicting priority",
+      "communication_gap": "Communication gap",
+      "unclear_process": "Unclear process",
+      "decision_confusion": "Decision confusion"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "alignmentTypes": {
+      "responsibility_clarity": "Responsibility clarity",
+      "priority_communication": "Priority communication",
+      "realistic_expectations": "Realistic expectations",
+      "decision_transparency": "Decision transparency",
+      "additional_clarification": "Additional clarification"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "clarity_improvement_recommended": "Clarity improvement recommended"
+    },
+    "timelineTypes": {
+      "communication_milestone": "Communication milestone",
+      "governance_improvement": "Governance improvement",
+      "priority_clarification": "Priority clarification",
+      "leadership_reflection": "Leadership reflection",
+      "role_definition_update": "Role definition update"
+    },
+    "reviewTypes": {
+      "monthly_clarity": "Monthly clarity review",
+      "quarterly_leadership": "Quarterly leadership discussion",
+      "communication_assessment": "Communication assessment",
+      "annual_organizational_reflection": "Annual organizational reflection"
+    },
+    "sessionTypes": {
+      "communication_review": "Communication review",
+      "leadership_discussion": "Leadership discussion",
+      "organizational_reflection": "Organizational reflection"
+    },
+    "metrics": {
+      "communicationConsistency": "Communication consistency",
+      "responsibilityAwareness": "Responsibility awareness",
+      "priorityUnderstanding": "Priority understanding",
+      "governanceTransparency": "Governance transparency",
+      "expectationAlignment": "Expectation alignment",
+      "roleUnderstanding": "Role understanding",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "communicationEffectiveness": "Communication effectiveness indicators",
+      "strategicUnderstanding": "Strategic understanding trends",
+      "responsibilityTransparency": "Responsibility transparency measures",
+      "clarityOpportunities": "Clarity improvement opportunities"
+    },
+    "settingsLink": "Organisatorisk klarhed",
+    "organizationalClarityLink": "Organizational Clarity"
   }
 }
