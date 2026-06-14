@@ -1,0 +1,159 @@
+{
+  "shell": {
+    "title": "Super Admin Control Center",
+    "subtitle": "Operational headquarters — Aipify Group AS",
+    "organization": "Aipify Group AS"
+  },
+  "access": {
+    "denied": "Super Admin access is restricted to platform owners.",
+    "supportRedirect": "Platform Support cannot access Super Admin. Use the Platform Admin workspace instead.",
+    "recoveryRequired": "Super Admin requires two-factor authentication and recovery codes before entry."
+  },
+  "warning": {
+    "title": "Warning",
+    "body": "You are accessing Aipify Super Admin. Actions performed here may affect multiple organizations. Proceed carefully.",
+    "proceed": "Proceed carefully"
+  },
+  "controlCenter": {
+    "loading": "Loading control center…",
+    "loadError": "Unable to load Super Admin Control Center.",
+    "welcome": "Welcome back, {name}.",
+    "globalPlatformHealth": "Global Platform Health",
+    "organizations": "Organizations",
+    "organizationsActive": "{count} Active",
+    "growthPartnerApplications": "Growth Partner Applications",
+    "growthPartnerPending": "{count} Pending",
+    "marketplaceReviews": "Marketplace Reviews",
+    "marketplaceAwaiting": "{count} Awaiting Approval",
+    "criticalIncidents": "Critical Incidents",
+    "criticalIncidentsNone": "None",
+    "criticalIncidentsCount": "{count} Active",
+    "privacyNote": "Aggregate platform operations only — no customer business content.",
+    "sectionsTitle": "Control Sections",
+    "openModule": "Open module"
+  },
+  "sections": {
+    "platformOperations": {
+      "title": "Platform Operations",
+      "purpose": "Operate the Aipify platform."
+    },
+    "tenantManagement": {
+      "title": "Tenant Management",
+      "purpose": "Manage organizations."
+    },
+    "commercialOperations": {
+      "title": "Commercial Operations",
+      "purpose": "Manage global revenue operations."
+    },
+    "growthPartners": {
+      "title": "Growth Partners",
+      "purpose": "Operate the partner ecosystem."
+    },
+    "marketplaceGovernance": {
+      "title": "Marketplace Governance",
+      "purpose": "Protect marketplace quality."
+    },
+    "globalGovernance": {
+      "title": "Global Governance",
+      "purpose": "Protect the platform."
+    },
+    "globalKnowledge": {
+      "title": "Global Knowledge",
+      "purpose": "Improve Aipify."
+    },
+    "internalSupport": {
+      "title": "Internal Support",
+      "purpose": "Operate customer success."
+    }
+  },
+  "modules": {
+    "platformHealth": "Platform Health",
+    "platformHealthDescription": "Monitor core service health and operational readiness.",
+    "serviceStatus": "Service Status",
+    "serviceStatusDescription": "Review live service availability and dependency status.",
+    "incidentCenter": "Incident Center",
+    "incidentCenterDescription": "Track and coordinate platform incidents.",
+    "featureFlags": "Feature Flags",
+    "featureFlagsDescription": "Govern rollout flags and controlled exposure.",
+    "releaseManagement": "Release Management",
+    "releaseManagementDescription": "Plan, approve, and coordinate platform releases.",
+    "maintenanceScheduling": "Maintenance Scheduling",
+    "maintenanceSchedulingDescription": "Schedule maintenance windows with customer notice.",
+    "organizations": "Organizations",
+    "organizationsDescription": "View and manage customer organizations.",
+    "workspaceLifecycle": "Workspace Lifecycle",
+    "workspaceLifecycleDescription": "Oversee provisioning, activation, and retirement.",
+    "provisioning": "Provisioning",
+    "provisioningDescription": "Manage installation and workspace provisioning.",
+    "trialConversions": "Trial Conversions",
+    "trialConversionsDescription": "Monitor trial performance and conversion paths.",
+    "suspensions": "Suspensions",
+    "suspensionsDescription": "Review and action suspended workspaces.",
+    "recoveryActions": "Recovery Actions",
+    "recoveryActionsDescription": "Execute controlled recovery for affected tenants.",
+    "billingOverview": "Billing Overview",
+    "billingOverviewDescription": "Global billing posture and payment health.",
+    "subscriptionMonitoring": "Subscription Monitoring",
+    "subscriptionMonitoringDescription": "Track subscription state across the platform.",
+    "revenueAnalytics": "Revenue Analytics",
+    "revenueAnalyticsDescription": "Review aggregate revenue and growth signals.",
+    "enterpriseContracts": "Enterprise Contracts",
+    "enterpriseContractsDescription": "Manage enterprise contract oversight.",
+    "trialPerformance": "Trial Performance",
+    "trialPerformanceDescription": "Measure trial cohort outcomes and trends.",
+    "upgradeTracking": "Upgrade Tracking",
+    "upgradeTrackingDescription": "Follow upgrade momentum and expansion signals.",
+    "applications": "Applications",
+    "applicationsDescription": "Review Growth Partner application queue.",
+    "certifications": "Certifications",
+    "certificationsDescription": "Manage partner certification status.",
+    "partnerPerformance": "Partner Performance",
+    "partnerPerformanceDescription": "Monitor partner contribution and quality.",
+    "commissions": "Commissions",
+    "commissionsDescription": "Review commission calculations and exceptions.",
+    "payoutReviews": "Payout Reviews",
+    "payoutReviewsDescription": "Approve partner payout batches.",
+    "partnerSupport": "Partner Support",
+    "partnerSupportDescription": "Handle partner escalations and operations.",
+    "submissionQueue": "Submission Queue",
+    "submissionQueueDescription": "Review marketplace skill submissions.",
+    "approvalCenter": "Approval Center",
+    "approvalCenterDescription": "Govern marketplace and action approvals.",
+    "moderationActions": "Moderation Actions",
+    "moderationActionsDescription": "Apply moderation decisions with audit.",
+    "qualityReviews": "Quality Reviews",
+    "qualityReviewsDescription": "Assess marketplace listing quality.",
+    "marketplacePolicies": "Marketplace Policies",
+    "marketplacePoliciesDescription": "Maintain marketplace policy standards.",
+    "globalAuditLogs": "Global Audit Logs",
+    "globalAuditLogsDescription": "Inspect platform-wide audit trails.",
+    "abuseDetection": "Abuse Detection",
+    "abuseDetectionDescription": "Monitor abuse signals and response posture.",
+    "complianceCenter": "Compliance Center",
+    "complianceCenterDescription": "Oversee compliance controls and disclosures.",
+    "emergencyControls": "Emergency Controls",
+    "emergencyControlsDescription": "Execute emergency platform controls.",
+    "platformRiskReview": "Platform Risk Review",
+    "platformRiskReviewDescription": "Review platform risk posture and mitigations.",
+    "globalKnowledgeBase": "Global Knowledge Base",
+    "globalKnowledgeBaseDescription": "Curate internal platform knowledge.",
+    "learningNetwork": "Learning Network",
+    "learningNetworkDescription": "Govern global learning review workflows.",
+    "platformInsights": "Platform Insights",
+    "platformInsightsDescription": "Review aggregate operational insights.",
+    "knowledgeExpansion": "Knowledge Expansion",
+    "knowledgeExpansionDescription": "Expand approved global knowledge patterns.",
+    "contentGovernance": "Content Governance",
+    "contentGovernanceDescription": "Govern platform knowledge content standards.",
+    "escalationQueue": "Escalation Queue",
+    "escalationQueueDescription": "Manage internal support escalations.",
+    "enterpriseCases": "Enterprise Cases",
+    "enterpriseCasesDescription": "Track enterprise customer success cases.",
+    "internalNotes": "Internal Notes",
+    "internalNotesDescription": "Review internal support coordination notes.",
+    "supportIntelligence": "Support Intelligence",
+    "supportIntelligenceDescription": "Analyze support intelligence signals.",
+    "serviceReviews": "Service Reviews",
+    "serviceReviewsDescription": "Conduct service quality and impact reviews."
+  }
+}

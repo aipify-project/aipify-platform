@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { isSuperAdminHost, superAdminLoginRedirectPath } from "@/lib/super-admin/host";
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
@@ -33,12 +34,14 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const pathname = request.nextUrl.pathname;
+  const host = request.headers.get("host");
 
   if (
     !user &&
     (pathname.startsWith("/dashboard") ||
       pathname.startsWith("/app") ||
-      pathname.startsWith("/platform"))
+      pathname.startsWith("/platform") ||
+      pathname.startsWith("/super"))
   ) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
@@ -49,12 +52,24 @@ export async function updateSession(request: NextRequest) {
   if (user && (pathname === "/login" || pathname === "/register")) {
     const { data: platformAdmin } = await supabase
       .from("platform_admins")
-      .select("id")
+      .select("role")
       .maybeSingle();
 
+    const next = request.nextUrl.searchParams.get("next");
     const redirectUrl = request.nextUrl.clone();
-    redirectUrl.pathname = platformAdmin ? "/platform" : "/app";
+    if (next?.startsWith("/") && !next.startsWith("//")) {
+      redirectUrl.pathname = next;
+      redirectUrl.search = "";
+    } else {
+      redirectUrl.pathname = superAdminLoginRedirectPath(host, platformAdmin?.role ?? null);
+    }
     return NextResponse.redirect(redirectUrl);
+  }
+
+  if (isSuperAdminHost(host) && (pathname === "/" || pathname === "")) {
+    const rewriteUrl = request.nextUrl.clone();
+    rewriteUrl.pathname = "/super";
+    return NextResponse.rewrite(rewriteUrl);
   }
 
   return supabaseResponse;

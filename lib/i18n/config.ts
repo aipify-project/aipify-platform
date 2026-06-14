@@ -28,6 +28,7 @@ export const NAMESPACES = [
   "license",
   "customerApp",
   "marketing",
+  "superAdmin",
 ] as const;
 
 export type Namespace = (typeof NAMESPACES)[number];
