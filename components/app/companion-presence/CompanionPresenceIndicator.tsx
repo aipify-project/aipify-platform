@@ -3,16 +3,16 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
+  POLL_INTERVAL_PRESENCE_OPEN_MS,
+  dedupeFetch,
+  usePollingTask,
+} from "@/lib/polling";
+import {
   COMPANION_STATE_ANIMATION,
   type CompanionPresenceBundle,
   type CompanionPresenceState,
   resolveCompanionDeviceId,
 } from "@/lib/presence/companion-presence";
-import {
-  COMPANION_HEARTBEAT_INTERVAL_COLLAPSED_MS,
-  COMPANION_HEARTBEAT_INTERVAL_MS,
-} from "@/lib/presence/polling-config";
-import { useVisibilityAwareInterval } from "@/lib/polling/visibility-aware-interval";
 
 export type CompanionPresenceLabels = {
   ariaIndicator: string;
@@ -64,26 +64,40 @@ export default function CompanionPresenceIndicator({
   const stateLabel = labels.states[state];
 
   const loadBundle = useCallback(async () => {
-    const res = await fetch("/api/presence/companion/state");
-    if (res.ok) {
-      const data = (await res.json()) as CompanionPresenceBundle;
-      setBundle(data);
-      setCollapsed(data.user_preferences?.indicator_collapsed ?? false);
+    try {
+      await dedupeFetch("companion-presence-state", async () => {
+        const res = await fetch("/api/presence/companion/state");
+        if (res.ok) {
+          const data = (await res.json()) as CompanionPresenceBundle;
+          setBundle(data);
+          setCollapsed(data.user_preferences?.indicator_collapsed ?? false);
+        }
+        return res.ok;
+      });
+      return true;
+    } catch {
+      return false;
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   const sendHeartbeat = useCallback(async () => {
-    await fetch("/api/presence/companion/heartbeat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        device_id: resolveCompanionDeviceId(),
-        connection_status: "online",
-        metadata: { surface: "customer_app" },
-      }),
-    });
-    await loadBundle();
+    try {
+      const res = await fetch("/api/presence/companion/heartbeat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          device_id: resolveCompanionDeviceId(),
+          connection_status: "online",
+          metadata: { surface: "customer_app" },
+        }),
+      });
+      if (!res.ok) return false;
+      return loadBundle();
+    } catch {
+      return false;
+    }
   }, [loadBundle]);
 
   useEffect(() => {
@@ -94,30 +108,25 @@ export default function CompanionPresenceIndicator({
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  const pollingEnabled = Boolean(
-    bundle?.has_organization && bundle.indicator_enabled !== false
-  );
-
-  const heartbeatIntervalMs = Math.max(
-    collapsed || !panelOpen
-      ? COMPANION_HEARTBEAT_INTERVAL_COLLAPSED_MS
-      : COMPANION_HEARTBEAT_INTERVAL_MS,
-    (bundle?.heartbeat_interval_seconds ?? 90) * 1000
+  const detailPollingEnabled = Boolean(
+    bundle?.has_organization &&
+      bundle.indicator_enabled !== false &&
+      panelOpen &&
+      !collapsed
   );
 
   useEffect(() => {
     void loadBundle();
   }, [loadBundle]);
 
-  useVisibilityAwareInterval(
-    () => sendHeartbeat(),
-    heartbeatIntervalMs,
-    {
-      enabled: pollingEnabled,
-      runImmediately: pollingEnabled,
-      refreshOnVisible: true,
-    }
-  );
+  usePollingTask({
+    taskKey: "companion-presence",
+    intervalMs: detailPollingEnabled ? POLL_INTERVAL_PRESENCE_OPEN_MS : 0,
+    enabled: detailPollingEnabled,
+    runImmediately: false,
+    refreshOnVisible: true,
+    execute: sendHeartbeat,
+  });
 
   const counts = bundle?.counts;
   const since = bundle?.since_last_login as Record<string, unknown> | undefined;
@@ -279,7 +288,11 @@ export default function CompanionPresenceIndicator({
             if (collapsed) {
               void toggleCollapsed(false);
             } else {
-              setPanelOpen((open) => !open);
+              const nextOpen = !panelOpen;
+              setPanelOpen(nextOpen);
+              if (nextOpen) {
+                void loadBundle();
+              }
             }
           }}
         >

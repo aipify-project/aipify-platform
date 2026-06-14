@@ -6,10 +6,21 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
+import { usePathname } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import {
+  allowsPresenceBriefingFetch,
+  allowsPresenceSummaryPolling,
+  dedupeFetch,
+  isExecutiveRoute,
+  isSettingsRoute,
+  POLL_INTERVAL_PRESENCE_OPEN_MS,
+  usePollingTask,
+} from "@/lib/polling";
 import { parseDailyBriefing } from "@/lib/presence/daily-briefing";
 import {
   getEmptyPresenceBundle,
@@ -21,11 +32,6 @@ import {
 } from "@/lib/presence/presence-engine";
 import DailyBriefingBanner from "./DailyBriefingBanner";
 import PresenceCenterPanel from "./PresenceCenterPanel";
-import { useVisibilityAwareInterval } from "@/lib/polling/visibility-aware-interval";
-import {
-  PRESENCE_POLL_INTERVAL_CLOSED_MS,
-  PRESENCE_POLL_INTERVAL_OPEN_MS,
-} from "@/lib/presence/polling-config";
 
 export type PresenceLabels = {
   indicatorTitle: string;
@@ -177,63 +183,104 @@ type PresenceProviderProps = {
 };
 
 export function PresenceProvider({ surface, labels, locale, children }: PresenceProviderProps) {
+  const pathname = usePathname();
   const [bundle, setBundle] = useState<PresenceCenterBundle>(getEmptyPresenceBundle());
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
 
   const refresh = useCallback(
     async (options?: { includeBriefing?: boolean }) => {
-      const supabase = createClient();
-      const includeBriefing = options?.includeBriefing ?? false;
+      const includeBriefing =
+        options?.includeBriefing ?? allowsPresenceBriefingFetch(pathname, open);
 
-      const bundleResult = await supabase.rpc("get_presence_center_bundle", {
-        p_surface: surface,
-      });
+      try {
+        await dedupeFetch(`presence-bundle:${surface}`, async () => {
+          const supabase = createClient();
 
-      let briefingResult: { data: unknown; error: unknown } | null = null;
-      if (includeBriefing) {
-        briefingResult = await supabase.rpc("get_daily_briefing", {
-          p_surface: surface,
-          p_locale: locale,
+          const bundleResult = await supabase.rpc("get_presence_center_bundle", {
+            p_surface: surface,
+          });
+
+          let briefingResult: { data: unknown; error: unknown } | null = null;
+          if (includeBriefing) {
+            briefingResult = await supabase.rpc("get_daily_briefing", {
+              p_surface: surface,
+              p_locale: locale,
+            });
+          }
+
+          if (!bundleResult.error && bundleResult.data) {
+            const parsed = parsePresenceCenterBundle(bundleResult.data);
+            const dailyBriefing =
+              briefingResult && !briefingResult.error
+                ? parseDailyBriefing(briefingResult.data)
+                : null;
+            if (dailyBriefing) {
+              parsed.settings = {
+                ...parsed.settings,
+                briefing_morning_enabled: dailyBriefing.preferences.morning,
+                briefing_evening_enabled: dailyBriefing.preferences.evening,
+                briefing_weekend_enabled: dailyBriefing.preferences.weekend,
+                briefing_positive_enabled: dailyBriefing.preferences.positive,
+                briefing_attention_enabled: dailyBriefing.preferences.attention,
+                briefing_critical_enabled: dailyBriefing.preferences.critical,
+              };
+            }
+            setBundle((current) => ({
+              ...parsed,
+              daily_briefing: dailyBriefing ?? current.daily_briefing,
+            }));
+          }
+          return true;
         });
+        return;
+      } catch {
+        // Deduped or failed fetch — surface handled via backoff on polling hook.
+      } finally {
+        setLoading(false);
       }
-
-      if (!bundleResult.error && bundleResult.data) {
-        const parsed = parsePresenceCenterBundle(bundleResult.data);
-        const dailyBriefing =
-          briefingResult && !briefingResult.error
-            ? parseDailyBriefing(briefingResult.data)
-            : null;
-        if (dailyBriefing) {
-          parsed.settings = {
-            ...parsed.settings,
-            briefing_morning_enabled: dailyBriefing.preferences.morning,
-            briefing_evening_enabled: dailyBriefing.preferences.evening,
-            briefing_weekend_enabled: dailyBriefing.preferences.weekend,
-            briefing_positive_enabled: dailyBriefing.preferences.positive,
-            briefing_attention_enabled: dailyBriefing.preferences.attention,
-            briefing_critical_enabled: dailyBriefing.preferences.critical,
-          };
-        }
-        setBundle((current) => ({
-          ...parsed,
-          daily_briefing: dailyBriefing ?? current.daily_briefing,
-        }));
-      }
-      setLoading(false);
     },
-    [surface, locale]
+    [open, pathname, surface, locale]
   );
+
+  const wasExecutiveRef = useRef(isExecutiveRoute(pathname));
 
   useEffect(() => {
-    void refresh({ includeBriefing: true });
-  }, [refresh]);
+    void refresh({
+      includeBriefing:
+        isExecutiveRoute(pathname) && !isSettingsRoute(pathname),
+    });
+    // Initial bundle only — avoid refetching on every route change.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [surface, locale]);
 
-  useVisibilityAwareInterval(
-    () => refresh({ includeBriefing: open }),
-    open ? PRESENCE_POLL_INTERVAL_OPEN_MS : PRESENCE_POLL_INTERVAL_CLOSED_MS,
-    { enabled: true, runImmediately: false, refreshOnVisible: true }
+  useEffect(() => {
+    const onExecutive =
+      isExecutiveRoute(pathname) && !isSettingsRoute(pathname);
+    if (onExecutive && !wasExecutiveRef.current) {
+      void refresh({ includeBriefing: true });
+    }
+    wasExecutiveRef.current = onExecutive;
+  }, [pathname, refresh]);
+
+  const pollingEnabled = allowsPresenceSummaryPolling(
+    pathname,
+    bundle.settings.presence_visible
   );
+
+  usePollingTask({
+    taskKey: `presence:${surface}`,
+    intervalMs: pollingEnabled ? POLL_INTERVAL_PRESENCE_OPEN_MS : 0,
+    enabled: pollingEnabled,
+    runImmediately: false,
+    refreshOnVisible: true,
+    execute: async () => {
+      await refresh({
+        includeBriefing: allowsPresenceBriefingFetch(pathname, open),
+      });
+      return true;
+    },
+  });
 
   useEffect(() => {
     if (open) {
@@ -302,13 +349,14 @@ export function PresenceProvider({ surface, labels, locale, children }: Presence
       loading,
       open,
       setOpen,
-      refresh,
+      refresh: () =>
+        refresh({ includeBriefing: allowsPresenceBriefingFetch(pathname, open) }),
       updateSettings,
       labels,
       surface,
       locale,
     }),
-    [bundle, loading, open, refresh, updateSettings, labels, surface, locale]
+    [bundle, loading, open, refresh, updateSettings, labels, surface, locale, pathname]
   );
 
   return (

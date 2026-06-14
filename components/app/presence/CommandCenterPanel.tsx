@@ -2,6 +2,13 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import {
+  allowsOperationsPolling,
+  POLL_INTERVAL_OPERATIONS_MS,
+  dedupeFetch,
+  usePollingTask,
+} from "@/lib/polling";
 import { AipifyEmptyState } from "@/components/branding";
 import { ExecutiveActionCard } from "@/components/app/presence/ExecutiveActionCard";
 import {
@@ -97,33 +104,54 @@ const HEALTH_STYLES = {
 } as const;
 
 export function CommandCenterPanel({ labels }: CommandCenterPanelProps) {
+  const pathname = usePathname();
   const [bundle, setBundle] = useState<CommandCenterBundle | null>(null);
   const [quietMode, setQuietMode] = useState<QuietHoursMode>("standard");
   const [loading, setLoading] = useState(true);
   const [saved, setSaved] = useState(false);
 
   const refresh = useCallback(async () => {
-    const supabase = createClient();
-    const [centerRes, prefsRes] = await Promise.all([
-      supabase.rpc("get_command_center_bundle"),
-      supabase.rpc("get_presence_notification_preferences"),
-    ]);
+    try {
+      const ok = await dedupeFetch("command-center-bundle", async () => {
+        const supabase = createClient();
+        const [centerRes, prefsRes] = await Promise.all([
+          supabase.rpc("get_command_center_bundle"),
+          supabase.rpc("get_presence_notification_preferences"),
+        ]);
 
-    if (!centerRes.error && centerRes.data?.has_customer) {
-      setBundle(centerRes.data as CommandCenterBundle);
+        if (!centerRes.error && centerRes.data?.has_customer) {
+          setBundle(centerRes.data as CommandCenterBundle);
+        }
+
+        if (!prefsRes.error && prefsRes.data?.preferences) {
+          const p = prefsRes.data.preferences as Record<string, unknown>;
+          setQuietMode((p.quiet_hours_mode as QuietHoursMode) ?? "standard");
+        }
+
+        return !centerRes.error;
+      });
+      return ok;
+    } catch {
+      return false;
+    } finally {
+      setLoading(false);
     }
-
-    if (!prefsRes.error && prefsRes.data?.preferences) {
-      const p = prefsRes.data.preferences as Record<string, unknown>;
-      setQuietMode((p.quiet_hours_mode as QuietHoursMode) ?? "standard");
-    }
-
-    setLoading(false);
   }, []);
 
   useEffect(() => {
     void refresh();
   }, [refresh]);
+
+  const pollingEnabled = allowsOperationsPolling(pathname);
+
+  usePollingTask({
+    taskKey: "command-center-bundle",
+    intervalMs: pollingEnabled ? POLL_INTERVAL_OPERATIONS_MS : 0,
+    enabled: pollingEnabled,
+    runImmediately: false,
+    refreshOnVisible: true,
+    execute: refresh,
+  });
 
   async function saveQuietMode() {
     await fetch("/api/presence/preferences", {

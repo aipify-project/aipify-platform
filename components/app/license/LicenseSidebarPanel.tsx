@@ -1,11 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AipifyPulse } from "@/components/branding";
 import { AIPIFY_BRAND } from "@/lib/branding/tokens";
 import { formatSoftwareVersion } from "@/lib/license";
 import { resolveAppHref } from "@/lib/app/route-aliases";
+import {
+  CACHE_TTL_LICENSE_MS,
+  dedupeFetch,
+  getCachedValue,
+  setCachedValue,
+} from "@/lib/polling";
 import { createClient } from "@/lib/supabase/client";
 
 type LicenseSidebarPanelProps = {
@@ -36,14 +42,29 @@ type LicenseSummary = {
   has_customer: boolean;
 };
 
+type LicenseCache = {
+  workspaceName: string | null;
+  summary: LicenseSummary | null;
+};
+
+const LICENSE_CACHE_KEY = "license-sidebar";
+
 export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps) {
-  const [workspaceName, setWorkspaceName] = useState<string | null>(null);
-  const [summary, setSummary] = useState<LicenseSummary | null>(null);
+  const cached = getCachedValue<LicenseCache>(LICENSE_CACHE_KEY);
+  const [workspaceName, setWorkspaceName] = useState<string | null>(cached?.workspaceName ?? null);
+  const [summary, setSummary] = useState<LicenseSummary | null>(cached?.summary ?? null);
   const licenseHref = resolveAppHref("/app/license");
   const { sidebarMark } = AIPIFY_BRAND;
 
-  useEffect(() => {
-    async function load() {
+  const load = useCallback(async () => {
+    const hit = getCachedValue<LicenseCache>(LICENSE_CACHE_KEY);
+    if (hit) {
+      setWorkspaceName(hit.workspaceName);
+      setSummary(hit.summary);
+      return;
+    }
+
+    await dedupeFetch(LICENSE_CACHE_KEY, async () => {
       const supabase = createClient();
 
       const [orgRes, licenseRes] = await Promise.all([
@@ -51,23 +72,24 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
         supabase.rpc("get_customer_license_center"),
       ]);
 
+      let nextWorkspace: string | null = null;
       if (orgRes.ok) {
         const orgData = (await orgRes.json()) as {
           current?: { name?: string } | null;
           organizations?: Array<{ name?: string }>;
         };
-        const name =
+        nextWorkspace =
           orgData.current?.name ??
           orgData.organizations?.[0]?.name ??
           null;
-        setWorkspaceName(name);
       }
 
+      let nextSummary: LicenseSummary | null = null;
       const data = licenseRes.data;
       if (data && typeof data === "object") {
         const record = data as Record<string, unknown>;
         const hasCustomer = record.has_customer === true;
-        setSummary({
+        nextSummary = {
           has_customer: hasCustomer,
           licensed_to:
             typeof record.company_name === "string" ? record.company_name : null,
@@ -77,11 +99,23 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
             typeof record.software_version === "string" ? record.software_version : null,
           software_owner:
             typeof record.software_owner === "string" ? record.software_owner : null,
-        });
+        };
       }
-    }
-    void load();
+
+      setCachedValue(
+        LICENSE_CACHE_KEY,
+        { workspaceName: nextWorkspace, summary: nextSummary },
+        CACHE_TTL_LICENSE_MS
+      );
+      setWorkspaceName(nextWorkspace);
+      setSummary(nextSummary);
+      return true;
+    });
   }, []);
+
+  useEffect(() => {
+    void load();
+  }, [load]);
 
   const statusLabel =
     summary?.license_status === "grace_period"

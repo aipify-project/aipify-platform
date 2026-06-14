@@ -2,6 +2,8 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { clearAllPollingState } from "@/lib/polling";
+import { invalidateTwoFactorStatusCache } from "@/lib/auth/two-factor";
 import { resolveProfileHeaderDisplay } from "@/lib/app/profile-display";
 import { RoleBadge } from "@/components/ui/RoleBadge";
 
@@ -77,6 +79,8 @@ export default function TopbarProfileMenu({
   async function handleSignOut() {
     setSigningOut(true);
     try {
+      clearAllPollingState();
+      invalidateTwoFactorStatusCache();
       const supabase = createClient();
       await supabase.auth.signOut();
       window.location.assign("/login");

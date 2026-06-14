@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { allowsExecutivePolling } from "@/lib/polling";
 import {
   getBriefingSeverityStyle,
   getBriefingSeverityText,
@@ -10,6 +12,7 @@ import { usePresence } from "./PresenceProvider";
 const DISMISS_KEY = "aipify-daily-briefing-dismissed";
 
 export default function DailyBriefingBanner() {
+  const pathname = usePathname();
   const { bundle, setOpen, labels } = usePresence();
   const [dismissed, setDismissed] = useState(true);
 
@@ -17,6 +20,10 @@ export default function DailyBriefingBanner() {
     const key = `${DISMISS_KEY}-${new Date().toISOString().slice(0, 10)}`;
     setDismissed(localStorage.getItem(key) === "1");
   }, []);
+
+  if (!allowsExecutivePolling(pathname)) {
+    return null;
+  }
 
   const briefing = bundle.daily_briefing;
   if (!briefing || dismissed || !bundle.settings.executive_summaries) {

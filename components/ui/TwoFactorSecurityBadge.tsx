@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { fetchTwoFactorStatusCached } from "@/lib/auth/two-factor";
 
 type TwoFactorSecurityBadgeProps = {
   labels: {
@@ -18,11 +19,13 @@ export function TwoFactorSecurityBadge({ labels }: TwoFactorSecurityBadgeProps) 
   const [status, setStatus] = useState<BadgeStatus | null>(null);
 
   useEffect(() => {
-    void fetch("/api/auth/2fa/status")
-      .then(async (res) => {
-        if (!res.ok) return;
-        const data = (await res.json()) as BadgeStatus;
-        setStatus(data);
+    void fetchTwoFactorStatusCached()
+      .then((cached) => {
+        if (!cached) return;
+        setStatus({
+          enabled: cached.enabled,
+          required: cached.required,
+        });
       })
       .catch(() => undefined);
   }, []);

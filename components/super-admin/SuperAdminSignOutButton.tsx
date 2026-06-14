@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { clearAllPollingState } from "@/lib/polling";
+import { invalidateTwoFactorStatusCache } from "@/lib/auth/two-factor";
 
 type SuperAdminSignOutButtonProps = {
   label: string;
@@ -14,6 +16,8 @@ export default function SuperAdminSignOutButton({ label }: SuperAdminSignOutButt
 
   const handleSignOut = async () => {
     setSigningOut(true);
+    clearAllPollingState();
+    invalidateTwoFactorStatusCache();
     const supabase = createClient();
     await supabase.auth.signOut();
     router.replace("/login");

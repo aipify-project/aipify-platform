@@ -1,9 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import {
+  POLL_INTERVAL_SUPER_ADMIN_HEALTH_MS,
+  allowsSuperAdminHealthPolling,
+  dedupeFetch,
+  usePollingTask,
+} from "@/lib/polling";
 import type { SuperAdminControlCenter } from "@/lib/super-admin/types";
 import { SUPER_ADMIN_SECTIONS } from "@/lib/super-admin/nav-config";
+import { usePathname } from "next/navigation";
 
 type SuperAdminControlCenterPanelProps = {
   labels: {
@@ -33,28 +40,46 @@ export default function SuperAdminControlCenterPanel({
   sectionLabels,
   moduleLabels,
 }: SuperAdminControlCenterPanelProps) {
+  const pathname = usePathname();
   const [center, setCenter] = useState<SuperAdminControlCenter | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetch("/api/super-admin/control-center")
-      .then(async (res) => {
+  const load = useCallback(async () => {
+    try {
+      const ok = await dedupeFetch("super-admin-control-center", async () => {
+        const res = await fetch("/api/super-admin/control-center");
         if (!res.ok) {
           const body = (await res.json().catch(() => ({}))) as { error?: string };
           throw new Error(body.error ?? labels.loadError);
         }
-        return res.json() as Promise<SuperAdminControlCenter>;
-      })
-      .then((data) => {
+        const data = (await res.json()) as SuperAdminControlCenter;
         setCenter(data);
-        setLoading(false);
-      })
-      .catch((err: Error) => {
-        setError(err.message);
-        setLoading(false);
+        return true;
       });
+      return ok;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : labels.loadError);
+      return false;
+    } finally {
+      setLoading(false);
+    }
   }, [labels.loadError]);
+
+  useEffect(() => {
+    void load();
+  }, [load]);
+
+  const pollingEnabled = allowsSuperAdminHealthPolling(pathname);
+
+  usePollingTask({
+    taskKey: "super-admin-control-center",
+    intervalMs: pollingEnabled ? POLL_INTERVAL_SUPER_ADMIN_HEALTH_MS : 0,
+    enabled: pollingEnabled,
+    runImmediately: false,
+    refreshOnVisible: true,
+    execute: load,
+  });
 
   if (loading) {
     return <p className="text-sm text-zinc-400">{labels.loading}</p>;

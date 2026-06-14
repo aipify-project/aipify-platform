@@ -1,0 +1,27 @@
+/** Phase 370A — global polling intervals and cache TTLs (milliseconds). */
+
+export const POLL_INTERVAL_CRITICAL_MS = 30_000;
+export const POLL_INTERVAL_NOTIFICATIONS_MS = 60_000;
+export const POLL_INTERVAL_PRESENCE_OPEN_MS = 60_000;
+export const POLL_INTERVAL_EXECUTIVE_MS = 120_000;
+export const POLL_INTERVAL_OPERATIONS_MS = 90_000;
+export const POLL_INTERVAL_SUPER_ADMIN_HEALTH_MS = 60_000;
+export const POLL_INTERVAL_HIDDEN_BADGE_MS = 5 * 60_000;
+
+export const CACHE_TTL_NOTIFICATIONS_MS = 60_000;
+export const CACHE_TTL_EXECUTIVE_MS = 120_000;
+export const CACHE_TTL_PRESENCE_MS = 60_000;
+export const CACHE_TTL_LICENSE_MS = 5 * 60_000;
+export const CACHE_TTL_SIDEBAR_MS = 90_000;
+export const CACHE_TTL_SETTINGS_MS = 5 * 60_000;
+
+export const BACKOFF_STEPS_MS = [60_000, 120_000, 300_000, 600_000] as const;
+
+/** @deprecated Use POLL_INTERVAL_PRESENCE_OPEN_MS */
+export const PRESENCE_POLL_INTERVAL_OPEN_MS = POLL_INTERVAL_PRESENCE_OPEN_MS;
+
+/** Closed drawer — no interval polling (0 disables the hook). */
+export const PRESENCE_POLL_INTERVAL_CLOSED_MS = 0;
+
+export const COMPANION_HEARTBEAT_INTERVAL_MS = POLL_INTERVAL_PRESENCE_OPEN_MS;
+export const COMPANION_HEARTBEAT_INTERVAL_COLLAPSED_MS = 0;

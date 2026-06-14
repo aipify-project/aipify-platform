@@ -2,6 +2,13 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import {
+  allowsOperationsPolling,
+  POLL_INTERVAL_OPERATIONS_MS,
+  dedupeFetch,
+  usePollingTask,
+} from "@/lib/polling";
 import { parseAocDashboard, type AocDashboard } from "@/lib/aipify/aoc";
 
 type AocDashboardPanelProps = {
@@ -37,20 +44,40 @@ function bandClass(band?: string) {
 }
 
 export function AocDashboardPanel({ labels }: AocDashboardPanelProps) {
+  const pathname = usePathname();
   const [dashboard, setDashboard] = useState<AocDashboard | null>(null);
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState<string | null>(null);
 
   const load = useCallback(async () => {
-    setLoading(true);
-    const res = await fetch("/api/aipify/aoc/dashboard");
-    if (res.ok) setDashboard(parseAocDashboard(await res.json()));
-    setLoading(false);
+    try {
+      await dedupeFetch("aoc-dashboard", async () => {
+        const res = await fetch("/api/aipify/aoc/dashboard");
+        if (res.ok) setDashboard(parseAocDashboard(await res.json()));
+        return res.ok;
+      });
+      return true;
+    } catch {
+      return false;
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
     void load();
   }, [load]);
+
+  const pollingEnabled = allowsOperationsPolling(pathname);
+
+  usePollingTask({
+    taskKey: "aoc-dashboard",
+    intervalMs: pollingEnabled ? POLL_INTERVAL_OPERATIONS_MS : 0,
+    enabled: pollingEnabled,
+    runImmediately: false,
+    refreshOnVisible: true,
+    execute: load,
+  });
 
   const generateReview = async (type: string) => {
     setGenerating(type);

@@ -2,6 +2,13 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import {
+  allowsExecutivePolling,
+  POLL_INTERVAL_EXECUTIVE_MS,
+  dedupeFetch,
+  usePollingTask,
+} from "@/lib/polling";
 import { AipifyEmptyState } from "@/components/branding";
 import { HealthScoreCard } from "@/components/app/shared/HealthScoreCard";
 import { SectionCard } from "@/components/app/shared/SectionCard";
@@ -83,21 +90,42 @@ type ExecutiveDashboardPanelProps = {
 };
 
 export function ExecutiveDashboardPanel({ locale, labels }: ExecutiveDashboardPanelProps) {
+  const pathname = usePathname();
   const [data, setData] = useState<CustomerExecutiveDashboard | null>(null);
   const [loading, setLoading] = useState(true);
 
   const refresh = useCallback(async () => {
-    const supabase = createClient();
-    const { data: bundle, error } = await supabase.rpc("get_customer_executive_dashboard");
-    if (!error && bundle?.has_customer) {
-      setData(bundle as CustomerExecutiveDashboard);
+    try {
+      await dedupeFetch("executive-dashboard", async () => {
+        const supabase = createClient();
+        const { data: bundle, error } = await supabase.rpc("get_customer_executive_dashboard");
+        if (!error && bundle?.has_customer) {
+          setData(bundle as CustomerExecutiveDashboard);
+        }
+        return !error;
+      });
+      return true;
+    } catch {
+      return false;
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   useEffect(() => {
     void refresh();
   }, [refresh]);
+
+  const pollingEnabled = allowsExecutivePolling(pathname);
+
+  usePollingTask({
+    taskKey: "executive-dashboard",
+    intervalMs: pollingEnabled ? POLL_INTERVAL_EXECUTIVE_MS : 0,
+    enabled: pollingEnabled,
+    runImmediately: false,
+    refreshOnVisible: true,
+    execute: refresh,
+  });
 
   if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
 
