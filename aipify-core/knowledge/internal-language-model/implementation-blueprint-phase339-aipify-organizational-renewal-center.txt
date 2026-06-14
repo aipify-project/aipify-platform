@@ -1,0 +1,4 @@
+ABOS Phase 339 — Organizational Renewal Center
+Route: /app/executive/organizational-renewal
+Core: Renewal is the disciplined practice of evolving while preserving what matters most.
+Helpers: _orlc_* · _orlcbp339_*

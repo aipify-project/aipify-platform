@@ -1181,3 +1181,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Flourishing Center Engine (Phase 338):** See [AIPIFY_ORGANIZATIONAL_FLOURISHING_CENTER_ENGINE_PHASE338.md](./AIPIFY_ORGANIZATIONAL_FLOURISHING_CENTER_ENGINE_PHASE338.md) — Flourishing Center at Executive Center → Organizational Flourishing. Flourishing dashboard, flourishing engine, meaning engine, reviews, and executive flourishing view. `/app/executive/organizational-flourishing`, migration `20261426600000_aipify_organizational_flourishing_center_engine_phase338.sql`. Helpers `_oflc_*`, `_oflcbp338_*`. APIs at `/api/organizational-flourishing/*`. Cross-links purpose, confidence, learning, and energy centers.
+
+
+**Aipify Organizational Renewal Center Engine (Phase 339):** See [AIPIFY_ORGANIZATIONAL_RENEWAL_CENTER_ENGINE_PHASE339.md](./AIPIFY_ORGANIZATIONAL_RENEWAL_CENTER_ENGINE_PHASE339.md) — Renewal Center at Executive Center → Organizational Renewal. Renewal dashboard, renewal engine, balance engine, reviews, and executive renewal view. `/app/executive/organizational-renewal`, migration `20261426700000_aipify_organizational_renewal_center_engine_phase339.sql`. Helpers `_orlc_*`, `_orlcbp339_*`. APIs at `/api/organizational-renewal/*`. Cross-links flourishing, learning, and adaptability centers.

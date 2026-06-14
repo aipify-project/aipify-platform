@@ -79,7 +79,8 @@
     "organizationalImpactLink": "Organizational Impact",
     "organizationalDecisionQualityLink": "Decision Quality",
     "organizationalConfidenceLink": "Organizational Confidence",
-    "organizationalFlourishingLink": "Organizational Flourishing"
+    "organizationalFlourishingLink": "Organizational Flourishing",
+    "organizationalRenewalLink": "Organizational Renewal"
   },
   "presence": {
     "title": "Presence center",
@@ -6004,7 +6005,8 @@
     "organizationalImpactCenterEngine": "Organisatorisk påvirkning",
     "organizationalDecisionQualityCenterEngine": "Beslutningskvalitet",
     "organizationalConfidenceCenterEngine": "Organisatorisk selvtillid",
-    "organizationalFlourishingCenterEngine": "Organisatorisk blomstring"
+    "organizationalFlourishingCenterEngine": "Organisatorisk blomstring",
+    "organizationalRenewalCenterEngine": "Organisatorisk fornyelse"
   },
   "identity": {
     "title": "Din identitet",
@@ -18598,5 +18600,120 @@
     },
     "settingsLink": "Organisatorisk blomstring",
     "organizationalFlourishingLink": "Organizational Flourishing"
+  },
+  "organizationalRenewalCenter": {
+    "title": "Organisatorisk fornyelse",
+    "subtitle": "Intentionally renew strategies, capabilities, leadership practices, knowledge, and ways of working — evolve while preserving what matters most.",
+    "loading": "Loading Renewal Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Renewal philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalFlourishingLink": "Organizational Flourishing →",
+    "organizationalLearningLink": "Organizational Learning →",
+    "organizationalAdaptabilityLink": "Organizational Adaptability →",
+    "dashboardTitle": "Renewal dashboard",
+    "opportunitiesTitle": "Renewal engine",
+    "balanceTitle": "Balance engine",
+    "initiativesTitle": "Renewal initiatives",
+    "reviewsTitle": "Renewal reviews",
+    "timelineTitle": "Renewal timeline",
+    "milestonesTitle": "Renewal milestones",
+    "snapshotsTitle": "Renewal snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive renewal view",
+    "sessionsTitle": "Renewal sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate renewal report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export renewal snapshot",
+    "coordinateDiscussion": "Coordinate reassessment discussion",
+    "archiveMilestone": "Archive renewal milestone",
+    "humansDecide": "Aipify supports purposeful renewal — leaders retain judgment; renewal balances continuity with thoughtful evolution.",
+    "privacyNote": "Privacy",
+    "renewalScore": "Organizational renewal score",
+    "strategicReassessment": "Strategic reassessment",
+    "domains": {
+      "strategic": "Strategic renewal",
+      "leadership": "Leadership renewal",
+      "capability": "Capability renewal",
+      "knowledge": "Knowledge renewal",
+      "cultural": "Cultural renewal",
+      "operational": "Operational renewal"
+    },
+    "opportunityTypes": {
+      "outdated_assumption": "Outdated assumption",
+      "emerging_capability": "Emerging capability",
+      "leadership_development": "Leadership development",
+      "process_modernization": "Process modernization",
+      "strategic_evolution": "Strategic evolution"
+    },
+    "opportunityTones": {
+      "positive": "Positive opportunity",
+      "neutral": "Neutral opportunity",
+      "attention": "Needs attention"
+    },
+    "balanceTypes": {
+      "preserve": "What to preserve",
+      "evolve": "What to evolve",
+      "retire": "What to retire",
+      "capability_investment": "Capability investment",
+      "timeless_values": "Timeless values"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "thriving": "Thriving",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "renewal_recommended": "Renewal recommended",
+      "stagnation_risk": "Stagnation risk"
+    },
+    "timelineTypes": {
+      "strategic_update": "Strategic update",
+      "capability_improvement": "Capability improvement",
+      "leadership_milestone": "Leadership milestone",
+      "cultural_development": "Cultural development",
+      "knowledge_modernization": "Knowledge modernization"
+    },
+    "reviewTypes": {
+      "quarterly_renewal": "Quarterly renewal review",
+      "leadership_reflection": "Leadership learning discussion",
+      "annual_strategic_reflection": "Annual strategic reflection session",
+      "capability_reassessment": "Capability reassessment workshop"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "leadership_learning": "Leadership learning discussion",
+      "capability_workshop": "Capability reassessment workshop"
+    },
+    "metrics": {
+      "adaptability": "Strategic adaptability",
+      "learning": "Learning participation",
+      "leadership": "Leadership reflection",
+      "capability": "Capability development",
+      "momentum": "Improvement momentum",
+      "integration": "Learning integration",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "strategic": "Strategic evolution indicators",
+      "leadership": "Leadership development trends",
+      "capability": "Capability readiness measures",
+      "opportunities": "Renewal opportunities"
+    },
+    "settingsLink": "Organisatorisk fornyelse",
+    "organizationalRenewalLink": "Organizational Renewal"
   }
 }
