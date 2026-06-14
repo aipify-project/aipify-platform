@@ -59,7 +59,8 @@
     "organizationalHealthLink": "Organizational Health",
     "changeManagementLink": "Change Management",
     "organizationalDigitalTwinLink": "Organizational Digital Twin",
-    "capabilityMaturityLink": "Capability Maturity"
+    "capabilityMaturityLink": "Capability Maturity",
+    "executionExcellenceLink": "Execution Excellence"
   },
   "presence": {
     "title": "Presence center",
@@ -5964,7 +5965,8 @@
     "organizationalDigitalTwinCenterEngine": "Organisationens digitale tvilling",
     "organizationalLearningCenterEngine": "Organisationslæring",
     "knowledgeEvolutionCenterEngine": "Vidensudvikling",
-    "capabilityMaturityCenterEngine": "Kapabilitetsmodenhed"
+    "capabilityMaturityCenterEngine": "Kapabilitetsmodenhed",
+    "executionExcellenceCenterEngine": "Gennemførelsesexcellence"
   },
   "identity": {
     "title": "Din identitet",
@@ -16492,5 +16494,115 @@
     },
     "settingsLink": "Kapabilitetsmodenhed",
     "capabilityMaturityLink": "Capability Maturity"
+  },
+  "executionExcellenceCenter": {
+    "title": "Gennemførelsesexcellenscenter",
+    "subtitle": "Bridge strategy and execution — translate priorities, initiatives, and commitments into measurable progress and sustainable outcomes.",
+    "loading": "Loading Execution Excellence Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Execution philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "capabilityMaturityLink": "Capability Maturity →",
+    "changeManagementLink": "Change Management →",
+    "organizationalHealthLink": "Organizational Health →",
+    "continuousImprovementLink": "Continuous Improvement →",
+    "goalsLink": "Goals & OKRs →",
+    "dashboardTitle": "Execution dashboard",
+    "initiativesTitle": "Strategic initiatives",
+    "dependenciesTitle": "Dependencies",
+    "milestonesTitle": "Milestones",
+    "risksTitle": "Execution risks",
+    "workflowTitle": "Execution workflow",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive execution view",
+    "reviewsTitle": "Execution rhythm reviews",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "achieveMilestone": "Mark achieved",
+    "generateSummary": "Generate execution summary",
+    "generateReport": "Generate initiative report",
+    "humansDecide": "Aipify supports execution clarity — leadership owns priorities and outcomes.",
+    "privacyNote": "Privacy",
+    "owner": "Owner",
+    "sponsor": "Sponsor",
+    "progress": "Progress",
+    "domains": {
+      "strategic": "Strategic execution",
+      "operational": "Operational execution",
+      "customer": "Customer execution",
+      "workforce": "Workforce execution",
+      "governance": "Governance execution"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "stable": "Stable",
+      "needs_attention": "Needs attention",
+      "critical": "Critical"
+    },
+    "riskStatuses": {
+      "on_track": "On track",
+      "stable": "Stable",
+      "at_risk": "At risk",
+      "stalled": "Stalled",
+      "critical": "Critical"
+    },
+    "workflowStages": {
+      "objective_defined": "Objective defined",
+      "ownership_assigned": "Ownership assigned",
+      "dependencies_identified": "Dependencies identified",
+      "progress_monitored": "Progress monitored",
+      "risks_managed": "Risks managed",
+      "milestones_achieved": "Milestones achieved",
+      "outcomes_evaluated": "Outcomes evaluated",
+      "lessons_captured": "Lessons captured"
+    },
+    "dependencyTypes": {
+      "cross_functional": "Cross-functional",
+      "resource": "Resource constraint",
+      "approval": "Approval dependency",
+      "external": "External blocker"
+    },
+    "milestoneStatuses": {
+      "planned": "Planned",
+      "achieved": "Achieved",
+      "delayed": "Delayed",
+      "escalated": "Escalated"
+    },
+    "riskTypes": {
+      "stalled_initiative": "Stalled initiative",
+      "dependency_overload": "Dependency overload",
+      "review_avoidance": "Review avoidance",
+      "resource_shortage": "Resource shortage",
+      "escalation_pattern": "Escalation pattern"
+    },
+    "reviewTypes": {
+      "weekly": "Weekly review",
+      "monthly": "Monthly review",
+      "quarterly": "Quarterly business review",
+      "annual": "Annual assessment"
+    },
+    "metrics": {
+      "inProgress": "Initiatives in progress",
+      "atRisk": "Objectives at risk",
+      "momentum": "Execution momentum",
+      "milestones": "Milestones achieved",
+      "dependencies": "Open dependencies",
+      "completion": "Completion trend",
+      "reviews": "Review consistency",
+      "confidence": "Leadership confidence"
+    },
+    "executiveFields": {
+      "capacity": "Execution capacity",
+      "progress": "Strategic progress",
+      "confidence": "Initiative confidence",
+      "focus": "Leadership focus"
+    },
+    "settingsLink": "Gennemførelsesexcellence",
+    "executionExcellenceLink": "Execution Excellence"
   }
 }

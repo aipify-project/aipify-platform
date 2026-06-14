@@ -1,0 +1,4 @@
+ABOS Phase 319 — Execution Excellence Center
+Route: /app/executive/execution-excellence
+Core: Most organizations struggle because execution is inconsistent.
+Helpers: _eec_* · _eecbp319_*

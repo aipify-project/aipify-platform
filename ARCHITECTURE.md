@@ -1121,3 +1121,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Capability Maturity Center Engine (Phase 318):** See [AIPIFY_CAPABILITY_MATURITY_CENTER_ENGINE_PHASE318.md](./AIPIFY_CAPABILITY_MATURITY_CENTER_ENGINE_PHASE318.md) — Capability Maturity Center at Executive Center → Capability Maturity. Maturity levels, capability profiles, evolution view, improvement roadmap, and executive maturity view. `/app/executive/capability-maturity`, migration `20261424600000_aipify_capability_maturity_center_engine_phase318.sql`. Helpers `_cmc_*`, `_cmcbp318_*`. APIs at `/api/capability-maturity/*`. Cross-links legacy capability maturity engine — does not modify its RPCs.
+
+
+**Aipify Execution Excellence Center Engine (Phase 319):** See [AIPIFY_EXECUTION_EXCELLENCE_CENTER_ENGINE_PHASE319.md](./AIPIFY_EXECUTION_EXCELLENCE_CENTER_ENGINE_PHASE319.md) — Execution Excellence Center at Executive Center → Execution Excellence. Initiative tracking, dependency management, milestones, execution risks, and executive execution view. `/app/executive/execution-excellence`, migration `20261424700000_aipify_execution_excellence_center_engine_phase319.sql`. Helpers `_eec_*`, `_eecbp319_*`. APIs at `/api/execution-excellence/*`. Cross-links executive centers — does not modify their RPCs.
