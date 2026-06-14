@@ -284,3 +284,4 @@ export * from "./aipify-organizational-continuity-center-engine";
 export * from "./aipify-organizational-excellence-center-engine";
 export * from "./aipify-organizational-impact-center-engine";
 export * from "./aipify-organizational-decision-quality-center-engine";
+export * from "./aipify-organizational-confidence-center-engine";

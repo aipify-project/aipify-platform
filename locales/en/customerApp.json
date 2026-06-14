@@ -77,7 +77,8 @@
     "organizationalContinuityLink": "Organizational Continuity",
     "organizationalExcellenceLink": "Organizational Excellence",
     "organizationalImpactLink": "Organizational Impact",
-    "organizationalDecisionQualityLink": "Decision Quality"
+    "organizationalDecisionQualityLink": "Decision Quality",
+    "organizationalConfidenceLink": "Organizational Confidence"
   },
   "presence": {
     "title": "Presence center",
@@ -7176,7 +7177,8 @@
     "organizationalContinuityCenterEngine": "Organizational Continuity",
     "organizationalExcellenceCenterEngine": "Organizational Excellence",
     "organizationalImpactCenterEngine": "Organizational Impact",
-    "organizationalDecisionQualityCenterEngine": "Decision Quality"
+    "organizationalDecisionQualityCenterEngine": "Decision Quality",
+    "organizationalConfidenceCenterEngine": "Organizational Confidence"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -18751,5 +18753,120 @@
     },
     "settingsLink": "Decision Quality",
     "organizationalDecisionQualityLink": "Decision Quality"
+  },
+  "organizationalConfidenceCenter": {
+    "title": "Organizational Confidence",
+    "subtitle": "Build, sustain, and strengthen collective confidence through preparedness, capability development, reliable execution, transparent leadership, and meaningful progress.",
+    "loading": "Loading Confidence Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Confidence philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalTrustLink": "Organizational Trust →",
+    "organizationalResilienceLink": "Organizational Resilience →",
+    "organizationalDecisionQualityLink": "Decision Quality →",
+    "organizationalMomentumLink": "Organizational Momentum →",
+    "dashboardTitle": "Confidence dashboard",
+    "factorsTitle": "Confidence building engine",
+    "uncertaintyTitle": "Uncertainty awareness",
+    "initiativesTitle": "Confidence-building initiatives",
+    "reviewsTitle": "Confidence reviews",
+    "timelineTitle": "Confidence timeline",
+    "milestonesTitle": "Confidence milestones",
+    "snapshotsTitle": "Confidence snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive confidence view",
+    "sessionsTitle": "Confidence sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate confidence report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export confidence snapshot",
+    "coordinateReview": "Coordinate preparedness review",
+    "archiveMilestone": "Archive confidence milestone",
+    "humansDecide": "Aipify supports grounded confidence — leaders retain judgment; confidence comes from preparation, not false certainty.",
+    "privacyNote": "Privacy",
+    "confidenceScore": "Organizational confidence score",
+    "confidenceTrend": "Confidence trend",
+    "domains": {
+      "leadership": "Leadership confidence",
+      "workforce": "Workforce confidence",
+      "operational": "Operational confidence",
+      "customer": "Customer confidence",
+      "strategic": "Strategic confidence"
+    },
+    "factorTypes": {
+      "increased_confidence": "Increased confidence",
+      "reduced_uncertainty": "Reduced uncertainty",
+      "improved_resilience": "Improved resilience",
+      "stronger_collaboration": "Stronger collaboration",
+      "greater_preparedness": "Greater preparedness"
+    },
+    "factorTones": {
+      "positive": "Positive factor",
+      "neutral": "Neutral factor",
+      "attention": "Needs attention"
+    },
+    "uncertaintyTypes": {
+      "known_challenge": "Known challenge",
+      "emerging_risk": "Emerging risk",
+      "development_area": "Area requiring development",
+      "assumption_validation": "Assumption requiring validation",
+      "capacity_limitation": "Capacity limitation"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "fragile": "Fragile"
+    },
+    "timelineTypes": {
+      "major_achievement": "Major achievement",
+      "recovery_milestone": "Recovery milestone",
+      "capability_improvement": "Capability improvement",
+      "strategic_breakthrough": "Strategic breakthrough",
+      "learning_development": "Learning development"
+    },
+    "reviewTypes": {
+      "quarterly_confidence": "Quarterly confidence review",
+      "leadership_reflection": "Leadership reflection session",
+      "workforce_preparedness": "Workforce preparedness discussion",
+      "annual_assessment": "Annual organizational assessment"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "preparedness_review": "Preparedness review",
+      "workforce_discussion": "Workforce discussion"
+    },
+    "metrics": {
+      "preparedness": "Preparedness effectiveness",
+      "capability": "Capability maturity",
+      "leadership": "Leadership consistency",
+      "learning": "Learning participation",
+      "recovery": "Recovery readiness",
+      "initiatives": "Initiatives in progress",
+      "indicators": "Preparedness indicators",
+      "confidence": "Executive confidence"
+    },
+    "executiveFields": {
+      "leadership": "Leadership confidence indicators",
+      "preparedness": "Organizational preparedness",
+      "resilience": "Strategic resilience trends",
+      "opportunities": "Confidence-building opportunities"
+    },
+    "settingsLink": "Organizational Confidence",
+    "organizationalConfidenceLink": "Organizational Confidence"
   }
 }

@@ -1,0 +1,4 @@
+ABOS Phase 337 — Organizational Confidence Center
+Route: /app/executive/organizational-confidence
+Core: Confidence is not certainty.
+Helpers: _oicc_* · _oiccbp337_*
