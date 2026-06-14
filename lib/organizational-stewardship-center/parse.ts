@@ -1,15 +1,15 @@
 import type {
-  ImpactHighlight,
   OrganizationalStewardshipCenter,
-  StewardshipIndicator,
+  ResponsibilityPrompt,
+  StewardshipInitiative,
   StewardshipInsight,
   StewardshipMilestone,
   StewardshipRecommendation,
-  StewardshipReflectionPrompt,
   StewardshipReview,
   StewardshipSession,
+  StewardshipSignal,
   StewardshipSnapshot,
-  SuccessionIntegrationLink,
+  StewardshipTimelineEvent,
 } from "./types";
 
 function asRecord(value: unknown): Record<string, unknown> {
@@ -28,39 +28,52 @@ export function parseOrganizationalStewardshipCenter(raw: unknown): Organization
       Object.keys(dash).length > 0
         ? {
             stewardship_score: Number(dash.stewardship_score ?? 0),
-            stewardship_health_label: String(dash.stewardship_health_label ?? "developing"),
-            leadership_participation_pct: Number(dash.leadership_participation_pct ?? 0),
-            resource_stewardship_pct: Number(dash.resource_stewardship_pct ?? 0),
+            stewardship_health_label: String(dash.stewardship_health_label ?? "healthy"),
+            leadership_stewardship_pct: Number(dash.leadership_stewardship_pct ?? 0),
+            trust_preservation_pct: Number(dash.trust_preservation_pct ?? 0),
             knowledge_continuity_pct: Number(dash.knowledge_continuity_pct ?? 0),
-            governance_participation_pct: Number(dash.governance_participation_pct ?? 0),
-            reflection_frequency_pct: Number(dash.reflection_frequency_pct ?? 0),
-            sustainable_decisions_pct: Number(dash.sustainable_decisions_pct ?? 0),
-            succession_preparedness_pct: Number(dash.succession_preparedness_pct ?? 0),
-            leadership_confidence: Number(dash.leadership_confidence ?? 0),
+            resource_sustainability_pct: Number(dash.resource_sustainability_pct ?? 0),
+            strategic_consistency_pct: Number(dash.strategic_consistency_pct ?? 0),
+            leadership_responsibility_pct: Number(dash.leadership_responsibility_pct ?? 0),
+            customer_trust_pct: Number(dash.customer_trust_pct ?? 0),
+            initiatives_in_progress: Number(dash.initiatives_in_progress ?? 0),
             reviews_completed: Number(dash.reviews_completed ?? 0),
-            sessions_completed: Number(dash.sessions_completed ?? 0),
           }
         : null,
-    stewardship_indicators: Array.isArray(row.stewardship_indicators)
-      ? row.stewardship_indicators.map((a) => {
-          const item = asRecord(a);
+    stewardship_signals: Array.isArray(row.stewardship_signals)
+      ? row.stewardship_signals.map((c) => {
+          const item = asRecord(c);
           return {
-            indicator_key: String(item.indicator_key ?? ""),
+            signal_key: String(item.signal_key ?? ""),
+            domain: String(item.domain ?? ""),
+            signal_type: String(item.signal_type ?? ""),
+            title: String(item.title ?? ""),
+            summary: String(item.summary ?? ""),
+            signal_tone: String(item.signal_tone ?? "neutral"),
+          } satisfies StewardshipSignal;
+        })
+      : [],
+    responsibility_prompts: Array.isArray(row.responsibility_prompts)
+      ? row.responsibility_prompts.map((g) => {
+          const item = asRecord(g);
+          return {
+            question_key: String(item.question_key ?? ""),
+            question_type: String(item.question_type ?? ""),
+            title: String(item.title ?? ""),
+            summary: String(item.summary ?? ""),
+          } satisfies ResponsibilityPrompt;
+        })
+      : [],
+    stewardship_initiatives: Array.isArray(row.stewardship_initiatives)
+      ? row.stewardship_initiatives.map((i) => {
+          const item = asRecord(i);
+          return {
+            initiative_key: String(item.initiative_key ?? ""),
             domain: String(item.domain ?? ""),
             title: String(item.title ?? ""),
             summary: String(item.summary ?? ""),
-            indicator_score: Number(item.indicator_score ?? 0),
-          } satisfies StewardshipIndicator;
-        })
-      : [],
-    reflection_prompts: Array.isArray(row.reflection_prompts)
-      ? row.reflection_prompts.map((r) => {
-          const item = asRecord(r);
-          return {
-            reflection_key: String(item.reflection_key ?? ""),
-            prompt: String(item.prompt ?? ""),
-            domain: String(item.domain ?? ""),
-          } satisfies StewardshipReflectionPrompt;
+            status: String(item.status ?? "planned"),
+          } satisfies StewardshipInitiative;
         })
       : [],
     stewardship_reviews: Array.isArray(row.stewardship_reviews)
@@ -75,15 +88,17 @@ export function parseOrganizationalStewardshipCenter(raw: unknown): Organization
           } satisfies StewardshipReview;
         })
       : [],
-    impact_highlights: Array.isArray(row.impact_highlights)
-      ? row.impact_highlights.map((h) => {
-          const item = asRecord(h);
+    timeline: Array.isArray(row.timeline)
+      ? row.timeline.map((t) => {
+          const item = asRecord(t);
           return {
-            highlight_key: String(item.highlight_key ?? ""),
+            timeline_key: String(item.timeline_key ?? ""),
+            event_type: String(item.event_type ?? ""),
             domain: String(item.domain ?? ""),
-            title: String(item.title ?? ""),
+            label: String(item.label ?? ""),
             summary: String(item.summary ?? ""),
-          } satisfies ImpactHighlight;
+            recorded_at: item.recorded_at ? String(item.recorded_at) : null,
+          } satisfies StewardshipTimelineEvent;
         })
       : [],
     stewardship_milestones: Array.isArray(row.stewardship_milestones)
@@ -145,22 +160,12 @@ export function parseOrganizationalStewardshipCenter(raw: unknown): Organization
     executive_view:
       Object.keys(exec).length > 0
         ? {
-            leadership_continuity: String(exec.leadership_continuity ?? ""),
-            long_term_readiness: String(exec.long_term_readiness ?? ""),
-            responsibility_measures: String(exec.responsibility_measures ?? ""),
-            stewardship_opportunities: String(exec.stewardship_opportunities ?? ""),
+            leadership_responsibility: String(exec.leadership_responsibility ?? ""),
+            trust_preservation: String(exec.trust_preservation ?? ""),
+            knowledge_continuity: String(exec.knowledge_continuity ?? ""),
+            future_investment_opportunities: String(exec.future_investment_opportunities ?? ""),
           }
         : null,
-    succession_integration: Array.isArray(row.succession_integration)
-      ? row.succession_integration.map((l) => {
-          const item = asRecord(l);
-          return {
-            key: String(item.key ?? ""),
-            label: String(item.label ?? ""),
-            route: String(item.route ?? ""),
-          } satisfies SuccessionIntegrationLink;
-        })
-      : [],
     links: row.links
       ? Object.fromEntries(Object.entries(asRecord(row.links)).map(([k, v]) => [k, String(v)]))
       : null,

@@ -1,10 +1,10 @@
 export const ORGANIZATIONAL_STEWARDSHIP_CENTER_ROUTE = "/app/executive/organizational-stewardship";
 
 export const OSC_CORE_PRINCIPLE =
-  "Leadership is not ownership — leadership is stewardship. Organizations should strive to leave people, systems, communities, and opportunities better than they found them.";
+  "Leadership is not ownership. Leadership is stewardship. Organizations flourish when people recognize that they are temporary caretakers of something larger than themselves.";
 
 export const OSC_PHILOSOPHY =
-  "Stewardship means managing responsibilities wisely with awareness of both present needs and future consequences.";
+  "Stewardship means acting in ways that strengthen the organization not only for today, but for those who come after.";
 
 export const OSC_VISION =
-  "Help leaders care for entrusted responsibilities wisely so future generations inherit stronger organizations, deeper knowledge, and enduring values.";
+  "Help leaders care wisely for people, knowledge, resources, and trust so organizations become stronger, more resilient, and better prepared for the generations that follow.";

@@ -1,15 +1,25 @@
-export type StewardshipIndicator = {
-  indicator_key: string;
+export type StewardshipSignal = {
+  signal_key: string;
+  domain: string;
+  signal_type: string;
+  title: string;
+  summary: string;
+  signal_tone: string;
+};
+
+export type ResponsibilityPrompt = {
+  question_key: string;
+  question_type: string;
+  title: string;
+  summary: string;
+};
+
+export type StewardshipInitiative = {
+  initiative_key: string;
   domain: string;
   title: string;
   summary: string;
-  indicator_score: number;
-};
-
-export type StewardshipReflectionPrompt = {
-  reflection_key: string;
-  prompt: string;
-  domain: string;
+  status: string;
 };
 
 export type StewardshipReview = {
@@ -20,11 +30,13 @@ export type StewardshipReview = {
   completed_at: string | null;
 };
 
-export type ImpactHighlight = {
-  highlight_key: string;
+export type StewardshipTimelineEvent = {
+  timeline_key: string;
+  event_type: string;
   domain: string;
-  title: string;
+  label: string;
   summary: string;
+  recorded_at: string | null;
 };
 
 export type StewardshipMilestone = {
@@ -63,43 +75,36 @@ export type StewardshipSession = {
   completed_at: string | null;
 };
 
-export type SuccessionIntegrationLink = {
-  key: string;
-  label: string;
-  route: string;
-};
-
 export type OrganizationalStewardshipCenter = {
   dashboard: {
     stewardship_score: number;
     stewardship_health_label: string;
-    leadership_participation_pct: number;
-    resource_stewardship_pct: number;
+    leadership_stewardship_pct: number;
+    trust_preservation_pct: number;
     knowledge_continuity_pct: number;
-    governance_participation_pct: number;
-    reflection_frequency_pct: number;
-    sustainable_decisions_pct: number;
-    succession_preparedness_pct: number;
-    leadership_confidence: number;
+    resource_sustainability_pct: number;
+    strategic_consistency_pct: number;
+    leadership_responsibility_pct: number;
+    customer_trust_pct: number;
+    initiatives_in_progress: number;
     reviews_completed: number;
-    sessions_completed: number;
   } | null;
-  stewardship_indicators: StewardshipIndicator[];
-  reflection_prompts: StewardshipReflectionPrompt[];
+  stewardship_signals: StewardshipSignal[];
+  responsibility_prompts: ResponsibilityPrompt[];
+  stewardship_initiatives: StewardshipInitiative[];
   stewardship_reviews: StewardshipReview[];
-  impact_highlights: ImpactHighlight[];
+  timeline: StewardshipTimelineEvent[];
   stewardship_milestones: StewardshipMilestone[];
   snapshots: StewardshipSnapshot[];
   insights: StewardshipInsight[];
   recommendations: StewardshipRecommendation[];
   stewardship_sessions: StewardshipSession[];
   executive_view: {
-    leadership_continuity: string;
-    long_term_readiness: string;
-    responsibility_measures: string;
-    stewardship_opportunities: string;
+    leadership_responsibility: string;
+    trust_preservation: string;
+    knowledge_continuity: string;
+    future_investment_opportunities: string;
   } | null;
-  succession_integration: SuccessionIntegrationLink[];
   links: Record<string, string> | null;
   can_manage: boolean;
   can_contribute: boolean;

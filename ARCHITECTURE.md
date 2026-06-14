@@ -1235,3 +1235,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Legacy Engine (Phase 357):** See [AIPIFY_ORGANIZATIONAL_LEGACY_ENGINE_PHASE357.md](./AIPIFY_ORGANIZATIONAL_LEGACY_ENGINE_PHASE357.md) — Legacy Center at Executive Center → Organizational Legacy. Legacy dashboard, questions engine, reviews, and executive view. `/app/executive/organizational-legacy`, migration `20261428500000_aipify_organizational_legacy_engine_phase357.sql`. Helpers `_olc_*`, `_olcbp357_*`. APIs at `/api/organizational-legacy/*`. Cross-links identity and stewardship centers.
+
+
+**Aipify Organizational Stewardship Engine (Phase 358):** See [AIPIFY_ORGANIZATIONAL_STEWARDSHIP_ENGINE_PHASE358.md](./AIPIFY_ORGANIZATIONAL_STEWARDSHIP_ENGINE_PHASE358.md) — Stewardship Center at Executive Center → Organizational Stewardship. Stewardship dashboard, responsibility engine, reviews, and executive view. `/app/executive/organizational-stewardship`, migration `20261428600000_aipify_organizational_stewardship_engine_phase358.sql`. Helpers `_osc_*`, `_oscbp358_*`. APIs at `/api/organizational-stewardship/*`. Cross-links legacy and identity centers.

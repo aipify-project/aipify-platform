@@ -1,0 +1,4 @@
+ABOS Phase 358 — Organizational Stewardship Engine
+Route: /app/executive/organizational-stewardship
+Core: Leadership is not ownership. Leadership is stewardship.
+Helpers: _osc_* · _oscbp358_*
