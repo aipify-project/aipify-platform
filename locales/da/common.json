@@ -2,8 +2,38 @@
   "appName": "Aipify",
   "save": "Gem",
   "cancel": "Annuller",
-  "loading": "Indlæser...",
+  "loading": "Opdaterer operationel oversigt…",
   "getStarted": "Kom i gang",
   "bookDemo": "Book demo",
-  "login": "Log ind"
+  "login": "Log ind",
+  "loadingLanguage": {
+    "executive": {
+      "briefing": "Forbereder ledelsesbriefing…",
+      "overview": "Opdaterer operationel oversigt…",
+      "insights": "Synkroniserer organisationsindsigt…",
+      "intelligence": "Opdaterer ledelsesintelligens…",
+      "priorities": "Forbereder dagens prioriteter…"
+    },
+    "operations": {
+      "operationalData": "Indsamler driftsdata…",
+      "pendingActivities": "Gennemgår ventende aktiviteter…",
+      "workflows": "Synkroniserer godkendte arbejdsgange…",
+      "activityStatus": "Opdaterer forretningsaktivitetsstatus…"
+    },
+    "security": {
+      "securityPosture": "Verificerer sikkerhedsstatus…",
+      "compliance": "Gennemgår compliance-indikatorer…",
+      "governance": "Opdaterer styringsindsigt…"
+    },
+    "companion": {
+      "workspace": "Aipify forbereder dit arbejdsområde…",
+      "priorities": "Gennemgår organisationens prioriteter…",
+      "recommendations": "Forbereder anbefalinger…"
+    },
+    "commerce": {
+      "commerceIntelligence": "Opdaterer handelsintelligens…",
+      "performance": "Gennemgår præstationsindikatorer…",
+      "marketInsights": "Synkroniserer markedsindsigt…"
+    }
+  }
 }

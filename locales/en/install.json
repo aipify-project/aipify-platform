@@ -60,7 +60,7 @@
   },
   "verifyEndpoint": "/api/install/verify",
   "error": "Could not create installation. Try again.",
-  "loading": "Loading...",
+  "loading": "Updating operational overview…",
   "wizard": {
     "title": "Installation wizard",
     "subtitle": "Connect your website in minutes. Complexity stays behind the scenes.",
@@ -68,7 +68,7 @@
     "next": "Continue",
     "back": "Back",
     "finish": "Run health scan",
-    "loading": "Working...",
+    "loading": "Synchronizing approved workflows…",
     "error": "Something went wrong. Try again.",
     "steps": {
       "name": "Website name",
@@ -156,43 +156,100 @@
         "title": "Shopify installation",
         "summary": "Install the app, approve permissions, and activate.",
         "steps": {
-          "installApp": { "title": "Install app", "body": "Install Aipify from the Shopify App Store." },
-          "approve": { "title": "Approve permissions", "body": "Review and approve the requested scopes." },
-          "confirmStore": { "title": "Confirm store", "body": "Verify your Shopify store domain." },
-          "recommendations": { "title": "Review recommendations", "body": "Review skill recommendations for your store." },
-          "activate": { "title": "Activate", "body": "Activate Aipify on your store." }
+          "installApp": {
+            "title": "Install app",
+            "body": "Install Aipify from the Shopify App Store."
+          },
+          "approve": {
+            "title": "Approve permissions",
+            "body": "Review and approve the requested scopes."
+          },
+          "confirmStore": {
+            "title": "Confirm store",
+            "body": "Verify your Shopify store domain."
+          },
+          "recommendations": {
+            "title": "Review recommendations",
+            "body": "Review skill recommendations for your store."
+          },
+          "activate": {
+            "title": "Activate",
+            "body": "Activate Aipify on your store."
+          }
         }
       },
       "wordpress": {
         "title": "WordPress installation",
         "summary": "Install the plugin, sign in, and verify your domain.",
         "steps": {
-          "installPlugin": { "title": "Install plugin", "body": "Install the Aipify WordPress plugin." },
-          "signIn": { "title": "Sign in to Aipify", "body": "Connect your Aipify account from the plugin." },
-          "verifyDomain": { "title": "Verify domain", "body": "Confirm domain ownership." },
-          "recommendations": { "title": "Review recommendations", "body": "Review recommended skills." },
-          "activate": { "title": "Activate", "body": "Activate Aipify on your site." }
+          "installPlugin": {
+            "title": "Install plugin",
+            "body": "Install the Aipify WordPress plugin."
+          },
+          "signIn": {
+            "title": "Sign in to Aipify",
+            "body": "Connect your Aipify account from the plugin."
+          },
+          "verifyDomain": {
+            "title": "Verify domain",
+            "body": "Confirm domain ownership."
+          },
+          "recommendations": {
+            "title": "Review recommendations",
+            "body": "Review recommended skills."
+          },
+          "activate": {
+            "title": "Activate",
+            "body": "Activate Aipify on your site."
+          }
         }
       },
       "woocommerce": {
         "title": "WooCommerce installation",
         "summary": "Install the plugin and connect your Aipify account.",
         "steps": {
-          "installPlugin": { "title": "Install plugin", "body": "Install the Aipify WooCommerce extension." },
-          "connect": { "title": "Connect account", "body": "Sign in with Aipify from your store admin." },
-          "approve": { "title": "Approve permissions", "body": "Approve requested store permissions." },
-          "recommendations": { "title": "Review recommendations", "body": "Review commerce skill recommendations." },
-          "activate": { "title": "Activate", "body": "Activate Aipify on your store." }
+          "installPlugin": {
+            "title": "Install plugin",
+            "body": "Install the Aipify WooCommerce extension."
+          },
+          "connect": {
+            "title": "Connect account",
+            "body": "Sign in with Aipify from your store admin."
+          },
+          "approve": {
+            "title": "Approve permissions",
+            "body": "Approve requested store permissions."
+          },
+          "recommendations": {
+            "title": "Review recommendations",
+            "body": "Review commerce skill recommendations."
+          },
+          "activate": {
+            "title": "Activate",
+            "body": "Activate Aipify on your store."
+          }
         }
       },
       "custom": {
         "title": "Custom website installation",
         "summary": "Add the Aipify script and verify your domain.",
         "steps": {
-          "addScript": { "title": "Add script", "body": "Add the Aipify embed script to your site." },
-          "confirmDomain": { "title": "Confirm domain", "body": "Register and confirm your domain." },
-          "verify": { "title": "Verify installation", "body": "Run verification to confirm the connection." },
-          "activate": { "title": "Activate", "body": "Activate Aipify services." }
+          "addScript": {
+            "title": "Add script",
+            "body": "Add the Aipify embed script to your site."
+          },
+          "confirmDomain": {
+            "title": "Confirm domain",
+            "body": "Register and confirm your domain."
+          },
+          "verify": {
+            "title": "Verify installation",
+            "body": "Run verification to confirm the connection."
+          },
+          "activate": {
+            "title": "Activate",
+            "body": "Activate Aipify services."
+          }
         }
       }
     },

@@ -18,7 +18,7 @@
   "center": {
     "title": "Trust & License Center",
     "subtitle": "Transparency about ownership, licensing, data, and your subscription.",
-    "loading": "Loading license information...",
+    "loading": "Reviewing account status…",
     "backToApp": "Back to Control Center",
     "graceBanner": "Payment is overdue. You are within the 3-day grace period with full access. Please update billing to avoid service pause.",
     "pausedBanner": "Services are paused due to an overdue subscription.",

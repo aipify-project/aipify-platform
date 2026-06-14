@@ -53,7 +53,7 @@
   },
   "verifyEndpoint": "/api/install/verify",
   "error": "Kunde inte skapa installation. Försök igen.",
-  "loading": "Laddar...",
+  "loading": "Uppdaterar operativ översikt…",
   "modern": {
     "title": "Anslut Aipify",
     "subtitle": "Installera Aipify som en modern SaaS-produkt — inga licensnycklar krävs.",

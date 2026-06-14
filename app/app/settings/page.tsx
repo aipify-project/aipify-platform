@@ -12,68 +12,59 @@ export default async function SettingsPage() {
   const locale = await getLocale();
   const dict = await getDictionary(locale, ["customerApp", "presence"]);
   const t = createTranslator(dict);
+  const p = "customerApp.settings";
 
   const levelLabels = Object.fromEntries(
     PRESENCE_NOTIFICATION_LEVELS.map((level) => [
       level,
       t(`presence.desktop.levels.${level}`),
-    ])
+    ]),
   ) as Record<PresenceNotificationLevel, string>;
 
   const modeLabels = Object.fromEntries(
     QUIET_HOURS_MODES.map((mode) => [
       mode,
-      t(`presence.commandCenter.quietModes.${mode}`),
-    ])
+      t(`presence.executiveCenter.quietModes.${mode}`),
+    ]),
   ) as Record<QuietHoursMode, string>;
+
+  const categoryIds = [
+    "companionPresence",
+    "governanceSecurity",
+    "knowledgeLearning",
+    "automationActions",
+    "billingGrowth",
+    "organizationIntelligence",
+  ] as const;
 
   return (
     <CustomerSettingsCenterPanel
       labels={{
-        title: t("customerApp.settings.title"),
-        subtitle: t("customerApp.settings.subtitle"),
+        title: t(`${p}.title`),
+        subtitle: t(`${p}.subtitle`),
         sections: {
-          notifications: t("customerApp.settings.sections.notifications"),
-          presence: t("customerApp.settings.sections.presence"),
-          quietHours: t("customerApp.settings.sections.quietHours"),
-          executiveBriefing: t("customerApp.settings.sections.executiveBriefing"),
-          desktop: t("customerApp.settings.sections.desktop"),
-          developer: t("customerApp.settings.sections.developer"),
-          updates: t("customerApp.settings.sections.updates"),
-          learning: t("customerApp.settings.sections.learning"),
-          timezone: t("customerApp.settings.timezone"),
+          notifications: t(`${p}.sections.notifications`),
+          quietHours: t(`${p}.sections.quietHours`),
+          timezone: t(`${p}.timezone`),
         },
-        timezoneHint: t("customerApp.settings.timezoneHint"),
+        timezoneHint: t(`${p}.timezoneHint`),
         quietModes: modeLabels,
         levels: levelLabels,
-        save: t("customerApp.settings.save"),
-        saved: t("customerApp.settings.saved"),
-        links: {
-          developer: t("customerApp.settings.links.developer"),
-          updates: t("customerApp.settings.links.updates"),
-          desktopConnect: t("customerApp.settings.links.desktopConnect"),
-          learning: t("customerApp.settings.links.learning"),
-          businessDna: t("customerApp.settings.links.businessDna"),
-          supportOperations: t("customerApp.settings.links.supportOperations"),
-          employeeKnowledge: t("customerApp.settings.links.employeeKnowledge"),
-          workingStyle: t("customerApp.settings.links.workingStyle"),
-          personalization: t("customerApp.settings.links.personalization"),
-          billing: t("customerApp.settings.links.billing"),
-          modules: t("customerApp.settings.links.modules"),
-          intelligence: t("customerApp.settings.links.intelligence"),
-          predictions: t("customerApp.settings.links.predictions"),
-          automation: t("customerApp.settings.links.automation"),
-          governance: t("customerApp.settings.links.governance"),
-          knowledge: t("customerApp.settings.links.knowledge"),
-          quality: t("customerApp.settings.links.quality"),
-          assistantIdentity: t("customerApp.settings.links.assistantIdentity"),
-          companionPresence: t("customerApp.settings.links.companionPresence"),
-          enterprise: t("customerApp.settings.links.enterprise"),
-          compliance: t("customerApp.settings.links.compliance"),
-          twoFactor: t("customerApp.settings.links.twoFactor"),
-          devicesPrinters: t("customerApp.settings.links.devicesPrinters"),
-          actionAccess: t("customerApp.settings.links.actionAccess"),
-        },
+        save: t(`${p}.save`),
+        saved: t(`${p}.saved`),
+        categories: categoryIds.map((id) => ({
+          id,
+          title: t(`${p}.categories.${id}.title`),
+          description: t(`${p}.categories.${id}.description`),
+          links: [1, 2, 3]
+            .map((index) => {
+              const href = t(`${p}.categories.${id}.links.${index}.href`);
+              const label = t(`${p}.categories.${id}.links.${index}.label`);
+              if (href.startsWith("customerApp.")) return null;
+              return { href, label };
+            })
+            .filter((link): link is { href: string; label: string } => link !== null),
+        })),
       }}
     />
   );

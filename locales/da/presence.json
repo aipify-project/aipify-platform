@@ -13,7 +13,7 @@
   "center": {
     "title": "Aipify Presence Center",
     "close": "Close presence center",
-    "loading": "Loading presence activity...",
+    "loading": "Updating business activity status…",
     "currentState": "Current state",
     "currentActivity": "Current activity",
     "status": "Status",

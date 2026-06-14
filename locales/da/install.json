@@ -53,7 +53,7 @@
   },
   "verifyEndpoint": "/api/install/verify",
   "error": "Kunne ikke oprette installation. Prøv igen.",
-  "loading": "Indlæser...",
+  "loading": "Opdaterer operationel oversigt…",
   "modern": {
     "title": "Forbind Aipify",
     "subtitle": "Installer Aipify som et moderne SaaS-produkt — ingen licensnøgler påkrævet.",

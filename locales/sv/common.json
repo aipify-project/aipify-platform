@@ -2,8 +2,38 @@
   "appName": "Aipify",
   "save": "Spara",
   "cancel": "Avbryt",
-  "loading": "Laddar...",
+  "loading": "Uppdaterar operativ översikt…",
   "getStarted": "Kom igång",
   "bookDemo": "Boka demo",
-  "login": "Logga in"
+  "login": "Logga in",
+  "loadingLanguage": {
+    "executive": {
+      "briefing": "Förbereder ledningsbriefing…",
+      "overview": "Uppdaterar operativ översikt…",
+      "insights": "Synkroniserar organisationsinsikter…",
+      "intelligence": "Uppdaterar ledningsintelligens…",
+      "priorities": "Förbereder dagens prioriteringar…"
+    },
+    "operations": {
+      "operationalData": "Samlar operativ data…",
+      "pendingActivities": "Granskar väntande aktiviteter…",
+      "workflows": "Synkroniserar godkända arbetsflöden…",
+      "activityStatus": "Uppdaterar affärsaktivitetsstatus…"
+    },
+    "security": {
+      "securityPosture": "Verifierar säkerhetsstatus…",
+      "compliance": "Granskar compliance-indikatorer…",
+      "governance": "Uppdaterar styrningsinsikter…"
+    },
+    "companion": {
+      "workspace": "Aipify förbereder din arbetsyta…",
+      "priorities": "Granskar organisationens prioriteringar…",
+      "recommendations": "Förbereder rekommendationer…"
+    },
+    "commerce": {
+      "commerceIntelligence": "Uppdaterar handelsintelligens…",
+      "performance": "Granskar prestationsindikatorer…",
+      "marketInsights": "Synkroniserar marknadsinsikter…"
+    }
+  }
 }

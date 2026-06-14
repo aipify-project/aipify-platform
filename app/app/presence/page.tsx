@@ -7,31 +7,45 @@ export default async function PresencePage() {
   const locale = await getLocale();
   const dict = await getDictionary(locale, ["customerApp", "branding"]);
   const t = createTranslator(dict);
+  const p = "customerApp.presence";
 
   return (
     <CustomerPresenceCenterPanel
       locale={locale}
       labels={{
-        title: t("customerApp.presence.title"),
-        subtitle: t("customerApp.presence.subtitle"),
-        loading: t("customerApp.presence.loading"),
-        empty: t("customerApp.presence.empty"),
+        title: t(`${p}.title`),
+        subtitle: t(`${p}.subtitle`),
+        loading: t(`${p}.loading`),
+        empty: t(`${p}.empty`),
         pulseLabel: t("branding.pulseLabel"),
-        sections: {
-          briefing: t("customerApp.presence.sections.briefing"),
-          timeline: t("customerApp.presence.sections.timeline"),
-          feed: t("customerApp.presence.sections.feed"),
+        statusTitle: t(`${p}.statusTitle`),
+        statusActive: t(`${p}.statusActive`),
+        statusDescription: t(`${p}.statusDescription`),
+        lastUpdated: t(`${p}.lastUpdated`),
+        lastUpdatedValue: t(`${p}.lastUpdatedValue`),
+        metrics: {
+          healthScore: t(`${p}.metrics.healthScore`),
+          recommendations: t(`${p}.metrics.recommendations`),
+          pendingActions: t(`${p}.metrics.pendingActions`),
+          companionStatus: t(`${p}.metrics.companionStatus`),
         },
-        noEvents: t("customerApp.presence.noEvents"),
-        commandCenter: t("customerApp.presence.commandCenter"),
+        companionActive: t(`${p}.companionActive`),
+        sections: {
+          briefing: t(`${p}.sections.briefing`),
+          timeline: t(`${p}.sections.timeline`),
+          feed: t(`${p}.sections.feed`),
+        },
+        noEvents: t(`${p}.noEvents`),
+        executiveCenter: t(`${p}.executiveCenter`),
+        desktopCompanion: t(`${p}.desktopCompanion`),
         categories: {
-          support: t("customerApp.presence.categories.support"),
-          automation: t("customerApp.presence.categories.automation"),
-          approval: t("customerApp.presence.categories.approval"),
-          health: t("customerApp.presence.categories.health"),
-          update: t("customerApp.presence.categories.update"),
-          presence: t("customerApp.presence.categories.presence"),
-          skill: t("customerApp.presence.categories.skill"),
+          support: t(`${p}.categories.support`),
+          automation: t(`${p}.categories.automation`),
+          approval: t(`${p}.categories.approval`),
+          health: t(`${p}.categories.health`),
+          update: t(`${p}.categories.update`),
+          presence: t(`${p}.categories.presence`),
+          skill: t(`${p}.categories.skill`),
         },
         greetings: {
           morning: t("customerApp.greetings.morning"),

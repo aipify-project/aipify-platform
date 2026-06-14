@@ -14,6 +14,7 @@ export * from "./reminder-followup-vocabulary";
 export * from "./reminder-followup";
 export * from "./brand-identity-vocabulary";
 export * from "./brand-identity";
+export * from "./enterprise-loading-language-vocabulary";
 export * from "./abos-vocabulary";
 export * from "./abos-terminology";
 export * from "./positioning-foundation-vocabulary";

@@ -2,8 +2,38 @@
   "appName": "Aipify",
   "save": "Save",
   "cancel": "Cancel",
-  "loading": "Loading...",
+  "loading": "Updating operational overview…",
   "getStarted": "Get Started",
   "bookDemo": "Book a Demo",
-  "login": "Login"
+  "login": "Login",
+  "loadingLanguage": {
+    "executive": {
+      "briefing": "Preparing executive briefing…",
+      "overview": "Updating operational overview…",
+      "insights": "Synchronizing organizational insights…",
+      "intelligence": "Refreshing executive intelligence…",
+      "priorities": "Preparing today's priorities…"
+    },
+    "operations": {
+      "operationalData": "Gathering operational data…",
+      "pendingActivities": "Reviewing pending activities…",
+      "workflows": "Synchronizing approved workflows…",
+      "activityStatus": "Updating business activity status…"
+    },
+    "security": {
+      "securityPosture": "Verifying security posture…",
+      "compliance": "Reviewing compliance indicators…",
+      "governance": "Updating governance insights…"
+    },
+    "companion": {
+      "workspace": "Aipify is preparing your workspace…",
+      "priorities": "Reviewing your organization's priorities…",
+      "recommendations": "Preparing recommendations…"
+    },
+    "commerce": {
+      "commerceIntelligence": "Updating commerce intelligence…",
+      "performance": "Reviewing performance indicators…",
+      "marketInsights": "Synchronizing market insights…"
+    }
+  }
 }

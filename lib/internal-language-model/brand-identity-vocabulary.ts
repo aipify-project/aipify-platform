@@ -1,6 +1,32 @@
 export const BRAND_IDENTITY_PRINCIPLE =
   "Aipify is the product name. Artificial Intelligence is the underlying technology.";
 
+export const AIPIFY_IDENTITY_RULE =
+  "Aipify must never refer to itself simply as \"AI\" in customer-facing experiences. Customers buy Aipify, not artificial intelligence.";
+
+export const AIPIFY_IDENTITY_FOUNDATIONAL_BELIEF =
+  "People remember how systems make them feel. Aipify should feel professional, dependable, thoughtful, reassuring, and human-centered — never like \"just AI.\"";
+
+export const FORBIDDEN_IDENTITY_PHRASES = [
+  "AI is thinking",
+  "Loading AI dashboard",
+  "AI assistant",
+  "The AI has completed the task",
+  "Artificial intelligence recommends",
+  "Loading AI",
+  "The AI thinks",
+  "The AI decided",
+] as const;
+
+export const PREFERRED_COMPANION_STATUS_PHRASES = [
+  "Aipify is preparing your workspace.",
+  "Aipify is reviewing today's priorities.",
+  "Aipify is generating your executive briefing.",
+  "Aipify has identified items requiring attention.",
+  "Aipify is monitoring approved systems.",
+  "Aipify is ready to assist.",
+] as const;
+
 export const BRAND_PERSONALITY_TRAITS = [
   "helpful",
   "professional",
@@ -36,6 +62,32 @@ export const AIPIFY_FIRST_LABEL_REPLACEMENTS: Array<[RegExp, string]> = [
   [/\bSupport AI\b/gi, "Aipify Support"],
   [/\bAI Meeting Assistant\b/gi, "Aipify Meeting Companion"],
   [/\bSecure AI Actions\b/gi, "Secure Aipify Actions"],
+  [/\bSecure AI Action Engine\b/gi, "Secure Aipify Action Engine"],
+  [/\bAI Action Principles\b/gi, "Aipify Action Principles"],
+  [/\bAI Action Framework\b/gi, "Aipify Action Framework"],
+  [/\bRecent AI Actions\b/gi, "Recent Aipify actions"],
+  [/\bPending AI Approvals\b/gi, "Pending Aipify approvals"],
+  [/\bAI Activity Timeline\b/gi, "Aipify activity timeline"],
+  [/\bAI Events\b/gi, "Aipify activity"],
+  [/\bAI Autonomy Level\b/gi, "Companion autonomy level"],
+  [/\bAI Autonomy\b/gi, "Companion autonomy"],
+  [/\bAI acceptance rate\b/gi, "Aipify acceptance rate"],
+  [/\bAI Risk Classification\b/gi, "Aipify risk classification"],
+  [/\bAI involved\b/gi, "Aipify involved"],
+  [/\bAI action governance\b/gi, "Aipify action governance"],
+  [/\bAI actions\b/gi, "Aipify actions"],
+  [/\bAI action\b/gi, "Aipify action"],
+  [/\bAI-generated\b/gi, "Aipify-generated"],
+  [/\bAI usage\b/gi, "Aipify usage"],
+  [/\bYour AI Chief of Staff\b/gi, "Your executive companion"],
+  [/\bAI learning assistant\b/gi, "Aipify learning companion"],
+  [/\bSpecialist AI agents\b/gi, "Specialist Aipify capabilities"],
+  [/\bAI Cost Governance Engine\b/gi, "Aipify Cost Governance Engine"],
+  [/\bAI Cost Governance\b/gi, "Aipify Cost Governance"],
+  [/\bCommerce AI\b/gi, "Aipify Commerce"],
+  [/\bLoading AI dashboard\b/gi, "Updating operational overview"],
+  [/\bLoading AI\b/gi, "Updating operational overview"],
+  [/\bAI is thinking\b/gi, "Aipify is preparing your workspace"],
   [/\bAI Recommendations\b/gi, "Aipify Insights"],
   [/\bAI Recommendation\b/gi, "Aipify Insight"],
   [/\bResolved by AI\b/gi, "Resolved by Aipify"],
@@ -86,13 +138,25 @@ export const COMPANION_NAMING_LABEL_REPLACEMENTS: Array<{ avoid: string; use: st
 
 /** Patterns to rewrite in generated or legacy copy. */
 export const BRAND_SELF_REFERENCE_REWRITES: Array<[RegExp, string]> = [
+  [/\bThe AI has completed\b/gi, "Aipify has completed"],
   [/\bThe AI has\b/gi, "Aipify has"],
   [/\bThe AI recommends\b/gi, "Aipify recommends"],
   [/\bThe AI thinks\b/gi, "Aipify suggests"],
   [/\bThe AI decided\b/gi, "Aipify prepared a recommendation"],
+  [/\bArtificial intelligence recommends\b/gi, "Aipify recommends"],
+  [/\bArtificial Intelligence recommends\b/gi, "Aipify recommends"],
   [/\bAI recommends\b/gi, "Aipify recommends"],
   [/\bAI has\b/gi, "Aipify has"],
   [/\bArtificial Intelligence has\b/gi, "Aipify has"],
+  [/\bprohibited for autonomous AI\b/gi, "prohibited without human confirmation"],
+  [/\bprohibited for AI\b/gi, "prohibited for Aipify without approval"],
+  [/\bDaily AI work\b/gi, "Daily companion work"],
+  [/\bAI modules\b/gi, "Aipify modules"],
+  [/\bAI summaries\b/gi, "Executive summaries"],
+  [/\bCommerce AI tools\b/gi, "Aipify Commerce tools"],
+  [/\bCommerce AI will\b/gi, "Aipify Commerce will"],
+  [/\bResponsible AI commitments\b/gi, "Responsible use commitments"],
+  [/\bDocumented AI use cases\b/gi, "Documented Aipify use cases"],
   [/\bThe system believes\b/gi, "Aipify indicates"],
   [/\bThe algorithm recommends\b/gi, "Aipify recommends"],
   [/\bThe machine has\b/gi, "Aipify has"],

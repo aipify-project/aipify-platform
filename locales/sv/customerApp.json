@@ -11,7 +11,7 @@
     }
   },
   "home": {
-    "loading": "Loading your overview…",
+    "loading": "Förbereder your overview overview…",
     "empty": "Complete account setup to open your Customer App.",
     "healthTitle": "Business health",
     "healthBands": {
@@ -36,7 +36,7 @@
   "executive": {
     "title": "Executive dashboard",
     "subtitle": "Business awareness — health, activity, and what needs your attention.",
-    "loading": "Loading executive dashboard…",
+    "loading": "Förbereder executive overview…",
     "empty": "Executive dashboard is not available yet.",
     "healthTitle": "Health score",
     "sections": {
@@ -103,7 +103,7 @@
   "presence": {
     "title": "Presence center",
     "subtitle": "What Aipify has been doing while you focus on your business.",
-    "loading": "Loading presence activity…",
+    "loading": "Förbereder presence activity overview…",
     "empty": "Presence activity will appear as Aipify works in the background.",
     "sections": {
       "briefing": "Morning briefing",
@@ -125,7 +125,7 @@
   "recommendations": {
     "title": "Recommendations",
     "subtitle": "Improve operations with clear, actionable guidance from Aipify.",
-    "loading": "Loading recommendations…",
+    "loading": "Förbereder recommendations overview…",
     "empty": "No recommendations at the moment. Aipify will suggest improvements as it learns.",
     "approve": "Approve",
     "dismiss": "Dismiss",
@@ -140,7 +140,7 @@
   "approvals": {
     "title": "Approval center",
     "subtitle": "Decisions that need your oversight — in one place.",
-    "loading": "Loading approvals…",
+    "loading": "Förbereder approvals overview…",
     "empty": "No pending approvals. Aipify will surface items when human review is required.",
     "openActionCenter": "Open Command Center for quick actions",
     "approve": "Godkänn",
@@ -182,7 +182,7 @@
   "installations": {
     "title": "Installations",
     "subtitle": "Connected environments — health, heartbeat, and connected skills.",
-    "loading": "Loading installations…",
+    "loading": "Förbereder installations overview…",
     "empty": "No installations connected yet.",
     "addInstall": "Connect installation",
     "viewDetails": "View details",
@@ -197,7 +197,7 @@
   "team": {
     "title": "Team",
     "subtitle": "People who access your Aipify workspace.",
-    "loading": "Loading team…",
+    "loading": "Förbereder team overview…",
     "empty": "No team members found.",
     "members": "Team members",
     "invitations": "Invitations",
@@ -3186,7 +3186,7 @@
   },
   "organizationalWisdom": {
     "title": "Organisatorisk visdom och etisk intelligenscenter",
-    "subtitle": "Visdom och etisk reflektion för organisationer — urskiljning inte perfektion. Aipify stödjer reflektion; människor behåller moraliskt handlingsutrymme. Skiljer sig från Wisdom Engine A.93 och AI Ethics A.46.",
+    "subtitle": "Visdom och etisk reflektion för organisationer — urskiljning inte perfektion. Aipify stödjer reflektion; människor behåller moraliskt handlingsutrymme. Skiljer sig från Wisdom Engine A.93 och Responsible Use & Ethics A.46.",
     "loading": "Laddar Organizational Wisdom-instrumentpanel…",
     "wisdomMaturityScore": "Visdomsmognadspoäng",
     "activeReflectionWorkspaces": "Aktiva reflektionsarbetsytor",
@@ -3216,7 +3216,7 @@
     "criterionMet": "Uppfyllt",
     "criterionPending": "Pågår",
     "wisdomEngine": "Wisdom Engine (A.93)",
-    "aiEthics": "AI Ethics (A.46)",
+    "aiEthics": "Responsible Use & Ethics (A.46)",
     "purposeValues": "Purpose & Values (A.82)",
     "decisionIntelligence": "Decision Intelligence (Fas 125)",
     "socialImpact": "Social Impact (Fas 118)",
@@ -4482,7 +4482,7 @@
     "community": "Community (Fas 117)",
     "growthPartnerOperations": "Growth Partner Ops (Fas 114)",
     "inclusionHumanityEngine": "Inclusion & Humanity (A.83)",
-    "aiEthicsEngine": "AI Ethics (Blueprint 98)"
+    "aiEthicsEngine": "Responsible Use & Ethics (Blueprint 98)"
   },
   "ecosystemOrchestration": {
     "title": "Ecosystem Orchestration",
@@ -6944,7 +6944,7 @@
   "aipifyInstallEngine": {
     "title": "Install Engine (sv)",
     "subtitle": "Guided installation with discovery, permission review, and recommendations — extending Install Engine Phase 17. (sv)",
-    "loading": "Loading install dashboard… (sv)",
+    "loading": "Förbereder install overview…",
     "installEngine": "Aipify Install Engine (sv)",
     "installWizard": "Install Wizard (sv)",
     "onboarding": "Onboarding (sv)",
@@ -7076,7 +7076,7 @@
   "moduleMarketplaceFoundationEngine": {
     "title": "Module Marketplace (sv)",
     "subtitle": "Modular SaaS catalog, tenant activation, dependencies, and configuration. (sv)",
-    "loading": "Loading marketplace… (sv)",
+    "loading": "Förbereder marketplace overview…",
     "engineTitle": "Module Marketplace Foundation Engine (sv)",
     "modulesSettings": "Module Settings (sv)",
     "subscription": "Subscription (sv)",
@@ -7091,7 +7091,7 @@
   "aipifyInternalOperationsEngine": {
     "title": "Internal Operations (sv)",
     "subtitle": "Dogfooding dashboard and feature validation for Aipify Group AS. (sv)",
-    "loading": "Loading internal ops… (sv)",
+    "loading": "Förbereder internal ops overview…",
     "engineTitle": "Aipify Internal Operations Engine (sv)",
     "quality": "Quality Guardian (sv)",
     "pilot": "Unonight Pilot (sv)",
@@ -7106,7 +7106,7 @@
   "launchReadinessEngine": {
     "title": "Launch Readiness (sv)",
     "subtitle": "Go/No-Go checklist, launch reviews, and post-launch monitoring. (sv)",
-    "loading": "Loading launch readiness… (sv)",
+    "loading": "Förbereder launch readiness overview…",
     "engineTitle": "Launch Readiness Engine (sv)",
     "pilot": "Unonight Pilot (sv)",
     "deployments": "Deployments (sv)",
@@ -7121,7 +7121,7 @@
   "customerSuccessEngine": {
     "title": "Customer Success (sv)",
     "subtitle": "Health scoring, adoption tracking, interventions, and renewal risk detection. (sv)",
-    "loading": "Loading customer success… (sv)",
+    "loading": "Förbereder customer success overview…",
     "engineTitle": "Customer Success Engine (sv)",
     "onboarding": "Onboarding (sv)",
     "subscription": "Subscription (sv)",
@@ -7136,7 +7136,7 @@
   "statusTransparencyEngine": {
     "title": "Status & Transparency (sv)",
     "subtitle": "Public and internal status communication. (sv)",
-    "loading": "Loading status dashboard… (sv)",
+    "loading": "Förbereder status overview…",
     "noOrganization": "No organization context available. (sv)",
     "platformStatus": "Platform status (sv)",
     "observabilityEngine": "Observability Engine (sv)",
@@ -7161,7 +7161,7 @@
   "enterpriseReadinessEngine": {
     "title": "Enterprise Readiness (sv)",
     "subtitle": "Enterprise health, governance, and deployment readiness. (sv)",
-    "loading": "Loading enterprise readiness… (sv)",
+    "loading": "Förbereder enterprise readiness overview…",
     "engineTitle": "Enterprise Readiness Engine (sv)",
     "governance": "Governance (sv)",
     "deployments": "Deployments (sv)",
@@ -7499,7 +7499,7 @@
   "executiveInsightsEngine": {
     "title": "Executive Insights (sv)",
     "subtitle": "Tenant-aware executive reporting — organization health, risks, opportunities, and action summaries. (sv)",
-    "loading": "Loading executive insights… (sv)",
+    "loading": "Förbereder executive insights overview…",
     "engineTitle": "Executive Insights Engine (sv)",
     "analytics": "Analytics (sv)",
     "operations": "Operations (sv)",
@@ -8718,7 +8718,7 @@
     "title": "AI-etik",
     "subtitle": "Dokumenterade AI-användningsfall, förklarbarhetskrav och etikgranskning — människor bestämmer ansvarsfull användning.",
     "loading": "Laddar AI-etik…",
-    "engineTitle": "AI Ethics & Responsible Use Engine",
+    "engineTitle": "Responsible Use & Ethics Engine",
     "summary": "Sammanfattning",
     "principles": "Principer",
     "explainabilityRequirements": "Förklarbarhetskrav",
@@ -9714,7 +9714,7 @@
     "title": "AI-kostnadsstyrning",
     "subtitle": "Budgetstyrning, användningsspårning och kostnadsoptimering — uppgiftsnivåer med endast metadata, aldrig leverantörsnamn i UI.",
     "loading": "Laddar AI-kostnadspanel…",
-    "engineTitle": "AI Cost Governance Engine",
+    "engineTitle": "Aipify Cost Governance Engine",
     "distinctionNote": "Leverantör- och modellinformation lagras endast för routing — kund-UI visar kostnadseffektiv, standard och hög noggrannhet.",
     "secureAiActions": "Säkra AI-åtgärder",
     "analyticsInsights": "Analysinsikter",
@@ -10117,7 +10117,7 @@
     "subtitle": "Respektfull kommunikation, inkluderingsprinciper och deeskalering — värdighet för alla i organisatoriska interaktioner. ABOS Culture-pelare.",
     "loading": "Laddar inkludering och humanitet-panel…",
     "engineTitle": "Inclusion & Humanity Engine",
-    "distinctionNote": "Kommunikationsbeteende och inkludering — inte AI Ethics A.46, Purpose & Values A.82, Brand Identity eller Trust Engine-förklaring.",
+    "distinctionNote": "Kommunikationsbeteende och inkludering — inte Responsible Use & Ethics A.46, Purpose & Values A.82, Brand Identity eller Trust Engine-förklaring.",
     "humanValuesCharter": "Human Values Charter",
     "openIncidents": "Öppna kommunikationsincidenter",
     "reflectionsEnabled": "Aktivera inkluderingsreflektioner",
@@ -10816,7 +10816,7 @@
   "humanWisdomAugmentedJudgmentEngine": {
     "title": "Wisdom & Judgment Center",
     "subtitle": "Cosmic Stewardship & Multi-Generational Futures Era (171–180) — wisdom companion supports reflection. Humans decide — Companion does not replace judgment. Growth Partner — never Affiliate.",
-    "loading": "Loading dashboard…",
+    "loading": "Förbereder dashboard overview…",
     "engineTitle": "Human Wisdom & Augmented Judgment Engine (Phase 175)",
     "humanWisdomAugmentedJudgmentScore": "Engagement score",
     "distinctionNote": "Support only — not replacement of human judgment or responsibility.",
@@ -10852,7 +10852,7 @@
   "humanAgencyAutonomyEngine": {
     "title": "Agency & Autonomy Center",
     "subtitle": "Cosmic Stewardship & Multi-Generational Futures Era (171–180) — agency companion supports reflection. Humans decide — Companion does not replace judgment. Growth Partner — never Affiliate.",
-    "loading": "Loading dashboard…",
+    "loading": "Förbereder dashboard overview…",
     "engineTitle": "Human Agency & Responsible Autonomy Engine (Phase 176)",
     "humanAgencyAutonomyScore": "Engagement score",
     "distinctionNote": "Support only — not replacement of human judgment or responsibility.",
@@ -10888,7 +10888,7 @@
   "humanDignityHumilityEngine": {
     "title": "Dignity Center",
     "subtitle": "Cosmic Stewardship & Multi-Generational Futures Era (171–180) — dignity companion supports reflection. Humans decide — Companion does not replace judgment. Growth Partner — never Affiliate.",
-    "loading": "Loading dashboard…",
+    "loading": "Förbereder dashboard overview…",
     "engineTitle": "Human Dignity & Technological Humility Engine (Phase 177)",
     "humanDignityHumilityScore": "Engagement score",
     "distinctionNote": "Support only — not replacement of human judgment or responsibility.",
@@ -10924,7 +10924,7 @@
   "humanHopePossibilityEngine": {
     "title": "Collective Possibility Center",
     "subtitle": "Cosmic Stewardship & Multi-Generational Futures Era (171–180) — hope companion supports reflection and metadata scaffolds. Supports humans — does NOT replace judgment, curiosity, or leadership accountability. Growth Partner — never Affiliate.",
-    "loading": "Loading Human Hope & Collective Possibility Engine dashboard…",
+    "loading": "Förbereder Human Hope & Collective Possibility Engine overview…",
     "engineTitle": "Human Hope & Collective Possibility Engine (Phase 178)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -10958,7 +10958,7 @@
   "humanWonderExplorationEngine": {
     "title": "Wonder & Exploration Center",
     "subtitle": "Cosmic Stewardship & Multi-Generational Futures Era (171–180) — wonder companion supports reflection and metadata scaffolds. Supports humans — does NOT replace judgment, curiosity, or leadership accountability. Growth Partner — never Affiliate.",
-    "loading": "Loading Human Wonder & Exploration Engine dashboard…",
+    "loading": "Förbereder Human Wonder & Exploration Engine overview…",
     "engineTitle": "Human Wonder & Exploration Engine (Phase 179)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -10992,7 +10992,7 @@
   "humanLegacyEternalStewardshipEngine": {
     "title": "Legacy & Eternal Stewardship Center",
     "subtitle": "Cosmic Stewardship & Multi-Generational Futures Era (171–180) — legacy companion supports reflection and metadata scaffolds. Supports humans — does NOT replace judgment, curiosity, or leadership accountability. Growth Partner — never Affiliate.",
-    "loading": "Loading Human Legacy & Eternal Stewardship Engine dashboard…",
+    "loading": "Förbereder Human Legacy & Eternal Stewardship Engine overview…",
     "engineTitle": "Human Legacy & Eternal Stewardship Engine (Phase 180)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11026,7 +11026,7 @@
   "universalStewardshipSharedFuturesEngine": {
     "title": "Universal Stewardship Center",
     "subtitle": "Universal Stewardship & Shared Futures Era (181–190) — stewardship companion supports reflection and metadata scaffolds. Supports humans — does NOT replace judgment, curiosity, or leadership accountability. Growth Partner — never Affiliate.",
-    "loading": "Loading Universal Stewardship & Shared Futures Engine dashboard…",
+    "loading": "Förbereder Universal Stewardship & Shared Futures Engine overview…",
     "engineTitle": "Universal Stewardship & Shared Futures Engine (Phase 181)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11060,7 +11060,7 @@
   "collectiveWisdomSharedLearningEngine": {
     "title": "Collective Wisdom Center",
     "subtitle": "Universal Stewardship & Shared Futures Era (181–190) — learning companion supports reflection and metadata scaffolds. Supports humans — does NOT replace judgment, curiosity, or leadership accountability. Growth Partner — never Affiliate.",
-    "loading": "Loading Humanity's Collective Wisdom & Shared Learning Engine dashboard…",
+    "loading": "Förbereder Humanity's Collective Wisdom & Shared Learning Engine overview…",
     "engineTitle": "Humanity's Collective Wisdom & Shared Learning Engine (Phase 182)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11094,7 +11094,7 @@
   "humanCreativityImaginationEngine": {
     "title": "Creativity & Imagination Center",
     "subtitle": "Cosmic Stewardship & Multi-Generational Futures Era (171–180) — creativity companion supports imagination. Humans decide — Companion does not replace judgment. Growth Partner — never Affiliate.",
-    "loading": "Loading Human Creativity & Imagination dashboard…",
+    "loading": "Förbereder Human Creativity & Imagination overview…",
     "engineTitle": "Human Creativity & Imagination Amplification Engine (Phase 174)",
     "humanCreativityImaginationScore": "Engagement score",
     "distinctionNote": "Support only — not replacement of human creativity or responsibility.",
@@ -11130,7 +11130,7 @@
   "sharedPurposeContributionEngine": {
     "title": "Shared Purpose & Contribution Center",
     "subtitle": "Universal Stewardship & Shared Futures Era (181–190) — contribution companion supports reflection and metadata scaffolds. Supports humans — does NOT replace judgment or leadership accountability. Growth Partner — never Affiliate.",
-    "loading": "Loading Humanity's Shared Purpose & Contribution dashboard…",
+    "loading": "Förbereder Humanity's Shared Purpose & Contribution overview…",
     "engineTitle": "Humanity's Shared Purpose & Contribution Engine (Phase 183)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11164,7 +11164,7 @@
   "sharedResilienceAdaptiveCapacityEngine": {
     "title": "Shared Resilience & Adaptive Capacity Center",
     "subtitle": "Universal Stewardship & Shared Futures Era (181–190) — resilience companion supports reflection and metadata scaffolds. Supports humans — does NOT replace judgment or leadership accountability. Growth Partner — never Affiliate.",
-    "loading": "Loading Humanity's Shared Resilience & Adaptive Capacity dashboard…",
+    "loading": "Förbereder Humanity's Shared Resilience & Adaptive Capacity overview…",
     "engineTitle": "Humanity's Shared Resilience & Adaptive Capacity Engine (Phase 184)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11198,7 +11198,7 @@
   "sharedTrustCooperativeIntelligenceEngine": {
     "title": "Cooperative Intelligence Center",
     "subtitle": "Universal Stewardship & Shared Futures Era (181–190) — cooperation companion supports reflection and metadata scaffolds. Supports humans — does NOT replace judgment or leadership accountability. Growth Partner — never Affiliate.",
-    "loading": "Loading Humanity's Shared Trust & Cooperative Intelligence dashboard…",
+    "loading": "Förbereder Humanity's Shared Trust & Cooperative Intelligence overview…",
     "engineTitle": "Humanity's Shared Trust & Cooperative Intelligence Engine (Phase 185)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11232,7 +11232,7 @@
   "sharedCompassionReciprocalCareEngine": {
     "title": "Reciprocal Care Center",
     "subtitle": "Universal Stewardship & Shared Futures Era (181–190) — care companion supports reflection and metadata scaffolds. Supports humans — does NOT replace judgment or leadership accountability. Growth Partner — never Affiliate.",
-    "loading": "Loading Humanity's Shared Compassion & Reciprocal Care dashboard…",
+    "loading": "Förbereder Humanity's Shared Compassion & Reciprocal Care overview…",
     "engineTitle": "Humanity's Shared Compassion & Reciprocal Care Engine (Phase 186)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11266,7 +11266,7 @@
   "sharedCourageResponsibleActionEngine": {
     "title": "Courage Center",
     "subtitle": "Universal Stewardship & Shared Futures Era (181–190) — courage companion supports reflection and metadata scaffolds. Supports humans — does NOT replace judgment or leadership accountability. Growth Partner — never Affiliate.",
-    "loading": "Loading Humanity's Shared Courage & Responsible Action dashboard…",
+    "loading": "Förbereder Humanity's Shared Courage & Responsible Action overview…",
     "engineTitle": "Humanity's Shared Courage & Responsible Action Engine (Phase 187)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11300,7 +11300,7 @@
   "sharedGratitudeAppreciativeStewardshipEngine": {
     "title": "Appreciative Stewardship Center",
     "subtitle": "Universal Stewardship & Shared Futures Era (181–190) — gratitude companion supports reflection and metadata scaffolds. Supports humans — does NOT replace judgment or leadership accountability. Growth Partner — never Affiliate.",
-    "loading": "Loading Humanity's Shared Gratitude & Appreciative Stewardship dashboard…",
+    "loading": "Förbereder Humanity's Shared Gratitude & Appreciative Stewardship overview…",
     "engineTitle": "Humanity's Shared Gratitude & Appreciative Stewardship Engine (Phase 188)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11334,7 +11334,7 @@
   "sharedLegacyFlourishingEngine": {
     "title": "Flourishing Center",
     "subtitle": "Universal Stewardship & Shared Futures Era (181–190) — era capstone. Legacy Companion supports reflection and metadata scaffolds. Supports humans — does NOT define meaning or replace leadership. Growth Partner — never Affiliate.",
-    "loading": "Loading Humanity's Shared Legacy & Flourishing dashboard…",
+    "loading": "Förbereder Humanity's Shared Legacy & Flourishing overview…",
     "engineTitle": "Humanity's Shared Legacy & Flourishing Engine (Phase 190)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11368,7 +11368,7 @@
   "aipifyConstitutionPerpetualPrinciplesEngine": {
     "title": "Constitutional Governance Center",
     "subtitle": "Perpetual Stewardship & Constitutional Governance Era (191–200) — era opener. Constitution Companion supports constitutional accountability and metadata scaffolds. Supports humans — does NOT rewrite values or replace leadership. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Constitution & Perpetual Principles dashboard…",
+    "loading": "Förbereder Constitution & Perpetual Principles overview…",
     "engineTitle": "Aipify Constitution & Perpetual Principles Engine (Phase 191)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11402,7 +11402,7 @@
   "aipifyEthicalEvolutionResponsibleInnovationEngine": {
     "title": "Responsible Innovation Center",
     "subtitle": "Perpetual Stewardship & Constitutional Governance Era (191–200). Ethics Companion supports ethical reflection and metadata scaffolds. Supports humans — does NOT define moral truth or override leadership. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Ethical Evolution & Responsible Innovation dashboard…",
+    "loading": "Förbereder Ethical Evolution & Responsible Innovation overview…",
     "engineTitle": "Aipify Ethical Evolution & Responsible Innovation Engine (Phase 192)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11436,7 +11436,7 @@
   "aipifyGuardianshipSuccessionEngine": {
     "title": "Succession Center",
     "subtitle": "Perpetual Stewardship & Constitutional Governance Era (191–200). Guardianship Companion supports succession preparedness and metadata scaffolds. Supports humans — does NOT select successors. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Guardianship & Succession dashboard…",
+    "loading": "Förbereder Guardianship & Succession overview…",
     "engineTitle": "Aipify Guardianship & Succession Engine (Phase 193)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11470,7 +11470,7 @@
   "aipifyValuesTransmissionCulturalContinuityEngine": {
     "title": "Cultural Continuity Center",
     "subtitle": "Perpetual Stewardship & Constitutional Governance Era (191–200). Culture Companion supports values reflection and cultural continuity scaffolds. Supports humans — does NOT define organizational values. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Values Transmission & Cultural Continuity dashboard…",
+    "loading": "Förbereder Values Transmission & Cultural Continuity overview…",
     "engineTitle": "Aipify Values Transmission & Cultural Continuity Engine (Phase 195)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11504,7 +11504,7 @@
   "aipifyPrinciplesEnforcementEngine": {
     "title": "Principles Dashboard",
     "subtitle": "Perpetual Stewardship & Constitutional Governance Era (191–200). Principles Companion supports principles alignment and metadata scaffolds. Supports humans — does NOT rewrite organizational values. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Principles Enforcement Engine dashboard…",
+    "loading": "Förbereder Principles Enforcement Engine overview…",
     "engineTitle": "Aipify Principles Enforcement Engine (Phase 196)",
     "scoreLabel": "Alignment score",
     "modeLabel": "Mode",
@@ -11538,7 +11538,7 @@
   "aipifyDecisionTransparencyEngine": {
     "title": "Decision Explanation Center",
     "subtitle": "Perpetual Stewardship & Constitutional Governance Era (191–200). Transparency Companion supports decision explanations, audit timelines, and oversight scaffolds. Supports humans — does NOT make decisions or override approvals. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Decision Transparency dashboard…",
+    "loading": "Förbereder Decision Transparency overview…",
     "engineTitle": "Aipify Decision Transparency Engine (Phase 197)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11572,7 +11572,7 @@
   "aipifyOrganizationalHealthEarlyWarningEngine": {
     "title": "Organizational Health Dashboard",
     "subtitle": "Perpetual Stewardship & Constitutional Governance Era (191–200). Health Companion supports organizational health indicators, early warning signals, and resolution tracking. Supports humans — does NOT surveil employees or take punitive actions. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Organizational Health & Early Warning dashboard…",
+    "loading": "Förbereder Organizational Health & Early Warning overview…",
     "engineTitle": "Aipify Organizational Health & Early Warning Engine (Phase 198)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11606,7 +11606,7 @@
   "aipifyLegacyPreservationKnowledgeContinuityEngine": {
     "title": "Knowledge Continuity Center",
     "subtitle": "Perpetual Stewardship & Constitutional Governance Era (191–200). Knowledge Continuity Companion supports knowledge preservation and metadata scaffolds. Supports humans — does NOT determine organizational values. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Legacy Preservation & Knowledge Continuity dashboard…",
+    "loading": "Förbereder Legacy Preservation & Knowledge Continuity overview…",
     "engineTitle": "Aipify Legacy Preservation & Knowledge Continuity Engine (Phase 194)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11641,7 +11641,7 @@
   "aipifyStrategicAlignmentPrioritizationEngine": {
     "title": "Strategic Priorities Dashboard",
     "subtitle": "Perpetual Stewardship & Constitutional Governance Era (191–200). Strategy Companion supports strategic alignment, initiative mapping, and resource awareness. Supports humans — does NOT define strategy or auto-prioritize. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Strategic Alignment & Prioritization dashboard…",
+    "loading": "Förbereder Strategic Alignment & Prioritization overview…",
     "engineTitle": "Aipify Strategic Alignment & Prioritization Engine (Phase 199)",
     "scoreLabel": "Alignment score",
     "modeLabel": "Mode",
@@ -11675,7 +11675,7 @@
   "aipifyDigitalHeadquartersEngine": {
     "title": "Digital Headquarters",
     "subtitle": "Global Command & Enterprise Operations Era (201–210). Headquarters Companion supports company feed, executive updates, events, resources, department spaces, and welcome center. Supports humans — does NOT publish org communications or override leadership messaging. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Digital Headquarters Engine dashboard…",
+    "loading": "Förbereder Digital Headquarters Engine overview…",
     "engineTitle": "Aipify Digital Headquarters Engine (Phase 203)",
     "scoreLabel": "Engagement score",
     "modeLabel": "Mode",
@@ -11709,7 +11709,7 @@
   "aipifyGlobalCommandCenterEngine": {
     "title": "Global Command Center",
     "subtitle": "Global Command & Enterprise Operations Era (201–210). Command Center Companion supports global overview, department status, leadership briefings, and command center alerts. Supports humans — does NOT make leadership decisions or override RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Global Command Center dashboard…",
+    "loading": "Förbereder Global Command Center overview…",
     "engineTitle": "Aipify Global Command Center Engine (Phase 201)",
     "scoreLabel": "Command readiness score",
     "modeLabel": "Mode",
@@ -11743,7 +11743,7 @@
   "aipifyUnifiedWorkspaceEngine": {
     "title": "My Workspace Dashboard",
     "subtitle": "Global Command & Enterprise Operations Era (201–210). Workspace Companion supports priorities, notifications, quick actions, and governed personalization. Supports humans — does NOT override RBAC or expose unauthorized data. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Unified Workspace dashboard…",
+    "loading": "Förbereder Unified Workspace overview…",
     "engineTitle": "Aipify Unified Workspace Engine (Phase 202)",
     "scoreLabel": "Workspace score",
     "modeLabel": "Productivity mode",
@@ -11777,7 +11777,7 @@
   "aipifyKnowledgeDiscoveryIntelligentSearchEngine": {
     "title": "Knowledge Result Center",
     "subtitle": "Global Command & Enterprise Operations Era (201–210). Discovery Companion supports permission-aware search, knowledge gap detection, and feedback guidance. Supports humans — does NOT bypass RBAC or expose unauthorized content. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Knowledge Discovery & Intelligent Search dashboard…",
+    "loading": "Förbereder Knowledge Discovery & Intelligent Search overview…",
     "engineTitle": "Aipify Knowledge Discovery & Intelligent Search Engine (Phase 204)",
     "scoreLabel": "Discovery score",
     "modeLabel": "Mode",
@@ -11811,7 +11811,7 @@
   "aipifyExecutiveOperatingSystemFoundersCockpitEngine": {
     "title": "Executive Cockpit Dashboard",
     "subtitle": "Perpetual Stewardship & Constitutional Governance Era (191–200) capstone. Executive Companion supports executive visibility, since-last-login updates, attention queues, and founder stewardship. Briefs humans — does NOT make executive decisions. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Executive Operating System & Founder's Cockpit dashboard…",
+    "loading": "Förbereder Executive Operating System & Founder's Cockpit overview…",
     "engineTitle": "Aipify Executive Operating System & Founder's Cockpit Engine (Phase 200)",
     "scoreLabel": "Executive readiness score",
     "modeLabel": "Cockpit mode",
@@ -11845,7 +11845,7 @@
   "aipifyActionCenterExecutionEngine": {
     "title": "Action Center (My Actions Dashboard)",
     "subtitle": "Global Command & Enterprise Operations Era (201–210). Execution Companion supports action tracking, follow-up, and delegation governance. Supports humans — does NOT auto-execute Level 3+ or bypass trust_action_engine. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Action Center & Execution dashboard…",
+    "loading": "Förbereder Action Center & Execution overview…",
     "engineTitle": "Aipify Action Center & Execution Engine (Phase 205)",
     "scoreLabel": "Execution score",
     "modeLabel": "Mode",
@@ -11879,7 +11879,7 @@
   "aipifyMeetingIntelligenceFollowUpEngine": {
     "title": "Meeting Follow-Up Dashboard",
     "subtitle": "Global Command & Enterprise Operations Era (201–210). Meeting Companion supports meeting summaries, action extraction, and consent controls. Metadata/summaries only — does NOT store raw transcripts without policy or include PII in audit payloads. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Meeting Intelligence & Follow-Up dashboard…",
+    "loading": "Förbereder Meeting Intelligence & Follow-Up overview…",
     "engineTitle": "Aipify Meeting Intelligence & Follow-Up Engine (Phase 206)",
     "scoreLabel": "Follow-up score",
     "modeLabel": "Mode",
@@ -11913,7 +11913,7 @@
   "aipifyDecisionCenterGovernanceEngine": {
     "title": "Decision Center",
     "subtitle": "Global Command & Enterprise Operations Era (201–210). Governance Companion supports decision governance, registry insights, and review reminders. Supports humans — does NOT make organizational decisions or bypass approval chains. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Decision Center & Governance dashboard…",
+    "loading": "Förbereder Decision Center & Governance overview…",
     "engineTitle": "Aipify Decision Center & Governance Engine (Phase 207)",
     "scoreLabel": "Governance score",
     "modeLabel": "Mode",
@@ -11947,7 +11947,7 @@
   "aipifyOperationsOrchestrationEngine": {
     "title": "Operations Command Dashboard",
     "subtitle": "Global Command & Enterprise Operations Era (201–210). Operations Companion supports workflow visibility, dependency alerts, and escalation guidance. Supports humans — does NOT auto-execute workflows or override escalation governance. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Operations Orchestration dashboard…",
+    "loading": "Förbereder Operations Orchestration overview…",
     "engineTitle": "Aipify Operations Orchestration Engine (Phase 208)",
     "scoreLabel": "Operations score",
     "modeLabel": "Mode",
@@ -11981,7 +11981,7 @@
   "aipifyOrganizationalRhythmsOperatingCadenceEngine": {
     "title": "Operating Cadence Center",
     "subtitle": "Global Command & Enterprise Operations Era (201–210) — Era Capstone. Cadence Companion supports rhythm summaries, review reminders, and follow-up insights. Supports humans — does NOT auto-schedule meetings or override leadership cadence. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Organizational Rhythms & Operating Cadence dashboard…",
+    "loading": "Förbereder Organizational Rhythms & Operating Cadence overview…",
     "engineTitle": "Aipify Organizational Rhythms & Operating Cadence Engine (Phase 210 — Era Capstone)",
     "scoreLabel": "Cadence score",
     "modeLabel": "Mode",
@@ -12016,7 +12016,7 @@
   "continuousImprovementOptimizationEngine": {
     "title": "Improvement Center",
     "subtitle": "Operational Excellence & Continuous Improvement Era (211+). Improvement Companion surfaces opportunity signals and optimization insights. Advises humans — does NOT auto-prioritize initiatives or launch improvements without approval. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Continuous Improvement & Optimization dashboard…",
+    "loading": "Förbereder Continuous Improvement & Optimization overview…",
     "engineTitle": "Aipify Continuous Improvement & Optimization Engine (Phase 211)",
     "scoreLabel": "Improvement score",
     "modeLabel": "Mode",
@@ -12051,7 +12051,7 @@
   "aipifyCustomerSuccessValueRealizationEngine": {
     "title": "Customer Success Center",
     "subtitle": "Innovation & Adaptive Excellence Era (211–220). Success Companion supports adoption summaries, value insights, and proactive outreach suggestions. Supports humans — does NOT auto-execute outreach or expose sensitive customer business data. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Customer Success & Value Realization dashboard…",
+    "loading": "Förbereder Customer Success & Value Realization overview…",
     "engineTitle": "Aipify Customer Success & Value Realization Engine (Phase 213)",
     "scoreLabel": "Success score",
     "modeLabel": "Mode",
@@ -12086,7 +12086,7 @@
   "aipifyOnboardingAdoptionAccelerationEngine": {
     "title": "Onboarding Center",
     "subtitle": "Innovation & Adaptive Excellence Era (211–220). Onboarding Companion supports adoption summaries, enablement insights, and guided success recommendations. Supports humans — does NOT auto-configure setup or bypass human approval. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Onboarding & Adoption Acceleration dashboard…",
+    "loading": "Förbereder Onboarding & Adoption Acceleration overview…",
     "engineTitle": "Aipify Onboarding & Adoption Acceleration Engine (Phase 215)",
     "scoreLabel": "Adoption score",
     "modeLabel": "Mode",
@@ -12121,7 +12121,7 @@
   "aipifyCustomerJourneyExperienceOrchestrationEngine": {
     "title": "Customer Journey Center",
     "subtitle": "Innovation & Adaptive Excellence Era (211–220). Journey Companion supports journey summaries, friction insights, and optimization suggestions. Supports humans — does NOT auto-modify journeys or expose sensitive customer PII.",
-    "loading": "Loading Aipify Customer Journey & Experience Orchestration dashboard…",
+    "loading": "Förbereder Customer Journey & Experience Orchestration overview…",
     "engineTitle": "Aipify Customer Journey & Experience Orchestration Engine (Phase 214)",
     "scoreLabel": "Journey score",
     "modeLabel": "Mode",
@@ -12156,7 +12156,7 @@
   "aipifyEnterpriseTrainingCertificationEngine": {
     "title": "Learning Center",
     "subtitle": "Innovation & Adaptive Excellence Era (211–220). Learning Companion supports learning summaries, competency insights, and certification recommendations. Supports humans — does NOT auto-certify or bypass human approval. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Enterprise Training & Certification dashboard…",
+    "loading": "Förbereder Enterprise Training & Certification overview…",
     "engineTitle": "Aipify Enterprise Training & Certification Engine (Phase 216)",
     "scoreLabel": "Competency score",
     "modeLabel": "Mode",
@@ -12191,7 +12191,7 @@
   "aipifyOrganizationalCommunicationAnnouncementsEngine": {
     "title": "Communication Center",
     "subtitle": "Innovation & Adaptive Excellence Era (211–220). Communication Companion supports communication summaries, acknowledgement insights, and broadcast recommendations. Supports humans — does NOT auto-broadcast or bypass human approval. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Organizational Communication & Announcements dashboard…",
+    "loading": "Förbereder Organizational Communication & Announcements overview…",
     "engineTitle": "Aipify Organizational Communication & Announcements Engine (Phase 217)",
     "scoreLabel": "Communication score",
     "modeLabel": "Mode",
@@ -12226,7 +12226,7 @@
   "aipifyInnovationOpportunityDiscoveryEngine": {
     "title": "Innovation Discovery Center",
     "subtitle": "Innovation & Adaptive Excellence Era (211–220). Discovery Companion surfaces opportunity signals and exploration insights. Advises humans — does NOT auto-prioritize innovation bets or launch experiments without approval. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Innovation & Opportunity Discovery dashboard…",
+    "loading": "Förbereder Innovation & Opportunity Discovery overview…",
     "engineTitle": "Aipify Innovation & Opportunity Discovery Engine (Phase 212)",
     "scoreLabel": "Discovery score",
     "modeLabel": "Mode",
@@ -12261,7 +12261,7 @@
   "aipifyEmployeeRecognitionCelebrationEngine": {
     "title": "Recognition & Celebration",
     "subtitle": "Guided Adoption Era (239–243). Recognition Companion supports peer and executive recognition, milestone celebrations, recognition feed, analytics, and celebration reminders. Supports positive culture — does NOT bypass recognition RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Employee Recognition & Celebration dashboard…",
+    "loading": "Förbereder Employee Recognition & Celebration overview…",
     "engineTitle": "Employee Recognition & Celebration Engine (Phase 242)",
     "scoreLabel": "Recognition celebration score",
     "modeLabel": "Mode",
@@ -12296,7 +12296,7 @@
   "aipifyEmployeeGrowthCareerDevelopmentEngine": {
     "title": "Career Development Center",
     "subtitle": "Innovation & Adaptive Excellence Era (211–220). Growth Companion supports development planning, career path visibility, and growth opportunities. Supports humans — does NOT auto-decide progression or bypass confidentiality controls. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Employee Growth & Career Development dashboard…",
+    "loading": "Förbereder Employee Growth & Career Development overview…",
     "engineTitle": "Aipify Employee Growth & Career Development Engine (Phase 219)",
     "scoreLabel": "Career development score",
     "modeLabel": "Mode",
@@ -12331,7 +12331,7 @@
   "aipifyWellbeingSustainablePerformanceEngine": {
     "title": "Wellbeing Center",
     "subtitle": "Innovation & Adaptive Excellence Era (211–220). Wellbeing Companion supports wellbeing stewardship, sustainable performance rhythms, and resilience opportunities. Supports humans — does NOT infer health states or enable surveillance. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Wellbeing & Sustainable Performance dashboard…",
+    "loading": "Förbereder Wellbeing & Sustainable Performance overview…",
     "engineTitle": "Aipify Wellbeing & Sustainable Performance Engine (Phase 220)",
     "scoreLabel": "Wellbeing resilience score",
     "modeLabel": "Mode",
@@ -12366,7 +12366,7 @@
   "aipifyTalentAcquisitionWorkforcePlanningEngine": {
     "title": "Talent Center",
     "subtitle": "Talent & Workforce Planning Era (221–230). Talent Companion supports workforce planning, recruitment coordination, and capability gap visibility. Supports humans — does NOT store unprotected candidate PII or automate hiring. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Talent Acquisition & Workforce Planning dashboard…",
+    "loading": "Förbereder Talent Acquisition & Workforce Planning overview…",
     "engineTitle": "Aipify Talent Acquisition & Workforce Planning Engine (Phase 221)",
     "scoreLabel": "Workforce readiness score",
     "modeLabel": "Mode",
@@ -12401,7 +12401,7 @@
   "aipifyPerformanceGoalAlignmentEngine": {
     "title": "Performance Center",
     "subtitle": "Performance & Goal Alignment Era (221–230). Performance Companion supports goal alignment, progress tracking, and development conversations. Supports growth — does NOT use punitive surveillance. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Performance & Goal Alignment dashboard…",
+    "loading": "Förbereder Performance & Goal Alignment overview…",
     "engineTitle": "Aipify Performance & Goal Alignment Engine (Phase 222)",
     "scoreLabel": "Goal alignment score",
     "modeLabel": "Mode",
@@ -12436,7 +12436,7 @@
   "aipifyOrganizationalInsightsExecutiveIntelligenceEngine": {
     "title": "Executive Intelligence Center",
     "subtitle": "Executive Intelligence Era (221–230). Executive Intelligence Companion supports organizational insights, trend analysis, and concise executive briefings. Supports leaders — does NOT expose sensitive intelligence beyond RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Organizational Insights & Executive Intelligence dashboard…",
+    "loading": "Förbereder Organizational Insights & Executive Intelligence overview…",
     "engineTitle": "Aipify Organizational Insights & Executive Intelligence Engine (Phase 223)",
     "scoreLabel": "Executive intelligence score",
     "modeLabel": "Mode",
@@ -12471,7 +12471,7 @@
   "aipifyCustomerFeedbackVoiceOfTheCustomerEngine": {
     "title": "Voice of the Customer Center",
     "subtitle": "Customer Voice Era (224–230). Voice of the Customer Companion supports customer feedback intake, sentiment themes, and actionable routing. Supports teams — does NOT expose personal customer information beyond RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Customer Feedback & Voice of the Customer dashboard…",
+    "loading": "Förbereder Customer Feedback & Voice of the Customer overview…",
     "engineTitle": "Aipify Customer Feedback & Voice of the Customer Engine (Phase 224)",
     "scoreLabel": "Voice of customer score",
     "modeLabel": "Mode",
@@ -12506,7 +12506,7 @@
   "aipifyEnterprisePolicyComplianceManagementEngine": {
     "title": "Policy Center",
     "subtitle": "Compliance Stewardship Era (225–230). Policy Companion supports policy publishing, acknowledgement tracking, and compliance governance. Supports administrators — does NOT expose compliance records beyond RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Enterprise Policy & Compliance Management dashboard…",
+    "loading": "Förbereder Enterprise Policy & Compliance Management overview…",
     "engineTitle": "Aipify Enterprise Policy & Compliance Management Engine (Phase 225)",
     "scoreLabel": "Policy compliance score",
     "modeLabel": "Mode",
@@ -12541,7 +12541,7 @@
   "aipifyEnterpriseRiskResilienceEngine": {
     "title": "Risk Center",
     "subtitle": "Enterprise Resilience Era (226–230). Risk Companion supports enterprise risk visibility, mitigation tracking, and business continuity planning. Supports administrators — does NOT expose confidential executive risk briefings beyond RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Enterprise Risk & Resilience dashboard…",
+    "loading": "Förbereder Enterprise Risk & Resilience overview…",
     "engineTitle": "Aipify Enterprise Risk & Resilience Engine (Phase 226)",
     "scoreLabel": "Enterprise risk score",
     "modeLabel": "Mode",
@@ -12576,7 +12576,7 @@
   "aipifyBusinessContinuityCrisisManagementEngine": {
     "title": "Crisis Center",
     "subtitle": "Enterprise Resilience Era (226–230). Crisis Companion supports crisis coordination, continuity planning, and recovery frameworks. Supports administrators — does NOT expose crisis information beyond RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Business Continuity & Crisis Management dashboard…",
+    "loading": "Förbereder Business Continuity & Crisis Management overview…",
     "engineTitle": "Aipify Business Continuity & Crisis Management Engine (Phase 227)",
     "scoreLabel": "Continuity preparedness score",
     "modeLabel": "Mode",
@@ -12611,7 +12611,7 @@
   "aipifyVendorThirdPartyRelationshipEngine": {
     "title": "Vendor Center",
     "subtitle": "Enterprise Resilience Era (226–230). Vendor Companion supports vendor oversight, contract lifecycle tracking, and strategic partnership governance. Supports administrators — does NOT expose vendor information beyond RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Vendor & Third-Party Relationship dashboard…",
+    "loading": "Förbereder Vendor & Third-Party Relationship overview…",
     "engineTitle": "Aipify Vendor & Third-Party Relationship Engine (Phase 228)",
     "scoreLabel": "Vendor governance score",
     "modeLabel": "Mode",
@@ -12646,7 +12646,7 @@
   "aipifyStudioCreativeIntelligenceEngine": {
     "title": "Studio Center",
     "subtitle": "Creative Intelligence Era (229–233). Studio Companion supports creative workflows, BYOL integrations, and usage governance. Supports employees — does NOT bypass usage limits or expose provider credentials. Growth Partner — never Affiliate.",
-    "loading": "Loading Aipify Studio & Creative Intelligence dashboard…",
+    "loading": "Förbereder Studio & Creative Intelligence overview…",
     "engineTitle": "Aipify Studio & Creative Intelligence Engine (Phase 229)",
     "scoreLabel": "Creative intelligence score",
     "modeLabel": "Mode",
@@ -12681,7 +12681,7 @@
   "aipifyDocumentIntelligenceEnterpriseDocumentEngine": {
     "title": "Document Center",
     "subtitle": "Creative Intelligence Era (229–233). Document Companion supports document generation, transformation, and governance. Supports employees — does NOT bypass document RBAC or skip approval workflows. Growth Partner — never Affiliate.",
-    "loading": "Loading Document Intelligence & Enterprise Document dashboard…",
+    "loading": "Förbereder Document Intelligence & Enterprise Document overview…",
     "engineTitle": "Document Intelligence & Enterprise Document Engine (Phase 230)",
     "scoreLabel": "Document intelligence score",
     "modeLabel": "Mode",
@@ -12716,7 +12716,7 @@
   "aipifyEnterpriseWorkflowAutomationEngine": {
     "title": "Workflow Center",
     "subtitle": "Creative Intelligence Era (229–233). Workflow Companion supports visual workflow building, triggers, and governed automation. Supports employees — does NOT bypass workflow RBAC or skip approval controls. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Workflow Automation dashboard…",
+    "loading": "Förbereder Enterprise Workflow Automation overview…",
     "engineTitle": "Enterprise Workflow Automation Engine (Phase 231)",
     "scoreLabel": "Workflow automation score",
     "modeLabel": "Mode",
@@ -12751,7 +12751,7 @@
   "aipifyEnterpriseIntegrationHubEngine": {
     "title": "Integration Hub",
     "subtitle": "Creative Intelligence Era (229–233). Integration Companion supports integration marketplace, OAuth connections, webhooks, and governed connectivity. Supports employees — does NOT bypass integration RBAC or expose unencrypted credentials. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Integration Hub dashboard…",
+    "loading": "Förbereder Enterprise Integration Hub overview…",
     "engineTitle": "Enterprise Integration Hub Engine (Phase 232)",
     "scoreLabel": "Integration hub score",
     "modeLabel": "Mode",
@@ -12786,7 +12786,7 @@
   "aipifyEnterpriseNotificationAttentionManagementEngine": {
     "title": "Notification Center",
     "subtitle": "Creative Intelligence Era (229–233). Notification Companion supports central notifications, priority routing, grouping, digests, and governed delivery. Supports employees — does NOT bypass notification RBAC or suppress critical alerts. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Notification & Attention Management dashboard…",
+    "loading": "Förbereder Enterprise Notification & Attention Management overview…",
     "engineTitle": "Enterprise Notification & Attention Management Engine (Phase 233)",
     "scoreLabel": "Notification attention score",
     "modeLabel": "Mode",
@@ -12821,7 +12821,7 @@
   "aipifyEnterpriseSearchUniversalKnowledgeAccessEngine": {
     "title": "Search Center",
     "subtitle": "Universal Knowledge Era (234–238). Search Companion supports global search, natural language queries, cross-module discovery, and permission-aware results. Supports employees — does NOT bypass search RBAC or expose unauthorized content. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Search & Universal Knowledge Access dashboard…",
+    "loading": "Förbereder Enterprise Search & Universal Knowledge Access overview…",
     "engineTitle": "Enterprise Search & Universal Knowledge Access Engine (Phase 234)",
     "scoreLabel": "Universal knowledge search score",
     "modeLabel": "Mode",
@@ -12856,7 +12856,7 @@
   "aipifyEnterpriseAnalyticsOperationalIntelligenceEngine": {
     "title": "Analytics Center",
     "subtitle": "Universal Knowledge Era (234–238). Analytics Companion supports executive dashboards, KPI management, trend analysis, comparative reporting, and governed exports. Supports leaders — does NOT bypass analytics RBAC or expose sensitive metrics. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Analytics & Operational Intelligence dashboard…",
+    "loading": "Förbereder Enterprise Analytics & Operational Intelligence overview…",
     "engineTitle": "Enterprise Analytics & Operational Intelligence Engine (Phase 235)",
     "scoreLabel": "Operational intelligence score",
     "modeLabel": "Mode",
@@ -12891,7 +12891,7 @@
   "aipifyDesktopCompanionCreativeBridgeEngine": {
     "title": "Desktop Companion",
     "subtitle": "Universal Knowledge Era (234–238). Bridge Companion supports approved application detection, consent flows, creative and business app bridges, and governed guided actions. Supports users — does NOT access applications without permission. Growth Partner — never Affiliate.",
-    "loading": "Loading Desktop Companion & Creative Bridge dashboard…",
+    "loading": "Förbereder Desktop Companion & Creative Bridge overview…",
     "engineTitle": "Desktop Companion & Creative Bridge Engine (Phase 236)",
     "scoreLabel": "Desktop companion score",
     "modeLabel": "Mode",
@@ -12926,7 +12926,7 @@
   "aipifyEnterpriseCalendarPersonalAssistantEngine": {
     "title": "Calendar Assistant",
     "subtitle": "Universal Knowledge Era (234–238). Calendar Companion supports calendar integration, meeting prep, smart scheduling, reminders, executive briefings, and weekly planning. Supports employees — does NOT access calendars without authorization. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Calendar & Personal Assistant dashboard…",
+    "loading": "Förbereder Enterprise Calendar & Personal Assistant overview…",
     "engineTitle": "Enterprise Calendar & Personal Assistant Engine (Phase 237)",
     "scoreLabel": "Calendar assistant score",
     "modeLabel": "Mode",
@@ -12961,7 +12961,7 @@
   "aipifyTranslateMultilingualWorkforceEngine": {
     "title": "Translate",
     "subtitle": "Universal Knowledge Era (234–238). Translation Companion supports preferred language settings, real-time translation, documents, Knowledge Center, notifications, broadcasts, and language-aware search. Supports inclusion — does NOT bypass translation RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Translate & Multilingual Workforce dashboard…",
+    "loading": "Förbereder Translate & Multilingual Workforce overview…",
     "engineTitle": "Translate & Multilingual Workforce Engine (Phase 238)",
     "scoreLabel": "Translate workforce score",
     "modeLabel": "Mode",
@@ -12996,7 +12996,7 @@
   "aipifyEnterpriseOnboardingGuidedAdoptionEngine": {
     "title": "Onboarding",
     "subtitle": "Guided Adoption Era (239–243). Adoption Companion supports interactive journeys, role-based paths, guided tours, checklists, milestones, manager dashboards, and adoption analytics. Supports adoption — does NOT bypass onboarding RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Onboarding & Guided Adoption dashboard…",
+    "loading": "Förbereder Enterprise Onboarding & Guided Adoption overview…",
     "engineTitle": "Enterprise Onboarding & Guided Adoption Engine (Phase 239)",
     "scoreLabel": "Onboarding adoption score",
     "modeLabel": "Mode",
@@ -13031,7 +13031,7 @@
   "aipifyEnterpriseMeetingIntelligenceCollaborationEngine": {
     "title": "Meeting Intelligence",
     "subtitle": "Guided Adoption Era (239–243). Meeting Companion supports meeting preparation, note capture, summaries, action items, executive briefings, and meeting search. Supports accountability — does NOT bypass meeting RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Meeting Intelligence & Collaboration dashboard…",
+    "loading": "Förbereder Enterprise Meeting Intelligence & Collaboration overview…",
     "engineTitle": "Enterprise Meeting Intelligence & Collaboration Engine (Phase 240)",
     "scoreLabel": "Meeting intelligence score",
     "modeLabel": "Mode",
@@ -13066,7 +13066,7 @@
   "aipifySuccessionPlanningOrganizationalContinuityEngine": {
     "title": "Succession & Continuity",
     "subtitle": "Organizational Continuity Era (244–248). Succession Companion supports critical role identification, successor pools, readiness assessments, development tracking, leadership pipelines, and continuity planning. Supports organizational resilience — does NOT bypass succession RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Succession Planning & Organizational Continuity dashboard…",
+    "loading": "Förbereder Succession Planning & Organizational Continuity overview…",
     "engineTitle": "Succession Planning & Organizational Continuity Engine (Phase 244)",
     "scoreLabel": "Succession continuity score",
     "modeLabel": "Mode",
@@ -13101,7 +13101,7 @@
   "aipifyOrganizationalHealthWorkforceInsightsEngine": {
     "title": "Health & Workforce Insights",
     "subtitle": "Organizational Continuity Era (244–248). Health Insights Companion supports organizational health dashboards, pulse surveys, team wellbeing, department trends, sentiment tracking, and improvement initiatives. Supports organizational resilience — does NOT bypass health insights RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Organizational Health & Workforce Insights dashboard…",
+    "loading": "Förbereder Organizational Health & Workforce Insights overview…",
     "engineTitle": "Organizational Health & Workforce Insights Engine (Phase 245)",
     "scoreLabel": "Organizational health score",
     "modeLabel": "Mode",
@@ -13136,7 +13136,7 @@
   "aipifySkillsInternalTalentMarketplaceEngine": {
     "title": "Skills & Talent Marketplace",
     "subtitle": "Organizational Continuity Era (244–248). Talent Marketplace Companion supports skill profiles, endorsements, internal opportunity matching, cross-department discovery, skill gap analysis, and internal mobility. Supports talent utilization — does NOT bypass talent marketplace RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Skills & Internal Talent Marketplace dashboard…",
+    "loading": "Förbereder Skills & Internal Talent Marketplace overview…",
     "engineTitle": "Skills & Internal Talent Marketplace Engine (Phase 246)",
     "scoreLabel": "Talent marketplace score",
     "modeLabel": "Mode",
@@ -13171,7 +13171,7 @@
   "aipifyInnovationIdeaManagementEngine": {
     "title": "Innovation & Ideas",
     "subtitle": "Organizational Continuity Era (244–248). Innovation Companion supports idea submission, department boards, innovation campaigns, voting, manager reviews, executive workflows, pipelines, and analytics. Supports innovation culture — does NOT bypass innovation RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Innovation & Idea Management dashboard…",
+    "loading": "Förbereder Innovation & Idea Management overview…",
     "engineTitle": "Innovation & Idea Management Engine (Phase 247)",
     "scoreLabel": "Innovation score",
     "modeLabel": "Mode",
@@ -13206,7 +13206,7 @@
   "aipifyMentorshipKnowledgeTransferEngine": {
     "title": "Mentorship & Knowledge Transfer",
     "subtitle": "Guided Adoption Era (239–243). Mentorship Companion supports mentor registration, matching, department and leadership programs, goal setting, session scheduling, knowledge transfer, and analytics. Closes Guided Adoption Era — does NOT bypass mentorship RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Mentorship & Knowledge Transfer dashboard…",
+    "loading": "Förbereder Mentorship & Knowledge Transfer overview…",
     "engineTitle": "Mentorship & Knowledge Transfer Engine (Phase 243)",
     "scoreLabel": "Mentorship transfer score",
     "modeLabel": "Mode",
@@ -13241,7 +13241,7 @@
   "aipifyOrganizationalGoalsAlignmentEngine": {
     "title": "Goals & Alignment",
     "subtitle": "Organizational Continuity Era (244–248) capstone. Goals & Alignment Companion supports company, department, team, and individual goals, OKRs, progress tracking, milestones, dependencies, and review cycles. Supports strategic execution — does NOT bypass goal RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Organizational Goals & Alignment dashboard…",
+    "loading": "Förbereder Organizational Goals & Alignment overview…",
     "engineTitle": "Organizational Goals & Alignment Engine (Phase 248)",
     "scoreLabel": "Goals alignment score",
     "modeLabel": "Mode",
@@ -13276,7 +13276,7 @@
   "aipifyEnterpriseResourcePlanningCapacityIntelligenceEngine": {
     "title": "Resource & Capacity",
     "subtitle": "Workforce Planning Era (249–253) opener. Capacity Intelligence Companion supports team capacity dashboards, workload visibility, allocation planning, forecasting, skills matching, utilization analytics, and resource risk alerts. Supports workforce planning — does NOT bypass resource RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Resource Planning & Capacity Intelligence dashboard…",
+    "loading": "Förbereder Enterprise Resource Planning & Capacity Intelligence overview…",
     "engineTitle": "Enterprise Resource Planning & Capacity Intelligence Engine (Phase 249)",
     "scoreLabel": "Capacity intelligence score",
     "modeLabel": "Mode",
@@ -13311,7 +13311,7 @@
   "aipifyProjectPortfolioStrategicExecutionEngine": {
     "title": "Portfolio & Execution",
     "subtitle": "Workforce Planning Era (249–253). Portfolio Execution Companion supports project dashboards, portfolio management, initiative tracking, prioritization, milestones, dependencies, risk identification, and executive portfolio views. Supports strategic execution — does NOT bypass project RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Project Portfolio & Strategic Execution dashboard…",
+    "loading": "Förbereder Project Portfolio & Strategic Execution overview…",
     "engineTitle": "Project Portfolio & Strategic Execution Engine (Phase 250)",
     "scoreLabel": "Portfolio execution score",
     "modeLabel": "Mode",
@@ -13346,7 +13346,7 @@
   "aipifyDecisionIntelligenceRecommendationEngine": {
     "title": "Decision Intelligence",
     "subtitle": "Workforce Planning Era (249–253). Decision Intelligence Companion supports decision dashboards, recommendation workflows, history tracking, rationale documentation, impact assessments, reviews, approvals, analytics, and follow-up. Supports evidence-based decisions — does NOT bypass decision RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Decision Intelligence & Recommendation dashboard…",
+    "loading": "Förbereder Decision Intelligence & Recommendation overview…",
     "engineTitle": "Decision Intelligence & Recommendation Engine (Phase 251)",
     "scoreLabel": "Decision intelligence score",
     "modeLabel": "Mode",
@@ -13381,7 +13381,7 @@
   "aipifyEnterpriseActionPrioritizationFocusEngine": {
     "title": "Priority & Focus",
     "subtitle": "Workforce Planning Era (249–253). Focus Companion supports priority dashboards, action scoring, personal and team focus views, executive dashboards, daily recommendations, weekly planning, escalation tracking, and focus mode. Supports organizational focus — does NOT bypass priority RBAC. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Action Prioritization & Focus dashboard…",
+    "loading": "Förbereder Enterprise Action Prioritization & Focus overview…",
     "engineTitle": "Enterprise Action Prioritization & Focus Engine (Phase 252)",
     "scoreLabel": "Priority focus score",
     "modeLabel": "Mode",
@@ -13416,7 +13416,7 @@
   "aipifyEnterpriseGovernancePolicyAutomationEngine": {
     "title": "Governance & Policy",
     "subtitle": "Workforce Planning Era (249–253) capstone. Governance Companion supports policy lifecycle management, approval workflows, automated acknowledgements, compliance tracking, governance dashboards, exception workflows, analytics, and audit trails. Supports transparent governance — does NOT bypass governance RBAC or modify immutable acknowledgements. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Governance & Policy Automation dashboard…",
+    "loading": "Förbereder Enterprise Governance & Policy Automation overview…",
     "engineTitle": "Enterprise Governance & Policy Automation Engine (Phase 253)",
     "scoreLabel": "Governance automation score",
     "modeLabel": "Mode",
@@ -13451,7 +13451,7 @@
   "aipifyEnterpriseKnowledgeValidationQualityAssuranceEngine": {
     "title": "Knowledge Validation & Quality",
     "subtitle": "Knowledge Quality Era (254–258) opener. Quality Companion supports knowledge review workflows, approval processes, ownership assignment, expiration monitoring, quality scoring, feedback collection, usage analytics, and audit trails. Supports trustworthy knowledge — does NOT bypass knowledge RBAC or modify immutable version history. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Knowledge Validation & Quality Assurance dashboard…",
+    "loading": "Förbereder Enterprise Knowledge Validation & Quality Assurance overview…",
     "engineTitle": "Enterprise Knowledge Validation & Quality Assurance Engine (Phase 254)",
     "scoreLabel": "Knowledge quality score",
     "modeLabel": "Mode",
@@ -13486,7 +13486,7 @@
   "aipifyEnterpriseExternalIntelligenceMarketAwarenessEngine": {
     "title": "External Intelligence & Market Awareness",
     "subtitle": "Knowledge Quality Era (254–258) continues. Intelligence Companion supports external intelligence dashboards, trend monitoring, competitor awareness, regulatory updates, market opportunities, watchlists, executive briefings, event monitoring, intelligence alerts, and analytics. Supports strategic awareness — does NOT bypass intelligence RBAC or violate information-sharing policies. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise External Intelligence & Market Awareness dashboard…",
+    "loading": "Förbereder Enterprise External Intelligence & Market Awareness overview…",
     "engineTitle": "Enterprise External Intelligence & Market Awareness Engine (Phase 255)",
     "scoreLabel": "Market awareness score",
     "modeLabel": "Mode",
@@ -13521,7 +13521,7 @@
   "aipifyEnterpriseActionOrchestrationEngine": {
     "title": "Action Orchestration Center",
     "subtitle": "Knowledge Quality Era (254–258) continues. Orchestration Companion supports action queue, action plans, approval engine, execution tracking, rollback framework, action policies, cross-system orchestration, stakeholder notifications, and action history. Suggest before acting — does NOT execute without approval or bypass action policies. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Action Orchestration dashboard…",
+    "loading": "Förbereder Enterprise Action Orchestration overview…",
     "engineTitle": "Enterprise Action Orchestration Engine (Phase 256)",
     "scoreLabel": "Orchestration readiness score",
     "modeLabel": "Mode",
@@ -13556,7 +13556,7 @@
   "aipifyEnterpriseDecisionEscalationGovernanceEngine": {
     "title": "Decision Governance Center",
     "subtitle": "Knowledge Quality Era (254–258) completes. Governance Companion supports decision registry, decision escalation, decision briefing packs, multi-option analysis, decision deadlines, governance rules, stakeholder alignment, decision recommendations, and decision history. Recommend before deciding — does NOT finalize decisions without human authority or bypass governance rules. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Decision Escalation & Governance dashboard…",
+    "loading": "Förbereder Enterprise Decision Escalation & Governance overview…",
     "engineTitle": "Enterprise Decision Escalation & Governance Engine (Phase 258)",
     "scoreLabel": "Governance readiness score",
     "modeLabel": "Mode",
@@ -13591,7 +13591,7 @@
   "aipifyEnterpriseContinuousImprovementEngine": {
     "title": "Continuous Improvement Center",
     "subtitle": "Continuous Optimization Era (259–263) starts. Improvement Companion supports improvement opportunity detection, improvement backlog, impact estimation, implementation tracking, before vs after analysis, employee submissions, improvement recommendations, and knowledge retention. Detect before optimizing — does NOT implement changes without human approval or bypass improvement prioritization. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Continuous Improvement dashboard…",
+    "loading": "Förbereder Enterprise Continuous Improvement overview…",
     "engineTitle": "Enterprise Continuous Improvement Engine (Phase 259)",
     "scoreLabel": "Continuous improvement score",
     "modeLabel": "Mode",
@@ -13626,7 +13626,7 @@
   "aipifyEnterpriseOrganizationalMemoryEngine": {
     "title": "Organizational Memory Center",
     "subtitle": "Continuous Optimization Era (259–263) continues. Memory Companion supports memory capture, memory records, lessons learned framework, smart memory search, contextual memory recommendations, expertise discovery, knowledge decay management, and memory governance. Capture before forgetting — does NOT expose restricted memory beyond RBAC or bypass memory governance. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Organizational Memory dashboard…",
+    "loading": "Förbereder Enterprise Organizational Memory overview…",
     "engineTitle": "Enterprise Organizational Memory Engine (Phase 260)",
     "scoreLabel": "Organizational memory health score",
     "modeLabel": "Mode",
@@ -13661,7 +13661,7 @@
   "aipifyEnterpriseResilienceBusinessContinuityEngine": {
     "title": "Resilience Center",
     "subtitle": "Continuous Optimization Era (259–263) continues. Resilience Companion supports critical function registry, dependency mapping, incident classification, response playbooks, business continuity activation, communication coordination, recovery tracking, and post-incident reviews. Document before disruption — does NOT activate continuity without human approval or bypass incident escalation. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Resilience & Business Continuity dashboard…",
+    "loading": "Förbereder Enterprise Resilience & Business Continuity overview…",
     "engineTitle": "Enterprise Resilience & Business Continuity Engine (Phase 261)",
     "scoreLabel": "Resilience scorecard",
     "modeLabel": "Mode",
@@ -13696,7 +13696,7 @@
   "aipifyEnterpriseTrustRelationshipIntelligenceEngine": {
     "title": "Relationship Intelligence Center",
     "subtitle": "Continuous Optimization Era (259–263) continues. Relationship Intelligence Companion supports relationship registry, health monitoring, stakeholder mapping, customer trust signals, partner performance intelligence, Growth Partner insights, relationship timeline, and proactive recommendations. Recommendations only — humans maintain relationships. Does NOT replace relationship owner judgment or store raw conversation content. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Trust & Relationship Intelligence dashboard…",
+    "loading": "Förbereder Enterprise Trust & Relationship Intelligence overview…",
     "engineTitle": "Enterprise Trust & Relationship Intelligence Engine (Phase 262)",
     "scoreLabel": "Relationship trust index",
     "modeLabel": "Mode",
@@ -13731,7 +13731,7 @@
   "aipifyEnterpriseStrategicExecutionEngine": {
     "title": "Strategic Execution Center",
     "subtitle": "Continuous Optimization Era (259–263) completes. Strategic Execution Companion supports strategic objective registry, strategic initiatives, objective alignment, execution scorecards, milestone management, strategic risk identification, executive review workspaces, and execution recommendations. Aipify guides — leadership executes. Does NOT execute without leadership approval or bypass executive sponsor judgment. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Strategic Execution dashboard…",
+    "loading": "Förbereder Enterprise Strategic Execution overview…",
     "engineTitle": "Enterprise Strategic Execution Engine (Phase 263)",
     "scoreLabel": "Strategic execution index",
     "modeLabel": "Mode",
@@ -13766,7 +13766,7 @@
   "aipifyEnterpriseOpportunityDiscoveryEngine": {
     "title": "Opportunity Center",
     "subtitle": "Opportunity Discovery Era (264–268) starts. Opportunity Discovery Companion supports opportunity registry, opportunity detection, opportunity scoring, opportunity pipeline, opportunity validation, executive opportunity dashboard, opportunity recommendations, opportunity collaboration, and value realization tracking. Aipify highlights — humans decide. Does NOT pursue opportunities without human approval or bypass opportunity owner judgment. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Opportunity Discovery dashboard…",
+    "loading": "Förbereder Enterprise Opportunity Discovery overview…",
     "engineTitle": "Enterprise Opportunity Discovery Engine (Phase 264)",
     "scoreLabel": "Opportunity maturity index",
     "modeLabel": "Mode",
@@ -13801,7 +13801,7 @@
   "aipifyEnterpriseOrganizationalAdaptabilityEngine": {
     "title": "Adaptability Center",
     "subtitle": "Opportunity Discovery Era (264–268) continues. Adaptability Companion supports change registry, change impact assessment, readiness assessment, adaptation roadmaps, resistance identification, executive adaptability dashboard, communication coordination, and training enablement tracking. Aipify facilitates — leaders guide transformation. Does NOT drive transformation without leader approval or bypass change owner judgment. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Organizational Adaptability dashboard…",
+    "loading": "Förbereder Enterprise Organizational Adaptability overview…",
     "engineTitle": "Enterprise Organizational Adaptability Engine (Phase 265)",
     "scoreLabel": "Organizational adaptability index",
     "modeLabel": "Mode",
@@ -13836,7 +13836,7 @@
   "aipifyEnterpriseAutonomousCoordinationEngine": {
     "title": "Coordination Center",
     "subtitle": "Opportunity Discovery Era (264–268) continues. Coordination Companion supports coordination registry, coordination plans, human and digital workforce orchestration, policy-driven autonomy, dependency management, execution synchronization, and coordination alerts. Aipify coordinates and recommends — humans remain accountable. Does NOT replace human accountability or auto-execute without policy approval. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Autonomous Coordination dashboard…",
+    "loading": "Förbereder Enterprise Autonomous Coordination overview…",
     "engineTitle": "Enterprise Autonomous Coordination Engine (Phase 266)",
     "scoreLabel": "Coordination effectiveness index",
     "modeLabel": "Mode",
@@ -13871,7 +13871,7 @@
   "aipifyEnterpriseExecutiveCopilotEngine": {
     "title": "Executive Copilot Center",
     "subtitle": "Opportunity Discovery Era (264–268) continues. Executive Copilot Companion supports executive briefing engine, priority intelligence, executive attention management, decision support workspace, executive follow-through tracking, executive insight timeline, and cross-functional executive view. Aipify advises — executives decide. Does NOT replace executive judgment or make decisions for executives. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Executive Copilot dashboard…",
+    "loading": "Förbereder Enterprise Executive Copilot overview…",
     "engineTitle": "Enterprise Executive Copilot Engine (Phase 267)",
     "scoreLabel": "Executive effectiveness index",
     "modeLabel": "Mode",
@@ -13906,7 +13906,7 @@
   "aipifyEnterpriseFutureReadinessEngine": {
     "title": "Future Readiness Center",
     "subtitle": "Future Readiness Era (269–273) continues. Future Readiness Companion supports future readiness assessment, capability maturity mapping, readiness gap identification, emerging change tracker, future scenario preparation, and executive future dashboard. Aipify prepares — leadership prioritizes. Does NOT replace leadership priorities or make investment decisions for leadership. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Future Readiness dashboard…",
+    "loading": "Förbereder Enterprise Future Readiness overview…",
     "engineTitle": "Enterprise Future Readiness Engine (Phase 271)",
     "scoreLabel": "Future readiness index",
     "modeLabel": "Mode",
@@ -13941,7 +13941,7 @@
   "aipifyEnterpriseOrganizationalEnergyEngine": {
     "title": "Organizational Energy Center",
     "subtitle": "Organizational Vitality Era (269–273) opens. Organizational Energy Companion supports energy signal engine, team energy monitoring, executive energy insights, momentum detection, organizational friction identification, and executive energy dashboard. Aipify recommends — leadership determines action. Does NOT replace leadership action or pressure teams without consent. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Organizational Energy dashboard…",
+    "loading": "Förbereder Enterprise Organizational Energy overview…",
     "engineTitle": "Enterprise Organizational Energy Engine (Phase 269)",
     "scoreLabel": "Organizational energy index",
     "modeLabel": "Mode",
@@ -13976,7 +13976,7 @@
   "aipifyEnterpriseCollectiveIntelligenceEngine": {
     "title": "Collective Intelligence Center",
     "subtitle": "Collective Intelligence Era (269–273) continues. Collective Intelligence Companion supports intelligence contribution engine, collective signal detection, intelligence clustering, organizational consensus mapping, intelligence prioritization, and executive collective intelligence dashboard. Aipify synthesizes — leadership determines direction. Does NOT replace leadership direction or make strategic decisions for leadership. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Collective Intelligence dashboard…",
+    "loading": "Förbereder Enterprise Collective Intelligence overview…",
     "engineTitle": "Enterprise Collective Intelligence Engine (Phase 270)",
     "scoreLabel": "Collective intelligence index",
     "modeLabel": "Mode",
@@ -14011,7 +14011,7 @@
   "aipifyEnterprisePurposeValuesAlignmentEngine": {
     "title": "Purpose Alignment Center",
     "subtitle": "Purpose Alignment Era (269–273) continues. Purpose Alignment Companion supports purpose registry, values framework, alignment assessment engine, decision alignment checks, values in action recognition, and executive purpose dashboard. Aipify encourages reflection — leaders define culture. Does NOT replace leadership culture or make cultural decisions for leadership. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Purpose & Values Alignment dashboard…",
+    "loading": "Förbereder Enterprise Purpose & Values Alignment overview…",
     "engineTitle": "Enterprise Purpose & Values Alignment Engine (Phase 272)",
     "scoreLabel": "Purpose alignment index",
     "modeLabel": "Mode",
@@ -14046,7 +14046,7 @@
   "aipifyEnterpriseOrganizationalClarityEngine": {
     "title": "Organizational Clarity Center",
     "subtitle": "Organizational Clarity Era (269–273) caps the era. Organizational Clarity Companion supports responsibility registry, decision rights mapping, role clarity framework, priority alignment engine, escalation path visibility, and executive clarity dashboard. Aipify improves clarity — leadership establishes accountability. Does NOT replace leadership accountability or assign ownership without stewardship. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Organizational Clarity dashboard…",
+    "loading": "Förbereder Enterprise Organizational Clarity overview…",
     "engineTitle": "Enterprise Organizational Clarity Engine (Phase 273)",
     "scoreLabel": "Organizational clarity index",
     "modeLabel": "Mode",
@@ -14081,7 +14081,7 @@
   "aipifyEnterpriseCommitmentAccountabilityEngine": {
     "title": "Commitment Center",
     "subtitle": "Commitment & Accountability Era (274–278) opens the era. Commitment Companion supports commitment registry, commitment sources, ownership validation, commitment tracking, follow-through monitoring, and executive commitment dashboard. Aipify supports accountability — people remain responsible for delivery. Does NOT replace human delivery responsibility or assign commitments without owner confirmation. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Commitment & Accountability dashboard…",
+    "loading": "Förbereder Enterprise Commitment & Accountability overview…",
     "engineTitle": "Enterprise Commitment & Accountability Engine (Phase 274)",
     "scoreLabel": "Accountability index",
     "modeLabel": "Mode",
@@ -14116,7 +14116,7 @@
   "aipifyEnterpriseOrganizationalFocusEngine": {
     "title": "Focus Center",
     "subtitle": "Commitment & Accountability Era (274–278) continues the era. Focus Companion supports priority registry, priority overload detection, attention allocation insights, distraction identification, focus protection framework, and executive focus dashboard. Aipify promotes focus — leadership establishes priorities. Does NOT override leadership priorities or assign priorities without executive sponsor. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Organizational Focus dashboard…",
+    "loading": "Förbereder Enterprise Organizational Focus overview…",
     "engineTitle": "Enterprise Organizational Focus Engine (Phase 275)",
     "scoreLabel": "Organizational focus index",
     "modeLabel": "Mode",
@@ -14151,7 +14151,7 @@
   "aipifyEnterpriseExecutionConfidenceEngine": {
     "title": "Execution Confidence Center",
     "subtitle": "Commitment & Accountability Era (274–278) continues the era. Execution Confidence Companion supports execution confidence registry, confidence signal engine, delivery risk correlation, dependency confidence analysis, confidence forecasting, and executive confidence dashboard. Aipify assesses confidence — leadership determines intervention strategies. Does NOT dictate intervention strategies or assign confidence without evidence. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Execution Confidence dashboard…",
+    "loading": "Förbereder Enterprise Execution Confidence overview…",
     "engineTitle": "Enterprise Execution Confidence Engine (Phase 276)",
     "scoreLabel": "Execution confidence index",
     "modeLabel": "Mode",
@@ -14186,7 +14186,7 @@
   "aipifyEnterpriseOrganizationalSimplicityEngine": {
     "title": "Simplicity Center",
     "subtitle": "Commitment & Accountability Era (274–278) continues the era. Simplicity Companion supports complexity registry, complexity detection engine, simplification opportunity analysis, process simplification workspace, policy & governance simplification, and executive simplicity dashboard. Aipify recommends simplification — leadership determines organizational design. Does NOT dictate organizational design or eliminate governance without leadership approval. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Organizational Simplicity dashboard…",
+    "loading": "Förbereder Enterprise Organizational Simplicity overview…",
     "engineTitle": "Enterprise Organizational Simplicity Engine (Phase 277)",
     "scoreLabel": "Organizational simplicity index",
     "modeLabel": "Mode",
@@ -14221,7 +14221,7 @@
   "aipifyEnterpriseOrganizationalTrustEngine": {
     "title": "Trust Center",
     "subtitle": "Commitment & Accountability Era (274–278) capstone. Trust Companion supports trust registry, trust signal engine, trust driver analysis, trust recovery workspace, digital workforce trust framework, and executive trust dashboard. Aipify highlights trust signals — people build trust through action. Does NOT replace human trust building or manipulate stakeholder perception. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Organizational Trust dashboard…",
+    "loading": "Förbereder Enterprise Organizational Trust overview…",
     "engineTitle": "Enterprise Organizational Trust Engine (Phase 278)",
     "scoreLabel": "Organizational trust index",
     "modeLabel": "Mode",
@@ -14256,7 +14256,7 @@
   "aipifyEnterpriseOrganizationalWisdomEngine": {
     "title": "Wisdom Center",
     "subtitle": "Organizational Wisdom Era (279–283) opens the era. Wisdom Companion supports wisdom registry, experience synthesis engine, decision reflection framework, wisdom recommendation engine, leadership wisdom insights, and executive wisdom dashboard. Wisdom informs judgment — humans exercise judgment. Does NOT replace human judgment or dictate decisions. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Organizational Wisdom dashboard…",
+    "loading": "Förbereder Enterprise Organizational Wisdom overview…",
     "engineTitle": "Enterprise Organizational Wisdom Engine (Phase 279)",
     "scoreLabel": "Organizational wisdom index",
     "modeLabel": "Mode",
@@ -14291,7 +14291,7 @@
   "aipifyEnterpriseLegacyStewardshipEngine": {
     "title": "Stewardship Center",
     "subtitle": "Organizational Wisdom Era (279–283) continues the era. Stewardship Companion supports stewardship registry, legacy impact assessment, long-term decision reflection, stewardship initiative tracking, stewardship principles framework, and executive stewardship dashboard. Aipify encourages stewardship — leaders shape legacy. Does NOT replace leadership legacy judgment or dictate decisions. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Legacy & Stewardship dashboard…",
+    "loading": "Förbereder Enterprise Legacy & Stewardship overview…",
     "engineTitle": "Enterprise Legacy & Stewardship Engine (Phase 280)",
     "scoreLabel": "Legacy stewardship index",
     "modeLabel": "Mode",
@@ -14326,7 +14326,7 @@
   "aipifyEnterpriseOrganizationalConsciousnessEngine": {
     "title": "Organizational Consciousness Center",
     "subtitle": "Organizational Wisdom Era (279–283) continues the era. Consciousness Companion supports awareness registry, pattern awareness engine, interconnection mapping, reflection workspaces, executive awareness briefings, and executive consciousness dashboard. Aipify expands awareness — leadership provides meaning. Does NOT replace leadership meaning-making or dictate interpretation. Growth Partner — never Affiliate.",
-    "loading": "Loading Enterprise Organizational Consciousness dashboard…",
+    "loading": "Förbereder Enterprise Organizational Consciousness overview…",
     "engineTitle": "Enterprise Organizational Consciousness Engine (Phase 281)",
     "scoreLabel": "Organizational consciousness index",
     "modeLabel": "Mode",
@@ -14417,7 +14417,7 @@
   "universalActionAccess": {
     "title": "Universell åtkomst till åtgärder",
     "subtitle": "Foundational platform principle: Aipify can perform any action it has permission and access to do. Permission first — humans remain accountable.",
-    "loading": "Loading Universal Action Access…",
+    "loading": "Förbereder Universal Action Access overview…",
     "corePrinciple": "Core principle",
     "integrationsTitle": "Approved integrations",
     "noIntegrations": "No integrations configured yet. Defaults seed on first access.",
@@ -14456,7 +14456,7 @@
   "packageAccess": {
     "title": "Paket och åtkomst",
     "subtitle": "Choose the right package, upgrade when higher-value features are needed, and receive access instantly after payment.",
-    "loading": "Loading Package & Access Center…",
+    "loading": "Förbereder Package & Access Center overview…",
     "back": "Settings",
     "billingLink": "Faktureringscenter →",
     "currentPackage": "Current package",
@@ -14487,7 +14487,7 @@
   "aipifyInstallDiscovery": {
     "title": "Aipify Install",
     "subtitle": "Allow Aipify to understand your business through guided, permission-based discovery — not manual configuration.",
-    "loading": "Loading Aipify Install…",
+    "loading": "Förbereder Aipify Install overview…",
     "corePrinciple": "Core principle",
     "philosophy": "Install philosophy",
     "currentPhase": "Discovery phase",
@@ -14530,7 +14530,7 @@
   "firstDayExperience": {
     "title": "Första dagen-upplevelse",
     "subtitle": "An exceptional first-day journey that demonstrates value, builds trust, and guides successful adoption in the first 15 minutes.",
-    "loading": "Loading First Day Experience…",
+    "loading": "Förbereder First Day Experience overview…",
     "corePrinciple": "Core principle",
     "currentStep": "Journey step",
     "advanceStep": "Go to step",
@@ -14576,7 +14576,7 @@
   "trustAdoption": {
     "title": "Förtroende och adoption",
     "subtitle": "Systematically increase trust and accelerate adoption — transforming occasional use into daily reliance through competence, transparency, and value.",
-    "loading": "Loading Adoption Center…",
+    "loading": "Förbereder Adoption Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Adoption philosophy",
     "adoptionStage": "Adoption stage",
@@ -14617,7 +14617,7 @@
   "companionMarketplaceAction": {
     "title": "Åtgärdsekosystem",
     "subtitle": "Extend companion capabilities through approved action providers, integrations, and specialized companion skills — a trusted ecosystem, not everything built in-house.",
-    "loading": "Loading Action Ecosystem…",
+    "loading": "Förbereder Action Ecosystem overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Marketplace philosophy",
     "expansionPrinciple": "Companion expansion",
@@ -14659,7 +14659,7 @@
   "lifeEvents": {
     "title": "Livshändelser",
     "subtitle": "Remember, prepare for, and act upon important personal and professional moments — proactive care that strengthens relationships, never replaces them.",
-    "loading": "Loading Life Events Center…",
+    "loading": "Förbereder Life Events Center overview…",
     "corePrinciple": "Core principle",
     "visionTitle": "Vision",
     "userControlTitle": "Your control",
@@ -14705,7 +14705,7 @@
   "companionIdentityRelationship": {
     "title": "Identitet och relation",
     "subtitle": "Build a trusted, professional, human-centered companion identity — consistent, familiar, and recognizably Aipify while adapting to your preferences.",
-    "loading": "Loading Companion Identity Center…",
+    "loading": "Förbereder Companion Identity Center overview…",
     "corePrinciple": "Core principle",
     "visionTitle": "Vision",
     "identitySettingsTitle": "Identity settings",
@@ -14744,7 +14744,7 @@
   "presenceContinuity": {
     "title": "Närvaro och kontinuitet",
     "subtitle": "Maintain a continuous, reassuring companion presence — resume conversations, tasks, and workflows without losing momentum.",
-    "loading": "Loading Presence Center…",
+    "loading": "Förbereder Presence Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Presence philosophy",
     "visionTitle": "Vision",
@@ -14781,7 +14781,7 @@
   "companionActionMarketplace": {
     "title": "Companion-åtgärder",
     "subtitle": "Expand real-world capabilities through a secure marketplace of approved action providers — transportation, deliveries, bookings, gifting, and more.",
-    "loading": "Loading Action Marketplace…",
+    "loading": "Förbereder Action Marketplace overview…",
     "corePrinciple": "Core principle",
     "visionTitle": "Vision",
     "installedTitle": "Installed providers",
@@ -14813,7 +14813,7 @@
   "companionActionMemory": {
     "title": "Åtgärdsminne",
     "subtitle": "Remember approved action preferences and recurring choices — reduce friction without reducing control.",
-    "loading": "Loading Action Memory Center…",
+    "loading": "Förbereder Action Memory Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Memory philosophy",
     "visionTitle": "Vision",
@@ -14854,7 +14854,7 @@
   "approvalProfiles": {
     "title": "Godkännandeprofiler",
     "subtitle": "Define reusable approval profiles that simplify recurring decisions while preserving governance and human oversight.",
-    "loading": "Loading Approval Profiles Center…",
+    "loading": "Förbereder Approval Profiles Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Approval philosophy",
     "visionTitle": "Vision",
@@ -14895,7 +14895,7 @@
   "financialGuardrails": {
     "title": "Finansiella skyddsräcken",
     "subtitle": "Enforce budgets, spending limits, and approval thresholds so Aipify participates responsibly in purchasing and financial coordination.",
-    "loading": "Loading Financial Guardrails Center…",
+    "loading": "Förbereder Financial Guardrails Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Financial philosophy",
     "visionTitle": "Vision",
@@ -14937,7 +14937,7 @@
   "companionOrchestration": {
     "title": "Orkestrering",
     "subtitle": "Aipify coordinates installed Companion capabilities so you experience one unified Companion — not dozens of disconnected assistants.",
-    "loading": "Loading Orchestration Center…",
+    "loading": "Förbereder Orchestration Center overview…",
     "corePrinciple": "Core principle",
     "visionTitle": "Vision",
     "responsePrincipleTitle": "Response principle",
@@ -14995,7 +14995,7 @@
   "automationControlCenter": {
     "title": "Automationskontrollcenter",
     "subtitle": "Understand what Aipify is doing, why it is doing it, and how automations contribute to business outcomes.",
-    "loading": "Loading Automation Control Center…",
+    "loading": "Förbereder Automation Control Center overview…",
     "corePrinciple": "Core principle",
     "operationsLink": "Operations Center →",
     "adaptiveAutomationLink": "Adaptive Automation →",
@@ -15069,7 +15069,7 @@
   "approvalHumanOversight": {
     "title": "Godkännandecenter",
     "subtitle": "Review, approve, reject, delegate, and monitor actions proposed by Aipify before execution.",
-    "loading": "Loading Approval Center…",
+    "loading": "Förbereder Approval Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Approval philosophy",
     "visionTitle": "Vision",
@@ -15130,7 +15130,7 @@
   "permissionAccessGovernance": {
     "title": "Behörighetscenter",
     "subtitle": "Review what Aipify can access and do — grant, revoke, and govern permissions with full transparency.",
-    "loading": "Loading Permission Center…",
+    "loading": "Förbereder Permission Center overview…",
     "corePrinciple": "Core principle",
     "visionTitle": "Vision",
     "governanceLink": "Governance Center →",
@@ -15213,7 +15213,7 @@
   "trustTransparency": {
     "title": "Förtroendecenter",
     "subtitle": "Complete visibility into how Aipify operates, what it recommends, and how trust is maintained.",
-    "loading": "Loading Trust Center…",
+    "loading": "Förbereder Trust Center overview…",
     "corePrinciple": "Core principle",
     "visionTitle": "Vision",
     "governanceLink": "Governance Center →",
@@ -15290,7 +15290,7 @@
   "executiveDecisionSupport": {
     "title": "Beslutscenter",
     "subtitle": "Structured decision support — clarify objectives, compare alternatives, and evaluate trade-offs. You decide.",
-    "loading": "Loading Decision Center…",
+    "loading": "Förbereder Decision Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Decision philosophy",
     "visionTitle": "Vision",
@@ -15371,7 +15371,7 @@
   "executiveStrategicIntelligence": {
     "title": "Strategiskt intelligenscenter",
     "subtitle": "Identify opportunities, emerging risks, and strategic priorities — factors worth considering, not directives.",
-    "loading": "Loading Strategic Intelligence Center…",
+    "loading": "Förbereder Strategic Intelligence Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Strategic philosophy",
     "visionTitle": "Vision",
@@ -15429,7 +15429,7 @@
   "organizationalMemoryCenter": {
     "title": "Organisationsminnescenter",
     "subtitle": "Capture, preserve, and continuously improve institutional knowledge — expertise becomes an organizational asset, not a departure risk.",
-    "loading": "Loading Organizational Memory Center…",
+    "loading": "Förbereder Organizational Memory Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Memory philosophy",
     "visionTitle": "Vision",
@@ -15495,7 +15495,7 @@
   "continuousImprovementCenter": {
     "title": "Center för kontinuerlig förbättring",
     "subtitle": "Identify improvement opportunities across workflows, support, automations, and executive processes — collaborative, never punitive.",
-    "loading": "Loading Continuous Improvement Center…",
+    "loading": "Förbereder Continuous Improvement Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Improvement philosophy",
     "visionTitle": "Vision",
@@ -15575,7 +15575,7 @@
   "organizationalResilienceCenter": {
     "title": "Motståndscenter",
     "subtitle": "Anticipate disruptions, strengthen preparedness, and maintain operational continuity — calm readiness, not fear.",
-    "loading": "Loading Resilience Center…",
+    "loading": "Förbereder Resilience Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Resilience philosophy",
     "visionTitle": "Vision",
@@ -15657,7 +15657,7 @@
   "opportunityDiscoveryCenter": {
     "title": "Möjlighetscenter",
     "subtitle": "Proactively identify growth, innovation, and value creation opportunities — aligned with priorities, never hype-driven.",
-    "loading": "Loading Opportunity Center…",
+    "loading": "Förbereder Opportunity Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Opportunity philosophy",
     "visionTitle": "Vision",
@@ -15738,7 +15738,7 @@
   "organizationalHealthCenter": {
     "title": "Organisationshälsocenter",
     "subtitle": "Unified executive health across customer, workforce, operational, governance, strategic, and financial indicators — balanced insight for leadership reflection.",
-    "loading": "Loading Organizational Health Center…",
+    "loading": "Förbereder Organizational Health Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Health philosophy",
     "visionTitle": "Vision",
@@ -15814,7 +15814,7 @@
   "databaseGovernanceCenter": {
     "title": "Databasstyrningscenter",
     "subtitle": "Controlled, traceable database evolution — migration registry, schema validation, drift detection, and environment parity.",
-    "loading": "Loading Database Governance Center…",
+    "loading": "Förbereder Database Governance Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Database philosophy",
     "visionTitle": "Vision",
@@ -15889,7 +15889,7 @@
   "deploymentGovernanceCenter": {
     "title": "Deploymentcenter",
     "subtitle": "Safe, traceable, governed deployments — pipeline visibility, validation, approvals, rollback readiness, and release confidence.",
-    "loading": "Loading Deployment Center…",
+    "loading": "Förbereder Deployment Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Deployment philosophy",
     "visionTitle": "Vision",
@@ -15977,7 +15977,7 @@
   "platformObservabilityCenter": {
     "title": "Observabilitycenter",
     "subtitle": "Real-time platform visibility — system performance, user experience, integrations, automations, and operational health explained with confidence.",
-    "loading": "Loading Observability Center…",
+    "loading": "Förbereder Observability Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Observability philosophy",
     "visionTitle": "Vision",
@@ -16060,7 +16060,7 @@
   "incidentCommandCenter": {
     "title": "Incident Command-center",
     "subtitle": "Coordinate, monitor, and accelerate incident resolution — clarity, speed, and confidence during operational disruptions.",
-    "loading": "Loading Incident Command Center…",
+    "loading": "Förbereder Incident Command Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Incident philosophy",
     "visionTitle": "Vision",
@@ -16152,7 +16152,7 @@
   "changeManagementCenter": {
     "title": "Förändringsledningscenter",
     "subtitle": "Plan, communicate, and sustain change initiatives — adoption-focused support with empathy, clarity, and operational excellence.",
-    "loading": "Loading Change Management Center…",
+    "loading": "Förbereder Change Management Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Change philosophy",
     "visionTitle": "Vision",
@@ -16249,7 +16249,7 @@
   "organizationalDigitalTwinCenter": {
     "title": "Organisationens digitala tvilling",
     "subtitle": "A living operational representation of structure, workflows, automations, systems, and knowledge — for understanding, not surveillance.",
-    "loading": "Loading Organizational Digital Twin…",
+    "loading": "Förbereder Organizational Digital Twin overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Digital Twin philosophy",
     "visionTitle": "Vision",
@@ -16339,7 +16339,7 @@
   "organizationalLearningCenter": {
     "title": "Organisationslärningscenter",
     "subtitle": "Transform everyday experiences into organizational learning — capture, validate, and apply lessons constructively without blame.",
-    "loading": "Loading Organizational Learning Center…",
+    "loading": "Förbereder Organizational Learning Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Learning philosophy",
     "visionTitle": "Vision",
@@ -16429,7 +16429,7 @@
   "knowledgeEvolutionCenter": {
     "title": "Kunskapsevolutionscenter",
     "subtitle": "Continuously improve, refine, and evolve organizational knowledge — accurate, relevant, discoverable, and useful over time.",
-    "loading": "Loading Knowledge Evolution Center…",
+    "loading": "Förbereder Knowledge Evolution Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Evolution philosophy",
     "visionTitle": "Vision",
@@ -16519,7 +16519,7 @@
   "capabilityMaturityCenter": {
     "title": "Kapabilitetsmognadscenter",
     "subtitle": "Assess, benchmark, and improve organizational capabilities across operations, governance, knowledge, technology, leadership, and workforce development.",
-    "loading": "Loading Capability Maturity Center…",
+    "loading": "Förbereder Capability Maturity Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Maturity philosophy",
     "visionTitle": "Vision",
@@ -16600,7 +16600,7 @@
   "executionExcellenceCenter": {
     "title": "Genomförandeexcellenscenter",
     "subtitle": "Bridge strategy and execution — translate priorities, initiatives, and commitments into measurable progress and sustainable outcomes.",
-    "loading": "Loading Execution Excellence Center…",
+    "loading": "Förbereder Execution Excellence Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Execution philosophy",
     "visionTitle": "Vision",
@@ -16710,7 +16710,7 @@
   "organizationalAlignmentCenter": {
     "title": "Alignmentcenter",
     "subtitle": "Strengthen alignment between vision, strategy, departments, teams, and day-to-day activities so everyone moves in the same direction.",
-    "loading": "Loading Alignment Center…",
+    "loading": "Förbereder Alignment Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Alignment philosophy",
     "visionTitle": "Vision",
@@ -16798,7 +16798,7 @@
   "organizationalFocusCenter": {
     "title": "Fokuscenter",
     "subtitle": "Strengthen focus by identifying what matters most, reducing distractions, aligning attention with priorities and protecting meaningful execution.",
-    "loading": "Loading Focus Center…",
+    "loading": "Förbereder Focus Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Focus philosophy",
     "visionTitle": "Vision",
@@ -16916,7 +16916,7 @@
   "organizationalEnergyCenter": {
     "title": "Energicenter",
     "subtitle": "Understand, protect and strengthen organizational energy by identifying what creates momentum, what drains capacity and how teams can sustain healthy performance over time.",
-    "loading": "Loading Energy Center…",
+    "loading": "Förbereder Energy Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Energy philosophy",
     "visionTitle": "Vision",
@@ -17034,7 +17034,7 @@
   "organizationalAdaptabilityCenter": {
     "title": "Anpassningscenter",
     "subtitle": "Recognize change early, adjust priorities effectively, and strengthen adaptability without sacrificing stability or purpose.",
-    "loading": "Loading Adaptability Center…",
+    "loading": "Förbereder Adaptability Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Adaptability philosophy",
     "visionTitle": "Vision",
@@ -17124,7 +17124,7 @@
   "organizationalWisdomCenter": {
     "title": "Visdomscenter",
     "subtitle": "Transform accumulated experience, knowledge, learning, decisions, and values into practical wisdom that supports better leadership and long-term sustainability.",
-    "loading": "Loading Wisdom Center…",
+    "loading": "Förbereder Wisdom Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Wisdom philosophy",
     "visionTitle": "Vision",
@@ -17206,7 +17206,7 @@
   "organizationalLegacyCenter": {
     "title": "Arvscenter",
     "subtitle": "Intentionally shape, preserve and strengthen the positive legacy your organization leaves through decisions, relationships, contributions and long-term impact.",
-    "loading": "Loading Legacy Center…",
+    "loading": "Förbereder Legacy Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Legacy philosophy",
     "visionTitle": "Vision",
@@ -17336,7 +17336,7 @@
   "organizationalPurposeCenter": {
     "title": "Organisationsändamål",
     "subtitle": "Reconnect daily activities, strategic initiatives, leadership decisions, and cultural practices with the deeper purpose that defines why the organization exists.",
-    "loading": "Loading Purpose Center…",
+    "loading": "Förbereder Purpose Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Purpose philosophy",
     "visionTitle": "Vision",
@@ -17430,7 +17430,7 @@
   "organizationalStewardshipCenter": {
     "title": "Förvaltningscenter",
     "subtitle": "Strengthen stewardship by caring responsibly for people, resources, knowledge, trust, culture, and opportunities entrusted to your organization.",
-    "loading": "Loading Stewardship Center…",
+    "loading": "Förbereder Stewardship Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Stewardship philosophy",
     "visionTitle": "Vision",
@@ -17558,7 +17558,7 @@
   "organizationalSimplicityCenter": {
     "title": "Enkelhetscenter",
     "subtitle": "Reduce unnecessary complexity, simplify workflows, improve usability and create environments where people can focus on meaningful work without excessive friction.",
-    "loading": "Loading Simplicity Center…",
+    "loading": "Förbereder Simplicity Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Simplicity philosophy",
     "visionTitle": "Vision",
@@ -17675,7 +17675,7 @@
   "organizationalTrustCenter": {
     "title": "Organisatoriskt förtroende",
     "subtitle": "Strengthen trust across leadership, teams, customers, partners, and stakeholders through transparency, consistency, accountability, and reliability.",
-    "loading": "Loading Trust Center…",
+    "loading": "Förbereder Trust Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Trust philosophy",
     "visionTitle": "Vision",
@@ -17781,7 +17781,7 @@
   "organizationalMomentumCenter": {
     "title": "Organisatoriskt momentum",
     "subtitle": "Recognize, maintain, and strengthen healthy momentum by balancing progress, sustainability, focus, and adaptability across strategic initiatives and day-to-day operations.",
-    "loading": "Loading Momentum Center…",
+    "loading": "Förbereder Momentum Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Momentum philosophy",
     "visionTitle": "Vision",
@@ -17893,7 +17893,7 @@
   "organizationalFuturesCenter": {
     "title": "Organisatorisk framtid",
     "subtitle": "Explore possible futures, strengthen preparedness, improve long-term thinking, and make more informed strategic decisions in the face of uncertainty.",
-    "loading": "Loading Futures Center…",
+    "loading": "Förbereder Futures Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Futures philosophy",
     "visionTitle": "Vision",
@@ -18021,7 +18021,7 @@
   "organizationalCoherenceCenter": {
     "title": "Organisatorisk koherens",
     "subtitle": "Maintain coherence between vision, values, strategy, culture, governance, execution, and everyday behaviors as the organization grows and evolves.",
-    "loading": "Loading Coherence Center…",
+    "loading": "Förbereder Coherence Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Coherence philosophy",
     "visionTitle": "Vision",
@@ -18133,7 +18133,7 @@
   "organizationalContinuityCenter": {
     "title": "Organisatorisk kontinuitet",
     "subtitle": "Preserve continuity across leadership transitions, workforce changes, operational disruptions, strategic pivots, and periods of accelerated growth.",
-    "loading": "Loading Continuity Center…",
+    "loading": "Förbereder Continuity Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Continuity philosophy",
     "visionTitle": "Vision",
@@ -18251,7 +18251,7 @@
   "organizationalExcellenceCenter": {
     "title": "Organisatorisk excellens",
     "subtitle": "Pursue excellence through intentional improvement, disciplined execution, strong leadership, customer focus, and sustainable operational practices.",
-    "loading": "Loading Excellence Center…",
+    "loading": "Förbereder Excellence Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Excellence philosophy",
     "visionTitle": "Vision",
@@ -18374,7 +18374,7 @@
   "organizationalImpactCenter": {
     "title": "Organisatorisk påverkan",
     "subtitle": "Understand, measure, strengthen, and communicate the positive impact your organization creates for customers, employees, partners, communities, and society.",
-    "loading": "Loading Impact Center…",
+    "loading": "Förbereder Impact Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Impact philosophy",
     "visionTitle": "Vision",
@@ -18490,7 +18490,7 @@
   "organizationalDecisionQualityCenter": {
     "title": "Beslutskvalitet",
     "subtitle": "Continuously improve the quality, consistency, transparency, and effectiveness of decision-making across leadership, teams, and governance.",
-    "loading": "Loading Decision Quality Center…",
+    "loading": "Förbereder Decision Quality Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Decision quality philosophy",
     "visionTitle": "Vision",
@@ -18603,7 +18603,7 @@
   "organizationalConfidenceCenter": {
     "title": "Organisatoriskt självförtroende",
     "subtitle": "Build, sustain, and strengthen collective confidence through preparedness, capability development, reliable execution, transparent leadership, and meaningful progress.",
-    "loading": "Loading Confidence Center…",
+    "loading": "Förbereder Confidence Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Confidence philosophy",
     "visionTitle": "Vision",
@@ -18718,7 +18718,7 @@
   "organizationalFlourishingCenter": {
     "title": "Organisatorisk blomstring",
     "subtitle": "Create the conditions in which people, teams, customers, and the organization can sustainably thrive — human-centered leadership, meaningful contribution, and long-term wellbeing.",
-    "loading": "Loading Flourishing Center…",
+    "loading": "Förbereder Flourishing Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Flourishing philosophy",
     "visionTitle": "Vision",
@@ -18831,7 +18831,7 @@
   "organizationalRenewalCenter": {
     "title": "Organisatorisk förnyelse",
     "subtitle": "Intentionally renew strategies, capabilities, leadership practices, knowledge, and ways of working — evolve while preserving what matters most.",
-    "loading": "Loading Renewal Center…",
+    "loading": "Förbereder Renewal Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Renewal philosophy",
     "visionTitle": "Vision",
@@ -18946,7 +18946,7 @@
   "organizationalSustainabilityCenter": {
     "title": "Organisatorisk hållbarhet",
     "subtitle": "Sustain performance, resilience, capability growth, customer trust, and long-term viability through balanced decision-making and responsible stewardship.",
-    "loading": "Loading Sustainability Center…",
+    "loading": "Förbereder Sustainability Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Sustainability philosophy",
     "visionTitle": "Vision",
@@ -19061,7 +19061,7 @@
   "organizationalTransformationCenter": {
     "title": "Organisatorisk transformation",
     "subtitle": "Navigate large-scale transformation initiatives with clarity, discipline, adaptability, and human-centered leadership while preserving trust and operational continuity.",
-    "loading": "Loading Transformation Center…",
+    "loading": "Förbereder Transformation Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Transformation philosophy",
     "visionTitle": "Vision",
@@ -19176,7 +19176,7 @@
   "organizationalCompoundingCenter": {
     "title": "Organisatorisk sammansattning",
     "subtitle": "Recognize, accelerate, and benefit from the compounding effects of small improvements, disciplined execution, learning, trust, and strategic consistency over time.",
-    "loading": "Loading Compounding Center…",
+    "loading": "Förbereder Compounding Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Compounding philosophy",
     "visionTitle": "Vision",
@@ -19289,7 +19289,7 @@
   "organizationalSteadfastnessCenter": {
     "title": "Organisatorisk standfasthet",
     "subtitle": "Remain resilient, disciplined, and committed to values and strategic priorities during uncertainty, adversity, disruption, and prolonged pressure.",
-    "loading": "Loading Steadfastness Center…",
+    "loading": "Förbereder Steadfastness Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Steadfastness philosophy",
     "visionTitle": "Vision",
@@ -19402,7 +19402,7 @@
   "organizationalClarityCenter": {
     "title": "Organisatorisk tydlighet",
     "subtitle": "Strengthen clarity in communication, priorities, responsibilities, expectations, and decision-making so people can work with greater confidence, alignment, and effectiveness.",
-    "loading": "Loading Clarity Center…",
+    "loading": "Förbereder Clarity Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Clarity philosophy",
     "visionTitle": "Vision",
@@ -19515,7 +19515,7 @@
   "organizationalIntentionalityCenter": {
     "title": "Organisatorisk intention",
     "subtitle": "Operate with greater intentionality by ensuring decisions, initiatives, behaviors, investments, and priorities align with purpose, strategy, and long-term aspirations.",
-    "loading": "Loading Intentionality Center…",
+    "loading": "Förbereder Intentionality Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Intentionality philosophy",
     "visionTitle": "Vision",
@@ -19628,7 +19628,7 @@
   "organizationalAwarenessCenter": {
     "title": "Organisatorisk medvetenhet",
     "subtitle": "Strengthen awareness of internal conditions, external environments, emerging opportunities, evolving risks, and organizational realities so leaders can respond with clarity and wisdom.",
-    "loading": "Loading Awareness Center…",
+    "loading": "Förbereder Awareness Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Awareness philosophy",
     "visionTitle": "Vision",
@@ -19741,7 +19741,7 @@
   "organizationalHarmonyCenter": {
     "title": "Organisatorisk harmoni",
     "subtitle": "Strengthen harmony between people, teams, leadership, systems, priorities, and ways of working so progress occurs through cooperation rather than friction.",
-    "loading": "Loading Harmony Center…",
+    "loading": "Förbereder Harmony Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Harmony philosophy",
     "visionTitle": "Vision",
@@ -19854,7 +19854,7 @@
   "organizationalCuriosityCenter": {
     "title": "Organisatorisk nyfikenhet",
     "subtitle": "Cultivate healthy curiosity, encourage exploration, strengthen learning cultures, and continuously ask better questions that lead to deeper understanding and meaningful innovation.",
-    "loading": "Loading Curiosity Center…",
+    "loading": "Förbereder Curiosity Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Curiosity philosophy",
     "visionTitle": "Vision",
@@ -19975,7 +19975,7 @@
   "organizationalCourageCenter": {
     "title": "Organisatoriskt mod",
     "subtitle": "Cultivate responsible courage by supporting difficult conversations, principled decision-making, ethical leadership, innovation under uncertainty, and the willingness to act despite discomfort when circumstances require it.",
-    "loading": "Loading Courage Center…",
+    "loading": "Förbereder Courage Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Courage philosophy",
     "visionTitle": "Vision",
@@ -20088,7 +20088,7 @@
   "organizationalHopeCenter": {
     "title": "Organisatoriskt hopp",
     "subtitle": "Cultivate realistic hope by strengthening confidence in the future through purpose, progress, resilience, learning, and collective belief in the organization's ability to overcome challenges and achieve meaningful outcomes.",
-    "loading": "Loading Hope Center…",
+    "loading": "Förbereder Hope Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Hope philosophy",
     "visionTitle": "Vision",
@@ -20201,7 +20201,7 @@
   "organizationalWisdomTransferCenter": {
     "title": "Organisatorisk visdomsöverföring",
     "subtitle": "Preserve, share, and transfer valuable experience, lessons, judgment, and institutional wisdom across generations of leadership and teams.",
-    "loading": "Loading Wisdom Transfer Center…",
+    "loading": "Förbereder Wisdom Transfer Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Wisdom transfer philosophy",
     "visionTitle": "Vision",
@@ -20314,7 +20314,7 @@
   "organizationalAdaptiveIntelligenceCenter": {
     "title": "Organisatorisk adaptiv intelligens",
     "subtitle": "Help your organization sense, interpret, learn from, and respond intelligently to changing conditions while preserving strategic coherence and identity.",
-    "loading": "Loading Adaptive Intelligence Center…",
+    "loading": "Förbereder Adaptive Intelligence Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Adaptive intelligence philosophy",
     "visionTitle": "Vision",
@@ -20427,7 +20427,7 @@
   "organizationalBalanceCenter": {
     "title": "Organisatorisk balans",
     "subtitle": "Help your organization maintain healthy balance between growth and stability, innovation and discipline, people and performance, and short-term execution and long-term stewardship.",
-    "loading": "Loading Balance Center…",
+    "loading": "Förbereder Balance Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Balance philosophy",
     "visionTitle": "Vision",
@@ -20539,7 +20539,7 @@
   "organizationalPresenceCenter": {
     "title": "Organisatorisk närvaro",
     "subtitle": "Cultivate intentional presence by improving attentiveness, engagement, responsiveness, and the quality of interactions between leaders, teams, customers, and stakeholders.",
-    "loading": "Loading Presence Center…",
+    "loading": "Förbereder Presence Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Presence philosophy",
     "visionTitle": "Vision",
@@ -20651,7 +20651,7 @@
   "organizationalIdentityCenter": {
     "title": "Identitetscenter",
     "subtitle": "Understand, preserve, strengthen and evolve organizational identity — values, purpose, culture, legacy and principled leadership through change.",
-    "loading": "Loading Identity Center…",
+    "loading": "Förbereder Identity Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Identity philosophy",
     "visionTitle": "Vision",
@@ -20766,7 +20766,7 @@
   "organizationalPurposefulExecutionCenter": {
     "title": "Målmedvetet genomförandecenter",
     "subtitle": "Transform strategy, values and intentions into meaningful action through disciplined, aligned and sustainable execution.",
-    "loading": "Loading Purposeful Execution Center…",
+    "loading": "Förbereder Purposeful Execution Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Purposeful execution philosophy",
     "visionTitle": "Vision",
@@ -20883,7 +20883,7 @@
   "organizationalSignalCenter": {
     "title": "Signalcenter",
     "subtitle": "Detect, interpret and respond to meaningful organizational signals before they become significant opportunities or major problems.",
-    "loading": "Loading Signal Center…",
+    "loading": "Förbereder Signal Center overview…",
     "corePrinciple": "Core principle",
     "philosophyTitle": "Signal philosophy",
     "visionTitle": "Vision",

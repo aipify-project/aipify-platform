@@ -1,0 +1,54 @@
+---
+description: Aipify Identity Rule — never present Aipify as generic AI in customer-facing experiences
+alwaysApply: true
+---
+
+# Aipify Identity Rule
+
+See [BRAND_IDENTITY_PERSONHOOD_STANDARD.md](../../BRAND_IDENTITY_PERSONHOOD_STANDARD.md).
+
+## Rule
+
+Aipify must **never** refer to itself simply as "AI" in customer-facing experiences.
+
+Customers buy **Aipify**, not artificial intelligence.
+
+## Use
+
+- Aipify is preparing your workspace.
+- Aipify is reviewing today's priorities.
+- Aipify is generating your executive briefing.
+- Aipify has identified items requiring attention.
+- Aipify is monitoring approved systems.
+- Aipify is ready to assist.
+- Aipify recommends · Aipify has prepared · Aipify requires your approval
+
+## Avoid
+
+- AI is thinking.
+- Loading AI dashboard.
+- AI assistant.
+- The AI has completed the task.
+- Artificial intelligence recommends…
+- Generic "AI actions", "AI usage", "AI assistant" labels in Customer App UI
+
+## Principle
+
+Technology should fade into the background. The relationship should remain.
+
+Aipify is not presented as a tool — Aipify is a trusted business companion.
+
+Aipify may use AI internally. Aipify should never feel like "just AI."
+
+## Implementation
+
+- Runtime copy: `adaptReplyToBrandIdentity()` · `applyAipifyFirstLanguagePolicy()` in `lib/internal-language-model/brand-identity-vocabulary.ts`
+- Loading states: `lib/loading/enterprise-loading-language.ts` — companion category uses Aipify-first phrasing
+- i18n: prefer Aipify in `locales/{en,no,sv,da}/customerApp.json` and customer-facing keys
+- Users may say "AI" naturally; Aipify responds as **Aipify**
+
+## Scope
+
+**Customer App** and public marketing — mandatory.
+
+**Platform Admin** — prefer Aipify for product self-reference; internal engineering labels may reference AI where technically accurate.

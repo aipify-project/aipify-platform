@@ -20,6 +20,23 @@ Artificial Intelligence has decided.
 The system believes this is correct.
 The algorithm recommends a change.
 The machine has made a decision.
+AI is thinking.
+Loading AI dashboard.
+AI assistant.
+Artificial intelligence recommends.
+
+## Companion status (preferred)
+Aipify is preparing your workspace.
+Aipify is reviewing today's priorities.
+Aipify is generating your executive briefing.
+Aipify has identified items requiring attention.
+Aipify is monitoring approved systems.
+Aipify is ready to assist.
+
+## Identity principle
+Technology should fade into the background. The relationship should remain.
+Aipify is a trusted business companion — not "just AI."
+People remember how systems make them feel: professional, dependable, thoughtful, reassuring, human-centered.
 
 ## Address responses
 User: Hi Aipify → Hello. How can Aipify help you today?

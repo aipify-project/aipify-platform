@@ -17,21 +17,21 @@
   },
   "customerOverview": {
     "title": "Overview",
-    "subtitle": "Your company's AI modules, installations, and team — scoped to your organization only.",
-    "installFirstNote": "Daily AI work happens inside your installed systems. This Control Center is for configuration, installs, and team management.",
+    "subtitle": "Your company's Aipify modules, installations, and team — scoped to your organization only.",
+    "installFirstNote": "Daily companion work happens inside your installed systems. This Control Center is for configuration, installs, and team management.",
     "modules": {
       "assistant": "Summaries, insights, and recommended actions.",
       "install": "Connect and monitor your Aipify installation.",
       "support": "Aipify Support configuration and ticket insights.",
       "analytics": "Business analytics and performance signals.",
-      "commerce": "Commerce AI and sales intelligence.",
+      "commerce": "Aipify Commerce and sales intelligence.",
       "notifications": "Alerts and notification preferences."
     }
   },
   "modules": {
     "assistant": {
       "title": "Assistant",
-      "subtitle": "AI summaries and recommended actions for your business.",
+      "subtitle": "Executive summaries and recommended actions for your business.",
       "description": "Din Aipify-assistent overvåger installationer, support, fakturering og forretningssignaler — og viser kun det, der betyder noget.",
       "comingSoon": "Kommer snart."
     },
@@ -49,7 +49,7 @@
     },
     "commerce": {
       "title": "Commerce",
-      "subtitle": "Commerce AI tools and sales intelligence.",
+      "subtitle": "Aipify Commerce tools and sales intelligence.",
       "description": "Commerce-AI optimerer produkter, priser og rentabilitet.",
       "comingSoon": "Kommer snart."
     },
@@ -63,7 +63,7 @@
   "controlCenter": {
     "title": "Control Center",
     "subtitle": "Install-first hub for provisioning, billing, and team management — not daily operations.",
-    "installFirstNote": "Daily AI work happens inside your installed systems. Use this dashboard to provision installs and manage your Aipify account.",
+    "installFirstNote": "Daily companion work happens inside your installed systems. Use this dashboard to provision installs and manage your Aipify account.",
     "cards": {
       "installs": {
         "title": "Installations",
@@ -117,7 +117,7 @@
   "billing": {
     "title": "Billing & subscription",
     "subtitle": "Your Aipify plan, trial period, payment status, and invoices.",
-    "loading": "Loading billing...",
+    "loading": "Gennemgår kontostatus…",
     "empty": "No billing information available yet.",
     "plan": "Active plan",
     "planType": "Plan type",

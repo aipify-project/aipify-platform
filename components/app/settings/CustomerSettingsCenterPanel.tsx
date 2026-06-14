@@ -8,19 +8,20 @@ import type { PresenceNotificationLevel } from "@/lib/presence/notifications";
 import { PRESENCE_NOTIFICATION_LEVELS } from "@/lib/presence/notifications";
 import { createClient } from "@/lib/supabase/client";
 
+type SettingsCategory = {
+  id: string;
+  title: string;
+  description: string;
+  links: Array<{ href: string; label: string }>;
+};
+
 type CustomerSettingsCenterPanelProps = {
   labels: {
     title: string;
     subtitle: string;
     sections: {
       notifications: string;
-      presence: string;
       quietHours: string;
-      executiveBriefing: string;
-      desktop: string;
-      developer: string;
-      updates: string;
-      learning: string;
       timezone: string;
     };
     timezoneHint: string;
@@ -28,32 +29,7 @@ type CustomerSettingsCenterPanelProps = {
     levels: Record<PresenceNotificationLevel, string>;
     save: string;
     saved: string;
-    links: {
-      developer: string;
-      updates: string;
-      desktopConnect: string;
-      learning: string;
-      businessDna: string;
-      supportOperations: string;
-      employeeKnowledge: string;
-      workingStyle: string;
-      personalization: string;
-      billing: string;
-      modules: string;
-      intelligence: string;
-      predictions: string;
-      automation: string;
-      governance: string;
-      knowledge: string;
-      enterprise: string;
-      compliance: string;
-      quality: string;
-      assistantIdentity: string;
-      companionPresence: string;
-      twoFactor: string;
-      devicesPrinters: string;
-      actionAccess: string;
-    };
+    categories: SettingsCategory[];
   };
 };
 
@@ -91,19 +67,43 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
   }
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6 p-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
-        <p className="mt-2 text-gray-600">{labels.subtitle}</p>
+    <div className="mx-auto max-w-6xl space-y-10 px-6 py-10">
+      <header className="max-w-3xl">
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
+        <p className="mt-3 text-lg leading-relaxed text-gray-600">{labels.subtitle}</p>
+      </header>
+
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {labels.categories.map((category) => (
+          <article
+            key={category.id}
+            className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+          >
+            <h2 className="text-xl font-semibold tracking-tight text-gray-900">{category.title}</h2>
+            <p className="mt-3 text-sm leading-relaxed text-gray-600">{category.description}</p>
+            <ul className="mt-6 space-y-2">
+              {category.links.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm font-medium text-violet-700 transition hover:text-violet-900"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
       </div>
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-        <h2 className="text-base font-semibold text-gray-900">{labels.sections.timezone}</h2>
+      <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-gray-900">{labels.sections.timezone}</h2>
         <p className="mt-1 text-sm text-gray-500">{labels.timezoneHint}</p>
         <select
           value={timezone}
           onChange={(e) => setTimezone(e.target.value)}
-          className="mt-3 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
+          className="mt-4 w-full max-w-md rounded-xl border border-gray-200 px-4 py-3 text-sm"
         >
           {COMMON_TIMEZONES.map((tz) => (
             <option key={tz} value={tz}>
@@ -113,12 +113,12 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
         </select>
       </section>
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-        <h2 className="text-base font-semibold text-gray-900">{labels.sections.quietHours}</h2>
+      <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-gray-900">{labels.sections.quietHours}</h2>
         <select
           value={quietMode}
           onChange={(e) => setQuietMode(e.target.value as QuietHoursMode)}
-          className="mt-3 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
+          className="mt-4 w-full max-w-md rounded-xl border border-gray-200 px-4 py-3 text-sm"
         >
           {QUIET_HOURS_MODES.map((mode) => (
             <option key={mode} value={mode}>
@@ -129,98 +129,19 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
         <button
           type="button"
           onClick={() => void savePreferences()}
-          className="mt-3 rounded-lg bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700"
+          className="mt-4 rounded-xl bg-violet-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-violet-800"
         >
           {saved ? labels.saved : labels.save}
         </button>
       </section>
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-        <h2 className="text-base font-semibold text-gray-900">{labels.sections.notifications}</h2>
-        <ul className="mt-3 space-y-1 text-sm text-gray-700">
+      <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-gray-900">{labels.sections.notifications}</h2>
+        <ul className="mt-4 space-y-2 text-sm text-gray-700">
           {PRESENCE_NOTIFICATION_LEVELS.map((level) => (
             <li key={level}>{labels.levels[level]}</li>
           ))}
         </ul>
-      </section>
-
-      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm space-y-2 text-sm">
-        <h2 className="text-base font-semibold text-gray-900">{labels.sections.presence}</h2>
-        <Link href="/app/presence" className="block text-indigo-600 hover:underline">
-          {labels.sections.executiveBriefing}
-        </Link>
-        <Link href="/app/command-center/connect" className="block text-indigo-600 hover:underline">
-          {labels.links.desktopConnect}
-        </Link>
-        <Link href="/app/settings/developer" className="block text-indigo-600 hover:underline">
-          {labels.links.developer}
-        </Link>
-        <Link href="/app/settings/updates" className="block text-indigo-600 hover:underline">
-          {labels.links.updates}
-        </Link>
-        <Link href="/app/learning" className="block text-indigo-600 hover:underline">
-          {labels.links.learning}
-        </Link>
-        <Link href="/app/settings/business-dna" className="block text-indigo-600 hover:underline">
-          {labels.links.businessDna}
-        </Link>
-        <Link href="/app/settings/support-operations" className="block text-indigo-600 hover:underline">
-          {labels.links.supportOperations}
-        </Link>
-        <Link href="/app/settings/employee-knowledge" className="block text-indigo-600 hover:underline">
-          {labels.links.employeeKnowledge}
-        </Link>
-        <Link href="/app/settings/working-style" className="block text-indigo-600 hover:underline">
-          {labels.links.workingStyle}
-        </Link>
-        <Link href="/app/settings/personalization" className="block text-indigo-600 hover:underline">
-          {labels.links.personalization}
-        </Link>
-        <Link href="/app/settings/billing" className="block text-indigo-600 hover:underline">
-          {labels.links.billing}
-        </Link>
-        <Link href="/app/settings/modules" className="block text-indigo-600 hover:underline">
-          {labels.links.modules}
-        </Link>
-        <Link href="/app/settings/intelligence" className="block text-indigo-600 hover:underline">
-          {labels.links.intelligence}
-        </Link>
-        <Link href="/app/settings/predictions" className="block text-indigo-600 hover:underline">
-          {labels.links.predictions}
-        </Link>
-        <Link href="/app/settings/automation" className="block text-indigo-600 hover:underline">
-          {labels.links.automation}
-        </Link>
-        <Link href="/app/settings/governance" className="block text-indigo-600 hover:underline">
-          {labels.links.governance}
-        </Link>
-        <Link href="/app/settings/knowledge" className="block text-indigo-600 hover:underline">
-          {labels.links.knowledge}
-        </Link>
-        <Link href="/app/compliance" className="block text-indigo-600 hover:underline">
-          {labels.links.compliance}
-        </Link>
-        <Link href="/app/enterprise" className="block text-indigo-600 hover:underline">
-          {labels.links.enterprise}
-        </Link>
-        <Link href="/app/settings/assistant-identity" className="block text-indigo-600 hover:underline">
-          {labels.links.assistantIdentity}
-        </Link>
-        <Link href="/app/settings/companion-presence" className="block text-indigo-600 hover:underline">
-          {labels.links.companionPresence}
-        </Link>
-        <Link href="/app/settings/quality" className="block text-indigo-600 hover:underline">
-          {labels.links.quality}
-        </Link>
-        <Link href="/app/settings/action-access" className="block text-indigo-600 hover:underline">
-          {labels.links.actionAccess}
-        </Link>
-        <Link href="/app/settings/devices" className="block text-indigo-600 hover:underline">
-          {labels.links.devicesPrinters}
-        </Link>
-        <Link href="/app/settings/two-factor" className="block text-indigo-600 hover:underline">
-          {labels.links.twoFactor}
-        </Link>
       </section>
     </div>
   );
