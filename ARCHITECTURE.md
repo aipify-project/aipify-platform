@@ -1217,3 +1217,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Hope Center Engine (Phase 350):** See [AIPIFY_ORGANIZATIONAL_HOPE_CENTER_ENGINE_PHASE350.md](./AIPIFY_ORGANIZATIONAL_HOPE_CENTER_ENGINE_PHASE350.md) — Hope Center at Executive Center → Organizational Hope. Hope dashboard, progress recognition engine, reviews, and executive hope view. `/app/executive/organizational-hope`, migration `20261427900000_aipify_organizational_hope_center_engine_phase350.sql`. Helpers `_oceh_*`, `_ocehbp350_*`. APIs at `/api/organizational-hope/*`. Cross-links courage center.
+
+
+**Aipify Organizational Wisdom Transfer Center Engine (Phase 351):** See [AIPIFY_ORGANIZATIONAL_WISDOM_TRANSFER_CENTER_ENGINE_PHASE351.md](./AIPIFY_ORGANIZATIONAL_WISDOM_TRANSFER_CENTER_ENGINE_PHASE351.md) — Wisdom Transfer Center at Executive Center → Organizational Wisdom Transfer. Wisdom transfer dashboard, progress recognition engine, reviews, and executive stewardship view. `/app/executive/organizational-wisdom-transfer`, migration `20261428000000_aipify_organizational_wisdom_transfer_center_engine_phase351.sql`. Helpers `_ocwt_*`, `_ocwtbp351_*`. APIs at `/api/organizational-wisdom-transfer/*`. Cross-links hope center.

@@ -1,0 +1,4 @@
+ABOS Phase 351 — Organizational Wisdom Transfer Center
+Route: /app/executive/organizational-wisdom-transfer
+Core: Wisdom is lost when experience is not shared.
+Helpers: _ocwt_* · _ocwtbp351_*

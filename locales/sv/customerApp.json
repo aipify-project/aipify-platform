@@ -91,7 +91,8 @@
     "organizationalHarmonyLink": "Organizational Harmony",
     "organizationalCuriosityLink": "Organizational Curiosity",
     "organizationalCourageLink": "Organizational Courage",
-    "organizationalHopeLink": "Organizational Hope"
+    "organizationalHopeLink": "Organizational Hope",
+    "organizationalWisdomTransferLink": "Organizational Wisdom Transfer"
   },
   "presence": {
     "title": "Presence center",
@@ -6082,7 +6083,8 @@
     "organizationalHarmonyCenterEngine": "Organisatorisk harmoni",
     "organizationalCuriosityCenterEngine": "Organisatorisk nyfikenhet",
     "organizationalCourageCenterEngine": "Organisatoriskt mod",
-    "organizationalHopeCenterEngine": "Organisatoriskt hopp"
+    "organizationalHopeCenterEngine": "Organisatoriskt hopp",
+    "organizationalWisdomTransferCenterEngine": "Organisatorisk visdomsöverföring"
   },
   "identity": {
     "title": "Din identitet",
@@ -19982,5 +19984,118 @@
     },
     "settingsLink": "Organisatoriskt hopp",
     "organizationalHopeLink": "Organizational Hope"
+  },
+  "organizationalWisdomTransferCenter": {
+    "title": "Organisatorisk visdomsöverföring",
+    "subtitle": "Preserve, share, and transfer valuable experience, lessons, judgment, and institutional wisdom across generations of leadership and teams.",
+    "loading": "Loading Wisdom Transfer Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Wisdom transfer philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalHopeLink": "Organizational Hope →",
+    "dashboardTitle": "Wisdom transfer dashboard",
+    "signalsTitle": "Wisdom transfer engine",
+    "transferTitle": "Progress recognition engine",
+    "initiativesTitle": "Wisdom transfer initiatives",
+    "reviewsTitle": "Wisdom transfer reviews",
+    "timelineTitle": "Wisdom transfer timeline",
+    "milestonesTitle": "Wisdom transfer milestones",
+    "snapshotsTitle": "Wisdom transfer snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive wisdom transfer view",
+    "sessionsTitle": "Wisdom transfer sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate wisdom transfer report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export wisdom transfer snapshot",
+    "coordinateDiscussion": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive wisdom transfer milestone",
+    "humansDecide": "Aipify supports stewardship — leaders retain judgment over what is shared; wisdom transfer respects consent, context, and human mentorship without hoarding knowledge or replacing relationships.",
+    "privacyNote": "Privacy",
+    "wisdomTransferScore": "Organizational wisdom transfer score",
+    "knowledgePreservation": "Knowledge preservation",
+    "domains": {
+      "leadership": "Leadership wisdom",
+      "workforce": "Workforce wisdom",
+      "operational": "Operational wisdom",
+      "strategic": "Strategic wisdom",
+      "customer": "Customer wisdom",
+      "institutional": "Institutional wisdom"
+    },
+    "signalTypes": {
+      "knowledge_flow": "Knowledge flow",
+      "mentorship_strength": "Mentorship strength",
+      "institutional_memory": "Institutional memory",
+      "lessons_integrated": "Lessons integrated",
+      "judgment_preserved": "Judgment preserved"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "transferTypes": {
+      "lessons_learned": "Lessons learned",
+      "experience_shared": "Experience shared",
+      "judgment_documented": "Judgment documented",
+      "wisdom_preserved": "Wisdom preserved",
+      "knowledge_carried_forward": "Knowledge carried forward"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "wisdom_transfer_recommended": "Wisdom transfer recommended"
+    },
+    "timelineTypes": {
+      "leadership_succession": "Leadership succession",
+      "knowledge_archive": "Knowledge archive",
+      "mentorship_practice": "Mentorship practice",
+      "strategic_lesson": "Strategic lesson",
+      "cultural_wisdom": "Cultural wisdom"
+    },
+    "reviewTypes": {
+      "quarterly_wisdom_transfer": "Quarterly wisdom transfer review",
+      "leadership_reflection": "Leadership reflection session",
+      "knowledge_transfer_discussion": "Knowledge transfer discussion",
+      "annual_organizational_assessment": "Annual organizational assessment"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "knowledge_transfer_discussion": "Knowledge transfer discussion",
+      "mentorship_session": "Mentorship session"
+    },
+    "metrics": {
+      "experienceSharing": "Experience sharing",
+      "judgmentTransfer": "Judgment transfer",
+      "institutionalMemory": "Institutional memory",
+      "learningIntegration": "Learning integration",
+      "wisdomStewardship": "Wisdom stewardship",
+      "mentorshipParticipation": "Mentorship participation",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "leadershipStewardship": "Leadership stewardship indicators",
+      "institutionalMemoryStrength": "Institutional memory measures",
+      "knowledgeTransferTrends": "Knowledge transfer trends",
+      "successionReadiness": "Succession readiness perspectives"
+    },
+    "settingsLink": "Organisatorisk visdomsöverföring",
+    "organizationalWisdomTransferLink": "Organizational Wisdom Transfer"
   }
 }
