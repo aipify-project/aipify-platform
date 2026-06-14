@@ -1238,3 +1238,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Stewardship Engine (Phase 358):** See [AIPIFY_ORGANIZATIONAL_STEWARDSHIP_ENGINE_PHASE358.md](./AIPIFY_ORGANIZATIONAL_STEWARDSHIP_ENGINE_PHASE358.md) — Stewardship Center at Executive Center → Organizational Stewardship. Stewardship dashboard, responsibility engine, reviews, and executive view. `/app/executive/organizational-stewardship`, migration `20261428600000_aipify_organizational_stewardship_engine_phase358.sql`. Helpers `_osc_*`, `_oscbp358_*`. APIs at `/api/organizational-stewardship/*`. Cross-links legacy and identity centers.
+
+
+**Aipify Organizational Purposeful Execution Engine (Phase 359):** See [AIPIFY_ORGANIZATIONAL_PURPOSEFUL_EXECUTION_ENGINE_PHASE359.md](./AIPIFY_ORGANIZATIONAL_PURPOSEFUL_EXECUTION_ENGINE_PHASE359.md) — Purposeful Execution Center at Executive Center → Purposeful Execution. Execution dashboard, alignment engine, reviews, and executive view. `/app/executive/purposeful-execution`, migration `20261428700000_aipify_organizational_purposeful_execution_engine_phase359.sql`. Helpers `_ope_*`, `_opebp359_*`. APIs at `/api/organizational-purposeful-execution/*`. Cross-links identity and stewardship centers.

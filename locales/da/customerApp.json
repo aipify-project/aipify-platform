@@ -96,7 +96,8 @@
     "organizationalAdaptiveIntelligenceLink": "Organizational Adaptive Intelligence",
     "organizationalBalanceLink": "Organizational Balance",
     "organizationalPresenceLink": "Organizational Presence",
-    "organizationalIdentityLink": "Organizational Identity"
+    "organizationalIdentityLink": "Organizational Identity",
+    "organizationalPurposefulExecutionLink": "Purposeful Execution"
   },
   "presence": {
     "title": "Presence center",
@@ -6038,7 +6039,8 @@
     "organizationalAdaptiveIntelligenceCenterEngine": "Organisatorisk adaptiv intelligens",
     "organizationalBalanceCenterEngine": "Organisatorisk balance",
     "organizationalPresenceCenterEngine": "Organisatorisk tilstedeværelse",
-    "organizationalIdentityCenterEngine": "Organisatorisk identitet"
+    "organizationalIdentityCenterEngine": "Organisatorisk identitet",
+    "organizationalPurposefulExecutionCenterEngine": "Målrettet gennemførelse"
   },
   "identity": {
     "title": "Din identitet",
@@ -20656,5 +20658,122 @@
     },
     "settingsLink": "Organisatorisk identitet",
     "organizationalIdentityLink": "Organizational Identity"
+  },
+  "organizationalPurposefulExecutionCenter": {
+    "title": "Målrettet gennemførelscenter",
+    "subtitle": "Transform strategy, values and intentions into meaningful action through disciplined, aligned and sustainable execution.",
+    "loading": "Loading Purposeful Execution Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Purposeful execution philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalIdentityLink": "Organizational Identity →",
+    "organizationalStewardshipLink": "Organizational Stewardship →",
+    "dashboardTitle": "Purposeful execution dashboard",
+    "signalsTitle": "Execution engine",
+    "alignmentTitle": "Alignment engine",
+    "initiativesTitle": "Purposeful execution actions",
+    "reviewsTitle": "Purposeful execution reviews",
+    "timelineTitle": "Purposeful execution timeline",
+    "milestonesTitle": "Execution milestones",
+    "snapshotsTitle": "Execution snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive purposeful execution view",
+    "sessionsTitle": "Reflection sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate execution report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export execution snapshot",
+    "coordinateDiscussion": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive execution milestone",
+    "archiveMilestoneDefaultTitle": "Strategic delivery milestone",
+    "archiveMilestoneDefaultSummary": "Execution milestone archived via Purposeful Execution Center.",
+    "humansDecide": "Aipify supports execution awareness — leaders retain responsibility; purposeful execution strengthens alignment without hustle culture or activity-based success metrics.",
+    "privacyNote": "Privacy",
+    "executionScore": "Organizational execution score",
+    "strategicDelivery": "Strategic delivery indicators",
+    "domains": {
+      "strategic": "Strategic execution",
+      "leadership": "Leadership execution",
+      "team": "Team execution",
+      "customer": "Customer execution",
+      "operational": "Operational execution",
+      "cultural": "Cultural execution"
+    },
+    "signalTypes": {
+      "strong_execution_practices": "Strong execution practices",
+      "delivery_bottlenecks": "Delivery bottlenecks",
+      "accountability_strengths": "Accountability strengths",
+      "alignment_opportunities": "Alignment opportunities",
+      "sustainable_improvement_areas": "Sustainable improvement areas"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "alignmentTypes": {
+      "executing_right_priorities": "Executing the right priorities",
+      "teams_understand_why": "Teams understand why work matters",
+      "responsibilities_defined": "Responsibilities clearly defined",
+      "delivering_sustainably": "Delivering sustainably",
+      "execution_barriers": "Barriers to effective execution"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "execution_reinforcement_recommended": "Execution reinforcement recommended"
+    },
+    "timelineTypes": {
+      "initiative_milestone": "Initiative milestone",
+      "delivery_achievement": "Delivery achievement",
+      "leadership_reflection": "Leadership reflection",
+      "accountability_improvement": "Accountability improvement",
+      "organizational_breakthrough": "Organizational breakthrough"
+    },
+    "reviewTypes": {
+      "monthly_execution": "Monthly execution review",
+      "quarterly_strategic": "Quarterly strategic discussion",
+      "leadership_reflection": "Leadership reflection session",
+      "annual_delivery": "Annual delivery assessment"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "stewardship_session": "Stewardship session",
+      "leadership_discussion": "Leadership discussion"
+    },
+    "metrics": {
+      "initiativeProgression": "Initiative progression",
+      "strategicDelivery": "Strategic delivery",
+      "accountabilityEffectiveness": "Accountability effectiveness",
+      "sustainablePacing": "Sustainable pacing",
+      "deliveryConsistency": "Delivery consistency",
+      "strategicAlignment": "Strategic alignment",
+      "leadershipParticipation": "Leadership participation",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "strategicDelivery": "Strategic delivery indicators",
+      "leadershipAccountability": "Leadership accountability trends",
+      "initiativeMomentum": "Initiative momentum measures",
+      "executionImprovementOpportunities": "Execution improvement opportunities"
+    },
+    "settingsLink": "Målrettet gennemførelse",
+    "organizationalPurposefulExecutionLink": "Purposeful Execution"
   }
 }

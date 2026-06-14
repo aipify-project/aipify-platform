@@ -272,6 +272,7 @@ export type AppNavId =
   | "organizationalEnergyCenterEngine"
   | "organizationalFocusCenterEngine"
   | "organizationalAlignmentCenterEngine"
+  | "organizationalPurposefulExecutionCenterEngine"
   | "executionExcellenceCenterEngine"
   | "capabilityMaturityCenterEngine"
   | "organizationalDigitalTwinCenterEngine"
@@ -1504,6 +1505,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "organizationalEnergyCenterEngine", href: "/app/executive/organizational-energy", labelKey: "customerApp.nav.organizationalEnergyCenterEngine" },
   { id: "organizationalFocusCenterEngine", href: "/app/executive/organizational-focus", labelKey: "customerApp.nav.organizationalFocusCenterEngine" },
   { id: "organizationalAlignmentCenterEngine", href: "/app/executive/organizational-alignment", labelKey: "customerApp.nav.organizationalAlignmentCenterEngine" },
+  { id: "organizationalPurposefulExecutionCenterEngine", href: "/app/executive/purposeful-execution", labelKey: "customerApp.nav.organizationalPurposefulExecutionCenterEngine" },
   { id: "executionExcellenceCenterEngine", href: "/app/executive/execution-excellence", labelKey: "customerApp.nav.executionExcellenceCenterEngine" },
   { id: "capabilityMaturityCenterEngine", href: "/app/executive/capability-maturity", labelKey: "customerApp.nav.capabilityMaturityCenterEngine" },
   { id: "organizationalDigitalTwinCenterEngine", href: "/app/executive/organizational-digital-twin", labelKey: "customerApp.nav.organizationalDigitalTwinCenterEngine" },
@@ -2309,6 +2311,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/executive/organizational-energy")) return "organizationalEnergyCenterEngine";
   if (pathname.startsWith("/app/executive/organizational-focus")) return "organizationalFocusCenterEngine";
   if (pathname.startsWith("/app/executive/organizational-alignment")) return "organizationalAlignmentCenterEngine";
+  if (pathname.startsWith("/app/executive/purposeful-execution")) return "organizationalPurposefulExecutionCenterEngine";
   if (pathname.startsWith("/app/executive/execution-excellence")) return "executionExcellenceCenterEngine";
   if (pathname.startsWith("/app/executive/capability-maturity")) return "capabilityMaturityCenterEngine";
   if (pathname.startsWith("/app/executive/organizational-digital-twin")) return "organizationalDigitalTwinCenterEngine";

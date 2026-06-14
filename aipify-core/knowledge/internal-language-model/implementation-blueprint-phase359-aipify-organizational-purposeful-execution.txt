@@ -1,0 +1,4 @@
+ABOS Phase 359 — Organizational Purposeful Execution Engine
+Route: /app/executive/purposeful-execution
+Core: Vision without execution remains aspiration. Execution without purpose becomes activity without meaning.
+Helpers: _ope_* · _opebp359_*
