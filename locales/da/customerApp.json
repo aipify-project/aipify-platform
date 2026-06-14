@@ -70,7 +70,8 @@
     "organizationalPurposeLink": "Organizational Purpose",
     "organizationalStewardshipLink": "Organizational Stewardship",
     "organizationalSimplicityLink": "Organizational Simplicity",
-    "organizationalTrustLink": "Organizational Trust"
+    "organizationalTrustLink": "Organizational Trust",
+    "organizationalMomentumLink": "Organizational Momentum"
   },
   "presence": {
     "title": "Presence center",
@@ -5986,7 +5987,8 @@
     "organizationalPurposeCenterEngine": "Organisationsformål",
     "organizationalStewardshipCenterEngine": "Organisationsforvaltning",
     "organizationalSimplicityCenterEngine": "Organisationsenkelhed",
-    "organizationalTrustCenterEngine": "Organisatorisk tillid"
+    "organizationalTrustCenterEngine": "Organisatorisk tillid",
+    "organizationalMomentumCenterEngine": "Organisatorisk momentum"
   },
   "identity": {
     "title": "Din identitet",
@@ -17530,5 +17532,117 @@
     },
     "settingsLink": "Organisatorisk tillid",
     "organizationalTrustLink": "Organizational Trust"
+  },
+  "organizationalMomentumCenter": {
+    "title": "Organisatorisk momentum",
+    "subtitle": "Recognize, maintain, and strengthen healthy momentum by balancing progress, sustainability, focus, and adaptability across strategic initiatives and day-to-day operations.",
+    "loading": "Loading Momentum Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Momentum philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalTrustLink": "Organizational Trust →",
+    "organizationalStewardshipLink": "Organizational Stewardship →",
+    "organizationalSimplicityLink": "Organizational Simplicity →",
+    "organizationalPurposeLink": "Organizational Purpose →",
+    "dashboardTitle": "Momentum dashboard",
+    "signalsTitle": "Momentum engine",
+    "recognitionTitle": "Milestone recognition",
+    "reviewsTitle": "Momentum reviews",
+    "timelineTitle": "Momentum timeline",
+    "achievementsTitle": "Archived achievements",
+    "snapshotsTitle": "Progress snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive momentum view",
+    "sessionsTitle": "Momentum sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleSession": "Schedule reflection session",
+    "recognizeMilestone": "Recognize milestone",
+    "generateSummary": "Generate momentum summary",
+    "printReport": "Print executive report",
+    "exportSnapshot": "Export progress snapshot",
+    "coordinateCelebration": "Coordinate milestone celebration",
+    "archiveAchievement": "Archive achievement timeline",
+    "humansDecide": "Aipify supports progress awareness — leadership owns sustainable momentum and meaningful direction.",
+    "privacyNote": "Privacy",
+    "momentumScore": "Organizational momentum score",
+    "domains": {
+      "strategic": "Strategic momentum",
+      "operational": "Operational momentum",
+      "customer": "Customer momentum",
+      "learning": "Learning momentum",
+      "leadership": "Leadership momentum"
+    },
+    "signalTypes": {
+      "sustained_progress": "Sustained progress",
+      "emerging_stagnation": "Emerging stagnation",
+      "breakthrough_period": "Breakthrough period",
+      "recovery_period": "Recovery period",
+      "momentum_practice": "Momentum-building practice"
+    },
+    "signalTones": {
+      "positive": "Positive signal",
+      "neutral": "Neutral signal",
+      "attention": "Needs attention"
+    },
+    "recognitionStatuses": {
+      "pending": "Pending recognition",
+      "recognized": "Recognized"
+    },
+    "recognitionTypes": {
+      "strategic_breakthrough": "Strategic breakthrough",
+      "customer_success": "Customer success milestone",
+      "learning_achievement": "Learning achievement",
+      "improvement_completed": "Improvement completed",
+      "growth_moment": "Growth moment"
+    },
+    "healthLabels": {
+      "accelerating": "Accelerating",
+      "strong": "Strong",
+      "steady": "Steady",
+      "slowing": "Slowing",
+      "stalled": "Stalled"
+    },
+    "timelineTypes": {
+      "major_achievement": "Major achievement",
+      "recovery_period": "Recovery period",
+      "initiative_breakthrough": "Initiative breakthrough",
+      "strategic_milestone": "Strategic milestone",
+      "growth_moment": "Growth moment"
+    },
+    "reviewTypes": {
+      "monthly_momentum": "Monthly momentum review",
+      "quarterly_progress": "Quarterly progress reflection",
+      "annual_achievement": "Annual achievement assessment",
+      "executive_momentum": "Executive momentum discussion"
+    },
+    "sessionTypes": {
+      "momentum_reflection": "Momentum reflection",
+      "progress_review": "Progress review",
+      "milestone_celebration": "Milestone celebration"
+    },
+    "metrics": {
+      "trend": "Progress trend",
+      "positive": "Positive momentum",
+      "initiative": "Initiative progression",
+      "reviews": "Review participation",
+      "consistency": "Strategic consistency",
+      "learning": "Learning integration",
+      "pendingRecognitions": "Pending recognitions",
+      "confidence": "Leadership confidence"
+    },
+    "executiveFields": {
+      "strategic": "Strategic progress",
+      "consistency": "Leadership consistency",
+      "confidence": "Organizational confidence",
+      "opportunities": "Long-term opportunities"
+    },
+    "settingsLink": "Organisatorisk momentum",
+    "organizationalMomentumLink": "Organizational Momentum"
   }
 }

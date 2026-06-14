@@ -277,3 +277,4 @@ export * from "./aipify-organizational-purpose-center-engine";
 export * from "./aipify-organizational-stewardship-center-engine";
 export * from "./aipify-organizational-simplicity-center-engine";
 export * from "./aipify-organizational-trust-center-engine";
+export * from "./aipify-organizational-momentum-center-engine";

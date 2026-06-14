@@ -1,0 +1,4 @@
+ABOS Phase 330 — Organizational Momentum Center
+Route: /app/executive/organizational-momentum
+Core: Organizations succeed because they continue moving in meaningful directions over time.
+Helpers: _ommc_* · _ommcbp330_*

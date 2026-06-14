@@ -1154,3 +1154,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Trust Center Engine (Phase 329):** See [AIPIFY_ORGANIZATIONAL_TRUST_CENTER_ENGINE_PHASE329.md](./AIPIFY_ORGANIZATIONAL_TRUST_CENTER_ENGINE_PHASE329.md) — Trust Center at Executive Center → Organizational Trust. Trust signals, accountability engine, reviews, and executive trust view. `/app/executive/organizational-trust`, migration `20261425700000_aipify_organizational_trust_center_engine_phase329.sql`. Helpers `_otrc_*`, `_otrcbp329_*`. APIs at `/api/organizational-trust/*`. Cross-links stewardship, simplicity, purpose, and trust transparency — does not modify Phase 278 enterprise trust RPCs.
+
+
+**Aipify Organizational Momentum Center Engine (Phase 330):** See [AIPIFY_ORGANIZATIONAL_MOMENTUM_CENTER_ENGINE_PHASE330.md](./AIPIFY_ORGANIZATIONAL_MOMENTUM_CENTER_ENGINE_PHASE330.md) — Momentum Center at Executive Center → Organizational Momentum. Momentum engine, milestone recognition, reviews, and executive momentum view. `/app/executive/organizational-momentum`, migration `20261425800000_aipify_organizational_momentum_center_engine_phase330.sql`. Helpers `_ommc_*`, `_ommcbp330_*`. APIs at `/api/organizational-momentum/*`. Cross-links trust, stewardship, simplicity, and purpose centers.
