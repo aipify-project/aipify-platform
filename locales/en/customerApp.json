@@ -66,7 +66,8 @@
     "organizationalEnergyLink": "Organizational Energy",
     "organizationalAdaptabilityLink": "Organizational Adaptability",
     "organizationalWisdomLink": "Organizational Wisdom",
-    "organizationalLegacyLink": "Organizational Legacy"
+    "organizationalLegacyLink": "Organizational Legacy",
+    "organizationalPurposeLink": "Organizational Purpose"
   },
   "presence": {
     "title": "Presence center",
@@ -7154,7 +7155,8 @@
     "organizationalEnergyCenterEngine": "Organizational Energy",
     "organizationalAdaptabilityCenterEngine": "Organizational Adaptability",
     "organizationalWisdomCenterEngine": "Organizational Wisdom",
-    "organizationalLegacyCenterEngine": "Organizational Legacy"
+    "organizationalLegacyCenterEngine": "Organizational Legacy",
+    "organizationalPurposeCenterEngine": "Organizational Purpose"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -17521,5 +17523,99 @@
     },
     "settingsLink": "Organizational Legacy",
     "organizationalLegacyLink": "Organizational Legacy"
+  },
+  "organizationalPurposeCenter": {
+    "title": "Organizational Purpose",
+    "subtitle": "Reconnect daily activities, strategic initiatives, leadership decisions, and cultural practices with the deeper purpose that defines why the organization exists.",
+    "loading": "Loading Purpose Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Purpose philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalLegacyLink": "Organizational Legacy →",
+    "organizationalWisdomLink": "Organizational Wisdom →",
+    "organizationalAlignmentLink": "Organizational Alignment →",
+    "purposeValuesLink": "Purpose & Values →",
+    "dashboardTitle": "Purpose dashboard",
+    "alignmentTitle": "Purpose alignment",
+    "reflectionsTitle": "Reflection engine",
+    "reviewsTitle": "Purpose reviews",
+    "timelineTitle": "Purpose timeline",
+    "milestonesTitle": "Purpose milestones",
+    "snapshotsTitle": "Alignment snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive purpose view",
+    "sessionsTitle": "Purpose sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleDiscussion": "Schedule leadership discussion",
+    "generateReport": "Generate purpose report",
+    "printReflection": "Print reflection summary",
+    "exportSnapshot": "Export alignment snapshot",
+    "archiveMilestone": "Archive purpose milestone",
+    "coordinateReflection": "Coordinate organizational reflection",
+    "humansDecide": "Aipify supports reflection and alignment — leadership owns purpose, values, and authentic meaning.",
+    "privacyNote": "Privacy",
+    "purposeScore": "Purpose score",
+    "domains": {
+      "mission_clarity": "Mission clarity",
+      "values_alignment": "Values alignment",
+      "customer_purpose": "Customer purpose",
+      "employee_purpose": "Employee purpose",
+      "community_purpose": "Community purpose"
+    },
+    "alignmentAreas": {
+      "strategy": "Strategy",
+      "culture": "Culture",
+      "customer_promises": "Customer promises",
+      "leadership_decisions": "Leadership decisions",
+      "organizational_behaviors": "Organizational behaviors"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "maturing": "Maturing",
+      "developing": "Developing",
+      "emerging": "Emerging"
+    },
+    "timelineTypes": {
+      "mission_update": "Mission update",
+      "cultural_milestone": "Cultural milestone",
+      "leadership_reflection": "Leadership reflection",
+      "community_contribution": "Community contribution",
+      "strategic_reaffirmation": "Strategic reaffirmation"
+    },
+    "reviewTypes": {
+      "annual_purpose": "Annual purpose review",
+      "executive_reflection": "Executive reflection session",
+      "strategic_planning": "Strategic planning discussion",
+      "cultural_alignment": "Cultural alignment review"
+    },
+    "sessionTypes": {
+      "leadership_discussion": "Leadership discussion",
+      "organizational_reflection": "Organizational reflection",
+      "purpose_planning": "Purpose planning"
+    },
+    "metrics": {
+      "clarity": "Purpose clarity",
+      "valuesAlignment": "Values alignment trend",
+      "leadership": "Leadership participation",
+      "reflections": "Reflections completed",
+      "strategic": "Strategic alignment",
+      "employee": "Employee understanding",
+      "confidence": "Leadership confidence"
+    },
+    "executiveFields": {
+      "mission": "Mission alignment",
+      "values": "Values consistency",
+      "reflection": "Reflection participation",
+      "impact": "Long-term impact"
+    },
+    "settingsLink": "Organizational Purpose",
+    "organizationalPurposeLink": "Organizational Purpose"
   }
 }

@@ -1,0 +1,4 @@
+ABOS Phase 326 — Organizational Purpose Center
+Route: /app/executive/organizational-purpose
+Core: Organizations thrive when people understand not only what they do, but why it matters.
+Helpers: _opc_* · _opcbp326_*
