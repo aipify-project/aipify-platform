@@ -1223,3 +1223,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Adaptive Intelligence Center Engine (Phase 352):** See [AIPIFY_ORGANIZATIONAL_ADAPTIVE_INTELLIGENCE_CENTER_ENGINE_PHASE352.md](./AIPIFY_ORGANIZATIONAL_ADAPTIVE_INTELLIGENCE_CENTER_ENGINE_PHASE352.md) — Adaptive Intelligence Center at Executive Center → Organizational Adaptive Intelligence. Adaptive intelligence dashboard, learning application engine, reviews, and executive view. `/app/executive/organizational-adaptive-intelligence`, migration `20261428100000_aipify_organizational_adaptive_intelligence_center_engine_phase352.sql`. Helpers `_ocai_*`, `_ocaibp352_*`. APIs at `/api/organizational-adaptive-intelligence/*`. Cross-links wisdom transfer center.
+
+
+**Aipify Organizational Balance Center Engine (Phase 353):** See [AIPIFY_ORGANIZATIONAL_BALANCE_CENTER_ENGINE_PHASE353.md](./AIPIFY_ORGANIZATIONAL_BALANCE_CENTER_ENGINE_PHASE353.md) — Balance Center at Executive Center → Organizational Balance. Balance dashboard, recalibration engine, reviews, and executive view. `/app/executive/organizational-balance`, migration `20261428200000_aipify_organizational_balance_center_engine_phase353.sql`. Helpers `_ocb_*`, `_ocbbp353_*`. APIs at `/api/organizational-balance/*`. Cross-links adaptive intelligence center.

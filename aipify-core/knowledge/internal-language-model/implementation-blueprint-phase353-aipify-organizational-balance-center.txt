@@ -1,0 +1,4 @@
+ABOS Phase 353 — Organizational Balance Center
+Route: /app/executive/organizational-balance
+Core: Many organizational problems emerge from pursuing the right goals without balance.
+Helpers: _ocb_* · _ocbbp353_*

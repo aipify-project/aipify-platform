@@ -80,6 +80,7 @@ export default async function ExecutivePage() {
         organizationalHopeLink: t("customerApp.executive.organizationalHopeLink"),
         organizationalWisdomTransferLink: t("customerApp.executive.organizationalWisdomTransferLink"),
         organizationalAdaptiveIntelligenceLink: t("customerApp.executive.organizationalAdaptiveIntelligenceLink"),
+        organizationalBalanceLink: t("customerApp.executive.organizationalBalanceLink"),
       }}
     />
   );

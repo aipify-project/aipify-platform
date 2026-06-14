@@ -93,7 +93,8 @@
     "organizationalCourageLink": "Organizational Courage",
     "organizationalHopeLink": "Organizational Hope",
     "organizationalWisdomTransferLink": "Organizational Wisdom Transfer",
-    "organizationalAdaptiveIntelligenceLink": "Organizational Adaptive Intelligence"
+    "organizationalAdaptiveIntelligenceLink": "Organizational Adaptive Intelligence",
+    "organizationalBalanceLink": "Organizational Balance"
   },
   "presence": {
     "title": "Presence center",
@@ -7208,7 +7209,8 @@
     "organizationalCourageCenterEngine": "Organizational Courage",
     "organizationalHopeCenterEngine": "Organizational Hope",
     "organizationalWisdomTransferCenterEngine": "Organizational Wisdom Transfer",
-    "organizationalAdaptiveIntelligenceCenterEngine": "Organizational Adaptive Intelligence"
+    "organizationalAdaptiveIntelligenceCenterEngine": "Organizational Adaptive Intelligence",
+    "organizationalBalanceCenterEngine": "Organizational Balance"
   },
   "securityTrustEngine": {
     "title": "Security & Trust",
@@ -20607,5 +20609,117 @@
     },
     "settingsLink": "Organizational Adaptive Intelligence",
     "organizationalAdaptiveIntelligenceLink": "Organizational Adaptive Intelligence"
+  },
+  "organizationalBalanceCenter": {
+    "title": "Organizational Balance",
+    "subtitle": "Help your organization maintain healthy balance between growth and stability, innovation and discipline, people and performance, and short-term execution and long-term stewardship.",
+    "loading": "Loading Balance Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Balance philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalAdaptiveIntelligenceLink": "Organizational Adaptive Intelligence →",
+    "dashboardTitle": "Balance dashboard",
+    "signalsTitle": "Balance engine",
+    "recalibrationTitle": "Recalibration engine",
+    "initiativesTitle": "Balance initiatives",
+    "reviewsTitle": "Balance reviews",
+    "timelineTitle": "Balance timeline",
+    "milestonesTitle": "Balance milestones",
+    "snapshotsTitle": "Balance snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive balance view",
+    "sessionsTitle": "Balance sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate balance report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export balance snapshot",
+    "coordinateDiscussion": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive balance milestone",
+    "humansDecide": "Aipify supports intentional adjustment — leaders retain judgment; balance is not compromise, never extremes, and never implies perfect equilibrium.",
+    "privacyNote": "Privacy",
+    "balanceScore": "Organizational balance score",
+    "sustainabilityIndicators": "Sustainability indicators",
+    "domains": {
+      "growth_stability": "Growth vs stability",
+      "innovation_discipline": "Innovation vs discipline",
+      "people_performance": "People vs performance",
+      "short_long_term": "Short-term vs long-term",
+      "autonomy_alignment": "Autonomy vs alignment",
+      "optimism_realism": "Optimism vs realism"
+    },
+    "signalTypes": {
+      "emerging_imbalances": "Emerging imbalances",
+      "recalibration_areas": "Recalibration areas",
+      "healthy_tensions": "Healthy tensions",
+      "equilibrium_trends": "Equilibrium trends",
+      "sustainable_adjustments": "Sustainable adjustments"
+    },
+    "signalTones": {
+      "positive": "Positive indicator",
+      "neutral": "Neutral indicator",
+      "attention": "Needs attention"
+    },
+    "recalibrationTypes": {
+      "responsible_growth": "Responsible growth",
+      "people_support": "People support",
+      "long_term_priorities": "Long-term priorities",
+      "governance_proportion": "Governance proportion",
+      "tensions_attention": "Tensions attention"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "exceptional": "Exceptional",
+      "strong": "Strong",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "rebalancing_recommended": "Rebalancing recommended"
+    },
+    "timelineTypes": {
+      "strategic_recalibration": "Strategic recalibration",
+      "leadership_reflection": "Leadership reflection",
+      "growth_milestone": "Growth milestone",
+      "governance_development": "Governance development",
+      "organizational_learning": "Organizational learning"
+    },
+    "reviewTypes": {
+      "quarterly_balance": "Quarterly balance review",
+      "leadership_reflection": "Leadership reflection session",
+      "strategic_pacing_discussion": "Strategic pacing discussion",
+      "annual_sustainability_assessment": "Annual sustainability assessment"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "strategic_pacing_discussion": "Strategic pacing discussion",
+      "leadership_discussion": "Leadership discussion"
+    },
+    "metrics": {
+      "sustainabilityIndicators": "Sustainability indicators",
+      "strategicPacing": "Strategic pacing",
+      "leadershipConsistency": "Leadership consistency",
+      "workforceResilience": "Workforce resilience",
+      "governanceEffectiveness": "Governance effectiveness",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "sustainabilityIndicators": "Sustainability indicators",
+      "strategicPacing": "Strategic pacing measures",
+      "leadershipConsistency": "Leadership consistency trends",
+      "equilibriumOpportunities": "Organizational equilibrium opportunities"
+    },
+    "settingsLink": "Organizational Balance",
+    "organizationalBalanceLink": "Organizational Balance"
   }
 }
