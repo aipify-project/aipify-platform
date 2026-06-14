@@ -1178,3 +1178,6 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 
 **Aipify Organizational Confidence Center Engine (Phase 337):** See [AIPIFY_ORGANIZATIONAL_CONFIDENCE_CENTER_ENGINE_PHASE337.md](./AIPIFY_ORGANIZATIONAL_CONFIDENCE_CENTER_ENGINE_PHASE337.md) — Confidence Center at Executive Center → Organizational Confidence. Confidence dashboard, building engine, uncertainty awareness, reviews, and executive confidence view. `/app/executive/organizational-confidence`, migration `20261426500000_aipify_organizational_confidence_center_engine_phase337.sql`. Helpers `_oicc_*`, `_oiccbp337_*`. APIs at `/api/organizational-confidence/*`. Cross-links trust, resilience, decision quality, and momentum centers.
+
+
+**Aipify Organizational Flourishing Center Engine (Phase 338):** See [AIPIFY_ORGANIZATIONAL_FLOURISHING_CENTER_ENGINE_PHASE338.md](./AIPIFY_ORGANIZATIONAL_FLOURISHING_CENTER_ENGINE_PHASE338.md) — Flourishing Center at Executive Center → Organizational Flourishing. Flourishing dashboard, flourishing engine, meaning engine, reviews, and executive flourishing view. `/app/executive/organizational-flourishing`, migration `20261426600000_aipify_organizational_flourishing_center_engine_phase338.sql`. Helpers `_oflc_*`, `_oflcbp338_*`. APIs at `/api/organizational-flourishing/*`. Cross-links purpose, confidence, learning, and energy centers.

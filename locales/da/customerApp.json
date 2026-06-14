@@ -78,7 +78,8 @@
     "organizationalExcellenceLink": "Organizational Excellence",
     "organizationalImpactLink": "Organizational Impact",
     "organizationalDecisionQualityLink": "Decision Quality",
-    "organizationalConfidenceLink": "Organizational Confidence"
+    "organizationalConfidenceLink": "Organizational Confidence",
+    "organizationalFlourishingLink": "Organizational Flourishing"
   },
   "presence": {
     "title": "Presence center",
@@ -6002,7 +6003,8 @@
     "organizationalExcellenceCenterEngine": "Organisatorisk excellens",
     "organizationalImpactCenterEngine": "Organisatorisk påvirkning",
     "organizationalDecisionQualityCenterEngine": "Beslutningskvalitet",
-    "organizationalConfidenceCenterEngine": "Organisatorisk selvtillid"
+    "organizationalConfidenceCenterEngine": "Organisatorisk selvtillid",
+    "organizationalFlourishingCenterEngine": "Organisatorisk blomstring"
   },
   "identity": {
     "title": "Din identitet",
@@ -18483,5 +18485,118 @@
     },
     "settingsLink": "Organisatorisk selvtillid",
     "organizationalConfidenceLink": "Organizational Confidence"
+  },
+  "organizationalFlourishingCenter": {
+    "title": "Organisatorisk blomstring",
+    "subtitle": "Create the conditions in which people, teams, customers, and the organization can sustainably thrive — human-centered leadership, meaningful contribution, and long-term wellbeing.",
+    "loading": "Loading Flourishing Center…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Flourishing philosophy",
+    "visionTitle": "Vision",
+    "executiveLink": "Executive Center →",
+    "organizationalPurposeLink": "Organizational Purpose →",
+    "organizationalConfidenceLink": "Organizational Confidence →",
+    "organizationalLearningLink": "Organizational Learning →",
+    "organizationalEnergyLink": "Organizational Energy →",
+    "dashboardTitle": "Flourishing dashboard",
+    "conditionsTitle": "Flourishing engine",
+    "meaningTitle": "Meaning engine",
+    "initiativesTitle": "Flourishing initiatives",
+    "reviewsTitle": "Flourishing reviews",
+    "timelineTitle": "Flourishing timeline",
+    "milestonesTitle": "Flourishing milestones",
+    "snapshotsTitle": "Flourishing snapshots",
+    "insightsTitle": "Aipify insights",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive flourishing view",
+    "sessionsTitle": "Flourishing sessions",
+    "emptySection": "No items in this section yet.",
+    "dismiss": "Dismiss",
+    "accept": "Accept",
+    "completeReview": "Complete review",
+    "completeSession": "Complete session",
+    "scheduleReflection": "Schedule reflection session",
+    "completeInitiative": "Complete initiative",
+    "generateReport": "Generate flourishing report",
+    "printSummary": "Print executive summary",
+    "exportSnapshot": "Export flourishing snapshot",
+    "coordinateDiscussion": "Coordinate leadership discussion",
+    "archiveMilestone": "Archive flourishing milestone",
+    "humansDecide": "Aipify supports flourishing awareness — leaders retain responsibility; success should not come at the expense of the people who create it.",
+    "privacyNote": "Privacy",
+    "flourishingScore": "Organizational flourishing score",
+    "positiveMomentum": "Positive momentum",
+    "domains": {
+      "individual": "Individual flourishing",
+      "team": "Team flourishing",
+      "leadership": "Leadership flourishing",
+      "customer": "Customer flourishing",
+      "organizational": "Organizational flourishing"
+    },
+    "conditionTypes": {
+      "sustainable_success": "Sustainable success",
+      "long_term_engagement": "Long-term engagement",
+      "meaningful_contribution": "Meaningful contribution",
+      "organizational_resilience": "Organizational resilience",
+      "shared_progress": "Shared progress"
+    },
+    "conditionTones": {
+      "positive": "Positive condition",
+      "neutral": "Neutral condition",
+      "attention": "Needs attention"
+    },
+    "meaningTypes": {
+      "work_contribution": "Work contribution",
+      "purpose_understanding": "Purpose understanding",
+      "success_celebration": "Celebrating successes",
+      "growth_opportunity": "Growth and contribution"
+    },
+    "initiativeStatuses": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "healthLabels": {
+      "thriving": "Thriving",
+      "healthy": "Healthy",
+      "developing": "Developing",
+      "strained": "Strained",
+      "support_recommended": "Support recommended"
+    },
+    "timelineTypes": {
+      "growth_milestone": "Growth milestone",
+      "learning_achievement": "Learning achievement",
+      "cultural_development": "Cultural development",
+      "leadership_reflection": "Leadership reflection",
+      "organizational_breakthrough": "Organizational breakthrough"
+    },
+    "reviewTypes": {
+      "quarterly_flourishing": "Quarterly flourishing review",
+      "leadership_reflection": "Leadership reflection session",
+      "annual_assessment": "Annual organizational assessment",
+      "purpose_discussion": "Purpose discussion"
+    },
+    "sessionTypes": {
+      "reflection_session": "Reflection session",
+      "purpose_workshop": "Purpose workshop"
+    },
+    "metrics": {
+      "learning": "Learning participation",
+      "collaboration": "Collaboration effectiveness",
+      "leadership": "Leadership consistency",
+      "resilience": "Organizational resilience",
+      "purpose": "Purpose alignment",
+      "sustainability": "Sustainability measures",
+      "initiatives": "Initiatives in progress",
+      "reviews": "Reviews completed"
+    },
+    "executiveFields": {
+      "sustainability": "Sustainability indicators",
+      "resilience": "Organizational resilience measures",
+      "leadership": "Leadership participation trends",
+      "opportunities": "Flourishing opportunities"
+    },
+    "settingsLink": "Organisatorisk blomstring",
+    "organizationalFlourishingLink": "Organizational Flourishing"
   }
 }

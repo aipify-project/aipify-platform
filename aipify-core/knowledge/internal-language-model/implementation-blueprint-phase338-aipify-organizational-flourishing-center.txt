@@ -1,0 +1,4 @@
+ABOS Phase 338 — Organizational Flourishing Center
+Route: /app/executive/organizational-flourishing
+Core: Organizations flourish when people flourish.
+Helpers: _oflc_* · _oflcbp338_*
