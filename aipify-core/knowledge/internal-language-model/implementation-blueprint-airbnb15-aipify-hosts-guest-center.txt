@@ -1,0 +1,22 @@
+AIPIFY HOSTS — GUEST CENTER (Phase Airbnb 15)
+
+POSITIONING
+Complete overview of every guest and guest interaction — understand active guest situations from one workspace.
+
+ROUTE
+/app/aipify-hosts/guests
+
+TERMINOLOGY
+Hosts Guest Center · Guest Center Foundation
+
+SECTIONS
+Active Guests · Upcoming Guests · Guest History · Guest Requests · Guest Notes · Guest Timeline
+
+FORBIDDEN PHRASING
+Do not use AI assistant, AI chatbot, AI guest, or autonomous agent in customer-facing Hosts guest copy.
+
+GOVERNANCE
+Role-based permissions. Guest notes audited. Profile changes audited. Request status changes audited.
+
+SUCCESS
+Hosts understand every active guest situation from a single workspace without searching through multiple systems.

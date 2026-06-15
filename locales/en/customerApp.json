@@ -13766,6 +13766,7 @@
     "openReports": "Open Hosts Reports Center",
     "openOperations": "Open Hosts Operations Center",
     "openPropertyCenter": "Open Hosts Property Center",
+    "openGuestCenter": "Open Hosts Guest Center",
     "licensing": {
       "capacityLabel": "Property capacity",
       "propertyLimit": "Property limit",
@@ -14219,6 +14220,85 @@
       "cleaning": "Cleaning activity",
       "maintenance": "Maintenance activity",
       "property_change": "Property change"
+    }
+  },
+  "aipifyHostsGuestCenter": {
+    "title": "Hosts Guest Center",
+    "subtitle": "Complete overview of every guest and guest interaction — active stays, requests, notes, and timeline in one workspace.",
+    "loading": "Loading workspace…",
+    "errorTitle": "Something unexpected happened",
+    "errorMessage": "Our team has been notified. Please try again.",
+    "retry": "Try again",
+    "backToHosts": "Back to Aipify Hosts",
+    "exploreGuidance": "Explore guest guidance",
+    "governanceNote": "Role-based permissions · Guest notes audited · Profile changes audited · Request status changes audited",
+    "guestName": "Guest name",
+    "property": "Property",
+    "checkInDate": "Check-in date",
+    "checkOutDate": "Check-out date",
+    "stayStatus": "Status",
+    "guestTier": "Guest tier",
+    "emptyGuestsTitle": "No guests in this view",
+    "emptyGuestsMessage": "Guest stays appear here when properties are active and reservations are tracked in Aipify Hosts.",
+    "emptyGuestsCta": "Open Property Center",
+    "requestType": "Request type",
+    "requestStatus": "Status",
+    "actions": "Actions",
+    "markResolved": "Mark resolved",
+    "emptyRequestsTitle": "No guest requests",
+    "emptyRequestsMessage": "Early check-in, late check-out, maintenance, and general questions from active stays appear here.",
+    "emptyRequestsCta": "View active guests",
+    "addNote": "Add operational note",
+    "notePlaceholder": "e.g. Prefers SMS communication. Allergic to feathers.",
+    "saveNote": "Save note",
+    "notesGovernance": "Notes must remain professional and operationally relevant.",
+    "selectGuestForNoteTitle": "Select a guest to add notes",
+    "selectGuestForNote": "Choose a guest from Active Guests, Upcoming, or History to record operational notes.",
+    "selectGuestCta": "View active guests",
+    "emptyNotesTitle": "No operational notes yet",
+    "emptyNotesMessage": "Document preferences, allergies, and returning-guest context for your team.",
+    "selectGuestForTimelineTitle": "Select a guest for timeline",
+    "selectGuestForTimeline": "Choose a guest to review booking, arrival, requests, incidents, and departure events.",
+    "emptyTimelineTitle": "No timeline events",
+    "emptyTimelineMessage": "Booking, arrival, requests, incidents, and departure events appear here as they occur.",
+    "guestProfile": "Guest profile",
+    "fullName": "Full name",
+    "contactEmail": "Contact email",
+    "contactPhone": "Contact phone",
+    "assignedProperty": "Assigned property",
+    "currentStayStatus": "Current stay status",
+    "actionRecorded": "Action recorded and audit logged.",
+    "actionFailed": "Action could not be completed.",
+    "stay": {
+      "upcoming": "Upcoming",
+      "checked_in": "Checked In",
+      "checked_out": "Checked Out",
+      "cancelled": "Cancelled"
+    },
+    "tiers": {
+      "first_stay": "First Stay",
+      "returning": "Returning Guest",
+      "frequent": "Frequent Guest"
+    },
+    "requests": {
+      "early_check_in": "Early Check-in",
+      "late_check_out": "Late Check-out",
+      "maintenance": "Maintenance",
+      "general_question": "General Question"
+    },
+    "requestStatusLabels": {
+      "new": "New",
+      "assigned": "Assigned",
+      "awaiting_response": "Awaiting Response",
+      "resolved": "Resolved",
+      "closed": "Closed"
+    },
+    "timeline": {
+      "booking_created": "Booking Created",
+      "arrival": "Arrival",
+      "request_submitted": "Request Submitted",
+      "incident": "Incident",
+      "departure": "Departure"
     }
   },
   "aipifyHostsExpansionIntelligence": {

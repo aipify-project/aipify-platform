@@ -1,0 +1,22 @@
+AIPIFY – PHASE AIRBNB 14
+AIPIFY HOSTS – PROPERTY CENTER FOUNDATION
+
+PURPOSE
+Complete oversight of every property in one workspace.
+
+POSITIONING
+Complete oversight of every property — understand operational status within 60 seconds.
+
+FEATURE OWNER
+CUSTOMER APP
+
+ROUTE
+/app/aipify-hosts/properties
+
+STATUS
+IMPLEMENTED
+
+MIGRATION
+20261496000000_aipify_hosts_property_center_airbnb14.sql
+
+END OF PHASE.

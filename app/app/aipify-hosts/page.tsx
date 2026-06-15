@@ -49,6 +49,7 @@ export default async function AipifyHostsPage() {
           openReports: t(`${p}.openReports`),
           openOperations: t(`${p}.openOperations`),
           openPropertyCenter: t(`${p}.openPropertyCenter`),
+          openGuestCenter: t(`${p}.openGuestCenter`),
           capacityLabel: t(`${p}.licensing.capacityLabel`),
           propertyLimit: t(`${p}.licensing.propertyLimit`),
           propertyLimitCount: t(`${p}.licensing.propertyLimitCount`),

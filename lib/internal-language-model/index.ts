@@ -226,6 +226,7 @@ export * from "./implementation-blueprint-airbnb10-vocabulary";
 export * from "./implementation-blueprint-airbnb11-vocabulary";
 export * from "./implementation-blueprint-airbnb12-vocabulary";
 export * from "./implementation-blueprint-airbnb13-vocabulary";
+export * from "./implementation-blueprint-airbnb15-vocabulary";
 export * from "./skills-marketplace-naming-vocabulary";
 export * from "./aipify-single-identity-brand-rule-vocabulary";
 export * from "./aipify-hosts-roadmap-vocabulary";
@@ -1092,6 +1093,9 @@ export const AIPIFY_HOSTS_PHASE_AIRBNB12_CORPUS = "aipify-hosts/PHASE_AIRBNB_12_
 export const IMPLEMENTATION_BLUEPRINT_AIRBNB13_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-airbnb13-aipify-hosts-operations.txt";
 export const AIPIFY_HOSTS_PHASE_AIRBNB13_CORPUS = "aipify-hosts/PHASE_AIRBNB_13_OPERATIONS_CENTER.text";
+export const IMPLEMENTATION_BLUEPRINT_AIRBNB15_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-airbnb15-aipify-hosts-guest-center.txt";
+export const AIPIFY_HOSTS_PHASE_AIRBNB15_CORPUS = "aipify-hosts/PHASE_AIRBNB_15_GUEST_CENTER.text";
 export const IMPLEMENTATION_BLUEPRINT_PHASE221_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase221-aipify-talent-acquisition-workforce-planning.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE222_CORPUS =

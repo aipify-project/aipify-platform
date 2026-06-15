@@ -1,0 +1,52 @@
+---
+description: Enterprise polish — loaders, empty states, errors, module cards; no placeholders
+alwaysApply: true
+---
+
+# Aipify Enterprise Polish
+
+Build production software — no placeholders, dead ends, or unfinished pages.
+
+## Loading states
+
+Use centered `AipifyLoader` (symbol + animation). Do **not** show visible text like Loading…, Initializing…, Rendering…, or Preparing…
+
+```tsx
+// ✅ GOOD — animation only; sr-only for accessibility
+<AipifyLoader centered fullPage />
+
+// ❌ BAD
+<AipifyLoader label="Preparing dashboard…" />
+<p>Loading...</p>
+```
+
+## Empty states
+
+Never show empty white pages. Every empty state needs:
+
+- Title
+- Explanation
+- Recommended action
+- Primary CTA
+
+Prefer `PlatformEmptyState` over plain text.
+
+## Module cards
+
+Each card: module name · one-line description · clear CTA. Never expose translation keys, raw IDs, or internal labels.
+
+## Error states
+
+Never expose stack traces, type errors, or raw API responses.
+
+Use calm enterprise copy + Retry action:
+
+> Something unexpected happened. Our team has been notified. Please try again.
+
+## Internal strings
+
+Forbidden in UI: `superAdmin.*`, `aiAssistant.*`, `translation.*`, raw `modules.*` keys. Use human-readable enterprise copy via i18n.
+
+## Design principle
+
+A user should never wonder "Is this finished?" Every screen must communicate confidence.

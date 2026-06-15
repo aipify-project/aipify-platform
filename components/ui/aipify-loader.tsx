@@ -34,8 +34,12 @@ export function AipifyLoader({
 
   return (
     <div className={containerClasses} role="status" aria-live="polite" aria-busy="true">
-      <AipifyLoaderAnimation size={size} label={label} />
-      <p className="mt-5 max-w-sm text-sm font-medium text-gray-600">{label}</p>
+      <AipifyLoaderAnimation size={size} label={label || "Loading"} />
+      {label ? (
+        <p className="mt-5 max-w-sm text-sm font-medium text-gray-600">{label}</p>
+      ) : (
+        <span className="sr-only">Loading</span>
+      )}
     </div>
   );
 }

@@ -1,0 +1,70 @@
+AIPIFY – PHASE AIRBNB 15
+AIPIFY HOSTS – GUEST CENTER FOUNDATION
+
+PURPOSE
+Provide a complete overview of all guests and guest interactions.
+
+POSITIONING
+Complete overview of every guest and guest interaction — understand active guest situations from one workspace.
+
+FEATURE OWNER
+CUSTOMER APP
+
+ROUTE
+/app/aipify-hosts/guests
+
+STATUS
+IMPLEMENTED
+
+MIGRATION
+20261497000000_aipify_hosts_guest_center_airbnb15.sql
+
+RPCS
+get_aipify_hosts_guest_center_dashboard · get_aipify_hosts_guest_center_card
+add_aipify_hosts_guest_note · update_aipify_hosts_guest_request_status
+
+SECTIONS
+Active Guests · Upcoming Guests · Guest History · Guest Requests · Guest Notes · Guest Timeline
+
+ACTIVE GUESTS
+Guest Name · Property · Check-in Date · Check-out Date · Status
+Statuses: Upcoming · Checked In · Checked Out · Cancelled
+
+GUEST PROFILE
+Full Name · Contact Information · Reservation History · Current Stay Status · Assigned Property
+
+GUEST REQUESTS
+Early Check-in · Late Check-out · Maintenance · General Questions
+Statuses: New · Assigned · Awaiting Response · Resolved · Closed
+
+GUEST TIMELINE
+Booking Created · Arrival · Requests Submitted · Incidents · Departure
+
+GUEST NOTES
+Operational notes only — professional and operationally relevant.
+
+RETURNING GUEST INDICATORS
+First Stay · Returning Guest · Frequent Guest
+
+GUEST ACTIONS
+View Profile · View Reservation History · View Requests · Add Operational Note · View Timeline
+
+FILTERS
+Active Guests · Upcoming Guests · Returning Guests · Guests Requiring Attention
+
+NOTIFICATIONS
+New guest requests · Late check-out requests · Guests requiring attention
+
+GOVERNANCE
+Role-based permissions · Audit guest note creation · Audit guest profile changes · Audit request status changes
+
+KNOWLEDGE CENTER
+Managing guest expectations · Handling guest requests · Guest communication standards · Supporting returning guests
+
+DESIGN
+Executive-friendly layout · Minimal clicks · Mobile-friendly · Professional empty states · No AI terminology
+
+SUCCESS CRITERIA
+A host should understand every active guest situation from a single workspace without searching through multiple systems.
+
+END OF PHASE.

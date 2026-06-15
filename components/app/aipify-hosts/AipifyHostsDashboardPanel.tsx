@@ -254,6 +254,11 @@ export function AipifyHostsDashboardPanel({ labels }: Props) {
               {labels.openPropertyCenter}
             </Link>
           )}
+          {labels.openGuestCenter && (
+            <Link href="/app/aipify-hosts/guests" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openGuestCenter}
+            </Link>
+          )}
         </div>
       </section>
 

@@ -1,0 +1,29 @@
+---
+description: Aipify layer separation — Super Admin, Platform Admin, Customer Portal, Business Packs, Companion
+alwaysApply: true
+---
+
+# Aipify Architecture Layers
+
+## Layer separation
+
+| Layer | Who | Purpose |
+|-------|-----|---------|
+| **Super Admin** | Aipify Group AS internal | Platform governance — never expose customer business operations |
+| **Platform Admin** | Aipify platform operators | Customer lifecycle, subscriptions, trust governance — not customer daily workflows |
+| **Customer Portal** | Paying customer (`/app/*`) | Customer's business — never expose global platform operations |
+| **Business Packs** | Customer Portal extensions | Operationally focused modules (e.g. Aipify Hosts) — same tenant isolation |
+| **Companion** | Cross-surface guidance | Guidance only — never replaces ownership, never a separate product |
+
+## Decision filter
+
+Before every screen or feature, answer: **Who is this for?**
+
+If unclear → pause and redesign. Do not mix Super Admin, Platform Admin, and Customer Portal concerns in one surface.
+
+## Hosts modules (Business Pack)
+
+- Feature owner: **CUSTOMER APP**
+- Routes: `/app/aipify-hosts/*`
+- Business logic: Supabase RPCs — panels are thin clients
+- Distinct from Guest Intelligence (Phase 04) and Guest Center (Phase 15)

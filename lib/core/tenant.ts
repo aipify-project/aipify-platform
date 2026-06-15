@@ -217,6 +217,7 @@ export * from "./aipify-hosts-knowledge";
 export * from "./aipify-hosts-reports";
 export * from "./aipify-hosts-operations";
 export * from "./aipify-hosts-property-center";
+export * from "./aipify-hosts-guest-center";
 export * from "./aipify-moderation";
 export * from "./aipify-talent-acquisition-workforce-planning-engine";
 export * from "./aipify-performance-goal-alignment-engine";
