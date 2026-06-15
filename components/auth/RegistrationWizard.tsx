@@ -20,6 +20,9 @@ import {
   type WorkspaceLanguage,
   type WorkspaceRegistrationPayload,
 } from "@/lib/auth/registration";
+import { SmartBillingRoutingPanel } from "@/components/shared/billing-experience";
+import type { BillingExperienceLabels } from "@/lib/billing-experience";
+import type { PaymentProviderLabels } from "@/lib/payment-providers";
 import { createClient } from "@/lib/supabase/client";
 
 const TOTAL_STEPS = 5;
@@ -72,6 +75,8 @@ type RegistrationWizardLabels = {
   industries: Record<string, string>;
   useCases: Record<string, string>;
   errors: Record<string, string>;
+  providerLabels?: PaymentProviderLabels;
+  billingExperience: BillingExperienceLabels;
 };
 
 type RegistrationWizardProps = {
@@ -207,6 +212,7 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
         return null;
       }
       case 3: {
+        if (!draft.package.billingPath) return labels.errors.billingPathRequired;
         if (!draft.package.selectedPlan) return labels.errors.packageRequired;
         return null;
       }
@@ -278,6 +284,9 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
         registration_2fa_enabled: draft.security.twoFactorChoice === "enable_later",
         terms_accepted: draft.confirmation.termsAccepted,
         authority_accepted: draft.confirmation.authorityAccepted,
+        workspace_metadata: {
+          billing_path: draft.package.billingPath,
+        },
       };
 
       const res = await fetch("/api/auth/register-workspace", {
@@ -530,19 +539,36 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
       )}
 
       {draft.step === 3 && (
-        <div className="grid gap-3 sm:grid-cols-2">
-          {PACKAGE_PLANS.map((plan) => (
-            <button key={plan} type="button"
-              onClick={() => updateDraft({ package: { selectedPlan: plan } })}
-              className={`rounded-xl border px-4 py-4 text-left text-sm transition ${
-                draft.package.selectedPlan === plan
-                  ? "border-violet-400 bg-violet-50 ring-2 ring-violet-100"
-                  : "border-gray-200 bg-white hover:border-gray-300"
-              }`}>
-              <span className="font-semibold text-gray-900">{labels.packages[plan].name}</span>
-              <p className="mt-1 text-xs text-gray-500">{labels.packages[plan].description}</p>
-            </button>
-          ))}
+        <div className="space-y-6">
+          <SmartBillingRoutingPanel
+            labels={labels.billingExperience}
+            providerLabels={labels.providerLabels}
+            value={draft.package.billingPath}
+            onChange={(billingPath) =>
+              updateDraft({ package: { ...draft.package, billingPath } })
+            }
+            enterpriseActionHref="/app/settings/billing/invoice-details"
+          />
+          <div>
+            <p className={labelClass}>{labels.steps.package.subtitle}</p>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              {PACKAGE_PLANS.map((plan) => (
+                <button
+                  key={plan}
+                  type="button"
+                  onClick={() => updateDraft({ package: { ...draft.package, selectedPlan: plan } })}
+                  className={`rounded-xl border px-4 py-4 text-left text-sm transition ${
+                    draft.package.selectedPlan === plan
+                      ? "border-violet-400 bg-violet-50 ring-2 ring-violet-100"
+                      : "border-gray-200 bg-white hover:border-gray-300"
+                  }`}
+                >
+                  <span className="font-semibold text-gray-900">{labels.packages[plan].name}</span>
+                  <p className="mt-1 text-xs text-gray-500">{labels.packages[plan].description}</p>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       )}
 

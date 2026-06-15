@@ -2,9 +2,11 @@
 
 **Version 1.0 · Mandatory Foundation · Critical**
 
-This document defines the **non-negotiable foundation** of Aipify before additional capabilities are introduced. New features must align with this foundation. **No capability should bypass these principles.**
+**Parent company:** [AIPIFY_GROUP_AS_COMPANY_FOUNDATION_DIRECTIVE.md](./AIPIFY_GROUP_AS_COMPANY_FOUNDATION_DIRECTIVE.md) — **Aipify Group AS** · From Norway. For the world.
 
-**Governance order:** Core Foundation → [Operating Principles](./OPERATING_PRINCIPLES.md) → [ABOS Foundation](./ABOS_FOUNDATION.md) → [Architecture](./ARCHITECTURE.md) → Implementation → Skills
+This document defines the **non-negotiable product foundation** of Aipify before additional capabilities are introduced. New features must align with this foundation. **No capability should bypass these principles.**
+
+**Governance order:** Company Foundation Directive → Core Foundation → [Operating Principles](./OPERATING_PRINCIPLES.md) → [ABOS Foundation](./ABOS_FOUNDATION.md) → [Architecture](./ARCHITECTURE.md) → Implementation → Skills
 
 **Product architecture:** [ABOS_FOUNDATION.md](./ABOS_FOUNDATION.md) — Aipify Business Operating System (ABOS); six pillars framing how capabilities compose.
 

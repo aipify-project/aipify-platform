@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Aipify Core Foundation
 
-Read **[CORE_FOUNDATION.md](../../CORE_FOUNDATION.md)** before any new feature or skill. Product architecture: **[ABOS_FOUNDATION.md](../../ABOS_FOUNDATION.md)** · Terminology: **[ABOS_BRAND_TERMINOLOGY_STANDARD.md](../../ABOS_BRAND_TERMINOLOGY_STANDARD.md)**.
+Read **[AIPIFY_GROUP_AS_COMPANY_FOUNDATION_DIRECTIVE.md](../../AIPIFY_GROUP_AS_COMPANY_FOUNDATION_DIRECTIVE.md)** first — **Aipify Group AS** is the parent company. Then read **[CORE_FOUNDATION.md](../../CORE_FOUNDATION.md)** before any new feature or skill. Product architecture: **[ABOS_FOUNDATION.md](../../ABOS_FOUNDATION.md)** · Terminology: **[ABOS_BRAND_TERMINOLOGY_STANDARD.md](../../ABOS_BRAND_TERMINOLOGY_STANDARD.md)**.
 
 ## Identity (calm, not alarmist)
 
@@ -25,4 +25,4 @@ Unclear → **pause**. Clarify first.
 
 ## Governance order
 
-Core Foundation → Operating Principles → Architecture → Implementation → Skills
+Company Foundation Directive → Core Foundation → Operating Principles → Architecture → Implementation → Skills

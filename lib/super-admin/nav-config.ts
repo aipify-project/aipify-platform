@@ -73,6 +73,12 @@ export const SUPER_ADMIN_SECTIONS: SuperAdminSection[] = [
         descriptionKey: "superAdmin.modules.academyStudioDescription",
         href: "/super/academy-studio",
       },
+      {
+        id: "marketingManagement",
+        labelKey: "superAdmin.modules.marketingManagement",
+        descriptionKey: "superAdmin.modules.marketingManagementDescription",
+        href: "/super/growth-partner-marketing",
+      },
     ],
   },
   {

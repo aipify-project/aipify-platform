@@ -14,9 +14,10 @@ Defines how Aipify describes its own functionality and understands how people na
 - `aipify-core/knowledge/internal-language-model/reminder-and-followup-language.txt` — reminders and follow-up language
 - `aipify-core/knowledge/internal-language-model/brand-identity-personhood.txt` — Aipify naming and self-reference (not generic "AI")
 - `aipify-core/knowledge/internal-language-model/abos-foundation.txt` — ABOS definition, six pillars, preferred phrasing
+- `aipify-core/knowledge/internal-language-model/aipify-group-as-company-foundation-directive.txt` — Aipify Group AS parent company identity, mission, vision, naming
 - `aipify-core/knowledge/internal-language-model/abos-brand-terminology.txt` — official ABOS product category; forbidden generic terms
 
-See also [ABOS_FOUNDATION.md](./ABOS_FOUNDATION.md) · [ABOS_BRAND_TERMINOLOGY_STANDARD.md](./ABOS_BRAND_TERMINOLOGY_STANDARD.md).
+See also [AIPIFY_GROUP_AS_COMPANY_FOUNDATION_DIRECTIVE.md](./AIPIFY_GROUP_AS_COMPANY_FOUNDATION_DIRECTIVE.md) · [ABOS_FOUNDATION.md](./ABOS_FOUNDATION.md) · [ABOS_BRAND_TERMINOLOGY_STANDARD.md](./ABOS_BRAND_TERMINOLOGY_STANDARD.md).
 
 **Code:** `lib/internal-language-model/`
 

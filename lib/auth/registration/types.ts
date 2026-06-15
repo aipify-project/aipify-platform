@@ -36,6 +36,7 @@ export type RegistrationDraft = {
   };
   package: {
     selectedPlan: PackagePlan | "";
+    billingPath: "instant" | "enterprise" | "";
   };
   security: {
     twoFactorChoice: "skip" | "enable_later";
@@ -70,6 +71,9 @@ export type WorkspaceRegistrationPayload = {
   registration_2fa_enabled: boolean;
   terms_accepted: boolean;
   authority_accepted: boolean;
+  workspace_metadata?: {
+    billing_path?: string;
+  };
 };
 
 export type WorkspaceRegistrationResult = {
@@ -108,6 +112,7 @@ export const EMPTY_REGISTRATION_DRAFT: RegistrationDraft = {
   },
   package: {
     selectedPlan: "",
+    billingPath: "",
   },
   security: {
     twoFactorChoice: "skip",

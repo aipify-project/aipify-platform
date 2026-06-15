@@ -9,8 +9,8 @@ See [INTERNAL_LANGUAGE_MODEL.md](../../INTERNAL_LANGUAGE_MODEL.md).
 
 ## Rules
 
-1. Source of truth: ILM corpus under `aipify-core/knowledge/internal-language-model/` including `proactive-guidance-language.txt`
-2. Programmatic vocabulary: ILM modules in `lib/internal-language-model/` including `reminder-followup-vocabulary.ts`
+1. Source of truth: ILM corpus under `aipify-core/knowledge/internal-language-model/` including `aipify-group-as-company-foundation-directive.txt` and `proactive-guidance-language.txt`
+2. Programmatic vocabulary: ILM modules in `lib/internal-language-model/` including `company-foundation-vocabulary.ts` and `reminder-followup-vocabulary.ts`
 3. Never describe Aipify as replacing employees or running the company alone.
 4. Use preferred wording from `FUNCTION_VOCABULARY` when explaining features.
 5. User commands: Understand → Prepare → Approve → Execute; use `detectUserCommandIntent()`.

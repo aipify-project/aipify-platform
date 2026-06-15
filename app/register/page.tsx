@@ -1,5 +1,7 @@
 import AuthLayout from "@/components/auth/AuthLayout";
 import RegistrationWizard from "@/components/auth/RegistrationWizard";
+import { buildBillingExperienceLabels } from "@/lib/billing-experience";
+import { buildPaymentProviderLabels } from "@/lib/payment-providers";
 import {
   INDUSTRIES,
   PACKAGE_PLANS,
@@ -14,7 +16,7 @@ import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function RegisterPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["common", "auth"]);
+  const dict = await getDictionary(locale, ["common", "auth", "customerApp"]);
   const t = createTranslator(dict);
 
   const industries = Object.fromEntries(
@@ -140,12 +142,15 @@ export default async function RegisterPage() {
             phoneInvalid: t("auth.wizard.errors.phoneInvalid"),
             useCasesRequired: t("auth.wizard.errors.useCasesRequired"),
             packageRequired: t("auth.wizard.errors.packageRequired"),
+            billingPathRequired: t("auth.wizard.errors.billingPathRequired"),
             termsRequired: t("auth.wizard.errors.termsRequired"),
             emailAlreadyRegistered: t("auth.errors.emailAlreadyRegistered"),
             rateLimit: t("auth.errors.rateLimit"),
             generic: t("auth.errors.generic"),
             alreadyCompleted: t("auth.wizard.errors.alreadyCompleted"),
           },
+          billingExperience: buildBillingExperienceLabels(t, "customerApp"),
+          providerLabels: buildPaymentProviderLabels(t, "customerApp"),
         }}
       />
     </AuthLayout>

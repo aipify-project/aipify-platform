@@ -64,10 +64,11 @@ export async function POST(request: Request) {
       registration_2fa_enabled: Boolean(body.registration_2fa_enabled),
       terms_accepted: true,
       authority_accepted: true,
+      workspace_metadata: body.workspace_metadata ?? {},
     };
 
     const { data, error } = await supabase.rpc("complete_aipify_workspace_registration", {
-      p_payload: payload,
+      p_payload: { ...payload, workspace_metadata: payload.workspace_metadata },
     });
 
     if (error) {

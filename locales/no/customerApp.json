@@ -3422,6 +3422,107 @@
     "learningTrainingEngine": "Learning & Training (A.36)",
     "twoFactorSettings": "Tofaktorautentisering"
   },
+  "growthPartnerMarketing": {
+    "title": "Growth Partner Markedsføringssenter",
+    "subtitle": "Profesjonelt godkjente markedsføringsmaterialer, kampanjer og merkevareressurser — konsistent representasjon på tvers av markeder. Growth Partner — aldri Affiliate.",
+    "loading": "Laster Markedsføringssenter…",
+    "back": "Tilbake til Partner Ops",
+    "principle": "Growth Partners skal aldri måtte gjette hvordan de representerer Aipify. Profesjonelle verktøy skaper profesjonelle opplevelser.",
+    "emptyState": "Markedsføringssenter er ikke tilgjengelig for dette arbeidsområdet.",
+    "youDecide": "Bruk kun godkjente materialer. Kontakt Aipify før egne pris- eller funksjonsløfter.",
+    "overview": {
+      "availableCampaigns": "Available campaigns",
+      "marketingAssets": "Marketing assets",
+      "recentlyUpdated": "Recently updated materials",
+      "campaignPerformance": "Campaign performance",
+      "upcomingPromotions": "Upcoming promotions",
+      "localizedResources": "Localized resources"
+    },
+    "sections": {
+      "overview": "Overview",
+      "assetLibrary": "Marketing asset library",
+      "campaigns": "Campaigns",
+      "emailTemplates": "Email template library",
+      "presentations": "Presentation center",
+      "brandGuidelines": "Brand guidelines",
+      "prohibited": "Prohibited actions",
+      "analytics": "Marketing analytics",
+      "audit": "Audit log",
+      "downloadCenter": "Download center"
+    },
+    "table": {
+      "name": "Name",
+      "category": "Category",
+      "language": "Language",
+      "version": "Version",
+      "status": "Status",
+      "downloads": "Downloads",
+      "objective": "Objective",
+      "audience": "Target audience",
+      "dates": "Dates",
+      "assets": "Assets",
+      "subject": "Subject",
+      "slides": "slides",
+      "actions": "Actions"
+    },
+    "categories": {
+      "banner": "Banner",
+      "social_media_graphic": "Social media graphic",
+      "presentation_deck": "Presentation deck",
+      "brochure": "Brochure",
+      "email_template": "Email template",
+      "landing_page_template": "Landing page template",
+      "product_one_pager": "Product one-pager",
+      "case_study": "Case study",
+      "brand_guidelines": "Brand guidelines"
+    },
+    "assetStatuses": { "draft": "Draft", "published": "Published", "archived": "Archived" },
+    "campaignTypes": {
+      "awareness": "Awareness",
+      "lead_generation": "Lead generation",
+      "product_launch": "Product launch",
+      "enterprise_outreach": "Enterprise outreach",
+      "referral_growth": "Referral growth",
+      "seasonal_promotion": "Seasonal promotion"
+    },
+    "campaignStatuses": { "draft": "Draft", "active": "Active", "archived": "Archived" },
+    "emailTypes": {
+      "initial_outreach": "Initial outreach",
+      "demonstration_invitation": "Demonstration invitation",
+      "follow_up": "Follow-up message",
+      "proposal_delivery": "Proposal delivery",
+      "renewal_conversation": "Renewal conversation",
+      "enterprise_introduction": "Enterprise introduction"
+    },
+    "presentationTypes": {
+      "what_is_aipify": "What is Aipify?",
+      "executive_overview": "Executive overview",
+      "enterprise_procurement": "Enterprise procurement",
+      "growth_partner_introduction": "Growth Partner introduction",
+      "customer_success_stories": "Customer success stories",
+      "industry_use_case": "Industry use case"
+    },
+    "languages": { "en": "English", "no": "Norwegian", "sv": "Swedish", "da": "Danish" },
+    "prohibited": {
+      "modify_official_logos": "Do not modify official Aipify logos.",
+      "promise_unavailable_features": "Do not promise unavailable features.",
+      "misleading_pricing": "Do not create misleading pricing materials.",
+      "outdated_presentations": "Do not use outdated presentations."
+    },
+    "analytics": {
+      "mostDownloaded": "Most downloaded assets",
+      "mostUsedPresentations": "Most used presentations",
+      "topCampaigns": "Highest performing campaigns",
+      "engagementTrend": "Engagement trend"
+    },
+    "quickActions": {
+      "download": "Download",
+      "publishCampaign": "Publish campaign",
+      "archiveCampaign": "Archive campaign",
+      "archiveAsset": "Archive asset",
+      "uploadAsset": "Upload asset"
+    }
+  },
   "decisionIntelligence": {
     "title": "Beslutningsintelligens og executive rådgivningssenter",
     "subtitle": "Struktur, perspektiv og visdom for lederbeslutninger — bedre tenkning, ikke raskere beslutninger. Mennesker bestemmer. Skiller seg fra personlig DSE og organisasjonens beslutningsregister.",
@@ -6070,6 +6171,8 @@
     "marketplaceGovernanceEngine": "MP Governance",
     "partnerCertificationEngine": "Partnere",
     "growthPartnerOperationsEngine": "Partner Ops",
+    "growthPartnerAcademy": "Partner-akademi",
+    "growthPartnerMarketing": "Markedsføringssenter",
     "ecosystemGovernanceEngine": "Ecosystem Governance",
     "commercialModelEngine": "Commercial",
     "academyEngine": "Academy",

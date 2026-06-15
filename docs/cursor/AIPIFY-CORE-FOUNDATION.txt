@@ -7,7 +7,7 @@ Non-negotiable foundation before additional capabilities.
 New features must align. No capability bypasses these principles.
 
 GOVERNANCE ORDER
-Core Foundation → Operating Principles → Architecture → Implementation → Skills
+Company Foundation Directive → Core Foundation → Operating Principles → Architecture → Implementation → Skills
 
 ────────────────────────────────────────
 §1 IDENTITY
