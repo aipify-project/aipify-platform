@@ -140,9 +140,86 @@
     "internalSupport": {
       "title": "Internal Support",
       "purpose": "Operate customer success."
+    },
+    "groupOrganization": {
+      "title": "Group Organization",
+      "purpose": "Manage the Aipify Group AS business ecosystem."
+    }
+  },
+  "groupOverview": {
+    "title": "Group Overview",
+    "subtitle": "Global organization and multi-entity management for Aipify Group AS.",
+    "loading": "Loading group overview…",
+    "back": "Back to Super Admin",
+    "principle": "Aipify should never assume that it only serves one company.",
+    "foundationStatement": "Aipify Group AS is the parent organization. Aipify is the operating system. Future ventures are opportunities waiting to be connected.",
+    "tagline": "Bergen. Norway. For the world.",
+    "sections": {
+      "summary": "Organization summary",
+      "entities": "Business entities",
+      "investments": "External investments",
+      "sharedIntelligence": "Shared intelligence",
+      "audit": "Recent audit activity",
+      "hierarchy": "Organizational hierarchy"
+    },
+    "summary": {
+      "totalEntities": "Total entities",
+      "activeEntities": "Active entities",
+      "activeUsers": "Active users",
+      "activeSubscriptions": "Active subscriptions",
+      "investments": "Investments",
+      "signals": "Shared signals"
+    },
+    "entities": {
+      "name": "Name",
+      "type": "Type",
+      "status": "Status",
+      "domain": "Primary domain",
+      "users": "Users",
+      "subscriptions": "Subscriptions",
+      "departments": "Departments",
+      "teams": "Teams",
+      "empty": "No business entities registered yet.",
+      "archive": "Archive"
+    },
+    "investments": {
+      "company": "Company",
+      "ownership": "Ownership",
+      "amount": "Investment amount",
+      "status": "Status",
+      "empty": "No external investments registered yet."
+    },
+    "intelligence": {
+      "type": "Signal type",
+      "confidence": "Confidence",
+      "empty": "No shared intelligence signals yet."
+    },
+    "audit": {
+      "empty": "No recent audit entries."
+    },
+    "entityTypes": {
+      "product_brand": "Product brand",
+      "subsidiary": "Subsidiary",
+      "acquisition": "Acquisition",
+      "venture": "Venture",
+      "internal": "Internal"
+    },
+    "statuses": {
+      "active": "Active",
+      "archived": "Archived",
+      "pendingSetup": "Pending setup"
+    },
+    "signalTypes": {
+      "similar_support_request": "Similar support request",
+      "shared_best_practice": "Shared best practice",
+      "cross_sell_opportunity": "Cross-sell opportunity",
+      "growth_recommendation": "Growth recommendation",
+      "operational_pattern": "Operational pattern"
     }
   },
   "modules": {
+    "groupOverview": "Group Overview",
+    "groupOverviewDescription": "Companies, entities, investments, and shared intelligence under Aipify Group AS.",
     "platformHealth": "Platform Health",
     "platformHealthDescription": "Monitor core service health and operational readiness.",
     "serviceStatus": "Service Status",
@@ -232,6 +309,39 @@
     "supportIntelligence": "Support Intelligence",
     "supportIntelligenceDescription": "Analyze support intelligence signals.",
     "serviceReviews": "Service Reviews",
-    "serviceReviewsDescription": "Conduct service quality and impact reviews."
+    "serviceReviewsDescription": "Conduct service quality and impact reviews.",
+    "globalInsights": "Global Insights Dashboard",
+    "globalInsightsDescription": "Voice of the Customer product intelligence and initiative recommendations."
+  },
+  "voiceOfCustomer": {
+    "title": "Global Insights Dashboard",
+    "subtitle": "Convert customer feedback into product initiatives, roadmap items, and development phases.",
+    "loading": "Preparing global insights…",
+    "principle": "Listen carefully. Improve continuously. Build with customers, not just for customers.",
+    "sections": {
+      "insights": "Product intelligence",
+      "initiatives": "Recommended initiatives",
+      "themes": "Feature request themes"
+    },
+    "insights": {
+      "totalFeedback": "Total feedback",
+      "onboardingRequests": "Onboarding-related requests",
+      "recommendation": "Recommendation"
+    },
+    "table": {
+      "title": "Title",
+      "summary": "Summary",
+      "recommendation": "Recommendation",
+      "feedbackCount": "Feedback count",
+      "type": "Type",
+      "phase": "Linked phase",
+      "status": "Status",
+      "theme": "Theme",
+      "count": "Count"
+    },
+    "actions": {
+      "createInitiative": "Create initiative",
+      "applying": "Applying…"
+    }
   }
 }

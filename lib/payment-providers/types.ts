@@ -135,4 +135,10 @@ export type PaymentProviderLabels = {
       logoAlt: string;
     }
   >;
+  enterpriseBilling: {
+    title: string;
+    description: string;
+    methods: string;
+    manageLink: string;
+  };
 };

@@ -24,9 +24,12 @@
   "nav": {
     "overview": "Overview",
     "customers": "Customers",
+    "customerLifecycle": "Livssyklussenter",
+    "customerSuccessOperations": "Suksessoperasjoner",
     "subscriptions": "Subscriptions",
     "billing": "Billing",
     "invoices": "Invoices",
+    "enterpriseInvoices": "Enterprise-fakturaer",
     "installations": "Installations",
     "installEngine": "Install Engine",
     "updates": "Oppdateringer",
@@ -45,7 +48,14 @@
     "skills": "Skills",
     "languageCenter": "Språksenter",
     "executive": "Executive Center",
-    "pilotOperations": "Customer Zero-senter"
+    "executiveOperationsCenter": "Operasjonssenter",
+    "announcementCenter": "Kunngjøringssenter",
+    "feedbackCenter": "Tilbakemeldingssenter",
+    "pilotOperations": "Customer Zero-senter",
+    "paymentOperations": "Betalingsoperasjonssenter",
+    "paymentHealth": "Betalingshelse",
+    "paymentAnalytics": "Betalingsanalyse",
+    "subscriptionOperations": "Abonnementsdrift"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -413,7 +423,13 @@
       "stripePositioning": "International reach and enterprise flexibility.",
       "klarnaPositioning": "Trusted European payment experiences.",
       "vippsPositioning": "Simple and trusted local payments.",
-      "dnbPositioning": "Large organizations and invoice-based payment operations."
+      "dnbPositioning": "Store organisasjoner og fakturabaserte betalingsløsninger."
+    },
+    "enterpriseBilling": {
+      "title": "Enterprise Procurement",
+      "description": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements.",
+      "methods": "DNB Invoice · Purchase Orders · Bank Transfer · 30/60/90-Day Terms · Framework Agreements",
+      "manageLink": "Open Enterprise Invoice Center"
     },
     "provider": "Provider",
     "customers": "Customers",
@@ -425,6 +441,123 @@
     "eventType": "Event type",
     "customer": "Customer",
     "empty": "No payment providers configured yet."
+  },
+  "enterpriseInvoicing": {
+    "title": "Enterprise-fakturaer",
+    "subtitle": "Administrer enterprise-fakturakunder, betalingsbetingelser, bankoverføring og DNB Invoice.",
+    "loading": "Forbereder enterprise-fakturasenter…",
+    "back": "Tilbake til fakturering",
+    "principle": "Små kunder betaler raskt. Store organisasjoner betaler ordentlig.",
+    "save": "Lagre",
+    "saving": "Lagrer…",
+    "saved": "Lagret.",
+    "empty": "Ingen enterprise-fakturaer ennå.",
+    "overdueBanner": "{count} enterprise-faktura(er) forfalt.",
+    "sections": {
+      "billingDetails": "Faktureringsdetaljer",
+      "paymentTerms": "Betalingsbetingelser",
+      "invoices": "Enterprise-fakturaer",
+      "audit": "Revisjonslogg",
+      "dnbProfile": "DNB Invoice-profil",
+      "actions": "Handlinger"
+    },
+    "fields": {
+      "companyName": "Firmanavn",
+      "organizationNumber": "Organisasjonsnummer",
+      "vatNumber": "MVA-nummer",
+      "billingAddress": "Fakturaadresse",
+      "addressLine1": "Adresselinje 1",
+      "addressLine2": "Adresselinje 2",
+      "city": "Sted",
+      "postalCode": "Postnummer",
+      "country": "Land",
+      "invoiceEmail": "Faktura-e-post",
+      "apContactName": "Kontakt accounts payable",
+      "apContactEmail": "E-post accounts payable",
+      "purchaseOrderNumber": "Innkjøpsordrenummer",
+      "internalReference": "Intern referanse",
+      "paymentTerms": "Betalingsbetingelser",
+      "paymentTermsCustom": "Egendefinerte betalingsbetingelser",
+      "preferredCurrency": "Foretrukket valuta",
+      "billingLanguage": "Faktureringsspråk",
+      "invoiceNumber": "Fakturanummer",
+      "amount": "Beløp",
+      "dueDate": "Forfallsdato",
+      "status": "Status",
+      "tenant": "Kunde",
+      "bankTransfer": "Bankoverføring",
+      "kid": "KID",
+      "paymentMethod": "Payment method"
+    },
+    "paymentTerms": {
+      "due_on_receipt": "Betales ved mottak",
+      "net_7": "Netto 7",
+      "net_14": "Netto 14",
+      "net_30": "Netto 30",
+      "net_60": "Netto 60",
+      "custom": "Egendefinerte enterprise-betingelser"
+    },
+    "statuses": {
+      "draft": "Utkast",
+      "sent": "Sendt",
+      "viewed": "Sett",
+      "approved": "Godkjent",
+      "partially_paid": "Delvis betalt",
+      "paid": "Betalt",
+      "overdue": "Forfalt",
+      "reminder_sent": "Påminnelse sendt",
+      "disputed": "Bestridt",
+      "cancelled": "Kansellert",
+      "credited": "Kreditert"
+    },
+    "actions": {
+      "create": "Opprett faktura",
+      "send": "Send faktura",
+      "downloadPdf": "Last ned PDF",
+      "markPaid": "Merk som betalt",
+      "partialPayment": "Registrer delbetaling",
+      "sendReminder": "Send påminnelse",
+      "credit": "Krediter faktura",
+      "attachPo": "Legg ved innkjøpsordre",
+      "addNote": "Legg til intern merknad",
+      "escalate": "Eskaler til finansadmin",
+      "approve": "Godkjenn",
+      "cancel": "Avbryt",
+      "markOverdue": "Merk forfalt",
+      "view": "View"
+    },
+    "billingModel": {
+      "selfService": "Instant Activation",
+      "enterprise": "Enterprise Procurement",
+      "selfServiceNote": "Designed for startups, freelancers, SMBs and fast-moving teams that want immediate access to Aipify.",
+      "enterpriseNote": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements."
+    },
+    "upgrade": {
+      "title": "Enterprise-oppgradering",
+      "currentPlan": "Nåværende plan",
+      "newPlan": "Ny plan",
+      "priceDifference": "Prisforskjell",
+      "billingMethod": "Faktureringsmetode",
+      "paymentTerms": "Betalingsbetingelser",
+      "accessPolicy": "Tilgangspolicy",
+      "requiresApproval": "Enterprise-fakturaer krever godkjenning før utsendelse.",
+      "approveAndContinue": "Godkjenn og opprett faktura",
+      "createInvoiceDraft": "Opprett kun fakturautkast",
+      "profileRequired": "Kundens fakturadetaljer kreves."
+    },
+    "permissions": {
+      "viewOnly": "Kun lesetilgang.",
+      "financeRequired": "Finansadmin-rettigheter kreves."
+    },
+    "paymentMethods": {
+      "invoice": "Invoice",
+      "bankTransfer": "Bank Transfer",
+      "dnbInvoice": "DNB Invoice"
+    },
+    "invoiceCenter": {
+      "title": "Enterprise Invoice Center",
+      "emptyStructure": "No enterprise invoices yet. The table below is ready for customer invoice records."
+    }
   },
   "invoices": {
     "title": "Invoices",
@@ -2147,6 +2280,934 @@
       "disable": "Pause",
       "noPermissions": "No special permissions required.",
       "noAudit": "No audit events recorded yet."
+    }
+  },
+  "billingExperience": {
+    "principle": "Aipify supports both purchasing behaviors — pay now for speed, approve and procure for enterprise scale.",
+    "commercialPrinciple": {
+      "instant": "Instant Activation: fast onboarding for customers who can make immediate purchasing decisions.",
+      "enterprise": "Enterprise Procurement: structured purchasing workflows for organizations with approval requirements.",
+      "footer": "Aipify Group AS serves both customer segments equally well. From Norway. For the world."
+    },
+    "instantActivation": {
+      "title": "Instant Activation",
+      "description": "Designed for startups, freelancers, SMBs and fast-moving teams that want immediate access to Aipify.",
+      "message": "Activate your subscription instantly and start using Aipify within minutes.",
+      "activateWith": "Pay with",
+      "checkout": "Activate now",
+      "checkingOut": "Starting checkout…"
+    },
+    "enterpriseProcurement": {
+      "title": "Enterprise Procurement",
+      "description": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements.",
+      "message": "Our enterprise team supports procurement processes, invoice terms, and tailored agreements for larger organizations.",
+      "manageLink": "Open Enterprise Invoice Center",
+      "methods": {
+        "dnb_invoice": "DNB Invoice",
+        "purchase_orders": "Purchase Orders (PO)",
+        "bank_transfer": "Bank Transfer",
+        "terms_30": "30-Day Terms",
+        "terms_60": "60-Day Terms",
+        "terms_90": "90-Day Terms",
+        "framework_agreements": "Framework Agreements"
+      },
+      "actions": {
+        "contact_enterprise_team": "Contact Enterprise Team",
+        "request_invoice_account": "Request Invoice Account",
+        "purchase_order_support": "Purchase Order Support",
+        "dnb_invoice_setup": "DNB Invoice Setup"
+      }
+    },
+    "smartRouting": {
+      "title": "How would you like to purchase Aipify?",
+      "instant": {
+        "label": "Instant activation",
+        "description": "Ideal for smaller teams and businesses."
+      },
+      "enterprise": {
+        "label": "Enterprise procurement",
+        "description": "Ideal for organizations requiring invoicing or internal approvals."
+      }
+    }
+  },
+  "paymentOperations": {
+    "title": "Payment Operations Center",
+    "subtitle": "Complete visibility and control over Aipify's global payment infrastructure.",
+    "loading": "Preparing payment operations overview…",
+    "back": "Back to billing",
+    "principle": "Aipify should never depend on a single payment provider. The platform must remain resilient through provider diversity.",
+    "foundingPrinciple": "Payment infrastructure is not only about collecting money. It is about removing friction, increasing trust, and enabling global growth. Aipify Group AS. From Norway. For the world.",
+    "sections": {
+      "summary": "Operations overview",
+      "providers": "Payment providers",
+      "configuration": "Provider configuration",
+      "settlements": "Settlement center",
+      "regionalCoverage": "Regional coverage map",
+      "alerts": "Alert center",
+      "audit": "Audit log"
+    },
+    "summary": {
+      "activeProviders": "Active payment providers",
+      "countriesSupported": "Countries supported",
+      "pendingSetups": "Pending provider setups",
+      "enterpriseCustomers": "Enterprise invoice customers",
+      "monthlyVolume": "Monthly transaction volume",
+      "failedEvents": "Failed payment events"
+    },
+    "provider": {
+      "status": "Status",
+      "capabilities": "Capabilities",
+      "regions": "Regions",
+      "environment": "Environment",
+      "apiStatus": "API status",
+      "lastSync": "Last synchronization",
+      "apiKeyStatus": "API key status",
+      "webhookStatus": "Webhook status",
+      "settlementStatus": "Settlement status",
+      "currencies": "Supported currencies",
+      "countries": "Supported countries",
+      "configure": "Configure provider"
+    },
+    "settlements": {
+      "today": "Today's settlements",
+      "pending": "Pending settlements",
+      "failed": "Failed settlements",
+      "estimatedPayout": "Estimated payout",
+      "empty": "No settlement records in this category."
+    },
+    "regional": {
+      "nordics": "Nordics",
+      "europe": "Europe",
+      "north_america": "North America",
+      "asia_pacific": "Asia-Pacific",
+      "enterprise": "Enterprise"
+    },
+    "severities": {
+      "info": "Info",
+      "warning": "Warning",
+      "critical": "Critical"
+    },
+    "statuses": {
+      "operational": "Operational",
+      "pendingSetup": "Pending setup",
+      "requiresAttention": "Requires attention",
+      "disabled": "Disabled",
+      "completed": "Completed",
+      "pending": "Pending",
+      "failed": "Failed",
+      "current": "Current",
+      "attention": "Requires attention"
+    },
+    "apiStatuses": {
+      "connected": "Connected",
+      "disconnected": "Disconnected"
+    },
+    "environments": {
+      "sandbox": "Sandbox",
+      "production": "Production"
+    },
+    "providers": {
+      "stripe": "Stripe",
+      "vipps": "Vipps MobilePay",
+      "klarna": "Klarna",
+      "dnb": "DNB Invoice"
+    },
+    "capabilities": {
+      "card_payments": "Card payments",
+      "global_subscriptions": "Global subscriptions",
+      "apple_pay": "Apple Pay",
+      "google_pay": "Google Pay",
+      "international_customers": "International customers",
+      "nordic_payments": "Nordic payments",
+      "mobile_checkout": "Mobile checkout",
+      "fast_authentication": "Fast authentication",
+      "pay_now": "Pay now",
+      "pay_later": "Pay later",
+      "installments": "Installments",
+      "enterprise_invoicing": "Enterprise invoicing",
+      "bank_transfers": "Bank transfers",
+      "payment_terms": "Payment terms"
+    },
+    "audit": {
+      "action": "Action",
+      "before": "Before",
+      "after": "After",
+      "empty": "No payment operations audit entries yet."
+    }
+  },
+  "paymentHealth": {
+    "title": "Payment Provider Health Monitor",
+    "subtitle": "Automated monitoring for Stripe, Klarna, Vipps MobilePay, and DNB Invoice.",
+    "loading": "Preparing payment health overview…",
+    "back": "Back to billing",
+    "principle": "Automated monitoring keeps Aipify payment infrastructure resilient through provider diversity.",
+    "emptyState": "All payment providers are operating normally.",
+    "sections": {
+      "providers": "Provider health",
+      "alerts": "Health alerts",
+      "audit": "Audit log",
+      "autoChecks": "Automatic health checks"
+    },
+    "provider": {
+      "status": "Status",
+      "environment": "Environment",
+      "apiConnection": "API connection",
+      "webhookStatus": "Webhook status",
+      "lastTransaction": "Last successful transaction",
+      "lastSync": "Last synchronization",
+      "failed24h": "Failed events (24h)",
+      "successRate": "Success rate (30d)",
+      "nextCheck": "Next health check",
+      "viewDetails": "View details",
+      "retryCheck": "Retry health check",
+      "viewLogs": "View logs",
+      "testConnection": "Test provider connection"
+    },
+    "healthStatuses": {
+      "operational": "Operational",
+      "warning": "Warning",
+      "offline": "Offline"
+    },
+    "environments": {
+      "sandbox": "Sandbox",
+      "production": "Production"
+    },
+    "apiStatuses": {
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "degraded": "Degraded"
+    },
+    "severities": {
+      "info": "Info",
+      "warning": "Warning",
+      "critical": "Critical"
+    },
+    "providers": {
+      "stripe": "Stripe",
+      "vipps": "Vipps MobilePay",
+      "klarna": "Klarna",
+      "dnb": "DNB Invoice"
+    },
+    "autoChecks": {
+      "stripe": "Stripe — every 5 minutes",
+      "vipps": "Vipps MobilePay — every 5 minutes",
+      "klarna": "Klarna — every 5 minutes",
+      "dnb": "DNB Invoice — every 30 minutes"
+    },
+    "audit": {
+      "event": "Event",
+      "severity": "Severity",
+      "resolution": "Resolution",
+      "empty": "No health audit entries yet."
+    },
+    "actions": {
+      "checking": "Running health check…",
+      "checkComplete": "Health check complete."
+    }
+  },
+  "paymentAnalytics": {
+    "title": "Payment Analytics Center",
+    "subtitle": "Real-time visibility into payment performance across all providers.",
+    "loading": "Preparing payment analytics…",
+    "back": "Back to billing",
+    "principle": "Real-time payment visibility supports confident platform decisions without exposing customer operational records.",
+    "emptyState": "No payment activity recorded yet.",
+    "sections": {
+      "overview": "Overview",
+      "providerBreakdown": "Revenue by provider",
+      "revenueOverTime": "Revenue over time",
+      "providerDistribution": "Payment provider distribution",
+      "segments": "Customer segments",
+      "topEnterprise": "Top enterprise customers",
+      "failedInsights": "Failed payment insights",
+      "filters": "Filters",
+      "exports": "Exports"
+    },
+    "overview": {
+      "revenueToday": "Revenue today",
+      "revenueMonth": "Revenue this month",
+      "activeSubscriptions": "Active subscriptions",
+      "failedPayments": "Failed payments",
+      "arpc": "Average revenue per customer",
+      "churnedSubscriptions": "Churned subscriptions"
+    },
+    "provider": {
+      "revenue30d": "Revenue (30d)",
+      "transactions": "Transactions",
+      "successRate": "Success rate",
+      "refunds": "Refunds",
+      "failedPayments": "Failed payments"
+    },
+    "charts": {
+      "range7d": "Last 7 days",
+      "range30d": "Last 30 days",
+      "range12m": "Last 12 months"
+    },
+    "segments": {
+      "selfService": "Self-service customers",
+      "enterprise": "Enterprise customers"
+    },
+    "table": {
+      "customer": "Customer",
+      "revenue": "Revenue",
+      "openInvoices": "Open invoices",
+      "lastPayment": "Last payment",
+      "status": "Status",
+      "provider": "Provider",
+      "failureReason": "Failure reason",
+      "retryCount": "Retry count",
+      "recommendedAction": "Recommended action"
+    },
+    "filters": {
+      "dateFrom": "Date from",
+      "dateTo": "Date to",
+      "provider": "Provider",
+      "customerType": "Customer type",
+      "country": "Country",
+      "allProviders": "All providers",
+      "allTypes": "All customer types",
+      "allCountries": "All countries",
+      "apply": "Apply filters"
+    },
+    "exports": {
+      "csv": "Export CSV",
+      "excel": "Export Excel",
+      "pdf": "Export PDF",
+      "exporting": "Exporting…"
+    },
+    "providers": {
+      "stripe": "Stripe",
+      "vipps": "Vipps MobilePay",
+      "klarna": "Klarna",
+      "dnb": "DNB Invoice"
+    },
+    "customerTypes": {
+      "self_service": "Self-service",
+      "enterprise": "Enterprise"
+    },
+    "enterpriseStatuses": {
+      "current": "Current",
+      "attention": "Requires attention"
+    },
+    "chartRanges": {
+      "7d": "7 days",
+      "30d": "30 days",
+      "12m": "12 months"
+    },
+    "exportFormats": {
+      "csv": "CSV",
+      "xlsx": "Excel",
+      "pdf": "PDF"
+    }
+  },
+  "subscriptionOperations": {
+    "title": "Subscription Operations Center",
+    "subtitle": "Centralized subscription management for all Aipify customers.",
+    "loading": "Preparing subscription operations…",
+    "back": "Back to billing",
+    "principle": "Centralized subscription operations give Aipify Group AS confident control over customer lifecycle and revenue.",
+    "emptyState": "No subscriptions found.",
+    "sections": {
+      "overview": "Overview",
+      "subscriptions": "Subscription table",
+      "trials": "Trial management",
+      "upgrades": "Upgrades",
+      "downgrades": "Downgrades",
+      "renewals": "Renewals",
+      "pastDue": "Past due center",
+      "enterpriseContracts": "Enterprise contracts",
+      "audit": "Audit log",
+      "filters": "Filters"
+    },
+    "overview": {
+      "active": "Active subscriptions",
+      "trials": "Trial accounts",
+      "renewals": "Upcoming renewals",
+      "upgrades": "Upgrades this month",
+      "downgrades": "Downgrades this month",
+      "cancelled": "Cancelled subscriptions"
+    },
+    "table": {
+      "customer": "Customer",
+      "plan": "Plan",
+      "users": "Users",
+      "billingProvider": "Billing provider",
+      "monthlyValue": "Monthly value",
+      "renewalDate": "Renewal date",
+      "status": "Status",
+      "actions": "Actions",
+      "previousPlan": "Previous plan",
+      "newPlan": "New plan",
+      "effectiveDate": "Effective date",
+      "revenueImpact": "Revenue impact",
+      "reason": "Reason",
+      "trialStart": "Trial start",
+      "trialEnd": "Trial end",
+      "daysRemaining": "Days remaining",
+      "conversionProbability": "Conversion probability",
+      "outstandingAmount": "Outstanding amount",
+      "daysOverdue": "Days overdue",
+      "paymentProvider": "Payment provider",
+      "recommendedAction": "Recommended action",
+      "contractStart": "Contract start",
+      "contractEnd": "Contract end",
+      "paymentTerms": "Payment terms",
+      "accountManager": "Account manager",
+      "event": "Event"
+    },
+    "statuses": {
+      "trial": "Trial",
+      "active": "Active",
+      "past_due": "Past due",
+      "suspended": "Suspended",
+      "cancelled": "Cancelled",
+      "enterprise_contract": "Enterprise contract"
+    },
+    "actions": {
+      "view": "View subscription",
+      "upgrade": "Upgrade plan",
+      "downgrade": "Downgrade plan",
+      "extendTrial": "Extend trial",
+      "suspend": "Suspend access",
+      "reactivate": "Reactivate",
+      "cancel": "Cancel subscription",
+      "convertToPaid": "Convert to paid",
+      "sendReminder": "Send reminder",
+      "applying": "Applying…"
+    },
+    "filters": {
+      "plan": "Plan",
+      "status": "Status",
+      "country": "Country",
+      "provider": "Provider",
+      "renewalPeriod": "Renewal period",
+      "allPlans": "All plans",
+      "allStatuses": "All statuses",
+      "allCountries": "All countries",
+      "allProviders": "All providers",
+      "allRenewals": "All renewals",
+      "apply": "Apply filters"
+    },
+    "renewals": {
+      "within7": "Within 7 days",
+      "within30": "Within 30 days",
+      "within90": "Within 90 days"
+    },
+    "plans": {
+      "starter": "Starter",
+      "growth": "Growth",
+      "business": "Business",
+      "enterprise": "Enterprise"
+    }
+  },
+  "customerLifecycleCenter": {
+    "title": "Customer Lifecycle Center",
+    "subtitle": "Complete visibility into the customer journey from registration to long-term retention.",
+    "loading": "Preparing customer lifecycle center…",
+    "back": "Back to customers",
+    "principle": "Complete lifecycle visibility supports retention, expansion, and human-led customer success.",
+    "emptyState": "No customer lifecycle events found.",
+    "sections": {
+      "overview": "Overview",
+      "stages": "Lifecycle stages",
+      "customers": "Customer table",
+      "atRisk": "At-risk center",
+      "expansion": "Expansion opportunities",
+      "timeline": "Customer timeline",
+      "audit": "Audit log",
+      "filters": "Filters",
+      "healthScore": "Health score"
+    },
+    "overview": {
+      "newCustomers": "New customers (30d)",
+      "trialCustomers": "Trial customers",
+      "activeCustomers": "Active customers",
+      "atRiskCustomers": "At-risk customers",
+      "churnedCustomers": "Churned customers",
+      "reactivatedCustomers": "Reactivated customers"
+    },
+    "table": {
+      "company": "Company",
+      "lifecycleStage": "Lifecycle stage",
+      "currentPlan": "Current plan",
+      "users": "Users",
+      "country": "Country",
+      "daysAsCustomer": "Days as customer",
+      "healthScore": "Health score",
+      "lastActivity": "Last activity",
+      "actions": "Actions",
+      "customer": "Customer",
+      "riskReason": "Risk reason",
+      "recommendedAction": "Recommended action",
+      "opportunity": "Opportunity",
+      "revenueImpact": "Estimated revenue impact",
+      "event": "Event"
+    },
+    "healthFactors": {
+      "loginFrequency": "Login frequency",
+      "featureAdoption": "Feature adoption",
+      "supportInteractions": "Support interactions",
+      "paymentHistory": "Payment history",
+      "teamEngagement": "Team engagement"
+    },
+    "stages": {
+      "lead": "Lead",
+      "registered": "Registered",
+      "trial": "Trial",
+      "active": "Active",
+      "expansion": "Expansion",
+      "at_risk": "At Risk",
+      "churned": "Churned",
+      "reactivated": "Reactivated"
+    },
+    "healthStatuses": {
+      "excellent": "Excellent",
+      "healthy": "Healthy",
+      "monitor": "Monitor",
+      "at_risk": "At Risk",
+      "critical": "Critical"
+    },
+    "actions": {
+      "view": "View customer",
+      "contact": "Contact customer",
+      "scheduleOnboarding": "Schedule onboarding",
+      "offerTraining": "Offer training",
+      "escalate": "Escalate to Success Team",
+      "monitor": "Monitor",
+      "applying": "Applying…"
+    },
+    "filters": {
+      "lifecycleStage": "Lifecycle stage",
+      "country": "Country",
+      "healthStatus": "Health status",
+      "plan": "Plan",
+      "registrationFrom": "Registration from",
+      "registrationTo": "Registration to",
+      "allStages": "All stages",
+      "allHealth": "All health statuses",
+      "allPlans": "All plans",
+      "allCountries": "All countries",
+      "apply": "Apply filters"
+    },
+    "plans": {
+      "starter": "Starter",
+      "growth": "Growth",
+      "business": "Business",
+      "enterprise": "Enterprise"
+    }
+  },
+  "customerSuccessOperations": {
+    "title": "Customer Success Operations Center",
+    "subtitle": "Sentralisert arbeidsområde for proaktiv kundesuksess.",
+    "loading": "Forbereder suksessoperasjonssenter…",
+    "back": "Tilbake til kunder",
+    "principle": "Proaktiv suksessledelse støtter retention, ekspansjon og menneskeledede kunderelasjoner.",
+    "emptyState": "Alle kunder utvikler seg vellykket.",
+    "sections": {
+      "overview": "Oversikt",
+      "customers": "Suksesstabell",
+      "onboarding": "Onboarding-sporing",
+      "checkIns": "Innsjekkingssenter",
+      "expansion": "Ekspansjonssenter",
+      "successPlans": "Suksessplaner",
+      "renewals": "Fornyelsesforberedelse",
+      "audit": "Revisjonslogg",
+      "filters": "Filtre"
+    },
+    "overview": {
+      "requiringAttention": "Kunder som krever oppmerksomhet",
+      "onboarding": "Onboarding-kunder",
+      "successPlans": "Aktive suksessplaner",
+      "checkIns": "Planlagte innsjekkinger",
+      "renewals": "Fornyelser neste 30 dager",
+      "expansion": "Ekspansjonsmuligheter"
+    },
+    "table": {
+      "customer": "Kunde",
+      "successStatus": "Suksessstatus",
+      "assignedManager": "Tildelt leder",
+      "healthScore": "Helsescore",
+      "lastCheckIn": "Siste innsjekk",
+      "nextAction": "Neste handling",
+      "renewalDate": "Fornyelsesdato",
+      "actions": "Handlinger",
+      "currentPlan": "Gjeldende plan",
+      "recommendedUpgrade": "Anbefalt oppgradering",
+      "revenueIncrease": "Estimert inntektsøkning",
+      "reason": "Årsak",
+      "objective": "Mål",
+      "owner": "Eier",
+      "startDate": "Startdato",
+      "targetDate": "Måldato",
+      "status": "Status",
+      "event": "Hendelse",
+      "accountCreated": "Konto opprettet",
+      "firstLogin": "Første innlogging",
+      "firstUserInvited": "Første bruker invitert",
+      "firstIntegration": "Første integrasjon tilkoblet",
+      "firstAction": "Første handling fullført",
+      "milestonesCompleted": "Suksessmilepæler fullført",
+      "scheduledAt": "Planlagt",
+      "checkInType": "Innsjekkingstype"
+    },
+    "statuses": {
+      "onboarding": "Onboarding",
+      "growing": "Vokser",
+      "stable": "Stabil",
+      "expansion": "Ekspansjon",
+      "at_risk": "I risiko",
+      "recovery": "Gjenoppretting"
+    },
+    "planStatuses": {
+      "active": "Aktiv",
+      "completed": "Fullført",
+      "delayed": "Forsinket",
+      "cancelled": "Kansellert"
+    },
+    "checkInTypes": {
+      "7_day": "7-dagers innsjekk",
+      "30_day": "30-dagers innsjekk",
+      "quarterly_review": "Kvartalsgjennomgang",
+      "renewal_review": "Fornyelsesgjennomgang"
+    },
+    "actions": {
+      "openCustomer": "Åpne kunde",
+      "scheduleMeeting": "Planlegg møte",
+      "sendFollowUp": "Send oppfølging",
+      "assignManager": "Tildel leder",
+      "createPlan": "Opprett suksessplan",
+      "escalate": "Eskaler",
+      "contact": "Kontakt kunde",
+      "scheduleReview": "Planlegg gjennomgang",
+      "prepareProposal": "Forbered tilbud",
+      "applying": "Utfører…"
+    },
+    "filters": {
+      "successStatus": "Suksessstatus",
+      "healthScore": "Helsescore (min)",
+      "assignedManager": "Tildelt leder",
+      "renewalWindow": "Fornyelsesvindu",
+      "country": "Land",
+      "allStatuses": "Alle statuser",
+      "allRenewals": "Alle fornyelsesvinduer",
+      "allCountries": "Alle land",
+      "apply": "Bruk filtre"
+    },
+    "renewals": {
+      "within30": "Innen 30 dager",
+      "within60": "Innen 60 dager",
+      "within90": "Innen 90 dager"
+    },
+    "onboardingMilestones": {
+      "accountCreated": "Konto opprettet",
+      "firstLogin": "Første innlogging",
+      "firstUserInvited": "Første bruker invitert",
+      "firstIntegration": "Første integrasjon tilkoblet",
+      "firstAction": "Første handling fullført",
+      "milestonesCompleted": "Suksessmilepæler fullført"
+    }
+  },
+  "executiveOperationsCenter": {
+    "title": "Executive Operations Center",
+    "subtitle": "Sentralt operasjonssenter som oppsummerer helse, vekst og risiko for hele organisasjonen.",
+    "loading": "Forbereder executive operations center…",
+    "back": "Tilbake til executive",
+    "principle": "Ledere skal forstå organisasjonens tilstand innen 60 sekunder etter innlogging.",
+    "emptyState": "Ingen executive-handlinger krever oppmerksomhet.",
+    "sinceLastLogin": "Siden sist innlogging",
+    "sections": {
+      "overview": "Oversikt",
+      "summary": "Executive-sammendrag",
+      "actions": "Executive-handlinger",
+      "organizationalHealth": "Organisasjonshelse",
+      "growth": "Vekstoversikt",
+      "system": "Systemoversikt",
+      "alerts": "Executive-varsler",
+      "calendar": "Executive-kalender",
+      "audit": "Revisjonslogg",
+      "filters": "Filtre"
+    },
+    "overview": {
+      "activeCustomers": "Aktive kunder",
+      "mrr": "Månedlig gjentakende inntekt",
+      "customerGrowth": "Kundevekst",
+      "systemHealth": "Systemhelse",
+      "criticalIssues": "Åpne kritiske saker",
+      "actionsRequired": "Executive-handlinger påkrevd"
+    },
+    "table": {
+      "action": "Handling",
+      "category": "Kategori",
+      "priority": "Prioritet",
+      "dueDate": "Forfallsdato",
+      "owner": "Eier",
+      "actions": "Handlinger",
+      "event": "Hendelse",
+      "score": "Score",
+      "status": "Status",
+      "scheduledAt": "Planlagt",
+      "title": "Tittel"
+    },
+    "categories": {
+      "enterprise_contract": "Enterprise-kontrakt",
+      "billing_exception": "Faktureringsunntak",
+      "security_incident": "Sikkerhetshendelse",
+      "customer_escalation": "Kunde-eskalering",
+      "major_opportunity": "Stort mulighetsområde"
+    },
+    "priorities": {
+      "low": "Lav",
+      "medium": "Middels",
+      "high": "Høy",
+      "critical": "Kritisk"
+    },
+    "healthStatuses": {
+      "excellent": "Utmerket",
+      "healthy": "Sunn",
+      "attention_required": "Krever oppmerksomhet",
+      "critical": "Kritisk"
+    },
+    "healthMetrics": {
+      "customer": "Kundehelsescore",
+      "revenue": "Inntektshelsescore",
+      "platform": "Plattformstabilitetsscore",
+      "support": "Supportytelsesscore"
+    },
+    "growth": {
+      "newCustomers": "Nye kunder (30d)",
+      "upgrades": "Oppgraderinger (30d)",
+      "expansionRevenue": "Ekspansjonsinntekt",
+      "churnRate": "Churn-rate",
+      "trialConversion": "Prøveperiode-konvertering"
+    },
+    "system": {
+      "infrastructure": "Infrastrukturstatus",
+      "paymentProvider": "Betalingsleverandørstatus",
+      "integration": "Integrasjonshelse",
+      "aiEngine": "AI-motorstatus",
+      "notification": "Varslingsstatus",
+      "uptime": "Plattform oppetid"
+    },
+    "alertTypes": {
+      "revenue_decline": "Inntektsnedgang",
+      "churn_spike": "Churn-top",
+      "security_incident": "Sikkerhetshendelse",
+      "payment_provider_failure": "Betalingsleverandørfeil",
+      "major_outage": "Stort avbrudd"
+    },
+    "calendarTypes": {
+      "enterprise_renewal": "Enterprise-fornyelse",
+      "customer_review": "Kundegjennomgang",
+      "product_launch": "Produktlansering",
+      "strategic_meeting": "Strategisk møte"
+    },
+    "systemStatuses": {
+      "operational": "Operativ",
+      "healthy": "Sunn",
+      "degraded": "Degradert",
+      "attention": "Krever oppmerksomhet"
+    },
+    "actions": {
+      "approve": "Godkjenn",
+      "escalate": "Eskaler",
+      "acknowledge": "Bekreft",
+      "complete": "Fullfør",
+      "applying": "Utfører…"
+    },
+    "filters": {
+      "period": "Periode",
+      "apply": "Bruk filtre"
+    },
+    "periods": {
+      "today": "I dag",
+      "7d": "Siste 7 dager",
+      "30d": "Siste 30 dager",
+      "quarter": "Kvartal",
+      "year": "År"
+    }
+  },
+  "voiceOfCustomer": {
+    "title": "Kundetilbakemeldingssenter",
+    "subtitle": "Voice of the Customer — ideer, feil, frustrasjoner og muligheter fra Aipify-brukere.",
+    "loading": "Forbereder tilbakemeldingssenter…",
+    "back": "Tilbake til plattformen",
+    "principle": "Menneskene som bruker Aipify hver dag er blant våre største innovasjonskilder.",
+    "emptyState": "Ingen tilbakemeldinger tilgjengelig.",
+    "sections": {
+      "overview": "Oversikt",
+      "feedback": "Tilbakemeldingstabell",
+      "trends": "Trendanalyse",
+      "topRequests": "Topp forbedringsforespørsler",
+      "audit": "Revisjonslogg",
+      "filters": "Filtre"
+    },
+    "overview": {
+      "newFeedback": "Nye tilbakemeldinger",
+      "bugs": "Rapporterte feil",
+      "features": "Funksjonsforespørsler",
+      "improvements": "Innsendte forbedringer",
+      "resolved": "Løste tilbakemeldinger",
+      "awaitingReview": "Tilbakemeldinger venter på gjennomgang"
+    },
+    "table": {
+      "category": "Kategori",
+      "title": "Tittel",
+      "customer": "Kunde",
+      "priority": "Prioritet",
+      "submitted": "Innsendt",
+      "status": "Status",
+      "assignedTo": "Tildelt til",
+      "actions": "Handlinger",
+      "event": "Hendelse",
+      "count": "Antall"
+    },
+    "feedbackTypes": {
+      "bug_report": "Feilrapport",
+      "improvement_suggestion": "Forbedringsforslag",
+      "feature_request": "Funksjonsforespørsel",
+      "compliment": "Kompliment",
+      "usability_issue": "Brukervennlighetsproblem",
+      "general_feedback": "Generell tilbakemelding"
+    },
+    "priorities": {
+      "low": "Lav",
+      "medium": "Middels",
+      "high": "Høy"
+    },
+    "statuses": {
+      "new": "Ny",
+      "under_review": "Under vurdering",
+      "planned": "Planlagt",
+      "in_development": "Under utvikling",
+      "released": "Lansert",
+      "closed": "Lukket"
+    },
+    "actions": {
+      "view": "Vis",
+      "assign": "Tildel",
+      "merge": "Slå sammen duplikater",
+      "updateStatus": "Oppdater status",
+      "linkPhase": "Koble til fase",
+      "notify": "Varsle kunde",
+      "applying": "Utfører…"
+    },
+    "filters": {
+      "type": "Tilbakemeldingstype",
+      "status": "Status",
+      "priority": "Prioritet",
+      "allTypes": "Alle typer",
+      "allStatuses": "Alle statuser",
+      "allPriorities": "Alle prioriteter",
+      "apply": "Bruk filtre"
+    }
+  },
+  "globalAnnouncements": {
+    "title": "Global Announcements & Communication Center",
+    "subtitle": "Sentralisert kommunikasjon for kunder, Growth Partners, plattformadministratorer og interne team.",
+    "loading": "Forbereder kunngjøringssenter…",
+    "back": "Tilbake til plattform",
+    "principle": "Tydelig, rettidig kommunikasjon bygger tillit på tvers av kunder, partnere og interne team.",
+    "emptyState": "Ingen kunngjøringer tilgjengelig.",
+    "sections": {
+      "overview": "Oversikt",
+      "announcements": "Kunngjøringstabell",
+      "create": "Opprett kunngjøring",
+      "analytics": "Kunngjøringsanalyse",
+      "audit": "Revisjonslogg",
+      "filters": "Filtre"
+    },
+    "overview": {
+      "active": "Aktive kunngjøringer",
+      "scheduled": "Planlagte meldinger",
+      "drafts": "Utkast",
+      "campaigns": "Målrettede kampanjer",
+      "deliveryRate": "Leveringssuksessrate",
+      "requiringReview": "Meldinger som krever gjennomgang"
+    },
+    "table": {
+      "title": "Tittel",
+      "category": "Kategori",
+      "audience": "Målgruppe",
+      "status": "Status",
+      "scheduledDate": "Planlagt dato",
+      "createdBy": "Opprettet av",
+      "actions": "Handlinger",
+      "views": "Visninger",
+      "emailOpens": "E-poståpninger",
+      "clickRate": "Klikkrate",
+      "deliverySuccess": "Leveringssuksess",
+      "event": "Hendelse"
+    },
+    "categories": {
+      "system_update": "Systemoppdateringer",
+      "maintenance_notice": "Vedlikeholdsvarsler",
+      "feature_release": "Nye funksjonslanseringer",
+      "security_notification": "Sikkerhetsvarsler",
+      "billing_communication": "Faktureringskommunikasjon",
+      "growth_partner_update": "Growth Partner-oppdateringer",
+      "internal_communication": "Intern kommunikasjon"
+    },
+    "audiences": {
+      "all_customers": "Alle kunder",
+      "trial_customers": "Prøvekunder",
+      "enterprise_customers": "Enterprise-kunder",
+      "growth_partners": "Growth Partners",
+      "super_admins": "Super Admins",
+      "platform_admins": "Plattformadministratorer",
+      "internal_teams": "Interne team"
+    },
+    "statuses": {
+      "draft": "Utkast",
+      "scheduled": "Planlagt",
+      "published": "Publisert",
+      "expired": "Utløpt",
+      "cancelled": "Kansellert",
+      "archived": "Arkivert"
+    },
+    "channels": {
+      "in_app": "In-app-varsler",
+      "email": "E-post",
+      "dashboard_banner": "Dashboard-bannere",
+      "notification_center": "Varslingssenter"
+    },
+    "form": {
+      "title": "Tittel",
+      "summary": "Sammendrag",
+      "fullContent": "Fullt innhold",
+      "category": "Kategori",
+      "audience": "Målgruppe",
+      "channels": "Leveringskanaler",
+      "publishDate": "Publiseringsdato",
+      "expirationDate": "Utløpsdato",
+      "scheduledDate": "Planlagt dato",
+      "requiresApproval": "Krever godkjenning før publisering",
+      "create": "Opprett kunngjøring",
+      "country": "Landfilter",
+      "language": "Språkfilter",
+      "plan": "Abonnementsplanfilter"
+    },
+    "actions": {
+      "view": "Vis",
+      "edit": "Rediger",
+      "duplicate": "Dupliser",
+      "publish": "Publiser",
+      "schedule": "Planlegg",
+      "archive": "Arkiver",
+      "approve": "Godkjenn",
+      "cancel": "Avbryt",
+      "applying": "Utfører…"
+    },
+    "filters": {
+      "category": "Kategori",
+      "audience": "Målgruppe",
+      "status": "Status",
+      "country": "Land",
+      "language": "Språk",
+      "plan": "Abonnementsplan",
+      "allCategories": "Alle kategorier",
+      "allAudiences": "Alle målgrupper",
+      "allStatuses": "Alle statuser",
+      "apply": "Bruk filtre"
     }
   }
 }

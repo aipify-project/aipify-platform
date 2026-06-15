@@ -4,6 +4,19 @@ export const SUPER_ADMIN_HOME_ROUTE = "/super";
 
 export const SUPER_ADMIN_SECTIONS: SuperAdminSection[] = [
   {
+    id: "groupOrganization",
+    titleKey: "superAdmin.sections.groupOrganization.title",
+    purposeKey: "superAdmin.sections.groupOrganization.purpose",
+    modules: [
+      {
+        id: "groupOverview",
+        labelKey: "superAdmin.modules.groupOverview",
+        descriptionKey: "superAdmin.modules.groupOverviewDescription",
+        href: "/super/group-overview",
+      },
+    ],
+  },
+  {
     id: "platformOperations",
     titleKey: "superAdmin.sections.platformOperations.title",
     purposeKey: "superAdmin.sections.platformOperations.purpose",
@@ -88,6 +101,7 @@ export const SUPER_ADMIN_SECTIONS: SuperAdminSection[] = [
       { id: "globalKnowledgeBase", labelKey: "superAdmin.modules.globalKnowledgeBase", descriptionKey: "superAdmin.modules.globalKnowledgeBaseDescription", href: "/platform/intelligence" },
       { id: "learningNetwork", labelKey: "superAdmin.modules.learningNetwork", descriptionKey: "superAdmin.modules.learningNetworkDescription", href: "/platform/intelligence/learning-queue" },
       { id: "platformInsights", labelKey: "superAdmin.modules.platformInsights", descriptionKey: "superAdmin.modules.platformInsightsDescription", href: "/platform/metrics" },
+      { id: "globalInsights", labelKey: "superAdmin.modules.globalInsights", descriptionKey: "superAdmin.modules.globalInsightsDescription", href: "/super/global-insights" },
       { id: "knowledgeExpansion", labelKey: "superAdmin.modules.knowledgeExpansion", descriptionKey: "superAdmin.modules.knowledgeExpansionDescription", href: "/platform/intelligence/global-patterns" },
       { id: "contentGovernance", labelKey: "superAdmin.modules.contentGovernance", descriptionKey: "superAdmin.modules.contentGovernanceDescription", href: "/platform/trust/knowledge" },
     ],

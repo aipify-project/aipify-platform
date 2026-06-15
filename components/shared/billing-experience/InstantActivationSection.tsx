@@ -1,0 +1,93 @@
+"use client";
+
+import type { BillingExperienceLabels } from "@/lib/billing-experience";
+import { InstantActivationCheckoutCard } from "./InstantActivationCheckoutCard";
+import {
+  SELF_SERVICE_PAYMENT_PROVIDERS,
+  type PaymentProviderLabels,
+  type SelfServicePaymentProviderKey,
+} from "@/lib/payment-providers";
+import { PaymentProviderCard } from "@/components/shared/payment-providers/PaymentProviderCard";
+import type { PaymentProviderCard as ProviderCardData } from "@/lib/payment-providers";
+
+type InstantActivationSectionProps = {
+  billingLabels: BillingExperienceLabels;
+  providerLabels: PaymentProviderLabels;
+  mode: "checkout" | "admin";
+  providers: ProviderCardData[];
+  canEdit?: boolean;
+  testing?: SelfServicePaymentProviderKey | null;
+  checkingOut?: SelfServicePaymentProviderKey | null;
+  onConfigure?: (card: ProviderCardData) => void;
+  onTest?: (provider: SelfServicePaymentProviderKey) => void;
+  onViewLogs?: (provider: SelfServicePaymentProviderKey) => void;
+  onCopyWebhook?: (url: string) => void;
+  copiedUrl?: string | null;
+  onCheckout?: (provider: SelfServicePaymentProviderKey) => void;
+};
+
+export function InstantActivationSection({
+  billingLabels,
+  providerLabels,
+  mode,
+  providers,
+  canEdit = false,
+  testing = null,
+  checkingOut = null,
+  onConfigure,
+  onTest,
+  onViewLogs,
+  onCopyWebhook,
+  copiedUrl = null,
+  onCheckout,
+}: InstantActivationSectionProps) {
+  const selfService =
+    providers.filter((p) =>
+      (SELF_SERVICE_PAYMENT_PROVIDERS as readonly string[]).includes(p.provider_key)
+    ) ?? [];
+
+  return (
+    <section className="rounded-2xl border border-emerald-100 bg-emerald-50/30 p-6">
+      <h2 className="font-semibold text-emerald-950">{billingLabels.instantActivation.title}</h2>
+      <p className="mt-2 max-w-3xl text-sm text-emerald-900/80">
+        {billingLabels.instantActivation.description}
+      </p>
+      <p className="mt-3 rounded-xl border border-emerald-100 bg-white/80 px-4 py-3 text-sm text-emerald-900">
+        {billingLabels.instantActivation.message}
+      </p>
+      <p className="mt-4 text-xs font-medium uppercase tracking-wide text-emerald-800">
+        {billingLabels.instantActivation.activateWith}
+      </p>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {mode === "checkout"
+          ? selfService.map((card) => {
+              const key = card.provider_key as SelfServicePaymentProviderKey;
+              return (
+                <InstantActivationCheckoutCard
+                  key={card.provider_key}
+                  provider={key}
+                  providerName={providerLabels.providers[key] ?? card.name}
+                  checkoutLabel={billingLabels.instantActivation.checkout}
+                  checkingOut={checkingOut === key}
+                  onCheckout={() => onCheckout?.(key)}
+                />
+              );
+            })
+          : selfService.map((card) => (
+              <PaymentProviderCard
+                key={card.provider_key}
+                card={card}
+                labels={providerLabels}
+                canEdit={canEdit}
+                testing={testing === card.provider_key}
+                onConfigure={() => onConfigure?.(card)}
+                onTest={() => onTest?.(card.provider_key as SelfServicePaymentProviderKey)}
+                onViewLogs={() => onViewLogs?.(card.provider_key as SelfServicePaymentProviderKey)}
+                onCopyWebhook={() => onCopyWebhook?.(card.webhook_url)}
+                copied={copiedUrl === card.webhook_url}
+              />
+            ))}
+      </div>
+    </section>
+  );
+}

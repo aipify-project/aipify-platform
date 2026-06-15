@@ -140,9 +140,86 @@
     "internalSupport": {
       "title": "Internal Support",
       "purpose": "Operate customer success."
+    },
+    "groupOrganization": {
+      "title": "Koncernorganisation",
+      "purpose": "Administrer forretningsøkosystemet for Aipify Group AS."
+    }
+  },
+  "groupOverview": {
+    "title": "Koncernoverblik",
+    "subtitle": "Global organisation og multi-enhedsstyring for Aipify Group AS.",
+    "loading": "Indlæser koncernoverblik…",
+    "back": "Tilbage til Super Admin",
+    "principle": "Aipify må aldrig antage, at den kun betjener én virksomhed.",
+    "foundationStatement": "Aipify Group AS er moderselskabet. Aipify er operativsystemet. Fremtidige satsninger er muligheder, der venter på at blive forbundet.",
+    "tagline": "Bergen. Norge. For verden.",
+    "sections": {
+      "summary": "Organisationsoversigt",
+      "entities": "Forretningsenheder",
+      "investments": "Eksterne investeringer",
+      "sharedIntelligence": "Delt intelligens",
+      "audit": "Seneste revisionsaktivitet",
+      "hierarchy": "Organisationshierarki"
+    },
+    "summary": {
+      "totalEntities": "Enheder i alt",
+      "activeEntities": "Aktive enheder",
+      "activeUsers": "Aktive brugere",
+      "activeSubscriptions": "Aktive abonnementer",
+      "investments": "Investeringer",
+      "signals": "Delte signaler"
+    },
+    "entities": {
+      "name": "Navn",
+      "type": "Type",
+      "status": "Status",
+      "domain": "Primært domæne",
+      "users": "Brugere",
+      "subscriptions": "Abonnementer",
+      "departments": "Afdelinger",
+      "teams": "Teams",
+      "empty": "Ingen forretningsenheder registreret endnu.",
+      "archive": "Arkiver"
+    },
+    "investments": {
+      "company": "Virksomhed",
+      "ownership": "Ejerskab",
+      "amount": "Investeringsbeløb",
+      "status": "Status",
+      "empty": "Ingen eksterne investeringer registreret endnu."
+    },
+    "intelligence": {
+      "type": "Signaltype",
+      "confidence": "Tillid",
+      "empty": "Ingen delte intelligenssignaler endnu."
+    },
+    "audit": {
+      "empty": "Ingen seneste revisionsposter."
+    },
+    "entityTypes": {
+      "product_brand": "Produktbrand",
+      "subsidiary": "Datterselskab",
+      "acquisition": "Opkøb",
+      "venture": "Satsning",
+      "internal": "Intern"
+    },
+    "statuses": {
+      "active": "Aktiv",
+      "archived": "Arkiveret",
+      "pendingSetup": "Afventer opsætning"
+    },
+    "signalTypes": {
+      "similar_support_request": "Lignende supporthenvendelse",
+      "shared_best_practice": "Delt bedste praksis",
+      "cross_sell_opportunity": "Krydssalgsmulighed",
+      "growth_recommendation": "Vækstanbefaling",
+      "operational_pattern": "Operationelt mønster"
     }
   },
   "modules": {
+    "groupOverview": "Koncernoverblik",
+    "groupOverviewDescription": "Virksomheder, enheder, investeringer og delt intelligens under Aipify Group AS.",
     "platformHealth": "Platform Health",
     "platformHealthDescription": "Monitor core service health and operational readiness.",
     "serviceStatus": "Service Status",
@@ -231,7 +308,40 @@
     "supportIntelligenceDescription": "Analyze support intelligence signals.",
     "serviceReviews": "Service Reviews",
     "serviceReviewsDescription": "Conduct service quality and impact reviews.",
+    "globalInsights": "Globalt indsigtsdashboard",
+    "globalInsightsDescription": "Voice of the Customer produktintelligens og initiativanbefalinger.",
     "paymentProviders": "Payment Providers",
     "paymentProvidersDescription": "Configure Klarna, Vipps MobilePay, Stripe, and DNB credentials."
+  },
+  "voiceOfCustomer": {
+    "title": "Globalt indsigtsdashboard",
+    "subtitle": "Omdan kundefeedback til produktinitiativer, roadmap-elementer og udviklingsfaser.",
+    "loading": "Forbereder global indsigt…",
+    "principle": "Lyt omhyggeligt. Forbedr løbende. Byg med kunder, ikke kun for kunder.",
+    "sections": {
+      "insights": "Produktintelligens",
+      "initiatives": "Anbefalede initiativer",
+      "themes": "Temaer for funktionsanmodninger"
+    },
+    "insights": {
+      "totalFeedback": "Samlet feedback",
+      "onboardingRequests": "Onboarding-relaterede anmodninger",
+      "recommendation": "Anbefaling"
+    },
+    "table": {
+      "title": "Titel",
+      "summary": "Resumé",
+      "recommendation": "Anbefaling",
+      "feedbackCount": "Antal feedback",
+      "type": "Type",
+      "phase": "Linket fase",
+      "status": "Status",
+      "theme": "Tema",
+      "count": "Antal"
+    },
+    "actions": {
+      "createInitiative": "Opret initiativ",
+      "applying": "Anvender…"
+    }
   }
 }

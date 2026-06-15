@@ -1,0 +1,42 @@
+---
+description: Aipify Group AS Company Foundation Directive — parent company identity, mission, vision, and decision filter before all product work
+alwaysApply: true
+---
+
+# Aipify Group AS — Company Foundation Directive
+
+Read **[AIPIFY_GROUP_AS_COMPANY_FOUNDATION_DIRECTIVE.md](../../AIPIFY_GROUP_AS_COMPANY_FOUNDATION_DIRECTIVE.md)** before development, documentation, onboarding, legal copy, investor material, platform communications, or strategic product decisions.
+
+## Official identity
+
+| | |
+|---|---|
+| **Company** | Aipify Group AS |
+| **Origin** | Norway |
+| **Tagline** | From Norway. For the world. |
+| **Product** | Aipify (ABOS) |
+
+This is the **parent company** — not merely a repository or project name.
+
+## Mission (one line)
+
+Empower people through responsible AI software. **Never** position Aipify as built to replace people.
+
+## Naming
+
+- **Aipify Group AS** — legal, investor, ownership, Platform Admin (`/platform/*`)
+- **Aipify** — product customers install and use daily
+
+## Decision filter
+
+Before product design, infrastructure, marketing, legal docs, pricing, partnerships, or integrations:
+
+> *Does this support the long-term vision of Aipify Group AS?*
+
+Yes → continue. No → reconsider.
+
+## Governance order
+
+**Company Foundation Directive** → [Core Foundation](../../CORE_FOUNDATION.md) → [Operating Principles](../../OPERATING_PRINCIPLES.md) → [Enterprise Design Standard](../../ENTERPRISE_DESIGN_COMMUNICATION_STANDARD.md) → [Architecture](../../ARCHITECTURE.md) → Implementation → Skills
+
+Code: `lib/internal-language-model/company-foundation-vocabulary.ts` · ILM: `aipify-core/knowledge/internal-language-model/aipify-group-as-company-foundation-directive.txt`

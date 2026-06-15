@@ -74,7 +74,7 @@ export async function testPaymentProviderConnection(input: TestInput): Promise<T
         message: "DNB connection failed. Check Merchant ID and API Key.",
       };
     }
-    return { success: true, message: "DNB Payment Services credentials validated." };
+    return { success: true, message: "DNB Invoice credentials validated." };
   }
 
   return { success: false, message: "Unknown payment provider." };

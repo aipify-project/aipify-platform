@@ -3,6 +3,11 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
+  InstantActivationSection,
+  EnterpriseProcurementSection,
+} from "@/components/shared/billing-experience";
+import { buildBillingExperienceLabels, type BillingExperienceLabels } from "@/lib/billing-experience";
+import {
   PROVIDER_FIELD_DEFINITIONS,
   parsePaymentProvidersCenter,
   type PaymentProviderCard as ProviderCardData,
@@ -10,25 +15,27 @@ import {
   type PaymentProviderLabels,
   type PaymentProvidersCenter,
   type ProviderScope,
+  type SelfServicePaymentProviderKey,
 } from "@/lib/payment-providers";
-import { PaymentProviderCard } from "./PaymentProviderCard";
-import { PaymentProviderLogo } from "./PaymentProviderLogo";
 
 type PaymentProvidersExperiencePanelProps = {
   scope: ProviderScope;
   labels: PaymentProviderLabels;
+  billingLabels: BillingExperienceLabels;
   backHref: string;
 };
 
 export function PaymentProvidersExperiencePanel({
   scope,
   labels,
+  billingLabels,
   backHref,
 }: PaymentProvidersExperiencePanelProps) {
   const [center, setCenter] = useState<PaymentProvidersCenter | null>(null);
   const [loading, setLoading] = useState(true);
   const [configuring, setConfiguring] = useState<PaymentProviderKey | null>(null);
   const [testing, setTesting] = useState<PaymentProviderKey | null>(null);
+  const [checkingOut, setCheckingOut] = useState<SelfServicePaymentProviderKey | null>(null);
   const [saving, setSaving] = useState(false);
   const [testMessage, setTestMessage] = useState<string | null>(null);
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
@@ -97,6 +104,24 @@ export function PaymentProvidersExperiencePanel({
     }
   }
 
+  async function handleCheckout(provider: SelfServicePaymentProviderKey) {
+    setCheckingOut(provider);
+    setTestMessage(null);
+    const res = await fetch("/api/billing/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ provider, plan_key: "starter" }),
+    });
+    setCheckingOut(null);
+    if (!res.ok) return;
+    const data = (await res.json()) as { checkout_url?: string; demo_mode?: boolean };
+    if (data.checkout_url) {
+      window.location.href = data.checkout_url;
+      return;
+    }
+    window.location.href = "/app/settings/billing/packages";
+  }
+
   async function copyWebhook(url: string) {
     await navigator.clipboard.writeText(url);
     setCopiedUrl(url);
@@ -119,6 +144,13 @@ export function PaymentProvidersExperiencePanel({
       ? center?.recent_audit ?? []
       : (center?.recent_audit ?? []).filter((e) => e.provider_key === auditFilter);
 
+  const enterpriseBillingHref =
+    scope === "platform"
+      ? "/platform/billing/enterprise-invoices"
+      : "/app/settings/billing/invoice-details";
+
+  const isCheckoutMode = scope === "tenant";
+
   return (
     <div className="mx-auto max-w-6xl space-y-8 p-6">
       <div>
@@ -128,11 +160,9 @@ export function PaymentProvidersExperiencePanel({
         <h1 className="mt-3 text-2xl font-semibold tracking-tight text-neutral-900">{labels.title}</h1>
         <p className="mt-2 max-w-3xl text-neutral-600">{labels.subtitle}</p>
         <p className="mt-3 max-w-3xl text-sm text-neutral-500">{labels.visualStandards}</p>
-        {center?.principle && (
-          <p className="mt-4 rounded-2xl border border-neutral-100 bg-neutral-50 px-5 py-4 text-sm text-neutral-800">
-            {center.principle}
-          </p>
-        )}
+        <p className="mt-4 rounded-2xl border border-neutral-100 bg-neutral-50 px-5 py-4 text-sm text-neutral-800">
+          {billingLabels.principle}
+        </p>
         {center?.paid_access_now && (
           <p className="mt-3 text-sm font-medium text-indigo-800">{labels.paidAccessNow}</p>
         )}
@@ -147,22 +177,30 @@ export function PaymentProvidersExperiencePanel({
         </p>
       )}
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        {center?.providers.map((card) => (
-          <PaymentProviderCard
-            key={card.provider_key}
-            card={card}
-            labels={labels}
-            canEdit={center.can_edit}
-            testing={testing === card.provider_key}
-            onConfigure={() => openConfigure(card)}
-            onTest={() => void handleTest(card.provider_key)}
-            onViewLogs={() => viewLogs(card.provider_key)}
-            onCopyWebhook={() => void copyWebhook(card.webhook_url)}
-            copied={copiedUrl === card.webhook_url}
-          />
-        ))}
-      </div>
+      <InstantActivationSection
+        billingLabels={billingLabels}
+        providerLabels={labels}
+        mode={isCheckoutMode ? "checkout" : "admin"}
+        providers={center?.providers ?? []}
+        canEdit={center?.can_edit ?? false}
+        testing={testing as SelfServicePaymentProviderKey | null}
+        checkingOut={checkingOut}
+        onConfigure={openConfigure}
+        onTest={(provider) => void handleTest(provider)}
+        onViewLogs={viewLogs}
+        onCopyWebhook={(url) => void copyWebhook(url)}
+        copiedUrl={copiedUrl}
+        onCheckout={(provider) => void handleCheckout(provider)}
+      />
+
+      <EnterpriseProcurementSection
+        labels={billingLabels.enterpriseProcurement}
+        manageHref={enterpriseBillingHref}
+      />
+
+      <p className="rounded-xl border border-slate-100 bg-slate-50 px-4 py-3 text-xs text-slate-600">
+        {billingLabels.commercialPrinciple.instant} · {billingLabels.commercialPrinciple.enterprise}
+      </p>
 
       {center?.regional_strategy && Object.keys(center.regional_strategy).length > 0 && (
         <section className="rounded-2xl border border-neutral-200/80 bg-white p-6 shadow-sm">
@@ -220,18 +258,9 @@ export function PaymentProvidersExperiencePanel({
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
           <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white p-6 shadow-xl">
             <div className="flex items-center gap-4 border-b border-neutral-100 pb-4">
-              <PaymentProviderLogo
-                provider={configuring}
-                alt={labels.providerProfiles[configuring]?.logoAlt ?? labels.providers[configuring]}
-              />
-              <div>
-                <h2 className="text-xl font-semibold text-neutral-900">
-                  {labels.configure} — {labels.providers[configuring]}
-                </h2>
-                <p className="text-sm text-neutral-500">
-                  {labels.providerProfiles[configuring]?.tagline}
-                </p>
-              </div>
+              <h2 className="text-xl font-semibold text-neutral-900">
+                {labels.configure} — {labels.providers[configuring]}
+              </h2>
             </div>
             <div className="mt-4 flex flex-wrap gap-4">
               <label className="text-sm">
@@ -318,3 +347,5 @@ export function PaymentProvidersExperiencePanel({
     </div>
   );
 }
+
+// Re-export helper for pages that only import panel

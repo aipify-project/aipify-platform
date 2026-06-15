@@ -7000,7 +7000,8 @@
         "aiUsage": "AI-bruksvolum"
       },
       "viewPackages": "Pakker og tilgang",
-      "viewPaymentProviders": "Payment providers"
+      "viewPaymentProviders": "Betalingsleverandører",
+      "viewInvoiceDetails": "Fakturadetaljer"
     },
     "pricingPhilosophy": {
       "title": "Prisingsfilosofi",
@@ -21584,7 +21585,221 @@
       "stripePositioning": "International reach and enterprise flexibility.",
       "klarnaPositioning": "Trusted European payment experiences.",
       "vippsPositioning": "Simple and trusted local payments.",
-      "dnbPositioning": "Large organizations and invoice-based payment operations."
+      "dnbPositioning": "Store organisasjoner og fakturabaserte betalingsløsninger."
+    },
+    "enterpriseBilling": {
+      "title": "Enterprise Procurement",
+      "description": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements.",
+      "methods": "DNB Invoice · Purchase Orders · Bank Transfer · 30/60/90-Day Terms · Framework Agreements",
+      "manageLink": "Invoice details & enterprise procurement"
     }
+  },
+  "enterpriseInvoicing": {
+    "title": "Fakturadetaljer",
+    "subtitle": "Enterprise-fakturering — selskapsdetaljer, AP-kontakt, betalingsbetingelser og innkjøpsordre.",
+    "loading": "Forbereder fakturadetaljer…",
+    "back": "Tilbake til fakturering",
+    "principle": "Små kunder betaler raskt. Store organisasjoner betaler ordentlig.",
+    "save": "Lagre fakturadetaljer",
+    "saving": "Lagrer…",
+    "saved": "Fakturadetaljer lagret.",
+    "empty": "Ingen enterprise-fakturaer ennå.",
+    "overdueBanner": "{count} enterprise-faktura(er) forfalt — finans bør gjennomgå.",
+    "sections": {
+      "billingDetails": "Faktureringsdetaljer",
+      "paymentTerms": "Betalingsbetingelser",
+      "invoices": "Enterprise-fakturaer",
+      "audit": "Revisjonslogg",
+      "dnbProfile": "DNB Invoice-profil",
+      "actions": "Handlinger"
+    },
+    "fields": {
+      "companyName": "Firmanavn",
+      "organizationNumber": "Organisasjonsnummer",
+      "vatNumber": "MVA-nummer",
+      "billingAddress": "Fakturaadresse",
+      "addressLine1": "Adresselinje 1",
+      "addressLine2": "Adresselinje 2",
+      "city": "Sted",
+      "postalCode": "Postnummer",
+      "country": "Land",
+      "invoiceEmail": "Faktura-e-post",
+      "apContactName": "Kontakt accounts payable",
+      "apContactEmail": "E-post accounts payable",
+      "purchaseOrderNumber": "Innkjøpsordrenummer",
+      "internalReference": "Intern referanse",
+      "paymentTerms": "Betalingsbetingelser",
+      "paymentTermsCustom": "Egendefinerte betalingsbetingelser",
+      "preferredCurrency": "Foretrukket valuta",
+      "billingLanguage": "Faktureringsspråk",
+      "invoiceNumber": "Fakturanummer",
+      "amount": "Beløp",
+      "dueDate": "Forfallsdato",
+      "status": "Status",
+      "tenant": "Kunde",
+      "bankTransfer": "Bankoverføring",
+      "kid": "KID",
+      "paymentMethod": "Payment method"
+    },
+    "paymentTerms": {
+      "due_on_receipt": "Betales ved mottak",
+      "net_7": "Netto 7",
+      "net_14": "Netto 14",
+      "net_30": "Netto 30",
+      "net_60": "Netto 60",
+      "custom": "Egendefinerte enterprise-betingelser"
+    },
+    "statuses": {
+      "draft": "Utkast",
+      "sent": "Sendt",
+      "viewed": "Sett",
+      "approved": "Godkjent",
+      "partially_paid": "Delvis betalt",
+      "paid": "Betalt",
+      "overdue": "Forfalt",
+      "reminder_sent": "Påminnelse sendt",
+      "disputed": "Bestridt",
+      "cancelled": "Kansellert",
+      "credited": "Kreditert"
+    },
+    "actions": {
+      "create": "Opprett faktura",
+      "send": "Send faktura",
+      "downloadPdf": "Last ned PDF",
+      "markPaid": "Merk som betalt",
+      "partialPayment": "Registrer delbetaling",
+      "sendReminder": "Send påminnelse",
+      "credit": "Krediter faktura",
+      "attachPo": "Legg ved innkjøpsordre",
+      "addNote": "Legg til intern merknad",
+      "escalate": "Eskaler til finansadmin",
+      "approve": "Godkjenn",
+      "cancel": "Avbryt",
+      "markOverdue": "Merk forfalt",
+      "view": "View"
+    },
+    "billingModel": {
+      "selfService": "Instant Activation",
+      "enterprise": "Enterprise Procurement",
+      "selfServiceNote": "Designed for startups, freelancers, SMBs and fast-moving teams that want immediate access to Aipify.",
+      "enterpriseNote": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements."
+    },
+    "upgrade": {
+      "title": "Enterprise-oppgradering — fakturering",
+      "currentPlan": "Nåværende plan",
+      "newPlan": "Ny plan",
+      "priceDifference": "Prisforskjell",
+      "billingMethod": "Faktureringsmetode",
+      "paymentTerms": "Betalingsbetingelser",
+      "accessPolicy": "Tilgangspolicy",
+      "requiresApproval": "Enterprise-fakturaer krever godkjenning før utsendelse med mindre tenant-policy tillater automatisk sending.",
+      "approveAndContinue": "Godkjenn og opprett faktura",
+      "createInvoiceDraft": "Opprett kun fakturautkast",
+      "profileRequired": "Fullfør fakturadetaljer før enterprise-oppgradering."
+    },
+    "permissions": {
+      "viewOnly": "Du kan se faktureringsstatus. Kontakt billing-administrator for å endre finansielle vilkår.",
+      "financeRequired": "Finansrettigheter kreves for denne handlingen."
+    },
+    "paymentMethods": {
+      "invoice": "Invoice",
+      "bankTransfer": "Bank Transfer",
+      "dnbInvoice": "DNB Invoice"
+    },
+    "invoiceCenter": {
+      "title": "Enterprise Invoice Center",
+      "emptyStructure": "No enterprise invoices yet. Your invoice history will appear here."
+    }
+  },
+  "billingExperience": {
+    "principle": "Aipify supports both purchasing behaviors — pay now for speed, approve and procure for enterprise scale.",
+    "commercialPrinciple": {
+      "instant": "Instant Activation: fast onboarding for customers who can make immediate purchasing decisions.",
+      "enterprise": "Enterprise Procurement: structured purchasing workflows for organizations with approval requirements.",
+      "footer": "Aipify Group AS serves both customer segments equally well. From Norway. For the world."
+    },
+    "instantActivation": {
+      "title": "Instant Activation",
+      "description": "Designed for startups, freelancers, SMBs and fast-moving teams that want immediate access to Aipify.",
+      "message": "Activate your subscription instantly and start using Aipify within minutes.",
+      "activateWith": "Pay with",
+      "checkout": "Activate now",
+      "checkingOut": "Starting checkout…"
+    },
+    "enterpriseProcurement": {
+      "title": "Enterprise Procurement",
+      "description": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements.",
+      "message": "Our enterprise team supports procurement processes, invoice terms, and tailored agreements for larger organizations.",
+      "manageLink": "Invoice details & enterprise procurement",
+      "methods": {
+        "dnb_invoice": "DNB Invoice",
+        "purchase_orders": "Purchase Orders (PO)",
+        "bank_transfer": "Bank Transfer",
+        "terms_30": "30-Day Terms",
+        "terms_60": "60-Day Terms",
+        "terms_90": "90-Day Terms",
+        "framework_agreements": "Framework Agreements"
+      },
+      "actions": {
+        "contact_enterprise_team": "Contact Enterprise Team",
+        "request_invoice_account": "Request Invoice Account",
+        "purchase_order_support": "Purchase Order Support",
+        "dnb_invoice_setup": "DNB Invoice Setup"
+      }
+    },
+    "smartRouting": {
+      "title": "How would you like to purchase Aipify?",
+      "instant": {
+        "label": "Instant activation",
+        "description": "Ideal for smaller teams and businesses."
+      },
+      "enterprise": {
+        "label": "Enterprise procurement",
+        "description": "Ideal for organizations requiring invoicing or internal approvals."
+      }
+    }
+  },
+  "voiceOfCustomer": {
+    "trigger": "Del tilbakemelding",
+    "triggerShort": "Del tilbakemelding",
+    "title": "Del tilbakemelding",
+    "subtitle": "Din stemme hjelper oss å forbedre Aipify — aldri tvunget, alltid velkommen.",
+    "type": "Tilbakemeldingstype",
+    "feedbackTitle": "Tittel",
+    "description": "Beskrivelse",
+    "priority": "Prioritet",
+    "wantsResponse": "Ønsker du svar?",
+    "noResponse": "Ingen svar nødvendig",
+    "contactMe": "Kontakt meg angående denne tilbakemeldingen",
+    "includeContext": "Inkluder gjeldende side og enhetskontekst (valgfritt)",
+    "submit": "Send tilbakemelding",
+    "submitting": "Sender…",
+    "acknowledgementTitle": "Takk for at du hjelper oss å forbedre Aipify.",
+    "acknowledgementBody": "Hvert forslag hjelper oss å bygge en bedre opplevelse.",
+    "historyTitle": "Din tilbakemeldingshistorikk",
+    "historyEmpty": "Du har ikke sendt inn tilbakemeldinger ennå.",
+    "close": "Lukk",
+    "feedbackTypes": {
+      "bug_report": "Feilrapport",
+      "improvement_suggestion": "Forbedringsforslag",
+      "feature_request": "Ny funksjonsforespørsel",
+      "compliment": "Kompliment",
+      "usability_issue": "Brukervennlighetsproblem",
+      "general_feedback": "Generell tilbakemelding"
+    },
+    "priorities": {
+      "low": "Lav",
+      "medium": "Middels",
+      "high": "Høy"
+    },
+    "customerStatuses": {
+      "received": "Mottatt",
+      "under_review": "Under vurdering",
+      "planned": "Planlagt",
+      "implemented": "Implementert"
+    },
+    "trustNote": "Deltakelse er alltid frivillig. Vi bruker tilbakemeldinger kun for å forbedre Aipify — aldri til reklame eller videresalg.",
+    "transparencyNote": "Informasjon du deler her samles inn for å forbedre Aipify-produkter og -tjenester.",
+    "trustStatementLink": "Retningslinjer for kundetilbakemelding og produktforbedring"
   }
 }

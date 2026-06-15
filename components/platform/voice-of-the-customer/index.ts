@@ -1,0 +1,1 @@
+export { VocFeedbackCenterPanel } from "./VocFeedbackCenterPanel";

@@ -9,3 +9,4 @@ export {
   type AipifyOrbStatus,
   type AipifyPulseSize,
 } from "@/lib/branding/tokens";
+export { AIPIFY_GROUP, type AipifyGroupBrand } from "@/lib/branding/company";

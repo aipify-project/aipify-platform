@@ -74,6 +74,29 @@
           "Globala marknadsföringsuttalanden kombinerar flera tenants och avslöjar aldrig individuell affärsprestanda."
         ]
       },
+      "product_improvement": {
+        "title": "Policy för kundfeedback och produktförbättring",
+        "body": [
+          "Syfte: Aipify förbättrar sina tjänster kontinuerligt baserat på kundinteraktioner, frivillig feedback och aggregerade användningsinsikter.",
+          "Principer: Vi är transparenta om hur feedback samlas in. Vi samlar endast information som behövs för att förbättra plattformen. Vi säljer inte kundfeedback. Vi använder inte individuell feedback för reklam. Kunder behåller kontroll över informationen de väljer att dela.",
+          "Vad vi kan samla in: funktionsbetyg; frivilliga feedbackinlämningar; förbättringsförslag; buggrapporter; funktionsförfrågningar; anonyma produktanvändningsstatistik; interaktionsresultat (t.ex. om en föreslagen åtgärd var hjälpsam); aggregerad plattformsanalys.",
+          "Syfte med insamling: förbättra befintliga funktioner; identifiera användbarhetsproblem; prioritera produktutveckling; upptäcka återkommande problem; förbättra kundupplevelser; förbättra AI-assisterade rekommendationer; förstå hur Aipify bättre kan stödja organisationer.",
+          "Vad vi inte gör: sälja feedbackdata till tredje part; använda feedback för riktad reklam; dela kundspecifik feedback offentligt utan tillstånd; övervaka kommunikation som inte är relaterad till Aipify-tjänster.",
+          "Frivilligt deltagande: Skriftlig feedback är frivillig. Du väljer om du vill bli kontaktad angående din feedback.",
+          "Transparens: Där feedbackmekanismer finns i plattformen anger Aipify tydligt när information samlas in för att förbättra produkter och tjänster — inklusive feedbackknappar, förbättringsformulär, funktionsbetyg och produktenkäter.",
+          "Förtroendeprincip: Feedback är en gåva. Aipify finns för att tjäna sina kunder. Att lyssna ärligt och förbättra kontinuerligt är en viktig del av det ansvaret."
+        ]
+      },
+      "company_identity": {
+        "title": "Om Aipify Group AS",
+        "body": [
+          "Aipify Group AS har sitt huvudkontor i Bergen, Norge.",
+          "Officiellt varumärkesuttalande: Bergen. Norge. För världen.",
+          "Aipify grundades i Bergen — formad av norska värderingar som förtroende, kvalitet och långsiktigt tänkande.",
+          "Vår ambition är global. Våra värderingar förblir norska.",
+          "Vi bygger intelligenta affärssystem designade för att hjälpa organisationer arbeta smartare, svara snabbare och växa med förtroende — för organisationer överallt."
+        ]
+      },
       "security_principles": {
         "title": "Security Principles",
         "body": [
@@ -103,6 +126,7 @@
       "contact_information": {
         "title": "Contact Information",
         "body": [
+          "Headquarters: Bergen, Norge",
           "Official website: {website}",
           "Support: {support}",
           "Privacy: {privacy}"

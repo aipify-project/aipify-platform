@@ -4,11 +4,14 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   parsePackageUpgradeCheckout,
+  SELF_SERVICE_PAYMENT_PROVIDERS,
   type PackageUpgradeCheckout,
   type PaymentProviderKey,
   type PaymentProviderLabels,
 } from "@/lib/payment-providers";
 import { PaymentProviderLogo } from "@/components/shared/payment-providers";
+import { EnterpriseUpgradeInvoiceModal } from "@/components/shared/enterprise-invoicing";
+import type { EnterpriseInvoicingLabels } from "@/lib/enterprise-invoicing";
 import {
   PACKAGE_TIER_LABELS,
   parsePackageAccessCenter,
@@ -42,6 +45,7 @@ type PackageAccessCenterPanelLabels = {
   tiers: Record<string, string>;
   upgradeFlow?: PaymentProviderLabels["upgrade"];
   providerNames?: Record<string, string>;
+  enterpriseUpgradeLabels?: EnterpriseInvoicingLabels;
 };
 
 type PackageAccessCenterPanelProps = {
@@ -61,6 +65,7 @@ export function PackageAccessCenterPanel({ labels }: PackageAccessCenterPanelPro
   const [checkout, setCheckout] = useState<PackageUpgradeCheckout | null>(null);
   const [selectedProvider, setSelectedProvider] = useState<PaymentProviderKey>("stripe");
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [enterpriseUpgradeOpen, setEnterpriseUpgradeOpen] = useState<PackageComparison | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -83,6 +88,10 @@ export function PackageAccessCenterPanel({ labels }: PackageAccessCenterPanelPro
   }
 
   async function openUpgrade(pkg: PackageComparison) {
+    if (pkg.package_key === "enterprise" && labels.enterpriseUpgradeLabels) {
+      setEnterpriseUpgradeOpen(pkg);
+      return;
+    }
     setCheckoutOpen(pkg);
     setSelectedProvider("stripe");
     await loadCheckoutPreview(pkg, "stripe");
@@ -302,7 +311,7 @@ export function PackageAccessCenterPanel({ labels }: PackageAccessCenterPanelPro
                 <div>
                   <dt className="text-gray-500">{labels.upgradeFlow.paymentProvider}</dt>
                   <div className="mt-2 grid gap-2">
-                    {(["stripe", "klarna", "vipps", "dnb"] as PaymentProviderKey[]).map((key) => (
+                    {(["stripe", "klarna", "vipps"] as PaymentProviderKey[]).map((key) => (
                       <label
                         key={key}
                         className={`flex cursor-pointer items-center gap-3 rounded-xl border px-3 py-2 ${
@@ -362,6 +371,19 @@ export function PackageAccessCenterPanel({ labels }: PackageAccessCenterPanelPro
             </div>
           </div>
         </div>
+      )}
+
+      {enterpriseUpgradeOpen && labels.enterpriseUpgradeLabels && (
+        <EnterpriseUpgradeInvoiceModal
+          labels={labels.enterpriseUpgradeLabels}
+          targetPackage={enterpriseUpgradeOpen.package_key}
+          open={Boolean(enterpriseUpgradeOpen)}
+          onClose={() => setEnterpriseUpgradeOpen(null)}
+          onComplete={(message) => {
+            setUpgradeMessage(message);
+            void load();
+          }}
+        />
       )}
 
       <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">

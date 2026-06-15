@@ -110,5 +110,11 @@ export function buildPaymentProviderLabels(t: Translator, namespace: "customerAp
         logoAlt: t(`${p}.providers.dnb`),
       },
     },
+    enterpriseBilling: {
+      title: t(`${p}.enterpriseBilling.title`),
+      description: t(`${p}.enterpriseBilling.description`),
+      methods: t(`${p}.enterpriseBilling.methods`),
+      manageLink: t(`${p}.enterpriseBilling.manageLink`),
+    },
   };
 }

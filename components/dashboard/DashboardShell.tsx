@@ -10,7 +10,9 @@ import { LicenseSidebarPanel } from "@/components/app/license";
 import Sidebar, { type NavItem } from "./Sidebar";
 import GroupedSidebar from "./GroupedSidebar";
 import SidebarBrand, { SidebarBrandLegacy } from "./SidebarBrand";
+import { ShareFeedbackWidget } from "@/components/app/voice-of-the-customer";
 import { CompanionPresenceIndicator } from "@/components/app/companion-presence";
+import type { VocWidgetLabels } from "@/lib/voice-of-the-customer";
 import type { CompanionPresenceLabels } from "@/components/app/companion-presence";
 import { PresenceProvider, type PresenceLabels } from "@/components/presence/PresenceProvider";
 import Topbar from "./Topbar";
@@ -89,6 +91,7 @@ type DashboardShellProps = {
     labels: CommandBarLabels;
     navSources: CommandBarNavSource[];
   };
+  voiceOfCustomerLabels?: VocWidgetLabels;
   onMenuClick?: () => void;
   children: React.ReactNode;
 };
@@ -122,6 +125,7 @@ export default function DashboardShell({
   organizationSwitcherLabels,
   twoFactorBadgeLabels,
   commandBar,
+  voiceOfCustomerLabels,
   children,
 }: DashboardShellProps) {
   if (commandBar) {
@@ -156,6 +160,7 @@ export default function DashboardShell({
           licensePanelLabels={licensePanelLabels}
           presenceLabels={presenceLabels}
           companionPresenceLabels={companionPresenceLabels}
+          voiceOfCustomerLabels={voiceOfCustomerLabels}
           locale={locale}
           organizationSwitcherLabels={organizationSwitcherLabels}
           twoFactorBadgeLabels={twoFactorBadgeLabels}
@@ -193,6 +198,7 @@ export default function DashboardShell({
       licensePanelLabels={licensePanelLabels}
       presenceLabels={presenceLabels}
       companionPresenceLabels={companionPresenceLabels}
+      voiceOfCustomerLabels={voiceOfCustomerLabels}
       locale={locale}
       organizationSwitcherLabels={organizationSwitcherLabels}
       twoFactorBadgeLabels={twoFactorBadgeLabels}
@@ -234,6 +240,7 @@ function DashboardShellFrame({
   locale = "en",
   organizationSwitcherLabels,
   twoFactorBadgeLabels,
+  voiceOfCustomerLabels,
   commandBarLabels,
   children,
 }: DashboardShellFrameProps) {
@@ -487,10 +494,15 @@ function DashboardShellFrame({
   const withCompanion =
     shellVariant === "customer" &&
     pathname.startsWith("/app") &&
-    companionPresenceLabels ? (
+    (companionPresenceLabels || voiceOfCustomerLabels) ? (
       <>
         {shell}
-        <CompanionPresenceIndicator labels={companionPresenceLabels} />
+        {companionPresenceLabels ? (
+          <CompanionPresenceIndicator labels={companionPresenceLabels} />
+        ) : null}
+        {voiceOfCustomerLabels ? (
+          <ShareFeedbackWidget labels={voiceOfCustomerLabels} />
+        ) : null}
       </>
     ) : (
       shell

@@ -1,4 +1,5 @@
 import { PaymentProvidersExperiencePanel } from "@/components/shared/payment-providers";
+import { buildBillingExperienceLabels } from "@/lib/billing-experience";
 import { buildPaymentProviderLabels } from "@/lib/payment-providers";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -14,6 +15,7 @@ export default async function PlatformPaymentProvidersPage() {
       scope="platform"
       backHref="/platform/billing"
       labels={buildPaymentProviderLabels(t, "platform")}
+      billingLabels={buildBillingExperienceLabels(t, "platform")}
     />
   );
 }

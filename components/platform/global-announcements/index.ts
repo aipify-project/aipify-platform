@@ -1,0 +1,1 @@
+export { GlobalAnnouncementCenterPanel } from "./GlobalAnnouncementCenterPanel";

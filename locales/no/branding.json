@@ -4,5 +4,22 @@
   "platformTooltipTagline": "Aipify works for you.",
   "platformVersion": "Version 1.0",
   "pulseLabel": "Aipify platform symbol",
-  "orbLabel": "Aipify assistant"
+  "orbLabel": "Aipify assistant",
+  "company": {
+    "legalName": "Aipify Group AS",
+    "headquarters": "Bergen, Norge",
+    "officialStatement": "Bergen. Norge. For verden.",
+    "marketingSignature": "Bergen. Norge. For verden.",
+    "shortSignature": "Norge. For verden.",
+    "foundingPrinciple": "Ambisjonen vår er global. Verdiene våre forblir norske.",
+    "footerDescription": "Bygger intelligente forretningssystemer designet for å hjelpe organisasjoner å jobbe smartere, respondere raskere og vokse med tillit.",
+    "investorLine": "Grunnlagt i Bergen, Norge. Bygger AI-drevne forretningssystemer for organisasjoner over hele verden."
+  },
+  "principles": {
+    "humble": "Ydmyke nok til å lytte.",
+    "ambitious": "Ambisiøse nok til å tenke globalt.",
+    "disciplined": "Disiplinerte nok til å bygge for langsikt.",
+    "responsible": "Ansvarlige nok til å fortjene tillit.",
+    "curious": "Nysgjerrige nok til å fortsette å forbedre oss."
+  }
 }

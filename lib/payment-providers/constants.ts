@@ -2,6 +2,13 @@ export const PAYMENT_PROVIDER_KEYS = ["klarna", "vipps", "stripe", "dnb"] as con
 
 export type PaymentProviderKey = (typeof PAYMENT_PROVIDER_KEYS)[number];
 
+/** Self-service checkout providers — not enterprise billing. */
+export const SELF_SERVICE_PAYMENT_PROVIDERS = ["klarna", "vipps", "stripe"] as const;
+
+export type SelfServicePaymentProviderKey = (typeof SELF_SERVICE_PAYMENT_PROVIDERS)[number];
+
+export const ENTERPRISE_BILLING_PROVIDER = "dnb" as const;
+
 export const PROVIDER_STATUSES = [
   "operational",
   "pending_setup",
@@ -74,11 +81,12 @@ export const PROVIDER_FIELD_DEFINITIONS: Record<PaymentProviderKey, ProviderFiel
   ],
   dnb: [
     { key: "DNB_MERCHANT_ID", category: "metadata" },
+    { key: "DNB_ACCOUNT_NUMBER", category: "metadata" },
+    { key: "DNB_KID_PREFIX", category: "metadata" },
     { key: "DNB_API_KEY", category: "secret_key" },
     { key: "DNB_API_SECRET", category: "secret_key" },
     { key: "DNB_ENVIRONMENT", category: "metadata" },
     { key: "DNB_CALLBACK_URL", category: "url" },
-    { key: "DNB_RETURN_URL", category: "url" },
     { key: "DNB_WEBHOOK_SECRET", category: "webhook_secret" },
   ],
 };

@@ -1,4 +1,5 @@
 import { PackageAccessCenterPanel } from "@/components/app/settings/billing";
+import { buildEnterpriseInvoicingLabels } from "@/lib/enterprise-invoicing";
 import { buildPaymentProviderLabels } from "@/lib/payment-providers";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -44,6 +45,7 @@ export default async function PackageAccessSettingsPage() {
         },
         upgradeFlow: providerLabels.upgrade,
         providerNames: providerLabels.providers,
+        enterpriseUpgradeLabels: buildEnterpriseInvoicingLabels(t, "customerApp"),
       }}
     />
   );

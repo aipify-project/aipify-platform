@@ -2,6 +2,11 @@ import Link from "next/link";
 
 export type MarketingFooterLabels = {
   tagline: string;
+  companyName: string;
+  headquarters: string;
+  description: string;
+  signature: string;
+  foundingPrinciple: string;
   product: string;
   company: string;
   legal: string;
@@ -88,7 +93,14 @@ export default function MarketingFooter({ appName, labels }: MarketingFooterProp
         </div>
 
         <div className="mt-12 border-t border-white/10 pt-8">
-          <p className="text-center text-sm text-slate-500">
+          <div className="mx-auto max-w-2xl space-y-2 text-center text-sm text-slate-400">
+            <p className="font-semibold text-white">{labels.companyName}</p>
+            <p>{labels.headquarters}</p>
+            <p className="leading-relaxed">{labels.description}</p>
+            <p className="font-medium text-cyan-400/90">{labels.signature}</p>
+            <p className="text-xs text-slate-500">{labels.foundingPrinciple}</p>
+          </div>
+          <p className="mt-8 text-center text-sm text-slate-500">
             &copy; {new Date().getFullYear()} {labels.copyright}
           </p>
         </div>

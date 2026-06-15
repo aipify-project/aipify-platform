@@ -6702,7 +6702,8 @@
         "aiUsage": "AI-forbrug"
       },
       "viewPackages": "Pakker og adgang",
-      "viewPaymentProviders": "Payment providers"
+      "viewPaymentProviders": "Payment providers",
+      "viewInvoiceDetails": "Fakturadetaljer"
     },
     "pricingPhilosophy": {
       "title": "Prissætningsfilosofi",
@@ -21356,6 +21357,220 @@
       "klarnaPositioning": "Trusted European payment experiences.",
       "vippsPositioning": "Simple and trusted local payments.",
       "dnbPositioning": "Large organizations and invoice-based payment operations."
+    },
+    "enterpriseBilling": {
+      "title": "Enterprise Procurement",
+      "description": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements.",
+      "methods": "DNB Invoice · Purchase Orders · Bank Transfer · 30/60/90-Day Terms · Framework Agreements",
+      "manageLink": "Invoice details & enterprise procurement"
     }
+  },
+  "enterpriseInvoicing": {
+    "title": "Invoice details",
+    "subtitle": "Enterprise invoice billing — company details, accounts payable contact, payment terms, and purchase order references.",
+    "loading": "Preparing invoice details…",
+    "back": "Back to billing",
+    "principle": "Small customers pay fast. Large organizations pay properly.",
+    "save": "Save invoice details",
+    "saving": "Saving…",
+    "saved": "Invoice details saved.",
+    "empty": "No enterprise invoices yet.",
+    "overdueBanner": "{count} enterprise invoice(s) are overdue — finance review recommended.",
+    "sections": {
+      "billingDetails": "Billing details",
+      "paymentTerms": "Payment terms",
+      "invoices": "Enterprise invoices",
+      "audit": "Audit log",
+      "dnbProfile": "DNB Invoice profile",
+      "actions": "Actions"
+    },
+    "fields": {
+      "companyName": "Company name",
+      "organizationNumber": "Organization number",
+      "vatNumber": "VAT number",
+      "billingAddress": "Billing address",
+      "addressLine1": "Address line 1",
+      "addressLine2": "Address line 2",
+      "city": "City",
+      "postalCode": "Postal code",
+      "country": "Country",
+      "invoiceEmail": "Invoice email",
+      "apContactName": "Accounts payable contact",
+      "apContactEmail": "Accounts payable email",
+      "purchaseOrderNumber": "Purchase order number",
+      "internalReference": "Internal reference",
+      "paymentTerms": "Payment terms",
+      "paymentTermsCustom": "Custom payment terms",
+      "preferredCurrency": "Preferred currency",
+      "billingLanguage": "Billing language",
+      "invoiceNumber": "Invoice number",
+      "amount": "Amount",
+      "dueDate": "Due date",
+      "status": "Status",
+      "tenant": "Customer",
+      "bankTransfer": "Bank transfer",
+      "kid": "KID",
+      "paymentMethod": "Payment method"
+    },
+    "paymentTerms": {
+      "due_on_receipt": "Due on receipt",
+      "net_7": "Net 7",
+      "net_14": "Net 14",
+      "net_30": "Net 30",
+      "net_60": "Net 60",
+      "custom": "Custom enterprise terms"
+    },
+    "statuses": {
+      "draft": "Draft",
+      "sent": "Sent",
+      "viewed": "Viewed",
+      "approved": "Approved",
+      "partially_paid": "Partially paid",
+      "paid": "Paid",
+      "overdue": "Overdue",
+      "reminder_sent": "Reminder sent",
+      "disputed": "Disputed",
+      "cancelled": "Cancelled",
+      "credited": "Credited"
+    },
+    "actions": {
+      "create": "Create invoice",
+      "send": "Send invoice",
+      "downloadPdf": "Download PDF",
+      "markPaid": "Mark as paid",
+      "partialPayment": "Register partial payment",
+      "sendReminder": "Send reminder",
+      "credit": "Credit invoice",
+      "attachPo": "Attach purchase order",
+      "addNote": "Add internal note",
+      "escalate": "Escalate to finance admin",
+      "approve": "Approve",
+      "cancel": "Cancel",
+      "markOverdue": "Mark overdue",
+      "view": "View"
+    },
+    "billingModel": {
+      "selfService": "Instant Activation",
+      "enterprise": "Enterprise Procurement",
+      "selfServiceNote": "Designed for startups, freelancers, SMBs and fast-moving teams that want immediate access to Aipify.",
+      "enterpriseNote": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements."
+    },
+    "upgrade": {
+      "title": "Enterprise upgrade — invoice billing",
+      "currentPlan": "Current plan",
+      "newPlan": "New plan",
+      "priceDifference": "Price difference",
+      "billingMethod": "Billing method",
+      "paymentTerms": "Payment terms",
+      "accessPolicy": "Access policy",
+      "requiresApproval": "Enterprise invoices require approval before send unless your tenant policy allows automatic delivery.",
+      "approveAndContinue": "Approve & create invoice",
+      "createInvoiceDraft": "Create invoice draft only",
+      "profileRequired": "Complete invoice details before enterprise upgrade."
+    },
+    "permissions": {
+      "viewOnly": "You can view billing status. Contact your billing administrator to edit financial terms.",
+      "financeRequired": "Finance permissions required for this action."
+    },
+    "paymentMethods": {
+      "invoice": "Invoice",
+      "bankTransfer": "Bank Transfer",
+      "dnbInvoice": "DNB Invoice"
+    },
+    "invoiceCenter": {
+      "title": "Enterprise Invoice Center",
+      "emptyStructure": "No enterprise invoices yet. Your invoice history will appear here."
+    }
+  },
+  "billingExperience": {
+    "principle": "Aipify supports both purchasing behaviors — pay now for speed, approve and procure for enterprise scale.",
+    "commercialPrinciple": {
+      "instant": "Instant Activation: fast onboarding for customers who can make immediate purchasing decisions.",
+      "enterprise": "Enterprise Procurement: structured purchasing workflows for organizations with approval requirements.",
+      "footer": "Aipify Group AS serves both customer segments equally well. From Norway. For the world."
+    },
+    "instantActivation": {
+      "title": "Instant Activation",
+      "description": "Designed for startups, freelancers, SMBs and fast-moving teams that want immediate access to Aipify.",
+      "message": "Activate your subscription instantly and start using Aipify within minutes.",
+      "activateWith": "Pay with",
+      "checkout": "Activate now",
+      "checkingOut": "Starting checkout…"
+    },
+    "enterpriseProcurement": {
+      "title": "Enterprise Procurement",
+      "description": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements.",
+      "message": "Our enterprise team supports procurement processes, invoice terms, and tailored agreements for larger organizations.",
+      "manageLink": "Invoice details & enterprise procurement",
+      "methods": {
+        "dnb_invoice": "DNB Invoice",
+        "purchase_orders": "Purchase Orders (PO)",
+        "bank_transfer": "Bank Transfer",
+        "terms_30": "30-Day Terms",
+        "terms_60": "60-Day Terms",
+        "terms_90": "90-Day Terms",
+        "framework_agreements": "Framework Agreements"
+      },
+      "actions": {
+        "contact_enterprise_team": "Contact Enterprise Team",
+        "request_invoice_account": "Request Invoice Account",
+        "purchase_order_support": "Purchase Order Support",
+        "dnb_invoice_setup": "DNB Invoice Setup"
+      }
+    },
+    "smartRouting": {
+      "title": "How would you like to purchase Aipify?",
+      "instant": {
+        "label": "Instant activation",
+        "description": "Ideal for smaller teams and businesses."
+      },
+      "enterprise": {
+        "label": "Enterprise procurement",
+        "description": "Ideal for organizations requiring invoicing or internal approvals."
+      }
+    }
+  },
+  "voiceOfCustomer": {
+    "trigger": "Del feedback",
+    "triggerShort": "Del feedback",
+    "title": "Del feedback",
+    "subtitle": "Din stemme hjælper os med at forbedre Aipify — aldrig tvunget, altid velkommen.",
+    "type": "Feedbacktype",
+    "feedbackTitle": "Titel",
+    "description": "Beskrivelse",
+    "priority": "Prioritet",
+    "wantsResponse": "Vil du have svar?",
+    "noResponse": "Intet svar nødvendigt",
+    "contactMe": "Kontakt mig vedrørende denne feedback",
+    "includeContext": "Inkluder aktuel side og enhedskontekst (valgfrit)",
+    "submit": "Send feedback",
+    "submitting": "Sender…",
+    "acknowledgementTitle": "Tak fordi du hjælper os med at forbedre Aipify.",
+    "acknowledgementBody": "Hvert forslag hjælper os med at bygge en bedre oplevelse.",
+    "historyTitle": "Din feedbackhistorik",
+    "historyEmpty": "Du har endnu ikke sendt feedback.",
+    "close": "Luk",
+    "feedbackTypes": {
+      "bug_report": "Fejlrapport",
+      "improvement_suggestion": "Forbedringsforslag",
+      "feature_request": "Ny funktionsanmodning",
+      "compliment": "Kompliment",
+      "usability_issue": "Brugervenlighedsproblem",
+      "general_feedback": "Generel feedback"
+    },
+    "priorities": {
+      "low": "Lav",
+      "medium": "Mellem",
+      "high": "Høj"
+    },
+    "customerStatuses": {
+      "received": "Modtaget",
+      "under_review": "Under gennemgang",
+      "planned": "Planlagt",
+      "implemented": "Implementeret"
+    },
+    "trustNote": "Deltagelse er altid frivillig. Vi bruger feedback kun til at forbedre Aipify — aldrig til reklame eller videresalg.",
+    "transparencyNote": "Oplysninger, du deler her, indsamles for at forbedre Aipify-produkter og -tjenester.",
+    "trustStatementLink": "Politik for kundefeedback og produktforbedring"
   }
 }

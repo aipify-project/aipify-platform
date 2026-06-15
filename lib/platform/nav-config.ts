@@ -1,10 +1,19 @@
 export type PlatformNavId =
   | "executive"
+  | "executiveOperationsCenter"
+  | "announcementCenter"
+  | "feedbackCenter"
   | "overview"
   | "customers"
+  | "customerLifecycle"
+  | "customerSuccessOperations"
   | "subscriptions"
   | "billing"
   | "invoices"
+  | "paymentOperations"
+  | "paymentHealth"
+  | "paymentAnalytics"
+  | "subscriptionOperations"
   | "paymentProviders"
   | "installations"
   | "installEngine"
@@ -99,11 +108,36 @@ export type PlatformNavItem = {
 
 export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
   { id: "executive", href: "/platform/executive", labelKey: "platform.nav.executive" },
+  {
+    id: "executiveOperationsCenter",
+    href: "/platform/executive/operations-center",
+    labelKey: "platform.nav.executiveOperationsCenter",
+  },
+  {
+    id: "announcementCenter",
+    href: "/platform/communications/announcement-center",
+    labelKey: "platform.nav.announcementCenter",
+  },
+  {
+    id: "feedbackCenter",
+    href: "/platform/product/feedback-center",
+    labelKey: "platform.nav.feedbackCenter",
+  },
   { id: "overview", href: "/platform", labelKey: "platform.nav.overview" },
   {
     id: "customers",
     href: "/platform/customers",
     labelKey: "platform.nav.customers",
+  },
+  {
+    id: "customerLifecycle",
+    href: "/platform/customers/lifecycle-center",
+    labelKey: "platform.nav.customerLifecycle",
+  },
+  {
+    id: "customerSuccessOperations",
+    href: "/platform/customers/success-operations",
+    labelKey: "platform.nav.customerSuccessOperations",
   },
   {
     id: "subscriptions",
@@ -116,9 +150,29 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.billing",
   },
   {
+    id: "paymentOperations",
+    href: "/platform/billing/payment-operations",
+    labelKey: "platform.nav.paymentOperations",
+  },
+  {
+    id: "paymentHealth",
+    href: "/platform/billing/payment-health",
+    labelKey: "platform.nav.paymentHealth",
+  },
+  {
+    id: "paymentAnalytics",
+    href: "/platform/billing/payment-analytics",
+    labelKey: "platform.nav.paymentAnalytics",
+  },
+  {
+    id: "subscriptionOperations",
+    href: "/platform/billing/subscription-operations",
+    labelKey: "platform.nav.subscriptionOperations",
+  },
+  {
     id: "invoices",
-    href: "/platform/invoices",
-    labelKey: "platform.nav.invoices",
+    href: "/platform/billing/enterprise-invoices",
+    labelKey: "platform.nav.enterpriseInvoices",
   },
   {
     id: "paymentProviders",
@@ -210,9 +264,19 @@ export const PLATFORM_MOBILE_NAV_IDS: PlatformNavId[] = [
 ];
 
 export function getPlatformActiveNavId(pathname: string): PlatformNavId {
+  if (pathname.startsWith("/platform/product/feedback-center")) return "feedbackCenter";
+  if (pathname.startsWith("/platform/communications/announcement-center")) return "announcementCenter";
+  if (pathname.startsWith("/platform/executive/operations-center")) return "executiveOperationsCenter";
   if (pathname.startsWith("/platform/executive")) return "executive";
+  if (pathname.startsWith("/platform/customers/success-operations")) return "customerSuccessOperations";
+  if (pathname.startsWith("/platform/customers/lifecycle-center")) return "customerLifecycle";
   if (pathname.startsWith("/platform/customers")) return "customers";
   if (pathname.startsWith("/platform/subscriptions")) return "subscriptions";
+  if (pathname.startsWith("/platform/billing/payment-operations")) return "paymentOperations";
+  if (pathname.startsWith("/platform/billing/payment-health")) return "paymentHealth";
+  if (pathname.startsWith("/platform/billing/payment-analytics")) return "paymentAnalytics";
+  if (pathname.startsWith("/platform/billing/subscription-operations")) return "subscriptionOperations";
+  if (pathname.startsWith("/platform/billing/enterprise-invoices")) return "invoices";
   if (pathname.startsWith("/platform/billing")) return "billing";
   if (pathname.startsWith("/platform/invoices")) return "invoices";
   if (pathname.startsWith("/platform/payment-providers")) return "paymentProviders";

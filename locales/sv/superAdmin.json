@@ -140,9 +140,86 @@
     "internalSupport": {
       "title": "Internal Support",
       "purpose": "Operate customer success."
+    },
+    "groupOrganization": {
+      "title": "Koncernorganisation",
+      "purpose": "Hantera affärsekosystemet för Aipify Group AS."
+    }
+  },
+  "groupOverview": {
+    "title": "Koncernöversikt",
+    "subtitle": "Global organisation och multi-enhetshantering för Aipify Group AS.",
+    "loading": "Laddar koncernöversikt…",
+    "back": "Tillbaka till Super Admin",
+    "principle": "Aipify ska aldrig anta att den bara betjänar ett företag.",
+    "foundationStatement": "Aipify Group AS är moderbolaget. Aipify är operativsystemet. Framtida satsningar är möjligheter som väntar på att kopplas ihop.",
+    "tagline": "Bergen. Norge. För världen.",
+    "sections": {
+      "summary": "Organisationssammanfattning",
+      "entities": "Affärsenheter",
+      "investments": "Externa investeringar",
+      "sharedIntelligence": "Delad intelligens",
+      "audit": "Senaste revisionsaktivitet",
+      "hierarchy": "Organisationshierarki"
+    },
+    "summary": {
+      "totalEntities": "Totalt antal enheter",
+      "activeEntities": "Aktiva enheter",
+      "activeUsers": "Aktiva användare",
+      "activeSubscriptions": "Aktiva prenumerationer",
+      "investments": "Investeringar",
+      "signals": "Delade signaler"
+    },
+    "entities": {
+      "name": "Namn",
+      "type": "Typ",
+      "status": "Status",
+      "domain": "Primär domän",
+      "users": "Användare",
+      "subscriptions": "Prenumerationer",
+      "departments": "Avdelningar",
+      "teams": "Team",
+      "empty": "Inga affärsenheter registrerade ännu.",
+      "archive": "Arkivera"
+    },
+    "investments": {
+      "company": "Företag",
+      "ownership": "Ägarandel",
+      "amount": "Investeringsbelopp",
+      "status": "Status",
+      "empty": "Inga externa investeringar registrerade ännu."
+    },
+    "intelligence": {
+      "type": "Signaltyp",
+      "confidence": "Tillförlitlighet",
+      "empty": "Inga delade intelligenssignaler ännu."
+    },
+    "audit": {
+      "empty": "Inga senaste revisionsposter."
+    },
+    "entityTypes": {
+      "product_brand": "Produktvarumärke",
+      "subsidiary": "Dotterbolag",
+      "acquisition": "Förvärv",
+      "venture": "Satsning",
+      "internal": "Intern"
+    },
+    "statuses": {
+      "active": "Aktiv",
+      "archived": "Arkiverad",
+      "pendingSetup": "Väntar på konfiguration"
+    },
+    "signalTypes": {
+      "similar_support_request": "Liknande supportärende",
+      "shared_best_practice": "Delad bästa praxis",
+      "cross_sell_opportunity": "Merförsäljningsmöjlighet",
+      "growth_recommendation": "Tillväxtrekommendation",
+      "operational_pattern": "Operativt mönster"
     }
   },
   "modules": {
+    "groupOverview": "Koncernöversikt",
+    "groupOverviewDescription": "Företag, enheter, investeringar och delad intelligens under Aipify Group AS.",
     "platformHealth": "Platform Health",
     "platformHealthDescription": "Monitor core service health and operational readiness.",
     "serviceStatus": "Service Status",
@@ -231,7 +308,40 @@
     "supportIntelligenceDescription": "Analyze support intelligence signals.",
     "serviceReviews": "Service Reviews",
     "serviceReviewsDescription": "Conduct service quality and impact reviews.",
+    "globalInsights": "Global insiktsdashboard",
+    "globalInsightsDescription": "Voice of the Customer produktintelligens och initiativrekommendationer.",
     "paymentProviders": "Payment Providers",
     "paymentProvidersDescription": "Configure Klarna, Vipps MobilePay, Stripe, and DNB credentials."
+  },
+  "voiceOfCustomer": {
+    "title": "Global insiktsdashboard",
+    "subtitle": "Omvandla kundfeedback till produktinitiativ, roadmap-poster och utvecklingsfaser.",
+    "loading": "Förbereder global insikt…",
+    "principle": "Lyssna noga. Förbättra kontinuerligt. Bygg med kunder, inte bara för kunder.",
+    "sections": {
+      "insights": "Produktintelligens",
+      "initiatives": "Rekommenderade initiativ",
+      "themes": "Teman för funktionsförfrågningar"
+    },
+    "insights": {
+      "totalFeedback": "Total feedback",
+      "onboardingRequests": "Onboarding-relaterade förfrågningar",
+      "recommendation": "Rekommendation"
+    },
+    "table": {
+      "title": "Titel",
+      "summary": "Sammanfattning",
+      "recommendation": "Rekommendation",
+      "feedbackCount": "Antal feedback",
+      "type": "Typ",
+      "phase": "Länkad fas",
+      "status": "Status",
+      "theme": "Tema",
+      "count": "Antal"
+    },
+    "actions": {
+      "createInitiative": "Skapa initiativ",
+      "applying": "Tillämpar…"
+    }
   }
 }

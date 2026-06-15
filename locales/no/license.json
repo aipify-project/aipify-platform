@@ -74,6 +74,29 @@
           "Globale markedsføringsutsagn kombinerer flere leietakere og avslører aldri individuell forretningsytelse."
         ]
       },
+      "product_improvement": {
+        "title": "Retningslinjer for kundetilbakemelding og produktforbedring",
+        "body": [
+          "Formål: Aipify forbedrer tjenestene kontinuerlig basert på kundeinteraksjoner, frivillig tilbakemelding og aggregerte bruksinnsikter.",
+          "Prinsipper: Vi er transparente om hvordan tilbakemeldinger samles inn. Vi samler kun informasjon som er nødvendig for å forbedre plattformen. Vi selger ikke kundetilbakemeldinger. Vi bruker ikke individuelle tilbakemeldinger til reklame. Kunder beholder kontroll over informasjonen de velger å dele.",
+          "Det vi kan samle inn: funksjonsvurderinger; frivillige tilbakemeldinger; forbedringsforslag; feilrapporter; funksjonsforespørsler; anonyme produktbruksstatistikker; interaksjonsresultater (f.eks. om et foreslått tiltak var nyttig); aggregerte plattformanalyser.",
+          "Formål med innsamling: forbedre eksisterende funksjoner; identifisere brukervennlighetsproblemer; prioritere produktutvikling; oppdage gjentakende problemer; forbedre kundeopplevelser; forbedre AI-assisterte anbefalinger; forstå hvordan Aipify bedre kan støtte organisasjoner.",
+          "Det vi ikke gjør: selge tilbakemeldingsdata til tredjeparter; bruke tilbakemeldinger til målrettet reklame; dele kundespesifikke tilbakemeldinger offentlig uten tillatelse; overvåke kommunikasjon som ikke er relatert til Aipify-tjenester.",
+          "Frivillig deltakelse: Skriftlig tilbakemelding er frivillig. Du velger om du ønsker å bli kontaktet angående tilbakemeldingen.",
+          "Transparens: Der tilbakemeldingsmekanismer finnes i plattformen, indikerer Aipify tydelig når informasjon samles inn for å forbedre produkter og tjenester — inkludert tilbakemeldingsknapper, forbedringsskjemaer, funksjonsvurderinger og produktundersøkelser.",
+          "Tillitsprinsipp: Tilbakemelding er en gave. Aipify eksisterer for å tjene kundene sine. Å lytte ærlig og forbedre seg kontinuerlig er en viktig del av det ansvaret."
+        ]
+      },
+      "company_identity": {
+        "title": "Om Aipify Group AS",
+        "body": [
+          "Aipify Group AS har hovedkontor i Bergen, Norge.",
+          "Offisiell merkevareerklæring: Bergen. Norge. For verden.",
+          "Aipify ble grunnlagt i Bergen — formet av norske verdier som tillit, kvalitet og langsiktig tenkning.",
+          "Ambisjonen vår er global. Verdiene våre forblir norske.",
+          "Vi bygger intelligente forretningssystemer designet for å hjelpe organisasjoner å jobbe smartere, respondere raskere og vokse med tillit — for organisasjoner overalt."
+        ]
+      },
       "security_principles": {
         "title": "Security Principles",
         "body": [
@@ -103,6 +126,7 @@
       "contact_information": {
         "title": "Contact Information",
         "body": [
+          "Hovedkontor: Bergen, Norge",
           "Official website: {website}",
           "Support: {support}",
           "Privacy: {privacy}"

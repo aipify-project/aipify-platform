@@ -1,0 +1,48 @@
+# Aipify Group AS — Company Foundation Directive (ILM corpus)
+
+Effective immediately. All development, documentation, onboarding, legal references,
+business planning, investor material, admin interfaces, platform communications,
+and strategic decisions must reflect the official company identity.
+
+## Official identity
+Company: Aipify Group AS
+Origin: Norway
+Tagline: From Norway. For the world.
+Product: Aipify (Aipify Business Operating System / ABOS)
+
+## Mission
+Develop intelligent software that helps organizations operate efficiently, decide
+better, automate repetitive work, improve customer experiences, and unlock human
+potential through responsible AI.
+
+Aipify is not built to replace people. Aipify is built to empower people.
+
+## Vision
+Become one of the world's leading providers of AI-powered business operating
+systems — a trusted companion for businesses globally.
+
+## Company principles
+Build for trust before scale. Longevity before trends. Enterprise quality minimum.
+Human oversight essential. Remove friction, not humanity. Every feature solves a
+real problem. Global ambitions with local understanding.
+
+## Naming
+Legal / investor / ownership / platform admin → Aipify Group AS
+Product customers use daily → Aipify
+Never treat the repo or project name as informal shorthand for the company.
+
+## Preferred phrasing
+Aipify Group AS — From Norway. For the world.
+Business Intelligence. Human Understanding.
+Built to support. Designed to scale.
+AI that works with people.
+
+## Avoid
+Implying Aipify replaces employees or runs companies alone.
+Treating Aipify as a generic AI chatbot startup name only.
+Geography-limited positioning when building product or copy.
+Confusing Platform Admin (Aipify Group AS internal) with Customer App (tenants).
+
+## Decision filter
+Does this support the long-term vision of Aipify Group AS?
+Yes → continue. No → reconsider.

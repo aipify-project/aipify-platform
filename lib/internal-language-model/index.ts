@@ -18,6 +18,7 @@ export * from "./enterprise-loading-language-vocabulary";
 export * from "./abos-vocabulary";
 export * from "./abos-terminology";
 export * from "./positioning-foundation-vocabulary";
+export * from "./company-foundation-vocabulary";
 export * from "./self-love-naming-vocabulary";
 export * from "./action-approval-vocabulary";
 export * from "./proactive-companion-vocabulary";
@@ -457,6 +458,9 @@ export const ABOS_BRAND_TERMINOLOGY_PATH =
 
 export const POSITIONING_FOUNDATION_ABOS_PATH =
   "aipify-core/knowledge/internal-language-model/positioning-foundation-abos.txt";
+
+export const COMPANY_FOUNDATION_DIRECTIVE_PATH =
+  "aipify-core/knowledge/internal-language-model/aipify-group-as-company-foundation-directive.txt";
 
 export const SELF_LOVE_NAMING_STANDARD_PATH =
   "aipify-core/knowledge/internal-language-model/self-love-naming-standard.txt";

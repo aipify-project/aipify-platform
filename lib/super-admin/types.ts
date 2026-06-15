@@ -1,4 +1,5 @@
 export type SuperAdminSectionId =
+  | "groupOrganization"
   | "platformOperations"
   | "tenantManagement"
   | "commercialOperations"
