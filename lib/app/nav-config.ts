@@ -317,6 +317,7 @@ export type AppNavId =
   | "marketplaceGovernanceEngine"
   | "partnerCertificationEngine"
   | "growthPartnerOperationsEngine"
+  | "growthPartnerAcademy"
   | "ecosystemGovernanceEngine"
   | "commercialModelEngine"
   | "academyEngine"
@@ -1566,6 +1567,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "ecosystemGovernanceEngine", href: "/app/ecosystem-governance", labelKey: "customerApp.nav.ecosystemGovernanceEngine" },
   { id: "partnerCertificationEngine", href: "/app/partners", labelKey: "customerApp.nav.partnerCertificationEngine" },
   { id: "growthPartnerOperationsEngine", href: "/app/growth-partner-operations", labelKey: "customerApp.nav.growthPartnerOperationsEngine" },
+  { id: "growthPartnerAcademy", href: "/app/growth-partner/academy", labelKey: "customerApp.nav.growthPartnerAcademy" },
   { id: "commercialModelEngine", href: "/app/commercial", labelKey: "customerApp.nav.commercialModelEngine" },
   { id: "academyEngine", href: "/app/academy", labelKey: "customerApp.nav.academyEngine" },
   { id: "globalExpansionEngine", href: "/app/global-expansion", labelKey: "customerApp.nav.globalExpansionEngine" },
@@ -2366,6 +2368,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/ecosystem")) return "ecosystemIntelligenceEngine";
   if (pathname.startsWith("/app/community")) return "communityIntelligenceEngine";
   if (pathname.startsWith("/app/marketplace-governance")) return "marketplaceGovernanceEngine";
+  if (pathname.startsWith("/app/growth-partner/academy")) return "growthPartnerAcademy";
   if (pathname.startsWith("/app/growth-partner-operations")) return "growthPartnerOperationsEngine";
   if (pathname.startsWith("/app/ecosystem-governance")) return "ecosystemGovernanceEngine";
   if (pathname.startsWith("/app/partners")) return "partnerCertificationEngine";

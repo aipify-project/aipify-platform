@@ -17,5 +17,6 @@ export const config = {
     "/super/:path*",
     "/login",
     "/register",
+    "/api/:path*",
   ],
 };

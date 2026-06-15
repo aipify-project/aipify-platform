@@ -4,13 +4,17 @@
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
+## Aipify Group AS — company foundation (mandatory first)
+
+Read **[AIPIFY_GROUP_AS_COMPANY_FOUNDATION_DIRECTIVE.md](./AIPIFY_GROUP_AS_COMPANY_FOUNDATION_DIRECTIVE.md)** first. **Aipify Group AS** is the parent company (Norway · *From Norway. For the world.*) — not merely a project name. All development, documentation, legal copy, investor material, and platform communications must reflect this identity.
+
 ## Aipify core foundation — mandatory before every capability
 
-Read **[CORE_FOUNDATION.md](./CORE_FOUNDATION.md)** first. This is the non-negotiable foundation (identity, mission, human control, privacy, presence, actions, core package). Then read **[OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md)** for agent governance and skills checklist. Read **[ENTERPRISE_DESIGN_COMMUNICATION_STANDARD.md](./ENTERPRISE_DESIGN_COMMUNICATION_STANDARD.md)** before UX, copy, onboarding, dashboards, Companion UI, marketing strings, pricing copy, or Knowledge Center content. For product architecture framing, read **[ABOS_FOUNDATION.md](./ABOS_FOUNDATION.md)** and **[ABOS_BRAND_TERMINOLOGY_STANDARD.md](./ABOS_BRAND_TERMINOLOGY_STANDARD.md)** — use **Aipify Business Operating System (ABOS)** in all generated docs unless a specific module name is required.
+Read **[CORE_FOUNDATION.md](./CORE_FOUNDATION.md)** next. This is the non-negotiable product foundation (identity, mission, human control, privacy, presence, actions, core package). Then read **[OPERATING_PRINCIPLES.md](./OPERATING_PRINCIPLES.md)** for agent governance and skills checklist. Read **[ENTERPRISE_DESIGN_COMMUNICATION_STANDARD.md](./ENTERPRISE_DESIGN_COMMUNICATION_STANDARD.md)** before UX, copy, onboarding, dashboards, Companion UI, marketing strings, pricing copy, or Knowledge Center content. For product architecture framing, read **[ABOS_FOUNDATION.md](./ABOS_FOUNDATION.md)** and **[ABOS_BRAND_TERMINOLOGY_STANDARD.md](./ABOS_BRAND_TERMINOLOGY_STANDARD.md)** — use **Aipify Business Operating System (ABOS)** in all generated docs unless a specific module name is required.
 
-New capabilities must never bypass core principles, plan limits, tenant isolation, approval policy, or layer separation.
+New capabilities must never bypass company foundation, core principles, plan limits, tenant isolation, approval policy, or layer separation.
 
-**Governance order:** Core Foundation → Operating Principles → Enterprise Design & Communication Standard → Architecture → Implementation → Skills.
+**Governance order:** Company Foundation Directive → Core Foundation → Operating Principles → Enterprise Design & Communication Standard → Architecture → Implementation → Skills.
 
 Before any new capability, answer [CORE_FOUNDATION.md §18](./CORE_FOUNDATION.md#18-future-development-rule): identity, human control, privacy, layer, core vs modular. If unclear, **pause**.
 
@@ -19,6 +23,14 @@ For **skills**, read **[SKILL_ENGINE.md](./SKILL_ENGINE.md)**. Register every ca
 For **installation and onboarding**, read **[INSTALL_ENGINE.md](./INSTALL_ENGINE.md)**. Shared constants live in `lib/install/`; embedded runtime in `lib/embed/` and `app/api/install/`. Extend the existing wizard (`lib/platform/installation-engine.ts`) — do not replace without migration plan.
 
 For **safe updates and version deployment**, read **[UPDATE_ENGINE.md](./UPDATE_ENGINE.md)**. Constants in `lib/update/`; platform rollout at `app/platform/updates/`; embedded reporting at `app/api/install/version`. Database migrations require explicit approval — updates must never silently alter customer data.
+
+**Before shipping a phase with new tables/RPCs**, apply its SQL migration to Supabase Core first:
+
+1. `npm run supabase:sql` — list pending migrations
+2. `npm run supabase:sql:apply -- --from <version>` — apply pending from a version
+3. `npm run supabase:sql:apply -- --file supabase/migrations/<file>.sql` — apply one file
+
+Uses the Supabase Management API (`scripts/supabase-apply-sql.mjs`) with token from `npx supabase login` or `SUPABASE_ACCESS_TOKEN`. Prefer this over `supabase db push` when CLI history drift blocks push.
 
 For **trust, privacy, and data ownership**, read **[TRUST_ARCHITECTURE.md](./TRUST_ARCHITECTURE.md)**. Rules in `lib/trust/`; customer Security Dashboard at Settings → Security; installation validation in `lib/embed/validation.ts`. Customer owns data — store metadata, not operational records, unless explicitly approved.
 

@@ -34,7 +34,15 @@ try {
   console.log(dryRun ? "Dry run complete." : "Supabase migrations pushed.");
 } catch (error) {
   console.error(
-    "\nPush failed. Run:\n  npx supabase login\n  npm run supabase:link\n  npm run supabase:push\n"
+    "\nPush failed (often due to migration history drift).\n" +
+      "Use the Management API workflow instead:\n" +
+      "  npm run supabase:sql              # list pending\n" +
+      "  npm run supabase:sql:apply        # apply all pending\n" +
+      "  npm run supabase:sql:apply -- --from 20261469000000\n\n" +
+      "Or retry CLI push after login/link:\n" +
+      "  npx supabase login\n" +
+      "  npm run supabase:link\n" +
+      "  npm run supabase:push\n"
   );
   process.exit(error.status ?? 1);
 }

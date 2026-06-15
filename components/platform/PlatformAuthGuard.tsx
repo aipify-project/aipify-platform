@@ -2,7 +2,8 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import type { AuthChangeEvent } from "@supabase/supabase-js";
+import { getBrowserSupabaseClient } from "@/lib/supabase/browser-client";
 import { getPlatformProfile } from "@/lib/tenant/get-platform-profile";
 
 type PlatformAuthGuardProps = {
@@ -19,18 +20,52 @@ export default function PlatformAuthGuard({
   const router = useRouter();
   const [checking, setChecking] = useState(true);
   const [authorized, setAuthorized] = useState(false);
+  const [denied, setDenied] = useState(false);
 
   useEffect(() => {
-    const supabase = createClient();
+    const supabase = getBrowserSupabaseClient();
+    let mounted = true;
 
-    getPlatformProfile(supabase).then((profile) => {
-      if (!profile) {
-        router.replace("/app");
-      } else {
-        setAuthorized(true);
+    async function verifyAccess() {
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+
+      if (!mounted) return;
+
+      if (error || !user) {
+        router.replace("/login?next=/platform");
+        return;
       }
+
+      const profile = await getPlatformProfile(supabase);
+      if (!mounted) return;
+
+      if (!profile) {
+        setDenied(true);
+        setChecking(false);
+        return;
+      }
+
+      setAuthorized(true);
       setChecking(false);
+    }
+
+    void verifyAccess();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event: AuthChangeEvent) => {
+      if (event === "SIGNED_OUT") {
+        router.replace("/login?next=/platform");
+      }
     });
+
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, [router]);
 
   if (checking) {
@@ -44,7 +79,7 @@ export default function PlatformAuthGuard({
     );
   }
 
-  if (!authorized) {
+  if (denied || !authorized) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4">
         <p className="text-sm font-medium text-slate-600">{deniedLabel}</p>

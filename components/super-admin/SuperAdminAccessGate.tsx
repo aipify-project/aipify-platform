@@ -1,8 +1,8 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState, type ReactNode } from "react";
-import { twoFactorRedirectPath, fetchTwoFactorStatusCached, type TwoFactorStatus } from "@/lib/auth/two-factor";
+import { useRouter } from "next/navigation";
+import { type ReactNode } from "react";
+import { useTwoFactorSessionGate } from "@/lib/auth/use-two-factor-session-gate";
 
 type SuperAdminAccessGateProps = {
   loadingLabel: string;
@@ -16,45 +16,29 @@ export default function SuperAdminAccessGate({
   children,
 }: SuperAdminAccessGateProps) {
   const router = useRouter();
-  const pathname = usePathname();
-  const [ready, setReady] = useState(false);
-  const [blockedReason, setBlockedReason] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (pathname.startsWith("/verify-2fa") || pathname.startsWith("/app/settings/two-factor")) {
-      setReady(true);
-      return;
-    }
-
-    fetchTwoFactorStatusCached()
-      .then(async (status) => {
-        if (!status) {
-          setReady(true);
-          return;
-        }
-        const gate = twoFactorRedirectPath(status, pathname);
-        if (gate) {
-          router.replace(gate);
-          return;
-        }
-
-        if (!status.enabled || (status.recovery_codes_remaining ?? 0) < 1) {
-          setBlockedReason(recoveryRequiredLabel);
-          router.replace(
-            `/app/settings/two-factor?required=1&next=${encodeURIComponent(pathname)}`
-          );
-          return;
-        }
-
-        setReady(true);
-      })
-      .catch(() => setReady(true));
-  }, [pathname, recoveryRequiredLabel, router]);
+  const { ready, blockedReason } = useTwoFactorSessionGate({
+    requireEnabled: true,
+    onRequireEnabled: (pathname) => {
+      router.replace(
+        `/app/settings/two-factor?required=1&next=${encodeURIComponent(pathname)}`
+      );
+    },
+    validateStatus: (status) =>
+      status.enabled && (status.recovery_codes_remaining ?? 0) >= 1,
+    onBlocked: (reason) => {
+      if (reason === "validation_failed") {
+        router.replace(
+          `/app/settings/two-factor?required=1&next=${encodeURIComponent("/super")}`
+        );
+      }
+    },
+  });
 
   if (blockedReason) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-950 px-4">
-        <p className="text-sm font-medium text-zinc-400">{blockedReason}</p>
+        <p className="text-sm font-medium text-zinc-400">{recoveryRequiredLabel}</p>
       </div>
     );
   }

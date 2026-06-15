@@ -1,0 +1,1 @@
+export { AcademyStudioPanel } from "./AcademyStudioPanel";

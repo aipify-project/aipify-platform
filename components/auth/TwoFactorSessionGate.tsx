@@ -1,38 +1,7 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState, type ReactNode } from "react";
-import { twoFactorRedirectPath, fetchTwoFactorStatusCached } from "@/lib/auth/two-factor";
-
-export function useTwoFactorSessionGate() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    if (pathname.startsWith("/verify-2fa") || pathname.startsWith("/app/settings/two-factor")) {
-      setReady(true);
-      return;
-    }
-
-    fetchTwoFactorStatusCached()
-      .then((status) => {
-        if (!status) {
-          setReady(true);
-          return;
-        }
-        const gate = twoFactorRedirectPath(status, pathname);
-        if (gate) {
-          router.replace(gate);
-          return;
-        }
-        setReady(true);
-      })
-      .catch(() => setReady(true));
-  }, [pathname, router]);
-
-  return ready;
-}
+import { type ReactNode } from "react";
+import { useTwoFactorSessionGate } from "@/lib/auth/use-two-factor-session-gate";
 
 type TwoFactorSessionGateProps = {
   loadingLabel: string;
@@ -43,7 +12,7 @@ export default function TwoFactorSessionGate({
   loadingLabel,
   children,
 }: TwoFactorSessionGateProps) {
-  const ready = useTwoFactorSessionGate();
+  const { ready } = useTwoFactorSessionGate();
 
   if (!ready) {
     return (

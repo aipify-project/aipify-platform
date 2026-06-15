@@ -1,8 +1,8 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState, type ReactNode } from "react";
-import { twoFactorRedirectPath, fetchTwoFactorStatusCached, type TwoFactorStatus } from "@/lib/auth/two-factor";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, type ReactNode } from "react";
+import { useTwoFactorSessionGate } from "@/lib/auth/use-two-factor-session-gate";
 
 const PLATFORM_SESSION_AUDIT_KEY = "aipify-platform-admin-session-audit";
 
@@ -18,55 +18,35 @@ export default function PlatformAccessGate({
   children,
 }: PlatformAccessGateProps) {
   const router = useRouter();
-  const pathname = usePathname();
-  const [ready, setReady] = useState(false);
-  const [blockedReason, setBlockedReason] = useState<string | null>(null);
+  const auditSentRef = useRef(false);
+
+  const { ready, blockedReason } = useTwoFactorSessionGate({
+    requireEnabled: true,
+    onRequireEnabled: (pathname) => {
+      router.replace(
+        `/app/settings/two-factor?required=1&next=${encodeURIComponent(pathname)}`
+      );
+    },
+  });
 
   useEffect(() => {
-    if (pathname.startsWith("/verify-2fa") || pathname.startsWith("/app/settings/two-factor")) {
-      setReady(true);
-      return;
+    if (!ready || auditSentRef.current) return;
+
+    auditSentRef.current = true;
+    if (sessionStorage.getItem(PLATFORM_SESSION_AUDIT_KEY) !== "1") {
+      sessionStorage.setItem(PLATFORM_SESSION_AUDIT_KEY, "1");
+      void fetch("/api/platform-admin/audit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action_type: "platform_admin_session_entered" }),
+      });
     }
-
-    fetchTwoFactorStatusCached()
-      .then((status) => {
-        if (!status) {
-          setReady(true);
-          return;
-        }
-
-        const gate = twoFactorRedirectPath(status, pathname);
-        if (gate) {
-          router.replace(gate);
-          return;
-        }
-
-        if (!status.enabled) {
-          setBlockedReason(twoFactorRequiredLabel);
-          router.replace(
-            `/app/settings/two-factor?required=1&next=${encodeURIComponent(pathname)}`
-          );
-          return;
-        }
-
-        if (sessionStorage.getItem(PLATFORM_SESSION_AUDIT_KEY) !== "1") {
-          sessionStorage.setItem(PLATFORM_SESSION_AUDIT_KEY, "1");
-          void fetch("/api/platform-admin/audit", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ action_type: "platform_admin_session_entered" }),
-          });
-        }
-
-        setReady(true);
-      })
-      .catch(() => setReady(true));
-  }, [pathname, router, twoFactorRequiredLabel]);
+  }, [ready]);
 
   if (blockedReason) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4">
-        <p className="text-sm font-medium text-slate-600">{blockedReason}</p>
+        <p className="text-sm font-medium text-slate-600">{twoFactorRequiredLabel}</p>
       </div>
     );
   }

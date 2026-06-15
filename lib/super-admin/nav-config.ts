@@ -67,6 +67,12 @@ export const SUPER_ADMIN_SECTIONS: SuperAdminSection[] = [
       { id: "commissions", labelKey: "superAdmin.modules.commissions", descriptionKey: "superAdmin.modules.commissionsDescription", href: "/platform/billing" },
       { id: "payoutReviews", labelKey: "superAdmin.modules.payoutReviews", descriptionKey: "superAdmin.modules.payoutReviewsDescription", href: "/platform/invoices" },
       { id: "partnerSupport", labelKey: "superAdmin.modules.partnerSupport", descriptionKey: "superAdmin.modules.partnerSupportDescription", href: "/platform/support" },
+      {
+        id: "academyStudio",
+        labelKey: "superAdmin.modules.academyStudio",
+        descriptionKey: "superAdmin.modules.academyStudioDescription",
+        href: "/super/academy-studio",
+      },
     ],
   },
   {

@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
-import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import { type ReactNode } from "react";
+import { usePortalAuthGuard } from "@/lib/auth/use-portal-auth-guard";
 
 type DashboardAuthGuardProps = {
   loadingLabel: string;
@@ -13,33 +12,10 @@ export default function DashboardAuthGuard({
   loadingLabel,
   children,
 }: DashboardAuthGuardProps) {
-  const router = useRouter();
-  const [checking, setChecking] = useState(true);
-  const [authenticated, setAuthenticated] = useState(false);
-
-  useEffect(() => {
-    const supabase = createClient();
-
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) {
-        router.replace("/login");
-      } else {
-        setAuthenticated(true);
-      }
-      setChecking(false);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
-        router.replace("/login");
-        setAuthenticated(false);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [router]);
+  const { checking, authenticated } = usePortalAuthGuard({
+    loginPath: "/login",
+    nextPath: "/dashboard",
+  });
 
   if (checking) {
     return (

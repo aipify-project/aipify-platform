@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { invalidateTwoFactorStatusCache } from "@/lib/auth/two-factor";
 
 type TwoFactorVerifyFormProps = {
   labels: {
@@ -116,6 +117,8 @@ export default function TwoFactorVerifyForm({ labels }: TwoFactorVerifyFormProps
         }
         return;
       }
+
+      invalidateTwoFactorStatusCache();
 
       const destination =
         nextPath?.startsWith("/") && !nextPath.startsWith("//")

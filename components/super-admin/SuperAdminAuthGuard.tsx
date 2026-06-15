@@ -2,7 +2,8 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import type { AuthChangeEvent } from "@supabase/supabase-js";
+import { getBrowserSupabaseClient } from "@/lib/supabase/browser-client";
 import { getPlatformProfile } from "@/lib/tenant/get-platform-profile";
 
 type SuperAdminAuthGuardProps = {
@@ -24,11 +25,28 @@ export default function SuperAdminAuthGuard({
   const [deniedMessage, setDeniedMessage] = useState(deniedLabel);
 
   useEffect(() => {
-    const supabase = createClient();
+    const supabase = getBrowserSupabaseClient();
+    let mounted = true;
 
-    getPlatformProfile(supabase).then((profile) => {
-      if (!profile) {
+    async function verifyAccess() {
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+
+      if (!mounted) return;
+
+      if (error || !user) {
         router.replace("/login?next=/super");
+        return;
+      }
+
+      const profile = await getPlatformProfile(supabase);
+      if (!mounted) return;
+
+      if (!profile) {
+        setDeniedMessage(supportRedirectLabel);
+        setChecking(false);
         return;
       }
 
@@ -40,7 +58,22 @@ export default function SuperAdminAuthGuard({
 
       setAuthorized(true);
       setChecking(false);
+    }
+
+    void verifyAccess();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event: AuthChangeEvent) => {
+      if (event === "SIGNED_OUT") {
+        router.replace("/login?next=/super");
+      }
     });
+
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, [router, deniedLabel, supportRedirectLabel]);
 
   if (checking) {

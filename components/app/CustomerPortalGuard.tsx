@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
-import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import { type ReactNode } from "react";
+import { usePortalAuthGuard } from "@/lib/auth/use-portal-auth-guard";
 
 type CustomerPortalGuardProps = {
   loadingLabel: string;
@@ -13,33 +12,10 @@ export default function CustomerPortalGuard({
   loadingLabel,
   children,
 }: CustomerPortalGuardProps) {
-  const router = useRouter();
-  const [checking, setChecking] = useState(true);
-  const [authenticated, setAuthenticated] = useState(false);
-
-  useEffect(() => {
-    const supabase = createClient();
-
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) {
-        router.replace("/login?next=/app");
-      } else {
-        setAuthenticated(true);
-      }
-      setChecking(false);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
-        router.replace("/login?next=/app");
-        setAuthenticated(false);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [router]);
+  const { checking, authenticated } = usePortalAuthGuard({
+    loginPath: "/login",
+    nextPath: "/app",
+  });
 
   if (checking) {
     return (

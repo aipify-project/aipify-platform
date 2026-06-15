@@ -8,6 +8,7 @@ export type PlatformNavId =
   | "platformKnowledgeEvolutionCenter"
   | "platformComplianceGovernanceCenter"
   | "platformPlaybookCenter"
+  | "platformAcademyStudio"
   | "overview"
   | "customers"
   | "customerLifecycle"
@@ -250,6 +251,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     href: "/platform/operations/playbooks",
     labelKey: "platform.nav.platformPlaybookCenter",
   },
+  {
+    id: "platformAcademyStudio",
+    href: "/platform/academy",
+    labelKey: "platform.nav.platformAcademyStudio",
+  },
   { id: "overview", href: "/platform", labelKey: "platform.nav.overview" },
   {
     id: "customers",
@@ -397,6 +403,7 @@ export const PLATFORM_MOBILE_NAV_IDS: PlatformNavId[] = [
 
 export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/operations/playbooks")) return "platformPlaybookCenter";
+  if (pathname.startsWith("/platform/academy")) return "platformAcademyStudio";
   if (pathname.startsWith("/platform/operations")) return "platformPlaybookCenter";
   if (pathname.startsWith("/platform/governance/compliance-center")) return "platformComplianceGovernanceCenter";
   if (pathname.startsWith("/platform/governance")) return "platformComplianceGovernanceCenter";
