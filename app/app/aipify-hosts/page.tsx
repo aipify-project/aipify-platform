@@ -4,9 +4,11 @@ import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AipifyHostsPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const locale = await getLocale();
+  const dict = await getDictionary(locale, ["customerApp", "hosts"]);
   const t = createTranslator(dict);
   const p = "customerApp.aipifyHosts";
+  const h = "hosts.dashboard";
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -50,6 +52,19 @@ export default async function AipifyHostsPage() {
           openOperations: t(`${p}.openOperations`),
           openPropertyCenter: t(`${p}.openPropertyCenter`),
           openGuestCenter: t(`${p}.openGuestCenter`),
+          openTeamCenter: t(`${p}.openTeamCenter`),
+          openTasksCenter: t(`${p}.openTasksCenter`),
+          openFinanceCenter: t(`${h}.openFinanceCenter`),
+          openNotificationCenter: t(`${h}.openNotificationCenter`),
+          openIncidentCenter: t(`${h}.openIncidentCenter`),
+          openQualityCenter: t(`${h}.openQualityCenter`),
+          openSuppliesCenter: t(`${h}.openSuppliesCenter`),
+          openVendorCenter: t(`${h}.openVendorCenter`),
+          openDocumentCenter: t(`${h}.openDocumentCenter`),
+          openCalendarCenter: t(`${h}.openCalendarCenter`),
+          openCheckInCenter: t(`${h}.openCheckInCenter`),
+          openOwnerCenter: t(`${h}.openOwnerCenter`),
+          openPropertyHealth: t(`${h}.openPropertyHealth`),
           capacityLabel: t(`${p}.licensing.capacityLabel`),
           propertyLimit: t(`${p}.licensing.propertyLimit`),
           propertyLimitCount: t(`${p}.licensing.propertyLimitCount`),

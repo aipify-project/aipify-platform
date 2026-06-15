@@ -1,0 +1,22 @@
+AIPIFY HOSTS — FINANCE CENTER (Phase Airbnb 19)
+
+POSITIONING
+Financial visibility across hospitality operations — revenue, payouts, expenses, and forecasts in one place.
+
+ROUTE
+/app/aipify-hosts/finance
+
+TERMINOLOGY
+Hosts Finance Center · Finance & Payout Foundation
+
+SECTIONS
+Overview · Revenue · Payouts · Expenses · Forecasts · Reports
+
+FORBIDDEN PHRASING
+Do not use AI assistant, AI chatbot, AI finance, or autonomous agent in customer-facing Hosts finance copy.
+
+GOVERNANCE
+Role-based permissions. Audit financial adjustments. Audit report exports.
+
+SUCCESS
+Hosts understand financial health without maintaining separate spreadsheets.

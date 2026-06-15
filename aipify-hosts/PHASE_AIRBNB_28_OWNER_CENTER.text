@@ -1,0 +1,14 @@
+AIPIFY HOSTS — PHASE AIRBNB 28
+TITLE: Owner Blocks & Personal Use Foundation
+PURPOSE: Allow hosts to reserve properties for personal use and operational purposes.
+OBJECTIVES:
+  • Unified Owner Center at /app/aipify-hosts/owner
+  • Owner stays, property blocks, availability overrides, block history
+  • Calendar integration (master, property, occupancy, operations)
+  • Conflict detection and availability impact widgets
+REQUIREMENTS:
+  • Tenant-scoped RPCs with _ahostown_* / _ahostbp390_* helpers
+  • All UI via hosts.owner.* i18n (en, no, sv, da)
+  • Knowledge Center articles under aipify-hosts-owner
+FEATURE OWNER: CUSTOMER APP (Business Pack — Aipify Hosts)
+END OF PHASE.

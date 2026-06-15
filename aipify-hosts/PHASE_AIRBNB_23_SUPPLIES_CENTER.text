@@ -1,0 +1,12 @@
+AIPIFY HOSTS — PHASE AIRBNB 23
+TITLE: Supplies & Inventory Foundation
+PURPOSE: Ensure properties remain fully stocked and guest-ready.
+OBJECTIVES:
+  • Unified Supplies Center at /app/aipify-hosts/supplies
+  • Inventory overview, property supplies, low stock alerts, purchase history, suppliers
+  • Reorder, purchase tasks, escalation, quantity updates with audit
+REQUIREMENTS:
+  • Tenant-scoped RPCs with _ahostsup_* / _ahostbp385_* helpers
+  • All UI via hosts.supplies.* i18n (en, no, sv, da)
+FEATURE OWNER: CUSTOMER APP
+END OF PHASE.

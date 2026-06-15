@@ -1,0 +1,14 @@
+AIPIFY HOSTS — PHASE AIRBNB 29
+TITLE: Property Health Score Foundation
+PURPOSE: Show operational health per property.
+OBJECTIVES:
+  • Property Health Score at /app/aipify-hosts/property-health
+  • Portfolio overview with score trend, strengths, risks, and recommended actions
+  • Per-property detail with category scores and nine score inputs
+  • Risk indicators and notifications for critical scores and unresolved risks
+REQUIREMENTS:
+  • Tenant-scoped RPCs with _ahostphs_* / _ahostbp391_* helpers
+  • All UI via hosts.propertyHealth.* i18n (en, no, sv, da)
+  • Knowledge Center articles under aipify-hosts-property-health
+FEATURE OWNER: CUSTOMER APP (Business Pack — Aipify Hosts)
+END OF PHASE.

@@ -1,0 +1,63 @@
+AIPIFY – PHASE AIRBNB 18
+AIPIFY HOSTS – TASKS & PLAYBOOKS FOUNDATION
+
+PURPOSE
+Standardize hospitality operations through structured tasks and repeatable playbooks.
+
+POSITIONING
+Standardize hospitality operations — structured tasks and repeatable playbooks for every recurring process.
+
+FEATURE OWNER
+CUSTOMER APP
+
+ROUTE
+/app/aipify-hosts/tasks
+
+STATUS
+IMPLEMENTED
+
+MIGRATION
+20261500000000_aipify_hosts_tasks_center_airbnb18.sql
+
+RPCS
+get_aipify_hosts_tasks_center_dashboard · get_aipify_hosts_tasks_center_card
+create_aipify_hosts_task · update_aipify_hosts_task_status · assign_aipify_hosts_task
+initiate_aipify_hosts_playbook · create_aipify_hosts_task_from_template
+
+SECTIONS
+Active Tasks · Scheduled Tasks · Completed Tasks · Playbooks · Templates
+
+TASK CATEGORIES
+Cleaning · Maintenance · Inspection · Guest Preparation · Compliance · Team Administration
+
+TASK STATUSES
+Not Started · In Progress · Waiting · Completed · Cancelled
+
+PRIORITIES
+Low · Medium · High · Critical
+
+ASSIGNEES
+Owner · Property Manager · Cleaner · Maintenance Personnel · Support Staff
+
+RECURRING
+Daily · Weekly · Monthly · Quarterly · Annually
+
+PLAYBOOKS
+Arrival · Departure · Cleaning · Maintenance · Inspection · Incident
+
+NOTIFICATIONS
+Task assigned · Task overdue · Critical task created · Playbook initiated
+
+GOVERNANCE
+Audit task changes · Audit playbook execution · Role-based permissions · Escalate overdue critical tasks
+
+KNOWLEDGE CENTER
+Using playbooks · Hospitality task standards · Inspection procedures · Operational consistency
+
+DESIGN
+Executive-friendly layout · Mobile-friendly · Minimal clicks · Professional empty states · No AI terminology
+
+SUCCESS CRITERIA
+Every recurring hospitality process should be executable through structured tasks and repeatable playbooks.
+
+END OF PHASE.

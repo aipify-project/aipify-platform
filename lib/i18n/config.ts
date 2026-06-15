@@ -27,6 +27,7 @@ export const NAMESPACES = [
   "presence",
   "license",
   "customerApp",
+  "hosts",
   "marketing",
   "superAdmin",
   "commandBar",

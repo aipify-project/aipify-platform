@@ -1,0 +1,14 @@
+AIPIFY HOSTS — PHASE AIRBNB 24
+TITLE: Vendor & Contract Management Foundation
+PURPOSE: Manage third-party service providers and operational agreements.
+OBJECTIVES:
+  • Unified Vendor Center at /app/aipify-hosts/vendors
+  • Vendors, contracts, service agreements, certifications, performance reviews
+  • Assign vendor, request service, review performance, renew contract, archive vendor
+  • Notifications for expiring contracts, certifications, reviews due, suspended vendors
+REQUIREMENTS:
+  • Tenant-scoped RPCs with _ahostvnd_* / _ahostbp386_* helpers
+  • All UI via hosts.vendors.* i18n (en, no, sv, da)
+  • Knowledge Center articles under aipify-hosts-vendors
+FEATURE OWNER: CUSTOMER APP
+END OF PHASE.

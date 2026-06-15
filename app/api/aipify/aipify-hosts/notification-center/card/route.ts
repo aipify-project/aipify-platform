@@ -1,0 +1,14 @@
+import { NextResponse } from "next/server";
+import { getAipifyHostsNotificationCenterCard } from "@/lib/core/aipify-hosts-notification-center";
+import { createClient } from "@/lib/supabase/server";
+
+export async function GET() {
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(await getAipifyHostsNotificationCenterCard(supabase));
+  } catch {
+    return NextResponse.json({ error: "Failed to load notification center card" }, { status: 500 });
+  }
+}

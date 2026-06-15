@@ -1,0 +1,14 @@
+AIPIFY HOSTS — PHASE AIRBNB 25
+TITLE: Property Documents & Digital Vault Foundation
+PURPOSE: Store and organize critical property documentation.
+OBJECTIVES:
+  • Unified Document Center at /app/aipify-hosts/documents
+  • Property vaults, expiration tracking, templates, version control
+  • Upload, download, replace, archive, share internally with audit
+  • Search with property, category, and status filters
+REQUIREMENTS:
+  • Tenant-scoped RPCs with _ahostdoc_* / _ahostbp387_* helpers
+  • All UI via hosts.documents.* i18n (en, no, sv, da)
+  • Knowledge Center articles under aipify-hosts-documents
+FEATURE OWNER: CUSTOMER APP (Business Pack — Aipify Hosts)
+END OF PHASE.

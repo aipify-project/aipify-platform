@@ -20,6 +20,20 @@ PHASE_AIRBNB_12_REPORTING_EXECUTIVE_INSIGHTS.text — Reporting & Executive Insi
 PHASE_AIRBNB_13_OPERATIONS_CENTER.text — Operations Center · /app/aipify-hosts/operations · IMPLEMENTED
 PHASE_AIRBNB_14_PROPERTY_CENTER.text — Property Center · /app/aipify-hosts/properties · IMPLEMENTED
 PHASE_AIRBNB_15_GUEST_CENTER.text — Guest Center · /app/aipify-hosts/guests · IMPLEMENTED
+PHASE_AIRBNB_17_TEAM_CENTER.text — Team Center · /app/aipify-hosts/team · IMPLEMENTED
+PHASE_AIRBNB_18_TASKS_CENTER.text — Tasks Center · /app/aipify-hosts/tasks · IMPLEMENTED
+PHASE_AIRBNB_19_FINANCE_CENTER.text — Finance Center · /app/aipify-hosts/finance · IMPLEMENTED
+PHASE_AIRBNB_20_NOTIFICATION_CENTER.text — Notification Center · /app/aipify-hosts/notifications · IMPLEMENTED
+PHASE_AIRBNB_21_INCIDENT_CENTER.text — Incident Center · /app/aipify-hosts/incidents · IMPLEMENTED
+PHASE_AIRBNB_22_QUALITY_CENTER.text — Quality Center · /app/aipify-hosts/quality · IMPLEMENTED
+PHASE_AIRBNB_23_SUPPLIES_CENTER.text — Supplies Center · /app/aipify-hosts/supplies · IMPLEMENTED
+PHASE_AIRBNB_24_VENDOR_CENTER.text — Vendor Center · /app/aipify-hosts/vendors · IMPLEMENTED
+PHASE_AIRBNB_25_DOCUMENT_CENTER.text — Document Center · /app/aipify-hosts/documents · IMPLEMENTED
+PHASE_AIRBNB_26_CALENDAR_CENTER.text — Calendar Center · /app/aipify-hosts/calendar · IMPLEMENTED
+PHASE_AIRBNB_27_CHECKIN_CENTER.text — Check-In Center · /app/aipify-hosts/check-in · IMPLEMENTED
+PHASE_AIRBNB_28_OWNER_CENTER.text — Owner Center · /app/aipify-hosts/owner · IMPLEMENTED
+PHASE_AIRBNB_29_PROPERTY_HEALTH.text — Property Health Score · /app/aipify-hosts/property-health · IMPLEMENTED
+I18N_FOUNDATION.text — hosts.json namespace (en/no/sv/da) · hosts.<module>.<key> · IMPLEMENTED
 KNOWLEDGE_CENTER_FAQ.text — 43 FAQ articles across 13 categories · IMPLEMENTED (seed migration 20261490000000)
 
 POSITIONING
@@ -27,7 +41,7 @@ Aipify Hosts is the Business Operating System for modern hospitality businesses.
 Operational layer around booking platforms — never a replacement.
 
 BUILD ORDER
-Foundation 01 → Phase 01 → Phase 02 → Phase 03 → Phase 04 → Phase 05 → Phase 06 → Phase 07 → Phase 08 → Phase 09 → Phase 10 → Phase 11 → Phase 12 → Phase 13 → Phase 14 → Phase 15
+Foundation 01 → Phase 01 → … → Phase 28 → Phase 29
 
 FEATURE OWNER
 CUSTOMER APP (all phases)

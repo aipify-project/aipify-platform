@@ -1,0 +1,25 @@
+AIPIFY HOSTS — TEAM CENTER (Phase Airbnb 17)
+
+POSITIONING
+Manage hospitality teams with complete control over roles, permissions, and property assignments.
+
+ROUTE
+/app/aipify-hosts/team
+
+TERMINOLOGY
+Hosts Team Center · Team & Role Management Foundation
+
+SECTIONS
+Team Members · Roles · Permissions · Invitations · Activity Log
+
+ROLES
+Owner · Property Manager · Cleaner · Maintenance · Support
+
+FORBIDDEN PHRASING
+Do not use AI assistant, AI chatbot, AI team, or autonomous agent in customer-facing Hosts team copy.
+
+GOVERNANCE
+Role-based permissions. Least privilege. Audit permission changes. Audit role assignments.
+
+SUCCESS
+Hosts operate multiple properties with multiple team members while maintaining complete control over access and responsibilities.

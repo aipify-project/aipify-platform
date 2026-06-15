@@ -1,0 +1,62 @@
+AIPIFY – PHASE AIRBNB 19
+AIPIFY HOSTS – FINANCE & PAYOUT FOUNDATION
+
+PURPOSE
+Provide financial visibility across hospitality operations.
+
+POSITIONING
+Financial visibility across hospitality operations — revenue, payouts, expenses, and forecasts in one place.
+
+FEATURE OWNER
+CUSTOMER APP
+
+ROUTE
+/app/aipify-hosts/finance
+
+STATUS
+IMPLEMENTED
+
+MIGRATION
+20261501000000_aipify_hosts_finance_center_airbnb19.sql
+
+RPCS
+get_aipify_hosts_finance_center_dashboard · get_aipify_hosts_finance_center_card
+record_aipify_hosts_expense · export_aipify_hosts_finance_report
+
+SECTIONS
+Overview · Revenue · Payouts · Expenses · Forecasts · Reports
+
+OVERVIEW
+Revenue This Month · Revenue YTD · Upcoming Payouts · Outstanding Expenses · Net Performance
+
+REVENUE STATUSES
+Pending · Confirmed · Paid · Cancelled
+
+PAYOUT STATUSES
+Scheduled · Processing · Completed · Delayed
+
+EXPENSE CATEGORIES
+Cleaning · Maintenance · Supplies · Utilities · Insurance · Other
+
+REPORTS
+Revenue Report · Expense Report · Net Performance Report · Property Financial Report
+
+EXPORTS
+PDF · Excel · CSV
+
+NOTIFICATIONS
+Payout delayed · Revenue discrepancy detected · Large expense recorded
+
+GOVERNANCE
+Role-based permissions · Audit financial adjustments · Audit report exports
+
+KNOWLEDGE CENTER
+Understanding hospitality finances · Managing operational expenses · Revenue planning · Financial reporting best practices
+
+DESIGN
+Executive-friendly layout · Mobile-friendly · Minimal clicks · Professional empty states · No AI terminology
+
+SUCCESS CRITERIA
+A host should understand the financial health of their hospitality business without maintaining separate spreadsheets.
+
+END OF PHASE.

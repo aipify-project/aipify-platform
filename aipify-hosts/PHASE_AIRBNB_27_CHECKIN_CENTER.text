@@ -1,0 +1,14 @@
+AIPIFY HOSTS — PHASE AIRBNB 27
+TITLE: Check-In & Check-Out Foundation
+PURPOSE: Standardize guest arrivals and departures.
+OBJECTIVES:
+  • Unified Check-In Center at /app/aipify-hosts/check-in
+  • Upcoming check-ins, active stays, check-outs, readiness, checkout reviews
+  • Ready score with cleaning, inspection, supplies, access, team validation
+  • Check-in/out actions with task automation preparation and notifications
+REQUIREMENTS:
+  • Tenant-scoped RPCs with _ahostcio_* / _ahostbp389_* helpers
+  • All UI via hosts.checkIn.* i18n (en, no, sv, da)
+  • Knowledge Center articles under aipify-hosts-check-in
+FEATURE OWNER: CUSTOMER APP (Business Pack — Aipify Hosts)
+END OF PHASE.

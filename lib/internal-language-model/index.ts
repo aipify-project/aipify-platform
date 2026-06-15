@@ -227,6 +227,9 @@ export * from "./implementation-blueprint-airbnb11-vocabulary";
 export * from "./implementation-blueprint-airbnb12-vocabulary";
 export * from "./implementation-blueprint-airbnb13-vocabulary";
 export * from "./implementation-blueprint-airbnb15-vocabulary";
+export * from "./implementation-blueprint-airbnb17-vocabulary";
+export * from "./implementation-blueprint-airbnb18-vocabulary";
+export * from "./implementation-blueprint-airbnb19-vocabulary";
 export * from "./skills-marketplace-naming-vocabulary";
 export * from "./aipify-single-identity-brand-rule-vocabulary";
 export * from "./aipify-hosts-roadmap-vocabulary";
@@ -1096,6 +1099,15 @@ export const AIPIFY_HOSTS_PHASE_AIRBNB13_CORPUS = "aipify-hosts/PHASE_AIRBNB_13_
 export const IMPLEMENTATION_BLUEPRINT_AIRBNB15_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-airbnb15-aipify-hosts-guest-center.txt";
 export const AIPIFY_HOSTS_PHASE_AIRBNB15_CORPUS = "aipify-hosts/PHASE_AIRBNB_15_GUEST_CENTER.text";
+export const IMPLEMENTATION_BLUEPRINT_AIRBNB17_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-airbnb17-aipify-hosts-team-center.txt";
+export const AIPIFY_HOSTS_PHASE_AIRBNB17_CORPUS = "aipify-hosts/PHASE_AIRBNB_17_TEAM_CENTER.text";
+export const IMPLEMENTATION_BLUEPRINT_AIRBNB18_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-airbnb18-aipify-hosts-tasks-center.txt";
+export const AIPIFY_HOSTS_PHASE_AIRBNB18_CORPUS = "aipify-hosts/PHASE_AIRBNB_18_TASKS_CENTER.text";
+export const IMPLEMENTATION_BLUEPRINT_AIRBNB19_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-airbnb19-aipify-hosts-finance-center.txt";
+export const AIPIFY_HOSTS_PHASE_AIRBNB19_CORPUS = "aipify-hosts/PHASE_AIRBNB_19_FINANCE_CENTER.text";
 export const IMPLEMENTATION_BLUEPRINT_PHASE221_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase221-aipify-talent-acquisition-workforce-planning.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE222_CORPUS =

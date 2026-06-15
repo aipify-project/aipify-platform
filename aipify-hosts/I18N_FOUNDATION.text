@@ -1,0 +1,43 @@
+AIPIFY HOSTS — I18N FOUNDATION
+
+Supported locales (repo paths):
+  en → locales/en/hosts.json
+  no → locales/no/hosts.json
+  se → locales/sv/hosts.json  (Swedish uses sv in codebase)
+  dk → locales/da/hosts.json  (Danish uses da in codebase)
+
+Naming convention:
+  hosts.<module>.<key>
+
+Examples:
+  hosts.calendar.title
+  hosts.checkin.ready
+  hosts.incidents.open
+  hosts.inventory.lowStock
+  hosts.notifications.critical
+  hosts.dashboard.openNotificationCenter
+  hosts.common.retry
+
+Usage in pages:
+  const dict = await getDictionary(locale, ["hosts"]);
+  const t = createTranslator(dict);
+  t("hosts.notifications.title")
+
+Developer rules:
+  1. All user-facing Hosts text uses translation keys — never hardcode strings in components.
+  2. Every new Hosts feature adds keys to all four locale files (en, no, sv, da).
+  3. Empty states, notifications, dashboard widgets, form labels, status labels, and validation messages must be translated.
+  4. Do not merge PRs with missing translations.
+  5. Missing translations fallback to English via mergeDictionary in getDictionary().
+  6. Missing keys are surfaced only in development (createTranslator devMode console.warn).
+  7. Production must never expose raw translation keys — humanizeTranslationKey is dev fallback only.
+
+Migration path:
+  Legacy keys in customerApp.aipifyHosts* remain until migrated module-by-module.
+  New Hosts surfaces should use hosts.json from day one (Phase Airbnb 20 Notification Center is the reference).
+
+Architecture principle:
+  Localization is part of the foundation — not a future enhancement.
+
+Success criteria:
+  Aipify Hosts feels native regardless of language selection.

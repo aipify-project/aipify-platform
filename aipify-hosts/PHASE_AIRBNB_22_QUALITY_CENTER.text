@@ -1,0 +1,17 @@
+AIPIFY HOSTS — PHASE AIRBNB 22
+TITLE: Inspections & Quality Assurance Foundation
+PURPOSE: Ensure consistent hospitality standards across all properties via inspections and quality reviews.
+OBJECTIVES:
+  • Unified Quality Center at /app/aipify-hosts/quality
+  • Upcoming, active, completed inspections, quality reviews, standards library
+  • Corrective actions with task creation, photo evidence references, timeline
+  • Notification triggers for scheduled, overdue, failed, and overdue corrective actions
+REQUIREMENTS:
+  • Tenant-scoped RPCs with _ahostqa_* / _ahostbp384_* helpers
+  • All UI via hosts.quality.* i18n (en, no, sv, da)
+COMPONENTS:
+  • Migration: 20261504000000_aipify_hosts_quality_center_airbnb22.sql
+  • lib/core/aipify-hosts-quality-center.ts
+  • components/app/aipify-hosts-quality-center/
+FEATURE OWNER: CUSTOMER APP
+END OF PHASE.

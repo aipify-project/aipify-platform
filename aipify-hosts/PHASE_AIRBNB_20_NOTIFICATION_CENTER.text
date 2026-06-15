@@ -1,0 +1,25 @@
+AIPIFY HOSTS — PHASE AIRBNB 20
+TITLE: Notification Center Foundation
+PURPOSE: Centralize operational alerts, guest/team activity, and notification preferences for hospitality operators.
+OBJECTIVES:
+  • Unified notification workspace at /app/aipify-hosts/notifications
+  • Role-based visibility with audited status and preference changes
+  • Critical alert acknowledgement workflow
+  • hosts.json i18n namespace (en, no, sv, da)
+REQUIREMENTS:
+  • Tenant-scoped RPCs: get_aipify_hosts_notification_center_dashboard, get_aipify_hosts_notification_center_card
+  • Actions: update_aipify_hosts_notification_status, acknowledge_aipify_hosts_critical_alert, update_aipify_hosts_notification_preferences
+  • Sections: all_notifications, critical_alerts, operational_updates, guest_activity, team_activity, notification_settings
+  • Thin API routes under /api/aipify/aipify-hosts/notification-center/*
+  • All UI strings via hosts.notifications.* and hosts.common.*
+COMPONENTS:
+  • Migration: 20261502000000_aipify_hosts_notification_center_airbnb20.sql
+  • lib/core/aipify-hosts-notification-center.ts
+  • lib/aipify/aipify-hosts-notification-center/
+  • components/app/aipify-hosts-notification-center/
+  • app/app/aipify-hosts/notifications/page.tsx
+  • locales/{en,no,sv,da}/hosts.json
+SECURITY REQUIREMENTS: GitHub-style 2FA, enterprise permissions, audit logging remain active.
+AIPIFY PRINCIPLES: People First. Technology Second. Self Love. Wisdom before speed. Companionship before replacement. Growth through support. Stewardship through responsibility.
+FEATURE OWNER: CUSTOMER APP
+END OF PHASE.

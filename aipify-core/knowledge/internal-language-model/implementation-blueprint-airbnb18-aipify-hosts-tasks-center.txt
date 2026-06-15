@@ -1,0 +1,25 @@
+AIPIFY HOSTS — TASKS CENTER (Phase Airbnb 18)
+
+POSITIONING
+Standardize hospitality operations — structured tasks and repeatable playbooks for every recurring process.
+
+ROUTE
+/app/aipify-hosts/tasks
+
+TERMINOLOGY
+Hosts Tasks Center · Tasks & Playbooks Foundation
+
+SECTIONS
+Active Tasks · Scheduled Tasks · Completed Tasks · Playbooks · Templates
+
+PLAYBOOKS
+Arrival · Departure · Cleaning · Maintenance · Inspection · Incident
+
+FORBIDDEN PHRASING
+Do not use AI assistant, AI chatbot, AI tasks, or autonomous agent in customer-facing Hosts tasks copy.
+
+GOVERNANCE
+Audit task changes. Audit playbook execution. Role-based permissions. Escalate overdue critical tasks.
+
+SUCCESS
+Every recurring hospitality process is executable through structured tasks and repeatable playbooks.

@@ -1,0 +1,14 @@
+AIPIFY HOSTS — PHASE AIRBNB 26
+TITLE: Property Calendar & Occupancy Foundation
+PURPOSE: Complete visibility into property availability and occupancy.
+OBJECTIVES:
+  • Unified Calendar Center at /app/aipify-hosts/calendar
+  • Master calendar, property calendars, occupancy overview, availability management, settings
+  • Day/week/month/agenda views, block/unblock, operational holds, event creation
+  • Double-booking, cleaning, maintenance overlap, and inspection notifications
+REQUIREMENTS:
+  • Tenant-scoped RPCs with _ahostcal_* / _ahostbp388_* helpers
+  • All UI via hosts.calendar.* i18n (en, no, sv, da)
+  • Knowledge Center articles under aipify-hosts-calendar
+FEATURE OWNER: CUSTOMER APP (Business Pack — Aipify Hosts)
+END OF PHASE.

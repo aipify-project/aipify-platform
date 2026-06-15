@@ -1,0 +1,55 @@
+AIPIFY – PHASE AIRBNB 17
+AIPIFY HOSTS – TEAM & ROLE MANAGEMENT FOUNDATION
+
+PURPOSE
+Manage hospitality teams with roles, permissions, invitations, and auditable activity.
+
+POSITIONING
+Manage hospitality teams with complete control over roles, permissions, and property assignments.
+
+FEATURE OWNER
+CUSTOMER APP
+
+ROUTE
+/app/aipify-hosts/team
+
+STATUS
+IMPLEMENTED
+
+MIGRATION
+20261499000000_aipify_hosts_team_center_airbnb17.sql
+
+RPCS
+get_aipify_hosts_team_center_dashboard · get_aipify_hosts_team_center_card
+send_aipify_hosts_team_invitation · update_aipify_hosts_team_member_role
+update_aipify_hosts_team_member_properties · revoke_aipify_hosts_team_invitation
+remove_aipify_hosts_team_member
+
+SECTIONS
+Team Members · Roles · Permissions · Invitations · Activity Log
+
+DEFAULT ROLES
+Owner · Property Manager · Cleaner · Maintenance · Support
+
+INVITATION STATUSES
+Pending · Accepted · Expired · Revoked
+
+PROPERTY ASSIGNMENTS
+Single property · Multi-property
+
+ACTIVITY LOG
+User invited · Role changed · Permission updated · User removed
+
+NOTIFICATIONS
+Invitation sent · Invitation accepted · Role updated
+
+GOVERNANCE
+Role-based permissions · Least privilege · Audit permission changes · Audit role assignments
+
+DESIGN
+Executive-friendly layout · Mobile-friendly · Minimal clicks · Professional empty states · No AI terminology
+
+SUCCESS CRITERIA
+A host should operate multiple properties with multiple team members while maintaining complete control over access and responsibilities.
+
+END OF PHASE.

@@ -259,6 +259,71 @@ export function AipifyHostsDashboardPanel({ labels }: Props) {
               {labels.openGuestCenter}
             </Link>
           )}
+          {labels.openTeamCenter && (
+            <Link href="/app/aipify-hosts/team" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openTeamCenter}
+            </Link>
+          )}
+          {labels.openTasksCenter && (
+            <Link href="/app/aipify-hosts/tasks" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openTasksCenter}
+            </Link>
+          )}
+          {labels.openFinanceCenter && (
+            <Link href="/app/aipify-hosts/finance" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openFinanceCenter}
+            </Link>
+          )}
+          {labels.openNotificationCenter && (
+            <Link href="/app/aipify-hosts/notifications" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openNotificationCenter}
+            </Link>
+          )}
+          {labels.openIncidentCenter && (
+            <Link href="/app/aipify-hosts/incidents" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openIncidentCenter}
+            </Link>
+          )}
+          {labels.openQualityCenter && (
+            <Link href="/app/aipify-hosts/quality" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openQualityCenter}
+            </Link>
+          )}
+          {labels.openSuppliesCenter && (
+            <Link href="/app/aipify-hosts/supplies" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openSuppliesCenter}
+            </Link>
+          )}
+          {labels.openVendorCenter && (
+            <Link href="/app/aipify-hosts/vendors" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openVendorCenter}
+            </Link>
+          )}
+          {labels.openDocumentCenter && (
+            <Link href="/app/aipify-hosts/documents" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openDocumentCenter}
+            </Link>
+          )}
+          {labels.openCalendarCenter && (
+            <Link href="/app/aipify-hosts/calendar" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openCalendarCenter}
+            </Link>
+          )}
+          {labels.openCheckInCenter && (
+            <Link href="/app/aipify-hosts/check-in" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openCheckInCenter}
+            </Link>
+          )}
+          {labels.openOwnerCenter && (
+            <Link href="/app/aipify-hosts/owner" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openOwnerCenter}
+            </Link>
+          )}
+          {labels.openPropertyHealth && (
+            <Link href="/app/aipify-hosts/property-health" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openPropertyHealth}
+            </Link>
+          )}
         </div>
       </section>
 
