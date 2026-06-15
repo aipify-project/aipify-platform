@@ -4,9 +4,10 @@ import PlatformAccessGate from "@/components/platform/PlatformAccessGate";
 import PlatformPortalBanner from "@/components/platform/PlatformPortalBanner";
 import { PlatformProfileProvider } from "@/components/platform/PlatformProfileProvider";
 import {
-  PLATFORM_ADMIN_NAV,
   PLATFORM_MOBILE_NAV_IDS,
 } from "@/lib/platform/nav-config";
+import { buildPlatformNavConfig, buildPlatformNavGroupConfig } from "@/lib/platform/build-nav";
+import { buildPlatformNavSearchIndex } from "@/lib/platform/nav-search";
 import { buildCommandBarLabels, platformNavSources } from "@/lib/command-bar";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -21,6 +22,9 @@ export default async function PlatformLayout({
   const locale = await getLocale();
   const dict = await getDictionary(locale, ["common", "auth", "platform", "branding", "presence", "commandBar"]);
   const t = createTranslator(dict);
+  const navGroups = buildPlatformNavGroupConfig(t);
+  const navConfig = buildPlatformNavConfig(t);
+  const navSearchIndex = buildPlatformNavSearchIndex(navGroups, navConfig, t);
 
   return (
     <PlatformAuthGuard
@@ -47,11 +51,13 @@ export default async function PlatformLayout({
             super_admin: t("platform.roles.super_admin"),
             platform_support: t("platform.roles.platform_support"),
           }}
-          navConfig={PLATFORM_ADMIN_NAV.map((item) => ({
-            id: item.id,
-            href: item.href,
-            label: t(item.labelKey),
-          }))}
+          navConfig={navConfig}
+          navGroups={navGroups}
+          navSearchIndex={navSearchIndex}
+          navSearchNoResultsLabel={t("platform.navSearch.noResults")}
+          navSearchHint={t("platform.navSearch.hint")}
+          navCompactToggleLabel={t("platform.navSearch.compactToggle")}
+          navSearchResultsLabel={t("platform.navSearch.results")}
           shellVariant="platform"
           mobileNavIds={PLATFORM_MOBILE_NAV_IDS}
           platformBrandMark={{

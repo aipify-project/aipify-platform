@@ -20,6 +20,7 @@ export type PlatformNavId =
   | "paymentHealth"
   | "paymentAnalytics"
   | "subscriptionOperations"
+  | "revenueOperations"
   | "paymentProviders"
   | "installations"
   | "installEngine"
@@ -37,6 +38,8 @@ export type PlatformNavId =
   | "intelligence"
   | "actions"
   | "skills"
+  | "companionMarketplace"
+  | "skillGovernancePipeline"
   | "system";
 
 export type ActionNavId =
@@ -303,6 +306,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.subscriptionOperations",
   },
   {
+    id: "revenueOperations",
+    href: "/platform/billing/revenue-operations",
+    labelKey: "platform.nav.revenueOperations",
+  },
+  {
     id: "invoices",
     href: "/platform/billing/enterprise-invoices",
     labelKey: "platform.nav.enterpriseInvoices",
@@ -385,7 +393,17 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
   {
     id: "skills",
     href: "/platform/skills",
-    labelKey: "platform.nav.skills",
+    labelKey: "platform.nav.skillsMarketplace",
+  },
+  {
+    id: "companionMarketplace",
+    href: "/platform/companion-marketplace",
+    labelKey: "platform.nav.companionMarketplace",
+  },
+  {
+    id: "skillGovernancePipeline",
+    href: "/platform/skills/governance",
+    labelKey: "platform.nav.skillGovernancePipeline",
   },
   {
     id: "system",
@@ -423,6 +441,7 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/billing/payment-health")) return "paymentHealth";
   if (pathname.startsWith("/platform/billing/payment-analytics")) return "paymentAnalytics";
   if (pathname.startsWith("/platform/billing/subscription-operations")) return "subscriptionOperations";
+  if (pathname.startsWith("/platform/billing/revenue-operations")) return "revenueOperations";
   if (pathname.startsWith("/platform/billing/enterprise-invoices")) return "invoices";
   if (pathname.startsWith("/platform/billing")) return "billing";
   if (pathname.startsWith("/platform/invoices")) return "invoices";
@@ -443,7 +462,9 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/automations")) return "automations";
   if (pathname.startsWith("/platform/intelligence")) return "intelligence";
   if (pathname.startsWith("/platform/actions")) return "actions";
+  if (pathname.startsWith("/platform/skills/governance")) return "skillGovernancePipeline";
   if (pathname.startsWith("/platform/skills")) return "skills";
+  if (pathname.startsWith("/platform/companion-marketplace")) return "companionMarketplace";
   if (pathname.startsWith("/platform/system")) return "system";
   return "overview";
 }

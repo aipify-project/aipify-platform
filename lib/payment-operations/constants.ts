@@ -41,6 +41,31 @@ export const ALERT_SEVERITY_BADGES: Record<AlertSeverity, string> = {
   critical: "bg-red-50 text-red-800 ring-red-200",
 };
 
+import type { OperationsIndicator } from "./types";
+
+export const OPERATIONS_INDICATOR_STYLES: Record<
+  OperationsIndicator,
+  { dot: string; text: string }
+> = {
+  healthy: { dot: "bg-emerald-500", text: "text-emerald-700" },
+  stable: { dot: "bg-emerald-500", text: "text-emerald-700" },
+  attention: { dot: "bg-amber-500", text: "text-amber-800" },
+  critical: { dot: "bg-red-500", text: "text-red-700" },
+};
+
+export const AUDIT_FILTER_CATEGORIES = [
+  "all",
+  "payments",
+  "providers",
+  "webhooks",
+  "invoices",
+  "settlements",
+  "configuration",
+  "security",
+] as const;
+
+export type AuditFilterCategory = (typeof AUDIT_FILTER_CATEGORIES)[number];
+
 export const PROVIDER_STATUS_BADGES: Record<string, string> = {
   operational: "bg-emerald-50 text-emerald-800 ring-emerald-200",
   pending_setup: "bg-amber-50 text-amber-900 ring-amber-200",

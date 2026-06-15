@@ -1,5 +1,7 @@
 import type { AlertSeverity, PaymentOpsProviderKey, RegionalCoverageKey } from "./constants";
 
+export type OperationsIndicator = "healthy" | "stable" | "attention" | "critical";
+
 export type PaymentOperationsSummary = {
   active_payment_providers: number;
   countries_supported: number;
@@ -59,6 +61,7 @@ export type PaymentOperationsAlert = {
   title: string;
   summary: string;
   created_at: string;
+  recommended_action_key?: string;
 };
 
 export type PaymentOperationsAuditEntry = {
@@ -69,6 +72,9 @@ export type PaymentOperationsAuditEntry = {
   before_value: Record<string, unknown>;
   after_value: Record<string, unknown>;
   created_at: string;
+  actor?: string;
+  workspace?: string;
+  category?: string;
 };
 
 export type PaymentOperationsCenter = {
@@ -90,6 +96,7 @@ export type PaymentOperationsLabels = {
   principle: string;
   foundingPrinciple: string;
   sections: {
+    executiveSummary: string;
     summary: string;
     providers: string;
     configuration: string;
@@ -97,6 +104,26 @@ export type PaymentOperationsLabels = {
     regionalCoverage: string;
     alerts: string;
     audit: string;
+  };
+  executive: {
+    healthScore: string;
+    healthHealthy: string;
+    criticalProviders: string;
+    criticalProvidersOperational: string;
+    criticalProvidersDegraded: string;
+    warningsAttention: string;
+    warningsNone: string;
+    nextSettlement: string;
+    nextSettlementNone: string;
+    expectedSettlementTotal: string;
+    pendingSettlementTotal: string;
+  };
+  indicators: {
+    healthy: string;
+    stable: string;
+    attention: string;
+    critical: string;
+    needsReview: string;
   };
   summary: {
     activeProviders: string;
@@ -126,6 +153,25 @@ export type PaymentOperationsLabels = {
     failed: string;
     estimatedPayout: string;
     empty: string;
+    columnTotal: string;
+  };
+  alerts: {
+    recommendedAction: string;
+    empty: string;
+    actions: {
+      reviewProvider: string;
+      viewLogs: string;
+      runDiagnostic: string;
+    };
+    recommendations: {
+      settlement_delay: string;
+      webhook_interruption: string;
+      provider_outage: string;
+      security_incident: string;
+      operational_update: string;
+      review_recommended: string;
+      monitor: string;
+    };
   };
   regional: Record<RegionalCoverageKey, string>;
   severities: Record<AlertSeverity, string>;
@@ -139,5 +185,16 @@ export type PaymentOperationsLabels = {
     before: string;
     after: string;
     empty: string;
+    actor: string;
+    workspace: string;
+    timestamp: string;
+    filterAll: string;
+    filterPayments: string;
+    filterProviders: string;
+    filterWebhooks: string;
+    filterInvoices: string;
+    filterSettlements: string;
+    filterConfiguration: string;
+    filterSecurity: string;
   };
 };

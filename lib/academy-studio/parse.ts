@@ -36,6 +36,12 @@ function asBool(value: unknown, fallback = false): boolean {
   return typeof value === "boolean" ? value : fallback;
 }
 
+function asStringRecord(raw: unknown): Record<string, string> | undefined {
+  const row = asRecord(raw);
+  if (!row) return undefined;
+  return Object.fromEntries(Object.entries(row).map(([key, value]) => [key, asString(value)]));
+}
+
 function parseEnum<T extends string>(value: unknown, allowed: readonly T[], fallback: T): T {
   const str = asString(value, fallback);
   return (allowed.includes(str as T) ? str : fallback) as T;
@@ -186,6 +192,6 @@ export function parseAcademyStudioCenter(raw: unknown): AcademyStudioCenter {
     supported_languages: Array.isArray(row.supported_languages)
       ? row.supported_languages.map((l) => asString(l))
       : [],
-    video_production_readiness: asRecord(row.video_production_readiness) ?? undefined,
+    video_production_readiness: asStringRecord(row.video_production_readiness),
   };
 }

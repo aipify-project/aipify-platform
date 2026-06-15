@@ -44,7 +44,7 @@ type DashboardShellProps = {
   signOutLabel: string;
   navConfig: AppNavLink[];
   navGroups?: AppNavGroupConfig[];
-  navSearchIndex?: import("@/lib/app/nav-search").AppNavSearchEntry[];
+  navSearchIndex?: import("@/lib/nav/search-entry").NavSearchEntry[];
   navSearchNoResultsLabel?: string;
   shellVariant: "platform" | "customer";
   mobileNavIds: string[];
@@ -305,25 +305,28 @@ function DashboardShellFrame({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [commandBarContext]);
 
-  const sidebarNav =
-    shellVariant === "customer" && navGroups && navSearchIndex ? (
-      <GroupedSidebar
-        groups={navGroups}
-        searchIndex={navSearchIndex}
-        activeId={activeNav}
-        searchQuery={navSearchQuery}
-        compactToggleLabel={navCompactToggleLabel}
-        searchResultsLabel={navSearchResultsLabel}
-        keyboardHint={navSearchHint}
-        noSearchResultsLabel={navSearchNoResultsLabel}
-      />
-    ) : (
-      <Sidebar
-        items={navItems}
-        activeId={activeNav}
-        activeAccent={shellVariant === "customer" ? "soft" : "default"}
-      />
-    );
+  const useGroupedSidebar = Boolean(navGroups && navSearchIndex);
+
+  const sidebarNav = useGroupedSidebar ? (
+    <GroupedSidebar
+      groups={navGroups!}
+      searchIndex={navSearchIndex!}
+      activeId={activeNav}
+      searchQuery={navSearchQuery}
+      compactToggleLabel={navCompactToggleLabel}
+      searchResultsLabel={navSearchResultsLabel}
+      keyboardHint={navSearchHint}
+      noSearchResultsLabel={navSearchNoResultsLabel}
+      activeAccent={shellVariant === "customer" ? "soft" : "default"}
+      sidebarMode={shellVariant === "platform" ? "platform" : "customer"}
+    />
+  ) : (
+    <Sidebar
+      items={navItems}
+      activeId={activeNav}
+      activeAccent={shellVariant === "customer" ? "soft" : "default"}
+    />
+  );
 
   const brandBlock =
     shellVariant === "customer" ? (
@@ -392,10 +395,10 @@ function DashboardShellFrame({
               </button>
             </div>
             <div className="flex-1 overflow-y-auto p-4">
-              {shellVariant === "customer" && navGroups && navSearchIndex ? (
+              {useGroupedSidebar ? (
                 <GroupedSidebar
-                  groups={navGroups}
-                  searchIndex={navSearchIndex}
+                  groups={navGroups!}
+                  searchIndex={navSearchIndex!}
                   activeId={activeNav}
                   searchQuery={navSearchQuery}
                   onNavigate={() => setSidebarOpen(false)}
@@ -403,6 +406,8 @@ function DashboardShellFrame({
                   searchResultsLabel={navSearchResultsLabel}
                   keyboardHint={navSearchHint}
                   noSearchResultsLabel={navSearchNoResultsLabel}
+                  activeAccent={shellVariant === "customer" ? "soft" : "default"}
+                  sidebarMode={shellVariant === "platform" ? "platform" : "customer"}
                 />
               ) : (
                 <Sidebar

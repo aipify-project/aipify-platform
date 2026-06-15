@@ -2,10 +2,10 @@ import { APP_NAV_GROUPS, type AppNavGroupId } from "./nav-groups";
 import type { AppNavGroupConfig, AppNavLink } from "./build-nav";
 import type { Translator } from "@/lib/i18n/translate";
 
-export type AppNavSearchEntry = AppNavLink & {
-  groupId: AppNavGroupId | "modules";
-  groupLabel: string;
-  description: string;
+import type { NavSearchEntry } from "@/lib/nav/search-entry";
+
+export type AppNavSearchEntry = NavSearchEntry & {
+  groupId: import("./nav-groups").AppNavGroupId | "modules";
 };
 
 const SEARCH_KEYWORDS: Record<string, string[]> = {
@@ -98,9 +98,9 @@ export function buildAppNavSearchIndex(
 }
 
 export function filterAppNavSearchEntries(
-  entries: AppNavSearchEntry[],
+  entries: NavSearchEntry[],
   query: string
-): AppNavSearchEntry[] {
+): NavSearchEntry[] {
   const q = query.trim().toLowerCase();
   if (!q) return entries;
 

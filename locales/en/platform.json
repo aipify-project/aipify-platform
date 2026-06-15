@@ -6,6 +6,27 @@
     "twoFactorRequired": "Platform Admin requires two-factor authentication before entry."
   },
   "search": "Search customers...",
+  "navSearch": {
+    "hint": "⌘K search menu",
+    "compactToggle": "Compact navigation",
+    "results": "Search results",
+    "noResults": "No matching modules"
+  },
+  "navGroups": {
+    "platformAdmin": "Platform Admin",
+    "knowledgeGovernance": "Knowledge & Governance",
+    "customerOperations": "Customer Operations",
+    "revenueBilling": "Revenue & Billing",
+    "deploymentPlatform": "Deployment & Platform",
+    "intelligenceAutomation": "Intelligence & Automation",
+    "marketplace": "Marketplace",
+    "system": "System",
+    "searchDescriptions": {
+      "platformAcademyStudio": "Growth Partner Academy — training, certifications, and commercial enablement.",
+      "companionMarketplace": "Governed Companion catalog and deployment oversight.",
+      "skillGovernancePipeline": "Skill rollout pipeline, governance, and approval workflows."
+    }
+  },
   "sidebar": {
     "plan": "Platform Admin",
     "platformAdmin": "Platform Admin",
@@ -45,11 +66,16 @@
     "paymentHealth": "Payment Health",
     "paymentAnalytics": "Payment Analytics",
     "subscriptionOperations": "Subscription Operations",
+    "revenueOperations": "Revenue Operations",
     "support": "Support",
     "automations": "Automations",
     "intelligence": "Intelligence",
     "actions": "Action Center",
     "skills": "Skills",
+    "skillsMarketplace": "Skills Marketplace",
+    "companionMarketplace": "Companion Marketplace",
+    "skillGovernancePipeline": "Skill Governance Pipeline",
+    "platformAcademyStudio": "Growth Partner Academy",
     "languageCenter": "Language Center",
     "executive": "Executive Center",
     "executiveOperationsCenter": "Operations Center",
@@ -657,6 +683,7 @@
     "principle": "Aipify should never depend on a single payment provider. The platform must remain resilient through provider diversity.",
     "foundingPrinciple": "Payment infrastructure is not only about collecting money. It is about removing friction, increasing trust, and enabling global growth. Aipify Group AS. From Norway. For the world.",
     "sections": {
+      "executiveSummary": "Executive payment summary",
       "summary": "Operations overview",
       "providers": "Payment providers",
       "configuration": "Provider configuration",
@@ -664,6 +691,26 @@
       "regionalCoverage": "Regional coverage map",
       "alerts": "Alert center",
       "audit": "Audit log"
+    },
+    "executive": {
+      "healthScore": "Payment infrastructure health score",
+      "healthHealthy": "Healthy",
+      "criticalProviders": "Critical provider status",
+      "criticalProvidersOperational": "All critical providers operational.",
+      "criticalProvidersDegraded": "One or more critical providers require attention.",
+      "warningsAttention": "{count} warning requires review.",
+      "warningsNone": "No warnings require attention.",
+      "nextSettlement": "Next expected settlement",
+      "nextSettlementNone": "No pending settlements scheduled.",
+      "expectedSettlementTotal": "Expected settlement total",
+      "pendingSettlementTotal": "Pending settlement total"
+    },
+    "indicators": {
+      "healthy": "Healthy",
+      "stable": "Stable",
+      "attention": "Requires attention",
+      "critical": "Critical issue",
+      "needsReview": "Needs review"
     },
     "summary": {
       "activeProviders": "Active payment providers",
@@ -692,7 +739,26 @@
       "pending": "Pending settlements",
       "failed": "Failed settlements",
       "estimatedPayout": "Estimated payout",
-      "empty": "No settlement records in this category."
+      "empty": "No settlement records in this category.",
+      "columnTotal": "Total"
+    },
+    "alerts": {
+      "recommendedAction": "Recommended action",
+      "empty": "No open payment infrastructure alerts.",
+      "actions": {
+        "reviewProvider": "Review provider",
+        "viewLogs": "View logs",
+        "runDiagnostic": "Run diagnostic"
+      },
+      "recommendations": {
+        "settlementDelay": "Review settlement batch and confirm provider payout schedule.",
+        "webhookInterruption": "Verify webhook endpoint health and replay failed events if needed.",
+        "providerOutage": "Confirm provider status page and enable failover routing if required.",
+        "securityIncident": "Review trust audit logs and confirm credential rotation status.",
+        "operationalUpdate": "No action required — monitor provider status.",
+        "reviewRecommended": "Review when convenient — no immediate customer impact expected.",
+        "monitor": "Continue monitoring — no action required."
+      }
     },
     "regional": {
       "nordics": "Nordics",
@@ -752,7 +818,134 @@
       "action": "Action",
       "before": "Before",
       "after": "After",
-      "empty": "No payment operations audit entries yet."
+      "empty": "No payment operations audit entries yet.",
+      "actor": "Actor",
+      "workspace": "Workspace",
+      "timestamp": "Timestamp",
+      "filterAll": "All events",
+      "filterPayments": "Payments",
+      "filterProviders": "Providers",
+      "filterWebhooks": "Webhooks",
+      "filterInvoices": "Invoices",
+      "filterSettlements": "Settlements",
+      "filterConfiguration": "Configuration changes",
+      "filterSecurity": "Security events"
+    }
+  },
+  "revenueOperations": {
+    "title": "Revenue Operations",
+    "subtitle": "Centralized billing orchestration — activate subscriptions, synchronize permissions, and ensure customers receive immediate access after payment.",
+    "loading": "Preparing revenue operations overview…",
+    "back": "Back to billing",
+    "principle": "Customers should receive immediate value after purchase. Payment should trigger progress.",
+    "foundingPrinciple": "Aipify focuses on revenue activation, subscription orchestration, customer experience, and permission management — not tax or VAT reporting.",
+    "sections": {
+      "overview": "Operations overview",
+      "failedActivations": "Failed activations",
+      "timeline": "Revenue events timeline",
+      "trialConversion": "Trial conversion",
+      "packageSync": "Package synchronization",
+      "notifications": "Customer notifications",
+      "audit": "Audit log",
+      "externalResponsibilities": "External responsibilities"
+    },
+    "overview": {
+      "activeProviders": "Active billing providers",
+      "successfulActivations": "Successful activations (30d)",
+      "pendingActivations": "Pending activations",
+      "failedActivations": "Failed activations",
+      "upgrades": "Subscription upgrades",
+      "downgrades": "Subscription downgrades"
+    },
+    "table": {
+      "customer": "Customer",
+      "provider": "Provider",
+      "failureReason": "Failure reason",
+      "detectedAt": "Time detected",
+      "resolutionStatus": "Resolution status",
+      "eventType": "Event type",
+      "timestamp": "Timestamp",
+      "outcome": "Outcome",
+      "summary": "Summary",
+      "notificationType": "Notification",
+      "channel": "Channel",
+      "status": "Status",
+      "action": "Actions"
+    },
+    "trialConversion": {
+      "title": "Trial converts to paid access through automated orchestration after successful payment.",
+      "steps": "Trial → Successful Payment → Subscription Activation → Customer Notification"
+    },
+    "packageSync": {
+      "onSuccess": "When payment succeeds",
+      "onExpiry": "When subscription expires",
+      "status": "Synchronization status"
+    },
+    "external": {
+      "title": "Aipify does not calculate taxes or perform VAT reporting.",
+      "note": "Tax calculation and VAT reporting remain with payment providers, accounting systems, and government reporting frameworks."
+    },
+    "actions": {
+      "retry": "Retry activation",
+      "escalate": "Escalate issue",
+      "contact": "Contact customer",
+      "reviewLogs": "Review logs",
+      "applying": "Applying…"
+    },
+    "resolutions": {
+      "open": "Open",
+      "retrying": "Retrying",
+      "resolved": "Resolved",
+      "escalated": "Escalated"
+    },
+    "outcomes": {
+      "received": "Received",
+      "processed": "Processed",
+      "failed": "Failed",
+      "ignored": "Ignored"
+    },
+    "eventTypes": {
+      "subscription_created": "Subscription created",
+      "subscription_activated": "Subscription activated",
+      "subscription_renewed": "Subscription renewed",
+      "subscription_upgraded": "Subscription upgraded",
+      "subscription_downgraded": "Subscription downgraded",
+      "subscription_cancelled": "Subscription cancelled",
+      "invoice_paid": "Invoice paid",
+      "payment_failed": "Payment failed",
+      "refund_processed": "Refund processed",
+      "trial_converted": "Trial converted"
+    },
+    "notificationTypes": {
+      "activation_success": "Successful activation",
+      "upgrade_success": "Successful upgrade",
+      "payment_failed": "Failed payment",
+      "upcoming_renewal": "Upcoming renewal",
+      "subscription_cancelled": "Subscription cancellation",
+      "trial_ending": "Trial ending"
+    },
+    "auditActions": {
+      "billing_event_received": "Billing event received",
+      "activation_completed": "Activation completed",
+      "activation_failed": "Activation failed",
+      "permissions_modified": "Permissions modified",
+      "retry_initiated": "Retry initiated",
+      "manual_override_applied": "Manual override applied",
+      "escalation_recorded": "Escalation recorded",
+      "customer_contacted": "Customer contacted",
+      "package_synchronized": "Package synchronized"
+    },
+    "providers": {
+      "stripe": "Stripe",
+      "klarna": "Klarna",
+      "vipps": "Vipps MobilePay",
+      "dnb": "DNB Invoice"
+    },
+    "empty": {
+      "failed": "No failed activations require attention.",
+      "timeline": "No revenue events recorded yet.",
+      "notifications": "No customer notifications queued.",
+      "audit": "No audit entries recorded yet."
     }
   },
   "paymentHealth": {

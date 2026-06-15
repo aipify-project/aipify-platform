@@ -131,7 +131,7 @@ function parseAlert(raw: unknown): PaymentOperationsAlert | null {
 function parseAudit(raw: unknown): PaymentOperationsAuditEntry | null {
   const row = asRecord(raw);
   if (!row || !row.id) return null;
-  return {
+  const entry: PaymentOperationsAuditEntry = {
     id: asString(row.id),
     provider_key: row.provider_key ? asString(row.provider_key) : null,
     action: asString(row.action),
@@ -139,7 +139,10 @@ function parseAudit(raw: unknown): PaymentOperationsAuditEntry | null {
     before_value: asRecord(row.before_value) ?? {},
     after_value: asRecord(row.after_value) ?? {},
     created_at: asString(row.created_at),
+    actor: row.actor ? asString(row.actor) : undefined,
+    workspace: row.workspace ? asString(row.workspace) : undefined,
   };
+  return entry;
 }
 
 export function parsePaymentOperationsCenter(raw: unknown): PaymentOperationsCenter | null {

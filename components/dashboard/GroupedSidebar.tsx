@@ -9,10 +9,20 @@ import {
   APP_NAV_OPEN_GROUP_STORAGE_KEY,
   type AppNavGroupId,
 } from "@/lib/app/nav-groups";
-import { getGroupIdForNavItem } from "@/lib/app/nav-search";
+import { getGroupIdForNavItem, filterAppNavSearchEntries } from "@/lib/app/nav-search";
 import type { AppNavGroupConfig, AppNavLink } from "@/lib/app/build-nav";
-import type { AppNavSearchEntry } from "@/lib/app/nav-search";
-import { filterAppNavSearchEntries } from "@/lib/app/nav-search";
+import type { NavSearchEntry } from "@/lib/nav/search-entry";
+import {
+  PLATFORM_NAV_COMPACT_STORAGE_KEY,
+  PLATFORM_NAV_INITIALIZED_STORAGE_KEY,
+  PLATFORM_NAV_LAST_ITEM_STORAGE_KEY,
+  PLATFORM_NAV_OPEN_GROUP_STORAGE_KEY,
+  PLATFORM_COLLAPSIBLE_GROUPS,
+} from "@/lib/platform/nav-groups";
+import {
+  getPlatformGroupIdForNavItem,
+  filterPlatformNavSearchEntries,
+} from "@/lib/platform/nav-search";
 import { getNavIcon } from "./nav-icons";
 
 export type NavItem = {
@@ -24,7 +34,7 @@ export type NavItem = {
 
 type GroupedSidebarProps = {
   groups: AppNavGroupConfig[];
-  searchIndex: AppNavSearchEntry[];
+  searchIndex: NavSearchEntry[];
   activeId: string;
   searchQuery?: string;
   onNavigate?: () => void;
@@ -34,6 +44,7 @@ type GroupedSidebarProps = {
   searchResultsLabel?: string;
   keyboardHint?: string;
   noSearchResultsLabel?: string;
+  sidebarMode?: "customer" | "platform";
 };
 
 const ACTIVE_ACCENT_CLASSES = {
@@ -41,7 +52,7 @@ const ACTIVE_ACCENT_CLASSES = {
   soft: "bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-sm",
 } as const;
 
-const COLLAPSIBLE_GROUPS: AppNavGroupId[] = [
+const CUSTOMER_COLLAPSIBLE_GROUPS: AppNavGroupId[] = [
   "organization",
   "intelligence",
   "operations",
@@ -49,35 +60,34 @@ const COLLAPSIBLE_GROUPS: AppNavGroupId[] = [
   "governance",
 ];
 
-function loadOpenGroupId(): AppNavGroupId | null {
-  if (typeof window === "undefined") return null;
-  const raw = window.localStorage.getItem(APP_NAV_OPEN_GROUP_STORAGE_KEY);
-  if (!raw) return null;
-  return COLLAPSIBLE_GROUPS.includes(raw as AppNavGroupId) ? (raw as AppNavGroupId) : null;
-}
+function createStorageHelpers(mode: "customer" | "platform") {
+  const openGroupKey =
+    mode === "platform" ? PLATFORM_NAV_OPEN_GROUP_STORAGE_KEY : APP_NAV_OPEN_GROUP_STORAGE_KEY;
+  const compactKey =
+    mode === "platform" ? PLATFORM_NAV_COMPACT_STORAGE_KEY : APP_NAV_COMPACT_STORAGE_KEY;
+  const initializedKey =
+    mode === "platform" ? PLATFORM_NAV_INITIALIZED_STORAGE_KEY : APP_NAV_INITIALIZED_STORAGE_KEY;
+  const lastItemKey =
+    mode === "platform" ? PLATFORM_NAV_LAST_ITEM_STORAGE_KEY : APP_NAV_LAST_ITEM_STORAGE_KEY;
+  const collapsibleGroups: readonly string[] =
+    mode === "platform" ? PLATFORM_COLLAPSIBLE_GROUPS : CUSTOMER_COLLAPSIBLE_GROUPS;
+  const resolveGroupId =
+    mode === "platform" ? getPlatformGroupIdForNavItem : getGroupIdForNavItem;
+  const filterSearch =
+    mode === "platform" ? filterPlatformNavSearchEntries : filterAppNavSearchEntries;
+  const defaultOpenGroup = mode === "platform" ? "platformAdmin" : "organization";
 
-function loadCompactMode(): boolean {
-  if (typeof window === "undefined") return false;
-  return window.localStorage.getItem(APP_NAV_COMPACT_STORAGE_KEY) === "1";
-}
-
-function isInitialized(): boolean {
-  if (typeof window === "undefined") return true;
-  return window.localStorage.getItem(APP_NAV_INITIALIZED_STORAGE_KEY) === "1";
-}
-
-function persistOpenGroup(groupId: AppNavGroupId | null) {
-  if (typeof window === "undefined") return;
-  if (groupId) {
-    window.localStorage.setItem(APP_NAV_OPEN_GROUP_STORAGE_KEY, groupId);
-  } else {
-    window.localStorage.removeItem(APP_NAV_OPEN_GROUP_STORAGE_KEY);
-  }
-}
-
-function persistLastItem(itemId: string) {
-  if (typeof window === "undefined") return;
-  window.localStorage.setItem(APP_NAV_LAST_ITEM_STORAGE_KEY, itemId);
+  return {
+    openGroupKey,
+    compactKey,
+    initializedKey,
+    lastItemKey,
+    collapsibleGroups,
+    resolveGroupId,
+    filterSearch,
+    defaultOpenGroup,
+    fixedGroupIds: mode === "customer" ? (["home"] as string[]) : ([] as string[]),
+  };
 }
 
 function ChevronIcon({ open }: { open: boolean }) {
@@ -136,7 +146,7 @@ function SearchResultRow({
   compact,
   onNavigate,
 }: {
-  item: AppNavSearchEntry;
+  item: NavSearchEntry;
   isActive: boolean;
   compact: boolean;
   onNavigate?: () => void;
@@ -203,90 +213,114 @@ export default function GroupedSidebar({
   searchResultsLabel = "Search results",
   keyboardHint,
   noSearchResultsLabel = "No matching modules",
+  sidebarMode = "customer",
 }: GroupedSidebarProps) {
-  const [openGroupId, setOpenGroupId] = useState<AppNavGroupId | null>(null);
+  const storage = useMemo(() => createStorageHelpers(sidebarMode), [sidebarMode]);
+  const [openGroupId, setOpenGroupId] = useState<string | null>(null);
   const [compact, setCompact] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
-  const activeGroupId = useMemo(() => getGroupIdForNavItem(activeId), [activeId]);
+  const activeGroupId = useMemo(() => storage.resolveGroupId(activeId), [activeId, storage]);
 
-  const applyOpenGroup = useCallback((groupId: AppNavGroupId | null) => {
-    setOpenGroupId(groupId);
-    persistOpenGroup(groupId);
-  }, []);
+  const applyOpenGroup = useCallback(
+    (groupId: string | null) => {
+      setOpenGroupId(groupId);
+      if (typeof window === "undefined") return;
+      if (groupId) {
+        window.localStorage.setItem(storage.openGroupKey, groupId);
+      } else {
+        window.localStorage.removeItem(storage.openGroupKey);
+      }
+    },
+    [storage.openGroupKey]
+  );
 
   useEffect(() => {
-    setCompact(loadCompactMode());
+    if (typeof window === "undefined") return;
+    setCompact(window.localStorage.getItem(storage.compactKey) === "1");
     setHydrated(true);
-  }, []);
+  }, [storage.compactKey]);
 
   useEffect(() => {
     if (!hydrated) return;
 
-    if (activeGroupId && activeGroupId !== "home") {
+    if (activeGroupId && !storage.fixedGroupIds.includes(activeGroupId)) {
       applyOpenGroup(activeGroupId);
       return;
     }
 
-    if (isInitialized()) {
-      setOpenGroupId(loadOpenGroupId());
+    if (typeof window !== "undefined" && window.localStorage.getItem(storage.initializedKey) === "1") {
+      const raw = window.localStorage.getItem(storage.openGroupKey);
+      if (raw && storage.collapsibleGroups.includes(raw)) {
+        setOpenGroupId(raw);
+      }
+      return;
+    }
+
+    if (sidebarMode === "platform") {
+      applyOpenGroup(storage.defaultOpenGroup);
+      window.localStorage.setItem(storage.initializedKey, "1");
       return;
     }
 
     void fetch("/api/auth/2fa/status")
       .then(async (res) => {
         if (!res.ok) {
-          applyOpenGroup("organization");
-          window.localStorage.setItem(APP_NAV_INITIALIZED_STORAGE_KEY, "1");
+          applyOpenGroup(storage.defaultOpenGroup);
+          window.localStorage.setItem(storage.initializedKey, "1");
           return;
         }
         const status = (await res.json()) as { required?: boolean; enabled?: boolean };
-        const defaultGroup: AppNavGroupId =
-          status.required && !status.enabled ? "governance" : "organization";
+        const defaultGroup =
+          status.required && !status.enabled ? "governance" : storage.defaultOpenGroup;
         applyOpenGroup(defaultGroup);
-        window.localStorage.setItem(APP_NAV_INITIALIZED_STORAGE_KEY, "1");
+        window.localStorage.setItem(storage.initializedKey, "1");
       })
       .catch(() => {
-        applyOpenGroup("organization");
-        window.localStorage.setItem(APP_NAV_INITIALIZED_STORAGE_KEY, "1");
+        applyOpenGroup(storage.defaultOpenGroup);
+        window.localStorage.setItem(storage.initializedKey, "1");
       });
-  }, [hydrated, activeGroupId, applyOpenGroup]);
+  }, [hydrated, activeGroupId, applyOpenGroup, sidebarMode, storage]);
 
   useEffect(() => {
-    if (!hydrated || !activeId) return;
-    persistLastItem(activeId);
-  }, [hydrated, activeId]);
+    if (!hydrated || !activeId || typeof window === "undefined") return;
+    window.localStorage.setItem(storage.lastItemKey, activeId);
+  }, [hydrated, activeId, storage.lastItemKey]);
 
   const toggleGroup = useCallback(
-    (groupId: AppNavGroupId) => {
-      if (groupId === "home") return;
+    (groupId: string) => {
+      if (storage.fixedGroupIds.includes(groupId)) return;
       const next = openGroupId === groupId ? null : groupId;
       applyOpenGroup(next);
     },
-    [openGroupId, applyOpenGroup]
+    [openGroupId, applyOpenGroup, storage.fixedGroupIds]
   );
 
   const handleNavigate = useCallback(
     (itemId: string) => {
-      persistLastItem(itemId);
-      const groupId = getGroupIdForNavItem(itemId);
-      if (groupId && groupId !== "home") {
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(storage.lastItemKey, itemId);
+      }
+      const groupId = storage.resolveGroupId(itemId);
+      if (groupId && !storage.fixedGroupIds.includes(groupId)) {
         applyOpenGroup(groupId);
       }
       onNavigate?.();
     },
-    [applyOpenGroup, onNavigate]
+    [applyOpenGroup, onNavigate, storage]
   );
 
   const toggleCompact = useCallback(() => {
     const next = !compact;
     setCompact(next);
-    window.localStorage.setItem(APP_NAV_COMPACT_STORAGE_KEY, next ? "1" : "0");
-  }, [compact]);
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(storage.compactKey, next ? "1" : "0");
+    }
+  }, [compact, storage.compactKey]);
 
   const searchResults = useMemo(
-    () => filterAppNavSearchEntries(searchIndex, searchQuery),
-    [searchIndex, searchQuery]
+    () => storage.filterSearch(searchIndex, searchQuery),
+    [searchIndex, searchQuery, storage]
   );
 
   const isSearching = searchQuery.trim().length > 0;
@@ -344,13 +378,13 @@ export default function GroupedSidebar({
           </div>
         ) : (
           groups.map((group) => {
-            const isHome = group.id === "home";
-            const isExpanded = isHome || compact || openGroupId === group.id;
+            const isFixed = storage.fixedGroupIds.includes(group.id);
+            const isExpanded = isFixed || compact || openGroupId === group.id;
 
             return (
               <div key={group.id} className="space-y-1">
                 {!compact ? (
-                  isHome ? (
+                  isFixed ? (
                     <p
                       className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wide text-gray-400"
                       title={group.label}
@@ -360,7 +394,7 @@ export default function GroupedSidebar({
                   ) : (
                     <button
                       type="button"
-                      onClick={() => toggleGroup(group.id as AppNavGroupId)}
+                      onClick={() => toggleGroup(group.id)}
                       className="flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-[11px] font-semibold uppercase tracking-wide text-gray-400 transition hover:bg-gray-50 hover:text-gray-600"
                       aria-expanded={isExpanded}
                     >
