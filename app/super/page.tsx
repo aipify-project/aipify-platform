@@ -34,6 +34,9 @@ export default async function SuperAdminPage() {
       labels={{
         loading: t("superAdmin.controlCenter.loading"),
         loadError: t("superAdmin.controlCenter.loadError"),
+        emptyStateTitle: t("superAdmin.controlCenter.emptyStateTitle"),
+        emptyStateBody: t("superAdmin.controlCenter.emptyStateBody"),
+        setupNotice: t("superAdmin.controlCenter.setupNotice"),
         privacyNote: t("superAdmin.controlCenter.privacyNote"),
         sectionsTitle: t("superAdmin.controlCenter.sectionsTitle"),
         openModule: t("superAdmin.controlCenter.openModule"),

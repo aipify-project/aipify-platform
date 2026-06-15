@@ -84,96 +84,96 @@ export default function SuperAdminShell({
       platformRole="super_admin"
     >
       <SuperAdminOperationsProvider loadErrorLabel={loadErrorLabel}>
-      <div className="min-h-screen bg-zinc-950 text-zinc-100">
-        {!warningAcknowledged ? (
-          <SuperAdminWarningBanner
-            title={warningTitle}
-            body={warningBody}
-            proceedLabel={warningProceedLabel}
-            onProceed={acknowledgeWarning}
-          />
-        ) : null}
+        <div className="min-h-screen bg-gray-50 text-gray-900">
+          {!warningAcknowledged ? (
+            <SuperAdminWarningBanner
+              title={warningTitle}
+              body={warningBody}
+              proceedLabel={warningProceedLabel}
+              onProceed={acknowledgeWarning}
+            />
+          ) : null}
 
-        <div className="flex min-h-screen">
-          <aside className="hidden w-72 shrink-0 border-r border-zinc-800 bg-zinc-900/50 lg:block">
-            <div className="border-b border-zinc-800 px-5 py-6">
-              <Link href={SUPER_ADMIN_HOME_ROUTE} className="block">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">
-                  {organizationLabel}
-                </p>
-                <h1 className="mt-1 text-lg font-semibold text-zinc-100">{portalTitle}</h1>
-                <p className="mt-1 text-xs text-zinc-500">{portalSubtitle}</p>
-              </Link>
-            </div>
+          <div className="flex min-h-screen">
+            <aside className="hidden w-72 shrink-0 border-r border-gray-200 bg-white lg:block">
+              <div className="border-b border-gray-200 px-5 py-6">
+                <Link href={SUPER_ADMIN_HOME_ROUTE} className="block">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
+                    {organizationLabel}
+                  </p>
+                  <h1 className="mt-1 text-lg font-semibold text-gray-900">{portalTitle}</h1>
+                  <p className="mt-1 text-xs text-gray-500">{portalSubtitle}</p>
+                </Link>
+              </div>
 
-            <nav
-              className="space-y-6 overflow-y-auto px-3 py-4"
-              style={{ maxHeight: "calc(100vh - 7rem)" }}
-            >
-              {SUPER_ADMIN_SECTIONS.map((section) => {
-                const labels = sectionLabels[section.id];
-                return (
-                  <div key={section.id}>
-                    <p className="px-2 text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
-                      {labels?.title}
-                    </p>
-                    <p className="px-2 pb-2 text-[11px] leading-snug text-zinc-600">
-                      {labels?.purpose}
-                    </p>
-                    <ul className="space-y-0.5">
-                      {section.modules.map((module) => {
-                        const moduleLabel = moduleLabels[module.id];
-                        const active = pathname === module.href;
-                        return (
-                          <li key={module.id}>
-                            <Link
-                              href={module.href}
-                              className={`block rounded-md px-2 py-1.5 text-sm transition ${
-                                active
-                                  ? "bg-zinc-800 text-zinc-50"
-                                  : "text-zinc-400 hover:bg-zinc-800/60 hover:text-zinc-200"
-                              }`}
-                            >
-                              {moduleLabel?.label ?? module.id}
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
+              <nav
+                className="space-y-6 overflow-y-auto px-3 py-4"
+                style={{ maxHeight: "calc(100vh - 7rem)" }}
+              >
+                {SUPER_ADMIN_SECTIONS.map((section) => {
+                  const labels = sectionLabels[section.id];
+                  return (
+                    <div key={section.id}>
+                      <p className="px-2 text-[11px] font-semibold uppercase tracking-wider text-gray-500">
+                        {labels?.title}
+                      </p>
+                      <p className="px-2 pb-2 text-[11px] leading-snug text-gray-400">
+                        {labels?.purpose}
+                      </p>
+                      <ul className="space-y-0.5">
+                        {section.modules.map((module) => {
+                          const moduleLabel = moduleLabels[module.id];
+                          const active = pathname === module.href;
+                          return (
+                            <li key={module.id}>
+                              <Link
+                                href={module.href}
+                                className={`block rounded-md px-2 py-1.5 text-sm transition ${
+                                  active
+                                    ? "bg-indigo-50 font-medium text-indigo-900 ring-1 ring-indigo-100"
+                                    : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                                }`}
+                              >
+                                {moduleLabel?.label ?? module.id}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </nav>
+            </aside>
+
+            <div className="flex min-w-0 flex-1 flex-col bg-gray-50">
+              <SuperAdminGlobalStatusBar labels={statusBarLabels} />
+
+              <header className="flex items-center justify-between gap-4 border-b border-gray-200 bg-white px-4 py-3 lg:px-8">
+                <div className="flex min-w-0 flex-1 items-center gap-4">
+                  <div className="lg:hidden">
+                    <p className="text-sm font-semibold text-gray-900">{portalTitle}</p>
+                    <p className="text-xs text-gray-500">{portalSubtitle}</p>
                   </div>
-                );
-              })}
-            </nav>
-          </aside>
-
-          <div className="flex min-w-0 flex-1 flex-col bg-zinc-50">
-            <SuperAdminGlobalStatusBar labels={statusBarLabels} />
-
-            <header className="flex items-center justify-between gap-4 border-b border-zinc-200 bg-white px-4 py-3 lg:px-8">
-              <div className="flex min-w-0 flex-1 items-center gap-4">
-                <div className="lg:hidden">
-                  <p className="text-sm font-semibold text-zinc-900">{portalTitle}</p>
-                  <p className="text-xs text-zinc-500">{portalSubtitle}</p>
+                  <SuperAdminCommandBarTrigger
+                    placeholder={commandBarLabels.placeholder}
+                    openLabel={commandBarLabels.openCommandBar}
+                  />
                 </div>
-                <SuperAdminCommandBarTrigger
-                  placeholder={commandBarLabels.placeholder}
-                  openLabel={commandBarLabels.openCommandBar}
-                />
-              </div>
-              <div className="flex shrink-0 items-center gap-3">
-                <SuperAdminIdentityBadge
-                  roleLabel={identityRoleLabel}
-                  verifiedLabel={identityVerifiedLabel}
-                />
-                <SuperAdminSignOutButton label={signOutLabel} />
-              </div>
-            </header>
+                <div className="flex shrink-0 items-center gap-3">
+                  <SuperAdminIdentityBadge
+                    roleLabel={identityRoleLabel}
+                    verifiedLabel={identityVerifiedLabel}
+                  />
+                  <SuperAdminSignOutButton label={signOutLabel} />
+                </div>
+              </header>
 
-            <main className="flex-1 px-4 py-6 lg:px-8">{children}</main>
+              <main className="flex-1 px-4 py-6 lg:px-8">{children}</main>
+            </div>
           </div>
         </div>
-      </div>
-    </SuperAdminOperationsProvider>
+      </SuperAdminOperationsProvider>
     </CommandBarProvider>
   );
 }

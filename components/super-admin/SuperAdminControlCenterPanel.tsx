@@ -19,6 +19,9 @@ type SuperAdminControlCenterPanelProps = {
   labels: {
     loading: string;
     loadError: string;
+    emptyStateTitle: string;
+    emptyStateBody: string;
+    setupNotice: string;
     privacyNote: string;
     sectionsTitle: string;
     openModule: string;
@@ -116,13 +119,31 @@ export default function SuperAdminControlCenterPanel({
   }
 
   if (error || !center) {
-    return <p className="text-sm text-red-600">{error ?? labels.loadError}</p>;
+    return (
+      <div className="rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm">
+        <h2 className="text-lg font-semibold text-zinc-900">{labels.emptyStateTitle}</h2>
+        <p className="mt-2 text-sm text-zinc-600">{error ?? labels.loadError}</p>
+        <p className="mt-4 text-sm text-zinc-500">{labels.emptyStateBody}</p>
+      </div>
+    );
   }
+
+  const showEmptyNotice =
+    center.setup_notice === true ||
+    center.data_state === "empty" ||
+    center.data_state === "degraded";
 
   const services = center.system_services ?? [];
 
   return (
     <div className="space-y-6">
+      {showEmptyNotice ? (
+        <div className="rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-950">
+          <p className="font-medium">{labels.emptyStateTitle}</p>
+          <p className="mt-1 text-amber-900">{center.setup_notice ? labels.setupNotice : labels.emptyStateBody}</p>
+        </div>
+      ) : null}
+
       <SuperAdminExecutiveHeader center={center} labels={labels.executiveHeader} />
 
       <SuperAdminExecutiveSummary

@@ -59,6 +59,11 @@ export function parseSuperAdminControlCenter(payload: unknown): SuperAdminContro
 
   return {
     has_access: true,
+    data_state:
+      data.data_state === "live" || data.data_state === "empty" || data.data_state === "degraded"
+        ? data.data_state
+        : undefined,
+    setup_notice: data.setup_notice === true,
     admin_role: typeof data.admin_role === "string" ? data.admin_role : undefined,
     display_name: typeof data.display_name === "string" ? data.display_name : undefined,
     platform_health_score:

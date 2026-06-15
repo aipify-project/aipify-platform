@@ -45,7 +45,10 @@ export default function SuperAdminOperationsProvider({
         const res = await fetch("/api/super-admin/control-center");
         if (!res.ok) {
           const body = (await res.json().catch(() => ({}))) as { error?: string };
-          throw new Error(body.error ?? loadErrorLabel);
+          if (body.error) {
+            console.error("[SuperAdmin] control center load failed:", body.error);
+          }
+          throw new Error(loadErrorLabel);
         }
         const data = (await res.json()) as SuperAdminControlCenter;
         setCenter(data);
@@ -54,7 +57,10 @@ export default function SuperAdminOperationsProvider({
       });
       return ok;
     } catch (err) {
-      setError(err instanceof Error ? err.message : loadErrorLabel);
+      if (err instanceof Error && err.message !== loadErrorLabel) {
+        console.error("[SuperAdmin] control center error:", err.message);
+      }
+      setError(loadErrorLabel);
       return false;
     } finally {
       setLoading(false);

@@ -92,7 +92,10 @@
   },
   "controlCenter": {
     "loading": "Loading control center…",
-    "loadError": "Unable to load Super Admin Control Center.",
+    "loadError": "Control Center data is temporarily unavailable.",
+    "emptyStateTitle": "Operational overview initializing",
+    "emptyStateBody": "Platform metrics will appear here as organizations, subscriptions, and partner activity are recorded. No customer business content is shown.",
+    "setupNotice": "The control center database layer is completing setup. Metrics may read zero until platform migrations finish — this is expected during rollout.",
     "welcome": "Welcome back, {name}.",
     "globalPlatformHealth": "Global Platform Health",
     "organizations": "Organizations",
@@ -272,6 +275,8 @@
     "payoutReviewsDescription": "Approve partner payout batches.",
     "partnerSupport": "Partner Support",
     "partnerSupportDescription": "Handle partner escalations and operations.",
+    "marketingManagement": "Markedsføringsstyring",
+    "marketingManagementDescription": "Last opp ressurser, publiser kampanjer og administrer merkevarestandarder.",
     "submissionQueue": "Submission Queue",
     "submissionQueueDescription": "Review marketplace skill submissions.",
     "approvalCenter": "Approval Center",
@@ -424,6 +429,74 @@
       "allCategories": "Alle kategorier",
       "allTrends": "Alle trender",
       "apply": "Bruk filtre"
+    }
+  },
+  "growthPartnerMarketing": {
+    "title": "Growth Partner Markedsføringsstyring",
+    "subtitle": "Styr godkjente markedsføringsmaterialer, kampanjer, merkevarestandarder og bruksanalyse på tvers av partnernettverket.",
+    "loading": "Laster Markedsføringssenter…",
+    "back": "Tilbake til Super Admin",
+    "principle": "Growth Partners skal aldri måtte gjette hvordan de representerer Aipify. Profesjonelle verktøy skaper profesjonelle opplevelser.",
+    "emptyState": "Marketing Management requires Super Admin access.",
+    "youDecide": "Publish only reviewed materials. Archive outdated assets promptly.",
+    "overview": {
+      "availableCampaigns": "Active campaigns",
+      "marketingAssets": "Total assets",
+      "recentlyUpdated": "Updated (30 days)",
+      "campaignPerformance": "Avg. campaign score",
+      "upcomingPromotions": "Scheduled promotions",
+      "localizedResources": "Languages available"
+    },
+    "sections": {
+      "overview": "Overview",
+      "assetLibrary": "Asset library",
+      "campaigns": "Campaign management",
+      "emailTemplates": "Email templates",
+      "presentations": "Presentations",
+      "brandGuidelines": "Brand guidelines",
+      "prohibited": "Partner restrictions",
+      "analytics": "Usage analytics",
+      "audit": "Audit trail",
+      "downloadCenter": "Downloads"
+    },
+    "table": {
+      "name": "Name", "category": "Category", "language": "Language", "version": "Version",
+      "status": "Status", "downloads": "Downloads", "objective": "Objective", "audience": "Audience",
+      "dates": "Schedule", "assets": "Assets", "subject": "Subject", "slides": "slides", "actions": "Actions"
+    },
+    "categories": {
+      "banner": "Banner", "social_media_graphic": "Social media graphic", "presentation_deck": "Presentation deck",
+      "brochure": "Brochure", "email_template": "Email template", "landing_page_template": "Landing page template",
+      "product_one_pager": "Product one-pager", "case_study": "Case study", "brand_guidelines": "Brand guidelines"
+    },
+    "assetStatuses": { "draft": "Draft", "published": "Published", "archived": "Archived" },
+    "campaignTypes": {
+      "awareness": "Awareness", "lead_generation": "Lead generation", "product_launch": "Product launch",
+      "enterprise_outreach": "Enterprise outreach", "referral_growth": "Referral growth", "seasonal_promotion": "Seasonal promotion"
+    },
+    "campaignStatuses": { "draft": "Draft", "active": "Active", "archived": "Archived" },
+    "emailTypes": {
+      "initial_outreach": "Initial outreach", "demonstration_invitation": "Demonstration invitation", "follow_up": "Follow-up",
+      "proposal_delivery": "Proposal delivery", "renewal_conversation": "Renewal conversation", "enterprise_introduction": "Enterprise introduction"
+    },
+    "presentationTypes": {
+      "what_is_aipify": "What is Aipify?", "executive_overview": "Executive overview", "enterprise_procurement": "Enterprise procurement",
+      "growth_partner_introduction": "Growth Partner introduction", "customer_success_stories": "Customer success stories", "industry_use_case": "Industry use case"
+    },
+    "languages": { "en": "English", "no": "Norwegian", "sv": "Swedish", "da": "Danish" },
+    "prohibited": {
+      "modify_official_logos": "Partners may not modify official logos.",
+      "promise_unavailable_features": "Partners may not promise unavailable features.",
+      "misleading_pricing": "Partners may not create misleading pricing materials.",
+      "outdated_presentations": "Partners may not use outdated presentations."
+    },
+    "analytics": {
+      "mostDownloaded": "Most downloaded assets", "mostUsedPresentations": "Most used presentations",
+      "topCampaigns": "Top campaigns", "engagementTrend": "Engagement trend"
+    },
+    "quickActions": {
+      "download": "Download", "publishCampaign": "Publish", "archiveCampaign": "Archive campaign",
+      "archiveAsset": "Archive asset", "uploadAsset": "Upload asset"
     }
   }
 }

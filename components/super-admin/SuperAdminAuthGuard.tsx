@@ -78,10 +78,10 @@ export default function SuperAdminAuthGuard({
 
   if (checking) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-zinc-950">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50">
         <div className="flex flex-col items-center gap-3">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-zinc-700 border-t-zinc-200" />
-          <p className="text-sm font-medium text-zinc-400">{loadingLabel}</p>
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-gray-200 border-t-indigo-600" />
+          <p className="text-sm font-medium text-gray-600">{loadingLabel}</p>
         </div>
       </div>
     );
@@ -89,9 +89,9 @@ export default function SuperAdminAuthGuard({
 
   if (!authorized) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-zinc-950 px-4">
-        <div className="max-w-md rounded-lg border border-zinc-800 bg-zinc-900 p-6 text-center">
-          <p className="text-sm font-medium text-zinc-300">{deniedMessage}</p>
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+        <div className="max-w-md rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm">
+          <p className="text-sm font-medium text-gray-700">{deniedMessage}</p>
         </div>
       </div>
     );

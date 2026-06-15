@@ -52,6 +52,8 @@ export type SuperAdminActionItem = {
 
 export type SuperAdminControlCenter = {
   has_access: boolean;
+  data_state?: "live" | "empty" | "degraded";
+  setup_notice?: boolean;
   admin_role?: string;
   display_name?: string;
   platform_health_score?: number;

@@ -151,8 +151,13 @@ async function applyMigrationFile(token, migration, remote) {
   }
 
   try {
-    await executeQuery(token, sql);
-    await recordMigration(token, migration);
+  await executeQuery(token, sql);
+  await recordMigration(token, migration);
+  try {
+    await executeQuery(token, "NOTIFY pgrst, 'reload schema';");
+  } catch {
+    // PostgREST reload is best-effort after DDL changes.
+  }
     remote.versions.add(migration.version);
     remote.names.add(migration.name);
     console.log(`applied ${migration.file}`);
