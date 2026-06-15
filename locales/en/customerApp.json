@@ -245,54 +245,108 @@
         "title": "Companion Presence",
         "description": "Executive feed, desktop connection, and notification preferences.",
         "links": {
-          "1": { "href": "/app/presence", "label": "Presence Center" },
-          "2": { "href": "/app/command-center", "label": "Executive Center" },
-          "3": { "href": "/app/command-center/connect", "label": "Desktop Companion" }
+          "1": {
+            "href": "/app/presence",
+            "label": "Presence Center"
+          },
+          "2": {
+            "href": "/app/command-center",
+            "label": "Executive Center"
+          },
+          "3": {
+            "href": "/app/command-center/connect",
+            "label": "Desktop Companion"
+          }
         }
       },
       "governanceSecurity": {
         "title": "Governance & Security",
         "description": "Compliance, approvals, audit, and sign-in verification.",
         "links": {
-          "1": { "href": "/app/compliance", "label": "Security & compliance" },
-          "2": { "href": "/app/approvals", "label": "Approvals" },
-          "3": { "href": "/app/settings/two-factor", "label": "Sign-in verification" }
+          "1": {
+            "href": "/app/compliance",
+            "label": "Security & compliance"
+          },
+          "2": {
+            "href": "/app/approvals",
+            "label": "Approvals"
+          },
+          "3": {
+            "href": "/app/settings/two-factor",
+            "label": "Sign-in verification"
+          }
         }
       },
       "knowledgeLearning": {
         "title": "Knowledge & Learning",
         "description": "Knowledge Center, learning discovery, and Business DNA.",
         "links": {
-          "1": { "href": "/app/settings/knowledge", "label": "Knowledge Center" },
-          "2": { "href": "/app/learning", "label": "Learning discovery" },
-          "3": { "href": "/app/settings/business-dna", "label": "Business DNA" }
+          "1": {
+            "href": "/app/settings/knowledge",
+            "label": "Knowledge Center"
+          },
+          "2": {
+            "href": "/app/learning",
+            "label": "Learning discovery"
+          },
+          "3": {
+            "href": "/app/settings/business-dna",
+            "label": "Business DNA"
+          }
         }
       },
       "automationActions": {
         "title": "Automation & Actions",
         "description": "Action permissions, adaptive automation, and trust controls.",
         "links": {
-          "1": { "href": "/app/settings/action-access", "label": "Action permissions" },
-          "2": { "href": "/app/settings/automation", "label": "Adaptive automation" },
-          "3": { "href": "/app/settings/governance", "label": "Trust controls" }
+          "1": {
+            "href": "/app/settings/action-access",
+            "label": "Action permissions"
+          },
+          "2": {
+            "href": "/app/settings/automation",
+            "label": "Adaptive automation"
+          },
+          "3": {
+            "href": "/app/settings/governance",
+            "label": "Trust controls"
+          }
         }
       },
       "billingGrowth": {
         "title": "Billing & Growth",
         "description": "Subscription, packages, and expansion planning.",
         "links": {
-          "1": { "href": "/app/settings/billing", "label": "Subscription" },
-          "2": { "href": "/app/settings/modules", "label": "Packages" },
-          "3": { "href": "/app/enterprise", "label": "Expansion planning" }
+          "1": {
+            "href": "/app/settings/billing",
+            "label": "Subscription"
+          },
+          "2": {
+            "href": "/app/settings/modules",
+            "label": "Packages"
+          },
+          "3": {
+            "href": "/app/enterprise",
+            "label": "Expansion planning"
+          }
         }
       },
       "organizationIntelligence": {
         "title": "Organization Intelligence",
         "description": "Predictive intelligence, operational insights, and quality guardian.",
         "links": {
-          "1": { "href": "/app/settings/intelligence", "label": "Predictive intelligence" },
-          "2": { "href": "/app/organizational-intelligence", "label": "Operational insights" },
-          "3": { "href": "/app/settings/quality", "label": "Quality guardian" }
+          "1": {
+            "href": "/app/settings/intelligence",
+            "label": "Predictive intelligence"
+          },
+          "2": {
+            "href": "/app/organizational-intelligence",
+            "label": "Operational insights"
+          },
+          "3": {
+            "href": "/app/settings/quality",
+            "label": "Quality guardian"
+          }
         }
       }
     },
@@ -1277,10 +1331,10 @@
     }
   },
   "paymentProviders": {
-    "title": "Payment providers",
-    "subtitle": "Configure how your organization accepts payments — Aipify owns the billing experience; you choose the provider.",
-    "loading": "Preparing payment provider overview…",
-    "principle": "Aipify owns the billing experience. Customers choose the payment provider.",
+    "title": "Payment Infrastructure",
+    "subtitle": "Mission control for revenue operations — configure providers, environments, and settlement with enterprise clarity.",
+    "loading": "Preparing payment infrastructure overview…",
+    "principle": "Payments are built on trust. Aipify owns the billing experience; you choose the provider.",
     "paidAccessNow": "Paid = access now — features unlock immediately after payment confirmation.",
     "configure": "Configure",
     "testConnection": "Test connection",
@@ -1303,22 +1357,44 @@
       "webhookUrl": "Webhook URL",
       "webhookStatus": "Webhook status",
       "lastWebhook": "Last event received",
-      "enabled": "Enabled for this workspace"
+      "enabled": "Enabled for this workspace",
+      "environment": "Environment",
+      "apiStatus": "API status",
+      "settlementStatus": "Settlement status",
+      "currencies": "Supported currencies",
+      "countries": "Supported countries"
     },
     "statuses": {
       "operational": "Operational",
-      "pendingSetup": "Pending setup",
+      "pendingSetup": "Setup Required",
+      "setupRequired": "Setup Required",
       "requiresAttention": "Requires attention",
-      "disabled": "Disabled"
+      "disabled": "Disabled",
+      "disconnected": "Disconnected",
+      "failed": "Failed"
+    },
+    "environments": {
+      "sandbox": "Sandbox",
+      "production": "Production"
     },
     "modes": {
-      "test": "Test",
-      "live": "Live"
+      "test": "Sandbox",
+      "live": "Production"
     },
     "webhookStatuses": {
       "receivingEvents": "Receiving events",
       "notConfigured": "Not configured",
       "failedVerification": "Failed verification"
+    },
+    "apiStatuses": {
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "pending": "Awaiting Configuration"
+    },
+    "settlementStatuses": {
+      "completed": "Settled",
+      "pending": "Pending settlement",
+      "failed": "Settlement failed"
     },
     "capabilities": {
       "subscriptions": "Subscriptions",
@@ -1369,17 +1445,18 @@
       "stripePositioning": "International reach and enterprise flexibility.",
       "klarnaPositioning": "Trusted European payment experiences.",
       "vippsPositioning": "Simple and trusted local payments.",
-      "dnbPositioning": "Large organizations and invoice-based payment operations."
+      "dnbPositioning": "Enterprise invoice billing for procurement teams — purchase orders, payment terms, and framework agreements."
     },
     "enterpriseBilling": {
       "title": "Enterprise Procurement",
       "description": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements.",
       "methods": "DNB Invoice · Purchase Orders · Bank Transfer · 30/60/90-Day Terms · Framework Agreements",
-      "manageLink": "Invoice details & enterprise procurement"
+      "manageLink": "Invoice details & enterprise procurement",
+      "providerInfrastructure": "Enterprise payment infrastructure"
     }
   },
   "billingExperience": {
-    "principle": "Aipify supports both purchasing behaviors — pay now for speed, approve and procure for enterprise scale.",
+    "principle": "Aipify supports both purchasing behaviors — pay now for speed, approve and procure for enterprise scale. Mission control for revenue operations.",
     "commercialPrinciple": {
       "instant": "Instant Activation: fast onboarding for customers who can make immediate purchasing decisions.",
       "enterprise": "Enterprise Procurement: structured purchasing workflows for organizations with approval requirements.",
@@ -1389,15 +1466,16 @@
       "title": "Instant Activation",
       "description": "Designed for startups, freelancers, SMBs and fast-moving teams that want immediate access to Aipify.",
       "message": "Activate your subscription instantly and start using Aipify within minutes.",
-      "activateWith": "Pay with",
+      "activateWith": "Available Payment Providers",
       "checkout": "Activate now",
       "checkingOut": "Starting checkout…"
     },
     "enterpriseProcurement": {
       "title": "Enterprise Procurement",
       "description": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements.",
-      "message": "Our enterprise team supports procurement processes, invoice terms, and tailored agreements for larger organizations.",
+      "message": "Aipify supports established procurement practices — purchase orders, DNB Invoice, bank transfer, flexible payment terms, and framework agreements for larger organizations.",
       "manageLink": "Invoice details & enterprise procurement",
+      "supportedMethodsLabel": "Supported procurement methods",
       "methods": {
         "dnb_invoice": "DNB Invoice",
         "purchase_orders": "Purchase Orders (PO)",

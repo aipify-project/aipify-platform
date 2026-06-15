@@ -2,10 +2,18 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { PaymentProviderLogo } from "@/components/shared/payment-providers/PaymentProviderLogo";
+import {
+  ProviderCard,
+  ProviderCardActions,
+  ProviderCardAssets,
+  ProviderCardBody,
+  ProviderCardDetail,
+  ProviderCardOperationalDetails,
+} from "@/components/payments/provider-card";
+import { ProviderLogo } from "@/components/payments/provider-logo";
+import { ProviderStatusBadge } from "@/components/payments/provider-status-badge";
 import {
   ALERT_SEVERITY_BADGES,
-  PROVIDER_STATUS_BADGES,
   REGIONAL_COVERAGE_KEYS,
   parsePaymentOperationsCenter,
   type PaymentOperationsCenter,
@@ -34,102 +42,99 @@ function ProviderOpsCard({
   provider: PaymentOperationsProvider;
   labels: PaymentOperationsLabels;
 }) {
-  const statusClass = PROVIDER_STATUS_BADGES[provider.status] ?? PROVIDER_STATUS_BADGES.pending_setup;
   const caps =
     provider.operational_capabilities.length > 0
       ? provider.operational_capabilities
       : provider.capabilities;
+  const providerKey = provider.provider_key as PaymentProviderKey;
+  const providerName = labels.providers[provider.provider_key] ?? provider.name;
 
   return (
-    <article className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-      <div className="flex items-start justify-between gap-4 border-b border-gray-100 pb-5">
-        <PaymentProviderLogo
-          provider={provider.provider_key as PaymentProviderKey}
-          alt={labels.providers[provider.provider_key] ?? provider.name}
-        />
-        <StatusPill
-          label={labels.statuses[provider.status] ?? provider.status}
-          className={statusClass}
-        />
-      </div>
+    <ProviderCard>
+      <ProviderCardAssets>
+        <ProviderLogo provider={providerKey} alt={providerName} />
+      </ProviderCardAssets>
 
-      <h3 className="mt-4 text-lg font-semibold text-gray-900">
-        {labels.providers[provider.provider_key] ?? provider.name}
-      </h3>
+      <ProviderCardBody>
+        <h3 className="text-lg font-semibold tracking-tight text-neutral-900">{providerName}</h3>
 
-      <div className="mt-4">
-        <p className="text-xs font-medium uppercase tracking-wide text-gray-500">
-          {labels.provider.capabilities}
-        </p>
-        <ul className="mt-2 space-y-1 text-sm text-gray-700">
-          {caps.map((cap) => (
-            <li key={cap}>• {labels.capabilities[cap] ?? cap}</li>
-          ))}
-        </ul>
-      </div>
+        <div className="mt-5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
+            {labels.provider.capabilities}
+          </p>
+          <ul className="mt-2 space-y-1 text-sm text-neutral-700">
+            {caps.map((cap) => (
+              <li key={cap}>• {labels.capabilities[cap] ?? cap}</li>
+            ))}
+          </ul>
+        </div>
 
-      <div className="mt-4">
-        <p className="text-xs font-medium uppercase tracking-wide text-gray-500">
-          {labels.provider.regions}
-        </p>
-        <p className="mt-1 text-sm text-gray-700">
-          {(provider.supported_countries.length > 0
-            ? provider.supported_countries
-            : provider.regions
-          ).join(" · ")}
-        </p>
-      </div>
+        <div className="mt-5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
+            {labels.provider.regions}
+          </p>
+          <p className="mt-2 text-sm text-neutral-700">
+            {(provider.supported_countries.length > 0
+              ? provider.supported_countries
+              : provider.regions
+            ).join(" · ")}
+          </p>
+        </div>
 
-      <dl className="mt-5 grid gap-3 text-sm sm:grid-cols-2">
-        <div>
-          <dt className="text-xs text-gray-500">{labels.provider.environment}</dt>
-          <dd className="mt-1 font-medium text-gray-900">
-            {labels.environments[provider.environment] ?? provider.environment}
-          </dd>
-        </div>
-        <div>
-          <dt className="text-xs text-gray-500">{labels.provider.apiStatus}</dt>
-          <dd className="mt-1 font-medium text-gray-900">
-            {labels.apiStatuses[provider.api_status] ?? provider.api_status}
-          </dd>
-        </div>
-        <div>
-          <dt className="text-xs text-gray-500">{labels.provider.webhookStatus}</dt>
-          <dd className="mt-1 font-medium text-gray-900">{provider.webhook_status.replace(/_/g, " ")}</dd>
-        </div>
-        <div>
-          <dt className="text-xs text-gray-500">{labels.provider.settlementStatus}</dt>
-          <dd className="mt-1 font-medium text-gray-900">
-            {labels.statuses[provider.settlement_status] ?? provider.settlement_status}
-          </dd>
-        </div>
-        <div className="sm:col-span-2">
-          <dt className="text-xs text-gray-500">{labels.provider.lastSync}</dt>
-          <dd className="mt-1 font-medium text-gray-900">
-            {provider.last_synchronization
-              ? new Date(provider.last_synchronization).toLocaleString()
-              : "—"}
-          </dd>
-        </div>
-        <div>
-          <dt className="text-xs text-gray-500">{labels.provider.currencies}</dt>
-          <dd className="mt-1 text-gray-900">{provider.supported_currencies.join(", ")}</dd>
-        </div>
-        <div>
-          <dt className="text-xs text-gray-500">{labels.provider.countries}</dt>
-          <dd className="mt-1 text-gray-900">{provider.supported_countries.join(", ")}</dd>
-        </div>
-      </dl>
+        <ProviderCardOperationalDetails>
+          <ProviderCardDetail
+            label={labels.provider.status}
+            value={
+              <ProviderStatusBadge
+                statusKey={provider.status}
+                label={labels.statuses[provider.status] ?? provider.status}
+              />
+            }
+          />
+          <ProviderCardDetail
+            label={labels.provider.environment}
+            value={labels.environments[provider.environment] ?? provider.environment}
+          />
+          <ProviderCardDetail
+            label={labels.provider.apiStatus}
+            value={labels.apiStatuses[provider.api_status] ?? provider.api_status}
+          />
+          <ProviderCardDetail
+            label={labels.provider.webhookStatus}
+            value={provider.webhook_status.replace(/_/g, " ")}
+          />
+          <ProviderCardDetail
+            label={labels.provider.settlementStatus}
+            value={labels.statuses[provider.settlement_status] ?? provider.settlement_status}
+          />
+          <ProviderCardDetail
+            label={labels.provider.lastSync}
+            value={
+              provider.last_synchronization
+                ? new Date(provider.last_synchronization).toLocaleString()
+                : "—"
+            }
+          />
+          <ProviderCardDetail
+            label={labels.provider.currencies}
+            value={provider.supported_currencies.join(", ")}
+          />
+          <ProviderCardDetail
+            label={labels.provider.countries}
+            value={provider.supported_countries.join(", ")}
+          />
+        </ProviderCardOperationalDetails>
 
-      <div className="mt-auto pt-5">
-        <Link
-          href="/platform/payment-providers"
-          className="text-sm font-medium text-indigo-600 hover:text-indigo-700"
-        >
-          {labels.provider.configure} →
-        </Link>
-      </div>
-    </article>
+        <ProviderCardActions>
+          <Link
+            href="/platform/payment-providers"
+            className="rounded-lg bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
+          >
+            {labels.provider.configure}
+          </Link>
+        </ProviderCardActions>
+      </ProviderCardBody>
+    </ProviderCard>
   );
 }
 
@@ -201,7 +206,7 @@ export function PaymentOperationsCenterPanel({
 
       <section>
         <h2 className="mb-4 font-semibold text-gray-900">{labels.sections.providers}</h2>
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid auto-rows-fr gap-6 lg:grid-cols-2">
           {center.providers.map((provider) => (
             <ProviderOpsCard key={provider.provider_key} provider={provider} labels={labels} />
           ))}

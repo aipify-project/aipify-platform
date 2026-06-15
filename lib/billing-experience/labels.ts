@@ -33,6 +33,7 @@ export function buildBillingExperienceLabels(
       description: t(`${p}.enterpriseProcurement.description`),
       message: t(`${p}.enterpriseProcurement.message`),
       manageLink: t(`${p}.enterpriseProcurement.manageLink`),
+      supportedMethodsLabel: t(`${p}.enterpriseProcurement.supportedMethodsLabel`),
       methods: Object.fromEntries(
         ENTERPRISE_PROCUREMENT_METHODS.map((method) => [
           method,

@@ -8,7 +8,9 @@ import {
 } from "@/components/shared/billing-experience";
 import { buildBillingExperienceLabels, type BillingExperienceLabels } from "@/lib/billing-experience";
 import {
+  ENTERPRISE_BILLING_PROVIDER,
   PROVIDER_FIELD_DEFINITIONS,
+  SELF_SERVICE_PAYMENT_PROVIDERS,
   parsePaymentProvidersCenter,
   type PaymentProviderCard as ProviderCardData,
   type PaymentProviderKey,
@@ -17,6 +19,7 @@ import {
   type ProviderScope,
   type SelfServicePaymentProviderKey,
 } from "@/lib/payment-providers";
+import { PaymentProviderCard } from "@/components/shared/payment-providers/PaymentProviderCard";
 
 type PaymentProvidersExperiencePanelProps = {
   scope: ProviderScope;
@@ -150,6 +153,9 @@ export function PaymentProvidersExperiencePanel({
       : "/app/settings/billing/invoice-details";
 
   const isCheckoutMode = scope === "tenant";
+  const enterpriseCard = center?.providers.find(
+    (p) => p.provider_key === ENTERPRISE_BILLING_PROVIDER
+  );
 
   return (
     <div className="mx-auto max-w-6xl space-y-8 p-6">
@@ -196,9 +202,25 @@ export function PaymentProvidersExperiencePanel({
       <EnterpriseProcurementSection
         labels={billingLabels.enterpriseProcurement}
         manageHref={enterpriseBillingHref}
+        providerInfrastructureLabel={labels.enterpriseBilling.providerInfrastructure}
+        providerCard={
+          !isCheckoutMode && enterpriseCard ? (
+            <PaymentProviderCard
+              card={enterpriseCard}
+              labels={labels}
+              canEdit={center?.can_edit ?? false}
+              testing={testing === enterpriseCard.provider_key}
+              onConfigure={() => openConfigure(enterpriseCard)}
+              onTest={() => void handleTest(enterpriseCard.provider_key)}
+              onViewLogs={() => viewLogs(enterpriseCard.provider_key)}
+              onCopyWebhook={() => void copyWebhook(enterpriseCard.webhook_url)}
+              copied={copiedUrl === enterpriseCard.webhook_url}
+            />
+          ) : undefined
+        }
       />
 
-      <p className="rounded-xl border border-slate-100 bg-slate-50 px-4 py-3 text-xs text-slate-600">
+      <p className="rounded-xl border border-neutral-100 bg-neutral-50 px-4 py-3 text-xs text-neutral-600">
         {billingLabels.commercialPrinciple.instant} · {billingLabels.commercialPrinciple.enterprise}
       </p>
 
@@ -264,15 +286,15 @@ export function PaymentProvidersExperiencePanel({
             </div>
             <div className="mt-4 flex flex-wrap gap-4">
               <label className="text-sm">
-                <span className="font-medium text-neutral-700">{labels.fields.mode}</span>
+                <span className="font-medium text-neutral-700">{labels.fields.environment}</span>
                 <select
                   value={formMode}
                   onChange={(e) => setFormMode(e.target.value as "test" | "live")}
                   className="mt-1 block rounded-lg border border-neutral-200 px-3 py-2"
                   disabled={!center?.can_edit}
                 >
-                  <option value="test">{labels.modes.test}</option>
-                  <option value="live">{labels.modes.live}</option>
+                  <option value="test">{labels.environments.sandbox}</option>
+                  <option value="live">{labels.environments.production}</option>
                 </select>
               </label>
               <label className="flex items-center gap-2 text-sm">

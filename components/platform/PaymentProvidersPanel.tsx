@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
+import { ProviderLogo } from "@/components/payments/provider-logo";
 import { createClient } from "@/lib/supabase/client";
+import { PAYMENT_PROVIDER_KEYS, type PaymentProviderKey } from "@/lib/payment-providers";
 import type { PaymentEventRow, PaymentProviderSummary } from "@/lib/platform/types";
 
 type PaymentProvidersPanelProps = {
@@ -73,11 +75,20 @@ export default function PaymentProvidersPanel({
         <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {providers.map((row) => (
+          {providers.map((row) => {
+            const providerKey = PAYMENT_PROVIDER_KEYS.find((k) => k === row.provider);
+            return (
             <article
               key={row.provider}
-              className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+              className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
             >
+              {providerKey ? (
+                <ProviderLogo
+                  provider={providerKey}
+                  alt={labels.providerLabels[row.provider] ?? row.provider}
+                  className="mb-5 w-full"
+                />
+              ) : null}
               <h2 className="text-lg font-semibold text-gray-900">
                 {labels.providerLabels[row.provider] ?? row.provider}
               </h2>
@@ -100,7 +111,8 @@ export default function PaymentProvidersPanel({
                 </div>
               </dl>
             </article>
-          ))}
+            );
+          })}
         </div>
       )}
 

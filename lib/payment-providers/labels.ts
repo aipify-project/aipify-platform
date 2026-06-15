@@ -31,21 +31,43 @@ export function buildPaymentProviderLabels(t: Translator, namespace: "customerAp
       webhookStatus: t(`${p}.fields.webhookStatus`),
       lastWebhook: t(`${p}.fields.lastWebhook`),
       enabled: t(`${p}.fields.enabled`),
+      environment: t(`${p}.fields.environment`),
+      apiStatus: t(`${p}.fields.apiStatus`),
+      settlementStatus: t(`${p}.fields.settlementStatus`),
+      currencies: t(`${p}.fields.currencies`),
+      countries: t(`${p}.fields.countries`),
     },
     statuses: {
       operational: t(`${p}.statuses.operational`),
-      pending_setup: t(`${p}.statuses.pendingSetup`),
+      pending_setup: t(`${p}.statuses.setupRequired`),
+      setupRequired: t(`${p}.statuses.setupRequired`),
       requires_attention: t(`${p}.statuses.requiresAttention`),
       disabled: t(`${p}.statuses.disabled`),
+      disconnected: t(`${p}.statuses.disconnected`),
+      failed: t(`${p}.statuses.failed`),
     },
     modes: {
       test: t(`${p}.modes.test`),
       live: t(`${p}.modes.live`),
     },
+    environments: {
+      sandbox: t(`${p}.environments.sandbox`),
+      production: t(`${p}.environments.production`),
+    },
     webhookStatuses: {
       receiving_events: t(`${p}.webhookStatuses.receivingEvents`),
       not_configured: t(`${p}.webhookStatuses.notConfigured`),
       failed_verification: t(`${p}.webhookStatuses.failedVerification`),
+    },
+    apiStatuses: {
+      connected: t(`${p}.apiStatuses.connected`),
+      disconnected: t(`${p}.apiStatuses.disconnected`),
+      pending: t(`${p}.apiStatuses.pending`),
+    },
+    settlementStatuses: {
+      completed: t(`${p}.settlementStatuses.completed`),
+      pending: t(`${p}.settlementStatuses.pending`),
+      failed: t(`${p}.settlementStatuses.failed`),
     },
     capabilities: {
       subscriptions: t(`${p}.capabilities.subscriptions`),
@@ -115,6 +137,7 @@ export function buildPaymentProviderLabels(t: Translator, namespace: "customerAp
       description: t(`${p}.enterpriseBilling.description`),
       methods: t(`${p}.enterpriseBilling.methods`),
       manageLink: t(`${p}.enterpriseBilling.manageLink`),
+      providerInfrastructure: t(`${p}.enterpriseBilling.providerInfrastructure`),
     },
   };
 }

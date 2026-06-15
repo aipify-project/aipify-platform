@@ -466,10 +466,10 @@
     "paymentStatus": "Payment status"
   },
   "paymentProviders": {
-    "title": "Payment providers",
-    "subtitle": "Multi-provider billing foundation — Klarna, Vipps MobilePay, Stripe, and DNB Payment Services.",
-    "loading": "Preparing payment provider overview…",
-    "principle": "Aipify owns the billing experience. Customers choose the payment provider.",
+    "title": "Payment Infrastructure",
+    "subtitle": "Mission control for revenue operations — Klarna, Vipps MobilePay, Stripe, and DNB Invoice on one resilient foundation.",
+    "loading": "Preparing payment infrastructure overview…",
+    "principle": "Payments are built on trust. Aipify owns the billing experience; customers choose the provider.",
     "paidAccessNow": "Paid = access now — subscriptions unlock immediately after payment confirmation.",
     "configure": "Configure",
     "testConnection": "Test connection",
@@ -492,17 +492,39 @@
       "webhookUrl": "Webhook URL",
       "webhookStatus": "Webhook status",
       "lastWebhook": "Last event received",
-      "enabled": "Enabled"
+      "enabled": "Enabled for this workspace",
+      "environment": "Environment",
+      "apiStatus": "API status",
+      "settlementStatus": "Settlement status",
+      "currencies": "Supported currencies",
+      "countries": "Supported countries"
     },
     "statuses": {
       "operational": "Operational",
-      "pendingSetup": "Pending setup",
+      "pendingSetup": "Setup Required",
+      "setupRequired": "Setup Required",
       "requiresAttention": "Requires attention",
-      "disabled": "Disabled"
+      "disabled": "Disabled",
+      "disconnected": "Disconnected",
+      "failed": "Failed"
+    },
+    "apiStatuses": {
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "pending": "Awaiting Configuration"
+    },
+    "settlementStatuses": {
+      "completed": "Settled",
+      "pending": "Pending settlement",
+      "failed": "Settlement failed"
     },
     "modes": {
-      "test": "Test",
-      "live": "Live"
+      "test": "Sandbox",
+      "live": "Production"
+    },
+    "environments": {
+      "sandbox": "Sandbox",
+      "production": "Production"
     },
     "webhookStatuses": {
       "receivingEvents": "Receiving events",
@@ -558,13 +580,14 @@
       "stripePositioning": "International reach and enterprise flexibility.",
       "klarnaPositioning": "Trusted European payment experiences.",
       "vippsPositioning": "Simple and trusted local payments.",
-      "dnbPositioning": "Large organizations and invoice-based payment operations."
+      "dnbPositioning": "Enterprise invoice billing for procurement teams — purchase orders, payment terms, and framework agreements."
     },
     "enterpriseBilling": {
       "title": "Enterprise Procurement",
       "description": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements.",
       "methods": "DNB Invoice · Purchase Orders · Bank Transfer · 30/60/90-Day Terms · Framework Agreements",
-      "manageLink": "Open Enterprise Invoice Center"
+      "manageLink": "Open Enterprise Invoice Center",
+      "providerInfrastructure": "Enterprise payment infrastructure"
     },
     "provider": "Provider",
     "customers": "Customers",
@@ -578,7 +601,7 @@
     "empty": "No payment providers configured yet."
   },
   "billingExperience": {
-    "principle": "Aipify supports both purchasing behaviors — pay now for speed, approve and procure for enterprise scale.",
+    "principle": "Aipify supports both purchasing behaviors — pay now for speed, approve and procure for enterprise scale. Mission control for revenue operations.",
     "commercialPrinciple": {
       "instant": "Instant Activation: fast onboarding for customers who can make immediate purchasing decisions.",
       "enterprise": "Enterprise Procurement: structured purchasing workflows for organizations with approval requirements.",
@@ -588,15 +611,16 @@
       "title": "Instant Activation",
       "description": "Designed for startups, freelancers, SMBs and fast-moving teams that want immediate access to Aipify.",
       "message": "Activate your subscription instantly and start using Aipify within minutes.",
-      "activateWith": "Pay with",
+      "activateWith": "Available Payment Providers",
       "checkout": "Activate now",
       "checkingOut": "Starting checkout…"
     },
     "enterpriseProcurement": {
       "title": "Enterprise Procurement",
       "description": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements.",
-      "message": "Our enterprise team supports procurement processes, invoice terms, and tailored agreements for larger organizations.",
+      "message": "Aipify supports established procurement practices — purchase orders, DNB Invoice, bank transfer, flexible payment terms, and framework agreements for larger organizations.",
       "manageLink": "Open Enterprise Invoice Center",
+      "supportedMethodsLabel": "Supported procurement methods",
       "methods": {
         "dnb_invoice": "DNB Invoice",
         "purchase_orders": "Purchase Orders (PO)",
@@ -644,7 +668,7 @@
     "summary": {
       "activeProviders": "Active payment providers",
       "countriesSupported": "Countries supported",
-      "pendingSetups": "Pending provider setups",
+      "pendingSetups": "Providers awaiting configuration",
       "enterpriseCustomers": "Enterprise invoice customers",
       "monthlyVolume": "Monthly transaction volume",
       "failedEvents": "Failed payment events"
@@ -684,7 +708,8 @@
     },
     "statuses": {
       "operational": "Operational",
-      "pendingSetup": "Pending setup",
+      "pendingSetup": "Setup Required",
+      "setupRequired": "Setup Required",
       "requiresAttention": "Requires attention",
       "disabled": "Disabled",
       "completed": "Completed",

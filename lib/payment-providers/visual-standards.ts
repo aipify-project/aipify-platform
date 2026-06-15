@@ -2,19 +2,37 @@ import type { PaymentProviderKey } from "./constants";
 
 /** Aipify Payment Provider Visual Standards — presentation layer only. */
 export const PROVIDER_CARD_CLASS =
-  "flex h-full min-h-[420px] flex-col rounded-2xl border border-neutral-200/80 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-md";
+  "flex h-full min-h-[540px] flex-col rounded-2xl border border-neutral-200/90 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-md";
 
+/** Fixed 60px logo slot — equal alignment and visual weight across all providers. */
 export const PROVIDER_LOGO_CONTAINER_CLASS =
-  "flex min-h-[72px] items-center border-b border-neutral-100 pb-6";
+  "flex h-[60px] w-full items-center justify-start rounded-xl bg-white px-5 ring-1 ring-neutral-100";
+
+export const PROVIDER_LOGO_MAX_HEIGHT_PX = 36;
 
 export const PROVIDER_LOGO_IMAGE_CLASS =
-  "h-8 w-auto max-w-[160px] object-contain object-left";
+  "max-h-[36px] h-auto w-auto max-w-full object-contain object-left";
 
+/** Official brand assets supplied by Aipify Group AS — do not modify or recolor. */
 export const PROVIDER_LOGO_PATHS: Record<PaymentProviderKey, string> = {
-  stripe: "/branding/payment-providers/stripe.svg",
-  klarna: "/branding/payment-providers/klarna.svg",
-  vipps: "/branding/payment-providers/vipps.svg",
-  dnb: "/branding/payment-providers/dnb.svg",
+  stripe: "/brand/payment-providers/STRIPE.png",
+  klarna: "/brand/payment-providers/KLARNA.png",
+  vipps: "/brand/payment-providers/vipps.png",
+  dnb: "/brand/payment-providers/DNB.png",
+};
+
+export const PROVIDER_SUPPORTED_CURRENCIES: Record<PaymentProviderKey, string[]> = {
+  stripe: ["NOK", "EUR", "USD", "GBP", "SEK", "DKK"],
+  klarna: ["NOK", "SEK", "EUR", "DKK", "GBP", "USD"],
+  vipps: ["NOK", "DKK", "EUR", "SEK"],
+  dnb: ["NOK", "EUR"],
+};
+
+export const PROVIDER_SUPPORTED_COUNTRIES: Record<PaymentProviderKey, string[]> = {
+  stripe: ["NO", "SE", "DK", "FI", "DE", "GB", "US", "EU"],
+  klarna: ["NO", "SE", "DK", "FI", "DE", "AT", "NL", "GB", "US"],
+  vipps: ["NO", "DK", "FI", "SE"],
+  dnb: ["NO", "SE", "DK", "FI"],
 };
 
 export const PROVIDER_DOCUMENTATION_URLS: Record<PaymentProviderKey, string> = {
@@ -70,7 +88,7 @@ export const STATUS_VISUAL: Record<
   pending_setup: {
     dot: "bg-amber-500",
     badge: "bg-amber-50 text-amber-900 ring-amber-200",
-    labelKey: "pendingSetup",
+    labelKey: "setupRequired",
   },
   requires_attention: {
     dot: "bg-orange-500",
@@ -81,5 +99,15 @@ export const STATUS_VISUAL: Record<
     dot: "bg-neutral-400",
     badge: "bg-neutral-100 text-neutral-700 ring-neutral-200",
     labelKey: "disabled",
+  },
+  disconnected: {
+    dot: "bg-neutral-400",
+    badge: "bg-neutral-100 text-neutral-700 ring-neutral-200",
+    labelKey: "disconnected",
+  },
+  failed: {
+    dot: "bg-red-500",
+    badge: "bg-red-50 text-red-900 ring-red-200",
+    labelKey: "failed",
   },
 };

@@ -46,4 +46,6 @@ export const PROVIDER_STATUS_BADGES: Record<string, string> = {
   pending_setup: "bg-amber-50 text-amber-900 ring-amber-200",
   requires_attention: "bg-orange-50 text-orange-900 ring-orange-200",
   disabled: "bg-neutral-100 text-neutral-600 ring-neutral-200",
+  disconnected: "bg-neutral-100 text-neutral-600 ring-neutral-200",
+  failed: "bg-red-50 text-red-800 ring-red-200",
 };

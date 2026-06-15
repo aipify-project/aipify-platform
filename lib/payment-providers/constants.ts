@@ -9,6 +9,18 @@ export type SelfServicePaymentProviderKey = (typeof SELF_SERVICE_PAYMENT_PROVIDE
 
 export const ENTERPRISE_BILLING_PROVIDER = "dnb" as const;
 
+/** Reserved for future provider onboarding — add assets under public/brand/payment-providers/. */
+export const FUTURE_PAYMENT_PROVIDER_KEYS = [
+  "apple_pay",
+  "google_pay",
+  "paypal",
+  "adyen",
+  "nets",
+  "mobilepay",
+] as const;
+
+export type FuturePaymentProviderKey = (typeof FUTURE_PAYMENT_PROVIDER_KEYS)[number];
+
 export const PROVIDER_STATUSES = [
   "operational",
   "pending_setup",
@@ -21,6 +33,14 @@ export type ProviderStatus = (typeof PROVIDER_STATUSES)[number];
 export const PROVIDER_MODES = ["test", "live"] as const;
 
 export type ProviderMode = (typeof PROVIDER_MODES)[number];
+
+export const PROVIDER_ENVIRONMENTS = ["sandbox", "production"] as const;
+
+export type ProviderEnvironment = (typeof PROVIDER_ENVIRONMENTS)[number];
+
+export function resolveProviderEnvironment(mode: ProviderMode): ProviderEnvironment {
+  return mode === "test" ? "sandbox" : "production";
+}
 
 export const WEBHOOK_STATUSES = [
   "receiving_events",

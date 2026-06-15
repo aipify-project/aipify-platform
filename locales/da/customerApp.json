@@ -3167,7 +3167,11 @@
       "case_study": "Case study",
       "brand_guidelines": "Brand guidelines"
     },
-    "assetStatuses": { "draft": "Draft", "published": "Published", "archived": "Archived" },
+    "assetStatuses": {
+      "draft": "Draft",
+      "published": "Published",
+      "archived": "Archived"
+    },
     "campaignTypes": {
       "awareness": "Awareness",
       "lead_generation": "Lead generation",
@@ -3176,7 +3180,11 @@
       "referral_growth": "Referral growth",
       "seasonal_promotion": "Seasonal promotion"
     },
-    "campaignStatuses": { "draft": "Draft", "active": "Active", "archived": "Archived" },
+    "campaignStatuses": {
+      "draft": "Draft",
+      "active": "Active",
+      "archived": "Archived"
+    },
     "emailTypes": {
       "initial_outreach": "Initial outreach",
       "demonstration_invitation": "Demonstration invitation",
@@ -3193,7 +3201,12 @@
       "customer_success_stories": "Customer success stories",
       "industry_use_case": "Industry use case"
     },
-    "languages": { "en": "English", "no": "Norwegian", "sv": "Swedish", "da": "Danish" },
+    "languages": {
+      "en": "English",
+      "no": "Norwegian",
+      "sv": "Swedish",
+      "da": "Danish"
+    },
     "prohibited": {
       "modify_official_logos": "Do not modify official Aipify logos.",
       "promise_unavailable_features": "Do not promise unavailable features.",
@@ -21479,17 +21492,29 @@
       "webhookUrl": "Webhook URL",
       "webhookStatus": "Webhook status",
       "lastWebhook": "Last event received",
-      "enabled": "Enabled for this workspace"
+      "enabled": "Enabled for this workspace",
+      "environment": "Environment",
+      "apiStatus": "API status",
+      "settlementStatus": "Settlement status",
+      "currencies": "Supported currencies",
+      "countries": "Supported countries"
     },
     "statuses": {
       "operational": "Operational",
-      "pendingSetup": "Pending setup",
+      "pendingSetup": "Setup Required",
+      "setupRequired": "Setup Required",
       "requiresAttention": "Requires attention",
-      "disabled": "Disabled"
+      "disabled": "Disabled",
+      "disconnected": "Disconnected",
+      "failed": "Failed"
     },
     "modes": {
-      "test": "Test",
-      "live": "Live"
+      "test": "Sandbox",
+      "live": "Production"
+    },
+    "environments": {
+      "sandbox": "Sandbox",
+      "production": "Production"
     },
     "webhookStatuses": {
       "receivingEvents": "Receiving events",
@@ -21552,6 +21577,16 @@
       "description": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements.",
       "methods": "DNB Invoice · Purchase Orders · Bank Transfer · 30/60/90-Day Terms · Framework Agreements",
       "manageLink": "Invoice details & enterprise procurement"
+    },
+    "apiStatuses": {
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "pending": "Awaiting Configuration"
+    },
+    "settlementStatuses": {
+      "completed": "Settled",
+      "pending": "Pending settlement",
+      "failed": "Settlement failed"
     }
   },
   "enterpriseInvoicing": {
@@ -21682,15 +21717,16 @@
       "title": "Instant Activation",
       "description": "Designed for startups, freelancers, SMBs and fast-moving teams that want immediate access to Aipify.",
       "message": "Activate your subscription instantly and start using Aipify within minutes.",
-      "activateWith": "Pay with",
+      "activateWith": "Available Payment Providers",
       "checkout": "Activate now",
       "checkingOut": "Starting checkout…"
     },
     "enterpriseProcurement": {
       "title": "Enterprise Procurement",
       "description": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements.",
-      "message": "Our enterprise team supports procurement processes, invoice terms, and tailored agreements for larger organizations.",
+      "message": "Aipify supports established procurement practices — purchase orders, DNB Invoice, bank transfer, flexible payment terms, and framework agreements for larger organizations.",
       "manageLink": "Invoice details & enterprise procurement",
+      "supportedMethodsLabel": "Supported procurement methods",
       "methods": {
         "dnb_invoice": "DNB Invoice",
         "purchase_orders": "Purchase Orders (PO)",

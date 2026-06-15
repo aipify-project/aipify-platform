@@ -47,18 +47,20 @@ export function InstantActivationSection({
     ) ?? [];
 
   return (
-    <section className="rounded-2xl border border-emerald-100 bg-emerald-50/30 p-6">
-      <h2 className="font-semibold text-emerald-950">{billingLabels.instantActivation.title}</h2>
-      <p className="mt-2 max-w-3xl text-sm text-emerald-900/80">
+    <section className="rounded-2xl border border-neutral-200/90 bg-white p-6 shadow-sm">
+      <h2 className="text-lg font-semibold tracking-tight text-neutral-900">
+        {billingLabels.instantActivation.title}
+      </h2>
+      <p className="mt-2 max-w-3xl text-sm leading-relaxed text-neutral-600">
         {billingLabels.instantActivation.description}
       </p>
-      <p className="mt-3 rounded-xl border border-emerald-100 bg-white/80 px-4 py-3 text-sm text-emerald-900">
+      <p className="mt-4 rounded-xl border border-neutral-100 bg-neutral-50 px-4 py-3.5 text-sm leading-relaxed text-neutral-800">
         {billingLabels.instantActivation.message}
       </p>
-      <p className="mt-4 text-xs font-medium uppercase tracking-wide text-emerald-800">
+      <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-neutral-500">
         {billingLabels.instantActivation.activateWith}
       </p>
-      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-4 grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {mode === "checkout"
           ? selfService.map((card) => {
               const key = card.provider_key as SelfServicePaymentProviderKey;

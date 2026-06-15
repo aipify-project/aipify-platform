@@ -96,10 +96,18 @@ export type PaymentProviderLabels = {
     webhookStatus: string;
     lastWebhook: string;
     enabled: string;
+    environment: string;
+    apiStatus: string;
+    settlementStatus: string;
+    currencies: string;
+    countries: string;
   };
   statuses: Record<string, string>;
   modes: Record<string, string>;
+  environments: Record<string, string>;
   webhookStatuses: Record<string, string>;
+  apiStatuses: Record<string, string>;
+  settlementStatuses: Record<string, string>;
   capabilities: Record<string, string>;
   setupStatus: {
     complete: string;
@@ -140,5 +148,6 @@ export type PaymentProviderLabels = {
     description: string;
     methods: string;
     manageLink: string;
+    providerInfrastructure: string;
   };
 };

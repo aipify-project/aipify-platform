@@ -20,6 +20,7 @@ export type BillingExperienceLabels = {
     description: string;
     message: string;
     manageLink: string;
+    supportedMethodsLabel: string;
     methods: Record<EnterpriseProcurementMethod, string>;
     actions: Record<EnterpriseOnboardingAction, string>;
   };
