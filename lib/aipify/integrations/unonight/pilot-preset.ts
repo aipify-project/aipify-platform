@@ -156,7 +156,7 @@ export const UNONIGHT_PILOT_PRESET: PilotProvisionConfig = {
     { checklist_key: "connect_shopify", title: "Connect Shopify read-only", priority: 65 },
     { checklist_key: "run_discovery", title: "Run discovery scan", priority: 60 },
     { checklist_key: "review_workflows", title: "Review discovered workflows", priority: 55 },
-    { checklist_key: "enable_support_ai_draft", title: "Enable Support AI draft mode", priority: 50 },
+    { checklist_key: "enable_support_ai_draft", title: "Enable Support Specialist draft mode", priority: 50 },
     { checklist_key: "test_verification_faq", title: "Test support question about verification", priority: 45 },
     { checklist_key: "test_marketplace_faq", title: "Test support question about marketplace", priority: 40 },
     { checklist_key: "test_knowledge_gap", title: "Test Knowledge Gap creation", priority: 35 },

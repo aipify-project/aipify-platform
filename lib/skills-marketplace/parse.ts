@@ -13,6 +13,10 @@ import type {
   SkillsMarketplaceReleaseStage,
   SkillsMarketplaceScope,
 } from "./types";
+import {
+  normalizeSkillDescription,
+  normalizeSkillDisplayName,
+} from "@/lib/core/skills/display-names";
 
 const DISPLAY_STATUSES = new Set<SkillsMarketplaceDisplayStatus>([
   "operational",
@@ -102,8 +106,8 @@ function parseInstalled(raw: unknown): SkillsMarketplaceInstalledSkill[] {
     return {
       tenant_skill_id: row.tenant_skill_id != null ? asString(row.tenant_skill_id) : undefined,
       key: asString(row.key),
-      name: asString(row.name),
-      description: asString(row.description),
+      name: normalizeSkillDisplayName(asString(row.name), asString(row.key)),
+      description: normalizeSkillDescription(asString(row.description)),
       display_status: parseDisplayStatus(row.display_status),
       version: asString(row.version, "1.0.0"),
       environment: asString(row.environment, "production"),
@@ -123,8 +127,8 @@ function parseRecommended(raw: unknown): SkillsMarketplaceRecommendation[] {
     const row = item as Record<string, unknown>;
     return {
       key: asString(row.key),
-      name: asString(row.name),
-      description: asString(row.description),
+      name: normalizeSkillDisplayName(asString(row.name), asString(row.key)),
+      description: normalizeSkillDescription(asString(row.description)),
       category: parseCategory(row.category),
       reason_key: asString(row.reason_key, "operations_efficiency"),
       impact_key: asString(row.impact_key, "operations_impact"),
@@ -140,8 +144,8 @@ function parseMarketplace(raw: unknown): SkillsMarketplaceCatalogItem[] {
     const row = item as Record<string, unknown>;
     return {
       key: asString(row.key),
-      name: asString(row.name),
-      description: asString(row.description),
+      name: normalizeSkillDisplayName(asString(row.name), asString(row.key)),
+      description: normalizeSkillDescription(asString(row.description)),
       category: parseCategory(row.category),
       operational_status: asString(row.operational_status, "active"),
       estimated_value_key: asString(row.estimated_value_key, "operations_impact"),
@@ -174,7 +178,7 @@ function parseGovernance(raw: unknown): SkillsMarketplaceGovernanceItem[] {
     const row = item as Record<string, unknown>;
     return {
       key: asString(row.key),
-      name: asString(row.name),
+      name: normalizeSkillDisplayName(asString(row.name), asString(row.key)),
       tenant_skill_id: row.tenant_skill_id != null ? asString(row.tenant_skill_id) : undefined,
       permission_scope: asString(row.permission_scope, "[]"),
       risk_level: asString(row.risk_level, "low"),
@@ -194,7 +198,7 @@ function parsePerformance(raw: unknown): SkillsMarketplacePerformanceItem[] {
     const row = item as Record<string, unknown>;
     return {
       key: asString(row.key),
-      name: asString(row.name),
+      name: normalizeSkillDisplayName(asString(row.name), asString(row.key)),
       tenant_skill_id: row.tenant_skill_id != null ? asString(row.tenant_skill_id) : undefined,
       success_rate: asNumber(row.success_rate),
       usage_frequency: asNumber(row.usage_frequency),

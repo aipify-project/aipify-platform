@@ -1,0 +1,48 @@
+AIPIFY – PHASE AIRBNB 13
+AIPIFY HOSTS – OPERATIONS CENTER FOUNDATION
+
+PURPOSE
+Provide a single operational workspace for daily hospitality activities.
+
+POSITIONING
+One operational workspace for daily hospitality — manage arrivals, cleaning, maintenance, and approvals without switching modules.
+
+FEATURE OWNER
+CUSTOMER APP
+
+ROUTE
+/app/aipify-hosts/operations
+
+STATUS
+IMPLEMENTED
+
+MIGRATION
+20261495000000_aipify_hosts_operations_center_airbnb13.sql
+
+RPCS
+get_aipify_hosts_operations_dashboard · get_aipify_hosts_operations_card
+record_aipify_hosts_operations_action
+
+SECTIONS
+Today · Arrivals · Departures · Cleaning · Maintenance · Guest Requests · Incidents · Approvals
+
+TODAY DASHBOARD
+Arrivals Today · Departures Today · Open Guest Requests · Pending Approvals
+Cleaning Status · Maintenance Status · Active Incidents
+
+FILTERS
+All Properties · Individual Property · Today · Upcoming · Overdue
+
+NOTIFICATIONS
+Critical incidents · Late cleaning completion · Unassigned maintenance tasks · Outstanding approvals
+
+GOVERNANCE
+Role-based permissions · Audit operational actions · Audit approvals · Audit status changes
+
+DESIGN
+Executive-friendly layout · Minimal clicks · Mobile-friendly · Clear operational hierarchy · Professional empty states · No AI terminology
+
+SUCCESS CRITERIA
+A host should manage an entire day's operations from a single screen without switching between modules.
+
+END OF PHASE.

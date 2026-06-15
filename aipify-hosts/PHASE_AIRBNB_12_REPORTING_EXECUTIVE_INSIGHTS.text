@@ -1,0 +1,64 @@
+AIPIFY – PHASE AIRBNB 12
+AIPIFY HOSTS – REPORTING & EXECUTIVE INSIGHTS FOUNDATION
+
+PURPOSE
+Provide operational visibility. Support better decisions. Enable hospitality operators to understand business health within five minutes.
+
+POSITIONING
+Operational visibility for hospitality leaders — understand business health within minutes, not hours.
+
+FEATURE OWNER
+CUSTOMER APP
+
+ROUTE
+/app/aipify-hosts/reports
+
+STATUS
+IMPLEMENTED
+
+MIGRATION
+20261494000000_aipify_hosts_reporting_executive_insights_airbnb12.sql
+
+RPCS
+get_aipify_hosts_reports_dashboard · get_aipify_hosts_reports_card
+request_aipify_hosts_report_export · schedule_aipify_hosts_report
+
+EXECUTIVE METRICS
+Occupancy Rate · Revenue This Month · Revenue YTD · Average Length of Stay
+Guest Satisfaction Score · Active Incidents · Open Maintenance Tasks · Team Completion Rate
+
+REPORT CATEGORIES
+Occupancy · Revenue · Property Performance · Guest Experience · Team Performance
+Cleaning · Maintenance · Incidents · Licensing
+
+PROPERTY COMPARISON
+Revenue · Occupancy · Incidents · Guest Satisfaction · Maintenance Burden
+
+FILTERS
+Today · Last 7 Days · Last 30 Days · Quarter · Year · Custom Range
+
+EXPORTS
+PDF · Excel · CSV (audit logged)
+
+SCHEDULED REPORTS
+Daily · Weekly · Monthly · Email · Dashboard (audit logged)
+
+EXECUTIVE SUMMARY
+Operational highlights · Areas requiring attention · Improvement opportunities
+
+WIDGETS
+Top Performing Properties · Properties Requiring Attention · Revenue Trends · Occupancy Trends · Team Productivity
+
+GOVERNANCE
+Role permissions · Audit report exports · Audit scheduled report changes
+
+KNOWLEDGE CENTER
+Understanding occupancy · Revenue interpretation · Operational KPIs · Hospitality reporting best practices
+
+DESIGN
+Executive-first · Minimalistic enterprise styling · Mobile-friendly · Professional empty states · No AI terminology
+
+SUCCESS CRITERIA
+A hospitality operator should understand the health of their business within 5 minutes without manually collecting information from multiple systems.
+
+END OF PHASE.

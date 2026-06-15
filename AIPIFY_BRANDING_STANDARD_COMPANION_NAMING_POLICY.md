@@ -18,6 +18,8 @@ This policy extends Brand Identity & Personhood into module-specific naming (Sup
 
 **Aipify is the product name. Artificial Intelligence is the underlying technology.**
 
+**There is only one Aipify.** Skills, Centers, Specialists, and Companions are extensions of Aipify — not separate assistant identities. See [AIPIFY_BRAND_RULE_SINGLE_IDENTITY.md](./AIPIFY_BRAND_RULE_SINGLE_IDENTITY.md).
+
 Replace generic AI labels in user-visible copy with Aipify-branded equivalents. Internal code identifiers (routes, skill IDs, RPC names) remain unchanged.
 
 ---

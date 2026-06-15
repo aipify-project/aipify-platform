@@ -5,6 +5,10 @@ import type {
   SkillInstallResult,
   SkillStoreCard,
 } from "./types";
+import {
+  normalizeSkillDescription,
+  normalizeSkillDisplayName,
+} from "@/lib/core/skills/display-names";
 
 export function parseSkillStoreCard(data: unknown): SkillStoreCard {
   const d = (data ?? {}) as Record<string, unknown>;
@@ -26,8 +30,8 @@ export function parseSkillCatalog(data: unknown): SkillCatalogItem[] {
       id: String(s.id),
       key: String(s.key ?? ""),
       slug: String(s.slug ?? s.key ?? ""),
-      name: String(s.name ?? ""),
-      description: String(s.description ?? ""),
+      name: normalizeSkillDisplayName(String(s.name ?? ""), String(s.key ?? "")),
+      description: normalizeSkillDescription(String(s.description ?? "")),
       category: String(s.category ?? ""),
       version: String(s.version ?? "1.0.0"),
       author: String(s.author ?? "Aipify"),
@@ -49,8 +53,8 @@ export function parseSkillDetail(data: unknown): SkillDetail {
     id: String(d.id ?? ""),
     key: String(d.key ?? ""),
     slug: String(d.slug ?? d.key ?? ""),
-    name: String(d.name ?? ""),
-    description: String(d.description ?? ""),
+    name: normalizeSkillDisplayName(String(d.name ?? ""), String(d.key ?? "")),
+    description: normalizeSkillDescription(String(d.description ?? "")),
     category: String(d.category ?? ""),
     version: String(d.version ?? "1.0.0"),
     author: String(d.author ?? "Aipify"),
@@ -102,7 +106,7 @@ export function parseSkillInstallHistory(data: unknown): SkillInstallEvent[] {
       id: String(e.id),
       event_type: String(e.event_type ?? ""),
       skill_key: String(e.skill_key ?? ""),
-      skill_name: String(e.skill_name ?? ""),
+      skill_name: normalizeSkillDisplayName(String(e.skill_name ?? ""), String(e.skill_key ?? "")),
       metadata: (e.metadata as Record<string, unknown>) ?? {},
       created_at: String(e.created_at ?? ""),
     };

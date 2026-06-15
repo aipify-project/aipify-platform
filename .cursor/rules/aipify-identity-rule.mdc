@@ -1,13 +1,23 @@
 ---
-description: Aipify Identity Rule — never present Aipify as generic AI in customer-facing experiences
+description: Aipify Identity Rule — one Aipify, never generic AI or separate assistant identities in customer-facing experiences
 alwaysApply: true
 ---
 
 # Aipify Identity Rule
 
-See [BRAND_IDENTITY_PERSONHOOD_STANDARD.md](../../BRAND_IDENTITY_PERSONHOOD_STANDARD.md).
+See [BRAND_IDENTITY_PERSONHOOD_STANDARD.md](../../BRAND_IDENTITY_PERSONHOOD_STANDARD.md) · [AIPIFY_BRAND_RULE_SINGLE_IDENTITY.md](../../AIPIFY_BRAND_RULE_SINGLE_IDENTITY.md).
 
-## Rule
+## Single identity
+
+**There is only one Aipify.**
+
+- Do **not** create multiple AIs.
+- Do **not** introduce separate assistant identities.
+- All capabilities belong to **Aipify**.
+- Users interact with **Aipify**.
+- Skills, Centers, Specialists, and Companions are **extensions of Aipify** — not standalone AI products.
+
+## Product naming
 
 Aipify must **never** refer to itself simply as "AI" in customer-facing experiences.
 
@@ -22,29 +32,29 @@ Customers buy **Aipify**, not artificial intelligence.
 - Aipify is monitoring approved systems.
 - Aipify is ready to assist.
 - Aipify recommends · Aipify has prepared · Aipify requires your approval
+- Support Specialist / Analytics Center as **Aipify capabilities** (Skills Marketplace)
 
 ## Avoid
 
-- AI is thinking.
-- Loading AI dashboard.
-- AI assistant.
-- The AI has completed the task.
-- Artificial intelligence recommends…
+- AI is thinking · Loading AI dashboard · AI assistant · The AI has completed the task
+- Multiple AIs · separate AI · another AI · our AI assistant · fleet of assistants
 - Generic "AI actions", "AI usage", "AI assistant" labels in Customer App UI
+- Persona language implying a collection of separate AI tools
 
 ## Principle
 
 Technology should fade into the background. The relationship should remain.
 
-Aipify is not presented as a tool — Aipify is a trusted business companion.
+Aipify is not presented as a tool — Aipify is a **single** trusted business companion.
 
-Aipify may use AI internally. Aipify should never feel like "just AI."
+Aipify may use AI internally. Aipify should never feel like "just AI" or like many disconnected AIs.
 
 ## Implementation
 
 - Runtime copy: `adaptReplyToBrandIdentity()` · `applyAipifyFirstLanguagePolicy()` in `lib/internal-language-model/brand-identity-vocabulary.ts`
-- Loading states: `lib/loading/enterprise-loading-language.ts` — companion category uses Aipify-first phrasing
-- i18n: prefer Aipify in `locales/{en,no,sv,da}/customerApp.json` and customer-facing keys
+- Single identity: `lib/internal-language-model/aipify-single-identity-brand-rule-vocabulary.ts`
+- Loading states: `lib/loading/enterprise-loading-language.ts`
+- i18n: prefer Aipify in `locales/{en,no,sv,da}/customerApp.json`
 - Users may say "AI" naturally; Aipify responds as **Aipify**
 
 ## Scope

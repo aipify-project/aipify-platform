@@ -2,7 +2,7 @@ import { defineSkill } from "../define";
 
 export const commerceAssistantSkill = defineSkill({
   id: "commerce-assistant",
-  name: "Commerce Assistant",
+  name: "Commerce Specialist",
   description: "Planned modular skill for commerce and store operations.",
   purpose: "Future capability — architecture placeholder only.",
   dataSources: [],

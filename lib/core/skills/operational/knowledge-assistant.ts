@@ -2,7 +2,7 @@ import { operationalSkill } from "./_defaults";
 
 export const knowledgeAssistantSkill = operationalSkill({
   id: "knowledge-assistant",
-  name: "Knowledge Base Assistant",
+  name: "Knowledge Center",
   description: "Answers from tenant knowledge base and approved operational context.",
   purpose: "Surface institutional knowledge without exposing cross-tenant data.",
   dataSources: ["knowledge_base", "tenant_settings"],

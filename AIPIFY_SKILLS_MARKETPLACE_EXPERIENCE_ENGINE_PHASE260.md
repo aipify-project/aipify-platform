@@ -43,7 +43,10 @@ app/api/skills-marketplace/route.ts
 Describe **business capabilities**, never "AI features":
 - Operations Assistant (not AI Automation Engine)
 - Revenue Intelligence (not AI Revenue Predictor)
-- Support Companion (not AI Support Tool)
+- Support Specialist (not Support AI)
+- Analytics Center (not Analytics AI)
+
+See [AIPIFY_SKILLS_MARKETPLACE_NAMING_STANDARD.md](./AIPIFY_SKILLS_MARKETPLACE_NAMING_STANDARD.md).
 
 ## Routes
 

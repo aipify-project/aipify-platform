@@ -1,0 +1,23 @@
+AIPIFY HOSTS — KNOWLEDGE CENTER & SELF-SERVICE (Phase Airbnb 11)
+
+POSITIONING
+Operational guidance when you need it — self-service answers for hospitality hosts.
+
+ROUTE
+/app/aipify-hosts/knowledge
+
+SECTIONS
+Getting Started · Guest Management · Property Management · Cleaning Operations · Maintenance
+Team Management · Trust & Compliance · Revenue Optimization · Incident Handling · Billing & Licensing
+
+SEARCH
+Global search · Suggested articles · Recently viewed · Popular articles
+
+FEATURES
+Mark helpful · Related articles · Recommended reading · Category navigation · Version audit
+
+TERMINOLOGY
+Hosts Knowledge Center — Aipify terminology only, no AI labels
+
+COMMERCIAL PRINCIPLES
+Reduce support burden · Improve operational consistency · Support host growth

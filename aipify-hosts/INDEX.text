@@ -2,6 +2,7 @@ AIPIFY HOSTS — PRODUCT ROADMAP INDEX
 
 FOUNDATION
 FOUNDATION_01_PROPERTY_LICENSING.text — property capacity tiers, +1 licenses, billing integration · IMPLEMENTED
+KNOWLEDGE_CENTER_FAQ.text — 43 FAQ articles across 13 categories · IMPLEMENTED
 
 PHASES
 PHASE_AIRBNB_01_HOSPITALITY_FOUNDATION.text — Business Pack scaffold · /app/aipify-hosts · IMPLEMENTED
@@ -13,13 +14,18 @@ PHASE_AIRBNB_06_EXPANSION_INTELLIGENCE.text — Property acquisition & expansion
 PHASE_AIRBNB_07_OWNER_COMPANION.text — Hospitality Companion · /app/aipify-hosts/companion · IMPLEMENTED
 PHASE_AIRBNB_08_OWNER_PORTAL.text — Owner transparency portal · /app/aipify-hosts/owner-portal
 PHASE_AIRBNB_09_MARKETPLACE_SERVICE_NETWORK.text — Hosts Marketplace · /app/aipify-hosts/marketplace · IMPLEMENTED
+PHASE_AIRBNB_10_REFERRAL_GROWTH.text — Referral & Growth Engine · /app/aipify-hosts/referrals · IMPLEMENTED
+PHASE_AIRBNB_11_KNOWLEDGE_SELF_SERVICE.text — Knowledge Center & Self-Service · /app/aipify-hosts/knowledge · IMPLEMENTED
+PHASE_AIRBNB_12_REPORTING_EXECUTIVE_INSIGHTS.text — Reporting & Executive Insights · /app/aipify-hosts/reports · IMPLEMENTED
+PHASE_AIRBNB_13_OPERATIONS_CENTER.text — Operations Center · /app/aipify-hosts/operations · IMPLEMENTED
+KNOWLEDGE_CENTER_FAQ.text — 43 FAQ articles across 13 categories · IMPLEMENTED (seed migration 20261490000000)
 
 POSITIONING
 Aipify Hosts is the Business Operating System for modern hospitality businesses.
 Operational layer around booking platforms — never a replacement.
 
 BUILD ORDER
-Foundation 01 → Phase 01 → Phase 02 → Phase 03 → Phase 04 → Phase 05 → Phase 06 → Phase 07 → Phase 08 → Phase 09
+Foundation 01 → Phase 01 → Phase 02 → Phase 03 → Phase 04 → Phase 05 → Phase 06 → Phase 07 → Phase 08 → Phase 09 → Phase 10 → Phase 11 → Phase 12 → Phase 13
 
 FEATURE OWNER
 CUSTOMER APP (all phases)

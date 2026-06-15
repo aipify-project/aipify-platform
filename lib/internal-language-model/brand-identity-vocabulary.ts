@@ -7,6 +7,10 @@ export const AIPIFY_IDENTITY_RULE =
 export const AIPIFY_IDENTITY_FOUNDATIONAL_BELIEF =
   "People remember how systems make them feel. Aipify should feel professional, dependable, thoughtful, reassuring, and human-centered — never like \"just AI.\"";
 
+/** There is only one Aipify — capabilities are extensions, not separate assistants. */
+export const AIPIFY_SINGLE_IDENTITY_PRINCIPLE =
+  "There is only one Aipify. Users interact with Aipify. Skills, Centers, Specialists, and Companions are extensions of Aipify — not separate assistants or multiple AIs.";
+
 export const FORBIDDEN_IDENTITY_PHRASES = [
   "AI is thinking",
   "Loading AI dashboard",
@@ -169,6 +173,25 @@ export const BRAND_SELF_REFERENCE_REWRITES: Array<[RegExp, string]> = [
   [/\bThe system believes\b/gi, "Aipify indicates"],
   [/\bThe algorithm recommends\b/gi, "Aipify recommends"],
   [/\bThe machine has\b/gi, "Aipify has"],
+  [/\bmultiple AIs\b/gi, "Aipify capabilities"],
+  [/\bmultiple AI tools\b/gi, "Aipify capabilities"],
+  [/\bseparate AI assistant\b/gi, "Aipify capability"],
+  [/\bseparate assistant identity\b/gi, "Aipify capability"],
+  [/\bseparate AI tool\b/gi, "Aipify capability"],
+  [/\bseparate AI\b/gi, "Aipify capability"],
+  [/\banother AI assistant\b/gi, "another Aipify capability"],
+  [/\banother AI\b/gi, "another Aipify capability"],
+  [/\banother assistant\b/gi, "another Aipify capability"],
+  [/\bour AI assistant\b/gi, "Aipify"],
+  [/\byour AI assistant\b/gi, "Aipify"],
+  [/\bcollection of AI tools\b/gi, "Aipify platform capabilities"],
+  [/\bAI tools you manage\b/gi, "Aipify capabilities you activate"],
+  [/\bfleet of assistants\b/gi, "Aipify capabilities"],
+  [/\bEach AI\b/gi, "Each Aipify capability"],
+  [/\bThis AI can\b/gi, "Aipify can"],
+  [/\bThe AI assistant\b/gi, "Aipify"],
+  [/\bAI assistants\b/gi, "Aipify capabilities"],
+  [/\ban AI assistant\b/gi, "Aipify"],
 ];
 
 const AIPIFY_FIRST_LANGUAGE_REWRITES: Array<[RegExp, string]> = [

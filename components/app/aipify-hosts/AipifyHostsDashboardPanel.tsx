@@ -229,6 +229,31 @@ export function AipifyHostsDashboardPanel({ labels }: Props) {
               {labels.openMarketplace}
             </Link>
           )}
+          {labels.openReferrals && (
+            <Link href="/app/aipify-hosts/referrals" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openReferrals}
+            </Link>
+          )}
+          {labels.openKnowledge && (
+            <Link href="/app/aipify-hosts/knowledge" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openKnowledge}
+            </Link>
+          )}
+          {labels.openReports && (
+            <Link href="/app/aipify-hosts/reports" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openReports}
+            </Link>
+          )}
+          {labels.openOperations && (
+            <Link href="/app/aipify-hosts/operations" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openOperations}
+            </Link>
+          )}
+          {labels.openPropertyCenter && (
+            <Link href="/app/aipify-hosts/properties" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openPropertyCenter}
+            </Link>
+          )}
         </div>
       </section>
 

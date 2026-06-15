@@ -1,0 +1,27 @@
+AIPIFY HOSTS — REPORTING & EXECUTIVE INSIGHTS (Phase Airbnb 12)
+
+POSITIONING
+Operational visibility for hospitality leaders — understand business health within minutes, not hours.
+
+ROUTE
+/app/aipify-hosts/reports
+
+TERMINOLOGY
+Hosts Reports Center · Executive Insights Foundation
+
+EXECUTIVE METRICS
+Occupancy rate · Revenue this month · Revenue YTD · Average length of stay
+Guest satisfaction score · Active incidents · Open maintenance tasks · Team completion rate
+
+REPORT CATEGORIES
+Occupancy · Revenue · Property performance · Guest experience · Team performance
+Cleaning · Maintenance · Incidents · Licensing
+
+FORBIDDEN PHRASING
+Do not use AI assistant, AI chatbot, AI insights, or machine learning in customer-facing Hosts reporting copy.
+
+GOVERNANCE
+Role permissions respected. Report exports audited. Scheduled report changes audited.
+
+SUCCESS
+Hospitality operators understand business health within five minutes without collecting data from multiple systems.

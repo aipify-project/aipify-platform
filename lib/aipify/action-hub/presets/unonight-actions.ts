@@ -32,7 +32,7 @@ export const UNONIGHT_PILOT_ACTIONS: NormalizedActionItem[] = [
   {
     action_key: "action.unonight.support.draft",
     title: "Review support drafts",
-    description: "Support AI generated drafts that need human review before sending.",
+    description: "Support Specialist generated drafts that need human review before sending.",
     source_module: "support",
     source_type: "pilot_action",
     action_type: "support",

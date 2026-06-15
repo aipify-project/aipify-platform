@@ -3,6 +3,7 @@ export * from "./define";
 export * from "./placement";
 export * from "./governance";
 export * from "./registry";
+export * from "./display-names";
 export * from "./operational";
 export * from "./customer";
 export * from "./executive";

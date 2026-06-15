@@ -2,7 +2,7 @@ import { operationalSkill } from "./_defaults";
 
 export const executiveBriefingsSkill = operationalSkill({
   id: "executive-briefings",
-  name: "Executive Briefings",
+  name: "Executive Briefing",
   description: "Calm daily and periodic briefings for business leaders.",
   purpose: "Reduce decision fatigue with concise what happened / what needs attention summaries.",
   dataSources: ["presence_snapshot", "recommendations", "health_trends", "approvals"],

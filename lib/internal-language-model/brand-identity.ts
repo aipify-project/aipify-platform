@@ -9,6 +9,7 @@ import { adaptReplyToAbosTerminology } from "./abos-terminology";
 export {
   AIPIFY_FIRST_LABEL_REPLACEMENTS,
   COMPANION_NAMING_LABEL_REPLACEMENTS,
+  AIPIFY_SINGLE_IDENTITY_PRINCIPLE,
   applyAipifyFirstLanguagePolicy,
   applyCompanionNamingPolicy,
 } from "./brand-identity-vocabulary";

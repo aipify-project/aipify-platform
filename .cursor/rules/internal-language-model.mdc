@@ -20,3 +20,4 @@ See [INTERNAL_LANGUAGE_MODEL.md](../../INTERNAL_LANGUAGE_MODEL.md).
 9. Chat order: command → brand address → proactive guidance → reminder follow-up → natural language → feature intent.
 10. Core philosophy: augment people — humans decide, Aipify informs and prepares.
 11. Brand identity: Aipify is the product name — prefer "Aipify recommends/has/found" over generic "AI" self-reference; use `detectBrandAddressIntent()`, `getBrandAddressResponse()`, and `adaptReplyToBrandIdentity()` from `lib/internal-language-model/brand-identity.ts`. See [BRAND_IDENTITY_PERSONHOOD_STANDARD.md](../../BRAND_IDENTITY_PERSONHOOD_STANDARD.md).
+12. Single identity: there is only one Aipify — do not create multiple AIs or separate assistant identities; Skills, Centers, Specialists, and Companions are extensions of Aipify. See [AIPIFY_BRAND_RULE_SINGLE_IDENTITY.md](../../AIPIFY_BRAND_RULE_SINGLE_IDENTITY.md).

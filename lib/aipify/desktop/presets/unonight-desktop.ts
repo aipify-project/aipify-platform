@@ -20,7 +20,7 @@ export const UNONIGHT_DESKTOP_EVENTS: NormalizedDesktopEvent[] = [
     event_key: "desktop.unonight.support_drafts",
     category: "unonight",
     title: "Support drafts ready",
-    summary: "Support AI drafts are ready for human review.",
+    summary: "Support Specialist drafts are ready for human review.",
     severity: "medium",
     requires_action: true,
     action_url: "/app/assistant",

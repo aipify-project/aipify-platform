@@ -1,0 +1,33 @@
+AIPIFY HOSTS — KNOWLEDGE CENTER FAQ
+
+PURPOSE
+Operational clarity for hospitality operators and guests through structured Knowledge Center content.
+
+PRINCIPLE
+Create clarity, consistency and confidence for both hospitality operators and guests.
+
+SOURCE
+content/knowledge/aipify/aipify-hosts/faq/aipify-hosts-knowledge-center-faq.md
+
+MIGRATION
+20261490000000_aipify_hosts_knowledge_center_faq.sql
+
+SEED FUNCTION
+seed_aipify_hosts_knowledge_center_faq()
+
+CATEGORIES
+General Host FAQ · Guest Communication · Arrivals & Departures · Property Management
+Cleaning Operations · Incidents · Reporting · Approvals · Security · Team Management
+Knowledge Center · Billing · General Guest FAQ
+
+ARTICLE COUNT
+43 FAQ articles (38 authenticated host-facing · 5 public guest-facing)
+
+KNOWLEDGE CENTER PARENT
+aipify-hosts
+
+TERMINOLOGY
+Operations platform · Not a booking platform · Role-based access · Audit logged approvals
+Never AI chatbot or generic AI assistant language
+
+END OF FAQ FOUNDATION.

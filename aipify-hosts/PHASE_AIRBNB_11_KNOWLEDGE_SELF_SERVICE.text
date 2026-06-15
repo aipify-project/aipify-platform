@@ -1,0 +1,47 @@
+AIPIFY – PHASE AIRBNB 11
+AIPIFY HOSTS – KNOWLEDGE CENTER & SELF-SERVICE FOUNDATION
+
+PURPOSE
+Reduce support burden, improve operational consistency, and support host growth through self-service guidance.
+
+POSITIONING
+Operational guidance when you need it — self-service answers for hospitality hosts, without contacting support.
+
+FEATURE OWNER
+CUSTOMER APP
+
+ROUTE
+/app/aipify-hosts/knowledge
+
+STATUS
+IMPLEMENTED
+
+MIGRATIONS
+20261490000000_aipify_hosts_knowledge_center_faq.sql (FAQ seed)
+20261493000000_aipify_hosts_knowledge_self_service_airbnb11.sql (self-service UI)
+
+RPCS
+get_aipify_hosts_knowledge_dashboard · get_aipify_hosts_knowledge_card
+search_aipify_hosts_knowledge · get_aipify_hosts_knowledge_article
+record_aipify_hosts_knowledge_view · mark_aipify_hosts_knowledge_helpful
+
+SECTIONS
+Getting Started · Guest Management · Property Management · Cleaning Operations · Maintenance
+Team Management · Trust & Compliance · Revenue Optimization · Incident Handling · Billing & Licensing
+
+SEARCH
+Global search · Suggested articles · Recently viewed articles · Popular articles
+
+KNOWLEDGE FEATURES
+Mark article as helpful · Related articles · Recommended reading · Category navigation
+
+OPERATIONAL REQUIREMENTS
+Mobile-friendly · Professional empty states · Audit article updates · Version article changes
+
+DESIGN
+Minimalistic enterprise design · No raw documentation appearance · Aipify terminology · No AI terminology
+
+SUCCESS CRITERIA
+Hosts solve common operational questions independently without contacting support.
+
+END OF PHASE.

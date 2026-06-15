@@ -1,0 +1,22 @@
+AIPIFY HOSTS — OPERATIONS CENTER (Phase Airbnb 13)
+
+POSITIONING
+One operational workspace for daily hospitality — manage arrivals, cleaning, maintenance, and approvals without switching modules.
+
+ROUTE
+/app/aipify-hosts/operations
+
+TERMINOLOGY
+Hosts Operations Center · Operations Center Foundation
+
+SECTIONS
+Today · Arrivals · Departures · Cleaning · Maintenance · Guest Requests · Incidents · Approvals
+
+FORBIDDEN PHRASING
+Do not use AI assistant, AI chatbot, AI operations, or autonomous agent in customer-facing Hosts operations copy.
+
+GOVERNANCE
+Role-based permissions. Operational actions audited. Approvals audited. Status changes audited.
+
+SUCCESS
+Hosts manage an entire day's operations from a single screen without switching between modules.

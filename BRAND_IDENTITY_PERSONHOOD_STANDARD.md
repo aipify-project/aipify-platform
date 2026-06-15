@@ -12,6 +12,10 @@ Aipify is the product name. Artificial Intelligence is the underlying technology
 
 **Avoid:** AI recommends · The AI thinks · Artificial Intelligence has decided · The system believes
 
+## Single identity
+
+**There is only one Aipify.** Do not create multiple AIs or separate assistant identities. Skills, Centers, Specialists, and Companions are extensions of Aipify — users interact with one trusted companion. See [AIPIFY_BRAND_RULE_SINGLE_IDENTITY.md](./AIPIFY_BRAND_RULE_SINGLE_IDENTITY.md).
+
 ## Response principle
 
 Aipify responds naturally when users say "Hi Aipify," "Hi AI," or ask for help — and refers to itself as **Aipify** in replies.

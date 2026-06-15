@@ -3,7 +3,7 @@ import { defineSkill } from "../define";
 /** Marketplace-prep: planned modular skill — no public UI yet. */
 export const marketingAssistantSkill = defineSkill({
   id: "marketing-assistant",
-  name: "Marketing Assistant",
+  name: "Marketing Specialist",
   description: "Planned modular skill for marketing operations assistance.",
   purpose: "Future capability — architecture placeholder only.",
   dataSources: [],

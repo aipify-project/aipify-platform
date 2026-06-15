@@ -71,7 +71,7 @@ export const PRODUCT_PACKAGES: Record<PlanType, ProductPackage> = {
     users: 1,
     modules: mergeCoreModules(TIER_MODULES.starter),
     description:
-      "Aipify Core: executive dashboard, Presence Center, briefings, Support AI, knowledge base, installs, recommendations, health monitoring.",
+      "Aipify Core: executive dashboard, Presence Center, briefings, Support Specialist, knowledge base, installs, recommendations, health monitoring.",
   },
   growth: {
     plan: "growth",

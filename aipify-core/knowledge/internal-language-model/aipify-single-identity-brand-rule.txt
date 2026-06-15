@@ -1,0 +1,24 @@
+# Aipify Brand Rule — Single Identity
+
+There is only one Aipify.
+
+Do not create multiple AIs.
+Do not introduce separate assistant identities.
+All capabilities belong to Aipify.
+Users interact with Aipify.
+Skills, Centers, Specialists, and Companions are extensions of Aipify.
+Aipify remains the single trusted companion throughout the platform.
+
+## Correct
+Aipify Support capability — not a separate Support AI.
+Aipify Executive Briefing — not another AI assistant.
+Install the Analytics Center Skill — Aipify extends what your organization can do.
+Aipify prepared this summary — not "The AI prepared this summary."
+
+## Avoid
+Multiple AIs · separate AI · another AI · our AI assistant · collection of AI tools
+Each AI · This AI can · fleet of assistants · AI workforce as separate entities
+
+## Skills Marketplace
+Skill names (Center, Specialist, Engine, Guardian) describe business capabilities.
+They are part of Aipify — never independent AI products users must manage separately.

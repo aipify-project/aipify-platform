@@ -1,0 +1,63 @@
+AIPIFY – PHASE AIRBNB 10
+AIPIFY HOSTS – REFERRAL & GROWTH ENGINE
+
+PURPOSE
+Reward customer growth through a transparent referral system for hosts, service providers, and Growth Partners.
+
+POSITIONING
+Recommend Aipify Hosts, track conversions, and earn transparent rewards — growth you can measure and trust.
+
+FEATURE OWNER
+CUSTOMER APP
+
+ROUTE
+/app/aipify-hosts/referrals
+
+STATUS
+IMPLEMENTED
+
+MIGRATION
+20261491000000_aipify_hosts_referral_growth_engine_airbnb10.sql
+
+RPCS
+get_aipify_hosts_referral_dashboard · get_aipify_hosts_referral_card · generate_aipify_hosts_referral_link
+
+REFERRAL ROLES
+Host · Service Provider · Growth Partner
+
+REFERRAL STATUSES
+Invited · Registered · Trial Started · Converted · Active · Rewarded
+
+HOST CAPABILITIES
+Generate referral links · Track referrals · View conversion status · Monitor rewards · Download referral assets
+
+GROWTH PARTNER CAPABILITIES
+Multi-account oversight · Referral reporting · Commission summaries · Conversion tracking
+
+DASHBOARD WIDGETS
+Referrals this month · Active referrals · Pending rewards · Lifetime referrals
+
+REWARD ENGINE
+Fixed rewards · Percentage rewards · Account credits · Free property licenses
+
+EXAMPLE REWARDS
+Refer 1 host → 1 month free additional property
+Refer 5 hosts → Hosts Solo upgrade credit
+Growth Partners → commission structure
+
+GOVERNANCE
+Audit all referral events · Prevent duplicate referrals · Prevent self-referrals · Track reward history
+
+KNOWLEDGE CENTER
+Referral program overview · Reward structures · Growth Partner guidelines · Referral best practices
+
+NOTIFICATIONS
+Referral registered · Trial activated · Referral converted · Reward unlocked
+
+COMMERCIAL PRINCIPLES
+Growth should be measurable · Referrals should be transparent · Rewards should encourage long-term retention
+
+TERMINOLOGY
+Referral & Growth · Growth Partner — never Affiliate language
+
+END OF PHASE.

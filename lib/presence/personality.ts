@@ -7,7 +7,7 @@ export const PRESENCE_MESSAGE_TEMPLATES: Record<
 > = {
   support_cases_resolved: {
     title: "Support cases resolved",
-    body: "Support AI resolved customer questions.",
+    body: "Support Specialist resolved customer questions.",
   },
   executive_briefing_ready: {
     title: "Executive summary ready",

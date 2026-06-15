@@ -8,7 +8,7 @@ status: published
 tags: [skills, store, catalog]
 article_type: faq
 ---
-Skill Store allows organizations to extend Aipify by installing modular capabilities called Skills. Each Skill adds a focused capability — such as Support AI, Quality Guardian, or Memory Engine — without modifying the Aipify core platform.
+Skill Store allows organizations to extend Aipify by installing modular capabilities called Skills. Each Skill adds a focused capability — such as Support Specialist, Quality Guardian, or Memory Engine — without modifying the Aipify core platform.
 
 ---
 title: Why does Aipify use Skills?
@@ -164,7 +164,7 @@ status: published
 tags: [skills, unonight, pilot]
 article_type: faq
 ---
-Yes. Unonight acts as an early adopter pilot for Skills such as Support AI, Quality Guardian, Executive Briefing, Desktop Companion, and Memory Engine. Pilot activation is available via the Unonight seed endpoint for approved tenants.
+Yes. Unonight acts as an early adopter pilot for Skills such as Support Specialist, Quality Guardian, Executive Briefing, Desktop Companion, and Memory Engine. Pilot activation is available via the Unonight seed endpoint for approved tenants.
 
 ---
 title: How does Governance protect Skill installations?

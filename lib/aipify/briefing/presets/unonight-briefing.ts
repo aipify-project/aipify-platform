@@ -27,7 +27,7 @@ export const UNONIGHT_BRIEFING_EVENTS: NormalizedBriefingEvent[] = [
     source_type: "support_draft",
     event_key: "briefing.unonight.support.drafts",
     title: "2 support drafts ready for approval",
-    summary: "Support AI prepared drafts that need human review.",
+    summary: "Support Specialist prepared drafts that need human review.",
     severity: "medium",
     requires_action: true,
     action_url: "/app/approvals",

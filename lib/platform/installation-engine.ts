@@ -27,12 +27,12 @@ export type InstallationHealthStatus =
   (typeof INSTALLATION_HEALTH_STATUSES)[number];
 
 export const MODULE_CATALOG = [
-  { key: "support_ai", label: "Support AI" },
-  { key: "analytics_ai", label: "Analytics AI" },
-  { key: "commerce_ai", label: "Commerce AI" },
-  { key: "assistant", label: "Assistant AI" },
-  { key: "moderation_ai", label: "Moderation AI" },
-  { key: "executive_insights", label: "Executive Insights" },
+  { key: "support_ai", label: "Support Specialist" },
+  { key: "analytics_ai", label: "Analytics Center" },
+  { key: "commerce_ai", label: "Commerce Specialist" },
+  { key: "assistant", label: "Companion" },
+  { key: "moderation_ai", label: "Moderation Center" },
+  { key: "executive_insights", label: "Executive Briefing" },
   { key: "notifications", label: "Notifications" },
 ] as const;
 
