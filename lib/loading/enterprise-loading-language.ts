@@ -35,7 +35,8 @@ export type EnterpriseLoadingVariant =
 export const FORBIDDEN_LOADING_PATTERNS = [
   /loading ai/i,
   /\bai is thinking\b/i,
-  /\bai assistant\b/i,
+  /\bai chat\b/i,
+  /\bai companion\b/i,
   /\bthe ai has\b/i,
   /\bartificial intelligence recommends\b/i,
   /^processing\.{3}$/i,

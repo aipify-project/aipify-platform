@@ -205,6 +205,8 @@ export * from "./aipify-enterprise-organizational-consciousness-engine";
 export * from "./aipify-enterprise-collective-intelligence-engine";
 export * from "./aipify-employee-growth-career-development-engine";
 export * from "./aipify-wellbeing-sustainable-performance-engine";
+export * from "./aipify-hosts";
+export * from "./aipify-hosts-automation";
 export * from "./aipify-moderation";
 export * from "./aipify-talent-acquisition-workforce-planning-engine";
 export * from "./aipify-performance-goal-alignment-engine";

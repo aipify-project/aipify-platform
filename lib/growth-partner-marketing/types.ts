@@ -1,4 +1,5 @@
 import type {
+  ApprovedMaterialType,
   AssetCategory,
   AssetStatus,
   CampaignStatus,
@@ -8,6 +9,8 @@ import type {
   MarketingSurface,
   PresentationType,
   ProhibitedAction,
+  RequestType,
+  WorkflowStage,
 } from "./constants";
 
 export type MarketingOverview = {
@@ -17,6 +20,33 @@ export type MarketingOverview = {
   campaign_performance: number;
   upcoming_promotions: number;
   localized_resources: number;
+  pending_requests?: number;
+};
+
+export type PolicySection = {
+  id: string;
+  section_key: string;
+  title: string;
+  content: string;
+  sort_order: number;
+};
+
+export type MarketingRequest = {
+  id: string;
+  tenant_id: string;
+  request_type: RequestType;
+  title: string;
+  description: string;
+  workflow_stage: WorkflowStage;
+  language: MarketingLanguage;
+  industry: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type WorkflowStageInfo = {
+  stage: WorkflowStage;
+  label_key: string;
 };
 
 export type MarketingAsset = {
@@ -95,11 +125,16 @@ export type GrowthPartnerMarketingCenter = {
   email_templates?: MarketingEmailTemplate[];
   presentations?: MarketingPresentation[];
   brand_guidelines?: BrandGuideline[];
+  policy?: PolicySection[];
+  marketing_requests?: MarketingRequest[];
+  workflow_stages?: WorkflowStageInfo[];
+  approved_material_types?: ApprovedMaterialType[];
   analytics?: MarketingAnalytics;
   audit?: MarketingAuditEntry[];
   prohibited_actions?: ProhibitedAction[];
   supported_languages?: string[];
   principle?: string;
+  foundation_principle?: string;
 };
 
 export type GrowthPartnerMarketingLabels = {
@@ -120,7 +155,12 @@ export type GrowthPartnerMarketingLabels = {
   presentationTypes: Record<string, string>;
   languages: Record<string, string>;
   prohibited: Record<string, string>;
+  requestTypes: Record<string, string>;
+  workflowStages: Record<string, string>;
+  approvedMaterials: Record<string, string>;
   analytics: Record<string, string>;
   quickActions: Record<string, string>;
+  requestForm: Record<string, string>;
   youDecide: string;
+  foundationPrinciple: string;
 };

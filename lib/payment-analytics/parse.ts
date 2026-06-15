@@ -165,6 +165,10 @@ export function buildAnalyticsFilterQuery(filters: PaymentAnalyticsFilters): str
   if (filters.provider) params.set("provider", filters.provider);
   if (filters.customer_type) params.set("customer_type", filters.customer_type);
   if (filters.country) params.set("country", filters.country);
+  if (filters.currency) params.set("currency", filters.currency);
+  if (filters.subscription_plan) params.set("subscription_plan", filters.subscription_plan);
+  if (filters.growth_partner) params.set("growth_partner", filters.growth_partner);
+  if (filters.customer_segment) params.set("customer_segment", filters.customer_segment);
   const query = params.toString();
   return query ? `?${query}` : "";
 }

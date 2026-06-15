@@ -9,6 +9,7 @@ function buildFilters(searchParams: URLSearchParams) {
     trigger_type: searchParams.get("trigger_type") ?? undefined,
     owner: searchParams.get("owner") ?? undefined,
     outcome: searchParams.get("outcome") ?? undefined,
+    playbook_id: searchParams.get("playbook_id") ?? undefined,
   };
 }
 

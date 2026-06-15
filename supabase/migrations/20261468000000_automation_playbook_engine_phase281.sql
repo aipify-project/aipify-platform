@@ -73,6 +73,7 @@ create table if not exists public.platform_playbook_audit_logs (
   event_type text not null check (
     event_type in (
       'playbook_created', 'playbook_updated', 'playbook_executed',
+      'playbook_activated', 'playbook_paused', 'playbook_archived',
       'approval_granted', 'approval_rejected', 'automation_disabled'
     )
   ),
@@ -182,13 +183,11 @@ begin
   insert into public.platform_playbooks (
     name, category, description, owner, trigger_type, status, is_template, condition_summary, requires_approval
   ) values
-    ('Customer Onboarding Starter', 'customer_onboarding', 'Standard onboarding sequence for new tenants.', 'Success Ops', 'event_based', 'active', true, 'New customer account created', false),
-    ('Renewal Management', 'customer_success', 'Proactive renewal outreach and executive review.', 'Customer Success', 'conditional', 'active', true, 'Enterprise renewal approaching within 45 days', true),
-    ('Incident Escalation', 'incident_response', 'Escalate critical incidents to platform leadership.', 'Platform Ops', 'event_based', 'active', true, 'Critical support ticket or security alert generated', true),
-    ('Enterprise Procurement', 'executive_workflows', 'Enterprise deal desk and procurement workflow.', 'Executive Team', 'manual', 'active', true, 'Enterprise expansion opportunity identified', true),
-    ('Customer Recovery', 'customer_success', 'Recovery playbook for at-risk accounts.', 'Success Ops', 'conditional', 'active', true, 'Customer health score below threshold', false);
-
-  select id into v_pb_id from public.platform_playbooks where name = 'Customer Onboarding Starter';
+    ('Customer Onboarding', 'customer_onboarding', 'Standard onboarding sequence for new tenants — welcome, kickoff, and success assignment.', 'Success Ops', 'event_based', 'active', true, 'New customer account created', false),
+    ('Enterprise Renewals', 'customer_success', 'Proactive enterprise renewal outreach, executive review, and proposal generation.', 'Customer Success', 'conditional', 'active', true, 'Enterprise renewal approaching within 45 days', true),
+    ('Customer Recovery', 'customer_success', 'Recovery playbook for at-risk accounts with health score monitoring.', 'Success Ops', 'conditional', 'active', true, 'Customer health score below threshold', false),
+    ('Incident Response', 'incident_response', 'Escalate critical incidents to platform leadership with structured response steps.', 'Platform Ops', 'event_based', 'active', true, 'Critical support ticket or security alert generated', true),
+    ('Growth Partner Certification Renewal', 'executive_workflows', 'Renewal workflow for Growth Partner certification and compliance review.', 'Partner Ops', 'scheduled', 'active', true, 'Partner certification renewal window opens', true);
 
   insert into public.platform_playbook_steps (playbook_id, step_order, action_type, label)
   select p.id, s.step_order, s.action_type, s.label
@@ -199,7 +198,7 @@ begin
     (3, 'assign_user', 'Assign customer success manager'),
     (4, 'update_status', 'Mark onboarding in progress')
   ) as s(step_order, action_type, label)
-  where p.name = 'Customer Onboarding Starter';
+  where p.name = 'Customer Onboarding';
 
   insert into public.platform_playbook_steps (playbook_id, step_order, action_type, label)
   select p.id, s.step_order, s.action_type, s.label
@@ -210,7 +209,18 @@ begin
     (3, 'create_task', 'Schedule executive review'),
     (4, 'generate_document', 'Generate renewal proposal')
   ) as s(step_order, action_type, label)
-  where p.name = 'Renewal Management';
+  where p.name = 'Enterprise Renewals';
+
+  insert into public.platform_playbook_steps (playbook_id, step_order, action_type, label)
+  select p.id, s.step_order, s.action_type, s.label
+  from public.platform_playbooks p
+  cross join (values
+    (1, 'send_notification', 'Notify partner of certification renewal window'),
+    (2, 'create_task', 'Schedule compliance review'),
+    (3, 'request_approval', 'Executive approval for certification renewal'),
+    (4, 'update_status', 'Update partner certification status')
+  ) as s(step_order, action_type, label)
+  where p.name = 'Growth Partner Certification Renewal';
 
   -- Active playbooks
   insert into public.platform_playbooks (
@@ -293,15 +303,14 @@ begin
 
   v_overview := jsonb_build_object(
     'active_playbooks', (select count(*)::int from public.platform_playbooks where status = 'active' and is_template = false),
-    'automations_running', (select count(*)::int from public.platform_playbooks where status = 'active' and trigger_type <> 'manual'),
+    'scheduled_automations', (select count(*)::int from public.platform_playbooks where status = 'active' and trigger_type = 'scheduled' and is_template = false),
+    'running_automations', (select count(*)::int from public.platform_playbooks where status = 'active' and trigger_type <> 'manual' and is_template = false),
     'failed_executions', (select count(*)::int from public.platform_playbook_executions where outcome = 'failed'),
-    'manual_interventions', (select count(*)::int from public.platform_playbook_executions where manual_intervention = true),
-    'scheduled_workflows', (select count(*)::int from public.platform_playbooks where status = 'active' and trigger_type = 'scheduled'),
-    'most_used_playbooks', (
-      select count(*)::int from (
-        select playbook_id from public.platform_playbook_executions
-        group by playbook_id having count(*) >= 2
-      ) mu
+    'pending_approvals', (select count(*)::int from public.platform_playbook_executions where approval_status = 'pending'),
+    'recently_completed', (
+      select count(*)::int from public.platform_playbook_executions
+      where outcome in ('successful', 'partially_successful')
+        and executed_at >= now() - interval '7 days'
     )
   );
 
@@ -309,6 +318,7 @@ begin
   into v_playbooks
   from public.platform_playbooks p
   where p.is_template = false
+    and (nullif(p_filters->>'playbook_id', '') is null or p.id = (p_filters->>'playbook_id')::uuid)
     and (v_category_filter is null or p.category = v_category_filter)
     and (v_status_filter is null or p.status = v_status_filter)
     and (v_trigger_filter is null or p.trigger_type = v_trigger_filter)
@@ -334,7 +344,8 @@ begin
   into v_executions
   from public.platform_playbook_executions e
   join public.platform_playbooks p on p.id = e.playbook_id
-  where (v_outcome_filter is null or e.outcome = v_outcome_filter);
+  where (v_outcome_filter is null or e.outcome = v_outcome_filter)
+    and (nullif(p_filters->>'playbook_id', '') is null or e.playbook_id = (p_filters->>'playbook_id')::uuid);
 
   select coalesce(jsonb_agg(jsonb_build_object(
     'id', l.id,
@@ -418,13 +429,57 @@ begin
 
       perform public._pbe281_log_audit(v_playbook_id, 'playbook_created', 'Playbook created from template.', p_payload);
 
+    when 'update_playbook' then
+      update public.platform_playbooks set
+        name = coalesce(p_payload->>'name', name),
+        description = coalesce(p_payload->>'description', description),
+        owner = coalesce(p_payload->>'owner', owner),
+        category = coalesce(p_payload->>'category', category),
+        trigger_type = coalesce(p_payload->>'trigger_type', trigger_type),
+        condition_summary = coalesce(p_payload->>'condition_summary', condition_summary),
+        requires_approval = coalesce((p_payload->>'requires_approval')::boolean, requires_approval),
+        updated_at = now()
+      where id = v_playbook_id;
+      perform public._pbe281_log_audit(v_playbook_id, 'playbook_updated', 'Playbook updated.', p_payload);
+
+    when 'duplicate_playbook' then
+      v_template_id := v_playbook_id;
+      insert into public.platform_playbooks (
+        name, category, description, owner, trigger_type, status, condition_summary, requires_approval
+      )
+      select
+        coalesce(p_payload->>'name', p.name || ' (copy)'),
+        p.category,
+        p.description,
+        coalesce(p_payload->>'owner', p.owner),
+        p.trigger_type,
+        'draft',
+        p.condition_summary,
+        p.requires_approval
+      from public.platform_playbooks p
+      where p.id = v_template_id
+      returning id into v_playbook_id;
+
+      insert into public.platform_playbook_steps (playbook_id, step_order, action_type, label)
+      select v_playbook_id, s.step_order, s.action_type, s.label
+      from public.platform_playbook_steps s
+      where s.playbook_id = v_template_id;
+
+      perform public._pbe281_log_audit(v_playbook_id, 'playbook_created', 'Playbook duplicated.', p_payload);
+
     when 'update_status' then
       update public.platform_playbooks set
         status = coalesce(p_payload->>'status', status),
         updated_at = now()
       where id = v_playbook_id;
       perform public._pbe281_log_audit(
-        v_playbook_id, 'playbook_updated',
+        v_playbook_id,
+        case coalesce(p_payload->>'status', '')
+          when 'active' then 'playbook_activated'
+          when 'paused' then 'playbook_paused'
+          when 'archived' then 'playbook_archived'
+          else 'playbook_updated'
+        end,
         coalesce(p_payload->>'summary', format('Playbook status updated to %s.', coalesce(p_payload->>'status', ''))),
         p_payload
       );

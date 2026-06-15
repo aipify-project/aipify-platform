@@ -9,6 +9,7 @@
     "lint": "eslint",
     "test:greeting": "npx --yes tsx lib/core/greeting.test.ts",
     "test:intelligence": "npx --yes tsx lib/intelligence/router.test.ts",
+    "generate:aipify-loader": "node scripts/generate-aipify-loader-assets.mjs",
     "supabase:link": "npx supabase link --project-ref qbcqoixhrvhnuwphefvw",
     "supabase:sql": "node scripts/supabase-apply-sql.mjs list",
     "supabase:sql:apply": "node scripts/supabase-apply-sql.mjs apply",
@@ -23,6 +24,7 @@
   "dependencies": {
     "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.108.1",
+    "lottie-web": "^5.13.0",
     "next": "16.2.9",
     "otplib": "^13.4.1",
     "qrcode": "^1.5.4",
@@ -30,6 +32,7 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/qrcode": "^1.5.6",
@@ -37,6 +40,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "gifenc": "^1.0.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

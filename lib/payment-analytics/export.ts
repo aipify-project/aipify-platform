@@ -1,4 +1,5 @@
-import type { PaymentAnalyticsCenter } from "@/lib/payment-analytics/types";
+import type { PaymentAnalyticsCenter } from "./types";
+import { computeExecutiveSnapshot, generateExecutiveInsights } from "./derived";
 
 function escapeCsv(value: string | number): string {
   const str = String(value);
@@ -8,11 +9,22 @@ function escapeCsv(value: string | number): string {
   return str;
 }
 
-export function buildPaymentAnalyticsCsv(center: PaymentAnalyticsCenter): string {
+export function buildPaymentAnalyticsCsv(
+  center: PaymentAnalyticsCenter,
+  title = "Payment Analytics Export"
+): string {
+  const executive = computeExecutiveSnapshot(center);
   const lines: string[] = [];
 
-  lines.push("Payment Analytics Export");
+  lines.push(title);
   lines.push("");
+  lines.push("Executive Snapshot");
+  lines.push(`Total Revenue,${executive.total_revenue}`);
+  lines.push(`Recurring Revenue,${executive.recurring_revenue}`);
+  lines.push(`Revenue Growth %,${executive.revenue_growth_pct}`);
+  lines.push(`Payment Success Rate,${executive.payment_success_rate}`);
+  lines.push("");
+
   lines.push("Overview");
   lines.push(`Revenue Today,${center.overview.revenue_today}`);
   lines.push(`Revenue This Month,${center.overview.revenue_this_month}`);
@@ -71,18 +83,29 @@ export function buildPaymentAnalyticsCsv(center: PaymentAnalyticsCenter): string
   return lines.join("\n");
 }
 
-export function buildPaymentAnalyticsPdfText(center: PaymentAnalyticsCenter): string {
+export function buildPaymentAnalyticsPdfText(
+  center: PaymentAnalyticsCenter,
+  title = "AIPIFY PAYMENT ANALYTICS CENTER"
+): string {
+  const executive = computeExecutiveSnapshot(center);
+  const insights = generateExecutiveInsights(center);
+
   const sections = [
-    "AIPIFY PAYMENT ANALYTICS CENTER",
+    title,
     "================================",
+    "",
+    "EXECUTIVE SNAPSHOT",
+    `Total Revenue: ${executive.total_revenue} ${executive.currency}`,
+    `Recurring Revenue (MRR): ${executive.recurring_revenue} ${executive.currency}`,
+    `Revenue Growth: ${executive.revenue_growth_pct}%`,
+    `Payment Success Rate: ${executive.payment_success_rate}%`,
+    `Net Revenue After Refunds: ${executive.net_revenue_after_refunds} ${executive.currency}`,
     "",
     "OVERVIEW",
     `Revenue Today: ${center.overview.revenue_today} ${center.overview.currency}`,
     `Revenue This Month: ${center.overview.revenue_this_month} ${center.overview.currency}`,
     `Active Subscriptions: ${center.overview.active_subscriptions}`,
     `Failed Payments: ${center.overview.failed_payments}`,
-    `Average Revenue Per Customer: ${center.overview.average_revenue_per_customer}`,
-    `Churned Subscriptions: ${center.overview.churned_subscriptions}`,
     "",
     "PROVIDER BREAKDOWN (30d)",
     ...center.provider_breakdown.map(
@@ -90,10 +113,35 @@ export function buildPaymentAnalyticsPdfText(center: PaymentAnalyticsCenter): st
         `${p.provider_key}: ${p.revenue_30d} revenue · ${p.transactions} tx · ${p.success_rate}% success`
     ),
     "",
-    "CUSTOMER SEGMENTS (30d)",
-    `Self-Service: ${center.segments.self_service} ${center.segments.currency}`,
-    `Enterprise: ${center.segments.enterprise} ${center.segments.currency}`,
+    "EXECUTIVE INSIGHTS",
+    ...insights.map((insight) => `- ${insight.observation}`),
   ];
 
   return sections.join("\n");
+}
+
+export function exportTitleForFormat(format: string): string {
+  switch (format) {
+    case "board_report":
+      return "AIPIFY PAYMENT ANALYTICS — BOARD REPORT";
+    case "executive_summary":
+      return "AIPIFY PAYMENT ANALYTICS — EXECUTIVE SUMMARY";
+    case "finance_fiken":
+      return "AIPIFY PAYMENT ANALYTICS — FINANCE EXPORT (FIKEN)";
+    case "auditor_package":
+      return "AIPIFY PAYMENT ANALYTICS — AUDITOR PACKAGE";
+    case "quarterly_revenue":
+      return "AIPIFY PAYMENT ANALYTICS — QUARTERLY REVENUE REPORT";
+    default:
+      return "AIPIFY PAYMENT ANALYTICS CENTER";
+  }
+}
+
+export function exportFilenameForFormat(format: string): string {
+  const base = format.replace(/_/g, "-");
+  if (format === "xlsx") return "payment-analytics.xlsx";
+  if (format === "pdf" || format.includes("report") || format.includes("summary") || format.includes("package") || format.includes("fiken") || format.includes("quarterly")) {
+    return `${base}.pdf`;
+  }
+  return "payment-analytics.csv";
 }

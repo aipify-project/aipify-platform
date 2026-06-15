@@ -1,0 +1,58 @@
+AIPIFY – PHASE AIRBNB 08
+AIPIFY HOSTS – OWNER PORTAL
+
+PURPOSE
+Provide property owners, co-hosts, and external stakeholders a secure read-focused portal for portfolio visibility — distinct from the daily operator workspace.
+
+POSITIONING
+Transparency for owners. Control for operators. Trust for everyone.
+
+FEATURE OWNER
+CUSTOMER APP (operator configuration) · Embedded read portal (owner access)
+
+ROUTE
+/app/aipify-hosts/owner-portal — operator configuration
+/portal/hosts/{tenant}/owner — external owner access (future embedded surface)
+
+OBJECTIVES
+Owner transparency · Reduced back-and-forth reporting · Secure limited access · Professional property management relationships
+
+MODULES
+1 Owner Dashboard — occupancy summary, revenue overview, property health (aggregates only)
+2 Owner Reporting Engine — monthly statements, performance summaries, exportable reports
+3 Owner Communication Hub — operator-to-owner updates, announcement delivery (no guest impersonation)
+4 Access & Permissions Engine — owner read-only, co-host scoped, investor summary roles
+5 Document Center — owner agreements, insurance summaries, compliance status (metadata references)
+6 Owner Approval Queue — capital expenditure, major maintenance, policy changes requiring owner sign-off
+7 Multi-Owner Portfolio View — property management companies with multiple beneficial owners
+8 Owner Notification Preferences — arrival summaries, incident alerts, monthly reports
+9 Owner Knowledge Center — how to read reports, understanding property health, stewardship expectations
+10 Enterprise Owner Governance — portfolio-wide owner policies, audit logging, approval workflows
+
+USER ROLES
+Property Owner — read-focused portfolio visibility
+Co-Host — scoped operational visibility per property assignment
+Enterprise Administrator — portal configuration, owner invitations, governance
+
+GOVERNANCE
+Owners never see other tenants
+Operators control what owners can view
+Financial detail level configurable per owner relationship
+All owner portal access audit logged
+Sensitive owner actions require two-factor authentication
+
+SECURITY
+Separate session scope from operator workspace
+Invitation-based provisioning — no open registration
+Read-only default — write actions require explicit role grant
+
+INTEGRATIONS
+License Center — owner messaging on software licensing vs data ownership
+Trust Architecture — metadata-first reporting
+Phase Airbnb 05 trust & compliance — incident summaries for owners (approved disclosure only)
+
+TERMINOLOGY
+Owner Portal — professional transparency surface
+Never expose raw guest PII to owners unless operator explicitly enables approved fields
+
+END OF PHASE.

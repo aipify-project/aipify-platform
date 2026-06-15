@@ -1,6 +1,9 @@
 import type {
+  FilterPreset,
+  HealthBand,
   PlanType,
   RenewalPeriod,
+  RiskLevel,
   SubscriptionDisplayStatus,
 } from "./constants";
 
@@ -10,6 +13,10 @@ export type SubscriptionOperationsFilters = {
   country?: string;
   provider?: string;
   renewal_period?: RenewalPeriod | "";
+  date_from?: string;
+  date_to?: string;
+  growth_partner?: string;
+  account_manager?: string;
 };
 
 export type SubscriptionOperationsOverview = {
@@ -113,18 +120,31 @@ export type SubscriptionOperationsLabels = {
   principle: string;
   emptyState: string;
   sections: {
+    executiveSnapshot: string;
     overview: string;
     subscriptions: string;
+    healthScoring: string;
     trials: string;
     upgrades: string;
     downgrades: string;
     renewals: string;
     pastDue: string;
     enterpriseContracts: string;
+    lifecycleTimeline: string;
+    executiveInsights: string;
+    revenueAtRisk: string;
+    growthOpportunities: string;
     audit: string;
     filters: string;
+    forecasting: string;
   };
-  overview: {
+  executive: {
+    mrr: string;
+    arr: string;
+    netGrowth: string;
+    conversionRate: string;
+    renewalRisk: string;
+    acv: string;
     active: string;
     trials: string;
     renewals: string;
@@ -132,12 +152,15 @@ export type SubscriptionOperationsLabels = {
     downgrades: string;
     cancelled: string;
   };
+  health: Record<HealthBand, string>;
+  healthDescription: string;
   table: {
     customer: string;
     plan: string;
     users: string;
     billingProvider: string;
     monthlyValue: string;
+    mrrContribution: string;
     renewalDate: string;
     status: string;
     actions: string;
@@ -145,22 +168,47 @@ export type SubscriptionOperationsLabels = {
     newPlan: string;
     effectiveDate: string;
     revenueImpact: string;
+    mrrImpact: string;
     reason: string;
     trialStart: string;
     trialEnd: string;
     daysRemaining: string;
     conversionProbability: string;
+    usageScore: string;
+    growthPartner: string;
     outstandingAmount: string;
     daysOverdue: string;
     paymentProvider: string;
     recommendedAction: string;
     contractStart: string;
     contractEnd: string;
+    contractValue: string;
     paymentTerms: string;
     accountManager: string;
     event: string;
+    healthScore: string;
+    renewalProbability: string;
+    contractType: string;
+    accountOwner: string;
+    lastInteraction: string;
+    riskLevel: string;
+    retryAttempts: string;
+    nextStep: string;
+    expansionOpportunity: string;
+    contractHealth: string;
+    upcomingMilestone: string;
+    actor: string;
+    financialImpact: string;
+    automation: string;
+    approval: string;
+    date: string;
+    signal: string;
+    recommendation: string;
+    priority: string;
   };
   statuses: Record<SubscriptionDisplayStatus, string>;
+  riskLevels: Record<RiskLevel, string>;
+  expansion: Record<string, string>;
   actions: {
     view: string;
     upgrade: string;
@@ -171,6 +219,14 @@ export type SubscriptionOperationsLabels = {
     cancel: string;
     convertToPaid: string;
     sendReminder: string;
+    offerOnboarding: string;
+    discountCampaign: string;
+    escalateSales: string;
+    retryPayment: string;
+    contactCustomer: string;
+    switchPaymentMethod: string;
+    moveToCollections: string;
+    pauseAccess: string;
     applying: string;
   };
   filters: {
@@ -179,17 +235,44 @@ export type SubscriptionOperationsLabels = {
     country: string;
     provider: string;
     renewalPeriod: string;
+    growthPartner: string;
+    accountManager: string;
     allPlans: string;
     allStatuses: string;
     allCountries: string;
     allProviders: string;
     allRenewals: string;
+    allPartners: string;
+    allManagers: string;
     apply: string;
+    presets: Record<FilterPreset, string>;
   };
   renewals: {
     within7: string;
     within30: string;
     within90: string;
+    commandCenter: string;
+  };
+  insights: {
+    recommendedAction: string;
+    empty: string;
+  };
+  revenueAtRisk: {
+    title: string;
+    pastDue: string;
+    lowHealth: string;
+    enterpriseRenewals: string;
+    decliningUsage: string;
+    total: string;
+  };
+  growth: {
+    empty: string;
+  };
+  lifecycle: {
+    empty: string;
+  };
+  forecasting: {
+    futureNote: string;
   };
   plans: Record<PlanType, string>;
 };

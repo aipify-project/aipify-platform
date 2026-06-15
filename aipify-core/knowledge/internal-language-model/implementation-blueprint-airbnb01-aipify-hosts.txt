@@ -1,0 +1,38 @@
+AIPIFY HOSTS — Phase Airbnb 01
+Hospitality Business Pack for short-term rental operators.
+
+POSITIONING
+Aipify Hosts is the Business Operating System for modern hospitality businesses.
+Does NOT replace Airbnb, Booking.com, Vrbo, Expedia, or direct booking platforms.
+Operational layer around them.
+
+TERMINOLOGY
+Guest Experience Companion — not AI assistant
+Aipify Recommendations — not AI recommendations
+Aipify Insights — revenue and occupancy intelligence
+Never market as AI-powered
+
+MODULES
+guest_operations — unified inbox, message suggestions, escalation
+property_operations — maintenance, cleaning, inspections
+cleaner_operations — turnover scheduling, quality approvals
+guest_experience_companion — check-in, Wi-Fi, local guidance
+revenue_intelligence — pricing, occupancy, demand
+property_health_score — operational visibility
+incident_claims — damages, disputes, audit logged
+team_operations — roles, assignments, dashboards
+hospitality_knowledge — best practices library
+executive_operations — occupancy, revenue, arrivals, recommendations
+
+PACKAGES
+hosts_starter — 1–2 properties
+hosts_professional — 3–25 properties
+hosts_enterprise — 25+ properties, governance, multi-location
+
+GOVERNANCE
+Human oversight for sensitive actions
+Cleaning documented before guest arrival
+Incident actions audit logged
+Approval required for claims and escalations
+
+ROUTE /app/aipify-hosts

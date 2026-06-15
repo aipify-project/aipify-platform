@@ -200,6 +200,10 @@ export function buildSubscriptionOperationsFilterQuery(
   if (filters.country) params.set("country", filters.country);
   if (filters.provider) params.set("provider", filters.provider);
   if (filters.renewal_period) params.set("renewal_period", filters.renewal_period);
+  if (filters.date_from) params.set("date_from", filters.date_from);
+  if (filters.date_to) params.set("date_to", filters.date_to);
+  if (filters.growth_partner) params.set("growth_partner", filters.growth_partner);
+  if (filters.account_manager) params.set("account_manager", filters.account_manager);
   const query = params.toString();
   return query ? `?${query}` : "";
 }

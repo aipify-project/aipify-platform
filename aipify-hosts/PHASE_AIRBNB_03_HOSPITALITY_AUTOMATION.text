@@ -1,0 +1,59 @@
+AIPIFY – PHASE AIRBNB 03
+AIPIFY HOSTS – HOSPITALITY AUTOMATION & REAL-WORLD ACTION ENGINE
+
+PURPOSE
+Transform Aipify Hosts from intelligence into operational companion coordinating real-world hospitality through approved workflows.
+
+POSITIONING
+Aipify doesn't just tell hosts what to do. It helps them get it done.
+
+FEATURE OWNER
+CUSTOMER APP
+
+ROUTE
+/app/aipify-hosts/automation
+
+MIGRATION
+20261483000000_aipify_hosts_hospitality_automation_airbnb03.sql
+
+RPCS
+get_aipify_hosts_automation_dashboard · get_aipify_hosts_automation_card
+
+MODULES
+1 Arrival Automation Center — countdown, cleaner verification, welcome scheduling, check-in delivery
+2 Smart Lock Orchestration Engine — access schedules, reminders, expiry, escalation (approval for permission changes)
+3 Local Service Coordination Center — vendor directory, preferred providers, task requests
+4 Guest Experience Enhancement Engine — special occasions, personalized suggestions (host approval required)
+5 Emergency Response Assistant — lockouts, leaks, heating failures, checklists, vendor suggestions
+6 Recurring Task Automation Center — seasonal maintenance, cleaner prompts, inventory audits
+7 Hospitality Playbook Engine — check-in, check-out, emergency playbooks
+8 Supply Management Center — inventory thresholds, restocking reminders, consumption tracking
+9 Hospitality Assistant Companion — daily briefings, priorities, Aipify Recommendations
+10 Approvals & Governance Center — Level 1–4 gates, full audit logging
+
+APPROVAL LEVELS
+Level 1 — Information only
+Level 2 — Acknowledgement required
+Level 3 — Host approval required
+Level 4 — Enterprise authorization
+
+GOVERNANCE
+Humans remain in control · Sensitive actions require approvals · All actions audit logged
+Access permission changes require explicit approval · Guest enhancement actions require host approval
+
+KNOWLEDGE CENTER
+Hospitality automation · Emergency preparedness · Guest experience · Inventory · Operational excellence · Service providers
+
+PACKAGE GATING
+Starter — arrival, recurring tasks, playbooks, governance
+Professional — + local services, supply, guest enhancement, emergency
+Enterprise — all modules including smart lock orchestration and assistant companion
+
+ARCHITECTURE
+Built on Aipify Hosts Phase 01 · Shared governance · Shared notifications · Shared Knowledge Center · Shared audit · Modular provider integrations
+
+TERMINOLOGY
+Hospitality Assistant Companion — not AI assistant
+Aipify Recommendations — never AI recommendations
+
+END OF PHASE.

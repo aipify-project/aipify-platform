@@ -1,0 +1,49 @@
+AIPIFY – PHASE AIRBNB 05
+AIPIFY HOSTS – TRUST & COMPLIANCE ENGINE
+
+PURPOSE
+Professional incident handling, regulatory awareness, audit accountability, and trust transparency for hospitality operators.
+
+POSITIONING
+Trust earned through transparency. Every sensitive action explainable and auditable.
+
+FEATURE OWNER
+CUSTOMER APP
+
+ROUTE
+/app/aipify-hosts/trust-compliance
+
+OBJECTIVES
+Professional dispute handling · Insurance readiness · Regulatory awareness · Full audit trails · Human accountability
+
+MODULES
+1 Incident & Claims Center — incident reporting, photo documentation, timeline generation, evidence management
+2 Insurance Preparation Engine — claim packet assembly, documentation checklists, communication history links
+3 Approval & Governance Gate — internal approvals for claims, refunds, escalations (Trust & Action Engine integration)
+4 Regulatory Awareness Center — local short-term rental rules, safety requirements, licensing reminders (guidance only)
+5 Safety & Compliance Checklists — fire safety, emergency contacts, property compliance status
+6 Audit & Accountability Log — immutable hospitality audit trail, executive action logging
+7 Risk Acknowledgement Engine — booking risk flags, incident severity, recommended actions (human decides)
+8 Trust Dashboard — compliance posture, open incidents, pending approvals, audit summary
+9 Compliance Knowledge Center — incident handling, insurance preparation, local regulation guidance
+10 Executive Trust Overview — portfolio incident trends, compliance gaps, governance health (aggregates only)
+
+GOVERNANCE
+All incident actions audit logged
+Level 4 critical actions prohibited for automated execution
+Claims and financial actions require explicit human approval
+Platform Admin sees aggregates only — never browse guest operational content
+
+INTEGRATIONS
+Trust & Action Engine — action levels, approval center
+License Center — trust messaging alignment
+Records retention policies (metadata only)
+
+TERMINOLOGY
+Aipify informs and prepares — humans decide outcomes
+Never hide uncertainty — escalate when confidence is low
+
+SUCCESS METRICS
+Faster incident resolution · Complete audit trails · Reduced compliance gaps
+
+END OF PHASE.

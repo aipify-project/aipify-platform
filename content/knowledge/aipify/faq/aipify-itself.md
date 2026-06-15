@@ -9,4 +9,4 @@ tags: ["aipify", "overview", "faq"]
 keywords: ["what is aipify", "aipify platform", "overview"]
 ---
 
-Aipify is an AI-powered business operations platform designed to help organizations with support, administration, workflow intelligence, reminders, automation, insights, and decision support.
+Aipify is an Aipify-powered business operations platform designed to help organizations with support, administration, workflow intelligence, reminders, automation, insights, and decision support.

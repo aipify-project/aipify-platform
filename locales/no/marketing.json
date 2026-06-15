@@ -113,9 +113,9 @@
     "subtitle": "Install-first — intelligence where your team already works.",
     "steps": {
       "1": { "title": "Install", "description": "Connect Aipify to your admin, store, or custom system in minutes." },
-      "2": { "title": "Learn", "description": "Install AI discovers capabilities, roles, and workflows — with human validation." },
+      "2": { "title": "Learn", "description": "Aipify Install discovers capabilities, roles, and workflows — with human validation." },
       "3": { "title": "Assist", "description": "Modules prepare drafts, insights, and recommendations inside your workflow." },
-      "4": { "title": "Approve", "description": "Sensitive actions require explicit human approval — critical actions prohibited for AI." },
+      "4": { "title": "Approve", "description": "Sensitive actions require explicit human approval — critical actions prohibited without human confirmation." },
       "5": { "title": "Improve", "description": "Assisted learning from approved metadata — never raw customer content." }
     }
   },
@@ -168,7 +168,7 @@
       "manual": { "label": "Manual", "description": "Every action reviewed by your team." },
       "assisted": { "label": "Assisted", "description": "Aipify prepares; humans decide." },
       "trusted": { "label": "Trusted automation", "description": "Low-risk, reversible actions within policy." },
-      "prohibited": { "label": "AI prohibited", "description": "Critical actions always require humans — never AI alone." }
+      "prohibited": { "label": "Human confirmation required", "description": "Critical actions always require humans — never without human confirmation." }
     }
   },
   "earlyAccess": {

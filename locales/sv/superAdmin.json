@@ -277,6 +277,8 @@
     "partnerSupportDescription": "Handle partner escalations and operations.",
     "marketingManagement": "Marknadsföringsstyrning",
     "marketingManagementDescription": "Ladda upp tillgångar, publicera kampanjer och hantera varumärkesstandarder.",
+    "forecastingManagement": "Prognoser",
+    "forecastingManagementDescription": "Aggregera partnerprognoser, coachingsignaler och globala sannolikhetsantaganden.",
     "submissionQueue": "Submission Queue",
     "submissionQueueDescription": "Review marketplace skill submissions.",
     "approvalCenter": "Approval Center",
@@ -322,7 +324,11 @@
     "customerHealth": "Kundhälsa",
     "customerHealthDescription": "Dynamiska hälsopoäng, tidiga varningar och återhämtningsflöden.",
     "paymentProviders": "Payment Providers",
-    "paymentProvidersDescription": "Configure Klarna, Vipps MobilePay, Stripe, and DNB credentials."
+    "paymentProvidersDescription": "Configure Klarna, Vipps MobilePay, Stripe, and DNB credentials.",
+    "contentRequests": "Innehållsförfrågningar",
+    "contentRequestsDescription": "Granska partnerförfrågningar och publicera till Marknadscenter.",
+    "revenueOperations": "Revenue Operations",
+    "revenueOperationsDescription": "Orchestrate billing events, subscription activation, package sync, and failed activation recovery."
   },
   "voiceOfCustomer": {
     "title": "Global insiktsdashboard",
@@ -438,14 +444,16 @@
     "back": "Tillbaka till Super Admin",
     "principle": "Growth Partners ska aldrig behöva gissa hur de representerar Aipify. Professionella verktyg skapar professionella upplevelser.",
     "emptyState": "Marketing Management requires Super Admin access.",
-    "youDecide": "Publish only reviewed materials. Archive outdated assets promptly.",
+    "youDecide": "Publicera endast granskade material. Arkivera föråldrade resurser omgående.",
+    "foundationPrinciple": "Professionella varumärken byggs genom konsekvens. Utrusta Growth Partners med exceptionella resurser.",
     "overview": {
       "availableCampaigns": "Active campaigns",
       "marketingAssets": "Total assets",
       "recentlyUpdated": "Updated (30 days)",
       "campaignPerformance": "Avg. campaign score",
       "upcomingPromotions": "Scheduled promotions",
-      "localizedResources": "Languages available"
+      "localizedResources": "Languages available",
+      "pendingRequests": "Väntande förfrågningar"
     },
     "sections": {
       "overview": "Overview",
@@ -454,49 +462,383 @@
       "emailTemplates": "Email templates",
       "presentations": "Presentations",
       "brandGuidelines": "Brand guidelines",
-      "prohibited": "Partner restrictions",
+      "brandPolicy": "Varumärkespolicy",
+      "approvedMaterials": "Godkända materialtyper",
+      "requestWorkflow": "Godkänningsflöde",
+      "marketingRequests": "Marknadsföringsförfrågningar",
+      "prohibited": "Förbjudna aktiviteter",
       "analytics": "Usage analytics",
       "audit": "Audit trail",
       "downloadCenter": "Downloads"
     },
     "table": {
-      "name": "Name", "category": "Category", "language": "Language", "version": "Version",
-      "status": "Status", "downloads": "Downloads", "objective": "Objective", "audience": "Audience",
-      "dates": "Schedule", "assets": "Assets", "subject": "Subject", "slides": "slides", "actions": "Actions"
+      "name": "Name",
+      "category": "Category",
+      "language": "Language",
+      "version": "Version",
+      "status": "Status",
+      "downloads": "Downloads",
+      "objective": "Objective",
+      "audience": "Audience",
+      "dates": "Schedule",
+      "assets": "Assets",
+      "subject": "Subject",
+      "slides": "slides",
+      "actions": "Actions"
     },
     "categories": {
-      "banner": "Banner", "social_media_graphic": "Social media graphic", "presentation_deck": "Presentation deck",
-      "brochure": "Brochure", "email_template": "Email template", "landing_page_template": "Landing page template",
-      "product_one_pager": "Product one-pager", "case_study": "Case study", "brand_guidelines": "Brand guidelines"
+      "banner": "Banner",
+      "social_media_graphic": "Social media graphic",
+      "presentation_deck": "Presentation deck",
+      "brochure": "Brochure",
+      "email_template": "Email template",
+      "landing_page_template": "Landing page template",
+      "product_one_pager": "Product one-pager",
+      "case_study": "Case study",
+      "brand_guidelines": "Brand guidelines"
     },
-    "assetStatuses": { "draft": "Draft", "published": "Published", "archived": "Archived" },
+    "assetStatuses": {
+      "draft": "Utkast",
+      "under_review": "Under granskning",
+      "approved": "Godkänd",
+      "published": "Publicerad",
+      "archived": "Arkiverad"
+    },
     "campaignTypes": {
-      "awareness": "Awareness", "lead_generation": "Lead generation", "product_launch": "Product launch",
-      "enterprise_outreach": "Enterprise outreach", "referral_growth": "Referral growth", "seasonal_promotion": "Seasonal promotion"
+      "awareness": "Awareness",
+      "lead_generation": "Lead generation",
+      "product_launch": "Product launch",
+      "enterprise_outreach": "Enterprise outreach",
+      "referral_growth": "Referral growth",
+      "seasonal_promotion": "Seasonal promotion"
     },
-    "campaignStatuses": { "draft": "Draft", "active": "Active", "archived": "Archived" },
+    "campaignStatuses": {
+      "draft": "Draft",
+      "active": "Active",
+      "archived": "Archived"
+    },
     "emailTypes": {
-      "initial_outreach": "Initial outreach", "demonstration_invitation": "Demonstration invitation", "follow_up": "Follow-up",
-      "proposal_delivery": "Proposal delivery", "renewal_conversation": "Renewal conversation", "enterprise_introduction": "Enterprise introduction"
+      "initial_outreach": "Initial outreach",
+      "demonstration_invitation": "Demonstration invitation",
+      "follow_up": "Follow-up",
+      "proposal_delivery": "Proposal delivery",
+      "renewal_conversation": "Renewal conversation",
+      "enterprise_introduction": "Enterprise introduction"
     },
     "presentationTypes": {
-      "what_is_aipify": "What is Aipify?", "executive_overview": "Executive overview", "enterprise_procurement": "Enterprise procurement",
-      "growth_partner_introduction": "Growth Partner introduction", "customer_success_stories": "Customer success stories", "industry_use_case": "Industry use case"
+      "what_is_aipify": "What is Aipify?",
+      "executive_overview": "Executive overview",
+      "enterprise_procurement": "Enterprise procurement",
+      "growth_partner_introduction": "Growth Partner introduction",
+      "customer_success_stories": "Customer success stories",
+      "industry_use_case": "Industry use case"
     },
-    "languages": { "en": "English", "no": "Norwegian", "sv": "Swedish", "da": "Danish" },
+    "languages": {
+      "en": "English",
+      "no": "Norwegian",
+      "sv": "Swedish",
+      "da": "Danish"
+    },
     "prohibited": {
-      "modify_official_logos": "Partners may not modify official logos.",
-      "promise_unavailable_features": "Partners may not promise unavailable features.",
-      "misleading_pricing": "Partners may not create misleading pricing materials.",
-      "outdated_presentations": "Partners may not use outdated presentations."
+      "modify_official_logos": "Modifierade versioner av Aipify-logotypen.",
+      "unofficial_advertisements": "Inofficiella annonser med Aipify-varumärket.",
+      "self_made_videos": "Egna videor som representerar Aipify.",
+      "unofficial_brochures": "Inofficiella produktbroschyrer.",
+      "edit_recolor_assets": "Redigering eller omfärgning av officiella varumärkesresurser.",
+      "alter_messaging": "Ändring av godkänt budskap.",
+      "unofficial_landing_pages": "Inofficiella landningssidor med Aipify-branding.",
+      "independent_certification": "Oberoende certifieringsmaterial.",
+      "unofficial_social_campaigns": "Inofficiella sociala kampanjer som påstår sig representera Aipify.",
+      "ai_generated_unofficial": "Aipify-genererade inofficiella marknadsföringsmaterial."
+    },
+    "requestTypes": {
+      "local_campaign": "Lokal kampanj",
+      "industry_campaign": "Branschkampanj",
+      "language_adaptation": "Språkanpassning",
+      "event_materials": "Eventmaterial",
+      "presentation_concept": "Presentationskoncept",
+      "customer_collateral": "Kundmaterial"
+    },
+    "workflowStages": {
+      "submitted": "Inskickad",
+      "brand_review": "Varumärkesgranskning",
+      "design_production": "Designproduktion",
+      "legal_review": "Juridisk granskning",
+      "approved": "Godkänd",
+      "published": "Publicerad"
+    },
+    "approvedMaterials": {
+      "logos": "Logotyper",
+      "social_media_graphics": "Grafik för sociala medier",
+      "presentation_decks": "Presentationsdeck",
+      "product_brochures": "Produktbroschyrer",
+      "email_templates": "E-postmallar",
+      "case_studies": "Fallstudier",
+      "campaign_assets": "Kampanjresurser",
+      "video_materials": "Videomaterial",
+      "event_materials": "Eventmaterial",
+      "sales_one_pagers": "Sälj-one-pagers"
     },
     "analytics": {
-      "mostDownloaded": "Most downloaded assets", "mostUsedPresentations": "Most used presentations",
-      "topCampaigns": "Top campaigns", "engagementTrend": "Engagement trend"
+      "mostDownloaded": "Most downloaded assets",
+      "mostUsedPresentations": "Most used presentations",
+      "topCampaigns": "Top campaigns",
+      "engagementTrend": "Engagement trend"
     },
     "quickActions": {
-      "download": "Download", "publishCampaign": "Publish", "archiveCampaign": "Archive campaign",
-      "archiveAsset": "Archive asset", "uploadAsset": "Upload asset"
+      "download": "Download",
+      "publishCampaign": "Publish",
+      "archiveCampaign": "Archive campaign",
+      "archiveAsset": "Archive asset",
+      "uploadAsset": "Upload asset",
+      "submitRequest": "Skicka förfrågan",
+      "advanceRequest": "Framåt stadium",
+      "rejectRequest": "Returnera för revidering",
+      "approveAsset": "Godkänn resurs",
+      "publishAsset": "Publicera till center",
+      "logViolation": "Logga överträdelse"
+    },
+    "requestForm": {
+      "title": "Titel",
+      "description": "Beskrivning",
+      "requestType": "Förfrågningstyp",
+      "language": "Språk",
+      "industry": "Bransch",
+      "submit": "Skicka"
+    }
+  },
+  "growthPartnerForecast": {
+    "title": "Growth Partner Prognoser",
+    "subtitle": "Aggregera partnerintäktsprognoser, identifiera coachingsmöjligheter, övervaka regionala tillväxttrender och styr globala sannolikhetsantaganden.",
+    "loading": "Laddar prognosöversikt…",
+    "back": "Tillbaka till Super Admin",
+    "principle": "Synlighet skapar förtroende. Planering skapar motståndskraft.",
+    "emptyState": "Prognoser kräver Super Admin-åtkomst.",
+    "youDecide": "Justera antaganden varsamt — partners förlitar sig på konsekventa prognosstandarder.",
+    "overview": {
+      "forecastedMonthlyRevenue": "Prognostiserad månadsintäkt",
+      "forecastedAnnualRevenue": "Prognostiserad årsintäkt",
+      "activeOpportunitiesValue": "Värde av aktiva möjligheter",
+      "expectedCommissions": "Förväntade provisioner",
+      "renewalOpportunities": "Förnyelsemöjligheter",
+      "expansionOpportunities": "Expansionsmöjligheter",
+      "weightedPipeline": "Viktat pipeline-värde",
+      "qualifiedPipeline": "Kvalificerad pipeline",
+      "proposalStage": "Intäkt i offertfas",
+      "negotiationStage": "Intäkt i förhandlingsfas"
+    },
+    "sections": {
+      "overview": "Aggregerade partnerprognoser",
+      "pipeline": "Pipeline-prognos",
+      "renewals": "Förnyelseprognos",
+      "expansions": "Expansionsprognos",
+      "goals": "Målplanering",
+      "scenarios": "Scenarioplanering",
+      "probabilities": "Globala sannolikhetsantaganden",
+      "recommendations": "Coachingsignaler",
+      "audit": "Revisionslogg",
+      "reporting": "Rapportering"
+    },
+    "table": {
+      "company": "Partner",
+      "stage": "Fas",
+      "value": "Värde",
+      "weighted": "Viktat",
+      "closeDate": "Förväntat avslut",
+      "customer": "Kund",
+      "renewalDate": "Förnyelsedatum",
+      "probability": "Sannolikhet",
+      "target": "Mål",
+      "current": "Nuvarande",
+      "progress": "Framsteg",
+      "period": "Period",
+      "revenue": "Intäkt",
+      "commissions": "Provisioner",
+      "actions": "Åtgärder"
+    },
+    "pipelineStages": {
+      "discovery": "Kartläggning",
+      "demonstration": "Demonstration",
+      "proposal": "Offert",
+      "negotiation": "Förhandling",
+      "verbal_agreement": "Muntligt avtal",
+      "closed_won": "Vunnen",
+      "closed_lost": "Förlorad"
+    },
+    "forecastPeriods": {
+      "next_30_days": "Nästa 30 dagar",
+      "next_quarter": "Nästa kvartal",
+      "next_6_months": "Nästa 6 månader",
+      "next_12_months": "Nästa 12 månader"
+    },
+    "scenarios": {
+      "conservative": "Konservativ tillväxt",
+      "expected": "Förväntad tillväxt",
+      "ambitious": "Ambitiös tillväxt"
+    },
+    "goalPeriods": {
+      "monthly": "Månadsmål",
+      "quarterly": "Kvartalsmål",
+      "annual": "Årligt mål"
+    },
+    "expansionTypes": {
+      "additional_users": "Fler användare",
+      "higher_tier_plan": "Högre plan",
+      "additional_modules": "Fler moduler",
+      "multi_domain": "Fler domäner",
+      "enterprise_transition": "Enterprise-övergång"
+    },
+    "probabilities": {
+      "discovery": "Kartläggning (%)",
+      "demonstration": "Demonstration (%)",
+      "proposal": "Offert (%)",
+      "negotiation": "Förhandling (%)",
+      "verbalAgreement": "Muntligt avtal (%)"
+    },
+    "recommendations": {
+      "focusRenewals": "Partner bör fokusera på förnyelser — kunder kräver uppmärksamhet.",
+      "pipelineActivity": "Pipeline kräver mer aktivitet.",
+      "expansionDetected": "Expansionsmöjligheter upptäckta.",
+      "retentionImprovement": "Förbättring av kundbehållning rekommenderas."
+    },
+    "quickActions": {
+      "exportPdf": "Exportera PDF",
+      "exportExcel": "Exportera Excel",
+      "exportCsv": "Exportera CSV",
+      "regenerate": "Spara antaganden"
+    }
+  },
+  "growthPartnerContentRequests": {
+    "title": "Innehållsförfrågningar",
+    "subtitle": "Review Growth Partner resource requests, manage production workflows, and publish completed assets to the Marketing Center.",
+    "loading": "…",
+    "back": "Back to Super Admin",
+    "principle": "Growth Partners should spend their time building relationships — Aipify produces the professional resources.",
+    "foundationPrinciple": "Equip Growth Partners with exceptional resources that strengthen the brand worldwide.",
+    "emptyState": "Content Requests requires Super Admin access.",
+    "overview": {
+      "openRequests": "Open requests",
+      "inProduction": "In production",
+      "awaitingReview": "Awaiting QA review",
+      "completedRequests": "Completed",
+      "recentlyPublishedAssets": "Published (30 days)",
+      "averageDeliveryTime": "Avg. delivery time"
+    },
+    "sections": {
+      "overview": "Overview",
+      "requestForm": "New request",
+      "requests": "Content requests",
+      "workflow": "Production workflow",
+      "notifications": "Partner notifications",
+      "reporting": "Demand analytics",
+      "audit": "Audit trail",
+      "delivery": "Delivery channels"
+    },
+    "table": {
+      "title": "Title",
+      "type": "Type",
+      "status": "Status",
+      "priority": "Priority",
+      "progress": "Progress",
+      "owner": "Owner",
+      "partner": "Partner",
+      "industry": "Industry",
+      "audience": "Audience",
+      "actions": "Actions"
+    },
+    "resourceTypes": {
+      "social_media_campaign": "Social media campaign",
+      "tiktok_video": "TikTok video",
+      "linkedin_campaign": "LinkedIn campaign",
+      "presentation_deck": "Presentation deck",
+      "one_pager": "One-pager",
+      "industry_brochure": "Industry brochure",
+      "email_sequence": "Email sequence",
+      "webinar_materials": "Webinar materials",
+      "event_materials": "Event materials",
+      "customer_case_study": "Case study",
+      "product_demo_video": "Demo video",
+      "industry_campaign": "Industry campaign"
+    },
+    "targetAudiences": {
+      "small_business": "Small business",
+      "enterprise": "Enterprise",
+      "healthcare": "Healthcare",
+      "accounting": "Accounting",
+      "ecommerce": "E-commerce",
+      "education": "Education",
+      "government": "Government",
+      "manufacturing": "Manufacturing"
+    },
+    "requestStatuses": {
+      "submitted": "Submitted",
+      "under_review": "Under review",
+      "approved": "Approved",
+      "in_production": "In production",
+      "internal_review": "Internal review",
+      "published": "Published",
+      "declined": "Declined"
+    },
+    "workflowStages": {
+      "submitted": "Submitted",
+      "under_review": "Review",
+      "approved": "Approval",
+      "in_production": "Creation",
+      "internal_review": "QA",
+      "published": "Published"
+    },
+    "deliveryMethods": {
+      "marketing_center": "Marketing Center",
+      "direct_download": "Direct download",
+      "campaign_library": "Campaign library",
+      "presentation_center": "Presentation center"
+    },
+    "languages": {
+      "en": "English",
+      "no": "Norwegian",
+      "sv": "Swedish",
+      "da": "Danish"
+    },
+    "notifications": {
+      "submitted": "Submitted",
+      "approved": "Approved",
+      "clarification_required": "Clarification",
+      "published": "Published",
+      "declined": "Declined"
+    },
+    "reporting": {
+      "mostRequested": "Most requested types",
+      "industryDemand": "Industry demand",
+      "avgProduction": "Avg. production time",
+      "satisfaction": "Satisfaction score"
+    },
+    "quickActions": {
+      "submitRequest": "Submit",
+      "approve": "Approve",
+      "decline": "Decline",
+      "assignOwner": "Assign owner",
+      "assignPartner": "Assign partner",
+      "clarify": "Clarify",
+      "startProduction": "Start production",
+      "advanceProduction": "Advance",
+      "publish": "Publish",
+      "archive": "Archive"
+    },
+    "requestForm": {
+      "title": "Title",
+      "resourceType": "Resource type",
+      "industry": "Industry",
+      "targetAudience": "Audience",
+      "country": "Country",
+      "language": "Language",
+      "businessObjective": "Objective",
+      "additionalNotes": "Notes",
+      "desiredCompletionDate": "Due date",
+      "submit": "Submit"
+    },
+    "duplicates": {
+      "heading": "Duplicate detection",
+      "recommend": "recommend existing asset"
     }
   }
 }

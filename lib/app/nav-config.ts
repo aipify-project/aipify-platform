@@ -152,6 +152,7 @@ export type AppNavId =
   | "aipifyEnterpriseOrganizationalSimplicityEngine"
   | "aipifyEnterpriseOrganizationalTrustEngine"
   | "aipifyWellbeingSustainablePerformanceEngine"
+  | "aipifyHosts"
   | "aipifyTalentAcquisitionWorkforcePlanningEngine"
   | "aipifyPerformanceGoalAlignmentEngine"
   | "aipifyOrganizationalInsightsExecutiveIntelligenceEngine"
@@ -319,6 +320,7 @@ export type AppNavId =
   | "growthPartnerOperationsEngine"
   | "growthPartnerAcademy"
   | "growthPartnerMarketing"
+  | "growthPartnerBusinessPlanning"
   | "ecosystemGovernanceEngine"
   | "commercialModelEngine"
   | "academyEngine"
@@ -1061,6 +1063,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.aipifyWellbeingSustainablePerformanceEngine",
   },
   {
+    id: "aipifyHosts",
+    href: "/app/aipify-hosts",
+    labelKey: "customerApp.nav.aipifyHosts",
+  },
+  {
     id: "aipifyTalentAcquisitionWorkforcePlanningEngine",
     href: "/app/aipify-talent-acquisition-workforce-planning-engine",
     labelKey: "customerApp.nav.aipifyTalentAcquisitionWorkforcePlanningEngine",
@@ -1570,6 +1577,8 @@ export const APP_NAV: AppNavItem[] = [
   { id: "growthPartnerOperationsEngine", href: "/app/growth-partner-operations", labelKey: "customerApp.nav.growthPartnerOperationsEngine" },
   { id: "growthPartnerAcademy", href: "/app/growth-partner/academy", labelKey: "customerApp.nav.growthPartnerAcademy" },
   { id: "growthPartnerMarketing", href: "/app/growth-partner/marketing", labelKey: "customerApp.nav.growthPartnerMarketing" },
+  { id: "growthPartnerResourceCenter", href: "/app/growth-partner/resource-center", labelKey: "customerApp.nav.growthPartnerResourceCenter" },
+  { id: "growthPartnerBusinessPlanning", href: "/app/growth-partner/business-planning", labelKey: "customerApp.nav.growthPartnerBusinessPlanning" },
   { id: "commercialModelEngine", href: "/app/commercial", labelKey: "customerApp.nav.commercialModelEngine" },
   { id: "academyEngine", href: "/app/academy", labelKey: "customerApp.nav.academyEngine" },
   { id: "globalExpansionEngine", href: "/app/global-expansion", labelKey: "customerApp.nav.globalExpansionEngine" },
@@ -2200,6 +2209,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/aipify-wellbeing-sustainable-performance-engine")) {
     return "aipifyWellbeingSustainablePerformanceEngine";
   }
+  if (pathname.startsWith("/app/aipify-hosts")) {
+    return "aipifyHosts";
+  }
   if (pathname.startsWith("/app/aipify-talent-acquisition-workforce-planning-engine")) {
     return "aipifyTalentAcquisitionWorkforcePlanningEngine";
   }
@@ -2370,7 +2382,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/ecosystem")) return "ecosystemIntelligenceEngine";
   if (pathname.startsWith("/app/community")) return "communityIntelligenceEngine";
   if (pathname.startsWith("/app/marketplace-governance")) return "marketplaceGovernanceEngine";
+  if (pathname.startsWith("/app/growth-partner/resource-center")) return "growthPartnerResourceCenter";
   if (pathname.startsWith("/app/growth-partner/marketing")) return "growthPartnerMarketing";
+  if (pathname.startsWith("/app/growth-partner/business-planning")) return "growthPartnerBusinessPlanning";
   if (pathname.startsWith("/app/growth-partner/academy")) return "growthPartnerAcademy";
   if (pathname.startsWith("/app/growth-partner-operations")) return "growthPartnerOperationsEngine";
   if (pathname.startsWith("/app/ecosystem-governance")) return "ecosystemGovernanceEngine";

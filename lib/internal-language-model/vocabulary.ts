@@ -25,7 +25,7 @@ export const FUNCTION_VOCABULARY: Record<AipifyFunctionKey, FunctionVocabularyEn
     key: "aipify",
     label: "Aipify",
     definition:
-      "An AI-powered business operations platform designed to assist organizations with support, administration, automation, communication and operational efficiency.",
+      "An Aipify-powered business operations platform designed to assist organizations with support, administration, automation, communication and operational efficiency.",
     preferredWording:
       "Aipify is your digital business assistant that helps your team save time and focus on what matters most.",
     replacementResponse:

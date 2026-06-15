@@ -4,10 +4,15 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   CAMPAIGN_STATUS_BADGES,
+  REQUEST_TYPES,
+  STATUS_BADGES,
+  WORKFLOW_STAGE_BADGES,
   parseGrowthPartnerMarketingCenter,
   type GrowthPartnerMarketingCenter,
   type GrowthPartnerMarketingLabels,
+  type MarketingLanguage,
   type MarketingSurface,
+  type RequestType,
 } from "@/lib/growth-partner-marketing";
 
 type GrowthPartnerMarketingPanelProps = {
@@ -41,6 +46,11 @@ export function GrowthPartnerMarketingPanel({
   const [center, setCenter] = useState<GrowthPartnerMarketingCenter | null>(null);
   const [loading, setLoading] = useState(true);
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [requestTitle, setRequestTitle] = useState("");
+  const [requestDescription, setRequestDescription] = useState("");
+  const [requestType, setRequestType] = useState<RequestType>("local_campaign");
+  const [requestLanguage, setRequestLanguage] = useState<MarketingLanguage>("en");
+  const [requestIndustry, setRequestIndustry] = useState("");
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -55,7 +65,9 @@ export function GrowthPartnerMarketingPanel({
 
   const handleAction = useCallback(
     async (action: string, payload: Record<string, unknown> = {}) => {
-      const id = String(payload.resource_id ?? payload.campaign_id ?? payload.asset_id ?? action);
+      const id = String(
+        payload.resource_id ?? payload.campaign_id ?? payload.asset_id ?? payload.request_id ?? action
+      );
       setBusyId(id);
       try {
         const res = await fetch("/api/growth-partner-marketing/actions", {
@@ -118,7 +130,212 @@ export function GrowthPartnerMarketingPanel({
             />
             <OverviewCard label={labels.overview.upcomingPromotions} value={overview.upcoming_promotions} />
             <OverviewCard label={labels.overview.localizedResources} value={overview.localized_resources} />
+            {overview.pending_requests != null ? (
+              <OverviewCard label={labels.overview.pendingRequests} value={overview.pending_requests} />
+            ) : null}
           </dl>
+        </section>
+      ) : null}
+
+      {center.policy && center.policy.length > 0 ? (
+        <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.sections.brandPolicy}</h2>
+          <dl className="mt-4 space-y-4">
+            {center.policy.map((section) => (
+              <div key={section.id} className="rounded-xl border border-gray-100 p-4">
+                <dt className="font-medium text-gray-900">{section.title}</dt>
+                <dd className="mt-1 text-sm text-gray-600">{section.content}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      ) : null}
+
+      {center.approved_material_types && center.approved_material_types.length > 0 ? (
+        <section className="rounded-2xl border border-indigo-100 bg-indigo-50/30 p-5">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.sections.approvedMaterials}</h2>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {center.approved_material_types.map((key) => (
+              <li key={key} className="text-sm text-gray-700">
+                · {labels.approvedMaterials[key]}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {center.workflow_stages && center.workflow_stages.length > 0 ? (
+        <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.sections.requestWorkflow}</h2>
+          <ol className="mt-4 flex flex-wrap gap-2">
+            {center.workflow_stages.map((step, index) => (
+              <li key={step.stage} className="flex items-center gap-2">
+                <Pill
+                  label={labels.workflowStages[step.stage]}
+                  className={WORKFLOW_STAGE_BADGES[step.stage]}
+                />
+                {index < center.workflow_stages!.length - 1 ? (
+                  <span className="text-gray-300">→</span>
+                ) : null}
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : null}
+
+      {!isSuper ? (
+        <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.sections.marketingRequests}</h2>
+          <form
+            className="mt-4 grid gap-4 sm:grid-cols-2"
+            onSubmit={(event) => {
+              event.preventDefault();
+              void handleAction("submit_request", {
+                title: requestTitle,
+                description: requestDescription,
+                request_type: requestType,
+                language: requestLanguage,
+                industry: requestIndustry,
+              }).then(() => {
+                setRequestTitle("");
+                setRequestDescription("");
+                setRequestIndustry("");
+              });
+            }}
+          >
+            <label className="block text-sm">
+              <span className="font-medium text-gray-700">{labels.requestForm.title}</span>
+              <input
+                required
+                value={requestTitle}
+                onChange={(e) => setRequestTitle(e.target.value)}
+                className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
+              />
+            </label>
+            <label className="block text-sm">
+              <span className="font-medium text-gray-700">{labels.requestForm.requestType}</span>
+              <select
+                value={requestType}
+                onChange={(e) => setRequestType(e.target.value as RequestType)}
+                className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
+              >
+                {REQUEST_TYPES.map((type) => (
+                  <option key={type} value={type}>
+                    {labels.requestTypes[type]}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="block text-sm sm:col-span-2">
+              <span className="font-medium text-gray-700">{labels.requestForm.description}</span>
+              <textarea
+                required
+                rows={3}
+                value={requestDescription}
+                onChange={(e) => setRequestDescription(e.target.value)}
+                className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
+              />
+            </label>
+            <label className="block text-sm">
+              <span className="font-medium text-gray-700">{labels.requestForm.language}</span>
+              <select
+                value={requestLanguage}
+                onChange={(e) => setRequestLanguage(e.target.value as MarketingLanguage)}
+                className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
+              >
+                {(["en", "no", "sv", "da"] as const).map((lang) => (
+                  <option key={lang} value={lang}>
+                    {labels.languages[lang]}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="block text-sm">
+              <span className="font-medium text-gray-700">{labels.requestForm.industry}</span>
+              <input
+                value={requestIndustry}
+                onChange={(e) => setRequestIndustry(e.target.value)}
+                className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
+              />
+            </label>
+            <div className="sm:col-span-2">
+              <button
+                type="submit"
+                disabled={busyId === "submit_request"}
+                className="rounded-lg bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
+              >
+                {labels.requestForm.submit}
+              </button>
+            </div>
+          </form>
+        </section>
+      ) : null}
+
+      {center.marketing_requests && center.marketing_requests.length > 0 ? (
+        <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.sections.marketingRequests}</h2>
+          <div className="mt-4 overflow-x-auto">
+            <table className="min-w-full text-left text-sm">
+              <thead className="border-b border-gray-100 text-xs uppercase text-gray-500">
+                <tr>
+                  <th className="py-2 pr-4">{labels.table.name}</th>
+                  <th className="py-2 pr-4">{labels.table.category}</th>
+                  <th className="py-2 pr-4">{labels.table.status}</th>
+                  <th className="py-2 pr-4">{labels.table.language}</th>
+                  {isSuper ? <th className="py-2">{labels.table.actions}</th> : null}
+                </tr>
+              </thead>
+              <tbody>
+                {center.marketing_requests.map((request) => (
+                  <tr key={request.id} className="border-b border-gray-50">
+                    <td className="py-3 pr-4">
+                      <p className="font-medium text-gray-900">{request.title}</p>
+                      <p className="mt-1 text-xs text-gray-500">{request.description}</p>
+                    </td>
+                    <td className="py-3 pr-4">{labels.requestTypes[request.request_type]}</td>
+                    <td className="py-3 pr-4">
+                      <Pill
+                        label={labels.workflowStages[request.workflow_stage]}
+                        className={WORKFLOW_STAGE_BADGES[request.workflow_stage]}
+                      />
+                    </td>
+                    <td className="py-3 pr-4">{labels.languages[request.language]}</td>
+                    {isSuper ? (
+                      <td className="py-3">
+                        <div className="flex flex-wrap gap-2">
+                          {request.workflow_stage !== "published" ? (
+                            <button
+                              type="button"
+                              disabled={busyId === request.id}
+                              onClick={() =>
+                                handleAction("advance_request", { request_id: request.id })
+                              }
+                              className="rounded-lg bg-indigo-600 px-2.5 py-1 text-xs text-white hover:bg-indigo-700 disabled:opacity-50"
+                            >
+                              {labels.quickActions.advanceRequest}
+                            </button>
+                          ) : null}
+                          {request.workflow_stage !== "submitted" &&
+                          request.workflow_stage !== "published" ? (
+                            <button
+                              type="button"
+                              disabled={busyId === request.id}
+                              onClick={() =>
+                                handleAction("reject_request", { request_id: request.id })
+                              }
+                              className="rounded-lg border border-gray-200 px-2.5 py-1 text-xs text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+                            >
+                              {labels.quickActions.rejectRequest}
+                            </button>
+                          ) : null}
+                        </div>
+                      </td>
+                    ) : null}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
       ) : null}
 
@@ -193,6 +410,7 @@ export function GrowthPartnerMarketingPanel({
                   <th className="py-2 pr-4">{labels.table.category}</th>
                   <th className="py-2 pr-4">{labels.table.language}</th>
                   <th className="py-2 pr-4">{labels.table.version}</th>
+                  <th className="py-2 pr-4">{labels.table.status}</th>
                   <th className="py-2 pr-4">{labels.table.downloads}</th>
                   <th className="py-2">{labels.table.actions}</th>
                 </tr>
@@ -204,6 +422,12 @@ export function GrowthPartnerMarketingPanel({
                     <td className="py-3 pr-4">{labels.categories[asset.category]}</td>
                     <td className="py-3 pr-4">{labels.languages[asset.language]}</td>
                     <td className="py-3 pr-4">{asset.version}</td>
+                    <td className="py-3 pr-4">
+                      <Pill
+                        label={labels.assetStatuses[asset.status]}
+                        className={STATUS_BADGES[asset.status]}
+                      />
+                    </td>
                     <td className="py-3 pr-4">{asset.download_count}</td>
                     <td className="py-3">
                       <div className="flex flex-wrap gap-2">
@@ -221,6 +445,26 @@ export function GrowthPartnerMarketingPanel({
                         >
                           {labels.quickActions.download}
                         </button>
+                        {isSuper && asset.status === "under_review" ? (
+                          <button
+                            type="button"
+                            disabled={busyId === asset.id}
+                            onClick={() => handleAction("approve_asset", { asset_id: asset.id })}
+                            className="rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs text-emerald-900 hover:bg-emerald-100 disabled:opacity-50"
+                          >
+                            {labels.quickActions.approveAsset}
+                          </button>
+                        ) : null}
+                        {isSuper && (asset.status === "approved" || asset.status === "draft") ? (
+                          <button
+                            type="button"
+                            disabled={busyId === asset.id}
+                            onClick={() => handleAction("publish_asset", { asset_id: asset.id })}
+                            className="rounded-lg bg-green-600 px-2.5 py-1 text-xs text-white hover:bg-green-700 disabled:opacity-50"
+                          >
+                            {labels.quickActions.publishAsset}
+                          </button>
+                        ) : null}
                         {isSuper && asset.status !== "archived" ? (
                           <button
                             type="button"
@@ -386,6 +630,12 @@ export function GrowthPartnerMarketingPanel({
             ))}
           </ul>
         </section>
+      ) : null}
+
+      {center.foundation_principle ? (
+        <p className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+          {center.foundation_principle || labels.foundationPrinciple}
+        </p>
       ) : null}
     </div>
   );

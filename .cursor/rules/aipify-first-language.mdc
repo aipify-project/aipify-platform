@@ -1,0 +1,14 @@
+# Aipify-First Language
+
+Corpus: `aipify-core/knowledge/internal-language-model/aipify-first-language-policy.txt`
+
+## User-facing copy
+
+- Use **Aipify Companion**, **Aipify Insights**, **Aipify Recommendations**, **Aipify Hosts**
+- Never **AI Assistant**, **AI Chat**, **AI Recommendations**, **AI Companion**, **AI-powered** (as product label)
+- Apply `applyAipifyFirstLanguagePolicy()` from `lib/internal-language-model/brand-identity-vocabulary.ts` to generated copy
+- i18n: prefer Aipify terms in `locales/{en,no,sv,da}/*.json`
+
+## Code exception
+
+AI may remain in identifiers, routes, skill IDs, compliance docs — not customer UI strings.

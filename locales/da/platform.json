@@ -55,6 +55,10 @@
     "platformKnowledgeEvolutionCenter": "Vidensevolution",
     "platformComplianceGovernanceCenter": "Compliance-center",
     "platformPlaybookCenter": "Playbooks",
+    "platformAcademyStudio": "Growth Partner Academy",
+    "skillsMarketplace": "Skills Marketplace",
+    "companionMarketplace": "Companion Marketplace",
+    "skillGovernancePipeline": "Skill Governance Pipeline",
     "pilotOperations": "Customer Zero-center",
     "enterpriseInvoices": "Enterprise-fakturaer",
     "paymentOperations": "Betalingsoperationscenter",
@@ -566,7 +570,7 @@
     "lastSyncEntry": "Last successful sync: {date}",
     "never": "Never",
     "health": "Health",
-    "lastAiScan": "Last AI Scan",
+    "lastAiScan": "Last Aipify scan",
     "issuesDetected": "Issues",
     "automationStatus": "Automation",
     "automationActive": "Active",
@@ -575,7 +579,7 @@
   },
   "support": {
     "title": "Support",
-    "subtitle": "Internal support queue with AI escalation visibility.",
+    "subtitle": "Internal support queue with Aipify escalation visibility.",
     "loading": "Loading support queue...",
     "empty": "No support cases yet.",
     "customer": "Customer",
@@ -584,7 +588,7 @@
     "assignee": "Assignee",
     "lastUpdated": "Last updated",
     "subject": "Subject",
-    "aiEscalation": "AI escalation",
+    "aiEscalation": "Aipify escalation",
     "aiCouldNotResolve": "Aipify eskalerede sagen til menneskelig gennemgang",
     "requiresHumanReview": "Requires human review",
     "unassigned": "Unassigned",
@@ -602,7 +606,7 @@
       "urgent": "Urgent"
     },
     "counters": {
-      "resolvedByAi": "Resolved by Aipify",
+      "resolvedByAi": "Resolved by Aipifypifypify",
       "escalatedByAi": "Escalated by Aipify",
       "waitingHuman": "Waiting for Human",
       "openCases": "Open Cases"
@@ -902,7 +906,7 @@
     "principle": "Kundens forretningsdata forbliver hos kunden. Aipify gemmer bevis på værdi, ikke private forretningsdata.",
     "cards": {
       "supportResolved": "Supportsager løst",
-      "actionsCompleted": "AI-handlinger fuldført",
+      "actionsCompleted": "Aipify-handlinger fuldført",
       "recommendations": "Anbefalinger genereret",
       "selfHealing": "Self-healing-hændelser",
       "responseTimeSaved": "Svartid sparet",
@@ -1063,7 +1067,7 @@
     "degraded": "Degraded",
     "outage": "Outage",
     "pending": "Pending setup",
-    "aiSummaryTitle": "AI System Summary",
+    "aiSummaryTitle": "Aipify System Summary",
     "services": {
       "supabase": "Supabase",
       "resend": "Resend",
@@ -1122,7 +1126,7 @@
     "lastContact": "Last contact",
     "assignedAgent": "Assigned agent",
     "subject": "Subject",
-    "aiInsightsTitle": "AI Insights",
+    "aiInsightsTitle": "Aipify Insights",
     "noData": "No data available yet.",
     "hours": "hours",
     "tabs": {
@@ -1217,12 +1221,12 @@
         "user": "Brugere",
         "integrations": "Integrationer",
         "system": "System",
-        "ai_recommendation": "AI-anbefalinger",
+        "ai_recommendation": "Aipify-innsikt",
         "subscription": "Abonnement"
       }
     },
     "recommendationFeed": {
-      "empty": "Ingen AI-anbefalinger genereret."
+      "empty": "Ingen Aipify-innsikt genereret."
     },
     "automationsTab": {
       "empty": "Ingen automationskørsler registreret.",
@@ -1236,7 +1240,7 @@
       }
     },
     "successScoreExplanation": {
-      "title": "AI Health Score",
+      "title": "Aipify Health Score",
       "basedOn": "Based on",
       "expansionTitle": "Expansion Opportunities",
       "eligible": "Eligible",
@@ -1255,8 +1259,8 @@
       "expansionLabels": {
         "extraDomains": "Eligible for extra domains",
         "supportAiUpgrade": "Suitable for Aipify Support upgrade",
-        "analyticsAi": "Suitable for Analytics AI",
-        "commerceAi": "Suitable for Commerce AI"
+        "analyticsAi": "Suitable for Aipify Analytics",
+        "commerceAi": "Suitable for Aipify Commerce"
       }
     }
   },
@@ -2315,191 +2319,394 @@
   },
   "paymentAnalytics": {
     "title": "Payment Analytics Center",
-    "subtitle": "Real-time visibility into payment performance across all providers.",
-    "loading": "Preparing payment analytics…",
-    "back": "Back to billing",
-    "principle": "Real-time payment visibility supports confident platform decisions without exposing customer operational records.",
-    "emptyState": "No payment activity recorded yet.",
+    "subtitle": "Finansiel intelligens på ledelsesniveau på tværs af alle betalingsudbydere.",
+    "loading": "Forbereder betalingsanalyse…",
+    "back": "Tilbage til fakturering",
+    "principle": "Analyse skal hjælpe ledelsen med at forstå, hvorfor resultaterne ændrede sig, hvad det betyder, og hvad der bør ske herefter.",
+    "emptyState": "Ingen betalingsaktivitet registreret endnu.",
     "sections": {
-      "overview": "Overview",
-      "providerBreakdown": "Revenue by provider",
-      "revenueOverTime": "Revenue over time",
-      "providerDistribution": "Payment provider distribution",
-      "segments": "Customer segments",
-      "topEnterprise": "Top enterprise customers",
-      "failedInsights": "Failed payment insights",
-      "filters": "Filters",
-      "exports": "Exports"
+      "executiveSnapshot": "Finansielt overblik for ledelsen",
+      "overview": "Overblik",
+      "providerBreakdown": "Ydelse pr. betalingsudbyder",
+      "revenueOverTime": "Omsætning over tid",
+      "providerDistribution": "Fordeling pr. betalingsudbyder",
+      "segments": "Kundesegmenter",
+      "topEnterprise": "Top enterprise-kunder",
+      "failedInsights": "Indsigt i mislykkede betalinger",
+      "filters": "Filtre",
+      "exports": "Eksportcenter",
+      "executiveInsights": "Ledelsesindsigt",
+      "forecasting": "Prognoser"
+    },
+    "executive": {
+      "totalRevenue": "Total omsætning",
+      "recurringRevenue": "Tilbagevendende omsætning (MRR)",
+      "revenueGrowth": "Omsætningsvækst",
+      "averageTransactionValue": "Gennemsnitlig transaktionsværdi",
+      "netRevenue": "Nettoomsætning efter refusioner",
+      "paymentSuccessRate": "Betalingssuccesrate",
+      "customerLifetimeValue": "Kundens livstidsværdi",
+      "clvFuture": "Kommer i en fremtidig fase"
     },
     "overview": {
-      "revenueToday": "Revenue today",
-      "revenueMonth": "Revenue this month",
-      "activeSubscriptions": "Active subscriptions",
-      "failedPayments": "Failed payments",
-      "arpc": "Average revenue per customer",
-      "churnedSubscriptions": "Churned subscriptions"
+      "revenueToday": "Omsætning i dag",
+      "revenueMonth": "Omsætning denne måned",
+      "activeSubscriptions": "Aktive abonnementer",
+      "failedPayments": "Mislykkede betalinger",
+      "arpc": "Gennemsnitlig omsætning pr. kunde",
+      "churnedSubscriptions": "Opsagte abonnementer"
     },
     "provider": {
-      "revenue30d": "Revenue (30d)",
-      "transactions": "Transactions",
-      "successRate": "Success rate",
-      "refunds": "Refunds",
-      "failedPayments": "Failed payments"
+      "revenue30d": "Omsætning (30d)",
+      "transactions": "Transaktioner",
+      "successRate": "Succesrate",
+      "refunds": "Refusioner",
+      "failedPayments": "Mislykkede betalinger",
+      "averageTransactionValue": "Gennemsnitlig transaktionsværdi",
+      "revenueGrowth": "Omsætningsvækst",
+      "chargebackRate": "Chargeback-rate",
+      "lastHealthCheck": "Seneste sundhedstjek",
+      "rankingTopPerformer": "#1 Toppræstation",
+      "rankingStable": "Stabil",
+      "rankingNeedsReview": "Kræver gennemgang"
     },
     "charts": {
-      "range7d": "Last 7 days",
-      "range30d": "Last 30 days",
-      "range12m": "Last 12 months"
+      "range7d": "Seneste 7 dage",
+      "range30d": "Seneste 30 dage",
+      "range12m": "Seneste 12 måneder",
+      "metricRevenue": "Omsætning",
+      "metricTransactions": "Transaktioner",
+      "metricRefunds": "Refusioner",
+      "metricNetRevenue": "Nettoomsætning",
+      "metricSubscriptions": "Abonnementer",
+      "metricFailedPayments": "Mislykkede betalinger"
     },
     "segments": {
-      "selfService": "Self-service customers",
-      "enterprise": "Enterprise customers"
+      "self_service": "Selvbetjening",
+      "smb": "SMB",
+      "growth_customers": "Vækstkunder",
+      "enterprise": "Enterprise",
+      "pilot_customers": "Pilotkunder",
+      "internal_testing": "Intern test"
+    },
+    "segmentMetrics": {
+      "revenue": "Omsætning",
+      "growth": "Vækst",
+      "customers": "Kunder",
+      "averageSpend": "Gennemsnitligt forbrug"
+    },
+    "distribution": {
+      "concentrationWarning": "{percentage}% af omsætningen går via {provider}.",
+      "enterpriseConcentrationWarning": "{percentage}% af enterprise-omsætningen afhænger af {provider}.",
+      "diversifyRecommendation": "Overvej at diversificere betalingsmetoder for at reducere koncentrationsrisiko."
     },
     "table": {
-      "customer": "Customer",
-      "revenue": "Revenue",
-      "openInvoices": "Open invoices",
-      "lastPayment": "Last payment",
+      "customer": "Kunde",
+      "revenue": "Omsætning",
+      "openInvoices": "Åbne fakturaer",
+      "lastPayment": "Seneste betaling",
       "status": "Status",
-      "provider": "Provider",
-      "failureReason": "Failure reason",
-      "retryCount": "Retry count",
-      "recommendedAction": "Recommended action"
+      "provider": "Udbyder",
+      "failureReason": "Fejlårsag",
+      "retryCount": "Antal forsøg",
+      "recommendedAction": "Anbefalet handling",
+      "arrEstimate": "ARR-estimat",
+      "contractValue": "Kontraktværdi",
+      "renewalDate": "Fornyelsesdato",
+      "healthScore": "Kontosundhed",
+      "customerOwner": "Kundeansvarlig",
+      "expansionOpportunity": "Ekspansionsmulighed",
+      "severity": "Alvorlighed",
+      "amountAffected": "Berørt beløb",
+      "assignedOwner": "Tildelt ansvarlig"
     },
     "filters": {
-      "dateFrom": "Date from",
-      "dateTo": "Date to",
-      "provider": "Provider",
-      "customerType": "Customer type",
-      "country": "Country",
-      "allProviders": "All providers",
-      "allTypes": "All customer types",
-      "allCountries": "All countries",
-      "apply": "Apply filters"
+      "dateFrom": "Dato fra",
+      "dateTo": "Dato til",
+      "provider": "Udbyder",
+      "customerType": "Kundetype",
+      "country": "Land",
+      "currency": "Valuta",
+      "subscriptionPlan": "Abonnementsplan",
+      "growthPartner": "Growth Partner",
+      "customerSegment": "Kundesegment",
+      "allProviders": "Alle udbydere",
+      "allTypes": "Alle kundetyper",
+      "allCountries": "Alle lande",
+      "allCurrencies": "Alle valutaer",
+      "allPlans": "Alle planer",
+      "allPartners": "Alle partnere",
+      "allSegments": "Alle segmenter",
+      "apply": "Anvend filtre",
+      "presets": {
+        "today": "I dag",
+        "7d": "Seneste 7 dage",
+        "30d": "Seneste 30 dage",
+        "quarter": "Kvartal",
+        "ytd": "Hittil i år",
+        "previous_year": "Foregående år"
+      }
     },
     "exports": {
-      "csv": "Export CSV",
-      "excel": "Export Excel",
-      "pdf": "Export PDF",
-      "exporting": "Exporting…"
+      "csv": "Eksporter CSV",
+      "excel": "Eksporter Excel",
+      "pdf": "Eksporter PDF",
+      "boardReport": "Bestyrelsesrapport PDF",
+      "executiveSummary": "Ledelsesresume PDF",
+      "financeFiken": "Finanseksport (Fiken)",
+      "auditorPackage": "Revisionspakke",
+      "quarterlyRevenue": "Kvartalsomsætningsrapport",
+      "exporting": "Eksporterer…"
+    },
+    "insights": {
+      "title": "Ledelsesindsigt",
+      "recommendedAction": "Anbefalet handling",
+      "empty": "Ingen ledelsesindsigt for valgt periode."
+    },
+    "forecasting": {
+      "title": "Prognoser",
+      "projectedRevenue": "Forventet omsætning næste måned",
+      "projectedArr": "Forventet ARR",
+      "subscriptionGrowth": "Forventet abonnementsvækst",
+      "predictedChurn": "Forventet churn",
+      "confidence": "Prognosekonfidens",
+      "futureNote": "Prediktiv omsætningsintelligens planlægges i en fremtidig fase. Historisk analyse er fuldt tilgængelig ovenfor."
+    },
+    "expansion": {
+      "high": "Høj",
+      "medium": "Mellem",
+      "low": "Lav"
+    },
+    "severities": {
+      "low": "Lav risiko",
+      "medium": "Mellem risiko",
+      "critical": "Kritisk risiko"
     },
     "providers": {
       "stripe": "Stripe",
       "vipps": "Vipps MobilePay",
       "klarna": "Klarna",
-      "dnb": "DNB Invoice"
+      "dnb": "DNB Faktura"
     },
     "customerTypes": {
-      "self_service": "Self-service",
+      "self_service": "Selvbetjening",
       "enterprise": "Enterprise"
     },
     "enterpriseStatuses": {
-      "current": "Current",
-      "attention": "Requires attention"
+      "current": "Aktuel",
+      "attention": "Kræver opmærksomhed"
     },
     "chartRanges": {
-      "7d": "7 days",
-      "30d": "30 days",
-      "12m": "12 months"
+      "7d": "7 dage",
+      "30d": "30 dage",
+      "12m": "12 måneder"
+    },
+    "chartMetrics": {
+      "revenue": "Omsætning",
+      "transactions": "Transaktioner",
+      "refunds": "Refusioner",
+      "net_revenue": "Nettoomsætning",
+      "subscriptions": "Abonnementer",
+      "failed_payments": "Mislykkede betalinger"
     },
     "exportFormats": {
       "csv": "CSV",
       "xlsx": "Excel",
-      "pdf": "PDF"
+      "pdf": "PDF",
+      "board_report": "Bestyrelsesrapport",
+      "executive_summary": "Ledelsesresume",
+      "finance_fiken": "Fiken-eksport",
+      "auditor_package": "Revisionspakke",
+      "quarterly_revenue": "Kvartalsomsætning"
     }
   },
   "subscriptionOperations": {
     "title": "Subscription Operations Center",
-    "subtitle": "Centralized subscription management for all Aipify customers.",
-    "loading": "Preparing subscription operations…",
-    "back": "Back to billing",
-    "principle": "Centralized subscription operations give Aipify Group AS confident control over customer lifecycle and revenue.",
-    "emptyState": "No subscriptions found.",
+    "subtitle": "Customer Lifecycle Control Center for abonnementsfastholdelse, vækst og forudsigelig omsætning.",
+    "loading": "Forbereder abonnementsdrift…",
+    "back": "Tilbage til fakturering",
+    "principle": "Abonnementer skal forstås, beskyttes, udvides og plejes gennem hele kunderejsen.",
+    "emptyState": "Ingen abonnementer fundet.",
     "sections": {
-      "overview": "Overview",
-      "subscriptions": "Subscription table",
-      "trials": "Trial management",
-      "upgrades": "Upgrades",
-      "downgrades": "Downgrades",
-      "renewals": "Renewals",
-      "pastDue": "Past due center",
-      "enterpriseContracts": "Enterprise contracts",
-      "audit": "Audit log",
-      "filters": "Filters"
+      "executiveSnapshot": "Ledelsesoverblik abonnementer",
+      "overview": "Overblik",
+      "subscriptions": "Abonnementstabel",
+      "healthScoring": "Kundesundhedsscore",
+      "trials": "Prøveperiode-center",
+      "upgrades": "Opgraderinger",
+      "downgrades": "Nedgraderinger",
+      "renewals": "Fornyelseskommandocenter",
+      "pastDue": "Forfaldent center",
+      "enterpriseContracts": "Enterprise-kontraktcenter",
+      "lifecycleTimeline": "Kundelivscyklus tidslinje",
+      "executiveInsights": "Ledelsesindsigt",
+      "revenueAtRisk": "Omsætning i risiko",
+      "growthOpportunities": "Vækstmulighedscenter",
+      "audit": "Revisionslog",
+      "filters": "Filtre",
+      "forecasting": "Prognoser"
     },
-    "overview": {
-      "active": "Active subscriptions",
-      "trials": "Trial accounts",
-      "renewals": "Upcoming renewals",
-      "upgrades": "Upgrades this month",
-      "downgrades": "Downgrades this month",
-      "cancelled": "Cancelled subscriptions"
+    "executive": {
+      "mrr": "MRR",
+      "arr": "ARR",
+      "netGrowth": "Netto abonnementsvækst",
+      "conversionRate": "Prøve-til-betalt konvertering",
+      "renewalRisk": "Omsætning i fornyelsesrisiko",
+      "acv": "Gennemsnitlig kontraktværdi",
+      "active": "Aktive abonnementer",
+      "trials": "Prøvekonti",
+      "renewals": "Kommende fornyelser",
+      "upgrades": "Opgraderinger denne måned",
+      "downgrades": "Nedgraderinger denne måned",
+      "cancelled": "Opsagte abonnementer"
     },
+    "health": {
+      "healthy": "Sund (90–100)",
+      "stable": "Stabil (75–89)",
+      "attention": "Kræver opmærksomhed (50–74)",
+      "critical": "Kritisk (under 50)"
+    },
+    "healthDescription": "Sundhedsscore kombinerer betalingssucces, supportvolumen, brugsaktivitet, fornyelsesnærhed og væksttendenser.",
     "table": {
-      "customer": "Customer",
+      "customer": "Kunde",
       "plan": "Plan",
-      "users": "Users",
-      "billingProvider": "Billing provider",
-      "monthlyValue": "Monthly value",
-      "renewalDate": "Renewal date",
+      "users": "Brugere",
+      "billingProvider": "Faktureringsudbyder",
+      "monthlyValue": "Månedlig værdi",
+      "mrrContribution": "MRR-bidrag",
+      "renewalDate": "Fornyelsesdato",
       "status": "Status",
-      "actions": "Actions",
-      "previousPlan": "Previous plan",
-      "newPlan": "New plan",
-      "effectiveDate": "Effective date",
-      "revenueImpact": "Revenue impact",
-      "reason": "Reason",
-      "trialStart": "Trial start",
-      "trialEnd": "Trial end",
-      "daysRemaining": "Days remaining",
-      "conversionProbability": "Conversion probability",
-      "outstandingAmount": "Outstanding amount",
-      "daysOverdue": "Days overdue",
-      "paymentProvider": "Payment provider",
-      "recommendedAction": "Recommended action",
-      "contractStart": "Contract start",
-      "contractEnd": "Contract end",
-      "paymentTerms": "Payment terms",
-      "accountManager": "Account manager",
-      "event": "Event"
+      "actions": "Handlinger",
+      "previousPlan": "Forrige plan",
+      "newPlan": "Ny plan",
+      "effectiveDate": "Ikrafttrædelsesdato",
+      "revenueImpact": "Omsætningspåvirkning",
+      "mrrImpact": "MRR-påvirkning",
+      "reason": "Årsag",
+      "trialStart": "Prøveperiode start",
+      "trialEnd": "Prøveperiode slut",
+      "daysRemaining": "Dage tilbage",
+      "conversionProbability": "Konverteringssandsynlighed",
+      "usageScore": "Brugsscore",
+      "growthPartner": "Growth Partner",
+      "outstandingAmount": "Udestående beløb",
+      "daysOverdue": "Dage forfaldne",
+      "paymentProvider": "Betalingsudbyder",
+      "recommendedAction": "Anbefalet handling",
+      "contractStart": "Kontraktstart",
+      "contractEnd": "Kontraktslut",
+      "contractValue": "Kontraktværdi",
+      "paymentTerms": "Betalingsbetingelser",
+      "accountManager": "Kundeansvarlig",
+      "event": "Hændelse",
+      "healthScore": "Sundhedsscore",
+      "renewalProbability": "Fornyelsessandsynlighed",
+      "contractType": "Kontrakttype",
+      "accountOwner": "Kontoejer",
+      "lastInteraction": "Seneste interaktion",
+      "riskLevel": "Risikoniveau",
+      "retryAttempts": "Antal forsøg",
+      "nextStep": "Anbefalet næste skridt",
+      "expansionOpportunity": "Ekspansionsmulighed",
+      "contractHealth": "Kontraktsundhed",
+      "upcomingMilestone": "Kommende milepæl",
+      "actor": "Udført af",
+      "financialImpact": "Finansiel påvirkning",
+      "automation": "Automatisering",
+      "approval": "Manuel godkendelse",
+      "date": "Dato",
+      "signal": "Signal",
+      "recommendation": "Anbefaling",
+      "priority": "Prioritet"
     },
     "statuses": {
-      "trial": "Trial",
-      "active": "Active",
-      "past_due": "Past due",
-      "suspended": "Suspended",
-      "cancelled": "Cancelled",
-      "enterprise_contract": "Enterprise contract"
+      "trial": "Prøveperiode",
+      "active": "Aktiv",
+      "past_due": "Forfalden",
+      "suspended": "Pauseret",
+      "cancelled": "Opsagt",
+      "enterprise_contract": "Enterprise"
+    },
+    "riskLevels": {
+      "healthy": "Sund",
+      "needs_attention": "Kræver opmærksomhed",
+      "high_risk": "Høj risiko"
+    },
+    "expansion": {
+      "high": "Høj",
+      "medium": "Mellem",
+      "low": "Lav"
     },
     "actions": {
-      "view": "View subscription",
-      "upgrade": "Upgrade plan",
-      "downgrade": "Downgrade plan",
-      "extendTrial": "Extend trial",
-      "suspend": "Suspend access",
-      "reactivate": "Reactivate",
-      "cancel": "Cancel subscription",
-      "convertToPaid": "Convert to paid",
-      "sendReminder": "Send reminder",
-      "applying": "Applying…"
+      "view": "Vis abonnement",
+      "upgrade": "Opgrader plan",
+      "downgrade": "Nedgrader plan",
+      "extendTrial": "Forlæng prøveperiode",
+      "suspend": "Pause adgang",
+      "reactivate": "Genaktiver",
+      "cancel": "Opsig abonnement",
+      "convertToPaid": "Konverter til betalt",
+      "sendReminder": "Send påmindelse",
+      "offerOnboarding": "Tilbyd onboarding",
+      "discountCampaign": "Start rabatkampagne",
+      "escalateSales": "Eskaler til salg",
+      "retryPayment": "Prøv betaling igen",
+      "contactCustomer": "Kontakt kunde",
+      "switchPaymentMethod": "Skift betalingsmetode",
+      "moveToCollections": "Send til inkasso",
+      "pauseAccess": "Pause adgang",
+      "applying": "Udfører…"
     },
     "filters": {
-      "plan": "Plan",
-      "status": "Status",
-      "country": "Country",
-      "provider": "Provider",
-      "renewalPeriod": "Renewal period",
-      "allPlans": "All plans",
-      "allStatuses": "All statuses",
-      "allCountries": "All countries",
-      "allProviders": "All providers",
-      "allRenewals": "All renewals",
-      "apply": "Apply filters"
+      "plan": "Plantype",
+      "status": "Abonnementsstatus",
+      "country": "Land",
+      "provider": "Betalingsudbyder",
+      "renewalPeriod": "Kommende fornyelse",
+      "growthPartner": "Growth Partner",
+      "accountManager": "Kundeansvarlig",
+      "allPlans": "Alle planer",
+      "allStatuses": "Alle statusser",
+      "allCountries": "Alle lande",
+      "allProviders": "Alle udbydere",
+      "allRenewals": "Alle fornyelser",
+      "allPartners": "Alle partnere",
+      "allManagers": "Alle ansvarlige",
+      "apply": "Anvend filtre",
+      "presets": {
+        "today": "I dag",
+        "7d": "Seneste 7 dage",
+        "30d": "Seneste 30 dage",
+        "quarter": "Kvartal",
+        "year": "År"
+      }
     },
     "renewals": {
-      "within7": "Within 7 days",
-      "within30": "Within 30 days",
-      "within90": "Within 90 days"
+      "within7": "Inden for 7 dage",
+      "within30": "Inden for 30 dage",
+      "within90": "Inden for 90 dage",
+      "commandCenter": "Fornyelseskommandocenter"
+    },
+    "insights": {
+      "recommendedAction": "Anbefalet handling",
+      "empty": "Ingen ledelsesindsigt for valgt periode."
+    },
+    "revenueAtRisk": {
+      "title": "Total omsætning i risiko",
+      "pastDue": "Forfaldne abonnementer",
+      "lowHealth": "Abonnementer med lav sundhed",
+      "enterpriseRenewals": "Kommende enterprise-fornyelser",
+      "decliningUsage": "Faldende brugsmønstre",
+      "total": "Total eksponering"
+    },
+    "growth": {
+      "empty": "Ingen ekspansionsmuligheder identificeret for nuværende filter."
+    },
+    "lifecycle": {
+      "empty": "Ingen livscyklushændelser registreret endnu."
+    },
+    "forecasting": {
+      "futureNote": "Prediktiv churn-motor og vækstprognoser planlægges i en fremtidig fase. Livscykelindsigt er fuldt tilgængelig ovenfor."
     },
     "plans": {
       "starter": "Starter",
@@ -2674,7 +2881,7 @@
       "onboarding_completed": "Onboarding fuldført",
       "first_user_invited": "Første bruger inviteret",
       "first_integration_connected": "Første integration tilkoblet",
-      "first_ai_interaction": "Første AI-interaktion",
+      "first_ai_interaction": "Første Aipify-interaktion",
       "first_business_outcome": "Første forretningsresultat opnået",
       "subscription_activated": "Abonnement aktiveret",
       "expansion": "Ekspansionsbegivenheder"
@@ -3246,7 +3453,7 @@
       "data_handling": "Datahåndtering",
       "billing": "Fakturering",
       "customer_communications": "Kundekommunikation",
-      "ai_governance": "AI-governance",
+      "ai_governance": "Aipify-governance",
       "operational_standards": "Operationelle standarder"
     },
     "policyStatuses": {
@@ -3341,7 +3548,7 @@
   },
   "decisionCenter": {
     "title": "Decision Center",
-    "subtitle": "AI-drevne anbefalinger til ledelse, administratorer og kundesuccessteams baseret på driftsdata og platformindsigt.",
+    "subtitle": "Aipify-anbefalinger til ledelse, administratorer og kundesuccessteams baseret på driftsdata og platformindsigt.",
     "loading": "Forbereder Decision Center…",
     "back": "Tilbage til Intelligence",
     "principle": "Information alene er ikke nok. Den sande værdi af intelligens ligger i at hjælpe mennesker træffe bedre beslutninger på det rigtige tidspunkt.",
@@ -3735,7 +3942,7 @@
       "infrastructure": "Infrastrukturstatus",
       "paymentProvider": "Betalingsudbyderstatus",
       "integration": "Integrations sundhed",
-      "aiEngine": "AI-motorstatus",
+      "aiEngine": "Aipify-motorstatus",
       "notification": "Notifikationsstatus",
       "uptime": "Platform oppetid"
     },

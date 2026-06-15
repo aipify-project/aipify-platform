@@ -46,7 +46,7 @@
     "assistant": {
       "title": "Assistant",
       "subtitle": "Executive summaries and recommended actions for your business.",
-      "description": "Your Aipify Assistant monitors installations, support, billing, and business signals — surfacing only what matters.",
+      "description": "Your Aipify Companion monitors installations, support, billing, and business signals — surfacing only what matters.",
       "comingSoon": "Coming soon."
     },
     "support": {
@@ -170,7 +170,7 @@
     "systemHealthChange": "All systems stable"
   },
   "assistant": {
-    "title": "Aipify Assistant",
+    "title": "Aipify Companion",
     "greeting": "Good morning, Svein.",
     "subtitle": "Aipify is monitoring your business quietly in the background.",
     "todayFound": "Today Aipify found:",

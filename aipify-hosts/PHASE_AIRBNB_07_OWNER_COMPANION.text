@@ -1,0 +1,53 @@
+AIPIFY – PHASE AIRBNB 07
+AIPIFY HOSTS – OWNER COMPANION
+
+PURPOSE
+Provide a hospitality-focused Aipify Companion that helps owners and property managers understand operations, prepare decisions, and steward their portfolio with calm professional guidance.
+
+POSITIONING
+Your hospitality operations partner — not a replacement for your team or booking platforms.
+
+FEATURE OWNER
+CUSTOMER APP
+
+ROUTE
+/app/aipify-hosts/companion
+
+OBJECTIVES
+Reduce operational stress · Surface what matters · Prepare decisions · Never dictate outcomes
+
+CAPABILITIES
+Operational briefings — arrivals, departures, gaps, incidents requiring attention
+Natural language queries — "What is happening across my properties?" "Which arrivals need preparation?"
+Recommendation preparation — gap fill suggestions, cancellation recovery, risk flags with reasoning
+Cross-module awareness — booking, operations, guest, trust, expansion (read via approved RPCs only)
+Tone adaptation — professional, calm, enterprise-grade hospitality language
+
+COMPANION LIMITATIONS
+Never execute sensitive actions without approval
+Never impersonate the host to guests
+Never store raw guest conversations
+Never auto-adjust prices or send guest messages
+Recommendations include confidence and trade-offs
+
+CHAT ORDER
+Command intent → Brand address → Proactive guidance → Natural language → Feature routing
+
+TERMINOLOGY
+Aipify Companion — not AI assistant, bot, or copilot
+Aipify recommends · Aipify has found · Aipify prepares
+
+INTEGRATIONS
+Internal Language Model — brand identity, proactive guidance, reminder follow-up
+Identity Engine — communication style adaptation (user approved)
+Decision Support Engine — business-first guidance with explainability
+
+GOVERNANCE
+Human oversight default ON
+Companion suggests — owner decides
+Full audit of companion-initiated action preparations
+
+KNOWLEDGE CENTER
+Hospitality best practices · Owner decision frameworks · Operational stewardship guidance
+
+END OF PHASE.

@@ -5,6 +5,13 @@
     "bannerBody": "Internal operations layer for Aipify Group. Customer workspace settings remain in the Customer Portal unless accessed through controlled support tools.",
     "twoFactorRequired": "Platform Admin requires two-factor authentication before entry."
   },
+  "pageStates": {
+    "unavailableTitle": "This area is temporarily unavailable",
+    "unavailableMessage": "Aipify could not complete this operation right now. The issue has been logged for review.",
+    "retry": "Retry",
+    "backToPlatform": "Back to Platform",
+    "viewDiagnostics": "View diagnostics"
+  },
   "search": "Search customers...",
   "navSearch": {
     "hint": "⌘K search menu",
@@ -368,6 +375,12 @@
     "subtitle": "Permanent customer numbers, profiles, and tenant links — Platform Admin only.",
     "loading": "Loading customers...",
     "empty": "No customers yet.",
+    "summaryTotal": "Total customers",
+    "summaryActive": "Active customers",
+    "summaryTrial": "Trial customers",
+    "summaryAttention": "Needs attention",
+    "summaryEnterprise": "Enterprise candidates",
+    "summaryTwoFactor": "2FA enabled",
     "search": "Search customers...",
     "filterStatus": "All statuses",
     "filterType": "All types",
@@ -1020,21 +1033,34 @@
   },
   "paymentAnalytics": {
     "title": "Payment Analytics Center",
-    "subtitle": "Real-time visibility into payment performance across all providers.",
+    "subtitle": "Executive-grade financial intelligence across all payment providers.",
     "loading": "Preparing payment analytics…",
     "back": "Back to billing",
-    "principle": "Real-time payment visibility supports confident platform decisions without exposing customer operational records.",
+    "principle": "Analytics should help leadership understand why performance changed, what it means, and what should happen next.",
     "emptyState": "No payment activity recorded yet.",
     "sections": {
+      "executiveSnapshot": "Executive financial snapshot",
       "overview": "Overview",
-      "providerBreakdown": "Revenue by provider",
+      "providerBreakdown": "Payment provider performance",
       "revenueOverTime": "Revenue over time",
       "providerDistribution": "Payment provider distribution",
       "segments": "Customer segments",
       "topEnterprise": "Top enterprise customers",
       "failedInsights": "Failed payment insights",
       "filters": "Filters",
-      "exports": "Exports"
+      "exports": "Export center",
+      "executiveInsights": "Executive insights",
+      "forecasting": "Forecasting"
+    },
+    "executive": {
+      "totalRevenue": "Total revenue",
+      "recurringRevenue": "Recurring revenue (MRR)",
+      "revenueGrowth": "Revenue growth",
+      "averageTransactionValue": "Average transaction value",
+      "netRevenue": "Net revenue after refunds",
+      "paymentSuccessRate": "Payment success rate",
+      "customerLifetimeValue": "Customer lifetime value",
+      "clvFuture": "Coming in a future phase"
     },
     "overview": {
       "revenueToday": "Revenue today",
@@ -1049,16 +1075,44 @@
       "transactions": "Transactions",
       "successRate": "Success rate",
       "refunds": "Refunds",
-      "failedPayments": "Failed payments"
+      "failedPayments": "Failed payments",
+      "averageTransactionValue": "Average transaction value",
+      "revenueGrowth": "Revenue growth",
+      "chargebackRate": "Chargeback rate",
+      "lastHealthCheck": "Last health check",
+      "rankingTopPerformer": "#1 Top performer",
+      "rankingStable": "Stable",
+      "rankingNeedsReview": "Needs review"
     },
     "charts": {
       "range7d": "Last 7 days",
       "range30d": "Last 30 days",
-      "range12m": "Last 12 months"
+      "range12m": "Last 12 months",
+      "metricRevenue": "Revenue",
+      "metricTransactions": "Transactions",
+      "metricRefunds": "Refunds",
+      "metricNetRevenue": "Net revenue",
+      "metricSubscriptions": "Subscriptions",
+      "metricFailedPayments": "Failed payments"
     },
     "segments": {
-      "selfService": "Self-service customers",
-      "enterprise": "Enterprise customers"
+      "self_service": "Self-service",
+      "smb": "SMB",
+      "growth_customers": "Growth customers",
+      "enterprise": "Enterprise",
+      "pilot_customers": "Pilot customers",
+      "internal_testing": "Internal testing"
+    },
+    "segmentMetrics": {
+      "revenue": "Revenue",
+      "growth": "Growth",
+      "customers": "Customers",
+      "averageSpend": "Average spend"
+    },
+    "distribution": {
+      "concentrationWarning": "{percentage}% of revenue flows through {provider}.",
+      "enterpriseConcentrationWarning": "{percentage}% of enterprise revenue currently depends on {provider}.",
+      "diversifyRecommendation": "Consider diversifying payment methods to reduce concentration risk."
     },
     "table": {
       "customer": "Customer",
@@ -1069,7 +1123,16 @@
       "provider": "Provider",
       "failureReason": "Failure reason",
       "retryCount": "Retry count",
-      "recommendedAction": "Recommended action"
+      "recommendedAction": "Recommended action",
+      "arrEstimate": "ARR estimate",
+      "contractValue": "Contract value",
+      "renewalDate": "Renewal date",
+      "healthScore": "Account health",
+      "customerOwner": "Customer owner",
+      "expansionOpportunity": "Expansion opportunity",
+      "severity": "Severity",
+      "amountAffected": "Amount affected",
+      "assignedOwner": "Assigned owner"
     },
     "filters": {
       "dateFrom": "Date from",
@@ -1077,16 +1140,61 @@
       "provider": "Provider",
       "customerType": "Customer type",
       "country": "Country",
+      "currency": "Currency",
+      "subscriptionPlan": "Subscription plan",
+      "growthPartner": "Growth Partner",
+      "customerSegment": "Customer segment",
       "allProviders": "All providers",
       "allTypes": "All customer types",
       "allCountries": "All countries",
-      "apply": "Apply filters"
+      "allCurrencies": "All currencies",
+      "allPlans": "All plans",
+      "allPartners": "All partners",
+      "allSegments": "All segments",
+      "apply": "Apply filters",
+      "presets": {
+        "today": "Today",
+        "7d": "Last 7 days",
+        "30d": "Last 30 days",
+        "quarter": "Quarter",
+        "ytd": "Year to date",
+        "previous_year": "Previous year"
+      }
     },
     "exports": {
       "csv": "Export CSV",
       "excel": "Export Excel",
       "pdf": "Export PDF",
+      "boardReport": "Board report PDF",
+      "executiveSummary": "Executive summary PDF",
+      "financeFiken": "Finance export (Fiken)",
+      "auditorPackage": "Auditor package",
+      "quarterlyRevenue": "Quarterly revenue report",
       "exporting": "Exporting…"
+    },
+    "insights": {
+      "title": "Executive insights",
+      "recommendedAction": "Recommended action",
+      "empty": "No executive insights for the selected period."
+    },
+    "forecasting": {
+      "title": "Forecasting",
+      "projectedRevenue": "Projected revenue next month",
+      "projectedArr": "Projected ARR",
+      "subscriptionGrowth": "Expected subscription growth",
+      "predictedChurn": "Predicted churn",
+      "confidence": "Forecast confidence",
+      "futureNote": "Predictive revenue intelligence is planned for a future phase. Historical analytics remain fully available above."
+    },
+    "expansion": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "severities": {
+      "low": "Low risk",
+      "medium": "Medium risk",
+      "critical": "Critical risk"
     },
     "providers": {
       "stripe": "Stripe",
@@ -1107,32 +1215,58 @@
       "30d": "30 days",
       "12m": "12 months"
     },
+    "chartMetrics": {
+      "revenue": "Revenue",
+      "transactions": "Transactions",
+      "refunds": "Refunds",
+      "net_revenue": "Net revenue",
+      "subscriptions": "Subscriptions",
+      "failed_payments": "Failed payments"
+    },
     "exportFormats": {
       "csv": "CSV",
       "xlsx": "Excel",
-      "pdf": "PDF"
+      "pdf": "PDF",
+      "board_report": "Board report",
+      "executive_summary": "Executive summary",
+      "finance_fiken": "Fiken export",
+      "auditor_package": "Auditor package",
+      "quarterly_revenue": "Quarterly revenue"
     }
   },
   "subscriptionOperations": {
     "title": "Subscription Operations Center",
-    "subtitle": "Centralized subscription management for all Aipify customers.",
+    "subtitle": "Customer Lifecycle Control Center for subscription retention, growth, and revenue predictability.",
     "loading": "Preparing subscription operations…",
     "back": "Back to billing",
-    "principle": "Centralized subscription operations give Aipify Group AS confident control over customer lifecycle and revenue.",
+    "principle": "Subscriptions should be understood, protected, expanded, and nurtured throughout the entire customer lifecycle.",
     "emptyState": "No subscriptions found.",
     "sections": {
+      "executiveSnapshot": "Executive subscription snapshot",
       "overview": "Overview",
       "subscriptions": "Subscription table",
-      "trials": "Trial management",
+      "healthScoring": "Customer health scoring",
+      "trials": "Trial management center",
       "upgrades": "Upgrades",
       "downgrades": "Downgrades",
-      "renewals": "Renewals",
+      "renewals": "Renewal command center",
       "pastDue": "Past due center",
-      "enterpriseContracts": "Enterprise contracts",
+      "enterpriseContracts": "Enterprise contract center",
+      "lifecycleTimeline": "Customer lifecycle timeline",
+      "executiveInsights": "Executive insights",
+      "revenueAtRisk": "Revenue at risk",
+      "growthOpportunities": "Growth opportunity center",
       "audit": "Audit log",
-      "filters": "Filters"
+      "filters": "Filters",
+      "forecasting": "Forecasting"
     },
-    "overview": {
+    "executive": {
+      "mrr": "MRR",
+      "arr": "ARR",
+      "netGrowth": "Net subscriber growth",
+      "conversionRate": "Trial-to-paid conversion",
+      "renewalRisk": "Revenue at renewal risk",
+      "acv": "Average contract value",
       "active": "Active subscriptions",
       "trials": "Trial accounts",
       "renewals": "Upcoming renewals",
@@ -1140,12 +1274,20 @@
       "downgrades": "Downgrades this month",
       "cancelled": "Cancelled subscriptions"
     },
+    "health": {
+      "healthy": "Healthy (90–100)",
+      "stable": "Stable (75–89)",
+      "attention": "Attention needed (50–74)",
+      "critical": "Critical (below 50)"
+    },
+    "healthDescription": "Health scores combine payment success, support volume, usage activity, renewal proximity, and growth trends.",
     "table": {
       "customer": "Customer",
       "plan": "Plan",
       "users": "Users",
       "billingProvider": "Billing provider",
       "monthlyValue": "Monthly value",
+      "mrrContribution": "MRR contribution",
       "renewalDate": "Renewal date",
       "status": "Status",
       "actions": "Actions",
@@ -1153,58 +1295,132 @@
       "newPlan": "New plan",
       "effectiveDate": "Effective date",
       "revenueImpact": "Revenue impact",
+      "mrrImpact": "MRR impact",
       "reason": "Reason",
       "trialStart": "Trial start",
       "trialEnd": "Trial end",
       "daysRemaining": "Days remaining",
       "conversionProbability": "Conversion probability",
+      "usageScore": "Usage score",
+      "growthPartner": "Growth Partner",
       "outstandingAmount": "Outstanding amount",
       "daysOverdue": "Days overdue",
       "paymentProvider": "Payment provider",
       "recommendedAction": "Recommended action",
       "contractStart": "Contract start",
       "contractEnd": "Contract end",
+      "contractValue": "Contract value",
       "paymentTerms": "Payment terms",
       "accountManager": "Account manager",
-      "event": "Event"
+      "event": "Event",
+      "healthScore": "Health score",
+      "renewalProbability": "Renewal probability",
+      "contractType": "Contract type",
+      "accountOwner": "Account owner",
+      "lastInteraction": "Last interaction",
+      "riskLevel": "Risk level",
+      "retryAttempts": "Retry attempts",
+      "nextStep": "Recommended next step",
+      "expansionOpportunity": "Expansion opportunity",
+      "contractHealth": "Contract health",
+      "upcomingMilestone": "Upcoming milestone",
+      "actor": "Performed by",
+      "financialImpact": "Financial impact",
+      "automation": "Automation",
+      "approval": "Manual approval",
+      "date": "Date",
+      "signal": "Signal",
+      "recommendation": "Recommendation",
+      "priority": "Priority"
     },
     "statuses": {
       "trial": "Trial",
       "active": "Active",
       "past_due": "Past due",
-      "suspended": "Suspended",
+      "suspended": "Paused",
       "cancelled": "Cancelled",
-      "enterprise_contract": "Enterprise contract"
+      "enterprise_contract": "Enterprise"
+    },
+    "riskLevels": {
+      "healthy": "Healthy",
+      "needs_attention": "Needs attention",
+      "high_risk": "High risk"
+    },
+    "expansion": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
     },
     "actions": {
       "view": "View subscription",
       "upgrade": "Upgrade plan",
       "downgrade": "Downgrade plan",
       "extendTrial": "Extend trial",
-      "suspend": "Suspend access",
+      "suspend": "Pause access",
       "reactivate": "Reactivate",
       "cancel": "Cancel subscription",
       "convertToPaid": "Convert to paid",
       "sendReminder": "Send reminder",
+      "offerOnboarding": "Offer onboarding session",
+      "discountCampaign": "Trigger discount campaign",
+      "escalateSales": "Escalate to sales",
+      "retryPayment": "Retry payment",
+      "contactCustomer": "Contact customer",
+      "switchPaymentMethod": "Switch payment method",
+      "moveToCollections": "Move to collections",
+      "pauseAccess": "Pause access",
       "applying": "Applying…"
     },
     "filters": {
-      "plan": "Plan",
-      "status": "Status",
+      "plan": "Plan type",
+      "status": "Subscription status",
       "country": "Country",
-      "provider": "Provider",
-      "renewalPeriod": "Renewal period",
+      "provider": "Payment provider",
+      "renewalPeriod": "Upcoming renewal",
+      "growthPartner": "Growth Partner",
+      "accountManager": "Account manager",
       "allPlans": "All plans",
       "allStatuses": "All statuses",
       "allCountries": "All countries",
       "allProviders": "All providers",
       "allRenewals": "All renewals",
-      "apply": "Apply filters"
+      "allPartners": "All partners",
+      "allManagers": "All managers",
+      "apply": "Apply filters",
+      "presets": {
+        "today": "Today",
+        "7d": "Last 7 days",
+        "30d": "Last 30 days",
+        "quarter": "Quarter",
+        "year": "Year"
+      }
     },
     "renewals": {
       "within7": "Within 7 days",
       "within30": "Within 30 days",
-      "within90": "Within 90 days"
+      "within90": "Within 90 days",
+      "commandCenter": "Renewal command center"
+    },
+    "insights": {
+      "recommendedAction": "Recommended action",
+      "empty": "No executive insights for the selected period."
+    },
+    "revenueAtRisk": {
+      "title": "Total revenue at risk",
+      "pastDue": "Past due subscriptions",
+      "lowHealth": "Low health subscriptions",
+      "enterpriseRenewals": "Upcoming enterprise renewals",
+      "decliningUsage": "Declining usage patterns",
+      "total": "Total exposure"
+    },
+    "growth": {
+      "empty": "No expansion opportunities identified for the current filter."
+    },
+    "lifecycle": {
+      "empty": "No lifecycle events recorded yet."
+    },
+    "forecasting": {
+      "futureNote": "Predictive churn engine and growth forecasting are planned for a future phase. Lifecycle intelligence remains fully available above."
     },
     "plans": {
       "starter": "Starter",
@@ -1379,7 +1595,7 @@
       "onboarding_completed": "Onboarding completed",
       "first_user_invited": "First user invited",
       "first_integration_connected": "First integration connected",
-      "first_ai_interaction": "First AI interaction",
+      "first_ai_interaction": "First Aipify interaction",
       "first_business_outcome": "First business outcome achieved",
       "subscription_activated": "Subscription activated",
       "expansion": "Expansion events"
@@ -1951,7 +2167,7 @@
       "data_handling": "Data handling",
       "billing": "Billing",
       "customer_communications": "Customer communications",
-      "ai_governance": "AI governance",
+      "ai_governance": "Aipify governance",
       "operational_standards": "Operational standards"
     },
     "policyStatuses": {
@@ -2046,7 +2262,7 @@
   },
   "decisionCenter": {
     "title": "Decision Center",
-    "subtitle": "AI-powered recommendations for executives, administrators, and customer success teams based on operational data and platform insights.",
+    "subtitle": "Aipify Recommendations for executives, administrators, and customer success teams based on operational data and platform insights.",
     "loading": "Preparing Decision Center…",
     "back": "Back to Intelligence",
     "principle": "Information alone is not enough. The true value of intelligence lies in helping people make better decisions at the right time.",
@@ -2144,6 +2360,12 @@
     "back": "Back to Platform",
     "principle": "The best organizations do not rely solely on memory. They build repeatable systems that help people perform consistently and confidently.",
     "emptyState": "No playbooks match the selected filters.",
+    "emptyTitle": "No playbooks created yet",
+    "emptyMessage": "Playbooks help your organization standardize recurring workflows and automate operational best practices.",
+    "createFirst": "Create first playbook",
+    "exploreTemplates": "Explore templates",
+    "errorTitle": "Playbook Center is temporarily unavailable",
+    "errorMessage": "Aipify could not complete this operation right now. The issue has been logged for review.",
     "sections": {
       "overview": "Overview",
       "playbooks": "Playbooks",
@@ -2440,7 +2662,7 @@
       "infrastructure": "Infrastructure status",
       "paymentProvider": "Payment provider status",
       "integration": "Integration health",
-      "aiEngine": "AI engine status",
+      "aiEngine": "Aipify engine status",
       "notification": "Notification status",
       "uptime": "Platform uptime"
     },
@@ -2489,6 +2711,10 @@
     "back": "Back to platform",
     "principle": "Clear, timely communication builds trust across customers, partners, and internal teams.",
     "emptyState": "No announcements available.",
+    "preparingTitle": "Announcement Center is being prepared",
+    "preparingMessage": "This area will allow Aipify Group AS to publish platform updates, customer messages, release announcements, and Growth Partner communications.",
+    "errorTitle": "Announcement Center is temporarily unavailable",
+    "errorMessage": "Aipify could not complete this operation right now. The issue has been logged for review.",
     "sections": {
       "overview": "Overview",
       "announcements": "Announcement table",
@@ -2870,7 +3096,7 @@
     "operations": {
       "title": "Operations",
       "supportHandled": "Support requests",
-      "automatedTasks": "Automated AI actions",
+      "automatedTasks": "Automated Aipify actions",
       "aiRecommendations": "Aipify Insights",
       "avgResponseTime": "Average response time"
     },
@@ -2918,7 +3144,7 @@
     "lastSyncEntry": "Last successful sync: {date}",
     "never": "Never",
     "health": "Health",
-    "lastAiScan": "Last AI Scan",
+    "lastAiScan": "Last Aipify scan",
     "issuesDetected": "Issues",
     "automationStatus": "Automation",
     "automationActive": "Active",
@@ -2927,7 +3153,7 @@
   },
   "support": {
     "title": "Support",
-    "subtitle": "Internal support queue with AI escalation visibility.",
+    "subtitle": "Internal support queue with Aipify escalation visibility.",
     "loading": "Loading support queue...",
     "empty": "No support cases yet.",
     "customer": "Customer",
@@ -2936,7 +3162,7 @@
     "assignee": "Assignee",
     "lastUpdated": "Last updated",
     "subject": "Subject",
-    "aiEscalation": "AI escalation",
+    "aiEscalation": "Aipify escalation",
     "aiCouldNotResolve": "Aipify escalated this case for human review",
     "requiresHumanReview": "Requires human review",
     "unassigned": "Unassigned",
@@ -2954,7 +3180,7 @@
       "urgent": "Urgent"
     },
     "counters": {
-      "resolvedByAi": "Resolved by Aipify",
+      "resolvedByAi": "Resolved by Aipifypifypify",
       "escalatedByAi": "Escalated by Aipify",
       "waitingHuman": "Waiting for Human",
       "openCases": "Open Cases"
@@ -2963,7 +3189,7 @@
       "title": "Aipify Support Performance",
       "subtitle": "Aipify uses Aipify first — visibility into Aipify-powered support value.",
       "requestsToday": "Requests today",
-      "resolvedByAi": "Resolved by Aipify",
+      "resolvedByAi": "Resolved by Aipifypifypify",
       "escalatedCases": "Escalated cases",
       "avgResponseTime": "Average response time",
       "satisfactionScore": "Customer satisfaction",
@@ -3265,7 +3491,7 @@
     "principle": "Customer business data stays with the customer. Aipify stores proof of value, not private business data.",
     "cards": {
       "supportResolved": "Support cases resolved",
-      "actionsCompleted": "AI actions completed",
+      "actionsCompleted": "Aipify actions completed",
       "recommendations": "Recommendations generated",
       "selfHealing": "Self-healing events",
       "responseTimeSaved": "Response time saved",
@@ -3565,7 +3791,7 @@
     "degraded": "Degraded",
     "outage": "Outage",
     "pending": "Pending setup",
-    "aiSummaryTitle": "AI System Summary",
+    "aiSummaryTitle": "Aipify System Summary",
     "services": {
       "supabase": "Supabase",
       "resend": "Resend",
@@ -3759,7 +3985,7 @@
     "subject": "Subject",
     "category": "Category",
     "priority": "Priority",
-    "aiInsightsTitle": "AI Insights",
+    "aiInsightsTitle": "Aipify Insights",
     "noData": "No data available yet.",
     "noErrors": "No recent errors",
     "hours": "hours",
@@ -3945,7 +4171,7 @@
       "users": "Users",
       "support": "Support",
       "automations": "Automations",
-      "aiInsights": "AI Insights",
+      "aiInsights": "Aipify Insights",
       "timeline": "Activity Timeline",
       "integrations": "Integrations",
       "domains": "Domains",
@@ -3980,7 +4206,7 @@
       }
     },
     "successScoreExplanation": {
-      "title": "AI Health Score",
+      "title": "Aipify Health Score",
       "basedOn": "Based on",
       "expansionTitle": "Expansion Opportunities",
       "eligible": "Eligible",
@@ -3999,8 +4225,8 @@
       "expansionLabels": {
         "extraDomains": "Eligible for extra domains",
         "supportAiUpgrade": "Suitable for Aipify Support upgrade",
-        "analyticsAi": "Suitable for Analytics AI",
-        "commerceAi": "Suitable for Commerce AI"
+        "analyticsAi": "Suitable for Aipify Analytics",
+        "commerceAi": "Suitable for Aipify Commerce"
       }
     },
     "installationEngine": {

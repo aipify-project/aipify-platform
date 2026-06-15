@@ -11,7 +11,7 @@ export const AIPIFY_GROUP = {
   footerDescription:
     "Building intelligent business systems designed to help organizations work smarter, respond faster, and grow with confidence.",
   investorLine:
-    "Founded in Bergen, Norway. Building AI-powered business systems for organizations worldwide.",
+    "Founded in Bergen, Norway. Building operational business systems for organizations worldwide.",
   principles: [
     "Humble enough to listen.",
     "Ambitious enough to think globally.",

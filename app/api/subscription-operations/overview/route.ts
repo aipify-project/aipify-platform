@@ -9,6 +9,10 @@ function buildFilters(searchParams: URLSearchParams) {
     country: searchParams.get("country") ?? undefined,
     provider: searchParams.get("provider") ?? undefined,
     renewal_period: searchParams.get("renewal_period") ?? undefined,
+    date_from: searchParams.get("date_from") ?? undefined,
+    date_to: searchParams.get("date_to") ?? undefined,
+    growth_partner: searchParams.get("growth_partner") ?? undefined,
+    account_manager: searchParams.get("account_manager") ?? undefined,
   };
 }
 

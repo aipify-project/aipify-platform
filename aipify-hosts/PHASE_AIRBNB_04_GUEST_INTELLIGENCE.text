@@ -1,0 +1,48 @@
+AIPIFY – PHASE AIRBNB 04
+AIPIFY HOSTS – GUEST INTELLIGENCE ENGINE
+
+PURPOSE
+Deliver intelligent guest communication, experience support, and relationship stewardship without replacing human hospitality.
+
+POSITIONING
+Thoughtful hospitality at scale. Humans decide. Aipify prepares.
+
+FEATURE OWNER
+CUSTOMER APP
+
+ROUTE
+/app/aipify-hosts/guest-intelligence
+
+OBJECTIVES
+Faster guest response times · Higher satisfaction · Consistent tone · Multi-language support · Reduced host stress
+
+MODULES
+1 Guest Operations Center — unified inbox across channels, message threading, history overview
+2 Message Preparation Engine — draft suggestions, tone adaptation, template library (never auto-send without approval)
+3 Multi-Language Communication — automatic translation, locale-aware responses
+4 Guest Experience Companion — property-specific companion for Wi-Fi, parking, appliances, house rules, local recommendations
+5 Guest Profile Intelligence — stay history metadata, preference patterns (metadata only — no raw chat storage)
+6 Escalation & Priority Engine — urgent requests, communication concerns, response time tracking
+7 Welcome & Check-In Engine — arrival instructions, access confirmations, welcome message readiness
+8 Guest Follow-Up Engine — post-stay reminders, review prompts (recommendations only)
+9 Guest Knowledge Center — communication etiquette, international guest guidance, hospitality best practices
+10 Guest Satisfaction Insights — satisfaction indicators, response metrics, improvement recommendations
+
+GOVERNANCE
+Never impersonate the host in personal messages
+Sensitive actions require approval
+No automated personal messaging without explicit consent
+Metadata only — never store raw guest conversations in platform metrics
+
+TERMINOLOGY
+Guest Experience Companion — not AI assistant or chatbot
+Aipify prepares · Host approves · Guest receives human hospitality
+
+INTEGRATIONS
+Business DNA tone profiles (cross-link)
+PAME/RSI principles — relationship support, not replacement
+
+SUCCESS METRICS
+Faster response times · Higher guest satisfaction · Reduced communication gaps
+
+END OF PHASE.

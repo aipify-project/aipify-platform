@@ -38,7 +38,7 @@
     "support": {
       "title": "Support",
       "subtitle": "Configure Aipify Support and review handled tickets.",
-      "description": "Support-AI svarar automatiskt på vanliga kundfrågor och eskalerar viktiga ärenden när det behövs.",
+      "description": "Aipify Support svarar automatiskt på vanliga kundfrågor och eskalerar viktiga ärenden när det behövs.",
       "comingSoon": "Kommer snart."
     },
     "analytics": {
@@ -50,13 +50,13 @@
     "commerce": {
       "title": "Commerce",
       "subtitle": "Aipify Commerce tools and sales intelligence.",
-      "description": "Commerce-AI optimerar produkter, prissättning och lönsamhet.",
+      "description": "Aipify Commerce optimerar produkter, prissättning och lönsamhet.",
       "comingSoon": "Kommer snart."
     },
     "notifications": {
       "title": "Notifications",
       "subtitle": "Manage alerts and notification channels.",
-      "description": "Hantera aviseringar från installationer, fakturering, integrationer och AI-rekommendationer.",
+      "description": "Hantera aviseringar från installationer, fakturering, integrationer och Aipify-innsikter.",
       "comingSoon": "Kommer snart."
     }
   },
@@ -150,7 +150,7 @@
     "systemHealthChange": "All systems stable"
   },
   "assistant": {
-    "title": "Aipify Assistant",
+    "title": "Aipify Companion",
     "greeting": "God morgon, Svein.",
     "subtitle": "Aipify övervakar ditt företag tyst i bakgrunden.",
     "todayFound": "Idag hittade Aipify:",

@@ -6,6 +6,10 @@ export type PaymentAnalyticsFilters = {
   provider?: AnalyticsProviderKey | "";
   customer_type?: CustomerType | "";
   country?: string;
+  currency?: string;
+  subscription_plan?: string;
+  growth_partner?: string;
+  customer_segment?: string;
 };
 
 export type PaymentAnalyticsOverview = {
@@ -53,6 +57,7 @@ export type FailedPaymentInsight = {
   retry_count: number;
   recommended_action: string;
   transaction_at: string;
+  amount_affected?: number;
 };
 
 export type PaymentAnalyticsCenter = {
@@ -85,6 +90,7 @@ export type PaymentAnalyticsLabels = {
   principle: string;
   emptyState: string;
   sections: {
+    executiveSnapshot: string;
     overview: string;
     providerBreakdown: string;
     revenueOverTime: string;
@@ -94,6 +100,18 @@ export type PaymentAnalyticsLabels = {
     failedInsights: string;
     filters: string;
     exports: string;
+    executiveInsights: string;
+    forecasting: string;
+  };
+  executive: {
+    totalRevenue: string;
+    recurringRevenue: string;
+    revenueGrowth: string;
+    averageTransactionValue: string;
+    netRevenue: string;
+    paymentSuccessRate: string;
+    customerLifetimeValue: string;
+    clvFuture: string;
   };
   overview: {
     revenueToday: string;
@@ -109,15 +127,36 @@ export type PaymentAnalyticsLabels = {
     successRate: string;
     refunds: string;
     failedPayments: string;
+    averageTransactionValue: string;
+    revenueGrowth: string;
+    chargebackRate: string;
+    lastHealthCheck: string;
+    rankingTopPerformer: string;
+    rankingStable: string;
+    rankingNeedsReview: string;
   };
   charts: {
     range7d: string;
     range30d: string;
     range12m: string;
+    metricRevenue: string;
+    metricTransactions: string;
+    metricRefunds: string;
+    metricNetRevenue: string;
+    metricSubscriptions: string;
+    metricFailedPayments: string;
   };
-  segments: {
-    selfService: string;
-    enterprise: string;
+  segments: Record<string, string>;
+  segmentMetrics: {
+    revenue: string;
+    growth: string;
+    customers: string;
+    averageSpend: string;
+  };
+  distribution: {
+    concentrationWarning: string;
+    enterpriseConcentrationWarning: string;
+    diversifyRecommendation: string;
   };
   table: {
     customer: string;
@@ -129,6 +168,15 @@ export type PaymentAnalyticsLabels = {
     failureReason: string;
     retryCount: string;
     recommendedAction: string;
+    arrEstimate: string;
+    contractValue: string;
+    renewalDate: string;
+    healthScore: string;
+    customerOwner: string;
+    expansionOpportunity: string;
+    severity: string;
+    amountAffected: string;
+    assignedOwner: string;
   };
   filters: {
     dateFrom: string;
@@ -136,20 +184,51 @@ export type PaymentAnalyticsLabels = {
     provider: string;
     customerType: string;
     country: string;
+    currency: string;
+    subscriptionPlan: string;
+    growthPartner: string;
+    customerSegment: string;
     allProviders: string;
     allTypes: string;
     allCountries: string;
+    allCurrencies: string;
+    allPlans: string;
+    allPartners: string;
+    allSegments: string;
     apply: string;
+    presets: Record<string, string>;
   };
   exports: {
     csv: string;
     excel: string;
     pdf: string;
+    boardReport: string;
+    executiveSummary: string;
+    financeFiken: string;
+    auditorPackage: string;
+    quarterlyRevenue: string;
     exporting: string;
   };
+  insights: {
+    title: string;
+    recommendedAction: string;
+    empty: string;
+  };
+  forecasting: {
+    title: string;
+    projectedRevenue: string;
+    projectedArr: string;
+    subscriptionGrowth: string;
+    predictedChurn: string;
+    confidence: string;
+    futureNote: string;
+  };
+  expansion: Record<string, string>;
+  severities: Record<string, string>;
   providers: Record<AnalyticsProviderKey, string>;
   customerTypes: Record<CustomerType, string>;
   enterpriseStatuses: Record<string, string>;
   chartRanges: Record<ChartRange, string>;
   exportFormats: Record<ExportFormat, string>;
+  chartMetrics: Record<import("./constants").ChartMetric, string>;
 };

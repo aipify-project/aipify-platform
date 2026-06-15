@@ -50,7 +50,7 @@ Programmatic enforcement: `applyAipifyFirstLanguagePolicy()` in `lib/internal-la
 | Resolved by AI | Resolved by Aipify | Support metrics, platform pilot dashboards |
 | Escalated by AI | Escalated by Aipify | Escalation attribution in support analytics |
 | AI Summary | Aipify Summary | Meeting summaries, case summaries, briefing cards |
-| AI Recommendation / AI Recommendations | Aipify Insight / Aipify Insights | Executive recommendations, admin assistant suggestions |
+| AI Recommendation / AI Recommendations | Aipify Recommendations / Aipify Insights | Executive recommendations, admin assistant suggestions |
 | AI Notes | Aipify Notes | Meeting notes, support case notes |
 | AI Notification | Aipify Notification | Desktop and in-app notification labels |
 | AI Meeting Assistant | Aipify Meeting Companion | Teams/Meet join experience — visible to participants |

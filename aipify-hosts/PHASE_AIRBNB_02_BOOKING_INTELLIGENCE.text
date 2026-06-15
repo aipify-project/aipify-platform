@@ -1,0 +1,56 @@
+AIPIFY – PHASE AIRBNB 02
+AIPIFY HOSTS – CHANNEL & BOOKING INTELLIGENCE ENGINE
+
+PURPOSE
+Centralized booking intelligence connecting multiple hospitality channels into a unified operational experience.
+Eliminate constant platform switching while preserving each channel's strengths.
+
+POSITIONING
+One operational center. Every booking channel.
+
+SUPPORTED CHANNELS
+Airbnb · Booking.com · Vrbo · Expedia · Direct Website Bookings · Future OTA integrations
+
+FEATURE OWNER
+CUSTOMER APP
+
+ROUTE
+/app/aipify-hosts/channel-booking-intelligence
+
+OBJECTIVES
+Reduce operational complexity · Prevent booking conflicts · Improve occupancy · Increase revenue visibility · Centralize booking intelligence
+
+MODULES
+1 Channel Command Center — channel performance, arrivals, departures, reservation summaries, occupancy timelines
+2 Booking Timeline Engine — property calendars, cross-property overview, gap-night detection, heatmaps
+3 Smart Gap Filler — short vacancy detection, pricing windows, minimum stay recommendations
+4 Cancellation Recovery Engine — newly available inventory, promotional strategies, remarketing
+5 Direct Booking Assistant — inquiry management, follow-up reminders, payment status (approval required for financial actions)
+6 Booking Risk Intelligence — last-minute bookings, unusual patterns, risk scores (recommendations only)
+7 Arrival Preparation Center — cleaning verification, maintenance checks, welcome message readiness
+8 Departure Operations Center — turnover tracking, damage inspection prompts, inventory reviews
+9 Occupancy Forecast Engine — seasonal patterns, local events, revenue projections, staffing forecasts
+10 Executive Booking Insights — occupancy trends, revenue by property/channel, ADR, RevPAN
+
+DASHBOARD INDICATORS
+Total active bookings · Revenue by channel · Average stay duration · Cancellation trends · Booking pace
+
+USER ROLES
+Host — booking oversight, recommendations
+Property Manager — multi-property administration, team coordination
+Enterprise Administrator — portfolio visibility, governance approvals, strategic reporting
+
+AUDIT LOGGING
+Reservation adjustments · Risk acknowledgements · Recommendation approvals · Channel configuration · Executive actions
+
+KNOWLEDGE CENTER
+Booking optimization · Occupancy management · Channel diversification · Cancellation recovery · Revenue best practices
+
+ARCHITECTURE
+Built on Aipify Hosts hospitality framework · Shared governance · Shared notifications · Shared Knowledge Center · Shared audit · Metadata-only booking snapshots until connectors approved
+
+TERMINOLOGY
+Aipify Recommendations — never AI recommendations
+Final decisions remain human-controlled
+
+END OF PHASE.

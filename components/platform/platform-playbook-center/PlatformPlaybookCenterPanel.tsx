@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   buildPlaybookFilterQuery,
   formatDuration,
@@ -11,13 +11,13 @@ import {
   type PlatformPlaybookCenter,
   type PlatformPlaybookCenterLabels,
   type PlaybookFilters,
+  type PlaybookStatus,
 } from "@/lib/platform-playbook-center";
 import type {
-  ExecutionOutcome,
   PlaybookCategory,
-  PlaybookStatus,
   TriggerType,
 } from "@/lib/platform-playbook-center/constants";
+import { PLAYBOOK_STATUSES } from "@/lib/platform-playbook-center/constants";
 
 type PlatformPlaybookCenterPanelProps = {
   labels: PlatformPlaybookCenterLabels;
@@ -49,20 +49,31 @@ function formatDate(value: string | null): string {
 export function PlatformPlaybookCenterPanel({ labels, backHref }: PlatformPlaybookCenterPanelProps) {
   const [center, setCenter] = useState<PlatformPlaybookCenter | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [filters, setFilters] = useState<PlaybookFilters>({});
   const [draftFilters, setDraftFilters] = useState<PlaybookFilters>({});
+  const [showCreate, setShowCreate] = useState(false);
   const [newName, setNewName] = useState("");
   const [newOwner, setNewOwner] = useState("");
   const [newDescription, setNewDescription] = useState("");
+  const createRef = useRef<HTMLElement>(null);
 
   const load = useCallback(async (activeFilters: PlaybookFilters) => {
     setLoading(true);
+    setError(null);
     const query = buildPlaybookFilterQuery(activeFilters);
     const res = await fetch(`/api/platform-playbook-center/overview${query}`);
-    if (res.ok) setCenter(parsePlatformPlaybookCenter(await res.json()));
+    if (res.ok) {
+      const parsed = parsePlatformPlaybookCenter(await res.json());
+      if (parsed) setCenter(parsed);
+      else setError(labels.emptyState);
+    } else {
+      const body = (await res.json().catch(() => ({}))) as { error?: string };
+      setError(body.error ?? labels.emptyState);
+    }
     setLoading(false);
-  }, []);
+  }, [labels.emptyState]);
 
   useEffect(() => {
     void load(filters);
@@ -100,17 +111,49 @@ export function PlatformPlaybookCenterPanel({ labels, backHref }: PlatformPlaybo
     setNewName("");
     setNewOwner("");
     setNewDescription("");
+    setShowCreate(false);
   }, [handleAction, newDescription, newName, newOwner]);
 
+  const openCreate = () => {
+    setShowCreate(true);
+    requestAnimationFrame(() => createRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
+  };
+
+  const setStatusFilter = (status: PlaybookStatus | "") => {
+    setFilters((prev) => ({ ...prev, status: status || undefined }));
+    setDraftFilters((prev) => ({ ...prev, status: status || undefined }));
+  };
+
   if (loading && !center) {
-    return <p className="p-6 text-sm text-gray-500">{labels.loading}</p>;
+    return (
+      <div className="mx-auto max-w-6xl p-6">
+        <div className="animate-pulse space-y-4">
+          <div className="h-8 w-64 rounded-lg bg-gray-100" />
+          <div className="h-4 w-full max-w-2xl rounded bg-gray-100" />
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-24 rounded-2xl bg-gray-100" />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (!center) {
-    return <p className="p-6 text-sm text-red-600">{labels.loading}</p>;
+    return (
+      <div className="mx-auto max-w-6xl p-6">
+        <p className="text-sm text-red-600">{error ?? labels.emptyState}</p>
+        <Link href={backHref} className="mt-4 inline-block text-sm text-indigo-600 hover:text-indigo-700">
+          ← {labels.back}
+        </Link>
+      </div>
+    );
   }
 
   const { overview } = center;
+  const hasPlaybooks = center.playbooks.length > 0;
+  const hasActiveFilters = Boolean(filters.status || filters.category || filters.trigger_type || filters.owner);
 
   return (
     <div className="mx-auto max-w-6xl space-y-8 p-6">
@@ -129,13 +172,218 @@ export function PlatformPlaybookCenterPanel({ labels, backHref }: PlatformPlaybo
         <h2 className="mb-4 font-semibold text-gray-900">{labels.sections.overview}</h2>
         <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <OverviewCard label={labels.overview.activePlaybooks} value={overview.active_playbooks} />
-          <OverviewCard label={labels.overview.automationsRunning} value={overview.automations_running} />
+          <OverviewCard label={labels.overview.scheduledAutomations} value={overview.scheduled_automations} />
+          <OverviewCard label={labels.overview.runningAutomations} value={overview.running_automations} />
           <OverviewCard label={labels.overview.failedExecutions} value={overview.failed_executions} />
-          <OverviewCard label={labels.overview.manualInterventions} value={overview.manual_interventions} />
-          <OverviewCard label={labels.overview.scheduledWorkflows} value={overview.scheduled_workflows} />
-          <OverviewCard label={labels.overview.mostUsedPlaybooks} value={overview.most_used_playbooks} />
+          <OverviewCard label={labels.overview.pendingApprovals} value={overview.pending_approvals} />
+          <OverviewCard label={labels.overview.recentlyCompleted} value={overview.recently_completed} />
         </dl>
       </section>
+
+      <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-semibold text-gray-900">{labels.sections.playbooks}</h2>
+          <button
+            type="button"
+            onClick={openCreate}
+            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+          >
+            {labels.actions.createPlaybook}
+          </button>
+        </div>
+
+        <div className="mt-4 flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => setStatusFilter("")}
+            className={`rounded-full px-3 py-1 text-xs font-medium ring-1 ${
+              !filters.status ? "bg-indigo-600 text-white ring-indigo-600" : "bg-white text-gray-700 ring-gray-200"
+            }`}
+          >
+            {labels.filters.allStatuses}
+          </button>
+          {PLAYBOOK_STATUSES.map((status) => (
+            <button
+              key={status}
+              type="button"
+              onClick={() => setStatusFilter(status)}
+              className={`rounded-full px-3 py-1 text-xs font-medium ring-1 ${
+                filters.status === status
+                  ? "bg-indigo-600 text-white ring-indigo-600"
+                  : "bg-white text-gray-700 ring-gray-200"
+              }`}
+            >
+              {labels.statuses[status]}
+            </button>
+          ))}
+        </div>
+
+        {!hasPlaybooks && !hasActiveFilters ? (
+          <div className="mt-8 rounded-2xl border border-dashed border-gray-200 bg-gray-50/80 px-8 py-12 text-center">
+            <h3 className="text-lg font-semibold text-gray-900">{labels.emptyOnboardingTitle}</h3>
+            <p className="mx-auto mt-3 max-w-lg text-sm text-gray-600">{labels.emptyOnboardingBody}</p>
+            <button
+              type="button"
+              onClick={openCreate}
+              className="mt-6 rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700"
+            >
+              {labels.actions.createPlaybook}
+            </button>
+          </div>
+        ) : !hasPlaybooks ? (
+          <p className="mt-6 text-sm text-gray-500">{labels.emptyState}</p>
+        ) : (
+          <div className="mt-6 overflow-x-auto">
+            <table className="min-w-full text-left text-sm">
+              <thead className="border-b border-gray-100 text-xs uppercase text-gray-500">
+                <tr>
+                  <th className="py-2 pr-4">{labels.table.name}</th>
+                  <th className="py-2 pr-4">{labels.table.category}</th>
+                  <th className="py-2 pr-4">{labels.table.triggerType}</th>
+                  <th className="py-2 pr-4">{labels.table.status}</th>
+                  <th className="py-2 pr-4">{labels.table.lastExecuted}</th>
+                  <th className="py-2 pr-4">{labels.table.owner}</th>
+                  <th className="py-2">{labels.table.actions}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {center.playbooks.map((playbook) => (
+                  <tr key={playbook.id} className="border-b border-gray-50">
+                    <td className="py-3 pr-4">
+                      <Link
+                        href={`/platform/operations/playbooks/${playbook.id}`}
+                        className="font-medium text-indigo-700 hover:text-indigo-900"
+                      >
+                        {playbook.name}
+                      </Link>
+                    </td>
+                    <td className="py-3 pr-4 text-gray-600">{labels.categories[playbook.category]}</td>
+                    <td className="py-3 pr-4 text-gray-600">{labels.triggerTypes[playbook.trigger_type]}</td>
+                    <td className="py-3 pr-4">
+                      <StatusPill
+                        label={labels.statuses[playbook.status]}
+                        className={STATUS_BADGES[playbook.status]}
+                      />
+                    </td>
+                    <td className="py-3 pr-4 text-gray-600">{formatDate(playbook.last_executed_at)}</td>
+                    <td className="py-3 pr-4 text-gray-600">{playbook.owner || "—"}</td>
+                    <td className="py-3">
+                      <div className="flex flex-wrap gap-1">
+                        <Link
+                          href={`/platform/operations/playbooks/${playbook.id}/designer`}
+                          className="rounded border border-indigo-200 px-2 py-1 text-xs text-indigo-700 hover:bg-indigo-50"
+                        >
+                          {labels.actions.openDesigner}
+                        </Link>
+                        <Link
+                          href={`/platform/operations/playbooks/${playbook.id}`}
+                          className="rounded border border-gray-200 px-2 py-1 text-xs text-gray-700 hover:bg-gray-50"
+                        >
+                          {labels.actions.viewDetails}
+                        </Link>
+                        {playbook.status === "draft" && (
+                          <button
+                            type="button"
+                            disabled={busyId === playbook.id}
+                            className="rounded bg-green-600 px-2 py-1 text-xs text-white disabled:opacity-50"
+                            onClick={() =>
+                              void handleAction({ action: "update_status", playbook_id: playbook.id, status: "active" })
+                            }
+                          >
+                            {labels.actions.activate}
+                          </button>
+                        )}
+                        {playbook.status === "active" && (
+                          <button
+                            type="button"
+                            disabled={busyId === playbook.id}
+                            className="rounded border px-2 py-1 text-xs disabled:opacity-50"
+                            onClick={() =>
+                              void handleAction({ action: "update_status", playbook_id: playbook.id, status: "paused" })
+                            }
+                          >
+                            {labels.actions.pause}
+                          </button>
+                        )}
+                        {playbook.status === "paused" && (
+                          <button
+                            type="button"
+                            disabled={busyId === playbook.id}
+                            className="rounded bg-green-600 px-2 py-1 text-xs text-white disabled:opacity-50"
+                            onClick={() =>
+                              void handleAction({ action: "update_status", playbook_id: playbook.id, status: "active" })
+                            }
+                          >
+                            {labels.actions.activate}
+                          </button>
+                        )}
+                        {playbook.status !== "archived" && (
+                          <button
+                            type="button"
+                            disabled={busyId === playbook.id}
+                            className="rounded border px-2 py-1 text-xs disabled:opacity-50"
+                            onClick={() =>
+                              void handleAction({ action: "duplicate_playbook", playbook_id: playbook.id })
+                            }
+                          >
+                            {labels.actions.duplicate}
+                          </button>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+
+      {(showCreate || !hasPlaybooks) && (
+        <section ref={createRef} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+          <h2 className="font-semibold text-gray-900">{labels.sections.createPlaybook}</h2>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <input
+              className="rounded-lg border border-gray-200 px-3 py-2 text-sm"
+              placeholder={labels.create.placeholderName}
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+            />
+            <input
+              className="rounded-lg border border-gray-200 px-3 py-2 text-sm"
+              placeholder={labels.create.placeholderOwner}
+              value={newOwner}
+              onChange={(e) => setNewOwner(e.target.value)}
+            />
+          </div>
+          <textarea
+            className="mt-3 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
+            rows={3}
+            placeholder={labels.create.placeholderDescription}
+            value={newDescription}
+            onChange={(e) => setNewDescription(e.target.value)}
+          />
+          <div className="mt-3 flex gap-2">
+            <button
+              type="button"
+              disabled={!newName.trim() || busyId === "create"}
+              className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+              onClick={() => void handleCreate()}
+            >
+              {busyId === "create" ? labels.actions.applying : labels.create.submit}
+            </button>
+            {hasPlaybooks && showCreate ? (
+              <button
+                type="button"
+                className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                onClick={() => setShowCreate(false)}
+              >
+                {labels.actions.cancel}
+              </button>
+            ) : null}
+          </div>
+        </section>
+      )}
 
       <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <h2 className="font-semibold text-gray-900">{labels.sections.filters}</h2>
@@ -146,32 +394,11 @@ export function PlatformPlaybookCenterPanel({ labels, backHref }: PlatformPlaybo
               className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2"
               value={draftFilters.category ?? ""}
               onChange={(e) =>
-                setDraftFilters((prev) => ({
-                  ...prev,
-                  category: e.target.value as PlaybookCategory | "",
-                }))
+                setDraftFilters((prev) => ({ ...prev, category: e.target.value as PlaybookCategory | "" }))
               }
             >
               <option value="">{labels.filters.allCategories}</option>
               {Object.entries(labels.categories).map(([key, label]) => (
-                <option key={key} value={key}>{label}</option>
-              ))}
-            </select>
-          </label>
-          <label className="text-sm">
-            <span className="text-xs text-gray-500">{labels.filters.status}</span>
-            <select
-              className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2"
-              value={draftFilters.status ?? ""}
-              onChange={(e) =>
-                setDraftFilters((prev) => ({
-                  ...prev,
-                  status: e.target.value as PlaybookStatus | "",
-                }))
-              }
-            >
-              <option value="">{labels.filters.allStatuses}</option>
-              {Object.entries(labels.statuses).map(([key, label]) => (
                 <option key={key} value={key}>{label}</option>
               ))}
             </select>
@@ -182,10 +409,7 @@ export function PlatformPlaybookCenterPanel({ labels, backHref }: PlatformPlaybo
               className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2"
               value={draftFilters.trigger_type ?? ""}
               onChange={(e) =>
-                setDraftFilters((prev) => ({
-                  ...prev,
-                  trigger_type: e.target.value as TriggerType | "",
-                }))
+                setDraftFilters((prev) => ({ ...prev, trigger_type: e.target.value as TriggerType | "" }))
               }
             >
               <option value="">{labels.filters.allTriggerTypes}</option>
@@ -202,24 +426,6 @@ export function PlatformPlaybookCenterPanel({ labels, backHref }: PlatformPlaybo
               onChange={(e) => setDraftFilters((prev) => ({ ...prev, owner: e.target.value }))}
             />
           </label>
-          <label className="text-sm">
-            <span className="text-xs text-gray-500">{labels.filters.outcome}</span>
-            <select
-              className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2"
-              value={draftFilters.outcome ?? ""}
-              onChange={(e) =>
-                setDraftFilters((prev) => ({
-                  ...prev,
-                  outcome: e.target.value as ExecutionOutcome | "",
-                }))
-              }
-            >
-              <option value="">{labels.filters.allOutcomes}</option>
-              {Object.entries(labels.outcomes).map(([key, label]) => (
-                <option key={key} value={key}>{label}</option>
-              ))}
-            </select>
-          </label>
         </div>
         <button
           type="button"
@@ -231,41 +437,8 @@ export function PlatformPlaybookCenterPanel({ labels, backHref }: PlatformPlaybo
       </section>
 
       <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-        <h2 className="font-semibold text-gray-900">{labels.sections.createPlaybook}</h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <input
-            className="rounded-lg border border-gray-200 px-3 py-2 text-sm"
-            placeholder={labels.create.placeholderName}
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
-          />
-          <input
-            className="rounded-lg border border-gray-200 px-3 py-2 text-sm"
-            placeholder={labels.create.placeholderOwner}
-            value={newOwner}
-            onChange={(e) => setNewOwner(e.target.value)}
-          />
-        </div>
-        <textarea
-          className="mt-3 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
-          rows={3}
-          placeholder={labels.create.placeholderDescription}
-          value={newDescription}
-          onChange={(e) => setNewDescription(e.target.value)}
-        />
-        <button
-          type="button"
-          disabled={!newName.trim() || busyId === "create"}
-          className="mt-3 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
-          onClick={() => void handleCreate()}
-        >
-          {busyId === "create" ? labels.actions.applying : labels.create.submit}
-        </button>
-      </section>
-
-      <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <h2 className="font-semibold text-gray-900">{labels.sections.templates}</h2>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {center.templates.map((template) => (
             <article key={template.id} className="rounded-xl border border-indigo-100 bg-indigo-50/50 p-4">
               <h3 className="font-semibold text-gray-900">{template.name}</h3>
@@ -275,139 +448,13 @@ export function PlatformPlaybookCenterPanel({ labels, backHref }: PlatformPlaybo
                 type="button"
                 disabled={busyId === template.id}
                 className="mt-3 rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
-                onClick={() =>
-                  void handleAction({ action: "create_from_template", template_id: template.id })
-                }
+                onClick={() => void handleAction({ action: "create_from_template", template_id: template.id })}
               >
                 {labels.actions.useTemplate}
               </button>
             </article>
           ))}
         </div>
-      </section>
-
-      <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-        <h2 className="font-semibold text-gray-900">{labels.sections.playbooks}</h2>
-        {center.playbooks.length === 0 ? (
-          <p className="mt-4 text-sm text-gray-500">{labels.emptyState}</p>
-        ) : (
-          <div className="mt-4 space-y-4">
-            {center.playbooks.map((playbook) => (
-              <article key={playbook.id} className="rounded-xl border border-gray-100 bg-gray-50 p-4">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div className="min-w-0 flex-1">
-                    <h3 className="font-semibold text-gray-900">{playbook.name}</h3>
-                    <p className="mt-1 text-sm text-gray-600">{playbook.description || "—"}</p>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      <StatusPill label={labels.statuses[playbook.status]} className={STATUS_BADGES[playbook.status]} />
-                      <span className="text-xs text-gray-500">
-                        {labels.categories[playbook.category]} · {labels.triggerTypes[playbook.trigger_type]}
-                      </span>
-                      {playbook.requires_approval && (
-                        <span className="text-xs text-amber-700">{labels.table.requiresApproval}</span>
-                      )}
-                    </div>
-                    {playbook.condition_summary && (
-                      <p className="mt-2 text-xs text-gray-500">
-                        {labels.sections.conditions}: {playbook.condition_summary}
-                      </p>
-                    )}
-                    {playbook.steps.length > 0 && (
-                      <ol className="mt-3 list-decimal space-y-1 pl-4 text-sm text-gray-600">
-                        {playbook.steps.map((step) => (
-                          <li key={step.id}>
-                            {labels.stepActions[step.action_type]} — {step.label}
-                          </li>
-                        ))}
-                      </ol>
-                    )}
-                    <p className="mt-2 text-xs text-gray-500">
-                      {labels.table.lastExecuted}: {formatDate(playbook.last_executed_at)}
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {playbook.status === "draft" && (
-                      <button
-                        type="button"
-                        disabled={busyId === playbook.id}
-                        className="rounded-lg bg-green-600 px-3 py-1.5 text-xs font-medium text-white disabled:opacity-50"
-                        onClick={() =>
-                          void handleAction({ action: "update_status", playbook_id: playbook.id, status: "active" })
-                        }
-                      >
-                        {labels.actions.activate}
-                      </button>
-                    )}
-                    {playbook.status === "active" && (
-                      <>
-                        <button
-                          type="button"
-                          disabled={busyId === playbook.id}
-                          className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white disabled:opacity-50"
-                          onClick={() =>
-                            void handleAction({
-                              action: "execute_playbook",
-                              playbook_id: playbook.id,
-                              owner: playbook.owner,
-                            })
-                          }
-                        >
-                          {labels.actions.execute}
-                        </button>
-                        <button
-                          type="button"
-                          disabled={busyId === playbook.id}
-                          className="rounded-lg border px-3 py-1.5 text-xs disabled:opacity-50"
-                          onClick={() =>
-                            void handleAction({ action: "update_status", playbook_id: playbook.id, status: "paused" })
-                          }
-                        >
-                          {labels.actions.pause}
-                        </button>
-                      </>
-                    )}
-                    {playbook.status === "paused" && (
-                      <button
-                        type="button"
-                        disabled={busyId === playbook.id}
-                        className="rounded-lg bg-green-600 px-3 py-1.5 text-xs font-medium text-white disabled:opacity-50"
-                        onClick={() =>
-                          void handleAction({ action: "update_status", playbook_id: playbook.id, status: "active" })
-                        }
-                      >
-                        {labels.actions.activate}
-                      </button>
-                    )}
-                    {playbook.status !== "archived" && (
-                      <>
-                        <button
-                          type="button"
-                          disabled={busyId === playbook.id}
-                          className="rounded-lg border px-3 py-1.5 text-xs disabled:opacity-50"
-                          onClick={() =>
-                            void handleAction({ action: "disable_automation", playbook_id: playbook.id })
-                          }
-                        >
-                          {labels.actions.disable}
-                        </button>
-                        <button
-                          type="button"
-                          disabled={busyId === playbook.id}
-                          className="rounded-lg border px-3 py-1.5 text-xs disabled:opacity-50"
-                          onClick={() =>
-                            void handleAction({ action: "update_status", playbook_id: playbook.id, status: "archived" })
-                          }
-                        >
-                          {labels.actions.archive}
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        )}
       </section>
 
       <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
@@ -449,14 +496,6 @@ export function PlatformPlaybookCenterPanel({ labels, backHref }: PlatformPlaybo
                             {labels.actions.retry}
                           </button>
                         )}
-                        <button
-                          type="button"
-                          disabled={busyId === exec.id}
-                          className="rounded border px-2 py-1 text-xs disabled:opacity-50"
-                          onClick={() => void handleAction({ action: "escalate_execution", id: exec.id })}
-                        >
-                          {labels.actions.escalate}
-                        </button>
                         {exec.approval_status === "pending" && (
                           <>
                             <button

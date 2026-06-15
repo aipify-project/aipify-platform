@@ -1,5 +1,6 @@
 import type { Translator } from "@/lib/i18n/translate";
 import {
+  APPROVED_MATERIAL_TYPES,
   ASSET_CATEGORIES,
   ASSET_STATUSES,
   CAMPAIGN_STATUSES,
@@ -8,6 +9,8 @@ import {
   MARKETING_LANGUAGES,
   PRESENTATION_TYPES,
   PROHIBITED_ACTIONS,
+  REQUEST_TYPES,
+  WORKFLOW_STAGES,
 } from "./constants";
 import type { GrowthPartnerMarketingLabels } from "./types";
 
@@ -32,6 +35,7 @@ export function buildGrowthPartnerMarketingLabels(
       campaignPerformance: t(`${namespace}.overview.campaignPerformance`),
       upcomingPromotions: t(`${namespace}.overview.upcomingPromotions`),
       localizedResources: t(`${namespace}.overview.localizedResources`),
+      pendingRequests: t(`${namespace}.overview.pendingRequests`),
     },
     sections: {
       overview: t(`${namespace}.sections.overview`),
@@ -40,6 +44,10 @@ export function buildGrowthPartnerMarketingLabels(
       emailTemplates: t(`${namespace}.sections.emailTemplates`),
       presentations: t(`${namespace}.sections.presentations`),
       brandGuidelines: t(`${namespace}.sections.brandGuidelines`),
+      brandPolicy: t(`${namespace}.sections.brandPolicy`),
+      approvedMaterials: t(`${namespace}.sections.approvedMaterials`),
+      requestWorkflow: t(`${namespace}.sections.requestWorkflow`),
+      marketingRequests: t(`${namespace}.sections.marketingRequests`),
       prohibited: t(`${namespace}.sections.prohibited`),
       analytics: t(`${namespace}.sections.analytics`),
       audit: t(`${namespace}.sections.audit`),
@@ -68,6 +76,9 @@ export function buildGrowthPartnerMarketingLabels(
     presentationTypes: mapKeys(PRESENTATION_TYPES, "presentationTypes"),
     languages: mapKeys(MARKETING_LANGUAGES, "languages"),
     prohibited: mapKeys(PROHIBITED_ACTIONS, "prohibited"),
+    requestTypes: mapKeys(REQUEST_TYPES, "requestTypes"),
+    workflowStages: mapKeys(WORKFLOW_STAGES, "workflowStages"),
+    approvedMaterials: mapKeys(APPROVED_MATERIAL_TYPES, "approvedMaterials"),
     analytics: {
       mostDownloaded: t(`${namespace}.analytics.mostDownloaded`),
       mostUsedPresentations: t(`${namespace}.analytics.mostUsedPresentations`),
@@ -80,7 +91,22 @@ export function buildGrowthPartnerMarketingLabels(
       archiveCampaign: t(`${namespace}.quickActions.archiveCampaign`),
       archiveAsset: t(`${namespace}.quickActions.archiveAsset`),
       uploadAsset: t(`${namespace}.quickActions.uploadAsset`),
+      submitRequest: t(`${namespace}.quickActions.submitRequest`),
+      advanceRequest: t(`${namespace}.quickActions.advanceRequest`),
+      rejectRequest: t(`${namespace}.quickActions.rejectRequest`),
+      approveAsset: t(`${namespace}.quickActions.approveAsset`),
+      publishAsset: t(`${namespace}.quickActions.publishAsset`),
+      logViolation: t(`${namespace}.quickActions.logViolation`),
+    },
+    requestForm: {
+      title: t(`${namespace}.requestForm.title`),
+      description: t(`${namespace}.requestForm.description`),
+      requestType: t(`${namespace}.requestForm.requestType`),
+      language: t(`${namespace}.requestForm.language`),
+      industry: t(`${namespace}.requestForm.industry`),
+      submit: t(`${namespace}.requestForm.submit`),
     },
     youDecide: t(`${namespace}.youDecide`),
+    foundationPrinciple: t(`${namespace}.foundationPrinciple`),
   };
 }

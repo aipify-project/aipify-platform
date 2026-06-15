@@ -2,9 +2,22 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   buildPaymentAnalyticsCsv,
   buildPaymentAnalyticsPdfText,
+  exportFilenameForFormat,
+  exportTitleForFormat,
   parsePaymentAnalyticsCenter,
 } from "@/lib/payment-analytics";
 import { createClient } from "@/lib/supabase/server";
+
+const ALLOWED_FORMATS = new Set([
+  "csv",
+  "xlsx",
+  "pdf",
+  "board_report",
+  "executive_summary",
+  "finance_fiken",
+  "auditor_package",
+  "quarterly_revenue",
+]);
 
 function buildFilters(searchParams: URLSearchParams) {
   return {
@@ -13,6 +26,10 @@ function buildFilters(searchParams: URLSearchParams) {
     provider: searchParams.get("provider") ?? undefined,
     customer_type: searchParams.get("customer_type") ?? undefined,
     country: searchParams.get("country") ?? undefined,
+    currency: searchParams.get("currency") ?? undefined,
+    subscription_plan: searchParams.get("subscription_plan") ?? undefined,
+    growth_partner: searchParams.get("growth_partner") ?? undefined,
+    customer_segment: searchParams.get("customer_segment") ?? undefined,
   };
 }
 
@@ -25,7 +42,7 @@ export async function GET(request: NextRequest) {
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const format = request.nextUrl.searchParams.get("format") ?? "csv";
-    if (!["csv", "xlsx", "pdf"].includes(format)) {
+    if (!ALLOWED_FORMATS.has(format)) {
       return NextResponse.json({ error: "Invalid format" }, { status: 400 });
     }
 
@@ -38,14 +55,16 @@ export async function GET(request: NextRequest) {
     const parsed = parsePaymentAnalyticsCenter(data);
     if (!parsed) return NextResponse.json({ error: "Invalid response" }, { status: 500 });
 
-    const csv = buildPaymentAnalyticsCsv(parsed);
+    const title = exportTitleForFormat(format);
+    const filename = exportFilenameForFormat(format);
+    const csv = buildPaymentAnalyticsCsv(parsed, title);
 
-    if (format === "pdf") {
-      const text = buildPaymentAnalyticsPdfText(parsed);
+    if (format === "pdf" || format.endsWith("_report") || format.endsWith("_summary") || format.includes("fiken") || format.includes("package") || format.includes("quarterly")) {
+      const text = buildPaymentAnalyticsPdfText(parsed, title);
       return new NextResponse(text, {
         headers: {
           "Content-Type": "text/plain; charset=utf-8",
-          "Content-Disposition": 'attachment; filename="payment-analytics.pdf"',
+          "Content-Disposition": `attachment; filename="${filename}"`,
         },
       });
     }
@@ -54,7 +73,7 @@ export async function GET(request: NextRequest) {
       return new NextResponse(csv, {
         headers: {
           "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-          "Content-Disposition": 'attachment; filename="payment-analytics.xlsx"',
+          "Content-Disposition": `attachment; filename="${filename}"`,
         },
       });
     }
@@ -62,7 +81,7 @@ export async function GET(request: NextRequest) {
     return new NextResponse(csv, {
       headers: {
         "Content-Type": "text/csv; charset=utf-8",
-        "Content-Disposition": 'attachment; filename="payment-analytics.csv"',
+        "Content-Disposition": `attachment; filename="${filename}"`,
       },
     });
   } catch {

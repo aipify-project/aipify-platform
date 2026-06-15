@@ -21,10 +21,12 @@ export function formatAipifyProductLabel(text: string): string {
   return text
     .replace(/^AI Customer/i, "Aipify Customer")
     .replace(/^AI /i, "Aipify ")
-    .replace(/\bAI Assistant\b/gi, "Aipify Assistant")
+    .replace(/\bAI Assistant\b/gi, "Aipify Companion")
     .replace(/\bAI Follow-Up\b/gi, "Aipify Follow-Up")
     .replace(/\bAI Insight\b/gi, "Aipify Insight")
     .replace(/\bAI Recommendation\b/gi, "Aipify Recommendation")
+    .replace(/\bAI Chat\b/gi, "Aipify Companion")
+    .replace(/\bAI Companion\b/gi, "Aipify Companion")
     .replace(/\bAI Recommendations\b/gi, "Aipify Recommendations");
 }
 

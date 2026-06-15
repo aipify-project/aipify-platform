@@ -11,8 +11,42 @@ export const ASSET_CATEGORIES = [
 ] as const;
 export type AssetCategory = (typeof ASSET_CATEGORIES)[number];
 
-export const ASSET_STATUSES = ["draft", "published", "archived"] as const;
+export const ASSET_STATUSES = ["draft", "under_review", "approved", "published", "archived"] as const;
 export type AssetStatus = (typeof ASSET_STATUSES)[number];
+
+export const REQUEST_TYPES = [
+  "local_campaign",
+  "industry_campaign",
+  "language_adaptation",
+  "event_materials",
+  "presentation_concept",
+  "customer_collateral",
+] as const;
+export type RequestType = (typeof REQUEST_TYPES)[number];
+
+export const WORKFLOW_STAGES = [
+  "submitted",
+  "brand_review",
+  "design_production",
+  "legal_review",
+  "approved",
+  "published",
+] as const;
+export type WorkflowStage = (typeof WORKFLOW_STAGES)[number];
+
+export const APPROVED_MATERIAL_TYPES = [
+  "logos",
+  "social_media_graphics",
+  "presentation_decks",
+  "product_brochures",
+  "email_templates",
+  "case_studies",
+  "campaign_assets",
+  "video_materials",
+  "event_materials",
+  "sales_one_pagers",
+] as const;
+export type ApprovedMaterialType = (typeof APPROVED_MATERIAL_TYPES)[number];
 
 export const CAMPAIGN_TYPES = [
   "awareness",
@@ -55,16 +89,33 @@ export type MarketingSurface = (typeof MARKETING_SURFACES)[number];
 
 export const PROHIBITED_ACTIONS = [
   "modify_official_logos",
-  "promise_unavailable_features",
-  "misleading_pricing",
-  "outdated_presentations",
+  "unofficial_advertisements",
+  "self_made_videos",
+  "unofficial_brochures",
+  "edit_recolor_assets",
+  "alter_messaging",
+  "unofficial_landing_pages",
+  "independent_certification",
+  "unofficial_social_campaigns",
+  "ai_generated_unofficial",
 ] as const;
 export type ProhibitedAction = (typeof PROHIBITED_ACTIONS)[number];
 
 export const STATUS_BADGES: Record<AssetStatus, string> = {
   draft: "bg-amber-50 text-amber-900 ring-amber-200",
+  under_review: "bg-blue-50 text-blue-900 ring-blue-200",
+  approved: "bg-emerald-50 text-emerald-900 ring-emerald-200",
   published: "bg-green-50 text-green-800 ring-green-200",
   archived: "bg-slate-100 text-slate-700 ring-slate-200",
+};
+
+export const WORKFLOW_STAGE_BADGES: Record<WorkflowStage, string> = {
+  submitted: "bg-slate-100 text-slate-700 ring-slate-200",
+  brand_review: "bg-blue-50 text-blue-900 ring-blue-200",
+  design_production: "bg-indigo-50 text-indigo-900 ring-indigo-200",
+  legal_review: "bg-purple-50 text-purple-900 ring-purple-200",
+  approved: "bg-emerald-50 text-emerald-900 ring-emerald-200",
+  published: "bg-green-50 text-green-800 ring-green-200",
 };
 
 export const CAMPAIGN_STATUS_BADGES: Record<CampaignStatus, string> = {

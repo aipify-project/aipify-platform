@@ -1,0 +1,50 @@
+AIPIFY HOSTS — FOUNDATION 01
+PROPERTY LICENSING & COMMERCIAL PACK FOUNDATION
+
+PURPOSE
+Establish property-based licensing, module entitlements, and commercial pack rules for Aipify Hosts before hospitality phases ship.
+
+POSITIONING
+Hosts pay for operational capacity — not booking platform replacement.
+
+PROPERTY TIERS
+hosts_starter — 1–2 properties
+hosts_professional — 3–25 properties
+hosts_enterprise — 25+ properties, multi-location administration
+
+MODULE ENTITLEMENTS
+Starter: guest_operations, property_operations, hospitality_knowledge, executive_operations
+Professional: Starter + cleaner_operations, revenue_intelligence, property_health_score, team_operations
+Enterprise: Professional + guest_experience_companion, incident_claims, enterprise governance, advanced approvals
+
+CAPACITY RULES
+assert_license_capacity applies before property activation
+Property count scoped per tenant via aipify_hosts_settings
+Upgrade required when property_count exceeds package limit
+Paused license retains settings — never deletes property metadata
+
+INTEGRATIONS
+License Center — get_customer_license_center
+Commercial Packages — is_tenant_module_enabled('hospitality')
+Business pack — business_packs.pack_key = hospitality
+
+GOVERNANCE
+Owner/admin required for package changes
+Property additions audit logged
+Human oversight default ON
+
+SECURITY
+Tenant isolation mandatory
+Metadata-only property records until channel connectors approved
+No cross-tenant portfolio visibility in Customer App
+
+ROUTES
+/app/aipify-hosts — primary workspace
+/app/settings/billing — package management
+/app/license — Trust & License Center
+
+TERMINOLOGY
+Aipify Hosts — Business Operating System for hospitality
+Never AI-powered · Never booking platform replacement
+
+END OF FOUNDATION.

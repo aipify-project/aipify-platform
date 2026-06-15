@@ -18,7 +18,7 @@ Code constants: `lib/core/foundation.ts` · Product modules: `lib/core/plans.ts`
 
 ## 1. Aipify Identity — Who is Aipify?
 
-Aipify is an **AI-powered operations platform**. It exists to reduce stress, improve operational efficiency, and help businesses focus on growth.
+Aipify is an **operational business platform**. It exists to reduce stress, improve operational efficiency, and help businesses focus on growth.
 
 ### Aipify is
 

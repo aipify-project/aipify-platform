@@ -35,13 +35,13 @@
   "lastSynced": "Last synced",
   "neverSynced": "Never synced",
   "modulesList": {
-    "support_ai": "Aipify Support AI",
-    "analytics_ai": "Aipify Analytics AI",
-    "assistant": "Aipify Assistant",
-    "commerce_ai": "Aipify Commerce AI",
+    "support_ai": "Aipify Aipify Support",
+    "analytics_ai": "Aipify Aipify Analytics",
+    "assistant": "Aipify Companion",
+    "commerce_ai": "Aipify Aipify Commerce",
     "notifications": "Aipify Notifications",
-    "install_ai": "Aipify Install AI",
-    "moderation_ai": "Aipify Moderation AI",
+    "install_ai": "Aipify Install",
+    "moderation_ai": "Aipify Moderation",
     "executive_insights": "Executive Insights"
   },
   "integrationsList": {

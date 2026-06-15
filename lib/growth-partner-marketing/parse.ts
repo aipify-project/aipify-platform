@@ -1,4 +1,5 @@
 import {
+  APPROVED_MATERIAL_TYPES,
   ASSET_CATEGORIES,
   ASSET_STATUSES,
   CAMPAIGN_STATUSES,
@@ -7,6 +8,8 @@ import {
   MARKETING_LANGUAGES,
   PRESENTATION_TYPES,
   PROHIBITED_ACTIONS,
+  REQUEST_TYPES,
+  WORKFLOW_STAGES,
 } from "./constants";
 import type {
   BrandGuideline,
@@ -18,6 +21,9 @@ import type {
   MarketingEmailTemplate,
   MarketingOverview,
   MarketingPresentation,
+  MarketingRequest,
+  PolicySection,
+  WorkflowStageInfo,
 } from "./types";
 
 function asRecord(raw: unknown): Record<string, unknown> | null {
@@ -47,6 +53,7 @@ function parseOverview(raw: unknown): MarketingOverview {
     campaign_performance: asNumber(row.campaign_performance),
     upcoming_promotions: asNumber(row.upcoming_promotions),
     localized_resources: asNumber(row.localized_resources),
+    pending_requests: asNumber(row.pending_requests),
   };
 }
 
@@ -144,6 +151,44 @@ function parseAnalytics(raw: unknown): MarketingAnalytics {
   };
 }
 
+function parsePolicySection(raw: unknown): PolicySection | null {
+  const row = asRecord(raw);
+  if (!row?.id) return null;
+  return {
+    id: asString(row.id),
+    section_key: asString(row.section_key),
+    title: asString(row.title),
+    content: asString(row.content),
+    sort_order: asNumber(row.sort_order),
+  };
+}
+
+function parseMarketingRequest(raw: unknown): MarketingRequest | null {
+  const row = asRecord(raw);
+  if (!row?.id) return null;
+  return {
+    id: asString(row.id),
+    tenant_id: asString(row.tenant_id),
+    request_type: parseEnum(row.request_type, REQUEST_TYPES, "local_campaign"),
+    title: asString(row.title),
+    description: asString(row.description),
+    workflow_stage: parseEnum(row.workflow_stage, WORKFLOW_STAGES, "submitted"),
+    language: parseEnum(row.language, MARKETING_LANGUAGES, "en"),
+    industry: asString(row.industry),
+    created_at: asString(row.created_at),
+    updated_at: asString(row.updated_at),
+  };
+}
+
+function parseWorkflowStage(raw: unknown): WorkflowStageInfo | null {
+  const row = asRecord(raw);
+  if (!row?.stage) return null;
+  return {
+    stage: parseEnum(row.stage, WORKFLOW_STAGES, "submitted"),
+    label_key: asString(row.label_key, "submitted"),
+  };
+}
+
 function parseAudit(raw: unknown): MarketingAuditEntry | null {
   const row = asRecord(raw);
   if (!row?.id) return null;
@@ -178,6 +223,18 @@ export function parseGrowthPartnerMarketingCenter(raw: unknown): GrowthPartnerMa
     brand_guidelines: Array.isArray(row.brand_guidelines)
       ? row.brand_guidelines.map(parseGuideline).filter((g): g is BrandGuideline => g != null)
       : [],
+    policy: Array.isArray(row.policy)
+      ? row.policy.map(parsePolicySection).filter((p): p is PolicySection => p != null)
+      : [],
+    marketing_requests: Array.isArray(row.marketing_requests)
+      ? row.marketing_requests.map(parseMarketingRequest).filter((r): r is MarketingRequest => r != null)
+      : [],
+    workflow_stages: Array.isArray(row.workflow_stages)
+      ? row.workflow_stages.map(parseWorkflowStage).filter((s): s is WorkflowStageInfo => s != null)
+      : [],
+    approved_material_types: Array.isArray(row.approved_material_types)
+      ? row.approved_material_types.map((m) => parseEnum(m, APPROVED_MATERIAL_TYPES, "logos"))
+      : [],
     analytics: parseAnalytics(row.analytics),
     audit: Array.isArray(row.audit)
       ? row.audit.map(parseAudit).filter((a): a is MarketingAuditEntry => a != null)
@@ -189,5 +246,6 @@ export function parseGrowthPartnerMarketingCenter(raw: unknown): GrowthPartnerMa
       ? row.supported_languages.map((l) => asString(l))
       : [],
     principle: asString(row.principle),
+    foundation_principle: asString(row.foundation_principle),
   };
 }

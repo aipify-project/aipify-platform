@@ -12,7 +12,7 @@ export const COMPANY_MISSION_LEAD =
   "Develop intelligent software that empowers people — never built to replace them." as const;
 
 export const COMPANY_VISION_LEAD =
-  "One of the world's leading providers of AI-powered business operating systems." as const;
+  "One of the world's leading providers of Aipify-powered business operating systems." as const;
 
 export const COMPANY_SECONDARY_MESSAGING = [
   "Business Intelligence. Human Understanding.",

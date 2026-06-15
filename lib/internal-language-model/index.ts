@@ -215,6 +215,9 @@ export * from "./implementation-blueprint-phase217-vocabulary";
 export * from "./implementation-blueprint-phase218-vocabulary";
 export * from "./implementation-blueprint-phase219-vocabulary";
 export * from "./implementation-blueprint-phase220-vocabulary";
+export * from "./implementation-blueprint-airbnb01-vocabulary";
+export * from "./implementation-blueprint-airbnb03-vocabulary";
+export * from "./aipify-hosts-roadmap-vocabulary";
 export * from "./implementation-blueprint-phase221-vocabulary";
 export * from "./implementation-blueprint-phase222-vocabulary";
 export * from "./implementation-blueprint-phase223-vocabulary";
@@ -1042,6 +1045,20 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE219_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase219-aipify-employee-growth-career-development.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE220_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase220-aipify-wellbeing-sustainable-performance.txt";
+export const IMPLEMENTATION_BLUEPRINT_AIRBNB01_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-airbnb01-aipify-hosts.txt";
+export const AIPIFY_HOSTS_ROADMAP_CORPUS = "aipify-hosts/INDEX.text";
+export const AIPIFY_HOSTS_FOUNDATION_CORPUS = "aipify-hosts/FOUNDATION_01_PROPERTY_LICENSING.text";
+export const AIPIFY_HOSTS_PHASE_AIRBNB01_CORPUS = "aipify-hosts/PHASE_AIRBNB_01_HOSPITALITY_FOUNDATION.text";
+export const AIPIFY_HOSTS_PHASE_AIRBNB02_CORPUS = "aipify-hosts/PHASE_AIRBNB_02_BOOKING_INTELLIGENCE.text";
+export const IMPLEMENTATION_BLUEPRINT_AIRBNB03_CORPUS =
+  "aipify-core/knowledge/internal-language-model/implementation-blueprint-airbnb03-aipify-hosts-automation.txt";
+export const AIPIFY_HOSTS_PHASE_AIRBNB03_CORPUS = "aipify-hosts/PHASE_AIRBNB_03_HOSPITALITY_AUTOMATION.text";
+export const AIPIFY_HOSTS_PHASE_AIRBNB04_CORPUS = "aipify-hosts/PHASE_AIRBNB_04_GUEST_INTELLIGENCE.text";
+export const AIPIFY_HOSTS_PHASE_AIRBNB05_CORPUS = "aipify-hosts/PHASE_AIRBNB_05_TRUST_AND_COMPLIANCE.text";
+export const AIPIFY_HOSTS_PHASE_AIRBNB06_CORPUS = "aipify-hosts/PHASE_AIRBNB_06_EXPANSION_INTELLIGENCE.text";
+export const AIPIFY_HOSTS_PHASE_AIRBNB07_CORPUS = "aipify-hosts/PHASE_AIRBNB_07_OWNER_COMPANION.text";
+export const AIPIFY_HOSTS_PHASE_AIRBNB08_CORPUS = "aipify-hosts/PHASE_AIRBNB_08_OWNER_PORTAL.text";
 export const IMPLEMENTATION_BLUEPRINT_PHASE221_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase221-aipify-talent-acquisition-workforce-planning.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE222_CORPUS =

@@ -239,6 +239,8 @@
     "releaseManagementDescription": "Plan, approve, and coordinate platform releases.",
     "maintenanceScheduling": "Maintenance Scheduling",
     "maintenanceSchedulingDescription": "Schedule maintenance windows with customer notice.",
+    "playbooks": "Playbooks",
+    "playbooksDescription": "Publish templates, disable workflows, review failures, and analyze adoption.",
     "organizations": "Organizations",
     "organizationsDescription": "View and manage customer organizations.",
     "workspaceLifecycle": "Workspace Lifecycle",
@@ -257,6 +259,8 @@
     "paymentProvidersDescription": "Configure Klarna, Vipps MobilePay, Stripe, and DNB credentials.",
     "subscriptionMonitoring": "Subscription Monitoring",
     "subscriptionMonitoringDescription": "Track subscription state across the platform.",
+    "revenueOperations": "Revenue Operations",
+    "revenueOperationsDescription": "Orchestrate billing events, subscription activation, package sync, and failed activation recovery.",
     "revenueAnalytics": "Revenue Analytics",
     "revenueAnalyticsDescription": "Review aggregate revenue and growth signals.",
     "enterpriseContracts": "Enterprise Contracts",
@@ -279,6 +283,10 @@
     "partnerSupportDescription": "Handle partner escalations and operations.",
     "marketingManagement": "Marketing Management",
     "marketingManagementDescription": "Upload assets, publish campaigns, and manage brand standards.",
+    "contentRequests": "Content Requests",
+    "contentRequestsDescription": "Review partner resource requests, manage production, and publish to Marketing Center.",
+    "forecastingManagement": "Forecasting",
+    "forecastingManagementDescription": "Aggregate partner forecasts, coaching signals, and global probability assumptions.",
     "submissionQueue": "Submission Queue",
     "submissionQueueDescription": "Review marketplace skill submissions.",
     "approvalCenter": "Approval Center",
@@ -439,13 +447,15 @@
     "principle": "Professional tools create professional experiences — Growth Partners represent Aipify with consistency and accountability.",
     "emptyState": "Marketing Management requires Super Admin access.",
     "youDecide": "Publish only reviewed materials. Archive outdated assets promptly.",
+    "foundationPrinciple": "Professional brands are built through consistency. Equip Growth Partners with exceptional resources.",
     "overview": {
       "availableCampaigns": "Active campaigns",
       "marketingAssets": "Total assets",
       "recentlyUpdated": "Updated (30 days)",
       "campaignPerformance": "Avg. campaign score",
       "upcomingPromotions": "Scheduled promotions",
-      "localizedResources": "Languages available"
+      "localizedResources": "Languages available",
+      "pendingRequests": "Pending requests"
     },
     "sections": {
       "overview": "Overview",
@@ -454,7 +464,11 @@
       "emailTemplates": "Email templates",
       "presentations": "Presentations",
       "brandGuidelines": "Brand guidelines",
-      "prohibited": "Partner restrictions",
+      "brandPolicy": "Brand governance policy",
+      "approvedMaterials": "Approved material types",
+      "requestWorkflow": "Approval workflow",
+      "marketingRequests": "Marketing requests",
+      "prohibited": "Prohibited activities",
       "analytics": "Usage analytics",
       "audit": "Audit trail",
       "downloadCenter": "Downloads"
@@ -487,6 +501,8 @@
     },
     "assetStatuses": {
       "draft": "Draft",
+      "under_review": "Under review",
+      "approved": "Approved",
       "published": "Published",
       "archived": "Archived"
     },
@@ -526,10 +542,44 @@
       "da": "Danish"
     },
     "prohibited": {
-      "modify_official_logos": "Partners may not modify official logos.",
-      "promise_unavailable_features": "Partners may not promise unavailable features.",
-      "misleading_pricing": "Partners may not create misleading pricing materials.",
-      "outdated_presentations": "Partners may not use outdated presentations."
+      "modify_official_logos": "Modified versions of the Aipify logo.",
+      "unofficial_advertisements": "Unofficial advertisements using the Aipify brand.",
+      "self_made_videos": "Self-made videos representing Aipify.",
+      "unofficial_brochures": "Unofficial product brochures.",
+      "edit_recolor_assets": "Editing or recoloring official brand assets.",
+      "alter_messaging": "Altering approved messaging.",
+      "unofficial_landing_pages": "Unofficial landing pages using Aipify branding.",
+      "independent_certification": "Independent certification materials.",
+      "unofficial_social_campaigns": "Unofficial social campaigns claiming to represent Aipify.",
+      "ai_generated_unofficial": "Aipify-generated unofficial marketing materials."
+    },
+    "requestTypes": {
+      "local_campaign": "Local campaign",
+      "industry_campaign": "Industry campaign",
+      "language_adaptation": "Language adaptation",
+      "event_materials": "Event materials",
+      "presentation_concept": "Presentation concept",
+      "customer_collateral": "Customer collateral"
+    },
+    "workflowStages": {
+      "submitted": "Submitted",
+      "brand_review": "Brand review",
+      "design_production": "Design production",
+      "legal_review": "Legal review",
+      "approved": "Approved",
+      "published": "Published"
+    },
+    "approvedMaterials": {
+      "logos": "Logos",
+      "social_media_graphics": "Social media graphics",
+      "presentation_decks": "Presentation decks",
+      "product_brochures": "Product brochures",
+      "email_templates": "Email templates",
+      "case_studies": "Case studies",
+      "campaign_assets": "Campaign assets",
+      "video_materials": "Video materials",
+      "event_materials": "Event materials",
+      "sales_one_pagers": "Sales one-pagers"
     },
     "analytics": {
       "mostDownloaded": "Most downloaded assets",
@@ -542,7 +592,250 @@
       "publishCampaign": "Publish",
       "archiveCampaign": "Archive campaign",
       "archiveAsset": "Archive asset",
-      "uploadAsset": "Upload asset"
+      "uploadAsset": "Upload asset",
+      "submitRequest": "Submit request",
+      "advanceRequest": "Advance stage",
+      "rejectRequest": "Return for revision",
+      "approveAsset": "Approve asset",
+      "publishAsset": "Publish to center",
+      "logViolation": "Log violation"
+    },
+    "requestForm": {
+      "title": "Request title",
+      "description": "Description",
+      "requestType": "Request type",
+      "language": "Language",
+      "industry": "Industry",
+      "submit": "Submit"
+    }
+  },
+  "growthPartnerContentRequests": {
+    "title": "Content Requests",
+    "subtitle": "Review Growth Partner resource requests, manage production workflows, and publish completed assets to the Marketing Center.",
+    "loading": "Preparing Content Requests…",
+    "back": "Back to Super Admin",
+    "principle": "Growth Partners should spend their time building relationships — Aipify produces the professional resources.",
+    "foundationPrinciple": "Equip Growth Partners with exceptional resources that strengthen the brand worldwide.",
+    "emptyState": "Content Requests requires Super Admin access.",
+    "overview": {
+      "openRequests": "Open requests",
+      "inProduction": "In production",
+      "awaitingReview": "Awaiting QA review",
+      "completedRequests": "Completed",
+      "recentlyPublishedAssets": "Published (30 days)",
+      "averageDeliveryTime": "Avg. delivery time"
+    },
+    "sections": {
+      "overview": "Overview",
+      "requestForm": "New request",
+      "requests": "Content requests",
+      "workflow": "Production workflow",
+      "notifications": "Partner notifications",
+      "reporting": "Demand analytics",
+      "audit": "Audit trail",
+      "delivery": "Delivery channels"
+    },
+    "table": {
+      "title": "Title",
+      "type": "Type",
+      "status": "Status",
+      "priority": "Priority",
+      "progress": "Progress",
+      "owner": "Owner",
+      "partner": "Partner",
+      "industry": "Industry",
+      "audience": "Audience",
+      "actions": "Actions"
+    },
+    "resourceTypes": {
+      "social_media_campaign": "Social media campaign",
+      "tiktok_video": "TikTok video",
+      "linkedin_campaign": "LinkedIn campaign",
+      "presentation_deck": "Presentation deck",
+      "one_pager": "One-pager",
+      "industry_brochure": "Industry brochure",
+      "email_sequence": "Email sequence",
+      "webinar_materials": "Webinar materials",
+      "event_materials": "Event materials",
+      "customer_case_study": "Case study",
+      "product_demo_video": "Demo video",
+      "industry_campaign": "Industry campaign"
+    },
+    "targetAudiences": {
+      "small_business": "Small business",
+      "enterprise": "Enterprise",
+      "healthcare": "Healthcare",
+      "accounting": "Accounting",
+      "ecommerce": "E-commerce",
+      "education": "Education",
+      "government": "Government",
+      "manufacturing": "Manufacturing"
+    },
+    "requestStatuses": {
+      "submitted": "Submitted",
+      "under_review": "Under review",
+      "approved": "Approved",
+      "in_production": "In production",
+      "internal_review": "Internal review",
+      "published": "Published",
+      "declined": "Declined"
+    },
+    "workflowStages": {
+      "submitted": "Submitted",
+      "under_review": "Review",
+      "approved": "Approval",
+      "in_production": "Creation",
+      "internal_review": "QA",
+      "published": "Published"
+    },
+    "deliveryMethods": {
+      "marketing_center": "Marketing Center",
+      "direct_download": "Direct download",
+      "campaign_library": "Campaign library",
+      "presentation_center": "Presentation center"
+    },
+    "languages": { "en": "English", "no": "Norwegian", "sv": "Swedish", "da": "Danish" },
+    "notifications": {
+      "submitted": "Submitted",
+      "approved": "Approved",
+      "clarification_required": "Clarification",
+      "published": "Published",
+      "declined": "Declined"
+    },
+    "reporting": {
+      "mostRequested": "Most requested types",
+      "industryDemand": "Industry demand",
+      "avgProduction": "Avg. production time",
+      "satisfaction": "Satisfaction score"
+    },
+    "quickActions": {
+      "submitRequest": "Submit",
+      "approve": "Approve",
+      "decline": "Decline",
+      "assignOwner": "Assign owner",
+      "assignPartner": "Assign partner",
+      "clarify": "Clarify",
+      "startProduction": "Start production",
+      "advanceProduction": "Advance",
+      "publish": "Publish",
+      "archive": "Archive"
+    },
+    "requestForm": {
+      "title": "Title",
+      "resourceType": "Resource type",
+      "industry": "Industry",
+      "targetAudience": "Audience",
+      "country": "Country",
+      "language": "Language",
+      "businessObjective": "Objective",
+      "additionalNotes": "Notes",
+      "desiredCompletionDate": "Due date",
+      "submit": "Submit"
+    },
+    "duplicates": {
+      "heading": "Duplicate detection",
+      "recommend": "recommend existing asset"
+    }
+  },
+  "growthPartnerForecast": {
+    "title": "Growth Partner Forecasting",
+    "subtitle": "Aggregate partner revenue forecasts, identify coaching opportunities, monitor regional growth trends, and govern global probability assumptions.",
+    "loading": "Preparing Forecasting overview…",
+    "back": "Back to Super Admin",
+    "principle": "Visibility creates confidence. Planning creates resilience.",
+    "emptyState": "Forecasting requires Super Admin access.",
+    "youDecide": "Adjust assumptions thoughtfully — partners rely on consistent forecasting standards.",
+    "overview": {
+      "forecastedMonthlyRevenue": "Forecasted monthly revenue",
+      "forecastedAnnualRevenue": "Forecasted annual revenue",
+      "activeOpportunitiesValue": "Active opportunities value",
+      "expectedCommissions": "Expected commissions",
+      "renewalOpportunities": "Renewal opportunities",
+      "expansionOpportunities": "Expansion opportunities",
+      "weightedPipeline": "Weighted pipeline value",
+      "qualifiedPipeline": "Qualified pipeline",
+      "proposalStage": "Proposal stage revenue",
+      "negotiationStage": "Negotiation revenue"
+    },
+    "sections": {
+      "overview": "Aggregate partner forecasts",
+      "pipeline": "Pipeline forecasting",
+      "renewals": "Renewal forecasting",
+      "expansions": "Expansion forecasting",
+      "goals": "Goal planning",
+      "scenarios": "Scenario planning",
+      "probabilities": "Global probability assumptions",
+      "recommendations": "Coaching signals",
+      "audit": "Audit trail",
+      "reporting": "Reporting"
+    },
+    "table": {
+      "company": "Partner",
+      "stage": "Stage",
+      "value": "Value",
+      "weighted": "Weighted",
+      "closeDate": "Expected close",
+      "customer": "Customer",
+      "renewalDate": "Renewal date",
+      "probability": "Probability",
+      "target": "Target",
+      "current": "Current",
+      "progress": "Progress",
+      "period": "Period",
+      "revenue": "Revenue",
+      "commissions": "Commissions",
+      "actions": "Actions"
+    },
+    "pipelineStages": {
+      "discovery": "Discovery",
+      "demonstration": "Demonstration",
+      "proposal": "Proposal",
+      "negotiation": "Negotiation",
+      "verbal_agreement": "Verbal agreement",
+      "closed_won": "Closed won",
+      "closed_lost": "Closed lost"
+    },
+    "forecastPeriods": {
+      "next_30_days": "Next 30 days",
+      "next_quarter": "Next quarter",
+      "next_6_months": "Next 6 months",
+      "next_12_months": "Next 12 months"
+    },
+    "scenarios": {
+      "conservative": "Conservative growth",
+      "expected": "Expected growth",
+      "ambitious": "Ambitious growth"
+    },
+    "goalPeriods": {
+      "monthly": "Monthly goal",
+      "quarterly": "Quarterly goal",
+      "annual": "Annual target"
+    },
+    "expansionTypes": {
+      "additional_users": "Additional users",
+      "higher_tier_plan": "Higher-tier plan",
+      "additional_modules": "Additional modules",
+      "multi_domain": "Multi-domain expansion",
+      "enterprise_transition": "Enterprise transition"
+    },
+    "probabilities": {
+      "discovery": "Discovery (%)",
+      "demonstration": "Demonstration (%)",
+      "proposal": "Proposal (%)",
+      "negotiation": "Negotiation (%)",
+      "verbalAgreement": "Verbal agreement (%)"
+    },
+    "recommendations": {
+      "focusRenewals": "Partner should focus on renewals — customers require attention.",
+      "pipelineActivity": "Pipeline requires additional activity.",
+      "expansionDetected": "Expansion opportunities detected.",
+      "retentionImprovement": "Customer retention improvements recommended."
+    },
+    "quickActions": {
+      "exportPdf": "Export PDF",
+      "exportExcel": "Export Excel",
+      "exportCsv": "Export CSV",
+      "regenerate": "Save assumptions"
     }
   }
 }

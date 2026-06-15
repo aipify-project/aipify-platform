@@ -2,7 +2,7 @@
 
 ## What is the Admin Assistant?
 
-The Admin Assistant is an AI-powered helper designed to support daily administrative activities.
+The Admin Assistant is an Aipify-powered helper designed to support daily administrative activities.
 
 ## Can the Admin Assistant perform actions automatically?
 

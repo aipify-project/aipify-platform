@@ -1,0 +1,29 @@
+AIPIFY HOSTS — Phase Airbnb 03
+Hospitality Automation & Real-World Action Engine
+
+POSITIONING
+Aipify doesn't just tell hosts what to do. It helps them get it done.
+
+ROUTE /app/aipify-hosts/automation
+
+MODULES
+arrival_automation — countdown, cleaner verification, welcome scheduling
+smart_lock_orchestration — access schedules, reminders (approval for permission changes)
+local_service_coordination — vendor directory, task requests
+guest_experience_enhancement — special occasions (host approval required)
+emergency_response — lockouts, leaks, heating failures, checklists
+recurring_task_automation — seasonal maintenance, cleaner prompts
+hospitality_playbook — check-in, check-out, emergency playbooks
+supply_management — inventory thresholds, restocking reminders
+hospitality_assistant_companion — daily briefings, Aipify Recommendations
+approvals_governance — Level 1–4 gates, audit logging
+
+APPROVAL LEVELS
+1 Information · 2 Acknowledgement · 3 Host approval · 4 Enterprise authorization
+
+GOVERNANCE
+Humans remain in control · All actions audit logged · Sensitive actions require approval
+
+TERMINOLOGY
+Hospitality Assistant Companion — not AI assistant
+Aipify Recommendations — never AI recommendations

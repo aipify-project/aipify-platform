@@ -55,6 +55,10 @@
     "platformKnowledgeEvolutionCenter": "Kunskapsevolution",
     "platformComplianceGovernanceCenter": "Compliance-center",
     "platformPlaybookCenter": "Playbooks",
+    "platformAcademyStudio": "Growth Partner Academy",
+    "skillsMarketplace": "Skills Marketplace",
+    "companionMarketplace": "Companion Marketplace",
+    "skillGovernancePipeline": "Skill Governance Pipeline",
     "pilotOperations": "Customer Zero-center",
     "enterpriseInvoices": "Enterprise-fakturor",
     "paymentOperations": "Betalningsoperationscenter",
@@ -566,7 +570,7 @@
     "lastSyncEntry": "Last successful sync: {date}",
     "never": "Never",
     "health": "Health",
-    "lastAiScan": "Last AI Scan",
+    "lastAiScan": "Last Aipify scan",
     "issuesDetected": "Issues",
     "automationStatus": "Automation",
     "automationActive": "Active",
@@ -575,7 +579,7 @@
   },
   "support": {
     "title": "Support",
-    "subtitle": "Internal support queue with AI escalation visibility.",
+    "subtitle": "Internal support queue with Aipify escalation visibility.",
     "loading": "Loading support queue...",
     "empty": "No support cases yet.",
     "customer": "Customer",
@@ -584,7 +588,7 @@
     "assignee": "Assignee",
     "lastUpdated": "Last updated",
     "subject": "Subject",
-    "aiEscalation": "AI escalation",
+    "aiEscalation": "Aipify escalation",
     "aiCouldNotResolve": "Aipify eskalerade ärendet för mänsklig granskning",
     "requiresHumanReview": "Requires human review",
     "unassigned": "Unassigned",
@@ -602,7 +606,7 @@
       "urgent": "Urgent"
     },
     "counters": {
-      "resolvedByAi": "Resolved by Aipify",
+      "resolvedByAi": "Resolved by Aipifypifypify",
       "escalatedByAi": "Escalated by Aipify",
       "waitingHuman": "Waiting for Human",
       "openCases": "Open Cases"
@@ -902,7 +906,7 @@
     "principle": "Kundens affärsdata stannar hos kunden. Aipify lagrar bevis på värde, inte privata affärsdata.",
     "cards": {
       "supportResolved": "Supportärenden lösta",
-      "actionsCompleted": "AI-åtgärder slutförda",
+      "actionsCompleted": "Aipify-åtgärder slutförda",
       "recommendations": "Rekommendationer genererade",
       "selfHealing": "Self-healing-händelser",
       "responseTimeSaved": "Svarstid sparad",
@@ -1063,7 +1067,7 @@
     "degraded": "Degraded",
     "outage": "Outage",
     "pending": "Pending setup",
-    "aiSummaryTitle": "AI System Summary",
+    "aiSummaryTitle": "Aipify System Summary",
     "services": {
       "supabase": "Supabase",
       "resend": "Resend",
@@ -1122,7 +1126,7 @@
     "lastContact": "Last contact",
     "assignedAgent": "Assigned agent",
     "subject": "Subject",
-    "aiInsightsTitle": "AI Insights",
+    "aiInsightsTitle": "Aipify Insights",
     "noData": "No data available yet.",
     "hours": "hours",
     "tabs": {
@@ -1217,12 +1221,12 @@
         "user": "Användare",
         "integrations": "Integrationer",
         "system": "System",
-        "ai_recommendation": "AI-rekommendationer",
+        "ai_recommendation": "Aipify-innsikter",
         "subscription": "Prenumeration"
       }
     },
     "recommendationFeed": {
-      "empty": "Inga AI-rekommendationer genererade."
+      "empty": "Inga Aipify-innsikter genererade."
     },
     "automationsTab": {
       "empty": "Inga automationskörningar registrerade.",
@@ -1236,7 +1240,7 @@
       }
     },
     "successScoreExplanation": {
-      "title": "AI Health Score",
+      "title": "Aipify Health Score",
       "basedOn": "Based on",
       "expansionTitle": "Expansion Opportunities",
       "eligible": "Eligible",
@@ -1255,8 +1259,8 @@
       "expansionLabels": {
         "extraDomains": "Eligible for extra domains",
         "supportAiUpgrade": "Suitable for Aipify Support upgrade",
-        "analyticsAi": "Suitable for Analytics AI",
-        "commerceAi": "Suitable for Commerce AI"
+        "analyticsAi": "Suitable for Aipify Analytics",
+        "commerceAi": "Suitable for Aipify Commerce"
       }
     }
   },
@@ -2315,191 +2319,394 @@
   },
   "paymentAnalytics": {
     "title": "Payment Analytics Center",
-    "subtitle": "Real-time visibility into payment performance across all providers.",
-    "loading": "Preparing payment analytics…",
-    "back": "Back to billing",
-    "principle": "Real-time payment visibility supports confident platform decisions without exposing customer operational records.",
-    "emptyState": "No payment activity recorded yet.",
+    "subtitle": "Finansiell intelligens på ledningsnivå för alla betalningsleverantörer.",
+    "loading": "Förbereder betalningsanalys…",
+    "back": "Tillbaka till fakturering",
+    "principle": "Analys ska hjälpa ledningen förstå varför resultaten förändrades, vad det betyder och vad som bör hända härnäst.",
+    "emptyState": "Ingen betalningsaktivitet registrerad ännu.",
     "sections": {
-      "overview": "Overview",
-      "providerBreakdown": "Revenue by provider",
-      "revenueOverTime": "Revenue over time",
-      "providerDistribution": "Payment provider distribution",
-      "segments": "Customer segments",
-      "topEnterprise": "Top enterprise customers",
-      "failedInsights": "Failed payment insights",
-      "filters": "Filters",
-      "exports": "Exports"
+      "executiveSnapshot": "Finansiell översikt för ledningen",
+      "overview": "Översikt",
+      "providerBreakdown": "Prestanda per betalningsleverantör",
+      "revenueOverTime": "Intäkter över tid",
+      "providerDistribution": "Fördelning per betalningsleverantör",
+      "segments": "Kundsegment",
+      "topEnterprise": "Topp enterprise-kunder",
+      "failedInsights": "Insikter om misslyckade betalningar",
+      "filters": "Filter",
+      "exports": "Exportcenter",
+      "executiveInsights": "Ledningsinsikter",
+      "forecasting": "Prognoser"
+    },
+    "executive": {
+      "totalRevenue": "Total intäkt",
+      "recurringRevenue": "Återkommande intäkt (MRR)",
+      "revenueGrowth": "Intäktstillväxt",
+      "averageTransactionValue": "Genomsnittligt transaktionsvärde",
+      "netRevenue": "Nettointäkt efter återbetalningar",
+      "paymentSuccessRate": "Betalningsframgång",
+      "customerLifetimeValue": "Kundens livstidsvärde",
+      "clvFuture": "Kommer i en framtida fas"
     },
     "overview": {
-      "revenueToday": "Revenue today",
-      "revenueMonth": "Revenue this month",
-      "activeSubscriptions": "Active subscriptions",
-      "failedPayments": "Failed payments",
-      "arpc": "Average revenue per customer",
-      "churnedSubscriptions": "Churned subscriptions"
+      "revenueToday": "Intäkter idag",
+      "revenueMonth": "Intäkter denna månad",
+      "activeSubscriptions": "Aktiva prenumerationer",
+      "failedPayments": "Misslyckade betalningar",
+      "arpc": "Genomsnittlig intäkt per kund",
+      "churnedSubscriptions": "Uppsagda prenumerationer"
     },
     "provider": {
-      "revenue30d": "Revenue (30d)",
-      "transactions": "Transactions",
-      "successRate": "Success rate",
-      "refunds": "Refunds",
-      "failedPayments": "Failed payments"
+      "revenue30d": "Intäkter (30d)",
+      "transactions": "Transaktioner",
+      "successRate": "Framgångsgrad",
+      "refunds": "Återbetalningar",
+      "failedPayments": "Misslyckade betalningar",
+      "averageTransactionValue": "Genomsnittligt transaktionsvärde",
+      "revenueGrowth": "Intäktstillväxt",
+      "chargebackRate": "Chargeback-frekvens",
+      "lastHealthCheck": "Senaste hälsokontroll",
+      "rankingTopPerformer": "#1 Toppresultat",
+      "rankingStable": "Stabil",
+      "rankingNeedsReview": "Behöver granskning"
     },
     "charts": {
-      "range7d": "Last 7 days",
-      "range30d": "Last 30 days",
-      "range12m": "Last 12 months"
+      "range7d": "Senaste 7 dagarna",
+      "range30d": "Senaste 30 dagarna",
+      "range12m": "Senaste 12 månaderna",
+      "metricRevenue": "Intäkter",
+      "metricTransactions": "Transaktioner",
+      "metricRefunds": "Återbetalningar",
+      "metricNetRevenue": "Nettointäkt",
+      "metricSubscriptions": "Prenumerationer",
+      "metricFailedPayments": "Misslyckade betalningar"
     },
     "segments": {
-      "selfService": "Self-service customers",
-      "enterprise": "Enterprise customers"
+      "self_service": "Självbetjäning",
+      "smb": "SMB",
+      "growth_customers": "Tillväxtkunder",
+      "enterprise": "Enterprise",
+      "pilot_customers": "Pilotkunder",
+      "internal_testing": "Intern testning"
+    },
+    "segmentMetrics": {
+      "revenue": "Intäkter",
+      "growth": "Tillväxt",
+      "customers": "Kunder",
+      "averageSpend": "Genomsnittligt spend"
+    },
+    "distribution": {
+      "concentrationWarning": "{percentage}% av intäkterna går via {provider}.",
+      "enterpriseConcentrationWarning": "{percentage}% av enterprise-intäkterna beror på {provider}.",
+      "diversifyRecommendation": "Överväg att diversifiera betalningsmetoder för att minska koncentrationsrisk."
     },
     "table": {
-      "customer": "Customer",
-      "revenue": "Revenue",
-      "openInvoices": "Open invoices",
-      "lastPayment": "Last payment",
+      "customer": "Kund",
+      "revenue": "Intäkter",
+      "openInvoices": "Öppna fakturor",
+      "lastPayment": "Senaste betalning",
       "status": "Status",
-      "provider": "Provider",
-      "failureReason": "Failure reason",
-      "retryCount": "Retry count",
-      "recommendedAction": "Recommended action"
+      "provider": "Leverantör",
+      "failureReason": "Felorsak",
+      "retryCount": "Antal försök",
+      "recommendedAction": "Rekommenderad åtgärd",
+      "arrEstimate": "ARR-uppskattning",
+      "contractValue": "Kontraktsvärde",
+      "renewalDate": "Förnyelsedatum",
+      "healthScore": "Kontohälsa",
+      "customerOwner": "Kundansvarig",
+      "expansionOpportunity": "Expansionsmöjlighet",
+      "severity": "Allvarlighetsgrad",
+      "amountAffected": "Påverkat belopp",
+      "assignedOwner": "Tilldelad ansvarig"
     },
     "filters": {
-      "dateFrom": "Date from",
-      "dateTo": "Date to",
-      "provider": "Provider",
-      "customerType": "Customer type",
-      "country": "Country",
-      "allProviders": "All providers",
-      "allTypes": "All customer types",
-      "allCountries": "All countries",
-      "apply": "Apply filters"
+      "dateFrom": "Datum från",
+      "dateTo": "Datum till",
+      "provider": "Leverantör",
+      "customerType": "Kundtyp",
+      "country": "Land",
+      "currency": "Valuta",
+      "subscriptionPlan": "Prenumerationsplan",
+      "growthPartner": "Growth Partner",
+      "customerSegment": "Kundsegment",
+      "allProviders": "Alla leverantörer",
+      "allTypes": "Alla kundtyper",
+      "allCountries": "Alla länder",
+      "allCurrencies": "Alla valutor",
+      "allPlans": "Alla planer",
+      "allPartners": "Alla partners",
+      "allSegments": "Alla segment",
+      "apply": "Tillämpa filter",
+      "presets": {
+        "today": "Idag",
+        "7d": "Senaste 7 dagarna",
+        "30d": "Senaste 30 dagarna",
+        "quarter": "Kvartal",
+        "ytd": "Hittills i år",
+        "previous_year": "Föregående år"
+      }
     },
     "exports": {
-      "csv": "Export CSV",
-      "excel": "Export Excel",
-      "pdf": "Export PDF",
-      "exporting": "Exporting…"
+      "csv": "Exportera CSV",
+      "excel": "Exportera Excel",
+      "pdf": "Exportera PDF",
+      "boardReport": "Styrelserapport PDF",
+      "executiveSummary": "Ledningssammanfattning PDF",
+      "financeFiken": "Finansexport (Fiken)",
+      "auditorPackage": "Revisionspaket",
+      "quarterlyRevenue": "Kvartalsintäktsrapport",
+      "exporting": "Exporterar…"
+    },
+    "insights": {
+      "title": "Ledningsinsikter",
+      "recommendedAction": "Rekommenderad åtgärd",
+      "empty": "Inga ledningsinsikter för vald period."
+    },
+    "forecasting": {
+      "title": "Prognoser",
+      "projectedRevenue": "Förväntade intäkter nästa månad",
+      "projectedArr": "Förväntad ARR",
+      "subscriptionGrowth": "Förväntad prenumerationstillväxt",
+      "predictedChurn": "Förväntad churn",
+      "confidence": "Prognoskonfidens",
+      "futureNote": "Prediktiv intäktsintelligens planeras i en framtida fas. Historisk analys är fullt tillgänglig ovan."
+    },
+    "expansion": {
+      "high": "Hög",
+      "medium": "Medel",
+      "low": "Låg"
+    },
+    "severities": {
+      "low": "Låg risk",
+      "medium": "Medel risk",
+      "critical": "Kritisk risk"
     },
     "providers": {
       "stripe": "Stripe",
       "vipps": "Vipps MobilePay",
       "klarna": "Klarna",
-      "dnb": "DNB Invoice"
+      "dnb": "DNB Faktura"
     },
     "customerTypes": {
-      "self_service": "Self-service",
+      "self_service": "Självbetjäning",
       "enterprise": "Enterprise"
     },
     "enterpriseStatuses": {
-      "current": "Current",
-      "attention": "Requires attention"
+      "current": "Aktuell",
+      "attention": "Kräver uppmärksamhet"
     },
     "chartRanges": {
-      "7d": "7 days",
-      "30d": "30 days",
-      "12m": "12 months"
+      "7d": "7 dagar",
+      "30d": "30 dagar",
+      "12m": "12 månader"
+    },
+    "chartMetrics": {
+      "revenue": "Intäkter",
+      "transactions": "Transaktioner",
+      "refunds": "Återbetalningar",
+      "net_revenue": "Nettointäkt",
+      "subscriptions": "Prenumerationer",
+      "failed_payments": "Misslyckade betalningar"
     },
     "exportFormats": {
       "csv": "CSV",
       "xlsx": "Excel",
-      "pdf": "PDF"
+      "pdf": "PDF",
+      "board_report": "Styrelserapport",
+      "executive_summary": "Ledningssammanfattning",
+      "finance_fiken": "Fiken-export",
+      "auditor_package": "Revisionspaket",
+      "quarterly_revenue": "Kvartalsintäkter"
     }
   },
   "subscriptionOperations": {
     "title": "Subscription Operations Center",
-    "subtitle": "Centralized subscription management for all Aipify customers.",
-    "loading": "Preparing subscription operations…",
-    "back": "Back to billing",
-    "principle": "Centralized subscription operations give Aipify Group AS confident control over customer lifecycle and revenue.",
-    "emptyState": "No subscriptions found.",
+    "subtitle": "Customer Lifecycle Control Center för prenumerationsretention, tillväxt och förutsägbar intäkt.",
+    "loading": "Förbereder prenumerationsdrift…",
+    "back": "Tillbaka till fakturering",
+    "principle": "Prenumerationer ska förstås, skyddas, utökas och vårdas genom hela kundresan.",
+    "emptyState": "Inga prenumerationer hittades.",
     "sections": {
-      "overview": "Overview",
-      "subscriptions": "Subscription table",
-      "trials": "Trial management",
-      "upgrades": "Upgrades",
-      "downgrades": "Downgrades",
-      "renewals": "Renewals",
-      "pastDue": "Past due center",
-      "enterpriseContracts": "Enterprise contracts",
-      "audit": "Audit log",
-      "filters": "Filters"
+      "executiveSnapshot": "Ledningsöversikt prenumerationer",
+      "overview": "Översikt",
+      "subscriptions": "Prenumerationstabell",
+      "healthScoring": "Kundhälsopoäng",
+      "trials": "Testperiodscenter",
+      "upgrades": "Uppgraderingar",
+      "downgrades": "Nedgraderingar",
+      "renewals": "Förnyelsekommandocenter",
+      "pastDue": "Förfallet center",
+      "enterpriseContracts": "Enterprise-kontraktscenter",
+      "lifecycleTimeline": "Kundlivscykel tidslinje",
+      "executiveInsights": "Ledningsinsikter",
+      "revenueAtRisk": "Intäkt i risk",
+      "growthOpportunities": "Tillväxtmöjlighetscenter",
+      "audit": "Revisionslogg",
+      "filters": "Filter",
+      "forecasting": "Prognoser"
     },
-    "overview": {
-      "active": "Active subscriptions",
-      "trials": "Trial accounts",
-      "renewals": "Upcoming renewals",
-      "upgrades": "Upgrades this month",
-      "downgrades": "Downgrades this month",
-      "cancelled": "Cancelled subscriptions"
+    "executive": {
+      "mrr": "MRR",
+      "arr": "ARR",
+      "netGrowth": "Netto prenumerationstillväxt",
+      "conversionRate": "Test-till-betald konvertering",
+      "renewalRisk": "Intäkt i förnyelserisk",
+      "acv": "Genomsnittligt kontraktsvärde",
+      "active": "Aktiva prenumerationer",
+      "trials": "Testkonton",
+      "renewals": "Kommande förnyelser",
+      "upgrades": "Uppgraderingar denna månad",
+      "downgrades": "Nedgraderingar denna månad",
+      "cancelled": "Uppsagda prenumerationer"
     },
+    "health": {
+      "healthy": "Frisk (90–100)",
+      "stable": "Stabil (75–89)",
+      "attention": "Behöver uppmärksamhet (50–74)",
+      "critical": "Kritisk (under 50)"
+    },
+    "healthDescription": "Hälsopoäng kombinerar betalningsframgång, supportvolym, användningsaktivitet, förnyelsenärhet och tillväxttrender.",
     "table": {
-      "customer": "Customer",
+      "customer": "Kund",
       "plan": "Plan",
-      "users": "Users",
-      "billingProvider": "Billing provider",
-      "monthlyValue": "Monthly value",
-      "renewalDate": "Renewal date",
+      "users": "Användare",
+      "billingProvider": "Faktureringsleverantör",
+      "monthlyValue": "Månatligt värde",
+      "mrrContribution": "MRR-bidrag",
+      "renewalDate": "Förnyelsedatum",
       "status": "Status",
-      "actions": "Actions",
-      "previousPlan": "Previous plan",
-      "newPlan": "New plan",
-      "effectiveDate": "Effective date",
-      "revenueImpact": "Revenue impact",
-      "reason": "Reason",
-      "trialStart": "Trial start",
-      "trialEnd": "Trial end",
-      "daysRemaining": "Days remaining",
-      "conversionProbability": "Conversion probability",
-      "outstandingAmount": "Outstanding amount",
-      "daysOverdue": "Days overdue",
-      "paymentProvider": "Payment provider",
-      "recommendedAction": "Recommended action",
-      "contractStart": "Contract start",
-      "contractEnd": "Contract end",
-      "paymentTerms": "Payment terms",
-      "accountManager": "Account manager",
-      "event": "Event"
+      "actions": "Åtgärder",
+      "previousPlan": "Föregående plan",
+      "newPlan": "Ny plan",
+      "effectiveDate": "Ikraftträdandedatum",
+      "revenueImpact": "Intäktspåverkan",
+      "mrrImpact": "MRR-påverkan",
+      "reason": "Orsak",
+      "trialStart": "Testperiod start",
+      "trialEnd": "Testperiod slut",
+      "daysRemaining": "Dagar kvar",
+      "conversionProbability": "Konverteringssannolikhet",
+      "usageScore": "Användningspoäng",
+      "growthPartner": "Growth Partner",
+      "outstandingAmount": "Utestående belopp",
+      "daysOverdue": "Dagar förfallna",
+      "paymentProvider": "Betalningsleverantör",
+      "recommendedAction": "Rekommenderad åtgärd",
+      "contractStart": "Kontraktstart",
+      "contractEnd": "Kontraktsslut",
+      "contractValue": "Kontraktsvärde",
+      "paymentTerms": "Betalningsvillkor",
+      "accountManager": "Kundansvarig",
+      "event": "Händelse",
+      "healthScore": "Hälsopoäng",
+      "renewalProbability": "Förnyelsesannolikhet",
+      "contractType": "Kontraktstyp",
+      "accountOwner": "Kontoinnehavare",
+      "lastInteraction": "Senaste interaktion",
+      "riskLevel": "Risknivå",
+      "retryAttempts": "Antal försök",
+      "nextStep": "Rekommenderat nästa steg",
+      "expansionOpportunity": "Expansionsmöjlighet",
+      "contractHealth": "Kontrakthälsa",
+      "upcomingMilestone": "Kommande milstolpe",
+      "actor": "Utförd av",
+      "financialImpact": "Finansiell påverkan",
+      "automation": "Automatisering",
+      "approval": "Manuellt godkännande",
+      "date": "Datum",
+      "signal": "Signal",
+      "recommendation": "Rekommendation",
+      "priority": "Prioritet"
     },
     "statuses": {
-      "trial": "Trial",
-      "active": "Active",
-      "past_due": "Past due",
-      "suspended": "Suspended",
-      "cancelled": "Cancelled",
-      "enterprise_contract": "Enterprise contract"
+      "trial": "Testperiod",
+      "active": "Aktiv",
+      "past_due": "Förfallen",
+      "suspended": "Pausad",
+      "cancelled": "Uppsagd",
+      "enterprise_contract": "Enterprise"
+    },
+    "riskLevels": {
+      "healthy": "Frisk",
+      "needs_attention": "Behöver uppmärksamhet",
+      "high_risk": "Hög risk"
+    },
+    "expansion": {
+      "high": "Hög",
+      "medium": "Medel",
+      "low": "Låg"
     },
     "actions": {
-      "view": "View subscription",
-      "upgrade": "Upgrade plan",
-      "downgrade": "Downgrade plan",
-      "extendTrial": "Extend trial",
-      "suspend": "Suspend access",
-      "reactivate": "Reactivate",
-      "cancel": "Cancel subscription",
-      "convertToPaid": "Convert to paid",
-      "sendReminder": "Send reminder",
-      "applying": "Applying…"
+      "view": "Visa prenumeration",
+      "upgrade": "Uppgradera plan",
+      "downgrade": "Nedgradera plan",
+      "extendTrial": "Förläng testperiod",
+      "suspend": "Pausa åtkomst",
+      "reactivate": "Återaktivera",
+      "cancel": "Avsluta prenumeration",
+      "convertToPaid": "Konvertera till betald",
+      "sendReminder": "Skicka påminnelse",
+      "offerOnboarding": "Erbjud onboarding",
+      "discountCampaign": "Starta rabattkampanj",
+      "escalateSales": "Eskalera till försäljning",
+      "retryPayment": "Försök betalning igen",
+      "contactCustomer": "Kontakta kund",
+      "switchPaymentMethod": "Byt betalningsmetod",
+      "moveToCollections": "Skicka till inkasso",
+      "pauseAccess": "Pausa åtkomst",
+      "applying": "Utför…"
     },
     "filters": {
-      "plan": "Plan",
-      "status": "Status",
-      "country": "Country",
-      "provider": "Provider",
-      "renewalPeriod": "Renewal period",
-      "allPlans": "All plans",
-      "allStatuses": "All statuses",
-      "allCountries": "All countries",
-      "allProviders": "All providers",
-      "allRenewals": "All renewals",
-      "apply": "Apply filters"
+      "plan": "Plantyp",
+      "status": "Prenumerationsstatus",
+      "country": "Land",
+      "provider": "Betalningsleverantör",
+      "renewalPeriod": "Kommande förnyelse",
+      "growthPartner": "Growth Partner",
+      "accountManager": "Kundansvarig",
+      "allPlans": "Alla planer",
+      "allStatuses": "Alla statusar",
+      "allCountries": "Alla länder",
+      "allProviders": "Alla leverantörer",
+      "allRenewals": "Alla förnyelser",
+      "allPartners": "Alla partners",
+      "allManagers": "Alla ansvariga",
+      "apply": "Tillämpa filter",
+      "presets": {
+        "today": "Idag",
+        "7d": "Senaste 7 dagarna",
+        "30d": "Senaste 30 dagarna",
+        "quarter": "Kvartal",
+        "year": "År"
+      }
     },
     "renewals": {
-      "within7": "Within 7 days",
-      "within30": "Within 30 days",
-      "within90": "Within 90 days"
+      "within7": "Inom 7 dagar",
+      "within30": "Inom 30 dagar",
+      "within90": "Inom 90 dagar",
+      "commandCenter": "Förnyelsekommandocenter"
+    },
+    "insights": {
+      "recommendedAction": "Rekommenderad åtgärd",
+      "empty": "Inga ledningsinsikter för vald period."
+    },
+    "revenueAtRisk": {
+      "title": "Total intäkt i risk",
+      "pastDue": "Förfallna prenumerationer",
+      "lowHealth": "Prenumerationer med låg hälsa",
+      "enterpriseRenewals": "Kommande enterprise-förnyelser",
+      "decliningUsage": "Minskande användningsmönster",
+      "total": "Total exponering"
+    },
+    "growth": {
+      "empty": "Inga expansionsmöjligheter identifierade för aktuellt filter."
+    },
+    "lifecycle": {
+      "empty": "Inga livscykelhändelser registrerade ännu."
+    },
+    "forecasting": {
+      "futureNote": "Prediktiv churn-motor och tillväxtprognoser planeras i en framtida fas. Livscykelinsikt är fullt tillgänglig ovan."
     },
     "plans": {
       "starter": "Starter",
@@ -2674,7 +2881,7 @@
       "onboarding_completed": "Onboarding slutförd",
       "first_user_invited": "Första användare inbjuden",
       "first_integration_connected": "Första integration ansluten",
-      "first_ai_interaction": "Första AI-interaktion",
+      "first_ai_interaction": "Första Aipify-interaktion",
       "first_business_outcome": "Första affärsresultat uppnått",
       "subscription_activated": "Prenumeration aktiverad",
       "expansion": "Expansionsevenemang"
@@ -3246,7 +3453,7 @@
       "data_handling": "Datahantering",
       "billing": "Fakturering",
       "customer_communications": "Kundkommunikation",
-      "ai_governance": "AI-governance",
+      "ai_governance": "Aipify-governance",
       "operational_standards": "Operativa standarder"
     },
     "policyStatuses": {
@@ -3341,7 +3548,7 @@
   },
   "decisionCenter": {
     "title": "Decision Center",
-    "subtitle": "AI-drivna rekommendationer för ledning, administratörer och kundframgångsteam baserat på operativ data och plattformsinsikter.",
+    "subtitle": "Aipify-rekommendationer för ledning, administratörer och kundframgångsteam baserat på operativ data och plattformsinsikter.",
     "loading": "Förbereder Decision Center…",
     "back": "Tillbaka till Intelligence",
     "principle": "Information ensam räcker inte. Det sanna värdet av intelligens ligger i att hjälpa människor fatta bättre beslut vid rätt tillfälle.",
@@ -3735,7 +3942,7 @@
       "infrastructure": "Infrastrukturstatus",
       "paymentProvider": "Betalningsleverantörsstatus",
       "integration": "Integrationshälsa",
-      "aiEngine": "AI-motorstatus",
+      "aiEngine": "Aipify-motorstatus",
       "notification": "Aviseringsstatus",
       "uptime": "Plattforms drifttid"
     },
