@@ -5718,6 +5718,7 @@
   },
   "nav": {
     "overview": "Hjem",
+    "workspaceProductivityHub": "Arbejdsrum",
     "aipifyCorePlatformEngine": "Aipify Core",
     "multiTenantArchitectureEngine": "Tenants",
     "organizationWorkspaceEngine": "Arbejdsområder",
@@ -9770,6 +9771,91 @@
     "generating": "Genererer…",
     "generateFailed": "Generering mislykkedes",
     "actionFailed": "Handling mislykkedes"
+  },
+  "workspaceProductivityHub": {
+    "title": "Arbejdsrum",
+    "subtitle": "Dit personlige arbejdsrum til opgaver, prioriteter, påmindelser og dagligt fokus — rolig struktur uden pres.",
+    "loading": "Indlæser arbejdsrum…",
+    "back": "Tilbage til Hjem",
+    "principle": "Produktivitet skal reducere stress, ikke skabe det. Aipify hjælper dig med at fokusere på det, der betyder mest.",
+    "empty": "Intet her endnu — opret en opgave eller note, når du er klar.",
+    "searchPlaceholder": "Søg opgaver, noter eller kategorier…",
+    "applyFilters": "Anvend filtre",
+    "clearFilters": "Ryd filtre",
+    "viewApprovals": "Gennemgå afventende godkendelser",
+    "youDecide": "Du bestemmer — Aipify forbereder og foreslår; mennesker vælger, hvad der sker videre.",
+    "overview": {
+      "myTasks": "Mine opgaver",
+      "todayPriorities": "Dagens prioriteter",
+      "upcomingReminders": "Kommende påmindelser",
+      "pendingApprovals": "Afventende godkendelser",
+      "suggestedActions": "Foreslåede handlinger",
+      "completedThisWeek": "Fuldført denne uge"
+    },
+    "sections": {
+      "overview": "Overblik",
+      "myDay": "Min dag",
+      "todayTasks": "Dagens opgaver",
+      "meetings": "Kommende møder",
+      "focusAreas": "Anbefalede fokusområder",
+      "reminders": "Vigtige påmindelser",
+      "insights": "Produktivitetsindsigt",
+      "avgCompletion": "Gennemsnitlig fuldførelsestid",
+      "overdueItems": "Forfaldne",
+      "focusTrend": "Fokustrend",
+      "quickActions": "Hurtige handlinger",
+      "tasks": "Opgaver",
+      "notes": "Noter",
+      "audit": "Aktivitetslog",
+      "suggestions": "Aipify-forslag",
+      "searchFilters": "Søgning og filtre"
+    },
+    "quickActions": {
+      "createTask": "Opret opgave",
+      "addReminder": "Tilføj påmindelse",
+      "completeTask": "Fuldfør",
+      "delegateTask": "Deleger",
+      "addNote": "Tilføj note",
+      "dismissReminder": "Afvis"
+    },
+    "priorities": {
+      "low": "Lav",
+      "medium": "Mellem",
+      "high": "Høj",
+      "critical": "Kritisk"
+    },
+    "statuses": {
+      "not_started": "Ikke startet",
+      "in_progress": "I gang",
+      "waiting": "Venter",
+      "completed": "Fuldført",
+      "cancelled": "Annulleret"
+    },
+    "reminderTypes": {
+      "one_time": "Engangs",
+      "recurring": "Tilbagevendende",
+      "due_date": "Forfaldsdato"
+    },
+    "noteTypes": {
+      "personal": "Personlig",
+      "team": "Team",
+      "meeting": "Møde"
+    },
+    "focusTrends": {
+      "building": "Opbygger momentum",
+      "steady": "Jævn fremgang",
+      "strong": "Stærk fokusuge"
+    },
+    "suggestions": {
+      "overdueTasks": "Du har {count} forfaldne opgaver.",
+      "pendingApproval": "Denne godkendelse kræver din opmærksomhed.",
+      "onboardingChecklist": "Din onboarding-tjekliste er næsten fuldført."
+    },
+    "filters": {
+      "allStatuses": "Alle statusser",
+      "allPriorities": "Alle prioriteter",
+      "category": "Kategori"
+    }
   },
   "personalProductivityEngine": {
     "title": "Personlig produktivitet",

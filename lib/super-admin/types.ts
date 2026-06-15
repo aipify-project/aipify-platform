@@ -6,6 +6,7 @@ export type SuperAdminSectionId =
   | "growthPartners"
   | "marketplaceGovernance"
   | "globalGovernance"
+  | "customerSuccess"
   | "globalKnowledge"
   | "internalSupport";
 

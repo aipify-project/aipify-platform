@@ -38,6 +38,7 @@
     "presencePilot": "Presence Pilot",
     "pilotInstall": "Pilot Install",
     "metrics": "Platform Metrics",
+    "analyticsCustomerJourneys": "Customer Journeys",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
     "paymentOperations": "Payment Operations Center",
@@ -54,6 +55,11 @@
     "executiveOperationsCenter": "Operations Center",
     "announcementCenter": "Announcement Center",
     "feedbackCenter": "Feedback Center",
+    "productRoadmapCenter": "Roadmap Center",
+    "productReleaseCenter": "Release Center",
+    "platformKnowledgeEvolutionCenter": "Knowledge Evolution",
+    "platformComplianceGovernanceCenter": "Compliance Center",
+    "platformPlaybookCenter": "Playbooks",
     "system": "System status",
     "pilotOperations": "Customer Zero Center"
   },
@@ -1083,6 +1089,949 @@
       "growth": "Growth",
       "business": "Business",
       "enterprise": "Enterprise"
+    }
+  },
+  "analytics": {
+    "nav": {
+      "customerJourneys": "Customer Journeys"
+    }
+  },
+  "customerJourneyAnalytics": {
+    "title": "Customer Journey Analytics",
+    "subtitle": "Understand how customers move through Aipify to improve onboarding, adoption, retention, and growth.",
+    "loading": "Preparing customer journey analytics…",
+    "back": "Back to analytics",
+    "principle": "Understanding where customers struggle is the first step toward creating extraordinary customer experiences.",
+    "privacyNote": "Journey analytics exist to improve customer outcomes — never for advertising or third-party sale.",
+    "emptyState": "No journey data found for the selected filters.",
+    "sections": {
+      "overview": "Overview",
+      "funnel": "Funnel analytics",
+      "dropOffs": "Drop-off detection",
+      "journeys": "Customer journeys",
+      "timeline": "Journey timeline",
+      "commonPaths": "Common path analysis",
+      "recommendations": "Aipify recommendations",
+      "audit": "Audit log",
+      "filters": "Segment filters",
+      "exports": "Export"
+    },
+    "overview": {
+      "newRegistrations": "New registrations (30d)",
+      "onboardingCompletionRate": "Onboarding completion rate",
+      "trialConversionRate": "Trial conversion rate",
+      "timeToFirstValue": "Time to first value",
+      "expansionRate": "Expansion rate",
+      "dropOffRate": "Drop-off rate",
+      "days": "days"
+    },
+    "funnel": {
+      "from": "From",
+      "to": "To",
+      "entered": "Entered",
+      "converted": "Converted",
+      "conversionRate": "Conversion rate"
+    },
+    "table": {
+      "company": "Company",
+      "currentStage": "Current stage",
+      "trend": "Trend",
+      "lastActivity": "Last activity",
+      "subscriptionPlan": "Subscription plan",
+      "country": "Country",
+      "milestones": "Milestones",
+      "customer": "Customer",
+      "dropOffType": "Drop-off type",
+      "stage": "Stage",
+      "message": "Message",
+      "path": "Path",
+      "conversionRate": "Conversion rate",
+      "customers": "Customers",
+      "abandonmentPoint": "Abandonment point",
+      "completedAt": "Completed",
+      "delayDays": "Delay (days)",
+      "supportInteraction": "Support interaction recorded",
+      "impactScore": "Impact score"
+    },
+    "stages": {
+      "registration": "Registration",
+      "email_verification": "Email verification",
+      "first_login": "First login",
+      "onboarding_started": "Onboarding started",
+      "onboarding_completed": "Onboarding completed",
+      "first_user_invited": "First user invited",
+      "first_integration_connected": "First integration connected",
+      "first_ai_interaction": "First AI interaction",
+      "first_business_outcome": "First business outcome achieved",
+      "subscription_activated": "Subscription activated",
+      "expansion": "Expansion events"
+    },
+    "dropOffTypes": {
+      "registration_abandoned": "Registration abandoned",
+      "verification_incomplete": "Verification incomplete",
+      "onboarding_unfinished": "Onboarding unfinished",
+      "integration_not_completed": "Integration setup not completed",
+      "trial_expired": "Trial expired without activation"
+    },
+    "recommendationTypes": {
+      "simplify_onboarding": "Simplify onboarding step",
+      "guidance_tooltip": "Introduce guidance tooltip",
+      "improve_documentation": "Improve help documentation",
+      "proactive_outreach": "Trigger proactive outreach",
+      "automation_opportunity": "Recommend automation opportunity"
+    },
+    "trends": {
+      "improving": "Improving",
+      "stable": "Stable",
+      "declining": "Declining"
+    },
+    "filters": {
+      "country": "Country",
+      "industry": "Industry",
+      "companySize": "Company size",
+      "plan": "Subscription plan",
+      "customerSegment": "Customer segment",
+      "allCountries": "All countries",
+      "allIndustries": "All industries",
+      "allSizes": "All company sizes",
+      "allPlans": "All plans",
+      "allSegments": "All segments",
+      "apply": "Apply filters",
+      "viewTimeline": "View timeline",
+      "clearTimeline": "Clear timeline selection"
+    },
+    "plans": {
+      "starter": "Starter",
+      "growth": "Growth",
+      "business": "Business",
+      "enterprise": "Enterprise"
+    },
+    "companySizes": {
+      "solo": "Solo",
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large",
+      "enterprise": "Enterprise"
+    },
+    "segments": {
+      "self_service": "Self-service",
+      "smb": "SMB",
+      "mid_market": "Mid-market",
+      "enterprise": "Enterprise",
+      "pilot": "Pilot"
+    },
+    "industries": {
+      "general": "General",
+      "technology": "Technology",
+      "retail": "Retail",
+      "professional_services": "Professional services",
+      "healthcare": "Healthcare"
+    },
+    "actions": {
+      "accept": "Accept",
+      "dismiss": "Dismiss",
+      "resolve": "Resolve",
+      "recalculate": "Recalculate funnel",
+      "applying": "Applying…",
+      "viewJourney": "View journey"
+    },
+    "exports": {
+      "csv": "Export CSV",
+      "excel": "Export Excel",
+      "pdf": "Export PDF",
+      "exporting": "Exporting…"
+    },
+    "exportFormats": {
+      "csv": "CSV",
+      "xlsx": "Excel",
+      "pdf": "PDF"
+    }
+  },
+  "product": {
+    "nav": {
+      "feedbackCenter": "Feedback Center",
+      "roadmapCenter": "Roadmap Center",
+      "releaseCenter": "Release Center"
+    }
+  },
+  "productRoadmapCenter": {
+    "title": "Roadmap Center",
+    "subtitle": "Collect, prioritize, plan, and track product initiatives across the Aipify ecosystem.",
+    "loading": "Preparing Roadmap Center…",
+    "back": "Back to Product",
+    "principle": "The best product roadmaps are shaped by customer needs, strategic thinking, and disciplined execution.",
+    "emptyState": "No roadmap initiatives match the selected filters.",
+    "sections": {
+      "overview": "Overview",
+      "views": "Roadmap views",
+      "table": "Roadmap initiatives",
+      "scoring": "Scoring framework",
+      "requests": "Linked customer requests",
+      "release": "Release communication",
+      "audit": "Audit log",
+      "filters": "Filters",
+      "createIdea": "Submit new idea"
+    },
+    "overview": {
+      "plannedInitiatives": "Planned initiatives",
+      "inDevelopment": "In development",
+      "readyForRelease": "Ready for release",
+      "customerRequested": "Customer-requested features",
+      "recentlyCompleted": "Recently completed",
+      "deferredItems": "Deferred items"
+    },
+    "table": {
+      "initiative": "Initiative",
+      "category": "Category",
+      "priority": "Priority",
+      "status": "Status",
+      "owner": "Owner",
+      "targetRelease": "Target release",
+      "source": "Source",
+      "view": "Roadmap view",
+      "score": "Composite score",
+      "supportingRequests": "Supporting requests",
+      "enterpriseRequests": "Enterprise requests",
+      "partnerRequests": "Growth Partner requests",
+      "relatedPhases": "Related phases",
+      "actions": "Actions"
+    },
+    "categories": {
+      "new_feature": "New features",
+      "improvement": "Improvements",
+      "technical_debt": "Technical debt",
+      "security_enhancement": "Security enhancements",
+      "customer_request": "Customer requests",
+      "growth_opportunity": "Growth opportunities",
+      "strategic_initiative": "Strategic initiatives"
+    },
+    "views": {
+      "now": "Now",
+      "next": "Next",
+      "later": "Later",
+      "under_consideration": "Under consideration",
+      "completed": "Completed"
+    },
+    "sources": {
+      "customer_feedback": "Customer feedback",
+      "super_admin": "Super Admin",
+      "platform_admin": "Platform Admin",
+      "growth_partner": "Growth Partners",
+      "support_team": "Support teams",
+      "internal_product": "Internal product teams",
+      "executive_review": "Executive reviews"
+    },
+    "priorities": {
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "future_consideration": "Future consideration"
+    },
+    "statuses": {
+      "new": "New",
+      "under_review": "Under review",
+      "approved": "Approved",
+      "planned": "Planned",
+      "in_development": "In development",
+      "testing": "Testing",
+      "released": "Released",
+      "declined": "Declined"
+    },
+    "efforts": {
+      "xs": "Extra small",
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large",
+      "xl": "Extra large"
+    },
+    "impacts": {
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "requestSources": {
+      "customer_feedback": "Customer feedback",
+      "enterprise": "Enterprise",
+      "growth_partner": "Growth Partner"
+    },
+    "releaseChannels": {
+      "release_notes": "Release notes",
+      "customer_announcement": "Customer announcements",
+      "in_app_notification": "In-app notifications"
+    },
+    "scoring": {
+      "customerDemand": "Customer demand",
+      "revenuePotential": "Revenue potential",
+      "strategicAlignment": "Strategic alignment",
+      "implementationComplexity": "Implementation complexity",
+      "riskReduction": "Risk reduction",
+      "competitiveAdvantage": "Competitive advantage",
+      "composite": "Composite score"
+    },
+    "filters": {
+      "category": "Category",
+      "priority": "Priority",
+      "status": "Status",
+      "source": "Source",
+      "view": "Roadmap view",
+      "releaseWindow": "Release window",
+      "allCategories": "All categories",
+      "allPriorities": "All priorities",
+      "allStatuses": "All statuses",
+      "allSources": "All sources",
+      "allViews": "All views",
+      "allWindows": "All release windows",
+      "apply": "Apply filters"
+    },
+    "actions": {
+      "approve": "Approve",
+      "plan": "Mark planned",
+      "startDevelopment": "Start development",
+      "moveToTesting": "Move to testing",
+      "publishRelease": "Publish release",
+      "decline": "Decline",
+      "linkRequest": "Link request",
+      "moveToNow": "Move to Now",
+      "moveToNext": "Move to Next",
+      "applying": "Applying…"
+    },
+    "create": {
+      "title": "Title",
+      "description": "Description",
+      "submit": "Submit idea",
+      "placeholderTitle": "Initiative title",
+      "placeholderDescription": "Describe the idea, customer impact, and strategic value…"
+    }
+  },
+  "releaseCenter": {
+    "title": "Release Center",
+    "subtitle": "Plan, document, approve, and communicate all platform changes across the Aipify ecosystem.",
+    "loading": "Preparing Release Center…",
+    "back": "Back to Product",
+    "principle": "Customers should never wonder what changed. Transparency builds trust. Communication reduces uncertainty.",
+    "emptyState": "No releases match the selected filters.",
+    "sections": {
+      "overview": "Overview",
+      "releases": "Release records",
+      "changeLog": "Change log",
+      "calendar": "Release calendar",
+      "audit": "Audit log",
+      "filters": "Filters",
+      "createRelease": "Create release",
+      "approvals": "Approvals",
+      "communications": "Customer communications",
+      "rollbacks": "Rollback tracking"
+    },
+    "overview": {
+      "upcomingReleases": "Upcoming releases",
+      "releasesInTesting": "Releases in testing",
+      "productionReleases": "Production releases",
+      "emergencyHotfixes": "Emergency hotfixes",
+      "notificationsPending": "Customer notifications pending",
+      "recentlyCompleted": "Recently completed releases"
+    },
+    "table": {
+      "releaseName": "Release name",
+      "version": "Version",
+      "category": "Category",
+      "summary": "Summary",
+      "releaseDate": "Release date",
+      "status": "Status",
+      "audience": "Audience",
+      "owner": "Owner",
+      "plannedDate": "Planned date",
+      "actualDate": "Actual date",
+      "riskLevel": "Risk level",
+      "type": "Release type",
+      "actions": "Actions"
+    },
+    "releaseTypes": {
+      "major": "Major releases",
+      "minor": "Minor releases",
+      "hotfix": "Hotfixes",
+      "security_update": "Security updates",
+      "infrastructure_update": "Infrastructure updates",
+      "experimental": "Experimental features"
+    },
+    "riskLevels": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "changeLogCategories": {
+      "new_feature": "New features",
+      "improvement": "Improvements",
+      "bug_fix": "Bug fixes",
+      "security_update": "Security updates",
+      "performance": "Performance enhancements",
+      "deprecated": "Deprecated features"
+    },
+    "statuses": {
+      "planned": "Planned",
+      "in_development": "In development",
+      "internal_testing": "Internal testing",
+      "customer_validation": "Customer validation",
+      "approved": "Approved",
+      "released": "Released",
+      "rolled_back": "Rolled back"
+    },
+    "audiences": {
+      "all_customers": "All customers",
+      "enterprise": "Enterprise customers",
+      "specific_plans": "Specific plans",
+      "growth_partners": "Growth Partners",
+      "internal_teams": "Internal teams"
+    },
+    "approvalRoles": {
+      "super_admin": "Super Admin",
+      "product_owner": "Product Owner",
+      "technical_lead": "Technical Lead"
+    },
+    "communicationChannels": {
+      "customer_portal": "Customer Portal",
+      "announcement_center": "Announcement Center",
+      "email": "Email notifications",
+      "in_app_notification": "In-app notifications"
+    },
+    "calendarEventTypes": {
+      "upcoming_release": "Upcoming release",
+      "blackout_period": "Blackout period",
+      "maintenance_window": "Maintenance window",
+      "enterprise_notice": "Enterprise notice period"
+    },
+    "filters": {
+      "releaseType": "Release type",
+      "status": "Status",
+      "owner": "Owner",
+      "audience": "Audience",
+      "dateFrom": "Date from",
+      "dateTo": "Date to",
+      "allTypes": "All types",
+      "allStatuses": "All statuses",
+      "allAudiences": "All audiences",
+      "apply": "Apply filters"
+    },
+    "actions": {
+      "create": "Create release",
+      "approve": "Grant approval",
+      "revokeApproval": "Revoke approval",
+      "publish": "Publish release",
+      "rollback": "Initiate rollback",
+      "advanceStatus": "Advance to",
+      "applying": "Applying…"
+    },
+    "create": {
+      "releaseName": "Release name",
+      "releaseVersion": "Release version",
+      "description": "Description",
+      "submit": "Create release",
+      "placeholderName": "e.g. Aipify Platform 2026.3",
+      "placeholderVersion": "e.g. 2026.3.0",
+      "placeholderDescription": "Describe changes, risk, and customer impact…"
+    }
+  },
+  "knowledge": {
+    "nav": {
+      "evolutionCenter": "Evolution Center"
+    }
+  },
+  "knowledgeEvolutionCenter": {
+    "title": "Knowledge Evolution Center",
+    "subtitle": "Continuously improve Aipify knowledge quality from support interactions, feedback, and approved organizational knowledge.",
+    "loading": "Preparing Knowledge Evolution Center…",
+    "back": "Back to Platform",
+    "principle": "Knowledge should improve continuously. Every solved problem is an opportunity to help the next customer faster.",
+    "emptyState": "No knowledge items match the selected filters.",
+    "sections": {
+      "overview": "Overview",
+      "articles": "Knowledge articles",
+      "gaps": "Knowledge gaps",
+      "suggestions": "Suggested improvements",
+      "recommendations": "Recommendations",
+      "analytics": "Knowledge analytics",
+      "audit": "Audit log",
+      "filters": "Filters",
+      "localizations": "Localization status",
+      "createArticle": "Create article"
+    },
+    "overview": {
+      "knowledgeArticles": "Knowledge articles",
+      "suggestedImprovements": "Suggested improvements",
+      "pendingReviews": "Pending reviews",
+      "recentlyUpdated": "Recently updated articles",
+      "knowledgeGaps": "Knowledge gaps identified",
+      "learningOpportunities": "Learning opportunities"
+    },
+    "table": {
+      "title": "Title",
+      "source": "Source",
+      "healthScore": "Health score",
+      "healthStatus": "Health status",
+      "workflowStatus": "Workflow status",
+      "owner": "Owner",
+      "usage": "Usage",
+      "helpfulness": "Helpfulness",
+      "topic": "Topic",
+      "occurrences": "Occurrences",
+      "message": "Message",
+      "priority": "Priority",
+      "views": "Views",
+      "rating": "Rating",
+      "resolutionRate": "Resolution contribution"
+    },
+    "sources": {
+      "approved_support_case": "Approved support cases",
+      "customer_feedback": "Customer feedback",
+      "faq_update": "FAQ updates",
+      "product_release": "Product releases",
+      "internal_documentation": "Internal documentation",
+      "success_playbook": "Success playbooks",
+      "growth_partner_insight": "Growth Partner insights"
+    },
+    "gapTypes": {
+      "unanswered_question": "Frequently asked unanswered questions",
+      "repeated_support": "Repeated support requests",
+      "missing_documentation": "Missing documentation",
+      "outdated_article": "Outdated articles",
+      "low_confidence_response": "Low-confidence responses"
+    },
+    "suggestionTypes": {
+      "create_article": "Create new article",
+      "expand_article": "Expand existing article",
+      "update_screenshots": "Update screenshots",
+      "improve_troubleshooting": "Improve troubleshooting steps",
+      "add_localization": "Add localization support"
+    },
+    "workflowStatuses": {
+      "draft": "Draft",
+      "review_required": "Review required",
+      "approved": "Approved",
+      "published": "Published",
+      "archived": "Archived"
+    },
+    "healthStatuses": {
+      "excellent": "Excellent",
+      "healthy": "Healthy",
+      "needs_review": "Needs review",
+      "outdated": "Outdated"
+    },
+    "approvalRoles": {
+      "super_admin": "Super Admin",
+      "knowledge_admin": "Knowledge Admin",
+      "product_owner": "Product Owner"
+    },
+    "locales": {
+      "en": "English",
+      "no": "Norwegian",
+      "sv": "Swedish",
+      "da": "Danish"
+    },
+    "translationStatuses": {
+      "complete": "Translation complete",
+      "pending": "Translation pending",
+      "review_needed": "Review needed"
+    },
+    "filters": {
+      "healthStatus": "Health status",
+      "workflowStatus": "Workflow status",
+      "source": "Knowledge source",
+      "locale": "Locale",
+      "allHealth": "All health statuses",
+      "allStatuses": "All workflow statuses",
+      "allSources": "All sources",
+      "allLocales": "All locales",
+      "apply": "Apply filters"
+    },
+    "analytics": {
+      "mostViewed": "Most viewed articles",
+      "highestRated": "Highest-rated articles",
+      "lowestRated": "Lowest-rated articles",
+      "mostRequested": "Most requested topics",
+      "resolutionContribution": "Resolution contribution rate"
+    },
+    "actions": {
+      "approve": "Approve",
+      "publish": "Publish",
+      "archive": "Archive",
+      "submitReview": "Submit for review",
+      "accept": "Accept",
+      "decline": "Decline",
+      "resolveGap": "Resolve gap",
+      "applying": "Applying…"
+    },
+    "create": {
+      "title": "Title",
+      "summary": "Summary",
+      "submit": "Create article",
+      "placeholderTitle": "Article title",
+      "placeholderSummary": "Describe the knowledge content and intended audience…"
+    }
+  },
+  "governance": {
+    "nav": {
+      "complianceCenter": "Compliance Center"
+    }
+  },
+  "complianceGovernanceCenter": {
+    "title": "Compliance Center",
+    "subtitle": "Visibility and control over compliance activities, governance settings, approvals, and policy enforcement.",
+    "loading": "Preparing Compliance Center…",
+    "back": "Back to Platform",
+    "principle": "Trust is built through accountability. Governance should enable responsible growth, not unnecessary complexity.",
+    "emptyState": "No governance items match the selected filters.",
+    "sections": {
+      "overview": "Overview",
+      "modules": "Governance modules",
+      "policies": "Policy registry",
+      "approvals": "Approval center",
+      "retention": "Data retention controls",
+      "access": "Access governance",
+      "alerts": "Governance alerts",
+      "exceptions": "Governance exceptions",
+      "reports": "Compliance reporting",
+      "audit": "Audit log",
+      "filters": "Filters",
+      "createPolicy": "Create policy"
+    },
+    "overview": {
+      "complianceAlerts": "Compliance alerts",
+      "policiesRequiringReview": "Policies requiring review",
+      "pendingApprovals": "Pending approvals",
+      "governanceExceptions": "Governance exceptions",
+      "auditFindings": "Audit findings",
+      "highRiskActivities": "High-risk activities"
+    },
+    "table": {
+      "policyName": "Policy name",
+      "category": "Category",
+      "owner": "Owner",
+      "effectiveDate": "Effective date",
+      "reviewDate": "Review date",
+      "status": "Status",
+      "riskLevel": "Risk level",
+      "request": "Request",
+      "submittedBy": "Submitted by",
+      "priority": "Priority",
+      "dueDate": "Due date",
+      "approver": "Approver",
+      "actions": "Actions",
+      "dataType": "Data type",
+      "retentionDays": "Retention (days)",
+      "subject": "Subject",
+      "detail": "Detail",
+      "message": "Message",
+      "severity": "Severity",
+      "title": "Title",
+      "expiresAt": "Expires"
+    },
+    "categories": {
+      "security": "Security",
+      "privacy": "Privacy",
+      "data_handling": "Data handling",
+      "billing": "Billing",
+      "customer_communications": "Customer communications",
+      "ai_governance": "AI governance",
+      "operational_standards": "Operational standards"
+    },
+    "policyStatuses": {
+      "draft": "Draft",
+      "active": "Active",
+      "under_review": "Under review",
+      "archived": "Archived"
+    },
+    "riskLevels": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "priorities": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "retentionTypes": {
+      "support_data": "Support data",
+      "audit_logs": "Audit logs",
+      "feedback_records": "Feedback records",
+      "customer_activity_logs": "Customer activity logs",
+      "knowledge_articles": "Knowledge articles"
+    },
+    "accessTypes": {
+      "role_assignment": "Role assignments",
+      "privileged_user": "Privileged users",
+      "super_admin_access": "Super Admin access",
+      "permission_exception": "Permission exceptions"
+    },
+    "alertTypes": {
+      "overdue_policy_review": "Overdue policy reviews",
+      "expired_approval": "Expired approvals",
+      "excessive_privilege": "Excessive privilege assignments",
+      "high_risk_action": "High-risk actions",
+      "governance_violation": "Governance violations"
+    },
+    "modules": {
+      "policy_management": "Policy management",
+      "approval_workflows": "Approval workflows",
+      "data_retention_controls": "Data retention controls",
+      "access_governance": "Access governance",
+      "security_governance": "Security governance",
+      "compliance_reporting": "Compliance reporting"
+    },
+    "filters": {
+      "category": "Category",
+      "status": "Status",
+      "riskLevel": "Risk level",
+      "owner": "Owner",
+      "reviewFrom": "Review from",
+      "reviewTo": "Review to",
+      "allCategories": "All categories",
+      "allStatuses": "All statuses",
+      "allRiskLevels": "All risk levels",
+      "apply": "Apply filters"
+    },
+    "reports": {
+      "governanceActivities": "Governance activities",
+      "approvalHistories": "Approval histories",
+      "policyCompliance": "Policy compliance",
+      "auditSummaries": "Audit summaries",
+      "exportPdf": "Export PDF",
+      "exportExcel": "Export Excel",
+      "exportCsv": "Export CSV"
+    },
+    "actions": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "requestChanges": "Request changes",
+      "escalate": "Escalate",
+      "activatePolicy": "Activate",
+      "archivePolicy": "Archive",
+      "resolveAlert": "Resolve alert",
+      "resolveException": "Resolve exception",
+      "completeAccessReview": "Complete review",
+      "updateRetention": "Update retention",
+      "applying": "Applying…"
+    },
+    "create": {
+      "policyName": "Policy name",
+      "owner": "Owner",
+      "summary": "Summary",
+      "submit": "Create policy",
+      "placeholderName": "Policy name",
+      "placeholderOwner": "Policy owner",
+      "placeholderSummary": "Describe the policy scope, requirements, and review cadence…"
+    }
+  },
+  "decisionCenter": {
+    "title": "Decision Center",
+    "subtitle": "AI-powered recommendations for executives, administrators, and customer success teams based on operational data and platform insights.",
+    "loading": "Preparing Decision Center…",
+    "back": "Back to Intelligence",
+    "principle": "Information alone is not enough. The true value of intelligence lies in helping people make better decisions at the right time.",
+    "executiveSummary": "Executive summary",
+    "emptyState": "No recommendations match the selected filters.",
+    "sections": {
+      "overview": "Overview",
+      "recommendations": "Recommendations",
+      "highImpact": "High impact opportunities",
+      "risks": "Risks identified",
+      "audit": "Audit log",
+      "filters": "Filters",
+      "recommendedActions": "Recommended actions",
+      "tasks": "Tasks"
+    },
+    "overview": {
+      "recommendationsGenerated": "Recommendations generated",
+      "recommendationsAccepted": "Recommendations accepted",
+      "recommendationsDeclined": "Recommendations declined",
+      "highImpactOpportunities": "High impact opportunities",
+      "risksIdentified": "Risks identified",
+      "pendingReviews": "Pending reviews"
+    },
+    "table": {
+      "title": "Title",
+      "description": "Description",
+      "category": "Category",
+      "impactLevel": "Impact level",
+      "confidence": "Confidence",
+      "status": "Status",
+      "owner": "Owner",
+      "generatedDate": "Generated",
+      "actions": "Actions"
+    },
+    "categories": {
+      "customer_success": "Customer success",
+      "revenue_growth": "Revenue growth",
+      "product_improvements": "Product improvements",
+      "support_optimization": "Support optimization",
+      "operational_efficiency": "Operational efficiency",
+      "security_awareness": "Security awareness",
+      "governance_improvements": "Governance improvements"
+    },
+    "impactLevels": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "strategic": "Strategic"
+    },
+    "statuses": {
+      "new": "New",
+      "under_review": "Under review",
+      "accepted": "Accepted",
+      "implemented": "Implemented",
+      "dismissed": "Dismissed"
+    },
+    "filters": {
+      "category": "Category",
+      "impactLevel": "Impact level",
+      "status": "Status",
+      "owner": "Owner",
+      "confidenceMin": "Minimum confidence (%)",
+      "allCategories": "All categories",
+      "allImpactLevels": "All impact levels",
+      "allStatuses": "All statuses",
+      "apply": "Apply filters"
+    },
+    "actions": {
+      "accept": "Accept",
+      "dismiss": "Dismiss",
+      "startReview": "Start review",
+      "markImplemented": "Mark implemented",
+      "createTask": "Create task",
+      "assignOwner": "Assign",
+      "addNote": "Save note",
+      "linkRoadmap": "Link",
+      "applying": "Applying…"
+    },
+    "prompts": {
+      "owner": "Assign owner",
+      "note": "Add note",
+      "roadmapLink": "Roadmap link",
+      "taskTitle": "Task title"
+    }
+  },
+  "operations": {
+    "nav": {
+      "playbooks": "Playbooks"
+    }
+  },
+  "playbookCenter": {
+    "title": "Playbook Center",
+    "subtitle": "Create reusable operational playbooks and automations that standardize recurring business processes.",
+    "loading": "Preparing Playbook Center…",
+    "back": "Back to Platform",
+    "principle": "The best organizations do not rely solely on memory. They build repeatable systems that help people perform consistently and confidently.",
+    "emptyState": "No playbooks match the selected filters.",
+    "sections": {
+      "overview": "Overview",
+      "playbooks": "Playbooks",
+      "templates": "Playbook templates",
+      "executions": "Execution history",
+      "audit": "Audit log",
+      "filters": "Filters",
+      "steps": "Playbook steps",
+      "conditions": "Automation condition",
+      "createPlaybook": "Create playbook"
+    },
+    "overview": {
+      "activePlaybooks": "Active playbooks",
+      "automationsRunning": "Automations running",
+      "failedExecutions": "Failed executions",
+      "manualInterventions": "Manual interventions",
+      "scheduledWorkflows": "Scheduled workflows",
+      "mostUsedPlaybooks": "Most used playbooks"
+    },
+    "table": {
+      "name": "Name",
+      "category": "Category",
+      "description": "Description",
+      "owner": "Owner",
+      "triggerType": "Trigger type",
+      "status": "Status",
+      "lastExecuted": "Last executed",
+      "playbookName": "Playbook name",
+      "triggerEvent": "Trigger event",
+      "executionDate": "Execution date",
+      "outcome": "Outcome",
+      "duration": "Duration",
+      "actions": "Actions",
+      "requiresApproval": "Requires approval"
+    },
+    "categories": {
+      "customer_onboarding": "Customer onboarding",
+      "customer_success": "Customer success",
+      "billing_operations": "Billing operations",
+      "support_operations": "Support operations",
+      "security_procedures": "Security procedures",
+      "employee_onboarding": "Employee onboarding",
+      "incident_response": "Incident response",
+      "executive_workflows": "Executive workflows"
+    },
+    "triggerTypes": {
+      "manual": "Manual",
+      "scheduled": "Scheduled",
+      "event_based": "Event-based",
+      "conditional": "Conditional"
+    },
+    "statuses": {
+      "draft": "Draft",
+      "active": "Active",
+      "paused": "Paused",
+      "archived": "Archived"
+    },
+    "stepActions": {
+      "send_notification": "Send notification",
+      "create_task": "Create task",
+      "assign_user": "Assign user",
+      "request_approval": "Request approval",
+      "update_status": "Update status",
+      "generate_document": "Generate document",
+      "escalate_issue": "Escalate issue",
+      "trigger_workflow": "Trigger workflow"
+    },
+    "outcomes": {
+      "successful": "Successful",
+      "partially_successful": "Partially successful",
+      "failed": "Failed",
+      "cancelled": "Cancelled"
+    },
+    "filters": {
+      "category": "Category",
+      "status": "Status",
+      "triggerType": "Trigger type",
+      "owner": "Owner",
+      "outcome": "Outcome",
+      "allCategories": "All categories",
+      "allStatuses": "All statuses",
+      "allTriggerTypes": "All trigger types",
+      "allOutcomes": "All outcomes",
+      "apply": "Apply filters"
+    },
+    "actions": {
+      "activate": "Activate",
+      "pause": "Pause",
+      "archive": "Archive",
+      "execute": "Execute",
+      "retry": "Retry",
+      "escalate": "Escalate",
+      "disable": "Disable automation",
+      "grantApproval": "Grant approval",
+      "rejectApproval": "Reject approval",
+      "useTemplate": "Use template",
+      "applying": "Applying…"
+    },
+    "create": {
+      "name": "Name",
+      "owner": "Owner",
+      "description": "Description",
+      "submit": "Create playbook",
+      "placeholderName": "Playbook name",
+      "placeholderOwner": "Playbook owner",
+      "placeholderDescription": "Describe the process, triggers, and expected outcomes…"
     }
   },
   "customerSuccessOperations": {
@@ -2923,6 +3872,7 @@
     "privacyNote": "Aipify learns only from operational metadata. No conversations, identities, invoices, or uploaded files are stored.",
     "nav": {
       "brain": "Brain Dashboard",
+      "decisionCenter": "Decision Center",
       "learningQueue": "Learning Queue",
       "globalPatterns": "Global Patterns",
       "selfHealing": "Self-Healing",

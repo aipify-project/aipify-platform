@@ -36,6 +36,7 @@
     "impact": "Effektmätningar",
     "presencePilot": "Närvaropilot",
     "metrics": "Platform Metrics",
+    "analyticsCustomerJourneys": "Kundresor",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
     "support": "Support",
@@ -49,6 +50,11 @@
     "executiveOperationsCenter": "Operationscenter",
     "announcementCenter": "Meddelandecenter",
     "feedbackCenter": "Feedbackcenter",
+    "productRoadmapCenter": "Roadmap-center",
+    "productReleaseCenter": "Release-center",
+    "platformKnowledgeEvolutionCenter": "Kunskapsevolution",
+    "platformComplianceGovernanceCenter": "Compliance-center",
+    "platformPlaybookCenter": "Playbooks",
     "pilotOperations": "Customer Zero-center",
     "enterpriseInvoices": "Enterprise-fakturor",
     "paymentOperations": "Betalningsoperationscenter",
@@ -1268,6 +1274,7 @@
     "privacyNote": "Aipify learns only from operational metadata. No conversations, identities, invoices, or uploaded files are stored.",
     "nav": {
       "brain": "Brain Dashboard",
+      "decisionCenter": "Decision Center",
       "learningQueue": "Learning Queue",
       "globalPatterns": "Global Patterns",
       "selfHealing": "Self-Healing",
@@ -2523,6 +2530,944 @@
       "growth": "Growth",
       "business": "Business",
       "enterprise": "Enterprise"
+    }
+  },
+  "analytics": {
+    "nav": {
+      "customerJourneys": "Kundresor"
+    }
+  },
+  "customerJourneyAnalytics": {
+    "title": "Kundreseanalys",
+    "subtitle": "Förstå hur kunder rör sig genom Aipify för att förbättra onboarding, adoption, retention och tillväxt.",
+    "loading": "Förbereder kundreseanalys…",
+    "back": "Tillbaka till analys",
+    "principle": "Att förstå var kunder kämpar är första steget mot extraordinära kundupplevelser.",
+    "privacyNote": "Reseanalys finns för att förbättra kundresultat — aldrig för reklam eller försäljning till tredje part.",
+    "emptyState": "Ingen resedata hittades för valda filter.",
+    "sections": {
+      "overview": "Översikt",
+      "funnel": "Trattanalys",
+      "dropOffs": "Avhoppsdetektering",
+      "journeys": "Kundresor",
+      "timeline": "Resetidslinje",
+      "commonPaths": "Vanliga vägar",
+      "recommendations": "Aipify-rekommendationer",
+      "audit": "Revisionslogg",
+      "filters": "Segmentfilter",
+      "exports": "Export"
+    },
+    "overview": {
+      "newRegistrations": "Nya registreringar (30d)",
+      "onboardingCompletionRate": "Onboarding-slutförandegrad",
+      "trialConversionRate": "Prova-på-konverteringsgrad",
+      "timeToFirstValue": "Tid till första värde",
+      "expansionRate": "Expansionsgrad",
+      "dropOffRate": "Avhoppsgrad",
+      "days": "dagar"
+    },
+    "funnel": {
+      "from": "Från",
+      "to": "Till",
+      "entered": "Startade",
+      "converted": "Konverterade",
+      "conversionRate": "Konverteringsgrad"
+    },
+    "table": {
+      "company": "Företag",
+      "currentStage": "Nuvarande steg",
+      "trend": "Trend",
+      "lastActivity": "Senaste aktivitet",
+      "subscriptionPlan": "Prenumerationsplan",
+      "country": "Land",
+      "milestones": "Milstolpar",
+      "customer": "Kund",
+      "dropOffType": "Avhoppstyp",
+      "stage": "Steg",
+      "message": "Meddelande",
+      "path": "Väg",
+      "conversionRate": "Konverteringsgrad",
+      "customers": "Kunder",
+      "abandonmentPoint": "Avhoppspunkt",
+      "completedAt": "Slutförd",
+      "delayDays": "Fördröjning (dagar)",
+      "supportInteraction": "Supportinteraktion registrerad",
+      "impactScore": "Påverkansscore"
+    },
+    "stages": {
+      "registration": "Registrering",
+      "email_verification": "E-postverifiering",
+      "first_login": "Första inloggning",
+      "onboarding_started": "Onboarding startad",
+      "onboarding_completed": "Onboarding slutförd",
+      "first_user_invited": "Första användare inbjuden",
+      "first_integration_connected": "Första integration ansluten",
+      "first_ai_interaction": "Första AI-interaktion",
+      "first_business_outcome": "Första affärsresultat uppnått",
+      "subscription_activated": "Prenumeration aktiverad",
+      "expansion": "Expansionsevenemang"
+    },
+    "dropOffTypes": {
+      "registration_abandoned": "Registrering avbruten",
+      "verification_incomplete": "Verifiering ofullständig",
+      "onboarding_unfinished": "Onboarding ofullständig",
+      "integration_not_completed": "Integrationsuppsättning ej slutförd",
+      "trial_expired": "Prova-på utgången utan aktivering"
+    },
+    "recommendationTypes": {
+      "simplify_onboarding": "Förenkla onboarding-steg",
+      "guidance_tooltip": "Introducera vägledningstooltip",
+      "improve_documentation": "Förbättra hjälpdokumentation",
+      "proactive_outreach": "Utlös proaktiv uppföljning",
+      "automation_opportunity": "Rekommendera automatiseringsmöjlighet"
+    },
+    "trends": {
+      "improving": "Förbättras",
+      "stable": "Stabil",
+      "declining": "Sjunkande"
+    },
+    "filters": {
+      "country": "Land",
+      "industry": "Bransch",
+      "companySize": "Företagsstorlek",
+      "plan": "Prenumerationsplan",
+      "customerSegment": "Kundsegment",
+      "allCountries": "Alla länder",
+      "allIndustries": "Alla branscher",
+      "allSizes": "Alla storlekar",
+      "allPlans": "Alla planer",
+      "allSegments": "Alla segment",
+      "apply": "Tillämpa filter",
+      "viewTimeline": "Visa tidslinje",
+      "clearTimeline": "Rensa tidslinjeval"
+    },
+    "plans": {
+      "starter": "Starter",
+      "growth": "Growth",
+      "business": "Business",
+      "enterprise": "Enterprise"
+    },
+    "companySizes": {
+      "solo": "Solo",
+      "small": "Liten",
+      "medium": "Medel",
+      "large": "Stor",
+      "enterprise": "Enterprise"
+    },
+    "segments": {
+      "self_service": "Självbetjäning",
+      "smb": "SMB",
+      "mid_market": "Mellanmarknad",
+      "enterprise": "Enterprise",
+      "pilot": "Pilot"
+    },
+    "industries": {
+      "general": "Allmän",
+      "technology": "Teknologi",
+      "retail": "Detaljhandel",
+      "professional_services": "Professionella tjänster",
+      "healthcare": "Hälsovård"
+    },
+    "actions": {
+      "accept": "Godkänn",
+      "dismiss": "Avvisa",
+      "resolve": "Lös",
+      "recalculate": "Omberäkna tratt",
+      "applying": "Utför…",
+      "viewJourney": "Visa resa"
+    },
+    "exports": {
+      "csv": "Exportera CSV",
+      "excel": "Exportera Excel",
+      "pdf": "Exportera PDF",
+      "exporting": "Exporterar…"
+    },
+    "exportFormats": {
+      "csv": "CSV",
+      "xlsx": "Excel",
+      "pdf": "PDF"
+    }
+  },
+  "product": {
+    "nav": {
+      "feedbackCenter": "Feedback Center",
+      "roadmapCenter": "Roadmap-center",
+      "releaseCenter": "Release-center"
+    }
+  },
+  "productRoadmapCenter": {
+    "title": "Roadmap-center",
+    "subtitle": "Samla, prioritera, planera och följa produktinitiativ i Aipify-ekosystemet.",
+    "loading": "Förbereder Roadmap-center…",
+    "back": "Tillbaka till Product",
+    "principle": "De bästa produktplanerna formas av kundbehov, strategiskt tänkande och disciplinerat genomförande.",
+    "emptyState": "Inga roadmap-initiativ matchar valda filter.",
+    "sections": {
+      "overview": "Översikt",
+      "views": "Roadmap-vyer",
+      "table": "Roadmap-initiativ",
+      "scoring": "Poängramverk",
+      "requests": "Länkade kundförfrågningar",
+      "release": "Release-kommunikation",
+      "audit": "Revisionslogg",
+      "filters": "Filter",
+      "createIdea": "Skicka in ny idé"
+    },
+    "overview": {
+      "plannedInitiatives": "Planerade initiativ",
+      "inDevelopment": "Under utveckling",
+      "readyForRelease": "Redo för release",
+      "customerRequested": "Kundbegärda funktioner",
+      "recentlyCompleted": "Nyligen slutförda",
+      "deferredItems": "Uppskjutna poster"
+    },
+    "table": {
+      "initiative": "Initiativ",
+      "category": "Kategori",
+      "priority": "Prioritet",
+      "status": "Status",
+      "owner": "Ägare",
+      "targetRelease": "Målrelease",
+      "source": "Källa",
+      "view": "Roadmap-vy",
+      "score": "Sammansatt poäng",
+      "supportingRequests": "Stödjande förfrågningar",
+      "enterpriseRequests": "Enterprise-förfrågningar",
+      "partnerRequests": "Growth Partner-förfrågningar",
+      "relatedPhases": "Relaterade faser",
+      "actions": "Åtgärder"
+    },
+    "categories": {
+      "new_feature": "Nya funktioner",
+      "improvement": "Förbättringar",
+      "technical_debt": "Teknisk skuld",
+      "security_enhancement": "Säkerhetsförbättringar",
+      "customer_request": "Kundförfrågningar",
+      "growth_opportunity": "Tillväxtmöjligheter",
+      "strategic_initiative": "Strategiska initiativ"
+    },
+    "views": {
+      "now": "Nu",
+      "next": "Nästa",
+      "later": "Senare",
+      "under_consideration": "Under övervägande",
+      "completed": "Slutförd"
+    },
+    "sources": {
+      "customer_feedback": "Kundfeedback",
+      "super_admin": "Super Admin",
+      "platform_admin": "Platform Admin",
+      "growth_partner": "Growth Partners",
+      "support_team": "Supportteam",
+      "internal_product": "Interna produktteam",
+      "executive_review": "Ledningsgenomgång"
+    },
+    "priorities": {
+      "critical": "Kritisk",
+      "high": "Hög",
+      "medium": "Medium",
+      "low": "Låg",
+      "future_consideration": "Framtida övervägande"
+    },
+    "statuses": {
+      "new": "Ny",
+      "under_review": "Under granskning",
+      "approved": "Godkänd",
+      "planned": "Planerad",
+      "in_development": "Under utveckling",
+      "testing": "Testning",
+      "released": "Släppt",
+      "declined": "Avvisad"
+    },
+    "efforts": {
+      "xs": "Extra liten",
+      "small": "Liten",
+      "medium": "Medium",
+      "large": "Stor",
+      "xl": "Extra stor"
+    },
+    "impacts": {
+      "critical": "Kritisk",
+      "high": "Hög",
+      "medium": "Medium",
+      "low": "Låg"
+    },
+    "requestSources": {
+      "customer_feedback": "Kundfeedback",
+      "enterprise": "Enterprise",
+      "growth_partner": "Growth Partner"
+    },
+    "releaseChannels": {
+      "release_notes": "Release notes",
+      "customer_announcement": "Kundmeddelanden",
+      "in_app_notification": "In-app-notiser"
+    },
+    "scoring": {
+      "customerDemand": "Kundefterfrågan",
+      "revenuePotential": "Intäktspotential",
+      "strategicAlignment": "Strategisk anpassning",
+      "implementationComplexity": "Implementeringskomplexitet",
+      "riskReduction": "Riskreducering",
+      "competitiveAdvantage": "Konkurrensfördel",
+      "composite": "Sammansatt poäng"
+    },
+    "filters": {
+      "category": "Kategori",
+      "priority": "Prioritet",
+      "status": "Status",
+      "source": "Källa",
+      "view": "Roadmap-vy",
+      "releaseWindow": "Release-fönster",
+      "allCategories": "Alla kategorier",
+      "allPriorities": "Alla prioriteter",
+      "allStatuses": "Alla statusar",
+      "allSources": "Alla källor",
+      "allViews": "Alla vyer",
+      "allWindows": "Alla release-fönster",
+      "apply": "Tillämpa filter"
+    },
+    "actions": {
+      "approve": "Godkänn",
+      "plan": "Markera planerad",
+      "startDevelopment": "Starta utveckling",
+      "moveToTesting": "Flytta till testning",
+      "publishRelease": "Publicera release",
+      "decline": "Avvisa",
+      "linkRequest": "Länka förfrågan",
+      "moveToNow": "Flytta till Nu",
+      "moveToNext": "Flytta till Nästa",
+      "applying": "Utför…"
+    },
+    "create": {
+      "title": "Titel",
+      "description": "Beskrivning",
+      "submit": "Skicka in idé",
+      "placeholderTitle": "Initiativtitel",
+      "placeholderDescription": "Beskriv idén, kundpåverkan och strategiskt värde…"
+    }
+  },
+  "releaseCenter": {
+    "title": "Release-center",
+    "subtitle": "Planera, dokumentera, godkänna och kommunicera alla plattformsändringar i Aipify-ekosystemet.",
+    "loading": "Förbereder Release-center…",
+    "back": "Tillbaka till Product",
+    "principle": "Kunder ska aldrig undra vad som ändrats. Transparens bygger förtroende. Kommunikation minskar osäkerhet.",
+    "emptyState": "Inga releaser matchar valda filter.",
+    "sections": {
+      "overview": "Översikt",
+      "releases": "Release-poster",
+      "changeLog": "Ändringslogg",
+      "calendar": "Release-kalender",
+      "audit": "Revisionslogg",
+      "filters": "Filter",
+      "createRelease": "Skapa release",
+      "approvals": "Godkännanden",
+      "communications": "Kundkommunikation",
+      "rollbacks": "Rollback-spårning"
+    },
+    "overview": {
+      "upcomingReleases": "Kommande releaser",
+      "releasesInTesting": "Releaser under testning",
+      "productionReleases": "Produktionsreleaser",
+      "emergencyHotfixes": "Nöd-hotfixes",
+      "notificationsPending": "Kundnotiser väntar",
+      "recentlyCompleted": "Nyligen slutförda releaser"
+    },
+    "table": {
+      "releaseName": "Releasenamn",
+      "version": "Version",
+      "category": "Kategori",
+      "summary": "Sammanfattning",
+      "releaseDate": "Releasedatum",
+      "status": "Status",
+      "audience": "Målgrupp",
+      "owner": "Ägare",
+      "plannedDate": "Planerat datum",
+      "actualDate": "Faktiskt datum",
+      "riskLevel": "Risknivå",
+      "type": "Releasetyp",
+      "actions": "Åtgärder"
+    },
+    "releaseTypes": {
+      "major": "Stora releaser",
+      "minor": "Mindre releaser",
+      "hotfix": "Hotfixes",
+      "security_update": "Säkerhetsuppdateringar",
+      "infrastructure_update": "Infrastrukturuppdateringar",
+      "experimental": "Experimentella funktioner"
+    },
+    "riskLevels": { "low": "Låg", "medium": "Medium", "high": "Hög", "critical": "Kritisk" },
+    "changeLogCategories": {
+      "new_feature": "Nya funktioner",
+      "improvement": "Förbättringar",
+      "bug_fix": "Bugfixar",
+      "security_update": "Säkerhetsuppdateringar",
+      "performance": "Prestandaförbättringar",
+      "deprecated": "Utfasade funktioner"
+    },
+    "statuses": {
+      "planned": "Planerad",
+      "in_development": "Under utveckling",
+      "internal_testing": "Intern testning",
+      "customer_validation": "Kundvalidering",
+      "approved": "Godkänd",
+      "released": "Släppt",
+      "rolled_back": "Rullad tillbaka"
+    },
+    "audiences": {
+      "all_customers": "Alla kunder",
+      "enterprise": "Enterprise-kunder",
+      "specific_plans": "Specifika planer",
+      "growth_partners": "Growth Partners",
+      "internal_teams": "Interna team"
+    },
+    "approvalRoles": {
+      "super_admin": "Super Admin",
+      "product_owner": "Produktägare",
+      "technical_lead": "Teknisk ledare"
+    },
+    "communicationChannels": {
+      "customer_portal": "Kundportal",
+      "announcement_center": "Meddelandecenter",
+      "email": "E-postnotiser",
+      "in_app_notification": "In-app-notiser"
+    },
+    "calendarEventTypes": {
+      "upcoming_release": "Kommande release",
+      "blackout_period": "Ändringsfrys",
+      "maintenance_window": "Underhållsfönster",
+      "enterprise_notice": "Enterprise-meddelandeperiod"
+    },
+    "filters": {
+      "releaseType": "Releasetyp",
+      "status": "Status",
+      "owner": "Ägare",
+      "audience": "Målgrupp",
+      "dateFrom": "Datum från",
+      "dateTo": "Datum till",
+      "allTypes": "Alla typer",
+      "allStatuses": "Alla statusar",
+      "allAudiences": "Alla målgrupper",
+      "apply": "Tillämpa filter"
+    },
+    "actions": {
+      "create": "Skapa release",
+      "approve": "Ge godkännande",
+      "revokeApproval": "Återkalla godkännande",
+      "publish": "Publicera release",
+      "rollback": "Starta rollback",
+      "advanceStatus": "Gå vidare till",
+      "applying": "Utför…"
+    },
+    "create": {
+      "releaseName": "Releasenamn",
+      "releaseVersion": "Releaseversion",
+      "description": "Beskrivning",
+      "submit": "Skapa release",
+      "placeholderName": "t.ex. Aipify Platform 2026.3",
+      "placeholderVersion": "t.ex. 2026.3.0",
+      "placeholderDescription": "Beskriv ändringar, risk och kundpåverkan…"
+    }
+  },
+  "knowledge": {
+    "nav": {
+      "evolutionCenter": "Evolution Center"
+    }
+  },
+  "knowledgeEvolutionCenter": {
+    "title": "Knowledge Evolution Center",
+    "subtitle": "Förbättra kontinuerligt Aipifys kunskapskvalitet från supportinteraktioner, feedback och godkänd organisationskunskap.",
+    "loading": "Förbereder Knowledge Evolution Center…",
+    "back": "Tillbaka till plattformen",
+    "principle": "Kunskap bör förbättras kontinuerligt. Varje löst problem är en möjlighet att hjälpa nästa kund snabbare.",
+    "emptyState": "Inga kunskapsobjekt matchar valda filter.",
+    "sections": {
+      "overview": "Översikt",
+      "articles": "Kunskapsartiklar",
+      "gaps": "Kunskapsluckor",
+      "suggestions": "Föreslagna förbättringar",
+      "recommendations": "Rekommendationer",
+      "analytics": "Kunskapsanalys",
+      "audit": "Revisionslogg",
+      "filters": "Filter",
+      "localizations": "Lokaliseringsstatus",
+      "createArticle": "Skapa artikel"
+    },
+    "overview": {
+      "knowledgeArticles": "Kunskapsartiklar",
+      "suggestedImprovements": "Föreslagna förbättringar",
+      "pendingReviews": "Väntande granskningar",
+      "recentlyUpdated": "Nyligen uppdaterade artiklar",
+      "knowledgeGaps": "Identifierade kunskapsluckor",
+      "learningOpportunities": "Lärandemöjligheter"
+    },
+    "table": {
+      "title": "Titel",
+      "source": "Källa",
+      "healthScore": "Hälsopoäng",
+      "healthStatus": "Hälsostatus",
+      "workflowStatus": "Arbetsflödesstatus",
+      "owner": "Ägare",
+      "usage": "Användning",
+      "helpfulness": "Användbarhet",
+      "topic": "Ämne",
+      "occurrences": "Förekomster",
+      "message": "Meddelande",
+      "priority": "Prioritet",
+      "views": "Visningar",
+      "rating": "Betyg",
+      "resolutionRate": "Lösningsbidrag"
+    },
+    "sources": {
+      "approved_support_case": "Godkända supportärenden",
+      "customer_feedback": "Kundfeedback",
+      "faq_update": "FAQ-uppdateringar",
+      "product_release": "Produktreleaser",
+      "internal_documentation": "Intern dokumentation",
+      "success_playbook": "Framgångs-playbooks",
+      "growth_partner_insight": "Growth Partner-insikter"
+    },
+    "gapTypes": {
+      "unanswered_question": "Ofta ställda obesvarade frågor",
+      "repeated_support": "Upprepade supportförfrågningar",
+      "missing_documentation": "Saknad dokumentation",
+      "outdated_article": "Föråldrade artiklar",
+      "low_confidence_response": "Svar med låg konfidens"
+    },
+    "suggestionTypes": {
+      "create_article": "Skapa ny artikel",
+      "expand_article": "Utöka befintlig artikel",
+      "update_screenshots": "Uppdatera skärmdumpar",
+      "improve_troubleshooting": "Förbättra felsökningssteg",
+      "add_localization": "Lägg till lokalisering"
+    },
+    "workflowStatuses": {
+      "draft": "Utkast",
+      "review_required": "Granskning krävs",
+      "approved": "Godkänd",
+      "published": "Publicerad",
+      "archived": "Arkiverad"
+    },
+    "healthStatuses": {
+      "excellent": "Utmärkt",
+      "healthy": "Frisk",
+      "needs_review": "Behöver granskning",
+      "outdated": "Föråldrad"
+    },
+    "approvalRoles": {
+      "super_admin": "Super Admin",
+      "knowledge_admin": "Knowledge Admin",
+      "product_owner": "Product Owner"
+    },
+    "locales": {
+      "en": "Engelska",
+      "no": "Norska",
+      "sv": "Svenska",
+      "da": "Danska"
+    },
+    "translationStatuses": {
+      "complete": "Översättning klar",
+      "pending": "Översättning väntar",
+      "review_needed": "Granskning behövs"
+    },
+    "filters": {
+      "healthStatus": "Hälsostatus",
+      "workflowStatus": "Arbetsflödesstatus",
+      "source": "Kunskapskälla",
+      "locale": "Språk",
+      "allHealth": "Alla hälsostatusar",
+      "allStatuses": "Alla arbetsflödesstatusar",
+      "allSources": "Alla källor",
+      "allLocales": "Alla språk",
+      "apply": "Tillämpa filter"
+    },
+    "analytics": {
+      "mostViewed": "Mest visade artiklar",
+      "highestRated": "Högst betygsatta artiklar",
+      "lowestRated": "Lägst betygsatta artiklar",
+      "mostRequested": "Mest efterfrågade ämnen",
+      "resolutionContribution": "Lösningsbidragsgrad"
+    },
+    "actions": {
+      "approve": "Godkänn",
+      "publish": "Publicera",
+      "archive": "Arkivera",
+      "submitReview": "Skicka till granskning",
+      "accept": "Acceptera",
+      "decline": "Avslå",
+      "resolveGap": "Lös lucka",
+      "applying": "Tillämpar…"
+    },
+    "create": {
+      "title": "Titel",
+      "summary": "Sammanfattning",
+      "submit": "Skapa artikel",
+      "placeholderTitle": "Artikeltitel",
+      "placeholderSummary": "Beskriv kunskapsinnehållet och målgruppen…"
+    }
+  },
+  "governance": {
+    "nav": {
+      "complianceCenter": "Compliance Center"
+    }
+  },
+  "complianceGovernanceCenter": {
+    "title": "Compliance Center",
+    "subtitle": "Synlighet och kontroll över compliance-aktiviteter, governance-inställningar, godkännanden och policygenomdrivning.",
+    "loading": "Förbereder Compliance Center…",
+    "back": "Tillbaka till plattformen",
+    "principle": "Förtroende byggs genom ansvar. Governance ska möjliggöra ansvarsfull tillväxt, inte onödig komplexitet.",
+    "emptyState": "Inga governance-objekt matchar valda filter.",
+    "sections": {
+      "overview": "Översikt",
+      "modules": "Governance-moduler",
+      "policies": "Policyregister",
+      "approvals": "Godkännandecenter",
+      "retention": "Datalagringskontroller",
+      "access": "Åtkomstgovernance",
+      "alerts": "Governance-varningar",
+      "exceptions": "Governance-undantag",
+      "reports": "Compliance-rapportering",
+      "audit": "Revisionslogg",
+      "filters": "Filter",
+      "createPolicy": "Skapa policy"
+    },
+    "overview": {
+      "complianceAlerts": "Compliance-varningar",
+      "policiesRequiringReview": "Policyer som kräver granskning",
+      "pendingApprovals": "Väntande godkännanden",
+      "governanceExceptions": "Governance-undantag",
+      "auditFindings": "Revisionsfynd",
+      "highRiskActivities": "Högriskaktiviteter"
+    },
+    "table": {
+      "policyName": "Polnamn",
+      "category": "Kategori",
+      "owner": "Ägare",
+      "effectiveDate": "Ikraftträdandedatum",
+      "reviewDate": "Granskningsdatum",
+      "status": "Status",
+      "riskLevel": "Risknivå",
+      "request": "Begäran",
+      "submittedBy": "Inskickad av",
+      "priority": "Prioritet",
+      "dueDate": "Förfallodatum",
+      "approver": "Godkännare",
+      "actions": "Åtgärder",
+      "dataType": "Datatyp",
+      "retentionDays": "Lagring (dagar)",
+      "subject": "Ämne",
+      "detail": "Detalj",
+      "message": "Meddelande",
+      "severity": "Allvarlighetsgrad",
+      "title": "Titel",
+      "expiresAt": "Upphör"
+    },
+    "categories": {
+      "security": "Säkerhet",
+      "privacy": "Integritet",
+      "data_handling": "Datahantering",
+      "billing": "Fakturering",
+      "customer_communications": "Kundkommunikation",
+      "ai_governance": "AI-governance",
+      "operational_standards": "Operativa standarder"
+    },
+    "policyStatuses": {
+      "draft": "Utkast",
+      "active": "Aktiv",
+      "under_review": "Under granskning",
+      "archived": "Arkiverad"
+    },
+    "riskLevels": {
+      "low": "Låg",
+      "medium": "Medel",
+      "high": "Hög",
+      "critical": "Kritisk"
+    },
+    "priorities": {
+      "low": "Låg",
+      "medium": "Medel",
+      "high": "Hög",
+      "critical": "Kritisk"
+    },
+    "retentionTypes": {
+      "support_data": "Supportdata",
+      "audit_logs": "Revisionsloggar",
+      "feedback_records": "Feedbackposter",
+      "customer_activity_logs": "Kundaktivitetsloggar",
+      "knowledge_articles": "Kunskapsartiklar"
+    },
+    "accessTypes": {
+      "role_assignment": "Rolltilldelningar",
+      "privileged_user": "Privilegierade användare",
+      "super_admin_access": "Super Admin-åtkomst",
+      "permission_exception": "Behörighetsundantag"
+    },
+    "alertTypes": {
+      "overdue_policy_review": "Försenade policygranskningar",
+      "expired_approval": "Utgångna godkännanden",
+      "excessive_privilege": "Överdrivna privilegietilldelningar",
+      "high_risk_action": "Högriskåtgärder",
+      "governance_violation": "Governance-brott"
+    },
+    "modules": {
+      "policy_management": "Policyhantering",
+      "approval_workflows": "Godkännandearbetsflöden",
+      "data_retention_controls": "Datalagringskontroller",
+      "access_governance": "Åtkomstgovernance",
+      "security_governance": "Säkerhetsgovernance",
+      "compliance_reporting": "Compliance-rapportering"
+    },
+    "filters": {
+      "category": "Kategori",
+      "status": "Status",
+      "riskLevel": "Risknivå",
+      "owner": "Ägare",
+      "reviewFrom": "Granskning från",
+      "reviewTo": "Granskning till",
+      "allCategories": "Alla kategorier",
+      "allStatuses": "Alla statusar",
+      "allRiskLevels": "Alla risknivåer",
+      "apply": "Tillämpa filter"
+    },
+    "reports": {
+      "governanceActivities": "Governance-aktiviteter",
+      "approvalHistories": "Godkännandehistorik",
+      "policyCompliance": "Policy-compliance",
+      "auditSummaries": "Revisionssammanfattningar",
+      "exportPdf": "Exportera PDF",
+      "exportExcel": "Exportera Excel",
+      "exportCsv": "Exportera CSV"
+    },
+    "actions": {
+      "approve": "Godkänn",
+      "reject": "Avslå",
+      "requestChanges": "Begär ändringar",
+      "escalate": "Eskalera",
+      "activatePolicy": "Aktivera",
+      "archivePolicy": "Arkivera",
+      "resolveAlert": "Lös varning",
+      "resolveException": "Lös undantag",
+      "completeAccessReview": "Slutför granskning",
+      "updateRetention": "Uppdatera lagring",
+      "applying": "Tillämpar…"
+    },
+    "create": {
+      "policyName": "Polnamn",
+      "owner": "Ägare",
+      "summary": "Sammanfattning",
+      "submit": "Skapa policy",
+      "placeholderName": "Polnamn",
+      "placeholderOwner": "Policyägare",
+      "placeholderSummary": "Beskriv policyomfång, krav och granskningsfrekvens…"
+    }
+  },
+  "decisionCenter": {
+    "title": "Decision Center",
+    "subtitle": "AI-drivna rekommendationer för ledning, administratörer och kundframgångsteam baserat på operativ data och plattformsinsikter.",
+    "loading": "Förbereder Decision Center…",
+    "back": "Tillbaka till Intelligence",
+    "principle": "Information ensam räcker inte. Det sanna värdet av intelligens ligger i att hjälpa människor fatta bättre beslut vid rätt tillfälle.",
+    "executiveSummary": "Ledningssammanfattning",
+    "emptyState": "Inga rekommendationer matchar valda filter.",
+    "sections": {
+      "overview": "Översikt",
+      "recommendations": "Rekommendationer",
+      "highImpact": "Högimpactmöjligheter",
+      "risks": "Identifierade risker",
+      "audit": "Revisionslogg",
+      "filters": "Filter",
+      "recommendedActions": "Rekommenderade åtgärder",
+      "tasks": "Uppgifter"
+    },
+    "overview": {
+      "recommendationsGenerated": "Rekommendationer genererade",
+      "recommendationsAccepted": "Rekommendationer accepterade",
+      "recommendationsDeclined": "Rekommendationer avvisade",
+      "highImpactOpportunities": "Högimpactmöjligheter",
+      "risksIdentified": "Identifierade risker",
+      "pendingReviews": "Väntande granskningar"
+    },
+    "table": {
+      "title": "Titel",
+      "description": "Beskrivning",
+      "category": "Kategori",
+      "impactLevel": "Impactnivå",
+      "confidence": "Konfidens",
+      "status": "Status",
+      "owner": "Ägare",
+      "generatedDate": "Genererad",
+      "actions": "Åtgärder"
+    },
+    "categories": {
+      "customer_success": "Kundframgång",
+      "revenue_growth": "Intäktstillväxt",
+      "product_improvements": "Produktförbättringar",
+      "support_optimization": "Supportoptimering",
+      "operational_efficiency": "Operativ effektivitet",
+      "security_awareness": "Säkerhetsmedvetenhet",
+      "governance_improvements": "Governance-förbättringar"
+    },
+    "impactLevels": {
+      "low": "Låg",
+      "medium": "Medel",
+      "high": "Hög",
+      "strategic": "Strategisk"
+    },
+    "statuses": {
+      "new": "Ny",
+      "under_review": "Under granskning",
+      "accepted": "Accepterad",
+      "implemented": "Implementerad",
+      "dismissed": "Avvisad"
+    },
+    "filters": {
+      "category": "Kategori",
+      "impactLevel": "Impactnivå",
+      "status": "Status",
+      "owner": "Ägare",
+      "confidenceMin": "Minimum konfidens (%)",
+      "allCategories": "Alla kategorier",
+      "allImpactLevels": "Alla impactnivåer",
+      "allStatuses": "Alla statusar",
+      "apply": "Tillämpa filter"
+    },
+    "actions": {
+      "accept": "Acceptera",
+      "dismiss": "Avvisa",
+      "startReview": "Starta granskning",
+      "markImplemented": "Markera implementerad",
+      "createTask": "Skapa uppgift",
+      "assignOwner": "Tilldela",
+      "addNote": "Spara anteckning",
+      "linkRoadmap": "Länka",
+      "applying": "Tillämpar…"
+    },
+    "prompts": {
+      "owner": "Tilldela ägare",
+      "note": "Lägg till anteckning",
+      "roadmapLink": "Roadmap-länk",
+      "taskTitle": "Uppgiftstitel"
+    }
+  },
+  "operations": {
+    "nav": {
+      "playbooks": "Playbooks"
+    }
+  },
+  "playbookCenter": {
+    "title": "Playbook Center",
+    "subtitle": "Skapa återanvändbara operativa playbooks och automatiseringar som standardiserar återkommande affärsprocesser.",
+    "loading": "Förbereder Playbook Center…",
+    "back": "Tillbaka till plattformen",
+    "principle": "De bästa organisationerna förlitar sig inte bara på minnet. De bygger repeterbara system som hjälper människor prestera konsekvent och tryggt.",
+    "emptyState": "Inga playbooks matchar valda filter.",
+    "sections": {
+      "overview": "Översikt",
+      "playbooks": "Playbooks",
+      "templates": "Playbook-mallar",
+      "executions": "Körningshistorik",
+      "audit": "Revisionslogg",
+      "filters": "Filter",
+      "steps": "Playbook-steg",
+      "conditions": "Automatiseringsvillkor",
+      "createPlaybook": "Skapa playbook"
+    },
+    "overview": {
+      "activePlaybooks": "Aktiva playbooks",
+      "automationsRunning": "Automatiseringar körs",
+      "failedExecutions": "Misslyckade körningar",
+      "manualInterventions": "Manuella ingrepp",
+      "scheduledWorkflows": "Schemalagda arbetsflöden",
+      "mostUsedPlaybooks": "Mest använda playbooks"
+    },
+    "table": {
+      "name": "Namn",
+      "category": "Kategori",
+      "description": "Beskrivning",
+      "owner": "Ägare",
+      "triggerType": "Utlösartyp",
+      "status": "Status",
+      "lastExecuted": "Senast körd",
+      "playbookName": "Playbook-namn",
+      "triggerEvent": "Utlösarhändelse",
+      "executionDate": "Körningsdatum",
+      "outcome": "Resultat",
+      "duration": "Varaktighet",
+      "actions": "Åtgärder",
+      "requiresApproval": "Kräver godkännande"
+    },
+    "categories": {
+      "customer_onboarding": "Kundonboarding",
+      "customer_success": "Kundframgång",
+      "billing_operations": "Faktureringsoperationer",
+      "support_operations": "Supportoperationer",
+      "security_procedures": "Säkerhetsprocedurer",
+      "employee_onboarding": "Medarbetaronboarding",
+      "incident_response": "Incidenthantering",
+      "executive_workflows": "Ledningsarbetsflöden"
+    },
+    "triggerTypes": {
+      "manual": "Manuell",
+      "scheduled": "Schemalagd",
+      "event_based": "Händelsebaserad",
+      "conditional": "Villkorlig"
+    },
+    "statuses": {
+      "draft": "Utkast",
+      "active": "Aktiv",
+      "paused": "Pausad",
+      "archived": "Arkiverad"
+    },
+    "stepActions": {
+      "send_notification": "Skicka avisering",
+      "create_task": "Skapa uppgift",
+      "assign_user": "Tilldela användare",
+      "request_approval": "Begär godkännande",
+      "update_status": "Uppdatera status",
+      "generate_document": "Generera dokument",
+      "escalate_issue": "Eskalera ärende",
+      "trigger_workflow": "Utlös arbetsflöde"
+    },
+    "outcomes": {
+      "successful": "Lyckad",
+      "partially_successful": "Delvis lyckad",
+      "failed": "Misslyckad",
+      "cancelled": "Avbruten"
+    },
+    "filters": {
+      "category": "Kategori",
+      "status": "Status",
+      "triggerType": "Utlösartyp",
+      "owner": "Ägare",
+      "outcome": "Resultat",
+      "allCategories": "Alla kategorier",
+      "allStatuses": "Alla statusar",
+      "allTriggerTypes": "Alla utlösartyper",
+      "allOutcomes": "Alla resultat",
+      "apply": "Tillämpa filter"
+    },
+    "actions": {
+      "activate": "Aktivera",
+      "pause": "Pausa",
+      "archive": "Arkivera",
+      "execute": "Kör",
+      "retry": "Försök igen",
+      "escalate": "Eskalera",
+      "disable": "Inaktivera automatisering",
+      "grantApproval": "Bevilja godkännande",
+      "rejectApproval": "Avslå godkännande",
+      "useTemplate": "Använd mall",
+      "applying": "Tillämpar…"
+    },
+    "create": {
+      "name": "Namn",
+      "owner": "Ägare",
+      "description": "Beskrivning",
+      "submit": "Skapa playbook",
+      "placeholderName": "Playbook-namn",
+      "placeholderOwner": "Playbook-ägare",
+      "placeholderDescription": "Beskriv processen, utlösare och förväntade resultat…"
     }
   },
   "customerSuccessOperations": {

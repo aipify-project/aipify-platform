@@ -3,6 +3,11 @@ export type PlatformNavId =
   | "executiveOperationsCenter"
   | "announcementCenter"
   | "feedbackCenter"
+  | "productRoadmapCenter"
+  | "productReleaseCenter"
+  | "platformKnowledgeEvolutionCenter"
+  | "platformComplianceGovernanceCenter"
+  | "platformPlaybookCenter"
   | "overview"
   | "customers"
   | "customerLifecycle"
@@ -24,6 +29,7 @@ export type PlatformNavId =
   | "pilotOperations"
   | "pilotInstall"
   | "metrics"
+  | "analyticsCustomerJourneys"
   | "stats"
   | "support"
   | "automations"
@@ -59,6 +65,7 @@ export const ACTION_NAV: ActionNavItem[] = [
 
 export type IntelligenceNavId =
   | "brain"
+  | "decisionCenter"
   | "learningQueue"
   | "globalPatterns"
   | "selfHealing"
@@ -73,6 +80,11 @@ export type IntelligenceNavItem = {
 
 export const INTELLIGENCE_NAV: IntelligenceNavItem[] = [
   { id: "brain", href: "/platform/intelligence", labelKey: "platform.intelligence.nav.brain" },
+  {
+    id: "decisionCenter",
+    href: "/platform/intelligence/decision-center",
+    labelKey: "platform.intelligence.nav.decisionCenter",
+  },
   {
     id: "learningQueue",
     href: "/platform/intelligence/learning-queue",
@@ -100,6 +112,96 @@ export const INTELLIGENCE_NAV: IntelligenceNavItem[] = [
   },
 ];
 
+export type AnalyticsNavId = "customerJourneys";
+
+export type AnalyticsNavItem = {
+  id: AnalyticsNavId;
+  href: string;
+  labelKey: string;
+};
+
+export const ANALYTICS_NAV: AnalyticsNavItem[] = [
+  {
+    id: "customerJourneys",
+    href: "/platform/analytics/customer-journeys",
+    labelKey: "platform.analytics.nav.customerJourneys",
+  },
+];
+
+export type ProductNavId = "feedbackCenter" | "roadmapCenter" | "releaseCenter";
+
+export type ProductNavItem = {
+  id: ProductNavId;
+  href: string;
+  labelKey: string;
+};
+
+export type OperationsNavId = "playbooks";
+
+export type OperationsNavItem = {
+  id: OperationsNavId;
+  href: string;
+  labelKey: string;
+};
+
+export const OPERATIONS_NAV: OperationsNavItem[] = [
+  {
+    id: "playbooks",
+    href: "/platform/operations/playbooks",
+    labelKey: "platform.operations.nav.playbooks",
+  },
+];
+
+export type GovernanceNavId = "complianceCenter";
+
+export type GovernanceNavItem = {
+  id: GovernanceNavId;
+  href: string;
+  labelKey: string;
+};
+
+export const GOVERNANCE_NAV: GovernanceNavItem[] = [
+  {
+    id: "complianceCenter",
+    href: "/platform/governance/compliance-center",
+    labelKey: "platform.governance.nav.complianceCenter",
+  },
+];
+
+export type KnowledgeNavId = "evolutionCenter";
+
+export type KnowledgeNavItem = {
+  id: KnowledgeNavId;
+  href: string;
+  labelKey: string;
+};
+
+export const KNOWLEDGE_NAV: KnowledgeNavItem[] = [
+  {
+    id: "evolutionCenter",
+    href: "/platform/knowledge/evolution-center",
+    labelKey: "platform.knowledge.nav.evolutionCenter",
+  },
+];
+
+export const PRODUCT_NAV: ProductNavItem[] = [
+  {
+    id: "feedbackCenter",
+    href: "/platform/product/feedback-center",
+    labelKey: "platform.product.nav.feedbackCenter",
+  },
+  {
+    id: "roadmapCenter",
+    href: "/platform/product/roadmap-center",
+    labelKey: "platform.product.nav.roadmapCenter",
+  },
+  {
+    id: "releaseCenter",
+    href: "/platform/product/release-center",
+    labelKey: "platform.product.nav.releaseCenter",
+  },
+];
+
 export type PlatformNavItem = {
   id: PlatformNavId;
   href: string;
@@ -122,6 +224,31 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     id: "feedbackCenter",
     href: "/platform/product/feedback-center",
     labelKey: "platform.nav.feedbackCenter",
+  },
+  {
+    id: "productRoadmapCenter",
+    href: "/platform/product/roadmap-center",
+    labelKey: "platform.nav.productRoadmapCenter",
+  },
+  {
+    id: "productReleaseCenter",
+    href: "/platform/product/release-center",
+    labelKey: "platform.nav.productReleaseCenter",
+  },
+  {
+    id: "platformKnowledgeEvolutionCenter",
+    href: "/platform/knowledge/evolution-center",
+    labelKey: "platform.nav.platformKnowledgeEvolutionCenter",
+  },
+  {
+    id: "platformComplianceGovernanceCenter",
+    href: "/platform/governance/compliance-center",
+    labelKey: "platform.nav.platformComplianceGovernanceCenter",
+  },
+  {
+    id: "platformPlaybookCenter",
+    href: "/platform/operations/playbooks",
+    labelKey: "platform.nav.platformPlaybookCenter",
   },
   { id: "overview", href: "/platform", labelKey: "platform.nav.overview" },
   {
@@ -225,6 +352,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.metrics",
   },
   {
+    id: "analyticsCustomerJourneys",
+    href: "/platform/analytics/customer-journeys",
+    labelKey: "platform.nav.analyticsCustomerJourneys",
+  },
+  {
     id: "support",
     href: "/platform/support",
     labelKey: "platform.nav.support",
@@ -264,6 +396,14 @@ export const PLATFORM_MOBILE_NAV_IDS: PlatformNavId[] = [
 ];
 
 export function getPlatformActiveNavId(pathname: string): PlatformNavId {
+  if (pathname.startsWith("/platform/operations/playbooks")) return "platformPlaybookCenter";
+  if (pathname.startsWith("/platform/operations")) return "platformPlaybookCenter";
+  if (pathname.startsWith("/platform/governance/compliance-center")) return "platformComplianceGovernanceCenter";
+  if (pathname.startsWith("/platform/governance")) return "platformComplianceGovernanceCenter";
+  if (pathname.startsWith("/platform/knowledge/evolution-center")) return "platformKnowledgeEvolutionCenter";
+  if (pathname.startsWith("/platform/knowledge")) return "platformKnowledgeEvolutionCenter";
+  if (pathname.startsWith("/platform/product/release-center")) return "productReleaseCenter";
+  if (pathname.startsWith("/platform/product/roadmap-center")) return "productRoadmapCenter";
   if (pathname.startsWith("/platform/product/feedback-center")) return "feedbackCenter";
   if (pathname.startsWith("/platform/communications/announcement-center")) return "announcementCenter";
   if (pathname.startsWith("/platform/executive/operations-center")) return "executiveOperationsCenter";
@@ -288,6 +428,8 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/pilot-operations")) return "pilotOperations";
   if (pathname.startsWith("/platform/install/unonight")) return "pilotInstall";
   if (pathname.startsWith("/platform/installations")) return "installations";
+  if (pathname.startsWith("/platform/analytics/customer-journeys")) return "analyticsCustomerJourneys";
+  if (pathname.startsWith("/platform/analytics")) return "analyticsCustomerJourneys";
   if (pathname.startsWith("/platform/metrics")) return "metrics";
   if (pathname.startsWith("/platform/stats")) return "metrics";
   if (pathname.startsWith("/platform/support")) return "support";
@@ -297,6 +439,29 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/skills")) return "skills";
   if (pathname.startsWith("/platform/system")) return "system";
   return "overview";
+}
+
+export function getOperationsActiveNavId(_pathname: string): OperationsNavId {
+  return "playbooks";
+}
+
+export function getGovernanceActiveNavId(_pathname: string): GovernanceNavId {
+  return "complianceCenter";
+}
+
+export function getKnowledgeActiveNavId(pathname: string): KnowledgeNavId {
+  return "evolutionCenter";
+}
+
+export function getProductActiveNavId(pathname: string): ProductNavId {
+  if (pathname.startsWith("/platform/product/release-center")) return "releaseCenter";
+  if (pathname.startsWith("/platform/product/roadmap-center")) return "roadmapCenter";
+  return "feedbackCenter";
+}
+
+export function getAnalyticsActiveNavId(pathname: string): AnalyticsNavId {
+  if (pathname.startsWith("/platform/analytics/customer-journeys")) return "customerJourneys";
+  return "customerJourneys";
 }
 
 export function getActionActiveNavId(pathname: string): ActionNavId {
@@ -310,6 +475,7 @@ export function getActionActiveNavId(pathname: string): ActionNavId {
 }
 
 export function getIntelligenceActiveNavId(pathname: string): IntelligenceNavId {
+  if (pathname.startsWith("/platform/intelligence/decision-center")) return "decisionCenter";
   if (pathname.startsWith("/platform/intelligence/learning-queue")) return "learningQueue";
   if (pathname.startsWith("/platform/intelligence/global-patterns")) return "globalPatterns";
   if (pathname.startsWith("/platform/intelligence/self-healing")) return "selfHealing";

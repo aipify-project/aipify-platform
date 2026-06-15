@@ -38,6 +38,7 @@
     "presencePilot": "Tilstedeværelsespilot",
     "pilotInstall": "Pilotinstallasjon",
     "metrics": "Platform Metrics",
+    "analyticsCustomerJourneys": "Kundereiser",
     "stats": "Platform stats",
     "paymentProviders": "Payment providers",
     "support": "Support",
@@ -51,6 +52,11 @@
     "executiveOperationsCenter": "Operasjonssenter",
     "announcementCenter": "Kunngjøringssenter",
     "feedbackCenter": "Tilbakemeldingssenter",
+    "productRoadmapCenter": "Roadmap-senter",
+    "productReleaseCenter": "Release-senter",
+    "platformKnowledgeEvolutionCenter": "Kunnskapsevolusjon",
+    "platformComplianceGovernanceCenter": "Compliance-senter",
+    "platformPlaybookCenter": "Playbooks",
     "pilotOperations": "Customer Zero-senter",
     "paymentOperations": "Betalingsoperasjonssenter",
     "paymentHealth": "Betalingshelse",
@@ -1613,6 +1619,7 @@
     "privacyNote": "Aipify learns only from operational metadata. No conversations, identities, invoices, or uploaded files are stored.",
     "nav": {
       "brain": "Brain Dashboard",
+      "decisionCenter": "Decision Center",
       "learningQueue": "Learning Queue",
       "globalPatterns": "Global Patterns",
       "selfHealing": "Self-Healing",
@@ -2794,6 +2801,944 @@
       "growth": "Growth",
       "business": "Business",
       "enterprise": "Enterprise"
+    }
+  },
+  "analytics": {
+    "nav": {
+      "customerJourneys": "Kundereiser"
+    }
+  },
+  "customerJourneyAnalytics": {
+    "title": "Kundereiseanalyse",
+    "subtitle": "Forstå hvordan kunder beveger seg gjennom Aipify for å forbedre onboarding, adopsjon, retention og vekst.",
+    "loading": "Forbereder kundereiseanalyse…",
+    "back": "Tilbake til analyse",
+    "principle": "Å forstå hvor kunder sliter er første steg mot ekstraordinære kundeopplevelser.",
+    "privacyNote": "Reiseanalyse finnes for å forbedre kundeutfall — aldri for reklame eller salg til tredjeparter.",
+    "emptyState": "Ingen reisedata funnet for valgte filtre.",
+    "sections": {
+      "overview": "Oversikt",
+      "funnel": "Traktanalyse",
+      "dropOffs": "Frafallsdeteksjon",
+      "journeys": "Kundereiser",
+      "timeline": "Reisetidslinje",
+      "commonPaths": "Vanlige stier",
+      "recommendations": "Aipify-anbefalinger",
+      "audit": "Revisjonslogg",
+      "filters": "Segmentfiltre",
+      "exports": "Eksport"
+    },
+    "overview": {
+      "newRegistrations": "Nye registreringer (30d)",
+      "onboardingCompletionRate": "Onboarding-fullføringsrate",
+      "trialConversionRate": "Prøveperiode-konverteringsrate",
+      "timeToFirstValue": "Tid til første verdi",
+      "expansionRate": "Ekspansjonsrate",
+      "dropOffRate": "Frafallsrate",
+      "days": "dager"
+    },
+    "funnel": {
+      "from": "Fra",
+      "to": "Til",
+      "entered": "Startet",
+      "converted": "Konvertert",
+      "conversionRate": "Konverteringsrate"
+    },
+    "table": {
+      "company": "Selskap",
+      "currentStage": "Nåværende fase",
+      "trend": "Trend",
+      "lastActivity": "Siste aktivitet",
+      "subscriptionPlan": "Abonnementsplan",
+      "country": "Land",
+      "milestones": "Milepæler",
+      "customer": "Kunde",
+      "dropOffType": "Frafallstype",
+      "stage": "Fase",
+      "message": "Melding",
+      "path": "Sti",
+      "conversionRate": "Konverteringsrate",
+      "customers": "Kunder",
+      "abandonmentPoint": "Frafallspunkt",
+      "completedAt": "Fullført",
+      "delayDays": "Forsinkelse (dager)",
+      "supportInteraction": "Supportinteraksjon registrert",
+      "impactScore": "Påvirkningsscore"
+    },
+    "stages": {
+      "registration": "Registrering",
+      "email_verification": "E-postverifisering",
+      "first_login": "Første innlogging",
+      "onboarding_started": "Onboarding startet",
+      "onboarding_completed": "Onboarding fullført",
+      "first_user_invited": "Første bruker invitert",
+      "first_integration_connected": "Første integrasjon tilkoblet",
+      "first_ai_interaction": "Første AI-interaksjon",
+      "first_business_outcome": "Første forretningsresultat oppnådd",
+      "subscription_activated": "Abonnement aktivert",
+      "expansion": "Ekspansjonshendelser"
+    },
+    "dropOffTypes": {
+      "registration_abandoned": "Registrering avbrutt",
+      "verification_incomplete": "Verifisering ufullstendig",
+      "onboarding_unfinished": "Onboarding ufullført",
+      "integration_not_completed": "Integrasjonsoppsett ikke fullført",
+      "trial_expired": "Prøveperiode utløpt uten aktivering"
+    },
+    "recommendationTypes": {
+      "simplify_onboarding": "Forenkle onboarding-steg",
+      "guidance_tooltip": "Introduiser veiledningstooltip",
+      "improve_documentation": "Forbedre hjelpedokumentasjon",
+      "proactive_outreach": "Utløs proaktiv oppfølging",
+      "automation_opportunity": "Anbefal automatiseringsmulighet"
+    },
+    "trends": {
+      "improving": "Forbedres",
+      "stable": "Stabil",
+      "declining": "Synkende"
+    },
+    "filters": {
+      "country": "Land",
+      "industry": "Bransje",
+      "companySize": "Bedriftsstørrelse",
+      "plan": "Abonnementsplan",
+      "customerSegment": "Kundesegment",
+      "allCountries": "Alle land",
+      "allIndustries": "Alle bransjer",
+      "allSizes": "Alle størrelser",
+      "allPlans": "Alle planer",
+      "allSegments": "Alle segmenter",
+      "apply": "Bruk filtre",
+      "viewTimeline": "Vis tidslinje",
+      "clearTimeline": "Fjern tidslinjevalg"
+    },
+    "plans": {
+      "starter": "Starter",
+      "growth": "Growth",
+      "business": "Business",
+      "enterprise": "Enterprise"
+    },
+    "companySizes": {
+      "solo": "Solo",
+      "small": "Liten",
+      "medium": "Middels",
+      "large": "Stor",
+      "enterprise": "Enterprise"
+    },
+    "segments": {
+      "self_service": "Selvbetjening",
+      "smb": "SMB",
+      "mid_market": "Mellommarked",
+      "enterprise": "Enterprise",
+      "pilot": "Pilot"
+    },
+    "industries": {
+      "general": "Generell",
+      "technology": "Teknologi",
+      "retail": "Detaljhandel",
+      "professional_services": "Profesjonelle tjenester",
+      "healthcare": "Helsevesen"
+    },
+    "actions": {
+      "accept": "Godta",
+      "dismiss": "Avvis",
+      "resolve": "Løs",
+      "recalculate": "Rekalkuler trakt",
+      "applying": "Utfører…",
+      "viewJourney": "Vis reise"
+    },
+    "exports": {
+      "csv": "Eksporter CSV",
+      "excel": "Eksporter Excel",
+      "pdf": "Eksporter PDF",
+      "exporting": "Eksporterer…"
+    },
+    "exportFormats": {
+      "csv": "CSV",
+      "xlsx": "Excel",
+      "pdf": "PDF"
+    }
+  },
+  "product": {
+    "nav": {
+      "feedbackCenter": "Tilbakemeldingssenter",
+      "roadmapCenter": "Roadmap-senter",
+      "releaseCenter": "Release-senter"
+    }
+  },
+  "productRoadmapCenter": {
+    "title": "Roadmap-senter",
+    "subtitle": "Samle, prioritere, planlegge og spore produktinitiativer i Aipify-økosystemet.",
+    "loading": "Forbereder Roadmap-senter…",
+    "back": "Tilbake til Product",
+    "principle": "De beste produktveikartene formes av kundebehov, strategisk tenkning og disiplinert gjennomføring.",
+    "emptyState": "Ingen roadmap-initiativer matcher valgte filtre.",
+    "sections": {
+      "overview": "Oversikt",
+      "views": "Roadmap-visninger",
+      "table": "Roadmap-initiativer",
+      "scoring": "Scoring-rammeverk",
+      "requests": "Koblede kundeforespørsler",
+      "release": "Release-kommunikasjon",
+      "audit": "Revisjonslogg",
+      "filters": "Filtre",
+      "createIdea": "Send inn ny idé"
+    },
+    "overview": {
+      "plannedInitiatives": "Planlagte initiativer",
+      "inDevelopment": "Under utvikling",
+      "readyForRelease": "Klar for release",
+      "customerRequested": "Kundeforespurte funksjoner",
+      "recentlyCompleted": "Nylig fullført",
+      "deferredItems": "Utsatte elementer"
+    },
+    "table": {
+      "initiative": "Initiativ",
+      "category": "Kategori",
+      "priority": "Prioritet",
+      "status": "Status",
+      "owner": "Eier",
+      "targetRelease": "Mål-release",
+      "source": "Kilde",
+      "view": "Roadmap-visning",
+      "score": "Sammensatt score",
+      "supportingRequests": "Støttende forespørsler",
+      "enterpriseRequests": "Enterprise-forespørsler",
+      "partnerRequests": "Growth Partner-forespørsler",
+      "relatedPhases": "Relaterte faser",
+      "actions": "Handlinger"
+    },
+    "categories": {
+      "new_feature": "Nye funksjoner",
+      "improvement": "Forbedringer",
+      "technical_debt": "Teknisk gjeld",
+      "security_enhancement": "Sikkerhetsforbedringer",
+      "customer_request": "Kundeforespørsler",
+      "growth_opportunity": "Vekstmuligheter",
+      "strategic_initiative": "Strategiske initiativer"
+    },
+    "views": {
+      "now": "Nå",
+      "next": "Neste",
+      "later": "Senere",
+      "under_consideration": "Under vurdering",
+      "completed": "Fullført"
+    },
+    "sources": {
+      "customer_feedback": "Kundetilbakemelding",
+      "super_admin": "Super Admin",
+      "platform_admin": "Platform Admin",
+      "growth_partner": "Growth Partners",
+      "support_team": "Support-team",
+      "internal_product": "Interne produktteam",
+      "executive_review": "Ledelsesgjennomgang"
+    },
+    "priorities": {
+      "critical": "Kritisk",
+      "high": "Høy",
+      "medium": "Medium",
+      "low": "Lav",
+      "future_consideration": "Fremtidig vurdering"
+    },
+    "statuses": {
+      "new": "Ny",
+      "under_review": "Under vurdering",
+      "approved": "Godkjent",
+      "planned": "Planlagt",
+      "in_development": "Under utvikling",
+      "testing": "Testing",
+      "released": "Lansert",
+      "declined": "Avslått"
+    },
+    "efforts": {
+      "xs": "Ekstra liten",
+      "small": "Liten",
+      "medium": "Medium",
+      "large": "Stor",
+      "xl": "Ekstra stor"
+    },
+    "impacts": {
+      "critical": "Kritisk",
+      "high": "Høy",
+      "medium": "Medium",
+      "low": "Lav"
+    },
+    "requestSources": {
+      "customer_feedback": "Kundetilbakemelding",
+      "enterprise": "Enterprise",
+      "growth_partner": "Growth Partner"
+    },
+    "releaseChannels": {
+      "release_notes": "Release notes",
+      "customer_announcement": "Kundevarsler",
+      "in_app_notification": "In-app-varsler"
+    },
+    "scoring": {
+      "customerDemand": "Kundeetterspørsel",
+      "revenuePotential": "Inntektspotensial",
+      "strategicAlignment": "Strategisk tilpasning",
+      "implementationComplexity": "Implementeringskompleksitet",
+      "riskReduction": "Risikoreduksjon",
+      "competitiveAdvantage": "Konkurransefortrinn",
+      "composite": "Sammensatt score"
+    },
+    "filters": {
+      "category": "Kategori",
+      "priority": "Prioritet",
+      "status": "Status",
+      "source": "Kilde",
+      "view": "Roadmap-visning",
+      "releaseWindow": "Release-vindu",
+      "allCategories": "Alle kategorier",
+      "allPriorities": "Alle prioriteter",
+      "allStatuses": "Alle statuser",
+      "allSources": "Alle kilder",
+      "allViews": "Alle visninger",
+      "allWindows": "Alle release-vinduer",
+      "apply": "Bruk filtre"
+    },
+    "actions": {
+      "approve": "Godkjenn",
+      "plan": "Marker planlagt",
+      "startDevelopment": "Start utvikling",
+      "moveToTesting": "Flytt til testing",
+      "publishRelease": "Publiser release",
+      "decline": "Avslå",
+      "linkRequest": "Koble forespørsel",
+      "moveToNow": "Flytt til Nå",
+      "moveToNext": "Flytt til Neste",
+      "applying": "Utfører…"
+    },
+    "create": {
+      "title": "Tittel",
+      "description": "Beskrivelse",
+      "submit": "Send inn idé",
+      "placeholderTitle": "Initiativtittel",
+      "placeholderDescription": "Beskriv idéen, kundepåvirkning og strategisk verdi…"
+    }
+  },
+  "releaseCenter": {
+    "title": "Release-senter",
+    "subtitle": "Planlegg, dokumenter, godkjenn og kommuniser alle plattformendringer i Aipify-økosystemet.",
+    "loading": "Forbereder Release-senter…",
+    "back": "Tilbake til Product",
+    "principle": "Kunder skal aldri lure på hva som endret seg. Transparens bygger tillit. Kommunikasjon reduserer usikkerhet.",
+    "emptyState": "Ingen releaser matcher valgte filtre.",
+    "sections": {
+      "overview": "Oversikt",
+      "releases": "Release-poster",
+      "changeLog": "Endringslogg",
+      "calendar": "Release-kalender",
+      "audit": "Revisjonslogg",
+      "filters": "Filtre",
+      "createRelease": "Opprett release",
+      "approvals": "Godkjenninger",
+      "communications": "Kundekommunikasjon",
+      "rollbacks": "Rollback-sporing"
+    },
+    "overview": {
+      "upcomingReleases": "Kommende releaser",
+      "releasesInTesting": "Releaser under testing",
+      "productionReleases": "Produksjonsreleaser",
+      "emergencyHotfixes": "Nød-hotfixes",
+      "notificationsPending": "Kundevarsler venter",
+      "recentlyCompleted": "Nylig fullførte releaser"
+    },
+    "table": {
+      "releaseName": "Releasenavn",
+      "version": "Versjon",
+      "category": "Kategori",
+      "summary": "Sammendrag",
+      "releaseDate": "Releasedato",
+      "status": "Status",
+      "audience": "Målgruppe",
+      "owner": "Eier",
+      "plannedDate": "Planlagt dato",
+      "actualDate": "Faktisk dato",
+      "riskLevel": "Risikonivå",
+      "type": "Releasetype",
+      "actions": "Handlinger"
+    },
+    "releaseTypes": {
+      "major": "Store releaser",
+      "minor": "Mindre releaser",
+      "hotfix": "Hotfixes",
+      "security_update": "Sikkerhetsoppdateringer",
+      "infrastructure_update": "Infrastrukturoppdateringer",
+      "experimental": "Eksperimentelle funksjoner"
+    },
+    "riskLevels": { "low": "Lav", "medium": "Medium", "high": "Høy", "critical": "Kritisk" },
+    "changeLogCategories": {
+      "new_feature": "Nye funksjoner",
+      "improvement": "Forbedringer",
+      "bug_fix": "Feilrettinger",
+      "security_update": "Sikkerhetsoppdateringer",
+      "performance": "Ytelsesforbedringer",
+      "deprecated": "Utfasede funksjoner"
+    },
+    "statuses": {
+      "planned": "Planlagt",
+      "in_development": "Under utvikling",
+      "internal_testing": "Intern testing",
+      "customer_validation": "Kundevalidering",
+      "approved": "Godkjent",
+      "released": "Lansert",
+      "rolled_back": "Rullet tilbake"
+    },
+    "audiences": {
+      "all_customers": "Alle kunder",
+      "enterprise": "Enterprise-kunder",
+      "specific_plans": "Spesifikke planer",
+      "growth_partners": "Growth Partners",
+      "internal_teams": "Interne team"
+    },
+    "approvalRoles": {
+      "super_admin": "Super Admin",
+      "product_owner": "Produkteier",
+      "technical_lead": "Teknisk leder"
+    },
+    "communicationChannels": {
+      "customer_portal": "Kundeportal",
+      "announcement_center": "Varslingssenter",
+      "email": "E-postvarsler",
+      "in_app_notification": "In-app-varsler"
+    },
+    "calendarEventTypes": {
+      "upcoming_release": "Kommende release",
+      "blackout_period": "Endringsfrys",
+      "maintenance_window": "Vedlikeholdsvindu",
+      "enterprise_notice": "Enterprise-varslingsperiode"
+    },
+    "filters": {
+      "releaseType": "Releasetype",
+      "status": "Status",
+      "owner": "Eier",
+      "audience": "Målgruppe",
+      "dateFrom": "Dato fra",
+      "dateTo": "Dato til",
+      "allTypes": "Alle typer",
+      "allStatuses": "Alle statuser",
+      "allAudiences": "Alle målgrupper",
+      "apply": "Bruk filtre"
+    },
+    "actions": {
+      "create": "Opprett release",
+      "approve": "Gi godkjenning",
+      "revokeApproval": "Tilbakekall godkjenning",
+      "publish": "Publiser release",
+      "rollback": "Start rollback",
+      "advanceStatus": "Frem til",
+      "applying": "Utfører…"
+    },
+    "create": {
+      "releaseName": "Releasenavn",
+      "releaseVersion": "Releaseversjon",
+      "description": "Beskrivelse",
+      "submit": "Opprett release",
+      "placeholderName": "f.eks. Aipify Platform 2026.3",
+      "placeholderVersion": "f.eks. 2026.3.0",
+      "placeholderDescription": "Beskriv endringer, risiko og kundepåvirkning…"
+    }
+  },
+  "knowledge": {
+    "nav": {
+      "evolutionCenter": "Evolution Center"
+    }
+  },
+  "knowledgeEvolutionCenter": {
+    "title": "Knowledge Evolution Center",
+    "subtitle": "Forbedre kontinuerlig Aipifys kunnskapskvalitet fra supportinteraksjoner, tilbakemeldinger og godkjent organisasjonskunnskap.",
+    "loading": "Forbereder Knowledge Evolution Center…",
+    "back": "Tilbake til plattform",
+    "principle": "Kunnskap bør forbedres kontinuerlig. Hvert løst problem er en mulighet til å hjelpe neste kunde raskere.",
+    "emptyState": "Ingen kunnskapselementer matcher valgte filtre.",
+    "sections": {
+      "overview": "Oversikt",
+      "articles": "Kunnskapsartikler",
+      "gaps": "Kunnskapshull",
+      "suggestions": "Foreslåtte forbedringer",
+      "recommendations": "Anbefalinger",
+      "analytics": "Kunnskapsanalyse",
+      "audit": "Revisjonslogg",
+      "filters": "Filtre",
+      "localizations": "Lokaliseringsstatus",
+      "createArticle": "Opprett artikkel"
+    },
+    "overview": {
+      "knowledgeArticles": "Kunnskapsartikler",
+      "suggestedImprovements": "Foreslåtte forbedringer",
+      "pendingReviews": "Ventende gjennomganger",
+      "recentlyUpdated": "Nylig oppdaterte artikler",
+      "knowledgeGaps": "Identifiserte kunnskapshull",
+      "learningOpportunities": "Læringsmuligheter"
+    },
+    "table": {
+      "title": "Tittel",
+      "source": "Kilde",
+      "healthScore": "Helsescore",
+      "healthStatus": "Helsestatus",
+      "workflowStatus": "Arbeidsflytstatus",
+      "owner": "Eier",
+      "usage": "Bruk",
+      "helpfulness": "Nyttighet",
+      "topic": "Emne",
+      "occurrences": "Forekomster",
+      "message": "Melding",
+      "priority": "Prioritet",
+      "views": "Visninger",
+      "rating": "Vurdering",
+      "resolutionRate": "Løsningsbidrag"
+    },
+    "sources": {
+      "approved_support_case": "Godkjente supportsaker",
+      "customer_feedback": "Kundetilbakemeldinger",
+      "faq_update": "FAQ-oppdateringer",
+      "product_release": "Produktreleaser",
+      "internal_documentation": "Intern dokumentasjon",
+      "success_playbook": "Suksess-playbooks",
+      "growth_partner_insight": "Growth Partner-innsikt"
+    },
+    "gapTypes": {
+      "unanswered_question": "Ofte stilte ubesvarte spørsmål",
+      "repeated_support": "Gjentatte supportforespørsler",
+      "missing_documentation": "Manglende dokumentasjon",
+      "outdated_article": "Utdaterte artikler",
+      "low_confidence_response": "Svar med lav konfidens"
+    },
+    "suggestionTypes": {
+      "create_article": "Opprett ny artikkel",
+      "expand_article": "Utvid eksisterende artikkel",
+      "update_screenshots": "Oppdater skjermbilder",
+      "improve_troubleshooting": "Forbedre feilsøkingstrinn",
+      "add_localization": "Legg til lokalisering"
+    },
+    "workflowStatuses": {
+      "draft": "Utkast",
+      "review_required": "Gjennomgang kreves",
+      "approved": "Godkjent",
+      "published": "Publisert",
+      "archived": "Arkivert"
+    },
+    "healthStatuses": {
+      "excellent": "Utmerket",
+      "healthy": "Sunn",
+      "needs_review": "Trenger gjennomgang",
+      "outdated": "Utdatert"
+    },
+    "approvalRoles": {
+      "super_admin": "Super Admin",
+      "knowledge_admin": "Knowledge Admin",
+      "product_owner": "Product Owner"
+    },
+    "locales": {
+      "en": "Engelsk",
+      "no": "Norsk",
+      "sv": "Svensk",
+      "da": "Dansk"
+    },
+    "translationStatuses": {
+      "complete": "Oversettelse fullført",
+      "pending": "Oversettelse venter",
+      "review_needed": "Gjennomgang nødvendig"
+    },
+    "filters": {
+      "healthStatus": "Helsestatus",
+      "workflowStatus": "Arbeidsflytstatus",
+      "source": "Kunnskapskilde",
+      "locale": "Språk",
+      "allHealth": "Alle helsestatuser",
+      "allStatuses": "Alle arbeidsflytstatuser",
+      "allSources": "Alle kilder",
+      "allLocales": "Alle språk",
+      "apply": "Bruk filtre"
+    },
+    "analytics": {
+      "mostViewed": "Mest viste artikler",
+      "highestRated": "Høyest vurderte artikler",
+      "lowestRated": "Lavest vurderte artikler",
+      "mostRequested": "Mest etterspurte emner",
+      "resolutionContribution": "Løsningsbidragsrate"
+    },
+    "actions": {
+      "approve": "Godkjenn",
+      "publish": "Publiser",
+      "archive": "Arkiver",
+      "submitReview": "Send til gjennomgang",
+      "accept": "Aksepter",
+      "decline": "Avslå",
+      "resolveGap": "Løs hull",
+      "applying": "Utfører…"
+    },
+    "create": {
+      "title": "Tittel",
+      "summary": "Sammendrag",
+      "submit": "Opprett artikkel",
+      "placeholderTitle": "Artikkeltittel",
+      "placeholderSummary": "Beskriv kunnskapsinnholdet og målgruppen…"
+    }
+  },
+  "governance": {
+    "nav": {
+      "complianceCenter": "Compliance Center"
+    }
+  },
+  "complianceGovernanceCenter": {
+    "title": "Compliance Center",
+    "subtitle": "Synlighet og kontroll over compliance-aktiviteter, governance-innstillinger, godkjenninger og policyhåndhevelse.",
+    "loading": "Forbereder Compliance Center…",
+    "back": "Tilbake til plattform",
+    "principle": "Tillit bygges gjennom ansvarlighet. Governance skal muliggjøre ansvarlig vekst, ikke unødvendig kompleksitet.",
+    "emptyState": "Ingen governance-elementer matcher valgte filtre.",
+    "sections": {
+      "overview": "Oversikt",
+      "modules": "Governance-moduler",
+      "policies": "Policyregister",
+      "approvals": "Godkjenningssenter",
+      "retention": "Datalagringskontroller",
+      "access": "Tilgangsgovernance",
+      "alerts": "Governance-varsler",
+      "exceptions": "Governance-unntak",
+      "reports": "Compliance-rapportering",
+      "audit": "Revisjonslogg",
+      "filters": "Filtre",
+      "createPolicy": "Opprett policy"
+    },
+    "overview": {
+      "complianceAlerts": "Compliance-varsler",
+      "policiesRequiringReview": "Policyer som krever gjennomgang",
+      "pendingApprovals": "Ventende godkjenninger",
+      "governanceExceptions": "Governance-unntak",
+      "auditFindings": "Revisjonsfunn",
+      "highRiskActivities": "Høyrisikoaktiviteter"
+    },
+    "table": {
+      "policyName": "Polnavn",
+      "category": "Kategori",
+      "owner": "Eier",
+      "effectiveDate": "Ikrafttredelsesdato",
+      "reviewDate": "Gjennomgangsdato",
+      "status": "Status",
+      "riskLevel": "Risikonivå",
+      "request": "Forespørsel",
+      "submittedBy": "Innsendt av",
+      "priority": "Prioritet",
+      "dueDate": "Forfallsdato",
+      "approver": "Godkjenner",
+      "actions": "Handlinger",
+      "dataType": "Datatype",
+      "retentionDays": "Lagring (dager)",
+      "subject": "Emne",
+      "detail": "Detalj",
+      "message": "Melding",
+      "severity": "Alvorlighetsgrad",
+      "title": "Tittel",
+      "expiresAt": "Utløper"
+    },
+    "categories": {
+      "security": "Sikkerhet",
+      "privacy": "Personvern",
+      "data_handling": "Datahåndtering",
+      "billing": "Fakturering",
+      "customer_communications": "Kundekommunikasjon",
+      "ai_governance": "AI-governance",
+      "operational_standards": "Operasjonelle standarder"
+    },
+    "policyStatuses": {
+      "draft": "Utkast",
+      "active": "Aktiv",
+      "under_review": "Under gjennomgang",
+      "archived": "Arkivert"
+    },
+    "riskLevels": {
+      "low": "Lav",
+      "medium": "Middels",
+      "high": "Høy",
+      "critical": "Kritisk"
+    },
+    "priorities": {
+      "low": "Lav",
+      "medium": "Middels",
+      "high": "Høy",
+      "critical": "Kritisk"
+    },
+    "retentionTypes": {
+      "support_data": "Supportdata",
+      "audit_logs": "Revisjonslogger",
+      "feedback_records": "Tilbakemeldingsposter",
+      "customer_activity_logs": "Kundeaktivitetslogger",
+      "knowledge_articles": "Kunnskapsartikler"
+    },
+    "accessTypes": {
+      "role_assignment": "Rolletildelinger",
+      "privileged_user": "Privilegerte brukere",
+      "super_admin_access": "Super Admin-tilgang",
+      "permission_exception": "Tillatelsesunntak"
+    },
+    "alertTypes": {
+      "overdue_policy_review": "Forfalte policygjennomganger",
+      "expired_approval": "Utløpte godkjenninger",
+      "excessive_privilege": "Overdrevne privilegietildelinger",
+      "high_risk_action": "Høyrisikohandlinger",
+      "governance_violation": "Governance-brudd"
+    },
+    "modules": {
+      "policy_management": "Policyhåndtering",
+      "approval_workflows": "Godkjenningsarbeidsflyter",
+      "data_retention_controls": "Datalagringskontroller",
+      "access_governance": "Tilgangsgovernance",
+      "security_governance": "Sikkerhetsgovernance",
+      "compliance_reporting": "Compliance-rapportering"
+    },
+    "filters": {
+      "category": "Kategori",
+      "status": "Status",
+      "riskLevel": "Risikonivå",
+      "owner": "Eier",
+      "reviewFrom": "Gjennomgang fra",
+      "reviewTo": "Gjennomgang til",
+      "allCategories": "Alle kategorier",
+      "allStatuses": "Alle statuser",
+      "allRiskLevels": "Alle risikonivåer",
+      "apply": "Bruk filtre"
+    },
+    "reports": {
+      "governanceActivities": "Governance-aktiviteter",
+      "approvalHistories": "Godkjenningshistorikk",
+      "policyCompliance": "Policy-compliance",
+      "auditSummaries": "Revisjonssammendrag",
+      "exportPdf": "Eksporter PDF",
+      "exportExcel": "Eksporter Excel",
+      "exportCsv": "Eksporter CSV"
+    },
+    "actions": {
+      "approve": "Godkjenn",
+      "reject": "Avslå",
+      "requestChanges": "Be om endringer",
+      "escalate": "Eskaler",
+      "activatePolicy": "Aktiver",
+      "archivePolicy": "Arkiver",
+      "resolveAlert": "Løs varsel",
+      "resolveException": "Løs unntak",
+      "completeAccessReview": "Fullfør gjennomgang",
+      "updateRetention": "Oppdater lagring",
+      "applying": "Utfører…"
+    },
+    "create": {
+      "policyName": "Polnavn",
+      "owner": "Eier",
+      "summary": "Sammendrag",
+      "submit": "Opprett policy",
+      "placeholderName": "Polnavn",
+      "placeholderOwner": "Policyeier",
+      "placeholderSummary": "Beskriv policyomfang, krav og gjennomgangsfrekvens…"
+    }
+  },
+  "decisionCenter": {
+    "title": "Decision Center",
+    "subtitle": "AI-drevne anbefalinger for ledelse, administratorer og kundesuksessteam basert på operasjonsdata og plattforminnsikt.",
+    "loading": "Forbereder Decision Center…",
+    "back": "Tilbake til Intelligence",
+    "principle": "Informasjon alene er ikke nok. Den sanne verdien av intelligens ligger i å hjelpe mennesker ta bedre beslutninger til rett tid.",
+    "executiveSummary": "Ledelsessammendrag",
+    "emptyState": "Ingen anbefalinger matcher valgte filtre.",
+    "sections": {
+      "overview": "Oversikt",
+      "recommendations": "Anbefalinger",
+      "highImpact": "Høyimpactmuligheter",
+      "risks": "Identifiserte risikoer",
+      "audit": "Revisjonslogg",
+      "filters": "Filtre",
+      "recommendedActions": "Anbefalte handlinger",
+      "tasks": "Oppgaver"
+    },
+    "overview": {
+      "recommendationsGenerated": "Anbefalinger generert",
+      "recommendationsAccepted": "Anbefalinger akseptert",
+      "recommendationsDeclined": "Anbefalinger avslått",
+      "highImpactOpportunities": "Høyimpactmuligheter",
+      "risksIdentified": "Identifiserte risikoer",
+      "pendingReviews": "Ventende gjennomganger"
+    },
+    "table": {
+      "title": "Tittel",
+      "description": "Beskrivelse",
+      "category": "Kategori",
+      "impactLevel": "Impactnivå",
+      "confidence": "Konfidens",
+      "status": "Status",
+      "owner": "Eier",
+      "generatedDate": "Generert",
+      "actions": "Handlinger"
+    },
+    "categories": {
+      "customer_success": "Kundesuksess",
+      "revenue_growth": "Inntektsvekst",
+      "product_improvements": "Produktforbedringer",
+      "support_optimization": "Supportoptimalisering",
+      "operational_efficiency": "Operasjonell effektivitet",
+      "security_awareness": "Sikkerhetsbevissthet",
+      "governance_improvements": "Governance-forbedringer"
+    },
+    "impactLevels": {
+      "low": "Lav",
+      "medium": "Middels",
+      "high": "Høy",
+      "strategic": "Strategisk"
+    },
+    "statuses": {
+      "new": "Ny",
+      "under_review": "Under gjennomgang",
+      "accepted": "Akseptert",
+      "implemented": "Implementert",
+      "dismissed": "Avslått"
+    },
+    "filters": {
+      "category": "Kategori",
+      "impactLevel": "Impactnivå",
+      "status": "Status",
+      "owner": "Eier",
+      "confidenceMin": "Minimum konfidens (%)",
+      "allCategories": "Alle kategorier",
+      "allImpactLevels": "Alle impactnivåer",
+      "allStatuses": "Alle statuser",
+      "apply": "Bruk filtre"
+    },
+    "actions": {
+      "accept": "Aksepter",
+      "dismiss": "Avslå",
+      "startReview": "Start gjennomgang",
+      "markImplemented": "Marker implementert",
+      "createTask": "Opprett oppgave",
+      "assignOwner": "Tildel",
+      "addNote": "Lagre notat",
+      "linkRoadmap": "Koble",
+      "applying": "Utfører…"
+    },
+    "prompts": {
+      "owner": "Tildel eier",
+      "note": "Legg til notat",
+      "roadmapLink": "Roadmap-lenke",
+      "taskTitle": "Oppgavetittel"
+    }
+  },
+  "operations": {
+    "nav": {
+      "playbooks": "Playbooks"
+    }
+  },
+  "playbookCenter": {
+    "title": "Playbook Center",
+    "subtitle": "Opprett gjenbrukbare operative playbooks og automatiseringer som standardiserer gjentakende forretningsprosesser.",
+    "loading": "Forbereder Playbook Center…",
+    "back": "Tilbake til plattform",
+    "principle": "De beste organisasjonene stoler ikke bare på hukommelse. De bygger repeterbare systemer som hjelper folk å prestere konsekvent og trygt.",
+    "emptyState": "Ingen playbooks matcher valgte filtre.",
+    "sections": {
+      "overview": "Oversikt",
+      "playbooks": "Playbooks",
+      "templates": "Playbook-maler",
+      "executions": "Kjøringshistorikk",
+      "audit": "Revisjonslogg",
+      "filters": "Filtre",
+      "steps": "Playbook-trinn",
+      "conditions": "Automatiseringsbetingelse",
+      "createPlaybook": "Opprett playbook"
+    },
+    "overview": {
+      "activePlaybooks": "Aktive playbooks",
+      "automationsRunning": "Automatiseringer kjører",
+      "failedExecutions": "Mislykkede kjøringer",
+      "manualInterventions": "Manuelle inngrep",
+      "scheduledWorkflows": "Planlagte arbeidsflyter",
+      "mostUsedPlaybooks": "Mest brukte playbooks"
+    },
+    "table": {
+      "name": "Navn",
+      "category": "Kategori",
+      "description": "Beskrivelse",
+      "owner": "Eier",
+      "triggerType": "Utløsertype",
+      "status": "Status",
+      "lastExecuted": "Sist kjørt",
+      "playbookName": "Playbook-navn",
+      "triggerEvent": "Utløserhendelse",
+      "executionDate": "Kjøringsdato",
+      "outcome": "Resultat",
+      "duration": "Varighet",
+      "actions": "Handlinger",
+      "requiresApproval": "Krever godkjenning"
+    },
+    "categories": {
+      "customer_onboarding": "Kundeonboarding",
+      "customer_success": "Kundesuksess",
+      "billing_operations": "Faktureringsoperasjoner",
+      "support_operations": "Supportoperasjoner",
+      "security_procedures": "Sikkerhetsprosedyrer",
+      "employee_onboarding": "Ansatt-onboarding",
+      "incident_response": "Hendelseshåndtering",
+      "executive_workflows": "Ledelsesarbeidsflyter"
+    },
+    "triggerTypes": {
+      "manual": "Manuell",
+      "scheduled": "Planlagt",
+      "event_based": "Hendelsesbasert",
+      "conditional": "Betinget"
+    },
+    "statuses": {
+      "draft": "Utkast",
+      "active": "Aktiv",
+      "paused": "Pauset",
+      "archived": "Arkivert"
+    },
+    "stepActions": {
+      "send_notification": "Send varsling",
+      "create_task": "Opprett oppgave",
+      "assign_user": "Tildel bruker",
+      "request_approval": "Be om godkjenning",
+      "update_status": "Oppdater status",
+      "generate_document": "Generer dokument",
+      "escalate_issue": "Eskaler sak",
+      "trigger_workflow": "Utløs arbeidsflyt"
+    },
+    "outcomes": {
+      "successful": "Vellykket",
+      "partially_successful": "Delvis vellykket",
+      "failed": "Mislykket",
+      "cancelled": "Avbrutt"
+    },
+    "filters": {
+      "category": "Kategori",
+      "status": "Status",
+      "triggerType": "Utløsertype",
+      "owner": "Eier",
+      "outcome": "Resultat",
+      "allCategories": "Alle kategorier",
+      "allStatuses": "Alle statuser",
+      "allTriggerTypes": "Alle utløsertyper",
+      "allOutcomes": "Alle resultater",
+      "apply": "Bruk filtre"
+    },
+    "actions": {
+      "activate": "Aktiver",
+      "pause": "Pause",
+      "archive": "Arkiver",
+      "execute": "Kjør",
+      "retry": "Prøv igjen",
+      "escalate": "Eskaler",
+      "disable": "Deaktiver automatisering",
+      "grantApproval": "Gi godkjenning",
+      "rejectApproval": "Avslå godkjenning",
+      "useTemplate": "Bruk mal",
+      "applying": "Utfører…"
+    },
+    "create": {
+      "name": "Navn",
+      "owner": "Eier",
+      "description": "Beskrivelse",
+      "submit": "Opprett playbook",
+      "placeholderName": "Playbook-navn",
+      "placeholderOwner": "Playbook-eier",
+      "placeholderDescription": "Beskriv prosessen, utløsere og forventede resultater…"
     }
   },
   "customerSuccessOperations": {

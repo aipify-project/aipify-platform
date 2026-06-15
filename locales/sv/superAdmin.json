@@ -144,6 +144,10 @@
     "groupOrganization": {
       "title": "Koncernorganisation",
       "purpose": "Hantera affärsekosystemet för Aipify Group AS."
+    },
+    "customerSuccess": {
+      "title": "Customer Success",
+      "purpose": "Stöd kunder proaktivt innan de ber om hjälp."
     }
   },
   "groupOverview": {
@@ -310,6 +314,8 @@
     "serviceReviewsDescription": "Conduct service quality and impact reviews.",
     "globalInsights": "Global insiktsdashboard",
     "globalInsightsDescription": "Voice of the Customer produktintelligens och initiativrekommendationer.",
+    "customerHealth": "Kundhälsa",
+    "customerHealthDescription": "Dynamiska hälsopoäng, tidiga varningar och återhämtningsflöden.",
     "paymentProviders": "Payment Providers",
     "paymentProvidersDescription": "Configure Klarna, Vipps MobilePay, Stripe, and DNB credentials."
   },
@@ -342,6 +348,82 @@
     "actions": {
       "createInitiative": "Skapa initiativ",
       "applying": "Tillämpar…"
+    }
+  },
+  "customerHealth": {
+    "title": "Kundhälsa",
+    "subtitle": "Identifiera proaktivt kunder som kan behöva assistans innan de begär support.",
+    "loading": "Förbereder kundhälsodashboard…",
+    "back": "Tillbaka till Super Admin",
+    "principle": "De bästa customer success-programmen löser problem innan kunderna känner sig övergivna.",
+    "privacyNote": "Hälsopoäng finns för att förbättra kundresultat — aldrig för reklam eller försäljning till tredje part.",
+    "emptyState": "Ingen kundhälsodata tillgänglig.",
+    "sections": {
+      "overview": "Översikt",
+      "customers": "Kundlista",
+      "warnings": "Tidiga varningssignaler",
+      "recommendations": "Automatiska rekommendationer",
+      "tasks": "Success-uppgifter",
+      "recovery": "Återhämtningsflöden",
+      "audit": "Revisionslogg",
+      "filters": "Filter"
+    },
+    "overview": {
+      "healthy": "Friska kunder",
+      "stable": "Stabila kunder",
+      "attentionNeeded": "Behöver uppmärksamhet",
+      "atRisk": "I riskzonen",
+      "recoveryOpportunities": "Återhämtningsmöjligheter"
+    },
+    "table": {
+      "company": "Företag",
+      "healthScore": "Hälsopoäng",
+      "trend": "Trend",
+      "lastActivity": "Senaste aktivitet",
+      "subscriptionPlan": "Prenumerationsplan",
+      "supportStatus": "Supportstatus",
+      "assignedOwner": "Tilldelad success-ägare",
+      "actions": "Åtgärder",
+      "signal": "Signal",
+      "message": "Meddelande",
+      "recommendation": "Rekommendation",
+      "task": "Uppgift",
+      "workflow": "Arbetsflöde",
+      "event": "Händelse"
+    },
+    "healthCategories": {
+      "healthy": "Frisk (80–100)",
+      "stable": "Stabil (60–79)",
+      "attention_needed": "Behöver uppmärksamhet (40–59)",
+      "at_risk": "I riskzonen (0–39)"
+    },
+    "trends": {
+      "improving": "Förbättras",
+      "stable": "Stabil",
+      "declining": "Sjunkande"
+    },
+    "supportStatuses": {
+      "none": "Ingen",
+      "open": "Öppen",
+      "escalated": "Eskalerad",
+      "resolved": "Löst"
+    },
+    "actions": {
+      "assignOwner": "Tilldela ägare",
+      "recoveryOutreach": "Starta uppföljning",
+      "onboardingSequence": "Guidad onboarding",
+      "recommendTraining": "Rekommendera utbildning",
+      "scheduleCheckIn": "Schemalägg check-in",
+      "resolveWarning": "Lös varning",
+      "completeTask": "Slutför uppgift",
+      "applying": "Tillämpar…"
+    },
+    "filters": {
+      "category": "Hälsokategori",
+      "trend": "Trend",
+      "allCategories": "Alla kategorier",
+      "allTrends": "Alla trender",
+      "apply": "Tillämpa filter"
     }
   }
 }

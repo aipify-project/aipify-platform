@@ -2,6 +2,7 @@ import { resolveAppHref } from "./route-aliases";
 
 export type AppNavId =
   | "overview"
+  | "workspaceProductivityHub"
   | "securityHub"
   | "signInVerification"
   | "aipifyCorePlatformEngine"
@@ -379,6 +380,7 @@ export type AppNavItem = {
 /** Canonical Customer App 1.0 navigation (Phase 28). */
 export const APP_NAV: AppNavItem[] = [
   { id: "overview", href: "/app", labelKey: "customerApp.nav.overview" },
+  { id: "workspaceProductivityHub", href: "/app/workspace", labelKey: "customerApp.nav.workspaceProductivityHub" },
   { id: "aipifyCorePlatformEngine", href: "/app/aipify-core", labelKey: "customerApp.nav.aipifyCorePlatformEngine" },
   { id: "multiTenantArchitectureEngine", href: "/app/multi-tenant", labelKey: "customerApp.nav.multiTenantArchitectureEngine" },
   {
@@ -1666,6 +1668,7 @@ export const APP_MOBILE_NAV_IDS: AppNavId[] = [
 
 export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname === "/app" || pathname === "/dashboard") return "overview";
+  if (pathname.startsWith("/app/workspace")) return "workspaceProductivityHub";
   if (pathname.startsWith("/app/aipify-core")) return "aipifyCorePlatformEngine";
   if (pathname.startsWith("/app/multi-tenant")) return "multiTenantArchitectureEngine";
   if (pathname.startsWith("/app/organization-workspace-engine")) return "organizationWorkspaceEngine";

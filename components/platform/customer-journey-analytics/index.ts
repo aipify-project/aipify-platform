@@ -1,0 +1,1 @@
+export { CustomerJourneyAnalyticsPanel } from "./CustomerJourneyAnalyticsPanel";

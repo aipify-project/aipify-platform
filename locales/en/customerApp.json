@@ -7582,6 +7582,7 @@
   },
   "nav": {
     "overview": "Home",
+    "workspaceProductivityHub": "Workspace",
     "aipifyCorePlatformEngine": "Aipify Core",
     "multiTenantArchitectureEngine": "Tenants",
     "organizationWorkspaceEngine": "Workspaces",
@@ -10784,6 +10785,91 @@
     "generating": "Generating…",
     "generateFailed": "Generation failed",
     "actionFailed": "Action failed"
+  },
+  "workspaceProductivityHub": {
+    "title": "Workspace",
+    "subtitle": "Your personal workspace for tasks, priorities, reminders, and daily focus — calm structure without pressure.",
+    "loading": "Loading workspace…",
+    "back": "Back to Home",
+    "principle": "Productivity should reduce stress, not create it. Aipify helps you focus on what matters most.",
+    "empty": "Nothing here yet — create a task or note when you are ready.",
+    "searchPlaceholder": "Search tasks, notes, or categories…",
+    "applyFilters": "Apply filters",
+    "clearFilters": "Clear filters",
+    "viewApprovals": "Review pending approvals",
+    "youDecide": "You decide — Aipify prepares and suggests; humans choose what to do next.",
+    "overview": {
+      "myTasks": "My Tasks",
+      "todayPriorities": "Today's Priorities",
+      "upcomingReminders": "Upcoming Reminders",
+      "pendingApprovals": "Pending Approvals",
+      "suggestedActions": "Suggested Actions",
+      "completedThisWeek": "Completed This Week"
+    },
+    "sections": {
+      "overview": "Overview",
+      "myDay": "My Day",
+      "todayTasks": "Today's tasks",
+      "meetings": "Upcoming meetings",
+      "focusAreas": "Recommended focus areas",
+      "reminders": "Important reminders",
+      "insights": "Productivity insights",
+      "avgCompletion": "Average completion time",
+      "overdueItems": "Overdue items",
+      "focusTrend": "Focus trend",
+      "quickActions": "Quick actions",
+      "tasks": "Tasks",
+      "notes": "Notes",
+      "audit": "Activity log",
+      "suggestions": "Aipify suggestions",
+      "searchFilters": "Search & filters"
+    },
+    "quickActions": {
+      "createTask": "Create task",
+      "addReminder": "Add reminder",
+      "completeTask": "Complete",
+      "delegateTask": "Delegate",
+      "addNote": "Add note",
+      "dismissReminder": "Dismiss"
+    },
+    "priorities": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "statuses": {
+      "not_started": "Not started",
+      "in_progress": "In progress",
+      "waiting": "Waiting",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "reminderTypes": {
+      "one_time": "One-time",
+      "recurring": "Recurring",
+      "due_date": "Due date"
+    },
+    "noteTypes": {
+      "personal": "Personal",
+      "team": "Team",
+      "meeting": "Meeting"
+    },
+    "focusTrends": {
+      "building": "Building momentum",
+      "steady": "Steady progress",
+      "strong": "Strong focus week"
+    },
+    "suggestions": {
+      "overdueTasks": "You have {count} overdue tasks.",
+      "pendingApproval": "This approval requires your attention.",
+      "onboardingChecklist": "Your onboarding checklist is almost complete."
+    },
+    "filters": {
+      "allStatuses": "All statuses",
+      "allPriorities": "All priorities",
+      "category": "Category"
+    }
   },
   "personalProductivityEngine": {
     "title": "Personal Productivity",

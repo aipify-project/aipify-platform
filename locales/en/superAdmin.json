@@ -144,6 +144,10 @@
     "groupOrganization": {
       "title": "Group Organization",
       "purpose": "Manage the Aipify Group AS business ecosystem."
+    },
+    "customerSuccess": {
+      "title": "Customer Success",
+      "purpose": "Proactively support customers before they need to ask."
     }
   },
   "groupOverview": {
@@ -311,7 +315,9 @@
     "serviceReviews": "Service Reviews",
     "serviceReviewsDescription": "Conduct service quality and impact reviews.",
     "globalInsights": "Global Insights Dashboard",
-    "globalInsightsDescription": "Voice of the Customer product intelligence and initiative recommendations."
+    "globalInsightsDescription": "Voice of the Customer product intelligence and initiative recommendations.",
+    "customerHealth": "Customer Health",
+    "customerHealthDescription": "Dynamic health scores, early warning signals, and recovery workflows."
   },
   "voiceOfCustomer": {
     "title": "Global Insights Dashboard",
@@ -342,6 +348,82 @@
     "actions": {
       "createInitiative": "Create initiative",
       "applying": "Applying…"
+    }
+  },
+  "customerHealth": {
+    "title": "Customer Health",
+    "subtitle": "Proactively identify customers who may need assistance before they request support.",
+    "loading": "Preparing customer health dashboard…",
+    "back": "Back to Super Admin",
+    "principle": "The best customer success programs solve problems before customers feel abandoned.",
+    "privacyNote": "Health scoring exists to improve customer outcomes — never for advertising or resale to third parties.",
+    "emptyState": "No customer health data available.",
+    "sections": {
+      "overview": "Overview",
+      "customers": "Customer list",
+      "warnings": "Early warning signals",
+      "recommendations": "Automated recommendations",
+      "tasks": "Success tasks",
+      "recovery": "Recovery workflows",
+      "audit": "Audit log",
+      "filters": "Filters"
+    },
+    "overview": {
+      "healthy": "Healthy customers",
+      "stable": "Stable customers",
+      "attentionNeeded": "Attention needed",
+      "atRisk": "At risk customers",
+      "recoveryOpportunities": "Recovery opportunities"
+    },
+    "table": {
+      "company": "Company",
+      "healthScore": "Health score",
+      "trend": "Trend",
+      "lastActivity": "Last activity",
+      "subscriptionPlan": "Subscription plan",
+      "supportStatus": "Support status",
+      "assignedOwner": "Assigned success owner",
+      "actions": "Actions",
+      "signal": "Signal",
+      "message": "Message",
+      "recommendation": "Recommendation",
+      "task": "Task",
+      "workflow": "Workflow",
+      "event": "Event"
+    },
+    "healthCategories": {
+      "healthy": "Healthy (80–100)",
+      "stable": "Stable (60–79)",
+      "attention_needed": "Attention needed (40–59)",
+      "at_risk": "At risk (0–39)"
+    },
+    "trends": {
+      "improving": "Improving",
+      "stable": "Stable",
+      "declining": "Declining"
+    },
+    "supportStatuses": {
+      "none": "None",
+      "open": "Open",
+      "escalated": "Escalated",
+      "resolved": "Resolved"
+    },
+    "actions": {
+      "assignOwner": "Assign owner",
+      "recoveryOutreach": "Start outreach",
+      "onboardingSequence": "Guided onboarding",
+      "recommendTraining": "Recommend training",
+      "scheduleCheckIn": "Schedule check-in",
+      "resolveWarning": "Resolve warning",
+      "completeTask": "Complete task",
+      "applying": "Applying…"
+    },
+    "filters": {
+      "category": "Health category",
+      "trend": "Trend",
+      "allCategories": "All categories",
+      "allTrends": "All trends",
+      "apply": "Apply filters"
     }
   }
 }

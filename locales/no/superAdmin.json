@@ -144,6 +144,10 @@
     "groupOrganization": {
       "title": "Konsernorganisasjon",
       "purpose": "Administrer forretningsøkosystemet til Aipify Group AS."
+    },
+    "customerSuccess": {
+      "title": "Customer Success",
+      "purpose": "Støtt kunder proaktivt før de ber om hjelp."
     }
   },
   "groupOverview": {
@@ -310,6 +314,8 @@
     "serviceReviewsDescription": "Conduct service quality and impact reviews.",
     "globalInsights": "Globalt innsiktsdashbord",
     "globalInsightsDescription": "Voice of the Customer produktinnsikt og anbefalinger for initiativer.",
+    "customerHealth": "Kundehelse",
+    "customerHealthDescription": "Dynamiske helsescorer, tidlige varsler og gjenopprettingsarbeidsflyter.",
     "paymentProviders": "Payment Providers",
     "paymentProvidersDescription": "Configure Klarna, Vipps MobilePay, Stripe, and DNB credentials."
   },
@@ -342,6 +348,82 @@
     "actions": {
       "createInitiative": "Opprett initiativ",
       "applying": "Utfører…"
+    }
+  },
+  "customerHealth": {
+    "title": "Kundehelse",
+    "subtitle": "Identifiser proaktivt kunder som kan trenge assistanse før de ber om support.",
+    "loading": "Forbereder kundehelsedashboard…",
+    "back": "Tilbake til Super Admin",
+    "principle": "De beste customer success-programmene løser problemer før kundene føler seg forlatt.",
+    "privacyNote": "Helsescoring finnes for å forbedre kundeutfall — aldri for reklame eller videresalg til tredjeparter.",
+    "emptyState": "Ingen kundehelsedata tilgjengelig.",
+    "sections": {
+      "overview": "Oversikt",
+      "customers": "Kundeliste",
+      "warnings": "Tidlige varsler",
+      "recommendations": "Automatiske anbefalinger",
+      "tasks": "Success-oppgaver",
+      "recovery": "Gjenopprettingsarbeidsflyter",
+      "audit": "Revisjonslogg",
+      "filters": "Filtre"
+    },
+    "overview": {
+      "healthy": "Sunne kunder",
+      "stable": "Stabile kunder",
+      "attentionNeeded": "Trenger oppmerksomhet",
+      "atRisk": "I risiko",
+      "recoveryOpportunities": "Gjenopprettingsmuligheter"
+    },
+    "table": {
+      "company": "Selskap",
+      "healthScore": "Helsescore",
+      "trend": "Trend",
+      "lastActivity": "Siste aktivitet",
+      "subscriptionPlan": "Abonnementsplan",
+      "supportStatus": "Supportstatus",
+      "assignedOwner": "Tildelt success-eier",
+      "actions": "Handlinger",
+      "signal": "Signal",
+      "message": "Melding",
+      "recommendation": "Anbefaling",
+      "task": "Oppgave",
+      "workflow": "Arbeidsflyt",
+      "event": "Hendelse"
+    },
+    "healthCategories": {
+      "healthy": "Sunn (80–100)",
+      "stable": "Stabil (60–79)",
+      "attention_needed": "Trenger oppmerksomhet (40–59)",
+      "at_risk": "I risiko (0–39)"
+    },
+    "trends": {
+      "improving": "Forbedres",
+      "stable": "Stabil",
+      "declining": "Synkende"
+    },
+    "supportStatuses": {
+      "none": "Ingen",
+      "open": "Åpen",
+      "escalated": "Eskalert",
+      "resolved": "Løst"
+    },
+    "actions": {
+      "assignOwner": "Tildel eier",
+      "recoveryOutreach": "Start oppfølging",
+      "onboardingSequence": "Veiledet onboarding",
+      "recommendTraining": "Anbefal opplæring",
+      "scheduleCheckIn": "Planlegg check-in",
+      "resolveWarning": "Løs varsel",
+      "completeTask": "Fullfør oppgave",
+      "applying": "Utfører…"
+    },
+    "filters": {
+      "category": "Helsekategori",
+      "trend": "Trend",
+      "allCategories": "Alle kategorier",
+      "allTrends": "Alle trender",
+      "apply": "Bruk filtre"
     }
   }
 }

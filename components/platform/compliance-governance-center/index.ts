@@ -1,0 +1,1 @@
+export { ComplianceGovernanceCenterPanel } from "./ComplianceGovernanceCenterPanel";

@@ -94,6 +94,19 @@ export const SUPER_ADMIN_SECTIONS: SuperAdminSection[] = [
     ],
   },
   {
+    id: "customerSuccess",
+    titleKey: "superAdmin.sections.customerSuccess.title",
+    purposeKey: "superAdmin.sections.customerSuccess.purpose",
+    modules: [
+      {
+        id: "customerHealth",
+        labelKey: "superAdmin.modules.customerHealth",
+        descriptionKey: "superAdmin.modules.customerHealthDescription",
+        href: "/super/customer-health",
+      },
+    ],
+  },
+  {
     id: "globalKnowledge",
     titleKey: "superAdmin.sections.globalKnowledge.title",
     purposeKey: "superAdmin.sections.globalKnowledge.purpose",
