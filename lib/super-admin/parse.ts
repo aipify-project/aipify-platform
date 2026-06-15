@@ -28,6 +28,13 @@ function parseTrustSignals(value: unknown): SuperAdminTrustSignals | undefined {
     two_factor_enforced: data.two_factor_enforced === true,
     audit_logging_active: data.audit_logging_active === true,
     compliance_monitoring_active: data.compliance_monitoring_active === true,
+    backup_verified: data.backup_verified === true,
+    security_posture: data.security_posture === "review" ? "review" : "strong",
+    compliance_health_pct:
+      typeof data.compliance_health_pct === "number" ? data.compliance_health_pct : undefined,
+    incident_free_days:
+      typeof data.incident_free_days === "number" ? data.incident_free_days : undefined,
+    executive_visibility: data.executive_visibility !== false,
   };
 }
 
@@ -47,6 +54,12 @@ function parseSystemServices(value: unknown): SuperAdminSystemService[] | undefi
         typeof row.last_check_seconds_ago === "number" ? row.last_check_seconds_ago : 0,
       response_time_ms:
         typeof row.response_time_ms === "number" ? row.response_time_ms : null,
+      setup_steps_completed:
+        typeof row.setup_steps_completed === "number" ? row.setup_steps_completed : undefined,
+      setup_steps_total:
+        typeof row.setup_steps_total === "number" ? row.setup_steps_total : undefined,
+      uptime_trend_pct:
+        typeof row.uptime_trend_pct === "number" ? row.uptime_trend_pct : undefined,
     });
   }
   return services.length > 0 ? services : undefined;
@@ -92,6 +105,7 @@ export function parseSuperAdminControlCenter(payload: unknown): SuperAdminContro
         : undefined,
     critical_incidents:
       typeof data.critical_incidents === "number" ? data.critical_incidents : undefined,
+    payment_provider_incomplete: data.payment_provider_incomplete === true,
     trust_signals: parseTrustSignals(data.trust_signals),
     system_services: parseSystemServices(data.system_services),
     privacy_note: typeof data.privacy_note === "string" ? data.privacy_note : undefined,

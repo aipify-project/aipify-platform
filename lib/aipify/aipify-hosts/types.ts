@@ -12,7 +12,27 @@ export type HostsModuleKey =
   | "hospitality_knowledge"
   | "executive_operations";
 
-export type HostsPackageKey = "hosts_starter" | "hosts_professional" | "hosts_enterprise";
+export type HostsPackageKey =
+  | "hosts_solo"
+  | "hosts_5"
+  | "hosts_10"
+  | "hosts_20"
+  | "hosts_enterprise";
+
+export type HostsLicensing = {
+  allowed: boolean;
+  can_add_property: boolean;
+  plan_type: HostsPackageKey | string;
+  base_property_limit: number;
+  additional_property_licenses: number;
+  property_limit: number;
+  active_property_count: number;
+  remaining_capacity: number;
+  upgrade_required: boolean;
+  at_capacity: boolean;
+  capacity_label: string;
+  principle?: string;
+};
 
 export type HostsModule = {
   key: HostsModuleKey;
@@ -26,10 +46,13 @@ export type HostsPlatform = {
 };
 
 export type HostsPackage = {
-  key: HostsPackageKey;
+  key: HostsPackageKey | string;
   label: string;
   target: string;
+  property_limit: number | null;
   modules: HostsModuleKey[];
+  custom_limit?: boolean;
+  contact_sales?: boolean;
 };
 
 export type HostsProperty = {
@@ -49,10 +72,14 @@ export type HostsExecutiveWidget = {
 export type AipifyHostsDashboard = {
   has_customer: boolean;
   enabled: boolean;
-  package_key: HostsPackageKey;
+  package_key: HostsPackageKey | string;
+  plan_type?: HostsPackageKey | string;
   property_count: number;
+  property_limit?: number;
   human_oversight_required: boolean;
   positioning: string;
+  licensing?: HostsLicensing;
+  licensing_principle?: string;
   platforms: HostsPlatform[];
   modules: HostsModule[];
   packages: HostsPackage[];
@@ -66,9 +93,27 @@ export type AipifyHostsDashboard = {
 export type AipifyHostsCard = {
   has_customer: boolean;
   enabled?: boolean;
-  package_key?: HostsPackageKey;
+  package_key?: HostsPackageKey | string;
+  plan_type?: HostsPackageKey | string;
   property_count?: number;
+  property_limit?: number;
+  licensing?: HostsLicensing;
   human_oversight_required?: boolean;
   positioning?: string;
   route?: string;
+};
+
+export type CreateAipifyHostsPropertyResult = {
+  success: boolean;
+  error_code?: string;
+  upgrade_required?: boolean;
+  licensing?: HostsLicensing;
+  property?: HostsProperty;
+};
+
+export type AddAipifyHostsPropertyLicenseResult = {
+  success: boolean;
+  additional_property_licenses?: number;
+  licensing?: HostsLicensing;
+  error?: string;
 };

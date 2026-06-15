@@ -81,6 +81,7 @@ export default async function SuperAdminLayout({
           moduleLabels={moduleLabels}
           commandBarLabels={buildCommandBarLabels(t)}
           commandBarNavSources={superAdminNavSources(t)}
+          footerSignature={t("superAdmin.footer.signature")}
         >
           {children}
         </SuperAdminShell>

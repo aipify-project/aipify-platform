@@ -1,0 +1,26 @@
+AIPIFY HOSTS — Phase Airbnb 05
+Trust, Compliance & Neighborhood Intelligence Engine
+
+POSITIONING
+Growth through trust.
+
+ROUTE /app/aipify-hosts/trust-compliance
+
+MODULES
+local_regulation_intelligence — permits, renewals (recommendations only)
+property_compliance_dashboard — registration, safety, insurance status
+neighborhood_relationship_center — noise, community concerns
+house_rule_enforcement — confirmations, reminders, documentation
+safety_operations_center — smoke/CO, exits, first aid
+insurance_readiness — document references, claims guidance
+operational_ethics — responsible hospitality principles
+trust_score_dashboard — safety, community, compliance inputs
+executive_governance_center — board reporting, risk summaries
+responsible_hospitality_knowledge — regulatory, safety, ethics
+
+GOVERNANCE
+Recommendations only · Legal responsibility with host · Audit logged
+
+TERMINOLOGY
+Trust Score Dashboard — operational indicator, not public rating
+Aipify Recommendations — never AI recommendations

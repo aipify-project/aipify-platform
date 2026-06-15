@@ -4,37 +4,16 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
+import { isHostsModuleIncluded } from "@/lib/aipify/aipify-hosts";
 import {
   parseAipifyHostsAutomationDashboard,
   type AipifyHostsAutomationDashboard,
   type HostsAutomationModule,
-  type HostsAutomationModuleKey,
 } from "@/lib/aipify/aipify-hosts-automation";
 
 type Props = {
   labels: Record<string, string>;
 };
-
-const STARTER_MODULES: HostsAutomationModuleKey[] = [
-  "arrival_automation",
-  "recurring_task_automation",
-  "hospitality_playbook",
-  "approvals_governance",
-];
-
-const PROFESSIONAL_MODULES: HostsAutomationModuleKey[] = [
-  ...STARTER_MODULES,
-  "local_service_coordination",
-  "supply_management",
-  "guest_experience_enhancement",
-  "emergency_response",
-];
-
-function moduleEnabled(packageKey: string, moduleKey: HostsAutomationModuleKey): boolean {
-  if (packageKey === "hosts_enterprise") return true;
-  if (packageKey === "hosts_professional") return PROFESSIONAL_MODULES.includes(moduleKey);
-  return STARTER_MODULES.includes(moduleKey);
-}
 
 function MetricCard({ label, value }: { label: string; value: string | number }) {
   return (
@@ -185,7 +164,7 @@ export function AipifyHostsAutomationDashboardPanel({ labels }: Props) {
             <ModuleCard
               key={module.key}
               module={module}
-              enabled={moduleEnabled(dashboard.package_key, module.key)}
+              enabled={isHostsModuleIncluded(dashboard.package_key, module.key)}
               enabledLabel={labels.included}
               scaffoldLabel={labels.upgradeRequired}
             />

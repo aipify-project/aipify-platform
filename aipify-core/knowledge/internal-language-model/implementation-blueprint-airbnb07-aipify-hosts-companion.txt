@@ -1,0 +1,26 @@
+AIPIFY HOSTS — Phase Airbnb 07
+Owner Portal & Hospitality Companion Engine
+
+POSITIONING
+Wake up knowing exactly what needs your attention.
+
+ROUTE /app/aipify-hosts/companion
+
+MODULES
+owner_command_center — arrivals, departures, approvals, revenue, health scores
+daily_briefing_engine — morning and evening proactive summaries
+since_last_login_center — operational changes since last visit
+approval_hub — late check-outs, vendors, guest requests, refunds
+hospitality_companion_chat — conversational operations
+executive_recommendation_engine — revenue, ops, guest, maintenance opportunities
+mobile_operations_experience — briefings, approvals, alerts on mobile
+executive_notification_center — critical, approval, recommended, informational
+owner_performance_insights — response speed, approval efficiency, satisfaction
+hospitality_companion_memory_engine — transparent, editable preferences
+
+GOVERNANCE
+Companion suggests — owner decides · Approval required · Audit logged · Memory transparent
+
+TERMINOLOGY
+Aipify Companion — never AI assistant, bot, or copilot
+Aipify recommends · Aipify prepares · Aipify has found

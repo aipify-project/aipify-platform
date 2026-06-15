@@ -1,11 +1,14 @@
 AIPIFY – PHASE AIRBNB 04
-AIPIFY HOSTS – GUEST INTELLIGENCE ENGINE
+AIPIFY HOSTS – GUEST INTELLIGENCE & LOYALTY ENGINE
 
 PURPOSE
-Deliver intelligent guest communication, experience support, and relationship stewardship without replacing human hospitality.
+Build long-term guest relationships instead of one-time transactions.
 
 POSITIONING
-Thoughtful hospitality at scale. Humans decide. Aipify prepares.
+Turn guests into returning guests.
+
+VISION
+Most booking platforms optimize for transactions. Aipify Hosts optimizes for relationships.
 
 FEATURE OWNER
 CUSTOMER APP
@@ -13,36 +16,39 @@ CUSTOMER APP
 ROUTE
 /app/aipify-hosts/guest-intelligence
 
-OBJECTIVES
-Faster guest response times · Higher satisfaction · Consistent tone · Multi-language support · Reduced host stress
+MIGRATION
+20261484000000_aipify_hosts_guest_intelligence_loyalty_airbnb04.sql
+
+RPCS
+get_aipify_hosts_guest_intelligence_dashboard · get_aipify_hosts_guest_intelligence_card
 
 MODULES
-1 Guest Operations Center — unified inbox across channels, message threading, history overview
-2 Message Preparation Engine — draft suggestions, tone adaptation, template library (never auto-send without approval)
-3 Multi-Language Communication — automatic translation, locale-aware responses
-4 Guest Experience Companion — property-specific companion for Wi-Fi, parking, appliances, house rules, local recommendations
-5 Guest Profile Intelligence — stay history metadata, preference patterns (metadata only — no raw chat storage)
-6 Escalation & Priority Engine — urgent requests, communication concerns, response time tracking
-7 Welcome & Check-In Engine — arrival instructions, access confirmations, welcome message readiness
-8 Guest Follow-Up Engine — post-stay reminders, review prompts (recommendations only)
-9 Guest Knowledge Center — communication etiquette, international guest guidance, hospitality best practices
-10 Guest Satisfaction Insights — satisfaction indicators, response metrics, improvement recommendations
+1 Guest Profile Intelligence Center — operational profiles, preferences, host-approved notes (metadata only)
+2 Returning Guest Recognition Engine — detection, stay history, repeat statistics
+3 Guest Satisfaction Monitor — reviews, support, issue reports, experience trends
+4 Early Warning Experience Engine — dissatisfaction signals, risk alerts, suggested interventions
+5 Personalized Hospitality Recommendations — family, business, couple, seasonal (optional)
+6 Loyalty & Return Strategy Center — appreciation reminders, future stay suggestions, preferred guest programs
+7 Guest Segmentation Engine — business, family, couples, extended stay, high-value, returning
+8 Executive Loyalty Dashboard — repeat guest %, retention, segment performance, revenue contribution
+9 Feedback Intelligence Center — categorization, trends, property comparison, improvement actions
+10 Guest Journey Mapping Engine — pre-arrival through post-stay visibility
 
-GOVERNANCE
-Never impersonate the host in personal messages
-Sensitive actions require approval
-No automated personal messaging without explicit consent
-Metadata only — never store raw guest conversations in platform metrics
+GOVERNANCE & PRIVACY
+Guest trust first · Transparency · Data minimization · Compliance · Clear retention policies
+Only operationally relevant metadata · No raw guest conversations
 
-TERMINOLOGY
-Guest Experience Companion — not AI assistant or chatbot
-Aipify prepares · Host approves · Guest receives human hospitality
+AUDIT LOGGING
+Guest profile changes · Recommendation generation · Loyalty actions · Satisfaction interventions · Executive reporting access
 
-INTEGRATIONS
-Business DNA tone profiles (cross-link)
-PAME/RSI principles — relationship support, not replacement
+KNOWLEDGE CENTER
+Hospitality psychology · Guest communication excellence · Retention strategies · Service recovery · Relationship management
 
 SUCCESS METRICS
-Faster response times · Higher guest satisfaction · Reduced communication gaps
+Increased repeat bookings · Improved satisfaction · Reduced negative reviews · Stronger relationships · Higher lifetime guest value
+
+TERMINOLOGY
+Aipify Recommendations — never AI recommendations
+Guest Experience Companion — not AI assistant
 
 END OF PHASE.

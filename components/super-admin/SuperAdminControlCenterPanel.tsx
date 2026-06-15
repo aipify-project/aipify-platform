@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useMemo } from "react";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
 import {
   buildActionCenterItems,
   buildExecutiveSummary,
@@ -43,13 +45,17 @@ type SuperAdminControlCenterPanelProps = {
       greetingMorning: string;
       greetingAfternoon: string;
       greetingEvening: string;
+      monitoringAreas: string;
       allSystemsOperational: string;
       subscriptionsReview: string;
       growthPartnerActivity: string;
       marketplaceReviews: string;
+      paymentProviderIncomplete: string;
       criticalIncidents: string;
       noInterventionRequired: string;
       platformStable: string;
+      attentionRequiredToday: string;
+      estimatedReviewTime: string;
     };
     systemStatus: {
       title: string;
@@ -57,6 +63,9 @@ type SuperAdminControlCenterPanelProps = {
       lastCheckSeconds: string;
       avgResponse: string;
       avgResponseMs: string;
+      uptimeTrend: string;
+      uptimeTrendValue: string;
+      setupProgress: string;
       statusOperational: string;
       statusPendingSetup: string;
       statusAttentionRequired: string;
@@ -64,18 +73,35 @@ type SuperAdminControlCenterPanelProps = {
     };
     trustSignals: {
       title: string;
+      subtitle: string;
       backupOk: string;
+      backupVerified: string;
       twoFactorEnforced: string;
       auditLoggingActive: string;
       complianceMonitoringActive: string;
+      securityPosture: string;
+      securityPostureStrong: string;
+      securityPostureReview: string;
+      complianceHealth: string;
+      incidentFreeDays: string;
+      executiveVisibility: string;
     };
     actionCenter: {
       title: string;
       subtitle: string;
       open: string;
+      takeAction: string;
       priorityCritical: string;
       priorityAttention: string;
       priorityInformational: string;
+      categoryRequiresApproval: string;
+      categoryRecommended: string;
+      categoryCritical: string;
+      categoryMilestones: string;
+      impactHigh: string;
+      impactMedium: string;
+      impactLow: string;
+      estimatedTime: string;
       criticalIncidents: string;
       subscriptionReview: string;
       growthPartnerApplications: string;
@@ -83,6 +109,7 @@ type SuperAdminControlCenterPanelProps = {
       organizationHealth: string;
       supportEscalations: string;
       globalGovernance: string;
+      paymentProviderSetup: string;
     };
   };
   sectionLabels: Record<string, { title: string; purpose: string }>;
@@ -111,20 +138,20 @@ export default function SuperAdminControlCenterPanel({
       organizationHealth: labels.actionCenter.organizationHealth,
       supportEscalations: labels.actionCenter.supportEscalations,
       globalGovernance: labels.actionCenter.globalGovernance,
+      paymentProviderSetup: labels.actionCenter.paymentProviderSetup,
     });
   }, [center, labels.actionCenter]);
 
   if (loading) {
-    return <p className="text-sm text-zinc-500">{labels.loading}</p>;
+    return <AipifyLoader label={labels.loading} centered fullPage />;
   }
 
   if (error || !center) {
     return (
-      <div className="rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm">
-        <h2 className="text-lg font-semibold text-zinc-900">{labels.emptyStateTitle}</h2>
-        <p className="mt-2 text-sm text-zinc-600">{error ?? labels.loadError}</p>
-        <p className="mt-4 text-sm text-zinc-500">{labels.emptyStateBody}</p>
-      </div>
+      <PlatformEmptyState
+        title={labels.emptyStateTitle}
+        message={`${error ?? labels.loadError} ${labels.emptyStateBody}`}
+      />
     );
   }
 

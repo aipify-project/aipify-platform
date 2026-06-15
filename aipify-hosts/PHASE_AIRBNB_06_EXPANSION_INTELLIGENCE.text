@@ -1,11 +1,14 @@
 AIPIFY – PHASE AIRBNB 06
-AIPIFY HOSTS – EXPANSION INTELLIGENCE ENGINE
+AIPIFY HOSTS – PROPERTY ACQUISITION & EXPANSION INTELLIGENCE ENGINE
 
 PURPOSE
-Guide portfolio growth, revenue optimization, and market expansion with operational intelligence — not speculative automation.
+Identify growth opportunities, evaluate acquisitions, and scale with data-driven decision support.
 
 POSITIONING
-Grow wisely. Occupancy with margin. Expansion with stewardship.
+Know which property to buy before you buy it.
+
+VISION
+How do we grow wisely? Intelligence over intuition alone.
 
 FEATURE OWNER
 CUSTOMER APP
@@ -13,34 +16,38 @@ CUSTOMER APP
 ROUTE
 /app/aipify-hosts/expansion-intelligence
 
-OBJECTIVES
-Increase occupancy · Improve revenue consistency · Identify expansion opportunities · Optimize pricing · Reduce vacancy
+STATUS
+IMPLEMENTED
+
+MIGRATION
+20261486000000_aipify_hosts_expansion_intelligence_airbnb06.sql
+
+RPCS
+get_aipify_hosts_expansion_intelligence_dashboard · get_aipify_hosts_expansion_intelligence_card
 
 MODULES
-1 Revenue Intelligence Center — occupancy analysis, pricing recommendations, demand monitoring
-2 Smart Gap Filler — vacancy detection, discounted pricing windows, minimum stay adjustments
-3 Occupancy Forecast Engine — seasonal patterns, local events, booking pace, staffing requirements
-4 Competitive Benchmarking — market demand indicators, length-of-stay optimization (aggregated metadata)
-5 Portfolio Performance Engine — revenue by property, channel mix, ADR, RevPAN trends
-6 Expansion Readiness Score — property health, operational capacity, market signals for new acquisitions
-7 Seasonal Strategy Engine — high-demand periods, staffing forecasts, promotional calendars
-8 Channel Mix Optimizer — diversification recommendations, direct booking growth strategies
-9 Expansion Knowledge Center — revenue optimization, occupancy management, market expansion guidance
-10 Executive Growth Dashboard — portfolio trends, revenue projections, expansion recommendations
-
-OUTPUTS
-Daily recommendations · Weekly performance reports · Revenue improvement opportunities · Expansion readiness indicators
+1 Property Opportunity Scanner — market attractiveness, demand, tourism trends, watchlists
+2 Property Evaluation Engine — occupancy potential, revenue, competition, risk, attractiveness rating
+3 Market Intelligence Center — destination popularity, emerging markets, event-driven demand
+4 Portfolio Performance Engine — revenue, satisfaction, occupancy, incidents, Property Health Scores
+5 Expansion Readiness Score — operational maturity, team capacity, governance readiness
+6 Scenario Simulation Lab — what-if planning, financial projections, strategic considerations
+7 Competitive Positioning Engine — benchmarks, differentiators, market positioning
+8 Executive Growth Dashboard — growth trends, opportunity rankings, forecasts
+9 Investment Decision Playbooks — new property, market entry, portfolio optimization
+10 Hospitality Strategic Knowledge Center — growth, investment, sustainable expansion
 
 GOVERNANCE
-Pricing changes require human approval before channel sync
-Recommendations only — never auto-adjust listing prices
-Metadata and aggregates only — no competitor PII or scraped guest data
+Recommendations only · Final investment decisions human-controlled · Transparent scoring · Enterprise oversight
 
-INTEGRATIONS
-Phase Airbnb 02 booking intelligence (cross-links)
-Commercial Packages — enterprise reporting gates
+AUDIT LOGGING
+Simulations · Executive decisions · Expansion evaluations · Playbook usage · Strategic approvals
 
 SUCCESS METRICS
-Increased occupancy · Higher annual revenue per property · Reduced vacancy periods · Better revenue consistency
+Better expansion decisions · Reduced investment risk · Increased portfolio quality · Sustainable growth
+
+TERMINOLOGY
+Aipify Recommendations — never AI recommendations
+Expansion Readiness Score — organizational preparedness, not financial guarantee
 
 END OF PHASE.

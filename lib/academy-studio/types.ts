@@ -110,6 +110,10 @@ export type AcademyStudioLabels = {
   back: string;
   principle: string;
   emptyState: string;
+  emptyStateTitle?: string;
+  emptyStateDescription?: string;
+  createFirstProgram?: string;
+  viewDocumentation?: string;
   overview: Record<string, string>;
   sections: Record<string, string>;
   table: Record<string, string>;

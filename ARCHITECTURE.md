@@ -983,15 +983,16 @@ Shared cross-layer code: `lib/core/`, `services/core/`, `types/core/`, `componen
 
 | Phase | Doc | Route | Status |
 |-------|-----|-------|--------|
-| Foundation 01 | [FOUNDATION_01_PROPERTY_LICENSING.text](./aipify-hosts/FOUNDATION_01_PROPERTY_LICENSING.text) | `/app/settings/billing`, `/app/license` | Spec |
+| Foundation 01 | [FOUNDATION_01_PROPERTY_LICENSING.text](./aipify-hosts/FOUNDATION_01_PROPERTY_LICENSING.text) | `/app/aipify-hosts`, `/app/settings/billing/packages` | Implemented |
 | Airbnb 01 | [PHASE_AIRBNB_01_HOSPITALITY_FOUNDATION.text](./aipify-hosts/PHASE_AIRBNB_01_HOSPITALITY_FOUNDATION.text) | `/app/aipify-hosts` | Implemented |
 | Airbnb 02 | [PHASE_AIRBNB_02_BOOKING_INTELLIGENCE.text](./aipify-hosts/PHASE_AIRBNB_02_BOOKING_INTELLIGENCE.text) | `/app/aipify-hosts/channel-booking-intelligence` | Spec |
 | Airbnb 03 | [PHASE_AIRBNB_03_HOSPITALITY_AUTOMATION.text](./aipify-hosts/PHASE_AIRBNB_03_HOSPITALITY_AUTOMATION.text) | `/app/aipify-hosts/automation` | Implemented |
-| Airbnb 04 | [PHASE_AIRBNB_04_GUEST_INTELLIGENCE.text](./aipify-hosts/PHASE_AIRBNB_04_GUEST_INTELLIGENCE.text) | `/app/aipify-hosts/guest-intelligence` | Spec |
-| Airbnb 05 | [PHASE_AIRBNB_05_TRUST_AND_COMPLIANCE.text](./aipify-hosts/PHASE_AIRBNB_05_TRUST_AND_COMPLIANCE.text) | `/app/aipify-hosts/trust-compliance` | Spec |
-| Airbnb 06 | [PHASE_AIRBNB_06_EXPANSION_INTELLIGENCE.text](./aipify-hosts/PHASE_AIRBNB_06_EXPANSION_INTELLIGENCE.text) | `/app/aipify-hosts/expansion-intelligence` | Spec |
-| Airbnb 07 | [PHASE_AIRBNB_07_OWNER_COMPANION.text](./aipify-hosts/PHASE_AIRBNB_07_OWNER_COMPANION.text) | `/app/aipify-hosts/companion` | Spec |
+| Airbnb 04 | [PHASE_AIRBNB_04_GUEST_INTELLIGENCE.text](./aipify-hosts/PHASE_AIRBNB_04_GUEST_INTELLIGENCE.text) | `/app/aipify-hosts/guest-intelligence` | Implemented |
+| Airbnb 05 | [PHASE_AIRBNB_05_TRUST_AND_COMPLIANCE.text](./aipify-hosts/PHASE_AIRBNB_05_TRUST_AND_COMPLIANCE.text) | `/app/aipify-hosts/trust-compliance` | Implemented |
+| Airbnb 06 | [PHASE_AIRBNB_06_EXPANSION_INTELLIGENCE.text](./aipify-hosts/PHASE_AIRBNB_06_EXPANSION_INTELLIGENCE.text) | `/app/aipify-hosts/expansion-intelligence` | Implemented |
+| Airbnb 07 | [PHASE_AIRBNB_07_OWNER_COMPANION.text](./aipify-hosts/PHASE_AIRBNB_07_OWNER_COMPANION.text) | `/app/aipify-hosts/companion` | Implemented |
 | Airbnb 08 | [PHASE_AIRBNB_08_OWNER_PORTAL.text](./aipify-hosts/PHASE_AIRBNB_08_OWNER_PORTAL.text) | `/app/aipify-hosts/owner-portal` | Spec |
+| Airbnb 09 | [PHASE_AIRBNB_09_MARKETPLACE_SERVICE_NETWORK.text](./aipify-hosts/PHASE_AIRBNB_09_MARKETPLACE_SERVICE_NETWORK.text) | `/app/aipify-hosts/marketplace` | Implemented |
 
 Phase Airbnb 01 implementation: [AIPIFY_HOSTS_HOSPITALITY_BUSINESS_PACK_AIRBNB01.md](./AIPIFY_HOSTS_HOSPITALITY_BUSINESS_PACK_AIRBNB01.md), migration `20261481000000_aipify_hosts_hospitality_business_pack_airbnb01.sql`, helpers `_ahost_*`, `_ahostbp364_*`, nav id `aipifyHosts`, permissions `aipify_hosts.view`, `aipify_hosts.manage`, `aipify_hosts.steward`. Operational layer around Airbnb, Booking.com, Vrbo, Expedia, and direct bookings — **NOT** a booking platform replacement. Activates `hospitality` business pack.
 **Aipify Moderation (Image Review):** Multi-tenant image approval and content review engine. Customer App admin queue at `/app/aipify-moderation`, nav id `aipifyModeration`, API `POST /api/moderation/image`, migration `20261419300000_aipify_moderation_engine.sql`. Helpers `_amod_*`. Three decision levels (`auto_approve`, `manual_review`, `auto_reject`) with confidence scores, per-tenant policies, critical stop categories, human override audit, and suggest-only V1 mode. Unonight is first pilot — architecture supports all tenants. Permissions `moderation.view`, `moderation.review`, `moderation.manage`, `moderation.policy`. Platform aggregates via `get_platform_moderation_overview()`.

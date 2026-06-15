@@ -1,0 +1,26 @@
+AIPIFY HOSTS — Phase Airbnb 06
+Property Acquisition & Expansion Intelligence Engine
+
+POSITIONING
+Know which property to buy before you buy it.
+
+ROUTE /app/aipify-hosts/expansion-intelligence
+
+MODULES
+property_opportunity_scanner — market attractiveness, demand, tourism trends
+property_evaluation_engine — occupancy potential, revenue, competition, seasonality
+market_intelligence_center — destination popularity, emerging markets, event demand
+portfolio_performance_engine — revenue, satisfaction, occupancy, Property Health Scores
+expansion_readiness_score — operational maturity, team capacity, financial stability
+scenario_simulation_lab — what-if portfolio growth, occupancy, staffing cost
+competitive_positioning_engine — benchmark performance, differentiators
+executive_growth_dashboard — portfolio trends, opportunity rankings, forecasts
+investment_decision_playbooks — new property review, market entry, portfolio optimization
+hospitality_strategic_knowledge — growth strategies, investment principles
+
+GOVERNANCE
+Recommendations only · Final investment decisions human-controlled · Audit logged
+
+TERMINOLOGY
+Expansion Readiness Score — organizational preparedness indicator
+Aipify Recommendations — never AI recommendations

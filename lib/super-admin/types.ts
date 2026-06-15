@@ -33,6 +33,9 @@ export type SuperAdminSystemService = {
   status: SuperAdminPlatformStatus;
   last_check_seconds_ago: number;
   response_time_ms?: number | null;
+  setup_steps_completed?: number;
+  setup_steps_total?: number;
+  uptime_trend_pct?: number;
 };
 
 export type SuperAdminTrustSignals = {
@@ -40,14 +43,22 @@ export type SuperAdminTrustSignals = {
   two_factor_enforced: boolean;
   audit_logging_active: boolean;
   compliance_monitoring_active: boolean;
+  backup_verified?: boolean;
+  security_posture?: "strong" | "review";
+  compliance_health_pct?: number;
+  incident_free_days?: number;
+  executive_visibility?: boolean;
 };
 
 export type SuperAdminActionItem = {
   id: string;
-  category: "billing" | "customers" | "support" | "growthPartners" | "installations" | "security";
+  category: "billing" | "customers" | "support" | "growthPartners" | "installations" | "security" | "milestones";
   message: string;
   href: string;
   priority: "critical" | "attention" | "informational";
+  impact: "high" | "medium" | "low";
+  estimated_minutes: number;
+  section: "requires_approval" | "recommended" | "critical" | "milestones";
 };
 
 export type SuperAdminControlCenter = {
@@ -67,6 +78,7 @@ export type SuperAdminControlCenter = {
   growth_partner_applications_pending?: number;
   marketplace_reviews_pending?: number;
   critical_incidents?: number;
+  payment_provider_incomplete?: boolean;
   trust_signals?: SuperAdminTrustSignals;
   system_services?: SuperAdminSystemService[];
   privacy_note?: string;

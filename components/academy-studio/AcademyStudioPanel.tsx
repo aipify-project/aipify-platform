@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
 import {
   DIFFICULTY_BADGES,
   parseAcademyStudioCenter,
@@ -77,16 +79,25 @@ export function AcademyStudioPanel({ surface, labels, backHref }: AcademyStudioP
   );
 
   const recommendationText = (key: string, count?: number) => {
-    const template = labels.recommendations[key as keyof typeof labels.recommendations] ?? key;
+    const template = labels.recommendations[key as keyof typeof labels.recommendations] ?? key.replace(/_/g, " ");
     return template.replace("{count}", String(count ?? 0));
   };
 
   if (loading && !center) {
-    return <p className="text-sm text-gray-600">{labels.loading}</p>;
+    return <AipifyLoader label={labels.loading} centered fullPage />;
   }
 
   if (!center?.has_access) {
-    return <p className="text-sm text-gray-600">{labels.emptyState}</p>;
+    return (
+      <PlatformEmptyState
+        title={labels.emptyStateTitle ?? labels.emptyState}
+        message={labels.emptyStateDescription ?? labels.emptyState}
+        secondaryAction={{
+          label: labels.viewDocumentation ?? labels.back,
+          href: "/app/settings/employee-knowledge",
+        }}
+      />
+    );
   }
 
   const overview = center.overview;
@@ -130,7 +141,7 @@ export function AcademyStudioPanel({ surface, labels, backHref }: AcademyStudioP
       ) : null}
 
       {isSuper && center.workflow && center.workflow.length > 0 ? (
-        <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+        <section id="academy-create-course" className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
           <h2 className="text-lg font-semibold text-gray-900">{labels.sections.workflow}</h2>
           <p className="mt-1 text-xs text-gray-500">{labels.workflow.title}</p>
           <ol className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
@@ -200,10 +211,22 @@ export function AcademyStudioPanel({ surface, labels, backHref }: AcademyStudioP
         </section>
       ) : null}
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+      <section id="academy-create-course" className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
         <h2 className="text-lg font-semibold text-gray-900">{labels.sections.courses}</h2>
         {(center.courses ?? []).length === 0 ? (
-          <p className="mt-4 text-sm text-gray-500">{labels.emptyState}</p>
+          <PlatformEmptyState
+            title={labels.emptyStateTitle ?? labels.emptyState}
+            message={labels.emptyStateDescription ?? labels.emptyState}
+            primaryAction={{
+              label: labels.createFirstProgram ?? labels.quickActions.createCourse,
+              onClick: () => document.getElementById("academy-create-course")?.scrollIntoView(),
+            }}
+            secondaryAction={{
+              label: labels.viewDocumentation ?? labels.back,
+              href: "/app/settings/employee-knowledge",
+            }}
+            className="mt-4"
+          />
         ) : (
           <ul className="mt-4 space-y-4">
             {(center.courses ?? []).map((course) => (

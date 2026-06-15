@@ -1,24 +1,25 @@
 AIPIFY HOSTS — PRODUCT ROADMAP INDEX
 
 FOUNDATION
-FOUNDATION_01_PROPERTY_LICENSING.text — property tiers, module entitlements, license integration
+FOUNDATION_01_PROPERTY_LICENSING.text — property capacity tiers, +1 licenses, billing integration · IMPLEMENTED
 
 PHASES
 PHASE_AIRBNB_01_HOSPITALITY_FOUNDATION.text — Business Pack scaffold · /app/aipify-hosts · IMPLEMENTED
 PHASE_AIRBNB_02_BOOKING_INTELLIGENCE.text — Channel & booking intelligence · /app/aipify-hosts/channel-booking-intelligence
 PHASE_AIRBNB_03_HOSPITALITY_AUTOMATION.text — Hospitality automation & real-world action · /app/aipify-hosts/automation · IMPLEMENTED
-PHASE_AIRBNB_04_GUEST_INTELLIGENCE.text — Guest communication & experience · /app/aipify-hosts/guest-intelligence
-PHASE_AIRBNB_05_TRUST_AND_COMPLIANCE.text — Incidents, claims, audit, compliance · /app/aipify-hosts/trust-compliance
-PHASE_AIRBNB_06_EXPANSION_INTELLIGENCE.text — Revenue, occupancy, portfolio growth · /app/aipify-hosts/expansion-intelligence
-PHASE_AIRBNB_07_OWNER_COMPANION.text — Hospitality Companion · /app/aipify-hosts/companion
+PHASE_AIRBNB_04_GUEST_INTELLIGENCE.text — Guest intelligence & loyalty · /app/aipify-hosts/guest-intelligence · IMPLEMENTED
+PHASE_AIRBNB_05_TRUST_AND_COMPLIANCE.text — Trust, compliance & neighborhood intelligence · /app/aipify-hosts/trust-compliance · IMPLEMENTED
+PHASE_AIRBNB_06_EXPANSION_INTELLIGENCE.text — Property acquisition & expansion intelligence · /app/aipify-hosts/expansion-intelligence · IMPLEMENTED
+PHASE_AIRBNB_07_OWNER_COMPANION.text — Hospitality Companion · /app/aipify-hosts/companion · IMPLEMENTED
 PHASE_AIRBNB_08_OWNER_PORTAL.text — Owner transparency portal · /app/aipify-hosts/owner-portal
+PHASE_AIRBNB_09_MARKETPLACE_SERVICE_NETWORK.text — Hosts Marketplace · /app/aipify-hosts/marketplace · IMPLEMENTED
 
 POSITIONING
 Aipify Hosts is the Business Operating System for modern hospitality businesses.
 Operational layer around booking platforms — never a replacement.
 
 BUILD ORDER
-Foundation 01 → Phase 01 → Phase 02 → Phase 03 → Phase 04 → Phase 05 → Phase 06 → Phase 07 → Phase 08
+Foundation 01 → Phase 01 → Phase 02 → Phase 03 → Phase 04 → Phase 05 → Phase 06 → Phase 07 → Phase 08 → Phase 09
 
 FEATURE OWNER
 CUSTOMER APP (all phases)

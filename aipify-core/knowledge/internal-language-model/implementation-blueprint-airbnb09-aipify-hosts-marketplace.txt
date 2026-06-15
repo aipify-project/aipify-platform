@@ -1,0 +1,42 @@
+AIPIFY – PHASE AIRBNB 09
+HOSTS MARKETPLACE & SERVICE NETWORK FOUNDATION
+
+PURPOSE
+Connect hospitality hosts with trusted service providers inside Aipify Hosts.
+
+POSITIONING
+Find, coordinate, and monitor trusted service providers — without leaving Aipify Hosts.
+
+SERVICE CATEGORIES
+Cleaning · Laundry · Maintenance · Plumbing · Electrical · Locksmith · Landscaping
+Snow removal · Photography · Interior styling · Property inspections · Guest transport · Concierge
+
+PROVIDER PROFILES
+Company name · Service categories · Coverage area · Contact details · Ratings
+Verification status · Availability status
+
+HOST CAPABILITIES
+Search · Favorites · Service requests · Comparison · Work reviews
+
+PROVIDER CAPABILITIES (scaffold)
+Accept requests · Job status · Completion evidence · Service areas · Business profile
+
+STATUSES
+Requested · Accepted · Scheduled · In progress · Completed · Cancelled
+
+GOVERNANCE
+Verification workflows · Publication approval · Audit logging · Role-based permissions
+
+COMMERCIAL
+Foundation only — no payments. Commission-ready architecture for future phases.
+
+KNOWLEDGE
+Working with vendors · Selecting trusted providers · Maintenance standards · Service best practices
+
+ROUTE
+/app/aipify-hosts/marketplace
+
+TERMINOLOGY
+Hosts Marketplace · Verified provider — never generic AI marketplace language
+
+END OF BLUEPRINT.

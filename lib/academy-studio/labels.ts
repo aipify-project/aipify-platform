@@ -22,6 +22,10 @@ export function buildAcademyStudioLabels(t: Translator, namespace: string): Acad
     back: t(`${namespace}.back`),
     principle: t(`${namespace}.principle`),
     emptyState: t(`${namespace}.emptyState`),
+    emptyStateTitle: t(`${namespace}.emptyStateTitle`),
+    emptyStateDescription: t(`${namespace}.emptyStateDescription`),
+    createFirstProgram: t(`${namespace}.createFirstProgram`),
+    viewDocumentation: t(`${namespace}.viewDocumentation`),
     overview: {
       activeCourses: t(`${namespace}.overview.activeCourses`),
       certifiedUsers: t(`${namespace}.overview.certifiedUsers`),

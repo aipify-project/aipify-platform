@@ -1,8 +1,9 @@
 {
   "shell": {
     "title": "Super Admin Control Center",
-    "subtitle": "Operational headquarters — Aipify Group AS",
-    "organization": "Aipify Group AS"
+    "subtitle": "Operational headquarters for Aipify Group AS",
+    "organization": "Aipify Group AS",
+    "headquarters": "Operational headquarters for Aipify Group AS."
   },
   "access": {
     "denied": "Super Admin access is restricted to platform owners.",
@@ -18,16 +19,19 @@
     "role": "SUPER ADMIN",
     "verifiedAccess": "Verified Executive Access"
   },
+  "footer": {
+    "signature": "Bergen. Norway. For the world."
+  },
   "statusBar": {
-    "operational": "All systems operational.",
+    "operational": "All systems operating normally.",
     "warning": "Items require review.",
     "warningCount": "{count} items require review.",
     "critical": "Immediate action required.",
-    "openActionCenter": "Open Action Center"
+    "openActionCenter": "Open Executive Action Center"
   },
   "status": {
-    "operational": "Operational",
-    "pendingSetup": "Pending setup",
+    "operational": "All systems operating normally",
+    "pendingSetup": "Configuration required",
     "attentionRequired": "Requires attention"
   },
   "executiveHeader": {
@@ -41,24 +45,31 @@
     "systemUptime": "System Uptime"
   },
   "executiveSummary": {
-    "title": "Executive Summary",
+    "title": "Today's priorities",
     "greetingMorning": "Good morning, {name}.",
     "greetingAfternoon": "Good afternoon, {name}.",
     "greetingEvening": "Good evening, {name}.",
-    "allSystemsOperational": "All critical systems are operational.",
+    "monitoringAreas": "Aipify is monitoring {count} operational areas.",
+    "allSystemsOperational": "All critical systems are operating normally.",
     "subscriptionsReview": "{count} organizations require subscription review.",
-    "growthPartnerActivity": "Growth Partner activity increased — {count} applications pending.",
-    "marketplaceReviews": "{count} marketplace reviews await approval.",
+    "growthPartnerActivity": "{count} Growth Partner applications require review.",
+    "marketplaceReviews": "{count} marketplace submissions are awaiting approval.",
+    "paymentProviderIncomplete": "Payment provider setup remains incomplete.",
     "criticalIncidents": "{count} critical incidents require executive attention.",
     "noInterventionRequired": "No executive intervention is currently required.",
-    "platformStable": "Platform remains stable — review open items when convenient."
+    "platformStable": "Platform remains stable — review open items when convenient.",
+    "attentionRequiredToday": "{count} items require your attention today.",
+    "estimatedReviewTime": "Estimated review time: {minutes} minutes."
   },
   "systemStatus": {
     "title": "System Status",
-    "lastCheck": "Last check:",
+    "lastCheck": "Last successful check:",
     "lastCheckSeconds": "{seconds} seconds ago",
     "avgResponse": "Average response:",
     "avgResponseMs": "{ms} ms",
+    "uptimeTrend": "30-day uptime",
+    "uptimeTrendValue": "{pct}%",
+    "setupProgress": "{completed} of {total} required steps completed",
     "services": {
       "supabase": "Supabase",
       "resend": "Resend",
@@ -70,28 +81,48 @@
   },
   "trustSignals": {
     "title": "Trust Signals",
+    "subtitle": "Measurable trust posture for executive visibility.",
     "backupOk": "Last backup completed successfully.",
+    "backupVerified": "Backup verification confirmed.",
     "twoFactorEnforced": "2FA enforced for executive access.",
     "auditLoggingActive": "Audit logging active.",
-    "complianceMonitoringActive": "Compliance monitoring active."
+    "complianceMonitoringActive": "Compliance monitoring active.",
+    "securityPosture": "Security posture",
+    "securityPostureStrong": "Strong",
+    "securityPostureReview": "Review recommended",
+    "complianceHealth": "Compliance health",
+    "incidentFreeDays": "Incident-free days",
+    "executiveVisibility": "Executive visibility enabled"
   },
   "actionCenter": {
-    "title": "Action Center",
-    "subtitle": "Every recommendation leads to a governed platform action.",
-    "open": "Open",
-    "priorityCritical": "Critical",
-    "priorityAttention": "Requires attention",
-    "priorityInformational": "Informational",
+    "title": "Executive Action Center",
+    "subtitle": "Governed recommendations — every item leads to a clear next step.",
+    "open": "Review",
+    "takeAction": "Take action",
+    "priorityCritical": "Critical alert",
+    "priorityAttention": "Requires approval",
+    "priorityInformational": "Recommended action",
+    "categoryRequiresApproval": "Requires approval",
+    "categoryRecommended": "Recommended actions",
+    "categoryCritical": "Critical alerts",
+    "categoryMilestones": "Upcoming milestones",
+    "impactHigh": "High impact",
+    "impactMedium": "Medium impact",
+    "impactLow": "Low impact",
+    "estimatedTime": "Est. {minutes} min",
     "criticalIncidents": "Review critical incidents",
     "subscriptionReview": "Subscription review required",
-    "growthPartnerApplications": "Growth Partner applications pending",
-    "marketplaceReviews": "Marketplace reviews awaiting approval",
+    "growthPartnerApplications": "Growth Partner applications pending review",
+    "marketplaceReviews": "Marketplace submissions awaiting approval",
     "organizationHealth": "Review organization health",
     "supportEscalations": "Internal support escalation queue",
-    "globalGovernance": "Global governance and audit logs"
+    "globalGovernance": "Global governance and audit logs",
+    "paymentProviderSetup": "Complete payment provider configuration"
   },
   "controlCenter": {
-    "loading": "Loading control center…",
+    "loading": "Preparing executive workspace…",
+    "loadingTrust": "Analyzing trust signals…",
+    "loadingGovernance": "Loading governance data…",
     "loadError": "Control Center data is temporarily unavailable.",
     "emptyStateTitle": "Operational overview initializing",
     "emptyStateBody": "Platform metrics will appear here as organizations, subscriptions, and partner activity are recorded. No customer business content is shown.",
@@ -281,6 +312,8 @@
     "payoutReviewsDescription": "Approve partner payout batches.",
     "partnerSupport": "Partner Support",
     "partnerSupportDescription": "Handle partner escalations and operations.",
+    "academyStudio": "Aipify Academy Studio",
+    "academyStudioDescription": "Create certification programs, onboarding experiences, and internal learning journeys.",
     "marketingManagement": "Marketing Management",
     "marketingManagementDescription": "Upload assets, publish campaigns, and manage brand standards.",
     "contentRequests": "Content Requests",
@@ -837,5 +870,138 @@
       "exportCsv": "Export CSV",
       "regenerate": "Save assumptions"
     }
+  },
+  "academyStudio": {
+    "title": "Aipify Academy Studio",
+    "subtitle": "Create certification programs, onboarding experiences, and internal learning journeys for your ecosystem.",
+    "loading": "Preparing Academy Studio…",
+    "back": "Back to Super Admin",
+    "principle": "Learning builds trust. Certification builds confidence. You decide what ships.",
+    "emptyState": "No learning content available yet.",
+    "emptyStateTitle": "No learning content available yet",
+    "emptyStateDescription": "Create certification programs, onboarding experiences, and internal learning journeys for your ecosystem.",
+    "createFirstProgram": "Create first academy program",
+    "viewDocumentation": "View documentation",
+    "overview": {
+      "activeCourses": "Active courses",
+      "certifiedUsers": "Certified users",
+      "expiringCertifications": "Expiring certifications",
+      "completionRate": "Completion rate",
+      "coursesRequiringReview": "Courses requiring review",
+      "recommendedImprovements": "Recommended improvements"
+    },
+    "sections": {
+      "overview": "Overview",
+      "courses": "Courses",
+      "builder": "Course builder",
+      "modules": "Modules",
+      "assessments": "Assessments",
+      "analytics": "Analytics",
+      "recommendations": "Recommendations",
+      "audit": "Audit log",
+      "workflow": "Production workflow",
+      "production": "Video production",
+      "exports": "Exports"
+    },
+    "table": {
+      "title": "Title",
+      "audience": "Audience",
+      "difficulty": "Difficulty",
+      "language": "Language",
+      "duration": "Duration",
+      "status": "Status",
+      "threshold": "Pass threshold",
+      "modules": "Modules",
+      "actions": "Actions"
+    },
+    "audiences": {
+      "growth_partners": "Growth Partners",
+      "customers": "Customers",
+      "enterprise_administrators": "Enterprise administrators",
+      "internal_employees": "Internal employees",
+      "support_teams": "Support teams",
+      "growth_partner_managers": "Growth Partner managers"
+    },
+    "difficulties": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "expert": "Expert"
+    },
+    "moduleTypes": {
+      "video_lesson": "Video lesson",
+      "reading": "Reading",
+      "interactive_question": "Interactive question",
+      "scenario_exercise": "Scenario exercise",
+      "assessment": "Assessment",
+      "practical_task": "Practical task"
+    },
+    "questionTypes": {
+      "multiple_choice": "Multiple choice",
+      "true_false": "True / false",
+      "scenario_based": "Scenario based",
+      "practical_validation": "Practical validation"
+    },
+    "certStatuses": {
+      "not_started": "Not started",
+      "in_progress": "In progress",
+      "certified": "Certified",
+      "expired": "Expired",
+      "suspended": "Suspended"
+    },
+    "courseStatuses": {
+      "draft": "Draft",
+      "published": "Published",
+      "archived": "Archived"
+    },
+    "workflowSteps": {
+      "define_audience": "Define audience",
+      "define_objective": "Define objective",
+      "generate_outline": "Generate outline",
+      "generate_materials": "Generate materials",
+      "publish_certification": "Publish certification"
+    },
+    "languages": {
+      "en": "English",
+      "no": "Norwegian",
+      "sv": "Swedish",
+      "da": "Danish"
+    },
+    "recommendations": {
+      "updateOutdated": "Update outdated course material ({count} courses)",
+      "clarifyTopics": "Clarify topics with low completion ({count} modules)",
+      "newCourse": "Consider a new certification program",
+      "refresherTraining": "Schedule refresher training ({count} certifications expiring)"
+    },
+    "analytics": {
+      "completionRate": "Completion rate",
+      "passRate": "Pass rate",
+      "averageScore": "Average score",
+      "dropOffRate": "Module drop-off rate",
+      "difficultQuestions": "Most difficult questions",
+      "retraining": "Retraining opportunities"
+    },
+    "quickActions": {
+      "createCourse": "Create course",
+      "generateOutline": "Generate outline",
+      "generateMaterials": "Generate materials",
+      "generateQuiz": "Generate quiz",
+      "publishCourse": "Publish course",
+      "exportFiverr": "Export production package",
+      "startCourse": "Start course"
+    },
+    "workflow": {
+      "title": "From concept to certified program",
+      "step1": "Define audience and objective",
+      "step2": "Generate structured outline",
+      "step3": "Create materials and assessments",
+      "step4": "Review and refine content",
+      "step5": "Publish and certify"
+    },
+    "export": {
+      "fiverrTitle": "Production export",
+      "fiverrHint": "Structured package for external video production partners."
+    },
+    "youDecide": "You decide what publishes — Aipify prepares and recommends."
   }
 }

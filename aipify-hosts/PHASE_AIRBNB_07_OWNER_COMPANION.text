@@ -1,11 +1,11 @@
 AIPIFY – PHASE AIRBNB 07
-AIPIFY HOSTS – OWNER COMPANION
+AIPIFY HOSTS – OWNER PORTAL & HOSPITALITY COMPANION ENGINE
 
 PURPOSE
-Provide a hospitality-focused Aipify Companion that helps owners and property managers understand operations, prepare decisions, and steward their portfolio with calm professional guidance.
+Provide hosts with a proactive digital operations companion that simplifies daily management while delivering executive-level visibility.
 
 POSITIONING
-Your hospitality operations partner — not a replacement for your team or booking platforms.
+Wake up knowing exactly what needs your attention.
 
 FEATURE OWNER
 CUSTOMER APP
@@ -13,41 +13,31 @@ CUSTOMER APP
 ROUTE
 /app/aipify-hosts/companion
 
-OBJECTIVES
-Reduce operational stress · Surface what matters · Prepare decisions · Never dictate outcomes
+STATUS
+IMPLEMENTED
 
-CAPABILITIES
-Operational briefings — arrivals, departures, gaps, incidents requiring attention
-Natural language queries — "What is happening across my properties?" "Which arrivals need preparation?"
-Recommendation preparation — gap fill suggestions, cancellation recovery, risk flags with reasoning
-Cross-module awareness — booking, operations, guest, trust, expansion (read via approved RPCs only)
-Tone adaptation — professional, calm, enterprise-grade hospitality language
+MIGRATION
+20261487000000_aipify_hosts_owner_companion_airbnb07.sql
 
-COMPANION LIMITATIONS
-Never execute sensitive actions without approval
-Never impersonate the host to guests
-Never store raw guest conversations
-Never auto-adjust prices or send guest messages
-Recommendations include confidence and trade-offs
+RPCS
+get_aipify_hosts_companion_dashboard · get_aipify_hosts_companion_card
 
-CHAT ORDER
-Command intent → Brand address → Proactive guidance → Natural language → Feature routing
-
-TERMINOLOGY
-Aipify Companion — not AI assistant, bot, or copilot
-Aipify recommends · Aipify has found · Aipify prepares
-
-INTEGRATIONS
-Internal Language Model — brand identity, proactive guidance, reminder follow-up
-Identity Engine — communication style adaptation (user approved)
-Decision Support Engine — business-first guidance with explainability
+MODULES
+1 Owner Command Center — arrivals, departures, approvals, revenue, health, alerts, team, maintenance
+2 Daily Briefing Engine — morning and evening proactive summaries
+3 Since Last Login Center — reservations, cancellations, requests, maintenance, team, revenue
+4 Approval Hub — late check-outs, vendors, guest requests, incidents, refunds, exceptions
+5 Hospitality Companion Chat — conversational operations
+6 Executive Recommendation Engine — revenue, ops, guest, maintenance, expansion opportunities
+7 Mobile Operations Experience — briefings, approvals, alerts, chat, property status
+8 Executive Notification Center — critical, approval, recommended, informational
+9 Owner Performance Insights — response speed, approval efficiency, consistency, satisfaction
+10 Hospitality Companion Memory Engine — transparent, editable preference awareness
 
 GOVERNANCE
-Human oversight default ON
-Companion suggests — owner decides
-Full audit of companion-initiated action preparations
+Companion suggests — owner decides · Approval required · Audit logged · Memory transparent
 
-KNOWLEDGE CENTER
-Hospitality best practices · Owner decision frameworks · Operational stewardship guidance
+TERMINOLOGY
+Aipify Companion — never AI assistant, bot, or copilot
 
 END OF PHASE.

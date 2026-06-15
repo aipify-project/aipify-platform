@@ -37,6 +37,7 @@ type SuperAdminShellProps = {
   moduleLabels: Record<string, { label: string; description: string }>;
   commandBarLabels: CommandBarLabels;
   commandBarNavSources: CommandBarNavSource[];
+  footerSignature?: string;
   children: ReactNode;
 };
 
@@ -56,6 +57,7 @@ export default function SuperAdminShell({
   moduleLabels,
   commandBarLabels,
   commandBarNavSources,
+  footerSignature,
   children,
 }: SuperAdminShellProps) {
   const pathname = usePathname();
@@ -102,7 +104,7 @@ export default function SuperAdminShell({
                     {organizationLabel}
                   </p>
                   <h1 className="mt-1 text-lg font-semibold text-gray-900">{portalTitle}</h1>
-                  <p className="mt-1 text-xs text-gray-500">{portalSubtitle}</p>
+                  <p className="mt-1 text-xs leading-relaxed text-gray-500">{portalSubtitle}</p>
                 </Link>
               </div>
 
@@ -169,7 +171,14 @@ export default function SuperAdminShell({
                 </div>
               </header>
 
-              <main className="flex-1 px-4 py-6 lg:px-8">{children}</main>
+              <main className="flex-1 px-4 py-6 lg:px-8">
+                {children}
+                {footerSignature ? (
+                  <footer className="mt-10 border-t border-gray-200 pt-6 text-center text-xs text-gray-400">
+                    {footerSignature}
+                  </footer>
+                ) : null}
+              </main>
             </div>
           </div>
         </div>

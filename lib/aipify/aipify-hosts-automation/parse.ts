@@ -1,3 +1,4 @@
+import { normalizeHostsPlanKey } from "@/lib/aipify/aipify-hosts";
 import type { AipifyHostsAutomationCard, AipifyHostsAutomationDashboard } from "./types";
 
 function asArray<T>(data: unknown): T[] {
@@ -19,7 +20,7 @@ export function parseAipifyHostsAutomationDashboard(data: unknown): AipifyHostsA
   return {
     has_customer: true,
     enabled: Boolean(d.enabled),
-    package_key: typeof d.package_key === "string" ? d.package_key : "hosts_starter",
+    package_key: normalizeHostsPlanKey(typeof d.package_key === "string" ? d.package_key : undefined),
     property_count: Number(d.property_count ?? 0),
     human_oversight_required: Boolean(d.human_oversight_required ?? true),
     positioning: typeof d.positioning === "string" ? d.positioning : "",

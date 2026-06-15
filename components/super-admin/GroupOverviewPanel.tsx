@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
 import {
   parseGroupOverviewCenter,
   type GroupOrganizationLabels,
@@ -12,6 +14,32 @@ type GroupOverviewPanelProps = {
   labels: GroupOrganizationLabels;
   backHref: string;
 };
+
+function MetricCard({ label, value }: { label: string; value: string | number }) {
+  return (
+    <div className="rounded-xl border border-gray-100 bg-white px-4 py-4 shadow-sm">
+      <dt className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</dt>
+      <dd className="mt-2 text-2xl font-semibold text-gray-900">{value}</dd>
+    </div>
+  );
+}
+
+function SectionCard({
+  title,
+  children,
+  className = "",
+}: {
+  title: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <section className={`rounded-2xl border border-gray-200 bg-white p-6 shadow-sm ${className}`}>
+      <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-gray-500">{title}</h2>
+      <div className="mt-5">{children}</div>
+    </section>
+  );
+}
 
 export function GroupOverviewPanel({ labels, backHref }: GroupOverviewPanelProps) {
   const [center, setCenter] = useState<GroupOverviewCenter | null>(null);
@@ -41,41 +69,38 @@ export function GroupOverviewPanel({ labels, backHref }: GroupOverviewPanelProps
   }
 
   if (loading) {
-    return (
-      <div className="flex min-h-[40vh] items-center justify-center p-6">
-        <p className="text-sm text-zinc-400">{labels.loading}</p>
-      </div>
-    );
+    return <AipifyLoader label={labels.loading} centered fullPage />;
   }
 
   if (!center) {
     return (
-      <div className="p-6">
-        <p className="text-sm text-red-400">{labels.loading}</p>
-      </div>
+      <PlatformEmptyState
+        title={labels.title}
+        message={labels.subtitle}
+        primaryAction={{ label: labels.back, href: backHref }}
+      />
     );
   }
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6 p-6">
-      <div>
-        <Link href={backHref} className="text-sm text-zinc-400 hover:text-zinc-200">
+    <div className="mx-auto max-w-6xl space-y-8 p-6">
+      <header className="space-y-3">
+        <Link href={backHref} className="text-sm font-medium text-indigo-700 hover:text-indigo-900">
           ← {labels.back}
         </Link>
-        <h1 className="mt-3 text-2xl font-semibold tracking-tight text-zinc-50">{labels.title}</h1>
-        <p className="mt-2 text-zinc-400">{labels.subtitle}</p>
-        <p className="mt-3 text-sm font-medium text-zinc-300">
+        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">{labels.title}</h1>
+        <p className="max-w-3xl text-sm leading-relaxed text-gray-600">{labels.subtitle}</p>
+        <p className="text-sm font-medium text-gray-800">
           {center.parent.legal_name} · {center.tagline || labels.tagline}
         </p>
-        <p className="mt-3 rounded-xl border border-zinc-800 bg-zinc-900/60 px-4 py-3 text-sm text-zinc-300">
+        <p className="rounded-xl border border-indigo-100 bg-indigo-50/40 px-4 py-3 text-sm text-indigo-950">
           {labels.foundationStatement}
         </p>
-        <p className="mt-2 text-xs text-zinc-500">{labels.principle}</p>
-      </div>
+        <p className="text-xs text-gray-500">{labels.principle}</p>
+      </header>
 
-      <section className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5">
-        <h2 className="font-semibold text-zinc-100">{labels.sections.summary}</h2>
-        <dl className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <SectionCard title={labels.sections.summary}>
+        <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {(
             [
               [labels.summary.totalEntities, center.summary.total_entities],
@@ -86,74 +111,54 @@ export function GroupOverviewPanel({ labels, backHref }: GroupOverviewPanelProps
               [labels.summary.signals, center.summary.shared_signals_count],
             ] as const
           ).map(([label, value]) => (
-            <div key={label} className="rounded-xl bg-zinc-950/60 px-4 py-3">
-              <dt className="text-xs uppercase tracking-wide text-zinc-500">{label}</dt>
-              <dd className="mt-1 text-xl font-semibold text-zinc-100">{value}</dd>
-            </div>
+            <MetricCard key={label} label={label} value={value} />
           ))}
         </dl>
-      </section>
+      </SectionCard>
 
-      <section className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5">
-        <h2 className="font-semibold text-zinc-100">{labels.sections.hierarchy}</h2>
-        <ol className="mt-3 space-y-2">
-          {center.hierarchy_levels.map((level) => (
-            <li key={level.key} className="flex items-center gap-3 text-sm text-zinc-300">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-800 text-xs font-medium text-zinc-200">
-                {level.level}
-              </span>
-              {level.name}
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="rounded-2xl border border-zinc-800 bg-zinc-900/50 shadow-sm">
-        <div className="border-b border-zinc-800 px-5 py-4">
-          <h2 className="font-semibold text-zinc-100">{labels.sections.entities}</h2>
-        </div>
+      <SectionCard title={labels.sections.entities}>
         {center.entities.length === 0 ? (
-          <p className="p-5 text-sm text-zinc-500">{labels.entities.empty}</p>
+          <PlatformEmptyState
+            title={labels.entities.empty}
+            message={labels.subtitle}
+            className="border-none bg-gray-50/50"
+          />
         ) : (
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto rounded-xl border border-gray-100">
             <table className="min-w-full text-sm">
-              <thead className="bg-zinc-950/40 text-left text-zinc-500">
+              <thead className="bg-gray-50 text-left text-gray-500">
                 <tr>
-                  <th className="px-5 py-3 font-medium">{labels.entities.name}</th>
-                  <th className="px-5 py-3 font-medium">{labels.entities.type}</th>
-                  <th className="px-5 py-3 font-medium">{labels.entities.status}</th>
-                  <th className="px-5 py-3 font-medium">{labels.entities.domain}</th>
-                  <th className="px-5 py-3 font-medium">{labels.entities.users}</th>
-                  <th className="px-5 py-3 font-medium">{labels.entities.subscriptions}</th>
-                  <th className="px-5 py-3 font-medium">{labels.entities.departments}</th>
-                  <th className="px-5 py-3 font-medium">{labels.entities.teams}</th>
-                  <th className="px-5 py-3 font-medium" />
+                  <th className="px-4 py-3 font-medium">{labels.entities.name}</th>
+                  <th className="px-4 py-3 font-medium">{labels.entities.type}</th>
+                  <th className="px-4 py-3 font-medium">{labels.entities.status}</th>
+                  <th className="px-4 py-3 font-medium">{labels.entities.domain}</th>
+                  <th className="px-4 py-3 font-medium">{labels.entities.users}</th>
+                  <th className="px-4 py-3 font-medium">{labels.entities.subscriptions}</th>
+                  <th className="px-4 py-3 font-medium" />
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-800">
+              <tbody className="divide-y divide-gray-100 bg-white">
                 {center.entities.map((entity) => (
                   <tr key={entity.id}>
-                    <td className="px-5 py-3 font-medium text-zinc-100">{entity.name}</td>
-                    <td className="px-5 py-3 text-zinc-400">
+                    <td className="px-4 py-3 font-medium text-gray-900">{entity.name}</td>
+                    <td className="px-4 py-3 text-gray-600">
                       {labels.entityTypes[entity.entity_type] ?? entity.entity_type}
                     </td>
-                    <td className="px-5 py-3">
-                      <span className="rounded-full bg-zinc-800 px-2.5 py-1 text-xs text-zinc-300">
+                    <td className="px-4 py-3">
+                      <span className="rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-700">
                         {labels.statuses[entity.status] ?? entity.status}
                       </span>
                     </td>
-                    <td className="px-5 py-3 text-zinc-400">{entity.primary_domain || "—"}</td>
-                    <td className="px-5 py-3 text-zinc-400">{entity.metrics.active_users}</td>
-                    <td className="px-5 py-3 text-zinc-400">{entity.metrics.active_subscriptions}</td>
-                    <td className="px-5 py-3 text-zinc-400">{entity.departments_count}</td>
-                    <td className="px-5 py-3 text-zinc-400">{entity.teams_count}</td>
-                    <td className="px-5 py-3">
+                    <td className="px-4 py-3 text-gray-600">{entity.primary_domain || "—"}</td>
+                    <td className="px-4 py-3 text-gray-600">{entity.metrics.active_users}</td>
+                    <td className="px-4 py-3 text-gray-600">{entity.metrics.active_subscriptions}</td>
+                    <td className="px-4 py-3">
                       {entity.status === "active" && (
                         <button
                           type="button"
                           disabled={actingId === entity.id}
                           onClick={() => void archiveEntity(entity.id)}
-                          className="rounded-md border border-zinc-700 px-2 py-1 text-xs text-zinc-300 hover:bg-zinc-800 disabled:opacity-50"
+                          className="rounded-md border border-gray-200 px-2 py-1 text-xs text-gray-700 hover:bg-gray-50 disabled:opacity-50"
                         >
                           {labels.entities.archive}
                         </button>
@@ -165,70 +170,81 @@ export function GroupOverviewPanel({ labels, backHref }: GroupOverviewPanelProps
             </table>
           </div>
         )}
-      </section>
+      </SectionCard>
+
+      <SectionCard title={labels.sections.hierarchy}>
+        <ol className="grid gap-3 sm:grid-cols-2">
+          {center.hierarchy_levels.map((level) => (
+            <li
+              key={level.key}
+              className="flex items-center gap-3 rounded-xl border border-gray-100 bg-gray-50/60 px-4 py-3 text-sm text-gray-700"
+            >
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-xs font-semibold text-gray-900 ring-1 ring-gray-200">
+                {level.level}
+              </span>
+              {level.name}
+            </li>
+          ))}
+        </ol>
+      </SectionCard>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <section className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5">
-          <h2 className="font-semibold text-zinc-100">{labels.sections.investments}</h2>
+        <SectionCard title={labels.sections.investments}>
           {center.investments.length === 0 ? (
-            <p className="mt-3 text-sm text-zinc-500">{labels.investments.empty}</p>
+            <p className="text-sm text-gray-500">{labels.investments.empty}</p>
           ) : (
-            <ul className="mt-4 space-y-3">
+            <ul className="space-y-3">
               {center.investments.map((inv) => (
-                <li key={inv.id} className="rounded-xl bg-zinc-950/60 px-4 py-3 text-sm">
-                  <p className="font-medium text-zinc-100">{inv.company_name}</p>
-                  <p className="mt-1 text-zinc-400">
+                <li key={inv.id} className="rounded-xl border border-gray-100 px-4 py-3 text-sm">
+                  <p className="font-medium text-gray-900">{inv.company_name}</p>
+                  <p className="mt-1 text-gray-600">
                     {labels.investments.ownership}: {inv.ownership_percentage}%
                   </p>
-                  {inv.investment_amount != null && (
-                    <p className="text-zinc-400">
-                      {labels.investments.amount}: {inv.investment_amount} {inv.currency}
-                    </p>
-                  )}
-                  <p className="mt-1 text-xs text-zinc-500">{inv.status}</p>
                 </li>
               ))}
             </ul>
           )}
-        </section>
+        </SectionCard>
 
-        <section className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5">
-          <h2 className="font-semibold text-zinc-100">{labels.sections.sharedIntelligence}</h2>
+        <SectionCard title={labels.sections.sharedIntelligence}>
           {center.shared_intelligence.length === 0 ? (
-            <p className="mt-3 text-sm text-zinc-500">{labels.intelligence.empty}</p>
+            <p className="text-sm text-gray-500">{labels.intelligence.empty}</p>
           ) : (
-            <ul className="mt-4 space-y-3">
+            <ul className="space-y-3">
               {center.shared_intelligence.map((signal) => (
-                <li key={signal.id} className="rounded-xl bg-zinc-950/60 px-4 py-3 text-sm">
-                  <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                <li key={signal.id} className="rounded-xl border border-gray-100 px-4 py-3 text-sm">
+                  <p className="text-xs font-medium uppercase tracking-wide text-gray-500">
                     {labels.signalTypes[signal.signal_type] ?? signal.signal_type}
                   </p>
-                  <p className="mt-1 text-zinc-300">{signal.summary}</p>
-                  <p className="mt-1 text-xs text-zinc-500">
-                    {labels.intelligence.confidence}: {signal.confidence}
-                  </p>
+                  <p className="mt-1 text-gray-700">{signal.summary}</p>
                 </li>
               ))}
             </ul>
           )}
-        </section>
+        </SectionCard>
       </div>
 
-      <section className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5">
-        <h2 className="font-semibold text-zinc-100">{labels.sections.audit}</h2>
+      <SectionCard title={labels.sections.audit}>
         {center.recent_audit.length === 0 ? (
-          <p className="mt-3 text-sm text-zinc-500">{labels.audit.empty}</p>
+          <PlatformEmptyState
+            title={labels.audit.empty}
+            message={labels.principle}
+            className="border-none bg-gray-50/50"
+          />
         ) : (
-          <ul className="mt-4 space-y-2">
+          <ul className="space-y-2">
             {center.recent_audit.map((entry) => (
-              <li key={entry.id} className="rounded-lg bg-zinc-950/60 px-3 py-2 text-sm text-zinc-400">
-                <span className="font-medium text-zinc-300">{entry.event_type}</span> — {entry.summary}
-                <span className="mt-1 block text-xs text-zinc-600">{entry.created_at}</span>
+              <li
+                key={entry.id}
+                className="rounded-lg border border-gray-100 bg-gray-50/60 px-3 py-2 text-sm text-gray-600"
+              >
+                <span className="font-medium text-gray-800">{entry.event_type}</span> — {entry.summary}
+                <span className="mt-1 block text-xs text-gray-400">{entry.created_at}</span>
               </li>
             ))}
           </ul>
         )}
-      </section>
+      </SectionCard>
     </div>
   );
 }

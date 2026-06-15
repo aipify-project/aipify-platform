@@ -1,0 +1,28 @@
+AIPIFY HOSTS — Phase Airbnb 04
+Guest Intelligence & Loyalty Engine
+
+POSITIONING
+Turn guests into returning guests.
+
+ROUTE /app/aipify-hosts/guest-intelligence
+
+VISION
+Booking platforms optimize for transactions. Aipify Hosts optimizes for relationships.
+
+MODULES
+guest_profile_intelligence — operational profiles, metadata only
+returning_guest_recognition — stay history, repeat statistics
+guest_satisfaction_monitor — reviews, support, experience trends
+early_warning_experience — risk alerts before negative reviews
+personalized_hospitality_recommendations — optional, host decides
+loyalty_return_strategy — appreciation, return invitations
+guest_segmentation — business, family, couples, high-value, returning
+executive_loyalty_dashboard — repeat guest %, retention trends
+feedback_intelligence — categorization, trends, improvements
+guest_journey_mapping — pre-arrival through post-stay
+
+GOVERNANCE
+Guest trust first · Data minimization · No raw chat · Audit logged · Recommendations optional
+
+TERMINOLOGY
+Aipify Recommendations — never AI recommendations

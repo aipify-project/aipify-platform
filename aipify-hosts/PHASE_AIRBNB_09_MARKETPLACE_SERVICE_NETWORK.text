@@ -1,0 +1,58 @@
+AIPIFY – PHASE AIRBNB 09
+AIPIFY HOSTS – MARKETPLACE & SERVICE NETWORK FOUNDATION
+
+PURPOSE
+Connect hosts with trusted service providers — search, coordinate, and monitor vendor work without leaving Aipify Hosts.
+
+POSITIONING
+Find, coordinate, and monitor trusted service providers — without leaving Aipify Hosts.
+
+FEATURE OWNER
+CUSTOMER APP
+
+ROUTE
+/app/aipify-hosts/marketplace
+
+STATUS
+IMPLEMENTED
+
+MIGRATION
+20261489000000_aipify_hosts_marketplace_service_network_airbnb09.sql
+
+RPCS
+get_aipify_hosts_marketplace_dashboard · get_aipify_hosts_marketplace_card
+toggle_aipify_hosts_marketplace_favorite · create_aipify_hosts_marketplace_request
+update_aipify_hosts_marketplace_request_status
+
+SERVICE CATEGORIES
+Cleaning · Laundry · Maintenance · Plumbing · Electrical · Locksmith · Landscaping
+Snow removal · Photography · Interior styling · Property inspections · Guest transport · Concierge
+
+HOST CAPABILITIES
+Search providers · Save favorites · Request services · Compare providers · Review completed work
+
+PROVIDER CAPABILITIES (foundation scaffold)
+Accept requests · Update job status · Upload completion evidence · Manage service areas · Manage profile
+
+OPERATIONAL STATUSES
+Requested · Accepted · Scheduled · In progress · Completed · Cancelled
+
+DASHBOARD WIDGETS
+Upcoming services · Open requests · Provider performance · Outstanding approvals
+
+GOVERNANCE
+Provider verification before publication · Approval workflows · Audit logging · Role-based permissions
+
+COMMERCIAL
+Foundation only — no payments in this phase. Architecture prepared for future commission models.
+
+KNOWLEDGE CENTER
+Working with vendors · Selecting trusted providers · Property maintenance standards · Hospitality service best practices
+
+FUTURE OPPORTUNITIES
+Preferred Provider Program · Enterprise Service Agreements · Growth Partner hospitality expansion · Regional provider networks
+
+TERMINOLOGY
+Hosts Marketplace · Service Network · Verified provider — never AI terminology
+
+END OF PHASE.

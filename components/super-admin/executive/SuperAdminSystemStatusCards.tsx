@@ -1,5 +1,6 @@
 "use client";
 
+import { humanizeTranslationKey } from "@/lib/i18n/humanize-key";
 import type { SuperAdminPlatformStatus, SuperAdminSystemService } from "@/lib/super-admin/types";
 
 type SuperAdminSystemStatusCardsProps = {
@@ -10,6 +11,9 @@ type SuperAdminSystemStatusCardsProps = {
     lastCheckSeconds: string;
     avgResponse: string;
     avgResponseMs: string;
+    uptimeTrend: string;
+    uptimeTrendValue: string;
+    setupProgress: string;
     statusOperational: string;
     statusPendingSetup: string;
     statusAttentionRequired: string;
@@ -42,6 +46,10 @@ function statusTone(status: SuperAdminPlatformStatus) {
   };
 }
 
+function serviceName(id: string, labels: SuperAdminSystemStatusCardsProps["labels"]) {
+  return labels.services[id] ?? humanizeTranslationKey(`superAdmin.systemStatus.services.${id}`);
+}
+
 export default function SuperAdminSystemStatusCards({
   services,
   labels,
@@ -52,11 +60,11 @@ export default function SuperAdminSystemStatusCards({
       <ul className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {services.map((service) => {
           const tone = statusTone(service.status);
-          const name = labels.services[service.id] ?? service.id;
+          const name = serviceName(service.id, labels);
           return (
             <li
               key={service.id}
-              className="rounded-xl border border-zinc-100 bg-zinc-50/60 p-5"
+              className="rounded-xl border border-zinc-100 bg-white p-5 shadow-sm"
             >
               <div className="flex items-start justify-between gap-3">
                 <p className="text-sm font-semibold text-zinc-900">{name}</p>
@@ -82,6 +90,23 @@ export default function SuperAdminSystemStatusCards({
                   <span className="font-medium text-zinc-700">
                     {labels.avgResponseMs.replace("{ms}", String(service.response_time_ms))}
                   </span>
+                </p>
+              ) : null}
+              {typeof service.uptime_trend_pct === "number" ? (
+                <p className="mt-1 text-xs text-zinc-500">
+                  {labels.uptimeTrend}{" "}
+                  <span className="font-medium text-zinc-700">
+                    {labels.uptimeTrendValue.replace("{pct}", String(service.uptime_trend_pct))}
+                  </span>
+                </p>
+              ) : null}
+              {service.status === "pending_setup" &&
+              typeof service.setup_steps_completed === "number" &&
+              typeof service.setup_steps_total === "number" ? (
+                <p className="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-950">
+                  {labels.setupProgress
+                    .replace("{completed}", String(service.setup_steps_completed))
+                    .replace("{total}", String(service.setup_steps_total))}
                 </p>
               ) : null}
             </li>
