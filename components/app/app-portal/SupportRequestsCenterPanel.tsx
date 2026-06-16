@@ -11,6 +11,7 @@ import {
   type SupportRequestStatus,
   type SupportRequestsLabels,
 } from "@/lib/app-portal/support-requests";
+import { SUPPORT_ASSISTANT_CONTEXT_STORAGE_KEY } from "@/lib/app-portal/support-assistant";
 
 type Props = { labels: SupportRequestsLabels };
 
@@ -54,6 +55,37 @@ export function SupportRequestsCenterPanel({ labels }: Props) {
     if (res.ok) setData(parseSupportRequestList(await res.json()));
     setLoading(false);
   }, [category, status, priority, search]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("from") !== "assistant") return;
+    const raw = sessionStorage.getItem(SUPPORT_ASSISTANT_CONTEXT_STORAGE_KEY);
+    if (!raw) return;
+    try {
+      const ctx = JSON.parse(raw) as { context?: Record<string, unknown> };
+      const c = ctx.context;
+      queueMicrotask(() => {
+        if (c?.question_asked) setFormTitle(String(c.question_asked));
+        if (c?.article_title) {
+          setFormDescription(
+            `Support Assistant context:\nArticle: ${String(c.article_title)}\nQuestion: ${String(c.question_asked ?? "")}`,
+          );
+        }
+        const mod = c?.related_module ? String(c.related_module) : "";
+        if (mod === "billing") setFormCategory("billing");
+        else if (mod === "integrations") setFormCategory("integrations");
+        else if (mod === "business_packs") setFormCategory("business_packs");
+        else if (mod === "organization" || mod === "account") setFormCategory("account");
+        else if (mod === "support") setFormCategory("general");
+        if (mod) setFormModule(mod);
+        setShowForm(true);
+      });
+      sessionStorage.removeItem(SUPPORT_ASSISTANT_CONTEXT_STORAGE_KEY);
+    } catch {
+      /* ignore malformed context */
+    }
+  }, []);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- data fetch on filter change

@@ -12,3 +12,4 @@ export { DecisionDetailPanel } from "./DecisionDetailPanel";
 export { ActivityHistoryPanel } from "./ActivityHistoryPanel";
 export { SupportRequestsCenterPanel } from "./SupportRequestsCenterPanel";
 export { SupportRequestDetailPanel } from "./SupportRequestDetailPanel";
+export { SupportAssistantPanel } from "./SupportAssistantPanel";

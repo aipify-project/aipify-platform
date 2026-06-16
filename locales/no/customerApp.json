@@ -23824,7 +23824,8 @@
       "followUps": "Follow-Ups",
       "decisionCenter": "Decision Center",
       "activityHistory": "Activity History",
-      "supportRequests": "Support Requests"
+      "supportRequests": "Support Requests",
+      "supportAssistant": "Support Assistant"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -24523,6 +24524,75 @@
         "canTrackAnswer": "Yes. Each support request includes status, priority, category, timestamps and related activity so your organization can follow progress.",
         "whoCanSee": "Who can see support requests?",
         "whoCanSeeAnswer": "Support request access depends on organization permissions. Owners and administrators can view organization support requests, while team members only see requests they are authorized to access."
+      }
+    },
+    "supportAssistant": {
+      "title": "Support Assistant",
+      "subtitle": "Find answers from the Knowledge Center before creating a support request.",
+      "loading": "Aipify is searching the Knowledge Center…",
+      "emptyPrompt": "Ask Aipify Support anything about setup, billing, integrations or Business Packs.",
+      "searchPlaceholder": "Search setup, billing, integrations, Business Packs…",
+      "searchButton": "Search",
+      "suggestedTitle": "Suggested questions",
+      "answerTitle": "Guidance",
+      "stepsTitle": "Step-by-step",
+      "relatedTitle": "Related articles",
+      "stillNeedHelp": "Still need help?",
+      "createSupportRequest": "Create Support Request",
+      "noResults": "No matching articles found. Try a different search or create a support request.",
+      "principle": "Aipify Support Assistant helps you find guidance from approved Knowledge Center content. Human support remains available when you need it.",
+      "suggested": {
+        "contactSupport": {
+          "title": "How do I contact Aipify Support?",
+          "summary": "Use the Support Request Center to reach Aipify with a clear summary of your question.",
+          "step1": "Open Support → Support Requests in the APP navigation.",
+          "step2": "Select the category that best matches your question.",
+          "step3": "Submit your request — your organization can track status and priority."
+        },
+        "connectIntegration": {
+          "title": "How do I connect an integration?",
+          "summary": "Connect external platforms from APP Platform → Integrations with read-only access by default.",
+          "step1": "Open APP Platform → Integrations in the APP navigation.",
+          "step2": "Choose a platform and review the permission scopes Aipify requests.",
+          "step3": "Complete setup and test the connection before using it in your workspace."
+        },
+        "manageSubscription": {
+          "title": "How do I manage my subscription?",
+          "summary": "Review and manage your organization subscription under Billing in the APP navigation.",
+          "step1": "Open Billing → Subscription to view your current plan.",
+          "step2": "Review licensed modules and billing status for your organization.",
+          "step3": "Contact an owner or admin if plan changes require approval."
+        },
+        "inviteTeamMembers": {
+          "title": "How do I invite team members?",
+          "summary": "Organization owners and admins manage team access from Organization → Team Members.",
+          "step1": "Open Organization → Team Members.",
+          "step2": "Review current members and organization roles.",
+          "step3": "Use invitation workflows when available — admins control workspace access."
+        },
+        "installBusinessPack": {
+          "title": "How do I install a Business Pack?",
+          "summary": "Business Packs are licensed modules your organization can enable on top of your subscription.",
+          "step1": "Open Business Packs → Available Business Packs.",
+          "step2": "Review packs included in your subscription tier.",
+          "step3": "Install or enable packs — owners and admins manage licensing."
+        },
+        "upgradePlan": {
+          "title": "How do I upgrade my plan?",
+          "summary": "Compare plans and upgrade options under Billing → Upgrade Options.",
+          "step1": "Open Billing → Upgrade Options.",
+          "step2": "Compare capabilities included in each plan tier.",
+          "step3": "Complete upgrade with owner or admin approval when required."
+        }
+      },
+      "faq": {
+        "title": "Support Assistant FAQ",
+        "whatIs": "What is Aipify Support Assistant?",
+        "whatIsAnswer": "Aipify Support Assistant helps customers find answers from the Knowledge Center before creating a support request.",
+        "replacesHuman": "Does Support Assistant replace human support?",
+        "replacesHumanAnswer": "No. The Support Assistant helps users find guidance faster, but customers can still create support requests when human assistance is needed.",
+        "canCreateRequest": "Can Support Assistant create a support request?",
+        "canCreateRequestAnswer": "The Support Assistant can help prepare support request context, but the user must confirm before a request is created."
       }
     }
   },

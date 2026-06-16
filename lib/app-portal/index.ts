@@ -8,3 +8,4 @@ export * from "./follow-ups";
 export * from "./decision-center";
 export * from "./activity-history";
 export * from "./support-requests";
+export * from "./support-assistant";
