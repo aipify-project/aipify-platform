@@ -1,4 +1,4 @@
-export const LOCALES = ["en", "no", "sv", "da"] as const;
+export const LOCALES = ["en", "no", "sv", "da", "es", "pl", "uk"] as const;
 
 export type Locale = (typeof LOCALES)[number];
 
@@ -11,6 +11,9 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   no: "Norsk",
   sv: "Svenska",
   da: "Dansk",
+  es: "Español",
+  pl: "Polski",
+  uk: "Українська",
 };
 
 export const NAMESPACES = [
@@ -31,6 +34,8 @@ export const NAMESPACES = [
   "marketing",
   "superAdmin",
   "growthPartnerPortal",
+  "growthPortal",
+  "partnersPortal",
   "commandBar",
 ] as const;
 

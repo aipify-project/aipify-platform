@@ -1,4 +1,22 @@
 export type PlatformNavId =
+  | "operationsOverview"
+  | "platformHealth"
+  | "deployments"
+  | "operationsAuditLogs"
+  | "organizations"
+  | "customerSuccess"
+  | "payments"
+  | "marketplace"
+  | "growthPartners"
+  | "knowledgeCenter"
+  | "translationManagement"
+  | "documentation"
+  | "businessPacks"
+  | "productManagement"
+  | "installationOversight"
+  | "activityLogs"
+  | "governanceRecords"
+  | "securityReviews"
   | "executive"
   | "executiveOperationsCenter"
   | "announcementCenter"
@@ -219,6 +237,25 @@ export type PlatformNavItem = {
 };
 
 export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
+  { id: "operationsOverview", href: "/platform/operations/overview", labelKey: "platform.nav.operationsOverview" },
+  { id: "platformHealth", href: "/platform/operations/platform-health", labelKey: "platform.nav.platformHealth" },
+  { id: "deployments", href: "/platform/operations/deployments", labelKey: "platform.nav.deployments" },
+  { id: "operationsAuditLogs", href: "/platform/operations/audit-logs", labelKey: "platform.nav.operationsAuditLogs" },
+  { id: "organizations", href: "/platform/customers", labelKey: "platform.nav.organizations" },
+  { id: "customerSuccess", href: "/platform/customers/success-operations", labelKey: "platform.nav.customerSuccess" },
+  { id: "payments", href: "/platform/billing/payment-operations", labelKey: "platform.nav.payments" },
+  { id: "marketplace", href: "/platform/skills", labelKey: "platform.nav.marketplace" },
+  { id: "growthPartners", href: "/platform/pilot-operations", labelKey: "platform.nav.growthPartners" },
+  { id: "knowledgeCenter", href: "/platform/knowledge/evolution-center", labelKey: "platform.nav.knowledgeCenter" },
+  { id: "translationManagement", href: "/platform/knowledge/translation-management", labelKey: "platform.nav.translationManagement" },
+  { id: "documentation", href: "/platform/knowledge/documentation", labelKey: "platform.nav.documentation" },
+  { id: "businessPacks", href: "/platform/product/business-packs", labelKey: "platform.nav.businessPacks" },
+  { id: "productManagement", href: "/platform/product/management", labelKey: "platform.nav.productManagement" },
+  { id: "installationOversight", href: "/platform/installations", labelKey: "platform.nav.installationOversight" },
+  { id: "activityLogs", href: "/platform/governance/activity-logs", labelKey: "platform.nav.activityLogs" },
+  { id: "governanceRecords", href: "/platform/governance/compliance-center", labelKey: "platform.nav.governanceRecords" },
+  { id: "securityReviews", href: "/platform/trust/security", labelKey: "platform.nav.securityReviews" },
+  { id: "overview", href: "/platform", labelKey: "platform.nav.overview" },
   { id: "executive", href: "/platform/executive", labelKey: "platform.nav.executive" },
   {
     id: "executiveOperationsCenter",
@@ -270,7 +307,6 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     href: "/platform/academy",
     labelKey: "platform.nav.platformAcademyStudio",
   },
-  { id: "overview", href: "/platform", labelKey: "platform.nav.overview" },
   {
     id: "customers",
     href: "/platform/customers",
@@ -425,43 +461,41 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
 
 export const PLATFORM_MOBILE_NAV_IDS: PlatformNavId[] = [
   "overview",
-  "customers",
-  "invoices",
-  "billing",
+  "organizations",
+  "support",
+  "payments",
 ];
 
 export function getPlatformActiveNavId(pathname: string): PlatformNavId {
-  if (pathname.startsWith("/platform/operations/platform-health")) {
-    return "platformHealthOperationsCenter";
-  }
-  if (pathname.startsWith("/platform/operations/playbooks")) return "platformPlaybookCenter";
-  if (pathname.startsWith("/platform/academy")) return "platformAcademyStudio";
-  if (pathname.startsWith("/platform/operations")) return "platformPlaybookCenter";
-  if (pathname.startsWith("/platform/governance/compliance-center")) return "platformComplianceGovernanceCenter";
-  if (pathname.startsWith("/platform/governance")) return "platformComplianceGovernanceCenter";
-  if (pathname.startsWith("/platform/knowledge/evolution-center")) return "platformKnowledgeEvolutionCenter";
-  if (pathname.startsWith("/platform/knowledge")) return "platformKnowledgeEvolutionCenter";
-  if (pathname.startsWith("/platform/product/release-center")) return "productReleaseCenter";
-  if (pathname.startsWith("/platform/product/roadmap-center")) return "productRoadmapCenter";
-  if (pathname.startsWith("/platform/product/feedback-center")) return "feedbackCenter";
-  if (pathname.startsWith("/platform/communications/announcement-center")) return "announcementCenter";
-  if (pathname.startsWith("/platform/executive/operations-center")) return "executiveOperationsCenter";
-  if (pathname.startsWith("/platform/executive")) return "executive";
-  if (pathname.startsWith("/platform/customers/success-operations")) return "customerSuccessOperations";
-  if (pathname.startsWith("/platform/customers/lifecycle-center")) return "customerLifecycle";
-  if (pathname.startsWith("/platform/customers")) return "customers";
+  if (pathname === "/platform") return "overview";
+  if (pathname.startsWith("/platform/operations/overview")) return "operationsOverview";
+  if (pathname.startsWith("/platform/operations/platform-health")) return "platformHealth";
+  if (pathname.startsWith("/platform/operations/deployments")) return "deployments";
+  if (pathname.startsWith("/platform/operations/audit-logs")) return "operationsAuditLogs";
+  if (pathname.startsWith("/platform/operations/playbooks")) return "operationsOverview";
+  if (pathname.startsWith("/platform/operations")) return "operationsOverview";
+  if (pathname.startsWith("/platform/customers/success-operations")) return "customerSuccess";
+  if (pathname.startsWith("/platform/customers")) return "organizations";
+  if (pathname.startsWith("/platform/billing/payment-operations")) return "payments";
+  if (pathname.startsWith("/platform/billing")) return "payments";
   if (pathname.startsWith("/platform/subscriptions")) return "subscriptions";
-  if (pathname.startsWith("/platform/billing/payment-operations")) return "paymentOperations";
-  if (pathname.startsWith("/platform/billing/payment-health")) return "paymentHealth";
-  if (pathname.startsWith("/platform/billing/payment-analytics")) return "paymentAnalytics";
-  if (pathname.startsWith("/platform/billing/subscription-operations")) return "subscriptionOperations";
-  if (pathname.startsWith("/platform/billing/revenue-operations")) return "revenueOperations";
-  if (pathname.startsWith("/platform/billing/enterprise-invoices")) return "invoices";
-  if (pathname.startsWith("/platform/billing")) return "billing";
-  if (pathname.startsWith("/platform/invoices")) return "invoices";
-  if (pathname.startsWith("/platform/payment-providers")) return "paymentProviders";
-  if (pathname.startsWith("/platform/install-engine")) return "installEngine";
-  if (pathname.startsWith("/platform/updates")) return "updates";
+  if (pathname.startsWith("/platform/companion-marketplace")) return "marketplace";
+  if (pathname.startsWith("/platform/skills")) return "marketplace";
+  if (pathname.startsWith("/platform/pilot-operations")) return "growthPartners";
+  if (pathname.startsWith("/platform/knowledge/translation-management")) return "translationManagement";
+  if (pathname.startsWith("/platform/knowledge/documentation")) return "documentation";
+  if (pathname.startsWith("/platform/knowledge/evolution-center")) return "knowledgeCenter";
+  if (pathname.startsWith("/platform/knowledge")) return "knowledgeCenter";
+  if (pathname.startsWith("/platform/product/business-packs")) return "businessPacks";
+  if (pathname.startsWith("/platform/product/management")) return "productManagement";
+  if (pathname.startsWith("/platform/product")) return "productManagement";
+  if (pathname.startsWith("/platform/installations")) return "installationOversight";
+  if (pathname.startsWith("/platform/governance/activity-logs")) return "activityLogs";
+  if (pathname.startsWith("/platform/governance/compliance-center")) return "governanceRecords";
+  if (pathname.startsWith("/platform/governance")) return "governanceRecords";
+  if (pathname.startsWith("/platform/trust/security")) return "securityReviews";
+  if (pathname.startsWith("/platform/support")) return "support";
+  if (pathname.startsWith("/platform/updates")) return "deployments";
   if (pathname.startsWith("/platform/trust")) return "trust";
   if (pathname.startsWith("/platform/impact")) return "impact";
   if (pathname.startsWith("/platform/presence-pilot")) return "presencePilot";

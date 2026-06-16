@@ -151,6 +151,14 @@
     "customerSuccess": {
       "title": "Customer Success",
       "purpose": "Støt kunder proaktivt, før de beder om hjælp."
+    },
+    "executiveOversight": {
+      "title": "Executive Oversight",
+      "purpose": "Strategisk synlighed på tværs af Aipify-økosystemet — ikke daglig drift."
+    },
+    "platformGovernance": {
+      "title": "Platformstyring",
+      "purpose": "Styr Platform Administrators, sprog og global revisionssynlighed."
     }
   },
   "groupOverview": {
@@ -224,7 +232,128 @@
       "operational_pattern": "Operationelt mønster"
     }
   },
+  "superPortal": {
+    "dashboard": {
+      "title": "SUPER Executive Dashboard",
+      "subtitle": "Executive overblik over Aipify-økosystemet — styring og strategisk synlighed, ikke daglig drift.",
+      "loading": "Indlæser executive dashboard…",
+      "principle": "SUPER giver globalt overblik. Operationelt arbejde hører til i PLATFORM.",
+      "privacyNote": "Kun aggregerede executive-metrikker — intet kundeindhold.",
+      "totalOrganizations": "Organisationer i alt",
+      "totalActiveUsers": "Aktive brugere i alt",
+      "totalActiveSubscriptions": "Aktive abonnementer i alt",
+      "platformAdministrators": "Platform Administrators",
+      "globalPlatformStatus": "Global platformstatus",
+      "openCriticalIncidents": "Åbne kritiske hændelser",
+      "platformUptime": "Platformoppetid",
+      "platformHealthIndicators": "Platformomfattende sundhedsindikatorer",
+      "operationalServices": "Operationelle tjenester",
+      "degradedServices": "Degraderede tjenester",
+      "maintenanceServices": "Vedligeholdelse",
+      "incidentServices": "Hændelser",
+      "growthTrends": "Væksttendenser",
+      "executiveAlerts": "Executive-advarsler der kræver opmærksomhed",
+      "noAlerts": "Ingen executive-advarsler kræver opmærksomhed.",
+      "portalModules": "SUPER-moduler",
+      "openModule": "Åbn modul",
+      "statuses": {
+        "operational": "Operationel",
+        "attentionRequired": "Kræver opmærksomhed"
+      }
+    },
+    "platformAdministrators": {
+      "title": "Administration af Platform Administrators",
+      "subtitle": "Vis, opret, suspender og genaktiver Platform Administrators med aktivitetsoversigter.",
+      "loading": "Indlæser Platform Administrators…",
+      "back": "Tilbage til SUPER",
+      "email": "Administrator-e-mail",
+      "displayName": "Navn",
+      "role": "Rolle",
+      "status": "Status",
+      "lastLogin": "Seneste login",
+      "activitySummary": "Aktivitetsoversigt",
+      "auditEvents30d": "Revisionshændelser (30d)",
+      "create": "Opret Platform Administrator",
+      "suspend": "Suspender",
+      "reactivate": "Genaktiver",
+      "saving": "Gemmer…",
+      "roles": {
+        "super_admin": "Super Admin",
+        "platform_support": "Platform Administrator"
+      },
+      "statuses": {
+        "active": "Aktiv",
+        "suspended": "Suspenderet"
+      }
+    },
+    "languageAdministration": {
+      "title": "Sprogadministration",
+      "subtitle": "Vis understøttede sprog, aktiver eller deaktiver sprog, og overvåg oversættelsesfuldstændighed.",
+      "loading": "Indlæser sprogadministration…",
+      "back": "Tilbage til SUPER",
+      "locale": "Sprog",
+      "enabled": "Aktiveret",
+      "completeness": "Oversættelsesfuldstændighed",
+      "missingKeys": "Manglende nøgler",
+      "enable": "Aktiver",
+      "disable": "Deaktiver",
+      "saving": "Anvender…",
+      "yes": "Ja",
+      "no": "Nej",
+      "locales": {
+        "en": "Engelsk",
+        "no": "Norsk",
+        "sv": "Svensk",
+        "da": "Dansk"
+      }
+    },
+    "globalAudit": {
+      "title": "Global Audit Center",
+      "subtitle": "Platform Administrator-handlinger, styringsændringer, sikkerhedshændelser og executive-konfiguration.",
+      "loading": "Indlæser revisionsposter…",
+      "back": "Tilbage til SUPER",
+      "user": "Bruger",
+      "action": "Handling",
+      "timestamp": "Tidsstempel",
+      "previousValue": "Forrige værdi",
+      "newValue": "Ny værdi",
+      "empty": "Ingen revisionsposter endnu."
+    },
+    "executiveInsights": {
+      "title": "Executive Insights",
+      "subtitle": "Strategiske metrikker for organisationsvækst, abonnementer, omsætning, adoption og global aktivitet.",
+      "loading": "Indlæser executive insights…",
+      "back": "Tilbage til SUPER",
+      "organizationGrowth": "Organisationsvækst",
+      "subscriptionGrowth": "Abonnementsvækst",
+      "revenueIndicators": "Omsætningstrendindikatorer",
+      "platformAdoption": "Platformadoption",
+      "globalActivity": "Global aktivitetsoversigt",
+      "newOrganizations30d": "Nye organisationer (30d)",
+      "newSubscriptions30d": "Nye abonnementer (30d)",
+      "activeSubscriptions": "Aktive abonnementer",
+      "mrr": "Månedlig tilbagevendende omsætning",
+      "activeInstallations": "Aktive installationer",
+      "actionsToday": "Aipify-handlinger i dag",
+      "adminLogins7d": "Platform Admin-logins (7d)",
+      "trends": {
+        "up": "Stigende trend",
+        "stable": "Stabil",
+        "down": "Faldende trend"
+      }
+    }
+  },
   "modules": {
+    "executiveDashboard": "Executive Dashboard",
+    "executiveDashboardDescription": "Globalt overblik, platformstatus og executive-advarsler.",
+    "executiveInsights": "Executive Insights",
+    "executiveInsightsDescription": "Strategisk vækst, omsætning, adoption og aktivitetsoversigter.",
+    "platformAdministrators": "Platform Administrators",
+    "platformAdministratorsDescription": "Vis, opret, suspender og genaktiver Platform Administrators.",
+    "languageAdministration": "Sprogadministration",
+    "languageAdministrationDescription": "Aktiver sprog, gennemgå fuldstændighed og overvåg manglende oversættelsesnøgler.",
+    "globalAuditCenter": "Global Audit Center",
+    "globalAuditCenterDescription": "Synlighed for styring, sikkerhed og executive-konfiguration.",
     "groupOverview": "Koncernoverblik",
     "groupOverviewDescription": "Virksomheder, enheder, investeringer og delt intelligens under Aipify Group AS.",
     "platformHealth": "Platform Health",

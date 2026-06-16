@@ -1,6 +1,5 @@
-import { redirect } from "next/navigation";
-import { GROWTH_PARTNER_PORTAL_HOME } from "@/lib/growth-partner-portal/nav-config";
+import { redirectPartnersLegacy } from "@/lib/partners-portal/redirect-legacy";
 
-export default function GrowthPartnerPortalIndexPage() {
-  redirect(GROWTH_PARTNER_PORTAL_HOME);
+export default function GrowthPartnerRootRedirectPage() {
+  redirectPartnersLegacy("/growth-partner");
 }

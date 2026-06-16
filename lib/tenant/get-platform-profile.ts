@@ -15,11 +15,17 @@ export async function getPlatformProfile(
 
   const { data, error } = await supabase
     .from("platform_admins")
-    .select("id, auth_user_id, role, created_at")
+    .select("id, auth_user_id, role, created_at, status")
     .eq("auth_user_id", user.id)
+    .in("role", ["super_admin", "platform_support"])
     .maybeSingle();
 
   if (error || !data) {
+    return null;
+  }
+
+  const status = (data as { status?: string }).status ?? "active";
+  if (status !== "active") {
     return null;
   }
 

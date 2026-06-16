@@ -1,0 +1,177 @@
+{
+  "shell": {
+    "portalBadge": "Aipify Partners",
+    "portalTitle": "Aipify Partners arbejdsområde",
+    "portalSubtitle": "Byg din partnerforretning — administrer leads, kunder, henvisninger og provisioner med Aipify.",
+    "governanceNote": "Aipify Partners only · Role-based access · Leads, referrals, and performance actions audited · Never Affiliate",
+    "accessDenied": "Partners-adgang er begrænset til Aipify Partners, Partner Managers og Super Admins.",
+    "loading": "Forbereder Aipify Partners…"
+  },
+  "navGroups": {
+    "dashboard": "Dashboard",
+    "customers": "Customers",
+    "referrals": "Referrals",
+    "academy": "Academy",
+    "marketing": "Marketing",
+    "performance": "Performance",
+    "account": "Account"
+  },
+  "nav": {
+    "overview": "Overview",
+    "performanceSummary": "Performance Summary",
+    "goals": "Goals",
+    "leads": "Leads",
+    "pipeline": "Pipeline",
+    "prospects": "Prospects",
+    "followUps": "Follow-ups",
+    "referralLinks": "Referral Links",
+    "referralPerformance": "Referral Performance",
+    "referralRewards": "Commissions & Rewards",
+    "certifications": "Certifications",
+    "trainingPrograms": "Training Programs",
+    "salesPlaybooks": "Sales Playbooks",
+    "knowledgeMaterials": "Knowledge Materials",
+    "marketingAssets": "Marketing Assets",
+    "campaignTemplates": "Campaign Templates",
+    "emailTemplates": "Email Templates",
+    "productCatalog": "Product Catalog",
+    "rankings": "Rankings",
+    "revenueAttribution": "Revenue Attribution",
+    "partnerMetrics": "Performancemålinger",
+    "historicalPerformance": "Historical Performance",
+    "profile": "Profile",
+    "teamMembers": "Team Members",
+    "notifications": "Notifications",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "title": "Partners-dashboard",
+    "subtitle": "Your performance at a glance — leads, pipeline, referrals, rankings, and certification progress.",
+    "loading": "Indlæser Partners-dashboard…",
+    "principle": "Aipify Partners helps you reach more organizations professionally — with clear metrics, marketing assets, and Partner Academy resources.",
+    "privacyNote": "Partner operational metrics only — no customer business content.",
+    "leadsAssigned": "Leads assigned",
+    "conversionMetrics": "Conversion metrics",
+    "conversionRate": "Conversion rate",
+    "pipelineOverview": "Pipeline overview",
+    "upcomingFollowUps": "Upcoming follow-ups",
+    "partnerRankings": "Partner rankings",
+    "monthlyPerformance": "Monthly performance summary",
+    "referralStatistics": "Referral statistics",
+    "certificationProgress": "Certification progress",
+    "activeReferrals": "Active referrals",
+    "convertedReferrals": "Converted referrals",
+    "invitedReferrals": "Invited referrals",
+    "leadsThisMonth": "Leads this month",
+    "convertedCustomers": "Converted customers",
+    "noFollowUps": "No follow-ups scheduled.",
+    "portalModules": "Partners modules",
+    "openModule": "Open module"
+  },
+  "foundation": {
+    "back": "Tilbage til Partners",
+    "structureNote": "This module is part of the Aipify Partners portal structure. Capabilities will expand in future phases."
+  },
+  "pages": {
+    "performanceSummary": {
+      "title": "Performance Summary",
+      "subtitle": "Monthly and quarterly performance indicators for your partner organization."
+    },
+    "goals": {
+      "title": "Goals",
+      "subtitle": "Set and track acquisition and revenue goals for your partner team."
+    },
+    "pipeline": {
+      "title": "Pipeline",
+      "subtitle": "Visual overview of prospects moving through your sales pipeline."
+    },
+    "prospects": {
+      "title": "Prospects",
+      "subtitle": "Qualified prospects ready for outreach and demonstration."
+    },
+    "followUps": {
+      "title": "Follow-ups",
+      "subtitle": "Scheduled follow-up activities for active leads and prospects."
+    },
+    "referralLinks": {
+      "title": "Referral Links",
+      "subtitle": "Generate and manage Aipify Partner referral links."
+    },
+    "referralRewards": {
+      "title": "Commissions & Rewards",
+      "subtitle": "Track partner commissions, rewards, and payout schedules."
+    },
+    "trainingPrograms": {
+      "title": "Training Programs",
+      "subtitle": "Structured training paths for Partner Academy certification."
+    },
+    "salesPlaybooks": {
+      "title": "Sales Playbooks",
+      "subtitle": "Approved sales playbooks and discovery frameworks."
+    },
+    "knowledgeMaterials": {
+      "title": "Knowledge Materials",
+      "subtitle": "Product knowledge and commercial reference materials."
+    },
+    "campaignTemplates": {
+      "title": "Campaign Templates",
+      "subtitle": "Approved campaign templates for partner outreach."
+    },
+    "emailTemplates": {
+      "title": "Email Templates",
+      "subtitle": "Professional email templates for prospect communication."
+    },
+    "productCatalog": {
+      "title": "Product Catalog",
+      "subtitle": "Aipify product and Business Pack reference for partners."
+    },
+    "rankings": {
+      "title": "Rankings",
+      "subtitle": "Partner network rankings and performance benchmarks."
+    },
+    "revenueAttribution": {
+      "title": "Revenue Attribution",
+      "subtitle": "Commission and revenue attribution for converted customers."
+    },
+    "partnerMetrics": {
+      "title": "Performance Metrics",
+      "subtitle": "Key performance indicators for your partner organization."
+    },
+    "historicalPerformance": {
+      "title": "Historical Performance",
+      "subtitle": "Trend analysis across prior months and quarters."
+    },
+    "profile": {
+      "title": "Profile",
+      "subtitle": "Your Aipify Partner profile and organization details."
+    },
+    "notifications": {
+      "title": "Notifications",
+      "subtitle": "Manage alerts for leads, referrals, and certification updates."
+    }
+  },
+  "faq": {
+    "whatIsPartnersProgram": "What is the Aipify Partners program?",
+    "howBecomePartner": "How do I become an Aipify Partner?",
+    "howCommissionsWork": "How do partner commissions work?",
+    "howReferralsTracked": "How are referrals tracked?",
+    "marketingMaterials": "Where can I access partner marketing materials?",
+    "howCertifications": "How do I complete partner certifications?",
+    "contactPartnership": "How do I contact Aipify regarding partnership questions?",
+    "monitorPerformance": "How can I monitor my partner performance?",
+    "viewCustomers": "How do I view customers associated with my partner account?",
+    "customerUpgrades": "What happens if a customer upgrades their subscription?"
+  },
+  "faqAnswers": {
+    "what-is-partners-program": "Aipify Partners is the dedicated workspace for individuals and businesses that partner with Aipify to promote and sell Aipify products. Partners operate independently while collaborating through approved partner programs.",
+    "how-become-partner": "Apply through the Partner Program onboarding flow. Complete Partner Academy requirements and receive approval before accessing the full Partners workspace.",
+    "how-commissions-work": "Commissions are tracked through referral attribution and revenue attribution modules. Payout schedules and rates depend on your partner tier and program terms.",
+    "how-referrals-tracked": "Referral links and lead assignments connect prospects to your partner account. Referral Performance shows active, converted, and invited referrals.",
+    "marketing-materials": "Open Marketing → Marketing Assets, Campaign Templates, Email Templates, and Product Catalog in the Partners portal.",
+    "how-certifications": "Complete training programs and certifications under Academy. Certification progress appears on your Partners Dashboard.",
+    "contact-partnership": "Use Support channels listed in your partner onboarding materials or contact Aipify through your assigned Partner Manager.",
+    "monitor-performance": "Your Partners Dashboard, Performance Summary, Rankings, and Performance Metrics modules show leads, conversions, referrals, and certification progress.",
+    "view-customers": "Open Customers → Leads, Pipeline, and Prospects to view customers and prospects associated with your partner account.",
+    "customer-upgrades": "When a referred customer upgrades, attribution and commission rules follow your partner program terms. Revenue Attribution reflects updated subscription tiers."
+  }
+}

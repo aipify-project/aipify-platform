@@ -58,21 +58,36 @@ export function parseSuperPortalDashboard(raw: unknown): SuperPortalDashboard | 
       })
     : [];
 
+  const healthRaw = asRecord(row.platform_health_indicators) ?? {};
+  const globalStatus = parseEnum(
+    row.global_platform_status,
+    GLOBAL_PLATFORM_STATUSES,
+    "operational"
+  );
+
   return {
     principle: asString(row.principle),
     total_organizations: asNumber(row.total_organizations),
     total_active_users: asNumber(row.total_active_users),
     total_active_subscriptions: asNumber(row.total_active_subscriptions),
     platform_administrator_count: asNumber(row.platform_administrator_count),
-    global_platform_status: parseEnum(
-      row.global_platform_status,
-      GLOBAL_PLATFORM_STATUSES,
-      "operational"
-    ),
+    global_platform_status: globalStatus,
     open_critical_incidents: asNumber(row.open_critical_incidents),
     growth_trends: growthTrends,
     executive_alerts: executiveAlerts,
     platform_uptime_pct: asNumber(row.platform_uptime_pct, 99.9),
+    platform_health_indicators: {
+      uptime_pct: asNumber(healthRaw.uptime_pct, asNumber(row.platform_uptime_pct, 99.9)),
+      global_status: parseEnum(healthRaw.global_status, GLOBAL_PLATFORM_STATUSES, globalStatus),
+      open_critical_incidents: asNumber(
+        healthRaw.open_critical_incidents,
+        asNumber(row.open_critical_incidents)
+      ),
+      operational_services: asNumber(healthRaw.operational_services),
+      degraded_services: asNumber(healthRaw.degraded_services),
+      maintenance_services: asNumber(healthRaw.maintenance_services),
+      incident_services: asNumber(healthRaw.incident_services),
+    },
     privacy_note: asString(row.privacy_note),
   };
 }

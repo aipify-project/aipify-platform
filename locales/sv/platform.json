@@ -1,9 +1,82 @@
 {
-  "accessDenied": "You do not have access to Aipify Platform Admin.",
+  "accessDenied": "Plattformsåtkomst är begränsad till Platform Administrators och Super Admins.",
   "portal": {
-    "bannerTitle": "Platform Admin",
-    "bannerBody": "Internal operations layer for Aipify Group. Customer workspace settings remain in the Customer Portal unless accessed through controlled support tools.",
-    "twoFactorRequired": "Platform Admin requires two-factor authentication before entry."
+    "bannerTitle": "PLATFORM Portal",
+    "bannerBody": "Operativt nav för Aipify Group AS. Kundvända APP-arbetsflöden finns i Customer App.",
+    "twoFactorRequired": "Platform Admin kräver tvåfaktorsautentisering före inträde."
+  },
+  "portalStructure": {
+    "dashboard": {
+      "title": "PLATFORM Dashboard",
+      "subtitle": "Operativt nav för Aipify Group AS — support, ekonomi, marketplace, produkt och customer success.",
+      "loading": "Laddar plattformsdashboard…",
+      "principle": "PLATFORM driver Aipify Group. Executive oversight hör hemma i SUPER.",
+      "privacyNote": "Endast aggregerade plattformsoperationer — inget kundinnehåll.",
+      "organizationsRequiringAttention": "Organisationer som kräver uppmärksamhet",
+      "activeSubscriptions": "Aktiva prenumerationer",
+      "openSupportWorkload": "Öppen supportbelastning",
+      "paymentStatusSummary": "Betalningssammanfattning",
+      "paymentActive": "Aktiva",
+      "paymentPastDue": "Förfallna",
+      "paymentTrialing": "Testperiod",
+      "customerSuccessIndicators": "Customer Success-indikatorer",
+      "healthyRatio": "Andel friska organisationer",
+      "marketplaceModeration": "Marketplace-moderering",
+      "pendingReview": "Väntar granskning",
+      "published": "Publicerade",
+      "activePrograms": "Aktiva program",
+      "pendingApplications": "Väntande ansökningar",
+      "productDeploymentUpdates": "Produkt- och driftsuppdateringar",
+      "noUpdates": "Inga schemalagda driftsuppdateringar.",
+      "portalModules": "PLATFORM-moduler",
+      "openModule": "Öppna modul",
+      "partnerProgramSummary": "Aipify Partners-prestanda"
+    },
+    "foundation": {
+      "loading": "Laddar…",
+      "back": "Tillbaka till PLATFORM",
+      "structureNote": "Denna modul ingår i PLATFORM-portalstrukturen. Operativa funktioner utökas i framtida faser."
+    },
+    "operationsOverview": {
+      "title": "Operations Overview",
+      "subtitle": "Dagliga operationssignaler, rekommenderade åtgärder och plattformsintelligens för Aipify Group."
+    },
+    "deployments": {
+      "title": "Deployments",
+      "subtitle": "Releaseplanering, driftskoordinering och rollout-synlighet."
+    },
+    "operationsAuditLogs": {
+      "title": "Operations Audit Logs",
+      "subtitle": "Operativ revisionsspårning för plattformsadministration."
+    },
+    "translationManagement": {
+      "title": "Translation Management",
+      "subtitle": "Övervaka översättningsfullständighet och språkstatus i PLATFORM."
+    },
+    "documentation": {
+      "title": "Documentation",
+      "subtitle": "Intern plattformsdokumentation och operativa referensmaterial."
+    },
+    "businessPacks": {
+      "title": "Business Packs",
+      "subtitle": "Styrning och översikt för licensierade Business Pack-moduler — endast struktur i denna fas."
+    },
+    "productManagement": {
+      "title": "Product Management",
+      "subtitle": "Produkt roadmap, feedback och releasekoordinering för Aipify-plattformen."
+    },
+    "activityLogs": {
+      "title": "Activity Logs",
+      "subtitle": "Plattformsomfattande aktivitets- och administrationsloggar."
+    }
+  },
+  "navGroups": {
+    "operations": "Operations",
+    "customers": "Customers",
+    "commercial": "Commercial",
+    "knowledge": "Knowledge",
+    "product": "Product",
+    "auditGovernance": "Audit & Governance"
   },
   "search": "Search customers...",
   "sidebar": {
@@ -19,10 +92,29 @@
   },
   "roles": {
     "super_admin": "Super Admin",
-    "platform_support": "Platform Support"
+    "platform_support": "Platform Administrator",
+    "platform_admin": "Platform Administrator"
   },
   "nav": {
-    "overview": "Overview",
+    "overview": "Plattformsdashboard",
+    "operationsOverview": "Operations Overview",
+    "platformHealth": "Platform Health",
+    "deployments": "Deployments",
+    "operationsAuditLogs": "Audit Logs",
+    "organizations": "Organisationer",
+    "customerSuccess": "Customer Success",
+    "payments": "Betalningar",
+    "marketplace": "Marketplace",
+    "growthPartners": "Growth Partners",
+    "knowledgeCenter": "Knowledge Center",
+    "translationManagement": "Translation Management",
+    "documentation": "Documentation",
+    "businessPacks": "Business Packs",
+    "productManagement": "Product Management",
+    "installationOversight": "Installation Oversight",
+    "activityLogs": "Activity Logs",
+    "governanceRecords": "Governance Records",
+    "securityReviews": "Security Reviews",
     "customers": "Customers",
     "customerLifecycle": "Livscykelcenter",
     "customerSuccessOperations": "Framgångsoperationer",

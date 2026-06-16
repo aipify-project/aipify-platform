@@ -1,5 +1,5 @@
-import { renderGrowthPartnerPortalSection } from "@/lib/growth-partner-portal/render-section";
+import { redirectPartnersLegacy } from "@/lib/partners-portal/redirect-legacy";
 
-export default function GrowthPartnerAssetsPage() {
-  return renderGrowthPartnerPortalSection("assets");
+export default function GrowthPartnerAssetsRedirectPage() {
+  redirectPartnersLegacy("/growth-partner/assets");
 }

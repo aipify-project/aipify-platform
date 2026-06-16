@@ -1,4 +1,5 @@
 import { resolveAppHref } from "./route-aliases";
+import { APP_PORTAL_NAV, getAppPortalActiveNavId } from "../app-portal/nav-config";
 
 export type AppNavId =
   | "overview"
@@ -1708,15 +1709,24 @@ export const APP_NAV: AppNavItem[] = [
 ];
 
 export const APP_MOBILE_NAV_IDS: AppNavId[] = [
-  "overview",
-  "executive",
-  "presence",
-  "approvals",
-  "settings",
+  "appDashboard" as AppNavId,
+  "sinceLastLogin" as AppNavId,
+  "teamMembers" as AppNavId,
+  "subscription" as AppNavId,
+  "knowledgeCenter" as AppNavId,
+  "profile" as AppNavId,
 ];
 
 export function getAppActiveNavId(pathname: string): AppNavId {
-  if (pathname === "/app" || pathname === "/dashboard") return "overview";
+  const portalId = getAppPortalActiveNavId(pathname);
+  const portalMatch = APP_PORTAL_NAV.find((item) => item.id === portalId);
+  if (portalMatch) {
+    if (portalMatch.href === "/app" ? pathname === "/app" : pathname.startsWith(portalMatch.href)) {
+      return portalId as AppNavId;
+    }
+  }
+
+  if (pathname === "/app" || pathname === "/dashboard") return "appDashboard" as AppNavId;
   if (pathname.startsWith("/app/workspace")) return "workspaceProductivityHub";
   if (pathname.startsWith("/app/aipify-core")) return "aipifyCorePlatformEngine";
   if (pathname.startsWith("/app/multi-tenant")) return "multiTenantArchitectureEngine";

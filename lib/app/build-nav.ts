@@ -1,5 +1,5 @@
+import { APP_PORTAL_NAV, APP_PORTAL_NAV_GROUPS } from "../app-portal/nav-config";
 import { APP_NAV_GROUPS, type AppNavGroupItem } from "./nav-groups";
-import { getAppNavItemsForShell, type AppNavItem } from "./nav-config";
 import { resolveAppHref } from "./route-aliases";
 import type { Translator } from "@/lib/i18n/translate";
 
@@ -15,38 +15,33 @@ export type AppNavGroupConfig = {
   items: AppNavLink[];
 };
 
-function resolveNavHref(item: AppNavGroupItem, navById: Map<string, AppNavItem>): string {
+function resolveNavHref(item: AppNavGroupItem): string {
   if (item.href) return resolveAppHref(item.href);
-  const match = navById.get(item.id);
+  const match = APP_PORTAL_NAV.find((entry) => entry.id === item.id);
   return match ? resolveAppHref(match.href) : resolveAppHref("/app");
 }
 
 export function buildAppNavConfig(t: Translator): AppNavLink[] {
   const seen = new Set<string>();
-  const navItems = getAppNavItemsForShell();
 
-  return navItems
-    .filter((item) => {
-      if (seen.has(item.id)) return false;
-      seen.add(item.id);
-      return true;
-    })
-    .map((item) => ({
-      id: item.id,
-      href: resolveAppHref(item.href),
-      label: t(item.labelKey),
-    }));
+  return APP_PORTAL_NAV.filter((item) => {
+    if (seen.has(item.id)) return false;
+    seen.add(item.id);
+    return true;
+  }).map((item) => ({
+    id: item.id,
+    href: resolveAppHref(item.href),
+    label: t(item.labelKey),
+  }));
 }
 
 export function buildAppNavGroupConfig(t: Translator): AppNavGroupConfig[] {
-  const navById = new Map(getAppNavItemsForShell().map((item) => [item.id, item]));
-
   return APP_NAV_GROUPS.map((group) => ({
     id: group.id,
     label: t(group.labelKey),
     items: group.items.map((item) => ({
       id: item.id,
-      href: resolveNavHref(item, navById),
+      href: resolveNavHref(item),
       label: t(item.labelKey),
     })),
   }));

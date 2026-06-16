@@ -23687,6 +23687,321 @@
     "settingsLink": "Organizational Signals",
     "organizationalSignalLink": "Organizational Signals"
   },
+  "portalStructure": {
+    "navGroups": {
+      "home": "Home",
+      "organization": "Organization",
+      "businessPacks": "Business Packs",
+      "operations": "Operations",
+      "billing": "Billing",
+      "support": "Support",
+      "account": "Account",
+      "appPlatform": "Platform"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "sinceLastLogin": "Since Last Login",
+      "notifications": "Notifications",
+      "teamMembers": "Team Members",
+      "rolesPermissions": "Roles & Permissions",
+      "activityOverview": "Activity Overview",
+      "installedBusinessPacks": "Installed Business Packs",
+      "availableBusinessPacks": "Available Business Packs",
+      "businessPackSettings": "Business Pack Settings",
+      "tasks": "Tasks",
+      "workflows": "Workflows",
+      "insights": "Insights",
+      "subscription": "Subscription",
+      "paymentHistory": "Payment History",
+      "invoices": "Invoices",
+      "upgradeOptions": "Upgrade Options",
+      "knowledgeCenter": "Knowledge Center",
+      "contactSupport": "Contact Support",
+      "supportHistory": "Support History",
+      "profile": "Profile",
+      "preferences": "Preferences",
+      "security": "Security",
+      "accountNotifications": "Notification Preferences",
+      "integrations": "Integrations",
+      "connectedIntegrations": "Connected Integrations",
+      "connectIntegration": "Connect Integration",
+      "apiAccess": "API Access"
+    },
+    "dashboard": {
+      "title": "APP Dashboard",
+      "subtitle": "Your organization workspace — subscriptions, Business Packs, team collaboration, and operational insights.",
+      "loading": "Loading APP dashboard…",
+      "principle": "Deliver value through your subscription, Business Packs, and team collaboration — with clear operational visibility.",
+      "privacyNote": "Your organization data stays with your organization.",
+      "organizationOverview": "Organization overview",
+      "teamActivity": "Team activity summary",
+      "subscriptionStatus": "Subscription status",
+      "businessPackStatus": "Business Pack status",
+      "tasksAttention": "Tasks requiring attention",
+      "recommendedActions": "Recommended actions",
+      "notifications": "Notifications",
+      "sinceLastLogin": "Since Last Login",
+      "importantUpdates": "Important updates",
+      "completedActions": "Completed actions",
+      "newNotifications": "New notifications",
+      "businessPackHighlights": "Business Pack highlights",
+      "noBusinessPacks": "No Business Packs installed yet.",
+      "openModule": "View full summary",
+      "portalModules": "APP modules",
+      "activeMembers": "Active members",
+      "plan": "Plan",
+      "status": "Status"
+    },
+    "foundation": {
+      "back": "Back to APP",
+      "structureNote": "This module is part of the APP portal structure. Capabilities will expand in future phases."
+    },
+    "license": {
+      "upgradeTitle": "Upgrade required",
+      "upgradeBody": "This capability is not included in your current subscription. Upgrade your plan to unlock it.",
+      "upgradeCta": "View upgrade options",
+      "unavailableTitle": "Feature unavailable"
+    },
+    "knowledge": {
+      "title": "Knowledge Center",
+      "subtitle": "Answers to common questions about your APP workspace, subscriptions, and team collaboration."
+    },
+    "sinceLastLoginPage": {
+      "title": "Since Last Login",
+      "subtitle": "Important updates, completed actions, notifications, and recommended next steps since your last visit."
+    },
+    "pages": {
+      "teamMembers": {
+        "title": "Team Members",
+        "subtitle": "Invite colleagues and manage your organization team."
+      },
+      "notifications": {
+        "title": "Notifications",
+        "subtitle": "Operational alerts and updates for your organization."
+      },
+      "rolesPermissions": {
+        "title": "Roles & Permissions",
+        "subtitle": "Organization roles and access controls for your team."
+      },
+      "activityOverview": {
+        "title": "Activity Overview",
+        "subtitle": "Summary of recent team and operational activity."
+      },
+      "installedBusinessPacks": {
+        "title": "Installed Business Packs",
+        "subtitle": "Business Packs licensed and active for your organization."
+      },
+      "availableBusinessPacks": {
+        "title": "Available Business Packs",
+        "subtitle": "Browse Business Packs available for your subscription."
+      },
+      "businessPackSettings": {
+        "title": "Business Pack Settings",
+        "subtitle": "Configure installed Business Pack modules."
+      },
+      "tasks": {
+        "title": "Tasks",
+        "subtitle": "Operational tasks requiring your attention."
+      },
+      "workflows": {
+        "title": "Workflows",
+        "subtitle": "Structured workflows for your organization operations."
+      },
+      "insights": {
+        "title": "Insights",
+        "subtitle": "Operational insights and recommendations for your organization."
+      },
+      "subscription": {
+        "title": "Subscription",
+        "subtitle": "Your current plan, renewal status, and licensed modules."
+      },
+      "paymentHistory": {
+        "title": "Payment History",
+        "subtitle": "Past payments and billing activity for your organization."
+      },
+      "invoices": {
+        "title": "Invoices",
+        "subtitle": "Download and review invoices for your subscription."
+      },
+      "upgradeOptions": {
+        "title": "Upgrade Options",
+        "subtitle": "Compare plans and upgrade your subscription."
+      },
+      "contactSupport": {
+        "title": "Contact Support",
+        "subtitle": "Reach Aipify support for help with your workspace."
+      },
+      "supportHistory": {
+        "title": "Support History",
+        "subtitle": "Previous support requests and resolutions."
+      },
+      "profile": {
+        "title": "Profile",
+        "subtitle": "Your personal profile within the organization workspace."
+      },
+      "preferences": {
+        "title": "Preferences",
+        "subtitle": "Workspace display and interaction preferences."
+      },
+      "accountSecurity": {
+        "title": "Security",
+        "subtitle": "Two-factor authentication, sessions, and security settings."
+      },
+      "accountNotifications": {
+        "title": "Notification Preferences",
+        "subtitle": "Control which notifications you receive."
+      },
+      "apiAccess": {
+        "title": "API Access",
+        "subtitle": "Organization API access principles — read-only by default, explicit scope approval, encrypted storage."
+      }
+    },
+    "faq": {
+      "whatIsAipify": "What is Aipify?",
+      "inviteTeamMembers": "How do I invite team members?",
+      "changeSubscriptions": "How do I change subscriptions?",
+      "upgradePlan": "How do I upgrade my plan?",
+      "whatAreBusinessPacks": "What are Business Packs?",
+      "viewInvoices": "Where can I view invoices?",
+      "contactSupport": "How do I contact support?",
+      "roleManagement": "How does role management work?",
+      "sinceLastLogin": "How does the Since Last Login feature work?",
+      "featureAccess": "Why can't I access certain features?",
+      "upgradePermissions": "How do upgrades affect permissions?",
+      "notificationPreferences": "How do I update notification preferences?"
+    },
+    "faqAnswers": {
+      "what-is-aipify": "Aipify is the Aipify Business Operating System (ABOS) — an operations platform that helps your organization work with subscriptions, Business Packs, team collaboration, and operational insights. APP is your customer-facing workspace.",
+      "invite-team-members": "Open Organization → Team Members to view your team. Invitation workflows will expand in a future phase. Owners and admins can manage team access.",
+      "change-subscriptions": "Open Billing → Subscription to review your current plan. Plan changes are managed through your subscription settings and may require owner or admin approval.",
+      "upgrade-plan": "Open Billing → Upgrade Options to compare plans. Upgrading unlocks additional modules and capabilities included in higher tiers.",
+      "what-are-business-packs": "Business Packs are licensed modular capabilities your organization can install on top of your subscription. View installed and available packs under Business Packs in the APP navigation.",
+      "view-invoices": "Open Billing → Invoices to review and download invoices for your organization subscription.",
+      "contact-support": "Open Support → Contact Support to reach Aipify support. Include your organization name and a clear summary of your question.",
+      "role-management": "Organization roles map to workspace permissions: owner, admin, manager, and member. Roles & Permissions under Organization shows your access framework.",
+      "since-last-login": "Since Last Login summarizes important updates, completed actions, new notifications, recommended next steps, and Business Pack highlights since your last visit. Open Home → Since Last Login for the full summary.",
+      "feature-access": "Features are gated by your active subscription and licensed modules. Unavailable areas show upgrade opportunities — direct URLs cannot bypass license enforcement.",
+      "upgrade-permissions": "Upgrading your plan may unlock additional modules and role capabilities. Existing team permissions remain until an admin updates roles.",
+      "notification-preferences": "Open Account → Notification Preferences to control alerts. Operational notifications respect your organization subscription and role."
+    },
+    "integrations": {
+      "hub": {
+        "title": "Integrations",
+        "subtitle": "Connect external platforms to Aipify — self-service setup with read-only access by default.",
+        "loading": "Loading integrations…",
+        "readOnlyPrinciple": "Aipify only requests the access needed to help your organization. Read-only access is preferred whenever possible.",
+        "privacyNote": "Credentials are encrypted at rest. Full secrets are never shown after saving.",
+        "canManageNote": "You can connect, test, replace, and remove integrations for your organization.",
+        "viewOnlyNote": "Your role can view integrations but cannot change credentials. Contact an organization admin.",
+        "connectedTitle": "Connected integrations",
+        "noConnections": "No integrations connected yet.",
+        "providersTitle": "Available platforms",
+        "connectCta": "Connect",
+        "manageCta": "Manage",
+        "lastTestSuccess": "Last connection test succeeded",
+        "lastTestFailed": "Last connection test failed",
+        "permissionReadOnly": "Read-only access",
+        "permissionReadWrite": "Read & write access",
+        "helpTitle": "Integration help"
+      },
+      "setup": {
+        "title": "Connect",
+        "loading": "Loading setup…",
+        "back": "Back to Integrations",
+        "selectSetupType": "Choose connection method",
+        "oauthOption": "Automatic connection (OAuth / official app)",
+        "manualOption": "Manual API key",
+        "permissionPreview": "Review permissions before approving",
+        "approveScopes": "I approve these permission scopes and understand what Aipify can access",
+        "approveScopesRequired": "Scope approval is required before saving",
+        "apiKeyLabel": "API key",
+        "apiKeyPlaceholder": "Paste your read-only API key",
+        "apiKeyMaskedNote": "Saved key (masked)",
+        "accessSummaryTitle": "Access summary",
+        "whatAipifyReads": "Aipify can read operational metadata required for the approved scopes only.",
+        "whatAipifyCannotDo": "Aipify cannot change data in your external system with read-only access.",
+        "credentialStorage": "Credentials are encrypted at rest and never displayed in full after saving.",
+        "revokeAccess": "You can revoke access by removing the integration at any time.",
+        "rotateKey": "Replace credentials by saving a new API key and revoking the old one in your external platform.",
+        "connectionFailed": "Connection test failed — review permissions and try again.",
+        "save": "Save securely",
+        "test": "Test connection",
+        "remove": "Remove integration",
+        "replace": "Replace credentials",
+        "connectOAuth": "Connect with provider",
+        "saving": "Saving…",
+        "testing": "Testing…",
+        "successTitle": "Integration saved",
+        "successBody": "Your connection was saved and logged. Full secrets are never shown again.",
+        "whyAccess": "Aipify needs limited access to deliver value inside your workspace — scoped to what you approve.",
+        "whatNotToEnable": "Do not enable admin-wide, destructive, or write permissions unless explicitly required.",
+        "backStep": "Back",
+        "continueStep": "Continue",
+        "steps": {
+          "select_platform": "Select platform",
+          "explain_needs": "What Aipify needs",
+          "find_api_key": "Find your API key",
+          "choose_permissions": "Choose permissions",
+          "validate_connection": "Validate connection",
+          "access_summary": "Access summary",
+          "save_securely": "Save securely",
+          "log_action": "Complete & log"
+        },
+        "manualSteps": {
+          "login": "Log in to your external platform admin",
+          "open_menu": "Open Settings or Developer / API section",
+          "locate_keys": "Locate API keys or access tokens",
+          "choose_permissions": "Select read-only or minimum required scopes",
+          "avoid_permissions": "Do not enable admin, delete, or write scopes unless required",
+          "copy_key": "Copy the API key",
+          "paste_in_aipify": "Paste the key into Aipify (shown once during setup)",
+          "test_connection": "Run Test connection in Aipify"
+        },
+        "oauthSteps": {
+          "connect_button": "Click Connect with provider",
+          "permission_preview": "Review the permission preview",
+          "provider_redirect": "Sign in on the provider redirect page",
+          "success_confirmation": "Confirm success in Aipify",
+          "connected_summary": "Review the connected account summary"
+        }
+      },
+      "guidance": {
+        "whyAccess": "Why Aipify needs access",
+        "whatCanRead": "Aipify reads only metadata and operational signals covered by approved scopes — not private conversations or payment card data.",
+        "whatCannotDo": "Aipify cannot modify your external system with read-only access and never executes destructive actions.",
+        "howStored": "Credentials are encrypted at rest. Masked hints may display; full secrets never appear after save.",
+        "howRevoke": "Remove the integration from Platform → Integrations to revoke access immediately.",
+        "howRotate": "Generate a new read-only key externally, replace credentials in Aipify, test, then revoke the old key.",
+        "ifFails": "If connection fails, verify read-only scopes, key validity, and run Test connection again."
+      },
+      "faq": {
+        "connectExternalPlatform": "How do I connect an external platform to Aipify?",
+        "whatIsReadOnlyAccess": "What is read-only access?",
+        "whyApiAccess": "Why does Aipify ask for API access?",
+        "whereFindApiKey": "Where do I find my API key?",
+        "whichPermissionsToChoose": "How do I know which permissions to choose?",
+        "canAipifyChangeData": "Can Aipify change data in my external system?",
+        "removeIntegration": "How do I remove an integration?",
+        "rotateApiKey": "How do I rotate an API key?",
+        "integrationFails": "What should I do if an integration fails?",
+        "oauthVsApiKeys": "What is the difference between OAuth and API keys?",
+        "isItSafeToConnect": "Is it safe to connect my business tools to Aipify?"
+      },
+      "faqAnswers": {
+        "connect-external-platform": "Open APP → Platform → Integrations, select a provider, approve scopes, and complete OAuth or manual API key setup. Test before finishing.",
+        "what-is-read-only-access": "Read-only access lets Aipify read approved operational metadata without changing data in your external system. It is the default.",
+        "why-api-access": "Limited API access lets Aipify understand your systems and surface insights in your workspace — always scoped to what you approve.",
+        "where-find-api-key": "Each provider differs. The setup wizard shows where to log in, which menu to open, and where keys are created for your platform.",
+        "which-permissions-to-choose": "Choose the lowest level covering listed scopes. Prefer read-only. Avoid admin, destructive, or write permissions unless explicitly required.",
+        "can-aipify-change-data": "Not with read-only access. Write permissions are never default and require explicit approval.",
+        "remove-integration": "Open the integration in Platform → Integrations and choose Remove. Credentials are revoked and the action is audit logged.",
+        "rotate-api-key": "Create a new read-only key externally, replace credentials in Aipify, test, then revoke the old key in the external platform.",
+        "integration-fails": "Verify scopes, key validity, and read-only selection. Run Test connection again or contact Support.",
+        "oauth-vs-api-keys": "OAuth uses provider redirect and official authorization. API keys are copied manually from the provider admin. Both require scope approval.",
+        "is-it-safe-to-connect": "Credentials are encrypted, masked after save, revocable anytime, and all actions are audit logged."
+      }
+    }
+  },
   "voiceOfCustomer": {
     "trigger": "Share Feedback",
     "triggerShort": "Share Feedback",

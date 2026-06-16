@@ -89,6 +89,39 @@ export function SuperPortalExecutiveDashboardPanel({
       </section>
 
       <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+        <h2 className="font-semibold text-zinc-900">{labels.platformHealthIndicators}</h2>
+        <dl className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <MetricCard
+            label={labels.globalPlatformStatus}
+            value={
+              labels.statuses[dashboard.platform_health_indicators.global_status] ??
+              dashboard.platform_health_indicators.global_status
+            }
+          />
+          <MetricCard
+            label={labels.operationalServices}
+            value={dashboard.platform_health_indicators.operational_services}
+          />
+          <MetricCard
+            label={labels.degradedServices}
+            value={dashboard.platform_health_indicators.degraded_services}
+          />
+          <MetricCard
+            label={labels.maintenanceServices}
+            value={dashboard.platform_health_indicators.maintenance_services}
+          />
+          <MetricCard
+            label={labels.incidentServices}
+            value={dashboard.platform_health_indicators.incident_services}
+          />
+          <MetricCard
+            label={labels.openCriticalIncidents}
+            value={dashboard.platform_health_indicators.open_critical_incidents}
+          />
+        </dl>
+      </section>
+
+      <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
         <h2 className="font-semibold text-zinc-900">{labels.growthTrends}</h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {dashboard.growth_trends.map((trend) => (

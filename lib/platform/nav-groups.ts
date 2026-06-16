@@ -1,15 +1,12 @@
 import type { PlatformNavId } from "./nav-config";
 
 export type PlatformNavGroupId =
-  | "platformAdmin"
   | "operations"
-  | "knowledgeGovernance"
-  | "customerOperations"
-  | "revenueBilling"
-  | "deploymentPlatform"
-  | "intelligenceAutomation"
-  | "marketplace"
-  | "system";
+  | "customers"
+  | "commercial"
+  | "knowledge"
+  | "product"
+  | "auditGovernance";
 
 export type PlatformNavGroupItem = {
   id: PlatformNavId;
@@ -23,120 +20,78 @@ export type PlatformNavGroup = {
   defaultExpanded?: boolean;
 };
 
-/** Platform Admin — grouped navigation for enterprise IA. */
+/** Phase 258 — PLATFORM portal navigation structure. */
 export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
-  {
-    id: "platformAdmin",
-    labelKey: "platform.navGroups.platformAdmin",
-    defaultExpanded: true,
-    items: [
-      { id: "overview", labelKey: "platform.nav.overview" },
-      { id: "executive", labelKey: "platform.nav.executive" },
-      { id: "executiveOperationsCenter", labelKey: "platform.nav.executiveOperationsCenter" },
-      { id: "announcementCenter", labelKey: "platform.nav.announcementCenter" },
-      { id: "feedbackCenter", labelKey: "platform.nav.feedbackCenter" },
-      { id: "productRoadmapCenter", labelKey: "platform.nav.productRoadmapCenter" },
-      { id: "productReleaseCenter", labelKey: "platform.nav.productReleaseCenter" },
-    ],
-  },
   {
     id: "operations",
     labelKey: "platform.navGroups.operations",
+    defaultExpanded: true,
     items: [
-      { id: "platformHealthOperationsCenter", labelKey: "platform.nav.platformHealthOperationsCenter" },
-      { id: "platformPlaybookCenter", labelKey: "platform.nav.platformPlaybookCenter" },
+      { id: "operationsOverview", labelKey: "platform.nav.operationsOverview" },
+      { id: "platformHealth", labelKey: "platform.nav.platformHealth" },
+      { id: "deployments", labelKey: "platform.nav.deployments" },
+      { id: "operationsAuditLogs", labelKey: "platform.nav.operationsAuditLogs" },
     ],
   },
   {
-    id: "knowledgeGovernance",
-    labelKey: "platform.navGroups.knowledgeGovernance",
+    id: "customers",
+    labelKey: "platform.navGroups.customers",
     items: [
-      { id: "platformKnowledgeEvolutionCenter", labelKey: "platform.nav.platformKnowledgeEvolutionCenter" },
-      { id: "platformComplianceGovernanceCenter", labelKey: "platform.nav.platformComplianceGovernanceCenter" },
-      { id: "platformAcademyStudio", labelKey: "platform.nav.platformAcademyStudio" },
-    ],
-  },
-  {
-    id: "customerOperations",
-    labelKey: "platform.navGroups.customerOperations",
-    items: [
-      { id: "customers", labelKey: "platform.nav.customers" },
-      { id: "customerLifecycle", labelKey: "platform.nav.customerLifecycle" },
-      { id: "customerSuccessOperations", labelKey: "platform.nav.customerSuccessOperations" },
+      { id: "organizations", labelKey: "platform.nav.organizations" },
+      { id: "customerSuccess", labelKey: "platform.nav.customerSuccess" },
       { id: "support", labelKey: "platform.nav.support" },
     ],
   },
   {
-    id: "revenueBilling",
-    labelKey: "platform.navGroups.revenueBilling",
+    id: "commercial",
+    labelKey: "platform.navGroups.commercial",
     items: [
+      { id: "payments", labelKey: "platform.nav.payments" },
       { id: "subscriptions", labelKey: "platform.nav.subscriptions" },
-      { id: "billing", labelKey: "platform.nav.billing" },
-      { id: "paymentOperations", labelKey: "platform.nav.paymentOperations" },
-      { id: "paymentHealth", labelKey: "platform.nav.paymentHealth" },
-      { id: "paymentAnalytics", labelKey: "platform.nav.paymentAnalytics" },
-      { id: "subscriptionOperations", labelKey: "platform.nav.subscriptionOperations" },
-      { id: "revenueOperations", labelKey: "platform.nav.revenueOperations" },
-      { id: "invoices", labelKey: "platform.nav.enterpriseInvoices" },
-      { id: "paymentProviders", labelKey: "platform.nav.paymentProviders" },
-      { id: "metrics", labelKey: "platform.nav.metrics" },
+      { id: "marketplace", labelKey: "platform.nav.marketplace" },
+      { id: "growthPartners", labelKey: "platform.nav.growthPartners" },
     ],
   },
   {
-    id: "deploymentPlatform",
-    labelKey: "platform.navGroups.deploymentPlatform",
+    id: "knowledge",
+    labelKey: "platform.navGroups.knowledge",
     items: [
-      { id: "installations", labelKey: "platform.nav.installations" },
-      { id: "installEngine", labelKey: "platform.nav.installEngine" },
-      { id: "updates", labelKey: "platform.nav.updates" },
-      { id: "pilotOperations", labelKey: "platform.nav.pilotOperations" },
-      { id: "pilotInstall", labelKey: "platform.nav.pilotInstall" },
+      { id: "knowledgeCenter", labelKey: "platform.nav.knowledgeCenter" },
+      { id: "translationManagement", labelKey: "platform.nav.translationManagement" },
+      { id: "documentation", labelKey: "platform.nav.documentation" },
     ],
   },
   {
-    id: "intelligenceAutomation",
-    labelKey: "platform.navGroups.intelligenceAutomation",
+    id: "product",
+    labelKey: "platform.navGroups.product",
     items: [
-      { id: "intelligence", labelKey: "platform.nav.intelligence" },
-      { id: "automations", labelKey: "platform.nav.automations" },
-      { id: "actions", labelKey: "platform.nav.actions" },
-      { id: "analyticsCustomerJourneys", labelKey: "platform.nav.analyticsCustomerJourneys" },
+      { id: "businessPacks", labelKey: "platform.nav.businessPacks" },
+      { id: "productManagement", labelKey: "platform.nav.productManagement" },
+      { id: "installationOversight", labelKey: "platform.nav.installationOversight" },
     ],
   },
   {
-    id: "marketplace",
-    labelKey: "platform.navGroups.marketplace",
+    id: "auditGovernance",
+    labelKey: "platform.navGroups.auditGovernance",
     items: [
-      { id: "skills", labelKey: "platform.nav.skillsMarketplace" },
-      { id: "companionMarketplace", labelKey: "platform.nav.companionMarketplace" },
-      { id: "skillGovernancePipeline", labelKey: "platform.nav.skillGovernancePipeline" },
-    ],
-  },
-  {
-    id: "system",
-    labelKey: "platform.navGroups.system",
-    items: [
-      { id: "trust", labelKey: "platform.nav.trust" },
-      { id: "impact", labelKey: "platform.nav.impact" },
-      { id: "system", labelKey: "platform.nav.system" },
+      { id: "activityLogs", labelKey: "platform.nav.activityLogs" },
+      { id: "governanceRecords", labelKey: "platform.nav.governanceRecords" },
+      { id: "securityReviews", labelKey: "platform.nav.securityReviews" },
     ],
   },
 ];
 
-export const PLATFORM_NAV_GROUP_STORAGE_KEY = "aipify.platform.navGroups.expanded.v1";
-export const PLATFORM_NAV_OPEN_GROUP_STORAGE_KEY = "aipify.platform.navGroups.open.v1";
-export const PLATFORM_NAV_LAST_ITEM_STORAGE_KEY = "aipify.platform.nav.lastItem.v1";
-export const PLATFORM_NAV_INITIALIZED_STORAGE_KEY = "aipify.platform.nav.initialized.v1";
-export const PLATFORM_NAV_COMPACT_STORAGE_KEY = "aipify.platform.nav.compact.v1";
+export const PLATFORM_NAV_GROUP_STORAGE_KEY = "aipify.platform.navGroups.expanded.v2";
+export const PLATFORM_NAV_OPEN_GROUP_STORAGE_KEY = "aipify.platform.navGroups.open.v2";
+export const PLATFORM_NAV_LAST_ITEM_STORAGE_KEY = "aipify.platform.nav.lastItem.v2";
+export const PLATFORM_NAV_INITIALIZED_STORAGE_KEY = "aipify.platform.nav.initialized.v2";
+export const PLATFORM_NAV_COMPACT_STORAGE_KEY = "aipify.platform.nav.compact.v2";
 
 export const PLATFORM_COLLAPSIBLE_GROUPS: PlatformNavGroupId[] = [
-  "platformAdmin",
   "operations",
-  "knowledgeGovernance",
-  "customerOperations",
-  "revenueBilling",
-  "deploymentPlatform",
-  "intelligenceAutomation",
-  "marketplace",
-  "system",
+  "customers",
+  "commercial",
+  "knowledge",
+  "product",
+  "auditGovernance",
 ];

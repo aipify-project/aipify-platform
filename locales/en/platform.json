@@ -1,9 +1,74 @@
 {
-  "accessDenied": "You do not have access to Aipify Platform Admin.",
+  "accessDenied": "Platform access is restricted to Platform Administrators and Super Admins.",
   "portal": {
-    "bannerTitle": "Platform Admin",
-    "bannerBody": "Internal operations layer for Aipify Group. Customer workspace settings remain in the Customer Portal unless accessed through controlled support tools.",
+    "bannerTitle": "PLATFORM Portal",
+    "bannerBody": "Operational heartbeat for Aipify Group AS. Customer-facing APP workflows remain in the Customer App.",
     "twoFactorRequired": "Platform Admin requires two-factor authentication before entry."
+  },
+  "portalStructure": {
+    "dashboard": {
+      "title": "PLATFORM Dashboard",
+      "subtitle": "Operational heartbeat for Aipify Group AS — support, finance, marketplace, product, and customer success at a glance.",
+      "loading": "Loading platform dashboard…",
+      "principle": "PLATFORM operates Aipify Group. Executive oversight belongs in SUPER.",
+      "privacyNote": "Aggregate platform operations only — no customer business content.",
+      "organizationsRequiringAttention": "Organizations requiring attention",
+      "activeSubscriptions": "Active subscriptions",
+      "openSupportWorkload": "Open support workload",
+      "paymentStatusSummary": "Payment status summary",
+      "paymentActive": "Active",
+      "paymentPastDue": "Past due",
+      "paymentTrialing": "Trialing",
+      "customerSuccessIndicators": "Customer Success indicators",
+      "healthyRatio": "Healthy organization ratio",
+      "marketplaceModeration": "Marketplace moderation",
+      "pendingReview": "Pending review",
+      "published": "Published",
+      "partnerProgramSummary": "Aipify Partners performance",
+      "activePrograms": "Active programs",
+      "pendingApplications": "Pending applications",
+      "productDeploymentUpdates": "Product and deployment updates",
+      "noUpdates": "No scheduled deployment updates.",
+      "portalModules": "PLATFORM modules",
+      "openModule": "Open module"
+    },
+    "foundation": {
+      "loading": "Loading…",
+      "back": "Back to PLATFORM",
+      "structureNote": "This module is part of the PLATFORM portal structure. Operational capabilities will expand in future phases."
+    },
+    "operationsOverview": {
+      "title": "Operations Overview",
+      "subtitle": "Daily operational signals, recommended actions, and platform intelligence for Aipify Group staff."
+    },
+    "deployments": {
+      "title": "Deployments",
+      "subtitle": "Release scheduling, deployment coordination, and rollout visibility."
+    },
+    "operationsAuditLogs": {
+      "title": "Operations Audit Logs",
+      "subtitle": "Operational audit trail for platform administration actions."
+    },
+    "translationManagement": {
+      "title": "Translation Management",
+      "subtitle": "Monitor translation completeness and locale readiness across PLATFORM surfaces."
+    },
+    "documentation": {
+      "title": "Documentation",
+      "subtitle": "Internal platform documentation and operational reference materials."
+    },
+    "businessPacks": {
+      "title": "Business Packs",
+      "subtitle": "Governance and oversight for licensed Business Pack modules — structure only in this phase."
+    },
+    "productManagement": {
+      "title": "Product Management",
+      "subtitle": "Product roadmap, feedback, and release coordination for the Aipify platform."
+    },
+    "activityLogs": {
+      "title": "Activity Logs",
+      "subtitle": "Platform-wide activity and administrative action logs."
+    }
   },
   "pageStates": {
     "unavailableTitle": "This area is temporarily unavailable",
@@ -20,12 +85,17 @@
     "noResults": "No matching modules"
   },
   "navGroups": {
+    "operations": "Operations",
+    "customers": "Customers",
+    "commercial": "Commercial",
+    "knowledge": "Knowledge",
+    "product": "Product",
+    "auditGovernance": "Audit & Governance",
     "platformAdmin": "Platform Admin",
     "knowledgeGovernance": "Knowledge & Governance",
     "customerOperations": "Customer Operations",
     "revenueBilling": "Revenue & Billing",
     "deploymentPlatform": "Deployment & Platform",
-    "operations": "Operations",
     "intelligenceAutomation": "Intelligence & Automation",
     "marketplace": "Marketplace",
     "system": "System",
@@ -48,10 +118,29 @@
   },
   "roles": {
     "super_admin": "Super Admin",
-    "platform_support": "Platform Support"
+    "platform_support": "Platform Administrator",
+    "platform_admin": "Platform Administrator"
   },
   "nav": {
-    "overview": "Overview",
+    "overview": "Platform Dashboard",
+    "operationsOverview": "Operations Overview",
+    "platformHealth": "Platform Health",
+    "deployments": "Deployments",
+    "operationsAuditLogs": "Audit Logs",
+    "organizations": "Organizations",
+    "customerSuccess": "Customer Success",
+    "payments": "Payments",
+    "marketplace": "Marketplace",
+    "growthPartners": "Growth Partners",
+    "knowledgeCenter": "Knowledge Center",
+    "translationManagement": "Translation Management",
+    "documentation": "Documentation",
+    "businessPacks": "Business Packs",
+    "productManagement": "Product Management",
+    "installationOversight": "Installation Oversight",
+    "activityLogs": "Activity Logs",
+    "governanceRecords": "Governance Records",
+    "securityReviews": "Security Reviews",
     "customers": "Customers",
     "customerLifecycle": "Lifecycle Center",
     "customerSuccessOperations": "Success Operations",

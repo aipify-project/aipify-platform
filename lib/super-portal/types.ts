@@ -20,6 +20,16 @@ export type SuperPortalGrowthTrend = {
   value_pct: number;
 };
 
+export type SuperPortalHealthIndicators = {
+  uptime_pct: number;
+  global_status: GlobalPlatformStatus;
+  open_critical_incidents: number;
+  operational_services: number;
+  degraded_services: number;
+  maintenance_services: number;
+  incident_services: number;
+};
+
 export type SuperPortalDashboard = {
   principle: string;
   total_organizations: number;
@@ -31,6 +41,7 @@ export type SuperPortalDashboard = {
   growth_trends: SuperPortalGrowthTrend[];
   executive_alerts: SuperPortalExecutiveAlert[];
   platform_uptime_pct: number;
+  platform_health_indicators: SuperPortalHealthIndicators;
   privacy_note: string;
 };
 
@@ -107,6 +118,11 @@ export type SuperPortalLabels = {
     globalPlatformStatus: string;
     openCriticalIncidents: string;
     platformUptime: string;
+    platformHealthIndicators: string;
+    operationalServices: string;
+    degradedServices: string;
+    maintenanceServices: string;
+    incidentServices: string;
     growthTrends: string;
     executiveAlerts: string;
     noAlerts: string;

@@ -50,6 +50,7 @@ export default async function PlatformLayout({
           roleLabels={{
             super_admin: t("platform.roles.super_admin"),
             platform_support: t("platform.roles.platform_support"),
+            platform_admin: t("platform.roles.platform_admin"),
           }}
           navConfig={navConfig}
           navGroups={navGroups}

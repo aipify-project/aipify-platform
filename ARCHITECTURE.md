@@ -106,6 +106,12 @@ Aipify is separated into **three portals** so customer operations, platform admi
 
 **SUPER Executive Portal (Phase 257):** See [AIPIFY_SUPER_PORTAL_STRUCTURE_FOUNDATION_PHASE257.md](./AIPIFY_SUPER_PORTAL_STRUCTURE_FOUNDATION_PHASE257.md) — `super_admin` only executive governance at `/super/*` (dashboard, Platform Administrator management, language administration, global audit, executive insights). Not a daily operational workspace — operational tools remain in Platform Admin.
 
+**PLATFORM Portal Structure (Phase 258):** See [AIPIFY_PLATFORM_PORTAL_STRUCTURE_FOUNDATION_PHASE258.md](./AIPIFY_PLATFORM_PORTAL_STRUCTURE_FOUNDATION_PHASE258.md) — `super_admin` and `platform_support` (Platform Administrator) operational portal at `/platform/*` with six navigation groups (Operations, Customers, Commercial, Knowledge, Product, Audit & Governance), operational dashboard, and foundation module pages. Distinct from SUPER executive oversight and Customer App.
+
+**PARTNERS Portal Structure:** See [AIPIFY_PORTNERS_PORTAL_STRUCTURE.md](./AIPIFY_PARTNERS_PORTAL_STRUCTURE.md) and [AIPIFY_PORTAL_STRUCTURE_UPDATE.md](./AIPIFY_PORTAL_STRUCTURE_UPDATE.md) — **Aipify Partners** at `/partners/*` (Dashboard, Customers, Referrals, Academy, Marketing, Performance, Account). Legacy `/growth/*` and `/growth-partner/*` redirect to `/partners/*`.
+
+**APP Portal Structure (Phase 260):** See [AIPIFY_APP_PORTAL_STRUCTURE_FOUNDATION_PHASE260.md](./AIPIFY_APP_PORTAL_STRUCTURE_FOUNDATION_PHASE260.md) — customer organization roles at `/app/*` with eight navigation groups (Home, Organization, Business Packs, Operations, Billing, Support, Account, Platform), APP dashboard, license enforcement via `get_app_portal_feature_access()`, Since Last Login framework, Knowledge Center FAQ, and **Platform → Integrations** self-onboarding framework (read-only default, OAuth/manual setup scaffold, encrypted credentials). Structural foundation only — no full provider adapters in this phase.
+
 **Rule:** Platform Admin is **not** the customer product. Do not add customer-facing product features here unless they administer all tenants.
 
 ---
