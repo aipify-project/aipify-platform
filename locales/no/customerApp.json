@@ -23823,7 +23823,8 @@
       "executiveInsights": "Executive Insights",
       "followUps": "Follow-Ups",
       "decisionCenter": "Decision Center",
-      "activityHistory": "Activity History"
+      "activityHistory": "Activity History",
+      "supportRequests": "Support Requests"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -24435,6 +24436,93 @@
         "whoCanSeeAnswer": "Access depends on role permissions. Owners and administrators can view broader activity, while team members only see activity they are authorized to access.",
         "canDelete": "Can activity records be deleted?",
         "canDeleteAnswer": "Important audit and activity records should remain available for accountability, compliance and organizational memory."
+      }
+    },
+    "supportRequests": {
+      "title": "Support Request Center",
+      "subtitle": "Contact Aipify Support, track requests, and receive structured assistance for your organization.",
+      "loading": "Aipify is loading your support requests…",
+      "principle": "Aipify Support keeps your organization requests organized with clear status, priority and accountability.",
+      "emptyTitle": "No support requests yet.",
+      "emptyBody": "When your organization needs help, Aipify Support will keep requests organized here.",
+      "createRequest": "Create Support Request",
+      "back": "Back to Support Requests",
+      "notFound": "Support request not found.",
+      "filters": {
+        "title": "Search & filters",
+        "category": "Category",
+        "status": "Status",
+        "priority": "Priority",
+        "search": "Search",
+        "searchPlaceholder": "Search support requests…",
+        "all": "All"
+      },
+      "card": {
+        "createdBy": "Created by",
+        "created": "Created",
+        "updated": "Last updated",
+        "status": "Status",
+        "priority": "Priority",
+        "category": "Category",
+        "assignee": "Assigned support owner",
+        "module": "Related module"
+      },
+      "detail": {
+        "description": "Request details",
+        "statusHistory": "Status history",
+        "timeline": "Timeline",
+        "auditHistory": "Audit history",
+        "relatedActivity": "Related activity",
+        "comments": "Comments",
+        "commentsPlaceholder": "Comments will be available in a future update — prepared for Aipify Support AI integration.",
+        "internalNotes": "Internal notes",
+        "internalNotesPlaceholder": "Internal notes for administrators — prepared for future support workflows.",
+        "attachments": "Attachments",
+        "attachmentsPlaceholder": "File attachments will be supported in a future update.",
+        "save": "Save changes",
+        "saved": "Changes saved."
+      },
+      "categories": {
+        "technical": "Technical",
+        "billing": "Billing",
+        "integrations": "Integrations",
+        "businessPacks": "Business Packs",
+        "account": "Account",
+        "security": "Security",
+        "general": "General"
+      },
+      "priorities": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "urgent": "Urgent"
+      },
+      "statuses": {
+        "open": "Open",
+        "inReview": "In Review",
+        "waitingForCustomer": "Waiting for Customer",
+        "waitingForAipify": "Waiting for Aipify",
+        "resolved": "Resolved",
+        "closed": "Closed"
+      },
+      "form": {
+        "title": "New support request",
+        "titlePlaceholder": "Brief summary of your request",
+        "description": "Describe the issue or question",
+        "category": "Category",
+        "priority": "Priority",
+        "module": "Related module (optional)",
+        "submit": "Submit request",
+        "cancel": "Cancel"
+      },
+      "faq": {
+        "title": "Support Request Center FAQ",
+        "howContact": "How do I contact Aipify Support?",
+        "howContactAnswer": "You can create a support request from the Support Request Center. Aipify organizes your request, category, priority and status so your organization can follow progress clearly.",
+        "canTrack": "Can I track support requests?",
+        "canTrackAnswer": "Yes. Each support request includes status, priority, category, timestamps and related activity so your organization can follow progress.",
+        "whoCanSee": "Who can see support requests?",
+        "whoCanSeeAnswer": "Support request access depends on organization permissions. Owners and administrators can view organization support requests, while team members only see requests they are authorized to access."
       }
     }
   },

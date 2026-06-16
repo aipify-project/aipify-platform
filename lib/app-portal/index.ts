@@ -7,3 +7,4 @@ export * from "./executive-insights";
 export * from "./follow-ups";
 export * from "./decision-center";
 export * from "./activity-history";
+export * from "./support-requests";

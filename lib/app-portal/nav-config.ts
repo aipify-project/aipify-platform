@@ -32,6 +32,7 @@ export type AppPortalNavId =
   | "upgradeOptions"
   | "knowledgeCenter"
   | "contactSupport"
+  | "supportRequests"
   | "supportHistory"
   | "profile"
   | "preferences"
@@ -124,6 +125,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
     items: [
       { id: "knowledgeCenter", href: "/app/support/knowledge", labelKey: "customerApp.portalStructure.nav.knowledgeCenter" },
       { id: "contactSupport", href: "/app/support/contact", labelKey: "customerApp.portalStructure.nav.contactSupport" },
+      { id: "supportRequests", href: "/app/support/requests", labelKey: "customerApp.portalStructure.nav.supportRequests" },
       { id: "supportHistory", href: "/app/support/history", labelKey: "customerApp.portalStructure.nav.supportHistory" },
     ],
   },
@@ -161,6 +163,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/operations/follow-ups")) return "followUps";
   if (pathname.startsWith("/app/operations/decision-center")) return "decisionCenter";
   if (pathname.startsWith("/app/operations/activity-history")) return "activityHistory";
+  if (pathname.startsWith("/app/support/requests")) return "supportRequests";
   for (const group of APP_PORTAL_NAV_GROUPS) {
     for (const item of group.items) {
       if (item.href !== "/app" && pathname.startsWith(item.href)) {
