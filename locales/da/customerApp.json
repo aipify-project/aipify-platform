@@ -23496,7 +23496,8 @@
       "apiAccess": "API-adgang",
       "executiveInsights": "Executive Insights",
       "followUps": "Follow-Ups",
-      "decisionCenter": "Decision Center"
+      "decisionCenter": "Decision Center",
+      "activityHistory": "Activity History"
     },
     "dashboard": {
       "title": "APP-dashboard",
@@ -24035,6 +24036,79 @@
         "whyDocumentAnswer": "Documenting decisions reduces knowledge loss, improves accountability, and helps future leaders understand the reasoning behind previous actions.",
         "autoDecide": "Can Aipify make decisions automatically?",
         "autoDecideAnswer": "No. Aipify supports human decision-making through documentation, recommendations, and organizational memory. Final authority always remains with people."
+      }
+    },
+    "activityHistory": {
+      "title": "Action Timeline & Activity History",
+      "subtitle": "A chronological view of important organizational activity across your Aipify workspace.",
+      "loading": "Aipify is preparing your activity history…",
+      "principle": "Activity History preserves organizational accountability. Important audit records remain available for transparency and compliance.",
+      "emptyTitle": "No activity has been recorded yet.",
+      "emptyBody": "Aipify will show important organizational activity here as your workspace becomes active.",
+      "filters": {
+        "title": "Search & filters",
+        "eventType": "Event type",
+        "module": "Module",
+        "user": "User",
+        "severity": "Severity",
+        "dateFrom": "From date",
+        "dateTo": "To date",
+        "search": "Search",
+        "searchPlaceholder": "Search activity…",
+        "all": "All"
+      },
+      "timeline": {
+        "today": "Today",
+        "yesterday": "Yesterday",
+        "thisWeek": "This Week",
+        "earlier": "Earlier"
+      },
+      "card": {
+        "user": "User",
+        "module": "Source module",
+        "viewRelated": "View related item"
+      },
+      "eventTypes": {
+        "followUpCreated": "Follow-up created",
+        "followUpCompleted": "Follow-up completed",
+        "decisionRecorded": "Decision recorded",
+        "decisionEvaluated": "Decision evaluated",
+        "approvalRequested": "Approval requested",
+        "approvalCompleted": "Approval completed",
+        "taskUpdated": "Task updated",
+        "integrationConnected": "Integration connected",
+        "businessPackInstalled": "Business Pack installed",
+        "billingEvent": "Billing event",
+        "securityEvent": "Security event",
+        "supportEvent": "Support event",
+        "systemRecommendation": "System recommendation"
+      },
+      "severities": {
+        "info": "Info",
+        "notice": "Notice",
+        "important": "Important",
+        "critical": "Critical"
+      },
+      "modules": {
+        "followUps": "Follow-Ups",
+        "decisionCenter": "Decision Center",
+        "approvals": "Approvals",
+        "tasks": "Tasks",
+        "integrations": "Integrations",
+        "businessPacks": "Business Packs",
+        "billing": "Billing",
+        "security": "Security",
+        "support": "Support",
+        "system": "System"
+      },
+      "faq": {
+        "title": "Activity History FAQ",
+        "whatIs": "What is Activity History?",
+        "whatIsAnswer": "Activity History gives your organization a chronological overview of important actions, updates, decisions, approvals and system events across Aipify.",
+        "whoCanSee": "Who can see Activity History?",
+        "whoCanSeeAnswer": "Access depends on role permissions. Owners and administrators can view broader activity, while team members only see activity they are authorized to access.",
+        "canDelete": "Can activity records be deleted?",
+        "canDeleteAnswer": "Important audit and activity records should remain available for accountability, compliance and organizational memory."
       }
     }
   },

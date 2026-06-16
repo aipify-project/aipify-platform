@@ -9,3 +9,4 @@ export { FollowUpsCenterPanel } from "./FollowUpsCenterPanel";
 export { FollowUpDetailPanel } from "./FollowUpDetailPanel";
 export { DecisionCenterPanel } from "./DecisionCenterPanel";
 export { DecisionDetailPanel } from "./DecisionDetailPanel";
+export { ActivityHistoryPanel } from "./ActivityHistoryPanel";
