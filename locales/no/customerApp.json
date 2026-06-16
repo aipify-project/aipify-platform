@@ -8013,6 +8013,184 @@
       "actions": {
         "back": "Back to Action Center"
       }
+    },
+    "executionCoordination": {
+      "centerTitle": "Utførelseskoordineringssenter",
+      "centerSubtitle": "Track approved actions from initiation to completion with ownership, dependencies, blockers, and accountability.",
+      "tabImpact": "Impact Analysis",
+      "tabApprovals": "Approvals & Delegation",
+      "tabExecution": "Utførelseskoordinering",
+      "humanOversight": "Aipify coordinates execution. Humans remain responsible for execution decisions. Confidence scores are estimates — not certainty.",
+      "sections": {
+        "lifecycle": "Execution lifecycle",
+        "ownership": "Ownership",
+        "dependencies": "Dependencies",
+        "blockers": "Blockers",
+        "priority": "Priority",
+        "timeline": "Timeline",
+        "confidence": "Execution confidence",
+        "collaboration": "Collaboration",
+        "learning": "Learning & improvement",
+        "executive": "Executive execution center",
+        "widgets": "Execution dashboard",
+        "audit": "Audit trail",
+        "knowledgeCenter": "Knowledge Center"
+      },
+      "lifecycle": {
+        "stages": {
+          "recommended": "Recommended",
+          "underReview": "Under review",
+          "approved": "Approved",
+          "assigned": "Assigned",
+          "inProgress": "In progress",
+          "waiting": "Waiting",
+          "blocked": "Blocked",
+          "completed": "Completed",
+          "cancelled": "Cancelled"
+        },
+        "stepStatus": {
+          "pending": "Pending",
+          "current": "Current",
+          "complete": "Complete",
+          "blocked": "Blocked"
+        }
+      },
+      "ownership": {
+        "primary": "Primary owner",
+        "secondary": "Secondary owner",
+        "contributors": "Supporting contributors",
+        "executiveSponsor": "Executive sponsor",
+        "history": "Ownership history",
+        "responsibilities": "Role responsibilities"
+      },
+      "dependencies": {
+        "title": "Dependency map",
+        "statuses": {
+          "ready": "Ready",
+          "waitingForDependency": "Waiting for dependency",
+          "dependencyDelayed": "Dependency delayed",
+          "dependencyResolved": "Dependency resolved"
+        },
+        "types": {
+          "action": "Other action",
+          "approval": "Approval",
+          "externalSystem": "External system",
+          "customerDecision": "Customer decision",
+          "compliance": "Compliance requirement"
+        }
+      },
+      "blockers": {
+        "title": "Active blockers",
+        "register": "Register blocker",
+        "category": "Category",
+        "description": "Description",
+        "severity": "Severity",
+        "owner": "Blocker owner",
+        "resolutionPlan": "Resolution plan",
+        "targetDate": "Target resolution date",
+        "submit": "Register blocker",
+        "categories": {
+          "resourceConstraints": "Resource constraints",
+          "approvalDelays": "Approval delays",
+          "technicalIssues": "Technical issues",
+          "vendorDelays": "Vendor delays",
+          "missingInformation": "Missing information",
+          "policyRestrictions": "Policy restrictions"
+        }
+      },
+      "priority": {
+        "level": "Priority",
+        "levels": {
+          "critical": "Critical",
+          "high": "High",
+          "medium": "Medium",
+          "low": "Low",
+          "optional": "Optional"
+        },
+        "recommendation": "Priority recommendations consider business impact, risk, alignment, and deadlines. Executives retain final authority."
+      },
+      "timeline": {
+        "plannedStart": "Planned start",
+        "actualStart": "Actual start",
+        "estimatedCompletion": "Estimated completion",
+        "actualCompletion": "Actual completion",
+        "milestones": "Milestones achieved",
+        "deviation": "Schedule deviation"
+      },
+      "confidence": {
+        "score": "Confidence score",
+        "level": "Confidence level",
+        "disclaimer": "Based on available information — Aipify estimates execution confidence; this is not a guarantee.",
+        "levels": {
+          "veryLow": "Very Low",
+          "low": "Low",
+          "moderate": "Moderate",
+          "high": "High",
+          "veryHigh": "Very High"
+        },
+        "factors": {
+          "resourceAvailability": "Resource availability",
+          "historicalCompletion": "Historical completion performance",
+          "dependencyStability": "Dependency stability",
+          "complexity": "Complexity level",
+          "teamWorkload": "Team workload"
+        }
+      },
+      "collaboration": {
+        "addUpdate": "Add update",
+        "addNote": "Add note",
+        "requestAssistance": "Request assistance",
+        "mentionStakeholder": "Mention stakeholder",
+        "submit": "Post",
+        "placeholder": "Share a progress update, decision, or note for the team…"
+      },
+      "learning": {
+        "intro": "Help Aipify improve future execution recommendations by sharing what happened after completion.",
+        "expectedOutcome": "Expected outcome",
+        "actualOutcome": "Actual outcome",
+        "timelineAccuracy": "Timeline accuracy",
+        "blockersEncountered": "Blockers encountered",
+        "lessonsLearned": "Lessons learned",
+        "improvements": "Recommended future improvements",
+        "submit": "Submit learning feedback",
+        "submitted": "Thank you — your feedback improves future execution coordination."
+      },
+      "executive": {
+        "healthScore": "Execution health",
+        "completionRate": "Completion rate (30d)",
+        "blocked": "Blocked initiatives",
+        "overdue": "Overdue initiatives",
+        "strategicProgress": "Strategic in progress"
+      },
+      "widgets": {
+        "startingToday": "Actions starting today",
+        "inProgress": "Actions in progress",
+        "blocked": "Blocked actions",
+        "awaitingDependencies": "Awaiting dependencies",
+        "upcomingDeadlines": "Upcoming deadlines",
+        "completed": "Completed actions",
+        "executivePriority": "Executive priority actions",
+        "empty": "No items in this view right now.",
+        "viewAction": "Track"
+      },
+      "faq": {
+        "title": "Execution Coordination FAQ",
+        "whatIsCoordination": "What is execution coordination?",
+        "whatIsCoordinationAnswer": "Execution coordination tracks approved actions from assignment through completion with ownership, dependencies, blockers, and timelines.",
+        "howTrackProgress": "How does Aipify track progress?",
+        "howTrackProgressAnswer": "Through lifecycle stages, collaboration logs, milestones, SLA indicators, and immutable audit records — all visible in the Execution Coordination Center.",
+        "autoExecute": "Can Aipify execute actions automatically?",
+        "autoExecuteAnswer": "Only within approved Autonomous Execution Framework limits. Coordination tracks progress; humans retain execution accountability.",
+        "whenBlocked": "What happens when actions become blocked?",
+        "whenBlockedAnswer": "Blockers are registered with category, severity, owner, and resolution plan. Stakeholders are notified and leadership visibility is updated.",
+        "confidenceScores": "How are execution confidence scores calculated?",
+        "confidenceScoresAnswer": "From resource availability, historical completion, dependency stability, complexity, and workload — always as estimates, never certainty."
+      },
+      "empty": "No execution items to coordinate right now.",
+      "principle": "Aipify coordinates execution. Humans remain responsible for execution decisions.",
+      "actions": {
+        "back": "Back to Action Center"
+      }
     }
   },
   "workingStyle": {

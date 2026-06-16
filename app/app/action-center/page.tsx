@@ -1,5 +1,6 @@
 import { ActionCenterPanel } from "@/components/app/action-center/ActionCenterPanel";
 import { buildApprovalDelegationLabels } from "@/lib/action-center-approval";
+import { buildExecutionCoordinationLabels } from "@/lib/action-center-execution";
 import { buildActionImpactLabels } from "@/lib/action-center-impact";
 import { ACTION_STATUSES, EXECUTION_LEVELS, RISK_LEVELS } from "@/lib/aipify/execution";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -17,7 +18,7 @@ export default async function ActionCenterPage() {
   const statusLabels = Object.fromEntries(
     ACTION_STATUSES.map((status) => [status, t(`customerApp.actionCenter.statusLabels.${status}`)])
   );
-  const executionLabels = Object.fromEntries(
+  const executionLevelLabels = Object.fromEntries(
     EXECUTION_LEVELS.map((level) => [level, t(`customerApp.actionCenter.executionLevels.${level}`)])
   );
 
@@ -65,7 +66,7 @@ export default async function ActionCenterPage() {
         },
         riskLevels: riskLabels,
         statusLabels,
-        executionLevels: executionLabels,
+        executionLevels: executionLevelLabels,
         detail: {
           back: t("customerApp.actionCenter.detail.back"),
           explanation: t("customerApp.actionCenter.detail.explanation"),
@@ -77,6 +78,7 @@ export default async function ActionCenterPage() {
       }}
       impactLabels={buildActionImpactLabels(t)}
       approvalLabels={buildApprovalDelegationLabels(t)}
+      executionLabels={buildExecutionCoordinationLabels(t)}
     />
   );
 }

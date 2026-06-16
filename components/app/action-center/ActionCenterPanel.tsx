@@ -23,10 +23,23 @@ import {
   type ActionImpactAnalysis,
   type ActionImpactLabels,
 } from "@/lib/action-center-impact";
+import {
+  ActionExecutionDashboardWidgets,
+  ActionExecutionDetailView,
+  ActionExecutiveExecutionSummary,
+} from "@/components/shared/action-center-execution";
+import {
+  buildExecutionDashboardWidgets,
+  parseExecutionCoordinationCenter,
+  parseExecutionDetail,
+  type ExecutionCoordinationCenter,
+  type ExecutionCoordinationLabels,
+  type ExecutionDetail,
+} from "@/lib/action-center-execution";
 import { parseActionCenter, type ActionCenter, type AipifyAction } from "@/lib/aipify/execution";
 
-type CenterMode = "impact" | "approvals";
-type DetailMode = "impact" | "approval";
+type CenterMode = "impact" | "approvals" | "execution";
+type DetailMode = "impact" | "approval" | "execution";
 
 type ActionCenterPanelProps = {
   labels: {
@@ -83,6 +96,7 @@ type ActionCenterPanelProps = {
   };
   impactLabels: ActionImpactLabels;
   approvalLabels: ApprovalDelegationLabels;
+  executionLabels: ExecutionCoordinationLabels;
 };
 
 const RISK_STYLES: Record<string, string> = {
@@ -102,24 +116,28 @@ const STATUS_STYLES: Record<string, string> = {
   scheduled: "bg-indigo-100 text-indigo-900",
 };
 
-export function ActionCenterPanel({ labels, impactLabels, approvalLabels }: ActionCenterPanelProps) {
+export function ActionCenterPanel({ labels, impactLabels, approvalLabels, executionLabels }: ActionCenterPanelProps) {
   const [centerMode, setCenterMode] = useState<CenterMode>("impact");
   const [detailMode, setDetailMode] = useState<DetailMode>("impact");
   const [center, setCenter] = useState<ActionCenter | null>(null);
   const [approvalCenter, setApprovalCenter] = useState<ApprovalDelegationCenter | null>(null);
+  const [executionCenter, setExecutionCenter] = useState<ExecutionCoordinationCenter | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [impactAnalysis, setImpactAnalysis] = useState<ActionImpactAnalysis | null>(null);
   const [approvalDetail, setApprovalDetail] = useState<ApprovalDetail | null>(null);
+  const [executionDetail, setExecutionDetail] = useState<ExecutionDetail | null>(null);
   const [actingId, setActingId] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
-    const [centerRes, approvalsRes] = await Promise.all([
+    const [centerRes, approvalsRes, executionRes] = await Promise.all([
       fetch("/api/aipify/action-center"),
       fetch("/api/aipify/action-center/approvals"),
+      fetch("/api/aipify/action-center/execution"),
     ]);
     if (centerRes.ok) setCenter(parseActionCenter(await centerRes.json()));
     if (approvalsRes.ok) setApprovalCenter(parseApprovalDelegationCenter(await approvalsRes.json()));
+    if (executionRes.ok) setExecutionCenter(parseExecutionCoordinationCenter(await executionRes.json()));
     setLoading(false);
   }, []);
 
@@ -141,10 +159,35 @@ export function ActionCenterPanel({ labels, impactLabels, approvalLabels }: Acti
     if (res.ok) setApprovalDetail(parseApprovalDetail(await res.json()));
   }
 
+  async function loadExecutionDetail(id: string) {
+    setSelectedId(id);
+    setDetailMode("execution");
+    const res = await fetch(`/api/aipify/actions/${id}/execution`);
+    if (res.ok) setExecutionDetail(parseExecutionDetail(await res.json()));
+  }
+
   function clearDetail() {
     setSelectedId(null);
     setImpactAnalysis(null);
     setApprovalDetail(null);
+    setExecutionDetail(null);
+  }
+
+  async function submitExecutionEvent(
+    id: string,
+    eventType: string,
+    description: string,
+    metadata?: Record<string, unknown>
+  ) {
+    setActingId(id);
+    await fetch(`/api/aipify/actions/${id}/execution/event`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event_type: eventType, description, metadata }),
+    });
+    if (selectedId === id) await loadExecutionDetail(id);
+    await refresh();
+    setActingId(null);
   }
 
   async function submitApprovalDecision(
@@ -233,10 +276,19 @@ export function ActionCenterPanel({ labels, impactLabels, approvalLabels }: Acti
   const pending = center?.pending_actions ?? [];
   const impactWidgets = buildImpactDashboardWidgets(center);
   const approvalWidgets = buildApprovalDashboardWidgets(approvalCenter);
+  const executionWidgets = buildExecutionDashboardWidgets(executionCenter);
   const headerTitle =
-    centerMode === "approvals" ? approvalLabels.centerTitle : impactLabels.centerTitle;
+    centerMode === "execution"
+      ? executionLabels.centerTitle
+      : centerMode === "approvals"
+        ? approvalLabels.centerTitle
+        : impactLabels.centerTitle;
   const headerSubtitle =
-    centerMode === "approvals" ? approvalLabels.centerSubtitle : impactLabels.centerSubtitle;
+    centerMode === "execution"
+      ? executionLabels.centerSubtitle
+      : centerMode === "approvals"
+        ? approvalLabels.centerSubtitle
+        : impactLabels.centerSubtitle;
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-6">
@@ -255,7 +307,7 @@ export function ActionCenterPanel({ labels, impactLabels, approvalLabels }: Acti
             }}
             className={`rounded-lg px-3 py-1.5 ${centerMode === "impact" ? "bg-indigo-600 text-white" : "text-gray-600"}`}
           >
-            {approvalLabels.tabImpact}
+            {executionLabels.tabImpact}
           </button>
           <button
             type="button"
@@ -265,7 +317,17 @@ export function ActionCenterPanel({ labels, impactLabels, approvalLabels }: Acti
             }}
             className={`rounded-lg px-3 py-1.5 ${centerMode === "approvals" ? "bg-indigo-600 text-white" : "text-gray-600"}`}
           >
-            {approvalLabels.tabApprovals}
+            {executionLabels.tabApprovals}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setCenterMode("execution");
+              clearDetail();
+            }}
+            className={`rounded-lg px-3 py-1.5 ${centerMode === "execution" ? "bg-indigo-600 text-white" : "text-gray-600"}`}
+          >
+            {executionLabels.tabExecution}
           </button>
         </div>
         <p className="mt-1 text-sm text-gray-500">{labels.subtitle}</p>
@@ -327,6 +389,22 @@ export function ActionCenterPanel({ labels, impactLabels, approvalLabels }: Acti
         </>
       ) : null}
 
+      {!selectedId && centerMode === "execution" ? (
+        <>
+          {executionCenter?.executive_summary ? (
+            <ActionExecutiveExecutionSummary
+              summary={executionCenter.executive_summary}
+              labels={executionLabels}
+            />
+          ) : null}
+          <ActionExecutionDashboardWidgets
+            widgets={executionWidgets}
+            labels={executionLabels}
+            onSelectAction={(id) => void loadExecutionDetail(id)}
+          />
+        </>
+      ) : null}
+
       {selectedId && detailMode === "impact" && impactAnalysis?.found && impactAnalysis.action ? (
         <ActionImpactAnalysisView
           analysis={impactAnalysis}
@@ -351,6 +429,20 @@ export function ActionCenterPanel({ labels, impactLabels, approvalLabels }: Acti
           onBack={clearDetail}
           onOpenImpact={() => void loadImpactDetail(selectedId)}
           onDecision={(decision, payload) => submitApprovalDecision(selectedId, decision, payload)}
+        />
+      ) : null}
+
+      {selectedId && detailMode === "execution" && executionDetail?.found ? (
+        <ActionExecutionDetailView
+          detail={executionDetail}
+          labels={executionLabels}
+          acting={actingId === selectedId}
+          onBack={clearDetail}
+          onOpenImpact={() => void loadImpactDetail(selectedId)}
+          onOpenApproval={() => void loadApprovalDetail(selectedId)}
+          onEvent={(eventType, description, metadata) =>
+            submitExecutionEvent(selectedId, eventType, description, metadata)
+          }
         />
       ) : null}
 
