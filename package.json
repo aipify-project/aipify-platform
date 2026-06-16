@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev --port 3001 --webpack",
     "build": "next build",
+    "typecheck": "tsc --noEmit",
+    "validate:phase": "npm run lint && npm run typecheck",
     "start": "next start",
     "lint": "eslint",
     "test:greeting": "npx --yes tsx lib/core/greeting.test.ts",
