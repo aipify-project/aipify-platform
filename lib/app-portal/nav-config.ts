@@ -31,6 +31,7 @@ export type AppPortalNavId =
   | "goalsObjectives"
   | "playbooks"
   | "risks"
+  | "compliance"
   | "subscription"
   | "paymentHistory"
   | "invoices"
@@ -119,6 +120,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
       { id: "goalsObjectives", href: "/app/operations/goals", labelKey: "customerApp.portalStructure.nav.goalsObjectives" },
       { id: "playbooks", href: "/app/operations/playbooks", labelKey: "customerApp.portalStructure.nav.playbooks" },
       { id: "risks", href: "/app/operations/risks", labelKey: "customerApp.portalStructure.nav.risks" },
+      { id: "compliance", href: "/app/operations/compliance", labelKey: "customerApp.portalStructure.nav.compliance" },
       { id: "insights", href: "/app/operations/insights", labelKey: "customerApp.portalStructure.nav.insights", featureKey: "advanced_insights" },
     ],
   },
@@ -184,6 +186,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/operations/goals")) return "goalsObjectives";
   if (pathname.startsWith("/app/operations/playbooks")) return "playbooks";
   if (pathname.startsWith("/app/operations/risks")) return "risks";
+  if (pathname.startsWith("/app/operations/compliance")) return "compliance";
   if (pathname.startsWith("/app/support/requests")) return "supportRequests";
   if (pathname.startsWith("/app/support/assistant")) return "supportAssistant";
   if (pathname.startsWith("/app/support/success-center")) return "successCenter";

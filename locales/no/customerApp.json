@@ -23832,7 +23832,8 @@
       "goalsObjectives": "Goals & Objectives",
       "responsibilities": "Responsibilities",
       "playbooks": "Playbooks",
-      "risks": "Risks"
+      "risks": "Risks",
+      "compliance": "Compliance"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -25393,6 +25394,124 @@
         "howCalculatedAnswer": "Risk levels combine likelihood and impact assessments to help organizations prioritize attention and mitigation efforts.",
         "eliminate": "Can Aipify eliminate organizational risk?",
         "eliminateAnswer": "No. Aipify supports awareness and mitigation planning, but organizations remain responsible for managing risk appropriately."
+      }
+    },
+    "compliance": {
+      "title": "Compliance",
+      "subtitle": "Document policies, track acknowledgements, schedule reviews and maintain organizational compliance readiness.",
+      "loading": "Aipify is reviewing your compliance information…",
+      "principle": "Clear policies support readiness — Aipify does not provide legal advice.",
+      "emptyTitle": "No policies have been created yet.",
+      "emptyBody": "Compliance begins with clear expectations, documented policies and regular reviews.",
+      "emptyCta": "Create Policy",
+      "back": "Compliance",
+      "notFound": "Policy not found.",
+      "filters": {
+        "search": "Search policies…",
+        "category": "Category",
+        "status": "Status",
+        "owner": "Owner",
+        "audience": "Audience",
+        "recentlyUpdated": "Recently updated",
+        "all": "All",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "dashboard": {
+        "active": "Active policies",
+        "needsReview": "Policies requiring review",
+        "outstandingAck": "Outstanding acknowledgements",
+        "withoutOwner": "Policies without owners",
+        "recent": "Recently updated policies",
+        "readiness": "Compliance readiness",
+        "readinessBuilding": "Building readiness",
+        "readinessStrong": "Strong readiness",
+        "readinessModerate": "Moderate readiness",
+        "readinessNeedsAttention": "Needs attention"
+      },
+      "form": {
+        "createTitle": "Create policy",
+        "title": "Title",
+        "description": "Description",
+        "category": "Category",
+        "owner": "Owner",
+        "audience": "Audience",
+        "effectiveDate": "Effective date",
+        "reviewDate": "Review date",
+        "reviewFrequency": "Review frequency",
+        "notes": "Notes",
+        "submit": "Create policy",
+        "cancel": "Cancel"
+      },
+      "card": {
+        "owner": "Owner",
+        "version": "Version",
+        "effectiveDate": "Effective date",
+        "reviewDate": "Review date",
+        "acknowledgement": "Acknowledgement rate",
+        "view": "View"
+      },
+      "detail": {
+        "overview": "Policy overview",
+        "versionHistory": "Version history",
+        "contributors": "Contributors",
+        "acknowledgements": "Acknowledgement status",
+        "acknowledge": "Acknowledge policy",
+        "acknowledged": "You have acknowledged this policy.",
+        "activity": "Related activity",
+        "audit": "Audit history",
+        "save": "Save updates",
+        "saved": "Policy updated.",
+        "recommendations": "Aipify recommendations",
+        "changeSummary": "Summary of changes",
+        "completionRate": "Completion rate",
+        "outstanding": "Outstanding"
+      },
+      "categories": {
+        "informationSecurity": "Information Security",
+        "privacyDataProtection": "Privacy & Data Protection",
+        "employeePolicies": "Employee Policies",
+        "acceptableUse": "Acceptable Use",
+        "incidentResponse": "Incident Response",
+        "vendorManagement": "Vendor Management",
+        "financialControls": "Financial Controls",
+        "businessContinuity": "Business Continuity",
+        "operationalProcedures": "Operational Procedures",
+        "custom": "Custom Policies"
+      },
+      "statuses": {
+        "draft": "Draft",
+        "active": "Active",
+        "underReview": "Under Review",
+        "retired": "Retired"
+      },
+      "audiences": {
+        "allMembers": "All organization members",
+        "managers": "Managers",
+        "ownersAdmins": "Owners and administrators",
+        "custom": "Custom audience"
+      },
+      "frequencies": {
+        "monthly": "Monthly",
+        "quarterly": "Quarterly",
+        "semiAnnual": "Semi-annual",
+        "annual": "Annual"
+      },
+      "recommendations": {
+        "reviewOverdue": "Review overdue policies.",
+        "assignOwner": "Assign ownership to unmanaged policies.",
+        "updateOutdated": "Update outdated procedures.",
+        "requestAcknowledgements": "Request outstanding acknowledgements from relevant team members.",
+        "archiveRetired": "Archive retired policies to keep the register focused."
+      },
+      "faq": {
+        "title": "Compliance FAQ",
+        "whatIs": "What is the Compliance Center?",
+        "whatIsAnswer": "The Compliance Center helps organizations manage internal policies, acknowledgements and review schedules to improve operational readiness.",
+        "legalAdvice": "Does Aipify provide legal advice?",
+        "legalAdviceAnswer": "No. Aipify supports policy management and organizational awareness but does not replace professional legal advice.",
+        "acknowledgements": "Why are policy acknowledgements important?",
+        "acknowledgementsAnswer": "Acknowledgements help organizations demonstrate that relevant individuals have reviewed important policies and expectations."
       }
     }
   },

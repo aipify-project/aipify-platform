@@ -16,3 +16,4 @@ export * from "./organizational-goals";
 export * from "./responsibilities";
 export * from "./playbooks";
 export * from "./risks";
+export * from "./compliance";

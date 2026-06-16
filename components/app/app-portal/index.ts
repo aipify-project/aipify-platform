@@ -25,3 +25,5 @@ export { PlaybooksPanel } from "./PlaybooksPanel";
 export { PlaybookDetailPanel } from "./PlaybookDetailPanel";
 export { RisksPanel } from "./RisksPanel";
 export { RiskDetailPanel } from "./RiskDetailPanel";
+export { CompliancePanel } from "./CompliancePanel";
+export { ComplianceDetailPanel } from "./ComplianceDetailPanel";
