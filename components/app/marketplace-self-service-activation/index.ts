@@ -1,0 +1,1 @@
+export { MarketplaceSelfServiceActivationDashboardPanel } from "./MarketplaceSelfServiceActivationDashboardPanel";

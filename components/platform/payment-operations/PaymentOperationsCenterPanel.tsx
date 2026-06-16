@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { COMPANY_CONFIG } from "@/lib/company/company.config";
 import {
   ProviderCard,
   ProviderCardActions,
@@ -577,7 +578,7 @@ export function PaymentOperationsCenterPanel({
                     {labels.audit.actor}: {entry.actor ?? "Platform Admin"}
                   </span>
                   <span>
-                    {labels.audit.workspace}: {entry.workspace ?? "Aipify Group AS"}
+                    {labels.audit.workspace}: {entry.workspace ?? COMPANY_CONFIG.legalCompanyName}
                   </span>
                 </div>
               </li>

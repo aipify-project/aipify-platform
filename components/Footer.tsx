@@ -1,3 +1,6 @@
+import { COMPANY_CONFIG } from "@/lib/company/company.config";
+import { formatCopyrightLine } from "@/lib/company/helpers";
+
 const footerLinks = {
   Product: [
     { label: "Features", href: "#features" },
@@ -27,12 +30,11 @@ export default function Footer() {
                 A
               </span>
               <span className="text-xl font-bold tracking-tight text-gray-900">
-                Aipify
+                {COMPANY_CONFIG.brandName}
               </span>
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-gray-600">
-              Aipify Business Operating System helps organizations connect knowledge, workflows,
-              teams and intelligent business assistance in one platform.
+              {COMPANY_CONFIG.brandStatement}
             </p>
           </div>
 
@@ -80,7 +82,7 @@ export default function Footer() {
 
         <div id="login" className="mt-12 border-t border-gray-200 pt-8">
           <p className="text-center text-sm text-gray-500">
-            &copy; {new Date().getFullYear()} Aipify
+            {formatCopyrightLine()}
           </p>
         </div>
       </div>

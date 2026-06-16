@@ -1,12 +1,15 @@
 import { AipifyHostsPropertyCenterDashboardPanel } from "@/components/app/aipify-hosts-property-center";
+import { AipifyHostsUpgradeSignalsBanner } from "@/components/app/aipify-hosts-upgrade-signals";
+import { buildHostsUpgradeSignalsBannerLabels } from "@/lib/aipify/aipify-hosts-upgrade-signals";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AipifyHostsPropertiesPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getDictionary(await getLocale(), ["customerApp", "hosts"]);
   const t = createTranslator(dict);
   const p = "customerApp.aipifyHostsPropertyCenter";
+  const bannerLabels = buildHostsUpgradeSignalsBannerLabels(t);
 
   const typeKeys = ["apartment", "house", "cabin", "villa", "shared_accommodation", "other"] as const;
   const statusKeys = ["active", "inactive", "under_maintenance", "seasonal_closure", "occupied", "vacant", "low", "moderate", "high", "critical"] as const;
@@ -78,6 +81,7 @@ export default async function AipifyHostsPropertiesPage() {
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t(`${p}.title`)}</h1>
         <p className="mt-2 text-gray-600">{t(`${p}.subtitle`)}</p>
       </div>
+      <AipifyHostsUpgradeSignalsBanner labels={bannerLabels} surface="property_center" />
       <AipifyHostsPropertyCenterDashboardPanel labels={labels} />
     </div>
   );

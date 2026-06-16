@@ -1,12 +1,15 @@
 import { AipifyHostsOperationsDashboardPanel } from "@/components/app/aipify-hosts-operations";
+import { AipifyHostsUpgradeSignalsBanner } from "@/components/app/aipify-hosts-upgrade-signals";
+import { buildHostsUpgradeSignalsBannerLabels } from "@/lib/aipify/aipify-hosts-upgrade-signals";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AipifyHostsOperationsPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getDictionary(await getLocale(), ["customerApp", "hosts"]);
   const t = createTranslator(dict);
   const p = "customerApp.aipifyHostsOperations";
+  const bannerLabels = buildHostsUpgradeSignalsBannerLabels(t);
 
   const statusKeys = [
     "scheduled", "ready", "attention_required", "completed",
@@ -95,6 +98,7 @@ export default async function AipifyHostsOperationsPage() {
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t(`${p}.title`)}</h1>
         <p className="mt-2 text-gray-600">{t(`${p}.subtitle`)}</p>
       </div>
+      <AipifyHostsUpgradeSignalsBanner labels={bannerLabels} surface="operations_center" />
       <AipifyHostsOperationsDashboardPanel labels={labels} />
     </div>
   );

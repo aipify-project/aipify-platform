@@ -1,9 +1,12 @@
+import { COMPANY_CONFIG } from "@/lib/company/company.config";
 import type { LicenseCenterSectionId, LicenseServiceStatus } from "./types";
 
-export const AIPIFY_SOFTWARE_OWNER = "Aipify Group AS";
-export const AIPIFY_OFFICIAL_WEBSITE = "https://aipify.ai";
-export const AIPIFY_SUPPORT_EMAIL = "support@aipify.ai";
-export const AIPIFY_PRIVACY_EMAIL = "privacy@aipify.ai";
+export const AIPIFY_SOFTWARE_OWNER = COMPANY_CONFIG.legalCompanyName;
+export const AIPIFY_OFFICIAL_WEBSITE = COMPANY_CONFIG.website;
+export const AIPIFY_SUPPORT_EMAIL = COMPANY_CONFIG.supportEmail;
+export const AIPIFY_PRIVACY_EMAIL = COMPANY_CONFIG.privacyContactEmail;
+export const AIPIFY_BILLING_EMAIL = COMPANY_CONFIG.billingContactEmail;
+export const AIPIFY_CONTACT_EMAIL = COMPANY_CONFIG.contactEmail;
 export const AIPIFY_PLATFORM_VERSION = "1.0.0";
 
 /** Payment grace period before services pause (Phase 20). */

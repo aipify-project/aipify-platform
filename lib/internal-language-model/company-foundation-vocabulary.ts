@@ -1,12 +1,18 @@
-/** Aipify Group AS — Company Foundation Directive vocabulary. */
+/** Aipify Group AS — Company Foundation Directive vocabulary (sourced from company.config.ts). */
 
-export const COMPANY_LEGAL_NAME = "Aipify Group AS" as const;
+import { COMPANY_CONFIG } from "@/lib/company/company.config";
+import {
+  formatCompanyLegalReference,
+  formatCompanyProductLine,
+} from "@/lib/company/helpers";
 
-export const COMPANY_COUNTRY_OF_ORIGIN = "Norway" as const;
+export const COMPANY_LEGAL_NAME = COMPANY_CONFIG.legalCompanyName;
 
-export const COMPANY_TAGLINE = "From Norway. For the world." as const;
+export const COMPANY_COUNTRY_OF_ORIGIN = COMPANY_CONFIG.country;
 
-export const PRODUCT_NAME = "Aipify" as const;
+export const COMPANY_TAGLINE = COMPANY_CONFIG.corporateSignature;
+
+export const PRODUCT_NAME = COMPANY_CONFIG.brandName;
 
 export const COMPANY_MISSION_LEAD =
   "Develop intelligent software that empowers people — never built to replace them." as const;
@@ -32,17 +38,13 @@ export const COMPANY_PRINCIPLES = [
 ] as const;
 
 export const COMPANY_DECISION_FILTER_QUESTION =
-  "Does this support the long-term vision of Aipify Group AS?" as const;
+  `Does this support the long-term vision of ${COMPANY_CONFIG.legalCompanyName}?` as const;
 
 export const COMPANY_GLOBAL_REMINDER =
   "Think globally. Build responsibly. Act professionally." as const;
 
 /** Use in legal, investor, ownership, and platform-admin copy. */
-export function formatCompanyLegalReference(): string {
-  return `${COMPANY_LEGAL_NAME} · ${COMPANY_TAGLINE}`;
-}
+export { formatCompanyLegalReference };
 
 /** Use when both company and product must appear together. */
-export function formatCompanyProductLine(): string {
-  return `${PRODUCT_NAME} is developed by ${COMPANY_LEGAL_NAME}. ${COMPANY_TAGLINE}`;
-}
+export { formatCompanyProductLine };

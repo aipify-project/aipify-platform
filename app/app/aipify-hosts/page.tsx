@@ -1,4 +1,6 @@
 import { AipifyHostsDashboardPanel } from "@/components/app/aipify-hosts";
+import { AipifyHostsUpgradeSignalsBanner } from "@/components/app/aipify-hosts-upgrade-signals";
+import { buildHostsUpgradeSignalsBannerLabels } from "@/lib/aipify/aipify-hosts-upgrade-signals";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -9,6 +11,7 @@ export default async function AipifyHostsPage() {
   const t = createTranslator(dict);
   const p = "customerApp.aipifyHosts";
   const h = "hosts.dashboard";
+  const bannerLabels = buildHostsUpgradeSignalsBannerLabels(t);
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
@@ -16,6 +19,7 @@ export default async function AipifyHostsPage() {
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t(`${p}.title`)}</h1>
         <p className="mt-2 text-gray-600">{t(`${p}.subtitle`)}</p>
       </div>
+      <AipifyHostsUpgradeSignalsBanner labels={bannerLabels} surface="hosts_dashboard" />
       <AipifyHostsDashboardPanel
         labels={{
           loading: t(`${p}.loading`),
@@ -65,6 +69,14 @@ export default async function AipifyHostsPage() {
           openCheckInCenter: t(`${h}.openCheckInCenter`),
           openOwnerCenter: t(`${h}.openOwnerCenter`),
           openPropertyHealth: t(`${h}.openPropertyHealth`),
+          openGuestExperienceCenter: t(`${h}.openGuestExperienceCenter`),
+          openCommunicationCenter: t(`${h}.openCommunicationCenter`),
+          openUpgradeSignals: t(`${h}.openUpgradeSignals`),
+          openMaintenanceCenter: t(`${h}.openMaintenanceCenter`),
+          openCleaningCenter: t(`${h}.openCleaningCenter`),
+          openBookingCenter: t(`${h}.openBookingCenter`),
+          openExecutiveDashboard: t(`${h}.openExecutiveDashboard`),
+          openReputationCenter: t(`${h}.openReputationCenter`),
           capacityLabel: t(`${p}.licensing.capacityLabel`),
           propertyLimit: t(`${p}.licensing.propertyLimit`),
           propertyLimitCount: t(`${p}.licensing.propertyLimitCount`),

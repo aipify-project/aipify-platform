@@ -1,0 +1,16 @@
+AIPIFY HOSTS — PHASE AIRBNB 31
+TITLE: Hosts Communication Center Foundation
+PURPOSE: Centralize hospitality communication activities.
+OBJECTIVES:
+  • Communication Center at /app/aipify-hosts/communications
+  • Guest communications, team communications, templates, announcements, communication history
+  • Delivery channels: email, SMS, push notifications
+  • Statuses: draft, scheduled, sent, delivered, failed
+  • Notifications for delivery failure, scheduled due, critical announcement pending
+REQUIREMENTS:
+  • Tenant-scoped RPCs with _ahostcom_* / _ahostbp393_* helpers
+  • All UI via hosts.communication.* i18n (en, no, sv, da)
+  • Knowledge Center articles under aipify-hosts-communication
+  • Role-based permissions · audit creation, edits, delivery status
+FEATURE OWNER: CUSTOMER APP (Business Pack — Aipify Hosts)
+END OF PHASE.

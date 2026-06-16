@@ -1,0 +1,20 @@
+AIPIFY HOSTS — PHASE AIRBNB 33
+TITLE: Hosts Maintenance Center Foundation
+PURPOSE: Centralize all property maintenance activities.
+OBJECTIVES:
+  • Maintenance Center at /app/aipify-hosts/maintenance
+  • Open work orders, preventive maintenance, scheduled maintenance, completed maintenance, contractors
+  • Work order statuses: new, assigned, scheduled, in_progress, waiting_parts, completed, cancelled
+  • Priorities: low, medium, high, critical
+  • Preventive schedules: monthly, quarterly, semi_annual, annual
+  • Maintenance timeline: issue reported, work order created, assigned, started, completed
+  • Dashboard widgets: open work orders, critical items, upcoming preventive, overdue tasks
+  • Notifications: critical created, overdue, preventive due, work order completed
+REQUIREMENTS:
+  • Tenant-scoped RPCs with _ahostmnt_* / _ahostbp395_* helpers
+  • All UI via hosts.maintenance.* i18n (en, no, sv, da)
+  • Knowledge Center articles under aipify-hosts-maintenance
+  • Role-based permissions · audit creation, assignment, status changes, closures
+  • Actions: create work order, assign contractor, change priority, schedule maintenance, close work order
+FEATURE OWNER: CUSTOMER APP (Business Pack — Aipify Hosts)
+END OF PHASE.

@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { COMPANY_CONFIG } from "@/lib/company/company.config";
+import { formatInvoiceIssuerHeader } from "@/lib/company/helpers";
 
 export async function GET(
   _request: Request,
@@ -25,14 +27,14 @@ export async function GET(
     const currency = String(invoice?.currency ?? "NOK");
 
     const body = [
-      "Aipify Group AS — Enterprise Invoice",
+      formatInvoiceIssuerHeader(),
       "",
       `Invoice: ${invoiceNumber}`,
       `Customer: ${tenant}`,
       `Amount: ${amount} ${currency}`,
       "",
       "This document is generated for enterprise procurement records.",
-      "From Norway. For the world.",
+      COMPANY_CONFIG.corporateSignature,
     ].join("\n");
 
     return new NextResponse(body, {

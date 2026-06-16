@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { companyMailto } from "@/lib/company/helpers";
 
 type NavbarProps = {
   appName: string;
@@ -66,7 +67,7 @@ export default function Navbar({
 
         <div className="hidden items-center gap-3 md:flex">
           <a
-            href="mailto:support@aipify.ai"
+            href={companyMailto("contact")}
             className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900"
           >
             {bookDemo}
@@ -125,7 +126,7 @@ export default function Navbar({
             ))}
             <hr className="my-2 border-gray-200" />
             <a
-              href="mailto:support@aipify.ai"
+              href={companyMailto("contact")}
               className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
               onClick={() => setMenuOpen(false)}
             >

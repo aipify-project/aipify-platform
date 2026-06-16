@@ -1,0 +1,14 @@
+AIPIFY HOSTS — PHASE AIRBNB 30
+TITLE: Guest Experience Foundation
+PURPOSE: Monitor and improve guest satisfaction.
+OBJECTIVES:
+  • Guest Experience Center at /app/aipify-hosts/guest-experience
+  • Experience overview, feedback, service recovery, improvement opportunities, trends
+  • Seven experience metrics with Excellent/Good/Needs Improvement/Critical statuses
+  • Notifications for score decline, repeated complaints, overdue recovery, critical properties
+REQUIREMENTS:
+  • Tenant-scoped RPCs with _ahostgxe_* / _ahostbp392_* helpers
+  • All UI via hosts.guestExperience.* i18n (en, no, sv, da)
+  • Knowledge Center articles under aipify-hosts-guest-experience
+FEATURE OWNER: CUSTOMER APP (Business Pack — Aipify Hosts)
+END OF PHASE.

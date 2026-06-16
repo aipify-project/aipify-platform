@@ -42,6 +42,7 @@ export default async function MarketplacePage() {
           updatesAvailable: t(`${p}.updatesAvailable`),
           marketplaceGovernance: t(`${p}.marketplaceGovernance`),
           openMarketplaceGovernance: t(`${p}.openMarketplaceGovernance`),
+          openSelfServiceActivation: t(`${p}.openSelfServiceActivation`),
         }}
       />
     </div>

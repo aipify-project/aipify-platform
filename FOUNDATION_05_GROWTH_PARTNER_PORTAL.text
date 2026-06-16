@@ -1,0 +1,57 @@
+AIPIFY — FOUNDATION 05
+GROWTH PARTNER PORTAL FOUNDATION
+
+PURPOSE
+Give certified Growth Partners their own external-facing sales workspace.
+
+FEATURE OWNER
+GROWTH PARTNER PORTAL (not Platform Admin, not Customer Portal, not Super Admin)
+
+USERS
+Growth Partner Owner · Growth Partner Manager · Growth Partner Sales Member
+
+ROUTES
+/growth-partner → /growth-partner/dashboard
+/growth-partner/dashboard · /growth-partner/leads · /growth-partner/referrals
+/growth-partner/commissions · /growth-partner/payouts · /growth-partner/academy
+/growth-partner/assets · /growth-partner/team · /growth-partner/settings
+
+DASHBOARD WIDGETS
+Leads this month · Active referrals · Converted customers · Pending commissions · Upcoming payouts · Certification status
+
+STATUSES
+Leads: new, contacted, qualified, trial_started, converted, lost
+Referrals: invited, registered, trial_started, converted, active, rewarded
+Commissions: pending, approved, scheduled, paid, rejected
+
+TEAM ROLES
+Partner Owner · Partner Manager · Sales Member
+
+ACADEMY
+Training modules · Certification progress · Sales playbooks · Product knowledge · Compliance rules
+
+ASSETS
+Logos · Banners · Email templates · Sales decks · One-pagers · Social media assets
+
+GOVERNANCE
+Audit lead changes · Audit referral events · Audit commission status changes · Audit payout views · Audit team invitations · Role-based permissions
+Growth Partners manage only their own team · No customer portal access · No Platform Admin · No Super Admin
+
+KNOWLEDGE CENTER
+Category: growth-partner-portal
+Articles: Getting started · Referral rules · Commission overview · Sales ethics · Certification requirements · Using Aipify assets
+
+APIs
+GET /api/growth-partner-portal/dashboard · GET /api/growth-partner-portal/card · POST /api/growth-partner-portal/action
+
+RPCs
+get_growth_partner_portal_dashboard · get_growth_partner_portal_card · perform_growth_partner_portal_action
+Helpers: _gppf05_* · _gppf05bp_*
+
+i18n
+growthPartnerPortal.* (en, no, sv, da)
+
+MIGRATION
+20261521000000_growth_partner_portal_foundation05.sql
+
+END OF FOUNDATION.

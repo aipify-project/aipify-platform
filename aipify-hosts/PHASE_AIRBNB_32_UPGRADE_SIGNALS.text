@@ -1,0 +1,18 @@
+AIPIFY HOSTS — PHASE AIRBNB 32
+TITLE: Recommendation & Upgrade Signals
+PURPOSE: Recommend upgrades when customer usage shows growth.
+DEPENDS ON:
+  • Foundation 02 Marketplace & Self-Service Activation
+  • Hosts Property Licensing Foundation
+OBJECTIVES:
+  • Upgrade Signals at /app/aipify-hosts/upgrade-signals
+  • Eight growth signals with calm recommendations (no pressure)
+  • Display in Hosts Dashboard, Marketplace, Billing, Property Center, Operations Center
+  • Block only new property creation at license limit — existing operations continue
+REQUIREMENTS:
+  • Tenant-scoped RPCs with _ahostus_* / _ahostbp394_* helpers
+  • All UI via hosts.upgradeSignals.* i18n (en, no, sv, da)
+  • Knowledge Center articles under aipify-hosts-upgrade-signals
+  • Audit recommendations shown, upgrade clicks, payments, license changes
+FEATURE OWNER: CUSTOMER APP (Business Pack — Aipify Hosts)
+END OF PHASE.

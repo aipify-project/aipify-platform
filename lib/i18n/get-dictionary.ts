@@ -1,4 +1,5 @@
 import { DEFAULT_LOCALE, type Locale, type Namespace } from "./config";
+import { injectCompanyIntoDictionary } from "@/lib/company/inject";
 import { mergeDictionary } from "./merge-dictionary";
 import type { Dictionary } from "./translate";
 
@@ -22,5 +23,5 @@ export async function getDictionary(
     })
   );
 
-  return Object.fromEntries(entries);
+  return injectCompanyIntoDictionary(Object.fromEntries(entries));
 }

@@ -4,6 +4,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { formatDate } from "@/lib/i18n/format-date";
 import { formatSoftwareVersion } from "@/lib/license";
+import {
+  AIPIFY_OFFICIAL_WEBSITE,
+  AIPIFY_PRIVACY_EMAIL,
+  AIPIFY_SOFTWARE_OWNER,
+  AIPIFY_SUPPORT_EMAIL,
+} from "@/lib/license/engine";
 import { resolveAppHref } from "@/lib/app/route-aliases";
 import { createClient } from "@/lib/supabase/client";
 
@@ -143,10 +149,10 @@ export default function TrustLicenseCenterPanel({
               {section.body.map((line) => (
                 <li key={line}>
                   {line
-                    .replace("{website}", String(legal.website ?? "https://aipify.ai"))
-                    .replace("{support}", String(legal.support_email ?? "support@aipify.ai"))
-                    .replace("{privacy}", String(legal.privacy_email ?? "privacy@aipify.ai"))
-                    .replace("{owner}", String(data?.software_owner ?? "Aipify Group AS"))}
+                    .replace("{website}", String(legal.website ?? AIPIFY_OFFICIAL_WEBSITE))
+                    .replace("{support}", String(legal.support_email ?? AIPIFY_SUPPORT_EMAIL))
+                    .replace("{privacy}", String(legal.privacy_email ?? AIPIFY_PRIVACY_EMAIL))
+                    .replace("{owner}", String(data?.software_owner ?? AIPIFY_SOFTWARE_OWNER))}
                 </li>
               ))}
             </ul>

@@ -128,6 +128,11 @@ export function MarketplaceDashboardPanel({ labels }: MarketplaceDashboardPanelP
         <Link href="/app/skills" className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm">
           {labels.skillStore}
         </Link>
+        {labels.openSelfServiceActivation && (
+          <Link href="/app/marketplace/activation" className="rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-1.5 text-sm font-medium text-indigo-800 hover:bg-indigo-100">
+            {labels.openSelfServiceActivation}
+          </Link>
+        )}
         <Link
           href="/app/marketplace-governance"
           className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm"

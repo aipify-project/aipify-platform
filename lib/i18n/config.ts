@@ -30,6 +30,7 @@ export const NAMESPACES = [
   "hosts",
   "marketing",
   "superAdmin",
+  "growthPartnerPortal",
   "commandBar",
 ] as const;
 

@@ -1,0 +1,21 @@
+AIPIFY HOSTS — PHASE AIRBNB 34
+TITLE: Hosts Cleaning Operations Center Foundation
+PURPOSE: Ensure every property is guest-ready.
+OBJECTIVES:
+  • Cleaning Center at /app/aipify-hosts/cleaning
+  • Today's cleaning, upcoming cleaning, active tasks, cleaning teams, cleaning history
+  • Statuses: scheduled, assigned, in_progress, awaiting_review, completed, requires_attention
+  • Categories: standard turnover, deep cleaning, emergency, seasonal, inspection
+  • Checklist: bedrooms, bathrooms, kitchen, living areas, outdoor, amenities, trash, laundry, supplies
+  • Evidence: completion notes, issue reporting, photo upload references
+  • Timeline: scheduled, assigned, started, completed, issues reported
+  • Widgets: cleanings today, overdue, awaiting cleaning, issues requiring attention
+  • Notifications: assigned, overdue, completed, issue reported
+REQUIREMENTS:
+  • Tenant-scoped RPCs with _ahostcln_* / _ahostbp396_* helpers
+  • All UI via hosts.cleaning.* i18n (en, no, sv, da)
+  • Knowledge Center articles under aipify-hosts-cleaning
+  • Role-based permissions · audit assignments, status changes, issues, completions
+  • Actions: assign cleaner, reassign cleaner, mark complete, report issue, schedule deep cleaning
+FEATURE OWNER: CUSTOMER APP (Business Pack — Aipify Hosts)
+END OF PHASE.

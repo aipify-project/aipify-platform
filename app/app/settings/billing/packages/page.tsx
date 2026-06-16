@@ -1,4 +1,6 @@
 import { PackageAccessCenterPanel } from "@/components/app/settings/billing";
+import { AipifyHostsUpgradeSignalsBanner } from "@/components/app/aipify-hosts-upgrade-signals";
+import { buildHostsUpgradeSignalsBannerLabels } from "@/lib/aipify/aipify-hosts-upgrade-signals";
 import { buildEnterpriseInvoicingLabels } from "@/lib/enterprise-invoicing";
 import { buildPaymentProviderLabels } from "@/lib/payment-providers";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -7,13 +9,16 @@ import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function PackageAccessSettingsPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp"]);
+  const dict = await getDictionary(locale, ["customerApp", "hosts"]);
   const t = createTranslator(dict);
   const ns = "customerApp.packageAccess";
+  const bannerLabels = buildHostsUpgradeSignalsBannerLabels(t);
   const providerLabels = buildPaymentProviderLabels(t, "customerApp");
 
   return (
-    <PackageAccessCenterPanel
+    <div className="mx-auto max-w-6xl space-y-6 p-6">
+      <AipifyHostsUpgradeSignalsBanner labels={bannerLabels} surface="billing" compact />
+      <PackageAccessCenterPanel
       labels={{
         title: t(`${ns}.title`),
         subtitle: t(`${ns}.subtitle`),
@@ -48,5 +53,6 @@ export default async function PackageAccessSettingsPage() {
         enterpriseUpgradeLabels: buildEnterpriseInvoicingLabels(t, "customerApp"),
       }}
     />
+    </div>
   );
 }

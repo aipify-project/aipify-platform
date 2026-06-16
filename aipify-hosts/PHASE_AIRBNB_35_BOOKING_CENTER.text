@@ -1,0 +1,20 @@
+AIPIFY HOSTS — PHASE AIRBNB 35
+TITLE: Hosts Channel & Booking Management Foundation
+PURPOSE: Provide centralized visibility into reservations and booking activity.
+OBJECTIVES:
+  • Booking Center at /app/aipify-hosts/bookings
+  • Upcoming bookings, active stays, past bookings, cancellations, booking reports
+  • Statuses: inquiry, pending, confirmed, checked_in, checked_out, cancelled
+  • Availability validation: property, operational blocks, owner blocks, maintenance blocks
+  • Timeline: reservation created, confirmed, checked in, checked out, closed
+  • Widgets: arrivals today, departures today, upcoming reservations, recent cancellations
+  • Filters: property, booking status, date range, guest name
+  • Notifications: new reservation, upcoming arrival/departure, cancelled, booking conflict
+REQUIREMENTS:
+  • Tenant-scoped RPCs with _ahostbkg_* / _ahostbp397_* helpers
+  • All UI via hosts.booking.* i18n (en, no, sv, da)
+  • Knowledge Center articles under aipify-hosts-booking
+  • Role-based permissions · audit reservation updates, notes, cancellations
+  • Actions: view reservation, update internal notes, open guest profile, view property, check-in workflow
+FEATURE OWNER: CUSTOMER APP (Business Pack — Aipify Hosts)
+END OF PHASE.

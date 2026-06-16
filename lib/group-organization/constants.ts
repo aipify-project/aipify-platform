@@ -1,5 +1,7 @@
+import { COMPANY_CONFIG } from "@/lib/company/company.config";
+
 export const HIERARCHY_LEVELS = [
-  { level: 1, key: "parent", name: "Aipify Group AS" },
+  { level: 1, key: "parent", name: COMPANY_CONFIG.legalCompanyName },
   { level: 2, key: "entity", name: "Business Entities" },
   { level: 3, key: "department", name: "Departments" },
   { level: 4, key: "team", name: "Teams" },

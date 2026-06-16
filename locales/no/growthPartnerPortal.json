@@ -1,0 +1,174 @@
+{
+  "portalTitle": "Growth Partner-arbeidsområde",
+  "portalSubtitle": "Spor leads, henvisninger, provisjoner, academy-fremdrift og godkjente ressurser i ett dedikert salgsarbeidsområde.",
+  "loading": "Forbereder Growth Partner Portal…",
+  "accessDenied": "Growth Partner-tilgang er ikke tilgjengelig for denne kontoen.",
+  "errorTitle": "Growth Partner Portal is temporarily unavailable",
+  "errorMessage": "Aipify could not complete this operation right now. The issue has been logged for review.",
+  "governanceNote": "Role-based permissions · Lead, referral, commission, payout, and team actions audited · No customer or admin access",
+  "leadsThisMonth": "Leads this month",
+  "activeReferrals": "Active referrals",
+  "convertedCustomers": "Converted customers",
+  "pendingCommissions": "Pending commissions",
+  "upcomingPayouts": "Upcoming payouts",
+  "certificationStatus": "Certification status",
+  "certificationProgress": "Certification progress",
+  "company": "Company",
+  "contact": "Contact",
+  "status": "Status",
+  "source": "Source",
+  "actions": "Actions",
+  "prospect": "Prospect",
+  "invitedAt": "Invited",
+  "customer": "Customer",
+  "amount": "Amount",
+  "expectedPayout": "Expected payout",
+  "period": "Period",
+  "scheduledDate": "Scheduled date",
+  "viewPayout": "View payout",
+  "member": "Member",
+  "role": "Role",
+  "markContacted": "Mark contacted",
+  "markQualified": "Mark qualified",
+  "markRegistered": "Mark registered",
+  "inviteMember": "Invite team member",
+  "defaultInviteEmail": "new.member@partner.example",
+  "defaultInviteName": "New sales member",
+  "settingsTitle": "Portal settings",
+  "settingsDescription": "Manage notification preferences for your Growth Partner organization.",
+  "notificationEmail": "Notification email",
+  "updateSettings": "Update notification email",
+  "defaultNotificationEmail": "notifications@partner.example",
+  "completed": "Completed",
+  "common": {
+    "retry": "Retry",
+    "actionRecorded": "Action recorded and audit logged.",
+    "actionFailed": "Action could not be completed."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "leads": "Leads",
+    "referrals": "Henvisninger",
+    "commissions": "Provisjoner",
+    "payouts": "Utbetalinger",
+    "academy": "Academy",
+    "assets": "Ressurser",
+    "team": "Team",
+    "settings": "Innstillinger"
+  },
+  "sections": {
+    "dashboard": {
+      "title": "Growth Partner Dashboard",
+      "subtitle": "Executive overview — leads, referrals, commissions, payouts, and certification status at a glance."
+    },
+    "leads": {
+      "title": "Leads",
+      "subtitle": "Track prospect pipeline from new through converted or lost."
+    },
+    "referrals": {
+      "title": "Referrals",
+      "subtitle": "Monitor referral lifecycle from invited through rewarded."
+    },
+    "commissions": {
+      "title": "Commissions",
+      "subtitle": "Review pending, approved, scheduled, paid, and rejected commissions."
+    },
+    "payouts": {
+      "title": "Payouts",
+      "subtitle": "Upcoming and completed payout schedules for your organization."
+    },
+    "academy": {
+      "title": "Academy",
+      "subtitle": "Training modules, certification progress, playbooks, product knowledge, and compliance."
+    },
+    "assets": {
+      "title": "Assets",
+      "subtitle": "Approved logos, banners, email templates, sales decks, one-pagers, and social assets."
+    },
+    "team": {
+      "title": "Team",
+      "subtitle": "Manage your Growth Partner team — owners, managers, and sales members."
+    },
+    "settings": {
+      "title": "Settings",
+      "subtitle": "Portal preferences and notification settings for your organization."
+    }
+  },
+  "empty": {
+    "leadsTitle": "No leads",
+    "leadsMessage": "Prospect leads appear here as your pipeline grows.",
+    "referralsTitle": "No referrals",
+    "referralsMessage": "Referral records appear here when prospects are invited.",
+    "commissionsTitle": "No commissions",
+    "commissionsMessage": "Commission records appear here as customers convert.",
+    "payoutsTitle": "No payouts",
+    "payoutsMessage": "Scheduled and completed payouts appear here.",
+    "academyTitle": "No academy modules",
+    "academyMessage": "Training modules and certification progress appear here.",
+    "assetsTitle": "No assets",
+    "assetsMessage": "Approved marketing and sales assets appear here.",
+    "teamTitle": "No team members",
+    "teamMessage": "Invite Growth Partner team members to collaborate in this workspace."
+  },
+  "leadStatuses": {
+    "new": "New",
+    "contacted": "Contacted",
+    "qualified": "Qualified",
+    "trial_started": "Trial started",
+    "converted": "Converted",
+    "lost": "Lost"
+  },
+  "referralStatuses": {
+    "invited": "Invited",
+    "registered": "Registered",
+    "trial_started": "Trial started",
+    "converted": "Converted",
+    "active": "Active",
+    "rewarded": "Rewarded"
+  },
+  "commissionStatuses": {
+    "pending": "Pending",
+    "approved": "Approved",
+    "scheduled": "Scheduled",
+    "paid": "Paid",
+    "rejected": "Rejected"
+  },
+  "payoutStatuses": {
+    "scheduled": "Scheduled",
+    "processing": "Processing",
+    "completed": "Completed",
+    "failed": "Failed"
+  },
+  "teamRoles": {
+    "partner_owner": "Partner Owner",
+    "partner_manager": "Partner Manager",
+    "sales_member": "Sales Member"
+  },
+  "memberStatuses": {
+    "invited": "Invited",
+    "active": "Active",
+    "suspended": "Suspended"
+  },
+  "certificationStatuses": {
+    "pending": "Pending",
+    "certified": "Certified",
+    "professional": "Professional",
+    "enterprise": "Enterprise",
+    "master": "Master"
+  },
+  "moduleTypes": {
+    "training": "Training module",
+    "playbook": "Sales playbook",
+    "product_knowledge": "Product knowledge",
+    "compliance": "Compliance rules",
+    "certification": "Certification"
+  },
+  "assetTypes": {
+    "logo": "Logo",
+    "banner": "Banner",
+    "email_template": "Email template",
+    "sales_deck": "Sales deck",
+    "one_pager": "One-pager",
+    "social": "Social media"
+  }
+}

@@ -1,0 +1,69 @@
+AIPIFY — FOUNDATION 02
+MARKETPLACE & SELF-SERVICE ACTIVATION
+
+PURPOSE
+Allow customers to discover, purchase, and activate Aipify capabilities directly within their workspace.
+
+CORE PRINCIPLE
+Customers do not always know what they will need in the future. Aipify should grow with the customer's business.
+
+COMMERCIAL PRINCIPLE
+Paid = Access Now. No logout required after successful payment.
+
+MARKETPLACE SECTIONS
+Installed · Recommended · Discover · Trials · Billing
+
+BUSINESS PACKS
+Aipify Hosts · Aipify Commerce · Aipify Support · Aipify Executive · Aipify Growth · Future Business Packs
+
+CARD STATUSES
+Installed · Available · Upgrade Required · Trial Available
+
+ACTIVATION FLOW
+1. Open Business Pack
+2. Review package details
+3. Activate (or proceed to billing if upgrade required)
+
+After successful payment:
+* Update subscription
+* Update feature flags
+* Activate Business Pack
+* Refresh workspace
+* Display success message
+
+PROPERTY-BASED UPGRADES
+Hosts customers at property limit → recommend Hosts 5 or +1 Property License via one-click upgrade.
+
+RECOMMENDATIONS
+Hosts: Need additional properties?
+Commerce: Enable Margin Analytics
+Support: Enable Executive Briefings
+
+GOVERNANCE
+Role-based permissions · Audit activations · Audit upgrades · Audit cancellations · Audit feature flag changes
+
+KNOWLEDGE CENTER
+Package explanations · Upgrade guidance · Billing FAQs · Capability overviews
+Category: marketplace-self-service
+
+ROUTES
+/app/marketplace/activation — Business Pack Marketplace (primary)
+/app/marketplace — Skills Marketplace (link to activation)
+/app/settings/billing/packages — plan upgrades
+
+APIs
+GET /api/aipify/marketplace-self-service-activation/dashboard
+GET /api/aipify/marketplace-self-service-activation/card
+POST /api/aipify/marketplace-self-service-activation/action
+
+RPCs
+get_marketplace_self_service_dashboard · get_marketplace_self_service_card · perform_marketplace_self_service_action
+Helpers: _mssa_* · _mssaf02_*
+
+i18n
+customerApp.marketplaceSelfService.* (en, no, sv, da)
+
+FEATURE OWNER
+CUSTOMER APP (Customer Portal)
+
+END OF FOUNDATION.

@@ -1,0 +1,17 @@
+AIPIFY HOSTS — PHASE AIRBNB 36
+TITLE: Hosts Owner Executive Dashboard Foundation
+PURPOSE: Provide owners with a complete operational overview within 60 seconds.
+OBJECTIVES:
+  • Executive Dashboard at /app/aipify-hosts/executive
+  • Executive summary, requires attention, today's operations, property health, financial snapshot, upcoming events
+  • Widgets: rearrange, collapse, save preferences (audited)
+  • Quick actions: add property, create work order, schedule inspection, operations center, marketplace
+  • Notifications: critical alerts, pending approvals, operational risks
+  • Aggregates from bookings, cleaning, maintenance, incidents, quality, documents, property health, finance
+REQUIREMENTS:
+  • Tenant-scoped RPCs with _ahostexec_* / _ahostbp398_* helpers
+  • All UI via hosts.executive.* i18n (en, no, sv, da)
+  • Knowledge Center articles under aipify-hosts-executive
+  • Role-based permissions · audit preference changes · Business Pack access
+FEATURE OWNER: CUSTOMER APP (Business Pack — Aipify Hosts)
+END OF PHASE.

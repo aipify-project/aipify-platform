@@ -1,0 +1,22 @@
+AIPIFY HOSTS — PHASE AIRBNB 37
+TITLE: Hosts Review & Reputation Center Foundation
+PURPOSE: Monitor and improve hospitality reputation across all properties.
+OBJECTIVES:
+  • Reputation Center at /app/aipify-hosts/reputation
+  • Sections: review overview, property reviews, review trends, improvement opportunities, recovery actions
+  • Review statuses: new, reviewed, action_required, closed
+  • Review fields: property, stay period, overall rating, review date, review status
+  • Categories: cleanliness, communication, check_in_experience, accuracy, value, location, guest_experience
+  • Trends: rating trends, category trends, property comparisons, monthly performance
+  • Improvement opportunities: repeated complaints, declining categories, operational weaknesses, property trends
+  • Recovery actions: create task, assign owner, schedule inspection, open incident, document resolution
+  • Widgets: average rating, properties requiring attention, top performing properties, open recovery cases
+  • Filters: property, review category, date range, review status
+  • Notifications: rating decline, multiple category complaints, overdue recovery, critical reputation status
+REQUIREMENTS:
+  • Tenant-scoped RPCs with _ahostrep_* / _ahostbp399_* helpers
+  • All UI via hosts.reputation.* i18n (en, no, sv, da)
+  • Knowledge Center articles under aipify-hosts-reputation
+  • Role-based permissions · audit recovery actions, review status changes, resolution records
+FEATURE OWNER: CUSTOMER APP (Business Pack — Aipify Hosts)
+END OF PHASE.

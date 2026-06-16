@@ -33,6 +33,14 @@ PHASE_AIRBNB_26_CALENDAR_CENTER.text — Calendar Center · /app/aipify-hosts/ca
 PHASE_AIRBNB_27_CHECKIN_CENTER.text — Check-In Center · /app/aipify-hosts/check-in · IMPLEMENTED
 PHASE_AIRBNB_28_OWNER_CENTER.text — Owner Center · /app/aipify-hosts/owner · IMPLEMENTED
 PHASE_AIRBNB_29_PROPERTY_HEALTH.text — Property Health Score · /app/aipify-hosts/property-health · IMPLEMENTED
+PHASE_AIRBNB_30_GUEST_EXPERIENCE.text — Guest Experience Center · /app/aipify-hosts/guest-experience · IMPLEMENTED
+PHASE_AIRBNB_31_COMMUNICATION_CENTER.text — Communication Center · /app/aipify-hosts/communications · IMPLEMENTED
+PHASE_AIRBNB_32_UPGRADE_SIGNALS.text — Upgrade Signals · /app/aipify-hosts/upgrade-signals · IMPLEMENTED
+PHASE_AIRBNB_33_MAINTENANCE_CENTER.text — Maintenance Center · /app/aipify-hosts/maintenance · IMPLEMENTED
+PHASE_AIRBNB_34_CLEANING_OPERATIONS_CENTER.text — Cleaning Center · /app/aipify-hosts/cleaning · IMPLEMENTED
+PHASE_AIRBNB_35_BOOKING_CENTER.text — Booking Center · /app/aipify-hosts/bookings · IMPLEMENTED
+PHASE_AIRBNB_36_EXECUTIVE_DASHBOARD.text — Executive Dashboard · /app/aipify-hosts/executive · IMPLEMENTED
+PHASE_AIRBNB_37_REPUTATION_CENTER.text — Review & Reputation Center · /app/aipify-hosts/reputation · IMPLEMENTED
 I18N_FOUNDATION.text — hosts.json namespace (en/no/sv/da) · hosts.<module>.<key> · IMPLEMENTED
 KNOWLEDGE_CENTER_FAQ.text — 43 FAQ articles across 13 categories · IMPLEMENTED (seed migration 20261490000000)
 
@@ -41,7 +49,7 @@ Aipify Hosts is the Business Operating System for modern hospitality businesses.
 Operational layer around booking platforms — never a replacement.
 
 BUILD ORDER
-Foundation 01 → Phase 01 → … → Phase 28 → Phase 29
+Foundation 01 → Phase 01 → … → Phase 31 → Phase 32
 
 FEATURE OWNER
 CUSTOMER APP (all phases)

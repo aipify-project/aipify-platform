@@ -324,6 +324,46 @@ export function AipifyHostsDashboardPanel({ labels }: Props) {
               {labels.openPropertyHealth}
             </Link>
           )}
+          {labels.openGuestExperienceCenter && (
+            <Link href="/app/aipify-hosts/guest-experience" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openGuestExperienceCenter}
+            </Link>
+          )}
+          {labels.openCommunicationCenter && (
+            <Link href="/app/aipify-hosts/communications" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openCommunicationCenter}
+            </Link>
+          )}
+          {labels.openUpgradeSignals && (
+            <Link href="/app/aipify-hosts/upgrade-signals" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openUpgradeSignals}
+            </Link>
+          )}
+          {labels.openMaintenanceCenter && (
+            <Link href="/app/aipify-hosts/maintenance" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openMaintenanceCenter}
+            </Link>
+          )}
+          {labels.openCleaningCenter && (
+            <Link href="/app/aipify-hosts/cleaning" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openCleaningCenter}
+            </Link>
+          )}
+          {labels.openBookingCenter && (
+            <Link href="/app/aipify-hosts/bookings" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openBookingCenter}
+            </Link>
+          )}
+          {labels.openExecutiveDashboard && (
+            <Link href="/app/aipify-hosts/executive" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openExecutiveDashboard}
+            </Link>
+          )}
+          {labels.openReputationCenter && (
+            <Link href="/app/aipify-hosts/reputation" className="inline-flex rounded-lg border border-indigo-200 bg-white px-4 py-2 text-sm font-medium text-indigo-800 hover:bg-indigo-50">
+              {labels.openReputationCenter}
+            </Link>
+          )}
         </div>
       </section>
 
