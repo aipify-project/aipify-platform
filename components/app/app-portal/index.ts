@@ -37,3 +37,5 @@ export { CommunicationsPanel } from "./CommunicationsPanel";
 export { CommunicationDetailPanel } from "./CommunicationDetailPanel";
 export { ContinuityPanel } from "./ContinuityPanel";
 export { ContinuityDetailPanel } from "./ContinuityDetailPanel";
+export { LearningImprovementPanel } from "./LearningImprovementPanel";
+export { LearningImprovementDetailPanel } from "./LearningImprovementDetailPanel";

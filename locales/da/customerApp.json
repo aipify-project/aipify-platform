@@ -23512,7 +23512,8 @@
       "organizationalAssets": "Assets & Resources",
       "meetings": "Meetings",
       "communications": "Communications",
-      "continuity": "Continuity"
+      "continuity": "Continuity",
+      "learningImprovement": "Learning & Improvement"
     },
     "dashboard": {
       "title": "APP-dashboard",
@@ -25654,6 +25655,126 @@
         "exercisesAnswer": "Exercises help organizations validate assumptions, identify weaknesses and improve preparedness before disruptions occur.",
         "autoManage": "Can Aipify manage incidents automatically?",
         "autoManageAnswer": "No. Aipify supports preparedness and organizational awareness, but people remain responsible for operational decisions during critical situations."
+      }
+    },
+    "learningImprovement": {
+      "title": "Learning & Improvement",
+      "subtitle": "Capture lessons learned, identify improvement opportunities and strengthen organizational memory.",
+      "loading": "Aipify is reviewing organizational learning opportunities…",
+      "principle": "Organizations improve when they remember what they have learned and apply those lessons consistently.",
+      "emptyTitle": "No organizational learnings have been recorded yet.",
+      "emptyBody": "Organizations improve when they remember what they have learned and apply those lessons consistently.",
+      "emptyCta": "Record Learning",
+      "back": "Learning & Improvement",
+      "notFound": "Learning record not found.",
+      "filters": {
+        "search": "Search learnings…",
+        "category": "Category",
+        "status": "Status",
+        "owner": "Owner",
+        "impact": "Impact level",
+        "identifiedFrom": "Identified from",
+        "identifiedTo": "Identified to",
+        "recentlyImplemented": "Recently implemented",
+        "all": "All",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "dashboard": {
+        "recentlyIdentified": "Recently identified learnings",
+        "implemented": "Improvements implemented",
+        "awaitingReview": "Learnings awaiting review",
+        "highImpact": "High-impact opportunities",
+        "recurringThemes": "Frequently recurring themes",
+        "recentlyArchived": "Recently archived records"
+      },
+      "patterns": {
+        "title": "Pattern recognition",
+        "repeatedBottlenecks": "Repeated bottlenecks",
+        "commonSupportIssues": "Common support issues",
+        "delayedActivities": "Frequently delayed activities",
+        "approvalChallenges": "Repeated approval challenges",
+        "onboardingObstacles": "Common onboarding obstacles",
+        "inactive": "No recurring pattern detected"
+      },
+      "form": {
+        "createTitle": "Record learning",
+        "title": "Title",
+        "description": "Description",
+        "category": "Category",
+        "impact": "Impact level",
+        "notes": "Notes",
+        "submit": "Record learning",
+        "cancel": "Cancel"
+      },
+      "card": {
+        "submittedBy": "Submitted by",
+        "owner": "Owner",
+        "impact": "Impact",
+        "dateIdentified": "Date identified",
+        "dateImplemented": "Date implemented",
+        "view": "View"
+      },
+      "detail": {
+        "overview": "Learning overview",
+        "ownership": "Ownership details",
+        "actions": "Improvement actions",
+        "relatedFollowUps": "Related follow-ups",
+        "relatedDecisions": "Related decisions",
+        "activity": "Activity timeline",
+        "audit": "Audit history",
+        "save": "Save updates",
+        "saved": "Learning record updated.",
+        "recommendations": "Aipify recommendations",
+        "addAction": "Add improvement action",
+        "actionTitle": "Action title",
+        "rootCauses": "Root causes",
+        "recommendedActions": "Recommended actions",
+        "successCriteria": "Success criteria",
+        "expectedOutcomes": "Expected outcomes",
+        "lessonsApplied": "Lessons applied elsewhere"
+      },
+      "categories": {
+        "operationalImprovement": "Operational Improvement",
+        "customerExperience": "Customer Experience",
+        "securityImprovement": "Security Improvement",
+        "incidentLearning": "Incident Learning",
+        "leadershipLearning": "Leadership Learning",
+        "processImprovement": "Process Improvement",
+        "teamCollaboration": "Team Collaboration",
+        "technologyLearning": "Technology Learning",
+        "vendorLearning": "Vendor Learning",
+        "customLearning": "Custom Learning"
+      },
+      "statuses": {
+        "identified": "Identified",
+        "underReview": "Under Review",
+        "approved": "Approved",
+        "inProgress": "In Progress",
+        "implemented": "Implemented",
+        "archived": "Archived"
+      },
+      "impact": {
+        "minorImprovement": "Minor Improvement",
+        "moderateImprovement": "Moderate Improvement",
+        "significantImprovement": "Significant Improvement",
+        "transformationalImprovement": "Transformational Improvement"
+      },
+      "recommendations": {
+        "reviewRepeated": "Review repeated lessons for common patterns.",
+        "assignOwner": "Assign owners to unresolved improvements.",
+        "shareSuccess": "Share successful improvements across teams.",
+        "evaluatePatterns": "Evaluate recurring operational patterns.",
+        "celebrateImplemented": "Celebrate implemented improvements."
+      },
+      "faq": {
+        "title": "Learning & Improvement FAQ",
+        "whatIs": "What is the Learning & Improvement Center?",
+        "whatIsAnswer": "The Learning & Improvement Center helps organizations capture lessons learned and transform them into meaningful operational improvements.",
+        "document": "Why should lessons learned be documented?",
+        "documentAnswer": "Documenting lessons helps organizations avoid repeating mistakes, strengthen best practices and improve over time.",
+        "autoImplement": "Can Aipify automatically implement improvements?",
+        "autoImplementAnswer": "No. Aipify supports awareness and continuous improvement, but people remain responsible for evaluating and implementing changes."
       }
     }
   },
