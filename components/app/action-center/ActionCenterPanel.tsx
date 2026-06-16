@@ -2,7 +2,21 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import {
+  ActionApprovalDashboardWidgets,
+  ActionApprovalDetailView,
+  ActionExecutiveApprovalSummary,
+} from "@/components/shared/action-center-approval";
 import { ActionImpactAnalysisView, ActionImpactDashboardWidgets } from "@/components/shared/action-center-impact";
+import {
+  buildApprovalDashboardWidgets,
+  parseApprovalDelegationCenter,
+  parseApprovalDetail,
+  type ApprovalDecisionType,
+  type ApprovalDelegationCenter,
+  type ApprovalDelegationLabels,
+  type ApprovalDetail,
+} from "@/lib/action-center-approval";
 import {
   buildImpactDashboardWidgets,
   parseActionImpactAnalysis,
@@ -10,6 +24,9 @@ import {
   type ActionImpactLabels,
 } from "@/lib/action-center-impact";
 import { parseActionCenter, type ActionCenter, type AipifyAction } from "@/lib/aipify/execution";
+
+type CenterMode = "impact" | "approvals";
+type DetailMode = "impact" | "approval";
 
 type ActionCenterPanelProps = {
   labels: {
@@ -65,6 +82,7 @@ type ActionCenterPanelProps = {
     };
   };
   impactLabels: ActionImpactLabels;
+  approvalLabels: ApprovalDelegationLabels;
 };
 
 const RISK_STYLES: Record<string, string> = {
@@ -84,16 +102,24 @@ const STATUS_STYLES: Record<string, string> = {
   scheduled: "bg-indigo-100 text-indigo-900",
 };
 
-export function ActionCenterPanel({ labels, impactLabels }: ActionCenterPanelProps) {
+export function ActionCenterPanel({ labels, impactLabels, approvalLabels }: ActionCenterPanelProps) {
+  const [centerMode, setCenterMode] = useState<CenterMode>("impact");
+  const [detailMode, setDetailMode] = useState<DetailMode>("impact");
   const [center, setCenter] = useState<ActionCenter | null>(null);
+  const [approvalCenter, setApprovalCenter] = useState<ApprovalDelegationCenter | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [impactAnalysis, setImpactAnalysis] = useState<ActionImpactAnalysis | null>(null);
+  const [approvalDetail, setApprovalDetail] = useState<ApprovalDetail | null>(null);
   const [actingId, setActingId] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
-    const res = await fetch("/api/aipify/action-center");
-    if (res.ok) setCenter(parseActionCenter(await res.json()));
+    const [centerRes, approvalsRes] = await Promise.all([
+      fetch("/api/aipify/action-center"),
+      fetch("/api/aipify/action-center/approvals"),
+    ]);
+    if (centerRes.ok) setCenter(parseActionCenter(await centerRes.json()));
+    if (approvalsRes.ok) setApprovalCenter(parseApprovalDelegationCenter(await approvalsRes.json()));
     setLoading(false);
   }, []);
 
@@ -101,16 +127,51 @@ export function ActionCenterPanel({ labels, impactLabels }: ActionCenterPanelPro
     void refresh();
   }, [refresh]);
 
-  async function loadDetail(id: string) {
+  async function loadImpactDetail(id: string) {
     setSelectedId(id);
+    setDetailMode("impact");
     const res = await fetch(`/api/aipify/actions/${id}/impact`);
     if (res.ok) setImpactAnalysis(parseActionImpactAnalysis(await res.json()));
+  }
+
+  async function loadApprovalDetail(id: string) {
+    setSelectedId(id);
+    setDetailMode("approval");
+    const res = await fetch(`/api/aipify/actions/${id}/approval`);
+    if (res.ok) setApprovalDetail(parseApprovalDetail(await res.json()));
+  }
+
+  function clearDetail() {
+    setSelectedId(null);
+    setImpactAnalysis(null);
+    setApprovalDetail(null);
+  }
+
+  async function submitApprovalDecision(
+    id: string,
+    decision: ApprovalDecisionType,
+    payload: { comment?: string; delegate_to?: string; conditions?: string }
+  ) {
+    setActingId(id);
+    await fetch(`/api/aipify/actions/${id}/approval/decision`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        decision,
+        comment: payload.comment,
+        delegate_to: payload.delegate_to,
+        conditions: payload.conditions ? { notes: payload.conditions } : {},
+      }),
+    });
+    if (selectedId === id) await loadApprovalDetail(id);
+    await refresh();
+    setActingId(null);
   }
 
   async function approveAction(id: string) {
     setActingId(id);
     await fetch(`/api/aipify/actions/${id}/approve`, { method: "POST" });
-    if (selectedId === id) await loadDetail(id);
+    if (selectedId === id) await loadImpactDetail(id);
     await refresh();
     setActingId(null);
   }
@@ -122,8 +183,7 @@ export function ActionCenterPanel({ labels, impactLabels }: ActionCenterPanelPro
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ reason: "Rejected from Action Center" }),
     });
-    setSelectedId(null);
-    setImpactAnalysis(null);
+    clearDetail();
     await refresh();
     setActingId(null);
   }
@@ -131,7 +191,7 @@ export function ActionCenterPanel({ labels, impactLabels }: ActionCenterPanelPro
   async function executeAction(id: string) {
     setActingId(id);
     await fetch(`/api/aipify/actions/${id}/execute`, { method: "POST" });
-    if (selectedId === id) await loadDetail(id);
+    if (selectedId === id) await loadImpactDetail(id);
     await refresh();
     setActingId(null);
   }
@@ -172,6 +232,11 @@ export function ActionCenterPanel({ labels, impactLabels }: ActionCenterPanelPro
   const counts = center?.counts ?? {};
   const pending = center?.pending_actions ?? [];
   const impactWidgets = buildImpactDashboardWidgets(center);
+  const approvalWidgets = buildApprovalDashboardWidgets(approvalCenter);
+  const headerTitle =
+    centerMode === "approvals" ? approvalLabels.centerTitle : impactLabels.centerTitle;
+  const headerSubtitle =
+    centerMode === "approvals" ? approvalLabels.centerSubtitle : impactLabels.centerSubtitle;
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-6">
@@ -179,10 +244,30 @@ export function ActionCenterPanel({ labels, impactLabels }: ActionCenterPanelPro
         <Link href="/app" className="text-sm text-indigo-600 hover:underline">
           ← {labels.back}
         </Link>
-        <h1 className="mt-2 text-2xl font-bold tracking-tight text-gray-900">
-          {impactLabels.centerTitle}
-        </h1>
-        <p className="mt-2 text-gray-600">{impactLabels.centerSubtitle}</p>
+        <h1 className="mt-2 text-2xl font-bold tracking-tight text-gray-900">{headerTitle}</h1>
+        <p className="mt-2 text-gray-600">{headerSubtitle}</p>
+        <div className="mt-4 flex rounded-xl border border-gray-200 p-0.5 text-sm">
+          <button
+            type="button"
+            onClick={() => {
+              setCenterMode("impact");
+              clearDetail();
+            }}
+            className={`rounded-lg px-3 py-1.5 ${centerMode === "impact" ? "bg-indigo-600 text-white" : "text-gray-600"}`}
+          >
+            {approvalLabels.tabImpact}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setCenterMode("approvals");
+              clearDetail();
+            }}
+            className={`rounded-lg px-3 py-1.5 ${centerMode === "approvals" ? "bg-indigo-600 text-white" : "text-gray-600"}`}
+          >
+            {approvalLabels.tabApprovals}
+          </button>
+        </div>
         <p className="mt-1 text-sm text-gray-500">{labels.subtitle}</p>
         <p className="mt-1 text-sm font-medium text-indigo-800">{labels.youControl}</p>
         {(center?.privacy_note || labels.privacy) && (
@@ -217,15 +302,32 @@ export function ActionCenterPanel({ labels, impactLabels }: ActionCenterPanelPro
         </div>
       </section>
 
-      {!selectedId ? (
+      {!selectedId && centerMode === "impact" ? (
         <ActionImpactDashboardWidgets
           widgets={impactWidgets}
           labels={impactLabels}
-          onSelectAction={(id) => void loadDetail(id)}
+          onSelectAction={(id) => void loadImpactDetail(id)}
         />
       ) : null}
 
-      {selectedId && impactAnalysis?.found && impactAnalysis.action ? (
+      {!selectedId && centerMode === "approvals" ? (
+        <>
+          {approvalCenter?.executive_summary ? (
+            <ActionExecutiveApprovalSummary
+              summary={approvalCenter.executive_summary}
+              labels={approvalLabels}
+            />
+          ) : null}
+          <ActionApprovalDashboardWidgets
+            widgets={approvalWidgets}
+            labels={approvalLabels}
+            riskLabels={labels.riskLevels}
+            onSelectAction={(id) => void loadApprovalDetail(id)}
+          />
+        </>
+      ) : null}
+
+      {selectedId && detailMode === "impact" && impactAnalysis?.found && impactAnalysis.action ? (
         <ActionImpactAnalysisView
           analysis={impactAnalysis}
           action={impactAnalysis.action}
@@ -233,15 +335,26 @@ export function ActionCenterPanel({ labels, impactLabels }: ActionCenterPanelPro
           statusLabels={labels.statusLabels}
           riskLabels={labels.riskLevels}
           actingId={actingId}
-          onBack={() => {
-            setSelectedId(null);
-            setImpactAnalysis(null);
-          }}
+          onBack={clearDetail}
           onApprove={() => void approveAction(selectedId)}
           onReject={() => void rejectAction(selectedId)}
           onExecute={() => void executeAction(selectedId)}
         />
-      ) : (
+      ) : null}
+
+      {selectedId && detailMode === "approval" && approvalDetail?.found ? (
+        <ActionApprovalDetailView
+          detail={approvalDetail}
+          labels={approvalLabels}
+          riskLabels={labels.riskLevels}
+          acting={actingId === selectedId}
+          onBack={clearDetail}
+          onOpenImpact={() => void loadImpactDetail(selectedId)}
+          onDecision={(decision, payload) => submitApprovalDecision(selectedId, decision, payload)}
+        />
+      ) : null}
+
+      {!selectedId && centerMode === "impact" ? (
         <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
           <h2 className="font-semibold text-gray-900">{labels.sections.pending}</h2>
           {pending.length === 0 ? (
@@ -257,7 +370,7 @@ export function ActionCenterPanel({ labels, impactLabels }: ActionCenterPanelPro
                   action={action}
                   labels={labels}
                   actingId={actingId}
-                  onView={() => void loadDetail(action.id)}
+                  onView={() => void loadImpactDetail(action.id)}
                   onApprove={() => void approveAction(action.id)}
                   onReject={() => void rejectAction(action.id)}
                   onExecute={() => void executeAction(action.id)}
@@ -266,7 +379,7 @@ export function ActionCenterPanel({ labels, impactLabels }: ActionCenterPanelPro
             </ul>
           )}
         </section>
-      )}
+      ) : null}
 
       {(center?.rules?.length ?? 0) > 0 && (
         <section className="rounded-2xl border border-indigo-100 bg-indigo-50/40 p-5">

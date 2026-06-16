@@ -7601,6 +7601,120 @@
         "positive": "Positive",
         "monitorClosely": "Monitor closely"
       }
+    },
+    "approvalDelegation": {
+      "centerTitle": "Godkendelse og delegering",
+      "centerSubtitle": "Enterprise approval workflows, delegation, SLA monitoring, and accountability trails for Aipify actions.",
+      "tabImpact": "Impact Analysis",
+      "tabApprovals": "Godkendelse og delegering",
+      "humanOversight": "Aipify may recommend approvers and delegates. Aipify never approves on behalf of humans unless explicitly authorized by governance settings.",
+      "sections": {
+        "workflow": "Approval workflow",
+        "delegation": "Delegation",
+        "sla": "SLA monitoring",
+        "audit": "Audit trail",
+        "executive": "Executive visibility",
+        "decisions": "Approval decision",
+        "recommendations": "Delegation recommendations",
+        "widgets": "Approval dashboard",
+        "knowledgeCenter": "Knowledge Center"
+      },
+      "workflow": {
+        "type": "Workflow type",
+        "steps": "Approval progress",
+        "rules": "Approval rules applied",
+        "types": {
+          "none": "No approval required",
+          "single": "Single approval",
+          "multiStep": "Multi-step approval",
+          "parallel": "Parallel approvals",
+          "executive": "Executive approval"
+        }
+      },
+      "delegation": {
+        "currentOwner": "Current owner",
+        "previousOwners": "Previous owners",
+        "history": "Delegation history",
+        "assign": "Assign action",
+        "delegateTo": "Delegate to (role or name)"
+      },
+      "sla": {
+        "status": "SLA status",
+        "hoursWaiting": "Hours awaiting approval",
+        "deadline": "Target deadline",
+        "statuses": {
+          "onTrack": "On track",
+          "approachingDeadline": "Approaching deadline",
+          "overdue": "Overdue",
+          "escalated": "Escalated"
+        }
+      },
+      "decisions": {
+        "approve": "Approve",
+        "approveWithConditions": "Approve with conditions",
+        "reject": "Reject",
+        "requestInformation": "Request additional information",
+        "delegateReview": "Delegate review",
+        "requireExecutiveOversight": "Require executive oversight",
+        "escalate": "Escalate",
+        "returnForClarification": "Return for clarification",
+        "comment": "Comment or rationale",
+        "conditions": "Conditions (if approving with conditions)",
+        "submit": "Submit decision"
+      },
+      "recommendations": {
+        "intro": "Optional delegate recommendations based on role permissions, department responsibility, and expertise.",
+        "optional": "Optional",
+        "reasons": {
+          "rolePermissions": "Role permissions",
+          "historicalOwnership": "Historical ownership",
+          "departmentResponsibility": "Department responsibility",
+          "workloadBalancing": "Workload balancing",
+          "subjectMatterExpertise": "Subject matter expertise"
+        }
+      },
+      "executive": {
+        "healthScore": "Organization approval health",
+        "criticalBlocked": "Critical blocked decisions",
+        "highRiskAwaiting": "High-risk awaiting approval",
+        "avgCycle": "Avg approval cycle",
+        "delegationEffectiveness": "Delegation events (30d)"
+      },
+      "widgets": {
+        "pendingApprovals": "Pending approvals",
+        "awaitingMyReview": "Actions awaiting my review",
+        "recentlyApproved": "Recently approved actions",
+        "rejected": "Rejected actions",
+        "escalated": "Escalated actions",
+        "executiveDecisions": "Executive decisions",
+        "empty": "No items in this view right now.",
+        "viewAction": "Review"
+      },
+      "notifications": {
+        "approvalRequired": "Approval required",
+        "approvalCompleted": "Approval completed",
+        "delegated": "Action delegated",
+        "escalated": "Action escalated",
+        "overdue": "Approval overdue"
+      },
+      "faq": {
+        "title": "Approvals & Delegation FAQ",
+        "whatIsDelegation": "What is delegation?",
+        "whatIsDelegationAnswer": "Delegation assigns review or execution responsibility to another role while preserving a full accountability trail.",
+        "whatIsWorkflow": "What is an approval workflow?",
+        "whatIsWorkflowAnswer": "An approval workflow defines how many approvers are required and whether steps run in sequence, in parallel, or at executive level.",
+        "autoApprove": "Can Aipify approve actions automatically?",
+        "autoApproveAnswer": "No by default. Aipify recommends and prepares actions. Humans approve unless explicit governance settings authorize otherwise.",
+        "howApproversSelected": "How are approvers selected?",
+        "howApproversSelectedAnswer": "Based on action category, risk level, estimated impact, department ownership, and organization policies — with optional Aipify recommendations.",
+        "delayedApprovals": "What happens when approvals are delayed?",
+        "delayedApprovalsAnswer": "SLA monitoring tracks waiting time, surfaces bottlenecks, and supports escalation. Organizations retain authority over final decisions."
+      },
+      "empty": "No approval items require attention.",
+      "principle": "Aipify supports decision processes. Organizations retain authority.",
+      "actions": {
+        "back": "Back to Action Center"
+      }
     }
   },
   "workingStyle": {
