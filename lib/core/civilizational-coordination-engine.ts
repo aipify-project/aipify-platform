@@ -3,9 +3,7 @@
  * Authoritative enforcement lives in Supabase RPCs (_ccae_*).
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export const COORDINATION_MODES = ["voluntary", "governed", "executive_sponsored"] as const;
 export type CoordinationMode = (typeof COORDINATION_MODES)[number];

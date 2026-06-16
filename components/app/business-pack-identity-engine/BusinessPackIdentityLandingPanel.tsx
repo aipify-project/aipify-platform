@@ -63,8 +63,8 @@ export function BusinessPackIdentityLandingPanel({ packKey, labels }: Props) {
     return (
       <PlatformEmptyState
         title={labels.notFoundTitle}
-        description={labels.notFoundMessage}
-        action={{ label: labels.backToMarketplace, href: "/app/marketplace/activation" }}
+        message={labels.notFoundMessage}
+        primaryAction={{ label: labels.backToMarketplace, href: "/app/marketplace/activation" }}
       />
     );
   }

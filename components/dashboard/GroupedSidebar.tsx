@@ -7,7 +7,7 @@ import {
   APP_NAV_INITIALIZED_STORAGE_KEY,
   APP_NAV_LAST_ITEM_STORAGE_KEY,
   APP_NAV_OPEN_GROUP_STORAGE_KEY,
-  type AppNavGroupId,
+  APP_COLLAPSIBLE_GROUPS,
 } from "@/lib/app/nav-groups";
 import { getGroupIdForNavItem, filterAppNavSearchEntries } from "@/lib/app/nav-search";
 import type { AppNavGroupConfig, AppNavLink } from "@/lib/app/build-nav";
@@ -52,14 +52,6 @@ const ACTIVE_ACCENT_CLASSES = {
   soft: "bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-sm",
 } as const;
 
-const CUSTOMER_COLLAPSIBLE_GROUPS: AppNavGroupId[] = [
-  "organization",
-  "intelligence",
-  "operations",
-  "platform",
-  "governance",
-];
-
 function createStorageHelpers(mode: "customer" | "platform") {
   const openGroupKey =
     mode === "platform" ? PLATFORM_NAV_OPEN_GROUP_STORAGE_KEY : APP_NAV_OPEN_GROUP_STORAGE_KEY;
@@ -70,7 +62,7 @@ function createStorageHelpers(mode: "customer" | "platform") {
   const lastItemKey =
     mode === "platform" ? PLATFORM_NAV_LAST_ITEM_STORAGE_KEY : APP_NAV_LAST_ITEM_STORAGE_KEY;
   const collapsibleGroups: readonly string[] =
-    mode === "platform" ? PLATFORM_COLLAPSIBLE_GROUPS : CUSTOMER_COLLAPSIBLE_GROUPS;
+    mode === "platform" ? PLATFORM_COLLAPSIBLE_GROUPS : APP_COLLAPSIBLE_GROUPS;
   const resolveGroupId =
     mode === "platform" ? getPlatformGroupIdForNavItem : getGroupIdForNavItem;
   const filterSearch =

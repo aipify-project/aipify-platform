@@ -4,9 +4,7 @@
  * Authoritative enforcement lives in Supabase RPCs.
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export const PRODUCTIVITY_REMINDER_CHANNELS = ["in_app", "desktop", "email", "presence"] as const;
 export type ProductivityReminderChannel = (typeof PRODUCTIVITY_REMINDER_CHANNELS)[number];

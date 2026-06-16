@@ -4,9 +4,7 @@
  * Extends Security & Trust (A.18), Compliance (A.29), Organizational Memory (A.34), Document Output (A.59).
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export const RECORD_CATEGORIES = [
   "executive_report",

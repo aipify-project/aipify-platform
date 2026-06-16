@@ -327,6 +327,7 @@ export type AppNavId =
   | "growthPartnerOperationsEngine"
   | "growthPartnerAcademy"
   | "growthPartnerMarketing"
+  | "growthPartnerResourceCenter"
   | "growthPartnerBusinessPlanning"
   | "ecosystemGovernanceEngine"
   | "commercialModelEngine"

@@ -3,9 +3,7 @@
  * Authoritative enforcement lives in Supabase RPCs (_atawpe_*).
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export async function getAipifyTalentAcquisitionWorkforcePlanningEngineDashboard(supabase: RpcClient): Promise<Record<string, unknown>> {
   const { data, error } = await supabase.rpc("get_aipify_talent_acquisition_workforce_planning_engine_dashboard");

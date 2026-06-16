@@ -3,9 +3,7 @@
  * Authoritative enforcement lives in Supabase RPCs (_cspe_*).
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export const SHARED_PROSPERITY_MATURITY_STAGES = [
   "emerging_stewardship",

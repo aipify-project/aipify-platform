@@ -3,9 +3,7 @@
  * Authoritative enforcement lives in Supabase RPCs (_cfie_*).
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export const FORESIGHT_HORIZON_FOCUS = [
   "five_year",

@@ -2,9 +2,7 @@
  * Foundation 04 — Business Pack Legal Engine.
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export async function getBusinessPackLegalCenter(
   supabase: RpcClient,

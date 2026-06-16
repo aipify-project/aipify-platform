@@ -4,9 +4,7 @@
  * Distinct from legacy Strategy Engine at /app/strategy (lib/aipify/strategy/).
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export const STRATEGIC_OBJECTIVE_PRIORITIES = ["low", "medium", "high", "strategic"] as const;
 export type StrategicObjectivePriority = (typeof STRATEGIC_OBJECTIVE_PRIORITIES)[number];

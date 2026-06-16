@@ -3,9 +3,7 @@
  * Authoritative enforcement lives in Supabase RPCs (_cstce_*).
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export const SOCIAL_COHESION_TRUST_MODES = ["guided", "executive_led", "stewardship_focused"] as const;
 export type SocialCohesionTrustMode = (typeof SOCIAL_COHESION_TRUST_MODES)[number];

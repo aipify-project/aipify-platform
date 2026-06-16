@@ -4,9 +4,7 @@
  * Distinct from Observability Platform Health at /app/observability-platform-health-engine.
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export const ORGANIZATIONAL_HEALTH_CATEGORIES = [
   "operational",

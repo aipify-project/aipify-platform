@@ -21,7 +21,24 @@ export function parseBusinessPackLicenseCenter(data: unknown): BusinessPackLicen
     overview: row.overview as BusinessPackLicenseCenter["overview"],
     usage: row.usage as BusinessPackLicenseCenter["usage"],
     upgrade: row.upgrade
-      ? { ...(row.upgrade as BusinessPackLicenseCenter["upgrade"]), available_tiers: parseTiers((row.upgrade as Record<string, unknown>).available_tiers) }
+      ? {
+          available_tiers: parseTiers((row.upgrade as Record<string, unknown>).available_tiers),
+          feature_comparison: Array.isArray((row.upgrade as Record<string, unknown>).feature_comparison)
+            ? ((row.upgrade as Record<string, unknown>).feature_comparison as Array<Record<string, unknown>>)
+            : [],
+          upgrade_flow: Array.isArray((row.upgrade as Record<string, unknown>).upgrade_flow)
+            ? ((row.upgrade as Record<string, unknown>).upgrade_flow as string[])
+            : [],
+          activation_route: typeof (row.upgrade as Record<string, unknown>).activation_route === "string"
+            ? String((row.upgrade as Record<string, unknown>).activation_route)
+            : "",
+          billing_route: typeof (row.upgrade as Record<string, unknown>).billing_route === "string"
+            ? String((row.upgrade as Record<string, unknown>).billing_route)
+            : "",
+          landing_route: typeof (row.upgrade as Record<string, unknown>).landing_route === "string"
+            ? String((row.upgrade as Record<string, unknown>).landing_route)
+            : "",
+        }
       : undefined,
     governance_note: typeof row.governance_note === "string" ? row.governance_note : undefined,
   };

@@ -3,9 +3,7 @@
  * Authoritative enforcement lives in Supabase RPCs.
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export const AI_TASK_TIERS = ["cost_efficient", "standard", "high_accuracy"] as const;
 export type AiTaskTier = (typeof AI_TASK_TIERS)[number];

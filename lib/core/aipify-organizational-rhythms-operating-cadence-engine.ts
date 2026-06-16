@@ -3,9 +3,7 @@
  * Authoritative enforcement lives in Supabase RPCs (_aoroce_*).
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export async function getAipifyOrganizationalRhythmsOperatingCadenceEngineDashboard(supabase: RpcClient): Promise<Record<string, unknown>> {
   const { data, error } = await supabase.rpc("get_aipify_organizational_rhythms_operating_cadence_engine_dashboard");

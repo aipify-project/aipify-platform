@@ -3,9 +3,7 @@
  * Authoritative enforcement lives in Supabase RPCs (_akdise_*).
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export async function getAipifyKnowledgeDiscoveryIntelligentSearchEngineDashboard(supabase: RpcClient): Promise<Record<string, unknown>> {
   const { data, error } = await supabase.rpc("get_aipify_knowledge_discovery_intelligent_search_engine_dashboard");

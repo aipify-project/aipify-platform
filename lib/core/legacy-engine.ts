@@ -3,9 +3,7 @@
  * Authoritative enforcement lives in Supabase RPCs.
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export const LEGACY_DIMENSIONS = ["knowledge", "people", "customer", "innovation"] as const;
 export type LegacyDimension = (typeof LEGACY_DIMENSIONS)[number];

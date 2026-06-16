@@ -231,8 +231,6 @@ export * from "./implementation-blueprint-airbnb17-vocabulary";
 export * from "./implementation-blueprint-airbnb18-vocabulary";
 export * from "./implementation-blueprint-airbnb19-vocabulary";
 export * from "./skills-marketplace-naming-vocabulary";
-export * from "./aipify-single-identity-brand-rule-vocabulary";
-export * from "./aipify-hosts-roadmap-vocabulary";
 export * from "./implementation-blueprint-phase221-vocabulary";
 export * from "./implementation-blueprint-phase222-vocabulary";
 export * from "./implementation-blueprint-phase223-vocabulary";

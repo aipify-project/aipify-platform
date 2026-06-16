@@ -1,4 +1,6 @@
 export type SuperAdminSectionId =
+  | "executiveOversight"
+  | "platformGovernance"
   | "groupOrganization"
   | "platformOperations"
   | "tenantManagement"

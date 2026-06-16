@@ -143,7 +143,7 @@ function SectionGrid({
     <section className="space-y-4">
       <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-500">{title}</h2>
       {listings.length === 0 ? (
-        emptyTitle ? <PlatformEmptyState title={emptyTitle} description={emptyMessage ?? ""} /> : null
+        emptyTitle ? <PlatformEmptyState title={emptyTitle} message={emptyMessage ?? ""} /> : null
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {listings.map((listing) => (
@@ -212,8 +212,8 @@ export function BusinessPackMarketplaceHomePanel({ labels, locale = "en" }: Prop
     return (
       <PlatformEmptyState
         title={labels.errorTitle}
-        description={labels.errorMessage}
-        action={{ label: labels.retry, href: "/app/marketplace/business-packs" }}
+        message={labels.errorMessage}
+        primaryAction={{ label: labels.retry, href: "/app/marketplace/business-packs" }}
       />
     );
   }

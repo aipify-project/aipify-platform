@@ -64,8 +64,8 @@ export function BusinessPackMarketplaceInstallPanel({ packKey, labels }: Props) 
     return (
       <PlatformEmptyState
         title={labels.notFoundTitle}
-        description={labels.notFoundMessage}
-        action={{ label: labels.backToMarketplace, href: "/app/marketplace/business-packs" }}
+        message={labels.notFoundMessage}
+        primaryAction={{ label: labels.backToMarketplace, href: "/app/marketplace/business-packs" }}
       />
     );
   }

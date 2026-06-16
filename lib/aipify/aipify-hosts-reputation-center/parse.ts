@@ -124,23 +124,21 @@ function parseStats(data: unknown): HostsReputationStats {
 }
 
 function parseOpportunities(data: unknown): HostsImprovementOpportunity[] {
-  return asArray<unknown>(data)
-    .map((row) => {
-      const d = row as Record<string, unknown>;
-      if (!d.type) return null;
-      return {
-        type: String(d.type),
-        category: typeof d.category === "string" ? d.category : undefined,
-        property_id: d.property_id != null ? String(d.property_id) : undefined,
-        property: typeof d.property === "string" ? d.property : undefined,
-        label: typeof d.label === "string" ? d.label : String(d.type),
-        severity: typeof d.severity === "string" ? d.severity : "medium",
-        avg_rating: d.avg_rating != null ? Number(d.avg_rating) : undefined,
-        current_avg: d.current_avg != null ? Number(d.current_avg) : undefined,
-        prior_avg: d.prior_avg != null ? Number(d.prior_avg) : undefined,
-      };
-    })
-    .filter((r): r is HostsImprovementOpportunity => r !== null);
+  return asArray<unknown>(data).flatMap((row) => {
+    const d = row as Record<string, unknown>;
+    if (!d.type) return [];
+    return [{
+      type: String(d.type),
+      label: typeof d.label === "string" ? d.label : String(d.type),
+      severity: typeof d.severity === "string" ? d.severity : "medium",
+      ...(typeof d.category === "string" ? { category: d.category } : {}),
+      ...(d.property_id != null ? { property_id: String(d.property_id) } : {}),
+      ...(typeof d.property === "string" ? { property: d.property } : {}),
+      ...(d.avg_rating != null ? { avg_rating: Number(d.avg_rating) } : {}),
+      ...(d.current_avg != null ? { current_avg: Number(d.current_avg) } : {}),
+      ...(d.prior_avg != null ? { prior_avg: Number(d.prior_avg) } : {}),
+    }];
+  });
 }
 
 export function parseAipifyHostsReputationCenterDashboard(

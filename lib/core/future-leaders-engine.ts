@@ -3,9 +3,7 @@
  * Authoritative enforcement lives in Supabase RPCs (_ifle_*).
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export const FUTURE_LEADERS_DEVELOPMENT_MODES = ["guided", "self_directed", "executive_sponsored"] as const;
 export type FutureLeadersDevelopmentMode = (typeof FUTURE_LEADERS_DEVELOPMENT_MODES)[number];

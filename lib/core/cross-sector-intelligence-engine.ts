@@ -3,9 +3,7 @@
  * Authoritative enforcement lives in Supabase RPCs (_csie_*).
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export const CROSS_SECTOR_PARTICIPATION_STATUSES = ["disabled", "viewer", "contributor"] as const;
 export type CrossSectorParticipationStatus = (typeof CROSS_SECTOR_PARTICIPATION_STATUSES)[number];

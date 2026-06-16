@@ -3,9 +3,7 @@
  * Authoritative enforcement lives in Supabase RPCs.
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export const OKR_HIERARCHY_LEVELS = ["company", "department", "team", "individual"] as const;
 export type OkrHierarchyLevel = (typeof OKR_HIERARCHY_LEVELS)[number];

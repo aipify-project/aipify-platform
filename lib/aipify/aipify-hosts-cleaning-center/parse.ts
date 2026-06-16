@@ -64,7 +64,7 @@ function parseCleaners(data: unknown): HostsCleaningCleanerRow[] {
         cleaner_name: typeof d.cleaner_name === "string" ? d.cleaner_name : "",
         contact_email: typeof d.contact_email === "string" ? d.contact_email : "",
         contact_phone: typeof d.contact_phone === "string" ? d.contact_phone : "",
-        assigned_properties: d.assigned_properties ?? [],
+        assigned_properties: d.assigned_properties as HostsCleaningCleanerRow["assigned_properties"],
         cleaner_status: typeof d.cleaner_status === "string" ? d.cleaner_status : "active",
         active_tasks: Number(d.active_tasks ?? 0),
       };

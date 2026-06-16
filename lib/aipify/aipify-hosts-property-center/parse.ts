@@ -86,19 +86,17 @@ function parseTasks(data: unknown): HostsPropertyTasksBoard | undefined {
   if (!data || typeof data !== "object") return undefined;
   const d = data as Record<string, unknown>;
   const mapTasks = (items: unknown): HostsPropertyTask[] =>
-    asArray<unknown>(items)
-      .map((row) => {
-        const t = row as Record<string, unknown>;
-        if (!t.id) return null;
-        return {
-          id: String(t.id),
-          title: typeof t.title === "string" ? t.title : "",
-          category: typeof t.category === "string" ? t.category : "",
-          due: typeof t.due === "string" ? t.due : undefined,
-          completed_at: typeof t.completed_at === "string" ? t.completed_at : undefined,
-        };
-      })
-      .filter((r): r is HostsPropertyTask => r !== null);
+    asArray<unknown>(items).flatMap((row) => {
+      const t = row as Record<string, unknown>;
+      if (!t.id) return [];
+      return [{
+        id: String(t.id),
+        title: typeof t.title === "string" ? t.title : "",
+        category: typeof t.category === "string" ? t.category : "",
+        ...(typeof t.due === "string" ? { due: t.due } : {}),
+        ...(typeof t.completed_at === "string" ? { completed_at: t.completed_at } : {}),
+      }];
+    });
   return {
     open: mapTasks(d.open),
     upcoming: mapTasks(d.upcoming),
@@ -110,19 +108,17 @@ function parseIncidents(data: unknown): HostsPropertyIncidentsBoard | undefined 
   if (!data || typeof data !== "object") return undefined;
   const d = data as Record<string, unknown>;
   const mapIncidents = (items: unknown): HostsPropertyIncident[] =>
-    asArray<unknown>(items)
-      .map((row) => {
-        const t = row as Record<string, unknown>;
-        if (!t.id) return null;
-        return {
-          id: String(t.id),
-          summary: typeof t.summary === "string" ? t.summary : "",
-          severity: typeof t.severity === "string" ? t.severity : "",
-          owner: typeof t.owner === "string" ? t.owner : "",
-          resolved_at: typeof t.resolved_at === "string" ? t.resolved_at : undefined,
-        };
-      })
-      .filter((r): r is HostsPropertyIncident => r !== null);
+    asArray<unknown>(items).flatMap((row) => {
+      const t = row as Record<string, unknown>;
+      if (!t.id) return [];
+      return [{
+        id: String(t.id),
+        summary: typeof t.summary === "string" ? t.summary : "",
+        severity: typeof t.severity === "string" ? t.severity : "",
+        owner: typeof t.owner === "string" ? t.owner : "",
+        ...(typeof t.resolved_at === "string" ? { resolved_at: t.resolved_at } : {}),
+      }];
+    });
   return { open: mapIncidents(d.open), resolved: mapIncidents(d.resolved) };
 }
 

@@ -2,9 +2,8 @@
  * HumanAgencyAutonomy Engine (Phase 176) helpers.
  * Authoritative enforcement lives in Supabase RPCs (_haar_*).
  */
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
+
 export async function getHumanAgencyAutonomyEngineDashboard(supabase: RpcClient) {
   const { data, error } = await supabase.rpc("get_human_agency_autonomy_engine_dashboard");
   if (error) throw new Error(error.message);

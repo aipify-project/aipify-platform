@@ -6,7 +6,8 @@ export type PlatformNavGroupId =
   | "commercial"
   | "knowledge"
   | "product"
-  | "auditGovernance";
+  | "auditGovernance"
+  | "system";
 
 export type PlatformNavGroupItem = {
   id: PlatformNavId;

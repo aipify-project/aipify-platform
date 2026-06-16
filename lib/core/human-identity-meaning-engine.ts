@@ -3,9 +3,7 @@
  * Authoritative enforcement lives in Supabase RPCs (_himp_*).
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export const HUMAN_IDENTITY_MEANING_DISCOVERY_MODES = [
   "guided",
