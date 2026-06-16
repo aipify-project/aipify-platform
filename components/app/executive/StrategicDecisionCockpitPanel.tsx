@@ -100,7 +100,7 @@ export function StrategicDecisionCockpitPanel({ labels }: Props) {
         </section>
         <div className="flex gap-4 text-sm">
           <Link href="/app/action-center" className="text-indigo-600 hover:underline">{labels.actionCenterLink}</Link>
-          <Link href="/app/approvals" className="text-indigo-600 hover:underline">{labels.executiveLink}</Link>
+          <Link href="/app/executive/early-warning-center" className="text-indigo-600 hover:underline">{labels.earlyWarningLink}</Link>
         </div>
       </div>
     );
@@ -119,7 +119,7 @@ export function StrategicDecisionCockpitPanel({ labels }: Props) {
         <p className="mt-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800">{labels.humanOversight}</p>
         <div className="mt-3 flex flex-wrap gap-3 text-sm">
           <Link href="/app/action-center" className="text-indigo-600 hover:underline">{labels.actionCenterLink}</Link>
-          <Link href="/app/action-center" className="text-indigo-600 hover:underline">{labels.portfolioLink}</Link>
+          <Link href="/app/executive/early-warning-center" className="text-indigo-600 hover:underline">{labels.earlyWarningLink}</Link>
         </div>
       </div>
 

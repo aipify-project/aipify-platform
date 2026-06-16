@@ -53,6 +53,7 @@
     "viewApprovals": "Review approvals",
     "decisionSupportLink": "Decision Support",
     "strategicDecisionCockpitLink": "Strategic Decision Cockpit",
+    "earlyWarningCenterLink": "Early Warning Center",
     "strategicIntelligenceLink": "Strategic Intelligence",
     "continuousImprovementLink": "Continuous Improvement",
     "organizationalResilienceLink": "Organizational Resilience",
@@ -2482,6 +2483,7 @@
     "executiveLink": "Executive Center",
     "actionCenterLink": "Action Center",
     "portfolioLink": "Strategic Initiative Portfolio",
+    "earlyWarningLink": "Early Warning Center",
     "empty": "No executive decisions to surface right now.",
     "upgrade": {
       "title": "Upgrade for Executive Decision Cockpit",
@@ -2615,6 +2617,143 @@
       "canAipifyDecideAnswer": "No. Aipify prepares briefings and surfaces priorities. Executives remain accountable for organizational decisions.",
       "confidenceScores": "How are confidence scores generated?",
       "confidenceScoresAnswer": "From risk, dependency stability, historical patterns, and workload indicators — always as estimates, never certainty."
+    }
+  },
+  "organizationalEarlyWarning": {
+    "title": "Early Warning Center",
+    "subtitle": "Identify emerging risks, declining trends, hidden bottlenecks, and opportunities before they become major problems.",
+    "loading": "Analyzing predictive signals…",
+    "humanOversight": "Aipify identifies patterns and signals. Humans remain responsible for interpretation and action. Forecasts are estimates — not guarantees.",
+    "principle": "Aipify identifies patterns and signals. Humans remain responsible for interpretation and action.",
+    "executiveLink": "Executive Center",
+    "cockpitLink": "Strategic Decision Cockpit",
+    "actionCenterLink": "Action Center",
+    "empty": "No early warning signals detected right now.",
+    "upgrade": {
+      "title": "Upgrade for Early Warning Center",
+      "body": "Predictive signals and early warning capabilities are available on Business and Enterprise plans.",
+      "cta": "View license & plans"
+    },
+    "tabs": {
+      "dashboard": "Dashboard",
+      "warnings": "Warnings",
+      "trends": "Trend analysis",
+      "forecasts": "Health forecasts",
+      "opportunities": "Opportunities",
+      "escalation": "Escalation rules",
+      "queue": "Attention queue",
+      "learning": "Learning"
+    },
+    "dashboard": {
+      "title": "Early warning dashboard",
+      "emergingRisks": "Emerging organizational risks",
+      "escalatingBottlenecks": "Escalating bottlenecks",
+      "losingMomentum": "Initiatives losing momentum",
+      "teamOverload": "Teams approaching overload",
+      "customerDeterioration": "Customer experience signals",
+      "complianceWarnings": "Compliance warnings",
+      "revenueWarnings": "Revenue trend warnings"
+    },
+    "warnings": {
+      "title": "Active warnings",
+      "category": "Category",
+      "severity": "Severity",
+      "explanation": "Severity explanation",
+      "reasoning": "Reasoning",
+      "suggestedActions": "Suggested actions",
+      "confidence": "Confidence",
+      "disclaimer": "Estimate only — not certainty.",
+      "viewBriefing": "View briefing",
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "escalate": "Escalate",
+      "empty": "No active warnings right now.",
+      "categories": {
+        "operationalRisk": "Operational Risk",
+        "financialRisk": "Financial Risk",
+        "customerRisk": "Customer Risk",
+        "employeeRisk": "Employee Risk",
+        "complianceRisk": "Compliance Risk",
+        "strategicExecutionRisk": "Strategic Execution Risk",
+        "partnerRisk": "Partner Risk",
+        "capacityRisk": "Capacity Risk"
+      },
+      "severities": {
+        "informational": "Informational",
+        "monitor": "Monitor",
+        "elevatedConcern": "Elevated Concern",
+        "highRisk": "High Risk",
+        "criticalAttentionRequired": "Critical Attention Required"
+      }
+    },
+    "trends": {
+      "title": "Predictive trend analysis",
+      "detected": "Detected",
+      "notDetected": "Not detected",
+      "count": "Count"
+    },
+    "forecasts": {
+      "title": "Organizational health forecasting",
+      "disclaimer": "Forecasts are estimates based on current patterns — not guarantees.",
+      "days30": "30-day forecast",
+      "days60": "60-day forecast",
+      "days90": "90-day forecast",
+      "days180": "180-day forecast",
+      "estimate": "Health score estimate",
+      "factors": "Based on"
+    },
+    "opportunities": {
+      "title": "Opportunity detection",
+      "empty": "No positive signals identified right now.",
+      "types": {
+        "efficiencyGain": "Efficiency gain",
+        "growthOpportunity": "Growth opportunity",
+        "partnershipOpportunity": "Partnership opportunity",
+        "underutilizedCapability": "Underutilized capability"
+      }
+    },
+    "escalation": {
+      "title": "Signal escalation rules",
+      "threshold": "Threshold",
+      "enabled": "Enabled"
+    },
+    "queue": {
+      "title": "Executive attention queue",
+      "urgency": "Urgency",
+      "impact": "Impact",
+      "confidence": "Confidence",
+      "reviewTimeline": "Review timeline",
+      "stakeholder": "Stakeholder",
+      "empty": "No signals require immediate leadership attention."
+    },
+    "briefing": {
+      "title": "Executive signal briefing",
+      "whatChanged": "What changed?",
+      "whyImportant": "Why is this important?",
+      "whatNext": "What may happen next?",
+      "responseOptions": "Recommended response options",
+      "urgency": "Urgency level",
+      "back": "Back to Early Warning Center"
+    },
+    "learning": {
+      "title": "Learning engine",
+      "accuracy": "Signal accuracy estimate",
+      "falsePositives": "False positive rate",
+      "responseEffectiveness": "Response effectiveness",
+      "forecastReliability": "Forecast reliability"
+    },
+    "faq": {
+      "title": "Early Warning FAQ",
+      "whatAreSignals": "What are predictive signals?",
+      "whatAreSignalsAnswer": "Patterns detected from operational data — delays, blockers, approvals, and execution trends — surfaced before they become crises.",
+      "canPredict": "Can Aipify predict the future?",
+      "canPredictAnswer": "No. Aipify estimates trends and forecasts from available patterns. All outputs are guidance — not guarantees.",
+      "howGenerated": "How are warnings generated?",
+      "howGeneratedAnswer": "From Action Center execution data, portfolio health, approval backlogs, blockers, and organizational health indicators.",
+      "howRespond": "How should leaders respond to warnings?",
+      "howRespondAnswer": "Review briefings, acknowledge or escalate signals, assign owners, and document decisions. Humans interpret and act.",
+      "confidenceLevels": "How are confidence levels determined?",
+      "confidenceLevelsAnswer": "From signal severity, data availability, and historical pattern strength — always as estimates."
     }
   },
   "workingStyle": {

@@ -40,6 +40,7 @@ type ExecutiveDashboardPanelProps = {
     viewApprovals: string;
     decisionSupportLink: string;
     strategicDecisionCockpitLink: string;
+    earlyWarningCenterLink: string;
     strategicIntelligenceLink: string;
     continuousImprovementLink: string;
     organizationalResilienceLink: string;
@@ -151,6 +152,9 @@ export function ExecutiveDashboardPanel({ locale, labels }: ExecutiveDashboardPa
         </Link>
         <Link href="/app/executive/strategic-decision-cockpit" className="ml-4 mt-3 inline-block text-sm font-medium text-indigo-700 hover:underline">
           {labels.strategicDecisionCockpitLink}
+        </Link>
+        <Link href="/app/executive/early-warning-center" className="ml-4 mt-3 inline-block text-sm font-medium text-amber-800 hover:underline">
+          {labels.earlyWarningCenterLink}
         </Link>
         <Link href="/app/executive/strategic-intelligence" className="ml-4 mt-3 inline-block text-sm text-indigo-600 hover:underline">
           {labels.strategicIntelligenceLink}
