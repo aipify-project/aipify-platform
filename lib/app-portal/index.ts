@@ -4,3 +4,4 @@ export * from "./parse";
 export * from "./labels";
 export * from "./integrations";
 export * from "./executive-insights";
+export * from "./follow-ups";

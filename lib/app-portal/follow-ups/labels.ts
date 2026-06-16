@@ -1,0 +1,97 @@
+import type { FollowUpsLabels } from "./types";
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildFollowUpsLabels(t: Translator): FollowUpsLabels {
+  const p = "customerApp.portalStructure.followUps";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    loading: t(`${p}.loading`),
+    principle: t(`${p}.principle`),
+    emptyTitle: t(`${p}.emptyTitle`),
+    emptyBody: t(`${p}.emptyBody`),
+    createFollowUp: t(`${p}.createFollowUp`),
+    back: t(`${p}.back`),
+    notFound: t(`${p}.notFound`),
+    filters: {
+      title: t(`${p}.filters.title`),
+      category: t(`${p}.filters.category`),
+      status: t(`${p}.filters.status`),
+      priority: t(`${p}.filters.priority`),
+      overdueOnly: t(`${p}.filters.overdueOnly`),
+      all: t(`${p}.filters.all`),
+    },
+    card: {
+      owner: t(`${p}.card.owner`),
+      created: t(`${p}.card.created`),
+      due: t(`${p}.card.due`),
+      status: t(`${p}.card.status`),
+      priority: t(`${p}.card.priority`),
+      module: t(`${p}.card.module`),
+      nextAction: t(`${p}.card.nextAction`),
+      overdue: t(`${p}.card.overdue`),
+    },
+    detail: {
+      timeline: t(`${p}.detail.timeline`),
+      notes: t(`${p}.detail.notes`),
+      recommendedActions: t(`${p}.detail.recommendedActions`),
+      statusHistory: t(`${p}.detail.statusHistory`),
+      auditHistory: t(`${p}.detail.auditHistory`),
+      assignedUsers: t(`${p}.detail.assignedUsers`),
+      save: t(`${p}.detail.save`),
+      saved: t(`${p}.detail.saved`),
+    },
+    sections: {
+      categories: t(`${p}.sections.categories`),
+      items: t(`${p}.sections.items`),
+      suggestions: t(`${p}.sections.suggestions`),
+      reminders: t(`${p}.sections.reminders`),
+    },
+    suggestions: {
+      accept: t(`${p}.suggestions.accept`),
+      requiresReview: t(`${p}.suggestions.requiresReview`),
+    },
+    categories: {
+      customer_follow_up: t(`${p}.categories.customerFollowUp`),
+      internal_follow_up: t(`${p}.categories.internalFollowUp`),
+      pending_decision: t(`${p}.categories.pendingDecision`),
+      waiting_external: t(`${p}.categories.waitingExternal`),
+      strategic_reminder: t(`${p}.categories.strategicReminder`),
+      overdue_commitment: t(`${p}.categories.overdueCommitment`),
+    },
+    statuses: {
+      open: t(`${p}.statuses.open`),
+      in_progress: t(`${p}.statuses.inProgress`),
+      waiting: t(`${p}.statuses.waiting`),
+      completed: t(`${p}.statuses.completed`),
+      cancelled: t(`${p}.statuses.cancelled`),
+      escalated: t(`${p}.statuses.escalated`),
+    },
+    priorities: {
+      low: t(`${p}.priorities.low`),
+      medium: t(`${p}.priorities.medium`),
+      high: t(`${p}.priorities.high`),
+      critical: t(`${p}.priorities.critical`),
+    },
+    form: {
+      title: t(`${p}.form.title`),
+      titlePlaceholder: t(`${p}.form.titlePlaceholder`),
+      category: t(`${p}.form.category`),
+      priority: t(`${p}.form.priority`),
+      dueDate: t(`${p}.form.dueDate`),
+      nextAction: t(`${p}.form.nextAction`),
+      notes: t(`${p}.form.notes`),
+      submit: t(`${p}.form.submit`),
+      cancel: t(`${p}.form.cancel`),
+    },
+    faq: {
+      title: t(`${p}.faq.title`),
+      whatIs: t(`${p}.faq.whatIs`),
+      whatIsAnswer: t(`${p}.faq.whatIsAnswer`),
+      autoComplete: t(`${p}.faq.autoComplete`),
+      autoCompleteAnswer: t(`${p}.faq.autoCompleteAnswer`),
+      assignment: t(`${p}.faq.assignment`),
+      assignmentAnswer: t(`${p}.faq.assignmentAnswer`),
+    },
+  };
+}
