@@ -98,7 +98,8 @@
     "organizationalPresenceLink": "Organizational Presence",
     "organizationalIdentityLink": "Organizational Identity",
     "organizationalPurposefulExecutionLink": "Purposeful Execution",
-    "organizationalSignalLink": "Organizational Signals"
+    "organizationalSignalLink": "Organizational Signals",
+    "strategicDecisionCockpitLink": "Executive Strategic Decision Cockpit"
   },
   "presence": {
     "title": "Presence center",
@@ -8112,7 +8113,8 @@
       "actions": {
         "back": "Back to Action Center"
       }
-    }
+    },
+    "executiveCockpitLink": "Executive Strategic Decision Cockpit"
   },
   "workingStyle": {
     "title": "Arbetssätt",
@@ -23850,6 +23852,150 @@
         "oauth-vs-api-keys": "OAuth uses provider redirect and official authorization. API keys are copied manually from the provider admin. Both require scope approval.",
         "is-it-safe-to-connect": "Credentials are encrypted, masked after save, revocable anytime, and all actions are audit logged."
       }
+    }
+  },
+  "executiveStrategicDecisionCockpit": {
+    "title": "Strategisk beslutscockpit för ledningen",
+    "subtitle": "Real-time overview of critical decisions, organizational health, strategic execution, and emerging risks requiring leadership attention.",
+    "loading": "Preparing executive decision cockpit…",
+    "humanOversight": "Aipify supports executives. Executives remain accountable for organizational decisions. Confidence scores are estimates — not certainty.",
+    "principle": "Aipify supports executives. Executives remain accountable for organizational decisions.",
+    "executiveLink": "Ledningscenter",
+    "actionCenterLink": "Action Center",
+    "portfolioLink": "Strategic Initiative Portfolio",
+    "empty": "No executive decisions to surface right now.",
+    "upgrade": {
+      "title": "Upgrade for Executive Decision Cockpit",
+      "body": "The Strategic Decision Cockpit is available on Business and Enterprise plans.",
+      "cta": "View license & plans"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "decisions": "Decision queue",
+      "health": "Organization health",
+      "alerts": "Executive alerts",
+      "opportunities": "Opportunities",
+      "meeting": "Meeting mode",
+      "insights": "Cross-org insights"
+    },
+    "overview": {
+      "title": "Executive overview",
+      "onTrack": "Initiatives on track",
+      "atRisk": "Initiatives at risk",
+      "criticalDecisions": "Critical decisions pending",
+      "highImpactOpportunities": "High-impact opportunities",
+      "escalatedApprovals": "Escalated approvals",
+      "orgHealth": "Organization health",
+      "actionQueue": "Executive action queue"
+    },
+    "decisions": {
+      "title": "Decision queue",
+      "critical": "Critical",
+      "highPriority": "High priority",
+      "mediumPriority": "Medium priority",
+      "informational": "Informational",
+      "owner": "Decision owner",
+      "approvers": "Required approvers",
+      "strategicImpact": "Strategic impact",
+      "riskLevel": "Risk level",
+      "deadline": "Deadline",
+      "nextStep": "Recommended next step",
+      "viewBriefing": "View briefing",
+      "empty": "No decisions in this category."
+    },
+    "health": {
+      "title": "Organization health summary",
+      "operationalEfficiency": "Operational efficiency",
+      "employeeEngagement": "Employee engagement",
+      "customerSatisfaction": "Customer satisfaction",
+      "revenueMomentum": "Revenue momentum",
+      "riskExposure": "Risk exposure",
+      "complianceStatus": "Compliance status",
+      "strategicExecution": "Strategic execution performance",
+      "statuses": {
+        "excellent": "Excellent",
+        "healthy": "Healthy",
+        "monitorClosely": "Monitor closely",
+        "needsAttention": "Needs attention",
+        "critical": "Critical"
+      }
+    },
+    "alerts": {
+      "title": "Executive alerts",
+      "empty": "No alerts requiring leadership awareness right now.",
+      "viewAction": "Review"
+    },
+    "opportunities": {
+      "title": "Strategic opportunity center",
+      "expectedBenefit": "Expected benefit",
+      "estimatedEffort": "Estimated effort",
+      "riskAssessment": "Risk assessment",
+      "confidence": "Confidence",
+      "types": {
+        "revenue": "Revenue opportunity",
+        "costOptimization": "Cost optimization",
+        "partnership": "Partnership opportunity",
+        "processImprovement": "Process improvement",
+        "expansion": "Expansion opportunity",
+        "innovation": "Innovation opportunity"
+      },
+      "empty": "No strategic opportunities identified right now."
+    },
+    "briefing": {
+      "title": "Executive decision briefing",
+      "situation": "Situation",
+      "context": "Context",
+      "recommendation": "Recommendation",
+      "benefits": "Benefits",
+      "risks": "Risks",
+      "alternatives": "Alternatives",
+      "recommendedActions": "Recommended next actions",
+      "confidence": "Confidence score",
+      "urgency": "Decision urgency",
+      "disclaimer": "Estimate only — not a guarantee.",
+      "back": "Back to cockpit",
+      "urgencies": {
+        "critical": "Critical",
+        "highPriority": "High priority",
+        "mediumPriority": "Medium priority",
+        "informational": "Informational"
+      }
+    },
+    "meeting": {
+      "title": "Executive meeting mode",
+      "topics": "Topics requiring discussion",
+      "pendingApprovals": "Pending approvals",
+      "blocked": "Blocked initiatives",
+      "achievements": "Recent achievements",
+      "criticalRisks": "Critical risks",
+      "agenda": "Suggested agenda",
+      "followUps": "Meeting follow-ups"
+    },
+    "insights": {
+      "title": "Cross-organizational insights",
+      "departments": "Departments",
+      "strategicInitiatives": "Strategic initiatives",
+      "trends": "Trends",
+      "emergingIssues": "Emerging issues",
+      "decisionHistory": "Decision history",
+      "learningTitle": "Learning engine",
+      "decisionAccuracy": "Decision accuracy estimate",
+      "bottlenecks": "Repeated bottlenecks",
+      "interventionEffectiveness": "Executive intervention effectiveness",
+      "successPatterns": "Strategic success patterns"
+    },
+    "faq": {
+      "title": "Executive Decision Cockpit FAQ",
+      "whatIsCockpit": "What is the Executive Strategic Decision Cockpit?",
+      "whatIsCockpitAnswer": "A leadership view surfacing critical decisions, portfolio health, alerts, opportunities, and briefings — integrated with Action Center execution data.",
+      "howPrioritize": "How does Aipify prioritize executive attention?",
+      "howPrioritizeAnswer": "By urgency, risk level, strategic impact, deadlines, and escalations — always as guidance for executives who retain final authority.",
+      "howOpportunities": "How are strategic opportunities identified?",
+      "howOpportunitiesAnswer": "From approved actions, portfolio alignment, impact analysis, and operational patterns — presented with benefit, effort, and confidence estimates.",
+      "canAipifyDecide": "Can Aipify make executive decisions?",
+      "canAipifyDecideAnswer": "No. Aipify prepares briefings and surfaces priorities. Executives remain accountable for organizational decisions.",
+      "confidenceScores": "How are confidence scores generated?",
+      "confidenceScoresAnswer": "From risk, dependency stability, historical patterns, and workload indicators — always as estimates, never certainty."
     }
   }
 }

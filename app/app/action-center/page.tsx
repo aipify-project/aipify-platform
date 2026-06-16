@@ -37,6 +37,7 @@ export default async function ActionCenterPage() {
         upgradeBody: t("customerApp.actionCenter.upgrade.body"),
         upgradeCta: t("customerApp.actionCenter.upgrade.cta"),
         viewApprovals: t("customerApp.actionCenter.viewApprovals"),
+        executiveCockpitLink: t("customerApp.actionCenter.executiveCockpitLink"),
         createDemo: t("customerApp.actionCenter.createDemo"),
         sections: {
           overview: t("customerApp.actionCenter.sections.overview"),

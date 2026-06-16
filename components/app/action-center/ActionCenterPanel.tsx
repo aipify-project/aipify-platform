@@ -67,6 +67,7 @@ type ActionCenterPanelProps = {
     upgradeBody: string;
     upgradeCta: string;
     viewApprovals: string;
+    executiveCockpitLink: string;
     createDemo: string;
     sections: {
       overview: string;
@@ -409,6 +410,9 @@ export function ActionCenterPanel({
         <div className="mt-3 flex flex-wrap gap-3">
           <Link href="/app/approvals" className="text-sm text-indigo-600 hover:underline">
             {labels.viewApprovals}
+          </Link>
+          <Link href="/app/executive/strategic-decision-cockpit" className="text-sm text-indigo-600 hover:underline">
+            {labels.executiveCockpitLink}
           </Link>
           <button
             type="button"
