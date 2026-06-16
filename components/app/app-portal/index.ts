@@ -53,3 +53,4 @@ export { TrustCulturePanel } from "./TrustCulturePanel";
 export { TrustCultureDimensionPanel } from "./TrustCultureDimensionPanel";
 export { IntelligenceBriefingsPanel } from "./IntelligenceBriefingsPanel";
 export { IntelligenceBriefingDetailPanel } from "./IntelligenceBriefingDetailPanel";
+export { CustomerAcademyPanel } from "./CustomerAcademyPanel";

@@ -24919,6 +24919,7 @@
       "supportAssistant": "Support Assistant",
       "successCenter": "Success Center",
       "gettingStarted": "Getting Started",
+      "customerAcademy": "Learning & Academy",
       "supportHistory": "Support History",
       "profile": "Profile",
       "preferences": "Preferences",
@@ -27886,6 +27887,101 @@
         "howCreatedAnswer": "Briefings combine information from approved organizational data sources within Aipify to provide leadership visibility and decision support.",
         "autoDecisions": "Can Aipify make executive decisions?",
         "autoDecisionsAnswer": "No. Aipify supports leaders through insights and recommendations, while people remain responsible for making decisions."
+      }
+    },
+    "customerAcademy": {
+      "title": "Learning & Academy",
+      "subtitle": "Educate employees, improve adoption and build operational maturity with Aipify Academy.",
+      "loading": "Aipify is preparing your learning experience…",
+      "principle": "Aipify helps customers become successful — product education, onboarding and continuous learning.",
+      "emptyTitle": "No learning activity has started yet.",
+      "emptyBody": "Help your organization succeed by building knowledge through Aipify Academy.",
+      "emptyCta": "Start Learning",
+      "accessDenied": "You do not have permission to access Aipify Academy.",
+      "filters": {
+        "search": "Search learning…",
+        "category": "Category",
+        "completionStatus": "Completion status",
+        "certificationType": "Certification type",
+        "department": "Department",
+        "difficulty": "Difficulty level",
+        "all": "All",
+        "notStarted": "Not started",
+        "completed": "Completed"
+      },
+      "dashboard": {
+        "progress": "Learning progress",
+        "completionRate": "Completion percentage",
+        "recommended": "Recommended courses",
+        "assigned": "Assigned training",
+        "certifications": "Certifications earned",
+        "teamRate": "Team completion rate",
+        "recentlyReleased": "Recently released courses",
+        "suggestedPaths": "Suggested next learning paths",
+        "coursesStarted": "Courses started",
+        "coursesCompleted": "Courses completed",
+        "outstanding": "Outstanding assignments"
+      },
+      "sections": {
+        "gettingStarted": "Getting Started",
+        "productTraining": "Product Training",
+        "teamTraining": "Team Training",
+        "certifications": "Certifications",
+        "knowledgeCenter": "Knowledge Center",
+        "teamReporting": "Team reporting"
+      },
+      "assign": {
+        "title": "Assign training",
+        "course": "Select course",
+        "department": "Department",
+        "required": "Required training",
+        "dueDate": "Due date",
+        "notes": "Notes",
+        "submit": "Assign training",
+        "cancel": "Cancel",
+        "supportTeam": "Support Team",
+        "operationsTeam": "Operations Team",
+        "leadershipTeam": "Leadership Team"
+      },
+      "course": {
+        "complete": "Mark complete",
+        "completed": "Completed",
+        "minutes": "min",
+        "required": "Required",
+        "optional": "Optional",
+        "overdue": "Overdue"
+      },
+      "team": {
+        "assigned": "Assigned training",
+        "completionRate": "Completion rate",
+        "overdue": "Overdue assignments",
+        "recommendedActions": "Recommended actions"
+      },
+      "certifications": {
+        "certifiedUser": "Aipify Certified User",
+        "operationsUser": "Aipify Operations User",
+        "supportUser": "Aipify Support User",
+        "executiveUser": "Aipify Executive User"
+      },
+      "difficulties": {
+        "beginner": "Beginner",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced"
+      },
+      "contentTypes": {
+        "course": "Course",
+        "faq": "FAQ",
+        "article": "Article",
+        "video": "Video"
+      },
+      "faq": {
+        "title": "Aipify Academy FAQ",
+        "whatIs": "What is Aipify Academy?",
+        "whatIsAnswer": "Aipify Academy helps organizations educate employees, improve adoption and maximize the value of Aipify.",
+        "managersAssign": "Can managers assign learning?",
+        "managersAssignAnswer": "Yes. Managers can assign learning paths, monitor completion and support employee development.",
+        "partnerAcademy": "Is Aipify Academy the same as the Partner Academy?",
+        "partnerAcademyAnswer": "No. Aipify Academy is designed for customers using Aipify internally. Growth Partner training is provided through the Partner Portal."
       }
     },
     "pages": {
