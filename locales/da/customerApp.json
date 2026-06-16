@@ -23502,7 +23502,8 @@
       "supportAssistant": "Support Assistant",
       "successCenter": "Success Center",
       "gettingStarted": "Getting Started",
-      "capabilityCenter": "Capability Center"
+      "capabilityCenter": "Capability Center",
+      "goalsObjectives": "Goals & Objectives"
     },
     "dashboard": {
       "title": "APP-dashboard",
@@ -24594,6 +24595,118 @@
         "howDeterminedAnswer": "Maturity levels combine operational signals, feature adoption and optional self-assessments to provide improvement guidance.",
         "comparison": "Is this a comparison against other organizations?",
         "comparisonAnswer": "No. The Capability Center focuses on your organization's own growth and development over time."
+      }
+    },
+    "organizationalGoals": {
+      "title": "Goals & Objectives",
+      "subtitle": "Define, track and review strategic and operational goals — organizational alignment, not project management.",
+      "loading": "Aipify is reviewing your organizational objectives…",
+      "principle": "Organizational alignment through clear goals — human teams remain responsible for execution.",
+      "emptyTitle": "No organizational goals have been created yet.",
+      "emptyBody": "Aipify helps organizations align around meaningful objectives and track progress over time.",
+      "emptyCta": "Create Goal",
+      "back": "Goals & Objectives",
+      "notFound": "Goal not found.",
+      "filters": {
+        "search": "Search goals…",
+        "goalType": "Goal type",
+        "status": "Status",
+        "priority": "Priority",
+        "owner": "Owner",
+        "all": "All"
+      },
+      "dashboard": {
+        "active": "Active goals",
+        "achievedQuarter": "Achieved this quarter",
+        "attention": "Requiring attention",
+        "upcoming": "Upcoming target dates"
+      },
+      "form": {
+        "createTitle": "Create organizational goal",
+        "title": "Goal title",
+        "description": "Description",
+        "goalType": "Goal type",
+        "priority": "Priority",
+        "status": "Status",
+        "startDate": "Start date",
+        "targetDate": "Target date",
+        "successCriteria": "Success criteria",
+        "submit": "Create goal",
+        "cancel": "Cancel"
+      },
+      "card": {
+        "progress": "Progress",
+        "owner": "Owner",
+        "targetDate": "Target date",
+        "view": "View goal"
+      },
+      "detail": {
+        "overview": "Goal overview",
+        "successCriteria": "Success criteria",
+        "contributors": "Contributors",
+        "progressTimeline": "Progress timeline",
+        "relatedActions": "Related actions",
+        "relatedDecisions": "Related decisions",
+        "relatedFollowUps": "Related follow-ups",
+        "activityHistory": "Activity history",
+        "auditHistory": "Audit history",
+        "recommendations": "Aipify recommendations",
+        "save": "Save changes",
+        "saved": "Goal updated.",
+        "progressUpdate": "Record progress update",
+        "updateType": "Update type",
+        "progressPercent": "Progress percentage",
+        "milestoneTitle": "Milestone title",
+        "notes": "Notes",
+        "recordProgress": "Record progress"
+      },
+      "goalTypes": {
+        "strategic": "Strategic Goals",
+        "operational": "Operational Goals",
+        "customerExperience": "Customer Experience Goals",
+        "employeeExperience": "Employee Experience Goals",
+        "revenue": "Revenue Goals",
+        "security": "Security Goals",
+        "growth": "Growth Goals",
+        "innovation": "Innovation Goals",
+        "compliance": "Compliance Goals"
+      },
+      "statuses": {
+        "draft": "Draft",
+        "active": "Active",
+        "atRisk": "At Risk",
+        "onTrack": "On Track",
+        "achieved": "Achieved",
+        "cancelled": "Cancelled"
+      },
+      "priorities": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "critical": "Critical"
+      },
+      "progressTypes": {
+        "milestoneAchieved": "Milestone achieved",
+        "progressChange": "Progress percentage change",
+        "challenge": "Challenge encountered",
+        "lessonLearned": "Lesson learned",
+        "supportNeeded": "Additional support needed"
+      },
+      "recommendations": {
+        "reviewDeadlines": "Review goals approaching deadlines.",
+        "assignContributors": "Assign additional contributors to strengthen accountability.",
+        "linkFollowUps": "Link related follow-ups to connect actions with outcomes.",
+        "celebrateCompleted": "Celebrate completed objectives with your team.",
+        "updateProgress": "Update progress status to maintain alignment."
+      },
+      "faq": {
+        "title": "Goals & Objectives FAQ",
+        "whatIs": "What is the Goals & Objectives Center?",
+        "whatIsAnswer": "The Goals & Objectives Center helps organizations define priorities, track progress and align teams around meaningful outcomes.",
+        "updated": "Can goals be updated over time?",
+        "updatedAnswer": "Yes. Goals evolve as organizations learn, adapt and achieve milestones. Progress updates help maintain alignment and accountability.",
+        "autoComplete": "Does Aipify automatically complete goals?",
+        "autoCompleteAnswer": "No. Aipify supports organizations with visibility, recommendations and progress tracking. Human teams remain responsible for execution."
       }
     }
   },

@@ -16,3 +16,5 @@ export { SupportAssistantPanel } from "./SupportAssistantPanel";
 export { SuccessCenterPanel } from "./SuccessCenterPanel";
 export { GettingStartedPanel } from "./GettingStartedPanel";
 export { CapabilityCenterPanel } from "./CapabilityCenterPanel";
+export { OrganizationalGoalsPanel } from "./OrganizationalGoalsPanel";
+export { OrganizationalGoalDetailPanel } from "./OrganizationalGoalDetailPanel";
