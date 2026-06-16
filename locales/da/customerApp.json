@@ -23516,7 +23516,8 @@
       "learningImprovement": "Learning & Improvement",
       "capacityWorkload": "Capacity & Workload",
       "successValue": "Success & Value",
-      "strategyExecution": "Strategy"
+      "strategyExecution": "Strategy",
+      "prioritizationEngine": "Prioritization"
     },
     "dashboard": {
       "title": "APP-dashboard",
@@ -26142,6 +26143,133 @@
         "whyOwnersAnswer": "Clear ownership improves accountability and increases the likelihood that strategic priorities become operational reality.",
         "autoExecute": "Can Aipify execute strategy automatically?",
         "autoExecuteAnswer": "No. Aipify provides structure, visibility and recommendations, while leaders remain responsible for strategic decisions and execution."
+      }
+    },
+    "prioritizationEngine": {
+      "title": "Prioritization",
+      "subtitle": "Determine what deserves attention first by balancing urgency, impact, strategic importance and available capacity.",
+      "loading": "Aipify is evaluating organizational priorities…",
+      "principle": "Organizations perform better when they focus on what matters most.",
+      "emptyTitle": "No prioritization items have been created yet.",
+      "emptyBody": "Organizations perform better when they focus on what matters most.",
+      "emptyCta": "Create Prioritization Item",
+      "back": "Prioritization",
+      "notFound": "Prioritization item not found.",
+      "filters": {
+        "search": "Search items…",
+        "category": "Category",
+        "priorityStatus": "Priority status",
+        "owner": "Owner",
+        "sponsor": "Executive sponsor",
+        "alignmentMin": "Min strategic alignment",
+        "dueFrom": "Due from",
+        "dueTo": "Due to",
+        "all": "All"
+      },
+      "dashboard": {
+        "highestPriority": "Highest-priority initiatives",
+        "deferred": "Deferred initiatives",
+        "capacityConflicts": "Capacity conflicts",
+        "strategicAlignment": "Strategic alignment overview",
+        "recommendedActions": "Recommended next actions",
+        "recentlyReprioritized": "Recently reprioritized items"
+      },
+      "matrix": {
+        "title": "Prioritization matrix",
+        "impact": "Impact",
+        "effort": "Effort",
+        "quickWins": "Quick Wins",
+        "majorProjects": "Major Projects",
+        "fillIns": "Fill-Ins",
+        "reconsider": "Reconsider"
+      },
+      "form": {
+        "createTitle": "Create prioritization item",
+        "title": "Title",
+        "description": "Description",
+        "category": "Category",
+        "dueDate": "Due date",
+        "notes": "Notes",
+        "submit": "Create item",
+        "cancel": "Cancel"
+      },
+      "card": {
+        "owner": "Owner",
+        "sponsor": "Executive sponsor",
+        "alignment": "Strategic alignment",
+        "impact": "Impact",
+        "urgency": "Urgency",
+        "composite": "Composite score",
+        "quadrant": "Matrix quadrant",
+        "dueDate": "Due date"
+      },
+      "detail": {
+        "overview": "Initiative overview",
+        "scoringBreakdown": "Scoring breakdown",
+        "strategicAlignment": "Strategic alignment",
+        "impact": "Impact",
+        "urgency": "Urgency",
+        "effort": "Effort estimate",
+        "capacity": "Capacity requirement",
+        "capacityConsiderations": "Capacity considerations",
+        "dependencies": "Dependencies",
+        "relatedGoals": "Related goals",
+        "relatedFollowUps": "Related follow-ups",
+        "relatedRisks": "Related risks",
+        "relatedStrategicInitiatives": "Related strategic initiatives",
+        "recommendationHistory": "Recommendation history",
+        "activityTimeline": "Activity timeline",
+        "audit": "Audit history",
+        "save": "Save updates",
+        "saved": "Prioritization item updated.",
+        "score": "Update scores",
+        "scored": "Scores recorded.",
+        "recommendations": "Aipify recommendations",
+        "priorityStatus": "Priority status",
+        "notes": "Notes"
+      },
+      "categories": {
+        "strategicInitiative": "Strategic Initiative",
+        "operationalImprovement": "Operational Improvement",
+        "customerInitiative": "Customer Initiative",
+        "technologyInitiative": "Technology Initiative",
+        "riskMitigation": "Risk Mitigation",
+        "complianceRequirement": "Compliance Requirement",
+        "revenueOpportunity": "Revenue Opportunity",
+        "workforceInitiative": "Workforce Initiative",
+        "innovationOpportunity": "Innovation Opportunity",
+        "customCategory": "Custom Category"
+      },
+      "priorityStatuses": {
+        "underEvaluation": "Under Evaluation",
+        "recommended": "Recommended",
+        "highPriority": "High Priority",
+        "mediumPriority": "Medium Priority",
+        "lowPriority": "Low Priority",
+        "deferred": "Deferred",
+        "completed": "Completed"
+      },
+      "quadrants": {
+        "quickWins": "Quick Wins",
+        "majorProjects": "Major Projects",
+        "fillIns": "Fill-Ins",
+        "reconsider": "Reconsider"
+      },
+      "recommendations": {
+        "elevateStrategic": "Elevate strategically important initiatives.",
+        "reconsiderLowValue": "Reconsider low-value high-effort activities.",
+        "addressUrgentCustomer": "Address urgent customer-impacting issues.",
+        "deferOverCapacity": "Defer initiatives exceeding current capacity.",
+        "reviewConflicts": "Review conflicting priorities."
+      },
+      "faq": {
+        "title": "Prioritization FAQ",
+        "whatIs": "What is the Prioritization Engine?",
+        "whatIsAnswer": "The Prioritization Engine helps organizations determine which initiatives deserve attention based on strategic alignment, impact, urgency and available capacity.",
+        "canChange": "Can priorities change over time?",
+        "canChangeAnswer": "Yes. Priorities should evolve as circumstances, opportunities and organizational capacity change.",
+        "autoDecide": "Does Aipify decide what organizations should do?",
+        "autoDecideAnswer": "No. Aipify provides structured recommendations and visibility, while leaders remain responsible for final prioritization decisions."
       }
     }
   },

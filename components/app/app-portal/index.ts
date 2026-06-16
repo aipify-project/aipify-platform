@@ -45,3 +45,5 @@ export { SuccessValuePanel } from "./SuccessValuePanel";
 export { SuccessValueDetailPanel } from "./SuccessValueDetailPanel";
 export { StrategyExecutionPanel } from "./StrategyExecutionPanel";
 export { StrategyExecutionDetailPanel } from "./StrategyExecutionDetailPanel";
+export { PrioritizationEnginePanel } from "./PrioritizationEnginePanel";
+export { PrioritizationEngineDetailPanel } from "./PrioritizationEngineDetailPanel";

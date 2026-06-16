@@ -26,3 +26,4 @@ export * from "./learning-improvement";
 export * from "./capacity-workload";
 export * from "./success-value";
 export * from "./strategy-execution";
+export * from "./prioritization-engine";
