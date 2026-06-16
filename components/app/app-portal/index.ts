@@ -55,3 +55,4 @@ export { IntelligenceBriefingsPanel } from "./IntelligenceBriefingsPanel";
 export { IntelligenceBriefingDetailPanel } from "./IntelligenceBriefingDetailPanel";
 export { CustomerAcademyPanel } from "./CustomerAcademyPanel";
 export { CustomerSuccessPanel } from "./CustomerSuccessPanel";
+export { CustomerHealthPanel } from "./CustomerHealthPanel";

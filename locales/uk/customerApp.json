@@ -1385,7 +1385,8 @@
       "trustCulture": "Trust & Culture",
       "intelligenceBriefings": "Intelligence Briefings",
       "customerAcademy": "Learning & Academy",
-      "customerSuccess": "Customer Success"
+      "customerSuccess": "Customer Success",
+      "customerHealth": "Customer Health"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -4309,6 +4310,106 @@
         "autoImproveAnswer": "No. Aipify provides recommendations and insights, while organizations remain responsible for implementation.",
         "whyAdoption": "Why is adoption important?",
         "whyAdoptionAnswer": "Organizations that successfully adopt technology typically realize greater operational efficiency, stronger engagement and higher long-term value."
+      }
+    },
+    "customerHealth": {
+      "title": "Customer Health",
+      "subtitle": "Understand your relationship with Aipify, monitor engagement signals, and strengthen long-term success.",
+      "loading": "Aipify is reviewing your customer health indicators…",
+      "principle": "Health indicators are guidance tools — not judgments. Recommendations remain advisory.",
+      "emptyTitle": "No customer health insights are available yet.",
+      "emptyBody": "Aipify helps organizations strengthen engagement and maximize long-term success.",
+      "emptyCta": "Review Customer Health",
+      "accessDenied": "You do not have permission to access Customer Health.",
+      "filters": {
+        "search": "Search health insights…",
+        "category": "Health category",
+        "priority": "Priority",
+        "trend": "Trend direction",
+        "periodFrom": "Period from",
+        "department": "Department",
+        "all": "All"
+      },
+      "dashboard": {
+        "overallHealth": "Overall Health Score",
+        "engagement": "Engagement Score",
+        "supportSatisfaction": "Support Satisfaction Score",
+        "adoption": "Adoption Score",
+        "learningCompletion": "Learning Completion Score",
+        "relationshipTrend": "Relationship Trend",
+        "openRecommendations": "Open Recommendations",
+        "healthStatus": "Health Status"
+      },
+      "indicators": {
+        "title": "Health Indicators",
+        "platformEngagement": "Platform engagement",
+        "trainingParticipation": "Training participation",
+        "supportInteractions": "Support interactions",
+        "adoptionProgress": "Adoption progress",
+        "securityCompletion": "Security completion",
+        "integrationActivity": "Integration activity",
+        "recommendationCompletion": "Recommendation completion"
+      },
+      "engagement": {
+        "title": "Engagement Insights",
+        "activeTeams": "Active teams",
+        "departmentsSupport": "Departments requiring support",
+        "underutilized": "Underutilized capabilities",
+        "positiveMomentum": "Positive momentum indicators",
+        "decliningActivity": "Areas with declining activity"
+      },
+      "support": {
+        "title": "Support Insights",
+        "openRequests": "Open support requests",
+        "resolvedRequests": "Resolved requests",
+        "resolutionTrend": "Average resolution trend",
+        "satisfaction": "Satisfaction feedback",
+        "selfService": "Self-service utilization",
+        "knowledgeEngagement": "Knowledge Center engagement"
+      },
+      "timeline": {
+        "title": "Relationship Timeline"
+      },
+      "team": {
+        "title": "Departmental health insights",
+        "engagement": "Engagement score",
+        "learning": "Learning participation"
+      },
+      "statuses": {
+        "thriving": "Thriving",
+        "healthy": "Healthy",
+        "stable": "Stable",
+        "requiresAttention": "Requires Attention",
+        "criticalSupportNeeded": "Critical Support Needed"
+      },
+      "trends": {
+        "improving": "Improving",
+        "stable": "Stable",
+        "declining": "Declining",
+        "insufficientData": "Insufficient Data"
+      },
+      "priorities": {
+        "informational": "Informational",
+        "opportunity": "Opportunity",
+        "important": "Important",
+        "highPriority": "High Priority"
+      },
+      "recommendations": {
+        "scheduleOnboardingRefresh": "Schedule onboarding refresh training.",
+        "reviewOpenSupportRequests": "Review open support requests.",
+        "exploreBusinessPacks": "Explore recommended Business Packs.",
+        "encourageAssignedLearning": "Encourage completion of assigned learning.",
+        "activateSecurityProtections": "Activate additional security protections.",
+        "conductQuarterlyReview": "Conduct quarterly success reviews."
+      },
+      "faq": {
+        "title": "Customer Health FAQ",
+        "whatIs": "What is Customer Health?",
+        "whatIsAnswer": "Customer Health provides organizations with visibility into adoption, engagement and support indicators that may influence long-term success.",
+        "goodCustomer": "Does Aipify decide whether we are a good customer?",
+        "goodCustomerAnswer": "No. Health indicators are designed to provide guidance and identify opportunities for improvement.",
+        "improveOutcomes": "Can Customer Health improve outcomes?",
+        "improveOutcomesAnswer": "Customer Health can highlight trends and recommendations that help organizations strengthen adoption and engagement over time."
       }
     }
   }
