@@ -120,6 +120,7 @@ export function EarlyWarningCenterPanel({ labels }: Props) {
         <p className="mt-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800">{labels.humanOversight}</p>
         <div className="mt-3 flex flex-wrap gap-3 text-sm">
           <Link href="/app/executive/strategic-decision-cockpit" className="text-indigo-600 hover:underline">{labels.cockpitLink}</Link>
+          <Link href="/app/executive/board-investor-intelligence" className="text-indigo-600 hover:underline">{labels.boardInvestorIntelligenceLink}</Link>
           <Link href="/app/action-center" className="text-indigo-600 hover:underline">{labels.actionCenterLink}</Link>
         </div>
       </div>

@@ -143,6 +143,7 @@ export type OrganizationalEarlyWarningLabels = {
   principle: string;
   executiveLink: string;
   cockpitLink: string;
+  boardInvestorIntelligenceLink: string;
   actionCenterLink: string;
   tabs: Record<EarlyWarningMode, string>;
   dashboard: {

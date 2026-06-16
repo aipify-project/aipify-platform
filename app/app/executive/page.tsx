@@ -40,6 +40,7 @@ export default async function ExecutivePage() {
         decisionSupportLink: t("customerApp.executive.decisionSupportLink"),
         strategicDecisionCockpitLink: t("customerApp.executive.strategicDecisionCockpitLink"),
         earlyWarningCenterLink: t("customerApp.executive.earlyWarningCenterLink"),
+        boardInvestorIntelligenceLink: t("customerApp.executive.boardInvestorIntelligenceLink"),
         strategicIntelligenceLink: t("customerApp.executive.strategicIntelligenceLink"),
         continuousImprovementLink: t("customerApp.executive.continuousImprovementLink"),
         organizationalResilienceLink: t("customerApp.executive.organizationalResilienceLink"),

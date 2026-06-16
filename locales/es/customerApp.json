@@ -843,11 +843,13 @@
       "confidenceScores": "How are confidence scores generated?",
       "confidenceScoresAnswer": "From risk, dependency stability, historical patterns, and workload indicators — always as estimates, never certainty."
     },
-    "earlyWarningLink": "Early Warning Center"
+    "earlyWarningLink": "Early Warning Center",
+    "boardInvestorIntelligenceLink": "Board & Investor Intelligence Center"
   },
   "executive": {
     "strategicDecisionCockpitLink": "Executive Strategic Decision Cockpit",
-    "earlyWarningCenterLink": "Early Warning Center"
+    "earlyWarningCenterLink": "Early Warning Center",
+    "boardInvestorIntelligenceLink": "Board & Investor Intelligence Center"
   },
   "organizationalEarlyWarning": {
     "title": "Centro de alerta temprana",
@@ -984,6 +986,141 @@
       "howRespondAnswer": "Review briefings, acknowledge or escalate signals, assign owners, and document decisions. Humans interpret and act.",
       "confidenceLevels": "How are confidence levels determined?",
       "confidenceLevelsAnswer": "From signal severity, data availability, and historical pattern strength — always as estimates."
+    },
+    "boardInvestorIntelligenceLink": "Board & Investor Intelligence Center"
+  },
+  "boardInvestorIntelligence": {
+    "title": "Inteligencia de junta e inversores",
+    "subtitle": "Board-ready intelligence on organizational performance, strategic execution, risks, opportunities, and long-term readiness.",
+    "loading": "Preparing board intelligence…",
+    "humanOversight": "Aipify strengthens governance and strategic awareness. Human leadership remains responsible for decisions. Investor indicators are illustrative — not audited financial reporting.",
+    "principle": "Aipify strengthens governance and strategic awareness. Human leadership remains responsible for decisions.",
+    "executiveLink": "Centro ejecutivo",
+    "cockpitLink": "Strategic Decision Cockpit",
+    "earlyWarningLink": "Early Warning Center",
+    "generateNarrative": "Generate executive narrative",
+    "generateBriefing": "Generate board briefing",
+    "recorded": "Event recorded in audit log.",
+    "upgrade": {
+      "title": "Upgrade for Board & Investor Intelligence",
+      "body": "Board and investor intelligence is available on Business and Enterprise plans.",
+      "cta": "View license & plans"
+    },
+    "tabs": {
+      "board": "Board dashboard",
+      "investor": "Investor readiness",
+      "meeting": "Board meeting",
+      "decisions": "Decision register",
+      "performance": "Performance indicators",
+      "briefing": "Investor briefing",
+      "governance": "Governance health",
+      "scenarios": "Scenarios",
+      "narrative": "Executive narrative",
+      "learning": "Learning"
+    },
+    "board": {
+      "title": "Board dashboard",
+      "onTrack": "Initiatives on track",
+      "atRisk": "Initiatives at risk",
+      "executivePriorities": "Executive priorities",
+      "orgHealth": "Organizational health",
+      "financialTrend": "Financial trend summary",
+      "riskLandscape": "Risk landscape items",
+      "opportunities": "Major opportunities",
+      "attentionItems": "Board attention items"
+    },
+    "investor": {
+      "title": "Investor readiness dashboard",
+      "revenueTrajectory": "Revenue trajectory",
+      "revenueNote": "Illustrative indicator — not audited financial reporting",
+      "customerGrowth": "Customer growth indicator",
+      "retention": "Retention indicator",
+      "productAdoption": "Product adoption trend",
+      "expansionReadiness": "Expansion readiness",
+      "operationalMaturity": "Operational maturity",
+      "governanceMaturity": "Governance maturity"
+    },
+    "meeting": {
+      "title": "Board meeting center",
+      "highlights": "Executive highlights",
+      "accomplishments": "Major accomplishments",
+      "strategicUpdates": "Strategic initiative updates",
+      "risks": "Risks requiring discussion",
+      "opportunities": "Opportunities requiring investment",
+      "decisions": "Recommended decisions",
+      "actionItems": "Action items"
+    },
+    "decisions": {
+      "title": "Board decision register",
+      "decision": "Decision",
+      "outcome": "Outcome",
+      "rationale": "Strategic rationale",
+      "status": "Implementation status",
+      "followUp": "Follow-up responsibility",
+      "empty": "No board decisions recorded yet."
+    },
+    "performance": {
+      "title": "Strategic performance indicators",
+      "note": "Indicators are governance proxies — not audited financial metrics."
+    },
+    "briefing": {
+      "title": "Investor intelligence briefing",
+      "position": "Current position",
+      "opportunities": "Market opportunities",
+      "growth": "Growth potential",
+      "strengths": "Operational strengths",
+      "risks": "Material risks",
+      "focus": "Recommended focus areas",
+      "confidence": "Confidence",
+      "disclaimer": "Not financial advice or audited reporting."
+    },
+    "governance": {
+      "title": "Governance health assessment",
+      "overall": "Overall governance",
+      "decisionTransparency": "Decision transparency",
+      "approvalDiscipline": "Approval discipline",
+      "riskOversight": "Risk oversight",
+      "policyCompliance": "Policy compliance",
+      "executiveAccountability": "Executive accountability",
+      "auditReadiness": "Audit readiness",
+      "boardEffectiveness": "Board effectiveness",
+      "statuses": {
+        "strong": "Strong",
+        "healthy": "Healthy",
+        "monitor": "Monitor",
+        "needsAttention": "Needs Attention",
+        "critical": "Critical"
+      }
+    },
+    "scenarios": {
+      "title": "Scenario awareness",
+      "certaintyNote": "Scenarios are exploratory possibilities — Aipify does not claim certainty."
+    },
+    "narrative": {
+      "title": "Executive narrative generator",
+      "summary": "Summary",
+      "achievements": "Achievements",
+      "challenges": "Challenges",
+      "risks": "Risks",
+      "opportunities": "Opportunities",
+      "priorities": "Recommended priorities",
+      "suitableFor": "Suitable for"
+    },
+    "learning": {
+      "title": "Learning engine"
+    },
+    "faq": {
+      "title": "Board Intelligence FAQ",
+      "whatIsBoard": "What is Board Intelligence?",
+      "whatIsBoardAnswer": "Board-ready intelligence transforming operational and strategic data into governance insights for leadership, boards, and investors.",
+      "governanceSupport": "How does Aipify support executive governance?",
+      "governanceSupportAnswer": "Through decision registers, governance health assessments, meeting summaries, and audit trails integrated with Action Center and Early Warning systems.",
+      "replaceDecisions": "Can Aipify replace board decision-making?",
+      "replaceDecisionsAnswer": "No. Aipify prepares intelligence and documentation. Human leadership and boards retain decision authority.",
+      "investorInsights": "How are investor insights generated?",
+      "investorInsightsAnswer": "From execution outcomes, portfolio health, and governance patterns — always as illustrative indicators, not audited financials.",
+      "confidenceScores": "How should leaders interpret confidence scores?",
+      "confidenceScoresAnswer": "As estimates of data quality and pattern strength — never as guarantees of outcomes."
     }
   }
 }
