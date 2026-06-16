@@ -24920,6 +24920,7 @@
       "successCenter": "Success Center",
       "gettingStarted": "Getting Started",
       "customerAcademy": "Learning & Academy",
+      "customerSuccess": "Customer Success",
       "supportHistory": "Support History",
       "profile": "Profile",
       "preferences": "Preferences",
@@ -27982,6 +27983,100 @@
         "managersAssignAnswer": "Yes. Managers can assign learning paths, monitor completion and support employee development.",
         "partnerAcademy": "Is Aipify Academy the same as the Partner Academy?",
         "partnerAcademyAnswer": "No. Aipify Academy is designed for customers using Aipify internally. Growth Partner training is provided through the Partner Portal."
+      }
+    },
+    "customerSuccess": {
+      "title": "Customer Success",
+      "subtitle": "Continuously improve adoption, platform utilization and return on investment from Aipify.",
+      "loading": "Aipify is reviewing your organization's success journey…",
+      "principle": "Aipify provides recommendations and insights — organizations remain responsible for implementation.",
+      "emptyTitle": "Your customer success journey has not started yet.",
+      "emptyBody": "Aipify helps organizations continuously improve and maximize business value.",
+      "emptyCta": "Begin Success Journey",
+      "accessDenied": "You do not have permission to access Customer Success.",
+      "filters": {
+        "search": "Search success insights…",
+        "category": "Adoption category",
+        "priority": "Priority",
+        "successStatus": "Success status",
+        "periodFrom": "Period from",
+        "department": "Department",
+        "all": "All"
+      },
+      "dashboard": {
+        "adoptionScore": "Adoption Score",
+        "utilizationScore": "Utilization Score",
+        "recommendedActions": "Recommended Actions",
+        "recentlyImproved": "Recently Improved Areas",
+        "areasAttention": "Areas Requiring Attention",
+        "milestonesAchieved": "Success Milestones Achieved",
+        "upcomingOpportunities": "Upcoming Success Opportunities",
+        "personalProgress": "Personal progress"
+      },
+      "scores": {
+        "learningCompletion": "Learning Completion",
+        "featureAdoption": "Feature Adoption",
+        "userEngagement": "User Engagement",
+        "operationalMaturity": "Operational Maturity",
+        "securityCompletion": "Security Completion",
+        "integrationUsage": "Integration Usage"
+      },
+      "statuses": {
+        "gettingStarted": "Getting Started",
+        "developing": "Developing",
+        "established": "Established",
+        "advanced": "Advanced",
+        "highPerforming": "High Performing"
+      },
+      "maturity": {
+        "title": "Maturity Model",
+        "stage": "Stage",
+        "gettingStarted": "Getting Started",
+        "operational": "Operational",
+        "optimized": "Optimized",
+        "strategic": "Strategic",
+        "transformational": "Transformational"
+      },
+      "insights": {
+        "title": "Adoption Insights",
+        "frequentlyUsed": "Features frequently used",
+        "rarelyUsed": "Features rarely used",
+        "highEngagement": "Teams with high engagement",
+        "requiringSupport": "Teams requiring support",
+        "trainingOpportunities": "Training opportunities",
+        "securityRecommendations": "Security recommendations"
+      },
+      "timeline": {
+        "title": "Success Timeline"
+      },
+      "team": {
+        "title": "Team adoption reporting",
+        "teamCount": "Team members",
+        "twoFaAdoption": "2FA adoption",
+        "learningCompletions": "Learning completions"
+      },
+      "recommendations": {
+        "activate2faAllUsers": "Activate 2FA for all users.",
+        "completeOnboardingTraining": "Complete onboarding training.",
+        "exploreUnusedBusinessPacks": "Explore unused Business Packs.",
+        "connectIntegrations": "Connect recommended integrations.",
+        "reviewOperationalDashboards": "Review operational dashboards.",
+        "encourageCertification": "Encourage certification completion."
+      },
+      "priorities": {
+        "opportunity": "Opportunity",
+        "recommended": "Recommended",
+        "important": "Important",
+        "highImpact": "High Impact"
+      },
+      "faq": {
+        "title": "Customer Success FAQ",
+        "whatIs": "What is the Customer Success Center?",
+        "whatIsAnswer": "The Customer Success Center helps organizations improve adoption, strengthen maturity and maximize the value they receive from Aipify.",
+        "autoImprove": "Can Aipify improve adoption automatically?",
+        "autoImproveAnswer": "No. Aipify provides recommendations and insights, while organizations remain responsible for implementation.",
+        "whyAdoption": "Why is adoption important?",
+        "whyAdoptionAnswer": "Organizations that successfully adopt technology typically realize greater operational efficiency, stronger engagement and higher long-term value."
       }
     },
     "pages": {

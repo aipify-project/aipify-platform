@@ -56,6 +56,7 @@ export type AppPortalNavId =
   | "successCenter"
   | "gettingStarted"
   | "customerAcademy"
+  | "customerSuccess"
   | "supportHistory"
   | "profile"
   | "preferences"
@@ -172,6 +173,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
       { id: "successCenter", href: "/app/support/success-center", labelKey: "customerApp.portalStructure.nav.successCenter" },
       { id: "gettingStarted", href: "/app/support/getting-started", labelKey: "customerApp.portalStructure.nav.gettingStarted" },
       { id: "customerAcademy", href: "/app/support/academy", labelKey: "customerApp.portalStructure.nav.customerAcademy" },
+      { id: "customerSuccess", href: "/app/support/customer-success", labelKey: "customerApp.portalStructure.nav.customerSuccess" },
       { id: "supportHistory", href: "/app/support/history", labelKey: "customerApp.portalStructure.nav.supportHistory" },
     ],
   },
@@ -234,6 +236,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/support/success-center")) return "successCenter";
   if (pathname.startsWith("/app/support/getting-started")) return "gettingStarted";
   if (pathname.startsWith("/app/support/academy")) return "customerAcademy";
+  if (pathname.startsWith("/app/support/customer-success")) return "customerSuccess";
   for (const group of APP_PORTAL_NAV_GROUPS) {
     for (const item of group.items) {
       if (item.href !== "/app" && pathname.startsWith(item.href)) {

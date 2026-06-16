@@ -1,0 +1,98 @@
+import type { CustomerSuccessLabels } from "./types";
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildCustomerSuccessLabels(t: Translator): CustomerSuccessLabels {
+  const p = "customerApp.portalStructure.customerSuccess";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    loading: t(`${p}.loading`),
+    principle: t(`${p}.principle`),
+    emptyTitle: t(`${p}.emptyTitle`),
+    emptyBody: t(`${p}.emptyBody`),
+    emptyCta: t(`${p}.emptyCta`),
+    accessDenied: t(`${p}.accessDenied`),
+    filters: {
+      search: t(`${p}.filters.search`),
+      category: t(`${p}.filters.category`),
+      priority: t(`${p}.filters.priority`),
+      successStatus: t(`${p}.filters.successStatus`),
+      periodFrom: t(`${p}.filters.periodFrom`),
+      department: t(`${p}.filters.department`),
+      all: t(`${p}.filters.all`),
+    },
+    dashboard: {
+      adoptionScore: t(`${p}.dashboard.adoptionScore`),
+      utilizationScore: t(`${p}.dashboard.utilizationScore`),
+      recommendedActions: t(`${p}.dashboard.recommendedActions`),
+      recentlyImproved: t(`${p}.dashboard.recentlyImproved`),
+      areasAttention: t(`${p}.dashboard.areasAttention`),
+      milestonesAchieved: t(`${p}.dashboard.milestonesAchieved`),
+      upcomingOpportunities: t(`${p}.dashboard.upcomingOpportunities`),
+      personalProgress: t(`${p}.dashboard.personalProgress`),
+    },
+    scores: {
+      learningCompletion: t(`${p}.scores.learningCompletion`),
+      featureAdoption: t(`${p}.scores.featureAdoption`),
+      userEngagement: t(`${p}.scores.userEngagement`),
+      operationalMaturity: t(`${p}.scores.operationalMaturity`),
+      securityCompletion: t(`${p}.scores.securityCompletion`),
+      integrationUsage: t(`${p}.scores.integrationUsage`),
+    },
+    statuses: {
+      getting_started: t(`${p}.statuses.gettingStarted`),
+      developing: t(`${p}.statuses.developing`),
+      established: t(`${p}.statuses.established`),
+      advanced: t(`${p}.statuses.advanced`),
+      high_performing: t(`${p}.statuses.highPerforming`),
+    },
+    maturity: {
+      title: t(`${p}.maturity.title`),
+      stage: t(`${p}.maturity.stage`),
+      gettingStarted: t(`${p}.maturity.gettingStarted`),
+      operational: t(`${p}.maturity.operational`),
+      optimized: t(`${p}.maturity.optimized`),
+      strategic: t(`${p}.maturity.strategic`),
+      transformational: t(`${p}.maturity.transformational`),
+    },
+    insights: {
+      title: t(`${p}.insights.title`),
+      frequentlyUsed: t(`${p}.insights.frequentlyUsed`),
+      rarelyUsed: t(`${p}.insights.rarelyUsed`),
+      highEngagement: t(`${p}.insights.highEngagement`),
+      requiringSupport: t(`${p}.insights.requiringSupport`),
+      trainingOpportunities: t(`${p}.insights.trainingOpportunities`),
+      securityRecommendations: t(`${p}.insights.securityRecommendations`),
+    },
+    timeline: { title: t(`${p}.timeline.title`) },
+    team: {
+      title: t(`${p}.team.title`),
+      teamCount: t(`${p}.team.teamCount`),
+      twoFaAdoption: t(`${p}.team.twoFaAdoption`),
+      learningCompletions: t(`${p}.team.learningCompletions`),
+    },
+    recommendations: {
+      activate2faAllUsers: t(`${p}.recommendations.activate2faAllUsers`),
+      completeOnboardingTraining: t(`${p}.recommendations.completeOnboardingTraining`),
+      exploreUnusedBusinessPacks: t(`${p}.recommendations.exploreUnusedBusinessPacks`),
+      connectIntegrations: t(`${p}.recommendations.connectIntegrations`),
+      reviewOperationalDashboards: t(`${p}.recommendations.reviewOperationalDashboards`),
+      encourageCertification: t(`${p}.recommendations.encourageCertification`),
+    },
+    priorities: {
+      opportunity: t(`${p}.priorities.opportunity`),
+      recommended: t(`${p}.priorities.recommended`),
+      important: t(`${p}.priorities.important`),
+      high_impact: t(`${p}.priorities.highImpact`),
+    },
+    faq: {
+      title: t(`${p}.faq.title`),
+      whatIs: t(`${p}.faq.whatIs`),
+      whatIsAnswer: t(`${p}.faq.whatIsAnswer`),
+      autoImprove: t(`${p}.faq.autoImprove`),
+      autoImproveAnswer: t(`${p}.faq.autoImproveAnswer`),
+      whyAdoption: t(`${p}.faq.whyAdoption`),
+      whyAdoptionAnswer: t(`${p}.faq.whyAdoptionAnswer`),
+    },
+  };
+}
