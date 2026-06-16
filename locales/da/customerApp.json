@@ -23517,7 +23517,8 @@
       "capacityWorkload": "Capacity & Workload",
       "successValue": "Success & Value",
       "strategyExecution": "Strategy",
-      "prioritizationEngine": "Prioritization"
+      "prioritizationEngine": "Prioritization",
+      "commitmentTracking": "Commitments"
     },
     "dashboard": {
       "title": "APP-dashboard",
@@ -26270,6 +26271,126 @@
         "canChangeAnswer": "Yes. Priorities should evolve as circumstances, opportunities and organizational capacity change.",
         "autoDecide": "Does Aipify decide what organizations should do?",
         "autoDecideAnswer": "No. Aipify provides structured recommendations and visibility, while leaders remain responsible for final prioritization decisions."
+      }
+    },
+    "commitmentTracking": {
+      "title": "Commitments",
+      "subtitle": "Track promises, obligations and commitments to improve accountability and follow-through.",
+      "loading": "Aipify is reviewing organizational commitments…",
+      "principle": "Trust grows when organizations consistently follow through on their commitments.",
+      "emptyTitle": "No commitments have been recorded yet.",
+      "emptyBody": "Trust grows when organizations consistently follow through on their commitments.",
+      "emptyCta": "Create Commitment",
+      "back": "Commitments",
+      "notFound": "Commitment not found.",
+      "filters": {
+        "search": "Search commitments…",
+        "type": "Commitment type",
+        "status": "Status",
+        "owner": "Owner",
+        "recipient": "Recipient",
+        "priority": "Priority",
+        "dueFrom": "Due from",
+        "dueTo": "Due to",
+        "all": "All"
+      },
+      "dashboard": {
+        "active": "Active commitments",
+        "atRisk": "Commitments at risk",
+        "recentlyFulfilled": "Recently fulfilled commitments",
+        "overdue": "Overdue commitments",
+        "highPriority": "High-priority commitments",
+        "completionTrends": "Commitment completion trends"
+      },
+      "form": {
+        "createTitle": "Create commitment",
+        "title": "Title",
+        "description": "Description",
+        "type": "Commitment type",
+        "recipient": "Commitment recipient",
+        "priority": "Priority",
+        "dueDate": "Due date",
+        "fulfillmentCriteria": "Fulfillment criteria",
+        "notes": "Notes",
+        "submit": "Create commitment",
+        "cancel": "Cancel"
+      },
+      "card": {
+        "owner": "Commitment owner",
+        "recipient": "Recipient",
+        "priority": "Priority",
+        "progress": "Progress",
+        "dueDate": "Due date",
+        "view": "View"
+      },
+      "detail": {
+        "overview": "Commitment overview",
+        "ownership": "Ownership details",
+        "fulfillmentCriteria": "Fulfillment criteria",
+        "fulfillmentTracking": "Fulfillment tracking",
+        "milestonesAchieved": "Milestones achieved",
+        "delaysEncountered": "Delays encountered",
+        "obstaclesIdentified": "Obstacles identified",
+        "progressUpdate": "Progress update",
+        "completionEvidence": "Completion evidence",
+        "lessonsLearned": "Lessons learned",
+        "progressHistory": "Progress history",
+        "relatedGoals": "Related goals",
+        "relatedFollowUps": "Related follow-ups",
+        "relatedDecisions": "Related decisions",
+        "relatedCommunications": "Related communications",
+        "activityTimeline": "Activity timeline",
+        "audit": "Audit history",
+        "save": "Save updates",
+        "saved": "Commitment updated.",
+        "recordProgress": "Record progress",
+        "progressRecorded": "Progress recorded.",
+        "recommendations": "Aipify recommendations",
+        "status": "Status",
+        "notes": "Notes"
+      },
+      "types": {
+        "customerCommitment": "Customer Commitment",
+        "employeeCommitment": "Employee Commitment",
+        "executiveCommitment": "Executive Commitment",
+        "teamCommitment": "Team Commitment",
+        "vendorCommitment": "Vendor Commitment",
+        "regulatoryCommitment": "Regulatory Commitment",
+        "strategicCommitment": "Strategic Commitment",
+        "operationalCommitment": "Operational Commitment",
+        "partnershipCommitment": "Partnership Commitment",
+        "customCommitment": "Custom Commitment"
+      },
+      "statuses": {
+        "proposed": "Proposed",
+        "accepted": "Accepted",
+        "inProgress": "In Progress",
+        "atRisk": "At Risk",
+        "fulfilled": "Fulfilled",
+        "cancelled": "Cancelled",
+        "archived": "Archived"
+      },
+      "priorities": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "critical": "Critical"
+      },
+      "recommendations": {
+        "reviewDeadlines": "Review commitments approaching deadlines.",
+        "escalateAtRisk": "Escalate commitments at risk.",
+        "clarifyCriteria": "Clarify fulfillment criteria.",
+        "assignSupport": "Assign additional support resources.",
+        "celebrateFulfilled": "Celebrate fulfilled commitments."
+      },
+      "faq": {
+        "title": "Commitments FAQ",
+        "whatIs": "What is the Commitment Center?",
+        "whatIsAnswer": "The Commitment Center helps organizations document promises, monitor fulfillment and improve accountability across teams and stakeholders.",
+        "whyTrack": "Why should commitments be tracked?",
+        "whyTrackAnswer": "Tracking commitments reduces the likelihood that important obligations are forgotten and strengthens trust within organizations and external relationships.",
+        "autoFulfill": "Can Aipify fulfill commitments automatically?",
+        "autoFulfillAnswer": "No. Aipify supports visibility, follow-up and accountability, while people remain responsible for fulfilling commitments."
       }
     }
   },

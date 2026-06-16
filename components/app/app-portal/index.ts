@@ -47,3 +47,5 @@ export { StrategyExecutionPanel } from "./StrategyExecutionPanel";
 export { StrategyExecutionDetailPanel } from "./StrategyExecutionDetailPanel";
 export { PrioritizationEnginePanel } from "./PrioritizationEnginePanel";
 export { PrioritizationEngineDetailPanel } from "./PrioritizationEngineDetailPanel";
+export { CommitmentTrackingPanel } from "./CommitmentTrackingPanel";
+export { CommitmentTrackingDetailPanel } from "./CommitmentTrackingDetailPanel";
