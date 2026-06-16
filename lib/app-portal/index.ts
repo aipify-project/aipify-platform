@@ -23,3 +23,4 @@ export * from "./meetings";
 export * from "./communications";
 export * from "./continuity";
 export * from "./learning-improvement";
+export * from "./capacity-workload";

@@ -39,3 +39,5 @@ export { ContinuityPanel } from "./ContinuityPanel";
 export { ContinuityDetailPanel } from "./ContinuityDetailPanel";
 export { LearningImprovementPanel } from "./LearningImprovementPanel";
 export { LearningImprovementDetailPanel } from "./LearningImprovementDetailPanel";
+export { CapacityWorkloadPanel } from "./CapacityWorkloadPanel";
+export { CapacityWorkloadDetailPanel } from "./CapacityWorkloadDetailPanel";

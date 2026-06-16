@@ -23839,7 +23839,8 @@
       "meetings": "Meetings",
       "communications": "Communications",
       "continuity": "Continuity",
-      "learningImprovement": "Learning & Improvement"
+      "learningImprovement": "Learning & Improvement",
+      "capacityWorkload": "Capacity & Workload"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -26101,6 +26102,127 @@
         "documentAnswer": "Documenting lessons helps organizations avoid repeating mistakes, strengthen best practices and improve over time.",
         "autoImplement": "Can Aipify automatically implement improvements?",
         "autoImplementAnswer": "No. Aipify supports awareness and continuous improvement, but people remain responsible for evaluating and implementing changes."
+      }
+    },
+    "capacityWorkload": {
+      "title": "Capacity & Workload",
+      "subtitle": "Understand workload distribution, identify bottlenecks and improve operational sustainability across teams.",
+      "loading": "Aipify is reviewing organizational capacity…",
+      "principle": "Healthy organizations understand how work is distributed before problems emerge.",
+      "emptyTitle": "No capacity information has been recorded yet.",
+      "emptyBody": "Healthy organizations understand how work is distributed before problems emerge.",
+      "emptyCta": "Create Capacity Review",
+      "back": "Capacity & Workload",
+      "notFound": "Capacity record not found.",
+      "accessDenied": "Capacity information is available to authorized leadership roles only.",
+      "filters": {
+        "search": "Search capacity records…",
+        "team": "Team",
+        "category": "Category",
+        "status": "Status",
+        "owner": "Owner",
+        "workload": "Workload level",
+        "trend": "Trend direction",
+        "all": "All"
+      },
+      "dashboard": {
+        "overview": "Organizational workload overview",
+        "approachingLimits": "Teams approaching limits",
+        "balancedTeams": "Balanced teams",
+        "capacityTrends": "Capacity trends",
+        "recentChanges": "Recent workload changes",
+        "recommendedReviews": "Recommended reviews"
+      },
+      "insights": {
+        "title": "Workload insights",
+        "persistentOverload": "Persistent overload patterns",
+        "suddenIncrease": "Sudden workload increases",
+        "aboveLimits": "Teams operating consistently above limits",
+        "unusedCapacity": "Areas with unused capacity",
+        "operationalStrain": "Repeated operational strain",
+        "inactive": "No pattern detected"
+      },
+      "form": {
+        "createTitle": "Create capacity review",
+        "title": "Title",
+        "team": "Team",
+        "category": "Category",
+        "currentUtilization": "Current utilization (%)",
+        "recommendedUtilization": "Recommended utilization (%)",
+        "trend": "Trend direction",
+        "notes": "Notes",
+        "submit": "Create review",
+        "cancel": "Cancel"
+      },
+      "card": {
+        "owner": "Owner",
+        "team": "Team",
+        "utilization": "Utilization",
+        "recommended": "Recommended",
+        "trend": "Trend",
+        "workload": "Workload",
+        "lastUpdated": "Last updated",
+        "view": "View"
+      },
+      "detail": {
+        "overview": "Capacity overview",
+        "trendAnalysis": "Trend analysis",
+        "teamBreakdown": "Team breakdown",
+        "relatedActivities": "Update capacity",
+        "relatedFollowUps": "Related follow-ups",
+        "followUpRecommendations": "Follow-up recommendations",
+        "timeline": "Historical timeline",
+        "audit": "Audit history",
+        "save": "Save updates",
+        "saved": "Capacity record updated.",
+        "recommendations": "Aipify recommendations"
+      },
+      "categories": {
+        "individualCapacity": "Individual Capacity",
+        "teamCapacity": "Team Capacity",
+        "departmentCapacity": "Department Capacity",
+        "operationalCapacity": "Operational Capacity",
+        "leadershipCapacity": "Leadership Capacity",
+        "supportCapacity": "Support Capacity",
+        "projectCapacity": "Project Capacity",
+        "seasonalCapacity": "Seasonal Capacity",
+        "growthCapacity": "Growth Capacity",
+        "customCategory": "Custom Category"
+      },
+      "statuses": {
+        "healthy": "Healthy",
+        "approachingLimit": "Approaching Limit",
+        "overloaded": "Overloaded",
+        "underutilized": "Underutilized",
+        "requiresReview": "Requires Review"
+      },
+      "workload": {
+        "veryLow": "Very Low",
+        "balanced": "Balanced",
+        "elevated": "Elevated",
+        "high": "High",
+        "critical": "Critical"
+      },
+      "trends": {
+        "increasing": "Increasing",
+        "stable": "Stable",
+        "decreasing": "Decreasing"
+      },
+      "recommendations": {
+        "reviewOverload": "Review teams experiencing sustained overload.",
+        "redistribute": "Redistribute operational responsibilities.",
+        "evaluateStaffing": "Evaluate staffing assumptions.",
+        "scheduleReview": "Schedule workload reviews.",
+        "recognizeHealthy": "Recognize consistently healthy operational practices."
+      },
+      "faq": {
+        "title": "Capacity FAQ",
+        "whatIs": "What is the Capacity Center?",
+        "whatIsAnswer": "The Capacity Center helps organizations understand workload distribution and identify operational bottlenecks.",
+        "monitoring": "Is this employee monitoring?",
+        "monitoringAnswer": "No. The purpose is to support organizational health and operational planning, not to monitor individuals unnecessarily.",
+        "autoRebalance": "Can Aipify automatically rebalance workloads?",
+        "autoRebalanceAnswer": "No. Aipify provides visibility and recommendations, while leaders remain responsible for operational decisions."
       }
     }
   },
