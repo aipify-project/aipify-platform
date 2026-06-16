@@ -121,6 +121,7 @@ export function EarlyWarningCenterPanel({ labels }: Props) {
         <div className="mt-3 flex flex-wrap gap-3 text-sm">
           <Link href="/app/executive/strategic-decision-cockpit" className="text-indigo-600 hover:underline">{labels.cockpitLink}</Link>
           <Link href="/app/executive/board-investor-intelligence" className="text-indigo-600 hover:underline">{labels.boardInvestorIntelligenceLink}</Link>
+          <Link href="/app/executive/transformation-change-center" className="text-indigo-600 hover:underline">{labels.transformationChangeCenterLink}</Link>
           <Link href="/app/action-center" className="text-indigo-600 hover:underline">{labels.actionCenterLink}</Link>
         </div>
       </div>

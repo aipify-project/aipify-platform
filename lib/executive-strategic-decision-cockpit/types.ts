@@ -157,6 +157,7 @@ export type ExecutiveStrategicDecisionCockpitLabels = {
   portfolioLink: string;
   earlyWarningLink: string;
   boardInvestorIntelligenceLink: string;
+  transformationChangeCenterLink: string;
   tabs: Record<CockpitMode, string>;
   overview: {
     title: string;

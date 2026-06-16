@@ -144,6 +144,7 @@ export type OrganizationalEarlyWarningLabels = {
   executiveLink: string;
   cockpitLink: string;
   boardInvestorIntelligenceLink: string;
+  transformationChangeCenterLink: string;
   actionCenterLink: string;
   tabs: Record<EarlyWarningMode, string>;
   dashboard: {

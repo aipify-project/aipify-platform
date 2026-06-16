@@ -13,6 +13,7 @@ export function buildOrganizationalEarlyWarningLabels(t: Translator): Organizati
     cockpitLink: t(`${p}.cockpitLink`),
     actionCenterLink: t(`${p}.actionCenterLink`),
     boardInvestorIntelligenceLink: t(`${p}.boardInvestorIntelligenceLink`),
+    transformationChangeCenterLink: t(`${p}.transformationChangeCenterLink`),
     tabs: {
       dashboard: t(`${p}.tabs.dashboard`),
       warnings: t(`${p}.tabs.warnings`),

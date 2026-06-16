@@ -844,12 +844,14 @@
       "confidenceScoresAnswer": "From risk, dependency stability, historical patterns, and workload indicators — always as estimates, never certainty."
     },
     "earlyWarningLink": "Early Warning Center",
-    "boardInvestorIntelligenceLink": "Board & Investor Intelligence Center"
+    "boardInvestorIntelligenceLink": "Board & Investor Intelligence Center",
+    "transformationChangeCenterLink": "Transformation & Change Center"
   },
   "executive": {
     "strategicDecisionCockpitLink": "Executive Strategic Decision Cockpit",
     "earlyWarningCenterLink": "Early Warning Center",
-    "boardInvestorIntelligenceLink": "Board & Investor Intelligence Center"
+    "boardInvestorIntelligenceLink": "Board & Investor Intelligence Center",
+    "transformationChangeCenterLink": "Transformation & Change Center"
   },
   "organizationalEarlyWarning": {
     "title": "Центр раннього попередження",
@@ -987,7 +989,8 @@
       "confidenceLevels": "How are confidence levels determined?",
       "confidenceLevelsAnswer": "From signal severity, data availability, and historical pattern strength — always as estimates."
     },
-    "boardInvestorIntelligenceLink": "Board & Investor Intelligence Center"
+    "boardInvestorIntelligenceLink": "Board & Investor Intelligence Center",
+    "transformationChangeCenterLink": "Transformation & Change Center"
   },
   "boardInvestorIntelligence": {
     "title": "Розуміння ради та інвесторів",
@@ -1121,6 +1124,172 @@
       "investorInsightsAnswer": "From execution outcomes, portfolio health, and governance patterns — always as illustrative indicators, not audited financials.",
       "confidenceScores": "How should leaders interpret confidence scores?",
       "confidenceScoresAnswer": "As estimates of data quality and pattern strength — never as guarantees of outcomes."
+    }
+  },
+  "enterpriseTransformationChange": {
+    "title": "Центр трансформації та змін",
+    "subtitle": "Navigate strategic change with readiness assessments, adoption intelligence, resistance support, and executive transformation briefings.",
+    "loading": "Preparing transformation intelligence…",
+    "humanOversight": "Aipify supports transformation efforts. People remain at the center of organizational change. Resistance signals are supportive — never punitive or surveillance-based.",
+    "principle": "Aipify supports transformation efforts. People remain at the center of organizational change.",
+    "executiveLink": "Центр керівництва",
+    "cockpitLink": "Strategic Decision Cockpit",
+    "earlyWarningLink": "Early Warning Center",
+    "portfolioLink": "Action Center — Strategic Portfolio",
+    "generateBriefing": "Generate transformation briefing",
+    "recorded": "Event recorded in audit log.",
+    "upgrade": {
+      "title": "Upgrade for Transformation & Change Intelligence",
+      "body": "Transformation and change intelligence is available on Business and Enterprise plans.",
+      "cta": "View license & plans"
+    },
+    "tabs": {
+      "dashboard": "Transformation dashboard",
+      "categories": "Categories",
+      "readiness": "Change readiness",
+      "adoption": "Adoption intelligence",
+      "resistance": "Resistance monitoring",
+      "briefing": "Executive briefing",
+      "stakeholders": "Stakeholder mapping",
+      "communication": "Communication",
+      "training": "Training & enablement",
+      "milestones": "Milestones",
+      "learning": "Learning",
+      "reflection": "Reflection"
+    },
+    "dashboard": {
+      "title": "Transformation dashboard",
+      "activePrograms": "Active programs",
+      "healthStatus": "Transformation health",
+      "adoptionProgress": "Adoption progress",
+      "readiness": "Change readiness",
+      "resistanceSignals": "Resistance signals",
+      "milestonesAchieved": "Milestones achieved",
+      "sponsorship": "Executive sponsorship",
+      "programs": "Active transformation programs"
+    },
+    "categories": {
+      "title": "Transformation categories"
+    },
+    "categoryLabels": {
+      "digitalTransformation": "Digital Transformation",
+      "organizationalRestructuring": "Organizational Restructuring",
+      "processTransformation": "Process Transformation",
+      "technologyAdoption": "Technology Adoption",
+      "culturalTransformation": "Cultural Transformation",
+      "complianceTransformation": "Compliance Transformation",
+      "customerExperienceTransformation": "Customer Experience Transformation",
+      "strategicPivotInitiatives": "Strategic Pivot Initiatives",
+      "growthTransformation": "Growth Transformation",
+      "operationalExcellencePrograms": "Operational Excellence Programs"
+    },
+    "readiness": {
+      "title": "Change readiness assessment",
+      "overall": "Overall readiness",
+      "leadershipAlignment": "Leadership alignment",
+      "employeeUnderstanding": "Employee understanding",
+      "communicationEffectiveness": "Communication effectiveness",
+      "resourceAvailability": "Resource availability",
+      "trainingReadiness": "Training readiness",
+      "governanceReadiness": "Governance readiness",
+      "statuses": {
+        "ready": "Ready",
+        "mostlyReady": "Mostly Ready",
+        "partiallyReady": "Partially Ready",
+        "notReady": "Not Ready",
+        "criticalConcerns": "Critical Concerns"
+      }
+    },
+    "adoption": {
+      "title": "Adoption intelligence",
+      "trainingParticipation": "Training participation",
+      "processAdoption": "Process adoption rate",
+      "usagePattern": "Usage pattern",
+      "supportRequests": "Support requests",
+      "feedbackTrend": "Feedback trend",
+      "departmentNotes": "Department indicators are aggregated — not individual surveillance.",
+      "departmentDifferences": "Department adoption differences"
+    },
+    "resistance": {
+      "title": "Resistance monitoring",
+      "supportiveNote": "Supportive guidance",
+      "severity": "Severity",
+      "empty": "No resistance signals detected — continue monitoring adoption and communication."
+    },
+    "resistanceSignals": {
+      "decliningEngagement": "Declining engagement",
+      "repeatedDelays": "Repeated delays",
+      "lowParticipation": "Low participation",
+      "negativeSentiment": "Negative sentiment patterns",
+      "escalatingConcerns": "Escalating concerns",
+      "conflictingPriorities": "Conflicting priorities"
+    },
+    "briefing": {
+      "title": "Executive transformation briefing",
+      "status": "Current status",
+      "achievements": "Achievements",
+      "risks": "Emerging risks",
+      "adoptionTrends": "Adoption trends",
+      "interventions": "Recommended interventions",
+      "priorityFocus": "Priority focus areas",
+      "confidence": "Confidence",
+      "disclaimer": "Transformation intelligence supports leaders — not automated change management."
+    },
+    "stakeholders": {
+      "title": "Stakeholder mapping",
+      "executiveSponsors": "Executive sponsors",
+      "transformationLeaders": "Transformation leaders",
+      "departmentChampions": "Department champions",
+      "subjectMatterExperts": "Subject matter experts",
+      "impactedTeams": "Impacted teams",
+      "communicationOwners": "Communication owners"
+    },
+    "communication": {
+      "title": "Communication intelligence",
+      "frequency": "Communication frequency",
+      "reach": "Communication reach",
+      "acknowledgement": "Acknowledgement rate",
+      "understanding": "Understanding indicator",
+      "missedAudiences": "Missed audiences",
+      "recommendedActions": "Recommended communication actions"
+    },
+    "training": {
+      "title": "Training & enablement tracking",
+      "completionRate": "Training completion rate",
+      "knowledgeGaps": "Knowledge gaps",
+      "departmentReadiness": "Department readiness",
+      "followUp": "Follow-up recommendations",
+      "learningPathways": "Suggested learning pathways"
+    },
+    "milestones": {
+      "title": "Milestone management",
+      "planned": "Planned milestones",
+      "completed": "Completed milestones",
+      "delayed": "Delayed milestones",
+      "blocked": "Blocked milestones",
+      "executiveReview": "Executive review milestones"
+    },
+    "learning": {
+      "title": "Transformation learning engine"
+    },
+    "reflection": {
+      "title": "Executive reflection support",
+      "guidance": "Guidance"
+    },
+    "faq": {
+      "title": "Transformation & Change FAQ",
+      "whatIsTransformation": "What is organizational transformation?",
+      "whatIsTransformationAnswer": "Strategic change initiatives including digital transformation, restructuring, process change, and cultural evolution — supported by readiness and adoption intelligence.",
+      "whyFail": "Why do transformations fail?",
+      "whyFailAnswer": "Often due to underestimated human complexity, poor communication, insufficient readiness, and lack of executive sponsorship — areas Aipify helps leaders monitor.",
+      "howSupport": "How does Aipify support change initiatives?",
+      "howSupportAnswer": "Through readiness assessments, adoption tracking, resistance support, stakeholder mapping, and briefings integrated with Decision Cockpit, Portfolio, and Early Warning.",
+      "autoManage": "Can Aipify manage change automatically?",
+      "autoManageAnswer": "No. Aipify prepares intelligence and recommendations. Leaders and teams drive change — people remain at the center.",
+      "respondResistance": "How should leaders respond to resistance?",
+      "respondResistanceAnswer": "With supportive engagement — address concerns, remove blockers, improve communication, and provide enablement. Signals are never punitive.",
+      "readinessAssessments": "How are readiness assessments performed?",
+      "readinessAssessmentsAnswer": "From leadership alignment, communication effectiveness, resource availability, training readiness, and governance patterns — as governance indicators, not surveillance."
     }
   }
 }

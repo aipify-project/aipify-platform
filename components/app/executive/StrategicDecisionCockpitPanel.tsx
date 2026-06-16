@@ -102,6 +102,7 @@ export function StrategicDecisionCockpitPanel({ labels }: Props) {
           <Link href="/app/action-center" className="text-indigo-600 hover:underline">{labels.actionCenterLink}</Link>
           <Link href="/app/executive/early-warning-center" className="text-indigo-600 hover:underline">{labels.earlyWarningLink}</Link>
           <Link href="/app/executive/board-investor-intelligence" className="text-indigo-600 hover:underline">{labels.boardInvestorIntelligenceLink}</Link>
+          <Link href="/app/executive/transformation-change-center" className="text-indigo-600 hover:underline">{labels.transformationChangeCenterLink}</Link>
         </div>
       </div>
     );
@@ -122,6 +123,7 @@ export function StrategicDecisionCockpitPanel({ labels }: Props) {
           <Link href="/app/action-center" className="text-indigo-600 hover:underline">{labels.actionCenterLink}</Link>
           <Link href="/app/executive/early-warning-center" className="text-indigo-600 hover:underline">{labels.earlyWarningLink}</Link>
           <Link href="/app/executive/board-investor-intelligence" className="text-indigo-600 hover:underline">{labels.boardInvestorIntelligenceLink}</Link>
+          <Link href="/app/executive/transformation-change-center" className="text-indigo-600 hover:underline">{labels.transformationChangeCenterLink}</Link>
         </div>
       </div>
 

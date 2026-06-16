@@ -14,6 +14,7 @@ export function buildExecutiveStrategicDecisionCockpitLabels(t: Translator): Exe
     portfolioLink: t(`${p}.portfolioLink`),
     earlyWarningLink: t(`${p}.earlyWarningLink`),
     boardInvestorIntelligenceLink: t(`${p}.boardInvestorIntelligenceLink`),
+    transformationChangeCenterLink: t(`${p}.transformationChangeCenterLink`),
     tabs: {
       overview: t(`${p}.tabs.overview`),
       decisions: t(`${p}.tabs.decisions`),

@@ -42,6 +42,7 @@ type ExecutiveDashboardPanelProps = {
     strategicDecisionCockpitLink: string;
     earlyWarningCenterLink: string;
     boardInvestorIntelligenceLink: string;
+    transformationChangeCenterLink: string;
     strategicIntelligenceLink: string;
     continuousImprovementLink: string;
     organizationalResilienceLink: string;
@@ -159,6 +160,9 @@ export function ExecutiveDashboardPanel({ locale, labels }: ExecutiveDashboardPa
         </Link>
         <Link href="/app/executive/board-investor-intelligence" className="ml-4 mt-3 inline-block text-sm font-medium text-indigo-800 hover:underline">
           {labels.boardInvestorIntelligenceLink}
+        </Link>
+        <Link href="/app/executive/transformation-change-center" className="ml-4 mt-3 inline-block text-sm font-medium text-teal-800 hover:underline">
+          {labels.transformationChangeCenterLink}
         </Link>
         <Link href="/app/executive/strategic-intelligence" className="ml-4 mt-3 inline-block text-sm text-indigo-600 hover:underline">
           {labels.strategicIntelligenceLink}
