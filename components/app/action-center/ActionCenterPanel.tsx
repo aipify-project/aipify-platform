@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { ActionImpactAnalysisView } from "@/components/shared/action-center-impact";
+import { ActionImpactAnalysisView, ActionImpactDashboardWidgets } from "@/components/shared/action-center-impact";
 import {
+  buildImpactDashboardWidgets,
   parseActionImpactAnalysis,
   type ActionImpactAnalysis,
   type ActionImpactLabels,
@@ -170,6 +171,7 @@ export function ActionCenterPanel({ labels, impactLabels }: ActionCenterPanelPro
 
   const counts = center?.counts ?? {};
   const pending = center?.pending_actions ?? [];
+  const impactWidgets = buildImpactDashboardWidgets(center);
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-6">
@@ -177,8 +179,11 @@ export function ActionCenterPanel({ labels, impactLabels }: ActionCenterPanelPro
         <Link href="/app" className="text-sm text-indigo-600 hover:underline">
           ← {labels.back}
         </Link>
-        <h1 className="mt-2 text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
-        <p className="mt-2 text-gray-600">{labels.subtitle}</p>
+        <h1 className="mt-2 text-2xl font-bold tracking-tight text-gray-900">
+          {impactLabels.centerTitle}
+        </h1>
+        <p className="mt-2 text-gray-600">{impactLabels.centerSubtitle}</p>
+        <p className="mt-1 text-sm text-gray-500">{labels.subtitle}</p>
         <p className="mt-1 text-sm font-medium text-indigo-800">{labels.youControl}</p>
         {(center?.privacy_note || labels.privacy) && (
           <p className="mt-2 rounded-lg border border-slate-100 bg-slate-50 px-3 py-2 text-sm text-slate-800">
@@ -211,6 +216,14 @@ export function ActionCenterPanel({ labels, impactLabels }: ActionCenterPanelPro
           <CountCard label={labels.counts.blocked} value={counts.blocked ?? 0} />
         </div>
       </section>
+
+      {!selectedId ? (
+        <ActionImpactDashboardWidgets
+          widgets={impactWidgets}
+          labels={impactLabels}
+          onSelectAction={(id) => void loadDetail(id)}
+        />
+      ) : null}
 
       {selectedId && impactAnalysis?.found && impactAnalysis.action ? (
         <ActionImpactAnalysisView

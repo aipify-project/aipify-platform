@@ -1,3 +1,4 @@
+import { enrichActionImpactAnalysis } from "./enrichment";
 import type {
   ActionApprovalChain,
   ActionAuditPreview,
@@ -196,7 +197,7 @@ export function parseActionImpactAnalysis(data: unknown): ActionImpactAnalysis |
 
   const safetyRaw = raw.safety as Record<string, unknown> | undefined;
 
-  return {
+  const base: ActionImpactAnalysis = {
     found: true,
     action: parseAction(raw.action),
     summary: parseSummary(raw.summary),
@@ -233,4 +234,6 @@ export function parseActionImpactAnalysis(data: unknown): ActionImpactAnalysis |
       : [],
     principle: str(raw.principle),
   };
+
+  return enrichActionImpactAnalysis(base);
 }

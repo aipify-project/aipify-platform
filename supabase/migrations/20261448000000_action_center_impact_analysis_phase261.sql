@@ -268,3 +268,57 @@ end;
 $$;
 
 grant execute on function public.get_action_center_impact_analysis(uuid) to authenticated;
+
+-- Learning loop — capture validated outcomes for future impact predictions
+create or replace function public.record_action_center_impact_learning(
+  p_action_id uuid,
+  p_actual_outcome text,
+  p_user_satisfaction text default 'neutral',
+  p_goal_achievement text default 'partially',
+  p_lessons_learned text default ''
+)
+returns jsonb
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_tenant_id uuid;
+  v_action public.aipify_actions;
+  v_log_id uuid;
+begin
+  v_tenant_id := public._presence_tenant_for_auth();
+  if v_tenant_id is null then
+    return jsonb_build_object('recorded', false, 'error', 'tenant_not_found');
+  end if;
+
+  select * into v_action
+  from public.aipify_actions
+  where id = p_action_id and tenant_id = v_tenant_id;
+
+  if v_action.id is null then
+    return jsonb_build_object('recorded', false, 'error', 'action_not_found');
+  end if;
+
+  v_log_id := public.record_aef_action_log(
+    v_tenant_id,
+    p_action_id,
+    'impact_learning_feedback',
+    left(coalesce(p_actual_outcome, ''), 500),
+    coalesce(auth.jwt() ->> 'email', 'user'),
+    'user',
+    jsonb_build_object(
+      'actual_outcome', p_actual_outcome,
+      'user_satisfaction', p_user_satisfaction,
+      'goal_achievement', p_goal_achievement,
+      'lessons_learned', p_lessons_learned,
+      'action_type', v_action.action_type,
+      'recorded_at', now()
+    )
+  );
+
+  return jsonb_build_object('recorded', true, 'log_id', v_log_id);
+end;
+$$;
+
+grant execute on function public.record_action_center_impact_learning(uuid, text, text, text, text) to authenticated;

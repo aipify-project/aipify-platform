@@ -1,0 +1,245 @@
+{
+  "actionCenter": {
+    "impactAnalysis": {
+      "centerTitle": "Центр аналізу впливу",
+      "centerSubtitle": "Перегляньте очікувані результати, ризики, зусилля та впевненість перед затвердженням дій Aipify.",
+      "viewModeFull": "Повний аналіз",
+      "viewModeExecutive": "Виконавче резюме",
+      "humanOversight": {
+        "basedOnAvailableInformation": "На основі доступної інформації Aipify надає підтримку рішень — не гарантію.",
+        "aipifyEstimates": "Aipify оцінює результати за організаційними сигналами, історією та контекстом Центру знань.",
+        "reviewBeforeExecution": "Цю рекомендацію слід переглянути перед виконанням. Відповідальність залишається за людьми."
+      },
+      "sections": {
+        "summary": "Action summary",
+        "expectedOutcome": "Expected outcome analysis",
+        "businessImpact": "Business impact analysis",
+        "impactCategories": "Business impact categories",
+        "riskAnalysis": "Risk assessment",
+        "effortEstimation": "Effort estimation",
+        "confidence": "Confidence engine",
+        "decisionSupport": "Decision support",
+        "executiveSummary": "Executive summary",
+        "rollback": "Rollback capability",
+        "affectedSystems": "Affected systems",
+        "approvalChain": "Approval chain",
+        "auditPreview": "Audit preview",
+        "relatedActions": "Related actions",
+        "timeline": "Execution timeline",
+        "postExecution": "Post-execution review",
+        "learningLoop": "Learning loop",
+        "knowledgeCenter": "Knowledge Center",
+        "widgets": "Impact dashboard"
+      },
+      "summary": {
+        "status": "Status",
+        "recommendedBy": "Recommended by",
+        "priority": "Priority",
+        "impactScore": "Impact score"
+      },
+      "expectedOutcome": {
+        "intendedOutcome": "Intended positive outcome",
+        "recommendationRationale": "Why Aipify recommends this",
+        "estimatedValueCreation": "Estimated value creation",
+        "strategicAlignment": "Strategic alignment score"
+      },
+      "businessImpact": {
+        "expectedBenefits": "Expected benefits",
+        "timeSavings": "Estimated time savings",
+        "affectedTeams": "Affected teams",
+        "customerImpact": "Estimated customer impact"
+      },
+      "impactCategories": {
+        "revenue": "Revenue",
+        "customerSatisfaction": "Customer satisfaction",
+        "employeeExperience": "Employee experience",
+        "operationalEfficiency": "Operational efficiency",
+        "compliance": "Compliance",
+        "strategicGoals": "Strategic goals",
+        "growth": "Growth",
+        "riskReduction": "Risk reduction"
+      },
+      "impactLevels": {
+        "none": "None",
+        "low": "Low",
+        "moderate": "Moderate",
+        "high": "High"
+      },
+      "riskAnalysis": {
+        "riskLevel": "Risk level",
+        "riskRationale": "Why this risk level was assigned",
+        "sideEffects": "Potential negative consequences",
+        "mitigation": "Suggested mitigation steps"
+      },
+      "effortEstimation": {
+        "title": "Estimated effort",
+        "requiredStakeholders": "Required stakeholders",
+        "requiredApprovals": "Required approvals",
+        "requiredIntegrations": "Required integrations",
+        "units": {
+          "minutes": "minutes",
+          "hours": "hours",
+          "days": "days",
+          "weeks": "weeks"
+        }
+      },
+      "confidence": {
+        "score": "Confidence score",
+        "level": "Confidence level",
+        "reasoning": "Reasoning",
+        "historicalSuccess": "Based on historical success rates",
+        "operatingConditions": "and current operating conditions",
+        "levels": {
+          "veryLow": "Very Low",
+          "low": "Low",
+          "moderate": "Moderate",
+          "high": "High",
+          "veryHigh": "Very High"
+        },
+        "factors": {
+          "organizationalData": "Available organizational data",
+          "historicalOutcomes": "Historical outcomes",
+          "similarActions": "Similar previous actions",
+          "knowledgeCenter": "Knowledge Center confidence",
+          "humanValidation": "Human validation history"
+        }
+      },
+      "decisionSupport": {
+        "whyImportantNow": "Why is this important now?",
+        "ifDelayed": "What happens if we delay?",
+        "ifIgnored": "What happens if we ignore this?",
+        "whoInvolved": "Who should be involved?"
+      },
+      "executiveSummary": {
+        "situation": "Situation",
+        "recommendation": "Recommendation",
+        "expectedBenefits": "Expected benefits",
+        "risks": "Risks",
+        "requiredActions": "Required actions",
+        "confidenceScore": "Confidence score"
+      },
+      "learningLoop": {
+        "intro": "Help Aipify improve future impact predictions by sharing what happened after execution.",
+        "actualOutcome": "Actual outcome",
+        "userSatisfaction": "User satisfaction",
+        "goalAchievement": "Goal achievement",
+        "lessonsLearned": "Lessons learned",
+        "submit": "Submit outcome feedback",
+        "submitted": "Thank you — your feedback improves future impact analysis.",
+        "satisfaction": {
+          "veryDissatisfied": "Very dissatisfied",
+          "dissatisfied": "Dissatisfied",
+          "neutral": "Neutral",
+          "satisfied": "Satisfied",
+          "verySatisfied": "Very satisfied"
+        },
+        "achievement": {
+          "notAchieved": "Not achieved",
+          "partially": "Partially achieved",
+          "mostly": "Mostly achieved",
+          "fully": "Fully achieved"
+        }
+      },
+      "widgets": {
+        "recommendedByImpact": "Recommended actions by impact",
+        "highImpactOpportunities": "High impact opportunities",
+        "highRiskRecommendations": "High risk recommendations",
+        "recentlyValidatedOutcomes": "Recently validated outcomes",
+        "awaitingReview": "Actions awaiting review",
+        "executiveApproval": "Actions requiring executive approval",
+        "empty": "No items in this view right now.",
+        "viewAction": "Review"
+      },
+      "faq": {
+        "title": "Impact Analysis FAQ",
+        "whatIsImpactAnalysis": "What is Impact Analysis?",
+        "whatIsImpactAnalysisAnswer": "Impact Analysis explains expected outcomes, risks, effort, and confidence before you approve an Aipify action.",
+        "howEstimateOutcomes": "How does Aipify estimate outcomes?",
+        "howEstimateOutcomesAnswer": "Aipify combines organizational signals, similar past actions, Knowledge Center context, and approval history — always as estimates.",
+        "canPredictFuture": "Can Aipify predict the future?",
+        "canPredictFutureAnswer": "No. Aipify provides decision support based on available information. Actual results depend on your decisions and operating context.",
+        "confidenceScores": "How are confidence scores calculated?",
+        "confidenceScoresAnswer": "Confidence reflects data availability, historical success rates, similar actions, Knowledge Center alignment, and human validation patterns.",
+        "whoResponsible": "Who remains responsible for decisions?",
+        "whoResponsibleAnswer": "You and your organization. Aipify prepares and explains recommendations — humans approve, execute, and remain accountable."
+      },
+      "rollback": {
+        "available": "Rollback available",
+        "notAvailable": "Rollback not available",
+        "recoveryTime": "Estimated recovery time",
+        "steps": "Rollback steps",
+        "manualRequired": "Manual intervention required"
+      },
+      "approvalChain": {
+        "requestedBy": "Requested by",
+        "requiresApprovalFrom": "Requires approval from",
+        "escalationPath": "Escalation path"
+      },
+      "auditPreview": {
+        "intro": "This action will generate audit records.",
+        "approvalEvent": "Approval event",
+        "executionEvent": "Execution event",
+        "outcomeEvent": "Outcome event",
+        "rollbackEvent": "Rollback event"
+      },
+      "relatedActions": {
+        "similarExecuted": "{count} similar actions executed in your workspace",
+        "averageSuccess": "Average success rate: {rate}%"
+      },
+      "timeline": {
+        "review": "Review",
+        "approve": "Approve",
+        "execute": "Execute",
+        "verify": "Verify",
+        "monitor": "Monitor",
+        "close": "Close"
+      },
+      "timelineStatus": {
+        "pending": "Pending",
+        "current": "In progress",
+        "complete": "Complete",
+        "blocked": "Blocked"
+      },
+      "postExecution": {
+        "result": "Execution result",
+        "executionTime": "Execution time",
+        "unexpectedEvents": "Unexpected events",
+        "businessOutcome": "Business outcome",
+        "successful": "Successful",
+        "failed": "Failed",
+        "positive": "Positive",
+        "reviewRequired": "Review required",
+        "none": "None"
+      },
+      "categories": {
+        "support": "Support action",
+        "automation": "Automation action",
+        "billing": "Billing action",
+        "installation": "Installation action",
+        "governance": "Governance action",
+        "customer": "Customer action",
+        "growthPartner": "Growth Partner action",
+        "workflowRecovery": "Workflow recovery action"
+      },
+      "empty": "No actions require review.",
+      "emptyMonitoring": "Aipify continues monitoring the platform.",
+      "principle": "Trust grows through transparency — Aipify explains what will happen, who is affected, and how recovery is handled.",
+      "actions": {
+        "approve": "Approve",
+        "reject": "Reject",
+        "execute": "Execute",
+        "back": "Back to Action Center"
+      },
+      "priority": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "critical": "Critical"
+      },
+      "customerImpact": {
+        "positive": "Positive",
+        "monitorClosely": "Monitor closely"
+      }
+    }
+  }
+}

@@ -2,73 +2,55 @@
 
 ## Purpose
 
-Transform the Action Center into a trusted enterprise decision environment. Every important action performed through Aipify should be understandable, reviewable, and safe.
+Extend the Action Center so every recommended action includes clear impact analysis before execution. Aipify helps users understand consequences, opportunities, risks, effort, expected outcomes, and confidence — while humans retain accountability.
 
 **Feature owner:** Customer App (`/app/action-center`)
 
-## Core principle
+## Impact Analysis Center
 
-No important action should feel mysterious. Aipify should explain itself.
+The Action Center surfaces as the **Impact Analysis Center** with:
 
-## Questions answered
+- Full analysis mode and **Executive Summary** mode
+- Human oversight language (“Based on available information…”, “Aipify estimates…”, “Review before execution”)
+- Six dashboard widgets for impact-oriented triage
 
-1. What is about to happen?
-2. Why is Aipify recommending this?
-3. What systems are affected?
-4. What is the business impact?
-5. Can this be reversed?
+## Features (Phase 261)
 
-## Supported action types
-
-Support · Automation · Billing · Installation · Governance · Customer · Growth Partner · Workflow Recovery
-
-## Action detail experience
-
-When opening an action, users see:
-
-- **Action summary** — title, status, recommended by, priority
-- **Business impact analysis** — expected benefits, time savings, affected teams, customer impact
-- **Risk analysis** — risk level, side effects, mitigation
-- **Confidence score** — percentage with reasoning
-- **Rollback capability** — availability, recovery time, steps
-- **Affected systems** — visual relationship list
-- **Approval chain** — requested by, approver, escalation path
-- **Audit preview** — records that will be created
-- **Related actions** — similar actions and success rate
-- **Execution timeline** — Review → Approve → Execute → Verify → Monitor → Close
-- **Post-execution review** — result, time, unexpected events, business outcome (when completed)
+1. **Expected Outcome Analysis** — intended outcome, rationale, value creation, strategic alignment score
+2. **Risk Assessment** — Low / Medium / High / Critical with rationale, consequences, mitigation
+3. **Effort Estimation** — minutes / hours / days / weeks; stakeholders, approvals, integrations
+4. **Business Impact Categories** — Revenue, Customer Satisfaction, Employee Experience, Operational Efficiency, Compliance, Strategic Goals, Growth, Risk Reduction (None / Low / Moderate / High)
+5. **Confidence Engine** — Very Low → Very High with influence factors
+6. **Decision Support Panel** — why now, delay, ignore, who to involve
+7. **Executive Summary Mode** — Situation, Recommendation, Benefits, Risks, Required Actions, Confidence
+8. **Human Oversight Principle** — estimates, not certainty
+9. **Learning Loop** — post-execution feedback via `record_action_center_impact_learning`
+10. **Dashboard Widgets** — recommended by impact, high impact, high risk, validated outcomes, awaiting review, executive approval
+11. **Knowledge Center FAQ** — `content/knowledge/aipify/action-center-impact/faq/`
+12. **i18n** — en, no, sv, da, es, pl, uk
 
 ## Architecture
 
 ```
 supabase/migrations/20261448000000_action_center_impact_analysis_phase261.sql
   get_action_center_impact_analysis(p_action_id)
+  record_action_center_impact_learning(...)
 
 lib/action-center-impact/
-  types.ts · parse.ts · labels.ts
+  types.ts · parse.ts · enrichment.ts · dashboard.ts · labels.ts
 
 components/shared/action-center-impact/
   ActionImpactAnalysisView.tsx
+  ActionImpactDashboardWidgets.tsx
+  ActionImpactLearningForm.tsx
 
 app/api/aipify/actions/[id]/impact/route.ts
-components/app/action-center/ActionCenterPanel.tsx  — wired to impact view
+app/api/aipify/actions/[id]/impact/learning/route.ts
+components/app/action-center/ActionCenterPanel.tsx
 ```
 
-## Copywriting
-
-Use business language, not technical jargon:
-
-- ✅ "Customer onboarding process improved"
-- ❌ "Database update initiated"
-
-## Empty state
-
-> No actions require review. Aipify continues monitoring the platform.
-
-## i18n
-
-`customerApp.actionCenter.impactAnalysis.*` in en/no/sv/da
+Enrichment runs client-side after RPC parse — no additional migration required for analysis fields.
 
 ## Final principle
 
-Aipify should never ask users to trust blindly. Trust grows through transparency.
+Aipify provides decision support. Humans retain accountability. Trust grows through transparency.
