@@ -6,7 +6,7 @@ export {
   PARTNERS_LEGACY_REDIRECTS as GROWTH_LEGACY_REDIRECTS,
 } from "@/lib/partners-portal/nav-config";
 
-export * from "@/lib/partners-portal/types";
-export * from "@/lib/partners-portal/parse";
-export * from "@/lib/partners-portal/labels";
+export * from "./types";
+export * from "./parse";
+export * from "./labels";
 export * from "./redirect-legacy";
