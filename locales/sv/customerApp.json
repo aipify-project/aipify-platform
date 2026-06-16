@@ -23605,7 +23605,8 @@
       "successValue": "Success & Value",
       "strategyExecution": "Strategy",
       "prioritizationEngine": "Prioritization",
-      "commitmentTracking": "Commitments"
+      "commitmentTracking": "Commitments",
+      "trustCulture": "Trust & Culture"
     },
     "dashboard": {
       "title": "APP-instrumentpanel",
@@ -26478,6 +26479,105 @@
         "whyTrackAnswer": "Tracking commitments reduces the likelihood that important obligations are forgotten and strengthens trust within organizations and external relationships.",
         "autoFulfill": "Can Aipify fulfill commitments automatically?",
         "autoFulfillAnswer": "No. Aipify supports visibility, follow-up and accountability, while people remain responsible for fulfilling commitments."
+      }
+    },
+    "trustCulture": {
+      "title": "Trust & Culture",
+      "subtitle": "Understand cultural health, strengthen trust and identify areas requiring attention through anonymous aggregate insights.",
+      "loading": "Aipify is reviewing organizational culture indicators…",
+      "principle": "Culture influences execution, engagement and resilience. Aipify supports cultural awareness — not employee surveillance.",
+      "privacyNote": "Individual responses are never displayed. Results appear only in aggregate when anonymity thresholds are met.",
+      "emptyTitle": "No culture insights are available yet.",
+      "emptyBody": "Healthy organizations build trust intentionally and improve culture continuously.",
+      "emptyCta": "Launch Culture Check-In",
+      "back": "Trust & Culture",
+      "notFound": "Culture dimension not found.",
+      "accessDenied": "You do not have permission to view organizational culture insights.",
+      "filters": {
+        "dimension": "Culture dimension",
+        "periodFrom": "Period from",
+        "periodTo": "Period to",
+        "department": "Department (aggregate)",
+        "trend": "Trend direction",
+        "all": "All"
+      },
+      "snapshot": {
+        "cultureScore": "Overall Culture Score",
+        "trustScore": "Overall Trust Score",
+        "participationRate": "Participation Rate",
+        "trendDirection": "Trend Direction",
+        "improvementMomentum": "Improvement Momentum",
+        "areasAttention": "Areas Requiring Attention",
+        "suppressed": "Insufficient responses for anonymity"
+      },
+      "dashboard": {
+        "trustIndicators": "Organizational trust indicators",
+        "collaborationIndicators": "Collaboration indicators",
+        "communicationIndicators": "Communication indicators",
+        "recognitionTrends": "Recognition trends",
+        "psychologicalSafetyTrends": "Psychological safety trends",
+        "leadershipConfidenceTrends": "Leadership confidence trends",
+        "checkIns": "Culture check-ins"
+      },
+      "checkIn": {
+        "launchTitle": "Launch Culture Check-In",
+        "title": "Check-in title",
+        "description": "Description (optional)",
+        "frequency": "Frequency",
+        "submit": "Schedule check-in",
+        "cancel": "Cancel",
+        "voluntaryNote": "Participation in culture assessments is always voluntary. Responses remain anonymous.",
+        "submitResponse": "Submit response",
+        "responseThanks": "Thank you. Your response has been recorded anonymously."
+      },
+      "detail": {
+        "historicalTrends": "Historical trends",
+        "participationHistory": "Participation history",
+        "strengths": "Strengths identified",
+        "improvementOpportunities": "Improvement opportunities",
+        "recommendedActions": "Recommended actions",
+        "reviewHistory": "Review history",
+        "recommendations": "Aipify recommendations"
+      },
+      "dimensions": {
+        "trust": "Trust",
+        "collaboration": "Collaboration",
+        "communication": "Communication",
+        "recognition": "Recognition",
+        "accountability": "Accountability",
+        "inclusion": "Inclusion",
+        "psychologicalSafety": "Psychological Safety",
+        "leadershipConfidence": "Leadership Confidence",
+        "organizationalAlignment": "Organizational Alignment",
+        "learningMindset": "Learning Mindset"
+      },
+      "trends": {
+        "improving": "Improving",
+        "stable": "Stable",
+        "declining": "Declining",
+        "insufficientData": "Insufficient Data"
+      },
+      "frequencies": {
+        "weekly": "Weekly",
+        "monthly": "Monthly",
+        "quarterly": "Quarterly",
+        "onDemand": "On Demand"
+      },
+      "recommendations": {
+        "celebrateTrends": "Celebrate positive cultural trends.",
+        "reviewDecliningTrust": "Review declining trust indicators.",
+        "encourageRecognition": "Encourage recognition practices.",
+        "facilitateCollaboration": "Facilitate cross-team collaboration.",
+        "schedulePulseSurvey": "Schedule follow-up pulse surveys."
+      },
+      "faq": {
+        "title": "Trust & Culture FAQ",
+        "whatIs": "What is the Trust & Culture Center?",
+        "whatIsAnswer": "The Trust & Culture Center helps organizations understand cultural health through anonymous aggregate insights and continuous improvement opportunities.",
+        "anonymous": "Are culture responses anonymous?",
+        "anonymousAnswer": "Yes. Individual responses are never displayed. Results are only shown in aggregate form when anonymity thresholds are met.",
+        "goodCulture": "Can Aipify determine whether an organization has a good culture?",
+        "goodCultureAnswer": "No. Aipify provides indicators and recommendations to support reflection and improvement, while organizations define their own cultural aspirations."
       }
     }
   },

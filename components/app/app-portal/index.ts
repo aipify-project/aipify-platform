@@ -49,3 +49,5 @@ export { PrioritizationEnginePanel } from "./PrioritizationEnginePanel";
 export { PrioritizationEngineDetailPanel } from "./PrioritizationEngineDetailPanel";
 export { CommitmentTrackingPanel } from "./CommitmentTrackingPanel";
 export { CommitmentTrackingDetailPanel } from "./CommitmentTrackingDetailPanel";
+export { TrustCulturePanel } from "./TrustCulturePanel";
+export { TrustCultureDimensionPanel } from "./TrustCultureDimensionPanel";
