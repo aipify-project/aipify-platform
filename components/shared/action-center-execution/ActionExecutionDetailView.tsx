@@ -11,6 +11,7 @@ type Props = {
   onEvent: (eventType: string, description: string, metadata?: Record<string, unknown>) => Promise<void>;
   onOpenImpact?: () => void;
   onOpenApproval?: () => void;
+  onOpenPortfolio?: () => void;
 };
 
 const STEP_DOT: Record<string, string> = {
@@ -28,6 +29,7 @@ export function ActionExecutionDetailView({
   onEvent,
   onOpenImpact,
   onOpenApproval,
+  onOpenPortfolio,
 }: Props) {
   const [updateText, setUpdateText] = useState("");
   const [blockerCategory, setBlockerCategory] = useState<BlockerCategory>("missing_information");
@@ -64,6 +66,11 @@ export function ActionExecutionDetailView({
           {onOpenApproval ? (
             <button type="button" onClick={onOpenApproval} className="text-gray-600 hover:underline">
               Approvals
+            </button>
+          ) : null}
+          {onOpenPortfolio ? (
+            <button type="button" onClick={onOpenPortfolio} className="text-gray-600 hover:underline">
+              Portfolio
             </button>
           ) : null}
         </div>

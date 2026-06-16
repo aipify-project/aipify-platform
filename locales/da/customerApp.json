@@ -7893,6 +7893,171 @@
       "actions": {
         "back": "Back to Action Center"
       }
+    },
+    "strategicInitiativePortfolio": {
+      "centerTitle": "Strategisk initiativportefølje",
+      "centerSubtitle": "Connect approved actions, execution progress, business priorities, and executive goals in one strategic overview.",
+      "tabImpact": "Impact Analysis",
+      "tabApprovals": "Approvals & Delegation",
+      "tabExecution": "Execution Coordination",
+      "tabPortfolio": "Strategisk portefølje",
+      "humanOversight": "Aipify supports strategic decisions. Humans retain responsibility and authority. Confidence and alignment scores are estimates — not certainty.",
+      "sections": {
+        "dashboard": "Initiative portfolio dashboard",
+        "categories": "Initiative categories",
+        "alignment": "Strategic alignment",
+        "health": "Portfolio health",
+        "executive": "Executive priority view",
+        "details": "Initiative details",
+        "riskAnalysis": "Portfolio risk analysis",
+        "resources": "Resource awareness",
+        "decisionSupport": "Decision support",
+        "learning": "Learning & improvement",
+        "knowledgeCenter": "Knowledge Center",
+        "audit": "Audit trail"
+      },
+      "categories": {
+        "revenueGrowth": "Revenue Growth",
+        "customerExperience": "Customer Experience",
+        "operationalEfficiency": "Operational Efficiency",
+        "compliance": "Compliance",
+        "riskReduction": "Risk Reduction",
+        "productDevelopment": "Product Development",
+        "employeeExperience": "Employee Experience",
+        "marketExpansion": "Market Expansion",
+        "costOptimization": "Cost Optimization",
+        "innovation": "Innovation"
+      },
+      "health": {
+        "onTrack": "On Track",
+        "atRisk": "At Risk",
+        "blocked": "Blocked",
+        "overdue": "Overdue",
+        "completed": "Completed"
+      },
+      "priority": {
+        "level": "Priority",
+        "levels": {
+          "critical": "Critical",
+          "high": "High",
+          "medium": "Medium",
+          "low": "Low",
+          "optional": "Optional"
+        }
+      },
+      "confidence": {
+        "level": "Confidence level",
+        "disclaimer": "Based on available information — estimates only, not guarantees.",
+        "levels": {
+          "veryLow": "Very Low",
+          "low": "Low",
+          "moderate": "Moderate",
+          "high": "High",
+          "veryHigh": "Very High"
+        }
+      },
+      "widgets": {
+        "active": "Active strategic initiatives",
+        "awaitingApproval": "Initiatives awaiting approval",
+        "inExecution": "Initiatives in execution",
+        "blocked": "Blocked initiatives",
+        "completed": "Completed initiatives",
+        "cancelled": "Cancelled initiatives",
+        "executivePriority": "Executive priority initiatives",
+        "empty": "No initiatives in this view right now.",
+        "viewInitiative": "View"
+      },
+      "executive": {
+        "topStrategic": "Top strategic initiatives",
+        "highestRisk": "Highest risk initiatives",
+        "highestValue": "Highest value initiatives",
+        "mostDelayed": "Most delayed initiatives",
+        "executiveDecisions": "Requiring executive decision",
+        "healthSummary": "Portfolio health summary"
+      },
+      "healthSummary": {
+        "onTrack": "On track",
+        "atRisk": "At risk",
+        "blocked": "Blocked",
+        "overdue": "Overdue",
+        "completed": "Completed"
+      },
+      "riskAnalysis": {
+        "title": "Portfolio risk analysis",
+        "highRiskConcentration": "High-risk concentration",
+        "unresolvedBlockers": "Unresolved blockers",
+        "missingOwners": "Missing owners",
+        "unclearOutcomes": "Unclear outcomes",
+        "lowConfidence": "Low confidence initiatives"
+      },
+      "alignment": {
+        "businessGoal": "Linked business goal",
+        "department": "Linked department",
+        "executiveSponsor": "Executive sponsor",
+        "alignmentScore": "Alignment score",
+        "expectedValue": "Expected strategic value"
+      },
+      "details": {
+        "owner": "Owner",
+        "timeline": "Timeline",
+        "plannedStart": "Planned start",
+        "estimatedCompletion": "Estimated completion",
+        "expectedOutcome": "Expected outcome",
+        "actualOutcome": "Actual outcome",
+        "linkedActions": "Linked actions",
+        "linkedApprovals": "Linked approvals",
+        "linkedRisks": "Linked risks",
+        "linkedDependencies": "Linked dependencies"
+      },
+      "resources": {
+        "requiredTeams": "Required teams",
+        "requiredRoles": "Required roles",
+        "estimatedWorkload": "Estimated workload",
+        "capacityConcerns": "Capacity concerns",
+        "overloadedOwners": "Overloaded owners"
+      },
+      "decisionSupport": {
+        "title": "Decision support",
+        "whyItMatters": "Why does this initiative matter?",
+        "ifSucceeds": "What happens if it succeeds?",
+        "ifFails": "What happens if it fails?",
+        "ifDelayed": "What happens if it is delayed?",
+        "whoInvolved": "Who should be involved?",
+        "decisionNeeded": "What decision is needed now?"
+      },
+      "learning": {
+        "intro": "After completion, share what happened to improve future initiative recommendations.",
+        "expectedResult": "Expected result",
+        "actualResult": "Actual result",
+        "timelineAccuracy": "Timeline accuracy",
+        "businessImpact": "Business impact",
+        "lessonsLearned": "Lessons learned",
+        "improvements": "Future recommendation improvements",
+        "submit": "Submit learning feedback",
+        "submitted": "Thank you — your feedback improves future portfolio guidance."
+      },
+      "faq": {
+        "title": "Strategic Initiative Portfolio FAQ",
+        "whatIsInitiative": "What is a strategic initiative?",
+        "whatIsInitiativeAnswer": "A strategic initiative is an approved action or program tracked against business goals, ownership, execution progress, and portfolio health.",
+        "howPrioritize": "How does Aipify prioritize initiatives?",
+        "howPrioritizeAnswer": "Aipify considers risk, alignment score, strategic value, deadlines, and executive priority — executives retain final authority.",
+        "whatIsAlignment": "What is strategic alignment?",
+        "whatIsAlignmentAnswer": "Alignment shows how an initiative connects to business goals, departments, sponsors, and expected strategic value.",
+        "portfolioHealth": "What does portfolio health mean?",
+        "portfolioHealthAnswer": "Health indicates whether initiatives are on track, at risk, blocked, overdue, or completed across your portfolio.",
+        "whoOwns": "Who owns an initiative?",
+        "whoOwnsAnswer": "Each initiative has an assigned owner and optional executive sponsor. Humans retain accountability — Aipify coordinates visibility.",
+        "howEstimateRisk": "How does Aipify estimate initiative risk?",
+        "howEstimateRiskAnswer": "From risk concentration, blockers, missing owners, unclear outcomes, and confidence levels — always as guidance, not certainty.",
+        "canAipifyDecide": "Can Aipify decide which initiatives to execute?",
+        "canAipifyDecideAnswer": "No. Aipify supports strategic decisions with visibility and recommendations. Humans retain responsibility and authority."
+      },
+      "empty": "No strategic initiatives to display right now.",
+      "principle": "Aipify supports strategic decisions. Humans retain responsibility and authority.",
+      "actions": {
+        "back": "Back to Action Center"
+      }
     }
   },
   "workingStyle": {

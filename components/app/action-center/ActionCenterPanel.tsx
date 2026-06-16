@@ -36,10 +36,23 @@ import {
   type ExecutionCoordinationLabels,
   type ExecutionDetail,
 } from "@/lib/action-center-execution";
+import {
+  ActionExecutivePortfolioSummary,
+  ActionPortfolioDashboardWidgets,
+  ActionPortfolioDetailView,
+} from "@/components/shared/action-center-portfolio";
+import {
+  buildPortfolioDashboardWidgets,
+  parseInitiativeDetail,
+  parseStrategicInitiativePortfolio,
+  type InitiativeDetail,
+  type StrategicInitiativePortfolio,
+  type StrategicInitiativePortfolioLabels,
+} from "@/lib/action-center-portfolio";
 import { parseActionCenter, type ActionCenter, type AipifyAction } from "@/lib/aipify/execution";
 
-type CenterMode = "impact" | "approvals" | "execution";
-type DetailMode = "impact" | "approval" | "execution";
+type CenterMode = "impact" | "approvals" | "execution" | "portfolio";
+type DetailMode = "impact" | "approval" | "execution" | "portfolio";
 
 type ActionCenterPanelProps = {
   labels: {
@@ -97,6 +110,7 @@ type ActionCenterPanelProps = {
   impactLabels: ActionImpactLabels;
   approvalLabels: ApprovalDelegationLabels;
   executionLabels: ExecutionCoordinationLabels;
+  portfolioLabels: StrategicInitiativePortfolioLabels;
 };
 
 const RISK_STYLES: Record<string, string> = {
@@ -116,28 +130,38 @@ const STATUS_STYLES: Record<string, string> = {
   scheduled: "bg-indigo-100 text-indigo-900",
 };
 
-export function ActionCenterPanel({ labels, impactLabels, approvalLabels, executionLabels }: ActionCenterPanelProps) {
+export function ActionCenterPanel({
+  labels,
+  impactLabels,
+  approvalLabels,
+  executionLabels,
+  portfolioLabels,
+}: ActionCenterPanelProps) {
   const [centerMode, setCenterMode] = useState<CenterMode>("impact");
   const [detailMode, setDetailMode] = useState<DetailMode>("impact");
   const [center, setCenter] = useState<ActionCenter | null>(null);
   const [approvalCenter, setApprovalCenter] = useState<ApprovalDelegationCenter | null>(null);
   const [executionCenter, setExecutionCenter] = useState<ExecutionCoordinationCenter | null>(null);
+  const [portfolioCenter, setPortfolioCenter] = useState<StrategicInitiativePortfolio | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [impactAnalysis, setImpactAnalysis] = useState<ActionImpactAnalysis | null>(null);
   const [approvalDetail, setApprovalDetail] = useState<ApprovalDetail | null>(null);
   const [executionDetail, setExecutionDetail] = useState<ExecutionDetail | null>(null);
+  const [portfolioDetail, setPortfolioDetail] = useState<InitiativeDetail | null>(null);
   const [actingId, setActingId] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
-    const [centerRes, approvalsRes, executionRes] = await Promise.all([
+    const [centerRes, approvalsRes, executionRes, portfolioRes] = await Promise.all([
       fetch("/api/aipify/action-center"),
       fetch("/api/aipify/action-center/approvals"),
       fetch("/api/aipify/action-center/execution"),
+      fetch("/api/aipify/action-center/portfolio"),
     ]);
     if (centerRes.ok) setCenter(parseActionCenter(await centerRes.json()));
     if (approvalsRes.ok) setApprovalCenter(parseApprovalDelegationCenter(await approvalsRes.json()));
     if (executionRes.ok) setExecutionCenter(parseExecutionCoordinationCenter(await executionRes.json()));
+    if (portfolioRes.ok) setPortfolioCenter(parseStrategicInitiativePortfolio(await portfolioRes.json()));
     setLoading(false);
   }, []);
 
@@ -166,11 +190,41 @@ export function ActionCenterPanel({ labels, impactLabels, approvalLabels, execut
     if (res.ok) setExecutionDetail(parseExecutionDetail(await res.json()));
   }
 
+  async function loadPortfolioDetail(id: string) {
+    setSelectedId(id);
+    setDetailMode("portfolio");
+    const res = await fetch(`/api/aipify/actions/${id}/portfolio`);
+    if (res.ok) setPortfolioDetail(parseInitiativeDetail(await res.json()));
+  }
+
   function clearDetail() {
     setSelectedId(null);
     setImpactAnalysis(null);
     setApprovalDetail(null);
     setExecutionDetail(null);
+    setPortfolioDetail(null);
+  }
+
+  async function submitInitiativeLearning(
+    id: string,
+    payload: {
+      expected_result: string;
+      actual_result: string;
+      timeline_accuracy: string;
+      business_impact: string;
+      lessons_learned: string;
+      improvements: string;
+    }
+  ) {
+    setActingId(id);
+    await fetch(`/api/aipify/actions/${id}/portfolio/learning`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (selectedId === id) await loadPortfolioDetail(id);
+    await refresh();
+    setActingId(null);
   }
 
   async function submitExecutionEvent(
@@ -277,18 +331,23 @@ export function ActionCenterPanel({ labels, impactLabels, approvalLabels, execut
   const impactWidgets = buildImpactDashboardWidgets(center);
   const approvalWidgets = buildApprovalDashboardWidgets(approvalCenter);
   const executionWidgets = buildExecutionDashboardWidgets(executionCenter);
+  const portfolioWidgets = buildPortfolioDashboardWidgets(portfolioCenter);
   const headerTitle =
-    centerMode === "execution"
-      ? executionLabels.centerTitle
-      : centerMode === "approvals"
-        ? approvalLabels.centerTitle
-        : impactLabels.centerTitle;
+    centerMode === "portfolio"
+      ? portfolioLabels.centerTitle
+      : centerMode === "execution"
+        ? executionLabels.centerTitle
+        : centerMode === "approvals"
+          ? approvalLabels.centerTitle
+          : impactLabels.centerTitle;
   const headerSubtitle =
-    centerMode === "execution"
-      ? executionLabels.centerSubtitle
-      : centerMode === "approvals"
-        ? approvalLabels.centerSubtitle
-        : impactLabels.centerSubtitle;
+    centerMode === "portfolio"
+      ? portfolioLabels.centerSubtitle
+      : centerMode === "execution"
+        ? executionLabels.centerSubtitle
+        : centerMode === "approvals"
+          ? approvalLabels.centerSubtitle
+          : impactLabels.centerSubtitle;
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-6">
@@ -328,6 +387,16 @@ export function ActionCenterPanel({ labels, impactLabels, approvalLabels, execut
             className={`rounded-lg px-3 py-1.5 ${centerMode === "execution" ? "bg-indigo-600 text-white" : "text-gray-600"}`}
           >
             {executionLabels.tabExecution}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setCenterMode("portfolio");
+              clearDetail();
+            }}
+            className={`rounded-lg px-3 py-1.5 ${centerMode === "portfolio" ? "bg-indigo-600 text-white" : "text-gray-600"}`}
+          >
+            {portfolioLabels.tabPortfolio}
           </button>
         </div>
         <p className="mt-1 text-sm text-gray-500">{labels.subtitle}</p>
@@ -405,6 +474,23 @@ export function ActionCenterPanel({ labels, impactLabels, approvalLabels, execut
         </>
       ) : null}
 
+      {!selectedId && centerMode === "portfolio" ? (
+        <>
+          <ActionExecutivePortfolioSummary
+            healthSummary={portfolioCenter?.portfolio_health_summary}
+            executivePriority={portfolioCenter?.executive_priority}
+            riskAnalysis={portfolioCenter?.risk_analysis}
+            labels={portfolioLabels}
+            onSelectInitiative={(id) => void loadPortfolioDetail(id)}
+          />
+          <ActionPortfolioDashboardWidgets
+            widgets={portfolioWidgets}
+            labels={portfolioLabels}
+            onSelectInitiative={(id) => void loadPortfolioDetail(id)}
+          />
+        </>
+      ) : null}
+
       {selectedId && detailMode === "impact" && impactAnalysis?.found && impactAnalysis.action ? (
         <ActionImpactAnalysisView
           analysis={impactAnalysis}
@@ -440,9 +526,23 @@ export function ActionCenterPanel({ labels, impactLabels, approvalLabels, execut
           onBack={clearDetail}
           onOpenImpact={() => void loadImpactDetail(selectedId)}
           onOpenApproval={() => void loadApprovalDetail(selectedId)}
+          onOpenPortfolio={() => void loadPortfolioDetail(selectedId)}
           onEvent={(eventType, description, metadata) =>
             submitExecutionEvent(selectedId, eventType, description, metadata)
           }
+        />
+      ) : null}
+
+      {selectedId && detailMode === "portfolio" && portfolioDetail?.found ? (
+        <ActionPortfolioDetailView
+          detail={portfolioDetail}
+          labels={portfolioLabels}
+          acting={actingId === selectedId}
+          onBack={clearDetail}
+          onOpenImpact={() => void loadImpactDetail(selectedId)}
+          onOpenApproval={() => void loadApprovalDetail(selectedId)}
+          onOpenExecution={() => void loadExecutionDetail(selectedId)}
+          onSubmitLearning={(payload) => submitInitiativeLearning(selectedId, payload)}
         />
       ) : null}
 

@@ -1,6 +1,7 @@
 import { ActionCenterPanel } from "@/components/app/action-center/ActionCenterPanel";
 import { buildApprovalDelegationLabels } from "@/lib/action-center-approval";
 import { buildExecutionCoordinationLabels } from "@/lib/action-center-execution";
+import { buildStrategicInitiativePortfolioLabels } from "@/lib/action-center-portfolio";
 import { buildActionImpactLabels } from "@/lib/action-center-impact";
 import { ACTION_STATUSES, EXECUTION_LEVELS, RISK_LEVELS } from "@/lib/aipify/execution";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -79,6 +80,7 @@ export default async function ActionCenterPage() {
       impactLabels={buildActionImpactLabels(t)}
       approvalLabels={buildApprovalDelegationLabels(t)}
       executionLabels={buildExecutionCoordinationLabels(t)}
+      portfolioLabels={buildStrategicInitiativePortfolioLabels(t)}
     />
   );
 }
