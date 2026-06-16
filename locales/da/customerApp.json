@@ -23510,7 +23510,8 @@
       "compliance": "Compliance",
       "externalRelationships": "External Relationships",
       "organizationalAssets": "Assets & Resources",
-      "meetings": "Meetings"
+      "meetings": "Meetings",
+      "communications": "Communications"
     },
     "dashboard": {
       "title": "APP-dashboard",

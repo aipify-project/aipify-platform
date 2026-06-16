@@ -33,3 +33,5 @@ export { OrganizationalAssetsPanel } from "./OrganizationalAssetsPanel";
 export { OrganizationalAssetDetailPanel } from "./OrganizationalAssetDetailPanel";
 export { MeetingsPanel } from "./MeetingsPanel";
 export { MeetingDetailPanel } from "./MeetingDetailPanel";
+export { CommunicationsPanel } from "./CommunicationsPanel";
+export { CommunicationDetailPanel } from "./CommunicationDetailPanel";

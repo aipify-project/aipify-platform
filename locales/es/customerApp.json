@@ -1373,7 +1373,8 @@
       "compliance": "Compliance",
       "externalRelationships": "External Relationships",
       "organizationalAssets": "Assets & Resources",
-      "meetings": "Meetings"
+      "meetings": "Meetings",
+      "communications": "Communications"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",

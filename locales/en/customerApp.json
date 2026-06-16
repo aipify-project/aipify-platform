@@ -24881,6 +24881,7 @@
       "responsibilities": "Responsibilities",
       "externalRelationships": "External Relationships",
       "organizationalAssets": "Assets & Resources",
+      "communications": "Communications",
       "rolesPermissions": "Roles & Permissions",
       "activityOverview": "Activity Overview",
       "installedBusinessPacks": "Installed Business Packs",
@@ -26704,6 +26705,125 @@
         "outcomesAnswer": "Documenting outcomes improves accountability, preserves organizational memory and increases the likelihood that important actions are completed.",
         "autoComplete": "Can Aipify automatically complete meeting action items?",
         "autoCompleteAnswer": "No. Aipify supports visibility and accountability, but people remain responsible for executing agreed actions."
+      }
+    },
+    "communications": {
+      "title": "Communications",
+      "subtitle": "Publish important updates, maintain transparency and ensure teams receive relevant information.",
+      "loading": "Aipify is preparing organizational communications…",
+      "principle": "Clear communication strengthens transparency — humans approve and own every message.",
+      "emptyTitle": "No communications have been published yet.",
+      "emptyBody": "Aipify helps organizations communicate clearly and consistently across teams.",
+      "emptyCta": "Create Communication",
+      "back": "Communications",
+      "notFound": "Communication not found.",
+      "filters": {
+        "search": "Search communications…",
+        "type": "Communication type",
+        "status": "Status",
+        "priority": "Priority",
+        "audience": "Audience",
+        "publishFrom": "Publish from",
+        "publishTo": "Publish to",
+        "all": "All"
+      },
+      "dashboard": {
+        "active": "Active communications",
+        "scheduled": "Scheduled announcements",
+        "critical": "Critical notices",
+        "expiring": "Expiring communications",
+        "recentlyPublished": "Recently published updates",
+        "drafts": "Draft communications"
+      },
+      "form": {
+        "createTitle": "Create communication",
+        "title": "Title",
+        "summary": "Summary",
+        "message": "Full message",
+        "type": "Communication type",
+        "audience": "Audience",
+        "priority": "Priority",
+        "publishDate": "Publish date",
+        "expirationDate": "Expiration date",
+        "requiresAck": "Requires acknowledgement",
+        "submit": "Save draft",
+        "cancel": "Cancel",
+        "publish": "Publish"
+      },
+      "card": {
+        "author": "Author",
+        "publishDate": "Publish date",
+        "priority": "Priority",
+        "audience": "Audience",
+        "acknowledged": "Acknowledged",
+        "pending": "Pending acknowledgement",
+        "view": "View"
+      },
+      "detail": {
+        "overview": "Communication overview",
+        "message": "Full message",
+        "audience": "Audience details",
+        "delivery": "Delivery status",
+        "acknowledgements": "Acknowledgements",
+        "acknowledge": "Acknowledge",
+        "acknowledged": "You have acknowledged this communication.",
+        "pendingAck": "Acknowledgement pending.",
+        "relatedPolicies": "Related policies",
+        "activity": "Related activity",
+        "audit": "Audit history",
+        "save": "Save updates",
+        "saved": "Communication updated.",
+        "recommendations": "Aipify recommendations",
+        "outstanding": "Audience-specific totals require manager review."
+      },
+      "types": {
+        "companyAnnouncement": "Company Announcement",
+        "operationalUpdate": "Operational Update",
+        "policyUpdate": "Policy Update",
+        "securityNotice": "Security Notice",
+        "executiveMessage": "Executive Message",
+        "teamUpdate": "Team Update",
+        "maintenanceNotification": "Maintenance Notification",
+        "celebrationRecognition": "Celebration & Recognition",
+        "emergencyCommunication": "Emergency Communication",
+        "customCommunication": "Custom Communication"
+      },
+      "statuses": {
+        "draft": "Draft",
+        "scheduled": "Scheduled",
+        "published": "Published",
+        "expired": "Expired",
+        "archived": "Archived"
+      },
+      "priorities": {
+        "informational": "Informational",
+        "important": "Important",
+        "highPriority": "High Priority",
+        "critical": "Critical"
+      },
+      "audiences": {
+        "entireOrganization": "Entire organization",
+        "specificDepartments": "Specific departments",
+        "administratorsOnly": "Administrators only",
+        "executivesOnly": "Executives only",
+        "customGroups": "Custom groups",
+        "individualUsers": "Individual users"
+      },
+      "recommendations": {
+        "remindAcknowledgement": "Remind users to acknowledge critical updates.",
+        "archiveOutdated": "Archive outdated communications.",
+        "scheduleRecurring": "Schedule recurring operational updates.",
+        "reviewAudience": "Review audience targeting before publishing.",
+        "publishSecurityPromptly": "Publish security-related announcements promptly."
+      },
+      "faq": {
+        "title": "Communications FAQ",
+        "whatIs": "What is the Communications Center?",
+        "whatIsAnswer": "The Communications Center helps organizations publish important updates, maintain transparency and improve internal awareness.",
+        "acknowledgements": "Why are acknowledgements useful?",
+        "acknowledgementsAnswer": "Acknowledgements help organizations understand whether important information has been reviewed by intended audiences.",
+        "autoCommunicate": "Can Aipify automatically communicate on behalf of leaders?",
+        "autoCommunicateAnswer": "No. Aipify supports preparation, delivery and tracking, but humans remain responsible for communication content and approvals."
       }
     },
     "pages": {
