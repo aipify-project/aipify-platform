@@ -25,6 +25,7 @@
     "customerOperations": "Customer Operations",
     "revenueBilling": "Revenue & Billing",
     "deploymentPlatform": "Deployment & Platform",
+    "operations": "Operations",
     "intelligenceAutomation": "Intelligence & Automation",
     "marketplace": "Marketplace",
     "system": "System",
@@ -93,6 +94,7 @@
     "platformKnowledgeEvolutionCenter": "Knowledge Evolution",
     "platformComplianceGovernanceCenter": "Compliance Center",
     "platformPlaybookCenter": "Playbooks",
+    "platformHealthOperationsCenter": "Platform Health",
     "system": "System status",
     "pilotOperations": "Customer Zero Center"
   },
@@ -2350,7 +2352,8 @@
   },
   "operations": {
     "nav": {
-      "playbooks": "Playbooks"
+      "playbooks": "Playbooks",
+      "platformHealth": "Platform Health"
     }
   },
   "playbookCenter": {
@@ -3780,6 +3783,108 @@
       "disable": "Pause",
       "noPermissions": "No special permissions required.",
       "noAudit": "No audit events recorded yet."
+    }
+  },
+  "platformHealthOperationsCenter": {
+    "title": "Platform Health & Operations Center",
+    "subtitle": "Operational visibility across the Aipify ecosystem — monitor platform health before issues impact customers.",
+    "loading": "Loading platform health dashboard…",
+    "back": "Back to Platform",
+    "principle": "Aipify Group AS uses this center to observe platform health, manage incidents, and review deployments with full audit transparency.",
+    "emptyState": "No open incidents. Platform health data will appear here when available.",
+    "sections": {
+      "services": "System health overview",
+      "executiveSummary": "Executive summary",
+      "incidents": "Incident center",
+      "resolvedIncidents": "Recently resolved incidents",
+      "alerts": "Platform alerts",
+      "deployment": "Current deployment",
+      "deploymentHistory": "Deployment history",
+      "audit": "Audit log",
+      "createIncident": "Create incident"
+    },
+    "executiveSummary": {
+      "activeOrganizations": "Active organizations",
+      "activeSubscriptions": "Active subscriptions",
+      "platformUptime": "Platform uptime",
+      "openIncidents": "Open incidents",
+      "resolvedIncidentsMonth": "Resolved incidents this month",
+      "criticalAlerts": "Critical alerts requiring attention"
+    },
+    "services": {
+      "authentication": "Authentication services",
+      "database": "Database connectivity",
+      "email_delivery": "Email delivery systems",
+      "payment_infrastructure": "Payment infrastructure",
+      "background_jobs": "Background jobs",
+      "file_storage": "File storage services",
+      "marketplace_services": "Marketplace services",
+      "notification_services": "Notification services"
+    },
+    "serviceStatuses": {
+      "operational": "Operational",
+      "degraded": "Degraded",
+      "maintenance": "Maintenance",
+      "incident": "Incident"
+    },
+    "severities": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "incidentStatuses": {
+      "investigating": "Investigating",
+      "identified": "Identified",
+      "monitoring": "Monitoring",
+      "resolved": "Resolved"
+    },
+    "alertCategories": {
+      "failed_job": "Failed jobs",
+      "service_interruption": "Service interruptions",
+      "authentication_anomaly": "Authentication anomalies",
+      "payment_failure": "Payment failures",
+      "email_delivery": "Email delivery problems",
+      "marketplace": "Marketplace",
+      "notification": "Notifications"
+    },
+    "alertResolutionStatuses": {
+      "open": "Open",
+      "acknowledged": "Acknowledged",
+      "resolved": "Resolved"
+    },
+    "deploymentStatuses": {
+      "successful": "Successful",
+      "failed": "Failed",
+      "rolled_back": "Rolled back"
+    },
+    "table": {
+      "title": "Title",
+      "category": "Category",
+      "severity": "Severity",
+      "status": "Status",
+      "timestamp": "Timestamp",
+      "version": "Version",
+      "initiator": "Initiator",
+      "action": "Action",
+      "notes": "Notes"
+    },
+    "form": {
+      "incidentTitle": "Incident title",
+      "incidentSummary": "Internal summary",
+      "serviceKey": "Affected service",
+      "severity": "Severity",
+      "status": "Status",
+      "note": "Internal note",
+      "create": "Create incident",
+      "updateStatus": "Update status",
+      "addNote": "Add note",
+      "acknowledgeAlert": "Acknowledge",
+      "resolveAlert": "Resolve",
+      "saving": "Saving…"
+    },
+    "actions": {
+      "applying": "Applying…"
     }
   },
   "system": {

@@ -55,6 +55,7 @@
     "platformKnowledgeEvolutionCenter": "Vidensevolution",
     "platformComplianceGovernanceCenter": "Compliance-center",
     "platformPlaybookCenter": "Playbooks",
+    "platformHealthOperationsCenter": "Platformsundhed",
     "platformAcademyStudio": "Growth Partner Academy",
     "skillsMarketplace": "Skills Marketplace",
     "companionMarketplace": "Companion Marketplace",
@@ -1056,6 +1057,108 @@
       "testing": "Intern skill-test",
       "rollouts": "Udrulningsstyring",
       "metrics": "Globale skill-metrikker"
+    }
+  },
+  "platformHealthOperationsCenter": {
+    "title": "Platformsundhed- og driftscenter",
+    "subtitle": "Operationel overblik over Aipify-økosystemet — overvåg platformsundhed før problemer påvirker kunder.",
+    "loading": "Indlæser platformsundhed-dashboard…",
+    "back": "Tilbage til platform",
+    "principle": "Aipify Group AS bruger dette center til at observere platformsundhed, håndtere hændelser og gennemgå udrulninger med fuld revisionssporing.",
+    "emptyState": "Ingen åbne hændelser. Platformsundhedsdata vises her, når tilgængelig.",
+    "sections": {
+      "services": "Systemhelbredsoversigt",
+      "executiveSummary": "Ledelsesresume",
+      "incidents": "Hændelsescenter",
+      "resolvedIncidents": "Nyligt løste hændelser",
+      "alerts": "Platformadvarsler",
+      "deployment": "Aktuel udrulning",
+      "deploymentHistory": "Udrulningshistorik",
+      "audit": "Revisionslog",
+      "createIncident": "Opret hændelse"
+    },
+    "executiveSummary": {
+      "activeOrganizations": "Aktive organisationer",
+      "activeSubscriptions": "Aktive abonnementer",
+      "platformUptime": "Platform oppetid",
+      "openIncidents": "Åbne hændelser",
+      "resolvedIncidentsMonth": "Løste hændelser denne måned",
+      "criticalAlerts": "Kritiske advarsler der kræver opmærksomhed"
+    },
+    "services": {
+      "authentication": "Godkendelsestjenester",
+      "database": "Databaseforbindelse",
+      "email_delivery": "E-maillevering",
+      "payment_infrastructure": "Betalingsinfrastruktur",
+      "background_jobs": "Baggrundsjob",
+      "file_storage": "Fillagring",
+      "marketplace_services": "Markedspladstjenester",
+      "notification_services": "Notifikationstjenester"
+    },
+    "serviceStatuses": {
+      "operational": "Operationel",
+      "degraded": "Degraderet",
+      "maintenance": "Vedligeholdelse",
+      "incident": "Hændelse"
+    },
+    "severities": {
+      "low": "Lav",
+      "medium": "Medium",
+      "high": "Høj",
+      "critical": "Kritisk"
+    },
+    "incidentStatuses": {
+      "investigating": "Undersøger",
+      "identified": "Identificeret",
+      "monitoring": "Overvåger",
+      "resolved": "Løst"
+    },
+    "alertCategories": {
+      "failed_job": "Fejlede job",
+      "service_interruption": "Serviceafbrydelser",
+      "authentication_anomaly": "Godkendelsesafvigelser",
+      "payment_failure": "Betalingsfejl",
+      "email_delivery": "E-mailleveringsproblemer",
+      "marketplace": "Markedsplads",
+      "notification": "Notifikationer"
+    },
+    "alertResolutionStatuses": {
+      "open": "Åben",
+      "acknowledged": "Bekræftet",
+      "resolved": "Løst"
+    },
+    "deploymentStatuses": {
+      "successful": "Succesfuld",
+      "failed": "Fejlet",
+      "rolled_back": "Rullet tilbage"
+    },
+    "table": {
+      "title": "Titel",
+      "category": "Kategori",
+      "severity": "Alvorlighed",
+      "status": "Status",
+      "timestamp": "Tidsstempel",
+      "version": "Version",
+      "initiator": "Initieret af",
+      "action": "Handling",
+      "notes": "Noter"
+    },
+    "form": {
+      "incidentTitle": "Hændelsestitel",
+      "incidentSummary": "Internt resumé",
+      "serviceKey": "Berørt tjeneste",
+      "severity": "Alvorlighed",
+      "status": "Status",
+      "note": "Internt notat",
+      "create": "Opret hændelse",
+      "updateStatus": "Opdater status",
+      "addNote": "Tilføj notat",
+      "acknowledgeAlert": "Bekræft",
+      "resolveAlert": "Løs",
+      "saving": "Gemmer…"
+    },
+    "actions": {
+      "applying": "Udfører…"
     }
   },
   "system": {
@@ -3636,7 +3739,8 @@
   },
   "operations": {
     "nav": {
-      "playbooks": "Playbooks"
+      "playbooks": "Playbooks",
+      "platformHealth": "Platformsundhed"
     }
   },
   "playbookCenter": {

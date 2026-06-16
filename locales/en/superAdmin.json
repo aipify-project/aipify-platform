@@ -1,9 +1,9 @@
 {
   "shell": {
-    "title": "Super Admin Control Center",
-    "subtitle": "Operational headquarters for Aipify Group AS",
+    "title": "SUPER Executive Portal",
+    "subtitle": "Executive oversight and governance for the Aipify ecosystem",
     "organization": "Aipify Group AS",
-    "headquarters": "Operational headquarters for Aipify Group AS."
+    "headquarters": "Executive governance layer for Aipify Group AS."
   },
   "access": {
     "denied": "Super Admin access is restricted to platform owners.",
@@ -179,6 +179,14 @@
       "title": "Group Organization",
       "purpose": "Manage the Aipify Group AS business ecosystem."
     },
+    "executiveOversight": {
+      "title": "Executive Oversight",
+      "purpose": "Strategic visibility across the Aipify ecosystem — not daily operations."
+    },
+    "platformGovernance": {
+      "title": "Platform Governance",
+      "purpose": "Govern Platform Administrators, languages, and global audit visibility."
+    },
     "customerSuccess": {
       "title": "Customer Success",
       "purpose": "Proactively support customers before they need to ask."
@@ -255,7 +263,144 @@
       "operational_pattern": "Operational pattern"
     }
   },
+  "superPortal": {
+    "dashboard": {
+      "title": "SUPER Executive Dashboard",
+      "subtitle": "Executive oversight across the Aipify ecosystem — governance and strategic visibility, not daily operations.",
+      "loading": "Loading executive dashboard…",
+      "principle": "SUPER provides global oversight. Operational work belongs in PLATFORM.",
+      "privacyNote": "Aggregate executive metrics only — no customer business content.",
+      "totalOrganizations": "Total organizations",
+      "totalActiveUsers": "Total active users",
+      "totalActiveSubscriptions": "Total active subscriptions",
+      "platformAdministrators": "Platform Administrators",
+      "globalPlatformStatus": "Global platform status",
+      "openCriticalIncidents": "Open critical incidents",
+      "platformUptime": "Platform uptime",
+      "growthTrends": "Growth trends",
+      "executiveAlerts": "Executive alerts requiring attention",
+      "noAlerts": "No executive alerts require attention.",
+      "portalModules": "SUPER modules",
+      "openModule": "Open module",
+      "statuses": {
+        "operational": "Operational",
+        "attentionRequired": "Attention required"
+      }
+    },
+    "platformAdministrators": {
+      "title": "Platform Administrator Management",
+      "subtitle": "View, create, suspend, and reactivate Platform Administrators with activity summaries.",
+      "loading": "Loading Platform Administrators…",
+      "back": "Back to SUPER",
+      "email": "Administrator email",
+      "displayName": "Name",
+      "role": "Role",
+      "status": "Status",
+      "lastLogin": "Last login",
+      "activitySummary": "Activity summary",
+      "auditEvents30d": "Audit events (30d)",
+      "create": "Create Platform Administrator",
+      "suspend": "Suspend",
+      "reactivate": "Reactivate",
+      "saving": "Saving…",
+      "roles": {
+        "super_admin": "Super Admin",
+        "platform_support": "Platform Administrator"
+      },
+      "statuses": {
+        "active": "Active",
+        "suspended": "Suspended"
+      }
+    },
+    "languageAdministration": {
+      "title": "Language Administration",
+      "subtitle": "View supported languages, enable or disable locales, and monitor translation completeness.",
+      "loading": "Loading language administration…",
+      "back": "Back to SUPER",
+      "locale": "Language",
+      "enabled": "Enabled",
+      "completeness": "Translation completeness",
+      "missingKeys": "Missing keys",
+      "enable": "Enable",
+      "disable": "Disable",
+      "saving": "Applying…",
+      "yes": "Yes",
+      "no": "No",
+      "locales": {
+        "en": "English",
+        "no": "Norwegian",
+        "sv": "Swedish",
+        "da": "Danish"
+      }
+    },
+    "globalAudit": {
+      "title": "Global Audit Center",
+      "subtitle": "Platform Administrator actions, governance changes, security events, and executive configuration changes.",
+      "loading": "Loading audit records…",
+      "back": "Back to SUPER",
+      "user": "User",
+      "action": "Action",
+      "timestamp": "Timestamp",
+      "previousValue": "Previous value",
+      "newValue": "New value",
+      "empty": "No audit records yet."
+    },
+    "executiveInsights": {
+      "title": "Executive Insights",
+      "subtitle": "Strategic metrics for organization growth, subscriptions, revenue, adoption, and global activity.",
+      "loading": "Loading executive insights…",
+      "back": "Back to SUPER",
+      "organizationGrowth": "Organization growth",
+      "subscriptionGrowth": "Subscription growth",
+      "revenueIndicators": "Revenue trend indicators",
+      "platformAdoption": "Platform adoption trends",
+      "globalActivity": "Global activity summary",
+      "newOrganizations30d": "New organizations (30d)",
+      "newSubscriptions30d": "New subscriptions (30d)",
+      "activeSubscriptions": "Active subscriptions",
+      "mrr": "Monthly recurring revenue",
+      "activeInstallations": "Active installations",
+      "actionsToday": "Aipify actions today",
+      "adminLogins7d": "Platform Admin logins (7d)",
+      "trends": {
+        "up": "Trending up",
+        "stable": "Stable",
+        "down": "Trending down"
+      }
+    }
+  },
+  "controlCenter": {
+    "loading": "Loading control center…",
+    "loadError": "Control Center data is temporarily unavailable.",
+    "emptyStateTitle": "Operational overview initializing",
+    "emptyStateBody": "Platform metrics will appear here as organizations, subscriptions, and partner activity are recorded. No customer business content is shown.",
+    "setupNotice": "The control center database layer is completing setup. Metrics may read zero until platform migrations finish — this is expected during rollout.",
+    "welcome": "Welcome back, {name}.",
+    "globalPlatformHealth": "Global Platform Health",
+    "organizations": "Organizations",
+    "organizationsActive": "{count} Active",
+    "growthPartnerApplications": "Growth Partner Applications",
+    "growthPartnerPending": "{count} Pending",
+    "marketplaceReviews": "Marketplace Reviews",
+    "marketplaceAwaiting": "{count} Awaiting Approval",
+    "criticalIncidents": "Critical Incidents",
+    "criticalIncidentsNone": "None",
+    "criticalIncidentsCount": "{count} Active",
+    "privacyNote": "Aggregate platform operations only — no customer business content.",
+    "sectionsTitle": "Control Sections",
+    "openModule": "Open module"
+  },
   "modules": {
+    "executiveDashboard": "Executive Dashboard",
+    "executiveDashboardDescription": "Global oversight metrics, platform status, and executive alerts.",
+    "executiveInsights": "Executive Insights",
+    "executiveInsightsDescription": "Strategic growth, revenue, adoption, and activity summaries.",
+    "platformAdministrators": "Platform Administrators",
+    "platformAdministratorsDescription": "View, create, suspend, and reactivate Platform Administrators.",
+    "languageAdministration": "Language Administration",
+    "languageAdministrationDescription": "Enable languages, review completeness, and monitor missing translation keys.",
+    "globalAuditCenter": "Global Audit Center",
+    "globalAuditCenterDescription": "Governance, security, and executive configuration audit visibility.",
     "groupOverview": "Group Overview",
     "groupOverviewDescription": "Companies, entities, investments, and shared intelligence under Aipify Group AS.",
     "platformHealth": "Platform Health",

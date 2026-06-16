@@ -8,6 +8,7 @@ export type PlatformNavId =
   | "platformKnowledgeEvolutionCenter"
   | "platformComplianceGovernanceCenter"
   | "platformPlaybookCenter"
+  | "platformHealthOperationsCenter"
   | "platformAcademyStudio"
   | "overview"
   | "customers"
@@ -140,7 +141,7 @@ export type ProductNavItem = {
   labelKey: string;
 };
 
-export type OperationsNavId = "playbooks";
+export type OperationsNavId = "playbooks" | "platformHealth";
 
 export type OperationsNavItem = {
   id: OperationsNavId;
@@ -153,6 +154,11 @@ export const OPERATIONS_NAV: OperationsNavItem[] = [
     id: "playbooks",
     href: "/platform/operations/playbooks",
     labelKey: "platform.operations.nav.playbooks",
+  },
+  {
+    id: "platformHealth",
+    href: "/platform/operations/platform-health",
+    labelKey: "platform.operations.nav.platformHealth",
   },
 ];
 
@@ -253,6 +259,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     id: "platformPlaybookCenter",
     href: "/platform/operations/playbooks",
     labelKey: "platform.nav.platformPlaybookCenter",
+  },
+  {
+    id: "platformHealthOperationsCenter",
+    href: "/platform/operations/platform-health",
+    labelKey: "platform.nav.platformHealthOperationsCenter",
   },
   {
     id: "platformAcademyStudio",
@@ -420,6 +431,9 @@ export const PLATFORM_MOBILE_NAV_IDS: PlatformNavId[] = [
 ];
 
 export function getPlatformActiveNavId(pathname: string): PlatformNavId {
+  if (pathname.startsWith("/platform/operations/platform-health")) {
+    return "platformHealthOperationsCenter";
+  }
   if (pathname.startsWith("/platform/operations/playbooks")) return "platformPlaybookCenter";
   if (pathname.startsWith("/platform/academy")) return "platformAcademyStudio";
   if (pathname.startsWith("/platform/operations")) return "platformPlaybookCenter";
@@ -469,7 +483,8 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   return "overview";
 }
 
-export function getOperationsActiveNavId(_pathname: string): OperationsNavId {
+export function getOperationsActiveNavId(pathname: string): OperationsNavId {
+  if (pathname.startsWith("/platform/operations/platform-health")) return "platformHealth";
   return "playbooks";
 }
 

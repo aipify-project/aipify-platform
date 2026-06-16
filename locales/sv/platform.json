@@ -55,6 +55,7 @@
     "platformKnowledgeEvolutionCenter": "Kunskapsevolution",
     "platformComplianceGovernanceCenter": "Compliance-center",
     "platformPlaybookCenter": "Playbooks",
+    "platformHealthOperationsCenter": "Plattformhälsa",
     "platformAcademyStudio": "Growth Partner Academy",
     "skillsMarketplace": "Skills Marketplace",
     "companionMarketplace": "Companion Marketplace",
@@ -1056,6 +1057,108 @@
       "testing": "Intern skill-testning",
       "rollouts": "Utrullningshantering",
       "metrics": "Globala skill-mätvärden"
+    }
+  },
+  "platformHealthOperationsCenter": {
+    "title": "Plattformhälsa- och driftscenter",
+    "subtitle": "Operativ överblick över Aipify-ekosystemet — övervaka plattformshälsa innan problem påverkar kunder.",
+    "loading": "Laddar plattformshälsa-dashboard…",
+    "back": "Tillbaka till plattform",
+    "principle": "Aipify Group AS använder detta center för att observera plattformshälsa, hantera incidenter och granska driftsättningar med full revisionsspårning.",
+    "emptyState": "Inga öppna incidenter. Plattformshälsedata visas här när tillgänglig.",
+    "sections": {
+      "services": "Systemhälsaöversikt",
+      "executiveSummary": "Ledningssammanfattning",
+      "incidents": "Incidentcenter",
+      "resolvedIncidents": "Nyligen lösta incidenter",
+      "alerts": "Plattformlarm",
+      "deployment": "Aktuell driftsättning",
+      "deploymentHistory": "Driftsättningshistorik",
+      "audit": "Revisionslogg",
+      "createIncident": "Skapa incident"
+    },
+    "executiveSummary": {
+      "activeOrganizations": "Aktiva organisationer",
+      "activeSubscriptions": "Aktiva prenumerationer",
+      "platformUptime": "Plattformens drifttid",
+      "openIncidents": "Öppna incidenter",
+      "resolvedIncidentsMonth": "Lösta incidenter denna månad",
+      "criticalAlerts": "Kritiska larm som kräver uppmärksamhet"
+    },
+    "services": {
+      "authentication": "Autentiseringstjänster",
+      "database": "Databasanslutning",
+      "email_delivery": "E-postleverans",
+      "payment_infrastructure": "Betalningsinfrastruktur",
+      "background_jobs": "Bakgrundsjobb",
+      "file_storage": "Fillagring",
+      "marketplace_services": "Marknadsplatstjänster",
+      "notification_services": "Aviseringstjänster"
+    },
+    "serviceStatuses": {
+      "operational": "Operativ",
+      "degraded": "Degraderad",
+      "maintenance": "Underhåll",
+      "incident": "Incident"
+    },
+    "severities": {
+      "low": "Låg",
+      "medium": "Medel",
+      "high": "Hög",
+      "critical": "Kritisk"
+    },
+    "incidentStatuses": {
+      "investigating": "Undersöker",
+      "identified": "Identifierad",
+      "monitoring": "Övervakar",
+      "resolved": "Löst"
+    },
+    "alertCategories": {
+      "failed_job": "Misslyckade jobb",
+      "service_interruption": "Tjänsteavbrott",
+      "authentication_anomaly": "Autentiseringsavvikelser",
+      "payment_failure": "Betalningsfel",
+      "email_delivery": "E-postleveransproblem",
+      "marketplace": "Marknadsplats",
+      "notification": "Aviseringar"
+    },
+    "alertResolutionStatuses": {
+      "open": "Öppen",
+      "acknowledged": "Bekräftad",
+      "resolved": "Löst"
+    },
+    "deploymentStatuses": {
+      "successful": "Lyckades",
+      "failed": "Misslyckades",
+      "rolled_back": "Rullades tillbaka"
+    },
+    "table": {
+      "title": "Titel",
+      "category": "Kategori",
+      "severity": "Allvarlighetsgrad",
+      "status": "Status",
+      "timestamp": "Tidsstämpel",
+      "version": "Version",
+      "initiator": "Initierad av",
+      "action": "Åtgärd",
+      "notes": "Anteckningar"
+    },
+    "form": {
+      "incidentTitle": "Incidenttitel",
+      "incidentSummary": "Intern sammanfattning",
+      "serviceKey": "Berörd tjänst",
+      "severity": "Allvarlighetsgrad",
+      "status": "Status",
+      "note": "Intern anteckning",
+      "create": "Skapa incident",
+      "updateStatus": "Uppdatera status",
+      "addNote": "Lägg till anteckning",
+      "acknowledgeAlert": "Bekräfta",
+      "resolveAlert": "Lös",
+      "saving": "Sparar…"
+    },
+    "actions": {
+      "applying": "Tillämpar…"
     }
   },
   "system": {
@@ -3636,7 +3739,8 @@
   },
   "operations": {
     "nav": {
-      "playbooks": "Playbooks"
+      "playbooks": "Playbooks",
+      "platformHealth": "Plattformhälsa"
     }
   },
   "playbookCenter": {

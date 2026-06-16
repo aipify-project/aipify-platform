@@ -2,6 +2,7 @@ import type { PlatformNavId } from "./nav-config";
 
 export type PlatformNavGroupId =
   | "platformAdmin"
+  | "operations"
   | "knowledgeGovernance"
   | "customerOperations"
   | "revenueBilling"
@@ -39,12 +40,19 @@ export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
     ],
   },
   {
+    id: "operations",
+    labelKey: "platform.navGroups.operations",
+    items: [
+      { id: "platformHealthOperationsCenter", labelKey: "platform.nav.platformHealthOperationsCenter" },
+      { id: "platformPlaybookCenter", labelKey: "platform.nav.platformPlaybookCenter" },
+    ],
+  },
+  {
     id: "knowledgeGovernance",
     labelKey: "platform.navGroups.knowledgeGovernance",
     items: [
       { id: "platformKnowledgeEvolutionCenter", labelKey: "platform.nav.platformKnowledgeEvolutionCenter" },
       { id: "platformComplianceGovernanceCenter", labelKey: "platform.nav.platformComplianceGovernanceCenter" },
-      { id: "platformPlaybookCenter", labelKey: "platform.nav.platformPlaybookCenter" },
       { id: "platformAcademyStudio", labelKey: "platform.nav.platformAcademyStudio" },
     ],
   },
@@ -123,6 +131,7 @@ export const PLATFORM_NAV_COMPACT_STORAGE_KEY = "aipify.platform.nav.compact.v1"
 
 export const PLATFORM_COLLAPSIBLE_GROUPS: PlatformNavGroupId[] = [
   "platformAdmin",
+  "operations",
   "knowledgeGovernance",
   "customerOperations",
   "revenueBilling",

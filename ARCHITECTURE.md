@@ -102,7 +102,9 @@ Aipify is separated into **three portals** so customer operations, platform admi
 | Types | `types/platform/` (re-exports `lib/platform/types.ts`) |
 | Services | `services/platform/` |
 
-**Examples:** customers, subscriptions, billing, invoices, global intelligence, learning queue, action center (internal), platform metrics, system status, audit logs, **Language Center** (`/platform/language-center` — [SUPER_ADMIN_LANGUAGE_MANAGEMENT.md](./SUPER_ADMIN_LANGUAGE_MANAGEMENT.md)).
+**Examples:** customers, subscriptions, billing, invoices, global intelligence, learning queue, action center (internal), platform metrics, system status, audit logs, **Language Center** (`/platform/language-center` — [SUPER_ADMIN_LANGUAGE_MANAGEMENT.md](./SUPER_ADMIN_LANGUAGE_MANAGEMENT.md)), **Platform Health & Operations Center** (`/platform/operations/platform-health` — [AIPIFY_PLATFORM_HEALTH_OPERATIONS_CENTER_PHASE256.md](./AIPIFY_PLATFORM_HEALTH_OPERATIONS_CENTER_PHASE256.md)).
+
+**SUPER Executive Portal (Phase 257):** See [AIPIFY_SUPER_PORTAL_STRUCTURE_FOUNDATION_PHASE257.md](./AIPIFY_SUPER_PORTAL_STRUCTURE_FOUNDATION_PHASE257.md) — `super_admin` only executive governance at `/super/*` (dashboard, Platform Administrator management, language administration, global audit, executive insights). Not a daily operational workspace — operational tools remain in Platform Admin.
 
 **Rule:** Platform Admin is **not** the customer product. Do not add customer-facing product features here unless they administer all tenants.
 
