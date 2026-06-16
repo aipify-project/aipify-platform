@@ -51,3 +51,5 @@ export { CommitmentTrackingPanel } from "./CommitmentTrackingPanel";
 export { CommitmentTrackingDetailPanel } from "./CommitmentTrackingDetailPanel";
 export { TrustCulturePanel } from "./TrustCulturePanel";
 export { TrustCultureDimensionPanel } from "./TrustCultureDimensionPanel";
+export { IntelligenceBriefingsPanel } from "./IntelligenceBriefingsPanel";
+export { IntelligenceBriefingDetailPanel } from "./IntelligenceBriefingDetailPanel";

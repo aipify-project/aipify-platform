@@ -1382,7 +1382,8 @@
       "strategyExecution": "Strategy",
       "prioritizationEngine": "Prioritization",
       "commitmentTracking": "Commitments",
-      "trustCulture": "Trust & Culture"
+      "trustCulture": "Trust & Culture",
+      "intelligenceBriefings": "Intelligence Briefings"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -4017,6 +4018,106 @@
         "anonymousAnswer": "Yes. Individual responses are never displayed. Results are only shown in aggregate form when anonymity thresholds are met.",
         "goodCulture": "Can Aipify determine whether an organization has a good culture?",
         "goodCultureAnswer": "No. Aipify provides indicators and recommendations to support reflection and improvement, while organizations define their own cultural aspirations."
+      }
+    },
+    "intelligenceBriefings": {
+      "title": "Intelligence Briefings",
+      "subtitle": "Concise executive briefings summarizing what matters most across your organization.",
+      "loading": "Aipify is preparing your executive briefing…",
+      "principle": "Executive briefings provide situational awareness and decision support — not autonomous decision-making.",
+      "emptyTitle": "No organizational briefings have been generated yet.",
+      "emptyBody": "Aipify Executive Briefings help leaders focus on what matters most.",
+      "emptyCta": "Generate Briefing",
+      "back": "Intelligence Briefings",
+      "notFound": "Briefing not found.",
+      "accessDenied": "You do not have permission to view intelligence briefings.",
+      "filters": {
+        "search": "Search briefings…",
+        "type": "Briefing type",
+        "priority": "Priority level",
+        "periodFrom": "Period from",
+        "periodTo": "Period to",
+        "audience": "Audience",
+        "orgStatus": "Organizational status",
+        "all": "All"
+      },
+      "dashboard": {
+        "latest": "Latest briefing summary",
+        "previous": "Previous briefings",
+        "priorityItems": "Priority items requiring action",
+        "emergingOpportunities": "Emerging opportunities",
+        "emergingRisks": "Emerging risks",
+        "recommendedActions": "Recommended next actions"
+      },
+      "generate": {
+        "title": "Generate Briefing",
+        "type": "Briefing type",
+        "audience": "Audience",
+        "periodFrom": "Reporting period start",
+        "periodTo": "Reporting period end",
+        "notes": "Notes (optional)",
+        "submit": "Generate briefing",
+        "cancel": "Cancel"
+      },
+      "card": {
+        "type": "Briefing type",
+        "priority": "Priority",
+        "orgStatus": "Organizational status",
+        "generatedAt": "Generated",
+        "audience": "Audience",
+        "view": "View briefing"
+      },
+      "detail": {
+        "executiveSummary": "Executive summary",
+        "keyInsights": "Key insights",
+        "risks": "Risks requiring attention",
+        "opportunities": "Opportunities identified",
+        "recommendedActions": "Recommended actions",
+        "relatedInitiatives": "Related initiatives",
+        "relatedCommitments": "Related commitments",
+        "relatedDecisions": "Related decisions",
+        "relatedFollowUps": "Related follow-ups",
+        "activityTimeline": "Activity timeline",
+        "recommendations": "Aipify recommendations",
+        "reportingPeriod": "Reporting period"
+      },
+      "types": {
+        "dailyBriefing": "Daily Briefing",
+        "weeklyBriefing": "Weekly Briefing",
+        "monthlyBriefing": "Monthly Briefing",
+        "executiveBriefing": "Executive Briefing",
+        "operationalBriefing": "Operational Briefing",
+        "strategicBriefing": "Strategic Briefing",
+        "riskBriefing": "Risk Briefing",
+        "customBriefing": "Custom Briefing"
+      },
+      "priorities": {
+        "informational": "Informational",
+        "important": "Important",
+        "highPriority": "High Priority",
+        "criticalAttentionRequired": "Critical Attention Required"
+      },
+      "orgStatuses": {
+        "stable": "Stable",
+        "improving": "Improving",
+        "requiresAttention": "Requires Attention",
+        "elevatedRisk": "Elevated Risk"
+      },
+      "recommendations": {
+        "reviewStrategicRisks": "Review emerging strategic risks.",
+        "celebrateImprovements": "Celebrate recent improvements.",
+        "addressCommitments": "Address commitments nearing deadlines.",
+        "scheduleInitiativeReviews": "Schedule reviews for delayed initiatives.",
+        "operationalBottlenecks": "Increase attention on operational bottlenecks."
+      },
+      "faq": {
+        "title": "Intelligence Briefings FAQ",
+        "whatIs": "What is the Intelligence Briefing Center?",
+        "whatIsAnswer": "The Intelligence Briefing Center provides concise executive summaries highlighting organizational priorities, risks, opportunities and recommended focus areas.",
+        "howCreated": "How are executive briefings created?",
+        "howCreatedAnswer": "Briefings combine information from approved organizational data sources within Aipify to provide leadership visibility and decision support.",
+        "autoDecisions": "Can Aipify make executive decisions?",
+        "autoDecisionsAnswer": "No. Aipify supports leaders through insights and recommendations, while people remain responsible for making decisions."
       }
     }
   }
