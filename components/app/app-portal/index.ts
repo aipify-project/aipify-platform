@@ -14,3 +14,4 @@ export { SupportRequestsCenterPanel } from "./SupportRequestsCenterPanel";
 export { SupportRequestDetailPanel } from "./SupportRequestDetailPanel";
 export { SupportAssistantPanel } from "./SupportAssistantPanel";
 export { SuccessCenterPanel } from "./SuccessCenterPanel";
+export { GettingStartedPanel } from "./GettingStartedPanel";

@@ -23826,7 +23826,8 @@
       "activityHistory": "Activity History",
       "supportRequests": "Support Requests",
       "supportAssistant": "Support Assistant",
-      "successCenter": "Success Center"
+      "successCenter": "Success Center",
+      "gettingStarted": "Getting Started"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -24671,6 +24672,99 @@
         "healthScoreAnswer": "The Health Score is based on organizational activity, engagement, adoption patterns and operational indicators available within Aipify.",
         "predictRisk": "Can Aipify predict organizational risk?",
         "predictRiskAnswer": "Aipify provides recommendations and risk indicators based on available information, but final decisions should always involve human judgment."
+      }
+    },
+    "gettingStarted": {
+      "title": "Getting Started",
+      "subtitle": "Guided onboarding to configure Aipify correctly and accelerate adoption across your organization.",
+      "loading": "Aipify is preparing your onboarding experience…",
+      "emptyTitle": "Welcome to Aipify.",
+      "emptyBody": "We'll guide your organization through setup so you can begin creating value quickly.",
+      "emptyCta": "Start Onboarding",
+      "principle": "Aipify guides adoption — your team decides pace and priorities.",
+      "sections": {
+        "overview": "Onboarding Overview",
+        "checklist": "Onboarding Checklist",
+        "recommendations": "Aipify Recommendations",
+        "milestones": "Milestone Celebrations",
+        "adoption": "Adoption Insights",
+        "completed": "Completed Milestones"
+      },
+      "overview": {
+        "progress": "Setup completion",
+        "status": "Overall status",
+        "nextSteps": "Recommended next steps",
+        "advisory": "Progress reflects required setup tasks. Optional steps help you explore additional value."
+      },
+      "statuses": {
+        "notStarted": "Not Started",
+        "inProgress": "In Progress",
+        "completed": "Completed"
+      },
+      "taskStatuses": {
+        "notStarted": "Not Started",
+        "inProgress": "In Progress",
+        "completed": "Completed",
+        "optional": "Optional"
+      },
+      "categories": {
+        "organization": "Organization Setup",
+        "team": "Team Setup",
+        "security": "Security Setup",
+        "integrations": "Integrations",
+        "businessPacks": "Business Packs",
+        "knowledgeSupport": "Knowledge & Support"
+      },
+      "tasks": {
+        "orgProfile": "Complete company profile",
+        "orgSettings": "Verify organization settings",
+        "orgLocalization": "Configure localization",
+        "teamInvite": "Invite first team member",
+        "teamAdminRoles": "Assign administrator roles",
+        "teamPermissions": "Review permissions",
+        "security2fa": "Enable two-factor authentication",
+        "securityAccess": "Review access controls",
+        "securityPreferences": "Configure security preferences",
+        "integrationConnect": "Connect first integration",
+        "integrationHealth": "Validate integration health",
+        "integrationSync": "Review synchronization status",
+        "packInstall": "Install first Business Pack",
+        "packReview": "Review Business Pack capabilities",
+        "packConfigure": "Configure Business Pack settings",
+        "knowledgeExplore": "Explore Knowledge Center",
+        "supportAssistant": "Review Support Assistant",
+        "supportContact": "Learn how to contact Aipify Support"
+      },
+      "recommendations": {
+        "inviteAdmins": "Invite additional administrators to strengthen organizational governance.",
+        "enable2fa": "Enable two-factor authentication to protect your workspace.",
+        "installFirstPack": "Install your first Business Pack to unlock operational capabilities.",
+        "reviewSupportAssistant": "Review Support Assistant capabilities to find answers faster.",
+        "exploreExecutiveInsights": "Explore Executive Insights for a concise organizational overview."
+      },
+      "milestones": {
+        "orgSetupComplete": "Congratulations! Your organization setup is complete.",
+        "firstIntegration": "Your first integration is active.",
+        "onboardingComplete": "You've completed onboarding."
+      },
+      "adoption": {
+        "featuresExplored": "Features explored",
+        "featuresNotDiscovered": "Features not yet discovered",
+        "suggestedPacks": "Suggested Business Packs",
+        "nextActions": "Recommended next actions"
+      },
+      "faq": {
+        "title": "Getting Started FAQ",
+        "whatIs": "What is Getting Started?",
+        "whatIsAnswer": "Getting Started helps organizations configure Aipify correctly and accelerate adoption through guided onboarding.",
+        "requiredSteps": "Do I need to complete every onboarding step?",
+        "requiredStepsAnswer": "Some onboarding steps are optional, while others help improve security, collaboration and long-term success.",
+        "revisit": "Can onboarding be revisited later?",
+        "revisitAnswer": "Yes. Organizations can return to Getting Started at any time to complete remaining setup tasks."
+      },
+      "actions": {
+        "markComplete": "Mark complete",
+        "dismissMilestone": "Dismiss"
       }
     }
   },

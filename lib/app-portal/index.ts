@@ -10,3 +10,4 @@ export * from "./activity-history";
 export * from "./support-requests";
 export * from "./support-assistant";
 export * from "./success-center";
+export * from "./onboarding";
