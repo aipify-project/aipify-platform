@@ -23833,7 +23833,8 @@
       "responsibilities": "Responsibilities",
       "playbooks": "Playbooks",
       "risks": "Risks",
-      "compliance": "Compliance"
+      "compliance": "Compliance",
+      "externalRelationships": "External Relationships"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -25512,6 +25513,118 @@
         "legalAdviceAnswer": "No. Aipify supports policy management and organizational awareness but does not replace professional legal advice.",
         "acknowledgements": "Why are policy acknowledgements important?",
         "acknowledgementsAnswer": "Acknowledgements help organizations demonstrate that relevant individuals have reviewed important policies and expectations."
+      }
+    },
+    "externalRelationships": {
+      "title": "External Relationships",
+      "subtitle": "Manage suppliers, partners and service providers with structured ownership and lifecycle tracking.",
+      "loading": "Aipify is reviewing your external relationships…",
+      "principle": "Proactive relationship management strengthens resilience — humans retain vendor decisions.",
+      "emptyTitle": "No external relationships have been recorded yet.",
+      "emptyBody": "Managing external relationships helps organizations improve resilience and maintain continuity.",
+      "emptyCta": "Add Relationship",
+      "back": "External Relationships",
+      "notFound": "Relationship not found.",
+      "filters": {
+        "search": "Search relationships…",
+        "type": "Relationship type",
+        "status": "Status",
+        "owner": "Owner",
+        "criticality": "Criticality",
+        "country": "Country",
+        "renewalBefore": "Renewal before",
+        "all": "All"
+      },
+      "dashboard": {
+        "active": "Active relationships",
+        "upcomingRenewals": "Upcoming renewals",
+        "critical": "Critical relationships",
+        "needsReview": "Requiring review",
+        "withoutOwner": "Without owners",
+        "recent": "Recently updated"
+      },
+      "form": {
+        "createTitle": "Add relationship",
+        "organizationName": "Organization name",
+        "type": "Relationship type",
+        "primaryContact": "Primary contact",
+        "secondaryContact": "Secondary contact",
+        "email": "Email",
+        "phone": "Phone number",
+        "country": "Country",
+        "criticality": "Criticality level",
+        "serviceDescription": "Service description",
+        "contractStart": "Contract start date",
+        "contractEnd": "Contract end date",
+        "renewalReminder": "Renewal reminder date",
+        "notes": "Notes",
+        "submit": "Add relationship",
+        "cancel": "Cancel"
+      },
+      "card": {
+        "owner": "Owner",
+        "contact": "Primary contact",
+        "country": "Country",
+        "contractEnd": "Contract end",
+        "criticality": "Criticality",
+        "view": "View"
+      },
+      "detail": {
+        "overview": "Relationship overview",
+        "contacts": "Contact information",
+        "ownership": "Internal ownership",
+        "contracts": "Contract milestones",
+        "relatedRisks": "Related risks",
+        "relatedFollowUps": "Related follow-ups",
+        "renewalHistory": "Renewal decision history",
+        "activity": "Activity timeline",
+        "audit": "Audit history",
+        "save": "Save updates",
+        "saved": "Relationship updated.",
+        "recommendations": "Aipify recommendations",
+        "renewalNote": "Renewal discussion notes",
+        "recordRenewal": "Record renewal decision"
+      },
+      "types": {
+        "supplier": "Supplier",
+        "strategicPartner": "Strategic Partner",
+        "technologyVendor": "Technology Vendor",
+        "consultant": "Consultant",
+        "outsourcingProvider": "Outsourcing Provider",
+        "financialInstitution": "Financial Institution",
+        "legalAdvisor": "Legal Advisor",
+        "insuranceProvider": "Insurance Provider",
+        "serviceProvider": "Service Provider",
+        "custom": "Custom Relationship"
+      },
+      "statuses": {
+        "active": "Active",
+        "underReview": "Under Review",
+        "pendingRenewal": "Pending Renewal",
+        "suspended": "Suspended",
+        "ended": "Ended"
+      },
+      "criticality": {
+        "low": "Low",
+        "moderate": "Moderate",
+        "high": "High",
+        "missionCritical": "Mission Critical"
+      },
+      "recommendations": {
+        "reviewMissionCritical": "Review mission-critical relationships regularly.",
+        "assignOwner": "Assign an owner to unmanaged vendors.",
+        "scheduleRenewal": "Schedule renewal discussions for upcoming contract dates.",
+        "addBackupContact": "Add backup contacts for important relationships.",
+        "reviewExpiring": "Review relationships approaching expiration."
+      },
+      "faq": {
+        "title": "External Relationships FAQ",
+        "whatIs": "What is the External Relationship Center?",
+        "whatIsAnswer": "The External Relationship Center helps organizations manage important suppliers, partners and service providers through structured ownership and lifecycle tracking.",
+        "owners": "Why should vendor relationships have owners?",
+        "ownersAnswer": "Ownership improves accountability and reduces operational risk by ensuring important relationships receive appropriate attention.",
+        "autoManage": "Can Aipify manage contracts automatically?",
+        "autoManageAnswer": "No. Aipify helps organizations track important milestones and reminders, but humans remain responsible for relationship management decisions."
       }
     }
   },

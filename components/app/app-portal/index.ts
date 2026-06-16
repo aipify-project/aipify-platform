@@ -27,3 +27,5 @@ export { RisksPanel } from "./RisksPanel";
 export { RiskDetailPanel } from "./RiskDetailPanel";
 export { CompliancePanel } from "./CompliancePanel";
 export { ComplianceDetailPanel } from "./ComplianceDetailPanel";
+export { ExternalRelationshipsPanel } from "./ExternalRelationshipsPanel";
+export { ExternalRelationshipDetailPanel } from "./ExternalRelationshipDetailPanel";
