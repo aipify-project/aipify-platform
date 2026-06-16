@@ -43,3 +43,5 @@ export { CapacityWorkloadPanel } from "./CapacityWorkloadPanel";
 export { CapacityWorkloadDetailPanel } from "./CapacityWorkloadDetailPanel";
 export { SuccessValuePanel } from "./SuccessValuePanel";
 export { SuccessValueDetailPanel } from "./SuccessValueDetailPanel";
+export { StrategyExecutionPanel } from "./StrategyExecutionPanel";
+export { StrategyExecutionDetailPanel } from "./StrategyExecutionDetailPanel";

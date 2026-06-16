@@ -1378,7 +1378,8 @@
       "continuity": "Continuity",
       "learningImprovement": "Learning & Improvement",
       "capacityWorkload": "Capacity & Workload",
-      "successValue": "Success & Value"
+      "successValue": "Success & Value",
+      "strategyExecution": "Strategy"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -3539,6 +3540,134 @@
         "whyMeasureAnswer": "Organizations make better decisions when they understand which efforts produce measurable benefits and which require adjustment.",
         "autoDetermine": "Can Aipify determine success automatically?",
         "autoDetermineAnswer": "No. Aipify supports evaluation and organizational awareness, but people remain responsible for interpreting outcomes and defining success criteria."
+      }
+    },
+    "strategyExecution": {
+      "title": "Strategy",
+      "subtitle": "Transform strategic ambitions into measurable initiatives with clear ownership and disciplined execution.",
+      "loading": "Aipify is reviewing your strategic initiatives…",
+      "principle": "Organizations succeed when strategy is translated into disciplined execution.",
+      "emptyTitle": "No strategic initiatives have been defined yet.",
+      "emptyBody": "Organizations succeed when strategy is translated into disciplined execution.",
+      "emptyCta": "Create Strategic Initiative",
+      "back": "Strategy",
+      "notFound": "Strategic initiative not found.",
+      "filters": {
+        "search": "Search initiatives…",
+        "category": "Strategic category",
+        "status": "Status",
+        "owner": "Initiative owner",
+        "sponsor": "Executive sponsor",
+        "importance": "Strategic importance",
+        "targetFrom": "Target from",
+        "targetTo": "Target to",
+        "all": "All"
+      },
+      "dashboard": {
+        "active": "Active strategic initiatives",
+        "requiringAttention": "Initiatives requiring attention",
+        "progressOverview": "Strategic progress overview",
+        "upcomingMilestones": "Upcoming milestone reviews",
+        "recentlyCompleted": "Recently completed initiatives",
+        "executionTrends": "Strategic execution trends"
+      },
+      "form": {
+        "createTitle": "Create strategic initiative",
+        "title": "Title",
+        "description": "Description",
+        "category": "Strategic category",
+        "importance": "Strategic importance",
+        "successDefinition": "Success definition",
+        "targetDate": "Target date",
+        "notes": "Notes",
+        "submit": "Create initiative",
+        "cancel": "Cancel"
+      },
+      "card": {
+        "owner": "Initiative owner",
+        "sponsor": "Executive sponsor",
+        "importance": "Strategic importance",
+        "progress": "Progress",
+        "targetDate": "Target date",
+        "view": "View"
+      },
+      "detail": {
+        "overview": "Initiative overview",
+        "ownership": "Ownership details",
+        "progressTracking": "Progress tracking",
+        "successDefinition": "Success definition",
+        "relatedGoals": "Related goals",
+        "relatedDecisions": "Related decisions",
+        "relatedFollowUps": "Related follow-ups",
+        "relatedRisks": "Related risks",
+        "milestoneTimeline": "Milestone timeline",
+        "audit": "Audit history",
+        "save": "Save updates",
+        "saved": "Strategic initiative updated.",
+        "recommendations": "Aipify recommendations",
+        "executionInsights": "Execution insights",
+        "addMilestone": "Add milestone",
+        "milestoneTitle": "Milestone title",
+        "milestoneTarget": "Target date",
+        "milestoneNotes": "Notes",
+        "milestoneSubmit": "Add milestone"
+      },
+      "categories": {
+        "growthStrategy": "Growth Strategy",
+        "customerStrategy": "Customer Strategy",
+        "operationalExcellence": "Operational Excellence",
+        "digitalTransformation": "Digital Transformation",
+        "innovationStrategy": "Innovation Strategy",
+        "employeeStrategy": "Employee Strategy",
+        "financialStrategy": "Financial Strategy",
+        "riskStrategy": "Risk Strategy",
+        "sustainabilityStrategy": "Sustainability Strategy",
+        "customStrategicTheme": "Custom Strategic Theme"
+      },
+      "statuses": {
+        "planning": "Planning",
+        "active": "Active",
+        "onTrack": "On Track",
+        "needsAttention": "Needs Attention",
+        "delayed": "Delayed",
+        "completed": "Completed",
+        "archived": "Archived"
+      },
+      "importanceLevels": {
+        "important": "Important",
+        "highPriority": "High Priority",
+        "criticalPriority": "Critical Priority",
+        "transformational": "Transformational"
+      },
+      "milestoneStatuses": {
+        "pending": "Pending",
+        "inProgress": "In Progress",
+        "completed": "Completed",
+        "missed": "Missed",
+        "cancelled": "Cancelled"
+      },
+      "insights": {
+        "consistentlyDelayed": "Strategic initiatives consistently delayed.",
+        "resourceConflicts": "Resource conflicts affecting delivery.",
+        "dependenciesSlowing": "Dependencies slowing execution.",
+        "positiveMomentum": "Positive momentum in execution.",
+        "emergingRisks": "Emerging risks impacting outcomes."
+      },
+      "recommendations": {
+        "reviewDelayed": "Review delayed strategic initiatives.",
+        "assignOwnership": "Assign additional ownership support.",
+        "clarifySuccessCriteria": "Clarify strategic success criteria.",
+        "reassessDependencies": "Reassess dependencies.",
+        "celebrateMilestones": "Celebrate strategic milestones achieved."
+      },
+      "faq": {
+        "title": "Strategy FAQ",
+        "whatIs": "What is the Strategy Center?",
+        "whatIsAnswer": "The Strategy Center helps organizations transform strategic ambitions into measurable initiatives with clear ownership and progress tracking.",
+        "whyOwners": "Why do strategic initiatives need owners?",
+        "whyOwnersAnswer": "Clear ownership improves accountability and increases the likelihood that strategic priorities become operational reality.",
+        "autoExecute": "Can Aipify execute strategy automatically?",
+        "autoExecuteAnswer": "No. Aipify provides structure, visibility and recommendations, while leaders remain responsible for strategic decisions and execution."
       }
     }
   }
