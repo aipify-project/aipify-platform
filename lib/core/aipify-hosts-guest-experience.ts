@@ -2,9 +2,7 @@
  * Aipify Hosts — Guest Experience Center (Phase Airbnb 30).
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export async function getAipifyHostsGuestExperienceDashboard(
   supabase: RpcClient,

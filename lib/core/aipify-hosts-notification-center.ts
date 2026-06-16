@@ -2,9 +2,7 @@
  * Aipify Hosts — Notification Center (Phase Airbnb 20).
  */
 
-type RpcClient = {
-  rpc: (fn: string, params?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export async function getAipifyHostsNotificationCenterDashboard(
   supabase: RpcClient,

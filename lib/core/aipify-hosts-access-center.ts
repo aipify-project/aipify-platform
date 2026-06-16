@@ -3,12 +3,7 @@
  * Authoritative enforcement lives in Supabase RPCs (_ahostaccess_*).
  */
 
-type RpcClient = {
-  rpc: (
-    fn: string,
-    params?: Record<string, unknown>,
-  ) => PromiseLike<{ data: unknown; error: { message: string } | null }>;
-};
+import type { RpcClient } from "./rpc-client";
 
 export async function getAipifyHostsAccessCenterDashboard(
   supabase: RpcClient,
