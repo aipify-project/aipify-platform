@@ -58,3 +58,4 @@ export { CustomerSuccessPanel } from "./CustomerSuccessPanel";
 export { CustomerHealthPanel } from "./CustomerHealthPanel";
 export { MomentumPanel } from "./MomentumPanel";
 export { ResiliencePanel } from "./ResiliencePanel";
+export { ExecutiveCompanionPanel } from "./ExecutiveCompanionPanel";

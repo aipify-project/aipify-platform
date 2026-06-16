@@ -47,6 +47,7 @@ export type AppPortalNavId =
   | "intelligenceBriefings"
   | "momentum"
   | "resilience"
+  | "executiveCompanion"
   | "subscription"
   | "paymentHistory"
   | "invoices"
@@ -78,7 +79,8 @@ export type AppPortalNavGroupId =
   | "billing"
   | "support"
   | "account"
-  | "appPlatform";
+  | "appPlatform"
+  | "intelligence";
 
 export type AppPortalNavItem = {
   id: AppPortalNavId;
@@ -158,6 +160,13 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
     ],
   },
   {
+    id: "intelligence",
+    labelKey: "customerApp.portalStructure.navGroups.intelligence",
+    items: [
+      { id: "executiveCompanion", href: "/app/intelligence/executive-companion", labelKey: "customerApp.portalStructure.nav.executiveCompanion" },
+    ],
+  },
+  {
     id: "billing",
     labelKey: "customerApp.portalStructure.navGroups.billing",
     items: [
@@ -213,6 +222,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/platform/integrations/connected")) return "connectedIntegrations";
   if (pathname.startsWith("/app/platform/integrations")) return "integrations";
   if (pathname.startsWith("/app/platform/api-access")) return "apiAccess";
+  if (pathname.startsWith("/app/intelligence/executive-companion")) return "executiveCompanion";
   if (pathname.startsWith("/app/operations/executive-insights")) return "executiveInsights";
   if (pathname.startsWith("/app/operations/follow-ups")) return "followUps";
   if (pathname.startsWith("/app/operations/decision-center")) return "decisionCenter";

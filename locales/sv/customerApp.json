@@ -23551,7 +23551,8 @@
       "billing": "Fakturering",
       "support": "Support",
       "account": "Konto",
-      "appPlatform": "Plattform"
+      "appPlatform": "Plattform",
+      "intelligence": "Intelligence"
     },
     "nav": {
       "dashboard": "Dashboard",
@@ -23612,7 +23613,8 @@
       "customerSuccess": "Customer Success",
       "customerHealth": "Customer Health",
       "momentum": "Momentum",
-      "resilience": "Resilience"
+      "resilience": "Resilience",
+      "executiveCompanion": "Executive Companion"
     },
     "dashboard": {
       "title": "APP-instrumentpanel",
@@ -27193,6 +27195,102 @@
         "predictDisruptionsAnswer": "No. Aipify provides resilience insights and recommendations based on available organizational information but cannot predict future events.",
         "improveOverTime": "Can resilience be improved over time?",
         "improveOverTimeAnswer": "Yes. Organizations can strengthen resilience through preparation, diversification, learning and continuous improvement."
+      }
+    },
+    "executiveCompanion": {
+      "title": "Executive Companion",
+      "subtitle": "A trusted executive workspace — focus attention, prepare for conversations, and stay informed without dashboard overload.",
+      "loading": "Aipify is preparing your executive briefing…",
+      "principle": "Aipify supports leaders through information and recommendations — executives remain responsible for all decisions.",
+      "emptyTitle": "No executive insights are available yet.",
+      "emptyBody": "Aipify Executive Companion helps leaders focus on what matters most.",
+      "emptyCta": "Generate Executive Briefing",
+      "accessDenied": "Executive Companion requires leadership authorization.",
+      "filters": {
+        "search": "Search executive insights…",
+        "priority": "Priority",
+        "strategicArea": "Strategic area",
+        "organizationalArea": "Organizational area",
+        "focusCategory": "Executive focus category",
+        "periodFrom": "Period from",
+        "all": "All"
+      },
+      "dashboard": {
+        "executiveBriefing": "Executive Briefing",
+        "todaysPriorities": "Today's Priorities",
+        "itemsAttention": "Items Requiring Attention",
+        "upcomingResponsibilities": "Upcoming Executive Responsibilities",
+        "strategicProgress": "Strategic Progress Snapshot",
+        "organizationalHealth": "Organizational Health Snapshot",
+        "recommendedActions": "Recommended Actions",
+        "activeInitiatives": "Active strategic initiatives",
+        "delayedInitiatives": "Delayed initiatives"
+      },
+      "briefing": {
+        "goodMorning": "Good morning.",
+        "strategicInitiativesAttention": "{{count}} strategic initiatives require executive attention.",
+        "commitmentsApproaching": "{{count}} commitments are approaching deadlines.",
+        "riskShouldReview": "{{count}} organizational risks should be reviewed.",
+        "momentumHealthy": "Overall organizational momentum remains healthy.",
+        "momentumStable": "Overall organizational momentum remains stable.",
+        "momentumNeedsAttention": "Organizational momentum may require executive attention."
+      },
+      "priorities": {
+        "title": "Executive Priorities",
+        "criticalCommitment": "Critical commitment",
+        "delayedInitiative": "Delayed initiative",
+        "highPriorityDecision": "High-priority decision",
+        "emergingRisk": "Emerging risk",
+        "upcomingReview": "Upcoming review",
+        "executiveAction": "Recommended executive action"
+      },
+      "meetingPrep": {
+        "title": "Meeting Preparation",
+        "relatedCommitments": "Related commitments",
+        "relatedDecisions": "Related decisions",
+        "relatedFollowUps": "Relevant follow-ups",
+        "previousSummary": "Previous meeting summary",
+        "preparationTopics": "Suggested preparation topics"
+      },
+      "health": {
+        "title": "Executive Health Snapshot",
+        "strategy": "Strategy status",
+        "momentum": "Momentum status",
+        "resilience": "Resilience status",
+        "capacity": "Capacity indicators",
+        "risk": "Risk indicators",
+        "success": "Success indicators"
+      },
+      "memory": {
+        "title": "Executive Memory",
+        "decision": "Decision",
+        "commitment": "Commitment"
+      },
+      "timeline": {
+        "title": "Executive Timeline"
+      },
+      "priorityLevels": {
+        "informational": "Informational",
+        "recommended": "Recommended",
+        "important": "Important",
+        "immediateAttention": "Immediate Attention"
+      },
+      "recommendations": {
+        "reviewDelayedInitiatives": "Review delayed strategic initiatives.",
+        "scheduleExecutiveFollowUps": "Schedule executive follow-ups.",
+        "recognizeSuccessfulTeams": "Recognize successful teams.",
+        "revisitUnresolvedRisks": "Revisit unresolved risks.",
+        "prepareUpcomingCommitments": "Prepare for upcoming commitments.",
+        "reviewDecisionsNearDeadline": "Review important decisions nearing deadlines."
+      },
+      "faq": {
+        "title": "Executive Companion FAQ",
+        "whatIs": "What is Executive Companion?",
+        "whatIsAnswer": "Executive Companion provides leaders with concise executive insights, recommendations and organizational awareness to support effective leadership.",
+        "makesDecisions": "Does Aipify make executive decisions?",
+        "makesDecisionsAnswer": "No. Aipify supports leaders through information and recommendations while executives remain responsible for all decisions.",
+        "replaceLeadership": "Can Executive Companion replace leadership?",
+        "replaceLeadershipAnswer": "No. Executive Companion enhances leadership effectiveness but does not replace human judgment, accountability or experience."
       }
     }
   },
