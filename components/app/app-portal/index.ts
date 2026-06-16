@@ -18,3 +18,6 @@ export { GettingStartedPanel } from "./GettingStartedPanel";
 export { CapabilityCenterPanel } from "./CapabilityCenterPanel";
 export { OrganizationalGoalsPanel } from "./OrganizationalGoalsPanel";
 export { OrganizationalGoalDetailPanel } from "./OrganizationalGoalDetailPanel";
+export { ResponsibilitiesPanel } from "./ResponsibilitiesPanel";
+export { ResponsibilityDetailPanel } from "./ResponsibilityDetailPanel";
+export { OwnerDetailPanel } from "./OwnerDetailPanel";

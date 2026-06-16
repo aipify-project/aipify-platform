@@ -23503,7 +23503,8 @@
       "successCenter": "Success Center",
       "gettingStarted": "Getting Started",
       "capabilityCenter": "Capability Center",
-      "goalsObjectives": "Goals & Objectives"
+      "goalsObjectives": "Goals & Objectives",
+      "responsibilities": "Responsibilities"
     },
     "dashboard": {
       "title": "APP-dashboard",
@@ -24707,6 +24708,116 @@
         "updatedAnswer": "Yes. Goals evolve as organizations learn, adapt and achieve milestones. Progress updates help maintain alignment and accountability.",
         "autoComplete": "Does Aipify automatically complete goals?",
         "autoCompleteAnswer": "No. Aipify supports organizations with visibility, recommendations and progress tracking. Human teams remain responsible for execution."
+      }
+    },
+    "responsibilities": {
+      "title": "Responsibilities",
+      "subtitle": "Clarify who owns what across goals, decisions, follow-ups, approvals and operational areas.",
+      "loading": "Aipify is reviewing organizational ownership…",
+      "principle": "Clear ownership reduces ambiguity — human administrators assign responsibility.",
+      "emptyTitle": "No responsibilities have been assigned yet.",
+      "emptyBody": "Aipify helps your organization clarify ownership so important work does not fall between roles.",
+      "emptyCta": "Create Responsibility",
+      "back": "Responsibilities",
+      "notFound": "Responsibility not found.",
+      "filters": {
+        "search": "Search responsibilities…",
+        "area": "Area",
+        "status": "Status",
+        "owner": "Owner",
+        "hasBackup": "Has backup owner",
+        "all": "All",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "dashboard": {
+        "assigned": "Assigned responsibilities",
+        "unassigned": "Unassigned responsibilities",
+        "needsReview": "Needing review",
+        "noBackup": "Critical areas without backup",
+        "overloaded": "Overloaded owners",
+        "recent": "Recently updated"
+      },
+      "form": {
+        "createTitle": "Create responsibility",
+        "title": "Title",
+        "description": "Description",
+        "area": "Area",
+        "primaryOwner": "Primary owner",
+        "backupOwner": "Backup owner",
+        "reviewFrequency": "Review frequency",
+        "notes": "Notes",
+        "submit": "Create responsibility",
+        "cancel": "Cancel"
+      },
+      "card": {
+        "primaryOwner": "Primary owner",
+        "backupOwner": "Backup owner",
+        "lastReviewed": "Last reviewed",
+        "view": "View",
+        "viewOwner": "View owner profile"
+      },
+      "detail": {
+        "overview": "Responsibility overview",
+        "audit": "Audit history",
+        "save": "Save review",
+        "saved": "Responsibility updated.",
+        "recommendations": "Aipify recommendations"
+      },
+      "owner": {
+        "title": "Owner profile",
+        "owned": "Owned responsibilities",
+        "backup": "Backup responsibilities",
+        "followUps": "Assigned follow-ups",
+        "goals": "Assigned goals",
+        "approvals": "Pending approvals",
+        "support": "Open support requests",
+        "workload": "Workload indicator"
+      },
+      "areas": {
+        "goals": "Goals",
+        "followUps": "Follow-Ups",
+        "decisions": "Decisions",
+        "approvals": "Approvals",
+        "supportRequests": "Support Requests",
+        "integrations": "Integrations",
+        "businessPacks": "Business Packs",
+        "billing": "Billing",
+        "security": "Security",
+        "operations": "Operations"
+      },
+      "statuses": {
+        "active": "Active",
+        "needsReview": "Needs Review",
+        "unassigned": "Unassigned",
+        "inactive": "Inactive"
+      },
+      "frequencies": {
+        "monthly": "Monthly",
+        "quarterly": "Quarterly",
+        "semiAnnual": "Semi-annual",
+        "annual": "Annual"
+      },
+      "workload": {
+        "balanced": "Balanced",
+        "moderate": "Moderate",
+        "high": "High"
+      },
+      "recommendations": {
+        "assignOwner": "Assign an owner to this area.",
+        "addBackupOwner": "Add a backup owner to reduce operational risk.",
+        "reviewStale": "Review responsibilities not updated recently.",
+        "balanceOwnership": "Balance ownership across team members.",
+        "clarifyApprovals": "Clarify approval ownership for critical workflows."
+      },
+      "faq": {
+        "title": "Responsibilities FAQ",
+        "whatIs": "What is the Responsibilities Center?",
+        "whatIsAnswer": "The Responsibilities Center helps organizations clarify ownership across goals, decisions, follow-ups, approvals, integrations and other operational areas.",
+        "backup": "Why should responsibilities have backup owners?",
+        "backupAnswer": "Backup owners reduce operational risk by ensuring important responsibilities are covered when the primary owner is unavailable.",
+        "autoAssign": "Can Aipify assign responsibilities automatically?",
+        "autoAssignAnswer": "No. Aipify may suggest ownership based on patterns and roles, but human administrators remain responsible for assigning ownership."
       }
     }
   },

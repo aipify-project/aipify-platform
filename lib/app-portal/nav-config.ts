@@ -14,6 +14,7 @@ export type AppPortalNavId =
   | "sinceLastLogin"
   | "appNotifications"
   | "teamMembers"
+  | "responsibilities"
   | "rolesPermissions"
   | "activityOverview"
   | "installedBusinessPacks"
@@ -88,6 +89,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
     labelKey: "customerApp.portalStructure.navGroups.organization",
     items: [
       { id: "teamMembers", href: "/app/organization/team", labelKey: "customerApp.portalStructure.nav.teamMembers" },
+      { id: "responsibilities", href: "/app/organization/responsibilities", labelKey: "customerApp.portalStructure.nav.responsibilities" },
       { id: "rolesPermissions", href: "/app/organization/roles", labelKey: "customerApp.portalStructure.nav.rolesPermissions", featureKey: "team_management" },
       { id: "activityOverview", href: "/app/organization/activity", labelKey: "customerApp.portalStructure.nav.activityOverview" },
     ],
@@ -174,6 +176,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/operations/decision-center")) return "decisionCenter";
   if (pathname.startsWith("/app/operations/activity-history")) return "activityHistory";
   if (pathname.startsWith("/app/operations/capability-center")) return "capabilityCenter";
+  if (pathname.startsWith("/app/organization/responsibilities")) return "responsibilities";
   if (pathname.startsWith("/app/operations/goals")) return "goalsObjectives";
   if (pathname.startsWith("/app/support/requests")) return "supportRequests";
   if (pathname.startsWith("/app/support/assistant")) return "supportAssistant";
