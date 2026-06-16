@@ -7,3 +7,5 @@ export { AppPortalIntegrationSetupPanel } from "./AppPortalIntegrationSetupPanel
 export { AppPortalExecutiveInsightsPanel } from "./AppPortalExecutiveInsightsPanel";
 export { FollowUpsCenterPanel } from "./FollowUpsCenterPanel";
 export { FollowUpDetailPanel } from "./FollowUpDetailPanel";
+export { DecisionCenterPanel } from "./DecisionCenterPanel";
+export { DecisionDetailPanel } from "./DecisionDetailPanel";

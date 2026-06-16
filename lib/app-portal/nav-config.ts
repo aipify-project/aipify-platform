@@ -24,6 +24,7 @@ export type AppPortalNavId =
   | "insights"
   | "executiveInsights"
   | "followUps"
+  | "decisionCenter"
   | "subscription"
   | "paymentHistory"
   | "invoices"
@@ -101,6 +102,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
       { id: "workflows", href: "/app/operations/workflows", labelKey: "customerApp.portalStructure.nav.workflows", featureKey: "workflows" },
       { id: "executiveInsights", href: "/app/operations/executive-insights", labelKey: "customerApp.portalStructure.nav.executiveInsights" },
       { id: "followUps", href: "/app/operations/follow-ups", labelKey: "customerApp.portalStructure.nav.followUps" },
+      { id: "decisionCenter", href: "/app/operations/decision-center", labelKey: "customerApp.portalStructure.nav.decisionCenter" },
       { id: "insights", href: "/app/operations/insights", labelKey: "customerApp.portalStructure.nav.insights", featureKey: "advanced_insights" },
     ],
   },
@@ -155,6 +157,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/platform/api-access")) return "apiAccess";
   if (pathname.startsWith("/app/operations/executive-insights")) return "executiveInsights";
   if (pathname.startsWith("/app/operations/follow-ups")) return "followUps";
+  if (pathname.startsWith("/app/operations/decision-center")) return "decisionCenter";
   for (const group of APP_PORTAL_NAV_GROUPS) {
     for (const item of group.items) {
       if (item.href !== "/app" && pathname.startsWith(item.href)) {

@@ -23821,7 +23821,8 @@
       "connectIntegration": "Koble til integrasjon",
       "apiAccess": "API-tilgang",
       "executiveInsights": "Executive Insights",
-      "followUps": "Follow-Ups"
+      "followUps": "Follow-Ups",
+      "decisionCenter": "Decision Center"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -24249,6 +24250,117 @@
         "autoCompleteAnswer": "No. Aipify provides reminders and recommendations, but humans remain responsible for reviewing and completing organizational commitments.",
         "assignment": "Can follow-ups be assigned to specific team members?",
         "assignmentAnswer": "Yes. Follow-ups can be assigned to individuals to improve accountability and visibility across the organization."
+      }
+    },
+    "decisionCenter": {
+      "title": "Decision Center",
+      "subtitle": "Document important decisions, preserve context, and evaluate outcomes over time.",
+      "loading": "Aipify is reviewing organizational decision history…",
+      "principle": "Aipify supports human decision-making through documentation and organizational memory. Final authority always remains with people.",
+      "emptyTitle": "No decisions have been documented yet.",
+      "emptyBody": "Aipify helps organizations preserve institutional knowledge by documenting important decisions.",
+      "recordDecision": "Record Decision",
+      "back": "Back to Decision Center",
+      "notFound": "Decision not found.",
+      "readOnly": "You have read-only access to the Decision Center.",
+      "filters": {
+        "title": "Search & filters",
+        "category": "Category",
+        "status": "Status",
+        "owner": "Decision owner",
+        "impact": "Impact level",
+        "dateFrom": "From date",
+        "dateTo": "To date",
+        "outcomeRating": "Outcome rating",
+        "search": "Search",
+        "searchPlaceholder": "Search decisions…",
+        "all": "All"
+      },
+      "card": {
+        "owner": "Decision owner",
+        "date": "Decision date",
+        "status": "Status",
+        "impact": "Impact",
+        "expectedOutcome": "Expected outcome",
+        "category": "Category"
+      },
+      "detail": {
+        "description": "Description",
+        "contributors": "Contributors",
+        "supportingEvidence": "Supporting evidence",
+        "relatedApprovals": "Related approvals",
+        "linkedFollowUps": "Linked follow-ups",
+        "timeline": "Decision timeline",
+        "outcomeEvaluation": "Outcome evaluation",
+        "auditHistory": "Audit history",
+        "expectedOutcome": "Expected outcome",
+        "businessPacks": "Related Business Packs",
+        "save": "Save changes",
+        "saved": "Changes saved.",
+        "evaluate": "Save evaluation",
+        "outcomeRating": "Outcome rating",
+        "lessonsLearned": "Lessons learned",
+        "unexpectedConsequences": "Unexpected consequences",
+        "wouldRepeat": "Would make this decision again?"
+      },
+      "sections": {
+        "items": "Documented decisions",
+        "suggestions": "Aipify recommendations"
+      },
+      "suggestions": {
+        "accept": "Document decision",
+        "requiresReview": "Recommendations require human review — Aipify never makes organizational decisions."
+      },
+      "categories": {
+        "strategic": "Strategic",
+        "financial": "Financial",
+        "operational": "Operational",
+        "customerExperience": "Customer Experience",
+        "humanResources": "Human Resources",
+        "security": "Security",
+        "technology": "Technology",
+        "compliance": "Compliance",
+        "marketing": "Marketing",
+        "growth": "Growth"
+      },
+      "statuses": {
+        "proposed": "Proposed",
+        "underReview": "Under Review",
+        "approved": "Approved",
+        "rejected": "Rejected",
+        "implemented": "Implemented",
+        "evaluated": "Evaluated"
+      },
+      "impactLevels": {
+        "low": "Low Impact",
+        "moderate": "Moderate Impact",
+        "high": "High Impact",
+        "critical": "Critical Impact"
+      },
+      "wouldRepeat": {
+        "yes": "Yes",
+        "partially": "Partially",
+        "no": "No"
+      },
+      "form": {
+        "title": "Record decision",
+        "titlePlaceholder": "What decision was made?",
+        "description": "Description and context",
+        "category": "Category",
+        "impact": "Impact level",
+        "expectedOutcome": "Expected outcome",
+        "status": "Status",
+        "submit": "Record decision",
+        "cancel": "Cancel"
+      },
+      "faq": {
+        "title": "Decision Center FAQ",
+        "whatIs": "What is the Decision Center?",
+        "whatIsAnswer": "The Decision Center helps organizations document important decisions, preserve context, and evaluate outcomes over time.",
+        "whyDocument": "Why should decisions be documented?",
+        "whyDocumentAnswer": "Documenting decisions reduces knowledge loss, improves accountability, and helps future leaders understand the reasoning behind previous actions.",
+        "autoDecide": "Can Aipify make decisions automatically?",
+        "autoDecideAnswer": "No. Aipify supports human decision-making through documentation, recommendations, and organizational memory. Final authority always remains with people."
       }
     }
   },
