@@ -46,6 +46,7 @@ export type AppPortalNavId =
   | "commitmentTracking"
   | "intelligenceBriefings"
   | "momentum"
+  | "resilience"
   | "subscription"
   | "paymentHistory"
   | "invoices"
@@ -152,6 +153,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
       { id: "commitmentTracking", href: "/app/operations/commitments", labelKey: "customerApp.portalStructure.nav.commitmentTracking" },
       { id: "intelligenceBriefings", href: "/app/operations/briefings", labelKey: "customerApp.portalStructure.nav.intelligenceBriefings" },
       { id: "momentum", href: "/app/operations/momentum", labelKey: "customerApp.portalStructure.nav.momentum" },
+      { id: "resilience", href: "/app/operations/resilience", labelKey: "customerApp.portalStructure.nav.resilience" },
       { id: "insights", href: "/app/operations/insights", labelKey: "customerApp.portalStructure.nav.insights", featureKey: "advanced_insights" },
     ],
   },
@@ -236,6 +238,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/operations/commitments")) return "commitmentTracking";
   if (pathname.startsWith("/app/operations/briefings")) return "intelligenceBriefings";
   if (pathname.startsWith("/app/operations/momentum")) return "momentum";
+  if (pathname.startsWith("/app/operations/resilience")) return "resilience";
   if (pathname.startsWith("/app/support/requests")) return "supportRequests";
   if (pathname.startsWith("/app/support/assistant")) return "supportAssistant";
   if (pathname.startsWith("/app/support/success-center")) return "successCenter";

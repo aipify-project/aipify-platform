@@ -1387,7 +1387,8 @@
       "customerAcademy": "Learning & Academy",
       "customerSuccess": "Customer Success",
       "customerHealth": "Customer Health",
-      "momentum": "Momentum"
+      "momentum": "Momentum",
+      "resilience": "Resilience"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -4515,6 +4516,122 @@
         "howCalculatedAnswer": "Momentum combines progress signals from goals, follow-ups, decisions, commitments and other operational indicators within Aipify.",
         "autoIncrease": "Can Aipify increase organizational momentum automatically?",
         "autoIncreaseAnswer": "No. Aipify provides insights and recommendations, while leaders and teams remain responsible for execution."
+      }
+    },
+    "resilience": {
+      "title": "Resilience",
+      "subtitle": "Understand your ability to adapt, recover and continue operating during change, disruption and uncertainty.",
+      "loading": "Aipify is reviewing organizational resilience indicators…",
+      "principle": "Resilience indicators remain informational. Recommendations are advisory — organizations remain responsible for preparedness and recovery.",
+      "emptyTitle": "No resilience insights are available yet.",
+      "emptyBody": "Aipify helps organizations strengthen adaptability and prepare for uncertainty.",
+      "emptyCta": "Start Resilience Review",
+      "accessDenied": "You do not have permission to access Resilience.",
+      "filters": {
+        "search": "Search resilience insights…",
+        "category": "Resilience category",
+        "status": "Status",
+        "owner": "Owner",
+        "trend": "Trend direction",
+        "priority": "Priority",
+        "periodFrom": "Review period from",
+        "all": "All"
+      },
+      "dashboard": {
+        "resilienceScore": "Organizational Resilience Score",
+        "adaptability": "Adaptability Score",
+        "continuityPreparedness": "Continuity Preparedness Score",
+        "operationalStability": "Operational Stability Score",
+        "dependencyRisk": "Dependency Risk Score",
+        "recoveryReadiness": "Organizational Recovery Readiness",
+        "positiveIndicators": "Positive Resilience Indicators",
+        "openRecommendations": "Open Recommendations",
+        "resilienceStatus": "Resilience Status"
+      },
+      "signals": {
+        "title": "Resilience Signals",
+        "continuityPlanning": "Continuity planning",
+        "riskMitigation": "Risk mitigation progress",
+        "backupOwnership": "Backup ownership coverage",
+        "operationalDependencies": "Operational dependencies",
+        "learningImplementation": "Learning implementation",
+        "capacityBalance": "Capacity balance",
+        "policyCompliance": "Policy compliance",
+        "incidentPreparedness": "Incident preparedness",
+        "vendorDiversification": "Vendor diversification",
+        "leadershipReadiness": "Leadership readiness"
+      },
+      "areas": {
+        "title": "Resilience Records",
+        "owner": "Responsible owner",
+        "assessment": "Current assessment",
+        "status": "Resilience status",
+        "trend": "Trend",
+        "vulnerabilities": "Identified vulnerabilities",
+        "safeguards": "Existing safeguards",
+        "recovery": "Recovery considerations",
+        "lastReviewed": "Last reviewed"
+      },
+      "vulnerabilities": {
+        "title": "Vulnerability Insights"
+      },
+      "timeline": {
+        "title": "Resilience Timeline"
+      },
+      "statuses": {
+        "highlyResilient": "Highly Resilient",
+        "resilient": "Resilient",
+        "stable": "Stable",
+        "vulnerable": "Vulnerable",
+        "requiresAttention": "Requires Attention"
+      },
+      "trends": {
+        "improving": "Improving",
+        "stable": "Stable",
+        "declining": "Declining"
+      },
+      "priorities": {
+        "opportunity": "Opportunity",
+        "recommended": "Recommended",
+        "important": "Important",
+        "immediateAttention": "Immediate Attention"
+      },
+      "categories": {
+        "operationalResilience": "Operational Resilience",
+        "technologyResilience": "Technology Resilience",
+        "workforceResilience": "Workforce Resilience",
+        "vendorResilience": "Vendor Resilience",
+        "leadershipResilience": "Leadership Resilience",
+        "financialResilience": "Financial Resilience",
+        "complianceResilience": "Compliance Resilience",
+        "securityResilience": "Security Resilience",
+        "strategicResilience": "Strategic Resilience",
+        "customCategory": "Custom Category"
+      },
+      "recommendations": {
+        "reviewSinglePointsOfFailure": "Review single points of failure.",
+        "strengthenBackupOwnership": "Strengthen backup ownership.",
+        "updateContinuityPlans": "Update continuity plans.",
+        "diversifyCriticalDependencies": "Diversify critical dependencies.",
+        "scheduleResilienceReviews": "Schedule resilience reviews.",
+        "conductPreparednessExercises": "Conduct preparedness exercises."
+      },
+      "vulnerabilityKeys": {
+        "overRelianceKeyIndividuals": "Over-reliance on key individuals.",
+        "assetsWithoutBackups": "Mission-critical assets without backups.",
+        "singlePointsOfFailure": "Single points of failure.",
+        "agingContinuityPlans": "Aging continuity plans.",
+        "insufficientReviewFrequency": "Insufficient review frequency.",
+        "vendorConcentrationRisk": "Vendor concentration risk."
+      },
+      "faq": {
+        "title": "Resilience FAQ",
+        "whatIs": "What is the Resilience Engine?",
+        "whatIsAnswer": "The Resilience Engine helps organizations understand how effectively they can adapt, recover and continue operating during disruption.",
+        "predictDisruptions": "Can Aipify predict future disruptions?",
+        "predictDisruptionsAnswer": "No. Aipify provides resilience insights and recommendations based on available organizational information but cannot predict future events.",
+        "improveOverTime": "Can resilience be improved over time?",
+        "improveOverTimeAnswer": "Yes. Organizations can strengthen resilience through preparation, diversification, learning and continuous improvement."
       }
     }
   }
