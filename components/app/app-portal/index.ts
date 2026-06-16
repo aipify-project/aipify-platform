@@ -35,3 +35,5 @@ export { MeetingsPanel } from "./MeetingsPanel";
 export { MeetingDetailPanel } from "./MeetingDetailPanel";
 export { CommunicationsPanel } from "./CommunicationsPanel";
 export { CommunicationDetailPanel } from "./CommunicationDetailPanel";
+export { ContinuityPanel } from "./ContinuityPanel";
+export { ContinuityDetailPanel } from "./ContinuityDetailPanel";

@@ -23598,7 +23598,8 @@
       "externalRelationships": "External Relationships",
       "organizationalAssets": "Assets & Resources",
       "meetings": "Meetings",
-      "communications": "Communications"
+      "communications": "Communications",
+      "continuity": "Continuity"
     },
     "dashboard": {
       "title": "APP-instrumentpanel",
@@ -25617,6 +25618,129 @@
         "outcomesAnswer": "Documenting outcomes improves accountability, preserves organizational memory and increases the likelihood that important actions are completed.",
         "autoComplete": "Can Aipify automatically complete meeting action items?",
         "autoCompleteAnswer": "No. Aipify supports visibility and accountability, but people remain responsible for executing agreed actions."
+      }
+    },
+    "continuity": {
+      "title": "Continuity Center",
+      "subtitle": "Document preparedness plans, assign ownership and strengthen organizational resilience during unexpected disruptions.",
+      "loading": "Aipify is reviewing organizational preparedness…",
+      "principle": "Preparedness reduces uncertainty — humans remain accountable for operational decisions during critical situations.",
+      "emptyTitle": "No continuity plans have been created yet.",
+      "emptyBody": "Prepared organizations recover faster and maintain confidence during disruptions.",
+      "emptyCta": "Create Continuity Plan",
+      "back": "Continuity",
+      "notFound": "Continuity plan not found.",
+      "filters": {
+        "search": "Search continuity plans…",
+        "category": "Category",
+        "status": "Status",
+        "owner": "Owner",
+        "criticality": "Criticality",
+        "reviewBefore": "Review before",
+        "exerciseBefore": "Exercise before",
+        "all": "All"
+      },
+      "dashboard": {
+        "active": "Active continuity plans",
+        "needsReview": "Plans requiring review",
+        "missionCritical": "Mission-critical areas",
+        "withoutOwner": "Plans without owners",
+        "upcomingExercises": "Upcoming exercises",
+        "recent": "Recently updated plans"
+      },
+      "form": {
+        "createTitle": "Create continuity plan",
+        "title": "Title",
+        "description": "Description",
+        "category": "Category",
+        "criticality": "Criticality level",
+        "reviewFrequency": "Review frequency",
+        "recoveryObjectives": "Recovery objectives",
+        "notes": "Notes",
+        "submit": "Create plan",
+        "cancel": "Cancel"
+      },
+      "card": {
+        "owner": "Owner",
+        "backupOwner": "Backup owner",
+        "nextReview": "Next review",
+        "criticality": "Criticality",
+        "view": "View"
+      },
+      "detail": {
+        "overview": "Continuity overview",
+        "ownership": "Ownership details",
+        "recovery": "Recovery information",
+        "dependencies": "Critical dependencies",
+        "alternativeProcedures": "Alternative procedures",
+        "escalationPaths": "Escalation paths",
+        "minimumRequirements": "Minimum operational requirements",
+        "relatedPlaybooks": "Related playbooks",
+        "relatedRisks": "Related risks",
+        "relatedRelationships": "Related external relationships",
+        "exercises": "Continuity exercises",
+        "activity": "Activity timeline",
+        "audit": "Audit history",
+        "save": "Save recovery details",
+        "saved": "Continuity plan updated.",
+        "recommendations": "Aipify recommendations",
+        "addExercise": "Record exercise",
+        "exerciseTitle": "Exercise title",
+        "exerciseType": "Exercise type",
+        "exerciseDate": "Exercise date",
+        "lessonsLearned": "Lessons learned",
+        "improvementActions": "Improvement actions"
+      },
+      "categories": {
+        "businessContinuity": "Business Continuity",
+        "incidentResponse": "Incident Response",
+        "technologyRecovery": "Technology Recovery",
+        "workforceContinuity": "Workforce Continuity",
+        "vendorContinuity": "Vendor Continuity",
+        "communicationsContinuity": "Communications Continuity",
+        "executiveContinuity": "Executive Continuity",
+        "operationalRecovery": "Operational Recovery",
+        "facilityPreparedness": "Facility Preparedness",
+        "customContinuityArea": "Custom Continuity Area"
+      },
+      "statuses": {
+        "draft": "Draft",
+        "active": "Active",
+        "underReview": "Under Review",
+        "testing": "Testing",
+        "archived": "Archived"
+      },
+      "criticality": {
+        "low": "Low",
+        "moderate": "Moderate",
+        "high": "High",
+        "missionCritical": "Mission Critical"
+      },
+      "frequencies": {
+        "monthly": "Monthly",
+        "quarterly": "Quarterly",
+        "semiAnnual": "Semi-annual",
+        "annual": "Annual"
+      },
+      "exerciseTypes": {
+        "tabletop": "Tabletop exercise",
+        "simulation": "Simulation exercise"
+      },
+      "recommendations": {
+        "reviewOutdated": "Review outdated continuity plans.",
+        "assignBackupOwner": "Assign backup owners for mission-critical plans.",
+        "scheduleExercise": "Schedule continuity exercises for active plans.",
+        "updateDependencies": "Update mission-critical dependencies.",
+        "reviewVendorAssumptions": "Review vendor continuity assumptions."
+      },
+      "faq": {
+        "title": "Continuity FAQ",
+        "whatIs": "What is the Continuity Center?",
+        "whatIsAnswer": "The Continuity Center helps organizations document preparedness plans and strengthen resilience during unexpected disruptions.",
+        "exercises": "Why are continuity exercises important?",
+        "exercisesAnswer": "Exercises help organizations validate assumptions, identify weaknesses and improve preparedness before disruptions occur.",
+        "autoManage": "Can Aipify manage incidents automatically?",
+        "autoManageAnswer": "No. Aipify supports preparedness and organizational awareness, but people remain responsible for operational decisions during critical situations."
       }
     }
   },
