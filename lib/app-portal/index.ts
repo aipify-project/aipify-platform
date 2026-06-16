@@ -14,3 +14,4 @@ export * from "./onboarding";
 export * from "./capability-center";
 export * from "./organizational-goals";
 export * from "./responsibilities";
+export * from "./playbooks";

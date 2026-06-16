@@ -1367,7 +1367,8 @@
       "gettingStarted": "Getting Started",
       "capabilityCenter": "Capability Center",
       "goalsObjectives": "Goals & Objectives",
-      "responsibilities": "Responsibilities"
+      "responsibilities": "Responsibilities",
+      "playbooks": "Playbooks"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -2344,6 +2345,116 @@
         "backupAnswer": "Backup owners reduce operational risk by ensuring important responsibilities are covered when the primary owner is unavailable.",
         "autoAssign": "Can Aipify assign responsibilities automatically?",
         "autoAssignAnswer": "No. Aipify may suggest ownership based on patterns and roles, but human administrators remain responsible for assigning ownership."
+      }
+    },
+    "playbooks": {
+      "title": "Playbooks",
+      "subtitle": "Document, maintain and improve repeatable operational processes across your organization.",
+      "loading": "Aipify is preparing your organizational playbooks…",
+      "principle": "Standardized playbooks preserve institutional knowledge — human teams define and maintain procedures.",
+      "emptyTitle": "No playbooks have been created yet.",
+      "emptyBody": "Playbooks help organizations standardize recurring work and preserve operational knowledge.",
+      "emptyCta": "Create Playbook",
+      "back": "Playbooks",
+      "notFound": "Playbook not found.",
+      "filters": {
+        "search": "Search playbooks…",
+        "category": "Category",
+        "status": "Status",
+        "owner": "Owner",
+        "recentlyUpdated": "Recently updated",
+        "relatedModule": "Related module",
+        "all": "All",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "dashboard": {
+        "active": "Active playbooks",
+        "draft": "Draft playbooks",
+        "archived": "Archived playbooks",
+        "needsReview": "Requiring review",
+        "recent": "Recently updated",
+        "mostAccessed": "Most frequently accessed"
+      },
+      "form": {
+        "createTitle": "Create playbook",
+        "title": "Title",
+        "description": "Description",
+        "category": "Category",
+        "owner": "Owner",
+        "reviewFrequency": "Review frequency",
+        "notes": "Notes",
+        "stepTitle": "First step title",
+        "stepDescription": "Step description",
+        "responsibleRole": "Responsible role",
+        "requiresApproval": "Requires approval",
+        "addStep": "Add step",
+        "submit": "Create playbook",
+        "cancel": "Cancel"
+      },
+      "card": {
+        "owner": "Owner",
+        "version": "Version",
+        "lastReviewed": "Last reviewed",
+        "view": "View",
+        "steps": "Steps"
+      },
+      "detail": {
+        "overview": "Playbook overview",
+        "steps": "Step-by-step process",
+        "versionHistory": "Version history",
+        "contributors": "Contributors",
+        "relatedModules": "Related modules",
+        "relatedArticles": "Related Knowledge Center articles",
+        "activity": "Activity timeline",
+        "audit": "Audit history",
+        "save": "Save review",
+        "saved": "Playbook updated.",
+        "recommendations": "Aipify recommendations",
+        "changeSummary": "Change summary",
+        "checklist": "Checklist",
+        "resources": "Related resources"
+      },
+      "categories": {
+        "customerSupport": "Customer Support",
+        "employeeOnboarding": "Employee Onboarding",
+        "incidentResponse": "Incident Response",
+        "securityProcedures": "Security Procedures",
+        "billingOperations": "Billing Operations",
+        "approvalProcesses": "Approval Processes",
+        "businessPackOperations": "Business Pack Operations",
+        "integrationManagement": "Integration Management",
+        "executiveProcesses": "Executive Processes",
+        "custom": "Custom Playbooks"
+      },
+      "statuses": {
+        "draft": "Draft",
+        "active": "Active",
+        "underReview": "Under Review",
+        "archived": "Archived"
+      },
+      "frequencies": {
+        "monthly": "Monthly",
+        "quarterly": "Quarterly",
+        "semiAnnual": "Semi-annual",
+        "annual": "Annual"
+      },
+      "recommendations": {
+        "reviewOutdated": "Review outdated playbooks that have not been updated recently.",
+        "addOwnership": "Add ownership to unassigned playbooks.",
+        "archiveUnused": "Archive unused procedures that no longer reflect current operations.",
+        "createRecurring": "Create playbooks for recurring activities that lack documented procedures.",
+        "updateAfterChanges": "Update playbooks following major operational changes.",
+        "activateDraft": "Activate draft playbooks when procedures are ready for team use."
+      },
+      "faq": {
+        "title": "Playbooks FAQ",
+        "whatIs": "What is a Playbook?",
+        "whatIsAnswer": "A playbook is a documented process that helps organizations perform recurring activities consistently and efficiently.",
+        "versions": "Why are version histories important?",
+        "versionsAnswer": "Version histories help organizations understand how processes evolve over time and support accountability.",
+        "autoCreate": "Can Aipify create playbooks automatically?",
+        "autoCreateAnswer": "Aipify may suggest areas that could benefit from playbooks, but organizations remain responsible for defining and maintaining their procedures."
       }
     }
   }

@@ -21,3 +21,5 @@ export { OrganizationalGoalDetailPanel } from "./OrganizationalGoalDetailPanel";
 export { ResponsibilitiesPanel } from "./ResponsibilitiesPanel";
 export { ResponsibilityDetailPanel } from "./ResponsibilityDetailPanel";
 export { OwnerDetailPanel } from "./OwnerDetailPanel";
+export { PlaybooksPanel } from "./PlaybooksPanel";
+export { PlaybookDetailPanel } from "./PlaybookDetailPanel";
