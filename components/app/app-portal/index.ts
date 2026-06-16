@@ -29,3 +29,5 @@ export { CompliancePanel } from "./CompliancePanel";
 export { ComplianceDetailPanel } from "./ComplianceDetailPanel";
 export { ExternalRelationshipsPanel } from "./ExternalRelationshipsPanel";
 export { ExternalRelationshipDetailPanel } from "./ExternalRelationshipDetailPanel";
+export { OrganizationalAssetsPanel } from "./OrganizationalAssetsPanel";
+export { OrganizationalAssetDetailPanel } from "./OrganizationalAssetDetailPanel";

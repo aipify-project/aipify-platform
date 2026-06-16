@@ -23508,7 +23508,8 @@
       "playbooks": "Playbooks",
       "risks": "Risks",
       "compliance": "Compliance",
-      "externalRelationships": "External Relationships"
+      "externalRelationships": "External Relationships",
+      "organizationalAssets": "Assets & Resources"
     },
     "dashboard": {
       "title": "APP-dashboard",
@@ -25299,6 +25300,117 @@
         "ownersAnswer": "Ownership improves accountability and reduces operational risk by ensuring important relationships receive appropriate attention.",
         "autoManage": "Can Aipify manage contracts automatically?",
         "autoManageAnswer": "No. Aipify helps organizations track important milestones and reminders, but humans remain responsible for relationship management decisions."
+      }
+    },
+    "organizationalAssets": {
+      "title": "Assets & Resources",
+      "subtitle": "Maintain visibility into important assets, subscriptions, licenses and shared resources.",
+      "loading": "Aipify is reviewing your organizational assets…",
+      "principle": "Operational awareness strengthens continuity — store references only, never credentials.",
+      "emptyTitle": "No organizational assets have been recorded yet.",
+      "emptyBody": "Tracking important assets improves resilience, accountability and operational awareness.",
+      "emptyCta": "Add Asset",
+      "back": "Assets & Resources",
+      "notFound": "Asset not found.",
+      "filters": {
+        "search": "Search assets…",
+        "type": "Asset type",
+        "status": "Status",
+        "owner": "Owner",
+        "vendor": "Vendor",
+        "criticality": "Criticality",
+        "renewalBefore": "Renewal before",
+        "all": "All"
+      },
+      "dashboard": {
+        "active": "Total active assets",
+        "needsReview": "Assets requiring review",
+        "upcomingRenewals": "Upcoming renewals",
+        "missionCritical": "Mission-critical assets",
+        "withoutOwner": "Assets without owners",
+        "recent": "Recently updated assets"
+      },
+      "form": {
+        "createTitle": "Add asset",
+        "assetName": "Asset name",
+        "type": "Asset type",
+        "description": "Description",
+        "vendor": "Vendor",
+        "purchaseDate": "Purchase date",
+        "renewalDate": "Renewal date",
+        "renewalReminder": "Renewal reminder date",
+        "criticality": "Criticality level",
+        "notes": "Internal notes",
+        "referenceNote": "Store references and ownership only — never passwords or API credentials.",
+        "submit": "Add asset",
+        "cancel": "Cancel"
+      },
+      "card": {
+        "owner": "Owner",
+        "backupOwner": "Backup owner",
+        "vendor": "Vendor",
+        "renewalDate": "Renewal date",
+        "criticality": "Criticality",
+        "view": "View"
+      },
+      "detail": {
+        "overview": "Asset overview",
+        "ownership": "Ownership information",
+        "vendorInfo": "Vendor information",
+        "renewals": "Renewal milestones",
+        "relatedFollowUps": "Related follow-ups",
+        "relatedRisks": "Related risks",
+        "relatedRelationships": "Related external relationships",
+        "relatedModules": "Related modules",
+        "renewalHistory": "Renewal history",
+        "activity": "Related activity",
+        "audit": "Audit history",
+        "save": "Save updates",
+        "saved": "Asset updated.",
+        "recommendations": "Aipify recommendations",
+        "renewalNote": "Renewal decision notes",
+        "recordRenewal": "Record renewal decision"
+      },
+      "types": {
+        "softwareLicense": "Software License",
+        "hardware": "Hardware",
+        "subscription": "Subscription",
+        "domainName": "Domain Name",
+        "apiKeyReference": "API Key Reference",
+        "sharedAccount": "Shared Account",
+        "trainingResource": "Training Resource",
+        "internalResource": "Internal Resource",
+        "documentationResource": "Documentation Resource",
+        "customAsset": "Custom Asset"
+      },
+      "statuses": {
+        "active": "Active",
+        "underReview": "Under Review",
+        "pendingRenewal": "Pending Renewal",
+        "retired": "Retired",
+        "archived": "Archived"
+      },
+      "criticality": {
+        "low": "Low",
+        "moderate": "Moderate",
+        "high": "High",
+        "missionCritical": "Mission Critical"
+      },
+      "recommendations": {
+        "assignOwner": "Assign owners to unmanaged assets.",
+        "reviewUpcomingRenewals": "Review upcoming renewals.",
+        "addBackupOwner": "Add backup ownership for important assets.",
+        "archiveUnused": "Archive unused resources.",
+        "reviewMissionCritical": "Review mission-critical dependencies."
+      },
+      "faq": {
+        "title": "Assets & Resources FAQ",
+        "whatIs": "What is the Assets & Resources Center?",
+        "whatIsAnswer": "The Assets & Resources Center helps organizations maintain visibility into important operational assets and shared resources.",
+        "apiKeys": "Should API keys be stored here?",
+        "apiKeysAnswer": "No. Store references and ownership information only. Sensitive credentials should remain in approved secret management systems.",
+        "owners": "Why should assets have owners?",
+        "ownersAnswer": "Ownership improves accountability and helps organizations maintain continuity when responsibilities change."
       }
     }
   },

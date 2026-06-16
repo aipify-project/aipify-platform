@@ -18,3 +18,4 @@ export * from "./playbooks";
 export * from "./risks";
 export * from "./compliance";
 export * from "./external-relationships";
+export * from "./organizational-assets";

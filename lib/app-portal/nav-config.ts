@@ -16,6 +16,7 @@ export type AppPortalNavId =
   | "teamMembers"
   | "responsibilities"
   | "externalRelationships"
+  | "organizationalAssets"
   | "rolesPermissions"
   | "activityOverview"
   | "installedBusinessPacks"
@@ -95,6 +96,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
       { id: "teamMembers", href: "/app/organization/team", labelKey: "customerApp.portalStructure.nav.teamMembers" },
       { id: "responsibilities", href: "/app/organization/responsibilities", labelKey: "customerApp.portalStructure.nav.responsibilities" },
       { id: "externalRelationships", href: "/app/organization/external-relationships", labelKey: "customerApp.portalStructure.nav.externalRelationships" },
+      { id: "organizationalAssets", href: "/app/organization/assets", labelKey: "customerApp.portalStructure.nav.organizationalAssets" },
       { id: "rolesPermissions", href: "/app/organization/roles", labelKey: "customerApp.portalStructure.nav.rolesPermissions", featureKey: "team_management" },
       { id: "activityOverview", href: "/app/organization/activity", labelKey: "customerApp.portalStructure.nav.activityOverview" },
     ],
@@ -186,6 +188,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/operations/capability-center")) return "capabilityCenter";
   if (pathname.startsWith("/app/organization/responsibilities")) return "responsibilities";
   if (pathname.startsWith("/app/organization/external-relationships")) return "externalRelationships";
+  if (pathname.startsWith("/app/organization/assets")) return "organizationalAssets";
   if (pathname.startsWith("/app/operations/goals")) return "goalsObjectives";
   if (pathname.startsWith("/app/operations/playbooks")) return "playbooks";
   if (pathname.startsWith("/app/operations/risks")) return "risks";
