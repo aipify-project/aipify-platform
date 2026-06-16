@@ -39,6 +39,7 @@ export type AppPortalNavId =
   | "continuity"
   | "learningImprovement"
   | "capacityWorkload"
+  | "successValue"
   | "subscription"
   | "paymentHistory"
   | "invoices"
@@ -135,6 +136,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
       { id: "continuity", href: "/app/operations/continuity", labelKey: "customerApp.portalStructure.nav.continuity" },
       { id: "learningImprovement", href: "/app/operations/learning", labelKey: "customerApp.portalStructure.nav.learningImprovement" },
       { id: "capacityWorkload", href: "/app/operations/capacity", labelKey: "customerApp.portalStructure.nav.capacityWorkload" },
+      { id: "successValue", href: "/app/operations/success", labelKey: "customerApp.portalStructure.nav.successValue" },
       { id: "insights", href: "/app/operations/insights", labelKey: "customerApp.portalStructure.nav.insights", featureKey: "advanced_insights" },
     ],
   },
@@ -208,6 +210,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/operations/continuity")) return "continuity";
   if (pathname.startsWith("/app/operations/learning")) return "learningImprovement";
   if (pathname.startsWith("/app/operations/capacity")) return "capacityWorkload";
+  if (pathname.startsWith("/app/operations/success")) return "successValue";
   if (pathname.startsWith("/app/support/requests")) return "supportRequests";
   if (pathname.startsWith("/app/support/assistant")) return "supportAssistant";
   if (pathname.startsWith("/app/support/success-center")) return "successCenter";

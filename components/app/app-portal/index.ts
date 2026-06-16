@@ -41,3 +41,5 @@ export { LearningImprovementPanel } from "./LearningImprovementPanel";
 export { LearningImprovementDetailPanel } from "./LearningImprovementDetailPanel";
 export { CapacityWorkloadPanel } from "./CapacityWorkloadPanel";
 export { CapacityWorkloadDetailPanel } from "./CapacityWorkloadDetailPanel";
+export { SuccessValuePanel } from "./SuccessValuePanel";
+export { SuccessValueDetailPanel } from "./SuccessValueDetailPanel";

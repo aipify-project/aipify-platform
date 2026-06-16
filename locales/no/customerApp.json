@@ -23840,7 +23840,8 @@
       "communications": "Communications",
       "continuity": "Continuity",
       "learningImprovement": "Learning & Improvement",
-      "capacityWorkload": "Capacity & Workload"
+      "capacityWorkload": "Capacity & Workload",
+      "successValue": "Success & Value"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -26223,6 +26224,121 @@
         "monitoringAnswer": "No. The purpose is to support organizational health and operational planning, not to monitor individuals unnecessarily.",
         "autoRebalance": "Can Aipify automatically rebalance workloads?",
         "autoRebalanceAnswer": "No. Aipify provides visibility and recommendations, while leaders remain responsible for operational decisions."
+      }
+    },
+    "successValue": {
+      "title": "Success & Value",
+      "subtitle": "Track value realization, monitor initiative outcomes and evaluate expected versus actual impact.",
+      "loading": "Aipify is evaluating organizational outcomes…",
+      "principle": "Organizations thrive when they understand what creates value and why.",
+      "emptyTitle": "No success initiatives have been recorded yet.",
+      "emptyBody": "Organizations thrive when they understand what creates value and why.",
+      "emptyCta": "Record Success Initiative",
+      "back": "Success & Value",
+      "notFound": "Success initiative not found.",
+      "filters": {
+        "search": "Search initiatives…",
+        "category": "Category",
+        "status": "Status",
+        "owner": "Initiative owner",
+        "sponsor": "Executive sponsor",
+        "valueLevel": "Value level",
+        "reviewFrom": "Review from",
+        "reviewTo": "Review to",
+        "all": "All"
+      },
+      "dashboard": {
+        "active": "Active initiatives",
+        "recentlyRealized": "Recently realized value",
+        "underReview": "Initiatives under review",
+        "highestImpact": "Highest-impact outcomes",
+        "missingMeasurements": "Initiatives missing measurements",
+        "successTrends": "Organizational success trends"
+      },
+      "form": {
+        "createTitle": "Record success initiative",
+        "title": "Title",
+        "description": "Description",
+        "category": "Category",
+        "valueLevel": "Value level",
+        "expectedOutcomes": "Expected outcomes",
+        "valueHypothesis": "Value hypothesis",
+        "measurementMethod": "Measurement method",
+        "notes": "Notes",
+        "submit": "Record initiative",
+        "cancel": "Cancel"
+      },
+      "card": {
+        "owner": "Initiative owner",
+        "sponsor": "Executive sponsor",
+        "valueLevel": "Value level",
+        "expected": "Expected outcomes",
+        "actual": "Actual outcomes",
+        "reviewDate": "Review date",
+        "view": "View"
+      },
+      "detail": {
+        "overview": "Success overview",
+        "expectedVsActual": "Expected versus actual outcomes",
+        "ownership": "Ownership details",
+        "outcomeAnalysis": "Outcome analysis",
+        "goalsAchieved": "Goals achieved",
+        "goalsMissed": "Goals missed",
+        "unexpectedBenefits": "Unexpected benefits",
+        "unexpectedConsequences": "Unexpected consequences",
+        "recommendedAdjustments": "Recommended adjustments",
+        "replicationOpportunities": "Replication opportunities",
+        "lessonsLearned": "Lessons learned",
+        "relatedDecisions": "Related decisions",
+        "relatedFollowUps": "Related follow-ups",
+        "reviewTimeline": "Review timeline",
+        "audit": "Audit history",
+        "save": "Save updates",
+        "saved": "Success initiative updated.",
+        "recommendations": "Aipify recommendations"
+      },
+      "categories": {
+        "financialValue": "Financial Value",
+        "operationalValue": "Operational Value",
+        "customerValue": "Customer Value",
+        "employeeValue": "Employee Value",
+        "strategicValue": "Strategic Value",
+        "productivityValue": "Productivity Value",
+        "qualityImprovement": "Quality Improvement",
+        "riskReduction": "Risk Reduction",
+        "innovationValue": "Innovation Value",
+        "customValueCategory": "Custom Value Category"
+      },
+      "statuses": {
+        "planned": "Planned",
+        "inProgress": "In Progress",
+        "measuring": "Measuring",
+        "successful": "Successful",
+        "partiallySuccessful": "Partially Successful",
+        "didNotMeetExpectations": "Did Not Meet Expectations",
+        "archived": "Archived"
+      },
+      "valueLevels": {
+        "emergingValue": "Emerging Value",
+        "moderateValue": "Moderate Value",
+        "significantValue": "Significant Value",
+        "transformationalValue": "Transformational Value"
+      },
+      "recommendations": {
+        "reviewMeasurements": "Review initiatives without outcome measurements.",
+        "celebrateSuccess": "Celebrate completed successes.",
+        "reevaluateUnderperforming": "Re-evaluate underperforming initiatives.",
+        "shareSuccess": "Share successful approaches across teams.",
+        "replicatePractices": "Identify opportunities to replicate proven practices."
+      },
+      "faq": {
+        "title": "Success & Value FAQ",
+        "whatIs": "What is the Success & Value Center?",
+        "whatIsAnswer": "The Success & Value Center helps organizations evaluate whether initiatives and investments deliver meaningful outcomes.",
+        "whyMeasure": "Why measure value realization?",
+        "whyMeasureAnswer": "Organizations make better decisions when they understand which efforts produce measurable benefits and which require adjustment.",
+        "autoDetermine": "Can Aipify determine success automatically?",
+        "autoDetermineAnswer": "No. Aipify supports evaluation and organizational awareness, but people remain responsible for interpreting outcomes and defining success criteria."
       }
     }
   },
