@@ -1,0 +1,21 @@
+{
+  "title": "Lageroperasjoner",
+  "principle": "Spør. Hent. Pakk. Send.",
+  "workflow": {
+    "go": "Gå",
+    "pick": "Plukk",
+    "pack": "Pakk",
+    "attachLabel": "Fest etikett"
+  },
+  "inventory": {
+    "searchPrompt": "Hvor er denne varen?",
+    "quantity": "Antall",
+    "reserved": "Reservert",
+    "available": "Tilgjengelig"
+  },
+  "voice": {
+    "whereIsItem": "Aipify™, hvor er denne varen?",
+    "printLabel": "Aipify™, skriv ut fraktetiketten.",
+    "schedulePickup": "Aipify™, planlegg henting."
+  }
+}

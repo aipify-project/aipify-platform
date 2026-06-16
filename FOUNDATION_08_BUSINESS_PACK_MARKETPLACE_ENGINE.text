@@ -1,0 +1,39 @@
+AIPIFY — PACK FOUNDATION 08
+BUSINESS PACK MARKETPLACE ENGINE
+
+Feature owner: PLATFORM FOUNDATION
+Layer: Aipify Marketplace Infrastructure
+Core principle: Discover. Understand. Install. Scale.
+
+MARKETPLACE HOME SECTIONS
+Recommended For You · Installed · Popular · Recently Added · Continue Setup · Upgrade Opportunities
+
+LISTING REQUIREMENTS
+Pack logo · name · category · version · status · description · starting price · trial · install
+
+INSTALLATION WORKFLOW
+Marketplace → Pack Details → Choose License → Accept Terms → Choose Languages →
+Review Permissions → Activate → Guided Setup → Ready To Use
+
+COMMERCIAL PRINCIPLES
+Paid = Access Now · No manual activation · No support involvement · Immediate entitlements
+
+ROUTES
+/app/marketplace/business-packs — customer marketplace home (canonical)
+/app/marketplace/activation — redirects to business-packs (legacy)
+/app/marketplace/packs/[packKey]/install — installation workflow
+/app/marketplace/packs/[packKey] — pack details (Identity landing + foundations)
+/app/business-pack-marketplace-engine — governance dashboard
+
+APIs
+GET /api/aipify/business-pack-marketplace-engine/home?locale=
+GET /api/aipify/business-pack-marketplace-engine/install?packKey=
+GET /api/aipify/business-pack-marketplace-engine/dashboard
+GET /api/aipify/business-pack-marketplace-engine/card
+POST /api/aipify/business-pack-marketplace-engine/action
+
+INTEGRATES
+Foundation 01 Identity · 02 License · 03 Language · 04 Legal · 06 Knowledge
+Marketplace Self-Service Activation (_mssa_*) for trials and activations
+
+i18n: businessPackMarketplace · businessPackMarketplaceInstall · businessPackMarketplaceEngine (en, no, sv, da)

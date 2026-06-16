@@ -1,0 +1,23 @@
+{
+  "packName": "Aipify Support",
+  "marketplace": {
+    "title": "Supportdrift med vidensbaserede svar",
+    "description": "Triage, kvalitetsstyring og supportarbejdsgange på dit sprog.",
+    "upgradeMessage": "Opgrader Support-licensen for at tilføje agentkapacitet."
+  },
+  "notifications": {
+    "installationCompleted": "Aipify Support er klar på valgte sprog.",
+    "licenseUpgraded": "Din Support-licens er opgraderet.",
+    "trialEndingSoon": "Din Support-prøveperiode slutter snart.",
+    "subscriptionRenewed": "Dit Support-abonnement er fornyet."
+  },
+  "emptyStates": {
+    "noCases": "Ingen supportsager kræver opmærksomhed lige nu.",
+    "noAgents": "Inviter dit team for at starte supportdrift."
+  },
+  "knowledge": {
+    "gettingStarted": "Kom i gang med Aipify Support",
+    "faq": "Support FAQ",
+    "bestPractices": "Support bedste praksis"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "packName": "Aipify Commerce",
+  "marketplace": {
+    "title": "Handelsdrift for voksende sælgere",
+    "description": "Ordrestøtte, marginindsigt og kundekommunikation på dit sprog.",
+    "upgradeMessage": "Opgrader Commerce-licensen for at tilføje butikskapacitet."
+  },
+  "notifications": {
+    "installationCompleted": "Aipify Commerce er klar på valgte sprog.",
+    "licenseUpgraded": "Din Commerce-licens er opgraderet. Adgang er aktiv nu.",
+    "trialEndingSoon": "Din Commerce-prøveperiode slutter snart. Vælg en plan for at fortsætte.",
+    "subscriptionRenewed": "Dit Commerce-abonnement er fornyet."
+  },
+  "emptyStates": {
+    "noOrders": "Ingen ordrer kræver opmærksomhed lige nu.",
+    "noStores": "Forbind din første butik for at komme i gang."
+  },
+  "knowledge": {
+    "gettingStarted": "Kom i gang med Aipify Commerce",
+    "faq": "Commerce FAQ",
+    "bestPractices": "Commerce bedste praksis"
+  }
+}

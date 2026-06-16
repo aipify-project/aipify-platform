@@ -1,0 +1,23 @@
+{
+  "packName": "Aipify Growth",
+  "marketplace": {
+    "title": "Vekstinnsikt når bedriften skalerer",
+    "description": "Ekspansjonsmuligheter og evolusjonsveiledning på ditt språk.",
+    "upgradeMessage": "Oppgrader Growth-lisensen for å utvide teamomfanget."
+  },
+  "notifications": {
+    "installationCompleted": "Aipify Growth er klar på valgte språk.",
+    "licenseUpgraded": "Growth-lisensen er oppgradert.",
+    "trialEndingSoon": "Growth-prøveperioden avsluttes snart.",
+    "subscriptionRenewed": "Growth-abonnementet er fornyet."
+  },
+  "emptyStates": {
+    "noRecommendations": "Vekstanbefalinger vises etter hvert som arbeidsområdet modnes.",
+    "noInsights": "Adopsjonsinnsikt fylles ut over tid."
+  },
+  "knowledge": {
+    "gettingStarted": "Kom i gang med Aipify Growth",
+    "faq": "Growth FAQ",
+    "bestPractices": "Growth beste praksis"
+  }
+}

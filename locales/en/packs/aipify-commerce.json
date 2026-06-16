@@ -1,0 +1,23 @@
+{
+  "packName": "Aipify Commerce",
+  "marketplace": {
+    "title": "Commerce operations for growing sellers",
+    "description": "Order support, margin visibility, and customer communications in your language.",
+    "upgradeMessage": "Upgrade your Commerce license to add store capacity."
+  },
+  "notifications": {
+    "installationCompleted": "Aipify Commerce is ready in your selected languages.",
+    "licenseUpgraded": "Your Commerce license has been upgraded. Access is active now.",
+    "trialEndingSoon": "Your Commerce trial ends soon. Choose a plan to continue.",
+    "subscriptionRenewed": "Your Commerce subscription has renewed successfully."
+  },
+  "emptyStates": {
+    "noOrders": "No orders require attention right now.",
+    "noStores": "Connect your first store to begin."
+  },
+  "knowledge": {
+    "gettingStarted": "Getting started with Aipify Commerce",
+    "faq": "Commerce FAQ",
+    "bestPractices": "Commerce best practices"
+  }
+}

@@ -1,0 +1,75 @@
+AIPIFY — PACK FOUNDATION 03
+LANGUAGE ENGINE
+
+PURPOSE
+Provide a standardized multilingual framework for all Aipify Business Packs.
+
+VISION
+Every Business Pack must feel native to the customer's language and region.
+
+CORE PRINCIPLE
+Multilingual by Design — language support is never an afterthought.
+
+MANDATORY LANGUAGES
+English (en) · Norwegian (no) · Swedish (sv) · Danish (da)
+
+OPTIONAL LANGUAGES
+German (de) · Spanish (es) · French (fr) · Dutch (nl) · Polish (pl) · Ukrainian (uk)
+
+LANGUAGE INSTALLATION WORKFLOW
+Install Business Pack → Choose Languages → Activate Languages → Generate Pack Resources → Ready To Use
+
+LANGUAGE CENTER (per pack)
+Overview: installed languages, available languages, translation completion
+Actions: enable, disable, set default, view translation status
+
+LOCALIZATION SCOPE
+Navigation · Forms · Buttons · Notifications · Empty states · Tooltips
+Knowledge articles · Marketplace listings · Terms · License agreements · Emails · PDF exports
+
+FALLBACK RULES
+1. Display default language when translation unavailable
+2. Log translation gaps
+3. Notify Platform Admin
+
+REGIONAL
+Date formats · Number formats · Currency · Time zones per locale
+
+GOVERNANCE
+Super Admin: global language standards, approve new languages
+Platform Admin: monitor coverage, publish translation updates
+Customers: select languages, change default, expand support later
+
+AUDIT
+Language activations · removals · default language changes · resource generation
+
+KNOWLEDGE CENTER
+Category: business-pack-language
+Articles: Multilingual by Design · Language installation · Translation standards · Fallback rules · Regional formats
+
+LOCALE RESOURCES
+locales/{locale}/hosts.json — Aipify Hosts
+locales/{locale}/packs/aipify-*.json — Commerce, Support, Executive, Growth, Essentials
+
+ROUTES
+/app/marketplace/packs/[packKey]/languages — per-pack Language Center
+/app/business-pack-language-engine — governance dashboard
+
+APIs
+GET /api/aipify/business-pack-language-engine/center?packKey=
+GET /api/aipify/business-pack-language-engine/dashboard
+GET /api/aipify/business-pack-language-engine/card
+POST /api/aipify/business-pack-language-engine/action
+
+RPCs
+get_business_pack_language_center · get_business_pack_language_engine_dashboard
+get_business_pack_language_engine_card · perform_business_pack_language_action
+Helpers: _bplge_* · _bplgef03_*
+
+i18n
+customerApp.businessPackLanguage.* · customerApp.businessPackLanguageEngine.* (en, no, sv, da)
+
+FEATURE OWNER
+PLATFORM FOUNDATION — Aipify Marketplace Infrastructure
+
+END OF FOUNDATION.

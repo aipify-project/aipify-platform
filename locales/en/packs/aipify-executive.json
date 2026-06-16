@@ -1,0 +1,23 @@
+{
+  "packName": "Aipify Executive",
+  "marketplace": {
+    "title": "Executive briefings and leadership visibility",
+    "description": "Strategic insights and governance transparency in your language.",
+    "upgradeMessage": "Upgrade your Executive license to add leadership users."
+  },
+  "notifications": {
+    "installationCompleted": "Aipify Executive is ready in your selected languages.",
+    "licenseUpgraded": "Your Executive license has been upgraded. Access is active now.",
+    "trialEndingSoon": "Your Executive trial ends soon. Choose a plan to continue.",
+    "subscriptionRenewed": "Your Executive subscription has renewed successfully."
+  },
+  "emptyStates": {
+    "noBriefings": "No executive briefings scheduled for today.",
+    "noInsights": "Insights will appear as operational data becomes available."
+  },
+  "knowledge": {
+    "gettingStarted": "Getting started with Aipify Executive",
+    "faq": "Executive FAQ",
+    "bestPractices": "Executive best practices"
+  }
+}

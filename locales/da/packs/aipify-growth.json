@@ -1,0 +1,23 @@
+{
+  "packName": "Aipify Growth",
+  "marketplace": {
+    "title": "Vækstindsigt når virksomheden skalerer",
+    "description": "Ekspansionsmuligheder og udviklingsvejledning på dit sprog.",
+    "upgradeMessage": "Opgrader Growth-licensen for at udvide teamomfanget."
+  },
+  "notifications": {
+    "installationCompleted": "Aipify Growth er klar på valgte sprog.",
+    "licenseUpgraded": "Din Growth-licens er opgraderet.",
+    "trialEndingSoon": "Din Growth-prøveperiode slutter snart.",
+    "subscriptionRenewed": "Dit Growth-abonnement er fornyet."
+  },
+  "emptyStates": {
+    "noRecommendations": "Vækstanbefalinger vises, efterhånden som arbejdsområdet modnes.",
+    "noInsights": "Adoptionsindsigt udfyldes over tid."
+  },
+  "knowledge": {
+    "gettingStarted": "Kom i gang med Aipify Growth",
+    "faq": "Growth FAQ",
+    "bestPractices": "Growth bedste praksis"
+  }
+}

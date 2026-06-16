@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
+import { packLandingRoute } from "@/lib/aipify/business-pack-identity-engine";
 import {
   parseMarketplaceSelfServiceActionResult,
   parseMarketplaceSelfServiceDashboard,
@@ -59,7 +60,9 @@ function PackCard({
   return (
     <article className="flex flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
       <div className="flex flex-wrap items-start justify-between gap-2">
-        <h3 className="text-lg font-semibold text-gray-900">{card.name}</h3>
+        <Link href={packLandingRoute(card.pack_key)} className="text-lg font-semibold text-gray-900 hover:text-indigo-700">
+          {card.name}
+        </Link>
         <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ${STATUS_STYLE[card.card_status] ?? "bg-gray-100 text-gray-700 ring-gray-200"}`}>
           {statusLabel}
         </span>
@@ -83,6 +86,12 @@ function PackCard({
           )}
         </div>
         <div className="flex flex-wrap gap-2">
+          <Link
+            href={packLandingRoute(card.pack_key)}
+            className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          >
+            {labels.viewPackDetails}
+          </Link>
           {card.card_status === "installed" && (
             <Link
               href={card.workspace_route}

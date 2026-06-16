@@ -1,0 +1,23 @@
+{
+  "packName": "Aipify Executive",
+  "marketplace": {
+    "title": "Ledningsbriefingar och synlighet",
+    "description": "Strategiska insikter och styrningstransparens på ditt språk.",
+    "upgradeMessage": "Uppgradera Executive-licensen för att lägga till användare."
+  },
+  "notifications": {
+    "installationCompleted": "Aipify Executive är redo på valda språk.",
+    "licenseUpgraded": "Din Executive-licens har uppgraderats.",
+    "trialEndingSoon": "Din Executive-provperiod slutar snart.",
+    "subscriptionRenewed": "Ditt Executive-abonnemang har förnyats."
+  },
+  "emptyStates": {
+    "noBriefings": "Inga ledningsbriefingar schemalagda idag.",
+    "noInsights": "Insikter visas när driftsdata blir tillgänglig."
+  },
+  "knowledge": {
+    "gettingStarted": "Kom igång med Aipify Executive",
+    "faq": "Executive FAQ",
+    "bestPractices": "Executive bästa praxis"
+  }
+}

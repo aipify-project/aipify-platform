@@ -1,0 +1,23 @@
+{
+  "packName": "Aipify Growth",
+  "marketplace": {
+    "title": "Growth intelligence as your business scales",
+    "description": "Expansion opportunities and evolution guidance in your language.",
+    "upgradeMessage": "Upgrade your Growth license to expand team scope."
+  },
+  "notifications": {
+    "installationCompleted": "Aipify Growth is ready in your selected languages.",
+    "licenseUpgraded": "Your Growth license has been upgraded. Access is active now.",
+    "trialEndingSoon": "Your Growth trial ends soon. Choose a plan to continue.",
+    "subscriptionRenewed": "Your Growth subscription has renewed successfully."
+  },
+  "emptyStates": {
+    "noRecommendations": "Growth recommendations appear as your workspace matures.",
+    "noInsights": "Adoption insights will populate over time."
+  },
+  "knowledge": {
+    "gettingStarted": "Getting started with Aipify Growth",
+    "faq": "Growth FAQ",
+    "bestPractices": "Growth best practices"
+  }
+}

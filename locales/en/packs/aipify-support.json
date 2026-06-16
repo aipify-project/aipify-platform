@@ -1,0 +1,23 @@
+{
+  "packName": "Aipify Support",
+  "marketplace": {
+    "title": "Support operations with knowledge-backed responses",
+    "description": "Triage, quality governance, and customer support workflows in your language.",
+    "upgradeMessage": "Upgrade your Support license to add agent capacity."
+  },
+  "notifications": {
+    "installationCompleted": "Aipify Support is ready in your selected languages.",
+    "licenseUpgraded": "Your Support license has been upgraded. Access is active now.",
+    "trialEndingSoon": "Your Support trial ends soon. Choose a plan to continue.",
+    "subscriptionRenewed": "Your Support subscription has renewed successfully."
+  },
+  "emptyStates": {
+    "noCases": "No support cases require attention right now.",
+    "noAgents": "Invite your team to begin support operations."
+  },
+  "knowledge": {
+    "gettingStarted": "Getting started with Aipify Support",
+    "faq": "Support FAQ",
+    "bestPractices": "Support best practices"
+  }
+}

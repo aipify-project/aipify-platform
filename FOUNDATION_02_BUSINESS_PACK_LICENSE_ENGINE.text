@@ -1,0 +1,84 @@
+AIPIFY — PACK FOUNDATION 02
+LICENSE ENGINE
+
+PURPOSE
+Provide a standardized licensing framework for all Aipify Business Packs.
+
+VISION
+Customers pay only for the capacity they need while maintaining a seamless upgrade experience.
+
+CORE PRINCIPLE
+Paid = Access Now. Approved payments activate licenses immediately without support intervention.
+
+APPLIES TO
+Existing · Future · Internal · Marketplace Business Packs
+
+LICENSE STRUCTURE (required per pack)
+License Metric · License Tiers · Capacity Limits · Upgrade Path · Trial Availability · Enterprise Option
+
+LICENSE METRICS
+Hosts → Properties · Commerce → Stores · Support → Agents · Executive → Users
+Operations → Employees · Marketing → Campaigns · Growth Partners → Partner Seats
+
+TIER REQUIREMENTS
+Entry · Growth · Professional · Enterprise (Business tier where applicable)
+
+CAPACITY ENFORCEMENT
+Maximum limits · Upgrade prompts before violations · Feature availability by active license
+Customers: view usage, upgrade, view remaining capacity — NOT exceed limits
+
+TRIAL RULES
+Per-pack: availability, duration, limitations (14-day unrestricted, 30-day limited, or none)
+
+UPGRADE FLOW
+Discover → Select License → Checkout → Payment Approved → Feature Flags → Permissions → Workspace Refreshed → Ready
+
+DOWNGRADE / RENEWAL / FAILED PAYMENT
+Downgrade eligibility, capacity restrictions, data retention, grace periods
+Monthly and annual billing, renewal reminders, failed payment grace (3 days default)
+
+ENTERPRISE
+Custom agreements, custom capacities, dedicated onboarding, invoice billing, governance requirements
+
+LICENSE CENTER (per pack)
+Overview: current license, usage summary, renewal
+Usage: capacity used/remaining, trends
+Upgrade: available plans, feature comparison, pricing
+
+GOVERNANCE
+Super Admin: licensing standards · Platform Admin: marketplace licenses
+Customers: own subscriptions · Growth Partners: partner licensing view only
+
+AUDIT
+Activations · Upgrades · Downgrades · Trials · Enterprise conversions
+
+KNOWLEDGE CENTER
+Category: licensing
+Articles: Understanding licenses · Choosing the right plan · Upgrading · Managing subscriptions · Enterprise licensing
+
+ROUTES
+/app/marketplace/packs/[packKey]/license — per-pack License Center
+/app/business-pack-license-engine — governance dashboard
+/app/license — Trust & License Center (global)
+
+APIs
+GET /api/aipify/business-pack-license-engine/center?packKey=
+GET /api/aipify/business-pack-license-engine/dashboard
+GET /api/aipify/business-pack-license-engine/card
+POST /api/aipify/business-pack-license-engine/action
+
+RPCs
+get_business_pack_license_center · get_business_pack_license_engine_dashboard
+get_business_pack_license_engine_card · perform_business_pack_license_action
+Helpers: _bple_* · _bplef02_*
+
+INTEGRATIONS
+Aipify Hosts property licensing (_ahostlic_*) · Marketplace self-service activation · License Center
+
+i18n
+customerApp.businessPackLicense.* · customerApp.businessPackLicenseEngine.* (en, no, sv, da)
+
+FEATURE OWNER
+PLATFORM FOUNDATION — Aipify Marketplace Infrastructure
+
+END OF FOUNDATION.

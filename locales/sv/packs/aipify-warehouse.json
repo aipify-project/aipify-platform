@@ -1,0 +1,21 @@
+{
+  "title": "Lageroperationer",
+  "principle": "Fråga. Hämta. Packa. Skicka.",
+  "workflow": {
+    "go": "Gå",
+    "pick": "Plocka",
+    "pack": "Packa",
+    "attachLabel": "Fäst etikett"
+  },
+  "inventory": {
+    "searchPrompt": "Var är den här artikeln?",
+    "quantity": "Antal",
+    "reserved": "Reserverat",
+    "available": "Tillgängligt"
+  },
+  "voice": {
+    "whereIsItem": "Aipify™, var är den här artikeln?",
+    "printLabel": "Aipify™, skriv ut fraktetiketten.",
+    "schedulePickup": "Aipify™, schemalägg upphämtning."
+  }
+}

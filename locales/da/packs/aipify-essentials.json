@@ -1,0 +1,23 @@
+{
+  "packName": "Aipify Essentials",
+  "marketplace": {
+    "title": "Kerneoperationelle funktioner for en stærk start",
+    "description": "Assistent, viden og analysefundament på dit sprog.",
+    "upgradeMessage": "Opgrader Essentials, når teamet vokser."
+  },
+  "notifications": {
+    "installationCompleted": "Aipify Essentials er klar på valgte sprog.",
+    "licenseUpgraded": "Din Essentials-licens er opgraderet.",
+    "trialEndingSoon": "Din Essentials-prøveperiode slutter snart.",
+    "subscriptionRenewed": "Dit Essentials-abonnement er fornyet."
+  },
+  "emptyStates": {
+    "noTasks": "Ingen operationelle opgaver i kø lige nu.",
+    "noInsights": "Indsigt vises, når du bruger Aipify."
+  },
+  "knowledge": {
+    "gettingStarted": "Kom i gang med Aipify Essentials",
+    "faq": "Essentials FAQ",
+    "bestPractices": "Essentials bedste praksis"
+  }
+}

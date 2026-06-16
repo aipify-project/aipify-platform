@@ -1,0 +1,48 @@
+AIPIFY — PACK FOUNDATION 04
+BUSINESS PACK LEGAL ENGINE
+
+Feature owner: PLATFORM FOUNDATION
+Layer: Aipify Marketplace Infrastructure
+Core principle: No Business Pack may be published without approved legal foundations.
+
+MANDATORY DOCUMENTS (per pack)
+- terms_and_conditions (requires acceptance)
+- license_agreement (requires acceptance)
+- acceptable_use_policy
+- privacy_addendum
+- subscription_terms
+- cancellation_policy
+- limitation_of_liability
+- governing_law (default: Norwegian Law, jurisdiction Norway)
+
+COMPANY IDENTITY
+- All legal document bodies use placeholders resolved from company.config.ts
+- Hardcoded legal company information is prohibited in document templates
+
+ROUTES
+/app/marketplace/packs/[packKey]/legal — per-pack Legal Center
+/app/business-pack-legal-engine — governance dashboard
+
+APIs
+GET /api/aipify/business-pack-legal-engine/center?packKey=
+GET /api/aipify/business-pack-legal-engine/dashboard
+GET /api/aipify/business-pack-legal-engine/card
+POST /api/aipify/business-pack-legal-engine/action
+
+ACTIONS
+- accept_required_documents — Terms + License Agreement before activation
+- accept_document — single document acceptance
+- check_activation_eligibility
+- publish_legal — platform admin
+
+TABLES
+business_pack_legal_definitions
+business_pack_legal_documents
+business_pack_legal_acceptances
+business_pack_legal_audit_logs
+
+KNOWLEDGE CENTER
+Category: Legal & Compliance
+Articles: Understanding Terms & Conditions, License Agreements, Subscription Policies, Privacy Principles, Cancellation Procedures
+
+i18n: customerApp.businessPackLegal.* · customerApp.businessPackLegalEngine.* (en, no, sv, da)

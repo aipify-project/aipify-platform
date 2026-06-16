@@ -1,0 +1,23 @@
+{
+  "packName": "Aipify Essentials",
+  "marketplace": {
+    "title": "Core operational capabilities to start strong",
+    "description": "Assistant, knowledge, and analytics foundations in your language.",
+    "upgradeMessage": "Upgrade Essentials as your team grows."
+  },
+  "notifications": {
+    "installationCompleted": "Aipify Essentials is ready in your selected languages.",
+    "licenseUpgraded": "Your Essentials license has been upgraded. Access is active now.",
+    "trialEndingSoon": "Your Essentials trial ends soon. Choose a plan to continue.",
+    "subscriptionRenewed": "Your Essentials subscription has renewed successfully."
+  },
+  "emptyStates": {
+    "noTasks": "No operational tasks queued right now.",
+    "noInsights": "Insights will appear as you use Aipify."
+  },
+  "knowledge": {
+    "gettingStarted": "Getting started with Aipify Essentials",
+    "faq": "Essentials FAQ",
+    "bestPractices": "Essentials best practices"
+  }
+}

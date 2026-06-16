@@ -1,0 +1,49 @@
+AIPIFY — PACK FOUNDATION 06
+BUSINESS PACK KNOWLEDGE ENGINE
+
+Feature owner: PLATFORM FOUNDATION
+Layer: Aipify Marketplace Infrastructure
+Core principle: Knowledge should scale faster than support.
+
+KNOWLEDGE STRUCTURE (per pack)
+Overview → Getting Started → Using Features → Best Practices →
+Troubleshooting → Release Notes → Upgrade Guidance → Advanced Topics
+
+MANDATORY CONTENT TYPES
+Getting Started guides · FAQ-style articles · Best practices ·
+Troubleshooting · Release notes · Feature explanations · Upgrade guidance
+
+LOCALIZATION
+English · Norwegian · Swedish · Danish (all seeded per pack)
+
+ROUTES
+/app/marketplace/packs/[packKey]/knowledge — per-pack Knowledge Center
+/app/business-pack-knowledge-engine — governance dashboard
+
+APIs
+GET /api/aipify/business-pack-knowledge-engine/center?packKey=&locale=&search=&category=&context=
+GET /api/aipify/business-pack-knowledge-engine/dashboard
+GET /api/aipify/business-pack-knowledge-engine/card
+POST /api/aipify/business-pack-knowledge-engine/action
+
+ACTIONS
+- record_article_view
+- rate_article (helpful / not helpful)
+- suggest_improvement
+- publish_knowledge (platform admin)
+
+TABLES
+business_pack_knowledge_definitions
+business_pack_knowledge_articles
+business_pack_knowledge_feedback
+business_pack_knowledge_search_logs
+business_pack_knowledge_gaps
+business_pack_knowledge_audit_logs
+
+CONTEXTUAL SURFACES
+licensing · installation · integrations · features
+
+ANALYTICS
+Most viewed articles · search terms · failed searches · helpfulness ratings · knowledge gaps
+
+i18n: customerApp.businessPackKnowledge.* · customerApp.businessPackKnowledgeEngine.* (en, no, sv, da)

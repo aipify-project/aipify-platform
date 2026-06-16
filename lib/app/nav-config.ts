@@ -15,6 +15,7 @@ export type AppNavId =
   | "knowledgeCenterEngine"
   | "adminAssistantEngine"
   | "supportAiEngine"
+  | "aipifyWarehouseOperations"
   | "integrationEngine"
   | "apiPlatformEngine"
   | "operationsDashboardEngine"
@@ -184,6 +185,12 @@ export type AppNavId =
   | "sharedCourageResponsibleActionEngine"
   | "sharedCompassionReciprocalCareEngine"
   | "businessPacksFoundationEngine"
+  | "businessPackIdentityEngine"
+  | "businessPackLicenseEngine"
+  | "businessPackLanguageEngine"
+  | "businessPackLegalEngine"
+  | "businessPackKnowledgeEngine"
+  | "businessPackMarketplaceEngine"
   | "industryIntelligenceFoundationEngine"
   | "marketplacePartnerEcosystemFoundationEngine"
   | "aiEthicsResponsibleUseEngine"
@@ -403,6 +410,11 @@ export const APP_NAV: AppNavItem[] = [
   { id: "knowledgeCenterEngine", href: "/app/knowledge-center-engine", labelKey: "customerApp.nav.knowledgeCenterEngine" },
   { id: "adminAssistantEngine", href: "/app/admin-assistant-engine", labelKey: "customerApp.nav.adminAssistantEngine" },
   { id: "supportAiEngine", href: "/app/support-ai-engine", labelKey: "customerApp.nav.supportAiEngine" },
+  {
+    id: "aipifyWarehouseOperations",
+    href: "/app/aipify-warehouse-operations",
+    labelKey: "customerApp.nav.aipifyWarehouseOperations",
+  },
   { id: "integrationEngine", href: "/app/integration-engine", labelKey: "customerApp.nav.integrationEngine" },
   { id: "apiPlatformEngine", href: "/app/api-platform-engine", labelKey: "customerApp.nav.apiPlatformEngine" },
   { id: "operationsDashboardEngine", href: "/app/operations-dashboard-engine", labelKey: "customerApp.nav.operationsDashboardEngine" },
@@ -1198,6 +1210,36 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.businessPacksFoundationEngine",
   },
   {
+    id: "businessPackIdentityEngine",
+    href: "/app/business-pack-identity-engine",
+    labelKey: "customerApp.nav.businessPackIdentityEngine",
+  },
+  {
+    id: "businessPackLicenseEngine",
+    href: "/app/business-pack-license-engine",
+    labelKey: "customerApp.nav.businessPackLicenseEngine",
+  },
+  {
+    id: "businessPackLanguageEngine",
+    href: "/app/business-pack-language-engine",
+    labelKey: "customerApp.nav.businessPackLanguageEngine",
+  },
+  {
+    id: "businessPackLegalEngine",
+    href: "/app/business-pack-legal-engine",
+    labelKey: "customerApp.nav.businessPackLegalEngine",
+  },
+  {
+    id: "businessPackKnowledgeEngine",
+    href: "/app/business-pack-knowledge-engine",
+    labelKey: "customerApp.nav.businessPackKnowledgeEngine",
+  },
+  {
+    id: "businessPackMarketplaceEngine",
+    href: "/app/business-pack-marketplace-engine",
+    labelKey: "customerApp.nav.businessPackMarketplaceEngine",
+  },
+  {
     id: "industryIntelligenceFoundationEngine",
     href: "/app/industry-intelligence-foundation-engine",
     labelKey: "customerApp.nav.industryIntelligenceFoundationEngine",
@@ -1692,6 +1734,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/knowledge-center-engine")) return "knowledgeCenterEngine";
   if (pathname.startsWith("/app/admin-assistant-engine")) return "adminAssistantEngine";
   if (pathname.startsWith("/app/support-ai-engine")) return "supportAiEngine";
+  if (pathname.startsWith("/app/aipify-warehouse-operations")) return "aipifyWarehouseOperations";
   if (pathname.startsWith("/app/integration-engine")) return "integrationEngine";
   if (pathname.startsWith("/app/operations-dashboard-engine")) return "operationsDashboardEngine";
   if (pathname.startsWith("/app/customer-onboarding-engine")) return "customerOnboardingEngine";
@@ -1712,6 +1755,24 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/observability-platform-health-engine")) {
     return "observabilityPlatformHealthEngine";
+  }
+  if (pathname.startsWith("/app/business-pack-language-engine")) {
+    return "businessPackLanguageEngine";
+  }
+  if (pathname.startsWith("/app/business-pack-legal-engine")) {
+    return "businessPackLegalEngine";
+  }
+  if (pathname.startsWith("/app/business-pack-knowledge-engine")) {
+    return "businessPackKnowledgeEngine";
+  }
+  if (pathname.startsWith("/app/business-pack-marketplace-engine")) {
+    return "businessPackMarketplaceEngine";
+  }
+  if (pathname.startsWith("/app/business-pack-license-engine")) {
+    return "businessPackLicenseEngine";
+  }
+  if (pathname.startsWith("/app/business-pack-identity-engine")) {
+    return "businessPackIdentityEngine";
   }
   if (pathname.startsWith("/app/business-packs-foundation-engine")) {
     return "businessPacksFoundationEngine";
@@ -2354,6 +2415,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/learning")) return "learning";
   if (pathname.startsWith("/app/skills")) return "skills";
   if (pathname.startsWith("/app/companion-marketplace")) return "companionMarketplaceEngine";
+  if (pathname.startsWith("/app/marketplace/packs/")) return "marketplace";
   if (pathname.startsWith("/app/marketplace/companion-actions")) return "companionActionMarketplaceEngine";
   if (pathname.startsWith("/app/marketplace")) return "marketplace";
   if (pathname.startsWith("/app/industry-blueprints")) return "industryBlueprints";

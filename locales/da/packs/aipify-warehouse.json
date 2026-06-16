@@ -1,0 +1,21 @@
+{
+  "title": "Lageroperationer",
+  "principle": "Spørg. Hent. Pak. Send.",
+  "workflow": {
+    "go": "Gå",
+    "pick": "Pluk",
+    "pack": "Pak",
+    "attachLabel": "Sæt etiket på"
+  },
+  "inventory": {
+    "searchPrompt": "Hvor er denne vare?",
+    "quantity": "Antal",
+    "reserved": "Reserveret",
+    "available": "Tilgængelig"
+  },
+  "voice": {
+    "whereIsItem": "Aipify™, hvor er denne vare?",
+    "printLabel": "Aipify™, udskriv forsendelsesetiketten.",
+    "schedulePickup": "Aipify™, planlæg afhentning."
+  }
+}

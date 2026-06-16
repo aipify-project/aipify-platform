@@ -1,0 +1,65 @@
+AIPIFY — PACK FOUNDATION 01
+BUSINESS PACK IDENTITY ENGINE
+
+PURPOSE
+Establish a mandatory identity standard for every Aipify Business Pack.
+
+VISION
+Every Business Pack must feel like a complete product rather than a collection of pages.
+
+APPLIES TO
+Existing Business Packs · Future Business Packs · Internal Business Packs · Marketplace Business Packs
+
+IDENTITY REQUIREMENTS
+Pack Logo · Pack Cover Image · Pack Name · Pack Category · Version Number · Status
+Short Description · Long Description · Intended Audience · Key Benefits · Business Value Statement
+
+PACK STATUS
+Active · Beta · Coming Soon · Deprecated · Retired
+
+PACK CATEGORIES
+Hospitality · Commerce · Support · Executive · Operations · Human Resources
+Marketing · Intelligence · Productivity · Governance
+
+LANDING EXPERIENCE (required order)
+Logo → Hero → Overview → Features → Knowledge Center → Licensing → Install / Upgrade
+
+FORBIDDEN
+Opening packs directly into technical configuration without identity landing first.
+
+VERSIONING
+Major.Minor.Patch — visible in Marketplace, installed packs, Knowledge Center, release notes.
+
+GOVERNANCE
+Platform Admin: publish and edit pack identity
+Super Admin: global standards
+Customers: cannot alter pack identity
+Growth Partners: view approved pack materials
+
+KNOWLEDGE CENTER
+Category: business-pack-identity
+Articles: Understanding Business Packs · Reading Pack Versions · Choosing the Right Pack · Understanding Pack Statuses
+
+ROUTES
+/app/marketplace/packs/[packKey] — customer pack landing (primary)
+/app/business-pack-identity-engine — identity standards governance
+/app/marketplace/activation — marketplace discovery (links to landing)
+
+APIs
+GET /api/aipify/business-pack-identity-engine/landing?packKey=
+GET /api/aipify/business-pack-identity-engine/dashboard
+GET /api/aipify/business-pack-identity-engine/card
+POST /api/aipify/business-pack-identity-engine/action
+
+RPCs
+get_business_pack_identity_landing · get_business_pack_identity_engine_dashboard
+get_business_pack_identity_engine_card · perform_business_pack_identity_action
+Helpers: _bpie_* · _bpief01_*
+
+i18n
+customerApp.businessPackIdentity.* · customerApp.businessPackIdentityEngine.* (en, no, sv, da)
+
+FEATURE OWNER
+PLATFORM FOUNDATION — Aipify Marketplace Infrastructure
+
+END OF FOUNDATION.
