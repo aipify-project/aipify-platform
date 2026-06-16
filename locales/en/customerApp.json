@@ -24907,6 +24907,7 @@
       "prioritizationEngine": "Prioritization",
       "commitmentTracking": "Commitments",
       "intelligenceBriefings": "Intelligence Briefings",
+      "momentum": "Momentum",
       "trustCulture": "Trust & Culture",
       "insights": "Insights",
       "subscription": "Subscription",
@@ -28178,6 +28179,110 @@
         "goodCustomerAnswer": "No. Health indicators are designed to provide guidance and identify opportunities for improvement.",
         "improveOutcomes": "Can Customer Health improve outcomes?",
         "improveOutcomesAnswer": "Customer Health can highlight trends and recommendations that help organizations strengthen adoption and engagement over time."
+      }
+    },
+    "momentum": {
+      "title": "Momentum",
+      "subtitle": "Understand whether initiatives are moving forward, slowing down or becoming stalled.",
+      "loading": "Aipify is reviewing organizational execution momentum…",
+      "principle": "Momentum indicators remain informational. Recommendations are advisory — leaders and teams remain responsible for execution.",
+      "emptyTitle": "No momentum insights are available yet.",
+      "emptyBody": "Aipify helps organizations understand whether execution is progressing as intended.",
+      "emptyCta": "Review Execution Momentum",
+      "accessDenied": "You do not have permission to access Momentum.",
+      "filters": {
+        "search": "Search momentum insights…",
+        "momentumStatus": "Momentum status",
+        "team": "Team",
+        "owner": "Initiative owner",
+        "trend": "Trend direction",
+        "priority": "Priority",
+        "periodFrom": "Period from",
+        "all": "All"
+      },
+      "dashboard": {
+        "momentumScore": "Organizational Momentum Score",
+        "executionTrend": "Execution Trend",
+        "highMomentum": "High-Momentum Initiatives",
+        "slowing": "Slowing Initiatives",
+        "stalled": "Stalled Initiatives",
+        "teamsAttention": "Teams Requiring Attention",
+        "positiveSignals": "Positive Momentum Signals",
+        "openRecommendations": "Open Recommendations",
+        "momentumStatus": "Momentum Status"
+      },
+      "signals": {
+        "title": "Execution Signals",
+        "goalProgress": "Goal progress",
+        "followUpCompletion": "Follow-up completion",
+        "commitmentFulfillment": "Commitment fulfillment",
+        "decisionImplementation": "Decision implementation",
+        "strategicMovement": "Strategic initiative movement",
+        "learningImplementation": "Learning implementation",
+        "meetingActionCompletion": "Meeting action completion",
+        "successInitiativeProgress": "Success initiative progress"
+      },
+      "initiatives": {
+        "title": "Momentum Records",
+        "owner": "Initiative owner",
+        "progress": "Progress",
+        "status": "Momentum status",
+        "trend": "Trend",
+        "blockers": "Blockers",
+        "nextMilestone": "Next milestone",
+        "activity": "Recent activity"
+      },
+      "bottlenecks": {
+        "title": "Bottleneck Insights"
+      },
+      "timeline": {
+        "title": "Momentum Timeline"
+      },
+      "team": {
+        "title": "Team execution momentum"
+      },
+      "statuses": {
+        "accelerating": "Accelerating",
+        "healthy": "Healthy",
+        "stable": "Stable",
+        "slowing": "Slowing",
+        "stalled": "Stalled"
+      },
+      "trends": {
+        "improving": "Improving",
+        "stable": "Stable",
+        "declining": "Declining"
+      },
+      "priorities": {
+        "opportunity": "Opportunity",
+        "recommended": "Recommended",
+        "important": "Important",
+        "immediateAttention": "Immediate Attention"
+      },
+      "recommendations": {
+        "reviewStalledInitiatives": "Review stalled initiatives.",
+        "escalateUnresolvedBlockers": "Escalate unresolved blockers.",
+        "celebrateHighPerformingTeams": "Celebrate high-performing teams.",
+        "clarifyOwnership": "Clarify ownership.",
+        "reduceCompetingPriorities": "Reduce competing priorities.",
+        "reviewCapacityAssumptions": "Review capacity assumptions."
+      },
+      "bottleneckKeys": {
+        "approvalDelays": "Repeated approval delays.",
+        "resourceConstraints": "Resource constraints.",
+        "missingOwnership": "Missing ownership.",
+        "dependenciesUnresolved": "Dependencies unresolved.",
+        "lackOfFollowUp": "Lack of follow-up activity.",
+        "conflictingPriorities": "Conflicting priorities."
+      },
+      "faq": {
+        "title": "Momentum FAQ",
+        "whatIs": "What is the Momentum Engine?",
+        "whatIsAnswer": "The Momentum Engine helps organizations understand whether execution is accelerating, stable or slowing down across important initiatives.",
+        "howCalculated": "How is momentum calculated?",
+        "howCalculatedAnswer": "Momentum combines progress signals from goals, follow-ups, decisions, commitments and other operational indicators within Aipify.",
+        "autoIncrease": "Can Aipify increase organizational momentum automatically?",
+        "autoIncreaseAnswer": "No. Aipify provides insights and recommendations, while leaders and teams remain responsible for execution."
       }
     },
     "pages": {

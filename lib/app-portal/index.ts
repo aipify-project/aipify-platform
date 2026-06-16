@@ -33,3 +33,4 @@ export * from "./intelligence-briefings";
 export * from "./customer-academy";
 export * from "./customer-success";
 export * from "./customer-health";
+export * from "./momentum";
