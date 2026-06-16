@@ -67,7 +67,6 @@ export const PACK_LOCALE_NAMESPACE: Record<string, string> = {
   aipify_hosts: "hosts",
   aipify_commerce: "packs/aipify-commerce",
   aipify_support: "packs/aipify-support",
-  aipify_warehouse: "packs/aipify-warehouse",
   aipify_executive: "packs/aipify-executive",
   aipify_growth: "packs/aipify-growth",
   general_business: "packs/aipify-essentials",

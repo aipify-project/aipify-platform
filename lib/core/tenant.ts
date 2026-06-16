@@ -15,7 +15,6 @@ export * from "./audit";
 export * from "./knowledge";
 export * from "./admin-assistant";
 export * from "./support-ai";
-export * from "./aipify-warehouse-operations";
 export * from "./self-support";
 export * from "./integrations";
 export * from "./subscription-plan-management";

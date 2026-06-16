@@ -15,7 +15,6 @@ export type AppNavId =
   | "knowledgeCenterEngine"
   | "adminAssistantEngine"
   | "supportAiEngine"
-  | "aipifyWarehouseOperations"
   | "integrationEngine"
   | "apiPlatformEngine"
   | "operationsDashboardEngine"
@@ -410,11 +409,6 @@ export const APP_NAV: AppNavItem[] = [
   { id: "knowledgeCenterEngine", href: "/app/knowledge-center-engine", labelKey: "customerApp.nav.knowledgeCenterEngine" },
   { id: "adminAssistantEngine", href: "/app/admin-assistant-engine", labelKey: "customerApp.nav.adminAssistantEngine" },
   { id: "supportAiEngine", href: "/app/support-ai-engine", labelKey: "customerApp.nav.supportAiEngine" },
-  {
-    id: "aipifyWarehouseOperations",
-    href: "/app/aipify-warehouse-operations",
-    labelKey: "customerApp.nav.aipifyWarehouseOperations",
-  },
   { id: "integrationEngine", href: "/app/integration-engine", labelKey: "customerApp.nav.integrationEngine" },
   { id: "apiPlatformEngine", href: "/app/api-platform-engine", labelKey: "customerApp.nav.apiPlatformEngine" },
   { id: "operationsDashboardEngine", href: "/app/operations-dashboard-engine", labelKey: "customerApp.nav.operationsDashboardEngine" },
@@ -1734,7 +1728,6 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/knowledge-center-engine")) return "knowledgeCenterEngine";
   if (pathname.startsWith("/app/admin-assistant-engine")) return "adminAssistantEngine";
   if (pathname.startsWith("/app/support-ai-engine")) return "supportAiEngine";
-  if (pathname.startsWith("/app/aipify-warehouse-operations")) return "aipifyWarehouseOperations";
   if (pathname.startsWith("/app/integration-engine")) return "integrationEngine";
   if (pathname.startsWith("/app/operations-dashboard-engine")) return "operationsDashboardEngine";
   if (pathname.startsWith("/app/customer-onboarding-engine")) return "customerOnboardingEngine";
