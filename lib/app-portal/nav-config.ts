@@ -34,6 +34,7 @@ export type AppPortalNavId =
   | "contactSupport"
   | "supportRequests"
   | "supportAssistant"
+  | "successCenter"
   | "supportHistory"
   | "profile"
   | "preferences"
@@ -128,6 +129,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
       { id: "contactSupport", href: "/app/support/contact", labelKey: "customerApp.portalStructure.nav.contactSupport" },
       { id: "supportRequests", href: "/app/support/requests", labelKey: "customerApp.portalStructure.nav.supportRequests" },
       { id: "supportAssistant", href: "/app/support/assistant", labelKey: "customerApp.portalStructure.nav.supportAssistant" },
+      { id: "successCenter", href: "/app/support/success-center", labelKey: "customerApp.portalStructure.nav.successCenter" },
       { id: "supportHistory", href: "/app/support/history", labelKey: "customerApp.portalStructure.nav.supportHistory" },
     ],
   },
@@ -167,6 +169,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/operations/activity-history")) return "activityHistory";
   if (pathname.startsWith("/app/support/requests")) return "supportRequests";
   if (pathname.startsWith("/app/support/assistant")) return "supportAssistant";
+  if (pathname.startsWith("/app/support/success-center")) return "successCenter";
   for (const group of APP_PORTAL_NAV_GROUPS) {
     for (const item of group.items) {
       if (item.href !== "/app" && pathname.startsWith(item.href)) {

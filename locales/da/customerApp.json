@@ -23499,7 +23499,8 @@
       "decisionCenter": "Decision Center",
       "activityHistory": "Activity History",
       "supportRequests": "Support Requests",
-      "supportAssistant": "Support Assistant"
+      "supportAssistant": "Support Assistant",
+      "successCenter": "Success Center"
     },
     "dashboard": {
       "title": "APP-dashboard",
@@ -24267,6 +24268,83 @@
         "replacesHumanAnswer": "No. The Support Assistant helps users find guidance faster, but customers can still create support requests when human assistance is needed.",
         "canCreateRequest": "Can Support Assistant create a support request?",
         "canCreateRequestAnswer": "The Support Assistant can help prepare support request context, but the user must confirm before a request is created."
+      }
+    },
+    "successCenter": {
+      "title": "Success Center",
+      "subtitle": "Understand adoption, engagement, risk indicators, and opportunities to get more value from Aipify.",
+      "loading": "Aipify is analyzing your organization's success indicators…",
+      "emptyTitle": "Success insights are building",
+      "emptyBody": "Aipify will begin generating success insights as your organization becomes active.",
+      "principle": "Aipify provides advisory success insights to help your organization grow — final decisions always remain with people.",
+      "sections": {
+        "overview": "Health Overview",
+        "recommendations": "Recommendations",
+        "timeline": "Success Timeline",
+        "growth": "Growth Opportunities",
+        "adoption": "Adoption Insights",
+        "factors": "Health Factors"
+      },
+      "overview": {
+        "healthScore": "Customer Health Score",
+        "adoptionScore": "Adoption Score",
+        "engagementScore": "Team Engagement Score",
+        "utilizationScore": "Feature Utilization Score",
+        "healthStatus": "Health status",
+        "riskLevel": "Risk level",
+        "advisory": "Scores and indicators are advisory. Use them alongside human judgment when planning next steps."
+      },
+      "healthStatuses": {
+        "excellent": "Excellent",
+        "healthy": "Healthy",
+        "attentionNeeded": "Attention Needed",
+        "atRisk": "At Risk"
+      },
+      "riskLevels": {
+        "low": "Low",
+        "moderate": "Moderate",
+        "elevated": "Elevated",
+        "high": "High"
+      },
+      "recommendations": {
+        "inviteTeam": "Invite additional team members to improve collaboration and adoption.",
+        "explorePacks": "Explore unused Business Packs to unlock more operational capabilities.",
+        "enableIntegrations": "Enable integrations to connect Aipify with your existing systems.",
+        "reviewSupport": "Review unresolved support requests to keep operations moving smoothly.",
+        "reviewApprovals": "Review pending approvals so important actions are not delayed.",
+        "completeFollowUps": "Complete open follow-ups to maintain operational momentum.",
+        "completeOnboarding": "Complete remaining onboarding steps to strengthen your foundation.",
+        "configureSecurity": "Configure security settings to protect your organization workspace."
+      },
+      "growth": {
+        "team_expansion": "Team expansion",
+        "business_packs": "Business Pack adoption",
+        "integrations": "Integration connections",
+        "plan_upgrade": "Plan upgrade opportunity"
+      },
+      "adoption": {
+        "activeUsers": "Active users (14 days)",
+        "packsUsed": "Business Packs in use",
+        "integrationsUsed": "Integrations connected",
+        "unusedCapabilities": "Unused capability slots"
+      },
+      "factors": {
+        "activeUsers": "Active users",
+        "teamSize": "Team size",
+        "businessPacks": "Business Packs installed",
+        "integrations": "Integrations connected",
+        "openSupport": "Open support requests",
+        "pendingApprovals": "Pending approvals",
+        "openFollowUps": "Open follow-ups"
+      },
+      "faq": {
+        "title": "Success Center FAQ",
+        "whatIs": "What is the Success Center?",
+        "whatIsAnswer": "The Success Center helps organizations understand adoption, engagement and opportunities to get more value from Aipify.",
+        "healthScore": "How is the Health Score calculated?",
+        "healthScoreAnswer": "The Health Score is based on organizational activity, engagement, adoption patterns and operational indicators available within Aipify.",
+        "predictRisk": "Can Aipify predict organizational risk?",
+        "predictRiskAnswer": "Aipify provides recommendations and risk indicators based on available information, but final decisions should always involve human judgment."
       }
     }
   },
