@@ -11,3 +11,4 @@ export * from "./support-requests";
 export * from "./support-assistant";
 export * from "./success-center";
 export * from "./onboarding";
+export * from "./capability-center";

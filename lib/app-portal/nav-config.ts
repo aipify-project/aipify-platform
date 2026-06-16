@@ -26,6 +26,7 @@ export type AppPortalNavId =
   | "followUps"
   | "decisionCenter"
   | "activityHistory"
+  | "capabilityCenter"
   | "subscription"
   | "paymentHistory"
   | "invoices"
@@ -109,6 +110,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
       { id: "followUps", href: "/app/operations/follow-ups", labelKey: "customerApp.portalStructure.nav.followUps" },
       { id: "decisionCenter", href: "/app/operations/decision-center", labelKey: "customerApp.portalStructure.nav.decisionCenter" },
       { id: "activityHistory", href: "/app/operations/activity-history", labelKey: "customerApp.portalStructure.nav.activityHistory" },
+      { id: "capabilityCenter", href: "/app/operations/capability-center", labelKey: "customerApp.portalStructure.nav.capabilityCenter" },
       { id: "insights", href: "/app/operations/insights", labelKey: "customerApp.portalStructure.nav.insights", featureKey: "advanced_insights" },
     ],
   },
@@ -169,6 +171,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/operations/follow-ups")) return "followUps";
   if (pathname.startsWith("/app/operations/decision-center")) return "decisionCenter";
   if (pathname.startsWith("/app/operations/activity-history")) return "activityHistory";
+  if (pathname.startsWith("/app/operations/capability-center")) return "capabilityCenter";
   if (pathname.startsWith("/app/support/requests")) return "supportRequests";
   if (pathname.startsWith("/app/support/assistant")) return "supportAssistant";
   if (pathname.startsWith("/app/support/success-center")) return "successCenter";

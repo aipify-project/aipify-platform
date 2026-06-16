@@ -24889,6 +24889,7 @@
       "followUps": "Follow-Ups",
       "decisionCenter": "Decision Center",
       "activityHistory": "Activity History",
+      "capabilityCenter": "Capability Center",
       "insights": "Insights",
       "subscription": "Subscription",
       "paymentHistory": "Payment History",
@@ -25614,6 +25615,160 @@
       "actions": {
         "markComplete": "Mark complete",
         "dismissMilestone": "Dismiss"
+      }
+    },
+    "capabilityCenter": {
+      "title": "Capability Center",
+      "subtitle": "Understand your organization's operational maturity and identify opportunities for continuous improvement.",
+      "loading": "Aipify is evaluating organizational capabilities…",
+      "emptyTitle": "Aipify is learning how your organization operates.",
+      "emptyBody": "Capability insights will improve as your organization grows and uses more Aipify features.",
+      "principle": "Self-improvement over time — your organization compared only to its own progress.",
+      "sections": {
+        "dashboard": "Maturity Dashboard",
+        "categories": "Capability Categories",
+        "detail": "Capability Detail",
+        "recommendations": "Recommended Focus Areas",
+        "progress": "Progress Tracking",
+        "selfAssessment": "Optional Self-Assessment"
+      },
+      "dashboard": {
+        "overallScore": "Overall maturity score",
+        "overallLevel": "Overall maturity level",
+        "trend": "Progress trend",
+        "highest": "Highest-performing categories",
+        "lowest": "Categories requiring attention",
+        "focusAreas": "Recommended focus areas",
+        "advisory": "Maturity assessments are advisory and designed to support your organization's own growth journey."
+      },
+      "trends": {
+        "improving": "Improving",
+        "stable": "Stable",
+        "declining": "Needs attention"
+      },
+      "levels": {
+        "emerging": "Emerging",
+        "developing": "Developing",
+        "established": "Established",
+        "optimized": "Optimized",
+        "exemplary": "Exemplary"
+      },
+      "levelNumbers": {
+        "1": "Level 1 – Emerging",
+        "2": "Level 2 – Developing",
+        "3": "Level 3 – Established",
+        "4": "Level 4 – Optimized",
+        "5": "Level 5 – Exemplary"
+      },
+      "categories": {
+        "governance": "Governance",
+        "operations": "Operations",
+        "collaboration": "Collaboration",
+        "knowledgeManagement": "Knowledge Management",
+        "customerSuccess": "Customer Success",
+        "security": "Security",
+        "integrations": "Integrations",
+        "businessPackAdoption": "Business Pack Adoption",
+        "decisionProcesses": "Decision Processes",
+        "organizationalMemory": "Organizational Memory"
+      },
+      "strengths": {
+        "governanceRoles": "Administrative roles are established within the organization.",
+        "operationsFollowThrough": "Operational follow-through is visible in recent activity.",
+        "collaborationTeam": "Team collaboration foundations are in place.",
+        "knowledgeFoundation": "Knowledge resources are accessible to the organization.",
+        "customerSuccessAdoption": "Adoption signals indicate growing value from Aipify.",
+        "securityAwareness": "Security practices are beginning to take shape.",
+        "integrationsConnected": "Integrations connect Aipify with your operational environment.",
+        "packsActive": "Business Packs extend operational capabilities.",
+        "decisionsTracked": "Decision activity supports organizational accountability.",
+        "memoryActivity": "Organizational activity creates a useful operational record."
+      },
+      "improvements": {
+        "governanceApprovals": "Review pending approvals to strengthen governance flow.",
+        "operationsBacklog": "Reduce open follow-ups to improve operational momentum.",
+        "collaborationEngagement": "Increase active team participation across the workspace.",
+        "knowledgeDepth": "Expand structured knowledge and documentation practices.",
+        "customerSuccessExpansion": "Deepen adoption across additional capabilities.",
+        "securityHardening": "Strengthen security configuration across administrators.",
+        "integrationsExpansion": "Connect additional systems to extend operational reach.",
+        "packsBreadth": "Broaden Business Pack adoption across use cases.",
+        "decisionsFormalization": "Formalize decision tracking for key organizational choices.",
+        "memoryDocumentation": "Strengthen documentation of operational history and outcomes."
+      },
+      "actions": {
+        "governanceAction": "Review roles, permissions, and pending approvals.",
+        "operationsAction": "Complete open follow-ups and review operational priorities.",
+        "collaborationAction": "Invite team members and review collaboration patterns.",
+        "knowledgeAction": "Explore the Knowledge Center and document key procedures.",
+        "customerSuccessAction": "Visit the Success Center and Getting Started guides.",
+        "securityAction": "Enable two-factor authentication and review security settings.",
+        "integrationsAction": "Connect and validate integration health.",
+        "packsAction": "Install and configure additional Business Packs.",
+        "decisionsAction": "Use the Decision Center to track important choices.",
+        "memoryAction": "Review Activity History to preserve organizational context."
+      },
+      "capabilities": {
+        "approvals": "Approval Center",
+        "followUps": "Follow-Ups Center",
+        "teamManagement": "Team Management",
+        "knowledgeCenter": "Knowledge Center",
+        "successCenter": "Success Center",
+        "accountSecurity": "Account Security",
+        "integrationsHub": "Integrations Hub",
+        "businessPacks": "Business Packs",
+        "decisionCenter": "Decision Center",
+        "activityHistory": "Activity History"
+      },
+      "resources": {
+        "knowledgeGovernance": "Governance and permissions guides",
+        "knowledgeOperations": "Operational workflow articles",
+        "knowledgeCollaboration": "Team collaboration resources",
+        "knowledgeResources": "Knowledge Center overview",
+        "knowledgeCustomerSuccess": "Customer success and adoption guides",
+        "knowledgeSecurity": "Security configuration articles",
+        "knowledgeIntegrations": "Integration setup guides",
+        "knowledgeBusinessPacks": "Business Pack documentation",
+        "knowledgeDecisions": "Decision tracking guidance",
+        "knowledgeMemory": "Activity and history best practices"
+      },
+      "recommendations": {
+        "enable2fa": "Enable two-factor authentication for administrators.",
+        "improveFollowUps": "Improve follow-up completion rates across operations.",
+        "expandPacks": "Expand Business Pack adoption across your organization.",
+        "formalizeDecisions": "Formalize decision tracking for accountability.",
+        "adminCoverage": "Increase administrator coverage for organizational governance.",
+        "strengthenDocs": "Strengthen organizational documentation in the Knowledge Center.",
+        "continueFocus": "Continue focusing on your strongest capability areas while addressing lower-scoring categories."
+      },
+      "progress": {
+        "history": "Previous maturity scores",
+        "milestones": "Recently completed milestones",
+        "continuedFocus": "Areas requiring continued focus"
+      },
+      "selfAssessment": {
+        "category": "Category",
+        "level": "Self-assessed maturity level",
+        "notes": "Optional notes (organization-specific)",
+        "submit": "Submit self-assessment",
+        "success": "Self-assessment recorded. Insights will reflect your organization's perspective.",
+        "selectCategory": "Select a category"
+      },
+      "detail": {
+        "strengths": "Strengths",
+        "improvements": "Improvement opportunities",
+        "actions": "Recommended actions",
+        "capabilities": "Supporting Aipify capabilities",
+        "resources": "Knowledge Center resources"
+      },
+      "faq": {
+        "title": "Capability Center FAQ",
+        "whatIs": "What is the Capability Center?",
+        "whatIsAnswer": "The Capability Center helps organizations understand their operational maturity and identify opportunities for continuous improvement.",
+        "howDetermined": "How are maturity levels determined?",
+        "howDeterminedAnswer": "Maturity levels combine operational signals, feature adoption and optional self-assessments to provide improvement guidance.",
+        "comparison": "Is this a comparison against other organizations?",
+        "comparisonAnswer": "No. The Capability Center focuses on your organization's own growth and development over time."
       }
     },
     "pages": {
