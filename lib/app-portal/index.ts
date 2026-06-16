@@ -19,3 +19,4 @@ export * from "./risks";
 export * from "./compliance";
 export * from "./external-relationships";
 export * from "./organizational-assets";
+export * from "./meetings";

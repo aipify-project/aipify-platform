@@ -31,3 +31,5 @@ export { ExternalRelationshipsPanel } from "./ExternalRelationshipsPanel";
 export { ExternalRelationshipDetailPanel } from "./ExternalRelationshipDetailPanel";
 export { OrganizationalAssetsPanel } from "./OrganizationalAssetsPanel";
 export { OrganizationalAssetDetailPanel } from "./OrganizationalAssetDetailPanel";
+export { MeetingsPanel } from "./MeetingsPanel";
+export { MeetingDetailPanel } from "./MeetingDetailPanel";

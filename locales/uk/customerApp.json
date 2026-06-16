@@ -1372,7 +1372,8 @@
       "risks": "Risks",
       "compliance": "Compliance",
       "externalRelationships": "External Relationships",
-      "organizationalAssets": "Assets & Resources"
+      "organizationalAssets": "Assets & Resources",
+      "meetings": "Meetings"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -2937,6 +2938,123 @@
         "apiKeysAnswer": "No. Store references and ownership information only. Sensitive credentials should remain in approved secret management systems.",
         "owners": "Why should assets have owners?",
         "ownersAnswer": "Ownership improves accountability and helps organizations maintain continuity when responsibilities change."
+      }
+    },
+    "meetings": {
+      "title": "Meetings",
+      "subtitle": "Document discussions, capture decisions and track follow-up actions from important meetings.",
+      "loading": "Aipify is preparing your meeting information…",
+      "principle": "Meeting effectiveness comes from documented outcomes — people execute agreed actions.",
+      "emptyTitle": "No meetings have been recorded yet.",
+      "emptyBody": "Aipify helps organizations turn conversations into outcomes.",
+      "emptyCta": "Create Meeting",
+      "back": "Meetings",
+      "notFound": "Meeting not found.",
+      "filters": {
+        "search": "Search meetings…",
+        "type": "Meeting type",
+        "status": "Status",
+        "organizer": "Organizer",
+        "dateFrom": "From date",
+        "dateTo": "To date",
+        "outstandingActions": "Outstanding actions",
+        "all": "All",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "dashboard": {
+        "upcoming": "Upcoming meetings",
+        "needsOutcomes": "Meetings requiring outcomes",
+        "outstandingActions": "Outstanding action items",
+        "recentlyCompleted": "Recently completed meetings",
+        "withoutNotes": "Meetings without notes",
+        "overdueActions": "Overdue meeting actions"
+      },
+      "form": {
+        "createTitle": "Create meeting",
+        "title": "Title",
+        "type": "Meeting type",
+        "description": "Description",
+        "objectives": "Objectives",
+        "meetingAt": "Date and time",
+        "duration": "Duration (minutes)",
+        "notes": "Notes",
+        "submit": "Create meeting",
+        "cancel": "Cancel"
+      },
+      "card": {
+        "organizer": "Organizer",
+        "meetingAt": "Date and time",
+        "duration": "Duration",
+        "openActions": "Open actions",
+        "view": "View"
+      },
+      "detail": {
+        "overview": "Meeting overview",
+        "participants": "Participants",
+        "notes": "Notes",
+        "objectives": "Objectives",
+        "decisions": "Decisions",
+        "actionItems": "Action items",
+        "relatedGoals": "Related goals",
+        "relatedFollowUps": "Related follow-ups",
+        "activity": "Activity timeline",
+        "audit": "Audit history",
+        "save": "Save outcomes",
+        "saved": "Meeting updated.",
+        "recommendations": "Aipify recommendations",
+        "addAction": "Add action item",
+        "addDecision": "Record decision",
+        "actionTitle": "Action title",
+        "actionDue": "Due date",
+        "decisionTitle": "Decision",
+        "decisionRationale": "Decision rationale"
+      },
+      "types": {
+        "executiveMeeting": "Executive Meeting",
+        "teamMeeting": "Team Meeting",
+        "projectMeeting": "Project Meeting",
+        "customerMeeting": "Customer Meeting",
+        "vendorMeeting": "Vendor Meeting",
+        "retrospective": "Retrospective",
+        "planningSession": "Planning Session",
+        "incidentReview": "Incident Review",
+        "complianceReview": "Compliance Review",
+        "customMeeting": "Custom Meeting"
+      },
+      "statuses": {
+        "scheduled": "Scheduled",
+        "inProgress": "In Progress",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
+      "actionStatuses": {
+        "open": "Open",
+        "inProgress": "In Progress",
+        "waiting": "Waiting",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
+      "priorities": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      },
+      "recommendations": {
+        "assignActionOwners": "Assign owners to unresolved action items.",
+        "recordOutcomes": "Record meeting outcomes before closing the meeting.",
+        "followUpOverdue": "Follow up on overdue actions.",
+        "linkGoals": "Link decisions to organizational goals.",
+        "scheduleRecurringReview": "Schedule reviews for recurring meetings."
+      },
+      "faq": {
+        "title": "Meetings FAQ",
+        "whatIs": "What is the Meetings Center?",
+        "whatIsAnswer": "The Meetings Center helps organizations document discussions, capture decisions and track follow-up actions resulting from important meetings.",
+        "outcomes": "Why should meeting outcomes be documented?",
+        "outcomesAnswer": "Documenting outcomes improves accountability, preserves organizational memory and increases the likelihood that important actions are completed.",
+        "autoComplete": "Can Aipify automatically complete meeting action items?",
+        "autoCompleteAnswer": "No. Aipify supports visibility and accountability, but people remain responsible for executing agreed actions."
       }
     }
   }
