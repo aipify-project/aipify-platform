@@ -23819,7 +23819,8 @@
       "integrations": "Integrasjoner",
       "connectedIntegrations": "Tilkoblede integrasjoner",
       "connectIntegration": "Koble til integrasjon",
-      "apiAccess": "API-tilgang"
+      "apiAccess": "API-tilgang",
+      "executiveInsights": "Executive Insights"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -24094,6 +24095,69 @@
         "oauth-vs-api-keys": "OAuth uses provider redirect and official authorization. API keys are copied manually from the provider admin. Both require scope approval.",
         "is-it-safe-to-connect": "Credentials are encrypted, masked after save, revocable anytime, and all actions are audit logged."
       }
+    },
+    "executiveInsights": {
+      "title": "Executive Insights",
+      "subtitle": "A concise overview of organizational health, priorities, risks, opportunities, and recommended next steps — decision support, not analytics.",
+      "loading": "Aipify is preparing your Executive Insights…",
+      "principle": "Executive Insights supports decision-making. Final decisions remain under human control.",
+      "accessDeniedTitle": "Executive access required",
+      "accessDeniedBody": "Executive Insights is available to organization owners, administrators, and managers. Standard team members cannot access this area.",
+      "emptyTitle": "Building your Executive Insights",
+      "emptyBody": "Executive Insights will become more valuable as Aipify learns how your organization operates.",
+      "exploreBusinessPacks": "Explore Business Packs",
+      "sections": {
+        "health": "Organization health",
+        "priorities": "Top priorities",
+        "sinceLastLogin": "Since last login",
+        "opportunities": "Opportunities",
+        "risks": "Risks",
+        "recommendations": "Aipify recommendations"
+      },
+      "health": {
+        "score": "Health score",
+        "trend": "Trend",
+        "status": "Status",
+        "factors": "Contributing factors",
+        "trends": {
+          "improving": "Improving",
+          "stable": "Stable",
+          "declining": "Needs attention"
+        },
+        "statuses": {
+          "healthy": "Healthy",
+          "warning": "Warning",
+          "critical": "Critical"
+        }
+      },
+      "sinceLastLogin": {
+        "newTeamMembers": "New team members",
+        "integrationsConnected": "Integrations connected",
+        "businessPacksInstalled": "Business Packs installed",
+        "tasksCompleted": "Tasks completed",
+        "majorEvents": "Major operational events",
+        "billingEvents": "Billing events"
+      },
+      "recommendation": {
+        "why": "Why",
+        "expectedImpact": "Expected impact",
+        "suggestedAction": "Suggested action"
+      },
+      "severity": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      },
+      "faq": {
+        "title": "Executive Insights FAQ",
+        "whatIs": "What is Executive Insights?",
+        "whatIsAnswer": "Executive Insights provides leaders with a concise overview of organizational health, priorities, risks, opportunities, and recommended next steps generated from activity across the Aipify ecosystem.",
+        "autoDecisions": "Does Executive Insights make decisions automatically?",
+        "autoDecisionsAnswer": "No. Executive Insights supports decision-making by presenting information and recommendations. Final decisions remain under human control.",
+        "updateFrequency": "How often are Executive Insights updated?",
+        "updateFrequencyAnswer": "Insights are refreshed automatically as new events occur throughout your organization."
+      },
+      "executiveInsights": "Executive Insights"
     }
   },
   "executiveStrategicDecisionCockpit": {
