@@ -23831,7 +23831,8 @@
       "capabilityCenter": "Capability Center",
       "goalsObjectives": "Goals & Objectives",
       "responsibilities": "Responsibilities",
-      "playbooks": "Playbooks"
+      "playbooks": "Playbooks",
+      "risks": "Risks"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -25255,6 +25256,143 @@
         "versionsAnswer": "Version histories help organizations understand how processes evolve over time and support accountability.",
         "autoCreate": "Can Aipify create playbooks automatically?",
         "autoCreateAnswer": "Aipify may suggest areas that could benefit from playbooks, but organizations remain responsible for defining and maintaining their procedures."
+      }
+    },
+    "risks": {
+      "title": "Risks",
+      "subtitle": "Identify, document, review and manage operational risks with clarity and accountability.",
+      "loading": "Aipify is reviewing organizational risk information…",
+      "principle": "Prepared organizations respond with clarity — human teams own risk decisions and mitigation.",
+      "emptyTitle": "No organizational risks have been recorded yet.",
+      "emptyBody": "Documenting risks helps organizations prepare for uncertainty and strengthen resilience.",
+      "emptyCta": "Create Risk Record",
+      "back": "Risks",
+      "notFound": "Risk record not found.",
+      "filters": {
+        "search": "Search risks…",
+        "category": "Category",
+        "status": "Status",
+        "owner": "Owner",
+        "overallLevel": "Overall risk level",
+        "recentlyUpdated": "Recently updated",
+        "all": "All",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "dashboard": {
+        "active": "Total active risks",
+        "highRisk": "High-risk items",
+        "needsReview": "Risks requiring review",
+        "withoutOwner": "Risks without owners",
+        "approachingReview": "Approaching review dates",
+        "recentlyResolved": "Recently resolved risks"
+      },
+      "form": {
+        "createTitle": "Create risk record",
+        "title": "Title",
+        "description": "Description",
+        "category": "Category",
+        "owner": "Owner",
+        "likelihood": "Likelihood",
+        "impact": "Impact",
+        "mitigationStrategy": "Mitigation strategy",
+        "contingencyPlan": "Contingency plan",
+        "reviewFrequency": "Review frequency",
+        "notes": "Notes",
+        "submit": "Create risk record",
+        "cancel": "Cancel"
+      },
+      "card": {
+        "owner": "Owner",
+        "level": "Overall level",
+        "likelihood": "Likelihood",
+        "impact": "Impact",
+        "nextReview": "Next review",
+        "view": "View"
+      },
+      "detail": {
+        "overview": "Risk overview",
+        "mitigation": "Mitigation strategy",
+        "contingency": "Contingency plan",
+        "mitigations": "Mitigation activities",
+        "contributors": "Contributors",
+        "relatedFollowUps": "Related follow-ups",
+        "relatedDecisions": "Related decisions",
+        "activity": "Activity timeline",
+        "audit": "Audit history",
+        "save": "Save updates",
+        "saved": "Risk record updated.",
+        "recommendations": "Aipify recommendations",
+        "addMitigation": "Record mitigation activity",
+        "actionTaken": "Action taken",
+        "effectivenessReview": "Effectiveness review",
+        "residualLikelihood": "Residual likelihood",
+        "residualImpact": "Residual impact",
+        "escalationRequired": "Escalation required",
+        "submitMitigation": "Record mitigation"
+      },
+      "categories": {
+        "operational": "Operational Risk",
+        "financial": "Financial Risk",
+        "security": "Security Risk",
+        "compliance": "Compliance Risk",
+        "customer": "Customer Risk",
+        "vendor": "Vendor Risk",
+        "strategic": "Strategic Risk",
+        "technology": "Technology Risk",
+        "reputational": "Reputational Risk",
+        "workforce": "Workforce Risk"
+      },
+      "statuses": {
+        "identified": "Identified",
+        "underReview": "Under Review",
+        "mitigationInProgress": "Mitigation In Progress",
+        "monitoring": "Monitoring",
+        "accepted": "Accepted",
+        "resolved": "Resolved",
+        "archived": "Archived"
+      },
+      "likelihoods": {
+        "veryLow": "Very Low",
+        "low": "Low",
+        "moderate": "Moderate",
+        "high": "High",
+        "veryHigh": "Very High"
+      },
+      "impacts": {
+        "negligible": "Negligible",
+        "minor": "Minor",
+        "moderate": "Moderate",
+        "major": "Major",
+        "critical": "Critical"
+      },
+      "overallLevels": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "critical": "Critical"
+      },
+      "frequencies": {
+        "monthly": "Monthly",
+        "quarterly": "Quarterly",
+        "semiAnnual": "Semi-annual",
+        "annual": "Annual"
+      },
+      "recommendations": {
+        "assignOwner": "Assign an owner to unmanaged risks.",
+        "reviewOverdue": "Review overdue mitigation plans.",
+        "escalateCritical": "Escalate critical unresolved risks for leadership attention.",
+        "updateMitigation": "Update mitigation strategies as conditions change.",
+        "archiveResolved": "Archive resolved risks to keep the register focused."
+      },
+      "faq": {
+        "title": "Risks FAQ",
+        "whatIs": "What is the Risks Center?",
+        "whatIsAnswer": "The Risks Center helps organizations identify, monitor and manage operational risks through structured documentation and mitigation planning.",
+        "howCalculated": "How are risk levels calculated?",
+        "howCalculatedAnswer": "Risk levels combine likelihood and impact assessments to help organizations prioritize attention and mitigation efforts.",
+        "eliminate": "Can Aipify eliminate organizational risk?",
+        "eliminateAnswer": "No. Aipify supports awareness and mitigation planning, but organizations remain responsible for managing risk appropriately."
       }
     }
   },

@@ -23,3 +23,5 @@ export { ResponsibilityDetailPanel } from "./ResponsibilityDetailPanel";
 export { OwnerDetailPanel } from "./OwnerDetailPanel";
 export { PlaybooksPanel } from "./PlaybooksPanel";
 export { PlaybookDetailPanel } from "./PlaybookDetailPanel";
+export { RisksPanel } from "./RisksPanel";
+export { RiskDetailPanel } from "./RiskDetailPanel";
