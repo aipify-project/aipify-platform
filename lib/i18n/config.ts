@@ -38,6 +38,7 @@ export const NAMESPACES = [
   "partnersPortal",
   "partnerPortal",
   "partnerAcademy",
+  "partnerCommissions",
   "commandBar",
 ] as const;
 

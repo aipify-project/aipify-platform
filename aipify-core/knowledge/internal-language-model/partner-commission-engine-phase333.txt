@@ -1,0 +1,4 @@
+ABOS Phase 333 — Partner Commission Engine
+Route: /partner/commissions
+Core: Transparent, explainable commissions on qualifying initial sales only.
+Helpers: _gpc333_* · _gpc333bp_*
