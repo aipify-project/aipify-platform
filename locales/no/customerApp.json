@@ -23862,7 +23862,8 @@
       "businessPackCommandCenter": "Command Center",
       "businessPackEcosystemIntelligence": "Ecosystem Intelligence",
       "businessPackAutomation": "Automation Center",
-      "businessPackGovernance": "Governance Center"
+      "businessPackGovernance": "Governance Center",
+      "businessPackCompliance": "Compliance Center"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -28535,6 +28536,129 @@
         "whyOwnersAnswer": "Ownership improves accountability, strengthens governance and ensures capabilities continue delivering value.",
         "autoAssign": "Can Aipify assign Business Pack owners automatically?",
         "autoAssignAnswer": "No. Organizations remain responsible for ownership decisions while Aipify provides guidance and visibility."
+      }
+    },
+    "businessPackCompliance": {
+      "title": "Business Pack Compliance Center",
+      "subtitle": "Monitor Business Pack policy alignment, governance reviews and compliance posture across your organization.",
+      "loading": "Aipify is reviewing your Business Pack compliance posture…",
+      "principle": "Aipify provides visibility and governance support — organizations remain responsible for compliance decisions. This is not legal advice.",
+      "emptyTitle": "No compliance insights are available yet.",
+      "emptyBody": "Aipify helps organizations strengthen Business Pack governance through visibility and structured reviews.",
+      "emptyCta": "Start Compliance Review",
+      "accessDenied": "Compliance Center is not available for your role.",
+      "filters": {
+        "search": "Search Business Packs…",
+        "complianceStatus": "Compliance status",
+        "packKey": "Business Pack",
+        "policyCategory": "Policy category",
+        "reviewer": "Reviewer",
+        "reviewPeriod": "Review period",
+        "priorityLevel": "Priority level",
+        "all": "All"
+      },
+      "dashboard": {
+        "complianceHealthScore": "Compliance health score",
+        "packsUnderReview": "Business Packs under review",
+        "packsMissingReviews": "Business Packs missing reviews",
+        "upcomingReviews": "Upcoming compliance reviews",
+        "recentlyCompleted": "Recently completed reviews",
+        "openRecommendations": "Open compliance recommendations",
+        "executiveSummary": "Executive summary",
+        "complianceInsights": "Compliance insights",
+        "recommendedActions": "Compliance recommendations",
+        "timeline": "Compliance timeline",
+        "policyAlignment": "Policy alignment",
+        "healthOverview": "Compliance overview"
+      },
+      "policyAlignment": {
+        "reviewed": "Policies reviewed",
+        "acknowledged": "Policies acknowledged",
+        "requiringReview": "Policies requiring review",
+        "pendingApproval": "Policies pending approval",
+        "requiringUpdates": "Policies requiring updates"
+      },
+      "card": {
+        "complianceStatus": "Compliance status",
+        "assignedReviewer": "Assigned reviewer",
+        "lastReview": "Last review",
+        "nextReview": "Next review",
+        "policiesLinked": "Policies linked",
+        "openRecommendations": "Open recommendations",
+        "governanceNotes": "Governance notes",
+        "reviewFrequency": "Review frequency",
+        "viewDetails": "View details",
+        "completeReview": "Complete compliance review"
+      },
+      "review": {
+        "title": "Compliance review",
+        "notes": "Governance notes",
+        "submit": "Submit review",
+        "success": "Compliance review recorded successfully.",
+        "governanceNote": "Organizations remain responsible for compliance outcomes — this records review completion only."
+      },
+      "complianceStatuses": {
+        "aligned": "Aligned",
+        "healthy": "Healthy",
+        "requiresReview": "Requires review",
+        "reviewOverdue": "Review overdue",
+        "immediateAttention": "Immediate attention"
+      },
+      "policyCategories": {
+        "informationSecurity": "Information Security",
+        "dataGovernance": "Data Governance",
+        "accessManagement": "Access Management",
+        "operationalProcedures": "Operational Procedures",
+        "customerPolicies": "Customer Policies",
+        "vendorManagement": "Vendor Management",
+        "internalGovernance": "Internal Governance",
+        "businessContinuity": "Business Continuity",
+        "custom": "Custom Policies"
+      },
+      "reviewFrequencies": {
+        "monthly": "Monthly",
+        "quarterly": "Quarterly",
+        "semiAnnually": "Semi-annually",
+        "annually": "Annually",
+        "custom": "Custom"
+      },
+      "priorityLevels": {
+        "low": "Low",
+        "moderate": "Moderate",
+        "high": "High",
+        "critical": "Critical"
+      },
+      "recommendations": {
+        "scheduleOverdueReviews": "Schedule overdue reviews",
+        "assignReviewers": "Assign responsible reviewers",
+        "reviewPolicyAcknowledgements": "Review outdated policy acknowledgements",
+        "strengthenGovernanceDocumentation": "Strengthen governance documentation",
+        "improveReviewFrequency": "Improve review frequency",
+        "celebrateStrongCompliance": "Celebrate strong compliance practices"
+      },
+      "insights": {
+        "approachingDeadlines": "Business Packs approaching review deadlines",
+        "missingAcknowledgements": "Missing policy acknowledgements",
+        "governanceGaps": "Governance gaps",
+        "strongPractices": "Strong compliance practices",
+        "improvementOpportunities": "Improvement opportunities"
+      },
+      "timelineEvents": {
+        "reviewCompleted": "Review completed",
+        "policyUpdated": "Policy updated",
+        "recommendationResolved": "Recommendation resolved",
+        "complianceMilestone": "Compliance milestone achieved",
+        "reviewAssignmentChanged": "Review assignment changed",
+        "complianceImprovement": "Compliance improvement implemented"
+      },
+      "faq": {
+        "title": "Compliance Center FAQ",
+        "whatIs": "What is the Compliance Center?",
+        "whatIsAnswer": "The Compliance Center helps organizations monitor Business Pack policy alignment and governance review activities.",
+        "legalAdvice": "Does Aipify provide legal advice?",
+        "legalAdviceAnswer": "No. Aipify provides visibility and governance support but does not replace legal, regulatory or professional advice.",
+        "completeCompliance": "Can Aipify ensure complete compliance?",
+        "completeComplianceAnswer": "No. Organizations remain responsible for compliance decisions and review outcomes."
       }
     }
   },
