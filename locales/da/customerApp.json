@@ -6562,6 +6562,7 @@
     "approvalProfilesEngine": "Godkendelsesprofiler",
     "financialGuardrailsEngine": "Finansielle sikkerhedsgrænser",
     "companionOrchestrationEngine": "Orkestrering",
+    "companionActionApprovalEngine": "Companion Action Center",
     "automationControlCenterEngine": "Automationskontrolcenter",
     "approvalHumanOversightEngine": "Godkendelsescenter",
     "permissionAccessGovernanceEngine": "Tilladelser og adgang",

@@ -6616,6 +6616,7 @@
     "approvalProfilesEngine": "Godkännandeprofiler",
     "financialGuardrailsEngine": "Finansiella skyddsräcken",
     "companionOrchestrationEngine": "Orkestrering",
+    "companionActionApprovalEngine": "Companion Action Center",
     "automationControlCenterEngine": "Automationskontrollcenter",
     "approvalHumanOversightEngine": "Godkännandecenter",
     "permissionAccessGovernanceEngine": "Behörigheter och åtkomst",

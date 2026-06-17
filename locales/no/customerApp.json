@@ -6860,6 +6860,7 @@
     "approvalProfilesEngine": "Godkjenningsprofiler",
     "financialGuardrailsEngine": "Finansielle sperrer",
     "companionOrchestrationEngine": "Orkestrering",
+    "companionActionApprovalEngine": "Companion Action Center",
     "automationControlCenterEngine": "Automatiseringskontrollsenter",
     "approvalHumanOversightEngine": "Godkjenningssenter",
     "permissionAccessGovernanceEngine": "Tillatelser og tilgang",

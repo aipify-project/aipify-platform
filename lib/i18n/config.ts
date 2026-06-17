@@ -48,6 +48,7 @@ export const NAMESPACES = [
   "companionMemoryContext",
   "companionWorkspaceIntelligence",
   "companionDeviceEnvironment",
+  "companionActionApproval",
   "desktopCompanion",
   "commandBar",
 ] as const;

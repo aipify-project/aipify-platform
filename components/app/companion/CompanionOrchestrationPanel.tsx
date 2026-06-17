@@ -158,11 +158,9 @@ export function CompanionOrchestrationPanel({ labels }: CompanionOrchestrationPa
             {labels.lifeEventsLink}
           </Link>
         )}
-        {center?.links?.companion_actions && (
-          <Link href={center.links.companion_actions} className="text-fuchsia-600 hover:underline">
-            {labels.companionActionsLink}
-          </Link>
-        )}
+        <Link href="/app/companion/actions" className="text-fuchsia-600 hover:underline">
+          {labels.companionActionsLink}
+        </Link>
       </div>
 
       <div>

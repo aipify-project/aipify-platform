@@ -9680,6 +9680,7 @@
     "approvalProfilesEngine": "Approval Profiles",
     "financialGuardrailsEngine": "Financial Guardrails",
     "companionOrchestrationEngine": "Orchestration",
+    "companionActionApprovalEngine": "Companion Action Center",
     "automationControlCenterEngine": "Automation Control Center",
     "approvalHumanOversightEngine": "Approval Center",
     "permissionAccessGovernanceEngine": "Permissions & Access",

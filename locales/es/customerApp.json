@@ -7440,7 +7440,8 @@
     "companionWorkPrioritizationEngine": "Work Prioritization",
     "companionFollowUpEngine": "Follow-Ups",
     "companionRelationshipIntelligenceEngine": "Relationship Intelligence",
-    "companionExecutiveLayer": "Executive Companion"
+    "companionExecutiveLayer": "Executive Companion",
+    "companionActionApprovalEngine": "Companion Action Center"
   },
   "companionContextEngine": {
     "title": "Companion Context Engine",
