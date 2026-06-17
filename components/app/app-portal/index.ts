@@ -60,3 +60,4 @@ export { MomentumPanel } from "./MomentumPanel";
 export { ResiliencePanel } from "./ResiliencePanel";
 export { ExecutiveCompanionPanel } from "./ExecutiveCompanionPanel";
 export { AbosCommandCenterPanel } from "./AbosCommandCenterPanel";
+export { BusinessPackSuccessPanel } from "./BusinessPackSuccessPanel";

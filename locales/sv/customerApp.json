@@ -23615,7 +23615,8 @@
       "momentum": "Momentum",
       "resilience": "Resilience",
       "executiveCompanion": "Executive Companion",
-      "abosCommandCenter": "Command Center"
+      "abosCommandCenter": "Command Center",
+      "businessPackSuccess": "Success Center"
     },
     "dashboard": {
       "title": "APP-instrumentpanel",
@@ -27402,6 +27403,107 @@
         "replacesModulesAnswer": "No. The Command Center summarizes information from across Aipify while allowing users to drill down into specialized areas when needed.",
         "runsOrganization": "Can Aipify run the organization automatically?",
         "runsOrganizationAnswer": "No. Aipify provides insights, recommendations and awareness while organizational leaders remain responsible for decisions and execution."
+      }
+    },
+    "businessPackSuccess": {
+      "title": "Business Pack Success Center",
+      "subtitle": "Maximize the value of your installed Business Packs through adoption insights, onboarding guidance, and best-practice recommendations.",
+      "loading": "Aipify is reviewing your Business Pack success journey…",
+      "principle": "Aipify provides recommendations and insights — organizations remain responsible for implementation.",
+      "emptyTitle": "No Business Packs have been installed yet.",
+      "emptyBody": "Business Packs help organizations unlock specialized capabilities within Aipify.",
+      "emptyCta": "Explore Business Packs",
+      "accessDenied": "Business Pack Success Center access is not available for your role.",
+      "filters": {
+        "search": "Search Business Pack success insights…",
+        "pack": "Business Pack",
+        "adoptionStatus": "Adoption status",
+        "priority": "Priority",
+        "successStatus": "Success status",
+        "periodFrom": "Period from",
+        "all": "All"
+      },
+      "dashboard": {
+        "installedPacks": "Installed Business Packs",
+        "overallAdoptionScore": "Overall Adoption Score",
+        "mostActivePacks": "Most Active Business Packs",
+        "underutilizedPacks": "Underutilized Business Packs",
+        "recommendedNextActions": "Recommended Next Actions",
+        "successMilestones": "Success Milestones Achieved",
+        "learningOpportunities": "Learning Opportunities",
+        "adoptionInsights": "Adoption Insights",
+        "successTimeline": "Success Timeline",
+        "onboardingChecklist": "Onboarding Checklist"
+      },
+      "packCard": {
+        "status": "Status",
+        "adoptionScore": "Adoption Score",
+        "usageTrend": "Usage Trend",
+        "usersAssigned": "Users Assigned",
+        "featuresActivated": "Features Activated",
+        "lastActivity": "Last Activity",
+        "recommendedActions": "Recommended Actions",
+        "viewDetails": "View details"
+      },
+      "packStatus": {
+        "gettingStarted": "Getting Started",
+        "active": "Active",
+        "healthy": "Healthy",
+        "optimized": "Optimized",
+        "requiresAttention": "Requires Attention"
+      },
+      "usageTrends": {
+        "growing": "Growing",
+        "stable": "Stable",
+        "declining": "Declining"
+      },
+      "priorityLevels": {
+        "opportunity": "Opportunity",
+        "recommended": "Recommended",
+        "important": "Important",
+        "highImpact": "High Impact"
+      },
+      "recommendations": {
+        "completeOnboardingSteps": "Complete onboarding steps.",
+        "exploreAdvancedCapabilities": "Explore advanced capabilities.",
+        "trainAdditionalUsers": "Train additional users.",
+        "activateRecommendedIntegrations": "Activate recommended integrations.",
+        "reviewBestPractices": "Review best practices.",
+        "scheduleBusinessPackReview": "Schedule Business Pack review.",
+        "exploreBusinessPacks": "Explore available Business Packs."
+      },
+      "milestones": {
+        "installedSuccessfully": "Installed successfully",
+        "firstUserAssigned": "First user assigned",
+        "firstWorkflowCompleted": "First workflow completed",
+        "firstReportGenerated": "First report generated",
+        "recommendedSetupCompleted": "Recommended setup completed",
+        "teamTrainingCompleted": "Team training completed",
+        "adoptionThresholdReached": "Adoption threshold reached"
+      },
+      "onboarding": {
+        "initialSetup": "Complete initial setup",
+        "recommendedConfiguration": "Apply recommended configuration",
+        "assignUsers": "Assign users to this Business Pack",
+        "integrationSetup": "Activate recommended integrations",
+        "governanceReview": "Review governance recommendations"
+      },
+      "insights": {
+        "featuresFrequentlyUsed": "Features frequently used",
+        "featuresRarelyUsed": "Features rarely used",
+        "usersActivelyEngaging": "Users actively engaging",
+        "areasRequiringOnboarding": "Areas requiring additional onboarding",
+        "learningOpportunities": "Learning opportunities",
+        "recommendedConfigurations": "Recommended configurations"
+      },
+      "faq": {
+        "title": "Business Pack Success Center FAQ",
+        "whatIs": "What is the Business Pack Success Center?",
+        "whatIsAnswer": "The Business Pack Success Center helps organizations maximize the value of their installed Business Packs through onboarding guidance, adoption insights and best-practice recommendations.",
+        "improveAutomatically": "Can Aipify improve Business Pack adoption automatically?",
+        "improveAutomaticallyAnswer": "No. Aipify provides recommendations and insights while organizations remain responsible for implementation.",
+        "whyImportant": "Why are adoption insights important?",
+        "whyImportantAnswer": "Organizations often realize greater value when they actively engage with and optimize the capabilities they have already invested in."
       }
     }
   },
