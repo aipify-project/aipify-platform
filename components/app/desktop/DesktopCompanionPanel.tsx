@@ -22,6 +22,7 @@ export type DesktopCompanionLabels = {
   settings: string;
   modes: string;
   memory?: string;
+  workspace?: string;
   history: string;
   reminders: string;
   mode: string;
@@ -144,6 +145,9 @@ export function DesktopCompanionPanel({ labels, mode = "full" }: DesktopCompanio
               {labels.memory}
             </Link>
           ) : null}
+          <Link href="/desktop/workspace" className="rounded-lg border border-gray-200 px-4 py-2 text-sm">
+            {labels.workspace ?? "Workspace"}
+          </Link>
           <Link href="/app/desktop/history" className="rounded-lg border border-gray-200 px-4 py-2 text-sm">
             {labels.history}
           </Link>
