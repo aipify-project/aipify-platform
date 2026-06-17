@@ -1536,6 +1536,10 @@ export const INSTALL_ADOPTION_ENGINE_ABOS_PATH =
 
 export * from "./playful-moments-bell-vocabulary";
 export * from "./growth-partner-portal-phase331-vocabulary";
+export * from "./partner-academy-phase332-vocabulary";
 
 export const GROWTH_PARTNER_PORTAL_PHASE331_CORPUS =
   "aipify-core/knowledge/internal-language-model/growth-partner-portal-foundation-phase331.txt";
+
+export const PARTNER_ACADEMY_PHASE332_CORPUS =
+  "aipify-core/knowledge/internal-language-model/partner-academy-foundation-phase332.txt";

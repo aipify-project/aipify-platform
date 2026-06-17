@@ -1,0 +1,4 @@
+ABOS Phase 332 — Partner Academy Foundation
+Route: /partner/academy
+Core: Growth Partners should never feel unsupported — the Academy builds successful partner businesses.
+Helpers: _gpa332_* · _gpa332bp_*
