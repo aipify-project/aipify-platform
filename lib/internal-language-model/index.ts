@@ -331,6 +331,7 @@ export * from "./app-portal-phase320-future-state-planning-vocabulary";
 export * from "./app-portal-phase321-companion-context-engine-vocabulary";
 export * from "./app-portal-phase322-companion-memory-engine-vocabulary";
 export * from "./app-portal-phase323-companion-recommendation-engine-vocabulary";
+export * from "./app-portal-phase324-companion-proactive-insights-engine-vocabulary";
 export * from "./implementation-blueprint-phase314-vocabulary";
 export * from "./implementation-blueprint-phase315-vocabulary";
 export * from "./implementation-blueprint-phase316-vocabulary";
