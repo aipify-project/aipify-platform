@@ -336,6 +336,7 @@ export * from "./app-portal-phase325-companion-personalization-engine-vocabulary
 export * from "./app-portal-phase326-companion-daily-briefing-center-vocabulary";
 export * from "./app-portal-phase327-companion-work-prioritization-engine-vocabulary";
 export * from "./app-portal-phase328-companion-follow-up-engine-vocabulary";
+export * from "./app-portal-phase329-companion-relationship-intelligence-engine-vocabulary";
 export * from "./implementation-blueprint-phase314-vocabulary";
 export * from "./implementation-blueprint-phase315-vocabulary";
 export * from "./implementation-blueprint-phase316-vocabulary";
