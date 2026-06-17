@@ -23622,7 +23622,8 @@
       "businessPackValue": "Value Center",
       "businessPackCommandCenter": "Command Center",
       "businessPackEcosystemIntelligence": "Ecosystem Intelligence",
-      "businessPackAutomation": "Automation Center"
+      "businessPackAutomation": "Automation Center",
+      "businessPackGovernance": "Governance Center"
     },
     "dashboard": {
       "title": "APP-instrumentpanel",
@@ -28187,6 +28188,114 @@
         "autoActivateAnswer": "No. Explicit approval is always required before automations are enabled.",
         "whyGovernance": "Why is governance important for automation?",
         "whyGovernanceAnswer": "Governance ensures that automation supports organizational goals while maintaining accountability and human oversight."
+      }
+    },
+    "businessPackGovernance": {
+      "title": "Business Pack Governance Center",
+      "subtitle": "Establish clear ownership, accountability and governance oversight for every Business Pack.",
+      "loading": "Aipify is reviewing your Business Pack governance structure…",
+      "principle": "Organizations remain responsible for governance decisions — Aipify recommendations are advisory and ownership is never assigned automatically.",
+      "emptyTitle": "No governance insights are available yet.",
+      "emptyBody": "Strong governance ensures Business Packs remain accountable, effective and sustainable.",
+      "emptyCta": "Review Business Pack Governance",
+      "accessDenied": "Governance Center is not available for your role.",
+      "filters": {
+        "search": "Search Business Packs…",
+        "governanceStatus": "Governance status",
+        "department": "Department",
+        "primaryOwner": "Primary owner",
+        "backupOwner": "Backup owner",
+        "reviewFrequency": "Review frequency",
+        "periodFrom": "Activity since",
+        "all": "All"
+      },
+      "dashboard": {
+        "totalPacks": "Total Business Packs",
+        "packsWithOwners": "Business Packs with owners",
+        "packsMissingOwners": "Business Packs missing owners",
+        "governanceHealthScore": "Governance health score",
+        "upcomingReviews": "Upcoming reviews",
+        "ownershipChanges": "Ownership changes",
+        "executiveSummary": "Executive summary",
+        "governanceInsights": "Governance insights",
+        "recommendedActions": "Governance recommendations",
+        "timeline": "Governance timeline",
+        "healthOverview": "Governance health overview"
+      },
+      "card": {
+        "primaryOwner": "Primary owner",
+        "backupOwner": "Backup owner",
+        "department": "Department",
+        "governanceStatus": "Governance status",
+        "healthStatus": "Health",
+        "lastReview": "Last review",
+        "nextReview": "Next review",
+        "relatedRisks": "Related risks",
+        "recommendedActions": "Recommended actions",
+        "reviewFrequency": "Review frequency",
+        "viewDetails": "View details",
+        "completeReview": "Complete governance review"
+      },
+      "review": {
+        "title": "Governance review",
+        "notes": "Governance notes",
+        "frequency": "Review frequency",
+        "submit": "Submit review",
+        "success": "Governance review recorded successfully.",
+        "governanceNote": "Ownership decisions remain with the organization — this records review completion only."
+      },
+      "governanceStatuses": {
+        "wellGoverned": "Well governed",
+        "healthy": "Healthy",
+        "stable": "Stable",
+        "requiresReview": "Requires review",
+        "governanceGapIdentified": "Governance gap identified"
+      },
+      "healthStatuses": {
+        "thriving": "Thriving",
+        "healthy": "Healthy",
+        "stable": "Stable",
+        "requiresAttention": "Requires attention",
+        "criticalGovernanceGap": "Critical governance gap"
+      },
+      "reviewFrequencies": {
+        "monthly": "Monthly",
+        "quarterly": "Quarterly",
+        "semiAnnually": "Semi-annually",
+        "annually": "Annually",
+        "custom": "Custom"
+      },
+      "recommendations": {
+        "assignPrimaryOwner": "Assign a primary owner",
+        "appointBackupOwner": "Appoint a backup owner",
+        "scheduleOverdueReviews": "Schedule overdue governance reviews",
+        "reduceOwnershipConcentration": "Reduce ownership concentration",
+        "improveDepartmentalAccountability": "Improve departmental accountability",
+        "reviewGovernanceResponsibilities": "Review governance responsibilities"
+      },
+      "insights": {
+        "packsWithoutOwnership": "Packs without ownership",
+        "packsOverdueReview": "Packs overdue for review",
+        "ownershipConcentration": "Ownership concentration risks",
+        "strongestDepartments": "Departments with strongest governance",
+        "improvementOpportunities": "Improvement opportunities"
+      },
+      "timelineEvents": {
+        "ownershipAssigned": "Ownership assignment recorded",
+        "reviewCompleted": "Review completed",
+        "governanceChange": "Governance change recorded",
+        "recommendationAccepted": "Governance recommendation accepted",
+        "governanceRiskIdentified": "Governance risk identified",
+        "governanceMilestone": "Governance milestone achieved"
+      },
+      "faq": {
+        "title": "Governance Center FAQ",
+        "whatIs": "What is the Governance Center?",
+        "whatIsAnswer": "The Governance Center helps organizations establish clear ownership and accountability for Business Packs.",
+        "whyOwners": "Why do Business Packs need owners?",
+        "whyOwnersAnswer": "Ownership improves accountability, strengthens governance and ensures capabilities continue delivering value.",
+        "autoAssign": "Can Aipify assign Business Pack owners automatically?",
+        "autoAssignAnswer": "No. Organizations remain responsible for ownership decisions while Aipify provides guidance and visibility."
       }
     }
   },
