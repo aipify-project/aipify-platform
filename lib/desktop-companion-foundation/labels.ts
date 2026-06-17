@@ -64,6 +64,7 @@ export function buildDesktopCompanionLabels(t: (key: string) => string): Record<
     "nav.calendar",
     "nav.companion",
     "nav.workspace",
+    "nav.environment",
     "nav.knowledge",
     "nav.files",
     "nav.notifications",

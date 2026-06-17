@@ -63,6 +63,7 @@
     "calendar": "Calendar",
     "companion": "Companion",
     "workspace": "Workspace",
+    "environment": "Environment",
     "knowledge": "Knowledge",
     "files": "Files",
     "notifications": "Notifications",

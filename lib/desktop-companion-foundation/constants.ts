@@ -6,6 +6,7 @@ export const DESKTOP_COMPANION_NAV = [
   { id: "tasks", href: "/app/desktop/tasks", labelKey: "nav.tasks" },
   { id: "calendar", href: "/app/desktop/calendar", labelKey: "nav.calendar" },
   { id: "workspace", href: "/app/desktop/workspace", labelKey: "nav.workspace" },
+  { id: "environment", href: "/app/desktop/environment", labelKey: "nav.environment" },
   { id: "companion", href: "/app/desktop/companion", labelKey: "nav.companion" },
   { id: "knowledge", href: "/app/desktop/knowledge", labelKey: "nav.knowledge" },
   { id: "files", href: "/app/desktop/files", labelKey: "nav.files" },
