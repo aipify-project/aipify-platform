@@ -76,3 +76,5 @@ export { PredictiveIntelligencePanel } from "./PredictiveIntelligencePanel";
 export { PredictiveIntelligenceDetailPanel } from "./PredictiveIntelligenceDetailPanel";
 export { ScenarioPlanningPanel } from "./ScenarioPlanningPanel";
 export { ScenarioPlanningDetailPanel } from "./ScenarioPlanningDetailPanel";
+export { ExecutiveForesightPanel } from "./ExecutiveForesightPanel";
+export { ExecutiveForesightDetailPanel } from "./ExecutiveForesightDetailPanel";

@@ -1,0 +1,7 @@
+APP Portal Phase 314 — Executive Foresight Center
+Route: /app/intelligence/executive-foresight
+Dashboard alias: /dashboard/intelligence/executive-foresight
+Section: Intelligence (Enterprise Intelligence)
+Not Assistant — executive long-term thinking only
+Principle: Foresight is advisory — never claim certainty about future outcomes
+Helpers: _aefc314_*
