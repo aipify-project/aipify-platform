@@ -1389,7 +1389,8 @@
       "customerHealth": "Customer Health",
       "momentum": "Momentum",
       "resilience": "Resilience",
-      "executiveCompanion": "Executive Companion"
+      "executiveCompanion": "Executive Companion",
+      "abosCommandCenter": "Command Center"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -4732,6 +4733,116 @@
         "makesDecisionsAnswer": "No. Aipify supports leaders through information and recommendations while executives remain responsible for all decisions.",
         "replaceLeadership": "Can Executive Companion replace leadership?",
         "replaceLeadershipAnswer": "No. Executive Companion enhances leadership effectiveness but does not replace human judgment, accountability or experience."
+      }
+    },
+    "abosCommandCenter": {
+      "title": "Command Center",
+      "subtitle": "The unified executive experience for organizational awareness — strategic execution, operational health, and priorities in one place.",
+      "loading": "Aipify is preparing your Command Center…",
+      "principle": "Aipify provides insights and awareness — organizational leaders remain responsible for decisions and execution.",
+      "emptyTitle": "No command center insights are available yet.",
+      "emptyBody": "Aipify brings your organization together in one unified executive experience.",
+      "emptyCta": "Generate Executive Briefing",
+      "accessDenied": "Command Center requires leadership authorization.",
+      "filters": {
+        "search": "Search command center insights…",
+        "priority": "Priority",
+        "organizationalArea": "Organizational area",
+        "recommendationType": "Recommendation type",
+        "focusCategory": "Executive focus category",
+        "periodFrom": "Period from",
+        "all": "All"
+      },
+      "dashboard": {
+        "executiveBriefing": "Executive Briefing",
+        "organizationalStatus": "Organizational Status",
+        "todaysPriorities": "Today's Priorities",
+        "strategicOverview": "Strategic Overview",
+        "momentumOverview": "Momentum Overview",
+        "resilienceOverview": "Resilience Overview",
+        "capacityOverview": "Capacity Overview",
+        "riskOverview": "Risk Overview",
+        "successOverview": "Success Overview",
+        "customerHealthOverview": "Customer Health Overview",
+        "recommendations": "Recommendations",
+        "executiveTimeline": "Executive Timeline"
+      },
+      "briefing": {
+        "goodMorning": "Good morning.",
+        "overallHealth": "Overall organizational health remains {{status}}.",
+        "strategicInitiativesAttention": "{{count}} strategic initiatives require attention.",
+        "resilienceVulnerability": "{{count}} resilience vulnerability should be reviewed.",
+        "momentumPositive": "Momentum remains positive across {{count}} teams.",
+        "focusPrioritiesToday": "I recommend focusing on the following priorities today."
+      },
+      "orgStatus": {
+        "thriving": "thriving",
+        "healthy": "healthy",
+        "stable": "stable",
+        "requiresAttention": "requires attention",
+        "criticalAttentionRequired": "critical attention required"
+      },
+      "overviews": {
+        "onTrack": "Strategic initiatives on track",
+        "delayed": "Strategic initiatives delayed",
+        "milestonesAchieved": "Major milestones achieved",
+        "momentumScore": "Organizational Momentum Score",
+        "teamsAccelerating": "Teams accelerating",
+        "initiativesSlowing": "Initiatives slowing down",
+        "bottlenecks": "Bottlenecks identified",
+        "resilienceScore": "Resilience Score",
+        "vulnerabilities": "Vulnerabilities requiring attention",
+        "continuityReadiness": "Continuity readiness indicators",
+        "teamsApproachingLimits": "Teams approaching limits",
+        "healthyDistribution": "Healthy workload distribution",
+        "capacityRisks": "Capacity risks",
+        "highPriorityRisks": "High-priority risks",
+        "recentlyMitigated": "Recently mitigated risks",
+        "highPerforming": "High-performing initiatives",
+        "adoptionScore": "Adoption status",
+        "learningScore": "Learning progress",
+        "supportEngagement": "Support engagement"
+      },
+      "priorities": {
+        "decisionAttention": "Decision requiring attention",
+        "strategicAtRisk": "Strategic initiative at risk",
+        "executiveCommitment": "Executive commitment",
+        "criticalFollowUp": "Critical follow-up",
+        "highPriorityRecommendation": "High-priority recommendation",
+        "importantReview": "Important review due"
+      },
+      "priorityLevels": {
+        "informational": "Informational",
+        "opportunity": "Opportunity",
+        "important": "Important",
+        "immediateAttention": "Immediate Attention"
+      },
+      "recommendationTypes": {
+        "risk": "Risk",
+        "strategic": "Strategic",
+        "success": "Success",
+        "capacity": "Capacity",
+        "resilience": "Resilience"
+      },
+      "recommendations": {
+        "reviewCriticalRisks": "Review critical organizational risks.",
+        "scheduleStrategicMilestoneReviews": "Schedule strategic milestone reviews.",
+        "addressDelayedInitiatives": "Address delayed initiatives.",
+        "celebrateSuccessfulTeams": "Celebrate successful teams.",
+        "reviewCapacityPressures": "Review capacity pressures.",
+        "monitorResilienceImprovements": "Monitor resilience improvements."
+      },
+      "timeline": {
+        "title": "Executive Timeline"
+      },
+      "faq": {
+        "title": "Command Center FAQ",
+        "whatIs": "What is the Command Center?",
+        "whatIsAnswer": "The Command Center provides leaders with a unified view of organizational priorities, execution, risks and opportunities.",
+        "replacesModules": "Does the Command Center replace individual modules?",
+        "replacesModulesAnswer": "No. The Command Center summarizes information from across Aipify while allowing users to drill down into specialized areas when needed.",
+        "runsOrganization": "Can Aipify run the organization automatically?",
+        "runsOrganizationAnswer": "No. Aipify provides insights, recommendations and awareness while organizational leaders remain responsible for decisions and execution."
       }
     }
   }
