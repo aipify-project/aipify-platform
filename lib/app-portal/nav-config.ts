@@ -67,6 +67,7 @@ export type AppPortalNavId =
   | "enterpriseReadiness"
   | "crossFunctionalIntelligence"
   | "intelligenceCommandCenter"
+  | "futureStatePlanning"
   | "abosCommandCenter"
   | "subscription"
   | "paymentHistory"
@@ -204,6 +205,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
       { id: "enterpriseReadiness", href: "/app/intelligence/enterprise-readiness", labelKey: "customerApp.portalStructure.nav.enterpriseReadiness" },
       { id: "crossFunctionalIntelligence", href: "/app/intelligence/cross-functional-intelligence", labelKey: "customerApp.portalStructure.nav.crossFunctionalIntelligence" },
       { id: "intelligenceCommandCenter", href: "/app/intelligence/intelligence-command-center", labelKey: "customerApp.portalStructure.nav.intelligenceCommandCenter" },
+      { id: "futureStatePlanning", href: "/app/intelligence/future-state-planning", labelKey: "customerApp.portalStructure.nav.futureStatePlanning" },
     ],
   },
   {
@@ -277,6 +279,8 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/dashboard/intelligence/cross-functional-intelligence")) return "crossFunctionalIntelligence";
   if (pathname.startsWith("/app/intelligence/intelligence-command-center")) return "intelligenceCommandCenter";
   if (pathname.startsWith("/dashboard/intelligence/command-center")) return "intelligenceCommandCenter";
+  if (pathname.startsWith("/app/intelligence/future-state-planning")) return "futureStatePlanning";
+  if (pathname.startsWith("/dashboard/intelligence/future-state-planning")) return "futureStatePlanning";
   if (pathname.startsWith("/app/intelligence/benchmarking")) return "enterpriseBenchmarking";
   if (pathname.startsWith("/app/intelligence/command-center")) return "abosCommandCenter";
   if (pathname.startsWith("/app/intelligence/executive-companion")) return "executiveCompanion";

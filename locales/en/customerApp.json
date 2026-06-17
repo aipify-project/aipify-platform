@@ -24954,7 +24954,8 @@
       "organizationalForecasting": "Organizational Forecasting",
       "enterpriseReadiness": "Enterprise Readiness",
       "crossFunctionalIntelligence": "Cross-Functional Intelligence",
-      "intelligenceCommandCenter": "Intelligence Command Center"
+      "intelligenceCommandCenter": "Intelligence Command Center",
+      "futureStatePlanning": "Future-State Planning"
     },
     "dashboard": {
       "title": "APP Dashboard",
@@ -31241,6 +31242,188 @@
         "replacesModulesAnswer": "No. It aggregates information from intelligence modules while preserving each module's detailed capabilities.",
         "whoShouldUse": "Who should use this module?",
         "whoShouldUseAnswer": "Owners, executives and authorized leaders responsible for organizational planning and decision-making."
+      }
+    },
+    "futureStatePlanning": {
+      "title": "Future-State Planning",
+      "subtitle": "Define, visualize and manage the future state your organization aims to achieve.",
+      "loading": "Aipify is preparing your future-state planning workspace...",
+      "principle": "Vision before execution. Strategy before tactics. Leadership defines goals — Aipify assists planning.",
+      "advisoryNote": "Future-state plans are organizational assets. Aipify provides structure and visibility — leadership owns strategy.",
+      "emptyTitle": "No future-state plans have been created yet.",
+      "emptyBody": "Aipify helps organizations define where they want to go and build a structured path to get there.",
+      "emptyCta": "Create Future-State Plan",
+      "accessDenied": "Future-State Planning access requires owner authorization or explicit grant.",
+      "filters": {
+        "search": "Search plans, vision, objectives...",
+        "category": "Category",
+        "department": "Department",
+        "strategicPriority": "Strategic priority",
+        "timeHorizon": "Time horizon",
+        "executiveOwner": "Executive owner",
+        "status": "Status",
+        "all": "All"
+      },
+      "dashboard": {
+        "readinessScore": "Future-State Readiness Score",
+        "alignmentScore": "Strategic Alignment Score",
+        "progressScore": "Future-State Progress Score",
+        "completenessScore": "Planning Completeness Score",
+        "executiveSummary": "Executive Summary",
+        "activePlans": "Active Future-State Plans",
+        "upcomingReviews": "Upcoming Strategic Reviews",
+        "allPlans": "Future-State Plans",
+        "recommendations": "Recommended Actions",
+        "milestones": "Milestone Tracking",
+        "timeline": "Future-State Timeline",
+        "briefing": "Executive Briefing",
+        "alignmentView": "Strategic Alignment View",
+        "blueprint": "Future-State Blueprint",
+        "planningQuestions": "Future-State Questions",
+        "viewPlan": "View plan details",
+        "createPlan": "Create Future-State Plan"
+      },
+      "blueprint": {
+        "visionStatement": "Vision Statement",
+        "desiredOutcomes": "Desired Outcomes",
+        "strategicPriorities": "Strategic Priorities",
+        "executiveSponsors": "Executive Sponsors",
+        "departmentsInvolved": "Departments Involved",
+        "estimatedTimeline": "Estimated Timeline",
+        "keyDependencies": "Key Dependencies",
+        "risks": "Risks",
+        "opportunities": "Opportunities",
+        "currentState": "Current State",
+        "desiredFutureState": "Desired Future State",
+        "strategicObjectives": "Strategic Objectives",
+        "initiatives": "Initiatives",
+        "successIndicators": "Success Indicators",
+        "reviewSchedule": "Review Schedule"
+      },
+      "alignment": {
+        "department": "Department",
+        "currentAlignment": "Current Alignment",
+        "targetAlignment": "Target Alignment",
+        "progress": "Progress",
+        "owner": "Owner",
+        "reviewDate": "Review Date"
+      },
+      "milestone": {
+        "planned": "Planned",
+        "completed": "Completed",
+        "delayed": "Delayed",
+        "upcoming": "Upcoming",
+        "successIndicator": "Success indicator",
+        "owner": "Owner",
+        "targetDate": "Target date"
+      },
+      "briefing": {
+        "currentPosition": "Current Position",
+        "futureVision": "Future-State Vision",
+        "progressStatus": "Progress Status",
+        "keyOpportunities": "Key Opportunities",
+        "keyRisks": "Key Risks",
+        "recommendedActions": "Recommended Actions",
+        "nextReviewDate": "Next Review Date"
+      },
+      "detail": {
+        "back": "Back to Future-State Planning",
+        "blueprint": "Future-State Blueprint",
+        "alignment": "Strategic Alignment",
+        "milestones": "Milestones",
+        "reviewHistory": "Review history",
+        "advisoryNote": "Leadership remains responsible for strategy and future direction."
+      },
+      "create": {
+        "title": "Plan title",
+        "description": "Description (optional)",
+        "category": "Category",
+        "horizon": "Planning horizon",
+        "vision": "Vision statement (optional)",
+        "submit": "Create plan",
+        "success": "Future-state plan created successfully."
+      },
+      "categories": {
+        "organizationalGrowth": "Organizational Growth",
+        "leadershipEvolution": "Leadership Evolution",
+        "workforceDevelopment": "Workforce Development",
+        "customerExperience": "Customer Experience",
+        "marketExpansion": "Market Expansion",
+        "operationalExcellence": "Operational Excellence",
+        "technologyAdvancement": "Technology Advancement",
+        "governanceMaturity": "Governance Maturity",
+        "businessInnovation": "Business Innovation",
+        "enterpriseTransformation": "Enterprise Transformation"
+      },
+      "statuses": {
+        "draft": "Draft",
+        "active": "Active",
+        "underReview": "Under review",
+        "onTrack": "On track",
+        "atRisk": "At risk",
+        "completed": "Completed",
+        "archived": "Archived"
+      },
+      "horizons": {
+        "oneYear": "1 Year",
+        "threeYears": "3 Years",
+        "fiveYears": "5 Years",
+        "tenYears": "10 Years",
+        "custom": "Custom"
+      },
+      "priorities": {
+        "low": "Low",
+        "moderate": "Moderate",
+        "high": "High",
+        "strategic": "Strategic"
+      },
+      "milestoneStatuses": {
+        "planned": "Planned",
+        "completed": "Completed",
+        "delayed": "Delayed",
+        "upcoming": "Upcoming"
+      },
+      "recommendations": {
+        "defineExecutiveOwnership": "Define executive ownership",
+        "clarifyStrategicPriorities": "Clarify strategic priorities",
+        "improveDepartmentAlignment": "Improve alignment across departments",
+        "createMilestoneReviews": "Create milestone reviews",
+        "strengthenGovernance": "Strengthen governance",
+        "establishMeasurementFrameworks": "Establish measurement frameworks"
+      },
+      "timelineEvents": {
+        "workspaceInitialized": "Planning workspace initialized",
+        "visionCreated": "Vision created",
+        "planUpdated": "Plan updated",
+        "strategicReview": "Strategic review",
+        "milestoneCompleted": "Milestone completed",
+        "initiativeLaunched": "Initiative launched",
+        "alignmentReview": "Alignment review"
+      },
+      "planningQuestions": {
+        "whatSuccessLooksLike": "What does success look like?",
+        "whatMustChange": "What must change to achieve this future state?",
+        "capabilitiesRequired": "What capabilities are required?",
+        "risksToManage": "Which risks must be managed?",
+        "initiativesToday": "Which initiatives should start today?",
+        "measureProgress": "How will progress be measured?"
+      },
+      "successIndicators": {
+        "customerSatisfaction": "Customer Satisfaction",
+        "revenueGoals": "Revenue Goals",
+        "workforceDevelopment": "Workforce Development",
+        "operationalEfficiency": "Operational Efficiency",
+        "expansionTargets": "Expansion Targets",
+        "strategicObjectives": "Strategic Objectives"
+      },
+      "faq": {
+        "title": "Future-State Planning FAQ",
+        "whatIs": "What is Future-State Planning?",
+        "whatIsAnswer": "Future-State Planning helps organizations define long-term goals and create structured plans for achieving them.",
+        "createsStrategy": "Does Aipify create our strategy?",
+        "createsStrategyAnswer": "No. Leadership remains responsible for strategy. Aipify provides structure, visibility and planning support.",
+        "whoShouldUse": "Who should use this module?",
+        "whoShouldUseAnswer": "Owners, executives and authorized leaders responsible for organizational direction and long-term planning."
       }
     }
   },

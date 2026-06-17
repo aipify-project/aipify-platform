@@ -10,6 +10,8 @@ export * from "./business-phrase-detection";
 export * from "./nble-detection";
 export * from "./proactive-guidance-vocabulary";
 export * from "./proactive-guidance";
+export * from "./companion-golden-rule-vocabulary";
+export * from "./companion-golden-rule";
 export * from "./reminder-followup-vocabulary";
 export * from "./reminder-followup";
 export * from "./brand-identity-vocabulary";
@@ -325,6 +327,7 @@ export * from "./app-portal-phase316-organizational-forecasting-vocabulary";
 export * from "./app-portal-phase317-enterprise-readiness-vocabulary";
 export * from "./app-portal-phase318-cross-functional-intelligence-vocabulary";
 export * from "./app-portal-phase319-intelligence-command-center-vocabulary";
+export * from "./app-portal-phase320-future-state-planning-vocabulary";
 export * from "./implementation-blueprint-phase314-vocabulary";
 export * from "./implementation-blueprint-phase315-vocabulary";
 export * from "./implementation-blueprint-phase316-vocabulary";
@@ -457,6 +460,9 @@ export const BUSINESS_PHRASE_DATASET_PATH =
 
 export const PROACTIVE_GUIDANCE_LANGUAGE_PATH =
   "aipify-core/knowledge/internal-language-model/proactive-guidance-language.txt";
+
+export const COMPANION_GOLDEN_RULE_PATH =
+  "aipify-core/knowledge/internal-language-model/companion-golden-rule.txt";
 
 export const REMINDER_FOLLOWUP_LANGUAGE_PATH =
   "aipify-core/knowledge/internal-language-model/reminder-and-followup-language.txt";
