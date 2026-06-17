@@ -50,7 +50,7 @@ create index if not exists hospitality_portfolios_tenant_idx
 create table if not exists public.hospitality_property_profiles (
   id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null references public.customers (id) on delete cascade,
-  property_id uuid not null unique references public.aipify_hosts_properties (id) on delete cascade,
+  property_id uuid not null,
   portfolio_id uuid references public.hospitality_portfolios (id) on delete set null,
   property_type text not null default 'apartment' check (
     property_type in (
@@ -101,7 +101,7 @@ create table if not exists public.hospitality_advisor_signals (
   recommendation text not null default '',
   effort text not null default 'moderate' check (effort in ('low', 'moderate', 'high')),
   confidence text not null default 'moderate' check (confidence in ('low', 'moderate', 'high')),
-  property_id uuid references public.aipify_hosts_properties (id) on delete set null,
+  property_id uuid,
   created_at timestamptz not null default now()
 );
 
@@ -140,6 +140,29 @@ revoke all on public.hospitality_property_profiles from authenticated, anon;
 revoke all on public.hospitality_channel_connections from authenticated, anon;
 revoke all on public.hospitality_advisor_signals from authenticated, anon;
 revoke all on public.hospitality_accommodation_audit_logs from authenticated, anon;
+
+-- Optional FK to Aipify Hosts when that engine is migrated
+do $$
+begin
+  if to_regclass('public.aipify_hosts_properties') is not null then
+    if not exists (
+      select 1 from pg_constraint where conname = 'hospitality_property_profiles_property_id_fkey'
+    ) then
+      alter table public.hospitality_property_profiles
+        add constraint hospitality_property_profiles_property_id_fkey
+        foreign key (property_id) references public.aipify_hosts_properties (id) on delete cascade;
+      create unique index if not exists hospitality_property_profiles_property_id_uidx
+        on public.hospitality_property_profiles (property_id);
+    end if;
+    if not exists (
+      select 1 from pg_constraint where conname = 'hospitality_advisor_signals_property_id_fkey'
+    ) then
+      alter table public.hospitality_advisor_signals
+        add constraint hospitality_advisor_signals_property_id_fkey
+        foreign key (property_id) references public.aipify_hosts_properties (id) on delete set null;
+    end if;
+  end if;
+end $$;
 
 insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
 select v.key, v.label, 'hospitality_accommodation_pack', v.description
@@ -334,9 +357,11 @@ declare
   v_maintenance_open integer := 0;
   v_reviews integer := 0;
 begin
-  select count(*)::int, coalesce(avg(health_score), 0)
-  into v_properties, v_health
-  from public.aipify_hosts_properties where tenant_id = p_tenant_id and status = 'active';
+  if to_regclass('public.aipify_hosts_properties') is not null then
+    select count(*)::int, coalesce(avg(health_score), 0)
+    into v_properties, v_health
+    from public.aipify_hosts_properties where tenant_id = p_tenant_id and status = 'active';
+  end if;
 
   if to_regclass('public.aipify_hosts_booking_reservations') is not null then
     select count(*)::int,
@@ -371,16 +396,18 @@ begin
   end if;
 
   begin
-    v_occupancy := coalesce((
-      public._ahostexec_executive_summary(p_tenant_id)->>'occupancy_rate'
-    )::numeric, 0);
-    v_revenue := coalesce((
-      public._ahostexec_executive_summary(p_tenant_id)->>'revenue_this_month'
-    )::numeric, 0);
-    if v_satisfaction = 0 then
-      v_satisfaction := coalesce((
-        public._ahostexec_executive_summary(p_tenant_id)->>'guest_satisfaction_score'
+    if to_regprocedure('public._ahostexec_executive_summary(uuid)') is not null then
+      v_occupancy := coalesce((
+        public._ahostexec_executive_summary(p_tenant_id)->>'occupancy_rate'
       )::numeric, 0);
+      v_revenue := coalesce((
+        public._ahostexec_executive_summary(p_tenant_id)->>'revenue_this_month'
+      )::numeric, 0);
+      if v_satisfaction = 0 then
+        v_satisfaction := coalesce((
+          public._ahostexec_executive_summary(p_tenant_id)->>'guest_satisfaction_score'
+        )::numeric, 0);
+      end if;
     end if;
   exception when others then
     v_occupancy := 0;
@@ -433,24 +460,28 @@ begin
   v_org_id := (v_ctx->>'organization_id')::uuid;
   v_tenant_id := (v_ctx->>'tenant_id')::uuid;
   v_settings := public._ghap401_ensure_settings(v_org_id, v_tenant_id);
-  perform public._ahost_ensure_settings(v_tenant_id);
+  if to_regprocedure('public._ahost_ensure_settings(uuid)') is not null then
+    perform public._ahost_ensure_settings(v_tenant_id);
+  end if;
   perform public._ghap401_seed_channels(v_tenant_id);
   perform public._ghap401_seed_advisor(v_tenant_id);
 
-  select coalesce(jsonb_agg(jsonb_build_object(
-    'id', p.id, 'property_key', p.property_key, 'display_name', p.display_name,
-    'platform_source', p.platform_source, 'status', p.status, 'health_score', p.health_score,
-    'property_type', coalesce(hpp.property_type, 'apartment'),
-    'location', coalesce(hpp.location, ''),
-    'capacity', coalesce(hpp.capacity, 2),
-    'owner_name', coalesce(hpp.owner_name, ''),
-    'performance_label', coalesce(hpp.performance_label, 'stable'),
-    'portfolio_id', hpp.portfolio_id
-  ) order by p.display_name), '[]'::jsonb)
-  into v_properties
-  from public.aipify_hosts_properties p
-  left join public.hospitality_property_profiles hpp on hpp.property_id = p.id
-  where p.tenant_id = v_tenant_id and p.status = 'active';
+  if to_regclass('public.aipify_hosts_properties') is not null then
+    select coalesce(jsonb_agg(jsonb_build_object(
+      'id', p.id, 'property_key', p.property_key, 'display_name', p.display_name,
+      'platform_source', p.platform_source, 'status', p.status, 'health_score', p.health_score,
+      'property_type', coalesce(hpp.property_type, 'apartment'),
+      'location', coalesce(hpp.location, ''),
+      'capacity', coalesce(hpp.capacity, 2),
+      'owner_name', coalesce(hpp.owner_name, ''),
+      'performance_label', coalesce(hpp.performance_label, 'stable'),
+      'portfolio_id', hpp.portfolio_id
+    ) order by p.display_name), '[]'::jsonb)
+    into v_properties
+    from public.aipify_hosts_properties p
+    left join public.hospitality_property_profiles hpp on hpp.property_id = p.id
+    where p.tenant_id = v_tenant_id and p.status = 'active';
+  end if;
 
   if to_regclass('public.aipify_hosts_booking_reservations') is not null then
     select coalesce(jsonb_agg(jsonb_build_object(
@@ -508,7 +539,11 @@ begin
   from public.hospitality_portfolios pf
   where pf.tenant_id = v_tenant_id and pf.status = 'active';
 
-  v_hosts_modules := coalesce(public._ahostbp364_modules(), '[]'::jsonb);
+  v_hosts_modules := case
+    when to_regprocedure('public._ahostbp364_modules()') is not null
+    then coalesce(public._ahostbp364_modules(), '[]'::jsonb)
+    else '[]'::jsonb
+  end;
 
   return jsonb_build_object(
     'found', true,
@@ -572,10 +607,11 @@ declare
   v_org_id uuid;
   v_tenant_id uuid;
   v_action text;
-  v_property public.aipify_hosts_properties;
+  v_property_id uuid;
   v_profile public.hospitality_property_profiles;
-  v_reservation public.aipify_hosts_booking_reservations;
+  v_reservation_id uuid;
   v_portfolio public.hospitality_portfolios;
+  v_display_name text;
 begin
   perform public._irp_require_permission('hospitality.manage');
   perform public._ghap401_require_access();
@@ -585,6 +621,9 @@ begin
   v_action := coalesce(p_payload->>'action', '');
 
   if v_action = 'create_property' then
+    if to_regclass('public.aipify_hosts_properties') is null then
+      raise exception 'Aipify Hosts property engine not yet available on this environment';
+    end if;
     insert into public.aipify_hosts_properties (
       tenant_id, property_key, display_name, platform_source, status, health_score
     ) values (
@@ -594,12 +633,12 @@ begin
       coalesce(p_payload->>'platform_source', 'direct'),
       'active',
       coalesce((p_payload->>'health_score')::numeric, 75)
-    ) returning * into v_property;
+    ) returning id, display_name into v_property_id, v_display_name;
 
     insert into public.hospitality_property_profiles (
       tenant_id, property_id, property_type, location, capacity, owner_name, amenities
     ) values (
-      v_tenant_id, v_property.id,
+      v_tenant_id, v_property_id,
       coalesce(p_payload->>'property_type', 'apartment'),
       coalesce(p_payload->>'location', ''),
       coalesce((p_payload->>'capacity')::int, 2),
@@ -608,14 +647,17 @@ begin
     ) returning * into v_profile;
 
     perform public._ghap401_log_audit(
-      v_tenant_id, 'property_created', 'Property created: ' || v_property.display_name,
-      jsonb_build_object('property_id', v_property.id, 'property_type', v_profile.property_type)
+      v_tenant_id, 'property_created', 'Property created: ' || v_display_name,
+      jsonb_build_object('property_id', v_property_id, 'property_type', v_profile.property_type)
     );
 
-    return jsonb_build_object('ok', true, 'property_id', v_property.id);
+    return jsonb_build_object('ok', true, 'property_id', v_property_id);
   end if;
 
   if v_action = 'create_reservation' then
+    if to_regclass('public.aipify_hosts_booking_reservations') is null then
+      raise exception 'Aipify Hosts booking engine not yet available on this environment';
+    end if;
     insert into public.aipify_hosts_booking_reservations (
       tenant_id, property_id, reservation_reference, guest_name,
       check_in_date, check_out_date, number_of_guests, booking_status, booking_channel
@@ -629,14 +671,14 @@ begin
       coalesce((p_payload->>'number_of_guests')::int, 2),
       coalesce(p_payload->>'booking_status', 'confirmed'),
       coalesce(p_payload->>'booking_channel', 'direct')
-    ) returning * into v_reservation;
+    ) returning id into v_reservation_id;
 
     perform public._ghap401_log_audit(
-      v_tenant_id, 'reservation_created', 'Reservation created: ' || v_reservation.reservation_reference,
-      jsonb_build_object('reservation_id', v_reservation.id)
+      v_tenant_id, 'reservation_created', 'Reservation created',
+      jsonb_build_object('reservation_id', v_reservation_id)
     );
 
-    return jsonb_build_object('ok', true, 'reservation_id', v_reservation.id);
+    return jsonb_build_object('ok', true, 'reservation_id', v_reservation_id);
   end if;
 
   if v_action = 'create_portfolio' then
