@@ -329,6 +329,7 @@ export * from "./app-portal-phase318-cross-functional-intelligence-vocabulary";
 export * from "./app-portal-phase319-intelligence-command-center-vocabulary";
 export * from "./app-portal-phase320-future-state-planning-vocabulary";
 export * from "./app-portal-phase321-companion-context-engine-vocabulary";
+export * from "./app-portal-phase322-companion-memory-engine-vocabulary";
 export * from "./implementation-blueprint-phase314-vocabulary";
 export * from "./implementation-blueprint-phase315-vocabulary";
 export * from "./implementation-blueprint-phase316-vocabulary";

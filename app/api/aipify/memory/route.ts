@@ -1,73 +1,66 @@
 import { NextResponse } from "next/server";
+import { parseCompanionMemoryDashboard, parseCompanionMemoryAction } from "@/lib/aipify/companion-memory-engine";
 import { createClient } from "@/lib/supabase/server";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     const supabase = await createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+    const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const { data, error } = await supabase.rpc("get_customer_organizational_memory_center");
-    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
-    return NextResponse.json(data);
+    const { searchParams } = new URL(request.url);
+    const { data, error } = await supabase.rpc("get_companion_memory_dashboard", {
+      p_memory_type: searchParams.get("memory_type") || null,
+      p_source:      searchParams.get("source")      || null,
+      p_department:  searchParams.get("department")  || null,
+      p_status:      searchParams.get("status")      || null,
+      p_confidence:  searchParams.get("confidence")  || null,
+      p_date_from:   searchParams.get("date_from")   || null,
+      p_search:      searchParams.get("search")      || null,
+    });
+    if (error) return NextResponse.json({ error: error.message }, { status: 403 });
+    return NextResponse.json(parseCompanionMemoryDashboard(data));
   } catch {
-    return NextResponse.json({ error: "Organizational memory request failed" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to load companion memory" }, { status: 500 });
   }
 }
 
 export async function POST(request: Request) {
   try {
     const supabase = await createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+    const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const body = await request.json();
+    const body = (await request.json()) as {
+      title?: string;
+      summary?: string;
+      content?: string;
+      category?: string;
+      memory_type?: string;
+      memory_scope?: string;
+      source_key?: string;
+      department?: string;
+      confidence?: string;
+      reason?: string;
+    };
 
-    if (body.entry_type === "decision") {
-      const { data, error } = await supabase.rpc("create_decision_record", {
-        p_decision_title: body.decision_title ?? body.title,
-        p_decision_summary: body.decision_summary ?? body.summary ?? "",
-        p_rationale: body.rationale ?? "",
-        p_alternatives_considered: body.alternatives_considered ?? "",
-        p_expected_outcome: body.expected_outcome ?? "",
-        p_actual_outcome: body.actual_outcome ?? "",
-        p_decision_owner: body.decision_owner ?? null,
-        p_decision_date: body.decision_date ?? undefined,
-        p_visibility_level: body.visibility_level ?? "tenant",
-      });
-      if (error) return NextResponse.json({ error: error.message }, { status: 400 });
-      return NextResponse.json(data);
-    }
-
-    if (body.entry_type === "lesson") {
-      const { data, error } = await supabase.rpc("create_lesson_learned", {
-        p_related_project: body.related_project ?? "",
-        p_what_worked: body.what_worked ?? "",
-        p_what_did_not_work: body.what_did_not_work ?? "",
-        p_future_recommendations: body.future_recommendations ?? "",
-        p_lesson_date: body.lesson_date ?? undefined,
-        p_visibility_level: body.visibility_level ?? "tenant",
-      });
-      if (error) return NextResponse.json({ error: error.message }, { status: 400 });
-      return NextResponse.json(data);
-    }
-
-    const { data, error } = await supabase.rpc("create_memory_entry", {
-      p_title: body.title,
-      p_summary: body.summary ?? "",
-      p_detailed_notes: body.detailed_notes ?? "",
-      p_category: body.category ?? "operational",
-      p_memory_date: body.memory_date ?? undefined,
-      p_tags_json: body.tags_json ?? [],
-      p_visibility_level: body.visibility_level ?? "personal",
+    const { data, error } = await supabase.rpc("create_companion_memory", {
+      p_title:        body.title        ?? "",
+      p_summary:      body.summary      ?? "",
+      p_content:      body.content      ?? "",
+      p_category:     body.category     ?? null,
+      p_memory_type:  body.memory_type  ?? null,
+      p_memory_scope: body.memory_scope ?? null,
+      p_source_key:   body.source_key   ?? null,
+      p_department:   body.department   ?? null,
+      p_confidence:   body.confidence   ?? null,
+      p_reason:       body.reason       ?? null,
     });
-    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
-    return NextResponse.json(data);
+    if (error) return NextResponse.json({ error: error.message }, { status: 403 });
+    const result = parseCompanionMemoryAction(data);
+    if (!result.ok) return NextResponse.json({ error: result.error ?? "Failed" }, { status: 403 });
+    return NextResponse.json(result);
   } catch {
-    return NextResponse.json({ error: "Create memory failed" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to create memory" }, { status: 500 });
   }
 }
