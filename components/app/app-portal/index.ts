@@ -70,3 +70,5 @@ export { BusinessPackAutomationPanel } from "./BusinessPackAutomationPanel";
 export { BusinessPackGovernancePanel } from "./BusinessPackGovernancePanel";
 export { BusinessPackCompliancePanel } from "./BusinessPackCompliancePanel";
 export { BusinessPackExecutivePortfolioPanel } from "./BusinessPackExecutivePortfolioPanel";
+export { EnterpriseBenchmarkingPanel } from "./EnterpriseBenchmarkingPanel";
+export { EnterpriseBenchmarkingDimensionPanel } from "./EnterpriseBenchmarkingDimensionPanel";

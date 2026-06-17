@@ -24898,6 +24898,7 @@
       "businessPackGovernance": "Governance Center",
       "businessPackCompliance": "Compliance Center",
       "businessPackExecutivePortfolio": "Executive Portfolio",
+      "enterpriseBenchmarking": "Enterprise Benchmarking",
       "tasks": "Tasks",
       "workflows": "Workflows",
       "executiveInsights": "Executive Insights",
@@ -29764,6 +29765,122 @@
         "investmentDecisionsAnswer": "No. Aipify provides visibility and recommendations while executives remain responsible for all investment and portfolio decisions.",
         "whyOversight": "Why is portfolio oversight important?",
         "whyOversightAnswer": "Portfolio oversight helps organizations maximize value, strengthen governance and ensure Business Packs continue supporting strategic objectives."
+      }
+    },
+    "enterpriseBenchmarking": {
+      "title": "Enterprise Benchmarking",
+      "subtitle": "Understand operational maturity and identify opportunities for continuous improvement across your Business Operating System.",
+      "loading": "Aipify is evaluating your organizational maturity...",
+      "principle": "Maturity insights support strategic investment decisions — your organization defines its own objectives.",
+      "anonymizedNote": "All benchmarking insights are aggregated and anonymized. No customer-specific data is exposed.",
+      "emptyTitle": "No maturity insights are available yet.",
+      "emptyBody": "Aipify helps organizations understand where they are today and where they can grow tomorrow.",
+      "emptyCta": "Start Maturity Assessment",
+      "accessDenied": "Enterprise Benchmarking access requires owner authorization or an explicit grant.",
+      "filters": {
+        "search": "Search dimensions, insights, recommendations...",
+        "dimension": "Maturity dimension",
+        "maturityLevel": "Maturity level",
+        "organizationalArea": "Organizational area",
+        "priorityLevel": "Priority level",
+        "timePeriod": "Time period",
+        "all": "All"
+      },
+      "dashboard": {
+        "overallMaturity": "Overall Organizational Maturity",
+        "operationalMaturity": "Operational Maturity",
+        "governanceMaturity": "Governance Maturity",
+        "learningMaturity": "Learning Maturity",
+        "executiveIntelligence": "Executive Intelligence Maturity",
+        "businessPackMaturity": "Business Pack Maturity",
+        "recommendedFocus": "Recommended Focus Areas",
+        "executiveSummary": "Executive Summary",
+        "benchmarkInsights": "Benchmark Insights",
+        "recommendedActions": "Aipify Recommendations",
+        "timeline": "Maturity Timeline",
+        "maturityDimensions": "Maturity Dimensions",
+        "viewDimension": "View dimension details"
+      },
+      "detail": {
+        "back": "Back to Benchmarking",
+        "currentLevel": "Current maturity level",
+        "strengths": "Strengths identified",
+        "opportunities": "Improvement opportunities",
+        "historicalTrends": "Historical trends",
+        "recommendedActions": "Recommended next actions",
+        "relatedCapabilities": "Related capabilities",
+        "learningResources": "Suggested learning resources",
+        "completeAssessment": "Complete dimension assessment"
+      },
+      "assessment": {
+        "title": "Maturity assessment",
+        "notes": "Assessment notes (optional)",
+        "maturityLevel": "Overall maturity level",
+        "submit": "Submit assessment",
+        "success": "Maturity assessment recorded successfully.",
+        "governanceNote": "Recommendations remain advisory — leadership defines strategic objectives."
+      },
+      "maturityLevels": {
+        "level1": "Emerging",
+        "level2": "Developing",
+        "level3": "Established",
+        "level4": "Advanced",
+        "level5": "Transformational",
+        "emerging": "Emerging",
+        "developing": "Developing",
+        "established": "Established",
+        "advanced": "Advanced",
+        "transformational": "Transformational"
+      },
+      "dimensions": {
+        "leadershipDecisionMaking": "Leadership & Decision Making",
+        "operationalExcellence": "Operational Excellence",
+        "governanceCompliance": "Governance & Compliance",
+        "learningDevelopment": "Learning & Development",
+        "customerSuccess": "Customer Success",
+        "businessPackAdoption": "Business Pack Adoption",
+        "strategicExecution": "Strategic Execution",
+        "riskResilience": "Risk & Resilience",
+        "automationReadiness": "Automation Readiness",
+        "organizationalIntelligence": "Organizational Intelligence"
+      },
+      "priorityLevels": {
+        "low": "Low",
+        "moderate": "Moderate",
+        "high": "High",
+        "critical": "Critical"
+      },
+      "recommendations": {
+        "expandLearningInitiatives": "Expand learning initiatives",
+        "strengthenExecutiveReviews": "Strengthen executive review practices",
+        "increaseBusinessPackAdoption": "Increase Business Pack adoption",
+        "reviewGovernanceResponsibilities": "Review governance responsibilities",
+        "prioritizeStrategicExecution": "Prioritize strategic execution improvements",
+        "celebrateMaturityAdvancements": "Celebrate maturity advancements"
+      },
+      "insights": {
+        "strongest": "Strongest maturity dimensions",
+        "lowest": "Lowest maturity dimensions",
+        "improvingRapidly": "Areas improving most rapidly",
+        "limitedProgress": "Areas showing limited progress",
+        "crossFunctional": "Cross-functional maturity patterns"
+      },
+      "timelineEvents": {
+        "assessmentCompleted": "Maturity assessment completed",
+        "maturityBaseline": "Maturity baseline established",
+        "improvementLaunched": "Improvement initiative launched",
+        "milestoneAchieved": "Milestone achieved",
+        "capabilityImproved": "Capability improvement recorded",
+        "strategicInvestment": "Strategic investment completed"
+      },
+      "faq": {
+        "title": "Enterprise Benchmarking FAQ",
+        "whatIs": "What is Enterprise Benchmarking?",
+        "whatIsAnswer": "Enterprise Benchmarking helps organizations understand operational maturity and identify opportunities for continuous improvement.",
+        "anonymous": "Are benchmarking insights anonymous?",
+        "anonymousAnswer": "Yes. All benchmarking data is aggregated and anonymized. No customer-specific information is exposed.",
+        "determinesSuccess": "Does maturity determine organizational success?",
+        "determinesSuccessAnswer": "No. Maturity insights provide guidance and opportunities for improvement, while organizations define their own strategic objectives."
       }
     },
     "pages": {

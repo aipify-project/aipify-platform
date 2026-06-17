@@ -58,6 +58,7 @@ export type AppPortalNavId =
   | "momentum"
   | "resilience"
   | "executiveCompanion"
+  | "enterpriseBenchmarking"
   | "abosCommandCenter"
   | "subscription"
   | "paymentHistory"
@@ -186,6 +187,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
     items: [
       { id: "abosCommandCenter", href: "/app/intelligence/command-center", labelKey: "customerApp.portalStructure.nav.abosCommandCenter" },
       { id: "executiveCompanion", href: "/app/intelligence/executive-companion", labelKey: "customerApp.portalStructure.nav.executiveCompanion" },
+      { id: "enterpriseBenchmarking", href: "/app/intelligence/benchmarking", labelKey: "customerApp.portalStructure.nav.enterpriseBenchmarking" },
     ],
   },
   {
@@ -244,6 +246,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/platform/integrations/connected")) return "connectedIntegrations";
   if (pathname.startsWith("/app/platform/integrations")) return "integrations";
   if (pathname.startsWith("/app/platform/api-access")) return "apiAccess";
+  if (pathname.startsWith("/app/intelligence/benchmarking")) return "enterpriseBenchmarking";
   if (pathname.startsWith("/app/intelligence/command-center")) return "abosCommandCenter";
   if (pathname.startsWith("/app/intelligence/executive-companion")) return "executiveCompanion";
   if (pathname.startsWith("/app/operations/executive-insights")) return "executiveInsights";
