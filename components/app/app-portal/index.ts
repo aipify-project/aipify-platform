@@ -80,3 +80,5 @@ export { ExecutiveForesightPanel } from "./ExecutiveForesightPanel";
 export { ExecutiveForesightDetailPanel } from "./ExecutiveForesightDetailPanel";
 export { StrategicOpportunitiesPanel } from "./StrategicOpportunitiesPanel";
 export { StrategicOpportunitiesDetailPanel } from "./StrategicOpportunitiesDetailPanel";
+export { OrgForecastingPanel } from "./OrgForecastingPanel";
+export { OrgForecastingDetailPanel } from "./OrgForecastingDetailPanel";

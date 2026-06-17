@@ -1,0 +1,7 @@
+APP Portal Phase 316 — Organizational Forecasting Center
+Route: /app/intelligence/organizational-forecasting
+Dashboard alias: /dashboard/intelligence/organizational-forecasting
+Section: Intelligence (Enterprise Intelligence)
+Conservative / Expected / Optimistic models — never a single prediction
+Advisory only — Aipify never claims certainty about future outcomes
+Helpers: _aofc316_*
