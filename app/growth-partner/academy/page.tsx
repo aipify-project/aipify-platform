@@ -1,5 +1,5 @@
-import { redirectPartnersLegacy } from "@/lib/partners-portal/redirect-legacy";
+import { redirectGrowthPartnerLegacy } from "@/lib/partner-portal/redirect-legacy";
 
 export default function GrowthPartnerAcademyRedirectPage() {
-  redirectPartnersLegacy("/growth-partner/academy");
+  redirectGrowthPartnerLegacy("/growth-partner/academy");
 }

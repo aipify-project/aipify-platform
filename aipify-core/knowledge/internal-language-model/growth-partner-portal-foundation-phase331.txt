@@ -1,0 +1,5 @@
+ABOS Phase 331 — Growth Partner Portal Foundation
+Route: /partner
+Core: Growth Partners are independent business operators — not affiliates.
+Helpers: _gpp331_* · _gpp331bp_*
+APIs: /api/partner/profile · /api/partner/dashboard · /api/partner/team · /api/partner/activity · /api/partner/onboarding
