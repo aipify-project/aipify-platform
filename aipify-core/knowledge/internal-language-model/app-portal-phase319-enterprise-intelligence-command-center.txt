@@ -1,0 +1,9 @@
+APP Portal Phase 319 — Enterprise Intelligence Command Center
+Route: /app/intelligence/intelligence-command-center
+Dashboard alias: /dashboard/intelligence/command-center
+Section: Intelligence (Enterprise Intelligence)
+Aggregates scores from Phase 311-318 intelligence modules
+Executive briefing mode: today / this_week / this_month / this_quarter
+Priority engine: critical / high / medium / low
+Read-only aggregation layer — modules remain independent
+Helpers: _aeicc319_*

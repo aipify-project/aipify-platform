@@ -324,6 +324,7 @@ export * from "./app-portal-phase315-strategic-opportunities-vocabulary";
 export * from "./app-portal-phase316-organizational-forecasting-vocabulary";
 export * from "./app-portal-phase317-enterprise-readiness-vocabulary";
 export * from "./app-portal-phase318-cross-functional-intelligence-vocabulary";
+export * from "./app-portal-phase319-intelligence-command-center-vocabulary";
 export * from "./implementation-blueprint-phase314-vocabulary";
 export * from "./implementation-blueprint-phase315-vocabulary";
 export * from "./implementation-blueprint-phase316-vocabulary";
@@ -1296,6 +1297,8 @@ export const APP_PORTAL_PHASE317_ENTERPRISE_READINESS_CORPUS =
   "aipify-core/knowledge/internal-language-model/app-portal-phase317-enterprise-readiness.txt";
 export const APP_PORTAL_PHASE318_CFI_CORPUS =
   "aipify-core/knowledge/internal-language-model/app-portal-phase318-cross-functional-intelligence.txt";
+export const APP_PORTAL_PHASE319_ICC_CORPUS =
+  "aipify-core/knowledge/internal-language-model/app-portal-phase319-enterprise-intelligence-command-center.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE314_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase314-aipify-change-management-center.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE315_CORPUS =
