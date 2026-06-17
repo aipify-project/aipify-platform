@@ -1,35 +1,8 @@
 import { NextResponse } from "next/server";
-import { parseFollowUpDetail, parseFollowUpItem } from "@/lib/app-portal/follow-ups";
+import { parseFollowUpAction } from "@/lib/aipify/companion-follow-up";
 import { createClient } from "@/lib/supabase/server";
 
 type RouteContext = { params: Promise<{ id: string }> };
-
-export async function GET(_request: Request, context: RouteContext) {
-  try {
-    const { id } = await context.params;
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-    const { data, error } = await supabase.rpc("get_app_portal_follow_up", { p_id: id });
-    if (error) return NextResponse.json({ error: error.message }, { status: 403 });
-    const parsed = parseFollowUpDetail(data);
-    if (!parsed.found) return NextResponse.json({ error: "Not found" }, { status: 404 });
-    return NextResponse.json(parsed);
-  } catch {
-    return NextResponse.json({ error: "Failed to load follow-up" }, { status: 500 });
-  }
-}
-
-type PatchBody = {
-  status?: string;
-  priority?: string;
-  assigned_owner_id?: string;
-  due_at?: string;
-  notes?: string;
-  suggested_next_action?: string;
-  title?: string;
-};
 
 export async function PATCH(request: Request, context: RouteContext) {
   try {
@@ -38,20 +11,32 @@ export async function PATCH(request: Request, context: RouteContext) {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const body = (await request.json()) as PatchBody;
-    const { data, error } = await supabase.rpc("update_app_portal_follow_up", {
-      p_id: id,
-      p_status: body.status ?? null,
-      p_priority: body.priority ?? null,
-      p_assigned_owner_id: body.assigned_owner_id ?? null,
-      p_due_at: body.due_at ?? null,
-      p_notes: body.notes ?? null,
-      p_suggested_next_action: body.suggested_next_action ?? null,
-      p_title: body.title ?? null,
+    const body = (await request.json()) as {
+      status?: string;
+      priority?: string;
+      assigned_to?: string;
+      due_date?: string;
+      recommended_action?: string;
+      action?: string;
+      reminder_type?: string;
+      reminder_date?: string;
+    };
+
+    const { data, error } = await supabase.rpc("update_companion_follow_up", {
+      p_follow_up_id:       id,
+      p_status:             body.status ?? null,
+      p_priority:           body.priority ?? null,
+      p_assigned_to:        body.assigned_to ?? null,
+      p_due_date:           body.due_date ?? null,
+      p_recommended_action: body.recommended_action ?? null,
+      p_action:             body.action ?? null,
+      p_reminder_type:      body.reminder_type ?? null,
+      p_reminder_date:      body.reminder_date ?? null,
     });
-    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
-    const item = parseFollowUpItem(data);
-    return NextResponse.json({ updated: true, follow_up: item });
+    if (error) return NextResponse.json({ error: error.message }, { status: 403 });
+    const result = parseFollowUpAction(data);
+    if (!result.ok) return NextResponse.json({ error: result.error ?? "Failed" }, { status: 403 });
+    return NextResponse.json(result);
   } catch {
     return NextResponse.json({ error: "Failed to update follow-up" }, { status: 500 });
   }

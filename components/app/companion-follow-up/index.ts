@@ -1,0 +1,1 @@
+export { CompanionFollowUpDashboardPanel } from "./CompanionFollowUpDashboardPanel";
