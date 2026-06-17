@@ -75,6 +75,42 @@ button.primary {
   font-size: 12px;
 }
 
+.companion-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.nav-item {
+  font-size: 10px;
+  padding: 4px 6px;
+}
+
+.nav-item.active {
+  background: #eef2ff;
+  border-color: #6366f1;
+  color: #4338ca;
+}
+
+.first-run label {
+  display: block;
+  font-size: 11px;
+  margin: 8px 0;
+}
+
+.hint {
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: 8px;
+}
+
+.sidebar-hint {
+  background: #f5f3ff;
+  border-radius: 8px;
+  padding: 8px;
+}
+
 .config input {
   width: 100%;
   font-size: 12px;

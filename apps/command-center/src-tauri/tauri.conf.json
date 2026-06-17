@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Aipify Command Center",
+  "productName": "Aipify Desktop Companion",
   "version": "0.1.0",
   "identifier": "com.aipify.command-center",
   "build": {
@@ -12,9 +12,9 @@
   "app": {
     "windows": [
       {
-        "title": "Aipify Command Center",
-        "width": 380,
-        "height": 560,
+        "title": "Aipify Desktop Companion",
+        "width": 420,
+        "height": 640,
         "resizable": true,
         "visible": true
       }
@@ -29,7 +29,7 @@
   },
   "bundle": {
     "active": true,
-    "targets": ["dmg"],
+    "targets": ["dmg", "msi", "deb"],
     "icon": ["icons/icon.png"],
     "macOS": {
       "minimumSystemVersion": "10.15"
