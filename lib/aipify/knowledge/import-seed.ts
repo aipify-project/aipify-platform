@@ -72,7 +72,9 @@ function parseSeedFileContent(content: string, sourcePath: string): ParsedSeedAr
 }
 
 export function loadSeedKnowledgeArticles(rootDir?: string): ParsedSeedArticle[] {
-  const base = rootDir ?? path.join(process.cwd(), "content/knowledge/aipify");
+  const base =
+    rootDir ??
+    path.join(/* turbopackIgnore: true */ process.cwd(), "content/knowledge/aipify");
   if (!fs.existsSync(base)) return [];
 
   const articles: ParsedSeedArticle[] = [];
@@ -81,7 +83,7 @@ export function loadSeedKnowledgeArticles(rootDir?: string): ParsedSeedArticle[]
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(full);
       else if (entry.name.endsWith(".md")) {
-        const rel = path.relative(process.cwd(), full);
+        const rel = path.relative(/* turbopackIgnore: true */ process.cwd(), full);
         articles.push(...parseSeedFileContent(fs.readFileSync(full, "utf8"), rel));
       }
     }
