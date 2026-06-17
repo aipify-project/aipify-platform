@@ -14,7 +14,8 @@
     "academy": "Academy",
     "marketing": "Marketing",
     "performance": "Performance",
-    "account": "Account"
+    "account": "Account",
+    "settlement": "Settlement & Self-Billing"
   },
   "nav": {
     "overview": "Overview",
@@ -42,7 +43,8 @@
     "profile": "Profile",
     "teamMembers": "Team Members",
     "notifications": "Notifications",
-    "settings": "Settings"
+    "settings": "Settings",
+    "settlementPortal": "Settlement Portal"
   },
   "dashboard": {
     "title": "Панель Partners",
@@ -173,5 +175,75 @@
     "monitor-performance": "Your Partners Dashboard, Performance Summary, Rankings, and Performance Metrics modules show leads, conversions, referrals, and certification progress.",
     "view-customers": "Open Customers → Leads, Pipeline, and Prospects to view customers and prospects associated with your partner account.",
     "customer-upgrades": "When a referred customer upgrades, attribution and commission rules follow your partner program terms. Revenue Attribution reflects updated subscription tiers."
+  },
+  "economyEngine": {
+    "title": "Settlement Portal",
+    "subtitle": "Review sales, commissions, and settlements — approve self-billing invoices and get paid through your registered business.",
+    "loading": "Loading settlement portal…",
+    "principle": "Growth Partners are independent businesses — Aipify Group AS sells software; partners earn one-time commissions on initial sales only.",
+    "oneTimeNote": "No recurring, residual, or lifetime commissions. Commissions apply to first-time purchases only.",
+    "noCompanyTitle": "Registered business required",
+    "noCompanyBody": "To become an Aipify Growth Partner, you must operate through a registered business entity.",
+    "createBusinessCta": "Create your business",
+    "norwayGuidance": "In Norway, you may register an ENK through Brønnøysundregistrene.",
+    "brregLink": "Brønnøysundregistrene — register your business",
+    "accessDenied": "Settlement portal access requires an active Growth Partner account.",
+    "sections": {
+      "overview": "Overview",
+      "salesHistory": "Sales History",
+      "commissionHistory": "Commission History",
+      "commissionTier": "Current Commission Tier",
+      "milestones": "Milestone Progress",
+      "pendingSettlements": "Pending Settlements",
+      "settlementHistory": "Settlement History",
+      "invoices": "Generated Invoices",
+      "companyInfo": "Tax & Company Information",
+      "bankDetails": "Bank Details",
+      "agreements": "Partner Agreements"
+    },
+    "tier": {
+      "current": "Current tier",
+      "salesCount": "Approved sales",
+      "ladderNote": "Commission ladder — initial sales only (subject to adjustment by Aipify Group AS):"
+    },
+    "settlement": {
+      "prepare": "Prepare settlement",
+      "approve": "Approve settlement",
+      "approvalStatement": "I confirm that the settlement information is accurate and authorize Aipify Group AS to issue an invoice on behalf of my business.",
+      "approveSuccess": "Settlement approved — self-billing invoice generated.",
+      "prepareSuccess": "Settlement prepared for your review.",
+      "reviewDetails": "Review settlement details"
+    },
+    "agreements": {
+      "growthPartner": "Growth Partner Agreement",
+      "selfBilling": "Self-Billing Agreement",
+      "partnerTerms": "Partner Terms",
+      "accept": "Pending acceptance",
+      "acceptSuccess": "Agreements and company profile recorded."
+    },
+    "onboarding": {
+      "companyType": "Company type",
+      "companyName": "Company name",
+      "organizationNumber": "Organization / company number",
+      "vatNumber": "VAT number (if applicable)",
+      "vatRegistered": "VAT registered",
+      "address": "Business address",
+      "bankAccount": "Bank account (IBAN or account number)",
+      "submit": "Accept agreements & submit company details"
+    },
+    "companyTypes": {
+      "norwegianAs": "Norwegian AS",
+      "norwegianEnk": "Norwegian ENK",
+      "foreignEquivalent": "Equivalent foreign company"
+    },
+    "faq": {
+      "title": "Growth Partner Economy FAQ",
+      "notEmployee": "Are Growth Partners employees of Aipify?",
+      "notEmployeeAnswer": "No. Growth Partners are independent businesses and suppliers — not employees. No payroll, holiday pay, or employer contributions apply.",
+      "recurring": "Are commissions recurring?",
+      "recurringAnswer": "No. Commissions apply only to first-time purchases. No residual or lifetime commissions.",
+      "selfBilling": "What is self-billing?",
+      "selfBillingAnswer": "After you approve a settlement, Aipify Group AS generates a legally compliant invoice on behalf of your business, then processes payment as a supplier expense."
+    }
   }
 }

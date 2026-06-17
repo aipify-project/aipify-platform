@@ -1,0 +1,37 @@
+Aipify Creators — Creator Companion (Future Business Pack Seed)
+Status: Future Business Pack Candidate — not scheduled for implementation
+
+Vision
+Help creators, influencers, and content producers get more value from tools they already use.
+Remove friction — never replace human creativity.
+
+Philosophy
+Most creators already pay for powerful tools but use a small percentage of capabilities.
+Aipify Companion unlocks more value from existing software.
+
+Positioning
+Your creator companion — NOT "AI for creators."
+People create. Aipify helps.
+
+Companion examples (all require user approval before publish)
+Instagram Story idea preparation
+Canva campaign draft preparation
+YouTube launch prep — titles, descriptions, thumbnails, promotion
+Sponsorship request response drafts
+
+Tool integration targets (future)
+Canva, Adobe Creative Cloud, Adobe Express, CapCut, Google Workspace, Microsoft 365,
+Dropbox, YouTube Studio, social scheduling tools, other approved creator apps
+
+Package tiers (draft)
+Creator Starter — ideas, captions, planning, calendar
+Creator Professional — Canva/Adobe workflows, sponsorship drafts, campaigns
+Creator Elite — team support, executive creator insights, brand partnerships
+
+Prerequisites
+Companion Core, Desktop Companion, Trust & Action approvals, Context Engine,
+Growth Partner program maturity, existing Business Packs
+
+Provisional route: /app/companion/creators
+Skill: creator-companion (planned)
+Never auto-publish. Creator remains in control.

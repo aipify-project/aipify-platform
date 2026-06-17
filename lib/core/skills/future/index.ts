@@ -25,6 +25,7 @@ export { griefHealingCompanionSkill } from "./grief-healing-companion";
 export { legacyBusinessCompanionSkill } from "./legacy-business-companion";
 export { childhoodMemoryCompanionSkill } from "./childhood-memory-companion";
 export { lifeJourneyCompanionSkill } from "./life-journey-companion";
+export { creatorCompanionSkill } from "./creator-companion";
 
 import { marketingAssistantSkill } from "./marketing-assistant";
 import { commerceAssistantSkill } from "./commerce-assistant";
@@ -53,6 +54,7 @@ import { griefHealingCompanionSkill } from "./grief-healing-companion";
 import { legacyBusinessCompanionSkill } from "./legacy-business-companion";
 import { childhoodMemoryCompanionSkill } from "./childhood-memory-companion";
 import { lifeJourneyCompanionSkill } from "./life-journey-companion";
+import { creatorCompanionSkill } from "./creator-companion";
 
 export const FUTURE_SKILLS = [
   marketingAssistantSkill,
@@ -82,4 +84,5 @@ export const FUTURE_SKILLS = [
   legacyBusinessCompanionSkill,
   childhoodMemoryCompanionSkill,
   lifeJourneyCompanionSkill,
+  creatorCompanionSkill,
 ] as const;

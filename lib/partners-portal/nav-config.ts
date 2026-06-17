@@ -16,6 +16,7 @@ export type PartnersPortalNavId =
   | "referralLinks"
   | "referralPerformance"
   | "referralRewards"
+  | "settlementPortal"
   | "certifications"
   | "trainingPrograms"
   | "salesPlaybooks"
@@ -37,6 +38,7 @@ export type PartnersPortalNavGroupId =
   | "dashboard"
   | "customers"
   | "referrals"
+  | "settlement"
   | "academy"
   | "marketing"
   | "performance"
@@ -86,6 +88,13 @@ export const PARTNERS_PORTAL_NAV_GROUPS: PartnersPortalNavGroup[] = [
     ],
   },
   {
+    id: "settlement",
+    labelKey: "partnersPortal.navGroups.settlement",
+    items: [
+      { id: "settlementPortal", href: "/partners/settlement", labelKey: "partnersPortal.nav.settlementPortal" },
+    ],
+  },
+  {
     id: "academy",
     labelKey: "partnersPortal.navGroups.academy",
     items: [
@@ -132,8 +141,8 @@ export const PARTNERS_LEGACY_REDIRECTS: Record<string, string> = {
   "/growth-partner/dashboard": "/partners",
   "/growth-partner/leads": "/partners/customers/leads",
   "/growth-partner/referrals": "/partners/referrals/performance",
-  "/growth-partner/commissions": "/partners/performance/revenue-attribution",
-  "/growth-partner/payouts": "/partners/referrals/rewards",
+  "/growth-partner/commissions": "/partners/settlement",
+  "/growth-partner/payouts": "/partners/settlement",
   "/growth-partner/academy": "/partners/academy/certifications",
   "/growth-partner/assets": "/partners/marketing/assets",
   "/growth-partner/team": "/partners/account/team",
@@ -178,6 +187,7 @@ export function getPartnersLegacyRedirect(pathname: string): string | null {
 
 export function getPartnersActiveNavId(pathname: string): PartnersPortalNavId {
   if (pathname === "/partners") return "overview";
+  if (pathname.startsWith("/partners/settlement")) return "settlementPortal";
   for (const group of PARTNERS_PORTAL_NAV_GROUPS) {
     for (const item of group.items) {
       if (item.href !== "/partners" && pathname.startsWith(item.href)) {
