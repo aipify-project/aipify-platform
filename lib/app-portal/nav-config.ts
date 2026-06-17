@@ -64,6 +64,7 @@ export type AppPortalNavId =
   | "executiveForesight"
   | "strategicOpportunities"
   | "organizationalForecasting"
+  | "enterpriseReadiness"
   | "abosCommandCenter"
   | "subscription"
   | "paymentHistory"
@@ -198,6 +199,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
       { id: "executiveForesight", href: "/app/intelligence/executive-foresight", labelKey: "customerApp.portalStructure.nav.executiveForesight" },
       { id: "strategicOpportunities", href: "/app/intelligence/strategic-opportunities", labelKey: "customerApp.portalStructure.nav.strategicOpportunities" },
       { id: "organizationalForecasting", href: "/app/intelligence/organizational-forecasting", labelKey: "customerApp.portalStructure.nav.organizationalForecasting" },
+      { id: "enterpriseReadiness", href: "/app/intelligence/enterprise-readiness", labelKey: "customerApp.portalStructure.nav.enterpriseReadiness" },
     ],
   },
   {
@@ -265,6 +267,8 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/dashboard/intelligence/strategic-opportunities")) return "strategicOpportunities";
   if (pathname.startsWith("/app/intelligence/organizational-forecasting")) return "organizationalForecasting";
   if (pathname.startsWith("/dashboard/intelligence/organizational-forecasting")) return "organizationalForecasting";
+  if (pathname.startsWith("/app/intelligence/enterprise-readiness")) return "enterpriseReadiness";
+  if (pathname.startsWith("/dashboard/intelligence/enterprise-readiness")) return "enterpriseReadiness";
   if (pathname.startsWith("/app/intelligence/benchmarking")) return "enterpriseBenchmarking";
   if (pathname.startsWith("/app/intelligence/command-center")) return "abosCommandCenter";
   if (pathname.startsWith("/app/intelligence/executive-companion")) return "executiveCompanion";

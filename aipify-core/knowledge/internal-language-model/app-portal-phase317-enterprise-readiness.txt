@@ -1,0 +1,7 @@
+APP Portal Phase 317 — Enterprise Readiness Center
+Route: /app/intelligence/enterprise-readiness
+Dashboard alias: /dashboard/intelligence/enterprise-readiness
+Section: Intelligence (Enterprise Intelligence)
+Readiness levels: Emerging / Developing / Established / Advanced / Enterprise Ready
+Advisory only — scores are guidance tools, not certifications
+Helpers: _aerc317_*
