@@ -231,6 +231,7 @@ export type AppNavId =
   | "companionWorkPrioritizationEngine"
   | "companionFollowUpEngine"
   | "companionRelationshipIntelligenceEngine"
+  | "companionExecutiveLayer"
   | "companionActionMemoryEngine"
   | "presenceContinuityEngine"
   | "companionIdentityRelationshipEngine"
@@ -1440,6 +1441,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.companionRelationshipIntelligenceEngine",
   },
   {
+    id: "companionExecutiveLayer",
+    href: "/app/companion/executive",
+    labelKey: "customerApp.nav.companionExecutiveLayer",
+  },
+  {
     id: "companionOrchestrationEngine",
     href: "/app/companion/orchestration",
     labelKey: "customerApp.nav.companionOrchestrationEngine",
@@ -1934,6 +1940,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/companion/work-prioritization")) return "companionWorkPrioritizationEngine";
   if (pathname.startsWith("/app/companion/follow-ups")) return "companionFollowUpEngine";
   if (pathname.startsWith("/app/companion/relationship-intelligence")) return "companionRelationshipIntelligenceEngine";
+  if (pathname.startsWith("/app/companion/executive")) return "companionExecutiveLayer";
   if (pathname.startsWith("/app/companion/orchestration")) return "companionOrchestrationEngine";
   if (pathname.startsWith("/app/companion/action-memory")) return "companionActionMemoryEngine";
   if (pathname.startsWith("/app/companion/presence-continuity")) return "presenceContinuityEngine";
