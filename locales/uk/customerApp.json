@@ -1391,7 +1391,8 @@
       "resilience": "Resilience",
       "executiveCompanion": "Executive Companion",
       "abosCommandCenter": "Command Center",
-      "businessPackSuccess": "Success Center"
+      "businessPackSuccess": "Success Center",
+      "businessPackRecommendations": "Recommendations"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -4945,6 +4946,119 @@
         "improveAutomaticallyAnswer": "No. Aipify provides recommendations and insights while organizations remain responsible for implementation.",
         "whyImportant": "Why are adoption insights important?",
         "whyImportantAnswer": "Organizations often realize greater value when they actively engage with and optimize the capabilities they have already invested in."
+      }
+    },
+    "businessPackRecommendations": {
+      "title": "Business Pack Recommendations",
+      "subtitle": "Discover Business Packs that may provide value based on your organization's industry, maturity, and operational patterns.",
+      "loading": "Aipify is identifying relevant Business Packs for your organization…",
+      "principle": "Aipify provides advisory recommendations — organizations always decide what to install.",
+      "emptyTitle": "No recommendations are available at this time.",
+      "emptyBody": "Aipify continuously identifies opportunities that may help your organization grow.",
+      "emptyCta": "Explore Business Pack Marketplace",
+      "accessDenied": "Business Pack recommendations are not available for your role.",
+      "filters": {
+        "search": "Search recommendations…",
+        "industry": "Industry",
+        "category": "Recommendation category",
+        "complexity": "Complexity",
+        "businessImpact": "Business impact",
+        "confidenceLevel": "Confidence level",
+        "installedStatus": "Installed status",
+        "all": "All",
+        "installed": "Installed",
+        "notInstalled": "Not installed"
+      },
+      "dashboard": {
+        "recommendedPacks": "Recommended Business Packs",
+        "installedPacks": "Installed Business Packs",
+        "savedRecommendations": "Saved Recommendations",
+        "recentlyViewed": "Recently Viewed Recommendations",
+        "operationalCategories": "Operational Categories Covered",
+        "comparePacks": "Compare"
+      },
+      "card": {
+        "confidenceScore": "Confidence score",
+        "reason": "Recommendation reason",
+        "benefits": "Potential benefits",
+        "complexity": "Estimated complexity",
+        "suggestedUsers": "Suggested users",
+        "relatedPacks": "Related Business Packs",
+        "learnMore": "Learn more",
+        "saveRecommendation": "Save recommendation",
+        "dismiss": "Dismiss",
+        "saved": "Saved"
+      },
+      "compare": {
+        "title": "Compare Business Packs",
+        "features": "Features",
+        "benefits": "Benefits",
+        "complexity": "Complexity",
+        "impact": "Estimated impact",
+        "audience": "Recommended audience",
+        "related": "Related Business Packs",
+        "runCompare": "Compare selected",
+        "selectTwo": "Select two or more recommendations to compare."
+      },
+      "categories": {
+        "operational": "Operational recommendations",
+        "security": "Security recommendations",
+        "efficiency": "Efficiency recommendations",
+        "customerSuccess": "Customer success recommendations",
+        "executive": "Executive recommendations",
+        "industryBased": "Industry-based recommendations",
+        "roleBased": "Role-based recommendations",
+        "maturityBased": "Maturity-based recommendations"
+      },
+      "confidenceLevels": {
+        "exploratory": "Exploratory",
+        "suggested": "Suggested",
+        "strongMatch": "Strong Match",
+        "highlyRelevant": "Highly Relevant"
+      },
+      "complexityLevels": {
+        "simple": "Simple",
+        "moderate": "Moderate",
+        "advanced": "Advanced"
+      },
+      "impactLevels": {
+        "incrementalImprovement": "Incremental Improvement",
+        "meaningfulImprovement": "Meaningful Improvement",
+        "highBusinessImpact": "High Business Impact",
+        "strategicTransformation": "Strategic Transformation"
+      },
+      "reasons": {
+        "similarOrganizationsInstall": "Similar organizations often install this Business Pack.",
+        "complementsExisting": "This Business Pack complements existing capabilities.",
+        "maturityReadiness": "Operational maturity suggests readiness.",
+        "securityPostureBenefit": "Security posture may benefit from this capability.",
+        "teamsSimilarNeeds": "Teams with similar needs frequently adopt this solution.",
+        "operationalMaturity": "Your operational maturity supports this capability."
+      },
+      "benefits": {
+        "hostsBenefits": "Coordinate host operations and deployment visibility across teams.",
+        "governanceBenefits": "Strengthen governance, approvals, and audit transparency.",
+        "commerceBenefits": "Gain commerce intelligence and operational reporting insights.",
+        "supportBenefits": "Improve support triage, knowledge guidance, and case visibility.",
+        "executiveBenefits": "Expand executive intelligence, briefings, and strategic visibility.",
+        "analyticsBenefits": "Track operational metrics and trends with analytics dashboards.",
+        "workflowsBenefits": "Automate processes and improve operational consistency."
+      },
+      "aipifySuggestions": {
+        "considerAipifyHosts": "Consider installing Aipify Hosts.",
+        "exploreGovernance": "Explore additional Governance capabilities.",
+        "reviewCommerceIntelligence": "Review Commerce Intelligence options.",
+        "strengthenSupport": "Strengthen Support operations.",
+        "expandExecutiveIntelligence": "Expand Executive Intelligence capabilities."
+      },
+      "faq": {
+        "title": "Business Pack Recommendation Engine FAQ",
+        "whatIs": "What is the Business Pack Recommendation Engine?",
+        "whatIsAnswer": "The Recommendation Engine helps organizations discover Business Packs that may provide value based on their current capabilities and needs.",
+        "autoInstall": "Does Aipify automatically install Business Packs?",
+        "autoInstallAnswer": "No. Organizations always decide whether or not to install additional Business Packs.",
+        "whyChange": "Why do recommendations change over time?",
+        "whyChangeAnswer": "Recommendations evolve as organizations mature, adopt new capabilities and expand operational needs."
       }
     }
   }

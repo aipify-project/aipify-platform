@@ -2,7 +2,7 @@
 ## APP – BUSINESS PACK SUCCESS CENTER
 
 **Route:** `/app/business-packs/success`  
-**API:** `/api/aipify/business-packs/success`, `/api/aipify/business-packs/success/[id]`, `/api/aipify/business-packs/recommendations`, `/api/aipify/business-packs/adoption`
+**API:** `/api/aipify/business-packs/success`, `/api/aipify/business-packs/success/[id]`, `/api/aipify/business-packs/success/recommendations`, `/api/aipify/business-packs/adoption`
 
 ## Purpose
 
