@@ -84,3 +84,4 @@ export { OrgForecastingPanel } from "./OrgForecastingPanel";
 export { OrgForecastingDetailPanel } from "./OrgForecastingDetailPanel";
 export { EnterpriseReadinessPanel } from "./EnterpriseReadinessPanel";
 export { EnterpriseReadinessDetailPanel } from "./EnterpriseReadinessDetailPanel";
+export { CrossFunctionalIntelligencePanel } from "./CrossFunctionalIntelligencePanel";

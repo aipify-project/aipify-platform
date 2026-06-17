@@ -1,0 +1,7 @@
+APP Portal Phase 318 — Cross-Functional Intelligence Center
+Route: /app/intelligence/cross-functional-intelligence
+Dashboard alias: /dashboard/intelligence/cross-functional-intelligence
+Section: Intelligence (Enterprise Intelligence)
+Dependency map, collaboration heatmap, friction analysis
+Advisory only — Aipify identifies patterns; leadership decides
+Helpers: _acfi318_*
