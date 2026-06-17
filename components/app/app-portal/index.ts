@@ -65,3 +65,4 @@ export { BusinessPackRecommendationsPanel } from "./BusinessPackRecommendationsP
 export { BusinessPackLifecyclePanel } from "./BusinessPackLifecyclePanel";
 export { BusinessPackValuePanel } from "./BusinessPackValuePanel";
 export { BusinessPackCommandCenterPanel } from "./BusinessPackCommandCenterPanel";
+export { BusinessPackEcosystemIntelligencePanel } from "./BusinessPackEcosystemIntelligencePanel";

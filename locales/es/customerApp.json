@@ -1395,7 +1395,8 @@
       "businessPackRecommendations": "Recommendations",
       "businessPackLifecycle": "Lifecycle Center",
       "businessPackValue": "Value Center",
-      "businessPackCommandCenter": "Command Center"
+      "businessPackCommandCenter": "Command Center",
+      "businessPackEcosystemIntelligence": "Ecosystem Intelligence"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -5401,6 +5402,119 @@
         "replacePagesAnswer": "No. The Command Center summarizes the ecosystem while allowing users to drill down into individual Business Packs when needed.",
         "autoManage": "Can Aipify manage Business Packs automatically?",
         "autoManageAnswer": "No. Organizations remain responsible for all operational decisions while Aipify provides insights and recommendations."
+      }
+    },
+    "businessPackEcosystemIntelligence": {
+      "title": "Business Pack Ecosystem Intelligence",
+      "subtitle": "Understand how your Business Packs interact, complement each other and contribute to organizational outcomes.",
+      "loading": "Aipify is analyzing your Business Pack ecosystem…",
+      "principle": "Organizations remain responsible for all implementation decisions — Aipify recommendations are advisory.",
+      "emptyTitle": "No ecosystem insights are available yet.",
+      "emptyBody": "Aipify helps organizations understand how Business Packs work together to create greater value.",
+      "emptyCta": "Explore Business Pack Ecosystem",
+      "accessDenied": "Ecosystem Intelligence is not available for your role.",
+      "filters": {
+        "search": "Search Business Packs…",
+        "packKey": "Business Pack",
+        "coverageCategory": "Coverage category",
+        "ecosystemStatus": "Ecosystem status",
+        "relationshipStrength": "Relationship strength",
+        "priorityLevel": "Priority level",
+        "periodFrom": "Activity since",
+        "all": "All"
+      },
+      "dashboard": {
+        "healthScore": "Ecosystem health score",
+        "relationshipMap": "Business Pack relationship map",
+        "coverageOverview": "Ecosystem coverage overview",
+        "crossUtilization": "Cross-pack utilization score",
+        "opportunities": "Ecosystem opportunities",
+        "risks": "Ecosystem risks",
+        "executiveSummary": "Executive summary",
+        "recommendedActions": "Recommended actions",
+        "ecosystemStatus": "Ecosystem status",
+        "coverageAnalysis": "Coverage analysis",
+        "timeline": "Ecosystem timeline",
+        "installedPacks": "Business Pack ecosystem"
+      },
+      "card": {
+        "adoptionScore": "Adoption score",
+        "crossUtilization": "Cross-pack utilization",
+        "coverageCategory": "Coverage category",
+        "coverageStatus": "Coverage status"
+      },
+      "ecosystemStatuses": {
+        "thriving": "Thriving",
+        "healthy": "Healthy",
+        "stable": "Stable",
+        "requiresOptimization": "Requires optimization",
+        "fragmented": "Fragmented"
+      },
+      "relationshipStrengths": {
+        "strong": "Strong relationship",
+        "moderate": "Moderate relationship",
+        "emerging": "Emerging relationship",
+        "underutilized": "Underutilized relationship"
+      },
+      "coverageCategories": {
+        "operational": "Operational coverage",
+        "executive": "Executive coverage",
+        "governance": "Governance coverage",
+        "customer": "Customer coverage",
+        "knowledge": "Knowledge coverage",
+        "growth": "Growth coverage"
+      },
+      "coverageStatuses": {
+        "comprehensive": "Comprehensive",
+        "wellCovered": "Well covered",
+        "moderateCoverage": "Moderate coverage",
+        "limitedCoverage": "Limited coverage",
+        "coverageGapIdentified": "Coverage gap identified"
+      },
+      "priorityLevels": {
+        "opportunity": "Opportunity",
+        "recommended": "Recommended",
+        "important": "Important",
+        "immediateAttention": "Immediate attention"
+      },
+      "opportunities": {
+        "greaterValueTogether": "Existing Business Packs could deliver greater value together",
+        "ecosystemTraining": "Additional training may improve ecosystem adoption",
+        "expandCrossFunctional": "Cross-functional workflows may be expanded",
+        "strengthenGovernance": "Governance practices may strengthen ecosystem performance",
+        "improveExecutiveVisibility": "Executive visibility may improve"
+      },
+      "risks": {
+        "underutilizedPacks": "Underutilized Business Packs",
+        "missingOwnership": "Missing ownership",
+        "duplicateCapabilities": "Duplicate capabilities",
+        "fragmentedAdoption": "Fragmented adoption",
+        "lowIntegration": "Low integration between teams"
+      },
+      "recommendations": {
+        "encourageCrossFunctional": "Encourage cross-functional adoption",
+        "reviewEcosystemOwnership": "Review ecosystem ownership assignments",
+        "strengthenCollaboration": "Strengthen Business Pack collaboration",
+        "expandEcosystemLearning": "Expand ecosystem learning initiatives",
+        "addressCoverageGaps": "Address identified coverage gaps",
+        "celebrateMaturity": "Celebrate ecosystem maturity achievements"
+      },
+      "timelineEvents": {
+        "packAdded": "New Business Pack added",
+        "relationshipStrengthened": "Relationship strengthened",
+        "adoptionImproved": "Adoption improvement",
+        "optimizationCompleted": "Optimization initiative completed",
+        "ecosystemReview": "Ecosystem review conducted",
+        "valueMilestone": "Value milestone achieved"
+      },
+      "faq": {
+        "title": "Business Pack Ecosystem Intelligence FAQ",
+        "whatIs": "What is Ecosystem Intelligence?",
+        "whatIsAnswer": "Ecosystem Intelligence helps organizations understand how Business Packs interact and where opportunities exist to strengthen overall effectiveness.",
+        "autoOptimize": "Can Aipify automatically optimize the ecosystem?",
+        "autoOptimizeAnswer": "No. Aipify provides visibility and recommendations while organizations remain responsible for implementation decisions.",
+        "whyRelationships": "Why are Business Pack relationships important?",
+        "whyRelationshipsAnswer": "Organizations often realize greater value when capabilities complement one another rather than operating independently."
       }
     }
   }
