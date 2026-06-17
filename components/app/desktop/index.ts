@@ -5,3 +5,4 @@ export { DesktopChatPanel } from "./DesktopChatPanel";
 export { DesktopRemindersPanel } from "./DesktopRemindersPanel";
 export { DesktopSettingsPanel } from "./DesktopSettingsPanel";
 export { DesktopModesPanel } from "./DesktopModesPanel";
+export { CompanionMemoryContextPanel } from "./CompanionMemoryContextPanel";

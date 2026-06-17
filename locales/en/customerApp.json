@@ -4265,6 +4265,7 @@
     "settingsTitle": "Desktop Companion settings",
     "settingsSubtitle": "Control what Aipify warns you about, quiet hours, and category filters.",
     "modes": "Modes",
+    "memory": "Memory",
     "modesTitle": "Notification modes",
     "modesSubtitle": "Choose how actively Aipify surfaces information.",
     "history": "History",

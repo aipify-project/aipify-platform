@@ -22,6 +22,7 @@ export default async function DesktopPage() {
           refresh: t("customerApp.desktop.refresh"),
           settings: t("customerApp.desktop.settings"),
           modes: t("customerApp.desktop.modes"),
+          memory: t("customerApp.desktop.memory"),
           history: t("customerApp.desktop.history"),
           reminders: t("customerApp.desktop.remindersTitle"),
           mode: t("customerApp.desktop.mode"),

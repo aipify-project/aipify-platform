@@ -21,6 +21,7 @@ export type DesktopCompanionLabels = {
   refresh: string;
   settings: string;
   modes: string;
+  memory?: string;
   history: string;
   reminders: string;
   mode: string;
@@ -138,6 +139,11 @@ export function DesktopCompanionPanel({ labels, mode = "full" }: DesktopCompanio
           <Link href="/app/desktop/modes" className="rounded-lg border border-gray-200 px-4 py-2 text-sm">
             {labels.modes}
           </Link>
+          {labels.memory ? (
+            <Link href="/desktop/memory" className="rounded-lg border border-gray-200 px-4 py-2 text-sm">
+              {labels.memory}
+            </Link>
+          ) : null}
           <Link href="/app/desktop/history" className="rounded-lg border border-gray-200 px-4 py-2 text-sm">
             {labels.history}
           </Link>
