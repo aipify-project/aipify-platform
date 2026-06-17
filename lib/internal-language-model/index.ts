@@ -320,6 +320,7 @@ export * from "./implementation-blueprint-phase312-vocabulary";
 export * from "./implementation-blueprint-phase313-vocabulary";
 export * from "./app-portal-phase313-scenario-planning-vocabulary";
 export * from "./app-portal-phase314-executive-foresight-vocabulary";
+export * from "./app-portal-phase315-strategic-opportunities-vocabulary";
 export * from "./implementation-blueprint-phase314-vocabulary";
 export * from "./implementation-blueprint-phase315-vocabulary";
 export * from "./implementation-blueprint-phase316-vocabulary";
@@ -1284,6 +1285,8 @@ export const APP_PORTAL_PHASE313_SCENARIO_PLANNING_CORPUS =
   "aipify-core/knowledge/internal-language-model/app-portal-phase313-scenario-planning-simulation-center.txt";
 export const APP_PORTAL_PHASE314_EXECUTIVE_FORESIGHT_CORPUS =
   "aipify-core/knowledge/internal-language-model/app-portal-phase314-executive-foresight-center.txt";
+export const APP_PORTAL_PHASE315_STRATEGIC_OPPORTUNITIES_CORPUS =
+  "aipify-core/knowledge/internal-language-model/app-portal-phase315-strategic-opportunities.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE314_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase314-aipify-change-management-center.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE315_CORPUS =

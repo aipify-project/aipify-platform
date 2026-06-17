@@ -78,3 +78,5 @@ export { ScenarioPlanningPanel } from "./ScenarioPlanningPanel";
 export { ScenarioPlanningDetailPanel } from "./ScenarioPlanningDetailPanel";
 export { ExecutiveForesightPanel } from "./ExecutiveForesightPanel";
 export { ExecutiveForesightDetailPanel } from "./ExecutiveForesightDetailPanel";
+export { StrategicOpportunitiesPanel } from "./StrategicOpportunitiesPanel";
+export { StrategicOpportunitiesDetailPanel } from "./StrategicOpportunitiesDetailPanel";

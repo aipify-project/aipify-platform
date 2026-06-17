@@ -1,0 +1,6 @@
+APP Portal Phase 315 — Strategic Opportunity Intelligence Center
+Route: /app/intelligence/strategic-opportunities
+Dashboard alias: /dashboard/intelligence/strategic-opportunities
+Section: Intelligence (Enterprise Intelligence)
+Advisory only — Aipify never implements opportunities
+Helpers: _asoi315_*
