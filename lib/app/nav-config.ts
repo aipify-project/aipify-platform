@@ -14,6 +14,9 @@ export type AppNavId =
   | "hospitalityAccommodationPack"
   | "realEstatePortfolioOperationsPack"
   | "constructionProjectFieldOperationsPack"
+  | "logisticsTransportationFleetOperationsPack"
+  | "manufacturingProductionIndustrialOperationsPack"
+  | "educationTrainingLearningOperationsPack"
   | "contextIntelligenceEngine"
   | "identityPermissionsEngine"
   | "secureAiActionEngine"
@@ -440,6 +443,21 @@ export const APP_NAV: AppNavItem[] = [
     id: "constructionProjectFieldOperationsPack",
     href: "/app/construction",
     labelKey: "customerApp.nav.constructionProjectFieldOperationsPack",
+  },
+  {
+    id: "logisticsTransportationFleetOperationsPack",
+    href: "/app/logistics",
+    labelKey: "customerApp.nav.logisticsTransportationFleetOperationsPack",
+  },
+  {
+    id: "manufacturingProductionIndustrialOperationsPack",
+    href: "/app/manufacturing",
+    labelKey: "customerApp.nav.manufacturingProductionIndustrialOperationsPack",
+  },
+  {
+    id: "educationTrainingLearningOperationsPack",
+    href: "/app/education",
+    labelKey: "customerApp.nav.educationTrainingLearningOperationsPack",
   },
   {
     id: "contextIntelligenceEngine",
@@ -1833,6 +1851,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/hospitality")) return "hospitalityAccommodationPack";
   if (pathname.startsWith("/app/real-estate")) return "realEstatePortfolioOperationsPack";
   if (pathname.startsWith("/app/construction")) return "constructionProjectFieldOperationsPack";
+  if (pathname.startsWith("/app/logistics")) return "logisticsTransportationFleetOperationsPack";
+  if (pathname.startsWith("/app/manufacturing")) return "manufacturingProductionIndustrialOperationsPack";
+  if (pathname.startsWith("/app/education")) return "educationTrainingLearningOperationsPack";
   if (pathname.startsWith("/app/context-intelligence-engine")) return "contextIntelligenceEngine";
   if (pathname.startsWith("/app/identity-access")) return "identityPermissionsEngine";
   if (pathname.startsWith("/app/secure-ai-actions")) return "secureAiActionEngine";

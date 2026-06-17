@@ -1,0 +1,230 @@
+"use client";
+
+import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
+import { AipifyLoader } from "@/components/shared/AipifyLoader";
+import {
+  parseManufacturingProductionIndustrialOperationsCenter,
+  type ManufacturingProductionIndustrialOperationsCenter,
+} from "@/lib/aipify/manufacturing-production-industrial-operations-pack";
+
+type Props = { labels: Record<string, string> };
+
+export function ManufacturingProductionIndustrialOperationsPackDashboardPanel({ labels }: Props) {
+  const [center, setCenter] = useState<ManufacturingProductionIndustrialOperationsCenter | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [actionError, setActionError] = useState<string | null>(null);
+  const [creating, setCreating] = useState(false);
+  const [productName, setProductName] = useState("");
+  const [quantity, setQuantity] = useState("1");
+  const [priority, setPriority] = useState("normal");
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    setActionError(null);
+    const res = await fetch("/api/aipify/manufacturing-production-industrial-operations-pack/dashboard");
+    if (res.ok) {
+      setCenter(parseManufacturingProductionIndustrialOperationsCenter(await res.json()));
+    } else {
+      const body = (await res.json()) as { error?: string };
+      setActionError(body.error ?? labels.loadFailed);
+    }
+    setLoading(false);
+  }, [labels.loadFailed]);
+
+  useEffect(() => {
+    void load();
+  }, [load]);
+
+  const createWorkOrder = async () => {
+    if (!productName.trim()) return;
+    setCreating(true);
+    setActionError(null);
+    const res = await fetch("/api/aipify/manufacturing-production-industrial-operations-pack/actions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "create_work_order",
+        product_name: productName.trim(),
+        quantity: Number(quantity) || 1,
+        priority,
+        work_order_status: "planned",
+      }),
+    });
+    if (!res.ok) {
+      const body = (await res.json()) as { error?: string };
+      setActionError(body.error ?? labels.createFailed);
+    } else {
+      setProductName("");
+      setQuantity("1");
+      await load();
+    }
+    setCreating(false);
+  };
+
+  if (loading) {
+    return (
+      <div className="flex min-h-[240px] items-center justify-center">
+        <AipifyLoader centered />
+        <span className="sr-only">{labels.loading}</span>
+      </div>
+    );
+  }
+
+  if (!center?.found || !center.has_access) {
+    return (
+      <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 text-amber-900">
+        <p className="font-medium">{labels.accessRequiredTitle}</p>
+        <p className="mt-2 text-sm">{center?.error ?? labels.accessRequiredBody}</p>
+      </div>
+    );
+  }
+
+  const overview = center.overview ?? {};
+  const ops = center.operations ?? {};
+
+  return (
+    <div className="space-y-6">
+      {actionError ? (
+        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">{actionError}</div>
+      ) : null}
+
+      <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-gray-900">{labels.overviewTitle}</h2>
+        <p className="mt-1 text-sm text-gray-600">{center.philosophy}</p>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            [labels.metricOrders, overview.production_orders ?? 0],
+            [labels.metricOutput, overview.production_output ?? 0],
+            [labels.metricCapacity, overview.production_capacity ?? 0],
+            [labels.metricMaterialAvailability, overview.material_availability ?? 0],
+            [labels.metricQuality, overview.quality_score ?? 0],
+            [labels.metricEquipment, overview.equipment_availability ?? 0],
+            [labels.metricUtilization, overview.capacity_utilization ?? 0],
+            [labels.metricHealth, overview.manufacturing_health_score ?? 0],
+          ].map(([label, value]) => (
+            <div key={String(label)} className="rounded-lg bg-gray-50 p-4">
+              <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</p>
+              <p className="mt-1 text-2xl font-semibold text-gray-900">{value}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-gray-900">{labels.operationsTitle}</h2>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {[
+            [labels.openPlanning, ops.planning_route],
+            [labels.openWorkOrders, ops.work_orders_route],
+            [labels.openMaterials, ops.materials_route],
+            [labels.openQuality, ops.quality_route],
+            [labels.openEquipment, ops.equipment_route],
+            [labels.openExecutive, center.executive_dashboard?.executive_route as string],
+          ].map(([label, href]) =>
+            href ? (
+              <Link
+                key={String(label)}
+                href={href}
+                className="rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700 hover:border-gray-400"
+              >
+                {label}
+              </Link>
+            ) : null
+          )}
+        </div>
+      </section>
+
+      <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-gray-900">{labels.workOrdersTitle}</h2>
+        {(center.work_orders ?? []).length === 0 ? (
+          <p className="mt-3 text-sm text-gray-500">{labels.noWorkOrders}</p>
+        ) : (
+          <ul className="mt-4 space-y-2">
+            {(center.work_orders ?? []).map((wo) => (
+              <li key={wo.id} className="flex justify-between rounded-lg bg-gray-50 px-4 py-3 text-sm">
+                <span>
+                  <span className="font-medium text-gray-900">{wo.product_name}</span>
+                  <span className="ml-2 text-gray-500">× {wo.quantity}</span>
+                </span>
+                <span className="text-gray-600">{wo.work_order_status}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
+          <input
+            className="rounded-lg border border-gray-300 px-3 py-2 text-sm"
+            placeholder={labels.productNamePlaceholder}
+            value={productName}
+            onChange={(e) => setProductName(e.target.value)}
+          />
+          <input
+            className="w-24 rounded-lg border border-gray-300 px-3 py-2 text-sm"
+            type="number"
+            min="1"
+            placeholder={labels.quantityPlaceholder}
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+          />
+          <select
+            className="rounded-lg border border-gray-300 px-3 py-2 text-sm"
+            value={priority}
+            onChange={(e) => setPriority(e.target.value)}
+          >
+            <option value="low">{labels.priorityLow}</option>
+            <option value="normal">{labels.priorityNormal}</option>
+            <option value="high">{labels.priorityHigh}</option>
+            <option value="critical">{labels.priorityCritical}</option>
+          </select>
+          <button
+            type="button"
+            disabled={creating}
+            onClick={() => void createWorkOrder()}
+            className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+          >
+            {creating ? labels.creating : labels.addWorkOrder}
+          </button>
+        </div>
+      </section>
+
+      <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-gray-900">{labels.productionLinesTitle}</h2>
+        {(center.production_lines ?? []).length === 0 ? (
+          <p className="mt-3 text-sm text-gray-500">{labels.noProductionLines}</p>
+        ) : (
+          <ul className="mt-4 space-y-2 text-sm text-gray-700">
+            {(center.production_lines ?? []).slice(0, 10).map((line) => (
+              <li key={line.id} className="flex justify-between rounded-lg bg-gray-50 px-3 py-2">
+                <span>{line.line_name}</span>
+                <span>{line.maintenance_status} · {line.utilization_percent}%</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-gray-900">{labels.advisorTitle}</h2>
+        <div className="mt-4 space-y-4">
+          {(center.advisor_signals ?? []).map((sig) => (
+            <article key={sig.id} className="rounded-lg bg-gray-50 p-4">
+              <p className="font-medium text-gray-900">{sig.observation}</p>
+              {sig.recommendation ? (
+                <p className="mt-2 text-sm font-medium text-gray-800">
+                  {labels.recommendation}: {sig.recommendation}
+                </p>
+              ) : null}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <p className="text-sm text-gray-500">
+        <Link href={center.industry_packs_route ?? "/app/industry-packs"} className="underline">
+          {labels.industryPacksLink}
+        </Link>
+      </p>
+    </div>
+  );
+}
