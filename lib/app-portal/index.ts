@@ -43,3 +43,4 @@ export * from "./business-pack-lifecycle";
 export * from "./business-pack-value";
 export * from "./business-pack-command-center";
 export * from "./business-pack-ecosystem-intelligence";
+export * from "./business-pack-automation";

@@ -23860,7 +23860,8 @@
       "businessPackLifecycle": "Lifecycle Center",
       "businessPackValue": "Value Center",
       "businessPackCommandCenter": "Command Center",
-      "businessPackEcosystemIntelligence": "Ecosystem Intelligence"
+      "businessPackEcosystemIntelligence": "Ecosystem Intelligence",
+      "businessPackAutomation": "Automation Center"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -28313,6 +28314,118 @@
         "autoOptimizeAnswer": "No. Aipify provides visibility and recommendations while organizations remain responsible for implementation decisions.",
         "whyRelationships": "Why are Business Pack relationships important?",
         "whyRelationshipsAnswer": "Organizations often realize greater value when capabilities complement one another rather than operating independently."
+      }
+    },
+    "businessPackAutomation": {
+      "title": "Business Pack Automation Center",
+      "subtitle": "Discover, govern and optimize Business Pack automations with human approval and transparent oversight.",
+      "loading": "Aipify is reviewing your Business Pack automations…",
+      "principle": "Organizations remain responsible for enabling automations — Aipify recommendations are advisory and explicit approval is always required.",
+      "emptyTitle": "No automation insights are available yet.",
+      "emptyBody": "Aipify helps organizations discover automation opportunities while maintaining human control.",
+      "emptyCta": "Explore Automation Opportunities",
+      "accessDenied": "Automation Center is not available for your role.",
+      "filters": {
+        "search": "Search automations…",
+        "category": "Category",
+        "status": "Status",
+        "owner": "Owner",
+        "packKey": "Business Pack",
+        "healthStatus": "Health status",
+        "periodFrom": "Activity since",
+        "all": "All"
+      },
+      "dashboard": {
+        "totalAutomations": "Total automations",
+        "activeAutomations": "Active automations",
+        "recommendedAutomations": "Recommended automations",
+        "requiringReview": "Automations requiring review",
+        "timeSaved": "Estimated time saved",
+        "healthOverview": "Automation health overview",
+        "executiveSummary": "Executive summary",
+        "recommendedActions": "Automation recommendations",
+        "automationInsights": "Automation insights",
+        "timeline": "Automation timeline",
+        "approvalHistory": "Approval history"
+      },
+      "card": {
+        "category": "Category",
+        "status": "Status",
+        "healthStatus": "Health",
+        "trigger": "Trigger",
+        "action": "Action",
+        "estimatedValue": "Estimated value",
+        "owner": "Owner",
+        "lastExecution": "Last execution",
+        "successRate": "Success rate",
+        "improvements": "Recommended improvements",
+        "viewDetails": "View details",
+        "approve": "Approve automation"
+      },
+      "approval": {
+        "title": "Automation approval",
+        "notes": "Governance notes",
+        "reviewSchedule": "Review schedule",
+        "submit": "Submit approval",
+        "success": "Automation approved successfully.",
+        "governanceNote": "Explicit approval is required before automations are enabled."
+      },
+      "statuses": {
+        "recommended": "Recommended",
+        "draft": "Draft",
+        "active": "Active",
+        "paused": "Paused",
+        "requiresReview": "Requires review",
+        "retired": "Retired"
+      },
+      "categories": {
+        "operational": "Operational automations",
+        "support": "Support automations",
+        "governance": "Governance automations",
+        "executive": "Executive automations",
+        "notification": "Notification automations",
+        "businessPack": "Business Pack automations",
+        "customerSuccess": "Customer success automations",
+        "custom": "Custom automations"
+      },
+      "healthStatuses": {
+        "healthy": "Healthy",
+        "stable": "Stable",
+        "requiresAttention": "Requires attention",
+        "atRisk": "At risk"
+      },
+      "recommendations": {
+        "automateNotifications": "Automate recurring notifications",
+        "introduceApprovals": "Introduce approval workflows",
+        "expandSuccessful": "Expand successful automations",
+        "reviewFailing": "Review failing automations",
+        "reduceManualEffort": "Reduce manual administrative effort",
+        "explorePackAutomation": "Explore Business Pack automation opportunities"
+      },
+      "insights": {
+        "mostValuable": "Most valuable automations",
+        "underutilized": "Underutilized automations",
+        "frequentlyUsed": "Frequently used automations",
+        "failedAttention": "Failed automations requiring attention",
+        "expansionOpportunities": "Opportunities for expansion"
+      },
+      "timelineEvents": {
+        "automationActivated": "Automation activated",
+        "automationRecommended": "Automation recommended",
+        "reviewCompleted": "Review completed",
+        "improvementImplemented": "Improvement implemented",
+        "recommendationAccepted": "Recommendation accepted",
+        "performanceMilestone": "Performance milestone achieved",
+        "automationRetired": "Automation retired"
+      },
+      "faq": {
+        "title": "Automation Center FAQ",
+        "whatIs": "What is the Automation Center?",
+        "whatIsAnswer": "The Automation Center helps organizations discover, govern and optimize Business Pack automations.",
+        "autoActivate": "Can Aipify activate automations automatically?",
+        "autoActivateAnswer": "No. Explicit approval is always required before automations are enabled.",
+        "whyGovernance": "Why is governance important for automation?",
+        "whyGovernanceAnswer": "Governance ensures that automation supports organizational goals while maintaining accountability and human oversight."
       }
     }
   },
