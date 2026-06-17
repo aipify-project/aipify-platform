@@ -9,6 +9,7 @@ export type AppNavId =
   | "aipifyCorePlatformEngine"
   | "multiTenantArchitectureEngine"
   | "organizationWorkspaceEngine"
+  | "enterpriseOrganizationEngine"
   | "contextIntelligenceEngine"
   | "identityPermissionsEngine"
   | "secureAiActionEngine"
@@ -410,6 +411,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "organizationWorkspaceEngine",
     href: "/app/organization-workspace-engine",
     labelKey: "customerApp.nav.organizationWorkspaceEngine",
+  },
+  {
+    id: "enterpriseOrganizationEngine",
+    href: "/app/organizations",
+    labelKey: "customerApp.nav.enterpriseOrganizationEngine",
   },
   {
     id: "contextIntelligenceEngine",
@@ -1798,6 +1804,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/aipify-core")) return "aipifyCorePlatformEngine";
   if (pathname.startsWith("/app/multi-tenant")) return "multiTenantArchitectureEngine";
   if (pathname.startsWith("/app/organization-workspace-engine")) return "organizationWorkspaceEngine";
+  if (pathname.startsWith("/app/organizations")) return "enterpriseOrganizationEngine";
   if (pathname.startsWith("/app/context-intelligence-engine")) return "contextIntelligenceEngine";
   if (pathname.startsWith("/app/identity-access")) return "identityPermissionsEngine";
   if (pathname.startsWith("/app/secure-ai-actions")) return "secureAiActionEngine";

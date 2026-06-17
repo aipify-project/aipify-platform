@@ -1,0 +1,61 @@
+export type EnterpriseOrgEntity = {
+  id?: string;
+  group_id?: string;
+  parent_entity_id?: string | null;
+  name?: string;
+  slug?: string;
+  entity_type?: string;
+  status?: string;
+  leadership_name?: string;
+  revenue_amount?: number | null;
+  revenue_currency?: string;
+  employee_count?: number;
+  digital_employee_count?: number;
+  health_score?: number;
+  performance_label?: string;
+  linked_organization_id?: string | null;
+  business_packs?: unknown[];
+  metrics?: Record<string, unknown>;
+  created_at?: string;
+  updated_at?: string;
+  [key: string]: unknown;
+};
+
+export type EnterpriseOrgAdvisorSignal = {
+  id?: string;
+  signal_type?: string;
+  observation?: string;
+  impact?: string;
+  recommendation?: string;
+  effort?: string;
+  confidence?: string;
+  entity_id?: string | null;
+  region_id?: string | null;
+  created_at?: string;
+  [key: string]: unknown;
+};
+
+export type EnterpriseOrganizationCenter = {
+  found?: boolean;
+  has_access?: boolean;
+  philosophy?: string;
+  mission?: string;
+  abos_principle?: string;
+  organization_workspace_route?: string;
+  distinction_note?: string;
+  privacy_note?: string;
+  error?: string;
+  group?: Record<string, unknown>;
+  overview?: Record<string, unknown>;
+  modules?: Array<{ key?: string; route?: string }>;
+  entities?: EnterpriseOrgEntity[];
+  hierarchy?: Array<Record<string, unknown>>;
+  regions?: Array<Record<string, unknown>>;
+  shared_services?: Array<Record<string, unknown>>;
+  access_scopes?: Array<Record<string, unknown>>;
+  advisor_signals?: EnterpriseOrgAdvisorSignal[];
+  audit_logs?: Array<Record<string, unknown>>;
+  analytics?: Record<string, unknown>;
+  executive_dashboard?: Record<string, unknown>;
+  [key: string]: unknown;
+};
