@@ -1,0 +1,7 @@
+Partner Opportunity Center — Phase 337
+Route: /partner/opportunities
+
+CRM-inspired pipeline for Growth Partners: Lead → Contacted → Discovery → Qualified → Demo → Proposal → Negotiation → Closed Won/Lost.
+
+Every opportunity requires: owner, next action, due date, health score.
+Integrates with Companion Follow-Up, Recommendation Engine, and Relationship Intelligence for smart follow-up support.

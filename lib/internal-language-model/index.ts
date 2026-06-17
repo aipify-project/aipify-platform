@@ -1540,6 +1540,7 @@ export * from "./partner-academy-phase332-vocabulary";
 export * from "./partner-commission-engine-phase333-vocabulary";
 export * from "./partner-compliance-center-phase335-vocabulary";
 export * from "./partner-sales-materials-center-phase336-vocabulary";
+export * from "./partner-opportunity-center-phase337-vocabulary";
 
 export const GROWTH_PARTNER_PORTAL_PHASE331_CORPUS =
   "aipify-core/knowledge/internal-language-model/growth-partner-portal-foundation-phase331.txt";
@@ -1555,3 +1556,6 @@ export const PARTNER_COMPLIANCE_CENTER_PHASE335_CORPUS =
 
 export const PARTNER_SALES_MATERIALS_CENTER_PHASE336_CORPUS =
   "aipify-core/knowledge/internal-language-model/partner-sales-materials-center-phase336.txt";
+
+export const PARTNER_OPPORTUNITY_CENTER_PHASE337_CORPUS =
+  "aipify-core/knowledge/internal-language-model/partner-opportunity-center-phase337.txt";
