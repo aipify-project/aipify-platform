@@ -72,3 +72,5 @@ export { BusinessPackCompliancePanel } from "./BusinessPackCompliancePanel";
 export { BusinessPackExecutivePortfolioPanel } from "./BusinessPackExecutivePortfolioPanel";
 export { EnterpriseBenchmarkingPanel } from "./EnterpriseBenchmarkingPanel";
 export { EnterpriseBenchmarkingDimensionPanel } from "./EnterpriseBenchmarkingDimensionPanel";
+export { PredictiveIntelligencePanel } from "./PredictiveIntelligencePanel";
+export { PredictiveIntelligenceDetailPanel } from "./PredictiveIntelligenceDetailPanel";

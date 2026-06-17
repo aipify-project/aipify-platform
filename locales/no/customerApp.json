@@ -23865,7 +23865,8 @@
       "businessPackGovernance": "Governance Center",
       "businessPackCompliance": "Compliance Center",
       "businessPackExecutivePortfolio": "Executive Portfolio",
-      "enterpriseBenchmarking": "Enterprise Benchmarking"
+      "enterpriseBenchmarking": "Enterprise Benchmarking",
+      "predictiveIntelligence": "Predictive Intelligence"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -28913,6 +28914,129 @@
         "anonymousAnswer": "Yes. All benchmarking data is aggregated and anonymized. No customer-specific information is exposed.",
         "determinesSuccess": "Does maturity determine organizational success?",
         "determinesSuccessAnswer": "No. Maturity insights provide guidance and opportunities for improvement, while organizations define their own strategic objectives."
+      }
+    },
+    "predictiveIntelligence": {
+      "title": "Predictive Intelligence",
+      "subtitle": "Identify emerging patterns, anticipate operational developments and proactively prepare for future scenarios.",
+      "loading": "Aipify is analyzing organizational patterns and emerging trends...",
+      "principle": "Predictive insights support preparedness — Aipify never claims certainty about future events.",
+      "probabilityNote": "All predictions are probability-based insights — not certainties about future events.",
+      "emptyTitle": "No predictive insights are available yet.",
+      "emptyBody": "Aipify helps organizations prepare for tomorrow through proactive intelligence.",
+      "emptyCta": "Generate Predictive Insights",
+      "accessDenied": "Predictive Intelligence access requires owner authorization or an explicit grant.",
+      "filters": {
+        "search": "Search predictions, insights, recommendations...",
+        "category": "Prediction category",
+        "confidenceLevel": "Confidence level",
+        "timeHorizon": "Time horizon",
+        "organizationalArea": "Organizational area",
+        "potentialImpact": "Potential impact",
+        "reviewStatus": "Review status",
+        "timePeriod": "Time period",
+        "all": "All"
+      },
+      "dashboard": {
+        "forecastSummary": "Organizational Forecast Summary",
+        "executiveSummary": "Executive Summary",
+        "emergingOpportunities": "Emerging Opportunities",
+        "emergingRisks": "Emerging Risks",
+        "areasRequiringAttention": "Areas Requiring Attention",
+        "confidenceLevels": "Predictive Confidence Levels",
+        "preventiveActions": "Recommended Preventive Actions",
+        "predictions": "Predictions",
+        "earlyWarnings": "Early Warning Indicators",
+        "recommendations": "Aipify Recommendations",
+        "timeline": "Prediction Timeline",
+        "viewPrediction": "View prediction details"
+      },
+      "card": {
+        "category": "Category",
+        "confidence": "Confidence level",
+        "timeHorizon": "Estimated time horizon",
+        "impact": "Potential impact",
+        "relatedAreas": "Related organizational areas",
+        "lastReviewed": "Last reviewed",
+        "recommendedActions": "Recommended actions"
+      },
+      "detail": {
+        "back": "Back to Predictive Intelligence",
+        "outcomeReview": "Prediction outcome review",
+        "reviewNotes": "Review notes (optional)",
+        "submitReview": "Submit outcome review",
+        "reviewSuccess": "Outcome review recorded successfully.",
+        "probabilityNote": "This insight is probability-based — Aipify does not claim certainty about future events.",
+        "priorReviews": "Prior outcome reviews"
+      },
+      "generate": {
+        "success": "Predictive insights generated successfully.",
+        "governanceNote": "All outputs remain probability-based — leadership retains full decision authority."
+      },
+      "categories": {
+        "operational": "Operational Predictions",
+        "capacity": "Capacity Predictions",
+        "strategic": "Strategic Predictions",
+        "customerSuccess": "Customer Success Predictions",
+        "learning": "Learning Predictions",
+        "governance": "Governance Predictions",
+        "risk": "Risk Predictions",
+        "businessPack": "Business Pack Predictions"
+      },
+      "confidenceLevels": {
+        "exploratory": "Exploratory",
+        "emergingPattern": "Emerging Pattern",
+        "moderateConfidence": "Moderate Confidence",
+        "highConfidence": "High Confidence"
+      },
+      "timeHorizons": {
+        "next30Days": "Next 30 Days",
+        "nextQuarter": "Next Quarter",
+        "next6Months": "Next 6 Months",
+        "next12Months": "Next 12 Months"
+      },
+      "impactLevels": {
+        "low": "Low",
+        "moderate": "Moderate",
+        "high": "High",
+        "critical": "Critical"
+      },
+      "reviewStatuses": {
+        "pending": "Pending review",
+        "reviewed": "Reviewed",
+        "needsFollowUp": "Needs follow-up"
+      },
+      "outcomes": {
+        "confirmed": "Prediction confirmed",
+        "partiallyConfirmed": "Prediction partially confirmed",
+        "notObserved": "Prediction not observed",
+        "insufficientEvidence": "Insufficient evidence"
+      },
+      "recommendations": {
+        "conductPreventiveCapacityReviews": "Conduct preventive capacity reviews",
+        "strengthenFollowUpDiscipline": "Strengthen follow-up discipline",
+        "reviewEmergingGovernanceRisks": "Review emerging governance risks",
+        "scheduleExecutivePlanningSessions": "Schedule executive planning sessions",
+        "expandLearningInitiatives": "Expand learning initiatives",
+        "monitorIdentifiedTrends": "Monitor identified trends"
+      },
+      "timelineEvents": {
+        "predictionsGenerated": "Predictions generated",
+        "predictionReviewed": "Prediction reviewed",
+        "actionImplemented": "Action implemented",
+        "outcomeEvaluated": "Prediction outcome evaluated",
+        "lessonRecorded": "Lesson recorded",
+        "accuracyReviewCompleted": "Predictive accuracy review completed",
+        "outcomeReviewed": "Prediction outcome reviewed"
+      },
+      "faq": {
+        "title": "Predictive Intelligence FAQ",
+        "whatIs": "What is Predictive Intelligence?",
+        "whatIsAnswer": "Predictive Intelligence helps organizations identify emerging trends and prepare for potential future developments using organizational signals and historical patterns.",
+        "predictFuture": "Can Aipify predict the future?",
+        "predictFutureAnswer": "No. Aipify provides probability-based insights and early warning indicators to support planning and preparedness.",
+        "whyReview": "Why review prediction outcomes?",
+        "whyReviewAnswer": "Outcome reviews help organizations improve decision-making, strengthen learning and refine predictive awareness over time."
       }
     }
   },
