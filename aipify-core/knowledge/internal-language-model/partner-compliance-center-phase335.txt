@@ -1,0 +1,9 @@
+Partner Self-Billing & Compliance Center — Phase 335
+Route: /partner/compliance
+
+Compliance by default. Verified business entity, identity, banking, tax profile, and active self-billing agreement required before settlement processing.
+
+Settlement eligibility: eligible · partially_eligible · not_eligible
+Compliance health: excellent · good · needs_attention · action_required
+
+Partner Owner: full access. Partner Manager: read only. Sales representatives and viewers: no compliance access.
