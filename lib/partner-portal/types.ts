@@ -7,6 +7,7 @@ export type PartnerPortalSectionKey =
   | "commissions"
   | "settlements"
   | "compliance"
+  | "communications"
   | "performance"
   | "advisor"
   | "settings";

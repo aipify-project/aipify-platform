@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { processPartnerCommunicationOutbox } from "@/lib/core/partner-communications-email";
 import { approvePartnerSettlement } from "@/lib/core/partner-settlements";
 import { parsePartnerSettlementDetail } from "@/lib/partner-settlements";
 import { createClient } from "@/lib/supabase/server";
@@ -24,6 +25,7 @@ export async function POST(request: Request) {
       body.settlement_id,
       body.approval_statement.trim(),
     );
+    await processPartnerCommunicationOutbox(supabase, 5).catch(() => undefined);
     const parsed = parsePartnerSettlementDetail(data);
     if (!parsed?.has_access) return NextResponse.json({ has_access: false });
     return NextResponse.json(parsed);

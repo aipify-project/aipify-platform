@@ -15,6 +15,7 @@ export const PARTNER_PORTAL_NAV: Array<{
   { id: "commissions", href: "/partner/commissions", labelKey: "nav.commissions" },
   { id: "settlements", href: "/partner/settlements", labelKey: "nav.settlements" },
   { id: "compliance", href: "/partner/compliance", labelKey: "nav.compliance" },
+  { id: "communications", href: "/partner/communications", labelKey: "nav.communications" },
   { id: "performance", href: "/partner/performance", labelKey: "nav.performance" },
   { id: "advisor", href: "/partner/advisor", labelKey: "nav.advisor" },
   { id: "settings", href: "/partner/settings", labelKey: "nav.settings" },

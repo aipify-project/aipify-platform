@@ -52,6 +52,12 @@ export const SUPER_ADMIN_SECTIONS: SuperAdminSection[] = [
         descriptionKey: "superAdmin.modules.globalAuditCenterDescription",
         href: "/super/global-audit",
       },
+      {
+        id: "partnerCommunications",
+        labelKey: "superAdmin.modules.partnerCommunications",
+        descriptionKey: "superAdmin.modules.partnerCommunicationsDescription",
+        href: "/super/partner-communications",
+      },
     ],
   },
 ];

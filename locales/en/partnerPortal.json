@@ -65,7 +65,8 @@
     "performance": "Performance",
     "advisor": "Advisor",
     "settings": "Settings",
-    "compliance": "Compliance Center"
+    "compliance": "Compliance Center",
+    "communications": "Communications"
   },
   "sections": {
     "dashboard": {
