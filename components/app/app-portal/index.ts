@@ -74,3 +74,5 @@ export { EnterpriseBenchmarkingPanel } from "./EnterpriseBenchmarkingPanel";
 export { EnterpriseBenchmarkingDimensionPanel } from "./EnterpriseBenchmarkingDimensionPanel";
 export { PredictiveIntelligencePanel } from "./PredictiveIntelligencePanel";
 export { PredictiveIntelligenceDetailPanel } from "./PredictiveIntelligenceDetailPanel";
+export { ScenarioPlanningPanel } from "./ScenarioPlanningPanel";
+export { ScenarioPlanningDetailPanel } from "./ScenarioPlanningDetailPanel";

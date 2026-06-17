@@ -1,0 +1,8 @@
+APP Portal Phase 313 — Scenario Planning & Simulation Center
+Route: /app/intelligence/scenario-planning
+Dashboard alias: /dashboard/intelligence/scenario-planning
+Section: Intelligence (Enterprise Intelligence)
+Not Assistant — executive decision-support only
+Cross-link Simulation Lab at /app/simulations — not duplicate
+Principle: Thinking ahead — simulations never execute actions
+Helpers: _aspsc313_*

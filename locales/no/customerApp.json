@@ -23866,7 +23866,8 @@
       "businessPackCompliance": "Compliance Center",
       "businessPackExecutivePortfolio": "Executive Portfolio",
       "enterpriseBenchmarking": "Enterprise Benchmarking",
-      "predictiveIntelligence": "Predictive Intelligence"
+      "predictiveIntelligence": "Predictive Intelligence",
+      "scenarioPlanning": "Scenarioplanlegging"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -29037,6 +29038,118 @@
         "predictFutureAnswer": "No. Aipify provides probability-based insights and early warning indicators to support planning and preparedness.",
         "whyReview": "Why review prediction outcomes?",
         "whyReviewAnswer": "Outcome reviews help organizations improve decision-making, strengthen learning and refine predictive awareness over time."
+      }
+    },
+    "scenarioPlanning": {
+      "title": "Scenario Planning",
+      "subtitle": "Explore best, expected, and challenging futures — rehearse strategic decisions before committing resources.",
+      "loading": "Aipify is preparing your scenario planning workspace...",
+      "principle": "Scenario planning supports thinking ahead — simulations never execute actions or change production systems.",
+      "isolationNote": "All simulations are isolated planning exercises. Aipify informs; leadership decides.",
+      "simulationLabLink": "Simulation & Decision Lab",
+      "emptyTitle": "No scenarios are available yet.",
+      "emptyBody": "Aipify helps executives explore futures with structured scenario modeling and comparison.",
+      "emptyCta": "Initialize Scenario Portfolio",
+      "accessDenied": "Scenario Planning access requires owner authorization or an explicit grant.",
+      "filters": {
+        "search": "Search scenarios, assumptions, outcomes...",
+        "category": "Scenario category",
+        "scenarioType": "Scenario type",
+        "planningStatus": "Planning status",
+        "timeHorizon": "Time horizon",
+        "organizationalArea": "Organizational area",
+        "timePeriod": "Time period",
+        "all": "All"
+      },
+      "dashboard": {
+        "planningSummary": "Scenario Planning Summary",
+        "executiveSummary": "Executive Summary",
+        "strategicPriorities": "Strategic Scenario Priorities",
+        "riskScenarios": "Risk & Resilience Scenarios",
+        "scenarios": "Scenarios",
+        "comparisons": "Scenario Comparisons",
+        "recommendations": "Aipify Recommendations",
+        "timeline": "Planning Timeline",
+        "viewScenario": "View scenario details",
+        "runSimulation": "Run simulation",
+        "compareScenarios": "Compare best / expected / challenging",
+        "markReviewed": "Mark scenario reviewed"
+      },
+      "card": {
+        "category": "Category",
+        "scenarioType": "Type",
+        "planningStatus": "Status",
+        "timeHorizon": "Time horizon",
+        "lastSimulated": "Last simulated",
+        "assumptions": "Key assumptions",
+        "variables": "Variables considered",
+        "projectedOutcomes": "Projected outcomes"
+      },
+      "detail": {
+        "back": "Back to Scenario Planning",
+        "simulations": "Simulation results",
+        "outcomeSummary": "Outcome summary",
+        "riskNotes": "Risk considerations",
+        "opportunityNotes": "Opportunity considerations",
+        "reviewNotes": "Leadership review notes (optional)",
+        "submitReview": "Record scenario review",
+        "reviewSuccess": "Scenario review recorded successfully.",
+        "simulateSuccess": "Simulation completed — results are illustrative only.",
+        "isolationNote": "Simulation results are illustrative — humans decide whether and how to act."
+      },
+      "initialize": {
+        "success": "Scenario portfolio initialized successfully.",
+        "governanceNote": "Recommendations remain advisory — leadership defines strategic objectives."
+      },
+      "categories": {
+        "strategic": "Strategic",
+        "operational": "Operational",
+        "capacity": "Capacity",
+        "market": "Market",
+        "governance": "Governance",
+        "risk": "Risk"
+      },
+      "scenarioTypes": {
+        "bestCase": "Best case",
+        "expected": "Expected",
+        "challenging": "Challenging",
+        "custom": "Custom"
+      },
+      "planningStatuses": {
+        "draft": "Draft",
+        "active": "Active",
+        "simulated": "Simulated",
+        "reviewed": "Reviewed",
+        "archived": "Archived"
+      },
+      "timeHorizons": {
+        "next30Days": "Next 30 days",
+        "nextQuarter": "Next quarter",
+        "next6Months": "Next 6 months",
+        "next12Months": "Next 12 months"
+      },
+      "recommendations": {
+        "rehearseChallengingScenarios": "Rehearse challenging scenarios with leadership",
+        "reviewCapacityScenarios": "Review capacity scenarios before peak demand",
+        "scheduleExecutiveScenarioReview": "Schedule executive scenario review session",
+        "compareBestExpectedChallenging": "Compare best, expected, and challenging futures",
+        "crossLinkSimulationLab": "Use Simulation Lab for deeper isolated modeling"
+      },
+      "timelineEvents": {
+        "scenariosInitialized": "Scenario portfolio initialized",
+        "scenariosRefreshed": "Scenario catalog refreshed",
+        "simulationCompleted": "Scenario simulation completed",
+        "scenariosCompared": "Leadership scenario comparison recorded",
+        "scenarioReviewed": "Scenario reviewed by leadership"
+      },
+      "faq": {
+        "title": "Scenario Planning FAQ",
+        "whatIs": "What is Scenario Planning?",
+        "whatIsAnswer": "Scenario Planning helps executives explore how different futures may unfold — supporting preparedness without claiming certainty.",
+        "executesActions": "Do simulations execute actions?",
+        "executesActionsAnswer": "No. Simulations are isolated planning exercises. They never change production systems or execute operational actions.",
+        "whoCanAccess": "Who can access Scenario Planning?",
+        "whoCanAccessAnswer": "Owners and executives have full access. Managers and administrators require explicit grants from the organization owner. Employees do not have access."
       }
     }
   },

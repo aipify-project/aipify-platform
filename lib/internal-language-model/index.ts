@@ -318,6 +318,7 @@ export * from "./implementation-blueprint-phase310-vocabulary";
 export * from "./implementation-blueprint-phase311-vocabulary";
 export * from "./implementation-blueprint-phase312-vocabulary";
 export * from "./implementation-blueprint-phase313-vocabulary";
+export * from "./app-portal-phase313-scenario-planning-vocabulary";
 export * from "./implementation-blueprint-phase314-vocabulary";
 export * from "./implementation-blueprint-phase315-vocabulary";
 export * from "./implementation-blueprint-phase316-vocabulary";
@@ -1278,6 +1279,8 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE312_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase312-aipify-platform-observability-center.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE313_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase313-aipify-incident-command-center.txt";
+export const APP_PORTAL_PHASE313_SCENARIO_PLANNING_CORPUS =
+  "aipify-core/knowledge/internal-language-model/app-portal-phase313-scenario-planning-simulation-center.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE314_CORPUS =
   "aipify-core/knowledge/internal-language-model/implementation-blueprint-phase314-aipify-change-management-center.txt";
 export const IMPLEMENTATION_BLUEPRINT_PHASE315_CORPUS =
