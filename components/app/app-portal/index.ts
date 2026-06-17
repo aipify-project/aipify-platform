@@ -69,3 +69,4 @@ export { BusinessPackEcosystemIntelligencePanel } from "./BusinessPackEcosystemI
 export { BusinessPackAutomationPanel } from "./BusinessPackAutomationPanel";
 export { BusinessPackGovernancePanel } from "./BusinessPackGovernancePanel";
 export { BusinessPackCompliancePanel } from "./BusinessPackCompliancePanel";
+export { BusinessPackExecutivePortfolioPanel } from "./BusinessPackExecutivePortfolioPanel";

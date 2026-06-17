@@ -33,6 +33,7 @@ export type AppPortalNavId =
   | "businessPackAutomation"
   | "businessPackGovernance"
   | "businessPackCompliance"
+  | "businessPackExecutivePortfolio"
   | "appTasks"
   | "workflows"
   | "insights"
@@ -145,6 +146,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
       { id: "businessPackAutomation", href: "/app/business-packs/automation", labelKey: "customerApp.portalStructure.nav.businessPackAutomation", featureKey: "business_packs" },
       { id: "businessPackGovernance", href: "/app/business-packs/governance", labelKey: "customerApp.portalStructure.nav.businessPackGovernance", featureKey: "business_packs" },
       { id: "businessPackCompliance", href: "/app/business-packs/compliance", labelKey: "customerApp.portalStructure.nav.businessPackCompliance", featureKey: "business_packs" },
+      { id: "businessPackExecutivePortfolio", href: "/app/business-packs/executive-portfolio", labelKey: "customerApp.portalStructure.nav.businessPackExecutivePortfolio", featureKey: "business_packs" },
       { id: "availableBusinessPacks", href: "/app/business-packs/available", labelKey: "customerApp.portalStructure.nav.availableBusinessPacks", featureKey: "business_packs" },
       { id: "businessPackSettings", href: "/app/business-packs/settings", labelKey: "customerApp.portalStructure.nav.businessPackSettings", featureKey: "business_packs" },
     ],

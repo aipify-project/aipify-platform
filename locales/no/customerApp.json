@@ -23863,7 +23863,8 @@
       "businessPackEcosystemIntelligence": "Ecosystem Intelligence",
       "businessPackAutomation": "Automation Center",
       "businessPackGovernance": "Governance Center",
-      "businessPackCompliance": "Compliance Center"
+      "businessPackCompliance": "Compliance Center",
+      "businessPackExecutivePortfolio": "Executive Portfolio"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -28659,6 +28660,142 @@
         "legalAdviceAnswer": "No. Aipify provides visibility and governance support but does not replace legal, regulatory or professional advice.",
         "completeCompliance": "Can Aipify ensure complete compliance?",
         "completeComplianceAnswer": "No. Organizations remain responsible for compliance decisions and review outcomes."
+      }
+    },
+    "businessPackExecutivePortfolio": {
+      "title": "Business Pack Executive Portfolio",
+      "subtitle": "Strategic overview of Business Pack performance, value realization and governance maturity across your organization.",
+      "loading": "Aipify is preparing your executive portfolio insights…",
+      "principle": "Aipify provides visibility and recommendations — executives remain responsible for all investment and portfolio decisions.",
+      "emptyTitle": "No Business Pack portfolio insights are available yet.",
+      "emptyBody": "Aipify helps leaders understand the strategic value of their Business Pack ecosystem.",
+      "emptyCta": "Review Business Pack Portfolio",
+      "accessDenied": "Executive Portfolio Center access requires owner authorization or an explicit grant.",
+      "filters": {
+        "search": "Search Business Packs…",
+        "portfolioStatus": "Portfolio status",
+        "packKey": "Business Pack",
+        "maturityLevel": "Maturity level",
+        "executiveSponsor": "Executive sponsor",
+        "priorityLevel": "Priority level",
+        "reviewPeriod": "Review period",
+        "all": "All"
+      },
+      "dashboard": {
+        "portfolioHealthScore": "Portfolio health score",
+        "totalInstalled": "Total Business Packs installed",
+        "totalActive": "Total active Business Packs",
+        "totalValueRealized": "Total estimated value realized",
+        "packsRequiringAttention": "Business Packs requiring executive attention",
+        "portfolioGrowthTrend": "Portfolio growth trend",
+        "executiveSummary": "Executive summary",
+        "portfolioOverview": "Portfolio overview",
+        "portfolioInsights": "Portfolio insights",
+        "recommendedActions": "Portfolio recommendations",
+        "timeline": "Portfolio timeline",
+        "healthOverview": "Executive Business Pack overview",
+        "maturityLevel": "Portfolio maturity level"
+      },
+      "overview": {
+        "installedPacks": "Installed Business Packs",
+        "adoptionOverview": "Adoption overview",
+        "governanceOverview": "Governance overview",
+        "complianceOverview": "Compliance overview",
+        "valueOverview": "Value overview",
+        "lifecycleOverview": "Lifecycle overview",
+        "ecosystemOverview": "Ecosystem overview"
+      },
+      "card": {
+        "portfolioStatus": "Portfolio status",
+        "adoptionScore": "Adoption score",
+        "valueScore": "Value score",
+        "governanceScore": "Governance score",
+        "complianceStatus": "Compliance status",
+        "lifecycleStage": "Lifecycle stage",
+        "executiveSponsor": "Executive sponsor",
+        "recommendedAction": "Recommended action",
+        "viewDetails": "View details",
+        "completeReview": "Complete executive review"
+      },
+      "review": {
+        "title": "Executive portfolio review",
+        "notes": "Governance notes",
+        "reviewType": "Review type",
+        "reviewOutcome": "Review outcome",
+        "submit": "Submit review",
+        "success": "Executive portfolio review recorded successfully.",
+        "governanceNote": "Investment and portfolio decisions remain with leadership — this records review completion only."
+      },
+      "portfolioStatuses": {
+        "highPerforming": "High performing",
+        "healthy": "Healthy",
+        "stable": "Stable",
+        "requiresOptimization": "Requires optimization",
+        "executiveAttentionRequired": "Executive attention required"
+      },
+      "maturityLevels": {
+        "emergingPortfolio": "Emerging portfolio",
+        "developingPortfolio": "Developing portfolio",
+        "maturePortfolio": "Mature portfolio",
+        "strategicPortfolio": "Strategic portfolio",
+        "transformationalPortfolio": "Transformational portfolio"
+      },
+      "priorityLevels": {
+        "informational": "Informational",
+        "opportunity": "Opportunity",
+        "important": "Important",
+        "executiveAttentionRequired": "Executive attention required"
+      },
+      "reviewTypes": {
+        "quarterlyExecutive": "Quarterly executive review",
+        "semiAnnual": "Semi-annual review",
+        "annualPortfolio": "Annual portfolio review",
+        "adHoc": "Ad-hoc review"
+      },
+      "reviewOutcomes": {
+        "continueInvestment": "Continue investment",
+        "optimizeInvestment": "Optimize investment",
+        "expandInvestment": "Expand investment",
+        "retireCapability": "Retire capability",
+        "furtherInvestigationRequired": "Further investigation required"
+      },
+      "growthTrends": {
+        "growing": "Growing",
+        "stable": "Stable",
+        "emerging": "Emerging"
+      },
+      "recommendations": {
+        "expandSuccessfulPacks": "Expand successful Business Packs",
+        "scheduleExecutiveReviews": "Schedule executive portfolio reviews",
+        "strengthenGovernance": "Strengthen governance practices",
+        "reviewUnderperforming": "Review underperforming capabilities",
+        "celebratePortfolioSuccess": "Celebrate portfolio successes",
+        "prioritizeOptimization": "Prioritize optimization opportunities"
+      },
+      "insights": {
+        "highestPerforming": "Highest-performing Business Packs",
+        "underutilized": "Underutilized Business Packs",
+        "strongestRoi": "Business Packs with strongest ROI",
+        "governanceAttention": "Business Packs requiring governance attention",
+        "optimizationOpportunities": "Emerging optimization opportunities",
+        "maturityObservations": "Portfolio maturity observations"
+      },
+      "timelineEvents": {
+        "packIntroduced": "New Business Pack introduced",
+        "portfolioReviewCompleted": "Portfolio review completed",
+        "governanceImprovement": "Governance improvement implemented",
+        "valueMilestone": "Value milestone achieved",
+        "strategicDecision": "Strategic decision recorded",
+        "executiveAction": "Executive action completed"
+      },
+      "faq": {
+        "title": "Executive Portfolio Center FAQ",
+        "whatIs": "What is the Executive Portfolio Center?",
+        "whatIsAnswer": "The Executive Portfolio Center provides leaders with a strategic overview of Business Pack performance, value and governance across the organization.",
+        "investmentDecisions": "Does Aipify make investment decisions?",
+        "investmentDecisionsAnswer": "No. Aipify provides visibility and recommendations while executives remain responsible for all investment and portfolio decisions.",
+        "whyOversight": "Why is portfolio oversight important?",
+        "whyOversightAnswer": "Portfolio oversight helps organizations maximize value, strengthen governance and ensure Business Packs continue supporting strategic objectives."
       }
     }
   },
