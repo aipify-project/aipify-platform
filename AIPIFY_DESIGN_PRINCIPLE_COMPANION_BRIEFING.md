@@ -9,6 +9,8 @@ Aipify is not a traditional admin panel. Aipify is the **Companion** guiding the
 
 Every major Customer App page should open with a **Companion Briefing**: a compact, context-aware summary of what matters most *right now* in that workspace. The user should feel that Aipify has been paying attention — calmly, honestly, without pressure.
 
+See also [AIPIFY_COMPANION_GOLDEN_RULE.md](./AIPIFY_COMPANION_GOLDEN_RULE.md) — briefings must not stop at counts; include recommended focus, impact, and next steps when data is available.
+
 ### Language policy
 
 - Use **Aipify** and **Companion** — never generic "AI"

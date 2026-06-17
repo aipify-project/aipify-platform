@@ -11,6 +11,7 @@ Defines how Aipify describes its own functionality and understands how people na
 - `aipify-core/knowledge/internal-language-model/natural-business-language-engine.txt` — human work language (NBLE)
 - `aipify-core/knowledge/internal-language-model/business-phrase-dataset.txt` — expanded business phrase dataset
 - `aipify-core/knowledge/internal-language-model/proactive-guidance-language.txt` — proactive assistance and gentle guidance
+- `aipify-core/knowledge/internal-language-model/companion-golden-rule.txt` — global Companion design principle (context, impact, actionability)
 - `aipify-core/knowledge/internal-language-model/reminder-and-followup-language.txt` — reminders and follow-up language
 - `aipify-core/knowledge/internal-language-model/brand-identity-personhood.txt` — Aipify naming and self-reference (not generic "AI")
 - `aipify-core/knowledge/internal-language-model/abos-foundation.txt` — ABOS definition, six pillars, preferred phrasing
@@ -203,6 +204,24 @@ Aipify is the product name; Artificial Intelligence is the underlying technology
 Corpus: `brand-identity-personhood.txt` · Standard: [BRAND_IDENTITY_PERSONHOOD_STANDARD.md](./BRAND_IDENTITY_PERSONHOOD_STANDARD.md)
 
 Assistant pipeline: `adaptReplyToBrandIdentity()` runs before `adaptReplyToIdentity()` in `/api/assistant`. `adaptReplyToLearningJourney()` runs after brand identity for capability-gap wording — see [LEARNING_JOURNEY_COMMUNICATION_STANDARD.md](./LEARNING_JOURNEY_COMMUNICATION_STANDARD.md).
+
+---
+
+## Companion Golden Rule
+
+Global Companion design principle — Aipify must never stop at information.
+
+| Helper | Purpose |
+|--------|---------|
+| `formatCompanionInsight()` | Render observation → explanation → impact → recommendation → effort → value |
+| `validateCompanionInsight()` | Verify minimum Companion Intelligence Standard fields |
+| `detectInformationOnlyPattern()` | Flag awareness-only messages (counts, bare status) |
+| `enrichInformationOnlyCopy()` | Upgrade bare alerts with context when enrichment is available |
+| `meetsCompanionGoldenRule()` | True when required + at least one recommended dimension present |
+
+Corpus: `companion-golden-rule.txt` · Standard: [AIPIFY_COMPANION_GOLDEN_RULE.md](./AIPIFY_COMPANION_GOLDEN_RULE.md) · Rule: `.cursor/rules/companion-golden-rule.mdc`
+
+Applies to Context Engine, PAME, Recommendations, Proactive Insights, Personalization, Daily Briefing, Work Prioritization, Follow-Up, RSI, Executive Companion, Companion Briefing, and future Business Packs.
 
 ---
 

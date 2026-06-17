@@ -1,0 +1,26 @@
+---
+description: Companion Golden Rule — context, impact, and actionability for all Companion modules
+alwaysApply: true
+---
+
+# Companion Golden Rule
+
+See [AIPIFY_COMPANION_GOLDEN_RULE.md](../../AIPIFY_COMPANION_GOLDEN_RULE.md).
+
+## Rules
+
+1. **Never stop at information** — every insight, alert, reminder, nudge, briefing item, and recommendation must include context and a next step when possible.
+2. **Companion Intelligence Standard** — provide observation, explanation, impact, recommendation, effort, and value; use `formatCompanionInsight()` and `validateCompanionInsight()`.
+3. **Explanation framework** — answer: why am I seeing this, why it matters, what to do, what happens if ignored, what value if I act.
+4. **Executive standard** — high signal, low noise; clarity, prioritization, context, actionability — not more raw counts.
+5. **Behavior** — competent executive assistant and trusted advisor; not a notification engine, chatbot, or passive dashboard.
+6. **Aipify-first language** — Companion is an extension of Aipify; see brand identity and single-identity rules.
+7. **Module scope** — applies to Context Engine, PAME, Recommendations, Proactive Insights, Personalization, Daily Briefing, Work Prioritization, Follow-Up, RSI, Executive Companion, Companion Briefing, and future Business Packs.
+8. **Bad patterns** — avoid count-only alerts (`You have 14 notifications.`), bare status (`Task overdue.`), and trend labels without action (`Support requests increased.`); use `detectInformationOnlyPattern()` in review.
+9. **Humans decide** — recommendations prepare and inform; never pressure, guilt, or auto-execute sensitive actions.
+
+## Code
+
+ILM: `aipify-core/knowledge/internal-language-model/companion-golden-rule.txt`  
+Vocabulary: `lib/internal-language-model/companion-golden-rule-vocabulary.ts`  
+Helpers: `lib/internal-language-model/companion-golden-rule.ts`
