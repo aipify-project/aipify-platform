@@ -48,7 +48,9 @@ export const APPROVAL_ROLES = ["super_admin", "knowledge_admin", "product_owner"
 
 export type ApprovalRole = (typeof APPROVAL_ROLES)[number];
 
-export const LOCALES = ["en", "no", "sv", "da"] as const;
+import { CORE_LOCALES } from "@/lib/i18n/config";
+
+export const LOCALES = CORE_LOCALES;
 
 export type KnowledgeLocale = (typeof LOCALES)[number];
 

@@ -1,4 +1,6 @@
-export const SUPER_PORTAL_LOCALES = ["en", "no", "sv", "da"] as const;
+import { CORE_LOCALES } from "@/lib/i18n/config";
+
+export const SUPER_PORTAL_LOCALES = CORE_LOCALES;
 
 export type SuperPortalLocale = (typeof SUPER_PORTAL_LOCALES)[number];
 

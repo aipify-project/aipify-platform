@@ -1,0 +1,39 @@
+---
+description: Aipify Core Language Foundation — six default locales for all new surfaces
+alwaysApply: true
+---
+
+# Global Language Foundation
+
+See [AIPIFY_GLOBAL_LANGUAGE_FOUNDATION.md](../../AIPIFY_GLOBAL_LANGUAGE_FOUNDATION.md).
+
+## Core languages (mandatory)
+
+Every new module, Business Pack, Industry Pack, Knowledge Center section, FAQ section, email template, notification template, Companion interaction, workflow, and portal page must support:
+
+| Code | Language |
+|------|----------|
+| `en` | English |
+| `no` | Norwegian |
+| `sv` | Swedish |
+| `da` | Danish |
+| `pl` | Polish |
+| `uk` | Ukrainian |
+
+## Rules
+
+1. **No hardcoded UI strings** — translation keys only (`t("namespace.key")`).
+2. **All six core locales** — add keys under `locales/{en,no,sv,da,pl,uk}/` for every new user-facing string.
+3. **English is fallback** — `getDictionary()` merges `en` when a core locale key is missing; missing keys are incomplete work.
+4. **Extensible** — additional locales (e.g. `es`, `de`, `fr`) use `EXTENDED_LOCALES` in `lib/i18n/config.ts`; never refactor keys to add languages.
+5. **Shared keys** — Customer App, Platform Admin, portals, email, and desktop/mobile use the same key paths.
+6. **KC & FAQ** — Knowledge Center articles and FAQ entries require all six core locale variants or structured locale blocks per KC standards.
+
+## Code
+
+- Core list: `CORE_LOCALES`, `CORE_LOCALE_LABELS`, `isCoreLocale()` in `lib/i18n/config.ts`
+- Runtime: `getDictionary()`, `mergeDictionary()` — English baseline + locale overlay
+
+## Scope
+
+Mandatory before shipping any new customer-facing or operator-facing surface.

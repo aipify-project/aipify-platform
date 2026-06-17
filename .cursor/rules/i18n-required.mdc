@@ -12,7 +12,7 @@ Aipify is a global SaaS product. All user-facing text must use the i18n system f
 1. **No hardcoded UI text** — never write strings directly in components, pages, or emails.
 2. **Use translation keys** — always use `t("namespace.key")` or equivalent.
 3. **Default language is English** — fallback to `en` when the user's locale is unsupported.
-4. **Supported locales**: `en`, `no`, `sv`, `da` — new locales must be easy to add.
+4. **Core locales (mandatory)**: `en`, `no`, `sv`, `da`, `pl`, `uk` — see [global-language-foundation.mdc](./global-language-foundation.mdc). Additional locales via `EXTENDED_LOCALES` in `lib/i18n/config.ts`.
 5. **Admin panel** uses the same translation system — no separate hardcoded admin strings.
 6. **Email templates** must be multilingual — store under `locales/{locale}/emails/`.
 7. **Mobile and desktop** share the same translation keys — no separate mobile-only strings.
@@ -29,7 +29,9 @@ locales/
 │   └── emails/
 ├── no/
 ├── sv/
-└── da/
+├── da/
+├── pl/
+└── uk/
 ```
 
 ## Examples

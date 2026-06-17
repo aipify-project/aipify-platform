@@ -16,9 +16,11 @@ export const IMPLEMENTATION_BLUEPRINT_PHASE35_OBJECTIVE_KEYS = [
   "market_operational_recommendations",
 ] as const;
 
-export const IMPLEMENTATION_BLUEPRINT_PHASE35_PRIORITY_LOCALES = ["en", "no", "sv", "da"] as const;
+import { CORE_LOCALES } from "@/lib/i18n/config";
 
-export const IMPLEMENTATION_BLUEPRINT_PHASE35_FUTURE_LOCALES = ["de", "fr", "es", "nl", "pt"] as const;
+export const IMPLEMENTATION_BLUEPRINT_PHASE35_PRIORITY_LOCALES = CORE_LOCALES;
+
+export const IMPLEMENTATION_BLUEPRINT_PHASE35_FUTURE_LOCALES = ["de", "fr", "es", "nl", "pt", "it"] as const;
 
 export const IMPLEMENTATION_BLUEPRINT_PHASE35_COMPANION_PERSONALITIES = [
   "🌹 Warm and supportive — tone adapted per locale, not literal translation",

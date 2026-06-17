@@ -1,4 +1,14 @@
-export const LOCALES = ["en", "no", "sv", "da", "es", "pl", "uk"] as const;
+/** Default Aipify Core Language Foundation — required for every new surface. */
+export const CORE_LOCALES = ["en", "no", "sv", "da", "pl", "uk"] as const;
+
+export type CoreLocale = (typeof CORE_LOCALES)[number];
+
+/** Additional locales enabled in the runtime picker (beyond core foundation). */
+export const EXTENDED_LOCALES = ["es"] as const;
+
+export type ExtendedLocale = (typeof EXTENDED_LOCALES)[number];
+
+export const LOCALES = [...CORE_LOCALES, ...EXTENDED_LOCALES] as const;
 
 export type Locale = (typeof LOCALES)[number];
 
@@ -11,9 +21,18 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   no: "Norsk",
   sv: "Svenska",
   da: "Dansk",
-  es: "Español",
   pl: "Polski",
   uk: "Українська",
+  es: "Español",
+};
+
+export const CORE_LOCALE_LABELS: Record<CoreLocale, string> = {
+  en: LOCALE_LABELS.en,
+  no: LOCALE_LABELS.no,
+  sv: LOCALE_LABELS.sv,
+  da: LOCALE_LABELS.da,
+  pl: LOCALE_LABELS.pl,
+  uk: LOCALE_LABELS.uk,
 };
 
 export const NAMESPACES = [
@@ -57,4 +76,8 @@ export type Namespace = (typeof NAMESPACES)[number];
 
 export function isValidLocale(value: string): value is Locale {
   return LOCALES.includes(value as Locale);
+}
+
+export function isCoreLocale(value: string): value is CoreLocale {
+  return CORE_LOCALES.includes(value as CoreLocale);
 }

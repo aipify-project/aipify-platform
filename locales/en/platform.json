@@ -2152,7 +2152,9 @@
       "en": "English",
       "no": "Norwegian",
       "sv": "Swedish",
-      "da": "Danish"
+      "da": "Danish",
+      "pl": "Polish",
+      "uk": "Ukrainian"
     },
     "translationStatuses": {
       "complete": "Translation complete",

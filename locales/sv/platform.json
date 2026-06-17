@@ -3542,7 +3542,9 @@
       "en": "Engelska",
       "no": "Norska",
       "sv": "Svenska",
-      "da": "Danska"
+      "da": "Danska",
+      "pl": "Polska",
+      "uk": "Ukrainska"
     },
     "translationStatuses": {
       "complete": "Översättning klar",
