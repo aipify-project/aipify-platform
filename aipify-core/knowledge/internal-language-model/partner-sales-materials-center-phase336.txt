@@ -1,0 +1,8 @@
+Partner Sales Materials Center — Phase 336
+Route: /partner/materials
+
+Centrally maintained, version-controlled sales materials for Growth Partners.
+Categories: brochures, decks, one-pagers, discovery guides, objection handling, email templates, social assets, campaign packs.
+Languages: en, no, sv, da, de, fr, es, pl, uk.
+
+Partner flow: Learn Aipify → Download material → Contact prospect → Present professionally → Close deal.

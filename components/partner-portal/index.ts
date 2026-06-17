@@ -5,3 +5,4 @@ export { PartnerAcademyPanel } from "./PartnerAcademyPanel";
 export { PartnerCommissionsPanel } from "./PartnerCommissionsPanel";
 export { PartnerSettlementsPanel } from "./PartnerSettlementsPanel";
 export { PartnerCompliancePanel } from "./PartnerCompliancePanel";
+export { PartnerMaterialsPanel } from "./PartnerMaterialsPanel";
