@@ -13,6 +13,7 @@ export type AppNavId =
   | "industryPackEcosystemEngine"
   | "hospitalityAccommodationPack"
   | "realEstatePortfolioOperationsPack"
+  | "constructionProjectFieldOperationsPack"
   | "contextIntelligenceEngine"
   | "identityPermissionsEngine"
   | "secureAiActionEngine"
@@ -434,6 +435,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "realEstatePortfolioOperationsPack",
     href: "/app/real-estate",
     labelKey: "customerApp.nav.realEstatePortfolioOperationsPack",
+  },
+  {
+    id: "constructionProjectFieldOperationsPack",
+    href: "/app/construction",
+    labelKey: "customerApp.nav.constructionProjectFieldOperationsPack",
   },
   {
     id: "contextIntelligenceEngine",
@@ -1826,6 +1832,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/industry-packs")) return "industryPackEcosystemEngine";
   if (pathname.startsWith("/app/hospitality")) return "hospitalityAccommodationPack";
   if (pathname.startsWith("/app/real-estate")) return "realEstatePortfolioOperationsPack";
+  if (pathname.startsWith("/app/construction")) return "constructionProjectFieldOperationsPack";
   if (pathname.startsWith("/app/context-intelligence-engine")) return "contextIntelligenceEngine";
   if (pathname.startsWith("/app/identity-access")) return "identityPermissionsEngine";
   if (pathname.startsWith("/app/secure-ai-actions")) return "secureAiActionEngine";
