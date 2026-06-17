@@ -1,0 +1,22 @@
+import { NextResponse } from "next/server";
+import { parseCompanionRecommendationAction } from "@/lib/aipify/companion-recommendation-engine";
+import { createClient } from "@/lib/supabase/server";
+
+type RouteContext = { params: Promise<{ id: string }> };
+
+export async function POST(_request: Request, context: RouteContext) {
+  try {
+    const { id } = await context.params;
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const { data, error } = await supabase.rpc("dismiss_companion_recommendation", { p_rec_id: id });
+    if (error) return NextResponse.json({ error: error.message }, { status: 403 });
+    const result = parseCompanionRecommendationAction(data);
+    if (!result.ok) return NextResponse.json({ error: result.error ?? "Failed" }, { status: 403 });
+    return NextResponse.json(result);
+  } catch {
+    return NextResponse.json({ error: "Failed to dismiss recommendation" }, { status: 500 });
+  }
+}

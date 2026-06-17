@@ -224,6 +224,7 @@ export type AppNavId =
   | "companionOrchestrationEngine"
   | "companionContextEngine"
   | "companionMemoryExpansionEngine"
+  | "companionRecommendationEngine"
   | "companionActionMemoryEngine"
   | "presenceContinuityEngine"
   | "companionIdentityRelationshipEngine"
@@ -1398,6 +1399,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "customerApp.nav.companionMemoryExpansionEngine",
   },
   {
+    id: "companionRecommendationEngine",
+    href: "/app/companion/recommendations",
+    labelKey: "customerApp.nav.companionRecommendationEngine",
+  },
+  {
     id: "companionOrchestrationEngine",
     href: "/app/companion/orchestration",
     labelKey: "customerApp.nav.companionOrchestrationEngine",
@@ -1885,6 +1891,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/companion/context")) return "companionContextEngine";
   if (pathname.startsWith("/app/companion/memory")) return "companionMemoryExpansionEngine";
+  if (pathname.startsWith("/app/companion/recommendations")) return "companionRecommendationEngine";
   if (pathname.startsWith("/app/companion/orchestration")) return "companionOrchestrationEngine";
   if (pathname.startsWith("/app/companion/action-memory")) return "companionActionMemoryEngine";
   if (pathname.startsWith("/app/companion/presence-continuity")) return "presenceContinuityEngine";
