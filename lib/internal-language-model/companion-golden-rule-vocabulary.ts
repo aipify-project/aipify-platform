@@ -99,7 +99,7 @@ export const COMPANION_GOLDEN_RULE_MODULES = [
   {
     key: "companion_context_engine",
     label: "Companion Context Engine",
-    paths: ["lib/context-engine/", "/app/assistant/context"],
+    paths: ["lib/aipify/companion-context-engine/", "/app/companion/context"],
   },
   {
     key: "memory_engine",
