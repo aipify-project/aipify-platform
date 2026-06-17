@@ -1392,7 +1392,8 @@
       "executiveCompanion": "Executive Companion",
       "abosCommandCenter": "Command Center",
       "businessPackSuccess": "Success Center",
-      "businessPackRecommendations": "Recommendations"
+      "businessPackRecommendations": "Recommendations",
+      "businessPackLifecycle": "Lifecycle Center"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -5059,6 +5060,126 @@
         "autoInstallAnswer": "No. Organizations always decide whether or not to install additional Business Packs.",
         "whyChange": "Why do recommendations change over time?",
         "whyChangeAnswer": "Recommendations evolve as organizations mature, adopt new capabilities and expand operational needs."
+      }
+    },
+    "businessPackLifecycle": {
+      "title": "Business Pack Lifecycle Center",
+      "subtitle": "Govern Business Packs from evaluation and implementation through optimization and retirement.",
+      "loading": "Aipify is reviewing your Business Pack ecosystem…",
+      "principle": "Organizations remain in full control of Business Pack activation and retirement — Aipify recommendations are advisory.",
+      "emptyTitle": "No Business Pack lifecycle information is available yet.",
+      "emptyBody": "Aipify helps organizations manage Business Packs throughout their entire lifecycle.",
+      "emptyCta": "Explore Business Packs",
+      "accessDenied": "Business Pack lifecycle information is not available for your role.",
+      "filters": {
+        "search": "Search Business Packs…",
+        "lifecycleStage": "Lifecycle stage",
+        "reviewOwner": "Review owner",
+        "department": "Department",
+        "adoptionStatus": "Adoption status",
+        "reviewStatus": "Review status",
+        "periodFrom": "Activity since",
+        "all": "All",
+        "lowAdoption": "Low adoption",
+        "healthyAdoption": "Healthy adoption",
+        "highAdoption": "High adoption"
+      },
+      "dashboard": {
+        "totalInstalled": "Total installed Business Packs",
+        "lifecycleDistribution": "Lifecycle distribution",
+        "packsRequiringReview": "Business Packs requiring review",
+        "recentlyActivated": "Recently activated",
+        "recentlyRetired": "Recently retired",
+        "recommendedActions": "Recommended lifecycle actions",
+        "upcomingReviews": "Upcoming reviews",
+        "installedPacks": "Installed Business Packs",
+        "lifecycleTimeline": "Lifecycle timeline",
+        "reviewCenter": "Review Center",
+        "governance": "Business Pack governance"
+      },
+      "card": {
+        "lifecycleStage": "Current lifecycle stage",
+        "installedDate": "Installed date",
+        "lastActivity": "Last activity date",
+        "adoptionScore": "Adoption score",
+        "usersAssigned": "Users assigned",
+        "reviewFrequency": "Review frequency",
+        "reviewOwner": "Review owner",
+        "relatedPacks": "Related Business Packs",
+        "upcomingMilestones": "Upcoming milestones",
+        "viewDetails": "View details"
+      },
+      "review": {
+        "title": "Lifecycle review",
+        "quarterly": "Quarterly review",
+        "annual": "Annual review",
+        "onDemand": "On-demand review",
+        "submitReview": "Complete review",
+        "notes": "Review notes",
+        "owner": "Review owner",
+        "activelyUsed": "Is the Business Pack actively used?",
+        "objectivesAchieved": "Are objectives being achieved?",
+        "additionalUsers": "Are additional users required?",
+        "trainingRecommended": "Is further training recommended?",
+        "retirementAppropriate": "Is retirement appropriate?",
+        "upgradesRecommended": "Are upgrades recommended?"
+      },
+      "governance": {
+        "assignedOwner": "Assigned owner",
+        "responsibleDepartment": "Responsible department",
+        "reviewHistory": "Review history",
+        "lifecycleNotes": "Lifecycle notes",
+        "decisionHistory": "Decision history",
+        "updateLifecycle": "Update lifecycle stage",
+        "saveNotes": "Save governance notes"
+      },
+      "stages": {
+        "planned": "Planned",
+        "evaluating": "Evaluating",
+        "implementing": "Implementing",
+        "active": "Active",
+        "optimizing": "Optimizing",
+        "mature": "Mature",
+        "underReview": "Under review",
+        "retiring": "Retiring",
+        "retired": "Retired"
+      },
+      "reviewStatuses": {
+        "scheduled": "Scheduled",
+        "inProgress": "In progress",
+        "completed": "Completed",
+        "overdue": "Overdue"
+      },
+      "reviewFrequencies": {
+        "quarterly": "Quarterly",
+        "annual": "Annual",
+        "onDemand": "On demand"
+      },
+      "timelineEvents": {
+        "recommendationReceived": "Recommendation received",
+        "evaluationInitiated": "Evaluation initiated",
+        "approvalCompleted": "Approval completed",
+        "installationCompleted": "Installation completed",
+        "reviewConducted": "Review conducted",
+        "retirementInitiated": "Retirement initiated",
+        "stageUpdated": "Lifecycle stage updated"
+      },
+      "recommendations": {
+        "scheduleOptimizationReview": "Schedule optimization review",
+        "expandUsageTeams": "Expand usage to additional teams",
+        "completeTrainingInitiatives": "Complete training initiatives",
+        "reassessRetirementCandidates": "Reassess retirement candidates",
+        "reviewUnderutilizedCapabilities": "Review underutilized capabilities",
+        "celebrateMatureImplementations": "Celebrate mature implementations"
+      },
+      "faq": {
+        "title": "Business Pack Lifecycle Center FAQ",
+        "whatIs": "What is the Lifecycle Center?",
+        "whatIsAnswer": "The Lifecycle Center helps organizations govern Business Packs from evaluation and implementation through optimization and retirement.",
+        "autoRetire": "Can Aipify retire Business Packs automatically?",
+        "autoRetireAnswer": "No. Organizations remain responsible for all activation, optimization and retirement decisions.",
+        "whyReviews": "Why are lifecycle reviews important?",
+        "whyReviewsAnswer": "Regular reviews help organizations maximize value, strengthen governance and ensure Business Packs continue supporting business objectives."
       }
     }
   }

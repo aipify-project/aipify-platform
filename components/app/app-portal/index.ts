@@ -62,3 +62,4 @@ export { ExecutiveCompanionPanel } from "./ExecutiveCompanionPanel";
 export { AbosCommandCenterPanel } from "./AbosCommandCenterPanel";
 export { BusinessPackSuccessPanel } from "./BusinessPackSuccessPanel";
 export { BusinessPackRecommendationsPanel } from "./BusinessPackRecommendationsPanel";
+export { BusinessPackLifecyclePanel } from "./BusinessPackLifecyclePanel";

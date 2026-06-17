@@ -26,6 +26,7 @@ export type AppPortalNavId =
   | "businessPackSettings"
   | "businessPackSuccess"
   | "businessPackRecommendations"
+  | "businessPackLifecycle"
   | "appTasks"
   | "workflows"
   | "insights"
@@ -131,6 +132,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
       { id: "installedBusinessPacks", href: "/app/business-packs/installed", labelKey: "customerApp.portalStructure.nav.installedBusinessPacks", featureKey: "business_packs" },
       { id: "businessPackSuccess", href: "/app/business-packs/success", labelKey: "customerApp.portalStructure.nav.businessPackSuccess", featureKey: "business_packs" },
       { id: "businessPackRecommendations", href: "/app/business-packs/recommendations", labelKey: "customerApp.portalStructure.nav.businessPackRecommendations", featureKey: "business_packs" },
+      { id: "businessPackLifecycle", href: "/app/business-packs/lifecycle", labelKey: "customerApp.portalStructure.nav.businessPackLifecycle", featureKey: "business_packs" },
       { id: "availableBusinessPacks", href: "/app/business-packs/available", labelKey: "customerApp.portalStructure.nav.availableBusinessPacks", featureKey: "business_packs" },
       { id: "businessPackSettings", href: "/app/business-packs/settings", labelKey: "customerApp.portalStructure.nav.businessPackSettings", featureKey: "business_packs" },
     ],
