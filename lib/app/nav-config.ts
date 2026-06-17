@@ -10,6 +10,7 @@ export type AppNavId =
   | "multiTenantArchitectureEngine"
   | "organizationWorkspaceEngine"
   | "enterpriseOrganizationEngine"
+  | "industryPackEcosystemEngine"
   | "contextIntelligenceEngine"
   | "identityPermissionsEngine"
   | "secureAiActionEngine"
@@ -416,6 +417,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "enterpriseOrganizationEngine",
     href: "/app/organizations",
     labelKey: "customerApp.nav.enterpriseOrganizationEngine",
+  },
+  {
+    id: "industryPackEcosystemEngine",
+    href: "/app/industry-packs",
+    labelKey: "customerApp.nav.industryPackEcosystemEngine",
   },
   {
     id: "contextIntelligenceEngine",
@@ -1805,6 +1811,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/multi-tenant")) return "multiTenantArchitectureEngine";
   if (pathname.startsWith("/app/organization-workspace-engine")) return "organizationWorkspaceEngine";
   if (pathname.startsWith("/app/organizations")) return "enterpriseOrganizationEngine";
+  if (pathname.startsWith("/app/industry-packs")) return "industryPackEcosystemEngine";
   if (pathname.startsWith("/app/context-intelligence-engine")) return "contextIntelligenceEngine";
   if (pathname.startsWith("/app/identity-access")) return "identityPermissionsEngine";
   if (pathname.startsWith("/app/secure-ai-actions")) return "secureAiActionEngine";
