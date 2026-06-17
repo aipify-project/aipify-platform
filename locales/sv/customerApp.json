@@ -23619,7 +23619,8 @@
       "businessPackSuccess": "Success Center",
       "businessPackRecommendations": "Recommendations",
       "businessPackLifecycle": "Lifecycle Center",
-      "businessPackValue": "Value Center"
+      "businessPackValue": "Value Center",
+      "businessPackCommandCenter": "Command Center"
     },
     "dashboard": {
       "title": "APP-instrumentpanel",
@@ -27843,6 +27844,122 @@
         "exactRoiAnswer": "No. Value insights are estimates intended to support planning, optimization and executive decision-making.",
         "whyImportant": "Why is value realization important?",
         "whyImportantAnswer": "Understanding realized value helps organizations maximize outcomes, prioritize investments and improve long-term business performance."
+      }
+    },
+    "businessPackCommandCenter": {
+      "title": "Business Pack Command Center",
+      "subtitle": "A unified operational overview of your entire Business Pack ecosystem.",
+      "loading": "Aipify is preparing your Business Pack Command Center…",
+      "principle": "Organizations remain responsible for all operational decisions — Aipify recommendations are advisory.",
+      "emptyTitle": "No Business Pack insights are available yet.",
+      "emptyBody": "Aipify Command Center brings your Business Pack ecosystem together in one unified experience.",
+      "emptyCta": "Explore Business Packs",
+      "accessDenied": "Business Pack Command Center is not available for your role.",
+      "filters": {
+        "search": "Search Business Packs…",
+        "packKey": "Business Pack",
+        "healthStatus": "Health status",
+        "adoptionLevel": "Adoption level",
+        "valueCategory": "Value category",
+        "owner": "Owner",
+        "priorityLevel": "Priority level",
+        "periodFrom": "Activity since",
+        "all": "All",
+        "lowAdoption": "Low adoption",
+        "healthyAdoption": "Healthy adoption",
+        "highAdoption": "High adoption"
+      },
+      "dashboard": {
+        "totalInstalled": "Total installed Business Packs",
+        "activePacks": "Active Business Packs",
+        "adoptionOverview": "Adoption overview",
+        "valueOverview": "Value overview",
+        "packsRequiringAttention": "Business Packs requiring attention",
+        "optimizationOpportunities": "Optimization opportunities",
+        "executiveSummary": "Executive summary",
+        "recommendedActions": "Recommended actions",
+        "ecosystemStatus": "Ecosystem status",
+        "healthOverview": "Business Pack health overview",
+        "commandInsights": "Command Center insights",
+        "timeline": "Business Pack timeline"
+      },
+      "card": {
+        "healthStatus": "Health status",
+        "adoptionScore": "Adoption score",
+        "valueScore": "Value score",
+        "usageTrend": "Usage trend",
+        "lastActivity": "Last activity",
+        "assignedOwner": "Assigned owner",
+        "recommendedAction": "Recommended action",
+        "viewDetails": "View details"
+      },
+      "ecosystemStatuses": {
+        "thriving": "Thriving",
+        "healthy": "Healthy",
+        "stable": "Stable",
+        "requiresAttention": "Requires attention",
+        "criticalReviewNeeded": "Critical review needed"
+      },
+      "healthStatuses": {
+        "thriving": "Thriving",
+        "healthy": "Healthy",
+        "stable": "Stable",
+        "requiresAttention": "Requires attention",
+        "atRisk": "At risk"
+      },
+      "priorityLevels": {
+        "opportunity": "Opportunity",
+        "recommended": "Recommended",
+        "important": "Important",
+        "immediateAttention": "Immediate attention"
+      },
+      "usageTrends": {
+        "growing": "Growing",
+        "stable": "Stable",
+        "declining": "Declining"
+      },
+      "valueCategories": {
+        "productivityValue": "Productivity value",
+        "operationalEfficiency": "Operational efficiency",
+        "customerExperience": "Customer experience",
+        "revenueEnablement": "Revenue enablement",
+        "costReduction": "Cost reduction",
+        "riskReduction": "Risk reduction",
+        "employeeExperience": "Employee experience",
+        "strategicValue": "Strategic value"
+      },
+      "recommendations": {
+        "scheduleReviews": "Schedule Business Pack reviews",
+        "increaseAdoptionLearning": "Increase adoption through targeted learning",
+        "reassignOwnership": "Reassign Business Pack ownership",
+        "exploreExpansion": "Explore expansion opportunities",
+        "retireUnderutilized": "Retire underutilized capabilities",
+        "celebrateSuccess": "Celebrate successful implementations"
+      },
+      "insights": {
+        "mostValuable": "Most valuable Business Packs",
+        "leastAdopted": "Least adopted Business Packs",
+        "fastestGrowing": "Fastest growing Business Packs",
+        "requiringReview": "Business Packs requiring review",
+        "trainingOpportunities": "Training opportunities",
+        "governanceObservations": "Governance observations"
+      },
+      "timelineEvents": {
+        "installationCompleted": "Installation completed",
+        "milestoneAchieved": "Major milestone achieved",
+        "optimizationInitiative": "Optimization initiative",
+        "reviewCompleted": "Review completed",
+        "recommendationResolved": "Recommendation resolved",
+        "valueMilestone": "Value milestone achieved"
+      },
+      "faq": {
+        "title": "Business Pack Command Center FAQ",
+        "whatIs": "What is the Business Pack Command Center?",
+        "whatIsAnswer": "The Business Pack Command Center provides a unified overview of Business Pack performance, adoption, value realization and optimization opportunities.",
+        "replacePages": "Does the Command Center replace individual Business Pack pages?",
+        "replacePagesAnswer": "No. The Command Center summarizes the ecosystem while allowing users to drill down into individual Business Packs when needed.",
+        "autoManage": "Can Aipify manage Business Packs automatically?",
+        "autoManageAnswer": "No. Organizations remain responsible for all operational decisions while Aipify provides insights and recommendations."
       }
     }
   },
