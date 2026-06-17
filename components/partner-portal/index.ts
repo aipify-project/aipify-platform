@@ -8,3 +8,4 @@ export { PartnerCompliancePanel } from "./PartnerCompliancePanel";
 export { PartnerMaterialsPanel } from "./PartnerMaterialsPanel";
 export { PartnerOpportunitiesPanel } from "./PartnerOpportunitiesPanel";
 export { PartnerCommunicationsPanel } from "./PartnerCommunicationsPanel";
+export { PartnerAdvisorPanel } from "./PartnerAdvisorPanel";

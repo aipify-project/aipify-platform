@@ -44,6 +44,7 @@ export const NAMESPACES = [
   "partnerMaterials",
   "partnerOpportunities",
   "partnerCommunications",
+  "partnerAdvisor",
   "companionMemoryContext",
   "commandBar",
 ] as const;
