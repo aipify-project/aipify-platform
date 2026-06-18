@@ -1,5 +1,5 @@
 import { AgentsDetailPanel } from "@/components/app/agents";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
@@ -7,7 +7,7 @@ type PageProps = { params: Promise<{ id: string }> };
 
 export default async function AgentDetailPage({ params }: PageProps) {
   const { id } = await params;
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "agents");
   const t = createTranslator(dict);
   const p = "customerApp.agents";
 

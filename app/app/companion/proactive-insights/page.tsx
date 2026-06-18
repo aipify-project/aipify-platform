@@ -1,6 +1,6 @@
 import { CompanionProactiveInsightsEngineDashboardPanel } from "@/components/app/companion-proactive-insights-engine";
 import type { CompanionProactiveInsightsEngineLabels } from "@/lib/aipify/companion-proactive-insights-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator, type Translator } from "@/lib/i18n/translate";
 
@@ -142,7 +142,7 @@ function buildLabels(t: Translator): CompanionProactiveInsightsEngineLabels {
 }
 
 export default async function CompanionProactiveInsightsEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "companionProactiveInsightsEngine");
   const t = createTranslator(dict);
   const labels = buildLabels(t);
 

@@ -1,10 +1,10 @@
 import { GrowthPartnerOperationsDashboardPanel } from "@/components/app/growth-partner-operations";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function GrowthPartnerOperationsPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "growthPartnerOperations");
   const t = createTranslator(dict);
   const p = "customerApp.growthPartnerOperations";
 

@@ -1,5 +1,5 @@
 import { CompanionMemoryEngineDashboardPanel } from "@/components/app/companion-memory-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator, type Translator } from "@/lib/i18n/translate";
 import type { CompanionMemoryEngineLabels } from "@/lib/aipify/companion-memory-engine";
@@ -111,7 +111,7 @@ function buildLabels(t: Translator): CompanionMemoryEngineLabels {
 }
 
 export default async function CompanionMemoryEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "companionMemoryEngine");
   const t = createTranslator(dict);
   const labels = buildLabels(t);
 

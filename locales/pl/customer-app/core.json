@@ -1,0 +1,302 @@
+{
+  "boardInvestorIntelligence": {
+    "title": "Inteligencja zarządu i inwestorów",
+    "subtitle": "Board-ready intelligence on organizational performance, strategic execution, risks, opportunities, and long-term readiness.",
+    "loading": "Preparing board intelligence…",
+    "humanOversight": "Aipify strengthens governance and strategic awareness. Human leadership remains responsible for decisions. Investor indicators are illustrative — not audited financial reporting.",
+    "principle": "Aipify strengthens governance and strategic awareness. Human leadership remains responsible for decisions.",
+    "executiveLink": "Centrum zarządcze",
+    "cockpitLink": "Strategic Decision Cockpit",
+    "earlyWarningLink": "Early Warning Center",
+    "generateNarrative": "Generate executive narrative",
+    "generateBriefing": "Generate board briefing",
+    "recorded": "Event recorded in audit log.",
+    "upgrade": {
+      "title": "Upgrade for Board & Investor Intelligence",
+      "body": "Board and investor intelligence is available on Business and Enterprise plans.",
+      "cta": "View license & plans"
+    },
+    "tabs": {
+      "board": "Board dashboard",
+      "investor": "Investor readiness",
+      "meeting": "Board meeting",
+      "decisions": "Decision register",
+      "performance": "Performance indicators",
+      "briefing": "Investor briefing",
+      "governance": "Governance health",
+      "scenarios": "Scenarios",
+      "narrative": "Executive narrative",
+      "learning": "Learning"
+    },
+    "board": {
+      "title": "Board dashboard",
+      "onTrack": "Initiatives on track",
+      "atRisk": "Initiatives at risk",
+      "executivePriorities": "Executive priorities",
+      "orgHealth": "Organizational health",
+      "financialTrend": "Financial trend summary",
+      "riskLandscape": "Risk landscape items",
+      "opportunities": "Major opportunities",
+      "attentionItems": "Board attention items"
+    },
+    "investor": {
+      "title": "Investor readiness dashboard",
+      "revenueTrajectory": "Revenue trajectory",
+      "revenueNote": "Illustrative indicator — not audited financial reporting",
+      "customerGrowth": "Customer growth indicator",
+      "retention": "Retention indicator",
+      "productAdoption": "Product adoption trend",
+      "expansionReadiness": "Expansion readiness",
+      "operationalMaturity": "Operational maturity",
+      "governanceMaturity": "Governance maturity"
+    },
+    "meeting": {
+      "title": "Board meeting center",
+      "highlights": "Executive highlights",
+      "accomplishments": "Major accomplishments",
+      "strategicUpdates": "Strategic initiative updates",
+      "risks": "Risks requiring discussion",
+      "opportunities": "Opportunities requiring investment",
+      "decisions": "Recommended decisions",
+      "actionItems": "Action items"
+    },
+    "decisions": {
+      "title": "Board decision register",
+      "decision": "Decision",
+      "outcome": "Outcome",
+      "rationale": "Strategic rationale",
+      "status": "Implementation status",
+      "followUp": "Follow-up responsibility",
+      "empty": "No board decisions recorded yet."
+    },
+    "performance": {
+      "title": "Strategic performance indicators",
+      "note": "Indicators are governance proxies — not audited financial metrics."
+    },
+    "briefing": {
+      "title": "Investor intelligence briefing",
+      "position": "Current position",
+      "opportunities": "Market opportunities",
+      "growth": "Growth potential",
+      "strengths": "Operational strengths",
+      "risks": "Material risks",
+      "focus": "Recommended focus areas",
+      "confidence": "Confidence",
+      "disclaimer": "Not financial advice or audited reporting."
+    },
+    "governance": {
+      "title": "Governance health assessment",
+      "overall": "Overall governance",
+      "decisionTransparency": "Decision transparency",
+      "approvalDiscipline": "Approval discipline",
+      "riskOversight": "Risk oversight",
+      "policyCompliance": "Policy compliance",
+      "executiveAccountability": "Executive accountability",
+      "auditReadiness": "Audit readiness",
+      "boardEffectiveness": "Board effectiveness",
+      "statuses": {
+        "strong": "Strong",
+        "healthy": "Healthy",
+        "monitor": "Monitor",
+        "needsAttention": "Needs Attention",
+        "critical": "Critical"
+      }
+    },
+    "scenarios": {
+      "title": "Scenario awareness",
+      "certaintyNote": "Scenarios are exploratory possibilities — Aipify does not claim certainty."
+    },
+    "narrative": {
+      "title": "Executive narrative generator",
+      "summary": "Summary",
+      "achievements": "Achievements",
+      "challenges": "Challenges",
+      "risks": "Risks",
+      "opportunities": "Opportunities",
+      "priorities": "Recommended priorities",
+      "suitableFor": "Suitable for"
+    },
+    "learning": {
+      "title": "Learning engine"
+    },
+    "faq": {
+      "title": "Board Intelligence FAQ",
+      "whatIsBoard": "What is Board Intelligence?",
+      "whatIsBoardAnswer": "Board-ready intelligence transforming operational and strategic data into governance insights for leadership, boards, and investors.",
+      "governanceSupport": "How does Aipify support executive governance?",
+      "governanceSupportAnswer": "Through decision registers, governance health assessments, meeting summaries, and audit trails integrated with Action Center and Early Warning systems.",
+      "replaceDecisions": "Can Aipify replace board decision-making?",
+      "replaceDecisionsAnswer": "No. Aipify prepares intelligence and documentation. Human leadership and boards retain decision authority.",
+      "investorInsights": "How are investor insights generated?",
+      "investorInsightsAnswer": "From execution outcomes, portfolio health, and governance patterns — always as illustrative indicators, not audited financials.",
+      "confidenceScores": "How should leaders interpret confidence scores?",
+      "confidenceScoresAnswer": "As estimates of data quality and pattern strength — never as guarantees of outcomes."
+    }
+  },
+  "enterpriseTransformationChange": {
+    "title": "Centrum transformacji i zmian",
+    "subtitle": "Navigate strategic change with readiness assessments, adoption intelligence, resistance support, and executive transformation briefings.",
+    "loading": "Preparing transformation intelligence…",
+    "humanOversight": "Aipify supports transformation efforts. People remain at the center of organizational change. Resistance signals are supportive — never punitive or surveillance-based.",
+    "principle": "Aipify supports transformation efforts. People remain at the center of organizational change.",
+    "executiveLink": "Centrum zarządcze",
+    "cockpitLink": "Strategic Decision Cockpit",
+    "earlyWarningLink": "Early Warning Center",
+    "portfolioLink": "Action Center — Strategic Portfolio",
+    "generateBriefing": "Generate transformation briefing",
+    "recorded": "Event recorded in audit log.",
+    "upgrade": {
+      "title": "Upgrade for Transformation & Change Intelligence",
+      "body": "Transformation and change intelligence is available on Business and Enterprise plans.",
+      "cta": "View license & plans"
+    },
+    "tabs": {
+      "dashboard": "Transformation dashboard",
+      "categories": "Categories",
+      "readiness": "Change readiness",
+      "adoption": "Adoption intelligence",
+      "resistance": "Resistance monitoring",
+      "briefing": "Executive briefing",
+      "stakeholders": "Stakeholder mapping",
+      "communication": "Communication",
+      "training": "Training & enablement",
+      "milestones": "Milestones",
+      "learning": "Learning",
+      "reflection": "Reflection"
+    },
+    "dashboard": {
+      "title": "Transformation dashboard",
+      "activePrograms": "Active programs",
+      "healthStatus": "Transformation health",
+      "adoptionProgress": "Adoption progress",
+      "readiness": "Change readiness",
+      "resistanceSignals": "Resistance signals",
+      "milestonesAchieved": "Milestones achieved",
+      "sponsorship": "Executive sponsorship",
+      "programs": "Active transformation programs"
+    },
+    "categories": {
+      "title": "Transformation categories"
+    },
+    "categoryLabels": {
+      "digitalTransformation": "Digital Transformation",
+      "organizationalRestructuring": "Organizational Restructuring",
+      "processTransformation": "Process Transformation",
+      "technologyAdoption": "Technology Adoption",
+      "culturalTransformation": "Cultural Transformation",
+      "complianceTransformation": "Compliance Transformation",
+      "customerExperienceTransformation": "Customer Experience Transformation",
+      "strategicPivotInitiatives": "Strategic Pivot Initiatives",
+      "growthTransformation": "Growth Transformation",
+      "operationalExcellencePrograms": "Operational Excellence Programs"
+    },
+    "readiness": {
+      "title": "Change readiness assessment",
+      "overall": "Overall readiness",
+      "leadershipAlignment": "Leadership alignment",
+      "employeeUnderstanding": "Employee understanding",
+      "communicationEffectiveness": "Communication effectiveness",
+      "resourceAvailability": "Resource availability",
+      "trainingReadiness": "Training readiness",
+      "governanceReadiness": "Governance readiness",
+      "statuses": {
+        "ready": "Ready",
+        "mostlyReady": "Mostly Ready",
+        "partiallyReady": "Partially Ready",
+        "notReady": "Not Ready",
+        "criticalConcerns": "Critical Concerns"
+      }
+    },
+    "adoption": {
+      "title": "Adoption intelligence",
+      "trainingParticipation": "Training participation",
+      "processAdoption": "Process adoption rate",
+      "usagePattern": "Usage pattern",
+      "supportRequests": "Support requests",
+      "feedbackTrend": "Feedback trend",
+      "departmentNotes": "Department indicators are aggregated — not individual surveillance.",
+      "departmentDifferences": "Department adoption differences"
+    },
+    "resistance": {
+      "title": "Resistance monitoring",
+      "supportiveNote": "Supportive guidance",
+      "severity": "Severity",
+      "empty": "No resistance signals detected — continue monitoring adoption and communication."
+    },
+    "resistanceSignals": {
+      "decliningEngagement": "Declining engagement",
+      "repeatedDelays": "Repeated delays",
+      "lowParticipation": "Low participation",
+      "negativeSentiment": "Negative sentiment patterns",
+      "escalatingConcerns": "Escalating concerns",
+      "conflictingPriorities": "Conflicting priorities"
+    },
+    "briefing": {
+      "title": "Executive transformation briefing",
+      "status": "Current status",
+      "achievements": "Achievements",
+      "risks": "Emerging risks",
+      "adoptionTrends": "Adoption trends",
+      "interventions": "Recommended interventions",
+      "priorityFocus": "Priority focus areas",
+      "confidence": "Confidence",
+      "disclaimer": "Transformation intelligence supports leaders — not automated change management."
+    },
+    "stakeholders": {
+      "title": "Stakeholder mapping",
+      "executiveSponsors": "Executive sponsors",
+      "transformationLeaders": "Transformation leaders",
+      "departmentChampions": "Department champions",
+      "subjectMatterExperts": "Subject matter experts",
+      "impactedTeams": "Impacted teams",
+      "communicationOwners": "Communication owners"
+    },
+    "communication": {
+      "title": "Communication intelligence",
+      "frequency": "Communication frequency",
+      "reach": "Communication reach",
+      "acknowledgement": "Acknowledgement rate",
+      "understanding": "Understanding indicator",
+      "missedAudiences": "Missed audiences",
+      "recommendedActions": "Recommended communication actions"
+    },
+    "training": {
+      "title": "Training & enablement tracking",
+      "completionRate": "Training completion rate",
+      "knowledgeGaps": "Knowledge gaps",
+      "departmentReadiness": "Department readiness",
+      "followUp": "Follow-up recommendations",
+      "learningPathways": "Suggested learning pathways"
+    },
+    "milestones": {
+      "title": "Milestone management",
+      "planned": "Planned milestones",
+      "completed": "Completed milestones",
+      "delayed": "Delayed milestones",
+      "blocked": "Blocked milestones",
+      "executiveReview": "Executive review milestones"
+    },
+    "learning": {
+      "title": "Transformation learning engine"
+    },
+    "reflection": {
+      "title": "Executive reflection support",
+      "guidance": "Guidance"
+    },
+    "faq": {
+      "title": "Transformation & Change FAQ",
+      "whatIsTransformation": "What is organizational transformation?",
+      "whatIsTransformationAnswer": "Strategic change initiatives including digital transformation, restructuring, process change, and cultural evolution — supported by readiness and adoption intelligence.",
+      "whyFail": "Why do transformations fail?",
+      "whyFailAnswer": "Often due to underestimated human complexity, poor communication, insufficient readiness, and lack of executive sponsorship — areas Aipify helps leaders monitor.",
+      "howSupport": "How does Aipify support change initiatives?",
+      "howSupportAnswer": "Through readiness assessments, adoption tracking, resistance support, stakeholder mapping, and briefings integrated with Decision Cockpit, Portfolio, and Early Warning.",
+      "autoManage": "Can Aipify manage change automatically?",
+      "autoManageAnswer": "No. Aipify prepares intelligence and recommendations. Leaders and teams drive change — people remain at the center.",
+      "respondResistance": "How should leaders respond to resistance?",
+      "respondResistanceAnswer": "With supportive engagement — address concerns, remove blockers, improve communication, and provide enablement. Signals are never punitive.",
+      "readinessAssessments": "How are readiness assessments performed?",
+      "readinessAssessmentsAnswer": "From leadership alignment, communication effectiveness, resource availability, training readiness, and governance patterns — as governance indicators, not surveillance."
+    }
+  }
+}

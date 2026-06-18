@@ -16,7 +16,7 @@ import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function RegisterPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["common", "auth", "customerApp"]);
+  const dict = await getDictionary(locale, ["common", "auth"]);
   const t = createTranslator(dict);
 
   const industries = Object.fromEntries(

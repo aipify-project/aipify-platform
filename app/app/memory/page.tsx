@@ -1,13 +1,13 @@
 import { MemoryEngineHub } from "@/components/app/memory";
 import { OrganizationalMemoryPanel } from "@/components/app/organizational-memory/OrganizationalMemoryPanel";
 import { MEMORY_CATEGORIES } from "@/lib/aipify/organizational-memory";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function OrganizationalMemoryPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["dashboard"]);
   const t = createTranslator(dict);
 
   const categories = Object.fromEntries(

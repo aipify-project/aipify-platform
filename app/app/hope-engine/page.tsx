@@ -1,10 +1,10 @@
 import { HopeEngineDashboardPanel } from "@/components/app/hope-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function HopeEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "hopeEngine");
   const t = createTranslator(dict);
   const p = "customerApp.hopeEngine";
 

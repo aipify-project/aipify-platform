@@ -1,10 +1,10 @@
 import { MarketplaceGovernanceDashboardPanel } from "@/components/app/marketplace-governance";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function MarketplaceGovernancePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "marketplaceGovernance");
   const t = createTranslator(dict);
   const p = "customerApp.marketplaceGovernance";
 

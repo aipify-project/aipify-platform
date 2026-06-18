@@ -1,6 +1,6 @@
 import { CompanionFollowUpDashboardPanel } from "@/components/app/companion-follow-up";
 import type { CompanionFollowUpLabels } from "@/lib/aipify/companion-follow-up";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator, type Translator } from "@/lib/i18n/translate";
 
@@ -130,7 +130,7 @@ function buildLabels(t: Translator): CompanionFollowUpLabels {
 }
 
 export default async function CompanionFollowUpPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "companionFollowUp");
   const t = createTranslator(dict);
   const labels = buildLabels(t);
 

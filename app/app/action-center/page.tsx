@@ -4,13 +4,13 @@ import { buildExecutionCoordinationLabels } from "@/lib/action-center-execution"
 import { buildStrategicInitiativePortfolioLabels } from "@/lib/action-center-portfolio";
 import { buildActionImpactLabels } from "@/lib/action-center-impact";
 import { ACTION_STATUSES, EXECUTION_LEVELS, RISK_LEVELS } from "@/lib/aipify/execution";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function ActionCenterPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["commandCenter"]);
   const t = createTranslator(dict);
 
   const riskLabels = Object.fromEntries(

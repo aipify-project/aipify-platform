@@ -1,5 +1,5 @@
 import { BusinessPackLegalCenterPanel } from "@/components/app/business-pack-legal-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
@@ -7,7 +7,7 @@ type PageProps = { params: Promise<{ packKey: string }> };
 
 export default async function BusinessPackLegalPage({ params }: PageProps) {
   const { packKey } = await params;
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "businessPackLegal");
   const t = createTranslator(dict);
   const p = "customerApp.businessPackLegal";
 

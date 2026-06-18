@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { resolveAppHref } from "@/lib/app/route-aliases";
 
 export default async function SecuritySettingsPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "securityHub");
   const t = createTranslator(dict);
   const p = "customerApp.securityHub";
 

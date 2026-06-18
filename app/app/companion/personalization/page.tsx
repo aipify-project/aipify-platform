@@ -1,6 +1,6 @@
 import { CompanionPersonalizationEngineDashboardPanel } from "@/components/app/companion-personalization-engine";
 import type { CompanionPersonalizationEngineLabels } from "@/lib/aipify/companion-personalization-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator, type Translator } from "@/lib/i18n/translate";
 
@@ -138,7 +138,7 @@ function buildLabels(t: Translator): CompanionPersonalizationEngineLabels {
 }
 
 export default async function CompanionPersonalizationEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "companionPersonalizationEngine");
   const t = createTranslator(dict);
   const labels = buildLabels(t);
 

@@ -1,10 +1,10 @@
 import { OrganizationalHealthEngineDashboardPanel } from "@/components/app/organizational-health-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function OrganizationalHealthEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "organizationalHealthEngine");
   const t = createTranslator(dict);
   const p = "customerApp.organizationalHealthEngine";
   const b = `${p}.blueprint`;

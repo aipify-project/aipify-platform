@@ -1,13 +1,13 @@
 import { DesktopChatPanel } from "@/components/app/desktop";
 import { DesktopCompanionFoundationShell } from "@/components/app/desktop";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { getDesktopCompanionPageLabels } from "@/lib/desktop-companion-foundation/page-labels";
 
 export default async function DesktopCompanionChatPage() {
   const labels = await getDesktopCompanionPageLabels();
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForSplits(await getLocale(), ["core"]);
   const t = createTranslator(dict);
 
   return (

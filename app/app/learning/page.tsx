@@ -1,13 +1,13 @@
 import { AipifyCompanionBriefingBanner } from "@/components/app/briefing";
 import { LearningEngineDashboardPanel } from "@/components/app/learning-engine";
 import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AppLearningPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["dashboard"]);
   const t = createTranslator(dict);
 
   return (

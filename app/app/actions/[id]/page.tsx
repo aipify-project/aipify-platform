@@ -1,5 +1,5 @@
 import { ActionHubDetailPanel } from "@/components/app/action-hub";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
@@ -10,7 +10,7 @@ type ActionDetailPageProps = {
 export default async function ActionDetailPage({ params }: ActionDetailPageProps) {
   const { id } = await params;
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["dashboard"]);
   const t = createTranslator(dict);
 
   return (

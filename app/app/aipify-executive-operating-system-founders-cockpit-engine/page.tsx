@@ -1,10 +1,10 @@
 import { AipifyExecutiveOperatingSystemFoundersCockpitEngineDashboardPanel } from "@/components/app/aipify-executive-operating-system-founders-cockpit-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AipifyExecutiveOperatingSystemFoundersCockpitEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "aipifyExecutiveOperatingSystemFoundersCockpitEngine");
   const t = createTranslator(dict);
   const p = "customerApp.aipifyExecutiveOperatingSystemFoundersCockpitEngine";
 

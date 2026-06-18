@@ -1,0 +1,1556 @@
+{
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Enterprise settings organized for governance, companion presence, and organizational intelligence.",
+    "sections": {
+      "notifications": "Notification levels",
+      "presence": "Companion presence",
+      "quietHours": "Quiet hours",
+      "executiveBriefing": "Executive briefing",
+      "desktop": "Desktop Companion",
+      "developer": "Developer",
+      "updates": "Updates",
+      "learning": "Learning"
+    },
+    "categories": {
+      "companionPresence": {
+        "title": "Companion Presence",
+        "description": "Executive feed, desktop connection, and notification preferences.",
+        "links": {
+          "1": {
+            "href": "/app/presence",
+            "label": "Presence Center"
+          },
+          "2": {
+            "href": "/app/command-center",
+            "label": "Executive Center"
+          },
+          "3": {
+            "href": "/app/command-center/connect",
+            "label": "Desktop Companion"
+          }
+        }
+      },
+      "governanceSecurity": {
+        "title": "Governance & Security",
+        "description": "Compliance, approvals, audit, and sign-in verification.",
+        "links": {
+          "1": {
+            "href": "/app/compliance",
+            "label": "Security & compliance"
+          },
+          "2": {
+            "href": "/app/approvals",
+            "label": "Approvals"
+          },
+          "3": {
+            "href": "/app/settings/two-factor",
+            "label": "Sign-in verification"
+          }
+        }
+      },
+      "knowledgeLearning": {
+        "title": "Knowledge & Learning",
+        "description": "Knowledge Center, learning discovery, and Business DNA.",
+        "links": {
+          "1": {
+            "href": "/app/settings/knowledge",
+            "label": "Knowledge Center"
+          },
+          "2": {
+            "href": "/app/learning",
+            "label": "Learning discovery"
+          },
+          "3": {
+            "href": "/app/settings/business-dna",
+            "label": "Business DNA"
+          }
+        }
+      },
+      "automationActions": {
+        "title": "Automation & Actions",
+        "description": "Action permissions, adaptive automation, and trust controls.",
+        "links": {
+          "1": {
+            "href": "/app/settings/action-access",
+            "label": "Action permissions"
+          },
+          "2": {
+            "href": "/app/settings/automation",
+            "label": "Adaptive automation"
+          },
+          "3": {
+            "href": "/app/settings/governance",
+            "label": "Trust controls"
+          }
+        }
+      },
+      "billingGrowth": {
+        "title": "Billing & Growth",
+        "description": "Subscription, packages, and expansion planning.",
+        "links": {
+          "1": {
+            "href": "/app/settings/billing",
+            "label": "Subscription"
+          },
+          "2": {
+            "href": "/app/settings/modules",
+            "label": "Packages"
+          },
+          "3": {
+            "href": "/app/enterprise",
+            "label": "Expansion planning"
+          }
+        }
+      },
+      "organizationIntelligence": {
+        "title": "Organization Intelligence",
+        "description": "Predictive intelligence, operational insights, and quality guardian.",
+        "links": {
+          "1": {
+            "href": "/app/settings/intelligence",
+            "label": "Predictive intelligence"
+          },
+          "2": {
+            "href": "/app/organizational-intelligence",
+            "label": "Operational insights"
+          },
+          "3": {
+            "href": "/app/settings/quality",
+            "label": "Quality guardian"
+          }
+        }
+      }
+    },
+    "timezone": "Timezone",
+    "timezoneHint": "Greetings and briefings use your local timezone.",
+    "save": "Save preferences",
+    "saved": "Saved",
+    "links": {
+      "developer": "Developer settings",
+      "updates": "Update policies",
+      "desktopConnect": "Connect desktop app",
+      "learning": "Learning & privacy",
+      "businessDna": "Business DNA",
+      "supportOperations": "Support operations",
+      "employeeKnowledge": "Employee knowledge",
+      "workingStyle": "Working style",
+      "personalization": "Personalization & workstyle",
+      "billing": "Billing & packages",
+      "modules": "Module management",
+      "intelligence": "Organizational Intelligence",
+      "predictions": "Predictive Intelligence",
+      "automation": "Adaptive Automation",
+      "governance": "Trust & Control",
+      "knowledge": "Knowledge Center",
+      "quality": "Quality Guardian",
+      "assistantIdentity": "Assistant identity",
+      "companionPresence": "Companion presence",
+      "enterprise": "Enterprise deployment",
+      "compliance": "Security & compliance",
+      "twoFactor": "Sign-in verification (2FA)",
+      "devicesPrinters": "Devices & printers",
+      "actionAccess": "Action access",
+      "packagesAccess": "Packages & Access",
+      "aipifyInstall": "Aipify Install",
+      "firstDayExperience": "First Day Experience",
+      "trustAdoption": "Trust & Adoption",
+      "lifeEvents": "Life Events",
+      "companionIdentityRelationship": "Identity & Relationship",
+      "presenceContinuity": "Presence & Continuity",
+      "companionActionMemory": "Action Memory",
+      "companionOrchestration": "Orchestration"
+    },
+    "intelligence": {
+      "title": "Organizational Intelligence",
+      "description": "Aipify can analyze approved business activity to detect bottlenecks, forgotten follow-ups, recurring tasks, and operational risks.",
+      "privacy": "Aipify only analyzes data sources you enable. Sensitive actions require approval and are logged.",
+      "loading": "Preparing intelligence settings overview…",
+      "back": "Back to settings",
+      "save": "Save settings",
+      "saved": "Saved",
+      "enable": "Enable Organizational Intelligence",
+      "email": "Allow email analysis",
+      "calendar": "Allow calendar analysis",
+      "support": "Allow support analysis",
+      "customerMemory": "Allow customer relationship memory",
+      "staffWorkload": "Allow staff workload insights",
+      "crossDepartment": "Allow cross-department insights",
+      "approval": "Require admin approval before Aipify actions",
+      "retention": "Data retention (days)",
+      "upgrade": {
+        "title": "Organizational Intelligence requires Business Pro or Enterprise",
+        "body": "Organizational Intelligence is available in Aipify Business Pro and Enterprise because it provides operational insights across your connected business activity.",
+        "cta": "View packages"
+      }
+    },
+    "predictions": {
+      "title": "Predictive Intelligence",
+      "description": "Aipify can forecast likely bottlenecks, SLA risks, follow-up gaps, and growth opportunities from approved workflow trends.",
+      "privacy": "Predictions use workflow and process data you enable. No employee surveillance. All alert actions are logged.",
+      "loading": "Preparing prediction settings overview…",
+      "back": "Back to settings",
+      "save": "Save settings",
+      "saved": "Saved",
+      "enable": "Enable Predictive Intelligence",
+      "bottlenecks": "Predict future bottlenecks",
+      "churn": "Predict churn and inactivity risk",
+      "workload": "Predict workload concentration risk",
+      "growth": "Detect growth opportunities",
+      "followup": "Predict follow-up risk",
+      "sla": "Predict SLA breach risk",
+      "approval": "Require admin approval before Aipify actions",
+      "horizon": "Prediction horizon (days)",
+      "modelsTitle": "Prediction models",
+      "predictionsLink": "→ Predictions dashboard",
+      "upgrade": {
+        "title": "Predictive Intelligence requires Business Pro or Enterprise",
+        "body": "Predictive Intelligence is available in Aipify Business Pro and Enterprise because it identifies likely future risks and opportunities from approved business activity.",
+        "cta": "View packages"
+      }
+    },
+    "automation": {
+      "title": "Automation Settings",
+      "description": "Control how Aipify discovers, suggests, and runs automations.",
+      "privacy": "Automations require approval before activation. High-risk actions require approval every run. All actions are logged.",
+      "loading": "Preparing automation settings overview…",
+      "back": "Back to settings",
+      "save": "Save settings",
+      "saved": "Saved",
+      "enable": "Enable Adaptive Automation",
+      "discovery": "Allow automation discovery",
+      "aiDrafts": "Allow Aipify-generated automation drafts",
+      "lowRiskExecution": "Allow low-risk automatic execution after approval",
+      "mediumApproval": "Require approval for medium-risk automations",
+      "highApproval": "Require approval for high-risk automations",
+      "valueEstimation": "Enable value estimation",
+      "maxDaily": "Max daily executions",
+      "maxMessages": "Max external messages per day",
+      "centerLink": "→ Automation Center",
+      "upgrade": {
+        "title": "Adaptive Automation requires Business Pro or Enterprise",
+        "body": "Adaptive Automation is available in Aipify Business Pro and Enterprise because it discovers safe automation opportunities across your operations.",
+        "cta": "View packages"
+      }
+    },
+    "governance": {
+      "title": "Governance Settings",
+      "description": "Control how Aipify requests approval, explains actions, and maintains audit transparency.",
+      "privacy": "Aipify never acts as a black box. Every sensitive action requires visibility, approval, and audit logging.",
+      "loading": "Preparing governance settings overview…",
+      "back": "Back to settings",
+      "save": "Save settings",
+      "saved": "Saved",
+      "centerLink": "→ Trust & Control Center",
+      "fields": {
+        "mode": "Governance mode",
+        "emergency": "Enable emergency controls",
+        "explainability": "Enable explainability",
+        "trustScoring": "Enable trust scoring",
+        "retention": "Audit retention (days)"
+      },
+      "upgrade": {
+        "title": "Trust & Control requires Business Pro or Enterprise",
+        "body": "Trust, Approval & Control Center is available in Aipify Business Pro and Enterprise because it provides transparent governance as Aipify becomes more autonomous.",
+        "cta": "View packages"
+      }
+    },
+    "knowledge": {
+      "title": "Knowledge Center Settings",
+      "description": "Control how Aipify searches documentation, creates knowledge gaps, and answers questions about itself.",
+      "privacy": "Aipify must not invent answers about itself. Low-confidence questions create knowledge gaps for admin review.",
+      "loading": "Preparing knowledge settings overview…",
+      "back": "Back to settings",
+      "save": "Save settings",
+      "saved": "Saved",
+      "centerLink": "→ Knowledge Center",
+      "fields": {
+        "enable": "Enable Knowledge Center",
+        "useGlobal": "Use global Aipify knowledge",
+        "allowTenant": "Allow tenant-specific articles",
+        "aiDrafts": "Allow Aipify-generated gap drafts",
+        "requireReview": "Require review before publish",
+        "minConfidence": "Minimum answer confidence",
+        "gapConfidence": "Create gap below confidence"
+      },
+      "upgrade": {
+        "title": "Knowledge Center requires Growth or above",
+        "body": "Knowledge Center is available in Aipify Growth and above because it lets Aipify support itself with trusted, editable documentation.",
+        "cta": "View packages"
+      }
+    }
+  },
+  "paymentProviders": {
+    "title": "Payment Infrastructure",
+    "subtitle": "Mission control for revenue operations — configure providers, environments, and settlement with enterprise clarity.",
+    "loading": "Preparing payment infrastructure overview…",
+    "principle": "Payments are built on trust. Aipify owns the billing experience; you choose the provider.",
+    "paidAccessNow": "Paid = access now — features unlock immediately after payment confirmation.",
+    "configure": "Configure",
+    "testConnection": "Test connection",
+    "testing": "Testing…",
+    "save": "Save credentials",
+    "saving": "Saving…",
+    "copyUrl": "Copy URL",
+    "copied": "Copied",
+    "back": "Back",
+    "auditTitle": "Billing & provider audit",
+    "noAudit": "No provider events recorded yet.",
+    "regionalStrategy": "Recommended providers by region",
+    "fields": {
+      "status": "Status",
+      "mode": "Mode",
+      "regions": "Supported regions",
+      "capabilities": "Supported capabilities",
+      "lastHealthCheck": "Last health check",
+      "setupStatus": "Setup status",
+      "webhookUrl": "Webhook URL",
+      "webhookStatus": "Webhook status",
+      "lastWebhook": "Last event received",
+      "enabled": "Enabled for this workspace",
+      "environment": "Environment",
+      "apiStatus": "API status",
+      "settlementStatus": "Settlement status",
+      "currencies": "Supported currencies",
+      "countries": "Supported countries"
+    },
+    "statuses": {
+      "operational": "Operational",
+      "pendingSetup": "Setup Required",
+      "setupRequired": "Setup Required",
+      "requiresAttention": "Requires attention",
+      "disabled": "Disabled",
+      "disconnected": "Disconnected",
+      "failed": "Failed"
+    },
+    "environments": {
+      "sandbox": "Sandbox",
+      "production": "Production"
+    },
+    "modes": {
+      "test": "Sandbox",
+      "live": "Production"
+    },
+    "webhookStatuses": {
+      "receivingEvents": "Receiving events",
+      "notConfigured": "Not configured",
+      "failedVerification": "Failed verification"
+    },
+    "apiStatuses": {
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "pending": "Awaiting Configuration"
+    },
+    "settlementStatuses": {
+      "completed": "Settled",
+      "pending": "Pending settlement",
+      "failed": "Settlement failed"
+    },
+    "capabilities": {
+      "subscriptions": "Subscriptions",
+      "oneTime": "One-time payments",
+      "refunds": "Refunds",
+      "invoices": "Invoices",
+      "webhooks": "Webhooks",
+      "upgrades": "Upgrades",
+      "downgrades": "Downgrades",
+      "enterpriseContracts": "Enterprise contracts"
+    },
+    "setupStatus": {
+      "complete": "Setup complete",
+      "inProgress": "Setup in progress"
+    },
+    "testResult": {
+      "success": "Connection verified.",
+      "failure": "Connection failed."
+    },
+    "upgrade": {
+      "title": "Confirm upgrade",
+      "currentPlan": "Current plan",
+      "newPlan": "New plan",
+      "currentPrice": "Current price",
+      "newPrice": "New price",
+      "difference": "Difference",
+      "paymentProvider": "Payment provider",
+      "access": "Access",
+      "confirm": "Confirm upgrade",
+      "confirming": "Processing payment…",
+      "perMonth": "/ month"
+    },
+    "providers": {
+      "klarna": "Klarna",
+      "vipps": "Vipps MobilePay",
+      "stripe": "Stripe",
+      "dnb": "DNB Invoice"
+    },
+    "viewLogs": "View logs",
+    "documentation": "Documentation",
+    "visualStandards": "Respect the brand. Elevate the presentation — official logos on premium Aipify cards.",
+    "clearLogFilter": "Show all logs",
+    "providerProfiles": {
+      "globalPayments": "Global Payments",
+      "nordicPayments": "Nordic Payments",
+      "scandinavianPayments": "Scandinavian Payments",
+      "enterpriseBilling": "Enterprise Billing",
+      "stripePositioning": "International reach and enterprise flexibility.",
+      "klarnaPositioning": "Trusted European payment experiences.",
+      "vippsPositioning": "Simple and trusted local payments.",
+      "dnbPositioning": "Enterprise invoice billing for procurement teams — purchase orders, payment terms, and framework agreements."
+    },
+    "enterpriseBilling": {
+      "title": "Enterprise Procurement",
+      "description": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements.",
+      "methods": "DNB Invoice · Purchase Orders · Bank Transfer · 30/60/90-Day Terms · Framework Agreements",
+      "manageLink": "Invoice details & enterprise procurement",
+      "providerInfrastructure": "Enterprise payment infrastructure"
+    }
+  },
+  "billingExperience": {
+    "principle": "Aipify supports both purchasing behaviors — pay now for speed, approve and procure for enterprise scale. Mission control for revenue operations.",
+    "commercialPrinciple": {
+      "instant": "Instant Activation: fast onboarding for customers who can make immediate purchasing decisions.",
+      "enterprise": "Enterprise Procurement: structured purchasing workflows for organizations with approval requirements.",
+      "footer": "Aipify Group AS serves both customer segments equally well. From Norway. For the world."
+    },
+    "instantActivation": {
+      "title": "Instant Activation",
+      "description": "Designed for startups, freelancers, SMBs and fast-moving teams that want immediate access to Aipify.",
+      "message": "Activate your subscription instantly and start using Aipify within minutes.",
+      "activateWith": "Available Payment Providers",
+      "checkout": "Activate now",
+      "checkingOut": "Starting checkout…"
+    },
+    "enterpriseProcurement": {
+      "title": "Enterprise Procurement",
+      "description": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements.",
+      "message": "Aipify supports established procurement practices — purchase orders, DNB Invoice, bank transfer, flexible payment terms, and framework agreements for larger organizations.",
+      "manageLink": "Invoice details & enterprise procurement",
+      "supportedMethodsLabel": "Supported procurement methods",
+      "methods": {
+        "dnb_invoice": "DNB Invoice",
+        "purchase_orders": "Purchase Orders (PO)",
+        "bank_transfer": "Bank Transfer",
+        "terms_30": "30-Day Terms",
+        "terms_60": "60-Day Terms",
+        "terms_90": "90-Day Terms",
+        "framework_agreements": "Framework Agreements"
+      },
+      "actions": {
+        "contact_enterprise_team": "Contact Enterprise Team",
+        "request_invoice_account": "Request Invoice Account",
+        "purchase_order_support": "Purchase Order Support",
+        "dnb_invoice_setup": "DNB Invoice Setup"
+      }
+    },
+    "smartRouting": {
+      "title": "How would you like to purchase Aipify?",
+      "instant": {
+        "label": "Instant activation",
+        "description": "Ideal for smaller teams and businesses."
+      },
+      "enterprise": {
+        "label": "Enterprise procurement",
+        "description": "Ideal for organizations requiring invoicing or internal approvals."
+      }
+    }
+  },
+  "commercialPackages": {
+    "billing": {
+      "title": "Billing & packages",
+      "subtitle": "Your current package, usage, upgrades, and add-ons — pay only for what you need.",
+      "loading": "Preparing billing center overview…",
+      "back": "Back to settings",
+      "viewLicense": "License center",
+      "viewModules": "Module management",
+      "viewCommercial": "Commercial model portal",
+      "empty": "Nothing to show yet.",
+      "sections": {
+        "package": "Current package",
+        "modules": "Enabled modules",
+        "usage": "Usage this month",
+        "limits": "Tenant limits",
+        "upgrades": "Upgrade options",
+        "addons": "Add-on marketplace",
+        "recommendations": "Upgrade recommendations",
+        "history": "Billing history",
+        "suites": "Product suites"
+      },
+      "usage": {
+        "supportCases": "Support cases",
+        "autonomous": "Autonomous resolutions",
+        "knowledgeSearches": "Knowledge searches",
+        "employeeInteractions": "Employee interactions",
+        "insightReports": "Insight reports",
+        "apiCalls": "API calls",
+        "aiUsage": "Aipify usage volume"
+      },
+      "viewPackages": "Packages & Access",
+      "viewPaymentProviders": "Payment providers",
+      "viewInvoiceDetails": "Invoice details"
+    },
+    "pricingPhilosophy": {
+      "title": "Pricing philosophy",
+      "principleLead": "Aipify is priced as a Business Operating System — not per message or token.",
+      "priceOn": "Value priced on",
+      "avoid": "Not priced on",
+      "planGuidance": "Plan guidance (USD monthly)",
+      "positioning": "How Aipify is positioned",
+      "abosPrinciple": "Aipify Business Operating System (ABOS) — install-first operations, not a chat interface.",
+      "guidanceNote": "Recommended ranges are sales guidance. Your live subscription follows your contracted plan.",
+      "usdRange": "USD guidance",
+      "plans": {
+        "starter": "Aipify Starter",
+        "growth": "Aipify Growth",
+        "business": "Aipify Business",
+        "enterprise": "Aipify Enterprise"
+      },
+      "bullets": {
+        "operationalScope": "Operational scope — installs, modules, and users",
+        "outcomes": "Business outcomes — support, knowledge, workflows",
+        "governance": "Governance — approvals, audit, enterprise security",
+        "noTokens": "Not per-message or token metering",
+        "notChatbot": "Not consumer chatbot pricing"
+      }
+    },
+    "modules": {
+      "title": "Module management",
+      "subtitle": "Enable or disable purchased modules. Aipify grows with your business.",
+      "loading": "Preparing modules overview…",
+      "back": "Back to settings",
+      "viewBilling": "Billing & packages",
+      "empty": "No modules available.",
+      "enable": "Enable",
+      "disable": "Disable",
+      "sections": {
+        "installed": "Installed modules",
+        "available": "Available with upgrade",
+        "trials": "Trial modules",
+        "recommendations": "Upgrade recommendations",
+        "packages": "Commercial packages",
+        "flags": "Feature flag states"
+      }
+    }
+  },
+  "workingStyle": {
+    "title": "Working style",
+    "subtitle": "Adapt how Aipify presents information, reminders, and summaries — transparently and under your control.",
+    "loading": "Preparing working style preferences overview…",
+    "back": "Back to settings",
+    "save": "Save preferences",
+    "saved": "Saved",
+    "reset": "Reset to defaults",
+    "resetConfirm": "Reset all working style preferences to defaults?",
+    "youControl": "Aipify adapts. Aipify does not manipulate. You remain in control of every preference.",
+    "transparency": "Current adaptation",
+    "adaptationSuggestion": "Suggested adjustment",
+    "starterNote": "Your plan supports manual preference selection. Adaptive learning requires Business Pro or Enterprise.",
+    "sections": {
+      "profile": "Working profile",
+      "detail": "Information detail",
+      "reminders": "Reminder frequency",
+      "focus": "Focus mode",
+      "learning": "Adaptive learning",
+      "categories": "Reminder categories",
+      "summary": "Daily summary",
+      "enterprise": "Department templates"
+    },
+    "fields": {
+      "workingProfile": "Profile",
+      "detailLevel": "Detail level",
+      "reminderFrequency": "Reminder frequency",
+      "summaryTime": "Preferred summary time",
+      "focusMode": "Enable focus mode (critical notifications only)",
+      "adaptiveLearning": "Allow adaptive learning from my usage patterns (opt-in)"
+    },
+    "profiles": {
+      "executive": "Executive — strategic highlights",
+      "operations": "Operations — tasks and bottlenecks",
+      "support": "Support — queue and escalations",
+      "sales": "Sales — opportunities and follow-ups",
+      "focus": "Focus — minimal interruptions",
+      "custom": "Custom — your configuration"
+    },
+    "detailLevels": {
+      "compact": "Compact — highlights only",
+      "standard": "Standard — balanced detail",
+      "detailed": "Detailed — full context"
+    },
+    "reminderLevels": {
+      "minimal": "Minimal — critical only",
+      "balanced": "Balanced — important reminders",
+      "proactive": "Proactive — frequent follow-up",
+      "highly_proactive": "Highly proactive — intensive guidance"
+    },
+    "summaryTimes": {
+      "morning": "Morning",
+      "midday": "Midday",
+      "evening": "Evening",
+      "none": "None"
+    },
+    "categories": {
+      "email": "Email reminders",
+      "task": "Task reminders",
+      "meeting": "Meeting reminders",
+      "support": "Support reminders",
+      "sales": "Sales reminders",
+      "relationship": "Relationship reminders"
+    },
+    "enterpriseEmpty": "No department templates configured yet. Enterprise administrators can set role-based defaults."
+  },
+  "governance": {
+    "center": {
+      "title": "Trust & Control Center",
+      "subtitle": "See what Aipify wants to do, why, who approved it, and how to stop everything immediately.",
+      "loading": "Preparing governance center overview…",
+      "back": "Back to overview",
+      "privacy": "Observe → Suggest → Request Approval → Execute → Explain → Audit → Learn.",
+      "upgrade": {
+        "title": "Trust & Control requires Business Pro or Enterprise",
+        "body": "Trust, Approval & Control Center is available in Aipify Business Pro and Enterprise because it provides transparent governance as Aipify becomes more autonomous.",
+        "cta": "View packages"
+      }
+    },
+    "metrics": {
+      "pending": "Pending approvals",
+      "blocked": "Blocked action types",
+      "trust": "Average trust score",
+      "audit": "Audit events (24h)"
+    },
+    "sections": {
+      "approvals": "Approval Center",
+      "audit": "Recent audit",
+      "trust": "Trust scores",
+      "permissions": "Permission matrix"
+    },
+    "emergency": {
+      "active": "Emergency stop is active — Aipify actions are paused",
+      "stop": "Pause all Aipify actions",
+      "resume": "Resume Aipify actions",
+      "reason": "Reason"
+    },
+    "approval": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "approveAlways": "Approve always",
+      "pauseCategory": "Pause category"
+    },
+    "approvals": {
+      "empty": "No pending approvals."
+    },
+    "risk": {
+      "low": "Low risk",
+      "medium": "Medium risk",
+      "high": "High risk",
+      "blocked": "Blocked"
+    },
+    "permission": {
+      "allowed": "Allowed",
+      "approval_required": "Approval required",
+      "blocked": "Blocked"
+    },
+    "modes": {
+      "safe": "Safe mode",
+      "balanced": "Balanced mode",
+      "autonomous_low_risk": "Autonomous low-risk mode",
+      "enterprise_control": "Enterprise control mode"
+    },
+    "audit": {
+      "title": "Audit Timeline",
+      "subtitle": "Every Aipify action is logged for transparency and accountability.",
+      "loading": "Preparing audit timeline overview…",
+      "back": "Back to Trust & Control Center",
+      "empty": "No audit events yet."
+    },
+    "trust": {
+      "title": "Trust Scores",
+      "subtitle": "Trust scores inform recommendations only. High-risk actions still require approval.",
+      "loading": "Preparing trust scores overview…",
+      "back": "Back to Trust & Control Center",
+      "empty": "No trust scores calculated yet.",
+      "success": "Successes",
+      "failure": "Failures",
+      "approvals": "Approvals"
+    },
+    "links": {
+      "audit": "Audit timeline",
+      "trust": "Trust scores",
+      "settings": "Governance settings"
+    },
+    "approvalProfilesLink": "Approval Profiles",
+    "financialGuardrailsLink": "Financial Guardrails",
+    "approvalCenterLink": "Approval Center",
+    "permissionsAccessLink": "Permissions & Access",
+    "trustTransparencyLink": "Trust & Transparency"
+  },
+  "securityCompliance": {
+    "title": "Security & Compliance",
+    "subtitle": "Policy engine, data governance, privacy requests, and security incidents.",
+    "principle": "Before Aipify acts, it asks: Am I allowed to do this?",
+    "privacyNote": "Raw secrets are never stored in normal database tables. Audit logs are retained per policy.",
+    "loading": "Verifying security posture…",
+    "open": "Open Security",
+    "openIncidents": "open incidents",
+    "criticalIncidents": "critical",
+    "emergencyStopActive": "Emergency Stop is active — new actions are blocked",
+    "incidents": "Incidents",
+    "secrets": "Secrets",
+    "policies": "Access policies",
+    "compliance": "Compliance",
+    "dataGovernance": "Data governance",
+    "recentDecisions": "Recent policy decisions",
+    "noDecisions": "No policy decisions yet.",
+    "back": "Back to Security",
+    "backCompliance": "Back to Compliance",
+    "incidentsTitle": "Security incidents",
+    "incidentsSubtitle": "Track and resolve security events across your tenant.",
+    "noIncidents": "No security incidents recorded.",
+    "resolve": "Resolve",
+    "secretsTitle": "Secrets & credentials",
+    "secretsSubtitle": "Secret references only — raw values are stored in approved vault.",
+    "noSecrets": "No secret references registered.",
+    "noRawSecrets": "Raw secret values are never shown after creation. Only references are stored.",
+    "rotate": "Rotate",
+    "revoke": "Revoke",
+    "policiesTitle": "Access policies",
+    "policiesSubtitle": "Role-based access rules evaluated by the Policy Engine.",
+    "testPolicy": "Test policy evaluation",
+    "requiresApproval": "Requires approval",
+    "complianceTitle": "Compliance",
+    "complianceSubtitle": "GDPR toolkit, retention policies, and compliance reports.",
+    "privacyRequests": "Privacy requests",
+    "reports": "Reports",
+    "securityLink": "Security",
+    "privacyPending": "Pending privacy requests",
+    "retentionPolicies": "Retention policies",
+    "deploymentMode": "Deployment mode",
+    "generateReport": "Generate security posture report",
+    "applyRetention": "Apply retention policies",
+    "privacyTitle": "Privacy requests",
+    "privacySubtitle": "Export, deletion, and anonymization requests (GDPR-style).",
+    "createRequest": "Create privacy request",
+    "export": "Export data",
+    "delete": "Delete data",
+    "anonymize": "Anonymize data",
+    "emailPlaceholder": "Subject email",
+    "submit": "Submit request",
+    "noRequests": "No privacy requests yet.",
+    "governanceTitle": "Data governance",
+    "governanceSubtitle": "Data classifications, residency, and retention overview.",
+    "classifications": "Data classifications",
+    "retention": "Retention policies",
+    "cloudSync": "Cloud sync",
+    "redaction": "Redaction",
+    "yes": "Yes",
+    "no": "No",
+    "days": "days",
+    "reportsTitle": "Compliance reports",
+    "reportsSubtitle": "Generate structured compliance and security reports.",
+    "generate": "Generate",
+    "noReports": "No reports generated yet."
+  },
+  "enterpriseDeployment": {
+    "title": "Enterprise Deployment",
+    "subtitle": "Cloud, hybrid, and on-premise — Aipify adapts to your network and compliance requirements.",
+    "principle": "Control plane in the cloud, data plane in your network when you need it.",
+    "loading": "Preparing enterprise deployment overview…",
+    "empty": "Enterprise deployment is not available yet.",
+    "open": "Open Enterprise",
+    "deployment": "Deployment settings",
+    "agents": "Aipify Agents",
+    "dataResidency": "Data residency",
+    "connectors": "Connectors",
+    "audit": "Audit exports",
+    "framework": "Deployment framework",
+    "upgradeRequired": "Hybrid and on-premise deployment requires an Enterprise plan.",
+    "mode": "Deployment mode",
+    "residency": "Data residency",
+    "connectivity": "Connectivity",
+    "agentsCount": "Registered agents",
+    "agentsOnline": "Agents online",
+    "jobsQueued": "Jobs queued",
+    "registeredAgents": "Registered agents",
+    "noAgents": "No agents registered yet.",
+    "neverSeen": "Never seen",
+    "recentJobs": "Recent agent jobs",
+    "noJobs": "No agent jobs yet.",
+    "privacy": "Raw internal data never leaves your network unless explicitly allowed by policy.",
+    "back": "Back to Enterprise",
+    "deploymentTitle": "Deployment configuration",
+    "deploymentSubtitle": "Choose how Aipify runs for your organization.",
+    "deploymentMode": "Deployment mode",
+    "desktopEndpoint": "Desktop Companion endpoint",
+    "customEndpoint": "Custom internal endpoint URL",
+    "cloudSync": "Allow cloud sync of safe summaries",
+    "rawCloudSync": "Allow raw data cloud sync (not recommended)",
+    "redactionRequired": "Require redaction before cloud sync",
+    "localKnowledge": "Enable local Knowledge Center",
+    "localMemory": "Enable local Memory Engine",
+    "enterpriseGovernance": "Enable enterprise governance controls",
+    "agentsTitle": "Aipify Agents",
+    "agentsSubtitle": "Local agents connect outbound to Aipify Cloud — no inbound firewall rules required.",
+    "registerAgent": "Register new agent",
+    "register": "Register agent",
+    "agentKeyOnce": "Save this agent key now — it will not be shown again",
+    "lastSeen": "Last seen",
+    "disable": "Disable",
+    "residencyTitle": "Data residency policies",
+    "residencySubtitle": "Control where each data category is stored and whether it can sync to cloud.",
+    "storage": "Storage",
+    "cloudSyncAllowed": "Cloud sync allowed",
+    "connectorsTitle": "Enterprise connectors",
+    "connectorsSubtitle": "Integrations that may require a local Aipify Agent.",
+    "requiresAgent": "Requires local agent",
+    "cloudOk": "Cloud compatible",
+    "auditTitle": "Enterprise audit exports",
+    "auditSubtitle": "Request export of agent access, approvals, and audit logs.",
+    "requestExport": "Request",
+    "noExports": "No audit exports yet.",
+    "deploymentModes": {
+      "cloud_saas": "Cloud SaaS",
+      "hybrid": "Hybrid",
+      "on_premise": "On-premise"
+    },
+    "residencyModes": {
+      "cloud": "Cloud",
+      "local_only": "Local only",
+      "hybrid_redacted": "Hybrid (redacted)",
+      "customer_controlled": "Customer controlled"
+    },
+    "connectivityModes": {
+      "internet": "Internet",
+      "outbound_only": "Outbound only",
+      "private_network": "Private network",
+      "offline_limited": "Offline limited"
+    },
+    "endpointModes": {
+      "cloud": "Aipify Cloud",
+      "hybrid": "Hybrid (cloud UI + local agent)",
+      "on_premise": "Internal endpoint"
+    }
+  },
+  "enterpriseDeploymentFramework": {
+    "title": "Enterprise Deployment Framework",
+    "subtitle": "Structured methodology for deploying Aipify in complex environments — security, governance, and operational excellence.",
+    "loading": "Preparing enterprise deployment framework overview…",
+    "frameworkScore": "Framework Score",
+    "generateBriefing": "Generate executive briefing",
+    "deploymentReadiness": "Deployment readiness",
+    "userAdoption": "User adoption",
+    "governanceActive": "Active governance policies",
+    "securityControls": "Security controls enabled",
+    "pilotRecommended": "Pilot deployment is strongly recommended to reduce implementation risk.",
+    "backToEnterprise": "Back to Enterprise",
+    "deploymentSettings": "Deployment settings",
+    "auditCompliance": "Audit & compliance",
+    "readiness": "Readiness",
+    "advanceStage": "Advance to next stage",
+    "deploymentStages": "Deployment stages",
+    "readinessAssessment": "Enterprise readiness assessment",
+    "deploymentModels": "Supported deployment models",
+    "iamCapabilities": "Identity & access management",
+    "enterpriseRoles": "Enterprise roles",
+    "governancePolicies": "Governance requirements",
+    "activatePolicy": "Activate policy",
+    "securityControlsTitle": "Security controls",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "integrationFramework": "Integration framework",
+    "changeManagement": "Change management",
+    "successMetrics": "Success metrics",
+    "businessContinuity": "Business continuity",
+    "supportModel": "Enterprise support model",
+    "currentTier": "Current tier"
+  },
+  "billingCommercial": {
+    "title": "Billing & Commercial Model",
+    "subtitle": "Flexible pricing for every stage of growth — packages, add-ons, usage, renewals, and partner billing.",
+    "loading": "Preparing commercial model overview…",
+    "commercialHealth": "Commercial Health",
+    "generateBriefing": "Generate commercial briefing",
+    "mrrLabel": "MRR",
+    "mrr": "Monthly recurring revenue",
+    "arr": "Annual recurring revenue",
+    "renewalLikelihood": "Renewal likelihood",
+    "expansionOpportunity": "Expansion opportunity",
+    "billingSettings": "Billing settings",
+    "moduleSettings": "Module management",
+    "licenseCenter": "License center",
+    "packagingStrategy": "Packaging strategy",
+    "perMonth": "mo",
+    "addonModules": "Add-on modules",
+    "activateAddon": "Activate add-on",
+    "enterpriseServices": "Enterprise services",
+    "usageTracking": "Usage tracking",
+    "invoices": "Invoices",
+    "renewalManagement": "Renewal management",
+    "completeRenewal": "Mark complete",
+    "partnerBilling": "Partner billing",
+    "trialFramework": "Trial framework",
+    "pricingGovernance": "Pricing governance",
+    "blueprintTitle": "Revenue Intelligence Blueprint",
+    "blueprintPhase39": "ABOS Phase 39",
+    "revenueSummary": "Revenue summary",
+    "revenueObjectives": "Revenue objectives",
+    "upcomingRenewals": "Upcoming renewals",
+    "renewalRisk": "Renewal risk",
+    "retentionSignal": "Retention signal",
+    "revenueTrend": "Revenue trend",
+    "activeAddons": "Active add-ons",
+    "expansionPacks": "Available expansion packs",
+    "customerHealthInsights": "Customer health insights",
+    "openCustomerSuccess": "Open Customer Success",
+    "renewalIntelligence": "Renewal intelligence",
+    "expansionOpportunities": "Expansion opportunities",
+    "salesExpertConnection": "Sales Expert connection",
+    "openSalesExpert": "Open Sales Expert portal",
+    "financialSystems": "Financial systems",
+    "openIntegrationEngine": "Open Integration Engine",
+    "trustConnection": "Trust connection",
+    "selfLoveConnection": "Self Love connection",
+    "dogfooding": "Dogfooding",
+    "aipifyGroup": "Aipify Group",
+    "unonight": "Unonight",
+    "successCriteria": "Success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "Pending",
+    "visionPhrases": "Vision"
+  },
+  "subscriptionPlanManagementEngine": {
+    "title": "Subscription & Plans",
+    "subtitle": "Manage your organization's subscription, plan modules, trials, and upgrade paths — with downgrade safeguards and full auditability.",
+    "loading": "Preparing subscription overview…",
+    "licenseCenter": "License Center",
+    "integrations": "Integrations",
+    "billingSettings": "Billing Settings",
+    "subscriptionEngine": "Subscription & Plan Management Engine",
+    "activePlan": "Active Plan",
+    "trialStatus": "Trial Days Remaining",
+    "trialEnds": "Trial ends",
+    "activeModules": "Active Modules",
+    "billingCycle": "Billing Cycle",
+    "billingProvider": "Provider",
+    "subscriptionActions": "Subscription Actions",
+    "startTrial": "Start Trial",
+    "reactivate": "Reactivate",
+    "cancel": "Cancel Subscription",
+    "upgradeOpportunities": "Upgrade Opportunities",
+    "upgrade": "Upgrade",
+    "availablePlans": "Available Plans",
+    "moduleAccess": "Module Access",
+    "noModules": "No modules configured for this plan.",
+    "licensed": "Licensed",
+    "notLicensed": "Not licensed",
+    "billingReadiness": "Billing Readiness",
+    "providers": "Supported providers",
+    "billingReady": "Billing ready",
+    "yes": "Yes",
+    "no": "No",
+    "principles": "Subscription Principles"
+  },
+  "governancePolicyEngine": {
+    "title": "Governance & Policy",
+    "subtitle": "Tenant-aware governance policies with human oversight for sensitive actions, transparent decision-making, and full audit support.",
+    "loading": "Preparing governance overview…",
+    "governancePolicyEngine": "Governance & Policy Engine",
+    "secureAiActions": "Secure Aipify Actions",
+    "auditAccountability": "Audit & Accountability",
+    "qualityGuardian": "Quality Guardian",
+    "approvals": "Approvals",
+    "activePolicies": "Active Policies",
+    "openViolations": "Open Violations",
+    "pendingApprovals": "Pending Approvals",
+    "autonomyLevel": "Companion autonomy level",
+    "activePoliciesList": "Active Policies",
+    "runViolationScan": "Run Violation Scan",
+    "noPolicies": "No active policies.",
+    "scheduleReview": "Schedule Review",
+    "policyViolations": "Policy Violations",
+    "noViolations": "No open violations.",
+    "acknowledge": "Acknowledge",
+    "upcomingReviews": "Upcoming Reviews",
+    "noReviews": "No upcoming reviews.",
+    "pendingApprovalsList": "Pending Aipify approvals",
+    "noPendingApprovals": "No pending approvals.",
+    "recommendations": "Governance Recommendations",
+    "principles": "Governance Principles",
+    "categoryAiAutonomy": "Companion autonomy",
+    "categoryApproval": "Approval",
+    "categorySupport": "Support",
+    "categoryAccess": "Access",
+    "categoryKnowledge": "Knowledge Publishing",
+    "categoryIntegration": "Integration",
+    "categoryRetention": "Retention",
+    "blueprint": {
+      "phase67": {
+        "objectives": "Blueprint objectives",
+        "boardPreparation": "Board preparation",
+        "boardMeetingSupport": "Board meeting support",
+        "strategicOversight": "Strategic oversight",
+        "riskAwareness": "Risk awareness",
+        "governancePrinciples": "Governance principles",
+        "decisionContinuity": "Decision continuity",
+        "selfLoveConnection": "Self Love connection",
+        "trustConnection": "Trust connection",
+        "dogfooding": "Dogfooding",
+        "engagementSummary": "Engagement summary",
+        "scheduledReviews": "Scheduled reviews",
+        "overdueReviews": "Overdue reviews",
+        "successCriteria": "Blueprint success criteria",
+        "criterionMet": "Met",
+        "criterionPending": "In progress"
+      },
+      "phase123": {
+        "title": "Enterprise Intelligence Phase 123 — Board & Governance Companion",
+        "objectives": "Board companion objectives",
+        "intelligenceCenter": "Board Intelligence Center",
+        "dashboardDisplays": "Board dashboard displays",
+        "briefingEngine": "Board briefing engine",
+        "governanceMemory": "Governance memory engine",
+        "companionSupports": "Board Companion supports",
+        "committeeSupport": "Committee support",
+        "riskOversight": "Risk oversight framework",
+        "decisionTraceability": "Decision traceability",
+        "effectivenessInsights": "Board effectiveness insights",
+        "limitations": "Companion limitations — never",
+        "selfLove": "Self Love in governance",
+        "knowledgeLibrary": "Board knowledge library",
+        "companionAdaptation": "Companion adaptation patterns",
+        "successMetrics": "Success metrics",
+        "successCriteria": "Phase 123 success criteria",
+        "crossLinks": "Cross-links"
+      }
+    }
+  },
+  "auditAccountability": {
+    "title": "Audit & Accountability",
+    "subtitle": "Immutable, tenant-aware audit trails for every critical user and Aipify action — with search, filtering, and compliance exports.",
+    "loading": "Preparing audit overview…",
+    "aipifyCore": "Aipify Core",
+    "identityAccess": "Identity & Permissions",
+    "secureAiActions": "Secure Aipify Actions",
+    "accountabilityEngine": "Audit & Accountability Engine",
+    "totalEvents": "Total Events",
+    "aiEvents": "Aipify activity",
+    "pendingApprovals": "Pending Approvals",
+    "retention": "Active Retention",
+    "export": "Export",
+    "topCategories": "Top Action Categories",
+    "recentActivity": "Recent Activity",
+    "aiTimeline": "Aipify activity timeline",
+    "securityEvents": "Security Events",
+    "failedActions": "Failed Actions",
+    "principles": "Audit Principles",
+    "noEvents": "No events recorded yet."
+  },
+  "secureAiAction": {
+    "title": "Secure Aipify Actions",
+    "subtitle": "Aipify recommends and performs operational actions within risk-classified approval boundaries — never exceeding permissions or tenant isolation.",
+    "loading": "Reviewing pending activities…",
+    "aipifyCore": "Aipify Core",
+    "identityAccess": "Identity & Permissions",
+    "approvals": "Approvals",
+    "actionEngine": "Secure Aipify Action Engine",
+    "principles": "Aipify Action Principles",
+    "pendingApprovals": "Pending Approvals",
+    "executedActions": "Executed Actions",
+    "failedExecutions": "Failed Executions",
+    "rejectedActions": "Rejected Actions",
+    "riskDistribution": "Risk Distribution",
+    "recentAiActions": "Recent Aipify actions",
+    "expectedImpact": "Expected impact",
+    "approve": "Approve",
+    "reject": "Reject",
+    "actionCatalog": "Action Catalog",
+    "approvalRequired": "approval required",
+    "autoAllowed": "auto allowed"
+  },
+  "identityPermissions": {
+    "title": "Identity & Permissions",
+    "subtitle": "Secure identity and access management — roles, permissions, approval workflows, and Aipify action governance.",
+    "loading": "Preparing identity overview…",
+    "engineTitle": "Identity, Roles & Permission Engine",
+    "aipifyCore": "Aipify Core",
+    "multiTenant": "Multi-Tenant",
+    "organizationWorkspace": "Organization & Workspaces",
+    "team": "Team",
+    "approvals": "Approvals",
+    "identityOverview": "Identity Overview",
+    "role": "Role",
+    "activeUsers": "Active Users",
+    "pendingInvitations": "Pending Invitations",
+    "pendingApprovals": "Pending Approvals",
+    "suspendedUsers": "Suspended Users",
+    "roleDistribution": "Role Distribution",
+    "approvalQueue": "Approval Queue",
+    "approve": "Approve",
+    "reject": "Reject",
+    "aiRiskClassification": "Aipify risk classification",
+    "autoAllowed": "Auto-execute allowed",
+    "approvalRequired": "Approval required",
+    "yourPermissions": "Your Permissions",
+    "mfaReadiness": "MFA Readiness",
+    "twoFactorSetup": "Set up sign-in verification",
+    "recentAccessEvents": "Recent Access Events",
+    "successCriteria": "Phase 2 success criteria",
+    "defaultRoles": "Default roles",
+    "scaffold": "scaffold",
+    "permissionCategories": "Permission categories",
+    "leastPrivilege": "Least privilege",
+    "accessReviews": "Access reviews",
+    "accessReviewsNote": "Periodic privileged-access review settings — integrates Security & Trust (A.18).",
+    "pendingAccessReviews": "Pending access reviews",
+    "scheduledReviews": "Scheduled reviews enabled",
+    "privilegedAccountsOnly": "Privileged accounts only",
+    "notifyOwners": "Notify organization owners",
+    "accessReviewSaveFailed": "Failed to save access review settings",
+    "companionPermissionPrefs": "Companion permission preferences",
+    "companionPermissionPrefsNote": "Scope companion visibility and management by role — metadata only.",
+    "companionViewDefault": "Companion view enabled by default",
+    "companionManageRestricted": "Restrict companion management to elevated roles",
+    "selfLoveBoundary": "Respect Self Love wellbeing boundaries",
+    "companionPrefsSaveFailed": "Failed to save companion permission preferences",
+    "auditRequirements": "Audit requirements",
+    "blueprintLinks": "Foundation links"
+  },
+  "personalityEngine": {
+    "title": "Personality & Warmth",
+    "subtitle": "A trusted colleague with a warm personality — competent first, human second, funny third.",
+    "philosophy": "People remember how software makes them feel.",
+    "safetyNote": "Aipify never mocks users, uses aggressive sarcasm, forces humor, or trivializes serious events.",
+    "loading": "Preparing personality settings overview…",
+    "open": "Open Personality",
+    "currentMode": "Personality mode",
+    "crisisSuppression": "Humor automatically suppressed — Incident Mode is active.",
+    "humorEnabled": "Allow gentle humor",
+    "emojiEnabled": "Allow emojis (sparingly)",
+    "humorAppropriate": "When humor is appropriate",
+    "humorNever": "When humor is never used",
+    "humorShould": "Humor principles — should",
+    "humorShouldNever": "Humor principles — should never",
+    "personalConnection": "Personal connection",
+    "exampleExchanges": "Example exchanges",
+    "userSays": "User says",
+    "aipifyResponds": "Aipify responds",
+    "examplesSection": "Example messages",
+    "humorSuppressed": "Humor suppressed for this context.",
+    "trustBoundaries": "Trust boundaries",
+    "avoid": "Avoid",
+    "prefer": "Prefer",
+    "relatedEngines": "Related engines",
+    "mode": "Mode",
+    "successCriteria": "Phase 8 success criteria",
+    "communicationPreferences": "Communication preferences",
+    "harmlessMemory": "Harmless memory principles",
+    "allowed": "Allowed",
+    "forbidden": "Forbidden",
+    "humorBoundaries": "Humor boundaries",
+    "playfulMomentsBlueprint": "Playful moments (bell, roses, fox)",
+    "selfLoveConnection": "Self Love connection",
+    "trustConnection": "Trust connection",
+    "visionPhrases": "Vision phrases",
+    "mapsToMode": "Maps to mode"
+  },
+  "personality": {
+    "playfulBell": {
+      "title": "Playful moments & bell personality",
+      "playfulMomentsEnabled": "Allow playful moments",
+      "bellMomentsEnabled": "Allow bell signature moments",
+      "playfulSuppressed": "Playful moments are limited for the current mode or settings.",
+      "bellMoments": "Bell personality moments",
+      "whenToUse": "When to use",
+      "whenNotToUse": "When not to use",
+      "foxExchange": "Fox exchange example"
+    }
+  },
+  "workstyleEngine": {
+    "title": "Personalization & Workstyle",
+    "subtitle": "Adapt communication, notifications, learning, and desktop behavior to how you prefer to work.",
+    "philosophy": "Aipify adapts to people. People never adapt to Aipify.",
+    "safetyNote": "Personalization never enables employee scoring, hidden profiling, or cross-tenant sharing.",
+    "loading": "Preparing personalization settings overview…",
+    "back": "Back to Settings",
+    "youControl": "You control personalization",
+    "privacyNote": "Preferences are private, optional, and never used for employee evaluation.",
+    "personalizationEnabled": "Enable personalization",
+    "humorEnabled": "Allow humor (via Personality settings)",
+    "saved": "Preferences saved",
+    "suggestionsSection": "Preference suggestions",
+    "suggestionsNote": "Suggestions require your consent — Aipify never imposes preferences.",
+    "confidence": "Confidence",
+    "accept": "Accept",
+    "dismiss": "Dismiss",
+    "communication": "Communication style",
+    "notifications": "Notification intensity",
+    "learning": "Learning format",
+    "explanation": "Explanation detail",
+    "collaboration": "Collaboration style",
+    "desktop": "Desktop behavior"
+  },
+  "securityHub": {
+    "title": "Security",
+    "subtitle": "Manage sign-in verification, sessions, devices, and account protection for your workspace.",
+    "comingSoon": "Coming soon",
+    "planned": "Planned",
+    "items": {
+      "signInVerification": {
+        "title": "Sign-in verification",
+        "description": "Protect administrative access with authenticator-based verification.",
+        "status": "Available"
+      },
+      "sessionManagement": {
+        "title": "Session management",
+        "description": "Review active sessions and sign out remotely when needed."
+      },
+      "deviceHistory": {
+        "title": "Device history",
+        "description": "See trusted devices that have accessed this workspace."
+      },
+      "recoveryMethods": {
+        "title": "Recovery methods",
+        "description": "Manage recovery codes and backup sign-in options.",
+        "status": "Available"
+      },
+      "passkeys": {
+        "title": "Passkeys",
+        "description": "Future support for passwordless enterprise sign-in."
+      },
+      "loginActivity": {
+        "title": "Login activity",
+        "description": "Review security events and sign-in activity in the Security Center.",
+        "status": "Available"
+      }
+    }
+  },
+  "securityTrustEngine": {
+    "title": "Security & Trust",
+    "subtitle": "Proactive security transparency, access reviews, and resilience cross-links — extending Security & Trust Engine Phase A.18.",
+    "loading": "Verifying security posture…",
+    "engineTitle": "Security & Resilience Engine",
+    "complianceScore": "Compliance score",
+    "pendingReviews": "Pending access reviews",
+    "activePolicies": "Active policies",
+    "resiliencePlans": "Resilience plans",
+    "principles": "Principles",
+    "securityObjectives": "Security objectives",
+    "resilienceObjectives": "Resilience objectives",
+    "accessPrinciples": "Access principles",
+    "companionExamples": "Companion communication",
+    "blueprintSuccessCriteria": "Blueprint success criteria (Phase 30)",
+    "selfLoveConnection": "Self Love connection",
+    "trustConnectionBlueprint": "Trust & transparency (Phase 30)",
+    "engagementSummary": "Security & resilience engagement",
+    "complianceChecks": "Compliance checks passed",
+    "openVulnerabilities": "Open vulnerabilities",
+    "resilienceSimulations": "Resilience simulations",
+    "trustTransparency": "Trust transparency",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "complianceChecksSection": "Compliance checks",
+    "passed": "Passed",
+    "pending": "Pending",
+    "integrationLinks": "Related surfaces"
+  },
+  "enterpriseDeploymentDeviceRolloutEngine": {
+    "title": "Enterprise Deployment",
+    "subtitle": "IT admin dashboard for licenses, seats, device enrollment, and SSO/SCIM readiness.",
+    "loading": "Preparing deployment overview…",
+    "engineTitle": "Enterprise Deployment & Device Rollout Engine",
+    "enterpriseReadiness": "Enterprise Readiness",
+    "commandCenter": "Executive Center",
+    "subscription": "Subscription",
+    "installEngine": "Install Engine",
+    "active_licenses": "Active licenses",
+    "active_seats": "Seat usage",
+    "registered_devices": "Registered devices",
+    "stale_or_failed_devices": "Stale or failed",
+    "licenses": "Licenses",
+    "seats": "seats",
+    "devices": "Devices",
+    "enrollmentTokens": "Enrollment tokens",
+    "staleEnrollments": "Stale or failed enrollments",
+    "domainsAndSso": "Domains & SSO readiness",
+    "verified_domains": "Verified domains",
+    "sso_ready": "SSO ready",
+    "scimReadiness": "SCIM readiness",
+    "scimStatus": "Status",
+    "scimScaffoldNote": "SCIM provisioning is a readiness scaffold — full sync ships in a future phase.",
+    "installerDownloads": "Installer downloads",
+    "installerPending": "Enterprise installers (macOS, Windows, Linux) are prepared for IT distribution — download links pending packaging.",
+    "noItems": "No items.",
+    "principles": "Principles"
+  },
+  "packageAccess": {
+    "title": "Packages & Access",
+    "subtitle": "Choose the right package, upgrade when higher-value features are needed, and receive access instantly after payment.",
+    "loading": "Preparing Package & Access Center overview…",
+    "back": "Settings",
+    "billingLink": "Billing Center →",
+    "currentPackage": "Current package",
+    "subscriptionStatus": "Status",
+    "renewal": "Renewal",
+    "seats": "Seats",
+    "recommendationTitle": "Aipify recommendation",
+    "packagesTitle": "Package comparison",
+    "lockedTitle": "Locked features",
+    "noLocked": "All features in your package tier are unlocked.",
+    "auditTitle": "Package & billing events",
+    "noAudit": "No package events recorded yet.",
+    "upgrade": "Upgrade now",
+    "upgrading": "Activating…",
+    "upgradeComplete": "Upgrade complete. Business features are now active.",
+    "goldNugget": "Gold nugget",
+    "whoFor": "Who this is for",
+    "instantAccess": "Paid = access now — no logout, no waiting.",
+    "privacyNote": "Package metadata only — operational records stay with your organization.",
+    "tiers": {
+      "starter": "Starter",
+      "professional": "Professional",
+      "business": "Business",
+      "enterprise": "Enterprise"
+    },
+    "settingsLink": "Packages & Access"
+  },
+  "approvalProfiles": {
+    "title": "Approval Profiles",
+    "subtitle": "Define reusable approval profiles that simplify recurring decisions while preserving governance and human oversight.",
+    "loading": "Preparing Approval Profiles Center overview…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Approval philosophy",
+    "visionTitle": "Vision",
+    "activeTitle": "Active profiles",
+    "reviewsTitle": "Pending reviews",
+    "recommendationsTitle": "Profile recommendations",
+    "activityTitle": "Approval activity",
+    "savingsTitle": "Time saved through profiles",
+    "governanceTitle": "Governance indicators",
+    "accept": "Create profile",
+    "dismiss": "Dismiss",
+    "disable": "Disable profile",
+    "delete": "Delete profile",
+    "completeReview": "Mark review complete",
+    "privacyNote": "Manual override always available — meaningful control preserved.",
+    "approvalsLink": "Approval Center →",
+    "actionMemoryLink": "Action Memory →",
+    "governanceLink": "Governance Center →",
+    "profileTypes": {
+      "personal": "Personal profile",
+      "business": "Business profile",
+      "executive": "Executive profile",
+      "department": "Department profile"
+    },
+    "approvalModes": {
+      "always_ask": "Always ask",
+      "simplified": "Simplified approval",
+      "rule_based": "Rule-based approval"
+    },
+    "reviewStates": {
+      "current": "Current",
+      "needs_review": "Needs review",
+      "suspended": "Suspended",
+      "expired": "Expired"
+    },
+    "settingsLink": "Approval Profiles"
+  },
+  "financialGuardrails": {
+    "title": "Financial Guardrails",
+    "subtitle": "Enforce budgets, spending limits, and approval thresholds so Aipify participates responsibly in purchasing and financial coordination.",
+    "loading": "Preparing Financial Guardrails Center overview…",
+    "corePrinciple": "Core principle",
+    "philosophyTitle": "Financial philosophy",
+    "visionTitle": "Vision",
+    "activeTitle": "Spending profiles",
+    "recommendationsTitle": "Spending recommendations",
+    "alertsTitle": "Budget alerts",
+    "expendituresTitle": "Recent expenditures",
+    "trendsTitle": "Spending activity trends",
+    "utilizationTitle": "Budget utilization",
+    "highValueTitle": "High-value transactions",
+    "exceptionsTitle": "Policy exceptions",
+    "effectivenessTitle": "Guardrail effectiveness",
+    "accept": "Apply recommendation",
+    "dismiss": "Dismiss",
+    "suspend": "Suspend profile",
+    "delete": "Delete profile",
+    "privacyNote": "Spending metadata only — no payment instruments or raw transaction records stored.",
+    "approvalsLink": "Approval Center →",
+    "approvalProfilesLink": "Approval Profiles →",
+    "governanceLink": "Governance Center →",
+    "spendingCategories": {
+      "personal": "Personal spending",
+      "business": "Business spending",
+      "enterprise": "Enterprise spending"
+    },
+    "limitTypes": {
+      "per_transaction": "Per transaction",
+      "monthly": "Monthly limit",
+      "team": "Team limit"
+    },
+    "approvalThresholds": {
+      "level_1": "Level 1 — No approval required",
+      "level_2": "Level 2 — User confirmation",
+      "level_3": "Level 3 — Manager approval",
+      "level_4": "Level 4 — Executive approval"
+    },
+    "settingsLink": "Financial Guardrails"
+  },
+  "permissionAccessGovernance": {
+    "title": "Permission Center",
+    "subtitle": "Review what Aipify can access and do — grant, revoke, and govern permissions with full transparency.",
+    "loading": "Preparing Permission Center overview…",
+    "corePrinciple": "Core principle",
+    "visionTitle": "Vision",
+    "governanceLink": "Governance Center →",
+    "identityAccessLink": "Identity & Access →",
+    "approvalCenterLink": "Approval Center →",
+    "dashboardTitle": "Permission dashboard",
+    "activeTitle": "Active permissions",
+    "pendingRequestsTitle": "Permission requests",
+    "highImpactTitle": "High-impact permissions",
+    "revokedTitle": "Revoked permissions",
+    "companionTitle": "Companion access overview",
+    "historyTitle": "Access history",
+    "recommendationsTitle": "Aipify recommendations",
+    "executiveTitle": "Executive reporting",
+    "emptyActive": "No active permissions to display.",
+    "emptyPending": "No pending permission requests.",
+    "emptyRecommendations": "No open recommendations.",
+    "resource": "Resource",
+    "permission": "Permission",
+    "purpose": "Purpose",
+    "riskLevel": "Risk level",
+    "grantedBy": "Granted by",
+    "grantedOn": "Granted on",
+    "expires": "Expires",
+    "whatCanDo": "What Aipify can do",
+    "whatCannotDo": "What Aipify cannot do",
+    "revokeInstructions": "How to revoke",
+    "whyNeeded": "Why this is needed",
+    "revoke": "Revoke",
+    "downgrade": "Downgrade",
+    "approve": "Grant access",
+    "deny": "Deny",
+    "dismiss": "Dismiss",
+    "categories": {
+      "data_access": "Data access",
+      "action_access": "Action access",
+      "business_access": "Business access",
+      "community_access": "Community access",
+      "companion_access": "Companion access"
+    },
+    "riskLevels": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "elevated": "Elevated",
+      "high": "High"
+    },
+    "permissionLevels": {
+      "1": "Read only",
+      "2": "Recommend",
+      "3": "Approve & execute",
+      "4": "Fully automated"
+    },
+    "expirationTypes": {
+      "permanent": "Permanent",
+      "temporary": "Temporary",
+      "project": "Project-based",
+      "time_limited": "Time-limited"
+    },
+    "eventTypes": {
+      "granted": "Granted",
+      "revoked": "Revoked",
+      "downgraded": "Downgraded",
+      "expired": "Expired",
+      "reviewed": "Reviewed",
+      "failed_attempt": "Failed attempt"
+    },
+    "metrics": {
+      "active": "Active",
+      "recentGranted": "Recently granted",
+      "highImpact": "High impact",
+      "revoked": "Revoked",
+      "pendingRequests": "Pending requests",
+      "companion": "Companion access",
+      "compliance": "Governance compliance",
+      "avgReview": "Avg. review time"
+    },
+    "privacyNote": "Privacy",
+    "settingsLink": "Permissions & Access"
+  },
+  "trustTransparency": {
+    "title": "Trust Center",
+    "subtitle": "Complete visibility into how Aipify operates, what it recommends, and how trust is maintained.",
+    "loading": "Preparing Trust Center overview…",
+    "corePrinciple": "Core principle",
+    "visionTitle": "Vision",
+    "governanceLink": "Governance Center →",
+    "governanceTrustLink": "Governance trust scores →",
+    "approvalCenterLink": "Approval Center →",
+    "permissionsAccessLink": "Permissions & Access →",
+    "dashboardTitle": "Trust dashboard",
+    "trustIndicatorsTitle": "Trust indicators",
+    "sections": {
+      "activity": "Aipify activity overview",
+      "decision": "Decision explanations",
+      "permission": "Permissions used",
+      "approval": "Approval history",
+      "selfHealing": "Self-healing activity",
+      "recommendation": "Recommendations generated",
+      "audit": "Audit & governance logs"
+    },
+    "emptySection": "Nothing to show in this section yet.",
+    "emptyRecommendations": "No open recommendations.",
+    "action": "Action",
+    "why": "Why",
+    "permissionsUsed": "Permissions used",
+    "riskLevel": "Risk level",
+    "userControl": "Your control",
+    "infoConsidered": "Information considered",
+    "alternatives": "Alternatives",
+    "ifNothingDone": "If nothing is done",
+    "companion": "Companion",
+    "approvalRequired": "Approval required",
+    "outcome": "Outcome",
+    "whatFailed": "What failed",
+    "aipifyAttempt": "What Aipify attempted",
+    "recoverySucceeded": "Recovery succeeded",
+    "recoveryFailed": "Recovery needs review",
+    "downtimePrevented": "Estimated downtime prevented",
+    "manualReview": "Administrator review recommended",
+    "governanceRecommendationsTitle": "Aipify recommendations",
+    "dismiss": "Dismiss",
+    "requestReview": "Request human review",
+    "disableCategory": "Disable category",
+    "riskLevels": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "elevated": "Elevated",
+      "high": "High"
+    },
+    "eventTypes": {
+      "recommendation_issued": "Recommendation issued",
+      "approval_completed": "Approval completed",
+      "action_executed": "Action executed",
+      "self_healing": "Self-healing",
+      "permission_request": "Permission request",
+      "governance_override": "Governance override",
+      "view_center": "Center viewed"
+    },
+    "metrics": {
+      "actionsMonth": "Actions this month",
+      "recommendations": "Recommendations generated",
+      "approved": "Actions approved",
+      "rejected": "Actions rejected",
+      "selfHealing": "Self-healing interventions",
+      "compliance": "Governance compliance"
+    },
+    "indicators": {
+      "governance": "Governance score",
+      "permissionHygiene": "Permission hygiene",
+      "approvalResponsiveness": "Approval responsiveness",
+      "transparency": "Transparency completeness",
+      "selfHealing": "Self-healing effectiveness"
+    },
+    "privacyNote": "Privacy",
+    "settingsLink": "Trust & Transparency"
+  }
+}

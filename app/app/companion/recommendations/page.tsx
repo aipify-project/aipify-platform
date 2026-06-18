@@ -1,6 +1,6 @@
 import { CompanionRecommendationEngineDashboardPanel } from "@/components/app/companion-recommendation-engine";
 import type { CompanionRecommendationEngineLabels } from "@/lib/aipify/companion-recommendation-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator, type Translator } from "@/lib/i18n/translate";
 
@@ -120,7 +120,7 @@ function buildLabels(t: Translator): CompanionRecommendationEngineLabels {
 }
 
 export default async function CompanionRecommendationEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "companionRecommendationEngine");
   const t = createTranslator(dict);
   const labels = buildLabels(t);
 

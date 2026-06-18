@@ -1,0 +1,1120 @@
+{
+  "companionContextEngine": {
+    "title": "Companion Context Engine",
+    "subtitle": "Understand what is happening across your work environment so Aipify assistance becomes more relevant and valuable.",
+    "loading": "Aipify is building contextual awareness...",
+    "principle": "Context before recommendations. Permission-first access. Privacy by design.",
+    "privacyNote": "Aipify only uses metadata from approved, authorized context sources — never information outside granted permissions.",
+    "emptyTitle": "No context sources are currently connected.",
+    "emptyBody": "Connect systems and workflows to help Aipify provide more relevant assistance.",
+    "emptyCta": "Connect Context Sources",
+    "accessDenied": "Companion context access requires an active organization membership.",
+    "filters": {
+      "search": "Search context sources and signals...",
+      "source": "Context source",
+      "department": "Department",
+      "priority": "Priority",
+      "dateFrom": "From date",
+      "all": "All"
+    },
+    "dashboard": {
+      "contextHealthScore": "Context Health Score",
+      "companionReadinessScore": "Companion Readiness Score",
+      "availableSignals": "Available Signals",
+      "contextCoverage": "Context Coverage",
+      "activeSources": "Active Context Sources",
+      "recentlyUpdated": "Recently Updated Sources",
+      "userContext": "User Context",
+      "organizationContext": "Organization Context",
+      "workContext": "Work Context",
+      "companionView": "Companion Context View",
+      "currentFocus": "Current Focus",
+      "recentActivity": "Recent Activity",
+      "pendingActions": "Pending Actions",
+      "upcomingEvents": "Upcoming Events",
+      "recommendedAttention": "Recommended Attention Areas",
+      "contextConfidence": "Context Confidence Level",
+      "timeline": "Context Timeline",
+      "recommendations": "Recommended Attention",
+      "usageExamples": "Companion Usage Examples",
+      "connectSources": "Connect Context Sources"
+    },
+    "source": {
+      "status": "Status",
+      "signals": "Signals",
+      "coverage": "Coverage",
+      "category": "Category"
+    },
+    "recommendation": {
+      "effort": "Estimated effort",
+      "value": "Potential value"
+    },
+    "sources": {
+      "userProfile": "User Profile",
+      "rolePermissions": "Role & Permissions",
+      "organization": "Organization",
+      "businessPacks": "Installed Business Packs",
+      "connectedApplications": "Connected Applications",
+      "notifications": "Notifications",
+      "tasks": "Tasks",
+      "calendarEvents": "Calendar Events",
+      "recentActivity": "Recent Activity",
+      "knowledgeCenter": "Knowledge Center",
+      "companionHistory": "Companion History",
+      "supportActivity": "Support Activity",
+      "operationalActivity": "Operational Activity"
+    },
+    "statuses": {
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "pending": "Pending",
+      "restricted": "Restricted"
+    },
+    "priorities": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "confidenceLevels": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High"
+    },
+    "faq": {
+      "title": "Companion Context Engine FAQ",
+      "whatIs": "What is the Companion Context Engine?",
+      "whatIsAnswer": "The Companion Context Engine helps Aipify understand what is happening across your work environment so assistance becomes more relevant and useful.",
+      "autoAccess": "Does Aipify access everything automatically?",
+      "autoAccessAnswer": "No. Aipify only uses information from systems and sources that have been explicitly connected and authorized.",
+      "whyImportant": "Why is context important?",
+      "whyImportantAnswer": "Context allows Aipify to provide assistance that reflects current priorities, tasks and organizational activity rather than generic responses."
+    }
+  },
+  "companionMemoryEngine": {
+    "title": "Companion Memory Expansion Engine",
+    "subtitle": "Long-term memory for Aipify Companion — approved information that makes assistance increasingly valuable over time.",
+    "loading": "Aipify is reviewing available memory context...",
+    "principle": "Memory must be transparent. Users remain in control. Trust before automation.",
+    "privacyNote": "Aipify never treats low-confidence memories as facts. Memory remains transparent and manageable.",
+    "emptyTitle": "No memories have been created yet.",
+    "emptyBody": "As you work with Aipify, approved memories help the Companion provide increasingly personalized assistance.",
+    "emptyCta": "Explore Memory Center",
+    "accessDenied": "Companion memory access requires an active organization membership.",
+    "filters": {
+      "search": "Search memories...",
+      "memoryType": "Memory type",
+      "source": "Source",
+      "department": "Department",
+      "status": "Status",
+      "confidence": "Confidence",
+      "dateFrom": "From date",
+      "all": "All"
+    },
+    "dashboard": {
+      "memoryHealthScore": "Memory Health Score",
+      "activeMemories": "Active Memories",
+      "approvedMemories": "User Approved Memories",
+      "recentlyLearned": "Recently Learned Items",
+      "memorySources": "Memory Sources",
+      "memoryConfidence": "Memory Confidence",
+      "userApproved": "Approved Count",
+      "reviewCenter": "Memory Review Center",
+      "timeline": "Memory Timeline",
+      "usageExamples": "Companion Memory Examples",
+      "temporaryMemory": "Temporary Memory",
+      "longTermMemory": "Long-Term Memory",
+      "organizationalMemory": "Organizational Memory",
+      "userMemory": "User Memory"
+    },
+    "review": {
+      "suggestedMemory": "Suggested Memory",
+      "source": "Source",
+      "reason": "Reason",
+      "confidence": "Confidence",
+      "approvalStatus": "Approval Status",
+      "dateLearned": "Date Learned",
+      "approve": "Approve",
+      "reject": "Reject",
+      "edit": "Edit",
+      "archive": "Archive",
+      "delete": "Delete"
+    },
+    "memoryTypes": {
+      "temporary": "Temporary",
+      "longTerm": "Long-Term"
+    },
+    "memoryScopes": {
+      "personal": "Personal Memory",
+      "team": "Team Memory",
+      "department": "Department Memory",
+      "organization": "Organization Memory",
+      "global": "Global System Memory"
+    },
+    "categories": {
+      "userPreferences": "User Preferences",
+      "teamPreferences": "Team Preferences",
+      "organizationalPreferences": "Organizational Preferences",
+      "companionPreferences": "Companion Preferences",
+      "communicationStyle": "Communication Style",
+      "operationalWorkflows": "Operational Workflows",
+      "approvedProcesses": "Approved Processes",
+      "recurringTasks": "Recurring Tasks",
+      "importantDates": "Important Dates",
+      "businessContext": "Business Context",
+      "relationshipContext": "Relationship Context",
+      "knowledgeReferences": "Knowledge References"
+    },
+    "sources": {
+      "userInteraction": "User Interactions",
+      "workflowObservation": "Workflow Observation",
+      "organizationProfile": "Organization Profile",
+      "companionLearning": "Companion Learning"
+    },
+    "statuses": {
+      "suggested": "Suggested",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "archived": "Archived"
+    },
+    "confidenceLevels": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "unverified": "Unverified"
+    },
+    "faq": {
+      "title": "Companion Memory FAQ",
+      "whatIs": "What is Companion Memory?",
+      "whatIsAnswer": "Companion Memory allows Aipify to remember approved information so assistance becomes more personalized and useful over time.",
+      "control": "Can I control what Aipify remembers?",
+      "controlAnswer": "Yes. Memory remains transparent and manageable through the Memory Review Center.",
+      "delete": "Can memories be deleted?",
+      "deleteAnswer": "Yes. Authorized users may review, edit, archive or delete memories."
+    }
+  },
+  "companionRecommendationEngine": {
+    "title": "Companion Recommendation Engine",
+    "subtitle": "Intelligent, contextual and actionable recommendations — Aipify suggests, humans decide.",
+    "loading": "Aipify is preparing recommendations...",
+    "principle": "Explain every recommendation. Humans remain in control. Transparency before automation.",
+    "privacyNote": "Recommendations are suggestions only. Final decisions always remain with users and leadership.",
+    "emptyTitle": "No recommendations are available at the moment.",
+    "emptyBody": "As Aipify learns more about your workflows and priorities, recommendations will become increasingly personalized.",
+    "emptyCta": "Review Context Sources",
+    "accessDenied": "Recommendation access requires an active organization membership.",
+    "filters": {
+      "search": "Search recommendations...",
+      "category": "Category",
+      "priority": "Priority",
+      "confidence": "Confidence",
+      "department": "Department",
+      "status": "Status",
+      "dateFrom": "From date",
+      "all": "All"
+    },
+    "dashboard": {
+      "healthScore": "Recommendation Health Score",
+      "activeRecommendations": "Active Recommendations",
+      "highPriority": "High-Priority Recommendations",
+      "accepted": "Accepted Recommendations",
+      "dismissed": "Dismissed Recommendations",
+      "accuracyScore": "Recommendation Accuracy Score",
+      "timeline": "Recommendation Timeline",
+      "usageExamples": "Companion Recommendation Examples",
+      "whySeeing": "Why am I seeing this?"
+    },
+    "card": {
+      "reason": "Reason",
+      "priority": "Priority",
+      "confidence": "Confidence",
+      "suggestedAction": "Suggested Action",
+      "createdDate": "Created Date",
+      "status": "Status",
+      "source": "Source"
+    },
+    "actions": {
+      "accept": "Accept",
+      "dismiss": "Dismiss",
+      "saveForLater": "Save For Later",
+      "review": "Review History"
+    },
+    "feedback": {
+      "title": "Was this helpful?",
+      "helpful": "Helpful",
+      "notHelpful": "Not Helpful",
+      "alreadyCompleted": "Already Completed",
+      "notRelevant": "Not Relevant"
+    },
+    "categories": {
+      "productivity": "Productivity",
+      "operations": "Operations",
+      "support": "Support",
+      "customerSuccess": "Customer Success",
+      "teamManagement": "Team Management",
+      "training": "Training",
+      "security": "Security",
+      "compliance": "Compliance",
+      "businessGrowth": "Business Growth",
+      "communication": "Communication",
+      "workflowOptimization": "Workflow Optimization",
+      "strategicPlanning": "Strategic Planning"
+    },
+    "sources": {
+      "contextEngine": "Context Engine",
+      "memoryEngine": "Memory Engine",
+      "calendar": "Calendar",
+      "tasks": "Tasks",
+      "notifications": "Notifications",
+      "companionActivity": "Companion Activity",
+      "businessPacks": "Business Packs",
+      "organizationalActivity": "Organizational Activity",
+      "intelligenceLayer": "Intelligence Layer",
+      "connectedSystems": "Connected Systems"
+    },
+    "priorities": {
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "informational": "Informational"
+    },
+    "confidenceLevels": {
+      "veryHigh": "Very High",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "experimental": "Experimental"
+    },
+    "statuses": {
+      "active": "Active",
+      "accepted": "Accepted",
+      "dismissed": "Dismissed",
+      "saved": "Saved",
+      "completed": "Completed",
+      "archived": "Archived"
+    },
+    "faq": {
+      "title": "Recommendation Engine FAQ",
+      "whatIs": "What is the Recommendation Engine?",
+      "whatIsAnswer": "The Recommendation Engine helps Aipify identify opportunities, priorities and actions that may improve productivity, operations and organizational performance.",
+      "decisions": "Can Aipify make decisions for me?",
+      "decisionsAnswer": "No. Recommendations are suggestions only. Final decisions always remain with users and leadership.",
+      "explanations": "Why do recommendations include explanations?",
+      "explanationsAnswer": "Transparency builds trust and helps users understand why recommendations are being made."
+    }
+  },
+  "companionProactiveInsightsEngine": {
+    "title": "Companion Proactive Insights Engine",
+    "subtitle": "Meaningful observations and patterns surfaced before you ask — Aipify observes, humans decide.",
+    "loading": "Aipify is analyzing activity patterns...",
+    "principle": "Surface meaningful observations. Explain reasoning. High signal, low noise.",
+    "privacyNote": "Insights are informational and advisory. Users remain responsible for decisions and actions.",
+    "emptyTitle": "No proactive insights are available yet.",
+    "emptyBody": "As Aipify learns more about organizational activity, proactive insights will become increasingly valuable.",
+    "emptyCta": "Review Context Sources",
+    "accessDenied": "Proactive insights access requires an active organization membership.",
+    "filters": {
+      "search": "Search insights...",
+      "category": "Category",
+      "priority": "Priority",
+      "confidence": "Confidence",
+      "impact": "Impact",
+      "department": "Department",
+      "status": "Status",
+      "dateFrom": "From date",
+      "all": "All"
+    },
+    "dashboard": {
+      "healthScore": "Insight Health Score",
+      "activeInsights": "Active Insights",
+      "highPriority": "High-Priority Insights",
+      "newInsights": "New Insights",
+      "reviewed": "Reviewed Insights",
+      "impactScore": "Insight Impact Score",
+      "timeline": "Insight Timeline",
+      "usageExamples": "Proactive Companion Examples",
+      "whyGenerated": "Why was this generated?",
+      "whyMatters": "Why it matters",
+      "dataSources": "Data sources",
+      "patternDetection": "Pattern detected"
+    },
+    "card": {
+      "observation": "Observation",
+      "confidence": "Confidence",
+      "impact": "Impact",
+      "suggestedReview": "Suggested Review",
+      "createdDate": "Created Date",
+      "status": "Status",
+      "source": "Source",
+      "priority": "Priority"
+    },
+    "actions": {
+      "review": "Review",
+      "dismiss": "Dismiss",
+      "archive": "Archive",
+      "escalate": "Escalate"
+    },
+    "feedback": {
+      "title": "Was this insight useful?",
+      "helpful": "Helpful",
+      "notHelpful": "Not Helpful",
+      "interesting": "Interesting",
+      "alreadyKnown": "Already Known",
+      "notRelevant": "Not Relevant"
+    },
+    "categories": {
+      "productivity": "Productivity",
+      "operations": "Operations",
+      "support": "Support",
+      "customers": "Customers",
+      "workforce": "Workforce",
+      "training": "Training",
+      "growth": "Growth",
+      "security": "Security",
+      "compliance": "Compliance",
+      "leadership": "Leadership",
+      "communication": "Communication",
+      "strategicPlanning": "Strategic Planning"
+    },
+    "sources": {
+      "contextEngine": "Context Engine",
+      "memoryEngine": "Memory Engine",
+      "recommendationEngine": "Recommendation Engine",
+      "calendar": "Calendar",
+      "tasks": "Tasks",
+      "notifications": "Notifications",
+      "businessPacks": "Business Packs",
+      "intelligenceLayer": "Intelligence Layer",
+      "supportActivity": "Support Activity",
+      "organizationalActivity": "Organizational Activity",
+      "connectedSystems": "Connected Systems",
+      "companionActivity": "Companion Activity"
+    },
+    "priorities": {
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "informational": "Informational"
+    },
+    "confidenceLevels": {
+      "veryHigh": "Very High",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "experimental": "Experimental"
+    },
+    "impactLevels": {
+      "major": "Major",
+      "moderate": "Moderate",
+      "minor": "Minor",
+      "informational": "Informational"
+    },
+    "statuses": {
+      "new": "New",
+      "reviewed": "Reviewed",
+      "dismissed": "Dismissed",
+      "escalated": "Escalated",
+      "archived": "Archived"
+    },
+    "patterns": {
+      "repeatedIssues": "Repeated issues",
+      "repeatedDelays": "Repeated delays",
+      "repeatedRequests": "Repeated requests",
+      "workflowBottlenecks": "Workflow bottlenecks",
+      "performanceTrends": "Performance trends",
+      "behavioralPatterns": "Behavioral patterns",
+      "communicationPatterns": "Communication patterns"
+    },
+    "faq": {
+      "title": "Proactive Insights FAQ",
+      "whatAre": "What are Proactive Insights?",
+      "whatAreAnswer": "Proactive Insights help Aipify identify important observations and patterns before users explicitly ask.",
+      "autoAction": "Does Aipify take action automatically?",
+      "autoActionAnswer": "No. Insights are informational and advisory. Users remain responsible for decisions and actions.",
+      "howGenerated": "How are insights generated?",
+      "howGeneratedAnswer": "Insights are generated from approved context sources, activity patterns and organizational signals."
+    }
+  },
+  "companionPersonalizationEngine": {
+    "title": "Companion Personalization Engine",
+    "subtitle": "Adapt communication, briefings and assistance to your preferred way of working — with organizational governance preserved.",
+    "loading": "Aipify is adapting to your preferred working style...",
+    "principle": "Adapt to the user. Preserve trust. Aipify identity remains consistent — personalization adjusts style, not core values.",
+    "privacyNote": "Personalization changes presentation and interaction style, not permissions or security controls.",
+    "emptyTitle": "No personalization preferences have been configured yet.",
+    "emptyBody": "Aipify can adapt to your preferred way of working while maintaining organizational standards.",
+    "emptyCta": "Configure Preferences",
+    "accessDenied": "Personalization access requires an active organization membership.",
+    "filters": {
+      "search": "Search preferences...",
+      "category": "Preference type",
+      "source": "Source",
+      "confidence": "Confidence",
+      "status": "Status",
+      "all": "All"
+    },
+    "dashboard": {
+      "personalizationScore": "Personalization Score",
+      "activePreferences": "Active Preferences",
+      "communicationProfile": "Communication Profile",
+      "briefingStyle": "Briefing Style",
+      "notificationStyle": "Notification Style",
+      "adaptationLevel": "Companion Adaptation Level",
+      "reviewCenter": "Personalization Review Center",
+      "insights": "Personalization Insights",
+      "timeline": "Personalization Timeline",
+      "usageExamples": "Companion Personalization Examples",
+      "reset": "Reset to Defaults",
+      "save": "Save Preferences"
+    },
+    "review": {
+      "preference": "Preference",
+      "source": "Source",
+      "confidence": "Confidence",
+      "lastUpdated": "Last Updated",
+      "status": "Status",
+      "approve": "Approve",
+      "reject": "Reject",
+      "edit": "Edit",
+      "reset": "Reset"
+    },
+    "profile": {
+      "communicationStyles": "Communication Styles",
+      "briefingStyle": "Briefing Style",
+      "notificationStyle": "Notification Style",
+      "companionPersonality": "Companion Personality",
+      "adaptationLevel": "Adaptation Level",
+      "preferredLanguage": "Preferred Language",
+      "learningPreference": "Learning Preference",
+      "notifyChannels": "Notification Channels"
+    },
+    "communicationStyles": {
+      "executive": "Executive",
+      "professional": "Professional",
+      "detailed": "Detailed",
+      "concise": "Concise",
+      "friendly": "Friendly",
+      "analytical": "Analytical",
+      "balanced": "Balanced"
+    },
+    "briefingStyles": {
+      "ultraShort": "Ultra Short",
+      "summary": "Summary",
+      "standard": "Standard",
+      "detailed": "Detailed",
+      "executiveReport": "Executive Report"
+    },
+    "notificationStyles": {
+      "minimal": "Minimal",
+      "balanced": "Balanced",
+      "active": "Active",
+      "highAwareness": "High Awareness"
+    },
+    "personalities": {
+      "professional": "Professional",
+      "supportive": "Supportive",
+      "executive": "Executive",
+      "analytical": "Analytical",
+      "coach": "Coach",
+      "balanced": "Balanced"
+    },
+    "adaptationLevels": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High"
+    },
+    "learningPreferences": {
+      "guided": "Guided",
+      "selfService": "Self-Service",
+      "interactive": "Interactive",
+      "documentationFirst": "Documentation First",
+      "videoFirst": "Video First"
+    },
+    "categories": {
+      "communicationStyle": "Communication Style",
+      "briefingPreferences": "Briefing Preferences",
+      "notificationPreferences": "Notification Preferences",
+      "reportingPreferences": "Reporting Preferences",
+      "companionPersonality": "Companion Personality",
+      "workflowPreferences": "Workflow Preferences",
+      "languagePreferences": "Language Preferences",
+      "meetingPreferences": "Meeting Preferences",
+      "learningPreferences": "Learning Preferences",
+      "productivityPreferences": "Productivity Preferences"
+    },
+    "statuses": {
+      "suggested": "Suggested",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "active": "Active"
+    },
+    "confidenceLevels": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "unverified": "Unverified"
+    },
+    "faq": {
+      "title": "Companion Personalization FAQ",
+      "whatIs": "What is Companion Personalization?",
+      "whatIsAnswer": "Companion Personalization allows Aipify to adapt communication, briefings and assistance to individual user preferences.",
+      "control": "Can I control personalization?",
+      "controlAnswer": "Yes. Users may review, edit or reset personalization settings at any time.",
+      "security": "Does personalization affect security?",
+      "securityAnswer": "No. Personalization changes presentation and interaction style, not permissions or security controls."
+    }
+  },
+  "companionDailyBriefing": {
+    "title": "Daily Briefing Center",
+    "subtitle": "Start your day with clarity — a personalized overview of priorities, events, insights and actions that matter most.",
+    "loading": "Aipify is preparing your daily briefing...",
+    "principle": "Start the day with clarity. Surface what matters most. Signal over noise.",
+    "privacyNote": "Briefings use approved context only. Personalization controls detail level via the Personalization Engine.",
+    "emptyTitle": "No daily briefing is available yet.",
+    "emptyBody": "Aipify will begin generating daily briefings as activity and context become available.",
+    "emptyCta": "Generate Briefing",
+    "accessDenied": "Daily briefing access requires an active organization membership.",
+    "filters": {
+      "search": "Search briefing items...",
+      "priority": "Priority",
+      "department": "Department",
+      "category": "Category",
+      "status": "Status",
+      "all": "All"
+    },
+    "header": {
+      "goodMorning": "Good morning.",
+      "welcomeBack": "Welcome back.",
+      "dailyBriefing": "Here is your daily briefing.",
+      "date": "Date",
+      "role": "Role",
+      "organization": "Organization"
+    },
+    "sections": {
+      "sinceLastLogin": "Since Last Login",
+      "priorities": "Today's Priorities",
+      "calendar": "Calendar Overview",
+      "insightsRecommendations": "Insights & Recommendations",
+      "executiveSummary": "Executive Summary",
+      "focusAreas": "Priority Focus Areas",
+      "timeline": "Briefing Timeline",
+      "usageExamples": "Companion Daily Briefing Examples"
+    },
+    "dashboard": {
+      "readinessScore": "Daily Readiness Score",
+      "focusAreas": "Priority Focus Areas",
+      "upcomingEvents": "Upcoming Events",
+      "outstandingTasks": "Outstanding Tasks",
+      "newInsights": "New Insights",
+      "newRecommendations": "New Recommendations",
+      "sinceLastLoginSummary": "Since Last Login Summary",
+      "todaysFocus": "Today's Focus",
+      "briefingMode": "Briefing Mode"
+    },
+    "card": {
+      "recommendedAction": "Recommended action",
+      "owner": "Owner",
+      "dueDate": "Due date",
+      "priority": "Priority",
+      "status": "Status"
+    },
+    "actions": {
+      "generate": "Generate Briefing",
+      "viewDetails": "View Details",
+      "dismiss": "Dismiss"
+    },
+    "priorities": {
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "informational": "Informational"
+    },
+    "statuses": {
+      "critical": "Critical",
+      "attentionRequired": "Attention Required",
+      "upcoming": "Upcoming",
+      "onTrack": "On Track",
+      "completed": "Completed"
+    },
+    "briefingModes": {
+      "ultraShort": "Ultra Short",
+      "summary": "Summary",
+      "standard": "Standard",
+      "detailed": "Detailed",
+      "executive": "Executive"
+    },
+    "focusAreas": {
+      "customerSuccess": "Customer Success",
+      "growth": "Growth",
+      "operations": "Operations",
+      "teamManagement": "Team Management",
+      "strategicPlanning": "Strategic Planning",
+      "support": "Support"
+    },
+    "sinceLastLogin": {
+      "completedTasks": "Completed tasks",
+      "newNotifications": "New notifications",
+      "newSupportRequests": "New support requests",
+      "newApprovals": "New approvals",
+      "importantActivity": "Important activity"
+    },
+    "faq": {
+      "title": "Daily Briefing Center FAQ",
+      "whatIs": "What is the Daily Briefing Center?",
+      "whatIsAnswer": "The Daily Briefing Center provides a personalized summary of priorities, events, insights and actions relevant to your workday.",
+      "howGenerated": "How is my briefing generated?",
+      "howGeneratedAnswer": "Briefings are generated using approved context, memory, recommendations, insights and organizational activity.",
+      "customize": "Can I customize my briefing?",
+      "customizeAnswer": "Yes. Briefing style and detail level are controlled through the Personalization Engine."
+    }
+  },
+  "companionWorkPrioritization": {
+    "title": "Work Prioritization",
+    "subtitle": "Identify, organize and focus on the most important work — transparent recommendations, human decisions.",
+    "loading": "Aipify is prioritizing your work...",
+    "principle": "Focus on what matters. Reduce decision fatigue. Support human judgment.",
+    "privacyNote": "Aipify recommends priorities with transparent reasoning. Users remain responsible for decisions.",
+    "emptyTitle": "No priorities are currently available.",
+    "emptyBody": "As tasks, projects and activity increase, Aipify will help identify what deserves attention first.",
+    "emptyCta": "Review Tasks",
+    "accessDenied": "Work prioritization access requires an active organization membership.",
+    "filters": {
+      "search": "Search priorities...",
+      "priority": "Priority",
+      "department": "Department",
+      "status": "Status",
+      "project": "Project",
+      "owner": "Owner",
+      "all": "All"
+    },
+    "sections": {
+      "criticalItems": "Critical Items",
+      "todaysFocus": "Today's Focus",
+      "upcomingDeadlines": "Upcoming Deadlines",
+      "delegationOpportunities": "Delegation Opportunities",
+      "recommendedActions": "Recommended Actions",
+      "workloadBalance": "Workload Balance",
+      "dependencies": "Dependencies",
+      "focusMode": "Focus Mode",
+      "timeline": "Prioritization Timeline",
+      "usageExamples": "Companion Prioritization Examples",
+      "allPriorities": "All Priorities"
+    },
+    "dashboard": {
+      "workPriorityScore": "Work Priority Score",
+      "criticalItems": "Critical Items",
+      "todaysFocus": "Today's Focus",
+      "upcomingDeadlines": "Upcoming Deadlines",
+      "delegationOpportunities": "Delegation Opportunities",
+      "recommendedActions": "Recommended Actions"
+    },
+    "card": {
+      "reason": "Why this matters",
+      "recommendedAction": "Recommended action",
+      "owner": "Owner",
+      "dueDate": "Due date",
+      "priority": "Priority",
+      "status": "Status",
+      "source": "Source",
+      "project": "Project"
+    },
+    "actions": {
+      "recalculate": "Recalculate Priorities",
+      "viewDetails": "View Details",
+      "reviewTasks": "Review Tasks"
+    },
+    "priorities": {
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "optional": "Optional"
+    },
+    "statuses": {
+      "pending": "Pending",
+      "inProgress": "In Progress",
+      "blocked": "Blocked",
+      "completed": "Completed",
+      "archived": "Archived",
+      "postponed": "Postponed"
+    },
+    "sources": {
+      "tasks": "Tasks",
+      "calendar": "Calendar",
+      "approvals": "Approvals",
+      "projects": "Projects",
+      "recommendations": "Recommendations",
+      "proactiveInsights": "Proactive Insights",
+      "notifications": "Notifications",
+      "businessPacks": "Business Packs",
+      "organizationalGoals": "Organizational Goals",
+      "executivePriorities": "Executive Priorities"
+    },
+    "recommendedActions": {
+      "completeImmediately": "Complete immediately",
+      "reviewToday": "Review today",
+      "scheduleThisWeek": "Schedule this week",
+      "delegate": "Delegate",
+      "monitor": "Monitor",
+      "archive": "Archive"
+    },
+    "workload": {
+      "current": "Current workload",
+      "upcoming": "Upcoming workload",
+      "overloadRisk": "Overload risk",
+      "capacity": "Capacity",
+      "delegationSuggestion": "Delegation suggestion"
+    },
+    "dependencies": {
+      "blocked": "Blocked tasks",
+      "blocking": "Blocking tasks",
+      "dependentTeam": "Dependent teams",
+      "pendingApproval": "Pending approvals"
+    },
+    "focusMode": {
+      "topPriority": "Top priority",
+      "nextPriority": "Next priority",
+      "suggestedSequence": "Suggested sequence",
+      "estimatedEffort": "Estimated effort"
+    },
+    "faq": {
+      "title": "Work Prioritization FAQ",
+      "whatIs": "What is Work Prioritization?",
+      "whatIsAnswer": "Work Prioritization helps users focus on the activities most likely to create value, reduce risk and support organizational goals.",
+      "canDecide": "Can Aipify decide my priorities?",
+      "canDecideAnswer": "No. Aipify provides recommendations. Users remain responsible for decisions and execution.",
+      "howCalculated": "How are priorities calculated?",
+      "howCalculatedAnswer": "Priorities are based on approved context sources including deadlines, impact, dependencies, workload and organizational objectives."
+    }
+  },
+  "companionFollowUp": {
+    "title": "Follow-Ups",
+    "subtitle": "Consistently follow through on commitments, conversations, meetings and responsibilities — transparent and configurable.",
+    "loading": "Aipify is reviewing follow-up activity...",
+    "principle": "Help users keep commitments. Improve accountability. Support trust and reliability.",
+    "privacyNote": "Aipify assists with follow-up recommendations. Users remain responsible for decisions and communication.",
+    "emptyTitle": "No follow-ups require attention.",
+    "emptyBody": "Aipify will help ensure important commitments do not fall through the cracks.",
+    "emptyCta": "Review Activities",
+    "accessDenied": "Follow-up access requires an active organization membership.",
+    "filters": {
+      "search": "Search follow-ups...",
+      "status": "Status",
+      "priority": "Priority",
+      "owner": "Owner",
+      "department": "Department",
+      "category": "Category",
+      "all": "All"
+    },
+    "sections": {
+      "openFollowUps": "Open Follow-Ups",
+      "overdueFollowUps": "Overdue Follow-Ups",
+      "upcomingFollowUps": "Upcoming Follow-Ups",
+      "completedFollowUps": "Completed Follow-Ups",
+      "waitingOnOthers": "Waiting on Others",
+      "waitingForMe": "Who Is Waiting for Me",
+      "timeline": "Follow-Up Timeline",
+      "usageExamples": "Companion Follow-Up Examples",
+      "allFollowUps": "All Follow-Ups"
+    },
+    "dashboard": {
+      "healthScore": "Follow-Up Health Score",
+      "openFollowUps": "Open Follow-Ups",
+      "overdueFollowUps": "Overdue Follow-Ups",
+      "upcomingFollowUps": "Upcoming Follow-Ups",
+      "completedFollowUps": "Completed Follow-Ups",
+      "successRate": "Follow-Up Success Rate"
+    },
+    "card": {
+      "explanation": "Why this matters",
+      "assignedTo": "Assigned to",
+      "recommendedAction": "Recommended action",
+      "dueDate": "Due date",
+      "priority": "Priority",
+      "status": "Status",
+      "category": "Category",
+      "source": "Source"
+    },
+    "actions": {
+      "complete": "Complete",
+      "postpone": "Postpone",
+      "archive": "Archive",
+      "createReminder": "Create Reminder",
+      "reviewActivities": "Review Activities"
+    },
+    "priorities": {
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "statuses": {
+      "open": "Open",
+      "pending": "Pending",
+      "waiting": "Waiting",
+      "overdue": "Overdue",
+      "completed": "Completed",
+      "archived": "Archived"
+    },
+    "categories": {
+      "personalTasks": "Personal Tasks",
+      "teamCommitments": "Team Commitments",
+      "customerFollowUps": "Customer Follow-Ups",
+      "partnerFollowUps": "Partner Follow-Ups",
+      "executiveReviews": "Executive Reviews",
+      "trainingActivities": "Training Activities",
+      "meetingActions": "Meeting Actions",
+      "opportunityReviews": "Opportunity Reviews",
+      "supportEscalations": "Support Escalations",
+      "approvalRequests": "Approval Requests"
+    },
+    "sources": {
+      "tasks": "Tasks",
+      "meetings": "Meetings",
+      "calendarEvents": "Calendar Events",
+      "emailActivity": "Email Activity",
+      "notes": "Notes",
+      "companionRecommendations": "Companion Recommendations",
+      "opportunities": "Opportunities",
+      "projects": "Projects",
+      "supportCases": "Support Cases",
+      "businessPacks": "Business Packs"
+    },
+    "recommendedActions": {
+      "completeImmediately": "Complete immediately",
+      "reviewToday": "Review today",
+      "scheduleThisWeek": "Schedule this week",
+      "delegate": "Delegate",
+      "monitor": "Monitor",
+      "archive": "Archive"
+    },
+    "waiting": {
+      "awaitingResponses": "Awaiting responses",
+      "pendingApprovals": "Pending approvals",
+      "externalDependencies": "External dependencies",
+      "teamDependencies": "Team dependencies",
+      "assignedRequests": "Assigned requests",
+      "customerResponses": "Customer responses",
+      "teamCommitments": "Team commitments",
+      "leadershipRequests": "Leadership requests"
+    },
+    "faq": {
+      "title": "Follow-Up Engine FAQ",
+      "whatIs": "What is the Follow-Up Engine?",
+      "whatIsAnswer": "The Follow-Up Engine helps users track commitments, conversations and responsibilities that require future action.",
+      "reminders": "Can Aipify send reminders?",
+      "remindersAnswer": "Yes. Aipify can generate reminders based on user preferences and permissions.",
+      "whyImportant": "Why is follow-up important?",
+      "whyImportantAnswer": "Consistent follow-up improves accountability, customer experience and organizational execution."
+    }
+  },
+  "companionRelationshipIntelligence": {
+    "title": "Relationship Intelligence",
+    "subtitle": "Strengthen and maintain important business relationships — advisory insights, human connection first.",
+    "loading": "Aipify is reviewing relationship activity...",
+    "principle": "People first. Relationships matter. Aipify assists — never replaces human connection.",
+    "privacyNote": "Relationship intelligence is advisory only. Humans remain responsible for relationship management.",
+    "emptyTitle": "No relationship insights are available yet.",
+    "emptyBody": "Aipify helps organizations build stronger and more consistent professional relationships.",
+    "emptyCta": "Add Relationships",
+    "accessDenied": "Relationship intelligence access requires an active organization membership.",
+    "filters": {
+      "search": "Search relationships...",
+      "relationshipType": "Relationship type",
+      "healthLevel": "Health level",
+      "engagementLevel": "Engagement level",
+      "owner": "Owner",
+      "department": "Department",
+      "all": "All"
+    },
+    "sections": {
+      "strategicRelationships": "Strategic Relationships",
+      "needsAttention": "Relationships Requiring Attention",
+      "recentInteractions": "Recent Interactions",
+      "upcomingActivities": "Upcoming Relationship Activities",
+      "engagementTrends": "Engagement Trends",
+      "opportunities": "Relationship Opportunities",
+      "reminders": "Relationship Reminders",
+      "recognitionCenter": "Recognition Center",
+      "timeline": "Relationship Timeline",
+      "usageExamples": "Companion Relationship Examples",
+      "allRelationships": "All Relationships"
+    },
+    "dashboard": {
+      "healthScore": "Relationship Health Score",
+      "strategicRelationships": "Strategic Relationships",
+      "needsAttention": "Requires Attention",
+      "recentInteractions": "Recent Interactions",
+      "upcomingActivities": "Upcoming Activities",
+      "engagementTrends": "High Engagement"
+    },
+    "card": {
+      "organization": "Organization",
+      "role": "Role",
+      "lastInteraction": "Last interaction",
+      "health": "Relationship health",
+      "engagement": "Engagement level",
+      "recommendedAction": "Recommended action",
+      "insight": "Insight",
+      "owner": "Owner"
+    },
+    "actions": {
+      "addRelationships": "Add Relationships",
+      "addNote": "Add Note",
+      "viewProfile": "View Profile"
+    },
+    "relationshipTypes": {
+      "customers": "Customers",
+      "prospects": "Prospects",
+      "partners": "Partners",
+      "vendors": "Vendors",
+      "employees": "Employees",
+      "executives": "Executives",
+      "advisors": "Advisors",
+      "investors": "Investors",
+      "growthPartners": "Growth Partners",
+      "strategicContacts": "Strategic Contacts"
+    },
+    "healthLevels": {
+      "excellent": "Excellent",
+      "healthy": "Healthy",
+      "stable": "Stable",
+      "needsAttention": "Needs Attention",
+      "atRisk": "At Risk"
+    },
+    "engagementLevels": {
+      "high": "High",
+      "moderate": "Moderate",
+      "low": "Low",
+      "inactive": "Inactive"
+    },
+    "opportunityTypes": {
+      "reconnect": "Reconnect",
+      "partnership": "Partnership",
+      "customerExpansion": "Customer Expansion",
+      "retention": "Retention",
+      "recognition": "Recognition"
+    },
+    "reminderTypes": {
+      "birthday": "Birthday",
+      "workAnniversary": "Work Anniversary",
+      "customerAnniversary": "Customer Anniversary",
+      "contractRenewal": "Contract Renewal",
+      "quarterlyReview": "Quarterly Review",
+      "relationshipCheckIn": "Relationship Check-In",
+      "partnershipReview": "Partnership Review",
+      "milestone": "Milestone"
+    },
+    "recognitionTypes": {
+      "employee": "Employee Recognition",
+      "partner": "Partner Recognition",
+      "customer": "Customer Appreciation"
+    },
+    "recommendedActions": {
+      "scheduleCheckIn": "Schedule check-in",
+      "reconnect": "Reconnect",
+      "recognize": "Recognize",
+      "followUp": "Follow up",
+      "partnershipReview": "Partnership review"
+    },
+    "faq": {
+      "title": "Relationship Intelligence FAQ",
+      "whatIs": "What is Relationship Intelligence?",
+      "whatIsAnswer": "Relationship Intelligence helps organizations maintain and strengthen important professional relationships.",
+      "autoManage": "Can Aipify manage relationships automatically?",
+      "autoManageAnswer": "No. Aipify provides insights, reminders and recommendations while humans remain responsible for relationship management.",
+      "whyImportant": "Why is relationship health important?",
+      "whyImportantAnswer": "Strong relationships improve customer retention, partnerships, employee engagement and long-term business success."
+    }
+  },
+  "companionExecutiveLayer": {
+    "title": "Executive Companion",
+    "subtitle": "Unified executive experience — strategic clarity, actionable guidance, Companion Golden Rule enforced.",
+    "loading": "Aipify is preparing your executive companion briefing...",
+    "principle": "One place for executive visibility. High signal, low noise. Human decisions remain required.",
+    "privacyNote": "Aipify provides context and recommendations. Leadership remains responsible for decisions.",
+    "goldenRule": "Observation → Explanation → Impact → Recommendation → Effort → Value",
+    "emptyTitle": "Your Executive Companion is ready.",
+    "emptyBody": "As organizational activity grows, Aipify will provide increasingly valuable executive guidance.",
+    "emptyCta": "Generate Executive Briefing",
+    "accessDenied": "Executive Companion access requires owner, executive or authorized leadership role.",
+    "filters": {
+      "search": "Search executive companion...",
+      "workspace": "Workspace view",
+      "all": "All"
+    },
+    "sections": {
+      "home": "Executive Home",
+      "dailyOpening": "Good Morning",
+      "todaysPriorities": "Today's Priorities",
+      "sinceLastLogin": "Since Last Login",
+      "recommendedActions": "Recommended Executive Actions",
+      "upcomingMeetings": "Upcoming Meetings",
+      "executiveBriefing": "Executive Briefing",
+      "strategicFocus": "Strategic Focus Areas",
+      "actionCenter": "Executive Action Center",
+      "focusEngine": "Executive Focus",
+      "relationships": "Relationship Executive View",
+      "intelligence": "Executive Intelligence",
+      "decisionSupport": "Executive Decision Support",
+      "timeline": "Executive Timeline",
+      "usageExamples": "Executive Companion Examples"
+    },
+    "dashboard": {
+      "executiveHealthScore": "Executive Health Score",
+      "organizationalHealthScore": "Organizational Health Score",
+      "executiveReadinessScore": "Executive Readiness Score",
+      "todaysPriorities": "Today's Priorities",
+      "strategicOpportunities": "Strategic Opportunities",
+      "emergingRisks": "Emerging Risks",
+      "relationshipInsights": "Relationship Insights",
+      "executiveSummary": "Executive Summary"
+    },
+    "card": {
+      "observation": "Observation",
+      "explanation": "Explanation",
+      "impact": "Impact",
+      "recommendation": "Recommendation",
+      "effort": "Effort",
+      "potentialValue": "Potential value",
+      "dueDate": "Due date",
+      "priority": "Priority"
+    },
+    "actions": {
+      "generateBriefing": "Generate Executive Briefing",
+      "viewDetails": "View Details"
+    },
+    "workspaces": {
+      "personal": "Personal View",
+      "organization": "Organization View",
+      "strategic": "Strategic View",
+      "growth": "Growth View",
+      "future": "Future View"
+    },
+    "focusAreas": {
+      "strategic": "Strategic Focus",
+      "operational": "Operational Focus",
+      "growth": "Growth Focus",
+      "workforce": "Workforce Focus",
+      "customer": "Customer Focus"
+    },
+    "briefingPeriods": {
+      "today": "Today",
+      "thisWeek": "This Week",
+      "thisMonth": "This Month",
+      "thisQuarter": "This Quarter"
+    },
+    "faq": {
+      "title": "Executive Companion FAQ",
+      "whatIs": "What is the Executive Companion?",
+      "whatIsAnswer": "The Executive Companion helps leaders understand priorities, opportunities, risks and organizational activity from a single workspace.",
+      "makesDecisions": "Can Aipify make executive decisions?",
+      "makesDecisionsAnswer": "No. Aipify provides context, recommendations and intelligence. Leadership remains responsible for decisions.",
+      "whyUse": "Why use Executive Companion?",
+      "whyUseAnswer": "Executive Companion reduces information overload and helps leaders focus on what matters most."
+    }
+  }
+}

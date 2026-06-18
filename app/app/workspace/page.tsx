@@ -6,13 +6,13 @@ import {
   TASK_PRIORITIES,
   TASK_STATUSES,
 } from "@/lib/workspace-productivity-hub";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function WorkspaceProductivityHubPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["dashboard"]);
   const t = createTranslator(dict);
   const p = "customerApp.workspaceProductivityHub";
 

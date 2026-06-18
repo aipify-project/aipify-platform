@@ -14,7 +14,7 @@ import {
   detectLearningCapabilityQuestion,
   getLearningJourneyResponse,
 } from "@/lib/internal-language-model/learning-journey-vocabulary";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator, type Dictionary } from "@/lib/i18n/translate";
 import { createClient } from "@/lib/supabase/server";
@@ -201,7 +201,7 @@ export async function POST(request: Request) {
     }
 
     const locale = await getLocale();
-    const dictionary = await getDictionary(locale, ["customerApp"]);
+    const dictionary = await getCustomerAppDictionaryForSplits(locale, ["companion", "core", "dashboard"]);
     const t = createTranslator(dictionary.customerApp as Dictionary);
 
     const useDeveloperKnowledge = isDeveloperKnowledgeQuestion(message);

@@ -9,13 +9,13 @@ import {
   RESPONSE_LENGTHS,
   SOCIAL_STYLES,
 } from "@/lib/identity-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AppAssistantIdentityPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["core"]);
   const t = createTranslator(dict);
 
   const mapKeys = <T extends string>(keys: readonly T[], prefix: string) =>

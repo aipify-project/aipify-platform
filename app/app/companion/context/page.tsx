@@ -1,5 +1,5 @@
 import { CompanionContextEngineDashboardPanel } from "@/components/app/companion-context-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator, type Translator } from "@/lib/i18n/translate";
 import type { CompanionContextEngineLabels } from "@/lib/aipify/companion-context-engine";
@@ -101,7 +101,7 @@ function buildLabels(t: Translator): CompanionContextEngineLabels {
 }
 
 export default async function CompanionContextEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "companionContextEngine");
   const t = createTranslator(dict);
   const labels = buildLabels(t);
 

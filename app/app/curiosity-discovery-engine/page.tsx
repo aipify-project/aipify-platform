@@ -1,10 +1,10 @@
 import { CuriosityDiscoveryEngineDashboardPanel } from "@/components/app/curiosity-discovery-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function CuriosityDiscoveryEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "curiosityDiscoveryEngine");
   const t = createTranslator(dict);
   const p = "customerApp.curiosityDiscoveryEngine";
   const p80 = `${p}.blueprint.phase80`;

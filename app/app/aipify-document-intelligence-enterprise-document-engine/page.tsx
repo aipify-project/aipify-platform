@@ -1,10 +1,10 @@
 import { AipifyDocumentIntelligenceEnterpriseDocumentEngineDashboardPanel } from "@/components/app/aipify-document-intelligence-enterprise-document-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AipifyDocumentIntelligenceEnterpriseDocumentEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "aipifyDocumentIntelligenceEnterpriseDocumentEngine");
   const t = createTranslator(dict);
   const p = "customerApp.aipifyDocumentIntelligenceEnterpriseDocumentEngine";
 

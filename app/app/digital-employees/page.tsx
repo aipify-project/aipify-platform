@@ -1,10 +1,10 @@
 import { DigitalEmployeeLifecycleManagementPerformanceEngineDashboardPanel } from "@/components/app/digital-employee-lifecycle-management-performance-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function DigitalEmployeesPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "digitalEmployeeLifecycleEngine");
   const t = createTranslator(dict);
   const p = "customerApp.digitalEmployeeLifecycleEngine";
 

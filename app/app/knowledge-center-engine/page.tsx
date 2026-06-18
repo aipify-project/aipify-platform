@@ -1,10 +1,10 @@
 import { KnowledgeCenterEngineDashboardPanel } from "@/components/app/knowledge-center-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function KnowledgeCenterEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "knowledgeCenterEngine");
   const t = createTranslator(dict);
   const p = "customerApp.knowledgeCenterEngine";
   const b = `${p}.blueprint.phase71`;

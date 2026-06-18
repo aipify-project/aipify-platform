@@ -1,12 +1,12 @@
 import { CompanionBriefingPageIntro } from "@/components/app/briefing";
 import { CustomerSuccessEngineDashboardPanel } from "@/components/app/customer-success-engine";
 import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function CustomerSuccessEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "customerSuccessEngine");
   const t = createTranslator(dict);
   const p = "customerApp.customerSuccessEngine";
 

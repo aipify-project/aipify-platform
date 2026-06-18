@@ -1,29 +1,4 @@
 {
-  "nav": {
-    "companionContextEngine": "Companion Context Engine",
-    "companionMemoryExpansionEngine": "Companion Memory Engine",
-    "companionRecommendationEngine": "Companion Recommendations",
-    "companionProactiveInsightsEngine": "Proactive Insights",
-    "companionPersonalizationEngine": "Personalization",
-    "companionDailyBriefingCenter": "Daily Briefing",
-    "companionWorkPrioritizationEngine": "Work Prioritization",
-    "companionFollowUpEngine": "Follow-Ups",
-    "companionRelationshipIntelligenceEngine": "Relationship Intelligence",
-    "companionExecutiveLayer": "Executive Companion",
-    "companionActionApprovalEngine": "Companion Action Center",
-    "realEstatePortfolioOperationsPack": "Nieruchomości",
-    "constructionProjectFieldOperationsPack": "Budownictwo",
-    "logisticsTransportationFleetOperationsPack": "Logistyka",
-    "manufacturingProductionIndustrialOperationsPack": "Produkcja",
-    "educationTrainingLearningOperationsPack": "Edukacja",
-    "healthcareClinicPatientOperationsPack": "Opieka zdrowotna",
-    "legalComplianceCaseOperationsPack": "Prawo",
-    "professionalServicesConsultingClientDeliveryPack": "Usługi profesjonalne",
-    "digitalEmployeeLifecycleEngine": "Pracownicy cyfrowi",
-    "digitalWorkforceRecruitmentEngine": "Rekrutacja siły roboczej",
-    "digitalWorkforceValueEngine": "Wartość siły roboczej",
-    "digitalWorkforceGovernanceEngine": "Governance siły roboczej"
-  },
   "portalStructure": {
     "executiveInsights": {
       "title": "Executive Insights",
@@ -6161,5 +6136,18 @@
         "whoShouldUseAnswer": "Owners, executives and authorized leaders responsible for organizational direction and long-term planning."
       }
     }
+  },
+  "nav": {
+    "companionContextEngine": "Companion Context Engine",
+    "companionMemoryExpansionEngine": "Companion Memory Engine",
+    "companionRecommendationEngine": "Companion Recommendations",
+    "companionProactiveInsightsEngine": "Proactive Insights",
+    "companionPersonalizationEngine": "Personalization",
+    "companionDailyBriefingCenter": "Daily Briefing",
+    "companionWorkPrioritizationEngine": "Work Prioritization",
+    "companionFollowUpEngine": "Follow-Ups",
+    "companionRelationshipIntelligenceEngine": "Relationship Intelligence",
+    "companionExecutiveLayer": "Executive Companion",
+    "companionActionApprovalEngine": "Companion Action Center"
   }
 }

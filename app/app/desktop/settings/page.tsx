@@ -1,12 +1,15 @@
 import { DesktopCompanionFoundationShell, DesktopSettingsPanel } from "@/components/app/desktop";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { getDesktopCompanionPageLabels } from "@/lib/desktop-companion-foundation/page-labels";
 
 export default async function DesktopSettingsPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp", "desktopCompanion"]);
+  const dict = {
+    ...(await getCustomerAppDictionaryForSplits(locale, ["core"])),
+    ...(await getDictionary(locale, ["desktopCompanion"])),
+  };
   const t = createTranslator(dict);
   const labels = await getDesktopCompanionPageLabels();
 

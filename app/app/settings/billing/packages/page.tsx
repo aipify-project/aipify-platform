@@ -3,13 +3,16 @@ import { AipifyHostsUpgradeSignalsBanner } from "@/components/app/aipify-hosts-u
 import { buildHostsUpgradeSignalsBannerLabels } from "@/lib/aipify/aipify-hosts-upgrade-signals";
 import { buildEnterpriseInvoicingLabels } from "@/lib/enterprise-invoicing";
 import { buildPaymentProviderLabels } from "@/lib/payment-providers";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function PackageAccessSettingsPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp", "hosts"]);
+  const dict = {
+    ...(await getCustomerAppDictionaryForSplits(locale, ["settings"])),
+    ...(await getDictionary(locale, ["hosts"])),
+  };
   const t = createTranslator(dict);
   const ns = "customerApp.packageAccess";
   const bannerLabels = buildHostsUpgradeSignalsBannerLabels(t);

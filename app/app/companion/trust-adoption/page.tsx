@@ -1,11 +1,11 @@
 import { TrustAdoptionPanel } from "@/components/app/companion";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function TrustAdoptionPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["companion"]);
   const t = createTranslator(dict);
   const ns = "customerApp.trustAdoption";
 

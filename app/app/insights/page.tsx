@@ -1,12 +1,12 @@
 import { IntelligenceInsightsPanel } from "@/components/app/organizational-intelligence/IntelligenceInsightsPanel";
 import { INSIGHT_SEVERITIES, INSIGHT_TYPES } from "@/lib/aipify/organizational-intelligence";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function InsightsPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["dashboard"]);
   const t = createTranslator(dict);
 
   const severities = Object.fromEntries(

@@ -1,10 +1,10 @@
 import { AipifyHostsMarketplaceDashboardPanel } from "@/components/app/aipify-hosts-marketplace";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AipifyHostsMarketplacePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "aipifyHostsMarketplace");
   const t = createTranslator(dict);
   const p = "customerApp.aipifyHostsMarketplace";
 

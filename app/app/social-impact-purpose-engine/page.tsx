@@ -1,10 +1,10 @@
 import { SocialImpactPurposeDashboardPanel } from "@/components/app/social-impact-purpose-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function SocialImpactPurposeEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "socialImpactPurpose");
   const t = createTranslator(dict);
   const p = "customerApp.socialImpactPurpose";
 

@@ -1,10 +1,10 @@
 import { DigitalWorkforceRecruitmentProvisioningEngineDashboardPanel } from "@/components/app/digital-workforce-recruitment-provisioning-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function DigitalWorkforceRecruitmentPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "digitalWorkforceRecruitmentEngine");
   const t = createTranslator(dict);
   const p = "customerApp.digitalWorkforceRecruitmentEngine";
 

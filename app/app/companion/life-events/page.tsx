@@ -1,10 +1,10 @@
 import { LifeEventsPanel } from "@/components/app/companion/LifeEventsPanel";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function LifeEventsPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "lifeEvents");
   const t = createTranslator(dict);
   const p = "customerApp.lifeEvents";
 

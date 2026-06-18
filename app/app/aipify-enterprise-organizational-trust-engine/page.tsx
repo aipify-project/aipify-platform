@@ -1,10 +1,10 @@
 import { AipifyEnterpriseOrganizationalTrustEngineDashboardPanel } from "@/components/app/aipify-enterprise-organizational-trust-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AipifyEnterpriseOrganizationalTrustEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "aipifyEnterpriseOrganizationalTrustEngine");
   const t = createTranslator(dict);
   const p = "customerApp.aipifyEnterpriseOrganizationalTrustEngine";
 

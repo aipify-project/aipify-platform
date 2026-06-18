@@ -15,7 +15,7 @@ import {
 } from "@/lib/app-portal/integrations";
 import { APP_PORTAL_FAQ_ARTICLES } from "@/lib/app-portal/nav-config";
 import { buildCustomerSinceLastLoginLabels } from "@/lib/since-last-login";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits, getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
@@ -137,8 +137,12 @@ const PAGE_KEYS: Record<AppPortalPageKey, { titleKey: string; subtitleKey: strin
 
 async function portalContext() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp", "dashboard", "branding"]);
-  const t = createTranslator(dict);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["navigation", "dashboard"]);
+  const withBranding = {
+    ...dict,
+    ...(await getDictionary(locale, ["branding"])),
+  };
+  const t = createTranslator(withBranding);
   const labels = buildAppPortalLabels(t);
   return { locale, t, labels };
 }

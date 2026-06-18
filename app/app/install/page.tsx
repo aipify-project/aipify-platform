@@ -3,13 +3,16 @@ import { ModernInstallAssistantPanel } from "@/components/app/install-engine";
 import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
 import type { InstallPlatformOption } from "@/lib/install/experience";
 import { MODERN_INSTALL_FLOW } from "@/lib/install/experience";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AppInstallPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["install", "branding", "customerApp"]);
+  const dict = {
+    ...(await getCustomerAppDictionaryForSplits(locale, ["dashboard"])),
+    ...(await getDictionary(locale, ["install", "branding"])),
+  };
   const t = createTranslator(dict);
 
   const flowLabels = Object.fromEntries(

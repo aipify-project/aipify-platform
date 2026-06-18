@@ -1,10 +1,10 @@
 import { ProactiveCompanionEngineDashboardPanel } from "@/components/app/proactive-companion-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function ProactiveCompanionEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "proactiveCompanionEngine");
   const t = createTranslator(dict);
   const p = "customerApp.proactiveCompanionEngine";
 

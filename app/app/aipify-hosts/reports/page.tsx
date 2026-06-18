@@ -1,10 +1,10 @@
 import { AipifyHostsReportsDashboardPanel } from "@/components/app/aipify-hosts-reports";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AipifyHostsReportsPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "aipifyHostsReports");
   const t = createTranslator(dict);
   const p = "customerApp.aipifyHostsReports";
 

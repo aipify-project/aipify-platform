@@ -1,10 +1,10 @@
 import { AipifyProjectPortfolioStrategicExecutionEngineDashboardPanel } from "@/components/app/aipify-project-portfolio-strategic-execution-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AipifyProjectPortfolioStrategicExecutionEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "aipifyProjectPortfolioStrategicExecutionEngine");
   const t = createTranslator(dict);
   const p = "customerApp.aipifyProjectPortfolioStrategicExecutionEngine";
 

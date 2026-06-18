@@ -1,12 +1,12 @@
 import { AcademyStudioPanel } from "@/components/academy-studio";
 import { buildAcademyStudioLabels } from "@/lib/academy-studio";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function GrowthPartnerAcademyPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["growthPartners"]);
   const t = createTranslator(dict);
 
   return (

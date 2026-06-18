@@ -1,13 +1,16 @@
 import { AipifyCompanionBriefingBanner } from "@/components/app/briefing";
 import { ApprovalsCenterPanel } from "@/components/app/approvals/ApprovalsCenterPanel";
 import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function ApprovalsPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp", "branding"]);
+  const dict = {
+    ...(await getCustomerAppDictionaryForSplits(locale, ["dashboard"])),
+    ...(await getDictionary(locale, ["branding"])),
+  };
   const t = createTranslator(dict);
 
   return (

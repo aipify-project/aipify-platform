@@ -1,10 +1,10 @@
 import { SecurityComplianceDashboardPanel } from "@/components/app/security-compliance";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function SecurityPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "securityCompliance");
   const t = createTranslator(dict);
   const p = "customerApp.securityCompliance";
 

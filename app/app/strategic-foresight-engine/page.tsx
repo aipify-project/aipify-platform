@@ -1,10 +1,10 @@
 import { StrategicForesightDashboardPanel } from "@/components/app/strategic-foresight-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function StrategicForesightEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "strategicForesight");
   const t = createTranslator(dict);
   const p = "customerApp.strategicForesight";
 

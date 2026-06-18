@@ -1,6 +1,6 @@
 import { CompanionExecutiveLayerDashboardPanel } from "@/components/app/companion-executive-layer";
 import type { CompanionExecutiveLayerLabels } from "@/lib/aipify/companion-executive-layer";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator, type Translator } from "@/lib/i18n/translate";
 
@@ -96,7 +96,7 @@ function buildLabels(t: Translator): CompanionExecutiveLayerLabels {
 }
 
 export default async function CompanionExecutivePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "companionExecutiveLayer");
   const t = createTranslator(dict);
   const labels = buildLabels(t);
 

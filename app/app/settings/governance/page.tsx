@@ -1,12 +1,12 @@
 import { GovernanceSettingsPanel } from "@/components/app/settings/GovernanceSettingsPanel";
 import { GOVERNANCE_MODES } from "@/lib/aipify/governance";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function GovernanceSettingsPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["settings"]);
   const t = createTranslator(dict);
 
   const modes = Object.fromEntries(

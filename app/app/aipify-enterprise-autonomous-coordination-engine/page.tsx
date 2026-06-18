@@ -1,10 +1,10 @@
 import { AipifyEnterpriseAutonomousCoordinationEngineDashboardPanel } from "@/components/app/aipify-enterprise-autonomous-coordination-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AipifyEnterpriseAutonomousCoordinationEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "aipifyEnterpriseAutonomousCoordinationEngine");
   const t = createTranslator(dict);
   const p = "customerApp.aipifyEnterpriseAutonomousCoordinationEngine";
 

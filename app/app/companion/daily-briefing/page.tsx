@@ -1,6 +1,6 @@
 import { CompanionDailyBriefingDashboardPanel } from "@/components/app/companion-daily-briefing";
 import type { CompanionDailyBriefingLabels } from "@/lib/aipify/companion-daily-briefing";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator, type Translator } from "@/lib/i18n/translate";
 
@@ -110,7 +110,7 @@ function buildLabels(t: Translator): CompanionDailyBriefingLabels {
 }
 
 export default async function CompanionDailyBriefingPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "companionDailyBriefing");
   const t = createTranslator(dict);
   const labels = buildLabels(t);
 

@@ -1,12 +1,12 @@
 import { CompanionBriefingPageIntro } from "@/components/app/briefing";
 import { DropshippingOperationsDashboardPanel } from "@/components/app/dropshipping-operations";
 import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function DropshippingOperationsPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "dropshippingOperations");
   const t = createTranslator(dict);
   const p = "customerApp.dropshippingOperations";
 

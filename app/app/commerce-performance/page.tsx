@@ -1,12 +1,12 @@
 import { CompanionBriefingPageIntro } from "@/components/app/briefing";
 import { CommercePerformanceDashboardPanel } from "@/components/app/commerce-performance";
 import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function CommercePerformancePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "commercePerformance");
   const t = createTranslator(dict);
   const p = "customerApp.commercePerformance";
 

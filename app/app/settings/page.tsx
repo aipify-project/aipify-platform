@@ -4,13 +4,16 @@ import {
   type PresenceNotificationLevel,
 } from "@/lib/presence/notifications";
 import { QUIET_HOURS_MODES, type QuietHoursMode } from "@/lib/presence/quiet-hours";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function SettingsPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp", "presence"]);
+  const dict = {
+    ...(await getCustomerAppDictionaryForSplits(locale, ["settings"])),
+    ...(await getDictionary(locale, ["presence"])),
+  };
   const t = createTranslator(dict);
   const p = "customerApp.settings";
 

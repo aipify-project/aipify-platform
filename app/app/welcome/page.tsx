@@ -1,11 +1,11 @@
 import { AssistantWelcomePanel } from "@/components/app/assistant-identity";
 import { FOCUS_AREAS, COMMUNICATION_STYLES, UNCERTAINTY_HANDLING, ADDRESS_NAME_MODES } from "@/lib/aipify/assistant-identity";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AssistantWelcomePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForSplits(await getLocale(), ["core"]);
   const t = createTranslator(dict);
 
   const mapKeys = (keys: readonly string[], prefix: string) =>

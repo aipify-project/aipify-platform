@@ -1,10 +1,10 @@
 import { HumanCreativityImaginationEngineDashboardPanel } from "@/components/app/human-creativity-imagination-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function HumanCreativityImaginationEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "humanCreativityImaginationEngine");
   const t = createTranslator(dict);
   const p = "customerApp.humanCreativityImaginationEngine";
 

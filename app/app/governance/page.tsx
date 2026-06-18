@@ -1,12 +1,12 @@
 import { GovernanceCenterPanel } from "@/components/app/governance/GovernanceCenterPanel";
 import { GOVERNANCE_RISK_LEVELS, PERMISSION_LEVELS } from "@/lib/aipify/governance";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function GovernancePage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["settings"]);
   const t = createTranslator(dict);
 
   const riskLevels = Object.fromEntries(

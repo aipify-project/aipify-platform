@@ -1,12 +1,15 @@
 import { AipifyHostsPropertyCenterDashboardPanel } from "@/components/app/aipify-hosts-property-center";
 import { AipifyHostsUpgradeSignalsBanner } from "@/components/app/aipify-hosts-upgrade-signals";
 import { buildHostsUpgradeSignalsBannerLabels } from "@/lib/aipify/aipify-hosts-upgrade-signals";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AipifyHostsPropertiesPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp", "hosts"]);
+  const dict = {
+    ...(await getCustomerAppDictionaryForSplits(await getLocale(), ["dashboard"])),
+    ...(await getDictionary(await getLocale(), ["hosts"])),
+  };
   const t = createTranslator(dict);
   const p = "customerApp.aipifyHostsPropertyCenter";
   const bannerLabels = buildHostsUpgradeSignalsBannerLabels(t);

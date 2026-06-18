@@ -1,10 +1,10 @@
 import { PredictiveInsightsEngineDashboardPanel } from "@/components/app/predictive-insights-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function PredictiveInsightsEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "predictiveInsightsEngine");
   const t = createTranslator(dict);
   const p = "customerApp.predictiveInsightsEngine";
   const b = `${p}.blueprint.phase74`;

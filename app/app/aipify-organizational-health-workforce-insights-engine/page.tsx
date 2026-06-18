@@ -1,10 +1,10 @@
 import { AipifyOrganizationalHealthWorkforceInsightsEngineDashboardPanel } from "@/components/app/aipify-organizational-health-workforce-insights-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AipifyOrganizationalHealthWorkforceInsightsEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "aipifyOrganizationalHealthWorkforceInsightsEngine");
   const t = createTranslator(dict);
   const p = "customerApp.aipifyOrganizationalHealthWorkforceInsightsEngine";
 

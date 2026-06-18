@@ -1,10 +1,10 @@
 import { ConstructionProjectFieldOperationsPackDashboardPanel } from "@/components/app/construction-project-field-operations-pack";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function ConstructionPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "constructionProjectFieldOperationsPack");
   const t = createTranslator(dict);
   const p = "customerApp.constructionProjectFieldOperationsPack";
 

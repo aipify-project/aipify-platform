@@ -5,12 +5,12 @@ import {
   CONNECTIVITY_MODES,
   DESKTOP_ENDPOINT_MODES,
 } from "@/lib/aipify/enterprise";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function EnterpriseDeploymentPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "enterpriseDeployment");
   const t = createTranslator(dict);
   const p = "customerApp.enterpriseDeployment";
 

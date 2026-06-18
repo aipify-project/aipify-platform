@@ -1,10 +1,10 @@
 import { IndustryIntelligenceFoundationEngineDashboardPanel } from "@/components/app/industry-intelligence-foundation-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function IndustryIntelligenceFoundationEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "industryIntelligenceFoundationEngine");
   const t = createTranslator(dict);
   const p = "customerApp.industryIntelligenceFoundationEngine";
 

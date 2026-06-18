@@ -2,13 +2,16 @@ import { AipifyCompanionBriefingBanner } from "@/components/app/briefing";
 import { TrustLicenseCenterPanel } from "@/components/app/license";
 import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
 import { buildLicenseCenterLabels } from "@/lib/app/license-labels";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AppLicensePage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["license", "customerApp"]);
+  const dict = {
+    ...(await getCustomerAppDictionaryForSplits(locale, ["dashboard"])),
+    ...(await getDictionary(locale, ["license"])),
+  };
   const t = createTranslator(dict);
 
   return (

@@ -1,6 +1,6 @@
 import { CompanionRelationshipIntelligenceDashboardPanel } from "@/components/app/companion-relationship-intelligence";
 import type { CompanionRelationshipIntelligenceLabels } from "@/lib/aipify/companion-relationship-intelligence";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator, type Translator } from "@/lib/i18n/translate";
 
@@ -128,7 +128,7 @@ function buildLabels(t: Translator): CompanionRelationshipIntelligenceLabels {
 }
 
 export default async function CompanionRelationshipIntelligencePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "companionRelationshipIntelligence");
   const t = createTranslator(dict);
   const labels = buildLabels(t);
 

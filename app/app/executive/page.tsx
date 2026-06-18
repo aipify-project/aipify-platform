@@ -1,12 +1,15 @@
 import { ExecutiveDashboardPanel } from "@/components/app/executive/ExecutiveDashboardPanel";
 import type { HealthScoreBand } from "@/lib/app/customer-app";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function ExecutivePage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp", "branding"]);
+  const dict = {
+    ...(await getCustomerAppDictionaryForSplits(locale, ["dashboard"])),
+    ...(await getDictionary(locale, ["branding"])),
+  };
   const t = createTranslator(dict);
 
   return (

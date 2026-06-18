@@ -1,10 +1,10 @@
 import { AipifyCustomerSuccessValueRealizationEngineDashboardPanel } from "@/components/app/aipify-customer-success-value-realization-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AipifyCustomerSuccessValueRealizationEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "aipifyCustomerSuccessValueRealizationEngine");
   const t = createTranslator(dict);
   const p = "customerApp.aipifyCustomerSuccessValueRealizationEngine";
 

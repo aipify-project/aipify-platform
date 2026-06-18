@@ -1,0 +1,703 @@
+{
+  "actionCenter": {
+    "impactAnalysis": {
+      "centerTitle": "Centro de análisis de impacto",
+      "centerSubtitle": "Revise resultados esperados, riesgos, esfuerzo y confianza antes de aprobar acciones de Aipify.",
+      "viewModeFull": "Análisis completo",
+      "viewModeExecutive": "Resumen ejecutivo",
+      "humanOversight": {
+        "basedOnAvailableInformation": "Según la información disponible, Aipify ofrece apoyo a la decisión — no certeza.",
+        "aipifyEstimates": "Aipify estima resultados usando señales organizacionales, patrones históricos y contexto del Centro de conocimiento.",
+        "reviewBeforeExecution": "Esta recomendación debe revisarse antes de ejecutarse. Las personas conservan la responsabilidad."
+      },
+      "sections": {
+        "summary": "Action summary",
+        "expectedOutcome": "Expected outcome analysis",
+        "businessImpact": "Business impact analysis",
+        "impactCategories": "Business impact categories",
+        "riskAnalysis": "Risk assessment",
+        "effortEstimation": "Effort estimation",
+        "confidence": "Confidence engine",
+        "decisionSupport": "Decision support",
+        "executiveSummary": "Executive summary",
+        "rollback": "Rollback capability",
+        "affectedSystems": "Affected systems",
+        "approvalChain": "Approval chain",
+        "auditPreview": "Audit preview",
+        "relatedActions": "Related actions",
+        "timeline": "Execution timeline",
+        "postExecution": "Post-execution review",
+        "learningLoop": "Bucle de aprendizaje",
+        "knowledgeCenter": "Centro de conocimiento",
+        "widgets": "Panel de impacto"
+      },
+      "summary": {
+        "status": "Status",
+        "recommendedBy": "Recommended by",
+        "priority": "Priority",
+        "impactScore": "Impact score"
+      },
+      "expectedOutcome": {
+        "intendedOutcome": "Intended positive outcome",
+        "recommendationRationale": "Why Aipify recommends this",
+        "estimatedValueCreation": "Estimated value creation",
+        "strategicAlignment": "Strategic alignment score"
+      },
+      "businessImpact": {
+        "expectedBenefits": "Expected benefits",
+        "timeSavings": "Estimated time savings",
+        "affectedTeams": "Affected teams",
+        "customerImpact": "Estimated customer impact"
+      },
+      "impactCategories": {
+        "revenue": "Revenue",
+        "customerSatisfaction": "Customer satisfaction",
+        "employeeExperience": "Employee experience",
+        "operationalEfficiency": "Operational efficiency",
+        "compliance": "Compliance",
+        "strategicGoals": "Strategic goals",
+        "growth": "Growth",
+        "riskReduction": "Risk reduction"
+      },
+      "impactLevels": {
+        "none": "None",
+        "low": "Low",
+        "moderate": "Moderate",
+        "high": "High"
+      },
+      "riskAnalysis": {
+        "riskLevel": "Risk level",
+        "riskRationale": "Why this risk level was assigned",
+        "sideEffects": "Potential negative consequences",
+        "mitigation": "Suggested mitigation steps"
+      },
+      "effortEstimation": {
+        "title": "Estimated effort",
+        "requiredStakeholders": "Required stakeholders",
+        "requiredApprovals": "Required approvals",
+        "requiredIntegrations": "Required integrations",
+        "units": {
+          "minutes": "minutes",
+          "hours": "hours",
+          "days": "days",
+          "weeks": "weeks"
+        }
+      },
+      "confidence": {
+        "score": "Confidence score",
+        "level": "Confidence level",
+        "reasoning": "Reasoning",
+        "historicalSuccess": "Based on historical success rates",
+        "operatingConditions": "and current operating conditions",
+        "levels": {
+          "veryLow": "Very Low",
+          "low": "Low",
+          "moderate": "Moderate",
+          "high": "High",
+          "veryHigh": "Very High"
+        },
+        "factors": {
+          "organizationalData": "Available organizational data",
+          "historicalOutcomes": "Historical outcomes",
+          "similarActions": "Similar previous actions",
+          "knowledgeCenter": "Knowledge Center confidence",
+          "humanValidation": "Human validation history"
+        }
+      },
+      "decisionSupport": {
+        "whyImportantNow": "Why is this important now?",
+        "ifDelayed": "What happens if we delay?",
+        "ifIgnored": "What happens if we ignore this?",
+        "whoInvolved": "Who should be involved?"
+      },
+      "executiveSummary": {
+        "situation": "Situation",
+        "recommendation": "Recommendation",
+        "expectedBenefits": "Expected benefits",
+        "risks": "Risks",
+        "requiredActions": "Required actions",
+        "confidenceScore": "Confidence score"
+      },
+      "learningLoop": {
+        "intro": "Help Aipify improve future impact predictions by sharing what happened after execution.",
+        "actualOutcome": "Actual outcome",
+        "userSatisfaction": "User satisfaction",
+        "goalAchievement": "Goal achievement",
+        "lessonsLearned": "Lessons learned",
+        "submit": "Submit outcome feedback",
+        "submitted": "Thank you — your feedback improves future impact analysis.",
+        "satisfaction": {
+          "veryDissatisfied": "Very dissatisfied",
+          "dissatisfied": "Dissatisfied",
+          "neutral": "Neutral",
+          "satisfied": "Satisfied",
+          "verySatisfied": "Very satisfied"
+        },
+        "achievement": {
+          "notAchieved": "Not achieved",
+          "partially": "Partially achieved",
+          "mostly": "Mostly achieved",
+          "fully": "Fully achieved"
+        }
+      },
+      "widgets": {
+        "recommendedByImpact": "Recommended actions by impact",
+        "highImpactOpportunities": "High impact opportunities",
+        "highRiskRecommendations": "High risk recommendations",
+        "recentlyValidatedOutcomes": "Recently validated outcomes",
+        "awaitingReview": "Actions awaiting review",
+        "executiveApproval": "Actions requiring executive approval",
+        "empty": "No items in this view right now.",
+        "viewAction": "Review"
+      },
+      "faq": {
+        "title": "Impact Analysis FAQ",
+        "whatIsImpactAnalysis": "¿Qué es el análisis de impacto?",
+        "whatIsImpactAnalysisAnswer": "Impact Analysis explains expected outcomes, risks, effort, and confidence before you approve an Aipify action.",
+        "howEstimateOutcomes": "How does Aipify estimate outcomes?",
+        "howEstimateOutcomesAnswer": "Aipify combines organizational signals, similar past actions, Knowledge Center context, and approval history — always as estimates.",
+        "canPredictFuture": "Can Aipify predict the future?",
+        "canPredictFutureAnswer": "No. Aipify provides decision support based on available information. Actual results depend on your decisions and operating context.",
+        "confidenceScores": "How are confidence scores calculated?",
+        "confidenceScoresAnswer": "Confidence reflects data availability, historical success rates, similar actions, Knowledge Center alignment, and human validation patterns.",
+        "whoResponsible": "¿Quién sigue siendo responsable de las decisiones?",
+        "whoResponsibleAnswer": "You and your organization. Aipify prepares and explains recommendations — humans approve, execute, and remain accountable."
+      },
+      "rollback": {
+        "available": "Rollback available",
+        "notAvailable": "Rollback not available",
+        "recoveryTime": "Estimated recovery time",
+        "steps": "Rollback steps",
+        "manualRequired": "Manual intervention required"
+      },
+      "approvalChain": {
+        "requestedBy": "Requested by",
+        "requiresApprovalFrom": "Requires approval from",
+        "escalationPath": "Escalation path"
+      },
+      "auditPreview": {
+        "intro": "This action will generate audit records.",
+        "approvalEvent": "Approval event",
+        "executionEvent": "Execution event",
+        "outcomeEvent": "Outcome event",
+        "rollbackEvent": "Rollback event"
+      },
+      "relatedActions": {
+        "similarExecuted": "{count} similar actions executed in your workspace",
+        "averageSuccess": "Average success rate: {rate}%"
+      },
+      "timeline": {
+        "review": "Review",
+        "approve": "Approve",
+        "execute": "Execute",
+        "verify": "Verify",
+        "monitor": "Monitor",
+        "close": "Close"
+      },
+      "timelineStatus": {
+        "pending": "Pending",
+        "current": "In progress",
+        "complete": "Complete",
+        "blocked": "Blocked"
+      },
+      "postExecution": {
+        "result": "Execution result",
+        "executionTime": "Execution time",
+        "unexpectedEvents": "Unexpected events",
+        "businessOutcome": "Business outcome",
+        "successful": "Successful",
+        "failed": "Failed",
+        "positive": "Positive",
+        "reviewRequired": "Review required",
+        "none": "None"
+      },
+      "categories": {
+        "support": "Support action",
+        "automation": "Automation action",
+        "billing": "Billing action",
+        "installation": "Installation action",
+        "governance": "Governance action",
+        "customer": "Customer action",
+        "growthPartner": "Growth Partner action",
+        "workflowRecovery": "Workflow recovery action"
+      },
+      "empty": "No actions require review.",
+      "emptyMonitoring": "Aipify continues monitoring the platform.",
+      "principle": "Trust grows through transparency — Aipify explains what will happen, who is affected, and how recovery is handled.",
+      "actions": {
+        "approve": "Approve",
+        "reject": "Reject",
+        "execute": "Execute",
+        "back": "Back to Action Center"
+      },
+      "priority": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "critical": "Critical"
+      },
+      "customerImpact": {
+        "positive": "Positive",
+        "monitorClosely": "Monitor closely"
+      }
+    },
+    "approvalDelegation": {
+      "centerTitle": "Centro de aprobaciones y delegación",
+      "centerSubtitle": "Enterprise approval workflows, delegation, SLA monitoring, and accountability trails for Aipify actions.",
+      "tabImpact": "Impact Analysis",
+      "tabApprovals": "Aprobaciones y delegación",
+      "humanOversight": "Aipify may recommend approvers and delegates. Aipify never approves on behalf of humans unless explicitly authorized by governance settings.",
+      "sections": {
+        "workflow": "Approval workflow",
+        "delegation": "Delegation",
+        "sla": "SLA monitoring",
+        "audit": "Audit trail",
+        "executive": "Executive visibility",
+        "decisions": "Approval decision",
+        "recommendations": "Delegation recommendations",
+        "widgets": "Approval dashboard",
+        "knowledgeCenter": "Knowledge Center"
+      },
+      "workflow": {
+        "type": "Workflow type",
+        "steps": "Approval progress",
+        "rules": "Approval rules applied",
+        "types": {
+          "none": "No approval required",
+          "single": "Single approval",
+          "multiStep": "Multi-step approval",
+          "parallel": "Parallel approvals",
+          "executive": "Executive approval"
+        }
+      },
+      "delegation": {
+        "currentOwner": "Current owner",
+        "previousOwners": "Previous owners",
+        "history": "Delegation history",
+        "assign": "Assign action",
+        "delegateTo": "Delegate to (role or name)"
+      },
+      "sla": {
+        "status": "SLA status",
+        "hoursWaiting": "Hours awaiting approval",
+        "deadline": "Target deadline",
+        "statuses": {
+          "onTrack": "On track",
+          "approachingDeadline": "Approaching deadline",
+          "overdue": "Overdue",
+          "escalated": "Escalated"
+        }
+      },
+      "decisions": {
+        "approve": "Approve",
+        "approveWithConditions": "Approve with conditions",
+        "reject": "Reject",
+        "requestInformation": "Request additional information",
+        "delegateReview": "Delegate review",
+        "requireExecutiveOversight": "Require executive oversight",
+        "escalate": "Escalate",
+        "returnForClarification": "Return for clarification",
+        "comment": "Comment or rationale",
+        "conditions": "Conditions (if approving with conditions)",
+        "submit": "Submit decision"
+      },
+      "recommendations": {
+        "intro": "Optional delegate recommendations based on role permissions, department responsibility, and expertise.",
+        "optional": "Optional",
+        "reasons": {
+          "rolePermissions": "Role permissions",
+          "historicalOwnership": "Historical ownership",
+          "departmentResponsibility": "Department responsibility",
+          "workloadBalancing": "Workload balancing",
+          "subjectMatterExpertise": "Subject matter expertise"
+        }
+      },
+      "executive": {
+        "healthScore": "Organization approval health",
+        "criticalBlocked": "Critical blocked decisions",
+        "highRiskAwaiting": "High-risk awaiting approval",
+        "avgCycle": "Avg approval cycle",
+        "delegationEffectiveness": "Delegation events (30d)"
+      },
+      "widgets": {
+        "pendingApprovals": "Pending approvals",
+        "awaitingMyReview": "Actions awaiting my review",
+        "recentlyApproved": "Recently approved actions",
+        "rejected": "Rejected actions",
+        "escalated": "Escalated actions",
+        "executiveDecisions": "Executive decisions",
+        "empty": "No items in this view right now.",
+        "viewAction": "Review"
+      },
+      "notifications": {
+        "approvalRequired": "Approval required",
+        "approvalCompleted": "Approval completed",
+        "delegated": "Action delegated",
+        "escalated": "Action escalated",
+        "overdue": "Approval overdue"
+      },
+      "faq": {
+        "title": "Approvals & Delegation FAQ",
+        "whatIsDelegation": "What is delegation?",
+        "whatIsDelegationAnswer": "Delegation assigns review or execution responsibility to another role while preserving a full accountability trail.",
+        "whatIsWorkflow": "What is an approval workflow?",
+        "whatIsWorkflowAnswer": "An approval workflow defines how many approvers are required and whether steps run in sequence, in parallel, or at executive level.",
+        "autoApprove": "Can Aipify approve actions automatically?",
+        "autoApproveAnswer": "No by default. Aipify recommends and prepares actions. Humans approve unless explicit governance settings authorize otherwise.",
+        "howApproversSelected": "How are approvers selected?",
+        "howApproversSelectedAnswer": "Based on action category, risk level, estimated impact, department ownership, and organization policies — with optional Aipify recommendations.",
+        "delayedApprovals": "What happens when approvals are delayed?",
+        "delayedApprovalsAnswer": "SLA monitoring tracks waiting time, surfaces bottlenecks, and supports escalation. Organizations retain authority over final decisions."
+      },
+      "empty": "No approval items require attention.",
+      "principle": "Aipify supports decision processes. Organizations retain authority.",
+      "actions": {
+        "back": "Back to Action Center"
+      }
+    },
+    "executionCoordination": {
+      "centerTitle": "Centro de coordinación de ejecución",
+      "centerSubtitle": "Track approved actions from initiation to completion with ownership, dependencies, blockers, and accountability.",
+      "tabImpact": "Impact Analysis",
+      "tabApprovals": "Approvals & Delegation",
+      "tabExecution": "Coordinación de ejecución",
+      "humanOversight": "Aipify coordinates execution. Humans remain responsible for execution decisions. Confidence scores are estimates — not certainty.",
+      "sections": {
+        "lifecycle": "Execution lifecycle",
+        "ownership": "Ownership",
+        "dependencies": "Dependencies",
+        "blockers": "Blockers",
+        "priority": "Priority",
+        "timeline": "Timeline",
+        "confidence": "Execution confidence",
+        "collaboration": "Collaboration",
+        "learning": "Learning & improvement",
+        "executive": "Executive execution center",
+        "widgets": "Execution dashboard",
+        "audit": "Audit trail",
+        "knowledgeCenter": "Knowledge Center"
+      },
+      "lifecycle": {
+        "stages": {
+          "recommended": "Recommended",
+          "underReview": "Under review",
+          "approved": "Approved",
+          "assigned": "Assigned",
+          "inProgress": "In progress",
+          "waiting": "Waiting",
+          "blocked": "Blocked",
+          "completed": "Completed",
+          "cancelled": "Cancelled"
+        },
+        "stepStatus": {
+          "pending": "Pending",
+          "current": "Current",
+          "complete": "Complete",
+          "blocked": "Blocked"
+        }
+      },
+      "ownership": {
+        "primary": "Primary owner",
+        "secondary": "Secondary owner",
+        "contributors": "Supporting contributors",
+        "executiveSponsor": "Executive sponsor",
+        "history": "Ownership history",
+        "responsibilities": "Role responsibilities"
+      },
+      "dependencies": {
+        "title": "Dependency map",
+        "statuses": {
+          "ready": "Ready",
+          "waitingForDependency": "Waiting for dependency",
+          "dependencyDelayed": "Dependency delayed",
+          "dependencyResolved": "Dependency resolved"
+        },
+        "types": {
+          "action": "Other action",
+          "approval": "Approval",
+          "externalSystem": "External system",
+          "customerDecision": "Customer decision",
+          "compliance": "Compliance requirement"
+        }
+      },
+      "blockers": {
+        "title": "Active blockers",
+        "register": "Register blocker",
+        "category": "Category",
+        "description": "Description",
+        "severity": "Severity",
+        "owner": "Blocker owner",
+        "resolutionPlan": "Resolution plan",
+        "targetDate": "Target resolution date",
+        "submit": "Register blocker",
+        "categories": {
+          "resourceConstraints": "Resource constraints",
+          "approvalDelays": "Approval delays",
+          "technicalIssues": "Technical issues",
+          "vendorDelays": "Vendor delays",
+          "missingInformation": "Missing information",
+          "policyRestrictions": "Policy restrictions"
+        }
+      },
+      "priority": {
+        "level": "Priority",
+        "levels": {
+          "critical": "Critical",
+          "high": "High",
+          "medium": "Medium",
+          "low": "Low",
+          "optional": "Optional"
+        },
+        "recommendation": "Priority recommendations consider business impact, risk, alignment, and deadlines. Executives retain final authority."
+      },
+      "timeline": {
+        "plannedStart": "Planned start",
+        "actualStart": "Actual start",
+        "estimatedCompletion": "Estimated completion",
+        "actualCompletion": "Actual completion",
+        "milestones": "Milestones achieved",
+        "deviation": "Schedule deviation"
+      },
+      "confidence": {
+        "score": "Confidence score",
+        "level": "Confidence level",
+        "disclaimer": "Based on available information — Aipify estimates execution confidence; this is not a guarantee.",
+        "levels": {
+          "veryLow": "Very Low",
+          "low": "Low",
+          "moderate": "Moderate",
+          "high": "High",
+          "veryHigh": "Very High"
+        },
+        "factors": {
+          "resourceAvailability": "Resource availability",
+          "historicalCompletion": "Historical completion performance",
+          "dependencyStability": "Dependency stability",
+          "complexity": "Complexity level",
+          "teamWorkload": "Team workload"
+        }
+      },
+      "collaboration": {
+        "addUpdate": "Add update",
+        "addNote": "Add note",
+        "requestAssistance": "Request assistance",
+        "mentionStakeholder": "Mention stakeholder",
+        "submit": "Post",
+        "placeholder": "Share a progress update, decision, or note for the team…"
+      },
+      "learning": {
+        "intro": "Help Aipify improve future execution recommendations by sharing what happened after completion.",
+        "expectedOutcome": "Expected outcome",
+        "actualOutcome": "Actual outcome",
+        "timelineAccuracy": "Timeline accuracy",
+        "blockersEncountered": "Blockers encountered",
+        "lessonsLearned": "Lessons learned",
+        "improvements": "Recommended future improvements",
+        "submit": "Submit learning feedback",
+        "submitted": "Thank you — your feedback improves future execution coordination."
+      },
+      "executive": {
+        "healthScore": "Execution health",
+        "completionRate": "Completion rate (30d)",
+        "blocked": "Blocked initiatives",
+        "overdue": "Overdue initiatives",
+        "strategicProgress": "Strategic in progress"
+      },
+      "widgets": {
+        "startingToday": "Actions starting today",
+        "inProgress": "Actions in progress",
+        "blocked": "Blocked actions",
+        "awaitingDependencies": "Awaiting dependencies",
+        "upcomingDeadlines": "Upcoming deadlines",
+        "completed": "Completed actions",
+        "executivePriority": "Executive priority actions",
+        "empty": "No items in this view right now.",
+        "viewAction": "Track"
+      },
+      "faq": {
+        "title": "Execution Coordination FAQ",
+        "whatIsCoordination": "What is execution coordination?",
+        "whatIsCoordinationAnswer": "Execution coordination tracks approved actions from assignment through completion with ownership, dependencies, blockers, and timelines.",
+        "howTrackProgress": "How does Aipify track progress?",
+        "howTrackProgressAnswer": "Through lifecycle stages, collaboration logs, milestones, SLA indicators, and immutable audit records — all visible in the Execution Coordination Center.",
+        "autoExecute": "Can Aipify execute actions automatically?",
+        "autoExecuteAnswer": "Only within approved Autonomous Execution Framework limits. Coordination tracks progress; humans retain execution accountability.",
+        "whenBlocked": "What happens when actions become blocked?",
+        "whenBlockedAnswer": "Blockers are registered with category, severity, owner, and resolution plan. Stakeholders are notified and leadership visibility is updated.",
+        "confidenceScores": "How are execution confidence scores calculated?",
+        "confidenceScoresAnswer": "From resource availability, historical completion, dependency stability, complexity, and workload — always as estimates, never certainty."
+      },
+      "empty": "No execution items to coordinate right now.",
+      "principle": "Aipify coordinates execution. Humans remain responsible for execution decisions.",
+      "actions": {
+        "back": "Back to Action Center"
+      }
+    },
+    "strategicInitiativePortfolio": {
+      "centerTitle": "Cartera de iniciativas estratégicas",
+      "centerSubtitle": "Connect approved actions, execution progress, business priorities, and executive goals in one strategic overview.",
+      "tabImpact": "Impact Analysis",
+      "tabApprovals": "Approvals & Delegation",
+      "tabExecution": "Execution Coordination",
+      "tabPortfolio": "Cartera estratégica",
+      "humanOversight": "Aipify supports strategic decisions. Humans retain responsibility and authority. Confidence and alignment scores are estimates — not certainty.",
+      "sections": {
+        "dashboard": "Initiative portfolio dashboard",
+        "categories": "Initiative categories",
+        "alignment": "Strategic alignment",
+        "health": "Portfolio health",
+        "executive": "Executive priority view",
+        "details": "Initiative details",
+        "riskAnalysis": "Portfolio risk analysis",
+        "resources": "Resource awareness",
+        "decisionSupport": "Decision support",
+        "learning": "Learning & improvement",
+        "knowledgeCenter": "Knowledge Center",
+        "audit": "Audit trail"
+      },
+      "categories": {
+        "revenueGrowth": "Revenue Growth",
+        "customerExperience": "Customer Experience",
+        "operationalEfficiency": "Operational Efficiency",
+        "compliance": "Compliance",
+        "riskReduction": "Risk Reduction",
+        "productDevelopment": "Product Development",
+        "employeeExperience": "Employee Experience",
+        "marketExpansion": "Market Expansion",
+        "costOptimization": "Cost Optimization",
+        "innovation": "Innovation"
+      },
+      "health": {
+        "onTrack": "On Track",
+        "atRisk": "At Risk",
+        "blocked": "Blocked",
+        "overdue": "Overdue",
+        "completed": "Completed"
+      },
+      "priority": {
+        "level": "Priority",
+        "levels": {
+          "critical": "Critical",
+          "high": "High",
+          "medium": "Medium",
+          "low": "Low",
+          "optional": "Optional"
+        }
+      },
+      "confidence": {
+        "level": "Confidence level",
+        "disclaimer": "Based on available information — estimates only, not guarantees.",
+        "levels": {
+          "veryLow": "Very Low",
+          "low": "Low",
+          "moderate": "Moderate",
+          "high": "High",
+          "veryHigh": "Very High"
+        }
+      },
+      "widgets": {
+        "active": "Active strategic initiatives",
+        "awaitingApproval": "Initiatives awaiting approval",
+        "inExecution": "Initiatives in execution",
+        "blocked": "Blocked initiatives",
+        "completed": "Completed initiatives",
+        "cancelled": "Cancelled initiatives",
+        "executivePriority": "Executive priority initiatives",
+        "empty": "No initiatives in this view right now.",
+        "viewInitiative": "View"
+      },
+      "executive": {
+        "topStrategic": "Top strategic initiatives",
+        "highestRisk": "Highest risk initiatives",
+        "highestValue": "Highest value initiatives",
+        "mostDelayed": "Most delayed initiatives",
+        "executiveDecisions": "Requiring executive decision",
+        "healthSummary": "Portfolio health summary"
+      },
+      "healthSummary": {
+        "onTrack": "On track",
+        "atRisk": "At risk",
+        "blocked": "Blocked",
+        "overdue": "Overdue",
+        "completed": "Completed"
+      },
+      "riskAnalysis": {
+        "title": "Portfolio risk analysis",
+        "highRiskConcentration": "High-risk concentration",
+        "unresolvedBlockers": "Unresolved blockers",
+        "missingOwners": "Missing owners",
+        "unclearOutcomes": "Unclear outcomes",
+        "lowConfidence": "Low confidence initiatives"
+      },
+      "alignment": {
+        "businessGoal": "Linked business goal",
+        "department": "Linked department",
+        "executiveSponsor": "Executive sponsor",
+        "alignmentScore": "Alignment score",
+        "expectedValue": "Expected strategic value"
+      },
+      "details": {
+        "owner": "Owner",
+        "timeline": "Timeline",
+        "plannedStart": "Planned start",
+        "estimatedCompletion": "Estimated completion",
+        "expectedOutcome": "Expected outcome",
+        "actualOutcome": "Actual outcome",
+        "linkedActions": "Linked actions",
+        "linkedApprovals": "Linked approvals",
+        "linkedRisks": "Linked risks",
+        "linkedDependencies": "Linked dependencies"
+      },
+      "resources": {
+        "requiredTeams": "Required teams",
+        "requiredRoles": "Required roles",
+        "estimatedWorkload": "Estimated workload",
+        "capacityConcerns": "Capacity concerns",
+        "overloadedOwners": "Overloaded owners"
+      },
+      "decisionSupport": {
+        "title": "Decision support",
+        "whyItMatters": "Why does this initiative matter?",
+        "ifSucceeds": "What happens if it succeeds?",
+        "ifFails": "What happens if it fails?",
+        "ifDelayed": "What happens if it is delayed?",
+        "whoInvolved": "Who should be involved?",
+        "decisionNeeded": "What decision is needed now?"
+      },
+      "learning": {
+        "intro": "After completion, share what happened to improve future initiative recommendations.",
+        "expectedResult": "Expected result",
+        "actualResult": "Actual result",
+        "timelineAccuracy": "Timeline accuracy",
+        "businessImpact": "Business impact",
+        "lessonsLearned": "Lessons learned",
+        "improvements": "Future recommendation improvements",
+        "submit": "Submit learning feedback",
+        "submitted": "Thank you — your feedback improves future portfolio guidance."
+      },
+      "faq": {
+        "title": "Strategic Initiative Portfolio FAQ",
+        "whatIsInitiative": "What is a strategic initiative?",
+        "whatIsInitiativeAnswer": "A strategic initiative is an approved action or program tracked against business goals, ownership, execution progress, and portfolio health.",
+        "howPrioritize": "How does Aipify prioritize initiatives?",
+        "howPrioritizeAnswer": "Aipify considers risk, alignment score, strategic value, deadlines, and executive priority — executives retain final authority.",
+        "whatIsAlignment": "What is strategic alignment?",
+        "whatIsAlignmentAnswer": "Alignment shows how an initiative connects to business goals, departments, sponsors, and expected strategic value.",
+        "portfolioHealth": "What does portfolio health mean?",
+        "portfolioHealthAnswer": "Health indicates whether initiatives are on track, at risk, blocked, overdue, or completed across your portfolio.",
+        "whoOwns": "Who owns an initiative?",
+        "whoOwnsAnswer": "Each initiative has an assigned owner and optional executive sponsor. Humans retain accountability — Aipify coordinates visibility.",
+        "howEstimateRisk": "How does Aipify estimate initiative risk?",
+        "howEstimateRiskAnswer": "From risk concentration, blockers, missing owners, unclear outcomes, and confidence levels — always as guidance, not certainty.",
+        "canAipifyDecide": "Can Aipify decide which initiatives to execute?",
+        "canAipifyDecideAnswer": "No. Aipify supports strategic decisions with visibility and recommendations. Humans retain responsibility and authority."
+      },
+      "empty": "No strategic initiatives to display right now.",
+      "principle": "Aipify supports strategic decisions. Humans retain responsibility and authority.",
+      "actions": {
+        "back": "Back to Action Center"
+      }
+    },
+    "executiveCockpitLink": "Executive Strategic Decision Cockpit"
+  }
+}

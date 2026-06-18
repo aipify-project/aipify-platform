@@ -1,11 +1,11 @@
 import { EvolutionBoardPanel } from "@/components/app/global-learning";
 import { EvolutionGovernanceBoardPanel } from "@/components/app/evolution-governance";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function EvolutionPage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForSplits(await getLocale(), ["dashboard"]);
   const t = createTranslator(dict);
   const g = "customerApp.evolutionGovernance";
   const c = "customerApp.evolution";

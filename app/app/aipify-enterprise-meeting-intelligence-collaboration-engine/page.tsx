@@ -1,10 +1,10 @@
 import { AipifyEnterpriseMeetingIntelligenceCollaborationEngineDashboardPanel } from "@/components/app/aipify-enterprise-meeting-intelligence-collaboration-engine";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AipifyEnterpriseMeetingIntelligenceCollaborationEnginePage() {
-  const dict = await getDictionary(await getLocale(), ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "aipifyEnterpriseMeetingIntelligenceCollaborationEngine");
   const t = createTranslator(dict);
   const p = "customerApp.aipifyEnterpriseMeetingIntelligenceCollaborationEngine";
 

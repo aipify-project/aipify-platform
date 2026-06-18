@@ -1,12 +1,12 @@
 import { FrictionIntelligencePanel } from "@/components/app/friction-intelligence/FrictionIntelligencePanel";
 import { FRICTION_CATEGORIES, FRICTION_SCORE_LEVELS } from "@/lib/aipify/friction-intelligence";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function FrictionExecutiveReportPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["core"]);
   const t = createTranslator(dict);
 
   const scoreLevels = Object.fromEntries(

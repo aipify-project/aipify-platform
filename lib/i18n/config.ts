@@ -48,8 +48,6 @@ export const NAMESPACES = [
   "branding",
   "presence",
   "license",
-  "customerApp",
-  "customerAppShell",
   "hosts",
   "marketing",
   "superAdmin",
