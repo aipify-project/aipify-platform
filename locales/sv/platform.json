@@ -98,6 +98,7 @@
   "nav": {
     "overview": "Plattformsdashboard",
     "operationsOverview": "Operations Overview",
+    "buildHealthCenter": "Build Health Center",
     "platformHealth": "Platform Health",
     "deployments": "Deployments",
     "operationsAuditLogs": "Audit Logs",
@@ -4480,6 +4481,63 @@
       "timeline": "No revenue events recorded yet.",
       "notifications": "No customer notifications queued.",
       "audit": "No audit entries recorded yet."
+    }
+  },
+  "buildGovernance": {
+    "title": "Build Health Center",
+    "subtitle": "Ruttstyrning, byggstabilitet och arkitekturskydd för Aipify-plattformen.",
+    "back": "Tillbaka till Build Health",
+    "loading": "Laddar byggstatus…",
+    "emptyState": "Byggdata är inte tillgänglig.",
+    "refresh": "Uppdatera",
+    "runScan": "Kör styrningsskanning",
+    "registryTitle": "Ruttregister",
+    "registrySubtitle": "Registrerade rutter för Customer App, Platform Admin, API, Marketing och Business Packs.",
+    "openRegistry": "Öppna ruttregister",
+    "health": {
+      "buildStatus": "Byggstatus",
+      "typecheckStatus": "TypeScript-status",
+      "routeValidation": "Ruttvalidering",
+      "duplicateRouteCheck": "Duplicerad rutt-kontroll",
+      "routeCount": "Antal rutter",
+      "apiRouteCount": "API-rutter",
+      "dynamicRouteCount": "Dynamiska rutter",
+      "buildDuration": "Senaste byggtid",
+      "lastDeployment": "Senaste lyckade deploy",
+      "warnings": "Byggvarningar",
+      "criticalIssues": "Kritiska arkitekturproblem",
+      "pass": "Godkänd",
+      "fail": "Misslyckad",
+      "warn": "Varningar",
+      "unknown": "Okänd"
+    },
+    "stats": {
+      "total": "Totalt antal rutter",
+      "api": "API-rutter",
+      "marketing": "Marketing-rutter",
+      "customer": "Kundrutter",
+      "platform": "Plattformsrutter",
+      "super": "Super Admin-rutter",
+      "businessPacks": "Business Pack-rutter",
+      "trend": "Ruttstatistik"
+    },
+    "registry": {
+      "route": "Rutt",
+      "owner": "Ägare",
+      "module": "Modul",
+      "modified": "Senast ändrad",
+      "status": "Status",
+      "category": "Kategori",
+      "filterAll": "Alla rutter"
+    },
+    "categories": {
+      "customerApp": "Customer App",
+      "platformAdmin": "Platform Admin",
+      "superAdmin": "Super Admin",
+      "api": "API",
+      "marketing": "Marketing",
+      "businessPacks": "Business Packs",
+      "other": "Övrigt"
     }
   }
 }

@@ -19,6 +19,7 @@
 
 # production
 /build
+/build-governance
 
 # misc
 .DS_Store

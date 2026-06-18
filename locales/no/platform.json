@@ -98,6 +98,7 @@
   "nav": {
     "overview": "Plattformdashboard",
     "operationsOverview": "Operations Overview",
+    "buildHealthCenter": "Build Health Center",
     "platformHealth": "Platform Health",
     "deployments": "Deployments",
     "operationsAuditLogs": "Audit Logs",
@@ -4751,6 +4752,63 @@
       "timeline": "No revenue events recorded yet.",
       "notifications": "No customer notifications queued.",
       "audit": "No audit entries recorded yet."
+    }
+  },
+  "buildGovernance": {
+    "title": "Build Health Center",
+    "subtitle": "Rute-styring, byggestabilitet og arkitekturbeskyttelse for Aipify-plattformen.",
+    "back": "Tilbake til Build Health",
+    "loading": "Laster bygghelse…",
+    "emptyState": "Bygghelsedata er utilgjengelig.",
+    "refresh": "Oppdater",
+    "runScan": "Kjør styringsskanning",
+    "registryTitle": "Rute-register",
+    "registrySubtitle": "Registrerte ruter på tvers av Customer App, Platform Admin, API, Marketing og Business Packs.",
+    "openRegistry": "Åpne rute-register",
+    "health": {
+      "buildStatus": "Byggestatus",
+      "typecheckStatus": "TypeScript-status",
+      "routeValidation": "Rutevalidering",
+      "duplicateRouteCheck": "Duplikat-rutesjekk",
+      "routeCount": "Antall ruter",
+      "apiRouteCount": "API-ruter",
+      "dynamicRouteCount": "Dynamiske ruter",
+      "buildDuration": "Siste byggetid",
+      "lastDeployment": "Siste vellykkede deploy",
+      "warnings": "Byggadvarsler",
+      "criticalIssues": "Kritiske arkitekturproblemer",
+      "pass": "Bestått",
+      "fail": "Feilet",
+      "warn": "Advarsler",
+      "unknown": "Ukjent"
+    },
+    "stats": {
+      "total": "Totalt antall ruter",
+      "api": "API-ruter",
+      "marketing": "Marketing-ruter",
+      "customer": "Kunde-ruter",
+      "platform": "Plattform-ruter",
+      "super": "Super Admin-ruter",
+      "businessPacks": "Business Pack-ruter",
+      "trend": "Rutestatistikk"
+    },
+    "registry": {
+      "route": "Rute",
+      "owner": "Eier",
+      "module": "Modul",
+      "modified": "Sist endret",
+      "status": "Status",
+      "category": "Kategori",
+      "filterAll": "Alle ruter"
+    },
+    "categories": {
+      "customerApp": "Customer App",
+      "platformAdmin": "Platform Admin",
+      "superAdmin": "Super Admin",
+      "api": "API",
+      "marketing": "Marketing",
+      "businessPacks": "Business Packs",
+      "other": "Annet"
     }
   }
 }

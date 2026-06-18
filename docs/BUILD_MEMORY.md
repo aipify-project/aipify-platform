@@ -112,6 +112,41 @@ This scans existing routes, updates the registry, and removes duplicate route fi
 | Consolidated engine endpoints | 625 files | 1 catch-all handler + registry |
 | Engines in registry | — | 318 slugs |
 
+## Build governance (Phase 431)
+
+| Command | Purpose |
+|---------|---------|
+| `npm run validate:routes` | Route governance scan — fails on critical violations |
+| `npm run validate:routes -- --warn-only` | Development warnings (used by `npm run dev`) |
+| `npm run validate:deployment` | Pre-production: routes + typecheck + import scan |
+| `npm run scan:routes` | Write `build-governance/route-registry.json` |
+
+Platform Admin: **Operations → Build Health Center** (`/platform/operations/build-health`).
+
+`npm run build` runs `validate:deployment` before every production build.
+
+## Incidents
+
+### 2026-06-18 — Vercel ENOENT marketing client-reference manifest
+
+| Field | Detail |
+|-------|--------|
+| **Issue** | Vercel deploy failed: missing `(marketing)/page_client-reference-manifest.js` |
+| **Root cause** | Duplicate homepage routes — `app/page.tsx` and `app/(marketing)/page.tsx` both resolved to `/`. Next.js wrote NFT trace referencing a manifest that was never emitted for the marketing page. |
+| **Fix** | Removed duplicate `app/page.tsx`; marketing home is sole `/` route under `(marketing)/layout.tsx`. |
+| **Affected modules** | `app/(marketing)/page.tsx`, Vercel deploy pipeline |
+| **Resolution** | Local and Vercel builds pass; Phase 431 governance now blocks duplicate homepage routes |
+
+### 2026-06-18 — API route graph consolidation
+
+| Field | Detail |
+|-------|--------|
+| **Issue** | Vercel build pressure from ~2,148 API route modules |
+| **Root cause** | 625 near-identical phase-engine dashboard/card/actions route files |
+| **Fix** | Consolidated to `app/api/aipify/[...enginePath]/route.ts` + generated registry |
+| **Affected modules** | `app/api/aipify/*`, `lib/aipify/api-route-registry.generated.ts` |
+| **Resolution** | ~622 route files removed; URLs unchanged |
+
 ## Local build
 
 ```bash

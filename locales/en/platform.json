@@ -124,6 +124,7 @@
   "nav": {
     "overview": "Platform Dashboard",
     "operationsOverview": "Operations Overview",
+    "buildHealthCenter": "Build Health Center",
     "platformHealth": "Platform Health",
     "deployments": "Deployments",
     "operationsAuditLogs": "Audit Logs",
@@ -4977,6 +4978,63 @@
       "partiallyReady": "Partially Ready",
       "readyToAssist": "Ready to Assist",
       "readyToExecute": "Ready to Execute"
+    }
+  },
+  "buildGovernance": {
+    "title": "Build Health Center",
+    "subtitle": "Route governance, build stability, and architecture protection for the Aipify platform.",
+    "back": "Back to Build Health",
+    "loading": "Loading build health…",
+    "emptyState": "Build health data is unavailable.",
+    "refresh": "Refresh",
+    "runScan": "Run governance scan",
+    "registryTitle": "Route Registry",
+    "registrySubtitle": "Registered routes across Customer App, Platform Admin, API, Marketing, and Business Packs.",
+    "openRegistry": "Open Route Registry",
+    "health": {
+      "buildStatus": "Build status",
+      "typecheckStatus": "TypeScript status",
+      "routeValidation": "Route validation",
+      "duplicateRouteCheck": "Duplicate route check",
+      "routeCount": "Route count",
+      "apiRouteCount": "API route count",
+      "dynamicRouteCount": "Dynamic route count",
+      "buildDuration": "Last build duration",
+      "lastDeployment": "Last successful deployment",
+      "warnings": "Build warnings",
+      "criticalIssues": "Critical architecture issues",
+      "pass": "Pass",
+      "fail": "Fail",
+      "warn": "Warnings",
+      "unknown": "Unknown"
+    },
+    "stats": {
+      "total": "Total routes",
+      "api": "API routes",
+      "marketing": "Marketing routes",
+      "customer": "Customer routes",
+      "platform": "Platform routes",
+      "super": "Super Admin routes",
+      "businessPacks": "Business Pack routes",
+      "trend": "Route statistics"
+    },
+    "registry": {
+      "route": "Route",
+      "owner": "Owner",
+      "module": "Module",
+      "modified": "Last modified",
+      "status": "Status",
+      "category": "Category",
+      "filterAll": "All routes"
+    },
+    "categories": {
+      "customerApp": "Customer App",
+      "platformAdmin": "Platform Admin",
+      "superAdmin": "Super Admin",
+      "api": "API",
+      "marketing": "Marketing",
+      "businessPacks": "Business Packs",
+      "other": "Other"
     }
   }
 }

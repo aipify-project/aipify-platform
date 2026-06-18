@@ -1,6 +1,6 @@
 import type { AlertSeverity, PaymentOpsProviderKey, RegionalCoverageKey } from "./constants";
 
-export type OperationsIndicator = "healthy" | "stable" | "attention" | "critical";
+export type { OperationsIndicator } from "./constants";
 
 export type PaymentOperationsSummary = {
   active_payment_providers: number;

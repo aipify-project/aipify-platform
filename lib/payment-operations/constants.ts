@@ -22,6 +22,8 @@ export const REGIONAL_COVERAGE_KEYS = [
 
 export type RegionalCoverageKey = (typeof REGIONAL_COVERAGE_KEYS)[number];
 
+export type OperationsIndicator = "healthy" | "stable" | "attention" | "critical";
+
 export const OPERATIONAL_CAPABILITIES: Record<PaymentOpsProviderKey, string[]> = {
   stripe: [
     "card_payments",
@@ -40,8 +42,6 @@ export const ALERT_SEVERITY_BADGES: Record<AlertSeverity, string> = {
   warning: "bg-amber-50 text-amber-900 ring-amber-200",
   critical: "bg-red-50 text-red-800 ring-red-200",
 };
-
-import type { OperationsIndicator } from "./types";
 
 export const OPERATIONS_INDICATOR_STYLES: Record<
   OperationsIndicator,
