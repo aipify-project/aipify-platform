@@ -93,14 +93,17 @@
   },
   "operationsCenter": {
     "title": "Operations Center",
-    "subtitle": "Din Aipify executive companion — operativ hälsa, problem och rekommendationer.",
-    "philosophy": "AOC observerar, prioriterar och rekommenderar — människor bestämmer.",
-    "safetyNote": "AOC ersätter aldrig ledarskap eller övervakar medarbetare.",
+    "subtitle": "Ditt dagliga operativa kommandocenter — vad som hände, vad som kräver uppmärksamhet och vad Aipify rekommenderar härnäst.",
+    "philosophy": "Aipify observerar, prioriterar och rekommenderar — människor bestämmer.",
+    "safetyNote": "Aipify ersätter aldrig ledarskap, utför irreversibla åtgärder eller övervakar medarbetare.",
+    "humanOversight": "Mänsklig tillsyn är obligatorisk för varje operativt beslut.",
     "loading": "Laddar Operations Center…",
     "open": "Öppna Operations Center",
+    "refresh": "Uppdatera operativ vy",
+    "emptyState": "Inga operativa objekt i detta avsnitt ännu.",
+    "privacyNote": "Operations Center sammanfattar verifierade signaler — ditt team behåller ansvaret.",
     "findingsLabel": "fynd",
     "operationalHealth": "Operativ hälsopoäng",
-    "humanOversight": "Mänsklig tillsyn är obligatorisk.",
     "generate": "Generera",
     "generating": "Genererar…",
     "review": "genomgång",
@@ -118,7 +121,75 @@
     "databaseGovernanceLink": "Databasstyrning",
     "deploymentsLink": "Deployments",
     "platformObservabilityLink": "Plattformsobservability",
-    "incidentCommandLink": "Incident Command"
+    "incidentCommandLink": "Incident Command",
+    "approvalsLink": "Godkännandecenter",
+    "commandCenterLink": "Command Center",
+    "sections": {
+      "completed": "Slutfört",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "waiting": "Väntar",
+      "information": "Information"
+    },
+    "status": {
+      "completed": "Slutfört",
+      "notAllowed": "Inte tillåtet",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "sinceLastLogin": {
+      "title": "Sedan senaste inloggning",
+      "today": "Idag",
+      "yesterday": "Igår",
+      "thisWeek": "Denna vecka",
+      "activities": "Nya aktiviteter",
+      "alerts": "Nya varningar",
+      "recommendations": "Nya rekommendationer",
+      "supportSignals": "Öppna supportsignaler",
+      "empty": "Ingen ny aktivitet under denna period."
+    },
+    "executiveSummary": {
+      "title": "Executive-sammanfattning",
+      "empty": "Aipify övervakar — inga väsentliga förändringar att rapportera ännu."
+    },
+    "tasks": {
+      "title": "Operativa uppgifter",
+      "myTasks": "Mina uppgifter",
+      "teamTasks": "Teamuppgifter",
+      "automationTasks": "Automationsuppgifter",
+      "empty": "Inga öppna uppgifter i denna kö."
+    },
+    "alerts": {
+      "title": "Varningscenter",
+      "empty": "Inga aktiva varningar."
+    },
+    "recommendations": {
+      "title": "Aipify-rekommendationer",
+      "why": "Varför:",
+      "expectedBenefit": "Förväntad nytta:",
+      "empty": "Aipify har inga nya rekommendationer just nu."
+    },
+    "timeline": {
+      "title": "Aktivitetstidslinje",
+      "user": "Användare",
+      "action": "Åtgärd",
+      "system": "System",
+      "result": "Resultat",
+      "timestamp": "Tidsstämpel",
+      "empty": "Inga tidslinjeposter ännu."
+    },
+    "businessPacks": {
+      "title": "Business Pack-aktivitet",
+      "hosts": "Hosts",
+      "commerce": "Commerce",
+      "support": "Support",
+      "finance": "Finans",
+      "growthPartners": "Growth Partners",
+      "other": "Övrigt",
+      "empty": "Inga Business Pack-händelser ännu."
+    }
   },
   "actionCenter": {
     "title": "Åtgärdscenter",

@@ -867,14 +867,17 @@
   },
   "operationsCenter": {
     "title": "Operations Center",
-    "subtitle": "Your executive companion — operational health, emerging issues, and prioritized recommendations.",
-    "philosophy": "AOC observes, prioritizes, and recommends — humans decide.",
-    "safetyNote": "AOC never replaces leadership, executes irreversible actions, or monitors employee productivity.",
+    "subtitle": "Your daily operational command center — what happened, what needs attention, and what Aipify recommends next.",
+    "philosophy": "Aipify observes, prioritizes, and recommends — humans decide.",
+    "safetyNote": "Aipify never replaces leadership, executes irreversible actions, or monitors employee productivity.",
+    "humanOversight": "Human oversight remains mandatory for every operational decision.",
     "loading": "Gathering operational data…",
     "open": "Open Operations Center",
+    "refresh": "Refresh operational view",
+    "emptyState": "No operational items in this section yet.",
+    "privacyNote": "Operations Center summarizes verified signals — your team remains accountable.",
     "findingsLabel": "findings",
     "operationalHealth": "Operational Health Score",
-    "humanOversight": "Human oversight remains mandatory — AOC never governs the organization.",
     "generate": "Generate",
     "generating": "Generating…",
     "review": "review",
@@ -892,7 +895,75 @@
     "databaseGovernanceLink": "Database Governance",
     "deploymentsLink": "Deployments",
     "platformObservabilityLink": "Platform Observability",
-    "incidentCommandLink": "Incident Command"
+    "incidentCommandLink": "Incident Command",
+    "approvalsLink": "Approval Center",
+    "commandCenterLink": "Command Center",
+    "sections": {
+      "completed": "Completed",
+      "requiresAttention": "Requires attention",
+      "waiting": "Waiting",
+      "information": "Information"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "sinceLastLogin": {
+      "title": "Since your last login",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "thisWeek": "This week",
+      "activities": "New activities",
+      "alerts": "New alerts",
+      "recommendations": "New recommendations",
+      "supportSignals": "Open support signals",
+      "empty": "No new activity in this period."
+    },
+    "executiveSummary": {
+      "title": "Executive summary",
+      "empty": "Aipify is monitoring — no significant changes to report yet."
+    },
+    "tasks": {
+      "title": "Operational tasks",
+      "myTasks": "My tasks",
+      "teamTasks": "Team tasks",
+      "automationTasks": "Automation tasks",
+      "empty": "No open tasks in this queue."
+    },
+    "alerts": {
+      "title": "Alerts center",
+      "empty": "No active alerts."
+    },
+    "recommendations": {
+      "title": "Aipify recommendations",
+      "why": "Why:",
+      "expectedBenefit": "Expected benefit:",
+      "empty": "Aipify has no new recommendations right now."
+    },
+    "timeline": {
+      "title": "Activity timeline",
+      "user": "User",
+      "action": "Action",
+      "system": "System",
+      "result": "Result",
+      "timestamp": "Timestamp",
+      "empty": "No timeline entries yet."
+    },
+    "businessPacks": {
+      "title": "Business pack activity",
+      "hosts": "Hosts",
+      "commerce": "Commerce",
+      "support": "Support",
+      "finance": "Finance",
+      "growthPartners": "Growth Partners",
+      "other": "Other",
+      "empty": "No business pack events yet."
+    }
   },
   "operationsCenterFoundationEngine": {
     "title": "Operations Center",

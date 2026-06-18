@@ -93,14 +93,17 @@
   },
   "operationsCenter": {
     "title": "Operations Center",
-    "subtitle": "Din Aipify executive companion — operasjonell helse, problemer og anbefalinger.",
-    "philosophy": "AOC observerer, prioriterer og anbefaler — mennesker bestemmer.",
-    "safetyNote": "AOC erstatter aldri ledelse eller overvåker ansatte.",
+    "subtitle": "Ditt daglige operasjonelle kommandosenter — hva som skjedde, hva som krever oppmerksomhet, og hva Aipify anbefaler neste.",
+    "philosophy": "Aipify observerer, prioriterer og anbefaler — mennesker bestemmer.",
+    "safetyNote": "Aipify erstatter aldri ledelse, utfører irreversible handlinger, eller overvåker ansatte.",
+    "humanOversight": "Menneskelig tilsyn er obligatorisk for alle operative beslutninger.",
     "loading": "Laster Operations Center…",
     "open": "Åpne Operations Center",
+    "refresh": "Oppdater operasjonell oversikt",
+    "emptyState": "Ingen operative elementer i denne seksjonen ennå.",
+    "privacyNote": "Operations Center oppsummerer verifiserte signaler — teamet ditt har fortsatt ansvar.",
     "findingsLabel": "funn",
     "operationalHealth": "Operasjonell helsescore",
-    "humanOversight": "Menneskelig tilsyn er obligatorisk.",
     "generate": "Generer",
     "generating": "Genererer…",
     "review": "gjennomgang",
@@ -118,7 +121,75 @@
     "databaseGovernanceLink": "Database-styring",
     "deploymentsLink": "Deployments",
     "platformObservabilityLink": "Plattform-observability",
-    "incidentCommandLink": "Incident Command"
+    "incidentCommandLink": "Incident Command",
+    "approvalsLink": "Godkjenningssenter",
+    "commandCenterLink": "Command Center",
+    "sections": {
+      "completed": "Fullført",
+      "requiresAttention": "Krever oppmerksomhet",
+      "waiting": "Venter",
+      "information": "Informasjon"
+    },
+    "status": {
+      "completed": "Fullført",
+      "notAllowed": "Ikke tillatt",
+      "requiresAttention": "Krever oppmerksomhet",
+      "information": "Informasjon",
+      "restricted": "Begrenset tilgang",
+      "verified": "Verifisert",
+      "waiting": "Venter"
+    },
+    "sinceLastLogin": {
+      "title": "Siden sist innlogging",
+      "today": "I dag",
+      "yesterday": "I går",
+      "thisWeek": "Denne uken",
+      "activities": "Nye aktiviteter",
+      "alerts": "Nye varsler",
+      "recommendations": "Nye anbefalinger",
+      "supportSignals": "Åpne support-signaler",
+      "empty": "Ingen ny aktivitet i denne perioden."
+    },
+    "executiveSummary": {
+      "title": "Executive-oppsummering",
+      "empty": "Aipify overvåker — ingen vesentlige endringer å rapportere ennå."
+    },
+    "tasks": {
+      "title": "Operative oppgaver",
+      "myTasks": "Mine oppgaver",
+      "teamTasks": "Teamoppgaver",
+      "automationTasks": "Automatiseringsoppgaver",
+      "empty": "Ingen åpne oppgaver i denne køen."
+    },
+    "alerts": {
+      "title": "Varslingssenter",
+      "empty": "Ingen aktive varsler."
+    },
+    "recommendations": {
+      "title": "Aipify-anbefalinger",
+      "why": "Hvorfor:",
+      "expectedBenefit": "Forventet nytte:",
+      "empty": "Aipify har ingen nye anbefalinger akkurat nå."
+    },
+    "timeline": {
+      "title": "Aktivitetstidslinje",
+      "user": "Bruker",
+      "action": "Handling",
+      "system": "System",
+      "result": "Resultat",
+      "timestamp": "Tidsstempel",
+      "empty": "Ingen tidslinjeoppføringer ennå."
+    },
+    "businessPacks": {
+      "title": "Business Pack-aktivitet",
+      "hosts": "Hosts",
+      "commerce": "Commerce",
+      "support": "Support",
+      "finance": "Finans",
+      "growthPartners": "Growth Partners",
+      "other": "Annet",
+      "empty": "Ingen Business Pack-hendelser ennå."
+    }
   },
   "actionCenter": {
     "title": "Handlingssenter",
