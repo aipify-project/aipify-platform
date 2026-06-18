@@ -5321,6 +5321,102 @@
       "executiveImprovement": "Executive Continuous Improvement Center"
     }
   },
+  "organizationalMaturityCenter": {
+    "title": "Organizational Maturity Center",
+    "subtitle": "Aipify measures, understands, and guides organizational maturity over time — helping your organization evolve through every stage.",
+    "philosophy": "Organizations evolve through stages. Aipify should continuously evaluate organizational maturity and guide improvement.",
+    "governanceNote": "All maturity scores are explainable, transparent, and auditable. Users must understand why a score exists.",
+    "privacyNote": "Maturity assessments use aggregated operational metadata only — no individual performance scoring.",
+    "refresh": "Refresh",
+    "emptyState": "No items in this section yet.",
+    "accessDenied": "Organizational Maturity Center requires appropriate workspace permissions.",
+    "explanation": "Why this score",
+    "level": "Level",
+    "sections": {
+      "maturityOverview": "Maturity Overview",
+      "departmentMaturity": "Department Maturity",
+      "processMaturity": "Process Maturity",
+      "technologyMaturity": "Technology Maturity",
+      "knowledgeMaturity": "Knowledge Maturity",
+      "governanceMaturity": "Governance Maturity",
+      "customerExperienceMaturity": "Customer Experience Maturity",
+      "improvementRoadmap": "Improvement Roadmap"
+    },
+    "maturityLevels": {
+      "emerging": "Emerging",
+      "developing": "Developing",
+      "structured": "Structured",
+      "optimized": "Optimized",
+      "worldClass": "World Class"
+    },
+    "maturityScoring": {
+      "title": "Maturity Scoring Engine",
+      "score": "Score"
+    },
+    "benchmarking": {
+      "title": "Organizational Benchmarking",
+      "comparison": "Comparison"
+    },
+    "departmentAnalysis": {
+      "title": "Department Maturity Analysis",
+      "department": "Department",
+      "dimension": "Dimension"
+    },
+    "improvementRoadmaps": {
+      "title": "Improvement Roadmap Engine",
+      "currentState": "Current state",
+      "targetState": "Target state",
+      "requiredImprovements": "Required improvements",
+      "expectedBenefits": "Expected benefits"
+    },
+    "selfEvolution": {
+      "title": "Self-Evolution Engine",
+      "learningNote": "What Aipify learned"
+    },
+    "growthPlanning": {
+      "title": "Growth Planning Center",
+      "requiredActions": "Required actions",
+      "horizons": {
+        "ninetyDay": "90-Day Plan",
+        "sixMonth": "6-Month Plan",
+        "twelveMonth": "12-Month Plan"
+      }
+    },
+    "businessPackMaturity": {
+      "title": "Business Pack Maturity"
+    },
+    "executiveDashboard": {
+      "title": "Executive Maturity Dashboard",
+      "currentMaturityScore": "Current maturity score",
+      "growthTrend": "Growth trend",
+      "highestPerformingAreas": "Highest performing areas",
+      "lowestPerformingAreas": "Lowest performing areas",
+      "recommendedPriorities": "Recommended priorities",
+      "trends": {
+        "improving": "Improving",
+        "stable": "Stable",
+        "declining": "Declining"
+      }
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "approve": "Approve"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "legacyEngine": "Legacy Capability Maturity Engine",
+      "executiveMaturity": "Executive Capability Maturity Center"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",

@@ -4628,6 +4628,75 @@
       "executiveImprovement": "Executive Continuous Improvement Center"
     }
   },
+  "organizationalMaturityCenter": {
+    "title": "Organisationsmodenhedscenter",
+    "subtitle": "Aipify måler, forstår og vejleder organisationsmodenhed over tid — og hjælper organisationen med at udvikle sig gennem hvert stadium.",
+    "philosophy": "Organisationer udvikler sig gennem stadier. Aipify skal løbende evaluere organisationsmodenhed og vejlede forbedring.",
+    "governanceNote": "Alle modenhedsscorer er forklarbare, transparente og reviderbare. Brugere skal forstå, hvorfor en score findes.",
+    "privacyNote": "Modenhedsvurderinger bruger kun aggregerede operationelle metadata — ingen individuel præstationsscore.",
+    "refresh": "Opdater",
+    "emptyState": "Ingen elementer i denne sektion endnu.",
+    "accessDenied": "Organisationsmodenhedscenter kræver passende arbejdsområdetilladelser.",
+    "explanation": "Hvorfor denne score",
+    "level": "Niveau",
+    "sections": {
+      "maturityOverview": "Modenhedsoversigt",
+      "departmentMaturity": "Afdelingsmodenhed",
+      "processMaturity": "Procesmodenhed",
+      "technologyMaturity": "Teknologimodenhed",
+      "knowledgeMaturity": "Videnmodenhed",
+      "governanceMaturity": "Styringsmodenhed",
+      "customerExperienceMaturity": "Kundeoplevelsesmodenhed",
+      "improvementRoadmap": "Forbedringskøreplan"
+    },
+    "maturityLevels": {
+      "emerging": "Fremvoksende",
+      "developing": "Under udvikling",
+      "structured": "Struktureret",
+      "optimized": "Optimeret",
+      "worldClass": "Verdensklasse"
+    },
+    "maturityScoring": { "title": "Modenhedsscoring", "score": "Score" },
+    "benchmarking": { "title": "Organisationsbenchmarking", "comparison": "Sammenligning" },
+    "departmentAnalysis": { "title": "Afdelingsmodenhedsanalyse", "department": "Afdeling", "dimension": "Dimension" },
+    "improvementRoadmaps": {
+      "title": "Forbedringskøreplan",
+      "currentState": "Nuværende tilstand",
+      "targetState": "Måltilstand",
+      "requiredImprovements": "Nødvendige forbedringer",
+      "expectedBenefits": "Forventede gevinster"
+    },
+    "selfEvolution": { "title": "Selv-evolutionsmotor", "learningNote": "Hvad Aipify lærte" },
+    "growthPlanning": {
+      "title": "Vækstplanlægningscenter",
+      "requiredActions": "Nødvendige handlinger",
+      "horizons": { "ninetyDay": "90-dages plan", "sixMonth": "6-måneders plan", "twelveMonth": "12-måneders plan" }
+    },
+    "businessPackMaturity": { "title": "Business Pack-modenhed" },
+    "executiveDashboard": {
+      "title": "Ledelsesmodenhedsdashboard",
+      "currentMaturityScore": "Nuværende modenhedsscore",
+      "growthTrend": "Væksttrend",
+      "highestPerformingAreas": "Bedst præsterende områder",
+      "lowestPerformingAreas": "Svagest præsterende områder",
+      "recommendedPriorities": "Anbefalede prioriteter",
+      "trends": { "improving": "Forbedres", "stable": "Stabil", "declining": "Falder" }
+    },
+    "actions": { "acknowledge": "Bekræft", "dismiss": "Afvis", "approve": "Godkend" },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "links": {
+      "legacyEngine": "Legacy Capability Maturity Engine",
+      "executiveMaturity": "Executive Capability Maturity Center"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillid og omdømme",
     "subtitle": "Organisatoriske tillidsprofiler og metadata-baserede omdømmesignaler — fortjent tillid med menneskelig gennemgang af udvidelser.",

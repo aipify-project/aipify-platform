@@ -1461,7 +1461,7 @@ export const APP_NAV: AppNavItem[] = [
   },
   {
     id: "capabilityMaturityEngine",
-    href: "/app/capability-maturity-engine",
+    href: "/app/intelligence/maturity",
     labelKey: "navigation.nav.capabilityMaturityEngine",
   },
   {
@@ -2121,6 +2121,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/intelligence/health")) return "organizationalHealthEngine";
   if (pathname.startsWith("/app/intelligence/digital-twin")) return "digitalTwin";
   if (pathname.startsWith("/app/intelligence/improvements")) return "continuousImprovementEngine";
+  if (pathname.startsWith("/app/intelligence/maturity")) return "capabilityMaturityEngine";
   if (pathname.startsWith("/app/trust-reputation-engine")) {
     return "trustReputationEngine";
   }

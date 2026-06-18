@@ -4680,6 +4680,75 @@
       "executiveImprovement": "Executive Continuous Improvement Center"
     }
   },
+  "organizationalMaturityCenter": {
+    "title": "Organisationsmognadscenter",
+    "subtitle": "Aipify mäter, förstår och vägleder organisationsmognad över tid — och hjälper organisationen att utvecklas genom varje stadium.",
+    "philosophy": "Organisationer utvecklas genom stadier. Aipify ska kontinuerligt utvärdera organisationsmognad och vägleda förbättring.",
+    "governanceNote": "Alla mognadsbedömningar är förklarbara, transparenta och granskningsbara. Användare måste förstå varför en poäng finns.",
+    "privacyNote": "Mognadsbedömningar använder endast aggregerad operativ metadata — ingen individuell prestationspoäng.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga objekt i detta avsnitt ännu.",
+    "accessDenied": "Organisationsmognadscenter kräver lämpliga arbetsytbehörigheter.",
+    "explanation": "Varför denna poäng",
+    "level": "Nivå",
+    "sections": {
+      "maturityOverview": "Mognadsöversikt",
+      "departmentMaturity": "Avdelningsmognad",
+      "processMaturity": "Processmognad",
+      "technologyMaturity": "Teknikmognad",
+      "knowledgeMaturity": "Kunskapsmognad",
+      "governanceMaturity": "Styrningsmognad",
+      "customerExperienceMaturity": "Kundupplevelsemognad",
+      "improvementRoadmap": "Förbättringsplan"
+    },
+    "maturityLevels": {
+      "emerging": "Framväxande",
+      "developing": "Under utveckling",
+      "structured": "Strukturerad",
+      "optimized": "Optimerad",
+      "worldClass": "Världsklass"
+    },
+    "maturityScoring": { "title": "Mognadsbedömning", "score": "Poäng" },
+    "benchmarking": { "title": "Organisationsbenchmarking", "comparison": "Jämförelse" },
+    "departmentAnalysis": { "title": "Avdelningsmognadsanalys", "department": "Avdelning", "dimension": "Dimension" },
+    "improvementRoadmaps": {
+      "title": "Förbättringsplan",
+      "currentState": "Nuvarande tillstånd",
+      "targetState": "Måltillstånd",
+      "requiredImprovements": "Nödvändiga förbättringar",
+      "expectedBenefits": "Förväntade fördelar"
+    },
+    "selfEvolution": { "title": "Själv-evolutionsmotor", "learningNote": "Vad Aipify lärde sig" },
+    "growthPlanning": {
+      "title": "Tillväxtplaneringscenter",
+      "requiredActions": "Nödvändiga åtgärder",
+      "horizons": { "ninetyDay": "90-dagars plan", "sixMonth": "6-månaders plan", "twelveMonth": "12-månaders plan" }
+    },
+    "businessPackMaturity": { "title": "Business Pack-mognad" },
+    "executiveDashboard": {
+      "title": "Ledningsmognadsdashboard",
+      "currentMaturityScore": "Nuvarande mognadspoäng",
+      "growthTrend": "Tillväxttrend",
+      "highestPerformingAreas": "Bäst presterande områden",
+      "lowestPerformingAreas": "Svagast presterande områden",
+      "recommendedPriorities": "Rekommenderade prioriteringar",
+      "trends": { "improving": "Förbättras", "stable": "Stabil", "declining": "Sjunker" }
+    },
+    "actions": { "acknowledge": "Bekräfta", "dismiss": "Avvisa", "approve": "Godkänn" },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "legacyEngine": "Legacy Capability Maturity Engine",
+      "executiveMaturity": "Executive Capability Maturity Center"
+    }
+  },
   "trustReputationEngine": {
     "title": "Förtroende och rykte",
     "subtitle": "Organisatoriska förtroendeprofiler och metadata-baserade ryktessignaler — förtjänat förtroende med mänsklig granskning av expansion.",
