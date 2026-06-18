@@ -5563,6 +5563,77 @@
       "legacySettings": "Orchestration settings"
     }
   },
+  "realWorldActionsExecutionCenter": {
+    "title": "Real-World Actions Center",
+    "subtitle": "Coordinate approved real-world actions through integrations, workflows, approvals, and governance — execution that creates results.",
+    "philosophy": "Understanding is valuable. Execution creates results. Aipify helps organizations execute action safely.",
+    "governanceNote": "Every action requires audit log, owner, timestamp, approval record, and execution result. Sensitive actions require explicit approval.",
+    "executionWorkflow": "Execution workflow",
+    "privacyNote": "Action metadata and outcomes only — no raw payment details, personal messages, or provider credentials stored in Actions Center.",
+    "refresh": "Refresh",
+    "emptyState": "No actions in this section yet.",
+    "accessDenied": "Real-World Actions Center requires appropriate workspace permissions.",
+    "owner": "Owner",
+    "cost": "Cost",
+    "result": "Result",
+    "stage": "Stage",
+    "provider": "Provider",
+    "category": "Category",
+    "approvalRequired": "Approval required",
+    "user": "User",
+    "date": "Date",
+    "sections": {
+      "availableActions": "Available Actions",
+      "pendingActions": "Pending Actions",
+      "approvedActions": "Approved Actions",
+      "completedActions": "Completed Actions",
+      "failedActions": "Failed Actions",
+      "actionHistory": "Action History"
+    },
+    "executiveDashboard": { "title": "Executive Action Dashboard" },
+    "actionRegistry": { "title": "Action Registry" },
+    "approvalEngine": { "title": "Approval Engine" },
+    "actionProviders": { "title": "Action Providers" },
+    "actionHistory": { "title": "Action History" },
+    "companionRequests": {
+      "title": "Companion Action Requests",
+      "explanation": "Why Aipify recommends this",
+      "risk": "Risk"
+    },
+    "enterpriseControls": {
+      "title": "Enterprise Controls",
+      "enabled": "Real-world actions enabled",
+      "disabled": "Real-world actions disabled",
+      "multiLevel": "Multi-level approvals required"
+    },
+    "risk": {
+      "low": "Low risk",
+      "medium": "Medium risk",
+      "high": "High risk"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "approve": "Approve",
+      "reject": "Reject",
+      "escalate": "Escalate"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "legacyInbox": "Action Hub inbox",
+      "legacySettings": "Action Hub settings",
+      "approvals": "Trust & Action approvals",
+      "actionCenter": "Autonomous Action Center"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",
