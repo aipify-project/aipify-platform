@@ -5140,6 +5140,100 @@
       "executiveHealth": "Executive Organizational Health"
     }
   },
+  "businessDigitalTwinCenter": {
+    "title": "Business Digital Twin Center",
+    "subtitle": "A living operational model of your organization — understand, simulate, analyze, and optimize how the business actually works.",
+    "philosophy": "Aipify should not merely store information. It should understand how the organization actually operates. The Digital Twin is the operational model of the business.",
+    "governanceNote": "All Digital Twin data is role-controlled, auditable, and explainable — no hidden assumptions.",
+    "privacyNote": "Organizational metadata and operational patterns only — no individual surveillance or personal scoring.",
+    "refresh": "Refresh",
+    "emptyState": "No items in this section yet.",
+    "accessDenied": "Business Digital Twin requires appropriate workspace permissions.",
+    "sections": {
+      "organizationModel": "Organization Model",
+      "teams": "Teams",
+      "customers": "Customers",
+      "vendors": "Vendors",
+      "projects": "Projects",
+      "systems": "Systems",
+      "workflows": "Workflows",
+      "dependencies": "Dependencies",
+      "simulations": "Simulations"
+    },
+    "entity": {
+      "owner": "Owner",
+      "dependencies": "Dependencies",
+      "criticality": "Criticality"
+    },
+    "processMapping": {
+      "title": "Process Mapping",
+      "start": "Start",
+      "actions": "Actions",
+      "approvals": "Approvals",
+      "outcomes": "Outcomes"
+    },
+    "dependencyIntelligence": {
+      "title": "Dependency Intelligence",
+      "suggestedAction": "Suggested action"
+    },
+    "workflowSimulations": {
+      "title": "Workflow Simulation",
+      "impact": "Estimated impact"
+    },
+    "capacityIntelligence": {
+      "title": "Capacity Intelligence",
+      "workload": "Workload",
+      "availableResources": "Available resources",
+      "bottleneck": "Bottleneck",
+      "daysToCapacity": "Days to capacity"
+    },
+    "operationalImpacts": {
+      "title": "Operational Impact Analysis",
+      "impact": "Impact",
+      "risk": "Risk",
+      "affectedTeams": "Affected teams",
+      "affectedSystems": "Affected systems"
+    },
+    "scenarioPlanning": {
+      "title": "Scenario Planning",
+      "best": "Best case",
+      "expected": "Expected case",
+      "worst": "Worst case",
+      "expectedRevenue": "Expected revenue",
+      "expectedSupportLoad": "Expected support load",
+      "expectedStaffing": "Expected staffing"
+    },
+    "executiveDashboard": {
+      "title": "Executive Twin Dashboard",
+      "organizationOverview": "Organization overview",
+      "operationalHealth": "Operational health",
+      "dependencies": "Active dependencies",
+      "simulations": "Simulations",
+      "strategicRisks": "Strategic risks"
+    },
+    "companionInsights": {
+      "title": "Companion Insights",
+      "reason": "Why Aipify recommends this"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "resolve": "Resolve"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "legacyTwin": "Legacy Digital Twin Engine",
+      "executiveTwin": "Executive Organizational Digital Twin"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",

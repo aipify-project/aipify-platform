@@ -4581,6 +4581,39 @@
       "executiveHealth": "Executive organisationshälsa"
     }
   },
+  "businessDigitalTwinCenter": {
+    "title": "Business Digital Twin Center",
+    "subtitle": "En levande operativ modell av organisationen — förstå, simulera, analysera och optimera hur verksamheten faktiskt fungerar.",
+    "philosophy": "Aipify ska inte bara lagra information. Den ska förstå hur organisationen faktiskt opererar. Digital Twin är den operativa modellen av verksamheten.",
+    "governanceNote": "All Digital Twin-data är rollkontrollerad, reviderbar och förklarbar — inga dolda antaganden.",
+    "privacyNote": "Endast organisationsmetadata och operativa mönster — ingen individuell övervakning eller personscoring.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga objekt i detta avsnitt ännu.",
+    "accessDenied": "Business Digital Twin kräver lämpliga arbetsytetillstånd.",
+    "sections": {
+      "organizationModel": "Organisationsmodell",
+      "teams": "Team",
+      "customers": "Kunder",
+      "vendors": "Leverantörer",
+      "projects": "Projekt",
+      "systems": "System",
+      "workflows": "Arbetsflöden",
+      "dependencies": "Beroenden",
+      "simulations": "Simuleringar"
+    },
+    "entity": { "owner": "Ägare", "dependencies": "Beroenden", "criticality": "Kritikalitet" },
+    "processMapping": { "title": "Processkartläggning", "start": "Start", "actions": "Åtgärder", "approvals": "Godkännanden", "outcomes": "Utfall" },
+    "dependencyIntelligence": { "title": "Beroendeintelligens", "suggestedAction": "Föreslagen åtgärd" },
+    "workflowSimulations": { "title": "Arbetsflödessimulering", "impact": "Uppskattad påverkan" },
+    "capacityIntelligence": { "title": "Kapacitetsintelligens", "workload": "Arbetsbelastning", "availableResources": "Tillgängliga resurser", "bottleneck": "Flaskhals", "daysToCapacity": "Dagar till kapacitet" },
+    "operationalImpacts": { "title": "Operativ påverkansanalys", "impact": "Påverkan", "risk": "Risk", "affectedTeams": "Berörda team", "affectedSystems": "Berörda system" },
+    "scenarioPlanning": { "title": "Scenarioplanering", "best": "Bästa fall", "expected": "Förväntat fall", "worst": "Värsta fall", "expectedRevenue": "Förväntade intäkter", "expectedSupportLoad": "Förväntad supportbelastning", "expectedStaffing": "Förväntad bemanning" },
+    "executiveDashboard": { "title": "Executive Twin Dashboard", "organizationOverview": "Organisationsöversikt", "operationalHealth": "Operativ hälsa", "dependencies": "Aktiva beroenden", "simulations": "Simuleringar", "strategicRisks": "Strategiska risker" },
+    "companionInsights": { "title": "Companion-insikter", "reason": "Varför Aipify rekommenderar detta" },
+    "actions": { "acknowledge": "Bekräfta", "dismiss": "Avvisa", "resolve": "Lös" },
+    "status": { "completed": "Fullförd", "notAllowed": "Inte tillåten", "requiresAttention": "Kräver uppmärksamhet", "information": "Information", "restricted": "Begränsad åtkomst", "verified": "Verifierad", "waiting": "Väntar" },
+    "links": { "legacyTwin": "Legacy Digital Twin Engine", "executiveTwin": "Executive Organizational Digital Twin" }
+  },
   "trustReputationEngine": {
     "title": "Förtroende och rykte",
     "subtitle": "Organisatoriska förtroendeprofiler och metadata-baserade ryktessignaler — förtjänat förtroende med mänsklig granskning av expansion.",

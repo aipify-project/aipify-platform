@@ -4529,6 +4529,39 @@
       "executiveHealth": "Executive organisationshelbred"
     }
   },
+  "businessDigitalTwinCenter": {
+    "title": "Business Digital Twin Center",
+    "subtitle": "En levende operationel model af organisationen — forstå, simuler, analysér og optimér, hvordan virksomheden faktisk fungerer.",
+    "philosophy": "Aipify skal ikke blot lagre information. Den skal forstå, hvordan organisationen faktisk opererer. Digital Twin er den operationelle model af virksomheden.",
+    "governanceNote": "Alle Digital Twin-data er rollekontrollerede, reviderbare og forklarlige — ingen skjulte antagelser.",
+    "privacyNote": "Kun organisationsmetadata og operationelle mønstre — ingen individuel overvågning eller personscoring.",
+    "refresh": "Opdater",
+    "emptyState": "Ingen elementer i dette afsnit endnu.",
+    "accessDenied": "Business Digital Twin kræver passende arbejdsområdetilladelser.",
+    "sections": {
+      "organizationModel": "Organisationsmodel",
+      "teams": "Teams",
+      "customers": "Kunder",
+      "vendors": "Leverandører",
+      "projects": "Projekter",
+      "systems": "Systemer",
+      "workflows": "Arbejdsgange",
+      "dependencies": "Afhængigheder",
+      "simulations": "Simuleringer"
+    },
+    "entity": { "owner": "Ejer", "dependencies": "Afhængigheder", "criticality": "Kritikalitet" },
+    "processMapping": { "title": "Proceskortlægning", "start": "Start", "actions": "Handlinger", "approvals": "Godkendelser", "outcomes": "Resultater" },
+    "dependencyIntelligence": { "title": "Afhængighedsintelligens", "suggestedAction": "Foreslået handling" },
+    "workflowSimulations": { "title": "Arbejdsgangssimulering", "impact": "Estimeret påvirkning" },
+    "capacityIntelligence": { "title": "Kapacitetsintelligens", "workload": "Arbejdsbyrde", "availableResources": "Tilgængelige ressourcer", "bottleneck": "Flaskehals", "daysToCapacity": "Dage til kapacitet" },
+    "operationalImpacts": { "title": "Operationel påvirkningsanalyse", "impact": "Påvirkning", "risk": "Risiko", "affectedTeams": "Berørte teams", "affectedSystems": "Berørte systemer" },
+    "scenarioPlanning": { "title": "Scenarieplanlægning", "best": "Bedste tilfælde", "expected": "Forventet tilfælde", "worst": "Værste tilfælde", "expectedRevenue": "Forventet omsætning", "expectedSupportLoad": "Forventet supportbelastning", "expectedStaffing": "Forventet bemanding" },
+    "executiveDashboard": { "title": "Executive Twin Dashboard", "organizationOverview": "Organisationsoversigt", "operationalHealth": "Operationelt helbred", "dependencies": "Aktive afhængigheder", "simulations": "Simuleringer", "strategicRisks": "Strategiske risici" },
+    "companionInsights": { "title": "Companion-indsigter", "reason": "Hvorfor Aipify anbefaler dette" },
+    "actions": { "acknowledge": "Bekræft", "dismiss": "Afvis", "resolve": "Løs" },
+    "status": { "completed": "Fuldført", "notAllowed": "Ikke tilladt", "requiresAttention": "Kræver opmærksomhed", "information": "Information", "restricted": "Begrænset adgang", "verified": "Verificeret", "waiting": "Venter" },
+    "links": { "legacyTwin": "Legacy Digital Twin Engine", "executiveTwin": "Executive Organizational Digital Twin" }
+  },
   "trustReputationEngine": {
     "title": "Tillid og omdømme",
     "subtitle": "Organisatoriske tillidsprofiler og metadata-baserede omdømmesignaler — fortjent tillid med menneskelig gennemgang af udvidelser.",

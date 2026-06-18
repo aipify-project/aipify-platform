@@ -1813,7 +1813,7 @@ export const APP_NAV: AppNavItem[] = [
   },
   { id: "appEcosystem", href: "/app/apps", labelKey: "navigation.nav.appEcosystem" },
   { id: "trustEngine", href: "/app/trust", labelKey: "navigation.nav.trustEngine" },
-  { id: "digitalTwin", href: "/app/digital-twin", labelKey: "navigation.nav.digitalTwin" },
+  { id: "digitalTwin", href: "/app/intelligence/digital-twin", labelKey: "navigation.nav.digitalTwin" },
   { id: "simulationLab", href: "/app/simulations", labelKey: "navigation.nav.simulationLab" },
   { id: "operationsCenter", href: "/app/operations", labelKey: "navigation.nav.operationsCenter" },
   { id: "continuityEngine", href: "/app/continuity", labelKey: "navigation.nav.continuityEngine" },
@@ -2119,6 +2119,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/relationship-intelligence-engine")) return "relationshipIntelligenceEngine";
   if (pathname.startsWith("/app/intelligence/decisions")) return "decisionIntelligenceEngine";
   if (pathname.startsWith("/app/intelligence/health")) return "organizationalHealthEngine";
+  if (pathname.startsWith("/app/intelligence/digital-twin")) return "digitalTwin";
   if (pathname.startsWith("/app/trust-reputation-engine")) {
     return "trustReputationEngine";
   }
