@@ -81,6 +81,7 @@ export type AppNavId =
   | "organizationalConsciousnessEngine"
   | "industryIntelligenceEngine"
   | "economicIntelligenceEngine"
+  | "marketIntelligenceEngine"
   | "collectiveDecisionCouncilEngine"
   | "organizationalWisdomEngine"
   | "operationsCenterFoundationEngine"
@@ -716,6 +717,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "economicIntelligenceEngine",
     href: "/app/intelligence/economy",
     labelKey: "navigation.nav.economicIntelligenceEngine",
+  },
+  {
+    id: "marketIntelligenceEngine",
+    href: "/app/intelligence/market",
+    labelKey: "navigation.nav.marketIntelligenceEngine",
   },
   {
     id: "collectiveDecisionCouncilEngine",
@@ -2165,6 +2171,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/intelligence/consciousness")) return "organizationalConsciousnessEngine";
   if (pathname.startsWith("/app/intelligence/industry")) return "industryIntelligenceEngine";
   if (pathname.startsWith("/app/intelligence/economy")) return "economicIntelligenceEngine";
+  if (pathname.startsWith("/app/intelligence/market")) return "marketIntelligenceEngine";
   if (pathname.startsWith("/app/intelligence/decisions")) return "decisionIntelligenceEngine";
   if (pathname.startsWith("/app/intelligence/health")) return "organizationalHealthEngine";
   if (pathname.startsWith("/app/intelligence/digital-twin")) return "digitalTwin";

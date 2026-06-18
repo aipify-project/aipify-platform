@@ -5370,6 +5370,71 @@
       "executiveBoard": "Executive Board"
     }
   },
+  "marketIntelligenceCenter": {
+    "title": "Markedsintelligens",
+    "subtitle": "Identificer løbende markedsmuligheder, fremvoksende efterspørgsel, kundeadfærdsændringer, underserved segmenter og ekspansionsmuligheder.",
+    "philosophy": "Markedet ændrer sig hver dag. Organisationer, der genkender muligheder tidligt, opnår betydelig konkurrencefordel — Aipify hjælper dig med at se muligheder før konkurrenterne.",
+    "governanceNote": "Al markedsintelligens inkluderer kilde, dato, tillidsscore, estimeret konsekvens og revisionshistorik. Menneskekontrolleret — ingen autonom strategisk myndighed.",
+    "privacyNote": "Kun markedsintelligens-metadata og aggregatesignaler — ingen rå kundedata eller ugodkendt PII.",
+    "refresh": "Opdater",
+    "emptyState": "Ingen markedsintelligenselementer i dette afsnit endnu.",
+    "accessDenied": "Markedsintelligens kræver passende arbejdsområdetilladelser.",
+    "source": "Kilde",
+    "date": "Dato",
+    "confidence": "Tillid",
+    "impact": "Estimeret konsekvens",
+    "evidence": "Evidens",
+    "opportunityScore": "Mulighedsscore",
+    "potentialRevenue": "Potentiel indtægt",
+    "adoptionPotential": "Adoptionspotentiale",
+    "marketSize": "Markedsstørrelse",
+    "competitionLevel": "Konkurrenceniveau",
+    "sections": {
+      "marketOverview": "Markedsoversigt",
+      "customerTrends": "Kundetendenser",
+      "opportunityDetection": "Mulighedsdetektion",
+      "marketGaps": "Markedshuller",
+      "expansionOpportunities": "Ekspansionsmuligheder",
+      "emergingDemand": "Fremvoksende efterspørgsel",
+      "marketForecasts": "Markedsprognoser"
+    },
+    "marketMonitoringEngine": { "title": "Market Monitoring Engine" },
+    "customerBehaviorIntelligence": { "title": "Kundeadfærdsintelligens" },
+    "opportunityDiscoveryEngine": { "title": "Opportunity Discovery Engine" },
+    "marketGapDetection": { "title": "Market Gap Detection" },
+    "geographicExpansionIntelligence": { "title": "Geografisk ekspansionsintelligens" },
+    "revenueOpportunityEngine": { "title": "Revenue Opportunity Engine" },
+    "executiveMarketDashboard": { "title": "Executive Market Dashboard" },
+    "companionAdvisor": { "title": "Companion Market Advisor", "evidence": "Støtteevidens" },
+    "forecastingEngine": { "title": "Prognosemotor" },
+    "governanceControls": {
+      "title": "Styringskontroller",
+      "enabled": "Markedsintelligens aktiveret",
+      "disabled": "Markedsintelligens deaktiveret",
+      "humanControl": "Menneskelig kontrol påkrævet — kun evidensbaseret intelligens"
+    },
+    "actions": {
+      "acknowledge": "Bekræft",
+      "dismiss": "Afvis",
+      "escalate": "Eskaler",
+      "resolve": "Løs"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "links": {
+      "industryIntelligence": "Brancheintelligens",
+      "economicIntelligence": "Økonomisk intelligens",
+      "consciousness": "Organisationsbevidsthed",
+      "strategicIntelligence": "Strategisk intelligens"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillid og omdømme",
     "subtitle": "Organisatoriske tillidsprofiler og metadata-baserede omdømmesignaler — fortjent tillid med menneskelig gennemgang af udvidelser.",

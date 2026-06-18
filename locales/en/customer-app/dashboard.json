@@ -6240,6 +6240,71 @@
       "executiveBoard": "Executive Board"
     }
   },
+  "marketIntelligenceCenter": {
+    "title": "Market Intelligence",
+    "subtitle": "Continuously identify market opportunities, emerging demand, customer behavior changes, underserved segments, and expansion opportunities.",
+    "philosophy": "The market changes every day. Organizations that recognize opportunities early gain a significant competitive advantage — Aipify helps you see opportunities before competitors do.",
+    "governanceNote": "All market intelligence includes source, date, confidence score, estimated impact, and audit history. Human-controlled — no autonomous strategic authority.",
+    "privacyNote": "Market intelligence metadata and aggregate signals only — no raw customer records or unapproved PII.",
+    "refresh": "Refresh",
+    "emptyState": "No market intelligence items in this section yet.",
+    "accessDenied": "Market Intelligence requires appropriate workspace permissions.",
+    "source": "Source",
+    "date": "Date",
+    "confidence": "Confidence",
+    "impact": "Estimated impact",
+    "evidence": "Evidence",
+    "opportunityScore": "Opportunity score",
+    "potentialRevenue": "Potential revenue",
+    "adoptionPotential": "Adoption potential",
+    "marketSize": "Market size",
+    "competitionLevel": "Competition level",
+    "sections": {
+      "marketOverview": "Market Overview",
+      "customerTrends": "Customer Trends",
+      "opportunityDetection": "Opportunity Detection",
+      "marketGaps": "Market Gaps",
+      "expansionOpportunities": "Expansion Opportunities",
+      "emergingDemand": "Emerging Demand",
+      "marketForecasts": "Market Forecasts"
+    },
+    "marketMonitoringEngine": { "title": "Market Monitoring Engine" },
+    "customerBehaviorIntelligence": { "title": "Customer Behavior Intelligence" },
+    "opportunityDiscoveryEngine": { "title": "Opportunity Discovery Engine" },
+    "marketGapDetection": { "title": "Market Gap Detection" },
+    "geographicExpansionIntelligence": { "title": "Geographic Expansion Intelligence" },
+    "revenueOpportunityEngine": { "title": "Revenue Opportunity Engine" },
+    "executiveMarketDashboard": { "title": "Executive Market Dashboard" },
+    "companionAdvisor": { "title": "Companion Market Advisor", "evidence": "Supporting evidence" },
+    "forecastingEngine": { "title": "Forecasting Engine" },
+    "governanceControls": {
+      "title": "Governance Controls",
+      "enabled": "Market Intelligence enabled",
+      "disabled": "Market Intelligence disabled",
+      "humanControl": "Human control required — evidence-based intelligence only"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "escalate": "Escalate",
+      "resolve": "Resolve"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "industryIntelligence": "Industry Intelligence",
+      "economicIntelligence": "Economic Intelligence",
+      "consciousness": "Organizational Consciousness",
+      "strategicIntelligence": "Strategic Intelligence"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",

@@ -5422,6 +5422,71 @@
       "executiveBoard": "Executive Board"
     }
   },
+  "marketIntelligenceCenter": {
+    "title": "Marknadsintelligens",
+    "subtitle": "Identifiera kontinuerligt marknadsmöjligheter, framväxande efterfrågan, kundbeteendeförändringar, underserved segment och expansionstillfällen.",
+    "philosophy": "Marknaden förändras varje dag. Organisationer som känner igen möjligheter tidigt får betydande konkurrensfördel — Aipify hjälper dig att se möjligheter före konkurrenterna.",
+    "governanceNote": "All marknadsintelligens inkluderar källa, datum, tillförlitlighetspoäng, uppskattad konsekvens och revisionshistorik. Människokontrollerad — ingen autonom strategisk auktoritet.",
+    "privacyNote": "Endast marknadsintelligens-metadata och aggregatesignaler — inga rå kundposter eller ogodkänd PII.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga marknadsintelligensobjekt i detta avsnitt ännu.",
+    "accessDenied": "Marknadsintelligens kräver lämpliga arbetsytetillstånd.",
+    "source": "Källa",
+    "date": "Datum",
+    "confidence": "Tillförlitlighet",
+    "impact": "Uppskattad konsekvens",
+    "evidence": "Evidens",
+    "opportunityScore": "Möjlighetspoäng",
+    "potentialRevenue": "Potentiell intäkt",
+    "adoptionPotential": "Adoptionspotential",
+    "marketSize": "Marknadsstorlek",
+    "competitionLevel": "Konkurrensnivå",
+    "sections": {
+      "marketOverview": "Marknadsöversikt",
+      "customerTrends": "Kundtrender",
+      "opportunityDetection": "Möjlighetsdetektering",
+      "marketGaps": "Marknadsgap",
+      "expansionOpportunities": "Expansionstillfällen",
+      "emergingDemand": "Framväxande efterfrågan",
+      "marketForecasts": "Marknadsprognoser"
+    },
+    "marketMonitoringEngine": { "title": "Market Monitoring Engine" },
+    "customerBehaviorIntelligence": { "title": "Kundbeteendeintelligens" },
+    "opportunityDiscoveryEngine": { "title": "Opportunity Discovery Engine" },
+    "marketGapDetection": { "title": "Market Gap Detection" },
+    "geographicExpansionIntelligence": { "title": "Geografisk expansionsintelligens" },
+    "revenueOpportunityEngine": { "title": "Revenue Opportunity Engine" },
+    "executiveMarketDashboard": { "title": "Executive Market Dashboard" },
+    "companionAdvisor": { "title": "Companion Market Advisor", "evidence": "Stödjande evidens" },
+    "forecastingEngine": { "title": "Prognosmotor" },
+    "governanceControls": {
+      "title": "Styrningskontroller",
+      "enabled": "Marknadsintelligens aktiverad",
+      "disabled": "Marknadsintelligens inaktiverad",
+      "humanControl": "Mänsklig kontroll krävs — endast evidensbaserad intelligens"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "escalate": "Eskalera",
+      "resolve": "Lös"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "industryIntelligence": "Branschintelligens",
+      "economicIntelligence": "Ekonomisk intelligens",
+      "consciousness": "Organisationsmedvetenhet",
+      "strategicIntelligence": "Strategisk intelligens"
+    }
+  },
   "trustReputationEngine": {
     "title": "Förtroende och rykte",
     "subtitle": "Organisatoriska förtroendeprofiler och metadata-baserade ryktessignaler — förtjänat förtroende med mänsklig granskning av expansion.",
