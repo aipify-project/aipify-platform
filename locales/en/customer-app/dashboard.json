@@ -5634,6 +5634,76 @@
       "actionCenter": "Autonomous Action Center"
     }
   },
+  "businessOsEcosystemMarketplaceCenter": {
+    "title": "ABOS Ecosystem Marketplace",
+    "subtitle": "The platform where customers, Growth Partners, developers, consultants, and Business Pack creators build, distribute, sell, and manage solutions.",
+    "philosophy": "The most successful platforms become ecosystems. Aipify evolves from a product into a platform where businesses build, operate, and grow.",
+    "governanceNote": "All ecosystem assets require review, approval, version control, audit logging, and security validation.",
+    "privacyNote": "Ecosystem metadata and aggregate metrics only — no partner PII or customer business records in marketplace listings.",
+    "refresh": "Refresh",
+    "emptyState": "No ecosystem items in this section yet.",
+    "accessDenied": "ABOS Ecosystem Marketplace requires appropriate workspace permissions.",
+    "vendor": "Vendor",
+    "rating": "Rating",
+    "downloads": "Downloads",
+    "version": "Version",
+    "price": "Price",
+    "category": "Category",
+    "holders": "Certified holders",
+    "amount": "Amount",
+    "period": "Period",
+    "tier": "Partner tier",
+    "leads": "Leads",
+    "revenue": "Revenue",
+    "commission": "Commission",
+    "performance": "Performance",
+    "regions": "Regions",
+    "sections": {
+      "marketplace": "Marketplace",
+      "businessPacks": "Business Packs",
+      "skills": "Skills",
+      "integrations": "Integrations",
+      "growthPartners": "Growth Partners",
+      "solutionProviders": "Solution Providers",
+      "certifications": "Certifications",
+      "revenueSharing": "Revenue Sharing"
+    },
+    "businessPackStore": { "title": "Business Pack Store" },
+    "integrationMarketplace": { "title": "Integration Marketplace" },
+    "solutionProviderDirectory": { "title": "Solution Provider Directory" },
+    "certificationFramework": { "title": "Certification Framework" },
+    "revenueSharingEngine": { "title": "Revenue Sharing Engine" },
+    "growthPartnerEcosystem": { "title": "Growth Partner Ecosystem" },
+    "ecosystemAnalytics": { "title": "Ecosystem Analytics" },
+    "companionAdvisor": { "title": "Companion Marketplace Assistant", "reason": "Why Aipify recommends this" },
+    "marketplaceSettings": {
+      "title": "Marketplace Controls",
+      "enabled": "Marketplace enabled",
+      "reviewRequired": "Review and approval required",
+      "revenueSharing": "Revenue sharing enabled"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "approve": "Approve",
+      "escalate": "Escalate"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "ecosystemGovernance": "Ecosystem Governance",
+      "ecosystemIntelligence": "Ecosystem Intelligence",
+      "ecosystemOrchestration": "Ecosystem Orchestration",
+      "skillsMarketplace": "Skills workspace"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",

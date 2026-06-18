@@ -1,0 +1,77 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildBusinessOsEcosystemMarketplaceCenterLabels(t: Translator) {
+  const p = "customerApp.businessOsEcosystemMarketplaceCenter";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    philosophy: t(`${p}.philosophy`),
+    governanceNote: t(`${p}.governanceNote`),
+    privacyNote: t(`${p}.privacyNote`),
+    refresh: t(`${p}.refresh`),
+    emptyState: t(`${p}.emptyState`),
+    accessDenied: t(`${p}.accessDenied`),
+    vendor: t(`${p}.vendor`),
+    rating: t(`${p}.rating`),
+    downloads: t(`${p}.downloads`),
+    version: t(`${p}.version`),
+    price: t(`${p}.price`),
+    category: t(`${p}.category`),
+    holders: t(`${p}.holders`),
+    amount: t(`${p}.amount`),
+    period: t(`${p}.period`),
+    tier: t(`${p}.tier`),
+    leads: t(`${p}.leads`),
+    revenue: t(`${p}.revenue`),
+    commission: t(`${p}.commission`),
+    performance: t(`${p}.performance`),
+    regions: t(`${p}.regions`),
+    sections: {
+      marketplace: t(`${p}.sections.marketplace`),
+      businessPacks: t(`${p}.sections.businessPacks`),
+      skills: t(`${p}.sections.skills`),
+      integrations: t(`${p}.sections.integrations`),
+      growthPartners: t(`${p}.sections.growthPartners`),
+      solutionProviders: t(`${p}.sections.solutionProviders`),
+      certifications: t(`${p}.sections.certifications`),
+      revenueSharing: t(`${p}.sections.revenueSharing`),
+    },
+    businessPackStore: { title: t(`${p}.businessPackStore.title`) },
+    integrationMarketplace: { title: t(`${p}.integrationMarketplace.title`) },
+    solutionProviderDirectory: { title: t(`${p}.solutionProviderDirectory.title`) },
+    certificationFramework: { title: t(`${p}.certificationFramework.title`) },
+    revenueSharingEngine: { title: t(`${p}.revenueSharingEngine.title`) },
+    growthPartnerEcosystem: { title: t(`${p}.growthPartnerEcosystem.title`) },
+    ecosystemAnalytics: { title: t(`${p}.ecosystemAnalytics.title`) },
+    companionAdvisor: { title: t(`${p}.companionAdvisor.title`), reason: t(`${p}.companionAdvisor.reason`) },
+    marketplaceSettings: {
+      title: t(`${p}.marketplaceSettings.title`),
+      enabled: t(`${p}.marketplaceSettings.enabled`),
+      reviewRequired: t(`${p}.marketplaceSettings.reviewRequired`),
+      revenueSharing: t(`${p}.marketplaceSettings.revenueSharing`),
+    },
+    actions: {
+      acknowledge: t(`${p}.actions.acknowledge`),
+      dismiss: t(`${p}.actions.dismiss`),
+      approve: t(`${p}.actions.approve`),
+      escalate: t(`${p}.actions.escalate`),
+    },
+    status: {
+      completed: t(`${p}.status.completed`),
+      notAllowed: t(`${p}.status.notAllowed`),
+      requiresAttention: t(`${p}.status.requiresAttention`),
+      information: t(`${p}.status.information`),
+      restricted: t(`${p}.status.restricted`),
+      verified: t(`${p}.status.verified`),
+      waiting: t(`${p}.status.waiting`),
+    },
+    links: {
+      ecosystemGovernance: t(`${p}.links.ecosystemGovernance`),
+      ecosystemIntelligence: t(`${p}.links.ecosystemIntelligence`),
+      ecosystemOrchestration: t(`${p}.links.ecosystemOrchestration`),
+      skillsMarketplace: t(`${p}.links.skillsMarketplace`),
+    },
+  };
+}
+
+export type BusinessOsEcosystemMarketplaceCenterLabels = ReturnType<typeof buildBusinessOsEcosystemMarketplaceCenterLabels>;
