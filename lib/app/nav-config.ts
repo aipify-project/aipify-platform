@@ -59,6 +59,7 @@ export type AppNavId =
   | "enterpriseTrustReputationConfidenceEngine"
   | "enterpriseInnovationRdFutureEngine"
   | "enterpriseEcosystemPartnerNetworkEngine"
+  | "globalBusinessNetworkEngine"
   | "enterpriseValueRealizationRoiEngine"
   | "autonomousEnterpriseOperationsEngine"
   | "statusTransparencyEngine"
@@ -613,6 +614,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "enterpriseEcosystemPartnerNetworkEngine",
     href: "/app/ecosystem",
     labelKey: "navigation.nav.enterpriseEcosystemPartnerNetworkEngine",
+  },
+  {
+    id: "globalBusinessNetworkEngine",
+    href: "/app/network",
+    labelKey: "navigation.nav.globalBusinessNetworkEngine",
   },
   {
     id: "enterpriseValueRealizationRoiEngine",
@@ -2229,6 +2235,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname === "/app/ecosystem" || pathname.startsWith("/app/ecosystem/")) {
     return "enterpriseEcosystemPartnerNetworkEngine";
+  }
+  if (pathname === "/app/network" || pathname.startsWith("/app/network/")) {
+    return "globalBusinessNetworkEngine";
   }
   if (pathname === "/app/value" || pathname.startsWith("/app/value/")) {
     return "enterpriseValueRealizationRoiEngine";

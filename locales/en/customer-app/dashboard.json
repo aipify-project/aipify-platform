@@ -5704,6 +5704,79 @@
       "skillsMarketplace": "Skills workspace"
     }
   },
+  "globalBusinessNetworkCenter": {
+    "title": "Global Business Network",
+    "subtitle": "Discover, collaborate, trade, and grow through a trusted global network of verified organizations, partners, vendors, and Growth Partners.",
+    "philosophy": "Most businesses operate in isolation. Aipify helps organizations find opportunities, partnerships, expertise, customers, suppliers, and growth through a trusted global network.",
+    "governanceNote": "Organizations control visibility, public profile, connection requests, and network permissions. All interactions are logged.",
+    "privacyNote": "Network metadata and aggregate signals only — no private messages, payment details, or unapproved PII in network profiles.",
+    "refresh": "Refresh",
+    "emptyState": "No network items in this section yet.",
+    "accessDenied": "Global Business Network requires appropriate workspace permissions.",
+    "industry": "Industry",
+    "country": "Country",
+    "languages": "Languages",
+    "services": "Services",
+    "products": "Products",
+    "businessPacks": "Business Packs",
+    "location": "Location",
+    "confidence": "Confidence",
+    "rating": "Rating",
+    "specialties": "Specialties",
+    "territory": "Territory",
+    "prospects": "Prospects",
+    "team": "Team",
+    "performance": "Performance",
+    "sections": {
+      "organizations": "Organizations",
+      "partners": "Partners",
+      "vendors": "Vendors",
+      "serviceProviders": "Service Providers",
+      "growthPartners": "Growth Partners",
+      "opportunities": "Opportunities",
+      "introductions": "Introductions",
+      "collaboration": "Collaboration"
+    },
+    "organizationProfiles": { "title": "Organization Profiles" },
+    "verificationSystem": { "title": "Verification System" },
+    "opportunityMarketplace": { "title": "Opportunity Marketplace" },
+    "smartMatching": { "title": "Smart Matching" },
+    "trustedVendorDirectory": { "title": "Trusted Vendor Directory" },
+    "growthPartnerNetwork": { "title": "Growth Partner Network" },
+    "collaborationCenter": { "title": "Collaboration Center" },
+    "executiveDashboard": { "title": "Executive Network Dashboard" },
+    "companionAdvisor": { "title": "Companion Network Advisor", "reason": "Why Aipify recommends this" },
+    "networkSettings": {
+      "title": "Network Controls",
+      "enabled": "Global network enabled",
+      "publicProfile": "Public profile enabled",
+      "connections": "Connection requests enabled"
+    },
+    "verification": {
+      "verified": "Verified Organization",
+      "pending": "Verification Pending",
+      "failed": "Verification Failed"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "connect": "Connect",
+      "escalate": "Escalate"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "ecosystem": "Ecosystem Marketplace",
+      "growthPartners": "Growth Partner Operations"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",
