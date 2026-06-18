@@ -160,7 +160,8 @@
     "paymentHealth": "Betalingshelse",
     "paymentAnalytics": "Betalingsanalyse",
     "subscriptionOperations": "Abonnementsdrift",
-    "revenueOperations": "Revenue Operations"
+    "revenueOperations": "Revenue Operations",
+    "moduleRegistry": "Module Registry"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -4810,5 +4811,18 @@
       "businessPacks": "Business Packs",
       "other": "Annet"
     }
+  },
+  "moduleRegistry": {
+    "title": "Module Registry",
+    "subtitle": "Sell Business Packs, activate modules for customer APPs, and track module adoption across the platform.",
+    "privacyNote": "Aggregates only — no customer operational content.",
+    "refresh": "Refresh",
+    "catalog": "Catalog modules",
+    "adoption": "Adoption",
+    "businessPacks": "Business Packs",
+    "organizations": "Organizations with modules",
+    "activations": "Active activations",
+    "packActivations": "Business Pack activations",
+    "back": "Back to Platform"
   }
 }

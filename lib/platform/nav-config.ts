@@ -13,6 +13,8 @@ export type PlatformNavId =
   | "translationManagement"
   | "documentation"
   | "businessPacks"
+  | "moduleRegistry"
+  | "appStoreRevenue"
   | "productManagement"
   | "installationOversight"
   | "activityLogs"
@@ -252,6 +254,8 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
   { id: "translationManagement", href: "/platform/knowledge/translation-management", labelKey: "platform.nav.translationManagement" },
   { id: "documentation", href: "/platform/knowledge/documentation", labelKey: "platform.nav.documentation" },
   { id: "businessPacks", href: "/platform/product/business-packs", labelKey: "platform.nav.businessPacks" },
+  { id: "moduleRegistry", href: "/platform/modules/registry", labelKey: "platform.nav.moduleRegistry" },
+  { id: "appStoreRevenue", href: "/platform/store/revenue", labelKey: "platform.nav.appStoreRevenue" },
   { id: "productManagement", href: "/platform/product/management", labelKey: "platform.nav.productManagement" },
   { id: "installationOversight", href: "/platform/installations", labelKey: "platform.nav.installationOversight" },
   { id: "activityLogs", href: "/platform/governance/activity-logs", labelKey: "platform.nav.activityLogs" },
@@ -491,6 +495,8 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/knowledge/evolution-center")) return "knowledgeCenter";
   if (pathname.startsWith("/platform/knowledge")) return "knowledgeCenter";
   if (pathname.startsWith("/platform/product/business-packs")) return "businessPacks";
+  if (pathname.startsWith("/platform/modules/registry")) return "moduleRegistry";
+  if (pathname.startsWith("/platform/store/revenue")) return "appStoreRevenue";
   if (pathname.startsWith("/platform/product/management")) return "productManagement";
   if (pathname.startsWith("/platform/product")) return "productManagement";
   if (pathname.startsWith("/platform/installations")) return "installationOversight";

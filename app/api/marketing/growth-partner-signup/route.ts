@@ -33,7 +33,8 @@ export async function POST(request: Request) {
       email,
       registered_business_confirmed: body.registered_business_confirmed === true,
       certification_understood: body.certification_understood === true,
-      independent_partner_confirmed: body.independent_partner_confirmed === true,
+      info_accurate_confirmed: body.info_accurate_confirmed === true,
+      terms_accepted: body.terms_accepted === true,
     };
 
     const { data, error } = await supabase.rpc("complete_growth_partner_public_signup", {

@@ -9,7 +9,7 @@ Before implementing ANY new feature, Cursor MUST determine which architectural l
 
 No implementation may proceed until ownership has been explicitly identified.
 
-See also [ARCHITECTURE.md](../../ARCHITECTURE.md) for repo path mapping (`/platform`, `/app`, `/api/install`).
+See also [ARCHITECTURE.md](../../ARCHITECTURE.md) for repo path mapping (`/platform`, `/app`, `/api/install`) and [AIPIFY_MASTER_STRUCTURE_BLUEPRINT.md](../../AIPIFY_MASTER_STRUCTURE_BLUEPRINT.md) (Phase 500 — canonical five-layer model).
 
 ## LAYER 1 — PLATFORM ADMIN
 

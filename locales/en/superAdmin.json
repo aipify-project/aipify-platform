@@ -352,6 +352,27 @@
       "newValue": "New value",
       "empty": "No audit records yet."
     },
+    "moduleRegistry": {
+      "title": "Module Registry Engine",
+      "subtitle": "Central catalog for all Aipify modules — core, Business Pack, navigation, permissions, and global availability.",
+      "principle": "PLATFORM sells modules · APP buys modules · APP grants access · EMPLOYEES use modules",
+      "privacyNote": "Super Admin governs the global catalog — not customer operational data.",
+      "refresh": "Refresh",
+      "modules": "Modules",
+      "audit": "Recent audit",
+      "disable": "Disable",
+      "enable": "Enable",
+      "category": "Category",
+      "businessPack": "Business Pack",
+      "permissions": "Permissions",
+      "back": "Back to SUPER",
+      "stats": {
+        "total": "Total modules",
+        "active": "Active",
+        "core": "Core modules",
+        "pack": "Pack modules"
+      }
+    },
     "executiveInsights": {
       "title": "Executive Insights",
       "subtitle": "Strategic metrics for organization growth, subscriptions, revenue, adoption, and global activity.",
@@ -408,6 +429,8 @@
     "languageAdministrationDescription": "Enable languages, review completeness, and monitor missing translation keys.",
     "globalAuditCenter": "Global Audit Center",
     "globalAuditCenterDescription": "Governance, security, and executive configuration audit visibility.",
+    "moduleRegistry": "Module Registry",
+    "moduleRegistryDescription": "Global module catalog — create, disable, assign Business Packs, audit usage.",
     "partnerCommunications": "Partner Communications",
     "partnerCommunicationsDescription": "Templates, recognition emails, settlement notices, compliance reminders, and email logs for Growth Partners.",
     "groupOverview": "Group Overview",

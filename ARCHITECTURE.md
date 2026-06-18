@@ -14,6 +14,38 @@ Aipify is split into **three layers**. Before adding a feature, decide which lay
 
 **Do not mix layers.**
 
+## Master Structure Blueprint (Phase 500 — canonical)
+
+**Permanent architecture lock:** [AIPIFY_MASTER_STRUCTURE_BLUEPRINT.md](./AIPIFY_MASTER_STRUCTURE_BLUEPRINT.md) · Phase doc [AIPIFY_PHASE500_MASTER_STRUCTURE_BLUEPRINT.md](./AIPIFY_PHASE500_MASTER_STRUCTURE_BLUEPRINT.md) · Code `lib/core/master-structure/` · Cursor rule `.cursor/rules/master-structure-blueprint.mdc`.
+
+When this section conflicts with older placement notes below, **Phase 500 wins**.
+
+```
+SUPER ADMIN (ownership)
+    ↓
+PLATFORM (operations — sells, owns customers)
+    ├── APP (customer organization workspace)
+    └── PARTNERS (Growth Partners — sibling to APP)
+         ↓
+    EMPLOYEES (inside APP — inherit access)
+```
+
+| Layer | Route | Purpose |
+|-------|-------|---------|
+| **Super Admin** | `/super/*` | Aipify Group AS global governance — customers and partners never access |
+| **Platform** | `/platform/*` | Operate Aipify business: customers, billing, catalog, governance |
+| **APP** | `/app/*` | Customer organization workspace — purchases packs, grants access |
+| **Employees** | `/app/*` (scoped) | Perform work; inherit APP license; never own subscriptions |
+| **Partners** | `/partners/*` | Leads, marketing, commissions — attribution only; customers belong to Platform |
+
+**Principle:** PLATFORM sells · APP operates · EMPLOYEES use · PARTNERS sell.
+
+**Business Packs:** Platform catalog → APP purchase → APP activation → APP role grants → Employee use.
+
+**License:** APP status drives employee access (active/trial → active; suspended → suspended; cancelled → disabled).
+
+**Embedded (APP-owned):** `/api/install/*`, `/api/embed/*` — Install Engine; not a separate customer-facing portal.
+
 ## Portal architecture (approved)
 
 Aipify is separated into **three portals** so customer operations, platform administration, and Super Admin control never mix.

@@ -1624,5 +1624,29 @@
     },
     "privacyNote": "Privacy",
     "settingsLink": "Trust & Transparency"
+  },
+  "moduleRegistry": {
+    "title": "Module Access Control",
+    "subtitle": "Decide which employees can see, use, and manage each module. One APP — no separate module portals.",
+    "principle": "APP owns the license. Employees inherit access. Business Pack modules appear when licensed.",
+    "privacyNote": "You control employee module access within your organization only.",
+    "refresh": "Refresh",
+    "accessDenied": "Module access control requires owner or administrator role.",
+    "appSuspended": "APP license is not active — employee module access is suspended until billing is restored.",
+    "singleAppRule": "All employees log into the same APP. New packages add functions — never separate logins.",
+    "modules": "Module",
+    "roleAccess": "Role access",
+    "canView": "View",
+    "canUse": "Use",
+    "canManage": "Manage",
+    "save": "Save",
+    "saved": "Access updated",
+    "coreModules": "Core modules",
+    "packModules": "Business Pack modules",
+    "navigationLocation": "Navigation",
+    "businessPack": "Business Pack",
+    "licensed": "Licensed",
+    "hidden": "Hidden",
+    "back": "Back to Settings"
   }
 }

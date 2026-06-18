@@ -148,7 +148,13 @@ function parseMarketingCenter(raw: unknown): MarketingAttributionCenter {
   };
 }
 
-export function GrowthPartnerAutoMarketingPanel({ labels }: { labels: GrowthPartnerAutoMarketingLabels }) {
+export function GrowthPartnerAutoMarketingPanel({
+  labels,
+  focus = "all",
+}: {
+  labels: GrowthPartnerAutoMarketingLabels;
+  focus?: "all" | "campaigns" | "templates";
+}) {
   const [center, setCenter] = useState<MarketingAttributionCenter | null>(null);
   const [loading, setLoading] = useState(true);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
@@ -211,7 +217,7 @@ export function GrowthPartnerAutoMarketingPanel({ labels }: { labels: GrowthPart
         labels={labels.partnerLinkCard}
       />
 
-      {center.campaignLinks.length > 0 ? (
+      {center.campaignLinks.length > 0 && focus !== "templates" ? (
         <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
           <h3 className="font-semibold text-zinc-900">{labels.campaignLinks}</h3>
           <ul className="mt-4 space-y-3">
@@ -232,7 +238,7 @@ export function GrowthPartnerAutoMarketingPanel({ labels }: { labels: GrowthPart
         </section>
       ) : null}
 
-      {center.marketingTemplates.length > 0 ? (
+      {center.marketingTemplates.length > 0 && focus !== "campaigns" ? (
         <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
           <h3 className="font-semibold text-zinc-900">{labels.templates}</h3>
           <ul className="mt-4 space-y-4">

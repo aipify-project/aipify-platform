@@ -353,6 +353,8 @@ export type AppNavId =
   | "skills"
   | "companionActionMarketplaceEngine"
   | "marketplace"
+  | "appStore"
+  | "appLicenses"
   | "industryBlueprints"
   | "globalLearning"
   | "evolution"
@@ -1869,6 +1871,8 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "navigation.nav.companionActionMarketplaceEngine",
   },
   { id: "marketplace", href: "/app/marketplace", labelKey: "navigation.nav.marketplace" },
+  { id: "appStore", href: "/app/store", labelKey: "navigation.nav.appStore" },
+  { id: "appLicenses", href: "/app/licenses", labelKey: "navigation.nav.appLicenses" },
   { id: "companionMarketplaceEngine", href: "/app/companion-marketplace", labelKey: "navigation.nav.companionMarketplaceEngine" },
   { id: "industryBlueprints", href: "/app/industry-blueprints", labelKey: "navigation.nav.industryBlueprints" },
   { id: "globalLearning", href: "/app/global-learning", labelKey: "navigation.nav.globalLearning" },
@@ -2802,6 +2806,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/learning")) return "learning";
   if (pathname.startsWith("/app/skills")) return "skills";
   if (pathname.startsWith("/app/companion-marketplace")) return "companionMarketplaceEngine";
+  if (pathname.startsWith("/app/store")) return "appStore";
+  if (pathname.startsWith("/app/licenses")) return "appLicenses";
   if (pathname.startsWith("/app/marketplace/packs/")) return "marketplace";
   if (pathname.startsWith("/app/marketplace/companion-actions")) return "companionActionMarketplaceEngine";
   if (pathname.startsWith("/app/marketplace")) return "marketplace";

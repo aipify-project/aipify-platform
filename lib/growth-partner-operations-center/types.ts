@@ -7,10 +7,14 @@ export type GrowthPartnerOpsSection =
   | "customers"
   | "commissions"
   | "payouts"
+  | "marketing"
+  | "campaigns"
   | "resources"
   | "training"
   | "certifications"
   | "performance"
+  | "coreValues"
+  | "terms"
   | "support";
 
 export type DashboardMetric = {

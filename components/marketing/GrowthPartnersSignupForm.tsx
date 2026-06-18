@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { FormEvent, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -27,7 +28,9 @@ export type GrowthPartnersSignupLabels = {
   email: string;
   checkboxRegisteredBusiness: string;
   checkboxCertification: string;
-  checkboxIndependent: string;
+  checkboxInfoAccurate: string;
+  checkboxTerms: string;
+  termsLinkLabel: string;
   submit: string;
   submitting: string;
   errorGeneric: string;
@@ -44,7 +47,7 @@ const inputClass =
   "mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-2 focus:ring-cyan-500/20";
 const labelClass = "block text-sm font-medium text-slate-300";
 
-export default function GrowthPartnersSignupForm({ labels, id = "signup" }: Props) {
+export default function GrowthPartnersSignupForm({ labels, id = "signup-form" }: Props) {
   const router = useRouter();
   const [country, setCountry] = useState("NO");
   const [phoneDial, setPhoneDial] = useState("+47");
@@ -86,7 +89,8 @@ export default function GrowthPartnersSignupForm({ labels, id = "signup" }: Prop
       email,
       registered_business_confirmed: data.get("registered_business") === "on",
       certification_understood: data.get("certification_understood") === "on",
-      independent_partner_confirmed: data.get("independent_partner") === "on",
+      info_accurate_confirmed: data.get("info_accurate") === "on",
+      terms_accepted: data.get("terms_accepted") === "on",
     };
 
     try {
@@ -119,7 +123,7 @@ export default function GrowthPartnersSignupForm({ labels, id = "signup" }: Prop
 
   return (
     <form id={id} onSubmit={handleSubmit} className="space-y-5 rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
-      <h2 className="text-xl font-semibold text-white">{labels.title}</h2>
+      <h2 className="sr-only">{labels.title}</h2>
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="sm:col-span-2">
@@ -183,8 +187,17 @@ export default function GrowthPartnersSignupForm({ labels, id = "signup" }: Prop
           <span>{labels.checkboxCertification}</span>
         </label>
         <label className="flex gap-3 text-sm text-slate-300">
-          <input name="independent_partner" type="checkbox" required className="mt-1 rounded border-white/20" />
-          <span>{labels.checkboxIndependent}</span>
+          <input name="info_accurate" type="checkbox" required className="mt-1 rounded border-white/20" />
+          <span>{labels.checkboxInfoAccurate}</span>
+        </label>
+        <label className="flex gap-3 text-sm text-slate-300">
+          <input name="terms_accepted" type="checkbox" required className="mt-1 rounded border-white/20" />
+          <span>
+            {labels.checkboxTerms}{" "}
+            <Link href="/growth-partner-terms" className="text-cyan-400 hover:underline" target="_blank">
+              {labels.termsLinkLabel}
+            </Link>
+          </span>
         </label>
       </div>
 

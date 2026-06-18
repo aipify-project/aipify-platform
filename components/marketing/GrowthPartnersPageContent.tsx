@@ -15,19 +15,30 @@ export type GrowthPartnersPageLabels = {
     ctaPrimary: string;
     ctaSecondary: string;
     badgeTime: string;
-    badgeNoCv: string;
-    badgeNoInterview: string;
     badgeIndependent: string;
     badgeCertification: string;
+    badgeProfessional: string;
+  };
+  earlySignup: {
+    title: string;
+    paragraphs: string[];
+    benefits: string[];
   };
   why: { title: string; cards: Card[] };
-  notAJob: { title: string; paragraphs: string[] };
+  independentPartnership: {
+    title: string;
+    intro: string;
+    partnerDecides: string[];
+    aipifyProvidesTitle: string;
+    aipifyProvides: string[];
+  };
   howItWorks: { title: string; steps: Step[] };
   requirements: { title: string; items: string[]; copy: string };
   earnings: { title: string; copy: string; disclaimer: string; tiers: Tier[] };
-  training: { title: string; modules: string[]; statusWaiting: string; statusVerified: string };
+  training: { title: string; modules: string[]; statusWaiting: string; statusVerified: string; certificationNote: string };
   positioning: { lines: string[] };
   signup: GrowthPartnersSignupLabels;
+  footerNote: string;
 };
 
 type Props = { labels: GrowthPartnersPageLabels };
@@ -46,7 +57,7 @@ function BenefitCard({ title, body }: Card) {
 }
 
 export default function GrowthPartnersPageContent({ labels }: Props) {
-  const { hero, why, notAJob, howItWorks, requirements, earnings, training, positioning } = labels;
+  const { hero, earlySignup, why, independentPartnership, howItWorks, requirements, earnings, training, positioning } = labels;
 
   return (
     <div className="relative">
@@ -57,25 +68,25 @@ export default function GrowthPartnersPageContent({ labels }: Props) {
 
       {/* Hero */}
       <section className="relative border-b border-white/10">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-sm font-medium text-violet-200">
               {hero.badgeTime}
             </span>
-            <h1 className="mt-8 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">{hero.headline}</h1>
+            <h1 className="mt-6 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">{hero.headline}</h1>
             <p className="mt-6 text-lg leading-relaxed text-slate-400 sm:text-xl">{hero.subheadline}</p>
             <p className="mt-4 text-sm font-medium text-cyan-300/90">{hero.trustLine}</p>
             <p className="mt-3 text-sm text-slate-500">{hero.supporting}</p>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-              {[hero.badgeNoCv, hero.badgeNoInterview, hero.badgeIndependent, hero.badgeCertification].map((badge) => (
+              {[hero.badgeIndependent, hero.badgeCertification, hero.badgeProfessional].map((badge) => (
                 <span key={badge} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300">
                   {badge}
                 </span>
               ))}
             </div>
 
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
                 href="#signup"
                 className="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500 sm:w-auto"
@@ -88,6 +99,36 @@ export default function GrowthPartnersPageContent({ labels }: Props) {
               >
                 {hero.ctaSecondary}
               </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Early signup — two columns */}
+      <section id="signup" className="relative border-b border-white/10 bg-gradient-to-b from-violet-950/20 to-transparent py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-12">
+            <div>
+              <SectionTitle>{earlySignup.title}</SectionTitle>
+              <div className="mt-6 space-y-4 text-sm leading-relaxed text-slate-400 sm:text-base">
+                {earlySignup.paragraphs.map((p) => (
+                  <p key={p}>{p}</p>
+                ))}
+              </div>
+              <ul className="mt-8 space-y-3">
+                {earlySignup.benefits.map((benefit) => (
+                  <li key={benefit} className="flex gap-3 text-sm text-slate-300">
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" aria-hidden="true" />
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <GrowthPartnersSignupForm labels={labels.signup} />
+              <p className="mt-4 text-center text-xs text-slate-500">
+                <Link href="/login" className="text-cyan-400 hover:underline">Already registered?</Link>
+              </p>
             </div>
           </div>
         </div>
@@ -114,15 +155,25 @@ export default function GrowthPartnersPageContent({ labels }: Props) {
         </div>
       </section>
 
-      {/* Not a job */}
+      {/* Independent business partnership */}
       <section className="border-y border-white/10 bg-violet-950/20 py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <SectionTitle>{notAJob.title}</SectionTitle>
-          <ul className="mt-8 space-y-4 text-slate-300">
-            {notAJob.paragraphs.map((p) => (
-              <li key={p} className="flex gap-3 text-sm leading-relaxed sm:text-base">
+          <SectionTitle>{independentPartnership.title}</SectionTitle>
+          <p className="mt-6 text-sm leading-relaxed text-slate-300 sm:text-base">{independentPartnership.intro}</p>
+          <ul className="mt-6 space-y-3">
+            {independentPartnership.partnerDecides.map((p) => (
+              <li key={p} className="flex gap-3 text-sm leading-relaxed text-slate-300 sm:text-base">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-400" aria-hidden="true" />
                 {p}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-8 text-sm font-semibold text-white">{independentPartnership.aipifyProvidesTitle}</p>
+          <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+            {independentPartnership.aipifyProvides.map((item) => (
+              <li key={item} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-slate-300">
+                <span className="text-cyan-400" aria-hidden="true">•</span>
+                {item}
               </li>
             ))}
           </ul>
@@ -202,17 +253,20 @@ export default function GrowthPartnersPageContent({ labels }: Props) {
                 <span aria-hidden="true">🛡️ </span>
                 {training.statusVerified}
               </div>
+              <p className="text-xs leading-relaxed text-slate-500">{training.certificationNote}</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Signup */}
-      <section id="signup" className="relative py-16 sm:py-24">
-        <div className="mx-auto max-w-xl px-4 sm:px-6 lg:px-8">
-          <GrowthPartnersSignupForm labels={labels.signup} />
-          <p className="mt-6 text-center text-xs text-slate-500">
-            <Link href="/login" className="text-cyan-400 hover:underline">Already registered?</Link>
+      {/* Footer note + terms */}
+      <section className="relative py-12">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
+          <p className="text-sm text-slate-500">{labels.footerNote}</p>
+          <p className="mt-4">
+            <Link href="/growth-partner-terms" className="text-sm font-medium text-cyan-400 hover:underline">
+              Growth Partner Terms &amp; Conditions
+            </Link>
           </p>
         </div>
       </section>

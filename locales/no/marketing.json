@@ -66,7 +66,8 @@
     "growthPartners": "Growth Partners",
     "copyright": "Aipify Group AS. All rights reserved.",
     "privacyNote": "Aipify does not monitor employees or conduct workplace surveillance.",
-    "bookDemo": "Book Demo"
+    "bookDemo": "Book Demo",
+    "growthPartnerTerms": "Growth Partner-vilkår"
   },
   "hero": {
     "badge": "Aipify Business Operating System",
@@ -443,122 +444,145 @@
   },
   "growthPartners": {
     "meta": {
-      "title": "Growth Partners — Start din Aipify-virksomhet",
-      "description": "Registrer deg som uavhengig Growth Partner. Selg Aipify-produkter, bygg kundeportefølje og tjen tilbakevendende provisjon."
+      "title": "Growth Partners — Representer Aipify profesjonelt",
+      "description": "Registrer deg som uavhengig Growth Partner. Bygg kundeportefølje rundt Aipify-produkter og tjen tilbakevendende provisjon."
     },
     "hero": {
-      "headline": "Start din Aipify-virksomhet i dag.",
-      "subheadline": "Selg et world-class Business Operating System, bygg din egen kundeportefølje og tjen tilbakevendende provisjon.",
-      "trustLine": "Registrering tar under 3 minutter.",
-      "supporting": "Ingen jobbsøknad. Ingen CV. Inget intervju. Ingen ventetid. Med registrert virksomhet og Aipify Growth Partner-sertifisering kan du begynne å selge.",
-      "ctaPrimary": "Start på under 3 minutter",
-      "ctaSecondary": "Se hvordan det fungerer",
-      "badgeTime": "Under 3 minutter",
-      "badgeNoCv": "Ingen CV",
-      "badgeNoInterview": "Ingen intervju",
-      "badgeIndependent": "Uavhengig virksomhet",
-      "badgeCertification": "Sertifisering kreves"
+      "headline": "Bygg virksomheten din som Aipify Growth Partner.",
+      "subheadline": "Representer et world-class Business Operating System, bygg egen kundeportefølje og tjen tilbakevendende provisjon.",
+      "trustLine": "Registration takes less than 3 minutes.",
+      "supporting": "Bygget for uavhengige Growth Partners med registrert virksomhet. Fullfør Aipify-opplæring og sertifisering før aktive salgsrettigheter.",
+      "ctaPrimary": "Start in under 3 minutes",
+      "ctaSecondary": "See how it works",
+      "badgeTime": "Under 3 minutes",
+      "badgeIndependent": "Independent business",
+      "badgeCertification": "Certification required",
+      "badgeProfessional": "Profesjonelt partnerskap"
+    },
+    "earlySignup": {
+      "title": "Start på under 3 minutter",
+      "paragraphs": [
+        "Bli Aipify Growth Partner og bygg egen kundeportefølje.",
+        "Aipify leverer plattform, opplæring, sertifisering, markedsføringsressurser, provisjonssporing og utbetalingssystem.",
+        "Du kan jobbe hvor som helst, i ditt tempo, mens du representerer Aipify profesjonelt."
+      ],
+      "benefits": [
+        "Tilbakevendende provisjon på kvalifiserte kunder",
+        "Enterprise-produkt å representere",
+        "Opplæring og sertifisering før salg",
+        "Personlig partnerlenke og QR-kode ved registrering",
+        "Markedsføringsmateriell med din lenke innebygd"
+      ]
     },
     "positioning": {
       "lines": [
-        "Ikke et affiliate-program. Ikke en tradisjonell salgsjobb. Growth Partners bygger ekte virksomheter rundt Aipify.",
-        "Du skaffer kunder. Aipify leverer plattform, opplæring, sertifisering, partnerdashboard og provisjonssporing.",
-        "Start enkelt. Voks over tid. Begynn med én kunde og bygg porteføljen etter hvert som tilliten vokser."
+        "Bygget for uavhengige Growth Partners.",
+        "Aipify Growth Partners bygger kundeporteføljer rundt Aipify-produkter og -tjenester.",
+        "Du fokuserer på kunder. Aipify håndterer plattform, abonnement, support, infrastruktur og produktutvikling."
       ]
     },
     "why": {
-      "title": "Hvorfor bli Growth Partner?",
+      "title": "Why become a Growth Partner?",
       "cards": [
         {
-          "title": "Tilbakevendende provisjon",
-          "body": "Tjen provisjon fra kunder du bringer til Aipify."
+          "title": "Recurring commissions",
+          "body": "Earn commission from customers you bring to Aipify."
         },
         {
-          "title": "Enterprise-produkt",
-          "body": "Selg et seriøst Business Operating System for moderne organisasjoner."
+          "title": "Enterprise product",
+          "body": "Sell a serious Business Operating System for modern organizations."
         },
         {
-          "title": "Full opplæring",
-          "body": "Aipify gir opplæring før du begynner å selge."
+          "title": "Full training provided",
+          "body": "Aipify provides training before you start selling."
         },
         {
-          "title": "Sertifisering inkludert",
-          "body": "Bestå Growth Partner-sertifiseringen og lås opp salgstilgang."
+          "title": "Certification included",
+          "body": "Complete certification and unlock active selling rights."
         },
         {
-          "title": "Din egen kundeportefølje",
-          "body": "Bygg langsiktige kunderelasjoner."
+          "title": "Your own customer portfolio",
+          "body": "Build long-term customer relationships."
         },
         {
-          "title": "Jobb uavhengig",
-          "body": "Drift gjennom egen virksomhet i ditt tempo."
+          "title": "Work independently",
+          "body": "Operate through your own business and grow at your own pace."
         }
       ]
     },
-    "notAJob": {
-      "title": "Ikke en jobbsøknad. En forretningsmulighet.",
-      "paragraphs": [
-        "Du søker ikke ansettelse hos Aipify Group AS.",
-        "Du registrerer deg som uavhengig Growth Partner.",
-        "Du styrer egen virksomhet, velger arbeidsform og bygger egen kundeportefølje.",
-        "Aipify leverer produkt, opplæring, sertifisering, partnerverktøy og provisjonssystem."
+    "independentPartnership": {
+      "title": "Uavhengig forretningspartnerskap",
+      "intro": "Growth Partners opererer uavhengig mens de representerer Aipify-produkter og -tjenester.",
+      "partnerDecides": [
+        "Du bestemmer hvordan du jobber.",
+        "Du bestemmer hvordan du vokser.",
+        "Du bestemmer hvilke kunder du kontakter."
+      ],
+      "aipifyProvidesTitle": "Aipify leverer:",
+      "aipifyProvides": [
+        "Produkter",
+        "Opplæring",
+        "Sertifisering",
+        "Markedsføringsmateriell",
+        "Provisjonssporing",
+        "Utbetalingshåndtering"
       ]
     },
     "howItWorks": {
-      "title": "Slik fungerer det",
+      "title": "How it works",
       "steps": [
         {
-          "title": "Registrer virksomheten",
-          "time": "Ca. 3 minutter",
-          "body": "Fullfør kort registrering med bedriftsdetaljer."
+          "title": "Register your business",
+          "time": "About 3 minutes",
+          "body": "Complete the short registration with your business details. Your personal partner link is created automatically."
         },
         {
-          "title": "Opprett Growth Partner-konto",
-          "body": "Kontoen opprettes i Aipify APP."
+          "title": "Create your Growth Partner account",
+          "body": "Your account is created inside Aipify APP with partner ID, link, and QR code."
         },
         {
-          "title": "Fullfør opplæring",
-          "body": "Lær produkter, Business Packs, salgsprosess og onboarding."
+          "title": "Complete training",
+          "body": "Learn Aipify products, Business Packs, sales process, and customer onboarding."
         },
         {
-          "title": "Bestå sertifisering",
-          "body": "Du må bestå Aipify Growth Partner-sertifisering før aktivering."
+          "title": "Pass certification",
+          "body": "Complete the Certified Aipify Sales Partner program before becoming an active seller."
         },
         {
-          "title": "Start å selge",
-          "body": "Etter sertifisering bygger du Aipify-kundeporteføljen din."
+          "title": "Start selling",
+          "body": "After certification, build your Aipify customer portfolio using your auto-attributed partner link."
         }
       ]
     },
     "requirements": {
-      "title": "Kun to krav",
+      "title": "Two requirements",
       "items": [
-        "Du må operere gjennom registrert virksomhet.",
-        "Du må bestå Aipify Growth Partner-sertifisering."
+        "You must operate through a registered business.",
+        "You must complete Aipify training and certification before active selling rights are granted."
       ],
-      "copy": "Ingen CV. Ingen tradisjonelt intervju. Ingen ansettelsesprosess. Gyldig virksomhet og bestått sertifisering — da kan du starte."
+      "copy": "Valid business registration and completed certification are required. Aipify does not guarantee income — earnings depend on your activity and customer outcomes."
     },
     "earnings": {
-      "title": "Bygg tilbakevendende inntekt",
-      "copy": "Growth Partners tjener tilbakevendende provisjon fra kvalifiserte kunder de bringer til Aipify.",
-      "disclaimer": "Ingen garantert inntekt. Inntekt avhenger av salgsaktivitet, kunderetensjon, planverdi, provisjonsinnstillinger og aktiv partnerstatus.",
+      "title": "Build recurring revenue",
+      "copy": "Aipify Growth Partners earn recurring commissions from qualified customers they bring to Aipify.",
+      "disclaimer": "No guaranteed income. Earnings depend on your sales activity, customer retention, plan value, commission settings, and active partner status. Commission rules are visible inside the Growth Partner dashboard.",
       "tiers": [
         {
-          "title": "10 kunder",
-          "body": "Bygg din første provisjonsbase."
+          "title": "10 customers",
+          "body": "Build your first recurring commission base."
         },
         {
-          "title": "25 kunder",
-          "body": "Voks en seriøs sidevirksomhet."
+          "title": "25 customers",
+          "body": "Grow a serious partner business."
         },
         {
-          "title": "50+ kunder",
-          "body": "Bygg fulltids salgsvirksomhet rundt Aipify."
+          "title": "50+ customers",
+          "body": "Build a full-time sales business around Aipify."
         }
       ]
     },
     "training": {
-      "title": "Vi trener deg før du selger",
+      "title": "We train you before you sell",
       "modules": [
         "Aipify Product Basics",
         "Business Operating System Overview",
@@ -572,29 +596,33 @@
         "Certification Test"
       ],
       "statusWaiting": "Venter — sertifisering kreves",
-      "statusVerified": "Verifisert — sertifisert Growth Partner"
+      "statusVerified": "Certified Aipify Sales Partner",
+      "certificationNote": "Sertifisering gjelder kun Aipify produkt- og salgsopplæring. Den innebærer ikke offentlig, statlig eller uavhengig autorisasjon."
     },
+    "footerNote": "Aipify Group AS · Bergen. Norge. For verden.",
     "signup": {
-      "title": "Start på under 3 minutter",
-      "password": "Passord",
-      "passwordConfirm": "Bekreft passord",
-      "fullName": "Fullt navn",
-      "companyName": "Firmanavn",
+      "title": "Start in under 3 minutes",
+      "password": "Password",
+      "passwordConfirm": "Confirm password",
+      "fullName": "Full Name",
+      "companyName": "Company Name",
       "businessRegistrationNumber": "Business Registration Number",
-      "businessRegistrationHelper": "Oppgi offisielt registreringsnummer.",
-      "country": "Land",
-      "address": "Adresse",
-      "phoneCountryCode": "Telefonlandkode",
-      "phoneNumber": "Telefonnummer",
-      "email": "E-post",
-      "checkboxRegisteredBusiness": "Jeg bekrefter at jeg opererer gjennom registrert virksomhet.",
-      "checkboxCertification": "Jeg forstår at jeg må bestå Aipify Growth Partner-sertifisering før aktivering.",
-      "checkboxIndependent": "Jeg forstår at jeg registrerer meg som uavhengig Growth Partner, ikke som jobbsøker.",
-      "submit": "Start min Aipify-virksomhet",
-      "submitting": "Oppretter konto…",
-      "errorGeneric": "Noe gikk galt. Prøv igjen.",
-      "errorPasswordMismatch": "Passord må stemme og være minst 8 tegn.",
-      "legalNote": "Ved registrering bekrefter du uavhengig virksomhetsstatus. Aipify Group AS ansetter ikke Growth Partners."
+      "businessRegistrationHelper": "Enter your official business registration identifier.",
+      "country": "Country",
+      "address": "Address",
+      "phoneCountryCode": "Phone country code",
+      "phoneNumber": "Phone Number",
+      "email": "Email",
+      "checkboxRegisteredBusiness": "I confirm that I operate through a registered business.",
+      "checkboxCertification": "Jeg forstår at jeg må fullføre Aipify-opplæring og sertifisering før jeg blir aktiv selger.",
+      "checkboxInfoAccurate": "Jeg bekrefter at informasjonen jeg oppgir er korrekt.",
+      "checkboxTerms": "Jeg godtar",
+      "termsLinkLabel": "Growth Partner vilkår og betingelser",
+      "submit": "Start My Aipify Business",
+      "submitting": "Creating your account…",
+      "errorGeneric": "Something went wrong. Please try again.",
+      "errorPasswordMismatch": "Passwords must match and be at least 8 characters.",
+      "legalNote": "Ved registrering bekrefter du at du opererer uavhengig, er ansvarlig for egne skatte- og rapporteringsforpliktelser, og representerer Aipify Group AS profesjonelt."
     }
   },
   "pricingPage": {
@@ -1450,5 +1478,52 @@
       "copy": "During your demonstration you will see how Companion helps organizations remember, coordinate, follow up, and operate more effectively — with human control at every sensitive step."
     },
     "finalPrinciple": "Målet er ikke å samle leads. Målet er å starte relasjoner."
+  },
+  "growthPartnerTermsPage": {
+    "title": "Growth Partner vilkår og betingelser",
+    "updated": "Aipify Group AS · Bergen. Norge. For verden.",
+    "intro": "Disse vilkårene regulerer det uavhengige Growth Partner-forholdet med Aipify Group AS.",
+    "sections": {
+      "independent": {
+        "title": "1. Independent Business Relationship",
+        "body": "Growth Partners operate as independent business operators. Growth Partners are not employees of Aipify Group AS."
+      },
+      "tax": {
+        "title": "2. Tax Responsibility",
+        "body": "Growth Partners are responsible for their own taxes, VAT, accounting, local reporting obligations, and registration with relevant tax authorities in their own country or jurisdiction."
+      },
+      "accurateInfo": {
+        "title": "3. Accurate Information",
+        "body": "Growth Partner confirms that registration information is correct, complete, and up to date."
+      },
+      "brand": {
+        "title": "4. Brand Representation",
+        "body": "Growth Partners represent Aipify products and services and must follow Aipify Group AS brand and conduct guidelines."
+      },
+      "certification": {
+        "title": "5. Certification Requirement",
+        "body": "Growth Partners must complete required training and certification before active selling rights are granted. Certification applies to Aipify product and sales training only."
+      },
+      "commission": {
+        "title": "6. Commission Program",
+        "body": "Commissions are calculated according to Aipify Group AS partner rules. Commission structures may be updated by Aipify Group AS according to published partner terms."
+      },
+      "ownership": {
+        "title": "7. Customer Ownership",
+        "body": "All customers belong to Aipify Platform. Growth Partners receive attribution and commission only. Growth Partners do not own customers."
+      },
+      "compliance": {
+        "title": "8. Compliance",
+        "body": "Growth Partners must comply with applicable local laws and regulations."
+      },
+      "suspension": {
+        "title": "9. Account Suspension",
+        "body": "Aipify Group AS may suspend or terminate partner accounts for fraud, abuse, misrepresentation, brand misuse, policy violations, or illegal activity."
+      },
+      "noGuarantee": {
+        "title": "10. No Income Guarantee",
+        "body": "Aipify does not guarantee income. Earnings depend on partner activity, customer purchases, retention, commission rules, and active partner status."
+      }
+    }
   }
 }

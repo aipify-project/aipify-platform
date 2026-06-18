@@ -343,6 +343,27 @@
         "stable": "Stabil",
         "down": "Fallande trend"
       }
+    },
+    "moduleRegistry": {
+      "title": "Module Registry Engine",
+      "subtitle": "Central catalog for all Aipify modules — core, Business Pack, navigation, permissions, and global availability.",
+      "principle": "PLATFORM sells modules · APP buys modules · APP grants access · EMPLOYEES use modules",
+      "privacyNote": "Super Admin governs the global catalog — not customer operational data.",
+      "refresh": "Refresh",
+      "modules": "Modules",
+      "audit": "Recent audit",
+      "disable": "Disable",
+      "enable": "Enable",
+      "category": "Category",
+      "businessPack": "Business Pack",
+      "permissions": "Permissions",
+      "back": "Back to SUPER",
+      "stats": {
+        "total": "Total modules",
+        "active": "Active",
+        "core": "Core modules",
+        "pack": "Pack modules"
+      }
     }
   },
   "modules": {
@@ -459,7 +480,9 @@
     "contentRequests": "Innehållsförfrågningar",
     "contentRequestsDescription": "Granska partnerförfrågningar och publicera till Marknadscenter.",
     "revenueOperations": "Revenue Operations",
-    "revenueOperationsDescription": "Orchestrate billing events, subscription activation, package sync, and failed activation recovery."
+    "revenueOperationsDescription": "Orchestrate billing events, subscription activation, package sync, and failed activation recovery.",
+    "moduleRegistry": "Module Registry",
+    "moduleRegistryDescription": "Global module catalog — create, disable, assign Business Packs, audit usage."
   },
   "voiceOfCustomer": {
     "title": "Global insiktsdashboard",

@@ -61,6 +61,7 @@
     "legal": "Legal",
     "privacy": "Privacy",
     "terms": "Terms",
+    "growthPartnerTerms": "Growth Partner Terms",
     "contact": "Contact",
     "earlyAccess": "Early Access",
     "bookDemo": "Book Demo",
@@ -294,27 +295,41 @@
   },
   "growthPartners": {
     "meta": {
-      "title": "Growth Partners — Start Your Aipify Business",
-      "description": "Register as an independent Growth Partner. Sell Aipify products, build your customer portfolio, and earn recurring commissions."
+      "title": "Growth Partners — Represent Aipify Professionally",
+      "description": "Register as an independent Growth Partner. Build your customer portfolio around Aipify products and earn recurring commissions."
     },
     "hero": {
-      "headline": "Start your Aipify business today.",
-      "subheadline": "Sell a world-class Business Operating System, build your own customer portfolio, and earn recurring commissions.",
+      "headline": "Build your business as an Aipify Growth Partner.",
+      "subheadline": "Represent a world-class Business Operating System, build your own customer portfolio, and earn recurring commissions.",
       "trustLine": "Registration takes less than 3 minutes.",
-      "supporting": "No job application. No CV. No interview. No waiting. If you have a registered business and pass the Aipify Growth Partner Certification, you can start selling Aipify products.",
+      "supporting": "Built for independent Growth Partners with a registered business. Complete Aipify training and certification before active selling rights are granted.",
       "ctaPrimary": "Start in under 3 minutes",
       "ctaSecondary": "See how it works",
       "badgeTime": "Under 3 minutes",
-      "badgeNoCv": "No CV",
-      "badgeNoInterview": "No interview",
       "badgeIndependent": "Independent business",
-      "badgeCertification": "Certification required"
+      "badgeCertification": "Certification required",
+      "badgeProfessional": "Professional partnership"
+    },
+    "earlySignup": {
+      "title": "Start in under 3 minutes",
+      "paragraphs": [
+        "Become an Aipify Growth Partner and build your own customer portfolio.",
+        "Aipify provides the platform, training, certification, marketing resources, commission tracking, and payout system.",
+        "You can work from anywhere, at your own pace, while representing Aipify products professionally."
+      ],
+      "benefits": [
+        "Recurring commission on qualified customers",
+        "Enterprise-grade product to represent",
+        "Training and certification before selling",
+        "Personal partner link and QR code on registration",
+        "Marketing materials with your link built in"
+      ]
     },
     "positioning": {
       "lines": [
-        "Not an affiliate program. Not a traditional sales job. Aipify Growth Partners build real businesses around Aipify products.",
-        "You bring customers. Aipify provides the platform, training, certification, partner dashboard, and commission tracking.",
-        "Start simple. Grow over time. Begin with one customer, build your portfolio, and expand as your confidence grows."
+        "Built for independent Growth Partners.",
+        "Aipify Growth Partners build customer portfolios around Aipify products and services.",
+        "You focus on customers. Aipify handles platform delivery, subscriptions, support, infrastructure, and product development."
       ]
     },
     "why": {
@@ -323,37 +338,46 @@
         { "title": "Recurring commissions", "body": "Earn commission from customers you bring to Aipify." },
         { "title": "Enterprise product", "body": "Sell a serious Business Operating System for modern organizations." },
         { "title": "Full training provided", "body": "Aipify provides training before you start selling." },
-        { "title": "Certification included", "body": "Pass the Growth Partner Certification and unlock selling access." },
+        { "title": "Certification included", "body": "Complete certification and unlock active selling rights." },
         { "title": "Your own customer portfolio", "body": "Build long-term customer relationships." },
         { "title": "Work independently", "body": "Operate through your own business and grow at your own pace." }
       ]
     },
-    "notAJob": {
-      "title": "Not a job application. A business opportunity.",
-      "paragraphs": [
-        "You are not applying for employment with Aipify Group AS.",
-        "You are registering as an independent Growth Partner.",
-        "You control your own business. You choose how you work. You build your own customer portfolio.",
-        "Aipify provides the product, training, certification, partner tools, and commission system."
+    "independentPartnership": {
+      "title": "Independent Business Partnership",
+      "intro": "Growth Partners operate independently while representing Aipify products and services.",
+      "partnerDecides": [
+        "You decide how you work.",
+        "You decide how you grow.",
+        "You decide which customers to approach."
+      ],
+      "aipifyProvidesTitle": "Aipify provides:",
+      "aipifyProvides": [
+        "Products",
+        "Training",
+        "Certification",
+        "Marketing Materials",
+        "Commission Tracking",
+        "Payout Management"
       ]
     },
     "howItWorks": {
       "title": "How it works",
       "steps": [
-        { "title": "Register your business", "time": "About 3 minutes", "body": "Complete the short registration with your business details." },
-        { "title": "Create your Growth Partner account", "body": "Your account is created inside Aipify APP." },
+        { "title": "Register your business", "time": "About 3 minutes", "body": "Complete the short registration with your business details. Your personal partner link is created automatically." },
+        { "title": "Create your Growth Partner account", "body": "Your account is created inside Aipify APP with partner ID, link, and QR code." },
         { "title": "Complete training", "body": "Learn Aipify products, Business Packs, sales process, and customer onboarding." },
-        { "title": "Pass certification", "body": "You must pass the Aipify Growth Partner Certification before becoming active." },
-        { "title": "Start selling", "body": "After certification, you can start building your Aipify customer portfolio." }
+        { "title": "Pass certification", "body": "Complete the Certified Aipify Sales Partner program before becoming an active seller." },
+        { "title": "Start selling", "body": "After certification, build your Aipify customer portfolio using your auto-attributed partner link." }
       ]
     },
     "requirements": {
-      "title": "Only two requirements",
+      "title": "Two requirements",
       "items": [
         "You must operate through a registered business.",
-        "You must pass the Aipify Growth Partner Certification."
+        "You must complete Aipify training and certification before active selling rights are granted."
       ],
-      "copy": "No CV. No traditional interview. No employment process. If your business is valid and you pass certification, you can start."
+      "copy": "Valid business registration and completed certification are required. Aipify does not guarantee income — earnings depend on your activity and customer outcomes."
     },
     "earnings": {
       "title": "Build recurring revenue",
@@ -361,7 +385,7 @@
       "disclaimer": "No guaranteed income. Earnings depend on your sales activity, customer retention, plan value, commission settings, and active partner status. Commission rules are visible inside the Growth Partner dashboard.",
       "tiers": [
         { "title": "10 customers", "body": "Build your first recurring commission base." },
-        { "title": "25 customers", "body": "Grow a serious side business." },
+        { "title": "25 customers", "body": "Grow a serious partner business." },
         { "title": "50+ customers", "body": "Build a full-time sales business around Aipify." }
       ]
     },
@@ -380,8 +404,10 @@
         "Certification Test"
       ],
       "statusWaiting": "Waiting — Certification Required",
-      "statusVerified": "Verified — Certified Growth Partner"
+      "statusVerified": "Certified Aipify Sales Partner",
+      "certificationNote": "Certification applies only to Aipify product and sales training. It does not imply public, government, or independent authorization."
     },
+    "footerNote": "Aipify Group AS · Bergen. Norway. For the world.",
     "signup": {
       "title": "Start in under 3 minutes",
       "password": "Password",
@@ -396,13 +422,62 @@
       "phoneNumber": "Phone Number",
       "email": "Email",
       "checkboxRegisteredBusiness": "I confirm that I operate through a registered business.",
-      "checkboxCertification": "I understand that I must pass the Aipify Growth Partner Certification before becoming active.",
-      "checkboxIndependent": "I understand that I am registering as an independent Growth Partner, not applying for employment.",
+      "checkboxCertification": "I understand that I must complete Aipify training and certification before becoming an active seller.",
+      "checkboxInfoAccurate": "I confirm that the information I provide is correct.",
+      "checkboxTerms": "I agree to the",
+      "termsLinkLabel": "Growth Partner Terms & Conditions",
       "submit": "Start My Aipify Business",
       "submitting": "Creating your account…",
       "errorGeneric": "Something went wrong. Please try again.",
       "errorPasswordMismatch": "Passwords must match and be at least 8 characters.",
-      "legalNote": "By registering, you confirm independent business status. Aipify Group AS does not employ Growth Partners. Terms and certification requirements apply."
+      "legalNote": "By registering, you confirm that you operate independently, are responsible for your own tax and reporting obligations, and agree to represent Aipify Group AS professionally."
+    }
+  },
+  "growthPartnerTermsPage": {
+    "title": "Growth Partner Terms & Conditions",
+    "updated": "Aipify Group AS · Bergen. Norway. For the world.",
+    "intro": "These terms govern the independent Growth Partner relationship with Aipify Group AS. By registering as a Growth Partner, you agree to these terms.",
+    "sections": {
+      "independent": {
+        "title": "1. Independent Business Relationship",
+        "body": "Growth Partners operate as independent business operators. Growth Partners are not employees of Aipify Group AS."
+      },
+      "tax": {
+        "title": "2. Tax Responsibility",
+        "body": "Growth Partners are responsible for their own taxes, VAT, accounting, local reporting obligations, and registration with relevant tax authorities in their own country or jurisdiction."
+      },
+      "accurateInfo": {
+        "title": "3. Accurate Information",
+        "body": "Growth Partner confirms that registration information is correct, complete, and up to date."
+      },
+      "brand": {
+        "title": "4. Brand Representation",
+        "body": "Growth Partners represent Aipify products and services and must follow Aipify Group AS brand and conduct guidelines."
+      },
+      "certification": {
+        "title": "5. Certification Requirement",
+        "body": "Growth Partners must complete required training and certification before active selling rights are granted. Certification applies to Aipify product and sales training only."
+      },
+      "commission": {
+        "title": "6. Commission Program",
+        "body": "Commissions are calculated according to Aipify Group AS partner rules. Commission structures may be updated by Aipify Group AS according to published partner terms."
+      },
+      "ownership": {
+        "title": "7. Customer Ownership",
+        "body": "All customers belong to Aipify Platform. Growth Partners receive attribution and commission only. Growth Partners do not own customers."
+      },
+      "compliance": {
+        "title": "8. Compliance",
+        "body": "Growth Partners must comply with applicable local laws and regulations."
+      },
+      "suspension": {
+        "title": "9. Account Suspension",
+        "body": "Aipify Group AS may suspend or terminate partner accounts for fraud, abuse, misrepresentation, brand misuse, policy violations, or illegal activity."
+      },
+      "noGuarantee": {
+        "title": "10. No Income Guarantee",
+        "body": "Aipify does not guarantee income. Earnings depend on partner activity, customer purchases, retention, commission rules, and active partner status."
+      }
     }
   },
   "pricingPage": {

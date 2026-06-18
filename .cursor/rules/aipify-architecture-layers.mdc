@@ -5,6 +5,8 @@ alwaysApply: true
 
 # Aipify Architecture Layers
 
+See [AIPIFY_MASTER_STRUCTURE_BLUEPRINT.md](../../AIPIFY_MASTER_STRUCTURE_BLUEPRINT.md) (Phase 500) for the permanent five-layer hierarchy.
+
 ## Layer separation
 
 | Layer | Who | Purpose |

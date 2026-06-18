@@ -1,0 +1,65 @@
+---
+description: Phase 500 — Permanent five-layer Aipify structure. Mandatory placement before implementation.
+alwaysApply: true
+---
+
+# Aipify Master Structure Blueprint (Phase 500)
+
+See [AIPIFY_MASTER_STRUCTURE_BLUEPRINT.md](../../AIPIFY_MASTER_STRUCTURE_BLUEPRINT.md) · [AIPIFY_PHASE500_MASTER_STRUCTURE_BLUEPRINT.md](../../AIPIFY_PHASE500_MASTER_STRUCTURE_BLUEPRINT.md).
+
+**This blueprint supersedes ambiguous layer placement.** When older docs conflict, Phase 500 wins.
+
+## Core hierarchy
+
+```
+SUPER ADMIN → PLATFORM → APP / PARTNERS → EMPLOYEES
+```
+
+**Principle:** PLATFORM sells · APP operates · EMPLOYEES use · PARTNERS sell.
+
+**Customer ownership:** Customers belong to **Platform**. Partners receive attribution only.
+
+## Five layers
+
+| Layer | Route | Code | Who |
+|-------|-------|------|-----|
+| **SUPER ADMIN** | `/super/*` | `app/super/`, `lib/super-admin/` | Aipify Group AS only |
+| **PLATFORM** | `/platform/*` | `app/platform/`, `lib/platform/` | Platform operators |
+| **APP** | `/app/*` | `app/app/`, `lib/app/` | Customer organizations |
+| **EMPLOYEES** | `/app/*` (role-scoped) | Same as APP | Users inside APP |
+| **PARTNERS** | `/partners/*` | `app/partners/`, `lib/partners-portal/` | Growth Partners |
+
+**Install Engine:** `/api/install/*`, `/api/embed/*` — APP-owned embedded layer (`lib/install/`, `lib/embed/`).
+
+## Before every feature
+
+1. Declare layer: SUPER ADMIN · PLATFORM · APP · EMPLOYEES · PARTNERS
+2. Run placement check: `validateFeaturePlacement()` from `lib/core/master-structure/`
+3. If unclear → **stop** — architecture review required
+
+## Business Pack model
+
+PLATFORM sells → APP purchases → APP activates → APP grants → EMPLOYEES use.
+
+Pack UI owner: **APP**. Global pack governance: **PLATFORM**.
+
+## License hierarchy
+
+| APP status | Employee access |
+|------------|-----------------|
+| Active / Trial | Active |
+| Suspended | Suspended |
+| Cancelled | Disabled |
+
+Employees **never** own licenses. APP is always the customer.
+
+## Must never
+
+- Customers or Partners access Super Admin
+- Partners own customers (attribution only)
+- Employees purchase packs or manage subscriptions
+- Features without clear layer ownership ship without review
+
+## Code
+
+`lib/core/master-structure/` — `layers.ts`, `license-hierarchy.ts`, `business-pack-model.ts`, `validate-placement.ts`

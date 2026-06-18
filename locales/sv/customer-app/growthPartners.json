@@ -87,7 +87,7 @@
   },
   "growthPartnerMarketing": {
     "title": "Growth Partner Marknadscenter",
-    "subtitle": "Professionellt godkända marknadsföringsmaterial, kampanjer och varumärkesresurser — konsekvent representation i alla marknader. Growth Partner — aldrig Affiliate.",
+    "subtitle": "Professionally approved marketing materials, campaigns, and brand resources — consistent representation across all markets.",
     "loading": "Laddar Marknadscenter…",
     "back": "Tillbaka till Partner Ops",
     "principle": "Growth Partners ska aldrig behöva gissa hur de representerar Aipify. Professionella verktyg skapar professionella upplevelser.",
@@ -358,16 +358,20 @@
     "renewalRequirements": "Certifieringsförnyelse följer Aipify Academy och compliance-granskning.",
     "exportStatements": "Exportera avräkningsunderlag efter bankverifiering.",
     "sections": {
-      "dashboard": "Instrumentpanel",
-      "leads": "Leads",
-      "opportunities": "Möjligheter",
-      "customers": "Kunder",
-      "commissions": "Provision",
-      "payouts": "Utbetalningar",
-      "resources": "Marknadsföringsresurser",
-      "training": "Utbildning",
-      "certifications": "Certifieringar",
-      "performance": "Prestanda",
+      "dashboard": "Dashboard",
+      "leads": "Lead Center",
+      "opportunities": "Opportunities",
+      "customers": "Customer Attribution",
+      "commissions": "Commission Center",
+      "payouts": "Payout Center",
+      "marketing": "Marketing Center",
+      "campaigns": "Campaign Center",
+      "resources": "Marketing Resources",
+      "training": "Training Center",
+      "certifications": "Certification Center",
+      "performance": "Performance",
+      "coreValues": "Core Values",
+      "terms": "Terms & Guidelines",
       "support": "Support"
     },
     "dashboard": {
@@ -386,15 +390,33 @@
       "openMarketing": "Öppna marknadsföringscenter",
       "partnerId": "Partner-ID"
     },
-    "leads": { "title": "Lead-hantering" },
-    "opportunities": { "title": "Möjlighetspipeline" },
-    "customers": { "title": "Kundportfölj" },
-    "commissions": { "title": "Provisionscenter" },
-    "payouts": { "title": "Utbetalningscenter" },
-    "resources": { "title": "Marknadsföringsresurser" },
-    "training": { "title": "Utbildningscenter" },
-    "certifications": { "title": "Certifieringar" },
-    "performance": { "title": "Prestandacenter" },
+    "leads": {
+      "title": "Lead-hantering"
+    },
+    "opportunities": {
+      "title": "Möjlighetspipeline"
+    },
+    "customers": {
+      "title": "Kundportfölj"
+    },
+    "commissions": {
+      "title": "Provisionscenter"
+    },
+    "payouts": {
+      "title": "Utbetalningscenter"
+    },
+    "resources": {
+      "title": "Marknadsföringsresurser"
+    },
+    "training": {
+      "title": "Utbildningscenter"
+    },
+    "certifications": {
+      "title": "Certifieringar"
+    },
+    "performance": {
+      "title": "Prestandacenter"
+    },
     "support": {
       "title": "Partnersupport",
       "body": "Aipify-stöd för Growth Partners omfattar certifiering, utbetalningar och säljstöd. Kunddrift förblir i varje kunds workspace."
@@ -430,6 +452,53 @@
       "shareEmail": "Dela via e-post",
       "openMarketing": "Marknadsföringscenter",
       "partnerId": "Partner-ID"
+    }
+  },
+  "growthPartnerCoreValues": {
+    "title": "Aipify Core Values",
+    "subtitle": "Growth Partners represent Aipify Group AS. These values guide how we sell, support customers, and build trust.",
+    "termsLink": "Growth Partner Terms & Conditions",
+    "values": {
+      "1": {
+        "title": "Customers First",
+        "body": "We help customers succeed before we sell more."
+      },
+      "2": {
+        "title": "Honesty Before Sales",
+        "body": "We represent Aipify truthfully and professionally."
+      },
+      "3": {
+        "title": "Long-Term Relationships",
+        "body": "We build trust, not pressure."
+      },
+      "4": {
+        "title": "Professional Representation",
+        "body": "Growth Partners represent Aipify Group AS and must act accordingly."
+      },
+      "5": {
+        "title": "Respect Customer Privacy",
+        "body": "Customer information must be handled responsibly."
+      },
+      "6": {
+        "title": "Continuous Learning",
+        "body": "Aipify Growth Partners keep learning as the platform evolves."
+      },
+      "7": {
+        "title": "Norwegian Values. Global Ambitions.",
+        "body": "Aipify is built from Bergen, Norway, for the world."
+      },
+      "8": {
+        "title": "Sell Solutions. Not Hype.",
+        "body": "We explain real value, not unrealistic promises."
+      },
+      "9": {
+        "title": "Human Control",
+        "body": "Aipify helps people work better. It does not replace human responsibility."
+      },
+      "10": {
+        "title": "Represent Aipify With Pride",
+        "body": "Every Growth Partner contributes to the trust and reputation of Aipify Group AS."
+      }
     }
   }
 }

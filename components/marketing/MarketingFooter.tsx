@@ -12,6 +12,7 @@ export type MarketingFooterLabels = {
   legal: string;
   privacy: string;
   terms: string;
+  growthPartnerTerms: string;
   contact: string;
   earlyAccess: string;
   bookDemo: string;
@@ -66,6 +67,7 @@ export default function MarketingFooter({ appName, labels }: MarketingFooterProp
             <ul className="mt-4 space-y-2.5">
               {[
                 { label: labels.growthPartners, href: "/growth-partners" },
+                { label: labels.growthPartnerTerms, href: "/growth-partner-terms" },
                 { label: "Pilot", href: "/pilot" },
                 { label: "Knowledge", href: "/knowledge" },
                 { label: labels.contact, href: "/contact" },
@@ -91,6 +93,11 @@ export default function MarketingFooter({ appName, labels }: MarketingFooterProp
               <li>
                 <Link href="/terms" className="text-sm text-slate-400 transition hover:text-white">
                   {labels.terms}
+                </Link>
+              </li>
+              <li>
+                <Link href="/growth-partner-terms" className="text-sm text-slate-400 transition hover:text-white">
+                  {labels.growthPartnerTerms}
                 </Link>
               </li>
             </ul>

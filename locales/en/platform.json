@@ -137,6 +137,8 @@
     "translationManagement": "Translation Management",
     "documentation": "Documentation",
     "businessPacks": "Business Packs",
+    "moduleRegistry": "Module Registry",
+    "appStoreRevenue": "App Store Revenue",
     "productManagement": "Product Management",
     "installationOversight": "Installation Oversight",
     "activityLogs": "Activity Logs",
@@ -3876,6 +3878,37 @@
       "noPermissions": "No special permissions required.",
       "noAudit": "No audit events recorded yet."
     }
+  },
+  "moduleRegistry": {
+    "title": "Module Registry",
+    "subtitle": "Sell Business Packs, activate modules for customer APPs, and track module adoption across the platform.",
+    "privacyNote": "Aggregates only — no customer operational content.",
+    "refresh": "Refresh",
+    "catalog": "Catalog modules",
+    "adoption": "Adoption",
+    "businessPacks": "Business Packs",
+    "organizations": "Organizations with modules",
+    "activations": "Active activations",
+    "packActivations": "Business Pack activations",
+    "back": "Back to Platform"
+  },
+  "appStoreRevenue": {
+    "title": "App Store Revenue",
+    "subtitle": "Most installed packs, active licenses, renewals, growth, and churn — aggregates only.",
+    "privacyNote": "Aggregates only — no customer operational content.",
+    "principle": "The App Store is the commercial heart of Aipify.",
+    "refresh": "Refresh",
+    "publishedPacks": "Published packs",
+    "totalInstalls": "Total installs",
+    "activeLicenses": "Active licenses",
+    "cancelledLicenses": "Cancelled licenses",
+    "renewalsDue": "Renewals due (30d)",
+    "mostInstalled": "Most Installed Packs",
+    "revenuePerPack": "Active Licenses Per Pack",
+    "growth": "Growth (30 days)",
+    "installs30d": "Installs",
+    "removals30d": "Removals",
+    "back": "Back to Platform"
   },
   "platformHealthOperationsCenter": {
     "title": "Platform Health & Operations Center",

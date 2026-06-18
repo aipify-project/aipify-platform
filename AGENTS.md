@@ -14,7 +14,9 @@ Read **[CORE_FOUNDATION.md](./CORE_FOUNDATION.md)** next. This is the non-negoti
 
 New capabilities must never bypass company foundation, core principles, plan limits, tenant isolation, approval policy, or layer separation.
 
-**Governance order:** Company Foundation Directive → Core Foundation → Operating Principles → Enterprise Design & Communication Standard → Architecture → Implementation → Skills.
+**Master Structure Blueprint (Phase 500):** Read **[AIPIFY_MASTER_STRUCTURE_BLUEPRINT.md](./AIPIFY_MASTER_STRUCTURE_BLUEPRINT.md)** before any feature, route, Business Pack, or permission work. Five layers: SUPER ADMIN → PLATFORM → APP / PARTNERS → EMPLOYEES. Code registry: `lib/core/master-structure/`. **If placement is unclear, pause before implementation.**
+
+**Governance order:** Company Foundation Directive → Core Foundation → Operating Principles → Enterprise Design & Communication Standard → **Master Structure Blueprint (Phase 500)** → Architecture → Implementation → Skills.
 
 Before any new capability, answer [CORE_FOUNDATION.md §18](./CORE_FOUNDATION.md#18-future-development-rule): identity, human control, privacy, layer, core vs modular. If unclear, **pause**.
 
@@ -84,15 +86,20 @@ For **Internal Language Model (ILM)**, read **[INTERNAL_LANGUAGE_MODEL.md](./INT
 
 ## Aipify architecture — mandatory before every feature
 
-Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.
+Read **[ARCHITECTURE.md](./ARCHITECTURE.md)**. Read **[AIPIFY_MASTER_STRUCTURE_BLUEPRINT.md](./AIPIFY_MASTER_STRUCTURE_BLUEPRINT.md)** (Phase 500) for the permanent five-layer model. **Before implementing any new feature**, explicitly answer these four questions. If any cannot be answered, **stop and ask** — do not write code until the architecture decision is made.
 
 **Never** place new functionality into existing folders simply because they already exist (e.g. do not add customer product features under `app/platform/` or `app/dashboard/` when they belong in `app/app/`).
 
 ### 1. Which layer?
 
-- [ ] Platform Admin
-- [ ] Customer App
-- [ ] Embedded Installation
+- [ ] Super Admin (`/super/*`)
+- [ ] Platform Admin (`/platform/*`)
+- [ ] Customer App / APP (`/app/*`)
+- [ ] Employees (role-scoped inside APP)
+- [ ] Partners (`/partners/*`)
+- [ ] Embedded / Install (APP-owned: `/api/install`, `/api/embed`)
+
+See `lib/core/master-structure/` and `validateFeaturePlacement()`.
 
 ### 2. Who is the user?
 
