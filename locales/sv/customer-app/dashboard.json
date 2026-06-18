@@ -5162,6 +5162,74 @@
       "legacyTrustScores": "Legacy Trust Scores"
     }
   },
+  "corporateBrainCenter": {
+    "title": "Corporate Brain",
+    "subtitle": "Persistent organisationsminne — kom ihåg, förstå, koppla och hämta affärskunskap över år av aktivitet.",
+    "philosophy": "Människor lämnar. Dokument försvinner. Kunskap försvinner. Aipify blir organisationens långsiktiga minne.",
+    "governanceNote": "Alla minnesposter inkluderar ägare, datum, källa, version, revisionsspår och åtkomstkontroller. Endast metadata — människor bestämmer.",
+    "privacyNote": "Endast organisationsminne-metadata — inget råt e-post, chatt, betalningsdata eller ogodkänd PII.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga minnesobjekt i detta avsnitt ännu.",
+    "accessDenied": "Corporate Brain kräver lämpliga arbetsytetillstånd.",
+    "owner": "Ägare",
+    "source": "Källa",
+    "reason": "Motivering",
+    "alternatives": "Alternativ som övervägdes",
+    "expectedOutcome": "Förväntat utfall",
+    "actualOutcome": "Faktiskt utfall",
+    "lesson": "Lärdom",
+    "outcome": "Utfall",
+    "impact": "Effekt",
+    "evidence": "Evidens",
+    "sections": {
+      "organizationalMemory": "Organisationsminne",
+      "businessKnowledge": "Affärskunskap",
+      "historicalDecisions": "Historiska beslut",
+      "lessonsLearned": "Lärdomar",
+      "institutionalKnowledge": "Institutionell kunskap",
+      "knowledgeTimeline": "Kunskapstidslinje",
+      "corporateIntelligence": "Corporate Intelligence"
+    },
+    "memoryEngine": { "title": "Memory Engine" },
+    "organizationalTimeline": { "title": "Organisationstidslinje" },
+    "decisionMemory": { "title": "Beslutsminne" },
+    "corporateKnowledgeGraph": { "title": "Corporate Knowledge Graph" },
+    "lessonsLearnedEngine": { "title": "Lessons Learned Engine" },
+    "historicalSearch": { "title": "Historisk sökning" },
+    "executiveMemoryDashboard": { "title": "Executive Memory Dashboard" },
+    "companionHistorian": { "title": "Companion Corporate Historian", "evidence": "Stödjande evidens" },
+    "corporateIntelligenceLayer": { "title": "Corporate Intelligence Layer" },
+    "knowledgePreservation": { "title": "Kunskapsbevaring" },
+    "governanceControls": {
+      "title": "Styrningskontroller",
+      "enabled": "Corporate Brain aktiverad",
+      "disabled": "Corporate Brain inaktiverad",
+      "preservation": "Kunskapsbevaring aktiv"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "approve": "Godkänn",
+      "archive": "Arkivera",
+      "escalate": "Eskalera"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "learning": "Learning Center",
+      "knowledgeEvolution": "Knowledge Evolution",
+      "employeeKnowledge": "Employee Knowledge",
+      "businessDna": "Business DNA",
+      "assistantMemory": "Assistant Memory"
+    }
+  },
   "trustReputationEngine": {
     "title": "Förtroende och rykte",
     "subtitle": "Organisatoriska förtroendeprofiler och metadata-baserade ryktessignaler — förtjänat förtroende med mänsklig granskning av expansion.",

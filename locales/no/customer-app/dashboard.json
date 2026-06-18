@@ -5307,6 +5307,74 @@
       "legacyTrustScores": "Legacy Trust Scores"
     }
   },
+  "corporateBrainCenter": {
+    "title": "Corporate Brain",
+    "subtitle": "Persistent organisasjonsminne — huske, forstå, koble og hente forretningskunnskap på tvers av år med aktivitet.",
+    "philosophy": "Folk slutter. Dokumenter forsvinner. Kunnskap forsvinner. Aipify blir organisasjonens langsiktige minne.",
+    "governanceNote": "Alle minneposter inkluderer eier, dato, kilde, versjon, revisjonsspor og tilgangskontroller. Kun metadata — mennesker bestemmer.",
+    "privacyNote": "Kun organisasjonsminne-metadata — ingen rå e-post, chat, betalingsdata eller ugodkjent PII.",
+    "refresh": "Oppdater",
+    "emptyState": "Ingen minneelementer i denne seksjonen ennå.",
+    "accessDenied": "Corporate Brain krever passende arbeidsområdetillatelser.",
+    "owner": "Eier",
+    "source": "Kilde",
+    "reason": "Begrunnelse",
+    "alternatives": "Alternativer vurdert",
+    "expectedOutcome": "Forventet utfall",
+    "actualOutcome": "Faktisk utfall",
+    "lesson": "Lærdom",
+    "outcome": "Utfall",
+    "impact": "Effekt",
+    "evidence": "Evidens",
+    "sections": {
+      "organizationalMemory": "Organisasjonsminne",
+      "businessKnowledge": "Forretningskunnskap",
+      "historicalDecisions": "Historiske beslutninger",
+      "lessonsLearned": "Lærdommer",
+      "institutionalKnowledge": "Institusjonell kunnskap",
+      "knowledgeTimeline": "Kunnskapstidslinje",
+      "corporateIntelligence": "Corporate Intelligence"
+    },
+    "memoryEngine": { "title": "Memory Engine" },
+    "organizationalTimeline": { "title": "Organisasjonstidslinje" },
+    "decisionMemory": { "title": "Beslutningsminne" },
+    "corporateKnowledgeGraph": { "title": "Corporate Knowledge Graph" },
+    "lessonsLearnedEngine": { "title": "Lessons Learned Engine" },
+    "historicalSearch": { "title": "Historisk søk" },
+    "executiveMemoryDashboard": { "title": "Executive Memory Dashboard" },
+    "companionHistorian": { "title": "Companion Corporate Historian", "evidence": "Støtteevidens" },
+    "corporateIntelligenceLayer": { "title": "Corporate Intelligence Layer" },
+    "knowledgePreservation": { "title": "Kunnskapsbevaring" },
+    "governanceControls": {
+      "title": "Styringskontroller",
+      "enabled": "Corporate Brain aktivert",
+      "disabled": "Corporate Brain deaktivert",
+      "preservation": "Kunnskapsbevaring aktiv"
+    },
+    "actions": {
+      "acknowledge": "Bekreft",
+      "dismiss": "Avvis",
+      "approve": "Godkjenn",
+      "archive": "Arkiver",
+      "escalate": "Eskaler"
+    },
+    "status": {
+      "completed": "Fullført",
+      "notAllowed": "Ikke tillatt",
+      "requiresAttention": "Krever oppmerksomhet",
+      "information": "Informasjon",
+      "restricted": "Begrenset tilgang",
+      "verified": "Verifisert",
+      "waiting": "Venter"
+    },
+    "links": {
+      "learning": "Learning Center",
+      "knowledgeEvolution": "Knowledge Evolution",
+      "employeeKnowledge": "Employee Knowledge",
+      "businessDna": "Business DNA",
+      "assistantMemory": "Assistant Memory"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillit og omdømme",
     "subtitle": "Organisatoriske tillitsprofiler og metadata-baserte omdømmesignaler — opptjent tillit med menneskelig gjennomgang av utvidelser.",

@@ -1,0 +1,75 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildCorporateBrainCenterLabels(t: Translator) {
+  const p = "customerApp.corporateBrainCenter";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    philosophy: t(`${p}.philosophy`),
+    governanceNote: t(`${p}.governanceNote`),
+    privacyNote: t(`${p}.privacyNote`),
+    refresh: t(`${p}.refresh`),
+    emptyState: t(`${p}.emptyState`),
+    accessDenied: t(`${p}.accessDenied`),
+    owner: t(`${p}.owner`),
+    source: t(`${p}.source`),
+    reason: t(`${p}.reason`),
+    alternatives: t(`${p}.alternatives`),
+    expectedOutcome: t(`${p}.expectedOutcome`),
+    actualOutcome: t(`${p}.actualOutcome`),
+    lesson: t(`${p}.lesson`),
+    outcome: t(`${p}.outcome`),
+    impact: t(`${p}.impact`),
+    evidence: t(`${p}.evidence`),
+    sections: {
+      organizationalMemory: t(`${p}.sections.organizationalMemory`),
+      businessKnowledge: t(`${p}.sections.businessKnowledge`),
+      historicalDecisions: t(`${p}.sections.historicalDecisions`),
+      lessonsLearned: t(`${p}.sections.lessonsLearned`),
+      institutionalKnowledge: t(`${p}.sections.institutionalKnowledge`),
+      knowledgeTimeline: t(`${p}.sections.knowledgeTimeline`),
+      corporateIntelligence: t(`${p}.sections.corporateIntelligence`),
+    },
+    memoryEngine: { title: t(`${p}.memoryEngine.title`) },
+    organizationalTimeline: { title: t(`${p}.organizationalTimeline.title`) },
+    decisionMemory: { title: t(`${p}.decisionMemory.title`) },
+    corporateKnowledgeGraph: { title: t(`${p}.corporateKnowledgeGraph.title`) },
+    lessonsLearnedEngine: { title: t(`${p}.lessonsLearnedEngine.title`) },
+    historicalSearch: { title: t(`${p}.historicalSearch.title`) },
+    executiveMemoryDashboard: { title: t(`${p}.executiveMemoryDashboard.title`) },
+    companionHistorian: { title: t(`${p}.companionHistorian.title`), evidence: t(`${p}.companionHistorian.evidence`) },
+    corporateIntelligenceLayer: { title: t(`${p}.corporateIntelligenceLayer.title`) },
+    knowledgePreservation: { title: t(`${p}.knowledgePreservation.title`) },
+    governanceControls: {
+      title: t(`${p}.governanceControls.title`),
+      enabled: t(`${p}.governanceControls.enabled`),
+      disabled: t(`${p}.governanceControls.disabled`),
+      preservation: t(`${p}.governanceControls.preservation`),
+    },
+    actions: {
+      acknowledge: t(`${p}.actions.acknowledge`),
+      dismiss: t(`${p}.actions.dismiss`),
+      approve: t(`${p}.actions.approve`),
+      archive: t(`${p}.actions.archive`),
+      escalate: t(`${p}.actions.escalate`),
+    },
+    status: {
+      completed: t(`${p}.status.completed`),
+      notAllowed: t(`${p}.status.notAllowed`),
+      requiresAttention: t(`${p}.status.requiresAttention`),
+      information: t(`${p}.status.information`),
+      restricted: t(`${p}.status.restricted`),
+      verified: t(`${p}.status.verified`),
+      waiting: t(`${p}.status.waiting`),
+    },
+    links: {
+      learning: t(`${p}.links.learning`),
+      knowledgeEvolution: t(`${p}.links.knowledgeEvolution`),
+      employeeKnowledge: t(`${p}.links.employeeKnowledge`),
+      businessDna: t(`${p}.links.businessDna`),
+      assistantMemory: t(`${p}.links.assistantMemory`),
+    },
+  };
+}
+
+export type CorporateBrainCenterLabels = ReturnType<typeof buildCorporateBrainCenterLabels>;

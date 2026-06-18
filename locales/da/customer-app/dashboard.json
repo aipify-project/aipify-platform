@@ -5110,6 +5110,74 @@
       "legacyTrustScores": "Legacy Trust Scores"
     }
   },
+  "corporateBrainCenter": {
+    "title": "Corporate Brain",
+    "subtitle": "Persistent organisationshukommelse — husk, forstå, forbind og hent forretningsviden på tværs af års aktivitet.",
+    "philosophy": "Folk stopper. Dokumenter forsvinder. Viden forsvinder. Aipify bliver organisationens langsigtede hukommelse.",
+    "governanceNote": "Alle hukommelsesposter inkluderer ejer, dato, kilde, version, revisionsspor og adgangskontroller. Kun metadata — mennesker bestemmer.",
+    "privacyNote": "Kun organisationshukommelse-metadata — intet råt e-mail, chat, betalingsdata eller ugodkendt PII.",
+    "refresh": "Opdater",
+    "emptyState": "Ingen hukommelseselementer i dette afsnit endnu.",
+    "accessDenied": "Corporate Brain kræver passende arbejdsområdetilladelser.",
+    "owner": "Ejer",
+    "source": "Kilde",
+    "reason": "Begrundelse",
+    "alternatives": "Alternativer overvejet",
+    "expectedOutcome": "Forventet udfald",
+    "actualOutcome": "Faktisk udfald",
+    "lesson": "Lærdom",
+    "outcome": "Udfald",
+    "impact": "Effekt",
+    "evidence": "Evidens",
+    "sections": {
+      "organizationalMemory": "Organisationshukommelse",
+      "businessKnowledge": "Forretningsviden",
+      "historicalDecisions": "Historiske beslutninger",
+      "lessonsLearned": "Lærdomme",
+      "institutionalKnowledge": "Institutionel viden",
+      "knowledgeTimeline": "Videnstidslinje",
+      "corporateIntelligence": "Corporate Intelligence"
+    },
+    "memoryEngine": { "title": "Memory Engine" },
+    "organizationalTimeline": { "title": "Organisationstidslinje" },
+    "decisionMemory": { "title": "Beslutningshukommelse" },
+    "corporateKnowledgeGraph": { "title": "Corporate Knowledge Graph" },
+    "lessonsLearnedEngine": { "title": "Lessons Learned Engine" },
+    "historicalSearch": { "title": "Historisk søgning" },
+    "executiveMemoryDashboard": { "title": "Executive Memory Dashboard" },
+    "companionHistorian": { "title": "Companion Corporate Historian", "evidence": "Understøttende evidens" },
+    "corporateIntelligenceLayer": { "title": "Corporate Intelligence Layer" },
+    "knowledgePreservation": { "title": "Vidensbevaring" },
+    "governanceControls": {
+      "title": "Styringskontroller",
+      "enabled": "Corporate Brain aktiveret",
+      "disabled": "Corporate Brain deaktiveret",
+      "preservation": "Vidensbevaring aktiv"
+    },
+    "actions": {
+      "acknowledge": "Bekræft",
+      "dismiss": "Afvis",
+      "approve": "Godkend",
+      "archive": "Arkiver",
+      "escalate": "Eskaler"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "links": {
+      "learning": "Learning Center",
+      "knowledgeEvolution": "Knowledge Evolution",
+      "employeeKnowledge": "Employee Knowledge",
+      "businessDna": "Business DNA",
+      "assistantMemory": "Assistant Memory"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillid og omdømme",
     "subtitle": "Organisatoriske tillidsprofiler og metadata-baserede omdømmesignaler — fortjent tillid med menneskelig gennemgang af udvidelser.",

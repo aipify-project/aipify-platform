@@ -5980,6 +5980,74 @@
       "legacyTrustScores": "Legacy Trust Scores"
     }
   },
+  "corporateBrainCenter": {
+    "title": "Corporate Brain",
+    "subtitle": "Persistent organizational memory — remember, understand, connect, and retrieve business knowledge across years of activity.",
+    "philosophy": "People leave. Documents get lost. Knowledge disappears. Aipify becomes the organization's long-term memory.",
+    "governanceNote": "All memory records include owner, date, source, version, audit trail, and access controls. Metadata only — humans decide.",
+    "privacyNote": "Organizational memory metadata only — no raw email, chat, payment data, or unapproved PII.",
+    "refresh": "Refresh",
+    "emptyState": "No memory items in this section yet.",
+    "accessDenied": "Corporate Brain requires appropriate workspace permissions.",
+    "owner": "Owner",
+    "source": "Source",
+    "reason": "Reason",
+    "alternatives": "Alternatives considered",
+    "expectedOutcome": "Expected outcome",
+    "actualOutcome": "Actual outcome",
+    "lesson": "Lesson",
+    "outcome": "Outcome",
+    "impact": "Impact",
+    "evidence": "Evidence",
+    "sections": {
+      "organizationalMemory": "Organizational Memory",
+      "businessKnowledge": "Business Knowledge",
+      "historicalDecisions": "Historical Decisions",
+      "lessonsLearned": "Lessons Learned",
+      "institutionalKnowledge": "Institutional Knowledge",
+      "knowledgeTimeline": "Knowledge Timeline",
+      "corporateIntelligence": "Corporate Intelligence"
+    },
+    "memoryEngine": { "title": "Memory Engine" },
+    "organizationalTimeline": { "title": "Organizational Timeline" },
+    "decisionMemory": { "title": "Decision Memory" },
+    "corporateKnowledgeGraph": { "title": "Corporate Knowledge Graph" },
+    "lessonsLearnedEngine": { "title": "Lessons Learned Engine" },
+    "historicalSearch": { "title": "Historical Search" },
+    "executiveMemoryDashboard": { "title": "Executive Memory Dashboard" },
+    "companionHistorian": { "title": "Companion Corporate Historian", "evidence": "Supporting evidence" },
+    "corporateIntelligenceLayer": { "title": "Corporate Intelligence Layer" },
+    "knowledgePreservation": { "title": "Knowledge Preservation" },
+    "governanceControls": {
+      "title": "Governance Controls",
+      "enabled": "Corporate Brain enabled",
+      "disabled": "Corporate Brain disabled",
+      "preservation": "Knowledge preservation active"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "approve": "Approve",
+      "archive": "Archive",
+      "escalate": "Escalate"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "learning": "Learning Center",
+      "knowledgeEvolution": "Knowledge Evolution",
+      "employeeKnowledge": "Employee Knowledge",
+      "businessDna": "Business DNA",
+      "assistantMemory": "Assistant Memory"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",
