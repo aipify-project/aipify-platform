@@ -62,6 +62,7 @@ export type AppNavId =
   | "globalBusinessNetworkEngine"
   | "enterpriseValueRealizationRoiEngine"
   | "autonomousEnterpriseOperationsEngine"
+  | "autonomousOrganizationEngine"
   | "statusTransparencyEngine"
   | "enterpriseReadinessEngine"
   | "enterpriseDeploymentDeviceRolloutEngine"
@@ -629,6 +630,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "autonomousEnterpriseOperationsEngine",
     href: "/app/autonomous",
     labelKey: "navigation.nav.autonomousEnterpriseOperationsEngine",
+  },
+  {
+    id: "autonomousOrganizationEngine",
+    href: "/app/autonomy",
+    labelKey: "navigation.nav.autonomousOrganizationEngine",
   },
   {
     id: "statusTransparencyEngine",
@@ -2244,6 +2250,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname === "/app/autonomous" || pathname.startsWith("/app/autonomous/")) {
     return "autonomousEnterpriseOperationsEngine";
+  }
+  if (pathname === "/app/autonomy" || pathname.startsWith("/app/autonomy/")) {
+    return "autonomousOrganizationEngine";
   }
   if (pathname.startsWith("/app/status-transparency-engine")) return "statusTransparencyEngine";
   if (pathname.startsWith("/app/enterprise-readiness-engine")) return "enterpriseReadinessEngine";

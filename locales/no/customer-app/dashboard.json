@@ -5104,6 +5104,69 @@
     "status": { "completed": "Fullført", "notAllowed": "Ikke tillatt", "requiresAttention": "Krever oppmerksomhet", "information": "Informasjon", "restricted": "Begrenset tilgang", "verified": "Verifisert", "waiting": "Venter" },
     "links": { "ecosystem": "Ecosystem Marketplace", "growthPartners": "Growth Partner Operations" }
   },
+  "autonomousOrganizationCenter": {
+    "title": "Autonom organisasjon",
+    "subtitle": "Deleger godkjente operative ansvar til Aipify trinnvis — med full styring, transparens og menneskelig kontroll.",
+    "philosophy": "Aipify skal ikke erstatte mennesker. Aipify fjerner unødvendig operativt arbeid slik at folk kan fokusere på høyere verdi.",
+    "governanceNote": "Hver autonom handling inkluderer eier, policy brukt, tidsstempel, revisjonsspor, resultat og godkjenningspost når det kreves.",
+    "privacyNote": "Kun metadata og styringsignaler — ingen rå kundedata, betalingsdetaljer eller ugodkjent PII i autonomi-revisjonslogger.",
+    "refresh": "Oppdater",
+    "emptyState": "Ingen autonomielementer i denne seksjonen ennå.",
+    "accessDenied": "Autonom organisasjon krever passende arbeidsområdetillatelser.",
+    "owner": "Eier",
+    "policy": "Policy",
+    "threshold": "Terskel",
+    "autonomyLevel": "Autonominivå",
+    "lastRun": "Siste kjøring",
+    "successRate": "Suksessrate",
+    "currentLevel": "Gjeldende nivå",
+    "sections": {
+      "autonomousOperations": "Autonome operasjoner",
+      "delegatedResponsibilities": "Delegerte ansvar",
+      "approvalPolicies": "Godkjenningspolicyer",
+      "humanOversight": "Menneskelig tilsyn",
+      "autonomousPerformance": "Autonom ytelse",
+      "governanceControls": "Styringskontroller"
+    },
+    "delegationFramework": { "title": "Delegeringsrammeverk" },
+    "policyEngine": { "title": "Policy-motor" },
+    "humanOversightCenter": { "title": "Senter for menneskelig tilsyn" },
+    "autonomousSupportOperations": { "title": "Autonome supportoperasjoner" },
+    "autonomousAdminOperations": { "title": "Autonome administrative operasjoner" },
+    "autonomousPerformanceDashboard": { "title": "Dashboard for autonom ytelse" },
+    "executiveAutonomyDashboard": { "title": "Executive autonomi-dashboard" },
+    "autonomyLevels": { "title": "Autonominivåer" },
+    "companionAdvisor": { "title": "Companion delegeringsrådgiver", "reason": "Hvorfor Aipify anbefaler dette" },
+    "enterpriseControls": {
+      "title": "Enterprise-kontroller",
+      "enabled": "Autonomi aktivert",
+      "disabled": "Autonomi deaktivert",
+      "executiveApproval": "Executive-godkjenning kreves"
+    },
+    "actions": {
+      "acknowledge": "Bekreft",
+      "dismiss": "Avvis",
+      "approve": "Godkjenn",
+      "reject": "Avslå",
+      "escalate": "Eskaler",
+      "override": "Overstyr"
+    },
+    "status": {
+      "completed": "Fullført",
+      "notAllowed": "Ikke tillatt",
+      "requiresAttention": "Krever oppmerksomhet",
+      "information": "Informasjon",
+      "restricted": "Begrenset tilgang",
+      "verified": "Verifisert",
+      "waiting": "Venter"
+    },
+    "links": {
+      "legacyAutonomous": "Autonomt driftssenter",
+      "approvals": "Godkjenningssenter",
+      "actionCenter": "Handlingssenter",
+      "humanOversight": "Human Oversight Engine"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillit og omdømme",
     "subtitle": "Organisatoriske tillitsprofiler og metadata-baserte omdømmesignaler — opptjent tillit med menneskelig gjennomgang av utvidelser.",

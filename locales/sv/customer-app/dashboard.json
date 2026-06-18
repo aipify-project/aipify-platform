@@ -4959,6 +4959,69 @@
     "status": { "completed": "Slutförd", "notAllowed": "Inte tillåten", "requiresAttention": "Kräver uppmärksamhet", "information": "Information", "restricted": "Begränsad åtkomst", "verified": "Verifierad", "waiting": "Väntar" },
     "links": { "ecosystem": "Ecosystem Marketplace", "growthPartners": "Growth Partner Operations" }
   },
+  "autonomousOrganizationCenter": {
+    "title": "Autonom organisation",
+    "subtitle": "Delegera godkända operativa ansvar till Aipify stegvis — med full styrning, transparens och mänsklig kontroll.",
+    "philosophy": "Aipify ska inte ersätta människor. Aipify tar bort onödig operativ arbetsbörda så att människor kan fokusera på högre värde.",
+    "governanceNote": "Varje autonom handling inkluderar ägare, policy som använts, tidsstämpel, revisionsspår, resultat och godkännandepost när det krävs.",
+    "privacyNote": "Endast metadata och styrningssignaler — inget rått kundinnehåll, betalningsdetaljer eller ogodkänd PII i autonomi-revisionsloggar.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga autonomiobjekt i detta avsnitt ännu.",
+    "accessDenied": "Autonom organisation kräver lämpliga arbetsytetillstånd.",
+    "owner": "Ägare",
+    "policy": "Policy",
+    "threshold": "Tröskel",
+    "autonomyLevel": "Autonominivå",
+    "lastRun": "Senaste körning",
+    "successRate": "Framgångsgrad",
+    "currentLevel": "Aktuell nivå",
+    "sections": {
+      "autonomousOperations": "Autonoma operationer",
+      "delegatedResponsibilities": "Delegerade ansvar",
+      "approvalPolicies": "Godkännandepolicyer",
+      "humanOversight": "Mänsklig tillsyn",
+      "autonomousPerformance": "Autonom prestanda",
+      "governanceControls": "Styrningskontroller"
+    },
+    "delegationFramework": { "title": "Delegeringsramverk" },
+    "policyEngine": { "title": "Policy-motor" },
+    "humanOversightCenter": { "title": "Center för mänsklig tillsyn" },
+    "autonomousSupportOperations": { "title": "Autonoma supportoperationer" },
+    "autonomousAdminOperations": { "title": "Autonoma administrativa operationer" },
+    "autonomousPerformanceDashboard": { "title": "Dashboard för autonom prestanda" },
+    "executiveAutonomyDashboard": { "title": "Executive autonomi-dashboard" },
+    "autonomyLevels": { "title": "Autonominivåer" },
+    "companionAdvisor": { "title": "Companion delegeringsrådgivare", "reason": "Varför Aipify rekommenderar detta" },
+    "enterpriseControls": {
+      "title": "Enterprise-kontroller",
+      "enabled": "Autonomi aktiverad",
+      "disabled": "Autonomi inaktiverad",
+      "executiveApproval": "Executive-godkännande krävs"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "approve": "Godkänn",
+      "reject": "Avslå",
+      "escalate": "Eskalera",
+      "override": "Åsidosätt"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "legacyAutonomous": "Autonomt driftscenter",
+      "approvals": "Godkännandecenter",
+      "actionCenter": "Action Center",
+      "humanOversight": "Human Oversight Engine"
+    }
+  },
   "trustReputationEngine": {
     "title": "Förtroende och rykte",
     "subtitle": "Organisatoriska förtroendeprofiler och metadata-baserade ryktessignaler — förtjänat förtroende med mänsklig granskning av expansion.",

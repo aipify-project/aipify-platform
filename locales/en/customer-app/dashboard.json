@@ -5777,6 +5777,69 @@
       "growthPartners": "Growth Partner Operations"
     }
   },
+  "autonomousOrganizationCenter": {
+    "title": "Autonomous Organization",
+    "subtitle": "Progressively delegate approved operational responsibilities to Aipify while maintaining complete governance, transparency, and human control.",
+    "philosophy": "Aipify should not replace people. Aipify removes unnecessary operational workload so people can focus on higher-value work.",
+    "governanceNote": "Every autonomous action includes owner, policy used, timestamp, audit trail, execution result, and approval record when required.",
+    "privacyNote": "Metadata and governance signals only — no raw customer content, payment details, or unapproved PII in autonomy audit logs.",
+    "refresh": "Refresh",
+    "emptyState": "No autonomy items in this section yet.",
+    "accessDenied": "Autonomous Organization requires appropriate workspace permissions.",
+    "owner": "Owner",
+    "policy": "Policy",
+    "threshold": "Threshold",
+    "autonomyLevel": "Autonomy level",
+    "lastRun": "Last run",
+    "successRate": "Success rate",
+    "currentLevel": "Current level",
+    "sections": {
+      "autonomousOperations": "Autonomous Operations",
+      "delegatedResponsibilities": "Delegated Responsibilities",
+      "approvalPolicies": "Approval Policies",
+      "humanOversight": "Human Oversight",
+      "autonomousPerformance": "Autonomous Performance",
+      "governanceControls": "Governance Controls"
+    },
+    "delegationFramework": { "title": "Delegation Framework" },
+    "policyEngine": { "title": "Policy Engine" },
+    "humanOversightCenter": { "title": "Human Oversight Center" },
+    "autonomousSupportOperations": { "title": "Autonomous Support Operations" },
+    "autonomousAdminOperations": { "title": "Autonomous Administrative Operations" },
+    "autonomousPerformanceDashboard": { "title": "Autonomous Performance Dashboard" },
+    "executiveAutonomyDashboard": { "title": "Executive Autonomy Dashboard" },
+    "autonomyLevels": { "title": "Autonomy Levels" },
+    "companionAdvisor": { "title": "Companion Delegation Advisor", "reason": "Why Aipify recommends this" },
+    "enterpriseControls": {
+      "title": "Enterprise Controls",
+      "enabled": "Autonomy enabled",
+      "disabled": "Autonomy disabled",
+      "executiveApproval": "Executive approval required"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "approve": "Approve",
+      "reject": "Reject",
+      "escalate": "Escalate",
+      "override": "Override"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "legacyAutonomous": "Autonomous Operations Center",
+      "approvals": "Approval Center",
+      "actionCenter": "Action Center",
+      "humanOversight": "Human Oversight Engine"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",
