@@ -1,5 +1,6 @@
 import Link from "next/link";
 import GrowthPartnersSignupForm, { type GrowthPartnersSignupLabels } from "./GrowthPartnersSignupForm";
+import type { HumanVerificationLabels } from "@/lib/system-notice/types";
 
 type Card = { title: string; body: string };
 type Step = { title: string; time?: string; body: string };
@@ -41,7 +42,7 @@ export type GrowthPartnersPageLabels = {
   footerNote: string;
 };
 
-type Props = { labels: GrowthPartnersPageLabels };
+type Props = { labels: GrowthPartnersPageLabels; verificationLabels: HumanVerificationLabels };
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">{children}</h2>;
@@ -56,7 +57,7 @@ function BenefitCard({ title, body }: Card) {
   );
 }
 
-export default function GrowthPartnersPageContent({ labels }: Props) {
+export default function GrowthPartnersPageContent({ labels, verificationLabels }: Props) {
   const { hero, earlySignup, why, independentPartnership, howItWorks, requirements, earnings, training, positioning } = labels;
 
   return (
@@ -125,7 +126,7 @@ export default function GrowthPartnersPageContent({ labels }: Props) {
               </ul>
             </div>
             <div>
-              <GrowthPartnersSignupForm labels={labels.signup} />
+              <GrowthPartnersSignupForm labels={labels.signup} verificationLabels={verificationLabels} />
               <p className="mt-4 text-center text-xs text-slate-500">
                 <Link href="/login" className="text-cyan-400 hover:underline">Already registered?</Link>
               </p>

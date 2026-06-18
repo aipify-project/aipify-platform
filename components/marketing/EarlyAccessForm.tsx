@@ -1,7 +1,10 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { AipifyHumanVerification, PublicFormHoneypot } from "@/components/ui/aipify-human-verification";
 import { trackEvent } from "@/lib/marketing/analytics";
+import { usePublicFormGuard } from "@/lib/public-forms/use-public-form-guard";
+import type { HumanVerificationLabels } from "@/lib/system-notice/types";
 
 type EarlyAccessLabels = {
   title: string;
@@ -24,31 +27,45 @@ type EarlyAccessLabels = {
 
 type EarlyAccessFormProps = {
   labels: EarlyAccessLabels;
+  verificationLabels: HumanVerificationLabels;
 };
 
-export default function EarlyAccessForm({ labels }: EarlyAccessFormProps) {
+export default function EarlyAccessForm({ labels, verificationLabels }: EarlyAccessFormProps) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const {
+    requireVerification,
+    guardFields,
+    onVerified,
+    onVerificationReset,
+    verificationRequired,
+  } = usePublicFormGuard();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!requireVerification()) return;
+
     setStatus("loading");
 
     const form = e.currentTarget;
     const data = new FormData(form);
+    const email = String(data.get("email") ?? "").trim();
 
     try {
       const res = await fetch("/api/marketing/early-access", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.get("name"),
-          company: data.get("company"),
-          email: data.get("email"),
-          company_size: data.get("company_size"),
-          industry: data.get("industry"),
-          interest_area: data.get("interest_area"),
-          message: data.get("message"),
-        }),
+        body: JSON.stringify(
+          guardFields(email, {
+            name: data.get("name"),
+            company: data.get("company"),
+            email,
+            company_size: data.get("company_size"),
+            industry: data.get("industry"),
+            interest_area: data.get("interest_area"),
+            message: data.get("message"),
+            _honeypot: data.get("_honeypot"),
+          }),
+        ),
       });
 
       if (!res.ok) throw new Error("submit failed");
@@ -56,6 +73,7 @@ export default function EarlyAccessForm({ labels }: EarlyAccessFormProps) {
       trackEvent("early_access_submit", { interest: String(data.get("interest_area") ?? "") });
       setStatus("success");
       form.reset();
+      onVerificationReset();
     } catch {
       setStatus("error");
     }
@@ -70,7 +88,8 @@ export default function EarlyAccessForm({ labels }: EarlyAccessFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="relative space-y-5">
+      <PublicFormHoneypot />
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="ea-name" className="block text-sm font-medium text-slate-300">
@@ -170,6 +189,19 @@ export default function EarlyAccessForm({ labels }: EarlyAccessFormProps) {
           className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
         />
       </div>
+
+      <AipifyHumanVerification
+        labels={verificationLabels}
+        variant="dark"
+        onVerified={onVerified}
+        onReset={onVerificationReset}
+      />
+
+      {verificationRequired ? (
+        <p className="text-sm text-amber-300" role="alert">
+          {verificationLabels.required}
+        </p>
+      ) : null}
 
       {status === "error" && (
         <p className="text-sm text-red-400" role="alert">

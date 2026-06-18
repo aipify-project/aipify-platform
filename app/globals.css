@@ -1,13 +1,52 @@
 @import "tailwindcss";
 
+/*
+ * Aipify Design Standard V1 — Light Enterprise Theme
+ * Default experience: warm off-white canvas, Companion Purple, soft blue-purple accents.
+ * Do NOT use pure #FFFFFF as page background. Dark theme is not primary.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #111827;
+  color-scheme: light;
+
+  --aipify-canvas: #f7f6f3;
+  --aipify-surface: #ffffff;
+  --aipify-surface-muted: #f3f2ef;
+  --aipify-surface-subtle: #fafaf8;
+  --aipify-border: #e7e5e4;
+  --aipify-border-strong: #d6d3d1;
+  --aipify-text-primary: #1e293b;
+  --aipify-text-secondary: #64748b;
+  --aipify-text-muted: #94a3b8;
+  --aipify-companion-purple: #7c3aed;
+  --aipify-companion-purple-hover: #6d28d9;
+  --aipify-accent: #6366f1;
+  --aipify-accent-soft: #eef2ff;
+  --aipify-accent-muted: #e0e7ff;
+  --aipify-focus-ring: #ddd6fe;
+
+  /* Legacy aliases */
+  --background: var(--aipify-canvas);
+  --foreground: var(--aipify-text-primary);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-aipify-canvas: var(--aipify-canvas);
+  --color-aipify-surface: var(--aipify-surface);
+  --color-aipify-surface-muted: var(--aipify-surface-muted);
+  --color-aipify-surface-subtle: var(--aipify-surface-subtle);
+  --color-aipify-border: var(--aipify-border);
+  --color-aipify-border-strong: var(--aipify-border-strong);
+  --color-aipify-text: var(--aipify-text-primary);
+  --color-aipify-text-secondary: var(--aipify-text-secondary);
+  --color-aipify-text-muted: var(--aipify-text-muted);
+  --color-aipify-companion: var(--aipify-companion-purple);
+  --color-aipify-companion-hover: var(--aipify-companion-purple-hover);
+  --color-aipify-accent: var(--aipify-accent);
+  --color-aipify-accent-soft: var(--aipify-accent-soft);
+  --color-aipify-accent-muted: var(--aipify-accent-muted);
+  --color-aipify-focus: var(--aipify-focus-ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -17,13 +56,13 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--aipify-canvas);
+  color: var(--aipify-text-primary);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
 ::selection {
-  background-color: #ddd6fe;
+  background-color: var(--aipify-accent-muted);
   color: #1e1b4b;
 }
 

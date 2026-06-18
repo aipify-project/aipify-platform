@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { parseBookDemoAdvisor } from "@/lib/book-demo-discovery-center";
+import { assertPublicFormSubmission, logSuspiciousSubmission } from "@/lib/public-forms/bot-protection";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -29,6 +30,19 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as Record<string, unknown>;
+
+    const businessEmailPreview = typeof body.business_email === "string" ? body.business_email.trim().toLowerCase() : "";
+    const guard = assertPublicFormSubmission(
+      request,
+      { ...body, email: businessEmailPreview },
+      "book-demo",
+    );
+    if (!guard.ok) {
+      if (guard.log) {
+        logSuspiciousSubmission("book-demo", guard.log, request.headers.get("x-forwarded-for") ?? "unknown");
+      }
+      return NextResponse.json({ ok: false, error: guard.error }, { status: guard.status });
+    }
 
     const firstName = sanitize(body.first_name, 80);
     const lastName = sanitize(body.last_name, 80);

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { parseOnboardingCenter, type EmployeeLifecycleLabels, type OnboardingCenter } from "@/lib/employee-lifecycle";
+import { AipifyModuleAccessDenied } from "@/components/ui/aipify-module-access-denied";
 
 export function OnboardingPanel({ labels }: { labels: EmployeeLifecycleLabels }) {
   const [center, setCenter] = useState<OnboardingCenter | null>(null);
@@ -32,7 +33,7 @@ export function OnboardingPanel({ labels }: { labels: EmployeeLifecycleLabels })
   }
 
   if (loading && !center) return <div className="flex min-h-[320px] items-center justify-center"><AipifyLoader centered /></div>;
-  if (!center?.found) return <div className="mx-auto max-w-3xl p-6"><p className="font-medium text-amber-900">{labels.accessDenied}</p></div>;
+  if (!center?.found) return <AipifyModuleAccessDenied message={labels.accessDenied} />;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-4 sm:p-6">

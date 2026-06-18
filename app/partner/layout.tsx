@@ -17,10 +17,7 @@ export default async function PartnerPortalLayout({
   const p = "partnerPortal";
 
   return (
-    <PartnerPortalAuthGuard
-      loadingLabel={t(`${p}.loading`)}
-      deniedLabel={t(`${p}.accessDenied`)}
-    >
+    <PartnerPortalAuthGuard loadingLabel={t(`${p}.loading`)}>
       <PartnerPortalShell
         portalTitle={t(`${p}.portalTitle`)}
         portalSubtitle={t(`${p}.portalSubtitle`)}

@@ -46,5 +46,89 @@
       "attention": "Krever oppmerksomhet",
       "info": "Informasjon"
     }
+  },
+  "systemNotice": {
+    "backToAipify": "Tilbake til Aipify",
+    "goToLogin": "Gå til innlogging",
+    "goToHome": "Gå til Aipify hjem",
+    "knowledgeCenter": "Besøk kunnskapssenteret",
+    "contactSupport": "Kontakt support",
+    "becomeGrowthPartner": "Bli Growth Partner",
+    "renewSubscription": "Forny abonnement",
+    "billing": "Fakturering",
+    "invoices": "Fakturaer",
+    "verificationRequired": "Verifisering kreves",
+    "presets": {
+      "forbidden": {
+        "title": "Tilgang nektet",
+        "message": "Du har ikke tillatelse til å se dette området.",
+        "primaryLabel": "Gå til innlogging",
+        "secondaryLabel": "Tilbake til Aipify"
+      },
+      "not_found": {
+        "title": "Siden ble ikke funnet",
+        "message": "Siden du leter etter kan ha flyttet, endret seg eller ikke lenger eksistere.",
+        "primaryLabel": "Gå til Aipify hjem",
+        "secondaryLabel": "Besøk kunnskapssenteret"
+      },
+      "unauthorized_panel": {
+        "title": "Tilgang kreves",
+        "message": "Du trenger riktige tillatelser for å se dette området. Kontakt administratoren din hvis du mener dette er en feil.",
+        "primaryLabel": "Tilbake til Aipify",
+        "secondaryLabel": "Kontakt support"
+      },
+      "growth_partner_required": {
+        "title": "Growth Partner-konto kreves",
+        "message": "Dette området er tilgjengelig for registrerte Aipify Growth Partners. Hvis du vil representere Aipify, fullfør Growth Partner-registrering og sertifiseringsprosessen.",
+        "primaryLabel": "Bli Growth Partner",
+        "secondaryLabel": "Tilbake til Aipify"
+      },
+      "platform_required": {
+        "title": "Plattformtilgang kreves",
+        "message": "Dette området er kun tilgjengelig for autoriserte Aipify-plattformbrukere.",
+        "primaryLabel": "Gå til innlogging",
+        "secondaryLabel": "Tilbake til Aipify"
+      },
+      "super_admin_required": {
+        "title": "Super Admin-tilgang kreves",
+        "message": "Dette området er begrenset til autoriserte Aipify Group AS systemadministratorer.",
+        "primaryLabel": "Gå til innlogging",
+        "secondaryLabel": "Tilbake til Aipify"
+      },
+      "app_required": {
+        "title": "APP-tilgang kreves",
+        "message": "Dette området tilhører en Aipify-kundeorganisasjon. Logg inn med en autorisert konto.",
+        "primaryLabel": "Gå til innlogging",
+        "secondaryLabel": "Tilbake til Aipify"
+      },
+      "subscription_required": {
+        "title": "Abonnement kreves",
+        "message": "Denne organisasjonen krever et aktivt abonnement for å få tilgang til operative funksjoner.",
+        "primaryLabel": "Forny abonnement",
+        "secondaryLabel": "Fakturering"
+      },
+      "suspended_account": {
+        "title": "Abonnement kreves",
+        "message": "Denne organisasjonen er midlertidig satt på pause fordi abonnementet krever oppmerksomhet. Fakturering, fakturaer og support er fortsatt tilgjengelig.",
+        "primaryLabel": "Forny abonnement",
+        "secondaryLabel": "Kontakt support"
+      },
+      "cancelled_account": {
+        "title": "Konto avsluttet",
+        "message": "Abonnementet for denne organisasjonen er avsluttet. Kontakt support hvis du trenger å gjenopprette tilgang.",
+        "primaryLabel": "Kontakt support",
+        "secondaryLabel": "Tilbake til Aipify"
+      }
+    }
+  },
+  "humanVerification": {
+    "title": "Rask verifisering",
+    "description": "Fullfør denne korte sjekken for å fortsette.",
+    "prompt": "Forbereder sikkerhetssjekk…",
+    "selectMatching": "Velg det matchende symbolet",
+    "verified": "Verifisering fullført",
+    "failed": "Verifisering mislyktes. Prøv igjen.",
+    "required": "Verifisering kreves før innsending.",
+    "refresh": "Ny utfordring"
   }
 }

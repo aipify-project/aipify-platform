@@ -4,6 +4,7 @@ import type { BookDemoPageLabels } from "@/components/marketing/BookDemoPageCont
 import { parseBookDemoAdvisor } from "@/lib/book-demo-discovery-center";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import { getSection } from "@/lib/marketing/parse-marketing";
+import { buildHumanVerificationLabels } from "@/lib/system-notice/labels";
 import { createClient } from "@/lib/supabase/server";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -16,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function BookDemoPage() {
-  const { marketing } = await getMarketingContext();
+  const { marketing, t } = await getMarketingContext();
   const labels = getSection<BookDemoPageLabels>(marketing, "bookDemoPage");
 
   let advisor = null;
@@ -29,5 +30,11 @@ export default async function BookDemoPage() {
     advisor = null;
   }
 
-  return <BookDemoPageContent labels={labels} advisor={advisor} />;
+  return (
+    <BookDemoPageContent
+      labels={labels}
+      advisor={advisor}
+      verificationLabels={buildHumanVerificationLabels(t)}
+    />
+  );
 }

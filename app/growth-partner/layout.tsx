@@ -15,10 +15,7 @@ export default async function GrowthPartnerPortalLayout({
   const p = "growthPartnerPortal";
 
   return (
-    <GrowthPartnerPortalAuthGuard
-      loadingLabel={t(`${p}.loading`)}
-      deniedLabel={t(`${p}.accessDenied`)}
-    >
+    <GrowthPartnerPortalAuthGuard loadingLabel={t(`${p}.loading`)}>
       <GrowthPartnerPortalShell
         portalTitle={t(`${p}.portalTitle`)}
         portalSubtitle={t(`${p}.portalSubtitle`)}

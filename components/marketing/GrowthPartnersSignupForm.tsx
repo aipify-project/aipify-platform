@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { FormEvent, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { AipifyHumanVerification, PublicFormHoneypot } from "@/components/ui/aipify-human-verification";
 import {
   GROWTH_PARTNER_COUNTRY_OPTIONS,
   GROWTH_PARTNER_PHONE_COUNTRIES,
@@ -12,6 +13,8 @@ import {
 } from "@/lib/growth-partner-signup";
 import { createClient } from "@/lib/supabase/client";
 import { trackEvent } from "@/lib/marketing/analytics";
+import { usePublicFormGuard } from "@/lib/public-forms/use-public-form-guard";
+import type { HumanVerificationLabels } from "@/lib/system-notice/types";
 
 export type GrowthPartnersSignupLabels = {
   title: string;
@@ -40,6 +43,7 @@ export type GrowthPartnersSignupLabels = {
 
 type Props = {
   labels: GrowthPartnersSignupLabels;
+  verificationLabels: HumanVerificationLabels;
   id?: string;
 };
 
@@ -47,12 +51,19 @@ const inputClass =
   "mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-2 focus:ring-cyan-500/20";
 const labelClass = "block text-sm font-medium text-slate-300";
 
-export default function GrowthPartnersSignupForm({ labels, id = "signup-form" }: Props) {
+export default function GrowthPartnersSignupForm({ labels, verificationLabels, id = "signup-form" }: Props) {
   const router = useRouter();
   const [country, setCountry] = useState("NO");
   const [phoneDial, setPhoneDial] = useState("+47");
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
+  const {
+    requireVerification,
+    guardFields,
+    onVerified,
+    onVerificationReset,
+    verificationRequired,
+  } = usePublicFormGuard();
 
   const regHelper = useMemo(() => businessRegistrationHelper(country), [country]);
 
@@ -63,6 +74,8 @@ export default function GrowthPartnersSignupForm({ labels, id = "signup-form" }:
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!requireVerification()) return;
+
     setStatus("loading");
     setError(null);
 
@@ -105,7 +118,12 @@ export default function GrowthPartnersSignupForm({ labels, id = "signup-form" }:
       const res = await fetch("/api/marketing/growth-partner-signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(
+          guardFields(email, {
+            ...payload,
+            _honeypot: data.get("_honeypot"),
+          }),
+        ),
       });
       const json = await res.json();
       const result = parseGrowthPartnerSignupResult(json);
@@ -122,7 +140,8 @@ export default function GrowthPartnersSignupForm({ labels, id = "signup-form" }:
   }
 
   return (
-    <form id={id} onSubmit={handleSubmit} className="space-y-5 rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+    <form id={id} onSubmit={handleSubmit} className="relative space-y-5 rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+      <PublicFormHoneypot />
       <h2 className="sr-only">{labels.title}</h2>
 
       <div className="grid gap-5 sm:grid-cols-2">
@@ -202,6 +221,19 @@ export default function GrowthPartnersSignupForm({ labels, id = "signup-form" }:
       </div>
 
       {error ? <p className="text-sm text-amber-300">{error}</p> : null}
+
+      <AipifyHumanVerification
+        labels={verificationLabels}
+        variant="dark"
+        onVerified={onVerified}
+        onReset={onVerificationReset}
+      />
+
+      {verificationRequired ? (
+        <p className="text-sm text-amber-300" role="alert">
+          {verificationLabels.required}
+        </p>
+      ) : null}
 
       <button
         type="submit"

@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { AipifyHumanVerification, PublicFormHoneypot } from "@/components/ui/aipify-human-verification";
 import { trackEvent } from "@/lib/marketing/analytics";
 import {
   BOOK_DEMO_CHALLENGES,
@@ -9,6 +10,8 @@ import {
   BOOK_DEMO_MEETING_TYPES,
   parseBookDemoSubmission,
 } from "@/lib/book-demo-discovery-center";
+import { usePublicFormGuard } from "@/lib/public-forms/use-public-form-guard";
+import type { HumanVerificationLabels } from "@/lib/system-notice/types";
 
 export type BookDemoFormLabels = {
   title: string;
@@ -36,37 +39,53 @@ export type BookDemoFormLabels = {
   integrationsNote: string;
 };
 
-type Props = { labels: BookDemoFormLabels };
+type Props = {
+  labels: BookDemoFormLabels;
+  verificationLabels: HumanVerificationLabels;
+};
 
-export default function BookDemoRequestForm({ labels }: Props) {
+export default function BookDemoRequestForm({ labels, verificationLabels }: Props) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [confirmation, setConfirmation] = useState("");
+  const {
+    requireVerification,
+    guardFields,
+    onVerified,
+    onVerificationReset,
+    verificationRequired,
+  } = usePublicFormGuard();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!requireVerification()) return;
+
     setStatus("loading");
 
     const form = e.currentTarget;
     const data = new FormData(form);
+    const businessEmail = String(data.get("business_email") ?? "").trim();
 
     try {
       const res = await fetch("/api/marketing/book-demo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          first_name: data.get("first_name"),
-          last_name: data.get("last_name"),
-          company_name: data.get("company_name"),
-          job_title: data.get("job_title"),
-          business_email: data.get("business_email"),
-          phone: data.get("phone"),
-          country: data.get("country"),
-          company_size: data.get("company_size"),
-          industry: data.get("industry"),
-          current_challenge: data.get("current_challenge"),
-          additional_notes: data.get("additional_notes"),
-          meeting_type: data.get("meeting_type"),
-        }),
+        body: JSON.stringify(
+          guardFields(businessEmail, {
+            first_name: data.get("first_name"),
+            last_name: data.get("last_name"),
+            company_name: data.get("company_name"),
+            job_title: data.get("job_title"),
+            business_email: businessEmail,
+            phone: data.get("phone"),
+            country: data.get("country"),
+            company_size: data.get("company_size"),
+            industry: data.get("industry"),
+            current_challenge: data.get("current_challenge"),
+            additional_notes: data.get("additional_notes"),
+            meeting_type: data.get("meeting_type"),
+            _honeypot: data.get("_honeypot"),
+          }),
+        ),
       });
 
       const result = parseBookDemoSubmission(await res.json());
@@ -76,6 +95,7 @@ export default function BookDemoRequestForm({ labels }: Props) {
       setConfirmation(result.confirmationNote ?? labels.successBody);
       setStatus("success");
       form.reset();
+      onVerificationReset();
     } catch {
       setStatus("error");
     }
@@ -94,7 +114,8 @@ export default function BookDemoRequestForm({ labels }: Props) {
     "mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/30";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="relative space-y-5">
+      <PublicFormHoneypot />
       <h3 className="text-xl font-semibold text-white">{labels.title}</h3>
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
@@ -190,14 +211,36 @@ export default function BookDemoRequestForm({ labels }: Props) {
         <legend className="px-1 text-sm font-semibold text-white">{labels.meetingTypeTitle}</legend>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           {BOOK_DEMO_MEETING_TYPES.map((key) => (
-            <label key={key} className="flex cursor-pointer items-center gap-3 rounded-lg border border-white/10 px-4 py-3 text-sm text-slate-300 hover:bg-white/5">
-              <input type="radio" name="meeting_type" value={key} defaultChecked={key === "no_preference"} className="text-cyan-500" />
+            <label
+              key={key}
+              className="flex cursor-pointer items-center gap-3 rounded-lg border border-white/10 px-4 py-3 text-sm text-slate-300 hover:bg-white/5"
+            >
+              <input
+                type="radio"
+                name="meeting_type"
+                value={key}
+                defaultChecked={key === "no_preference"}
+                className="text-cyan-500"
+              />
               {labels.meetingTypes[key] ?? key}
             </label>
           ))}
         </div>
         <p className="mt-4 text-xs text-slate-500">{labels.integrationsNote}</p>
       </fieldset>
+
+      <AipifyHumanVerification
+        labels={verificationLabels}
+        variant="dark"
+        onVerified={onVerified}
+        onReset={onVerificationReset}
+      />
+
+      {verificationRequired ? (
+        <p className="text-sm text-amber-300" role="alert">
+          {verificationLabels.required}
+        </p>
+      ) : null}
 
       {status === "error" ? <p className="text-sm text-red-300">{labels.error}</p> : null}
 

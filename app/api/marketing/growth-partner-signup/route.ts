@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { assertPublicFormSubmission, logSuspiciousSubmission } from "@/lib/public-forms/bot-protection";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -17,6 +18,19 @@ export async function POST(request: Request) {
     if (!user) return NextResponse.json({ error: "Authentication required" }, { status: 401 });
 
     const body = (await request.json()) as Record<string, unknown>;
+
+    const guard = assertPublicFormSubmission(request, body, "growth-partner-signup");
+    if (!guard.ok) {
+      if (guard.log) {
+        logSuspiciousSubmission(
+          "growth-partner-signup",
+          guard.log,
+          request.headers.get("x-forwarded-for") ?? "unknown",
+        );
+      }
+      return NextResponse.json({ error: guard.error }, { status: guard.status });
+    }
+
     const email = sanitize(body.email, 254)?.toLowerCase();
     if (!email || !EMAIL_RE.test(email)) {
       return NextResponse.json({ error: "Valid email is required" }, { status: 400 });

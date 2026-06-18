@@ -3,20 +3,17 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import type { AuthChangeEvent } from "@supabase/supabase-js";
+import { AipifySystemNotice } from "@/components/ui/aipify-system-notice";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { getBrowserSupabaseClient } from "@/lib/supabase/browser-client";
 import { getPlatformProfile } from "@/lib/tenant/get-platform-profile";
 
 type PlatformAuthGuardProps = {
   loadingLabel: string;
-  deniedLabel: string;
   children: ReactNode;
 };
 
-export default function PlatformAuthGuard({
-  loadingLabel,
-  deniedLabel,
-  children,
-}: PlatformAuthGuardProps) {
+export default function PlatformAuthGuard({ loadingLabel, children }: PlatformAuthGuardProps) {
   const router = useRouter();
   const [checking, setChecking] = useState(true);
   const [authorized, setAuthorized] = useState(false);
@@ -70,21 +67,15 @@ export default function PlatformAuthGuard({
 
   if (checking) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-100">
-        <div className="flex flex-col items-center gap-3">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-300 border-t-slate-700" />
-          <p className="text-sm font-medium text-slate-600">{loadingLabel}</p>
-        </div>
+      <div className="flex min-h-screen items-center justify-center bg-aipify-canvas">
+        <AipifyLoader centered />
+        <span className="sr-only">{loadingLabel}</span>
       </div>
     );
   }
 
   if (denied || !authorized) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4">
-        <p className="text-sm font-medium text-slate-600">{deniedLabel}</p>
-      </div>
-    );
+    return <AipifySystemNotice status="platform_required" />;
   }
 
   return children;

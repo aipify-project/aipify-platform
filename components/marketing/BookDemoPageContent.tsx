@@ -2,6 +2,7 @@ import Link from "next/link";
 import BookDemoRequestForm, { type BookDemoFormLabels } from "./BookDemoRequestForm";
 import { DemoAdvisorCard } from "./DemoAdvisorCard";
 import type { BookDemoAdvisor } from "@/lib/book-demo-discovery-center";
+import type { HumanVerificationLabels } from "@/lib/system-notice/types";
 
 type Card = { title: string; body: string };
 type Step = { title: string; body: string };
@@ -37,6 +38,7 @@ export type BookDemoPageLabels = {
 type Props = {
   labels: BookDemoPageLabels;
   advisor: BookDemoAdvisor | null;
+  verificationLabels: HumanVerificationLabels;
 };
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
@@ -52,7 +54,7 @@ function InfoCard({ title, body }: Card) {
   );
 }
 
-export default function BookDemoPageContent({ labels, advisor }: Props) {
+export default function BookDemoPageContent({ labels, advisor, verificationLabels }: Props) {
   const { hero, whatToExpect, whoShouldBook, form, advisor: advisorLabels, enterpriseReadiness, deploymentModels, faq, companion, finalPrinciple } = labels;
 
   return (
@@ -110,7 +112,7 @@ export default function BookDemoPageContent({ labels, advisor }: Props) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-5">
             <div className="lg:col-span-3 rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
-              <BookDemoRequestForm labels={form} />
+              <BookDemoRequestForm labels={form} verificationLabels={verificationLabels} />
             </div>
             <div className="lg:col-span-2">
               <DemoAdvisorCard advisor={advisor} labels={advisorLabels} />

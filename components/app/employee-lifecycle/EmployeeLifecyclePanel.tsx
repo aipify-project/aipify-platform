@@ -10,6 +10,7 @@ import {
   type EmployeeLifecycleLabels,
   type LifecycleEmployee,
 } from "@/lib/employee-lifecycle";
+import { AipifyModuleAccessDenied } from "@/components/ui/aipify-module-access-denied";
 
 type Tab = "overview" | "employees" | "invitations" | "onboarding" | "training" | "offboarding" | "reports";
 
@@ -84,7 +85,7 @@ export function EmployeeLifecyclePanel({ labels, initialTab }: Props) {
   }
 
   if (loading && !center) return <div className="flex min-h-[320px] items-center justify-center"><AipifyLoader centered /></div>;
-  if (!center?.found) return <div className="mx-auto max-w-3xl p-6"><p className="font-medium text-amber-900">{labels.accessDenied}</p></div>;
+  if (!center?.found) return <AipifyModuleAccessDenied message={labels.accessDenied} />;
 
   const overview = center.overview ?? {};
   const routes = center.routes;

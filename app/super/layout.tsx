@@ -50,11 +50,7 @@ export default async function SuperAdminLayout({
   const moduleLabels = buildModuleLabels(t);
 
   return (
-    <SuperAdminAuthGuard
-      loadingLabel={t("common.loading")}
-      deniedLabel={t("superAdmin.access.denied")}
-      supportRedirectLabel={t("superAdmin.access.supportRedirect")}
-    >
+    <SuperAdminAuthGuard loadingLabel={t("common.loading")}>
       <SuperAdminAccessGate
         loadingLabel={t("common.loading")}
         recoveryRequiredLabel={t("superAdmin.access.recoveryRequired")}

@@ -21,10 +21,7 @@ export default async function PartnersPortalLayout({
   const navLabels = buildPartnersPortalNavLabels(t);
 
   return (
-    <PartnersPortalAuthGuard
-      loadingLabel={labels.shell.loading}
-      deniedLabel={labels.shell.accessDenied}
-    >
+    <PartnersPortalAuthGuard loadingLabel={labels.shell.loading}>
       <PartnersPortalShell
         portalBadge={labels.shell.portalBadge}
         portalTitle={labels.shell.portalTitle}

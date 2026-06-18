@@ -2,16 +2,16 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import { AipifySystemNotice } from "@/components/ui/aipify-system-notice";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { getBrowserSupabaseClient } from "@/lib/supabase/browser-client";
 
 type Props = {
   loadingLabel: string;
-  deniedLabel: string;
   children: ReactNode;
 };
 
-export default function PartnerPortalAuthGuard({ loadingLabel, deniedLabel, children }: Props) {
+export default function PartnerPortalAuthGuard({ loadingLabel, children }: Props) {
   const router = useRouter();
   const [checking, setChecking] = useState(true);
   const [authorized, setAuthorized] = useState(false);
@@ -21,7 +21,10 @@ export default function PartnerPortalAuthGuard({ loadingLabel, deniedLabel, chil
     let mounted = true;
 
     async function verifyAccess() {
-      const { data: { user }, error } = await supabase.auth.getUser();
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
       if (!mounted) return;
 
       if (error || !user) {
@@ -55,7 +58,7 @@ export default function PartnerPortalAuthGuard({ loadingLabel, deniedLabel, chil
 
   if (checking) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
+      <div className="flex min-h-screen items-center justify-center bg-aipify-canvas">
         <AipifyLoader centered />
         <span className="sr-only">{loadingLabel}</span>
       </div>
@@ -63,13 +66,7 @@ export default function PartnerPortalAuthGuard({ loadingLabel, deniedLabel, chil
   }
 
   if (!authorized) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-6">
-        <div className="max-w-md rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm">
-          <h1 className="text-lg font-semibold text-slate-900">{deniedLabel}</h1>
-        </div>
-      </div>
-    );
+    return <AipifySystemNotice status="growth_partner_required" />;
   }
 
   return <>{children}</>;

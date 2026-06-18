@@ -30,10 +30,7 @@ export default async function PlatformLayout({
   const navSearchIndex = buildPlatformNavSearchIndex(navGroups, navConfig, t);
 
   return (
-    <PlatformAuthGuard
-      loadingLabel={t("common.loading")}
-      deniedLabel={t("platform.accessDenied")}
-    >
+    <PlatformAuthGuard loadingLabel={t("common.loading")}>
       <PlatformAccessGate
         loadingLabel={t("common.loading")}
         twoFactorRequiredLabel={t("platform.portal.twoFactorRequired")}

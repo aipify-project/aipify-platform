@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { assertPublicFormSubmission, logSuspiciousSubmission } from "@/lib/public-forms/bot-protection";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -23,6 +24,14 @@ function sanitize(value: unknown, max = 500): string | null {
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as EarlyAccessBody;
+
+    const guard = assertPublicFormSubmission(request, body, "early-access");
+    if (!guard.ok) {
+      if (guard.log) {
+        logSuspiciousSubmission("early-access", guard.log, request.headers.get("x-forwarded-for") ?? "unknown");
+      }
+      return NextResponse.json({ error: guard.error }, { status: guard.status });
+    }
 
     const name = sanitize(body.name, 120);
     const company = sanitize(body.company, 200);

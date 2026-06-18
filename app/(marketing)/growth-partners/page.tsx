@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import GrowthPartnersPageContent, { type GrowthPartnersPageLabels } from "@/components/marketing/GrowthPartnersPageContent";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import { getSection } from "@/lib/marketing/parse-marketing";
+import { buildHumanVerificationLabels } from "@/lib/system-notice/labels";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { marketing } = await getMarketingContext();
@@ -13,8 +14,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function GrowthPartnersPage() {
-  const { marketing } = await getMarketingContext();
+  const { marketing, t } = await getMarketingContext();
   const labels = getSection<GrowthPartnersPageLabels>(marketing, "growthPartners");
 
-  return <GrowthPartnersPageContent labels={labels} />;
+  return (
+    <GrowthPartnersPageContent labels={labels} verificationLabels={buildHumanVerificationLabels(t)} />
+  );
 }

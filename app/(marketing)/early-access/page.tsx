@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { EarlyAccessForm, MarketingPageHeader } from "@/components/marketing";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import { getSection } from "@/lib/marketing/parse-marketing";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { createTranslator } from "@/lib/i18n/translate";
+import { buildHumanVerificationLabels } from "@/lib/system-notice/labels";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { marketing } = await getMarketingContext();
@@ -10,8 +13,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function EarlyAccessPage() {
-  const { marketing } = await getMarketingContext();
+  const { marketing, locale } = await getMarketingContext();
   const earlyAccess = getSection<Record<string, unknown>>(marketing, "earlyAccess");
+  const dict = await getDictionary(locale, ["common"]);
+  const t = createTranslator(dict);
 
   return (
     <>
@@ -20,7 +25,10 @@ export default async function EarlyAccessPage() {
         subtitle={earlyAccess.subtitle as string}
       />
       <div className="mx-auto max-w-xl px-4 py-12 sm:px-6 lg:px-8">
-        <EarlyAccessForm labels={earlyAccess as Parameters<typeof EarlyAccessForm>[0]["labels"]} />
+        <EarlyAccessForm
+          labels={earlyAccess as Parameters<typeof EarlyAccessForm>[0]["labels"]}
+          verificationLabels={buildHumanVerificationLabels(t)}
+        />
       </div>
     </>
   );
