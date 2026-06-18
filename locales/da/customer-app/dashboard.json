@@ -5178,6 +5178,67 @@
       "assistantMemory": "Assistant Memory"
     }
   },
+  "organizationalConsciousnessCenter": {
+    "title": "Organisationsbevidsthed",
+    "subtitle": "Det højeste intelligenslag — syntetiserer drift, viden, relationer, beslutninger og adfærd til enhedelig organisatorisk forståelse.",
+    "philosophy": "Data er ikke forståelse. Viden er ikke visdom. Aipify hjælper ledelse og teams med at se det større billede.",
+    "governanceNote": "Al bevidsthedsoutput er forklarlig, reviderbar, evidensbaseret og menneskekontrolleret. Ingen autonom strategisk myndighed.",
+    "privacyNote": "Kun organisatorisk bevidstheds-metadata — ingen rå e-mail, chat, betalingsdata eller ugodkendt PII.",
+    "refresh": "Opdater",
+    "emptyState": "Ingen bevidsthedselementer i dette afsnit endnu.",
+    "accessDenied": "Organisationsbevidsthed kræver passende arbejdsområdetilladelser.",
+    "evidence": "Evidens",
+    "signal": "Signal",
+    "evaluation": "Evaluering",
+    "alignment": "Justering",
+    "sections": {
+      "organizationalAwareness": "Organisatorisk bevidsthed",
+      "strategicAwareness": "Strategisk bevidsthed",
+      "operationalAwareness": "Operationel bevidsthed",
+      "culturalAwareness": "Kulturel bevidsthed",
+      "organizationalAlignment": "Organisatorisk justering",
+      "longTermTrends": "Langsigtede tendenser",
+      "emergingSignals": "Fremvoksende signaler"
+    },
+    "awarenessEngine": { "title": "Awareness Engine" },
+    "organizationalAlignmentAnalysis": { "title": "Organisatorisk justeringsanalyse" },
+    "strategicAwarenessLayer": { "title": "Strategisk bevidsthedslag" },
+    "organizationalNarrativeEngine": { "title": "Organisatorisk narrativmotor" },
+    "emergingSignalDetection": { "title": "Detektion af fremvoksende signaler" },
+    "organizationalCoherenceEngine": { "title": "Organisatorisk koherensmotor" },
+    "executiveAwarenessDashboard": { "title": "Executive Awareness Dashboard" },
+    "companionAdvisor": { "title": "Companion Strategic Advisor", "evidence": "Støtteevidens" },
+    "longTermIntelligenceLayer": { "title": "Langsigtet intelligenslag" },
+    "reflectionEngine": { "title": "Refleksionsmotor" },
+    "governanceControls": {
+      "title": "Styringskontroller",
+      "enabled": "Organisationsbevidsthed aktiveret",
+      "disabled": "Organisationsbevidsthed deaktiveret",
+      "humanControl": "Menneskelig kontrol påkrævet — ingen autonom strategisk myndighed"
+    },
+    "actions": {
+      "acknowledge": "Bekræft",
+      "dismiss": "Afvis",
+      "escalate": "Eskaler",
+      "resolve": "Løs"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "links": {
+      "corporateBrain": "Corporate Brain",
+      "executiveBoard": "Executive Board",
+      "governanceTrust": "Governance & Trust",
+      "strategicIntelligence": "Strategisk intelligens",
+      "legacyConsciousness": "Legacy Consciousness Engine"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillid og omdømme",
     "subtitle": "Organisatoriske tillidsprofiler og metadata-baserede omdømmesignaler — fortjent tillid med menneskelig gennemgang af udvidelser.",

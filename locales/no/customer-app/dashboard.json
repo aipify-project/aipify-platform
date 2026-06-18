@@ -5375,6 +5375,67 @@
       "assistantMemory": "Assistant Memory"
     }
   },
+  "organizationalConsciousnessCenter": {
+    "title": "Organisasjonsbevissthet",
+    "subtitle": "Det høyeste intelligenslaget — syntetiserer drift, kunnskap, relasjoner, beslutninger og atferd til enhetlig organisatorisk forståelse.",
+    "philosophy": "Data er ikke forståelse. Kunnskap er ikke visdom. Aipify hjelper ledelse og team med å se det større bildet.",
+    "governanceNote": "All bevissthetsoutput er forklarbar, reviderbar, evidensbasert og menneskekontrollert. Ingen autonom strategisk myndighet.",
+    "privacyNote": "Kun organisatorisk bevissthets-metadata — ingen rå e-post, chat, betalingsdata eller ugodkjent PII.",
+    "refresh": "Oppdater",
+    "emptyState": "Ingen bevissthetselementer i denne seksjonen ennå.",
+    "accessDenied": "Organisasjonsbevissthet krever passende arbeidsområdetillatelser.",
+    "evidence": "Evidens",
+    "signal": "Signal",
+    "evaluation": "Evaluering",
+    "alignment": "Justering",
+    "sections": {
+      "organizationalAwareness": "Organisatorisk bevissthet",
+      "strategicAwareness": "Strategisk bevissthet",
+      "operationalAwareness": "Operasjonell bevissthet",
+      "culturalAwareness": "Kulturell bevissthet",
+      "organizationalAlignment": "Organisatorisk justering",
+      "longTermTrends": "Langsiktige trender",
+      "emergingSignals": "Fremvoksende signaler"
+    },
+    "awarenessEngine": { "title": "Awareness Engine" },
+    "organizationalAlignmentAnalysis": { "title": "Organisatorisk justeringsanalyse" },
+    "strategicAwarenessLayer": { "title": "Strategisk bevissthetslag" },
+    "organizationalNarrativeEngine": { "title": "Organisatorisk narrativmotor" },
+    "emergingSignalDetection": { "title": "Deteksjon av fremvoksende signaler" },
+    "organizationalCoherenceEngine": { "title": "Organisatorisk koherensmotor" },
+    "executiveAwarenessDashboard": { "title": "Executive Awareness Dashboard" },
+    "companionAdvisor": { "title": "Companion Strategic Advisor", "evidence": "Støtteevidens" },
+    "longTermIntelligenceLayer": { "title": "Langsiktig intelligenslag" },
+    "reflectionEngine": { "title": "Refleksjonsmotor" },
+    "governanceControls": {
+      "title": "Styringskontroller",
+      "enabled": "Organisasjonsbevissthet aktivert",
+      "disabled": "Organisasjonsbevissthet deaktivert",
+      "humanControl": "Menneskelig kontroll påkrevd — ingen autonom strategisk myndighet"
+    },
+    "actions": {
+      "acknowledge": "Bekreft",
+      "dismiss": "Avvis",
+      "escalate": "Eskaler",
+      "resolve": "Løs"
+    },
+    "status": {
+      "completed": "Fullført",
+      "notAllowed": "Ikke tillatt",
+      "requiresAttention": "Krever oppmerksomhet",
+      "information": "Informasjon",
+      "restricted": "Begrenset tilgang",
+      "verified": "Verifisert",
+      "waiting": "Venter"
+    },
+    "links": {
+      "corporateBrain": "Corporate Brain",
+      "executiveBoard": "Executive Board",
+      "governanceTrust": "Governance & Trust",
+      "strategicIntelligence": "Strategisk intelligens",
+      "legacyConsciousness": "Legacy Consciousness Engine"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillit og omdømme",
     "subtitle": "Organisatoriske tillitsprofiler og metadata-baserte omdømmesignaler — opptjent tillit med menneskelig gjennomgang av utvidelser.",

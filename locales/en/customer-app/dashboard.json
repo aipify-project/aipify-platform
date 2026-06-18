@@ -6048,6 +6048,67 @@
       "assistantMemory": "Assistant Memory"
     }
   },
+  "organizationalConsciousnessCenter": {
+    "title": "Organizational Consciousness",
+    "subtitle": "The highest-level intelligence layer — synthesizing operations, knowledge, relationships, decisions, and behavior into unified organizational understanding.",
+    "philosophy": "Data is not understanding. Knowledge is not wisdom. Aipify helps leadership and teams see the bigger picture.",
+    "governanceNote": "All awareness outputs are explainable, auditable, evidence-based, and human-controlled. No autonomous strategic authority.",
+    "privacyNote": "Organizational awareness metadata only — no raw email, chat, payment data, or unapproved PII.",
+    "refresh": "Refresh",
+    "emptyState": "No awareness items in this section yet.",
+    "accessDenied": "Organizational Consciousness requires appropriate workspace permissions.",
+    "evidence": "Evidence",
+    "signal": "Signal",
+    "evaluation": "Evaluation",
+    "alignment": "Alignment",
+    "sections": {
+      "organizationalAwareness": "Organizational Awareness",
+      "strategicAwareness": "Strategic Awareness",
+      "operationalAwareness": "Operational Awareness",
+      "culturalAwareness": "Cultural Awareness",
+      "organizationalAlignment": "Organizational Alignment",
+      "longTermTrends": "Long-Term Trends",
+      "emergingSignals": "Emerging Signals"
+    },
+    "awarenessEngine": { "title": "Awareness Engine" },
+    "organizationalAlignmentAnalysis": { "title": "Organizational Alignment Analysis" },
+    "strategicAwarenessLayer": { "title": "Strategic Awareness Layer" },
+    "organizationalNarrativeEngine": { "title": "Organizational Narrative Engine" },
+    "emergingSignalDetection": { "title": "Emerging Signal Detection" },
+    "organizationalCoherenceEngine": { "title": "Organizational Coherence Engine" },
+    "executiveAwarenessDashboard": { "title": "Executive Awareness Dashboard" },
+    "companionAdvisor": { "title": "Companion Strategic Advisor", "evidence": "Supporting evidence" },
+    "longTermIntelligenceLayer": { "title": "Long-Term Intelligence Layer" },
+    "reflectionEngine": { "title": "Reflection Engine" },
+    "governanceControls": {
+      "title": "Governance Controls",
+      "enabled": "Organizational Consciousness enabled",
+      "disabled": "Organizational Consciousness disabled",
+      "humanControl": "Human control required — no autonomous strategic authority"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "escalate": "Escalate",
+      "resolve": "Resolve"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "corporateBrain": "Corporate Brain",
+      "executiveBoard": "Executive Board",
+      "governanceTrust": "Governance & Trust",
+      "strategicIntelligence": "Strategic Intelligence",
+      "legacyConsciousness": "Legacy Consciousness Engine"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",

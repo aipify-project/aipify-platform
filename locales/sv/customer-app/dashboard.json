@@ -5230,6 +5230,67 @@
       "assistantMemory": "Assistant Memory"
     }
   },
+  "organizationalConsciousnessCenter": {
+    "title": "Organisationsmedvetenhet",
+    "subtitle": "Det högsta intelligenslagret — syntetiserar drift, kunskap, relationer, beslut och beteende till enhetlig organisatorisk förståelse.",
+    "philosophy": "Data är inte förståelse. Kunskap är inte visdom. Aipify hjälper ledning och team att se den större bilden.",
+    "governanceNote": "All medvetenhetsoutput är förklarbar, reviderbar, evidensbaserad och människokontrollerad. Ingen autonom strategisk auktoritet.",
+    "privacyNote": "Endast organisatorisk medvetenhets-metadata — ingen rå e-post, chatt, betalningsdata eller ogodkänd PII.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga medvetenhetsobjekt i detta avsnitt ännu.",
+    "accessDenied": "Organisationsmedvetenhet kräver lämpliga arbetsytetillstånd.",
+    "evidence": "Evidens",
+    "signal": "Signal",
+    "evaluation": "Utvärdering",
+    "alignment": "Justering",
+    "sections": {
+      "organizationalAwareness": "Organisatorisk medvetenhet",
+      "strategicAwareness": "Strategisk medvetenhet",
+      "operationalAwareness": "Operativ medvetenhet",
+      "culturalAwareness": "Kulturell medvetenhet",
+      "organizationalAlignment": "Organisatorisk justering",
+      "longTermTrends": "Långsiktiga trender",
+      "emergingSignals": "Framväxande signaler"
+    },
+    "awarenessEngine": { "title": "Awareness Engine" },
+    "organizationalAlignmentAnalysis": { "title": "Organisatorisk justeringsanalys" },
+    "strategicAwarenessLayer": { "title": "Strategiskt medvetenhetslager" },
+    "organizationalNarrativeEngine": { "title": "Organisatorisk narrativmotor" },
+    "emergingSignalDetection": { "title": "Detektering av framväxande signaler" },
+    "organizationalCoherenceEngine": { "title": "Organisatorisk koherensmotor" },
+    "executiveAwarenessDashboard": { "title": "Executive Awareness Dashboard" },
+    "companionAdvisor": { "title": "Companion Strategic Advisor", "evidence": "Stödjande evidens" },
+    "longTermIntelligenceLayer": { "title": "Långsiktigt intelligenslager" },
+    "reflectionEngine": { "title": "Reflektionsmotor" },
+    "governanceControls": {
+      "title": "Styrningskontroller",
+      "enabled": "Organisationsmedvetenhet aktiverad",
+      "disabled": "Organisationsmedvetenhet inaktiverad",
+      "humanControl": "Mänsklig kontroll krävs — ingen autonom strategisk auktoritet"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "escalate": "Eskalera",
+      "resolve": "Lös"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "corporateBrain": "Corporate Brain",
+      "executiveBoard": "Executive Board",
+      "governanceTrust": "Governance & Trust",
+      "strategicIntelligence": "Strategisk intelligens",
+      "legacyConsciousness": "Legacy Consciousness Engine"
+    }
+  },
   "trustReputationEngine": {
     "title": "Förtroende och rykte",
     "subtitle": "Organisatoriska förtroendeprofiler och metadata-baserade ryktessignaler — förtjänat förtroende med mänsklig granskning av expansion.",
