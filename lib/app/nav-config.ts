@@ -17,6 +17,12 @@ export type AppNavId =
   | "logisticsTransportationFleetOperationsPack"
   | "manufacturingProductionIndustrialOperationsPack"
   | "educationTrainingLearningOperationsPack"
+  | "healthcareClinicPatientOperationsPack"
+  | "legalComplianceCaseOperationsPack"
+  | "professionalServicesConsultingClientDeliveryPack"
+  | "digitalEmployeeLifecycleEngine"
+  | "digitalWorkforceRecruitmentEngine"
+  | "digitalWorkforceValueEngine"
   | "contextIntelligenceEngine"
   | "identityPermissionsEngine"
   | "secureAiActionEngine"
@@ -458,6 +464,36 @@ export const APP_NAV: AppNavItem[] = [
     id: "educationTrainingLearningOperationsPack",
     href: "/app/education",
     labelKey: "customerApp.nav.educationTrainingLearningOperationsPack",
+  },
+  {
+    id: "healthcareClinicPatientOperationsPack",
+    href: "/app/healthcare",
+    labelKey: "customerApp.nav.healthcareClinicPatientOperationsPack",
+  },
+  {
+    id: "legalComplianceCaseOperationsPack",
+    href: "/app/legal",
+    labelKey: "customerApp.nav.legalComplianceCaseOperationsPack",
+  },
+  {
+    id: "professionalServicesConsultingClientDeliveryPack",
+    href: "/app/professional-services",
+    labelKey: "customerApp.nav.professionalServicesConsultingClientDeliveryPack",
+  },
+  {
+    id: "digitalEmployeeLifecycleEngine",
+    href: "/app/digital-employees",
+    labelKey: "customerApp.nav.digitalEmployeeLifecycleEngine",
+  },
+  {
+    id: "digitalWorkforceRecruitmentEngine",
+    href: "/app/digital-workforce/recruitment",
+    labelKey: "customerApp.nav.digitalWorkforceRecruitmentEngine",
+  },
+  {
+    id: "digitalWorkforceValueEngine",
+    href: "/app/digital-workforce/value",
+    labelKey: "customerApp.nav.digitalWorkforceValueEngine",
   },
   {
     id: "contextIntelligenceEngine",
@@ -1854,6 +1890,14 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/logistics")) return "logisticsTransportationFleetOperationsPack";
   if (pathname.startsWith("/app/manufacturing")) return "manufacturingProductionIndustrialOperationsPack";
   if (pathname.startsWith("/app/education")) return "educationTrainingLearningOperationsPack";
+  if (pathname.startsWith("/app/healthcare")) return "healthcareClinicPatientOperationsPack";
+  if (pathname.startsWith("/app/legal")) return "legalComplianceCaseOperationsPack";
+  if (pathname.startsWith("/app/professional-services")) {
+    return "professionalServicesConsultingClientDeliveryPack";
+  }
+  if (pathname.startsWith("/app/digital-employees")) return "digitalEmployeeLifecycleEngine";
+  if (pathname.startsWith("/app/digital-workforce/value")) return "digitalWorkforceValueEngine";
+  if (pathname.startsWith("/app/digital-workforce")) return "digitalWorkforceRecruitmentEngine";
   if (pathname.startsWith("/app/context-intelligence-engine")) return "contextIntelligenceEngine";
   if (pathname.startsWith("/app/identity-access")) return "identityPermissionsEngine";
   if (pathname.startsWith("/app/secure-ai-actions")) return "secureAiActionEngine";

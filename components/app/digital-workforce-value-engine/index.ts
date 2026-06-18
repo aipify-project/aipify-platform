@@ -1,0 +1,1 @@
+export { DigitalWorkforceValueEngineDashboardPanel } from "./DigitalWorkforceValueEngineDashboardPanel";
