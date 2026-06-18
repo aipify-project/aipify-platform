@@ -1,5 +1,6 @@
-import dynamic from "next/dynamic";
 import {
+  AnimatedProductDemo,
+  CompanionOrbDemo,
   EnterpriseTrustSection,
   HeroSection,
   HowAipifyWorksSection,
@@ -9,6 +10,7 @@ import {
   OutputEngineShowcase,
   PilotStorySection,
 } from "@/components/marketing";
+import type { OrbState } from "@/components/marketing/CompanionOrbDemo";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import {
   getSection,
@@ -21,29 +23,6 @@ import {
   parseTrustPoints,
   parseWorkSteps,
 } from "@/lib/marketing/parse-marketing";
-import type { OrbState } from "@/components/marketing/CompanionOrbDemo";
-
-const AnimatedProductDemo = dynamic(
-  () => import("@/components/marketing/AnimatedProductDemo"),
-  {
-    loading: () => (
-      <div className="border-y border-white/10 bg-[#0c1018] py-20">
-        <div className="mx-auto h-48 max-w-3xl animate-pulse rounded-2xl bg-white/5" />
-      </div>
-    ),
-  }
-);
-
-const CompanionOrbDemo = dynamic(
-  () => import("@/components/marketing/CompanionOrbDemo"),
-  {
-    loading: () => (
-      <div className="py-20">
-        <div className="mx-auto h-48 max-w-lg animate-pulse rounded-full bg-white/5" />
-      </div>
-    ),
-  }
-);
 
 export default async function MarketingHomePage() {
   const { marketing } = await getMarketingContext();
