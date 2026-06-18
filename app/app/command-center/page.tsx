@@ -77,16 +77,13 @@ export default async function AppCommandCenterPage() {
             actionCards: {
               pendingApprovals: {
                 title: t(`${p}.actionCards.pendingApprovals.title`),
-                detail: (count: number) =>
-                  t(`${p}.actionCards.pendingApprovals.detail`).replace("{count}", String(count)),
+                detailTemplate: t(`${p}.actionCards.pendingApprovals.detail`),
                 action: t(`${p}.actionCards.pendingApprovals.action`),
               },
               escalations: {
                 title: t(`${p}.actionCards.escalations.title`),
-                detail: (count: number) =>
-                  count === 0
-                    ? t(`${p}.actionCards.escalations.detailNone`)
-                    : t(`${p}.actionCards.escalations.detail`).replace("{count}", String(count)),
+                detailTemplate: t(`${p}.actionCards.escalations.detail`),
+                detailNone: t(`${p}.actionCards.escalations.detailNone`),
                 action: t(`${p}.actionCards.escalations.action`),
               },
               executiveSummary: {
@@ -96,10 +93,8 @@ export default async function AppCommandCenterPage() {
               },
               securityAlerts: {
                 title: t(`${p}.actionCards.securityAlerts.title`),
-                detail: (count: number) =>
-                  count === 0
-                    ? t(`${p}.actionCards.securityAlerts.detailNone`)
-                    : t(`${p}.actionCards.securityAlerts.detail`).replace("{count}", String(count)),
+                detailTemplate: t(`${p}.actionCards.securityAlerts.detail`),
+                detailNone: t(`${p}.actionCards.securityAlerts.detailNone`),
                 action: t(`${p}.actionCards.securityAlerts.action`),
               },
             },

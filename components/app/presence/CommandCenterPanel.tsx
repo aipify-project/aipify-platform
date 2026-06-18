@@ -15,6 +15,7 @@ import {
   buildExecutiveActionCards,
   buildOrganizationHealthMetrics,
   resolveExecutiveFeed,
+  type ExecutiveActionCardLabels,
 } from "@/lib/executive/executive-center-defaults";
 import type { CommandCenterBundle } from "@/lib/notification/command-center-state";
 import type { ExecutiveFeedEntry } from "@/lib/notification/executive-feed";
@@ -49,12 +50,7 @@ type CommandCenterPanelProps = {
       desktopCompanion: string;
     };
     feedFallback: string[];
-    actionCards: {
-      pendingApprovals: { title: string; detail: (count: number) => string; action: string };
-      escalations: { title: string; detail: (count: number) => string; action: string };
-      executiveSummary: { title: string; detail: string; action: string };
-      securityAlerts: { title: string; detail: (count: number) => string; action: string };
-    };
+    actionCards: ExecutiveActionCardLabels;
     health: {
       operational: string;
       security: string;

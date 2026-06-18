@@ -51,14 +51,20 @@ export function countCriticalSecurityAlerts(
   return notifications.filter((item) => item.level === "critical").length;
 }
 
+export type ExecutiveActionCardLabels = {
+  pendingApprovals: { title: string; detailTemplate: string; action: string };
+  escalations: { title: string; detailTemplate: string; detailNone: string; action: string };
+  executiveSummary: { title: string; detail: string; action: string };
+  securityAlerts: { title: string; detailTemplate: string; detailNone: string; action: string };
+};
+
+function formatCountDetail(template: string, count: number): string {
+  return template.replace("{count}", String(count));
+}
+
 export function buildExecutiveActionCards(
   bundle: CommandCenterBundle,
-  labels: {
-    pendingApprovals: { title: string; detail: (count: number) => string; action: string };
-    escalations: { title: string; detail: (count: number) => string; action: string };
-    executiveSummary: { title: string; detail: string; action: string };
-    securityAlerts: { title: string; detail: (count: number) => string; action: string };
-  },
+  labels: ExecutiveActionCardLabels,
 ): ExecutiveActionCardModel[] {
   const pending = bundle.pending_approvals ?? 0;
   const escalations = countEscalations(bundle.notifications);
@@ -68,7 +74,7 @@ export function buildExecutiveActionCards(
     {
       id: "pending-approvals",
       title: labels.pendingApprovals.title,
-      detail: labels.pendingApprovals.detail(pending),
+      detail: formatCountDetail(labels.pendingApprovals.detailTemplate, pending),
       actionLabel: labels.pendingApprovals.action,
       href: "/app/approvals",
       tone: pending > 0 ? "attention" : "default",
@@ -76,7 +82,10 @@ export function buildExecutiveActionCards(
     {
       id: "escalations",
       title: labels.escalations.title,
-      detail: labels.escalations.detail(escalations),
+      detail:
+        escalations === 0
+          ? labels.escalations.detailNone
+          : formatCountDetail(labels.escalations.detailTemplate, escalations),
       actionLabel: labels.escalations.action,
       href: "/app/command-center#attention",
       tone: escalations > 0 ? "attention" : "default",
@@ -92,7 +101,10 @@ export function buildExecutiveActionCards(
     {
       id: "security-alerts",
       title: labels.securityAlerts.title,
-      detail: labels.securityAlerts.detail(critical),
+      detail:
+        critical === 0
+          ? labels.securityAlerts.detailNone
+          : formatCountDetail(labels.securityAlerts.detailTemplate, critical),
       actionLabel: labels.securityAlerts.action,
       href: "/app/settings/security",
       tone: critical > 0 ? "attention" : "positive",
