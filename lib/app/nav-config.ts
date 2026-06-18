@@ -1521,7 +1521,7 @@ export const APP_NAV: AppNavItem[] = [
   },
   {
     id: "relationshipIntelligenceEngine",
-    href: "/app/relationship-intelligence-engine",
+    href: "/app/intelligence/relationships",
     labelKey: "navigation.nav.relationshipIntelligenceEngine",
   },
   {
@@ -2115,9 +2115,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/sales-expert-engine")) {
     return "salesExpertEngine";
   }
-  if (pathname.startsWith("/app/relationship-intelligence-engine")) {
-    return "relationshipIntelligenceEngine";
-  }
+  if (pathname.startsWith("/app/intelligence/relationships")) return "relationshipIntelligenceEngine";
+  if (pathname.startsWith("/app/relationship-intelligence-engine")) return "relationshipIntelligenceEngine";
   if (pathname.startsWith("/app/trust-reputation-engine")) {
     return "trustReputationEngine";
   }

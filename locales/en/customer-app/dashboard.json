@@ -4893,6 +4893,75 @@
     "exportFailed": "Export failed",
     "actionFailed": "Action failed"
   },
+  "organizationalRelationshipIntelligence": {
+    "title": "Organizational Relationship Intelligence",
+    "subtitle": "Understand how customers, vendors, partners, teams, projects, and systems are connected — metadata only, distinct from personal RSI.",
+    "philosophy": "Most business problems are relationship problems. Aipify helps you see who depends on whom and where risks and opportunities exist.",
+    "governanceNote": "All relationship insights are auditable, role-controlled, and permission-based.",
+    "privacyNote": "Metadata only — Aipify never impersonates users or auto-sends messages.",
+    "refresh": "Refresh",
+    "emptyState": "No items in this section yet.",
+    "accessDenied": "Relationship Intelligence requires appropriate workspace permissions.",
+    "sections": {
+      "customerRelationships": "Customer Relationships",
+      "employeeRelationships": "Employee Collaboration Map",
+      "vendorRelationships": "Vendor Relationships",
+      "partnerRelationships": "Partner Relationships",
+      "projectRelationships": "Project Relationships",
+      "dependencyMap": "Dependency Map"
+    },
+    "entity": {
+      "owner": "Owner",
+      "department": "Department",
+      "lastContact": "Last contact",
+      "openTasks": "Open tasks",
+      "openSupportCases": "Open support cases",
+      "revenue": "Revenue",
+      "riskLevel": "Risk level",
+      "contractExpires": "Contract expires",
+      "blockedBy": "Blocked by",
+      "dependencies": "Dependencies"
+    },
+    "suggestedAction": "Suggested action",
+    "risks": {
+      "title": "Organizational Risk Detection",
+      "empty": "No organizational relationship risks detected."
+    },
+    "timeline": {
+      "title": "Relationship Timeline",
+      "empty": "No timeline events yet."
+    },
+    "recommendations": {
+      "title": "Companion Recommendations",
+      "empty": "No companion recommendations right now."
+    },
+    "executive": {
+      "title": "Executive Relationship Dashboard",
+      "mostImportantCustomers": "Most important customers",
+      "mostImportantVendors": "Most important vendors",
+      "mostImportantProjects": "Most important projects",
+      "relationshipRisks": "Relationship risks",
+      "relationshipOpportunities": "Relationship opportunities"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "resolve": "Resolve"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "personalRsi": "Personal RSI",
+      "legacyEngine": "Legacy Relationship Intelligence Engine"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",

@@ -4479,6 +4479,75 @@
     "exportFailed": "Eksport mislyktes",
     "actionFailed": "Handling mislyktes"
   },
+  "organizationalRelationshipIntelligence": {
+    "title": "Organizational Relationship Intelligence",
+    "subtitle": "Forstå hvordan kunder, leverandører, partnere, team, prosjekter og systemer henger sammen — kun metadata, adskilt fra personlig RSI.",
+    "philosophy": "De fleste forretningsproblemer er relasjonsproblemer. Aipify hjelper deg å se hvem som avhenger av hvem, og hvor risiko og muligheter finnes.",
+    "governanceNote": "All relasjonsinnsikt er revisjonssporbar, rollestyrt og tillatelsesbasert.",
+    "privacyNote": "Kun metadata — Aipify etterligner aldri brukere eller sender meldinger automatisk.",
+    "refresh": "Oppdater",
+    "emptyState": "Ingen elementer i denne seksjonen ennå.",
+    "accessDenied": "Relationship Intelligence krever passende arbeidsplasstillatelser.",
+    "sections": {
+      "customerRelationships": "Kunderelasjoner",
+      "employeeRelationships": "Ansatt-samarbeidskart",
+      "vendorRelationships": "Leverandørrelasjoner",
+      "partnerRelationships": "Partnerrelasjoner",
+      "projectRelationships": "Prosjektrelasjoner",
+      "dependencyMap": "Avhengighetskart"
+    },
+    "entity": {
+      "owner": "Eier",
+      "department": "Avdeling",
+      "lastContact": "Siste kontakt",
+      "openTasks": "Åpne oppgaver",
+      "openSupportCases": "Åpne supportsaker",
+      "revenue": "Omsetning",
+      "riskLevel": "Risikonivå",
+      "contractExpires": "Kontrakt utløper",
+      "blockedBy": "Blokkert av",
+      "dependencies": "Avhengigheter"
+    },
+    "suggestedAction": "Foreslått handling",
+    "risks": {
+      "title": "Organisatorisk risikodeteksjon",
+      "empty": "Ingen organisatoriske relasjonsrisikoer oppdaget."
+    },
+    "timeline": {
+      "title": "Relasjonstidslinje",
+      "empty": "Ingen tidslinjehendelser ennå."
+    },
+    "recommendations": {
+      "title": "Companion-anbefalinger",
+      "empty": "Ingen companion-anbefalinger akkurat nå."
+    },
+    "executive": {
+      "title": "Executive relasjonsdashbord",
+      "mostImportantCustomers": "Viktigste kunder",
+      "mostImportantVendors": "Viktigste leverandører",
+      "mostImportantProjects": "Viktigste prosjekter",
+      "relationshipRisks": "Relasjonsrisiko",
+      "relationshipOpportunities": "Relasjonsmuligheter"
+    },
+    "actions": {
+      "acknowledge": "Bekreft",
+      "dismiss": "Avvis",
+      "resolve": "Løs"
+    },
+    "status": {
+      "completed": "Fullført",
+      "notAllowed": "Ikke tillatt",
+      "requiresAttention": "Krever oppmerksomhet",
+      "information": "Informasjon",
+      "restricted": "Begrenset tilgang",
+      "verified": "Verifisert",
+      "waiting": "Venter"
+    },
+    "links": {
+      "personalRsi": "Personlig RSI",
+      "legacyEngine": "Legacy Relationship Intelligence Engine"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillit og omdømme",
     "subtitle": "Organisatoriske tillitsprofiler og metadata-baserte omdømmesignaler — opptjent tillit med menneskelig gjennomgang av utvidelser.",

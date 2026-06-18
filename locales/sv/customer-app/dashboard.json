@@ -4334,6 +4334,75 @@
     "exportFailed": "Export misslyckades",
     "actionFailed": "Åtgärd misslyckades"
   },
+  "organizationalRelationshipIntelligence": {
+    "title": "Organizational Relationship Intelligence",
+    "subtitle": "Förstå hur kunder, leverantörer, partners, team, projekt och system hänger ihop — endast metadata, skild från personlig RSI.",
+    "philosophy": "De flesta affärsproblem är relationsproblem. Aipify hjälper dig se vem som beror på vem och var risker och möjligheter finns.",
+    "governanceNote": "All relationsinsikt är granskningsbar, rollstyrd och behörighetsbaserad.",
+    "privacyNote": "Endast metadata — Aipify imiterar aldrig användare eller skickar meddelanden automatiskt.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga objekt i detta avsnitt ännu.",
+    "accessDenied": "Relationship Intelligence kräver lämpliga arbetsytbehörigheter.",
+    "sections": {
+      "customerRelationships": "Kundrelationer",
+      "employeeRelationships": "Medarbetarsamarbetskarta",
+      "vendorRelationships": "Leverantörsrelationer",
+      "partnerRelationships": "Partnerrelationer",
+      "projectRelationships": "Projektrelationer",
+      "dependencyMap": "Beroendekarta"
+    },
+    "entity": {
+      "owner": "Ägare",
+      "department": "Avdelning",
+      "lastContact": "Senaste kontakt",
+      "openTasks": "Öppna uppgifter",
+      "openSupportCases": "Öppna supportärenden",
+      "revenue": "Intäkter",
+      "riskLevel": "Risknivå",
+      "contractExpires": "Kontrakt löper ut",
+      "blockedBy": "Blockerad av",
+      "dependencies": "Beroenden"
+    },
+    "suggestedAction": "Föreslagen åtgärd",
+    "risks": {
+      "title": "Organisatorisk riskdetektering",
+      "empty": "Inga organisatoriska relationsrisker upptäckta."
+    },
+    "timeline": {
+      "title": "Relationstidslinje",
+      "empty": "Inga tidslinjehändelser ännu."
+    },
+    "recommendations": {
+      "title": "Companion-rekommendationer",
+      "empty": "Inga companion-rekommendationer just nu."
+    },
+    "executive": {
+      "title": "Executive relationsdashboard",
+      "mostImportantCustomers": "Viktigaste kunder",
+      "mostImportantVendors": "Viktigaste leverantörer",
+      "mostImportantProjects": "Viktigaste projekt",
+      "relationshipRisks": "Relationsrisker",
+      "relationshipOpportunities": "Relationsmöjligheter"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avfärda",
+      "resolve": "Lös"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "personalRsi": "Personlig RSI",
+      "legacyEngine": "Legacy Relationship Intelligence Engine"
+    }
+  },
   "trustReputationEngine": {
     "title": "Förtroende och rykte",
     "subtitle": "Organisatoriska förtroendeprofiler och metadata-baserade ryktessignaler — förtjänat förtroende med mänsklig granskning av expansion.",

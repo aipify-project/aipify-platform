@@ -4282,6 +4282,75 @@
     "exportFailed": "Eksport mislykkedes",
     "actionFailed": "Handling mislykkedes"
   },
+  "organizationalRelationshipIntelligence": {
+    "title": "Organizational Relationship Intelligence",
+    "subtitle": "Forstå hvordan kunder, leverandører, partnere, teams, projekter og systemer hænger sammen — kun metadata, adskilt fra personlig RSI.",
+    "philosophy": "De fleste forretningsproblemer er relationsproblemer. Aipify hjælper dig med at se, hvem der afhænger af hvem, og hvor risici og muligheder findes.",
+    "governanceNote": "Al relationsindsigt er reviderbar, rollestyret og tilladelsesbaseret.",
+    "privacyNote": "Kun metadata — Aipify efterligner aldrig brugere eller sender beskeder automatisk.",
+    "refresh": "Opdater",
+    "emptyState": "Ingen elementer i denne sektion endnu.",
+    "accessDenied": "Relationship Intelligence kræver passende arbejdspladstilladelser.",
+    "sections": {
+      "customerRelationships": "Kunderelationer",
+      "employeeRelationships": "Medarbejdersamarbejdskort",
+      "vendorRelationships": "Leverandørrelationer",
+      "partnerRelationships": "Partnerrelationer",
+      "projectRelationships": "Projektrelationer",
+      "dependencyMap": "Afhængighedskort"
+    },
+    "entity": {
+      "owner": "Ejer",
+      "department": "Afdeling",
+      "lastContact": "Seneste kontakt",
+      "openTasks": "Åbne opgaver",
+      "openSupportCases": "Åbne supportsager",
+      "revenue": "Omsætning",
+      "riskLevel": "Risikoniveau",
+      "contractExpires": "Kontrakt udløber",
+      "blockedBy": "Blokeret af",
+      "dependencies": "Afhængigheder"
+    },
+    "suggestedAction": "Foreslået handling",
+    "risks": {
+      "title": "Organisatorisk risikodetektion",
+      "empty": "Ingen organisatoriske relationsrisici registreret."
+    },
+    "timeline": {
+      "title": "Relationstidslinje",
+      "empty": "Ingen tidslinjehændelser endnu."
+    },
+    "recommendations": {
+      "title": "Companion-anbefalinger",
+      "empty": "Ingen companion-anbefalinger lige nu."
+    },
+    "executive": {
+      "title": "Executive relationsdashboard",
+      "mostImportantCustomers": "Vigtigste kunder",
+      "mostImportantVendors": "Vigtigste leverandører",
+      "mostImportantProjects": "Vigtigste projekter",
+      "relationshipRisks": "Relationsrisici",
+      "relationshipOpportunities": "Relationsmuligheder"
+    },
+    "actions": {
+      "acknowledge": "Bekræft",
+      "dismiss": "Afvis",
+      "resolve": "Løs"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "links": {
+      "personalRsi": "Personlig RSI",
+      "legacyEngine": "Legacy Relationship Intelligence Engine"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillid og omdømme",
     "subtitle": "Organisatoriske tillidsprofiler og metadata-baserede omdømmesignaler — fortjent tillid med menneskelig gennemgang af udvidelser.",
