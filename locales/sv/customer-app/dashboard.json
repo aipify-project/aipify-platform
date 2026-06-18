@@ -4403,6 +4403,79 @@
       "legacyEngine": "Legacy Relationship Intelligence Engine"
     }
   },
+  "decisionIntelligenceCenter": {
+    "title": "Beslutsintelligenscenter",
+    "subtitle": "Strategisk rådgivare för ledare — tydlighet om vad som händer, varför det spelar roll, vilka alternativ som finns och vilka risker som ska vägas.",
+    "philosophy": "De flesta organisationer lider inte av brist på data. De lider av brist på beslutsförtydligande. Aipify hjälper ledare att besluta med trygghet.",
+    "governanceNote": "Varje rekommendation är förklarbar, evidensbaserad och reviderbar — ingen dold resonemang.",
+    "privacyNote": "Endast beslutsmetadata — operativa poster stannar i organisationen.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga objekt i detta avsnitt ännu.",
+    "accessDenied": "Beslutsintelligens kräver lämpliga arbetsytetillstånd.",
+    "sections": {
+      "activeDecisions": "Aktiva beslut",
+      "recommendedDecisions": "Rekommenderade beslut",
+      "strategicReviews": "Strategiska genomgångar",
+      "riskAnalysis": "Riskanalys",
+      "decisionHistory": "Beslutshistorik",
+      "outcomeTracking": "Utfallsuppföljning"
+    },
+    "workspace": {
+      "owner": "Ägare",
+      "businessArea": "Affärsområde",
+      "priority": "Prioritet",
+      "reasoning": "Motivering",
+      "expectedResult": "Förväntat resultat",
+      "actualResult": "Faktiskt resultat",
+      "outcomeSummary": "Utfall"
+    },
+    "optionAnalysis": {
+      "title": "Alternativanalys",
+      "benefits": "Fördelar",
+      "risks": "Risker",
+      "cost": "Kostnad",
+      "complexity": "Komplexitet",
+      "expectedOutcome": "Förväntat utfall"
+    },
+    "executiveAdvisor": {
+      "title": "Executive Advisor",
+      "recommendation": "Rekommendation",
+      "reason": "Motivering",
+      "supportingEvidence": "Stödjande evidens",
+      "confidenceLevel": "Konfidens",
+      "potentialRisks": "Potentiella risker",
+      "empty": "Inga executive-rekommendationer just nu."
+    },
+    "briefings": {
+      "title": "Executive briefings",
+      "whatChanged": "Vad som ändrats",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "recommendedActions": "Rekommenderade åtgärder",
+      "morning": "Morgonbriefing",
+      "weekly": "Veckobriefing",
+      "monthly": "Månadsbriefing"
+    },
+    "suggestedAction": "Föreslagen åtgärd",
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "complete": "Slutför",
+      "resolve": "Lös"
+    },
+    "status": {
+      "completed": "Fullförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "legacyEngine": "Legacy Decision Intelligence Engine",
+      "personalDecisions": "Personligt beslutsstöd"
+    }
+  },
   "trustReputationEngine": {
     "title": "Förtroende och rykte",
     "subtitle": "Organisatoriska förtroendeprofiler och metadata-baserade ryktessignaler — förtjänat förtroende med mänsklig granskning av expansion.",

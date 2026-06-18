@@ -4962,6 +4962,79 @@
       "legacyEngine": "Legacy Relationship Intelligence Engine"
     }
   },
+  "decisionIntelligenceCenter": {
+    "title": "Decision Intelligence Center",
+    "subtitle": "Strategic advisor for leaders — clarity on what is happening, why it matters, what options exist, and what risks to weigh.",
+    "philosophy": "Most organizations do not suffer from lack of data. They suffer from lack of decision clarity. Aipify helps leaders decide with confidence.",
+    "governanceNote": "Every recommendation is explainable, evidence-backed, and auditable — no hidden reasoning.",
+    "privacyNote": "Decision metadata only — operational records stay with your organization.",
+    "refresh": "Refresh",
+    "emptyState": "No items in this section yet.",
+    "accessDenied": "Decision Intelligence requires appropriate workspace permissions.",
+    "sections": {
+      "activeDecisions": "Active Decisions",
+      "recommendedDecisions": "Recommended Decisions",
+      "strategicReviews": "Strategic Reviews",
+      "riskAnalysis": "Risk Analysis",
+      "decisionHistory": "Decision History",
+      "outcomeTracking": "Outcome Tracking"
+    },
+    "workspace": {
+      "owner": "Owner",
+      "businessArea": "Business area",
+      "priority": "Priority",
+      "reasoning": "Reasoning",
+      "expectedResult": "Expected result",
+      "actualResult": "Actual result",
+      "outcomeSummary": "Outcome"
+    },
+    "optionAnalysis": {
+      "title": "Option Analysis",
+      "benefits": "Benefits",
+      "risks": "Risks",
+      "cost": "Cost",
+      "complexity": "Complexity",
+      "expectedOutcome": "Expected outcome"
+    },
+    "executiveAdvisor": {
+      "title": "Executive Advisor",
+      "recommendation": "Recommendation",
+      "reason": "Reason",
+      "supportingEvidence": "Supporting evidence",
+      "confidenceLevel": "Confidence",
+      "potentialRisks": "Potential risks",
+      "empty": "No executive recommendations right now."
+    },
+    "briefings": {
+      "title": "Executive Briefings",
+      "whatChanged": "What changed",
+      "requiresAttention": "Requires attention",
+      "recommendedActions": "Recommended actions",
+      "morning": "Morning briefing",
+      "weekly": "Weekly briefing",
+      "monthly": "Monthly briefing"
+    },
+    "suggestedAction": "Suggested action",
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "complete": "Complete",
+      "resolve": "Resolve"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "legacyEngine": "Legacy Decision Intelligence Engine",
+      "personalDecisions": "Personal Decision Support"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",

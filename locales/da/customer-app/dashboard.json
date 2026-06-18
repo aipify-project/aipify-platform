@@ -4351,6 +4351,79 @@
       "legacyEngine": "Legacy Relationship Intelligence Engine"
     }
   },
+  "decisionIntelligenceCenter": {
+    "title": "Beslutningsintelligenscenter",
+    "subtitle": "Strategisk rådgiver for ledere — klarhed om hvad der sker, hvorfor det betyder noget, hvilke muligheder der findes, og hvilke risici der skal vejes.",
+    "philosophy": "De fleste organisationer lider ikke af mangel på data. De lider af mangel på beslutningsklarhed. Aipify hjælper ledere med at beslutte med tryghed.",
+    "governanceNote": "Hver anbefaling er forklarlig, evidensbaseret og reviderbar — ingen skjult ræsonnement.",
+    "privacyNote": "Kun beslutningsmetadata — operationelle poster forbliver i organisationen.",
+    "refresh": "Opdater",
+    "emptyState": "Ingen elementer i dette afsnit endnu.",
+    "accessDenied": "Beslutningsintelligens kræver passende arbejdsområdetilladelser.",
+    "sections": {
+      "activeDecisions": "Aktive beslutninger",
+      "recommendedDecisions": "Anbefalede beslutninger",
+      "strategicReviews": "Strategiske gennemgange",
+      "riskAnalysis": "Risikoanalyse",
+      "decisionHistory": "Beslutningshistorik",
+      "outcomeTracking": "Resultatopfølgning"
+    },
+    "workspace": {
+      "owner": "Ejer",
+      "businessArea": "Forretningsområde",
+      "priority": "Prioritet",
+      "reasoning": "Begrundelse",
+      "expectedResult": "Forventet resultat",
+      "actualResult": "Faktisk resultat",
+      "outcomeSummary": "Udfald"
+    },
+    "optionAnalysis": {
+      "title": "Alternativanalyse",
+      "benefits": "Fordele",
+      "risks": "Risici",
+      "cost": "Omkostning",
+      "complexity": "Kompleksitet",
+      "expectedOutcome": "Forventet udfald"
+    },
+    "executiveAdvisor": {
+      "title": "Executive Advisor",
+      "recommendation": "Anbefaling",
+      "reason": "Begrundelse",
+      "supportingEvidence": "Understøttende evidens",
+      "confidenceLevel": "Konfidens",
+      "potentialRisks": "Potentielle risici",
+      "empty": "Ingen executive-anbefalinger lige nu."
+    },
+    "briefings": {
+      "title": "Executive briefings",
+      "whatChanged": "Hvad der ændrede sig",
+      "requiresAttention": "Kræver opmærksomhed",
+      "recommendedActions": "Anbefalede handlinger",
+      "morning": "Morgenbriefing",
+      "weekly": "Ugentlig briefing",
+      "monthly": "Månedlig briefing"
+    },
+    "suggestedAction": "Foreslået handling",
+    "actions": {
+      "acknowledge": "Bekræft",
+      "dismiss": "Afvis",
+      "complete": "Fuldfør",
+      "resolve": "Løs"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "links": {
+      "legacyEngine": "Legacy Decision Intelligence Engine",
+      "personalDecisions": "Personlig beslutningsstøtte"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillid og omdømme",
     "subtitle": "Organisatoriske tillidsprofiler og metadata-baserede omdømmesignaler — fortjent tillid med menneskelig gennemgang af udvidelser.",

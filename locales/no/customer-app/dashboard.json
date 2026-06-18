@@ -4548,6 +4548,79 @@
       "legacyEngine": "Legacy Relationship Intelligence Engine"
     }
   },
+  "decisionIntelligenceCenter": {
+    "title": "Beslutningsintelligenssenter",
+    "subtitle": "Strategisk rådgiver for ledere — klarhet om hva som skjer, hvorfor det betyr noe, hvilke alternativer som finnes, og hvilke risikoer som bør veies.",
+    "philosophy": "De fleste organisasjoner lider ikke av mangel på data. De lider av mangel på beslutningsklarhet. Aipify hjelper ledere å beslutte med trygghet.",
+    "governanceNote": "Hver anbefaling er forklarbar, evidensbasert og reviderbar — ingen skjult resonnering.",
+    "privacyNote": "Kun beslutningsmetadata — operative poster forblir i organisasjonen.",
+    "refresh": "Oppdater",
+    "emptyState": "Ingen elementer i denne seksjonen ennå.",
+    "accessDenied": "Beslutningsintelligens krever passende arbeidsområdetillatelser.",
+    "sections": {
+      "activeDecisions": "Aktive beslutninger",
+      "recommendedDecisions": "Anbefalte beslutninger",
+      "strategicReviews": "Strategiske gjennomganger",
+      "riskAnalysis": "Risikoanalyse",
+      "decisionHistory": "Beslutningshistorikk",
+      "outcomeTracking": "Resultatoppfølging"
+    },
+    "workspace": {
+      "owner": "Eier",
+      "businessArea": "Forretningsområde",
+      "priority": "Prioritet",
+      "reasoning": "Begrunnelse",
+      "expectedResult": "Forventet resultat",
+      "actualResult": "Faktisk resultat",
+      "outcomeSummary": "Utfall"
+    },
+    "optionAnalysis": {
+      "title": "Alternativanalyse",
+      "benefits": "Fordeler",
+      "risks": "Risikoer",
+      "cost": "Kostnad",
+      "complexity": "Kompleksitet",
+      "expectedOutcome": "Forventet utfall"
+    },
+    "executiveAdvisor": {
+      "title": "Executive Advisor",
+      "recommendation": "Anbefaling",
+      "reason": "Begrunnelse",
+      "supportingEvidence": "Støttende evidens",
+      "confidenceLevel": "Konfidens",
+      "potentialRisks": "Potensielle risikoer",
+      "empty": "Ingen executive-anbefalinger akkurat nå."
+    },
+    "briefings": {
+      "title": "Executive briefings",
+      "whatChanged": "Hva som endret seg",
+      "requiresAttention": "Krever oppmerksomhet",
+      "recommendedActions": "Anbefalte handlinger",
+      "morning": "Morgenbriefing",
+      "weekly": "Ukentlig briefing",
+      "monthly": "Månedlig briefing"
+    },
+    "suggestedAction": "Foreslått handling",
+    "actions": {
+      "acknowledge": "Bekreft",
+      "dismiss": "Avvis",
+      "complete": "Fullfør",
+      "resolve": "Løs"
+    },
+    "status": {
+      "completed": "Fullført",
+      "notAllowed": "Ikke tillatt",
+      "requiresAttention": "Krever oppmerksomhet",
+      "information": "Informasjon",
+      "restricted": "Begrenset tilgang",
+      "verified": "Verifisert",
+      "waiting": "Venter"
+    },
+    "links": {
+      "legacyEngine": "Legacy Decision Intelligence Engine",
+      "personalDecisions": "Personlig beslutningsstøtte"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillit og omdømme",
     "subtitle": "Organisatoriske tillitsprofiler og metadata-baserte omdømmesignaler — opptjent tillit med menneskelig gjennomgang av utvidelser.",
