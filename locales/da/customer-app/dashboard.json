@@ -4562,6 +4562,72 @@
     "status": { "completed": "Fuldført", "notAllowed": "Ikke tilladt", "requiresAttention": "Kræver opmærksomhed", "information": "Information", "restricted": "Begrænset adgang", "verified": "Verificeret", "waiting": "Venter" },
     "links": { "legacyTwin": "Legacy Digital Twin Engine", "executiveTwin": "Executive Organizational Digital Twin" }
   },
+  "businessImprovementCenter": {
+    "title": "Forretningsforbedringscenter",
+    "subtitle": "Aipify identificerer løbende effektivitetsgevinster, indtægtsmuligheder, omkostningsreduktioner og procesforbedringer — organisationens kontinuerlige forbedringspartner.",
+    "philosophy": "Hver organisation indeholder skjulte muligheder. Aipify bør aldrig stoppe med at lede efter måder at hjælpe organisationen med at blive bedre.",
+    "governanceNote": "Forbedringer er kun anbefalinger — ingen operationelle ændringer sker uden godkendelse. Alle anbefalinger er reviderbare, forklarbare og gennemgåelige.",
+    "privacyNote": "Kun aggregerede operationelle mønstre — anbefalinger kræver menneskelig godkendelse før ændring.",
+    "refresh": "Opdater",
+    "emptyState": "Ingen elementer i denne sektion endnu.",
+    "accessDenied": "Forretningsforbedringscenter kræver passende arbejdsområdetilladelser.",
+    "sections": {
+      "improvementOpportunities": "Forbedringsmuligheder",
+      "recommendedActions": "Anbefalede handlinger",
+      "revenueOpportunities": "Indtægtsmuligheder",
+      "costSavings": "Omkostningsbesparelser",
+      "processImprovements": "Procesforbedringer",
+      "customerExperienceImprovements": "Kundeoplevelsesforbedringer",
+      "completedImprovements": "Fuldførte forbedringer"
+    },
+    "scoring": {
+      "impact": "Påvirkning",
+      "risk": "Risiko",
+      "complexity": "Kompleksitet",
+      "priority": "Prioritet",
+      "low": "Lav",
+      "medium": "Mellem",
+      "high": "Høj",
+      "critical": "Kritisk"
+    },
+    "suggestedAction": "Foreslået handling",
+    "estimatedBenefit": "Estimeret gevinst",
+    "opportunityDiscovery": { "title": "Mulighedsopdagelse" },
+    "revenueIntelligence": { "title": "Indtægtsintelligens", "customerCount": "Kvalificerede kunder" },
+    "costOptimization": { "title": "Omkostningsoptimering", "potentialSavings": "Potentielle årlige besparelser" },
+    "processOptimization": { "title": "Procesoptimering", "timeReduction": "Estimeret tidsreduktion" },
+    "customerExperience": { "title": "Kundeoplevelsesintelligens", "benchmark": "Reference" },
+    "improvementPlans": {
+      "title": "Autonome forbedringsplaner",
+      "problem": "Problem",
+      "cause": "Årsag",
+      "recommendedSolution": "Anbefalet løsning",
+      "expectedOutcome": "Forventet resultat"
+    },
+    "executiveDashboard": {
+      "title": "Ledelsesforbedringsdashboard",
+      "totalOpportunities": "Totale muligheder",
+      "estimatedRevenueGain": "Estimeret indtægtsgevinst",
+      "estimatedCostSavings": "Estimerede omkostningsbesparelser",
+      "completedImprovements": "Fuldførte forbedringer",
+      "pendingImprovements": "Afventende forbedringer"
+    },
+    "companionAdvisor": { "title": "Companion-forbedringsrådgiver", "reason": "Hvorfor Aipify anbefaler dette" },
+    "actions": { "acknowledge": "Bekræft", "dismiss": "Afvis", "approve": "Godkend" },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "links": {
+      "legacyEngine": "Legacy Continuous Improvement Engine",
+      "executiveImprovement": "Executive Continuous Improvement Center"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillid og omdømme",
     "subtitle": "Organisatoriske tillidsprofiler og metadata-baserede omdømmesignaler — fortjent tillid med menneskelig gennemgang af udvidelser.",

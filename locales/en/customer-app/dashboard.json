@@ -5234,6 +5234,93 @@
       "executiveTwin": "Executive Organizational Digital Twin"
     }
   },
+  "businessImprovementCenter": {
+    "title": "Business Improvement Center",
+    "subtitle": "Aipify continuously identifies efficiency gains, revenue opportunities, cost reductions, and process improvements — your organization's continuous improvement companion.",
+    "philosophy": "Every organization contains hidden opportunities. Aipify should never stop looking for ways to help the organization become better.",
+    "governanceNote": "Improvements are recommendations only — no operational changes occur without approval. All recommendations are auditable, explainable, and reviewable.",
+    "privacyNote": "Aggregated operational patterns only — recommendations require human approval before any change.",
+    "refresh": "Refresh",
+    "emptyState": "No items in this section yet.",
+    "accessDenied": "Business Improvement Center requires appropriate workspace permissions.",
+    "sections": {
+      "improvementOpportunities": "Improvement Opportunities",
+      "recommendedActions": "Recommended Actions",
+      "revenueOpportunities": "Revenue Opportunities",
+      "costSavings": "Cost Savings",
+      "processImprovements": "Process Improvements",
+      "customerExperienceImprovements": "Customer Experience Improvements",
+      "completedImprovements": "Completed Improvements"
+    },
+    "scoring": {
+      "impact": "Impact",
+      "risk": "Risk",
+      "complexity": "Complexity",
+      "priority": "Priority",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "suggestedAction": "Suggested action",
+    "estimatedBenefit": "Estimated benefit",
+    "opportunityDiscovery": {
+      "title": "Opportunity Discovery"
+    },
+    "revenueIntelligence": {
+      "title": "Revenue Intelligence",
+      "customerCount": "Qualifying customers"
+    },
+    "costOptimization": {
+      "title": "Cost Optimization",
+      "potentialSavings": "Potential annual savings"
+    },
+    "processOptimization": {
+      "title": "Process Optimization",
+      "timeReduction": "Estimated time reduction"
+    },
+    "customerExperience": {
+      "title": "Customer Experience Intelligence",
+      "benchmark": "Benchmark"
+    },
+    "improvementPlans": {
+      "title": "Autonomous Improvement Plans",
+      "problem": "Problem",
+      "cause": "Cause",
+      "recommendedSolution": "Recommended solution",
+      "expectedOutcome": "Expected outcome"
+    },
+    "executiveDashboard": {
+      "title": "Executive Improvement Dashboard",
+      "totalOpportunities": "Total opportunities",
+      "estimatedRevenueGain": "Estimated revenue gain",
+      "estimatedCostSavings": "Estimated cost savings",
+      "completedImprovements": "Completed improvements",
+      "pendingImprovements": "Pending improvements"
+    },
+    "companionAdvisor": {
+      "title": "Companion Improvement Advisor",
+      "reason": "Why Aipify recommends this"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "approve": "Approve"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "legacyEngine": "Legacy Continuous Improvement Engine",
+      "executiveImprovement": "Executive Continuous Improvement Center"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",

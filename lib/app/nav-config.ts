@@ -696,7 +696,7 @@ export const APP_NAV: AppNavItem[] = [
   },
   {
     id: "continuousImprovementEngine",
-    href: "/app/continuous-improvement-engine",
+    href: "/app/intelligence/improvements",
     labelKey: "navigation.nav.continuousImprovementEngine",
   },
   {
@@ -2120,6 +2120,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/intelligence/decisions")) return "decisionIntelligenceEngine";
   if (pathname.startsWith("/app/intelligence/health")) return "organizationalHealthEngine";
   if (pathname.startsWith("/app/intelligence/digital-twin")) return "digitalTwin";
+  if (pathname.startsWith("/app/intelligence/improvements")) return "continuousImprovementEngine";
   if (pathname.startsWith("/app/trust-reputation-engine")) {
     return "trustReputationEngine";
   }

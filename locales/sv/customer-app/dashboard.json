@@ -4614,6 +4614,72 @@
     "status": { "completed": "Fullförd", "notAllowed": "Inte tillåten", "requiresAttention": "Kräver uppmärksamhet", "information": "Information", "restricted": "Begränsad åtkomst", "verified": "Verifierad", "waiting": "Väntar" },
     "links": { "legacyTwin": "Legacy Digital Twin Engine", "executiveTwin": "Executive Organizational Digital Twin" }
   },
+  "businessImprovementCenter": {
+    "title": "Affärsförbättringscenter",
+    "subtitle": "Aipify identifierar kontinuerligt effektivitetsvinster, intäktsmöjligheter, kostnadsreduktioner och processförbättringar — organisationens kontinuerliga förbättingspartner.",
+    "philosophy": "Varje organisation innehåller dolda möjligheter. Aipify ska aldrig sluta leta efter sätt att hjälpa organisationen att bli bättre.",
+    "governanceNote": "Förbättringar är endast rekommendationer — inga operativa ändringar sker utan godkännande. Alla rekommendationer är granskningsbara, förklarbara och granskningsbara.",
+    "privacyNote": "Endast aggregerade operativa mönster — rekommendationer kräver mänskligt godkännande före ändring.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga objekt i detta avsnitt ännu.",
+    "accessDenied": "Affärsförbättringscenter kräver lämpliga arbetsytbehörigheter.",
+    "sections": {
+      "improvementOpportunities": "Förbättringsmöjligheter",
+      "recommendedActions": "Rekommenderade åtgärder",
+      "revenueOpportunities": "Intäktsmöjligheter",
+      "costSavings": "Kostnadsbesparingar",
+      "processImprovements": "Processförbättringar",
+      "customerExperienceImprovements": "Kundupplevelseförbättringar",
+      "completedImprovements": "Slutförda förbättringar"
+    },
+    "scoring": {
+      "impact": "Påverkan",
+      "risk": "Risk",
+      "complexity": "Komplexitet",
+      "priority": "Prioritet",
+      "low": "Låg",
+      "medium": "Medel",
+      "high": "Hög",
+      "critical": "Kritisk"
+    },
+    "suggestedAction": "Föreslagen åtgärd",
+    "estimatedBenefit": "Uppskattad nytta",
+    "opportunityDiscovery": { "title": "Möjlighetsupptäckt" },
+    "revenueIntelligence": { "title": "Intäktsintelligens", "customerCount": "Kvalificerade kunder" },
+    "costOptimization": { "title": "Kostnadsoptimering", "potentialSavings": "Potentiella årliga besparingar" },
+    "processOptimization": { "title": "Processoptimering", "timeReduction": "Uppskattad tidsreduktion" },
+    "customerExperience": { "title": "Kundupplevelseintelligens", "benchmark": "Referens" },
+    "improvementPlans": {
+      "title": "Autonoma förbättringsplaner",
+      "problem": "Problem",
+      "cause": "Orsak",
+      "recommendedSolution": "Rekommenderad lösning",
+      "expectedOutcome": "Förväntat resultat"
+    },
+    "executiveDashboard": {
+      "title": "Ledningsförbättringsdashboard",
+      "totalOpportunities": "Totala möjligheter",
+      "estimatedRevenueGain": "Uppskattad intäktsvinst",
+      "estimatedCostSavings": "Uppskattade kostnadsbesparingar",
+      "completedImprovements": "Slutförda förbättringar",
+      "pendingImprovements": "Väntande förbättringar"
+    },
+    "companionAdvisor": { "title": "Companion-förbättringsrådgivare", "reason": "Varför Aipify rekommenderar detta" },
+    "actions": { "acknowledge": "Bekräfta", "dismiss": "Avvisa", "approve": "Godkänn" },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "legacyEngine": "Legacy Continuous Improvement Engine",
+      "executiveImprovement": "Executive Continuous Improvement Center"
+    }
+  },
   "trustReputationEngine": {
     "title": "Förtroende och rykte",
     "subtitle": "Organisatoriska förtroendeprofiler och metadata-baserade ryktessignaler — förtjänat förtroende med mänsklig granskning av expansion.",
