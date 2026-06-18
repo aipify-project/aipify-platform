@@ -427,7 +427,18 @@
     "companionFollowUpEngine": "Follow-Ups",
     "companionRelationshipIntelligenceEngine": "Relationship Intelligence",
     "companionExecutiveLayer": "Executive Companion",
-    "realWorldActionServiceOrchestrationEngine": "Handlinger i den virkelige verden"
+    "realWorldActionServiceOrchestrationEngine": "Handlinger i den virkelige verden",
+    "companionRelationshipEngine": "Companion-relasjon",
+    "globalDeploymentEnterpriseInfrastructureEngine": "Globalt distribusjonssenter",
+    "customerExperienceAdoptionDelightEngine": "Kundeopplevelse",
+    "platformExcellenceEngine": "Plattformeksellanse",
+    "enterpriseTrustReputationConfidenceEngine": "Tillitssenter",
+    "enterpriseInnovationRdFutureEngine": "Innovasjonssenter",
+    "enterpriseEcosystemPartnerNetworkEngine": "Ecosystemsenter",
+    "enterpriseValueRealizationRoiEngine": "Verdirealiseringssenter",
+    "commerceRetailOperationsPack": "Handel",
+    "autonomousEnterpriseOperationsEngine": "Autonomt driftssenter",
+    "enterpriseOrganizationalMemoryEngine": "Organisasjonsminne"
   },
   "companionPresence": {
     "ariaIndicator": "Aipify companion-tilstedeværelse",

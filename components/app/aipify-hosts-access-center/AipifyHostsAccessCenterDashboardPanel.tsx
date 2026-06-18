@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
@@ -246,7 +247,7 @@ export function AipifyHostsAccessCenterDashboardPanel({ labels }: Props) {
     void load();
   }, [load]);
 
-  if (loading && !dashboard) return <AipifyLoader label={labels.loading ?? "Loading"} centered fullPage />;
+  if (loading && !dashboard) return <AipifyLoadingState message={labels.loading} centered fullPage />;
 
   if (error || !dashboard) {
     return (

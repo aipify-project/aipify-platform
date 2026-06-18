@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseActionItemDetail, type ActionItemDetail } from "@/lib/aipify/action-hub";
@@ -46,7 +47,7 @@ export function ActionHubDetailPanel({ actionId, locale, labels }: ActionHubDeta
     });
   }
 
-  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!detail?.found || !detail.item) {
     return <div className="p-6 text-sm text-gray-600">{labels.notFound}</div>;
   }

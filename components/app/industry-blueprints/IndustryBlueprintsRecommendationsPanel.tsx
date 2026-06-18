@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -44,7 +45,7 @@ export function IndustryBlueprintsRecommendationsPanel({ labels }: IndustryBluep
     await load();
   }
 
-  if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   const pending = recommendations.filter((r) => r.status === "pending" || r.status === "accepted");
 

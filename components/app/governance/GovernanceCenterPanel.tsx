@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseGovernanceCenter, type GovernanceCenter } from "@/lib/aipify/governance";
@@ -112,7 +113,7 @@ export function GovernanceCenterPanel({ labels }: GovernanceCenterPanelProps) {
     await refresh();
   }
 
-  if (loading) return <p className="text-sm text-gray-500">{labels.loading}</p>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   if (!center?.has_customer) {
     return (

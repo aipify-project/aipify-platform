@@ -529,7 +529,17 @@
     "companionFollowUpEngine": "Follow-Ups",
     "companionRelationshipIntelligenceEngine": "Relationship Intelligence",
     "companionExecutiveLayer": "Executive Companion",
-    "realWorldActionServiceOrchestrationEngine": "Real-World Actions"
+    "realWorldActionServiceOrchestrationEngine": "Real-World Actions",
+    "companionRelationshipEngine": "Companion Relationship",
+    "globalDeploymentEnterpriseInfrastructureEngine": "Global Deployment Center",
+    "customerExperienceAdoptionDelightEngine": "Customer Experience",
+    "platformExcellenceEngine": "Platform Excellence",
+    "enterpriseTrustReputationConfidenceEngine": "Trust Center",
+    "enterpriseInnovationRdFutureEngine": "Innovation Center",
+    "enterpriseEcosystemPartnerNetworkEngine": "Ecosystem Center",
+    "enterpriseValueRealizationRoiEngine": "Value Realization Center",
+    "commerceRetailOperationsPack": "Commerce",
+    "autonomousEnterpriseOperationsEngine": "Autonomous Operations Center"
   },
   "voiceOfCustomer": {
     "trigger": "Share Feedback",

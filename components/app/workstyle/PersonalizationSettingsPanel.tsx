@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parsePersonalizationSettings, type PersonalizationSettings } from "@/lib/aipify/workstyle";
@@ -53,7 +54,7 @@ export function PersonalizationSettingsPanel({ labels }: PersonalizationSettings
     await load();
   };
 
-  if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!settings?.has_customer || !settings.profile) return null;
 
   const profile = settings.profile;

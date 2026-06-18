@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseActionHubSettings, type ActionHubSettings } from "@/lib/aipify/action-hub";
@@ -48,7 +49,7 @@ export function ActionHubSettingsPanel({ labels }: ActionHubSettingsPanelProps) 
     setSettings({ ...settings, [key]: !settings[key] });
   }
 
-  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!settings) return null;
 
   const toggles: Array<keyof ActionHubSettings> = [

@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -87,7 +88,7 @@ export function UnonightPilotOperationsDashboardPanel({
     setActionId(null);
   }
 
-  if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!dashboard?.has_organization) {
     return (
       <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">

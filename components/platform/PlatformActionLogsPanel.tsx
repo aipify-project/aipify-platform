@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { useEffect, useState } from "react";
 import { formatDateTime } from "@/lib/i18n/format-date";
 import {
@@ -49,7 +50,7 @@ export default function PlatformActionLogsPanel({
     };
   }, []);
 
-  if (loading) return <p className="text-sm text-gray-500">{labels.loading}</p>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   return (
     <div className="space-y-8">

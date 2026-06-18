@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -77,7 +78,7 @@ export function UniversalActionAccessPanel({ labels }: UniversalActionAccessPane
     await load();
   }
 
-  if (loading) return <p className="p-6 text-sm text-gray-500">{labels.loading}</p>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-6">

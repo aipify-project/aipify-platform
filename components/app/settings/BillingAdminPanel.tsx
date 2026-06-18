@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseBillingCenter, type BillingCenter } from "@/lib/commercial-packages";
@@ -57,7 +58,7 @@ export function BillingAdminPanel({ labels }: BillingAdminPanelProps) {
     void refresh();
   }, [refresh]);
 
-  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   const usage = center?.usage ?? {};
   const limits = center?.tenant_limits ?? {};

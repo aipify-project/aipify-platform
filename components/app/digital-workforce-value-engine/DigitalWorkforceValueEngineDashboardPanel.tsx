@@ -58,8 +58,7 @@ export function DigitalWorkforceValueEngineDashboardPanel({ labels }: Props) {
   if (loading) {
     return (
       <div className="flex min-h-[240px] items-center justify-center">
-        <AipifyLoader centered />
-        <span className="sr-only">{labels.loading}</span>
+        <AipifyLoader label={labels.loading} centered />
       </div>
     );
   }

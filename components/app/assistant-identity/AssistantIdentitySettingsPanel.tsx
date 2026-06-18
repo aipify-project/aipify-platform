@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseAssistantIdentityBundle, type AssistantIdentityBundle } from "@/lib/aipify/assistant-identity";
@@ -58,7 +59,7 @@ export function AssistantIdentitySettingsPanel({
     await load();
   }
 
-  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!bundle?.has_customer) return null;
 
   const profile = bundle.profile ?? {};

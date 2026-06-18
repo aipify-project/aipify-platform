@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseKnowledgeCenter, type KnowledgeCenter } from "@/lib/aipify/knowledge";
@@ -73,7 +74,7 @@ export function KnowledgeCenterPanel({ labels }: KnowledgeCenterPanelProps) {
     setActingId(null);
   }
 
-  if (loading) return <p className="text-sm text-gray-500">{labels.loading}</p>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   if (!center?.has_customer) {
     return <div className="p-6"><Link href="/app" className="text-sm text-indigo-600 hover:underline">{labels.back}</Link></div>;

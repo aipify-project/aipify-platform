@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { useCallback, useEffect, useState } from "react";
 import { parseEvolutionGovernanceBoard, type EvolutionGovernanceBoard, type EvolutionProposal } from "@/lib/aipify/evolution-governance";
 
@@ -223,7 +224,7 @@ export function EvolutionGovernanceBoardPanel({ labels }: EvolutionGovernanceBoa
     await load();
   };
 
-  if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!board?.has_customer) return null;
 
   const openProposals = board.proposals.filter((p) => !["rejected", "archived", "validated"].includes(p.status));

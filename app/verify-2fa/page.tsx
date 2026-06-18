@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import AuthLayout from "@/components/auth/AuthLayout";
 import TwoFactorVerifyForm from "@/components/auth/TwoFactorVerifyForm";
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -17,7 +18,15 @@ export default async function VerifyTwoFactorPage() {
       title={t(`${p}.verifyTitle`)}
       subtitle={t(`${p}.verifySubtitle`)}
     >
-      <Suspense fallback={<p className="text-sm text-gray-500">{t("common.loading")}</p>}>
+      <Suspense
+        fallback={
+          <AipifyLoadingState
+            message={t("common.loadingState.loading")}
+            statusLabel={t("common.loadingState.status.waiting")}
+            centered
+          />
+        }
+      >
         <TwoFactorVerifyForm
           labels={{
             codeLabel: t(`${p}.codeLabel`),

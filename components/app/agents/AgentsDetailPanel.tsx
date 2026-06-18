@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseAgentDetail, type AgentDetail } from "@/lib/aipify/agents";
@@ -51,7 +52,7 @@ export function AgentsDetailPanel({ agentKey, labels }: AgentsDetailPanelProps) 
     setUpdating(false);
   };
 
-  if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!detail) return <div className="text-sm text-gray-600">{labels.notFound}</div>;
 
   const { agent, events, metrics } = detail;

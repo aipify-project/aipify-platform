@@ -6,8 +6,13 @@ Documented after locale graph reduction (customerApp monolith removed from layou
 
 | Setting | Value |
 |---------|--------|
-| **Build machine** | `enhanced` (`VERCEL_BUILD_MACHINE_TYPE`) |
-| **Node heap** | `NODE_OPTIONS=--max-old-space-size=14336` (14 GB) |
+| **Build command** | `npm run build` (see `vercel.json` + `package.json`) |
+| **Build machine** | **Enhanced (16 GB RAM) required** — Project or Team → Settings → Build and Deployment → Build Machines → Enhanced |
+| **Node heap** | `NODE_OPTIONS=--max-old-space-size=14336` (14 GB) — set in `vercel.json` **and** inline in `package.json` `build` script |
+
+**Important:** A 14 GB Node heap on Vercel’s **Standard** build machine (8 GB RAM) causes OS-level **SIGKILL**. Local builds succeed because the machine has enough RAM. On Vercel you must use **Enhanced** (16 GB) when using this heap size.
+
+`VERCEL_BUILD_MACHINE_TYPE` is **not** a supported env var — configure Enhanced in the Vercel dashboard (or team-level Build and Deployment settings).
 
 See `vercel.json`.
 
@@ -67,6 +72,10 @@ Use `getCustomerAppDictionaryForModule(locale, moduleKey)` — one split (~tens 
 ### Deploy tracing
 
 `outputFileTracingIncludes` includes `./locales/**/*` so fs-loaded JSON is present on Vercel.
+
+### Layout segments (build memory)
+
+`app/app/layout.tsx`, `app/platform/layout.tsx`, and `app/dashboard/layout.tsx` export `dynamic = "force-dynamic"` so 800+ authenticated routes are not statically prerendered at build time.
 
 ## Local build
 

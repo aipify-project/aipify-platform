@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseMemoryEngineCard, type MemoryEngineCard } from "@/lib/aipify/memory";
@@ -35,7 +36,7 @@ export function MemoryEngineHub({ labels }: MemoryEngineHubProps) {
     setRefreshing(false);
   }
 
-  if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!card?.has_customer) return <div className="text-sm text-gray-600">{labels.empty}</div>;
 
   const recs = card.recommendations ?? [];

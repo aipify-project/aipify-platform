@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { TwoFactorSetupPanel } from "@/components/app/two-factor";
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -11,7 +12,11 @@ export default async function TwoFactorSettingsPage() {
 
   return (
     <div className="mx-auto max-w-3xl p-6">
-      <Suspense fallback={<p className="text-sm text-gray-500">{t(`${p}.loading`)}</p>}>
+      <Suspense
+        fallback={
+          <AipifyLoadingState message={t(`${p}.loading`)} centered showStatusIndicator={false} />
+        }
+      >
         <TwoFactorSetupPanel
           labels={{
             title: t(`${p}.title`),

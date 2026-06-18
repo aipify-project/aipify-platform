@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { useCallback, useEffect, useState } from "react";
 import { parseDesktopReminders, type DesktopReminder } from "@/lib/aipify/desktop";
 import { formatDate } from "@/lib/i18n/format-date";
@@ -47,7 +48,7 @@ export function DesktopRemindersPanel({ labels, locale }: DesktopRemindersPanelP
     await refresh();
   }
 
-  if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   return (
     <div className="space-y-4">

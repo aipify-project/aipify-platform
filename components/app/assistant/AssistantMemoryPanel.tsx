@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -183,7 +184,7 @@ export function AssistantMemoryPanel({ locale, labels }: AssistantMemoryPanelPro
       dashboard.recurring_reminders.length > 0 ||
       dashboard.completed_items.length > 0);
 
-  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   return (
     <div className="mx-auto max-w-3xl space-y-6 p-6">

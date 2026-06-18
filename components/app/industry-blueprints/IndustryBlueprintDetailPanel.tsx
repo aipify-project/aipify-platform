@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseBlueprintDetail } from "@/lib/aipify/industry-blueprints";
@@ -66,7 +67,7 @@ export function IndustryBlueprintDetailPanel({ blueprintKey, labels }: IndustryB
     setApplying(false);
   }
 
-  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!detail) return <p className="p-6 text-sm text-gray-500">{labels.notFound}</p>;
 
   const { blueprint, precheck } = detail;

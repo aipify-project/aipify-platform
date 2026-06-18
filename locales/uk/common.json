@@ -35,5 +35,16 @@
       "performance": "Reviewing performance indicators…",
       "marketInsights": "Synchronizing market insights…"
     }
+  },
+  "loadingState": {
+    "workspace": "Aipify готує ваш робочий простір…",
+    "loading": "Завантаження Aipify…",
+    "working": "Aipify працює…",
+    "status": {
+      "waiting": "Очікування",
+      "complete": "Завершено",
+      "attention": "Потребує уваги",
+      "info": "Інформація"
+    }
   }
 }

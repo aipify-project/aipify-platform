@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { useCallback, useEffect, useState } from "react";
 import { parseOrchestrationFlows, type OrchestrationFlow } from "@/lib/aipify/orchestration";
 
@@ -38,7 +39,7 @@ export function OrchestrationFlowsPanel({ labels }: OrchestrationFlowsPanelProps
     void load();
   }, [load]);
 
-  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   return (
     <div className="space-y-4">

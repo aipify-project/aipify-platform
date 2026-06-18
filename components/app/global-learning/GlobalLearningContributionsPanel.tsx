@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseContributionExport, type GlobalLearningContribution } from "@/lib/aipify/global-learning";
@@ -28,7 +29,7 @@ export function GlobalLearningContributionsPanel({ labels }: GlobalLearningContr
     void load();
   }, [load]);
 
-  if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   return (
     <div className="space-y-4">

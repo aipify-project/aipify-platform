@@ -12,6 +12,7 @@ export type AppNavId =
   | "enterpriseOrganizationEngine"
   | "industryPackEcosystemEngine"
   | "hospitalityAccommodationPack"
+  | "commerceRetailOperationsPack"
   | "realEstatePortfolioOperationsPack"
   | "constructionProjectFieldOperationsPack"
   | "logisticsTransportationFleetOperationsPack"
@@ -46,12 +47,20 @@ export type AppNavId =
   | "analyticsInsightsEngine"
   | "notificationCommunicationEngine"
   | "deploymentEnvironmentManagementEngine"
+  | "globalDeploymentEnterpriseInfrastructureEngine"
   | "observabilityPlatformHealthEngine"
   | "aipifyInstallEngine"
   | "moduleMarketplaceFoundationEngine"
   | "aipifyInternalOperationsEngine"
   | "launchReadinessEngine"
   | "customerSuccessEngine"
+  | "customerExperienceAdoptionDelightEngine"
+  | "platformExcellenceEngine"
+  | "enterpriseTrustReputationConfidenceEngine"
+  | "enterpriseInnovationRdFutureEngine"
+  | "enterpriseEcosystemPartnerNetworkEngine"
+  | "enterpriseValueRealizationRoiEngine"
+  | "autonomousEnterpriseOperationsEngine"
   | "statusTransparencyEngine"
   | "enterpriseReadinessEngine"
   | "enterpriseDeploymentDeviceRolloutEngine"
@@ -253,6 +262,7 @@ export type AppNavId =
   | "companionActionMemoryEngine"
   | "presenceContinuityEngine"
   | "companionIdentityRelationshipEngine"
+  | "companionRelationshipEngine"
   | "lifeEventsEngine"
   | "trustAdoptionEngine"
   | "proactiveCompanionEngine"
@@ -445,6 +455,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "navigation.nav.hospitalityAccommodationPack",
   },
   {
+    id: "commerceRetailOperationsPack",
+    href: "/app/commerce",
+    labelKey: "navigation.nav.commerceRetailOperationsPack",
+  },
+  {
     id: "realEstatePortfolioOperationsPack",
     href: "/app/real-estate",
     labelKey: "navigation.nav.realEstatePortfolioOperationsPack",
@@ -540,6 +555,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "navigation.nav.deploymentEnvironmentManagementEngine",
   },
   {
+    id: "globalDeploymentEnterpriseInfrastructureEngine",
+    href: "/app/infrastructure/global",
+    labelKey: "navigation.nav.globalDeploymentEnterpriseInfrastructureEngine",
+  },
+  {
     id: "observabilityPlatformHealthEngine",
     href: "/app/observability-platform-health-engine",
     labelKey: "navigation.nav.observabilityPlatformHealthEngine",
@@ -568,6 +588,41 @@ export const APP_NAV: AppNavItem[] = [
     id: "customerSuccessEngine",
     href: "/app/customer-success-engine",
     labelKey: "navigation.nav.customerSuccessEngine",
+  },
+  {
+    id: "customerExperienceAdoptionDelightEngine",
+    href: "/app/platform/customer-experience",
+    labelKey: "navigation.nav.customerExperienceAdoptionDelightEngine",
+  },
+  {
+    id: "platformExcellenceEngine",
+    href: "/app/platform/excellence",
+    labelKey: "navigation.nav.platformExcellenceEngine",
+  },
+  {
+    id: "enterpriseTrustReputationConfidenceEngine",
+    href: "/app/trust-center",
+    labelKey: "navigation.nav.enterpriseTrustReputationConfidenceEngine",
+  },
+  {
+    id: "enterpriseInnovationRdFutureEngine",
+    href: "/app/innovation",
+    labelKey: "navigation.nav.enterpriseInnovationRdFutureEngine",
+  },
+  {
+    id: "enterpriseEcosystemPartnerNetworkEngine",
+    href: "/app/ecosystem",
+    labelKey: "navigation.nav.enterpriseEcosystemPartnerNetworkEngine",
+  },
+  {
+    id: "enterpriseValueRealizationRoiEngine",
+    href: "/app/value",
+    labelKey: "navigation.nav.enterpriseValueRealizationRoiEngine",
+  },
+  {
+    id: "autonomousEnterpriseOperationsEngine",
+    href: "/app/autonomous",
+    labelKey: "navigation.nav.autonomousEnterpriseOperationsEngine",
   },
   {
     id: "statusTransparencyEngine",
@@ -1560,6 +1615,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "navigation.nav.companionIdentityRelationshipEngine",
   },
   {
+    id: "companionRelationshipEngine",
+    href: "/app/companion/relationship",
+    labelKey: "navigation.nav.companionRelationshipEngine",
+  },
+  {
     id: "lifeEventsEngine",
     href: "/app/companion/life-events",
     labelKey: "navigation.nav.lifeEventsEngine",
@@ -1743,7 +1803,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "industryBlueprints", href: "/app/industry-blueprints", labelKey: "navigation.nav.industryBlueprints" },
   { id: "globalLearning", href: "/app/global-learning", labelKey: "navigation.nav.globalLearning" },
   { id: "evolution", href: "/app/evolution", labelKey: "navigation.nav.evolution" },
-  { id: "valueEngine", href: "/app/value", labelKey: "navigation.nav.valueEngine" },
+  { id: "valueEngine", href: "/app/value-engine", labelKey: "navigation.nav.valueEngine" },
   { id: "outcomesEngine", href: "/app/outcomes", labelKey: "navigation.nav.outcomesEngine" },
   { id: "agents", href: "/app/agents", labelKey: "navigation.nav.agents" },
   {
@@ -1761,7 +1821,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "humanSuccessEngine", href: "/app/human-success", labelKey: "navigation.nav.humanSuccessEngine" },
   { id: "customerLifecycleEngine", href: "/app/customer-lifecycle", labelKey: "navigation.nav.customerLifecycleEngine" },
   { id: "platformIntegrityEngine", href: "/app/integrity", labelKey: "navigation.nav.platformIntegrityEngine" },
-  { id: "ecosystemIntelligenceEngine", href: "/app/ecosystem", labelKey: "navigation.nav.ecosystemIntelligenceEngine" },
+  { id: "ecosystemIntelligenceEngine", href: "/app/ecosystem-intelligence", labelKey: "navigation.nav.ecosystemIntelligenceEngine" },
   {
     id: "ecosystemOrchestrationEngine",
     href: "/app/ecosystem-orchestration",
@@ -1909,6 +1969,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/organizations")) return "enterpriseOrganizationEngine";
   if (pathname.startsWith("/app/industry-packs")) return "industryPackEcosystemEngine";
   if (pathname.startsWith("/app/hospitality")) return "hospitalityAccommodationPack";
+  if (pathname === "/app/commerce" || pathname.startsWith("/app/commerce/")) {
+    return "commerceRetailOperationsPack";
+  }
   if (pathname.startsWith("/app/real-estate")) return "realEstatePortfolioOperationsPack";
   if (pathname.startsWith("/app/construction")) return "constructionProjectFieldOperationsPack";
   if (pathname.startsWith("/app/logistics")) return "logisticsTransportationFleetOperationsPack";
@@ -1946,6 +2009,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/deployment-environment-management-engine")) {
     return "deploymentEnvironmentManagementEngine";
+  }
+  if (pathname.startsWith("/app/infrastructure/global")) {
+    return "globalDeploymentEnterpriseInfrastructureEngine";
   }
   if (pathname.startsWith("/app/observability-platform-health-engine")) {
     return "observabilityPlatformHealthEngine";
@@ -2070,6 +2136,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/companion/work-prioritization")) return "companionWorkPrioritizationEngine";
   if (pathname.startsWith("/app/companion/follow-ups")) return "companionFollowUpEngine";
   if (pathname.startsWith("/app/companion/relationship-intelligence")) return "companionRelationshipIntelligenceEngine";
+  if (pathname === "/app/companion/relationship") return "companionRelationshipEngine";
   if (pathname.startsWith("/app/companion/executive")) return "companionExecutiveLayer";
   if (pathname.startsWith("/app/companion/orchestration")) return "companionOrchestrationEngine";
   if (pathname.startsWith("/app/companion/actions")) return "companionActionApprovalEngine";
@@ -2147,6 +2214,24 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/launch-readiness-engine")) return "launchReadinessEngine";
   if (pathname.startsWith("/app/customer-success-engine")) return "customerSuccessEngine";
+  if (pathname.startsWith("/app/platform/customer-experience")) {
+    return "customerExperienceAdoptionDelightEngine";
+  }
+  if (pathname.startsWith("/app/platform/excellence")) {
+    return "platformExcellenceEngine";
+  }
+  if (pathname === "/app/innovation" || pathname.startsWith("/app/innovation/")) {
+    return "enterpriseInnovationRdFutureEngine";
+  }
+  if (pathname === "/app/ecosystem" || pathname.startsWith("/app/ecosystem/")) {
+    return "enterpriseEcosystemPartnerNetworkEngine";
+  }
+  if (pathname === "/app/value" || pathname.startsWith("/app/value/")) {
+    return "enterpriseValueRealizationRoiEngine";
+  }
+  if (pathname === "/app/autonomous" || pathname.startsWith("/app/autonomous/")) {
+    return "autonomousEnterpriseOperationsEngine";
+  }
   if (pathname.startsWith("/app/status-transparency-engine")) return "statusTransparencyEngine";
   if (pathname.startsWith("/app/enterprise-readiness-engine")) return "enterpriseReadinessEngine";
   if (pathname.startsWith("/app/enterprise-deployment-device-rollout-engine")) {
@@ -2627,11 +2712,14 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/industry-blueprints")) return "industryBlueprints";
   if (pathname.startsWith("/app/global-learning")) return "globalLearning";
   if (pathname.startsWith("/app/evolution")) return "evolution";
-  if (pathname.startsWith("/app/value")) return "valueEngine";
+  if (pathname.startsWith("/app/value-engine")) return "valueEngine";
   if (pathname.startsWith("/app/outcomes")) return "outcomesEngine";
   if (pathname.startsWith("/app/companion-workforce-engine")) return "companionWorkforceEngine";
   if (pathname.startsWith("/app/agents")) return "agents";
   if (pathname.startsWith("/app/apps")) return "appEcosystem";
+  if (pathname.startsWith("/app/trust-center")) {
+    return "enterpriseTrustReputationConfidenceEngine";
+  }
   if (pathname.startsWith("/app/trust")) return "trustEngine";
   if (pathname.startsWith("/app/digital-twin")) return "digitalTwin";
   if (pathname.startsWith("/app/simulations")) return "simulationLab";
@@ -2647,7 +2735,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/customer-lifecycle")) return "customerLifecycleEngine";
   if (pathname.startsWith("/app/integrity")) return "platformIntegrityEngine";
   if (pathname.startsWith("/app/ecosystem-orchestration")) return "ecosystemOrchestrationEngine";
-  if (pathname.startsWith("/app/ecosystem")) return "ecosystemIntelligenceEngine";
+  if (pathname.startsWith("/app/ecosystem-governance")) return "ecosystemGovernanceEngine";
+  if (pathname.startsWith("/app/ecosystem-intelligence")) return "ecosystemIntelligenceEngine";
   if (pathname.startsWith("/app/community")) return "communityIntelligenceEngine";
   if (pathname.startsWith("/app/marketplace-governance")) return "marketplaceGovernanceEngine";
   if (pathname.startsWith("/app/growth-partner/resource-center")) return "growthPartnerResourceCenter";
@@ -2655,7 +2744,6 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/growth-partner/business-planning")) return "growthPartnerBusinessPlanning";
   if (pathname.startsWith("/app/growth-partner/academy")) return "growthPartnerAcademy";
   if (pathname.startsWith("/app/growth-partner-operations")) return "growthPartnerOperationsEngine";
-  if (pathname.startsWith("/app/ecosystem-governance")) return "ecosystemGovernanceEngine";
   if (pathname.startsWith("/app/partners")) return "partnerCertificationEngine";
   if (pathname.startsWith("/app/commercial")) return "commercialModelEngine";
   if (pathname.startsWith("/app/academy")) return "academyEngine";

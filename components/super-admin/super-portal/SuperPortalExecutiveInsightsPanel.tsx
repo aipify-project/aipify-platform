@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import {
@@ -43,7 +44,7 @@ export function SuperPortalExecutiveInsightsPanel({
     void load();
   }, [load]);
 
-  if (loading) return <p className="p-6 text-sm text-zinc-500">{labels.loading}</p>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!insights) return <p className="p-6 text-sm text-red-600">{labels.loading}</p>;
 
   const trendClass = (trend: string) => STATUS_BADGES[trend] ?? STATUS_BADGES.stable;

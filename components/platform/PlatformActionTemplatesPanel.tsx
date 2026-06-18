@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { useEffect, useState } from "react";
 import {
   getActionRiskStyle,
@@ -47,7 +48,7 @@ export default function PlatformActionTemplatesPanel({
     };
   }, []);
 
-  if (loading) return <p className="text-sm text-gray-500">{labels.loading}</p>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   return (
     <div className="space-y-8">

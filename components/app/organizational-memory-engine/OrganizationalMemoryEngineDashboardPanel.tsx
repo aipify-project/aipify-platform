@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -30,7 +31,7 @@ export function OrganizationalMemoryEngineDashboardPanel({ labels }: Props) {
     void load();
   }, [load]);
 
-  if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!dashboard?.has_organization) return null;
 
   const summary = dashboard.summary ?? {};

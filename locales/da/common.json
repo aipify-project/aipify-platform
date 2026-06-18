@@ -35,5 +35,16 @@
       "performance": "Gennemgår præstationsindikatorer…",
       "marketInsights": "Synkroniserer markedsindsigt…"
     }
+  },
+  "loadingState": {
+    "workspace": "Aipify forbereder dit arbejdsområde…",
+    "loading": "Indlæser Aipify…",
+    "working": "Aipify arbejder…",
+    "status": {
+      "waiting": "Venter",
+      "complete": "Fuldført",
+      "attention": "Kræver opmærksomhed",
+      "info": "Information"
+    }
   }
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { getPartnerTierLabel } from "@/lib/internal-language-model/implementation-blueprint-phase33-vocabulary";
@@ -127,7 +128,7 @@ export function PartnerCertificationDashboardPanel({ labels }: PartnerCertificat
     await load();
   };
 
-  if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!dashboard?.has_customer) return null;
 
   const filteredPartners = dashboard.partners.filter((p: PartnerProfile) => {

@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -88,7 +89,7 @@ export function CommunityHubPanel({ labels }: CommunityHubPanelProps) {
     await load();
   };
 
-  if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!dashboard?.has_customer) return null;
 
   const engagement = dashboard.engagement_summary;

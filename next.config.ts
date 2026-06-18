@@ -6,6 +6,7 @@ const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
   productionBrowserSourceMaps: false,
+  staticPageGenerationTimeout: 300,
   outputFileTracingIncludes: {
     "/*": ["./locales/**/*"],
   },

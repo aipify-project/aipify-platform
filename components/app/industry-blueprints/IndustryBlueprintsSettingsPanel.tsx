@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseTenantIndustryProfileResponse } from "@/lib/aipify/industry-blueprints";
@@ -38,7 +39,7 @@ export function IndustryBlueprintsSettingsPanel({ labels }: IndustryBlueprintsSe
     setSaving(false);
   }
 
-  if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   const p = profile?.profile;
 

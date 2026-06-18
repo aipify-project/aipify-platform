@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
 import type { CustomerTeamInvitation, CustomerTeamMember } from "@/lib/app/customer-app";
@@ -68,7 +69,7 @@ export function TeamCenterPanel({ locale, labels }: TeamCenterPanelProps) {
     void refresh();
   }, [refresh]);
 
-  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-6">

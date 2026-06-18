@@ -14,6 +14,9 @@ import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { buildPresenceLabels } from "@/lib/presence/labels";
 
+/** Platform admin shell — skip build-time static prerender. */
+export const dynamic = "force-dynamic";
+
 export default async function PlatformLayout({
   children,
 }: {

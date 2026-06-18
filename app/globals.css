@@ -113,6 +113,35 @@ body {
   }
 }
 
+@keyframes aipify-presence-ring {
+  0%,
+  100% {
+    opacity: 0.32;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.62;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes aipify-verify-flash {
+  0%,
+  72%,
+  100% {
+    opacity: 0;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+  78% {
+    opacity: 0.9;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.45);
+  }
+  86% {
+    opacity: 0;
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+}
+
 .animate-aipify-orb-breathe {
   animation: aipify-orb-breathe 5.5s ease-in-out infinite;
 }
@@ -239,7 +268,11 @@ body {
   .animate-presence-learning,
   .animate-presence-healing,
   .animate-presence-approval,
-  .animate-presence-critical {
+  .animate-presence-critical,
+  .motion-safe\:animate-\[aipify-loader-pulse_2\.4s_ease-in-out_infinite\],
+  .motion-safe\:animate-\[aipify-loader-glow_2\.4s_ease-in-out_infinite\],
+  .motion-safe\:animate-\[aipify-presence-ring_2\.8s_ease-in-out_infinite\],
+  .motion-safe\:animate-\[aipify-verify-flash_3\.2s_ease-in-out_infinite\] {
     animation: none !important;
   }
 }

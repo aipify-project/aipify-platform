@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseValueEngineDashboard, type ValueEngineDashboard } from "@/lib/aipify/value-engine";
@@ -23,7 +24,7 @@ export function ValueEngineDashboardPanel({ labels }: ValueEngineDashboardPanelP
     void load();
   }, [load]);
 
-  if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!dashboard?.has_customer) return null;
 
   const score = dashboard.impact_score;
@@ -32,13 +33,13 @@ export function ValueEngineDashboardPanel({ labels }: ValueEngineDashboardPanelP
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap gap-3">
-        <Link href="/app/value/reports" className="rounded-lg border border-gray-200 px-4 py-2 text-sm hover:border-emerald-300">
+        <Link href="/app/value-engine/reports" className="rounded-lg border border-gray-200 px-4 py-2 text-sm hover:border-emerald-300">
           {labels.reports}
         </Link>
-        <Link href="/app/value/opportunities" className="rounded-lg border border-gray-200 px-4 py-2 text-sm hover:border-emerald-300">
+        <Link href="/app/value-engine/opportunities" className="rounded-lg border border-gray-200 px-4 py-2 text-sm hover:border-emerald-300">
           {labels.opportunities}
         </Link>
-        <Link href="/app/value/settings" className="rounded-lg border border-gray-200 px-4 py-2 text-sm hover:border-emerald-300">
+        <Link href="/app/value-engine/settings" className="rounded-lg border border-gray-200 px-4 py-2 text-sm hover:border-emerald-300">
           {labels.settings}
         </Link>
       </div>

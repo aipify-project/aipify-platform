@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseQualityIncidents, type QualityIncident } from "@/lib/aipify/quality";
@@ -36,7 +37,7 @@ export function QualityIncidentsPanel({ labels, severityLabels }: QualityInciden
     setActingId(null);
   }
 
-  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   return (
     <div className="mx-auto max-w-5xl space-y-4 p-6">

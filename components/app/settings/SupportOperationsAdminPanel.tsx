@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -120,7 +121,7 @@ export function SupportOperationsAdminPanel({ labels }: SupportOperationsAdminPa
     await refresh();
   }
 
-  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   const readiness = center?.readiness;
   const performance = center?.performance as Record<string, unknown> | undefined;

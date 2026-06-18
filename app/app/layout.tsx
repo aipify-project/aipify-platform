@@ -16,6 +16,9 @@ import { getAppLayoutDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
+/** Authenticated app shell — skip build-time static prerender (700+ routes). */
+export const dynamic = "force-dynamic";
+
 export default async function AppLayout({
   children,
 }: {

@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseExecutions, type AutomationExecution } from "@/lib/aipify/adaptive-automation";
@@ -29,7 +30,7 @@ export function AutomationExecutionsPanel({ labels }: AutomationExecutionsPanelP
     void load();
   }, [load]);
 
-  if (loading) return <p className="text-sm text-gray-500">{labels.loading}</p>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   return (
     <div className="mx-auto max-w-4xl space-y-6 p-6">

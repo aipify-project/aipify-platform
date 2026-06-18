@@ -1,0 +1,1 @@
+export { CompanionRelationshipDashboardPanel } from "./CompanionRelationshipDashboardPanel";

@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -136,7 +137,7 @@ export function PaymentProvidersExperiencePanel({
     auditRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  if (loading) return <p className="p-6 text-sm text-neutral-500">{labels.loading}</p>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   const activeCard = configuring
     ? center?.providers.find((p) => p.provider_key === configuring)

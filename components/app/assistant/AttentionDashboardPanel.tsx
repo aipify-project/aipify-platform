@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -117,7 +118,7 @@ export function AttentionDashboardPanel({ locale, labels }: AttentionDashboardPa
     await refresh();
   }
 
-  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   const state = center?.attention_state ?? "balanced";
   const briefing = center?.daily_focus_briefing as {

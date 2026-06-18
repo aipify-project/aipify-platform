@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
 import type { ConfidenceLevel, LearningCenterBundle, LearningMode } from "@/lib/learning";
@@ -88,7 +89,7 @@ export function LearningReviewCenterPanel({ locale, labels }: LearningReviewCent
     await refresh();
   }
 
-  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   if (!bundle?.has_customer) {
     return (

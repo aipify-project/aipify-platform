@@ -12,6 +12,9 @@ import { createTranslator } from "@/lib/i18n/translate";
 import { buildLicensePanelLabels } from "@/lib/app/license-labels";
 import { buildPresenceLabels } from "@/lib/presence/labels";
 
+/** Legacy dashboard shell — skip build-time static prerender. */
+export const dynamic = "force-dynamic";
+
 export default async function DashboardLayout({
   children,
 }: {

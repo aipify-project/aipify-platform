@@ -1,6 +1,6 @@
 "use client";
 
-import { AipifyLoaderAnimation } from "@/components/ui/aipify-loader-animation";
+import { AipifyLoadingState, type AipifyLoadingStateProps } from "@/components/ui/aipify-loading-state";
 import { AIPIFY_LOADER_DEFAULT_LABEL } from "@/lib/loading/aipify-loader-assets";
 
 type LoaderSize = "sm" | "md" | "lg";
@@ -12,6 +12,9 @@ export type AipifyLoaderProps = {
   fullPage?: boolean;
   subtle?: boolean;
   className?: string;
+  showActivePulse?: boolean;
+  showStatusIndicator?: boolean;
+  preset?: AipifyLoadingStateProps["preset"];
 };
 
 export function AipifyLoader({
@@ -19,27 +22,21 @@ export function AipifyLoader({
   size = "md",
   centered = true,
   fullPage = false,
-  subtle = true,
   className = "",
+  showActivePulse = true,
+  showStatusIndicator = true,
+  preset = "workspace",
 }: AipifyLoaderProps) {
-  const containerClasses = [
-    "w-full bg-transparent",
-    fullPage ? "min-h-[calc(100vh-10rem)]" : "min-h-[280px]",
-    centered ? "flex flex-col items-center justify-center text-center" : "",
-    subtle ? "py-12" : "py-8",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
-    <div className={containerClasses} role="status" aria-live="polite" aria-busy="true">
-      <AipifyLoaderAnimation size={size} label={label || "Loading"} />
-      {label ? (
-        <p className="mt-5 max-w-sm text-sm font-medium text-gray-600">{label}</p>
-      ) : (
-        <span className="sr-only">Loading</span>
-      )}
-    </div>
+    <AipifyLoadingState
+      message={label}
+      preset={preset}
+      size={size}
+      centered={centered}
+      fullPage={fullPage}
+      className={className}
+      showActivePulse={showActivePulse}
+      showStatusIndicator={showStatusIndicator}
+    />
   );
 }

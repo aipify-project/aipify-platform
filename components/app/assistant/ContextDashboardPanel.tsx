@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -94,7 +95,7 @@ export function ContextDashboardPanel({ locale, labels }: ContextDashboardPanelP
     await refresh();
   }
 
-  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   const briefing = center?.daily_briefing;
   const evening = center?.evening_review;

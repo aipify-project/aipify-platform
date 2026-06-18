@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -57,7 +58,7 @@ export default function PlatformEmployeeKnowledgePanel({ labels }: Props) {
     };
   }, []);
 
-  if (loading) return <p className="mb-6 text-sm text-gray-500">{labels.loading}</p>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   return (
     <section className="mb-8 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">

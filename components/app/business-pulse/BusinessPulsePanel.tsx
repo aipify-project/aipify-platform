@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseBusinessPulseCenter, type BusinessPulseCenter, type PulseAlert } from "@/lib/aipify/business-pulse";
@@ -84,7 +85,7 @@ export function BusinessPulsePanel({ executiveReport = false, labels }: Business
     void refresh();
   }
 
-  if (loading) return <p className="text-sm text-gray-500">{labels.loading}</p>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   if (!center?.has_customer) return <p className="text-sm text-gray-500">{labels.loading}</p>;
 

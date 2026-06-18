@@ -41,8 +41,7 @@ export function DesktopCompanionFocusPanel({ labels }: Props) {
   if (loading) {
     return (
       <div className="flex min-h-[200px] items-center justify-center">
-        <AipifyLoader centered />
-        <span className="sr-only">{labels.loading}</span>
+        <AipifyLoader label={labels.loading} centered />
       </div>
     );
   }

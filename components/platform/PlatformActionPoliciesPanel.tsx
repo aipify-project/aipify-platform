@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { useEffect, useState } from "react";
 import {
   getActionRiskStyle,
@@ -50,7 +51,7 @@ export default function PlatformActionPoliciesPanel({
     };
   }, []);
 
-  if (loading) return <p className="text-sm text-gray-500">{labels.loading}</p>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   const platformPolicies = policies.filter((p) => !p.tenant_id);
   const tenantPolicies = policies.filter((p) => p.tenant_id);

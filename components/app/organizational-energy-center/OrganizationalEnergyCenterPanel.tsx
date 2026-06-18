@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -109,7 +110,7 @@ export function OrganizationalEnergyCenterPanel({ labels }: Props) {
     await load();
   };
 
-  if (loading) return <p className="p-6 text-sm text-gray-500">{labels.loading}</p>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   const dash = center?.dashboard;
   const healthStyle = HEALTH_STYLES[dash?.energy_health_label ?? "balanced"] ?? HEALTH_STYLES.balanced;

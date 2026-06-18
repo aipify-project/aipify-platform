@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseGovernanceTrustScore, type GovernanceTrustScore } from "@/lib/aipify/governance";
@@ -36,7 +37,7 @@ export function GovernanceTrustPanel({ labels }: GovernanceTrustPanelProps) {
     void refresh();
   }, [refresh]);
 
-  if (loading) return <p className="text-sm text-gray-500">{labels.loading}</p>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   return (
     <div className="mx-auto max-w-4xl space-y-6 p-6">

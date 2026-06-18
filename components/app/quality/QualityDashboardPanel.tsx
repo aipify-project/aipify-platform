@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseQualityDashboard, type QualityDashboard } from "@/lib/aipify/quality";
@@ -44,7 +45,7 @@ export function QualityDashboardPanel({ labels, severityLabels }: QualityDashboa
     setScanning(false);
   }
 
-  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   if (!dashboard?.has_customer) {
     return <div className="p-6 text-sm text-gray-600">{labels.empty}</div>;

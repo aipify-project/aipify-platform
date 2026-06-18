@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseTrustDashboard, type TrustDashboard } from "@/lib/aipify/trust-engine";
@@ -34,7 +35,7 @@ export function TrustDashboardPanel({ labels }: TrustDashboardPanelProps) {
     void load();
   }, [load]);
 
-  if (loading) return <div className="text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!dashboard?.has_customer) return null;
 
   return (

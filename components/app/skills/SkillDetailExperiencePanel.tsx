@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { parseSkillDetail, type SkillDetail } from "@/lib/aipify/skills";
@@ -100,7 +101,7 @@ export function SkillDetailExperiencePanel({
     setActing(false);
   }
 
-  if (loading) return <div className="p-8 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!skill) return <div className="p-8 text-sm text-gray-600">{labels.detail.notFound}</div>;
 
   const depsOk = skill.dependency_check.satisfied;

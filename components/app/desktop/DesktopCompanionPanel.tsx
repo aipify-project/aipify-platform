@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -83,7 +84,7 @@ export function DesktopCompanionPanel({ labels, mode = "full" }: DesktopCompanio
     await load();
   }
 
-  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (mode !== "history" && !card?.has_customer) {
     return <div className="p-6 text-sm text-gray-600">{labels.empty}</div>;
   }

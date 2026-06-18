@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -66,7 +67,7 @@ export function GovernanceSettingsPanel({ labels }: GovernanceSettingsPanelProps
     setSettings({ ...settings, [key]: value });
   }
 
-  if (loading) return <p className="text-sm text-gray-500">{labels.loading}</p>;
+  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   if (upgradeRequired || !hasAccess) {
     return (
