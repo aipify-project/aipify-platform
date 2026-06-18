@@ -1,0 +1,78 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildEnterpriseGovernanceTrustCenterLabels(t: Translator) {
+  const p = "customerApp.enterpriseGovernanceTrustCenter";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    philosophy: t(`${p}.philosophy`),
+    governanceNote: t(`${p}.governanceNote`),
+    privacyNote: t(`${p}.privacyNote`),
+    refresh: t(`${p}.refresh`),
+    emptyState: t(`${p}.emptyState`),
+    accessDenied: t(`${p}.accessDenied`),
+    who: t(`${p}.who`),
+    what: t(`${p}.what`),
+    why: t(`${p}.why`),
+    result: t(`${p}.result`),
+    approvalHistory: t(`${p}.approvalHistory`),
+    whyExplain: t(`${p}.whyExplain`),
+    howExplain: t(`${p}.howExplain`),
+    dataUsed: t(`${p}.dataUsed`),
+    outstandingIssues: t(`${p}.outstandingIssues`),
+    requiredActions: t(`${p}.requiredActions`),
+    sections: {
+      trustOverview: t(`${p}.sections.trustOverview`),
+      governanceStatus: t(`${p}.sections.governanceStatus`),
+      complianceCenter: t(`${p}.sections.complianceCenter`),
+      auditCenter: t(`${p}.sections.auditCenter`),
+      riskCenter: t(`${p}.sections.riskCenter`),
+      approvalCenter: t(`${p}.sections.approvalCenter`),
+      policyCenter: t(`${p}.sections.policyCenter`),
+    },
+    governanceFramework: { title: t(`${p}.governanceFramework.title`) },
+    trustScoreEngine: { title: t(`${p}.trustScoreEngine.title`) },
+    policyManagement: { title: t(`${p}.policyManagement.title`) },
+    universalAuditLayer: { title: t(`${p}.universalAuditLayer.title`) },
+    explainabilityEngine: { title: t(`${p}.explainabilityEngine.title`) },
+    complianceCenter: { title: t(`${p}.complianceCenter.title`) },
+    approvalIntelligence: { title: t(`${p}.approvalIntelligence.title`) },
+    executiveTrustDashboard: { title: t(`${p}.executiveTrustDashboard.title`) },
+    companionAdvisor: { title: t(`${p}.companionAdvisor.title`), context: t(`${p}.companionAdvisor.context`) },
+    enterpriseTransparencyMode: { title: t(`${p}.enterpriseTransparencyMode.title`) },
+    governanceApis: { title: t(`${p}.governanceApis.title`) },
+    governanceControls: {
+      title: t(`${p}.governanceControls.title`),
+      enabled: t(`${p}.governanceControls.enabled`),
+      disabled: t(`${p}.governanceControls.disabled`),
+      transparency: t(`${p}.governanceControls.transparency`),
+    },
+    actions: {
+      acknowledge: t(`${p}.actions.acknowledge`),
+      dismiss: t(`${p}.actions.dismiss`),
+      approve: t(`${p}.actions.approve`),
+      reject: t(`${p}.actions.reject`),
+      escalate: t(`${p}.actions.escalate`),
+      resolve: t(`${p}.actions.resolve`),
+    },
+    status: {
+      completed: t(`${p}.status.completed`),
+      notAllowed: t(`${p}.status.notAllowed`),
+      requiresAttention: t(`${p}.status.requiresAttention`),
+      information: t(`${p}.status.information`),
+      restricted: t(`${p}.status.restricted`),
+      verified: t(`${p}.status.verified`),
+      waiting: t(`${p}.status.waiting`),
+    },
+    links: {
+      governance: t(`${p}.links.governance`),
+      audit: t(`${p}.links.audit`),
+      trustTransparency: t(`${p}.links.trustTransparency`),
+      approvalCenter: t(`${p}.links.approvalCenter`),
+      permissionsAccess: t(`${p}.links.permissionsAccess`),
+      legacyTrustScores: t(`${p}.links.legacyTrustScores`),
+    },
+  };
+}
+
+export type EnterpriseGovernanceTrustCenterLabels = ReturnType<typeof buildEnterpriseGovernanceTrustCenterLabels>;

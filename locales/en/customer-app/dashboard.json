@@ -5909,6 +5909,77 @@
       "decisionSupport": "Decision Support"
     }
   },
+  "enterpriseGovernanceTrustCenter": {
+    "title": "Enterprise Governance & Trust",
+    "subtitle": "Enterprise-grade governance, transparency, accountability, compliance, auditability, and trust controls across every Aipify action, workflow, and decision.",
+    "philosophy": "Organizations do not trust systems they cannot understand. Trust must be built into every layer of Aipify.",
+    "governanceNote": "Every significant event records who, what, when, why, result, and approval history. All recommendations are explainable — humans decide.",
+    "privacyNote": "Governance metadata and audit outcomes only — no raw customer communications, payment details, or unapproved PII.",
+    "refresh": "Refresh",
+    "emptyState": "No trust items in this section yet.",
+    "accessDenied": "Enterprise Governance & Trust requires appropriate workspace permissions.",
+    "who": "Who",
+    "what": "What",
+    "why": "Why",
+    "result": "Result",
+    "approvalHistory": "Approval history",
+    "whyExplain": "Why",
+    "howExplain": "How",
+    "dataUsed": "Data used",
+    "outstandingIssues": "Outstanding issues",
+    "requiredActions": "Required actions",
+    "sections": {
+      "trustOverview": "Trust Overview",
+      "governanceStatus": "Governance Status",
+      "complianceCenter": "Compliance Center",
+      "auditCenter": "Audit Center",
+      "riskCenter": "Risk Center",
+      "approvalCenter": "Approval Center",
+      "policyCenter": "Policy Center"
+    },
+    "governanceFramework": { "title": "Governance Framework" },
+    "trustScoreEngine": { "title": "Trust Score Engine" },
+    "policyManagement": { "title": "Policy Management" },
+    "universalAuditLayer": { "title": "Universal Audit Layer" },
+    "explainabilityEngine": { "title": "Explainability Engine" },
+    "complianceCenter": { "title": "Compliance Center" },
+    "approvalIntelligence": { "title": "Approval Intelligence" },
+    "executiveTrustDashboard": { "title": "Executive Trust Dashboard" },
+    "companionAdvisor": { "title": "Companion Trust Advisor", "context": "Context" },
+    "enterpriseTransparencyMode": { "title": "Enterprise Transparency Mode" },
+    "governanceApis": { "title": "Governance APIs" },
+    "governanceControls": {
+      "title": "Governance Controls",
+      "enabled": "Trust Center enabled",
+      "disabled": "Trust Center disabled",
+      "transparency": "Enterprise transparency mode active"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "approve": "Approve",
+      "reject": "Reject",
+      "escalate": "Escalate",
+      "resolve": "Resolve"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "governance": "Governance Center",
+      "audit": "Audit Center",
+      "trustTransparency": "Trust & Transparency",
+      "approvalCenter": "Approval Center",
+      "permissionsAccess": "Permissions & Access",
+      "legacyTrustScores": "Legacy Trust Scores"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",

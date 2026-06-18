@@ -5091,6 +5091,77 @@
       "decisionSupport": "Decision Support"
     }
   },
+  "enterpriseGovernanceTrustCenter": {
+    "title": "Enterprise Governance & Trust",
+    "subtitle": "Enterprise-grade styrning, transparens, ansvarsskyldighet, compliance, revision och förtroendekontroller över alla Aipify-åtgärder, arbetsflöden och beslut.",
+    "philosophy": "Organisationer litar inte på system de inte förstår. Förtroende måste byggas in i varje lager av Aipify.",
+    "governanceNote": "Varje betydande händelse registrerar vem, vad, när, varför, resultat och godkännandehistorik. Alla rekommendationer är förklarbara — människor bestämmer.",
+    "privacyNote": "Endast styrningsmetadata och revisionsresultat — inget råt kundinnehåll, betalningsdetaljer eller ogodkänd PII.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga förtroendeobjekt i detta avsnitt ännu.",
+    "accessDenied": "Enterprise Governance & Trust kräver lämpliga arbetsytetillstånd.",
+    "who": "Vem",
+    "what": "Vad",
+    "why": "Varför",
+    "result": "Resultat",
+    "approvalHistory": "Godkännandehistorik",
+    "whyExplain": "Varför",
+    "howExplain": "Hur",
+    "dataUsed": "Data som använts",
+    "outstandingIssues": "Utestående problem",
+    "requiredActions": "Nödvändiga åtgärder",
+    "sections": {
+      "trustOverview": "Förtroendeöversikt",
+      "governanceStatus": "Styrningsstatus",
+      "complianceCenter": "Compliance-center",
+      "auditCenter": "Revisionscenter",
+      "riskCenter": "Riskcenter",
+      "approvalCenter": "Godkännandecenter",
+      "policyCenter": "Policy-center"
+    },
+    "governanceFramework": { "title": "Styrningsramverk" },
+    "trustScoreEngine": { "title": "Trust Score Engine" },
+    "policyManagement": { "title": "Policyhantering" },
+    "universalAuditLayer": { "title": "Universal Audit Layer" },
+    "explainabilityEngine": { "title": "Explainability Engine" },
+    "complianceCenter": { "title": "Compliance-center" },
+    "approvalIntelligence": { "title": "Approval Intelligence" },
+    "executiveTrustDashboard": { "title": "Executive Trust Dashboard" },
+    "companionAdvisor": { "title": "Companion Trust Advisor", "context": "Kontext" },
+    "enterpriseTransparencyMode": { "title": "Enterprise Transparency Mode" },
+    "governanceApis": { "title": "Governance APIs" },
+    "governanceControls": {
+      "title": "Styrningskontroller",
+      "enabled": "Trust Center aktiverad",
+      "disabled": "Trust Center inaktiverad",
+      "transparency": "Enterprise transparency mode aktiv"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "approve": "Godkänn",
+      "reject": "Avslå",
+      "escalate": "Eskalera",
+      "resolve": "Lös"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "governance": "Governance Center",
+      "audit": "Audit Center",
+      "trustTransparency": "Trust & Transparency",
+      "approvalCenter": "Approval Center",
+      "permissionsAccess": "Permissions & Access",
+      "legacyTrustScores": "Legacy Trust Scores"
+    }
+  },
   "trustReputationEngine": {
     "title": "Förtroende och rykte",
     "subtitle": "Organisatoriska förtroendeprofiler och metadata-baserade ryktessignaler — förtjänat förtroende med mänsklig granskning av expansion.",

@@ -407,6 +407,7 @@ export type AppNavId =
   | "adaptiveAutomation"
   | "financialGuardrailsEngine"
   | "trustTransparencyEngine"
+  | "enterpriseGovernanceTrustEngine"
   | "permissionAccessGovernanceEngine"
   | "approvalHumanOversightEngine"
   | "approvalProfilesEngine"
@@ -1912,6 +1913,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "navigation.nav.financialGuardrailsEngine",
   },
   {
+    id: "enterpriseGovernanceTrustEngine",
+    href: "/app/governance/trust",
+    labelKey: "navigation.nav.enterpriseGovernanceTrustEngine",
+  },
+  {
     id: "trustTransparencyEngine",
     href: "/app/governance/trust-transparency",
     labelKey: "navigation.nav.trustTransparencyEngine",
@@ -2822,6 +2828,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/governance/digital-workforce")) return "digitalWorkforceGovernanceEngine";
   if (pathname.startsWith("/app/governance/financial-guardrails")) return "financialGuardrailsEngine";
   if (pathname.startsWith("/app/governance/trust-transparency")) return "trustTransparencyEngine";
+  if (pathname === "/app/governance/trust") return "enterpriseGovernanceTrustEngine";
   if (pathname.startsWith("/app/governance/permissions-access")) return "permissionAccessGovernanceEngine";
   if (pathname.startsWith("/app/governance/approval-center")) return "approvalHumanOversightEngine";
   if (pathname.startsWith("/app/governance/approval-profiles")) return "approvalProfilesEngine";

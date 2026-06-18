@@ -5236,6 +5236,77 @@
       "decisionSupport": "Decision Support"
     }
   },
+  "enterpriseGovernanceTrustCenter": {
+    "title": "Enterprise Governance & Trust",
+    "subtitle": "Enterprise-grade styring, transparens, ansvarlighet, compliance, revisjon og tillitskontroller på tvers av alle Aipify-handlinger, arbeidsflyter og beslutninger.",
+    "philosophy": "Organisasjoner stoler ikke på systemer de ikke forstår. Tillit må bygges inn i hvert lag av Aipify.",
+    "governanceNote": "Hver betydelig hendelse registrerer hvem, hva, når, hvorfor, resultat og godkjenningshistorikk. Alle anbefalinger er forklarbare — mennesker bestemmer.",
+    "privacyNote": "Kun styringsmetadata og revisjonsresultater — ingen rå kundekommunikasjon, betalingsdetaljer eller ugodkjent PII.",
+    "refresh": "Oppdater",
+    "emptyState": "Ingen tillitselementer i denne seksjonen ennå.",
+    "accessDenied": "Enterprise Governance & Trust krever passende arbeidsområdetillatelser.",
+    "who": "Hvem",
+    "what": "Hva",
+    "why": "Hvorfor",
+    "result": "Resultat",
+    "approvalHistory": "Godkjenningshistorikk",
+    "whyExplain": "Hvorfor",
+    "howExplain": "Hvordan",
+    "dataUsed": "Data brukt",
+    "outstandingIssues": "Utestående problemer",
+    "requiredActions": "Påkrevde handlinger",
+    "sections": {
+      "trustOverview": "Tillitsoversikt",
+      "governanceStatus": "Styringsstatus",
+      "complianceCenter": "Compliance-senter",
+      "auditCenter": "Revisjonssenter",
+      "riskCenter": "Risikosenter",
+      "approvalCenter": "Godkjenningssenter",
+      "policyCenter": "Policy-senter"
+    },
+    "governanceFramework": { "title": "Styringsrammeverk" },
+    "trustScoreEngine": { "title": "Trust Score Engine" },
+    "policyManagement": { "title": "Policy-administrasjon" },
+    "universalAuditLayer": { "title": "Universal Audit Layer" },
+    "explainabilityEngine": { "title": "Explainability Engine" },
+    "complianceCenter": { "title": "Compliance-senter" },
+    "approvalIntelligence": { "title": "Approval Intelligence" },
+    "executiveTrustDashboard": { "title": "Executive Trust Dashboard" },
+    "companionAdvisor": { "title": "Companion Trust Advisor", "context": "Kontekst" },
+    "enterpriseTransparencyMode": { "title": "Enterprise Transparency Mode" },
+    "governanceApis": { "title": "Governance APIs" },
+    "governanceControls": {
+      "title": "Styringskontroller",
+      "enabled": "Trust Center aktivert",
+      "disabled": "Trust Center deaktivert",
+      "transparency": "Enterprise transparency mode aktiv"
+    },
+    "actions": {
+      "acknowledge": "Bekreft",
+      "dismiss": "Avvis",
+      "approve": "Godkjenn",
+      "reject": "Avslå",
+      "escalate": "Eskaler",
+      "resolve": "Løs"
+    },
+    "status": {
+      "completed": "Fullført",
+      "notAllowed": "Ikke tillatt",
+      "requiresAttention": "Krever oppmerksomhet",
+      "information": "Informasjon",
+      "restricted": "Begrenset tilgang",
+      "verified": "Verifisert",
+      "waiting": "Venter"
+    },
+    "links": {
+      "governance": "Governance Center",
+      "audit": "Audit Center",
+      "trustTransparency": "Trust & Transparency",
+      "approvalCenter": "Approval Center",
+      "permissionsAccess": "Permissions & Access",
+      "legacyTrustScores": "Legacy Trust Scores"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillit og omdømme",
     "subtitle": "Organisatoriske tillitsprofiler og metadata-baserte omdømmesignaler — opptjent tillit med menneskelig gjennomgang av utvidelser.",

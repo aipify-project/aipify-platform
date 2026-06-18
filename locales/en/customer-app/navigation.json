@@ -464,6 +464,7 @@
     "approvalHumanOversightEngine": "Approval Center",
     "permissionAccessGovernanceEngine": "Permissions & Access",
     "trustTransparencyEngine": "Trust & Transparency",
+    "enterpriseGovernanceTrustEngine": "Governance & Trust",
     "executiveDecisionSupportEngine": "Decision Support",
     "executiveStrategicIntelligenceEngine": "Strategic Intelligence",
     "executiveDigitalBoardMemberEngine": "Digital Board",
