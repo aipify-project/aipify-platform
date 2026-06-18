@@ -92,6 +92,10 @@ export const MEMORY_INTENT_RULES: IntentRule[] = [
       /remember this until/i,
       /remember (this|that)/i,
       /remind me (later|about|to|when)/i,
+      /\bi will\b/i,
+      /\bi need to\b/i,
+      /remember to call/i,
+      /remember that/i,
     ],
   },
   {
@@ -145,6 +149,12 @@ export const MEMORY_INTENT_RULES: IntentRule[] = [
       /check whether i'?ve completed/i,
       /follow up if i haven'?t/i,
       /haven'?t taken care of it/i,
+      /follow up on/i,
+      /did you ever send/i,
+      /have you heard back/i,
+      /planned to contact/i,
+      /still unpaid/i,
+      /you planned to contact/i,
     ],
   },
   {

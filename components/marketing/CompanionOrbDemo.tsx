@@ -7,6 +7,18 @@ export type OrbState = "online" | "working" | "attention" | "critical" | "discon
 
 type OrbStateInfo = { label: string; description: string };
 
+const DEFAULT_STATE_INFO: OrbStateInfo = {
+  label: "Online",
+  description: "Aipify is connected and ready to assist.",
+};
+
+function resolveStateInfo(
+  states: Record<OrbState, OrbStateInfo>,
+  state: OrbState
+): OrbStateInfo {
+  return states[state] ?? DEFAULT_STATE_INFO;
+}
+
 type CompanionOrbDemoProps = {
   title: string;
   subtitle: string;
@@ -90,13 +102,13 @@ export default function CompanionOrbDemo({
   }, [reducedMotion, panelOpen]);
 
   const style = STATE_STYLES[activeState];
-  const info = states[activeState];
+  const info = resolveStateInfo(states, activeState);
 
   const orbButtons = useMemo(
     () =>
       STATE_ORDER.map((state) => ({
         state,
-        ...states[state],
+        ...resolveStateInfo(states, state),
         ...STATE_STYLES[state],
       })),
     [states]

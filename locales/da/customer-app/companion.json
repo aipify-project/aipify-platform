@@ -1641,6 +1641,91 @@
       "whyImportantAnswer": "Consistent follow-up improves accountability, customer experience and organizational execution."
     }
   },
+  "companionMemoryCenter": {
+    "title": "Companion Memory Center",
+    "subtitle": "Aipify husker forpligtelser, følger op på uafsluttet arbejde og hjælper dig med at holde styr — med fuld gennemsigtighed og kontrol.",
+    "philosophy": "Aipify skal ikke kun svare på spørgsmål. Aipify husker det, der betyder noget, og følger op, når det er passende — du bestemmer altid.",
+    "privacyNote": "Kun metadata — Aipify gemmer aldrig rå chattranskripter i mindecenteret.",
+    "refresh": "Opdater",
+    "emptyState": "Ingen elementer i denne sektion endnu.",
+    "accessDenied": "Companion Memory Center kræver aktiv organisationsmedlemskab.",
+    "detectPlaceholder": "Prøv: Husk at ringe til leverandøren i morgen…",
+    "detectButton": "Registrer forpligtelse",
+    "detectFound": "Aipify genkendte en forpligtelse. Gem, når du er klar.",
+    "detectNotFound": "Intet forpligtelsesmønster fundet. Prøv formuleringer som «Påmind mig om at…» eller «Jeg skal…»",
+    "saveCommitment": "Gem forpligtelse",
+    "sections": {
+      "personalReminders": "Personlige påmindelser",
+      "businessReminders": "Forretningspåmindelser",
+      "followUps": "Opfølgninger",
+      "scheduledActions": "Planlagte handlinger",
+      "archivedMemories": "Arkiverede minder"
+    },
+    "governance": {
+      "source": "Kilde",
+      "created": "Oprettet",
+      "owner": "Ejer",
+      "status": "Kategori",
+      "lastActivity": "Seneste aktivitet",
+      "dueDate": "Forfald"
+    },
+    "suggestions": {
+      "title": "Opfølgningsforslag",
+      "suggestedAction": "Foreslået handling",
+      "companionPrompt": "Aipify kan spørge",
+      "empty": "Ingen opfølgningsforslag lige nu."
+    },
+    "executive": {
+      "title": "Executive opfølgningsdashboard",
+      "overdueCommitments": "Forfaldne forpligtelser",
+      "openFollowUps": "Åbne opfølgninger",
+      "missedActions": "Udeblevne handlinger",
+      "outstandingApprovals": "Udestående godkendelser",
+      "empty": "Ingen executive opfølgningspunkter kræver opmærksomhed."
+    },
+    "statistics": {
+      "personal": "Personlig",
+      "business": "Forretning",
+      "followUps": "Opfølgninger",
+      "scheduled": "Planlagt",
+      "archived": "Arkiveret"
+    },
+    "actions": {
+      "complete": "Fuldfør",
+      "snooze": "Udskyd",
+      "archive": "Arkiver",
+      "delete": "Slet",
+      "edit": "Rediger"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "categories": {
+      "personal": "Personlig",
+      "business": "Forretning",
+      "customer": "Kunde",
+      "finance": "Økonomi",
+      "projects": "Projekter",
+      "legal": "Juridisk",
+      "operations": "Drift"
+    },
+    "itemTypes": {
+      "commitment": "Forpligtelse",
+      "personalMemory": "Personlig påmindelse",
+      "followUp": "Opfølgning",
+      "scheduledAction": "Planlagt handling"
+    },
+    "links": {
+      "followUps": "Åbn Follow-Up Engine",
+      "memoryEngine": "Companion Memory Expansion Engine"
+    }
+  },
   "companionRelationshipIntelligence": {
     "title": "Relationship Intelligence",
     "subtitle": "Strengthen and maintain important business relationships — advisory insights, human connection first.",

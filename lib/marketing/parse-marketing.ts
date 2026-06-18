@@ -76,6 +76,11 @@ export function parseOversightLadder(
   return recordValues(section.ladder).map(({ label, description }) => ({ label, description }));
 }
 
+const ORB_STATE_ALIASES: Record<string, string> = {
+  report_ready: "attention",
+  approval_required: "attention",
+};
+
 export function parseOrbStates(
   marketing: MarketingDictionary
 ): Record<string, { label: string; description: string }> {
@@ -83,5 +88,13 @@ export function parseOrbStates(
     marketing,
     "companionOrb"
   );
-  return section.states ?? {};
+  const raw = section.states ?? {};
+  const normalized: Record<string, { label: string; description: string }> = {};
+
+  for (const [key, value] of Object.entries(raw)) {
+    const target = ORB_STATE_ALIASES[key] ?? key;
+    if (!normalized[target]) normalized[target] = value;
+  }
+
+  return normalized;
 }

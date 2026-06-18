@@ -98,10 +98,10 @@
     "states": {
       "online": { "label": "Online", "description": "Aipify is connected and ready to assist." },
       "working": { "label": "Working", "description": "Processing tasks in the background — calm pulse." },
-      "report_ready": { "label": "Report ready", "description": "A deliverable is prepared for review." },
-      "approval_required": { "label": "Approval required", "description": "Something needs your decision before proceeding." },
+      "attention": { "label": "Approval required", "description": "A report or decision is prepared and needs your review before proceeding." },
       "critical": { "label": "Critical alert", "description": "Urgent item — human decision required." },
-      "disconnected": { "label": "Disconnected", "description": "Installation offline or paused." }
+      "disconnected": { "label": "Disconnected", "description": "Installation offline or paused." },
+      "quiet": { "label": "Quiet hours", "description": "Non-essential notifications suppressed — Aipify remains available when you need it." }
     }
   },
   "enterpriseTrust": {

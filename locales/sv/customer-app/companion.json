@@ -1641,6 +1641,91 @@
       "whyImportantAnswer": "Consistent follow-up improves accountability, customer experience and organizational execution."
     }
   },
+  "companionMemoryCenter": {
+    "title": "Companion Memory Center",
+    "subtitle": "Aipify minns åtaganden, följer upp ofärdigt arbete och hjälper dig hålla ordning — med full transparens och kontroll.",
+    "philosophy": "Aipify ska inte bara svara på frågor. Aipify minns det som betyder något och följer upp när det är lämpligt — du bestämmer alltid.",
+    "privacyNote": "Endast metadata — Aipify lagrar aldrig rå chatttranskript i minnescentret.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga objekt i detta avsnitt ännu.",
+    "accessDenied": "Companion Memory Center kräver aktiv organisationsmedlemskap.",
+    "detectPlaceholder": "Prova: Kom ihåg att ringa leverantören imorgon…",
+    "detectButton": "Upptäck åtagande",
+    "detectFound": "Aipify kände igen ett åtagande. Spara när du är redo.",
+    "detectNotFound": "Inget åtagandemönster hittades. Prova formuleringar som «Påminn mig att…» eller «Jag behöver…»",
+    "saveCommitment": "Spara åtagande",
+    "sections": {
+      "personalReminders": "Personliga påminnelser",
+      "businessReminders": "Affärspåminnelser",
+      "followUps": "Uppföljningar",
+      "scheduledActions": "Schemalagda åtgärder",
+      "archivedMemories": "Arkiverade minnen"
+    },
+    "governance": {
+      "source": "Källa",
+      "created": "Skapad",
+      "owner": "Ägare",
+      "status": "Kategori",
+      "lastActivity": "Senaste aktivitet",
+      "dueDate": "Förfaller"
+    },
+    "suggestions": {
+      "title": "Uppföljningsförslag",
+      "suggestedAction": "Föreslagen åtgärd",
+      "companionPrompt": "Aipify kan fråga",
+      "empty": "Inga uppföljningsförslag just nu."
+    },
+    "executive": {
+      "title": "Executive uppföljningsdashboard",
+      "overdueCommitments": "Försenade åtaganden",
+      "openFollowUps": "Öppna uppföljningar",
+      "missedActions": "Missade åtgärder",
+      "outstandingApprovals": "Utestående godkännanden",
+      "empty": "Inga executive uppföljningspunkter kräver uppmärksamhet."
+    },
+    "statistics": {
+      "personal": "Personligt",
+      "business": "Affär",
+      "followUps": "Uppföljningar",
+      "scheduled": "Schemalagt",
+      "archived": "Arkiverat"
+    },
+    "actions": {
+      "complete": "Slutför",
+      "snooze": "Snooza",
+      "archive": "Arkivera",
+      "delete": "Ta bort",
+      "edit": "Redigera"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "categories": {
+      "personal": "Personligt",
+      "business": "Affär",
+      "customer": "Kund",
+      "finance": "Ekonomi",
+      "projects": "Projekt",
+      "legal": "Juridisk",
+      "operations": "Drift"
+    },
+    "itemTypes": {
+      "commitment": "Åtagande",
+      "personalMemory": "Personlig påminnelse",
+      "followUp": "Uppföljning",
+      "scheduledAction": "Schemalagd åtgärd"
+    },
+    "links": {
+      "followUps": "Öppna Follow-Up Engine",
+      "memoryEngine": "Companion Memory Expansion Engine"
+    }
+  },
   "companionRelationshipIntelligence": {
     "title": "Relationship Intelligence",
     "subtitle": "Strengthen and maintain important business relationships — advisory insights, human connection first.",

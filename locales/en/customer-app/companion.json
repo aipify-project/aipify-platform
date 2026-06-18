@@ -1641,6 +1641,91 @@
       "whyImportantAnswer": "Consistent follow-up improves accountability, customer experience and organizational execution."
     }
   },
+  "companionMemoryCenter": {
+    "title": "Companion Memory Center",
+    "subtitle": "Aipify remembers commitments, follows up on unfinished work, and helps you stay organized — with full transparency and control.",
+    "philosophy": "Aipify should not only answer questions. Aipify remembers what matters and follows up when appropriate — you always decide.",
+    "privacyNote": "Metadata only — Aipify never stores raw chat transcripts in the memory center.",
+    "refresh": "Refresh",
+    "emptyState": "No items in this section yet.",
+    "accessDenied": "Companion Memory Center requires an active organization membership.",
+    "detectPlaceholder": "Try: Remember to call the supplier tomorrow…",
+    "detectButton": "Detect commitment",
+    "detectFound": "Aipify recognized a commitment. Save it when you are ready.",
+    "detectNotFound": "No commitment pattern detected. Try phrasing like \"Remind me to…\" or \"I need to…\"",
+    "saveCommitment": "Save commitment",
+    "sections": {
+      "personalReminders": "Personal Reminders",
+      "businessReminders": "Business Reminders",
+      "followUps": "Follow-Ups",
+      "scheduledActions": "Scheduled Actions",
+      "archivedMemories": "Archived Memories"
+    },
+    "governance": {
+      "source": "Source",
+      "created": "Created",
+      "owner": "Owner",
+      "status": "Category",
+      "lastActivity": "Last activity",
+      "dueDate": "Due"
+    },
+    "suggestions": {
+      "title": "Follow-Up Suggestions",
+      "suggestedAction": "Suggested action",
+      "companionPrompt": "Aipify may ask",
+      "empty": "No follow-up suggestions right now."
+    },
+    "executive": {
+      "title": "Executive Follow-Up Dashboard",
+      "overdueCommitments": "Overdue commitments",
+      "openFollowUps": "Open follow-ups",
+      "missedActions": "Missed actions",
+      "outstandingApprovals": "Outstanding approvals",
+      "empty": "No executive follow-up items require attention."
+    },
+    "statistics": {
+      "personal": "Personal",
+      "business": "Business",
+      "followUps": "Follow-ups",
+      "scheduled": "Scheduled",
+      "archived": "Archived"
+    },
+    "actions": {
+      "complete": "Complete",
+      "snooze": "Snooze",
+      "archive": "Archive",
+      "delete": "Delete",
+      "edit": "Edit"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "categories": {
+      "personal": "Personal",
+      "business": "Business",
+      "customer": "Customer",
+      "finance": "Finance",
+      "projects": "Projects",
+      "legal": "Legal",
+      "operations": "Operations"
+    },
+    "itemTypes": {
+      "commitment": "Commitment",
+      "personalMemory": "Personal reminder",
+      "followUp": "Follow-up",
+      "scheduledAction": "Scheduled action"
+    },
+    "links": {
+      "followUps": "Open Follow-Up Engine",
+      "memoryEngine": "Companion Memory Expansion Engine"
+    }
+  },
   "companionRelationshipIntelligence": {
     "title": "Relationship Intelligence",
     "subtitle": "Strengthen and maintain important business relationships — advisory insights, human connection first.",
