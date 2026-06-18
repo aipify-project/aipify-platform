@@ -5500,6 +5500,69 @@
       "portalHome": "Full workspace portal"
     }
   },
+  "businessOsOrchestrationCenter": {
+    "title": "ABOS Orchestration Center",
+    "subtitle": "Coordinate work across departments, systems, Business Packs, employees, vendors, customers, and automations from a single operational layer.",
+    "philosophy": "Most organizations suffer from fragmentation. Aipify becomes the orchestration layer connecting everything — so the business can move.",
+    "governanceNote": "Every workflow includes owner, audit trail, permissions, history, and status.",
+    "privacyNote": "Operational metadata only — no raw customer communications stored in Orchestration Center.",
+    "refresh": "Refresh",
+    "emptyState": "No orchestration items in this section yet.",
+    "accessDenied": "ABOS Orchestration Center requires appropriate workspace permissions.",
+    "owner": "Owner",
+    "deadline": "Deadline",
+    "priority": "Priority",
+    "currentStep": "Current step",
+    "steps": "Steps",
+    "lastRun": "Last run",
+    "successRate": "Success rate",
+    "blocker": "Blocker",
+    "sections": {
+      "activeWorkflows": "Active Workflows",
+      "pendingApprovals": "Pending Approvals",
+      "runningAutomations": "Running Automations",
+      "crossSystemTasks": "Cross-System Tasks",
+      "businessPackOrchestration": "Business Pack Orchestration",
+      "workflowTemplates": "Workflow Templates",
+      "orchestrationAnalytics": "Orchestration Analytics"
+    },
+    "executiveDashboard": { "title": "Executive Orchestration Dashboard" },
+    "workflowOrchestration": { "title": "Workflow Orchestration" },
+    "approvalOrchestration": { "title": "Approval Orchestration" },
+    "automationRegistry": {
+      "title": "Automation Registry",
+      "running": "Running",
+      "requiresAttention": "Requires attention",
+      "failed": "Failed",
+      "waiting": "Waiting"
+    },
+    "crossSystemActions": { "title": "Cross-System Actions" },
+    "businessPackOrchestration": { "title": "Business Pack Orchestration", "workflows": "Coordinated workflows" },
+    "dependencyManagement": { "title": "Dependency Management" },
+    "workflowTemplates": { "title": "Workflow Templates" },
+    "companionAdvisor": { "title": "Companion Workflow Assistant", "reason": "Why Aipify recommends this" },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "approve": "Approve",
+      "escalate": "Escalate"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "legacyFlows": "Workflow flows",
+      "legacyRules": "Orchestration rules",
+      "legacyEvents": "Event log",
+      "legacySettings": "Orchestration settings"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",
