@@ -1,9 +1,10 @@
+import Link from "next/link";
 import { CommunityHubPanel } from "@/components/app/community-intelligence";
 import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
-export default async function CommunityPage() {
+export default async function CommunityLegacyIntelligencePage() {
   const dict = await getCustomerAppDictionaryForModule(await getLocale(), "communityIntelligence");
   const t = createTranslator(dict);
   const p = "customerApp.communityIntelligence";
@@ -11,7 +12,12 @@ export default async function CommunityPage() {
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t(`${p}.title`)}</h1>
+        <p className="text-sm">
+          <Link href="/app/community" className="font-medium text-violet-700 hover:underline">
+            ← {t("customerApp.communityNetworkCenter.sections.overview")}
+          </Link>
+        </p>
+        <h1 className="mt-4 text-2xl font-bold tracking-tight text-gray-900">{t(`${p}.title`)}</h1>
         <p className="mt-2 text-gray-600">{t(`${p}.subtitle`)}</p>
       </div>
       <CommunityHubPanel
