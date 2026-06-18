@@ -55,6 +55,7 @@ export type AppNavId =
   | "aipifyInternalOperationsEngine"
   | "launchReadinessEngine"
   | "customerSuccessEngine"
+  | "customerSuccessAdoptionCenter"
   | "customerExperienceAdoptionDelightEngine"
   | "platformExcellenceEngine"
   | "enterpriseTrustReputationConfidenceEngine"
@@ -600,6 +601,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "launchReadinessEngine",
     href: "/app/launch-readiness-engine",
     labelKey: "navigation.nav.launchReadinessEngine",
+  },
+  {
+    id: "customerSuccessAdoptionCenter",
+    href: "/app/customer-success",
+    labelKey: "navigation.nav.customerSuccessAdoptionCenter",
   },
   {
     id: "customerSuccessEngine",
@@ -2289,6 +2295,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/launch-readiness-engine")) return "launchReadinessEngine";
   if (pathname.startsWith("/app/customer-success-engine")) return "customerSuccessEngine";
+  if (pathname.startsWith("/app/customer-success")) return "customerSuccessAdoptionCenter";
   if (pathname.startsWith("/app/platform/customer-experience")) {
     return "customerExperienceAdoptionDelightEngine";
   }
