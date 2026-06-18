@@ -10,9 +10,16 @@ const nextConfig: NextConfig = {
     root: projectRoot,
   },
   experimental: {
-    cpus: 2,
+    cpus: 1,
+    serverSourceMaps: false,
     webpackBuildWorker: true,
     webpackMemoryOptimizations: true,
+  },
+  webpack: (config, { dev }) => {
+    if (!dev) {
+      config.cache = false;
+    }
+    return config;
   },
 };
 
