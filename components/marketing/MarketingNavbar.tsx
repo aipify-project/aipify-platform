@@ -8,6 +8,7 @@ export type MarketingNavLabels = {
   product: string;
   modules: string;
   businessPacks: string;
+  whyAipify: string;
   pricing: string;
   enterprise: string;
   security: string;
@@ -28,11 +29,12 @@ type MarketingNavbarProps = {
 
 const navLinks: Array<{ key: keyof MarketingNavLabels; href: string }> = [
   { key: "product", href: "/product" },
-  { key: "modules", href: "/modules" },
   { key: "businessPacks", href: "/pricing#business-packs" },
+  { key: "whyAipify", href: "/why-aipify" },
   { key: "pricing", href: "/pricing" },
   { key: "enterprise", href: "/enterprise" },
   { key: "security", href: "/security" },
+  { key: "modules", href: "/modules" },
   { key: "growthPartners", href: "/growth-partners" },
   { key: "pilot", href: "/pilot" },
   { key: "knowledge", href: "/knowledge" },

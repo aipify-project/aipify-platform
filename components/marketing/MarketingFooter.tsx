@@ -45,7 +45,7 @@ export default function MarketingFooter({ appName, labels }: MarketingFooterProp
             <ul className="mt-4 space-y-2.5">
               {[
                 { label: "Product", href: "/product" },
-                { label: "Modules", href: "/modules" },
+                { label: "Why Aipify", href: "/why-aipify" },
                 { label: "Pricing", href: "/pricing" },
                 { label: "Enterprise", href: "/enterprise" },
                 { label: "Security", href: "/security" },

@@ -20,6 +20,8 @@
     "contactDescription": "Talk to the Aipify team about early access, enterprise, or partnerships.",
     "pricingTitle": "Pricing — Aipify Business Operating System",
     "pricingDescription": "Simple pricing built to grow with you. Choose Starter, Business, Professional, or Enterprise — upgrade naturally as your organization scales.",
+    "whyAipifyTitle": "Why Aipify — A Business Operating System Built for Outcomes",
+    "whyAipifyDescription": "Software tells you what happened. Aipify helps you decide what happens next. Discover the philosophy, vision, and long-term value behind Aipify.",
     "privacyTitle": "Privacy Policy — Aipify",
     "privacyDescription": "How Aipify handles data, privacy, and customer ownership.",
     "termsTitle": "Terms of Service — Aipify"
@@ -28,6 +30,7 @@
     "product": "Product",
     "modules": "Modules",
     "businessPacks": "Business Packs",
+    "whyAipify": "Why Aipify",
     "pricing": "Pricing",
     "enterprise": "Enterprise",
     "security": "Security",
@@ -574,5 +577,103 @@
       ]
     },
     "finalPrinciple": "Pricing should feel like selecting the right operating model for your organization — not buying another software subscription."
+  },
+  "whyAipifyPage": {
+    "meta": {
+      "title": "Why Aipify — A Business Operating System Built for Outcomes",
+      "description": "Software tells you what happened. Aipify helps you decide what happens next. Discover why organizations choose Aipify as their long-term operating model."
+    },
+    "hero": {
+      "headline": "Software tells you what happened. Aipify helps you decide what happens next.",
+      "subheadline": "A Business Operating System built to help organizations operate, grow, and evolve.",
+      "supporting": "Aipify combines operations, knowledge, governance, intelligence, automation, and companion technology into one unified platform.",
+      "cta": "Explore the Platform"
+    },
+    "problem": {
+      "headline": "Organizations are drowning in tools.",
+      "tools": ["CRM", "Analytics", "Support", "Documents", "Approvals", "Projects", "Reporting", "Chat", "Automation"],
+      "disconnected": "All disconnected.",
+      "supporting": "Most organizations spend more time switching between systems than actually improving the business."
+    },
+    "difference": {
+      "headline": "One platform. One operating model.",
+      "cards": [
+        { "title": "Companion", "body": "A digital companion that remembers, follows up, and helps — not a disposable chat interface." },
+        { "title": "Knowledge", "body": "Your organizational memory — approved sources, institutional context, and continuity." },
+        { "title": "Operations", "body": "Workflows, approvals, tasks, and execution in one coherent layer." },
+        { "title": "Governance", "body": "Enterprise-grade controls, audit visibility, and human approval at every sensitive step." },
+        { "title": "Intelligence", "body": "Insights, risks, opportunities, and recommendations — with context and next steps." },
+        { "title": "Growth", "body": "Business Packs, automation, and expansion tools that activate as you scale." }
+      ]
+    },
+    "builtForHumans": {
+      "headline": "Technology should support people.",
+      "subheadline": "Not replace them.",
+      "supporting": "Aipify is designed around human control, transparency, and trust. People decide. Aipify prepares, informs, and assists.",
+      "positions": [
+        "Helping employees",
+        "Supporting leaders",
+        "Reducing repetitive work",
+        "Improving decisions"
+      ]
+    },
+    "companion": {
+      "headline": "The difference is memory.",
+      "traditional": {
+        "title": "Traditional chatbot",
+        "items": ["Answers questions."]
+      },
+      "aipify": {
+        "title": "Aipify Companion",
+        "items": [
+          "Remembers context.",
+          "Follows up.",
+          "Understands goals.",
+          "Tracks progress.",
+          "Supports long-term success."
+        ]
+      },
+      "examples": [
+        "Remember customer follow-up.",
+        "Remember project deadlines.",
+        "Remember strategic goals.",
+        "Remember organizational knowledge."
+      ]
+    },
+    "builtToGrow": {
+      "headline": "Start where you are. Grow when you are ready.",
+      "steps": ["Foundation", "Business Pack", "Operations", "Intelligence", "Automation", "Expansion"],
+      "supporting": "Most customers start small and expand over time — on the same platform, without migration."
+    },
+    "enterpriseReady": {
+      "headline": "Built for serious organizations.",
+      "cards": [
+        { "title": "Governance", "body": "Policies, approvals, and explainability built into the operating model." },
+        { "title": "Audit Logging", "body": "Immutable records for actions, configuration, and trust events." },
+        { "title": "Role-Based Access", "body": "Permissions mapped to your organization — least privilege by design." },
+        { "title": "Compliance", "body": "Enterprise readiness for procurement, security review, and governance teams." },
+        { "title": "Approvals", "body": "Sensitive work requires explicit human approval — never silent execution." },
+        { "title": "Security", "body": "Privacy by design — metadata first, customer ownership of operational data." },
+        { "title": "Trust Center", "body": "Transparent licensing, data ownership, and how Aipify works." }
+      ]
+    },
+    "vision": {
+      "headline": "A platform that grows with your organization.",
+      "supporting": "Aipify is designed to support organizations through every stage — the platform should never need to be replaced.",
+      "stages": ["Startup", "Growth", "Scale", "Enterprise"]
+    },
+    "norway": {
+      "headline": "Built in Norway.",
+      "subheadline": "Designed for the world.",
+      "copy": "Aipify Group AS builds AI-powered business systems with Norwegian values and global ambitions — calm, trustworthy, and built for the long term.",
+      "footerQuote": "Technology should become more human as it becomes more powerful."
+    },
+    "finalCta": {
+      "headline": "Ready to see what Aipify can do for your organization?",
+      "explore": "Explore Aipify",
+      "businessPacks": "View Business Packs",
+      "talkToSales": "Talk to Sales"
+    },
+    "finalPrinciple": "Aipify is not another AI tool. Aipify is a Business Operating System designed to help organizations succeed."
   }
 }

@@ -20,6 +20,8 @@
     "contactDescription": "Talk to the Aipify team about early access, enterprise, or partnerships.",
     "pricingTitle": "Priser — Aipify Business Operating System",
     "pricingDescription": "Enkle priser som vokser med deg. Velg Starter, Business, Professional eller Enterprise.",
+    "whyAipifyTitle": "Hvorfor Aipify — et Business Operating System bygget for resultater",
+    "whyAipifyDescription": "Programvare forteller hva som skjedde. Aipify hjelper deg bestemme hva som skjer videre.",
     "privacyTitle": "Privacy Policy — Aipify",
     "privacyDescription": "How Aipify handles data, privacy, and customer ownership.",
     "termsTitle": "Terms of Service — Aipify"
@@ -28,6 +30,7 @@
     "product": "Product",
     "modules": "Modules",
     "businessPacks": "Business Packs",
+    "whyAipify": "Hvorfor Aipify",
     "pricing": "Priser",
     "enterprise": "Enterprise",
     "security": "Security",
@@ -486,5 +489,84 @@
       "upgradeFlow": ["Betaling godkjent", "Tillatelser oppdatert", "Funksjoner låst opp", "Fortsett arbeidet"]
     },
     "finalPrinciple": "Prising skal føles som å velge riktig driftsmodell — ikke enda et programabonnement."
+  },
+  "whyAipifyPage": {
+    "meta": {
+      "title": "Hvorfor Aipify — et Business Operating System bygget for resultater",
+      "description": "Programvare forteller hva som skjedde. Aipify hjelper deg bestemme hva som skjer videre."
+    },
+    "hero": {
+      "headline": "Programvare forteller hva som skjedde. Aipify hjelper deg bestemme hva som skjer videre.",
+      "subheadline": "Et Business Operating System bygget for å hjelpe organisasjoner å drive, vokse og utvikle seg.",
+      "supporting": "Aipify kombinerer drift, kunnskap, styring, intelligens, automatisering og companion-teknologi i én plattform.",
+      "cta": "Utforsk plattformen"
+    },
+    "problem": {
+      "headline": "Organisasjoner drukner i verktøy.",
+      "tools": ["CRM", "Analyse", "Support", "Dokumenter", "Godkjenninger", "Prosjekter", "Rapportering", "Chat", "Automatisering"],
+      "disconnected": "Alt er frakoblet.",
+      "supporting": "De fleste organisasjoner bruker mer tid på å bytte mellom systemer enn på å forbedre virksomheten."
+    },
+    "difference": {
+      "headline": "Én plattform. Én driftsmodell.",
+      "cards": [
+        { "title": "Companion", "body": "En digital companion som husker, følger opp og hjelper." },
+        { "title": "Knowledge", "body": "Organisasjonens hukommelse." },
+        { "title": "Operations", "body": "Arbeidsflyter, godkjenninger, oppgaver og gjennomføring." },
+        { "title": "Governance", "body": "Enterprise-kontroller og synlighet." },
+        { "title": "Intelligence", "body": "Innsikt, risiko, muligheter og anbefalinger." },
+        { "title": "Growth", "body": "Business Packs, automatisering og vekstverktøy." }
+      ]
+    },
+    "builtForHumans": {
+      "headline": "Teknologi skal støtte mennesker.",
+      "subheadline": "Ikke erstatte dem.",
+      "supporting": "Aipify er bygget rundt menneskelig kontroll, transparens og tillit.",
+      "positions": ["Hjelpe ansatte", "Støtte ledere", "Redusere repetitivt arbeid", "Forbedre beslutninger"]
+    },
+    "companion": {
+      "headline": "Forskjellen er hukommelse.",
+      "traditional": { "title": "Tradisjonell chatbot", "items": ["Svarer på spørsmål."] },
+      "aipify": {
+        "title": "Aipify Companion",
+        "items": ["Husker kontekst.", "Følger opp.", "Forstår mål.", "Spoorer fremdrift.", "Støtter langsiktig suksess."]
+      },
+      "examples": ["Husk kundeoppfølging.", "Husk prosjektfrister.", "Husk strategiske mål.", "Husk organisasjonskunnskap."]
+    },
+    "builtToGrow": {
+      "headline": "Start der du er. Voks når du er klar.",
+      "steps": ["Fundament", "Business Pack", "Drift", "Intelligens", "Automatisering", "Ekspansjon"],
+      "supporting": "De fleste kunder starter lite og utvider over tid — på samme plattform."
+    },
+    "enterpriseReady": {
+      "headline": "Bygget for seriøse organisasjoner.",
+      "cards": [
+        { "title": "Governance", "body": "Policyer, godkjenninger og forklarbarhet." },
+        { "title": "Revisjonslogging", "body": "Uforanderlige logger for handlinger og konfigurasjon." },
+        { "title": "Rollebasert tilgang", "body": "Tillatelser tilpasset organisasjonen." },
+        { "title": "Compliance", "body": "Enterprise-klarhet for innkjøp og sikkerhetsgjennomgang." },
+        { "title": "Godkjenninger", "body": "Sensitivt arbeid krever eksplisitt menneskelig godkjenning." },
+        { "title": "Sikkerhet", "body": "Privacy by design — kunden eier driftsdata." },
+        { "title": "Trust Center", "body": "Transparent lisensiering og dataeierskap." }
+      ]
+    },
+    "vision": {
+      "headline": "En plattform som vokser med organisasjonen.",
+      "supporting": "Aipify er designet for alle stadier — plattformen skal aldri trenge å byttes ut.",
+      "stages": ["Startup", "Vekst", "Skalering", "Enterprise"]
+    },
+    "norway": {
+      "headline": "Bygget i Norge.",
+      "subheadline": "Designet for verden.",
+      "copy": "Aipify Group AS bygger AI-drevne forretningssystemer med norske verdier og globale ambisjoner.",
+      "footerQuote": "Teknologi bør bli mer menneskelig jo mer kraftfull den blir."
+    },
+    "finalCta": {
+      "headline": "Klar til å se hva Aipify kan gjøre for organisasjonen din?",
+      "explore": "Utforsk Aipify",
+      "businessPacks": "Se Business Packs",
+      "talkToSales": "Snakk med salg"
+    },
+    "finalPrinciple": "Aipify er ikke enda et AI-verktøy. Aipify er et Business Operating System designet for at organisasjoner skal lykkes."
   }
 }

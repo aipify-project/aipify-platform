@@ -15,3 +15,4 @@ export { default as PilotStorySection } from "./PilotStorySection";
 export { default as GrowthPartnersPageContent } from "./GrowthPartnersPageContent";
 export { default as GrowthPartnersSignupForm } from "./GrowthPartnersSignupForm";
 export { default as PricingPackagesPageContent } from "./PricingPackagesPageContent";
+export { default as WhyAipifyPageContent } from "./WhyAipifyPageContent";
