@@ -56,6 +56,7 @@ export type AppNavId =
   | "launchReadinessEngine"
   | "customerSuccessEngine"
   | "customerSuccessAdoptionCenter"
+  | "revenueGrowthCenter"
   | "customerExperienceAdoptionDelightEngine"
   | "platformExcellenceEngine"
   | "enterpriseTrustReputationConfidenceEngine"
@@ -601,6 +602,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "launchReadinessEngine",
     href: "/app/launch-readiness-engine",
     labelKey: "navigation.nav.launchReadinessEngine",
+  },
+  {
+    id: "revenueGrowthCenter",
+    href: "/app/revenue-growth",
+    labelKey: "navigation.nav.revenueGrowthCenter",
   },
   {
     id: "customerSuccessAdoptionCenter",
@@ -2294,6 +2300,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
     return "aipifyInternalOperationsEngine";
   }
   if (pathname.startsWith("/app/launch-readiness-engine")) return "launchReadinessEngine";
+  if (pathname.startsWith("/app/revenue-growth")) return "revenueGrowthCenter";
   if (pathname.startsWith("/app/customer-success-engine")) return "customerSuccessEngine";
   if (pathname.startsWith("/app/customer-success")) return "customerSuccessAdoptionCenter";
   if (pathname.startsWith("/app/platform/customer-experience")) {
