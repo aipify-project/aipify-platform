@@ -46,6 +46,7 @@ export default function MarketingFooter({ appName, labels }: MarketingFooterProp
               {[
                 { label: "Product", href: "/product" },
                 { label: "Modules", href: "/modules" },
+                { label: "Pricing", href: "/pricing" },
                 { label: "Enterprise", href: "/enterprise" },
                 { label: "Security", href: "/security" },
               ].map((link) => (

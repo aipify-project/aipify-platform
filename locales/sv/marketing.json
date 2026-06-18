@@ -18,6 +18,8 @@
     "knowledgeDescription": "Learn how Aipify works, what it collects, and how humans stay in control.",
     "contactTitle": "Contact — Aipify",
     "contactDescription": "Talk to the Aipify team about early access, enterprise, or partnerships.",
+    "pricingTitle": "Priser — Aipify Business Operating System",
+    "pricingDescription": "Enkla priser som växer med er. Välj Starter, Business, Professional eller Enterprise.",
     "privacyTitle": "Privacy Policy — Aipify",
     "privacyDescription": "How Aipify handles data, privacy, and customer ownership.",
     "termsTitle": "Terms of Service — Aipify"
@@ -25,6 +27,8 @@
   "nav": {
     "product": "Product",
     "modules": "Modules",
+    "businessPacks": "Business Packs",
+    "pricing": "Priser",
     "enterprise": "Enterprise",
     "security": "Security",
     "pilot": "Pilot",
@@ -306,5 +310,40 @@
       "checkboxRegisteredBusiness": "Jag bekräftar att jag driver registrerat företag.", "checkboxCertification": "Jag förstår att certifiering krävs före aktivering.", "checkboxIndependent": "Jag registrerar mig som oberoende Growth Partner, inte som jobbsökande.",
       "submit": "Starta min Aipify-verksamhet", "submitting": "Skapar konto…", "errorGeneric": "Något gick fel.", "errorPasswordMismatch": "Lösenorden måste matcha (minst 8 tecken).", "legalNote": "Aipify Group AS anställer inte Growth Partners."
     }
+  },
+  "pricingPage": {
+    "meta": { "title": "Priser — Aipify Business Operating System", "description": "Enkla priser byggda för tillväxt. Välj rätt driftsmodell för er organisation." },
+    "hero": { "headline": "Enkla priser. Byggda för tillväxt.", "subheadline": "Börja med det ni behöver idag. Expandera när organisationen är redo.", "supporting": "Varje plan inkluderar Aipify Business Operating System-grunden.", "ctaPrimary": "Jämför planer", "ctaSecondary": "Prata med försäljning" },
+    "principles": { "title": "Prissättningsprinciper", "cards": [
+      { "title": "Inga långtidsavtal", "body": "Månads- eller årsfakturering — välj det som passar." },
+      { "title": "Uppgradera direkt", "body": "Åtkomst uppdateras omedelbart efter betalning." },
+      { "title": "Byggd för skalning", "body": "Börja litet och väx naturligt på samma plattform." },
+      { "title": "Mänsklig kontroll", "body": "Automatisering tar aldrig bort styrning och godkännande." }
+    ]},
+    "packages": { "title": "Paket", "items": [
+      { "key": "starter", "name": "Starter", "target": "Små organisationer", "idealFor": "Ideal för 1–10 användare", "features": ["Companion", "Knowledge Center", "Grundläggande drift", "Grundläggande rapportering", "Grundläggande support"], "status": "Tillgänglig", "statusKey": "available", "cta": "Kom igång", "ctaHref": "/early-access" },
+      { "key": "business", "name": "Business", "target": "Växande team", "idealFor": "Ideal för 10–50 användare", "features": ["Allt i Starter", "Avancerad drift", "Avancerad rapportering", "Godkännanden", "Arbetsflöden", "Integrationer"], "status": "Mest populär", "statusKey": "popular", "cta": "Starta Business", "ctaHref": "/early-access" },
+      { "key": "professional", "name": "Professional", "target": "Operativa organisationer", "idealFor": "Ideal för 50–250 användare", "features": ["Allt i Business", "Avancerad styrning", "Avancerad analys", "Business Packs", "Prioriterad support", "Avancerade behörigheter"], "status": "Tillgänglig", "statusKey": "available", "cta": "Starta Professional", "ctaHref": "/early-access" },
+      { "key": "enterprise", "name": "Enterprise", "target": "Stora organisationer", "idealFor": "Ideal för 250+ användare", "features": ["Allt i Professional", "SSO", "Enterprise-säkerhet", "Anpassade Business Packs", "Dedikerad success manager", "Enterprise-utrullning", "Hybrid utrullning", "On-premise-alternativ"], "status": "Enterprise", "statusKey": "enterprise", "cta": "Prata med Enterprise-försäljning", "ctaHref": "/contact" }
+    ]},
+    "businessPacks": { "title": "Business Packs", "copy": "Business Packs kan aktiveras när organisationen växer.", "examples": ["Aipify Hosts", "Support Operations", "Commerce Operations", "Warehouse Operations", "Property Management"], "status": "Tillgänglig beroende på plan." },
+    "included": { "title": "Detta ingår i alla planer", "items": ["Companion", "Knowledge Center", "Styrningsgrund", "Rapportering", "Revisionsloggning", "Mänskliga godkännanden", "Flerspråksstöd", "Framtida uppdateringar"] },
+    "upgradePath": { "headline": "Börja litet. Väx naturligt.", "copy": "Organisationer kan uppgradera när som helst utan att migrera.", "steps": ["Starter", "Business", "Professional", "Enterprise"] },
+    "enterpriseComparison": { "headline": "Enterprise-redo från dag ett.", "cards": [
+      { "title": "SSO", "body": "Microsoft Entra ID, Google Workspace och Okta." },
+      { "title": "Hybrid utrullning", "body": "Moln och kontrollerad hybrid för reglerade miljöer." },
+      { "title": "On-premise", "body": "Utrullningsmodeller för strikta datalagringskrav." },
+      { "title": "Dedikerat success-team", "body": "Anpassade Business Packs och enterprise-utrullning." }
+    ]},
+    "faq": { "title": "Vanliga frågor", "items": [
+      { "question": "Kan jag uppgradera senare?", "answer": "Ja. Uppgradera när som helst — åtkomst aktiveras direkt efter betalning." },
+      { "question": "Förlorar jag data vid uppgradering?", "answer": "Nej. Workspace, inställningar och data förblir intakta." },
+      { "question": "Kan jag lägga till Business Packs senare?", "answer": "Ja. Aktivera Business Packs när driften växer." },
+      { "question": "Behöver jag Enterprise direkt?", "answer": "Nej. De flesta börjar med Starter eller Business." },
+      { "question": "Kan Aipify växa med mitt företag?", "answer": "Ja. Aipify är byggd som en långsiktig driftsmodell." }
+    ]},
+    "contactSales": { "headline": "Osäker på vilken plan som passar?", "subheadline": "Vårt team hjälper er hitta rätt startpunkt.", "cta": "Prata med försäljning" },
+    "billingArchitecture": { "title": "Fakturering och uppgraderingar", "billing": ["Månadsfakturering", "Årsfakturering"], "paymentProviders": ["Stripe", "Klarna", "Faktura"], "accounting": "Fiken-integration för norskt redovisningsflöde.", "upgradeNote": "Aipify-uppgraderingar aktiveras direkt efter betalning — ingen manuell hantering.", "upgradeFlow": ["Betalning godkänd", "Behörigheter uppdaterade", "Funktioner upplåsta", "Fortsätt arbeta"] },
+    "finalPrinciple": "Prissättning ska kännas som att välja rätt driftsmodell — inte ännu ett programabonnemang."
   }
 }

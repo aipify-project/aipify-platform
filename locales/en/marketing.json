@@ -18,6 +18,8 @@
     "knowledgeDescription": "Answers about Aipify, trust, documents, and enterprise readiness.",
     "contactTitle": "Contact — Aipify",
     "contactDescription": "Talk to the Aipify team about early access, enterprise, or partnerships.",
+    "pricingTitle": "Pricing — Aipify Business Operating System",
+    "pricingDescription": "Simple pricing built to grow with you. Choose Starter, Business, Professional, or Enterprise — upgrade naturally as your organization scales.",
     "privacyTitle": "Privacy Policy — Aipify",
     "privacyDescription": "How Aipify handles data, privacy, and customer ownership.",
     "termsTitle": "Terms of Service — Aipify"
@@ -25,6 +27,8 @@
   "nav": {
     "product": "Product",
     "modules": "Modules",
+    "businessPacks": "Business Packs",
+    "pricing": "Pricing",
     "enterprise": "Enterprise",
     "security": "Security",
     "pilot": "Pilot",
@@ -390,5 +394,185 @@
       "errorPasswordMismatch": "Passwords must match and be at least 8 characters.",
       "legalNote": "By registering, you confirm independent business status. Aipify Group AS does not employ Growth Partners. Terms and certification requirements apply."
     }
+  },
+  "pricingPage": {
+    "meta": {
+      "title": "Pricing — Aipify Business Operating System",
+      "description": "Simple pricing built to grow with you. Choose the operating model that fits your organization — upgrade naturally as you scale."
+    },
+    "hero": {
+      "headline": "Simple pricing. Built to grow with you.",
+      "subheadline": "Start with what you need today. Expand when your organization is ready.",
+      "supporting": "Every plan includes the Aipify Business Operating System foundation.",
+      "ctaPrimary": "Compare Plans",
+      "ctaSecondary": "Talk to Sales"
+    },
+    "principles": {
+      "title": "Pricing principles",
+      "cards": [
+        {
+          "title": "No long-term contracts",
+          "body": "Monthly or annual billing — choose what fits your organization."
+        },
+        {
+          "title": "Upgrade instantly",
+          "body": "Access updates immediately after payment. No waiting, no manual unlock."
+        },
+        {
+          "title": "Built to scale",
+          "body": "Start small and grow naturally — the same platform at every stage."
+        },
+        {
+          "title": "Human control",
+          "body": "Automation never removes governance. Approvals and audit remain central."
+        }
+      ]
+    },
+    "packages": {
+      "title": "Packages",
+      "items": [
+        {
+          "key": "starter",
+          "name": "Starter",
+          "target": "Small organizations",
+          "idealFor": "Ideal for 1–10 users",
+          "features": [
+            "Companion",
+            "Knowledge Center",
+            "Basic Operations",
+            "Basic Reporting",
+            "Basic Support"
+          ],
+          "status": "Available",
+          "statusKey": "available",
+          "cta": "Get Started",
+          "ctaHref": "/early-access"
+        },
+        {
+          "key": "business",
+          "name": "Business",
+          "target": "Growing teams",
+          "idealFor": "Ideal for 10–50 users",
+          "features": [
+            "Everything in Starter",
+            "Advanced Operations",
+            "Advanced Reporting",
+            "Approvals",
+            "Workflows",
+            "Integrations"
+          ],
+          "status": "Most Popular",
+          "statusKey": "popular",
+          "cta": "Start Business",
+          "ctaHref": "/early-access"
+        },
+        {
+          "key": "professional",
+          "name": "Professional",
+          "target": "Operational organizations",
+          "idealFor": "Ideal for 50–250 users",
+          "features": [
+            "Everything in Business",
+            "Advanced Governance",
+            "Advanced Analytics",
+            "Business Packs",
+            "Priority Support",
+            "Advanced Permissions"
+          ],
+          "status": "Available",
+          "statusKey": "available",
+          "cta": "Start Professional",
+          "ctaHref": "/early-access"
+        },
+        {
+          "key": "enterprise",
+          "name": "Enterprise",
+          "target": "Large organizations",
+          "idealFor": "Ideal for 250+ users",
+          "features": [
+            "Everything in Professional",
+            "SSO",
+            "Enterprise Security",
+            "Custom Business Packs",
+            "Dedicated Success Manager",
+            "Enterprise Deployment",
+            "Hybrid Deployment",
+            "On-Premise Options"
+          ],
+          "status": "Enterprise",
+          "statusKey": "enterprise",
+          "cta": "Talk to Enterprise Sales",
+          "ctaHref": "/contact"
+        }
+      ]
+    },
+    "businessPacks": {
+      "title": "Business Packs",
+      "copy": "Business Packs can be activated as your organization grows — operational modules tailored to your industry and workflows.",
+      "examples": [
+        "Aipify Hosts",
+        "Support Operations",
+        "Commerce Operations",
+        "Warehouse Operations",
+        "Property Management"
+      ],
+      "status": "Available depending on plan level."
+    },
+    "included": {
+      "title": "What every plan includes",
+      "items": [
+        "Companion",
+        "Knowledge Center",
+        "Governance Foundation",
+        "Reporting",
+        "Audit Logging",
+        "Human Approval Controls",
+        "Multi-language Support",
+        "Future Updates"
+      ]
+    },
+    "upgradePath": {
+      "headline": "Start small. Grow naturally.",
+      "copy": "Organizations can upgrade at any time without migrating to a different platform.",
+      "steps": ["Starter", "Business", "Professional", "Enterprise"]
+    },
+    "enterpriseComparison": {
+      "headline": "Enterprise-ready from day one.",
+      "cards": [
+        { "title": "SSO", "body": "Microsoft Entra ID, Google Workspace, and Okta integration readiness." },
+        { "title": "Hybrid Deployment", "body": "Cloud and controlled hybrid options for regulated environments." },
+        { "title": "On-Premise", "body": "Deployment models for organizations with strict data residency requirements." },
+        { "title": "Dedicated Success Team", "body": "Custom Business Packs and enterprise rollout with a dedicated success manager." }
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        { "question": "Can I upgrade later?", "answer": "Yes. Upgrade at any time — permissions and features activate immediately after payment." },
+        { "question": "Do I lose data when upgrading?", "answer": "No. Your workspace, settings, and operational data remain intact." },
+        { "question": "Can I add Business Packs later?", "answer": "Yes. Activate Business Packs as your operational scope grows." },
+        { "question": "Do I need Enterprise immediately?", "answer": "No. Most organizations start with Starter or Business and grow into Professional or Enterprise." },
+        { "question": "Can Aipify grow with my company?", "answer": "Yes. Aipify is designed as a long-term operating model — not a tool you outgrow." }
+      ]
+    },
+    "contactSales": {
+      "headline": "Not sure which package fits your organization?",
+      "subheadline": "Our team can help identify the right starting point.",
+      "cta": "Talk to Sales"
+    },
+    "billingArchitecture": {
+      "title": "Billing and upgrades",
+      "billing": ["Monthly billing", "Annual billing"],
+      "paymentProviders": ["Stripe", "Klarna", "Invoice"],
+      "accounting": "Fiken integration for Norwegian accounting workflows.",
+      "upgradeNote": "Aipify upgrades activate immediately after payment — no manual intervention, no waiting.",
+      "upgradeFlow": [
+        "Payment approved",
+        "Permissions updated",
+        "Features unlocked",
+        "Continue working"
+      ]
+    },
+    "finalPrinciple": "Pricing should feel like selecting the right operating model for your organization — not buying another software subscription."
   }
 }

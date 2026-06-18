@@ -7,6 +7,8 @@ import { marketingDataAttr } from "@/lib/marketing/analytics";
 export type MarketingNavLabels = {
   product: string;
   modules: string;
+  businessPacks: string;
+  pricing: string;
   enterprise: string;
   security: string;
   pilot: string;
@@ -27,6 +29,8 @@ type MarketingNavbarProps = {
 const navLinks: Array<{ key: keyof MarketingNavLabels; href: string }> = [
   { key: "product", href: "/product" },
   { key: "modules", href: "/modules" },
+  { key: "businessPacks", href: "/pricing#business-packs" },
+  { key: "pricing", href: "/pricing" },
   { key: "enterprise", href: "/enterprise" },
   { key: "security", href: "/security" },
   { key: "growthPartners", href: "/growth-partners" },

@@ -18,6 +18,8 @@
     "knowledgeDescription": "Learn how Aipify works, what it collects, and how humans stay in control.",
     "contactTitle": "Contact — Aipify",
     "contactDescription": "Talk to the Aipify team about early access, enterprise, or partnerships.",
+    "pricingTitle": "Priser — Aipify Business Operating System",
+    "pricingDescription": "Enkle priser som vokser med deg. Velg Starter, Business, Professional eller Enterprise.",
     "privacyTitle": "Privacy Policy — Aipify",
     "privacyDescription": "How Aipify handles data, privacy, and customer ownership.",
     "termsTitle": "Terms of Service — Aipify"
@@ -25,6 +27,8 @@
   "nav": {
     "product": "Product",
     "modules": "Modules",
+    "businessPacks": "Business Packs",
+    "pricing": "Priser",
     "enterprise": "Enterprise",
     "security": "Security",
     "pilot": "Pilot",
@@ -363,5 +367,124 @@
       "errorPasswordMismatch": "Passord må stemme og være minst 8 tegn.",
       "legalNote": "Ved registrering bekrefter du uavhengig virksomhetsstatus. Aipify Group AS ansetter ikke Growth Partners."
     }
+  },
+  "pricingPage": {
+    "meta": {
+      "title": "Priser — Aipify Business Operating System",
+      "description": "Enkle priser bygget for vekst. Velg driftsmodellen som passer organisasjonen din."
+    },
+    "hero": {
+      "headline": "Enkle priser. Bygget for vekst.",
+      "subheadline": "Start med det du trenger i dag. Utvid når organisasjonen er klar.",
+      "supporting": "Alle planer inkluderer Aipify Business Operating System-grunnlaget.",
+      "ctaPrimary": "Sammenlign planer",
+      "ctaSecondary": "Snakk med salg"
+    },
+    "principles": {
+      "title": "Prinsipper for prising",
+      "cards": [
+        { "title": "Ingen langsiktige kontrakter", "body": "Månedlig eller årlig fakturering — velg det som passer." },
+        { "title": "Oppgrader umiddelbart", "body": "Tilgang oppdateres med en gang etter betaling." },
+        { "title": "Bygget for skalering", "body": "Start lite og voks naturlig på samme plattform." },
+        { "title": "Menneskelig kontroll", "body": "Automatisering fjerner aldri styring og godkjenning." }
+      ]
+    },
+    "packages": {
+      "title": "Pakker",
+      "items": [
+        {
+          "key": "starter",
+          "name": "Starter",
+          "target": "Små organisasjoner",
+          "idealFor": "Ideelt for 1–10 brukere",
+          "features": ["Companion", "Knowledge Center", "Grunnleggende drift", "Grunnleggende rapportering", "Grunnleggende support"],
+          "status": "Tilgjengelig",
+          "statusKey": "available",
+          "cta": "Kom i gang",
+          "ctaHref": "/early-access"
+        },
+        {
+          "key": "business",
+          "name": "Business",
+          "target": "Voksende team",
+          "idealFor": "Ideelt for 10–50 brukere",
+          "features": ["Alt i Starter", "Avansert drift", "Avansert rapportering", "Godkjenninger", "Arbeidsflyter", "Integrasjoner"],
+          "status": "Mest populær",
+          "statusKey": "popular",
+          "cta": "Start Business",
+          "ctaHref": "/early-access"
+        },
+        {
+          "key": "professional",
+          "name": "Professional",
+          "target": "Operasjonelle organisasjoner",
+          "idealFor": "Ideelt for 50–250 brukere",
+          "features": ["Alt i Business", "Avansert styring", "Avansert analyse", "Business Packs", "Prioritert support", "Avanserte tillatelser"],
+          "status": "Tilgjengelig",
+          "statusKey": "available",
+          "cta": "Start Professional",
+          "ctaHref": "/early-access"
+        },
+        {
+          "key": "enterprise",
+          "name": "Enterprise",
+          "target": "Store organisasjoner",
+          "idealFor": "Ideelt for 250+ brukere",
+          "features": ["Alt i Professional", "SSO", "Enterprise-sikkerhet", "Tilpassede Business Packs", "Dedikert success manager", "Enterprise-utrulling", "Hybrid utrulling", "On-premise-alternativer"],
+          "status": "Enterprise",
+          "statusKey": "enterprise",
+          "cta": "Snakk med Enterprise-salg",
+          "ctaHref": "/contact"
+        }
+      ]
+    },
+    "businessPacks": {
+      "title": "Business Packs",
+      "copy": "Business Packs kan aktiveres etter hvert som organisasjonen vokser.",
+      "examples": ["Aipify Hosts", "Support Operations", "Commerce Operations", "Warehouse Operations", "Property Management"],
+      "status": "Tilgjengelig avhengig av plan."
+    },
+    "included": {
+      "title": "Dette er inkludert i alle planer",
+      "items": ["Companion", "Knowledge Center", "Styringsgrunnlag", "Rapportering", "Revisjonslogging", "Menneskelige godkjenninger", "Flerspråklig støtte", "Fremtidige oppdateringer"]
+    },
+    "upgradePath": {
+      "headline": "Start lite. Voks naturlig.",
+      "copy": "Organisasjoner kan oppgradere når som helst uten å migrere til en annen plattform.",
+      "steps": ["Starter", "Business", "Professional", "Enterprise"]
+    },
+    "enterpriseComparison": {
+      "headline": "Enterprise-klar fra dag én.",
+      "cards": [
+        { "title": "SSO", "body": "Microsoft Entra ID, Google Workspace og Okta." },
+        { "title": "Hybrid utrulling", "body": "Sky og kontrollert hybrid for regulerte miljøer." },
+        { "title": "On-premise", "body": "Utrullingsmodeller for strenge datalagringskrav." },
+        { "title": "Dedikert success-team", "body": "Tilpassede Business Packs og enterprise-utrulling." }
+      ]
+    },
+    "faq": {
+      "title": "Ofte stilte spørsmål",
+      "items": [
+        { "question": "Kan jeg oppgradere senere?", "answer": "Ja. Oppgrader når som helst — tilgang aktiveres umiddelbart etter betaling." },
+        { "question": "Mister jeg data ved oppgradering?", "answer": "Nei. Workspace, innstillinger og data forblir intakte." },
+        { "question": "Kan jeg legge til Business Packs senere?", "answer": "Ja. Aktiver Business Packs etter hvert som driften vokser." },
+        { "question": "Må jeg ha Enterprise med en gang?", "answer": "Nei. De fleste starter med Starter eller Business." },
+        { "question": "Kan Aipify vokse med selskapet mitt?", "answer": "Ja. Aipify er bygget som en langsiktig driftsmodell." }
+      ]
+    },
+    "contactSales": {
+      "headline": "Usikker på hvilken pakke som passer?",
+      "subheadline": "Teamet vårt hjelper deg finne riktig startpunkt.",
+      "cta": "Snakk med salg"
+    },
+    "billingArchitecture": {
+      "title": "Fakturering og oppgraderinger",
+      "billing": ["Månedlig fakturering", "Årlig fakturering"],
+      "paymentProviders": ["Stripe", "Klarna", "Faktura"],
+      "accounting": "Fiken-integrasjon for norsk regnskap.",
+      "upgradeNote": "Aipify-oppgraderinger aktiveres umiddelbart etter betaling — ingen manuell behandling.",
+      "upgradeFlow": ["Betaling godkjent", "Tillatelser oppdatert", "Funksjoner låst opp", "Fortsett arbeidet"]
+    },
+    "finalPrinciple": "Prising skal føles som å velge riktig driftsmodell — ikke enda et programabonnement."
   }
 }
