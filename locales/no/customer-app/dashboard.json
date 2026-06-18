@@ -5503,6 +5503,70 @@
       "legacyIndustryIntelligence": "Legacy Industry Intelligence"
     }
   },
+  "economicIntelligenceCenter": {
+    "title": "Økonomisk intelligens",
+    "subtitle": "Forstå økonomiske forhold, finansielle trender, renter, inflasjon, arbeidsmarked og makroøkonomiske faktorer som påvirker organisasjonen.",
+    "philosophy": "Selv den best drevne virksomheten påvirkes av økonomien rundt den. Aipify hjelper organisasjoner å forstå hvordan eksterne økonomiske forhold kan påvirke drift, kunder, vekst, ansettelser, investeringer og risiko.",
+    "governanceNote": "All økonomisk intelligens inkluderer kilde, dato, tillitsnivå, konsekvensvurdering og revisjonsspor. Menneskekontrollert — ingen autonom strategisk myndighet.",
+    "privacyNote": "Kun økonomisk intelligens-metadata og aggregatesignaler — ingen rå finansposter eller ugodkjent PII.",
+    "refresh": "Oppdater",
+    "emptyState": "Ingen økonomiske intelligenselementer i denne seksjonen ennå.",
+    "accessDenied": "Økonomisk intelligens krever passende arbeidsområdetillatelser.",
+    "source": "Kilde",
+    "date": "Dato",
+    "confidence": "Tillit",
+    "impact": "Konsekvens",
+    "evidence": "Evidens",
+    "reasoning": "Begrunnelse",
+    "preparation": "Anbefalt forberedelse",
+    "potentialImpact": "Potensiell konsekvens",
+    "sections": {
+      "economicOverview": "Økonomisk oversikt",
+      "inflation": "Inflasjon",
+      "interestRates": "Renter",
+      "employment": "Sysselsetting",
+      "consumerTrends": "Forbrukertrender",
+      "businessClimate": "Næringslivsklima",
+      "economicRisks": "Økonomiske risikoer",
+      "economicOpportunities": "Økonomiske muligheter"
+    },
+    "economicMonitoringEngine": { "title": "Economic Monitoring Engine" },
+    "regionalEconomicIntelligence": { "title": "Regional økonomisk intelligens" },
+    "businessImpactEngine": { "title": "Business Impact Engine" },
+    "consumerSpendingIntelligence": { "title": "Forbrukerforbruksintelligens" },
+    "hiringWorkforceIntelligence": { "title": "Ansettelse og arbeidsstyrke" },
+    "economicOpportunityEngine": { "title": "Økonomisk mulighetsmotor" },
+    "executiveEconomicDashboard": { "title": "Executive Economic Dashboard" },
+    "companionAdvisor": { "title": "Companion Economic Advisor", "evidence": "Støtteevidens" },
+    "scenarioModeling": { "title": "Scenariomodellering" },
+    "governanceControls": {
+      "title": "Styringskontroller",
+      "enabled": "Økonomisk intelligens aktivert",
+      "disabled": "Økonomisk intelligens deaktivert",
+      "humanControl": "Menneskelig kontroll påkrevd — kun evidensbasert intelligens"
+    },
+    "actions": {
+      "acknowledge": "Bekreft",
+      "dismiss": "Avvis",
+      "escalate": "Eskaler",
+      "resolve": "Løs"
+    },
+    "status": {
+      "completed": "Fullført",
+      "notAllowed": "Ikke tillatt",
+      "requiresAttention": "Krever oppmerksomhet",
+      "information": "Informasjon",
+      "restricted": "Begrenset tilgang",
+      "verified": "Verifisert",
+      "waiting": "Venter"
+    },
+    "links": {
+      "industryIntelligence": "Bransjeintelligens",
+      "consciousness": "Organisasjonsbevissthet",
+      "strategicIntelligence": "Strategisk intelligens",
+      "executiveBoard": "Executive Board"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillit og omdømme",
     "subtitle": "Organisatoriske tillitsprofiler og metadata-baserte omdømmesignaler — opptjent tillit med menneskelig gjennomgang av utvidelser.",

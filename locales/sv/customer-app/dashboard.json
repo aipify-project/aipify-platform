@@ -5358,6 +5358,70 @@
       "legacyIndustryIntelligence": "Legacy Industry Intelligence"
     }
   },
+  "economicIntelligenceCenter": {
+    "title": "Ekonomisk intelligens",
+    "subtitle": "Förstå ekonomiska förhållanden, finansiella trender, räntor, inflation, arbetsmarknad och makroekonomiska faktorer som påverkar organisationen.",
+    "philosophy": "Även den bäst drivna verksamheten påverkas av ekonomin runt den. Aipify hjälper organisationer att förstå hur externa ekonomiska förhållanden kan påverka drift, kunder, tillväxt, anställningar, investeringar och risk.",
+    "governanceNote": "All ekonomisk intelligens inkluderar källa, datum, tillförlitlighetsnivå, konsekvensbedömning och revisionshistorik. Människokontrollerad — ingen autonom strategisk auktoritet.",
+    "privacyNote": "Endast ekonomisk intelligens-metadata och aggregatesignaler — inga rå finansposter eller ogodkänd PII.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga ekonomiska intelligensobjekt i detta avsnitt ännu.",
+    "accessDenied": "Ekonomisk intelligens kräver lämpliga arbetsytetillstånd.",
+    "source": "Källa",
+    "date": "Datum",
+    "confidence": "Tillförlitlighet",
+    "impact": "Konsekvens",
+    "evidence": "Evidens",
+    "reasoning": "Resonemang",
+    "preparation": "Rekommenderad förberedelse",
+    "potentialImpact": "Potentiell konsekvens",
+    "sections": {
+      "economicOverview": "Ekonomisk översikt",
+      "inflation": "Inflation",
+      "interestRates": "Räntor",
+      "employment": "Sysselsättning",
+      "consumerTrends": "Konsumenttrender",
+      "businessClimate": "Näringslivsklimat",
+      "economicRisks": "Ekonomiska risker",
+      "economicOpportunities": "Ekonomiska möjligheter"
+    },
+    "economicMonitoringEngine": { "title": "Economic Monitoring Engine" },
+    "regionalEconomicIntelligence": { "title": "Regional ekonomisk intelligens" },
+    "businessImpactEngine": { "title": "Business Impact Engine" },
+    "consumerSpendingIntelligence": { "title": "Konsumentutgiftsintelligens" },
+    "hiringWorkforceIntelligence": { "title": "Anställning och arbetskraft" },
+    "economicOpportunityEngine": { "title": "Ekonomisk möjlighetsmotor" },
+    "executiveEconomicDashboard": { "title": "Executive Economic Dashboard" },
+    "companionAdvisor": { "title": "Companion Economic Advisor", "evidence": "Stödjande evidens" },
+    "scenarioModeling": { "title": "Scenariomodellering" },
+    "governanceControls": {
+      "title": "Styrningskontroller",
+      "enabled": "Ekonomisk intelligens aktiverad",
+      "disabled": "Ekonomisk intelligens inaktiverad",
+      "humanControl": "Mänsklig kontroll krävs — endast evidensbaserad intelligens"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "escalate": "Eskalera",
+      "resolve": "Lös"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "industryIntelligence": "Branschintelligens",
+      "consciousness": "Organisationsmedvetenhet",
+      "strategicIntelligence": "Strategisk intelligens",
+      "executiveBoard": "Executive Board"
+    }
+  },
   "trustReputationEngine": {
     "title": "Förtroende och rykte",
     "subtitle": "Organisatoriska förtroendeprofiler och metadata-baserade ryktessignaler — förtjänat förtroende med mänsklig granskning av expansion.",

@@ -6176,6 +6176,70 @@
       "legacyIndustryIntelligence": "Legacy Industry Intelligence"
     }
   },
+  "economicIntelligenceCenter": {
+    "title": "Economic Intelligence",
+    "subtitle": "Understand economic conditions, financial trends, interest rates, inflation, labor markets, and macroeconomic factors that impact your organization.",
+    "philosophy": "Even the best-run business is influenced by the economy around it. Aipify helps organizations understand how external economic conditions may affect operations, customers, growth, hiring, investment, and risk.",
+    "governanceNote": "All economic intelligence includes source, date, confidence level, impact assessment, and audit trail. Human-controlled — no autonomous strategic authority.",
+    "privacyNote": "Economic intelligence metadata and aggregate signals only — no raw financial records or unapproved PII.",
+    "refresh": "Refresh",
+    "emptyState": "No economic intelligence items in this section yet.",
+    "accessDenied": "Economic Intelligence requires appropriate workspace permissions.",
+    "source": "Source",
+    "date": "Date",
+    "confidence": "Confidence",
+    "impact": "Impact",
+    "evidence": "Evidence",
+    "reasoning": "Reasoning",
+    "preparation": "Recommended preparation",
+    "potentialImpact": "Potential impact",
+    "sections": {
+      "economicOverview": "Economic Overview",
+      "inflation": "Inflation",
+      "interestRates": "Interest Rates",
+      "employment": "Employment",
+      "consumerTrends": "Consumer Trends",
+      "businessClimate": "Business Climate",
+      "economicRisks": "Economic Risks",
+      "economicOpportunities": "Economic Opportunities"
+    },
+    "economicMonitoringEngine": { "title": "Economic Monitoring Engine" },
+    "regionalEconomicIntelligence": { "title": "Regional Economic Intelligence" },
+    "businessImpactEngine": { "title": "Business Impact Engine" },
+    "consumerSpendingIntelligence": { "title": "Consumer Spending Intelligence" },
+    "hiringWorkforceIntelligence": { "title": "Hiring & Workforce Intelligence" },
+    "economicOpportunityEngine": { "title": "Economic Opportunity Engine" },
+    "executiveEconomicDashboard": { "title": "Executive Economic Dashboard" },
+    "companionAdvisor": { "title": "Companion Economic Advisor", "evidence": "Supporting evidence" },
+    "scenarioModeling": { "title": "Scenario Modeling" },
+    "governanceControls": {
+      "title": "Governance Controls",
+      "enabled": "Economic Intelligence enabled",
+      "disabled": "Economic Intelligence disabled",
+      "humanControl": "Human control required — evidence-based intelligence only"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "escalate": "Escalate",
+      "resolve": "Resolve"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "industryIntelligence": "Industry Intelligence",
+      "consciousness": "Organizational Consciousness",
+      "strategicIntelligence": "Strategic Intelligence",
+      "executiveBoard": "Executive Board"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",
