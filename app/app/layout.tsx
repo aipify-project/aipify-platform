@@ -6,7 +6,7 @@ import { buildAppNavConfig, buildAppNavGroupConfig } from "@/lib/app/build-nav";
 import { buildAppNavSearchIndex } from "@/lib/app/nav-search";
 import { APP_MOBILE_NAV_IDS } from "@/lib/app/nav-config";
 import { buildCommandBarLabels, customerNavSourcesFromSearchIndex } from "@/lib/command-bar";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getAppLayoutDictionary } from "@/lib/i18n/get-app-layout-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { buildLicensePanelLabels } from "@/lib/app/license-labels";
@@ -20,16 +20,7 @@ export default async function AppLayout({
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, [
-    "common",
-    "auth",
-    "dashboard",
-    "branding",
-    "presence",
-    "license",
-    "customerApp",
-    "commandBar",
-  ]);
+  const dict = await getAppLayoutDictionary(locale);
   const t = createTranslator(dict);
   const navGroups = buildAppNavGroupConfig(t);
   const navConfig = buildAppNavConfig(t);
