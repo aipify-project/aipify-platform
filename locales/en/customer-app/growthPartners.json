@@ -309,5 +309,28 @@
     "visionPhrases": "Vision phrases",
     "identity": "Identity",
     "companionIdentity": "Companion Identity"
+  },
+  "growthPartnerDashboard": {
+    "title": "Growth Partner",
+    "welcome": "Welcome to Aipify Growth Partners",
+    "welcomeSubtitle": "Build your own business selling Aipify — training, certification, and your customer portfolio in one place.",
+    "status": "Partner status",
+    "nextSteps": "Next steps",
+    "trainingProgress": "Training progress",
+    "certificationStatus": "Certification status",
+    "commissionOverview": "Commission overview",
+    "myLeads": "My leads",
+    "myCustomers": "My customers",
+    "payoutProfile": "Payout profile",
+    "profileSettings": "Profile settings",
+    "startTraining": "Start training",
+    "viewOperations": "Open operations center",
+    "accessDenied": "Growth Partner access requires a registered partner account.",
+    "privacyNote": "You see only your own leads, customers, and commissions — never other partners or platform admin data.",
+    "refresh": "Refresh",
+    "modules": "Training modules",
+    "commissionNote": "Commission rules and payout details appear here after certification.",
+    "statusWaiting": "Waiting — Certification Required",
+    "statusVerified": "Verified — Certified Growth Partner"
   }
 }

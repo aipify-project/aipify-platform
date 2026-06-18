@@ -29,6 +29,7 @@
     "security": "Security",
     "pilot": "Pilot",
     "knowledge": "Knowledge",
+    "growthPartners": "Growth Partners",
     "earlyAccess": "Early Access",
     "contact": "Contact",
     "controlCenter": "Control Center",
@@ -49,6 +50,7 @@
     "terms": "Terms",
     "contact": "Contact",
     "earlyAccess": "Early Access",
+    "growthPartners": "Growth Partners",
     "copyright": "Aipify Group AS. All rights reserved.",
     "privacyNote": "Aipify does not monitor employees or conduct workplace surveillance."
   },
@@ -259,5 +261,107 @@
     "title": "Ready to install operational intelligence?",
     "subtitle": "Request early access and see Aipify in your environment.",
     "button": "Request Early Access"
+  },
+  "growthPartners": {
+    "meta": {
+      "title": "Growth Partners — Start din Aipify-virksomhet",
+      "description": "Registrer deg som uavhengig Growth Partner. Selg Aipify-produkter, bygg kundeportefølje og tjen tilbakevendende provisjon."
+    },
+    "hero": {
+      "headline": "Start din Aipify-virksomhet i dag.",
+      "subheadline": "Selg et world-class Business Operating System, bygg din egen kundeportefølje og tjen tilbakevendende provisjon.",
+      "trustLine": "Registrering tar under 3 minutter.",
+      "supporting": "Ingen jobbsøknad. Ingen CV. Inget intervju. Ingen ventetid. Med registrert virksomhet og Aipify Growth Partner-sertifisering kan du begynne å selge.",
+      "ctaPrimary": "Start på under 3 minutter",
+      "ctaSecondary": "Se hvordan det fungerer",
+      "badgeTime": "Under 3 minutter",
+      "badgeNoCv": "Ingen CV",
+      "badgeNoInterview": "Ingen intervju",
+      "badgeIndependent": "Uavhengig virksomhet",
+      "badgeCertification": "Sertifisering kreves"
+    },
+    "positioning": {
+      "lines": [
+        "Ikke et affiliate-program. Ikke en tradisjonell salgsjobb. Growth Partners bygger ekte virksomheter rundt Aipify.",
+        "Du skaffer kunder. Aipify leverer plattform, opplæring, sertifisering, partnerdashboard og provisjonssporing.",
+        "Start enkelt. Voks over tid. Begynn med én kunde og bygg porteføljen etter hvert som tilliten vokser."
+      ]
+    },
+    "why": {
+      "title": "Hvorfor bli Growth Partner?",
+      "cards": [
+        { "title": "Tilbakevendende provisjon", "body": "Tjen provisjon fra kunder du bringer til Aipify." },
+        { "title": "Enterprise-produkt", "body": "Selg et seriøst Business Operating System for moderne organisasjoner." },
+        { "title": "Full opplæring", "body": "Aipify gir opplæring før du begynner å selge." },
+        { "title": "Sertifisering inkludert", "body": "Bestå Growth Partner-sertifiseringen og lås opp salgstilgang." },
+        { "title": "Din egen kundeportefølje", "body": "Bygg langsiktige kunderelasjoner." },
+        { "title": "Jobb uavhengig", "body": "Drift gjennom egen virksomhet i ditt tempo." }
+      ]
+    },
+    "notAJob": {
+      "title": "Ikke en jobbsøknad. En forretningsmulighet.",
+      "paragraphs": [
+        "Du søker ikke ansettelse hos Aipify Group AS.",
+        "Du registrerer deg som uavhengig Growth Partner.",
+        "Du styrer egen virksomhet, velger arbeidsform og bygger egen kundeportefølje.",
+        "Aipify leverer produkt, opplæring, sertifisering, partnerverktøy og provisjonssystem."
+      ]
+    },
+    "howItWorks": {
+      "title": "Slik fungerer det",
+      "steps": [
+        { "title": "Registrer virksomheten", "time": "Ca. 3 minutter", "body": "Fullfør kort registrering med bedriftsdetaljer." },
+        { "title": "Opprett Growth Partner-konto", "body": "Kontoen opprettes i Aipify APP." },
+        { "title": "Fullfør opplæring", "body": "Lær produkter, Business Packs, salgsprosess og onboarding." },
+        { "title": "Bestå sertifisering", "body": "Du må bestå Aipify Growth Partner-sertifisering før aktivering." },
+        { "title": "Start å selge", "body": "Etter sertifisering bygger du Aipify-kundeporteføljen din." }
+      ]
+    },
+    "requirements": {
+      "title": "Kun to krav",
+      "items": [
+        "Du må operere gjennom registrert virksomhet.",
+        "Du må bestå Aipify Growth Partner-sertifisering."
+      ],
+      "copy": "Ingen CV. Ingen tradisjonelt intervju. Ingen ansettelsesprosess. Gyldig virksomhet og bestått sertifisering — da kan du starte."
+    },
+    "earnings": {
+      "title": "Bygg tilbakevendende inntekt",
+      "copy": "Growth Partners tjener tilbakevendende provisjon fra kvalifiserte kunder de bringer til Aipify.",
+      "disclaimer": "Ingen garantert inntekt. Inntekt avhenger av salgsaktivitet, kunderetensjon, planverdi, provisjonsinnstillinger og aktiv partnerstatus.",
+      "tiers": [
+        { "title": "10 kunder", "body": "Bygg din første provisjonsbase." },
+        { "title": "25 kunder", "body": "Voks en seriøs sidevirksomhet." },
+        { "title": "50+ kunder", "body": "Bygg fulltids salgsvirksomhet rundt Aipify." }
+      ]
+    },
+    "training": {
+      "title": "Vi trener deg før du selger",
+      "modules": ["Aipify Product Basics", "Business Operating System Overview", "Companion and Governance", "Business Packs", "Customer Discovery", "Sales Process", "Demo Training", "Objection Handling", "Compliance and Brand Rules", "Certification Test"],
+      "statusWaiting": "Venter — sertifisering kreves",
+      "statusVerified": "Verifisert — sertifisert Growth Partner"
+    },
+    "signup": {
+      "title": "Start på under 3 minutter",
+      "password": "Passord",
+      "passwordConfirm": "Bekreft passord",
+      "fullName": "Fullt navn",
+      "companyName": "Firmanavn",
+      "businessRegistrationNumber": "Business Registration Number",
+      "businessRegistrationHelper": "Oppgi offisielt registreringsnummer.",
+      "country": "Land",
+      "address": "Adresse",
+      "phoneCountryCode": "Telefonlandkode",
+      "phoneNumber": "Telefonnummer",
+      "email": "E-post",
+      "checkboxRegisteredBusiness": "Jeg bekrefter at jeg opererer gjennom registrert virksomhet.",
+      "checkboxCertification": "Jeg forstår at jeg må bestå Aipify Growth Partner-sertifisering før aktivering.",
+      "checkboxIndependent": "Jeg forstår at jeg registrerer meg som uavhengig Growth Partner, ikke som jobbsøker.",
+      "submit": "Start min Aipify-virksomhet",
+      "submitting": "Oppretter konto…",
+      "errorGeneric": "Noe gikk galt. Prøv igjen.",
+      "errorPasswordMismatch": "Passord må stemme og være minst 8 tegn.",
+      "legalNote": "Ved registrering bekrefter du uavhengig virksomhetsstatus. Aipify Group AS ansetter ikke Growth Partners."
+    }
   }
 }

@@ -11,6 +11,7 @@ export type MarketingNavLabels = {
   security: string;
   pilot: string;
   knowledge: string;
+  growthPartners: string;
   earlyAccess: string;
   contact: string;
   controlCenter: string;
@@ -28,6 +29,7 @@ const navLinks: Array<{ key: keyof MarketingNavLabels; href: string }> = [
   { key: "modules", href: "/modules" },
   { key: "enterprise", href: "/enterprise" },
   { key: "security", href: "/security" },
+  { key: "growthPartners", href: "/growth-partners" },
   { key: "pilot", href: "/pilot" },
   { key: "knowledge", href: "/knowledge" },
 ];

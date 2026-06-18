@@ -12,3 +12,5 @@ export { default as MarketingPageHeader } from "./MarketingPageHeader";
 export { default as ModuleShowcase } from "./ModuleShowcase";
 export { default as OutputEngineShowcase } from "./OutputEngineShowcase";
 export { default as PilotStorySection } from "./PilotStorySection";
+export { default as GrowthPartnersPageContent } from "./GrowthPartnersPageContent";
+export { default as GrowthPartnersSignupForm } from "./GrowthPartnersSignupForm";

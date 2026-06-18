@@ -306,5 +306,28 @@
     "visionPhrases": "Visjonsfraser",
     "identity": "Identitet",
     "companionIdentity": "Companion Identity"
+  },
+  "growthPartnerDashboard": {
+    "title": "Growth Partner",
+    "welcome": "Velkommen til Aipify Growth Partners",
+    "welcomeSubtitle": "Bygg egen virksomhet med Aipify — opplæring, sertifisering og kundeportefølje på ett sted.",
+    "status": "Partnerstatus",
+    "nextSteps": "Neste steg",
+    "trainingProgress": "Opplæringsfremdrift",
+    "certificationStatus": "Sertifiseringsstatus",
+    "commissionOverview": "Provisjonsoversikt",
+    "myLeads": "Mine leads",
+    "myCustomers": "Mine kunder",
+    "payoutProfile": "Utbetalingsprofil",
+    "profileSettings": "Profilinnstillinger",
+    "startTraining": "Start opplæring",
+    "viewOperations": "Åpne driftssenter",
+    "accessDenied": "Growth Partner-tilgang krever registrert partnerkonto.",
+    "privacyNote": "Du ser kun egne leads, kunder og provisjon — aldri andre partnere eller plattformdata.",
+    "refresh": "Oppdater",
+    "modules": "Opplæringsmoduler",
+    "commissionNote": "Provisjonsregler vises her etter sertifisering.",
+    "statusWaiting": "Venter — sertifisering kreves",
+    "statusVerified": "Verifisert — sertifisert Growth Partner"
   }
 }

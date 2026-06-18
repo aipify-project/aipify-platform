@@ -29,6 +29,7 @@
     "security": "Security",
     "pilot": "Pilot",
     "knowledge": "Knowledge",
+    "growthPartners": "Growth Partners",
     "earlyAccess": "Early Access",
     "contact": "Contact",
     "controlCenter": "Control Center",
@@ -49,6 +50,7 @@
     "terms": "Terms",
     "contact": "Contact",
     "earlyAccess": "Early Access",
+    "growthPartners": "Growth Partners",
     "copyright": "Aipify Group AS. All rights reserved.",
     "privacyNote": "Aipify does not monitor employees or conduct workplace surveillance."
   },
@@ -259,5 +261,50 @@
     "title": "Ready to install operational intelligence?",
     "subtitle": "Request early access and see Aipify in your environment.",
     "button": "Request Early Access"
+  },
+  "growthPartners": {
+    "meta": { "title": "Growth Partners — Starta din Aipify-verksamhet", "description": "Registrera dig som oberoende Growth Partner. Sälj Aipify, bygg kundportfölj och tjäna återkommande provision." },
+    "hero": {
+      "headline": "Starta din Aipify-verksamhet idag.",
+      "subheadline": "Sälj ett world-class Business Operating System, bygg din kundportfölj och tjäna återkommande provision.",
+      "trustLine": "Registrering tar under 3 minuter.",
+      "supporting": "Ingen jobbansökan. Inget CV. Ingen intervju. Ingen väntan. Med registrerat företag och certifiering kan du börja sälja Aipify.",
+      "ctaPrimary": "Starta på under 3 minuter",
+      "ctaSecondary": "Se hur det fungerar",
+      "badgeTime": "Under 3 minuter",
+      "badgeNoCv": "Inget CV",
+      "badgeNoInterview": "Ingen intervju",
+      "badgeIndependent": "Oberoende verksamhet",
+      "badgeCertification": "Certifiering krävs"
+    },
+    "positioning": { "lines": ["Inte ett affiliate-program. Inte ett traditionellt säljjobb.", "Du tar in kunder. Aipify levererar plattform, utbildning och provision.", "Börja enkelt. Väx över tid."] },
+    "why": { "title": "Varför bli Growth Partner?", "cards": [
+      { "title": "Återkommande provision", "body": "Tjäna provision från kunder du tar till Aipify." },
+      { "title": "Enterprise-produkt", "body": "Sälj ett seriöst Business Operating System." },
+      { "title": "Full utbildning", "body": "Aipify utbildar dig innan du säljer." },
+      { "title": "Certifiering ingår", "body": "Klara certifieringen och lås upp försäljning." },
+      { "title": "Egen kundportfölj", "body": "Bygg långsiktiga relationer." },
+      { "title": "Arbeta oberoende", "body": "Driv egen verksamhet i din takt." }
+    ]},
+    "notAJob": { "title": "Inte en jobbansökan. En affärsmöjlighet.", "paragraphs": ["Du söker inte anställning hos Aipify Group AS.", "Du registrerar dig som oberoende Growth Partner.", "Du styr egen verksamhet och bygger egen portfölj.", "Aipify levererar produkt, utbildning, certifiering och provision."] },
+    "howItWorks": { "title": "Så fungerar det", "steps": [
+      { "title": "Registrera företaget", "time": "Ca 3 minuter", "body": "Kort registrering med företagsuppgifter." },
+      { "title": "Skapa Growth Partner-konto", "body": "Kontot skapas i Aipify APP." },
+      { "title": "Slutför utbildning", "body": "Lär produkter, Business Packs och försäljning." },
+      { "title": "Klara certifiering", "body": "Certifiering krävs före aktivering." },
+      { "title": "Börja sälja", "body": "Bygg din Aipify-kundportfölj." }
+    ]},
+    "requirements": { "title": "Bara två krav", "items": ["Du måste driva registrerat företag.", "Du måste klara Aipify Growth Partner-certifiering."], "copy": "Inget CV. Ingen anställningsprocess. Giltigt företag och certifiering — då kan du starta." },
+    "earnings": { "title": "Bygg återkommande intäkter", "copy": "Growth Partners tjänar återkommande provision från kvalificerade kunder.", "disclaimer": "Ingen garanterad inkomst. Intäkter beror på försäljning, retention och provision.", "tiers": [
+      { "title": "10 kunder", "body": "Bygg din första provisionsbas." },
+      { "title": "25 kunder", "body": "Väx en seriös sidoverksamhet." },
+      { "title": "50+ kunder", "body": "Bygg heltidsförsäljning kring Aipify." }
+    ]},
+    "training": { "title": "Vi utbildar dig innan du säljer", "modules": ["Aipify Product Basics", "Business Operating System Overview", "Companion and Governance", "Business Packs", "Customer Discovery", "Sales Process", "Demo Training", "Objection Handling", "Compliance and Brand Rules", "Certification Test"], "statusWaiting": "Väntar — certifiering krävs", "statusVerified": "Verifierad — certifierad Growth Partner" },
+    "signup": {
+      "title": "Starta på under 3 minuter", "password": "Lösenord", "passwordConfirm": "Bekräfta lösenord", "fullName": "Fullständigt namn", "companyName": "Företagsnamn", "businessRegistrationNumber": "Business Registration Number", "businessRegistrationHelper": "Ange officiellt registreringsnummer.", "country": "Land", "address": "Adress", "phoneCountryCode": "Telefonlandskod", "phoneNumber": "Telefonnummer", "email": "E-post",
+      "checkboxRegisteredBusiness": "Jag bekräftar att jag driver registrerat företag.", "checkboxCertification": "Jag förstår att certifiering krävs före aktivering.", "checkboxIndependent": "Jag registrerar mig som oberoende Growth Partner, inte som jobbsökande.",
+      "submit": "Starta min Aipify-verksamhet", "submitting": "Skapar konto…", "errorGeneric": "Något gick fel.", "errorPasswordMismatch": "Lösenorden måste matcha (minst 8 tecken).", "legalNote": "Aipify Group AS anställer inte Growth Partners."
+    }
   }
 }

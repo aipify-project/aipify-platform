@@ -14,6 +14,7 @@ export type MarketingFooterLabels = {
   terms: string;
   contact: string;
   earlyAccess: string;
+  growthPartners: string;
   copyright: string;
   privacyNote: string;
 };
@@ -61,6 +62,7 @@ export default function MarketingFooter({ appName, labels }: MarketingFooterProp
             <h3 className="text-sm font-semibold text-white">{labels.company}</h3>
             <ul className="mt-4 space-y-2.5">
               {[
+                { label: labels.growthPartners, href: "/growth-partners" },
                 { label: "Pilot", href: "/pilot" },
                 { label: "Knowledge", href: "/knowledge" },
                 { label: labels.contact, href: "/contact" },

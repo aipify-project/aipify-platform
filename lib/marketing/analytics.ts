@@ -4,6 +4,7 @@ export type MarketingEventName =
   | "page_view"
   | "cta_click"
   | "early_access_submit"
+  | "growth_partner_signup"
   | "orb_state_change"
   | "demo_step_view"
   | "scroll_depth";
