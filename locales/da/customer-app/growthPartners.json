@@ -329,5 +329,73 @@
     "commissionNote": "Provisionsregler vises efter certificering.",
     "statusWaiting": "Venter — certificering påkrævet",
     "statusVerified": "Verificeret — certificeret Growth Partner"
+  },
+  "growthPartnerOperationsCenter": {
+    "title": "Growth Partner driftscenter",
+    "subtitle": "Byg, administrer og udvikl din Aipify-salgsvirksomhed — leads, kunder, provision og ressourcer ét sted.",
+    "governanceNote": "Hver salgshandling inkluderer revisionslog, partnerattribution, provisionssporing, udbetalingssporing og godkendelseshistorik.",
+    "privacyNote": "Du ser kun egne data — aldrig platformadmin, andre partnere eller kunders interne systemer.",
+    "refresh": "Opdater",
+    "accessDenied": "Growth Partner driftscenter kræver registreret partnerkonto.",
+    "auditRef": "Revisionsreference",
+    "followUpTask": "Opfølgningsopgave",
+    "leadSource": "Lead-kilde",
+    "partnerNotes": "Partnernoter",
+    "forecastValue": "Prognoseværdi",
+    "expectedClose": "Forventet afslutning",
+    "plan": "Plan",
+    "monthlyRevenue": "Månedlig omsætning",
+    "commissionValue": "Provisionsværdi",
+    "renewalStatus": "Fornyelsesstatus",
+    "health": "Kundesundhed",
+    "supportStatus": "Supportstatus",
+    "bankVerification": "Bankverificering",
+    "settlementDate": "Afregningsdato",
+    "commissionRules": "Provisionsregler",
+    "trainingProgress": "Træningsfremskridt",
+    "completedModules": "Fuldførte moduler",
+    "remainingModules": "Resterende moduler",
+    "renewalRequirements": "Certificeringsfornyelse følger Aipify Academy og compliance-gennemgang.",
+    "exportStatements": "Eksporter afregningsudtog efter bankverificering.",
+    "sections": {
+      "dashboard": "Dashboard",
+      "leads": "Leads",
+      "opportunities": "Muligheder",
+      "customers": "Kunder",
+      "commissions": "Provision",
+      "payouts": "Udbetalinger",
+      "resources": "Marketingressourcer",
+      "training": "Træning",
+      "certifications": "Certificeringer",
+      "performance": "Performance",
+      "support": "Support"
+    },
+    "dashboard": {
+      "title": "Partnerdashboard",
+      "recentActivity": "Seneste aktivitet",
+      "growthRecommendations": "Vækstanbefalinger"
+    },
+    "leads": { "title": "Lead-administration" },
+    "opportunities": { "title": "Mulighedspipeline" },
+    "customers": { "title": "Kundeportefølje" },
+    "commissions": { "title": "Provisionscenter" },
+    "payouts": { "title": "Udbetalingscenter" },
+    "resources": { "title": "Marketingressourcer" },
+    "training": { "title": "Træningscenter" },
+    "certifications": { "title": "Certificeringer" },
+    "performance": { "title": "Performancecenter" },
+    "support": {
+      "title": "Partnersupport",
+      "body": "Aipify-support til Growth Partners dækker certificering, udbetalinger og salgsenablement. Kundedrift forbliver i hver kundes workspace."
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    }
   }
 }

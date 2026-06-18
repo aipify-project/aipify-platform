@@ -1,19 +1,5 @@
-import { GrowthPartnerContentRequestPanel } from "@/components/growth-partner-content-requests";
-import { buildGrowthPartnerContentRequestLabels } from "@/lib/growth-partner-content-requests";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
-import { getLocale } from "@/lib/i18n/get-locale";
-import { createTranslator } from "@/lib/i18n/translate";
+import { redirect } from "next/navigation";
 
-export default async function GrowthPartnerResourceCenterPage() {
-  const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["growthPartners"]);
-  const t = createTranslator(dict);
-
-  return (
-    <GrowthPartnerContentRequestPanel
-      surface="partner"
-      backHref="/app/growth-partner-operations"
-      labels={buildGrowthPartnerContentRequestLabels(t, "customerApp.growthPartnerContentRequests")}
-    />
-  );
+export default function GrowthPartnerResourceCenterPage() {
+  redirect("/app/growth-partner/resources");
 }

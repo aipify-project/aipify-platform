@@ -329,5 +329,73 @@
     "commissionNote": "Provisionsregler visas efter certifiering.",
     "statusWaiting": "Väntar — certifiering krävs",
     "statusVerified": "Verifierad — certifierad Growth Partner"
+  },
+  "growthPartnerOperationsCenter": {
+    "title": "Growth Partner operationscenter",
+    "subtitle": "Bygg, hantera och utveckla din Aipify-försäljning — leads, kunder, provision och resurser på ett ställe.",
+    "governanceNote": "Varje försäljningsåtgärd inkluderar revisionslogg, partnerattribution, provisionsspårning, utbetalningsspårning och godkännandehistorik.",
+    "privacyNote": "Du ser endast egna data — aldrig plattformsadmin, andra partners eller kunders interna system.",
+    "refresh": "Uppdatera",
+    "accessDenied": "Growth Partner operationscenter kräver registrerat partnerkonto.",
+    "auditRef": "Revisionsreferens",
+    "followUpTask": "Uppföljningsuppgift",
+    "leadSource": "Lead-källa",
+    "partnerNotes": "Partneranteckningar",
+    "forecastValue": "Prognosvärde",
+    "expectedClose": "Förväntat avslut",
+    "plan": "Plan",
+    "monthlyRevenue": "Månadsintäkt",
+    "commissionValue": "Provisionsvärde",
+    "renewalStatus": "Förnyelsestatus",
+    "health": "Kundhälsa",
+    "supportStatus": "Supportstatus",
+    "bankVerification": "Bankverifiering",
+    "settlementDate": "Avräkningsdatum",
+    "commissionRules": "Provisionsregler",
+    "trainingProgress": "Utbildningsframsteg",
+    "completedModules": "Slutförda moduler",
+    "remainingModules": "Återstående moduler",
+    "renewalRequirements": "Certifieringsförnyelse följer Aipify Academy och compliance-granskning.",
+    "exportStatements": "Exportera avräkningsunderlag efter bankverifiering.",
+    "sections": {
+      "dashboard": "Instrumentpanel",
+      "leads": "Leads",
+      "opportunities": "Möjligheter",
+      "customers": "Kunder",
+      "commissions": "Provision",
+      "payouts": "Utbetalningar",
+      "resources": "Marknadsföringsresurser",
+      "training": "Utbildning",
+      "certifications": "Certifieringar",
+      "performance": "Prestanda",
+      "support": "Support"
+    },
+    "dashboard": {
+      "title": "Partnerinstrumentpanel",
+      "recentActivity": "Senaste aktivitet",
+      "growthRecommendations": "Tillväxtrekommendationer"
+    },
+    "leads": { "title": "Lead-hantering" },
+    "opportunities": { "title": "Möjlighetspipeline" },
+    "customers": { "title": "Kundportfölj" },
+    "commissions": { "title": "Provisionscenter" },
+    "payouts": { "title": "Utbetalningscenter" },
+    "resources": { "title": "Marknadsföringsresurser" },
+    "training": { "title": "Utbildningscenter" },
+    "certifications": { "title": "Certifieringar" },
+    "performance": { "title": "Prestandacenter" },
+    "support": {
+      "title": "Partnersupport",
+      "body": "Aipify-stöd för Growth Partners omfattar certifiering, utbetalningar och säljstöd. Kunddrift förblir i varje kunds workspace."
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Ej tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    }
   }
 }

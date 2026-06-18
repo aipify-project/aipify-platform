@@ -332,5 +332,73 @@
     "commissionNote": "Commission rules and payout details appear here after certification.",
     "statusWaiting": "Waiting — Certification Required",
     "statusVerified": "Verified — Certified Growth Partner"
+  },
+  "growthPartnerOperationsCenter": {
+    "title": "Growth Partner Operations Center",
+    "subtitle": "Build, manage, and grow your Aipify sales business — leads, customers, commissions, and partner resources in one operational workspace.",
+    "governanceNote": "Every sales action includes audit log, partner attribution, commission traceability, payout traceability, and approval history.",
+    "privacyNote": "You see only your own data — never Platform Admin, other partners, or customer internal systems.",
+    "refresh": "Refresh",
+    "accessDenied": "Growth Partner Operations Center requires a registered Growth Partner account.",
+    "auditRef": "Audit reference",
+    "followUpTask": "Follow-up task",
+    "leadSource": "Lead source",
+    "partnerNotes": "Partner notes",
+    "forecastValue": "Forecast value",
+    "expectedClose": "Expected close",
+    "plan": "Plan",
+    "monthlyRevenue": "Monthly revenue",
+    "commissionValue": "Commission value",
+    "renewalStatus": "Renewal status",
+    "health": "Customer health",
+    "supportStatus": "Support status",
+    "bankVerification": "Bank verification",
+    "settlementDate": "Settlement date",
+    "commissionRules": "Commission rules",
+    "trainingProgress": "Training progress",
+    "completedModules": "Completed modules",
+    "remainingModules": "Remaining modules",
+    "renewalRequirements": "Certification renewal follows Aipify Academy completion and compliance review.",
+    "exportStatements": "Export settlement statements from your payout history after verification.",
+    "sections": {
+      "dashboard": "Dashboard",
+      "leads": "Leads",
+      "opportunities": "Opportunities",
+      "customers": "Customers",
+      "commissions": "Commissions",
+      "payouts": "Payouts",
+      "resources": "Marketing Resources",
+      "training": "Training",
+      "certifications": "Certifications",
+      "performance": "Performance",
+      "support": "Support"
+    },
+    "dashboard": {
+      "title": "Partner Dashboard",
+      "recentActivity": "Recent activity",
+      "growthRecommendations": "Growth recommendations"
+    },
+    "leads": { "title": "Lead Management Center" },
+    "opportunities": { "title": "Opportunity Pipeline" },
+    "customers": { "title": "Customer Portfolio" },
+    "commissions": { "title": "Commission Center" },
+    "payouts": { "title": "Payout Center" },
+    "resources": { "title": "Marketing Resource Center" },
+    "training": { "title": "Training Center" },
+    "certifications": { "title": "Certifications" },
+    "performance": { "title": "Performance Center" },
+    "support": {
+      "title": "Partner Support",
+      "body": "Aipify support for Growth Partners covers certification, payouts, and sales enablement. Customer operational support remains with each customer's workspace."
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    }
   }
 }
