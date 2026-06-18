@@ -5035,6 +5035,111 @@
       "personalDecisions": "Personal Decision Support"
     }
   },
+  "organizationalHealthIntelligenceCenter": {
+    "title": "Organizational Health Center",
+    "subtitle": "Continuous monitoring of organizational health — detect weak signals early and act before issues become expensive.",
+    "philosophy": "Most problems do not appear overnight. Signals exist long before a crisis. Aipify helps you build awareness, prevention, and resilience.",
+    "governanceNote": "All health calculations are transparent, auditable, and explainable — contributing factors are always visible.",
+    "privacyNote": "Aggregated metadata and trend patterns only — no raw customer communications or employee PII.",
+    "refresh": "Refresh",
+    "emptyState": "No items in this section yet.",
+    "accessDenied": "Organizational Health requires appropriate workspace permissions.",
+    "organizationScore": "Organization Health Score",
+    "sections": {
+      "healthOverview": "Health Overview",
+      "riskSignals": "Risk Signals",
+      "performanceTrends": "Performance Trends",
+      "teamHealth": "Team Health",
+      "customerHealth": "Customer Health",
+      "operationalHealth": "Operational Health",
+      "financialHealth": "Financial Health"
+    },
+    "healthScores": {
+      "title": "Health Score Engine",
+      "contributingFactors": "Contributing factors",
+      "categories": {
+        "operations": "Operations",
+        "customers": "Customers",
+        "revenue": "Revenue",
+        "support": "Support",
+        "employees": "Employees",
+        "projects": "Projects",
+        "security": "Security",
+        "compliance": "Compliance"
+      }
+    },
+    "healthLevel": {
+      "healthy": "Healthy",
+      "stable": "Stable",
+      "requiresAttention": "Requires attention",
+      "critical": "Critical"
+    },
+    "earlyWarning": {
+      "title": "Early Warning Detection",
+      "empty": "No early warning signals detected."
+    },
+    "trends": {
+      "window": "Trend window",
+      "direction": "Trend",
+      "improvement": "Improvement",
+      "stability": "Stability",
+      "decline": "Decline",
+      "windows": {
+        "7d": "7 days",
+        "30d": "30 days",
+        "90d": "90 days",
+        "12m": "12 months"
+      }
+    },
+    "projectHealth": {
+      "title": "Project Health Monitoring",
+      "projectStatus": "Project status",
+      "timelineHealth": "Timeline health",
+      "dependencyHealth": "Dependency health",
+      "resourceHealth": "Resource health",
+      "empty": "No projects to monitor."
+    },
+    "executiveWarnings": {
+      "title": "Executive Early Warning Feed",
+      "critical": "Critical risk",
+      "emerging": "Emerging risk",
+      "opportunity": "Growth opportunity",
+      "impact": "Impact",
+      "empty": "No executive warnings right now."
+    },
+    "interventions": {
+      "title": "Companion Interventions",
+      "reason": "Why Aipify recommends this",
+      "empty": "No companion interventions right now."
+    },
+    "predictiveRisks": {
+      "title": "Predictive Risk Layer",
+      "probability": "Probability",
+      "impact": "Impact",
+      "urgency": "Urgency",
+      "contributingFactors": "Contributing factors",
+      "empty": "No predictive risks estimated."
+    },
+    "detailLabel": "Detail",
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "resolve": "Resolve"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "legacyEngine": "Legacy Organizational Health Engine",
+      "executiveHealth": "Executive Organizational Health"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",

@@ -1456,7 +1456,7 @@ export const APP_NAV: AppNavItem[] = [
   },
   {
     id: "organizationalHealthEngine",
-    href: "/app/organizational-health-engine",
+    href: "/app/intelligence/health",
     labelKey: "navigation.nav.organizationalHealthEngine",
   },
   {
@@ -2118,6 +2118,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/intelligence/relationships")) return "relationshipIntelligenceEngine";
   if (pathname.startsWith("/app/relationship-intelligence-engine")) return "relationshipIntelligenceEngine";
   if (pathname.startsWith("/app/intelligence/decisions")) return "decisionIntelligenceEngine";
+  if (pathname.startsWith("/app/intelligence/health")) return "organizationalHealthEngine";
   if (pathname.startsWith("/app/trust-reputation-engine")) {
     return "trustReputationEngine";
   }

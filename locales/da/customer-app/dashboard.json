@@ -4424,6 +4424,111 @@
       "personalDecisions": "Personlig beslutningsstøtte"
     }
   },
+  "organizationalHealthIntelligenceCenter": {
+    "title": "Organisationshelbredscenter",
+    "subtitle": "Kontinuerlig overvågning af organisationshelbred — opdag svage signaler tidligt og handle, før problemer bliver dyre.",
+    "philosophy": "De fleste problemer opstår ikke overnight. Signaler findes længe før en krise. Aipify hjælper dig med at opbygge bevidsthed, forebyggelse og modstandskraft.",
+    "governanceNote": "Alle helbredsberegninger er transparente, reviderbare og forklarlige — bidragende faktorer er altid synlige.",
+    "privacyNote": "Kun aggregeret metadata og trendmønstre — ingen rå kundekommunikation eller medarbejder-PII.",
+    "refresh": "Opdater",
+    "emptyState": "Ingen elementer i dette afsnit endnu.",
+    "accessDenied": "Organisationshelbred kræver passende arbejdsområdetilladelser.",
+    "organizationScore": "Organisationshelbredsscore",
+    "sections": {
+      "healthOverview": "Helbredsoversigt",
+      "riskSignals": "Risikosignaler",
+      "performanceTrends": "Performancetrends",
+      "teamHealth": "Teamhelbred",
+      "customerHealth": "Kundehelbred",
+      "operationalHealth": "Operationelt helbred",
+      "financialHealth": "Finansielt helbred"
+    },
+    "healthScores": {
+      "title": "Helbredsscore-motor",
+      "contributingFactors": "Bidragende faktorer",
+      "categories": {
+        "operations": "Drift",
+        "customers": "Kunder",
+        "revenue": "Omsætning",
+        "support": "Support",
+        "employees": "Medarbejdere",
+        "projects": "Projekter",
+        "security": "Sikkerhed",
+        "compliance": "Compliance"
+      }
+    },
+    "healthLevel": {
+      "healthy": "Sund",
+      "stable": "Stabil",
+      "requiresAttention": "Kræver opmærksomhed",
+      "critical": "Kritisk"
+    },
+    "earlyWarning": {
+      "title": "Tidlig advarsel",
+      "empty": "Ingen tidlige advarselssignaler registreret."
+    },
+    "trends": {
+      "window": "Trendvindue",
+      "direction": "Trend",
+      "improvement": "Forbedring",
+      "stability": "Stabilitet",
+      "decline": "Nedgang",
+      "windows": {
+        "7d": "7 dage",
+        "30d": "30 dage",
+        "90d": "90 dage",
+        "12m": "12 måneder"
+      }
+    },
+    "projectHealth": {
+      "title": "Projekthelbredsovervågning",
+      "projectStatus": "Projektstatus",
+      "timelineHealth": "Tidslinjehelbred",
+      "dependencyHealth": "Afhængighedshelbred",
+      "resourceHealth": "Ressourcehelbred",
+      "empty": "Ingen projekter at overvåge."
+    },
+    "executiveWarnings": {
+      "title": "Executive tidlig advarselsfeed",
+      "critical": "Kritisk risiko",
+      "emerging": "Fremvoksende risiko",
+      "opportunity": "Vækstmulighed",
+      "impact": "Påvirkning",
+      "empty": "Ingen executive-advarsler lige nu."
+    },
+    "interventions": {
+      "title": "Companion-indgreb",
+      "reason": "Hvorfor Aipify anbefaler dette",
+      "empty": "Ingen companion-indgreb lige nu."
+    },
+    "predictiveRisks": {
+      "title": "Prædiktiv risikolag",
+      "probability": "Sandsynlighed",
+      "impact": "Påvirkning",
+      "urgency": "Hastighed",
+      "contributingFactors": "Bidragende faktorer",
+      "empty": "Ingen prædiktive risici estimeret."
+    },
+    "detailLabel": "Detalje",
+    "actions": {
+      "acknowledge": "Bekræft",
+      "dismiss": "Afvis",
+      "resolve": "Løs"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "links": {
+      "legacyEngine": "Legacy Organizational Health Engine",
+      "executiveHealth": "Executive organisationshelbred"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillid og omdømme",
     "subtitle": "Organisatoriske tillidsprofiler og metadata-baserede omdømmesignaler — fortjent tillid med menneskelig gennemgang af udvidelser.",

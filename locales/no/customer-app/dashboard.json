@@ -4621,6 +4621,111 @@
       "personalDecisions": "Personlig beslutningsstøtte"
     }
   },
+  "organizationalHealthIntelligenceCenter": {
+    "title": "Organisasjonshelsesenter",
+    "subtitle": "Kontinuerlig overvåking av organisasjonshelse — oppdag svake signaler tidlig og handle før problemer blir kostbare.",
+    "philosophy": "De fleste problemer oppstår ikke over natten. Signaler finnes lenge før en krise. Aipify hjelper deg bygge bevissthet, forebygging og motstandskraft.",
+    "governanceNote": "Alle helseberegninger er transparente, reviderbare og forklarbare — bidragende faktorer er alltid synlige.",
+    "privacyNote": "Kun aggregert metadata og trendmønstre — ingen rå kundekommunikasjon eller ansatt-PII.",
+    "refresh": "Oppdater",
+    "emptyState": "Ingen elementer i denne seksjonen ennå.",
+    "accessDenied": "Organisasjonshelse krever passende arbeidsområdetillatelser.",
+    "organizationScore": "Organisasjonshelsepoeng",
+    "sections": {
+      "healthOverview": "Helseoversikt",
+      "riskSignals": "Risikosignaler",
+      "performanceTrends": "Ytelsestrender",
+      "teamHealth": "Teamhelse",
+      "customerHealth": "Kundehelse",
+      "operationalHealth": "Operasjonell helse",
+      "financialHealth": "Finansiell helse"
+    },
+    "healthScores": {
+      "title": "Helsepoengmotor",
+      "contributingFactors": "Bidragende faktorer",
+      "categories": {
+        "operations": "Drift",
+        "customers": "Kunder",
+        "revenue": "Omsetning",
+        "support": "Support",
+        "employees": "Ansatte",
+        "projects": "Prosjekter",
+        "security": "Sikkerhet",
+        "compliance": "Compliance"
+      }
+    },
+    "healthLevel": {
+      "healthy": "Sunn",
+      "stable": "Stabil",
+      "requiresAttention": "Krever oppmerksomhet",
+      "critical": "Kritisk"
+    },
+    "earlyWarning": {
+      "title": "Tidlig varsling",
+      "empty": "Ingen tidlige varselsignaler oppdaget."
+    },
+    "trends": {
+      "window": "Trendvindu",
+      "direction": "Trend",
+      "improvement": "Forbedring",
+      "stability": "Stabilitet",
+      "decline": "Nedgang",
+      "windows": {
+        "7d": "7 dager",
+        "30d": "30 dager",
+        "90d": "90 dager",
+        "12m": "12 måneder"
+      }
+    },
+    "projectHealth": {
+      "title": "Prosjekthelseovervåking",
+      "projectStatus": "Prosjektstatus",
+      "timelineHealth": "Tidslinjehelse",
+      "dependencyHealth": "Avhengighetshelse",
+      "resourceHealth": "Ressurshelse",
+      "empty": "Ingen prosjekter å overvåke."
+    },
+    "executiveWarnings": {
+      "title": "Executive tidlig varslingsfeed",
+      "critical": "Kritisk risiko",
+      "emerging": "Fremvoksende risiko",
+      "opportunity": "Vekstmulighet",
+      "impact": "Påvirkning",
+      "empty": "Ingen executive-varsler akkurat nå."
+    },
+    "interventions": {
+      "title": "Companion-tiltak",
+      "reason": "Hvorfor Aipify anbefaler dette",
+      "empty": "Ingen companion-tiltak akkurat nå."
+    },
+    "predictiveRisks": {
+      "title": "Prediktiv risikolag",
+      "probability": "Sannsynlighet",
+      "impact": "Påvirkning",
+      "urgency": "Hastegrad",
+      "contributingFactors": "Bidragende faktorer",
+      "empty": "Ingen prediktive risikoer estimert."
+    },
+    "detailLabel": "Detalj",
+    "actions": {
+      "acknowledge": "Bekreft",
+      "dismiss": "Avvis",
+      "resolve": "Løs"
+    },
+    "status": {
+      "completed": "Fullført",
+      "notAllowed": "Ikke tillatt",
+      "requiresAttention": "Krever oppmerksomhet",
+      "information": "Informasjon",
+      "restricted": "Begrenset tilgang",
+      "verified": "Verifisert",
+      "waiting": "Venter"
+    },
+    "links": {
+      "legacyEngine": "Legacy Organizational Health Engine",
+      "executiveHealth": "Executive organisasjonshelse"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillit og omdømme",
     "subtitle": "Organisatoriske tillitsprofiler og metadata-baserte omdømmesignaler — opptjent tillit med menneskelig gjennomgang av utvidelser.",

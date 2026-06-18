@@ -4476,6 +4476,111 @@
       "personalDecisions": "Personligt beslutsstöd"
     }
   },
+  "organizationalHealthIntelligenceCenter": {
+    "title": "Organisationshälsocenter",
+    "subtitle": "Kontinuerlig övervakning av organisationshälsa — upptäck svaga signaler tidigt och agera innan problem blir dyra.",
+    "philosophy": "De flesta problem uppstår inte över en natt. Signaler finns länge före en kris. Aipify hjälper dig bygga medvetenhet, förebyggande och motståndskraft.",
+    "governanceNote": "Alla hälsoberäkningar är transparenta, reviderbara och förklarbara — bidragande faktorer är alltid synliga.",
+    "privacyNote": "Endast aggregerad metadata och trendmönster — ingen rå kundkommunikation eller medarbetar-PII.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga objekt i detta avsnitt ännu.",
+    "accessDenied": "Organisationshälsa kräver lämpliga arbetsytetillstånd.",
+    "organizationScore": "Organisationshälsopoäng",
+    "sections": {
+      "healthOverview": "Hälsoöversikt",
+      "riskSignals": "Riskssignaler",
+      "performanceTrends": "Prestandatrender",
+      "teamHealth": "Teamhälsa",
+      "customerHealth": "Kundhälsa",
+      "operationalHealth": "Operativ hälsa",
+      "financialHealth": "Finansiell hälsa"
+    },
+    "healthScores": {
+      "title": "Hälsopoängmotor",
+      "contributingFactors": "Bidragande faktorer",
+      "categories": {
+        "operations": "Drift",
+        "customers": "Kunder",
+        "revenue": "Intäkter",
+        "support": "Support",
+        "employees": "Medarbetare",
+        "projects": "Projekt",
+        "security": "Säkerhet",
+        "compliance": "Compliance"
+      }
+    },
+    "healthLevel": {
+      "healthy": "Frisk",
+      "stable": "Stabil",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "critical": "Kritisk"
+    },
+    "earlyWarning": {
+      "title": "Tidig varning",
+      "empty": "Inga tidiga varningssignaler upptäckta."
+    },
+    "trends": {
+      "window": "Trendfönster",
+      "direction": "Trend",
+      "improvement": "Förbättring",
+      "stability": "Stabilitet",
+      "decline": "Nedgång",
+      "windows": {
+        "7d": "7 dagar",
+        "30d": "30 dagar",
+        "90d": "90 dagar",
+        "12m": "12 månader"
+      }
+    },
+    "projectHealth": {
+      "title": "Projekthälsoövervakning",
+      "projectStatus": "Projektstatus",
+      "timelineHealth": "Tidslinjehälsa",
+      "dependencyHealth": "Beroendehälsa",
+      "resourceHealth": "Resurshälsa",
+      "empty": "Inga projekt att övervaka."
+    },
+    "executiveWarnings": {
+      "title": "Executive tidig varningsfeed",
+      "critical": "Kritisk risk",
+      "emerging": "Framväxande risk",
+      "opportunity": "Tillväxtmöjlighet",
+      "impact": "Påverkan",
+      "empty": "Inga executive-varningar just nu."
+    },
+    "interventions": {
+      "title": "Companion-åtgärder",
+      "reason": "Varför Aipify rekommenderar detta",
+      "empty": "Inga companion-åtgärder just nu."
+    },
+    "predictiveRisks": {
+      "title": "Prediktivt risklager",
+      "probability": "Sannolikhet",
+      "impact": "Påverkan",
+      "urgency": "Brådska",
+      "contributingFactors": "Bidragande faktorer",
+      "empty": "Inga prediktiva risker uppskattade."
+    },
+    "detailLabel": "Detalj",
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "resolve": "Lös"
+    },
+    "status": {
+      "completed": "Fullförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "legacyEngine": "Legacy Organizational Health Engine",
+      "executiveHealth": "Executive organisationshälsa"
+    }
+  },
   "trustReputationEngine": {
     "title": "Förtroende och rykte",
     "subtitle": "Organisatoriska förtroendeprofiler och metadata-baserade ryktessignaler — förtjänat förtroende med mänsklig granskning av expansion.",
