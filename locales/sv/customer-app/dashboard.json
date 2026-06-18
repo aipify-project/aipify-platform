@@ -5022,6 +5022,75 @@
       "humanOversight": "Human Oversight Engine"
     }
   },
+  "executiveDigitalBoardCenter": {
+    "title": "Executive Digital Board",
+    "subtitle": "Alltid tillgänglig executive-rådgivare och digitalt styrelsemedlem — strategiska risker, möjligheter, rekommendationer och långsiktig planering under mänsklig kontroll.",
+    "philosophy": "De flesta företag har inte råd med ett world-class styrelserum tillgängligt dygnet runt. Aipify ger executive-nivå vägledning, analys och strategisk medvetenhet till varje tid.",
+    "governanceNote": "Styrelserrekommendationer är förklarbara, reviderbara, evidensbaserade och mänskligt kontrollerade. Inga autonoma strategiska beslut.",
+    "privacyNote": "Endast strategisk metadata och aggregerade signaler — inget råt kundinnehåll, finansiella poster eller ogodkänd PII.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga board intelligence-objekt i detta avsnitt ännu.",
+    "accessDenied": "Executive Digital Board kräver lämpliga arbetsytetillstånd.",
+    "evidence": "Evidens",
+    "severity": "Allvarlighetsgrad",
+    "suggestedAction": "Föreslagen åtgärd",
+    "reasoning": "Motivering",
+    "potentialOutcome": "Potentiellt utfall",
+    "riskLevel": "Risknivå",
+    "estimatedImpact": "Uppskattad effekt",
+    "bestCase": "Bästa scenario",
+    "expectedCase": "Förväntat scenario",
+    "worstCase": "Värsta scenario",
+    "progress": "Framsteg",
+    "milestone": "Milstolpe",
+    "sections": {
+      "boardOverview": "Styrelseöversikt",
+      "strategicRisks": "Strategiska risker",
+      "strategicOpportunities": "Strategiska möjligheter",
+      "executiveRecommendations": "Executive-rekommendationer",
+      "boardReviews": "Styrelsegranskningar",
+      "longTermPlanning": "Långsiktig planering",
+      "scenarioAnalysis": "Scenarioanalys"
+    },
+    "executiveBoardDashboard": { "title": "Executive Board Dashboard" },
+    "strategicOpportunityEngine": { "title": "Strategisk möjlighetsmotor" },
+    "strategicRiskEngine": { "title": "Strategisk riskmotor" },
+    "boardRecommendations": { "title": "Styrelserrekommendationer" },
+    "scenarioPlanning": { "title": "Scenarioplanering" },
+    "boardMeetingPreparation": { "title": "Styrelsemötesförberedelse" },
+    "strategicTimeline": { "title": "Strategisk tidslinje" },
+    "longTermPlanningEngine": { "title": "Långsiktig planeringsmotor" },
+    "companionAdvisor": { "title": "Companion Executive Advisor", "evidence": "Stödjande evidens" },
+    "governanceControls": {
+      "title": "Styrningskontroller",
+      "enabled": "Board intelligence aktiverad",
+      "disabled": "Board intelligence inaktiverad",
+      "humanControl": "Mänsklig kontroll krävs — inga autonoma strategiska beslut"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "approve": "Godkänn",
+      "reject": "Avslå",
+      "escalate": "Eskalera",
+      "prepare": "Förbered"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "executive": "Executive Dashboard",
+      "boardInvestorIntelligence": "Board & Investor Intelligence",
+      "strategicIntelligence": "Strategic Intelligence",
+      "decisionSupport": "Decision Support"
+    }
+  },
   "trustReputationEngine": {
     "title": "Förtroende och rykte",
     "subtitle": "Organisatoriska förtroendeprofiler och metadata-baserade ryktessignaler — förtjänat förtroende med mänsklig granskning av expansion.",

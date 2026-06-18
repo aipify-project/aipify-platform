@@ -1,0 +1,76 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildExecutiveDigitalBoardCenterLabels(t: Translator) {
+  const p = "customerApp.executiveDigitalBoardCenter";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    philosophy: t(`${p}.philosophy`),
+    governanceNote: t(`${p}.governanceNote`),
+    privacyNote: t(`${p}.privacyNote`),
+    refresh: t(`${p}.refresh`),
+    emptyState: t(`${p}.emptyState`),
+    accessDenied: t(`${p}.accessDenied`),
+    evidence: t(`${p}.evidence`),
+    severity: t(`${p}.severity`),
+    suggestedAction: t(`${p}.suggestedAction`),
+    reasoning: t(`${p}.reasoning`),
+    potentialOutcome: t(`${p}.potentialOutcome`),
+    riskLevel: t(`${p}.riskLevel`),
+    estimatedImpact: t(`${p}.estimatedImpact`),
+    bestCase: t(`${p}.bestCase`),
+    expectedCase: t(`${p}.expectedCase`),
+    worstCase: t(`${p}.worstCase`),
+    progress: t(`${p}.progress`),
+    milestone: t(`${p}.milestone`),
+    sections: {
+      boardOverview: t(`${p}.sections.boardOverview`),
+      strategicRisks: t(`${p}.sections.strategicRisks`),
+      strategicOpportunities: t(`${p}.sections.strategicOpportunities`),
+      executiveRecommendations: t(`${p}.sections.executiveRecommendations`),
+      boardReviews: t(`${p}.sections.boardReviews`),
+      longTermPlanning: t(`${p}.sections.longTermPlanning`),
+      scenarioAnalysis: t(`${p}.sections.scenarioAnalysis`),
+    },
+    executiveBoardDashboard: { title: t(`${p}.executiveBoardDashboard.title`) },
+    strategicOpportunityEngine: { title: t(`${p}.strategicOpportunityEngine.title`) },
+    strategicRiskEngine: { title: t(`${p}.strategicRiskEngine.title`) },
+    boardRecommendations: { title: t(`${p}.boardRecommendations.title`) },
+    scenarioPlanning: { title: t(`${p}.scenarioPlanning.title`) },
+    boardMeetingPreparation: { title: t(`${p}.boardMeetingPreparation.title`) },
+    strategicTimeline: { title: t(`${p}.strategicTimeline.title`) },
+    longTermPlanningEngine: { title: t(`${p}.longTermPlanningEngine.title`) },
+    companionAdvisor: { title: t(`${p}.companionAdvisor.title`), evidence: t(`${p}.companionAdvisor.evidence`) },
+    governanceControls: {
+      title: t(`${p}.governanceControls.title`),
+      enabled: t(`${p}.governanceControls.enabled`),
+      disabled: t(`${p}.governanceControls.disabled`),
+      humanControl: t(`${p}.governanceControls.humanControl`),
+    },
+    actions: {
+      acknowledge: t(`${p}.actions.acknowledge`),
+      dismiss: t(`${p}.actions.dismiss`),
+      approve: t(`${p}.actions.approve`),
+      reject: t(`${p}.actions.reject`),
+      escalate: t(`${p}.actions.escalate`),
+      prepare: t(`${p}.actions.prepare`),
+    },
+    status: {
+      completed: t(`${p}.status.completed`),
+      notAllowed: t(`${p}.status.notAllowed`),
+      requiresAttention: t(`${p}.status.requiresAttention`),
+      information: t(`${p}.status.information`),
+      restricted: t(`${p}.status.restricted`),
+      verified: t(`${p}.status.verified`),
+      waiting: t(`${p}.status.waiting`),
+    },
+    links: {
+      executive: t(`${p}.links.executive`),
+      boardInvestorIntelligence: t(`${p}.links.boardInvestorIntelligence`),
+      strategicIntelligence: t(`${p}.links.strategicIntelligence`),
+      decisionSupport: t(`${p}.links.decisionSupport`),
+    },
+  };
+}
+
+export type ExecutiveDigitalBoardCenterLabels = ReturnType<typeof buildExecutiveDigitalBoardCenterLabels>;

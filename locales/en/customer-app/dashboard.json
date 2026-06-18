@@ -5840,6 +5840,75 @@
       "humanOversight": "Human Oversight Engine"
     }
   },
+  "executiveDigitalBoardCenter": {
+    "title": "Executive Digital Board",
+    "subtitle": "Always-available executive advisor and digital board member — strategic risks, opportunities, recommendations, and long-term planning under human control.",
+    "philosophy": "Most companies cannot afford a world-class boardroom available 24/7. Aipify provides executive-level guidance, analysis, and strategic awareness at all times.",
+    "governanceNote": "Board recommendations are explainable, auditable, evidence-based, and human-controlled. No autonomous strategic decisions.",
+    "privacyNote": "Strategic metadata and aggregate signals only — no raw customer communications, financial records, or unapproved PII.",
+    "refresh": "Refresh",
+    "emptyState": "No board intelligence items in this section yet.",
+    "accessDenied": "Executive Digital Board requires appropriate workspace permissions.",
+    "evidence": "Evidence",
+    "severity": "Severity",
+    "suggestedAction": "Suggested action",
+    "reasoning": "Reasoning",
+    "potentialOutcome": "Potential outcome",
+    "riskLevel": "Risk level",
+    "estimatedImpact": "Estimated impact",
+    "bestCase": "Best case",
+    "expectedCase": "Expected case",
+    "worstCase": "Worst case",
+    "progress": "Progress",
+    "milestone": "Milestone",
+    "sections": {
+      "boardOverview": "Board Overview",
+      "strategicRisks": "Strategic Risks",
+      "strategicOpportunities": "Strategic Opportunities",
+      "executiveRecommendations": "Executive Recommendations",
+      "boardReviews": "Board Reviews",
+      "longTermPlanning": "Long-Term Planning",
+      "scenarioAnalysis": "Scenario Analysis"
+    },
+    "executiveBoardDashboard": { "title": "Executive Board Dashboard" },
+    "strategicOpportunityEngine": { "title": "Strategic Opportunity Engine" },
+    "strategicRiskEngine": { "title": "Strategic Risk Engine" },
+    "boardRecommendations": { "title": "Board Recommendations" },
+    "scenarioPlanning": { "title": "Scenario Planning" },
+    "boardMeetingPreparation": { "title": "Board Meeting Preparation" },
+    "strategicTimeline": { "title": "Strategic Timeline" },
+    "longTermPlanningEngine": { "title": "Long-Term Planning Engine" },
+    "companionAdvisor": { "title": "Companion Executive Advisor", "evidence": "Supporting evidence" },
+    "governanceControls": {
+      "title": "Governance Controls",
+      "enabled": "Board intelligence enabled",
+      "disabled": "Board intelligence disabled",
+      "humanControl": "Human control required — no autonomous strategic decisions"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "approve": "Approve",
+      "reject": "Reject",
+      "escalate": "Escalate",
+      "prepare": "Prepare"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "executive": "Executive Dashboard",
+      "boardInvestorIntelligence": "Board & Investor Intelligence",
+      "strategicIntelligence": "Strategic Intelligence",
+      "decisionSupport": "Decision Support"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",

@@ -334,6 +334,7 @@ export type AppNavId =
   | "organizationalResilienceCenterEngine"
   | "continuousImprovementCenterEngine"
   | "executiveStrategicIntelligenceEngine"
+  | "executiveDigitalBoardMemberEngine"
   | "executiveDecisionSupportEngine"
   | "executive"
   | "presence"
@@ -1789,6 +1790,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "organizationalResilienceCenterEngine", href: "/app/executive/organizational-resilience", labelKey: "navigation.nav.organizationalResilienceCenterEngine" },
   { id: "continuousImprovementCenterEngine", href: "/app/executive/continuous-improvement", labelKey: "navigation.nav.continuousImprovementCenterEngine" },
   { id: "executiveStrategicIntelligenceEngine", href: "/app/executive/strategic-intelligence", labelKey: "navigation.nav.executiveStrategicIntelligenceEngine" },
+  { id: "executiveDigitalBoardMemberEngine", href: "/app/executive/board", labelKey: "navigation.nav.executiveDigitalBoardMemberEngine" },
   {
     id: "enterpriseStrategicIntelligenceAdvisoryEngine",
     href: "/app/intelligence/strategy",
@@ -2713,6 +2715,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/executive/organizational-resilience")) return "organizationalResilienceCenterEngine";
   if (pathname.startsWith("/app/executive/continuous-improvement")) return "continuousImprovementCenterEngine";
   if (pathname.startsWith("/app/intelligence/strategy")) return "enterpriseStrategicIntelligenceAdvisoryEngine";
+  if (pathname.startsWith("/app/executive/board")) return "executiveDigitalBoardMemberEngine";
   if (pathname.startsWith("/app/executive/strategic-intelligence")) return "executiveStrategicIntelligenceEngine";
   if (pathname.startsWith("/app/executive/decision-support")) return "executiveDecisionSupportEngine";
   if (pathname.startsWith("/app/executive")) return "executive";

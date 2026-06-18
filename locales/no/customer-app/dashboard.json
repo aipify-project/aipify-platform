@@ -5167,6 +5167,75 @@
       "humanOversight": "Human Oversight Engine"
     }
   },
+  "executiveDigitalBoardCenter": {
+    "title": "Executive Digital Board",
+    "subtitle": "Alltid tilgjengelig executive-rådgiver og digitalt styremedlem — strategiske risikoer, muligheter, anbefalinger og langsiktig planlegging under menneskelig kontroll.",
+    "philosophy": "De fleste selskaper har ikke råd til et world-class styremøterom tilgjengelig 24/7. Aipify gir executive-nivå veiledning, analyse og strategisk bevissthet til enhver tid.",
+    "governanceNote": "Styretanbefalinger er forklarbare, reviderbare, evidensbaserte og menneskekontrollerte. Ingen autonome strategiske beslutninger.",
+    "privacyNote": "Kun strategisk metadata og aggregerte signaler — ingen rå kundekommunikasjon, finansposter eller ugodkjent PII.",
+    "refresh": "Oppdater",
+    "emptyState": "Ingen board intelligence-elementer i denne seksjonen ennå.",
+    "accessDenied": "Executive Digital Board krever passende arbeidsområdetillatelser.",
+    "evidence": "Evidens",
+    "severity": "Alvorlighetsgrad",
+    "suggestedAction": "Foreslått handling",
+    "reasoning": "Begrunnelse",
+    "potentialOutcome": "Potensielt utfall",
+    "riskLevel": "Risikonivå",
+    "estimatedImpact": "Estimert effekt",
+    "bestCase": "Beste scenario",
+    "expectedCase": "Forventet scenario",
+    "worstCase": "Verste scenario",
+    "progress": "Fremdrift",
+    "milestone": "Milepæl",
+    "sections": {
+      "boardOverview": "Styregjennomgang",
+      "strategicRisks": "Strategiske risikoer",
+      "strategicOpportunities": "Strategiske muligheter",
+      "executiveRecommendations": "Executive-anbefalinger",
+      "boardReviews": "Styregjennomganger",
+      "longTermPlanning": "Langsiktig planlegging",
+      "scenarioAnalysis": "Scenarioanalyse"
+    },
+    "executiveBoardDashboard": { "title": "Executive Board Dashboard" },
+    "strategicOpportunityEngine": { "title": "Strategisk mulighetsmotor" },
+    "strategicRiskEngine": { "title": "Strategisk risikomotor" },
+    "boardRecommendations": { "title": "Styretanbefalinger" },
+    "scenarioPlanning": { "title": "Scenarioplanlegging" },
+    "boardMeetingPreparation": { "title": "Styremøteforberedelse" },
+    "strategicTimeline": { "title": "Strategisk tidslinje" },
+    "longTermPlanningEngine": { "title": "Langsiktig planleggingsmotor" },
+    "companionAdvisor": { "title": "Companion Executive Advisor", "evidence": "Støtteevidens" },
+    "governanceControls": {
+      "title": "Styringskontroller",
+      "enabled": "Board intelligence aktivert",
+      "disabled": "Board intelligence deaktivert",
+      "humanControl": "Menneskelig kontroll kreves — ingen autonome strategiske beslutninger"
+    },
+    "actions": {
+      "acknowledge": "Bekreft",
+      "dismiss": "Avvis",
+      "approve": "Godkjenn",
+      "reject": "Avslå",
+      "escalate": "Eskaler",
+      "prepare": "Forbered"
+    },
+    "status": {
+      "completed": "Fullført",
+      "notAllowed": "Ikke tillatt",
+      "requiresAttention": "Krever oppmerksomhet",
+      "information": "Informasjon",
+      "restricted": "Begrenset tilgang",
+      "verified": "Verifisert",
+      "waiting": "Venter"
+    },
+    "links": {
+      "executive": "Executive Dashboard",
+      "boardInvestorIntelligence": "Board & Investor Intelligence",
+      "strategicIntelligence": "Strategic Intelligence",
+      "decisionSupport": "Decision Support"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillit og omdømme",
     "subtitle": "Organisatoriske tillitsprofiler og metadata-baserte omdømmesignaler — opptjent tillit med menneskelig gjennomgang av utvidelser.",
