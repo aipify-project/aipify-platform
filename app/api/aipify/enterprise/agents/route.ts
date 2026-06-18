@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseAipifyAgents, parseAgentRegisterResult } from "@/lib/aipify/enterprise";
+import { parseAipifyAgents, parseAgentRegisterResult } from "@/lib/aipify/enterprise/parse";
 
 export async function GET() {
   try {

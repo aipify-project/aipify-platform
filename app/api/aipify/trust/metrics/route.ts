@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseTrustScoreResult } from "@/lib/aipify/trust-engine";
+import { parseTrustScoreResult } from "@/lib/aipify/trust-engine/parse";
 
 export async function GET() {
   try {

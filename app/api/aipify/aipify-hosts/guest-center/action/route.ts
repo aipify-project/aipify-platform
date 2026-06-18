@@ -3,7 +3,7 @@ import {
   addAipifyHostsGuestNote,
   updateAipifyHostsGuestRequestStatus,
 } from "@/lib/core/aipify-hosts-guest-center";
-import { parseAipifyHostsGuestCenterActionResult } from "@/lib/aipify/aipify-hosts-guest-center";
+import { parseAipifyHostsGuestCenterActionResult } from "@/lib/aipify/aipify-hosts-guest-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

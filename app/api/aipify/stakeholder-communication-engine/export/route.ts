@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseCommunicationCampaignExportPayload } from "@/lib/aipify/stakeholder-communication-engine";
+import { parseCommunicationCampaignExportPayload } from "@/lib/aipify/stakeholder-communication-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { parseExecutiveCompanionBriefing as parsePortalBriefing } from "@/lib/app-portal/executive-companion";
-import { parseExecutiveCompanionBriefing } from "@/lib/aipify/companion-executive-layer";
+import { parseExecutiveCompanionBriefing } from "@/lib/aipify/companion-executive-layer/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

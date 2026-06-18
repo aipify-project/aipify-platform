@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseAcademyBriefingResult } from "@/lib/aipify/academy";
+import { parseAcademyBriefingResult } from "@/lib/aipify/academy/parse";
 
 export async function POST() {
   try {

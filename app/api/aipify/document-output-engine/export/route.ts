@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseOutputManifestExport } from "@/lib/aipify/document-output-engine";
+import { parseOutputManifestExport } from "@/lib/aipify/document-output-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

@@ -3,7 +3,7 @@ import {
   createAipifyHostsVendor,
   performAipifyHostsVendorAction,
 } from "@/lib/core/aipify-hosts-vendor-center";
-import { parseAipifyHostsVendorCenterActionResult } from "@/lib/aipify/aipify-hosts-vendor-center";
+import { parseAipifyHostsVendorCenterActionResult } from "@/lib/aipify/aipify-hosts-vendor-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

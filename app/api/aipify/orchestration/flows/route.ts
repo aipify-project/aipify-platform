@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseOrchestrationFlows } from "@/lib/aipify/orchestration";
+import { parseOrchestrationFlows } from "@/lib/aipify/orchestration/parse";
 
 export async function GET(request: Request) {
   try {

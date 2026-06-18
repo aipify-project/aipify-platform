@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseCuriosityDiscoveryEngineExport } from "@/lib/aipify/curiosity-discovery-engine";
+import { parseCuriosityDiscoveryEngineExport } from "@/lib/aipify/curiosity-discovery-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

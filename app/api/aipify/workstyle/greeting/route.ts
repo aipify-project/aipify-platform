@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseWorkstyleGreeting } from "@/lib/aipify/workstyle";
+import { parseWorkstyleGreeting } from "@/lib/aipify/workstyle/parse";
 
 export async function GET() {
   try {

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseResourcePlanningExport } from "@/lib/aipify/resource-planning-engine";
+import { parseResourcePlanningExport } from "@/lib/aipify/resource-planning-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST() {

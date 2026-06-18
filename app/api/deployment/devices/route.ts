@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseRegisteredDevices } from "@/lib/aipify/enterprise-deployment-device-rollout-engine";
+import { parseRegisteredDevices } from "@/lib/aipify/enterprise-deployment-device-rollout-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {

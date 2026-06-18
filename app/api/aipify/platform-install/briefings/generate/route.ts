@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parsePlatformInstallBriefingResult } from "@/lib/aipify/platform-install";
+import { parsePlatformInstallBriefingResult } from "@/lib/aipify/platform-install/parse";
 
 export async function POST() {
   try {

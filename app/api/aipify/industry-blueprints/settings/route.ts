@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseTenantIndustryProfileResponse } from "@/lib/aipify/industry-blueprints";
+import { parseTenantIndustryProfileResponse } from "@/lib/aipify/industry-blueprints/parse";
 
 export async function GET() {
   try {

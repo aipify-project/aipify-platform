@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseEscalationResult } from "@/lib/aipify/digital-twin";
+import { parseEscalationResult } from "@/lib/aipify/digital-twin/parse";
 
 type RouteContext = { params: Promise<{ processKey: string }> };
 

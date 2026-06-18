@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseEvolutionActionResult } from "@/lib/aipify/evolution-governance";
+import { parseEvolutionActionResult } from "@/lib/aipify/evolution-governance/parse";
 
 type RouteContext = { params: Promise<{ id: string }> };
 

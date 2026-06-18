@@ -3,7 +3,7 @@ import {
   exportAipifyHostsFinanceReport,
   recordAipifyHostsExpense,
 } from "@/lib/core/aipify-hosts-finance-center";
-import { parseAipifyHostsFinanceCenterActionResult } from "@/lib/aipify/aipify-hosts-finance-center";
+import { parseAipifyHostsFinanceCenterActionResult } from "@/lib/aipify/aipify-hosts-finance-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

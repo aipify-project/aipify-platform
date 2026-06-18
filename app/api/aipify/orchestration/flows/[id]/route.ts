@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseOrchestrationFlowDetail } from "@/lib/aipify/orchestration";
+import { parseOrchestrationFlowDetail } from "@/lib/aipify/orchestration/parse";
 
 type RouteContext = { params: Promise<{ id: string }> };
 

@@ -1,11 +1,9 @@
 import { NextResponse } from "next/server";
 import { buildAssistantTurn } from "@/lib/assistant-memory/conversation";
-import {
-  DEVELOPER_LOW_CONFIDENCE_NOTE,
-  isAipifyKnowledgeQuestion,
-  isDeveloperKnowledgeQuestion,
-  parseKnowledgeAnswer,
-} from "@/lib/aipify/knowledge";
+import { isAipifyKnowledgeQuestion } from "@/lib/aipify/knowledge/detection";
+import { isDeveloperKnowledgeQuestion } from "@/lib/aipify/knowledge/developer-detection";
+import { DEVELOPER_LOW_CONFIDENCE_NOTE } from "@/lib/aipify/knowledge/developer-guidance";
+import { parseKnowledgeAnswer } from "@/lib/aipify/knowledge/parse";
 import { adaptReplyToIdentity } from "@/lib/identity-engine/adapt";
 import { parseIdentityCenter } from "@/lib/identity-engine/parse";
 import { adaptReplyToBrandIdentity } from "@/lib/internal-language-model/brand-identity";

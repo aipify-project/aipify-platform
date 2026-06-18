@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getBusinessPackLanguageCenter } from "@/lib/core/business-pack-language-engine";
-import { parseBusinessPackLanguageCenter } from "@/lib/aipify/business-pack-language-engine";
+import { parseBusinessPackLanguageCenter } from "@/lib/aipify/business-pack-language-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parsePriorityFocusItems } from "@/lib/aipify/priority-focus-engine";
+import { parsePriorityFocusItems } from "@/lib/aipify/priority-focus-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

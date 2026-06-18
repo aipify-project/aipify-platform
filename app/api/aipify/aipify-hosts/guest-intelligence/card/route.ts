@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAipifyHostsGuestIntelligenceCard } from "@/lib/core/aipify-hosts-guest-intelligence";
-import { parseAipifyHostsGuestIntelligenceCard } from "@/lib/aipify/aipify-hosts-guest-intelligence";
+import { parseAipifyHostsGuestIntelligenceCard } from "@/lib/aipify/aipify-hosts-guest-intelligence/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {

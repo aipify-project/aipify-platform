@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseOrganizationStatedValues } from "@/lib/aipify/purpose-values-engine";
+import { parseOrganizationStatedValues } from "@/lib/aipify/purpose-values-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

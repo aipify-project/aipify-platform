@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseCompanionRecommendationAction } from "@/lib/aipify/companion-recommendation-engine";
+import { parseCompanionRecommendationAction } from "@/lib/aipify/companion-recommendation-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 type RouteContext = { params: Promise<{ id: string }> };

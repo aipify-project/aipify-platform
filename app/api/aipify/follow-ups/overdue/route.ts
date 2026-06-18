@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseFollowUpList } from "@/lib/aipify/companion-follow-up";
+import { parseFollowUpList } from "@/lib/aipify/companion-follow-up/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {

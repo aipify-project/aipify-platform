@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAipifyHostsTrustComplianceDashboard } from "@/lib/core/aipify-hosts-trust-compliance";
-import { parseAipifyHostsTrustComplianceDashboard } from "@/lib/aipify/aipify-hosts-trust-compliance";
+import { parseAipifyHostsTrustComplianceDashboard } from "@/lib/aipify/aipify-hosts-trust-compliance/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {

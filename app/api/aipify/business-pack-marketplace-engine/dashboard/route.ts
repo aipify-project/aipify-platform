@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getBusinessPackMarketplaceEngineDashboard } from "@/lib/core/business-pack-marketplace-engine";
-import { parseBusinessPackMarketplaceEngineDashboard } from "@/lib/aipify/business-pack-marketplace-engine";
+import { parseBusinessPackMarketplaceEngineDashboard } from "@/lib/aipify/business-pack-marketplace-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {

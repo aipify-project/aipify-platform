@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseAppInstallResult } from "@/lib/aipify/app-ecosystem";
+import { parseAppInstallResult } from "@/lib/aipify/app-ecosystem/parse";
 
 export async function POST(request: NextRequest) {
   try {

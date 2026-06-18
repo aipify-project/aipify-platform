@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseCommercePerformanceDashboard } from "@/lib/aipify/commerce-performance";
+import { parseCommercePerformanceDashboard } from "@/lib/aipify/commerce-performance/parse";
 
 export async function GET() {
   try {

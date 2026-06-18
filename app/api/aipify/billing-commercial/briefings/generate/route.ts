@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseCommercialModelBriefingResult } from "@/lib/aipify/billing-commercial";
+import { parseCommercialModelBriefingResult } from "@/lib/aipify/billing-commercial/parse";
 
 export async function POST() {
   try {

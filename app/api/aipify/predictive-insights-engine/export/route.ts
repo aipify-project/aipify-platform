@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parsePredictiveInsightsExport } from "@/lib/aipify/predictive-insights-engine";
+import { parsePredictiveInsightsExport } from "@/lib/aipify/predictive-insights-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST() {

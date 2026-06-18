@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { performAipifyHostsUpgradeSignalAction } from "@/lib/core/aipify-hosts-upgrade-signals";
-import { parseAipifyHostsUpgradeSignalActionResult } from "@/lib/aipify/aipify-hosts-upgrade-signals";
+import { parseAipifyHostsUpgradeSignalActionResult } from "@/lib/aipify/aipify-hosts-upgrade-signals/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

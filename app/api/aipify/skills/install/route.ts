@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseSkillInstallResult } from "@/lib/aipify/skills";
+import { parseSkillInstallResult } from "@/lib/aipify/skills/parse";
 
 export async function POST(request: NextRequest) {
   try {

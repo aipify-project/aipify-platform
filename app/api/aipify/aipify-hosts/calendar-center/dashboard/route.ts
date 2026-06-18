@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAipifyHostsCalendarCenterDashboard } from "@/lib/core/aipify-hosts-calendar-center";
-import { parseAipifyHostsCalendarCenterDashboard } from "@/lib/aipify/aipify-hosts-calendar-center";
+import { parseAipifyHostsCalendarCenterDashboard } from "@/lib/aipify/aipify-hosts-calendar-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

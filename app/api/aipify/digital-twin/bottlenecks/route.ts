@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseBottleneckResult } from "@/lib/aipify/digital-twin";
+import { parseBottleneckResult } from "@/lib/aipify/digital-twin/parse";
 
 export async function GET() {
   try {

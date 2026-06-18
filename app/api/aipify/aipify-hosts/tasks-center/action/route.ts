@@ -6,7 +6,7 @@ import {
   initiateAipifyHostsPlaybook,
   updateAipifyHostsTaskStatus,
 } from "@/lib/core/aipify-hosts-tasks-center";
-import { parseAipifyHostsTasksCenterActionResult } from "@/lib/aipify/aipify-hosts-tasks-center";
+import { parseAipifyHostsTasksCenterActionResult } from "@/lib/aipify/aipify-hosts-tasks-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

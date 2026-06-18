@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseOrganizationSummary } from "@/lib/aipify/multi-tenant-architecture";
+import { parseOrganizationSummary } from "@/lib/aipify/multi-tenant-architecture/parse";
 
 export async function GET() {
   try {

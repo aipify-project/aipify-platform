@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseCertificateExportPayload } from "@/lib/aipify/certification-achievement-engine";
+import { parseCertificateExportPayload } from "@/lib/aipify/certification-achievement-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

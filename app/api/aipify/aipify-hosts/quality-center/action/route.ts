@@ -8,7 +8,7 @@ import {
   scheduleAipifyHostsInspection,
   updateAipifyHostsInspectionStatus,
 } from "@/lib/core/aipify-hosts-quality-center";
-import { parseAipifyHostsQualityCenterActionResult } from "@/lib/aipify/aipify-hosts-quality-center";
+import { parseAipifyHostsQualityCenterActionResult } from "@/lib/aipify/aipify-hosts-quality-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

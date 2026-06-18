@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseQualityAssets } from "@/lib/aipify/quality";
+import { parseQualityAssets } from "@/lib/aipify/quality/parse";
 
 export async function GET(request: Request) {
   try {

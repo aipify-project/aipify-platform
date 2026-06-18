@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseTrustReputationExport } from "@/lib/aipify/trust-reputation-engine";
+import { parseTrustReputationExport } from "@/lib/aipify/trust-reputation-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST() {

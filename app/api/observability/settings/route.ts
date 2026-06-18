@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseObservabilitySettings } from "@/lib/aipify/observability-platform-health-engine";
+import { parseObservabilitySettings } from "@/lib/aipify/observability-platform-health-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {

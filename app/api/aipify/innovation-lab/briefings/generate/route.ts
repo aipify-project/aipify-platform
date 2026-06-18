@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseInnovationLabBriefingResult } from "@/lib/aipify/innovation-lab";
+import { parseInnovationLabBriefingResult } from "@/lib/aipify/innovation-lab/parse";
 
 export async function POST() {
   try {

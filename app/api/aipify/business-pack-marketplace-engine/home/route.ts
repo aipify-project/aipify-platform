@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getBusinessPackMarketplaceHome } from "@/lib/core/business-pack-marketplace-engine";
-import { parseBusinessPackMarketplaceHome } from "@/lib/aipify/business-pack-marketplace-engine";
+import { parseBusinessPackMarketplaceHome } from "@/lib/aipify/business-pack-marketplace-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

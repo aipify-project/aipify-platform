@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseComfortMomentResult } from "@/lib/aipify/presence-comfort-protocol";
+import { parseComfortMomentResult } from "@/lib/aipify/presence-comfort-protocol/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

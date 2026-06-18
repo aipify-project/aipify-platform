@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAipifyHostsReputationCenterDashboard } from "@/lib/core/aipify-hosts-reputation-center";
-import { parseAipifyHostsReputationCenterDashboard } from "@/lib/aipify/aipify-hosts-reputation-center";
+import { parseAipifyHostsReputationCenterDashboard } from "@/lib/aipify/aipify-hosts-reputation-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

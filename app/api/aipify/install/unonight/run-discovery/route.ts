@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parsePilotDashboard } from "@/lib/aipify/pilot";
+import { parsePilotDashboard } from "@/lib/aipify/pilot/parse";
 import { UNONIGHT_PILOT_SLUG } from "@/lib/aipify/integrations/unonight";
 import { runInitialDiscoveryJob } from "@/lib/aipify/pilot/jobs";
 

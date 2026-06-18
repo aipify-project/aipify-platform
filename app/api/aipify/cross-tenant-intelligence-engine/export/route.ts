@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseCrossTenantIntelligenceExport } from "@/lib/aipify/cross-tenant-intelligence-engine";
+import { parseCrossTenantIntelligenceExport } from "@/lib/aipify/cross-tenant-intelligence-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST() {

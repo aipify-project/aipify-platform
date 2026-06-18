@@ -3,7 +3,7 @@ import {
   createAipifyHostsCalendarEvent,
   performAipifyHostsCalendarAction,
 } from "@/lib/core/aipify-hosts-calendar-center";
-import { parseAipifyHostsCalendarCenterActionResult } from "@/lib/aipify/aipify-hosts-calendar-center";
+import { parseAipifyHostsCalendarCenterActionResult } from "@/lib/aipify/aipify-hosts-calendar-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

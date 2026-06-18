@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { performAipifyHostsExecutiveAction } from "@/lib/core/aipify-hosts-executive-dashboard";
-import { parseAipifyHostsExecutiveDashboardActionResult } from "@/lib/aipify/aipify-hosts-executive-dashboard";
+import { parseAipifyHostsExecutiveDashboardActionResult } from "@/lib/aipify/aipify-hosts-executive-dashboard/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

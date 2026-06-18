@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseHopeEngineExport } from "@/lib/aipify/hope-engine";
+import { parseHopeEngineExport } from "@/lib/aipify/hope-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

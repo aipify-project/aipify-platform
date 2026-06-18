@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { recordAipifyHostsOperationsAction } from "@/lib/core/aipify-hosts-operations";
-import { parseAipifyHostsOperationsActionResult } from "@/lib/aipify/aipify-hosts-operations";
+import { parseAipifyHostsOperationsActionResult } from "@/lib/aipify/aipify-hosts-operations/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

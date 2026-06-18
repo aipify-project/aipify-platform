@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseMarketplaceGovernanceActionResult } from "@/lib/aipify/marketplace-governance";
+import { parseMarketplaceGovernanceActionResult } from "@/lib/aipify/marketplace-governance/parse";
 
 type RouteContext = { params: Promise<{ id: string }> };
 

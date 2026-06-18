@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseProactiveCompanionUserPreferences } from "@/lib/aipify/proactive-companion-engine";
+import { parseProactiveCompanionUserPreferences } from "@/lib/aipify/proactive-companion-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {

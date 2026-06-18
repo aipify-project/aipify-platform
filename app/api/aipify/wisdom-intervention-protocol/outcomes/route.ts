@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import {
   parseWisdomInterventionOutcome,
   parseWisdomInterventionSuggestion,
-} from "@/lib/aipify/wisdom-intervention-protocol";
+} from "@/lib/aipify/wisdom-intervention-protocol/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseManifestoBriefingResult } from "@/lib/aipify/manifesto";
+import { parseManifestoBriefingResult } from "@/lib/aipify/manifesto/parse";
 
 export async function POST() {
   try {

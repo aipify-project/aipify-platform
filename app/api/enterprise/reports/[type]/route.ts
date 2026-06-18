@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseEnterpriseReport } from "@/lib/aipify/enterprise-readiness-engine";
+import { parseEnterpriseReport } from "@/lib/aipify/enterprise-readiness-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 const REPORT_RPCS: Record<string, string> = {

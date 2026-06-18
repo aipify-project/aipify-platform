@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseDeploymentStatus } from "@/lib/aipify/deployment-environment-management-engine";
+import { parseDeploymentStatus } from "@/lib/aipify/deployment-environment-management-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {

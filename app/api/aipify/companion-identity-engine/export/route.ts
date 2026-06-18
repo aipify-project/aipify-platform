@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseCompanionIdentityExport } from "@/lib/aipify/companion-identity-engine";
+import { parseCompanionIdentityExport } from "@/lib/aipify/companion-identity-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

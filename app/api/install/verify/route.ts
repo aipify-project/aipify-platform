@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { isInstallTokenFormat } from "@/lib/auth/install-token";
-import { parsePlatformInstallActionResult } from "@/lib/aipify/platform-install";
+import { parsePlatformInstallActionResult } from "@/lib/aipify/platform-install/parse";
 
 export async function POST(request: Request) {
   try {

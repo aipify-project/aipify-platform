@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getMarketplaceSelfServiceDashboard } from "@/lib/core/marketplace-self-service-activation";
-import { parseMarketplaceSelfServiceDashboard } from "@/lib/aipify/marketplace-self-service-activation";
+import { parseMarketplaceSelfServiceDashboard } from "@/lib/aipify/marketplace-self-service-activation/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

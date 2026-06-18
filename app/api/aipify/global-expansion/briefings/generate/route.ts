@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseGlobalExpansionBriefingResult } from "@/lib/aipify/global-expansion";
+import { parseGlobalExpansionBriefingResult } from "@/lib/aipify/global-expansion/parse";
 
 export async function POST() {
   try {

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseActionItemDetail } from "@/lib/aipify/action-hub";
+import { parseActionItemDetail } from "@/lib/aipify/action-hub/parse";
 
 type RouteParams = { params: Promise<{ id: string }> };
 

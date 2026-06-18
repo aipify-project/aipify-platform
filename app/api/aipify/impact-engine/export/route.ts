@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseImpactEngineExport } from "@/lib/aipify/impact-engine";
+import { parseImpactEngineExport } from "@/lib/aipify/impact-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

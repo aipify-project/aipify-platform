@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseHighPriorityInsights } from "@/lib/aipify/companion-proactive-insights-engine";
+import { parseHighPriorityInsights } from "@/lib/aipify/companion-proactive-insights-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

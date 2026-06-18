@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseMultiStoreOrchestrationDashboard } from "@/lib/aipify/multi-store-orchestration";
+import { parseMultiStoreOrchestrationDashboard } from "@/lib/aipify/multi-store-orchestration/parse";
 
 export async function GET() {
   try {

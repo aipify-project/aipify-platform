@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseGlobalLearningSettings } from "@/lib/aipify/global-learning";
+import { parseGlobalLearningSettings } from "@/lib/aipify/global-learning/parse";
 
 export async function GET() {
   try {

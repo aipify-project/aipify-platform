@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parsePolicyEvaluationResult } from "@/lib/aipify/security-compliance";
+import { parsePolicyEvaluationResult } from "@/lib/aipify/security-compliance/parse";
 
 export async function POST(request: Request) {
   try {

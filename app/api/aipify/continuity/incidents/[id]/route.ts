@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseIncidentDetail } from "@/lib/aipify/continuity";
+import { parseIncidentDetail } from "@/lib/aipify/continuity/parse";
 
 type RouteContext = { params: Promise<{ id: string }> };
 

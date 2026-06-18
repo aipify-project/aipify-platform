@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseOrganizationWorkspaceExport } from "@/lib/aipify/organization-workspace-engine";
+import { parseOrganizationWorkspaceExport } from "@/lib/aipify/organization-workspace-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

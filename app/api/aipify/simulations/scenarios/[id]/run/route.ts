@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseSimulationRunResult } from "@/lib/aipify/simulation-lab";
+import { parseSimulationRunResult } from "@/lib/aipify/simulation-lab/parse";
 
 type RouteContext = { params: Promise<{ id: string }> };
 

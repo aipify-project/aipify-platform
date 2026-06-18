@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseIndustryInsightsExportPayload } from "@/lib/aipify/industry-intelligence-foundation-engine";
+import { parseIndustryInsightsExportPayload } from "@/lib/aipify/industry-intelligence-foundation-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {

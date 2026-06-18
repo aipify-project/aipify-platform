@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import {
   parseGrowthEvolutionEngineDashboard,
   parseGrowthEvolutionSettings,
-} from "@/lib/aipify/growth-evolution-engine";
+} from "@/lib/aipify/growth-evolution-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseCompanionPriorityRecommendations } from "@/lib/aipify/companion-recommendation-engine";
+import { parseCompanionPriorityRecommendations } from "@/lib/aipify/companion-recommendation-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

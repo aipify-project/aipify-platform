@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseServiceCommitmentReportExportPayload } from "@/lib/aipify/service-level-commitment-engine";
+import { parseServiceCommitmentReportExportPayload } from "@/lib/aipify/service-level-commitment-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

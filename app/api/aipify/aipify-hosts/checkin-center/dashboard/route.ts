@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAipifyHostsCheckinCenterDashboard } from "@/lib/core/aipify-hosts-checkin-center";
-import { parseAipifyHostsCheckinCenterDashboard } from "@/lib/aipify/aipify-hosts-checkin-center";
+import { parseAipifyHostsCheckinCenterDashboard } from "@/lib/aipify/aipify-hosts-checkin-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

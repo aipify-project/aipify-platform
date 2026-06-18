@@ -6,7 +6,7 @@ import {
   updateAipifyHostsTeamMemberProperties,
   updateAipifyHostsTeamMemberRole,
 } from "@/lib/core/aipify-hosts-team-center";
-import { parseAipifyHostsTeamCenterActionResult } from "@/lib/aipify/aipify-hosts-team-center";
+import { parseAipifyHostsTeamCenterActionResult } from "@/lib/aipify/aipify-hosts-team-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

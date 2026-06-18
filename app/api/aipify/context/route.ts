@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseCompanionContextDashboard } from "@/lib/aipify/companion-context-engine";
+import { parseCompanionContextDashboard } from "@/lib/aipify/companion-context-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

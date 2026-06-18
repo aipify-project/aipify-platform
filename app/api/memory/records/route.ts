@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseOrganizationMemoryRecords } from "@/lib/aipify/organizational-memory-engine";
+import { parseOrganizationMemoryRecords } from "@/lib/aipify/organizational-memory-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

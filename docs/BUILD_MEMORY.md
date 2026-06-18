@@ -77,6 +77,41 @@ Use `getCustomerAppDictionaryForModule(locale, moduleKey)` — one split (~tens 
 
 `app/app/layout.tsx`, `app/platform/layout.tsx`, and `app/dashboard/layout.tsx` export `dynamic = "force-dynamic"` so 800+ authenticated routes are not statically prerendered at build time.
 
+## API route import graph
+
+### Problem
+
+~2,100+ `app/api/**/route.ts` files inflated the Next.js route graph during build (route discovery + per-route webpack entries). Most phase engines duplicated the same thin handler: auth → Supabase RPC → parse → JSON.
+
+### Mitigations (in repo)
+
+1. **Consolidated engine routes** — canonical `/api/aipify/{slug}/{dashboard|card|actions}` endpoints are served by one catch-all handler (suffix must be last URL segment per Next.js):
+   - `app/api/aipify/[...enginePath]/route.ts` — `GET` for dashboard/card, `POST` for actions
+   - Registry + lazy parser loaders: `lib/aipify/api-route-registry.generated.ts`
+   - Shared logic: `lib/aipify/api-route-handlers.ts`
+
+2. **Direct parse imports** — API routes import `@/lib/aipify/{module}/parse` (or specific submodules like `detection`, `evaluate`, `types`) — not barrel `index.ts` files that re-export everything.
+
+3. **Non-consolidated routes kept** — hosts centers (query params + `lib/core` helpers), multi-method dashboards, nested custom paths (e.g. `strategy/[id]`), and all non-canonical endpoints remain as individual route files.
+
+### After adding phase engine API routes
+
+If new routes match the canonical dashboard/card/actions pattern, regenerate and dedupe:
+
+```bash
+npm run generate:aipify-api-registry
+```
+
+This scans existing routes, updates the registry, and removes duplicate route files (`--apply`).
+
+### Counts (post-consolidation)
+
+| Metric | Before | After |
+|--------|--------|-------|
+| Total `app/api/**/route.ts` | ~2,148 | ~1,526 |
+| Consolidated engine endpoints | 625 files | 1 catch-all handler + registry |
+| Engines in registry | — | 318 slugs |
+
 ## Local build
 
 ```bash

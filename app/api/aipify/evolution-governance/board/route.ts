@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseEvolutionGovernanceBoard } from "@/lib/aipify/evolution-governance";
+import { parseEvolutionGovernanceBoard } from "@/lib/aipify/evolution-governance/parse";
 
 export async function GET() {
   try {

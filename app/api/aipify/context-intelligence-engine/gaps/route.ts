@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import {
   parseOrganizationContextGap,
   parseOrganizationContextGaps,
-} from "@/lib/aipify/context-intelligence-engine";
+} from "@/lib/aipify/context-intelligence-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

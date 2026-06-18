@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parsePersonalizationInsights } from "@/lib/aipify/companion-personalization-engine";
+import { parsePersonalizationInsights } from "@/lib/aipify/companion-personalization-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {

@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import {
-  parseDesktopChatHistory,
-  parseDesktopNotifications,
-  resolveDesktopChatIntent,
-} from "@/lib/aipify/desktop";
+import { resolveDesktopChatIntent } from "@/lib/aipify/desktop/chat";
+import { parseDesktopChatHistory, parseDesktopNotifications } from "@/lib/aipify/desktop/parse";
 
 export async function GET(request: NextRequest) {
   try {

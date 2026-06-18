@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseAiCostGovernanceExport } from "@/lib/aipify/ai-cost-governance-engine";
+import { parseAiCostGovernanceExport } from "@/lib/aipify/ai-cost-governance-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST() {

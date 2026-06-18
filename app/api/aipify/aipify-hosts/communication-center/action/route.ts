@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { performAipifyHostsCommunicationAction } from "@/lib/core/aipify-hosts-communication-center";
-import { parseAipifyHostsCommunicationCenterActionResult } from "@/lib/aipify/aipify-hosts-communication-center";
+import { parseAipifyHostsCommunicationCenterActionResult } from "@/lib/aipify/aipify-hosts-communication-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

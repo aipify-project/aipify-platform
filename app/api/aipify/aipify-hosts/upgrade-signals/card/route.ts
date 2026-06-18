@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAipifyHostsUpgradeSignalsCard } from "@/lib/core/aipify-hosts-upgrade-signals";
-import { parseAipifyHostsUpgradeSignalsCard } from "@/lib/aipify/aipify-hosts-upgrade-signals";
+import { parseAipifyHostsUpgradeSignalsCard } from "@/lib/aipify/aipify-hosts-upgrade-signals/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseEnterpriseDeploymentFrameworkBriefingResult } from "@/lib/aipify/enterprise-deployment-framework";
+import { parseEnterpriseDeploymentFrameworkBriefingResult } from "@/lib/aipify/enterprise-deployment-framework/parse";
 
 export async function POST() {
   try {

@@ -3,7 +3,7 @@ import {
   performAipifyHostsDocumentAction,
   uploadAipifyHostsDocument,
 } from "@/lib/core/aipify-hosts-document-center";
-import { parseAipifyHostsDocumentCenterActionResult } from "@/lib/aipify/aipify-hosts-document-center";
+import { parseAipifyHostsDocumentCenterActionResult } from "@/lib/aipify/aipify-hosts-document-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

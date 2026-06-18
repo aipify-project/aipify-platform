@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseModerationDashboard } from "@/lib/aipify/moderation";
+import { parseModerationDashboard } from "@/lib/aipify/moderation/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

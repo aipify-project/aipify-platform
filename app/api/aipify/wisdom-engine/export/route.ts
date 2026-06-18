@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseWisdomEngineExport } from "@/lib/aipify/wisdom-engine";
+import { parseWisdomEngineExport } from "@/lib/aipify/wisdom-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

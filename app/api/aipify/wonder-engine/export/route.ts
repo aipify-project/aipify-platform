@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseWonderEngineExport } from "@/lib/aipify/wonder-engine";
+import { parseWonderEngineExport } from "@/lib/aipify/wonder-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

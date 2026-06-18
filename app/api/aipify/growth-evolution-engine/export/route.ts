@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseGrowthEvolutionExport } from "@/lib/aipify/growth-evolution-engine";
+import { parseGrowthEvolutionExport } from "@/lib/aipify/growth-evolution-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseOrganizationalDecisionReportExport } from "@/lib/aipify/organizational-decision-support-engine";
+import { parseOrganizationalDecisionReportExport } from "@/lib/aipify/organizational-decision-support-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

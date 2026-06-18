@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseRecommendationActionResult } from "@/lib/aipify/customer-lifecycle";
+import { parseRecommendationActionResult } from "@/lib/aipify/customer-lifecycle/parse";
 
 type RouteContext = { params: Promise<{ id: string }> };
 

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { performAipifyHostsReputationAction } from "@/lib/core/aipify-hosts-reputation-center";
-import { parseAipifyHostsReputationCenterActionResult } from "@/lib/aipify/aipify-hosts-reputation-center";
+import { parseAipifyHostsReputationCenterActionResult } from "@/lib/aipify/aipify-hosts-reputation-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

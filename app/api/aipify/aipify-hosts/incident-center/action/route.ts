@@ -9,7 +9,7 @@ import {
   updateAipifyHostsIncidentSeverity,
   updateAipifyHostsIncidentStatus,
 } from "@/lib/core/aipify-hosts-incident-center";
-import { parseAipifyHostsIncidentCenterActionResult } from "@/lib/aipify/aipify-hosts-incident-center";
+import { parseAipifyHostsIncidentCenterActionResult } from "@/lib/aipify/aipify-hosts-incident-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

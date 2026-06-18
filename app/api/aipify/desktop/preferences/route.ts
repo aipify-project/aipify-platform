@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseDesktopPreferences } from "@/lib/aipify/desktop";
+import { parseDesktopPreferences } from "@/lib/aipify/desktop/parse";
 
 export async function GET() {
   try {

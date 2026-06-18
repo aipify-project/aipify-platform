@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getBusinessPackKnowledgeEngineDashboard } from "@/lib/core/business-pack-knowledge-engine";
-import { parseBusinessPackKnowledgeEngineDashboard } from "@/lib/aipify/business-pack-knowledge-engine";
+import { parseBusinessPackKnowledgeEngineDashboard } from "@/lib/aipify/business-pack-knowledge-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {

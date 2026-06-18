@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { generateAipifyHostsReferralLink } from "@/lib/core/aipify-hosts-referral";
-import { parseGenerateReferralLinkResult } from "@/lib/aipify/aipify-hosts-referral";
+import { parseGenerateReferralLinkResult } from "@/lib/aipify/aipify-hosts-referral/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

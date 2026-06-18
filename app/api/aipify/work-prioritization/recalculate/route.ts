@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseWorkPrioritizationAction } from "@/lib/aipify/companion-work-prioritization";
+import { parseWorkPrioritizationAction } from "@/lib/aipify/companion-work-prioritization/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

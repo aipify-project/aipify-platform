@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseWorkPrioritizationDashboard } from "@/lib/aipify/companion-work-prioritization";
+import { parseWorkPrioritizationDashboard } from "@/lib/aipify/companion-work-prioritization/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

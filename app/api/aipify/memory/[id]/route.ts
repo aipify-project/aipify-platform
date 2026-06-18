@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import {
   parseCompanionMemoryDetail,
   parseCompanionMemoryAction,
-} from "@/lib/aipify/companion-memory-engine";
+} from "@/lib/aipify/companion-memory-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 type RouteContext = { params: Promise<{ id: string }> };

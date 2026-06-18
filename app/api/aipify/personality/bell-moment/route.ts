@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseBellMoment } from "@/lib/aipify/personality";
+import { parseBellMoment } from "@/lib/aipify/personality/parse";
 
 export async function GET(request: Request) {
   try {

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseSelfLoveUserPreferences } from "@/lib/aipify/self-love-engine";
+import { parseSelfLoveUserPreferences } from "@/lib/aipify/self-love-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {

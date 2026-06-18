@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseCompanionMemoryDashboard, parseCompanionMemoryAction } from "@/lib/aipify/companion-memory-engine";
+import { parseCompanionMemoryDashboard, parseCompanionMemoryAction } from "@/lib/aipify/companion-memory-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

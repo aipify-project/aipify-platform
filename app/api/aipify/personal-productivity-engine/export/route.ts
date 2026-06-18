@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parsePersonalProductivityExport } from "@/lib/aipify/personal-productivity-engine";
+import { parsePersonalProductivityExport } from "@/lib/aipify/personal-productivity-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST() {

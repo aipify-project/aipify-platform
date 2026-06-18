@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseCommercePerformanceDashboard } from "@/lib/aipify/commerce-performance";
+import { parseCommercePerformanceDashboard } from "@/lib/aipify/commerce-performance/parse";
 
 /** Performance improvement opportunities (Phase 104). Product discovery opportunities remain at GET /api/commerce/opportunities (Phase 101). */
 export async function GET() {

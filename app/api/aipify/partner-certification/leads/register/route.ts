@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parsePartnerEcosystemActionResult } from "@/lib/aipify/partner-certification";
+import { parsePartnerEcosystemActionResult } from "@/lib/aipify/partner-certification/parse";
 
 export async function POST(request: Request) {
   try {

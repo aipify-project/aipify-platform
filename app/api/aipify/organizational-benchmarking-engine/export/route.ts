@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseBenchmarkReportExport } from "@/lib/aipify/organizational-benchmarking-engine";
+import { parseBenchmarkReportExport } from "@/lib/aipify/organizational-benchmarking-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

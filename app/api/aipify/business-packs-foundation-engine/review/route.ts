@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseBusinessPackReview } from "@/lib/aipify/business-packs-foundation-engine";
+import { parseBusinessPackReview } from "@/lib/aipify/business-packs-foundation-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

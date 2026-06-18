@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseExecutiveReportExport } from "@/lib/aipify/executive-insights-engine";
+import { parseExecutiveReportExport } from "@/lib/aipify/executive-insights-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 type RouteContext = { params: Promise<{ id: string }> };

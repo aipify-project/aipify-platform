@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseStrategicAlignmentReportExport } from "@/lib/aipify/strategic-alignment-engine";
+import { parseStrategicAlignmentReportExport } from "@/lib/aipify/strategic-alignment-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

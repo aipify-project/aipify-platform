@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseIncidentModeResult } from "@/lib/aipify/continuity";
+import { parseIncidentModeResult } from "@/lib/aipify/continuity/parse";
 
 export async function POST(req: NextRequest) {
   try {

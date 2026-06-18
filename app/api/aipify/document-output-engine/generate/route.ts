@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseGenerateDocumentOutputResult } from "@/lib/aipify/document-output-engine";
+import { parseGenerateDocumentOutputResult } from "@/lib/aipify/document-output-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

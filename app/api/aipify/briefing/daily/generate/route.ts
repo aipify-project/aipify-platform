@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseBriefingFull } from "@/lib/aipify/briefing";
+import { parseBriefingFull } from "@/lib/aipify/briefing/parse";
 import { generateDailyBriefJob } from "@/lib/aipify/briefing/jobs";
 
 export async function POST() {

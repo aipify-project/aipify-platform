@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseAccessPolicies } from "@/lib/aipify/security-compliance";
+import { parseAccessPolicies } from "@/lib/aipify/security-compliance/parse";
 
 export async function GET() {
   try {

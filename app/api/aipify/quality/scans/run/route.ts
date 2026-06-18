@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseQualityDashboard } from "@/lib/aipify/quality";
+import { parseQualityDashboard } from "@/lib/aipify/quality/parse";
 import { runQualityScanJob } from "@/lib/aipify/quality/jobs";
-import type { QualityScanType } from "@/lib/aipify/quality";
+import type { QualityScanType } from "@/lib/aipify/quality/types";
 
 export async function POST(request: Request) {
   try {

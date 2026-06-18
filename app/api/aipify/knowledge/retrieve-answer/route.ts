@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { isDeveloperKnowledgeQuestion } from "@/lib/aipify/knowledge";
+import { isDeveloperKnowledgeQuestion } from "@/lib/aipify/knowledge/developer-detection";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

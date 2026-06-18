@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseWisdomInterventionExport } from "@/lib/aipify/wisdom-intervention-protocol";
+import { parseWisdomInterventionExport } from "@/lib/aipify/wisdom-intervention-protocol/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

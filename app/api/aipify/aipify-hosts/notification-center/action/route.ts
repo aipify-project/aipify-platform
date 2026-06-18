@@ -4,7 +4,7 @@ import {
   updateAipifyHostsNotificationPreferences,
   updateAipifyHostsNotificationStatus,
 } from "@/lib/core/aipify-hosts-notification-center";
-import { parseAipifyHostsNotificationCenterActionResult } from "@/lib/aipify/aipify-hosts-notification-center";
+import { parseAipifyHostsNotificationCenterActionResult } from "@/lib/aipify/aipify-hosts-notification-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

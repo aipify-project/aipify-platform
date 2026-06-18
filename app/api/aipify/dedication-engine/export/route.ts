@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseDedicationEngineExport } from "@/lib/aipify/dedication-engine";
+import { parseDedicationEngineExport } from "@/lib/aipify/dedication-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

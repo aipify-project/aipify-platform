@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseCommercialModelActionResult } from "@/lib/aipify/billing-commercial";
+import { parseCommercialModelActionResult } from "@/lib/aipify/billing-commercial/parse";
 
 type RouteContext = { params: Promise<{ eventId: string }> };
 

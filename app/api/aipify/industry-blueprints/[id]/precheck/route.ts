@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseBlueprintPrecheck } from "@/lib/aipify/industry-blueprints";
+import { parseBlueprintPrecheck } from "@/lib/aipify/industry-blueprints/parse";
 
 type RouteContext = { params: Promise<{ id: string }> };
 

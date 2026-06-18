@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseCapacityWorkloadExport } from "@/lib/aipify/capacity-workload-management-engine";
+import { parseCapacityWorkloadExport } from "@/lib/aipify/capacity-workload-management-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST() {

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseGratitudeRecognitionExport } from "@/lib/aipify/gratitude-recognition-engine";
+import { parseGratitudeRecognitionExport } from "@/lib/aipify/gratitude-recognition-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

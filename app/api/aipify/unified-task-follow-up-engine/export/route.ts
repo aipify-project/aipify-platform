@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseUnifiedTaskFollowUpExport } from "@/lib/aipify/unified-task-follow-up-engine";
+import { parseUnifiedTaskFollowUpExport } from "@/lib/aipify/unified-task-follow-up-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { parseImprovementSuggestions } from "@/lib/aipify/continuous-improvement-engine";
+import { parseImprovementSuggestions } from "@/lib/aipify/continuous-improvement-engine/parse";
 import { NextResponse } from "next/server";
 
 export async function GET() {

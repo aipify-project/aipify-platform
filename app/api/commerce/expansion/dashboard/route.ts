@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseGlobalCommerceExpansionDashboard } from "@/lib/aipify/global-commerce-expansion";
+import { parseGlobalCommerceExpansionDashboard } from "@/lib/aipify/global-commerce-expansion/parse";
 
 export async function GET() {
   try {

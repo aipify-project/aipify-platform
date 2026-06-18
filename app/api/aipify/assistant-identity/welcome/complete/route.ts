@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseWelcomeComplete } from "@/lib/aipify/assistant-identity";
+import { parseWelcomeComplete } from "@/lib/aipify/assistant-identity/parse";
 
 export async function POST(request: Request) {
   try {

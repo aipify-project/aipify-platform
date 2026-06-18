@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseScenarioComparison } from "@/lib/aipify/simulation-lab";
+import { parseScenarioComparison } from "@/lib/aipify/simulation-lab/parse";
 
 export async function POST(req: NextRequest) {
   try {

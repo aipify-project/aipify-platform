@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseMaturityReportExport } from "@/lib/aipify/capability-maturity-engine";
+import { parseMaturityReportExport } from "@/lib/aipify/capability-maturity-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

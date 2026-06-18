@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parsePilotInstallStatus } from "@/lib/aipify/pilot";
+import { parsePilotInstallStatus } from "@/lib/aipify/pilot/parse";
 import { UNONIGHT_PILOT_SLUG } from "@/lib/aipify/integrations/unonight";
 
 export async function GET() {

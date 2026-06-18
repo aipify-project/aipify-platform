@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parsePurposeValuesExport } from "@/lib/aipify/purpose-values-engine";
+import { parsePurposeValuesExport } from "@/lib/aipify/purpose-values-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

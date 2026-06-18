@@ -6,7 +6,7 @@ import {
   recordAipifyHostsInventoryPurchase,
   updateAipifyHostsInventoryQuantity,
 } from "@/lib/core/aipify-hosts-supplies-center";
-import { parseAipifyHostsSuppliesCenterActionResult } from "@/lib/aipify/aipify-hosts-supplies-center";
+import { parseAipifyHostsSuppliesCenterActionResult } from "@/lib/aipify/aipify-hosts-supplies-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

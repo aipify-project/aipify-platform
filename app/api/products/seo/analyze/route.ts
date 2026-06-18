@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseProductAutomationActionResult } from "@/lib/aipify/product-automation";
+import { parseProductAutomationActionResult } from "@/lib/aipify/product-automation/parse";
 
 export async function POST(request: Request) {
   try {

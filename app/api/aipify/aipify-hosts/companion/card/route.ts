@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAipifyHostsCompanionCard } from "@/lib/core/aipify-hosts-companion";
-import { parseAipifyHostsCompanionCard } from "@/lib/aipify/aipify-hosts-companion";
+import { parseAipifyHostsCompanionCard } from "@/lib/aipify/aipify-hosts-companion/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {

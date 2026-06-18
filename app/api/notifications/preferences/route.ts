@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseCommunicationPreferences } from "@/lib/aipify/notification-communication-engine";
+import { parseCommunicationPreferences } from "@/lib/aipify/notification-communication-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {

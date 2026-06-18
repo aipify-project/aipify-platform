@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "next dev --port 3001 --webpack",
     "build": "NODE_OPTIONS='--max-old-space-size=14336' next build --webpack",
+    "build:compile": "NODE_OPTIONS='--max-old-space-size=14336' next build --webpack --experimental-build-mode compile",
+    "build:generate": "NODE_OPTIONS='--max-old-space-size=14336' next build --webpack --experimental-build-mode generate",
+    "build:split": "node scripts/build-split.mjs",
     "typecheck": "tsc --noEmit",
     "validate:phase": "npm run lint && npm run typecheck",
     "start": "next start",
@@ -12,6 +15,7 @@
     "test:greeting": "npx --yes tsx lib/core/greeting.test.ts",
     "test:intelligence": "npx --yes tsx lib/intelligence/router.test.ts",
     "generate:customer-app-splits": "node scripts/generate-customer-app-split-locales.mjs",
+    "generate:aipify-api-registry": "node scripts/generate-aipify-api-registry.mjs --apply",
     "supabase:link": "npx supabase link --project-ref qbcqoixhrvhnuwphefvw",
     "supabase:sql": "node scripts/supabase-apply-sql.mjs list",
     "supabase:sql:apply": "node scripts/supabase-apply-sql.mjs apply",

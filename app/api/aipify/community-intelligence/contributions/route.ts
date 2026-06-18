@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseCommunityActionResult } from "@/lib/aipify/community-intelligence";
+import { parseCommunityActionResult } from "@/lib/aipify/community-intelligence/parse";
 
 export async function POST(request: Request) {
   try {

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseValidationActionResult } from "@/lib/aipify/outcomes";
+import { parseValidationActionResult } from "@/lib/aipify/outcomes/parse";
 
 type RouteContext = { params: Promise<{ id: string }> };
 

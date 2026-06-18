@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseMarketplaceGovernanceBriefingResult } from "@/lib/aipify/marketplace-governance";
+import { parseMarketplaceGovernanceBriefingResult } from "@/lib/aipify/marketplace-governance/parse";
 
 export async function POST() {
   try {

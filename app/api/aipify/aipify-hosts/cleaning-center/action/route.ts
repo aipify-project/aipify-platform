@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { performAipifyHostsCleaningAction } from "@/lib/core/aipify-hosts-cleaning-center";
-import { parseAipifyHostsCleaningCenterActionResult } from "@/lib/aipify/aipify-hosts-cleaning-center";
+import { parseAipifyHostsCleaningCenterActionResult } from "@/lib/aipify/aipify-hosts-cleaning-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

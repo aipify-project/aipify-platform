@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseLearningRules } from "@/lib/aipify/learning-engine";
+import { parseLearningRules } from "@/lib/aipify/learning-engine/parse";
 
 export async function GET() {
   try {

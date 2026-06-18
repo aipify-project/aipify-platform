@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
-import {
-  isCompanionBriefingContext,
-  parseCompanionContextBriefing,
-} from "@/lib/aipify/briefing";
+import { isCompanionBriefingContext } from "@/lib/aipify/briefing/contexts";
+import { parseCompanionContextBriefing } from "@/lib/aipify/briefing/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

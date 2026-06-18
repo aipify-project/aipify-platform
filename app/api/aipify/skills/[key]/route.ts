@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseSkillDetail } from "@/lib/aipify/skills";
+import { parseSkillDetail } from "@/lib/aipify/skills/parse";
 
 type RouteContext = { params: Promise<{ key: string }> };
 

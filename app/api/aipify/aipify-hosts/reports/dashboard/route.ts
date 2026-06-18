@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAipifyHostsReportsDashboard } from "@/lib/core/aipify-hosts-reports";
-import { parseAipifyHostsReportsDashboard } from "@/lib/aipify/aipify-hosts-reports";
+import { parseAipifyHostsReportsDashboard } from "@/lib/aipify/aipify-hosts-reports/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

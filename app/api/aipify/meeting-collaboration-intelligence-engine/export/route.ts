@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseMeetingCollaborationExport } from "@/lib/aipify/meeting-collaboration-intelligence-engine";
+import { parseMeetingCollaborationExport } from "@/lib/aipify/meeting-collaboration-intelligence-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

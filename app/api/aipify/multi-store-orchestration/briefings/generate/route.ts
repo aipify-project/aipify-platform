@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseMultiStoreBriefingResult } from "@/lib/aipify/multi-store-orchestration";
+import { parseMultiStoreBriefingResult } from "@/lib/aipify/multi-store-orchestration/parse";
 
 export async function POST() {
   try {

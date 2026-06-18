@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseDailyBriefingDashboard } from "@/lib/aipify/companion-daily-briefing";
+import { parseDailyBriefingDashboard } from "@/lib/aipify/companion-daily-briefing/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {

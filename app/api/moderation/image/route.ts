@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server";
-import {
-  evaluateModerationImage,
-  parseModerationSubmitResponse,
-  type ModerationImageInput,
-  type ModerationSourceType,
-} from "@/lib/aipify/moderation";
+import { evaluateModerationImage } from "@/lib/aipify/moderation/evaluate";
+import { parseModerationSubmitResponse } from "@/lib/aipify/moderation/parse";
+import type { ModerationImageInput, ModerationSourceType } from "@/lib/aipify/moderation/types";
 import { createClient } from "@/lib/supabase/server";
 
 const SOURCE_TYPES: ModerationSourceType[] = [

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseAocReviewResult } from "@/lib/aipify/aoc";
+import { parseAocReviewResult } from "@/lib/aipify/aoc/parse";
 
 export async function POST(req: NextRequest) {
   try {

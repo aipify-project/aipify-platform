@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseConstitutionActionResult } from "@/lib/aipify/constitution";
+import { parseConstitutionActionResult } from "@/lib/aipify/constitution/parse";
 
 type RouteContext = { params: Promise<{ principleId: string }> };
 

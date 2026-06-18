@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseMemorySettings } from "@/lib/aipify/memory";
+import { parseMemorySettings } from "@/lib/aipify/memory/parse";
 
 export async function GET() {
   try {

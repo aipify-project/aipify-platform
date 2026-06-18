@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseLegacyEngineExport } from "@/lib/aipify/legacy-engine";
+import { parseLegacyEngineExport } from "@/lib/aipify/legacy-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

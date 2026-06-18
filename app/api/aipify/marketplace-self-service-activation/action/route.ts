@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { performMarketplaceSelfServiceAction } from "@/lib/core/marketplace-self-service-activation";
-import { parseMarketplaceSelfServiceActionResult } from "@/lib/aipify/marketplace-self-service-activation";
+import { parseMarketplaceSelfServiceActionResult } from "@/lib/aipify/marketplace-self-service-activation/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

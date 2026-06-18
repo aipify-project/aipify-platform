@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseEnterpriseDeploymentFrameworkActionResult } from "@/lib/aipify/enterprise-deployment-framework";
+import { parseEnterpriseDeploymentFrameworkActionResult } from "@/lib/aipify/enterprise-deployment-framework/parse";
 
 type RouteContext = { params: Promise<{ policyId: string }> };
 

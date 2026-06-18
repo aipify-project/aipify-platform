@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseValueOpportunities } from "@/lib/aipify/value-engine";
+import { parseValueOpportunities } from "@/lib/aipify/value-engine/parse";
 
 export async function GET() {
   try {

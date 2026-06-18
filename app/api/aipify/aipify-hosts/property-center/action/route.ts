@@ -4,7 +4,7 @@ import {
   assignAipifyHostsPropertyTeam,
   updateAipifyHostsPropertyProfile,
 } from "@/lib/core/aipify-hosts-property-center";
-import { parseAipifyHostsPropertyCenterActionResult } from "@/lib/aipify/aipify-hosts-property-center";
+import { parseAipifyHostsPropertyCenterActionResult } from "@/lib/aipify/aipify-hosts-property-center/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: Request) {

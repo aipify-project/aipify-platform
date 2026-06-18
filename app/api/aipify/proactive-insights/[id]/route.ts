@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseProactiveInsightDetail } from "@/lib/aipify/companion-proactive-insights-engine";
+import { parseProactiveInsightDetail } from "@/lib/aipify/companion-proactive-insights-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 type RouteContext = { params: Promise<{ id: string }> };

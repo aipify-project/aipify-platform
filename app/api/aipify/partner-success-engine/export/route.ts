@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parsePartnerSuccessExport } from "@/lib/aipify/partner-success-engine";
+import { parsePartnerSuccessExport } from "@/lib/aipify/partner-success-engine/parse";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST() {
