@@ -375,6 +375,17 @@
       "recentActivity": "Senaste aktivitet",
       "growthRecommendations": "Tillväxtrekommendationer"
     },
+    "partnerLink": {
+      "title": "Din Aipify Growth Partner-länk",
+      "subtitle": "Dela denna länk — Aipify spårar leads, demoer och kunder automatiskt. Använd aldrig ren aipify.ai i marknadsföring.",
+      "copyLink": "Kopiera länk",
+      "copied": "Kopierad",
+      "downloadQr": "Ladda ner QR-kod",
+      "previewLanding": "Förhandsgranska landningssida",
+      "shareEmail": "Dela via e-post",
+      "openMarketing": "Öppna marknadsföringscenter",
+      "partnerId": "Partner-ID"
+    },
     "leads": { "title": "Lead-hantering" },
     "opportunities": { "title": "Möjlighetspipeline" },
     "customers": { "title": "Kundportfölj" },
@@ -396,6 +407,29 @@
       "restricted": "Begränsad åtkomst",
       "verified": "Verifierad",
       "waiting": "Väntar"
+    }
+  },
+  "growthPartnerAttributionMarketing": {
+    "title": "Growth Partner marknadsföringscenter",
+    "subtitle": "Färdigt marknadsföringsmaterial med din personliga spårningslänk — kopiera och dela.",
+    "principle": "En Growth Partner ska aldrig behöva tänka på spårningslänkar. Aipify förbereder materialet, infogar rätt länkar och spårar leadet.",
+    "privacyNote": "Du ser endast attribuering och provisionsdata — aldrig kunders interna APP-system.",
+    "refresh": "Uppdatera",
+    "accessDenied": "Marknadsföringscenter kräver registrerat Growth Partner-konto.",
+    "templates": "Marknadsföringsmallar",
+    "campaignLinks": "Kampanjlänkgenerator",
+    "copyTemplate": "Kopiera",
+    "copied": "Kopierad",
+    "partnerLinkCard": {
+      "title": "Din Aipify Growth Partner-länk",
+      "subtitle": "Varje CTA i marknadsföringen måste använda denna länk — inte ren aipify.ai.",
+      "copyLink": "Kopiera länk",
+      "copied": "Kopierad",
+      "downloadQr": "Ladda ner QR-kod",
+      "previewLanding": "Förhandsgranska landningssida",
+      "shareEmail": "Dela via e-post",
+      "openMarketing": "Marknadsföringscenter",
+      "partnerId": "Partner-ID"
     }
   }
 }

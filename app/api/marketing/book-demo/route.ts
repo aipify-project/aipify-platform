@@ -62,6 +62,24 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: error.message }, { status: 400 });
     }
 
+    const { getGrowthPartnerAttributionFromCookies } = await import("@/lib/growth-partner-attribution/server");
+    const attribution = await getGrowthPartnerAttributionFromCookies();
+    if (attribution?.partnerSlug) {
+      await supabase.rpc("capture_growth_partner_attribution", {
+        p_payload: {
+          partner_slug: attribution.partnerSlug,
+          session_key: attribution.sessionKey,
+          campaign_id: attribution.campaignId ?? "",
+          utm_source: attribution.utmSource ?? "",
+          utm_medium: attribution.utmMedium ?? "",
+          utm_campaign: attribution.utmCampaign ?? "",
+          landing_page: "/book-demo",
+          destination_key: "demo_booked",
+          metadata: { company_name: companyName, business_email: businessEmail },
+        },
+      });
+    }
+
     return NextResponse.json(data);
   } catch {
     return NextResponse.json({ ok: false, error: "Failed to submit demo request" }, { status: 500 });

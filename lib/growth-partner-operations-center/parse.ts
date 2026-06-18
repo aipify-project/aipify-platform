@@ -7,6 +7,7 @@ import type {
   GrowthPartnerOperationsCenter,
   LeadItem,
   OpportunityItem,
+  PartnerLinkInfo,
   PayoutItem,
   PerformanceMetric,
   RecommendationItem,
@@ -124,6 +125,18 @@ const empty: GrowthPartnerOperationsCenter = {
   statistics: { leadCount: 0, opportunityCount: 0, customerCount: 0, resourceCount: 0 },
 };
 
+function parsePartnerLink(raw: unknown): PartnerLinkInfo | undefined {
+  const d = asRecord(raw);
+  if (!d.slug && !d.partner_url) return undefined;
+  return {
+    partnerPublicId: asString(d.partner_public_id) || undefined,
+    slug: asString(d.slug) || undefined,
+    partnerUrl: asString(d.partner_url) || undefined,
+    linkStatus: asString(d.link_status) || undefined,
+    marketingRoute: asString(d.marketing_route) || undefined,
+  };
+}
+
 export function parseGrowthPartnerOperationsCenter(raw: unknown): GrowthPartnerOperationsCenter {
   const d = asRecord(raw);
   if (!d.found) return { ...empty, error: asString(d.error) || undefined };
@@ -140,6 +153,7 @@ export function parseGrowthPartnerOperationsCenter(raw: unknown): GrowthPartnerO
     trainingProgressPct: asNumber(d.training_progress_pct),
     trainingCompletedCount: asNumber(d.training_completed_count),
     trainingTotalCount: asNumber(d.training_total_count),
+    partnerLink: parsePartnerLink(d.partner_link),
     dashboardMetrics: Array.isArray(d.dashboard_metrics) ? d.dashboard_metrics.map(parseDashboard) : [],
     leadManagement: Array.isArray(d.lead_management) ? d.lead_management.map(parseLead) : [],
     opportunityPipeline: Array.isArray(d.opportunity_pipeline) ? d.opportunity_pipeline.map(parseOpportunity) : [],

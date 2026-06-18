@@ -132,7 +132,7 @@ export default function GrowthPartnersSignupForm({ labels, id = "signup" }: Prop
         </div>
         <div className="sm:col-span-2">
           <label htmlFor="gp-reg" className={labelClass}>{labels.businessRegistrationNumber}</label>
-          <input id="gp-reg" name="business_registration_number" required className={inputClass} />
+          <input id="gp-reg" name="business_registration_number" className={inputClass} />
           <p className="mt-1.5 text-xs text-slate-500">{regHelper}</p>
         </div>
         <div>

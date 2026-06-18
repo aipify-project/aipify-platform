@@ -378,6 +378,17 @@
       "recentActivity": "Recent activity",
       "growthRecommendations": "Growth recommendations"
     },
+    "partnerLink": {
+      "title": "Your Aipify Growth Partner Link",
+      "subtitle": "Share this link — Aipify tracks every lead, demo, and customer automatically. Never use plain aipify.ai in your marketing.",
+      "copyLink": "Copy link",
+      "copied": "Copied",
+      "downloadQr": "Download QR code",
+      "previewLanding": "Preview landing page",
+      "shareEmail": "Share by email",
+      "openMarketing": "Open Marketing Center",
+      "partnerId": "Partner ID"
+    },
     "leads": { "title": "Lead Management Center" },
     "opportunities": { "title": "Opportunity Pipeline" },
     "customers": { "title": "Customer Portfolio" },
@@ -399,6 +410,29 @@
       "restricted": "Restricted access",
       "verified": "Verified",
       "waiting": "Waiting"
+    }
+  },
+  "growthPartnerAttributionMarketing": {
+    "title": "Growth Partner Marketing Center",
+    "subtitle": "Ready-to-use marketing material with your personal tracking link already included — copy and share.",
+    "principle": "A Growth Partner should never have to think about tracking links. Aipify prepares the material, inserts the correct links, and tracks the lead.",
+    "privacyNote": "You see attribution and commission data only — never customer internal APP systems.",
+    "refresh": "Refresh",
+    "accessDenied": "Marketing Center requires a registered Growth Partner account.",
+    "templates": "Marketing templates",
+    "campaignLinks": "Campaign link generator",
+    "copyTemplate": "Copy",
+    "copied": "Copied",
+    "partnerLinkCard": {
+      "title": "Your Aipify Growth Partner Link",
+      "subtitle": "Every CTA in your marketing must use this link — not plain aipify.ai.",
+      "copyLink": "Copy link",
+      "copied": "Copied",
+      "downloadQr": "Download QR code",
+      "previewLanding": "Preview landing page",
+      "shareEmail": "Share by email",
+      "openMarketing": "Marketing Center",
+      "partnerId": "Partner ID"
     }
   }
 }

@@ -375,6 +375,17 @@
       "recentActivity": "Nylig aktivitet",
       "growthRecommendations": "Vekstanbefalinger"
     },
+    "partnerLink": {
+      "title": "Din Aipify Growth Partner-lenke",
+      "subtitle": "Del denne lenken — Aipify sporer leads, demoer og kunder automatisk. Bruk aldri ren aipify.ai i markedsføring.",
+      "copyLink": "Kopier lenke",
+      "copied": "Kopiert",
+      "downloadQr": "Last ned QR-kode",
+      "previewLanding": "Forhåndsvis landingsside",
+      "shareEmail": "Del på e-post",
+      "openMarketing": "Åpne markedsføringssenter",
+      "partnerId": "Partner-ID"
+    },
     "leads": { "title": "Lead-administrasjon" },
     "opportunities": { "title": "Mulighetspipeline" },
     "customers": { "title": "Kundeportefølje" },
@@ -396,6 +407,29 @@
       "restricted": "Begrenset tilgang",
       "verified": "Verifisert",
       "waiting": "Venter"
+    }
+  },
+  "growthPartnerAttributionMarketing": {
+    "title": "Growth Partner markedsføringssenter",
+    "subtitle": "Ferdig markedsføringsmateriell med din personlige sporingslenke — kopier og del.",
+    "principle": "En Growth Partner skal aldri tenke på sporingslenker. Aipify forbereder materialet, setter inn riktige lenker og sporer leadet.",
+    "privacyNote": "Du ser kun attribusjon og provisjonsdata — aldri kunders interne APP-systemer.",
+    "refresh": "Oppdater",
+    "accessDenied": "Markedsføringssenter krever registrert Growth Partner-konto.",
+    "templates": "Markedsføringsmaler",
+    "campaignLinks": "Kampanjelenkegenerator",
+    "copyTemplate": "Kopier",
+    "copied": "Kopiert",
+    "partnerLinkCard": {
+      "title": "Din Aipify Growth Partner-lenke",
+      "subtitle": "Hver CTA i markedsføringen må bruke denne lenken — ikke ren aipify.ai.",
+      "copyLink": "Kopier lenke",
+      "copied": "Kopiert",
+      "downloadQr": "Last ned QR-kode",
+      "previewLanding": "Forhåndsvis landingsside",
+      "shareEmail": "Del på e-post",
+      "openMarketing": "Markedsføringssenter",
+      "partnerId": "Partner-ID"
     }
   }
 }

@@ -375,6 +375,17 @@
       "recentActivity": "Seneste aktivitet",
       "growthRecommendations": "Vækstanbefalinger"
     },
+    "partnerLink": {
+      "title": "Dit Aipify Growth Partner-link",
+      "subtitle": "Del dette link — Aipify sporer leads, demoer og kunder automatisk. Brug aldrig ren aipify.ai i marketing.",
+      "copyLink": "Kopiér link",
+      "copied": "Kopieret",
+      "downloadQr": "Download QR-kode",
+      "previewLanding": "Forhåndsvis landingsside",
+      "shareEmail": "Del via e-mail",
+      "openMarketing": "Åbn marketingcenter",
+      "partnerId": "Partner-ID"
+    },
     "leads": { "title": "Lead-administration" },
     "opportunities": { "title": "Mulighedspipeline" },
     "customers": { "title": "Kundeportefølje" },
@@ -396,6 +407,29 @@
       "restricted": "Begrænset adgang",
       "verified": "Verificeret",
       "waiting": "Venter"
+    }
+  },
+  "growthPartnerAttributionMarketing": {
+    "title": "Growth Partner marketingcenter",
+    "subtitle": "Færdigt marketingmateriale med dit personlige sporingslink — kopier og del.",
+    "principle": "En Growth Partner skal aldrig tænke på sporingslinks. Aipify forbereder materialet, indsætter de rigtige links og sporer leadet.",
+    "privacyNote": "Du ser kun attribuering og provisionsdata — aldrig kunders interne APP-systemer.",
+    "refresh": "Opdater",
+    "accessDenied": "Marketingcenter kræver registreret Growth Partner-konto.",
+    "templates": "Marketing-skabeloner",
+    "campaignLinks": "Kampagnelinkgenerator",
+    "copyTemplate": "Kopiér",
+    "copied": "Kopieret",
+    "partnerLinkCard": {
+      "title": "Dit Aipify Growth Partner-link",
+      "subtitle": "Hver CTA i marketing skal bruge dette link — ikke ren aipify.ai.",
+      "copyLink": "Kopiér link",
+      "copied": "Kopieret",
+      "downloadQr": "Download QR-kode",
+      "previewLanding": "Forhåndsvis landingsside",
+      "shareEmail": "Del via e-mail",
+      "openMarketing": "Marketingcenter",
+      "partnerId": "Partner-ID"
     }
   }
 }

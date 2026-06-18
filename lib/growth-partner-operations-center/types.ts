@@ -128,6 +128,14 @@ export type ActivityItem = {
   itemType: "activity";
 };
 
+export type PartnerLinkInfo = {
+  partnerPublicId?: string;
+  slug?: string;
+  partnerUrl?: string;
+  linkStatus?: string;
+  marketingRoute?: string;
+};
+
 export type GrowthPartnerOperationsCenter = {
   found: boolean;
   error?: string;
@@ -141,6 +149,7 @@ export type GrowthPartnerOperationsCenter = {
   trainingProgressPct?: number;
   trainingCompletedCount?: number;
   trainingTotalCount?: number;
+  partnerLink?: PartnerLinkInfo;
   dashboardMetrics: DashboardMetric[];
   leadManagement: LeadItem[];
   opportunityPipeline: OpportunityItem[];

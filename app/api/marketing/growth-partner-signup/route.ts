@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     const payload = {
       full_name: sanitize(body.full_name, 120),
       company_name: sanitize(body.company_name, 200),
-      business_registration_number: sanitize(body.business_registration_number, 80),
+      business_registration_number: sanitize(body.business_registration_number, 80) ?? "",
       country: sanitize(body.country, 8),
       address: sanitize(body.address, 500),
       phone_country_code: sanitize(body.phone_country_code, 8) ?? "+47",

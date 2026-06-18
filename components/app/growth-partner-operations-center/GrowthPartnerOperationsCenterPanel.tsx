@@ -8,6 +8,7 @@ import {
   type GrowthPartnerOpsSection,
   type GrowthPartnerOperationsCenter,
 } from "@/lib/growth-partner-operations-center";
+import { GrowthPartnerLinkCard } from "@/components/app/growth-partner-attribution";
 import type { GrowthPartnerOperationsCenterLabels } from "@/lib/growth-partner-operations-center/labels";
 import { GrowthPartnerOpsStatusBadge } from "./GrowthPartnerOpsStatusBadge";
 
@@ -138,6 +139,7 @@ export function GrowthPartnerOperationsCenterPanel({ labels, activeSection }: Pr
 
       {activeSection === "dashboard" ? (
         <>
+          <GrowthPartnerLinkCard partnerLink={center.partnerLink} labels={labels.partnerLink} />
           <MetricGrid items={center.dashboardMetrics} labels={labels} />
           {center.growthRecommendations.length > 0 ? (
             <section className="rounded-2xl border border-blue-100 bg-blue-50/30 p-5">
