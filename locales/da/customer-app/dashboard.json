@@ -14008,5 +14008,70 @@
     "improvementsLabel": "operationelle forbedringer",
     "coverageLabel": "automatisering dækning",
     "impactLabel": "forretningspåvirkningsscore"
+  },
+  "implementationOnboardingCenter": {
+    "title": "Implementerings- og onboarding-center",
+    "subtitle": "Guidet opsætning fra køb til lancering — Aipify viser altid organisationen næste trin.",
+    "welcomeHeadline": "Velkommen til Aipify.",
+    "welcomeSubheadline": "Lad os gøre jeres organisation klar.",
+    "organizationName": "Organisation",
+    "plan": "Plan",
+    "owner": "Ejer",
+    "setupProgress": "Opsætningsfremskridt",
+    "daysSinceSignup": "Dage siden tilmelding",
+    "launchReadiness": "Lanceringsberedskab",
+    "launchOrganization": "Lancer organisation",
+    "launching": "Lancerer…",
+    "launchSuccess": "Organisationen blev lanceret.",
+    "launchError": "Kunne ikke lancere organisationen. Fuldfør flere opsætningstrin og prøv igen.",
+    "governanceNote": "Hvert opsætningstrin registrerer hvem der fuldførte det, hvornår det blev fuldført, og hvad der ændrede sig — fuld revision og godkendelseshistorik.",
+    "privacyNote": "Onboarding-data er lejerafgrænset. Platformadmin ser kun aggregater.",
+    "refresh": "Opdater",
+    "accessDenied": "Du har ikke adgang til implementerings- og onboarding-centret.",
+    "readyForLaunch": "Klar til lancering",
+    "goLiveHeadline": "Klar til at lancere?",
+    "knowledgeReadiness": "Videnberedskab",
+    "companionGuidanceTitle": "Companion-vejledning",
+    "topRecommendations": "Topanbefalinger",
+    "auditHistory": "Revisionshistorik",
+    "noAudit": "Ingen revisionshændelser registreret endnu.",
+    "relatedLinks": "Relateret onboarding",
+    "firstDayExperience": "Første dag-oplevelse",
+    "aipifyInstall": "Aipify-installation",
+    "customerOnboardingEngine": "Kunde-onboarding-motor",
+    "sections": {
+      "welcome": "Velkommen",
+      "setup": "Opsætningsfremskridt",
+      "organization": "Organisationsopsætning",
+      "users": "Brugere og teams",
+      "companion": "Companion-opsætning",
+      "knowledge": "Videnscenter",
+      "integrations": "Integrationer",
+      "businessPacks": "Business Packs",
+      "training": "Træning",
+      "launch": "Lanceringsberedskab",
+      "timeline": "Succes-tidslinje",
+      "executive": "Ledelsesoverblik",
+      "governance": "Styring"
+    },
+    "progress": {
+      "notStarted": "Ikke startet",
+      "inProgress": "I gang",
+      "complete": "Fuldført"
+    },
+    "launchStatus": {
+      "setupInProgress": "Opsætning i gang",
+      "readyForLaunch": "Klar til lancering",
+      "launched": "Lanceret"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    }
   }
 }

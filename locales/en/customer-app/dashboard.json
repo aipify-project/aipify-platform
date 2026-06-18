@@ -14825,5 +14825,70 @@
     "improvementsLabel": "operational improvements",
     "coverageLabel": "automation coverage",
     "impactLabel": "business impact score"
+  },
+  "implementationOnboardingCenter": {
+    "title": "Implementation & Onboarding Center",
+    "subtitle": "Guided setup from purchase to launch — Aipify always shows your organization the next step.",
+    "welcomeHeadline": "Welcome to Aipify.",
+    "welcomeSubheadline": "Let's get your organization ready.",
+    "organizationName": "Organization",
+    "plan": "Plan",
+    "owner": "Owner",
+    "setupProgress": "Setup progress",
+    "daysSinceSignup": "Days since signup",
+    "launchReadiness": "Launch readiness",
+    "launchOrganization": "Launch organization",
+    "launching": "Launching…",
+    "launchSuccess": "Organization launched successfully.",
+    "launchError": "Unable to launch organization. Complete more setup steps and try again.",
+    "governanceNote": "Every setup step records who completed it, when it was completed, and what changed — full audit and approval history.",
+    "privacyNote": "Onboarding data is tenant-scoped. Platform Admin sees aggregates only.",
+    "refresh": "Refresh",
+    "accessDenied": "You do not have access to the Implementation & Onboarding Center.",
+    "readyForLaunch": "Ready for launch",
+    "goLiveHeadline": "Ready to launch?",
+    "knowledgeReadiness": "Knowledge readiness",
+    "companionGuidanceTitle": "Companion guidance",
+    "topRecommendations": "Top recommendations",
+    "auditHistory": "Audit history",
+    "noAudit": "No audit events recorded yet.",
+    "relatedLinks": "Related onboarding",
+    "firstDayExperience": "First Day Experience",
+    "aipifyInstall": "Aipify Install",
+    "customerOnboardingEngine": "Customer Onboarding Engine",
+    "sections": {
+      "welcome": "Welcome",
+      "setup": "Setup progress",
+      "organization": "Organization setup",
+      "users": "Users & teams",
+      "companion": "Companion setup",
+      "knowledge": "Knowledge Center",
+      "integrations": "Integrations",
+      "businessPacks": "Business Packs",
+      "training": "Training",
+      "launch": "Launch readiness",
+      "timeline": "Success timeline",
+      "executive": "Executive overview",
+      "governance": "Governance"
+    },
+    "progress": {
+      "notStarted": "Not started",
+      "inProgress": "In progress",
+      "complete": "Complete"
+    },
+    "launchStatus": {
+      "setupInProgress": "Setup in progress",
+      "readyForLaunch": "Ready for launch",
+      "launched": "Launched"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    }
   }
 }

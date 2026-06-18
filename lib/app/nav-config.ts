@@ -38,6 +38,7 @@ export type AppNavId =
   | "apiPlatformEngine"
   | "operationsDashboardEngine"
   | "customerOnboardingEngine"
+  | "implementationOnboardingCenter"
   | "subscriptionPlanManagementEngine"
   | "selfSupportEngine"
   | "qualityGuardianEngine"
@@ -540,6 +541,11 @@ export const APP_NAV: AppNavItem[] = [
   { id: "apiPlatformEngine", href: "/app/api-platform-engine", labelKey: "navigation.nav.apiPlatformEngine" },
   { id: "operationsDashboardEngine", href: "/app/operations-dashboard-engine", labelKey: "navigation.nav.operationsDashboardEngine" },
   { id: "customerOnboardingEngine", href: "/app/customer-onboarding-engine", labelKey: "navigation.nav.customerOnboardingEngine" },
+  {
+    id: "implementationOnboardingCenter",
+    href: "/app/onboarding",
+    labelKey: "navigation.nav.implementationOnboardingCenter",
+  },
   {
     id: "subscriptionPlanManagementEngine",
     href: "/app/subscription-plan-management-engine",
@@ -2052,6 +2058,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/support-ai-engine")) return "supportAiEngine";
   if (pathname.startsWith("/app/integration-engine")) return "integrationEngine";
   if (pathname.startsWith("/app/operations-dashboard-engine")) return "operationsDashboardEngine";
+  if (pathname.startsWith("/app/onboarding")) return "implementationOnboardingCenter";
   if (pathname.startsWith("/app/customer-onboarding-engine")) return "customerOnboardingEngine";
   if (pathname.startsWith("/app/subscription-plan-management-engine")) {
     return "subscriptionPlanManagementEngine";

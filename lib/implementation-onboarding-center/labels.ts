@@ -1,0 +1,72 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildImplementationOnboardingCenterLabels(t: Translator) {
+  const p = "customerApp.implementationOnboardingCenter";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    welcomeHeadline: t(`${p}.welcomeHeadline`),
+    welcomeSubheadline: t(`${p}.welcomeSubheadline`),
+    organizationName: t(`${p}.organizationName`),
+    plan: t(`${p}.plan`),
+    owner: t(`${p}.owner`),
+    setupProgress: t(`${p}.setupProgress`),
+    daysSinceSignup: t(`${p}.daysSinceSignup`),
+    launchReadiness: t(`${p}.launchReadiness`),
+    launchOrganization: t(`${p}.launchOrganization`),
+    launching: t(`${p}.launching`),
+    launchSuccess: t(`${p}.launchSuccess`),
+    launchError: t(`${p}.launchError`),
+    governanceNote: t(`${p}.governanceNote`),
+    privacyNote: t(`${p}.privacyNote`),
+    refresh: t(`${p}.refresh`),
+    accessDenied: t(`${p}.accessDenied`),
+    readyForLaunch: t(`${p}.readyForLaunch`),
+    goLiveHeadline: t(`${p}.goLiveHeadline`),
+    knowledgeReadiness: t(`${p}.knowledgeReadiness`),
+    companionGuidanceTitle: t(`${p}.companionGuidanceTitle`),
+    topRecommendations: t(`${p}.topRecommendations`),
+    auditHistory: t(`${p}.auditHistory`),
+    noAudit: t(`${p}.noAudit`),
+    relatedLinks: t(`${p}.relatedLinks`),
+    firstDayExperience: t(`${p}.firstDayExperience`),
+    aipifyInstall: t(`${p}.aipifyInstall`),
+    customerOnboardingEngine: t(`${p}.customerOnboardingEngine`),
+    sections: {
+      welcome: t(`${p}.sections.welcome`),
+      setup: t(`${p}.sections.setup`),
+      organization: t(`${p}.sections.organization`),
+      users: t(`${p}.sections.users`),
+      companion: t(`${p}.sections.companion`),
+      knowledge: t(`${p}.sections.knowledge`),
+      integrations: t(`${p}.sections.integrations`),
+      businessPacks: t(`${p}.sections.businessPacks`),
+      training: t(`${p}.sections.training`),
+      launch: t(`${p}.sections.launch`),
+      timeline: t(`${p}.sections.timeline`),
+      executive: t(`${p}.sections.executive`),
+      governance: t(`${p}.sections.governance`),
+    },
+    progress: {
+      notStarted: t(`${p}.progress.notStarted`),
+      inProgress: t(`${p}.progress.inProgress`),
+      complete: t(`${p}.progress.complete`),
+    },
+    launchStatus: {
+      setup_in_progress: t(`${p}.launchStatus.setupInProgress`),
+      ready_for_launch: t(`${p}.launchStatus.readyForLaunch`),
+      launched: t(`${p}.launchStatus.launched`),
+    },
+    status: {
+      completed: t(`${p}.status.completed`),
+      notAllowed: t(`${p}.status.notAllowed`),
+      requiresAttention: t(`${p}.status.requiresAttention`),
+      information: t(`${p}.status.information`),
+      restricted: t(`${p}.status.restricted`),
+      verified: t(`${p}.status.verified`),
+      waiting: t(`${p}.status.waiting`),
+    },
+  };
+}
+
+export type ImplementationOnboardingCenterLabels = ReturnType<typeof buildImplementationOnboardingCenterLabels>;

@@ -59,6 +59,7 @@
     "apiPlatformEngine": "API-plattform",
     "operationsDashboardEngine": "Drift",
     "customerOnboardingEngine": "Onboarding",
+    "implementationOnboardingCenter": "Implementering",
     "subscriptionPlanManagementEngine": "Abonnement",
     "selfSupportEngine": "Selvbetjent support",
     "qualityGuardianEngine": "Kvalitet",

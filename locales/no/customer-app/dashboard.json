@@ -14280,5 +14280,70 @@
     "improvementsLabel": "operasjonelle forbedringer",
     "coverageLabel": "automatiseringsdekning",
     "impactLabel": "forretningspåvirkningsscore"
+  },
+  "implementationOnboardingCenter": {
+    "title": "Implementerings- og onboarding-senter",
+    "subtitle": "Veiledet oppsett fra kjøp til lansering — Aipify viser alltid organisasjonen neste steg.",
+    "welcomeHeadline": "Velkommen til Aipify.",
+    "welcomeSubheadline": "La oss gjøre organisasjonen klar.",
+    "organizationName": "Organisasjon",
+    "plan": "Plan",
+    "owner": "Eier",
+    "setupProgress": "Oppsettfremdrift",
+    "daysSinceSignup": "Dager siden registrering",
+    "launchReadiness": "Lansering klar",
+    "launchOrganization": "Lanser organisasjon",
+    "launching": "Lanserer…",
+    "launchSuccess": "Organisasjonen ble lansert.",
+    "launchError": "Kunne ikke lansere organisasjonen. Fullfør flere oppsetttrinn og prøv igjen.",
+    "governanceNote": "Hvert oppsetttrinn registrerer hvem som fullførte det, når det ble fullført, og hva som endret seg — full revisjon og godkjenningshistorikk.",
+    "privacyNote": "Onboarding-data er leietakeravgrenset. Plattformadmin ser kun aggregater.",
+    "refresh": "Oppdater",
+    "accessDenied": "Du har ikke tilgang til implementerings- og onboarding-senteret.",
+    "readyForLaunch": "Klar for lansering",
+    "goLiveHeadline": "Klar til å lansere?",
+    "knowledgeReadiness": "Kunnskapsberedskap",
+    "companionGuidanceTitle": "Companion-veiledning",
+    "topRecommendations": "Toppanbefalinger",
+    "auditHistory": "Revisjonshistorikk",
+    "noAudit": "Ingen revisjonshendelser registrert ennå.",
+    "relatedLinks": "Relatert onboarding",
+    "firstDayExperience": "Første dag-opplevelse",
+    "aipifyInstall": "Aipify-installasjon",
+    "customerOnboardingEngine": "Kunde-onboarding-motor",
+    "sections": {
+      "welcome": "Velkommen",
+      "setup": "Oppsettfremdrift",
+      "organization": "Organisasjonsoppsett",
+      "users": "Brukere og team",
+      "companion": "Companion-oppsett",
+      "knowledge": "Kunnskapssenter",
+      "integrations": "Integrasjoner",
+      "businessPacks": "Business Packs",
+      "training": "Opplæring",
+      "launch": "Lansering klar",
+      "timeline": "Suksess-tidslinje",
+      "executive": "Ledelsesoversikt",
+      "governance": "Styring"
+    },
+    "progress": {
+      "notStarted": "Ikke startet",
+      "inProgress": "Pågår",
+      "complete": "Fullført"
+    },
+    "launchStatus": {
+      "setupInProgress": "Oppsett pågår",
+      "readyForLaunch": "Klar for lansering",
+      "launched": "Lansert"
+    },
+    "status": {
+      "completed": "Fullført",
+      "notAllowed": "Ikke tillatt",
+      "requiresAttention": "Krever oppmerksomhet",
+      "information": "Informasjon",
+      "restricted": "Begrenset tilgang",
+      "verified": "Verifisert",
+      "waiting": "Venter"
+    }
   }
 }

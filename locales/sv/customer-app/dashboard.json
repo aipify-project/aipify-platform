@@ -14110,5 +14110,70 @@
     "improvementsLabel": "operativa förbättringar",
     "coverageLabel": "automatiseringstäckning",
     "impactLabel": "affärspåverkansscore"
+  },
+  "implementationOnboardingCenter": {
+    "title": "Implementerings- och onboardingcenter",
+    "subtitle": "Vägledd konfiguration från köp till lansering — Aipify visar alltid organisationen nästa steg.",
+    "welcomeHeadline": "Välkommen till Aipify.",
+    "welcomeSubheadline": "Låt oss göra er organisation redo.",
+    "organizationName": "Organisation",
+    "plan": "Plan",
+    "owner": "Ägare",
+    "setupProgress": "Konfigurationsframsteg",
+    "daysSinceSignup": "Dagar sedan registrering",
+    "launchReadiness": "Lanseringsberedskap",
+    "launchOrganization": "Lansera organisation",
+    "launching": "Lanserar…",
+    "launchSuccess": "Organisationen lanserades.",
+    "launchError": "Kunde inte lansera organisationen. Slutför fler konfigurationssteg och försök igen.",
+    "governanceNote": "Varje konfigurationssteg registrerar vem som slutförde det, när det slutfördes och vad som ändrades — fullständig revision och godkännandehistorik.",
+    "privacyNote": "Onboarding-data är hyresgästbegränsad. Plattformsadmin ser endast aggregerade data.",
+    "refresh": "Uppdatera",
+    "accessDenied": "Du har inte åtkomst till implementerings- och onboardingcentret.",
+    "readyForLaunch": "Redo för lansering",
+    "goLiveHeadline": "Redo att lansera?",
+    "knowledgeReadiness": "Kunskapsberedskap",
+    "companionGuidanceTitle": "Companion-vägledning",
+    "topRecommendations": "Topprekommendationer",
+    "auditHistory": "Revisionshistorik",
+    "noAudit": "Inga revisionshändelser registrerade ännu.",
+    "relatedLinks": "Relaterad onboarding",
+    "firstDayExperience": "Första dagen-upplevelse",
+    "aipifyInstall": "Aipify-installation",
+    "customerOnboardingEngine": "Kund-onboarding-motor",
+    "sections": {
+      "welcome": "Välkommen",
+      "setup": "Konfigurationsframsteg",
+      "organization": "Organisationskonfiguration",
+      "users": "Användare och team",
+      "companion": "Companion-konfiguration",
+      "knowledge": "Kunskapscenter",
+      "integrations": "Integrationer",
+      "businessPacks": "Business Packs",
+      "training": "Utbildning",
+      "launch": "Lanseringsberedskap",
+      "timeline": "Framgångstidslinje",
+      "executive": "Ledningsöversikt",
+      "governance": "Styrning"
+    },
+    "progress": {
+      "notStarted": "Ej påbörjad",
+      "inProgress": "Pågår",
+      "complete": "Slutförd"
+    },
+    "launchStatus": {
+      "setupInProgress": "Konfiguration pågår",
+      "readyForLaunch": "Redo för lansering",
+      "launched": "Lanserad"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Ej tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    }
   }
 }
