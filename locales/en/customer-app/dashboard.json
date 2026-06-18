@@ -6109,6 +6109,73 @@
       "legacyConsciousness": "Legacy Consciousness Engine"
     }
   },
+  "industryIntelligenceCenter": {
+    "title": "Industry Intelligence",
+    "subtitle": "Understand industries, sectors, markets, regulations, trends, risks, and competitive movements — industry-specific intelligence delivered automatically.",
+    "philosophy": "Organizations do not operate in isolation. Every business operates inside an industry ecosystem — Aipify understands that ecosystem.",
+    "governanceNote": "All industry intelligence includes source, date, confidence, relevance, and audit history. Human-controlled — no autonomous strategic authority.",
+    "privacyNote": "Industry intelligence metadata and aggregate signals only — no raw customer records or unapproved PII.",
+    "refresh": "Refresh",
+    "emptyState": "No industry intelligence items in this section yet.",
+    "accessDenied": "Industry Intelligence requires appropriate workspace permissions.",
+    "source": "Source",
+    "date": "Date",
+    "confidence": "Confidence",
+    "relevance": "Relevance",
+    "evidence": "Evidence",
+    "signal": "Signal",
+    "benchmark": "Benchmark",
+    "trend": "Trend",
+    "risk": "Risk",
+    "opportunity": "Opportunity",
+    "comparison": "Comparison",
+    "sections": {
+      "industryOverview": "Industry Overview",
+      "marketTrends": "Market Trends",
+      "regulatoryChanges": "Regulatory Changes",
+      "competitiveIntelligence": "Competitive Intelligence",
+      "emergingOpportunities": "Emerging Opportunities",
+      "industryRisks": "Industry Risks",
+      "industryBenchmarks": "Industry Benchmarks"
+    },
+    "industryProfiles": { "title": "Industry Profiles" },
+    "marketMonitoringEngine": { "title": "Market Monitoring Engine" },
+    "competitiveIntelligence": { "title": "Competitive Intelligence" },
+    "regulatoryIntelligence": { "title": "Regulatory Intelligence" },
+    "industryBenchmarkEngine": { "title": "Industry Benchmark Engine" },
+    "opportunityDetection": { "title": "Opportunity Detection" },
+    "executiveIndustryDashboard": { "title": "Executive Industry Dashboard" },
+    "companionAdvisor": { "title": "Companion Industry Advisor", "evidence": "Supporting evidence" },
+    "businessPackAwareness": { "title": "Business Pack Awareness" },
+    "governanceControls": {
+      "title": "Governance Controls",
+      "enabled": "Industry Intelligence enabled",
+      "disabled": "Industry Intelligence disabled",
+      "humanControl": "Human control required — evidence-based intelligence only"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "escalate": "Escalate",
+      "resolve": "Resolve"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "consciousness": "Organizational Consciousness",
+      "corporateBrain": "Corporate Brain",
+      "strategicIntelligence": "Strategic Intelligence",
+      "industryPacks": "Industry Packs",
+      "legacyIndustryIntelligence": "Legacy Industry Intelligence"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",

@@ -5291,6 +5291,73 @@
       "legacyConsciousness": "Legacy Consciousness Engine"
     }
   },
+  "industryIntelligenceCenter": {
+    "title": "Branschintelligens",
+    "subtitle": "Förstå branscher, sektorer, marknader, regleringar, trender, risker och konkurrensrörelser — branschspecifik intelligens levereras automatiskt.",
+    "philosophy": "Organisationer verkar inte isolerat. Varje företag verkar i ett branschökosystem — Aipify förstår det ekosystemet.",
+    "governanceNote": "All branschintelligens inkluderar källa, datum, tillförlitlighet, relevans och revisionshistorik. Människokontrollerad — ingen autonom strategisk auktoritet.",
+    "privacyNote": "Endast branschintelligens-metadata och aggregatesignaler — inga rå kundposter eller ogodkänd PII.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga branschintelligensobjekt i detta avsnitt ännu.",
+    "accessDenied": "Branschintelligens kräver lämpliga arbetsytetillstånd.",
+    "source": "Källa",
+    "date": "Datum",
+    "confidence": "Tillförlitlighet",
+    "relevance": "Relevans",
+    "evidence": "Evidens",
+    "signal": "Signal",
+    "benchmark": "Referens",
+    "trend": "Trend",
+    "risk": "Risk",
+    "opportunity": "Möjlighet",
+    "comparison": "Jämförelse",
+    "sections": {
+      "industryOverview": "Branschöversikt",
+      "marketTrends": "Marknadstrender",
+      "regulatoryChanges": "Regulatoriska förändringar",
+      "competitiveIntelligence": "Konkurrensintelligens",
+      "emergingOpportunities": "Framväxande möjligheter",
+      "industryRisks": "Branschrisker",
+      "industryBenchmarks": "Branschreferenser"
+    },
+    "industryProfiles": { "title": "Branschprofiler" },
+    "marketMonitoringEngine": { "title": "Market Monitoring Engine" },
+    "competitiveIntelligence": { "title": "Konkurrensintelligens" },
+    "regulatoryIntelligence": { "title": "Regulatorisk intelligens" },
+    "industryBenchmarkEngine": { "title": "Industry Benchmark Engine" },
+    "opportunityDetection": { "title": "Möjlighetsdetektering" },
+    "executiveIndustryDashboard": { "title": "Executive Industry Dashboard" },
+    "companionAdvisor": { "title": "Companion Industry Advisor", "evidence": "Stödjande evidens" },
+    "businessPackAwareness": { "title": "Business Pack Awareness" },
+    "governanceControls": {
+      "title": "Styrningskontroller",
+      "enabled": "Branschintelligens aktiverad",
+      "disabled": "Branschintelligens inaktiverad",
+      "humanControl": "Mänsklig kontroll krävs — endast evidensbaserad intelligens"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "escalate": "Eskalera",
+      "resolve": "Lös"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "consciousness": "Organisationsmedvetenhet",
+      "corporateBrain": "Corporate Brain",
+      "strategicIntelligence": "Strategisk intelligens",
+      "industryPacks": "Industry Packs",
+      "legacyIndustryIntelligence": "Legacy Industry Intelligence"
+    }
+  },
   "trustReputationEngine": {
     "title": "Förtroende och rykte",
     "subtitle": "Organisatoriska förtroendeprofiler och metadata-baserade ryktessignaler — förtjänat förtroende med mänsklig granskning av expansion.",

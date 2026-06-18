@@ -5239,6 +5239,73 @@
       "legacyConsciousness": "Legacy Consciousness Engine"
     }
   },
+  "industryIntelligenceCenter": {
+    "title": "Brancheintelligens",
+    "subtitle": "Forstå brancher, sektorer, markeder, reguleringer, tendenser, risici og konkurrencebevægelser — branchespecifik intelligens leveres automatisk.",
+    "philosophy": "Organisationer opererer ikke isoleret. Hver virksomhed opererer i et brancheøkosystem — Aipify forstår det økosystem.",
+    "governanceNote": "Al brancheintelligens inkluderer kilde, dato, tillid, relevans og revisionshistorik. Menneskekontrolleret — ingen autonom strategisk myndighed.",
+    "privacyNote": "Kun brancheintelligens-metadata og aggregatesignaler — ingen rå kundedata eller ugodkendt PII.",
+    "refresh": "Opdater",
+    "emptyState": "Ingen brancheintelligenselementer i dette afsnit endnu.",
+    "accessDenied": "Brancheintelligens kræver passende arbejdsområdetilladelser.",
+    "source": "Kilde",
+    "date": "Dato",
+    "confidence": "Tillid",
+    "relevance": "Relevans",
+    "evidence": "Evidens",
+    "signal": "Signal",
+    "benchmark": "Reference",
+    "trend": "Tendens",
+    "risk": "Risiko",
+    "opportunity": "Mulighed",
+    "comparison": "Sammenligning",
+    "sections": {
+      "industryOverview": "Brancheoversigt",
+      "marketTrends": "Markedstendenser",
+      "regulatoryChanges": "Regulatoriske ændringer",
+      "competitiveIntelligence": "Konkurrenceintelligens",
+      "emergingOpportunities": "Fremvoksende muligheder",
+      "industryRisks": "Brancherisici",
+      "industryBenchmarks": "Branchereferencer"
+    },
+    "industryProfiles": { "title": "Brancheprofiler" },
+    "marketMonitoringEngine": { "title": "Market Monitoring Engine" },
+    "competitiveIntelligence": { "title": "Konkurrenceintelligens" },
+    "regulatoryIntelligence": { "title": "Regulatorisk intelligens" },
+    "industryBenchmarkEngine": { "title": "Industry Benchmark Engine" },
+    "opportunityDetection": { "title": "Mulighedsdetektion" },
+    "executiveIndustryDashboard": { "title": "Executive Industry Dashboard" },
+    "companionAdvisor": { "title": "Companion Industry Advisor", "evidence": "Støtteevidens" },
+    "businessPackAwareness": { "title": "Business Pack Awareness" },
+    "governanceControls": {
+      "title": "Styringskontroller",
+      "enabled": "Brancheintelligens aktiveret",
+      "disabled": "Brancheintelligens deaktiveret",
+      "humanControl": "Menneskelig kontrol påkrævet — kun evidensbaseret intelligens"
+    },
+    "actions": {
+      "acknowledge": "Bekræft",
+      "dismiss": "Afvis",
+      "escalate": "Eskaler",
+      "resolve": "Løs"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "links": {
+      "consciousness": "Organisationsbevidsthed",
+      "corporateBrain": "Corporate Brain",
+      "strategicIntelligence": "Strategisk intelligens",
+      "industryPacks": "Industry Packs",
+      "legacyIndustryIntelligence": "Legacy Industry Intelligence"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillid og omdømme",
     "subtitle": "Organisatoriske tillidsprofiler og metadata-baserede omdømmesignaler — fortjent tillid med menneskelig gennemgang af udvidelser.",

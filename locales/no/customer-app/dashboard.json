@@ -5436,6 +5436,73 @@
       "legacyConsciousness": "Legacy Consciousness Engine"
     }
   },
+  "industryIntelligenceCenter": {
+    "title": "Bransjeintelligens",
+    "subtitle": "Forstå bransjer, sektorer, markeder, reguleringer, trender, risikoer og konkurransebevegelser — bransjespesifikk intelligens levert automatisk.",
+    "philosophy": "Organisasjoner opererer ikke isolert. Hver virksomhet opererer i et bransjeøkosystem — Aipify forstår det økosystemet.",
+    "governanceNote": "All bransjeintelligens inkluderer kilde, dato, tillit, relevans og revisjonshistorikk. Menneskekontrollert — ingen autonom strategisk myndighet.",
+    "privacyNote": "Kun bransjeintelligens-metadata og aggregatesignaler — ingen rå kundedata eller ugodkjent PII.",
+    "refresh": "Oppdater",
+    "emptyState": "Ingen bransjeintelligenselementer i denne seksjonen ennå.",
+    "accessDenied": "Bransjeintelligens krever passende arbeidsområdetillatelser.",
+    "source": "Kilde",
+    "date": "Dato",
+    "confidence": "Tillit",
+    "relevance": "Relevans",
+    "evidence": "Evidens",
+    "signal": "Signal",
+    "benchmark": "Referanse",
+    "trend": "Trend",
+    "risk": "Risiko",
+    "opportunity": "Mulighet",
+    "comparison": "Sammenligning",
+    "sections": {
+      "industryOverview": "Bransjeoversikt",
+      "marketTrends": "Markedstrender",
+      "regulatoryChanges": "Regulatoriske endringer",
+      "competitiveIntelligence": "Konkurranseintelligens",
+      "emergingOpportunities": "Fremvoksende muligheter",
+      "industryRisks": "Bransjerisikoer",
+      "industryBenchmarks": "Bransjereferanser"
+    },
+    "industryProfiles": { "title": "Bransjeprofiler" },
+    "marketMonitoringEngine": { "title": "Market Monitoring Engine" },
+    "competitiveIntelligence": { "title": "Konkurranseintelligens" },
+    "regulatoryIntelligence": { "title": "Regulatorisk intelligens" },
+    "industryBenchmarkEngine": { "title": "Industry Benchmark Engine" },
+    "opportunityDetection": { "title": "Mulighetsdeteksjon" },
+    "executiveIndustryDashboard": { "title": "Executive Industry Dashboard" },
+    "companionAdvisor": { "title": "Companion Industry Advisor", "evidence": "Støtteevidens" },
+    "businessPackAwareness": { "title": "Business Pack Awareness" },
+    "governanceControls": {
+      "title": "Styringskontroller",
+      "enabled": "Bransjeintelligens aktivert",
+      "disabled": "Bransjeintelligens deaktivert",
+      "humanControl": "Menneskelig kontroll påkrevd — kun evidensbasert intelligens"
+    },
+    "actions": {
+      "acknowledge": "Bekreft",
+      "dismiss": "Avvis",
+      "escalate": "Eskaler",
+      "resolve": "Løs"
+    },
+    "status": {
+      "completed": "Fullført",
+      "notAllowed": "Ikke tillatt",
+      "requiresAttention": "Krever oppmerksomhet",
+      "information": "Informasjon",
+      "restricted": "Begrenset tilgang",
+      "verified": "Verifisert",
+      "waiting": "Venter"
+    },
+    "links": {
+      "consciousness": "Organisasjonsbevissthet",
+      "corporateBrain": "Corporate Brain",
+      "strategicIntelligence": "Strategisk intelligens",
+      "industryPacks": "Industry Packs",
+      "legacyIndustryIntelligence": "Legacy Industry Intelligence"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillit og omdømme",
     "subtitle": "Organisatoriske tillitsprofiler og metadata-baserte omdømmesignaler — opptjent tillit med menneskelig gjennomgang av utvidelser.",
