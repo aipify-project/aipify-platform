@@ -5435,6 +5435,81 @@
       "strategicIntelligence": "Strategisk intelligens"
     }
   },
+  "globalExpansionIntelligenceCenter": {
+    "title": "Global ekspansionsintelligens",
+    "subtitle": "Identificer, evaluer, planlæg og gennemfør international ekspansion med lokal markeds-, sprog-, regulatorisk og operationel intelligens.",
+    "philosophy": "International ekspansion handler ikke bare om at oversætte et website. Succesfuld ekspansion kræver forståelse af markeder, regulering, kultur, konkurrence, drift og kundeadfærd — Aipify hjælper dig med at ekspandere med intelligens, forberedelse og tillid.",
+    "governanceNote": "Al ekspansionsintelligens inkluderer kilde, dato, tillidsniveau, risikovurdering og revisionshistorik. Menneskelig kontrol — ingen autonom strategisk myndighed.",
+    "privacyNote": "Kun ekspansionsintelligens-metadata og aggregatesignaler — ingen rå kundedata eller ugodkendt PII.",
+    "refresh": "Opdater",
+    "emptyState": "Ingen ekspansionsintelligens-elementer i dette afsnit endnu.",
+    "accessDenied": "Global ekspansionsintelligens kræver passende arbejdsområdetilladelser.",
+    "source": "Kilde",
+    "date": "Dato",
+    "confidence": "Tillid",
+    "risk": "Risiko",
+    "evidence": "Bevis",
+    "reasoning": "Begrundelse",
+    "expansionScore": "Ekspansionsberedskabsscore",
+    "marketSize": "Markedsstørrelse",
+    "language": "Sprog",
+    "businessEnvironment": "Forretningsmiljø",
+    "growthPotential": "Vækstpotentiale",
+    "competitionLevel": "Konkurrenceniveau",
+    "riskLevel": "Risikoniveau",
+    "demand": "Efterspørgsel",
+    "investment": "Investering",
+    "revenuePotential": "Indtægtspotentiale",
+    "bestCase": "Bedste scenario",
+    "expectedCase": "Forventet scenario",
+    "worstCase": "Værste scenario",
+    "sections": {
+      "expansionOverview": "Ekspansionsoversigt",
+      "countryIntelligence": "Landintelligens",
+      "localizationIntelligence": "Lokaliseringsintelligens",
+      "regulatoryIntelligence": "Regulatorisk intelligens",
+      "marketEntryAnalysis": "Markedsindtrædelsesanalyse",
+      "expansionOpportunities": "Ekspansionsmuligheder",
+      "expansionRoadmaps": "Ekspansionsvejkort"
+    },
+    "countryIntelligenceEngine": { "title": "Landintelligensmotor" },
+    "localizationIntelligence": { "title": "Lokaliseringsintelligens" },
+    "marketEntryAnalysis": { "title": "Markedsindtrædelsesanalyse" },
+    "expansionReadinessEngine": { "title": "Ekspansionsberedskabsscore" },
+    "regulatoryIntelligence": { "title": "Regulatorisk intelligens" },
+    "internationalOperationsIntelligence": { "title": "International driftsintelligens" },
+    "expansionOpportunities": { "title": "Ekspansionsmuligheder" },
+    "executiveExpansionDashboard": { "title": "Ledelsesdashboard for ekspansion" },
+    "companionAdvisor": { "title": "Companion ekspansionsrådgiver", "evidence": "Understøttende bevis" },
+    "expansionSimulationEngine": { "title": "Ekspansionssimuleringsmotor" },
+    "governanceControls": {
+      "title": "Styringskontroller",
+      "enabled": "Global ekspansionsintelligens aktiveret",
+      "disabled": "Global ekspansionsintelligens deaktiveret",
+      "humanControl": "Menneskelig kontrol kræves — kun evidensbaseret intelligens"
+    },
+    "actions": {
+      "acknowledge": "Bekræft",
+      "dismiss": "Afvis",
+      "escalate": "Eskaler",
+      "resolve": "Løs"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "links": {
+      "marketIntelligence": "Markedsintelligens",
+      "industryIntelligence": "Brancheintelligens",
+      "economicIntelligence": "Økonomisk intelligens",
+      "legacyGlobalExpansion": "Ældre global ekspansion"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillid og omdømme",
     "subtitle": "Organisatoriske tillidsprofiler og metadata-baserede omdømmesignaler — fortjent tillid med menneskelig gennemgang af udvidelser.",

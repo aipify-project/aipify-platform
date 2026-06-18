@@ -5487,6 +5487,81 @@
       "strategicIntelligence": "Strategisk intelligens"
     }
   },
+  "globalExpansionIntelligenceCenter": {
+    "title": "Global expansionsintelligens",
+    "subtitle": "Identifiera, utvärdera, planera och genomför internationell expansion med lokal marknads-, språk-, regulatorisk och operativ intelligens.",
+    "philosophy": "Internationell expansion handlar inte bara om att översätta en webbplats. Framgångsrik expansion kräver förståelse av marknader, regler, kultur, konkurrens, drift och kundbeteende — Aipify hjälper dig expandera med intelligens, förberedelse och trygghet.",
+    "governanceNote": "All expansionsintelligens inkluderar källa, datum, förtroendenivå, riskbedömning och revisionshistorik. Mänsklig kontroll — ingen autonom strategisk auktoritet.",
+    "privacyNote": "Endast expansionsintelligens-metadata och aggregatesignaler — inga rå kunddata eller ogodkänd PII.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga expansionsintelligensobjekt i detta avsnitt ännu.",
+    "accessDenied": "Global expansionsintelligens kräver lämpliga arbetsytetillstånd.",
+    "source": "Källa",
+    "date": "Datum",
+    "confidence": "Förtroende",
+    "risk": "Risk",
+    "evidence": "Bevis",
+    "reasoning": "Resonemang",
+    "expansionScore": "Expansionsberedskapspoäng",
+    "marketSize": "Marknadsstorlek",
+    "language": "Språk",
+    "businessEnvironment": "Affärsmiljö",
+    "growthPotential": "Tillväxtpotential",
+    "competitionLevel": "Konkurrensnivå",
+    "riskLevel": "Risknivå",
+    "demand": "Efterfrågan",
+    "investment": "Investering",
+    "revenuePotential": "Intäktspotential",
+    "bestCase": "Bästa scenario",
+    "expectedCase": "Förväntat scenario",
+    "worstCase": "Värsta scenario",
+    "sections": {
+      "expansionOverview": "Expansionsöversikt",
+      "countryIntelligence": "Landintelligens",
+      "localizationIntelligence": "Lokaliseringsintelligens",
+      "regulatoryIntelligence": "Regulatorisk intelligens",
+      "marketEntryAnalysis": "Marknadsinträdesanalys",
+      "expansionOpportunities": "Expansionsmöjligheter",
+      "expansionRoadmaps": "Expansionsvägkartor"
+    },
+    "countryIntelligenceEngine": { "title": "Landintelligensmotor" },
+    "localizationIntelligence": { "title": "Lokaliseringsintelligens" },
+    "marketEntryAnalysis": { "title": "Marknadsinträdesanalys" },
+    "expansionReadinessEngine": { "title": "Expansionsberedskapspoäng" },
+    "regulatoryIntelligence": { "title": "Regulatorisk intelligens" },
+    "internationalOperationsIntelligence": { "title": "Internationell driftsintelligens" },
+    "expansionOpportunities": { "title": "Expansionsmöjligheter" },
+    "executiveExpansionDashboard": { "title": "Ledningsdashboard för expansion" },
+    "companionAdvisor": { "title": "Companion expansionsrådgivare", "evidence": "Stödjande bevis" },
+    "expansionSimulationEngine": { "title": "Expansionssimuleringsmotor" },
+    "governanceControls": {
+      "title": "Styrningskontroller",
+      "enabled": "Global expansionsintelligens aktiverad",
+      "disabled": "Global expansionsintelligens inaktiverad",
+      "humanControl": "Mänsklig kontroll krävs — endast evidensbaserad intelligens"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avfärda",
+      "escalate": "Eskalera",
+      "resolve": "Lös"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "marketIntelligence": "Marknadsintelligens",
+      "industryIntelligence": "Branschintelligens",
+      "economicIntelligence": "Ekonomisk intelligens",
+      "legacyGlobalExpansion": "Äldre global expansion"
+    }
+  },
   "trustReputationEngine": {
     "title": "Förtroende och rykte",
     "subtitle": "Organisatoriska förtroendeprofiler och metadata-baserade ryktessignaler — förtjänat förtroende med mänsklig granskning av expansion.",

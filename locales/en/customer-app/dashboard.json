@@ -6305,6 +6305,81 @@
       "strategicIntelligence": "Strategic Intelligence"
     }
   },
+  "globalExpansionIntelligenceCenter": {
+    "title": "Global Expansion Intelligence",
+    "subtitle": "Identify, evaluate, plan, and execute international expansion with local market, language, regulatory, and operational intelligence.",
+    "philosophy": "Expanding internationally is not simply translating a website. Successful expansion requires understanding markets, regulations, culture, competition, operations, and customer behavior — Aipify helps you expand with intelligence, preparation, and confidence.",
+    "governanceNote": "All expansion intelligence includes source, date, confidence level, risk assessment, and audit history. Human-controlled — no autonomous strategic authority.",
+    "privacyNote": "Expansion intelligence metadata and aggregate signals only — no raw customer records or unapproved PII.",
+    "refresh": "Refresh",
+    "emptyState": "No expansion intelligence items in this section yet.",
+    "accessDenied": "Global Expansion Intelligence requires appropriate workspace permissions.",
+    "source": "Source",
+    "date": "Date",
+    "confidence": "Confidence",
+    "risk": "Risk",
+    "evidence": "Evidence",
+    "reasoning": "Reasoning",
+    "expansionScore": "Expansion readiness score",
+    "marketSize": "Market size",
+    "language": "Language",
+    "businessEnvironment": "Business environment",
+    "growthPotential": "Growth potential",
+    "competitionLevel": "Competition level",
+    "riskLevel": "Risk level",
+    "demand": "Demand",
+    "investment": "Investment",
+    "revenuePotential": "Revenue potential",
+    "bestCase": "Best case",
+    "expectedCase": "Expected case",
+    "worstCase": "Worst case",
+    "sections": {
+      "expansionOverview": "Expansion Overview",
+      "countryIntelligence": "Country Intelligence",
+      "localizationIntelligence": "Localization Intelligence",
+      "regulatoryIntelligence": "Regulatory Intelligence",
+      "marketEntryAnalysis": "Market Entry Analysis",
+      "expansionOpportunities": "Expansion Opportunities",
+      "expansionRoadmaps": "Expansion Roadmaps"
+    },
+    "countryIntelligenceEngine": { "title": "Country Intelligence Engine" },
+    "localizationIntelligence": { "title": "Localization Intelligence" },
+    "marketEntryAnalysis": { "title": "Market Entry Analysis" },
+    "expansionReadinessEngine": { "title": "Expansion Readiness Score" },
+    "regulatoryIntelligence": { "title": "Regulatory Intelligence" },
+    "internationalOperationsIntelligence": { "title": "International Operations Intelligence" },
+    "expansionOpportunities": { "title": "Expansion Opportunities" },
+    "executiveExpansionDashboard": { "title": "Executive Expansion Dashboard" },
+    "companionAdvisor": { "title": "Companion Expansion Advisor", "evidence": "Supporting evidence" },
+    "expansionSimulationEngine": { "title": "Expansion Simulation Engine" },
+    "governanceControls": {
+      "title": "Governance Controls",
+      "enabled": "Global Expansion Intelligence enabled",
+      "disabled": "Global Expansion Intelligence disabled",
+      "humanControl": "Human control required — evidence-based intelligence only"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "escalate": "Escalate",
+      "resolve": "Resolve"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "marketIntelligence": "Market Intelligence",
+      "industryIntelligence": "Industry Intelligence",
+      "economicIntelligence": "Economic Intelligence",
+      "legacyGlobalExpansion": "Legacy Global Expansion"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",

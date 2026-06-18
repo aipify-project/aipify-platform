@@ -5632,6 +5632,81 @@
       "strategicIntelligence": "Strategisk intelligens"
     }
   },
+  "globalExpansionIntelligenceCenter": {
+    "title": "Global ekspansjonsintelligens",
+    "subtitle": "Identifiser, evaluer, planlegg og gjennomfør internasjonal ekspansjon med lokal markeds-, språk-, regulatorisk og operasjonell intelligens.",
+    "philosophy": "Internasjonal ekspansjon handler ikke bare om å oversette et nettsted. Vellykket ekspansjon krever forståelse av markeder, regulering, kultur, konkurranse, drift og kundeadferd — Aipify hjelper deg å ekspandere med intelligens, forberedelse og trygghet.",
+    "governanceNote": "All ekspansjonsintelligens inkluderer kilde, dato, tillitsnivå, risikovurdering og revisjonshistorikk. Menneskekontrollert — ingen autonom strategisk myndighet.",
+    "privacyNote": "Kun ekspansjonsintelligens-metadata og aggregatesignaler — ingen rå kundedata eller ugodkjent PII.",
+    "refresh": "Oppdater",
+    "emptyState": "Ingen ekspansjonsintelligens-elementer i denne seksjonen ennå.",
+    "accessDenied": "Global ekspansjonsintelligens krever passende arbeidsområdetillatelser.",
+    "source": "Kilde",
+    "date": "Dato",
+    "confidence": "Tillit",
+    "risk": "Risiko",
+    "evidence": "Bevis",
+    "reasoning": "Begrunnelse",
+    "expansionScore": "Ekspansjonsberedskapsscore",
+    "marketSize": "Markedsstørrelse",
+    "language": "Språk",
+    "businessEnvironment": "Forretningsmiljø",
+    "growthPotential": "Vekstpotensial",
+    "competitionLevel": "Konkurransenivå",
+    "riskLevel": "Risikonivå",
+    "demand": "Etterspørsel",
+    "investment": "Investering",
+    "revenuePotential": "Inntektspotensial",
+    "bestCase": "Beste scenario",
+    "expectedCase": "Forventet scenario",
+    "worstCase": "Verste scenario",
+    "sections": {
+      "expansionOverview": "Ekspansjonsoversikt",
+      "countryIntelligence": "Landintelligens",
+      "localizationIntelligence": "Lokaliseringsintelligens",
+      "regulatoryIntelligence": "Regulatorisk intelligens",
+      "marketEntryAnalysis": "Markedsinntredsanalyse",
+      "expansionOpportunities": "Ekspansjonsmuligheter",
+      "expansionRoadmaps": "Ekspansjonsveikart"
+    },
+    "countryIntelligenceEngine": { "title": "Landintelligensmotor" },
+    "localizationIntelligence": { "title": "Lokaliseringsintelligens" },
+    "marketEntryAnalysis": { "title": "Markedsinntredsanalyse" },
+    "expansionReadinessEngine": { "title": "Ekspansjonsberedskapsscore" },
+    "regulatoryIntelligence": { "title": "Regulatorisk intelligens" },
+    "internationalOperationsIntelligence": { "title": "Internasjonal driftsintelligens" },
+    "expansionOpportunities": { "title": "Ekspansjonsmuligheter" },
+    "executiveExpansionDashboard": { "title": "Ledelsesdashboard for ekspansjon" },
+    "companionAdvisor": { "title": "Companion ekspansjonsrådgiver", "evidence": "Støttende bevis" },
+    "expansionSimulationEngine": { "title": "Ekspansjonssimuleringsmotor" },
+    "governanceControls": {
+      "title": "Styringskontroller",
+      "enabled": "Global ekspansjonsintelligens aktivert",
+      "disabled": "Global ekspansjonsintelligens deaktivert",
+      "humanControl": "Menneskekontroll kreves — kun evidensbasert intelligens"
+    },
+    "actions": {
+      "acknowledge": "Bekreft",
+      "dismiss": "Avvis",
+      "escalate": "Eskaler",
+      "resolve": "Løs"
+    },
+    "status": {
+      "completed": "Fullført",
+      "notAllowed": "Ikke tillatt",
+      "requiresAttention": "Krever oppmerksomhet",
+      "information": "Informasjon",
+      "restricted": "Begrenset tilgang",
+      "verified": "Verifisert",
+      "waiting": "Venter"
+    },
+    "links": {
+      "marketIntelligence": "Markedsintelligens",
+      "industryIntelligence": "Bransjeintelligens",
+      "economicIntelligence": "Økonomisk intelligens",
+      "legacyGlobalExpansion": "Eldre global ekspansjon"
+    }
+  },
   "trustReputationEngine": {
     "title": "Tillit og omdømme",
     "subtitle": "Organisatoriske tillitsprofiler og metadata-baserte omdømmesignaler — opptjent tillit med menneskelig gjennomgang av utvidelser.",
