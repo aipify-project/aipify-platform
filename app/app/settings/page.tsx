@@ -4,7 +4,7 @@ import {
   type PresenceNotificationLevel,
 } from "@/lib/presence/notifications";
 import { QUIET_HOURS_MODES, type QuietHoursMode } from "@/lib/presence/quiet-hours";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits, getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 

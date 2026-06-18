@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { AipifyLoader } from "@/components/shared/AipifyLoader";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { formatExecutiveMetric, formatOverviewMetric } from "@/lib/ui/overview-metrics";
 import {
   parseDigitalEmployeeLifecycleManagementCenter,
   type DigitalEmployeeLifecycleManagementCenter,
@@ -91,13 +92,13 @@ export function DigitalEmployeeLifecycleManagementPerformanceEngineDashboardPane
         <p className="mt-1 text-sm text-gray-600">{center.philosophy}</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            [labels.metricActiveEmployees, overview.active_employees ?? 0],
-            [labels.metricDepartments, overview.departments ?? 0],
-            [labels.metricAssignedTasks, overview.assigned_tasks ?? 0],
-            [labels.metricCompletedTasks, overview.completed_tasks ?? 0],
-            [labels.metricPerformance, overview.performance_score ?? 0],
-            [labels.metricTrainingCoverage, `${overview.training_coverage ?? 0}%`],
-            [labels.metricHealth, overview.employee_health_score ?? 0],
+            [labels.metricActiveEmployees, formatOverviewMetric(overview.active_employees)],
+            [labels.metricDepartments, formatOverviewMetric(overview.departments)],
+            [labels.metricAssignedTasks, formatOverviewMetric(overview.assigned_tasks)],
+            [labels.metricCompletedTasks, formatOverviewMetric(overview.completed_tasks)],
+            [labels.metricPerformance, formatOverviewMetric(overview.performance_score)],
+            [labels.metricTrainingCoverage, `${formatOverviewMetric(overview.training_coverage)}%`],
+            [labels.metricHealth, formatOverviewMetric(overview.employee_health_score)],
           ].map(([label, value]) => (
             <div key={String(label)} className="rounded-lg border border-white bg-white/80 p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</p>

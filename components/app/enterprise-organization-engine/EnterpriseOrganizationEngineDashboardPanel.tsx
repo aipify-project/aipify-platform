@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { AipifyLoader } from "@/components/shared/AipifyLoader";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { formatExecutiveMetric, formatOverviewMetric } from "@/lib/ui/overview-metrics";
 import {
   parseEnterpriseOrganizationCenter,
   type EnterpriseOrganizationCenter,
@@ -111,14 +112,14 @@ export function EnterpriseOrganizationEngineDashboardPanel({ labels }: Props) {
         <p className="mt-1 text-sm text-gray-600">{center.distinction_note}</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            [labels.metricOrganizations, overview.organizations ?? 1],
-            [labels.metricSubsidiaries, overview.subsidiaries ?? 0],
-            [labels.metricBusinessUnits, overview.business_units ?? 0],
-            [labels.metricRegions, overview.regions ?? 0],
-            [labels.metricEmployees, overview.employees ?? 0],
-            [labels.metricDigitalEmployees, overview.digital_employees ?? 0],
-            [labels.metricBusinessPacks, overview.active_business_packs ?? 0],
-            [labels.metricHealthScore, overview.organization_health_score ?? group.health_score ?? 0],
+            [labels.metricOrganizations, formatOverviewMetric(overview.organizations) || 1],
+            [labels.metricSubsidiaries, formatOverviewMetric(overview.subsidiaries)],
+            [labels.metricBusinessUnits, formatOverviewMetric(overview.business_units)],
+            [labels.metricRegions, formatOverviewMetric(overview.regions)],
+            [labels.metricEmployees, formatOverviewMetric(overview.employees)],
+            [labels.metricDigitalEmployees, formatOverviewMetric(overview.digital_employees)],
+            [labels.metricBusinessPacks, formatOverviewMetric(overview.active_business_packs)],
+            [labels.metricHealthScore, formatOverviewMetric(overview.organization_health_score ?? group.health_score)],
           ].map(([label, value]) => (
             <div key={String(label)} className="rounded-lg bg-gray-50 p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</p>

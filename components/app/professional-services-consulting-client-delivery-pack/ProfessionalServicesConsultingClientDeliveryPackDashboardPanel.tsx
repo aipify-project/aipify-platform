@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { AipifyLoader } from "@/components/shared/AipifyLoader";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { formatExecutiveMetric, formatOverviewMetric } from "@/lib/ui/overview-metrics";
 import {
   parseProfessionalServicesConsultingClientDeliveryCenter,
   type ProfessionalServicesConsultingClientDeliveryCenter,
@@ -90,14 +91,14 @@ export function ProfessionalServicesConsultingClientDeliveryPackDashboardPanel({
         <p className="mt-1 text-sm text-gray-600">{center.philosophy}</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            [labels.metricClients, overview.clients ?? 0],
-            [labels.metricProjects, overview.projects ?? 0],
-            [labels.metricConsultants, overview.consultants ?? 0],
-            [labels.metricRevenue, overview.revenue ?? 0],
-            [labels.metricProfitability, overview.profitability ?? 0],
-            [labels.metricUtilization, overview.utilization ?? 0],
-            [labels.metricSatisfaction, overview.client_satisfaction ?? 0],
-            [labels.metricHealth, overview.services_health_score ?? 0],
+            [labels.metricClients, formatOverviewMetric(overview.clients)],
+            [labels.metricProjects, formatOverviewMetric(overview.projects)],
+            [labels.metricConsultants, formatOverviewMetric(overview.consultants)],
+            [labels.metricRevenue, formatOverviewMetric(overview.revenue)],
+            [labels.metricProfitability, formatOverviewMetric(overview.profitability)],
+            [labels.metricUtilization, formatOverviewMetric(overview.utilization)],
+            [labels.metricSatisfaction, formatOverviewMetric(overview.client_satisfaction)],
+            [labels.metricHealth, formatOverviewMetric(overview.services_health_score)],
           ].map(([label, value]) => (
             <div key={String(label)} className="rounded-lg bg-gray-50 p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</p>

@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { AipifyLoader } from "@/components/shared/AipifyLoader";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { formatExecutiveMetric, formatOverviewMetric } from "@/lib/ui/overview-metrics";
 import {
   parseHospitalityAccommodationCenter,
   type HospitalityAccommodationCenter,
@@ -91,14 +92,14 @@ export function HospitalityAccommodationPackDashboardPanel({ labels }: Props) {
         <p className="mt-1 text-sm text-gray-600">{center.philosophy}</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            [labels.metricProperties, overview.properties ?? 0],
-            [labels.metricReservations, overview.reservations ?? 0],
-            [labels.metricOccupancy, overview.occupancy_rate ?? 0],
-            [labels.metricCheckIns, overview.upcoming_check_ins ?? 0],
-            [labels.metricCheckOuts, overview.upcoming_check_outs ?? 0],
-            [labels.metricRevenue, overview.revenue ?? 0],
-            [labels.metricSatisfaction, overview.guest_satisfaction ?? 0],
-            [labels.metricHealth, overview.hospitality_health_score ?? 0],
+            [labels.metricProperties, formatOverviewMetric(overview.properties)],
+            [labels.metricReservations, formatOverviewMetric(overview.reservations)],
+            [labels.metricOccupancy, formatOverviewMetric(overview.occupancy_rate)],
+            [labels.metricCheckIns, formatOverviewMetric(overview.upcoming_check_ins)],
+            [labels.metricCheckOuts, formatOverviewMetric(overview.upcoming_check_outs)],
+            [labels.metricRevenue, formatOverviewMetric(overview.revenue)],
+            [labels.metricSatisfaction, formatOverviewMetric(overview.guest_satisfaction)],
+            [labels.metricHealth, formatOverviewMetric(overview.hospitality_health_score)],
           ].map(([label, value]) => (
             <div key={String(label)} className="rounded-lg bg-gray-50 p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</p>

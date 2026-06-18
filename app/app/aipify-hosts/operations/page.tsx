@@ -1,15 +1,16 @@
 import { AipifyHostsOperationsDashboardPanel } from "@/components/app/aipify-hosts-operations";
 import { AipifyHostsUpgradeSignalsBanner } from "@/components/app/aipify-hosts-upgrade-signals";
 import { buildHostsUpgradeSignalsBannerLabels } from "@/lib/aipify/aipify-hosts-upgrade-signals";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppPageDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AipifyHostsOperationsPage() {
-  const dict = {
-    ...(await getCustomerAppDictionaryForSplits(await getLocale(), ["dashboard"])),
-    ...(await getDictionary(await getLocale(), ["hosts"])),
-  };
+  const locale = await getLocale();
+  const dict = await getCustomerAppPageDictionary(locale, {
+    splits: ["dashboard"],
+    namespaces: ["hosts"],
+  });
   const t = createTranslator(dict);
   const p = "customerApp.aipifyHostsOperations";
   const bannerLabels = buildHostsUpgradeSignalsBannerLabels(t);

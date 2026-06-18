@@ -37,6 +37,7 @@ export const CORE_LOCALE_LABELS: Record<CoreLocale, string> = {
 
 export const NAMESPACES = [
   "common",
+  "shell",
   "landing",
   "dashboard",
   "assistant",

@@ -2,7 +2,7 @@ import { AipifyCompanionBriefingBanner } from "@/components/app/briefing";
 import { TrustLicenseCenterPanel } from "@/components/app/license";
 import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
 import { buildLicenseCenterLabels } from "@/lib/app/license-labels";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits, getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 

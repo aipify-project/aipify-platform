@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { AipifyLoader } from "@/components/shared/AipifyLoader";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { formatExecutiveMetric, formatOverviewMetric } from "@/lib/ui/overview-metrics";
 import {
   parseManufacturingProductionIndustrialOperationsCenter,
   type ManufacturingProductionIndustrialOperationsCenter,
@@ -94,14 +95,14 @@ export function ManufacturingProductionIndustrialOperationsPackDashboardPanel({ 
         <p className="mt-1 text-sm text-gray-600">{center.philosophy}</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            [labels.metricOrders, overview.production_orders ?? 0],
-            [labels.metricOutput, overview.production_output ?? 0],
-            [labels.metricCapacity, overview.production_capacity ?? 0],
-            [labels.metricMaterialAvailability, overview.material_availability ?? 0],
-            [labels.metricQuality, overview.quality_score ?? 0],
-            [labels.metricEquipment, overview.equipment_availability ?? 0],
-            [labels.metricUtilization, overview.capacity_utilization ?? 0],
-            [labels.metricHealth, overview.manufacturing_health_score ?? 0],
+            [labels.metricOrders, formatOverviewMetric(overview.production_orders)],
+            [labels.metricOutput, formatOverviewMetric(overview.production_output)],
+            [labels.metricCapacity, formatOverviewMetric(overview.production_capacity)],
+            [labels.metricMaterialAvailability, formatOverviewMetric(overview.material_availability)],
+            [labels.metricQuality, formatOverviewMetric(overview.quality_score)],
+            [labels.metricEquipment, formatOverviewMetric(overview.equipment_availability)],
+            [labels.metricUtilization, formatOverviewMetric(overview.capacity_utilization)],
+            [labels.metricHealth, formatOverviewMetric(overview.manufacturing_health_score)],
           ].map(([label, value]) => (
             <div key={String(label)} className="rounded-lg bg-gray-50 p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</p>

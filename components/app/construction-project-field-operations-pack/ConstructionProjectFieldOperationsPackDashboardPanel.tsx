@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { AipifyLoader } from "@/components/shared/AipifyLoader";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { formatExecutiveMetric, formatOverviewMetric } from "@/lib/ui/overview-metrics";
 import {
   parseConstructionProjectFieldOperationsCenter,
   type ConstructionProjectFieldOperationsCenter,
@@ -91,14 +92,14 @@ export function ConstructionProjectFieldOperationsPackDashboardPanel({ labels }:
         <p className="mt-1 text-sm text-gray-600">{center.philosophy}</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            [labels.metricProjects, overview.active_projects ?? 0],
-            [labels.metricProjectValue, overview.project_value ?? 0],
-            [labels.metricWorkforce, overview.workforce_assigned ?? 0],
-            [labels.metricSites, overview.active_sites ?? 0],
-            [labels.metricEquipmentUtil, overview.equipment_utilization ?? 0],
-            [labels.metricProgress, overview.project_progress ?? 0],
-            [labels.metricSafety, overview.safety_open_incidents ?? 0],
-            [labels.metricHealth, overview.construction_health_score ?? 0],
+            [labels.metricProjects, formatOverviewMetric(overview.active_projects)],
+            [labels.metricProjectValue, formatOverviewMetric(overview.project_value)],
+            [labels.metricWorkforce, formatOverviewMetric(overview.workforce_assigned)],
+            [labels.metricSites, formatOverviewMetric(overview.active_sites)],
+            [labels.metricEquipmentUtil, formatOverviewMetric(overview.equipment_utilization)],
+            [labels.metricProgress, formatOverviewMetric(overview.project_progress)],
+            [labels.metricSafety, formatOverviewMetric(overview.safety_open_incidents)],
+            [labels.metricHealth, formatOverviewMetric(overview.construction_health_score)],
           ].map(([label, value]) => (
             <div key={String(label)} className="rounded-lg bg-gray-50 p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</p>

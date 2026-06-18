@@ -1,6 +1,6 @@
 import { ExecutiveDashboardPanel } from "@/components/app/executive/ExecutiveDashboardPanel";
 import type { HealthScoreBand } from "@/lib/app/customer-app";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits, getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 

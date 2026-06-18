@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { AipifyLoader } from "@/components/shared/AipifyLoader";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { formatExecutiveMetric, formatOverviewMetric } from "@/lib/ui/overview-metrics";
 import {
   parseEnterpriseAiAgentOrchestrationCenter,
   type EnterpriseAiAgentOrchestrationCenter,
@@ -90,13 +91,13 @@ export function EnterpriseAiAgentOrchestrationEngineDashboardPanel({ labels }: P
         <p className="mt-1 text-sm text-slate-300">{center.philosophy}</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            [labels.metricActiveAgents, overview.active_agents ?? 0],
-            [labels.metricActiveTasks, overview.active_tasks ?? 0],
-            [labels.metricRunningWorkflows, overview.running_workflows ?? 0],
-            [labels.metricCompletedWorkflows, overview.completed_workflows ?? 0],
-            [labels.metricPendingApprovals, overview.pending_approvals ?? 0],
-            [labels.metricAutomationRate, `${overview.automation_success_rate ?? 0}%`],
-            [labels.metricHealth, overview.orchestration_health_score ?? 0],
+            [labels.metricActiveAgents, formatOverviewMetric(overview.active_agents)],
+            [labels.metricActiveTasks, formatOverviewMetric(overview.active_tasks)],
+            [labels.metricRunningWorkflows, formatOverviewMetric(overview.running_workflows)],
+            [labels.metricCompletedWorkflows, formatOverviewMetric(overview.completed_workflows)],
+            [labels.metricPendingApprovals, formatOverviewMetric(overview.pending_approvals)],
+            [labels.metricAutomationRate, `${formatOverviewMetric(overview.automation_success_rate)}%`],
+            [labels.metricHealth, formatOverviewMetric(overview.orchestration_health_score)],
           ].map(([label, value]) => (
             <div key={String(label)} className="rounded-lg bg-slate-800/80 p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-slate-400">{label}</p>

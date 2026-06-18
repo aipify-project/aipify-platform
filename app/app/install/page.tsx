@@ -3,7 +3,7 @@ import { ModernInstallAssistantPanel } from "@/components/app/install-engine";
 import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
 import type { InstallPlatformOption } from "@/lib/install/experience";
 import { MODERN_INSTALL_FLOW } from "@/lib/install/experience";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits, getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 

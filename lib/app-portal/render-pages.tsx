@@ -137,7 +137,11 @@ const PAGE_KEYS: Record<AppPortalPageKey, { titleKey: string; subtitleKey: strin
 
 async function portalContext() {
   const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["navigation", "dashboard"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, [
+    "portalStructure",
+    "navigation",
+    "dashboard",
+  ]);
   const withBranding = {
     ...dict,
     ...(await getDictionary(locale, ["branding"])),

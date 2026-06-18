@@ -1,4 +1,5 @@
 import { AipifyCompanionBriefingBanner } from "@/components/app/briefing";
+import { EnterpriseCommandCenterMissionControlPanel } from "@/components/app/enterprise-command-center-mission-control-engine";
 import { CommandCenterPanel } from "@/components/app/presence";
 import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
 import {
@@ -6,6 +7,7 @@ import {
   type PresenceNotificationLevel,
 } from "@/lib/presence/notifications";
 import { QUIET_HOURS_MODES, type QuietHoursMode } from "@/lib/presence/quiet-hours";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -29,11 +31,65 @@ export default async function AppCommandCenterPage() {
 
   const briefingLabels = buildCompanionBriefingLabels(t);
 
+  const missionDict = await getCustomerAppDictionaryForModule(
+    locale,
+    "enterpriseCommandCenterMissionControlEngine"
+  );
+  const tm = createTranslator(missionDict);
+  const mp = "customerApp.enterpriseCommandCenterMissionControlEngine";
+
+  const missionLabels: Record<string, string> = {
+    loading: tm(`${mp}.loading`),
+    loadFailed: tm(`${mp}.loadFailed`),
+    actionFailed: tm(`${mp}.actionFailed`),
+    accessRequiredTitle: tm(`${mp}.accessRequiredTitle`),
+    accessRequiredBody: tm(`${mp}.accessRequiredBody`),
+    overviewTitle: tm(`${mp}.overviewTitle`),
+    operationsTitle: tm(`${mp}.operationsTitle`),
+    commandModulesTitle: tm(`${mp}.commandModulesTitle`),
+    healthScoresTitle: tm(`${mp}.healthScoresTitle`),
+    attentionTitle: tm(`${mp}.attentionTitle`),
+    missionFeedTitle: tm(`${mp}.missionFeedTitle`),
+    briefingsTitle: tm(`${mp}.briefingsTitle`),
+    intelligenceTitle: tm(`${mp}.intelligenceTitle`),
+    advisorTitle: tm(`${mp}.advisorTitle`),
+    metricOrgHealth: tm(`${mp}.metricOrgHealth`),
+    metricCommandHealth: tm(`${mp}.metricCommandHealth`),
+    metricRevenue: tm(`${mp}.metricRevenue`),
+    metricWorkforce: tm(`${mp}.metricWorkforce`),
+    metricCustomers: tm(`${mp}.metricCustomers`),
+    metricProjects: tm(`${mp}.metricProjects`),
+    metricOperations: tm(`${mp}.metricOperations`),
+    metricRisks: tm(`${mp}.metricRisks`),
+    metricOpportunities: tm(`${mp}.metricOpportunities`),
+    metricPriorities: tm(`${mp}.metricPriorities`),
+    healthLabel: tm(`${mp}.healthLabel`),
+    noAttention: tm(`${mp}.noAttention`),
+    noFeed: tm(`${mp}.noFeed`),
+    noBriefings: tm(`${mp}.noBriefings`),
+    noIntelligence: tm(`${mp}.noIntelligence`),
+    noAdvisor: tm(`${mp}.noAdvisor`),
+    recommendation: tm(`${mp}.recommendation`),
+    generateBriefing: tm(`${mp}.generateBriefing`),
+    refreshHealth: tm(`${mp}.refreshHealth`),
+    acknowledgeAttention: tm(`${mp}.acknowledgeAttention`),
+    generateRecommendation: tm(`${mp}.generateRecommendation`),
+    acting: tm(`${mp}.acting`),
+    presenceSectionTitle: tm(`${mp}.presenceSectionTitle`),
+  };
+
   return (
-    <div className="space-y-4">
-      <div className="px-6 pt-6">
+    <div className="space-y-8">
+      <div className="space-y-4 px-6 pt-6">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900">{tm(`${mp}.title`)}</h1>
+          <p className="mt-2 text-gray-600">{tm(`${mp}.subtitle`)}</p>
+        </div>
         <AipifyCompanionBriefingBanner context="command_center" labels={briefingLabels} />
+        <EnterpriseCommandCenterMissionControlPanel labels={missionLabels} />
       </div>
+      <div className="border-t border-gray-200 px-6 pb-6 pt-2">
+        <h2 className="mb-4 text-lg font-semibold text-gray-900">{missionLabels.presenceSectionTitle}</h2>
       <CommandCenterPanel
         labels={{
           title: t(`${p}.title`),
@@ -129,6 +185,7 @@ export default async function AppCommandCenterPage() {
           },
         }}
       />
+      </div>
     </div>
   );
 }

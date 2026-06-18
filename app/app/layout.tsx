@@ -3,16 +3,18 @@ import TwoFactorSessionGate from "@/components/auth/TwoFactorSessionGate";
 import DashboardShell from "@/components/dashboard/DashboardShell";
 import { DashboardProfileProvider } from "@/components/dashboard/DashboardProfileProvider";
 import { buildAppNavConfig, buildAppNavGroupConfig } from "@/lib/app/build-nav";
+import {
+  buildLayoutCommandBarLabels,
+  buildLayoutCompanionPresenceLabels,
+  buildLayoutLicensePanelLabels,
+  buildLayoutVocWidgetLabels,
+} from "@/lib/app/layout-shell-labels";
 import { buildAppNavSearchIndex } from "@/lib/app/nav-search";
 import { APP_MOBILE_NAV_IDS } from "@/lib/app/nav-config";
-import { buildCommandBarLabels, customerNavSourcesFromSearchIndex } from "@/lib/command-bar";
+import { customerNavSourcesFromSearchIndex } from "@/lib/command-bar";
 import { getAppLayoutDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
-import { buildLicensePanelLabels } from "@/lib/app/license-labels";
-import { buildCompanionPresenceLabels } from "@/lib/presence/companion-presence-labels";
-import { buildVocWidgetLabels } from "@/lib/voice-of-the-customer";
-import { buildPresenceLabels } from "@/lib/presence/labels";
 
 export default async function AppLayout({
   children,
@@ -32,52 +34,51 @@ export default async function AppLayout({
       <DashboardProfileProvider>
         <DashboardShell
           appName={t("common.appName")}
-          planName={t("dashboard.sidebar.plan")}
-          shellLabel={t("dashboard.sidebar.workspaceControlCenter")}
-          searchPlaceholder={t("dashboard.search")}
-          companySelectorLabel={t("dashboard.topbar.companySelector")}
-          notificationsLabel={t("dashboard.topbar.notifications")}
-          profileFallbackName={t("dashboard.topbar.profileFallback")}
-          companyFallbackName={t("dashboard.topbar.companyFallback")}
-          signOutLabel={t("auth.logout.signOut")}
+          planName={t("shell.sidebar.plan")}
+          shellLabel={t("shell.sidebar.workspaceControlCenter")}
+          searchPlaceholder={t("shell.search")}
+          companySelectorLabel={t("shell.topbar.companySelector")}
+          notificationsLabel={t("shell.topbar.notifications")}
+          profileFallbackName={t("shell.topbar.profileFallback")}
+          companyFallbackName={t("shell.topbar.companyFallback")}
+          signOutLabel={t("shell.signOut")}
           roleLabels={{
-            owner: t("dashboard.roles.owner"),
-            admin: t("dashboard.roles.admin"),
-            support: t("dashboard.roles.support"),
-            staff: t("dashboard.roles.staff"),
-            read_only: t("dashboard.roles.read_only"),
-            super_admin: t("dashboard.roles.super_admin"),
-            platform_support: t("dashboard.roles.platform_support"),
-            manager: t("dashboard.roles.manager"),
-            growth_partner: t("dashboard.roles.growth_partner"),
-            moderator: t("dashboard.roles.moderator"),
-            member: t("dashboard.roles.member"),
+            owner: t("shell.roles.owner"),
+            admin: t("shell.roles.admin"),
+            support: t("shell.roles.support"),
+            staff: t("shell.roles.staff"),
+            read_only: t("shell.roles.read_only"),
+            super_admin: t("shell.roles.super_admin"),
+            platform_support: t("shell.roles.platform_support"),
+            manager: t("shell.roles.manager"),
+            growth_partner: t("shell.roles.growth_partner"),
+            moderator: t("shell.roles.moderator"),
+            member: t("shell.roles.member"),
           }}
           navConfig={navConfig}
           navGroups={navGroups}
           navSearchIndex={navSearchIndex}
-          navSearchNoResultsLabel={t("dashboard.navSearch.noResults")}
-          navSearchHint={t("dashboard.navSearch.hint")}
-          navCompactToggleLabel={t("dashboard.navSearch.compactToggle")}
-          navSearchResultsLabel={t("dashboard.navSearch.results")}
+          navSearchNoResultsLabel={t("shell.navSearch.noResults")}
+          navSearchHint={t("shell.navSearch.hint")}
+          navCompactToggleLabel={t("shell.navSearch.compactToggle")}
+          navSearchResultsLabel={t("shell.navSearch.results")}
           shellVariant="customer"
           mobileNavIds={APP_MOBILE_NAV_IDS}
-          licensePanelLabels={buildLicensePanelLabels(t)}
-          presenceLabels={buildPresenceLabels(t)}
-          companionPresenceLabels={buildCompanionPresenceLabels(t)}
-          voiceOfCustomerLabels={buildVocWidgetLabels(t)}
+          licensePanelLabels={buildLayoutLicensePanelLabels(t)}
+          companionPresenceLabels={buildLayoutCompanionPresenceLabels(t)}
+          voiceOfCustomerLabels={buildLayoutVocWidgetLabels(t)}
           locale={locale}
           organizationSwitcherLabels={{
-            label: t("customerApp.multiTenantArchitecture.organizationSwitcher"),
-            switching: t("customerApp.multiTenantArchitecture.switchingOrganization"),
+            label: t("shell.multiTenantArchitecture.organizationSwitcher"),
+            switching: t("shell.multiTenantArchitecture.switchingOrganization"),
           }}
           twoFactorBadgeLabels={{
-            enabled: t("customerApp.twoFactor.badge.enabled"),
-            required: t("customerApp.twoFactor.badge.required"),
+            enabled: t("shell.twoFactor.badge.enabled"),
+            required: t("shell.twoFactor.badge.required"),
           }}
           commandBar={{
             portal: "customer",
-            labels: buildCommandBarLabels(t),
+            labels: buildLayoutCommandBarLabels(t),
             navSources: customerNavSourcesFromSearchIndex(navSearchIndex),
           }}
         >

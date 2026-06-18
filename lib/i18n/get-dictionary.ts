@@ -8,6 +8,12 @@ import { injectCompanyIntoDictionary } from "@/lib/company/inject";
 import { mergeDictionary } from "./merge-dictionary";
 import type { Dictionary } from "./translate";
 
+async function loadNamespaceWithFallback(locale: Locale, ns: Namespace): Promise<Dictionary> {
+  const localized = await loadRootNamespace(locale, ns);
+  if (locale === DEFAULT_LOCALE) return localized;
+  return mergeDictionary(await loadRootNamespace(DEFAULT_LOCALE, ns), localized);
+}
+
 async function loadNamespace(locale: Locale, ns: Namespace): Promise<Dictionary> {
   return loadRootNamespace(locale, ns);
 }
@@ -49,6 +55,13 @@ async function loadCustomerAppSplitMerged(
   return merged;
 }
 
+function pickLayoutNavigation(navSplit: Dictionary): Dictionary {
+  const navigation: Dictionary = {};
+  if (navSplit.nav) navigation.nav = navSplit.nav;
+  if (navSplit.navGroups) navigation.navGroups = navSplit.navGroups;
+  return navigation;
+}
+
 /** Load only the customerApp slices required for a module key — keeps pages off the 1.6MB bundle. */
 export async function getCustomerAppDictionaryForModule(
   locale: Locale = DEFAULT_LOCALE,
@@ -62,25 +75,19 @@ export async function getCustomerAppDictionaryForModule(
   return { ...base, customerApp };
 }
 
-/** Layout shell — navigation labels only, aliased as customerApp for existing nav label keys. */
+/** Layout shell — common + shell + navigation (nav labels only). No customerApp monolith. */
 export async function getAppLayoutDictionary(locale: Locale = DEFAULT_LOCALE) {
-  const [base, navigation] = await Promise.all([
-    getDictionary(locale, [
-      "common",
-      "auth",
-      "dashboard",
-      "branding",
-      "presence",
-      "license",
-      "commandBar",
-    ]),
+  const [common, shell, navSplit] = await Promise.all([
+    loadNamespaceWithFallback(locale, "common"),
+    loadNamespaceWithFallback(locale, "shell"),
     loadCustomerAppSplitMerged(locale, ["navigation"]),
   ]);
 
-  return {
-    ...base,
-    customerApp: navigation,
-  };
+  return injectCompanyIntoDictionary({
+    common,
+    shell,
+    navigation: pickLayoutNavigation(navSplit),
+  });
 }
 
 export async function getCustomerAppDictionaryForSplits(
@@ -90,4 +97,21 @@ export async function getCustomerAppDictionaryForSplits(
   const customerApp = await loadCustomerAppSplitMerged(locale, splits);
   const base = await getDictionary(locale, ["common"]);
   return { ...base, customerApp };
+}
+
+/** Customer App page dict: targeted customerApp splits + root namespaces (e.g. hosts, branding). */
+export async function getCustomerAppPageDictionary(
+  locale: Locale = DEFAULT_LOCALE,
+  options: {
+    splits?: CustomerAppSplitName[];
+    namespaces?: Namespace[];
+  } = {}
+) {
+  const splits = options.splits ?? ["dashboard"];
+  const namespaces = options.namespaces ?? [];
+  const [customerAppDict, ...namespaceDicts] = await Promise.all([
+    getCustomerAppDictionaryForSplits(locale, splits),
+    ...namespaces.map((ns) => getDictionary(locale, [ns])),
+  ]);
+  return namespaceDicts.reduce((merged, part) => ({ ...merged, ...part }), customerAppDict);
 }

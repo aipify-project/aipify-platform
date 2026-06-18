@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { AipifyLoader } from "@/components/shared/AipifyLoader";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { formatExecutiveMetric, formatOverviewMetric } from "@/lib/ui/overview-metrics";
 import {
   parseDigitalWorkforceRecruitmentProvisioningCenter,
   type DigitalWorkforceRecruitmentProvisioningCenter,
@@ -92,13 +93,13 @@ export function DigitalWorkforceRecruitmentProvisioningEngineDashboardPanel({ la
         <p className="mt-1 text-sm text-gray-600">{center.philosophy}</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            [labels.metricEmployees, overview.digital_employees ?? 0],
-            [labels.metricOpenPositions, overview.open_positions ?? 0],
-            [labels.metricDepartments, overview.departments ?? 0],
-            [labels.metricWorkload, `${overview.workload ?? 0}%`],
-            [labels.metricCapacity, `${overview.capacity ?? 0}%`],
-            [labels.metricAutomation, `${overview.automation_coverage ?? 0}%`],
-            [labels.metricHealth, overview.workforce_health_score ?? 0],
+            [labels.metricEmployees, formatOverviewMetric(overview.digital_employees)],
+            [labels.metricOpenPositions, formatOverviewMetric(overview.open_positions)],
+            [labels.metricDepartments, formatOverviewMetric(overview.departments)],
+            [labels.metricWorkload, `${formatOverviewMetric(overview.workload)}%`],
+            [labels.metricCapacity, `${formatOverviewMetric(overview.capacity)}%`],
+            [labels.metricAutomation, `${formatOverviewMetric(overview.automation_coverage)}%`],
+            [labels.metricHealth, formatOverviewMetric(overview.workforce_health_score)],
           ].map(([label, value]) => (
             <div key={String(label)} className="rounded-lg border border-white bg-white/90 p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</p>

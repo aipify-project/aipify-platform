@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { AipifyLoader } from "@/components/shared/AipifyLoader";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { formatExecutiveMetric, formatOverviewMetric } from "@/lib/ui/overview-metrics";
 import {
   parseDigitalWorkforceValueCenter,
   type DigitalWorkforceValueCenter,
@@ -87,14 +88,14 @@ export function DigitalWorkforceValueEngineDashboardPanel({ labels }: Props) {
         <p className="mt-1 text-sm text-gray-600">{center.philosophy}</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            [labels.metricWorkforceSize, overview.workforce_size ?? 0],
-            [labels.metricEstimatedSavings, formatCurrency(Number(overview.estimated_savings ?? 0), "en-US")],
-            [labels.metricProductivityGains, `${overview.productivity_gains ?? 0}%`],
-            [labels.metricAutomationValue, formatCurrency(Number(overview.automation_value ?? 0), "en-US")],
-            [labels.metricBusinessImpact, overview.business_impact ?? 0],
-            [labels.metricRoi, `${overview.roi_percent ?? 0}%`],
-            [labels.metricHoursSaved, overview.hours_saved ?? 0],
-            [labels.metricHealth, overview.value_health_score ?? 0],
+            [labels.metricWorkforceSize, formatOverviewMetric(overview.workforce_size)],
+            [labels.metricEstimatedSavings, formatCurrency(Number(formatOverviewMetric(overview.estimated_savings)), "en-US")],
+            [labels.metricProductivityGains, `${formatOverviewMetric(overview.productivity_gains)}%`],
+            [labels.metricAutomationValue, formatCurrency(Number(formatOverviewMetric(overview.automation_value)), "en-US")],
+            [labels.metricBusinessImpact, formatOverviewMetric(overview.business_impact)],
+            [labels.metricRoi, `${formatOverviewMetric(overview.roi_percent)}%`],
+            [labels.metricHoursSaved, formatOverviewMetric(overview.hours_saved)],
+            [labels.metricHealth, formatOverviewMetric(overview.value_health_score)],
           ].map(([label, value]) => (
             <div key={String(label)} className="rounded-lg border border-white bg-white/90 p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</p>

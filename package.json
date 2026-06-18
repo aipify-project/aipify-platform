@@ -11,7 +11,7 @@
     "lint": "eslint",
     "test:greeting": "npx --yes tsx lib/core/greeting.test.ts",
     "test:intelligence": "npx --yes tsx lib/intelligence/router.test.ts",
-    "generate:aipify-loader": "node scripts/generate-aipify-loader-assets.mjs",
+    "generate:customer-app-splits": "node scripts/generate-customer-app-split-locales.mjs",
     "supabase:link": "npx supabase link --project-ref qbcqoixhrvhnuwphefvw",
     "supabase:sql": "node scripts/supabase-apply-sql.mjs list",
     "supabase:sql:apply": "node scripts/supabase-apply-sql.mjs apply",

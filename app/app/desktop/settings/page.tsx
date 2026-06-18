@@ -1,5 +1,5 @@
 import { DesktopCompanionFoundationShell, DesktopSettingsPanel } from "@/components/app/desktop";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits, getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { getDesktopCompanionPageLabels } from "@/lib/desktop-companion-foundation/page-labels";

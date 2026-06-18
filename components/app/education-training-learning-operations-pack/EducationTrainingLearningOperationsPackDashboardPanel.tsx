@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { AipifyLoader } from "@/components/shared/AipifyLoader";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { formatExecutiveMetric, formatOverviewMetric } from "@/lib/ui/overview-metrics";
 import {
   parseEducationTrainingLearningOperationsCenter,
   type EducationTrainingLearningOperationsCenter,
@@ -90,14 +91,14 @@ export function EducationTrainingLearningOperationsPackDashboardPanel({ labels }
         <p className="mt-1 text-sm text-gray-600">{center.philosophy}</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            [labels.metricStudents, overview.students ?? 0],
-            [labels.metricCourses, overview.courses ?? 0],
-            [labels.metricPrograms, overview.programs ?? 0],
-            [labels.metricInstructors, overview.instructors ?? 0],
-            [labels.metricCompletion, overview.completion_rates ?? 0],
-            [labels.metricCertification, overview.certification_rates ?? 0],
-            [labels.metricOutcomes, overview.learning_outcomes ?? 0],
-            [labels.metricHealth, overview.education_health_score ?? 0],
+            [labels.metricStudents, formatOverviewMetric(overview.students)],
+            [labels.metricCourses, formatOverviewMetric(overview.courses)],
+            [labels.metricPrograms, formatOverviewMetric(overview.programs)],
+            [labels.metricInstructors, formatOverviewMetric(overview.instructors)],
+            [labels.metricCompletion, formatOverviewMetric(overview.completion_rates)],
+            [labels.metricCertification, formatOverviewMetric(overview.certification_rates)],
+            [labels.metricOutcomes, formatOverviewMetric(overview.learning_outcomes)],
+            [labels.metricHealth, formatOverviewMetric(overview.education_health_score)],
           ].map(([label, value]) => (
             <div key={String(label)} className="rounded-lg bg-gray-50 p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</p>

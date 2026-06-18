@@ -1,0 +1,200 @@
+{
+  "sidebar": {
+    "plan": "Business Plan",
+    "workspaceControlCenter": "Workspace Control Center"
+  },
+  "topbar": {
+    "notifications": "Notifications",
+    "companySelector": "Select company",
+    "profileFallback": "User",
+    "companyFallback": "Company"
+  },
+  "search": "Sök moduler, inställningar och åtgärder...",
+  "navSearch": {
+    "hint": "⌘K search menu",
+    "compactToggle": "Compact navigation",
+    "results": "Search results",
+    "noResults": "Inga träffar"
+  },
+  "roles": {
+    "owner": "Owner",
+    "admin": "Admin",
+    "support": "Support",
+    "staff": "Staff",
+    "read_only": "Read Only"
+  },
+  "signOut": "Logga ut",
+  "licenseSidebar": {
+    "workspace": "Arbetsyta:",
+    "poweredBy": "Drivs av",
+    "licensedTo": "Licensierad till:",
+    "plan": "Plan:",
+    "subscription": "Prenumeration:",
+    "status": "Status:",
+    "version": "Version:",
+    "copyright": "© Aipify Group AS",
+    "statusActive": "Aktiv",
+    "statusGrace": "Anståndperiod",
+    "statusPaused": "Pausad",
+    "statusUnknown": "Okänd",
+    "notConfigured": "Inte konfigurerad",
+    "notAssigned": "Inte tilldelad"
+  },
+  "branding": {
+    "pulseLabel": "Aipify platform symbol"
+  },
+  "commandBar": {
+    "placeholder": "Sök vad som helst...",
+    "close": "Stäng kommandofältet",
+    "noResults": "Inga matchande kommandon eller destinationer.",
+    "sections": {
+      "navigation": "Navigering",
+      "action": "Åtgärder",
+      "search": "Sökresultat",
+      "recommendation": "Rekommendationer",
+      "recent": "Senaste"
+    },
+    "shortcuts": {
+      "title": "Tangentbord",
+      "navigate": "↑↓ Navigera",
+      "select": "↵ Välj",
+      "close": "Esc Stäng",
+      "open": "⌘K / Ctrl+K Öppna"
+    },
+    "recommendations": {
+      "pendingApprovals": "Granska väntande godkännanden",
+      "failedAutomations": "Granska misslyckade automatiseringar",
+      "growthPartnerApplications": "Growth Partner-ansökningar kräver uppmärksamhet",
+      "executiveSummary": "Be Aipify om en executive sammanfattning"
+    },
+    "openCommandBar": "Öppna kommandofält",
+    "actions": {
+      "createAutomation": "Skapa automatisering",
+      "exportAuditLogs": "Exportera granskningsloggar",
+      "viewFailedWorkflows": "Visa misslyckade arbetsflöden",
+      "launchInstallWizard": "Starta installationsguide",
+      "generateExecutiveReport": "Generera executive-rapport",
+      "findGrowthPartners": "Hitta Growth Partners",
+      "superAdminAudit": "Öppna Super Admin-granskning",
+      "searchKnowledgeCenter": "Sök i Knowledge Center",
+      "inviteGrowthPartner": "Bjud in Growth Partner",
+      "openCustomerProfile": "Öppna kundprofil",
+      "restartFailedWorkflow": "Starta om misslyckat arbetsflöde"
+    },
+    "categories": {
+      "customers": "Kunder",
+      "support": "Support",
+      "knowledge": "Kunskap",
+      "skills": "Skills",
+      "actions": "Åtgärder",
+      "growthPartners": "Growth Partners",
+      "automations": "Automatiseringar",
+      "users": "Användare",
+      "subscriptions": "Prenumerationer",
+      "modules": "Moduler"
+    }
+  },
+  "twoFactor": {
+    "badge": {
+      "enabled": "Inloggningsverifiering aktiverad",
+      "required": "Verifiering krävs för din roll"
+    }
+  },
+  "multiTenantArchitecture": {
+    "title": "Multi-Tenant-arkitektur",
+    "subtitle": "Säker organisationsisolering — varje kund har egna användare, moduler, Knowledge Center, integrationer och revisionsloggar.",
+    "loading": "Laddar tenant-arkitektur-instrumentpanel…",
+    "aipifyCore": "Aipify Core",
+    "knowledgeCenter": "Knowledge Center",
+    "team": "Team",
+    "unonightPilot": "Unonight pilot-tenant",
+    "unonightNote": "Unonight är den första anslutna pilotkunden. Aipify förblir en oberoende SaaS-plattform.",
+    "selectedOrganization": "Vald organisation",
+    "role": "Roll",
+    "modulesEnabled": "Aktiverade moduler",
+    "pendingTasks": "Väntande uppgifter",
+    "activeAlerts": "Aktiva varningar",
+    "faqs": "FAQ",
+    "yourOrganizations": "Dina organisationer",
+    "enabledModules": "Modulaktivering",
+    "enabled": "Aktiverad",
+    "disabled": "Inaktiverad",
+    "integrations": "Integrationer",
+    "rolePermissions": "Rollbehörigheter",
+    "dataIsolation": "Tenant-dataisolering",
+    "auditLogging": "Revisionsloggning",
+    "aiInvolved": "Aipify inblandad",
+    "organizationSwitcher": "Byt organisation",
+    "switchingOrganization": "Byter…"
+  },
+  "companionPresence": {
+    "ariaIndicator": "Aipify companion-närvaro",
+    "ariaPanel": "Companion-närvaropanel",
+    "ariaClose": "Stäng companion-panel",
+    "ariaCollapse": "Dölj companion-indikator",
+    "ariaExpand": "Visa companion-indikator",
+    "sinceLastLogin": "Sedan senaste inloggning",
+    "tasks": "Öppna uppgifter",
+    "approvals": "Väntande godkännanden",
+    "notifications": "Olästa aviseringar",
+    "askAipify": "Fråga Aipify",
+    "privacyNote": "Endast systemnärvaro — inte medarbetarövervakning.",
+    "quietMode": "Tyst läge",
+    "quietModeOff": "Avsluta tyst läge",
+    "acknowledgeCritical": "Bekräfta kritiskt larm",
+    "loading": "Laddar närvaro…",
+    "newSinceLogin": "{count} nya supportsärenden",
+    "unresolvedApprovals": "{count} olösta godkännanden",
+    "states": {
+      "idle": "Online",
+      "working": "Arbetar",
+      "attention_needed": "Behöver uppmärksamhet",
+      "critical_alert": "Kritiskt larm",
+      "disconnected": "Frånkopplad",
+      "quiet_mode": "Tyst läge"
+    }
+  },
+  "voiceOfCustomer": {
+    "trigger": "Dela feedback",
+    "triggerShort": "Dela feedback",
+    "title": "Dela feedback",
+    "subtitle": "Din röst hjälper oss förbättra Aipify — aldrig tvingad, alltid välkommen.",
+    "type": "Feedbacktyp",
+    "feedbackTitle": "Titel",
+    "description": "Beskrivning",
+    "priority": "Prioritet",
+    "wantsResponse": "Vill du ha svar?",
+    "noResponse": "Inget svar behövs",
+    "contactMe": "Kontakta mig angående denna feedback",
+    "includeContext": "Inkludera aktuell sida och enhetskontext (valfritt)",
+    "submit": "Skicka feedback",
+    "submitting": "Skickar…",
+    "acknowledgementTitle": "Tack för att du hjälper oss förbättra Aipify.",
+    "acknowledgementBody": "Varje förslag hjälper oss bygga en bättre upplevelse.",
+    "historyTitle": "Din feedbackhistorik",
+    "historyEmpty": "Du har inte skickat in feedback ännu.",
+    "close": "Stäng",
+    "feedbackTypes": {
+      "bug_report": "Buggrapport",
+      "improvement_suggestion": "Förbättringsförslag",
+      "feature_request": "Ny funktionsförfrågan",
+      "compliment": "Komplimang",
+      "usability_issue": "Användbarhetsproblem",
+      "general_feedback": "Allmän feedback"
+    },
+    "priorities": {
+      "low": "Låg",
+      "medium": "Medel",
+      "high": "Hög"
+    },
+    "customerStatuses": {
+      "received": "Mottagen",
+      "under_review": "Under granskning",
+      "planned": "Planerad",
+      "implemented": "Implementerad"
+    },
+    "trustNote": "Deltagande är alltid frivilligt. Vi använder feedback endast för att förbättra Aipify — aldrig för reklam eller försäljning.",
+    "transparencyNote": "Information du delar här samlas in för att förbättra Aipifys produkter och tjänster.",
+    "trustStatementLink": "Policy för kundfeedback och produktförbättring"
+  }
+}

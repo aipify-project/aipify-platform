@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { AipifyLoader } from "@/components/shared/AipifyLoader";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { formatExecutiveMetric, formatOverviewMetric } from "@/lib/ui/overview-metrics";
 import {
   parseIndustryPackEcosystemCenter,
   type IndustryPackEcosystemCenter,
@@ -101,10 +102,10 @@ export function IndustryPackEcosystemEngineDashboardPanel({ labels }: Props) {
         <p className="mt-1 text-sm text-gray-600">{center.distinction_note}</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            [labels.metricInstalled, overview.pack_adoption ?? 0],
+            [labels.metricInstalled, formatOverviewMetric(overview.pack_adoption)],
             [labels.metricAvailable, (center.available_packs ?? []).length],
-            [labels.metricMarketplace, overview.marketplace_catalog_count ?? 0],
-            [labels.metricHealth, overview.average_health_score ?? 0],
+            [labels.metricMarketplace, formatOverviewMetric(overview.marketplace_catalog_count)],
+            [labels.metricHealth, formatOverviewMetric(overview.average_health_score)],
           ].map(([label, value]) => (
             <div key={String(label)} className="rounded-lg bg-gray-50 p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</p>

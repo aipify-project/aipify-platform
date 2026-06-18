@@ -1,0 +1,200 @@
+{
+  "sidebar": {
+    "plan": "Business Plan",
+    "workspaceControlCenter": "Workspace Control Center"
+  },
+  "topbar": {
+    "notifications": "Notifications",
+    "companySelector": "Select company",
+    "profileFallback": "User",
+    "companyFallback": "Company"
+  },
+  "search": "Søk moduler, innstillinger og handlinger...",
+  "navSearch": {
+    "hint": "⌘K search menu",
+    "compactToggle": "Compact navigation",
+    "results": "Search results",
+    "noResults": "Ingen treff"
+  },
+  "roles": {
+    "owner": "Owner",
+    "admin": "Admin",
+    "support": "Support",
+    "staff": "Staff",
+    "read_only": "Read Only"
+  },
+  "signOut": "Logg ut",
+  "licenseSidebar": {
+    "workspace": "Workspace:",
+    "poweredBy": "Drevet av",
+    "licensedTo": "Lisensiert til:",
+    "plan": "Plan:",
+    "subscription": "Abonnement:",
+    "status": "Status:",
+    "version": "Versjon:",
+    "copyright": "© Aipify Group AS",
+    "statusActive": "Aktiv",
+    "statusGrace": "Utsettelsesperiode",
+    "statusPaused": "Pauset",
+    "statusUnknown": "Ukjent",
+    "notConfigured": "Ikke konfigurert",
+    "notAssigned": "Ikke tildelt"
+  },
+  "branding": {
+    "pulseLabel": "Aipify platform symbol"
+  },
+  "commandBar": {
+    "placeholder": "Søk etter hva som helst...",
+    "close": "Lukk kommandolinjen",
+    "noResults": "Ingen treff for kommandoer eller destinasjoner.",
+    "sections": {
+      "navigation": "Navigasjon",
+      "action": "Handlinger",
+      "search": "Søkeresultater",
+      "recommendation": "Anbefalinger",
+      "recent": "Nylig"
+    },
+    "shortcuts": {
+      "title": "Tastatur",
+      "navigate": "↑↓ Naviger",
+      "select": "↵ Velg",
+      "close": "Esc Lukk",
+      "open": "⌘K / Ctrl+K Åpne"
+    },
+    "recommendations": {
+      "pendingApprovals": "Gjennomgå ventende godkjenninger",
+      "failedAutomations": "Gjennomgå mislykkede automatiseringer",
+      "growthPartnerApplications": "Growth Partner-søknader krever oppmerksomhet",
+      "executiveSummary": "Be Aipify om et executive sammendrag"
+    },
+    "openCommandBar": "Åpne kommandolinje",
+    "actions": {
+      "createAutomation": "Opprett automatisering",
+      "exportAuditLogs": "Eksporter revisjonslogger",
+      "viewFailedWorkflows": "Vis mislykkede arbeidsflyter",
+      "launchInstallWizard": "Start installasjonsveiviser",
+      "generateExecutiveReport": "Generer executive-rapport",
+      "findGrowthPartners": "Finn Growth Partners",
+      "superAdminAudit": "Åpne Super Admin-revisjon",
+      "searchKnowledgeCenter": "Søk i Knowledge Center",
+      "inviteGrowthPartner": "Inviter Growth Partner",
+      "openCustomerProfile": "Åpne kundeprofil",
+      "restartFailedWorkflow": "Start mislykket arbeidsflyt på nytt"
+    },
+    "categories": {
+      "customers": "Kunder",
+      "support": "Support",
+      "knowledge": "Kunnskap",
+      "skills": "Skills",
+      "actions": "Handlinger",
+      "growthPartners": "Growth Partners",
+      "automations": "Automatiseringer",
+      "users": "Brukere",
+      "subscriptions": "Abonnementer",
+      "modules": "Moduler"
+    }
+  },
+  "twoFactor": {
+    "badge": {
+      "enabled": "Innloggingsverifisering aktivert",
+      "required": "Verifisering kreves for rollen din"
+    }
+  },
+  "multiTenantArchitecture": {
+    "title": "Multi-Tenant-arkitektur",
+    "subtitle": "Sikker organisasjonsisolasjon — hver kunde har egne brukere, moduler, Knowledge Center, integrasjoner og revisjonslogger.",
+    "loading": "Laster tenant-arkitektur-dashboard…",
+    "aipifyCore": "Aipify Core",
+    "knowledgeCenter": "Knowledge Center",
+    "team": "Team",
+    "unonightPilot": "Unonight pilot-tenant",
+    "unonightNote": "Unonight er den første tilkoblede pilotkunden. Aipify forblir en uavhengig SaaS-plattform.",
+    "selectedOrganization": "Valgt organisasjon",
+    "role": "Rolle",
+    "modulesEnabled": "Aktiverte moduler",
+    "pendingTasks": "Ventende oppgaver",
+    "activeAlerts": "Aktive varsler",
+    "faqs": "FAQ-er",
+    "yourOrganizations": "Dine organisasjoner",
+    "enabledModules": "Modulaktivering",
+    "enabled": "Aktivert",
+    "disabled": "Deaktivert",
+    "integrations": "Integrasjoner",
+    "rolePermissions": "Rolletillatelser",
+    "dataIsolation": "Tenant-dataisolasjon",
+    "auditLogging": "Revisjonslogging",
+    "aiInvolved": "Aipify involvert",
+    "organizationSwitcher": "Bytt organisasjon",
+    "switchingOrganization": "Bytter…"
+  },
+  "companionPresence": {
+    "ariaIndicator": "Aipify companion-tilstedeværelse",
+    "ariaPanel": "Companion-tilstedeværelsepanel",
+    "ariaClose": "Luk companion-panel",
+    "ariaCollapse": "Skjul companion-indikator",
+    "ariaExpand": "Vis companion-indikator",
+    "sinceLastLogin": "Siden siste innlogging",
+    "tasks": "Åpne oppgaver",
+    "approvals": "Ventende godkjenninger",
+    "notifications": "Uleste varsler",
+    "askAipify": "Spør Aipify",
+    "privacyNote": "Kun systemtilstedeværelse — ikke ansattovervåking.",
+    "quietMode": "Stillemodus",
+    "quietModeOff": "Avslutt stillemodus",
+    "acknowledgeCritical": "Bekreft kritisk varsel",
+    "loading": "Laster tilstedeværelse…",
+    "newSinceLogin": "{count} nye supportsaker",
+    "unresolvedApprovals": "{count} uløste godkjenninger",
+    "states": {
+      "idle": "Online",
+      "working": "Arbeider",
+      "attention_needed": "Trenger oppmerksomhet",
+      "critical_alert": "Kritisk varsel",
+      "disconnected": "Frakoblet",
+      "quiet_mode": "Stillemodus"
+    }
+  },
+  "voiceOfCustomer": {
+    "trigger": "Del tilbakemelding",
+    "triggerShort": "Del tilbakemelding",
+    "title": "Del tilbakemelding",
+    "subtitle": "Din stemme hjelper oss å forbedre Aipify — aldri tvunget, alltid velkommen.",
+    "type": "Tilbakemeldingstype",
+    "feedbackTitle": "Tittel",
+    "description": "Beskrivelse",
+    "priority": "Prioritet",
+    "wantsResponse": "Ønsker du svar?",
+    "noResponse": "Ingen svar nødvendig",
+    "contactMe": "Kontakt meg angående denne tilbakemeldingen",
+    "includeContext": "Inkluder gjeldende side og enhetskontekst (valgfritt)",
+    "submit": "Send tilbakemelding",
+    "submitting": "Sender…",
+    "acknowledgementTitle": "Takk for at du hjelper oss å forbedre Aipify.",
+    "acknowledgementBody": "Hvert forslag hjelper oss å bygge en bedre opplevelse.",
+    "historyTitle": "Din tilbakemeldingshistorikk",
+    "historyEmpty": "Du har ikke sendt inn tilbakemeldinger ennå.",
+    "close": "Lukk",
+    "feedbackTypes": {
+      "bug_report": "Feilrapport",
+      "improvement_suggestion": "Forbedringsforslag",
+      "feature_request": "Ny funksjonsforespørsel",
+      "compliment": "Kompliment",
+      "usability_issue": "Brukervennlighetsproblem",
+      "general_feedback": "Generell tilbakemelding"
+    },
+    "priorities": {
+      "low": "Lav",
+      "medium": "Middels",
+      "high": "Høy"
+    },
+    "customerStatuses": {
+      "received": "Mottatt",
+      "under_review": "Under vurdering",
+      "planned": "Planlagt",
+      "implemented": "Implementert"
+    },
+    "trustNote": "Deltakelse er alltid frivillig. Vi bruker tilbakemeldinger kun for å forbedre Aipify — aldri til reklame eller videresalg.",
+    "transparencyNote": "Informasjon du deler her samles inn for å forbedre Aipify-produkter og -tjenester.",
+    "trustStatementLink": "Retningslinjer for kundetilbakemelding og produktforbedring"
+  }
+}

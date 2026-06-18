@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { AipifyLoader } from "@/components/shared/AipifyLoader";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { formatExecutiveMetric, formatOverviewMetric } from "@/lib/ui/overview-metrics";
 import {
   parseHealthcareClinicPatientOperationsCenter,
   type HealthcareClinicPatientOperationsCenter,
@@ -96,14 +97,14 @@ export function HealthcareClinicPatientOperationsPackDashboardPanel({ labels }: 
         <p className="mt-1 text-sm text-gray-600">{center.philosophy}</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            [labels.metricPatients, overview.patients ?? 0],
-            [labels.metricAppointments, overview.appointments ?? 0],
-            [labels.metricProviders, overview.providers ?? 0],
-            [labels.metricCarePlans, overview.care_plans ?? 0],
-            [labels.metricCapacity, overview.operational_capacity ?? 0],
-            [labels.metricCompliance, overview.compliance_status ?? "—"],
-            [labels.metricSatisfaction, overview.patient_satisfaction ?? 0],
-            [labels.metricHealth, overview.healthcare_health_score ?? 0],
+            [labels.metricPatients, formatOverviewMetric(overview.patients)],
+            [labels.metricAppointments, formatOverviewMetric(overview.appointments)],
+            [labels.metricProviders, formatOverviewMetric(overview.providers)],
+            [labels.metricCarePlans, formatOverviewMetric(overview.care_plans)],
+            [labels.metricCapacity, formatOverviewMetric(overview.operational_capacity)],
+            [labels.metricCompliance, formatExecutiveMetric(overview.compliance_status)],
+            [labels.metricSatisfaction, formatOverviewMetric(overview.patient_satisfaction)],
+            [labels.metricHealth, formatOverviewMetric(overview.healthcare_health_score)],
           ].map(([label, value]) => (
             <div key={String(label)} className="rounded-lg bg-gray-50 p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</p>

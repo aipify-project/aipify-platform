@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { AipifyLoader } from "@/components/shared/AipifyLoader";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { formatExecutiveMetric, formatOverviewMetric } from "@/lib/ui/overview-metrics";
 import {
   parseLogisticsTransportationFleetOperationsCenter,
   type LogisticsTransportationFleetOperationsCenter,
@@ -91,14 +92,14 @@ export function LogisticsTransportationFleetOperationsPackDashboardPanel({ label
         <p className="mt-1 text-sm text-gray-600">{center.philosophy}</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            [labels.metricShipments, overview.active_shipments ?? 0],
-            [labels.metricFleet, overview.fleet_size ?? 0],
-            [labels.metricDrivers, overview.drivers ?? 0],
-            [labels.metricRoutes, overview.routes ?? 0],
-            [labels.metricCenters, overview.distribution_centers ?? 0],
-            [labels.metricOnTime, overview.on_time_delivery ?? 0],
-            [labels.metricCosts, overview.transportation_costs ?? 0],
-            [labels.metricHealth, overview.logistics_health_score ?? 0],
+            [labels.metricShipments, formatOverviewMetric(overview.active_shipments)],
+            [labels.metricFleet, formatOverviewMetric(overview.fleet_size)],
+            [labels.metricDrivers, formatOverviewMetric(overview.drivers)],
+            [labels.metricRoutes, formatOverviewMetric(overview.routes)],
+            [labels.metricCenters, formatOverviewMetric(overview.distribution_centers)],
+            [labels.metricOnTime, formatOverviewMetric(overview.on_time_delivery)],
+            [labels.metricCosts, formatOverviewMetric(overview.transportation_costs)],
+            [labels.metricHealth, formatOverviewMetric(overview.logistics_health_score)],
           ].map(([label, value]) => (
             <div key={String(label)} className="rounded-lg bg-gray-50 p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</p>

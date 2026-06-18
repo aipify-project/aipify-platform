@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "build": {
     "env": {
-      "NODE_OPTIONS": "--max-old-space-size=12288",
+      "NODE_OPTIONS": "--max-old-space-size=14336",
       "VERCEL_BUILD_MACHINE_TYPE": "enhanced"
     }
   }

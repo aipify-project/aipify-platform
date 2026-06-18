@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { AipifyLoader } from "@/components/shared/AipifyLoader";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { formatExecutiveMetric, formatOverviewMetric } from "@/lib/ui/overview-metrics";
 import {
   parseRealEstatePortfolioOperationsCenter,
   type RealEstatePortfolioOperationsCenter,
@@ -91,14 +92,14 @@ export function RealEstatePortfolioOperationsPackDashboardPanel({ labels }: Prop
         <p className="mt-2 text-xs text-gray-500">{center.distinction_note}</p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            [labels.metricProperties, overview.properties ?? 0],
-            [labels.metricUnits, overview.units ?? 0],
-            [labels.metricTenants, overview.tenants ?? 0],
-            [labels.metricOccupancy, overview.lease_occupancy ?? 0],
-            [labels.metricRevenue, overview.revenue ?? 0],
-            [labels.metricExpenses, overview.expenses ?? 0],
-            [labels.metricPortfolioValue, overview.portfolio_value ?? 0],
-            [labels.metricHealth, overview.portfolio_health_score ?? 0],
+            [labels.metricProperties, formatOverviewMetric(overview.properties)],
+            [labels.metricUnits, formatOverviewMetric(overview.units)],
+            [labels.metricTenants, formatOverviewMetric(overview.tenants)],
+            [labels.metricOccupancy, formatOverviewMetric(overview.lease_occupancy)],
+            [labels.metricRevenue, formatOverviewMetric(overview.revenue)],
+            [labels.metricExpenses, formatOverviewMetric(overview.expenses)],
+            [labels.metricPortfolioValue, formatOverviewMetric(overview.portfolio_value)],
+            [labels.metricHealth, formatOverviewMetric(overview.portfolio_health_score)],
           ].map(([label, value]) => (
             <div key={String(label)} className="rounded-lg bg-gray-50 p-4">
               <p className="text-xs font-medium uppercase tracking-wide text-gray-500">{label}</p>

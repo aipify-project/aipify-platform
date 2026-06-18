@@ -1,73 +1,81 @@
-import { EvolutionBoardPanel } from "@/components/app/global-learning";
-import { EvolutionGovernanceBoardPanel } from "@/components/app/evolution-governance";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
+import { OrganizationalEvolutionDashboardPanel } from "@/components/app/organizational-evolution-engine";
+import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
-export default async function EvolutionPage() {
-  const dict = await getCustomerAppDictionaryForSplits(await getLocale(), ["dashboard"]);
+export default async function OrganizationalEvolutionPage() {
+  const locale = await getLocale();
+  const dict = await getCustomerAppDictionaryForModule(locale, "organizationalEvolutionEngine");
   const t = createTranslator(dict);
-  const g = "customerApp.evolutionGovernance";
-  const c = "customerApp.evolution";
+  const p = "customerApp.organizationalEvolutionEngine";
+
+  const labels: Record<string, string> = {
+    loading: t(`${p}.loading`),
+    loadFailed: t(`${p}.loadFailed`),
+    actionFailed: t(`${p}.actionFailed`),
+    accessRequiredTitle: t(`${p}.accessRequiredTitle`),
+    accessRequiredBody: t(`${p}.accessRequiredBody`),
+    overviewTitle: t(`${p}.overviewTitle`),
+    signalsTitle: t(`${p}.signalsTitle`),
+    improvementsTitle: t(`${p}.improvementsTitle`),
+    operationalLearningTitle: t(`${p}.operationalLearningTitle`),
+    patternsTitle: t(`${p}.patternsTitle`),
+    knowledgeTitle: t(`${p}.knowledgeTitle`),
+    workflowTitle: t(`${p}.workflowTitle`),
+    approvedTitle: t(`${p}.approvedTitle`),
+    intelligenceTitle: t(`${p}.intelligenceTitle`),
+    advisorTitle: t(`${p}.advisorTitle`),
+    governanceTitle: t(`${p}.governanceTitle`),
+    auditTitle: t(`${p}.auditTitle`),
+    executiveTitle: t(`${p}.executiveTitle`),
+    metricSignals: t(`${p}.metricSignals`),
+    metricOpportunities: t(`${p}.metricOpportunities`),
+    metricApproved: t(`${p}.metricApproved`),
+    metricLearnings: t(`${p}.metricLearnings`),
+    metricKnowledge: t(`${p}.metricKnowledge`),
+    metricWorkflows: t(`${p}.metricWorkflows`),
+    metricHealth: t(`${p}.metricHealth`),
+    metricVelocity: t(`${p}.metricVelocity`),
+    noSignals: t(`${p}.noSignals`),
+    noImprovements: t(`${p}.noImprovements`),
+    noOperationalLearning: t(`${p}.noOperationalLearning`),
+    noPatterns: t(`${p}.noPatterns`),
+    noKnowledge: t(`${p}.noKnowledge`),
+    noWorkflows: t(`${p}.noWorkflows`),
+    noApproved: t(`${p}.noApproved`),
+    noIntelligence: t(`${p}.noIntelligence`),
+    noAdvisor: t(`${p}.noAdvisor`),
+    noAudit: t(`${p}.noAudit`),
+    recommendation: t(`${p}.recommendation`),
+    openLearning: t(`${p}.openLearning`),
+    openApprovals: t(`${p}.openApprovals`),
+    openKnowledge: t(`${p}.openKnowledge`),
+    recordSignal: t(`${p}.recordSignal`),
+    suggestImprovement: t(`${p}.suggestImprovement`),
+    approve: t(`${p}.approve`),
+    reject: t(`${p}.reject`),
+    implement: t(`${p}.implement`),
+    validate: t(`${p}.validate`),
+    refreshAnalytics: t(`${p}.refreshAnalytics`),
+    acting: t(`${p}.acting`),
+    governanceNoSelfModify: t(`${p}.governanceNoSelfModify`),
+    governanceNoPolicyChanges: t(`${p}.governanceNoPolicyChanges`),
+    governanceNoPermissionChanges: t(`${p}.governanceNoPermissionChanges`),
+    governanceHumanApproval: t(`${p}.governanceHumanApproval`),
+    governanceHumanOverride: t(`${p}.governanceHumanOverride`),
+    executiveSummary: t(`${p}.executiveSummary`),
+    velocityLabel: t(`${p}.velocityLabel`),
+    implementedLabel: t(`${p}.implementedLabel`),
+    impactLabel: t(`${p}.impactLabel`),
+  };
 
   return (
-    <div className="mx-auto max-w-4xl space-y-8 p-6">
+    <div className="mx-auto max-w-6xl space-y-6 p-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t(`${g}.title`)}</h1>
-        <p className="mt-2 text-gray-600">{t(`${g}.subtitle`)}</p>
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{t(`${p}.title`)}</h1>
+        <p className="mt-2 text-gray-600">{t(`${p}.subtitle`)}</p>
       </div>
-
-      <EvolutionGovernanceBoardPanel
-        labels={{
-          loading: t(`${g}.loading`),
-          governanceTitle: t(`${g}.governanceTitle`),
-          generateBriefing: t(`${g}.generateBriefing`),
-          approvalMatrix: t(`${g}.approvalMatrix`),
-          openProposals: t(`${g}.openProposals`),
-          noProposals: t(`${g}.noProposals`),
-          expectedBenefits: t(`${g}.expectedBenefits`),
-          potentialRisks: t(`${g}.potentialRisks`),
-          implementationRecommendation: t(`${g}.implementationRecommendation`),
-          rollbackGuidance: t(`${g}.rollbackGuidance`),
-          reviewApprove: t(`${g}.reviewApprove`),
-          approve: t(`${g}.approve`),
-          reject: t(`${g}.reject`),
-          schedule: t(`${g}.schedule`),
-          implement: t(`${g}.implement`),
-          validate: t(`${g}.validate`),
-          rollback: t(`${g}.rollback`),
-          changeHistory: t(`${g}.changeHistory`),
-          briefings: t(`${g}.briefings`),
-          integrations: t(`${g}.integrations`),
-        }}
-      />
-
-      <section className="border-t border-gray-200 pt-8">
-        <div>
-          <h2 className="text-lg font-semibold text-gray-900">{t(`${c}.coreTitle`)}</h2>
-          <p className="mt-1 text-sm text-gray-600">{t(`${c}.coreSubtitle`)}</p>
-        </div>
-        <div className="mt-4">
-          <EvolutionBoardPanel
-            labels={{
-              loading: t(`${c}.loading`),
-              back: t(`${c}.back`),
-              trendSummaries: t(`${c}.trendSummaries`),
-              proposals: t(`${c}.proposals`),
-              noProposals: t(`${c}.noProposals`),
-              signals: t(`${c}.signals`),
-              expectedValue: t(`${c}.expectedValue`),
-              confidence: t(`${c}.confidence`),
-              recommendedAction: t(`${c}.recommendedAction`),
-              yourFeedback: t(`${c}.yourFeedback`),
-              approve: t(`${c}.approve`),
-              reject: t(`${c}.reject`),
-              snooze: t(`${c}.snooze`),
-              requestInfo: t(`${c}.requestInfo`),
-            }}
-          />
-        </div>
-      </section>
+      <OrganizationalEvolutionDashboardPanel labels={labels} />
     </div>
   );
 }

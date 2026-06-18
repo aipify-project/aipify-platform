@@ -48,7 +48,7 @@ const SEARCH_KEYWORDS: Record<string, string[]> = {
   companionMarketplaceEngine: ["commerce", "marketplace", "growth partners"],
 };
 
-const SEARCH_DESCRIPTION_PREFIX = "customerApp.navGroups.searchDescriptions.";
+const SEARCH_DESCRIPTION_PREFIX = "navigation.navGroups.searchDescriptions.";
 
 /** Nav item ids with dedicated search descriptions in i18n. */
 const DESCRIBED_IDS = new Set<string>(
@@ -91,7 +91,7 @@ export function buildAppNavSearchIndex(
     }
   }
 
-  const modulesLabel = t("customerApp.navGroups.searchModulesCategory");
+  const modulesLabel = t("navigation.navGroups.searchModulesCategory");
 
   for (const item of allItems) {
     if (seen.has(item.id)) continue;

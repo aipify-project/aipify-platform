@@ -1,0 +1,1 @@
+export { DigitalWorkforceGovernanceEngineDashboardPanel } from "./DigitalWorkforceGovernanceEngineDashboardPanel";
