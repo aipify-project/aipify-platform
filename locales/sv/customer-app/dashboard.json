@@ -6622,6 +6622,97 @@
     "settingsLink": "Kunskapsevolution",
     "knowledgeEvolutionLink": "Knowledge Evolution"
   },
+  "knowledgeEvolutionEngine": {
+    "title": "Knowledge Evolution Engine",
+    "subtitle": "Förbättra kontinuerligt organisatorisk kunskap, dokumentation, onboarding, FAQ, arbetsflöden och affärsintelligens över tid.",
+    "philosophy": "Varje organisation samlar kunskap. De flesta förlorar den. Aipify hjälper till att bevara, organisera, förbättra och dela kunskap — med mänskligt godkännande för varje ändring.",
+    "governanceNote": "Ingen automatisk publicering. Alla föreslagna kunskapsändringar kräver mänskligt godkännande.",
+    "privacyNote": "Endast metadata och mönster — Aipify publicerar aldrig kunskap automatiskt och lagrar inte rå supporttranskript här.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga objekt i detta avsnitt ännu.",
+    "accessDenied": "Knowledge Evolution Engine kräver aktiv arbetsytemedlemskap.",
+    "healthTitle": "Kunskapshälsopoäng",
+    "healthScore": "Hälsopoäng",
+    "coverage": "Täckning",
+    "freshness": "Aktualitet",
+    "pendingApprovals": "Väntande godkännanden",
+    "openGaps": "Öppna gap",
+    "sections": {
+      "knowledgeOpportunities": "Kunskapsmöjligheter",
+      "missingKnowledge": "Saknad kunskap",
+      "suggestedImprovements": "Föreslagna förbättringar",
+      "outdatedContent": "Föråldrat innehåll",
+      "highRiskGaps": "Högrisk-kunskapsluckor"
+    },
+    "governance": {
+      "source": "Källa",
+      "owner": "Ägare",
+      "department": "Avdelning",
+      "status": "Status",
+      "version": "Version",
+      "reviewDate": "Granskningsdatum",
+      "lastUpdated": "Senast uppdaterad",
+      "usage": "Användningsfrekvens",
+      "occurrences": "Förekomster"
+    },
+    "suggestedAction": "Föreslagen åtgärd",
+    "supportCandidates": {
+      "title": "Support-till-kunskap-kandidater",
+      "empty": "Inga kunskapskandidater väntar på godkännande.",
+      "approvalRequired": "Mänskligt godkännande krävs före publicering."
+    },
+    "intelligence": {
+      "title": "Organisationsintelligens",
+      "mostValuableDocuments": "Mest värdefulla dokument",
+      "mostUsedProcedures": "Mest använda procedurer",
+      "mostSearchedTopics": "Mest sökta ämnen",
+      "mostRequestedInformation": "Mest efterfrågade information"
+    },
+    "executive": {
+      "title": "Executive kunskapsdashboard",
+      "knowledgeHealth": "Kunskapshälsa",
+      "knowledgeCoverage": "Kunskapstäckning",
+      "knowledgeRisks": "Kunskapsrisker",
+      "knowledgeGrowth": "Kunskapstillväxt",
+      "pendingApprovals": "Väntande godkännanden"
+    },
+    "actions": {
+      "approve": "Godkänn",
+      "reject": "Avvisa",
+      "resolve": "Lös",
+      "dismiss": "Avfärda"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "improvementTypes": {
+      "rewriteArticle": "Skriv om artikel",
+      "addScreenshots": "Lägg till skärmdumpar",
+      "addVideoGuide": "Lägg till videoguide",
+      "addFaqSection": "Lägg till FAQ-sektion",
+      "createArticle": "Skapa artikel",
+      "addProcedure": "Lägg till procedur"
+    },
+    "candidateTypes": {
+      "faqSuggestion": "FAQ-förslag",
+      "knowledgeArticle": "Kunskapsartikel",
+      "trainingMaterial": "Utbildningsmaterial",
+      "procedure": "Procedur",
+      "complianceDoc": "Compliance-dokumentation",
+      "customerInstruction": "Kundinstruktion"
+    },
+    "links": {
+      "legacyCenter": "Legacy Knowledge Evolution Center",
+      "knowledgeCenter": "Knowledge Center",
+      "employeeKnowledge": "Employee Knowledge"
+    }
+  },
   "capabilityMaturityCenter": {
     "title": "Kapabilitetsmognadscenter",
     "subtitle": "Assess, benchmark, and improve organizational capabilities across operations, governance, knowledge, technology, leadership, and workforce development.",

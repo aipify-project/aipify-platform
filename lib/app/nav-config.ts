@@ -1925,7 +1925,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "governance", href: "/app/governance", labelKey: "navigation.nav.governance" },
   { id: "enterprise", href: "/app/enterprise", labelKey: "navigation.nav.enterprise" },
   { id: "quality", href: "/app/quality", labelKey: "navigation.nav.quality" },
-  { id: "knowledgeEvolutionCenterEngine", href: "/app/knowledge-center/knowledge-evolution", labelKey: "navigation.nav.knowledgeEvolutionCenterEngine" },
+  { id: "knowledgeEvolutionCenterEngine", href: "/app/knowledge/evolution", labelKey: "navigation.nav.knowledgeEvolutionCenterEngine" },
   { id: "organizationalLearningCenterEngine", href: "/app/knowledge-center/organizational-learning", labelKey: "navigation.nav.organizationalLearningCenterEngine" },
   { id: "organizationalMemoryCenterEngine", href: "/app/knowledge-center/organizational-memory", labelKey: "navigation.nav.organizationalMemoryCenterEngine" },
   {
@@ -2810,6 +2810,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
     return "quality";
   }
   if (pathname.startsWith("/app/knowledge/memory")) return "enterpriseOrganizationalMemoryEngine";
+  if (pathname.startsWith("/app/knowledge/evolution")) return "knowledgeEvolutionCenterEngine";
   if (pathname.startsWith("/app/knowledge-center/knowledge-evolution")) return "knowledgeEvolutionCenterEngine";
   if (pathname.startsWith("/app/knowledge-center/organizational-learning")) return "organizationalLearningCenterEngine";
   if (pathname.startsWith("/app/knowledge-center/organizational-memory")) return "organizationalMemoryCenterEngine";

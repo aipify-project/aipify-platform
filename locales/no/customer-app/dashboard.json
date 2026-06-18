@@ -6792,6 +6792,97 @@
     "settingsLink": "Kunnskapsevolusjon",
     "knowledgeEvolutionLink": "Knowledge Evolution"
   },
+  "knowledgeEvolutionEngine": {
+    "title": "Knowledge Evolution Engine",
+    "subtitle": "Forbedre kontinuerlig organisasjonskunnskap, dokumentasjon, onboarding, FAQ-er, arbeidsflyter og forretningsinnsikt over tid.",
+    "philosophy": "Hver organisasjon samler kunnskap. De fleste mister den. Aipify hjelper med å bevare, organisere, forbedre og dele kunnskap — med menneskelig godkjenning for hver endring.",
+    "governanceNote": "Ingen automatisk publisering. Alle foreslåtte kunnskapsendringer krever menneskelig godkjenning.",
+    "privacyNote": "Kun metadata og mønstre — Aipify publiserer aldri kunnskap automatisk og lagrer ikke rå støttetranskripter her.",
+    "refresh": "Oppdater",
+    "emptyState": "Ingen elementer i denne seksjonen ennå.",
+    "accessDenied": "Knowledge Evolution Engine krever aktiv arbeidsplasstilgang.",
+    "healthTitle": "Kunnskapshelsescore",
+    "healthScore": "Helsescore",
+    "coverage": "Dekning",
+    "freshness": "Aktualitet",
+    "pendingApprovals": "Ventende godkjenninger",
+    "openGaps": "Åpne gap",
+    "sections": {
+      "knowledgeOpportunities": "Kunnskapsmuligheter",
+      "missingKnowledge": "Manglende kunnskap",
+      "suggestedImprovements": "Foreslåtte forbedringer",
+      "outdatedContent": "Utdatert innhold",
+      "highRiskGaps": "Høyrisiko-kunnskapshull"
+    },
+    "governance": {
+      "source": "Kilde",
+      "owner": "Eier",
+      "department": "Avdeling",
+      "status": "Status",
+      "version": "Versjon",
+      "reviewDate": "Gjennomgangsdato",
+      "lastUpdated": "Sist oppdatert",
+      "usage": "Bruksfrekvens",
+      "occurrences": "Forekomster"
+    },
+    "suggestedAction": "Foreslått handling",
+    "supportCandidates": {
+      "title": "Support-til-kunnskap-kandidater",
+      "empty": "Ingen kunnskapskandidater venter på godkjenning.",
+      "approvalRequired": "Menneskelig godkjenning kreves før publisering."
+    },
+    "intelligence": {
+      "title": "Organisasjonsinnsikt",
+      "mostValuableDocuments": "Mest verdifulle dokumenter",
+      "mostUsedProcedures": "Mest brukte prosedyrer",
+      "mostSearchedTopics": "Mest søkte emner",
+      "mostRequestedInformation": "Mest etterspurte informasjon"
+    },
+    "executive": {
+      "title": "Executive kunnskapsdashbord",
+      "knowledgeHealth": "Kunnskapshelse",
+      "knowledgeCoverage": "Kunnskapsdekning",
+      "knowledgeRisks": "Kunnskapsrisiko",
+      "knowledgeGrowth": "Kunnskapsvekst",
+      "pendingApprovals": "Ventende godkjenninger"
+    },
+    "actions": {
+      "approve": "Godkjenn",
+      "reject": "Avvis",
+      "resolve": "Løs",
+      "dismiss": "Avvis signal"
+    },
+    "status": {
+      "completed": "Fullført",
+      "notAllowed": "Ikke tillatt",
+      "requiresAttention": "Krever oppmerksomhet",
+      "information": "Informasjon",
+      "restricted": "Begrenset tilgang",
+      "verified": "Verifisert",
+      "waiting": "Venter"
+    },
+    "improvementTypes": {
+      "rewriteArticle": "Omskriv artikkel",
+      "addScreenshots": "Legg til skjermbilder",
+      "addVideoGuide": "Legg til videoguide",
+      "addFaqSection": "Legg til FAQ-seksjon",
+      "createArticle": "Opprett artikkel",
+      "addProcedure": "Legg til prosedyre"
+    },
+    "candidateTypes": {
+      "faqSuggestion": "FAQ-forslag",
+      "knowledgeArticle": "Kunnskapsartikkel",
+      "trainingMaterial": "Opplæringsmateriell",
+      "procedure": "Prosedyrer",
+      "complianceDoc": "Compliance-dokumentasjon",
+      "customerInstruction": "Kundeinstruksjon"
+    },
+    "links": {
+      "legacyCenter": "Legacy Knowledge Evolution Center",
+      "knowledgeCenter": "Knowledge Center",
+      "employeeKnowledge": "Employee Knowledge"
+    }
+  },
   "capabilityMaturityCenter": {
     "title": "Kapabilitetsmodenhetssenter",
     "subtitle": "Assess, benchmark, and improve organizational capabilities across operations, governance, knowledge, technology, leadership, and workforce development.",

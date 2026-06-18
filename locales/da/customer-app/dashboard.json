@@ -6617,6 +6617,97 @@
     "settingsLink": "Vidensudvikling",
     "knowledgeEvolutionLink": "Knowledge Evolution"
   },
+  "knowledgeEvolutionEngine": {
+    "title": "Knowledge Evolution Engine",
+    "subtitle": "Forbedre løbende organisatorisk viden, dokumentation, onboarding, FAQ'er, workflows og forretningsintelligens over tid.",
+    "philosophy": "Hver organisation akkumulerer viden. De fleste mister den. Aipify hjælper med at bevare, organisere, forbedre og dele viden — med menneskelig godkendelse for hver ændring.",
+    "governanceNote": "Ingen automatisk publicering. Alle foreslåede vidensændringer kræver menneskelig godkendelse.",
+    "privacyNote": "Kun metadata og mønstre — Aipify publicerer aldrig viden automatisk og gemmer ikke rå supporttranskripter her.",
+    "refresh": "Opdater",
+    "emptyState": "Ingen elementer i denne sektion endnu.",
+    "accessDenied": "Knowledge Evolution Engine kræver aktiv arbejdspladsmedlemskab.",
+    "healthTitle": "Videnshelbredsscore",
+    "healthScore": "Helbredsscore",
+    "coverage": "Dækning",
+    "freshness": "Aktualitet",
+    "pendingApprovals": "Afventende godkendelser",
+    "openGaps": "Åbne huller",
+    "sections": {
+      "knowledgeOpportunities": "Vidensmuligheder",
+      "missingKnowledge": "Manglende viden",
+      "suggestedImprovements": "Foreslåede forbedringer",
+      "outdatedContent": "Forældet indhold",
+      "highRiskGaps": "Højrisiko-videnshuller"
+    },
+    "governance": {
+      "source": "Kilde",
+      "owner": "Ejer",
+      "department": "Afdeling",
+      "status": "Status",
+      "version": "Version",
+      "reviewDate": "Gennemgangsdato",
+      "lastUpdated": "Sidst opdateret",
+      "usage": "Brugsfrekvens",
+      "occurrences": "Forekomster"
+    },
+    "suggestedAction": "Foreslået handling",
+    "supportCandidates": {
+      "title": "Support-til-viden-kandidater",
+      "empty": "Ingen videnskandidater afventer godkendelse.",
+      "approvalRequired": "Menneskelig godkendelse kræves før publicering."
+    },
+    "intelligence": {
+      "title": "Organisatorisk intelligens",
+      "mostValuableDocuments": "Mest værdifulde dokumenter",
+      "mostUsedProcedures": "Mest brugte procedurer",
+      "mostSearchedTopics": "Mest søgte emner",
+      "mostRequestedInformation": "Mest efterspurgte information"
+    },
+    "executive": {
+      "title": "Executive vidensdashboard",
+      "knowledgeHealth": "Videnshelbred",
+      "knowledgeCoverage": "Vidensdækning",
+      "knowledgeRisks": "Vidensrisici",
+      "knowledgeGrowth": "Vidensvækst",
+      "pendingApprovals": "Afventende godkendelser"
+    },
+    "actions": {
+      "approve": "Godkend",
+      "reject": "Afvis",
+      "resolve": "Løs",
+      "dismiss": "Afvis signal"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "improvementTypes": {
+      "rewriteArticle": "Omskriv artikel",
+      "addScreenshots": "Tilføj skærmbilleder",
+      "addVideoGuide": "Tilføj videoguide",
+      "addFaqSection": "Tilføj FAQ-sektion",
+      "createArticle": "Opret artikel",
+      "addProcedure": "Tilføj procedure"
+    },
+    "candidateTypes": {
+      "faqSuggestion": "FAQ-forslag",
+      "knowledgeArticle": "Vidensartikel",
+      "trainingMaterial": "Træningsmateriale",
+      "procedure": "Procedure",
+      "complianceDoc": "Compliance-dokumentation",
+      "customerInstruction": "Kundeinstruktion"
+    },
+    "links": {
+      "legacyCenter": "Legacy Knowledge Evolution Center",
+      "knowledgeCenter": "Knowledge Center",
+      "employeeKnowledge": "Employee Knowledge"
+    }
+  },
   "capabilityMaturityCenter": {
     "title": "Kapabilitetsmodenhedscenter",
     "subtitle": "Assess, benchmark, and improve organizational capabilities across operations, governance, knowledge, technology, leadership, and workforce development.",

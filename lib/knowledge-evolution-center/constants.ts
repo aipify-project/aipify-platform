@@ -1,4 +1,4 @@
-export const KNOWLEDGE_EVOLUTION_CENTER_ROUTE = "/app/knowledge-center/knowledge-evolution";
+export const KNOWLEDGE_EVOLUTION_CENTER_ROUTE = "/app/knowledge/evolution";
 
 export const KEC_CORE_PRINCIPLE =
   "Knowledge loses value when it becomes outdated. Organizations should treat knowledge as a living asset.";

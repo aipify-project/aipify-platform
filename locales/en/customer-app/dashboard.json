@@ -8107,6 +8107,97 @@
     "settingsLink": "Knowledge Evolution",
     "knowledgeEvolutionLink": "Knowledge Evolution"
   },
+  "knowledgeEvolutionEngine": {
+    "title": "Knowledge Evolution Engine",
+    "subtitle": "Continuously improve organizational knowledge, documentation, onboarding materials, FAQs, workflows, and business intelligence over time.",
+    "philosophy": "Every organization accumulates knowledge. Most organizations lose that knowledge. Aipify helps preserve, organize, improve, and distribute knowledge — with human approval for every change.",
+    "governanceNote": "No automatic publication. All suggested knowledge changes require human approval.",
+    "privacyNote": "Metadata and patterns only — Aipify never auto-publishes knowledge or stores raw support transcripts here.",
+    "refresh": "Refresh",
+    "emptyState": "No items in this section yet.",
+    "accessDenied": "Knowledge Evolution Engine requires an active workspace membership.",
+    "healthTitle": "Knowledge Health Score",
+    "healthScore": "Health score",
+    "coverage": "Coverage",
+    "freshness": "Freshness",
+    "pendingApprovals": "Pending approvals",
+    "openGaps": "Open gaps",
+    "sections": {
+      "knowledgeOpportunities": "Knowledge Opportunities",
+      "missingKnowledge": "Missing Knowledge",
+      "suggestedImprovements": "Suggested Improvements",
+      "outdatedContent": "Outdated Content",
+      "highRiskGaps": "High-Risk Knowledge Gaps"
+    },
+    "governance": {
+      "source": "Source",
+      "owner": "Owner",
+      "department": "Department",
+      "status": "Status",
+      "version": "Version",
+      "reviewDate": "Review date",
+      "lastUpdated": "Last updated",
+      "usage": "Usage frequency",
+      "occurrences": "Occurrences"
+    },
+    "suggestedAction": "Suggested action",
+    "supportCandidates": {
+      "title": "Support-to-Knowledge Candidates",
+      "empty": "No knowledge candidates awaiting approval.",
+      "approvalRequired": "Human approval required before publication."
+    },
+    "intelligence": {
+      "title": "Organizational Intelligence",
+      "mostValuableDocuments": "Most valuable documents",
+      "mostUsedProcedures": "Most used procedures",
+      "mostSearchedTopics": "Most searched topics",
+      "mostRequestedInformation": "Most requested information"
+    },
+    "executive": {
+      "title": "Executive Knowledge Dashboard",
+      "knowledgeHealth": "Knowledge health",
+      "knowledgeCoverage": "Knowledge coverage",
+      "knowledgeRisks": "Knowledge risks",
+      "knowledgeGrowth": "Knowledge growth",
+      "pendingApprovals": "Pending approvals"
+    },
+    "actions": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "resolve": "Resolve",
+      "dismiss": "Dismiss"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "improvementTypes": {
+      "rewriteArticle": "Rewrite article",
+      "addScreenshots": "Add screenshots",
+      "addVideoGuide": "Add video guide",
+      "addFaqSection": "Add FAQ section",
+      "createArticle": "Create article",
+      "addProcedure": "Add procedure"
+    },
+    "candidateTypes": {
+      "faqSuggestion": "FAQ suggestion",
+      "knowledgeArticle": "Knowledge article",
+      "trainingMaterial": "Training material",
+      "procedure": "Procedure",
+      "complianceDoc": "Compliance documentation",
+      "customerInstruction": "Customer instruction"
+    },
+    "links": {
+      "legacyCenter": "Legacy Knowledge Evolution Center",
+      "knowledgeCenter": "Knowledge Center",
+      "employeeKnowledge": "Employee Knowledge"
+    }
+  },
   "capabilityMaturityCenter": {
     "title": "Capability Maturity Center",
     "subtitle": "Assess, benchmark, and improve organizational capabilities across operations, governance, knowledge, technology, leadership, and workforce development.",
