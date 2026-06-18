@@ -4894,6 +4894,37 @@
       "executiveMaturity": "Executive Capability Maturity Center"
     }
   },
+  "businessOsCommandCenter": {
+    "title": "ABOS Command Center",
+    "subtitle": "Det enkelte operative kommandosenteret der ledere, managere, team og Aipify får full sanntidsoversikt over organisasjonen.",
+    "philosophy": "En leder skal aldri trenge ti forskjellige systemer for å forstå virksomheten. Aipify er organisasjonens sentrale nervesystem.",
+    "governanceNote": "Synlighet kontrollert av rolle, tillatelser, avdeling og organisasjon.",
+    "privacyNote": "Kun operative metadata og aggregatesignaler — ingen rå kundekommunikasjon lagres i Command Center.",
+    "refresh": "Oppdater",
+    "emptyState": "Ingen elementer i denne seksjonen ennå.",
+    "accessDenied": "ABOS Command Center krever passende arbeidsområdetillatelser.",
+    "sections": {
+      "executiveOverview": "Ledelsesoversikt",
+      "operationalOverview": "Operasjonsoversikt",
+      "financialOverview": "Finansoversikt",
+      "customerOverview": "Kundeoversikt",
+      "workforceOverview": "Arbeidsstyrkeoversikt",
+      "intelligenceOverview": "Intelligensoversikt",
+      "companionRecommendations": "Companion-anbefalinger"
+    },
+    "executiveMissionControl": { "title": "Executive Mission Control" },
+    "organizationRadar": { "title": "Organisasjonsradar", "healthy": "Sunne områder", "emergingRisk": "Fremvoksende risiko", "critical": "Kritiske problemer", "information": "Informasjon" },
+    "liveBusinessPulse": { "title": "Live Business Pulse", "today": "I dag", "thisWeek": "Denne uken", "thisMonth": "Denne måneden" },
+    "unifiedEventStream": { "title": "Samlet hendelsesstrøm" },
+    "morningBriefing": { "title": "Executive Morning Briefing", "sinceLogin": "Siden sist innlogging", "recommendedActions": "Anbefalte handlinger" },
+    "widgets": { "title": "Command Center-widgets", "pin": "Fest", "unpin": "Løsne", "hide": "Skjul", "show": "Vis" },
+    "crossSystemIntelligence": { "title": "Kryss-system intelligens", "suggestedAction": "Foreslått handling" },
+    "companionAdvisor": { "title": "Command Center Companion", "reason": "Hvorfor Aipify anbefaler dette" },
+    "executiveReadiness": { "title": "Executive Readiness Mode", "keyMetrics": "Nøkkeltall", "risks": "Risiko", "achievements": "Prestasjoner", "priorities": "Prioriteringer", "boardMeeting": "Styremøte", "investorMeeting": "Investormøte", "managementReview": "Ledelsesgjennomgang" },
+    "actions": { "acknowledge": "Bekreft", "dismiss": "Avvis", "setReadinessMode": "Aktiver readiness-modus" },
+    "status": { "completed": "Fullført", "notAllowed": "Ikke tillatt", "requiresAttention": "Krever oppmerksomhet", "information": "Informasjon", "restricted": "Begrenset tilgang", "verified": "Verifisert", "waiting": "Venter" },
+    "links": { "presenceFeed": "Presence og varsler", "desktopConnect": "Koble til desktop-klient", "portalHome": "Fullt workspace-portal" }
+  },
   "trustReputationEngine": {
     "title": "Tillit og omdømme",
     "subtitle": "Organisatoriske tillitsprofiler og metadata-baserte omdømmesignaler — opptjent tillit med menneskelig gjennomgang av utvidelser.",

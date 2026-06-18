@@ -26,7 +26,7 @@ export function usePortalAuthGuard(
 ): UsePortalAuthGuardResult {
   const router = useRouter();
   const loginPath = options.loginPath ?? "/login";
-  const nextPath = options.nextPath ?? "/app";
+  const nextPath = options.nextPath ?? "/app/command-center";
   const [checking, setChecking] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
 

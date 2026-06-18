@@ -4749,6 +4749,37 @@
       "executiveMaturity": "Executive Capability Maturity Center"
     }
   },
+  "businessOsCommandCenter": {
+    "title": "ABOS Command Center",
+    "subtitle": "Det enda operativa kommandocentret där ledare, chefer, team och Aipify får fullständig realtidsöversikt över organisationen.",
+    "philosophy": "En ledare ska aldrig behöva öppna tio olika system för att förstå verksamheten. Aipify är organisationens centrala nervsystem.",
+    "governanceNote": "Synlighet styrs av roll, behörigheter, avdelning och organisation.",
+    "privacyNote": "Endast operativ metadata och aggregerade signaler — ingen rå kundkommunikation lagras i Command Center.",
+    "refresh": "Uppdatera",
+    "emptyState": "Inga objekt i detta avsnitt ännu.",
+    "accessDenied": "ABOS Command Center kräver lämpliga arbetsytbehörigheter.",
+    "sections": {
+      "executiveOverview": "Ledningsöversikt",
+      "operationalOverview": "Operativ översikt",
+      "financialOverview": "Finansiell översikt",
+      "customerOverview": "Kundöversikt",
+      "workforceOverview": "Personalöversikt",
+      "intelligenceOverview": "Intelligensöversikt",
+      "companionRecommendations": "Companion-rekommendationer"
+    },
+    "executiveMissionControl": { "title": "Executive Mission Control" },
+    "organizationRadar": { "title": "Organisationsradar", "healthy": "Friska områden", "emergingRisk": "Framväxande risker", "critical": "Kritiska problem", "information": "Information" },
+    "liveBusinessPulse": { "title": "Live Business Pulse", "today": "Idag", "thisWeek": "Denna vecka", "thisMonth": "Denna månad" },
+    "unifiedEventStream": { "title": "Enhetlig händelseström" },
+    "morningBriefing": { "title": "Executive Morning Briefing", "sinceLogin": "Sedan senaste inloggning", "recommendedActions": "Rekommenderade åtgärder" },
+    "widgets": { "title": "Command Center-widgets", "pin": "Fäst", "unpin": "Lossa", "hide": "Dölj", "show": "Visa" },
+    "crossSystemIntelligence": { "title": "Tvär-system intelligens", "suggestedAction": "Föreslagen åtgärd" },
+    "companionAdvisor": { "title": "Command Center Companion", "reason": "Varför Aipify rekommenderar detta" },
+    "executiveReadiness": { "title": "Executive Readiness Mode", "keyMetrics": "Nyckeltal", "risks": "Risker", "achievements": "Prestationer", "priorities": "Prioriteringar", "boardMeeting": "Styrelsemöte", "investorMeeting": "Investormöte", "managementReview": "Ledningsgenomgång" },
+    "actions": { "acknowledge": "Bekräfta", "dismiss": "Avvisa", "setReadinessMode": "Aktivera readiness-läge" },
+    "status": { "completed": "Slutförd", "notAllowed": "Inte tillåten", "requiresAttention": "Kräver uppmärksamhet", "information": "Information", "restricted": "Begränsad åtkomst", "verified": "Verifierad", "waiting": "Väntar" },
+    "links": { "presenceFeed": "Presence och aviseringar", "desktopConnect": "Anslut desktop-klient", "portalHome": "Fullständig workspace-portal" }
+  },
   "trustReputationEngine": {
     "title": "Förtroende och rykte",
     "subtitle": "Organisatoriska förtroendeprofiler och metadata-baserade ryktessignaler — förtjänat förtroende med mänsklig granskning av expansion.",

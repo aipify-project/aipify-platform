@@ -14,7 +14,7 @@ export default function CustomerPortalGuard({
 }: CustomerPortalGuardProps) {
   const { checking, authenticated } = usePortalAuthGuard({
     loginPath: "/login",
-    nextPath: "/app",
+    nextPath: "/app/command-center",
   });
 
   if (checking) {

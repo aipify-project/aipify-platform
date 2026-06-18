@@ -5417,6 +5417,89 @@
       "executiveMaturity": "Executive Capability Maturity Center"
     }
   },
+  "businessOsCommandCenter": {
+    "title": "ABOS Command Center",
+    "subtitle": "The single operational command center where leaders, managers, teams, and Aipify gain a complete real-time overview of the organization.",
+    "philosophy": "A leader should never need to open ten different systems to understand the business. Aipify is the central nervous system of the organization.",
+    "governanceNote": "Visibility controlled by role, permissions, department, and organization scope.",
+    "privacyNote": "Operational metadata and aggregate signals only — no raw customer communications stored in Command Center.",
+    "refresh": "Refresh",
+    "emptyState": "No items in this section yet.",
+    "accessDenied": "ABOS Command Center requires appropriate workspace permissions.",
+    "sections": {
+      "executiveOverview": "Executive Overview",
+      "operationalOverview": "Operational Overview",
+      "financialOverview": "Financial Overview",
+      "customerOverview": "Customer Overview",
+      "workforceOverview": "Workforce Overview",
+      "intelligenceOverview": "Intelligence Overview",
+      "companionRecommendations": "Companion Recommendations"
+    },
+    "executiveMissionControl": { "title": "Executive Mission Control" },
+    "organizationRadar": {
+      "title": "Organization Radar",
+      "healthy": "Healthy areas",
+      "emergingRisk": "Emerging risks",
+      "critical": "Critical issues",
+      "information": "Information"
+    },
+    "liveBusinessPulse": {
+      "title": "Live Business Pulse",
+      "today": "Today",
+      "thisWeek": "This Week",
+      "thisMonth": "This Month"
+    },
+    "unifiedEventStream": { "title": "Unified Event Stream" },
+    "morningBriefing": {
+      "title": "Executive Morning Briefing",
+      "sinceLogin": "Since your last login",
+      "recommendedActions": "Recommended actions"
+    },
+    "widgets": {
+      "title": "Command Center Widgets",
+      "pin": "Pin",
+      "unpin": "Unpin",
+      "hide": "Hide",
+      "show": "Show"
+    },
+    "crossSystemIntelligence": {
+      "title": "Cross-System Intelligence",
+      "suggestedAction": "Suggested action"
+    },
+    "companionAdvisor": {
+      "title": "Command Center Companion",
+      "reason": "Why Aipify recommends this"
+    },
+    "executiveReadiness": {
+      "title": "Executive Readiness Mode",
+      "keyMetrics": "Key metrics",
+      "risks": "Risks",
+      "achievements": "Achievements",
+      "priorities": "Priorities",
+      "boardMeeting": "Board meeting",
+      "investorMeeting": "Investor meeting",
+      "managementReview": "Management review"
+    },
+    "actions": {
+      "acknowledge": "Acknowledge",
+      "dismiss": "Dismiss",
+      "setReadinessMode": "Activate readiness mode"
+    },
+    "status": {
+      "completed": "Completed",
+      "notAllowed": "Not allowed",
+      "requiresAttention": "Requires attention",
+      "information": "Information",
+      "restricted": "Restricted access",
+      "verified": "Verified",
+      "waiting": "Waiting"
+    },
+    "links": {
+      "presenceFeed": "Presence & notifications",
+      "desktopConnect": "Connect desktop client",
+      "portalHome": "Full workspace portal"
+    }
+  },
   "trustReputationEngine": {
     "title": "Trust & Reputation",
     "subtitle": "Organizational trust profiles and metadata-only reputation signals — earned trust with human-reviewed expansion.",
