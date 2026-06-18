@@ -16,3 +16,4 @@ export { default as GrowthPartnersPageContent } from "./GrowthPartnersPageConten
 export { default as GrowthPartnersSignupForm } from "./GrowthPartnersSignupForm";
 export { default as PricingPackagesPageContent } from "./PricingPackagesPageContent";
 export { default as WhyAipifyPageContent } from "./WhyAipifyPageContent";
+export { default as CustomerStoriesPageContent } from "./CustomerStoriesPageContent";

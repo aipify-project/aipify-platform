@@ -46,6 +46,7 @@ export default function MarketingFooter({ appName, labels }: MarketingFooterProp
               {[
                 { label: "Product", href: "/product" },
                 { label: "Why Aipify", href: "/why-aipify" },
+                { label: "Customer Stories", href: "/customer-stories" },
                 { label: "Pricing", href: "/pricing" },
                 { label: "Enterprise", href: "/enterprise" },
                 { label: "Security", href: "/security" },
