@@ -24,6 +24,8 @@
     "whyAipifyDescription": "Software tells you what happened. Aipify helps you decide what happens next. Discover the philosophy, vision, and long-term value behind Aipify.",
     "customerStoriesTitle": "Customer Stories — How Organizations Use Aipify",
     "customerStoriesDescription": "See how teams improve operations, support customers, automate workflows, and grow with Aipify — outcomes, not feature lists.",
+    "bookDemoTitle": "Book a Demo — See Aipify in Action",
+    "bookDemoDescription": "Schedule a personalized Aipify demonstration. A consultative discovery conversation — not a lead form.",
     "privacyTitle": "Privacy Policy — Aipify",
     "privacyDescription": "How Aipify handles data, privacy, and customer ownership.",
     "termsTitle": "Terms of Service — Aipify"
@@ -41,6 +43,7 @@
     "knowledge": "Knowledge",
     "growthPartners": "Growth Partners",
     "earlyAccess": "Early Access",
+    "bookDemo": "Book Demo",
     "contact": "Contact",
     "controlCenter": "Control Center",
     "login": "Login",
@@ -60,6 +63,7 @@
     "terms": "Terms",
     "contact": "Contact",
     "earlyAccess": "Early Access",
+    "bookDemo": "Book Demo",
     "growthPartners": "Growth Partners",
     "copyright": "Aipify Group AS. All rights reserved.",
     "privacyNote": "Aipify assists employees. It does not monitor screens, keystrokes, private files, or browsing history."
@@ -867,5 +871,137 @@
       "talkToSales": "Talk to Sales"
     },
     "finalPrinciple": "People trust real outcomes more than feature lists. Imagine what Aipify could do for your organization."
+  },
+  "bookDemoPage": {
+    "meta": {
+      "title": "Book a Demo — See Aipify in Action",
+      "description": "Schedule a personalized demonstration. We learn your goals, show relevant capabilities, and discuss implementation — a conversation, not a lead form."
+    },
+    "hero": {
+      "headline": "See Aipify in action.",
+      "subheadline": "Schedule a personalized demonstration and discover how Aipify can support your organization.",
+      "supporting": "We will walk through your goals, challenges, workflows, and opportunities.",
+      "cta": "Schedule My Demo"
+    },
+    "whatToExpect": {
+      "title": "What to expect",
+      "steps": [
+        { "title": "Discovery Conversation", "body": "We learn about your organization, priorities, and operational context." },
+        { "title": "Platform Demonstration", "body": "See relevant Aipify capabilities aligned to your challenges — not a generic tour." },
+        { "title": "Business Pack Review", "body": "Explore industry-specific solutions that fit your operating model." },
+        { "title": "Implementation Discussion", "body": "Review deployment options, governance, and sensible next steps." }
+      ]
+    },
+    "whoShouldBook": {
+      "title": "Who should book?",
+      "cards": [
+        { "title": "Business Owners", "body": "Evaluate Aipify as a long-term operating platform for your organization." },
+        { "title": "Operations Leaders", "body": "See how workflows, approvals, and visibility come together." },
+        { "title": "Customer Support Leaders", "body": "Explore support operations with human control and knowledge." },
+        { "title": "Department Managers", "body": "Understand how Aipify supports your team without replacing them." },
+        { "title": "Executive Teams", "body": "Review governance, security, and executive visibility." },
+        { "title": "Growth-Focused Organizations", "body": "Plan a scalable path from foundation to Business Packs." }
+      ]
+    },
+    "form": {
+      "title": "Schedule Your Demo",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "companyName": "Company Name",
+      "jobTitle": "Job Title",
+      "businessEmail": "Business Email",
+      "phone": "Phone",
+      "country": "Country",
+      "companySize": "Company Size",
+      "industry": "Industry",
+      "currentChallenge": "Current Challenge",
+      "additionalNotes": "Additional Notes",
+      "meetingTypeTitle": "Preferred Meeting Type",
+      "submit": "Request Demo",
+      "submitting": "Starting your conversation…",
+      "successTitle": "Thank you — your discovery conversation is underway.",
+      "successBody": "A member of the Aipify team will confirm your meeting shortly. Pipeline stage: Discovery Scheduled.",
+      "error": "Something went wrong. Please try again or contact us directly.",
+      "companySizes": {
+        "1-10": "1–10",
+        "11-50": "11–50",
+        "51-250": "51–250",
+        "251-1000": "251–1000",
+        "1000+": "1000+"
+      },
+      "industries": {
+        "hospitality": "Hospitality",
+        "commerce": "Commerce",
+        "support": "Support",
+        "property_management": "Property Management",
+        "professional_services": "Professional Services",
+        "healthcare": "Healthcare",
+        "education": "Education",
+        "construction": "Construction",
+        "manufacturing": "Manufacturing",
+        "technology": "Technology",
+        "other": "Other"
+      },
+      "challenges": {
+        "operational_visibility": "Operational Visibility",
+        "support_efficiency": "Support Efficiency",
+        "knowledge_management": "Knowledge Management",
+        "automation": "Automation",
+        "reporting": "Reporting",
+        "governance": "Governance",
+        "business_growth": "Business Growth",
+        "other": "Other"
+      },
+      "meetingTypes": {
+        "video": "Video Meeting",
+        "phone": "Phone Call",
+        "in_person": "In-Person Discussion",
+        "no_preference": "No Preference"
+      },
+      "integrationsNote": "Future integrations: Google Meet, Microsoft Teams, and Zoom."
+    },
+    "advisor": {
+      "title": "Meet the team",
+      "photoPlaceholder": "Advisor photo",
+      "role": "Discovery Advisor",
+      "availability": "Availability",
+      "languages": "Languages",
+      "contact": "Contact",
+      "email": "Email"
+    },
+    "enterpriseReadiness": {
+      "headline": "Built for organizations of all sizes.",
+      "cards": [
+        { "title": "Startups", "body": "Start with foundation — grow without migrating platforms." },
+        { "title": "Growing Teams", "body": "Operations and approvals as headcount scales." },
+        { "title": "Mid-Market", "body": "Business Packs, governance, and cross-team visibility." },
+        { "title": "Enterprise", "body": "SSO, audit, hybrid deployment, and dedicated success." },
+        { "title": "Government", "body": "Governance-first deployment with human control." }
+      ]
+    },
+    "deploymentModels": {
+      "title": "Deployment models",
+      "cards": [
+        { "title": "Cloud", "body": "Standard Aipify cloud deployment with enterprise controls." },
+        { "title": "Hybrid", "body": "Combine cloud intelligence with on-site requirements." },
+        { "title": "On-Premise", "body": "Options for strict data residency and regulated environments." },
+        { "title": "Enterprise Managed", "body": "Dedicated rollout with success manager oversight." }
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        { "question": "How long is the demo?", "answer": "Typically 45–60 minutes — tailored to your priorities, not a fixed script." },
+        { "question": "Do I need technical knowledge?", "answer": "No. We focus on operational outcomes. Technical stakeholders are welcome to join." },
+        { "question": "Can I invite colleagues?", "answer": "Yes. We encourage the right decision-makers and day-to-day operators to attend." },
+        { "question": "Can we discuss custom Business Packs?", "answer": "Yes. We review industry packs and discuss fit for your organization." },
+        { "question": "Can Aipify integrate with our systems?", "answer": "We discuss install-first integration during implementation planning — read-only first, expand with approval." }
+      ]
+    },
+    "companion": {
+      "headline": "Meet Aipify Companion",
+      "copy": "During your demonstration you will see how Companion helps organizations remember, coordinate, follow up, and operate more effectively — with human control at every sensitive step."
+    },
+    "finalPrinciple": "The goal is not to collect leads. The goal is to begin relationships — understood before they ever become customers."
   }
 }

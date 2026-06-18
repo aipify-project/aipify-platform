@@ -17,6 +17,7 @@ export type MarketingNavLabels = {
   knowledge: string;
   growthPartners: string;
   earlyAccess: string;
+  bookDemo: string;
   contact: string;
   controlCenter: string;
   login: string;
@@ -98,6 +99,13 @@ export default function MarketingNavbar({ appName, labels }: MarketingNavbarProp
             {labels.login}
           </Link>
           <Link
+            href="/book-demo"
+            className="rounded-xl border border-cyan-500/40 bg-cyan-500/10 px-4 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-500/20"
+            {...marketingDataAttr("cta_click", "nav_book_demo")}
+          >
+            {labels.bookDemo}
+          </Link>
+          <Link
             href="/early-access"
             className="rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-cyan-500/25 transition hover:from-cyan-400 hover:to-blue-500"
             {...marketingDataAttr("cta_click", "nav_get_started")}
@@ -146,6 +154,13 @@ export default function MarketingNavbar({ appName, labels }: MarketingNavbarProp
               {labels.contact}
             </Link>
             <hr className="my-2 border-white/10" />
+            <Link
+              href="/book-demo"
+              className="rounded-xl border border-cyan-500/40 bg-cyan-500/10 px-4 py-3 text-center text-sm font-semibold text-cyan-100"
+              onClick={() => setMenuOpen(false)}
+            >
+              {labels.bookDemo}
+            </Link>
             <Link
               href="/early-access"
               className="mt-1 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-3 text-center text-sm font-semibold text-white"

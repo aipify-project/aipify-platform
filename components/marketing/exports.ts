@@ -17,3 +17,6 @@ export { default as GrowthPartnersSignupForm } from "./GrowthPartnersSignupForm"
 export { default as PricingPackagesPageContent } from "./PricingPackagesPageContent";
 export { default as WhyAipifyPageContent } from "./WhyAipifyPageContent";
 export { default as CustomerStoriesPageContent } from "./CustomerStoriesPageContent";
+export { default as BookDemoPageContent } from "./BookDemoPageContent";
+export { default as BookDemoRequestForm } from "./BookDemoRequestForm";
+export { DemoAdvisorCard } from "./DemoAdvisorCard";

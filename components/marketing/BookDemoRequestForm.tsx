@@ -1,0 +1,213 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+import { trackEvent } from "@/lib/marketing/analytics";
+import {
+  BOOK_DEMO_CHALLENGES,
+  BOOK_DEMO_COMPANY_SIZES,
+  BOOK_DEMO_INDUSTRIES,
+  BOOK_DEMO_MEETING_TYPES,
+  parseBookDemoSubmission,
+} from "@/lib/book-demo-discovery-center";
+
+export type BookDemoFormLabels = {
+  title: string;
+  firstName: string;
+  lastName: string;
+  companyName: string;
+  jobTitle: string;
+  businessEmail: string;
+  phone: string;
+  country: string;
+  companySize: string;
+  industry: string;
+  currentChallenge: string;
+  additionalNotes: string;
+  meetingTypeTitle: string;
+  submit: string;
+  submitting: string;
+  successTitle: string;
+  successBody: string;
+  error: string;
+  companySizes: Record<string, string>;
+  industries: Record<string, string>;
+  challenges: Record<string, string>;
+  meetingTypes: Record<string, string>;
+  integrationsNote: string;
+};
+
+type Props = { labels: BookDemoFormLabels };
+
+export default function BookDemoRequestForm({ labels }: Props) {
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [confirmation, setConfirmation] = useState("");
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("loading");
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch("/api/marketing/book-demo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          first_name: data.get("first_name"),
+          last_name: data.get("last_name"),
+          company_name: data.get("company_name"),
+          job_title: data.get("job_title"),
+          business_email: data.get("business_email"),
+          phone: data.get("phone"),
+          country: data.get("country"),
+          company_size: data.get("company_size"),
+          industry: data.get("industry"),
+          current_challenge: data.get("current_challenge"),
+          additional_notes: data.get("additional_notes"),
+          meeting_type: data.get("meeting_type"),
+        }),
+      });
+
+      const result = parseBookDemoSubmission(await res.json());
+      if (!res.ok || !result.ok) throw new Error(result.error ?? "submit failed");
+
+      trackEvent("book_demo_submit", { industry: String(data.get("industry") ?? "") });
+      setConfirmation(result.confirmationNote ?? labels.successBody);
+      setStatus("success");
+      form.reset();
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  if (status === "success") {
+    return (
+      <div className="rounded-2xl border border-emerald-500/30 bg-emerald-950/20 p-8 text-center">
+        <p className="text-lg font-semibold text-white">{labels.successTitle}</p>
+        <p className="mt-3 text-sm leading-relaxed text-slate-300">{confirmation}</p>
+      </div>
+    );
+  }
+
+  const inputClass =
+    "mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/30";
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <h3 className="text-xl font-semibold text-white">{labels.title}</h3>
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label htmlFor="bd-first" className="block text-sm font-medium text-slate-300">
+            {labels.firstName}
+          </label>
+          <input id="bd-first" name="first_name" required className={inputClass} />
+        </div>
+        <div>
+          <label htmlFor="bd-last" className="block text-sm font-medium text-slate-300">
+            {labels.lastName}
+          </label>
+          <input id="bd-last" name="last_name" required className={inputClass} />
+        </div>
+        <div>
+          <label htmlFor="bd-company" className="block text-sm font-medium text-slate-300">
+            {labels.companyName}
+          </label>
+          <input id="bd-company" name="company_name" required className={inputClass} />
+        </div>
+        <div>
+          <label htmlFor="bd-title" className="block text-sm font-medium text-slate-300">
+            {labels.jobTitle}
+          </label>
+          <input id="bd-title" name="job_title" className={inputClass} />
+        </div>
+        <div>
+          <label htmlFor="bd-email" className="block text-sm font-medium text-slate-300">
+            {labels.businessEmail}
+          </label>
+          <input id="bd-email" name="business_email" type="email" required className={inputClass} />
+        </div>
+        <div>
+          <label htmlFor="bd-phone" className="block text-sm font-medium text-slate-300">
+            {labels.phone}
+          </label>
+          <input id="bd-phone" name="phone" type="tel" className={inputClass} />
+        </div>
+        <div>
+          <label htmlFor="bd-country" className="block text-sm font-medium text-slate-300">
+            {labels.country}
+          </label>
+          <input id="bd-country" name="country" className={inputClass} />
+        </div>
+        <div>
+          <label htmlFor="bd-size" className="block text-sm font-medium text-slate-300">
+            {labels.companySize}
+          </label>
+          <select id="bd-size" name="company_size" required className={inputClass}>
+            <option value="">—</option>
+            {BOOK_DEMO_COMPANY_SIZES.map((key) => (
+              <option key={key} value={key}>
+                {labels.companySizes[key] ?? key}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="bd-industry" className="block text-sm font-medium text-slate-300">
+            {labels.industry}
+          </label>
+          <select id="bd-industry" name="industry" required className={inputClass}>
+            <option value="">—</option>
+            {BOOK_DEMO_INDUSTRIES.map((key) => (
+              <option key={key} value={key}>
+                {labels.industries[key] ?? key}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="bd-challenge" className="block text-sm font-medium text-slate-300">
+            {labels.currentChallenge}
+          </label>
+          <select id="bd-challenge" name="current_challenge" required className={inputClass}>
+            <option value="">—</option>
+            {BOOK_DEMO_CHALLENGES.map((key) => (
+              <option key={key} value={key}>
+                {labels.challenges[key] ?? key}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <div>
+        <label htmlFor="bd-notes" className="block text-sm font-medium text-slate-300">
+          {labels.additionalNotes}
+        </label>
+        <textarea id="bd-notes" name="additional_notes" rows={4} className={inputClass} />
+      </div>
+
+      <fieldset className="rounded-xl border border-white/10 bg-white/[0.02] p-5">
+        <legend className="px-1 text-sm font-semibold text-white">{labels.meetingTypeTitle}</legend>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          {BOOK_DEMO_MEETING_TYPES.map((key) => (
+            <label key={key} className="flex cursor-pointer items-center gap-3 rounded-lg border border-white/10 px-4 py-3 text-sm text-slate-300 hover:bg-white/5">
+              <input type="radio" name="meeting_type" value={key} defaultChecked={key === "no_preference"} className="text-cyan-500" />
+              {labels.meetingTypes[key] ?? key}
+            </label>
+          ))}
+        </div>
+        <p className="mt-4 text-xs text-slate-500">{labels.integrationsNote}</p>
+      </fieldset>
+
+      {status === "error" ? <p className="text-sm text-red-300">{labels.error}</p> : null}
+
+      <button
+        type="submit"
+        disabled={status === "loading"}
+        className="w-full rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500 disabled:opacity-60 sm:w-auto"
+      >
+        {status === "loading" ? labels.submitting : labels.submit}
+      </button>
+    </form>
+  );
+}

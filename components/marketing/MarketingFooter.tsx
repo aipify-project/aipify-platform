@@ -14,6 +14,7 @@ export type MarketingFooterLabels = {
   terms: string;
   contact: string;
   earlyAccess: string;
+  bookDemo: string;
   growthPartners: string;
   copyright: string;
   privacyNote: string;
@@ -97,7 +98,15 @@ export default function MarketingFooter({ appName, labels }: MarketingFooterProp
         </div>
 
         <div className="mt-12 border-t border-white/10 pt-8">
-          <div className="mx-auto max-w-2xl space-y-2 text-center text-sm text-slate-400">
+          <div className="mx-auto max-w-xl text-center">
+            <Link
+              href="/book-demo"
+              className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500"
+            >
+              {labels.bookDemo}
+            </Link>
+          </div>
+          <div className="mx-auto mt-10 max-w-2xl space-y-2 text-center text-sm text-slate-400">
             <p className="font-semibold text-white">{labels.companyName}</p>
             <p>{labels.headquarters}</p>
             <p className="leading-relaxed">{labels.description}</p>
