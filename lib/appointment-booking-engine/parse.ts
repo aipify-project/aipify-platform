@@ -64,7 +64,7 @@ export function parseAppointmentBookingCenter(raw: unknown): AppointmentBookingC
     privacy_note: typeof row.privacy_note === "string" ? row.privacy_note : undefined,
     vacation_message: typeof row.vacation_message === "string" ? row.vacation_message : undefined,
     settings: asRecord(row.settings) ?? undefined,
-    stats: asRecord(row.stats) ?? {},
+    stats: (asRecord(row.stats) ?? {}) as Record<string, number | string>,
     companion_recommendations: asArray(row.companion_recommendations),
     booking_statuses: asArray(row.booking_statuses),
     business_pack: asRecord(row.business_pack) ?? undefined,
