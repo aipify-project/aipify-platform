@@ -15783,6 +15783,80 @@
       "subtitle": "Din kompensationsförhandsvisning — tvister är inte bestraffande."
     }
   },
+  "profitability": {
+    "title": "Lönsamhetsoperationscenter",
+    "subtitle": "Tjänstepriser, kostnader, marginaler och lönsamhet — verifierad intäkt med explicit datakvalitet, aldrig reviderad vinst från uppskattningar.",
+    "principle": "Aipify modellerar tjänstelönsamhet — människor godkänner pris- och policyändringar.",
+    "privacyNote": "Lönsamhetsmetadata är hyresgästsavgränsad. Uppskattningar presenteras aldrig som reviderade finansiella rapporter.",
+    "distinctionNote": "Verifierad intäkt → Uppskattad arbetskraft och förbrukningsvaror → Marginalresultat → Mänskligt godkännande → Operativt beslut",
+    "dataQualityWarning": "Presentera aldrig uppskattningar som reviderad vinst — kontrollera datakvalitet på varje marginalresultat.",
+    "loading": "Laddar",
+    "empty": "Lönsamhetscentret är inte tillgängligt för denna organisation.",
+    "refresh": "Uppdatera",
+    "noRecords": "Inga poster ännu.",
+    "companionRecommendations": "Companion lönsamhetsrådgivare",
+    "companionProfitabilityAdvisor": "Companion lönsamhetsrådgivare",
+    "integrations": "Integrationer över faser",
+    "serviceProfitabilityCards": "Tjänstelönsamhetskort",
+    "verifiedRevenue": "Verifierad intäkt",
+    "estimatedLaborCost": "Uppskattad arbetskostnad",
+    "estimatedConsumableCost": "Uppskattad förbrukningsvarukostnad",
+    "dataQuality": "Datakvalitet",
+    "marginPercent": "Marginal %",
+    "sections": {
+      "overview": "Översikt",
+      "services": "Tjänster",
+      "pricing": "Prissättning",
+      "costs": "Kostnader",
+      "margins": "Marginaler",
+      "employees": "Anställda",
+      "locations": "Platser",
+      "resources": "Resurser",
+      "products": "Produkter",
+      "customers": "Kunder",
+      "forecasts": "Prognoser",
+      "scenarios": "Scenarier",
+      "recommendations": "Rekommendationer",
+      "approvals": "Godkännanden",
+      "policies": "Policyer",
+      "reports": "Rapporter",
+      "allocations": "Allokeringar",
+      "exceptions": "Undantag"
+    },
+    "stats": {
+      "servicesTracked": "Tjänster spårade",
+      "marginResults": "Marginalresultat",
+      "openExceptions": "Öppna undantag",
+      "pendingApprovals": "Väntande godkännanden",
+      "recalculationPending": "Omberäkning väntar",
+      "priceRecommendations": "Prisrekommendationer"
+    },
+    "allocationCenter": {
+      "title": "Overhead-allokeringsmotor",
+      "subtitle": "Kostnadspooler, allokeringsregler och drivare — overhead fördelas med explicita antaganden."
+    },
+    "pricingCenter": {
+      "title": "Prisrekommendationsmotor",
+      "subtitle": "Prisrekommendationer med datakvalitetsmärken — godkännande krävs före listprisändringar."
+    },
+    "scenarioLab": {
+      "title": "Scenariolabb",
+      "subtitle": "Vad-händer-om-scenarier för prissättning och marginal — endast uppskattningar, inte reviderade utfall."
+    },
+    "exceptionCenter": {
+      "title": "Undantagscenter",
+      "subtitle": "Ofullständiga eller negativa marginaldata — lös före pris- och rapporteringsbeslut."
+    },
+    "policyCenter": {
+      "title": "Policycenter",
+      "subtitle": "Lönsamhetspolicyer, marginaltrösklar och godkännandestyrning."
+    },
+    "dataQualityLabels": {
+      "verified": "Verifierad",
+      "estimated": "Uppskattad",
+      "incomplete": "Ofullständig"
+    }
+  },
   "appointmentBooking": {
     "title": "Bokningar och tjänster",
     "subtitle": "Tidbokning, kalenderintäkter och kapacitet — Aipify hjälper transparent utan att utge sig för ditt team.",

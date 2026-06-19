@@ -15681,6 +15681,80 @@
       "subtitle": "Din kompensationsforhåndsvisning — tvister er ikke straffende."
     }
   },
+  "profitability": {
+    "title": "Rentabilitetsoperationscenter",
+    "subtitle": "Servicepriser, omkostninger, marginer og rentabilitet — verificeret omsætning med eksplicit datakvalitet, aldrig revideret profit fra estimater.",
+    "principle": "Aipify modellerer servicerentabilitet — mennesker godkender pris- og policyændringer.",
+    "privacyNote": "Rentabilitetsmetadata er lejerafgrænset. Estimater præsenteres aldrig som reviderede regnskaber.",
+    "distinctionNote": "Verificeret omsætning → Estimeret arbejdskraft og forbrugsvarer → Marginalresultat → Menneskelig godkendelse → Operationel beslutning",
+    "dataQualityWarning": "Præsenter aldrig estimater som revideret profit — tjek datakvalitet på hvert marginalresultat.",
+    "loading": "Indlæser",
+    "empty": "Rentabilitetscenteret er ikke tilgængeligt for denne organisation.",
+    "refresh": "Opdater",
+    "noRecords": "Ingen poster endnu.",
+    "companionRecommendations": "Companion rentabilitetsrådgiver",
+    "companionProfitabilityAdvisor": "Companion rentabilitetsrådgiver",
+    "integrations": "Integrationer på tværs af faser",
+    "serviceProfitabilityCards": "Servicerentabilitetskort",
+    "verifiedRevenue": "Verificeret omsætning",
+    "estimatedLaborCost": "Estimeret arbejdsomkostning",
+    "estimatedConsumableCost": "Estimeret forbrugsvareomkostning",
+    "dataQuality": "Datakvalitet",
+    "marginPercent": "Margin %",
+    "sections": {
+      "overview": "Oversigt",
+      "services": "Services",
+      "pricing": "Prissætning",
+      "costs": "Omkostninger",
+      "margins": "Marginer",
+      "employees": "Medarbejdere",
+      "locations": "Lokationer",
+      "resources": "Ressourcer",
+      "products": "Produkter",
+      "customers": "Kunder",
+      "forecasts": "Prognoser",
+      "scenarios": "Scenarier",
+      "recommendations": "Anbefalinger",
+      "approvals": "Godkendelser",
+      "policies": "Politikker",
+      "reports": "Rapporter",
+      "allocations": "Allokeringer",
+      "exceptions": "Undtagelser"
+    },
+    "stats": {
+      "servicesTracked": "Services sporet",
+      "marginResults": "Marginalresultater",
+      "openExceptions": "Åbne undtagelser",
+      "pendingApprovals": "Afventende godkendelser",
+      "recalculationPending": "Genberegning afventer",
+      "priceRecommendations": "Prisanbefalinger"
+    },
+    "allocationCenter": {
+      "title": "Overhead-allokeringsmotor",
+      "subtitle": "Omkostningspuljer, allokeringsregler og drivere — overhead fordeles med eksplicitte antagelser."
+    },
+    "pricingCenter": {
+      "title": "Prisanbefalingsmotor",
+      "subtitle": "Prisanbefalinger med datakvalitetsmærker — godkendelse kræves før listeprisændringer."
+    },
+    "scenarioLab": {
+      "title": "Scenarielab",
+      "subtitle": "Hvad-hvis-scenarier for prissætning og margin — kun estimater, ikke reviderede resultater."
+    },
+    "exceptionCenter": {
+      "title": "Undtagelsescenter",
+      "subtitle": "Ufuldstændige eller negative marginaldata — løs før pris- og rapporteringsbeslutninger."
+    },
+    "policyCenter": {
+      "title": "Policycenter",
+      "subtitle": "Rentabilitetspolitikker, marginterskler og godkendelsesstyring."
+    },
+    "dataQualityLabels": {
+      "verified": "Verificeret",
+      "estimated": "Estimeret",
+      "incomplete": "Ufuldstændig"
+    }
+  },
   "appointmentBooking": {
     "title": "Aftaler og services",
     "subtitle": "Tidsbestilling, kalenderindtægter og kapacitet — Aipify hjælper transparent uden at udgive sig for dit team.",

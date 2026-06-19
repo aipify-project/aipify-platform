@@ -530,7 +530,8 @@
     "workforceScheduling": "Arbejdskraftplanlægning",
     "serviceCheckout": "Servicekasse",
     "timeAttendance": "Tid og fremmøde",
-    "compensation": "Kompensation og løninput"
+    "compensation": "Kompensation og løninput",
+    "profitability": "Rentabilitetsoperationer"
   },
   "companionPresence": {
     "ariaIndicator": "Aipify companion-tilstedeværelse",

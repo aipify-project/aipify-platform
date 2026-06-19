@@ -530,7 +530,8 @@
     "workforceScheduling": "Personalschemaläggning",
     "serviceCheckout": "Servicekassa",
     "timeAttendance": "Tid och närvaro",
-    "compensation": "Kompensation och löneinput"
+    "compensation": "Kompensation och löneinput",
+    "profitability": "Lönsamhetsoperationer"
   },
   "companionPresence": {
     "ariaIndicator": "Aipify companion-närvaro",

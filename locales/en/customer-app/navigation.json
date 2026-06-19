@@ -639,7 +639,8 @@
     "commerceRetailOperationsPack": "Commerce",
     "autonomousEnterpriseOperationsEngine": "Autonomous Operations Center",
     "timeAttendance": "Time & Attendance",
-    "compensation": "Compensation & Payroll Input"
+    "compensation": "Compensation & Payroll Input",
+    "profitability": "Profitability Operations"
   },
   "voiceOfCustomer": {
     "trigger": "Share Feedback",

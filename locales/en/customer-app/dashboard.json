@@ -16239,6 +16239,80 @@
       "subtitle": "Your compensation preview, commissions, tips, and bonuses — disputes are non-punitive."
     }
   },
+  "profitability": {
+    "title": "Profitability Operations Center",
+    "subtitle": "Service pricing, costing, margins, and profitability — verified revenue with explicit data quality, never audited profit from estimates.",
+    "principle": "Aipify models service profitability — humans approve price and policy changes.",
+    "privacyNote": "Profitability metadata is tenant-scoped. Estimates are never presented as audited financial statements.",
+    "distinctionNote": "Verified revenue → Estimated labor & consumables → Margin result → Human approval → Operational decision",
+    "dataQualityWarning": "Never present estimates as audited profit — check data quality on every margin result.",
+    "loading": "Loading",
+    "empty": "Profitability Center is not available for this organization.",
+    "refresh": "Refresh",
+    "noRecords": "No records yet.",
+    "companionRecommendations": "Companion Profitability Advisor",
+    "companionProfitabilityAdvisor": "Companion Profitability Advisor",
+    "integrations": "Cross-phase integrations",
+    "serviceProfitabilityCards": "Service Profitability Cards",
+    "verifiedRevenue": "Verified Revenue",
+    "estimatedLaborCost": "Estimated Labor Cost",
+    "estimatedConsumableCost": "Estimated Consumable Cost",
+    "dataQuality": "Data quality",
+    "marginPercent": "Margin %",
+    "sections": {
+      "overview": "Overview",
+      "services": "Services",
+      "pricing": "Pricing",
+      "costs": "Costs",
+      "margins": "Margins",
+      "employees": "Employees",
+      "locations": "Locations",
+      "resources": "Resources",
+      "products": "Products",
+      "customers": "Customers",
+      "forecasts": "Forecasts",
+      "scenarios": "Scenarios",
+      "recommendations": "Recommendations",
+      "approvals": "Approvals",
+      "policies": "Policies",
+      "reports": "Reports",
+      "allocations": "Allocations",
+      "exceptions": "Exceptions"
+    },
+    "stats": {
+      "servicesTracked": "Services tracked",
+      "marginResults": "Margin results",
+      "openExceptions": "Open exceptions",
+      "pendingApprovals": "Pending approvals",
+      "recalculationPending": "Recalculation pending",
+      "priceRecommendations": "Price recommendations"
+    },
+    "allocationCenter": {
+      "title": "Overhead Allocation Engine",
+      "subtitle": "Cost pools, allocation rules, and drivers — overhead distributed with explicit assumptions."
+    },
+    "pricingCenter": {
+      "title": "Price Recommendation Engine",
+      "subtitle": "Price recommendations with data quality labels — approval required before list price changes."
+    },
+    "scenarioLab": {
+      "title": "Scenario Lab",
+      "subtitle": "What-if scenarios for pricing and margin — estimates only, not audited outcomes."
+    },
+    "exceptionCenter": {
+      "title": "Exception Center",
+      "subtitle": "Incomplete or negative margin data — resolve before pricing and reporting decisions."
+    },
+    "policyCenter": {
+      "title": "Policy Center",
+      "subtitle": "Profitability policies, margin thresholds, and approval governance."
+    },
+    "dataQualityLabels": {
+      "verified": "Verified",
+      "estimated": "Estimated",
+      "incomplete": "Incomplete"
+    }
+  },
   "appointmentBooking": {
     "title": "Appointments & Services",
     "subtitle": "Appointment booking, calendar revenue, and service capacity — Aipify assists transparently, never impersonating your team.",
