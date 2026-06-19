@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     const checkout = await createStripeCheckoutSession({
       customerEmail: user.email ?? undefined,
       successUrl: `${origin}/app/settings/billing/packages?checkout=success${vatInvoiceReference ? `&vat_invoice=${encodeURIComponent(vatInvoiceReference)}` : ""}`,
-      cancelUrl: `${origin}/app/checkout?checkout=cancelled`,
+      cancelUrl: `${origin}/app/settings/billing/checkout-vat?checkout=cancelled`,
       trialDays: 14,
       priceId: process.env[`STRIPE_PRICE_ID_${planKey.toUpperCase()}`] ?? process.env.STRIPE_PRICE_ID_STARTER,
     });

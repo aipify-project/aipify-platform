@@ -1,0 +1,53 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildServiceCheckoutLabels(t: Translator) {
+  const p = "serviceCheckout";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    principle: t(`${p}.principle`),
+    privacyNote: t(`${p}.privacyNote`),
+    loading: t(`${p}.loading`),
+    empty: t(`${p}.emptyState`),
+    refresh: t(`${p}.refresh`),
+    companionRecommendations: t(`${p}.companionRecommendations`),
+    companionAdvisor: t(`${p}.companionAdvisor`),
+    openCheckouts: t(`${p}.openCheckouts`),
+    completedSales: t(`${p}.completedSalesToday`),
+    pendingPayments: t(`${p}.pendingPayments`),
+    pendingRefunds: t(`${p}.pendingRefunds`),
+    dailyClosePending: t(`${p}.dailyClosePending`),
+    frontDeskQueue: t(`${p}.frontDeskQueue`),
+    verificationRequired: t(`${p}.verificationRequired`),
+    noRecords: t(`${p}.noRecords`),
+    statusIconLabel: t(`${p}.statusIconLabel`),
+    integrations: t(`${p}.integrations`),
+    auditRecent: t(`${p}.auditRecent`),
+    sections: {
+      overview: t(`${p}.sections.overview`),
+      openCheckouts: t(`${p}.sections.openCheckouts`),
+      completedSales: t(`${p}.sections.completedSales`),
+      appointments: t(`${p}.sections.appointments`),
+      products: t(`${p}.sections.products`),
+      payments: t(`${p}.sections.payments`),
+      tips: t(`${p}.sections.tips`),
+      discounts: t(`${p}.sections.discounts`),
+      giftCards: t(`${p}.sections.giftCards`),
+      packages: t(`${p}.sections.packages`),
+      memberships: t(`${p}.sections.memberships`),
+      refunds: t(`${p}.sections.refunds`),
+      invoices: t(`${p}.sections.invoices`),
+      cashManagement: t(`${p}.sections.cashManagement`),
+      reconciliation: t(`${p}.sections.reconciliation`),
+      dailyClose: t(`${p}.sections.dailyClose`),
+      reports: t(`${p}.sections.reports`),
+      frontDesk: t(`${p}.sections.frontDesk`),
+    },
+    transactionStatus: {
+      open: t(`${p}.transactionStatus.open`),
+      pending: t(`${p}.transactionStatus.pending`),
+      paid: t(`${p}.transactionStatus.paid`),
+      refunded: t(`${p}.transactionStatus.refunded`),
+    },
+  };
+}

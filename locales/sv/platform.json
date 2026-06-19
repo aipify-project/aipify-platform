@@ -5173,6 +5173,43 @@
       "plannedMaintenance": "Planerat underhåll"
     }
   },
+  "changeOperations": {
+    "title": "Ändringsoperationscenter",
+    "subtitle": "Release-styrning, ändringsförfrågningar, distributioner, godkännanden, miljöer, bevis och Companion Change Advisor för plattformsoperatörer.",
+    "principle": "Varje produktionsändring styrs — separerat godkännande, verifierat bevis och transparent kundkommunikation.",
+    "privacyNote": "Endast ändringsmetadata — inga kunddata i plattformsstyrningsvyer.",
+    "loading": "Förbereder ändringsoperationscenter…",
+    "emptyState": "Ändringsoperationsdata är otillgänglig.",
+    "refresh": "Uppdatera",
+    "back": "Tillbaka till plattform",
+    "records": "Poster",
+    "companionRecommendations": "Companion Change Advisor",
+    "noRecords": "Inga poster i detta avsnitt ännu.",
+    "executiveDashboard": "Ledningsdashboard för releaser",
+    "auditRecent": "Senaste revisionshändelser",
+    "reports": "Rapporter",
+    "status": "Status",
+    "calendar": "Releasekalender",
+    "history": "Ändringshistorik",
+    "advisory": "Ändringsrådgivning",
+    "sections": {
+      "overview": "Översikt",
+      "changeRequests": "Ändringsförfrågningar",
+      "releases": "Releaser",
+      "deployments": "Distributioner",
+      "approvals": "Godkännanden",
+      "environments": "Miljöer",
+      "featureFlags": "Funktionsflaggor",
+      "databaseChanges": "Databasändringar",
+      "emergencyChanges": "Nödändringar",
+      "rollback": "Återställning",
+      "evidence": "Bevis",
+      "reports": "Rapporter",
+      "calendar": "Releasekalender",
+      "history": "Plattformshistorik",
+      "advisory": "Ändringsrådgivning"
+    }
+  },
   "seoDashboard": {
     "title": "SEO & Organic Discovery",
     "subtitle": "Track public knowledge authority, content inventory, and organic growth foundations.",

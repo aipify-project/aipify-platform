@@ -28,7 +28,7 @@ export function getUnifiedBillingAdvisorRoute(intent: string | null): string {
     case "business_pack":
       return "/app/license";
     case "vat":
-      return "/app/checkout";
+      return "/app/settings/billing/checkout-vat";
     case "partner":
       return "/app/billing";
     default:

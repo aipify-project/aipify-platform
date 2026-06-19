@@ -85,7 +85,7 @@ export function UnifiedBillingCenterPanel({ labels, backHref = "/app" }: Props) 
             </Link>
           ) : null}
           <Link
-            href="/app/checkout"
+            href="/app/settings/billing/checkout-vat"
             className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50"
           >
             {labels.viewCheckout}
