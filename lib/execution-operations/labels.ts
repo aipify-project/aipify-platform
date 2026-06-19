@@ -1,0 +1,51 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildExecutionOperationsLabels(t: Translator) {
+  const p = "customerApp.executionOperations";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    principle: t(`${p}.principle`),
+    accessDenied: t(`${p}.accessDenied`),
+    overview: t(`${p}.overview`),
+    pendingActions: t(`${p}.pendingActions`),
+    approvedActions: t(`${p}.approvedActions`),
+    executionHistory: t(`${p}.executionHistory`),
+    integrations: t(`${p}.integrations`),
+    permissions: t(`${p}.permissions`),
+    approvals: t(`${p}.approvals`),
+    reports: t(`${p}.reports`),
+    executive: t(`${p}.executive`),
+    catalogCount: t(`${p}.catalogCount`),
+    pendingCount: t(`${p}.pendingCount`),
+    completedCount: t(`${p}.completedCount`),
+    successRate: t(`${p}.successRate`),
+    templateCount: t(`${p}.templateCount`),
+    approveAction: t(`${p}.approveAction`),
+    rejectAction: t(`${p}.rejectAction`),
+    executeAction: t(`${p}.executeAction`),
+    requestAction: t(`${p}.requestAction`),
+    executionWorkflow: t(`${p}.executionWorkflow`),
+    permissionEngine: t(`${p}.permissionEngine`),
+    approvalEscalation: t(`${p}.approvalEscalation`),
+    executionQueue: t(`${p}.executionQueue`),
+    executionMonitoring: t(`${p}.executionMonitoring`),
+    companionAssistant: t(`${p}.companionAssistant`),
+    executiveDashboard: t(`${p}.executiveDashboard`),
+    businessPackIntegration: t(`${p}.businessPackIntegration`),
+    searchPlaceholder: t(`${p}.searchPlaceholder`),
+    searchActions: t(`${p}.searchActions`),
+    noItems: t(`${p}.noItems`),
+    emptyHint: t(`${p}.emptyHint`),
+    auditLog: t(`${p}.auditLog`),
+    riskLevel: t(`${p}.riskLevel`),
+    actionsTitle: t(`${p}.actionsTitle`),
+    actionsSubtitle: t(`${p}.actionsSubtitle`),
+    templatesTitle: t(`${p}.templatesTitle`),
+    templatesSubtitle: t(`${p}.templatesSubtitle`),
+    actionCatalog: t(`${p}.actionCatalog`),
+    executionTemplates: t(`${p}.executionTemplates`),
+  };
+}
+
+export type ExecutionOperationsLabels = ReturnType<typeof buildExecutionOperationsLabels>;

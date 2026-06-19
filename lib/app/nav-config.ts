@@ -381,6 +381,13 @@ export type AppNavId =
   | "appStrategicIntelligence"
   | "appAutomationOperations"
   | "appUniversalSearch"
+  | "appActivityOperations"
+  | "appCompanionCommandCenter"
+  | "appKnowledgeGraph"
+  | "appIntegrationHub"
+  | "appSimulationOperations"
+  | "appExecutionOperations"
+  | "appCompanionPresenceOperations"
   | "appInventory"
   | "appForms"
   | "industryBlueprints"
@@ -1920,6 +1927,10 @@ export const APP_NAV: AppNavItem[] = [
   { id: "appNotifications", href: "/app/notifications", labelKey: "navigation.nav.appNotifications" },
   { id: "appExecutiveAlerts", href: "/app/executive-alerts", labelKey: "navigation.nav.appExecutiveAlerts" },
   { id: "appMobileApiIntegration", href: "/app/integrations/mobile-api", labelKey: "navigation.nav.appMobileApiIntegration" },
+  { id: "appIntegrationHub", href: "/app/integrations", labelKey: "navigation.nav.appIntegrationHub" },
+  { id: "appSimulationOperations", href: "/app/simulation", labelKey: "navigation.nav.appSimulationOperations" },
+  { id: "appExecutionOperations", href: "/app/execution", labelKey: "navigation.nav.appExecutionOperations" },
+  { id: "appCompanionPresenceOperations", href: "/app/companion", labelKey: "navigation.nav.appCompanionPresenceOperations" },
   { id: "appAssets", href: "/app/assets", labelKey: "navigation.nav.appAssets" },
   { id: "appProcurement", href: "/app/procurement", labelKey: "navigation.nav.appProcurement" },
   { id: "appQualityOperations", href: "/app/quality-operations", labelKey: "navigation.nav.appQualityOperations" },
@@ -1927,6 +1938,9 @@ export const APP_NAV: AppNavItem[] = [
   { id: "appStrategicIntelligence", href: "/app/intelligence", labelKey: "navigation.nav.appStrategicIntelligence" },
   { id: "appAutomationOperations", href: "/app/automation", labelKey: "navigation.nav.appAutomationOperations" },
   { id: "appUniversalSearch", href: "/app/search", labelKey: "navigation.nav.appUniversalSearch" },
+  { id: "appActivityOperations", href: "/app/activity", labelKey: "navigation.nav.appActivityOperations" },
+  { id: "appCompanionCommandCenter", href: "/app/command-center", labelKey: "navigation.nav.appCompanionCommandCenter" },
+  { id: "appKnowledgeGraph", href: "/app/knowledge-graph", labelKey: "navigation.nav.appKnowledgeGraph" },
   { id: "appInventory", href: "/app/inventory", labelKey: "navigation.nav.appInventory" },
   { id: "appForms", href: "/app/forms", labelKey: "navigation.nav.appForms" },
   { id: "companionMarketplaceEngine", href: "/app/companion-marketplace", labelKey: "navigation.nav.companionMarketplaceEngine" },
@@ -2292,6 +2306,10 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/companion/identity-relationship")) return "companionIdentityRelationshipEngine";
   if (pathname.startsWith("/app/companion/life-events")) return "lifeEventsEngine";
   if (pathname.startsWith("/app/companion/trust-adoption")) return "trustAdoptionEngine";
+  if (pathname === "/app/companion") return "appCompanionPresenceOperations";
+  if (pathname.startsWith("/app/companion/desktop")) return "appCompanionPresenceOperations";
+  if (pathname.startsWith("/app/companion/mobile")) return "appCompanionPresenceOperations";
+  if (pathname.startsWith("/app/companion/devices")) return "appCompanionPresenceOperations";
   if (pathname.startsWith("/app/proactive-companion-engine")) {
     return "proactiveCompanionEngine";
   }
@@ -2851,8 +2869,14 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/executive/decision-support")) return "executiveDecisionSupportEngine";
   if (pathname.startsWith("/app/executive")) return "executive";
   if (
+    pathname === "/app/command-center" ||
+    pathname.startsWith("/app/command-center/actions")
+  ) {
+    return "appCompanionCommandCenter";
+  }
+  if (
     pathname.startsWith("/app/presence") ||
-    pathname.startsWith("/app/command-center") ||
+    pathname.startsWith("/app/command-center/connect") ||
     pathname.startsWith("/app/desktop")
   ) {
     return "presence";
@@ -2880,6 +2904,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/notifications")) return "appNotifications";
   if (pathname.startsWith("/app/executive-alerts")) return "appExecutiveAlerts";
   if (pathname.startsWith("/app/integrations/mobile-api")) return "appMobileApiIntegration";
+  if (pathname === "/app/integrations" || pathname.startsWith("/app/integrations/")) return "appIntegrationHub";
   if (pathname.startsWith("/app/assets")) return "appAssets";
   if (pathname.startsWith("/app/procurement")) return "appProcurement";
   if (pathname.startsWith("/app/quality-operations")) return "appQualityOperations";
@@ -2902,6 +2927,12 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname === "/app/search" || pathname.startsWith("/app/search/")) {
     return "appUniversalSearch";
   }
+  if (pathname === "/app/knowledge-graph" || pathname.startsWith("/app/knowledge-graph/")) {
+    return "appKnowledgeGraph";
+  }
+  if (pathname === "/app/activity" || pathname === "/app/since-last-login" || pathname.startsWith("/app/since-last-login/")) {
+    return "appActivityOperations";
+  }
   if (pathname.startsWith("/app/inventory")) return "appInventory";
   if (pathname.startsWith("/app/forms")) return "appForms";
   if (pathname.startsWith("/app/customers") || pathname.startsWith("/app/leads")) return "appCustomers";
@@ -2923,6 +2954,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/trust")) return "trustEngine";
   if (pathname.startsWith("/app/digital-twin")) return "digitalTwin";
+  if (pathname === "/app/execution" || pathname.startsWith("/app/execution/")) return "appExecutionOperations";
+  if (pathname === "/app/simulation" || pathname.startsWith("/app/simulation/")) return "appSimulationOperations";
   if (pathname.startsWith("/app/simulations")) return "simulationLab";
   if (pathname.startsWith("/app/operations/incident-command")) return "incidentCommandCenterEngine";
   if (pathname.startsWith("/app/operations/platform-observability")) return "platformObservabilityCenterEngine";

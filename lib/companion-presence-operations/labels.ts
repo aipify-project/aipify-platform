@@ -1,0 +1,52 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildCompanionPresenceOperationsLabels(t: Translator) {
+  const p = "customerApp.companionPresenceOperations";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    principle: t(`${p}.principle`),
+    accessDenied: t(`${p}.accessDenied`),
+    overview: t(`${p}.overview`),
+    desktopCompanion: t(`${p}.desktopCompanion`),
+    mobileCompanion: t(`${p}.mobileCompanion`),
+    presence: t(`${p}.presence`),
+    notifications: t(`${p}.notifications`),
+    memory: t(`${p}.memory`),
+    preferences: t(`${p}.preferences`),
+    devices: t(`${p}.devices`),
+    executive: t(`${p}.executive`),
+    deviceCount: t(`${p}.deviceCount`),
+    desktopDevices: t(`${p}.desktopDevices`),
+    mobileDevices: t(`${p}.mobileDevices`),
+    approvalsWaiting: t(`${p}.approvalsWaiting`),
+    presenceStatus: t(`${p}.presenceStatus`),
+    companionIdentity: t(`${p}.companionIdentity`),
+    commandPalette: t(`${p}.commandPalette`),
+    offlineSupport: t(`${p}.offlineSupport`),
+    companionMemory: t(`${p}.companionMemory`),
+    meetingAwareness: t(`${p}.meetingAwareness`),
+    roleExperience: t(`${p}.roleExperience`),
+    companionStore: t(`${p}.companionStore`),
+    businessPackIntegration: t(`${p}.businessPackIntegration`),
+    searchIntegration: t(`${p}.searchIntegration`),
+    companionIntelligence: t(`${p}.companionIntelligence`),
+    deviceManagement: t(`${p}.deviceManagement`),
+    executiveDashboard: t(`${p}.executiveDashboard`),
+    searchPlaceholder: t(`${p}.searchPlaceholder`),
+    searchDevices: t(`${p}.searchDevices`),
+    syncOffline: t(`${p}.syncOffline`),
+    revokeDevice: t(`${p}.revokeDevice`),
+    noItems: t(`${p}.noItems`),
+    emptyHint: t(`${p}.emptyHint`),
+    auditLog: t(`${p}.auditLog`),
+    desktopTitle: t(`${p}.desktopTitle`),
+    desktopSubtitle: t(`${p}.desktopSubtitle`),
+    mobileTitle: t(`${p}.mobileTitle`),
+    mobileSubtitle: t(`${p}.mobileSubtitle`),
+    presenceRing: t(`${p}.presenceRing`),
+    notificationAwareness: t(`${p}.notificationAwareness`),
+  };
+}
+
+export type CompanionPresenceOperationsLabels = ReturnType<typeof buildCompanionPresenceOperationsLabels>;

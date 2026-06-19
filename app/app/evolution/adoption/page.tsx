@@ -1,0 +1,20 @@
+import { EvolutionOperationsPanel } from "@/components/app/evolution-operations";
+import { buildEvolutionOperationsLabels } from "@/lib/evolution-operations/labels";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { createTranslator } from "@/lib/i18n/translate";
+
+export default async function EvolutionAdoptionPage() {
+  const locale = await getLocale();
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["settings"]);
+  const labels = buildEvolutionOperationsLabels(createTranslator(dict));
+  return (
+    <EvolutionOperationsPanel
+      labels={labels}
+      initialTab="adoption"
+      titleOverride={labels.adoptionTitle}
+      subtitleOverride={labels.adoptionSubtitle}
+      visibleTabs={["overview", "adoption", "recommendations", "training", "reports"]}
+    />
+  );
+}

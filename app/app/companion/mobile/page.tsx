@@ -1,0 +1,20 @@
+import { CompanionPresenceOperationsPanel } from "@/components/app/companion-presence-operations";
+import { buildCompanionPresenceOperationsLabels } from "@/lib/companion-presence-operations/labels";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { createTranslator } from "@/lib/i18n/translate";
+
+export default async function CompanionMobilePage() {
+  const locale = await getLocale();
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["settings"]);
+  const labels = buildCompanionPresenceOperationsLabels(createTranslator(dict));
+  return (
+    <CompanionPresenceOperationsPanel
+      labels={labels}
+      initialTab="mobile_companion"
+      titleOverride={labels.mobileTitle}
+      subtitleOverride={labels.mobileSubtitle}
+      visibleTabs={["overview", "mobile_companion", "presence", "notifications", "memory"]}
+    />
+  );
+}

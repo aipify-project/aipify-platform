@@ -1,6 +1,14 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { PLATFORM_ADMIN_NAV } from "@/lib/platform/nav-config";
 import { searchUniversalForCommandBar } from "@/lib/universal-search-operations";
+import { searchActivityForCommandBar } from "@/lib/activity-operations";
+import { searchKnowledgeGraphForCommandBar } from "@/lib/knowledge-graph-operations";
+import { searchIntegrationHubForCommandBar } from "@/lib/integration-hub-operations";
+import { searchMarketplaceForCommandBar } from "@/lib/marketplace-operations";
+import { searchSimulationForCommandBar } from "@/lib/simulation-operations";
+import { searchExecutionForCommandBar } from "@/lib/execution-operations";
+import { searchCompanionPresenceForCommandBar } from "@/lib/companion-presence-operations";
+import { searchEvolutionForCommandBar } from "@/lib/evolution-operations";
 import type { CommandBarLabels, CommandBarPortal, CommandBarSearchResult } from "./types";
 
 type SearchInput = {
@@ -271,6 +279,14 @@ export async function searchCommandBar({
   if (portal === "customer") {
     tasks.push(searchCustomerTeamMembers(supabase, q, labels));
     tasks.push(searchUniversalForCommandBar(supabase, q));
+    tasks.push(searchActivityForCommandBar(supabase, q));
+    tasks.push(searchKnowledgeGraphForCommandBar(supabase, q));
+    tasks.push(searchIntegrationHubForCommandBar(supabase, q));
+    tasks.push(searchMarketplaceForCommandBar(supabase, q));
+    tasks.push(searchSimulationForCommandBar(supabase, q));
+    tasks.push(searchExecutionForCommandBar(supabase, q));
+    tasks.push(searchCompanionPresenceForCommandBar(supabase, q));
+    tasks.push(searchEvolutionForCommandBar(supabase, q));
   }
 
   if (portal === "customer" || portal === "platform" || portal === "super_admin") {

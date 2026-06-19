@@ -1,0 +1,50 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildEvolutionOperationsLabels(t: Translator) {
+  const p = "customerApp.evolutionOperations";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    principle: t(`${p}.principle`),
+    accessDenied: t(`${p}.accessDenied`),
+    overview: t(`${p}.overview`),
+    adoption: t(`${p}.adoption`),
+    maturity: t(`${p}.maturity`),
+    recommendations: t(`${p}.recommendations`),
+    training: t(`${p}.training`),
+    optimization: t(`${p}.optimization`),
+    companionInsights: t(`${p}.companionInsights`),
+    reports: t(`${p}.reports`),
+    executive: t(`${p}.executive`),
+    maturityScore: t(`${p}.maturityScore`),
+    adoptionScore: t(`${p}.adoptionScore`),
+    pendingRecommendations: t(`${p}.pendingRecommendations`),
+    unusedFeatures: t(`${p}.unusedFeatures`),
+    trainingGaps: t(`${p}.trainingGaps`),
+    acceptRecommendation: t(`${p}.acceptRecommendation`),
+    rejectRecommendation: t(`${p}.rejectRecommendation`),
+    assignTraining: t(`${p}.assignTraining`),
+    maturityEngine: t(`${p}.maturityEngine`),
+    featureAdoption: t(`${p}.featureAdoption`),
+    healthReview: t(`${p}.healthReview`),
+    processOptimization: t(`${p}.processOptimization`),
+    successTracking: t(`${p}.successTracking`),
+    learningLoop: t(`${p}.learningLoop`),
+    departmentEvolution: t(`${p}.departmentEvolution`),
+    domainAwareness: t(`${p}.domainAwareness`),
+    executiveDashboard: t(`${p}.executiveDashboard`),
+    searchPlaceholder: t(`${p}.searchPlaceholder`),
+    searchRecommendations: t(`${p}.searchRecommendations`),
+    noItems: t(`${p}.noItems`),
+    emptyHint: t(`${p}.emptyHint`),
+    auditLog: t(`${p}.auditLog`),
+    usagePct: t(`${p}.usagePct`),
+    adoptionTitle: t(`${p}.adoptionTitle`),
+    adoptionSubtitle: t(`${p}.adoptionSubtitle`),
+    maturityTitle: t(`${p}.maturityTitle`),
+    maturitySubtitle: t(`${p}.maturitySubtitle`),
+    legacyLink: t(`${p}.legacyLink`),
+  };
+}
+
+export type EvolutionOperationsLabels = ReturnType<typeof buildEvolutionOperationsLabels>;
