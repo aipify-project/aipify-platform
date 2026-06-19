@@ -100,6 +100,7 @@
     "operationsOverview": "Operations Overview",
     "buildHealthCenter": "Build Health Center",
     "aosCore": "AOS Core Center",
+    "companionPersonality": "Companion Personality Center",
     "platformHealth": "Platform Health",
     "deployments": "Deployments",
     "operationsAuditLogs": "Audit Logs",
@@ -4782,6 +4783,57 @@
     "featuresPage": {
       "title": "Feature Flag Engine",
       "subtitle": "Gradvis utrullning för dashboards, Companion-färdigheter, marketplace och enterprise-funktioner."
+    }
+  },
+  "companionPersonality": {
+    "title": "Companion Personality Center",
+    "subtitle": "Plattformsstyrning för Companion-personlighet, adaptiv kommunikation, relationsmodeller, förtroende och människocentrerad interaktion — en Companion överallt.",
+    "loading": "Förbereder Companion Personality Center",
+    "back": "Tillbaka till plattform",
+    "principle": "Människor bygger relationer med personligheter — inte gränssnitt. En Companion. En personlighet. Ett relationsramverk.",
+    "emptyState": "Companion Personality Center-data är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "personality": "Personlighet",
+      "communication": "Kommunikation",
+      "preferences": "Preferenser",
+      "relationship_model": "Relationsmodell",
+      "interaction_history": "Interaktionshistorik",
+      "adaptation": "Anpassning",
+      "reports": "Rapporter",
+      "executive": "Executive"
+    },
+    "overview": {
+      "coreTraits": "Kärnegenskaper",
+      "positiveTraits": "Positiva egenskaper",
+      "forbiddenTraits": "Förbjudna egenskaper",
+      "communicationStyles": "Kommunikationsstilar",
+      "roleProfiles": "Rollprofiler",
+      "relationshipScore": "Relationsscore",
+      "consistencyChannels": "Konsistenskanaler",
+      "tenantPreferences": "Hyresgästpreferenser"
+    },
+    "actions": {
+      "refreshScore": "Uppdatera relationsscore",
+      "publishUpdate": "Publicera personlighetsuppdatering",
+      "openTenantRelationship": "Hyresgäst relationcenter"
+    },
+    "sections": {
+      "coreTraits": "Kärnpersonlighetsegenskaper",
+      "identityRules": "Companion-identitetsregler",
+      "personalityLayers": "Personlighetslager",
+      "roleProfiles": "Rollbaserade personligheter",
+      "humorFramework": "Humorramverk",
+      "selfLoveFramework": "Self Love-ramverk",
+      "trustFramework": "Förtroenderamverk",
+      "emotionalAwareness": "Emotionell medvetenhet",
+      "communicationStyles": "Kommunikationsstilar",
+      "adaptiveProfiles": "Adaptiva kommunikationsprofiler",
+      "consistencyEngine": "Konsistensmotor",
+      "memoryIntegrations": "Minnesintegrationer",
+      "businessPackContributions": "Business Pack-bidrag",
+      "adaptationRules": "Anpassningsregler",
+      "audit": "Revisionslogg"
     }
   }
 }

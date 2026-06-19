@@ -100,6 +100,7 @@
     "operationsOverview": "Operations Overview",
     "buildHealthCenter": "Build Health Center",
     "aosCore": "AOS Core Center",
+    "companionPersonality": "Companion Personality Center",
     "platformHealth": "Platform Health",
     "deployments": "Deployments",
     "operationsAuditLogs": "Audit Logs",
@@ -4782,6 +4783,57 @@
     "featuresPage": {
       "title": "Feature Flag Engine",
       "subtitle": "Gradvis udrulning af dashboards, Companion-færdigheder, marketplace og enterprise-funktioner."
+    }
+  },
+  "companionPersonality": {
+    "title": "Companion Personality Center",
+    "subtitle": "Platformstyring af Companion-personlighed, adaptiv kommunikation, relationsmodeller, tillid og menneskecentreret interaktion — én Companion overalt.",
+    "loading": "Forbereder Companion Personality Center",
+    "back": "Tilbage til platform",
+    "principle": "Mennesker opbygger relationer med personligheder — ikke grænseflader. Én Companion. Én personlighed. Ét relationsrammeværk.",
+    "emptyState": "Companion Personality Center-data er utilgængelig.",
+    "tabs": {
+      "overview": "Oversigt",
+      "personality": "Personlighed",
+      "communication": "Kommunikation",
+      "preferences": "Præferencer",
+      "relationship_model": "Relationsmodel",
+      "interaction_history": "Interaktionshistorik",
+      "adaptation": "Tilpasning",
+      "reports": "Rapporter",
+      "executive": "Executive"
+    },
+    "overview": {
+      "coreTraits": "Kerneegenskaber",
+      "positiveTraits": "Positive egenskaber",
+      "forbiddenTraits": "Forbudte egenskaber",
+      "communicationStyles": "Kommunikationsstile",
+      "roleProfiles": "Rolleprofiler",
+      "relationshipScore": "Relationsscore",
+      "consistencyChannels": "Konsistenskanaler",
+      "tenantPreferences": "Lejerpræferencer"
+    },
+    "actions": {
+      "refreshScore": "Opdater relationsscore",
+      "publishUpdate": "Publicer personlighedsopdatering",
+      "openTenantRelationship": "Lejer relationscenter"
+    },
+    "sections": {
+      "coreTraits": "Kerne personlighedstræk",
+      "identityRules": "Companion-identitetsregler",
+      "personalityLayers": "Personlighedslag",
+      "roleProfiles": "Rollebaserede personligheder",
+      "humorFramework": "Humorrammeværk",
+      "selfLoveFramework": "Self Love-rammeværk",
+      "trustFramework": "Tillidsrammeværk",
+      "emotionalAwareness": "Emotionel bevidsthed",
+      "communicationStyles": "Kommunikationsstile",
+      "adaptiveProfiles": "Adaptive kommunikationsprofiler",
+      "consistencyEngine": "Konsistensmotor",
+      "memoryIntegrations": "Hukommelsesintegrationer",
+      "businessPackContributions": "Business Pack-bidrag",
+      "adaptationRules": "Tilpasningsregler",
+      "audit": "Revisionslog"
     }
   }
 }

@@ -3776,5 +3776,368 @@
       "title": "Market Observatory",
       "subtitle": "Spor regionale markeder, vækstrate, konkurrenceniveau og markedshelbred."
     }
+  },
+  "revenueOperations": {
+    "title": "Revenue Operations Center",
+    "subtitle": "Samlet vækstsystem der forbinder salg, marketing, kundesucces, abonnementer, fornyelser, Growth Partners og Business Packs.",
+    "loading": "Forbereder Revenue Operations",
+    "back": "Tilbage",
+    "principle": "Omsætning er ikke et tal — det er resultatet af sunde kunder, succesfulde partnere, værdifulde produkter og stærk eksekvering.",
+    "emptyState": "Revenue Operations-data er utilgængelig.",
+    "accessDenied": "Revenue Operations kræver administratorrettigheder.",
+    "tabs": {
+      "overview": "Oversigt",
+      "pipeline": "Pipeline",
+      "revenue": "Omsætning",
+      "forecasts": "Prognoser",
+      "renewals": "Fornyelser",
+      "expansion": "Ekspansion",
+      "partners": "Partnere",
+      "business_packs": "Business Packs",
+      "companion": "Companion-indsigt",
+      "executive": "Ledelse",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "monthlyRevenue": "Månedlig omsætning",
+      "annualRevenue": "Årlig omsætning",
+      "recurringRevenue": "Tilbagevendende omsætning",
+      "renewalRevenue": "Fornyelsesomsætning",
+      "expansionRevenue": "Ekspansionsomsætning",
+      "partnerRevenue": "Partneromsætning",
+      "forecastRevenue": "Prognoseomsætning",
+      "revenueHealthScore": "Omsætningshelbredsscore",
+      "pipelineOpen": "Åben pipeline",
+      "renewalsDue90d": "Fornyelser (90 dage)",
+      "expansionOpportunities": "Ekspansionsmuligheder",
+      "activeRisks": "Aktive risici"
+    },
+    "actions": {
+      "generateForecast": "Generer prognose",
+      "createOpportunity": "Opret mulighed",
+      "planRenewal": "Planlæg fornyelse",
+      "identifyExpansion": "Identificer ekspansion",
+      "detectRisk": "Opdag omsætningsrisiko",
+      "openPipeline": "Pipeline Engine",
+      "openRevenueGrowth": "Revenue Growth Center"
+    },
+    "healthStatuses": {
+      "strong_growth": "Stærk vækst",
+      "healthy": "Sund",
+      "watch_closely": "Følg nøje",
+      "revenue_risk": "Omsætningsrisiko"
+    },
+    "riskSeverities": {
+      "information": "Information",
+      "attention": "Kræver opmærksomhed",
+      "critical": "Kritisk"
+    },
+    "pipelinePage": {
+      "title": "Pipeline Engine",
+      "subtitle": "Spor leads, muligheder, tilbud, forslag, forhandlinger, sejre og tab."
+    }
+  },
+  "aiWorkforceOperations": {
+    "title": "AI Workforce Center",
+    "subtitle": "Udrul, administrer, superviser og styr digitale medarbejdere, der augmenterer organisationen under eksplicit ansvarlighed.",
+    "loading": "Forbereder AI Workforce",
+    "back": "Tilbage",
+    "principle": "Aipify erstatter ikke medarbejdere. Aipify augmenterer medarbejdere. Digitale medarbejdere assisterer under styring og supervision.",
+    "supervisorRule": "Hver digital medarbejder skal have ejer, leder, revisionshistorik og eksplicit tilladelsesomfang.",
+    "emptyState": "AI Workforce-data er utilgængelig.",
+    "accessDenied": "AI Workforce kræver administratorrettigheder.",
+    "tabs": {
+      "overview": "Oversigt",
+      "employees": "Digitale medarbejdere",
+      "departments": "Afdelinger",
+      "assignments": "Tildelinger",
+      "performance": "Performance",
+      "training": "Træning",
+      "governance": "Styring",
+      "companion": "Companion-indsigt",
+      "executive": "Ledelse",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "digitalEmployees": "Digitale medarbejdere",
+      "activeEmployees": "Aktive medarbejdere",
+      "departments": "Afdelinger",
+      "assignments": "Aktive tildelinger",
+      "trainingInProgress": "Træning i gang",
+      "governanceOpen": "Åbne styringspunkter",
+      "avgPerformanceScore": "Gennemsnitlig performance-score",
+      "hybridTeams": "Hybride teams"
+    },
+    "actions": {
+      "createEmployee": "Opret digital medarbejder",
+      "createAssignment": "Opret tildeling",
+      "completeTraining": "Fuldfør træning",
+      "updatePerformance": "Opdater performance",
+      "disableEmployee": "Deaktiver medarbejder",
+      "openEmployees": "Digital Employee Registry",
+      "openTraining": "Training Engine",
+      "openLegacyWorkforce": "Companion Workforce Engine"
+    },
+    "employeeStatuses": {
+      "active": "Aktiv",
+      "training": "Træning",
+      "requires_review": "Kræver gennemgang",
+      "restricted": "Begrænset",
+      "disabled": "Deaktiveret"
+    },
+    "performanceStatuses": {
+      "excellent": "Fremragende",
+      "healthy": "Sund",
+      "needs_review": "Kræver gennemgang",
+      "poor_performance": "Dårlig performance"
+    },
+    "governanceSeverities": {
+      "information": "Information",
+      "attention": "Kræver opmærksomhed",
+      "critical": "Kritisk"
+    },
+    "employeesPage": {
+      "title": "Digital Employee Registry",
+      "subtitle": "Medarbejder-ID, rolle, afdeling, færdigheder, tilladelser, leder, status og aktivitetshistorik."
+    },
+    "trainingPage": {
+      "title": "Training Engine",
+      "subtitle": "Træn digitale medarbejdere fra Knowledge Center, politikker, playbooks og godkendte datakilder."
+    }
+  },
+  "companionSkillsOperations": {
+    "title": "Companion Skills Center",
+    "subtitle": "Installer, styr og træn specialiserede Companion-evner gennem godkendte skills, specialister og vidensmoduler.",
+    "loading": "Forbereder Companion Skills",
+    "back": "Tilbage",
+    "principle": "Companion skal ikke vide alt som standard. Companion opnår ekspertise gennem godkendte skills. Organisationer bestemmer, hvad Companion ved og kan gøre.",
+    "governanceNote": "Hver videnskilde skal være styret. Skills må aldrig omgå styring.",
+    "emptyState": "Companion Skills-data er utilgængelig.",
+    "accessDenied": "Companion Skills kræver administratorrettigheder.",
+    "tabs": {
+      "overview": "Oversigt",
+      "installed": "Installerede skills",
+      "marketplace": "Marketplace",
+      "specialists": "Specialister",
+      "knowledge": "Videnskilder",
+      "permissions": "Tilladelser",
+      "training": "Træning",
+      "companion": "Companion-indsigt",
+      "executive": "Ledelse",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "installedSkills": "Installerede skills",
+      "activeSkills": "Aktive skills",
+      "marketplaceAvailable": "Tilgængelig i marketplace",
+      "specialists": "Specialister",
+      "knowledgeSources": "Videnskilder",
+      "trainingInProgress": "Træning i gang",
+      "capabilityBundles": "Capability bundles",
+      "skillsNeedingAttention": "Skills der kræver opmærksomhed"
+    },
+    "actions": {
+      "installSkill": "Installer skill",
+      "activateSkill": "Aktiver skill",
+      "completeTraining": "Fuldfør træning",
+      "createSpecialist": "Opret specialist",
+      "installBundle": "Installer bundle",
+      "openMarketplace": "Skill Marketplace",
+      "openTraining": "Training Engine",
+      "openLegacyMarketplace": "Legacy Marketplace"
+    },
+    "skillStatuses": {
+      "active": "Aktiv",
+      "installing": "Installerer",
+      "requires_attention": "Kræver opmærksomhed",
+      "permission_required": "Tilladelse kræves",
+      "disabled": "Deaktiveret"
+    },
+    "healthStatuses": {
+      "healthy": "Sund",
+      "needs_attention": "Kræver opmærksomhed",
+      "review_required": "Gennemgang kræves"
+    },
+    "marketplacePage": {
+      "title": "Skill Marketplace",
+      "subtitle": "Installer nye evner — gennemgå tilladelser, afhængigheder, godkend, installer, træn og aktiver."
+    },
+    "trainingPage": {
+      "title": "Skill Training Engine",
+      "subtitle": "Træn specialistskills med godkendt organisationsindhold fra Knowledge Center, politikker og playbooks."
+    }
+  },
+  "companionMemoryEvolution": {
+    "title": "Companion Memory Center",
+    "subtitle": "Langsigtet organisationskontekst, brugerforståelse og operationel bevidsthed — styret, transparent og privatlivsbeskyttet.",
+    "loading": "Forbereder Companion Memory",
+    "back": "Tilbage",
+    "principle": "Companion skal blive klogere over tid — ikke ved at huske alt, men ved at huske det, der betyder noget.",
+    "emptyState": "Companion Memory-data er utilgængelig.",
+    "tabs": {
+      "overview": "Oversigt",
+      "personal_memory": "Personligt minde",
+      "organization_memory": "Organisationsminde",
+      "preferences": "Præferencer",
+      "context": "Kontekst",
+      "learning": "Læring",
+      "memory_governance": "Mindestyring",
+      "reports": "Rapporter",
+      "executive": "Executive"
+    },
+    "overview": {
+      "memoryItems": "Mindeelementer",
+      "activeMemory": "Aktivt minde",
+      "reviewRequired": "Gennemgang påkrævet",
+      "contextSnapshots": "Kontekstøjeblikke",
+      "relationshipEntries": "Relationsposter",
+      "evolutionEvents": "Evolutionshændelser",
+      "departmentMemory": "Afdelingsminde",
+      "memoryHealthScore": "Mindehelbredsscore"
+    },
+    "actions": {
+      "refreshHealth": "Opdater mindehelbred",
+      "exportMemory": "Eksporter minde",
+      "approveMemory": "Godkend minde",
+      "openAssistantMemory": "Assistentminde",
+      "openContext": "Kontekstmotor"
+    },
+    "sections": {
+      "workingStyle": "Arbejdsstil",
+      "contextSnapshots": "Kontekstbevidsthed",
+      "conversationContext": "Samtalekontekst",
+      "relationshipMemory": "Relationsminde",
+      "memoryEvolution": "Mindeevolution",
+      "departmentMemory": "Afdelingsminde",
+      "decisionMemory": "Beslutningsminde",
+      "meetingMemory": "Mødeminde",
+      "businessPackIntegration": "Business Pack-integration",
+      "governancePolicies": "Styringspolitikker",
+      "contextAdvisor": "Companion kontekstrådgiver",
+      "audit": "Revisionslog"
+    },
+    "memoryStatuses": {
+      "active": "Aktiv",
+      "review_required": "Gennemgang påkrævet",
+      "restricted": "Begrænset",
+      "disabled": "Deaktiveret"
+    }
+  },
+  "companionOrchestrationOperations": {
+    "title": "Companion Orchestration Center",
+    "subtitle": "Koordiner Companion-specialister bag én unified Aipify Companion-oplevelse — routing, delegering, samarbejde og styring.",
+    "loading": "Forbereder Companion Orchestration",
+    "back": "Tilbage",
+    "principle": "Brugere skal interagere med én Companion. Bag kulisserne kan flere specialister samarbejde — brugeren behøver aldrig at vide, hvilken specialist der udførte hvilken opgave.",
+    "emptyState": "Companion Orchestration-data er utilgængelig.",
+    "tabs": {
+      "overview": "Oversigt",
+      "specialists": "Specialister",
+      "assignments": "Opgaver",
+      "coordination": "Koordinering",
+      "workloads": "Arbejdsbyrde",
+      "approvals": "Godkendelser",
+      "reports": "Rapporter",
+      "executive": "Executive"
+    },
+    "overview": {
+      "registeredSpecialists": "Registrerede specialister",
+      "activeSpecialists": "Aktive specialister",
+      "busySpecialists": "Optagede specialister",
+      "reviewRequired": "Gennemgang påkrævet",
+      "activeAssignments": "Aktive opgaver",
+      "coordinationEvents": "Koordineringshændelser",
+      "pendingApprovals": "Afventende godkendelser",
+      "companionHealthScore": "Companion helbredsscore"
+    },
+    "actions": {
+      "refreshPerformance": "Opdater ydeevne",
+      "delegateTask": "Deleger opgave",
+      "createCollaboration": "Opret samarbejde",
+      "openSkills": "Companion Skills",
+      "openMemory": "Companion Memory",
+      "openApprovals": "Godkendelsescenter"
+    },
+    "sections": {
+      "collaborationEvents": "Samarbejdshændelser",
+      "contextSharing": "Kontekstdeling",
+      "unifiedPrinciple": "Unified Companion-princip",
+      "teamStructures": "Companion-teamstrukturer",
+      "meetingCouncil": "Møderåd",
+      "decisionCollaborations": "Beslutningsstøtte-samarbejde",
+      "skillsIntegration": "Skills-integration (Fase 556)",
+      "memoryIntegration": "Mindeintegration (Fase 558)",
+      "businessPackSpecialists": "Business Pack-specialister",
+      "approvalFlow": "Godkendelseskoordinering",
+      "audit": "Revisionslog"
+    },
+    "specialistStatuses": {
+      "active": "Aktiv",
+      "busy": "Optaget",
+      "review_required": "Kræver gennemgang",
+      "restricted": "Begrænset",
+      "disabled": "Deaktiveret"
+    }
+  },
+  "companionGovernanceOperations": {
+    "title": "Companion Governance Center",
+    "subtitle": "Tillid, sikkerhed, tilsyn og organisatorisk kontrol for Aipify Companion — gennemsigtighed, politikker, godkendelser og revision.",
+    "loading": "Forbereder Companion Governance",
+    "back": "Tilbage",
+    "principle": "Jo mere kapabel Companion bliver, desto vigtigere bliver styring. Companion må aldrig blive en sort boks.",
+    "emptyState": "Companion Governance-data er utilgængelig.",
+    "tabs": {
+      "overview": "Oversigt",
+      "permissions": "Tilladelser",
+      "capabilities": "Kapabiliteter",
+      "actions": "Handlinger",
+      "oversight": "Tilsyn",
+      "approvals": "Godkendelser",
+      "policies": "Politikker",
+      "reports": "Rapporter",
+      "executive": "Executive",
+      "audit": "Revision"
+    },
+    "overview": {
+      "capabilities": "Registrerede kapabiliteter",
+      "policies": "Aktive politikker",
+      "pendingApprovals": "Afventende godkendelser",
+      "governanceAlerts": "Styringsadvarsler",
+      "riskEvents": "Risikohændelser",
+      "trustScore": "Tillidsscore",
+      "auditEntries": "Revisionsposter"
+    },
+    "actions": {
+      "refreshTrust": "Opdater tillidsscore",
+      "approveAction": "Godkend",
+      "denyAction": "Afvis",
+      "openApprovals": "Godkendelsescenter",
+      "openOrchestration": "Companion Orchestration",
+      "openMemory": "Companion Memory",
+      "openAudit": "Revisionscenter"
+    },
+    "sections": {
+      "permissionBoundaries": "Tilladelsesgrænser",
+      "recommendations": "Anbefalingstransparens",
+      "transparencyEngine": "Companion gennemsigtighedsmotor",
+      "ethicsFramework": "Etisk ramme",
+      "riskDetection": "Risikodetektion",
+      "knowledgeGovernance": "Vidensstyring",
+      "memoryGovernance": "Mindestyring",
+      "specialistGovernance": "Specialiststyring",
+      "reviewBoard": "Companion gennemgangsråd",
+      "audit": "Revisionslog"
+    },
+    "confidenceLevels": {
+      "high": "Høj tillid",
+      "moderate": "Moderat tillid",
+      "limited": "Begrænset tillid"
+    },
+    "trustLabels": {
+      "trusted": "Betroet",
+      "healthy": "Sund",
+      "needs_review": "Kræver gennemgang",
+      "governance_risk": "Styringsrisiko"
+    }
   }
 }

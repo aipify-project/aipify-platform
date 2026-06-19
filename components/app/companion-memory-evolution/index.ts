@@ -1,0 +1,1 @@
+export { CompanionMemoryEvolutionPanel } from "./CompanionMemoryEvolutionPanel";

@@ -1,0 +1,1 @@
+export { CompanionSkillsPanel } from "./CompanionSkillsPanel";

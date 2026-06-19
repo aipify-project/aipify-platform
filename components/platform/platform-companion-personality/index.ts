@@ -1,0 +1,1 @@
+export { PlatformCompanionPersonalityPanel } from "./PlatformCompanionPersonalityPanel";

@@ -100,6 +100,7 @@
     "operationsOverview": "Operations Overview",
     "buildHealthCenter": "Build Health Center",
     "aosCore": "AOS Core Center",
+    "companionPersonality": "Companion Personality Center",
     "platformHealth": "Platform Health",
     "deployments": "Deployments",
     "operationsAuditLogs": "Audit Logs",
@@ -5053,6 +5054,57 @@
     "featuresPage": {
       "title": "Feature Flag Engine",
       "subtitle": "Gradvis utrulling for dashboards, Companion-funksjoner, marketplace og enterprise-funksjoner."
+    }
+  },
+  "companionPersonality": {
+    "title": "Companion Personality Center",
+    "subtitle": "Plattformstyring for Companion-personlighet, adaptiv kommunikasjon, relasjonsmodeller, tillit og menneskesentrert interaksjon — én Companion overalt.",
+    "loading": "Forbereder Companion Personality Center",
+    "back": "Tilbake til plattform",
+    "principle": "Mennesker bygger relasjoner med personligheter — ikke grensesnitt. Én Companion. Én personlighet. Ett relasjonsrammeverk.",
+    "emptyState": "Companion Personality Center-data er utilgjengelig.",
+    "tabs": {
+      "overview": "Oversikt",
+      "personality": "Personlighet",
+      "communication": "Kommunikasjon",
+      "preferences": "Preferanser",
+      "relationship_model": "Relasjonsmodell",
+      "interaction_history": "Interaksjonshistorikk",
+      "adaptation": "Tilpasning",
+      "reports": "Rapporter",
+      "executive": "Executive"
+    },
+    "overview": {
+      "coreTraits": "Kjerneegenskaper",
+      "positiveTraits": "Positive egenskaper",
+      "forbiddenTraits": "Forbudte egenskaper",
+      "communicationStyles": "Kommunikasjonsstiler",
+      "roleProfiles": "Rolleprofiler",
+      "relationshipScore": "Relasjonsscore",
+      "consistencyChannels": "Konsistenskanaler",
+      "tenantPreferences": "Leietakerpreferanser"
+    },
+    "actions": {
+      "refreshScore": "Oppdater relasjonsscore",
+      "publishUpdate": "Publiser personlighetsoppdatering",
+      "openTenantRelationship": "Leietaker relasjonssenter"
+    },
+    "sections": {
+      "coreTraits": "Kjerne personlighetstrekk",
+      "identityRules": "Companion-identitetsregler",
+      "personalityLayers": "Personlighetslag",
+      "roleProfiles": "Rollebaserte personligheter",
+      "humorFramework": "Humorrammeverk",
+      "selfLoveFramework": "Self Love-rammeverk",
+      "trustFramework": "Tillitsrammeverk",
+      "emotionalAwareness": "Emosjonell bevissthet",
+      "communicationStyles": "Kommunikasjonsstiler",
+      "adaptiveProfiles": "Adaptive kommunikasjonsprofiler",
+      "consistencyEngine": "Konsistensmotor",
+      "memoryIntegrations": "Minneintegrasjoner",
+      "businessPackContributions": "Business Pack-bidrag",
+      "adaptationRules": "Tilpasningsregler",
+      "audit": "Revisjonslogg"
     }
   }
 }

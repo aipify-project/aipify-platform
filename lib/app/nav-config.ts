@@ -259,6 +259,7 @@ export type AppNavId =
   | "aiCostGovernanceEngine"
   | "personalProductivityEngine"
   | "companionOrchestrationEngine"
+  | "companionGovernanceEngine"
   | "companionActionApprovalEngine"
   | "companionContextEngine"
   | "companionMemoryExpansionEngine"
@@ -386,6 +387,9 @@ export type AppNavId =
   | "appKnowledgeGraph"
   | "appKnowledgeNetwork"
   | "appMarketObservatory"
+  | "appRevenueOperations"
+  | "appAiWorkforce"
+  | "appCompanionSkills"
   | "appIntegrationHub"
   | "appSimulationOperations"
   | "appExecutionOperations"
@@ -1703,6 +1707,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "navigation.nav.companionOrchestrationEngine",
   },
   {
+    id: "companionGovernanceEngine",
+    href: "/app/companion/governance",
+    labelKey: "navigation.nav.companionGovernanceEngine",
+  },
+  {
     id: "companionActionApprovalEngine",
     href: "/app/companion/actions",
     labelKey: "navigation.nav.companionActionApprovalEngine",
@@ -1945,6 +1954,9 @@ export const APP_NAV: AppNavItem[] = [
   { id: "appKnowledgeGraph", href: "/app/knowledge-graph", labelKey: "navigation.nav.appKnowledgeGraph" },
   { id: "appKnowledgeNetwork", href: "/app/knowledge-network", labelKey: "navigation.nav.appKnowledgeNetwork" },
   { id: "appMarketObservatory", href: "/app/market-intelligence", labelKey: "navigation.nav.appMarketObservatory" },
+  { id: "appRevenueOperations", href: "/app/revenue", labelKey: "navigation.nav.appRevenueOperations" },
+  { id: "appAiWorkforce", href: "/app/workforce", labelKey: "navigation.nav.appAiWorkforce" },
+  { id: "appCompanionSkills", href: "/app/companion/skills", labelKey: "navigation.nav.appCompanionSkills" },
   { id: "appInventory", href: "/app/inventory", labelKey: "navigation.nav.appInventory" },
   { id: "appForms", href: "/app/forms", labelKey: "navigation.nav.appForms" },
   { id: "companionMarketplaceEngine", href: "/app/companion-marketplace", labelKey: "navigation.nav.companionMarketplaceEngine" },
@@ -2292,6 +2304,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/personal-productivity-engine")) {
     return "personalProductivityEngine";
   }
+  if (pathname === "/app/companion/skills" || pathname.startsWith("/app/companion/skills/")) {
+    return "appCompanionSkills";
+  }
   if (pathname.startsWith("/app/companion/context")) return "companionContextEngine";
   if (pathname.startsWith("/app/companion/memory")) return "companionMemoryExpansionEngine";
   if (pathname.startsWith("/app/companion/recommendations")) return "companionRecommendationEngine";
@@ -2303,6 +2318,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/companion/relationship-intelligence")) return "companionRelationshipIntelligenceEngine";
   if (pathname === "/app/companion/relationship") return "companionRelationshipEngine";
   if (pathname.startsWith("/app/companion/executive")) return "companionExecutiveLayer";
+  if (pathname.startsWith("/app/companion/governance")) return "companionGovernanceEngine";
   if (pathname.startsWith("/app/companion/orchestration")) return "companionOrchestrationEngine";
   if (pathname.startsWith("/app/companion/actions")) return "companionActionApprovalEngine";
   if (pathname.startsWith("/app/companion/action-memory")) return "companionActionMemoryEngine";
@@ -2930,6 +2946,12 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname === "/app/search" || pathname.startsWith("/app/search/")) {
     return "appUniversalSearch";
+  }
+  if (pathname === "/app/workforce" || pathname.startsWith("/app/workforce/")) {
+    return "appAiWorkforce";
+  }
+  if (pathname === "/app/revenue" || pathname.startsWith("/app/revenue/")) {
+    return "appRevenueOperations";
   }
   if (pathname === "/app/market-intelligence" || pathname.startsWith("/app/market-intelligence/")) {
     return "appMarketObservatory";

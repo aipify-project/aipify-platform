@@ -2,6 +2,7 @@ export type PlatformNavId =
   | "operationsOverview"
   | "buildHealthCenter"
   | "aosCore"
+  | "companionPersonality"
   | "platformHealth"
   | "deployments"
   | "operationsAuditLogs"
@@ -244,6 +245,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
   { id: "operationsOverview", href: "/platform/operations/overview", labelKey: "platform.nav.operationsOverview" },
   { id: "buildHealthCenter", href: "/platform/operations/build-health", labelKey: "platform.nav.buildHealthCenter" },
   { id: "aosCore", href: "/platform/aos-core", labelKey: "platform.nav.aosCore" },
+  {
+    id: "companionPersonality",
+    href: "/platform/companion/personality",
+    labelKey: "platform.nav.companionPersonality",
+  },
   { id: "platformHealth", href: "/platform/operations/platform-health", labelKey: "platform.nav.platformHealth" },
   { id: "deployments", href: "/platform/operations/deployments", labelKey: "platform.nav.deployments" },
   { id: "operationsAuditLogs", href: "/platform/operations/audit-logs", labelKey: "platform.nav.operationsAuditLogs" },
@@ -477,6 +483,7 @@ export const PLATFORM_MOBILE_NAV_IDS: PlatformNavId[] = [
 export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname === "/platform") return "overview";
   if (pathname.startsWith("/platform/aos-core")) return "aosCore";
+  if (pathname.startsWith("/platform/companion/personality")) return "companionPersonality";
   if (pathname.startsWith("/platform/operations/build-health")) return "buildHealthCenter";
   if (pathname.startsWith("/platform/operations/route-registry")) return "buildHealthCenter";
   if (pathname.startsWith("/platform/operations/overview")) return "operationsOverview";

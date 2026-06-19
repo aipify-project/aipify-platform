@@ -126,6 +126,7 @@
     "operationsOverview": "Operations Overview",
     "buildHealthCenter": "Build Health Center",
     "aosCore": "AOS Core Center",
+    "companionPersonality": "Companion Personality Center",
     "platformHealth": "Platform Health",
     "deployments": "Deployments",
     "operationsAuditLogs": "Audit Logs",
@@ -5298,6 +5299,57 @@
     "featuresPage": {
       "title": "Feature Flag Engine",
       "subtitle": "Gradual rollout controls for dashboards, Companion skills, marketplace features, and enterprise capabilities."
+    }
+  },
+  "companionPersonality": {
+    "title": "Companion Personality Center",
+    "subtitle": "Platform governance for Companion personality, adaptive communication, relationship models, trust, and human-centered interaction — one Companion everywhere.",
+    "loading": "Preparing Companion Personality Center",
+    "back": "Back to platform",
+    "principle": "People build relationships with personalities — not interfaces. One Companion. One Personality. One Relationship Framework.",
+    "emptyState": "Companion Personality Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "personality": "Personality",
+      "communication": "Communication",
+      "preferences": "Preferences",
+      "relationship_model": "Relationship Model",
+      "interaction_history": "Interaction History",
+      "adaptation": "Adaptation",
+      "reports": "Reports",
+      "executive": "Executive"
+    },
+    "overview": {
+      "coreTraits": "Core traits",
+      "positiveTraits": "Positive traits",
+      "forbiddenTraits": "Forbidden traits",
+      "communicationStyles": "Communication styles",
+      "roleProfiles": "Role profiles",
+      "relationshipScore": "Relationship score",
+      "consistencyChannels": "Consistency channels",
+      "tenantPreferences": "Tenant user preferences"
+    },
+    "actions": {
+      "refreshScore": "Refresh relationship score",
+      "publishUpdate": "Publish personality update",
+      "openTenantRelationship": "Tenant relationship center"
+    },
+    "sections": {
+      "coreTraits": "Core personality traits",
+      "identityRules": "Companion identity rules",
+      "personalityLayers": "Personality layers",
+      "roleProfiles": "Role-based personalities",
+      "humorFramework": "Humor framework",
+      "selfLoveFramework": "Self Love framework",
+      "trustFramework": "Trust framework",
+      "emotionalAwareness": "Emotional awareness",
+      "communicationStyles": "Communication styles",
+      "adaptiveProfiles": "Adaptive communication profiles",
+      "consistencyEngine": "Consistency engine",
+      "memoryIntegrations": "Memory integrations",
+      "businessPackContributions": "Business Pack contributions",
+      "adaptationRules": "Adaptation rules",
+      "audit": "Audit log"
     }
   }
 }

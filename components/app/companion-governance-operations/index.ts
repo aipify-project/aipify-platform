@@ -1,0 +1,1 @@
+export { CompanionGovernancePanel } from "./CompanionGovernancePanel";

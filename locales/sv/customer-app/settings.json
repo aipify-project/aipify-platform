@@ -3776,5 +3776,368 @@
       "title": "Market Observatory",
       "subtitle": "Spåra regionala marknader, tillväxttakt, konkurrensnivå och marknadshälsa."
     }
+  },
+  "revenueOperations": {
+    "title": "Revenue Operations Center",
+    "subtitle": "Enhetligt tillväxtsystem som kopplar försäljning, marknadsföring, kundframgång, prenumerationer, förnyelser, Growth Partners och Business Packs.",
+    "loading": "Förbereder Revenue Operations",
+    "back": "Tillbaka",
+    "principle": "Intäkter är inte en siffra — det är resultatet av friska kunder, framgångsrika partners, värdefulla produkter och stark genomföring.",
+    "emptyState": "Revenue Operations-data är otillgänglig.",
+    "accessDenied": "Revenue Operations kräver administratörsbehörighet.",
+    "tabs": {
+      "overview": "Översikt",
+      "pipeline": "Pipeline",
+      "revenue": "Intäkter",
+      "forecasts": "Prognoser",
+      "renewals": "Förnyelser",
+      "expansion": "Expansion",
+      "partners": "Partners",
+      "business_packs": "Business Packs",
+      "companion": "Companion-insikter",
+      "executive": "Ledning",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "monthlyRevenue": "Månatliga intäkter",
+      "annualRevenue": "Årliga intäkter",
+      "recurringRevenue": "Återkommande intäkter",
+      "renewalRevenue": "Förnyelseintäkter",
+      "expansionRevenue": "Expansionsintäkter",
+      "partnerRevenue": "Partnerintäkter",
+      "forecastRevenue": "Prognosintäkter",
+      "revenueHealthScore": "Intäktshälsopoäng",
+      "pipelineOpen": "Öppen pipeline",
+      "renewalsDue90d": "Förnyelser (90 dagar)",
+      "expansionOpportunities": "Expansionsmöjligheter",
+      "activeRisks": "Aktiva risker"
+    },
+    "actions": {
+      "generateForecast": "Generera prognos",
+      "createOpportunity": "Skapa möjlighet",
+      "planRenewal": "Planera förnyelse",
+      "identifyExpansion": "Identifiera expansion",
+      "detectRisk": "Upptäck intäktsrisk",
+      "openPipeline": "Pipeline Engine",
+      "openRevenueGrowth": "Revenue Growth Center"
+    },
+    "healthStatuses": {
+      "strong_growth": "Stark tillväxt",
+      "healthy": "Frisk",
+      "watch_closely": "Följ noga",
+      "revenue_risk": "Intäktsrisk"
+    },
+    "riskSeverities": {
+      "information": "Information",
+      "attention": "Kräver uppmärksamhet",
+      "critical": "Kritisk"
+    },
+    "pipelinePage": {
+      "title": "Pipeline Engine",
+      "subtitle": "Spåra leads, möjligheter, offerter, förslag, förhandlingar, vinster och förluster."
+    }
+  },
+  "aiWorkforceOperations": {
+    "title": "AI Workforce Center",
+    "subtitle": "Distribuera, hantera, övervaka och styr digitala medarbetare som augmenterar organisationen under tydlig ansvarighet.",
+    "loading": "Förbereder AI Workforce",
+    "back": "Tillbaka",
+    "principle": "Aipify ersätter inte medarbetare. Aipify augmenterar medarbetare. Digitala medarbetare assisterar under styrning och tillsyn.",
+    "supervisorRule": "Varje digital medarbetare måste ha ägare, chef, revisionshistorik och explicit behörighetsomfattning.",
+    "emptyState": "AI Workforce-data är otillgänglig.",
+    "accessDenied": "AI Workforce kräver administratörsbehörighet.",
+    "tabs": {
+      "overview": "Översikt",
+      "employees": "Digitala medarbetare",
+      "departments": "Avdelningar",
+      "assignments": "Tilldelningar",
+      "performance": "Prestanda",
+      "training": "Utbildning",
+      "governance": "Styrning",
+      "companion": "Companion-insikter",
+      "executive": "Ledning",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "digitalEmployees": "Digitala medarbetare",
+      "activeEmployees": "Aktiva medarbetare",
+      "departments": "Avdelningar",
+      "assignments": "Aktiva tilldelningar",
+      "trainingInProgress": "Utbildning pågår",
+      "governanceOpen": "Öppna styrningsärenden",
+      "avgPerformanceScore": "Genomsnittlig prestationspoäng",
+      "hybridTeams": "Hybrida team"
+    },
+    "actions": {
+      "createEmployee": "Skapa digital medarbetare",
+      "createAssignment": "Skapa tilldelning",
+      "completeTraining": "Slutför utbildning",
+      "updatePerformance": "Uppdatera prestanda",
+      "disableEmployee": "Inaktivera medarbetare",
+      "openEmployees": "Digital Employee Registry",
+      "openTraining": "Training Engine",
+      "openLegacyWorkforce": "Companion Workforce Engine"
+    },
+    "employeeStatuses": {
+      "active": "Aktiv",
+      "training": "Utbildning",
+      "requires_review": "Kräver granskning",
+      "restricted": "Begränsad",
+      "disabled": "Inaktiverad"
+    },
+    "performanceStatuses": {
+      "excellent": "Utmärkt",
+      "healthy": "Frisk",
+      "needs_review": "Kräver granskning",
+      "poor_performance": "Dålig prestanda"
+    },
+    "governanceSeverities": {
+      "information": "Information",
+      "attention": "Kräver uppmärksamhet",
+      "critical": "Kritisk"
+    },
+    "employeesPage": {
+      "title": "Digital Employee Registry",
+      "subtitle": "Medarbetar-ID, roll, avdelning, färdigheter, behörigheter, chef, status och aktivitetshistorik."
+    },
+    "trainingPage": {
+      "title": "Training Engine",
+      "subtitle": "Utbilda digitala medarbetare från Knowledge Center, policyer, playbooks och godkända datakällor."
+    }
+  },
+  "companionSkillsOperations": {
+    "title": "Companion Skills Center",
+    "subtitle": "Installera, styr och träna specialiserade Companion-förmågor genom godkända skills, specialister och kunskapsmoduler.",
+    "loading": "Förbereder Companion Skills",
+    "back": "Tillbaka",
+    "principle": "Companion ska inte veta allt som standard. Companion får expertis genom godkända skills. Organisationer bestämmer vad Companion vet och kan göra.",
+    "governanceNote": "Varje kunskapskälla måste styras. Skills får aldrig kringgå styrning.",
+    "emptyState": "Companion Skills-data är otillgänglig.",
+    "accessDenied": "Companion Skills kräver administratörsbehörighet.",
+    "tabs": {
+      "overview": "Översikt",
+      "installed": "Installerade skills",
+      "marketplace": "Marketplace",
+      "specialists": "Specialister",
+      "knowledge": "Kunskapskällor",
+      "permissions": "Behörigheter",
+      "training": "Utbildning",
+      "companion": "Companion-insikter",
+      "executive": "Ledning",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "installedSkills": "Installerade skills",
+      "activeSkills": "Aktiva skills",
+      "marketplaceAvailable": "Tillgängliga i marketplace",
+      "specialists": "Specialister",
+      "knowledgeSources": "Kunskapskällor",
+      "trainingInProgress": "Utbildning pågår",
+      "capabilityBundles": "Capability bundles",
+      "skillsNeedingAttention": "Skills som kräver uppmärksamhet"
+    },
+    "actions": {
+      "installSkill": "Installera skill",
+      "activateSkill": "Aktivera skill",
+      "completeTraining": "Slutför utbildning",
+      "createSpecialist": "Skapa specialist",
+      "installBundle": "Installera bundle",
+      "openMarketplace": "Skill Marketplace",
+      "openTraining": "Training Engine",
+      "openLegacyMarketplace": "Legacy Marketplace"
+    },
+    "skillStatuses": {
+      "active": "Aktiv",
+      "installing": "Installerar",
+      "requires_attention": "Kräver uppmärksamhet",
+      "permission_required": "Behörighet krävs",
+      "disabled": "Inaktiverad"
+    },
+    "healthStatuses": {
+      "healthy": "Frisk",
+      "needs_attention": "Kräver uppmärksamhet",
+      "review_required": "Granskning krävs"
+    },
+    "marketplacePage": {
+      "title": "Skill Marketplace",
+      "subtitle": "Installera nya förmågor — granska behörigheter, beroenden, godkänn, installera, träna och aktivera."
+    },
+    "trainingPage": {
+      "title": "Skill Training Engine",
+      "subtitle": "Träna specialistskills med godkänt organisationsinnehåll från Knowledge Center, policyer och playbooks."
+    }
+  },
+  "companionMemoryEvolution": {
+    "title": "Companion Memory Center",
+    "subtitle": "Långsiktig organisationskontext, användarförståelse och operativ medvetenhet — styrd, transparent och integritetsskyddad.",
+    "loading": "Förbereder Companion Memory",
+    "back": "Tillbaka",
+    "principle": "Companion ska bli smartare över tid — inte genom att minnas allt, utan genom att minnas det som betyder något.",
+    "emptyState": "Companion Memory-data är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "personal_memory": "Personligt minne",
+      "organization_memory": "Organisationsminne",
+      "preferences": "Preferenser",
+      "context": "Kontext",
+      "learning": "Lärande",
+      "memory_governance": "Minnesstyrning",
+      "reports": "Rapporter",
+      "executive": "Executive"
+    },
+    "overview": {
+      "memoryItems": "Minnesposter",
+      "activeMemory": "Aktivt minne",
+      "reviewRequired": "Granskning krävs",
+      "contextSnapshots": "Kontextögonblick",
+      "relationshipEntries": "Relationsposter",
+      "evolutionEvents": "Evolutionshändelser",
+      "departmentMemory": "Avdelningsminne",
+      "memoryHealthScore": "Minneshälsa-poäng"
+    },
+    "actions": {
+      "refreshHealth": "Uppdatera minneshälsa",
+      "exportMemory": "Exportera minne",
+      "approveMemory": "Godkänn minne",
+      "openAssistantMemory": "Assistentminne",
+      "openContext": "Kontextmotor"
+    },
+    "sections": {
+      "workingStyle": "Arbetssätt",
+      "contextSnapshots": "Kontextmedvetenhet",
+      "conversationContext": "Samtalskontext",
+      "relationshipMemory": "Relationsminne",
+      "memoryEvolution": "Minnesevolution",
+      "departmentMemory": "Avdelningsminne",
+      "decisionMemory": "Beslutsminne",
+      "meetingMemory": "Mötesminne",
+      "businessPackIntegration": "Business Pack-integration",
+      "governancePolicies": "Styrningspolicyer",
+      "contextAdvisor": "Companion kontextrådgivare",
+      "audit": "Revisionslogg"
+    },
+    "memoryStatuses": {
+      "active": "Aktiv",
+      "review_required": "Granskning krävs",
+      "restricted": "Begränsad",
+      "disabled": "Inaktiverad"
+    }
+  },
+  "companionOrchestrationOperations": {
+    "title": "Companion Orchestration Center",
+    "subtitle": "Koordinera Companion-specialister bakom en enhetlig Aipify Companion-upplevelse — routing, delegering, samarbete och styrning.",
+    "loading": "Förbereder Companion Orchestration",
+    "back": "Tillbaka",
+    "principle": "Användare ska interagera med en Companion. Bakom kulisserna kan flera specialister samarbeta — användaren behöver aldrig veta vilken specialist som utförde vilken uppgift.",
+    "emptyState": "Companion Orchestration-data är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "specialists": "Specialister",
+      "assignments": "Uppdrag",
+      "coordination": "Koordinering",
+      "workloads": "Arbetsbelastning",
+      "approvals": "Godkännanden",
+      "reports": "Rapporter",
+      "executive": "Executive"
+    },
+    "overview": {
+      "registeredSpecialists": "Registrerade specialister",
+      "activeSpecialists": "Aktiva specialister",
+      "busySpecialists": "Upptagna specialister",
+      "reviewRequired": "Granskning krävs",
+      "activeAssignments": "Aktiva uppdrag",
+      "coordinationEvents": "Koordineringshändelser",
+      "pendingApprovals": "Väntande godkännanden",
+      "companionHealthScore": "Companion hälsa-poäng"
+    },
+    "actions": {
+      "refreshPerformance": "Uppdatera prestanda",
+      "delegateTask": "Delegera uppgift",
+      "createCollaboration": "Skapa samarbete",
+      "openSkills": "Companion Skills",
+      "openMemory": "Companion Memory",
+      "openApprovals": "Godkännandecenter"
+    },
+    "sections": {
+      "collaborationEvents": "Samarbetshändelser",
+      "contextSharing": "Kontextdelning",
+      "unifiedPrinciple": "Unified Companion-princip",
+      "teamStructures": "Companion-teamstrukturer",
+      "meetingCouncil": "Mötesråd",
+      "decisionCollaborations": "Beslutsstödssamarbete",
+      "skillsIntegration": "Skills-integration (Fas 556)",
+      "memoryIntegration": "Minnesintegration (Fas 558)",
+      "businessPackSpecialists": "Business Pack-specialister",
+      "approvalFlow": "Godkännandekoordinering",
+      "audit": "Revisionslogg"
+    },
+    "specialistStatuses": {
+      "active": "Aktiv",
+      "busy": "Upptagen",
+      "review_required": "Kräver granskning",
+      "restricted": "Begränsad",
+      "disabled": "Inaktiverad"
+    }
+  },
+  "companionGovernanceOperations": {
+    "title": "Companion Governance Center",
+    "subtitle": "Förtroende, säkerhet, tillsyn och organisatorisk kontroll för Aipify Companion — transparens, policyer, godkännanden och revision.",
+    "loading": "Förbereder Companion Governance",
+    "back": "Tillbaka",
+    "principle": "Ju mer kapabel Companion blir, desto viktigare blir styrning. Companion får aldrig bli en svart låda.",
+    "emptyState": "Companion Governance-data är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "permissions": "Behörigheter",
+      "capabilities": "Kapabiliteter",
+      "actions": "Åtgärder",
+      "oversight": "Tillsyn",
+      "approvals": "Godkännanden",
+      "policies": "Policyer",
+      "reports": "Rapporter",
+      "executive": "Executive",
+      "audit": "Revision"
+    },
+    "overview": {
+      "capabilities": "Registrerade kapabiliteter",
+      "policies": "Aktiva policyer",
+      "pendingApprovals": "Väntande godkännanden",
+      "governanceAlerts": "Styrningsvarningar",
+      "riskEvents": "Riskhändelser",
+      "trustScore": "Förtroendepoäng",
+      "auditEntries": "Revisionsposter"
+    },
+    "actions": {
+      "refreshTrust": "Uppdatera förtroendepoäng",
+      "approveAction": "Godkänn",
+      "denyAction": "Neka",
+      "openApprovals": "Godkännandecenter",
+      "openOrchestration": "Companion Orchestration",
+      "openMemory": "Companion Memory",
+      "openAudit": "Revisionscenter"
+    },
+    "sections": {
+      "permissionBoundaries": "Behörighetsgränser",
+      "recommendations": "Rekommendationstransparens",
+      "transparencyEngine": "Companion transparensmotor",
+      "ethicsFramework": "Etiskt ramverk",
+      "riskDetection": "Riskdetektering",
+      "knowledgeGovernance": "Kunskapsstyrning",
+      "memoryGovernance": "Minnesstyrning",
+      "specialistGovernance": "Specialiststyrning",
+      "reviewBoard": "Companion granskningsråd",
+      "audit": "Revisionslogg"
+    },
+    "confidenceLevels": {
+      "high": "Hög tillförsikt",
+      "moderate": "Måttlig tillförsikt",
+      "limited": "Begränsad tillförsikt"
+    },
+    "trustLabels": {
+      "trusted": "Betrodd",
+      "healthy": "Frisk",
+      "needs_review": "Behöver granskning",
+      "governance_risk": "Styrningsrisk"
+    }
   }
 }

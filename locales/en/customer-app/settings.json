@@ -3954,5 +3954,368 @@
       "title": "Market Observatory",
       "subtitle": "Track regional markets, growth rates, competition levels, and market health."
     }
+  },
+  "revenueOperations": {
+    "title": "Revenue Operations Center",
+    "subtitle": "Unified growth system connecting sales, marketing, customer success, subscriptions, renewals, Growth Partners, and Business Packs.",
+    "loading": "Preparing Revenue Operations",
+    "back": "Back",
+    "principle": "Revenue is not a number — it is the result of healthy customers, successful partners, valuable products, and strong execution.",
+    "emptyState": "Revenue Operations data is unavailable.",
+    "accessDenied": "Revenue Operations requires administrator permissions.",
+    "tabs": {
+      "overview": "Overview",
+      "pipeline": "Pipeline",
+      "revenue": "Revenue",
+      "forecasts": "Forecasts",
+      "renewals": "Renewals",
+      "expansion": "Expansion",
+      "partners": "Partners",
+      "business_packs": "Business Packs",
+      "companion": "Companion Insights",
+      "executive": "Executive",
+      "reports": "Reports"
+    },
+    "overview": {
+      "monthlyRevenue": "Monthly revenue",
+      "annualRevenue": "Annual revenue",
+      "recurringRevenue": "Recurring revenue",
+      "renewalRevenue": "Renewal revenue",
+      "expansionRevenue": "Expansion revenue",
+      "partnerRevenue": "Partner revenue",
+      "forecastRevenue": "Forecast revenue",
+      "revenueHealthScore": "Revenue health score",
+      "pipelineOpen": "Open pipeline",
+      "renewalsDue90d": "Renewals due (90 days)",
+      "expansionOpportunities": "Expansion opportunities",
+      "activeRisks": "Active risks"
+    },
+    "actions": {
+      "generateForecast": "Generate forecast",
+      "createOpportunity": "Create opportunity",
+      "planRenewal": "Plan renewal",
+      "identifyExpansion": "Identify expansion",
+      "detectRisk": "Detect revenue risk",
+      "openPipeline": "Pipeline Engine",
+      "openRevenueGrowth": "Revenue Growth Center"
+    },
+    "healthStatuses": {
+      "strong_growth": "Strong growth",
+      "healthy": "Healthy",
+      "watch_closely": "Watch closely",
+      "revenue_risk": "Revenue risk"
+    },
+    "riskSeverities": {
+      "information": "Information",
+      "attention": "Attention required",
+      "critical": "Critical"
+    },
+    "pipelinePage": {
+      "title": "Pipeline Engine",
+      "subtitle": "Track leads, opportunities, quotes, proposals, negotiations, wins, and losses."
+    }
+  },
+  "aiWorkforceOperations": {
+    "title": "AI Workforce Center",
+    "subtitle": "Deploy, manage, supervise, and govern digital employees that augment your organization under explicit accountability.",
+    "loading": "Preparing AI Workforce",
+    "back": "Back",
+    "principle": "Aipify does not replace employees. Aipify augments employees. Digital employees assist under governance and supervision.",
+    "supervisorRule": "Every digital employee must have an owner, manager, audit history, and explicit permission scope.",
+    "emptyState": "AI Workforce data is unavailable.",
+    "accessDenied": "AI Workforce requires administrator permissions.",
+    "tabs": {
+      "overview": "Overview",
+      "employees": "Digital Employees",
+      "departments": "Departments",
+      "assignments": "Assignments",
+      "performance": "Performance",
+      "training": "Training",
+      "governance": "Governance",
+      "companion": "Companion Insights",
+      "executive": "Executive",
+      "reports": "Reports"
+    },
+    "overview": {
+      "digitalEmployees": "Digital employees",
+      "activeEmployees": "Active employees",
+      "departments": "Departments",
+      "assignments": "Active assignments",
+      "trainingInProgress": "Training in progress",
+      "governanceOpen": "Open governance items",
+      "avgPerformanceScore": "Average performance score",
+      "hybridTeams": "Hybrid teams"
+    },
+    "actions": {
+      "createEmployee": "Create digital employee",
+      "createAssignment": "Create assignment",
+      "completeTraining": "Complete training",
+      "updatePerformance": "Update performance",
+      "disableEmployee": "Disable employee",
+      "openEmployees": "Digital Employee Registry",
+      "openTraining": "Training Engine",
+      "openLegacyWorkforce": "Companion Workforce Engine"
+    },
+    "employeeStatuses": {
+      "active": "Active",
+      "training": "Training",
+      "requires_review": "Requires review",
+      "restricted": "Restricted",
+      "disabled": "Disabled"
+    },
+    "performanceStatuses": {
+      "excellent": "Excellent",
+      "healthy": "Healthy",
+      "needs_review": "Needs review",
+      "poor_performance": "Poor performance"
+    },
+    "governanceSeverities": {
+      "information": "Information",
+      "attention": "Attention required",
+      "critical": "Critical"
+    },
+    "employeesPage": {
+      "title": "Digital Employee Registry",
+      "subtitle": "Employee ID, role, department, skills, permissions, manager, status, and activity history."
+    },
+    "trainingPage": {
+      "title": "Training Engine",
+      "subtitle": "Train digital employees from Knowledge Center, policies, playbooks, and approved data sources."
+    }
+  },
+  "companionSkillsOperations": {
+    "title": "Companion Skills Center",
+    "subtitle": "Install, govern, and train specialized Companion capabilities through approved skills, specialists, and knowledge modules.",
+    "loading": "Preparing Companion Skills",
+    "back": "Back",
+    "principle": "The Companion should not know everything by default. The Companion gains expertise through approved skills. Organizations decide what Companion knows and can do.",
+    "governanceNote": "Every knowledge source must be governed. Skills must never bypass governance.",
+    "emptyState": "Companion Skills data is unavailable.",
+    "accessDenied": "Companion Skills requires administrator permissions.",
+    "tabs": {
+      "overview": "Overview",
+      "installed": "Installed Skills",
+      "marketplace": "Marketplace",
+      "specialists": "Specialists",
+      "knowledge": "Knowledge Sources",
+      "permissions": "Permissions",
+      "training": "Training",
+      "companion": "Companion Insights",
+      "executive": "Executive",
+      "reports": "Reports"
+    },
+    "overview": {
+      "installedSkills": "Installed skills",
+      "activeSkills": "Active skills",
+      "marketplaceAvailable": "Marketplace available",
+      "specialists": "Specialists",
+      "knowledgeSources": "Knowledge sources",
+      "trainingInProgress": "Training in progress",
+      "capabilityBundles": "Capability bundles",
+      "skillsNeedingAttention": "Skills needing attention"
+    },
+    "actions": {
+      "installSkill": "Install skill",
+      "activateSkill": "Activate skill",
+      "completeTraining": "Complete training",
+      "createSpecialist": "Create specialist",
+      "installBundle": "Install bundle",
+      "openMarketplace": "Skill Marketplace",
+      "openTraining": "Training Engine",
+      "openLegacyMarketplace": "Legacy Marketplace"
+    },
+    "skillStatuses": {
+      "active": "Active",
+      "installing": "Installing",
+      "requires_attention": "Requires attention",
+      "permission_required": "Permission required",
+      "disabled": "Disabled"
+    },
+    "healthStatuses": {
+      "healthy": "Healthy",
+      "needs_attention": "Needs attention",
+      "review_required": "Review required"
+    },
+    "marketplacePage": {
+      "title": "Skill Marketplace",
+      "subtitle": "Install new capabilities — review permissions, dependencies, approve, install, train, and activate."
+    },
+    "trainingPage": {
+      "title": "Skill Training Engine",
+      "subtitle": "Train specialist skills using approved organizational content from Knowledge Center, policies, and playbooks."
+    }
+  },
+  "companionMemoryEvolution": {
+    "title": "Companion Memory Center",
+    "subtitle": "Long-term organizational context, user understanding, and operational awareness — governed, transparent, and privacy-controlled.",
+    "loading": "Preparing Companion Memory",
+    "back": "Back",
+    "principle": "Companion should become smarter over time — not by remembering everything, but by remembering what matters.",
+    "emptyState": "Companion Memory data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "personal_memory": "Personal Memory",
+      "organization_memory": "Organization Memory",
+      "preferences": "Preferences",
+      "context": "Context",
+      "learning": "Learning",
+      "memory_governance": "Memory Governance",
+      "reports": "Reports",
+      "executive": "Executive"
+    },
+    "overview": {
+      "memoryItems": "Memory items",
+      "activeMemory": "Active memory",
+      "reviewRequired": "Review required",
+      "contextSnapshots": "Context snapshots",
+      "relationshipEntries": "Relationship entries",
+      "evolutionEvents": "Evolution events",
+      "departmentMemory": "Department memory",
+      "memoryHealthScore": "Memory health score"
+    },
+    "actions": {
+      "refreshHealth": "Refresh memory health",
+      "exportMemory": "Export memory",
+      "approveMemory": "Approve memory",
+      "openAssistantMemory": "Assistant memory",
+      "openContext": "Context engine"
+    },
+    "sections": {
+      "workingStyle": "Working style",
+      "contextSnapshots": "Context awareness",
+      "conversationContext": "Conversation context",
+      "relationshipMemory": "Relationship memory",
+      "memoryEvolution": "Memory evolution",
+      "departmentMemory": "Department memory",
+      "decisionMemory": "Decision memory",
+      "meetingMemory": "Meeting memory",
+      "businessPackIntegration": "Business Pack integration",
+      "governancePolicies": "Governance policies",
+      "contextAdvisor": "Companion context advisor",
+      "audit": "Audit log"
+    },
+    "memoryStatuses": {
+      "active": "Active",
+      "review_required": "Review required",
+      "restricted": "Restricted",
+      "disabled": "Disabled"
+    }
+  },
+  "companionOrchestrationOperations": {
+    "title": "Companion Orchestration Center",
+    "subtitle": "Coordinate Companion Specialists behind one unified Aipify Companion experience — routing, delegation, collaboration, and governance.",
+    "loading": "Preparing Companion Orchestration",
+    "back": "Back",
+    "principle": "Users should interact with one Companion. Behind the scenes, multiple specialists may collaborate — the user should never need to know which specialist performed which task.",
+    "emptyState": "Companion Orchestration data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "specialists": "Specialists",
+      "assignments": "Assignments",
+      "coordination": "Coordination",
+      "workloads": "Workloads",
+      "approvals": "Approvals",
+      "reports": "Reports",
+      "executive": "Executive"
+    },
+    "overview": {
+      "registeredSpecialists": "Registered specialists",
+      "activeSpecialists": "Active specialists",
+      "busySpecialists": "Busy specialists",
+      "reviewRequired": "Review required",
+      "activeAssignments": "Active assignments",
+      "coordinationEvents": "Coordination events",
+      "pendingApprovals": "Pending approvals",
+      "companionHealthScore": "Companion health score"
+    },
+    "actions": {
+      "refreshPerformance": "Refresh performance",
+      "delegateTask": "Delegate task",
+      "createCollaboration": "Create collaboration",
+      "openSkills": "Companion Skills",
+      "openMemory": "Companion Memory",
+      "openApprovals": "Approval Center"
+    },
+    "sections": {
+      "collaborationEvents": "Collaboration events",
+      "contextSharing": "Context sharing",
+      "unifiedPrinciple": "Unified Companion principle",
+      "teamStructures": "Companion team structures",
+      "meetingCouncil": "Meeting council",
+      "decisionCollaborations": "Decision support collaboration",
+      "skillsIntegration": "Skills integration (Phase 556)",
+      "memoryIntegration": "Memory integration (Phase 558)",
+      "businessPackSpecialists": "Business Pack specialists",
+      "approvalFlow": "Approval coordination",
+      "audit": "Audit log"
+    },
+    "specialistStatuses": {
+      "active": "Active",
+      "busy": "Busy",
+      "review_required": "Requires review",
+      "restricted": "Restricted",
+      "disabled": "Disabled"
+    }
+  },
+  "companionGovernanceOperations": {
+    "title": "Companion Governance Center",
+    "subtitle": "Trust, safety, oversight, and organizational control for Aipify Companion — transparency, policies, approvals, and audit.",
+    "loading": "Preparing Companion Governance",
+    "back": "Back",
+    "principle": "The more capable Companion becomes, the more important governance becomes. Companion must never become a black box.",
+    "emptyState": "Companion Governance data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "permissions": "Permissions",
+      "capabilities": "Capabilities",
+      "actions": "Actions",
+      "oversight": "Oversight",
+      "approvals": "Approvals",
+      "policies": "Policies",
+      "reports": "Reports",
+      "executive": "Executive",
+      "audit": "Audit"
+    },
+    "overview": {
+      "capabilities": "Registered capabilities",
+      "policies": "Active policies",
+      "pendingApprovals": "Pending approvals",
+      "governanceAlerts": "Governance alerts",
+      "riskEvents": "Risk events",
+      "trustScore": "Trust score",
+      "auditEntries": "Audit entries"
+    },
+    "actions": {
+      "refreshTrust": "Refresh trust score",
+      "approveAction": "Approve",
+      "denyAction": "Deny",
+      "openApprovals": "Approval Center",
+      "openOrchestration": "Companion Orchestration",
+      "openMemory": "Companion Memory",
+      "openAudit": "Audit Center"
+    },
+    "sections": {
+      "permissionBoundaries": "Permission boundaries",
+      "recommendations": "Recommendation transparency",
+      "transparencyEngine": "Companion transparency engine",
+      "ethicsFramework": "Ethics framework",
+      "riskDetection": "Risk detection",
+      "knowledgeGovernance": "Knowledge governance",
+      "memoryGovernance": "Memory governance",
+      "specialistGovernance": "Specialist governance",
+      "reviewBoard": "Companion review board",
+      "audit": "Audit log"
+    },
+    "confidenceLevels": {
+      "high": "High confidence",
+      "moderate": "Moderate confidence",
+      "limited": "Limited confidence"
+    },
+    "trustLabels": {
+      "trusted": "Trusted",
+      "healthy": "Healthy",
+      "needs_review": "Needs review",
+      "governance_risk": "Governance risk"
+    }
   }
 }
