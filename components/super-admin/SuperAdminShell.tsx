@@ -11,6 +11,7 @@ import SuperAdminOperationsProvider from "./SuperAdminOperationsProvider";
 import SuperAdminGlobalStatusBar from "./executive/SuperAdminGlobalStatusBar";
 import SuperAdminIdentityBadge from "./executive/SuperAdminIdentityBadge";
 import { SUPER_ADMIN_HOME_ROUTE, SUPER_ADMIN_SECTIONS } from "@/lib/super-admin/nav-config";
+import { AipifyNavClasses, AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
 import type { CommandBarLabels, CommandBarNavSource } from "@/lib/command-bar";
 
 const WARNING_ACK_KEY = "aipify-super-admin-warning-ack";
@@ -86,7 +87,7 @@ export default function SuperAdminShell({
       platformRole="super_admin"
     >
       <SuperAdminOperationsProvider loadErrorLabel={loadErrorLabel}>
-        <div className="min-h-screen bg-gray-50 text-gray-900">
+        <div className={`min-h-screen ${AipifyShellClasses.canvas}`}>
           {!warningAcknowledged ? (
             <SuperAdminWarningBanner
               title={warningTitle}
@@ -97,8 +98,8 @@ export default function SuperAdminShell({
           ) : null}
 
           <div className="flex min-h-screen">
-            <aside className="hidden w-72 shrink-0 border-r border-gray-200 bg-white lg:block">
-              <div className="border-b border-gray-200 px-5 py-6">
+            <aside className={`hidden w-72 shrink-0 lg:block ${AipifyShellClasses.sidebar}`}>
+              <div className="border-b border-aipify-border px-5 py-6">
                 <Link href={SUPER_ADMIN_HOME_ROUTE} className="block">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
                     {organizationLabel}
@@ -132,8 +133,8 @@ export default function SuperAdminShell({
                                 href={module.href}
                                 className={`block rounded-md px-2 py-1.5 text-sm transition ${
                                   active
-                                    ? "bg-indigo-50 font-medium text-indigo-900 ring-1 ring-indigo-100"
-                                    : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                                    ? AipifyNavClasses.itemActive
+                                    : AipifyNavClasses.item
                                 }`}
                               >
                                 {moduleLabel?.label ?? module.id}
@@ -148,10 +149,10 @@ export default function SuperAdminShell({
               </nav>
             </aside>
 
-            <div className="flex min-w-0 flex-1 flex-col bg-gray-50">
+            <div className={`flex min-w-0 flex-1 flex-col ${AipifyShellClasses.canvas}`}>
               <SuperAdminGlobalStatusBar labels={statusBarLabels} />
 
-              <header className="flex items-center justify-between gap-4 border-b border-gray-200 bg-white px-4 py-3 lg:px-8">
+              <header className={`flex items-center justify-between gap-4 px-4 py-3 lg:px-8 ${AipifyShellClasses.topbar}`}>
                 <div className="flex min-w-0 flex-1 items-center gap-4">
                   <div className="lg:hidden">
                     <p className="text-sm font-semibold text-gray-900">{portalTitle}</p>

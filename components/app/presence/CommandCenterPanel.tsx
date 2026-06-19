@@ -1,6 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { AipifyCommandCenterSnapshot } from "@/components/ui/aipify-command-center-snapshot";
+import { AipifyPageHeader } from "@/components/ui/aipify-page-header";
+import { AipifyPremiumCard } from "@/components/ui/aipify-premium-card";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
 import { useCallback, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import {
@@ -161,7 +166,9 @@ export function CommandCenterPanel({ labels }: CommandCenterPanelProps) {
 
   if (loading) {
     return (
-      <div className="px-6 py-16 text-base text-gray-600">{labels.loading}</div>
+      <div className="flex min-h-[320px] items-center justify-center px-6 py-16">
+        <AipifyLoader centered />
+      </div>
     );
   }
 
@@ -186,51 +193,67 @@ export function CommandCenterPanel({ labels }: CommandCenterPanelProps) {
   );
   const recommendations = bundle.recommendations ?? [];
 
-  return (
-    <div className="mx-auto max-w-6xl space-y-12 px-6 py-10">
-      <header className="max-w-3xl">
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          {labels.title}
-        </h1>
-        <p className="mt-4 text-lg leading-relaxed text-gray-600">{labels.subtitle}</p>
-        <p className="mt-6 rounded-2xl border border-violet-100 bg-violet-50/50 px-5 py-4 text-base text-violet-950">
-          {bundle.principle ?? labels.principle}
-        </p>
-        {!hasCommandCenter && (
-          <p className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-950">
-            {labels.planGate}
-          </p>
-        )}
-      </header>
+  const pendingApprovals = bundle.pending_approvals ?? 0;
+  const snapshotItems = [
+    {
+      id: "health",
+      label: labels.sections.organizationHealth,
+      value: healthMetrics[0]?.value ?? "—",
+      hint: labels.health.operational,
+    },
+    {
+      id: "attention",
+      label: labels.sections.attention,
+      value: actionCards.length,
+      hint: labels.sections.recommendedActions,
+    },
+    {
+      id: "approvals",
+      label: labels.sections.recommendedActions,
+      value: pendingApprovals,
+      hint: labels.notifications.unread,
+    },
+    {
+      id: "notifications",
+      label: labels.sections.notifications,
+      value: notifications.filter((n) => !n.read_at).length,
+      hint: labels.companion.presence,
+    },
+  ];
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-        <h2 className="text-2xl font-semibold tracking-tight text-gray-900">
-          {labels.sections.executiveBriefing}
-        </h2>
-        <p className="mt-2 text-sm font-medium uppercase tracking-wide text-gray-500">
-          {labels.sinceLastLogin}
+  return (
+    <div className="mx-auto max-w-6xl space-y-8 px-4 py-6 sm:px-6 sm:py-8">
+      <AipifyPageHeader
+        title={labels.title}
+        subtitle={labels.subtitle}
+        principle={bundle.principle ?? labels.principle}
+        compact
+      />
+      {!hasCommandCenter ? (
+        <p className="rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-950">
+          {labels.planGate}
         </p>
-        <ul className="mt-6 space-y-3">
+      ) : null}
+
+      <AipifyCommandCenterSnapshot items={snapshotItems} />
+
+      <AipifyPremiumCard title={labels.sections.executiveBriefing} description={labels.sinceLastLogin}>
+        <ul className="space-y-3">
           {feed.map((entry) => (
-            <li key={entry.id} className="flex gap-3 text-base text-gray-700">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-500" aria-hidden="true" />
+            <li key={entry.id} className="flex gap-3 text-base text-aipify-text-secondary">
+              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-aipify-companion" aria-hidden="true" />
               <span>{entry.message}</span>
             </li>
           ))}
         </ul>
-      </section>
+      </AipifyPremiumCard>
 
       <section>
-        <h2 className="text-2xl font-semibold tracking-tight text-gray-900">
-          {labels.sections.organizationHealth}
-        </h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <h2 className="text-lg font-semibold text-aipify-text">{labels.sections.organizationHealth}</h2>
+        <div className={`mt-4 ${AipifyShellClasses.widgetGrid}`}>
           {healthMetrics.map((metric) => (
-            <div
-              key={metric.id}
-              className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
-            >
-              <p className="text-sm font-medium text-gray-500">{metric.label}</p>
+            <div key={metric.id} className={AipifyShellClasses.metricWidget}>
+              <p className="text-sm font-medium text-aipify-text-muted">{metric.label}</p>
               <p className={`mt-3 text-3xl font-semibold ${HEALTH_STYLES[metric.status]}`}>
                 {metric.value}
               </p>

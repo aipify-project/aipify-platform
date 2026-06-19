@@ -47,9 +47,9 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 
 function InfoCard({ title, body }: Card) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+    <div className="rounded-2xl border border-aipify-border bg-white/[0.03] p-5">
       <h3 className="font-semibold text-white">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-slate-400">{body}</p>
+      <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{body}</p>
     </div>
   );
 }
@@ -68,11 +68,11 @@ export default function BookDemoPageContent({ labels, advisor, verificationLabel
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">{hero.headline}</h1>
-            <p className="mt-6 text-lg leading-relaxed text-slate-300 sm:text-xl">{hero.subheadline}</p>
-            <p className="mt-4 text-sm leading-relaxed text-slate-500">{hero.supporting}</p>
+            <p className="mt-6 text-lg leading-relaxed text-aipify-text-secondary sm:text-xl">{hero.subheadline}</p>
+            <p className="mt-4 text-sm leading-relaxed text-aipify-text-muted">{hero.supporting}</p>
             <a
               href="#schedule-demo"
-              className="mt-10 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500"
+              className="mt-10 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-aipify-text shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500"
             >
               {hero.cta}
             </a>
@@ -90,7 +90,7 @@ export default function BookDemoPageContent({ labels, advisor, verificationLabel
                   {i + 1}
                 </span>
                 <h3 className="font-semibold text-white">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-400">{step.body}</p>
+                <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{step.body}</p>
               </li>
             ))}
           </ol>
@@ -111,7 +111,7 @@ export default function BookDemoPageContent({ labels, advisor, verificationLabel
       <section id="schedule-demo" className="relative py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-5">
-            <div className="lg:col-span-3 rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+            <div className="lg:col-span-3 rounded-2xl border border-aipify-border bg-white/[0.03] p-6 sm:p-8">
               <BookDemoRequestForm labels={form} verificationLabels={verificationLabels} />
             </div>
             <div className="lg:col-span-2">
@@ -148,9 +148,9 @@ export default function BookDemoPageContent({ labels, advisor, verificationLabel
           <SectionTitle>{faq.title}</SectionTitle>
           <dl className="mt-10 space-y-4">
             {faq.items.map((item) => (
-              <div key={item.question} className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
+              <div key={item.question} className="rounded-xl border border-aipify-border bg-white/[0.03] p-5">
                 <dt className="font-semibold text-white">{item.question}</dt>
-                <dd className="mt-2 text-sm leading-relaxed text-slate-400">{item.answer}</dd>
+                <dd className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{item.answer}</dd>
               </div>
             ))}
           </dl>
@@ -160,12 +160,12 @@ export default function BookDemoPageContent({ labels, advisor, verificationLabel
       <section className="relative py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <SectionTitle>{companion.headline}</SectionTitle>
-          <p className="mt-6 text-sm leading-relaxed text-slate-400 sm:text-base">{companion.copy}</p>
+          <p className="mt-6 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">{companion.copy}</p>
         </div>
       </section>
 
-      <section className="border-t border-white/10 py-12">
-        <p className="mx-auto max-w-2xl px-4 text-center text-sm leading-relaxed text-slate-500">{finalPrinciple}</p>
+      <section className="border-t border-aipify-border py-12">
+        <p className="mx-auto max-w-2xl px-4 text-center text-sm leading-relaxed text-aipify-text-muted">{finalPrinciple}</p>
         <p className="mt-4 text-center text-xs text-cyan-400/80">Aipify Group AS · Bergen. Norway. For the world.</p>
       </section>
     </div>

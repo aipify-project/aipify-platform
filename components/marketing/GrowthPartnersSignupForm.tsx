@@ -48,8 +48,8 @@ type Props = {
 };
 
 const inputClass =
-  "mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-2 focus:ring-cyan-500/20";
-const labelClass = "block text-sm font-medium text-slate-300";
+  "mt-2 w-full rounded-xl border border-aipify-border bg-white/5 px-4 py-3 text-sm text-white placeholder:text-aipify-text-muted focus:border-cyan-500/50 focus:outline-none focus:ring-2 focus:ring-cyan-500/20";
+const labelClass = "block text-sm font-medium text-aipify-text-secondary";
 
 export default function GrowthPartnersSignupForm({ labels, verificationLabels, id = "signup-form" }: Props) {
   const router = useRouter();
@@ -140,7 +140,7 @@ export default function GrowthPartnersSignupForm({ labels, verificationLabels, i
   }
 
   return (
-    <form id={id} onSubmit={handleSubmit} className="relative space-y-5 rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+    <form id={id} onSubmit={handleSubmit} className="relative space-y-5 rounded-2xl border border-aipify-border bg-white/[0.03] p-6 sm:p-8">
       <PublicFormHoneypot />
       <h2 className="sr-only">{labels.title}</h2>
 
@@ -156,13 +156,13 @@ export default function GrowthPartnersSignupForm({ labels, verificationLabels, i
         <div className="sm:col-span-2">
           <label htmlFor="gp-reg" className={labelClass}>{labels.businessRegistrationNumber}</label>
           <input id="gp-reg" name="business_registration_number" className={inputClass} />
-          <p className="mt-1.5 text-xs text-slate-500">{regHelper}</p>
+          <p className="mt-1.5 text-xs text-aipify-text-muted">{regHelper}</p>
         </div>
         <div>
           <label htmlFor="gp-country" className={labelClass}>{labels.country}</label>
           <select id="gp-country" name="country" value={country} onChange={(e) => onCountryChange(e.target.value)} className={inputClass}>
             {GROWTH_PARTNER_COUNTRY_OPTIONS.map((c) => (
-              <option key={c.code} value={c.code} className="bg-[#0a0e14]">{c.label}</option>
+              <option key={c.code} value={c.code} className="bg-aipify-canvas">{c.label}</option>
             ))}
           </select>
         </div>
@@ -174,7 +174,7 @@ export default function GrowthPartnersSignupForm({ labels, verificationLabels, i
           <label htmlFor="gp-dial" className={labelClass}>{labels.phoneCountryCode}</label>
           <select id="gp-dial" value={phoneDial} onChange={(e) => setPhoneDial(e.target.value)} className={inputClass}>
             {GROWTH_PARTNER_PHONE_COUNTRIES.map((c) => (
-              <option key={c.dial} value={c.dial} className="bg-[#0a0e14]">{c.flag} {c.dial}</option>
+              <option key={c.dial} value={c.dial} className="bg-aipify-canvas">{c.flag} {c.dial}</option>
             ))}
           </select>
         </div>
@@ -196,20 +196,20 @@ export default function GrowthPartnersSignupForm({ labels, verificationLabels, i
         </div>
       </div>
 
-      <div className="space-y-3 border-t border-white/10 pt-5">
-        <label className="flex gap-3 text-sm text-slate-300">
+      <div className="space-y-3 border-t border-aipify-border pt-5">
+        <label className="flex gap-3 text-sm text-aipify-text-secondary">
           <input name="registered_business" type="checkbox" required className="mt-1 rounded border-white/20" />
           <span>{labels.checkboxRegisteredBusiness}</span>
         </label>
-        <label className="flex gap-3 text-sm text-slate-300">
+        <label className="flex gap-3 text-sm text-aipify-text-secondary">
           <input name="certification_understood" type="checkbox" required className="mt-1 rounded border-white/20" />
           <span>{labels.checkboxCertification}</span>
         </label>
-        <label className="flex gap-3 text-sm text-slate-300">
+        <label className="flex gap-3 text-sm text-aipify-text-secondary">
           <input name="info_accurate" type="checkbox" required className="mt-1 rounded border-white/20" />
           <span>{labels.checkboxInfoAccurate}</span>
         </label>
-        <label className="flex gap-3 text-sm text-slate-300">
+        <label className="flex gap-3 text-sm text-aipify-text-secondary">
           <input name="terms_accepted" type="checkbox" required className="mt-1 rounded border-white/20" />
           <span>
             {labels.checkboxTerms}{" "}
@@ -238,12 +238,12 @@ export default function GrowthPartnersSignupForm({ labels, verificationLabels, i
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-6 py-4 text-base font-semibold text-white shadow-lg shadow-violet-600/20 transition hover:from-cyan-400 hover:to-violet-500 disabled:opacity-60"
+        className="w-full rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-6 py-4 text-base font-semibold text-aipify-text shadow-lg shadow-violet-600/20 transition hover:from-cyan-400 hover:to-violet-500 disabled:opacity-60"
       >
         {status === "loading" ? labels.submitting : labels.submit}
       </button>
 
-      <p className="text-xs leading-relaxed text-slate-500">{labels.legalNote}</p>
+      <p className="text-xs leading-relaxed text-aipify-text-muted">{labels.legalNote}</p>
     </form>
   );
 }

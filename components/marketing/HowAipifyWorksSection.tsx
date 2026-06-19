@@ -15,10 +15,10 @@ export default function HowAipifyWorksSection({
     <section id="how-it-works" className="scroll-mt-20" aria-labelledby="how-it-works-title">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 id="how-it-works-title" className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 id="how-it-works-title" className="text-3xl font-bold tracking-tight text-aipify-text sm:text-4xl">
             {title}
           </h2>
-          <p className="mt-4 text-slate-400">{subtitle}</p>
+          <p className="mt-4 text-aipify-text-secondary">{subtitle}</p>
         </div>
 
         <ol className="relative mt-14 space-y-8 lg:space-y-0">
@@ -33,13 +33,13 @@ export default function HowAipifyWorksSection({
             >
               <div className="lg:w-1/2 lg:px-8">
                 <div
-                  className={`rounded-2xl border border-white/10 bg-white/[0.03] p-6 ${
+                  className={`rounded-2xl border border-aipify-border bg-white/[0.03] p-6 ${
                     i % 2 === 0 ? "lg:text-right" : ""
                   }`}
                 >
                   <span className="text-sm font-semibold text-cyan-400">Step {i + 1}</span>
                   <h3 className="mt-2 text-xl font-semibold text-white">{step.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-400">{step.description}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{step.description}</p>
                 </div>
               </div>
 

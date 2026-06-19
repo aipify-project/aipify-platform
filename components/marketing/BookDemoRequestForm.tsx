@@ -104,14 +104,14 @@ export default function BookDemoRequestForm({ labels, verificationLabels }: Prop
   if (status === "success") {
     return (
       <div className="rounded-2xl border border-emerald-500/30 bg-emerald-950/20 p-8 text-center">
-        <p className="text-lg font-semibold text-white">{labels.successTitle}</p>
-        <p className="mt-3 text-sm leading-relaxed text-slate-300">{confirmation}</p>
+        <p className="text-lg font-semibold text-aipify-text">{labels.successTitle}</p>
+        <p className="mt-3 text-sm leading-relaxed text-aipify-text-secondary">{confirmation}</p>
       </div>
     );
   }
 
   const inputClass =
-    "mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/30";
+    "mt-1.5 w-full rounded-xl border border-aipify-border bg-white/5 px-4 py-3 text-sm text-white placeholder:text-aipify-text-muted focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/30";
 
   return (
     <form onSubmit={handleSubmit} className="relative space-y-5">
@@ -119,49 +119,49 @@ export default function BookDemoRequestForm({ labels, verificationLabels }: Prop
       <h3 className="text-xl font-semibold text-white">{labels.title}</h3>
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="bd-first" className="block text-sm font-medium text-slate-300">
+          <label htmlFor="bd-first" className="block text-sm font-medium text-aipify-text-secondary">
             {labels.firstName}
           </label>
           <input id="bd-first" name="first_name" required className={inputClass} />
         </div>
         <div>
-          <label htmlFor="bd-last" className="block text-sm font-medium text-slate-300">
+          <label htmlFor="bd-last" className="block text-sm font-medium text-aipify-text-secondary">
             {labels.lastName}
           </label>
           <input id="bd-last" name="last_name" required className={inputClass} />
         </div>
         <div>
-          <label htmlFor="bd-company" className="block text-sm font-medium text-slate-300">
+          <label htmlFor="bd-company" className="block text-sm font-medium text-aipify-text-secondary">
             {labels.companyName}
           </label>
           <input id="bd-company" name="company_name" required className={inputClass} />
         </div>
         <div>
-          <label htmlFor="bd-title" className="block text-sm font-medium text-slate-300">
+          <label htmlFor="bd-title" className="block text-sm font-medium text-aipify-text-secondary">
             {labels.jobTitle}
           </label>
           <input id="bd-title" name="job_title" className={inputClass} />
         </div>
         <div>
-          <label htmlFor="bd-email" className="block text-sm font-medium text-slate-300">
+          <label htmlFor="bd-email" className="block text-sm font-medium text-aipify-text-secondary">
             {labels.businessEmail}
           </label>
           <input id="bd-email" name="business_email" type="email" required className={inputClass} />
         </div>
         <div>
-          <label htmlFor="bd-phone" className="block text-sm font-medium text-slate-300">
+          <label htmlFor="bd-phone" className="block text-sm font-medium text-aipify-text-secondary">
             {labels.phone}
           </label>
           <input id="bd-phone" name="phone" type="tel" className={inputClass} />
         </div>
         <div>
-          <label htmlFor="bd-country" className="block text-sm font-medium text-slate-300">
+          <label htmlFor="bd-country" className="block text-sm font-medium text-aipify-text-secondary">
             {labels.country}
           </label>
           <input id="bd-country" name="country" className={inputClass} />
         </div>
         <div>
-          <label htmlFor="bd-size" className="block text-sm font-medium text-slate-300">
+          <label htmlFor="bd-size" className="block text-sm font-medium text-aipify-text-secondary">
             {labels.companySize}
           </label>
           <select id="bd-size" name="company_size" required className={inputClass}>
@@ -174,7 +174,7 @@ export default function BookDemoRequestForm({ labels, verificationLabels }: Prop
           </select>
         </div>
         <div>
-          <label htmlFor="bd-industry" className="block text-sm font-medium text-slate-300">
+          <label htmlFor="bd-industry" className="block text-sm font-medium text-aipify-text-secondary">
             {labels.industry}
           </label>
           <select id="bd-industry" name="industry" required className={inputClass}>
@@ -187,7 +187,7 @@ export default function BookDemoRequestForm({ labels, verificationLabels }: Prop
           </select>
         </div>
         <div>
-          <label htmlFor="bd-challenge" className="block text-sm font-medium text-slate-300">
+          <label htmlFor="bd-challenge" className="block text-sm font-medium text-aipify-text-secondary">
             {labels.currentChallenge}
           </label>
           <select id="bd-challenge" name="current_challenge" required className={inputClass}>
@@ -201,19 +201,19 @@ export default function BookDemoRequestForm({ labels, verificationLabels }: Prop
         </div>
       </div>
       <div>
-        <label htmlFor="bd-notes" className="block text-sm font-medium text-slate-300">
+        <label htmlFor="bd-notes" className="block text-sm font-medium text-aipify-text-secondary">
           {labels.additionalNotes}
         </label>
         <textarea id="bd-notes" name="additional_notes" rows={4} className={inputClass} />
       </div>
 
-      <fieldset className="rounded-xl border border-white/10 bg-white/[0.02] p-5">
+      <fieldset className="rounded-xl border border-aipify-border bg-white/[0.02] p-5">
         <legend className="px-1 text-sm font-semibold text-white">{labels.meetingTypeTitle}</legend>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           {BOOK_DEMO_MEETING_TYPES.map((key) => (
             <label
               key={key}
-              className="flex cursor-pointer items-center gap-3 rounded-lg border border-white/10 px-4 py-3 text-sm text-slate-300 hover:bg-white/5"
+              className="flex cursor-pointer items-center gap-3 rounded-lg border border-aipify-border px-4 py-3 text-sm text-aipify-text-secondary hover:bg-white/5"
             >
               <input
                 type="radio"
@@ -226,7 +226,7 @@ export default function BookDemoRequestForm({ labels, verificationLabels }: Prop
             </label>
           ))}
         </div>
-        <p className="mt-4 text-xs text-slate-500">{labels.integrationsNote}</p>
+        <p className="mt-4 text-xs text-aipify-text-muted">{labels.integrationsNote}</p>
       </fieldset>
 
       <AipifyHumanVerification
@@ -247,7 +247,7 @@ export default function BookDemoRequestForm({ labels, verificationLabels }: Prop
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500 disabled:opacity-60 sm:w-auto"
+        className="w-full rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-aipify-text shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500 disabled:opacity-60 sm:w-auto"
       >
         {status === "loading" ? labels.submitting : labels.submit}
       </button>

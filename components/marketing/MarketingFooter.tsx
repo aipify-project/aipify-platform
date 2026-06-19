@@ -1,4 +1,6 @@
 import Link from "next/link";
+import AipifyPulse from "@/components/branding/AipifyPulse";
+import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
 
 export type MarketingFooterLabels = {
   tagline: string;
@@ -28,22 +30,20 @@ type MarketingFooterProps = {
 
 export default function MarketingFooter({ appName, labels }: MarketingFooterProps) {
   return (
-    <footer className="border-t border-white/10 bg-[#070a0f]">
+    <footer className={AipifyMarketingClasses.footer}>
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="inline-flex items-center gap-2.5">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500 to-violet-600 text-sm font-bold text-white">
-                A
-              </span>
-              <span className="text-lg font-semibold text-white">{appName}</span>
+              <AipifyPulse size={32} variant="gradient" title={appName} aria-label={appName} />
+              <span className="text-lg font-semibold text-aipify-text">{appName}</span>
             </Link>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">{labels.tagline}</p>
-            <p className="mt-4 text-xs leading-relaxed text-cyan-400/80">{labels.privacyNote}</p>
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-aipify-text-secondary">{labels.tagline}</p>
+            <p className="mt-4 text-xs leading-relaxed text-aipify-accent">{labels.privacyNote}</p>
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-white">{labels.product}</h3>
+            <h3 className="text-sm font-semibold text-aipify-text">{labels.product}</h3>
             <ul className="mt-4 space-y-2.5">
               {[
                 { label: "Product", href: "/product" },
@@ -54,7 +54,7 @@ export default function MarketingFooter({ appName, labels }: MarketingFooterProp
                 { label: "Security", href: "/security" },
               ].map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm text-slate-400 transition hover:text-white">
+                  <Link href={link.href} className="text-sm text-aipify-text-secondary transition hover:text-aipify-companion">
                     {link.label}
                   </Link>
                 </li>
@@ -63,7 +63,7 @@ export default function MarketingFooter({ appName, labels }: MarketingFooterProp
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-white">{labels.company}</h3>
+            <h3 className="text-sm font-semibold text-aipify-text">{labels.company}</h3>
             <ul className="mt-4 space-y-2.5">
               {[
                 { label: labels.growthPartners, href: "/growth-partners" },
@@ -74,7 +74,7 @@ export default function MarketingFooter({ appName, labels }: MarketingFooterProp
                 { label: labels.earlyAccess, href: "/early-access" },
               ].map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm text-slate-400 transition hover:text-white">
+                  <Link href={link.href} className="text-sm text-aipify-text-secondary transition hover:text-aipify-companion">
                     {link.label}
                   </Link>
                 </li>
@@ -83,46 +83,26 @@ export default function MarketingFooter({ appName, labels }: MarketingFooterProp
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-white">{labels.legal}</h3>
+            <h3 className="text-sm font-semibold text-aipify-text">{labels.legal}</h3>
             <ul className="mt-4 space-y-2.5">
-              <li>
-                <Link href="/privacy" className="text-sm text-slate-400 transition hover:text-white">
-                  {labels.privacy}
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="text-sm text-slate-400 transition hover:text-white">
-                  {labels.terms}
-                </Link>
-              </li>
-              <li>
-                <Link href="/growth-partner-terms" className="text-sm text-slate-400 transition hover:text-white">
-                  {labels.growthPartnerTerms}
-                </Link>
-              </li>
+              {[
+                { label: labels.privacy, href: "/privacy" },
+                { label: labels.terms, href: "/terms" },
+                { label: labels.bookDemo, href: "/book-demo" },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-sm text-aipify-text-secondary transition hover:text-aipify-companion">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
-        <div className="mt-12 border-t border-white/10 pt-8">
-          <div className="mx-auto max-w-xl text-center">
-            <Link
-              href="/book-demo"
-              className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500"
-            >
-              {labels.bookDemo}
-            </Link>
-          </div>
-          <div className="mx-auto mt-10 max-w-2xl space-y-2 text-center text-sm text-slate-400">
-            <p className="font-semibold text-white">{labels.companyName}</p>
-            <p>{labels.headquarters}</p>
-            <p className="leading-relaxed">{labels.description}</p>
-            <p className="font-medium text-cyan-400/90">{labels.signature}</p>
-            <p className="text-xs text-slate-500">{labels.foundingPrinciple}</p>
-          </div>
-          <p className="mt-8 text-center text-sm text-slate-500">
-            &copy; {new Date().getFullYear()} {labels.copyright}
-          </p>
+        <div className="mt-12 border-t border-aipify-border pt-8 text-center text-xs text-aipify-text-muted">
+          <p>{labels.copyright}</p>
+          <p className="mt-2">{labels.signature}</p>
         </div>
       </div>
     </footer>

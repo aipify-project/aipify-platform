@@ -21,28 +21,28 @@ export default function EnterpriseTrustSection({
   points,
 }: EnterpriseTrustSectionProps) {
   return (
-    <section className="border-y border-white/10 bg-[#0c1018]" aria-labelledby="enterprise-trust-title">
+    <section className="border-y border-aipify-border bg-aipify-surface-muted/60" aria-labelledby="enterprise-trust-title">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 id="enterprise-trust-title" className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 id="enterprise-trust-title" className="text-3xl font-bold tracking-tight text-aipify-text sm:text-4xl">
             {title}
           </h2>
-          <p className="mt-4 text-slate-400">{subtitle}</p>
+          <p className="mt-4 text-aipify-text-secondary">{subtitle}</p>
         </div>
 
         <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {points.map((point, i) => (
             <li
               key={point.title}
-              className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:border-cyan-500/30 hover:bg-white/[0.05]"
+              className="rounded-2xl border border-aipify-border bg-white/[0.03] p-6 transition hover:border-cyan-500/30 hover:bg-white/[0.05]"
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-violet-600/20">
                 <svg className="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d={ICONS[i % ICONS.length]} />
                 </svg>
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-white">{point.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-400">{point.description}</p>
+              <h3 className="mt-4 text-lg font-semibold text-aipify-text">{point.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{point.description}</p>
             </li>
           ))}
         </ul>

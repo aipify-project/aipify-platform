@@ -82,7 +82,7 @@ export default function EarlyAccessForm({ labels, verificationLabels }: EarlyAcc
   if (status === "success") {
     return (
       <div className="rounded-2xl border border-cyan-500/30 bg-cyan-500/10 p-8 text-center">
-        <p className="text-lg font-semibold text-white">{labels.success}</p>
+        <p className="text-lg font-semibold text-aipify-text">{labels.success}</p>
       </div>
     );
   }
@@ -92,31 +92,31 @@ export default function EarlyAccessForm({ labels, verificationLabels }: EarlyAcc
       <PublicFormHoneypot />
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="ea-name" className="block text-sm font-medium text-slate-300">
+          <label htmlFor="ea-name" className="block text-sm font-medium text-aipify-text-secondary">
             {labels.name}
           </label>
           <input
             id="ea-name"
             name="name"
             required
-            className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+            className="mt-1.5 w-full rounded-xl border border-aipify-border bg-white/5 px-4 py-3 text-sm text-white placeholder:text-aipify-text-muted focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
           />
         </div>
         <div>
-          <label htmlFor="ea-company" className="block text-sm font-medium text-slate-300">
+          <label htmlFor="ea-company" className="block text-sm font-medium text-aipify-text-secondary">
             {labels.company}
           </label>
           <input
             id="ea-company"
             name="company"
             required
-            className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+            className="mt-1.5 w-full rounded-xl border border-aipify-border bg-white/5 px-4 py-3 text-sm text-white placeholder:text-aipify-text-muted focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="ea-email" className="block text-sm font-medium text-slate-300">
+        <label htmlFor="ea-email" className="block text-sm font-medium text-aipify-text-secondary">
           {labels.email}
         </label>
         <input
@@ -125,20 +125,20 @@ export default function EarlyAccessForm({ labels, verificationLabels }: EarlyAcc
           type="email"
           required
           autoComplete="email"
-          className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+          className="mt-1.5 w-full rounded-xl border border-aipify-border bg-white/5 px-4 py-3 text-sm text-white placeholder:text-aipify-text-muted focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
         />
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="ea-size" className="block text-sm font-medium text-slate-300">
+          <label htmlFor="ea-size" className="block text-sm font-medium text-aipify-text-secondary">
             {labels.companySize}
           </label>
           <select
             id="ea-size"
             name="company_size"
             required
-            className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+            className="mt-1.5 w-full rounded-xl border border-aipify-border bg-white/5 px-4 py-3 text-sm text-white focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
           >
             {Object.entries(labels.companySizes).map(([value, label]) => (
               <option key={value} value={value} className="bg-[#111827]">
@@ -148,27 +148,27 @@ export default function EarlyAccessForm({ labels, verificationLabels }: EarlyAcc
           </select>
         </div>
         <div>
-          <label htmlFor="ea-industry" className="block text-sm font-medium text-slate-300">
+          <label htmlFor="ea-industry" className="block text-sm font-medium text-aipify-text-secondary">
             {labels.industry}
           </label>
           <input
             id="ea-industry"
             name="industry"
             required
-            className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+            className="mt-1.5 w-full rounded-xl border border-aipify-border bg-white/5 px-4 py-3 text-sm text-white placeholder:text-aipify-text-muted focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="ea-interest" className="block text-sm font-medium text-slate-300">
+        <label htmlFor="ea-interest" className="block text-sm font-medium text-aipify-text-secondary">
           {labels.interest}
         </label>
         <select
           id="ea-interest"
           name="interest_area"
           required
-          className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+          className="mt-1.5 w-full rounded-xl border border-aipify-border bg-white/5 px-4 py-3 text-sm text-white focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
         >
           {Object.entries(labels.interests).map(([value, label]) => (
             <option key={value} value={value} className="bg-[#111827]">
@@ -179,14 +179,14 @@ export default function EarlyAccessForm({ labels, verificationLabels }: EarlyAcc
       </div>
 
       <div>
-        <label htmlFor="ea-message" className="block text-sm font-medium text-slate-300">
+        <label htmlFor="ea-message" className="block text-sm font-medium text-aipify-text-secondary">
           {labels.message}
         </label>
         <textarea
           id="ea-message"
           name="message"
           rows={4}
-          className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+          className="mt-1.5 w-full rounded-xl border border-aipify-border bg-white/5 px-4 py-3 text-sm text-white placeholder:text-aipify-text-muted focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
         />
       </div>
 
@@ -209,7 +209,7 @@ export default function EarlyAccessForm({ labels, verificationLabels }: EarlyAcc
         </p>
       )}
 
-      <p className="text-xs text-slate-500">{labels.privacy}</p>
+      <p className="text-xs text-aipify-text-muted">{labels.privacy}</p>
 
       <button
         type="submit"

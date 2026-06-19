@@ -64,6 +64,29 @@ export const AipifyShellClasses = {
   secondaryButton:
     "rounded-lg border border-aipify-border bg-aipify-surface px-4 py-2 text-sm font-medium text-aipify-text transition hover:bg-aipify-surface-muted",
   link: "text-aipify-accent hover:text-aipify-companion",
+  dangerButton:
+    "rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-sm font-medium text-red-800 transition hover:bg-red-100",
+  pageTitle: "text-2xl font-semibold tracking-tight text-aipify-text sm:text-3xl",
+  pageSubtitle: "mt-2 text-sm leading-relaxed text-aipify-text-secondary sm:text-base",
+  metricWidget: "rounded-2xl border border-aipify-border bg-aipify-surface p-4 shadow-sm",
+  widgetGrid: "grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
+} as const;
+
+/** Public marketing site — Light Enterprise, not dark-first */
+export const AipifyMarketingClasses = {
+  canvas: "bg-aipify-canvas text-aipify-text",
+  header: "sticky top-0 z-50 border-b border-aipify-border bg-aipify-surface/95 backdrop-blur-sm",
+  navLink: "text-sm font-medium text-aipify-text-secondary transition hover:text-aipify-companion",
+  navLinkActive: "text-sm font-medium text-aipify-companion",
+  footer: "border-t border-aipify-border bg-aipify-surface-muted",
+  heroGradient:
+    "pointer-events-none absolute inset-0 bg-gradient-to-br from-aipify-accent-soft/80 via-transparent to-violet-50/60",
+  primaryCta:
+    "inline-flex items-center justify-center rounded-xl bg-aipify-companion px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-aipify-companion-hover focus:outline-none focus:ring-2 focus:ring-aipify-focus",
+  secondaryCta:
+    "inline-flex items-center justify-center rounded-xl border border-aipify-border bg-aipify-surface px-6 py-3 text-sm font-semibold text-aipify-text transition hover:bg-aipify-surface-muted",
+  sectionAlt: "border-y border-aipify-border bg-aipify-surface-muted/60",
+  card: "rounded-2xl border border-aipify-border bg-aipify-surface p-6 shadow-sm",
 } as const;
 
 export const AipifyNavClasses = {

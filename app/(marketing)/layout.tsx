@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import MarketingFooter from "@/components/marketing/MarketingFooter";
 import MarketingNavbar from "@/components/marketing/MarketingNavbar";
+import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import { getSection } from "@/lib/marketing/parse-marketing";
 
@@ -12,7 +13,7 @@ export default async function MarketingLayout({
   const footer = getSection<Record<string, string>>(marketing, "footer");
 
   return (
-    <div className="min-h-full bg-[#0a0e14] text-slate-200">
+    <div className={`min-h-full ${AipifyMarketingClasses.canvas}`}>
       <MarketingNavbar appName={common.appName} labels={nav as Parameters<typeof MarketingNavbar>[0]["labels"]} />
       <main className="flex-1">{children}</main>
       <MarketingFooter

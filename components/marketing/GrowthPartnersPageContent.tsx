@@ -50,9 +50,9 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 
 function BenefitCard({ title, body }: Card) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 shadow-lg shadow-violet-900/10">
+    <div className="rounded-2xl border border-aipify-border bg-white/[0.03] p-6 shadow-lg shadow-violet-900/10">
       <h3 className="font-semibold text-white">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-slate-400">{body}</p>
+      <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{body}</p>
     </div>
   );
 }
@@ -75,13 +75,13 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels }
               {hero.badgeTime}
             </span>
             <h1 className="mt-6 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">{hero.headline}</h1>
-            <p className="mt-6 text-lg leading-relaxed text-slate-400 sm:text-xl">{hero.subheadline}</p>
+            <p className="mt-6 text-lg leading-relaxed text-aipify-text-secondary sm:text-xl">{hero.subheadline}</p>
             <p className="mt-4 text-sm font-medium text-cyan-300/90">{hero.trustLine}</p>
-            <p className="mt-3 text-sm text-slate-500">{hero.supporting}</p>
+            <p className="mt-3 text-sm text-aipify-text-muted">{hero.supporting}</p>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
               {[hero.badgeIndependent, hero.badgeCertification, hero.badgeProfessional].map((badge) => (
-                <span key={badge} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300">
+                <span key={badge} className="rounded-full border border-aipify-border bg-white/5 px-3 py-1 text-xs font-medium text-aipify-text-secondary">
                   {badge}
                 </span>
               ))}
@@ -90,13 +90,13 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels }
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
                 href="#signup"
-                className="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500 sm:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-aipify-text shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500 sm:w-auto"
               >
                 {hero.ctaPrimary}
               </a>
               <a
                 href="#how-it-works"
-                className="inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-white/5 px-8 py-4 text-base font-semibold text-white transition hover:bg-white/10 sm:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-white/5 px-8 py-4 text-base font-semibold text-aipify-text transition hover:bg-white/10 sm:w-auto"
               >
                 {hero.ctaSecondary}
               </a>
@@ -111,14 +111,14 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels }
           <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-12">
             <div>
               <SectionTitle>{earlySignup.title}</SectionTitle>
-              <div className="mt-6 space-y-4 text-sm leading-relaxed text-slate-400 sm:text-base">
+              <div className="mt-6 space-y-4 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">
                 {earlySignup.paragraphs.map((p) => (
                   <p key={p}>{p}</p>
                 ))}
               </div>
               <ul className="mt-8 space-y-3">
                 {earlySignup.benefits.map((benefit) => (
-                  <li key={benefit} className="flex gap-3 text-sm text-slate-300">
+                  <li key={benefit} className="flex gap-3 text-sm text-aipify-text-secondary">
                     <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" aria-hidden="true" />
                     {benefit}
                   </li>
@@ -127,7 +127,7 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels }
             </div>
             <div>
               <GrowthPartnersSignupForm labels={labels.signup} verificationLabels={verificationLabels} />
-              <p className="mt-4 text-center text-xs text-slate-500">
+              <p className="mt-4 text-center text-xs text-aipify-text-muted">
                 <Link href="/login" className="text-cyan-400 hover:underline">Already registered?</Link>
               </p>
             </div>
@@ -137,7 +137,7 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels }
 
       {/* Positioning strip */}
       <section className="border-b border-white/10 bg-white/[0.02] py-10">
-        <div className="mx-auto max-w-4xl space-y-3 px-4 text-center text-sm leading-relaxed text-slate-400 sm:text-base">
+        <div className="mx-auto max-w-4xl space-y-3 px-4 text-center text-sm leading-relaxed text-aipify-text-secondary sm:text-base">
           {positioning.lines.map((line) => (
             <p key={line}>{line}</p>
           ))}
@@ -160,10 +160,10 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels }
       <section className="border-y border-white/10 bg-violet-950/20 py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <SectionTitle>{independentPartnership.title}</SectionTitle>
-          <p className="mt-6 text-sm leading-relaxed text-slate-300 sm:text-base">{independentPartnership.intro}</p>
+          <p className="mt-6 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">{independentPartnership.intro}</p>
           <ul className="mt-6 space-y-3">
             {independentPartnership.partnerDecides.map((p) => (
-              <li key={p} className="flex gap-3 text-sm leading-relaxed text-slate-300 sm:text-base">
+              <li key={p} className="flex gap-3 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-400" aria-hidden="true" />
                 {p}
               </li>
@@ -172,7 +172,7 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels }
           <p className="mt-8 text-sm font-semibold text-white">{independentPartnership.aipifyProvidesTitle}</p>
           <ul className="mt-4 grid gap-2 sm:grid-cols-2">
             {independentPartnership.aipifyProvides.map((item) => (
-              <li key={item} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-slate-300">
+              <li key={item} className="flex items-center gap-2 rounded-xl border border-aipify-border bg-white/[0.03] px-4 py-3 text-sm text-aipify-text-secondary">
                 <span className="text-cyan-400" aria-hidden="true">•</span>
                 {item}
               </li>
@@ -193,7 +193,7 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels }
                 </span>
                 <h3 className="font-semibold text-white">{step.title}</h3>
                 {step.time ? <p className="mt-1 text-xs font-medium text-cyan-400/90">{step.time}</p> : null}
-                <p className="mt-2 text-sm leading-relaxed text-slate-400">{step.body}</p>
+                <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{step.body}</p>
               </li>
             ))}
           </ol>
@@ -206,13 +206,13 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels }
           <SectionTitle>{requirements.title}</SectionTitle>
           <ul className="mt-8 space-y-4 text-left">
             {requirements.items.map((item, i) => (
-              <li key={item} className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4 text-sm text-slate-300 sm:text-base">
+              <li key={item} className="rounded-xl border border-aipify-border bg-white/[0.03] px-5 py-4 text-sm text-aipify-text-secondary sm:text-base">
                 <span className="font-semibold text-white">{i + 1}. </span>
                 {item}
               </li>
             ))}
           </ul>
-          <p className="mt-8 text-sm text-slate-500">{requirements.copy}</p>
+          <p className="mt-8 text-sm text-aipify-text-muted">{requirements.copy}</p>
         </div>
       </section>
 
@@ -221,8 +221,8 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels }
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <SectionTitle>{earnings.title}</SectionTitle>
-            <p className="mt-4 text-slate-400">{earnings.copy}</p>
-            <p className="mt-3 text-xs text-slate-500">{earnings.disclaimer}</p>
+            <p className="mt-4 text-aipify-text-secondary">{earnings.copy}</p>
+            <p className="mt-3 text-xs text-aipify-text-muted">{earnings.disclaimer}</p>
           </div>
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
             {earnings.tiers.map((tier) => (
@@ -239,7 +239,7 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels }
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
             <ul className="space-y-2">
               {training.modules.map((mod) => (
-                <li key={mod} className="flex items-center gap-2 text-sm text-slate-300">
+                <li key={mod} className="flex items-center gap-2 text-sm text-aipify-text-secondary">
                   <span className="text-violet-400" aria-hidden="true">•</span>
                   {mod}
                 </li>
@@ -254,7 +254,7 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels }
                 <span aria-hidden="true">🛡️ </span>
                 {training.statusVerified}
               </div>
-              <p className="text-xs leading-relaxed text-slate-500">{training.certificationNote}</p>
+              <p className="text-xs leading-relaxed text-aipify-text-muted">{training.certificationNote}</p>
             </div>
           </div>
         </div>
@@ -263,7 +263,7 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels }
       {/* Footer note + terms */}
       <section className="relative py-12">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
-          <p className="text-sm text-slate-500">{labels.footerNote}</p>
+          <p className="text-sm text-aipify-text-muted">{labels.footerNote}</p>
           <p className="mt-4">
             <Link href="/growth-partner-terms" className="text-sm font-medium text-cyan-400 hover:underline">
               Growth Partner Terms &amp; Conditions

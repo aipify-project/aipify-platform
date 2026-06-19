@@ -71,9 +71,9 @@ function SectionTitle({ children, id }: { children: React.ReactNode; id?: string
 
 function PrincipleCard({ title, body }: Card) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+    <div className="rounded-2xl border border-aipify-border bg-white/[0.03] p-6">
       <h3 className="font-semibold text-white">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-slate-400">{body}</p>
+      <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{body}</p>
     </div>
   );
 }
@@ -96,16 +96,16 @@ function PackageCard({ pkg }: { pkg: Package }) {
       <div className="mb-4">
         <h3 className="text-xl font-bold text-white">{pkg.name}</h3>
         {!isPopular && pkg.status ? (
-          <p className="mt-1 text-xs font-medium uppercase tracking-wide text-slate-500">{pkg.status}</p>
+          <p className="mt-1 text-xs font-medium uppercase tracking-wide text-aipify-text-muted">{pkg.status}</p>
         ) : null}
       </div>
-      <p className="text-sm text-slate-400">
-        <span className="font-medium text-slate-300">{pkg.target}</span>
+      <p className="text-sm text-aipify-text-secondary">
+        <span className="font-medium text-aipify-text-secondary">{pkg.target}</span>
       </p>
-      <p className="mt-1 text-sm text-slate-500">{pkg.idealFor}</p>
+      <p className="mt-1 text-sm text-aipify-text-muted">{pkg.idealFor}</p>
       <ul className="mt-6 flex-1 space-y-2.5">
         {pkg.features.map((feature) => (
-          <li key={feature} className="flex gap-2 text-sm text-slate-300">
+          <li key={feature} className="flex gap-2 text-sm text-aipify-text-secondary">
             <span className="text-cyan-400/90" aria-hidden="true">
               ·
             </span>
@@ -154,18 +154,18 @@ export default function PricingPackagesPageContent({ labels }: Props) {
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">{hero.headline}</h1>
-            <p className="mt-6 text-lg leading-relaxed text-slate-400 sm:text-xl">{hero.subheadline}</p>
-            <p className="mt-4 text-sm leading-relaxed text-slate-500">{hero.supporting}</p>
+            <p className="mt-6 text-lg leading-relaxed text-aipify-text-secondary sm:text-xl">{hero.subheadline}</p>
+            <p className="mt-4 text-sm leading-relaxed text-aipify-text-muted">{hero.supporting}</p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
                 href="#packages"
-                className="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500 sm:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-aipify-text shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500 sm:w-auto"
               >
                 {hero.ctaPrimary}
               </a>
               <Link
                 href="/contact"
-                className="inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-white/5 px-8 py-4 text-base font-semibold text-white transition hover:bg-white/10 sm:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-white/5 px-8 py-4 text-base font-semibold text-aipify-text transition hover:bg-white/10 sm:w-auto"
               >
                 {hero.ctaSecondary}
               </Link>
@@ -202,12 +202,12 @@ export default function PricingPackagesPageContent({ labels }: Props) {
       <section id="business-packs" className="relative py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <SectionTitle>{businessPacks.title}</SectionTitle>
-          <p className="mt-6 text-sm leading-relaxed text-slate-400 sm:text-base">{businessPacks.copy}</p>
+          <p className="mt-6 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">{businessPacks.copy}</p>
           <ul className="mt-8 flex flex-wrap justify-center gap-3">
             {businessPacks.examples.map((example) => (
               <li
                 key={example}
-                className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300"
+                className="rounded-full border border-aipify-border bg-white/5 px-4 py-2 text-sm font-medium text-aipify-text-secondary"
               >
                 {example}
               </li>
@@ -223,7 +223,7 @@ export default function PricingPackagesPageContent({ labels }: Props) {
           <SectionTitle>{included.title}</SectionTitle>
           <ul className="mt-8 grid gap-3 sm:grid-cols-2">
             {included.items.map((item) => (
-              <li key={item} className="flex items-start gap-3 text-sm text-slate-300">
+              <li key={item} className="flex items-start gap-3 text-sm text-aipify-text-secondary">
                 <span className="text-emerald-400" aria-hidden="true">
                   ✓
                 </span>
@@ -241,18 +241,18 @@ export default function PricingPackagesPageContent({ labels }: Props) {
           <div className="mt-10 flex flex-col items-center gap-2">
             {upgradePath.steps.map((step, i) => (
               <div key={step} className="flex flex-col items-center">
-                <span className="rounded-xl border border-white/10 bg-white/5 px-8 py-3 text-base font-semibold text-white">
+                <span className="rounded-xl border border-aipify-border bg-white/5 px-8 py-3 text-base font-semibold text-aipify-text">
                   {step}
                 </span>
                 {i < upgradePath.steps.length - 1 ? (
-                  <span className="my-2 text-slate-500" aria-hidden="true">
+                  <span className="my-2 text-aipify-text-muted" aria-hidden="true">
                     ↓
                   </span>
                 ) : null}
               </div>
             ))}
           </div>
-          <p className="mt-10 text-sm leading-relaxed text-slate-400">{upgradePath.copy}</p>
+          <p className="mt-10 text-sm leading-relaxed text-aipify-text-secondary">{upgradePath.copy}</p>
         </div>
       </section>
 
@@ -274,9 +274,9 @@ export default function PricingPackagesPageContent({ labels }: Props) {
           <SectionTitle>{faq.title}</SectionTitle>
           <dl className="mt-10 space-y-6">
             {faq.items.map((item) => (
-              <div key={item.question} className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
+              <div key={item.question} className="rounded-xl border border-aipify-border bg-white/[0.03] p-5">
                 <dt className="font-semibold text-white">{item.question}</dt>
-                <dd className="mt-2 text-sm leading-relaxed text-slate-400">{item.answer}</dd>
+                <dd className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{item.answer}</dd>
               </div>
             ))}
           </dl>
@@ -287,10 +287,10 @@ export default function PricingPackagesPageContent({ labels }: Props) {
       <section className="border-y border-white/10 bg-gradient-to-b from-violet-950/30 to-transparent py-16 sm:py-20">
         <div className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">{contactSales.headline}</h2>
-          <p className="mt-4 text-slate-400">{contactSales.subheadline}</p>
+          <p className="mt-4 text-aipify-text-secondary">{contactSales.subheadline}</p>
           <Link
             href="/contact"
-            className="mt-8 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500"
+            className="mt-8 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-aipify-text shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500"
           >
             {contactSales.cta}
           </Link>
@@ -301,9 +301,9 @@ export default function PricingPackagesPageContent({ labels }: Props) {
       <section className="relative py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <SectionTitle>{billingArchitecture.title}</SectionTitle>
-          <div className="mt-8 space-y-6 text-sm text-slate-400">
+          <div className="mt-8 space-y-6 text-sm text-aipify-text-secondary">
             <div>
-              <p className="font-medium text-slate-300">Billing</p>
+              <p className="font-medium text-aipify-text-secondary">Billing</p>
               <ul className="mt-2 list-inside list-disc space-y-1">
                 {billingArchitecture.billing.map((item) => (
                   <li key={item}>{item}</li>
@@ -311,7 +311,7 @@ export default function PricingPackagesPageContent({ labels }: Props) {
               </ul>
             </div>
             <div>
-              <p className="font-medium text-slate-300">Payment providers</p>
+              <p className="font-medium text-aipify-text-secondary">Payment providers</p>
               <ul className="mt-2 list-inside list-disc space-y-1">
                 {billingArchitecture.paymentProviders.map((item) => (
                   <li key={item}>{item}</li>
@@ -319,13 +319,13 @@ export default function PricingPackagesPageContent({ labels }: Props) {
               </ul>
             </div>
             <p>
-              <span className="font-medium text-slate-300">Accounting: </span>
+              <span className="font-medium text-aipify-text-secondary">Accounting: </span>
               {billingArchitecture.accounting}
             </p>
             <p className="font-medium text-cyan-300/90">{billingArchitecture.upgradeNote}</p>
-            <ol className="space-y-2 rounded-xl border border-white/10 bg-white/[0.03] p-5">
+            <ol className="space-y-2 rounded-xl border border-aipify-border bg-white/[0.03] p-5">
               {billingArchitecture.upgradeFlow.map((step) => (
-                <li key={step} className="flex items-center gap-2 text-slate-300">
+                <li key={step} className="flex items-center gap-2 text-aipify-text-secondary">
                   <span className="text-emerald-400" aria-hidden="true">
                     →
                   </span>
@@ -338,8 +338,8 @@ export default function PricingPackagesPageContent({ labels }: Props) {
       </section>
 
       {/* Final principle */}
-      <section className="border-t border-white/10 py-12">
-        <p className="mx-auto max-w-2xl px-4 text-center text-sm leading-relaxed text-slate-500 sm:text-base">
+      <section className="border-t border-aipify-border py-12">
+        <p className="mx-auto max-w-2xl px-4 text-center text-sm leading-relaxed text-aipify-text-muted sm:text-base">
           {finalPrinciple}
         </p>
       </section>

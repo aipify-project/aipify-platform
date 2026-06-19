@@ -119,11 +119,11 @@ export default function CompanionOrbDemo({
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
-            <h2 id="companion-orb-title" className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h2 id="companion-orb-title" className="text-3xl font-bold tracking-tight text-aipify-text sm:text-4xl">
               {title}
             </h2>
-            <p className="mt-4 text-slate-400">{subtitle}</p>
-            <p className="mt-2 text-sm text-slate-500">{clickHint}</p>
+            <p className="mt-4 text-aipify-text-secondary">{subtitle}</p>
+            <p className="mt-2 text-sm text-aipify-text-muted">{clickHint}</p>
 
             <div className="mt-8 flex flex-wrap gap-2">
               {orbButtons.map(({ state, label }) => (
@@ -138,7 +138,7 @@ export default function CompanionOrbDemo({
                   className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
                     activeState === state
                       ? "bg-white/15 text-white"
-                      : "bg-white/5 text-slate-400 hover:bg-white/10"
+                      : "bg-white/5 text-aipify-text-secondary hover:bg-white/10"
                   }`}
                 >
                   {label}
@@ -168,7 +168,7 @@ export default function CompanionOrbDemo({
 
             {panelOpen && (
               <div
-                className="absolute bottom-0 left-1/2 w-full max-w-sm -translate-x-1/2 rounded-2xl border border-white/10 bg-[#111827]/95 p-5 shadow-xl backdrop-blur-md sm:left-auto sm:right-0 sm:translate-x-0 lg:max-w-xs"
+                className="absolute bottom-0 left-1/2 w-full max-w-sm -translate-x-1/2 rounded-2xl border border-aipify-border bg-[#111827]/95 p-5 shadow-xl backdrop-blur-md sm:left-auto sm:right-0 sm:translate-x-0 lg:max-w-xs"
                 role="dialog"
                 aria-label={info.label}
               >
@@ -177,12 +177,12 @@ export default function CompanionOrbDemo({
                     <p className="text-xs font-semibold uppercase tracking-wide text-cyan-300">
                       Companion state
                     </p>
-                    <p className="mt-1 text-lg font-semibold text-white">{info.label}</p>
-                    <p className="mt-2 text-sm text-slate-400">{info.description}</p>
+                    <p className="mt-1 text-lg font-semibold text-aipify-text">{info.label}</p>
+                    <p className="mt-2 text-sm text-aipify-text-secondary">{info.description}</p>
                   </div>
                   <button
                     type="button"
-                    className="rounded-lg p-1 text-slate-400 hover:bg-white/10 hover:text-white"
+                    className="rounded-lg p-1 text-aipify-text-secondary hover:bg-white/10 hover:text-white"
                     aria-label="Close panel"
                     onClick={() => setPanelOpen(false)}
                   >
@@ -191,7 +191,7 @@ export default function CompanionOrbDemo({
                     </svg>
                   </button>
                 </div>
-                <p className="mt-4 text-xs text-slate-500">
+                <p className="mt-4 text-xs text-aipify-text-muted">
                   System presence only — not employee monitoring.
                 </p>
               </div>

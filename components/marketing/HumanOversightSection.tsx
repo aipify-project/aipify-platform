@@ -22,10 +22,10 @@ export default function HumanOversightSection({
     <section aria-labelledby="human-oversight-title">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 id="human-oversight-title" className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 id="human-oversight-title" className="text-3xl font-bold tracking-tight text-aipify-text sm:text-4xl">
             {title}
           </h2>
-          <p className="mt-4 text-slate-400">{subtitle}</p>
+          <p className="mt-4 text-aipify-text-secondary">{subtitle}</p>
         </div>
 
         <div className="mx-auto mt-12 max-w-3xl">
@@ -41,8 +41,8 @@ export default function HumanOversightSection({
                     {i + 1}
                   </span>
                   <div>
-                    <h3 className="text-lg font-semibold text-white">{step.label}</h3>
-                    <p className="mt-1 text-sm text-slate-400">{step.description}</p>
+                    <h3 className="text-lg font-semibold text-aipify-text">{step.label}</h3>
+                    <p className="mt-1 text-sm text-aipify-text-secondary">{step.description}</p>
                   </div>
                 </div>
               </div>

@@ -36,25 +36,25 @@ export function DemoAdvisorCard({ advisor, labels }: Props) {
           {initials}
         </div>
         <div>
-          <p className="text-lg font-semibold text-white">{advisor.displayName}</p>
+          <p className="text-lg font-semibold text-aipify-text">{advisor.displayName}</p>
           <p className="text-sm text-indigo-200/90">{advisor.roleTitle}</p>
-          <p className="mt-1 text-xs uppercase tracking-wide text-slate-500">{labels.role}</p>
+          <p className="mt-1 text-xs uppercase tracking-wide text-aipify-text-muted">{labels.role}</p>
         </div>
       </div>
       <dl className="mt-6 space-y-3 text-sm">
         <div>
-          <dt className="text-slate-500">{labels.availability}</dt>
+          <dt className="text-aipify-text-muted">{labels.availability}</dt>
           <dd className="text-slate-200">
             {advisor.availabilityNote || advisor.availabilityStatus.replace(/_/g, " ")}
           </dd>
         </div>
         <div>
-          <dt className="text-slate-500">{labels.languages}</dt>
+          <dt className="text-aipify-text-muted">{labels.languages}</dt>
           <dd className="text-slate-200">{advisor.languages.join(", ")}</dd>
         </div>
         {advisor.contactEmail ? (
           <div>
-            <dt className="text-slate-500">{labels.contact}</dt>
+            <dt className="text-aipify-text-muted">{labels.contact}</dt>
             <dd className="text-cyan-300/90">
               {labels.email}: {advisor.contactEmail}
             </dd>

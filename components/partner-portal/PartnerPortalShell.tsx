@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { AipifyNavClasses, AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
 import { PARTNER_PORTAL_NAV } from "@/lib/partner-portal/nav-config";
 
 type Props = {
@@ -25,21 +26,18 @@ export default function PartnerPortalShell({
   const pathname = usePathname();
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="border-b border-slate-200 bg-white">
+    <div className={`min-h-screen ${AipifyShellClasses.canvas}`}>
+      <header className={AipifyShellClasses.topbar}>
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
           <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-indigo-700">
+            <p className="text-xs font-medium uppercase tracking-wide text-aipify-companion">
               Aipify Growth Partners
             </p>
-            <h1 className="text-lg font-semibold text-slate-900">{portalTitle}</h1>
-            <p className="text-sm text-slate-600">{portalSubtitle}</p>
+            <h1 className="text-lg font-semibold text-aipify-text">{portalTitle}</h1>
+            <p className="text-sm text-aipify-text-secondary">{portalSubtitle}</p>
           </div>
           <form action="/api/auth/signout" method="post">
-            <button
-              type="submit"
-              className="rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
-            >
+            <button type="submit" className={AipifyShellClasses.secondaryButton}>
               {signOutLabel}
             </button>
           </form>
@@ -57,8 +55,8 @@ export default function PartnerPortalShell({
                     href={item.href}
                     className={`block rounded-lg px-3 py-2 text-sm font-medium ${
                       active
-                        ? "bg-indigo-700 text-white"
-                        : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 lg:border-0 lg:bg-transparent"
+                        ? AipifyNavClasses.itemActive
+                        : `${AipifyNavClasses.item} border border-aipify-border bg-aipify-surface lg:border-0 lg:bg-transparent`
                     }`}
                   >
                     {navLabels[item.id] ?? item.id}
@@ -67,7 +65,7 @@ export default function PartnerPortalShell({
               );
             })}
           </ul>
-          <p className="mt-4 hidden text-xs text-slate-500 lg:block">{governanceNote}</p>
+          <p className="mt-4 hidden text-xs text-aipify-text-muted lg:block">{governanceNote}</p>
         </nav>
 
         <main className="min-w-0 flex-1">{children}</main>

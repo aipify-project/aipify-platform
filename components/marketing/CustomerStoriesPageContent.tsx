@@ -93,9 +93,9 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 
 function CategoryCard({ title, body }: Card) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-cyan-500/20">
+    <div className="rounded-2xl border border-aipify-border bg-white/[0.03] p-5 transition hover:border-cyan-500/20">
       <h3 className="font-semibold text-white">{title}</h3>
-      <p className="mt-2 text-sm text-slate-400">{body}</p>
+      <p className="mt-2 text-sm text-aipify-text-secondary">{body}</p>
     </div>
   );
 }
@@ -128,10 +128,10 @@ export default function CustomerStoriesPageContent({ labels }: Props) {
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">{hero.headline}</h1>
-            <p className="mt-6 text-lg leading-relaxed text-slate-400 sm:text-xl">{hero.subheadline}</p>
+            <p className="mt-6 text-lg leading-relaxed text-aipify-text-secondary sm:text-xl">{hero.subheadline}</p>
             <a
               href="#featured-stories"
-              className="mt-10 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500"
+              className="mt-10 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-aipify-text shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500"
             >
               {hero.cta}
             </a>
@@ -159,25 +159,25 @@ export default function CustomerStoriesPageContent({ labels }: Props) {
             {featured.stories.map((story) => (
               <article
                 key={story.organizationType}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8"
+                className="rounded-2xl border border-aipify-border bg-white/[0.03] p-6 sm:p-8"
               >
                 {story.isExample ? (
                   <p className="mb-4 text-xs font-medium uppercase tracking-wide text-cyan-400/80">
                     {featured.exampleLabel}
                   </p>
                 ) : null}
-                <h3 className="text-lg font-semibold text-white">{story.organizationType}</h3>
+                <h3 className="text-lg font-semibold text-aipify-text">{story.organizationType}</h3>
                 <dl className="mt-6 grid gap-4 sm:grid-cols-3">
                   <div>
-                    <dt className="text-xs font-medium uppercase tracking-wide text-slate-500">{featured.challengeLabel}</dt>
-                    <dd className="mt-1 text-sm text-slate-300">{story.challenge}</dd>
+                    <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">{featured.challengeLabel}</dt>
+                    <dd className="mt-1 text-sm text-aipify-text-secondary">{story.challenge}</dd>
                   </div>
                   <div>
-                    <dt className="text-xs font-medium uppercase tracking-wide text-slate-500">{featured.solutionLabel}</dt>
-                    <dd className="mt-1 text-sm text-slate-300">{story.solution}</dd>
+                    <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">{featured.solutionLabel}</dt>
+                    <dd className="mt-1 text-sm text-aipify-text-secondary">{story.solution}</dd>
                   </div>
                   <div>
-                    <dt className="text-xs font-medium uppercase tracking-wide text-slate-500">{featured.resultsLabel}</dt>
+                    <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">{featured.resultsLabel}</dt>
                     <dd className="mt-1">
                       <ul className="space-y-1">
                         {story.results.map((r) => (
@@ -206,7 +206,7 @@ export default function CustomerStoriesPageContent({ labels }: Props) {
               <h3 className="text-lg font-semibold text-red-200/90">{beforeAfter.beforeTitle}</h3>
               <ul className="mt-6 space-y-3">
                 {beforeAfter.beforeItems.map((item) => (
-                  <li key={item} className="flex items-center gap-3 rounded-lg border border-white/5 bg-white/[0.02] px-4 py-3 text-sm text-slate-400">
+                  <li key={item} className="flex items-center gap-3 rounded-lg border border-white/5 bg-white/[0.02] px-4 py-3 text-sm text-aipify-text-secondary">
                     <span className="text-red-400/70" aria-hidden="true">
                       —
                     </span>
@@ -219,7 +219,7 @@ export default function CustomerStoriesPageContent({ labels }: Props) {
               <h3 className="text-lg font-semibold text-emerald-200/90">{beforeAfter.afterTitle}</h3>
               <ul className="mt-6 space-y-3">
                 {beforeAfter.afterItems.map((item) => (
-                  <li key={item} className="flex items-center gap-3 rounded-lg border border-white/5 bg-white/[0.02] px-4 py-3 text-sm text-slate-300">
+                  <li key={item} className="flex items-center gap-3 rounded-lg border border-white/5 bg-white/[0.02] px-4 py-3 text-sm text-aipify-text-secondary">
                     <span className="text-emerald-400" aria-hidden="true">
                       ✓
                     </span>
@@ -238,12 +238,12 @@ export default function CustomerStoriesPageContent({ labels }: Props) {
           <SectionTitle>{industries.title}</SectionTitle>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {industries.items.map((item) => (
-              <div key={item.industry} className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
+              <div key={item.industry} className="rounded-xl border border-aipify-border bg-white/[0.03] p-5">
                 <h3 className="font-semibold text-white">{item.industry}</h3>
-                <p className="mt-3 text-xs font-medium uppercase text-slate-500">{industries.challengeLabel}</p>
-                <p className="mt-1 text-sm text-slate-400">{item.challenge}</p>
-                <p className="mt-3 text-xs font-medium uppercase text-slate-500">{industries.solutionLabel}</p>
-                <p className="mt-1 text-sm text-slate-300">{item.solution}</p>
+                <p className="mt-3 text-xs font-medium uppercase text-aipify-text-muted">{industries.challengeLabel}</p>
+                <p className="mt-1 text-sm text-aipify-text-secondary">{item.challenge}</p>
+                <p className="mt-3 text-xs font-medium uppercase text-aipify-text-muted">{industries.solutionLabel}</p>
+                <p className="mt-1 text-sm text-aipify-text-secondary">{item.solution}</p>
                 <p className="mt-3 text-xs font-medium uppercase text-cyan-500/80">{industries.outcomeLabel}</p>
                 <p className="mt-1 text-sm text-cyan-100/80">{item.outcome}</p>
               </div>
@@ -256,15 +256,15 @@ export default function CustomerStoriesPageContent({ labels }: Props) {
       <section className="relative py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionTitle>{growthPartners.headline}</SectionTitle>
-          <p className="mt-4 max-w-2xl text-sm text-slate-500">{growthPartners.disclaimer}</p>
+          <p className="mt-4 max-w-2xl text-sm text-aipify-text-muted">{growthPartners.disclaimer}</p>
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
             {growthPartners.stories.map((story) => (
               <div key={story.profile} className="rounded-2xl border border-violet-500/20 bg-violet-950/20 p-6">
                 <h3 className="font-semibold text-white">{story.profile}</h3>
-                <p className="mt-2 text-sm text-slate-400">{story.focus}</p>
+                <p className="mt-2 text-sm text-aipify-text-secondary">{story.focus}</p>
                 <ul className="mt-4 space-y-2">
                   {story.outcomes.map((o) => (
-                    <li key={o} className="flex gap-2 text-sm text-slate-300">
+                    <li key={o} className="flex gap-2 text-sm text-aipify-text-secondary">
                       <span className="text-violet-400" aria-hidden="true">
                         ·
                       </span>
@@ -287,9 +287,9 @@ export default function CustomerStoriesPageContent({ labels }: Props) {
           <SectionTitle>{results.title}</SectionTitle>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {results.items.map((item) => (
-              <div key={item.title} className="rounded-xl border border-white/10 p-4">
+              <div key={item.title} className="rounded-xl border border-aipify-border p-4">
                 <h3 className="font-medium text-white">{item.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-slate-500">{item.example}</p>
+                <p className="mt-2 text-xs leading-relaxed text-aipify-text-muted">{item.example}</p>
               </div>
             ))}
           </div>
@@ -300,28 +300,28 @@ export default function CustomerStoriesPageContent({ labels }: Props) {
       <section className="relative py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionTitle>{videoTestimonials.title}</SectionTitle>
-          <p className="mt-4 text-sm text-slate-400">{videoTestimonials.subtitle}</p>
+          <p className="mt-4 text-sm text-aipify-text-secondary">{videoTestimonials.subtitle}</p>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {videoTestimonials.slots.map((slot) => (
               <div
                 key={slot.type}
                 className="flex aspect-video flex-col items-center justify-center rounded-xl border border-dashed border-white/15 bg-white/[0.02] p-4 text-center"
               >
-                <span className="text-xs font-medium uppercase tracking-wide text-slate-500">{slot.type}</span>
-                <p className="mt-2 text-sm text-slate-400">{slot.description}</p>
-                <span className="mt-3 rounded-full bg-white/5 px-3 py-1 text-xs text-slate-500">{slot.status}</span>
+                <span className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">{slot.type}</span>
+                <p className="mt-2 text-sm text-aipify-text-secondary">{slot.description}</p>
+                <span className="mt-3 rounded-full bg-white/5 px-3 py-1 text-xs text-aipify-text-muted">{slot.status}</span>
               </div>
             ))}
           </div>
-          <p className="mt-6 text-center text-xs text-slate-500">{videoTestimonials.comingSoon}</p>
+          <p className="mt-6 text-center text-xs text-aipify-text-muted">{videoTestimonials.comingSoon}</p>
         </div>
       </section>
 
       {/* Logo wall */}
-      <section className="border-y border-white/10 bg-[#070a0f] py-16 sm:py-20">
+      <section className="border-y border-white/10 bg-aipify-surface-muted py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <SectionTitle>{logoWall.title}</SectionTitle>
-          <p className="mx-auto mt-4 max-w-xl text-sm text-slate-500">{logoWall.subtitle}</p>
+          <p className="mx-auto mt-4 max-w-xl text-sm text-aipify-text-muted">{logoWall.subtitle}</p>
           <div className="mt-12 space-y-10">
             {[
               { label: logoWall.customerLabel },
@@ -329,12 +329,12 @@ export default function CustomerStoriesPageContent({ labels }: Props) {
               { label: logoWall.certificationLabel },
             ].map(({ label }) => (
               <div key={label}>
-                <p className="text-xs font-medium uppercase tracking-wide text-slate-500">{label}</p>
+                <p className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">{label}</p>
                 <div className="mt-4 flex flex-wrap justify-center gap-4">
                   {[1, 2, 3, 4].map((i) => (
                     <div
                       key={`${label}-${i}`}
-                      className="flex h-16 w-32 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-xs text-slate-600"
+                      className="flex h-16 w-32 items-center justify-center rounded-lg border border-aipify-border bg-white/[0.03] text-xs text-slate-600"
                     >
                       {logoWall.placeholder}
                     </div>
@@ -354,37 +354,37 @@ export default function CustomerStoriesPageContent({ labels }: Props) {
             {companionImpact.quotes.map((quote) => (
               <blockquote
                 key={quote}
-                className="rounded-xl border border-cyan-500/20 bg-cyan-950/10 px-6 py-5 text-base italic leading-relaxed text-slate-300"
+                className="rounded-xl border border-cyan-500/20 bg-cyan-950/10 px-6 py-5 text-base italic leading-relaxed text-aipify-text-secondary"
               >
                 {quote}
               </blockquote>
             ))}
           </div>
-          <p className="mt-8 text-center text-xs text-slate-500">{companionImpact.attributionNote}</p>
+          <p className="mt-8 text-center text-xs text-aipify-text-muted">{companionImpact.attributionNote}</p>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="border-t border-white/10 bg-gradient-to-b from-violet-950/30 to-transparent py-16 sm:py-24">
+      <section className="border-t border-aipify-border bg-gradient-to-b from-violet-950/30 to-transparent py-16 sm:py-24">
         <div className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">{finalCta.headline}</h2>
-          <p className="mt-6 text-sm text-slate-500">{finalPrinciple}</p>
+          <p className="mt-6 text-sm text-aipify-text-muted">{finalPrinciple}</p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
             <Link
               href="/contact"
-              className="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500 sm:w-auto"
+              className="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-aipify-text shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500 sm:w-auto"
             >
               {finalCta.bookDemo}
             </Link>
             <Link
               href="/pricing#business-packs"
-              className="inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-white/5 px-8 py-4 text-base font-semibold text-white transition hover:bg-white/10 sm:w-auto"
+              className="inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-white/5 px-8 py-4 text-base font-semibold text-aipify-text transition hover:bg-white/10 sm:w-auto"
             >
               {finalCta.businessPacks}
             </Link>
             <Link
               href="/contact"
-              className="inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-white/5 px-8 py-4 text-base font-semibold text-white transition hover:bg-white/10 sm:w-auto"
+              className="inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-white/5 px-8 py-4 text-base font-semibold text-aipify-text transition hover:bg-white/10 sm:w-auto"
             >
               {finalCta.talkToSales}
             </Link>

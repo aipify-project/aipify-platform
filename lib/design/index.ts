@@ -1,6 +1,7 @@
 export {
   AipifyDesignColors,
   AipifyDesignTokens,
+  AipifyMarketingClasses,
   AipifyNavClasses,
   AipifyShellClasses,
   DESIGN_STANDARD_AVOID,
