@@ -14746,6 +14746,58 @@
       "risk": "Organisationsrisiko"
     }
   },
+  "evolutionCenter": {
+    "title": "Evolution Center",
+    "subtitle": "Hvordan Aipify udvikler sig — platformsvækst, Companion-forbedring, innovationspipeline og fremtidige muligheder inden for tillid og governance.",
+    "principle": "Teknologi ændrer sig. Organisationer ændrer sig. Markeder ændrer sig. Aipify skal udvikle sig — tillid, governance, gennemsigtighed og menneskelig kontrol forbliver uændret.",
+    "privacyNote": "Companion kan forbedres inden for governance — identitetsændringer kræver godkendelse. Evolutionssporing bruger kun godkendt metadata.",
+    "loading": "Indlæser",
+    "empty": "Evolution Center er ikke tilgængeligt for denne organisation.",
+    "refresh": "Opdater",
+    "companionRecommendations": "Companion-anbefalinger",
+    "noRecords": "Ingen poster endnu.",
+    "platformEvolution": "Platform Evolution Framework",
+    "companionEvolution": "Companion Evolution Engine",
+    "innovationPipeline": "Innovationspipeline",
+    "futureOpportunityEngine": "Future Opportunity Engine",
+    "platformSelfAssessment": "Platform Self-Assessment",
+    "capabilityRoadmap": "Companion Capability Roadmap",
+    "businessPackEvolution": "Business Pack Evolution",
+    "readinessReviews": "Organizational Readiness Reviews",
+    "futureAdvisor": "Companion Future Advisor",
+    "platformStewardship": "Platform Stewardship Engine",
+    "enterpriseProgram": "Enterprise Evolution Program",
+    "foundationMilestone": "Foundation Era Milestone",
+    "executiveDashboard": "Executive Evolution Dashboard",
+    "mobileAccess": "Mobiladgang",
+    "sections": {
+      "overview": "Oversigt",
+      "platform": "Platformudvikling",
+      "companion": "Companion-udvikling",
+      "businessPacks": "Business Packs",
+      "roadmaps": "Køreplaner",
+      "recommendations": "Anbefalinger",
+      "opportunities": "Fremtidige muligheder",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "platformPhases": "Platformsfaser",
+      "companionEvolution": "Companion-udviklingsområder",
+      "innovationItems": "Innovationspipeline",
+      "opportunities": "Fremtidige muligheder",
+      "capabilities": "Capability roadmap",
+      "packEvolution": "Pack-udvikling"
+    },
+    "executive": {
+      "platformHealthScore": "Platform sundhedsscore",
+      "completedPhases": "Fuldførte faser",
+      "plannedPhases": "Planlagte faser",
+      "innovationPipeline": "Innovationspipeline",
+      "futureOpportunities": "Fremtidige muligheder",
+      "openRequests": "Åbne anmodninger",
+      "companionRecommendations": "Companion-anbefalinger"
+    }
+  },
   "customerSuccessOperations": {
     "title": "Kundesuccescenter",
     "subtitle": "Aktivering, adoption, ekspansion og retention — Aipify hjælper organisationen med målbar værdi.",

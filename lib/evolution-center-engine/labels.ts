@@ -1,0 +1,57 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildEvolutionCenterLabels(t: Translator) {
+  const p = "customerApp.evolutionCenter";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    principle: t(`${p}.principle`),
+    privacyNote: t(`${p}.privacyNote`),
+    loading: t(`${p}.loading`),
+    empty: t(`${p}.empty`),
+    refresh: t(`${p}.refresh`),
+    companionRecommendations: t(`${p}.companionRecommendations`),
+    noRecords: t(`${p}.noRecords`),
+    platformEvolution: t(`${p}.platformEvolution`),
+    companionEvolution: t(`${p}.companionEvolution`),
+    innovationPipeline: t(`${p}.innovationPipeline`),
+    futureOpportunityEngine: t(`${p}.futureOpportunityEngine`),
+    platformSelfAssessment: t(`${p}.platformSelfAssessment`),
+    capabilityRoadmap: t(`${p}.capabilityRoadmap`),
+    businessPackEvolution: t(`${p}.businessPackEvolution`),
+    readinessReviews: t(`${p}.readinessReviews`),
+    futureAdvisor: t(`${p}.futureAdvisor`),
+    platformStewardship: t(`${p}.platformStewardship`),
+    enterpriseProgram: t(`${p}.enterpriseProgram`),
+    foundationMilestone: t(`${p}.foundationMilestone`),
+    executiveDashboard: t(`${p}.executiveDashboard`),
+    mobileAccess: t(`${p}.mobileAccess`),
+    sections: {
+      overview: t(`${p}.sections.overview`),
+      platform: t(`${p}.sections.platform`),
+      companion: t(`${p}.sections.companion`),
+      businessPacks: t(`${p}.sections.businessPacks`),
+      roadmaps: t(`${p}.sections.roadmaps`),
+      recommendations: t(`${p}.sections.recommendations`),
+      opportunities: t(`${p}.sections.opportunities`),
+      reports: t(`${p}.sections.reports`),
+    },
+    stats: {
+      platformPhases: t(`${p}.stats.platformPhases`),
+      companionEvolution: t(`${p}.stats.companionEvolution`),
+      innovationItems: t(`${p}.stats.innovationItems`),
+      opportunities: t(`${p}.stats.opportunities`),
+      capabilities: t(`${p}.stats.capabilities`),
+      packEvolution: t(`${p}.stats.packEvolution`),
+    },
+    executive: {
+      platformHealthScore: t(`${p}.executive.platformHealthScore`),
+      completedPhases: t(`${p}.executive.completedPhases`),
+      plannedPhases: t(`${p}.executive.plannedPhases`),
+      innovationPipeline: t(`${p}.executive.innovationPipeline`),
+      futureOpportunities: t(`${p}.executive.futureOpportunities`),
+      openRequests: t(`${p}.executive.openRequests`),
+      companionRecommendations: t(`${p}.executive.companionRecommendations`),
+    },
+  };
+}

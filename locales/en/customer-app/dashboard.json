@@ -15563,6 +15563,58 @@
       "risk": "Organizational risk"
     }
   },
+  "evolutionCenter": {
+    "title": "Evolution Center",
+    "subtitle": "How Aipify evolves — platform growth, Companion improvement, innovation pipeline, and future opportunities within trust and governance.",
+    "principle": "Technology changes. Organizations change. Markets change. Aipify must evolve — trust, governance, transparency, and human control remain unchanged.",
+    "privacyNote": "Companion may improve within governance — identity changes require approval. Evolution tracking uses approved metadata only.",
+    "loading": "Loading",
+    "empty": "Evolution Center is not available for this organization.",
+    "refresh": "Refresh",
+    "companionRecommendations": "Companion Recommendations",
+    "noRecords": "No records yet.",
+    "platformEvolution": "Platform Evolution Framework",
+    "companionEvolution": "Companion Evolution Engine",
+    "innovationPipeline": "Innovation Pipeline",
+    "futureOpportunityEngine": "Future Opportunity Engine",
+    "platformSelfAssessment": "Platform Self-Assessment",
+    "capabilityRoadmap": "Companion Capability Roadmap",
+    "businessPackEvolution": "Business Pack Evolution",
+    "readinessReviews": "Organizational Readiness Reviews",
+    "futureAdvisor": "Companion Future Advisor",
+    "platformStewardship": "Platform Stewardship Engine",
+    "enterpriseProgram": "Enterprise Evolution Program",
+    "foundationMilestone": "Foundation Era Milestone",
+    "executiveDashboard": "Executive Evolution Dashboard",
+    "mobileAccess": "Mobile Access",
+    "sections": {
+      "overview": "Overview",
+      "platform": "Platform Evolution",
+      "companion": "Companion Evolution",
+      "businessPacks": "Business Packs",
+      "roadmaps": "Roadmaps",
+      "recommendations": "Recommendations",
+      "opportunities": "Future Opportunities",
+      "reports": "Reports"
+    },
+    "stats": {
+      "platformPhases": "Platform phases",
+      "companionEvolution": "Companion evolution areas",
+      "innovationItems": "Innovation pipeline",
+      "opportunities": "Future opportunities",
+      "capabilities": "Capability roadmap",
+      "packEvolution": "Pack evolution"
+    },
+    "executive": {
+      "platformHealthScore": "Platform health score",
+      "completedPhases": "Completed phases",
+      "plannedPhases": "Planned phases",
+      "innovationPipeline": "Innovation pipeline",
+      "futureOpportunities": "Future opportunities",
+      "openRequests": "Open requests",
+      "companionRecommendations": "Companion recommendations"
+    }
+  },
   "customerSuccessOperations": {
     "title": "Customer Success Center",
     "subtitle": "Activation, adoption, expansion, and retention — Aipify helps your organization achieve measurable value.",
