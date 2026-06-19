@@ -37,6 +37,15 @@
     "enterpriseValueRealizationRoiEngine": "Centrum realizacji wartości",
     "commerceRetailOperationsPack": "Handel",
     "autonomousEnterpriseOperationsEngine": "Centrum operacji autonomicznych",
-    "enterpriseOrganizationalMemoryEngine": "Pamięć organizacyjna"
+    "enterpriseOrganizationalMemoryEngine": "Pamięć organizacyjna",
+    "companionExpertiseEngine": "Centrum Ekspertyz",
+    "companionDecisionMemoryEngine": "Centrum Decyzji",
+    "companionOrganizationalLearningEngine": "Centrum Nauki",
+    "companionMaturityEvolutionEngine": "Centrum Dojrzałości",
+    "companionMemoryGraphEngine": "Graf Pamięci",
+    "companionDigitalTwinSimulationEngine": "Centrum Digital Twin",
+    "companionExecutionOutcomeEngine": "Centrum Wykonawcze",
+    "companionWorkflowProcessEngine": "Centrum Workflow",
+    "companionResourceCapacityEngine": "Centrum Zasobów"
   }
 }

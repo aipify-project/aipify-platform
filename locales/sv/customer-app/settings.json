@@ -4630,5 +4630,762 @@
       "watch_closely": "Följ noga",
       "immediate_action": "Omedelbar åtgärd krävs"
     }
+  },
+  "autopilotOperations": {
+    "title": "Autopilot Center",
+    "subtitle": "Definiera godkända operativa gränser där Aipify proaktivt kan assistera, förbereda och koordinera återkommande arbete — människor definierar gränser.",
+    "workflowsTitle": "Companion Workflow Library",
+    "loading": "Förbereder Autopilot Center",
+    "back": "Tillbaka",
+    "principle": "Companion ska aldrig bli okontrollerad automatisering — betrodd assisterad automatisering med mänskliga gränser.",
+    "emptyState": "Autopilot Center-data är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "policies": "Policyer",
+      "automation_rules": "Automatiseringsregler",
+      "approval_chains": "Godkännandekedjor",
+      "prepared_actions": "Förberedda åtgärder",
+      "execution_queue": "Kö för utförande",
+      "insights": "Insikter",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "autopilotProfile": "Autopilot-profil",
+      "activePolicies": "Aktiva policyer",
+      "automationRulesActive": "Aktiva automatiseringsregler",
+      "preparedActionsReady": "Förberedda åtgärder klara",
+      "pendingApprovals": "Väntande godkännanden",
+      "executionInProgress": "Utförande pågår",
+      "activeWorkflows": "Aktiva arbetsflöden",
+      "watchtowerAlerts": "Watchtower-varningar",
+      "policyCompliancePct": "Policy-efterlevnad",
+      "timeSavedHours": "Sparad tid (timmar/mån)"
+    },
+    "actions": {
+      "refreshAutopilot": "Uppdatera autopilot",
+      "createPolicy": "Skapa policy",
+      "activateWorkflow": "Aktivera arbetsflöde",
+      "generatePreparedAction": "Generera förberedd åtgärd",
+      "approveQueueItem": "Godkänn",
+      "denyQueueItem": "Avvisa",
+      "openWorkflows": "Arbetsflödesbibliotek",
+      "openApprovals": "Godkännanden",
+      "openProactive": "Proactive Operations"
+    },
+    "sections": {
+      "watchtower": "Autopilot Watchtower",
+      "boundaries": "Gränsramverk",
+      "confidenceEngine": "Konfidensmotor",
+      "smartScheduling": "Smart schemaläggning",
+      "businessPackIntegration": "Business Pack-integration",
+      "companionAdvisor": "Companion Autopilot Advisor",
+      "audit": "Revisionslogg"
+    },
+    "profiles": {
+      "conservative": "Konservativ — allt granskas",
+      "balanced": "Balanserad — rutinåtgärder automatiseras",
+      "advanced": "Avancerad — förhandsgodkända arbetsflöden körs",
+      "enterprise": "Enterprise — avdelningsspecifik styrning",
+      "custom": "Anpassad"
+    },
+    "policyCategories": {
+      "allowed": "Tillåten",
+      "approval_required": "Godkännande krävs",
+      "restricted": "Begränsad",
+      "prohibited": "Förbjuden"
+    },
+    "confidenceLevels": {
+      "high": "Hög konfidens",
+      "moderate": "Måttlig konfidens",
+      "limited": "Begränsad konfidens"
+    }
+  },
+  "executiveCopilotOperations": {
+    "title": "Executive Command Center",
+    "subtitle": "Styr organisationen genom Aipify med naturligt språk, guidade arbetsflöden och styrd exekvering — en ledararbetsyta.",
+    "decisionsTitle": "Decision Support Center",
+    "boardReportsTitle": "Styrelserapportgenerator",
+    "loading": "Förbereder Executive Command Center",
+    "back": "Tillbaka",
+    "principle": "Ledare ska inte behöva navigera 100 skärmar — fråga, och Aipify förstår, förbereder, koordinerar och utför godkända åtgärder.",
+    "emptyState": "Executive Command Center-data är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "briefings": "Executive Briefings",
+      "decisions": "Beslut",
+      "approvals": "Godkännanden",
+      "recommendations": "Rekommendationer",
+      "execution": "Exekvering",
+      "reports": "Rapporter",
+      "strategy": "Strategi"
+    },
+    "overview": {
+      "organizationHealth": "Organisationshälsa",
+      "strategicHealth": "Strategisk hälsa",
+      "revenueHealth": "Intäkts hälsa",
+      "pendingDecisions": "Väntande beslut",
+      "pendingApprovals": "Väntande godkännanden",
+      "briefingsReady": "Briefings klara",
+      "reportsReady": "Rapporter klara",
+      "activeRecommendations": "Aktiva rekommendationer",
+      "executionInProgress": "Exekvering pågår",
+      "scenariosReady": "Scenarier klara"
+    },
+    "actions": {
+      "refreshExecutive": "Uppdatera command center",
+      "generateBriefing": "Generera briefing",
+      "createDecisionPackage": "Skapa beslutspaket",
+      "approveItem": "Godkänn",
+      "denyItem": "Avvisa",
+      "generateBoardReport": "Generera styrelserapport",
+      "runScenario": "Kör scenario",
+      "openDecisions": "Beslut",
+      "openBoardReports": "Styrelserapporter",
+      "openFutureReadiness": "Future Readiness"
+    },
+    "sections": {
+      "naturalLanguageCommands": "Naturliga språkkommandon",
+      "executiveMonitoring": "Executive monitoring",
+      "scenarioLab": "Executive scenario lab",
+      "decisionPackages": "Beslutspaket",
+      "businessPackIntegration": "Business Pack-integration",
+      "companionAdvisor": "Companion Executive Advisor",
+      "audit": "Revisionslogg"
+    },
+    "confidenceLevels": {
+      "high": "Hög konfidens",
+      "moderate": "Måttlig konfidens",
+      "limited": "Begränsad konfidens"
+    },
+    "healthStatus": {
+      "healthy": "Frisk",
+      "watch": "Bevaka",
+      "at_risk": "I risk",
+      "critical": "Kritisk"
+    }
+  },
+  "headquartersOperations": {
+    "title": "Digitalt huvudkontor",
+    "subtitle": "Det levande operativa huvudkontoret där chefer, medarbetare och Aipify samarbetar i realtid — inte en dashboard, utan en kommandomiljö.",
+    "operationsTitle": "Operationsrum",
+    "executiveTitle": "Executive Operations Room",
+    "warRoomTitle": "Executive War Room",
+    "loading": "Förbereder digitalt huvudkontor",
+    "back": "Tillbaka",
+    "principle": "Organisationer behöver ett ställe för att omedelbart förstå vad som händer, vad som kräver uppmärksamhet, vem som ansvarar och vad som kommer härnäst.",
+    "emptyState": "Data för digitalt huvudkontor är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "operations_room": "Operationsrum",
+      "executive_room": "Executive Room",
+      "departments": "Avdelningar",
+      "live_activity": "Live aktivitet",
+      "approvals": "Godkännanden",
+      "alerts": "Varningar",
+      "companion": "Companion",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "organizationHealth": "Organisationshälsa",
+      "revenueHealth": "Intäktshälsa",
+      "operationalHealth": "Operativ hälsa",
+      "customerHealth": "Kundhälsa",
+      "partnerHealth": "Partnerhälsa",
+      "riskHealth": "Riskhälsa",
+      "companionHealth": "Companion-hälsa",
+      "liveStatus": "Live organisationsstatus",
+      "activeAlerts": "Aktiva varningar",
+      "pendingApprovals": "Väntande godkännanden",
+      "organizationPulse": "Organisationspuls"
+    },
+    "operations": {
+      "activeProjects": "Aktiva projekt",
+      "pendingTasks": "Väntande uppgifter",
+      "criticalIssues": "Kritiska ärenden"
+    },
+    "executive": {
+      "strategicHealth": "Strategisk hälsa",
+      "majorRisks": "Stora risker",
+      "futureReadiness": "Framtidsberedskap"
+    },
+    "actions": {
+      "refreshHeadquarters": "Uppdatera huvudkontor",
+      "activateWarRoom": "Aktivera war room",
+      "assignAction": "Tilldela åtgärd",
+      "acknowledgeAlert": "Bekräfta varning",
+      "generateBriefing": "Generera briefing",
+      "openOperations": "Operationsrum",
+      "openExecutive": "Executive Room",
+      "openWarRoom": "War Room",
+      "openExecutiveCopilot": "Executive Copilot"
+    },
+    "sections": {
+      "liveActivityFeed": "Live aktivitetsflöde",
+      "actionCoordinationBoard": "Åtgärdskoordineringstavla",
+      "organizationalPulse": "Organisationspuls",
+      "meetingCommandCenter": "Möteskommandocenter",
+      "crossDepartmentCoordination": "Tväravdelningskoordinering",
+      "operationsDirector": "Companion Operations Director",
+      "headquartersAssistant": "Companion Headquarters Assistant",
+      "audit": "Revisionslogg"
+    },
+    "pulseStatus": {
+      "strong": "Stark",
+      "slowing": "Avtar",
+      "immediate_review": "Omedelbar granskning"
+    },
+    "departmentStatus": {
+      "active": "Aktiv",
+      "overloaded": "Överbelastad",
+      "watch": "Bevaka",
+      "critical": "Kritisk",
+      "offline": "Offline"
+    }
+  },
+  "expertiseOperations": {
+    "title": "Expertiscenter",
+    "subtitle": "Know-Who Engine — identify expertise, knowledge ownership, mentorship, and organizational risk before knowledge walks out the door.",
+    "loading": "Preparing Expertise Center",
+    "back": "Back",
+    "principle": "Knowledge tells organizations what exists. Expertise tells organizations who can help.",
+    "emptyState": "Expertise Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "expert_directory": "Expert Directory",
+      "knowledge_owners": "Knowledge Owners",
+      "departments": "Departments",
+      "skills": "Skills",
+      "projects": "Projects",
+      "mentors": "Mentors",
+      "reports": "Reports"
+    },
+    "overview": {
+      "expertCount": "Experts in directory",
+      "knowledgeAssets": "Knowledge assets",
+      "ownedAssets": "Owned assets",
+      "unownedAssets": "Unowned assets",
+      "criticalRisks": "Critical knowledge risks",
+      "successionRisks": "Succession risks",
+      "activeMentorships": "Active mentorships",
+      "departmentCoverage": "Department coverage",
+      "companionRecommendations": "Companion recommendations"
+    },
+    "sections": {
+      "criticalKnowledgeMap": "Critical knowledge map",
+      "successionRisks": "Succession risk engine",
+      "recommendations": "Expertise recommendations",
+      "executiveDashboard": "Executive dashboard",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion expertise advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshExpertise": "Refresh expertise",
+      "assignKnowledgeOwner": "Assign knowledge owner",
+      "generateExpertiseReport": "Generate expertise report",
+      "requestAssistance": "Request assistance"
+    },
+    "riskLevel": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "ownershipStatus": {
+      "owned": "Owned",
+      "unowned": "Unowned",
+      "review_due": "Review due",
+      "at_risk": "At risk"
+    },
+    "availability": {
+      "available": "Available",
+      "limited": "Limited",
+      "busy": "Busy",
+      "unavailable": "Unavailable"
+    }
+  },
+  "decisionMemoryOperations": {
+    "title": "Beslutscenter",
+    "subtitle": "Decision Intelligence Engine — preserve organizational reasoning, outcomes, and lessons so future teams understand why decisions were made.",
+    "loading": "Preparing Decision Center",
+    "back": "Back",
+    "principle": "Organizations should not only remember decisions — they should remember why they made them.",
+    "emptyState": "Decision Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "decisions": "Decisions",
+      "approvals": "Approvals",
+      "outcomes": "Outcomes",
+      "lessons": "Lessons",
+      "reviews": "Reviews",
+      "reports": "Reports"
+    },
+    "overview": {
+      "healthScore": "Decision health score",
+      "healthStatus": "Health status",
+      "totalDecisions": "Total decisions",
+      "pendingDecisions": "Pending decisions",
+      "pendingApprovals": "Pending approvals",
+      "reviewsDue": "Reviews due",
+      "patternsActive": "Active patterns",
+      "successfulOutcomes": "Successful outcomes"
+    },
+    "sections": {
+      "executiveBriefings": "Executive decision briefings",
+      "patterns": "Decision pattern engine",
+      "knowledgeBase": "Decision knowledge base",
+      "businessPacks": "Business Pack integration",
+      "decisionHealth": "Decision health score",
+      "companionAdvisor": "Companion decision advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshDecisions": "Refresh decisions",
+      "generateBriefing": "Generate briefing",
+      "approveDecision": "Approve decision",
+      "completeReview": "Complete review"
+    },
+    "healthStatus": {
+      "excellent": "Excellent",
+      "healthy": "Healthy",
+      "needs_review": "Needs review",
+      "decision_risk": "Decision risk"
+    },
+    "successLevel": {
+      "successful": "Successful",
+      "partially_successful": "Partially successful",
+      "needs_review": "Needs review",
+      "unsuccessful": "Unsuccessful",
+      "pending": "Pending"
+    },
+    "reviewStatus": {
+      "scheduled": "Scheduled",
+      "due": "Due",
+      "completed": "Completed",
+      "overdue": "Overdue",
+      "skipped": "Skipped"
+    }
+  },
+  "organizationalLearningOperations": {
+    "title": "Lärningscenter",
+    "subtitle": "Organisatoriskt lärande och kontinuerlig förbättring — kom ihåg erfarenheter, dokumentera framgångar och förbättra systematiskt.",
+    "loading": "Preparing Learning Center",
+    "back": "Back",
+    "principle": "Erfarenhet ensam skapar inte förbättring. Lärande skapar förbättring.",
+    "emptyState": "Learning Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "lessons": "Lessons Learned",
+      "reviews": "Reviews",
+      "projects": "Projects",
+      "improvements": "Improvements",
+      "successes": "Successes",
+      "recommendations": "Recommendations",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalLessons": "Total lessons",
+      "activeImprovements": "Active improvements",
+      "successStories": "Success stories",
+      "reviewsCompleted": "Reviews completed",
+      "patternsDetected": "Patterns detected",
+      "opportunities": "Improvement opportunities",
+      "libraryItems": "Library items",
+      "avgLearningScore": "Avg learning score"
+    },
+    "sections": {
+      "executiveDashboard": "Executive learning dashboard",
+      "departmentScores": "Department learning scores",
+      "learningLibrary": "Organizational learning library",
+      "repeatedMistakes": "Repeated mistake detection",
+      "improvementOpportunities": "Improvement opportunity engine",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion learning advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshLearning": "Refresh learning",
+      "generateLearningReport": "Generate learning report",
+      "submitImprovement": "Submit improvement",
+      "completeReview": "Complete review"
+    },
+    "learningStatus": {
+      "excellent": "Excellent",
+      "improving": "Improving",
+      "stagnating": "Stagnating",
+      "improvement_needed": "Improvement needed"
+    },
+    "pipelineStage": {
+      "suggestion": "Suggestion",
+      "review": "Review",
+      "approval": "Approval",
+      "implementation": "Implementation",
+      "outcome": "Outcome",
+      "validation": "Validation"
+    }
+  },
+  "maturityEvolutionOperations": {
+    "title": "Mognadscenter",
+    "subtitle": "Organisatorisk kapabilitetsmognad och evolution — förstå var ni är, var ni vill vara och vad som krävs för att komma dit.",
+    "loading": "Preparing Maturity Center",
+    "back": "Back",
+    "principle": "Prestation visar var en organisation är idag. Mognad visar var den kan vara imorgon.",
+    "emptyState": "Maturity Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "capabilities": "Capabilities",
+      "assessments": "Assessments",
+      "benchmarks": "Benchmarks",
+      "roadmaps": "Roadmaps",
+      "recommendations": "Recommendations",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalCapabilities": "Total capabilities",
+      "activeAssessments": "Active assessments",
+      "openGaps": "Open gaps",
+      "activeRoadmaps": "Active roadmaps",
+      "benchmarks": "Benchmarks",
+      "evolutionItems": "Evolution items",
+      "avgMaturityLevel": "Avg maturity level",
+      "evolutionScore": "Evolution score"
+    },
+    "sections": {
+      "executiveDashboard": "Executive maturity dashboard",
+      "readinessEngine": "Organizational readiness engine",
+      "evolutionTracking": "Evolution tracking",
+      "capabilityGaps": "Capability gap detection",
+      "evolutionScore": "Organizational evolution score",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion maturity advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshMaturity": "Refresh maturity",
+      "generateMaturityBriefing": "Generate maturity briefing",
+      "generateRoadmap": "Generate roadmap",
+      "generateEvolutionReport": "Generate evolution report"
+    },
+    "evolutionStatus": {
+      "high_maturity": "High maturity",
+      "improving": "Improving",
+      "needs_attention": "Needs attention",
+      "capability_risk": "Capability risk"
+    },
+    "maturityLevel": {
+      "ad_hoc": "Ad Hoc",
+      "developing": "Developing",
+      "defined": "Defined",
+      "managed": "Managed",
+      "optimized": "Optimized"
+    },
+    "readinessStatus": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "ready": "Ready"
+    }
+  },
+  "memoryGraphOperations": {
+    "title": "Minnesgrafcenter",
+    "subtitle": "Organisatorisk minnesgraf och kontextmotor — förstå hur människor, projekt, kunder och kunskap hänger ihop.",
+    "loading": "Preparing Memory Graph Center",
+    "back": "Back",
+    "principle": "Information utan kontext skapar förvirring. Kontext skapar förståelse.",
+    "emptyState": "Memory Graph Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "relationships": "Relationships",
+      "entities": "Entities",
+      "connections": "Connections",
+      "knowledge": "Knowledge",
+      "decisions": "Decisions",
+      "projects": "Projects",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalEntities": "Total entities",
+      "totalRelationships": "Total relationships",
+      "totalConnections": "Total connections",
+      "knowledgeAssets": "Knowledge assets",
+      "customerNetworks": "Customer networks",
+      "projectNetworks": "Project networks",
+      "decisionLinks": "Decision links",
+      "activeDependencies": "Active dependencies"
+    },
+    "sections": {
+      "executiveDashboard": "Executive context dashboard",
+      "customerIntelligence": "Customer relationship intelligence",
+      "dependencyMapping": "Dependency mapping",
+      "knowledgeMap": "Organizational knowledge map",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion context advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshGraph": "Refresh graph",
+      "generateContextBriefing": "Generate context briefing",
+      "addRelationship": "Add relationship",
+      "identifyDependency": "Identify dependency",
+      "connectDecision": "Connect decision"
+    },
+    "relationshipStrength": {
+      "weak": "Weak",
+      "moderate": "Moderate",
+      "strong": "Strong",
+      "critical": "Critical"
+    },
+    "dependencyRisk": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    }
+  },
+  "digitalTwinSimulationOperations": {
+    "title": "Digital Twin-center",
+    "subtitle": "Organisatorisk digital tvilling och affärssimulering — utforska resultat innan åtgärder sker.",
+    "loading": "Preparing Digital Twin Center",
+    "back": "Back",
+    "principle": "Framtiden kan inte förutspås perfekt. Men den kan utforskas.",
+    "emptyState": "Digital Twin Center data is unavailable.",
+    "whatIfTitle": "What-If Workspace",
+    "whatIfSubtitle": "Testa idéer innan de blir dyra misstag — Companion genererar projektioner.",
+    "tabs": {
+      "overview": "Overview",
+      "models": "Models",
+      "scenarios": "Scenarios",
+      "forecasts": "Forecasts",
+      "impacts": "Impacts",
+      "experiments": "Experiments",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalModels": "Total models",
+      "activeScenarios": "Active scenarios",
+      "forecasts": "Forecasts",
+      "impactAnalyses": "Impact analyses",
+      "experiments": "Experiments",
+      "capacityModels": "Capacity models",
+      "decisionPreviews": "Decision previews",
+      "avgConfidence": "Avg confidence"
+    },
+    "sections": {
+      "executiveDashboard": "Executive simulation dashboard",
+      "capacityModeling": "Capacity modeling",
+      "resourceAllocation": "Resource allocation engine",
+      "decisionPreviews": "Decision impact preview",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion simulation advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshTwin": "Refresh twin",
+      "generateSimulationBriefing": "Generate simulation briefing",
+      "executeSimulation": "Execute simulation",
+      "runWhatIf": "Run what-if",
+      "generateDecisionPreview": "Generate decision preview"
+    },
+    "impactDirection": {
+      "positive": "Positive",
+      "negative": "Negative",
+      "neutral": "Neutral",
+      "mixed": "Mixed"
+    },
+    "impactMagnitude": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    }
+  },
+  "executionOutcomeOperations": {
+    "title": "Execution Center",
+    "subtitle": "Organizational Execution Network & Outcome Engine — transform decisions into measurable outcomes.",
+    "loading": "Preparing Execution Center",
+    "back": "Back",
+    "principle": "Ideas create possibilities. Execution creates results.",
+    "emptyState": "Execution Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "initiatives": "Initiatives",
+      "actions": "Actions",
+      "owners": "Owners",
+      "deadlines": "Deadlines",
+      "dependencies": "Dependencies",
+      "outcomes": "Outcomes",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalInitiatives": "Total initiatives",
+      "activeActions": "Active actions",
+      "blockedActions": "Blocked actions",
+      "overdueActions": "Overdue actions",
+      "openBlockers": "Open blockers",
+      "atRiskInitiatives": "At-risk initiatives",
+      "completionRate": "Completion rate",
+      "executionVelocity": "Execution velocity"
+    },
+    "sections": {
+      "executiveDashboard": "Executive execution dashboard",
+      "executionScorecard": "Execution scorecard",
+      "blockerDetection": "Blocker detection",
+      "meetingToExecution": "Meeting to execution",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion execution advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshExecution": "Refresh execution",
+      "generateExecutionBriefing": "Generate execution briefing",
+      "completeAction": "Complete action",
+      "assignAction": "Assign action"
+    },
+    "healthStatus": {
+      "healthy": "Healthy",
+      "delayed": "Delayed",
+      "at_risk": "At risk"
+    },
+    "actionStatus": {
+      "pending": "Pending",
+      "in_progress": "In progress",
+      "blocked": "Blocked",
+      "completed": "Completed",
+      "overdue": "Overdue",
+      "archived": "Archived"
+    },
+    "priority": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    }
+  },
+  "workflowProcessOperations": {
+    "title": "Workflow Center",
+    "subtitle": "Organizational Workflow Orchestration & Process Intelligence — understand, visualize, improve and orchestrate workflows.",
+    "loading": "Preparing Workflow Center",
+    "back": "Back",
+    "principle": "Organizations do not run on software. Organizations run on processes.",
+    "emptyState": "Workflow Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "workflows": "Workflows",
+      "templates": "Templates",
+      "automation": "Automation",
+      "approvals": "Approvals",
+      "monitoring": "Monitoring",
+      "analytics": "Analytics",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalWorkflows": "Total workflows",
+      "activeWorkflows": "Active workflows",
+      "healthyWorkflows": "Healthy workflows",
+      "bottleneckWorkflows": "Bottleneck workflows",
+      "openBottlenecks": "Open bottlenecks",
+      "pendingApprovals": "Pending approvals",
+      "delayedApprovals": "Delayed approvals",
+      "automationCoverage": "Automation coverage",
+      "avgCompletionDays": "Avg completion (days)",
+      "failureRate": "Failure rate"
+    },
+    "sections": {
+      "visualDesigner": "Visual workflow designer",
+      "processMapping": "Process mapping",
+      "bottleneckDetection": "Bottleneck detection",
+      "executiveDashboard": "Executive workflow dashboard",
+      "workflowAnalytics": "Workflow performance analytics",
+      "businessPacks": "Business Pack integration",
+      "crossDepartment": "Cross-department workflows",
+      "companionAdvisor": "Companion workflow advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshWorkflows": "Refresh workflows",
+      "generateWorkflowReport": "Generate workflow report",
+      "grantApproval": "Grant approval",
+      "denyApproval": "Deny approval"
+    },
+    "healthStatus": {
+      "healthy": "Healthy",
+      "needs_review": "Needs review",
+      "bottleneck": "Bottleneck detected"
+    },
+    "workflowStatus": {
+      "draft": "Draft",
+      "active": "Active",
+      "paused": "Paused",
+      "needs_review": "Needs review",
+      "archived": "Archived"
+    },
+    "automationLevel": {
+      "manual": "Manual",
+      "assisted": "Assisted",
+      "semi_automated": "Semi-automated",
+      "automated": "Automated"
+    }
+  },
+  "resourceCapacityOperations": {
+    "title": "Resource Center",
+    "subtitle": "Organizational Resource Management & Capacity Intelligence — understand capacity before problems occur.",
+    "loading": "Preparing Resource Center",
+    "back": "Back",
+    "principle": "Most operational problems are not caused by lack of work. They are caused by lack of visibility into capacity.",
+    "emptyState": "Resource Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "capacity": "Capacity",
+      "teams": "Teams",
+      "workloads": "Workloads",
+      "allocations": "Allocations",
+      "forecasts": "Forecasts",
+      "availability": "Availability",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalResources": "Total resources",
+      "overloadedResources": "Overloaded resources",
+      "underutilizedResources": "Underutilized resources",
+      "openOverloads": "Open overloads",
+      "avgUtilization": "Avg utilization",
+      "availableCapacity": "Available capacity",
+      "forecastShortages": "Forecast shortages",
+      "activeAllocations": "Active allocations",
+      "highRiskProjects": "High-risk projects"
+    },
+    "sections": {
+      "overloadDetection": "Overload detection",
+      "underutilizationDetection": "Underutilization detection",
+      "skillMatching": "Skill-based resource matching",
+      "projectCapacity": "Project capacity management",
+      "executiveDashboard": "Executive resource dashboard",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion resource advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshResources": "Refresh resources",
+      "generateCapacityReport": "Generate capacity report",
+      "generateCapacityForecast": "Generate capacity forecast"
+    },
+    "healthStatus": {
+      "healthy": "Healthy",
+      "at_risk": "At risk",
+      "overloaded": "Overloaded",
+      "underutilized": "Underutilized"
+    },
+    "availabilityStatus": {
+      "available": "Available",
+      "partial": "Partial",
+      "unavailable": "Unavailable",
+      "idle": "Idle"
+    },
+    "deliveryRisk": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    }
   }
 }

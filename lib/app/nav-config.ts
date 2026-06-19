@@ -67,6 +67,18 @@ export type AppNavId =
   | "companionFutureReadinessEngine"
   | "companionResilienceEngine"
   | "companionProactiveEngine"
+  | "companionAutopilotEngine"
+  | "companionExecutiveCopilotEngine"
+  | "companionHeadquartersEngine"
+  | "companionExpertiseEngine"
+  | "companionDecisionMemoryEngine"
+  | "companionOrganizationalLearningEngine"
+  | "companionMaturityEvolutionEngine"
+  | "companionMemoryGraphEngine"
+  | "companionDigitalTwinSimulationEngine"
+  | "companionExecutionOutcomeEngine"
+  | "companionWorkflowProcessEngine"
+  | "companionResourceCapacityEngine"
   | "enterpriseValueRealizationRoiEngine"
   | "autonomousEnterpriseOperationsEngine"
   | "autonomousOrganizationEngine"
@@ -719,6 +731,66 @@ export const APP_NAV: AppNavItem[] = [
     id: "companionProactiveEngine",
     href: "/app/proactive",
     labelKey: "navigation.nav.companionProactiveEngine",
+  },
+  {
+    id: "companionAutopilotEngine",
+    href: "/app/autopilot",
+    labelKey: "navigation.nav.companionAutopilotEngine",
+  },
+  {
+    id: "companionExecutiveCopilotEngine",
+    href: "/app/executive-copilot",
+    labelKey: "navigation.nav.companionExecutiveCopilotEngine",
+  },
+  {
+    id: "companionHeadquartersEngine",
+    href: "/app/headquarters",
+    labelKey: "navigation.nav.companionHeadquartersEngine",
+  },
+  {
+    id: "companionExpertiseEngine",
+    href: "/app/expertise",
+    labelKey: "navigation.nav.companionExpertiseEngine",
+  },
+  {
+    id: "companionDecisionMemoryEngine",
+    href: "/app/decisions",
+    labelKey: "navigation.nav.companionDecisionMemoryEngine",
+  },
+  {
+    id: "companionOrganizationalLearningEngine",
+    href: "/app/learning-center",
+    labelKey: "navigation.nav.companionOrganizationalLearningEngine",
+  },
+  {
+    id: "companionMaturityEvolutionEngine",
+    href: "/app/maturity",
+    labelKey: "navigation.nav.companionMaturityEvolutionEngine",
+  },
+  {
+    id: "companionMemoryGraphEngine",
+    href: "/app/memory-graph",
+    labelKey: "navigation.nav.companionMemoryGraphEngine",
+  },
+  {
+    id: "companionDigitalTwinSimulationEngine",
+    href: "/app/digital-twin-center",
+    labelKey: "navigation.nav.companionDigitalTwinSimulationEngine",
+  },
+  {
+    id: "companionExecutionOutcomeEngine",
+    href: "/app/execution-center",
+    labelKey: "navigation.nav.companionExecutionOutcomeEngine",
+  },
+  {
+    id: "companionWorkflowProcessEngine",
+    href: "/app/workflow-center",
+    labelKey: "navigation.nav.companionWorkflowProcessEngine",
+  },
+  {
+    id: "companionResourceCapacityEngine",
+    href: "/app/resource-center",
+    labelKey: "navigation.nav.companionResourceCapacityEngine",
   },
   {
     id: "enterpriseValueRealizationRoiEngine",
@@ -2480,6 +2552,42 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname === "/app/proactive" || pathname.startsWith("/app/proactive/")) {
     return "companionProactiveEngine";
+  }
+  if (pathname === "/app/autopilot" || pathname.startsWith("/app/autopilot/")) {
+    return "companionAutopilotEngine";
+  }
+  if (pathname === "/app/executive-copilot" || pathname.startsWith("/app/executive-copilot/")) {
+    return "companionExecutiveCopilotEngine";
+  }
+  if (pathname === "/app/headquarters" || pathname.startsWith("/app/headquarters/")) {
+    return "companionHeadquartersEngine";
+  }
+  if (pathname === "/app/expertise" || pathname.startsWith("/app/expertise/")) {
+    return "companionExpertiseEngine";
+  }
+  if (pathname === "/app/decisions" || pathname.startsWith("/app/decisions/")) {
+    return "companionDecisionMemoryEngine";
+  }
+  if (pathname === "/app/learning-center" || pathname.startsWith("/app/learning-center/")) {
+    return "companionOrganizationalLearningEngine";
+  }
+  if (pathname === "/app/maturity" || pathname.startsWith("/app/maturity/")) {
+    return "companionMaturityEvolutionEngine";
+  }
+  if (pathname === "/app/memory-graph" || pathname.startsWith("/app/memory-graph/")) {
+    return "companionMemoryGraphEngine";
+  }
+  if (pathname === "/app/digital-twin-center" || pathname.startsWith("/app/digital-twin-center/")) {
+    return "companionDigitalTwinSimulationEngine";
+  }
+  if (pathname === "/app/execution-center" || pathname.startsWith("/app/execution-center/")) {
+    return "companionExecutionOutcomeEngine";
+  }
+  if (pathname === "/app/workflow-center" || pathname.startsWith("/app/workflow-center/")) {
+    return "companionWorkflowProcessEngine";
+  }
+  if (pathname === "/app/resource-center" || pathname.startsWith("/app/resource-center/")) {
+    return "companionResourceCapacityEngine";
   }
   if (pathname === "/app/federation" || pathname.startsWith("/app/federation/")) {
     return "companionFederationEngine";

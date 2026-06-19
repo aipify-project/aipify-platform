@@ -37,6 +37,15 @@
     "enterpriseValueRealizationRoiEngine": "Центр реалізації цінності",
     "commerceRetailOperationsPack": "Комерція",
     "autonomousEnterpriseOperationsEngine": "Центр автономних операцій",
-    "enterpriseOrganizationalMemoryEngine": "Організаційна пам'ять"
+    "enterpriseOrganizationalMemoryEngine": "Організаційна пам'ять",
+    "companionExpertiseEngine": "Expertise Center",
+    "companionDecisionMemoryEngine": "Decision Center",
+    "companionOrganizationalLearningEngine": "Learning Center",
+    "companionMaturityEvolutionEngine": "Maturity Center",
+    "companionMemoryGraphEngine": "Memory Graph",
+    "companionDigitalTwinSimulationEngine": "Digital Twin Center",
+    "companionExecutionOutcomeEngine": "Execution Center",
+    "companionWorkflowProcessEngine": "Workflow Center",
+    "companionResourceCapacityEngine": "Resource Center"
   }
 }

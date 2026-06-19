@@ -4662,5 +4662,762 @@
       "watch_closely": "Følg nøye",
       "immediate_action": "Umiddelbar handling kreves"
     }
+  },
+  "autopilotOperations": {
+    "title": "Autopilot Center",
+    "subtitle": "Definer godkjente operative grenser der Aipify proaktivt kan assistere, forberede og koordinere gjentakende arbeid — mennesker definerer grenser.",
+    "workflowsTitle": "Companion Workflow Library",
+    "loading": "Forbereder Autopilot Center",
+    "back": "Tilbake",
+    "principle": "Companion skal aldri bli ukontrollert automatisering — betrodd assistert automatisering med menneskelige grenser.",
+    "emptyState": "Autopilot Center-data er utilgjengelig.",
+    "tabs": {
+      "overview": "Oversikt",
+      "policies": "Policyer",
+      "automation_rules": "Automatiseringsregler",
+      "approval_chains": "Godkjenningskjeder",
+      "prepared_actions": "Forberedte handlinger",
+      "execution_queue": "Kø for utførelse",
+      "insights": "Innsikt",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "autopilotProfile": "Autopilot-profil",
+      "activePolicies": "Aktive policyer",
+      "automationRulesActive": "Aktive automatiseringsregler",
+      "preparedActionsReady": "Forberedte handlinger klare",
+      "pendingApprovals": "Ventende godkjenninger",
+      "executionInProgress": "Utførelse pågår",
+      "activeWorkflows": "Aktive arbeidsflyter",
+      "watchtowerAlerts": "Watchtower-varsler",
+      "policyCompliancePct": "Policy-overholdelse",
+      "timeSavedHours": "Tid spart (timer/mnd)"
+    },
+    "actions": {
+      "refreshAutopilot": "Oppdater autopilot",
+      "createPolicy": "Opprett policy",
+      "activateWorkflow": "Aktiver arbeidsflyt",
+      "generatePreparedAction": "Generer forberedt handling",
+      "approveQueueItem": "Godkjenn",
+      "denyQueueItem": "Avvis",
+      "openWorkflows": "Arbeidsflytbibliotek",
+      "openApprovals": "Godkjenninger",
+      "openProactive": "Proactive Operations"
+    },
+    "sections": {
+      "watchtower": "Autopilot Watchtower",
+      "boundaries": "Grenseramme",
+      "confidenceEngine": "Konfidensmotor",
+      "smartScheduling": "Smart planlegging",
+      "businessPackIntegration": "Business Pack-integrasjon",
+      "companionAdvisor": "Companion Autopilot Advisor",
+      "audit": "Revisjonslogg"
+    },
+    "profiles": {
+      "conservative": "Konservativ — alt gjennomgås",
+      "balanced": "Balansert — rutinehandlinger automatiseres",
+      "advanced": "Avansert — forhåndsgodkjente arbeidsflyter kjøres",
+      "enterprise": "Enterprise — avdelingsspesifikk styring",
+      "custom": "Tilpasset"
+    },
+    "policyCategories": {
+      "allowed": "Tillatt",
+      "approval_required": "Godkjenning kreves",
+      "restricted": "Begrenset",
+      "prohibited": "Forbudt"
+    },
+    "confidenceLevels": {
+      "high": "Høy konfidens",
+      "moderate": "Moderat konfidens",
+      "limited": "Begrenset konfidens"
+    }
+  },
+  "executiveCopilotOperations": {
+    "title": "Executive Command Center",
+    "subtitle": "Styr organisasjonen gjennom Aipify med naturlig språk, veiledede arbeidsflyter og styrt utførelse — ett lederarbeidsområde.",
+    "decisionsTitle": "Decision Support Center",
+    "boardReportsTitle": "Styreportgenerator",
+    "loading": "Forbereder Executive Command Center",
+    "back": "Tilbake",
+    "principle": "Ledere skal ikke trenge å navigere 100 skjermer — spør, og Aipify forstår, forbereder, koordinerer og utfører godkjente handlinger.",
+    "emptyState": "Executive Command Center-data er utilgjengelig.",
+    "tabs": {
+      "overview": "Oversikt",
+      "briefings": "Executive Briefings",
+      "decisions": "Beslutninger",
+      "approvals": "Godkjenninger",
+      "recommendations": "Anbefalinger",
+      "execution": "Utførelse",
+      "reports": "Rapporter",
+      "strategy": "Strategi"
+    },
+    "overview": {
+      "organizationHealth": "Organisasjonshelse",
+      "strategicHealth": "Strategisk helse",
+      "revenueHealth": "Inntektshelse",
+      "pendingDecisions": "Ventende beslutninger",
+      "pendingApprovals": "Ventende godkjenninger",
+      "briefingsReady": "Briefings klare",
+      "reportsReady": "Rapporter klare",
+      "activeRecommendations": "Aktive anbefalinger",
+      "executionInProgress": "Utførelse pågår",
+      "scenariosReady": "Scenarier klare"
+    },
+    "actions": {
+      "refreshExecutive": "Oppdater command center",
+      "generateBriefing": "Generer briefing",
+      "createDecisionPackage": "Opprett beslutningspakke",
+      "approveItem": "Godkjenn",
+      "denyItem": "Avvis",
+      "generateBoardReport": "Generer styreport",
+      "runScenario": "Kjør scenario",
+      "openDecisions": "Beslutninger",
+      "openBoardReports": "Styrerapporter",
+      "openFutureReadiness": "Future Readiness"
+    },
+    "sections": {
+      "naturalLanguageCommands": "Naturlige språkkommandoer",
+      "executiveMonitoring": "Executive monitoring",
+      "scenarioLab": "Executive scenario lab",
+      "decisionPackages": "Beslutningspakker",
+      "businessPackIntegration": "Business Pack-integrasjon",
+      "companionAdvisor": "Companion Executive Advisor",
+      "audit": "Revisjonslogg"
+    },
+    "confidenceLevels": {
+      "high": "Høy konfidens",
+      "moderate": "Moderat konfidens",
+      "limited": "Begrenset konfidens"
+    },
+    "healthStatus": {
+      "healthy": "Sunn",
+      "watch": "Overvåk",
+      "at_risk": "I risiko",
+      "critical": "Kritisk"
+    }
+  },
+  "headquartersOperations": {
+    "title": "Digitalt hovedkvarter",
+    "subtitle": "Det levende operative hovedkvarteret der ledere, ansatte og Aipify samarbeider i sanntid — ikke et dashbord, men et kommandoområde.",
+    "operationsTitle": "Operasjonsrom",
+    "executiveTitle": "Executive Operations Room",
+    "warRoomTitle": "Executive War Room",
+    "loading": "Forbereder digitalt hovedkvarter",
+    "back": "Tilbake",
+    "principle": "Organisasjoner trenger ett sted for å umiddelbart forstå hva som skjer, hva som krever oppmerksomhet, hvem som er ansvarlig og hva som kommer neste.",
+    "emptyState": "Data for digitalt hovedkvarter er utilgjengelig.",
+    "tabs": {
+      "overview": "Oversikt",
+      "operations_room": "Operasjonsrom",
+      "executive_room": "Executive Room",
+      "departments": "Avdelinger",
+      "live_activity": "Live aktivitet",
+      "approvals": "Godkjenninger",
+      "alerts": "Varsler",
+      "companion": "Companion",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "organizationHealth": "Organisasjonshelse",
+      "revenueHealth": "Inntektshelse",
+      "operationalHealth": "Operasjonell helse",
+      "customerHealth": "Kundehelse",
+      "partnerHealth": "Partnerhelse",
+      "riskHealth": "Risikohelse",
+      "companionHealth": "Companion-helse",
+      "liveStatus": "Live organisasjonsstatus",
+      "activeAlerts": "Aktive varsler",
+      "pendingApprovals": "Ventende godkjenninger",
+      "organizationPulse": "Organisasjonspuls"
+    },
+    "operations": {
+      "activeProjects": "Aktive prosjekter",
+      "pendingTasks": "Ventende oppgaver",
+      "criticalIssues": "Kritiske saker"
+    },
+    "executive": {
+      "strategicHealth": "Strategisk helse",
+      "majorRisks": "Store risikoer",
+      "futureReadiness": "Fremtidig beredskap"
+    },
+    "actions": {
+      "refreshHeadquarters": "Oppdater hovedkvarter",
+      "activateWarRoom": "Aktiver war room",
+      "assignAction": "Tildel handling",
+      "acknowledgeAlert": "Bekreft varsel",
+      "generateBriefing": "Generer briefing",
+      "openOperations": "Operasjonsrom",
+      "openExecutive": "Executive Room",
+      "openWarRoom": "War Room",
+      "openExecutiveCopilot": "Executive Copilot"
+    },
+    "sections": {
+      "liveActivityFeed": "Live aktivitetsfeed",
+      "actionCoordinationBoard": "Handlingskoordineringstavle",
+      "organizationalPulse": "Organisasjonspuls",
+      "meetingCommandCenter": "Møtekommandosenter",
+      "crossDepartmentCoordination": "Tverravdelingskoordinering",
+      "operationsDirector": "Companion Operations Director",
+      "headquartersAssistant": "Companion Headquarters Assistant",
+      "audit": "Revisionslogg"
+    },
+    "pulseStatus": {
+      "strong": "Sterk",
+      "slowing": "Avtar",
+      "immediate_review": "Umiddelbar gjennomgang"
+    },
+    "departmentStatus": {
+      "active": "Aktiv",
+      "overloaded": "Overbelastet",
+      "watch": "Overvåk",
+      "critical": "Kritisk",
+      "offline": "Frakoblet"
+    }
+  },
+  "expertiseOperations": {
+    "title": "Ekspertisesenter",
+    "subtitle": "Know-Who Engine — identifiser ekspertise, kunnskapseierskap og organisasjonsrisiko.",
+    "loading": "Preparing Expertise Center",
+    "back": "Back",
+    "principle": "Kunnskap forteller hva som finnes. Ekspertise forteller hvem som kan hjelpe.",
+    "emptyState": "Expertise Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "expert_directory": "Expert Directory",
+      "knowledge_owners": "Knowledge Owners",
+      "departments": "Departments",
+      "skills": "Skills",
+      "projects": "Projects",
+      "mentors": "Mentors",
+      "reports": "Reports"
+    },
+    "overview": {
+      "expertCount": "Experts in directory",
+      "knowledgeAssets": "Knowledge assets",
+      "ownedAssets": "Owned assets",
+      "unownedAssets": "Unowned assets",
+      "criticalRisks": "Critical knowledge risks",
+      "successionRisks": "Succession risks",
+      "activeMentorships": "Active mentorships",
+      "departmentCoverage": "Department coverage",
+      "companionRecommendations": "Companion recommendations"
+    },
+    "sections": {
+      "criticalKnowledgeMap": "Critical knowledge map",
+      "successionRisks": "Succession risk engine",
+      "recommendations": "Expertise recommendations",
+      "executiveDashboard": "Executive dashboard",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion expertise advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshExpertise": "Refresh expertise",
+      "assignKnowledgeOwner": "Assign knowledge owner",
+      "generateExpertiseReport": "Generate expertise report",
+      "requestAssistance": "Request assistance"
+    },
+    "riskLevel": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "ownershipStatus": {
+      "owned": "Owned",
+      "unowned": "Unowned",
+      "review_due": "Review due",
+      "at_risk": "At risk"
+    },
+    "availability": {
+      "available": "Available",
+      "limited": "Limited",
+      "busy": "Busy",
+      "unavailable": "Unavailable"
+    }
+  },
+  "decisionMemoryOperations": {
+    "title": "Beslutningssenter",
+    "subtitle": "Beslutningsintelligens — bevar organisasjonens resonnement og erfaringer.",
+    "loading": "Preparing Decision Center",
+    "back": "Back",
+    "principle": "Organisasjoner bør ikke bare huske beslutninger — de bør huske hvorfor de ble tatt.",
+    "emptyState": "Decision Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "decisions": "Decisions",
+      "approvals": "Approvals",
+      "outcomes": "Outcomes",
+      "lessons": "Lessons",
+      "reviews": "Reviews",
+      "reports": "Reports"
+    },
+    "overview": {
+      "healthScore": "Decision health score",
+      "healthStatus": "Health status",
+      "totalDecisions": "Total decisions",
+      "pendingDecisions": "Pending decisions",
+      "pendingApprovals": "Pending approvals",
+      "reviewsDue": "Reviews due",
+      "patternsActive": "Active patterns",
+      "successfulOutcomes": "Successful outcomes"
+    },
+    "sections": {
+      "executiveBriefings": "Executive decision briefings",
+      "patterns": "Decision pattern engine",
+      "knowledgeBase": "Decision knowledge base",
+      "businessPacks": "Business Pack integration",
+      "decisionHealth": "Decision health score",
+      "companionAdvisor": "Companion decision advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshDecisions": "Refresh decisions",
+      "generateBriefing": "Generate briefing",
+      "approveDecision": "Approve decision",
+      "completeReview": "Complete review"
+    },
+    "healthStatus": {
+      "excellent": "Excellent",
+      "healthy": "Healthy",
+      "needs_review": "Needs review",
+      "decision_risk": "Decision risk"
+    },
+    "successLevel": {
+      "successful": "Successful",
+      "partially_successful": "Partially successful",
+      "needs_review": "Needs review",
+      "unsuccessful": "Unsuccessful",
+      "pending": "Pending"
+    },
+    "reviewStatus": {
+      "scheduled": "Scheduled",
+      "due": "Due",
+      "completed": "Completed",
+      "overdue": "Overdue",
+      "skipped": "Skipped"
+    }
+  },
+  "organizationalLearningOperations": {
+    "title": "Læringssenter",
+    "subtitle": "Organisasjonslæring og kontinuerlig forbedring — husk erfaringer, dokumenter suksess og forbedre systematisk.",
+    "loading": "Preparing Learning Center",
+    "back": "Back",
+    "principle": "Erfaring alene skaper ikke forbedring. Læring skaper forbedring.",
+    "emptyState": "Learning Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "lessons": "Lessons Learned",
+      "reviews": "Reviews",
+      "projects": "Projects",
+      "improvements": "Improvements",
+      "successes": "Successes",
+      "recommendations": "Recommendations",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalLessons": "Total lessons",
+      "activeImprovements": "Active improvements",
+      "successStories": "Success stories",
+      "reviewsCompleted": "Reviews completed",
+      "patternsDetected": "Patterns detected",
+      "opportunities": "Improvement opportunities",
+      "libraryItems": "Library items",
+      "avgLearningScore": "Avg learning score"
+    },
+    "sections": {
+      "executiveDashboard": "Executive learning dashboard",
+      "departmentScores": "Department learning scores",
+      "learningLibrary": "Organizational learning library",
+      "repeatedMistakes": "Repeated mistake detection",
+      "improvementOpportunities": "Improvement opportunity engine",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion learning advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshLearning": "Refresh learning",
+      "generateLearningReport": "Generate learning report",
+      "submitImprovement": "Submit improvement",
+      "completeReview": "Complete review"
+    },
+    "learningStatus": {
+      "excellent": "Excellent",
+      "improving": "Improving",
+      "stagnating": "Stagnating",
+      "improvement_needed": "Improvement needed"
+    },
+    "pipelineStage": {
+      "suggestion": "Suggestion",
+      "review": "Review",
+      "approval": "Approval",
+      "implementation": "Implementation",
+      "outcome": "Outcome",
+      "validation": "Validation"
+    }
+  },
+  "maturityEvolutionOperations": {
+    "title": "Modenhetssenter",
+    "subtitle": "Organisatorisk kapabilitetsmodenhet og evolusjon — forstå hvor dere er, hvor dere vil være, og hva som kreves for å komme dit.",
+    "loading": "Preparing Maturity Center",
+    "back": "Back",
+    "principle": "Ytelse viser hvor en organisasjon er i dag. Modenhet viser hvor den kan være i morgen.",
+    "emptyState": "Maturity Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "capabilities": "Capabilities",
+      "assessments": "Assessments",
+      "benchmarks": "Benchmarks",
+      "roadmaps": "Roadmaps",
+      "recommendations": "Recommendations",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalCapabilities": "Total capabilities",
+      "activeAssessments": "Active assessments",
+      "openGaps": "Open gaps",
+      "activeRoadmaps": "Active roadmaps",
+      "benchmarks": "Benchmarks",
+      "evolutionItems": "Evolution items",
+      "avgMaturityLevel": "Avg maturity level",
+      "evolutionScore": "Evolution score"
+    },
+    "sections": {
+      "executiveDashboard": "Executive maturity dashboard",
+      "readinessEngine": "Organizational readiness engine",
+      "evolutionTracking": "Evolution tracking",
+      "capabilityGaps": "Capability gap detection",
+      "evolutionScore": "Organizational evolution score",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion maturity advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshMaturity": "Refresh maturity",
+      "generateMaturityBriefing": "Generate maturity briefing",
+      "generateRoadmap": "Generate roadmap",
+      "generateEvolutionReport": "Generate evolution report"
+    },
+    "evolutionStatus": {
+      "high_maturity": "High maturity",
+      "improving": "Improving",
+      "needs_attention": "Needs attention",
+      "capability_risk": "Capability risk"
+    },
+    "maturityLevel": {
+      "ad_hoc": "Ad Hoc",
+      "developing": "Developing",
+      "defined": "Defined",
+      "managed": "Managed",
+      "optimized": "Optimized"
+    },
+    "readinessStatus": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "ready": "Ready"
+    }
+  },
+  "memoryGraphOperations": {
+    "title": "Minnegrafsenter",
+    "subtitle": "Organisatorisk minnegraf og kontekstmotor — forstå hvordan mennesker, prosjekter, kunder og kunnskap henger sammen.",
+    "loading": "Preparing Memory Graph Center",
+    "back": "Back",
+    "principle": "Informasjon uten kontekst skaper forvirring. Kontekst skaper forståelse.",
+    "emptyState": "Memory Graph Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "relationships": "Relationships",
+      "entities": "Entities",
+      "connections": "Connections",
+      "knowledge": "Knowledge",
+      "decisions": "Decisions",
+      "projects": "Projects",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalEntities": "Total entities",
+      "totalRelationships": "Total relationships",
+      "totalConnections": "Total connections",
+      "knowledgeAssets": "Knowledge assets",
+      "customerNetworks": "Customer networks",
+      "projectNetworks": "Project networks",
+      "decisionLinks": "Decision links",
+      "activeDependencies": "Active dependencies"
+    },
+    "sections": {
+      "executiveDashboard": "Executive context dashboard",
+      "customerIntelligence": "Customer relationship intelligence",
+      "dependencyMapping": "Dependency mapping",
+      "knowledgeMap": "Organizational knowledge map",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion context advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshGraph": "Refresh graph",
+      "generateContextBriefing": "Generate context briefing",
+      "addRelationship": "Add relationship",
+      "identifyDependency": "Identify dependency",
+      "connectDecision": "Connect decision"
+    },
+    "relationshipStrength": {
+      "weak": "Weak",
+      "moderate": "Moderate",
+      "strong": "Strong",
+      "critical": "Critical"
+    },
+    "dependencyRisk": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    }
+  },
+  "digitalTwinSimulationOperations": {
+    "title": "Digital Twin-senter",
+    "subtitle": "Organisatorisk digital tvilling og forretningssimulering — utforsk utfall før handlinger skjer.",
+    "loading": "Preparing Digital Twin Center",
+    "back": "Back",
+    "principle": "Fremtiden kan ikke forutses perfekt. Men den kan utforskes.",
+    "emptyState": "Digital Twin Center data is unavailable.",
+    "whatIfTitle": "What-If Workspace",
+    "whatIfSubtitle": "Test ideer før de blir dyre feil — Companion genererer projeksjoner.",
+    "tabs": {
+      "overview": "Overview",
+      "models": "Models",
+      "scenarios": "Scenarios",
+      "forecasts": "Forecasts",
+      "impacts": "Impacts",
+      "experiments": "Experiments",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalModels": "Total models",
+      "activeScenarios": "Active scenarios",
+      "forecasts": "Forecasts",
+      "impactAnalyses": "Impact analyses",
+      "experiments": "Experiments",
+      "capacityModels": "Capacity models",
+      "decisionPreviews": "Decision previews",
+      "avgConfidence": "Avg confidence"
+    },
+    "sections": {
+      "executiveDashboard": "Executive simulation dashboard",
+      "capacityModeling": "Capacity modeling",
+      "resourceAllocation": "Resource allocation engine",
+      "decisionPreviews": "Decision impact preview",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion simulation advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshTwin": "Refresh twin",
+      "generateSimulationBriefing": "Generate simulation briefing",
+      "executeSimulation": "Execute simulation",
+      "runWhatIf": "Run what-if",
+      "generateDecisionPreview": "Generate decision preview"
+    },
+    "impactDirection": {
+      "positive": "Positive",
+      "negative": "Negative",
+      "neutral": "Neutral",
+      "mixed": "Mixed"
+    },
+    "impactMagnitude": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    }
+  },
+  "executionOutcomeOperations": {
+    "title": "Utførelsessenter",
+    "subtitle": "Organisatorisk utførelsesnettverk og resultatmotor — gjør beslutninger til målbare resultater.",
+    "loading": "Preparing Execution Center",
+    "back": "Back",
+    "principle": "Ideer skaper muligheter. Utførelse skaper resultater.",
+    "emptyState": "Execution Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "initiatives": "Initiatives",
+      "actions": "Actions",
+      "owners": "Owners",
+      "deadlines": "Deadlines",
+      "dependencies": "Dependencies",
+      "outcomes": "Outcomes",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalInitiatives": "Total initiatives",
+      "activeActions": "Active actions",
+      "blockedActions": "Blocked actions",
+      "overdueActions": "Overdue actions",
+      "openBlockers": "Open blockers",
+      "atRiskInitiatives": "At-risk initiatives",
+      "completionRate": "Completion rate",
+      "executionVelocity": "Execution velocity"
+    },
+    "sections": {
+      "executiveDashboard": "Executive execution dashboard",
+      "executionScorecard": "Execution scorecard",
+      "blockerDetection": "Blocker detection",
+      "meetingToExecution": "Meeting to execution",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion execution advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshExecution": "Refresh execution",
+      "generateExecutionBriefing": "Generate execution briefing",
+      "completeAction": "Complete action",
+      "assignAction": "Assign action"
+    },
+    "healthStatus": {
+      "healthy": "Healthy",
+      "delayed": "Delayed",
+      "at_risk": "At risk"
+    },
+    "actionStatus": {
+      "pending": "Pending",
+      "in_progress": "In progress",
+      "blocked": "Blocked",
+      "completed": "Completed",
+      "overdue": "Overdue",
+      "archived": "Archived"
+    },
+    "priority": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    }
+  },
+  "workflowProcessOperations": {
+    "title": "Arbeidsflytsenter",
+    "subtitle": "Organisatorisk arbeidsflytorkestrering og prosessintelligens — forstå, visualiser, forbedre og orkestrer arbeidsflyter.",
+    "loading": "Preparing Workflow Center",
+    "back": "Back",
+    "principle": "Organisasjoner drives ikke av programvare. Organisasjoner drives av prosesser.",
+    "emptyState": "Workflow Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "workflows": "Workflows",
+      "templates": "Templates",
+      "automation": "Automation",
+      "approvals": "Approvals",
+      "monitoring": "Monitoring",
+      "analytics": "Analytics",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalWorkflows": "Total workflows",
+      "activeWorkflows": "Active workflows",
+      "healthyWorkflows": "Healthy workflows",
+      "bottleneckWorkflows": "Bottleneck workflows",
+      "openBottlenecks": "Open bottlenecks",
+      "pendingApprovals": "Pending approvals",
+      "delayedApprovals": "Delayed approvals",
+      "automationCoverage": "Automation coverage",
+      "avgCompletionDays": "Avg completion (days)",
+      "failureRate": "Failure rate"
+    },
+    "sections": {
+      "visualDesigner": "Visual workflow designer",
+      "processMapping": "Process mapping",
+      "bottleneckDetection": "Bottleneck detection",
+      "executiveDashboard": "Executive workflow dashboard",
+      "workflowAnalytics": "Workflow performance analytics",
+      "businessPacks": "Business Pack integration",
+      "crossDepartment": "Cross-department workflows",
+      "companionAdvisor": "Companion workflow advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshWorkflows": "Refresh workflows",
+      "generateWorkflowReport": "Generate workflow report",
+      "grantApproval": "Grant approval",
+      "denyApproval": "Deny approval"
+    },
+    "healthStatus": {
+      "healthy": "Healthy",
+      "needs_review": "Needs review",
+      "bottleneck": "Bottleneck detected"
+    },
+    "workflowStatus": {
+      "draft": "Draft",
+      "active": "Active",
+      "paused": "Paused",
+      "needs_review": "Needs review",
+      "archived": "Archived"
+    },
+    "automationLevel": {
+      "manual": "Manual",
+      "assisted": "Assisted",
+      "semi_automated": "Semi-automated",
+      "automated": "Automated"
+    }
+  },
+  "resourceCapacityOperations": {
+    "title": "Ressurssenter",
+    "subtitle": "Organisatorisk ressursforvaltning og kapasitetsintelligens — forstå kapasitet før problemer oppstår.",
+    "loading": "Preparing Resource Center",
+    "back": "Back",
+    "principle": "De fleste driftsproblemer skyldes ikke mangel på arbeid. De skyldes mangel på innsikt i kapasitet.",
+    "emptyState": "Resource Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "capacity": "Capacity",
+      "teams": "Teams",
+      "workloads": "Workloads",
+      "allocations": "Allocations",
+      "forecasts": "Forecasts",
+      "availability": "Availability",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalResources": "Total resources",
+      "overloadedResources": "Overloaded resources",
+      "underutilizedResources": "Underutilized resources",
+      "openOverloads": "Open overloads",
+      "avgUtilization": "Avg utilization",
+      "availableCapacity": "Available capacity",
+      "forecastShortages": "Forecast shortages",
+      "activeAllocations": "Active allocations",
+      "highRiskProjects": "High-risk projects"
+    },
+    "sections": {
+      "overloadDetection": "Overload detection",
+      "underutilizationDetection": "Underutilization detection",
+      "skillMatching": "Skill-based resource matching",
+      "projectCapacity": "Project capacity management",
+      "executiveDashboard": "Executive resource dashboard",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion resource advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshResources": "Refresh resources",
+      "generateCapacityReport": "Generate capacity report",
+      "generateCapacityForecast": "Generate capacity forecast"
+    },
+    "healthStatus": {
+      "healthy": "Healthy",
+      "at_risk": "At risk",
+      "overloaded": "Overloaded",
+      "underutilized": "Underutilized"
+    },
+    "availabilityStatus": {
+      "available": "Available",
+      "partial": "Partial",
+      "unavailable": "Unavailable",
+      "idle": "Idle"
+    },
+    "deliveryRisk": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    }
   }
 }

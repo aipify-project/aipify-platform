@@ -1,1 +1,548 @@
-{}
+{
+  "expertiseOperations": {
+    "title": "Centrum Ekspertyz",
+    "subtitle": "Know-Who Engine — identify expertise, knowledge ownership, mentorship, and organizational risk before knowledge walks out the door.",
+    "loading": "Preparing Expertise Center",
+    "back": "Back",
+    "principle": "Knowledge tells organizations what exists. Expertise tells organizations who can help.",
+    "emptyState": "Expertise Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "expert_directory": "Expert Directory",
+      "knowledge_owners": "Knowledge Owners",
+      "departments": "Departments",
+      "skills": "Skills",
+      "projects": "Projects",
+      "mentors": "Mentors",
+      "reports": "Reports"
+    },
+    "overview": {
+      "expertCount": "Experts in directory",
+      "knowledgeAssets": "Knowledge assets",
+      "ownedAssets": "Owned assets",
+      "unownedAssets": "Unowned assets",
+      "criticalRisks": "Critical knowledge risks",
+      "successionRisks": "Succession risks",
+      "activeMentorships": "Active mentorships",
+      "departmentCoverage": "Department coverage",
+      "companionRecommendations": "Companion recommendations"
+    },
+    "sections": {
+      "criticalKnowledgeMap": "Critical knowledge map",
+      "successionRisks": "Succession risk engine",
+      "recommendations": "Expertise recommendations",
+      "executiveDashboard": "Executive dashboard",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion expertise advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshExpertise": "Refresh expertise",
+      "assignKnowledgeOwner": "Assign knowledge owner",
+      "generateExpertiseReport": "Generate expertise report",
+      "requestAssistance": "Request assistance"
+    },
+    "riskLevel": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "ownershipStatus": {
+      "owned": "Owned",
+      "unowned": "Unowned",
+      "review_due": "Review due",
+      "at_risk": "At risk"
+    },
+    "availability": {
+      "available": "Available",
+      "limited": "Limited",
+      "busy": "Busy",
+      "unavailable": "Unavailable"
+    }
+  },
+  "decisionMemoryOperations": {
+    "title": "Centrum Decyzji",
+    "subtitle": "Decision Intelligence Engine — preserve organizational reasoning, outcomes, and lessons so future teams understand why decisions were made.",
+    "loading": "Preparing Decision Center",
+    "back": "Back",
+    "principle": "Organizations should not only remember decisions — they should remember why they made them.",
+    "emptyState": "Decision Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "decisions": "Decisions",
+      "approvals": "Approvals",
+      "outcomes": "Outcomes",
+      "lessons": "Lessons",
+      "reviews": "Reviews",
+      "reports": "Reports"
+    },
+    "overview": {
+      "healthScore": "Decision health score",
+      "healthStatus": "Health status",
+      "totalDecisions": "Total decisions",
+      "pendingDecisions": "Pending decisions",
+      "pendingApprovals": "Pending approvals",
+      "reviewsDue": "Reviews due",
+      "patternsActive": "Active patterns",
+      "successfulOutcomes": "Successful outcomes"
+    },
+    "sections": {
+      "executiveBriefings": "Executive decision briefings",
+      "patterns": "Decision pattern engine",
+      "knowledgeBase": "Decision knowledge base",
+      "businessPacks": "Business Pack integration",
+      "decisionHealth": "Decision health score",
+      "companionAdvisor": "Companion decision advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshDecisions": "Refresh decisions",
+      "generateBriefing": "Generate briefing",
+      "approveDecision": "Approve decision",
+      "completeReview": "Complete review"
+    },
+    "healthStatus": {
+      "excellent": "Excellent",
+      "healthy": "Healthy",
+      "needs_review": "Needs review",
+      "decision_risk": "Decision risk"
+    },
+    "successLevel": {
+      "successful": "Successful",
+      "partially_successful": "Partially successful",
+      "needs_review": "Needs review",
+      "unsuccessful": "Unsuccessful",
+      "pending": "Pending"
+    },
+    "reviewStatus": {
+      "scheduled": "Scheduled",
+      "due": "Due",
+      "completed": "Completed",
+      "overdue": "Overdue",
+      "skipped": "Skipped"
+    }
+  },
+  "organizationalLearningOperations": {
+    "title": "Centrum Nauki",
+    "subtitle": "Organizacyjne uczenie się i ciągłe doskonalenie — pamiętaj lekcje, dokumentuj sukcesy i systematycznie się poprawiaj.",
+    "loading": "Preparing Learning Center",
+    "back": "Back",
+    "principle": "Doświadczenie samo w sobie nie tworzy poprawy. Uczenie się tworzy poprawę.",
+    "emptyState": "Learning Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "lessons": "Lessons Learned",
+      "reviews": "Reviews",
+      "projects": "Projects",
+      "improvements": "Improvements",
+      "successes": "Successes",
+      "recommendations": "Recommendations",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalLessons": "Total lessons",
+      "activeImprovements": "Active improvements",
+      "successStories": "Success stories",
+      "reviewsCompleted": "Reviews completed",
+      "patternsDetected": "Patterns detected",
+      "opportunities": "Improvement opportunities",
+      "libraryItems": "Library items",
+      "avgLearningScore": "Avg learning score"
+    },
+    "sections": {
+      "executiveDashboard": "Executive learning dashboard",
+      "departmentScores": "Department learning scores",
+      "learningLibrary": "Organizational learning library",
+      "repeatedMistakes": "Repeated mistake detection",
+      "improvementOpportunities": "Improvement opportunity engine",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion learning advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshLearning": "Refresh learning",
+      "generateLearningReport": "Generate learning report",
+      "submitImprovement": "Submit improvement",
+      "completeReview": "Complete review"
+    },
+    "learningStatus": {
+      "excellent": "Excellent",
+      "improving": "Improving",
+      "stagnating": "Stagnating",
+      "improvement_needed": "Improvement needed"
+    },
+    "pipelineStage": {
+      "suggestion": "Suggestion",
+      "review": "Review",
+      "approval": "Approval",
+      "implementation": "Implementation",
+      "outcome": "Outcome",
+      "validation": "Validation"
+    }
+  },
+  "maturityEvolutionOperations": {
+    "title": "Centrum Dojrzałości",
+    "subtitle": "Dojrzałość i ewolucja zdolności organizacyjnych — zrozum gdzie jesteście, dokąd chcecie dotrzeć i co jest wymagane.",
+    "loading": "Preparing Maturity Center",
+    "back": "Back",
+    "principle": "Wydajność pokazuje gdzie organizacja jest dziś. Dojrzałość pokazuje dokąd może dotrzeć jutro.",
+    "emptyState": "Maturity Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "capabilities": "Capabilities",
+      "assessments": "Assessments",
+      "benchmarks": "Benchmarks",
+      "roadmaps": "Roadmaps",
+      "recommendations": "Recommendations",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalCapabilities": "Total capabilities",
+      "activeAssessments": "Active assessments",
+      "openGaps": "Open gaps",
+      "activeRoadmaps": "Active roadmaps",
+      "benchmarks": "Benchmarks",
+      "evolutionItems": "Evolution items",
+      "avgMaturityLevel": "Avg maturity level",
+      "evolutionScore": "Evolution score"
+    },
+    "sections": {
+      "executiveDashboard": "Executive maturity dashboard",
+      "readinessEngine": "Organizational readiness engine",
+      "evolutionTracking": "Evolution tracking",
+      "capabilityGaps": "Capability gap detection",
+      "evolutionScore": "Organizational evolution score",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion maturity advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshMaturity": "Refresh maturity",
+      "generateMaturityBriefing": "Generate maturity briefing",
+      "generateRoadmap": "Generate roadmap",
+      "generateEvolutionReport": "Generate evolution report"
+    },
+    "evolutionStatus": {
+      "high_maturity": "High maturity",
+      "improving": "Improving",
+      "needs_attention": "Needs attention",
+      "capability_risk": "Capability risk"
+    },
+    "maturityLevel": {
+      "ad_hoc": "Ad Hoc",
+      "developing": "Developing",
+      "defined": "Defined",
+      "managed": "Managed",
+      "optimized": "Optimized"
+    },
+    "readinessStatus": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "ready": "Ready"
+    }
+  },
+  "memoryGraphOperations": {
+    "title": "Centrum Grafu Pamięci",
+    "subtitle": "Organizacyjny graf pamięci i silnik kontekstu — zrozum jak ludzie, projekty, klienci i wiedza się łączą.",
+    "loading": "Preparing Memory Graph Center",
+    "back": "Back",
+    "principle": "Informacja bez kontekstu tworzy zamieszanie. Kontekst tworzy zrozumienie.",
+    "emptyState": "Memory Graph Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "relationships": "Relationships",
+      "entities": "Entities",
+      "connections": "Connections",
+      "knowledge": "Knowledge",
+      "decisions": "Decisions",
+      "projects": "Projects",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalEntities": "Total entities",
+      "totalRelationships": "Total relationships",
+      "totalConnections": "Total connections",
+      "knowledgeAssets": "Knowledge assets",
+      "customerNetworks": "Customer networks",
+      "projectNetworks": "Project networks",
+      "decisionLinks": "Decision links",
+      "activeDependencies": "Active dependencies"
+    },
+    "sections": {
+      "executiveDashboard": "Executive context dashboard",
+      "customerIntelligence": "Customer relationship intelligence",
+      "dependencyMapping": "Dependency mapping",
+      "knowledgeMap": "Organizational knowledge map",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion context advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshGraph": "Refresh graph",
+      "generateContextBriefing": "Generate context briefing",
+      "addRelationship": "Add relationship",
+      "identifyDependency": "Identify dependency",
+      "connectDecision": "Connect decision"
+    },
+    "relationshipStrength": {
+      "weak": "Weak",
+      "moderate": "Moderate",
+      "strong": "Strong",
+      "critical": "Critical"
+    },
+    "dependencyRisk": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    }
+  },
+  "digitalTwinSimulationOperations": {
+    "title": "Centrum Digital Twin",
+    "subtitle": "Organizacyjny bliźniak cyfrowy i symulacja biznesowa — poznaj skutki zanim nastąpią działania.",
+    "loading": "Preparing Digital Twin Center",
+    "back": "Back",
+    "principle": "Przyszłości nie można przewidzieć idealnie. Ale można ją badać.",
+    "emptyState": "Digital Twin Center data is unavailable.",
+    "whatIfTitle": "What-If Workspace",
+    "whatIfSubtitle": "Testuj pomysły zanim staną się kosztownymi błędami — Companion generuje projekcje.",
+    "tabs": {
+      "overview": "Overview",
+      "models": "Models",
+      "scenarios": "Scenarios",
+      "forecasts": "Forecasts",
+      "impacts": "Impacts",
+      "experiments": "Experiments",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalModels": "Total models",
+      "activeScenarios": "Active scenarios",
+      "forecasts": "Forecasts",
+      "impactAnalyses": "Impact analyses",
+      "experiments": "Experiments",
+      "capacityModels": "Capacity models",
+      "decisionPreviews": "Decision previews",
+      "avgConfidence": "Avg confidence"
+    },
+    "sections": {
+      "executiveDashboard": "Executive simulation dashboard",
+      "capacityModeling": "Capacity modeling",
+      "resourceAllocation": "Resource allocation engine",
+      "decisionPreviews": "Decision impact preview",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion simulation advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshTwin": "Refresh twin",
+      "generateSimulationBriefing": "Generate simulation briefing",
+      "executeSimulation": "Execute simulation",
+      "runWhatIf": "Run what-if",
+      "generateDecisionPreview": "Generate decision preview"
+    },
+    "impactDirection": {
+      "positive": "Positive",
+      "negative": "Negative",
+      "neutral": "Neutral",
+      "mixed": "Mixed"
+    },
+    "impactMagnitude": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    }
+  },
+  "executionOutcomeOperations": {
+    "title": "Centrum Wykonawcze",
+    "subtitle": "Organizacyjna sieć wykonawcza i silnik wyników — przekształcaj decyzje w mierzalne rezultaty.",
+    "loading": "Preparing Execution Center",
+    "back": "Back",
+    "principle": "Pomysły tworzą możliwości. Wykonanie tworzy wyniki.",
+    "emptyState": "Execution Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "initiatives": "Initiatives",
+      "actions": "Actions",
+      "owners": "Owners",
+      "deadlines": "Deadlines",
+      "dependencies": "Dependencies",
+      "outcomes": "Outcomes",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalInitiatives": "Total initiatives",
+      "activeActions": "Active actions",
+      "blockedActions": "Blocked actions",
+      "overdueActions": "Overdue actions",
+      "openBlockers": "Open blockers",
+      "atRiskInitiatives": "At-risk initiatives",
+      "completionRate": "Completion rate",
+      "executionVelocity": "Execution velocity"
+    },
+    "sections": {
+      "executiveDashboard": "Executive execution dashboard",
+      "executionScorecard": "Execution scorecard",
+      "blockerDetection": "Blocker detection",
+      "meetingToExecution": "Meeting to execution",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion execution advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshExecution": "Refresh execution",
+      "generateExecutionBriefing": "Generate execution briefing",
+      "completeAction": "Complete action",
+      "assignAction": "Assign action"
+    },
+    "healthStatus": {
+      "healthy": "Healthy",
+      "delayed": "Delayed",
+      "at_risk": "At risk"
+    },
+    "actionStatus": {
+      "pending": "Pending",
+      "in_progress": "In progress",
+      "blocked": "Blocked",
+      "completed": "Completed",
+      "overdue": "Overdue",
+      "archived": "Archived"
+    },
+    "priority": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    }
+  },
+  "workflowProcessOperations": {
+    "title": "Centrum Workflow",
+    "subtitle": "Organizacyjna orchestracja workflow i inteligencja procesów — rozumiej, wizualizuj, usprawniaj i orkiestruj procesy.",
+    "loading": "Preparing Workflow Center",
+    "back": "Back",
+    "principle": "Organizacje nie działają na oprogramowaniu. Organizacje działają na procesach.",
+    "emptyState": "Workflow Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "workflows": "Workflows",
+      "templates": "Templates",
+      "automation": "Automation",
+      "approvals": "Approvals",
+      "monitoring": "Monitoring",
+      "analytics": "Analytics",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalWorkflows": "Total workflows",
+      "activeWorkflows": "Active workflows",
+      "healthyWorkflows": "Healthy workflows",
+      "bottleneckWorkflows": "Bottleneck workflows",
+      "openBottlenecks": "Open bottlenecks",
+      "pendingApprovals": "Pending approvals",
+      "delayedApprovals": "Delayed approvals",
+      "automationCoverage": "Automation coverage",
+      "avgCompletionDays": "Avg completion (days)",
+      "failureRate": "Failure rate"
+    },
+    "sections": {
+      "visualDesigner": "Visual workflow designer",
+      "processMapping": "Process mapping",
+      "bottleneckDetection": "Bottleneck detection",
+      "executiveDashboard": "Executive workflow dashboard",
+      "workflowAnalytics": "Workflow performance analytics",
+      "businessPacks": "Business Pack integration",
+      "crossDepartment": "Cross-department workflows",
+      "companionAdvisor": "Companion workflow advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshWorkflows": "Refresh workflows",
+      "generateWorkflowReport": "Generate workflow report",
+      "grantApproval": "Grant approval",
+      "denyApproval": "Deny approval"
+    },
+    "healthStatus": {
+      "healthy": "Healthy",
+      "needs_review": "Needs review",
+      "bottleneck": "Bottleneck detected"
+    },
+    "workflowStatus": {
+      "draft": "Draft",
+      "active": "Active",
+      "paused": "Paused",
+      "needs_review": "Needs review",
+      "archived": "Archived"
+    },
+    "automationLevel": {
+      "manual": "Manual",
+      "assisted": "Assisted",
+      "semi_automated": "Semi-automated",
+      "automated": "Automated"
+    }
+  },
+  "resourceCapacityOperations": {
+    "title": "Centrum Zasobów",
+    "subtitle": "Zarządzanie zasobami organizacyjnymi i inteligencja pojemności — zrozum kapacitę zanim pojawią się problemy.",
+    "loading": "Preparing Resource Center",
+    "back": "Back",
+    "principle": "Większość problemów operacyjnych nie wynika z braku pracy. Wynika z braku widoczności pojemności.",
+    "emptyState": "Resource Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "capacity": "Capacity",
+      "teams": "Teams",
+      "workloads": "Workloads",
+      "allocations": "Allocations",
+      "forecasts": "Forecasts",
+      "availability": "Availability",
+      "reports": "Reports"
+    },
+    "overview": {
+      "totalResources": "Total resources",
+      "overloadedResources": "Overloaded resources",
+      "underutilizedResources": "Underutilized resources",
+      "openOverloads": "Open overloads",
+      "avgUtilization": "Avg utilization",
+      "availableCapacity": "Available capacity",
+      "forecastShortages": "Forecast shortages",
+      "activeAllocations": "Active allocations",
+      "highRiskProjects": "High-risk projects"
+    },
+    "sections": {
+      "overloadDetection": "Overload detection",
+      "underutilizationDetection": "Underutilization detection",
+      "skillMatching": "Skill-based resource matching",
+      "projectCapacity": "Project capacity management",
+      "executiveDashboard": "Executive resource dashboard",
+      "businessPacks": "Business Pack integration",
+      "companionAdvisor": "Companion resource advisor",
+      "audit": "Audit log"
+    },
+    "actions": {
+      "refreshResources": "Refresh resources",
+      "generateCapacityReport": "Generate capacity report",
+      "generateCapacityForecast": "Generate capacity forecast"
+    },
+    "healthStatus": {
+      "healthy": "Healthy",
+      "at_risk": "At risk",
+      "overloaded": "Overloaded",
+      "underutilized": "Underutilized"
+    },
+    "availabilityStatus": {
+      "available": "Available",
+      "partial": "Partial",
+      "unavailable": "Unavailable",
+      "idle": "Idle"
+    },
+    "deliveryRisk": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "high": "High",
+      "critical": "Critical"
+    }
+  }
+}
