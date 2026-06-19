@@ -8,10 +8,13 @@ Documented after locale graph reduction (customerApp monolith removed from layou
 |---------|--------|
 | **Build command** | `npm run build` (see `vercel.json` + `package.json`) |
 | **Build machine** | **Turbo (60 GB RAM / 30 vCPU)** recommended for production builds — configure in Vercel → Settings → Build and Deployment → Build Machines. Enhanced (16 GB) minimum if Turbo is unavailable. |
-| **Node heap (compile)** | `AIPIFY_BUILD_HEAP_COMPILE=--max-old-space-size=14336` in `vercel.json` |
-| **Node heap (generate)** | `AIPIFY_BUILD_HEAP_GENERATE=--max-old-space-size=8192` — separate process after compile |
+| **Split build** | `AIPIFY_SPLIT_BUILD=1` (default) — compile and generate run as separate Node processes |
+| **Node heap (compile)** | `AIPIFY_BUILD_HEAP_COMPILE=--max-old-space-size=49152` in `vercel.json` — applied to the **compile child only** via `build-split.mjs` |
+| **Node heap (generate)** | `AIPIFY_BUILD_HEAP_GENERATE=--max-old-space-size=8192` — separate process after compile exits |
 
-**Important:** Do **not** set a global `NODE_OPTIONS` heap on Vercel — it applies to both split phases. Compile needs ~14 GB on Enhanced; generate runs in a fresh 8 GB process after compile exits.
+**Important:** Do **not** set a global `NODE_OPTIONS` heap on Vercel — it applies to every phase and breaks split-build memory isolation. On Turbo (60 GB), webpack compile alone needs ~15–20 GB+ for this route graph; the prior 14 GB compile cap (Enhanced tuning) caused OOM on Turbo because the limit was wrong, not the machine.
+
+**Turbopack (future):** Next.js 16 defaults to Turbopack. Production still uses `--webpack` until client/server barrel imports are fixed (`AIPIFY_USE_TURBOPACK=1` when ready). Do not enable globally until turbopack build passes locally.
 
 `VERCEL_BUILD_MACHINE_TYPE` is **not** a supported env var — configure Enhanced in the Vercel dashboard (or team-level Build and Deployment settings).
 
@@ -146,6 +149,16 @@ Platform Admin: **Operations → Build Health Center** (`/platform/operations/bu
 | **Affected modules** | `app/(marketing)/page.tsx`, Vercel deploy pipeline |
 | **Resolution** | Local and Vercel builds pass; Phase 431 governance now blocks duplicate homepage routes |
 
+### 2026-06-20 — Vercel webpack compile OOM on Turbo (60 GB)
+
+| Field | Detail |
+|-------|--------|
+| **Issue** | Repeated Vercel deploy failures: webpack compile OOM at ~14 GB heap despite Turbo 60 GB build machine |
+| **Root cause** | Production scripts force `--webpack` (Next 16 defaults to Turbopack). Split compile phase was capped at `14336` MB (Enhanced 16 GB tuning from commit `3f6c316`). Prior “48 GB” attempt used global `NODE_OPTIONS` + monolithic build (`AIPIFY_SPLIT_BUILD=0`) on Enhanced 16 GB — unallocatable. Heap bumps never reached the compile child with a Turbo-sized limit. |
+| **Fix** | Keep split compile/generate; set `AIPIFY_BUILD_HEAP_COMPILE=--max-old-space-size=49152` for Turbo; log bundler + heap at each phase start in `build-split.mjs`; no global `NODE_OPTIONS`. Turbopack path reserved via `AIPIFY_USE_TURBOPACK=1` after barrel import fixes. |
+| **Affected modules** | `scripts/build-split.mjs`, `scripts/build-with-duration.mjs`, `vercel.json`, `docs/BUILD_MEMORY.md` |
+| **Resolution** | Compile child receives 48 GB heap on Turbo; generate stays 8 GB in a fresh process |
+
 ### 2026-06-19 — Vercel OOM during duplicate TypeScript check
 
 | Field | Detail |
@@ -169,5 +182,5 @@ Platform Admin: **Operations → Build Health Center** (`/platform/operations/bu
 ## Local build
 
 ```bash
-NODE_OPTIONS="--max-old-space-size=14336" npm run build
+AIPIFY_BUILD_HEAP_COMPILE="--max-old-space-size=49152" AIPIFY_BUILD_HEAP_GENERATE="--max-old-space-size=8192" npm run build
 ```
