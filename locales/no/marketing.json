@@ -1,7 +1,7 @@
 {
   "meta": {
     "homeTitle": "Møt Aipify – din digitale medarbeider",
-    "homeDescription": "Aipify er en digital medarbeider som hjelper virksomheten din med å holde orden, svare raskere og jobbe smartere — med menneskelig kontroll og sikkerhet. Ikke en chatbot.",
+    "homeDescription": "Aipify er et Business Operating System — operasjonell intelligens, styrte arbeidsflyter, forretningssynlighet og enterprise-beredskap i ett koordinert lag.",
     "productTitle": "Product — Aipify Business Operating System",
     "productDescription": "See how Aipify learns your systems, prepares actions, and keeps humans in control.",
     "modulesTitle": "Modules — Aipify",
@@ -53,14 +53,20 @@
     "tagline": "Aipify Business Operating System (ABOS) — install-first operational intelligence for modern teams.",
     "companyName": "Aipify Group AS",
     "headquarters": "Bergen, Norge",
+    "businessOperatingSystem": "Business Operating System",
     "description": "Bygger intelligente forretningssystemer designet for å hjelpe organisasjoner å jobbe smartere, respondere raskere og vokse med tillit.",
     "signature": "Norge. For verden.",
+    "brandSignatureLine1": "Aipify Group AS",
+    "brandSignatureLine2": "Bergen. Norge. For verden.",
+    "finalSignature": "Bergen. Norge. For verden.",
     "foundingPrinciple": "Ambisjonen vår er global. Verdiene våre forblir norske.",
     "product": "Product",
     "company": "Company",
     "legal": "Legal",
     "privacy": "Privacy",
     "terms": "Terms",
+    "security": "Sikkerhet",
+    "knowledge": "Kunnskap",
     "contact": "Contact",
     "earlyAccess": "Early Access",
     "growthPartners": "Growth Partners",
@@ -71,18 +77,520 @@
   },
   "hero": {
     "badge": "Aipify Business Operating System",
-    "title": "Møt Aipify – din digitale medarbeider",
-    "subtitle": "Aipify hjelper virksomheten din med å holde orden, svare raskere og jobbe smartere — i systemene teamet ditt allerede bruker.",
-    "simpleExplanation": "Aipify er en digital medarbeider som hjelper virksomheten din med å holde orden, svare raskere og jobbe smartere.",
-    "notChatbot": "Ikke en chatbot. En rolig digital medarbeider med menneskelig kontroll innebygd.",
-    "ctaPrimary": "Be om tidlig tilgang",
+    "title": "Business Operating System for moderne organisasjoner.",
+    "subtitle": "Support. Drift. Kunnskap. Styring — samlet i én plattform.",
+    "outcomes": {
+      "1": "Reduser supportarbeid.",
+      "2": "Svar raskere.",
+      "3": "Hold orden.",
+      "4": "Skaler drift uten mer kompleksitet."
+    },
+    "simpleExplanation": "Aipify er et Business Operating System — ikke en chatbot.",
+    "notChatbot": "Organisasjonen din har allerede folk. Aipify hjelper dem å jobbe smartere — ikke en erstatning, en operasjonell multiplikator.",
+    "ctaPrimary": "Book demo",
     "ctaSecondary": "Se hvordan det fungerer",
-    "statInstall": "2 min",
-    "statInstallLabel": "Typical install start",
-    "statModules": "10+",
-    "statModulesLabel": "Operational modules",
-    "statControl": "Human-first",
-    "statControlLabel": "Approval on sensitive actions"
+    "statInstall": "50+",
+    "statInstallLabel": "Operasjonelle motorer og moduler",
+    "statModules": "Business Packs",
+    "statModulesLabel": "Modulære domenekapabiliteter",
+    "statControl": "Enterprise",
+    "statControlLabel": "Styring, revisjon og godkjenning"
+  },
+  "valueStrip": {
+    "title": "Hvorfor organisasjoner velger Aipify",
+    "cards": {
+      "1": {
+        "title": "Spar tid",
+        "description": "Reduser repetitivt administrativt arbeid."
+      },
+      "2": {
+        "title": "Svar raskere",
+        "description": "Support, godkjenninger og oppfølging håndteres raskere."
+      },
+      "3": {
+        "title": "Bedre oversikt",
+        "description": "Vit hva som krever oppmerksomhet før det blir et problem."
+      },
+      "4": {
+        "title": "Skaler trygt",
+        "description": "Voks uten å øke kompleksiteten."
+      }
+    }
+  },
+  "trustBar": {
+    "title": "Bygget for seriøse organisasjoner.",
+    "cards": {
+      "1": {
+        "title": "Enterprise-klar",
+        "description": "Styringsfokusert arkitektur designet for profesjonelle organisasjoner."
+      },
+      "2": {
+        "title": "Flerspråklig",
+        "description": "Bygget fra dag én for internasjonale team."
+      },
+      "3": {
+        "title": "Menneskelig godkjenning",
+        "description": "Viktige beslutninger forblir alltid under menneskelig kontroll."
+      },
+      "4": {
+        "title": "Revisjonslogging",
+        "description": "Kritiske handlinger registreres og kan spores."
+      },
+      "5": {
+        "title": "Operasjonell validering",
+        "description": "Testet i reelle forretningsmiljøer."
+      },
+      "6": {
+        "title": "Profesjonell support",
+        "description": "Aipify vokser sammen med kundene sine."
+      }
+    }
+  },
+  "whoIsAipify": {
+    "title": "Hvem er Aipify?",
+    "paragraphs": {
+      "1": "Aipify Group AS bygger AI-drevne forretningssystemer designet for å hjelpe organisasjoner å operere mer effektivt.",
+      "2": "Bygget i Bergen, Norge.",
+      "3": "Designet for virksomheter over hele verden."
+    },
+    "focusTitle": "Fokusområder",
+    "focusAreas": {
+      "1": "Support Operations",
+      "2": "Knowledge Management",
+      "3": "Governance",
+      "4": "Business Automation",
+      "5": "Executive Visibility",
+      "6": "Human-Centered AI"
+    }
+  },
+  "bergenBrand": {
+    "title": "Bergen. Norge. For verden.",
+    "intro": "Aipify er bygget med norske verdier:",
+    "valuesTitle": "Norske verdier",
+    "values": {
+      "1": "Tillit",
+      "2": "Transparens",
+      "3": "Ansvar",
+      "4": "Langsiktig tenkning",
+      "5": "Menneskesentrert teknologi"
+    },
+    "closing": "Plattformen er designet for internasjonale organisasjoner med et sterkt styingsgrunnlag."
+  },
+  "whyWeBuilt": {
+    "title": "Hvorfor vi bygde Aipify",
+    "paragraphs": {
+      "1": "De fleste organisasjoner har for mange systemer.",
+      "2": "For mange dashbord.",
+      "3": "For mange varsler.",
+      "4": "For mange frakoblede arbeidsflyter.",
+      "5": "Aipify ble skapt for å samle support, drift, styring, kunnskap og synlighet i ett koordinert operasjonslag.",
+      "6": "Aipify erstatter ikke mennesker.",
+      "7": "Aipify hjelper mennesker å jobbe smartere."
+    }
+  },
+  "customerJourney": {
+    "title": "Din reise med Aipify",
+    "subtitle": "Fra første oppdagelse til langsiktig skalering — en tydelig vei for voksende organisasjoner.",
+    "steps": {
+      "1": {
+        "title": "Oppdag",
+        "description": "Forstå hvordan Aipify passer organisasjonen og operative prioriteringer."
+      },
+      "2": {
+        "title": "Koble til",
+        "description": "Installer i eksisterende systemer med tenant-isolasjon og rollekartlegging."
+      },
+      "3": {
+        "title": "Lær",
+        "description": "Aipify lærer godkjent kunnskap, arbeidsflyter og styringsregler."
+      },
+      "4": {
+        "title": "Assistere",
+        "description": "Team får utkast, innsikt og koordinert operasjonell støtte."
+      },
+      "5": {
+        "title": "Automatisere",
+        "description": "Deleger godkjente, reversible arbeidsflyter med full revisjonssynlighet."
+      },
+      "6": {
+        "title": "Skalere",
+        "description": "Legg til moduler, Business Packs og kapabiliteter etter hvert som organisasjonen vokser."
+      }
+    }
+  },
+  "enterpriseReadiness": {
+    "title": "Enterprise-klar",
+    "subtitle": "Bygget for innkjøpsgjennomgang, IT-styring og langsiktig operasjonell tillit.",
+    "items": {
+      "1": "SSO-klar",
+      "2": "Microsoft Entra ID-klar",
+      "3": "Google Workspace-klar",
+      "4": "Revisjonslogging",
+      "5": "Rollebaserte tillatelser",
+      "6": "Multi-tenant-arkitektur",
+      "7": "Godkjenningsarbeidsflyter",
+      "8": "Compliance-grunnlag",
+      "9": "Menneskelig tilsyn",
+      "10": "Enterprise-distribusjonsalternativer"
+    }
+  },
+  "humanFirstPrinciple": {
+    "title": "Mennesker beholder kontrollen.",
+    "principles": {
+      "1": "Aipify anbefaler. Mennesker bestemmer.",
+      "2": "Aipify kan assistere. Mennesker godkjenner.",
+      "3": "Aipify kan automatisere. Mennesker definerer reglene."
+    },
+    "closing": "Hver viktig handling forblir synlig, reversibel og etterprøvbar."
+  },
+  "primaryCtas": {
+    "bookDemo": "Book demo",
+    "earlyAccess": "Be om tidlig tilgang",
+    "growthPartners": "Bli Growth Partner",
+    "seeHowItWorks": "Se hvordan det fungerer"
+  },
+  "categoryStatement": {
+    "title": "En ny programvarekategori.",
+    "negations": {
+      "1": "Aipify er ikke en chatbot.",
+      "2": "Aipify er ikke en helpdesk.",
+      "3": "Aipify er ikke et CRM.",
+      "4": "Aipify er ikke en automatiseringsplattform."
+    },
+    "affirmation": "Aipify er et Business Operating System.",
+    "closing": "Et koordinert operasjonslag som hjelper organisasjoner å håndtere kunnskap, support, styring, arbeidsflyter og synlighet i ett miljø."
+  },
+  "whatIsBos": {
+    "title": "Hva er et Business Operating System?",
+    "paragraphs": {
+      "1": "Organisasjoner bruker allerede mange systemer.",
+      "2": "E-post. Møter. Dokumenter. Support. Kunnskap. Godkjenninger. Oppgaver. Rapportering.",
+      "3": "Aipify kobler disse operative aktivitetene i ett koordinert lag.",
+      "4": "Målet er ikke å erstatte eksisterende systemer.",
+      "5": "Målet er å få dem til å fungere sammen."
+    }
+  },
+  "softwareSprawl": {
+    "title": "For mange verktøy. For lite oversikt.",
+    "tools": {
+      "1": "E-postplattform",
+      "2": "Supportplattform",
+      "3": "Kunnskapsplattform",
+      "4": "Prosjektplattform",
+      "5": "Dokumentplattform",
+      "6": "Møteplattform",
+      "7": "Godkjenningsplattform",
+      "8": "Rapporteringsplattform"
+    },
+    "coordinationLabel": "Aipify Business Operating System",
+    "closing": "Aipify ligger over disse systemene og gir operasjonell koordinering."
+  },
+  "bosDiagram": {
+    "topLayerTitle": "Mennesker",
+    "topLayerRoles": {
+      "1": "Ledelse",
+      "2": "Managere",
+      "3": "Ansatte"
+    },
+    "middleLayerTitle": "Aipify Business Operating System",
+    "bottomLayerTitle": "Eksisterende systemer",
+    "bottomLayerSystems": {
+      "1": "Microsoft 365",
+      "2": "Google Workspace",
+      "3": "Shopify",
+      "4": "WordPress",
+      "5": "Interne systemer",
+      "6": "Supportsystemer",
+      "7": "Kunnskapskilder",
+      "8": "Dokumenter"
+    }
+  },
+  "competitivePositioning": {
+    "title": "Designet for å fungere med eksisterende systemer.",
+    "paragraphs": {
+      "1": "Aipify er ikke designet for å erstatte hvert verktøy.",
+      "2": "Det er designet for å koordinere dem.",
+      "3": "Organisasjoner beholder systemene de allerede stoler på, og får et samlet operasjonslag."
+    }
+  },
+  "executiveVisibility": {
+    "title": "Ett sted å forstå hva som betyr noe.",
+    "paragraphs": {
+      "1": "De fleste ledere trenger ikke mer informasjon.",
+      "2": "De trenger klarere informasjon."
+    },
+    "highlightsTitle": "Aipify fremhever:",
+    "highlights": {
+      "1": "Risiko",
+      "2": "Godkjenninger",
+      "3": "Operasjonell helse",
+      "4": "Supportaktivitet",
+      "5": "Business Pack-aktivitet",
+      "6": "Anbefalte handlinger"
+    }
+  },
+  "operationalIntelligence": {
+    "title": "Fra informasjon til handling.",
+    "steps": {
+      "1": "Informasjon",
+      "2": "Kunnskap",
+      "3": "Anbefalinger",
+      "4": "Godkjenninger",
+      "5": "Utførelse",
+      "6": "Revisjonsspor"
+    }
+  },
+  "buildingInPublic": {
+    "title": "Bygget i offentlighet. Forbedret hver dag.",
+    "paragraphs": {
+      "1": "Aipify utvikles kontinuerlig med tilbakemeldinger fra ekte brukere, virksomheter og operative arbeidsflyter.",
+      "2": "Hver utgivelse forbedrer plattformen.",
+      "3": "Hver interaksjon hjelper med å finjustere opplevelsen."
+    }
+  },
+  "adoptionJourney": {
+    "title": "Slik starter organisasjoner med Aipify.",
+    "steps": {
+      "1": {
+        "title": "Oppdag",
+        "description": "Forstå hvordan Aipify passer organisasjonen og operative prioriteringer."
+      },
+      "2": {
+        "title": "Demo",
+        "description": "Se plattformen i en konsultativ demonstrasjon fokusert på arbeidsflytene dine."
+      },
+      "3": {
+        "title": "Pilot",
+        "description": "Valider Aipify i reelle driftsforhold med et fokusert pilotomfang."
+      },
+      "4": {
+        "title": "Operasjonell adopsjon",
+        "description": "Utvid daglig bruk på tvers av support, kunnskap, styring og koordinering."
+      },
+      "5": {
+        "title": "Business Pack-utvidelse",
+        "description": "Aktiver domene-spesifikke Business Packs etter hvert som behovene vokser."
+      },
+      "6": {
+        "title": "Langsiktig partnerskap",
+        "description": "Voks med Aipify gjennom nye kapabiliteter, integrasjoner og utgivelser."
+      }
+    }
+  },
+  "trustMetrics": {
+    "labels": {
+      "businessPacks": "Business Packs",
+      "operationalModules": "Operative moduler",
+      "knowledgeAssets": "Kunnskapsressurser",
+      "approvalWorkflows": "Godkjenningsarbeidsflyter",
+      "supportedLanguages": "Støttede språk",
+      "governanceControls": "Styringskontroller"
+    }
+  },
+  "whyCustomersStay": {
+    "title": "Hvorfor organisasjoner fortsetter med Aipify.",
+    "items": {
+      "1": "Operasjonell synlighet",
+      "2": "Sentralisert kunnskap",
+      "3": "Bedre koordinering",
+      "4": "Forbedret styring",
+      "5": "Raskere beslutninger",
+      "6": "Redusert kompleksitet"
+    }
+  },
+  "securityReassurance": {
+    "title": "Bygget med styring fra dag én.",
+    "items": {
+      "1": "Rollebasert tilgang",
+      "2": "Revisjonslogging",
+      "3": "Godkjenningsarbeidsflyter",
+      "4": "Companion-tilsyn",
+      "5": "Trust Center",
+      "6": "Verifiseringssystemer",
+      "7": "Enterprise-sikkerhetsgrunnlag"
+    }
+  },
+  "humanDifference": {
+    "title": "Teknologi skal støtte mennesker.",
+    "paragraphs": {
+      "1": "Aipify er designet for å hjelpe team å jobbe mer effektivt.",
+      "2": "Målet er ikke å erstatte ansatte.",
+      "3": "Målet er å hjelpe ansatte å fokusere på arbeid med høyere verdi."
+    }
+  },
+  "companionPhilosophy": {
+    "title": "Companion, ikke chatbot.",
+    "paragraphs": {
+      "1": "De fleste systemer venter på instruksjoner.",
+      "2": "Aipify Companion hjelper organisasjoner å holde seg informert, organisert og forberedt."
+    },
+    "principles": {
+      "1": "Companion lærer kontekst.",
+      "2": "Companion forklarer.",
+      "3": "Companion assisterer.",
+      "4": "Mennesker beholder kontrollen."
+    }
+  },
+  "futureVision": {
+    "title": "Bygget for neste tiår.",
+    "paragraphs": {
+      "1": "Aipify er designet som et langsiktig Business Operating System.",
+      "2": "Plattformen er bygget for å vokse med organisasjoner gjennom nye Business Packs, integrasjoner, kapabiliteter og operative krav."
+    }
+  },
+  "trustSignalStrip": {
+    "signals": {
+      "1": "Operasjonell validering",
+      "2": "Styring",
+      "3": "Sikkerhet",
+      "4": "Menneskelig tilsyn",
+      "5": "Revisjonslogging",
+      "6": "Forretningsresultater"
+    }
+  },
+  "businessOutcomes": {
+    "title": "Hva endres etter Aipify?",
+    "beforeTitle": "Før",
+    "afterTitle": "Etter",
+    "before": {
+      "1": "Support spredt",
+      "2": "Kunnskap fragmentert",
+      "3": "Godkjenninger forsinket",
+      "4": "Oppgaver glemt",
+      "5": "Ingen oversikt"
+    },
+    "after": {
+      "1": "Support koordinert",
+      "2": "Kunnskap sentralisert",
+      "3": "Godkjenninger sporet",
+      "4": "Oppgaver fulgt opp",
+      "5": "Bedre ledelsessynlighet"
+    }
+  },
+  "builtForLeaders": {
+    "title": "Bygget for ledere.",
+    "paragraphs": {
+      "1": "Ledere trenger ikke flere dashbord.",
+      "2": "De trenger klarhet."
+    },
+    "benefitsTitle": "Aipify hjelper ledelsen å forstå:",
+    "benefits": {
+      "1": "Hva som skjedde",
+      "2": "Hva som endret seg",
+      "3": "Hva som krever oppmerksomhet",
+      "4": "Hva som bør skje videre"
+    }
+  },
+  "builtForManagers": {
+    "title": "Bygget for managere.",
+    "paragraphs": {
+      "1": "Managere bruker for mye tid på å jage oppdateringer."
+    },
+    "benefitsTitle": "Aipify hjelper med å koordinere:",
+    "benefits": {
+      "1": "Team",
+      "2": "Godkjenninger",
+      "3": "Oppgaver",
+      "4": "Kunnskap",
+      "5": "Operative prioriteringer"
+    }
+  },
+  "builtForEmployees": {
+    "title": "Bygget for ansatte.",
+    "paragraphs": {
+      "1": "Ansatte bør bruke mindre tid på å lete og mer tid på å jobbe."
+    },
+    "benefitsTitle": "Aipify hjelper ansatte å:",
+    "benefits": {
+      "1": "Finne svar",
+      "2": "Få tilgang til kunnskap",
+      "3": "Spore oppgaver",
+      "4": "Motta påminnelser",
+      "5": "Fullføre arbeidsflyter"
+    }
+  },
+  "operationalFriction": {
+    "title": "Kostnaden ved operasjonell friksjon.",
+    "problems": {
+      "1": "Tapte oppfølginger",
+      "2": "Trege svar",
+      "3": "Kunnskapstap",
+      "4": "Manuelle prosesser",
+      "5": "Godkjenningsforsinkelser",
+      "6": "Frakoblede systemer"
+    },
+    "closing": "Aipify reduserer operasjonell friksjon ved å sentralisere kunnskap, arbeidsflyter og synlighet."
+  },
+  "demoPreview": {
+    "title": "Se Aipify i praksis.",
+    "openDemoCta": "Åpne demo",
+    "cards": {
+      "1": {
+        "title": "Executive Center",
+        "description": "Ledelsessynlighet, briefinger og operative prioriteringer i én rolig oversikt."
+      },
+      "2": {
+        "title": "Support Operations",
+        "description": "Triage, kunnskap, utkast og godkjenningsklare supportarbeidsflyter."
+      },
+      "3": {
+        "title": "Knowledge Center",
+        "description": "Godkjent kunnskap, onboarding-stier og rollebasert veiledning."
+      },
+      "4": {
+        "title": "Governance Center",
+        "description": "Policyer, godkjenninger, revisjonsspor og menneskelig tilsyn."
+      }
+    }
+  },
+  "businessPackPreview": {
+    "title": "Bygget for ulike bransjer.",
+    "subtitle": "Organisasjoner aktiverer bare pakkene de trenger. Ingen unødvendig kompleksitet.",
+    "packs": {
+      "1": {
+        "name": "Aipify Hosts",
+        "description": "Gjesteoperasjoner, eiendomsarbeidsflyter og hospitality-intelligens."
+      },
+      "2": {
+        "name": "Support Operations",
+        "description": "Kundesupport, triage og servicekoordinering."
+      },
+      "3": {
+        "name": "Commerce Operations",
+        "description": "Ordrer, oppfyllelsessynlighet og operative handelsflyter."
+      },
+      "4": {
+        "name": "Warehouse Operations",
+        "description": "Lagerkoordinering, oppgaver og operative overleveringer."
+      },
+      "5": {
+        "name": "Property Operations",
+        "description": "Faciliteter, vedlikehold og eiendomsadministrasjon."
+      },
+      "6": {
+        "name": "Future Industry Packs",
+        "description": "Modulære pakker etter hvert som Aipify utvider seg til nye domener."
+      }
+    }
+  },
+  "aipifyDifference": {
+    "title": "Hvorfor Aipify er annerledes.",
+    "traditionalTitle": "Tradisjonell programvare",
+    "aipifyTitle": "Aipify",
+    "traditional": {
+      "1": "Separate systemer",
+      "2": "Separate innlogginger",
+      "3": "Separate arbeidsflyter",
+      "4": "Separat kunnskap",
+      "5": "Separate rapporter"
+    },
+    "aipify": {
+      "1": "Samlet synlighet",
+      "2": "Samlet styring",
+      "3": "Samlet kunnskap",
+      "4": "Samlet drift",
+      "5": "Samlet support"
+    }
   },
   "animatedDemo": {
     "title": "Support flow in motion",
@@ -255,22 +763,27 @@
         "description": "Coordinate modules — one brain, no alert fatigue."
       },
       "desktop": {
-        "name": "Desktop Companion",
-        "description": "Calm presence on desktop — reminders and quick actions."
+        "name": "Executive Companion",
+        "description": "Rolig desktop-tilstedeværelse for ledere — ikke overvåking av ansatte."
       }
     }
   },
   "pilot": {
-    "title": "Validated in real operations",
-    "subtitle": "Unonight pilot — operational focus",
-    "description": "Aipify's first pilot customer validates install-first workflows: support triage, knowledge approval, action policies, and executive briefings in a live multi-module environment.",
+    "title": "Validert i reell drift",
+    "subtitle": "Aipify testes kontinuerlig i reelle forretningsmiljøer.",
+    "description": "Operasjonell validering skjer i live forretningsmiljøer — ikke teoretiske demoer. Unonight er første pilotkunde som validerer support, styring, kunnskap og koordinering under reell kompleksitet.",
+    "validationTitle": "Operasjonell validering",
     "highlights": {
-      "1": "Multi-module install with domain verification and license gates",
-      "2": "Support operations with human review and escalation paths",
-      "3": "Metadata-only metrics — no customer content in platform aggregates",
-      "4": "Feedback loops for product hardening before broader release"
+      "1": "Support Operations",
+      "2": "Knowledge Management",
+      "3": "Modereringsarbeidsflyter",
+      "4": "Godkjenningsarbeidsflyter",
+      "5": "Business Pack-drift",
+      "6": "Executive-rapportering",
+      "7": "Styringsprosesser",
+      "8": "Operasjonell overvåking"
     },
-    "cta": "Learn about the pilot"
+    "cta": "Les om pilotprogrammet"
   },
   "outputs": {
     "title": "What Aipify delivers",
@@ -438,9 +951,11 @@
     "subtitle": "Privacy by design. Human control. No surveillance."
   },
   "ctaBand": {
-    "title": "Ready to install operational intelligence?",
-    "subtitle": "Request early access and see Aipify in your environment.",
-    "button": "Request Early Access"
+    "title": "Klar til å se hvordan Aipify kan støtte organisasjonen din?",
+    "subtitle": "Utforsk en demonstrasjon, be om tidlig tilgang, eller lær om Growth Partner-programmet.",
+    "bookDemo": "Book demo",
+    "earlyAccess": "Be om tidlig tilgang",
+    "growthPartners": "Bli Growth Partner"
   },
   "growthPartners": {
     "meta": {
@@ -460,18 +975,34 @@
       "badgeProfessional": "Profesjonelt partnerskap"
     },
     "earlySignup": {
-      "title": "Start på under 3 minutter",
+      "title": "Hvorfor bli Growth Partner",
       "paragraphs": [
-        "Bli Aipify Growth Partner og bygg egen kundeportefølje.",
-        "Aipify leverer plattform, opplæring, sertifisering, markedsføringsressurser, provisjonssporing og utbetalingssystem.",
-        "Du kan jobbe hvor som helst, i ditt tempo, mens du representerer Aipify profesjonelt."
+        "Representer et world-class Business Operating System og bygg egen kundeportefølje med tilbakevendende provisjoner.",
+        "Aipify leverer plattform, sertifisering, partnersupport, markedsføringsressurser og provisjonsinfrastruktur.",
+        "Du fokuserer på relasjoner og salg. Aipify håndterer plattform, abonnement, support og produktutvikling."
       ],
       "benefits": [
-        "Tilbakevendende provisjon på kvalifiserte kunder",
-        "Enterprise-produkt å representere",
-        "Opplæring og sertifisering før salg",
-        "Personlig partnerlenke og QR-kode ved registrering",
-        "Markedsføringsmateriell med din lenke innebygd"
+        "Tilbakevendende provisjoner",
+        "Sertifisering inkludert",
+        "Enterprise-produkt",
+        "Partnersupport",
+        "Markedsføringsressurser",
+        "Opplæring"
+      ]
+    },
+    "partnerAdvisor": {
+      "title": "Aipify Partner Advisor",
+      "teamName": "Partner Success Team",
+      "location": "Bergen, Norge",
+      "photoPlaceholder": "Partner-rådgiver",
+      "role": "Growth Partner onboarding",
+      "availability": "Tilgjengelig for onboarding-hjelp",
+      "contactLabel": "Kontakt",
+      "contactPath": "Kontakt Partner Success Team",
+      "services": [
+        "Veiledning i opplæring",
+        "Hjelp med sertifisering",
+        "Growth Partner-support"
       ]
     },
     "positioning": {
@@ -1524,6 +2055,535 @@
         "title": "10. No Income Guarantee",
         "body": "Aipify does not guarantee income. Earnings depend on partner activity, customer purchases, retention, commission rules, and active partner status."
       }
+    }
+  },
+  "productExplorer": {
+    "title": "Utforsk Aipify",
+    "bookDemoLabel": "Book demo",
+    "labels": {
+      "explanation": "Hva det er",
+      "workflow": "Eksempelarbeidsflyt",
+      "value": "Verdi levert"
+    },
+    "items": {
+      "1": {
+        "title": "Companion",
+        "explanation": "Aipify's executive intelligence layer — briefings, priorities, and guidance grounded in your operational context.",
+        "screenshotLabel": "Companion briefing view",
+        "workflow": "Ask a question → Aipify gathers context → Presents insight with recommended next step.",
+        "value": "Leadership clarity without chasing updates across disconnected tools."
+      },
+      "2": {
+        "title": "Knowledge Center",
+        "explanation": "Approved knowledge, playbooks, and onboarding paths — accessible to the right roles at the right time.",
+        "screenshotLabel": "Knowledge Center",
+        "workflow": "Question raised → Knowledge search → Approved answer with source context.",
+        "value": "Institutional knowledge stays current, visible, and usable."
+      },
+      "3": {
+        "title": "Operations Center",
+        "explanation": "Day-to-day operational coordination — tasks, handoffs, and team visibility in one workspace.",
+        "screenshotLabel": "Operations Center",
+        "workflow": "Alert received → Review context → Assign or approve → Track to completion.",
+        "value": "Teams move work forward with shared visibility and fewer manual follow-ups."
+      },
+      "4": {
+        "title": "Trust Center",
+        "explanation": "Transparency for permissions, audit trails, data ownership, and governance controls.",
+        "screenshotLabel": "Trust Center",
+        "workflow": "Sensitive action proposed → Policy check → Human approval → Audit logged.",
+        "value": "Enterprise confidence that Aipify operates within approved boundaries."
+      },
+      "5": {
+        "title": "Business Packs",
+        "explanation": "Modular domain capabilities — activate only the operational packs your organization needs.",
+        "screenshotLabel": "Business Pack modules",
+        "workflow": "Select pack → Configure for your domain → Operate with domain-specific workflows.",
+        "value": "Right-sized capability without unnecessary software sprawl."
+      },
+      "6": {
+        "title": "Executive Center",
+        "explanation": "Strategic visibility for leadership — revenue context, risks, approvals, and operational health.",
+        "screenshotLabel": "Executive Center",
+        "workflow": "Daily briefing prepared → Risks surfaced → Decisions prepared for review.",
+        "value": "Executives see what matters and what to act on — not raw noise."
+      }
+    }
+  },
+  "roleBenefits": {
+    "title": "Bygget for alle roller.",
+    "roles": {
+      "executive": {
+        "title": "Executive",
+        "benefits": {
+          "1": "Strategic visibility",
+          "2": "Risk awareness",
+          "3": "Decision support",
+          "4": "Companion briefings"
+        }
+      },
+      "manager": {
+        "title": "Manager",
+        "benefits": {
+          "1": "Team coordination",
+          "2": "Approvals",
+          "3": "Operational oversight",
+          "4": "Priority clarity"
+        }
+      },
+      "employee": {
+        "title": "Employee",
+        "benefits": {
+          "1": "Knowledge access",
+          "2": "Task assistance",
+          "3": "Workflow support",
+          "4": "Onboarding guidance"
+        }
+      },
+      "growthPartner": {
+        "title": "Growth Partner",
+        "benefits": {
+          "1": "Partner program visibility",
+          "2": "Referral coordination",
+          "3": "Commission transparency",
+          "4": "Ecosystem opportunities"
+        }
+      },
+      "supportTeam": {
+        "title": "Support Team",
+        "benefits": {
+          "1": "Triage and knowledge",
+          "2": "Draft responses",
+          "3": "Approval-ready workflows",
+          "4": "Escalation clarity"
+        }
+      },
+      "operationsTeam": {
+        "title": "Operations Team",
+        "benefits": {
+          "1": "Inventory and fulfillment visibility",
+          "2": "Task coordination",
+          "3": "Audit-ready handoffs",
+          "4": "Operational alerts"
+        }
+      }
+    }
+  },
+  "businessPackExplorer": {
+    "title": "Velg bare det du trenger.",
+    "subtitle": "Business Packs lar organisasjoner aktivere modulær operasjonell kapasitet — uten å kjøpe programvare de aldri bruker.",
+    "labels": {
+      "purpose": "Formål",
+      "capabilities": "Nøkkelfunksjoner",
+      "audience": "Hvem det er for",
+      "benefits": "Fordeler"
+    },
+    "packs": {
+      "hosts": {
+        "name": "Hosts",
+        "purpose": "Guest and property operations for hospitality and accommodation businesses.",
+        "capabilities": "Guest workflows, property coordination, operational briefings, and service handoffs.",
+        "audience": "Hospitality operators, property managers, and guest experience teams.",
+        "benefits": "Calmer operations with visibility across guests, properties, and daily priorities."
+      },
+      "support": {
+        "name": "Support",
+        "purpose": "Customer support operations with knowledge, triage, and approval-ready responses.",
+        "capabilities": "Case triage, knowledge search, draft responses, escalation, and audit trails.",
+        "audience": "Support leaders, agents, and customer success teams.",
+        "benefits": "Faster, consistent support with human oversight preserved."
+      },
+      "commerce": {
+        "name": "Commerce",
+        "purpose": "Operational commerce flows — orders, fulfillment coordination, and customer context.",
+        "capabilities": "Order visibility, fulfillment tasks, operational alerts, and handoff tracking.",
+        "audience": "Commerce operators, fulfillment teams, and retail operations.",
+        "benefits": "Fewer delays between sale, fulfillment, and customer communication."
+      },
+      "warehouse": {
+        "name": "Warehouse",
+        "purpose": "Inventory coordination, stock alerts, and warehouse operational workflows.",
+        "capabilities": "Inventory alerts, pick/pack tasks, approval gates, and audit logging.",
+        "audience": "Warehouse managers, inventory teams, and logistics coordinators.",
+        "benefits": "Stock issues surfaced early with clear paths to resolution."
+      },
+      "projects": {
+        "name": "Projects",
+        "purpose": "Project delivery coordination — milestones, assignments, and operational visibility.",
+        "capabilities": "Project tracking, milestone alerts, team assignments, and status reporting.",
+        "audience": "Project managers, delivery teams, and operational leads.",
+        "benefits": "Delivery clarity without separate project silos."
+      },
+      "partnerSuccess": {
+        "name": "Partner Success",
+        "purpose": "Growth Partner and ecosystem operations — referrals, commissions, and partner coordination.",
+        "capabilities": "Partner visibility, referral tracking, commission context, and program governance.",
+        "audience": "Partner managers, Growth Partners, and ecosystem teams.",
+        "benefits": "Transparent partner operations aligned with business growth."
+      },
+      "finance": {
+        "name": "Finance",
+        "purpose": "Financial operations awareness — billing context, subscription visibility, and operational finance flows.",
+        "capabilities": "Billing awareness, subscription context, operational finance alerts, and reporting hooks.",
+        "audience": "Finance operators, controllers, and business operations leaders.",
+        "benefits": "Financial context connected to day-to-day operational decisions."
+      },
+      "futurePacks": {
+        "name": "Future Packs",
+        "purpose": "Modular expansion as Aipify grows into new industries and operational domains.",
+        "capabilities": "Pack architecture ready for new domains without replatforming.",
+        "audience": "Organizations planning long-term operational consolidation.",
+        "benefits": "A platform that grows with your business — not another rip-and-replace cycle."
+      }
+    }
+  },
+  "industryExplorer": {
+    "title": "Bygget for ulike bransjer.",
+    "industries": {
+      "1": {
+        "name": "Hospitality",
+        "description": "Guest operations, property workflows, and service coordination."
+      },
+      "2": {
+        "name": "Property",
+        "description": "Facilities, maintenance, and multi-site property management."
+      },
+      "3": {
+        "name": "Retail",
+        "description": "Store operations, inventory awareness, and customer service flows."
+      },
+      "4": {
+        "name": "Commerce",
+        "description": "Orders, fulfillment, and operational commerce coordination."
+      },
+      "5": {
+        "name": "Consulting",
+        "description": "Client delivery, knowledge reuse, and project visibility."
+      },
+      "6": {
+        "name": "Professional Services",
+        "description": "Engagements, approvals, and client-facing operational clarity."
+      },
+      "7": {
+        "name": "Construction",
+        "description": "Site coordination, approvals, and project handoffs."
+      },
+      "8": {
+        "name": "Logistics",
+        "description": "Warehouse, routing, and inventory operational visibility."
+      },
+      "9": {
+        "name": "Future Industries",
+        "description": "Modular architecture ready as Aipify expands into new domains."
+      }
+    }
+  },
+  "liveWorkflows": {
+    "title": "Se hvordan arbeid flyter gjennom Aipify.",
+    "flows": {
+      "support": {
+        "title": "Support Request",
+        "steps": {
+          "1": "Support Request",
+          "2": "Knowledge Search",
+          "3": "Draft Response",
+          "4": "Approval",
+          "5": "Send"
+        }
+      },
+      "inventory": {
+        "title": "Inventory Alert",
+        "steps": {
+          "1": "Inventory Alert",
+          "2": "Review",
+          "3": "Approval",
+          "4": "Order Prepared",
+          "5": "Audit Logged"
+        }
+      }
+    }
+  },
+  "executiveDemo": {
+    "title": "Det ledelsen ser.",
+    "mockupLabel": "Executive Center",
+    "items": {
+      "1": "Revenue",
+      "2": "Risks",
+      "3": "Opportunities",
+      "4": "Approvals",
+      "5": "Companion Briefing",
+      "6": "Strategic Insights"
+    }
+  },
+  "companionConversations": {
+    "title": "Møt Companion.",
+    "examples": {
+      "1": {
+        "question": "What changed this week?",
+        "answer": "Three operational shifts need attention: support volume increased 12%, two approvals are overdue, and inventory for SKU-442 is below threshold. I recommend reviewing the support queue first — it affects customer response times today."
+      },
+      "2": {
+        "question": "Show revenue risks.",
+        "answer": "Two renewal conversations lack owner assignment, and one enterprise account shows declining engagement. I have prepared a summary with recommended owners and suggested follow-up timing for your review."
+      },
+      "3": {
+        "question": "Prepare board report.",
+        "answer": "I can prepare a draft board summary covering operational health, key risks, and strategic priorities from approved sources. Would you like me to include support metrics and approval backlog status?"
+      },
+      "4": {
+        "question": "What should I focus on today?",
+        "answer": "Your highest-impact items: approve the vendor contract waiting since Monday, review the weekly operations briefing, and assign an owner to the overdue support escalation. Each includes context and estimated effort."
+      },
+      "5": {
+        "question": "Which approvals need attention?",
+        "answer": "Four approvals are pending: two support responses, one inventory reorder, and one policy exception. The inventory reorder is time-sensitive — stock falls below minimum in 48 hours if not approved."
+      }
+    }
+  },
+  "implementationJourney": {
+    "title": "Kom i gang er enkelt.",
+    "steps": {
+      "1": {
+        "title": "Connect systems",
+        "description": "Link the tools your organization already uses — read-only first, with your approval."
+      },
+      "2": {
+        "title": "Configure organization",
+        "description": "Set roles, permissions, and governance policies aligned to how you operate."
+      },
+      "3": {
+        "title": "Activate Business Packs",
+        "description": "Enable only the modular packs your teams need — nothing extra."
+      },
+      "4": {
+        "title": "Train Companion",
+        "description": "Approve knowledge sources and preferences so Aipify understands your context."
+      },
+      "5": {
+        "title": "Start operating",
+        "description": "Teams work inside existing workflows with Aipify providing visibility, guidance, and oversight."
+      }
+    }
+  },
+  "earlyAccessExperience": {
+    "title": "Bli med i tidlig tilgang.",
+    "intro": "Hjelp å forme fremtiden for forretningsdrift.",
+    "benefits": {
+      "1": "Platform updates",
+      "2": "Feature previews",
+      "3": "Early access opportunities",
+      "4": "Partner opportunities",
+      "5": "Priority communication"
+    },
+    "ctaLabel": "Be om tidlig tilgang"
+  },
+  "productDepth": {
+    "title": "Én plattform. Mange muligheter.",
+    "capabilities": {
+      "1": "Knowledge",
+      "2": "Operations",
+      "3": "Governance",
+      "4": "Trust",
+      "5": "Companion",
+      "6": "Approvals",
+      "7": "Business Packs",
+      "8": "Executive Intelligence",
+      "9": "Automation",
+      "10": "Integrations",
+      "11": "Marketplace",
+      "12": "Audit & Compliance"
+    }
+  },
+  "modernSoftwareProblem": {
+    "title": "Organisasjoner har for mange systemer.",
+    "systems": {
+      "1": "CRM",
+      "2": "Support Platform",
+      "3": "Knowledge Platform",
+      "4": "Project Platform",
+      "5": "Reporting Platform",
+      "6": "Email Platform",
+      "7": "Meeting Platform",
+      "8": "Approval Platform",
+      "9": "Documents",
+      "10": "Chat",
+      "11": "Automation"
+    },
+    "closing": {
+      "1": "Hvert system løser ett problem.",
+      "2": "Få systemer hjelper organisasjoner å operere som helhet."
+    }
+  },
+  "categoryDifferenceFlow": {
+    "title": "De fleste programvarer styrer oppgaver. Aipify hjelper med å styre drift.",
+    "traditional": {
+      "label": "Traditional Software",
+      "steps": {
+        "1": "Feature",
+        "2": "Task",
+        "3": "Result"
+      }
+    },
+    "aipify": {
+      "label": "Aipify",
+      "steps": {
+        "1": "Context",
+        "2": "Knowledge",
+        "3": "Coordination",
+        "4": "Decision",
+        "5": "Execution",
+        "6": "Audit Trail"
+      }
+    }
+  },
+  "companionNotChatbot": {
+    "title": "Companion er ikke en chatbot.",
+    "statements": {
+      "1": "A chatbot answers questions.",
+      "2": "Companion understands context.",
+      "3": "Companion understands your organization.",
+      "4": "Companion understands workflows.",
+      "5": "Companion understands responsibilities.",
+      "6": "Companion helps coordinate work across the organization."
+    }
+  },
+  "whatCompanionDoes": {
+    "title": "Det Companion faktisk gjør.",
+    "capabilities": {
+      "observes": {
+        "title": "Observes",
+        "example": "Surfaces operational changes, risks, and patterns from approved sources — without requiring you to check every system."
+      },
+      "coordinates": {
+        "title": "Coordinates",
+        "example": "Connects tasks, approvals, and handoffs across teams so work moves forward with shared context."
+      },
+      "explains": {
+        "title": "Explains",
+        "example": "Clarifies why something matters, what changed, and what happens if it is ignored."
+      },
+      "prepares": {
+        "title": "Prepares",
+        "example": "Drafts briefings, summaries, and decision materials for human review — never auto-executing sensitive actions."
+      },
+      "recommends": {
+        "title": "Recommends",
+        "example": "Suggests next steps with effort, impact, and confidence — humans always decide."
+      },
+      "assists": {
+        "title": "Assists",
+        "example": "Supports daily work with answers, reminders, and workflow guidance inside existing operations."
+      },
+      "tracks": {
+        "title": "Tracks",
+        "example": "Monitors approvals, escalations, and operational commitments so nothing quietly falls through."
+      },
+      "remembers": {
+        "title": "Remembers",
+        "example": "Preserves organizational knowledge and operational context — not raw conversations or private records."
+      }
+    }
+  },
+  "organizationalMemory": {
+    "title": "Organisasjoner bør ikke glemme.",
+    "problems": {
+      "1": "Employees leave.",
+      "2": "Projects end.",
+      "3": "Documents disappear.",
+      "4": "Knowledge gets lost."
+    },
+    "closing": "Aipify hjelper med å bevare organisasjonskunnskap og operasjonell kontekst."
+  },
+  "sinceLastLogin": {
+    "title": "Vit hva som har endret seg.",
+    "panelLabel": "Siden sist du logget inn:",
+    "items": {
+      "1": "3 approvals completed",
+      "2": "2 support escalations resolved",
+      "3": "1 revenue risk detected",
+      "4": "4 knowledge articles updated",
+      "5": "New Growth Partner application received"
+    }
+  },
+  "operationalVisibility": {
+    "title": "Synlighet uten kompleksitet.",
+    "closing": "Aipify fokuserer på synlighet.",
+    "roles": {
+      "leaders": {
+        "role": "Leaders",
+        "need": "Leaders do not need more dashboards.",
+        "answer": "They need clarity."
+      },
+      "managers": {
+        "role": "Managers",
+        "need": "Managers do not need more reports.",
+        "answer": "They need actionable information."
+      },
+      "employees": {
+        "role": "Employees",
+        "need": "Employees do not need more systems.",
+        "answer": "They need answers."
+      }
+    }
+  },
+  "companionTimeline": {
+    "title": "Slik utvikler Companion seg.",
+    "milestones": {
+      "1": {
+        "period": "Day 1",
+        "description": "Learns organization structure"
+      },
+      "2": {
+        "period": "Week 1",
+        "description": "Learns workflows"
+      },
+      "3": {
+        "period": "Month 1",
+        "description": "Learns operational patterns"
+      },
+      "4": {
+        "period": "Month 3",
+        "description": "Provides proactive recommendations"
+      },
+      "5": {
+        "period": "Month 6",
+        "description": "Becomes deeply integrated into operations"
+      }
+    }
+  },
+  "humanCenteredAi": {
+    "title": "Bygget rundt mennesker.",
+    "humanLabel": "Mennesker",
+    "companionLabel": "Companion",
+    "humanItems": {
+      "1": "Humans Decide",
+      "2": "Humans Approve",
+      "3": "Humans Govern",
+      "4": "Humans Own Data",
+      "5": "Humans Set Boundaries"
+    },
+    "companionItems": {
+      "1": "Companion Assists",
+      "2": "Companion Coordinates",
+      "3": "Companion Explains",
+      "4": "Companion Learns",
+      "5": "Companion Supports"
+    }
+  },
+  "categoryLeadership": {
+    "title": "Fremtiden for forretningsdrift.",
+    "paragraphs": {
+      "1": "For decades organizations have purchased separate systems for separate problems.",
+      "2": "The future belongs to platforms that connect people, knowledge, workflows, governance and operational visibility.",
+      "3": "Aipify is being built for that future."
+    }
+  },
+  "aipifyVision": {
+    "title": "Én plattform. Én Companion. Ubegrensede muligheter.",
+    "paragraphs": {
+      "1": "Every organization is different.",
+      "2": "Aipify adapts through Business Packs, integrations, governance and Companion capabilities.",
+      "3": "The platform grows with the organization. Not the other way around."
     }
   }
 }

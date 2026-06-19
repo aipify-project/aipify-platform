@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { MarketingCtaBand, MarketingTrustSignalStrip } from "@/components/marketing";
 import PricingPackagesPageContent, { type PricingPackagesPageLabels } from "@/components/marketing/PricingPackagesPageContent";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
-import { getSection } from "@/lib/marketing/parse-marketing";
+import { getSection, parseCtaBandLabels, parseStringList } from "@/lib/marketing/parse-marketing";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { marketing } = await getMarketingContext();
@@ -15,6 +16,14 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function PricingPage() {
   const { marketing } = await getMarketingContext();
   const labels = getSection<PricingPackagesPageLabels>(marketing, "pricingPage");
+  const ctaBand = parseCtaBandLabels(marketing);
+  const trustSignals = parseStringList(marketing, "trustSignalStrip", "signals");
 
-  return <PricingPackagesPageContent labels={labels} />;
+  return (
+    <>
+      <MarketingTrustSignalStrip signals={trustSignals} />
+      <PricingPackagesPageContent labels={labels} />
+      <MarketingCtaBand {...ctaBand} />
+    </>
+  );
 }

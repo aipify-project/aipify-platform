@@ -7,6 +7,7 @@ type PilotStorySectionProps = {
   description: string;
   highlights: string[];
   cta: string;
+  validationTitle?: string;
 };
 
 export default function PilotStorySection({
@@ -15,6 +16,7 @@ export default function PilotStorySection({
   description,
   highlights,
   cta,
+  validationTitle = "Operational validation",
 }: PilotStorySectionProps) {
   return (
     <section aria-labelledby="pilot-story-title">
@@ -40,7 +42,7 @@ export default function PilotStorySection({
             </div>
 
             <div className="border-t border-aipify-border bg-white/[0.02] p-8 sm:p-10 lg:border-l lg:border-t-0 lg:p-12">
-              <p className="text-sm font-semibold text-white">Operational validation</p>
+              <p className="text-sm font-semibold text-white">{validationTitle}</p>
               <ul className="mt-6 space-y-4">
                 {highlights.map((item) => (
                   <li key={item} className="flex gap-3 text-sm text-aipify-text-secondary">

@@ -147,11 +147,11 @@ export default function MarketingNavbar({ appName, labels }: MarketingNavbarProp
             {labels.controlCenter}
           </Link>
           <Link
-            href="/early-access"
+            href="/book-demo"
             className={AipifyMarketingClasses.primaryCta}
-            {...marketingDataAttr("cta_click", "nav_get_started")}
+            {...marketingDataAttr("cta_click", "nav_book_demo")}
           >
-            {labels.getStarted}
+            {labels.bookDemo}
           </Link>
         </div>
 
@@ -199,11 +199,11 @@ export default function MarketingNavbar({ appName, labels }: MarketingNavbarProp
               {labels.login}
             </Link>
             <Link
-              href="/early-access"
+              href="/book-demo"
               className={`${AipifyMarketingClasses.primaryCta} text-center`}
               onClick={() => setMenuOpen(false)}
             >
-              {labels.getStarted}
+              {labels.bookDemo}
             </Link>
           </div>
         </div>

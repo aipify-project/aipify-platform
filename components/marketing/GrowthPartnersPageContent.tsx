@@ -1,5 +1,7 @@
 import Link from "next/link";
 import GrowthPartnersSignupForm, { type GrowthPartnersSignupLabels } from "./GrowthPartnersSignupForm";
+import PartnerAuthoritySection from "./PartnerAuthoritySection";
+import { PartnerAdvisorCard, type PartnerAdvisorLabels } from "./PartnerAdvisorCard";
 import type { HumanVerificationLabels } from "@/lib/system-notice/types";
 
 type Card = { title: string; body: string };
@@ -39,10 +41,21 @@ export type GrowthPartnersPageLabels = {
   training: { title: string; modules: string[]; statusWaiting: string; statusVerified: string; certificationNote: string };
   positioning: { lines: string[] };
   signup: GrowthPartnersSignupLabels;
+  partnerAdvisor: PartnerAdvisorLabels;
   footerNote: string;
 };
 
-type Props = { labels: GrowthPartnersPageLabels; verificationLabels: HumanVerificationLabels };
+type Props = {
+  labels: GrowthPartnersPageLabels;
+  verificationLabels: HumanVerificationLabels;
+  partnerAuthority?: {
+    title: string;
+    subtitle: string;
+    badges: Array<{ name: string; description: string }>;
+    stats: Array<{ value: string; label: string }>;
+    ecosystemNote: string;
+  };
+};
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">{children}</h2>;
@@ -57,7 +70,7 @@ function BenefitCard({ title, body }: Card) {
   );
 }
 
-export default function GrowthPartnersPageContent({ labels, verificationLabels }: Props) {
+export default function GrowthPartnersPageContent({ labels, verificationLabels, partnerAuthority }: Props) {
   const { hero, earlySignup, why, independentPartnership, howItWorks, requirements, earnings, training, positioning } = labels;
 
   return (
@@ -69,13 +82,13 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels }
 
       {/* Hero */}
       <section className="relative border-b border-white/10">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-sm font-medium text-violet-200">
               {hero.badgeTime}
             </span>
-            <h1 className="mt-6 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">{hero.headline}</h1>
-            <p className="mt-6 text-lg leading-relaxed text-aipify-text-secondary sm:text-xl">{hero.subheadline}</p>
+            <h1 className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">{hero.headline}</h1>
+            <p className="mt-4 text-base leading-relaxed text-aipify-text-secondary sm:text-lg">{hero.subheadline}</p>
             <p className="mt-4 text-sm font-medium text-cyan-300/90">{hero.trustLine}</p>
             <p className="mt-3 text-sm text-aipify-text-muted">{hero.supporting}</p>
 
@@ -105,29 +118,42 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels }
         </div>
       </section>
 
+      {partnerAuthority ? (
+        <PartnerAuthoritySection
+          title={partnerAuthority.title}
+          subtitle={partnerAuthority.subtitle}
+          badges={partnerAuthority.badges.map((b) => ({ label: b.name, description: b.description }))}
+          stats={partnerAuthority.stats}
+          ecosystemNote={partnerAuthority.ecosystemNote}
+        />
+      ) : null}
+
       {/* Early signup — two columns */}
-      <section id="signup" className="relative border-b border-white/10 bg-gradient-to-b from-violet-950/20 to-transparent py-16 sm:py-20">
+      <section id="signup" className="relative border-b border-white/10 bg-gradient-to-b from-violet-950/20 to-transparent py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-12">
-            <div>
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
+            <div className="lg:pr-4">
               <SectionTitle>{earlySignup.title}</SectionTitle>
-              <div className="mt-6 space-y-4 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">
+              <div className="mt-8 space-y-5 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">
                 {earlySignup.paragraphs.map((p) => (
                   <p key={p}>{p}</p>
                 ))}
               </div>
-              <ul className="mt-8 space-y-3">
+              <ul className="mt-10 space-y-4">
                 {earlySignup.benefits.map((benefit) => (
-                  <li key={benefit} className="flex gap-3 text-sm text-aipify-text-secondary">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" aria-hidden="true" />
+                  <li key={benefit} className="flex gap-3 text-sm text-aipify-text-secondary sm:text-base">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" aria-hidden="true" />
                     {benefit}
                   </li>
                 ))}
               </ul>
             </div>
-            <div>
-              <GrowthPartnersSignupForm labels={labels.signup} verificationLabels={verificationLabels} />
-              <p className="mt-4 text-center text-xs text-aipify-text-muted">
+            <div className="space-y-8 lg:pl-2">
+              <PartnerAdvisorCard labels={labels.partnerAdvisor} />
+              <div className="rounded-2xl border border-aipify-border/80 bg-white/[0.02] p-6 sm:p-8">
+                <GrowthPartnersSignupForm labels={labels.signup} verificationLabels={verificationLabels} />
+              </div>
+              <p className="text-center text-xs text-aipify-text-muted">
                 <Link href="/login" className="text-cyan-400 hover:underline">Already registered?</Link>
               </p>
             </div>

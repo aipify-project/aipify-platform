@@ -17,7 +17,7 @@ const MODULE_ACCENTS = [
 export default function ModuleShowcase({ title, subtitle, modules }: ModuleShowcaseProps) {
   return (
     <section id="modules" className="scroll-mt-20 border-y border-aipify-border bg-aipify-surface-muted/60" aria-labelledby="modules-title">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-14">
         <div className="mx-auto max-w-2xl text-center">
           <h2 id="modules-title" className="text-3xl font-bold tracking-tight text-aipify-text sm:text-4xl">
             {title}

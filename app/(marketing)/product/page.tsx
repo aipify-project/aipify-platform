@@ -1,12 +1,40 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { MarketingCtaBand, MarketingPageHeader } from "@/components/marketing";
+import {
+  CategoryPositioningIntro,
+  CompanionNotChatbotSection,
+  EnterpriseConfidenceStrip,
+  HumanDifferenceSection,
+  MarketingCtaBand,
+  MarketingPageHeader,
+  ModuleShowcase,
+  OrganizationalMemorySection,
+  PlatformArchitectureSection,
+  PlatformEnginesGrid,
+  PlatformMapSection,
+  PlatformDifferentiationSection,
+  PlatformPreviewStrip,
+} from "@/components/marketing";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
-import { getSection, parseDemoSteps } from "@/lib/marketing/parse-marketing";
+import {
+  getSection,
+  parseArchitectureLayers,
+  parseCategoryPositioningIntro,
+  parseConfidenceItems,
+  parseCtaBandLabels,
+  parseHumanDifferenceContent,
+  parseDemoSteps,
+  parseDifferentiationItems,
+  parseModules,
+  parsePlatformEngines,
+  parsePlatformMapNodes,
+  parsePlatformPreview,
+  parseStringList,
+} from "@/lib/marketing/parse-marketing";
 
 const AnimatedProductDemo = dynamic(
   () => import("@/components/marketing/AnimatedProductDemo"),
-  { loading: () => <div className="h-48 animate-pulse rounded-2xl bg-white/5" /> }
+  { loading: () => <div className="h-48 animate-pulse rounded-2xl bg-aipify-surface-muted" /> }
 );
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -18,13 +46,68 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ProductPage() {
   const { marketing } = await getMarketingContext();
   const productPage = getSection<Record<string, string>>(marketing, "productPage");
+  const platformAuthority = getSection<Record<string, string>>(marketing, "platformAuthority");
+  const modulesSection = getSection<Record<string, string>>(marketing, "modules");
   const animatedDemo = getSection<Record<string, string>>(marketing, "animatedDemo");
-  const ctaBand = getSection<Record<string, string>>(marketing, "ctaBand");
+  const ctaBand = parseCtaBandLabels(marketing);
+  const categoryPositioning = parseCategoryPositioningIntro(marketing);
+  const humanDifference = parseHumanDifferenceContent(marketing);
 
   return (
     <>
       <MarketingPageHeader title={productPage.title ?? ""} subtitle={productPage.subtitle} />
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <CategoryPositioningIntro {...categoryPositioning} compact />
+      <HumanDifferenceSection {...humanDifference} compact />
+      <CompanionNotChatbotSection
+        title={getSection<{ title?: string }>(marketing, "companionNotChatbot").title ?? ""}
+        statements={parseStringList(marketing, "companionNotChatbot", "statements")}
+      />
+      <OrganizationalMemorySection
+        title={getSection<{ title?: string }>(marketing, "organizationalMemory").title ?? ""}
+        problems={parseStringList(marketing, "organizationalMemory", "problems")}
+        closing={getSection<{ closing?: string }>(marketing, "organizationalMemory").closing ?? ""}
+      />
+      <div className="border-b border-aipify-border bg-aipify-surface-muted/40">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <PlatformPreviewStrip items={parsePlatformPreview(marketing)} />
+        </div>
+      </div>
+
+      <PlatformMapSection
+        title={platformAuthority.mapTitle ?? ""}
+        subtitle={platformAuthority.mapSubtitle ?? ""}
+        centerLabel={platformAuthority.mapCenter ?? "Aipify Platform"}
+        nodes={parsePlatformMapNodes(marketing)}
+      />
+
+      <PlatformArchitectureSection
+        title={platformAuthority.architectureTitle ?? ""}
+        subtitle={platformAuthority.architectureSubtitle ?? ""}
+        layers={parseArchitectureLayers(marketing)}
+      />
+
+      <PlatformEnginesGrid
+        title={platformAuthority.enginesTitle ?? ""}
+        subtitle={platformAuthority.enginesSubtitle ?? ""}
+        engines={parsePlatformEngines(marketing)}
+      />
+
+      <EnterpriseConfidenceStrip
+        title={platformAuthority.confidenceTitle ?? ""}
+        subtitle={platformAuthority.confidenceSubtitle}
+        items={parseConfidenceItems(marketing).map(({ name, description }) => ({
+          title: name,
+          description,
+        }))}
+      />
+
+      <ModuleShowcase
+        title={modulesSection.title ?? ""}
+        subtitle={modulesSection.subtitle ?? ""}
+        modules={parseModules(marketing)}
+      />
+
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <AnimatedProductDemo
           title={animatedDemo.title ?? ""}
           subtitle={animatedDemo.subtitle ?? ""}
@@ -32,7 +115,13 @@ export default async function ProductPage() {
           mobileSummary={animatedDemo.mobileSummary ?? ""}
         />
       </div>
-      <MarketingCtaBand title={ctaBand.title ?? ""} subtitle={ctaBand.subtitle ?? ""} button={ctaBand.button ?? ""} />
+
+      <PlatformDifferentiationSection
+        title={platformAuthority.differentiationTitle ?? ""}
+        items={parseDifferentiationItems(marketing)}
+      />
+
+      <MarketingCtaBand {...ctaBand} />
     </>
   );
 }

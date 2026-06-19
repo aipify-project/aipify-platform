@@ -1,7 +1,7 @@
 {
   "meta": {
-    "homeTitle": "Meet Aipify – Your Digital Coworker",
-    "homeDescription": "Aipify is a digital coworker that helps your business stay organized, respond faster, and work smarter — with human control, audit logs, and enterprise-ready security. Not a chatbot.",
+    "homeTitle": "Aipify Business Operating System — Complete Platform for Modern Organizations",
+    "homeDescription": "Aipify is a Business Operating System — operational intelligence, governed workflows, business visibility, and enterprise readiness in one coordinated layer.",
     "productTitle": "Product — Aipify Business Operating System",
     "productDescription": "See how Aipify connects to your organization, assists daily work, and keeps humans in control.",
     "modulesTitle": "Modules — Aipify",
@@ -53,14 +53,20 @@
     "tagline": "Aipify Business Operating System (ABOS) — operational intelligence with human control built in.",
     "companyName": "Aipify Group AS",
     "headquarters": "Bergen, Norway",
-    "description": "Building intelligent business systems designed to help organizations work smarter, respond faster, and grow with confidence.",
+    "businessOperatingSystem": "Business Operating System",
+    "description": "Building intelligent business systems — a complete Business Operating System with governance, operational depth, and human control.",
     "signature": "Norway. For the world.",
+    "brandSignatureLine1": "Aipify Group AS",
+    "brandSignatureLine2": "Bergen. Norway. For the world.",
+    "finalSignature": "Bergen. Norway. For the world.",
     "foundingPrinciple": "Our ambition is global. Our values remain Norwegian.",
     "product": "Product",
     "company": "Company",
     "legal": "Legal",
     "privacy": "Privacy",
     "terms": "Terms",
+    "security": "Security",
+    "knowledge": "Knowledge",
     "growthPartnerTerms": "Growth Partner Terms",
     "contact": "Contact",
     "earlyAccess": "Early Access",
@@ -71,18 +77,981 @@
   },
   "hero": {
     "badge": "Aipify Business Operating System",
-    "title": "Meet Aipify – Your Digital Coworker",
-    "subtitle": "Aipify helps your business stay organized, respond faster, and work smarter — inside the systems your team already uses.",
-    "simpleExplanation": "Aipify is a digital coworker that helps your business stay organized, respond faster, and work smarter.",
-    "notChatbot": "Not a chatbot. A calm digital coworker with human control built in.",
-    "ctaPrimary": "Request early access",
-    "ctaSecondary": "See how it works",
-    "statInstall": "Connect",
-    "statInstallLabel": "Your organization in minutes",
-    "statModules": "10+",
-    "statModulesLabel": "Operational modules",
-    "statControl": "Human-first",
-    "statControlLabel": "Approval on sensitive work"
+    "title": "The Business Operating System for modern organizations.",
+    "subtitle": "Support. Operations. Knowledge. Governance — unified in one platform.",
+    "outcomes": {
+      "1": "Reduce support workload.",
+      "2": "Respond faster.",
+      "3": "Stay organized.",
+      "4": "Scale operations without adding complexity."
+    },
+    "simpleExplanation": "Aipify is a Business Operating System — not a chatbot, not a single feature.",
+    "notChatbot": "Your organization already has people. Aipify helps them work smarter — not a replacement, an operational multiplier.",
+    "ctaPrimary": "Book Demo",
+    "ctaSecondary": "See How It Works",
+    "statInstall": "50+",
+    "statInstallLabel": "Operational engines & modules",
+    "statModules": "Business Packs",
+    "statModulesLabel": "Modular domain capabilities",
+    "statControl": "Enterprise",
+    "statControlLabel": "Governance, audit & approval"
+  },
+  "valueStrip": {
+    "title": "Why organizations choose Aipify",
+    "cards": {
+      "1": { "title": "Save Time", "description": "Reduce repetitive administrative work." },
+      "2": { "title": "Respond Faster", "description": "Support requests, approvals and follow-ups handled quicker." },
+      "3": { "title": "Improve Visibility", "description": "Know what needs attention before it becomes a problem." },
+      "4": { "title": "Scale Confidently", "description": "Grow operations without growing complexity." }
+    }
+  },
+  "trustBar": {
+    "title": "Built for serious organizations.",
+    "cards": {
+      "1": { "title": "Enterprise Ready", "description": "Governance-first architecture designed for professional organizations." },
+      "2": { "title": "Multi-Language", "description": "Built from day one for international teams." },
+      "3": { "title": "Human Approval", "description": "Important decisions always remain under human control." },
+      "4": { "title": "Audit Logging", "description": "Critical actions are recorded and traceable." },
+      "5": { "title": "Operational Validation", "description": "Tested in real business environments." },
+      "6": { "title": "Professional Support", "description": "Aipify grows together with its customers." }
+    }
+  },
+  "whoIsAipify": {
+    "title": "Who is Aipify?",
+    "paragraphs": {
+      "1": "Aipify Group AS builds Business Operating Systems designed to help organizations operate more effectively.",
+      "2": "Built in Bergen, Norway.",
+      "3": "Designed for businesses worldwide."
+    },
+    "focusTitle": "Focus areas",
+    "focusAreas": {
+      "1": "Support Operations",
+      "2": "Knowledge Management",
+      "3": "Governance",
+      "4": "Business Automation",
+      "5": "Executive Visibility",
+      "6": "Human-Centered AI"
+    }
+  },
+  "bergenBrand": {
+    "title": "Bergen. Norway. For the world.",
+    "intro": "Aipify is built with Norwegian values:",
+    "valuesTitle": "Norwegian values",
+    "values": {
+      "1": "Trust",
+      "2": "Transparency",
+      "3": "Responsibility",
+      "4": "Long-term thinking",
+      "5": "Human-centered technology"
+    },
+    "closing": "The platform is designed for international organizations while maintaining a strong governance foundation."
+  },
+  "whyWeBuilt": {
+    "title": "Why we built Aipify",
+    "paragraphs": {
+      "1": "Most organizations have too many systems.",
+      "2": "Too many dashboards.",
+      "3": "Too many notifications.",
+      "4": "Too many disconnected workflows.",
+      "5": "Aipify was created to bring support, operations, governance, knowledge and visibility together into one coordinated operating layer.",
+      "6": "Aipify does not replace people.",
+      "7": "Aipify helps people work smarter."
+    }
+  },
+  "customerJourney": {
+    "title": "Your journey with Aipify",
+    "subtitle": "From first discovery to long-term scale — a clear path for growing organizations.",
+    "steps": {
+      "1": { "title": "Discover", "description": "Understand how Aipify fits your organization and operational priorities." },
+      "2": { "title": "Connect", "description": "Install into your existing systems with tenant isolation and role mapping." },
+      "3": { "title": "Learn", "description": "Aipify learns approved knowledge, workflows, and governance policies." },
+      "4": { "title": "Assist", "description": "Teams receive prepared drafts, insights, and coordinated operational support." },
+      "5": { "title": "Automate", "description": "Delegate approved, reversible workflows with full audit visibility." },
+      "6": { "title": "Scale", "description": "Add modules, Business Packs, and capabilities as your organization grows." }
+    }
+  },
+  "enterpriseReadiness": {
+    "title": "Enterprise Ready",
+    "subtitle": "Built for procurement review, IT governance, and long-term operational trust.",
+    "items": {
+      "1": "SSO Ready",
+      "2": "Microsoft Entra ID Ready",
+      "3": "Google Workspace Ready",
+      "4": "Audit Logging",
+      "5": "Role-Based Permissions",
+      "6": "Multi-Tenant Architecture",
+      "7": "Approval Workflows",
+      "8": "Compliance Foundations",
+      "9": "Human Oversight",
+      "10": "Enterprise Deployment Options"
+    }
+  },
+  "humanFirstPrinciple": {
+    "title": "Humans stay in control.",
+    "principles": {
+      "1": "Aipify recommends. Humans decide.",
+      "2": "Aipify can assist. Humans approve.",
+      "3": "Aipify can automate. Humans define the rules."
+    },
+    "closing": "Every important action remains visible, reversible and accountable."
+  },
+  "primaryCtas": {
+    "bookDemo": "Book Demo",
+    "earlyAccess": "Request Early Access",
+    "growthPartners": "Become Growth Partner",
+    "seeHowItWorks": "See How It Works"
+  },
+  "categoryStatement": {
+    "title": "A new category of software.",
+    "negations": {
+      "1": "Aipify is not a chatbot.",
+      "2": "Aipify is not a helpdesk.",
+      "3": "Aipify is not a CRM.",
+      "4": "Aipify is not an automation platform."
+    },
+    "affirmation": "Aipify is a Business Operating System.",
+    "closing": "A coordinated operational layer that helps organizations manage knowledge, support, governance, workflows and visibility in one environment."
+  },
+  "whatIsBos": {
+    "title": "What is a Business Operating System?",
+    "paragraphs": {
+      "1": "Organizations already use many systems.",
+      "2": "Email. Meetings. Documents. Support. Knowledge. Approvals. Tasks. Reporting.",
+      "3": "Aipify connects these operational activities into one coordinated layer.",
+      "4": "The goal is not replacing existing systems.",
+      "5": "The goal is making them work together."
+    }
+  },
+  "softwareSprawl": {
+    "title": "Too many tools. Not enough visibility.",
+    "tools": {
+      "1": "Email Platform",
+      "2": "Support Platform",
+      "3": "Knowledge Platform",
+      "4": "Project Platform",
+      "5": "Document Platform",
+      "6": "Meeting Platform",
+      "7": "Approval Platform",
+      "8": "Reporting Platform"
+    },
+    "coordinationLabel": "Aipify Business Operating System",
+    "closing": "Aipify sits above these systems and provides operational coordination."
+  },
+  "bosDiagram": {
+    "topLayerTitle": "People",
+    "topLayerRoles": {
+      "1": "Leadership",
+      "2": "Managers",
+      "3": "Employees"
+    },
+    "middleLayerTitle": "Aipify Business Operating System",
+    "bottomLayerTitle": "Existing systems",
+    "bottomLayerSystems": {
+      "1": "Microsoft 365",
+      "2": "Google Workspace",
+      "3": "Shopify",
+      "4": "WordPress",
+      "5": "Internal Systems",
+      "6": "Support Systems",
+      "7": "Knowledge Sources",
+      "8": "Documents"
+    }
+  },
+  "competitivePositioning": {
+    "title": "Designed to work with your existing systems.",
+    "paragraphs": {
+      "1": "Aipify is not designed to replace every tool.",
+      "2": "It is designed to coordinate them.",
+      "3": "Organizations keep the systems they already trust while gaining a unified operational layer."
+    }
+  },
+  "executiveVisibility": {
+    "title": "One place to understand what matters.",
+    "paragraphs": {
+      "1": "Most leaders do not need more information.",
+      "2": "They need clearer information."
+    },
+    "highlightsTitle": "Aipify highlights:",
+    "highlights": {
+      "1": "Risks",
+      "2": "Approvals",
+      "3": "Operational health",
+      "4": "Support activity",
+      "5": "Business Pack activity",
+      "6": "Recommended actions"
+    }
+  },
+  "operationalIntelligence": {
+    "title": "From information to action.",
+    "steps": {
+      "1": "Information",
+      "2": "Knowledge",
+      "3": "Recommendations",
+      "4": "Approvals",
+      "5": "Execution",
+      "6": "Audit Trail"
+    }
+  },
+  "buildingInPublic": {
+    "title": "Built in public. Improved every day.",
+    "paragraphs": {
+      "1": "Aipify is developed continuously with feedback from real users, real businesses and real operational workflows.",
+      "2": "Every release improves the platform.",
+      "3": "Every interaction helps refine the experience."
+    }
+  },
+  "adoptionJourney": {
+    "title": "How organizations start with Aipify.",
+    "steps": {
+      "1": { "title": "Discover", "description": "Learn how Aipify fits your organization and operational priorities." },
+      "2": { "title": "Demo", "description": "See the platform in a consultative demonstration focused on your workflows." },
+      "3": { "title": "Pilot", "description": "Validate Aipify in real operational conditions with a focused pilot scope." },
+      "4": { "title": "Operational Adoption", "description": "Expand daily use across support, knowledge, governance, and coordination." },
+      "5": { "title": "Business Pack Expansion", "description": "Activate domain-specific Business Packs as operational needs grow." },
+      "6": { "title": "Long-Term Partnership", "description": "Grow with Aipify through new capabilities, integrations, and releases." }
+    }
+  },
+  "trustMetrics": {
+    "labels": {
+      "businessPacks": "Business Packs",
+      "operationalModules": "Operational Modules",
+      "knowledgeAssets": "Knowledge Assets",
+      "approvalWorkflows": "Approval Workflows",
+      "supportedLanguages": "Supported Languages",
+      "governanceControls": "Governance Controls"
+    }
+  },
+  "whyCustomersStay": {
+    "title": "Why organizations continue using Aipify.",
+    "items": {
+      "1": "Operational Visibility",
+      "2": "Centralized Knowledge",
+      "3": "Better Coordination",
+      "4": "Improved Governance",
+      "5": "Faster Decisions",
+      "6": "Reduced Complexity"
+    }
+  },
+  "securityReassurance": {
+    "title": "Built with governance from day one.",
+    "items": {
+      "1": "Role-Based Access",
+      "2": "Audit Logging",
+      "3": "Approval Workflows",
+      "4": "Companion Oversight",
+      "5": "Trust Center",
+      "6": "Verification Systems",
+      "7": "Enterprise Security Foundations"
+    }
+  },
+  "humanDifference": {
+    "title": "Technology should support people.",
+    "paragraphs": {
+      "1": "Aipify is designed to help teams work more effectively.",
+      "2": "The goal is not replacing employees.",
+      "3": "The goal is helping employees focus on higher-value work."
+    }
+  },
+  "companionPhilosophy": {
+    "title": "Companion, not chatbot.",
+    "paragraphs": {
+      "1": "Most systems wait for instructions.",
+      "2": "Aipify Companion helps organizations stay informed, organized and prepared."
+    },
+    "principles": {
+      "1": "Companion learns context.",
+      "2": "Companion explains.",
+      "3": "Companion assists.",
+      "4": "Humans remain in control."
+    }
+  },
+  "futureVision": {
+    "title": "Built for the next decade.",
+    "paragraphs": {
+      "1": "Aipify is designed as a long-term Business Operating System.",
+      "2": "The platform is built to grow with organizations through new Business Packs, new integrations, new capabilities and new operational requirements."
+    }
+  },
+  "trustSignalStrip": {
+    "signals": {
+      "1": "Operational validation",
+      "2": "Governance",
+      "3": "Security",
+      "4": "Human oversight",
+      "5": "Audit logging",
+      "6": "Business outcomes"
+    }
+  },
+  "businessOutcomes": {
+    "title": "What changes after Aipify?",
+    "beforeTitle": "Before",
+    "afterTitle": "After",
+    "before": {
+      "1": "Support scattered",
+      "2": "Knowledge fragmented",
+      "3": "Approvals delayed",
+      "4": "Tasks forgotten",
+      "5": "No visibility"
+    },
+    "after": {
+      "1": "Support coordinated",
+      "2": "Knowledge centralized",
+      "3": "Approvals tracked",
+      "4": "Tasks followed up",
+      "5": "Executive visibility improved"
+    }
+  },
+  "builtForLeaders": {
+    "title": "Built for leaders.",
+    "paragraphs": {
+      "1": "Executives do not need more dashboards.",
+      "2": "They need clarity."
+    },
+    "benefitsTitle": "Aipify helps leadership understand:",
+    "benefits": {
+      "1": "What happened",
+      "2": "What changed",
+      "3": "What needs attention",
+      "4": "What should happen next"
+    }
+  },
+  "builtForManagers": {
+    "title": "Built for managers.",
+    "paragraphs": {
+      "1": "Managers spend too much time chasing updates."
+    },
+    "benefitsTitle": "Aipify helps coordinate:",
+    "benefits": {
+      "1": "Teams",
+      "2": "Approvals",
+      "3": "Tasks",
+      "4": "Knowledge",
+      "5": "Operational priorities"
+    }
+  },
+  "builtForEmployees": {
+    "title": "Built for employees.",
+    "paragraphs": {
+      "1": "Employees should spend less time searching and more time working."
+    },
+    "benefitsTitle": "Aipify helps employees:",
+    "benefits": {
+      "1": "Find answers",
+      "2": "Access knowledge",
+      "3": "Track tasks",
+      "4": "Receive reminders",
+      "5": "Complete workflows"
+    }
+  },
+  "operationalFriction": {
+    "title": "The cost of operational friction.",
+    "problems": {
+      "1": "Missed follow-ups",
+      "2": "Slow responses",
+      "3": "Knowledge loss",
+      "4": "Manual processes",
+      "5": "Approval delays",
+      "6": "Disconnected systems"
+    },
+    "closing": "Aipify reduces operational friction by centralizing knowledge, workflows and visibility."
+  },
+  "demoPreview": {
+    "title": "See Aipify in action.",
+    "openDemoCta": "Open demo",
+    "cards": {
+      "1": { "title": "Executive Center", "description": "Leadership visibility, briefings, and operational priorities in one calm view." },
+      "2": { "title": "Support Operations", "description": "Triage, knowledge, drafts, and approval-ready support workflows." },
+      "3": { "title": "Knowledge Center", "description": "Approved knowledge, onboarding paths, and role-based guidance." },
+      "4": { "title": "Governance Center", "description": "Policies, approvals, audit trails, and human oversight." }
+    }
+  },
+  "businessPackPreview": {
+    "title": "Built for different industries.",
+    "subtitle": "Organizations activate only the packs they need. No unnecessary complexity.",
+    "packs": {
+      "1": { "name": "Aipify Hosts", "description": "Guest operations, property workflows, and hospitality intelligence." },
+      "2": { "name": "Support Operations", "description": "Customer support, triage, and service coordination." },
+      "3": { "name": "Commerce Operations", "description": "Orders, fulfillment visibility, and operational commerce flows." },
+      "4": { "name": "Warehouse Operations", "description": "Inventory coordination, tasks, and operational handoffs." },
+      "5": { "name": "Property Operations", "description": "Facilities, maintenance, and property management workflows." },
+      "6": { "name": "Future Industry Packs", "description": "Modular packs as Aipify expands into new operational domains." }
+    }
+  },
+  "productExplorer": {
+    "title": "Explore Aipify",
+    "bookDemoLabel": "Book Demo",
+    "labels": {
+      "explanation": "What it is",
+      "workflow": "Example workflow",
+      "value": "Value delivered"
+    },
+    "items": {
+      "1": {
+        "title": "Companion",
+        "explanation": "Aipify's executive intelligence layer — briefings, priorities, and guidance grounded in your operational context.",
+        "screenshotLabel": "Companion briefing view",
+        "workflow": "Ask a question → Aipify gathers context → Presents insight with recommended next step.",
+        "value": "Leadership clarity without chasing updates across disconnected tools."
+      },
+      "2": {
+        "title": "Knowledge Center",
+        "explanation": "Approved knowledge, playbooks, and onboarding paths — accessible to the right roles at the right time.",
+        "screenshotLabel": "Knowledge Center",
+        "workflow": "Question raised → Knowledge search → Approved answer with source context.",
+        "value": "Institutional knowledge stays current, visible, and usable."
+      },
+      "3": {
+        "title": "Operations Center",
+        "explanation": "Day-to-day operational coordination — tasks, handoffs, and team visibility in one workspace.",
+        "screenshotLabel": "Operations Center",
+        "workflow": "Alert received → Review context → Assign or approve → Track to completion.",
+        "value": "Teams move work forward with shared visibility and fewer manual follow-ups."
+      },
+      "4": {
+        "title": "Trust Center",
+        "explanation": "Transparency for permissions, audit trails, data ownership, and governance controls.",
+        "screenshotLabel": "Trust Center",
+        "workflow": "Sensitive action proposed → Policy check → Human approval → Audit logged.",
+        "value": "Enterprise confidence that Aipify operates within approved boundaries."
+      },
+      "5": {
+        "title": "Business Packs",
+        "explanation": "Modular domain capabilities — activate only the operational packs your organization needs.",
+        "screenshotLabel": "Business Pack modules",
+        "workflow": "Select pack → Configure for your domain → Operate with domain-specific workflows.",
+        "value": "Right-sized capability without unnecessary software sprawl."
+      },
+      "6": {
+        "title": "Executive Center",
+        "explanation": "Strategic visibility for leadership — revenue context, risks, approvals, and operational health.",
+        "screenshotLabel": "Executive Center",
+        "workflow": "Daily briefing prepared → Risks surfaced → Decisions prepared for review.",
+        "value": "Executives see what matters and what to act on — not raw noise."
+      }
+    }
+  },
+  "roleBenefits": {
+    "title": "Built for every role.",
+    "roles": {
+      "executive": {
+        "title": "Executive",
+        "benefits": {
+          "1": "Strategic visibility",
+          "2": "Risk awareness",
+          "3": "Decision support",
+          "4": "Companion briefings"
+        }
+      },
+      "manager": {
+        "title": "Manager",
+        "benefits": {
+          "1": "Team coordination",
+          "2": "Approvals",
+          "3": "Operational oversight",
+          "4": "Priority clarity"
+        }
+      },
+      "employee": {
+        "title": "Employee",
+        "benefits": {
+          "1": "Knowledge access",
+          "2": "Task assistance",
+          "3": "Workflow support",
+          "4": "Onboarding guidance"
+        }
+      },
+      "growthPartner": {
+        "title": "Growth Partner",
+        "benefits": {
+          "1": "Partner program visibility",
+          "2": "Referral coordination",
+          "3": "Commission transparency",
+          "4": "Ecosystem opportunities"
+        }
+      },
+      "supportTeam": {
+        "title": "Support Team",
+        "benefits": {
+          "1": "Triage and knowledge",
+          "2": "Draft responses",
+          "3": "Approval-ready workflows",
+          "4": "Escalation clarity"
+        }
+      },
+      "operationsTeam": {
+        "title": "Operations Team",
+        "benefits": {
+          "1": "Inventory and fulfillment visibility",
+          "2": "Task coordination",
+          "3": "Audit-ready handoffs",
+          "4": "Operational alerts"
+        }
+      }
+    }
+  },
+  "businessPackExplorer": {
+    "title": "Choose only what you need.",
+    "subtitle": "Business Packs let organizations activate modular operational capability — without buying software they will never use.",
+    "labels": {
+      "purpose": "Purpose",
+      "capabilities": "Key capabilities",
+      "audience": "Who it is for",
+      "benefits": "Benefits"
+    },
+    "packs": {
+      "hosts": {
+        "name": "Hosts",
+        "purpose": "Guest and property operations for hospitality and accommodation businesses.",
+        "capabilities": "Guest workflows, property coordination, operational briefings, and service handoffs.",
+        "audience": "Hospitality operators, property managers, and guest experience teams.",
+        "benefits": "Calmer operations with visibility across guests, properties, and daily priorities."
+      },
+      "support": {
+        "name": "Support",
+        "purpose": "Customer support operations with knowledge, triage, and approval-ready responses.",
+        "capabilities": "Case triage, knowledge search, draft responses, escalation, and audit trails.",
+        "audience": "Support leaders, agents, and customer success teams.",
+        "benefits": "Faster, consistent support with human oversight preserved."
+      },
+      "commerce": {
+        "name": "Commerce",
+        "purpose": "Operational commerce flows — orders, fulfillment coordination, and customer context.",
+        "capabilities": "Order visibility, fulfillment tasks, operational alerts, and handoff tracking.",
+        "audience": "Commerce operators, fulfillment teams, and retail operations.",
+        "benefits": "Fewer delays between sale, fulfillment, and customer communication."
+      },
+      "warehouse": {
+        "name": "Warehouse",
+        "purpose": "Inventory coordination, stock alerts, and warehouse operational workflows.",
+        "capabilities": "Inventory alerts, pick/pack tasks, approval gates, and audit logging.",
+        "audience": "Warehouse managers, inventory teams, and logistics coordinators.",
+        "benefits": "Stock issues surfaced early with clear paths to resolution."
+      },
+      "projects": {
+        "name": "Projects",
+        "purpose": "Project delivery coordination — milestones, assignments, and operational visibility.",
+        "capabilities": "Project tracking, milestone alerts, team assignments, and status reporting.",
+        "audience": "Project managers, delivery teams, and operational leads.",
+        "benefits": "Delivery clarity without separate project silos."
+      },
+      "partnerSuccess": {
+        "name": "Partner Success",
+        "purpose": "Growth Partner and ecosystem operations — referrals, commissions, and partner coordination.",
+        "capabilities": "Partner visibility, referral tracking, commission context, and program governance.",
+        "audience": "Partner managers, Growth Partners, and ecosystem teams.",
+        "benefits": "Transparent partner operations aligned with business growth."
+      },
+      "finance": {
+        "name": "Finance",
+        "purpose": "Financial operations awareness — billing context, subscription visibility, and operational finance flows.",
+        "capabilities": "Billing awareness, subscription context, operational finance alerts, and reporting hooks.",
+        "audience": "Finance operators, controllers, and business operations leaders.",
+        "benefits": "Financial context connected to day-to-day operational decisions."
+      },
+      "futurePacks": {
+        "name": "Future Packs",
+        "purpose": "Modular expansion as Aipify grows into new industries and operational domains.",
+        "capabilities": "Pack architecture ready for new domains without replatforming.",
+        "audience": "Organizations planning long-term operational consolidation.",
+        "benefits": "A platform that grows with your business — not another rip-and-replace cycle."
+      }
+    }
+  },
+  "industryExplorer": {
+    "title": "Built for different industries.",
+    "industries": {
+      "1": { "name": "Hospitality", "description": "Guest operations, property workflows, and service coordination." },
+      "2": { "name": "Property", "description": "Facilities, maintenance, and multi-site property management." },
+      "3": { "name": "Retail", "description": "Store operations, inventory awareness, and customer service flows." },
+      "4": { "name": "Commerce", "description": "Orders, fulfillment, and operational commerce coordination." },
+      "5": { "name": "Consulting", "description": "Client delivery, knowledge reuse, and project visibility." },
+      "6": { "name": "Professional Services", "description": "Engagements, approvals, and client-facing operational clarity." },
+      "7": { "name": "Construction", "description": "Site coordination, approvals, and project handoffs." },
+      "8": { "name": "Logistics", "description": "Warehouse, routing, and inventory operational visibility." },
+      "9": { "name": "Future Industries", "description": "Modular architecture ready as Aipify expands into new domains." }
+    }
+  },
+  "liveWorkflows": {
+    "title": "See how work flows through Aipify.",
+    "flows": {
+      "support": {
+        "title": "Support Request",
+        "steps": {
+          "1": "Support Request",
+          "2": "Knowledge Search",
+          "3": "Draft Response",
+          "4": "Approval",
+          "5": "Send"
+        }
+      },
+      "inventory": {
+        "title": "Inventory Alert",
+        "steps": {
+          "1": "Inventory Alert",
+          "2": "Review",
+          "3": "Approval",
+          "4": "Order Prepared",
+          "5": "Audit Logged"
+        }
+      }
+    }
+  },
+  "executiveDemo": {
+    "title": "What executives see.",
+    "mockupLabel": "Executive Center",
+    "items": {
+      "1": "Revenue",
+      "2": "Risks",
+      "3": "Opportunities",
+      "4": "Approvals",
+      "5": "Companion Briefing",
+      "6": "Strategic Insights"
+    }
+  },
+  "companionConversations": {
+    "title": "Meet Companion.",
+    "examples": {
+      "1": {
+        "question": "What changed this week?",
+        "answer": "Three operational shifts need attention: support volume increased 12%, two approvals are overdue, and inventory for SKU-442 is below threshold. I recommend reviewing the support queue first — it affects customer response times today."
+      },
+      "2": {
+        "question": "Show revenue risks.",
+        "answer": "Two renewal conversations lack owner assignment, and one enterprise account shows declining engagement. I have prepared a summary with recommended owners and suggested follow-up timing for your review."
+      },
+      "3": {
+        "question": "Prepare board report.",
+        "answer": "I can prepare a draft board summary covering operational health, key risks, and strategic priorities from approved sources. Would you like me to include support metrics and approval backlog status?"
+      },
+      "4": {
+        "question": "What should I focus on today?",
+        "answer": "Your highest-impact items: approve the vendor contract waiting since Monday, review the weekly operations briefing, and assign an owner to the overdue support escalation. Each includes context and estimated effort."
+      },
+      "5": {
+        "question": "Which approvals need attention?",
+        "answer": "Four approvals are pending: two support responses, one inventory reorder, and one policy exception. The inventory reorder is time-sensitive — stock falls below minimum in 48 hours if not approved."
+      }
+    }
+  },
+  "implementationJourney": {
+    "title": "Getting started is simple.",
+    "steps": {
+      "1": { "title": "Connect systems", "description": "Link the tools your organization already uses — read-only first, with your approval." },
+      "2": { "title": "Configure organization", "description": "Set roles, permissions, and governance policies aligned to how you operate." },
+      "3": { "title": "Activate Business Packs", "description": "Enable only the modular packs your teams need — nothing extra." },
+      "4": { "title": "Train Companion", "description": "Approve knowledge sources and preferences so Aipify understands your context." },
+      "5": { "title": "Start operating", "description": "Teams work inside existing workflows with Aipify providing visibility, guidance, and oversight." }
+    }
+  },
+  "earlyAccessExperience": {
+    "title": "Join early access.",
+    "intro": "Help shape the future of business operations.",
+    "benefits": {
+      "1": "Platform updates",
+      "2": "Feature previews",
+      "3": "Early access opportunities",
+      "4": "Partner opportunities",
+      "5": "Priority communication"
+    },
+    "ctaLabel": "Request Early Access"
+  },
+  "productDepth": {
+    "title": "One platform. Many capabilities.",
+    "capabilities": {
+      "1": "Knowledge",
+      "2": "Operations",
+      "3": "Governance",
+      "4": "Trust",
+      "5": "Companion",
+      "6": "Approvals",
+      "7": "Business Packs",
+      "8": "Executive Intelligence",
+      "9": "Automation",
+      "10": "Integrations",
+      "11": "Marketplace",
+      "12": "Audit & Compliance"
+    }
+  },
+  "modernSoftwareProblem": {
+    "title": "Organizations have too many systems.",
+    "systems": {
+      "1": "CRM",
+      "2": "Support Platform",
+      "3": "Knowledge Platform",
+      "4": "Project Platform",
+      "5": "Reporting Platform",
+      "6": "Email Platform",
+      "7": "Meeting Platform",
+      "8": "Approval Platform",
+      "9": "Documents",
+      "10": "Chat",
+      "11": "Automation"
+    },
+    "closing": {
+      "1": "Every system solves one problem.",
+      "2": "Few systems help organizations operate as a whole."
+    }
+  },
+  "categoryDifferenceFlow": {
+    "title": "Most software manages tasks. Aipify helps manage operations.",
+    "traditional": {
+      "label": "Traditional Software",
+      "steps": {
+        "1": "Feature",
+        "2": "Task",
+        "3": "Result"
+      }
+    },
+    "aipify": {
+      "label": "Aipify",
+      "steps": {
+        "1": "Context",
+        "2": "Knowledge",
+        "3": "Coordination",
+        "4": "Decision",
+        "5": "Execution",
+        "6": "Audit Trail"
+      }
+    }
+  },
+  "companionNotChatbot": {
+    "title": "Companion is not a chatbot.",
+    "statements": {
+      "1": "A chatbot answers questions.",
+      "2": "Companion understands context.",
+      "3": "Companion understands your organization.",
+      "4": "Companion understands workflows.",
+      "5": "Companion understands responsibilities.",
+      "6": "Companion helps coordinate work across the organization."
+    }
+  },
+  "whatCompanionDoes": {
+    "title": "What Companion actually does.",
+    "capabilities": {
+      "observes": {
+        "title": "Observes",
+        "example": "Surfaces operational changes, risks, and patterns from approved sources — without requiring you to check every system."
+      },
+      "coordinates": {
+        "title": "Coordinates",
+        "example": "Connects tasks, approvals, and handoffs across teams so work moves forward with shared context."
+      },
+      "explains": {
+        "title": "Explains",
+        "example": "Clarifies why something matters, what changed, and what happens if it is ignored."
+      },
+      "prepares": {
+        "title": "Prepares",
+        "example": "Drafts briefings, summaries, and decision materials for human review — never auto-executing sensitive actions."
+      },
+      "recommends": {
+        "title": "Recommends",
+        "example": "Suggests next steps with effort, impact, and confidence — humans always decide."
+      },
+      "assists": {
+        "title": "Assists",
+        "example": "Supports daily work with answers, reminders, and workflow guidance inside existing operations."
+      },
+      "tracks": {
+        "title": "Tracks",
+        "example": "Monitors approvals, escalations, and operational commitments so nothing quietly falls through."
+      },
+      "remembers": {
+        "title": "Remembers",
+        "example": "Preserves organizational knowledge and operational context — not raw conversations or private records."
+      }
+    }
+  },
+  "organizationalMemory": {
+    "title": "Organizations should not forget.",
+    "problems": {
+      "1": "Employees leave.",
+      "2": "Projects end.",
+      "3": "Documents disappear.",
+      "4": "Knowledge gets lost."
+    },
+    "closing": "Aipify helps preserve organizational knowledge and operational context."
+  },
+  "sinceLastLogin": {
+    "title": "Know what changed.",
+    "panelLabel": "Since your last login:",
+    "items": {
+      "1": "3 approvals completed",
+      "2": "2 support escalations resolved",
+      "3": "1 revenue risk detected",
+      "4": "4 knowledge articles updated",
+      "5": "New Growth Partner application received"
+    }
+  },
+  "operationalVisibility": {
+    "title": "Visibility without complexity.",
+    "closing": "Aipify focuses on visibility.",
+    "roles": {
+      "leaders": {
+        "role": "Leaders",
+        "need": "Leaders do not need more dashboards.",
+        "answer": "They need clarity."
+      },
+      "managers": {
+        "role": "Managers",
+        "need": "Managers do not need more reports.",
+        "answer": "They need actionable information."
+      },
+      "employees": {
+        "role": "Employees",
+        "need": "Employees do not need more systems.",
+        "answer": "They need answers."
+      }
+    }
+  },
+  "companionTimeline": {
+    "title": "How Companion evolves.",
+    "milestones": {
+      "1": { "period": "Day 1", "description": "Learns organization structure" },
+      "2": { "period": "Week 1", "description": "Learns workflows" },
+      "3": { "period": "Month 1", "description": "Learns operational patterns" },
+      "4": { "period": "Month 3", "description": "Provides proactive recommendations" },
+      "5": { "period": "Month 6", "description": "Becomes deeply integrated into operations" }
+    }
+  },
+  "humanCenteredAi": {
+    "title": "Built around people.",
+    "humanLabel": "Humans",
+    "companionLabel": "Companion",
+    "humanItems": {
+      "1": "Humans Decide",
+      "2": "Humans Approve",
+      "3": "Humans Govern",
+      "4": "Humans Own Data",
+      "5": "Humans Set Boundaries"
+    },
+    "companionItems": {
+      "1": "Companion Assists",
+      "2": "Companion Coordinates",
+      "3": "Companion Explains",
+      "4": "Companion Learns",
+      "5": "Companion Supports"
+    }
+  },
+  "categoryLeadership": {
+    "title": "The future of business operations.",
+    "paragraphs": {
+      "1": "For decades organizations have purchased separate systems for separate problems.",
+      "2": "The future belongs to platforms that connect people, knowledge, workflows, governance and operational visibility.",
+      "3": "Aipify is being built for that future."
+    }
+  },
+  "aipifyVision": {
+    "title": "One platform. One Companion. Unlimited possibilities.",
+    "paragraphs": {
+      "1": "Every organization is different.",
+      "2": "Aipify adapts through Business Packs, integrations, governance and Companion capabilities.",
+      "3": "The platform grows with the organization. Not the other way around."
+    }
+  },
+  "aipifyDifference": {
+    "title": "Why Aipify is different.",
+    "traditionalTitle": "Traditional Software",
+    "aipifyTitle": "Aipify",
+    "traditional": {
+      "1": "Separate systems",
+      "2": "Separate logins",
+      "3": "Separate workflows",
+      "4": "Separate knowledge",
+      "5": "Separate reporting"
+    },
+    "aipify": {
+      "1": "Unified visibility",
+      "2": "Unified governance",
+      "3": "Unified knowledge",
+      "4": "Unified operations",
+      "5": "Unified support"
+    }
+  },
+  "platformAuthority": {
+    "preview": {
+      "1": { "label": "Platform", "description": "Unified ABOS foundation" },
+      "2": { "label": "Modules", "description": "Support, operations, knowledge" },
+      "3": { "label": "Business Packs", "description": "Domain-specific capabilities" },
+      "4": { "label": "Engines", "description": "Customer, finance, risk, automation" },
+      "5": { "label": "Companion", "description": "Executive intelligence layer" },
+      "6": { "label": "Governance", "description": "Audit, approval, permissions" }
+    },
+    "architectureTitle": "Platform architecture",
+    "architectureSubtitle": "How Aipify scales from organization to insight — one coordinated operating layer.",
+    "layers": {
+      "1": { "label": "Organization", "description": "Your company, teams, roles, and tenant isolation" },
+      "2": { "label": "Business Packs", "description": "Hosts, Commerce, Support, Partners — activate by domain" },
+      "3": { "label": "Operational Engines", "description": "Customer, Finance, Risk, Project, Inventory, Knowledge, and more" },
+      "4": { "label": "Companion", "description": "Strategic intelligence, briefings, and actionable guidance" },
+      "5": { "label": "Automation", "description": "Approved workflows with human oversight and audit trails" },
+      "6": { "label": "Insights", "description": "Executive reporting, health scores, and operational clarity" }
+    },
+    "enginesTitle": "Operational engines",
+    "enginesSubtitle": "Real platform capabilities — not generic marketing promises.",
+    "engines": {
+      "customer": { "name": "Customer Engine", "description": "Prospects, accounts, opportunities, renewals, and relationship health." },
+      "risk": { "name": "Risk Engine", "description": "Operational risk visibility, escalation, and governance controls." },
+      "finance": { "name": "Finance Engine", "description": "Billing awareness, subscription context, and financial operations." },
+      "automation": { "name": "Automation Engine", "description": "Approved workflows, policies, and reversible execution." },
+      "project": { "name": "Project Engine", "description": "Projects, milestones, assignments, and delivery coordination." },
+      "inventory": { "name": "Inventory Engine", "description": "Assets, equipment, stock, and resource lifecycle." },
+      "knowledge": { "name": "Knowledge Engine", "description": "Corporate memory, playbooks, documents, and approved sources." },
+      "partner": { "name": "Partner Engine", "description": "Growth Partners, referrals, commissions, and ecosystem governance." },
+      "strategic": { "name": "Strategic Intelligence", "description": "Decision support, recommendations, and explainable guidance." },
+      "executive": { "name": "Executive Center", "description": "Briefings, alerts, health scores, and leadership visibility." },
+      "scheduling": { "name": "Scheduling Engine", "description": "Events, bookings, calendars, and operational timing." },
+      "communications": { "name": "Communication Center", "description": "Notifications, orchestration, and executive alerts." }
+    },
+    "confidenceTitle": "Enterprise confidence built in",
+    "confidenceSubtitle": "Procurement-ready governance — not a consumer chatbot.",
+    "confidence": {
+      "security": { "name": "Security", "description": "Tenant isolation, encryption, and trust architecture." },
+      "governance": { "name": "Governance", "description": "Policies, emergency stop, and platform controls." },
+      "audit": { "name": "Audit logging", "description": "Immutable trails for actions, approvals, and changes." },
+      "approval": { "name": "Human approval", "description": "Sensitive work requires explicit people — always." },
+      "permissions": { "name": "Role permissions", "description": "RBAC mapped to your native organizational roles." },
+      "compliance": { "name": "Compliance", "description": "Privacy-by-design with transparent data ownership." },
+      "reporting": { "name": "Executive reporting", "description": "Leadership dashboards, briefings, and operational KPIs." }
+    },
+    "mapTitle": "Visual platform map",
+    "mapSubtitle": "Every capability connected — one Business Operating System, not disconnected tools.",
+    "mapCenter": "Aipify Platform",
+    "mapNodes": {
+      "companion": { "name": "Companion", "description": "Executive intelligence and guidance" },
+      "operations": { "name": "Operations", "description": "Command Center and daily coordination" },
+      "finance": { "name": "Finance", "description": "Billing, subscriptions, and license awareness" },
+      "projects": { "name": "Projects", "description": "Delivery, milestones, and accountability" },
+      "customers": { "name": "Customers", "description": "CRM, renewals, and relationship health" },
+      "partners": { "name": "Partners", "description": "Growth Partner ecosystem and referrals" },
+      "automation": { "name": "Automation", "description": "Approved execution within trust boundaries" },
+      "governance": { "name": "Governance", "description": "Audit, approval, and policy enforcement" },
+      "knowledge": { "name": "Knowledge", "description": "Corporate memory and approved sources" },
+      "risk": { "name": "Risk", "description": "Escalation, attention, and operational safety" },
+      "strategic": { "name": "Strategic Intelligence", "description": "Decision support with explainability" }
+    },
+    "differentiationTitle": "Why enterprises trust Aipify",
+    "questions": {
+      "different": { "q": "Why is Aipify different?", "a": "Aipify is a complete Business Operating System — modular engines, Business Packs, Companion intelligence, and governance in one coordinated platform." },
+      "bigger": { "q": "Why is Aipify bigger?", "a": "Dozens of operational engines, not one feature. Support, finance, customers, projects, knowledge, partners, automation, and executive intelligence — connected." },
+      "safer": { "q": "Why is Aipify safer?", "a": "Human approval on sensitive actions, full audit logging, RBAC, tenant isolation, and explicit trust policies — designed for enterprise procurement." },
+      "trust": { "q": "Why should an enterprise trust Aipify?", "a": "Transparent governance, no employee surveillance, customer-owned data, and explainable operations — built by Aipify Group AS from Norway." }
+    },
+    "partnerAuthorityTitle": "Professional partner ecosystem",
+    "partnerAuthoritySubtitle": "Join a certified Growth Partner program — not an affiliate signup.",
+    "partnerBadges": {
+      "certified": { "name": "Certification required", "description": "Complete Aipify training and certification before active selling rights." },
+      "independent": { "name": "Independent business", "description": "Operate your own portfolio with professional partner status." },
+      "enterprise": { "name": "Enterprise product", "description": "Represent a procurement-ready Business Operating System." },
+      "ecosystem": { "name": "Ecosystem governance", "description": "Platform delivery, support, and infrastructure managed by Aipify Group AS." }
+    },
+    "partnerStats": {
+      "1": { "value": "Certified", "label": "Partner status before selling" },
+      "2": { "value": "Recurring", "label": "Commission on qualified customers" },
+      "3": { "value": "Global", "label": "Platform from Norway, for the world" },
+      "4": { "value": "Professional", "label": "Sales partner positioning" }
+    },
+    "partnerEcosystemNote": "Growth Partners build customer portfolios around Aipify products. You focus on relationships and sales. Aipify handles platform delivery, subscriptions, support, infrastructure, and product development — a professional ecosystem, not an affiliate program."
   },
   "animatedDemo": {
     "title": "How Aipify works in practice",
@@ -151,30 +1120,35 @@
     }
   },
   "modules": {
-    "title": "Module showcase",
-    "subtitle": "Operational modules you can activate as your organization grows.",
+    "title": "Operational modules & Business Packs",
+    "subtitle": "Activate platform capabilities as your organization scales — modular, governed, and auditable.",
     "items": {
       "support": { "name": "Aipify Support", "description": "Triage, draft responses, and escalate with confidence scoring.", "status": "Available" },
-      "admin": { "name": "Admin Assistant", "description": "Daily administration, follow-up, and operational coordination.", "status": "Available" },
+      "admin": { "name": "Support Operations", "description": "Daily support coordination, follow-up, and operational response.", "status": "Available" },
       "knowledge": { "name": "Knowledge Center", "description": "Approved sources, FAQs, gaps, and role-based access.", "status": "Available" },
-      "operations": { "name": "Operations Center", "description": "Operational dashboards, alerts, and coordinated workflows.", "status": "Available" },
-      "documents": { "name": "Document & Output Engine", "description": "PDF, Word, Excel, and presentation deliverables.", "status": "Available" },
-      "meetings": { "name": "Meeting Intelligence", "description": "Summaries, action items, and follow-up from meetings.", "status": "Beta" },
+      "operations": { "name": "Operational Visibility", "description": "Operational dashboards, alerts, and coordinated workflows.", "status": "Available" },
+      "documents": { "name": "Document Automation", "description": "PDF, Word, Excel, and presentation deliverables — produced, not just drafted.", "status": "Available" },
+      "meetings": { "name": "Meeting Insights", "description": "Summaries, action items, and follow-up from meetings.", "status": "Beta" },
       "tasks": { "name": "Task & Follow-Up", "description": "Unified tasks, reminders, and accountability.", "status": "Available" },
-      "governance": { "name": "Governance & Audit", "description": "Policies, audit trails, and trust transparency.", "status": "Available" },
-      "desktop": { "name": "Desktop Companion", "description": "Calm desktop presence — not employee monitoring.", "status": "Beta" },
+      "governance": { "name": "Governance & Compliance", "description": "Policies, audit trails, and trust transparency.", "status": "Available" },
+      "desktop": { "name": "Executive Companion", "description": "Calm desktop presence for leaders — not employee monitoring.", "status": "Beta" },
       "enterprise": { "name": "Enterprise Deployment", "description": "SSO, device rollout, and multi-environment governance.", "status": "Enterprise" }
     }
   },
   "pilot": {
     "title": "Validated in real operations",
-    "subtitle": "Unonight — first pilot customer",
-    "description": "Unonight is used to validate Aipify in real operational conditions before broader market launch — real support volume, admin workflows, moderation needs, and operational complexity.",
+    "subtitle": "Aipify is continuously tested in real-world business environments.",
+    "description": "Operational validation happens in live business environments — not theoretical demos. Unonight is the first pilot customer validating support, governance, knowledge, and coordination under real complexity.",
+    "validationTitle": "Operational validation",
     "highlights": {
-      "1": "Live support volume with human review and escalation paths",
-      "2": "Admin workflows and operational coordination in production",
-      "3": "Moderation and governance under real complexity",
-      "4": "Pilot feedback loops for product hardening before GA"
+      "1": "Support Operations",
+      "2": "Knowledge Management",
+      "3": "Moderation Workflows",
+      "4": "Approval Workflows",
+      "5": "Business Pack Operations",
+      "6": "Executive Reporting",
+      "7": "Governance Processes",
+      "8": "Operational Monitoring"
     },
     "cta": "Learn about the pilot program"
   },
@@ -266,8 +1240,8 @@
     "faqIntro": "Transparent answers about the product, trust, and enterprise readiness.",
     "readFaq": "Read full FAQ",
     "faqs": {
-      "1": { "q": "What is Aipify?", "a": "Aipify is a digital coworker that helps your business stay organized, respond faster, and work smarter. Formally, it is an Aipify Business Operating System (ABOS) for support, knowledge, follow-up, operations, deliverables, trust, and clarity." },
-      "2": { "q": "Is Aipify just a chatbot?", "a": "No. Aipify is a digital coworker — an Aipify Business Operating System (ABOS) for support, knowledge, follow-up, operations, deliverables, trust, and clarity. Chat is one surface; the product is operational assistance with human control." },
+      "1": { "q": "What is Aipify?", "a": "Aipify is a Business Operating System — an operational intelligence platform for support, knowledge, governance, workflows, and business visibility with human control built in." },
+      "2": { "q": "Is Aipify just a chatbot?", "a": "No. Aipify is a Business Operating System — not a chatbot, helpdesk, CRM, or automation tool. Conversation is one surface; the product is operational coordination with governed workflows and audit trails." },
       "3": { "q": "Will Aipify replace our employees?", "a": "No. Aipify augments people. It prepares drafts, organizes knowledge, and handles repeatable work within approved boundaries. Your team makes important decisions." },
       "4": { "q": "What does Aipify actually do?", "a": "Aipify helps your business stay organized, respond faster, and work smarter — through support, knowledge, follow-up, operations, deliverables, trust controls, and explainable clarity." },
       "5": { "q": "Does Aipify monitor employees?", "a": "No. Aipify is not employee surveillance software. It should not monitor screens, keystrokes, private files, or browsing history." },
@@ -278,7 +1252,7 @@
   },
   "productPage": {
     "title": "The Aipify Business Operating System",
-    "subtitle": "Install intelligence into your existing workflow — support, operations, governance, and decisions in one coordinated layer."
+    "subtitle": "Platform map, operational engines, Business Packs, Companion intelligence, governance, and automation — one coordinated enterprise layer."
   },
   "enterprisePage": {
     "title": "Enterprise readiness",
@@ -289,9 +1263,11 @@
     "subtitle": "Privacy by design. Human control. No surveillance."
   },
   "ctaBand": {
-    "title": "Ready to work smarter, safer, and faster?",
-    "subtitle": "Request early access and see Aipify in your environment.",
-    "button": "Request early access"
+    "title": "Ready to see how Aipify could support your organization?",
+    "subtitle": "Explore a demonstration, request early access, or learn about the Growth Partner program.",
+    "bookDemo": "Book Demo",
+    "earlyAccess": "Request Early Access",
+    "growthPartners": "Become Growth Partner"
   },
   "growthPartners": {
     "meta": {
@@ -311,18 +1287,34 @@
       "badgeProfessional": "Professional partnership"
     },
     "earlySignup": {
-      "title": "Start in under 3 minutes",
+      "title": "Why Become a Growth Partner",
       "paragraphs": [
-        "Become an Aipify Growth Partner and build your own customer portfolio.",
-        "Aipify provides the platform, training, certification, marketing resources, commission tracking, and payout system.",
-        "You can work from anywhere, at your own pace, while representing Aipify products professionally."
+        "Represent a world-class Business Operating System and build your own customer portfolio with recurring commissions.",
+        "Aipify provides the platform, certification, partner support, marketing resources, and commission infrastructure.",
+        "You focus on relationships and sales. Aipify handles platform delivery, subscriptions, support, and product development."
       ],
       "benefits": [
-        "Recurring commission on qualified customers",
-        "Enterprise-grade product to represent",
-        "Training and certification before selling",
-        "Personal partner link and QR code on registration",
-        "Marketing materials with your link built in"
+        "Recurring commissions",
+        "Certification included",
+        "Enterprise-grade product",
+        "Partner support",
+        "Marketing resources",
+        "Training"
+      ]
+    },
+    "partnerAdvisor": {
+      "title": "Aipify Partner Advisor",
+      "teamName": "Partner Success Team",
+      "location": "Bergen, Norway",
+      "photoPlaceholder": "Partner advisor",
+      "role": "Growth Partner onboarding",
+      "availability": "Available for onboarding assistance",
+      "contactLabel": "Contact",
+      "contactPath": "Reach the Partner Success Team",
+      "services": [
+        "Training guidance",
+        "Certification assistance",
+        "Growth Partner support"
       ]
     },
     "positioning": {
@@ -747,7 +1739,7 @@
     "norway": {
       "headline": "Built in Norway.",
       "subheadline": "Designed for the world.",
-      "copy": "Aipify Group AS builds AI-powered business systems with Norwegian values and global ambitions — calm, trustworthy, and built for the long term.",
+      "copy": "Aipify Group AS builds Business Operating Systems with Norwegian values and global ambitions — calm, trustworthy, and built for the long term.",
       "footerQuote": "Technology should become more human as it becomes more powerful."
     },
     "finalCta": {

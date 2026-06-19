@@ -1,7 +1,21 @@
 import type { Metadata } from "next";
-import { MarketingCtaBand, MarketingPageHeader, ModuleShowcase } from "@/components/marketing";
+import {
+  EnterpriseConfidenceStrip,
+  MarketingCtaBand,
+  MarketingPageHeader,
+  ModuleShowcase,
+  PlatformArchitectureSection,
+  PlatformEnginesGrid,
+} from "@/components/marketing";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
-import { getSection, parseModules } from "@/lib/marketing/parse-marketing";
+import {
+  getSection,
+  parseArchitectureLayers,
+  parseConfidenceItems,
+  parseCtaBandLabels,
+  parseModules,
+  parsePlatformEngines,
+} from "@/lib/marketing/parse-marketing";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { marketing } = await getMarketingContext();
@@ -12,17 +26,36 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ModulesPage() {
   const { marketing } = await getMarketingContext();
   const modulesSection = getSection<Record<string, string>>(marketing, "modules");
-  const ctaBand = getSection<Record<string, string>>(marketing, "ctaBand");
+  const platformAuthority = getSection<Record<string, string>>(marketing, "platformAuthority");
+  const ctaBand = parseCtaBandLabels(marketing);
 
   return (
     <>
       <MarketingPageHeader title={modulesSection.title ?? ""} subtitle={modulesSection.subtitle} />
+      <PlatformArchitectureSection
+        title={platformAuthority.architectureTitle ?? ""}
+        subtitle={platformAuthority.architectureSubtitle ?? ""}
+        layers={parseArchitectureLayers(marketing)}
+      />
       <ModuleShowcase
         title={modulesSection.title ?? ""}
         subtitle={modulesSection.subtitle ?? ""}
         modules={parseModules(marketing)}
       />
-      <MarketingCtaBand title={ctaBand.title ?? ""} subtitle={ctaBand.subtitle ?? ""} button={ctaBand.button ?? ""} />
+      <PlatformEnginesGrid
+        title={platformAuthority.enginesTitle ?? ""}
+        subtitle={platformAuthority.enginesSubtitle ?? ""}
+        engines={parsePlatformEngines(marketing)}
+      />
+      <EnterpriseConfidenceStrip
+        title={platformAuthority.confidenceTitle ?? ""}
+        subtitle={platformAuthority.confidenceSubtitle}
+        items={parseConfidenceItems(marketing).map(({ name, description }) => ({
+          title: name,
+          description,
+        }))}
+      />
+      <MarketingCtaBand {...ctaBand} />
     </>
   );
 }

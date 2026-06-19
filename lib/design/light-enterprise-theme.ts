@@ -59,6 +59,8 @@ export const AipifyShellClasses = {
   sidebar: "border-r border-aipify-border bg-aipify-surface",
   input:
     "rounded-xl border border-aipify-border bg-aipify-surface-muted text-aipify-text placeholder:text-aipify-text-muted focus:border-aipify-accent focus:bg-aipify-surface focus:outline-none focus:ring-2 focus:ring-aipify-focus",
+  ghostButton:
+    "rounded-lg border border-transparent bg-transparent px-4 py-2 text-sm font-medium text-aipify-text-secondary transition hover:bg-aipify-surface-muted focus:outline-none focus:ring-2 focus:ring-aipify-focus",
   primaryButton:
     "rounded-lg bg-aipify-companion px-4 py-2 text-sm font-medium text-white transition hover:bg-aipify-companion-hover focus:outline-none focus:ring-2 focus:ring-aipify-focus disabled:opacity-50",
   secondaryButton:

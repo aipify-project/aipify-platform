@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
 import {
+  EnterpriseConfidenceStrip,
   EnterpriseTrustSection,
   HumanOversightSection,
   MarketingCtaBand,
   MarketingPageHeader,
+  PlatformDifferentiationSection,
 } from "@/components/marketing";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
-import { getSection, parseOversightLadder, parseTrustPoints } from "@/lib/marketing/parse-marketing";
+import {
+  getSection,
+  parseConfidenceItems,
+  parseCtaBandLabels,
+  parseDifferentiationItems,
+  parseOversightLadder,
+  parseTrustPoints,
+} from "@/lib/marketing/parse-marketing";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { marketing } = await getMarketingContext();
@@ -19,11 +28,20 @@ export default async function SecurityPage() {
   const securityPage = getSection<Record<string, string>>(marketing, "securityPage");
   const enterpriseTrust = getSection<Record<string, string>>(marketing, "enterpriseTrust");
   const humanOversight = getSection<Record<string, string>>(marketing, "humanOversight");
-  const ctaBand = getSection<Record<string, string>>(marketing, "ctaBand");
+  const platformAuthority = getSection<Record<string, string>>(marketing, "platformAuthority");
+  const ctaBand = parseCtaBandLabels(marketing);
 
   return (
     <>
       <MarketingPageHeader title={securityPage.title ?? ""} subtitle={securityPage.subtitle} />
+      <EnterpriseConfidenceStrip
+        title={platformAuthority.confidenceTitle ?? ""}
+        subtitle={platformAuthority.confidenceSubtitle}
+        items={parseConfidenceItems(marketing).map(({ name, description }) => ({
+          title: name,
+          description,
+        }))}
+      />
       <EnterpriseTrustSection
         title={enterpriseTrust.title ?? ""}
         subtitle={enterpriseTrust.subtitle ?? ""}
@@ -34,7 +52,11 @@ export default async function SecurityPage() {
         subtitle={humanOversight.subtitle ?? ""}
         ladder={parseOversightLadder(marketing)}
       />
-      <MarketingCtaBand title={ctaBand.title ?? ""} subtitle={ctaBand.subtitle ?? ""} button={ctaBand.button ?? ""} />
+      <PlatformDifferentiationSection
+        title={platformAuthority.differentiationTitle ?? ""}
+        items={parseDifferentiationItems(marketing)}
+      />
+      <MarketingCtaBand {...ctaBand} />
     </>
   );
 }
