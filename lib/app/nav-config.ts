@@ -64,6 +64,7 @@ export type AppNavId =
   | "profitability"
   | "serviceNetwork"
   | "servicePayments"
+  | "serviceIntake"
   | "revenueGrowthCenter"
   | "customerExperienceAdoptionDelightEngine"
   | "platformExcellenceEngine"
@@ -729,6 +730,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "servicePayments",
     href: "/app/services/payments",
     labelKey: "navigation.nav.servicePayments",
+  },
+  {
+    id: "serviceIntake",
+    href: "/app/services/forms",
+    labelKey: "navigation.nav.serviceIntake",
   },
   {
     id: "customerSuccessEngine",
@@ -2621,6 +2627,14 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/compensation")) return "compensation";
   if (pathname.startsWith("/app/profitability")) return "profitability";
   if (pathname.startsWith("/app/services/payments")) return "servicePayments";
+  if (
+    pathname.startsWith("/app/services/forms") ||
+    pathname.startsWith("/app/services/submissions") ||
+    pathname.startsWith("/app/services/consents") ||
+    pathname.startsWith("/app/services/service-delivery")
+  ) {
+    return "serviceIntake";
+  }
   if (pathname.startsWith("/app/services")) return "serviceNetwork";
   if (pathname.startsWith("/app/platform/customer-experience")) {
     return "customerExperienceAdoptionDelightEngine";
