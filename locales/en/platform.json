@@ -125,6 +125,7 @@
     "overview": "Platform Dashboard",
     "operationsOverview": "Operations Overview",
     "buildHealthCenter": "Build Health Center",
+    "aosCore": "AOS Core Center",
     "platformHealth": "Platform Health",
     "deployments": "Deployments",
     "operationsAuditLogs": "Audit Logs",
@@ -5068,6 +5069,235 @@
       "marketing": "Marketing",
       "businessPacks": "Business Packs",
       "other": "Other"
+    }
+  },
+  "customerSuccessHub": {
+    "title": "Customer Success Center",
+    "subtitle": "Guide, teach, recommend, and assist before support is needed — one engine for customer health, onboarding, and adoption.",
+    "loading": "Preparing customer success center",
+    "back": "Back to platform",
+    "principle": "The best support ticket is the one that never needs to be created.",
+    "emptyState": "Customer success data is unavailable.",
+    "legacyLink": "Open legacy Success Operations center",
+    "tabs": {
+      "overview": "Overview",
+      "customerHealth": "Customer Health",
+      "onboarding": "Onboarding",
+      "guidance": "Guidance",
+      "successPlans": "Success Plans",
+      "adoption": "Adoption",
+      "risks": "Risks",
+      "companionInsights": "Companion Insights",
+      "reports": "Reports",
+      "executive": "Executive"
+    },
+    "overview": {
+      "healthyCustomers": "Healthy customers",
+      "needsAttention": "Needs attention",
+      "atRiskCustomers": "At-risk customers",
+      "newCustomers": "New customers (30d)",
+      "onboardingProgress": "Onboarding in progress",
+      "businessPackAdoption": "Business Pack adoption",
+      "supportTrends": "Support trends",
+      "customerGrowth": "Customer growth",
+      "openRisks": "Open risks",
+      "expansionOpportunities": "Expansion opportunities",
+      "proactivePending": "Proactive assistance pending"
+    },
+    "health": {
+      "customer": "Customer",
+      "status": "Health status",
+      "score": "Health score",
+      "adoption": "Adoption score"
+    },
+    "onboarding": {
+      "customer": "Customer",
+      "progress": "Onboarding progress",
+      "milestones": "Milestones"
+    },
+    "guidance": {
+      "customer": "Customer",
+      "step": "Guidance step",
+      "status": "Status",
+      "companionMessage": "Companion message"
+    },
+    "risks": {
+      "customer": "Customer",
+      "type": "Risk type",
+      "severity": "Severity",
+      "recommendation": "Companion recommendation"
+    },
+    "companion": {
+      "insights": "Companion insights",
+      "pendingAssistance": "Pending proactive assistance"
+    },
+    "executive": {
+      "title": "Executive dashboard",
+      "renewalRisks": "Renewal risks",
+      "partnerSuccess": "Partner success"
+    },
+    "reports": {
+      "title": "Success reports",
+      "healthTrends": "Customer health trends",
+      "onboardingRate": "Onboarding completion",
+      "packAdoption": "Business Pack adoption",
+      "companionMetrics": "Companion assistance metrics"
+    },
+    "playbooks": {
+      "title": "Customer Success Playbooks",
+      "description": "Structured playbooks for onboarding, adoption, renewal, and expansion.",
+      "steps": "Steps"
+    },
+    "onboardingPage": {
+      "title": "Customer Onboarding",
+      "subtitle": "Track account setup, domain connection, team invitation, Business Packs, integrations, training, and Companion activation."
+    },
+    "actions": {
+      "completeGuidance": "Mark guidance complete",
+      "acknowledgeRisk": "Acknowledge risk",
+      "resolveRisk": "Resolve risk",
+      "deliverProactive": "Deliver assistance",
+      "viewOnboarding": "View onboarding tracker",
+      "viewPlaybooks": "View playbooks"
+    },
+    "healthStatuses": {
+      "healthy": "Healthy",
+      "needs_attention": "Needs attention",
+      "at_risk": "At risk"
+    },
+    "riskTypes": {
+      "low_adoption": "Low adoption",
+      "inactive_users": "Inactive users",
+      "failed_integration": "Failed integration",
+      "missing_setup": "Missing setup",
+      "unfinished_onboarding": "Unfinished onboarding",
+      "renewal_risk": "Renewal risk",
+      "support_spike": "Support spike"
+    },
+    "severities": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "playbookTypes": {
+      "new_customer": "Partner-referred",
+      "low_adoption": "Low adoption",
+      "renewal": "Renewal",
+      "expansion": "Expansion",
+      "enterprise": "Enterprise",
+      "partner_referred": "Partner-referred"
+    }
+  },
+  "businessPackFactory": {
+    "title": "Business Pack Factory",
+    "subtitle": "Build, test, certify, and publish industry Business Packs assembled from reusable platform engines.",
+    "loading": "Preparing Business Pack Factory",
+    "back": "Back to platform",
+    "principle": "Aipify builds one platform — industry solutions are assembled from reusable engines, not separate products.",
+    "emptyState": "Business Pack Factory data is unavailable.",
+    "legacyLink": "Open legacy Business Packs product page",
+    "tabs": {
+      "overview": "Overview",
+      "templates": "Templates",
+      "industry_frameworks": "Industry Frameworks",
+      "pack_builder": "Pack Builder",
+      "dependencies": "Dependencies",
+      "testing": "Testing",
+      "certification": "Certification",
+      "marketplace": "Marketplace",
+      "reports": "Reports",
+      "executive": "Executive"
+    },
+    "overview": {
+      "industryFrameworks": "Industry frameworks",
+      "packBlueprints": "Pack blueprints",
+      "inDevelopment": "In development",
+      "inReview": "In review",
+      "certified": "Certified",
+      "marketplaceReady": "Marketplace ready",
+      "companionSkills": "Companion skills",
+      "knowledgeTemplates": "Knowledge templates",
+      "catalogListings": "Catalog listings"
+    },
+    "actions": {
+      "runTest": "Run test",
+      "advanceReview": "Advance to review",
+      "publishPack": "Publish to marketplace",
+      "openBuilder": "Open Pack Builder",
+      "openSkills": "Companion Skill Builder",
+      "openTesting": "Testing Center"
+    },
+    "builderPage": {
+      "title": "Business Pack Builder",
+      "subtitle": "Assemble modules, workflows, reports, Companion skills, automations, knowledge templates, and approval flows."
+    },
+    "skillsPage": {
+      "title": "Companion Skill Builder",
+      "subtitle": "Industry-aware Companion capabilities contributed by each Business Pack."
+    },
+    "testingPage": {
+      "title": "Business Pack Testing Center",
+      "subtitle": "Test permissions, workflows, Companion skills, mobile access, marketplace installation, and simulation integration."
+    },
+    "blueprintStatuses": {
+      "development": "Development",
+      "review": "Review",
+      "certified": "Certified",
+      "marketplace_ready": "Marketplace ready",
+      "published": "Published",
+      "deprecated": "Deprecated"
+    }
+  },
+  "aosCore": {
+    "title": "AOS Core Center",
+    "subtitle": "Central platform governor coordinating engines, orchestration, dependencies, feature flags, health, governance, and execution across Aipify.",
+    "loading": "Preparing AOS Core Center",
+    "back": "Back to platform",
+    "principle": "Every engine works independently. Every engine works together. Aipify behaves as one platform — not disconnected modules.",
+    "emptyState": "AOS Core Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "orchestration": "Orchestration",
+      "engine_registry": "Engine Registry",
+      "dependencies": "Dependencies",
+      "platform_health": "Platform Health",
+      "feature_flags": "Feature Flags",
+      "execution_control": "Execution Control",
+      "governance": "Governance",
+      "executive": "Executive",
+      "reports": "Reports"
+    },
+    "overview": {
+      "registeredEngines": "Registered engines",
+      "healthyEngines": "Healthy engines",
+      "dependencies": "Dependencies",
+      "orchestrationFlows": "Orchestration flows",
+      "featureFlags": "Feature flags",
+      "policies": "Platform policies",
+      "platformHealthScore": "Platform health score"
+    },
+    "actions": {
+      "refreshHealth": "Refresh platform health",
+      "enableFeature": "Enable",
+      "disableFeature": "Disable",
+      "runSimulation": "Run platform simulation",
+      "openEngines": "Engine Registry",
+      "openFeatures": "Feature Flags"
+    },
+    "engineStatuses": {
+      "healthy": "Healthy",
+      "attention_required": "Attention required",
+      "critical": "Critical",
+      "disabled": "Disabled"
+    },
+    "enginesPage": {
+      "title": "Engine Registry",
+      "subtitle": "Central registry of every platform engine — status, dependencies, health, and Business Pack usage."
+    },
+    "featuresPage": {
+      "title": "Feature Flag Engine",
+      "subtitle": "Gradual rollout controls for dashboards, Companion skills, marketplace features, and enterprise capabilities."
     }
   }
 }

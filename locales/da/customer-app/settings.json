@@ -3514,5 +3514,267 @@
     "lastTestResult": "Seneste test",
     "provider": "Udbyder",
     "connectionType": "Forbindelsestype"
+  },
+  "organizationOperations": {
+    "title": "Organization Center",
+    "subtitle": "Administrer komplekse forretningsstrukturer — domæner, brands, divisioner, afdelinger, datterselskaber og driftsenheder.",
+    "principle": "De fleste virksomheder er ikke én ting. Aipify forstår organisationsstruktur.",
+    "accessDenied": "Organization Center kræver administratorrettigheder.",
+    "overview": "Oversigt",
+    "structure": "Struktur",
+    "domains": "Domæner",
+    "departments": "Afdelinger",
+    "locations": "Lokationer",
+    "businessUnits": "Forretningsenheder",
+    "brands": "Brands",
+    "entities": "Enheder",
+    "workspaces": "Arbejdsområder",
+    "health": "Organisationssundhed",
+    "executive": "Ledelse",
+    "reports": "Rapporter",
+    "companionInsights": "Companion Organization Advisor",
+    "searchPlaceholder": "Søg afdelinger, brands, arbejdsområder, enheder…",
+    "search": "Søg",
+    "createEntity": "Tilføj enhed",
+    "createBrand": "Tilføj brand",
+    "createWorkspace": "Tilføj arbejdsområde",
+    "createBusinessUnit": "Tilføj forretningsenhed",
+    "refreshHealth": "Opdater sundhedsscore",
+    "workspacesLink": "Arbejdsområder",
+    "employeesLink": "Medarbejdere",
+    "domainsLink": "Domæneindstillinger",
+    "tabs": {
+      "overview": "Oversigt",
+      "structure": "Struktur",
+      "domains": "Domæner",
+      "departments": "Afdelinger",
+      "locations": "Lokationer",
+      "business_units": "Forretningsenheder",
+      "brands": "Brands",
+      "entities": "Enheder",
+      "workspaces": "Arbejdsområder",
+      "health": "Sundhed",
+      "executive": "Ledelse",
+      "reports": "Rapporter",
+      "companion": "Companion"
+    },
+    "workspacesPage": {
+      "title": "Arbejdsområder",
+      "subtitle": "Organiser hovedkontor, support, handel, lager og andre operative arbejdsområder."
+    },
+    "healthStatuses": {
+      "healthy": "Sund",
+      "needs_attention": "Kræver opmærksomhed",
+      "critical": "Kritisk"
+    },
+    "entityTypes": {
+      "company": "Virksomhed",
+      "division": "Division",
+      "brand": "Brand",
+      "department": "Afdeling",
+      "location": "Lokation",
+      "subsidiary": "Datterselskab",
+      "branch_office": "Filial",
+      "operating_unit": "Driftsenhed",
+      "custom": "Brugerdefineret"
+    },
+    "workspaceTypes": {
+      "head_office": "Hovedkontor",
+      "retail": "Detail",
+      "support": "Support",
+      "commerce": "Handel",
+      "warehouse": "Lager",
+      "property_management": "Ejendomsadministration",
+      "executive": "Ledelse",
+      "general": "Generel",
+      "custom": "Brugerdefineret"
+    }
+  },
+  "trustCenterOperations": {
+    "title": "Trust Center",
+    "subtitle": "Fuld synlighed i sikkerhed, adgang, identitet, verificering, revisionshistorik og tillidsrelaterede aktiviteter.",
+    "loading": "Forbereder Trust Center",
+    "back": "Tilbage",
+    "principle": "Tillid skal være synlig. Sikkerhed skal være forståelig. Vid hvem der gjorde hvad, hvornår, hvorfor og om det var autoriseret.",
+    "emptyState": "Trust Center-data er utilgængelig.",
+    "accessDenied": "Trust Center kræver administratorrettigheder.",
+    "tabs": {
+      "overview": "Oversigt",
+      "identity": "Identitet",
+      "verification": "Verificering",
+      "security": "Sikkerhed",
+      "devices": "Enheder",
+      "sessions": "Sessioner",
+      "audit": "Revisionshistorik",
+      "permissions": "Tilladelser",
+      "compliance": "Compliance",
+      "executive": "Ledelse",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "trustScore": "Tillidsscore",
+      "securityStatus": "Sikkerhedsstatus",
+      "verificationStatus": "Verificeringsstatus",
+      "twoFactorAdoption": "2FA-adoption",
+      "deviceHealth": "Enhedssundhed",
+      "activeSessions": "Aktive sessioner",
+      "recentSecurityEvents": "Seneste sikkerhedshændelser",
+      "registeredIdentities": "Registrerede identiteter"
+    },
+    "actions": {
+      "refreshScore": "Opdater sikkerhedsscore",
+      "approveDevice": "Godkend enhed",
+      "blockDevice": "Bloker enhed",
+      "terminateSession": "Afslut session",
+      "enable2fa": "Aktiver 2FA",
+      "completeVerification": "Markér som verificeret",
+      "openDevices": "Device Trust Center",
+      "open2fa": "2FA Center",
+      "openAudit": "Revisionshistorik",
+      "openActionEngine": "Trust & Action-forklarbarhed"
+    },
+    "trustStatuses": {
+      "trusted": "Betroet",
+      "attention_required": "Kræver opmærksomhed",
+      "action_required": "Handling påkrævet",
+      "restricted": "Begrænset"
+    },
+    "deviceStatuses": {
+      "trusted": "Betroet",
+      "unrecognized": "Ukendt",
+      "suspicious": "Mistænkelig",
+      "blocked": "Blokeret"
+    },
+    "verificationStatuses": {
+      "pending": "Afventer",
+      "verified": "Verificeret",
+      "review_required": "Kræver gennemgang",
+      "failed": "Mislykkedes"
+    },
+    "devicesPage": {
+      "title": "Device Trust Center",
+      "subtitle": "Gennemgå betroede, ukendte, mistænkelige og blokerede enheder."
+    },
+    "twoFactorPage": {
+      "title": "2FA Center",
+      "subtitle": "Authenticator-apps, backup-koder, gendannelse og adoption på tværs af identiteter."
+    },
+    "auditPage": {
+      "title": "Revisionshistorik",
+      "subtitle": "Logins, tilladelser, godkendelser, udførelser og Companion-handlinger."
+    }
+  },
+  "knowledgeNetworkOperations": {
+    "title": "Knowledge Network Center",
+    "subtitle": "Gør viden, erfaring, beslutninger, procedurer og lærdomme til genanvendelig organisationsintelligens.",
+    "loading": "Forbereder Knowledge Network",
+    "back": "Tilbage",
+    "principle": "Organisationer mister viden, når medarbejdere forlader og projekter afsluttes. Aipify bevarer organisationsvisdom.",
+    "emptyState": "Knowledge Network-data er utilgængelig.",
+    "accessDenied": "Knowledge Network kræver administratorrettigheder.",
+    "tabs": {
+      "overview": "Oversigt",
+      "knowledge_assets": "Vidensaktiver",
+      "lessons_learned": "Lærdomme",
+      "playbooks": "Playbooks",
+      "best_practices": "Bedste praksis",
+      "experience": "Erfaringsbibliotek",
+      "companion": "Companion-læring",
+      "executive": "Ledelse",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "knowledgeAssets": "Vidensaktiver",
+      "lessonsLearned": "Lærdomme",
+      "playbooks": "Playbooks",
+      "bestPractices": "Bedste praksis",
+      "experienceEntries": "Erfaringsposter",
+      "wisdomScore": "Visdomsscore",
+      "wisdomStatus": "Visdomsstatus",
+      "retentionPending": "Afventende vidensoverførsel",
+      "reviewsDue": "Gennemgang forfalder"
+    },
+    "actions": {
+      "refreshWisdomScore": "Opdater visdomsscore",
+      "addLesson": "Tilføj lærdom",
+      "publishPlaybook": "Publicer playbook",
+      "contributeExperience": "Bidrag med erfaring",
+      "startRetentionCapture": "Start vidensindfangning",
+      "markReviewed": "Markér gennemgået",
+      "openLessons": "Lærdomme",
+      "openExperience": "Erfaringsbibliotek",
+      "openKnowledgeGraph": "Knowledge Graph"
+    },
+    "wisdomStatuses": {
+      "strong_learning_culture": "Stærk læringskultur",
+      "knowledge_gaps": "Videnshuller",
+      "critical_knowledge_risk": "Kritisk vidensrisiko"
+    },
+    "lessonsPage": {
+      "title": "Lærdomme",
+      "subtitle": "Genanvendelige lærdomme fra projekter, kundesucces, sikkerhed og partnere."
+    },
+    "experiencePage": {
+      "title": "Erfaringsbibliotek",
+      "subtitle": "Hvad der virkede, fejlede, bør gentages og undgås."
+    }
+  },
+  "marketIntelligenceOperations": {
+    "title": "Market Intelligence Center",
+    "subtitle": "Forstå markeder, konkurrenter, brancher, trends og eksterne forretningsforhold — kun offentlig information.",
+    "loading": "Forbereder Market Intelligence",
+    "back": "Tilbage",
+    "principle": "De fleste organisationer ved, hvad der sker inde i virksomheden. Få forstår, hvad der sker udenfor. Aipify overvåger begge.",
+    "ethicsNote": "Kun offentlige kilder. Ingen overvågning. Ingen uetisk efterretningsindsamling.",
+    "emptyState": "Market Intelligence-data er utilgængelig.",
+    "accessDenied": "Market Intelligence kræver administratorrettigheder.",
+    "tabs": {
+      "overview": "Oversigt",
+      "markets": "Markeder",
+      "competitors": "Konkurrenter",
+      "industries": "Brancher",
+      "trends": "Trends",
+      "opportunities": "Muligheder",
+      "threats": "Trusler",
+      "companion": "Companion-indsigt",
+      "executive": "Ledelse",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "marketsTracked": "Markeder sporet",
+      "competitorsTracked": "Konkurrenter sporet",
+      "industriesTracked": "Brancher sporet",
+      "activeTrends": "Aktive trends",
+      "openOpportunities": "Åbne muligheder",
+      "activeThreats": "Aktive trusler",
+      "externalSignals": "Eksterne signaler",
+      "avgMarketHealth": "Gennemsnitlig markedshelbred"
+    },
+    "actions": {
+      "generateBriefing": "Generer briefing",
+      "addCompetitor": "Tilføj konkurrent",
+      "identifyTrend": "Identificer trend",
+      "detectOpportunity": "Opdag mulighed",
+      "flagThreat": "Flag trussel",
+      "refreshMarketHealth": "Opdater markedshelbred",
+      "openMarkets": "Market Observatory",
+      "openSimulation": "Digital Twin-simulering",
+      "openLegacyCenter": "Ældre markedscenter"
+    },
+    "marketStatuses": {
+      "growing": "Vokser",
+      "stable": "Stabil",
+      "competitive": "Konkurrencepræget",
+      "high_risk": "Høj risiko"
+    },
+    "threatSeverities": {
+      "information": "Information",
+      "attention": "Kræver opmærksomhed",
+      "critical": "Kritisk"
+    },
+    "marketsPage": {
+      "title": "Market Observatory",
+      "subtitle": "Spor regionale markeder, vækstrate, konkurrenceniveau og markedshelbred."
+    }
   }
 }

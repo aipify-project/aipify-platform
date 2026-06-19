@@ -57,7 +57,7 @@ export function ExplanationDetailPanel({ explanationId, labels }: ExplanationDet
 
   return (
     <div className="space-y-6">
-      <Link href="/app/trust" className="text-sm text-violet-700 hover:underline">
+      <Link href="/app/trust-action-engine" className="text-sm text-violet-700 hover:underline">
         ← {labels.back}
       </Link>
 

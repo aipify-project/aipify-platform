@@ -3514,5 +3514,267 @@
     "lastTestResult": "Senaste test",
     "provider": "Leverantör",
     "connectionType": "Anslutningstyp"
+  },
+  "organizationOperations": {
+    "title": "Organization Center",
+    "subtitle": "Hantera komplexa affärsstrukturer — domäner, varumärken, divisioner, avdelningar, dotterbolag och driftenheter.",
+    "principle": "De flesta företag är inte en sak. Aipify förstår organisationsstruktur.",
+    "accessDenied": "Organization Center kräver administratörsbehörighet.",
+    "overview": "Översikt",
+    "structure": "Struktur",
+    "domains": "Domäner",
+    "departments": "Avdelningar",
+    "locations": "Platser",
+    "businessUnits": "Affärsenheter",
+    "brands": "Varumärken",
+    "entities": "Enheter",
+    "workspaces": "Arbetsytor",
+    "health": "Organisationshälsa",
+    "executive": "Ledning",
+    "reports": "Rapporter",
+    "companionInsights": "Companion Organization Advisor",
+    "searchPlaceholder": "Sök avdelningar, varumärken, arbetsytor, enheter…",
+    "search": "Sök",
+    "createEntity": "Lägg till enhet",
+    "createBrand": "Lägg till varumärke",
+    "createWorkspace": "Lägg till arbetsyta",
+    "createBusinessUnit": "Lägg till affärsenhet",
+    "refreshHealth": "Uppdatera hälsopoäng",
+    "workspacesLink": "Arbetsytor",
+    "employeesLink": "Anställda",
+    "domainsLink": "Domäninställningar",
+    "tabs": {
+      "overview": "Översikt",
+      "structure": "Struktur",
+      "domains": "Domäner",
+      "departments": "Avdelningar",
+      "locations": "Platser",
+      "business_units": "Affärsenheter",
+      "brands": "Varumärken",
+      "entities": "Enheter",
+      "workspaces": "Arbetsytor",
+      "health": "Hälsa",
+      "executive": "Ledning",
+      "reports": "Rapporter",
+      "companion": "Companion"
+    },
+    "workspacesPage": {
+      "title": "Arbetsytor",
+      "subtitle": "Organisera huvudkontor, support, handel, lager och andra operativa arbetsytor."
+    },
+    "healthStatuses": {
+      "healthy": "Frisk",
+      "needs_attention": "Behöver uppmärksamhet",
+      "critical": "Kritisk"
+    },
+    "entityTypes": {
+      "company": "Företag",
+      "division": "Division",
+      "brand": "Varumärke",
+      "department": "Avdelning",
+      "location": "Plats",
+      "subsidiary": "Dotterbolag",
+      "branch_office": "Filial",
+      "operating_unit": "Driftenhet",
+      "custom": "Anpassad"
+    },
+    "workspaceTypes": {
+      "head_office": "Huvudkontor",
+      "retail": "Detaljhandel",
+      "support": "Support",
+      "commerce": "Handel",
+      "warehouse": "Lager",
+      "property_management": "Fastighetsförvaltning",
+      "executive": "Ledning",
+      "general": "Allmän",
+      "custom": "Anpassad"
+    }
+  },
+  "trustCenterOperations": {
+    "title": "Trust Center",
+    "subtitle": "Full synlighet i säkerhet, åtkomst, identitet, verifiering, granskningshistorik och förtroendeaktiviteter.",
+    "loading": "Förbereder Trust Center",
+    "back": "Tillbaka",
+    "principle": "Förtroende måste vara synligt. Säkerhet måste vara begriplig. Vet vem som gjorde vad, när, varför och om det var auktoriserat.",
+    "emptyState": "Trust Center-data är otillgänglig.",
+    "accessDenied": "Trust Center kräver administratörsbehörighet.",
+    "tabs": {
+      "overview": "Översikt",
+      "identity": "Identitet",
+      "verification": "Verifiering",
+      "security": "Säkerhet",
+      "devices": "Enheter",
+      "sessions": "Sessioner",
+      "audit": "Granskningshistorik",
+      "permissions": "Behörigheter",
+      "compliance": "Compliance",
+      "executive": "Ledning",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "trustScore": "Förtroendepoäng",
+      "securityStatus": "Säkerhetsstatus",
+      "verificationStatus": "Verifieringsstatus",
+      "twoFactorAdoption": "2FA-adoption",
+      "deviceHealth": "Enhetshälsa",
+      "activeSessions": "Aktiva sessioner",
+      "recentSecurityEvents": "Senaste säkerhetshändelser",
+      "registeredIdentities": "Registrerade identiteter"
+    },
+    "actions": {
+      "refreshScore": "Uppdatera säkerhetspoäng",
+      "approveDevice": "Godkänn enhet",
+      "blockDevice": "Blockera enhet",
+      "terminateSession": "Avsluta session",
+      "enable2fa": "Aktivera 2FA",
+      "completeVerification": "Markera som verifierad",
+      "openDevices": "Device Trust Center",
+      "open2fa": "2FA Center",
+      "openAudit": "Granskningshistorik",
+      "openActionEngine": "Trust & Action-förklarbarhet"
+    },
+    "trustStatuses": {
+      "trusted": "Betrodd",
+      "attention_required": "Kräver uppmärksamhet",
+      "action_required": "Åtgärd krävs",
+      "restricted": "Begränsad"
+    },
+    "deviceStatuses": {
+      "trusted": "Betrodd",
+      "unrecognized": "Okänd",
+      "suspicious": "Misstänkt",
+      "blocked": "Blockerad"
+    },
+    "verificationStatuses": {
+      "pending": "Väntar",
+      "verified": "Verifierad",
+      "review_required": "Kräver granskning",
+      "failed": "Misslyckades"
+    },
+    "devicesPage": {
+      "title": "Device Trust Center",
+      "subtitle": "Granska betrodda, okända, misstänkta och blockerade enheter."
+    },
+    "twoFactorPage": {
+      "title": "2FA Center",
+      "subtitle": "Autentiseringsappar, reservkoder, återställning och adoption över identiteter."
+    },
+    "auditPage": {
+      "title": "Granskningshistorik",
+      "subtitle": "Inloggningar, behörigheter, godkännanden, körningar och Companion-åtgärder."
+    }
+  },
+  "knowledgeNetworkOperations": {
+    "title": "Knowledge Network Center",
+    "subtitle": "Förvandla kunskap, erfarenhet, beslut, procedurer och lärdomar till återanvändbar organisationsintelligens.",
+    "loading": "Förbereder Knowledge Network",
+    "back": "Tillbaka",
+    "principle": "Organisationer förlorar kunskap när människor lämnar och projekt avslutas. Aipify bevarar organisationsvisdom.",
+    "emptyState": "Knowledge Network-data är otillgänglig.",
+    "accessDenied": "Knowledge Network kräver administratörsbehörighet.",
+    "tabs": {
+      "overview": "Översikt",
+      "knowledge_assets": "Kunskapstillgångar",
+      "lessons_learned": "Lärdomar",
+      "playbooks": "Playbooks",
+      "best_practices": "Bästa praxis",
+      "experience": "Erfarenhetsbibliotek",
+      "companion": "Companion-inlärning",
+      "executive": "Ledning",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "knowledgeAssets": "Kunskapstillgångar",
+      "lessonsLearned": "Lärdomar",
+      "playbooks": "Playbooks",
+      "bestPractices": "Bästa praxis",
+      "experienceEntries": "Erfarenhetsposter",
+      "wisdomScore": "Visdomspoäng",
+      "wisdomStatus": "Visdomsstatus",
+      "retentionPending": "Väntande kunskapsöverföring",
+      "reviewsDue": "Granskning förfaller"
+    },
+    "actions": {
+      "refreshWisdomScore": "Uppdatera visdomspoäng",
+      "addLesson": "Lägg till lärdom",
+      "publishPlaybook": "Publicera playbook",
+      "contributeExperience": "Bidra med erfarenhet",
+      "startRetentionCapture": "Starta kunskapsöverföring",
+      "markReviewed": "Markera granskad",
+      "openLessons": "Lärdomar",
+      "openExperience": "Erfarenhetsbibliotek",
+      "openKnowledgeGraph": "Knowledge Graph"
+    },
+    "wisdomStatuses": {
+      "strong_learning_culture": "Stark lärkultur",
+      "knowledge_gaps": "Kunskapsluckor",
+      "critical_knowledge_risk": "Kritisk kunskapsrisk"
+    },
+    "lessonsPage": {
+      "title": "Lärdomar",
+      "subtitle": "Återanvändbara lärdomar från projekt, kundframgång, säkerhet och partners."
+    },
+    "experiencePage": {
+      "title": "Erfarenhetsbibliotek",
+      "subtitle": "Vad som fungerade, misslyckades, bör upprepas och undvikas."
+    }
+  },
+  "marketIntelligenceOperations": {
+    "title": "Market Intelligence Center",
+    "subtitle": "Förstå marknader, konkurrenter, branscher, trender och externa affärsförhållanden — endast offentlig information.",
+    "loading": "Förbereder Market Intelligence",
+    "back": "Tillbaka",
+    "principle": "De flesta organisationer vet vad som händer inuti företaget. Få förstår vad som händer utanför. Aipify övervakar båda.",
+    "ethicsNote": "Endast offentliga källor. Ingen övervakning. Ingen oetisk underrättelseinsamling.",
+    "emptyState": "Market Intelligence-data är otillgänglig.",
+    "accessDenied": "Market Intelligence kräver administratörsbehörighet.",
+    "tabs": {
+      "overview": "Översikt",
+      "markets": "Marknader",
+      "competitors": "Konkurrenter",
+      "industries": "Branscher",
+      "trends": "Trender",
+      "opportunities": "Möjligheter",
+      "threats": "Hot",
+      "companion": "Companion-insikter",
+      "executive": "Ledning",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "marketsTracked": "Spårade marknader",
+      "competitorsTracked": "Spårade konkurrenter",
+      "industriesTracked": "Spårade branscher",
+      "activeTrends": "Aktiva trender",
+      "openOpportunities": "Öppna möjligheter",
+      "activeThreats": "Aktiva hot",
+      "externalSignals": "Externa signaler",
+      "avgMarketHealth": "Genomsnittlig marknadshälsa"
+    },
+    "actions": {
+      "generateBriefing": "Generera briefing",
+      "addCompetitor": "Lägg till konkurrent",
+      "identifyTrend": "Identifiera trend",
+      "detectOpportunity": "Upptäck möjlighet",
+      "flagThreat": "Flagga hot",
+      "refreshMarketHealth": "Uppdatera marknadshälsa",
+      "openMarkets": "Market Observatory",
+      "openSimulation": "Digital Twin-simulering",
+      "openLegacyCenter": "Äldre marknadscenter"
+    },
+    "marketStatuses": {
+      "growing": "Växande",
+      "stable": "Stabil",
+      "competitive": "Konkurrensutsatt",
+      "high_risk": "Hög risk"
+    },
+    "threatSeverities": {
+      "information": "Information",
+      "attention": "Kräver uppmärksamhet",
+      "critical": "Kritisk"
+    },
+    "marketsPage": {
+      "title": "Market Observatory",
+      "subtitle": "Spåra regionala marknader, tillväxttakt, konkurrensnivå och marknadshälsa."
+    }
   }
 }

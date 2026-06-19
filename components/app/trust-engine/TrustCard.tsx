@@ -33,7 +33,7 @@ export function TrustCard({ labels }: TrustCardProps) {
           </p>
           <p className="mt-1 text-xs text-violet-600">{card.philosophy}</p>
         </div>
-        <Link href="/app/trust" className="text-sm font-medium text-violet-700 hover:underline">
+        <Link href="/app/trust-action-engine" className="text-sm font-medium text-violet-700 hover:underline">
           {labels.open}
         </Link>
       </div>

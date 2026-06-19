@@ -99,6 +99,7 @@
     "overview": "Plattformsdashboard",
     "operationsOverview": "Operations Overview",
     "buildHealthCenter": "Build Health Center",
+    "aosCore": "AOS Core Center",
     "platformHealth": "Platform Health",
     "deployments": "Deployments",
     "operationsAuditLogs": "Audit Logs",
@@ -4553,5 +4554,234 @@
     "activations": "Active activations",
     "packActivations": "Business Pack activations",
     "back": "Back to Platform"
+  },
+  "customerSuccessHub": {
+    "title": "Customer Success Center",
+    "subtitle": "Vägled, lär, rekommendera och assistera innan support behövs — en motor för kundhälsa, onboarding och adoption.",
+    "loading": "Förbereder customer success-center",
+    "back": "Tillbaka till plattformen",
+    "principle": "Det bästa supportärendet är det som aldrig behöver skapas.",
+    "emptyState": "Customer success-data är otillgänglig.",
+    "legacyLink": "Öppna äldre Success Operations-center",
+    "tabs": {
+      "overview": "Översikt",
+      "customerHealth": "Kundhälsa",
+      "onboarding": "Onboarding",
+      "guidance": "Vägledning",
+      "successPlans": "Framgångsplaner",
+      "adoption": "Adoption",
+      "risks": "Risker",
+      "companionInsights": "Companion-insikter",
+      "reports": "Rapporter",
+      "executive": "Ledning"
+    },
+    "overview": {
+      "healthyCustomers": "Friska kunder",
+      "needsAttention": "Behöver uppmärksamhet",
+      "atRiskCustomers": "Kunder i risk",
+      "newCustomers": "Nya kunder (30d)",
+      "onboardingProgress": "Onboarding pågår",
+      "businessPackAdoption": "Business Pack-adoption",
+      "supportTrends": "Supporttrender",
+      "customerGrowth": "Kundtillväxt",
+      "openRisks": "Öppna risker",
+      "expansionOpportunities": "Expansionsmöjligheter",
+      "proactivePending": "Proaktiv assistans väntar"
+    },
+    "health": {
+      "customer": "Kund",
+      "status": "Hälsostatus",
+      "score": "Hälsopoäng",
+      "adoption": "Adoptionspoäng"
+    },
+    "onboarding": {
+      "customer": "Kund",
+      "progress": "Onboarding-framsteg",
+      "milestones": "Milstolpar"
+    },
+    "guidance": {
+      "customer": "Kund",
+      "step": "Vägledningssteg",
+      "status": "Status",
+      "companionMessage": "Companion-meddelande"
+    },
+    "risks": {
+      "customer": "Kund",
+      "type": "Risktyp",
+      "severity": "Allvarlighetsgrad",
+      "recommendation": "Companion-rekommendation"
+    },
+    "companion": {
+      "insights": "Companion-insikter",
+      "pendingAssistance": "Väntande proaktiv assistans"
+    },
+    "executive": {
+      "title": "Ledningsdashboard",
+      "renewalRisks": "Förnyelserisk",
+      "partnerSuccess": "Partnerframgång"
+    },
+    "reports": {
+      "title": "Framgångsrapporter",
+      "healthTrends": "Kundhälsotrender",
+      "onboardingRate": "Onboarding-slutförande",
+      "packAdoption": "Business Pack-adoption",
+      "companionMetrics": "Companion-assistansmetrik"
+    },
+    "playbooks": {
+      "title": "Customer Success Playbooks",
+      "description": "Strukturerade playbooks för onboarding, adoption, förnyelse och expansion.",
+      "steps": "Steg"
+    },
+    "onboardingPage": {
+      "title": "Kund-onboarding",
+      "subtitle": "Spåra kontoinställning, domän, teaminbjudan, Business Packs, integrationer, utbildning och Companion-aktivering."
+    },
+    "actions": {
+      "completeGuidance": "Markera vägledning klar",
+      "acknowledgeRisk": "Bekräfta risk",
+      "resolveRisk": "Lös risk",
+      "deliverProactive": "Leverera assistans",
+      "viewOnboarding": "Visa onboarding-spårning",
+      "viewPlaybooks": "Visa playbooks"
+    },
+    "healthStatuses": {
+      "healthy": "Frisk",
+      "needs_attention": "Behöver uppmärksamhet",
+      "at_risk": "I risk"
+    },
+    "riskTypes": {
+      "low_adoption": "Låg adoption",
+      "inactive_users": "Inaktiva användare",
+      "failed_integration": "Misslyckad integration",
+      "missing_setup": "Saknad konfiguration",
+      "unfinished_onboarding": "Ofullständig onboarding",
+      "renewal_risk": "Förnyelserisk",
+      "support_spike": "Supportökning"
+    },
+    "severities": {
+      "low": "Låg",
+      "medium": "Medel",
+      "high": "Hög",
+      "critical": "Kritisk"
+    },
+    "playbookTypes": {
+      "new_customer": "Ny kund",
+      "low_adoption": "Låg adoption",
+      "renewal": "Förnyelse",
+      "expansion": "Expansion",
+      "enterprise": "Enterprise",
+      "partner_referred": "Partner-refererad"
+    }
+  },
+  "businessPackFactory": {
+    "title": "Business Pack Factory",
+    "subtitle": "Bygg, testa, certifiera och publicera bransch-Business Packs från återanvändbara plattformsmotorer.",
+    "loading": "Förbereder Business Pack Factory",
+    "back": "Tillbaka till plattformen",
+    "principle": "Aipify bygger en plattform — branschlösningar sätts ihop av återanvändbara motorer.",
+    "emptyState": "Business Pack Factory-data är otillgänglig.",
+    "legacyLink": "Öppna äldre Business Packs-produktsida",
+    "tabs": {
+      "overview": "Översikt",
+      "templates": "Mallar",
+      "industry_frameworks": "Branschramverk",
+      "pack_builder": "Pack Builder",
+      "dependencies": "Beroenden",
+      "testing": "Testning",
+      "certification": "Certifiering",
+      "marketplace": "Marketplace",
+      "reports": "Rapporter",
+      "executive": "Ledning"
+    },
+    "overview": {
+      "industryFrameworks": "Branschramverk",
+      "packBlueprints": "Pack-blueprints",
+      "inDevelopment": "Under utveckling",
+      "inReview": "Under granskning",
+      "certified": "Certifierad",
+      "marketplaceReady": "Marketplace-redo",
+      "companionSkills": "Companion-färdigheter",
+      "knowledgeTemplates": "Kunskapsmallar",
+      "catalogListings": "Katalogposter"
+    },
+    "actions": {
+      "runTest": "Kör test",
+      "advanceReview": "Skicka till granskning",
+      "publishPack": "Publicera till marketplace",
+      "openBuilder": "Öppna Pack Builder",
+      "openSkills": "Companion Skill Builder",
+      "openTesting": "Testcenter"
+    },
+    "builderPage": {
+      "title": "Business Pack Builder",
+      "subtitle": "Sätt ihop moduler, arbetsflöden, rapporter och Companion-färdigheter."
+    },
+    "skillsPage": {
+      "title": "Companion Skill Builder",
+      "subtitle": "Branschmedvetna Companion-capabilities från varje Business Pack."
+    },
+    "testingPage": {
+      "title": "Business Pack Testing Center",
+      "subtitle": "Testa behörigheter, arbetsflöden, Companion, mobil och simulering."
+    },
+    "blueprintStatuses": {
+      "development": "Utveckling",
+      "review": "Granskning",
+      "certified": "Certifierad",
+      "marketplace_ready": "Marketplace-redo",
+      "published": "Publicerad",
+      "deprecated": "Utfasad"
+    }
+  },
+  "aosCore": {
+    "title": "AOS Core Center",
+    "subtitle": "Central plattformguvernör som koordinerar motorer, orkestrering, beroenden, feature flags, hälsa, styrning och körning i hela Aipify.",
+    "loading": "Förbereder AOS Core Center",
+    "back": "Tillbaka till plattform",
+    "principle": "Varje motor fungerar självständigt. Varje motor fungerar tillsammans. Aipify beter sig som en plattform — inte frånkopplade moduler.",
+    "emptyState": "AOS Core Center-data är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "orchestration": "Orkestrering",
+      "engine_registry": "Motorregister",
+      "dependencies": "Beroenden",
+      "platform_health": "Plattformshälsa",
+      "feature_flags": "Feature flags",
+      "execution_control": "Körningskontroll",
+      "governance": "Styrning",
+      "executive": "Ledning",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "registeredEngines": "Registrerade motorer",
+      "healthyEngines": "Friska motorer",
+      "dependencies": "Beroenden",
+      "orchestrationFlows": "Orkestreringsflöden",
+      "featureFlags": "Feature flags",
+      "policies": "Plattformspolicyer",
+      "platformHealthScore": "Plattformshälsa-poäng"
+    },
+    "actions": {
+      "refreshHealth": "Uppdatera plattformshälsa",
+      "enableFeature": "Aktivera",
+      "disableFeature": "Inaktivera",
+      "runSimulation": "Kör plattformssimulering",
+      "openEngines": "Motorregister",
+      "openFeatures": "Feature flags"
+    },
+    "engineStatuses": {
+      "healthy": "Frisk",
+      "attention_required": "Kräver uppmärksamhet",
+      "critical": "Kritisk",
+      "disabled": "Inaktiverad"
+    },
+    "enginesPage": {
+      "title": "Motorregister",
+      "subtitle": "Centralt register över alla plattformsmotorer — status, beroenden, hälsa och Business Pack-användning."
+    },
+    "featuresPage": {
+      "title": "Feature Flag Engine",
+      "subtitle": "Gradvis utrullning för dashboards, Companion-färdigheter, marketplace och enterprise-funktioner."
+    }
   }
 }

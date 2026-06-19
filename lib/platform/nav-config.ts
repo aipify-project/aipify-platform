@@ -1,6 +1,7 @@
 export type PlatformNavId =
   | "operationsOverview"
   | "buildHealthCenter"
+  | "aosCore"
   | "platformHealth"
   | "deployments"
   | "operationsAuditLogs"
@@ -242,18 +243,19 @@ export type PlatformNavItem = {
 export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
   { id: "operationsOverview", href: "/platform/operations/overview", labelKey: "platform.nav.operationsOverview" },
   { id: "buildHealthCenter", href: "/platform/operations/build-health", labelKey: "platform.nav.buildHealthCenter" },
+  { id: "aosCore", href: "/platform/aos-core", labelKey: "platform.nav.aosCore" },
   { id: "platformHealth", href: "/platform/operations/platform-health", labelKey: "platform.nav.platformHealth" },
   { id: "deployments", href: "/platform/operations/deployments", labelKey: "platform.nav.deployments" },
   { id: "operationsAuditLogs", href: "/platform/operations/audit-logs", labelKey: "platform.nav.operationsAuditLogs" },
   { id: "organizations", href: "/platform/customers", labelKey: "platform.nav.organizations" },
-  { id: "customerSuccess", href: "/platform/customers/success-operations", labelKey: "platform.nav.customerSuccess" },
+  { id: "customerSuccess", href: "/platform/customer-success", labelKey: "platform.nav.customerSuccess" },
   { id: "payments", href: "/platform/billing/payment-operations", labelKey: "platform.nav.payments" },
   { id: "marketplace", href: "/platform/skills", labelKey: "platform.nav.marketplace" },
   { id: "growthPartners", href: "/platform/pilot-operations", labelKey: "platform.nav.growthPartners" },
   { id: "knowledgeCenter", href: "/platform/knowledge/evolution-center", labelKey: "platform.nav.knowledgeCenter" },
   { id: "translationManagement", href: "/platform/knowledge/translation-management", labelKey: "platform.nav.translationManagement" },
   { id: "documentation", href: "/platform/knowledge/documentation", labelKey: "platform.nav.documentation" },
-  { id: "businessPacks", href: "/platform/product/business-packs", labelKey: "platform.nav.businessPacks" },
+  { id: "businessPacks", href: "/platform/business-pack-factory", labelKey: "platform.nav.businessPacks" },
   { id: "moduleRegistry", href: "/platform/modules/registry", labelKey: "platform.nav.moduleRegistry" },
   { id: "appStoreRevenue", href: "/platform/store/revenue", labelKey: "platform.nav.appStoreRevenue" },
   { id: "productManagement", href: "/platform/product/management", labelKey: "platform.nav.productManagement" },
@@ -474,6 +476,7 @@ export const PLATFORM_MOBILE_NAV_IDS: PlatformNavId[] = [
 
 export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname === "/platform") return "overview";
+  if (pathname.startsWith("/platform/aos-core")) return "aosCore";
   if (pathname.startsWith("/platform/operations/build-health")) return "buildHealthCenter";
   if (pathname.startsWith("/platform/operations/route-registry")) return "buildHealthCenter";
   if (pathname.startsWith("/platform/operations/overview")) return "operationsOverview";
@@ -482,7 +485,8 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/operations/audit-logs")) return "operationsAuditLogs";
   if (pathname.startsWith("/platform/operations/playbooks")) return "operationsOverview";
   if (pathname.startsWith("/platform/operations")) return "operationsOverview";
-  if (pathname.startsWith("/platform/customers/success-operations")) return "customerSuccess";
+  if (pathname.startsWith("/platform/customer-success")) return "customerSuccess";
+  if (pathname.startsWith("/platform/customers/success-operations")) return "customerSuccessOperations";
   if (pathname.startsWith("/platform/customers")) return "organizations";
   if (pathname.startsWith("/platform/billing/payment-operations")) return "payments";
   if (pathname.startsWith("/platform/billing")) return "payments";
@@ -494,6 +498,7 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/knowledge/documentation")) return "documentation";
   if (pathname.startsWith("/platform/knowledge/evolution-center")) return "knowledgeCenter";
   if (pathname.startsWith("/platform/knowledge")) return "knowledgeCenter";
+  if (pathname.startsWith("/platform/business-pack-factory")) return "businessPacks";
   if (pathname.startsWith("/platform/product/business-packs")) return "businessPacks";
   if (pathname.startsWith("/platform/modules/registry")) return "moduleRegistry";
   if (pathname.startsWith("/platform/store/revenue")) return "appStoreRevenue";

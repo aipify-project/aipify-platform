@@ -1,0 +1,1 @@
+export { PlatformAosCorePanel } from "./PlatformAosCorePanel";

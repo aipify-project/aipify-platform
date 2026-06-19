@@ -9,6 +9,7 @@ import { searchSimulationForCommandBar } from "@/lib/simulation-operations";
 import { searchExecutionForCommandBar } from "@/lib/execution-operations";
 import { searchCompanionPresenceForCommandBar } from "@/lib/companion-presence-operations";
 import { searchEvolutionForCommandBar } from "@/lib/evolution-operations";
+import { searchOrganizationForCommandBar } from "@/lib/organization-operations";
 import type { CommandBarLabels, CommandBarPortal, CommandBarSearchResult } from "./types";
 
 type SearchInput = {
@@ -287,6 +288,7 @@ export async function searchCommandBar({
     tasks.push(searchExecutionForCommandBar(supabase, q));
     tasks.push(searchCompanionPresenceForCommandBar(supabase, q));
     tasks.push(searchEvolutionForCommandBar(supabase, q));
+    tasks.push(searchOrganizationForCommandBar(supabase, q));
   }
 
   if (portal === "customer" || portal === "platform" || portal === "super_admin") {

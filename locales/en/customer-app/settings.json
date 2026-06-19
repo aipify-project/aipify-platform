@@ -3692,5 +3692,267 @@
     "lastTestResult": "Last test",
     "provider": "Provider",
     "connectionType": "Connection type"
+  },
+  "organizationOperations": {
+    "title": "Organization Center",
+    "subtitle": "Manage complex business structures — domains, brands, divisions, departments, subsidiaries, and operating units in one place.",
+    "principle": "Most companies are not one thing. Aipify understands organizational structure.",
+    "accessDenied": "Organization Center requires administrator permissions.",
+    "overview": "Overview",
+    "structure": "Structure",
+    "domains": "Domains",
+    "departments": "Departments",
+    "locations": "Locations",
+    "businessUnits": "Business Units",
+    "brands": "Brands",
+    "entities": "Entities",
+    "workspaces": "Workspaces",
+    "health": "Organization Health",
+    "executive": "Executive",
+    "reports": "Reports",
+    "companionInsights": "Companion Organization Advisor",
+    "searchPlaceholder": "Search departments, brands, workspaces, entities…",
+    "search": "Search",
+    "createEntity": "Add entity",
+    "createBrand": "Add brand",
+    "createWorkspace": "Add workspace",
+    "createBusinessUnit": "Add business unit",
+    "refreshHealth": "Refresh health score",
+    "workspacesLink": "Workspaces",
+    "employeesLink": "Employees",
+    "domainsLink": "Domain settings",
+    "tabs": {
+      "overview": "Overview",
+      "structure": "Structure",
+      "domains": "Domains",
+      "departments": "Departments",
+      "locations": "Locations",
+      "business_units": "Business Units",
+      "brands": "Brands",
+      "entities": "Entities",
+      "workspaces": "Workspaces",
+      "health": "Health",
+      "executive": "Executive",
+      "reports": "Reports",
+      "companion": "Companion"
+    },
+    "workspacesPage": {
+      "title": "Workspaces",
+      "subtitle": "Organize Head Office, Support, Commerce, Warehouse, and other operational workspaces with users, Business Packs, and domains."
+    },
+    "healthStatuses": {
+      "healthy": "Healthy",
+      "needs_attention": "Needs attention",
+      "critical": "Critical"
+    },
+    "entityTypes": {
+      "company": "Company",
+      "division": "Division",
+      "brand": "Brand",
+      "department": "Department",
+      "location": "Location",
+      "subsidiary": "Subsidiary",
+      "branch_office": "Branch office",
+      "operating_unit": "Operating unit",
+      "custom": "Custom"
+    },
+    "workspaceTypes": {
+      "head_office": "Head office",
+      "retail": "Retail",
+      "support": "Support",
+      "commerce": "Commerce",
+      "warehouse": "Warehouse",
+      "property_management": "Property management",
+      "executive": "Executive",
+      "general": "General",
+      "custom": "Custom"
+    }
+  },
+  "trustCenterOperations": {
+    "title": "Trust Center",
+    "subtitle": "Complete visibility into security, access, identity, verification, audit history, and trust-related activities across your organization.",
+    "loading": "Preparing Trust Center",
+    "back": "Back",
+    "principle": "Trust must be visible. Security must be understandable. Know who did what, when, why, and whether it was authorized.",
+    "emptyState": "Trust Center data is unavailable.",
+    "accessDenied": "Trust Center requires administrator permissions.",
+    "tabs": {
+      "overview": "Overview",
+      "identity": "Identity",
+      "verification": "Verification",
+      "security": "Security",
+      "devices": "Devices",
+      "sessions": "Sessions",
+      "audit": "Audit History",
+      "permissions": "Permissions",
+      "compliance": "Compliance",
+      "executive": "Executive",
+      "reports": "Reports"
+    },
+    "overview": {
+      "trustScore": "Trust score",
+      "securityStatus": "Security status",
+      "verificationStatus": "Verification status",
+      "twoFactorAdoption": "2FA adoption",
+      "deviceHealth": "Device health",
+      "activeSessions": "Active sessions",
+      "recentSecurityEvents": "Recent security events",
+      "registeredIdentities": "Registered identities"
+    },
+    "actions": {
+      "refreshScore": "Refresh security score",
+      "approveDevice": "Approve device",
+      "blockDevice": "Block device",
+      "terminateSession": "Terminate session",
+      "enable2fa": "Enable 2FA",
+      "completeVerification": "Mark verified",
+      "openDevices": "Device Trust Center",
+      "open2fa": "2FA Center",
+      "openAudit": "Audit History",
+      "openActionEngine": "Trust & Action explainability"
+    },
+    "trustStatuses": {
+      "trusted": "Trusted",
+      "attention_required": "Attention required",
+      "action_required": "Action required",
+      "restricted": "Restricted"
+    },
+    "deviceStatuses": {
+      "trusted": "Trusted",
+      "unrecognized": "Unrecognized",
+      "suspicious": "Suspicious",
+      "blocked": "Blocked"
+    },
+    "verificationStatuses": {
+      "pending": "Pending",
+      "verified": "Verified",
+      "review_required": "Review required",
+      "failed": "Failed"
+    },
+    "devicesPage": {
+      "title": "Device Trust Center",
+      "subtitle": "Review trusted, unrecognized, suspicious, and blocked devices across your organization."
+    },
+    "twoFactorPage": {
+      "title": "2FA Center",
+      "subtitle": "Authenticator apps, backup codes, recovery flow, and adoption across identities."
+    },
+    "auditPage": {
+      "title": "Audit History Center",
+      "subtitle": "Logins, permission changes, approvals, executions, workflow changes, and Companion actions."
+    }
+  },
+  "knowledgeNetworkOperations": {
+    "title": "Knowledge Network Center",
+    "subtitle": "Transform knowledge, experience, decisions, procedures, and lessons learned into reusable organizational intelligence.",
+    "loading": "Preparing Knowledge Network",
+    "back": "Back",
+    "principle": "Organizations lose knowledge when people leave and projects end. Aipify preserves organizational wisdom.",
+    "emptyState": "Knowledge Network data is unavailable.",
+    "accessDenied": "Knowledge Network requires administrator permissions.",
+    "tabs": {
+      "overview": "Overview",
+      "knowledge_assets": "Knowledge Assets",
+      "lessons_learned": "Lessons Learned",
+      "playbooks": "Playbooks",
+      "best_practices": "Best Practices",
+      "experience": "Experience Library",
+      "companion": "Companion Learning",
+      "executive": "Executive",
+      "reports": "Reports"
+    },
+    "overview": {
+      "knowledgeAssets": "Knowledge assets",
+      "lessonsLearned": "Lessons learned",
+      "playbooks": "Playbooks",
+      "bestPractices": "Best practices",
+      "experienceEntries": "Experience entries",
+      "wisdomScore": "Wisdom score",
+      "wisdomStatus": "Wisdom status",
+      "retentionPending": "Retention captures pending",
+      "reviewsDue": "Reviews due"
+    },
+    "actions": {
+      "refreshWisdomScore": "Refresh wisdom score",
+      "addLesson": "Add lesson learned",
+      "publishPlaybook": "Publish playbook",
+      "contributeExperience": "Contribute experience",
+      "startRetentionCapture": "Start knowledge capture",
+      "markReviewed": "Mark reviewed",
+      "openLessons": "Lessons Learned",
+      "openExperience": "Experience Library",
+      "openKnowledgeGraph": "Knowledge Graph"
+    },
+    "wisdomStatuses": {
+      "strong_learning_culture": "Strong learning culture",
+      "knowledge_gaps": "Knowledge gaps",
+      "critical_knowledge_risk": "Critical knowledge risk"
+    },
+    "lessonsPage": {
+      "title": "Lessons Learned",
+      "subtitle": "Reusable lessons from projects, customer success, security, suppliers, and growth partners."
+    },
+    "experiencePage": {
+      "title": "Experience Library",
+      "subtitle": "What worked, what failed, what to repeat, and what to avoid — practical organizational experience."
+    }
+  },
+  "marketIntelligenceOperations": {
+    "title": "Market Intelligence Center",
+    "subtitle": "Understand markets, competitors, industries, trends, and external business conditions — public information only.",
+    "loading": "Preparing Market Intelligence",
+    "back": "Back",
+    "principle": "Most organizations know what happens inside the company. Few understand what happens outside. Aipify monitors both.",
+    "ethicsNote": "Public sources only. No surveillance. No unethical intelligence gathering.",
+    "emptyState": "Market Intelligence data is unavailable.",
+    "accessDenied": "Market Intelligence requires administrator permissions.",
+    "tabs": {
+      "overview": "Overview",
+      "markets": "Markets",
+      "competitors": "Competitors",
+      "industries": "Industries",
+      "trends": "Trends",
+      "opportunities": "Opportunities",
+      "threats": "Threats",
+      "companion": "Companion Insights",
+      "executive": "Executive",
+      "reports": "Reports"
+    },
+    "overview": {
+      "marketsTracked": "Markets tracked",
+      "competitorsTracked": "Competitors tracked",
+      "industriesTracked": "Industries tracked",
+      "activeTrends": "Active trends",
+      "openOpportunities": "Open opportunities",
+      "activeThreats": "Active threats",
+      "externalSignals": "External signals",
+      "avgMarketHealth": "Average market health"
+    },
+    "actions": {
+      "generateBriefing": "Generate briefing",
+      "addCompetitor": "Add competitor",
+      "identifyTrend": "Identify trend",
+      "detectOpportunity": "Detect opportunity",
+      "flagThreat": "Flag threat",
+      "refreshMarketHealth": "Refresh market health",
+      "openMarkets": "Market Observatory",
+      "openSimulation": "Digital Twin simulation",
+      "openLegacyCenter": "Legacy market center"
+    },
+    "marketStatuses": {
+      "growing": "Growing",
+      "stable": "Stable",
+      "competitive": "Competitive",
+      "high_risk": "High risk"
+    },
+    "threatSeverities": {
+      "information": "Information",
+      "attention": "Attention required",
+      "critical": "Critical"
+    },
+    "marketsPage": {
+      "title": "Market Observatory",
+      "subtitle": "Track regional markets, growth rates, competition levels, and market health."
+    }
   }
 }

@@ -384,6 +384,8 @@ export type AppNavId =
   | "appActivityOperations"
   | "appCompanionCommandCenter"
   | "appKnowledgeGraph"
+  | "appKnowledgeNetwork"
+  | "appMarketObservatory"
   | "appIntegrationHub"
   | "appSimulationOperations"
   | "appExecutionOperations"
@@ -1941,6 +1943,8 @@ export const APP_NAV: AppNavItem[] = [
   { id: "appActivityOperations", href: "/app/activity", labelKey: "navigation.nav.appActivityOperations" },
   { id: "appCompanionCommandCenter", href: "/app/command-center", labelKey: "navigation.nav.appCompanionCommandCenter" },
   { id: "appKnowledgeGraph", href: "/app/knowledge-graph", labelKey: "navigation.nav.appKnowledgeGraph" },
+  { id: "appKnowledgeNetwork", href: "/app/knowledge-network", labelKey: "navigation.nav.appKnowledgeNetwork" },
+  { id: "appMarketObservatory", href: "/app/market-intelligence", labelKey: "navigation.nav.appMarketObservatory" },
   { id: "appInventory", href: "/app/inventory", labelKey: "navigation.nav.appInventory" },
   { id: "appForms", href: "/app/forms", labelKey: "navigation.nav.appForms" },
   { id: "companionMarketplaceEngine", href: "/app/companion-marketplace", labelKey: "navigation.nav.companionMarketplaceEngine" },
@@ -2927,6 +2931,12 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname === "/app/search" || pathname.startsWith("/app/search/")) {
     return "appUniversalSearch";
   }
+  if (pathname === "/app/market-intelligence" || pathname.startsWith("/app/market-intelligence/")) {
+    return "appMarketObservatory";
+  }
+  if (pathname === "/app/knowledge-network" || pathname.startsWith("/app/knowledge-network/")) {
+    return "appKnowledgeNetwork";
+  }
   if (pathname === "/app/knowledge-graph" || pathname.startsWith("/app/knowledge-graph/")) {
     return "appKnowledgeGraph";
   }
@@ -3028,6 +3038,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/organizational-intelligence")) return "organizationalIntelligence";
   if (pathname.startsWith("/app/insights")) return "appAnalytics";
+  if (pathname.startsWith("/app/workspaces")) return "organizationWorkspaceEngine";
   if (pathname.startsWith("/app/organization") || pathname.startsWith("/app/workflows")) {
     return "organizationalIntelligence";
   }
