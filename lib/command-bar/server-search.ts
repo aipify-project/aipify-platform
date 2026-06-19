@@ -1,5 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { PLATFORM_ADMIN_NAV } from "@/lib/platform/nav-config";
+import { searchUniversalForCommandBar } from "@/lib/universal-search-operations";
 import type { CommandBarLabels, CommandBarPortal, CommandBarSearchResult } from "./types";
 
 type SearchInput = {
@@ -269,6 +270,7 @@ export async function searchCommandBar({
 
   if (portal === "customer") {
     tasks.push(searchCustomerTeamMembers(supabase, q, labels));
+    tasks.push(searchUniversalForCommandBar(supabase, q));
   }
 
   if (portal === "customer" || portal === "platform" || portal === "super_admin") {

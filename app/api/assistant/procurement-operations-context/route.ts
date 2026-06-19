@@ -1,15 +1,16 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getCompanionProcurementOperationsContext } from "@/lib/procurement-operations";
 import { createClient } from "@/lib/supabase/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const supabase = await createClient();
     const {
       data: { user },
     } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    const data = await getCompanionProcurementOperationsContext(supabase);
+    const query = request.nextUrl.searchParams.get("q") ?? undefined;
+    const data = await getCompanionProcurementOperationsContext(supabase, query);
     return NextResponse.json(data);
   } catch (err) {
     return NextResponse.json(

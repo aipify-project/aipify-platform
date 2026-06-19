@@ -376,6 +376,11 @@ export type AppNavId =
   | "appMobileApiIntegration"
   | "appAssets"
   | "appProcurement"
+  | "appQualityOperations"
+  | "appRiskOperations"
+  | "appStrategicIntelligence"
+  | "appAutomationOperations"
+  | "appUniversalSearch"
   | "appInventory"
   | "appForms"
   | "industryBlueprints"
@@ -1917,6 +1922,11 @@ export const APP_NAV: AppNavItem[] = [
   { id: "appMobileApiIntegration", href: "/app/integrations/mobile-api", labelKey: "navigation.nav.appMobileApiIntegration" },
   { id: "appAssets", href: "/app/assets", labelKey: "navigation.nav.appAssets" },
   { id: "appProcurement", href: "/app/procurement", labelKey: "navigation.nav.appProcurement" },
+  { id: "appQualityOperations", href: "/app/quality-operations", labelKey: "navigation.nav.appQualityOperations" },
+  { id: "appRiskOperations", href: "/app/risk", labelKey: "navigation.nav.appRiskOperations" },
+  { id: "appStrategicIntelligence", href: "/app/intelligence", labelKey: "navigation.nav.appStrategicIntelligence" },
+  { id: "appAutomationOperations", href: "/app/automation", labelKey: "navigation.nav.appAutomationOperations" },
+  { id: "appUniversalSearch", href: "/app/search", labelKey: "navigation.nav.appUniversalSearch" },
   { id: "appInventory", href: "/app/inventory", labelKey: "navigation.nav.appInventory" },
   { id: "appForms", href: "/app/forms", labelKey: "navigation.nav.appForms" },
   { id: "companionMarketplaceEngine", href: "/app/companion-marketplace", labelKey: "navigation.nav.companionMarketplaceEngine" },
@@ -2872,6 +2882,26 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/integrations/mobile-api")) return "appMobileApiIntegration";
   if (pathname.startsWith("/app/assets")) return "appAssets";
   if (pathname.startsWith("/app/procurement")) return "appProcurement";
+  if (pathname.startsWith("/app/quality-operations")) return "appQualityOperations";
+  if (pathname.startsWith("/app/risk")) return "appRiskOperations";
+  if (
+    pathname === "/app/intelligence" ||
+    pathname.startsWith("/app/intelligence/briefing") ||
+    pathname.startsWith("/app/intelligence/recommendations") ||
+    pathname.startsWith("/app/intelligence/board-reports")
+  ) {
+    return "appStrategicIntelligence";
+  }
+  if (
+    pathname === "/app/automation" ||
+    pathname.startsWith("/app/automation/workflows") ||
+    pathname.startsWith("/app/automation/templates")
+  ) {
+    return "appAutomationOperations";
+  }
+  if (pathname === "/app/search" || pathname.startsWith("/app/search/")) {
+    return "appUniversalSearch";
+  }
   if (pathname.startsWith("/app/inventory")) return "appInventory";
   if (pathname.startsWith("/app/forms")) return "appForms";
   if (pathname.startsWith("/app/customers") || pathname.startsWith("/app/leads")) return "appCustomers";

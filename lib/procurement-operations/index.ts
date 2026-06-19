@@ -21,8 +21,10 @@ export async function performProcurementOperationsAction(
   return (data as Record<string, unknown>) ?? {};
 }
 
-export async function getCompanionProcurementOperationsContext(supabase: RpcClient) {
-  const { data, error } = await supabase.rpc("get_companion_procurement_operations_context");
+export async function getCompanionProcurementOperationsContext(supabase: RpcClient, query?: string) {
+  const { data, error } = await supabase.rpc("get_companion_procurement_operations_context", {
+    p_query: query ?? null,
+  });
   if (error) throw new Error(error.message);
   return (data as Record<string, unknown>) ?? {};
 }

@@ -5,26 +5,20 @@ import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
 import { AipifyModuleAccessDenied } from "@/components/ui/aipify-module-access-denied";
 import { AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
-import {
-  parseProcurementOperationsCenter,
-  type Contract,
-  type Delivery,
-  type ProcurementOperationsCenter,
-  type ProcurementOperationsLabels,
-  type PurchaseOrder,
-  type PurchaseRequest,
-  type Vendor,
+import type {
+  Contract,
+  Delivery,
+  ProcurementOperationsCenter,
+  ProcurementOperationsLabels,
+  ProcurementOperationsTab,
+  PurchaseOrder,
+  PurchaseRequest,
+  Quotation,
+  Vendor,
 } from "@/lib/procurement-operations";
+import { parseProcurementOperationsCenter } from "@/lib/procurement-operations/parse";
 
-type Tab =
-  | "overview"
-  | "purchase_requests"
-  | "approvals"
-  | "vendors"
-  | "contracts"
-  | "orders"
-  | "deliveries"
-  | "reports";
+type Tab = ProcurementOperationsTab;
 
 const REQUEST_STATUS_STYLE: Record<string, string> = {
   draft: "bg-aipify-surface-muted text-aipify-text-secondary ring-aipify-border",
@@ -126,11 +120,13 @@ function VendorCard({
   labels,
   busy,
   onApprove,
+  onRefreshScorecard,
 }: {
   vendor: Vendor;
   labels: ProcurementOperationsLabels;
   busy: boolean;
   onApprove: (id: string) => void;
+  onRefreshScorecard: (id: string) => void;
 }) {
   return (
     <div className={`${AipifyShellClasses.surfaceCard} p-4 text-sm`}>
@@ -140,9 +136,9 @@ function VendorCard({
           <h3 className="font-semibold text-aipify-text">{vendor.vendor_name}</h3>
           {vendor.contact_person ? <p className="text-aipify-text-secondary">{vendor.contact_person}</p> : null}
           {vendor.email ? <p className="text-aipify-text-muted">{vendor.email}</p> : null}
-          {vendor.vendor_rating != null ? (
+          {vendor.health_score != null ? (
             <p className="text-aipify-text-muted">
-              {labels.vendorRating}: {vendor.vendor_rating}/100
+              {labels.supplierHealth}: {vendor.health_score} ({vendor.health_status?.replace(/_/g, " ") ?? "—"})
             </p>
           ) : null}
           {vendor.is_preferred ? <p className="text-aipify-text-muted">{labels.preferred}</p> : null}
@@ -153,11 +149,14 @@ function VendorCard({
           {vendor.status.replace(/_/g, " ")}
         </span>
       </div>
-      {vendor.status === "under_review" ? (
+      {vendor.status === "under_review" || vendor.status === "evaluation" ? (
         <button type="button" disabled={busy} onClick={() => onApprove(vendor.id)} className={`mt-3 ${AipifyShellClasses.primaryButton}`}>
           {labels.approveRequest}
         </button>
       ) : null}
+      <button type="button" disabled={busy} onClick={() => onRefreshScorecard(vendor.id)} className={`mt-3 ${AipifyShellClasses.secondaryButton}`}>
+        {labels.refreshScorecard}
+      </button>
     </div>
   );
 }
@@ -165,9 +164,11 @@ function VendorCard({
 type Props = {
   labels: ProcurementOperationsLabels;
   initialTab?: Tab;
+  titleOverride?: string;
+  visibleTabs?: Tab[];
 };
 
-export function ProcurementOperationsPanel({ labels, initialTab = "overview" }: Props) {
+export function ProcurementOperationsPanel({ labels, initialTab = "overview", titleOverride, visibleTabs }: Props) {
   const [center, setCenter] = useState<ProcurementOperationsCenter | null>(null);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<Tab>(initialTab);
@@ -176,6 +177,7 @@ export function ProcurementOperationsPanel({ labels, initialTab = "overview" }: 
   const [vendorName, setVendorName] = useState("");
   const [amount, setAmount] = useState("");
   const [contractName, setContractName] = useState("");
+  const [rfqTitle, setRfqTitle] = useState("");
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -220,26 +222,32 @@ export function ProcurementOperationsPanel({ labels, initialTab = "overview" }: 
   const reports = center.reports ?? {};
   const purchaseRequests = center.purchase_requests ?? [];
   const pendingApprovals = center.pending_approvals ?? [];
-  const vendors = center.vendors ?? [];
   const contracts = center.contracts ?? [];
   const orders = center.orders ?? [];
-  const deliveries = center.deliveries ?? [];
+  const deliveries = center.incoming_goods ?? center.deliveries ?? [];
+  const quotations = center.quotations ?? [];
+  const spendAnalysis = center.spend_analysis ?? {};
+  const supplierList = center.suppliers ?? center.vendors ?? [];
 
-  const tabs: { id: Tab; label: string }[] = [
+  const allTabs: { id: Tab; label: string }[] = [
     { id: "overview", label: labels.overview },
+    { id: "suppliers", label: labels.suppliers },
     { id: "purchase_requests", label: labels.purchaseRequests },
     { id: "approvals", label: labels.approvals },
-    { id: "vendors", label: labels.vendors },
-    { id: "contracts", label: labels.contracts },
     { id: "orders", label: labels.orders },
-    { id: "deliveries", label: labels.deliveries },
+    { id: "quotations", label: labels.quotations },
+    { id: "contracts", label: labels.contracts },
+    { id: "incoming_goods", label: labels.incomingGoods },
+    { id: "spend_analysis", label: labels.spendAnalysis },
     { id: "reports", label: labels.reports },
   ];
+  const tabs = visibleTabs ? allTabs.filter((t) => visibleTabs.includes(t.id)) : allTabs;
+  const activeTab = tab === "vendors" ? "suppliers" : tab === "deliveries" ? "incoming_goods" : tab;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6 p-4 sm:p-6">
       <header>
-        <h1 className="text-2xl font-semibold text-aipify-text">{labels.title}</h1>
+        <h1 className="text-2xl font-semibold text-aipify-text">{titleOverride ?? labels.title}</h1>
         <p className="mt-1 text-sm text-aipify-text-secondary">{labels.subtitle}</p>
         {center.principle ? <p className="mt-2 text-xs text-aipify-text-muted">{center.principle}</p> : null}
       </header>
@@ -251,7 +259,7 @@ export function ProcurementOperationsPanel({ labels, initialTab = "overview" }: 
             type="button"
             onClick={() => setTab(item.id)}
             className={
-              tab === item.id
+              activeTab === item.id
                 ? `${AipifyShellClasses.primaryButton} text-sm`
                 : `${AipifyShellClasses.secondaryButton} text-sm`
             }
@@ -262,28 +270,75 @@ export function ProcurementOperationsPanel({ labels, initialTab = "overview" }: 
       </nav>
 
       {tab === "overview" ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {(
-            [
-              [labels.pendingApprovals, overview.pending_approvals],
-              [labels.openRequests, overview.open_requests],
-              [labels.activeVendors, overview.active_vendors],
-              [labels.contractExposure, formatAmount(Number(overview.contract_exposure ?? 0), "NOK")],
-              [labels.ordersInTransit, overview.orders_in_transit],
-              [labels.expiringContracts, overview.expiring_contracts_30d],
-              [labels.highRiskVendors, overview.high_risk_vendors],
-              [labels.purchasingVolume, formatAmount(Number(overview.purchasing_volume_quarter ?? 0), "NOK")],
-              [labels.overdueRequests, overview.overdue_requests],
-            ] as [string, string | number][]
-          ).map(([label, value]) => (
-            <div key={String(label)} className={`${AipifyShellClasses.surfaceCard} p-4`}>
-              <p className="text-xs text-aipify-text-muted">{label}</p>
-              <p className="mt-1 text-xl font-semibold text-aipify-text">
-                {typeof value === "number" || typeof value === "string" ? value : "—"}
-              </p>
-            </div>
-          ))}
-        </div>
+        <>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {(
+              [
+                [labels.pendingApprovals, overview.pending_approvals],
+                [labels.openRequests, overview.open_requests],
+                [labels.activeSuppliers, overview.active_suppliers ?? overview.active_vendors],
+                [labels.preferredSuppliers, overview.preferred_suppliers],
+                [labels.highRiskSuppliers, overview.high_risk_suppliers ?? overview.high_risk_vendors],
+                [labels.openRfqs, overview.open_rfqs],
+                [labels.pendingReceiving, overview.pending_receiving],
+                [labels.purchasingVolume, formatAmount(Number(overview.purchasing_volume_quarter ?? 0), "NOK")],
+              ] as [string, string | number | undefined][]
+            ).map(([label, value]) => (
+              <div key={String(label)} className={`${AipifyShellClasses.surfaceCard} p-4`}>
+                <p className="text-xs text-aipify-text-muted">{label}</p>
+                <p className="mt-1 text-xl font-semibold text-aipify-text">
+                  {typeof value === "number" || typeof value === "string" ? value : "—"}
+                </p>
+              </div>
+            ))}
+          </div>
+          {center.companion_insights ? (
+            <section className={`${AipifyShellClasses.surfaceCard} p-4`}>
+              <h2 className="text-sm font-semibold text-aipify-text">{labels.companionInsights}</h2>
+              <div className="mt-3 grid gap-4 sm:grid-cols-3 text-sm">
+                {Array.isArray(center.companion_insights.top_suppliers) &&
+                (center.companion_insights.top_suppliers as Record<string, unknown>[]).length > 0 ? (
+                  <div>
+                    <p className="font-medium text-aipify-text">{labels.preferredSuppliers}</p>
+                    <ul className="mt-2 space-y-1 text-aipify-text-secondary">
+                      {(center.companion_insights.top_suppliers as Record<string, unknown>[]).map((row, i) => (
+                        <li key={i}>
+                          {String(row.name ?? "")}
+                          {row.health_status ? ` · ${String(row.health_status).replace(/_/g, " ")}` : ""}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+                {Array.isArray(center.companion_insights.expiring_contracts) &&
+                (center.companion_insights.expiring_contracts as Record<string, unknown>[]).length > 0 ? (
+                  <div>
+                    <p className="font-medium text-aipify-text">{labels.expiringContracts}</p>
+                    <ul className="mt-2 space-y-1 text-aipify-text-secondary">
+                      {(center.companion_insights.expiring_contracts as Record<string, unknown>[]).map((row, i) => (
+                        <li key={i}>
+                          {String(row.name ?? "")}
+                          {row.renewal_date ? ` · ${String(row.renewal_date)}` : ""}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+                {Array.isArray(center.companion_insights.high_risk_suppliers) &&
+                (center.companion_insights.high_risk_suppliers as Record<string, unknown>[]).length > 0 ? (
+                  <div>
+                    <p className="font-medium text-aipify-text">{labels.highRiskSuppliers}</p>
+                    <ul className="mt-2 space-y-1 text-aipify-text-secondary">
+                      {(center.companion_insights.high_risk_suppliers as Record<string, unknown>[]).map((row, i) => (
+                        <li key={i}>{String(row.name ?? "")}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
+            </section>
+          ) : null}
+        </>
       ) : null}
 
       {tab === "purchase_requests" ? (
@@ -381,13 +436,13 @@ export function ProcurementOperationsPanel({ labels, initialTab = "overview" }: 
         </div>
       ) : null}
 
-      {tab === "vendors" ? (
+      {(tab === "vendors" || tab === "suppliers") ? (
         <div className="space-y-4">
           <div className={`${AipifyShellClasses.surfaceCard} grid gap-3 p-4 sm:grid-cols-2`}>
             <input
               value={vendorName}
               onChange={(e) => setVendorName(e.target.value)}
-              placeholder={labels.vendorName}
+              placeholder={labels.supplierName}
               className={AipifyShellClasses.input}
             />
             <button
@@ -398,24 +453,66 @@ export function ProcurementOperationsPanel({ labels, initialTab = "overview" }: 
               }
               className={AipifyShellClasses.primaryButton}
             >
-              {labels.createVendor}
+              {labels.createSupplier}
             </button>
           </div>
-          {vendors.length === 0 ? (
-            <PlatformEmptyState title={labels.noVendors} message={labels.noRequestsHint} />
+          {supplierList.length === 0 ? (
+            <PlatformEmptyState title={labels.noSuppliers} message={labels.noRequestsHint} />
           ) : (
             <div className="grid gap-3 md:grid-cols-2">
-              {vendors.map((vendor) => (
+              {supplierList.map((vendor) => (
                 <VendorCard
                   key={vendor.id}
                   vendor={vendor}
                   labels={labels}
                   busy={busy}
-                  onApprove={(id) => void runAction("update_vendor_status", { vendor_id: id, status: "approved" })}
+                  onApprove={(id) => void runAction("update_vendor_status", { vendor_id: id, status: "active" })}
+                  onRefreshScorecard={(id) => void runAction("refresh_supplier_scorecard", { vendor_id: id })}
                 />
               ))}
             </div>
           )}
+        </div>
+      ) : null}
+
+      {tab === "quotations" ? (
+        <div className="space-y-4">
+          <div className={`${AipifyShellClasses.surfaceCard} grid gap-3 p-4 sm:grid-cols-2`}>
+            <input value={rfqTitle} onChange={(e) => setRfqTitle(e.target.value)} placeholder={labels.rfqTitle} className={AipifyShellClasses.input} />
+            <button
+              type="button"
+              disabled={busy || !rfqTitle.trim()}
+              onClick={() => void runAction("create_rfq", { title: rfqTitle.trim() }).then(() => setRfqTitle(""))}
+              className={AipifyShellClasses.primaryButton}
+            >
+              {labels.createRfq}
+            </button>
+          </div>
+          <div className="grid gap-3">
+            {quotations.map((q: Quotation) => (
+              <div key={q.id} className={`${AipifyShellClasses.surfaceCard} p-4 text-sm`}>
+                <p className="text-xs text-aipify-text-muted">{q.rfq_number ?? q.id.slice(0, 8)}</p>
+                <h3 className="font-semibold text-aipify-text">{q.title}</h3>
+                <p className="text-aipify-text-secondary">{q.status.replace(/_/g, " ")} · {q.quotes_received ?? 0}/{q.required_quotes ?? 3} quotes</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      {tab === "spend_analysis" ? (
+        <div className={`${AipifyShellClasses.surfaceCard} space-y-4 p-4 text-sm`}>
+          <p className="text-aipify-text-secondary">{String(spendAnalysis.budget_variance_note ?? "")}</p>
+          {Array.isArray(spendAnalysis.spend_by_supplier) ? (
+            <div>
+              <p className="font-medium text-aipify-text">{labels.spendBySupplier}</p>
+              <ul className="mt-2 space-y-1 text-aipify-text-secondary">
+                {(spendAnalysis.spend_by_supplier as Record<string, unknown>[]).map((row, i) => (
+                  <li key={i}>{String(row.supplier_name ?? "")} · {formatAmount(Number(row.total_spend ?? 0), "NOK")}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </div>
       ) : null}
 
@@ -506,17 +603,26 @@ export function ProcurementOperationsPanel({ labels, initialTab = "overview" }: 
         </div>
       ) : null}
 
-      {tab === "deliveries" ? (
+      {(tab === "deliveries" || tab === "incoming_goods") ? (
         <div className="grid gap-3">
-          {deliveries.map((d: Delivery) => (
-            <div key={d.id} className={`${AipifyShellClasses.surfaceCard} p-4 text-sm`}>
-              <p className="text-xs text-aipify-text-muted">{d.order_number ?? d.order_id.slice(0, 8)}</p>
-              <p className="font-semibold text-aipify-text">{d.delivery_status.replace(/_/g, " ")}</p>
-              {d.expected_delivery ? <p className="text-aipify-text-secondary">Expected {d.expected_delivery}</p> : null}
-              {d.actual_delivery ? <p className="text-aipify-text-muted">Received {d.actual_delivery}</p> : null}
-              {d.inspection_results ? <p className="text-aipify-text-muted">{d.inspection_results}</p> : null}
-            </div>
-          ))}
+          {deliveries.length === 0 ? (
+            <PlatformEmptyState title={labels.noIncomingGoods} message={labels.noRequestsHint} />
+          ) : (
+            deliveries.map((d: Delivery) => (
+              <div key={d.id} className={`${AipifyShellClasses.surfaceCard} p-4 text-sm`}>
+                <p className="text-xs text-aipify-text-muted">{d.order_number ?? d.order_id.slice(0, 8)}</p>
+                <p className="font-semibold text-aipify-text">{d.delivery_status.replace(/_/g, " ")}</p>
+                {d.expected_delivery ? <p className="text-aipify-text-secondary">Expected {d.expected_delivery}</p> : null}
+                {d.quantity_received != null ? <p className="text-aipify-text-muted">Qty {d.quantity_received}</p> : null}
+                {d.condition_status ? <p className="text-aipify-text-muted">{labels.condition}: {d.condition_status}</p> : null}
+                {d.delivery_status === "pending" ? (
+                  <button type="button" disabled={busy} onClick={() => void runAction("receive_goods", { order_id: d.order_id, delivery_status: "received" })} className={`mt-3 ${AipifyShellClasses.primaryButton}`}>
+                    {labels.receiveGoods}
+                  </button>
+                ) : null}
+              </div>
+            ))
+          )}
         </div>
       ) : null}
 

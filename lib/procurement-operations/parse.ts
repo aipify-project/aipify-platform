@@ -4,6 +4,7 @@ import type {
   ProcurementOperationsCenter,
   PurchaseOrder,
   PurchaseRequest,
+  Quotation,
   Vendor,
 } from "./types";
 
@@ -34,11 +35,15 @@ function parseVendor(row: Record<string, unknown>): Vendor {
   return {
     id: String(row.id ?? ""),
     vendor_number: typeof row.vendor_number === "string" ? row.vendor_number : null,
-    vendor_name: String(row.vendor_name ?? ""),
+    vendor_name: String(row.vendor_name ?? row.supplier_name ?? ""),
+    supplier_name: typeof row.supplier_name === "string" ? row.supplier_name : null,
     contact_person: typeof row.contact_person === "string" ? row.contact_person : null,
     email: typeof row.email === "string" ? row.email : null,
     phone: typeof row.phone === "string" ? row.phone : null,
     country: typeof row.country === "string" ? row.country : null,
+    address: typeof row.address === "string" ? row.address : null,
+    website: typeof row.website === "string" ? row.website : null,
+    category_key: typeof row.category_key === "string" ? row.category_key : null,
     services: typeof row.services === "string" ? row.services : null,
     status: String(row.status ?? "active"),
     is_preferred: row.is_preferred === true,
@@ -49,8 +54,25 @@ function parseVendor(row: Record<string, unknown>): Vendor {
     invoice_accuracy_score: row.invoice_accuracy_score != null ? Number(row.invoice_accuracy_score) : null,
     contract_compliance_score:
       row.contract_compliance_score != null ? Number(row.contract_compliance_score) : null,
+    quality_rating_score: row.quality_rating_score != null ? Number(row.quality_rating_score) : null,
+    cost_efficiency_score: row.cost_efficiency_score != null ? Number(row.cost_efficiency_score) : null,
+    health_score: row.health_score != null ? Number(row.health_score) : null,
+    health_status: typeof row.health_status === "string" ? row.health_status : null,
+    issue_history_count: row.issue_history_count != null ? Number(row.issue_history_count) : null,
     risk_status: typeof row.risk_status === "string" ? row.risk_status : null,
     updated_at: typeof row.updated_at === "string" ? row.updated_at : null,
+  };
+}
+
+function parseQuotation(row: Record<string, unknown>): Quotation {
+  return {
+    id: String(row.id ?? ""),
+    rfq_number: typeof row.rfq_number === "string" ? row.rfq_number : null,
+    title: String(row.title ?? ""),
+    status: String(row.status ?? "open"),
+    required_quotes: row.required_quotes != null ? Number(row.required_quotes) : null,
+    quotes_received: row.quotes_received != null ? Number(row.quotes_received) : null,
+    created_at: typeof row.created_at === "string" ? row.created_at : null,
   };
 }
 
@@ -95,6 +117,9 @@ function parseDelivery(row: Record<string, unknown>): Delivery {
     actual_delivery: typeof row.actual_delivery === "string" ? row.actual_delivery : null,
     delivery_status: String(row.delivery_status ?? "pending"),
     inspection_results: typeof row.inspection_results === "string" ? row.inspection_results : null,
+    quantity_received: row.quantity_received != null ? Number(row.quantity_received) : null,
+    condition_status: typeof row.condition_status === "string" ? row.condition_status : null,
+    exception_notes: typeof row.exception_notes === "string" ? row.exception_notes : null,
   };
 }
 
@@ -108,19 +133,28 @@ export function parseProcurementOperationsCenter(data: unknown): ProcurementOper
   return {
     found: true,
     principle: typeof row.principle === "string" ? row.principle : undefined,
+    philosophy: typeof row.philosophy === "string" ? row.philosophy : undefined,
     overview: row.overview as Record<string, unknown> | undefined,
     purchase_requests: mapArr(row.purchase_requests).map(parseRequest),
+    purchases: mapArr(row.purchases ?? row.purchase_requests).map(parseRequest),
     pending_approvals: mapArr(row.pending_approvals).map(parseRequest),
-    vendors: mapArr(row.vendors).map(parseVendor),
+    vendors: mapArr(row.vendors ?? row.suppliers).map(parseVendor),
+    suppliers: mapArr(row.suppliers ?? row.vendors).map(parseVendor),
     contracts: mapArr(row.contracts).map(parseContract),
     orders: mapArr(row.orders).map(parseOrder),
-    deliveries: mapArr(row.deliveries).map(parseDelivery),
+    deliveries: mapArr(row.deliveries ?? row.incoming_goods).map(parseDelivery),
+    incoming_goods: mapArr(row.incoming_goods ?? row.deliveries).map(parseDelivery),
+    quotations: mapArr(row.quotations).map(parseQuotation),
+    spend_analysis: row.spend_analysis as Record<string, unknown> | undefined,
+    risk_management: row.risk_management as Record<string, unknown> | undefined,
     categories: mapArr(row.categories).map((c) => ({
       id: String(c.id ?? ""),
       category_key: String(c.category_key ?? ""),
       name: String(c.name ?? ""),
     })),
     reports: row.reports as Record<string, unknown> | undefined,
+    companion_insights: row.companion_insights as Record<string, unknown> | undefined,
+    subscription_awareness: row.subscription_awareness as Record<string, unknown> | undefined,
     audit_recent: Array.isArray(row.audit_recent)
       ? (row.audit_recent as Record<string, unknown>[]).map((a) => ({
           action: String(a.action ?? ""),
