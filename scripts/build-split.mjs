@@ -12,12 +12,9 @@
 import { spawnSync } from "node:child_process";
 
 const NODE_HEAP_COMPILE =
-  process.env.AIPIFY_BUILD_HEAP_COMPILE ??
-  (process.env.NODE_OPTIONS?.includes("max-old-space-size")
-    ? process.env.NODE_OPTIONS
-    : "--max-old-space-size=10240");
+  process.env.AIPIFY_BUILD_HEAP_COMPILE ?? "--max-old-space-size=14336";
 const NODE_HEAP_GENERATE =
-  process.env.AIPIFY_BUILD_HEAP_GENERATE ?? "--max-old-space-size=10240";
+  process.env.AIPIFY_BUILD_HEAP_GENERATE ?? "--max-old-space-size=8192";
 
 const fromArg = process.argv.find((a) => a.startsWith("--from"));
 const fromPhase = fromArg ? Number(fromArg.split("=")[1] ?? process.argv[process.argv.indexOf(fromArg) + 1]) : 1;

@@ -8,9 +8,10 @@ Documented after locale graph reduction (customerApp monolith removed from layou
 |---------|--------|
 | **Build command** | `npm run build` (see `vercel.json` + `package.json`) |
 | **Build machine** | **Enhanced (16 GB RAM) required** — Project or Team → Settings → Build and Deployment → Build Machines → Enhanced |
-| **Node heap** | `NODE_OPTIONS=--max-old-space-size=10240` (10 GB) — set in `vercel.json`; split compile/generate phases use the same default via `scripts/build-split.mjs` |
+| **Node heap (compile)** | `AIPIFY_BUILD_HEAP_COMPILE=--max-old-space-size=14336` in `vercel.json` |
+| **Node heap (generate)** | `AIPIFY_BUILD_HEAP_GENERATE=--max-old-space-size=8192` — separate process after compile |
 
-**Important:** A 14 GB Node heap on Vercel’s **Standard** build machine (8 GB RAM) causes OS-level **SIGKILL**. On **Enhanced** (16 GB), prefer **10 GB** heap plus split compile/generate — a single 14 GB process during page-data collection can swap and hit the ~45 min build limit.
+**Important:** Do **not** set a global `NODE_OPTIONS` heap on Vercel — it applies to both split phases. Compile needs ~14 GB on Enhanced; generate runs in a fresh 8 GB process after compile exits.
 
 `VERCEL_BUILD_MACHINE_TYPE` is **not** a supported env var — configure Enhanced in the Vercel dashboard (or team-level Build and Deployment settings).
 
