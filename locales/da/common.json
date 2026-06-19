@@ -54,6 +54,11 @@
     "knowledgeCenter": "Besøg videnscenter",
     "contactSupport": "Kontakt support",
     "becomeGrowthPartner": "Bliv Growth Partner",
+    "registerGrowthPartnerAccount": "Registrer Growth Partner-konto",
+    "returnToDashboard": "Tilbage til dashboard",
+    "viewBusinessPacks": "Se Business Packs",
+    "upgradePlan": "Opgrader plan",
+    "upgradeToEnterprise": "Opgrader til Enterprise",
     "renewSubscription": "Forny abonnement",
     "billing": "Fakturering",
     "invoices": "Fakturaer",
@@ -72,16 +77,46 @@
         "secondaryLabel": "Besøg videnscenter"
       },
       "unauthorized_panel": {
-        "title": "Adgang påkrævet",
-        "message": "Du har brug for de rette tilladelser for at se dette område. Kontakt din administrator, hvis du mener dette er en fejl.",
-        "primaryLabel": "Tilbage til Aipify",
-        "secondaryLabel": "Kontakt support"
+        "title": "Administratoradgang påkrævet",
+        "message": "Du har brug for administratortilladelser for at få adgang til dette område. Kontakt organisationens administrator, hvis du mener dette er en fejl.",
+        "primaryLabel": "Tilbage til dashboard",
+        "secondaryLabel": "Tilbage til dashboard"
       },
       "growth_partner_required": {
         "title": "Growth Partner-konto kræves",
-        "message": "Dette område er tilgængeligt for registrerede Aipify Growth Partners. Hvis du vil repræsentere Aipify, gennemfør Growth Partner-registrering og certificeringsprocessen.",
-        "primaryLabel": "Bliv Growth Partner",
-        "secondaryLabel": "Tilbage til Aipify"
+        "message": "Du har brug for en godkendt Growth Partner-konto for at få adgang til dette område.\n\nBliv certificeret Aipify Growth Partner og få adgang til partner-værktøjer, provisioner, træning, lead-håndtering og forretningsressourcer.",
+        "primaryLabel": "Registrer Growth Partner-konto",
+        "secondaryLabel": "Tilbage til dashboard"
+      },
+      "business_pack_required": {
+        "title": "Business Pack kræves",
+        "message": "Dette område kræver en aktiv Business Pack for din organisation. Aktiver pakken i moduladministration for at fortsætte.",
+        "primaryLabel": "Se Business Packs",
+        "secondaryLabel": "Tilbage til dashboard"
+      },
+      "professional_plan_required": {
+        "title": "Professional-plan kræves",
+        "message": "Dette område kræver Professional-plan eller højere. Opgrader abonnementet for at låse denne funktion op.",
+        "primaryLabel": "Opgrader plan",
+        "secondaryLabel": "Tilbage til dashboard"
+      },
+      "enterprise_access_required": {
+        "title": "Enterprise-adgang kræves",
+        "message": "Dette område er tilgængeligt på Enterprise-planer. Opgrader til Enterprise for avancerede organisationsfunktioner.",
+        "primaryLabel": "Opgrader til Enterprise",
+        "secondaryLabel": "Tilbage til dashboard"
+      },
+      "administrator_access_required": {
+        "title": "Administratoradgang påkrævet",
+        "message": "Du har brug for administratortilladelser for at få adgang til dette område. Kontakt organisationens administrator, hvis du mener dette er en fejl.",
+        "primaryLabel": "Tilbage til dashboard",
+        "secondaryLabel": "Tilbage til dashboard"
+      },
+      "executive_access_required": {
+        "title": "Executive-adgang kræves",
+        "message": "Dette område er reserveret til executive-roller i din organisation. Kontakt administratoren, hvis du har brug for adgang.",
+        "primaryLabel": "Tilbage til dashboard",
+        "secondaryLabel": "Tilbage til dashboard"
       },
       "platform_required": {
         "title": "Platformadgang påkrævet",

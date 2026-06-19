@@ -2809,6 +2809,54 @@
     "mobileReady": "Mobil klar",
     "save": "Gem"
   },
+  "integrationCenter": {
+    "title": "Integration Center",
+    "subtitle": "Koordiner tilsluttede apps, tilladelser, synkronisering og eksterne handlinger — Aipify forbinder din eksisterende software.",
+    "principle": "Organisationer har allerede software. Aipify skal hjælpe den software med at arbejde sammen.",
+    "privacyNote": "Kun integrationsmetadata — Companion overskrider aldrig tildelte tilladelser.",
+    "loading": "Indlæser",
+    "empty": "Integration Center er ikke tilgængeligt for denne organisation.",
+    "refresh": "Opdater",
+    "companionRecommendations": "Companion-anbefalinger",
+    "noRecords": "Ingen poster endnu.",
+    "actionCapabilities": "Handlingskapabilitetsregister",
+    "externalActionGovernance": "Styring af eksterne handlinger",
+    "dataSyncEngine": "Datasynkroniseringsmotor",
+    "businessPackIntegration": "Business Pack-integration",
+    "executiveDashboard": "Executive integrationsdashboard",
+    "integrationAdvisor": "Companion Integration Advisor",
+    "mobileAccess": "Mobiladgang",
+    "marketplaceFoundation": "Markedspladskategorier",
+    "healthStatus": {
+      "healthy": "Sund",
+      "attention": "Kræver opmærksomhed",
+      "failed": "Forbindelse mislykkedes"
+    },
+    "sections": {
+      "overview": "Oversigt",
+      "connectedApps": "Tilsluttede apps",
+      "availableApps": "Tilgængelige apps",
+      "apiKeys": "API-nøgler",
+      "permissions": "Tilladelser",
+      "logs": "Logs",
+      "health": "Sundhed",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "connectedApps": "Tilsluttede apps",
+      "availableApps": "Tilgængelige apps",
+      "activeApiKeys": "Aktive API-nøgler",
+      "capabilities": "Handlingskapabiliteter",
+      "openHealthIssues": "Sundhedsproblemer"
+    },
+    "executive": {
+      "connectedApps": "Tilsluttede apps",
+      "healthyConnections": "Sunde forbindelser",
+      "failedConnections": "Mislykkede forbindelser",
+      "attentionRequired": "Kræver opmærksomhed",
+      "permissionRisks": "Tilladelsesrisici"
+    }
+  },
   "integrationHubOperations": {
     "title": "Integrationscenter",
     "subtitle": "Forbind eksterne systemer, platforme, API'er og forretningsapplikationer — Aipifys forbindelseslag.",
@@ -5386,6 +5434,59 @@
       "moderate": "Moderate",
       "high": "High",
       "critical": "Critical"
+    }
+  },
+  "unifiedBilling": {
+    "title": "Fakturering",
+    "subtitle": "Plan, abonnement, fakturaer, faktureringsprofiler, skattestatus og licenser ét sted.",
+    "principle": "Aipify ejer faktureringsgrundlaget. Betalingsudbydere behandler betalinger.",
+    "privacyNote": "Kun faktureringsmetadata — ingen rå kortdata gemmes.",
+    "loading": "Forbereder faktureringscenter",
+    "empty": "Faktureringsinformation er utilgængelig.",
+    "back": "Tilbage til fakturering",
+    "manageProfile": "Administrer faktureringsprofil",
+    "viewCheckout": "Samlet kasse",
+    "viewUpgrade": "Opgraderingsmuligheder",
+    "sections": {
+      "profiles": "Faktureringsprofiler",
+      "subscriptions": "Abonnementer",
+      "invoices": "Fakturaer",
+      "licenses": "Licenser",
+      "events": "Seneste faktureringshændelser",
+      "checkoutFlow": "Samlet kasseflow"
+    },
+    "stats": {
+      "profiles": "Faktureringsprofiler",
+      "activeSubscriptions": "Aktive abonnementer",
+      "overdueInvoices": "Forfaldne fakturaer",
+      "userCapacity": "Tilgængelig brugerkapacitet"
+    },
+    "profile": {
+      "title": "Faktureringsprofil",
+      "subtitle": "Juridisk identitet, skatteklassifikation og fakturadetaljer Aipify bruger til alle køb.",
+      "save": "Gem faktureringsprofil",
+      "saving": "Gemmer…",
+      "saved": "Faktureringsprofil gemt.",
+      "customerType": "Kundetype",
+      "profileLabel": "Profilnavn",
+      "companyName": "Firmanavn",
+      "legalName": "Juridisk navn",
+      "organizationNumber": "CVR-nummer",
+      "vatNumber": "Momsnummer",
+      "country": "Land",
+      "billingAddress": "Fakturaadresse",
+      "billingEmail": "Faktura-e-mail",
+      "invoiceEmail": "Faktura-e-mail (modtager)",
+      "paymentMethod": "Betalingsmetode",
+      "taxStatus": "Skattestatus",
+      "validationStatus": "Valideringsstatus",
+      "isPrimary": "Primær faktureringsprofil",
+      "accessDenied": "Kun ejere og administratorer kan ændre faktureringsprofiler.",
+      "auditTitle": "Profilændringshistorik"
+    },
+    "advisor": {
+      "title": "Faktureringsvejledning",
+      "openBilling": "Åbn fakturering"
     }
   }
 }

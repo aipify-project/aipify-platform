@@ -2809,6 +2809,54 @@
     "mobileReady": "Mobil redo",
     "save": "Spara"
   },
+  "integrationCenter": {
+    "title": "Integration Center",
+    "subtitle": "Koordinera anslutna appar, behörigheter, synkronisering och externa åtgärder — Aipify kopplar ihop din befintliga programvara.",
+    "principle": "Organisationer har redan programvara. Aipify ska hjälpa den programvaran att samarbeta.",
+    "privacyNote": "Endast integrationsmetadata — Companion överskrider aldrig beviljade behörigheter.",
+    "loading": "Laddar",
+    "empty": "Integration Center är inte tillgängligt för denna organisation.",
+    "refresh": "Uppdatera",
+    "companionRecommendations": "Companion-rekommendationer",
+    "noRecords": "Inga poster ännu.",
+    "actionCapabilities": "Åtgärdskapacitetsregister",
+    "externalActionGovernance": "Styrning av externa åtgärder",
+    "dataSyncEngine": "Datasynkroniseringsmotor",
+    "businessPackIntegration": "Business Pack-integration",
+    "executiveDashboard": "Executive integrationsdashboard",
+    "integrationAdvisor": "Companion Integration Advisor",
+    "mobileAccess": "Mobilåtkomst",
+    "marketplaceFoundation": "Marknadsplatskategorier",
+    "healthStatus": {
+      "healthy": "Frisk",
+      "attention": "Kräver uppmärksamhet",
+      "failed": "Anslutning misslyckades"
+    },
+    "sections": {
+      "overview": "Översikt",
+      "connectedApps": "Anslutna appar",
+      "availableApps": "Tillgängliga appar",
+      "apiKeys": "API-nycklar",
+      "permissions": "Behörigheter",
+      "logs": "Loggar",
+      "health": "Hälsa",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "connectedApps": "Anslutna appar",
+      "availableApps": "Tillgängliga appar",
+      "activeApiKeys": "Aktiva API-nycklar",
+      "capabilities": "Åtgärdskapaciteter",
+      "openHealthIssues": "Hälsoproblem"
+    },
+    "executive": {
+      "connectedApps": "Anslutna appar",
+      "healthyConnections": "Friska anslutningar",
+      "failedConnections": "Misslyckade anslutningar",
+      "attentionRequired": "Kräver uppmärksamhet",
+      "permissionRisks": "Behörighetsrisker"
+    }
+  },
   "integrationHubOperations": {
     "title": "Integrationscenter",
     "subtitle": "Anslut externa system, plattformar, API:er och affärsapplikationer — Aipifys anslutningslager.",
@@ -5386,6 +5434,59 @@
       "moderate": "Moderate",
       "high": "High",
       "critical": "Critical"
+    }
+  },
+  "unifiedBilling": {
+    "title": "Fakturering",
+    "subtitle": "Plan, prenumeration, fakturor, faktureringsprofiler, skattestatus och licenser på ett ställe.",
+    "principle": "Aipify äger faktureringsgrunden. Betalningsleverantörer behandlar betalningar.",
+    "privacyNote": "Endast faktureringsmetadata — inga råa kortdata lagras.",
+    "loading": "Förbereder faktureringscenter",
+    "empty": "Faktureringsinformation är otillgänglig.",
+    "back": "Tillbaka till fakturering",
+    "manageProfile": "Hantera faktureringsprofil",
+    "viewCheckout": "Enhetlig kassa",
+    "viewUpgrade": "Uppgraderingsalternativ",
+    "sections": {
+      "profiles": "Faktureringsprofiler",
+      "subscriptions": "Prenumerationer",
+      "invoices": "Fakturor",
+      "licenses": "Licenser",
+      "events": "Senaste faktureringshändelser",
+      "checkoutFlow": "Enhetlig kassaflöde"
+    },
+    "stats": {
+      "profiles": "Faktureringsprofiler",
+      "activeSubscriptions": "Aktiva prenumerationer",
+      "overdueInvoices": "Förfallna fakturor",
+      "userCapacity": "Tillgänglig användarkapacitet"
+    },
+    "profile": {
+      "title": "Faktureringsprofil",
+      "subtitle": "Juridisk identitet, skatteklassificering och fakturadetaljer Aipify använder för alla köp.",
+      "save": "Spara faktureringsprofil",
+      "saving": "Sparar…",
+      "saved": "Faktureringsprofil sparad.",
+      "customerType": "Kundtyp",
+      "profileLabel": "Profilnamn",
+      "companyName": "Företagsnamn",
+      "legalName": "Juridiskt namn",
+      "organizationNumber": "Organisationsnummer",
+      "vatNumber": "Momsnummer",
+      "country": "Land",
+      "billingAddress": "Fakturaadress",
+      "billingEmail": "Faktura-e-post",
+      "invoiceEmail": "Faktura-e-post (mottagare)",
+      "paymentMethod": "Betalningsmetod",
+      "taxStatus": "Skattestatus",
+      "validationStatus": "Valideringsstatus",
+      "isPrimary": "Primär faktureringsprofil",
+      "accessDenied": "Endast ägare och administratörer kan ändra faktureringsprofiler.",
+      "auditTitle": "Profiländringshistorik"
+    },
+    "advisor": {
+      "title": "Faktureringsvägledning",
+      "openBilling": "Öppna fakturering"
     }
   }
 }

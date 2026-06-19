@@ -1437,5 +1437,55 @@
     "actionHubTitle": "Action Hub",
     "actionHubLink": "Open task inbox",
     "actionHubNote": "Personal and team action items remain in the Action Hub inbox — distinct from governed external execution."
+  },
+  "executiveCommandCenter": {
+    "title": "Executive Command Center",
+    "subtitle": "One operational overview after login — what happened, what changed, what needs attention, and what should happen next.",
+    "principle": "Executives should not need to search for information — information should come to them.",
+    "privacyNote": "Executive command metadata only — leadership decides outcomes.",
+    "loading": "Loading",
+    "empty": "Executive Command Center is not available for this organization.",
+    "refresh": "Refresh",
+    "overallHealthScore": "Organizational Health",
+    "companionRecommendations": "Companion Recommendations",
+    "noRecords": "No records yet.",
+    "sinceLastLogin": "Since Last Login",
+    "morningBriefing": "Executive Morning Briefing",
+    "organizationalTimeline": "Command Center Timeline",
+    "businessPackSignals": "Business Pack Integration",
+    "boardReadyReports": "Board-Ready Reports",
+    "commandMode": "Companion Command Mode",
+    "mobileExecutiveMode": "Executive Mobile Mode",
+    "priority": {
+      "information": "Information",
+      "attention": "Attention",
+      "urgent": "Urgent",
+      "critical": "Critical"
+    },
+    "sections": {
+      "overview": "Overview",
+      "sinceLastLogin": "Since Last Login",
+      "alerts": "Alerts",
+      "approvals": "Approvals",
+      "risks": "Risks",
+      "opportunities": "Opportunities",
+      "performance": "Performance",
+      "companionBriefing": "Companion Briefing"
+    },
+    "stats": {
+      "sinceLastLoginItems": "Since last login",
+      "openAlerts": "Open alerts",
+      "pendingActions": "Pending actions",
+      "openOpportunities": "Opportunities",
+      "criticalItems": "Critical items"
+    },
+    "briefing": {
+      "revenue": "Revenue Summary",
+      "customer": "Customer Summary",
+      "risk": "Risk Summary",
+      "operational": "Operational Summary",
+      "growth": "Growth Summary",
+      "companion": "Companion Recommendations"
+    }
   }
 }

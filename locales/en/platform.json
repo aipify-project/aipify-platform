@@ -151,10 +151,12 @@
     "customers": "Customers",
     "customerLifecycle": "Lifecycle Center",
     "customerSuccessOperations": "Success Operations",
+    "commercialIntelligence": "Revenue Center",
     "subscriptions": "Subscriptions",
     "billing": "Billing",
     "invoices": "Invoices",
     "enterpriseInvoices": "Enterprise invoices",
+    "taxVerification": "Tax verification",
     "installations": "Installations",
     "installEngine": "Install Engine",
     "updates": "Updates",
@@ -583,6 +585,124 @@
     "kid": "KID",
     "providerCustomerId": "Provider customer ID",
     "providerMandateId": "Provider mandate ID"
+  },
+  "taxVerification": {
+    "title": "Tax verification",
+    "subtitle": "Checkout VAT, customer type, business number validation, and invoice tax records.",
+    "loading": "Preparing tax verification center",
+    "legalReviewBanner": "Review checkout VAT logic with accounting and legal before public launch.",
+    "customerType": "Checkout sessions",
+    "vatNumber": "VAT number",
+    "validationStatus": "Validation status",
+    "vatApplied": "VAT applied",
+    "reverseCharge": "Reverse charge",
+    "invoiceHistory": "Invoice tax records",
+    "validationLogs": "Validation logs",
+    "taxNotes": "Tax notes",
+    "empty": "Tax verification data is unavailable.",
+    "stats": {
+      "totalSessions": "Total sessions",
+      "reverseChargeCount": "Reverse charge",
+      "invalidValidations": "Invalid validations",
+      "serviceFailures": "Service failures"
+    },
+    "auditLogs": "Audit log"
+  },
+  "billingCommerceCenter": {
+    "title": "Billing & Commerce",
+    "subtitle": "Unified platform control for customer identity, billing profiles, subscriptions, tax, licenses, and accounting handoff.",
+    "principle": "Every sale must be traceable from identity to invoice, tax, and accounting.",
+    "privacyNote": "Platform aggregates only — no customer operational content beyond billing metadata.",
+    "loading": "Preparing billing & commerce center",
+    "empty": "Billing & commerce data is unavailable.",
+    "openModule": "Open module",
+    "back": "Back to Billing & Commerce",
+    "overview": "Overview",
+    "stats": "Statistics",
+    "records": "Records",
+    "legalReviewBanner": "Review tax rules and VAT logic with accounting and legal before public launch.",
+    "relatedOperations": "Related operations",
+    "relatedLinks": {
+      "paymentOperations": "Payment operations",
+      "revenueOperations": "Revenue operations",
+      "subscriptionOperations": "Subscription operations"
+    },
+    "overviewStats": {
+      "activeCustomers": "Active customers",
+      "overdueCustomers": "Overdue customers",
+      "openInvoices": "Open invoices",
+      "draftCheckouts": "Draft checkouts"
+    },
+    "nav": {
+      "overview": "Overview",
+      "customerIdentity": "Customer Identity",
+      "billingProfiles": "Billing Profiles",
+      "subscriptions": "Subscriptions",
+      "invoices": "Invoices",
+      "vatEngine": "VAT Engine",
+      "paymentProviders": "Payment Providers",
+      "taxRules": "Tax Rules",
+      "businessPacks": "Business Packs",
+      "licensePurchases": "License Purchases",
+      "domainLicenses": "Domain Licenses",
+      "growthPartnerAttribution": "Growth Partner Attribution",
+      "licenses": "Licenses",
+      "commissions": "Commissions",
+      "accountingExport": "Accounting Export",
+      "disputes": "Disputes",
+      "reports": "Reports",
+      "accountingIntegration": "Accounting Integration"
+    },
+    "modules": {
+      "customerIdentity": "Customer Identity",
+      "billingProfiles": "Billing Profiles",
+      "subscriptions": "Subscriptions",
+      "invoices": "Invoices",
+      "vatEngine": "VAT Engine",
+      "paymentProviders": "Payment Providers",
+      "taxRules": "Tax Rules",
+      "businessPacks": "Business Packs",
+      "licensePurchases": "License Purchases",
+      "domainLicenses": "Domain Licenses",
+      "growthPartnerAttribution": "Growth Partner Attribution",
+      "accountingIntegration": "Accounting Integration"
+    },
+    "moduleDescriptions": {
+      "customerIdentity": "Customer records, organization numbers, and billing identity metadata.",
+      "billingProfiles": "Provider-agnostic payment profiles, KID placeholders, and billing addresses.",
+      "subscriptions": "Plans, trial periods, and subscription lifecycle across tenants.",
+      "invoices": "Invoice issuance, status, and payment reconciliation.",
+      "vatEngine": "Checkout VAT, customer type, business verification, and invoice tax records.",
+      "paymentProviders": "Stripe, DNB, Klarna, and Vipps configuration and health.",
+      "taxRules": "Norway, EU reverse charge, and fallback rules applied at checkout.",
+      "businessPacks": "Business Pack catalog, licensing, and marketplace orchestration.",
+      "licensePurchases": "Domain and user license purchase history tied to checkout.",
+      "domainLicenses": "Included and purchased domain license pools per organization.",
+      "growthPartnerAttribution": "Growth Partner attribution from first touch through commission eligibility.",
+      "accountingIntegration": "Fiken, Stripe, and accounting coordination via Integration Engine."
+    }
+  },
+  "unifiedBillingAdmin": {
+    "licenses": {
+      "title": "License registry",
+      "subtitle": "Subscription, domain, Business Pack, and user capacity licenses connected to billing records."
+    },
+    "commissions": {
+      "title": "Growth Partner commissions",
+      "subtitle": "Partner attribution, commission eligibility, and payout preparation from paid invoices."
+    },
+    "disputes": {
+      "title": "Refunds and disputes",
+      "subtitle": "Refund requests, approvals, credit notes, and payment disputes."
+    },
+    "reports": {
+      "title": "Billing reports",
+      "subtitle": "Revenue, VAT, subscription, partner commission, and accounting export summaries."
+    },
+    "accountingExport": {
+      "title": "Accounting export",
+      "subtitle": "Prepare customer, invoice, payment, VAT, and commission exports for Fiken and other systems."
+    }
   },
   "subscriptions": {
     "title": "Subscriptions",
@@ -2580,19 +2700,25 @@
   },
   "customerSuccessOperations": {
     "title": "Customer Success Operations Center",
-    "subtitle": "Centralized workspace for proactive customer success management.",
+    "subtitle": "Activation, adoption, expansion, and retention — measurable customer value across the portfolio.",
     "loading": "Preparing success operations center…",
     "back": "Back to customers",
+    "records": "Records",
     "principle": "Proactive success management supports retention, expansion, and human-led customer relationships.",
     "emptyState": "All customers are progressing successfully.",
     "sections": {
       "overview": "Overview",
-      "customers": "Success table",
-      "onboarding": "Onboarding tracker",
+      "customers": "Customers",
+      "onboarding": "Onboarding",
+      "healthScores": "Health Scores",
+      "adoption": "Adoption",
+      "risks": "Risks",
+      "opportunities": "Opportunities",
+      "renewals": "Renewals",
+      "reports": "Reports",
       "checkIns": "Check-in center",
       "expansion": "Expansion center",
       "successPlans": "Success plans",
-      "renewals": "Renewal preparation",
       "audit": "Audit log",
       "filters": "Filters"
     },
@@ -5259,6 +5385,25 @@
       "marketing": "Marketing",
       "businessPacks": "Business Packs",
       "other": "Other"
+    }
+  },
+  "commercialIntelligence": {
+    "title": "Revenue Operations & Commercial Intelligence",
+    "subtitle": "MRR, ARR, forecasts, attribution, churn intelligence, and growth drivers across the portfolio.",
+    "loading": "Preparing commercial intelligence…",
+    "back": "Back to platform",
+    "emptyState": "No commercial intelligence data available.",
+    "records": "Records",
+    "sections": {
+      "overview": "Overview",
+      "revenue": "Revenue",
+      "customers": "Customers",
+      "subscriptions": "Subscriptions",
+      "businessPacks": "Business Packs",
+      "forecasts": "Forecasts",
+      "growth": "Growth",
+      "retention": "Retention",
+      "reports": "Reports"
     }
   },
   "customerSuccessHub": {

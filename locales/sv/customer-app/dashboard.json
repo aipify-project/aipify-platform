@@ -14313,6 +14313,169 @@
       "waiting": "Väntar"
     }
   },
+  "strategyCenter": {
+    "title": "Strategicentrum",
+    "subtitle": "Strategisk intelligens för ledning — mål, risker, möjligheter, styrelsearbete och planeringscykler.",
+    "principle": "Drift håller organisationer igång. Strategi bestämmer vart de är på väg.",
+    "privacyNote": "Endast metadata för strategisk intelligens — ledningen bestämmer utfall.",
+    "loading": "Laddar",
+    "empty": "Strategicentrum är inte tillgängligt för denna organisation.",
+    "refresh": "Uppdatera",
+    "strategicHealthScore": "Strategisk hälsa",
+    "companionRecommendations": "Companion-rekommendationer",
+    "noRecords": "Inga poster ännu.",
+    "generateBriefing": "Ledningsbriefingar",
+    "alignmentChain": "Mål → Initiativ → Projekt → Åtgärder → Resultat",
+    "decisionSupport": "Beslutsstöd för ledning",
+    "sections": {
+      "overview": "Översikt",
+      "objectives": "Mål",
+      "initiatives": "Initiativ",
+      "risks": "Risker",
+      "opportunities": "Möjligheter",
+      "board": "Styrelse",
+      "forecasts": "Prognoser",
+      "reports": "Rapporter"
+    },
+    "riskBand": {
+      "managed": "Hanterad",
+      "monitor": "Bevaka",
+      "strategicRisk": "Strategisk risk"
+    },
+    "stats": {
+      "activeObjectives": "Aktiva mål",
+      "openRisks": "Strategiska risker",
+      "openOpportunities": "Möjligheter",
+      "boardPending": "Väntande styrelseärenden",
+      "planningCycles": "Planeringscykler"
+    }
+  },
+  "commercialIntelligence": {
+    "title": "Intäktscenter",
+    "subtitle": "Kommersiell intelligens — förstå var intäkter kommer från, varför de växer och vilka åtgärder som ökar dem.",
+    "principle": "Intäkt är resultatet — förståelse av drivkrafter skapar tillväxt.",
+    "privacyNote": "Endast metadata för kommersiell intelligens — inga råa kundregister.",
+    "loading": "Laddar",
+    "empty": "Kommersiell intelligens är inte tillgänglig för denna organisation.",
+    "refresh": "Uppdatera",
+    "mrr": "MRR",
+    "arr": "ARR",
+    "nrr": "Netto intäktsretention",
+    "healthScore": "Intäkts-hälsa",
+    "companionRecommendations": "Companion-rekommendationer",
+    "noRecords": "Inga poster ännu.",
+    "openPipeline": "Pipeline",
+    "sections": {
+      "overview": "Översikt",
+      "revenue": "Intäkter",
+      "customers": "Kunder",
+      "subscriptions": "Prenumerationer",
+      "businessPacks": "Business Packs",
+      "forecasts": "Prognoser",
+      "growth": "Tillväxt",
+      "retention": "Retention",
+      "reports": "Rapporter"
+    },
+    "healthBand": {
+      "strongGrowth": "Stark tillväxt",
+      "stable": "Stabil",
+      "watchClosely": "Bevaka noga",
+      "revenueRisk": "Intäktsrisk"
+    },
+    "stats": {
+      "openChurnSignals": "Churn-signaler",
+      "openExpansion": "Expansionsmöjligheter",
+      "registrySources": "Intäktskällor",
+      "growthRate": "Tillväxttakt"
+    }
+  },
+  "eventCenter": {
+    "title": "Event Center",
+    "subtitle": "Organisationens event bus och affärssignaler — förstå aktivitet i realtid och fokusera på det som betyder något.",
+    "principle": "Data berättar vad som hände. Signaler berättar vad som betyder något.",
+    "privacyNote": "Endast metadata för händelser och signaler — inga råa driftsdata.",
+    "loading": "Laddar",
+    "empty": "Event Center är inte tillgängligt för denna organisation.",
+    "refresh": "Uppdatera",
+    "companionRecommendations": "Companion-rekommendationer",
+    "noRecords": "Inga poster ännu.",
+    "liveActivity": "Live aktivitetsflöde",
+    "eventRegistry": "Händelseregister",
+    "correlations": "Händelsekorrelationer",
+    "alertOrchestration": "Varningorkestrering",
+    "businessPackSignals": "Business Pack-integration",
+    "executiveDashboard": "Executive signal-dashboard",
+    "signalBriefing": "Companion Signal Advisor",
+    "mobileAccess": "Mobilåtkomst",
+    "signalClass": {
+      "information": "Information",
+      "positive": "Positiv signal",
+      "attention": "Uppmärksamhetssignal",
+      "risk": "Risksignal",
+      "critical": "Kritisk signal"
+    },
+    "sections": {
+      "overview": "Översikt",
+      "liveActivity": "Live aktivitet",
+      "signals": "Signaler",
+      "alerts": "Varningar",
+      "subscriptions": "Prenumerationer",
+      "sources": "Källor",
+      "history": "Historik",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "registryEvents": "Registrerade händelser",
+      "openSignals": "Öppna signaler",
+      "openAlerts": "Öppna varningar",
+      "activeSubscriptions": "Aktiva prenumerationer",
+      "eventSources": "Händelsekällor"
+    },
+    "executive": {
+      "positiveSignals": "Positiva signaler",
+      "riskSignals": "Risksignaler",
+      "criticalSignals": "Kritiska signaler",
+      "growthSignals": "Tillväxtsignaler",
+      "revenueSignals": "Intäktsignaler"
+    }
+  },
+  "customerSuccessOperations": {
+    "title": "Kundframgångscenter",
+    "subtitle": "Aktivering, adoption, expansion och retention — Aipify hjälper er organisation att uppnå mätbar värde.",
+    "principle": "En framgångsrik kund uppnår värde — inte bara ett köp.",
+    "privacyNote": "Endast metadata för kundframgång — inget rått driftsinnehåll.",
+    "loading": "Laddar",
+    "empty": "Kundframgångsoperationer är inte tillgängliga för denna organisation.",
+    "refresh": "Uppdatera",
+    "healthScore": "Hälsopoäng",
+    "healthStatus": "Hälsostatus",
+    "companionRecommendations": "Companion-rekommendationer",
+    "records": "Värdemätningar",
+    "noRecords": "Inga poster ännu.",
+    "sections": {
+      "overview": "Översikt",
+      "onboarding": "Onboarding",
+      "health": "Hälsopoäng",
+      "adoption": "Adoption",
+      "risks": "Risker",
+      "opportunities": "Möjligheter",
+      "renewals": "Förnyelser",
+      "reports": "Rapporter",
+      "journey": "Kundresa",
+      "executive": "Ledningsdashboard"
+    },
+    "healthBand": {
+      "healthy": "Frisk",
+      "attentionRequired": "Kräver uppmärksamhet",
+      "atRisk": "I riskzon"
+    },
+    "stats": {
+      "openRisks": "Öppna risker",
+      "openOpportunities": "Expansionsmöjligheter",
+      "onboardingProgress": "Onboarding-framsteg",
+      "daysUntilRenewal": "Dagar till förnyelse"
+    }
+  },
   "implementationOnboardingCenter": {
     "title": "Implementerings- och onboardingcenter",
     "subtitle": "Vägledd konfiguration från köp till lansering — Aipify visar alltid organisationen nästa steg.",

@@ -123,6 +123,7 @@
     "customers": "Customers",
     "customerLifecycle": "Livscykelcenter",
     "customerSuccessOperations": "Framgångsoperationer",
+    "commercialIntelligence": "Intäktscenter",
     "subscriptions": "Subscriptions",
     "billing": "Billing",
     "invoices": "Invoices",
@@ -385,6 +386,75 @@
     "kid": "KID",
     "providerCustomerId": "Provider customer ID",
     "providerMandateId": "Provider mandate ID"
+  },
+  "billingCommerceCenter": {
+    "title": "Fakturering och handel",
+    "subtitle": "Enhetlig plattformskontroll för kundidentitet, faktureringsprofiler, prenumerationer, skatt, licenser och redovisningskoppling.",
+    "principle": "Varje försäljning ska kunna spåras från identitet till faktura, skatt och redovisning.",
+    "privacyNote": "Endast plattformsaggregat — inget kunddrift utöver faktureringsmetadata.",
+    "loading": "Förbereder fakturerings- och handelscenter",
+    "empty": "Fakturerings- och handelsdata är otillgänglig.",
+    "openModule": "Öppna modul",
+    "back": "Tillbaka till fakturering och handel",
+    "overview": "Översikt",
+    "stats": "Statistik",
+    "records": "Poster",
+    "legalReviewBanner": "Granska skatteregler och momslogik med redovisning och juridik före offentlig lansering.",
+    "relatedOperations": "Relaterade operationer",
+    "relatedLinks": {
+      "paymentOperations": "Betalningsoperationer",
+      "revenueOperations": "Intäktsoperationer",
+      "subscriptionOperations": "Prenumerationsoperationer"
+    },
+    "overviewStats": {
+      "activeCustomers": "Aktiva kunder",
+      "overdueCustomers": "Förfallna kunder",
+      "openInvoices": "Öppna fakturor",
+      "draftCheckouts": "Utkast till kassa"
+    },
+    "nav": {
+      "overview": "Översikt",
+      "customerIdentity": "Kundidentitet",
+      "billingProfiles": "Faktureringsprofiler",
+      "subscriptions": "Prenumerationer",
+      "invoices": "Fakturor",
+      "vatEngine": "Momsmotor",
+      "paymentProviders": "Betalningsleverantörer",
+      "taxRules": "Skatteregler",
+      "businessPacks": "Business Packs",
+      "licensePurchases": "Licensköp",
+      "domainLicenses": "Domänlicenser",
+      "growthPartnerAttribution": "Growth Partner-attribution",
+      "accountingIntegration": "Redovisningsintegration"
+    },
+    "modules": {
+      "customerIdentity": "Kundidentitet",
+      "billingProfiles": "Faktureringsprofiler",
+      "subscriptions": "Prenumerationer",
+      "invoices": "Fakturor",
+      "vatEngine": "Momsmotor",
+      "paymentProviders": "Betalningsleverantörer",
+      "taxRules": "Skatteregler",
+      "businessPacks": "Business Packs",
+      "licensePurchases": "Licensköp",
+      "domainLicenses": "Domänlicenser",
+      "growthPartnerAttribution": "Growth Partner-attribution",
+      "accountingIntegration": "Redovisningsintegration"
+    },
+    "moduleDescriptions": {
+      "customerIdentity": "Kundposter, organisationsnummer och faktureringsidentitet.",
+      "billingProfiles": "Leverantörsoberoende betalningsprofiler, KID och fakturaadresser.",
+      "subscriptions": "Planer, provperioder och prenumerationslivscykel över tenants.",
+      "invoices": "Fakturautställning, status och betalningsavstämning.",
+      "vatEngine": "Kassa-moms, kundtyp, företagsverifiering och fakturaskatt.",
+      "paymentProviders": "Stripe, DNB, Klarna och Vipps-konfiguration och hälsa.",
+      "taxRules": "Norge, EU omvänd skattskyldighet och reservregler vid kassa.",
+      "businessPacks": "Business Pack-katalog, licensiering och marknadsplats.",
+      "licensePurchases": "Historik för domän- och användarlicensköp kopplade till kassa.",
+      "domainLicenses": "Inkluderade och köpta domänlicenspooler per organisation.",
+      "growthPartnerAttribution": "Growth Partner-attribution från första kontakt till provision.",
+      "accountingIntegration": "Fiken, Stripe och redovisning via integrationsmotorn."
+    }
   },
   "subscriptions": {
     "title": "Subscriptions",
@@ -3966,17 +4036,25 @@
     "subtitle": "Centraliserat arbetsutrymme för proaktiv kundframgång.",
     "loading": "Förbereder framgångsoperationer…",
     "back": "Tillbaka till kunder",
+    "records": "Poster",
     "principle": "Proaktiv framgångsledning stödjer retention, expansion och människostyrda kundrelationer.",
     "emptyState": "Alla kunder utvecklas framgångsrikt.",
     "sections": {
       "overview": "Översikt",
-      "customers": "Framgångstabell",
-      "onboarding": "Onboarding-spårning",
+      "customers": "Kunder",
+      "onboarding": "Onboarding",
+      "healthScores": "Hälsopoäng",
+      "adoption": "Adoption",
+      "risks": "Risker",
+      "opportunities": "Möjligheter",
+      "renewals": "Förnyelser",
+      "reports": "Rapporter",
       "checkIns": "Incheckningscenter",
       "expansion": "Expansionscenter",
       "successPlans": "Framgångsplaner",
-      "renewals": "Förnyelseförberedelse",
       "audit": "Revisionslogg",
+      "filters": "Filter"
+    },
       "filters": "Filter"
     },
     "overview": {
@@ -4560,6 +4638,25 @@
     "activations": "Active activations",
     "packActivations": "Business Pack activations",
     "back": "Back to Platform"
+  },
+  "commercialIntelligence": {
+    "title": "Intäktsoperationer och kommersiell intelligens",
+    "subtitle": "MRR, ARR, prognoser, attribuering, churn-intelligens och tillväxtdrivkrafter i portföljen.",
+    "loading": "Förbereder kommersiell intelligens…",
+    "back": "Tillbaka till plattformen",
+    "emptyState": "Ingen kommersiell intelligens-data tillgänglig.",
+    "records": "Poster",
+    "sections": {
+      "overview": "Översikt",
+      "revenue": "Intäkter",
+      "customers": "Kunder",
+      "subscriptions": "Prenumerationer",
+      "businessPacks": "Business Packs",
+      "forecasts": "Prognoser",
+      "growth": "Tillväxt",
+      "retention": "Retention",
+      "reports": "Rapporter"
+    }
   },
   "customerSuccessHub": {
     "title": "Customer Success Center",

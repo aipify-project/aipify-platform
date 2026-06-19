@@ -2841,6 +2841,54 @@
     "mobileReady": "Mobilklar",
     "save": "Lagre"
   },
+  "integrationCenter": {
+    "title": "Integration Center",
+    "subtitle": "Koordiner tilkoblede apper, tillatelser, synkronisering og eksterne handlinger — Aipify kobler sammen eksisterende programvare.",
+    "principle": "Organisasjoner har allerede programvare. Aipify skal hjelpe den programvaren å samarbeide.",
+    "privacyNote": "Kun integrasjonsmetadata — Companion overskrider aldri gitte tillatelser.",
+    "loading": "Laster",
+    "empty": "Integration Center er ikke tilgjengelig for denne organisasjonen.",
+    "refresh": "Oppdater",
+    "companionRecommendations": "Companion-anbefalinger",
+    "noRecords": "Ingen poster ennå.",
+    "actionCapabilities": "Handlingskapabilitetsregister",
+    "externalActionGovernance": "Styring av eksterne handlinger",
+    "dataSyncEngine": "Datasynkroniseringsmotor",
+    "businessPackIntegration": "Business Pack-integrasjon",
+    "executiveDashboard": "Executive integrasjonsdashboard",
+    "integrationAdvisor": "Companion Integration Advisor",
+    "mobileAccess": "Mobiltilgang",
+    "marketplaceFoundation": "Markedsplasskategorier",
+    "healthStatus": {
+      "healthy": "Sunn",
+      "attention": "Krever oppmerksomhet",
+      "failed": "Tilkobling mislyktes"
+    },
+    "sections": {
+      "overview": "Oversikt",
+      "connectedApps": "Tilkoblede apper",
+      "availableApps": "Tilgjengelige apper",
+      "apiKeys": "API-nøkler",
+      "permissions": "Tillatelser",
+      "logs": "Logger",
+      "health": "Helse",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "connectedApps": "Tilkoblede apper",
+      "availableApps": "Tilgjengelige apper",
+      "activeApiKeys": "Aktive API-nøkler",
+      "capabilities": "Handlingskapabiliteter",
+      "openHealthIssues": "Helseproblemer"
+    },
+    "executive": {
+      "connectedApps": "Tilkoblede apper",
+      "healthyConnections": "Sunne tilkoblinger",
+      "failedConnections": "Mislykkede tilkoblinger",
+      "attentionRequired": "Krever oppmerksomhet",
+      "permissionRisks": "Tillatelsesrisikoer"
+    }
+  },
   "integrationHubOperations": {
     "title": "Integrasjonssenter",
     "subtitle": "Koble eksterne systemer, plattformer, API-er og forretningsapplikasjoner — Aipifys tilkoblingslag.",
@@ -5418,6 +5466,91 @@
       "moderate": "Moderate",
       "high": "High",
       "critical": "Critical"
+    }
+  },
+  "checkoutVat": {
+    "title": "Checkout",
+    "subtitle": "Confirm billing details and VAT before payment.",
+    "loading": "Preparing checkout",
+    "back": "Back",
+    "legalReviewBanner": "This checkout tax engine must be reviewed with accounting and legal before public launch.",
+    "customerType": "Customer type",
+    "privatePerson": "Private person",
+    "business": "Business",
+    "companyName": "Company name",
+    "organizationNumber": "Organization number / VAT number",
+    "country": "Country",
+    "billingAddress": "Billing address",
+    "billingEmail": "Billing email",
+    "reference": "Reference",
+    "purchaseOrder": "Purchase order number",
+    "subtotal": "Subtotal",
+    "vat": "VAT",
+    "total": "Total",
+    "reverseChargeNote": "Reverse charge. VAT to be accounted for by the customer.",
+    "confirmPurchase": "Confirm purchase",
+    "continueToPayment": "Continue to payment",
+    "validating": "Validating…",
+    "validationValid": "Business number verified.",
+    "invalidBusinessNumber": "Invalid business number. You will be charged standard VAT unless a valid number is provided.",
+    "invalidEuVatNumber": "Invalid VAT number. Standard VAT will be added unless a valid VAT number is provided.",
+    "validationUnavailable": "Validation service is temporarily unavailable. Standard VAT will be applied.",
+    "productType": "Product",
+    "paymentProvider": "Payment provider",
+    "requiredField": "Required field",
+    "businessNumberRequired": "Business number is required for business customers."
+  },
+  "unifiedBilling": {
+    "title": "Fakturering",
+    "subtitle": "Plan, abonnement, fakturaer, faktureringsprofiler, skattestatus og lisenser på ett sted.",
+    "principle": "Aipify eier faktureringsgrunnlaget. Betalingsleverandører behandler betalinger.",
+    "privacyNote": "Kun faktureringsmetadata — ingen rå kortdata lagres.",
+    "loading": "Forbereder faktureringssenter",
+    "empty": "Faktureringsinformasjon er utilgjengelig.",
+    "back": "Tilbake til fakturering",
+    "manageProfile": "Administrer faktureringsprofil",
+    "viewCheckout": "Enhetlig kasse",
+    "viewUpgrade": "Oppgraderingsalternativer",
+    "sections": {
+      "profiles": "Faktureringsprofiler",
+      "subscriptions": "Abonnement",
+      "invoices": "Fakturaer",
+      "licenses": "Lisenser",
+      "events": "Nylige faktureringshendelser",
+      "checkoutFlow": "Enhetlig kasseflyt"
+    },
+    "stats": {
+      "profiles": "Faktureringsprofiler",
+      "activeSubscriptions": "Aktive abonnement",
+      "overdueInvoices": "Forfalte fakturaer",
+      "userCapacity": "Tilgjengelig brukerkapasitet"
+    },
+    "profile": {
+      "title": "Faktureringsprofil",
+      "subtitle": "Juridisk identitet, skatteklassifisering og fakturadetaljer Aipify bruker for alle kjøp.",
+      "save": "Lagre faktureringsprofil",
+      "saving": "Lagrer…",
+      "saved": "Faktureringsprofil lagret.",
+      "customerType": "Kundetype",
+      "profileLabel": "Profilnavn",
+      "companyName": "Firmanavn",
+      "legalName": "Juridisk navn",
+      "organizationNumber": "Organisasjonsnummer",
+      "vatNumber": "MVA-nummer",
+      "country": "Land",
+      "billingAddress": "Fakturaadresse",
+      "billingEmail": "Faktura-e-post",
+      "invoiceEmail": "Faktura-e-post (mottaker)",
+      "paymentMethod": "Betalingsmetode",
+      "taxStatus": "Skattestatus",
+      "validationStatus": "Valideringsstatus",
+      "isPrimary": "Primær faktureringsprofil",
+      "accessDenied": "Kun eiere og administratorer kan endre faktureringsprofiler.",
+      "auditTitle": "Endringshistorikk for profil"
+    },
+    "advisor": {
+      "title": "Faktureringsveiledning",
+      "openBilling": "Åpne fakturering"
     }
   }
 }

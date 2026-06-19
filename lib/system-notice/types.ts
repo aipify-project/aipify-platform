@@ -3,12 +3,25 @@ export type SystemNoticeStatus =
   | "not_found"
   | "unauthorized_panel"
   | "growth_partner_required"
+  | "business_pack_required"
+  | "professional_plan_required"
+  | "enterprise_access_required"
+  | "administrator_access_required"
+  | "executive_access_required"
   | "platform_required"
   | "super_admin_required"
   | "app_required"
   | "subscription_required"
   | "suspended_account"
   | "cancelled_account";
+
+export type SystemNoticeLayout = {
+  /** Hide the filled secondary button (e.g. Contact Support). */
+  hideSecondary?: boolean;
+  /** Show ghost Return to Dashboard button below primary CTA. */
+  ghostDashboard?: boolean;
+  dashboardHref?: string;
+};
 
 export type SystemNoticePreset = {
   status: SystemNoticeStatus;
@@ -19,6 +32,7 @@ export type SystemNoticePreset = {
   primaryHref: string;
   secondaryLabelKey: string;
   secondaryHref: string;
+  layout?: SystemNoticeLayout;
 };
 
 export type SystemNoticeLabels = {
@@ -28,6 +42,11 @@ export type SystemNoticeLabels = {
   knowledgeCenter: string;
   contactSupport: string;
   becomeGrowthPartner: string;
+  registerGrowthPartnerAccount: string;
+  returnToDashboard: string;
+  viewBusinessPacks: string;
+  upgradePlan: string;
+  upgradeToEnterprise: string;
   renewSubscription: string;
   billing: string;
   invoices: string;

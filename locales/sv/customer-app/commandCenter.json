@@ -1439,5 +1439,55 @@
     "actionHubTitle": "Handlingshubb",
     "actionHubLink": "Öppna uppgiftsinkorg",
     "actionHubNote": "Personliga och teamuppgifter finns i Action Hub — skilt från styrd extern körning."
+  },
+  "executiveCommandCenter": {
+    "title": "Executive Command Center",
+    "subtitle": "En operativ översikt efter inloggning — vad hände, vad ändrades, vad kräver uppmärksamhet och vad bör hända härnäst.",
+    "principle": "Chefer ska inte behöva söka information — informationen ska komma till dem.",
+    "privacyNote": "Endast metadata för executive command — ledningen bestämmer utfall.",
+    "loading": "Laddar",
+    "empty": "Executive Command Center är inte tillgängligt för denna organisation.",
+    "refresh": "Uppdatera",
+    "overallHealthScore": "Organisationshälsa",
+    "companionRecommendations": "Companion-rekommendationer",
+    "noRecords": "Inga poster ännu.",
+    "sinceLastLogin": "Sedan senaste inloggning",
+    "morningBriefing": "Executive morgonbriefing",
+    "organizationalTimeline": "Command Center-tidslinje",
+    "businessPackSignals": "Business Pack-integration",
+    "boardReadyReports": "Styrelseklara rapporter",
+    "commandMode": "Companion Command Mode",
+    "mobileExecutiveMode": "Executive mobil-läge",
+    "priority": {
+      "information": "Information",
+      "attention": "Uppmärksamhet",
+      "urgent": "Brådskande",
+      "critical": "Kritisk"
+    },
+    "sections": {
+      "overview": "Översikt",
+      "sinceLastLogin": "Sedan senaste inloggning",
+      "alerts": "Varningar",
+      "approvals": "Godkännanden",
+      "risks": "Risker",
+      "opportunities": "Möjligheter",
+      "performance": "Prestanda",
+      "companionBriefing": "Companion-briefing"
+    },
+    "stats": {
+      "sinceLastLoginItems": "Sedan senaste inloggning",
+      "openAlerts": "Öppna varningar",
+      "pendingActions": "Väntande åtgärder",
+      "openOpportunities": "Möjligheter",
+      "criticalItems": "Kritiska poster"
+    },
+    "briefing": {
+      "revenue": "Intäktssammanfattning",
+      "customer": "Kundsammanfattning",
+      "risk": "Risksammanfattning",
+      "operational": "Operativ sammanfattning",
+      "growth": "Tillväxtsammanfattning",
+      "companion": "Companion-rekommendationer"
+    }
   }
 }

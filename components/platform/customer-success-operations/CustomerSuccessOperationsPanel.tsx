@@ -5,12 +5,11 @@ import { useCallback, useEffect, useState } from "react";
 import {
   buildSuccessOperationsFilterQuery,
   parseCustomerSuccessOperationsCenter,
-  PLAN_STATUS_BADGES,
-  SUCCESS_STATUS_BADGES,
   type CustomerSuccessFilters,
   type CustomerSuccessOperationsCenter,
-  type CustomerSuccessOperationsLabels,
-} from "@/lib/customer-success-operations";
+} from "@/lib/customer-success-operations/parse";
+import { PLAN_STATUS_BADGES, SUCCESS_STATUS_BADGES } from "@/lib/customer-success-operations/constants";
+import type { CustomerSuccessOperationsLabels } from "@/lib/customer-success-operations/types";
 
 type CustomerSuccessOperationsPanelProps = {
   labels: CustomerSuccessOperationsLabels;

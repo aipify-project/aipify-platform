@@ -1439,5 +1439,55 @@
     "actionHubTitle": "Handlingshub",
     "actionHubLink": "Åbn opgaveindbakke",
     "actionHubNote": "Personlige og teamopgaver findes i Action Hub — adskilt fra styret ekstern udførelse."
+  },
+  "executiveCommandCenter": {
+    "title": "Executive Command Center",
+    "subtitle": "Én operationel oversigt efter login — hvad skete, hvad ændrede sig, hvad kræver opmærksomhed og hvad bør ske næste.",
+    "principle": "Ledere skal ikke lede efter information — informationen skal komme til dem.",
+    "privacyNote": "Kun metadata for executive command — ledelsen beslutter udfald.",
+    "loading": "Indlæser",
+    "empty": "Executive Command Center er ikke tilgængeligt for denne organisation.",
+    "refresh": "Opdater",
+    "overallHealthScore": "Organisationshelbred",
+    "companionRecommendations": "Companion-anbefalinger",
+    "noRecords": "Ingen poster endnu.",
+    "sinceLastLogin": "Siden sidste login",
+    "morningBriefing": "Executive morgenbriefing",
+    "organizationalTimeline": "Command Center-tidslinje",
+    "businessPackSignals": "Business Pack-integration",
+    "boardReadyReports": "Bestyrelsesklare rapporter",
+    "commandMode": "Companion Command Mode",
+    "mobileExecutiveMode": "Executive mobiltilstand",
+    "priority": {
+      "information": "Information",
+      "attention": "Opmærksomhed",
+      "urgent": "Haster",
+      "critical": "Kritisk"
+    },
+    "sections": {
+      "overview": "Oversigt",
+      "sinceLastLogin": "Siden sidste login",
+      "alerts": "Advarsler",
+      "approvals": "Godkendelser",
+      "risks": "Risici",
+      "opportunities": "Muligheder",
+      "performance": "Performance",
+      "companionBriefing": "Companion-briefing"
+    },
+    "stats": {
+      "sinceLastLoginItems": "Siden sidste login",
+      "openAlerts": "Åbne advarsler",
+      "pendingActions": "Afventende handlinger",
+      "openOpportunities": "Muligheder",
+      "criticalItems": "Kritiske elementer"
+    },
+    "briefing": {
+      "revenue": "Omsætningssammendrag",
+      "customer": "Kundesammendrag",
+      "risk": "Risikosammendrag",
+      "operational": "Operationelt sammendrag",
+      "growth": "Vækstsammendrag",
+      "companion": "Companion-anbefalinger"
+    }
   }
 }

@@ -12,6 +12,8 @@ import type {
 import type { PlanStatus, RenewalWindow, SuccessStatus } from "./constants";
 import { PLAN_STATUSES, RENEWAL_WINDOWS, SUCCESS_STATUSES } from "./constants";
 
+export type { CustomerSuccessFilters, CustomerSuccessOperationsCenter } from "./types";
+
 function asRecord(raw: unknown): Record<string, unknown> | null {
   return raw && typeof raw === "object" ? (raw as Record<string, unknown>) : null;
 }

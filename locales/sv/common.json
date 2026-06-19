@@ -54,6 +54,11 @@
     "knowledgeCenter": "Besök kunskapscentret",
     "contactSupport": "Kontakta support",
     "becomeGrowthPartner": "Bli Growth Partner",
+    "registerGrowthPartnerAccount": "Registrera Growth Partner-konto",
+    "returnToDashboard": "Tillbaka till dashboard",
+    "viewBusinessPacks": "Visa Business Packs",
+    "upgradePlan": "Uppgradera plan",
+    "upgradeToEnterprise": "Uppgradera till Enterprise",
     "renewSubscription": "Förnya prenumeration",
     "billing": "Fakturering",
     "invoices": "Fakturor",
@@ -72,16 +77,46 @@
         "secondaryLabel": "Besök kunskapscentret"
       },
       "unauthorized_panel": {
-        "title": "Åtkomst krävs",
-        "message": "Du behöver rätt behörigheter för att visa detta område. Kontakta administratören om du tror att detta är ett fel.",
-        "primaryLabel": "Tillbaka till Aipify",
-        "secondaryLabel": "Kontakta support"
+        "title": "Administratörsåtkomst krävs",
+        "message": "Du behöver administratörsbehörighet för att få åtkomst till detta område. Kontakta organisationens administratör om du tror att detta är ett fel.",
+        "primaryLabel": "Tillbaka till dashboard",
+        "secondaryLabel": "Tillbaka till dashboard"
       },
       "growth_partner_required": {
         "title": "Growth Partner-konto krävs",
-        "message": "Detta område är tillgängligt för registrerade Aipify Growth Partners. Om du vill representera Aipify, slutför Growth Partner-registrering och certifieringsprocessen.",
-        "primaryLabel": "Bli Growth Partner",
-        "secondaryLabel": "Tillbaka till Aipify"
+        "message": "Du behöver ett godkänt Growth Partner-konto för att få åtkomst till detta område.\n\nBli certifierad Aipify Growth Partner och få tillgång till partnerverktyg, provisioner, utbildning, lead-hantering och affärsresurser.",
+        "primaryLabel": "Registrera Growth Partner-konto",
+        "secondaryLabel": "Tillbaka till dashboard"
+      },
+      "business_pack_required": {
+        "title": "Business Pack krävs",
+        "message": "Detta område kräver ett aktivt Business Pack för din organisation. Aktivera paketet i modulhantering för att fortsätta.",
+        "primaryLabel": "Visa Business Packs",
+        "secondaryLabel": "Tillbaka till dashboard"
+      },
+      "professional_plan_required": {
+        "title": "Professional-plan krävs",
+        "message": "Detta område kräver Professional-plan eller högre. Uppgradera prenumerationen för att låsa upp denna funktion.",
+        "primaryLabel": "Uppgradera plan",
+        "secondaryLabel": "Tillbaka till dashboard"
+      },
+      "enterprise_access_required": {
+        "title": "Enterprise-åtkomst krävs",
+        "message": "Detta område är tillgängligt på Enterprise-planer. Uppgradera till Enterprise för avancerade organisationsfunktioner.",
+        "primaryLabel": "Uppgradera till Enterprise",
+        "secondaryLabel": "Tillbaka till dashboard"
+      },
+      "administrator_access_required": {
+        "title": "Administratörsåtkomst krävs",
+        "message": "Du behöver administratörsbehörighet för att få åtkomst till detta område. Kontakta organisationens administratör om du tror att detta är ett fel.",
+        "primaryLabel": "Tillbaka till dashboard",
+        "secondaryLabel": "Tillbaka till dashboard"
+      },
+      "executive_access_required": {
+        "title": "Executive-åtkomst krävs",
+        "message": "Detta område är reserverat för executive-roller i din organisation. Kontakta administratören om du behöver åtkomst.",
+        "primaryLabel": "Tillbaka till dashboard",
+        "secondaryLabel": "Tillbaka till dashboard"
       },
       "platform_required": {
         "title": "Plattformsåtkomst krävs",

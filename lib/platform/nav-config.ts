@@ -10,6 +10,7 @@ export type PlatformNavId =
   | "operationsAuditLogs"
   | "organizations"
   | "customerSuccess"
+  | "commercialIntelligence"
   | "payments"
   | "marketplace"
   | "growthPartners"
@@ -42,6 +43,7 @@ export type PlatformNavId =
   | "subscriptions"
   | "billing"
   | "invoices"
+  | "taxVerification"
   | "paymentOperations"
   | "paymentHealth"
   | "paymentAnalytics"
@@ -270,7 +272,8 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
   { id: "operationsAuditLogs", href: "/platform/operations/audit-logs", labelKey: "platform.nav.operationsAuditLogs" },
   { id: "organizations", href: "/platform/customers", labelKey: "platform.nav.organizations" },
   { id: "customerSuccess", href: "/platform/customer-success", labelKey: "platform.nav.customerSuccess" },
-  { id: "payments", href: "/platform/billing/payment-operations", labelKey: "platform.nav.payments" },
+  { id: "commercialIntelligence", href: "/platform/revenue", labelKey: "platform.nav.commercialIntelligence" },
+  { id: "payments", href: "/platform/billing", labelKey: "platform.nav.payments" },
   { id: "marketplace", href: "/platform/skills", labelKey: "platform.nav.marketplace" },
   { id: "growthPartners", href: "/platform/pilot-operations", labelKey: "platform.nav.growthPartners" },
   { id: "knowledgeCenter", href: "/platform/knowledge/evolution-center", labelKey: "platform.nav.knowledgeCenter" },
@@ -390,6 +393,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     id: "invoices",
     href: "/platform/billing/enterprise-invoices",
     labelKey: "platform.nav.enterpriseInvoices",
+  },
+  {
+    id: "taxVerification",
+    href: "/platform/billing/tax-verification",
+    labelKey: "platform.nav.taxVerification",
   },
   {
     id: "paymentProviders",
@@ -525,10 +533,13 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/operations/playbooks")) return "operationsOverview";
   if (pathname.startsWith("/platform/operations")) return "operationsOverview";
   if (pathname.startsWith("/platform/customer-success")) return "customerSuccess";
+  if (pathname.startsWith("/platform/revenue")) return "commercialIntelligence";
   if (pathname.startsWith("/platform/customers/success-operations")) return "customerSuccessOperations";
   if (pathname.startsWith("/platform/customers")) return "organizations";
-  if (pathname.startsWith("/platform/billing/payment-operations")) return "payments";
-  if (pathname.startsWith("/platform/billing")) return "payments";
+  if (pathname.startsWith("/platform/billing/vat-engine")) return "taxVerification";
+  if (pathname.startsWith("/platform/billing/tax-verification")) return "taxVerification";
+  if (pathname.startsWith("/platform/billing/payment-operations")) return "paymentOperations";
+  if (pathname.startsWith("/platform/billing")) return "billing";
   if (pathname.startsWith("/platform/subscriptions")) return "subscriptions";
   if (pathname.startsWith("/platform/companion-marketplace")) return "marketplace";
   if (pathname.startsWith("/platform/skills")) return "marketplace";

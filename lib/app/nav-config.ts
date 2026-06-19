@@ -3069,6 +3069,13 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/executive")) return "executive";
   if (
     pathname === "/app/command-center" ||
+    pathname.startsWith("/app/command-center/since-last-login") ||
+    pathname.startsWith("/app/command-center/alerts") ||
+    pathname.startsWith("/app/command-center/approvals") ||
+    pathname.startsWith("/app/command-center/risks") ||
+    pathname.startsWith("/app/command-center/opportunities") ||
+    pathname.startsWith("/app/command-center/performance") ||
+    pathname.startsWith("/app/command-center/companion-briefing") ||
     pathname.startsWith("/app/command-center/actions")
   ) {
     return "appCompanionCommandCenter";
@@ -3098,12 +3105,38 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/marketing")) return "appMarketing";
   if (pathname === "/app/scheduling") return "appScheduling";
   if (pathname.startsWith("/app/calendar")) return "appCalendar";
-  if (pathname.startsWith("/app/events")) return "appEvents";
+  if (
+    pathname === "/app/events" ||
+    pathname.startsWith("/app/events/live-activity") ||
+    pathname.startsWith("/app/events/signals") ||
+    pathname.startsWith("/app/events/alerts") ||
+    pathname.startsWith("/app/events/subscriptions") ||
+    pathname.startsWith("/app/events/sources") ||
+    pathname.startsWith("/app/events/history") ||
+    pathname.startsWith("/app/events/reports")
+  ) {
+    return "appEvents";
+  }
   if (pathname.startsWith("/app/bookings")) return "appBookings";
   if (pathname.startsWith("/app/notifications")) return "appNotifications";
   if (pathname.startsWith("/app/executive-alerts")) return "appExecutiveAlerts";
   if (pathname.startsWith("/app/integrations/mobile-api")) return "appMobileApiIntegration";
-  if (pathname === "/app/integrations" || pathname.startsWith("/app/integrations/")) return "appIntegrationHub";
+  if (
+    pathname === "/app/integrations" ||
+    pathname.startsWith("/app/integrations/connected-apps") ||
+    pathname.startsWith("/app/integrations/available-apps") ||
+    pathname.startsWith("/app/integrations/api-keys") ||
+    pathname.startsWith("/app/integrations/permissions") ||
+    pathname.startsWith("/app/integrations/logs") ||
+    pathname.startsWith("/app/integrations/health") ||
+    pathname.startsWith("/app/integrations/reports") ||
+    pathname.startsWith("/app/integrations/api") ||
+    pathname.startsWith("/app/integrations/webhooks") ||
+    pathname.startsWith("/app/integrations/sync") ||
+    pathname.startsWith("/app/integrations/marketplace")
+  ) {
+    return "appIntegrationHub";
+  }
   if (pathname.startsWith("/app/assets")) return "appAssets";
   if (pathname.startsWith("/app/procurement")) return "appProcurement";
   if (pathname.startsWith("/app/quality-operations")) return "appQualityOperations";

@@ -1,13 +1,5 @@
-import { CompanionCommandCenterPanel } from "@/components/app/companion-command-center";
-import { buildCompanionCommandCenterLabels } from "@/lib/companion-command-center/labels";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
-import { getLocale } from "@/lib/i18n/get-locale";
-import { createTranslator } from "@/lib/i18n/translate";
+import { ExecutiveCommandCenterSectionPage } from "@/lib/executive-command-center-engine/section-page";
 
-export default async function CompanionCommandCenterPage() {
-  const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["settings"]);
-  const t = createTranslator(dict);
-  const labels = buildCompanionCommandCenterLabels(t);
-  return <CompanionCommandCenterPanel labels={labels} />;
+export default function ExecutiveCommandCenterOverviewPage() {
+  return <ExecutiveCommandCenterSectionPage activeSection="overview" />;
 }

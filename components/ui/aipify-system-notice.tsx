@@ -20,6 +20,9 @@ export type AipifySystemNoticeProps = {
   tertiaryLabel?: string;
   tertiaryHref?: string;
   fullPage?: boolean;
+  /** Override ghost dashboard link (defaults to preset layout dashboardHref or /app). */
+  dashboardHref?: string;
+  dashboardLabel?: string;
 };
 
 export function AipifySystemNotice({
@@ -35,11 +38,14 @@ export function AipifySystemNotice({
   tertiaryLabel,
   tertiaryHref,
   fullPage = true,
+  dashboardHref,
+  dashboardLabel,
 }: AipifySystemNoticeProps) {
   const contextLabels = useSystemNoticeLabels();
   const labels = labelsProp ?? contextLabels;
   const preset = SYSTEM_NOTICE_PRESETS[status];
   const copy = labels.presets[status];
+  const layout = preset.layout;
 
   const resolvedTitle = title ?? copy.title;
   const resolvedMessage = message ?? copy.message;
@@ -48,6 +54,10 @@ export function AipifySystemNotice({
   const resolvedSecondaryLabel = secondaryLabel ?? copy.secondaryLabel;
   const resolvedSecondaryHref = secondaryHref ?? preset.secondaryHref;
   const resolvedIcon = icon ?? preset.icon;
+  const resolvedDashboardHref = dashboardHref ?? layout?.dashboardHref ?? "/app";
+  const resolvedDashboardLabel = dashboardLabel ?? labels.returnToDashboard;
+  const showSecondary = !layout?.hideSecondary && Boolean(resolvedSecondaryLabel);
+  const showGhostDashboard = layout?.ghostDashboard === true || Boolean(tertiaryLabel && tertiaryHref);
 
   const shell = fullPage
     ? "flex min-h-screen items-center justify-center bg-aipify-canvas px-4 py-12"
@@ -63,18 +73,31 @@ export function AipifySystemNotice({
           {resolvedIcon}
         </div>
         <h1 className="text-xl font-semibold text-aipify-text">{resolvedTitle}</h1>
-        <p className="mt-3 text-sm leading-relaxed text-aipify-text-secondary">{resolvedMessage}</p>
+        <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-aipify-text-secondary">
+          {resolvedMessage}
+        </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
-          <Link href={resolvedPrimaryHref} className={`${AipifyShellClasses.primaryButton} inline-flex justify-center`}>
+          <Link
+            href={resolvedPrimaryHref}
+            className={`${AipifyShellClasses.primaryButton} inline-flex justify-center`}
+          >
             {resolvedPrimaryLabel}
           </Link>
-          <Link href={resolvedSecondaryHref} className={`${AipifyShellClasses.secondaryButton} inline-flex justify-center`}>
-            {resolvedSecondaryLabel}
-          </Link>
+          {showSecondary ? (
+            <Link
+              href={resolvedSecondaryHref}
+              className={`${AipifyShellClasses.secondaryButton} inline-flex justify-center`}
+            >
+              {resolvedSecondaryLabel}
+            </Link>
+          ) : null}
         </div>
-        {tertiaryLabel && tertiaryHref ? (
-          <Link href={tertiaryHref} className={`mt-4 inline-block text-sm ${AipifyShellClasses.link}`}>
-            {tertiaryLabel}
+        {showGhostDashboard ? (
+          <Link
+            href={tertiaryHref ?? resolvedDashboardHref}
+            className={`mt-4 inline-flex justify-center ${AipifyShellClasses.ghostButton}`}
+          >
+            {tertiaryLabel ?? resolvedDashboardLabel}
           </Link>
         ) : null}
       </div>

@@ -8,6 +8,11 @@ export const SYSTEM_NOTICE_LABELS_EN: SystemNoticeLabels = {
   knowledgeCenter: "Visit Knowledge Center",
   contactSupport: "Contact Support",
   becomeGrowthPartner: "Become a Growth Partner",
+  registerGrowthPartnerAccount: "Register Growth Partner Account",
+  returnToDashboard: "Return to Dashboard",
+  viewBusinessPacks: "View Business Packs",
+  upgradePlan: "Upgrade Plan",
+  upgradeToEnterprise: "Upgrade to Enterprise",
   renewSubscription: "Renew Subscription",
   billing: "Billing",
   invoices: "Invoices",
@@ -26,18 +31,53 @@ export const SYSTEM_NOTICE_LABELS_EN: SystemNoticeLabels = {
       secondaryLabel: "Visit Knowledge Center",
     },
     unauthorized_panel: {
-      title: "Access required",
+      title: "Administrator Access Required",
       message:
-        "You need appropriate permissions to view this area. Contact your administrator if you believe this is an error.",
-      primaryLabel: "Back to Aipify",
-      secondaryLabel: "Contact Support",
+        "You need administrator permissions to access this area. Contact your organization administrator if you believe this is an error.",
+      primaryLabel: "Return to Dashboard",
+      secondaryLabel: "Return to Dashboard",
     },
     growth_partner_required: {
-      title: "Growth Partner account required",
+      title: "Growth Partner Account Required",
       message:
-        "This area is available for registered Aipify Growth Partners. If you want to represent Aipify, complete the Growth Partner registration and certification process.",
-      primaryLabel: "Become a Growth Partner",
-      secondaryLabel: "Back to Aipify",
+        "You need an approved Growth Partner account to access this area.\n\nBecome a certified Aipify Growth Partner and gain access to partner tools, commissions, training, lead management and business resources.",
+      primaryLabel: "Register Growth Partner Account",
+      secondaryLabel: "Return to Dashboard",
+    },
+    business_pack_required: {
+      title: "Business Pack Required",
+      message:
+        "This area requires an active Business Pack for your organization. Enable the pack in Module Management to continue.",
+      primaryLabel: "View Business Packs",
+      secondaryLabel: "Return to Dashboard",
+    },
+    professional_plan_required: {
+      title: "Professional Plan Required",
+      message:
+        "This area requires a Professional plan or higher. Upgrade your subscription to unlock this capability.",
+      primaryLabel: "Upgrade Plan",
+      secondaryLabel: "Return to Dashboard",
+    },
+    enterprise_access_required: {
+      title: "Enterprise Access Required",
+      message:
+        "This area is available on Enterprise plans. Upgrade to Enterprise to access advanced organizational capabilities.",
+      primaryLabel: "Upgrade to Enterprise",
+      secondaryLabel: "Return to Dashboard",
+    },
+    administrator_access_required: {
+      title: "Administrator Access Required",
+      message:
+        "You need administrator permissions to access this area. Contact your organization administrator if you believe this is an error.",
+      primaryLabel: "Return to Dashboard",
+      secondaryLabel: "Return to Dashboard",
+    },
+    executive_access_required: {
+      title: "Executive Access Required",
+      message:
+        "This area is reserved for executive roles in your organization. Contact your administrator if you need access.",
+      primaryLabel: "Return to Dashboard",
+      secondaryLabel: "Return to Dashboard",
     },
     platform_required: {
       title: "Platform access required",

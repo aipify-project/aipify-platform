@@ -1,5 +1,5 @@
-import { CustomerSuccessSectionPage } from "@/lib/customer-success-adoption-center/section-page";
+import { CustomerSuccessOperationsSectionPage } from "@/lib/customer-success-operations/section-page";
 
 export default function CustomerSuccessJourneyPage() {
-  return <CustomerSuccessSectionPage activeSection="journey" />;
+  return <CustomerSuccessOperationsSectionPage activeSection="journey" />;
 }

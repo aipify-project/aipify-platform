@@ -109,3 +109,67 @@ export function buildCustomerSuccessOperationsLabels(t: Translator): CustomerSuc
     },
   };
 }
+
+export function buildCsar587CustomerLabels(t: Translator) {
+  const p = "customerApp.customerSuccessOperations";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    principle: t(`${p}.principle`),
+    privacyNote: t(`${p}.privacyNote`),
+    loading: t(`${p}.loading`),
+    empty: t(`${p}.empty`),
+    refresh: t(`${p}.refresh`),
+    healthScore: t(`${p}.healthScore`),
+    healthStatus: t(`${p}.healthStatus`),
+    companionRecommendations: t(`${p}.companionRecommendations`),
+    records: t(`${p}.records`),
+    noRecords: t(`${p}.noRecords`),
+    sections: {
+      overview: t(`${p}.sections.overview`),
+      onboarding: t(`${p}.sections.onboarding`),
+      health: t(`${p}.sections.health`),
+      adoption: t(`${p}.sections.adoption`),
+      risks: t(`${p}.sections.risks`),
+      opportunities: t(`${p}.sections.opportunities`),
+      renewals: t(`${p}.sections.renewals`),
+      reports: t(`${p}.sections.reports`),
+      journey: t(`${p}.sections.journey`),
+      executive: t(`${p}.sections.executive`),
+    },
+    healthBand: {
+      healthy: t(`${p}.healthBand.healthy`),
+      attention_required: t(`${p}.healthBand.attentionRequired`),
+      at_risk: t(`${p}.healthBand.atRisk`),
+    },
+    stats: {
+      openRisks: t(`${p}.stats.openRisks`),
+      openOpportunities: t(`${p}.stats.openOpportunities`),
+      onboardingProgress: t(`${p}.stats.onboardingProgress`),
+      daysUntilRenewal: t(`${p}.stats.daysUntilRenewal`),
+    },
+  };
+}
+
+export function buildPlatformCsar587OperationsLabels(t: Translator) {
+  const p = "platform.customerSuccessOperations";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    loading: t(`${p}.loading`),
+    empty: t(`${p}.emptyState`),
+    back: t(`${p}.back`),
+    records: t(`${p}.records`),
+    sections: {
+      overview: t(`${p}.sections.overview`),
+      customers: t(`${p}.sections.customers`),
+      onboarding: t(`${p}.sections.onboarding`),
+      healthScores: t(`${p}.sections.healthScores`),
+      adoption: t(`${p}.sections.adoption`),
+      risks: t(`${p}.sections.risks`),
+      opportunities: t(`${p}.sections.opportunities`),
+      renewals: t(`${p}.sections.renewals`),
+      reports: t(`${p}.sections.reports`),
+    },
+  };
+}

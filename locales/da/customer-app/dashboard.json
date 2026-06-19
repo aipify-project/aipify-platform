@@ -14211,6 +14211,169 @@
       "waiting": "Venter"
     }
   },
+  "strategyCenter": {
+    "title": "Strategicenter",
+    "subtitle": "Strategisk intelligens for ledelse — mål, risici, muligheder, bestyrelsesarbejde og planlægningscyklusser.",
+    "principle": "Drift holder organisationer kørende. Strategi bestemmer, hvor de er på vej.",
+    "privacyNote": "Kun metadata for strategisk intelligens — ledelsen bestemmer udfald.",
+    "loading": "Indlæser",
+    "empty": "Strategicenter er ikke tilgængeligt for denne organisation.",
+    "refresh": "Opdater",
+    "strategicHealthScore": "Strategisk sundhed",
+    "companionRecommendations": "Companion-anbefalinger",
+    "noRecords": "Ingen poster endnu.",
+    "generateBriefing": "Ledelsesbriefinger",
+    "alignmentChain": "Mål → Initiativer → Projekter → Handlinger → Resultater",
+    "decisionSupport": "Beslutningsstøtte for ledelse",
+    "sections": {
+      "overview": "Oversigt",
+      "objectives": "Mål",
+      "initiatives": "Initiativer",
+      "risks": "Risici",
+      "opportunities": "Muligheder",
+      "board": "Bestyrelse",
+      "forecasts": "Prognoser",
+      "reports": "Rapporter"
+    },
+    "riskBand": {
+      "managed": "Håndteret",
+      "monitor": "Overvåg",
+      "strategicRisk": "Strategisk risiko"
+    },
+    "stats": {
+      "activeObjectives": "Aktive mål",
+      "openRisks": "Strategiske risici",
+      "openOpportunities": "Muligheder",
+      "boardPending": "Ventende bestyrelsessager",
+      "planningCycles": "Planlægningscyklusser"
+    }
+  },
+  "commercialIntelligence": {
+    "title": "Indtægtscenter",
+    "subtitle": "Kommerciel intelligens — forstå hvor indtægter kommer fra, hvorfor de vokser, og hvilke handlinger der øger dem.",
+    "principle": "Indtægt er resultatet — forståelse af drivere skaber vækst.",
+    "privacyNote": "Kun metadata for kommerciel intelligens — ingen rå kundedata.",
+    "loading": "Indlæser",
+    "empty": "Kommerciel intelligens er ikke tilgængelig for denne organisation.",
+    "refresh": "Opdater",
+    "mrr": "MRR",
+    "arr": "ARR",
+    "nrr": "Netto indtægtsretention",
+    "healthScore": "Indtægts-sundhed",
+    "companionRecommendations": "Companion-anbefalinger",
+    "noRecords": "Ingen poster endnu.",
+    "openPipeline": "Pipeline",
+    "sections": {
+      "overview": "Oversigt",
+      "revenue": "Indtægt",
+      "customers": "Kunder",
+      "subscriptions": "Abonnementer",
+      "businessPacks": "Business Packs",
+      "forecasts": "Prognoser",
+      "growth": "Vækst",
+      "retention": "Retention",
+      "reports": "Rapporter"
+    },
+    "healthBand": {
+      "strongGrowth": "Stærk vækst",
+      "stable": "Stabil",
+      "watchClosely": "Følg nøje",
+      "revenueRisk": "Indtægtsrisiko"
+    },
+    "stats": {
+      "openChurnSignals": "Churn-signaler",
+      "openExpansion": "Ekspansionsmuligheder",
+      "registrySources": "Indtægtskilder",
+      "growthRate": "Vækstrate"
+    }
+  },
+  "eventCenter": {
+    "title": "Event Center",
+    "subtitle": "Organisationens event bus og forretningssignaler — forstå aktivitet i realtid og fokuser på det, der betyder noget.",
+    "principle": "Data fortæller, hvad der skete. Signaler fortæller, hvad der betyder noget.",
+    "privacyNote": "Kun metadata for hændelser og signaler — ingen rå driftsdata.",
+    "loading": "Indlæser",
+    "empty": "Event Center er ikke tilgængeligt for denne organisation.",
+    "refresh": "Opdater",
+    "companionRecommendations": "Companion-anbefalinger",
+    "noRecords": "Ingen poster endnu.",
+    "liveActivity": "Live aktivitetsfeed",
+    "eventRegistry": "Hændelsesregister",
+    "correlations": "Hændelseskorrelationer",
+    "alertOrchestration": "Alarmorkestrering",
+    "businessPackSignals": "Business Pack-integration",
+    "executiveDashboard": "Executive signal-dashboard",
+    "signalBriefing": "Companion Signal Advisor",
+    "mobileAccess": "Mobiladgang",
+    "signalClass": {
+      "information": "Information",
+      "positive": "Positivt signal",
+      "attention": "Opmærksomhedssignal",
+      "risk": "Risikosignal",
+      "critical": "Kritisk signal"
+    },
+    "sections": {
+      "overview": "Oversigt",
+      "liveActivity": "Live aktivitet",
+      "signals": "Signaler",
+      "alerts": "Advarsler",
+      "subscriptions": "Abonnementer",
+      "sources": "Kilder",
+      "history": "Historik",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "registryEvents": "Registrerede hændelser",
+      "openSignals": "Åbne signaler",
+      "openAlerts": "Åbne advarsler",
+      "activeSubscriptions": "Aktive abonnementer",
+      "eventSources": "Hændelseskilder"
+    },
+    "executive": {
+      "positiveSignals": "Positive signaler",
+      "riskSignals": "Risikosignaler",
+      "criticalSignals": "Kritiske signaler",
+      "growthSignals": "Vækstsignaler",
+      "revenueSignals": "Indtægtssignaler"
+    }
+  },
+  "customerSuccessOperations": {
+    "title": "Kundesuccescenter",
+    "subtitle": "Aktivering, adoption, ekspansion og retention — Aipify hjælper organisationen med målbar værdi.",
+    "principle": "En succesfuld kunde opnår værdi — ikke bare et køb.",
+    "privacyNote": "Kun metadata for kundesucces — intet råt driftsindhold.",
+    "loading": "Indlæser",
+    "empty": "Kundesucces-operationer er ikke tilgængelige for denne organisation.",
+    "refresh": "Opdater",
+    "healthScore": "Sundhedsscore",
+    "healthStatus": "Sundhedsstatus",
+    "companionRecommendations": "Companion-anbefalinger",
+    "records": "Værdimålinger",
+    "noRecords": "Ingen poster endnu.",
+    "sections": {
+      "overview": "Oversigt",
+      "onboarding": "Onboarding",
+      "health": "Sundhedsscorer",
+      "adoption": "Adoption",
+      "risks": "Risici",
+      "opportunities": "Muligheder",
+      "renewals": "Fornyelser",
+      "reports": "Rapporter",
+      "journey": "Kunderejse",
+      "executive": "Ledelsesdashboard"
+    },
+    "healthBand": {
+      "healthy": "Sund",
+      "attentionRequired": "Kræver opmærksomhed",
+      "atRisk": "I risiko"
+    },
+    "stats": {
+      "openRisks": "Åbne risici",
+      "openOpportunities": "Ekspansionsmuligheder",
+      "onboardingProgress": "Onboarding-fremdrift",
+      "daysUntilRenewal": "Dage til fornyelse"
+    }
+  },
   "implementationOnboardingCenter": {
     "title": "Implementerings- og onboarding-center",
     "subtitle": "Guidet opsætning fra køb til lancering — Aipify viser altid organisationen næste trin.",

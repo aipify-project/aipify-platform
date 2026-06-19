@@ -15028,6 +15028,169 @@
       "waiting": "Waiting"
     }
   },
+  "strategyCenter": {
+    "title": "Strategy Center",
+    "subtitle": "Strategic intelligence for leadership — objectives, risks, opportunities, board operations, and planning cycles.",
+    "principle": "Operations keep organizations running. Strategy determines where they are going.",
+    "privacyNote": "Strategic intelligence metadata only — leadership decides outcomes.",
+    "loading": "Loading",
+    "empty": "Strategy Center is not available for this organization.",
+    "refresh": "Refresh",
+    "strategicHealthScore": "Strategic Health",
+    "companionRecommendations": "Companion Recommendations",
+    "noRecords": "No records yet.",
+    "generateBriefing": "Executive Briefings",
+    "alignmentChain": "Objectives → Initiatives → Projects → Actions → Outcomes",
+    "decisionSupport": "Executive Decision Support",
+    "sections": {
+      "overview": "Overview",
+      "objectives": "Objectives",
+      "initiatives": "Initiatives",
+      "risks": "Risks",
+      "opportunities": "Opportunities",
+      "board": "Board",
+      "forecasts": "Forecasts",
+      "reports": "Reports"
+    },
+    "riskBand": {
+      "managed": "Managed",
+      "monitor": "Monitor",
+      "strategicRisk": "Strategic Risk"
+    },
+    "stats": {
+      "activeObjectives": "Active objectives",
+      "openRisks": "Strategic risks",
+      "openOpportunities": "Opportunities",
+      "boardPending": "Board items pending",
+      "planningCycles": "Planning cycles"
+    }
+  },
+  "commercialIntelligence": {
+    "title": "Revenue Center",
+    "subtitle": "Commercial intelligence — understand where revenue comes from, why it grows, and what actions increase it.",
+    "principle": "Revenue is the result — understanding drivers creates growth.",
+    "privacyNote": "Commercial intelligence metadata only — no raw customer records.",
+    "loading": "Loading",
+    "empty": "Commercial Intelligence is not available for this organization.",
+    "refresh": "Refresh",
+    "mrr": "MRR",
+    "arr": "ARR",
+    "nrr": "Net Revenue Retention",
+    "healthScore": "Revenue Health",
+    "companionRecommendations": "Companion Recommendations",
+    "noRecords": "No records yet.",
+    "openPipeline": "Pipeline",
+    "sections": {
+      "overview": "Overview",
+      "revenue": "Revenue",
+      "customers": "Customers",
+      "subscriptions": "Subscriptions",
+      "businessPacks": "Business Packs",
+      "forecasts": "Forecasts",
+      "growth": "Growth",
+      "retention": "Retention",
+      "reports": "Reports"
+    },
+    "healthBand": {
+      "strongGrowth": "Strong Growth",
+      "stable": "Stable",
+      "watchClosely": "Watch Closely",
+      "revenueRisk": "Revenue Risk"
+    },
+    "stats": {
+      "openChurnSignals": "Churn signals",
+      "openExpansion": "Expansion opportunities",
+      "registrySources": "Revenue sources",
+      "growthRate": "Growth rate"
+    }
+  },
+  "eventCenter": {
+    "title": "Event Center",
+    "subtitle": "Organizational event bus and business signals — understand activity in real time and focus on what matters.",
+    "principle": "Data tells organizations what happened. Signals tell organizations what matters.",
+    "privacyNote": "Event and signal metadata only — no raw operational records.",
+    "loading": "Loading",
+    "empty": "Event Center is not available for this organization.",
+    "refresh": "Refresh",
+    "companionRecommendations": "Companion Recommendations",
+    "noRecords": "No records yet.",
+    "liveActivity": "Live Activity Feed",
+    "eventRegistry": "Event Registry",
+    "correlations": "Event Correlations",
+    "alertOrchestration": "Alert Orchestration",
+    "businessPackSignals": "Business Pack Integration",
+    "executiveDashboard": "Executive Signal Dashboard",
+    "signalBriefing": "Companion Signal Advisor",
+    "mobileAccess": "Mobile Access",
+    "signalClass": {
+      "information": "Information",
+      "positive": "Positive Signal",
+      "attention": "Attention Signal",
+      "risk": "Risk Signal",
+      "critical": "Critical Signal"
+    },
+    "sections": {
+      "overview": "Overview",
+      "liveActivity": "Live Activity",
+      "signals": "Signals",
+      "alerts": "Alerts",
+      "subscriptions": "Subscriptions",
+      "sources": "Sources",
+      "history": "History",
+      "reports": "Reports"
+    },
+    "stats": {
+      "registryEvents": "Registry events",
+      "openSignals": "Open signals",
+      "openAlerts": "Open alerts",
+      "activeSubscriptions": "Active subscriptions",
+      "eventSources": "Event sources"
+    },
+    "executive": {
+      "positiveSignals": "Positive signals",
+      "riskSignals": "Risk signals",
+      "criticalSignals": "Critical signals",
+      "growthSignals": "Growth signals",
+      "revenueSignals": "Revenue signals"
+    }
+  },
+  "customerSuccessOperations": {
+    "title": "Customer Success Center",
+    "subtitle": "Activation, adoption, expansion, and retention — Aipify helps your organization achieve measurable value.",
+    "principle": "A successful customer achieves value — not just a purchase.",
+    "privacyNote": "Customer success metadata only — no raw operational content.",
+    "loading": "Loading",
+    "empty": "Customer Success Operations is not available for this organization.",
+    "refresh": "Refresh",
+    "healthScore": "Health Score",
+    "healthStatus": "Health Status",
+    "companionRecommendations": "Companion Recommendations",
+    "records": "Value metrics",
+    "noRecords": "No records yet.",
+    "sections": {
+      "overview": "Overview",
+      "onboarding": "Onboarding",
+      "health": "Health Scores",
+      "adoption": "Adoption",
+      "risks": "Risks",
+      "opportunities": "Opportunities",
+      "renewals": "Renewals",
+      "reports": "Reports",
+      "journey": "Customer Journey",
+      "executive": "Executive Dashboard"
+    },
+    "healthBand": {
+      "healthy": "Healthy",
+      "attentionRequired": "Attention Required",
+      "atRisk": "At Risk"
+    },
+    "stats": {
+      "openRisks": "Open risks",
+      "openOpportunities": "Expansion opportunities",
+      "onboardingProgress": "Onboarding progress",
+      "daysUntilRenewal": "Days until renewal"
+    }
+  },
   "implementationOnboardingCenter": {
     "title": "Implementation & Onboarding Center",
     "subtitle": "Guided setup from purchase to launch — Aipify always shows your organization the next step.",
