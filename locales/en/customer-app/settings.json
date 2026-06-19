@@ -98,8 +98,8 @@
             "label": "Packages"
           },
           "3": {
-            "href": "/app/enterprise",
-            "label": "Expansion planning"
+            "href": "/app/settings/business-packs",
+            "label": "Business Pack runtime"
           }
         }
       },
@@ -3267,26 +3267,52 @@
   },
   "inventoryOperations": {
     "title": "Inventory Center",
-    "subtitle": "Manage inventory, stock levels, warehouse operations, movements, receiving, and fulfillment.",
-    "principle": "What they have. Where it is. Who used it. When it moved.",
+    "subtitle": "Service inventory, consumables, multi-location stock, purchasing, and receiving — Aipify prepares; you decide.",
+    "principle": "What you have. Where it is. What services consume. What to reorder.",
+    "privacyNote": "Inventory metadata only — no customer PII in stock records.",
+    "loading": "Loading inventory",
+    "empty": "Inventory Center is unavailable for this workspace.",
     "accessDenied": "Inventory Center requires appropriate permissions.",
-    "overview": "Overview",
-    "products": "Products",
-    "inventory": "Inventory",
-    "warehouses": "Warehouses",
-    "movements": "Movements",
-    "receiving": "Receiving",
-    "transfers": "Transfers",
-    "adjustments": "Adjustments",
-    "reports": "Reports",
+    "refresh": "Refresh",
+    "noRecords": "No records yet",
+    "noRecordsHint": "Aipify will surface inventory records as your organization configures products, locations, and stock.",
+    "companionRecommendations": "Companion recommendations",
+    "companionInventoryAdvisor": "Companion Inventory Advisor",
+    "sinceLastLogin": "Since last login",
+    "integrations": "Integrations",
+    "sections": {
+      "overview": "Overview",
+      "products": "Products",
+      "consumables": "Consumables",
+      "stock": "Stock",
+      "locations": "Locations",
+      "reservations": "Reservations",
+      "purchaseRequests": "Purchase Requests",
+      "purchaseOrders": "Purchase Orders",
+      "suppliers": "Suppliers",
+      "receiving": "Receiving",
+      "transfers": "Transfers",
+      "stockCounts": "Stock Counts",
+      "adjustments": "Adjustments",
+      "waste": "Waste",
+      "returns": "Returns",
+      "equipment": "Equipment",
+      "forecasting": "Forecasting",
+      "policies": "Policies",
+      "reports": "Reports"
+    },
     "totalProducts": "Total products",
-    "totalWarehouses": "Total warehouses",
+    "totalLocations": "Total locations",
     "inventoryValue": "Inventory value",
     "lowStockCount": "Low stock items",
+    "pendingPurchaseRequests": "Pending purchase requests",
+    "openPurchaseOrders": "Open purchase orders",
     "outOfStockCount": "Out of stock",
     "pendingReceiving": "Pending receiving",
     "activeTransfers": "Active transfers",
     "activeReservations": "Active reservations",
+    "openStockCounts": "Open stock counts",
+    "expiryAlerts": "Expiry alerts",
     "pendingReorders": "Pending reorders",
     "movements7d": "Movements (7 days)",
     "createProduct": "Create product",
@@ -5649,6 +5675,37 @@
     "advisor": {
       "title": "Billing guidance",
       "openBilling": "Open Billing"
+    }
+  },
+  "businessPackRuntime": {
+    "title": "Business Pack Runtime",
+    "subtitle": "View installed Business Packs, deployment health, permissions, updates, and license status for your organization.",
+    "principle": "Your installed Business Packs run in secure, domain-verified runtime — Aipify manages lifecycle; your team retains control.",
+    "privacyNote": "Pack runtime metadata only — operational data stays in your organization.",
+    "loading": "Preparing Business Pack runtime…",
+    "emptyState": "Business Pack runtime data is unavailable.",
+    "refresh": "Refresh",
+    "back": "Settings",
+    "records": "Records",
+    "companionRecommendations": "Aipify recommendations",
+    "noRecords": "No records in this section yet.",
+    "executiveDashboard": "Runtime overview",
+    "auditRecent": "Recent runtime events",
+    "viewBilling": "Open Billing",
+    "sections": {
+      "overview": "Overview",
+      "installed": "Installed",
+      "health": "Health",
+      "permissions": "Permissions",
+      "updates": "Updates",
+      "billing": "Billing"
+    },
+    "executive": {
+      "installedPacks": "Installed packs",
+      "healthyPacks": "Healthy packs",
+      "activePipelines": "Active installations",
+      "pendingUpdates": "Pending updates",
+      "gracePeriods": "Grace periods"
     }
   }
 }

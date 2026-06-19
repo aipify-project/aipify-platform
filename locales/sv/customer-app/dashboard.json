@@ -4601,18 +4601,79 @@
       "dependencies": "Beroenden",
       "simulations": "Simuleringar"
     },
-    "entity": { "owner": "Ägare", "dependencies": "Beroenden", "criticality": "Kritikalitet" },
-    "processMapping": { "title": "Processkartläggning", "start": "Start", "actions": "Åtgärder", "approvals": "Godkännanden", "outcomes": "Utfall" },
-    "dependencyIntelligence": { "title": "Beroendeintelligens", "suggestedAction": "Föreslagen åtgärd" },
-    "workflowSimulations": { "title": "Arbetsflödessimulering", "impact": "Uppskattad påverkan" },
-    "capacityIntelligence": { "title": "Kapacitetsintelligens", "workload": "Arbetsbelastning", "availableResources": "Tillgängliga resurser", "bottleneck": "Flaskhals", "daysToCapacity": "Dagar till kapacitet" },
-    "operationalImpacts": { "title": "Operativ påverkansanalys", "impact": "Påverkan", "risk": "Risk", "affectedTeams": "Berörda team", "affectedSystems": "Berörda system" },
-    "scenarioPlanning": { "title": "Scenarioplanering", "best": "Bästa fall", "expected": "Förväntat fall", "worst": "Värsta fall", "expectedRevenue": "Förväntade intäkter", "expectedSupportLoad": "Förväntad supportbelastning", "expectedStaffing": "Förväntad bemanning" },
-    "executiveDashboard": { "title": "Executive Twin Dashboard", "organizationOverview": "Organisationsöversikt", "operationalHealth": "Operativ hälsa", "dependencies": "Aktiva beroenden", "simulations": "Simuleringar", "strategicRisks": "Strategiska risker" },
-    "companionInsights": { "title": "Companion-insikter", "reason": "Varför Aipify rekommenderar detta" },
-    "actions": { "acknowledge": "Bekräfta", "dismiss": "Avvisa", "resolve": "Lös" },
-    "status": { "completed": "Fullförd", "notAllowed": "Inte tillåten", "requiresAttention": "Kräver uppmärksamhet", "information": "Information", "restricted": "Begränsad åtkomst", "verified": "Verifierad", "waiting": "Väntar" },
-    "links": { "legacyTwin": "Legacy Digital Twin Engine", "executiveTwin": "Executive Organizational Digital Twin" }
+    "entity": {
+      "owner": "Ägare",
+      "dependencies": "Beroenden",
+      "criticality": "Kritikalitet"
+    },
+    "processMapping": {
+      "title": "Processkartläggning",
+      "start": "Start",
+      "actions": "Åtgärder",
+      "approvals": "Godkännanden",
+      "outcomes": "Utfall"
+    },
+    "dependencyIntelligence": {
+      "title": "Beroendeintelligens",
+      "suggestedAction": "Föreslagen åtgärd"
+    },
+    "workflowSimulations": {
+      "title": "Arbetsflödessimulering",
+      "impact": "Uppskattad påverkan"
+    },
+    "capacityIntelligence": {
+      "title": "Kapacitetsintelligens",
+      "workload": "Arbetsbelastning",
+      "availableResources": "Tillgängliga resurser",
+      "bottleneck": "Flaskhals",
+      "daysToCapacity": "Dagar till kapacitet"
+    },
+    "operationalImpacts": {
+      "title": "Operativ påverkansanalys",
+      "impact": "Påverkan",
+      "risk": "Risk",
+      "affectedTeams": "Berörda team",
+      "affectedSystems": "Berörda system"
+    },
+    "scenarioPlanning": {
+      "title": "Scenarioplanering",
+      "best": "Bästa fall",
+      "expected": "Förväntat fall",
+      "worst": "Värsta fall",
+      "expectedRevenue": "Förväntade intäkter",
+      "expectedSupportLoad": "Förväntad supportbelastning",
+      "expectedStaffing": "Förväntad bemanning"
+    },
+    "executiveDashboard": {
+      "title": "Executive Twin Dashboard",
+      "organizationOverview": "Organisationsöversikt",
+      "operationalHealth": "Operativ hälsa",
+      "dependencies": "Aktiva beroenden",
+      "simulations": "Simuleringar",
+      "strategicRisks": "Strategiska risker"
+    },
+    "companionInsights": {
+      "title": "Companion-insikter",
+      "reason": "Varför Aipify rekommenderar detta"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "resolve": "Lös"
+    },
+    "status": {
+      "completed": "Fullförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "legacyTwin": "Legacy Digital Twin Engine",
+      "executiveTwin": "Executive Organizational Digital Twin"
+    }
   },
   "businessImprovementCenter": {
     "title": "Affärsförbättringscenter",
@@ -4644,11 +4705,25 @@
     },
     "suggestedAction": "Föreslagen åtgärd",
     "estimatedBenefit": "Uppskattad nytta",
-    "opportunityDiscovery": { "title": "Möjlighetsupptäckt" },
-    "revenueIntelligence": { "title": "Intäktsintelligens", "customerCount": "Kvalificerade kunder" },
-    "costOptimization": { "title": "Kostnadsoptimering", "potentialSavings": "Potentiella årliga besparingar" },
-    "processOptimization": { "title": "Processoptimering", "timeReduction": "Uppskattad tidsreduktion" },
-    "customerExperience": { "title": "Kundupplevelseintelligens", "benchmark": "Referens" },
+    "opportunityDiscovery": {
+      "title": "Möjlighetsupptäckt"
+    },
+    "revenueIntelligence": {
+      "title": "Intäktsintelligens",
+      "customerCount": "Kvalificerade kunder"
+    },
+    "costOptimization": {
+      "title": "Kostnadsoptimering",
+      "potentialSavings": "Potentiella årliga besparingar"
+    },
+    "processOptimization": {
+      "title": "Processoptimering",
+      "timeReduction": "Uppskattad tidsreduktion"
+    },
+    "customerExperience": {
+      "title": "Kundupplevelseintelligens",
+      "benchmark": "Referens"
+    },
     "improvementPlans": {
       "title": "Autonoma förbättringsplaner",
       "problem": "Problem",
@@ -4664,8 +4739,15 @@
       "completedImprovements": "Slutförda förbättringar",
       "pendingImprovements": "Väntande förbättringar"
     },
-    "companionAdvisor": { "title": "Companion-förbättringsrådgivare", "reason": "Varför Aipify rekommenderar detta" },
-    "actions": { "acknowledge": "Bekräfta", "dismiss": "Avvisa", "approve": "Godkänn" },
+    "companionAdvisor": {
+      "title": "Companion-förbättringsrådgivare",
+      "reason": "Varför Aipify rekommenderar detta"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "approve": "Godkänn"
+    },
     "status": {
       "completed": "Slutförd",
       "notAllowed": "Inte tillåten",
@@ -4708,9 +4790,19 @@
       "optimized": "Optimerad",
       "worldClass": "Världsklass"
     },
-    "maturityScoring": { "title": "Mognadsbedömning", "score": "Poäng" },
-    "benchmarking": { "title": "Organisationsbenchmarking", "comparison": "Jämförelse" },
-    "departmentAnalysis": { "title": "Avdelningsmognadsanalys", "department": "Avdelning", "dimension": "Dimension" },
+    "maturityScoring": {
+      "title": "Mognadsbedömning",
+      "score": "Poäng"
+    },
+    "benchmarking": {
+      "title": "Organisationsbenchmarking",
+      "comparison": "Jämförelse"
+    },
+    "departmentAnalysis": {
+      "title": "Avdelningsmognadsanalys",
+      "department": "Avdelning",
+      "dimension": "Dimension"
+    },
     "improvementRoadmaps": {
       "title": "Förbättringsplan",
       "currentState": "Nuvarande tillstånd",
@@ -4718,13 +4810,22 @@
       "requiredImprovements": "Nödvändiga förbättringar",
       "expectedBenefits": "Förväntade fördelar"
     },
-    "selfEvolution": { "title": "Själv-evolutionsmotor", "learningNote": "Vad Aipify lärde sig" },
+    "selfEvolution": {
+      "title": "Själv-evolutionsmotor",
+      "learningNote": "Vad Aipify lärde sig"
+    },
     "growthPlanning": {
       "title": "Tillväxtplaneringscenter",
       "requiredActions": "Nödvändiga åtgärder",
-      "horizons": { "ninetyDay": "90-dagars plan", "sixMonth": "6-månaders plan", "twelveMonth": "12-månaders plan" }
+      "horizons": {
+        "ninetyDay": "90-dagars plan",
+        "sixMonth": "6-månaders plan",
+        "twelveMonth": "12-månaders plan"
+      }
     },
-    "businessPackMaturity": { "title": "Business Pack-mognad" },
+    "businessPackMaturity": {
+      "title": "Business Pack-mognad"
+    },
     "executiveDashboard": {
       "title": "Ledningsmognadsdashboard",
       "currentMaturityScore": "Nuvarande mognadspoäng",
@@ -4732,9 +4833,17 @@
       "highestPerformingAreas": "Bäst presterande områden",
       "lowestPerformingAreas": "Svagast presterande områden",
       "recommendedPriorities": "Rekommenderade prioriteringar",
-      "trends": { "improving": "Förbättras", "stable": "Stabil", "declining": "Sjunker" }
+      "trends": {
+        "improving": "Förbättras",
+        "stable": "Stabil",
+        "declining": "Sjunker"
+      }
     },
-    "actions": { "acknowledge": "Bekräfta", "dismiss": "Avvisa", "approve": "Godkänn" },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "approve": "Godkänn"
+    },
     "status": {
       "completed": "Slutförd",
       "notAllowed": "Inte tillåten",
@@ -4767,18 +4876,74 @@
       "intelligenceOverview": "Intelligensöversikt",
       "companionRecommendations": "Companion-rekommendationer"
     },
-    "executiveMissionControl": { "title": "Executive Mission Control" },
-    "organizationRadar": { "title": "Organisationsradar", "healthy": "Friska områden", "emergingRisk": "Framväxande risker", "critical": "Kritiska problem", "information": "Information" },
-    "liveBusinessPulse": { "title": "Live Business Pulse", "today": "Idag", "thisWeek": "Denna vecka", "thisMonth": "Denna månad" },
-    "unifiedEventStream": { "title": "Enhetlig händelseström" },
-    "morningBriefing": { "title": "Executive Morning Briefing", "sinceLogin": "Sedan senaste inloggning", "recommendedActions": "Rekommenderade åtgärder" },
-    "widgets": { "title": "Command Center-widgets", "pin": "Fäst", "unpin": "Lossa", "hide": "Dölj", "show": "Visa" },
-    "crossSystemIntelligence": { "title": "Tvär-system intelligens", "suggestedAction": "Föreslagen åtgärd" },
-    "companionAdvisor": { "title": "Command Center Companion", "reason": "Varför Aipify rekommenderar detta" },
-    "executiveReadiness": { "title": "Executive Readiness Mode", "keyMetrics": "Nyckeltal", "risks": "Risker", "achievements": "Prestationer", "priorities": "Prioriteringar", "boardMeeting": "Styrelsemöte", "investorMeeting": "Investormöte", "managementReview": "Ledningsgenomgång" },
-    "actions": { "acknowledge": "Bekräfta", "dismiss": "Avvisa", "setReadinessMode": "Aktivera readiness-läge" },
-    "status": { "completed": "Slutförd", "notAllowed": "Inte tillåten", "requiresAttention": "Kräver uppmärksamhet", "information": "Information", "restricted": "Begränsad åtkomst", "verified": "Verifierad", "waiting": "Väntar" },
-    "links": { "presenceFeed": "Presence och aviseringar", "desktopConnect": "Anslut desktop-klient", "portalHome": "Fullständig workspace-portal" }
+    "executiveMissionControl": {
+      "title": "Executive Mission Control"
+    },
+    "organizationRadar": {
+      "title": "Organisationsradar",
+      "healthy": "Friska områden",
+      "emergingRisk": "Framväxande risker",
+      "critical": "Kritiska problem",
+      "information": "Information"
+    },
+    "liveBusinessPulse": {
+      "title": "Live Business Pulse",
+      "today": "Idag",
+      "thisWeek": "Denna vecka",
+      "thisMonth": "Denna månad"
+    },
+    "unifiedEventStream": {
+      "title": "Enhetlig händelseström"
+    },
+    "morningBriefing": {
+      "title": "Executive Morning Briefing",
+      "sinceLogin": "Sedan senaste inloggning",
+      "recommendedActions": "Rekommenderade åtgärder"
+    },
+    "widgets": {
+      "title": "Command Center-widgets",
+      "pin": "Fäst",
+      "unpin": "Lossa",
+      "hide": "Dölj",
+      "show": "Visa"
+    },
+    "crossSystemIntelligence": {
+      "title": "Tvär-system intelligens",
+      "suggestedAction": "Föreslagen åtgärd"
+    },
+    "companionAdvisor": {
+      "title": "Command Center Companion",
+      "reason": "Varför Aipify rekommenderar detta"
+    },
+    "executiveReadiness": {
+      "title": "Executive Readiness Mode",
+      "keyMetrics": "Nyckeltal",
+      "risks": "Risker",
+      "achievements": "Prestationer",
+      "priorities": "Prioriteringar",
+      "boardMeeting": "Styrelsemöte",
+      "investorMeeting": "Investormöte",
+      "managementReview": "Ledningsgenomgång"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "setReadinessMode": "Aktivera readiness-läge"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "presenceFeed": "Presence och aviseringar",
+      "desktopConnect": "Anslut desktop-klient",
+      "portalHome": "Fullständig workspace-portal"
+    }
   },
   "businessOsOrchestrationCenter": {
     "title": "ABOS Orchestration Center",
@@ -4806,9 +4971,15 @@
       "workflowTemplates": "Arbetsflödesmallar",
       "orchestrationAnalytics": "Orkestreringsanalys"
     },
-    "executiveDashboard": { "title": "Executive Orchestration Dashboard" },
-    "workflowOrchestration": { "title": "Arbetsflödesorkestrering" },
-    "approvalOrchestration": { "title": "Godkännandeorkestrering" },
+    "executiveDashboard": {
+      "title": "Executive Orchestration Dashboard"
+    },
+    "workflowOrchestration": {
+      "title": "Arbetsflödesorkestrering"
+    },
+    "approvalOrchestration": {
+      "title": "Godkännandeorkestrering"
+    },
     "automationRegistry": {
       "title": "Automatiseringsregister",
       "running": "Körs",
@@ -4816,14 +4987,44 @@
       "failed": "Misslyckades",
       "waiting": "Väntar"
     },
-    "crossSystemActions": { "title": "Tvärsystemåtgärder" },
-    "businessPackOrchestration": { "title": "Business Pack-orkestrering", "workflows": "Koordinerade arbetsflöden" },
-    "dependencyManagement": { "title": "Beroendestyrning" },
-    "workflowTemplates": { "title": "Arbetsflödesmallar" },
-    "companionAdvisor": { "title": "Companion Workflow Assistant", "reason": "Varför Aipify rekommenderar detta" },
-    "actions": { "acknowledge": "Bekräfta", "dismiss": "Avvisa", "approve": "Godkänn", "escalate": "Eskalera" },
-    "status": { "completed": "Slutförd", "notAllowed": "Inte tillåten", "requiresAttention": "Kräver uppmärksamhet", "information": "Information", "restricted": "Begränsad åtkomst", "verified": "Verifierad", "waiting": "Väntar" },
-    "links": { "legacyFlows": "Arbetsflöden", "legacyRules": "Orkestreringsregler", "legacyEvents": "Händelselogg", "legacySettings": "Orkestreringsinställningar" }
+    "crossSystemActions": {
+      "title": "Tvärsystemåtgärder"
+    },
+    "businessPackOrchestration": {
+      "title": "Business Pack-orkestrering",
+      "workflows": "Koordinerade arbetsflöden"
+    },
+    "dependencyManagement": {
+      "title": "Beroendestyrning"
+    },
+    "workflowTemplates": {
+      "title": "Arbetsflödesmallar"
+    },
+    "companionAdvisor": {
+      "title": "Companion Workflow Assistant",
+      "reason": "Varför Aipify rekommenderar detta"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "approve": "Godkänn",
+      "escalate": "Eskalera"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "legacyFlows": "Arbetsflöden",
+      "legacyRules": "Orkestreringsregler",
+      "legacyEvents": "Händelselogg",
+      "legacySettings": "Orkestreringsinställningar"
+    }
   },
   "realWorldActionsExecutionCenter": {
     "title": "Real-World Actions Center",
@@ -4852,17 +5053,59 @@
       "failedActions": "Misslyckade handlingar",
       "actionHistory": "Handlingshistorik"
     },
-    "executiveDashboard": { "title": "Executive Action Dashboard" },
-    "actionRegistry": { "title": "Handlingsregister" },
-    "approvalEngine": { "title": "Godkännandemotor" },
-    "actionProviders": { "title": "Handlingsleverantörer" },
-    "actionHistory": { "title": "Handlingshistorik" },
-    "companionRequests": { "title": "Companion-handlingsförfrågningar", "explanation": "Varför Aipify rekommenderar detta", "risk": "Risk" },
-    "enterpriseControls": { "title": "Enterprise-kontroller", "enabled": "Real-world handlingar aktiverade", "disabled": "Real-world handlingar inaktiverade", "multiLevel": "Flerstegsgodkännanden krävs" },
-    "risk": { "low": "Låg risk", "medium": "Medel risk", "high": "Hög risk" },
-    "actions": { "acknowledge": "Bekräfta", "dismiss": "Avvisa", "approve": "Godkänn", "reject": "Avslå", "escalate": "Eskalera" },
-    "status": { "completed": "Slutförd", "notAllowed": "Inte tillåten", "requiresAttention": "Kräver uppmärksamhet", "information": "Information", "restricted": "Begränsad åtkomst", "verified": "Verifierad", "waiting": "Väntar" },
-    "links": { "legacyInbox": "Action Hub-inkorg", "legacySettings": "Action Hub-inställningar", "approvals": "Trust & Action-godkännanden", "actionCenter": "Autonomous Action Center" }
+    "executiveDashboard": {
+      "title": "Executive Action Dashboard"
+    },
+    "actionRegistry": {
+      "title": "Handlingsregister"
+    },
+    "approvalEngine": {
+      "title": "Godkännandemotor"
+    },
+    "actionProviders": {
+      "title": "Handlingsleverantörer"
+    },
+    "actionHistory": {
+      "title": "Handlingshistorik"
+    },
+    "companionRequests": {
+      "title": "Companion-handlingsförfrågningar",
+      "explanation": "Varför Aipify rekommenderar detta",
+      "risk": "Risk"
+    },
+    "enterpriseControls": {
+      "title": "Enterprise-kontroller",
+      "enabled": "Real-world handlingar aktiverade",
+      "disabled": "Real-world handlingar inaktiverade",
+      "multiLevel": "Flerstegsgodkännanden krävs"
+    },
+    "risk": {
+      "low": "Låg risk",
+      "medium": "Medel risk",
+      "high": "Hög risk"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "approve": "Godkänn",
+      "reject": "Avslå",
+      "escalate": "Eskalera"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "legacyInbox": "Action Hub-inkorg",
+      "legacySettings": "Action Hub-inställningar",
+      "approvals": "Trust & Action-godkännanden",
+      "actionCenter": "Autonomous Action Center"
+    }
   },
   "businessOsEcosystemMarketplaceCenter": {
     "title": "ABOS Ecosystem Marketplace",
@@ -4898,18 +5141,58 @@
       "certifications": "Certifieringar",
       "revenueSharing": "Intäktsdelning"
     },
-    "businessPackStore": { "title": "Business Pack Store" },
-    "integrationMarketplace": { "title": "Integrationsmarknadsplats" },
-    "solutionProviderDirectory": { "title": "Lösningsleverantörskatalog" },
-    "certificationFramework": { "title": "Certifieringsramverk" },
-    "revenueSharingEngine": { "title": "Intäktsdelningsmotor" },
-    "growthPartnerEcosystem": { "title": "Growth Partner-ekosystem" },
-    "ecosystemAnalytics": { "title": "Ekosystemanalys" },
-    "companionAdvisor": { "title": "Companion Marketplace Assistant", "reason": "Varför Aipify rekommenderar detta" },
-    "marketplaceSettings": { "title": "Marknadsplatskontroller", "enabled": "Marknadsplats aktiverad", "reviewRequired": "Granskning och godkännande krävs", "revenueSharing": "Intäktsdelning aktiverad" },
-    "actions": { "acknowledge": "Bekräfta", "dismiss": "Avvisa", "approve": "Godkänn", "escalate": "Eskalera" },
-    "status": { "completed": "Slutförd", "notAllowed": "Inte tillåten", "requiresAttention": "Kräver uppmärksamhet", "information": "Information", "restricted": "Begränsad åtkomst", "verified": "Verifierad", "waiting": "Väntar" },
-    "links": { "ecosystemGovernance": "Ecosystem Governance", "ecosystemIntelligence": "Ecosystem Intelligence", "ecosystemOrchestration": "Ecosystem Orchestration", "skillsMarketplace": "Skills-workspace" }
+    "businessPackStore": {
+      "title": "Business Pack Store"
+    },
+    "integrationMarketplace": {
+      "title": "Integrationsmarknadsplats"
+    },
+    "solutionProviderDirectory": {
+      "title": "Lösningsleverantörskatalog"
+    },
+    "certificationFramework": {
+      "title": "Certifieringsramverk"
+    },
+    "revenueSharingEngine": {
+      "title": "Intäktsdelningsmotor"
+    },
+    "growthPartnerEcosystem": {
+      "title": "Growth Partner-ekosystem"
+    },
+    "ecosystemAnalytics": {
+      "title": "Ekosystemanalys"
+    },
+    "companionAdvisor": {
+      "title": "Companion Marketplace Assistant",
+      "reason": "Varför Aipify rekommenderar detta"
+    },
+    "marketplaceSettings": {
+      "title": "Marknadsplatskontroller",
+      "enabled": "Marknadsplats aktiverad",
+      "reviewRequired": "Granskning och godkännande krävs",
+      "revenueSharing": "Intäktsdelning aktiverad"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "approve": "Godkänn",
+      "escalate": "Eskalera"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "ecosystemGovernance": "Ecosystem Governance",
+      "ecosystemIntelligence": "Ecosystem Intelligence",
+      "ecosystemOrchestration": "Ecosystem Orchestration",
+      "skillsMarketplace": "Skills-workspace"
+    }
   },
   "globalBusinessNetworkCenter": {
     "title": "Global Business Network",
@@ -4944,20 +5227,64 @@
       "introductions": "Introduktioner",
       "collaboration": "Samarbete"
     },
-    "organizationProfiles": { "title": "Organisationsprofiler" },
-    "verificationSystem": { "title": "Verifieringssystem" },
-    "opportunityMarketplace": { "title": "Möjlighetsmarknadsplats" },
-    "smartMatching": { "title": "Smart matchning" },
-    "trustedVendorDirectory": { "title": "Betrodd leverantörskatalog" },
-    "growthPartnerNetwork": { "title": "Growth Partner-nätverk" },
-    "collaborationCenter": { "title": "Samarbetscenter" },
-    "executiveDashboard": { "title": "Executive Network Dashboard" },
-    "companionAdvisor": { "title": "Companion Network Advisor", "reason": "Varför Aipify rekommenderar detta" },
-    "networkSettings": { "title": "Nätverkskontroller", "enabled": "Globalt nätverk aktiverat", "publicProfile": "Offentlig profil aktiverad", "connections": "Anslutningsförfrågningar aktiverade" },
-    "verification": { "verified": "Verifierad organisation", "pending": "Verifiering väntar", "failed": "Verifiering misslyckades" },
-    "actions": { "acknowledge": "Bekräfta", "dismiss": "Avvisa", "connect": "Anslut", "escalate": "Eskalera" },
-    "status": { "completed": "Slutförd", "notAllowed": "Inte tillåten", "requiresAttention": "Kräver uppmärksamhet", "information": "Information", "restricted": "Begränsad åtkomst", "verified": "Verifierad", "waiting": "Väntar" },
-    "links": { "ecosystem": "Ecosystem Marketplace", "growthPartners": "Growth Partner Operations" }
+    "organizationProfiles": {
+      "title": "Organisationsprofiler"
+    },
+    "verificationSystem": {
+      "title": "Verifieringssystem"
+    },
+    "opportunityMarketplace": {
+      "title": "Möjlighetsmarknadsplats"
+    },
+    "smartMatching": {
+      "title": "Smart matchning"
+    },
+    "trustedVendorDirectory": {
+      "title": "Betrodd leverantörskatalog"
+    },
+    "growthPartnerNetwork": {
+      "title": "Growth Partner-nätverk"
+    },
+    "collaborationCenter": {
+      "title": "Samarbetscenter"
+    },
+    "executiveDashboard": {
+      "title": "Executive Network Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Network Advisor",
+      "reason": "Varför Aipify rekommenderar detta"
+    },
+    "networkSettings": {
+      "title": "Nätverkskontroller",
+      "enabled": "Globalt nätverk aktiverat",
+      "publicProfile": "Offentlig profil aktiverad",
+      "connections": "Anslutningsförfrågningar aktiverade"
+    },
+    "verification": {
+      "verified": "Verifierad organisation",
+      "pending": "Verifiering väntar",
+      "failed": "Verifiering misslyckades"
+    },
+    "actions": {
+      "acknowledge": "Bekräfta",
+      "dismiss": "Avvisa",
+      "connect": "Anslut",
+      "escalate": "Eskalera"
+    },
+    "status": {
+      "completed": "Slutförd",
+      "notAllowed": "Inte tillåten",
+      "requiresAttention": "Kräver uppmärksamhet",
+      "information": "Information",
+      "restricted": "Begränsad åtkomst",
+      "verified": "Verifierad",
+      "waiting": "Väntar"
+    },
+    "links": {
+      "ecosystem": "Ecosystem Marketplace",
+      "growthPartners": "Growth Partner Operations"
+    }
   },
   "autonomousOrganizationCenter": {
     "title": "Autonom organisation",
@@ -4983,15 +5310,34 @@
       "autonomousPerformance": "Autonom prestanda",
       "governanceControls": "Styrningskontroller"
     },
-    "delegationFramework": { "title": "Delegeringsramverk" },
-    "policyEngine": { "title": "Policy-motor" },
-    "humanOversightCenter": { "title": "Center för mänsklig tillsyn" },
-    "autonomousSupportOperations": { "title": "Autonoma supportoperationer" },
-    "autonomousAdminOperations": { "title": "Autonoma administrativa operationer" },
-    "autonomousPerformanceDashboard": { "title": "Dashboard för autonom prestanda" },
-    "executiveAutonomyDashboard": { "title": "Executive autonomi-dashboard" },
-    "autonomyLevels": { "title": "Autonominivåer" },
-    "companionAdvisor": { "title": "Companion delegeringsrådgivare", "reason": "Varför Aipify rekommenderar detta" },
+    "delegationFramework": {
+      "title": "Delegeringsramverk"
+    },
+    "policyEngine": {
+      "title": "Policy-motor"
+    },
+    "humanOversightCenter": {
+      "title": "Center för mänsklig tillsyn"
+    },
+    "autonomousSupportOperations": {
+      "title": "Autonoma supportoperationer"
+    },
+    "autonomousAdminOperations": {
+      "title": "Autonoma administrativa operationer"
+    },
+    "autonomousPerformanceDashboard": {
+      "title": "Dashboard för autonom prestanda"
+    },
+    "executiveAutonomyDashboard": {
+      "title": "Executive autonomi-dashboard"
+    },
+    "autonomyLevels": {
+      "title": "Autonominivåer"
+    },
+    "companionAdvisor": {
+      "title": "Companion delegeringsrådgivare",
+      "reason": "Varför Aipify rekommenderar detta"
+    },
     "enterpriseControls": {
       "title": "Enterprise-kontroller",
       "enabled": "Autonomi aktiverad",
@@ -5052,15 +5398,34 @@
       "longTermPlanning": "Långsiktig planering",
       "scenarioAnalysis": "Scenarioanalys"
     },
-    "executiveBoardDashboard": { "title": "Executive Board Dashboard" },
-    "strategicOpportunityEngine": { "title": "Strategisk möjlighetsmotor" },
-    "strategicRiskEngine": { "title": "Strategisk riskmotor" },
-    "boardRecommendations": { "title": "Styrelserrekommendationer" },
-    "scenarioPlanning": { "title": "Scenarioplanering" },
-    "boardMeetingPreparation": { "title": "Styrelsemötesförberedelse" },
-    "strategicTimeline": { "title": "Strategisk tidslinje" },
-    "longTermPlanningEngine": { "title": "Långsiktig planeringsmotor" },
-    "companionAdvisor": { "title": "Companion Executive Advisor", "evidence": "Stödjande evidens" },
+    "executiveBoardDashboard": {
+      "title": "Executive Board Dashboard"
+    },
+    "strategicOpportunityEngine": {
+      "title": "Strategisk möjlighetsmotor"
+    },
+    "strategicRiskEngine": {
+      "title": "Strategisk riskmotor"
+    },
+    "boardRecommendations": {
+      "title": "Styrelserrekommendationer"
+    },
+    "scenarioPlanning": {
+      "title": "Scenarioplanering"
+    },
+    "boardMeetingPreparation": {
+      "title": "Styrelsemötesförberedelse"
+    },
+    "strategicTimeline": {
+      "title": "Strategisk tidslinje"
+    },
+    "longTermPlanningEngine": {
+      "title": "Långsiktig planeringsmotor"
+    },
+    "companionAdvisor": {
+      "title": "Companion Executive Advisor",
+      "evidence": "Stödjande evidens"
+    },
     "governanceControls": {
       "title": "Styrningskontroller",
       "enabled": "Board intelligence aktiverad",
@@ -5119,17 +5484,40 @@
       "approvalCenter": "Godkännandecenter",
       "policyCenter": "Policy-center"
     },
-    "governanceFramework": { "title": "Styrningsramverk" },
-    "trustScoreEngine": { "title": "Trust Score Engine" },
-    "policyManagement": { "title": "Policyhantering" },
-    "universalAuditLayer": { "title": "Universal Audit Layer" },
-    "explainabilityEngine": { "title": "Explainability Engine" },
-    "complianceCenter": { "title": "Compliance-center" },
-    "approvalIntelligence": { "title": "Approval Intelligence" },
-    "executiveTrustDashboard": { "title": "Executive Trust Dashboard" },
-    "companionAdvisor": { "title": "Companion Trust Advisor", "context": "Kontext" },
-    "enterpriseTransparencyMode": { "title": "Enterprise Transparency Mode" },
-    "governanceApis": { "title": "Governance APIs" },
+    "governanceFramework": {
+      "title": "Styrningsramverk"
+    },
+    "trustScoreEngine": {
+      "title": "Trust Score Engine"
+    },
+    "policyManagement": {
+      "title": "Policyhantering"
+    },
+    "universalAuditLayer": {
+      "title": "Universal Audit Layer"
+    },
+    "explainabilityEngine": {
+      "title": "Explainability Engine"
+    },
+    "complianceCenter": {
+      "title": "Compliance-center"
+    },
+    "approvalIntelligence": {
+      "title": "Approval Intelligence"
+    },
+    "executiveTrustDashboard": {
+      "title": "Executive Trust Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Trust Advisor",
+      "context": "Kontext"
+    },
+    "enterpriseTransparencyMode": {
+      "title": "Enterprise Transparency Mode"
+    },
+    "governanceApis": {
+      "title": "Governance APIs"
+    },
     "governanceControls": {
       "title": "Styrningskontroller",
       "enabled": "Trust Center aktiverad",
@@ -5190,16 +5578,37 @@
       "knowledgeTimeline": "Kunskapstidslinje",
       "corporateIntelligence": "Corporate Intelligence"
     },
-    "memoryEngine": { "title": "Memory Engine" },
-    "organizationalTimeline": { "title": "Organisationstidslinje" },
-    "decisionMemory": { "title": "Beslutsminne" },
-    "corporateKnowledgeGraph": { "title": "Corporate Knowledge Graph" },
-    "lessonsLearnedEngine": { "title": "Lessons Learned Engine" },
-    "historicalSearch": { "title": "Historisk sökning" },
-    "executiveMemoryDashboard": { "title": "Executive Memory Dashboard" },
-    "companionHistorian": { "title": "Companion Corporate Historian", "evidence": "Stödjande evidens" },
-    "corporateIntelligenceLayer": { "title": "Corporate Intelligence Layer" },
-    "knowledgePreservation": { "title": "Kunskapsbevaring" },
+    "memoryEngine": {
+      "title": "Memory Engine"
+    },
+    "organizationalTimeline": {
+      "title": "Organisationstidslinje"
+    },
+    "decisionMemory": {
+      "title": "Beslutsminne"
+    },
+    "corporateKnowledgeGraph": {
+      "title": "Corporate Knowledge Graph"
+    },
+    "lessonsLearnedEngine": {
+      "title": "Lessons Learned Engine"
+    },
+    "historicalSearch": {
+      "title": "Historisk sökning"
+    },
+    "executiveMemoryDashboard": {
+      "title": "Executive Memory Dashboard"
+    },
+    "companionHistorian": {
+      "title": "Companion Corporate Historian",
+      "evidence": "Stödjande evidens"
+    },
+    "corporateIntelligenceLayer": {
+      "title": "Corporate Intelligence Layer"
+    },
+    "knowledgePreservation": {
+      "title": "Kunskapsbevaring"
+    },
     "governanceControls": {
       "title": "Styrningskontroller",
       "enabled": "Corporate Brain aktiverad",
@@ -5252,16 +5661,37 @@
       "longTermTrends": "Långsiktiga trender",
       "emergingSignals": "Framväxande signaler"
     },
-    "awarenessEngine": { "title": "Awareness Engine" },
-    "organizationalAlignmentAnalysis": { "title": "Organisatorisk justeringsanalys" },
-    "strategicAwarenessLayer": { "title": "Strategiskt medvetenhetslager" },
-    "organizationalNarrativeEngine": { "title": "Organisatorisk narrativmotor" },
-    "emergingSignalDetection": { "title": "Detektering av framväxande signaler" },
-    "organizationalCoherenceEngine": { "title": "Organisatorisk koherensmotor" },
-    "executiveAwarenessDashboard": { "title": "Executive Awareness Dashboard" },
-    "companionAdvisor": { "title": "Companion Strategic Advisor", "evidence": "Stödjande evidens" },
-    "longTermIntelligenceLayer": { "title": "Långsiktigt intelligenslager" },
-    "reflectionEngine": { "title": "Reflektionsmotor" },
+    "awarenessEngine": {
+      "title": "Awareness Engine"
+    },
+    "organizationalAlignmentAnalysis": {
+      "title": "Organisatorisk justeringsanalys"
+    },
+    "strategicAwarenessLayer": {
+      "title": "Strategiskt medvetenhetslager"
+    },
+    "organizationalNarrativeEngine": {
+      "title": "Organisatorisk narrativmotor"
+    },
+    "emergingSignalDetection": {
+      "title": "Detektering av framväxande signaler"
+    },
+    "organizationalCoherenceEngine": {
+      "title": "Organisatorisk koherensmotor"
+    },
+    "executiveAwarenessDashboard": {
+      "title": "Executive Awareness Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Strategic Advisor",
+      "evidence": "Stödjande evidens"
+    },
+    "longTermIntelligenceLayer": {
+      "title": "Långsiktigt intelligenslager"
+    },
+    "reflectionEngine": {
+      "title": "Reflektionsmotor"
+    },
     "governanceControls": {
       "title": "Styrningskontroller",
       "enabled": "Organisationsmedvetenhet aktiverad",
@@ -5320,15 +5750,34 @@
       "industryRisks": "Branschrisker",
       "industryBenchmarks": "Branschreferenser"
     },
-    "industryProfiles": { "title": "Branschprofiler" },
-    "marketMonitoringEngine": { "title": "Market Monitoring Engine" },
-    "competitiveIntelligence": { "title": "Konkurrensintelligens" },
-    "regulatoryIntelligence": { "title": "Regulatorisk intelligens" },
-    "industryBenchmarkEngine": { "title": "Industry Benchmark Engine" },
-    "opportunityDetection": { "title": "Möjlighetsdetektering" },
-    "executiveIndustryDashboard": { "title": "Executive Industry Dashboard" },
-    "companionAdvisor": { "title": "Companion Industry Advisor", "evidence": "Stödjande evidens" },
-    "businessPackAwareness": { "title": "Business Pack Awareness" },
+    "industryProfiles": {
+      "title": "Branschprofiler"
+    },
+    "marketMonitoringEngine": {
+      "title": "Market Monitoring Engine"
+    },
+    "competitiveIntelligence": {
+      "title": "Konkurrensintelligens"
+    },
+    "regulatoryIntelligence": {
+      "title": "Regulatorisk intelligens"
+    },
+    "industryBenchmarkEngine": {
+      "title": "Industry Benchmark Engine"
+    },
+    "opportunityDetection": {
+      "title": "Möjlighetsdetektering"
+    },
+    "executiveIndustryDashboard": {
+      "title": "Executive Industry Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Industry Advisor",
+      "evidence": "Stödjande evidens"
+    },
+    "businessPackAwareness": {
+      "title": "Business Pack Awareness"
+    },
     "governanceControls": {
       "title": "Styrningskontroller",
       "enabled": "Branschintelligens aktiverad",
@@ -5385,15 +5834,34 @@
       "economicRisks": "Ekonomiska risker",
       "economicOpportunities": "Ekonomiska möjligheter"
     },
-    "economicMonitoringEngine": { "title": "Economic Monitoring Engine" },
-    "regionalEconomicIntelligence": { "title": "Regional ekonomisk intelligens" },
-    "businessImpactEngine": { "title": "Business Impact Engine" },
-    "consumerSpendingIntelligence": { "title": "Konsumentutgiftsintelligens" },
-    "hiringWorkforceIntelligence": { "title": "Anställning och arbetskraft" },
-    "economicOpportunityEngine": { "title": "Ekonomisk möjlighetsmotor" },
-    "executiveEconomicDashboard": { "title": "Executive Economic Dashboard" },
-    "companionAdvisor": { "title": "Companion Economic Advisor", "evidence": "Stödjande evidens" },
-    "scenarioModeling": { "title": "Scenariomodellering" },
+    "economicMonitoringEngine": {
+      "title": "Economic Monitoring Engine"
+    },
+    "regionalEconomicIntelligence": {
+      "title": "Regional ekonomisk intelligens"
+    },
+    "businessImpactEngine": {
+      "title": "Business Impact Engine"
+    },
+    "consumerSpendingIntelligence": {
+      "title": "Konsumentutgiftsintelligens"
+    },
+    "hiringWorkforceIntelligence": {
+      "title": "Anställning och arbetskraft"
+    },
+    "economicOpportunityEngine": {
+      "title": "Ekonomisk möjlighetsmotor"
+    },
+    "executiveEconomicDashboard": {
+      "title": "Executive Economic Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Economic Advisor",
+      "evidence": "Stödjande evidens"
+    },
+    "scenarioModeling": {
+      "title": "Scenariomodellering"
+    },
     "governanceControls": {
       "title": "Styrningskontroller",
       "enabled": "Ekonomisk intelligens aktiverad",
@@ -5450,15 +5918,34 @@
       "emergingDemand": "Framväxande efterfrågan",
       "marketForecasts": "Marknadsprognoser"
     },
-    "marketMonitoringEngine": { "title": "Market Monitoring Engine" },
-    "customerBehaviorIntelligence": { "title": "Kundbeteendeintelligens" },
-    "opportunityDiscoveryEngine": { "title": "Opportunity Discovery Engine" },
-    "marketGapDetection": { "title": "Market Gap Detection" },
-    "geographicExpansionIntelligence": { "title": "Geografisk expansionsintelligens" },
-    "revenueOpportunityEngine": { "title": "Revenue Opportunity Engine" },
-    "executiveMarketDashboard": { "title": "Executive Market Dashboard" },
-    "companionAdvisor": { "title": "Companion Market Advisor", "evidence": "Stödjande evidens" },
-    "forecastingEngine": { "title": "Prognosmotor" },
+    "marketMonitoringEngine": {
+      "title": "Market Monitoring Engine"
+    },
+    "customerBehaviorIntelligence": {
+      "title": "Kundbeteendeintelligens"
+    },
+    "opportunityDiscoveryEngine": {
+      "title": "Opportunity Discovery Engine"
+    },
+    "marketGapDetection": {
+      "title": "Market Gap Detection"
+    },
+    "geographicExpansionIntelligence": {
+      "title": "Geografisk expansionsintelligens"
+    },
+    "revenueOpportunityEngine": {
+      "title": "Revenue Opportunity Engine"
+    },
+    "executiveMarketDashboard": {
+      "title": "Executive Market Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Market Advisor",
+      "evidence": "Stödjande evidens"
+    },
+    "forecastingEngine": {
+      "title": "Prognosmotor"
+    },
     "governanceControls": {
       "title": "Styrningskontroller",
       "enabled": "Marknadsintelligens aktiverad",
@@ -5524,16 +6011,37 @@
       "expansionOpportunities": "Expansionsmöjligheter",
       "expansionRoadmaps": "Expansionsvägkartor"
     },
-    "countryIntelligenceEngine": { "title": "Landintelligensmotor" },
-    "localizationIntelligence": { "title": "Lokaliseringsintelligens" },
-    "marketEntryAnalysis": { "title": "Marknadsinträdesanalys" },
-    "expansionReadinessEngine": { "title": "Expansionsberedskapspoäng" },
-    "regulatoryIntelligence": { "title": "Regulatorisk intelligens" },
-    "internationalOperationsIntelligence": { "title": "Internationell driftsintelligens" },
-    "expansionOpportunities": { "title": "Expansionsmöjligheter" },
-    "executiveExpansionDashboard": { "title": "Ledningsdashboard för expansion" },
-    "companionAdvisor": { "title": "Companion expansionsrådgivare", "evidence": "Stödjande bevis" },
-    "expansionSimulationEngine": { "title": "Expansionssimuleringsmotor" },
+    "countryIntelligenceEngine": {
+      "title": "Landintelligensmotor"
+    },
+    "localizationIntelligence": {
+      "title": "Lokaliseringsintelligens"
+    },
+    "marketEntryAnalysis": {
+      "title": "Marknadsinträdesanalys"
+    },
+    "expansionReadinessEngine": {
+      "title": "Expansionsberedskapspoäng"
+    },
+    "regulatoryIntelligence": {
+      "title": "Regulatorisk intelligens"
+    },
+    "internationalOperationsIntelligence": {
+      "title": "Internationell driftsintelligens"
+    },
+    "expansionOpportunities": {
+      "title": "Expansionsmöjligheter"
+    },
+    "executiveExpansionDashboard": {
+      "title": "Ledningsdashboard för expansion"
+    },
+    "companionAdvisor": {
+      "title": "Companion expansionsrådgivare",
+      "evidence": "Stödjande bevis"
+    },
+    "expansionSimulationEngine": {
+      "title": "Expansionssimuleringsmotor"
+    },
     "governanceControls": {
       "title": "Styrningskontroller",
       "enabled": "Global expansionsintelligens aktiverad",
@@ -14900,6 +15408,128 @@
       "companionRecommendations": "Companion-rekommendationer"
     }
   },
+  "businessContinuity": {
+    "title": "Kontinuitetscenter",
+    "subtitle": "Organisatorisk kontinuitet, krisberedskap och operativ återhämtning — förbered, svara, återställ och lär utan att kringgå styrning.",
+    "principle": "Framgångsrika organisationer definieras av hur de svarar vid störningar — Aipify förbereder, koordinerar och stödjer återhämtning medan människor behåller kontrollen.",
+    "privacyNote": "Affärskontinuitet använder endast godkänd metadata. Krisläge försvagar aldrig godkännandekrav eller tvärgående isolering.",
+    "loading": "Laddar",
+    "empty": "Kontinuitetscenter är inte tillgängligt för denna organisation.",
+    "refresh": "Uppdatera",
+    "noRecords": "Inga poster ännu.",
+    "companionRecommendations": "Companion-kontinuitetsrekommendationer",
+    "executiveDashboard": "Ledningskontinuitetsdashboard",
+    "continuityStatus": "Kontinuitetsstatus",
+    "readinessScore": "Beredskapspoäng",
+    "phaseIntegrations": "Fasintegrationer",
+    "governanceRules": "Styrningsregler",
+    "crisisDashboard": "Krisoperationsdashboard",
+    "recoveryBoard": "Återhämtningsuppgiftstavla",
+    "openCrisisDashboard": "Öppna krisdashboard",
+    "openRecoveryBoard": "Öppna återhämtningstavla",
+    "sections": {
+      "overview": "Översikt",
+      "plans": "Kontinuitetsplaner",
+      "criticalOperations": "Kritiska operationer",
+      "businessImpact": "Affärspåverkan",
+      "crisisMode": "Krisläge",
+      "recoveryPlans": "Återhämtningsplaner",
+      "emergencyContacts": "Nödkontakter",
+      "communication": "Kommunikation",
+      "dependencies": "Beroenden",
+      "exercises": "Övningar",
+      "evidence": "Bevis",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "continuityScopes": "Kontinuitetsomfång",
+      "biaAssessments": "BIA-bedömningar",
+      "continuityPlans": "Kontinuitetsplaner",
+      "dependencies": "Beroenden",
+      "emergencyContacts": "Nödkontakter",
+      "exercises": "Övningar",
+      "recoveryPlans": "Återhämtningsplaner"
+    },
+    "executive": {
+      "readinessScore": "Beredskapspoäng",
+      "activePlans": "Aktiva planer",
+      "criticalOperations": "Kritiska operationer",
+      "singlePointsOfFailure": "Enstaka felpunkter",
+      "crisisModeStatus": "Krislägesstatus",
+      "recoveryPlansReady": "Återhämtningsplaner redo"
+    },
+    "groups": {
+      "continuityPlans": "Kontinuitetsplaner",
+      "planReviewCycles": "Plangranskningscykler",
+      "criticalOperations": "Kritiska operationer",
+      "continuityScopes": "Kontinuitetsomfång",
+      "businessImpact": "Affärspåverkansbedömningar",
+      "recoveryObjectives": "Återhämtningsmål",
+      "crisisModes": "Krislägen",
+      "crisisCommand": "Kriskommando",
+      "crisisTimeline": "Kris-tidslinje",
+      "crisisDecisions": "Beslutslogg",
+      "minimumOperating": "Minimalt driftsläge",
+      "temporaryWorkflows": "Tillfälliga arbetsflöden",
+      "recoveryPlans": "Återhämtningsplaner",
+      "recoveryTasks": "Återhämtningsuppgifter",
+      "returnToNormal": "Återgång till normalt",
+      "postCrisisReviews": "Efterkrigsgranskningar",
+      "emergencyContacts": "Nödkontakter",
+      "communications": "Kommunikationskontinuitet",
+      "dependencies": "Beroenden",
+      "supplierContinuity": "Leverantörskontinuitet",
+      "connectedApps": "Anslutna appar",
+      "domainContinuity": "Domänkontinuitet",
+      "exercises": "Kontinuitetsövningar",
+      "readinessScores": "Beredskapspoäng",
+      "criticalDocuments": "Kritiska dokument",
+      "dataContinuity": "Datakontinuitet",
+      "financialContinuity": "Finansiell kontinuitet",
+      "customerService": "Kundservicekontinuitet",
+      "salesContinuity": "Försäljningskontinuitet",
+      "partnerCommission": "Partnerprovisionskydd",
+      "reports": "Rapporter",
+      "auditRecent": "Senaste revisionshändelser"
+    }
+  },
+  "absenceCoverage": {
+    "title": "Frånvaro och kontinuitet",
+    "subtitle": "Semesterläge, teamtillgänglighet och transparent Aipify-täckning — Slapp av, Aipify svarer for deg.",
+    "principle": "Aipify svarar transparent å dina vägnar — utan att låtsas vara den frånvarande personen.",
+    "privacyNote": "Privata frånvaroorsaker visas aldrig. Täckning begränsas av organisationens policy.",
+    "loading": "Laddar",
+    "empty": "Frånvarocenter är inte tillgängligt för denna organisation.",
+    "refresh": "Uppdatera",
+    "companionRecommendations": "Semesterberedskapsrekommendationer",
+    "noRecords": "Inga poster ännu.",
+    "maxCoverageLevel": "Max täckningsnivå",
+    "readinessScore": "Beredskapspoäng",
+    "transparentNotice": "Transparent Aipify-meddelande",
+    "settingsTitle": "Administratörspolicyer för frånvaro",
+    "settingsSubtitle": "Konfigurera max täckning, delegering, mallar, urgency och revision.",
+    "sections": {
+      "overview": "Översikt",
+      "myVacationMode": "Mitt semesterläge",
+      "teamAvailability": "Teamtillgänglighet",
+      "coverage": "Täckning",
+      "delegation": "Delegering",
+      "aipifyResponses": "Aipify-svar",
+      "schedules": "Scheman",
+      "policies": "Policyer",
+      "returnSummary": "Återkomstsammanfattning",
+      "history": "Historik",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "activeModes": "Aktiva lägen",
+      "teamAway": "Team borta",
+      "readinessScore": "Beredskapspoäng",
+      "delegations": "Delegeringar",
+      "templates": "Svarsmallar",
+      "leadContinuity": "Lead-kontinuitet"
+    }
+  },
   "customerSuccessOperations": {
     "title": "Kundframgångscenter",
     "subtitle": "Aktivering, adoption, expansion och retention — Aipify hjälper er organisation att uppnå mätbar värde.",
@@ -15000,6 +15630,240 @@
       "restricted": "Begränsad åtkomst",
       "verified": "Verifierad",
       "waiting": "Väntar"
+    }
+  },
+  "systemHealth": {
+    "title": "Systemhälsa",
+    "subtitle": "Organisationens tillförlitlighet — anslutna appar, Business Packs, arbetsflöden, domäner och underhåll.",
+    "principle": "Organisationens hälsa på ett ställe — endast hyresgästbegränsad metadata.",
+    "privacyNote": "Endast din organisation — ingen korshyresgästdata eller plattformhemligheter.",
+    "loading": "Laddar",
+    "emptyState": "Systemhälsa är inte tillgänglig för denna organisation.",
+    "refresh": "Uppdatera",
+    "back": "Tillbaka",
+    "records": "Poster",
+    "companionRecommendations": "Aipify-rekommendationer",
+    "noRecords": "Inga poster ännu.",
+    "overallHealth": "Total hälsopoäng",
+    "auditRecent": "Senaste aktivitet",
+    "sections": {
+      "overview": "Översikt",
+      "connectedApps": "Anslutna appar",
+      "businessPacks": "Business Packs",
+      "workflows": "Arbetsflöden",
+      "domains": "Domäner",
+      "notifications": "Aviseringar",
+      "recentIncidents": "Senaste incidenter",
+      "maintenance": "Underhåll",
+      "support": "Support"
+    },
+    "status": {
+      "connected": "Ansluten",
+      "degraded": "Degraderad",
+      "disconnected": "Frånkopplad",
+      "operational": "Operativ",
+      "valid": "Giltig",
+      "expiring": "Går snart ut",
+      "healthy": "Frisk",
+      "scheduled": "Planerad",
+      "available": "Tillgänglig"
+    }
+  },
+  "timeAttendance": {
+    "title": "Tid och närvaro",
+    "subtitle": "Tid, närvaro, arbetstid, ledighetsadministration och löneberedning — integritet först som standard.",
+    "principle": "Registered work, approved work, and leave are distinct — Aipify prepares; humans decide.",
+    "privacyNote": "Privacy-first attendance — no GPS, webcam, or keyboard monitoring by default.",
+    "distinctionNote": "Schedule ≠ Availability ≠ Attendance ≠ Registered Work ≠ Approved Work ≠ Leave ≠ Vacation Mode ≠ Payroll-Ready",
+    "loading": "Loading",
+    "empty": "Time & Attendance is not available for this organization.",
+    "refresh": "Refresh",
+    "noRecords": "No records yet.",
+    "companionRecommendations": "Companion Time Advisor",
+    "companionTimeAdvisor": "Companion Time Advisor",
+    "integrations": "Cross-phase integrations",
+    "attributionPreserved": "Customer, lead, referral, and commission attribution preserved.",
+    "sections": {
+      "overview": "Översikt",
+      "myTime": "Min tid",
+      "teamTime": "Teamtid",
+      "attendance": "Närvaro",
+      "timesheets": "Tidrapporter",
+      "leave": "Ledighet",
+      "balances": "Saldon",
+      "overtime": "Övertid",
+      "corrections": "Korrigeringar",
+      "approvals": "Godkännanden",
+      "payrollPreparation": "Löneberedning",
+      "projects": "Projekt",
+      "policies": "Policyer",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "hoursThisWeek": "Timmar denna vecka",
+      "pendingApprovals": "Väntande godkännanden",
+      "openCorrections": "Öppna korrigeringar",
+      "leavePending": "Ledighet väntar",
+      "payrollDrafts": "Löneutkast"
+    },
+    "leaveCenter": {
+      "title": "Ledighetscenter",
+      "subtitle": "Begär, godkänn och följ ledighet."
+    },
+    "payrollCenter": {
+      "title": "Löneberedningscenter",
+      "subtitle": "Validera löneklara timmar och förbered export."
+    },
+    "policyCenter": {
+      "title": "Policycenter",
+      "subtitle": "Policyer för tid, närvaro och ledighet."
+    }
+  },
+  "compensation": {
+    "title": "Kompensation och löneinput",
+    "subtitle": "Anställdkompensation, provisioner, dricks, bonusar och löneinput — Aipify kör inte lön.",
+    "principle": "Aipify förbereder löneinput — människor godkänner; externa system betalar ut.",
+    "privacyNote": "Anställdkompensation är tenant-avgränsad. Growth Partner-provisioner blandas aldrig med anställdlön.",
+    "distinctionNote": "Registrerat arbete → Godkänt → Verifierad intäkt → Provisionsberättigad → Löneklar → Exporterad → Externt behandlad",
+    "loading": "Laddar",
+    "empty": "Kompensationscentret är inte tillgängligt för denna organisation.",
+    "refresh": "Uppdatera",
+    "noRecords": "Inga poster ännu.",
+    "companionRecommendations": "Companion Compensation Advisor",
+    "companionCompensationAdvisor": "Companion Compensation Advisor",
+    "integrations": "Tvärfasintegrationer",
+    "growthPartnerSeparation": "Growth Partner-provisioner hålls separata från anställdlön — aldrig blandade.",
+    "sections": {
+      "overview": "Översikt",
+      "employees": "Anställda",
+      "compensationPlans": "Kompensationsplaner",
+      "commissions": "Provisioner",
+      "tips": "Dricks",
+      "bonuses": "Bonusar",
+      "adjustments": "Justeringar",
+      "payrollPeriods": "Löneperioder",
+      "approvals": "Godkännanden",
+      "payrollInput": "Löneinput",
+      "exports": "Exporter",
+      "reconciliation": "Avstämning",
+      "policies": "Policyer",
+      "reports": "Rapporter",
+      "myCompensation": "Min kompensation",
+      "exceptions": "Undantag"
+    },
+    "stats": {
+      "commissionPending": "Provision väntar",
+      "payrollReady": "Löneklar",
+      "openExceptions": "Öppna undantag",
+      "pendingApprovals": "Väntande godkännanden",
+      "tipPoolsOpen": "Öppna drickspooler"
+    },
+    "planCenter": {
+      "title": "Provisionsplanscenter",
+      "subtitle": "Provisionsplaner, nivåer, tak och behörighet."
+    },
+    "payrollPeriodCenter": {
+      "title": "Löneperiodscenter",
+      "subtitle": "Löneperioder, låsning, återöppning och beredskapsvalidering."
+    },
+    "exceptionCenter": {
+      "title": "Undantagscenter",
+      "subtitle": "Löneundantag som blockerar beredskap — lös före periodlås."
+    },
+    "exportCenter": {
+      "title": "Löneexportscenter",
+      "subtitle": "Exportera löneinput med leverantörskartläggning och Fiken-förberedelse."
+    },
+    "policyCenter": {
+      "title": "Kompensationspolicycenter",
+      "subtitle": "Kompensationspolicyer, ansvarsfördelning och juridisk styrning."
+    },
+    "myCompensation": {
+      "title": "Min kompensation",
+      "subtitle": "Din kompensationsförhandsvisning — tvister är inte bestraffande."
+    }
+  },
+  "appointmentBooking": {
+    "title": "Bokningar och tjänster",
+    "subtitle": "Tidbokning, kalenderintäkter och kapacitet — Aipify hjälper transparent utan att utge sig för ditt team.",
+    "loading": "Laddar",
+    "empty": "Bokningscentret är inte tillgängligt för denna organisation.",
+    "refresh": "Uppdatera",
+    "principle": "Aipify bokar transparent — kunder vet alltid att Aipify hjälper, aldrig personal.",
+    "privacyNote": "Privata kalendertitlar visas aldrig för kunder. Transaktionssäkra hold förhindrar dubbelbokning.",
+    "vacationMessage": "Slapp av – Aipify svarer, booker og fyller kalenderen",
+    "noRecords": "Inga poster ännu.",
+    "companionRecommendations": "Companion-rekommendationer",
+    "bookingStatuses": "Bokningsstatusar",
+    "auditRecent": "Senaste granskningshändelser",
+    "sections": {
+      "overview": "Översikt",
+      "calendar": "Kalender",
+      "appointments": "Bokningar",
+      "customers": "Kunder",
+      "services": "Tjänster",
+      "employees": "Medarbetare",
+      "locations": "Platser",
+      "resources": "Resurser",
+      "availability": "Tillgänglighet",
+      "waitingList": "Väntelista",
+      "payments": "Betalningar",
+      "vacationCoverage": "Semesterövertagande",
+      "policies": "Policyer",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "appointments": "Bokningar",
+      "waitingList": "Väntelista",
+      "services": "Tjänster",
+      "calendarRevenue": "Kalenderintäkt",
+      "activeHolds": "Aktiva hold"
+    }
+  },
+  "clientRelationships": {
+    "title": "Kundrelationer",
+    "subtitle": "Ombokning, lojalitet, retention och tjänsteintäkter — Aipify vårdar relationer med respekt och samtycke.",
+    "principle": "Relationer växer genom respekt, samtycke och rätt timing — aldrig manipulation.",
+    "privacyNote": "Endast metadata om kundrelationer — ingen rå kommunikation eller betalningsdata.",
+    "loading": "Laddar",
+    "empty": "Kundrelationssenteret är inte tillgängligt för denna organisation.",
+    "refresh": "Uppdatera",
+    "healthScore": "Relationshälsa",
+    "companionRecommendations": "Companion-rekommendationer",
+    "companionAdvisor": "Companion Client Advisor",
+    "noRecords": "Inga poster ännu.",
+    "humanReviewRequired": "Utgående kommunikation kräver mänsklig granskning före sändning.",
+    "phaseReuseNote": "Denna funktion återanvänder en befintlig fasmotor — inte duplicerad här.",
+    "sections": {
+      "overview": "Översikt",
+      "clients": "Kunder",
+      "journeys": "Kundresor",
+      "rebooking": "Ombokning",
+      "retention": "Retention",
+      "loyalty": "Lojalitet",
+      "memberships": "Medlemskap",
+      "packages": "Paket",
+      "referrals": "Hänvisningar",
+      "campaigns": "Kampanjer",
+      "feedback": "Feedback",
+      "serviceRecovery": "Serviceåterställning",
+      "consent": "Samtycke",
+      "automation": "Automatisering",
+      "reports": "Rapporter"
+    },
+    "healthBand": {
+      "healthy": "Frisk",
+      "attentionRequired": "Kräver uppmärksamhet",
+      "atRisk": "I risk"
+    },
+    "stats": {
+      "activeClients": "Aktiva kunder",
+      "lapsedClients": "Inaktiva kunder",
+      "pendingRebooking": "Väntande ombokning",
+      "openRetention": "Öppna retention-ärenden",
+      "loyaltyAccounts": "Lojalitetskonton",
+      "openRecovery": "Öppna recovery-ärenden",
+      "pendingReview": "Väntar på granskning"
     }
   }
 }

@@ -62,6 +62,7 @@
     "customerOnboardingEngine": "Onboarding",
     "implementationOnboardingCenter": "Implementering",
     "customerSuccessAdoptionCenter": "Kundesuksess",
+    "clientRelationshipEngine": "Kunderelasjoner",
     "revenueGrowthCenter": "Inntektsvekst",
     "subscriptionPlanManagementEngine": "Abonnement",
     "selfSupportEngine": "Selvbetjent support",
@@ -97,6 +98,7 @@
     "appScheduling": "Planlegging",
     "appCalendar": "Kalender",
     "appEvents": "Event Center",
+    "appSystemHealth": "Systemhelse",
     "appBookings": "Bookinger",
     "appNotifications": "Varsler",
     "appExecutiveAlerts": "Ledelsesvarsler",
@@ -288,7 +290,9 @@
     "companionFeedbackCenter": "Feedback Center",
     "knowledgeFabricCenter": "Knowledge Fabric",
     "aosCenter": "Aipify OS",
+    "businessContinuityCenter": "Kontinuitetssenter",
     "evolutionCenter": "Evolution Center",
+    "absenceCoverage": "Fravær og kontinuitet",
     "abosImpactEngine": "Impact Engine",
     "socialImpactPurposeEngine": "Sosial impact og formål",
     "legacyEngine": "Legacy Engine",
@@ -522,7 +526,11 @@
     "companionDigitalTwinSimulationEngine": "Digital Twin-senter",
     "companionExecutionOutcomeEngine": "Utførelsessenter",
     "companionWorkflowProcessEngine": "Arbeidsflytsenter",
-    "companionResourceCapacityEngine": "Ressurssenter"
+    "companionResourceCapacityEngine": "Ressurssenter",
+    "workforceScheduling": "Arbeidskraftplanlegging",
+    "serviceCheckout": "Servicekasse",
+    "timeAttendance": "Time og oppmøte",
+    "compensation": "Kompensasjon og lønnsinput"
   },
   "companionPresence": {
     "ariaIndicator": "Aipify companion-tilstedeværelse",

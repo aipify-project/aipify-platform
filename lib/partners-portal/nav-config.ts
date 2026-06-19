@@ -29,10 +29,13 @@ export type PartnersPortalNavId =
   | "revenueAttribution"
   | "partnerMetrics"
   | "historicalPerformance"
+  | "teamTime"
+  | "businessContinuity"
   | "profile"
   | "teamMembers"
   | "notifications"
-  | "settings";
+  | "settings"
+  | "workforceScheduling";
 
 export type PartnersPortalNavGroupId =
   | "dashboard"
@@ -125,13 +128,24 @@ export const PARTNERS_PORTAL_NAV_GROUPS: PartnersPortalNavGroup[] = [
     ],
   },
   {
+    id: "scheduling",
+    labelKey: "partnersPortal.navGroups.scheduling",
+    items: [
+      { id: "workforceScheduling", href: "/partners/workforce-scheduling", labelKey: "partnersPortal.nav.workforceScheduling" },
+      { id: "absenceCoverage", href: "/partners/absence", labelKey: "partnersPortal.nav.absenceCoverage" },
+      { id: "businessContinuity", href: "/partners/business-continuity", labelKey: "partnersPortal.nav.businessContinuity" },
+    ],
+  },
+  {
     id: "account",
     labelKey: "partnersPortal.navGroups.account",
     items: [
+      { id: "teamTime", href: "/partners/team-time", labelKey: "partnersPortal.nav.teamTime" },
       { id: "profile", href: "/partners/account/profile", labelKey: "partnersPortal.nav.profile" },
       { id: "teamMembers", href: "/partners/account/team", labelKey: "partnersPortal.nav.teamMembers" },
       { id: "notifications", href: "/partners/account/notifications", labelKey: "partnersPortal.nav.notifications" },
       { id: "settings", href: "/partners/account/settings", labelKey: "partnersPortal.nav.settings" },
+      { id: "absenceSettings", href: "/partners/settings/absence", labelKey: "partnersPortal.nav.absenceSettings" },
     ],
   },
 ];
@@ -186,7 +200,9 @@ export function getPartnersLegacyRedirect(pathname: string): string | null {
 }
 
 export function getPartnersActiveNavId(pathname: string): PartnersPortalNavId {
+  if (pathname.startsWith("/partners/business-continuity")) return "businessContinuity";
   if (pathname === "/partners") return "overview";
+  if (pathname.startsWith("/partners/team-time")) return "teamTime";
   if (pathname.startsWith("/partners/settlement")) return "settlementPortal";
   for (const group of PARTNERS_PORTAL_NAV_GROUPS) {
     for (const item of group.items) {

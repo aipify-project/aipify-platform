@@ -105,6 +105,9 @@
     "developerEcosystem": "Developer Portal",
     "developerCenter": "Developer Center",
     "ecosystemCenter": "Ecosystem Center",
+    "businessPackRuntime": "Pack Runtime",
+    "reliabilityOperations": "Reliability Operations",
+    "changeOperations": "Ändringsoperationer",
     "platformHealth": "Platform Health",
     "deployments": "Deployments",
     "operationsAuditLogs": "Audit Logs",
@@ -5086,6 +5089,88 @@
       "pendingValidations": "Väntande valideringar",
       "marketplaceReady": "Marknadsplats-klar",
       "platformUsage": "Plattformsanvändning"
+    }
+  },
+  "businessPackRuntime": {
+    "title": "Business Pack Runtime Center",
+    "subtitle": "Säker driftsättning, domänverifiering, livscykelhantering, hälsövervakning, återställningar och incidentstyrning för installerade Business Packs.",
+    "principle": "Business Packs körs i säker, hyresgästisolerad runtime — domänverifierad och styrd av Aipify.",
+    "privacyNote": "Runtime Center visar endast driftsmetadata — inga kunddata.",
+    "loading": "Förbereder Runtime Center…",
+    "emptyState": "Runtime Center-data är otillgänglig.",
+    "refresh": "Uppdatera",
+    "back": "Tillbaka till plattform",
+    "records": "Poster",
+    "companionRecommendations": "Aipify-rekommendationer",
+    "noRecords": "Inga poster i detta avsnitt ännu.",
+    "executiveDashboard": "Executive dashboard",
+    "auditRecent": "Senaste revisionshändelser",
+    "reports": "Rapporter",
+    "viewInstances": "Alla instanser",
+    "sections": {
+      "overview": "Översikt",
+      "installedPacks": "Installerade packs",
+      "deployments": "Driftsättningar",
+      "versions": "Versioner",
+      "health": "Hälsa",
+      "permissions": "Behörigheter",
+      "domains": "Domäner",
+      "rollbacks": "Återställningar",
+      "incidents": "Incidenter",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "instances": "Runtime-instanser",
+      "healthChecks": "Hälsokontroller",
+      "versions": "Versionskatalog",
+      "strategies": "Driftsättningsstrategier",
+      "sandboxes": "Sandbox-profiler"
+    },
+    "executive": {
+      "runtimeInstances": "Runtime-instanser",
+      "healthyInstances": "Friska instanser",
+      "deployingInstances": "Driftsätter",
+      "openIncidents": "Öppna incidenter",
+      "verifiedDomains": "Verifierade domäner",
+      "rollbackSnapshots": "Återställningssnapshots",
+      "suspendedProviders": "Suspenderade leverantörer"
+    }
+  },
+  "reliabilityOperations": {
+    "title": "Reliability Operations Center",
+    "subtitle": "Plattformsobservabilitet, självläkning, incidenthantering, SLO-styrning, underhåll och statuskommunikation.",
+    "principle": "Aipify observerar, korrelerar och läker säkert — människor godkänner känslig återställning.",
+    "privacyNote": "Plattformsomfattande tillförlitlighetsmetadata — kund-APP ser endast hyresgästbegränsade sammanfattningar.",
+    "loading": "Laddar",
+    "emptyState": "Reliability Operations-data är otillgänglig.",
+    "refresh": "Uppdatera",
+    "back": "Tillbaka till plattform",
+    "records": "Poster",
+    "companionRecommendations": "Aipify-rekommendationer",
+    "noRecords": "Inga poster i detta avsnitt ännu.",
+    "executiveDashboard": "Executive reliability dashboard",
+    "auditRecent": "Senaste revisionshändelser",
+    "reports": "Rapporter",
+    "sections": {
+      "overview": "Översikt",
+      "services": "Tjänster",
+      "incidents": "Incidenter",
+      "healthSignals": "Hälsosignaler",
+      "selfHealing": "Självläkning",
+      "dependencies": "Beroenden",
+      "serviceLevels": "Servicenivåer",
+      "maintenance": "Underhåll",
+      "statusCommunication": "Statuskommunikation",
+      "reports": "Rapporter"
+    },
+    "status": {
+      "operational": "Operativ",
+      "degraded": "Degraderad",
+      "disruption": "Avbrott",
+      "recovery": "Återställning",
+      "restricted": "Begränsad",
+      "verifiedRestored": "Verifierad återställd",
+      "plannedMaintenance": "Planerat underhåll"
     }
   },
   "seoDashboard": {

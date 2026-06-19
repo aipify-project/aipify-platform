@@ -57,6 +57,10 @@ export type AppNavId =
   | "launchReadinessEngine"
   | "customerSuccessEngine"
   | "customerSuccessAdoptionCenter"
+  | "appointmentBookingEngine"
+  | "clientRelationshipEngine"
+  | "timeAttendance"
+  | "compensation"
   | "revenueGrowthCenter"
   | "customerExperienceAdoptionDelightEngine"
   | "platformExcellenceEngine"
@@ -301,6 +305,8 @@ export type AppNavId =
   | "knowledgeFabricCenter"
   | "aosCenter"
   | "evolutionCenter"
+  | "businessContinuityCenter"
+  | "absenceCoverage"
   | "companionRelationshipEngine"
   | "lifeEventsEngine"
   | "trustAdoptionEngine"
@@ -398,6 +404,7 @@ export type AppNavId =
   | "appScheduling"
   | "appCalendar"
   | "appEvents"
+  | "appSystemHealth"
   | "appBookings"
   | "appNotifications"
   | "appExecutiveAlerts"
@@ -436,6 +443,8 @@ export type AppNavId =
   | "operationsCenter"
   | "continuityEngine"
   | "strategyEngine"
+  | "workforceScheduling"
+  | "serviceCheckout"
   | "humanSuccessEngine"
   | "customerLifecycleEngine"
   | "platformIntegrityEngine"
@@ -682,6 +691,26 @@ export const APP_NAV: AppNavItem[] = [
     id: "customerSuccessAdoptionCenter",
     href: "/app/customer-success",
     labelKey: "navigation.nav.customerSuccessAdoptionCenter",
+  },
+  {
+    id: "appointmentBookingEngine",
+    href: "/app/appointments",
+    labelKey: "navigation.nav.appointmentBookingEngine",
+  },
+  {
+    id: "clientRelationshipEngine",
+    href: "/app/client-relationships",
+    labelKey: "navigation.nav.clientRelationshipEngine",
+  },
+  {
+    id: "timeAttendance",
+    href: "/app/time-attendance",
+    labelKey: "navigation.nav.timeAttendance",
+  },
+  {
+    id: "compensation",
+    href: "/app/compensation",
+    labelKey: "navigation.nav.compensation",
   },
   {
     id: "customerSuccessEngine",
@@ -2071,6 +2100,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "appScheduling", href: "/app/scheduling", labelKey: "navigation.nav.appScheduling" },
   { id: "appCalendar", href: "/app/calendar", labelKey: "navigation.nav.appCalendar" },
   { id: "appEvents", href: "/app/events", labelKey: "navigation.nav.appEvents" },
+  { id: "appSystemHealth", href: "/app/system-health", labelKey: "navigation.nav.appSystemHealth" },
   { id: "appBookings", href: "/app/bookings", labelKey: "navigation.nav.appBookings" },
   { id: "appNotifications", href: "/app/notifications", labelKey: "navigation.nav.appNotifications" },
   { id: "appExecutiveAlerts", href: "/app/executive-alerts", labelKey: "navigation.nav.appExecutiveAlerts" },
@@ -2115,6 +2145,8 @@ export const APP_NAV: AppNavItem[] = [
   { id: "operationsCenter", href: "/app/operations", labelKey: "navigation.nav.operationsCenter" },
   { id: "continuityEngine", href: "/app/continuity", labelKey: "navigation.nav.continuityEngine" },
   { id: "strategyEngine", href: "/app/strategy", labelKey: "navigation.nav.strategyEngine" },
+  { id: "workforceScheduling", href: "/app/workforce-scheduling", labelKey: "navigation.nav.workforceScheduling" },
+  { id: "serviceCheckout", href: "/app/checkout", labelKey: "navigation.nav.serviceCheckout" },
   { id: "humanSuccessEngine", href: "/app/human-success", labelKey: "navigation.nav.humanSuccessEngine" },
   { id: "customerLifecycleEngine", href: "/app/customer-lifecycle", labelKey: "navigation.nav.customerLifecycleEngine" },
   { id: "platformIntegrityEngine", href: "/app/integrity", labelKey: "navigation.nav.platformIntegrityEngine" },
@@ -2162,6 +2194,8 @@ export const APP_NAV: AppNavItem[] = [
   { id: "strategicGoals", href: "/app/goals", labelKey: "navigation.nav.strategicGoals" },
   { id: "frictionIntelligence", href: "/app/friction", labelKey: "navigation.nav.frictionIntelligence" },
   { id: "evolutionCenter", href: "/app/evolution", labelKey: "navigation.nav.evolutionCenter" },
+  { id: "businessContinuityCenter", href: "/app/business-continuity", labelKey: "navigation.nav.businessContinuityCenter" },
+  { id: "absenceCoverage", href: "/app/absence", labelKey: "navigation.nav.absenceCoverage" },
   { id: "aosCenter", href: "/app/aos", labelKey: "navigation.nav.aosCenter" },
   { id: "knowledgeFabricCenter", href: "/app/knowledge-fabric", labelKey: "navigation.nav.knowledgeFabricCenter" },
   { id: "companionFeedbackCenter", href: "/app/feedback", labelKey: "navigation.nav.companionFeedbackCenter" },
@@ -2563,6 +2597,10 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/revenue-growth")) return "revenueGrowthCenter";
   if (pathname.startsWith("/app/customer-success-engine")) return "customerSuccessEngine";
   if (pathname.startsWith("/app/customer-success")) return "customerSuccessAdoptionCenter";
+  if (pathname.startsWith("/app/appointments")) return "appointmentBookingEngine";
+  if (pathname.startsWith("/app/client-relationships")) return "clientRelationshipEngine";
+  if (pathname.startsWith("/app/time-attendance")) return "timeAttendance";
+  if (pathname.startsWith("/app/compensation")) return "compensation";
   if (pathname.startsWith("/app/platform/customer-experience")) {
     return "customerExperienceAdoptionDelightEngine";
   }
@@ -3148,6 +3186,19 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   ) {
     return "appEvents";
   }
+  if (
+    pathname === "/app/system-health" ||
+    pathname.startsWith("/app/system-health/connected-apps") ||
+    pathname.startsWith("/app/system-health/business-packs") ||
+    pathname.startsWith("/app/system-health/workflows") ||
+    pathname.startsWith("/app/system-health/domains") ||
+    pathname.startsWith("/app/system-health/notifications") ||
+    pathname.startsWith("/app/system-health/recent-incidents") ||
+    pathname.startsWith("/app/system-health/maintenance") ||
+    pathname.startsWith("/app/system-health/support")
+  ) {
+    return "appSystemHealth";
+  }
   if (pathname.startsWith("/app/bookings")) return "appBookings";
   if (pathname.startsWith("/app/notifications")) return "appNotifications";
   if (pathname.startsWith("/app/executive-alerts")) return "appExecutiveAlerts";
@@ -3225,6 +3276,8 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/operations")) return "operationsCenter";
   if (pathname.startsWith("/app/continuity")) return "continuityEngine";
   if (pathname.startsWith("/app/strategy")) return "strategyEngine";
+  if (pathname.startsWith("/app/workforce-scheduling")) return "workforceScheduling";
+  if (pathname === "/app/checkout" || pathname.startsWith("/app/checkout/")) return "serviceCheckout";
   if (pathname.startsWith("/app/human-success")) return "humanSuccessEngine";
   if (pathname.startsWith("/app/customer-lifecycle")) return "customerLifecycleEngine";
   if (pathname.startsWith("/app/integrity")) return "platformIntegrityEngine";
@@ -3303,8 +3356,13 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   ) {
     return "evolutionCenter";
   }
+  if (pathname === "/app/business-continuity" || pathname.startsWith("/app/business-continuity/")) {
+    return "businessContinuityCenter";
+  }
+  if (pathname === "/app/absence" || pathname.startsWith("/app/absence/")) {
+    return "absenceCoverage";
+  }
   if (
-    pathname === "/app/aos" ||
     pathname.startsWith("/app/aos/organization") ||
     pathname.startsWith("/app/aos/operations") ||
     pathname.startsWith("/app/aos/companion") ||

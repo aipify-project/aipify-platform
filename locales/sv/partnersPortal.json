@@ -15,7 +15,8 @@
     "marketing": "Marketing",
     "performance": "Performance",
     "account": "Account",
-    "settlement": "Settlement & Self-Billing"
+    "settlement": "Settlement & Self-Billing",
+    "scheduling": "Schemaläggning"
   },
   "nav": {
     "overview": "Overview",
@@ -44,7 +45,49 @@
     "teamMembers": "Team Members",
     "notifications": "Notifications",
     "settings": "Settings",
-    "settlementPortal": "Settlement Portal"
+    "settlementPortal": "Settlement Portal",
+    "workforceScheduling": "Personalschemaläggning",
+    "teamTime": "Teamtid",
+    "absenceCoverage": "Frånvaro och kontinuitet",
+    "absenceSettings": "Frånvaropolicyer",
+    "businessContinuity": "Affärskontinuitet"
+  },
+  "absenceCoverage": {
+    "title": "Frånvaro och kontinuitet",
+    "subtitle": "Semesterläge, teamtillgänglighet och transparent Aipify-täckning — Slapp av, Aipify svarer for deg.",
+    "principle": "Aipify svarar transparent å dina vägnar — utan att låtsas vara den frånvarande partnern.",
+    "privacyNote": "Plattformens kundtillhörighet och provisionsattribuering bevaras under partnerfrånvaro.",
+    "loading": "Laddar",
+    "empty": "Frånvarocenter är inte tillgängligt för denna partnerprofil.",
+    "refresh": "Uppdatera",
+    "companionRecommendations": "Semesterberedskapsrekommendationer",
+    "noRecords": "Inga poster ännu.",
+    "maxCoverageLevel": "Max täckningsnivå",
+    "readinessScore": "Beredskapspoäng",
+    "transparentNotice": "Transparent Aipify-meddelande",
+    "settingsTitle": "Partner frånvaropolicyer",
+    "settingsSubtitle": "Konfigurera lead-kontinuitet, provisionsattribuering och transparenta svarsmallar.",
+    "sections": {
+      "overview": "Översikt",
+      "myVacationMode": "Mitt semesterläge",
+      "teamAvailability": "Teamtillgänglighet",
+      "coverage": "Täckning",
+      "delegation": "Delegering",
+      "aipifyResponses": "Aipify-svar",
+      "schedules": "Scheman",
+      "policies": "Policyer",
+      "returnSummary": "Återkomstsammanfattning",
+      "history": "Historik",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "activeModes": "Aktiva lägen",
+      "teamAway": "Team borta",
+      "readinessScore": "Beredskapspoäng",
+      "delegations": "Delegeringar",
+      "templates": "Svarsmallar",
+      "leadContinuity": "Lead-kontinuitet"
+    }
   },
   "dashboard": {
     "title": "Partners-instrumentpanel",
@@ -244,6 +287,87 @@
       "recurringAnswer": "No. Commissions apply only to first-time purchases. No residual or lifetime commissions.",
       "selfBilling": "What is self-billing?",
       "selfBillingAnswer": "After you approve a settlement, Aipify Group AS generates a legally compliant invoice on behalf of your business, then processes payment as a supplier expense."
+    }
+  },
+  "workforceScheduling": {
+    "title": "Partner personalschemaläggning",
+    "subtitle": "Coordinate partner shift coverage and on-call obligations while preserving customer ownership and commission attribution.",
+    "principle": "Partner scheduling preserves platform customer ownership — attribution and commission remain intact.",
+    "privacyNote": "Partner operational scheduling metadata only — no customer business content.",
+    "loading": "Preparing partner scheduling overview…",
+    "emptyState": "Partner scheduling is not available for your profile yet.",
+    "refresh": "Refresh",
+    "attributionNote": "Lead coverage preserves Growth Partner attribution and commission — customers remain platform-owned.",
+    "noRecords": "No partner scheduling records in this section yet.",
+    "sections": {
+      "overview": "Overview",
+      "shifts": "Shifts",
+      "coverage": "Coverage",
+      "onCall": "On-Call"
+    }
+  },
+  "teamTime": {
+    "title": "Teamtid",
+    "subtitle": "Partnerteam tid och ledighet.",
+    "principle": "Partner team time is separate from customer, lead, referral, and commission attribution.",
+    "privacyNote": "Partner employee time metadata only.",
+    "loading": "Loading",
+    "empty": "Team Time is not available for this partner profile.",
+    "refresh": "Refresh",
+    "noRecords": "No records yet.",
+    "attributionPreserved": "Customer, lead, referral, and commission attribution preserved.",
+    "sections": {
+      "overview": "Översikt",
+      "team": "Team",
+      "time": "Tid",
+      "leave": "Ledighet"
+    },
+    "stats": {
+      "teamSize": "Teamstorlek",
+      "hoursThisWeek": "Timmar denna vecka"
+    }
+  },
+  "businessContinuity": {
+    "title": "Affärskontinuitet",
+    "subtitle": "Partnerportföljkontinuitet — kundägande stannar hos Platform; hänvisning och provisionskydd bevaras.",
+    "principle": "Growth Partners upprätthåller portföljkontinuitet — Aipify skyddar attribuering och provision utan att överföra kundägande.",
+    "privacyNote": "Partnerkontinuitet visar endast portföljmetadata. Ingen åtkomst till kunders interna system eller tvärgående partnerdata.",
+    "customerOwnershipNote": "Kunder tillhör Platform. Partners får attribuering och provisionskydd — aldrig kundägande.",
+    "loading": "Laddar",
+    "empty": "Affärskontinuitet är inte tillgänglig för denna partnerprofil.",
+    "refresh": "Uppdatera",
+    "noRecords": "Inga poster ännu.",
+    "companionRecommendations": "Companion-kontinuitetsrekommendationer",
+    "executiveDashboard": "Partnerkontinuitetsdashboard",
+    "continuityStatus": "Kontinuitetsstatus",
+    "readinessScore": "Beredskapspoäng",
+    "sections": {
+      "overview": "Översikt",
+      "portfolio": "Portfölj",
+      "commission": "Provisionsskydd",
+      "communications": "Kommunikation",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "portfolioSegments": "Portföljsegment",
+      "commissionProtections": "Provisionsskydd",
+      "referralContinuity": "Hänvisningskontinuitet",
+      "communications": "Kommunikation"
+    },
+    "executive": {
+      "readinessScore": "Beredskapspoäng",
+      "portfolioCustomers": "Portföljkunder",
+      "commissionProtected": "Provision skyddad",
+      "referralsPreserved": "Hänvisningar bevarade"
+    },
+    "groups": {
+      "portfolioContinuity": "Portföljkontinuitet",
+      "commissionProtection": "Provisionsskydd",
+      "referralContinuity": "Hänvisningskontinuitet",
+      "communications": "Kriskommunikation",
+      "readinessScores": "Beredskapspoäng",
+      "reports": "Rapporter",
+      "auditRecent": "Senaste revisionshändelser"
     }
   }
 }

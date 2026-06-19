@@ -4549,18 +4549,79 @@
       "dependencies": "Afhængigheder",
       "simulations": "Simuleringer"
     },
-    "entity": { "owner": "Ejer", "dependencies": "Afhængigheder", "criticality": "Kritikalitet" },
-    "processMapping": { "title": "Proceskortlægning", "start": "Start", "actions": "Handlinger", "approvals": "Godkendelser", "outcomes": "Resultater" },
-    "dependencyIntelligence": { "title": "Afhængighedsintelligens", "suggestedAction": "Foreslået handling" },
-    "workflowSimulations": { "title": "Arbejdsgangssimulering", "impact": "Estimeret påvirkning" },
-    "capacityIntelligence": { "title": "Kapacitetsintelligens", "workload": "Arbejdsbyrde", "availableResources": "Tilgængelige ressourcer", "bottleneck": "Flaskehals", "daysToCapacity": "Dage til kapacitet" },
-    "operationalImpacts": { "title": "Operationel påvirkningsanalyse", "impact": "Påvirkning", "risk": "Risiko", "affectedTeams": "Berørte teams", "affectedSystems": "Berørte systemer" },
-    "scenarioPlanning": { "title": "Scenarieplanlægning", "best": "Bedste tilfælde", "expected": "Forventet tilfælde", "worst": "Værste tilfælde", "expectedRevenue": "Forventet omsætning", "expectedSupportLoad": "Forventet supportbelastning", "expectedStaffing": "Forventet bemanding" },
-    "executiveDashboard": { "title": "Executive Twin Dashboard", "organizationOverview": "Organisationsoversigt", "operationalHealth": "Operationelt helbred", "dependencies": "Aktive afhængigheder", "simulations": "Simuleringer", "strategicRisks": "Strategiske risici" },
-    "companionInsights": { "title": "Companion-indsigter", "reason": "Hvorfor Aipify anbefaler dette" },
-    "actions": { "acknowledge": "Bekræft", "dismiss": "Afvis", "resolve": "Løs" },
-    "status": { "completed": "Fuldført", "notAllowed": "Ikke tilladt", "requiresAttention": "Kræver opmærksomhed", "information": "Information", "restricted": "Begrænset adgang", "verified": "Verificeret", "waiting": "Venter" },
-    "links": { "legacyTwin": "Legacy Digital Twin Engine", "executiveTwin": "Executive Organizational Digital Twin" }
+    "entity": {
+      "owner": "Ejer",
+      "dependencies": "Afhængigheder",
+      "criticality": "Kritikalitet"
+    },
+    "processMapping": {
+      "title": "Proceskortlægning",
+      "start": "Start",
+      "actions": "Handlinger",
+      "approvals": "Godkendelser",
+      "outcomes": "Resultater"
+    },
+    "dependencyIntelligence": {
+      "title": "Afhængighedsintelligens",
+      "suggestedAction": "Foreslået handling"
+    },
+    "workflowSimulations": {
+      "title": "Arbejdsgangssimulering",
+      "impact": "Estimeret påvirkning"
+    },
+    "capacityIntelligence": {
+      "title": "Kapacitetsintelligens",
+      "workload": "Arbejdsbyrde",
+      "availableResources": "Tilgængelige ressourcer",
+      "bottleneck": "Flaskehals",
+      "daysToCapacity": "Dage til kapacitet"
+    },
+    "operationalImpacts": {
+      "title": "Operationel påvirkningsanalyse",
+      "impact": "Påvirkning",
+      "risk": "Risiko",
+      "affectedTeams": "Berørte teams",
+      "affectedSystems": "Berørte systemer"
+    },
+    "scenarioPlanning": {
+      "title": "Scenarieplanlægning",
+      "best": "Bedste tilfælde",
+      "expected": "Forventet tilfælde",
+      "worst": "Værste tilfælde",
+      "expectedRevenue": "Forventet omsætning",
+      "expectedSupportLoad": "Forventet supportbelastning",
+      "expectedStaffing": "Forventet bemanding"
+    },
+    "executiveDashboard": {
+      "title": "Executive Twin Dashboard",
+      "organizationOverview": "Organisationsoversigt",
+      "operationalHealth": "Operationelt helbred",
+      "dependencies": "Aktive afhængigheder",
+      "simulations": "Simuleringer",
+      "strategicRisks": "Strategiske risici"
+    },
+    "companionInsights": {
+      "title": "Companion-indsigter",
+      "reason": "Hvorfor Aipify anbefaler dette"
+    },
+    "actions": {
+      "acknowledge": "Bekræft",
+      "dismiss": "Afvis",
+      "resolve": "Løs"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "links": {
+      "legacyTwin": "Legacy Digital Twin Engine",
+      "executiveTwin": "Executive Organizational Digital Twin"
+    }
   },
   "businessImprovementCenter": {
     "title": "Forretningsforbedringscenter",
@@ -4592,11 +4653,25 @@
     },
     "suggestedAction": "Foreslået handling",
     "estimatedBenefit": "Estimeret gevinst",
-    "opportunityDiscovery": { "title": "Mulighedsopdagelse" },
-    "revenueIntelligence": { "title": "Indtægtsintelligens", "customerCount": "Kvalificerede kunder" },
-    "costOptimization": { "title": "Omkostningsoptimering", "potentialSavings": "Potentielle årlige besparelser" },
-    "processOptimization": { "title": "Procesoptimering", "timeReduction": "Estimeret tidsreduktion" },
-    "customerExperience": { "title": "Kundeoplevelsesintelligens", "benchmark": "Reference" },
+    "opportunityDiscovery": {
+      "title": "Mulighedsopdagelse"
+    },
+    "revenueIntelligence": {
+      "title": "Indtægtsintelligens",
+      "customerCount": "Kvalificerede kunder"
+    },
+    "costOptimization": {
+      "title": "Omkostningsoptimering",
+      "potentialSavings": "Potentielle årlige besparelser"
+    },
+    "processOptimization": {
+      "title": "Procesoptimering",
+      "timeReduction": "Estimeret tidsreduktion"
+    },
+    "customerExperience": {
+      "title": "Kundeoplevelsesintelligens",
+      "benchmark": "Reference"
+    },
     "improvementPlans": {
       "title": "Autonome forbedringsplaner",
       "problem": "Problem",
@@ -4612,8 +4687,15 @@
       "completedImprovements": "Fuldførte forbedringer",
       "pendingImprovements": "Afventende forbedringer"
     },
-    "companionAdvisor": { "title": "Companion-forbedringsrådgiver", "reason": "Hvorfor Aipify anbefaler dette" },
-    "actions": { "acknowledge": "Bekræft", "dismiss": "Afvis", "approve": "Godkend" },
+    "companionAdvisor": {
+      "title": "Companion-forbedringsrådgiver",
+      "reason": "Hvorfor Aipify anbefaler dette"
+    },
+    "actions": {
+      "acknowledge": "Bekræft",
+      "dismiss": "Afvis",
+      "approve": "Godkend"
+    },
     "status": {
       "completed": "Fuldført",
       "notAllowed": "Ikke tilladt",
@@ -4656,9 +4738,19 @@
       "optimized": "Optimeret",
       "worldClass": "Verdensklasse"
     },
-    "maturityScoring": { "title": "Modenhedsscoring", "score": "Score" },
-    "benchmarking": { "title": "Organisationsbenchmarking", "comparison": "Sammenligning" },
-    "departmentAnalysis": { "title": "Afdelingsmodenhedsanalyse", "department": "Afdeling", "dimension": "Dimension" },
+    "maturityScoring": {
+      "title": "Modenhedsscoring",
+      "score": "Score"
+    },
+    "benchmarking": {
+      "title": "Organisationsbenchmarking",
+      "comparison": "Sammenligning"
+    },
+    "departmentAnalysis": {
+      "title": "Afdelingsmodenhedsanalyse",
+      "department": "Afdeling",
+      "dimension": "Dimension"
+    },
     "improvementRoadmaps": {
       "title": "Forbedringskøreplan",
       "currentState": "Nuværende tilstand",
@@ -4666,13 +4758,22 @@
       "requiredImprovements": "Nødvendige forbedringer",
       "expectedBenefits": "Forventede gevinster"
     },
-    "selfEvolution": { "title": "Selv-evolutionsmotor", "learningNote": "Hvad Aipify lærte" },
+    "selfEvolution": {
+      "title": "Selv-evolutionsmotor",
+      "learningNote": "Hvad Aipify lærte"
+    },
     "growthPlanning": {
       "title": "Vækstplanlægningscenter",
       "requiredActions": "Nødvendige handlinger",
-      "horizons": { "ninetyDay": "90-dages plan", "sixMonth": "6-måneders plan", "twelveMonth": "12-måneders plan" }
+      "horizons": {
+        "ninetyDay": "90-dages plan",
+        "sixMonth": "6-måneders plan",
+        "twelveMonth": "12-måneders plan"
+      }
     },
-    "businessPackMaturity": { "title": "Business Pack-modenhed" },
+    "businessPackMaturity": {
+      "title": "Business Pack-modenhed"
+    },
     "executiveDashboard": {
       "title": "Ledelsesmodenhedsdashboard",
       "currentMaturityScore": "Nuværende modenhedsscore",
@@ -4680,9 +4781,17 @@
       "highestPerformingAreas": "Bedst præsterende områder",
       "lowestPerformingAreas": "Svagest præsterende områder",
       "recommendedPriorities": "Anbefalede prioriteter",
-      "trends": { "improving": "Forbedres", "stable": "Stabil", "declining": "Falder" }
+      "trends": {
+        "improving": "Forbedres",
+        "stable": "Stabil",
+        "declining": "Falder"
+      }
     },
-    "actions": { "acknowledge": "Bekræft", "dismiss": "Afvis", "approve": "Godkend" },
+    "actions": {
+      "acknowledge": "Bekræft",
+      "dismiss": "Afvis",
+      "approve": "Godkend"
+    },
     "status": {
       "completed": "Fuldført",
       "notAllowed": "Ikke tilladt",
@@ -4715,18 +4824,74 @@
       "intelligenceOverview": "Intelligensoversigt",
       "companionRecommendations": "Companion-anbefalinger"
     },
-    "executiveMissionControl": { "title": "Executive Mission Control" },
-    "organizationRadar": { "title": "Organisationsradar", "healthy": "Sunde områder", "emergingRisk": "Fremvoksende risici", "critical": "Kritiske problemer", "information": "Information" },
-    "liveBusinessPulse": { "title": "Live Business Pulse", "today": "I dag", "thisWeek": "Denne uge", "thisMonth": "Denne måned" },
-    "unifiedEventStream": { "title": "Samlet hændelsesstrøm" },
-    "morningBriefing": { "title": "Executive Morning Briefing", "sinceLogin": "Siden sidste login", "recommendedActions": "Anbefalede handlinger" },
-    "widgets": { "title": "Command Center-widgets", "pin": "Fastgør", "unpin": "Frigør", "hide": "Skjul", "show": "Vis" },
-    "crossSystemIntelligence": { "title": "Tværs-system intelligens", "suggestedAction": "Foreslået handling" },
-    "companionAdvisor": { "title": "Command Center Companion", "reason": "Hvorfor Aipify anbefaler dette" },
-    "executiveReadiness": { "title": "Executive Readiness Mode", "keyMetrics": "Nøgletal", "risks": "Risici", "achievements": "Resultater", "priorities": "Prioriteter", "boardMeeting": "Bestyrelsesmøde", "investorMeeting": "Investormøde", "managementReview": "Ledelsesgennemgang" },
-    "actions": { "acknowledge": "Bekræft", "dismiss": "Afvis", "setReadinessMode": "Aktiver readiness-tilstand" },
-    "status": { "completed": "Fuldført", "notAllowed": "Ikke tilladt", "requiresAttention": "Kræver opmærksomhed", "information": "Information", "restricted": "Begrænset adgang", "verified": "Verificeret", "waiting": "Venter" },
-    "links": { "presenceFeed": "Presence og notifikationer", "desktopConnect": "Forbind desktop-klient", "portalHome": "Fuld workspace-portal" }
+    "executiveMissionControl": {
+      "title": "Executive Mission Control"
+    },
+    "organizationRadar": {
+      "title": "Organisationsradar",
+      "healthy": "Sunde områder",
+      "emergingRisk": "Fremvoksende risici",
+      "critical": "Kritiske problemer",
+      "information": "Information"
+    },
+    "liveBusinessPulse": {
+      "title": "Live Business Pulse",
+      "today": "I dag",
+      "thisWeek": "Denne uge",
+      "thisMonth": "Denne måned"
+    },
+    "unifiedEventStream": {
+      "title": "Samlet hændelsesstrøm"
+    },
+    "morningBriefing": {
+      "title": "Executive Morning Briefing",
+      "sinceLogin": "Siden sidste login",
+      "recommendedActions": "Anbefalede handlinger"
+    },
+    "widgets": {
+      "title": "Command Center-widgets",
+      "pin": "Fastgør",
+      "unpin": "Frigør",
+      "hide": "Skjul",
+      "show": "Vis"
+    },
+    "crossSystemIntelligence": {
+      "title": "Tværs-system intelligens",
+      "suggestedAction": "Foreslået handling"
+    },
+    "companionAdvisor": {
+      "title": "Command Center Companion",
+      "reason": "Hvorfor Aipify anbefaler dette"
+    },
+    "executiveReadiness": {
+      "title": "Executive Readiness Mode",
+      "keyMetrics": "Nøgletal",
+      "risks": "Risici",
+      "achievements": "Resultater",
+      "priorities": "Prioriteter",
+      "boardMeeting": "Bestyrelsesmøde",
+      "investorMeeting": "Investormøde",
+      "managementReview": "Ledelsesgennemgang"
+    },
+    "actions": {
+      "acknowledge": "Bekræft",
+      "dismiss": "Afvis",
+      "setReadinessMode": "Aktiver readiness-tilstand"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "links": {
+      "presenceFeed": "Presence og notifikationer",
+      "desktopConnect": "Forbind desktop-klient",
+      "portalHome": "Fuld workspace-portal"
+    }
   },
   "businessOsOrchestrationCenter": {
     "title": "ABOS Orchestration Center",
@@ -4754,9 +4919,15 @@
       "workflowTemplates": "Arbejdsgangsskabeloner",
       "orchestrationAnalytics": "Orkestreringsanalyse"
     },
-    "executiveDashboard": { "title": "Executive Orchestration Dashboard" },
-    "workflowOrchestration": { "title": "Arbejdsgangsorkestrering" },
-    "approvalOrchestration": { "title": "Godkendelsesorkestrering" },
+    "executiveDashboard": {
+      "title": "Executive Orchestration Dashboard"
+    },
+    "workflowOrchestration": {
+      "title": "Arbejdsgangsorkestrering"
+    },
+    "approvalOrchestration": {
+      "title": "Godkendelsesorkestrering"
+    },
     "automationRegistry": {
       "title": "Automatiseringsregister",
       "running": "Kører",
@@ -4764,14 +4935,44 @@
       "failed": "Mislykkedes",
       "waiting": "Venter"
     },
-    "crossSystemActions": { "title": "Tværsystemhandlinger" },
-    "businessPackOrchestration": { "title": "Business Pack-orkestrering", "workflows": "Koordinerede arbejdsgange" },
-    "dependencyManagement": { "title": "Afhængighedsstyring" },
-    "workflowTemplates": { "title": "Arbejdsgangsskabeloner" },
-    "companionAdvisor": { "title": "Companion Workflow Assistant", "reason": "Hvorfor Aipify anbefaler dette" },
-    "actions": { "acknowledge": "Bekræft", "dismiss": "Afvis", "approve": "Godkend", "escalate": "Eskaler" },
-    "status": { "completed": "Fuldført", "notAllowed": "Ikke tilladt", "requiresAttention": "Kræver opmærksomhed", "information": "Information", "restricted": "Begrænset adgang", "verified": "Verificeret", "waiting": "Venter" },
-    "links": { "legacyFlows": "Arbejdsgange", "legacyRules": "Orkestreringsregler", "legacyEvents": "Hændelseslog", "legacySettings": "Orkestreringsindstillinger" }
+    "crossSystemActions": {
+      "title": "Tværsystemhandlinger"
+    },
+    "businessPackOrchestration": {
+      "title": "Business Pack-orkestrering",
+      "workflows": "Koordinerede arbejdsgange"
+    },
+    "dependencyManagement": {
+      "title": "Afhængighedsstyring"
+    },
+    "workflowTemplates": {
+      "title": "Arbejdsgangsskabeloner"
+    },
+    "companionAdvisor": {
+      "title": "Companion Workflow Assistant",
+      "reason": "Hvorfor Aipify anbefaler dette"
+    },
+    "actions": {
+      "acknowledge": "Bekræft",
+      "dismiss": "Afvis",
+      "approve": "Godkend",
+      "escalate": "Eskaler"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "links": {
+      "legacyFlows": "Arbejdsgange",
+      "legacyRules": "Orkestreringsregler",
+      "legacyEvents": "Hændelseslog",
+      "legacySettings": "Orkestreringsindstillinger"
+    }
   },
   "realWorldActionsExecutionCenter": {
     "title": "Real-World Actions Center",
@@ -4800,17 +5001,59 @@
       "failedActions": "Mislykkede handlinger",
       "actionHistory": "Handlingshistorik"
     },
-    "executiveDashboard": { "title": "Executive Action Dashboard" },
-    "actionRegistry": { "title": "Handlingsregister" },
-    "approvalEngine": { "title": "Godkendelsesmotor" },
-    "actionProviders": { "title": "Handlingsleverandører" },
-    "actionHistory": { "title": "Handlingshistorik" },
-    "companionRequests": { "title": "Companion-handlingsanmodninger", "explanation": "Hvorfor Aipify anbefaler dette", "risk": "Risiko" },
-    "enterpriseControls": { "title": "Enterprise-kontroller", "enabled": "Real-world handlinger aktiveret", "disabled": "Real-world handlinger deaktiveret", "multiLevel": "Flertrinsgodkendelser påkrævet" },
-    "risk": { "low": "Lav risiko", "medium": "Medium risiko", "high": "Høj risiko" },
-    "actions": { "acknowledge": "Bekræft", "dismiss": "Afvis", "approve": "Godkend", "reject": "Afvis", "escalate": "Eskaler" },
-    "status": { "completed": "Fuldført", "notAllowed": "Ikke tilladt", "requiresAttention": "Kræver opmærksomhed", "information": "Information", "restricted": "Begrænset adgang", "verified": "Verificeret", "waiting": "Venter" },
-    "links": { "legacyInbox": "Action Hub-indbakke", "legacySettings": "Action Hub-indstillinger", "approvals": "Trust & Action-godkendelser", "actionCenter": "Autonomous Action Center" }
+    "executiveDashboard": {
+      "title": "Executive Action Dashboard"
+    },
+    "actionRegistry": {
+      "title": "Handlingsregister"
+    },
+    "approvalEngine": {
+      "title": "Godkendelsesmotor"
+    },
+    "actionProviders": {
+      "title": "Handlingsleverandører"
+    },
+    "actionHistory": {
+      "title": "Handlingshistorik"
+    },
+    "companionRequests": {
+      "title": "Companion-handlingsanmodninger",
+      "explanation": "Hvorfor Aipify anbefaler dette",
+      "risk": "Risiko"
+    },
+    "enterpriseControls": {
+      "title": "Enterprise-kontroller",
+      "enabled": "Real-world handlinger aktiveret",
+      "disabled": "Real-world handlinger deaktiveret",
+      "multiLevel": "Flertrinsgodkendelser påkrævet"
+    },
+    "risk": {
+      "low": "Lav risiko",
+      "medium": "Medium risiko",
+      "high": "Høj risiko"
+    },
+    "actions": {
+      "acknowledge": "Bekræft",
+      "dismiss": "Afvis",
+      "approve": "Godkend",
+      "reject": "Afvis",
+      "escalate": "Eskaler"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "links": {
+      "legacyInbox": "Action Hub-indbakke",
+      "legacySettings": "Action Hub-indstillinger",
+      "approvals": "Trust & Action-godkendelser",
+      "actionCenter": "Autonomous Action Center"
+    }
   },
   "businessOsEcosystemMarketplaceCenter": {
     "title": "ABOS Ecosystem Marketplace",
@@ -4846,18 +5089,58 @@
       "certifications": "Certificeringer",
       "revenueSharing": "Indtægtsdeling"
     },
-    "businessPackStore": { "title": "Business Pack Store" },
-    "integrationMarketplace": { "title": "Integrationsmarkedsplads" },
-    "solutionProviderDirectory": { "title": "Løsningsleverandør-katalog" },
-    "certificationFramework": { "title": "Certificeringsramme" },
-    "revenueSharingEngine": { "title": "Indtægtsdelingsmotor" },
-    "growthPartnerEcosystem": { "title": "Growth Partner-økosystem" },
-    "ecosystemAnalytics": { "title": "Økosystemanalyse" },
-    "companionAdvisor": { "title": "Companion Marketplace Assistant", "reason": "Hvorfor Aipify anbefaler dette" },
-    "marketplaceSettings": { "title": "Markedspladskontroller", "enabled": "Markedsplads aktiveret", "reviewRequired": "Gennemgang og godkendelse påkrævet", "revenueSharing": "Indtægtsdeling aktiveret" },
-    "actions": { "acknowledge": "Bekræft", "dismiss": "Afvis", "approve": "Godkend", "escalate": "Eskaler" },
-    "status": { "completed": "Fuldført", "notAllowed": "Ikke tilladt", "requiresAttention": "Kræver opmærksomhed", "information": "Information", "restricted": "Begrænset adgang", "verified": "Verificeret", "waiting": "Venter" },
-    "links": { "ecosystemGovernance": "Ecosystem Governance", "ecosystemIntelligence": "Ecosystem Intelligence", "ecosystemOrchestration": "Ecosystem Orchestration", "skillsMarketplace": "Skills-workspace" }
+    "businessPackStore": {
+      "title": "Business Pack Store"
+    },
+    "integrationMarketplace": {
+      "title": "Integrationsmarkedsplads"
+    },
+    "solutionProviderDirectory": {
+      "title": "Løsningsleverandør-katalog"
+    },
+    "certificationFramework": {
+      "title": "Certificeringsramme"
+    },
+    "revenueSharingEngine": {
+      "title": "Indtægtsdelingsmotor"
+    },
+    "growthPartnerEcosystem": {
+      "title": "Growth Partner-økosystem"
+    },
+    "ecosystemAnalytics": {
+      "title": "Økosystemanalyse"
+    },
+    "companionAdvisor": {
+      "title": "Companion Marketplace Assistant",
+      "reason": "Hvorfor Aipify anbefaler dette"
+    },
+    "marketplaceSettings": {
+      "title": "Markedspladskontroller",
+      "enabled": "Markedsplads aktiveret",
+      "reviewRequired": "Gennemgang og godkendelse påkrævet",
+      "revenueSharing": "Indtægtsdeling aktiveret"
+    },
+    "actions": {
+      "acknowledge": "Bekræft",
+      "dismiss": "Afvis",
+      "approve": "Godkend",
+      "escalate": "Eskaler"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "links": {
+      "ecosystemGovernance": "Ecosystem Governance",
+      "ecosystemIntelligence": "Ecosystem Intelligence",
+      "ecosystemOrchestration": "Ecosystem Orchestration",
+      "skillsMarketplace": "Skills-workspace"
+    }
   },
   "globalBusinessNetworkCenter": {
     "title": "Global Business Network",
@@ -4892,20 +5175,64 @@
       "introductions": "Introduktioner",
       "collaboration": "Samarbejde"
     },
-    "organizationProfiles": { "title": "Organisationsprofiler" },
-    "verificationSystem": { "title": "Verificeringssystem" },
-    "opportunityMarketplace": { "title": "Mulighedsmarkedsplads" },
-    "smartMatching": { "title": "Smart matching" },
-    "trustedVendorDirectory": { "title": "Betroet leverandørkatalog" },
-    "growthPartnerNetwork": { "title": "Growth Partner-netværk" },
-    "collaborationCenter": { "title": "Samarbejdscenter" },
-    "executiveDashboard": { "title": "Executive Network Dashboard" },
-    "companionAdvisor": { "title": "Companion Network Advisor", "reason": "Hvorfor Aipify anbefaler dette" },
-    "networkSettings": { "title": "Netværkskontroller", "enabled": "Globalt netværk aktiveret", "publicProfile": "Offentlig profil aktiveret", "connections": "Forbindelsesanmodninger aktiveret" },
-    "verification": { "verified": "Verificeret organisation", "pending": "Verificering afventer", "failed": "Verificering mislykkedes" },
-    "actions": { "acknowledge": "Bekræft", "dismiss": "Afvis", "connect": "Forbind", "escalate": "Eskaler" },
-    "status": { "completed": "Fuldført", "notAllowed": "Ikke tilladt", "requiresAttention": "Kræver opmærksomhed", "information": "Information", "restricted": "Begrænset adgang", "verified": "Verificeret", "waiting": "Venter" },
-    "links": { "ecosystem": "Ecosystem Marketplace", "growthPartners": "Growth Partner Operations" }
+    "organizationProfiles": {
+      "title": "Organisationsprofiler"
+    },
+    "verificationSystem": {
+      "title": "Verificeringssystem"
+    },
+    "opportunityMarketplace": {
+      "title": "Mulighedsmarkedsplads"
+    },
+    "smartMatching": {
+      "title": "Smart matching"
+    },
+    "trustedVendorDirectory": {
+      "title": "Betroet leverandørkatalog"
+    },
+    "growthPartnerNetwork": {
+      "title": "Growth Partner-netværk"
+    },
+    "collaborationCenter": {
+      "title": "Samarbejdscenter"
+    },
+    "executiveDashboard": {
+      "title": "Executive Network Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Network Advisor",
+      "reason": "Hvorfor Aipify anbefaler dette"
+    },
+    "networkSettings": {
+      "title": "Netværkskontroller",
+      "enabled": "Globalt netværk aktiveret",
+      "publicProfile": "Offentlig profil aktiveret",
+      "connections": "Forbindelsesanmodninger aktiveret"
+    },
+    "verification": {
+      "verified": "Verificeret organisation",
+      "pending": "Verificering afventer",
+      "failed": "Verificering mislykkedes"
+    },
+    "actions": {
+      "acknowledge": "Bekræft",
+      "dismiss": "Afvis",
+      "connect": "Forbind",
+      "escalate": "Eskaler"
+    },
+    "status": {
+      "completed": "Fuldført",
+      "notAllowed": "Ikke tilladt",
+      "requiresAttention": "Kræver opmærksomhed",
+      "information": "Information",
+      "restricted": "Begrænset adgang",
+      "verified": "Verificeret",
+      "waiting": "Venter"
+    },
+    "links": {
+      "ecosystem": "Ecosystem Marketplace",
+      "growthPartners": "Growth Partner Operations"
+    }
   },
   "autonomousOrganizationCenter": {
     "title": "Autonom organisation",
@@ -4931,15 +5258,34 @@
       "autonomousPerformance": "Autonom ydeevne",
       "governanceControls": "Styringskontroller"
     },
-    "delegationFramework": { "title": "Delegeringsramme" },
-    "policyEngine": { "title": "Policy-motor" },
-    "humanOversightCenter": { "title": "Center for menneskelig tilsyn" },
-    "autonomousSupportOperations": { "title": "Autonome supportoperationer" },
-    "autonomousAdminOperations": { "title": "Autonome administrative operationer" },
-    "autonomousPerformanceDashboard": { "title": "Dashboard for autonom ydeevne" },
-    "executiveAutonomyDashboard": { "title": "Executive autonomi-dashboard" },
-    "autonomyLevels": { "title": "Autonominiveauer" },
-    "companionAdvisor": { "title": "Companion delegeringsrådgiver", "reason": "Hvorfor Aipify anbefaler dette" },
+    "delegationFramework": {
+      "title": "Delegeringsramme"
+    },
+    "policyEngine": {
+      "title": "Policy-motor"
+    },
+    "humanOversightCenter": {
+      "title": "Center for menneskelig tilsyn"
+    },
+    "autonomousSupportOperations": {
+      "title": "Autonome supportoperationer"
+    },
+    "autonomousAdminOperations": {
+      "title": "Autonome administrative operationer"
+    },
+    "autonomousPerformanceDashboard": {
+      "title": "Dashboard for autonom ydeevne"
+    },
+    "executiveAutonomyDashboard": {
+      "title": "Executive autonomi-dashboard"
+    },
+    "autonomyLevels": {
+      "title": "Autonominiveauer"
+    },
+    "companionAdvisor": {
+      "title": "Companion delegeringsrådgiver",
+      "reason": "Hvorfor Aipify anbefaler dette"
+    },
     "enterpriseControls": {
       "title": "Enterprise-kontroller",
       "enabled": "Autonomi aktiveret",
@@ -5000,15 +5346,34 @@
       "longTermPlanning": "Langsigtet planlægning",
       "scenarioAnalysis": "Scenarioanalyse"
     },
-    "executiveBoardDashboard": { "title": "Executive Board Dashboard" },
-    "strategicOpportunityEngine": { "title": "Strategisk mulighedsmotor" },
-    "strategicRiskEngine": { "title": "Strategisk risikomotor" },
-    "boardRecommendations": { "title": "Bestyrelsesanbefalinger" },
-    "scenarioPlanning": { "title": "Scenarieplanlægning" },
-    "boardMeetingPreparation": { "title": "Bestyrelsesmødeforberedelse" },
-    "strategicTimeline": { "title": "Strategisk tidslinje" },
-    "longTermPlanningEngine": { "title": "Langsigtet planlægningsmotor" },
-    "companionAdvisor": { "title": "Companion Executive Advisor", "evidence": "Understøttende evidens" },
+    "executiveBoardDashboard": {
+      "title": "Executive Board Dashboard"
+    },
+    "strategicOpportunityEngine": {
+      "title": "Strategisk mulighedsmotor"
+    },
+    "strategicRiskEngine": {
+      "title": "Strategisk risikomotor"
+    },
+    "boardRecommendations": {
+      "title": "Bestyrelsesanbefalinger"
+    },
+    "scenarioPlanning": {
+      "title": "Scenarieplanlægning"
+    },
+    "boardMeetingPreparation": {
+      "title": "Bestyrelsesmødeforberedelse"
+    },
+    "strategicTimeline": {
+      "title": "Strategisk tidslinje"
+    },
+    "longTermPlanningEngine": {
+      "title": "Langsigtet planlægningsmotor"
+    },
+    "companionAdvisor": {
+      "title": "Companion Executive Advisor",
+      "evidence": "Understøttende evidens"
+    },
     "governanceControls": {
       "title": "Styringskontroller",
       "enabled": "Board intelligence aktiveret",
@@ -5067,17 +5432,40 @@
       "approvalCenter": "Godkendelsescenter",
       "policyCenter": "Policy-center"
     },
-    "governanceFramework": { "title": "Styringsramme" },
-    "trustScoreEngine": { "title": "Trust Score Engine" },
-    "policyManagement": { "title": "Policy-administration" },
-    "universalAuditLayer": { "title": "Universal Audit Layer" },
-    "explainabilityEngine": { "title": "Explainability Engine" },
-    "complianceCenter": { "title": "Compliance-center" },
-    "approvalIntelligence": { "title": "Approval Intelligence" },
-    "executiveTrustDashboard": { "title": "Executive Trust Dashboard" },
-    "companionAdvisor": { "title": "Companion Trust Advisor", "context": "Kontekst" },
-    "enterpriseTransparencyMode": { "title": "Enterprise Transparency Mode" },
-    "governanceApis": { "title": "Governance APIs" },
+    "governanceFramework": {
+      "title": "Styringsramme"
+    },
+    "trustScoreEngine": {
+      "title": "Trust Score Engine"
+    },
+    "policyManagement": {
+      "title": "Policy-administration"
+    },
+    "universalAuditLayer": {
+      "title": "Universal Audit Layer"
+    },
+    "explainabilityEngine": {
+      "title": "Explainability Engine"
+    },
+    "complianceCenter": {
+      "title": "Compliance-center"
+    },
+    "approvalIntelligence": {
+      "title": "Approval Intelligence"
+    },
+    "executiveTrustDashboard": {
+      "title": "Executive Trust Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Trust Advisor",
+      "context": "Kontekst"
+    },
+    "enterpriseTransparencyMode": {
+      "title": "Enterprise Transparency Mode"
+    },
+    "governanceApis": {
+      "title": "Governance APIs"
+    },
     "governanceControls": {
       "title": "Styringskontroller",
       "enabled": "Trust Center aktiveret",
@@ -5138,16 +5526,37 @@
       "knowledgeTimeline": "Videnstidslinje",
       "corporateIntelligence": "Corporate Intelligence"
     },
-    "memoryEngine": { "title": "Memory Engine" },
-    "organizationalTimeline": { "title": "Organisationstidslinje" },
-    "decisionMemory": { "title": "Beslutningshukommelse" },
-    "corporateKnowledgeGraph": { "title": "Corporate Knowledge Graph" },
-    "lessonsLearnedEngine": { "title": "Lessons Learned Engine" },
-    "historicalSearch": { "title": "Historisk søgning" },
-    "executiveMemoryDashboard": { "title": "Executive Memory Dashboard" },
-    "companionHistorian": { "title": "Companion Corporate Historian", "evidence": "Understøttende evidens" },
-    "corporateIntelligenceLayer": { "title": "Corporate Intelligence Layer" },
-    "knowledgePreservation": { "title": "Vidensbevaring" },
+    "memoryEngine": {
+      "title": "Memory Engine"
+    },
+    "organizationalTimeline": {
+      "title": "Organisationstidslinje"
+    },
+    "decisionMemory": {
+      "title": "Beslutningshukommelse"
+    },
+    "corporateKnowledgeGraph": {
+      "title": "Corporate Knowledge Graph"
+    },
+    "lessonsLearnedEngine": {
+      "title": "Lessons Learned Engine"
+    },
+    "historicalSearch": {
+      "title": "Historisk søgning"
+    },
+    "executiveMemoryDashboard": {
+      "title": "Executive Memory Dashboard"
+    },
+    "companionHistorian": {
+      "title": "Companion Corporate Historian",
+      "evidence": "Understøttende evidens"
+    },
+    "corporateIntelligenceLayer": {
+      "title": "Corporate Intelligence Layer"
+    },
+    "knowledgePreservation": {
+      "title": "Vidensbevaring"
+    },
     "governanceControls": {
       "title": "Styringskontroller",
       "enabled": "Corporate Brain aktiveret",
@@ -5200,16 +5609,37 @@
       "longTermTrends": "Langsigtede tendenser",
       "emergingSignals": "Fremvoksende signaler"
     },
-    "awarenessEngine": { "title": "Awareness Engine" },
-    "organizationalAlignmentAnalysis": { "title": "Organisatorisk justeringsanalyse" },
-    "strategicAwarenessLayer": { "title": "Strategisk bevidsthedslag" },
-    "organizationalNarrativeEngine": { "title": "Organisatorisk narrativmotor" },
-    "emergingSignalDetection": { "title": "Detektion af fremvoksende signaler" },
-    "organizationalCoherenceEngine": { "title": "Organisatorisk koherensmotor" },
-    "executiveAwarenessDashboard": { "title": "Executive Awareness Dashboard" },
-    "companionAdvisor": { "title": "Companion Strategic Advisor", "evidence": "Støtteevidens" },
-    "longTermIntelligenceLayer": { "title": "Langsigtet intelligenslag" },
-    "reflectionEngine": { "title": "Refleksionsmotor" },
+    "awarenessEngine": {
+      "title": "Awareness Engine"
+    },
+    "organizationalAlignmentAnalysis": {
+      "title": "Organisatorisk justeringsanalyse"
+    },
+    "strategicAwarenessLayer": {
+      "title": "Strategisk bevidsthedslag"
+    },
+    "organizationalNarrativeEngine": {
+      "title": "Organisatorisk narrativmotor"
+    },
+    "emergingSignalDetection": {
+      "title": "Detektion af fremvoksende signaler"
+    },
+    "organizationalCoherenceEngine": {
+      "title": "Organisatorisk koherensmotor"
+    },
+    "executiveAwarenessDashboard": {
+      "title": "Executive Awareness Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Strategic Advisor",
+      "evidence": "Støtteevidens"
+    },
+    "longTermIntelligenceLayer": {
+      "title": "Langsigtet intelligenslag"
+    },
+    "reflectionEngine": {
+      "title": "Refleksionsmotor"
+    },
     "governanceControls": {
       "title": "Styringskontroller",
       "enabled": "Organisationsbevidsthed aktiveret",
@@ -5268,15 +5698,34 @@
       "industryRisks": "Brancherisici",
       "industryBenchmarks": "Branchereferencer"
     },
-    "industryProfiles": { "title": "Brancheprofiler" },
-    "marketMonitoringEngine": { "title": "Market Monitoring Engine" },
-    "competitiveIntelligence": { "title": "Konkurrenceintelligens" },
-    "regulatoryIntelligence": { "title": "Regulatorisk intelligens" },
-    "industryBenchmarkEngine": { "title": "Industry Benchmark Engine" },
-    "opportunityDetection": { "title": "Mulighedsdetektion" },
-    "executiveIndustryDashboard": { "title": "Executive Industry Dashboard" },
-    "companionAdvisor": { "title": "Companion Industry Advisor", "evidence": "Støtteevidens" },
-    "businessPackAwareness": { "title": "Business Pack Awareness" },
+    "industryProfiles": {
+      "title": "Brancheprofiler"
+    },
+    "marketMonitoringEngine": {
+      "title": "Market Monitoring Engine"
+    },
+    "competitiveIntelligence": {
+      "title": "Konkurrenceintelligens"
+    },
+    "regulatoryIntelligence": {
+      "title": "Regulatorisk intelligens"
+    },
+    "industryBenchmarkEngine": {
+      "title": "Industry Benchmark Engine"
+    },
+    "opportunityDetection": {
+      "title": "Mulighedsdetektion"
+    },
+    "executiveIndustryDashboard": {
+      "title": "Executive Industry Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Industry Advisor",
+      "evidence": "Støtteevidens"
+    },
+    "businessPackAwareness": {
+      "title": "Business Pack Awareness"
+    },
     "governanceControls": {
       "title": "Styringskontroller",
       "enabled": "Brancheintelligens aktiveret",
@@ -5333,15 +5782,34 @@
       "economicRisks": "Økonomiske risici",
       "economicOpportunities": "Økonomiske muligheder"
     },
-    "economicMonitoringEngine": { "title": "Economic Monitoring Engine" },
-    "regionalEconomicIntelligence": { "title": "Regional økonomisk intelligens" },
-    "businessImpactEngine": { "title": "Business Impact Engine" },
-    "consumerSpendingIntelligence": { "title": "Forbrugerforbrugsintelligens" },
-    "hiringWorkforceIntelligence": { "title": "Ansættelse og arbejdsstyrke" },
-    "economicOpportunityEngine": { "title": "Økonomisk mulighedsmotor" },
-    "executiveEconomicDashboard": { "title": "Executive Economic Dashboard" },
-    "companionAdvisor": { "title": "Companion Economic Advisor", "evidence": "Støtteevidens" },
-    "scenarioModeling": { "title": "Scenariemodellering" },
+    "economicMonitoringEngine": {
+      "title": "Economic Monitoring Engine"
+    },
+    "regionalEconomicIntelligence": {
+      "title": "Regional økonomisk intelligens"
+    },
+    "businessImpactEngine": {
+      "title": "Business Impact Engine"
+    },
+    "consumerSpendingIntelligence": {
+      "title": "Forbrugerforbrugsintelligens"
+    },
+    "hiringWorkforceIntelligence": {
+      "title": "Ansættelse og arbejdsstyrke"
+    },
+    "economicOpportunityEngine": {
+      "title": "Økonomisk mulighedsmotor"
+    },
+    "executiveEconomicDashboard": {
+      "title": "Executive Economic Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Economic Advisor",
+      "evidence": "Støtteevidens"
+    },
+    "scenarioModeling": {
+      "title": "Scenariemodellering"
+    },
     "governanceControls": {
       "title": "Styringskontroller",
       "enabled": "Økonomisk intelligens aktiveret",
@@ -5398,15 +5866,34 @@
       "emergingDemand": "Fremvoksende efterspørgsel",
       "marketForecasts": "Markedsprognoser"
     },
-    "marketMonitoringEngine": { "title": "Market Monitoring Engine" },
-    "customerBehaviorIntelligence": { "title": "Kundeadfærdsintelligens" },
-    "opportunityDiscoveryEngine": { "title": "Opportunity Discovery Engine" },
-    "marketGapDetection": { "title": "Market Gap Detection" },
-    "geographicExpansionIntelligence": { "title": "Geografisk ekspansionsintelligens" },
-    "revenueOpportunityEngine": { "title": "Revenue Opportunity Engine" },
-    "executiveMarketDashboard": { "title": "Executive Market Dashboard" },
-    "companionAdvisor": { "title": "Companion Market Advisor", "evidence": "Støtteevidens" },
-    "forecastingEngine": { "title": "Prognosemotor" },
+    "marketMonitoringEngine": {
+      "title": "Market Monitoring Engine"
+    },
+    "customerBehaviorIntelligence": {
+      "title": "Kundeadfærdsintelligens"
+    },
+    "opportunityDiscoveryEngine": {
+      "title": "Opportunity Discovery Engine"
+    },
+    "marketGapDetection": {
+      "title": "Market Gap Detection"
+    },
+    "geographicExpansionIntelligence": {
+      "title": "Geografisk ekspansionsintelligens"
+    },
+    "revenueOpportunityEngine": {
+      "title": "Revenue Opportunity Engine"
+    },
+    "executiveMarketDashboard": {
+      "title": "Executive Market Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Market Advisor",
+      "evidence": "Støtteevidens"
+    },
+    "forecastingEngine": {
+      "title": "Prognosemotor"
+    },
     "governanceControls": {
       "title": "Styringskontroller",
       "enabled": "Markedsintelligens aktiveret",
@@ -5472,16 +5959,37 @@
       "expansionOpportunities": "Ekspansionsmuligheder",
       "expansionRoadmaps": "Ekspansionsvejkort"
     },
-    "countryIntelligenceEngine": { "title": "Landintelligensmotor" },
-    "localizationIntelligence": { "title": "Lokaliseringsintelligens" },
-    "marketEntryAnalysis": { "title": "Markedsindtrædelsesanalyse" },
-    "expansionReadinessEngine": { "title": "Ekspansionsberedskabsscore" },
-    "regulatoryIntelligence": { "title": "Regulatorisk intelligens" },
-    "internationalOperationsIntelligence": { "title": "International driftsintelligens" },
-    "expansionOpportunities": { "title": "Ekspansionsmuligheder" },
-    "executiveExpansionDashboard": { "title": "Ledelsesdashboard for ekspansion" },
-    "companionAdvisor": { "title": "Companion ekspansionsrådgiver", "evidence": "Understøttende bevis" },
-    "expansionSimulationEngine": { "title": "Ekspansionssimuleringsmotor" },
+    "countryIntelligenceEngine": {
+      "title": "Landintelligensmotor"
+    },
+    "localizationIntelligence": {
+      "title": "Lokaliseringsintelligens"
+    },
+    "marketEntryAnalysis": {
+      "title": "Markedsindtrædelsesanalyse"
+    },
+    "expansionReadinessEngine": {
+      "title": "Ekspansionsberedskabsscore"
+    },
+    "regulatoryIntelligence": {
+      "title": "Regulatorisk intelligens"
+    },
+    "internationalOperationsIntelligence": {
+      "title": "International driftsintelligens"
+    },
+    "expansionOpportunities": {
+      "title": "Ekspansionsmuligheder"
+    },
+    "executiveExpansionDashboard": {
+      "title": "Ledelsesdashboard for ekspansion"
+    },
+    "companionAdvisor": {
+      "title": "Companion ekspansionsrådgiver",
+      "evidence": "Understøttende bevis"
+    },
+    "expansionSimulationEngine": {
+      "title": "Ekspansionssimuleringsmotor"
+    },
     "governanceControls": {
       "title": "Styringskontroller",
       "enabled": "Global ekspansionsintelligens aktiveret",
@@ -14798,6 +15306,128 @@
       "companionRecommendations": "Companion-anbefalinger"
     }
   },
+  "businessContinuity": {
+    "title": "Kontinuitetscenter",
+    "subtitle": "Organisatorisk kontinuitet, kriseberedskab og operationel genopretning — forbered, reager, genopret og lær uden at omgå governance.",
+    "principle": "Succesfulde organisationer defineres af, hvordan de reagerer ved forstyrrelser — Aipify forbereder, koordinerer og understøtter genopretning, mens mennesker beholder kontrollen.",
+    "privacyNote": "Forretningskontinuitet bruger kun godkendt metadata. Krisetilstand svækker aldrig godkendelseskrav eller tværgående isolation.",
+    "loading": "Indlæser",
+    "empty": "Kontinuitetscenter er ikke tilgængeligt for denne organisation.",
+    "refresh": "Opdater",
+    "noRecords": "Ingen poster endnu.",
+    "companionRecommendations": "Companion-kontinuitetsanbefalinger",
+    "executiveDashboard": "Ledelseskontinuitetsdashboard",
+    "continuityStatus": "Kontinuitetsstatus",
+    "readinessScore": "Beredskabsscore",
+    "phaseIntegrations": "Faseintegrationer",
+    "governanceRules": "Governance-regler",
+    "crisisDashboard": "Kriseoperationsdashboard",
+    "recoveryBoard": "Genoprettelsesopgavetavle",
+    "openCrisisDashboard": "Åbn krise-dashboard",
+    "openRecoveryBoard": "Åbn genoprettelsestavle",
+    "sections": {
+      "overview": "Oversigt",
+      "plans": "Kontinuitetsplaner",
+      "criticalOperations": "Kritiske operationer",
+      "businessImpact": "Forretningspåvirkning",
+      "crisisMode": "Krisetilstand",
+      "recoveryPlans": "Genoprettelsesplaner",
+      "emergencyContacts": "Nødkontakter",
+      "communication": "Kommunikation",
+      "dependencies": "Afhængigheder",
+      "exercises": "Øvelser",
+      "evidence": "Bevis",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "continuityScopes": "Kontinuitetsomfang",
+      "biaAssessments": "BIA-vurderinger",
+      "continuityPlans": "Kontinuitetsplaner",
+      "dependencies": "Afhængigheder",
+      "emergencyContacts": "Nødkontakter",
+      "exercises": "Øvelser",
+      "recoveryPlans": "Genoprettelsesplaner"
+    },
+    "executive": {
+      "readinessScore": "Beredskabsscore",
+      "activePlans": "Aktive planer",
+      "criticalOperations": "Kritiske operationer",
+      "singlePointsOfFailure": "Enkeltfejlpunkter",
+      "crisisModeStatus": "Krisetilstandsstatus",
+      "recoveryPlansReady": "Genoprettelsesplaner klar"
+    },
+    "groups": {
+      "continuityPlans": "Kontinuitetsplaner",
+      "planReviewCycles": "Plan-gennemgangscyklusser",
+      "criticalOperations": "Kritiske operationer",
+      "continuityScopes": "Kontinuitetsomfang",
+      "businessImpact": "Forretningspåvirkningsvurderinger",
+      "recoveryObjectives": "Genoprettelsesmål",
+      "crisisModes": "Krisetilstande",
+      "crisisCommand": "Krisekommando",
+      "crisisTimeline": "Krisetidslinje",
+      "crisisDecisions": "Beslutningslog",
+      "minimumOperating": "Minimum driftsmodus",
+      "temporaryWorkflows": "Midlertidige arbejdsgange",
+      "recoveryPlans": "Genoprettelsesplaner",
+      "recoveryTasks": "Genoprettelsesopgaver",
+      "returnToNormal": "Tilbage til normal",
+      "postCrisisReviews": "Efterkrisegennemgange",
+      "emergencyContacts": "Nødkontakter",
+      "communications": "Kommunikationskontinuitet",
+      "dependencies": "Afhængigheder",
+      "supplierContinuity": "Leverandørkontinuitet",
+      "connectedApps": "Tilkoblede apps",
+      "domainContinuity": "Domænekontinuitet",
+      "exercises": "Kontinuitetsøvelser",
+      "readinessScores": "Beredskabsscorer",
+      "criticalDocuments": "Kritiske dokumenter",
+      "dataContinuity": "Datakontinuitet",
+      "financialContinuity": "Finansiel kontinuitet",
+      "customerService": "Kundeservicekontinuitet",
+      "salesContinuity": "Salgskontinuitet",
+      "partnerCommission": "Partnerprovisionsbeskyttelse",
+      "reports": "Rapporter",
+      "auditRecent": "Seneste revisionshændelser"
+    }
+  },
+  "absenceCoverage": {
+    "title": "Fravær og kontinuitet",
+    "subtitle": "Ferietilstand, teamtilgængelighed og transparent Aipify-dækning — Slapp av, Aipify svarer for deg.",
+    "principle": "Aipify svarer transparent på dine vegne — uden at udgive sig for at være den fraværende person.",
+    "privacyNote": "Private fraværsårsager vises aldrig. Dækning er begrænset af organisationens policy.",
+    "loading": "Indlæser",
+    "empty": "Fraværcenter er ikke tilgængeligt for denne organisation.",
+    "refresh": "Opdater",
+    "companionRecommendations": "Ferieberedskabsanbefalinger",
+    "noRecords": "Ingen poster endnu.",
+    "maxCoverageLevel": "Max dækningsniveau",
+    "readinessScore": "Beredskabsscore",
+    "transparentNotice": "Transparent Aipify-meddelelse",
+    "settingsTitle": "Administratorpolitikker for fravær",
+    "settingsSubtitle": "Konfigurer max dækning, delegering, skabeloner, urgency og revision.",
+    "sections": {
+      "overview": "Overblik",
+      "myVacationMode": "Min ferietilstand",
+      "teamAvailability": "Teamtilgængelighed",
+      "coverage": "Dækning",
+      "delegation": "Delegering",
+      "aipifyResponses": "Aipify-svar",
+      "schedules": "Planer",
+      "policies": "Politikker",
+      "returnSummary": "Returresumé",
+      "history": "Historik",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "activeModes": "Aktive tilstande",
+      "teamAway": "Team væk",
+      "readinessScore": "Beredskabsscore",
+      "delegations": "Delegeringer",
+      "templates": "Svarskabeloner",
+      "leadContinuity": "Lead-kontinuitet"
+    }
+  },
   "customerSuccessOperations": {
     "title": "Kundesuccescenter",
     "subtitle": "Aktivering, adoption, ekspansion og retention — Aipify hjælper organisationen med målbar værdi.",
@@ -14898,6 +15528,240 @@
       "restricted": "Begrænset adgang",
       "verified": "Verificeret",
       "waiting": "Venter"
+    }
+  },
+  "systemHealth": {
+    "title": "Systemsundhed",
+    "subtitle": "Organisationens pålidelighed — tilsluttede apps, Business Packs, workflows, domæner og vedligeholdelse.",
+    "principle": "Organisationens sundhed på ét sted — kun lejerbegrænset metadata.",
+    "privacyNote": "Kun din organisation — ingen kryds-lejerdata eller platformhemmeligheder.",
+    "loading": "Indlæser",
+    "emptyState": "Systemsundhed er ikke tilgængelig for denne organisation.",
+    "refresh": "Opdater",
+    "back": "Tilbage",
+    "records": "Poster",
+    "companionRecommendations": "Aipify-anbefalinger",
+    "noRecords": "Ingen poster endnu.",
+    "overallHealth": "Samlet sundhedsscore",
+    "auditRecent": "Seneste aktivitet",
+    "sections": {
+      "overview": "Oversigt",
+      "connectedApps": "Tilsluttede apps",
+      "businessPacks": "Business Packs",
+      "workflows": "Workflows",
+      "domains": "Domæner",
+      "notifications": "Notifikationer",
+      "recentIncidents": "Seneste hændelser",
+      "maintenance": "Vedligeholdelse",
+      "support": "Support"
+    },
+    "status": {
+      "connected": "Tilsluttet",
+      "degraded": "Degraderet",
+      "disconnected": "Frakoblet",
+      "operational": "Operationel",
+      "valid": "Gyldig",
+      "expiring": "Udløber snart",
+      "healthy": "Sund",
+      "scheduled": "Planlagt",
+      "available": "Tilgængelig"
+    }
+  },
+  "timeAttendance": {
+    "title": "Tid og fremmøde",
+    "subtitle": "Tid, fremmøde, arbejdstid, fraværsadministration og lønforberedelse — privatliv først som standard.",
+    "principle": "Registered work, approved work, and leave are distinct — Aipify prepares; humans decide.",
+    "privacyNote": "Privacy-first attendance — no GPS, webcam, or keyboard monitoring by default.",
+    "distinctionNote": "Schedule ≠ Availability ≠ Attendance ≠ Registered Work ≠ Approved Work ≠ Leave ≠ Vacation Mode ≠ Payroll-Ready",
+    "loading": "Loading",
+    "empty": "Time & Attendance is not available for this organization.",
+    "refresh": "Refresh",
+    "noRecords": "No records yet.",
+    "companionRecommendations": "Companion Time Advisor",
+    "companionTimeAdvisor": "Companion Time Advisor",
+    "integrations": "Cross-phase integrations",
+    "attributionPreserved": "Customer, lead, referral, and commission attribution preserved.",
+    "sections": {
+      "overview": "Overblik",
+      "myTime": "Min tid",
+      "teamTime": "Teamtid",
+      "attendance": "Fremmøde",
+      "timesheets": "Timesedler",
+      "leave": "Orlov",
+      "balances": "Saldoer",
+      "overtime": "Overarbejde",
+      "corrections": "Korrektioner",
+      "approvals": "Godkendelser",
+      "payrollPreparation": "Lønforberedelse",
+      "projects": "Projekter",
+      "policies": "Politikker",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "hoursThisWeek": "Timer denne uge",
+      "pendingApprovals": "Afventende godkendelser",
+      "openCorrections": "Åbne korrektioner",
+      "leavePending": "Orlov afventer",
+      "payrollDrafts": "Lønudkast"
+    },
+    "leaveCenter": {
+      "title": "Orlovscenter",
+      "subtitle": "Anmod, godkend og følg orlov."
+    },
+    "payrollCenter": {
+      "title": "Lønforberedelsescenter",
+      "subtitle": "Valider lønklare timer og forbered eksport."
+    },
+    "policyCenter": {
+      "title": "Politikcenter",
+      "subtitle": "Politikker for tid, fremmøde og orlov."
+    }
+  },
+  "compensation": {
+    "title": "Kompensation og løninput",
+    "subtitle": "Medarbejderkompensation, provisioner, drikkepenge, bonusser og løninput — Aipify kører ikke løn.",
+    "principle": "Aipify forbereder løninput — mennesker godkender; eksterne systemer udbetaler.",
+    "privacyNote": "Medarbejderkompensation er tenant-afgrænset. Growth Partner-provisioner blandes aldrig med medarbejderløn.",
+    "distinctionNote": "Registreret arbejde → Godkendt → Verificeret indtægt → Provisionsberettiget → Lønklar → Eksporteret → Eksternt behandlet",
+    "loading": "Indlæser",
+    "empty": "Kompensationscenteret er ikke tilgængeligt for denne organisation.",
+    "refresh": "Opdater",
+    "noRecords": "Ingen poster endnu.",
+    "companionRecommendations": "Companion Compensation Advisor",
+    "companionCompensationAdvisor": "Companion Compensation Advisor",
+    "integrations": "Tværfaseintegrationer",
+    "growthPartnerSeparation": "Growth Partner-provisioner holdes separate fra medarbejderløn — aldrig blandet.",
+    "sections": {
+      "overview": "Overblik",
+      "employees": "Medarbejdere",
+      "compensationPlans": "Kompensationsplaner",
+      "commissions": "Provisioner",
+      "tips": "Drikkepenge",
+      "bonuses": "Bonusser",
+      "adjustments": "Justeringer",
+      "payrollPeriods": "Lønperioder",
+      "approvals": "Godkendelser",
+      "payrollInput": "Løninput",
+      "exports": "Eksporter",
+      "reconciliation": "Afstemning",
+      "policies": "Politikker",
+      "reports": "Rapporter",
+      "myCompensation": "Min kompensation",
+      "exceptions": "Undtagelser"
+    },
+    "stats": {
+      "commissionPending": "Provision afventer",
+      "payrollReady": "Lønklar",
+      "openExceptions": "Åbne undtagelser",
+      "pendingApprovals": "Afventende godkendelser",
+      "tipPoolsOpen": "Åbne drikkepengepuljer"
+    },
+    "planCenter": {
+      "title": "Provisionsplanscenter",
+      "subtitle": "Provisionsplaner, niveauer, lofter og berettigelse."
+    },
+    "payrollPeriodCenter": {
+      "title": "Lønperiodescenter",
+      "subtitle": "Lønperioder, låsning, genåbning og beredskabsvalidering."
+    },
+    "exceptionCenter": {
+      "title": "Undtagelsescenter",
+      "subtitle": "Lønundtagelser der blokerer beredskab — løs før periodelås."
+    },
+    "exportCenter": {
+      "title": "Løneksportcenter",
+      "subtitle": "Eksporter løninput med leverandørkortlægning og Fiken-forberedelse."
+    },
+    "policyCenter": {
+      "title": "Kompensationspolitikcenter",
+      "subtitle": "Kompensationspolitikker, ansvarsadskillelse og juridisk styring."
+    },
+    "myCompensation": {
+      "title": "Min kompensation",
+      "subtitle": "Din kompensationsforhåndsvisning — tvister er ikke straffende."
+    }
+  },
+  "appointmentBooking": {
+    "title": "Aftaler og services",
+    "subtitle": "Tidsbestilling, kalenderindtægter og kapacitet — Aipify hjælper transparent uden at udgive sig for dit team.",
+    "loading": "Indlæser",
+    "empty": "Bookingcentret er ikke tilgængeligt for denne organisation.",
+    "refresh": "Opdater",
+    "principle": "Aipify booker transparent — kunder ved altid at Aipify hjælper, aldrig medarbejdere.",
+    "privacyNote": "Private kalendertitler vises aldrig til kunder. Transaktionssikre holds forhindrer dobbeltbooking.",
+    "vacationMessage": "Slapp af – Aipify svarer, booker og fylder kalenderen",
+    "noRecords": "Ingen poster endnu.",
+    "companionRecommendations": "Companion-anbefalinger",
+    "bookingStatuses": "Bookingstatusser",
+    "auditRecent": "Seneste revisionshændelser",
+    "sections": {
+      "overview": "Overblik",
+      "calendar": "Kalender",
+      "appointments": "Aftaler",
+      "customers": "Kunder",
+      "services": "Services",
+      "employees": "Medarbejdere",
+      "locations": "Lokationer",
+      "resources": "Ressourcer",
+      "availability": "Tilgængelighed",
+      "waitingList": "Venteliste",
+      "payments": "Betalinger",
+      "vacationCoverage": "Feriedækning",
+      "policies": "Politikker",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "appointments": "Aftaler",
+      "waitingList": "Venteliste",
+      "services": "Services",
+      "calendarRevenue": "Kalenderindtægt",
+      "activeHolds": "Aktive holds"
+    }
+  },
+  "clientRelationships": {
+    "title": "Kunderelationer",
+    "subtitle": "Genbooking, loyalitet, retention og serviceindtægter — Aipify plejer relationer med respekt og samtykke.",
+    "principle": "Relationer vokser gennem respekt, samtykke og ret timing — aldrig manipulation.",
+    "privacyNote": "Kun metadata om kunderelationer — ingen rå kommunikation eller betalingsdata.",
+    "loading": "Indlæser",
+    "empty": "Kunderelationscenteret er ikke tilgængeligt for denne organisation.",
+    "refresh": "Opdater",
+    "healthScore": "Relationshelbred",
+    "companionRecommendations": "Companion-anbefalinger",
+    "companionAdvisor": "Companion Client Advisor",
+    "noRecords": "Ingen poster endnu.",
+    "humanReviewRequired": "Udgående kommunikation kræver menneskelig gennemgang før afsendelse.",
+    "phaseReuseNote": "Denne funktion genbruger en eksisterende fase-motor — ikke duplikeret her.",
+    "sections": {
+      "overview": "Oversigt",
+      "clients": "Kunder",
+      "journeys": "Kunderejser",
+      "rebooking": "Genbooking",
+      "retention": "Retention",
+      "loyalty": "Loyalitet",
+      "memberships": "Medlemskaber",
+      "packages": "Pakker",
+      "referrals": "Henvisninger",
+      "campaigns": "Kampagner",
+      "feedback": "Feedback",
+      "serviceRecovery": "Servicegenopretning",
+      "consent": "Samtykke",
+      "automation": "Automatisering",
+      "reports": "Rapporter"
+    },
+    "healthBand": {
+      "healthy": "Sund",
+      "attentionRequired": "Kræver opmærksomhed",
+      "atRisk": "I risiko"
+    },
+    "stats": {
+      "activeClients": "Aktive kunder",
+      "lapsedClients": "Inaktive kunder",
+      "pendingRebooking": "Afventende genbooking",
+      "openRetention": "Åbne retention-sager",
+      "loyaltyAccounts": "Loyalitetskonti",
+      "openRecovery": "Åbne recovery-sager",
+      "pendingReview": "Afventer gennemgang"
     }
   }
 }

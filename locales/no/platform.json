@@ -105,6 +105,8 @@
     "developerEcosystem": "Developer Portal",
     "developerCenter": "Developer Center",
     "ecosystemCenter": "Ecosystem Center",
+    "businessPackRuntime": "Pack Runtime",
+    "reliabilityOperations": "Reliability Operations",
     "platformHealth": "Platform Health",
     "deployments": "Deployments",
     "operationsAuditLogs": "Audit Logs",
@@ -171,7 +173,8 @@
     "moduleRegistry": "Module Registry",
     "marketingSeo": "SEO & Organic Discovery",
     "websiteIntelligence": "Website Intelligence",
-    "websiteGovernance": "Website Governance"
+    "websiteGovernance": "Website Governance",
+    "changeOperations": "Endringsoperasjoner"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -5357,6 +5360,88 @@
       "platformUsage": "Plattformsbruk"
     }
   },
+  "businessPackRuntime": {
+    "title": "Business Pack Runtime Center",
+    "subtitle": "Sikker utrulling, domeneverifisering, livssyklusstyring, helsesjekk, tilbakerullinger og hendelsesstyring for installerte Business Packs.",
+    "principle": "Business Packs kjører i sikker, leietakerisolert runtime — domeneverifisert og styrt av Aipify.",
+    "privacyNote": "Runtime Center viser kun utrullingsmetadata — ingen kundedata.",
+    "loading": "Forbereder Runtime Center…",
+    "emptyState": "Runtime Center-data er utilgjengelig.",
+    "refresh": "Oppdater",
+    "back": "Tilbake til plattform",
+    "records": "Poster",
+    "companionRecommendations": "Aipify-anbefalinger",
+    "noRecords": "Ingen poster i denne seksjonen ennå.",
+    "executiveDashboard": "Executive dashboard",
+    "auditRecent": "Nylige revisjonshendelser",
+    "reports": "Rapporter",
+    "viewInstances": "Alle instanser",
+    "sections": {
+      "overview": "Oversikt",
+      "installedPacks": "Installerte packs",
+      "deployments": "Utrullinger",
+      "versions": "Versjoner",
+      "health": "Helse",
+      "permissions": "Tillatelser",
+      "domains": "Domener",
+      "rollbacks": "Tilbakerullinger",
+      "incidents": "Hendelser",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "instances": "Runtime-instanser",
+      "healthChecks": "Helsesjekker",
+      "versions": "Versjonskatalog",
+      "strategies": "Utrullingsstrategier",
+      "sandboxes": "Sandbox-profiler"
+    },
+    "executive": {
+      "runtimeInstances": "Runtime-instanser",
+      "healthyInstances": "Sunne instanser",
+      "deployingInstances": "Utruller",
+      "openIncidents": "Åpne hendelser",
+      "verifiedDomains": "Verifiserte domener",
+      "rollbackSnapshots": "Tilbakerullingssnapshots",
+      "suspendedProviders": "Suspenderte leverandører"
+    }
+  },
+  "reliabilityOperations": {
+    "title": "Reliability Operations Center",
+    "subtitle": "Plattformsobservabilitet, selvhelbredelse, hendelseshåndtering, SLO-styring, vedlikehold og statuskommunikasjon.",
+    "principle": "Aipify observerer, korrelerer og helbreder trygt — mennesker godkjenner sensitiv gjenoppretting.",
+    "privacyNote": "Plattformomfattende pålitelighetsmetadata — kunde-APP ser kun leietakerbegrensede sammendrag.",
+    "loading": "Laster",
+    "emptyState": "Reliability Operations-data er utilgjengelig.",
+    "refresh": "Oppdater",
+    "back": "Tilbake til plattform",
+    "records": "Poster",
+    "companionRecommendations": "Aipify-anbefalinger",
+    "noRecords": "Ingen poster i denne seksjonen ennå.",
+    "executiveDashboard": "Executive reliability dashboard",
+    "auditRecent": "Nylige revisjonshendelser",
+    "reports": "Rapporter",
+    "sections": {
+      "overview": "Oversikt",
+      "services": "Tjenester",
+      "incidents": "Hendelser",
+      "healthSignals": "Helsesignaler",
+      "selfHealing": "Selvhelbredelse",
+      "dependencies": "Avhengigheter",
+      "serviceLevels": "Servicenivåer",
+      "maintenance": "Vedlikehold",
+      "statusCommunication": "Statuskommunikasjon",
+      "reports": "Rapporter"
+    },
+    "status": {
+      "operational": "Operativ",
+      "degraded": "Degradert",
+      "disruption": "Avbrudd",
+      "recovery": "Gjenoppretting",
+      "restricted": "Begrenset",
+      "verifiedRestored": "Verifisert gjenopprettet",
+      "plannedMaintenance": "Planlagt vedlikehold"
+    }
+  },
   "seoDashboard": {
     "title": "SEO & Organic Discovery",
     "subtitle": "Track public knowledge authority, content inventory, and organic growth foundations.",
@@ -5539,6 +5624,43 @@
       "seo_health": "SEO Health",
       "localization_coverage": "Localization Coverage",
       "conversion_paths": "Conversion Paths"
+    }
+  },
+  "changeOperations": {
+    "title": "Endringsoperasjonssenter",
+    "subtitle": "Utgivelsesstyring, endringsforespørsler, distribusjoner, godkjenninger, miljøer, bevis og Companion Change Advisor for plattformoperatører.",
+    "principle": "Hver produksjonsendring styres — segregert godkjenning, verifisert bevis og transparent kundekommunikasjon.",
+    "privacyNote": "Kun endringsmetadata — ingen kundedata i plattformstyringsvisninger.",
+    "loading": "Forbereder endringsoperasjonssenter…",
+    "emptyState": "Endringsoperasjonsdata er utilgjengelig.",
+    "refresh": "Oppdater",
+    "back": "Tilbake til plattform",
+    "records": "Poster",
+    "companionRecommendations": "Companion Change Advisor",
+    "noRecords": "Ingen poster i denne seksjonen ennå.",
+    "executiveDashboard": "Ledelsesdashboard for utgivelser",
+    "auditRecent": "Nylige revisjonshendelser",
+    "reports": "Rapporter",
+    "status": "Status",
+    "calendar": "Utgivelseskalender",
+    "history": "Endringshistorikk",
+    "advisory": "Endringsrådgivning",
+    "sections": {
+      "overview": "Oversikt",
+      "changeRequests": "Endringsforespørsler",
+      "releases": "Utgivelser",
+      "deployments": "Distribusjoner",
+      "approvals": "Godkjenninger",
+      "environments": "Miljøer",
+      "featureFlags": "Funksjonsflagg",
+      "databaseChanges": "Databaseendringer",
+      "emergencyChanges": "Nødendringer",
+      "rollback": "Tilbakerulling",
+      "evidence": "Bevis",
+      "reports": "Rapporter",
+      "calendar": "Utgivelseskalender",
+      "history": "Plattformhistorikk",
+      "advisory": "Endringsrådgivning"
     }
   }
 }

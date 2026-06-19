@@ -10,6 +10,34 @@
  *        node scripts/build-split.mjs --from 2   (skip typecheck + compile)
  */
 import { spawnSync } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+
+/**
+ * Next.js 16 compile phase renames `.next/server/proxy.js` → `middleware.js`.
+ * Generate phase expects `proxy.js` to exist and re-runs the rename — split builds fail with ENOENT without this.
+ */
+function prepareProxyArtifactForGeneratePhase() {
+  const serverDir = path.join(root, ".next", "server");
+  const proxyJs = path.join(serverDir, "proxy.js");
+  const middlewareJs = path.join(serverDir, "middleware.js");
+
+  if (!fs.existsSync(proxyJs) && fs.existsSync(middlewareJs)) {
+    fs.copyFileSync(middlewareJs, proxyJs);
+    console.log("Prepared proxy.js for generate phase (Next.js 16 split-build workaround).");
+  }
+
+  const proxyNft = path.join(serverDir, "proxy.js.nft.json");
+  const middlewareNft = path.join(serverDir, "middleware.js.nft.json");
+  if (!fs.existsSync(proxyNft) && fs.existsSync(middlewareNft)) {
+    const nft = JSON.parse(fs.readFileSync(middlewareNft, "utf8"));
+    nft.files = nft.files.map((file) => (file === "middleware.js" ? "proxy.js" : file));
+    fs.writeFileSync(proxyNft, JSON.stringify(nft));
+  }
+}
 
 const NODE_HEAP_COMPILE =
   process.env.AIPIFY_BUILD_HEAP_COMPILE ?? "--max-old-space-size=14336";
@@ -59,6 +87,9 @@ function runPhase(phase) {
 console.log(`Split build starting (phases ${fromPhase}–${phases.length})…`);
 
 for (let i = fromPhase - 1; i < phases.length; i++) {
+  if (phases[i].name === "Static generation") {
+    prepareProxyArtifactForGeneratePhase();
+  }
   runPhase(phases[i]);
 }
 

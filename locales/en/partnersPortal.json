@@ -15,7 +15,8 @@
     "academy": "Academy",
     "marketing": "Marketing",
     "performance": "Performance",
-    "account": "Account"
+    "account": "Account",
+    "scheduling": "Scheduling"
   },
   "nav": {
     "overview": "Overview",
@@ -44,7 +45,49 @@
     "profile": "Profile",
     "teamMembers": "Team Members",
     "notifications": "Notifications",
-    "settings": "Settings"
+    "settings": "Settings",
+    "workforceScheduling": "Workforce Scheduling",
+    "absenceCoverage": "Absence & Continuity",
+    "absenceSettings": "Absence policies",
+    "teamTime": "Team Time",
+    "businessContinuity": "Business Continuity"
+  },
+  "absenceCoverage": {
+    "title": "Absence & Continuity Center",
+    "subtitle": "Vacation mode, team availability, and transparent Aipify coverage — Slapp av, Aipify svarer for deg.",
+    "principle": "Aipify responds transparently on your behalf — never pretending to be the absent partner.",
+    "privacyNote": "Platform customer ownership and commission attribution are preserved during partner absence.",
+    "loading": "Loading",
+    "empty": "Absence Center is not available for this partner profile.",
+    "refresh": "Refresh",
+    "companionRecommendations": "Vacation readiness recommendations",
+    "noRecords": "No records yet.",
+    "maxCoverageLevel": "Maximum coverage level",
+    "readinessScore": "Readiness score",
+    "transparentNotice": "Transparent Aipify notice",
+    "settingsTitle": "Partner absence policies",
+    "settingsSubtitle": "Configure lead continuity, commission attribution, and transparent response templates.",
+    "sections": {
+      "overview": "Overview",
+      "myVacationMode": "My Vacation Mode",
+      "teamAvailability": "Team Availability",
+      "coverage": "Coverage",
+      "delegation": "Delegation",
+      "aipifyResponses": "Aipify Responses",
+      "schedules": "Schedules",
+      "policies": "Policies",
+      "returnSummary": "Return Summary",
+      "history": "History",
+      "reports": "Reports"
+    },
+    "stats": {
+      "activeModes": "Active modes",
+      "teamAway": "Team away",
+      "readinessScore": "Readiness score",
+      "delegations": "Delegations",
+      "templates": "Response templates",
+      "leadContinuity": "Lead continuity"
+    }
   },
   "dashboard": {
     "title": "Partners Dashboard",
@@ -244,6 +287,87 @@
       "recurringAnswer": "No. Commissions apply only to first-time purchases. No residual or lifetime commissions.",
       "selfBilling": "What is self-billing?",
       "selfBillingAnswer": "After you approve a settlement, Aipify Group AS generates a legally compliant invoice on behalf of your business, then processes payment as a supplier expense."
+    }
+  },
+  "workforceScheduling": {
+    "title": "Partner Workforce Scheduling",
+    "subtitle": "Coordinate partner shift coverage and on-call obligations while preserving customer ownership and commission attribution.",
+    "principle": "Partner scheduling preserves platform customer ownership — attribution and commission remain intact.",
+    "privacyNote": "Partner operational scheduling metadata only — no customer business content.",
+    "loading": "Preparing partner scheduling overview…",
+    "emptyState": "Partner scheduling is not available for your profile yet.",
+    "refresh": "Refresh",
+    "attributionNote": "Lead coverage preserves Growth Partner attribution and commission — customers remain platform-owned.",
+    "noRecords": "No partner scheduling records in this section yet.",
+    "sections": {
+      "overview": "Overview",
+      "shifts": "Shifts",
+      "coverage": "Coverage",
+      "onCall": "On-Call"
+    }
+  },
+  "teamTime": {
+    "title": "Team Time",
+    "subtitle": "Partner employee time and leave — attribution for customers, leads, referrals, and commissions is never altered.",
+    "principle": "Partner team time is separate from customer, lead, referral, and commission attribution.",
+    "privacyNote": "Partner employee time metadata only.",
+    "loading": "Loading",
+    "empty": "Team Time is not available for this partner profile.",
+    "refresh": "Refresh",
+    "noRecords": "No records yet.",
+    "attributionPreserved": "Customer, lead, referral, and commission attribution preserved.",
+    "sections": {
+      "overview": "Overview",
+      "team": "Team",
+      "time": "Time",
+      "leave": "Leave"
+    },
+    "stats": {
+      "teamSize": "Team size",
+      "hoursThisWeek": "Hours this week"
+    }
+  },
+  "businessContinuity": {
+    "title": "Business Continuity",
+    "subtitle": "Partner portfolio continuity — customer ownership stays with Platform; referral and commission protection preserved.",
+    "principle": "Growth Partners maintain portfolio continuity — Aipify protects attribution and commission without transferring customer ownership.",
+    "privacyNote": "Partner continuity shows portfolio metadata only. No access to customer internal systems or cross-partner data.",
+    "customerOwnershipNote": "Customers belong to Platform. Partners receive attribution and commission protection — never customer ownership.",
+    "loading": "Loading",
+    "empty": "Business Continuity is not available for this partner profile.",
+    "refresh": "Refresh",
+    "noRecords": "No records yet.",
+    "companionRecommendations": "Companion Continuity Recommendations",
+    "executiveDashboard": "Partner Continuity Dashboard",
+    "continuityStatus": "Continuity status",
+    "readinessScore": "Readiness score",
+    "sections": {
+      "overview": "Overview",
+      "portfolio": "Portfolio",
+      "commission": "Commission Protection",
+      "communications": "Communications",
+      "reports": "Reports"
+    },
+    "stats": {
+      "portfolioSegments": "Portfolio segments",
+      "commissionProtections": "Commission protections",
+      "referralContinuity": "Referral continuity",
+      "communications": "Communications"
+    },
+    "executive": {
+      "readinessScore": "Readiness score",
+      "portfolioCustomers": "Portfolio customers",
+      "commissionProtected": "Commission protected",
+      "referralsPreserved": "Referrals preserved"
+    },
+    "groups": {
+      "portfolioContinuity": "Portfolio continuity",
+      "commissionProtection": "Commission protection",
+      "referralContinuity": "Referral continuity",
+      "communications": "Crisis communications",
+      "readinessScores": "Readiness scores",
+      "reports": "Reports",
+      "auditRecent": "Recent audit events"
     }
   }
 }

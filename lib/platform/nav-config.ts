@@ -6,6 +6,9 @@ export type PlatformNavId =
   | "verifiedProviders"
   | "developerEcosystem"
   | "ecosystemCenter"
+  | "businessPackRuntime"
+  | "reliabilityOperations"
+  | "changeOperations"
   | "platformHealth"
   | "deployments"
   | "operationsAuditLogs"
@@ -273,6 +276,21 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     href: "/platform/ecosystem",
     labelKey: "platform.nav.ecosystemCenter",
   },
+  {
+    id: "businessPackRuntime",
+    href: "/platform/business-pack-runtime",
+    labelKey: "platform.nav.businessPackRuntime",
+  },
+  {
+    id: "reliabilityOperations",
+    href: "/platform/reliability",
+    labelKey: "platform.nav.reliabilityOperations",
+  },
+  {
+    id: "changeOperations",
+    href: "/platform/change-operations",
+    labelKey: "platform.nav.changeOperations",
+  },
   { id: "platformHealth", href: "/platform/operations/platform-health", labelKey: "platform.nav.platformHealth" },
   { id: "deployments", href: "/platform/operations/deployments", labelKey: "platform.nav.deployments" },
   { id: "operationsAuditLogs", href: "/platform/operations/audit-logs", labelKey: "platform.nav.operationsAuditLogs" },
@@ -530,6 +548,9 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/companion/personality")) return "companionPersonality";
   if (pathname.startsWith("/platform/developers")) return "developerEcosystem";
   if (pathname.startsWith("/platform/ecosystem")) return "ecosystemCenter";
+  if (pathname.startsWith("/platform/business-pack-runtime")) return "businessPackRuntime";
+  if (pathname.startsWith("/platform/reliability")) return "reliabilityOperations";
+  if (pathname.startsWith("/platform/change-operations")) return "changeOperations";
   if (pathname.startsWith("/platform/providers")) return "verifiedProviders";
   if (pathname.startsWith("/platform/operations/build-health")) return "buildHealthCenter";
   if (pathname.startsWith("/platform/operations/route-registry")) return "buildHealthCenter";

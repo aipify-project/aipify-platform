@@ -5435,7 +5435,9 @@
       "intelligenceOverview": "Intelligence Overview",
       "companionRecommendations": "Companion Recommendations"
     },
-    "executiveMissionControl": { "title": "Executive Mission Control" },
+    "executiveMissionControl": {
+      "title": "Executive Mission Control"
+    },
     "organizationRadar": {
       "title": "Organization Radar",
       "healthy": "Healthy areas",
@@ -5449,7 +5451,9 @@
       "thisWeek": "This Week",
       "thisMonth": "This Month"
     },
-    "unifiedEventStream": { "title": "Unified Event Stream" },
+    "unifiedEventStream": {
+      "title": "Unified Event Stream"
+    },
     "morningBriefing": {
       "title": "Executive Morning Briefing",
       "sinceLogin": "Since your last login",
@@ -5526,9 +5530,15 @@
       "workflowTemplates": "Workflow Templates",
       "orchestrationAnalytics": "Orchestration Analytics"
     },
-    "executiveDashboard": { "title": "Executive Orchestration Dashboard" },
-    "workflowOrchestration": { "title": "Workflow Orchestration" },
-    "approvalOrchestration": { "title": "Approval Orchestration" },
+    "executiveDashboard": {
+      "title": "Executive Orchestration Dashboard"
+    },
+    "workflowOrchestration": {
+      "title": "Workflow Orchestration"
+    },
+    "approvalOrchestration": {
+      "title": "Approval Orchestration"
+    },
     "automationRegistry": {
       "title": "Automation Registry",
       "running": "Running",
@@ -5536,11 +5546,23 @@
       "failed": "Failed",
       "waiting": "Waiting"
     },
-    "crossSystemActions": { "title": "Cross-System Actions" },
-    "businessPackOrchestration": { "title": "Business Pack Orchestration", "workflows": "Coordinated workflows" },
-    "dependencyManagement": { "title": "Dependency Management" },
-    "workflowTemplates": { "title": "Workflow Templates" },
-    "companionAdvisor": { "title": "Companion Workflow Assistant", "reason": "Why Aipify recommends this" },
+    "crossSystemActions": {
+      "title": "Cross-System Actions"
+    },
+    "businessPackOrchestration": {
+      "title": "Business Pack Orchestration",
+      "workflows": "Coordinated workflows"
+    },
+    "dependencyManagement": {
+      "title": "Dependency Management"
+    },
+    "workflowTemplates": {
+      "title": "Workflow Templates"
+    },
+    "companionAdvisor": {
+      "title": "Companion Workflow Assistant",
+      "reason": "Why Aipify recommends this"
+    },
     "actions": {
       "acknowledge": "Acknowledge",
       "dismiss": "Dismiss",
@@ -5590,11 +5612,21 @@
       "failedActions": "Failed Actions",
       "actionHistory": "Action History"
     },
-    "executiveDashboard": { "title": "Executive Action Dashboard" },
-    "actionRegistry": { "title": "Action Registry" },
-    "approvalEngine": { "title": "Approval Engine" },
-    "actionProviders": { "title": "Action Providers" },
-    "actionHistory": { "title": "Action History" },
+    "executiveDashboard": {
+      "title": "Executive Action Dashboard"
+    },
+    "actionRegistry": {
+      "title": "Action Registry"
+    },
+    "approvalEngine": {
+      "title": "Approval Engine"
+    },
+    "actionProviders": {
+      "title": "Action Providers"
+    },
+    "actionHistory": {
+      "title": "Action History"
+    },
     "companionRequests": {
       "title": "Companion Action Requests",
       "explanation": "Why Aipify recommends this",
@@ -5668,14 +5700,31 @@
       "certifications": "Certifications",
       "revenueSharing": "Revenue Sharing"
     },
-    "businessPackStore": { "title": "Business Pack Store" },
-    "integrationMarketplace": { "title": "Integration Marketplace" },
-    "solutionProviderDirectory": { "title": "Solution Provider Directory" },
-    "certificationFramework": { "title": "Certification Framework" },
-    "revenueSharingEngine": { "title": "Revenue Sharing Engine" },
-    "growthPartnerEcosystem": { "title": "Growth Partner Ecosystem" },
-    "ecosystemAnalytics": { "title": "Ecosystem Analytics" },
-    "companionAdvisor": { "title": "Companion Marketplace Assistant", "reason": "Why Aipify recommends this" },
+    "businessPackStore": {
+      "title": "Business Pack Store"
+    },
+    "integrationMarketplace": {
+      "title": "Integration Marketplace"
+    },
+    "solutionProviderDirectory": {
+      "title": "Solution Provider Directory"
+    },
+    "certificationFramework": {
+      "title": "Certification Framework"
+    },
+    "revenueSharingEngine": {
+      "title": "Revenue Sharing Engine"
+    },
+    "growthPartnerEcosystem": {
+      "title": "Growth Partner Ecosystem"
+    },
+    "ecosystemAnalytics": {
+      "title": "Ecosystem Analytics"
+    },
+    "companionAdvisor": {
+      "title": "Companion Marketplace Assistant",
+      "reason": "Why Aipify recommends this"
+    },
     "marketplaceSettings": {
       "title": "Marketplace Controls",
       "enabled": "Marketplace enabled",
@@ -5737,15 +5786,34 @@
       "introductions": "Introductions",
       "collaboration": "Collaboration"
     },
-    "organizationProfiles": { "title": "Organization Profiles" },
-    "verificationSystem": { "title": "Verification System" },
-    "opportunityMarketplace": { "title": "Opportunity Marketplace" },
-    "smartMatching": { "title": "Smart Matching" },
-    "trustedVendorDirectory": { "title": "Trusted Vendor Directory" },
-    "growthPartnerNetwork": { "title": "Growth Partner Network" },
-    "collaborationCenter": { "title": "Collaboration Center" },
-    "executiveDashboard": { "title": "Executive Network Dashboard" },
-    "companionAdvisor": { "title": "Companion Network Advisor", "reason": "Why Aipify recommends this" },
+    "organizationProfiles": {
+      "title": "Organization Profiles"
+    },
+    "verificationSystem": {
+      "title": "Verification System"
+    },
+    "opportunityMarketplace": {
+      "title": "Opportunity Marketplace"
+    },
+    "smartMatching": {
+      "title": "Smart Matching"
+    },
+    "trustedVendorDirectory": {
+      "title": "Trusted Vendor Directory"
+    },
+    "growthPartnerNetwork": {
+      "title": "Growth Partner Network"
+    },
+    "collaborationCenter": {
+      "title": "Collaboration Center"
+    },
+    "executiveDashboard": {
+      "title": "Executive Network Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Network Advisor",
+      "reason": "Why Aipify recommends this"
+    },
     "networkSettings": {
       "title": "Network Controls",
       "enabled": "Global network enabled",
@@ -5801,15 +5869,34 @@
       "autonomousPerformance": "Autonomous Performance",
       "governanceControls": "Governance Controls"
     },
-    "delegationFramework": { "title": "Delegation Framework" },
-    "policyEngine": { "title": "Policy Engine" },
-    "humanOversightCenter": { "title": "Human Oversight Center" },
-    "autonomousSupportOperations": { "title": "Autonomous Support Operations" },
-    "autonomousAdminOperations": { "title": "Autonomous Administrative Operations" },
-    "autonomousPerformanceDashboard": { "title": "Autonomous Performance Dashboard" },
-    "executiveAutonomyDashboard": { "title": "Executive Autonomy Dashboard" },
-    "autonomyLevels": { "title": "Autonomy Levels" },
-    "companionAdvisor": { "title": "Companion Delegation Advisor", "reason": "Why Aipify recommends this" },
+    "delegationFramework": {
+      "title": "Delegation Framework"
+    },
+    "policyEngine": {
+      "title": "Policy Engine"
+    },
+    "humanOversightCenter": {
+      "title": "Human Oversight Center"
+    },
+    "autonomousSupportOperations": {
+      "title": "Autonomous Support Operations"
+    },
+    "autonomousAdminOperations": {
+      "title": "Autonomous Administrative Operations"
+    },
+    "autonomousPerformanceDashboard": {
+      "title": "Autonomous Performance Dashboard"
+    },
+    "executiveAutonomyDashboard": {
+      "title": "Executive Autonomy Dashboard"
+    },
+    "autonomyLevels": {
+      "title": "Autonomy Levels"
+    },
+    "companionAdvisor": {
+      "title": "Companion Delegation Advisor",
+      "reason": "Why Aipify recommends this"
+    },
     "enterpriseControls": {
       "title": "Enterprise Controls",
       "enabled": "Autonomy enabled",
@@ -5870,15 +5957,34 @@
       "longTermPlanning": "Long-Term Planning",
       "scenarioAnalysis": "Scenario Analysis"
     },
-    "executiveBoardDashboard": { "title": "Executive Board Dashboard" },
-    "strategicOpportunityEngine": { "title": "Strategic Opportunity Engine" },
-    "strategicRiskEngine": { "title": "Strategic Risk Engine" },
-    "boardRecommendations": { "title": "Board Recommendations" },
-    "scenarioPlanning": { "title": "Scenario Planning" },
-    "boardMeetingPreparation": { "title": "Board Meeting Preparation" },
-    "strategicTimeline": { "title": "Strategic Timeline" },
-    "longTermPlanningEngine": { "title": "Long-Term Planning Engine" },
-    "companionAdvisor": { "title": "Companion Executive Advisor", "evidence": "Supporting evidence" },
+    "executiveBoardDashboard": {
+      "title": "Executive Board Dashboard"
+    },
+    "strategicOpportunityEngine": {
+      "title": "Strategic Opportunity Engine"
+    },
+    "strategicRiskEngine": {
+      "title": "Strategic Risk Engine"
+    },
+    "boardRecommendations": {
+      "title": "Board Recommendations"
+    },
+    "scenarioPlanning": {
+      "title": "Scenario Planning"
+    },
+    "boardMeetingPreparation": {
+      "title": "Board Meeting Preparation"
+    },
+    "strategicTimeline": {
+      "title": "Strategic Timeline"
+    },
+    "longTermPlanningEngine": {
+      "title": "Long-Term Planning Engine"
+    },
+    "companionAdvisor": {
+      "title": "Companion Executive Advisor",
+      "evidence": "Supporting evidence"
+    },
     "governanceControls": {
       "title": "Governance Controls",
       "enabled": "Board intelligence enabled",
@@ -5937,17 +6043,40 @@
       "approvalCenter": "Approval Center",
       "policyCenter": "Policy Center"
     },
-    "governanceFramework": { "title": "Governance Framework" },
-    "trustScoreEngine": { "title": "Trust Score Engine" },
-    "policyManagement": { "title": "Policy Management" },
-    "universalAuditLayer": { "title": "Universal Audit Layer" },
-    "explainabilityEngine": { "title": "Explainability Engine" },
-    "complianceCenter": { "title": "Compliance Center" },
-    "approvalIntelligence": { "title": "Approval Intelligence" },
-    "executiveTrustDashboard": { "title": "Executive Trust Dashboard" },
-    "companionAdvisor": { "title": "Companion Trust Advisor", "context": "Context" },
-    "enterpriseTransparencyMode": { "title": "Enterprise Transparency Mode" },
-    "governanceApis": { "title": "Governance APIs" },
+    "governanceFramework": {
+      "title": "Governance Framework"
+    },
+    "trustScoreEngine": {
+      "title": "Trust Score Engine"
+    },
+    "policyManagement": {
+      "title": "Policy Management"
+    },
+    "universalAuditLayer": {
+      "title": "Universal Audit Layer"
+    },
+    "explainabilityEngine": {
+      "title": "Explainability Engine"
+    },
+    "complianceCenter": {
+      "title": "Compliance Center"
+    },
+    "approvalIntelligence": {
+      "title": "Approval Intelligence"
+    },
+    "executiveTrustDashboard": {
+      "title": "Executive Trust Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Trust Advisor",
+      "context": "Context"
+    },
+    "enterpriseTransparencyMode": {
+      "title": "Enterprise Transparency Mode"
+    },
+    "governanceApis": {
+      "title": "Governance APIs"
+    },
     "governanceControls": {
       "title": "Governance Controls",
       "enabled": "Trust Center enabled",
@@ -6008,16 +6137,37 @@
       "knowledgeTimeline": "Knowledge Timeline",
       "corporateIntelligence": "Corporate Intelligence"
     },
-    "memoryEngine": { "title": "Memory Engine" },
-    "organizationalTimeline": { "title": "Organizational Timeline" },
-    "decisionMemory": { "title": "Decision Memory" },
-    "corporateKnowledgeGraph": { "title": "Corporate Knowledge Graph" },
-    "lessonsLearnedEngine": { "title": "Lessons Learned Engine" },
-    "historicalSearch": { "title": "Historical Search" },
-    "executiveMemoryDashboard": { "title": "Executive Memory Dashboard" },
-    "companionHistorian": { "title": "Companion Corporate Historian", "evidence": "Supporting evidence" },
-    "corporateIntelligenceLayer": { "title": "Corporate Intelligence Layer" },
-    "knowledgePreservation": { "title": "Knowledge Preservation" },
+    "memoryEngine": {
+      "title": "Memory Engine"
+    },
+    "organizationalTimeline": {
+      "title": "Organizational Timeline"
+    },
+    "decisionMemory": {
+      "title": "Decision Memory"
+    },
+    "corporateKnowledgeGraph": {
+      "title": "Corporate Knowledge Graph"
+    },
+    "lessonsLearnedEngine": {
+      "title": "Lessons Learned Engine"
+    },
+    "historicalSearch": {
+      "title": "Historical Search"
+    },
+    "executiveMemoryDashboard": {
+      "title": "Executive Memory Dashboard"
+    },
+    "companionHistorian": {
+      "title": "Companion Corporate Historian",
+      "evidence": "Supporting evidence"
+    },
+    "corporateIntelligenceLayer": {
+      "title": "Corporate Intelligence Layer"
+    },
+    "knowledgePreservation": {
+      "title": "Knowledge Preservation"
+    },
     "governanceControls": {
       "title": "Governance Controls",
       "enabled": "Corporate Brain enabled",
@@ -6070,16 +6220,37 @@
       "longTermTrends": "Long-Term Trends",
       "emergingSignals": "Emerging Signals"
     },
-    "awarenessEngine": { "title": "Awareness Engine" },
-    "organizationalAlignmentAnalysis": { "title": "Organizational Alignment Analysis" },
-    "strategicAwarenessLayer": { "title": "Strategic Awareness Layer" },
-    "organizationalNarrativeEngine": { "title": "Organizational Narrative Engine" },
-    "emergingSignalDetection": { "title": "Emerging Signal Detection" },
-    "organizationalCoherenceEngine": { "title": "Organizational Coherence Engine" },
-    "executiveAwarenessDashboard": { "title": "Executive Awareness Dashboard" },
-    "companionAdvisor": { "title": "Companion Strategic Advisor", "evidence": "Supporting evidence" },
-    "longTermIntelligenceLayer": { "title": "Long-Term Intelligence Layer" },
-    "reflectionEngine": { "title": "Reflection Engine" },
+    "awarenessEngine": {
+      "title": "Awareness Engine"
+    },
+    "organizationalAlignmentAnalysis": {
+      "title": "Organizational Alignment Analysis"
+    },
+    "strategicAwarenessLayer": {
+      "title": "Strategic Awareness Layer"
+    },
+    "organizationalNarrativeEngine": {
+      "title": "Organizational Narrative Engine"
+    },
+    "emergingSignalDetection": {
+      "title": "Emerging Signal Detection"
+    },
+    "organizationalCoherenceEngine": {
+      "title": "Organizational Coherence Engine"
+    },
+    "executiveAwarenessDashboard": {
+      "title": "Executive Awareness Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Strategic Advisor",
+      "evidence": "Supporting evidence"
+    },
+    "longTermIntelligenceLayer": {
+      "title": "Long-Term Intelligence Layer"
+    },
+    "reflectionEngine": {
+      "title": "Reflection Engine"
+    },
     "governanceControls": {
       "title": "Governance Controls",
       "enabled": "Organizational Consciousness enabled",
@@ -6138,15 +6309,34 @@
       "industryRisks": "Industry Risks",
       "industryBenchmarks": "Industry Benchmarks"
     },
-    "industryProfiles": { "title": "Industry Profiles" },
-    "marketMonitoringEngine": { "title": "Market Monitoring Engine" },
-    "competitiveIntelligence": { "title": "Competitive Intelligence" },
-    "regulatoryIntelligence": { "title": "Regulatory Intelligence" },
-    "industryBenchmarkEngine": { "title": "Industry Benchmark Engine" },
-    "opportunityDetection": { "title": "Opportunity Detection" },
-    "executiveIndustryDashboard": { "title": "Executive Industry Dashboard" },
-    "companionAdvisor": { "title": "Companion Industry Advisor", "evidence": "Supporting evidence" },
-    "businessPackAwareness": { "title": "Business Pack Awareness" },
+    "industryProfiles": {
+      "title": "Industry Profiles"
+    },
+    "marketMonitoringEngine": {
+      "title": "Market Monitoring Engine"
+    },
+    "competitiveIntelligence": {
+      "title": "Competitive Intelligence"
+    },
+    "regulatoryIntelligence": {
+      "title": "Regulatory Intelligence"
+    },
+    "industryBenchmarkEngine": {
+      "title": "Industry Benchmark Engine"
+    },
+    "opportunityDetection": {
+      "title": "Opportunity Detection"
+    },
+    "executiveIndustryDashboard": {
+      "title": "Executive Industry Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Industry Advisor",
+      "evidence": "Supporting evidence"
+    },
+    "businessPackAwareness": {
+      "title": "Business Pack Awareness"
+    },
     "governanceControls": {
       "title": "Governance Controls",
       "enabled": "Industry Intelligence enabled",
@@ -6203,15 +6393,34 @@
       "economicRisks": "Economic Risks",
       "economicOpportunities": "Economic Opportunities"
     },
-    "economicMonitoringEngine": { "title": "Economic Monitoring Engine" },
-    "regionalEconomicIntelligence": { "title": "Regional Economic Intelligence" },
-    "businessImpactEngine": { "title": "Business Impact Engine" },
-    "consumerSpendingIntelligence": { "title": "Consumer Spending Intelligence" },
-    "hiringWorkforceIntelligence": { "title": "Hiring & Workforce Intelligence" },
-    "economicOpportunityEngine": { "title": "Economic Opportunity Engine" },
-    "executiveEconomicDashboard": { "title": "Executive Economic Dashboard" },
-    "companionAdvisor": { "title": "Companion Economic Advisor", "evidence": "Supporting evidence" },
-    "scenarioModeling": { "title": "Scenario Modeling" },
+    "economicMonitoringEngine": {
+      "title": "Economic Monitoring Engine"
+    },
+    "regionalEconomicIntelligence": {
+      "title": "Regional Economic Intelligence"
+    },
+    "businessImpactEngine": {
+      "title": "Business Impact Engine"
+    },
+    "consumerSpendingIntelligence": {
+      "title": "Consumer Spending Intelligence"
+    },
+    "hiringWorkforceIntelligence": {
+      "title": "Hiring & Workforce Intelligence"
+    },
+    "economicOpportunityEngine": {
+      "title": "Economic Opportunity Engine"
+    },
+    "executiveEconomicDashboard": {
+      "title": "Executive Economic Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Economic Advisor",
+      "evidence": "Supporting evidence"
+    },
+    "scenarioModeling": {
+      "title": "Scenario Modeling"
+    },
     "governanceControls": {
       "title": "Governance Controls",
       "enabled": "Economic Intelligence enabled",
@@ -6268,15 +6477,34 @@
       "emergingDemand": "Emerging Demand",
       "marketForecasts": "Market Forecasts"
     },
-    "marketMonitoringEngine": { "title": "Market Monitoring Engine" },
-    "customerBehaviorIntelligence": { "title": "Customer Behavior Intelligence" },
-    "opportunityDiscoveryEngine": { "title": "Opportunity Discovery Engine" },
-    "marketGapDetection": { "title": "Market Gap Detection" },
-    "geographicExpansionIntelligence": { "title": "Geographic Expansion Intelligence" },
-    "revenueOpportunityEngine": { "title": "Revenue Opportunity Engine" },
-    "executiveMarketDashboard": { "title": "Executive Market Dashboard" },
-    "companionAdvisor": { "title": "Companion Market Advisor", "evidence": "Supporting evidence" },
-    "forecastingEngine": { "title": "Forecasting Engine" },
+    "marketMonitoringEngine": {
+      "title": "Market Monitoring Engine"
+    },
+    "customerBehaviorIntelligence": {
+      "title": "Customer Behavior Intelligence"
+    },
+    "opportunityDiscoveryEngine": {
+      "title": "Opportunity Discovery Engine"
+    },
+    "marketGapDetection": {
+      "title": "Market Gap Detection"
+    },
+    "geographicExpansionIntelligence": {
+      "title": "Geographic Expansion Intelligence"
+    },
+    "revenueOpportunityEngine": {
+      "title": "Revenue Opportunity Engine"
+    },
+    "executiveMarketDashboard": {
+      "title": "Executive Market Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Market Advisor",
+      "evidence": "Supporting evidence"
+    },
+    "forecastingEngine": {
+      "title": "Forecasting Engine"
+    },
     "governanceControls": {
       "title": "Governance Controls",
       "enabled": "Market Intelligence enabled",
@@ -6342,16 +6570,37 @@
       "expansionOpportunities": "Expansion Opportunities",
       "expansionRoadmaps": "Expansion Roadmaps"
     },
-    "countryIntelligenceEngine": { "title": "Country Intelligence Engine" },
-    "localizationIntelligence": { "title": "Localization Intelligence" },
-    "marketEntryAnalysis": { "title": "Market Entry Analysis" },
-    "expansionReadinessEngine": { "title": "Expansion Readiness Score" },
-    "regulatoryIntelligence": { "title": "Regulatory Intelligence" },
-    "internationalOperationsIntelligence": { "title": "International Operations Intelligence" },
-    "expansionOpportunities": { "title": "Expansion Opportunities" },
-    "executiveExpansionDashboard": { "title": "Executive Expansion Dashboard" },
-    "companionAdvisor": { "title": "Companion Expansion Advisor", "evidence": "Supporting evidence" },
-    "expansionSimulationEngine": { "title": "Expansion Simulation Engine" },
+    "countryIntelligenceEngine": {
+      "title": "Country Intelligence Engine"
+    },
+    "localizationIntelligence": {
+      "title": "Localization Intelligence"
+    },
+    "marketEntryAnalysis": {
+      "title": "Market Entry Analysis"
+    },
+    "expansionReadinessEngine": {
+      "title": "Expansion Readiness Score"
+    },
+    "regulatoryIntelligence": {
+      "title": "Regulatory Intelligence"
+    },
+    "internationalOperationsIntelligence": {
+      "title": "International Operations Intelligence"
+    },
+    "expansionOpportunities": {
+      "title": "Expansion Opportunities"
+    },
+    "executiveExpansionDashboard": {
+      "title": "Executive Expansion Dashboard"
+    },
+    "companionAdvisor": {
+      "title": "Companion Expansion Advisor",
+      "evidence": "Supporting evidence"
+    },
+    "expansionSimulationEngine": {
+      "title": "Expansion Simulation Engine"
+    },
     "governanceControls": {
       "title": "Governance Controls",
       "enabled": "Global Expansion Intelligence enabled",
@@ -15615,6 +15864,128 @@
       "companionRecommendations": "Companion recommendations"
     }
   },
+  "businessContinuity": {
+    "title": "Business Continuity Center",
+    "subtitle": "Organizational continuity, crisis readiness, and operational recovery — prepare, respond, recover, and learn without bypassing governance.",
+    "principle": "Successful organizations are defined by how they respond when disruption occurs — Aipify prepares, coordinates, and supports recovery while humans retain control.",
+    "privacyNote": "Business continuity uses approved metadata only. Crisis Mode never weakens approval requirements or cross-tenant isolation.",
+    "loading": "Loading",
+    "empty": "Business Continuity Center is not available for this organization.",
+    "refresh": "Refresh",
+    "noRecords": "No records yet.",
+    "companionRecommendations": "Companion Continuity Recommendations",
+    "executiveDashboard": "Executive Continuity Dashboard",
+    "continuityStatus": "Continuity status",
+    "readinessScore": "Readiness score",
+    "phaseIntegrations": "Phase integrations",
+    "governanceRules": "Governance rules",
+    "crisisDashboard": "Crisis Operations Dashboard",
+    "recoveryBoard": "Recovery Task Board",
+    "openCrisisDashboard": "Open Crisis Dashboard",
+    "openRecoveryBoard": "Open Recovery Board",
+    "sections": {
+      "overview": "Overview",
+      "plans": "Continuity Plans",
+      "criticalOperations": "Critical Operations",
+      "businessImpact": "Business Impact",
+      "crisisMode": "Crisis Mode",
+      "recoveryPlans": "Recovery Plans",
+      "emergencyContacts": "Emergency Contacts",
+      "communication": "Communication",
+      "dependencies": "Dependencies",
+      "exercises": "Exercises",
+      "evidence": "Evidence",
+      "reports": "Reports"
+    },
+    "stats": {
+      "continuityScopes": "Continuity scopes",
+      "biaAssessments": "BIA assessments",
+      "continuityPlans": "Continuity plans",
+      "dependencies": "Dependencies",
+      "emergencyContacts": "Emergency contacts",
+      "exercises": "Exercises",
+      "recoveryPlans": "Recovery plans"
+    },
+    "executive": {
+      "readinessScore": "Readiness score",
+      "activePlans": "Active plans",
+      "criticalOperations": "Critical operations",
+      "singlePointsOfFailure": "Single points of failure",
+      "crisisModeStatus": "Crisis mode status",
+      "recoveryPlansReady": "Recovery plans ready"
+    },
+    "groups": {
+      "continuityPlans": "Continuity plans",
+      "planReviewCycles": "Plan review cycles",
+      "criticalOperations": "Critical operations",
+      "continuityScopes": "Continuity scopes",
+      "businessImpact": "Business impact assessments",
+      "recoveryObjectives": "Recovery objectives",
+      "crisisModes": "Crisis modes",
+      "crisisCommand": "Crisis command structure",
+      "crisisTimeline": "Crisis timeline",
+      "crisisDecisions": "Decision log",
+      "minimumOperating": "Minimum operating mode",
+      "temporaryWorkflows": "Temporary workflows",
+      "recoveryPlans": "Recovery plans",
+      "recoveryTasks": "Recovery tasks",
+      "returnToNormal": "Return to normal",
+      "postCrisisReviews": "Post-crisis reviews",
+      "emergencyContacts": "Emergency contacts",
+      "communications": "Communication continuity",
+      "dependencies": "Dependencies",
+      "supplierContinuity": "Supplier continuity",
+      "connectedApps": "Connected app continuity",
+      "domainContinuity": "Domain continuity",
+      "exercises": "Continuity exercises",
+      "readinessScores": "Readiness scores",
+      "criticalDocuments": "Critical documents",
+      "dataContinuity": "Data continuity",
+      "financialContinuity": "Financial continuity",
+      "customerService": "Customer service continuity",
+      "salesContinuity": "Sales continuity",
+      "partnerCommission": "Partner commission protection",
+      "reports": "Reports",
+      "auditRecent": "Recent audit events"
+    }
+  },
+  "absenceCoverage": {
+    "title": "Absence & Continuity Center",
+    "subtitle": "Vacation mode, team availability, and transparent Aipify coverage — Slapp av, Aipify svarer for deg.",
+    "principle": "Aipify responds transparently on your behalf — never pretending to be the absent person.",
+    "privacyNote": "Private absence reasons are never exposed. Coverage is capped by organization policy.",
+    "loading": "Loading",
+    "empty": "Absence Center is not available for this organization.",
+    "refresh": "Refresh",
+    "companionRecommendations": "Vacation readiness recommendations",
+    "noRecords": "No records yet.",
+    "maxCoverageLevel": "Maximum coverage level",
+    "readinessScore": "Readiness score",
+    "transparentNotice": "Transparent Aipify notice",
+    "settingsTitle": "Absence administrator policies",
+    "settingsSubtitle": "Configure max coverage, delegation rules, templates, urgency, and audit for your organization.",
+    "sections": {
+      "overview": "Overview",
+      "myVacationMode": "My Vacation Mode",
+      "teamAvailability": "Team Availability",
+      "coverage": "Coverage",
+      "delegation": "Delegation",
+      "aipifyResponses": "Aipify Responses",
+      "schedules": "Schedules",
+      "policies": "Policies",
+      "returnSummary": "Return Summary",
+      "history": "History",
+      "reports": "Reports"
+    },
+    "stats": {
+      "activeModes": "Active modes",
+      "teamAway": "Team away",
+      "readinessScore": "Readiness score",
+      "delegations": "Delegations",
+      "templates": "Response templates",
+      "leadContinuity": "Lead continuity"
+    }
+  },
   "customerSuccessOperations": {
     "title": "Customer Success Center",
     "subtitle": "Activation, adoption, expansion, and retention — Aipify helps your organization achieve measurable value.",
@@ -15715,6 +16086,240 @@
       "restricted": "Restricted access",
       "verified": "Verified",
       "waiting": "Waiting"
+    }
+  },
+  "systemHealth": {
+    "title": "System Health",
+    "subtitle": "Your organization reliability — connected apps, Business Packs, workflows, domains, and maintenance visibility.",
+    "principle": "Your organization health at a glance — tenant-scoped metadata only; Aipify never exposes other customers or platform infrastructure secrets.",
+    "privacyNote": "Your organization only — no cross-tenant data, internal logs, or platform secrets.",
+    "loading": "Loading",
+    "emptyState": "System Health is not available for this organization.",
+    "refresh": "Refresh",
+    "back": "Back",
+    "records": "Records",
+    "companionRecommendations": "Aipify recommendations",
+    "noRecords": "No records in this section yet.",
+    "overallHealth": "Overall health score",
+    "auditRecent": "Recent activity",
+    "sections": {
+      "overview": "Overview",
+      "connectedApps": "Connected Apps",
+      "businessPacks": "Business Packs",
+      "workflows": "Workflows",
+      "domains": "Domains",
+      "notifications": "Notifications",
+      "recentIncidents": "Recent Incidents",
+      "maintenance": "Maintenance",
+      "support": "Support"
+    },
+    "status": {
+      "connected": "Connected",
+      "degraded": "Degraded",
+      "disconnected": "Disconnected",
+      "operational": "Operational",
+      "valid": "Valid",
+      "expiring": "Expiring soon",
+      "healthy": "Healthy",
+      "scheduled": "Scheduled",
+      "available": "Available"
+    }
+  },
+  "timeAttendance": {
+    "title": "Time & Attendance",
+    "subtitle": "Time, attendance, work hours, leave administration, and payroll preparation — privacy-first by default.",
+    "principle": "Registered work, approved work, and leave are distinct — Aipify prepares; humans decide.",
+    "privacyNote": "Privacy-first attendance — no GPS, webcam, or keyboard monitoring by default.",
+    "distinctionNote": "Schedule ≠ Availability ≠ Attendance ≠ Registered Work ≠ Approved Work ≠ Leave ≠ Vacation Mode ≠ Payroll-Ready",
+    "loading": "Loading",
+    "empty": "Time & Attendance is not available for this organization.",
+    "refresh": "Refresh",
+    "noRecords": "No records yet.",
+    "companionRecommendations": "Companion Time Advisor",
+    "companionTimeAdvisor": "Companion Time Advisor",
+    "integrations": "Cross-phase integrations",
+    "attributionPreserved": "Customer, lead, referral, and commission attribution preserved.",
+    "sections": {
+      "overview": "Overview",
+      "myTime": "My Time",
+      "teamTime": "Team Time",
+      "attendance": "Attendance",
+      "timesheets": "Timesheets",
+      "leave": "Leave",
+      "balances": "Balances",
+      "overtime": "Overtime",
+      "corrections": "Corrections",
+      "approvals": "Approvals",
+      "payrollPreparation": "Payroll Preparation",
+      "projects": "Projects",
+      "policies": "Policies",
+      "reports": "Reports"
+    },
+    "stats": {
+      "hoursThisWeek": "Hours this week",
+      "pendingApprovals": "Pending approvals",
+      "openCorrections": "Open corrections",
+      "leavePending": "Leave pending",
+      "payrollDrafts": "Payroll drafts"
+    },
+    "leaveCenter": {
+      "title": "Leave Management Center",
+      "subtitle": "Request, approve, and track leave — balances and accrual with Phase 606 vacation mode integration."
+    },
+    "payrollCenter": {
+      "title": "Payroll Preparation Center",
+      "subtitle": "Validate payroll-ready hours and prepare exports — Fiken, CSV, and API metadata connectors."
+    },
+    "policyCenter": {
+      "title": "Policy Center",
+      "subtitle": "Time, attendance, leave, and privacy policies with acknowledgement tracking."
+    }
+  },
+  "compensation": {
+    "title": "Compensation & Payroll Input",
+    "subtitle": "Employee compensation, commissions, tips, bonuses, and payroll input preparation — Aipify does not run payroll.",
+    "principle": "Aipify prepares payroll input — humans approve; external systems process pay.",
+    "privacyNote": "Employee compensation is tenant-scoped. Growth Partner commissions never mix with employee payroll.",
+    "distinctionNote": "Recorded work → Approved → Verified revenue → Commission-eligible → Payroll-ready → Exported → Externally processed",
+    "loading": "Loading",
+    "empty": "Compensation Center is not available for this organization.",
+    "refresh": "Refresh",
+    "noRecords": "No records yet.",
+    "companionRecommendations": "Companion Compensation Advisor",
+    "companionCompensationAdvisor": "Companion Compensation Advisor",
+    "integrations": "Cross-phase integrations",
+    "growthPartnerSeparation": "Growth Partner commissions remain separate from employee payroll — never mixed.",
+    "sections": {
+      "overview": "Overview",
+      "employees": "Employees",
+      "compensationPlans": "Compensation Plans",
+      "commissions": "Commissions",
+      "tips": "Tips",
+      "bonuses": "Bonuses",
+      "adjustments": "Adjustments",
+      "payrollPeriods": "Payroll Periods",
+      "approvals": "Approvals",
+      "payrollInput": "Payroll Input",
+      "exports": "Exports",
+      "reconciliation": "Reconciliation",
+      "policies": "Policies",
+      "reports": "Reports",
+      "myCompensation": "My Compensation",
+      "exceptions": "Exceptions"
+    },
+    "stats": {
+      "commissionPending": "Commission pending",
+      "payrollReady": "Payroll ready",
+      "openExceptions": "Open exceptions",
+      "pendingApprovals": "Pending approvals",
+      "tipPoolsOpen": "Tip pools open"
+    },
+    "planCenter": {
+      "title": "Commission Plan Center",
+      "subtitle": "Commission plans, tiers, caps, and eligibility — service, product, membership, and team rules."
+    },
+    "payrollPeriodCenter": {
+      "title": "Payroll Period Center",
+      "subtitle": "Payroll periods, locking, reopening, and readiness validation before export."
+    },
+    "exceptionCenter": {
+      "title": "Exception Center",
+      "subtitle": "Payroll exceptions blocking readiness — resolve before period lock."
+    },
+    "exportCenter": {
+      "title": "Payroll Export Center",
+      "subtitle": "Export payroll input with provider mapping, versioning, and Fiken prep signals."
+    },
+    "policyCenter": {
+      "title": "Compensation Policy Center",
+      "subtitle": "Compensation policies, segregation of duties, and legal governance."
+    },
+    "myCompensation": {
+      "title": "My Compensation",
+      "subtitle": "Your compensation preview, commissions, tips, and bonuses — disputes are non-punitive."
+    }
+  },
+  "appointmentBooking": {
+    "title": "Appointments & Services",
+    "subtitle": "Appointment booking, calendar revenue, and service capacity — Aipify assists transparently, never impersonating your team.",
+    "loading": "Loading",
+    "empty": "Appointment Booking Center is not available for this organization.",
+    "refresh": "Refresh",
+    "principle": "Aipify books transparently — customers always know Aipify assists, never your staff.",
+    "privacyNote": "Private calendar titles are never shown to customers. Transaction-safe slot holds prevent double-booking.",
+    "vacationMessage": "Slapp av – Aipify svarer, booker og fyller kalenderen",
+    "noRecords": "No records yet.",
+    "companionRecommendations": "Companion Recommendations",
+    "bookingStatuses": "Booking Statuses",
+    "auditRecent": "Recent audit events",
+    "sections": {
+      "overview": "Overview",
+      "calendar": "Calendar",
+      "appointments": "Appointments",
+      "customers": "Customers",
+      "services": "Services",
+      "employees": "Employees",
+      "locations": "Locations",
+      "resources": "Resources",
+      "availability": "Availability",
+      "waitingList": "Waiting List",
+      "payments": "Payments",
+      "vacationCoverage": "Vacation Coverage",
+      "policies": "Policies",
+      "reports": "Reports"
+    },
+    "stats": {
+      "appointments": "Appointments",
+      "waitingList": "Waiting list",
+      "services": "Services",
+      "calendarRevenue": "Calendar revenue",
+      "activeHolds": "Active holds"
+    }
+  },
+  "clientRelationships": {
+    "title": "Client Relationships",
+    "subtitle": "Rebooking, loyalty, retention, and service revenue — Aipify nurtures relationships with respect and consent.",
+    "principle": "Relationships grow through respect, consent, and timely care — never manipulation.",
+    "privacyNote": "Client relationship metadata only — no raw communications or payment records.",
+    "loading": "Loading",
+    "empty": "Client Relationship Center is not available for this organization.",
+    "refresh": "Refresh",
+    "healthScore": "Relationship health",
+    "companionRecommendations": "Companion Recommendations",
+    "companionAdvisor": "Companion Client Advisor",
+    "noRecords": "No records yet.",
+    "humanReviewRequired": "Outbound communications require human review before send.",
+    "phaseReuseNote": "This capability reuses an existing phase engine — not duplicated here.",
+    "sections": {
+      "overview": "Overview",
+      "clients": "Clients",
+      "journeys": "Customer Journeys",
+      "rebooking": "Rebooking",
+      "retention": "Retention",
+      "loyalty": "Loyalty",
+      "memberships": "Memberships",
+      "packages": "Packages",
+      "referrals": "Referrals",
+      "campaigns": "Campaigns",
+      "feedback": "Feedback",
+      "serviceRecovery": "Service Recovery",
+      "consent": "Consent",
+      "automation": "Automation",
+      "reports": "Reports"
+    },
+    "healthBand": {
+      "healthy": "Healthy",
+      "attentionRequired": "Attention Required",
+      "atRisk": "At Risk"
+    },
+    "stats": {
+      "activeClients": "Active clients",
+      "lapsedClients": "Lapsed clients",
+      "pendingRebooking": "Pending rebooking",
+      "openRetention": "Open retention cases",
+      "loyaltyAccounts": "Loyalty accounts",
+      "openRecovery": "Open recovery cases",
+      "pendingReview": "Pending review"
     }
   }
 }
