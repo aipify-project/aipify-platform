@@ -103,6 +103,8 @@
     "companionPersonality": "Companion Personality Center",
     "verifiedProviders": "Verifierat leverantörsregister",
     "developerEcosystem": "Developer Portal",
+    "developerCenter": "Developer Center",
+    "ecosystemCenter": "Ecosystem Center",
     "platformHealth": "Platform Health",
     "deployments": "Deployments",
     "operationsAuditLogs": "Audit Logs",
@@ -5007,6 +5009,83 @@
       "certifyExtension": "Certifiera tillägg",
       "approvePublisher": "Godkänn utgivare",
       "refreshAnalytics": "Uppdatera analys"
+    }
+  },
+  "ecosystemCenter": {
+    "title": "Ecosystem & Marketplace Governance",
+    "subtitle": "Provider registry, Business Pack publishing, certifications, marketplace governance, revenue sharing, and ecosystem intelligence.",
+    "principle": "One Aipify ecosystem — providers extend ABOS through certified Business Packs; governance and human accountability remain unchanged.",
+    "privacyNote": "Platform-wide aggregates only — provider operational data stays with providers and customers.",
+    "loading": "Preparing ecosystem center…",
+    "emptyState": "Ecosystem center data is unavailable.",
+    "refresh": "Refresh",
+    "back": "Back to platform",
+    "records": "Records",
+    "companionRecommendations": "Aipify recommendations",
+    "noRecords": "No records in this section yet.",
+    "executiveDashboard": "Executive dashboard",
+    "auditRecent": "Recent audit events",
+    "reports": "Reports",
+    "sections": {
+      "overview": "Overview",
+      "providers": "Providers",
+      "businessPacks": "Business Packs",
+      "certifications": "Certifications",
+      "marketplace": "Marketplace",
+      "reviews": "Reviews",
+      "revenue": "Revenue",
+      "governance": "Governance",
+      "reports": "Reports"
+    },
+    "scoreBand": {
+      "excellent": "Excellent",
+      "trusted": "Trusted",
+      "reviewNeeded": "Review needed",
+      "providerRisk": "Provider risk"
+    }
+  },
+  "developerCenter": {
+    "title": "Business Pack Developer Center",
+    "subtitle": "SDK, manifest, behörigheter, sandlådor, validering, API-register, publicering, certifiering och marknadsplats-pipeline för godkända pack-utvecklare.",
+    "principle": "Aipify tillhandahåller utvecklingsplattformen — godkända utvecklare bygger Business Packs som utökar ABOS under styrning, certifiering och mänskligt ansvar.",
+    "privacyNote": "Developer Platform aggregerar endast metadata — inga kunddata eller PII.",
+    "loading": "Förbereder Developer Center…",
+    "emptyState": "Developer Center-data är otillgänglig.",
+    "refresh": "Uppdatera",
+    "back": "Tillbaka till plattform",
+    "records": "Poster",
+    "companionRecommendations": "Aipify-rekommendationer",
+    "noRecords": "Inga poster i detta avsnitt ännu.",
+    "executiveDashboard": "Executive dashboard",
+    "auditRecent": "Senaste revisionshändelser",
+    "reports": "Rapporter",
+    "sections": {
+      "overview": "Översikt",
+      "projects": "Projekt",
+      "sdk": "SDK",
+      "api": "API",
+      "testing": "Testning",
+      "publishing": "Publicering",
+      "marketplace": "Marknadsplats",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "developers": "Registrerade utvecklare",
+      "projects": "Aktiva projekt",
+      "manifests": "Pack-manifest",
+      "sandboxes": "Aktiva sandlådor",
+      "validations": "Valideringskörningar",
+      "apiKeys": "Aktiva API-nycklar",
+      "documentation": "Dokumentationsartiklar"
+    },
+    "executive": {
+      "registeredDevelopers": "Registrerade utvecklare",
+      "activeProjects": "Aktiva projekt",
+      "publishedPacks": "Publicerade packs",
+      "certificationsGranted": "Beviljade certifieringar",
+      "pendingValidations": "Väntande valideringar",
+      "marketplaceReady": "Marknadsplats-klar",
+      "platformUsage": "Plattformsanvändning"
     }
   },
   "seoDashboard": {

@@ -129,6 +129,8 @@
     "companionPersonality": "Companion Personality Center",
     "verifiedProviders": "Verified Provider Registry",
     "developerEcosystem": "Developer Portal",
+    "developerCenter": "Developer Center",
+    "ecosystemCenter": "Ecosystem Center",
     "platformHealth": "Platform Health",
     "deployments": "Deployments",
     "operationsAuditLogs": "Audit Logs",
@@ -5755,6 +5757,83 @@
       "certifyExtension": "Certify extension",
       "approvePublisher": "Approve publisher",
       "refreshAnalytics": "Refresh analytics"
+    }
+  },
+  "ecosystemCenter": {
+    "title": "Ecosystem & Marketplace Governance",
+    "subtitle": "Provider registry, Business Pack publishing, certifications, marketplace governance, revenue sharing, and ecosystem intelligence.",
+    "principle": "One Aipify ecosystem — providers extend ABOS through certified Business Packs; governance and human accountability remain unchanged.",
+    "privacyNote": "Platform-wide aggregates only — provider operational data stays with providers and customers.",
+    "loading": "Preparing ecosystem center…",
+    "emptyState": "Ecosystem center data is unavailable.",
+    "refresh": "Refresh",
+    "back": "Back to platform",
+    "records": "Records",
+    "companionRecommendations": "Aipify recommendations",
+    "noRecords": "No records in this section yet.",
+    "executiveDashboard": "Executive dashboard",
+    "auditRecent": "Recent audit events",
+    "reports": "Reports",
+    "sections": {
+      "overview": "Overview",
+      "providers": "Providers",
+      "businessPacks": "Business Packs",
+      "certifications": "Certifications",
+      "marketplace": "Marketplace",
+      "reviews": "Reviews",
+      "revenue": "Revenue",
+      "governance": "Governance",
+      "reports": "Reports"
+    },
+    "scoreBand": {
+      "excellent": "Excellent",
+      "trusted": "Trusted",
+      "reviewNeeded": "Review needed",
+      "providerRisk": "Provider risk"
+    }
+  },
+  "developerCenter": {
+    "title": "Business Pack Developer Center",
+    "subtitle": "SDK, manifests, permissions, sandboxes, validation, API registry, publishing, certification, and marketplace pipeline for approved pack developers.",
+    "principle": "Aipify provides the development platform — approved developers build Business Packs that extend ABOS under governance, certification, and human accountability.",
+    "privacyNote": "Developer Platform aggregates metadata only — no customer operational records or PII.",
+    "loading": "Preparing Developer Center…",
+    "emptyState": "Developer Center data is unavailable.",
+    "refresh": "Refresh",
+    "back": "Back to platform",
+    "records": "Records",
+    "companionRecommendations": "Aipify recommendations",
+    "noRecords": "No records in this section yet.",
+    "executiveDashboard": "Executive dashboard",
+    "auditRecent": "Recent audit events",
+    "reports": "Reports",
+    "sections": {
+      "overview": "Overview",
+      "projects": "Projects",
+      "sdk": "SDK",
+      "api": "API",
+      "testing": "Testing",
+      "publishing": "Publishing",
+      "marketplace": "Marketplace",
+      "reports": "Reports"
+    },
+    "stats": {
+      "developers": "Registered developers",
+      "projects": "Active projects",
+      "manifests": "Pack manifests",
+      "sandboxes": "Active sandboxes",
+      "validations": "Validation runs",
+      "apiKeys": "Active API keys",
+      "documentation": "Documentation articles"
+    },
+    "executive": {
+      "registeredDevelopers": "Registered developers",
+      "activeProjects": "Active projects",
+      "publishedPacks": "Published packs",
+      "certificationsGranted": "Certifications granted",
+      "pendingValidations": "Pending validations",
+      "marketplaceReady": "Marketplace ready",
+      "platformUsage": "Platform usage"
     }
   }
 }
