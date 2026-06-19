@@ -1,13 +1,13 @@
 import { SettingsSubnav } from "@/components/app/settings/SettingsSubnav";
 import { ChangeHistoryPanel } from "@/components/app/change-history";
 import { buildChangeHistoryLabels } from "@/lib/change-operations-engine/labels";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppPageDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function AppSettingsChangeHistoryPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["customerApp", "settings"]);
+  const dict = await getCustomerAppPageDictionary(locale, { splits: ["settings"], namespaces: ["settings"] });
   const t = createTranslator(dict);
   const labels = buildChangeHistoryLabels(t);
 

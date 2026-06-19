@@ -5581,5 +5581,21 @@
       "pendingUpdates": "Ventende oppdateringer",
       "gracePeriods": "Nådeperioder"
     }
+  },
+  "changeHistory": {
+    "title": "Endringshistorikk",
+    "subtitle": "Plattformendringer som påvirker organisasjonen din — utgivelser, vedlikehold og planlagte oppdateringer.",
+    "principle": "Aipify holder organisasjonen din informert om plattformendringer som påvirker arbeidsområdet.",
+    "privacyNote": "Kun leietakerens endringshistorikk — ingen andre kundedata er synlige.",
+    "loading": "Forbereder endringshistorikk…",
+    "emptyState": "Endringshistorikk er utilgjengelig.",
+    "refresh": "Oppdater",
+    "records": "Endringer",
+    "noRecords": "Ingen plattformendringer registrert for organisasjonen din ennå.",
+    "status": "Status",
+    "impact": "Påvirkning",
+    "version": "Versjon",
+    "upcoming": "Kommende",
+    "completed": "Fullført"
   }
 }

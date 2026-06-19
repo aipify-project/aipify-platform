@@ -5711,5 +5711,21 @@
       "pendingUpdates": "Pending updates",
       "gracePeriods": "Grace periods"
     }
+  },
+  "changeHistory": {
+    "title": "Change History",
+    "subtitle": "Platform changes that affect your organization — releases, maintenance, and scheduled updates.",
+    "principle": "Aipify keeps your organization informed about platform changes that affect your workspace.",
+    "privacyNote": "Tenant-scoped change history only — no other customer data visible.",
+    "loading": "Preparing change history…",
+    "emptyState": "Change history is unavailable.",
+    "refresh": "Refresh",
+    "records": "Changes",
+    "noRecords": "No platform changes recorded for your organization yet.",
+    "status": "Status",
+    "impact": "Impact",
+    "version": "Version",
+    "upcoming": "Upcoming",
+    "completed": "Completed"
   }
 }
