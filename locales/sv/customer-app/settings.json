@@ -4139,5 +4139,496 @@
       "needs_review": "Behöver granskning",
       "governance_risk": "Styrningsrisk"
     }
+  },
+  "companionEcosystemOperations": {
+    "title": "Companion Ecosystem Center",
+    "subtitle": "Betrodda tjänster, verifierade leverantörer och tjänstemarknad — Companion koordinerar expertis; organisationer bestämmer.",
+    "loading": "Förbereder Companion Ecosystem",
+    "back": "Tillbaka",
+    "principle": "Companion ska inte göra allt själv — Companion koordinerar betrodda tjänster.",
+    "emptyState": "Companion Ecosystem-data är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "providers": "Leverantörer",
+      "services": "Tjänster",
+      "marketplace": "Marknadsplats",
+      "requests": "Förfrågningar",
+      "approvals": "Godkännanden",
+      "ratings": "Betyg",
+      "reports": "Rapporter",
+      "executive": "Executive"
+    },
+    "overview": {
+      "verifiedProviders": "Verifierade leverantörer",
+      "marketplaceServices": "Marknadsplatstjänster",
+      "activeRequests": "Aktiva förfrågningar",
+      "pendingApprovals": "Väntande godkännanden",
+      "completedRequests": "Slutförda förfrågningar",
+      "averageRating": "Genomsnittsbetyg",
+      "activeContracts": "Aktiva kontrakt"
+    },
+    "actions": {
+      "refreshMarketplace": "Uppdatera marknadsplatshälsa",
+      "createRequest": "Skapa tjänsteförfrågan",
+      "approveRequest": "Godkänn",
+      "denyRequest": "Neka",
+      "openServices": "Tjänstemarknad",
+      "openGovernance": "Companion Governance",
+      "openProviderRegistry": "Leverantörsregister"
+    },
+    "sections": {
+      "serviceAdvisor": "Companion Service Advisor",
+      "serviceWorkflow": "Tjänsteförfrågningsflöde",
+      "businessPackIntegration": "Business Pack-integration",
+      "growthPartnerIntegration": "Growth Partner-integration",
+      "domainAwareness": "Domänmedvetenhet",
+      "companionRecommendations": "Companion-rekommendationer",
+      "audit": "Revisionslogg"
+    },
+    "performanceLabels": {
+      "excellent": "Utmärkt",
+      "healthy": "Frisk",
+      "review_required": "Kräver granskning"
+    },
+    "verificationStatuses": {
+      "pending": "Väntande",
+      "verified": "Verifierad",
+      "review_required": "Kräver granskning",
+      "suspended": "Suspenderad"
+    }
+  },
+  "companionRealWorldOperations": {
+    "title": "Service Coordination Center",
+    "subtitle": "Samordning av tjänster i verkligheten — transport, gästfrihet, fastighet, professionella tjänster och mer. Companion koordinerar; människor godkänner.",
+    "bookingsTitle": "Booking Engine",
+    "loading": "Förbereder Service Coordination",
+    "back": "Tillbaka",
+    "principle": "Companion ska hjälpa organisationer uppnå resultat i verkligheten — mänskligt godkännande, styrning och revision förblir obligatoriska.",
+    "emptyState": "Service Coordination-data är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "requests": "Förfrågningar",
+      "approvals": "Godkännanden",
+      "providers": "Leverantörer",
+      "bookings": "Bokningar",
+      "deliveries": "Leveranser",
+      "executions": "Utföranden",
+      "reports": "Rapporter",
+      "executive": "Executive"
+    },
+    "overview": {
+      "activeRequests": "Aktiva förfrågningar",
+      "pendingApprovals": "Väntande godkännanden",
+      "upcomingBookings": "Kommande bokningar",
+      "activeExecutions": "Aktiva utföranden",
+      "activeDeliveries": "Aktiva leveranser",
+      "totalServiceCost": "Total tjänstekostnad",
+      "completedServices": "Slutförda tjänster"
+    },
+    "actions": {
+      "refreshCoordination": "Uppdatera samordning",
+      "createRequest": "Skapa tjänsteförfrågan",
+      "approveService": "Godkänn",
+      "denyService": "Neka",
+      "confirmBooking": "Bekräfta bokning",
+      "cancelBooking": "Avbryt bokning",
+      "openBookings": "Booking Engine",
+      "openEcosystem": "Companion Ecosystem",
+      "openGovernance": "Companion Governance"
+    },
+    "sections": {
+      "actionWorkflow": "Companion-handlingsflöde",
+      "costGovernance": "Kostnadsstyrning",
+      "approvalMatrix": "Godkännandematris",
+      "locationAwareness": "Platsmedvetenhet",
+      "serviceCoordinator": "Companion Service Coordinator",
+      "businessPackIntegration": "Business Pack-integration",
+      "serviceHistory": "Tjänsthistorik",
+      "audit": "Revisionslogg"
+    },
+    "bookingStatuses": {
+      "pending": "Väntande",
+      "confirmed": "Bekräftad",
+      "requires_review": "Kräver granskning",
+      "cancelled": "Avbruten"
+    },
+    "approvalLevels": {
+      "employee": "Anställd",
+      "manager": "Chef",
+      "department": "Avdelning",
+      "finance": "Ekonomi",
+      "executive": "Executive"
+    }
+  },
+  "companionMarketplaceOperations": {
+    "title": "Companion Marketplace Center",
+    "subtitle": "Upptäck, installera och hantera Companion Extensions — Aipify tillhandahåller plattformen, ekosystemet tillhandahåller innovation.",
+    "extensionsTitle": "Extension Marketplace",
+    "loading": "Förbereder Companion Marketplace",
+    "back": "Tillbaka",
+    "principle": "Companion ska vara oändligt utbyggbar — betrodda tillägg med full styrning.",
+    "emptyState": "Companion Marketplace-data är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "extensions": "Extensions",
+      "installed": "Installerade",
+      "updates": "Uppdateringar",
+      "publishers": "Utgivare",
+      "reviews": "Recensioner",
+      "categories": "Kategorier",
+      "reports": "Rapporter",
+      "executive": "Executive"
+    },
+    "overview": {
+      "catalogExtensions": "Katalogtillägg",
+      "installedExtensions": "Installerade tillägg",
+      "updatesAvailable": "Uppdateringar tillgängliga",
+      "pendingGovernance": "Väntande styrning",
+      "verifiedPublishers": "Verifierade utgivare",
+      "averageRating": "Genomsnittligt betyg"
+    },
+    "actions": {
+      "refreshMarketplace": "Uppdatera marknadsplats",
+      "installExtension": "Installera tillägg",
+      "removeExtension": "Ta bort",
+      "updateExtension": "Uppdatera",
+      "approveGovernance": "Godkänn",
+      "openExtensions": "Bläddra tillägg",
+      "openDevelopers": "Developer Portal",
+      "openGovernance": "Companion Governance"
+    },
+    "sections": {
+      "installationWorkflow": "Installationsflöde",
+      "permissionFramework": "Behörighetsramverk",
+      "extensionAdvisor": "Companion Extension Advisor",
+      "businessPackIntegration": "Business Pack-integration",
+      "growthPartnerPublishing": "Growth Partner-publicering",
+      "audit": "Revisionslogg"
+    },
+    "extensionStatuses": {
+      "active": "Aktiv",
+      "installing": "Installerar",
+      "update_available": "Uppdatering tillgänglig",
+      "permission_required": "Behörighet krävs",
+      "disabled": "Inaktiverad"
+    },
+    "certificationStatuses": {
+      "pending": "Väntande",
+      "review": "Granskning",
+      "certified": "Certifierad",
+      "published": "Publicerad"
+    }
+  },
+  "enterpriseNetworkOperations": {
+    "title": "Enterprise Network Center",
+    "subtitle": "Samarbeta, kommunicera och utbyta information genom ett styrt och betrodd nätverk mellan organisationer.",
+    "workspacesTitle": "Delade arbetsytor",
+    "loading": "Förbereder Enterprise Network",
+    "back": "Tillbaka",
+    "principle": "De flesta affärssystem stoppar vid organisationsgränsen — Aipify kopplar organisationer säkert genom styrt samarbete.",
+    "emptyState": "Enterprise Network-data är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "organizations": "Organisationer",
+      "connections": "Anslutningar",
+      "invitations": "Inbjudningar",
+      "collaborations": "Samarbeten",
+      "workspaces": "Delade arbetsytor",
+      "trust": "Förtroende",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "connectedOrganizations": "Anslutna organisationer",
+      "pendingInvitations": "Väntande inbjudningar",
+      "activeCollaborations": "Aktiva samarbeten",
+      "sharedWorkspaces": "Delade arbetsytor",
+      "trustReviewsRequired": "Förtroendegranskningar krävs",
+      "averageTrustScore": "Genomsnittligt förtroendepoäng"
+    },
+    "actions": {
+      "refreshNetwork": "Uppdatera nätverk",
+      "approveInvitation": "Godkänn anslutning",
+      "removeConnection": "Ta bort anslutning",
+      "createWorkspace": "Skapa arbetsyta",
+      "shareDocument": "Dela dokument",
+      "approveDataSharing": "Godkänn datadelning",
+      "openWorkspaces": "Delade arbetsytor",
+      "openEcosystem": "Ekosystem",
+      "openMarketplace": "Marknadsplats"
+    },
+    "sections": {
+      "connectionWorkflow": "Anslutningsflöde",
+      "dataSharingFramework": "Ramverk för datadelning",
+      "networkAdvisor": "Companion Network Advisor",
+      "documentExchange": "Dokumentutbyte",
+      "growthPartnerNetwork": "Growth Partner-nätverk",
+      "marketplaceIntegration": "Marknadsplatsintegration",
+      "audit": "Revisionslogg"
+    },
+    "organizationStatuses": {
+      "pending": "Väntande",
+      "verified": "Verifierad",
+      "connected": "Ansluten",
+      "review_required": "Kräver granskning",
+      "suspended": "Suspenderad"
+    },
+    "trustLevels": {
+      "trusted": "Betrodd",
+      "verified": "Verifierad",
+      "limited_trust": "Begränsat förtroende",
+      "review_required": "Kräver granskning"
+    }
+  },
+  "federationOperations": {
+    "title": "Federation Center",
+    "subtitle": "Koordinera intelligens, samarbete och godkända operationer mellan organisationer — med strikt separation, integritet, styrning och ägande.",
+    "workspacesTitle": "Federerade arbetsytor",
+    "loading": "Förbereder Federation Center",
+    "back": "Tillbaka",
+    "principle": "Organisationer kan samarbeta, dela och koordinera — men förblir alltid oberoende.",
+    "emptyState": "Federation Center-data är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "networks": "Nätverk",
+      "organizations": "Organisationer",
+      "trust": "Förtroendeförhållanden",
+      "intelligence": "Delad intelligens",
+      "workspaces": "Federerade arbetsytor",
+      "governance": "Styrning",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "activeFederations": "Aktiva federationer",
+      "federationNetworks": "Federationsnätverk",
+      "trustRelationships": "Förtroendeförhållanden",
+      "sharedIntelligence": "Delad intelligens",
+      "federatedWorkspaces": "Federerade arbetsytor",
+      "trustReviewsRequired": "Förtroendegranskningar krävs"
+    },
+    "actions": {
+      "refreshFederation": "Uppdatera federation",
+      "joinFederation": "Gå med i federation",
+      "approveTrust": "Godkänn förtroende",
+      "createWorkspace": "Skapa arbetsyta",
+      "shareIntelligence": "Dela intelligens",
+      "publishRiskSignal": "Publicera risksignal",
+      "startResearch": "Starta forskning",
+      "openWorkspaces": "Federerade arbetsytor",
+      "openNetwork": "Enterprise Network",
+      "openTrustCenter": "Trust Center"
+    },
+    "sections": {
+      "trustFramework": "Förtroenderamverk",
+      "sharedIntelligence": "Delad intelligensmotor",
+      "federationAdvisor": "Companion Federation Advisor",
+      "benchmarking": "Benchmarking-motor",
+      "industryObservatory": "Branschobservatorium",
+      "riskNetwork": "Federerat risknätverk",
+      "knowledgeFederation": "Kunskapsfederation",
+      "governanceRules": "Styrningsregler",
+      "audit": "Revisionslogg"
+    },
+    "federationStatuses": {
+      "pending": "Väntande",
+      "verified": "Verifierad",
+      "active": "Aktiv",
+      "review_required": "Kräver granskning",
+      "suspended": "Suspenderad"
+    },
+    "trustStatuses": {
+      "pending": "Väntande",
+      "verified": "Verifierad",
+      "active": "Aktiv",
+      "review_required": "Kräver granskning",
+      "suspended": "Suspenderad"
+    }
+  },
+  "futureReadinessOperations": {
+    "title": "Future Readiness Center",
+    "subtitle": "Förbered kontinuerligt för tillväxt, störningar, förändring och långsiktig framgång — Companion hjälper organisationer att tänka framåt.",
+    "planningTitle": "Strategisk planering",
+    "roadmapsTitle": "Strategiska färdplaner",
+    "loading": "Förbereder Future Readiness Center",
+    "back": "Tillbaka",
+    "principle": "De flesta företag fokuserar på idag — framgångsrika företag förbereder sig för morgondagen.",
+    "emptyState": "Future Readiness Center-data är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "planning": "Strategisk planering",
+      "scenarios": "Framtida scenarier",
+      "roadmaps": "Färdplaner",
+      "initiatives": "Initiativ",
+      "opportunities": "Möjligheter",
+      "threats": "Hot",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "futureReadinessScore": "Future readiness-poäng",
+      "activeInitiatives": "Aktiva initiativ",
+      "delayedInitiatives": "Försenade initiativ",
+      "activeScenarios": "Aktiva scenarier",
+      "trackedOpportunities": "Spårade möjligheter",
+      "escalatedThreats": "Eskalerade hot",
+      "activeRoadmaps": "Aktiva färdplaner"
+    },
+    "actions": {
+      "refreshReadiness": "Uppdatera beredskap",
+      "createInitiative": "Skapa initiativ",
+      "updateRoadmap": "Uppdatera färdplan",
+      "addOpportunity": "Lägg till möjlighet",
+      "identifyThreat": "Identifiera hot",
+      "generateScenario": "Aktivera scenario",
+      "completeStrategicReview": "Slutför strategisk granskning",
+      "openPlanning": "Strategisk planering",
+      "openRoadmaps": "Färdplaner",
+      "openFederation": "Federation"
+    },
+    "sections": {
+      "strategicHorizons": "Strategiskt horisontramverk",
+      "strategicAdvisor": "Companion Strategic Advisor",
+      "benchmarking": "Future readiness-poäng",
+      "threatObservatory": "Hotobservatorium",
+      "innovationManagement": "Innovationshantering",
+      "transformationEngine": "Transformationsmotor",
+      "businessPackIntegration": "Business Pack-integration",
+      "executivePlanning": "Executive planeringsarbetsyta",
+      "audit": "Revisionslogg"
+    },
+    "readinessLabels": {
+      "future_ready": "Framtidssäker",
+      "prepared": "Förberedd",
+      "gaps_identified": "Gap identifierat",
+      "strategic_risk": "Strategisk risk"
+    },
+    "threatLevels": {
+      "low": "Låg",
+      "moderate": "Måttlig",
+      "elevated": "Förhöjd",
+      "high": "Hög",
+      "critical": "Kritisk"
+    }
+  },
+  "resilienceOperations": {
+    "title": "Resilience Center",
+    "subtitle": "Förbered, svara och återhämta dig efter störningar — Aipify hjälper organisationer att förbli operativa under press.",
+    "incidentsTitle": "Incidenthantering",
+    "emergencyTitle": "Nödrespons-arbetsyta",
+    "loading": "Förbereder Resilience Center",
+    "back": "Tillbaka",
+    "principle": "Framgångsrika organisationer definieras av hur de svarar när problem uppstår.",
+    "emptyState": "Resilience Center-data är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "incidents": "Incidenter",
+      "continuity": "Affärskontinuitet",
+      "recovery": "Återhämtning",
+      "crisis": "Krishantering",
+      "dependencies": "Beroenden",
+      "preparedness": "Beredskap",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "resilienceScore": "Resilienspoäng",
+      "openIncidents": "Öppna incidenter",
+      "criticalIncidents": "Kritiska incidenter",
+      "recoveryInProgress": "Återhämtning pågår",
+      "criticalDependencies": "Kritiska beroenden",
+      "preparednessLevel": "Beredskapsnivå",
+      "continuityPlansActive": "Aktiva kontinuitetsplaner"
+    },
+    "actions": {
+      "refreshResilience": "Uppdatera resiliens",
+      "createIncident": "Skapa incident",
+      "updateIncident": "Uppdatera incident",
+      "updateRecovery": "Uppdatera återhämtning",
+      "completeRecovery": "Slutför återhämtning",
+      "activateContinuity": "Aktivera kontinuitetsplan",
+      "runPreparednessTest": "Kör beredskapstest",
+      "openIncidents": "Incidenter",
+      "openEmergency": "Nödrespons",
+      "openKnowledgeGraph": "Knowledge Graph"
+    },
+    "sections": {
+      "crisisAdvisor": "Companion Crisis Advisor",
+      "dependencyObservatory": "Beroendeobservatorium",
+      "preparednessEngine": "Beredskapsmotor",
+      "scenarioTesting": "Scenariotestning",
+      "crisisCommunication": "Kriskommunikation",
+      "businessPackIntegration": "Business Pack-integration",
+      "resilienceScore": "Resilienspoäng",
+      "audit": "Revisionslogg"
+    },
+    "resilienceLabels": {
+      "strong": "Stark",
+      "stable": "Stabil",
+      "vulnerable": "Sårbar",
+      "critical": "Kritisk"
+    },
+    "severityLevels": {
+      "minor": "Mindre",
+      "moderate": "Måttlig",
+      "major": "Allvarlig",
+      "critical": "Kritisk"
+    }
+  },
+  "proactiveOperations": {
+    "title": "Proactive Operations Center",
+    "subtitle": "Aipify övervakar kontinuerligt organisationsaktivitet, identifierar möjligheter och förbereder åtgärder innan du frågar — människor behåller kontrollen.",
+    "watchlistsTitle": "Organisations-watchlistor",
+    "loading": "Förbereder Proactive Operations Center",
+    "back": "Tillbaka",
+    "principle": "De flesta system väntar på instruktioner — Companion observerar, förstår och förbereder.",
+    "emptyState": "Proactive Operations Center-data är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "observations": "Observationer",
+      "recommendations": "Rekommendationer",
+      "prepared_actions": "Förberedda åtgärder",
+      "approvals": "Godkännanden",
+      "insights": "Insikter",
+      "opportunities": "Möjligheter",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "observationCount": "Aktiva observationer",
+      "attentionRequired": "Kräver uppmärksamhet",
+      "immediateReview": "Omedelbar granskning",
+      "opportunitiesIdentified": "Identifierade möjligheter",
+      "preparedActionsReady": "Förberedda åtgärder klara",
+      "pendingRecommendations": "Väntande rekommendationer",
+      "watchlistsActive": "Aktiva watchlistor",
+      "healthScore": "Operativ hälsopoäng",
+      "decisionPacksReady": "Beslutspaket klara"
+    },
+    "actions": {
+      "refreshProactive": "Uppdatera proaktivt center",
+      "createObservation": "Skapa observation",
+      "identifyOpportunity": "Identifiera möjlighet",
+      "generatePreparedAction": "Generera förberedd åtgärd",
+      "approveRecommendation": "Godkänn",
+      "rejectRecommendation": "Avvisa",
+      "addWatchlist": "Lägg till watchlist",
+      "openWatchlists": "Watchlistor",
+      "openApprovals": "Godkännanden",
+      "openCompanionTeams": "Companion Teams"
+    },
+    "sections": {
+      "observationFeed": "Companion observationsflöde",
+      "operationalHealth": "Operativ hälsoövervakning",
+      "decisionPacks": "Förberedda beslutspaket",
+      "businessPackIntegration": "Business Pack-integration",
+      "companionAdvisor": "Companion Proactive Advisor",
+      "audit": "Revisionslogg"
+    },
+    "observationStatus": {
+      "informational": "Informativ",
+      "attention_required": "Kräver uppmärksamhet",
+      "immediate_review": "Omedelbar granskning"
+    },
+    "healthStatus": {
+      "healthy": "Frisk",
+      "watch_closely": "Följ noga",
+      "immediate_action": "Omedelbar åtgärd krävs"
+    }
   }
 }

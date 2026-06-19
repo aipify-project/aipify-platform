@@ -101,6 +101,8 @@
     "buildHealthCenter": "Build Health Center",
     "aosCore": "AOS Core Center",
     "companionPersonality": "Companion Personality Center",
+    "verifiedProviders": "Verifisert leverandørregister",
+    "developerEcosystem": "Developer Portal",
     "platformHealth": "Platform Health",
     "deployments": "Deployments",
     "operationsAuditLogs": "Audit Logs",
@@ -5105,6 +5107,77 @@
       "businessPackContributions": "Business Pack-bidrag",
       "adaptationRules": "Tilpasningsregler",
       "audit": "Revisjonslogg"
+    }
+  },
+  "verifiedProviders": {
+    "title": "Verifisert leverandørregister",
+    "subtitle": "Plattformstyring for det verifiserte leverandørnettverket — identitet, verifisering, tjenester, kontrakter og ytelse.",
+    "loading": "Forbereder leverandørregister",
+    "back": "Tilbake til plattform",
+    "principle": "Kun verifiserte leverandører får betrodd status. Companion koordinerer — plattformen styrer.",
+    "emptyState": "Leverandørregisterdata er utilgjengelig.",
+    "tabs": {
+      "overview": "Oversikt",
+      "providers": "Leverandører",
+      "services": "Tjenester",
+      "verifications": "Verifiseringer",
+      "contracts": "Kontrakter",
+      "performance": "Ytelse",
+      "audit": "Revisjon"
+    },
+    "overview": {
+      "verifiedProviders": "Verifiserte leverandører",
+      "pendingProviders": "Ventende leverandører",
+      "reviewRequired": "Krever gjennomgang",
+      "suspendedProviders": "Suspenderte leverandører",
+      "totalServices": "Totale tjenester",
+      "activeContracts": "Aktive kontrakter"
+    },
+    "actions": {
+      "verifyProvider": "Verifiser leverandør",
+      "suspendProvider": "Suspender leverandør",
+      "refreshPerformance": "Oppdater ytelse"
+    },
+    "verificationStatuses": {
+      "pending": "Ventende",
+      "verified": "Verifisert",
+      "review_required": "Krever gjennomgang",
+      "suspended": "Suspendert"
+    },
+    "performanceLabels": {
+      "excellent": "Utmerket",
+      "healthy": "Sunn",
+      "review_required": "Krever gjennomgang"
+    }
+  },
+  "developerEcosystem": {
+    "title": "Developer Portal",
+    "subtitle": "Dokumentasjon, API-er, SDK-er, testing, publisering og analyse for Companion extension-økosystemet.",
+    "loading": "Forbereder Developer Portal",
+    "back": "Tilbake til plattform",
+    "principle": "Aipify leverer plattformen. Økosystemet leverer innovasjon.",
+    "emptyState": "Developer Portal-data er utilgjengelig.",
+    "tabs": {
+      "overview": "Oversikt",
+      "documentation": "Dokumentasjon",
+      "apis": "API-er",
+      "sdks": "SDK-er",
+      "testing": "Testing",
+      "publishing": "Publisering",
+      "analytics": "Analyse",
+      "audit": "Revisjon"
+    },
+    "overview": {
+      "verifiedPublishers": "Verifiserte utgivere",
+      "catalogExtensions": "Katalog-utvidelser",
+      "certifiedExtensions": "Sertifiserte utvidelser",
+      "sdkModules": "SDK-moduler",
+      "totalInstalls": "Totale installasjoner"
+    },
+    "actions": {
+      "certifyExtension": "Sertifiser utvidelse",
+      "approvePublisher": "Godkjenn utgiver",
+      "refreshAnalytics": "Oppdater analyse"
     }
   }
 }

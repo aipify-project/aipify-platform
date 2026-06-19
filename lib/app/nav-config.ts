@@ -63,6 +63,10 @@ export type AppNavId =
   | "enterpriseInnovationRdFutureEngine"
   | "enterpriseEcosystemPartnerNetworkEngine"
   | "globalBusinessNetworkEngine"
+  | "companionFederationEngine"
+  | "companionFutureReadinessEngine"
+  | "companionResilienceEngine"
+  | "companionProactiveEngine"
   | "enterpriseValueRealizationRoiEngine"
   | "autonomousEnterpriseOperationsEngine"
   | "autonomousOrganizationEngine"
@@ -260,6 +264,11 @@ export type AppNavId =
   | "personalProductivityEngine"
   | "companionOrchestrationEngine"
   | "companionGovernanceEngine"
+  | "companionEcosystemEngine"
+  | "companionServicesMarketplace"
+  | "companionRealWorldCoordinationEngine"
+  | "companionBookingsEngine"
+  | "companionExtensionsMarketplaceEngine"
   | "companionActionApprovalEngine"
   | "companionContextEngine"
   | "companionMemoryExpansionEngine"
@@ -690,6 +699,26 @@ export const APP_NAV: AppNavItem[] = [
     id: "globalBusinessNetworkEngine",
     href: "/app/network",
     labelKey: "navigation.nav.globalBusinessNetworkEngine",
+  },
+  {
+    id: "companionFederationEngine",
+    href: "/app/federation",
+    labelKey: "navigation.nav.companionFederationEngine",
+  },
+  {
+    id: "companionFutureReadinessEngine",
+    href: "/app/future-readiness",
+    labelKey: "navigation.nav.companionFutureReadinessEngine",
+  },
+  {
+    id: "companionResilienceEngine",
+    href: "/app/resilience",
+    labelKey: "navigation.nav.companionResilienceEngine",
+  },
+  {
+    id: "companionProactiveEngine",
+    href: "/app/proactive",
+    labelKey: "navigation.nav.companionProactiveEngine",
   },
   {
     id: "enterpriseValueRealizationRoiEngine",
@@ -1712,6 +1741,31 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "navigation.nav.companionGovernanceEngine",
   },
   {
+    id: "companionEcosystemEngine",
+    href: "/app/companion/ecosystem",
+    labelKey: "navigation.nav.companionEcosystemEngine",
+  },
+  {
+    id: "companionServicesMarketplace",
+    href: "/app/companion/services",
+    labelKey: "navigation.nav.companionServicesMarketplace",
+  },
+  {
+    id: "companionRealWorldCoordinationEngine",
+    href: "/app/companion/services/actions",
+    labelKey: "navigation.nav.companionRealWorldCoordinationEngine",
+  },
+  {
+    id: "companionBookingsEngine",
+    href: "/app/companion/bookings",
+    labelKey: "navigation.nav.companionBookingsEngine",
+  },
+  {
+    id: "companionExtensionsMarketplaceEngine",
+    href: "/app/companion/marketplace",
+    labelKey: "navigation.nav.companionExtensionsMarketplaceEngine",
+  },
+  {
     id: "companionActionApprovalEngine",
     href: "/app/companion/actions",
     labelKey: "navigation.nav.companionActionApprovalEngine",
@@ -2318,6 +2372,11 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/companion/relationship-intelligence")) return "companionRelationshipIntelligenceEngine";
   if (pathname === "/app/companion/relationship") return "companionRelationshipEngine";
   if (pathname.startsWith("/app/companion/executive")) return "companionExecutiveLayer";
+  if (pathname.startsWith("/app/companion/marketplace")) return "companionExtensionsMarketplaceEngine";
+  if (pathname.startsWith("/app/companion/services/actions")) return "companionRealWorldCoordinationEngine";
+  if (pathname.startsWith("/app/companion/bookings")) return "companionBookingsEngine";
+  if (pathname.startsWith("/app/companion/services")) return "companionServicesMarketplace";
+  if (pathname.startsWith("/app/companion/ecosystem")) return "companionEcosystemEngine";
   if (pathname.startsWith("/app/companion/governance")) return "companionGovernanceEngine";
   if (pathname.startsWith("/app/companion/orchestration")) return "companionOrchestrationEngine";
   if (pathname.startsWith("/app/companion/actions")) return "companionActionApprovalEngine";
@@ -2412,6 +2471,18 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname === "/app/ecosystem" || pathname.startsWith("/app/ecosystem/")) {
     return "enterpriseEcosystemPartnerNetworkEngine";
+  }
+  if (pathname === "/app/future-readiness" || pathname.startsWith("/app/future-readiness/")) {
+    return "companionFutureReadinessEngine";
+  }
+  if (pathname === "/app/resilience" || pathname.startsWith("/app/resilience/")) {
+    return "companionResilienceEngine";
+  }
+  if (pathname === "/app/proactive" || pathname.startsWith("/app/proactive/")) {
+    return "companionProactiveEngine";
+  }
+  if (pathname === "/app/federation" || pathname.startsWith("/app/federation/")) {
+    return "companionFederationEngine";
   }
   if (pathname === "/app/network" || pathname.startsWith("/app/network/")) {
     return "globalBusinessNetworkEngine";

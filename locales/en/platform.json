@@ -127,6 +127,8 @@
     "buildHealthCenter": "Build Health Center",
     "aosCore": "AOS Core Center",
     "companionPersonality": "Companion Personality Center",
+    "verifiedProviders": "Verified Provider Registry",
+    "developerEcosystem": "Developer Portal",
     "platformHealth": "Platform Health",
     "deployments": "Deployments",
     "operationsAuditLogs": "Audit Logs",
@@ -5350,6 +5352,77 @@
       "businessPackContributions": "Business Pack contributions",
       "adaptationRules": "Adaptation rules",
       "audit": "Audit log"
+    }
+  },
+  "verifiedProviders": {
+    "title": "Verified Provider Registry",
+    "subtitle": "Platform governance for the verified provider network — identity, verification, services, contracts, and performance.",
+    "loading": "Preparing Provider Registry",
+    "back": "Back to platform",
+    "principle": "Only verified providers receive trusted status. Companion coordinates — platform governs.",
+    "emptyState": "Provider Registry data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "providers": "Providers",
+      "services": "Services",
+      "verifications": "Verifications",
+      "contracts": "Contracts",
+      "performance": "Performance",
+      "audit": "Audit"
+    },
+    "overview": {
+      "verifiedProviders": "Verified providers",
+      "pendingProviders": "Pending providers",
+      "reviewRequired": "Review required",
+      "suspendedProviders": "Suspended providers",
+      "totalServices": "Total services",
+      "activeContracts": "Active contracts"
+    },
+    "actions": {
+      "verifyProvider": "Verify provider",
+      "suspendProvider": "Suspend provider",
+      "refreshPerformance": "Refresh performance"
+    },
+    "verificationStatuses": {
+      "pending": "Pending",
+      "verified": "Verified",
+      "review_required": "Review required",
+      "suspended": "Suspended"
+    },
+    "performanceLabels": {
+      "excellent": "Excellent",
+      "healthy": "Healthy",
+      "review_required": "Review required"
+    }
+  },
+  "developerEcosystem": {
+    "title": "Developer Portal",
+    "subtitle": "Documentation, APIs, SDKs, testing, publishing, and analytics for the Companion extension ecosystem.",
+    "loading": "Preparing Developer Portal",
+    "back": "Back to platform",
+    "principle": "Aipify provides the platform. The ecosystem provides innovation.",
+    "emptyState": "Developer Portal data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "documentation": "Documentation",
+      "apis": "APIs",
+      "sdks": "SDKs",
+      "testing": "Testing",
+      "publishing": "Publishing",
+      "analytics": "Analytics",
+      "audit": "Audit"
+    },
+    "overview": {
+      "verifiedPublishers": "Verified publishers",
+      "catalogExtensions": "Catalog extensions",
+      "certifiedExtensions": "Certified extensions",
+      "sdkModules": "SDK modules",
+      "totalInstalls": "Total installs"
+    },
+    "actions": {
+      "certifyExtension": "Certify extension",
+      "approvePublisher": "Approve publisher",
+      "refreshAnalytics": "Refresh analytics"
     }
   }
 }

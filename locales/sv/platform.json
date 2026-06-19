@@ -101,6 +101,8 @@
     "buildHealthCenter": "Build Health Center",
     "aosCore": "AOS Core Center",
     "companionPersonality": "Companion Personality Center",
+    "verifiedProviders": "Verifierat leverantörsregister",
+    "developerEcosystem": "Developer Portal",
     "platformHealth": "Platform Health",
     "deployments": "Deployments",
     "operationsAuditLogs": "Audit Logs",
@@ -4834,6 +4836,77 @@
       "businessPackContributions": "Business Pack-bidrag",
       "adaptationRules": "Anpassningsregler",
       "audit": "Revisionslogg"
+    }
+  },
+  "verifiedProviders": {
+    "title": "Verifierat leverantörsregister",
+    "subtitle": "Plattformsstyrning för det verifierade leverantörsnätverket — identitet, verifiering, tjänster, kontrakt och prestanda.",
+    "loading": "Förbereder leverantörsregister",
+    "back": "Tillbaka till plattform",
+    "principle": "Endast verifierade leverantörer får betrodd status. Companion koordinerar — plattformen styr.",
+    "emptyState": "Leverantörsregisterdata är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "providers": "Leverantörer",
+      "services": "Tjänster",
+      "verifications": "Verifieringar",
+      "contracts": "Kontrakt",
+      "performance": "Prestanda",
+      "audit": "Revision"
+    },
+    "overview": {
+      "verifiedProviders": "Verifierade leverantörer",
+      "pendingProviders": "Väntande leverantörer",
+      "reviewRequired": "Kräver granskning",
+      "suspendedProviders": "Suspenderade leverantörer",
+      "totalServices": "Totala tjänster",
+      "activeContracts": "Aktiva kontrakt"
+    },
+    "actions": {
+      "verifyProvider": "Verifiera leverantör",
+      "suspendProvider": "Suspendera leverantör",
+      "refreshPerformance": "Uppdatera prestanda"
+    },
+    "verificationStatuses": {
+      "pending": "Väntande",
+      "verified": "Verifierad",
+      "review_required": "Kräver granskning",
+      "suspended": "Suspenderad"
+    },
+    "performanceLabels": {
+      "excellent": "Utmärkt",
+      "healthy": "Frisk",
+      "review_required": "Kräver granskning"
+    }
+  },
+  "developerEcosystem": {
+    "title": "Developer Portal",
+    "subtitle": "Dokumentation, API:er, SDK:er, testning, publicering och analys för Companion extension-ekosystemet.",
+    "loading": "Förbereder Developer Portal",
+    "back": "Tillbaka till plattformen",
+    "principle": "Aipify tillhandahåller plattformen. Ekosystemet tillhandahåller innovation.",
+    "emptyState": "Developer Portal-data är otillgänglig.",
+    "tabs": {
+      "overview": "Översikt",
+      "documentation": "Dokumentation",
+      "apis": "API:er",
+      "sdks": "SDK:er",
+      "testing": "Testning",
+      "publishing": "Publicering",
+      "analytics": "Analys",
+      "audit": "Revision"
+    },
+    "overview": {
+      "verifiedPublishers": "Verifierade utgivare",
+      "catalogExtensions": "Katalogtillägg",
+      "certifiedExtensions": "Certifierade tillägg",
+      "sdkModules": "SDK-moduler",
+      "totalInstalls": "Totala installationer"
+    },
+    "actions": {
+      "certifyExtension": "Certifiera tillägg",
+      "approvePublisher": "Godkänn utgivare",
+      "refreshAnalytics": "Uppdatera analys"
     }
   }
 }

@@ -4317,5 +4317,496 @@
       "needs_review": "Needs review",
       "governance_risk": "Governance risk"
     }
+  },
+  "companionEcosystemOperations": {
+    "title": "Companion Ecosystem Center",
+    "subtitle": "Trusted services, verified providers, and the service marketplace — Companion coordinates expertise; organizations decide.",
+    "loading": "Preparing Companion Ecosystem",
+    "back": "Back",
+    "principle": "Companion should not do everything itself — Companion coordinates trusted services.",
+    "emptyState": "Companion Ecosystem data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "providers": "Providers",
+      "services": "Services",
+      "marketplace": "Marketplace",
+      "requests": "Requests",
+      "approvals": "Approvals",
+      "ratings": "Ratings",
+      "reports": "Reports",
+      "executive": "Executive"
+    },
+    "overview": {
+      "verifiedProviders": "Verified providers",
+      "marketplaceServices": "Marketplace services",
+      "activeRequests": "Active requests",
+      "pendingApprovals": "Pending approvals",
+      "completedRequests": "Completed requests",
+      "averageRating": "Average rating",
+      "activeContracts": "Active contracts"
+    },
+    "actions": {
+      "refreshMarketplace": "Refresh marketplace health",
+      "createRequest": "Create service request",
+      "approveRequest": "Approve",
+      "denyRequest": "Deny",
+      "openServices": "Service Marketplace",
+      "openGovernance": "Companion Governance",
+      "openProviderRegistry": "Provider Registry"
+    },
+    "sections": {
+      "serviceAdvisor": "Companion Service Advisor",
+      "serviceWorkflow": "Service request workflow",
+      "businessPackIntegration": "Business Pack integration",
+      "growthPartnerIntegration": "Growth Partner integration",
+      "domainAwareness": "Domain awareness",
+      "companionRecommendations": "Companion recommendations",
+      "audit": "Audit log"
+    },
+    "performanceLabels": {
+      "excellent": "Excellent",
+      "healthy": "Healthy",
+      "review_required": "Review required"
+    },
+    "verificationStatuses": {
+      "pending": "Pending",
+      "verified": "Verified",
+      "review_required": "Review required",
+      "suspended": "Suspended"
+    }
+  },
+  "companionRealWorldOperations": {
+    "title": "Service Coordination Center",
+    "subtitle": "Real-world service coordination — transportation, hospitality, property, professional services, and more. Companion coordinates; humans approve.",
+    "bookingsTitle": "Booking Engine",
+    "loading": "Preparing Service Coordination",
+    "back": "Back",
+    "principle": "Companion should help organizations accomplish real-world outcomes — human approval, governance, and audit remain mandatory.",
+    "emptyState": "Service Coordination data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "requests": "Requests",
+      "approvals": "Approvals",
+      "providers": "Providers",
+      "bookings": "Bookings",
+      "deliveries": "Deliveries",
+      "executions": "Executions",
+      "reports": "Reports",
+      "executive": "Executive"
+    },
+    "overview": {
+      "activeRequests": "Active requests",
+      "pendingApprovals": "Pending approvals",
+      "upcomingBookings": "Upcoming bookings",
+      "activeExecutions": "Active executions",
+      "activeDeliveries": "Active deliveries",
+      "totalServiceCost": "Total service cost",
+      "completedServices": "Completed services"
+    },
+    "actions": {
+      "refreshCoordination": "Refresh coordination",
+      "createRequest": "Create service request",
+      "approveService": "Approve",
+      "denyService": "Deny",
+      "confirmBooking": "Confirm booking",
+      "cancelBooking": "Cancel booking",
+      "openBookings": "Booking Engine",
+      "openEcosystem": "Companion Ecosystem",
+      "openGovernance": "Companion Governance"
+    },
+    "sections": {
+      "actionWorkflow": "Companion action workflow",
+      "costGovernance": "Cost governance",
+      "approvalMatrix": "Approval matrix",
+      "locationAwareness": "Location awareness",
+      "serviceCoordinator": "Companion Service Coordinator",
+      "businessPackIntegration": "Business Pack integration",
+      "serviceHistory": "Service history",
+      "audit": "Audit log"
+    },
+    "bookingStatuses": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "requires_review": "Requires review",
+      "cancelled": "Cancelled"
+    },
+    "approvalLevels": {
+      "employee": "Employee",
+      "manager": "Manager",
+      "department": "Department",
+      "finance": "Finance",
+      "executive": "Executive"
+    }
+  },
+  "companionMarketplaceOperations": {
+    "title": "Companion Marketplace Center",
+    "subtitle": "Discover, install, and manage Companion Extensions — Aipify provides the platform, the ecosystem provides innovation.",
+    "extensionsTitle": "Extension Marketplace",
+    "loading": "Preparing Companion Marketplace",
+    "back": "Back",
+    "principle": "The Companion should be infinitely expandable — trusted extensions with full governance.",
+    "emptyState": "Companion Marketplace data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "extensions": "Extensions",
+      "installed": "Installed",
+      "updates": "Updates",
+      "publishers": "Publishers",
+      "reviews": "Reviews",
+      "categories": "Categories",
+      "reports": "Reports",
+      "executive": "Executive"
+    },
+    "overview": {
+      "catalogExtensions": "Catalog extensions",
+      "installedExtensions": "Installed extensions",
+      "updatesAvailable": "Updates available",
+      "pendingGovernance": "Pending governance",
+      "verifiedPublishers": "Verified publishers",
+      "averageRating": "Average rating"
+    },
+    "actions": {
+      "refreshMarketplace": "Refresh marketplace",
+      "installExtension": "Install extension",
+      "removeExtension": "Remove",
+      "updateExtension": "Update",
+      "approveGovernance": "Approve",
+      "openExtensions": "Browse extensions",
+      "openDevelopers": "Developer Portal",
+      "openGovernance": "Companion Governance"
+    },
+    "sections": {
+      "installationWorkflow": "Installation workflow",
+      "permissionFramework": "Permission framework",
+      "extensionAdvisor": "Companion Extension Advisor",
+      "businessPackIntegration": "Business Pack integration",
+      "growthPartnerPublishing": "Growth Partner publishing",
+      "audit": "Audit log"
+    },
+    "extensionStatuses": {
+      "active": "Active",
+      "installing": "Installing",
+      "update_available": "Update available",
+      "permission_required": "Permission required",
+      "disabled": "Disabled"
+    },
+    "certificationStatuses": {
+      "pending": "Pending",
+      "review": "Review",
+      "certified": "Certified",
+      "published": "Published"
+    }
+  },
+  "enterpriseNetworkOperations": {
+    "title": "Enterprise Network Center",
+    "subtitle": "Collaborate, communicate, and exchange information through a governed and trusted inter-organization network.",
+    "workspacesTitle": "Shared Workspaces",
+    "loading": "Preparing Enterprise Network",
+    "back": "Back",
+    "principle": "Most business systems stop at the organization boundary — Aipify safely connects organizations through governed collaboration.",
+    "emptyState": "Enterprise Network data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "organizations": "Organizations",
+      "connections": "Connections",
+      "invitations": "Invitations",
+      "collaborations": "Collaborations",
+      "workspaces": "Shared Workspaces",
+      "trust": "Trust",
+      "reports": "Reports"
+    },
+    "overview": {
+      "connectedOrganizations": "Connected organizations",
+      "pendingInvitations": "Pending invitations",
+      "activeCollaborations": "Active collaborations",
+      "sharedWorkspaces": "Shared workspaces",
+      "trustReviewsRequired": "Trust reviews required",
+      "averageTrustScore": "Average trust score"
+    },
+    "actions": {
+      "refreshNetwork": "Refresh network",
+      "approveInvitation": "Approve connection",
+      "removeConnection": "Remove connection",
+      "createWorkspace": "Create workspace",
+      "shareDocument": "Share document",
+      "approveDataSharing": "Approve data sharing",
+      "openWorkspaces": "Shared workspaces",
+      "openEcosystem": "Ecosystem",
+      "openMarketplace": "Marketplace"
+    },
+    "sections": {
+      "connectionWorkflow": "Connection workflow",
+      "dataSharingFramework": "Data sharing framework",
+      "networkAdvisor": "Companion Network Advisor",
+      "documentExchange": "Document exchange",
+      "growthPartnerNetwork": "Growth Partner network",
+      "marketplaceIntegration": "Marketplace integration",
+      "audit": "Audit log"
+    },
+    "organizationStatuses": {
+      "pending": "Pending",
+      "verified": "Verified",
+      "connected": "Connected",
+      "review_required": "Review required",
+      "suspended": "Suspended"
+    },
+    "trustLevels": {
+      "trusted": "Trusted",
+      "verified": "Verified",
+      "limited_trust": "Limited trust",
+      "review_required": "Review required"
+    }
+  },
+  "federationOperations": {
+    "title": "Federation Center",
+    "subtitle": "Coordinate intelligence, collaboration, and approved operations across organizations — with strict separation, privacy, governance, and ownership.",
+    "workspacesTitle": "Federated Workspaces",
+    "loading": "Preparing Federation Center",
+    "back": "Back",
+    "principle": "Organizations may collaborate, share, and coordinate — but always remain independent.",
+    "emptyState": "Federation Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "networks": "Networks",
+      "organizations": "Organizations",
+      "trust": "Trust Relationships",
+      "intelligence": "Shared Intelligence",
+      "workspaces": "Federated Workspaces",
+      "governance": "Governance",
+      "reports": "Reports"
+    },
+    "overview": {
+      "activeFederations": "Active federations",
+      "federationNetworks": "Federation networks",
+      "trustRelationships": "Trust relationships",
+      "sharedIntelligence": "Shared intelligence",
+      "federatedWorkspaces": "Federated workspaces",
+      "trustReviewsRequired": "Trust reviews required"
+    },
+    "actions": {
+      "refreshFederation": "Refresh federation",
+      "joinFederation": "Join federation",
+      "approveTrust": "Approve trust",
+      "createWorkspace": "Create workspace",
+      "shareIntelligence": "Share intelligence",
+      "publishRiskSignal": "Publish risk signal",
+      "startResearch": "Start research",
+      "openWorkspaces": "Federated workspaces",
+      "openNetwork": "Enterprise Network",
+      "openTrustCenter": "Trust Center"
+    },
+    "sections": {
+      "trustFramework": "Trust framework",
+      "sharedIntelligence": "Shared intelligence engine",
+      "federationAdvisor": "Companion Federation Advisor",
+      "benchmarking": "Benchmarking engine",
+      "industryObservatory": "Industry observatory",
+      "riskNetwork": "Federated risk network",
+      "knowledgeFederation": "Knowledge federation",
+      "governanceRules": "Governance rules",
+      "audit": "Audit log"
+    },
+    "federationStatuses": {
+      "pending": "Pending",
+      "verified": "Verified",
+      "active": "Active",
+      "review_required": "Review required",
+      "suspended": "Suspended"
+    },
+    "trustStatuses": {
+      "pending": "Pending",
+      "verified": "Verified",
+      "active": "Active",
+      "review_required": "Review required",
+      "suspended": "Suspended"
+    }
+  },
+  "futureReadinessOperations": {
+    "title": "Future Readiness Center",
+    "subtitle": "Continuously prepare for growth, disruption, change, and long-term success — Companion helps organizations think ahead.",
+    "planningTitle": "Strategic Planning",
+    "roadmapsTitle": "Strategic Roadmaps",
+    "loading": "Preparing Future Readiness Center",
+    "back": "Back",
+    "principle": "Most companies focus on today — successful companies prepare for tomorrow.",
+    "emptyState": "Future Readiness Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "planning": "Strategic Planning",
+      "scenarios": "Future Scenarios",
+      "roadmaps": "Roadmaps",
+      "initiatives": "Initiatives",
+      "opportunities": "Opportunities",
+      "threats": "Threats",
+      "reports": "Reports"
+    },
+    "overview": {
+      "futureReadinessScore": "Future readiness score",
+      "activeInitiatives": "Active initiatives",
+      "delayedInitiatives": "Delayed initiatives",
+      "activeScenarios": "Active scenarios",
+      "trackedOpportunities": "Tracked opportunities",
+      "escalatedThreats": "Escalated threats",
+      "activeRoadmaps": "Active roadmaps"
+    },
+    "actions": {
+      "refreshReadiness": "Refresh readiness",
+      "createInitiative": "Create initiative",
+      "updateRoadmap": "Update roadmap",
+      "addOpportunity": "Add opportunity",
+      "identifyThreat": "Identify threat",
+      "generateScenario": "Activate scenario",
+      "completeStrategicReview": "Complete strategic review",
+      "openPlanning": "Strategic planning",
+      "openRoadmaps": "Roadmaps",
+      "openFederation": "Federation"
+    },
+    "sections": {
+      "strategicHorizons": "Strategic horizon framework",
+      "strategicAdvisor": "Companion Strategic Advisor",
+      "benchmarking": "Future readiness score",
+      "threatObservatory": "Threat observatory",
+      "innovationManagement": "Innovation management",
+      "transformationEngine": "Transformation engine",
+      "businessPackIntegration": "Business Pack integration",
+      "executivePlanning": "Executive planning workspace",
+      "audit": "Audit log"
+    },
+    "readinessLabels": {
+      "future_ready": "Future ready",
+      "prepared": "Prepared",
+      "gaps_identified": "Gaps identified",
+      "strategic_risk": "Strategic risk"
+    },
+    "threatLevels": {
+      "low": "Low",
+      "moderate": "Moderate",
+      "elevated": "Elevated",
+      "high": "High",
+      "critical": "Critical"
+    }
+  },
+  "resilienceOperations": {
+    "title": "Resilience Center",
+    "subtitle": "Prepare for, respond to, and recover from disruptions — Aipify helps organizations remain operational under pressure.",
+    "incidentsTitle": "Incident Management",
+    "emergencyTitle": "Emergency Response Workspace",
+    "loading": "Preparing Resilience Center",
+    "back": "Back",
+    "principle": "Successful organizations are defined by how they respond when problems occur.",
+    "emptyState": "Resilience Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "incidents": "Incidents",
+      "continuity": "Business Continuity",
+      "recovery": "Recovery",
+      "crisis": "Crisis Management",
+      "dependencies": "Dependencies",
+      "preparedness": "Preparedness",
+      "reports": "Reports"
+    },
+    "overview": {
+      "resilienceScore": "Resilience score",
+      "openIncidents": "Open incidents",
+      "criticalIncidents": "Critical incidents",
+      "recoveryInProgress": "Recovery in progress",
+      "criticalDependencies": "Critical dependencies",
+      "preparednessLevel": "Preparedness level",
+      "continuityPlansActive": "Continuity plans active"
+    },
+    "actions": {
+      "refreshResilience": "Refresh resilience",
+      "createIncident": "Create incident",
+      "updateIncident": "Update incident",
+      "updateRecovery": "Update recovery",
+      "completeRecovery": "Complete recovery",
+      "activateContinuity": "Activate continuity plan",
+      "runPreparednessTest": "Run preparedness test",
+      "openIncidents": "Incidents",
+      "openEmergency": "Emergency workspace",
+      "openKnowledgeGraph": "Knowledge Graph"
+    },
+    "sections": {
+      "crisisAdvisor": "Companion Crisis Advisor",
+      "dependencyObservatory": "Dependency Observatory",
+      "preparednessEngine": "Preparedness Engine",
+      "scenarioTesting": "Scenario testing",
+      "crisisCommunication": "Crisis communication",
+      "businessPackIntegration": "Business Pack integration",
+      "resilienceScore": "Resilience score engine",
+      "audit": "Audit log"
+    },
+    "resilienceLabels": {
+      "strong": "Strong",
+      "stable": "Stable",
+      "vulnerable": "Vulnerable",
+      "critical": "Critical"
+    },
+    "severityLevels": {
+      "minor": "Minor",
+      "moderate": "Moderate",
+      "major": "Major",
+      "critical": "Critical"
+    }
+  },
+  "proactiveOperations": {
+    "title": "Proactive Operations Center",
+    "subtitle": "Aipify continuously monitors organizational activity, identifies opportunities, and prepares actions before you ask — humans remain in control.",
+    "watchlistsTitle": "Organizational Watchlists",
+    "loading": "Preparing Proactive Operations Center",
+    "back": "Back",
+    "principle": "Most systems wait for instructions — Companion observes, understands, and prepares.",
+    "emptyState": "Proactive Operations Center data is unavailable.",
+    "tabs": {
+      "overview": "Overview",
+      "observations": "Observations",
+      "recommendations": "Recommendations",
+      "prepared_actions": "Prepared Actions",
+      "approvals": "Approvals",
+      "insights": "Insights",
+      "opportunities": "Opportunities",
+      "reports": "Reports"
+    },
+    "overview": {
+      "observationCount": "Active observations",
+      "attentionRequired": "Attention required",
+      "immediateReview": "Immediate review",
+      "opportunitiesIdentified": "Opportunities identified",
+      "preparedActionsReady": "Prepared actions ready",
+      "pendingRecommendations": "Pending recommendations",
+      "watchlistsActive": "Active watchlists",
+      "healthScore": "Operational health score",
+      "decisionPacksReady": "Decision packs ready"
+    },
+    "actions": {
+      "refreshProactive": "Refresh proactive center",
+      "createObservation": "Create observation",
+      "identifyOpportunity": "Identify opportunity",
+      "generatePreparedAction": "Generate prepared action",
+      "approveRecommendation": "Approve",
+      "rejectRecommendation": "Reject",
+      "addWatchlist": "Add watchlist",
+      "openWatchlists": "Watchlists",
+      "openApprovals": "Approvals",
+      "openCompanionTeams": "Companion Teams"
+    },
+    "sections": {
+      "observationFeed": "Companion observation feed",
+      "operationalHealth": "Operational health monitoring",
+      "decisionPacks": "Prepared decision packs",
+      "businessPackIntegration": "Business Pack integration",
+      "companionAdvisor": "Companion Proactive Advisor",
+      "audit": "Audit log"
+    },
+    "observationStatus": {
+      "informational": "Informational",
+      "attention_required": "Attention required",
+      "immediate_review": "Immediate review"
+    },
+    "healthStatus": {
+      "healthy": "Healthy",
+      "watch_closely": "Watch closely",
+      "immediate_action": "Immediate action required"
+    }
   }
 }

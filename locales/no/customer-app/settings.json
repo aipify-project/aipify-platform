@@ -4171,5 +4171,496 @@
       "needs_review": "Trenger gjennomgang",
       "governance_risk": "Styringsrisiko"
     }
+  },
+  "companionEcosystemOperations": {
+    "title": "Companion Ecosystem Center",
+    "subtitle": "Betrodde tjenester, verifiserte leverandører og tjenestemarked — Companion koordinerer ekspertise; organisasjoner bestemmer.",
+    "loading": "Forbereder Companion Ecosystem",
+    "back": "Tilbake",
+    "principle": "Companion skal ikke gjøre alt selv — Companion koordinerer betrodde tjenester.",
+    "emptyState": "Companion Ecosystem-data er utilgjengelig.",
+    "tabs": {
+      "overview": "Oversikt",
+      "providers": "Leverandører",
+      "services": "Tjenester",
+      "marketplace": "Markedsplass",
+      "requests": "Forespørsler",
+      "approvals": "Godkjenninger",
+      "ratings": "Vurderinger",
+      "reports": "Rapporter",
+      "executive": "Executive"
+    },
+    "overview": {
+      "verifiedProviders": "Verifiserte leverandører",
+      "marketplaceServices": "Markedsplasstjenester",
+      "activeRequests": "Aktive forespørsler",
+      "pendingApprovals": "Ventende godkjenninger",
+      "completedRequests": "Fullførte forespørsler",
+      "averageRating": "Gjennomsnittsvurdering",
+      "activeContracts": "Aktive kontrakter"
+    },
+    "actions": {
+      "refreshMarketplace": "Oppdater markedsplasshelse",
+      "createRequest": "Opprett tjenesteforespørsel",
+      "approveRequest": "Godkjenn",
+      "denyRequest": "Avslå",
+      "openServices": "Tjenestemarked",
+      "openGovernance": "Companion Governance",
+      "openProviderRegistry": "Leverandørregister"
+    },
+    "sections": {
+      "serviceAdvisor": "Companion Service Advisor",
+      "serviceWorkflow": "Tjenesteforespørselsflyt",
+      "businessPackIntegration": "Business Pack-integrasjon",
+      "growthPartnerIntegration": "Growth Partner-integrasjon",
+      "domainAwareness": "Domeneforståelse",
+      "companionRecommendations": "Companion-anbefalinger",
+      "audit": "Revisionslogg"
+    },
+    "performanceLabels": {
+      "excellent": "Utmerket",
+      "healthy": "Sunn",
+      "review_required": "Krever gjennomgang"
+    },
+    "verificationStatuses": {
+      "pending": "Ventende",
+      "verified": "Verifisert",
+      "review_required": "Krever gjennomgang",
+      "suspended": "Suspendert"
+    }
+  },
+  "companionRealWorldOperations": {
+    "title": "Service Coordination Center",
+    "subtitle": "Koordinering av tjenester i den virkelige verden — transport, gjestfrihet, eiendom, profesjonelle tjenester og mer. Companion koordinerer; mennesker godkjenner.",
+    "bookingsTitle": "Booking Engine",
+    "loading": "Forbereder Service Coordination",
+    "back": "Tilbake",
+    "principle": "Companion skal hjelpe organisasjoner med resultater i den virkelige verden — menneskelig godkjenning, styring og revisjon forblir obligatorisk.",
+    "emptyState": "Service Coordination-data er utilgjengelig.",
+    "tabs": {
+      "overview": "Oversikt",
+      "requests": "Forespørsler",
+      "approvals": "Godkjenninger",
+      "providers": "Leverandører",
+      "bookings": "Bookinger",
+      "deliveries": "Leveranser",
+      "executions": "Utførelser",
+      "reports": "Rapporter",
+      "executive": "Executive"
+    },
+    "overview": {
+      "activeRequests": "Aktive forespørsler",
+      "pendingApprovals": "Ventende godkjenninger",
+      "upcomingBookings": "Kommende bookinger",
+      "activeExecutions": "Aktive utførelser",
+      "activeDeliveries": "Aktive leveranser",
+      "totalServiceCost": "Total tjenestekostnad",
+      "completedServices": "Fullførte tjenester"
+    },
+    "actions": {
+      "refreshCoordination": "Oppdater koordinering",
+      "createRequest": "Opprett tjenesteforespørsel",
+      "approveService": "Godkjenn",
+      "denyService": "Avslå",
+      "confirmBooking": "Bekreft booking",
+      "cancelBooking": "Avbryt booking",
+      "openBookings": "Booking Engine",
+      "openEcosystem": "Companion Ecosystem",
+      "openGovernance": "Companion Governance"
+    },
+    "sections": {
+      "actionWorkflow": "Companion-handlingsflyt",
+      "costGovernance": "Kostnadsstyring",
+      "approvalMatrix": "Godkjenningsmatrise",
+      "locationAwareness": "Stedsforståelse",
+      "serviceCoordinator": "Companion Service Coordinator",
+      "businessPackIntegration": "Business Pack-integrasjon",
+      "serviceHistory": "Tjenestehistorikk",
+      "audit": "Revisionslogg"
+    },
+    "bookingStatuses": {
+      "pending": "Ventende",
+      "confirmed": "Bekreftet",
+      "requires_review": "Krever gjennomgang",
+      "cancelled": "Avbrutt"
+    },
+    "approvalLevels": {
+      "employee": "Ansatt",
+      "manager": "Leder",
+      "department": "Avdeling",
+      "finance": "Økonomi",
+      "executive": "Executive"
+    }
+  },
+  "companionMarketplaceOperations": {
+    "title": "Companion Marketplace Center",
+    "subtitle": "Oppdag, installer og administrer Companion Extensions — Aipify leverer plattformen, økosystemet leverer innovasjon.",
+    "extensionsTitle": "Extension Marketplace",
+    "loading": "Forbereder Companion Marketplace",
+    "back": "Tilbake",
+    "principle": "Companion skal være uendelig utvidbar — betrodde utvidelser med full styring.",
+    "emptyState": "Companion Marketplace-data er utilgjengelig.",
+    "tabs": {
+      "overview": "Oversikt",
+      "extensions": "Extensions",
+      "installed": "Installert",
+      "updates": "Oppdateringer",
+      "publishers": "Utgivere",
+      "reviews": "Anmeldelser",
+      "categories": "Kategorier",
+      "reports": "Rapporter",
+      "executive": "Executive"
+    },
+    "overview": {
+      "catalogExtensions": "Katalog-utvidelser",
+      "installedExtensions": "Installerte utvidelser",
+      "updatesAvailable": "Oppdateringer tilgjengelig",
+      "pendingGovernance": "Ventende styring",
+      "verifiedPublishers": "Verifiserte utgivere",
+      "averageRating": "Gjennomsnittsvurdering"
+    },
+    "actions": {
+      "refreshMarketplace": "Oppdater markedsplass",
+      "installExtension": "Installer utvidelse",
+      "removeExtension": "Fjern",
+      "updateExtension": "Oppdater",
+      "approveGovernance": "Godkjenn",
+      "openExtensions": "Bla i utvidelser",
+      "openDevelopers": "Developer Portal",
+      "openGovernance": "Companion Governance"
+    },
+    "sections": {
+      "installationWorkflow": "Installasjonsflyt",
+      "permissionFramework": "Tillatelsesrammeverk",
+      "extensionAdvisor": "Companion Extension Advisor",
+      "businessPackIntegration": "Business Pack-integrasjon",
+      "growthPartnerPublishing": "Growth Partner-publisering",
+      "audit": "Revisionslogg"
+    },
+    "extensionStatuses": {
+      "active": "Aktiv",
+      "installing": "Installerer",
+      "update_available": "Oppdatering tilgjengelig",
+      "permission_required": "Tillatelse kreves",
+      "disabled": "Deaktivert"
+    },
+    "certificationStatuses": {
+      "pending": "Ventende",
+      "review": "Gjennomgang",
+      "certified": "Sertifisert",
+      "published": "Publisert"
+    }
+  },
+  "enterpriseNetworkOperations": {
+    "title": "Enterprise Network Center",
+    "subtitle": "Samarbeid, kommuniser og utveksle informasjon gjennom et styrt og betrodd nettverk mellom organisasjoner.",
+    "workspacesTitle": "Delte arbeidsområder",
+    "loading": "Forbereder Enterprise Network",
+    "back": "Tilbake",
+    "principle": "De fleste forretningssystemer stopper ved organisasjonsgrensen — Aipify kobler organisasjoner trygt gjennom styrt samarbeid.",
+    "emptyState": "Enterprise Network-data er utilgjengelig.",
+    "tabs": {
+      "overview": "Oversikt",
+      "organizations": "Organisasjoner",
+      "connections": "Tilkoblinger",
+      "invitations": "Invitasjoner",
+      "collaborations": "Samarbeid",
+      "workspaces": "Delte arbeidsområder",
+      "trust": "Tillit",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "connectedOrganizations": "Tilkoblede organisasjoner",
+      "pendingInvitations": "Ventende invitasjoner",
+      "activeCollaborations": "Aktive samarbeid",
+      "sharedWorkspaces": "Delte arbeidsområder",
+      "trustReviewsRequired": "Tillitsgjennomganger kreves",
+      "averageTrustScore": "Gjennomsnittlig tillitsscore"
+    },
+    "actions": {
+      "refreshNetwork": "Oppdater nettverk",
+      "approveInvitation": "Godkjenn tilkobling",
+      "removeConnection": "Fjern tilkobling",
+      "createWorkspace": "Opprett arbeidsområde",
+      "shareDocument": "Del dokument",
+      "approveDataSharing": "Godkjenn datadeling",
+      "openWorkspaces": "Delte arbeidsområder",
+      "openEcosystem": "Økosystem",
+      "openMarketplace": "Markedsplass"
+    },
+    "sections": {
+      "connectionWorkflow": "Tilkoblingsflyt",
+      "dataSharingFramework": "Rammeverk for datadeling",
+      "networkAdvisor": "Companion Network Advisor",
+      "documentExchange": "Dokumentutveksling",
+      "growthPartnerNetwork": "Growth Partner-nettverk",
+      "marketplaceIntegration": "Markedsplassintegrasjon",
+      "audit": "Revisionslogg"
+    },
+    "organizationStatuses": {
+      "pending": "Ventende",
+      "verified": "Verifisert",
+      "connected": "Tilkoblet",
+      "review_required": "Krever gjennomgang",
+      "suspended": "Suspendert"
+    },
+    "trustLevels": {
+      "trusted": "Betrodd",
+      "verified": "Verifisert",
+      "limited_trust": "Begrenset tillit",
+      "review_required": "Krever gjennomgang"
+    }
+  },
+  "federationOperations": {
+    "title": "Federation Center",
+    "subtitle": "Koordiner intelligens, samarbeid og godkjente operasjoner på tvers av organisasjoner — med streng separasjon, personvern, styring og eierskap.",
+    "workspacesTitle": "Fødererte arbeidsområder",
+    "loading": "Forbereder Federation Center",
+    "back": "Tilbake",
+    "principle": "Organisasjoner kan samarbeide, dele og koordinere — men forblir alltid uavhengige.",
+    "emptyState": "Federation Center-data er utilgjengelig.",
+    "tabs": {
+      "overview": "Oversikt",
+      "networks": "Nettverk",
+      "organizations": "Organisasjoner",
+      "trust": "Tillitsforhold",
+      "intelligence": "Delt intelligens",
+      "workspaces": "Fødererte arbeidsområder",
+      "governance": "Styring",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "activeFederations": "Aktive føderasjoner",
+      "federationNetworks": "Føderasjonsnettverk",
+      "trustRelationships": "Tillitsforhold",
+      "sharedIntelligence": "Delt intelligens",
+      "federatedWorkspaces": "Fødererte arbeidsområder",
+      "trustReviewsRequired": "Tillitsgjennomganger kreves"
+    },
+    "actions": {
+      "refreshFederation": "Oppdater føderasjon",
+      "joinFederation": "Bli med i føderasjon",
+      "approveTrust": "Godkjenn tillit",
+      "createWorkspace": "Opprett arbeidsområde",
+      "shareIntelligence": "Del intelligens",
+      "publishRiskSignal": "Publiser risikosignal",
+      "startResearch": "Start forskning",
+      "openWorkspaces": "Fødererte arbeidsområder",
+      "openNetwork": "Enterprise Network",
+      "openTrustCenter": "Trust Center"
+    },
+    "sections": {
+      "trustFramework": "Tillitsrammeverk",
+      "sharedIntelligence": "Delt intelligensmotor",
+      "federationAdvisor": "Companion Federation Advisor",
+      "benchmarking": "Benchmarking-motor",
+      "industryObservatory": "Bransjeobservatorium",
+      "riskNetwork": "Føderert risikonettverk",
+      "knowledgeFederation": "Kunnskapsføderasjon",
+      "governanceRules": "Styringsregler",
+      "audit": "Revisionslogg"
+    },
+    "federationStatuses": {
+      "pending": "Ventende",
+      "verified": "Verifisert",
+      "active": "Aktiv",
+      "review_required": "Krever gjennomgang",
+      "suspended": "Suspendert"
+    },
+    "trustStatuses": {
+      "pending": "Ventende",
+      "verified": "Verifisert",
+      "active": "Aktiv",
+      "review_required": "Krever gjennomgang",
+      "suspended": "Suspendert"
+    }
+  },
+  "futureReadinessOperations": {
+    "title": "Future Readiness Center",
+    "subtitle": "Forbered kontinuerlig for vekst, forstyrrelser, endring og langsiktig suksess — Companion hjelper organisasjoner å tenke fremover.",
+    "planningTitle": "Strategisk planlegging",
+    "roadmapsTitle": "Strategiske veikart",
+    "loading": "Forbereder Future Readiness Center",
+    "back": "Tilbake",
+    "principle": "De fleste selskaper fokuserer på i dag — vellykkede selskaper forbereder seg på i morgen.",
+    "emptyState": "Future Readiness Center-data er utilgjengelig.",
+    "tabs": {
+      "overview": "Oversikt",
+      "planning": "Strategisk planlegging",
+      "scenarios": "Fremtidsscenarier",
+      "roadmaps": "Veikart",
+      "initiatives": "Initiativer",
+      "opportunities": "Muligheter",
+      "threats": "Trusler",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "futureReadinessScore": "Future readiness-score",
+      "activeInitiatives": "Aktive initiativer",
+      "delayedInitiatives": "Forsinkede initiativer",
+      "activeScenarios": "Aktive scenarier",
+      "trackedOpportunities": "Sporede muligheter",
+      "escalatedThreats": "Eskalerte trusler",
+      "activeRoadmaps": "Aktive veikart"
+    },
+    "actions": {
+      "refreshReadiness": "Oppdater beredskap",
+      "createInitiative": "Opprett initiativ",
+      "updateRoadmap": "Oppdater veikart",
+      "addOpportunity": "Legg til mulighet",
+      "identifyThreat": "Identifiser trussel",
+      "generateScenario": "Aktiver scenario",
+      "completeStrategicReview": "Fullfør strategisk gjennomgang",
+      "openPlanning": "Strategisk planlegging",
+      "openRoadmaps": "Veikart",
+      "openFederation": "Federation"
+    },
+    "sections": {
+      "strategicHorizons": "Strategisk horisontrammeverk",
+      "strategicAdvisor": "Companion Strategic Advisor",
+      "benchmarking": "Future readiness-score",
+      "threatObservatory": "Trusselobservatorium",
+      "innovationManagement": "Innovasjonsstyring",
+      "transformationEngine": "Transformasjonsmotor",
+      "businessPackIntegration": "Business Pack-integrasjon",
+      "executivePlanning": "Executive planleggingsarbeidsområde",
+      "audit": "Revisionslogg"
+    },
+    "readinessLabels": {
+      "future_ready": "Fremtidsklar",
+      "prepared": "Forberedt",
+      "gaps_identified": "Gap identifisert",
+      "strategic_risk": "Strategisk risiko"
+    },
+    "threatLevels": {
+      "low": "Lav",
+      "moderate": "Moderat",
+      "elevated": "Forhøyet",
+      "high": "Høy",
+      "critical": "Kritisk"
+    }
+  },
+  "resilienceOperations": {
+    "title": "Resilience Center",
+    "subtitle": "Forbered, reager og gjenopprett etter forstyrrelser — Aipify hjelper organisasjoner å forbli operative under press.",
+    "incidentsTitle": "Håndtering av hendelser",
+    "emergencyTitle": "Nødrespons-arbeidsområde",
+    "loading": "Forbereder Resilience Center",
+    "back": "Tilbake",
+    "principle": "Vellykkede organisasjoner defineres av hvordan de responderer når problemer oppstår.",
+    "emptyState": "Resilience Center-data er utilgjengelig.",
+    "tabs": {
+      "overview": "Oversikt",
+      "incidents": "Hendelser",
+      "continuity": "Forretningskontinuitet",
+      "recovery": "Gjenoppretting",
+      "crisis": "Krisehåndtering",
+      "dependencies": "Avhengigheter",
+      "preparedness": "Beredskap",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "resilienceScore": "Resiliens-score",
+      "openIncidents": "Åpne hendelser",
+      "criticalIncidents": "Kritiske hendelser",
+      "recoveryInProgress": "Gjenoppretting pågår",
+      "criticalDependencies": "Kritiske avhengigheter",
+      "preparednessLevel": "Beredskapsnivå",
+      "continuityPlansActive": "Aktive kontinuitetsplaner"
+    },
+    "actions": {
+      "refreshResilience": "Oppdater resiliens",
+      "createIncident": "Opprett hendelse",
+      "updateIncident": "Oppdater hendelse",
+      "updateRecovery": "Oppdater gjenoppretting",
+      "completeRecovery": "Fullfør gjenoppretting",
+      "activateContinuity": "Aktiver kontinuitetsplan",
+      "runPreparednessTest": "Kjør beredskapstest",
+      "openIncidents": "Hendelser",
+      "openEmergency": "Nødrespons",
+      "openKnowledgeGraph": "Knowledge Graph"
+    },
+    "sections": {
+      "crisisAdvisor": "Companion Crisis Advisor",
+      "dependencyObservatory": "Avhengighetsobservatorium",
+      "preparednessEngine": "Beredskapsmotor",
+      "scenarioTesting": "Scenario-testing",
+      "crisisCommunication": "Krisekommunikasjon",
+      "businessPackIntegration": "Business Pack-integrasjon",
+      "resilienceScore": "Resiliens-score",
+      "audit": "Revisjonslogg"
+    },
+    "resilienceLabels": {
+      "strong": "Sterk",
+      "stable": "Stabil",
+      "vulnerable": "Sårbar",
+      "critical": "Kritisk"
+    },
+    "severityLevels": {
+      "minor": "Mindre",
+      "moderate": "Moderat",
+      "major": "Alvorlig",
+      "critical": "Kritisk"
+    }
+  },
+  "proactiveOperations": {
+    "title": "Proactive Operations Center",
+    "subtitle": "Aipify overvåker organisasjonsaktivitet kontinuerlig, identifiserer muligheter og forbereder handlinger før du spør — mennesker beholder kontrollen.",
+    "watchlistsTitle": "Organisasjons-watchlister",
+    "loading": "Forbereder Proactive Operations Center",
+    "back": "Tilbake",
+    "principle": "De fleste systemer venter på instruksjoner — Companion observerer, forstår og forbereder.",
+    "emptyState": "Proactive Operations Center-data er utilgjengelig.",
+    "tabs": {
+      "overview": "Oversikt",
+      "observations": "Observasjoner",
+      "recommendations": "Anbefalinger",
+      "prepared_actions": "Forberedte handlinger",
+      "approvals": "Godkjenninger",
+      "insights": "Innsikt",
+      "opportunities": "Muligheter",
+      "reports": "Rapporter"
+    },
+    "overview": {
+      "observationCount": "Aktive observasjoner",
+      "attentionRequired": "Krever oppmerksomhet",
+      "immediateReview": "Umiddelbar gjennomgang",
+      "opportunitiesIdentified": "Identifiserte muligheter",
+      "preparedActionsReady": "Forberedte handlinger klare",
+      "pendingRecommendations": "Ventende anbefalinger",
+      "watchlistsActive": "Aktive watchlister",
+      "healthScore": "Operasjonell helsescore",
+      "decisionPacksReady": "Beslutningspakker klare"
+    },
+    "actions": {
+      "refreshProactive": "Oppdater proaktivt senter",
+      "createObservation": "Opprett observasjon",
+      "identifyOpportunity": "Identifiser mulighet",
+      "generatePreparedAction": "Generer forberedt handling",
+      "approveRecommendation": "Godkjenn",
+      "rejectRecommendation": "Avvis",
+      "addWatchlist": "Legg til watchlist",
+      "openWatchlists": "Watchlister",
+      "openApprovals": "Godkjenninger",
+      "openCompanionTeams": "Companion Teams"
+    },
+    "sections": {
+      "observationFeed": "Companion observasjonsfeed",
+      "operationalHealth": "Operasjonell helseovervåking",
+      "decisionPacks": "Forberedte beslutningspakker",
+      "businessPackIntegration": "Business Pack-integrasjon",
+      "companionAdvisor": "Companion Proactive Advisor",
+      "audit": "Revisjonslogg"
+    },
+    "observationStatus": {
+      "informational": "Informasjon",
+      "attention_required": "Krever oppmerksomhet",
+      "immediate_review": "Umiddelbar gjennomgang"
+    },
+    "healthStatus": {
+      "healthy": "Sunn",
+      "watch_closely": "Følg nøye",
+      "immediate_action": "Umiddelbar handling kreves"
+    }
   }
 }
