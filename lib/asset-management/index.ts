@@ -25,8 +25,10 @@ export async function performAssetManagementAction(
   return (data as Record<string, unknown>) ?? {};
 }
 
-export async function getCompanionAssetContext(supabase: RpcClient) {
-  const { data, error } = await supabase.rpc("get_companion_asset_context");
+export async function getCompanionAssetContext(supabase: RpcClient, query?: string) {
+  const { data, error } = await supabase.rpc("get_companion_asset_context", {
+    p_query: query ?? null,
+  });
   if (error) throw new Error(error.message);
   return (data as Record<string, unknown>) ?? {};
 }

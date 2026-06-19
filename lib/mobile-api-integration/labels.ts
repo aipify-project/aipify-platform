@@ -1,0 +1,53 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildMobileApiIntegrationLabels(t: Translator) {
+  const p = "customerApp.mobileApiIntegration";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    principle: t(`${p}.principle`),
+    philosophy: t(`${p}.philosophy`),
+    accessDenied: t(`${p}.accessDenied`),
+    overview: t(`${p}.overview`),
+    channels: t(`${p}.channels`),
+    controlRules: t(`${p}.controlRules`),
+    eventRules: t(`${p}.eventRules`),
+    approvals: t(`${p}.approvals`),
+    testMode: t(`${p}.testMode`),
+    payloadMapping: t(`${p}.payloadMapping`),
+    reports: t(`${p}.reports`),
+    history: t(`${p}.history`),
+    activeChannels: t(`${p}.activeChannels`),
+    testingChannels: t(`${p}.testingChannels`),
+    pendingApprovals: t(`${p}.pendingApprovals`),
+    sent30d: t(`${p}.sent30d`),
+    suppressed30d: t(`${p}.suppressed30d`),
+    failed30d: t(`${p}.failed30d`),
+    pauseNonCritical: t(`${p}.pauseNonCritical`),
+    resumeNonCritical: t(`${p}.resumeNonCritical`),
+    createChannel: t(`${p}.createChannel`),
+    channelName: t(`${p}.channelName`),
+    endpointUrl: t(`${p}.endpointUrl`),
+    testChannel: t(`${p}.testChannel`),
+    activateChannel: t(`${p}.activateChannel`),
+    disableChannel: t(`${p}.disableChannel`),
+    noChannels: t(`${p}.noChannels`),
+    emptyHint: t(`${p}.emptyHint`),
+    rateLimits: t(`${p}.rateLimits`),
+    quietHours: t(`${p}.quietHours`),
+    priorityFiltering: t(`${p}.priorityFiltering`),
+    fallbackRules: t(`${p}.fallbackRules`),
+    saveSettings: t(`${p}.saveSettings`),
+    approveBroadcast: t(`${p}.approveBroadcast`),
+    rejectBroadcast: t(`${p}.rejectBroadcast`),
+    noPendingApprovals: t(`${p}.noPendingApprovals`),
+    auditLog: t(`${p}.auditLog`),
+    status: t(`${p}.status`),
+    openNotifications: t(`${p}.openNotifications`),
+    lastTestResult: t(`${p}.lastTestResult`),
+    provider: t(`${p}.provider`),
+    connectionType: t(`${p}.connectionType`),
+  };
+}
+
+export type MobileApiIntegrationLabels = ReturnType<typeof buildMobileApiIntegrationLabels>;

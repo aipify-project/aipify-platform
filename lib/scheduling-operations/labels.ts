@@ -1,0 +1,52 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildSchedulingOperationsLabels(t: Translator) {
+  const p = "customerApp.schedulingOperations";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    principle: t(`${p}.principle`),
+    philosophy: t(`${p}.philosophy`),
+    accessDenied: t(`${p}.accessDenied`),
+    overview: t(`${p}.overview`),
+    calendar: t(`${p}.calendar`),
+    events: t(`${p}.events`),
+    bookings: t(`${p}.bookings`),
+    appointments: t(`${p}.appointments`),
+    resources: t(`${p}.resources`),
+    availability: t(`${p}.availability`),
+    reports: t(`${p}.reports`),
+    upcomingEvents: t(`${p}.upcomingEvents`),
+    myUpcoming: t(`${p}.myUpcoming`),
+    activeBookings: t(`${p}.activeBookings`),
+    scheduleConflicts: t(`${p}.scheduleConflicts`),
+    resourcesAvailable: t(`${p}.resourcesAvailable`),
+    recurringSchedules: t(`${p}.recurringSchedules`),
+    capacityUtilization: t(`${p}.capacityUtilization`),
+    createEvent: t(`${p}.createEvent`),
+    eventTitle: t(`${p}.eventTitle`),
+    cancelEvent: t(`${p}.cancelEvent`),
+    completeEvent: t(`${p}.completeEvent`),
+    bookResource: t(`${p}.bookResource`),
+    createRecurring: t(`${p}.createRecurring`),
+    recurringTitle: t(`${p}.recurringTitle`),
+    blockAvailability: t(`${p}.blockAvailability`),
+    noEvents: t(`${p}.noEvents`),
+    noBookings: t(`${p}.noBookings`),
+    noResources: t(`${p}.noResources`),
+    emptyHint: t(`${p}.emptyHint`),
+    meetingVolume: t(`${p}.meetingVolume`),
+    bookingUtilization: t(`${p}.bookingUtilization`),
+    auditLog: t(`${p}.auditLog`),
+    status: t(`${p}.status`),
+    mobileReady: t(`${p}.mobileReady`),
+    viewDay: t(`${p}.viewDay`),
+    viewWeek: t(`${p}.viewWeek`),
+    viewMonth: t(`${p}.viewMonth`),
+    viewAgenda: t(`${p}.viewAgenda`),
+    externalSync: t(`${p}.externalSync`),
+    openCalendar: t(`${p}.openCalendar`),
+  };
+}
+
+export type SchedulingOperationsLabels = ReturnType<typeof buildSchedulingOperationsLabels>;

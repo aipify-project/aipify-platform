@@ -358,11 +358,23 @@ export type AppNavId =
   | "appLicenses"
   | "appEmployees"
   | "appPeople"
+  | "appKnowledge"
+  | "appDocuments"
+  | "appPlaybooks"
   | "appCustomers"
   | "appCases"
   | "appFinance"
   | "appProjects"
   | "appSales"
+  | "appMarketing"
+  | "appScheduling"
+  | "appCalendar"
+  | "appEvents"
+  | "appBookings"
+  | "appNotifications"
+  | "appExecutiveAlerts"
+  | "appMobileApiIntegration"
+  | "appAssets"
   | "appProcurement"
   | "appInventory"
   | "appForms"
@@ -1887,11 +1899,23 @@ export const APP_NAV: AppNavItem[] = [
   { id: "appLicenses", href: "/app/licenses", labelKey: "navigation.nav.appLicenses" },
   { id: "appEmployees", href: "/app/employees", labelKey: "navigation.nav.appEmployees" },
   { id: "appPeople", href: "/app/people", labelKey: "navigation.nav.appPeople" },
+  { id: "appKnowledge", href: "/app/knowledge", labelKey: "navigation.nav.appKnowledge" },
+  { id: "appDocuments", href: "/app/documents", labelKey: "navigation.nav.appDocuments" },
+  { id: "appPlaybooks", href: "/app/playbooks", labelKey: "navigation.nav.appPlaybooks" },
   { id: "appCustomers", href: "/app/customers", labelKey: "navigation.nav.appCustomers" },
   { id: "appCases", href: "/app/cases", labelKey: "navigation.nav.appCases" },
   { id: "appFinance", href: "/app/finance", labelKey: "navigation.nav.appFinance" },
   { id: "appProjects", href: "/app/projects", labelKey: "navigation.nav.appProjects" },
   { id: "appSales", href: "/app/sales", labelKey: "navigation.nav.appSales" },
+  { id: "appMarketing", href: "/app/marketing", labelKey: "navigation.nav.appMarketing" },
+  { id: "appScheduling", href: "/app/scheduling", labelKey: "navigation.nav.appScheduling" },
+  { id: "appCalendar", href: "/app/calendar", labelKey: "navigation.nav.appCalendar" },
+  { id: "appEvents", href: "/app/events", labelKey: "navigation.nav.appEvents" },
+  { id: "appBookings", href: "/app/bookings", labelKey: "navigation.nav.appBookings" },
+  { id: "appNotifications", href: "/app/notifications", labelKey: "navigation.nav.appNotifications" },
+  { id: "appExecutiveAlerts", href: "/app/executive-alerts", labelKey: "navigation.nav.appExecutiveAlerts" },
+  { id: "appMobileApiIntegration", href: "/app/integrations/mobile-api", labelKey: "navigation.nav.appMobileApiIntegration" },
+  { id: "appAssets", href: "/app/assets", labelKey: "navigation.nav.appAssets" },
   { id: "appProcurement", href: "/app/procurement", labelKey: "navigation.nav.appProcurement" },
   { id: "appInventory", href: "/app/inventory", labelKey: "navigation.nav.appInventory" },
   { id: "appForms", href: "/app/forms", labelKey: "navigation.nav.appForms" },
@@ -2831,10 +2855,22 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/store")) return "appStore";
   if (pathname.startsWith("/app/employees")) return "appEmployees";
   if (pathname.startsWith("/app/people")) return "appPeople";
+  if (pathname.startsWith("/app/playbooks")) return "appPlaybooks";
+  if (pathname.startsWith("/app/documents")) return "appDocuments";
+  if (pathname === "/app/knowledge") return "appKnowledge";
   if (pathname.startsWith("/app/cases")) return "appCases";
   if (pathname.startsWith("/app/finance")) return "appFinance";
   if (pathname.startsWith("/app/projects")) return "appProjects";
   if (pathname.startsWith("/app/sales")) return "appSales";
+  if (pathname.startsWith("/app/marketing")) return "appMarketing";
+  if (pathname === "/app/scheduling") return "appScheduling";
+  if (pathname.startsWith("/app/calendar")) return "appCalendar";
+  if (pathname.startsWith("/app/events")) return "appEvents";
+  if (pathname.startsWith("/app/bookings")) return "appBookings";
+  if (pathname.startsWith("/app/notifications")) return "appNotifications";
+  if (pathname.startsWith("/app/executive-alerts")) return "appExecutiveAlerts";
+  if (pathname.startsWith("/app/integrations/mobile-api")) return "appMobileApiIntegration";
+  if (pathname.startsWith("/app/assets")) return "appAssets";
   if (pathname.startsWith("/app/procurement")) return "appProcurement";
   if (pathname.startsWith("/app/inventory")) return "appInventory";
   if (pathname.startsWith("/app/forms")) return "appForms";
