@@ -35,7 +35,9 @@ export type PartnersPortalNavId =
   | "teamMembers"
   | "notifications"
   | "settings"
-  | "workforceScheduling";
+  | "workforceScheduling"
+  | "absenceCoverage"
+  | "absenceSettings";
 
 export type PartnersPortalNavGroupId =
   | "dashboard"
@@ -45,7 +47,8 @@ export type PartnersPortalNavGroupId =
   | "academy"
   | "marketing"
   | "performance"
-  | "account";
+  | "account"
+  | "scheduling";
 
 export type PartnersPortalNavItem = {
   id: PartnersPortalNavId;
