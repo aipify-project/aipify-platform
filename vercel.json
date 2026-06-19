@@ -3,9 +3,9 @@
   "buildCommand": "npm run build",
   "build": {
     "env": {
-      "VERCEL_BUILD_MACHINE_TYPE": "turbo",
-      "NODE_OPTIONS": "--max-old-space-size=49152",
-      "AIPIFY_SPLIT_BUILD": "0"
+      "AIPIFY_SPLIT_BUILD": "1",
+      "AIPIFY_BUILD_HEAP_COMPILE": "--max-old-space-size=40960",
+      "AIPIFY_BUILD_HEAP_GENERATE": "--max-old-space-size=16384"
     }
   }
 }
