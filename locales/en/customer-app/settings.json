@@ -46,6 +46,10 @@
           "3": {
             "href": "/app/settings/two-factor",
             "label": "Sign-in verification"
+          },
+          "4": {
+            "href": "/app/settings/absence",
+            "label": "Absence administrator policies"
           }
         }
       },

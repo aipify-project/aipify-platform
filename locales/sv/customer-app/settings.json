@@ -12,6 +12,16 @@
       "updates": "Updates",
       "learning": "Inlärning"
     },
+    "categories": {
+      "governanceSecurity": {
+        "links": {
+          "4": {
+            "href": "/app/settings/absence",
+            "label": "Frånvaropolicyer för administratörer"
+          }
+        }
+      }
+    },
     "timezone": "Tidszon",
     "timezoneHint": "Hälsningar och briefings använder din lokala tidszon.",
     "save": "Spara inställningar",

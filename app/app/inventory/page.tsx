@@ -1,14 +1,5 @@
-import { InventoryOperationsPanel } from "@/components/app/inventory-operations";
-import { buildInventoryOperationsLabels } from "@/lib/inventory-operations/labels";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
-import { getLocale } from "@/lib/i18n/get-locale";
-import { createTranslator } from "@/lib/i18n/translate";
+import { InventoryOperationsSectionPage } from "@/lib/inventory-operations-engine/section-page";
 
-export default async function InventoryPage() {
-  const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["settings"]);
-  const t = createTranslator(dict);
-  const labels = buildInventoryOperationsLabels(t);
-
-  return <InventoryOperationsPanel labels={labels} />;
+export default function InventoryOverviewPage() {
+  return <InventoryOperationsSectionPage activeSection="overview" />;
 }
