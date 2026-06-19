@@ -608,8 +608,8 @@ begin
       end;
     when '610' then
       v_result := jsonb_build_object(
-        'linked', to_regclass('public.organization_ssr610_waiting_list') is not null,
-        'phase', '610', 'route', '/app/service-scheduling',
+        'linked', to_regclass('public.organization_apt610_waiting_list') is not null,
+        'phase', '610', 'route', '/app/appointments',
         'note', 'Waiting list, memberships, and packages reuse Phase 610 — not duplicated in Phase 611.'
       );
     when '591' then
@@ -770,9 +770,9 @@ begin
     (p_org_id, 'int_587', 'Customer Success Operations', '587', 'linked', '/app/customer-success', 'Phase 587 — not duplicated.'),
     (p_org_id, 'int_588', 'Revenue Operations', '588', 'linked', '/app/revenue', 'Phase 588 commercial intelligence — not duplicated.'),
     (p_org_id, 'int_606', 'Vacation Mode continuity', '606', 'linked', '/app/absence', 'Phase 606 vacation relationship continuity.'),
-    (p_org_id, 'int_610_wl', 'Waiting list', '610', 'pending', '/app/service-scheduling', 'Phase 610 waiting list reuse — not duplicated.'),
-    (p_org_id, 'int_610_mem', 'Memberships', '610', 'pending', '/app/service-scheduling/memberships', 'Phase 610 memberships reuse.'),
-    (p_org_id, 'int_610_pkg', 'Packages', '610', 'pending', '/app/service-scheduling/packages', 'Phase 610 packages reuse.'),
+    (p_org_id, 'int_610_wl', 'Waiting list', '610', 'linked', '/app/appointments', 'Phase 610 waiting list reuse — not duplicated.'),
+    (p_org_id, 'int_610_mem', 'Memberships', '610', 'linked', '/app/appointments', 'Phase 610 packages_memberships section — not duplicated.'),
+    (p_org_id, 'int_610_pkg', 'Packages', '610', 'linked', '/app/appointments', 'Phase 610 packages_memberships section — not duplicated.'),
     (p_org_id, 'int_591', 'Event bus', '591', 'linked', '/app/events', 'Phase 591 organizational event bus.'),
     (p_org_id, 'int_fiken', 'Fiken accounting prep', 'fiken', 'pending', '/app/integrations', 'Fiken integration metadata — prep only.');
 
@@ -904,9 +904,9 @@ begin
     'waiting_list', case when v_section in ('overview', 'rebooking') then
       jsonb_build_object(
         'reuse_phase', '610',
-        'linked', to_regclass('public.organization_ssr610_waiting_list') is not null,
-        'note', 'Waiting list data from Phase 610 Service Scheduling — not duplicated in Phase 611.',
-        'route', '/app/service-scheduling'
+        'linked', to_regclass('public.organization_apt610_waiting_list') is not null,
+        'note', 'Waiting list data from Phase 610 Appointment Booking — not duplicated in Phase 611.',
+        'route', '/app/appointments'
       ) else '[]'::jsonb end,
     'retention_cases', coalesce((
       select jsonb_agg(jsonb_build_object(
@@ -947,13 +947,13 @@ begin
     ), '[]'::jsonb),
     'memberships', case when v_section in ('overview', 'memberships') then
       jsonb_build_object(
-        'reuse_phase', '610', 'linked', to_regclass('public.organization_ssr610_memberships') is not null,
-        'note', 'Membership lifecycle from Phase 610 — not duplicated.', 'route', '/app/service-scheduling/memberships'
+        'reuse_phase', '610', 'linked', to_regclass('public.organization_apt610_section_items') is not null,
+        'note', 'Membership lifecycle from Phase 610 packages_memberships — not duplicated.', 'route', '/app/appointments'
       ) else '[]'::jsonb end,
     'packages', case when v_section in ('overview', 'packages') then
       jsonb_build_object(
-        'reuse_phase', '610', 'linked', to_regclass('public.organization_ssr610_packages') is not null,
-        'note', 'Service packages from Phase 610 — not duplicated.', 'route', '/app/service-scheduling/packages'
+        'reuse_phase', '610', 'linked', to_regclass('public.organization_apt610_section_items') is not null,
+        'note', 'Service packages from Phase 610 packages_memberships — not duplicated.', 'route', '/app/appointments'
       ) else '[]'::jsonb end,
     'referrals', coalesce((
       select jsonb_agg(jsonb_build_object(
