@@ -48,7 +48,7 @@ export function AipifyLoadingState({
   const statusVisual = getAipifyVisualStatus(status);
 
   const containerClasses = [
-    "w-full bg-white/90 dark:bg-zinc-950/90",
+    "w-full bg-aipify-surface/90",
     fullPage ? "min-h-[calc(100vh-10rem)]" : "min-h-[240px]",
     centered ? "flex flex-col items-center justify-center text-center" : "",
     "py-12",
@@ -89,13 +89,13 @@ export function AipifyLoadingState({
       </div>
 
       {showStatusIndicator ? (
-        <p className="mt-6 flex items-center justify-center gap-2 text-xs font-medium tracking-wide text-gray-500 dark:text-zinc-400">
+        <p className="mt-6 flex items-center justify-center gap-2 text-xs font-medium tracking-wide text-aipify-text-secondary">
           <span aria-hidden="true">{statusVisual.symbol}</span>
           <span>{statusLabel ?? statusVisual.label}</span>
         </p>
       ) : null}
 
-      <p className="mt-2 max-w-sm text-sm font-medium text-gray-700 dark:text-zinc-300">{resolvedMessage}</p>
+      <p className="mt-2 max-w-sm text-sm font-medium text-aipify-text">{resolvedMessage}</p>
     </div>
   );
 }

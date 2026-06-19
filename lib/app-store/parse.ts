@@ -104,6 +104,11 @@ export function parseAppStorePackDetail(data: unknown): AppStorePackDetail | nul
       : [],
     supported_actions: Array.isArray(row.supported_actions) ? (row.supported_actions as string[]) : [],
     module_access_route: typeof row.module_access_route === "string" ? row.module_access_route : undefined,
+    available_domains: Array.isArray(row.available_domains)
+      ? (row.available_domains as AppStorePackDetail["available_domains"])
+      : [],
+    domain_required: row.domain_required === true,
+    domains_route: typeof row.domains_route === "string" ? row.domains_route : undefined,
   };
 }
 

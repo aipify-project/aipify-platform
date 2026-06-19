@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getCustomerLicenseDashboard, parseCustomerLicenseDashboard } from "@/lib/app-store";
+import { getLicenseSubscriptionCenter, parseLicenseSubscriptionCenter } from "@/lib/license-management";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {
@@ -8,9 +8,9 @@ export async function GET() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const data = await getCustomerLicenseDashboard(supabase);
-    return NextResponse.json(parseCustomerLicenseDashboard(data) ?? { found: false });
-  } catch {
-    return NextResponse.json({ error: "Failed to load license dashboard" }, { status: 500 });
+    const data = await getLicenseSubscriptionCenter(supabase);
+    return NextResponse.json(parseLicenseSubscriptionCenter(data) ?? { found: false });
+  } catch (err) {
+    return NextResponse.json({ error: err instanceof Error ? err.message : "Failed to load licenses" }, { status: 500 });
   }
 }

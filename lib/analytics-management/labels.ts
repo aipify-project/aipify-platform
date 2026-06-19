@@ -1,0 +1,51 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildAnalyticsManagementLabels(t: Translator) {
+  const p = "customerApp.analyticsManagement";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    principle: t(`${p}.principle`),
+    coachingNote: t(`${p}.coachingNote`),
+    accessDenied: t(`${p}.accessDenied`),
+    executive: t(`${p}.executive`),
+    operations: t(`${p}.operations`),
+    employees: t(`${p}.employees`),
+    departments: t(`${p}.departments`),
+    businessPacks: t(`${p}.businessPacks`),
+    domains: t(`${p}.domains`),
+    financial: t(`${p}.financial`),
+    productivity: t(`${p}.productivity`),
+    companion: t(`${p}.companion`),
+    reports: t(`${p}.reports`),
+    organizationHealth: t(`${p}.organizationHealth`),
+    activeEmployees: t(`${p}.activeEmployees`),
+    openTasks: t(`${p}.openTasks`),
+    overdueTasks: t(`${p}.overdueTasks`),
+    upcomingDeadlines: t(`${p}.upcomingDeadlines`),
+    noData: t(`${p}.noData`),
+    noDataHint: t(`${p}.noDataHint`),
+    createReport: t(`${p}.createReport`),
+    exportReport: t(`${p}.exportReport`),
+    scheduleReport: t(`${p}.scheduleReport`),
+    auditLog: t(`${p}.auditLog`),
+    insightsLink: t(`${p}.insightsLink`),
+    tasksLink: t(`${p}.tasksLink`),
+    assetsLink: t(`${p}.assetsLink`),
+    save: t(`${p}.save`),
+    insightsTitle: t(`${p}.insightsTitle`),
+    insightsSubtitle: t(`${p}.insightsSubtitle`),
+    generateInsights: t(`${p}.generateInsights`),
+    dailyBrief: t(`${p}.dailyBrief`),
+    weeklyBrief: t(`${p}.weeklyBrief`),
+    monthlyBrief: t(`${p}.monthlyBrief`),
+    quarterlyBrief: t(`${p}.quarterlyBrief`),
+    noInsights: t(`${p}.noInsights`),
+    acknowledge: t(`${p}.acknowledge`),
+    dismiss: t(`${p}.dismiss`),
+    backToAnalytics: t(`${p}.backToAnalytics`),
+    orgIntelligenceLink: t(`${p}.orgIntelligenceLink`),
+  };
+}
+
+export type AnalyticsManagementLabels = ReturnType<typeof buildAnalyticsManagementLabels>;

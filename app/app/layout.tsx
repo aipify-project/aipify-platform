@@ -1,5 +1,6 @@
 import CustomerPortalGuard from "@/components/app/CustomerPortalGuard";
 import TwoFactorSessionGate from "@/components/auth/TwoFactorSessionGate";
+import { DynamicNavigationSuspendedBanner, NavigationUseTracker } from "@/components/app/dynamic-navigation";
 import DashboardShell from "@/components/dashboard/DashboardShell";
 import { DashboardProfileProvider } from "@/components/dashboard/DashboardProfileProvider";
 import { buildAppNavConfig, buildAppNavGroupConfig } from "@/lib/app/build-nav";
@@ -9,12 +10,20 @@ import {
   buildLayoutLicensePanelLabels,
   buildLayoutVocWidgetLabels,
 } from "@/lib/app/layout-shell-labels";
-import { buildAppNavSearchIndex } from "@/lib/app/nav-search";
+import { buildAppNavSearchIndex, type AppNavSearchEntry } from "@/lib/app/nav-search";
 import { APP_MOBILE_NAV_IDS } from "@/lib/app/nav-config";
 import { customerNavSourcesFromSearchIndex } from "@/lib/command-bar";
+import {
+  buildAppNavFromDynamicNavigation,
+  buildNavSearchFromDynamicNavigation,
+  getDynamicAppNavigation,
+  mergeDynamicWithFallbackNav,
+  parseDynamicAppNavigation,
+} from "@/lib/dynamic-navigation";
 import { getAppLayoutDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { createClient } from "@/lib/supabase/server";
 
 /** Authenticated app shell — skip build-time static prerender (700+ routes). */
 export const dynamic = "force-dynamic";
@@ -27,9 +36,40 @@ export default async function AppLayout({
   const locale = await getLocale();
   const dict = await getAppLayoutDictionary(locale);
   const t = createTranslator(dict);
-  const navGroups = buildAppNavGroupConfig(t);
-  const navConfig = buildAppNavConfig(t);
-  const navSearchIndex = buildAppNavSearchIndex(navGroups, navConfig, t);
+  const fallbackGroups = buildAppNavGroupConfig(t);
+  const fallbackConfig = buildAppNavConfig(t);
+
+  let navGroups = fallbackGroups;
+  let navConfig = fallbackConfig;
+  let navSearchIndex: AppNavSearchEntry[] = buildAppNavSearchIndex(fallbackGroups, fallbackConfig, t);
+  let mobileNavIds: string[] = [...APP_MOBILE_NAV_IDS];
+  let suspendedNotice: string | null = null;
+
+  try {
+    const supabase = await createClient();
+    const dynamicRaw = await getDynamicAppNavigation(supabase);
+    const dynamicNav = parseDynamicAppNavigation(dynamicRaw);
+    if (dynamicNav?.found) {
+      const built = buildAppNavFromDynamicNavigation(dynamicNav, t);
+      const merged = mergeDynamicWithFallbackNav(built, fallbackGroups, fallbackConfig);
+      navGroups = merged.navGroups;
+      navConfig = merged.navConfig;
+      navSearchIndex = buildNavSearchFromDynamicNavigation(dynamicNav).map((entry) => ({
+        ...entry,
+        groupId: "modules" as const,
+        groupLabel: entry.groupLabel,
+      }));
+      if (navSearchIndex.length === 0) {
+        navSearchIndex = buildAppNavSearchIndex(navGroups, navConfig, t);
+      }
+      mobileNavIds = built.mobileNavIds;
+      if (dynamicNav.suspended && dynamicNav.suspended_notice) {
+        suspendedNotice = dynamicNav.suspended_notice;
+      }
+    }
+  } catch {
+    // Fallback to static navigation when dynamic engine unavailable
+  }
 
   return (
     <CustomerPortalGuard loadingLabel={t("common.loading")}>
@@ -66,7 +106,7 @@ export default async function AppLayout({
           navCompactToggleLabel={t("shell.navSearch.compactToggle")}
           navSearchResultsLabel={t("shell.navSearch.results")}
           shellVariant="customer"
-          mobileNavIds={APP_MOBILE_NAV_IDS}
+          mobileNavIds={mobileNavIds}
           licensePanelLabels={buildLayoutLicensePanelLabels(t)}
           companionPresenceLabels={buildLayoutCompanionPresenceLabels(t)}
           voiceOfCustomerLabels={buildLayoutVocWidgetLabels(t)}
@@ -85,6 +125,15 @@ export default async function AppLayout({
             navSources: customerNavSourcesFromSearchIndex(navSearchIndex),
           }}
         >
+          <NavigationUseTracker />
+          {suspendedNotice ? (
+            <DynamicNavigationSuspendedBanner
+              notice={suspendedNotice}
+              renewLabel={t("customerApp.dynamicNavigation.renewSubscription")}
+              billingLabel={t("customerApp.dynamicNavigation.billing")}
+              supportLabel={t("customerApp.dynamicNavigation.support")}
+            />
+          ) : null}
           {children}
         </DashboardShell>
       </DashboardProfileProvider>

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AipifyShellClasses } from "@/lib/design";
 import { useEffect, useMemo, useState } from "react";
 import { usePlatformProfile } from "@/components/platform/PlatformProfileProvider";
 import { useOptionalDashboardProfile } from "./DashboardProfileProvider";
@@ -352,8 +353,8 @@ function DashboardShellFrame({
   );
 
   const shell = (
-    <div className="flex min-h-screen bg-gray-50">
-      <aside className="hidden h-screen w-64 shrink-0 flex-col overflow-visible border-r border-gray-200 bg-white lg:flex">
+    <div className={`flex min-h-screen ${AipifyShellClasses.canvas}`}>
+      <aside className={`hidden h-screen w-64 shrink-0 flex-col overflow-visible lg:flex ${AipifyShellClasses.sidebar}`}>
         {brandBlock}
         <div className="flex-1 overflow-y-auto p-4">
           {sidebarNav}
@@ -380,8 +381,8 @@ function DashboardShellFrame({
             aria-label="Close menu"
             onClick={() => setSidebarOpen(false)}
           />
-          <aside className="absolute left-0 top-0 flex h-full w-72 flex-col overflow-visible bg-white shadow-xl">
-            <div className="relative border-b border-gray-200">
+          <aside className={`absolute left-0 top-0 flex h-full w-72 flex-col overflow-visible shadow-xl ${AipifyShellClasses.sidebar}`}>
+            <div className="relative border-b border-aipify-border">
               {brandBlock}
               <button
                 type="button"
@@ -468,7 +469,7 @@ function DashboardShellFrame({
         </main>
 
         <nav
-          className="fixed bottom-0 left-0 right-0 z-30 border-t border-gray-200 bg-white/95 px-2 py-2 backdrop-blur-sm lg:hidden"
+          className={`fixed bottom-0 left-0 right-0 z-30 px-2 py-2 backdrop-blur-sm lg:hidden ${AipifyShellClasses.topbar}`}
           aria-label="Mobile navigation"
         >
           <div className="flex items-center justify-around">
@@ -479,11 +480,11 @@ function DashboardShellFrame({
                   key={item.id}
                   href={item.href}
                   className={`flex flex-col items-center gap-1 rounded-lg px-3 py-2 text-xs font-medium transition ${
-                    isActive ? "text-violet-600" : "text-gray-500"
+                    isActive ? "text-aipify-companion" : "text-aipify-text-secondary"
                   }`}
                   aria-current={isActive ? "page" : undefined}
                 >
-                  <span className={isActive ? "text-violet-600" : "text-gray-400"}>
+                  <span className={isActive ? "text-aipify-companion" : "text-aipify-text-muted"}>
                     {item.icon}
                   </span>
                   <span className="max-w-[4.5rem] truncate">{item.label}</span>

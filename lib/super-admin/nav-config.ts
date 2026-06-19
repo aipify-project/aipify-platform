@@ -59,6 +59,12 @@ export const SUPER_ADMIN_SECTIONS: SuperAdminSection[] = [
         href: "/super/module-registry",
       },
       {
+        id: "rolePermissionMatrix",
+        labelKey: "superAdmin.modules.rolePermissionMatrix",
+        descriptionKey: "superAdmin.modules.rolePermissionMatrixDescription",
+        href: "/super/role-permission-matrix",
+      },
+      {
         id: "partnerCommunications",
         labelKey: "superAdmin.modules.partnerCommunications",
         descriptionKey: "superAdmin.modules.partnerCommunicationsDescription",

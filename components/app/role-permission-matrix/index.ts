@@ -1,0 +1,1 @@
+export { RolePermissionMatrixPanel } from "./RolePermissionMatrixPanel";

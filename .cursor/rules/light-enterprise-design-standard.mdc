@@ -1,0 +1,41 @@
+---
+description: Light Enterprise Design Standard V1 — official visual theme, colors, navigation, and UI tokens
+alwaysApply: true
+---
+
+# Light Enterprise Design Standard V1
+
+Read **[AIPIFY_DESIGN_STANDARD_V1_LIGHT_ENTERPRISE.md](../../AIPIFY_DESIGN_STANDARD_V1_LIGHT_ENTERPRISE.md)** before UI, theme, navigation, Companion visual, or dashboard styling.
+
+Extends [ENTERPRISE_DESIGN_COMMUNICATION_STANDARD.md](../../ENTERPRISE_DESIGN_COMMUNICATION_STANDARD.md) with **visual** direction.
+
+## Default theme
+
+**Light Enterprise Theme** — not dark-mode-first. Warm off-white canvas (`#F7F6F3`), not pure `#FFFFFF` page backgrounds.
+
+## Colors
+
+- **Companion Purple** `#7C3AED` — brand, primary actions, active navigation
+- **Soft Blue-Purple** `#6366F1` — links, charts, selected states
+- **Dark slate** text · **muted gray** secondary text
+- Cards/surfaces: white on warm canvas
+
+Use CSS tokens in `app/globals.css` and `lib/design/light-enterprise-theme.ts` (`AipifyShellClasses`, `AipifyNavClasses`).
+
+## Navigation
+
+Solid Companion Purple for active items — **avoid heavy gradients**. Professional, organized, enterprise-ready.
+
+## Status
+
+Icon + text always — use `AipifyStatusBadge` / `getAipifyStatusPresentation()`. Never color alone.
+
+## Avoid
+
+Gaming · cyberpunk · neon · black-first dashboards · excessive gradients · visual clutter
+
+## Filter
+
+Clarity over effects · professionalism over trends · enterprise quality over noise
+
+ILM: `aipify-core/knowledge/internal-language-model/light-enterprise-design-standard.txt`

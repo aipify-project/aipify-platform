@@ -64,6 +64,9 @@ export type AppStorePackDetail = {
   version_history?: { version: string; released_at?: string; notes?: string }[];
   supported_actions?: string[];
   module_access_route?: string;
+  available_domains?: { domain_id: string; domain: string; display_name?: string; is_primary?: boolean }[];
+  domain_required?: boolean;
+  domains_route?: string;
 };
 
 export type CustomerLicenseDashboard = {

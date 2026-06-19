@@ -364,6 +364,20 @@
         "core": "Core modules",
         "pack": "Pack modules"
       }
+    },
+    "rolePermissionMatrix": {
+      "title": "Rolle- og tilladelsesmatrix",
+      "subtitle": "Styringsindsigt i APP-rollestrukturer, tilladelseskatalog og adgangsrevision — kun aggregeret.",
+      "privacyNote": "Super Admin kan ikke ændre APP-tilladelser uden styringskontroller.",
+      "principle": "APP styrer mennesker. Roller styrer adgang. Tilladelser styrer handlinger.",
+      "governanceNote": "Undersøg adgangsproblemer og revider rolleændringer — APP-ejere beholder live kontrol.",
+      "catalog": "Tilladelseskatalog",
+      "adoption": "Adoption",
+      "templates": "Skabeloner",
+      "totalPermissions": "Totale tilladelser",
+      "totalModules": "Aktive moduler",
+      "organizations": "APP'er med tildelinger",
+      "back": "Tilbage til SUPER"
     }
   },
   "modules": {
@@ -482,7 +496,9 @@
     "revenueOperations": "Revenue Operations",
     "revenueOperationsDescription": "Orchestrate billing events, subscription activation, package sync, and failed activation recovery.",
     "moduleRegistry": "Module Registry",
-    "moduleRegistryDescription": "Global module catalog — create, disable, assign Business Packs, audit usage."
+    "moduleRegistryDescription": "Global module catalog — create, disable, assign Business Packs, audit usage.",
+    "rolePermissionMatrix": "Rolle- og tilladelsesmatrix",
+    "rolePermissionMatrixDescription": "Vis rollestrukturer, tilladelseskatalog og revider adgangsproblemer — kun styringsindsigt."
   },
   "voiceOfCustomer": {
     "title": "Globalt indsigtsdashboard",

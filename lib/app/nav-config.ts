@@ -354,7 +354,18 @@ export type AppNavId =
   | "companionActionMarketplaceEngine"
   | "marketplace"
   | "appStore"
+  | "appAnalytics"
   | "appLicenses"
+  | "appEmployees"
+  | "appPeople"
+  | "appCustomers"
+  | "appCases"
+  | "appFinance"
+  | "appProjects"
+  | "appSales"
+  | "appProcurement"
+  | "appInventory"
+  | "appForms"
   | "industryBlueprints"
   | "globalLearning"
   | "evolution"
@@ -1872,7 +1883,18 @@ export const APP_NAV: AppNavItem[] = [
   },
   { id: "marketplace", href: "/app/marketplace", labelKey: "navigation.nav.marketplace" },
   { id: "appStore", href: "/app/store", labelKey: "navigation.nav.appStore" },
+  { id: "appAnalytics", href: "/app/analytics", labelKey: "navigation.nav.appAnalytics" },
   { id: "appLicenses", href: "/app/licenses", labelKey: "navigation.nav.appLicenses" },
+  { id: "appEmployees", href: "/app/employees", labelKey: "navigation.nav.appEmployees" },
+  { id: "appPeople", href: "/app/people", labelKey: "navigation.nav.appPeople" },
+  { id: "appCustomers", href: "/app/customers", labelKey: "navigation.nav.appCustomers" },
+  { id: "appCases", href: "/app/cases", labelKey: "navigation.nav.appCases" },
+  { id: "appFinance", href: "/app/finance", labelKey: "navigation.nav.appFinance" },
+  { id: "appProjects", href: "/app/projects", labelKey: "navigation.nav.appProjects" },
+  { id: "appSales", href: "/app/sales", labelKey: "navigation.nav.appSales" },
+  { id: "appProcurement", href: "/app/procurement", labelKey: "navigation.nav.appProcurement" },
+  { id: "appInventory", href: "/app/inventory", labelKey: "navigation.nav.appInventory" },
+  { id: "appForms", href: "/app/forms", labelKey: "navigation.nav.appForms" },
   { id: "companionMarketplaceEngine", href: "/app/companion-marketplace", labelKey: "navigation.nav.companionMarketplaceEngine" },
   { id: "industryBlueprints", href: "/app/industry-blueprints", labelKey: "navigation.nav.industryBlueprints" },
   { id: "globalLearning", href: "/app/global-learning", labelKey: "navigation.nav.globalLearning" },
@@ -1939,7 +1961,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "strategicGoals", href: "/app/goals", labelKey: "navigation.nav.strategicGoals" },
   { id: "frictionIntelligence", href: "/app/friction", labelKey: "navigation.nav.frictionIntelligence" },
   { id: "organizationalMemory", href: "/app/memory", labelKey: "navigation.nav.organizationalMemory" },
-  { id: "organizationalIntelligence", href: "/app/insights", labelKey: "navigation.nav.organizationalIntelligence" },
+  { id: "organizationalIntelligence", href: "/app/organizational-intelligence", labelKey: "navigation.nav.organizationalIntelligence" },
   { id: "predictiveIntelligence", href: "/app/predictions", labelKey: "navigation.nav.predictiveIntelligence" },
   {
     id: "incidentCommandCenterEngine",
@@ -2807,6 +2829,17 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/skills")) return "skills";
   if (pathname.startsWith("/app/companion-marketplace")) return "companionMarketplaceEngine";
   if (pathname.startsWith("/app/store")) return "appStore";
+  if (pathname.startsWith("/app/employees")) return "appEmployees";
+  if (pathname.startsWith("/app/people")) return "appPeople";
+  if (pathname.startsWith("/app/cases")) return "appCases";
+  if (pathname.startsWith("/app/finance")) return "appFinance";
+  if (pathname.startsWith("/app/projects")) return "appProjects";
+  if (pathname.startsWith("/app/sales")) return "appSales";
+  if (pathname.startsWith("/app/procurement")) return "appProcurement";
+  if (pathname.startsWith("/app/inventory")) return "appInventory";
+  if (pathname.startsWith("/app/forms")) return "appForms";
+  if (pathname.startsWith("/app/customers") || pathname.startsWith("/app/leads")) return "appCustomers";
+  if (pathname.startsWith("/app/analytics")) return "appAnalytics";
   if (pathname.startsWith("/app/licenses")) return "appLicenses";
   if (pathname.startsWith("/app/marketplace/packs/")) return "marketplace";
   if (pathname.startsWith("/app/marketplace/companion-actions")) return "companionActionMarketplaceEngine";
@@ -2894,7 +2927,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   ) {
     return "organizationalMemory";
   }
-  if (pathname.startsWith("/app/insights") || pathname.startsWith("/app/organization") || pathname.startsWith("/app/workflows")) {
+  if (pathname.startsWith("/app/organizational-intelligence")) return "organizationalIntelligence";
+  if (pathname.startsWith("/app/insights")) return "appAnalytics";
+  if (pathname.startsWith("/app/organization") || pathname.startsWith("/app/workflows")) {
     return "organizationalIntelligence";
   }
   if (pathname.startsWith("/app/predictions")) {

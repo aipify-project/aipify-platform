@@ -1,0 +1,1 @@
+export { InventoryOperationsPanel } from "./InventoryOperationsPanel";

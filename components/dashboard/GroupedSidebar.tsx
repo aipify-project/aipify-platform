@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { AipifyNavClasses } from "@/lib/design";
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   APP_NAV_COMPACT_STORAGE_KEY,
@@ -48,8 +49,8 @@ type GroupedSidebarProps = {
 };
 
 const ACTIVE_ACCENT_CLASSES = {
-  default: "bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-sm",
-  soft: "bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-sm",
+  default: AipifyNavClasses.itemActive,
+  soft: AipifyNavClasses.itemActive,
 } as const;
 
 function createStorageHelpers(mode: "customer" | "platform") {
@@ -122,11 +123,11 @@ function NavLinkRow({
       className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium transition ${
         isActive
           ? ACTIVE_ACCENT_CLASSES[activeAccent]
-          : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+          : AipifyNavClasses.item
       } ${compact ? "justify-center px-2" : ""}`}
       aria-current={isActive ? "page" : undefined}
     >
-      <span className={isActive ? "text-white" : "text-gray-400"}>{item.icon}</span>
+      <span className={isActive ? AipifyNavClasses.itemActiveIcon : AipifyNavClasses.itemIcon}>{item.icon}</span>
       {!compact ? <span className="truncate">{item.label}</span> : null}
     </Link>
   );
@@ -164,12 +165,12 @@ function SearchResultRow({
       title={item.label}
       className={`flex w-full items-start gap-3 rounded-xl px-3 py-2.5 text-left transition ${
         isActive
-          ? "bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-sm"
-          : "text-gray-700 hover:bg-gray-100"
+          ? AipifyNavClasses.itemActive
+          : `${AipifyNavClasses.item} text-aipify-text`
       }`}
       aria-current={isActive ? "page" : undefined}
     >
-      <span className={`mt-0.5 shrink-0 ${isActive ? "text-white" : "text-gray-400"}`}>
+      <span className={`mt-0.5 shrink-0 ${isActive ? AipifyNavClasses.itemActiveIcon : AipifyNavClasses.itemIcon}`}>
         {icon}
       </span>
       <span className="min-w-0 flex-1">

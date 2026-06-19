@@ -1,4 +1,5 @@
-import { GovernanceAuditPanel } from "@/components/app/governance/GovernanceAuditPanel";
+import { GovernanceManagementPanel } from "@/components/app/governance-management";
+import { buildGovernanceManagementLabels } from "@/lib/governance-management/labels";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -7,16 +8,6 @@ export default async function GovernanceAuditPage() {
   const locale = await getLocale();
   const dict = await getCustomerAppDictionaryForSplits(locale, ["settings"]);
   const t = createTranslator(dict);
-
-  return (
-    <GovernanceAuditPanel
-      labels={{
-        title: t("customerApp.governance.audit.title"),
-        subtitle: t("customerApp.governance.audit.subtitle"),
-        loading: t("customerApp.governance.audit.loading"),
-        back: t("customerApp.governance.audit.back"),
-        empty: t("customerApp.governance.audit.empty"),
-      }}
-    />
-  );
+  const labels = buildGovernanceManagementLabels(t);
+  return <GovernanceManagementPanel labels={labels} initialTab="audit" titleOverride={labels.auditTitle} />;
 }

@@ -1,0 +1,52 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildFinanceOperationsLabels(t: Translator) {
+  const p = "customerApp.financeOperations";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    principle: t(`${p}.principle`),
+    accessDenied: t(`${p}.accessDenied`),
+    overview: t(`${p}.overview`),
+    revenue: t(`${p}.revenue`),
+    expenses: t(`${p}.expenses`),
+    invoices: t(`${p}.invoices`),
+    subscriptions: t(`${p}.subscriptions`),
+    approvals: t(`${p}.approvals`),
+    forecasting: t(`${p}.forecasting`),
+    reports: t(`${p}.reports`),
+    integrations: t(`${p}.integrations`),
+    revenueThisMonth: t(`${p}.revenueThisMonth`),
+    revenueYtd: t(`${p}.revenueYtd`),
+    expensesThisMonth: t(`${p}.expensesThisMonth`),
+    expensesYtd: t(`${p}.expensesYtd`),
+    outstandingInvoices: t(`${p}.outstandingInvoices`),
+    upcomingPayments: t(`${p}.upcomingPayments`),
+    cashFlowSnapshot: t(`${p}.cashFlowSnapshot`),
+    subscriptionCosts: t(`${p}.subscriptionCosts`),
+    financialHealth: t(`${p}.financialHealth`),
+    pendingApprovals: t(`${p}.pendingApprovals`),
+    createExpense: t(`${p}.createExpense`),
+    createInvoice: t(`${p}.createInvoice`),
+    createRevenue: t(`${p}.createRevenue`),
+    submitExpense: t(`${p}.submitExpense`),
+    approveExpense: t(`${p}.approveExpense`),
+    sendInvoice: t(`${p}.sendInvoice`),
+    markPaid: t(`${p}.markPaid`),
+    vendorName: t(`${p}.vendorName`),
+    amount: t(`${p}.amount`),
+    titleLabel: t(`${p}.titleLabel`),
+    customerName: t(`${p}.customerName`),
+    noExpenses: t(`${p}.noExpenses`),
+    noExpensesHint: t(`${p}.noExpensesHint`),
+    noInvoices: t(`${p}.noInvoices`),
+    auditLog: t(`${p}.auditLog`),
+    budgets: t(`${p}.budgets`),
+    vendors: t(`${p}.vendors`),
+    healthy: t(`${p}.healthy`),
+    attention: t(`${p}.attention`),
+    save: t(`${p}.save`),
+  };
+}
+
+export type FinanceOperationsLabels = ReturnType<typeof buildFinanceOperationsLabels>;

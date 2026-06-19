@@ -20,8 +20,10 @@ export function AppStorePackDetailPanel({
   const [detail, setDetail] = useState<AppStorePackDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
-  const [step, setStep] = useState<"detail" | "seats" | "review" | "done">("detail");
+  const [step, setStep] = useState<"detail" | "domain" | "seats" | "review" | "done">("detail");
   const [seatTier, setSeatTier] = useState("5");
+  const [domainId, setDomainId] = useState("");
+  const [selectedDomainLabel, setSelectedDomainLabel] = useState("");
   const [reviewCost, setReviewCost] = useState<{ monthly_cost?: number | null; pricing_label?: string } | null>(null);
   const [removeConfirm, setRemoveConfirm] = useState(false);
   const [resultMessage, setResultMessage] = useState<string | null>(null);
@@ -37,8 +39,17 @@ export function AppStorePackDetailPanel({
   useEffect(() => { void load(); }, [load]);
 
   useEffect(() => {
-    if (installMode || upgradeMode) setStep("seats");
+    if (installMode || upgradeMode) setStep("domain");
   }, [installMode, upgradeMode]);
+
+  useEffect(() => {
+    const domains = detail?.available_domains ?? [];
+    if (!domainId && domains.length > 0) {
+      const primary = domains.find((d) => d.is_primary) ?? domains[0];
+      setDomainId(primary.domain_id);
+      setSelectedDomainLabel(primary.display_name ?? primary.domain);
+    }
+  }, [detail, domainId]);
 
   async function reviewInstall() {
     setBusy(true);
@@ -48,7 +59,7 @@ export function AppStorePackDetailPanel({
       body: JSON.stringify({
         action_type: "review_install",
         pack_key: packKey,
-        payload: { seat_tier: seatTier },
+        payload: { seat_tier: seatTier, domain_id: domainId },
       }),
     });
     if (res.ok) {
@@ -154,6 +165,43 @@ export function AppStorePackDetailPanel({
         </div>
       ) : null}
 
+      {step === "domain" ? (
+        <section className="rounded-xl border border-violet-100 bg-violet-50/40 p-6">
+          <h2 className="font-semibold text-violet-950">{labels.selectDomain}</h2>
+          <p className="mt-1 text-sm text-violet-800">{labels.selectDomainRequired}</p>
+          <label className="mt-4 block text-sm font-medium text-gray-700">{labels.installOn}</label>
+          <select
+            value={domainId}
+            onChange={(e) => {
+              const id = e.target.value;
+              setDomainId(id);
+              const match = (detail.available_domains ?? []).find((d) => d.domain_id === id);
+              setSelectedDomainLabel(match?.display_name ?? match?.domain ?? id);
+            }}
+            className="mt-2 w-full max-w-md rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm"
+          >
+            {(detail.available_domains ?? []).map((d) => (
+              <option key={d.domain_id} value={d.domain_id}>
+                {d.display_name ?? d.domain}{d.is_primary ? " (primary)" : ""}
+              </option>
+            ))}
+          </select>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <button
+              type="button"
+              disabled={!domainId || busy}
+              onClick={() => setStep(upgradeMode ? "review" : "seats")}
+              className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-60"
+            >
+              {upgradeMode ? labels.reviewCost : labels.selectSeats}
+            </button>
+            <Link href={detail.domains_route ?? "/app/domains"} className="text-sm text-indigo-700 hover:underline self-center">
+              Manage domains
+            </Link>
+          </div>
+        </section>
+      ) : null}
+
       {step === "seats" ? (
         <section className="rounded-xl border border-indigo-100 bg-indigo-50/40 p-6">
           <h2 className="font-semibold text-indigo-950">{labels.selectSeats}</h2>
@@ -187,6 +235,9 @@ export function AppStorePackDetailPanel({
       {step === "review" ? (
         <section className="rounded-xl border border-gray-200 bg-white p-6">
           <h2 className="font-semibold text-gray-900">{labels.reviewCost}</h2>
+          {selectedDomainLabel ? (
+            <p className="mt-2 text-sm text-gray-600">{labels.installOn}: <span className="font-medium text-gray-900">{selectedDomainLabel}</span></p>
+          ) : null}
           <p className="mt-2 text-lg font-semibold text-indigo-900">
             {reviewCost?.pricing_label ?? `${reviewCost?.monthly_cost ?? "—"} / month`}
           </p>
@@ -263,7 +314,7 @@ export function AppStorePackDetailPanel({
             {!detail.listing?.installed ? (
               <button
                 type="button"
-                onClick={() => setStep("seats")}
+                onClick={() => setStep("domain")}
                 className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
               >
                 {labels.install}
@@ -273,7 +324,7 @@ export function AppStorePackDetailPanel({
               <>
                 <button
                   type="button"
-                  onClick={() => { setStep("seats"); }}
+                  onClick={() => { setStep("domain"); }}
                   className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-2 text-sm font-medium text-amber-900"
                 >
                   {labels.upgrade}

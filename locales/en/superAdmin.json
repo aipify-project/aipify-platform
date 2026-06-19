@@ -373,6 +373,20 @@
         "pack": "Pack modules"
       }
     },
+    "rolePermissionMatrix": {
+      "title": "Role & Permission Matrix",
+      "subtitle": "Governance visibility into APP role structures, permission catalog, and access audit — aggregates only.",
+      "privacyNote": "Super Admin cannot change APP permissions without governance controls.",
+      "principle": "APP controls people. Roles control access. Permissions control actions.",
+      "governanceNote": "Investigate access issues and audit role changes — APP owners retain live control.",
+      "catalog": "Permission catalog",
+      "adoption": "Adoption",
+      "templates": "Templates",
+      "totalPermissions": "Total permissions",
+      "totalModules": "Active modules",
+      "organizations": "APPs with grants",
+      "back": "Back to SUPER"
+    },
     "executiveInsights": {
       "title": "Executive Insights",
       "subtitle": "Strategic metrics for organization growth, subscriptions, revenue, adoption, and global activity.",
@@ -431,6 +445,8 @@
     "globalAuditCenterDescription": "Governance, security, and executive configuration audit visibility.",
     "moduleRegistry": "Module Registry",
     "moduleRegistryDescription": "Global module catalog — create, disable, assign Business Packs, audit usage.",
+    "rolePermissionMatrix": "Role & Permission Matrix",
+    "rolePermissionMatrixDescription": "View role structures, permission catalog, and audit access issues — governance visibility only.",
     "partnerCommunications": "Partner Communications",
     "partnerCommunicationsDescription": "Templates, recognition emails, settlement notices, compliance reminders, and email logs for Growth Partners.",
     "groupOverview": "Group Overview",

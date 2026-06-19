@@ -1,0 +1,1 @@
+export { PeopleOperationsPanel } from "./PeopleOperationsPanel";

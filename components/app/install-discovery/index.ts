@@ -1,0 +1,1 @@
+export { InstallDiscoveryCenterPanel } from "./InstallDiscoveryCenterPanel";

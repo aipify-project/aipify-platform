@@ -1,14 +1,14 @@
-import { CustomerLicenseDashboardPanel } from "@/components/app/app-store";
-import { buildLicenseDashboardLabels } from "@/lib/app-store/labels";
+import { LicenseSubscriptionManagementPanel } from "@/components/app/license-management";
+import { buildLicenseManagementLabels } from "@/lib/license-management/labels";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function CustomerLicensesPage() {
   const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["marketplace"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["settings"]);
   const t = createTranslator(dict);
-  const labels = buildLicenseDashboardLabels(t);
+  const labels = buildLicenseManagementLabels(t);
 
-  return <CustomerLicenseDashboardPanel labels={labels} />;
+  return <LicenseSubscriptionManagementPanel labels={labels} />;
 }

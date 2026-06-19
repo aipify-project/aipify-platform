@@ -1,0 +1,48 @@
+Light Enterprise Design Standard V1 — Aipify Internal Language Model Corpus
+
+PURPOSE
+Lock official visual direction. Aipify is a Business Operating System — not gaming, cyberpunk, or dark-mode-first.
+
+CORE PRINCIPLE
+Users spend entire workdays inside Aipify. Reduce visual fatigue. Welcoming, calm, modern, professional.
+
+DEFAULT THEME
+Light Enterprise Theme — primary across APP, Platform, Growth Partner, Business Packs, Knowledge Center, Companion.
+
+COLORS
+Canvas: warm off-white (#F7F6F3) — NOT pure #FFFFFF page backgrounds.
+Surface: white cards on warm canvas.
+Text: dark slate primary, muted gray secondary — readability first.
+Brand: Companion Purple (#7C3AED).
+Accent: soft blue-purple (#6366F1) for links, charts, selected states, interactive elements.
+
+NAVIGATION
+Professional, organized, structured. Solid Companion Purple for active items — avoid heavy gradients.
+No gaming, cyberpunk, neon, or hacker aesthetics.
+
+HIERARCHY
+Spacing, typography, layout, iconography, structure — not excessive color.
+
+STATUS SYSTEM
+Always icon + text — never color alone:
+Completed, Not Allowed, Needs Attention, Information, Restricted, Verified, Waiting.
+
+COMPANION
+Match Light Enterprise Theme — Companion Purple, soft blue-purple, calm surfaces.
+Helpful, professional, trustworthy, present — not intrusive.
+
+EXECUTIVE EXPERIENCE
+Comfortable on boardroom screens, large monitors, investor meetings, customer demonstrations.
+
+AVOID
+Black-first dashboards, gaming interfaces, neon, cyberpunk, hacker aesthetics, visual clutter,
+excessive gradients, animation overload, Discord-style UI, developer-toy design.
+
+WANT
+Companion Purple, soft blue-purple, warm off-white, professional gray surfaces, enterprise appearance,
+premium SaaS feel, modern typography, calm UX, executive readiness, long session comfort.
+
+DECISION FILTER
+Clarity over effects. Professionalism over trends. Enterprise quality over visual noise.
+
+Unonight owns the night. Aipify owns the workday.

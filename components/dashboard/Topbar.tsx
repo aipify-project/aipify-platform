@@ -1,3 +1,4 @@
+import { AipifyShellClasses } from "@/lib/design";
 import TopbarPresenceSlot from "./TopbarPresenceSlot";
 import TopbarProfileMenu from "./TopbarProfileMenu";
 import TopbarNotificationButton from "./TopbarNotificationButton";
@@ -47,7 +48,7 @@ export default function Topbar({
   commandBarOpenLabel,
 }: TopbarProps) {
   return (
-    <header className="sticky top-0 z-20 flex h-16 shrink-0 items-center justify-between gap-3 border-b border-gray-200 bg-white/95 px-4 backdrop-blur-sm sm:gap-4 sm:px-6 lg:px-8">
+    <header className={`sticky top-0 z-20 flex h-16 shrink-0 items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6 lg:px-8 ${AipifyShellClasses.topbar}`}>
       <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
         <button
           type="button"
@@ -77,7 +78,7 @@ export default function Topbar({
               type="button"
               onClick={onCommandBarClick}
               aria-label={commandBarOpenLabel ?? commandBarPlaceholder ?? "Open command bar"}
-              className="flex w-full items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 py-2.5 pl-10 pr-3 text-left text-sm text-gray-400 transition hover:border-violet-200 hover:bg-white focus:border-violet-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-violet-100"
+              className={`flex w-full items-center gap-2 rounded-xl border border-aipify-border bg-aipify-surface-muted py-2.5 pl-10 pr-3 text-left text-sm text-aipify-text-muted transition hover:border-aipify-accent-muted hover:bg-aipify-surface focus:border-aipify-accent focus:bg-aipify-surface focus:outline-none focus:ring-2 focus:ring-aipify-focus`}
             >
               <svg
                 className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
@@ -120,7 +121,7 @@ export default function Topbar({
                 value={searchQuery}
                 onChange={(event) => onSearchChange?.(event.target.value)}
                 placeholder={searchPlaceholder}
-                className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2.5 pl-10 pr-4 text-sm text-gray-900 placeholder:text-gray-400 transition focus:border-violet-300 focus:bg-white focus:outline-none focus:ring-2 focus:ring-violet-100"
+                className={`w-full rounded-xl border border-aipify-border bg-aipify-surface-muted py-2.5 pl-10 pr-4 text-sm text-aipify-text placeholder:text-aipify-text-muted transition focus:border-aipify-accent focus:bg-aipify-surface focus:outline-none focus:ring-2 focus:ring-aipify-focus`}
               />
             </>
           )}

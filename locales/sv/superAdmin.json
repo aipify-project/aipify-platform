@@ -364,6 +364,20 @@
         "core": "Core modules",
         "pack": "Pack modules"
       }
+    },
+    "rolePermissionMatrix": {
+      "title": "Roll- och behörighetsmatris",
+      "subtitle": "Styrningsinsyn i APP-rollstrukturer, behörighetskatalog och åtkomstrevision — endast aggregerat.",
+      "privacyNote": "Super Admin kan inte ändra APP-behörigheter utan styrningskontroller.",
+      "principle": "APP styr människor. Roller styr åtkomst. Behörigheter styr handlingar.",
+      "governanceNote": "Utreda åtkomstproblem och granska rolländringar — APP-ägare behåller live kontroll.",
+      "catalog": "Behörighetskatalog",
+      "adoption": "Adoption",
+      "templates": "Mallar",
+      "totalPermissions": "Totala behörigheter",
+      "totalModules": "Aktiva moduler",
+      "organizations": "APP:ar med tilldelningar",
+      "back": "Tillbaka till SUPER"
     }
   },
   "modules": {
@@ -482,7 +496,9 @@
     "revenueOperations": "Revenue Operations",
     "revenueOperationsDescription": "Orchestrate billing events, subscription activation, package sync, and failed activation recovery.",
     "moduleRegistry": "Module Registry",
-    "moduleRegistryDescription": "Global module catalog — create, disable, assign Business Packs, audit usage."
+    "moduleRegistryDescription": "Global module catalog — create, disable, assign Business Packs, audit usage.",
+    "rolePermissionMatrix": "Roll- och behörighetsmatris",
+    "rolePermissionMatrixDescription": "Visa rollstrukturer, behörighetskatalog och granska åtkomstproblem — endast styrningsinsyn."
   },
   "voiceOfCustomer": {
     "title": "Global insiktsdashboard",

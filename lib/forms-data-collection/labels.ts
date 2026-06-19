@@ -1,0 +1,50 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildFormsDataCollectionLabels(t: Translator) {
+  const p = "customerApp.formsDataCollection";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    principle: t(`${p}.principle`),
+    accessDenied: t(`${p}.accessDenied`),
+    overview: t(`${p}.overview`),
+    forms: t(`${p}.forms`),
+    submissions: t(`${p}.submissions`),
+    templates: t(`${p}.templates`),
+    approvals: t(`${p}.approvals`),
+    automation: t(`${p}.automation`),
+    reports: t(`${p}.reports`),
+    totalForms: t(`${p}.totalForms`),
+    activeForms: t(`${p}.activeForms`),
+    totalSubmissions: t(`${p}.totalSubmissions`),
+    pendingApprovals: t(`${p}.pendingApprovals`),
+    incompleteSubmissions: t(`${p}.incompleteSubmissions`),
+    submissionsToday: t(`${p}.submissionsToday`),
+    templatesAvailable: t(`${p}.templatesAvailable`),
+    createForm: t(`${p}.createForm`),
+    createFromTemplate: t(`${p}.createFromTemplate`),
+    publishForm: t(`${p}.publishForm`),
+    archiveForm: t(`${p}.archiveForm`),
+    createSubmission: t(`${p}.createSubmission`),
+    submitForm: t(`${p}.submitForm`),
+    approveSubmission: t(`${p}.approveSubmission`),
+    rejectSubmission: t(`${p}.rejectSubmission`),
+    addSignature: t(`${p}.addSignature`),
+    executeWorkflow: t(`${p}.executeWorkflow`),
+    formName: t(`${p}.formName`),
+    formType: t(`${p}.formType`),
+    status: t(`${p}.status`),
+    fieldCount: t(`${p}.fieldCount`),
+    noForms: t(`${p}.noForms`),
+    noFormsHint: t(`${p}.noFormsHint`),
+    noSubmissions: t(`${p}.noSubmissions`),
+    submissionVolume: t(`${p}.submissionVolume`),
+    completionRate: t(`${p}.completionRate`),
+    avgApprovalDays: t(`${p}.avgApprovalDays`),
+    mostUsedForms: t(`${p}.mostUsedForms`),
+    auditLog: t(`${p}.auditLog`),
+    save: t(`${p}.save`),
+  };
+}
+
+export type FormsDataCollectionLabels = ReturnType<typeof buildFormsDataCollectionLabels>;

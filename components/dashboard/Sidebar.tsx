@@ -18,9 +18,11 @@ type SidebarProps = {
   activeAccent?: "default" | "soft";
 };
 
+import { AipifyNavClasses } from "@/lib/design";
+
 const ACTIVE_ACCENT_CLASSES = {
-  default: "bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-sm",
-  soft: "bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-sm",
+  default: AipifyNavClasses.itemActive,
+  soft: AipifyNavClasses.itemActive,
 } as const;
 
 export default function Sidebar({
@@ -42,11 +44,11 @@ export default function Sidebar({
             className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium transition ${
               isActive
                 ? ACTIVE_ACCENT_CLASSES[activeAccent]
-                : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                : AipifyNavClasses.item
             }`}
             aria-current={isActive ? "page" : undefined}
           >
-            <span className={isActive ? "text-white" : "text-gray-400"}>
+            <span className={isActive ? AipifyNavClasses.itemActiveIcon : AipifyNavClasses.itemIcon}>
               {item.icon}
             </span>
             {item.label}
