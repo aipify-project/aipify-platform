@@ -3,9 +3,8 @@
   "buildCommand": "npm run build",
   "build": {
     "env": {
-      "AIPIFY_SPLIT_BUILD": "1",
-      "AIPIFY_BUILD_HEAP_COMPILE": "--max-old-space-size=45056",
-      "AIPIFY_BUILD_HEAP_GENERATE": "--max-old-space-size=8192"
+      "NODE_OPTIONS": "--max-old-space-size=49152",
+      "AIPIFY_SPLIT_BUILD": "0"
     }
   }
 }

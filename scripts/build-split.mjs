@@ -40,9 +40,9 @@ function prepareProxyArtifactForGeneratePhase() {
 }
 
 const NODE_HEAP_COMPILE =
-  process.env.AIPIFY_BUILD_HEAP_COMPILE ?? "--max-old-space-size=45056";
+  process.env.AIPIFY_BUILD_HEAP_COMPILE ?? "--max-old-space-size=32768";
 const NODE_HEAP_GENERATE =
-  process.env.AIPIFY_BUILD_HEAP_GENERATE ?? "--max-old-space-size=8192";
+  process.env.AIPIFY_BUILD_HEAP_GENERATE ?? "--max-old-space-size=16384";
 
 const fromArg = process.argv.find((a) => a.startsWith("--from"));
 const fromPhase = fromArg ? Number(fromArg.split("=")[1] ?? process.argv[process.argv.indexOf(fromArg) + 1]) : 1;
