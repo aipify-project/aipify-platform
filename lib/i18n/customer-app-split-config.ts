@@ -63,6 +63,7 @@ const DASHBOARD_MODULE_OVERRIDES = new Set([
   "companionFeedbackCenter",
   "knowledgeFabricCenter",
   "digitalEmployeeCenter",
+  "aosCenter",
   "eventCenter",
   "integrationCenter",
 ]);

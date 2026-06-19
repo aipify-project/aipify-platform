@@ -14956,6 +14956,68 @@
       "activeTeams": "Aktive team"
     }
   },
+  "aosCenter": {
+    "title": "Aipify OS-senter",
+    "subtitle": "Orkestreringslaget for Business Operating System — én organisasjon, én Companion, unified intelligens på tvers av moduler.",
+    "principle": "Programvare administrerer moduler. Et Business Operating System administrerer organisasjoner.",
+    "privacyNote": "Companion orkestrerer moduler — mennesker beholder ansvar. Tverrmodul-signaler bruker kun godkjent metadata.",
+    "loading": "Laster",
+    "empty": "Aipify OS-senter er ikke tilgjengelig for denne organisasjonen.",
+    "refresh": "Oppdater",
+    "companionRecommendations": "Companion-anbefalinger",
+    "noRecords": "Ingen poster ennå.",
+    "unifiedOrgModel": "Unified Organization Model",
+    "unifiedEntityEngine": "Unified Entity Engine",
+    "crossModuleIntelligence": "Tverrmodul-intelligens",
+    "organizationalAwareness": "Organizational Awareness Engine",
+    "executiveOperatingModel": "Executive Operating Model",
+    "businessPackOrchestration": "Business Pack-orkestrering",
+    "digitalTwinConnections": "Digital Twin-tilkoblinger",
+    "globalContextEngine": "Companion Global Context Engine",
+    "globalSearchEngine": "Globalt søk",
+    "globalReportingEngine": "Global rapportering",
+    "organizationalHealthScore": "Organisasjonshelse",
+    "platformIntelligenceBus": "Platform Intelligence Bus",
+    "companionOrchestration": "Companion-orkestreringslag",
+    "businessOsApi": "Business OS API-grunnlag",
+    "maturityCheckpoint": "Plattformmodenhet",
+    "executiveDashboard": "Executive Operating Dashboard",
+    "mobileAccess": "Mobiltilgang",
+    "sections": {
+      "overview": "Oversikt",
+      "organization": "Organisasjon",
+      "operations": "Drift",
+      "companion": "Companion",
+      "intelligence": "Intelligens",
+      "businessPacks": "Business Packs",
+      "signals": "Signaler",
+      "governance": "Governance",
+      "reports": "Rapporter"
+    },
+    "stats": {
+      "orgDimensions": "Org-dimensjoner",
+      "entities": "Unified entities",
+      "healthDimensions": "Helsedimensjoner",
+      "intelligenceSignals": "Intelligenssignaler",
+      "orchestrationLayers": "Orkestreringslag",
+      "reportTypes": "Rapporttyper"
+    },
+    "executive": {
+      "connectedModules": "Tilkoblede moduler",
+      "orgHealthScore": "Org helsepoeng",
+      "orgHealthBand": "Helsebånd",
+      "activeSignals": "Aktive signaler",
+      "crossModuleChains": "Tverrmodul-kjeder",
+      "unifiedEntities": "Unified entities",
+      "searchDomains": "Søkedomenen"
+    },
+    "healthBands": {
+      "excellent": "Utmerket",
+      "healthy": "Sunn",
+      "attention": "Krever oppmerksomhet",
+      "risk": "Organisasjonsrisiko"
+    }
+  },
   "customerSuccessOperations": {
     "title": "Kundesuksess-senter",
     "subtitle": "Aktivering, adopsjon, ekspansjon og retensjon — Aipify hjelper organisasjonen med målbar verdi.",

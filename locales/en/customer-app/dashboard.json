@@ -15501,6 +15501,68 @@
       "activeTeams": "Active teams"
     }
   },
+  "aosCenter": {
+    "title": "Aipify OS Center",
+    "subtitle": "The orchestration layer of your Business Operating System — one organization, one Companion, unified intelligence across every module.",
+    "principle": "Software manages modules. A Business Operating System manages organizations.",
+    "privacyNote": "Companion orchestrates modules — humans retain accountability. Cross-module signals use approved metadata only.",
+    "loading": "Loading",
+    "empty": "Aipify OS Center is not available for this organization.",
+    "refresh": "Refresh",
+    "companionRecommendations": "Companion Recommendations",
+    "noRecords": "No records yet.",
+    "unifiedOrgModel": "Unified Organization Model",
+    "unifiedEntityEngine": "Unified Entity Engine",
+    "crossModuleIntelligence": "Cross-Module Intelligence",
+    "organizationalAwareness": "Organizational Awareness Engine",
+    "executiveOperatingModel": "Executive Operating Model",
+    "businessPackOrchestration": "Business Pack Orchestration",
+    "digitalTwinConnections": "Digital Twin Connections",
+    "globalContextEngine": "Companion Global Context Engine",
+    "globalSearchEngine": "Global Search Engine",
+    "globalReportingEngine": "Global Reporting Engine",
+    "organizationalHealthScore": "Organizational Health Score",
+    "platformIntelligenceBus": "Platform Intelligence Bus",
+    "companionOrchestration": "Companion Orchestration Layer",
+    "businessOsApi": "Business OS API Foundation",
+    "maturityCheckpoint": "Platform Maturity Checkpoint",
+    "executiveDashboard": "Executive Operating Dashboard",
+    "mobileAccess": "Mobile Access",
+    "sections": {
+      "overview": "Overview",
+      "organization": "Organization",
+      "operations": "Operations",
+      "companion": "Companion",
+      "intelligence": "Intelligence",
+      "businessPacks": "Business Packs",
+      "signals": "Signals",
+      "governance": "Governance",
+      "reports": "Reports"
+    },
+    "stats": {
+      "orgDimensions": "Org dimensions",
+      "entities": "Unified entities",
+      "healthDimensions": "Health dimensions",
+      "intelligenceSignals": "Intelligence signals",
+      "orchestrationLayers": "Orchestration layers",
+      "reportTypes": "Report types"
+    },
+    "executive": {
+      "connectedModules": "Connected modules",
+      "orgHealthScore": "Org health score",
+      "orgHealthBand": "Health band",
+      "activeSignals": "Active signals",
+      "crossModuleChains": "Cross-module chains",
+      "unifiedEntities": "Unified entities",
+      "searchDomains": "Search domains"
+    },
+    "healthBands": {
+      "excellent": "Excellent",
+      "healthy": "Healthy",
+      "attention": "Attention needed",
+      "risk": "Organizational risk"
+    }
+  },
   "customerSuccessOperations": {
     "title": "Customer Success Center",
     "subtitle": "Activation, adoption, expansion, and retention — Aipify helps your organization achieve measurable value.",

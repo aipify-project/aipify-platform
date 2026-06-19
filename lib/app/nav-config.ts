@@ -299,6 +299,7 @@ export type AppNavId =
   | "companionIdentityCenter"
   | "companionFeedbackCenter"
   | "knowledgeFabricCenter"
+  | "aosCenter"
   | "companionRelationshipEngine"
   | "lifeEventsEngine"
   | "trustAdoptionEngine"
@@ -2159,6 +2160,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "businessPulse", href: "/app/business-pulse", labelKey: "navigation.nav.businessPulse" },
   { id: "strategicGoals", href: "/app/goals", labelKey: "navigation.nav.strategicGoals" },
   { id: "frictionIntelligence", href: "/app/friction", labelKey: "navigation.nav.frictionIntelligence" },
+  { id: "aosCenter", href: "/app/aos", labelKey: "navigation.nav.aosCenter" },
   { id: "knowledgeFabricCenter", href: "/app/knowledge-fabric", labelKey: "navigation.nav.knowledgeFabricCenter" },
   { id: "companionFeedbackCenter", href: "/app/feedback", labelKey: "navigation.nav.companionFeedbackCenter" },
   { id: "organizationalMemory", href: "/app/memory", labelKey: "navigation.nav.organizationalMemory" },
@@ -3286,6 +3288,19 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/friction") || pathname.startsWith("/dashboard/friction")) {
     return "frictionIntelligence";
+  }
+  if (
+    pathname === "/app/aos" ||
+    pathname.startsWith("/app/aos/organization") ||
+    pathname.startsWith("/app/aos/operations") ||
+    pathname.startsWith("/app/aos/companion") ||
+    pathname.startsWith("/app/aos/intelligence") ||
+    pathname.startsWith("/app/aos/business-packs") ||
+    pathname.startsWith("/app/aos/signals") ||
+    pathname.startsWith("/app/aos/governance") ||
+    pathname.startsWith("/app/aos/reports")
+  ) {
+    return "aosCenter";
   }
   if (
     pathname === "/app/knowledge-fabric" ||

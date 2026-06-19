@@ -7,7 +7,7 @@ Documented after locale graph reduction (customerApp monolith removed from layou
 | Setting | Value |
 |---------|--------|
 | **Build command** | `npm run build` (see `vercel.json` + `package.json`) |
-| **Build machine** | **Enhanced (16 GB RAM) required** — Project or Team → Settings → Build and Deployment → Build Machines → Enhanced |
+| **Build machine** | **Turbo (60 GB RAM / 30 vCPU)** recommended for production builds — configure in Vercel → Settings → Build and Deployment → Build Machines. Enhanced (16 GB) minimum if Turbo is unavailable. |
 | **Node heap (compile)** | `AIPIFY_BUILD_HEAP_COMPILE=--max-old-space-size=14336` in `vercel.json` |
 | **Node heap (generate)** | `AIPIFY_BUILD_HEAP_GENERATE=--max-old-space-size=8192` — separate process after compile |
 
