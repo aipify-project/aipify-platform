@@ -6,7 +6,8 @@
  * Phase 2: Compile (webpack or turbopack via --experimental-build-mode compile)
  * Phase 3: Static generation (--experimental-build-mode generate)
  *
- * Heap is applied per phase via NODE_OPTIONS on the child process (not inherited globals).
+ * Heap is applied per phase as a direct `node --max-old-space-size=…` flag on the Next.js
+ * process (not NODE_OPTIONS — npm/npx wrappers often strip env or spawn children that ignore it).
  * Set AIPIFY_BUILD_HEAP_COMPILE / AIPIFY_BUILD_HEAP_GENERATE in vercel.json build.env.
  *
  * Usage: node scripts/build-split.mjs
@@ -20,6 +21,7 @@ import v8 from "node:v8";
 import { fileURLToPath } from "node:url";
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+const NEXT_BIN = path.join(root, "node_modules", "next", "dist", "bin", "next");
 
 const useTurbopack = process.env.AIPIFY_USE_TURBOPACK === "1";
 const bundlerFlag = useTurbopack ? "--turbo" : "--webpack";
@@ -58,6 +60,36 @@ function parseHeapMb(nodeOptions) {
   return match ? Number(match[1]) : null;
 }
 
+/** Extract `--max-old-space-size=N` for direct `node` CLI (not NODE_OPTIONS). */
+function heapCliArg(nodeOptions) {
+  const match = nodeOptions?.match(/(--max-old-space-size=\d+)/);
+  return match ? match[1] : null;
+}
+
+/** Log v8 heap_size_limit from a child `node` process with the same CLI heap flag. */
+function verifyChildHeapLimit(phaseName, nodeOptions) {
+  const cliArg = heapCliArg(nodeOptions);
+  const requestedMb = parseHeapMb(nodeOptions);
+  if (!cliArg || requestedMb == null) return;
+
+  const script = `
+    const limitMb = Math.round(require("node:v8").getHeapStatistics().heap_size_limit / 1024 / 1024);
+    console.log("[build] ${phaseName} verified heap_size_limit_mb=" + limitMb + " (requested=${requestedMb})");
+    if (limitMb < ${requestedMb} * 0.9) {
+      console.warn("[build] WARNING: heap limit lower than requested — check node invocation");
+      process.exitCode = 1;
+    }
+  `.trim();
+
+  const result = spawnSync("node", [cliArg, "-e", script], {
+    stdio: "inherit",
+    cwd: root,
+  });
+  if (result.status !== 0) {
+    console.warn(`[build] heap verification failed for ${phaseName} (non-fatal)`);
+  }
+}
+
 /** Cap requested heap to physical RAM so Vercel Standard (8 GB) does not SIGKILL on overcommit. */
 function capHeapToMachine(nodeOptions, maxMb) {
   const requested = parseHeapMb(nodeOptions);
@@ -91,8 +123,9 @@ const { compile: NODE_HEAP_COMPILE, generate: NODE_HEAP_GENERATE } = resolvePhas
 
 function logPhaseEnv(phaseName, nodeOptions) {
   const heapMb = parseHeapMb(nodeOptions);
+  const cliArg = heapCliArg(nodeOptions);
   console.log(
-    `[build] ${phaseName} | bundler=${useTurbopack ? "turbopack" : "webpack"} | NODE_OPTIONS="${nodeOptions}" | configured_heap_mb=${heapMb ?? "default"}`
+    `[build] ${phaseName} | bundler=${useTurbopack ? "turbopack" : "webpack"} | node ${cliArg ?? "(default heap)"} ${path.relative(root, NEXT_BIN)} | configured_heap_mb=${heapMb ?? "default"}`
   );
 }
 
@@ -121,35 +154,50 @@ const phases = [
     name: "TypeScript",
     cmd: "npm",
     args: ["run", "typecheck"],
-    env: {},
   },
   {
     name: "Compile",
-    cmd: "npx",
-    args: ["next", "build", bundlerFlag, "--experimental-build-mode", "compile"],
-    env: { NODE_OPTIONS: NODE_HEAP_COMPILE },
-    logHeap: NODE_HEAP_COMPILE,
+    kind: "next",
+    heap: NODE_HEAP_COMPILE,
+    args: ["build", bundlerFlag, "--experimental-build-mode", "compile"],
   },
   {
     name: "Static generation",
-    cmd: "npx",
-    args: ["next", "build", bundlerFlag, "--experimental-build-mode", "generate"],
-    env: { NODE_OPTIONS: NODE_HEAP_GENERATE },
-    logHeap: NODE_HEAP_GENERATE,
+    kind: "next",
+    heap: NODE_HEAP_GENERATE,
+    args: ["build", bundlerFlag, "--experimental-build-mode", "generate"],
   },
 ];
 
 function runPhase(phase) {
-  if (phase.logHeap) {
-    logPhaseEnv(phase.name, phase.logHeap);
+  if (phase.heap) {
+    logPhaseEnv(phase.name, phase.heap);
+    verifyChildHeapLimit(phase.name, phase.heap);
   }
   console.log(`\n${"=".repeat(60)}\n▶ Phase: ${phase.name}\n${"=".repeat(60)}\n`);
   const started = Date.now();
-  const childEnv = { ...process.env, ...phase.env };
-  const result = spawnSync(phase.cmd, phase.args, {
+
+  let cmd;
+  let args;
+  let childEnv = process.env;
+
+  if (phase.kind === "next") {
+    const cliArg = heapCliArg(phase.heap);
+    cmd = "node";
+    args = [...(cliArg ? [cliArg] : []), NEXT_BIN, ...phase.args];
+    // Do not rely on NODE_OPTIONS — direct CLI flag is the source of truth.
+    const { NODE_OPTIONS: _ignored, ...envWithoutNodeOptions } = process.env;
+    childEnv = envWithoutNodeOptions;
+  } else {
+    cmd = phase.cmd;
+    args = phase.args;
+  }
+
+  const result = spawnSync(cmd, args, {
     stdio: "inherit",
     env: childEnv,
-    shell: process.platform === "win32",
+    cwd: root,
+    shell: process.platform === "win32" && phase.kind !== "next",
   });
   const elapsed = ((Date.now() - started) / 1000 / 60).toFixed(1);
   if (result.status !== 0) {

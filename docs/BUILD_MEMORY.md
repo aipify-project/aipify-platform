@@ -9,10 +9,10 @@ Documented after locale graph reduction (customerApp monolith removed from layou
 | **Build command** | `npm run build` (see `vercel.json` + `package.json`) |
 | **Build machine** | **Turbo (60 GB RAM / 30 vCPU)** recommended for production builds — configure in Vercel → Settings → Build and Deployment → Build Machines. Enhanced (16 GB) minimum if Turbo is unavailable. |
 | **Split build** | `AIPIFY_SPLIT_BUILD=1` (default) — compile and generate run as separate Node processes |
-| **Node heap (compile)** | `AIPIFY_BUILD_HEAP_COMPILE=--max-old-space-size=40960` in `vercel.json` — applied to the **compile child only** via `build-split.mjs` |
-| **Node heap (generate)** | `AIPIFY_BUILD_HEAP_GENERATE=--max-old-space-size=16384` — separate process after compile exits |
+| **Node heap (compile)** | `AIPIFY_BUILD_HEAP_COMPILE=--max-old-space-size=40960` in `vercel.json` — passed as a direct `node --max-old-space-size=…` CLI flag on the Next.js process in `build-split.mjs` (verified via `heap_size_limit` log) |
+| **Node heap (generate)** | `AIPIFY_BUILD_HEAP_GENERATE=--max-old-space-size=16384` — same direct invocation in a fresh process after compile exits |
 
-**Important:** Do **not** set a global `NODE_OPTIONS` heap on Vercel — it applies to every phase and breaks split-build memory isolation. On Turbo (60 GB), webpack compile needs ~15–20 GB+ JS heap for this route graph; cap compile heap at **40 GB** so native/webpack/V8 parallel allocations retain ~20 GB headroom (49 GB compile heap caused `Worklist::Segment::Create` native OOM before JS limit).
+**Important:** Do **not** set a global `NODE_OPTIONS` heap on Vercel — it applies to every phase and breaks split-build memory isolation. Do **not** rely on `NODE_OPTIONS` + `npx next` for compile/generate — npm/npx wrappers often spawn child processes that never receive the heap flag (Vercel logs showed OOM at ~15 GB despite `configured_heap_mb=40960`). Invoke `node --max-old-space-size=… ./node_modules/next/dist/bin/next build` directly.
 
 **Turbopack (future):** Next.js 16 defaults to Turbopack. Production still uses `--webpack` until client/server barrel imports are fixed (`AIPIFY_USE_TURBOPACK=1` when ready). Do not enable globally until turbopack build passes locally.
 
@@ -158,6 +158,16 @@ Platform Admin: **Operations → Build Health Center** (`/platform/operations/bu
 | **Fix** | Keep split compile/generate; set `AIPIFY_BUILD_HEAP_COMPILE=--max-old-space-size=40960` for Turbo (40 GB JS heap, ~20 GB native headroom on 60 GB); log machine context + heap at each phase in `build-split.mjs`; webpack `parallelism: 1`; no global `NODE_OPTIONS`. Turbopack path reserved via `AIPIFY_USE_TURBOPACK=1` after barrel import fixes. |
 | **Affected modules** | `scripts/build-split.mjs`, `scripts/build-with-duration.mjs`, `vercel.json`, `next.config.ts`, `docs/BUILD_MEMORY.md` |
 | **Resolution** | Compile child receives 40 GB heap on Turbo; generate 16 GB in a fresh process |
+
+### 2026-06-20 — Vercel webpack compile OOM at ~15 GB despite 40960 config (8225f02a)
+
+| Field | Detail |
+|-------|--------|
+| **Issue** | Turbo 60 GB build failed during Compile: `GC: 15123.9 MB heap → FATAL ERROR: NewSpace::EnsureCurrentCapacity` while logs showed `configured_heap_mb=40960` |
+| **Root cause** | `build-split.mjs` used `npx next build` with `NODE_OPTIONS=--max-old-space-size=40960`. npm/npx spawns wrapper processes; the heap flag never reached the actual Next.js/webpack Node process (~15 GB ≈ V8 default on high-RAM hosts). |
+| **Fix** | Invoke Next directly: `node --max-old-space-size=40960 ./node_modules/next/dist/bin/next build --webpack …`; log `v8.getHeapStatistics().heap_size_limit` before each compile/generate phase; strip inherited `NODE_OPTIONS` from child env. |
+| **Affected modules** | `scripts/build-split.mjs`, `scripts/build-with-duration.mjs`, `docs/BUILD_MEMORY.md` |
+| **Resolution** | Verified heap limit matches requested MB in Vercel logs before webpack compile runs |
 
 ### 2026-06-20 — Vercel Static generation OOM after split compile (8192 MB)
 
