@@ -40,7 +40,7 @@ function prepareProxyArtifactForGeneratePhase() {
 }
 
 const NODE_HEAP_COMPILE =
-  process.env.AIPIFY_BUILD_HEAP_COMPILE ?? "--max-old-space-size=14336";
+  process.env.AIPIFY_BUILD_HEAP_COMPILE ?? "--max-old-space-size=45056";
 const NODE_HEAP_GENERATE =
   process.env.AIPIFY_BUILD_HEAP_GENERATE ?? "--max-old-space-size=8192";
 
