@@ -4,6 +4,7 @@ type HumanCenteredAiSectionProps = {
   companionLabel: string;
   humanItems: string[];
   companionItems: string[];
+  compact?: boolean;
 };
 
 export default function HumanCenteredAiSection({
@@ -12,10 +13,11 @@ export default function HumanCenteredAiSection({
   companionLabel,
   humanItems,
   companionItems,
+  compact = false,
 }: HumanCenteredAiSectionProps) {
   return (
     <section aria-labelledby="human-centered-ai-title" className="border-y border-aipify-border bg-aipify-surface-muted/60">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <div className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ${compact ? "py-12 lg:py-14" : "py-16 lg:py-20"}`}>
         <h2 id="human-centered-ai-title" className="text-center text-3xl font-bold tracking-tight text-aipify-text sm:text-4xl">
           {title}
         </h2>

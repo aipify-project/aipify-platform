@@ -57,6 +57,9 @@ export type PlatformNavId =
   | "pilotOperations"
   | "pilotInstall"
   | "metrics"
+  | "marketingSeo"
+  | "websiteIntelligence"
+  | "websiteGovernance"
   | "analyticsCustomerJourneys"
   | "stats"
   | "support"
@@ -439,6 +442,21 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.metrics",
   },
   {
+    id: "websiteIntelligence",
+    href: "/platform/website-intelligence",
+    labelKey: "platform.nav.websiteIntelligence",
+  },
+  {
+    id: "websiteGovernance",
+    href: "/platform/website-governance",
+    labelKey: "platform.nav.websiteGovernance",
+  },
+  {
+    id: "marketingSeo",
+    href: "/platform/marketing/seo",
+    labelKey: "platform.nav.marketingSeo",
+  },
+  {
     id: "analyticsCustomerJourneys",
     href: "/platform/analytics/customer-journeys",
     labelKey: "platform.nav.analyticsCustomerJourneys",
@@ -540,6 +558,9 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/installations")) return "installations";
   if (pathname.startsWith("/platform/analytics/customer-journeys")) return "analyticsCustomerJourneys";
   if (pathname.startsWith("/platform/analytics")) return "analyticsCustomerJourneys";
+  if (pathname.startsWith("/platform/website-intelligence")) return "websiteIntelligence";
+  if (pathname.startsWith("/platform/website-governance")) return "websiteGovernance";
+  if (pathname.startsWith("/platform/marketing/seo")) return "marketingSeo";
   if (pathname.startsWith("/platform/metrics")) return "metrics";
   if (pathname.startsWith("/platform/stats")) return "metrics";
   if (pathname.startsWith("/platform/support")) return "support";

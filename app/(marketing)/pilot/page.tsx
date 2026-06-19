@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { MarketingCtaBand, MarketingPageHeader, PilotStorySection } from "@/components/marketing";
+import { MarketingCtaBand, MarketingDifferentiationStrip, MarketingPageHeader, PilotStorySection, SinceLastLoginSection } from "@/components/marketing";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
-import { getSection, parseCtaBandLabels, parsePilotHighlights } from "@/lib/marketing/parse-marketing";
+import { getSection, parseCtaBandLabels, parsePilotHighlights, parseStringList } from "@/lib/marketing/parse-marketing";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { marketing } = await getMarketingContext();
@@ -17,6 +17,7 @@ export default async function PilotPage() {
   return (
     <>
       <MarketingPageHeader title={pilot.title ?? ""} subtitle={pilot.subtitle} />
+      <MarketingDifferentiationStrip themes={parseStringList(marketing, "differentiationStrip", "themes")} />
       <PilotStorySection
         title={pilot.title ?? ""}
         subtitle={pilot.subtitle ?? ""}
@@ -24,6 +25,12 @@ export default async function PilotPage() {
         highlights={parsePilotHighlights(marketing)}
         cta={pilot.cta ?? ""}
         validationTitle={pilot.validationTitle}
+      />
+      <SinceLastLoginSection
+        compact
+        title={getSection<{ title?: string }>(marketing, "sinceLastLogin").title ?? ""}
+        panelLabel={getSection<{ panelLabel?: string }>(marketing, "sinceLastLogin").panelLabel ?? ""}
+        items={parseStringList(marketing, "sinceLastLogin", "items")}
       />
       <MarketingCtaBand {...ctaBand} />
     </>

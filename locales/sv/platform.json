@@ -164,7 +164,10 @@
     "paymentAnalytics": "Betalningsanalys",
     "subscriptionOperations": "Prenumerationsdrift",
     "revenueOperations": "Revenue Operations",
-    "moduleRegistry": "Module Registry"
+    "moduleRegistry": "Module Registry",
+    "marketingSeo": "SEO & Organic Discovery",
+    "websiteIntelligence": "Website Intelligence",
+    "websiteGovernance": "Webbplatsstyrning"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -4907,6 +4910,190 @@
       "certifyExtension": "Certifiera tillägg",
       "approvePublisher": "Godkänn utgivare",
       "refreshAnalytics": "Uppdatera analys"
+    }
+  },
+  "seoDashboard": {
+    "title": "SEO & Organic Discovery",
+    "subtitle": "Track public knowledge authority, content inventory, and organic growth foundations.",
+    "authorityRule": "Every article must help visitors understand, learn, improve, decide, and trust. Never publish content solely for search engines.",
+    "inventoryTitle": "Public content inventory",
+    "metricsTitle": "Performance metrics",
+    "localesTitle": "Multi-language SEO",
+    "supportedLocales": "Supported locales",
+    "futureLocales": "Planned locales",
+    "localeDe": "German",
+    "localeEs": "Spanish",
+    "localeFr": "French",
+    "localePl": "Polish",
+    "articles": "Published articles",
+    "categories": "Knowledge categories",
+    "industries": "Industry hubs",
+    "businessPacks": "Business Pack pages",
+    "metrics": {
+      "organicTraffic": {
+        "label": "Organic traffic",
+        "note": "Wire to analytics provider for live sessions and landing page trends."
+      },
+      "pagePerformance": {
+        "label": "Page performance",
+        "note": "Core Web Vitals and top landing pages — connect Search Console when approved."
+      },
+      "knowledgeViews": {
+        "label": "Knowledge article views",
+        "note": "Article inventory count shown until view telemetry is connected."
+      },
+      "businessPackViews": {
+        "label": "Business Pack page views",
+        "note": "Pack landing page inventory — connect conversion tracking for live data."
+      },
+      "demoConversions": {
+        "label": "Demo conversions from organic",
+        "note": "Attribution from /knowledge and /business-packs CTAs to /book-demo."
+      },
+      "growthPartnerConversions": {
+        "label": "Growth Partner conversions from organic",
+        "note": "Attribution from knowledge content to /growth-partners applications."
+      },
+      "searchRankings": {
+        "label": "Search rankings",
+        "note": "Track category terms: Business Operating System, Operational Visibility, Companion Platform."
+      }
+    }
+  },
+  "websiteIntelligence": {
+    "title": "Website Intelligence Center",
+    "subtitle": "Measure what works, where visitors leave, and where they convert — evidence-based website growth.",
+    "loading": "Loading website intelligence…",
+    "empty": "Website intelligence is not available yet.",
+    "privacyNote": "Aggregates only — marketing events store metadata, not customer PII or conversation content.",
+    "optimizationRule": "Never redesign based on opinions alone. Use data, behavior, conversions, engagement, and feedback.",
+    "growthLoopTitle": "Growth loop",
+    "periodLabel": "Reporting period",
+    "sections": {
+      "overview": "Overview",
+      "traffic": "Traffic",
+      "conversions": "Conversions",
+      "funnels": "Funnels",
+      "content": "Content",
+      "partners": "Partners",
+      "campaigns": "Campaigns",
+      "reports": "Reports"
+    },
+    "overview": {
+      "visitors": "Visitors",
+      "pageViews": "Page views",
+      "conversions": "Conversions",
+      "demoRequests": "Demo requests",
+      "partnerApplications": "Partner applications",
+      "organicGrowth": "Organic sessions",
+      "topPages": "Top pages",
+      "advisorTitle": "Companion recommendations"
+    },
+    "traffic": {
+      "topPages": "Top pages",
+      "landingPages": "Landing pages",
+      "exitPages": "Exit pages",
+      "scrollDepth": "Scroll depth"
+    },
+    "conversions": {
+      "total": "Total conversions",
+      "demos": "Demo requests",
+      "partners": "Partner applications"
+    },
+    "funnels": {
+      "title": "Conversion funnel",
+      "stage": "Stage",
+      "count": "Count",
+      "rate": "Rate"
+    },
+    "ctas": {
+      "title": "CTA performance",
+      "label": "CTA",
+      "views": "Views",
+      "clicks": "Clicks",
+      "conversionRate": "Conversion rate",
+      "topPerformers": "Top performers"
+    },
+    "content": {
+      "title": "Content performance",
+      "type": "Content type",
+      "views": "Views",
+      "engagement": "Engagement",
+      "conversions": "Conversions",
+      "gaps": "Content gaps & high-exit pages"
+    },
+    "partners": {
+      "applications": "Partner applications",
+      "byCountry": "Applications by country"
+    },
+    "campaigns": {
+      "title": "Campaign sources",
+      "source": "Campaign",
+      "events": "Events"
+    },
+    "reports": {
+      "title": "Available reports",
+      "available": "Report types"
+    },
+    "advisor": {
+      "title": "Companion Website Advisor",
+      "question": "Question",
+      "recommendation": "Recommendation",
+      "priority": "Priority"
+    },
+    "heatmap": {
+      "title": "Heatmap architecture",
+      "status": "Status",
+      "privacyNote": "Heatmap providers must respect Aipify privacy standards — no keystroke or PII capture."
+    },
+    "demos": {
+      "title": "Demo request analytics",
+      "byIndustry": "Industry",
+      "byCountry": "Country",
+      "byPack": "Business Pack interest"
+    },
+    "leadSources": {
+      "title": "Lead source intelligence",
+      "source": "Source",
+      "sessions": "Sessions",
+      "conversions": "Conversions"
+    }
+  },
+  "websiteGovernance": {
+    "title": "Website Governance Center",
+    "subtitle": "Brand, design, and public website quality — the digital headquarters foundation for Aipify Group AS.",
+    "loading": "Loading website governance…",
+    "governanceTitle": "Website Governance Framework",
+    "brandLanguageTitle": "Brand Language Standard",
+    "designTitle": "Design System Governance",
+    "healthTitle": "Website Health Monitoring",
+    "completionTitle": "Phase 400 Completion Checkpoint",
+    "principleTitle": "Public Website Principle",
+    "transitionTitle": "Post-Phase 400 Transition",
+    "approvedTerms": "Always use",
+    "forbiddenTerms": "Avoid",
+    "rules": "All future public pages follow approved messaging, colors, typography, terminology, and CTA structure.",
+    "principles": "Educate · Build trust · Generate demand · Support customers, partners, and growth.",
+    "transitionNote": "After website foundation completion, primary development focus returns to platform, Companion, Business Packs, and customer experience.",
+    "websiteIntelligenceLink": "Open Website Intelligence →",
+    "checkpoints": {
+      "website_foundation": "Website Foundation",
+      "brand_foundation": "Brand Foundation",
+      "trust_foundation": "Trust Foundation",
+      "conversion_foundation": "Conversion Foundation",
+      "growth_partner_foundation": "Growth Partner Foundation",
+      "seo_foundation": "SEO Foundation",
+      "analytics_foundation": "Analytics Foundation",
+      "governance_foundation": "Governance Foundation"
+    },
+    "healthChecks": {
+      "broken_links": "Broken Links",
+      "missing_pages": "Missing Pages",
+      "performance": "Performance",
+      "accessibility": "Accessibility",
+      "seo_health": "SEO Health",
+      "localization_coverage": "Localization Coverage",
+      "conversion_paths": "Conversion Paths"
     }
   }
 }

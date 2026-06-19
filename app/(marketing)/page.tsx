@@ -259,6 +259,12 @@ export default async function MarketingHomePage() {
         milestones={parseCompanionTimelineMilestones(marketing)}
       />
 
+      <OperationalVisibilitySection
+        title={operationalVisibility.title}
+        roles={operationalVisibility.roles}
+        closing={operationalVisibility.closing}
+      />
+
       <BusinessPackExplorerSection
         title={businessPackExplorer.title ?? ""}
         subtitle={businessPackExplorer.subtitle ?? ""}
@@ -298,12 +304,6 @@ export default async function MarketingHomePage() {
         paragraphs={parseParagraphs(marketing, "executiveVisibility")}
         highlightsTitle={executiveVisibility.highlightsTitle}
         highlights={parseStringList(marketing, "executiveVisibility", "highlights")}
-      />
-
-      <OperationalVisibilitySection
-        title={operationalVisibility.title}
-        roles={operationalVisibility.roles}
-        closing={operationalVisibility.closing}
       />
 
       <OperationalFrictionSection

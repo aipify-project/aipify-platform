@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import AipifyPulse from "@/components/branding/AipifyPulse";
+import MarketingGlobalSearch from "@/components/marketing/MarketingGlobalSearch";
 import { AipifyMarketingClasses, AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
 import { marketingDataAttr } from "@/lib/marketing/analytics";
+import type { MarketingSearchResult } from "@/lib/marketing/governance/types";
 
 export type MarketingNavLabels = {
   product: string;
@@ -21,6 +23,9 @@ export type MarketingNavLabels = {
   earlyAccess: string;
   bookDemo: string;
   contact: string;
+  company: string;
+  careers: string;
+  media: string;
   controlCenter: string;
   login: string;
   getStarted: string;
@@ -29,6 +34,11 @@ export type MarketingNavLabels = {
 type MarketingNavbarProps = {
   appName: string;
   labels: MarketingNavLabels;
+  search?: {
+    placeholder: string;
+    noResults: string;
+    index: MarketingSearchResult[];
+  };
 };
 
 type NavGroup = {
@@ -45,6 +55,7 @@ function buildNavGroups(labels: MarketingNavLabels): NavGroup[] {
       links: [
         { label: labels.product, href: "/product" },
         { label: labels.modules, href: "/modules" },
+        { label: labels.getStarted, href: "/get-started" },
         { label: labels.whyAipify, href: "/why-aipify" },
       ],
     },
@@ -74,12 +85,18 @@ function buildNavGroups(labels: MarketingNavLabels): NavGroup[] {
     {
       id: "resources",
       label: labels.knowledge,
-      links: [{ label: labels.knowledge, href: "/knowledge" }],
+      links: [
+        { label: labels.knowledge, href: "/knowledge" },
+        { label: labels.businessPacks, href: "/knowledge#business-packs" },
+      ],
     },
     {
       id: "company",
-      label: labels.contact,
+      label: labels.company,
       links: [
+        { label: labels.company, href: "/company" },
+        { label: labels.careers, href: "/careers" },
+        { label: labels.media, href: "/media" },
         { label: labels.contact, href: "/contact" },
         { label: labels.bookDemo, href: "/book-demo" },
       ],
@@ -87,7 +104,7 @@ function buildNavGroups(labels: MarketingNavLabels): NavGroup[] {
   ];
 }
 
-export default function MarketingNavbar({ appName, labels }: MarketingNavbarProps) {
+export default function MarketingNavbar({ appName, labels, search }: MarketingNavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const groups = buildNavGroups(labels);
@@ -140,6 +157,9 @@ export default function MarketingNavbar({ appName, labels }: MarketingNavbarProp
         </div>
 
         <div className="hidden items-center gap-2 lg:flex">
+          {search ? (
+            <MarketingGlobalSearch placeholder={search.placeholder} noResults={search.noResults} index={search.index} />
+          ) : null}
           <Link href="/login" className={`rounded-lg px-3 py-2 ${AipifyMarketingClasses.navLink}`}>
             {labels.login}
           </Link>

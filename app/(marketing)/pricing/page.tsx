@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MarketingCtaBand, MarketingTrustSignalStrip } from "@/components/marketing";
+import { MarketingCtaBand, MarketingDifferentiationStrip, MarketingTrustSignalStrip } from "@/components/marketing";
 import PricingPackagesPageContent, { type PricingPackagesPageLabels } from "@/components/marketing/PricingPackagesPageContent";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import { getSection, parseCtaBandLabels, parseStringList } from "@/lib/marketing/parse-marketing";
@@ -22,6 +22,7 @@ export default async function PricingPage() {
   return (
     <>
       <MarketingTrustSignalStrip signals={trustSignals} />
+      <MarketingDifferentiationStrip themes={parseStringList(marketing, "differentiationStrip", "themes")} />
       <PricingPackagesPageContent labels={labels} />
       <MarketingCtaBand {...ctaBand} />
     </>

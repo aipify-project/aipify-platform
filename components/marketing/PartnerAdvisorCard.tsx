@@ -19,8 +19,7 @@ type Props = {
 export function PartnerAdvisorCard({ labels }: Props) {
   return (
     <div className="rounded-2xl border border-violet-500/25 bg-gradient-to-br from-violet-950/30 to-indigo-950/20 p-6 shadow-lg shadow-violet-900/10">
-      <h3 className="font-semibold text-white">{labels.title}</h3>
-      <div className="mt-6 flex items-start gap-4">
+      <div className="flex items-start gap-4">
         <div
           className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-400 to-indigo-600 text-lg font-bold text-white"
           aria-label={labels.photoPlaceholder}
@@ -28,9 +27,9 @@ export function PartnerAdvisorCard({ labels }: Props) {
           PS
         </div>
         <div>
-          <p className="text-base font-semibold text-white">{labels.teamName}</p>
+          <h3 className="text-base font-semibold text-white">{labels.teamName}</h3>
           <p className="text-sm text-violet-200/90">{labels.location}</p>
-          <p className="mt-1 text-xs uppercase tracking-wide text-aipify-text-muted">{labels.role}</p>
+          {labels.role ? <p className="mt-1 text-xs uppercase tracking-wide text-aipify-text-muted">{labels.role}</p> : null}
         </div>
       </div>
       <dl className="mt-6 space-y-3 text-sm">

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { CategoryPositioningIntro, MarketingCtaBand } from "@/components/marketing";
+import { CategoryPositioningIntro, MarketingCtaBand, MarketingDifferentiationStrip } from "@/components/marketing";
 import WhyAipifyPageContent, { type WhyAipifyPageLabels } from "@/components/marketing/WhyAipifyPageContent";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
-import { getSection, parseCategoryPositioningIntro, parseCtaBandLabels } from "@/lib/marketing/parse-marketing";
+import { getSection, parseCategoryPositioningIntro, parseCtaBandLabels, parseStringList } from "@/lib/marketing/parse-marketing";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { marketing } = await getMarketingContext();
@@ -22,6 +22,7 @@ export default async function WhyAipifyPage() {
   return (
     <>
       <CategoryPositioningIntro {...categoryPositioning} compact />
+      <MarketingDifferentiationStrip themes={parseStringList(marketing, "differentiationStrip", "themes")} />
       <WhyAipifyPageContent labels={labels} />
       <MarketingCtaBand {...ctaBand} />
     </>

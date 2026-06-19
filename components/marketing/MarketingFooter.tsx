@@ -1,40 +1,42 @@
 import Link from "next/link";
 import AipifyPulse from "@/components/branding/AipifyPulse";
 import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
-
-export type MarketingFooterLabels = {
-  tagline: string;
-  companyName: string;
-  headquarters: string;
-  businessOperatingSystem: string;
-  description: string;
-  signature: string;
-  brandSignatureLine1: string;
-  brandSignatureLine2: string;
-  finalSignature: string;
-  foundingPrinciple: string;
-  product: string;
-  company: string;
-  legal: string;
-  privacy: string;
-  terms: string;
-  security: string;
-  knowledge: string;
-  growthPartnerTerms: string;
-  contact: string;
-  earlyAccess: string;
-  bookDemo: string;
-  growthPartners: string;
-  copyright: string;
-  privacyNote: string;
-};
+import { parseFooterGovernanceLabels } from "@/lib/marketing/governance/labels";
+import type { MarketingDictionary } from "@/lib/marketing/get-marketing-context";
 
 type MarketingFooterProps = {
   appName: string;
-  labels: MarketingFooterLabels;
+  marketing: MarketingDictionary;
 };
 
-export default function MarketingFooter({ appName, labels }: MarketingFooterProps) {
+export default function MarketingFooter({ appName, marketing }: MarketingFooterProps) {
+  const labels = parseFooterGovernanceLabels(marketing);
+
+  const productLinks = [
+    { label: labels.product ?? labels.products ?? "Product", href: "/product" },
+    { label: labels.businessPacks, href: "/pricing#business-packs" },
+    { label: labels.enterprise, href: "/enterprise" },
+    { label: labels.growthPartners, href: "/growth-partners" },
+  ];
+
+  const resourceLinks = [
+    { label: labels.knowledge, href: "/knowledge" },
+    { label: labels.security, href: "/security" },
+    { label: labels.contact, href: "/contact" },
+  ];
+
+  const companyLinks = [
+    { label: labels.companyPage, href: "/company" },
+    { label: labels.careers, href: "/careers" },
+    { label: labels.media, href: "/media" },
+  ];
+
+  const legalLinks = [
+    { label: labels.privacy, href: "/privacy" },
+    { label: labels.terms, href: "/terms" },
+    { label: labels.growthPartnerTerms, href: "/growth-partner-terms" },
+  ];
+
   return (
     <footer className={AipifyMarketingClasses.footer}>
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
@@ -53,16 +55,11 @@ export default function MarketingFooter({ appName, labels }: MarketingFooterProp
             <p className="mt-4 text-xs leading-relaxed text-aipify-accent">{labels.privacyNote}</p>
           </div>
 
-          <div className="grid gap-10 sm:grid-cols-3 lg:col-span-8">
+          <div className="grid gap-10 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-4">
             <div>
-              <h3 className="text-sm font-semibold text-aipify-text">{labels.product}</h3>
+              <h3 className="text-sm font-semibold text-aipify-text">{labels.products}</h3>
               <ul className="mt-4 space-y-2.5">
-                {[
-                  { label: "Product", href: "/product" },
-                  { label: "Why Aipify", href: "/why-aipify" },
-                  { label: "Enterprise", href: "/enterprise" },
-                  { label: labels.security, href: "/security" },
-                ].map((link) => (
+                {productLinks.map((link) => (
                   <li key={link.href}>
                     <Link href={link.href} className="text-sm text-aipify-text-secondary transition hover:text-aipify-companion">
                       {link.label}
@@ -75,12 +72,7 @@ export default function MarketingFooter({ appName, labels }: MarketingFooterProp
             <div>
               <h3 className="text-sm font-semibold text-aipify-text">{labels.company}</h3>
               <ul className="mt-4 space-y-2.5">
-                {[
-                  { label: labels.contact, href: "/contact" },
-                  { label: labels.knowledge, href: "/knowledge" },
-                  { label: labels.growthPartners, href: "/growth-partners" },
-                  { label: labels.earlyAccess, href: "/early-access" },
-                ].map((link) => (
+                {companyLinks.map((link) => (
                   <li key={link.href}>
                     <Link href={link.href} className="text-sm text-aipify-text-secondary transition hover:text-aipify-companion">
                       {link.label}
@@ -91,13 +83,22 @@ export default function MarketingFooter({ appName, labels }: MarketingFooterProp
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold text-aipify-text">{labels.legal}</h3>
+              <h3 className="text-sm font-semibold text-aipify-text">{labels.knowledge}</h3>
               <ul className="mt-4 space-y-2.5">
-                {[
-                  { label: labels.privacy, href: "/privacy" },
-                  { label: labels.terms, href: "/terms" },
-                  { label: labels.growthPartnerTerms, href: "/growth-partner-terms" },
-                ].map((link) => (
+                {resourceLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="text-sm text-aipify-text-secondary transition hover:text-aipify-companion">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-semibold text-aipify-text">{labels.legal ?? "Legal"}</h3>
+              <ul className="mt-4 space-y-2.5">
+                {legalLinks.map((link) => (
                   <li key={link.href}>
                     <Link href={link.href} className="text-sm text-aipify-text-secondary transition hover:text-aipify-companion">
                       {link.label}
@@ -111,12 +112,8 @@ export default function MarketingFooter({ appName, labels }: MarketingFooterProp
 
         <div className="mt-12 border-t border-aipify-border pt-8 text-center text-xs text-aipify-text-muted">
           <p>{labels.copyright}</p>
-          <p className="mt-3 text-[11px] font-medium tracking-wide text-aipify-text-secondary">
-            {labels.brandSignatureLine1}
-          </p>
-          <p className="mt-0.5 text-[11px] tracking-wide text-aipify-text-muted">
-            {labels.finalSignature}
-          </p>
+          <p className="mt-3 text-[11px] font-medium tracking-wide text-aipify-text-secondary">{labels.brandSignatureLine1}</p>
+          <p className="mt-0.5 text-[11px] tracking-wide text-aipify-text-muted">{labels.finalSignature}</p>
         </div>
       </div>
     </footer>

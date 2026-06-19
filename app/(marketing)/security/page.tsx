@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import {
   EnterpriseConfidenceStrip,
   EnterpriseTrustSection,
+  HumanApprovalModelSection,
   HumanOversightSection,
   MarketingCtaBand,
+  MarketingDifferentiationStrip,
   MarketingPageHeader,
   PlatformDifferentiationSection,
 } from "@/components/marketing";
@@ -14,6 +16,7 @@ import {
   parseCtaBandLabels,
   parseDifferentiationItems,
   parseOversightLadder,
+  parseStringList,
   parseTrustPoints,
 } from "@/lib/marketing/parse-marketing";
 
@@ -34,6 +37,7 @@ export default async function SecurityPage() {
   return (
     <>
       <MarketingPageHeader title={securityPage.title ?? ""} subtitle={securityPage.subtitle} />
+      <MarketingDifferentiationStrip themes={parseStringList(marketing, "differentiationStrip", "themes")} />
       <EnterpriseConfidenceStrip
         title={platformAuthority.confidenceTitle ?? ""}
         subtitle={platformAuthority.confidenceSubtitle}
@@ -51,6 +55,10 @@ export default async function SecurityPage() {
         title={humanOversight.title ?? ""}
         subtitle={humanOversight.subtitle ?? ""}
         ladder={parseOversightLadder(marketing)}
+      />
+      <HumanApprovalModelSection
+        title={getSection<{ title?: string }>(marketing, "humanApprovalModel").title ?? ""}
+        statements={parseStringList(marketing, "humanApprovalModel", "statements")}
       />
       <PlatformDifferentiationSection
         title={platformAuthority.differentiationTitle ?? ""}

@@ -4,16 +4,22 @@ type Card = { title: string; body: string };
 type Package = {
   key: string;
   name: string;
-  target: string;
-  idealFor: string;
+  audience: string;
+  idealFor?: string;
   features: string[];
   status: string;
   statusKey?: "available" | "popular" | "enterprise";
   cta: string;
   ctaHref: string;
-  highlighted?: boolean;
 };
 type FaqItem = { question: string; answer: string };
+type PlanComparisonCategory = {
+  name: string;
+  starter: string;
+  professional: string;
+  business: string;
+  enterprise: string;
+};
 
 export type PricingPackagesPageLabels = {
   meta: { title: string; description: string };
@@ -24,25 +30,27 @@ export type PricingPackagesPageLabels = {
     ctaPrimary: string;
     ctaSecondary: string;
   };
-  principles: { title: string; cards: Card[] };
+  pricingPhilosophy: { title: string; paragraphs: string[] };
   packages: { title: string; items: Package[] };
+  upgradeGrowth: { title: string; items: string[] };
   businessPacks: {
     title: string;
     copy: string;
     examples: string[];
     status: string;
   };
+  enterpriseOptions: { title: string; items: string[] };
   included: { title: string; items: string[] };
+  planComparison: { title: string; categories: PlanComparisonCategory[] };
+  roiExplanation: { title: string; intro: string; benefits: string[] };
+  upgradeExperience: { title: string; intro: string; steps: string[] };
   upgradePath: {
     headline: string;
     copy: string;
     steps: string[];
   };
-  enterpriseComparison: {
-    headline: string;
-    cards: Card[];
-  };
   faq: { title: string; items: FaqItem[] };
+  purchasingConfidence: { title: string; paragraphs: string[] };
   contactSales: {
     headline: string;
     subheadline: string;
@@ -53,28 +61,24 @@ export type PricingPackagesPageLabels = {
     billing: string[];
     paymentProviders: string[];
     accounting: string;
-    upgradeNote: string;
-    upgradeFlow: string[];
   };
   finalPrinciple: string;
 };
 
 type Props = { labels: PricingPackagesPageLabels };
 
+const PLAN_LABELS: Record<string, string> = {
+  starter: "Starter",
+  professional: "Professional",
+  business: "Business",
+  enterprise: "Enterprise",
+};
+
 function SectionTitle({ children, id }: { children: React.ReactNode; id?: string }) {
   return (
     <h2 id={id} className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
       {children}
     </h2>
-  );
-}
-
-function PrincipleCard({ title, body }: Card) {
-  return (
-    <div className="rounded-2xl border border-aipify-border bg-white/[0.03] p-6">
-      <h3 className="font-semibold text-white">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{body}</p>
-    </div>
   );
 }
 
@@ -99,10 +103,8 @@ function PackageCard({ pkg }: { pkg: Package }) {
           <p className="mt-1 text-xs font-medium uppercase tracking-wide text-aipify-text-muted">{pkg.status}</p>
         ) : null}
       </div>
-      <p className="text-sm text-aipify-text-secondary">
-        <span className="font-medium text-aipify-text-secondary">{pkg.target}</span>
-      </p>
-      <p className="mt-1 text-sm text-aipify-text-muted">{pkg.idealFor}</p>
+      <p className="text-sm leading-relaxed text-aipify-text-secondary">{pkg.audience}</p>
+      {pkg.idealFor ? <p className="mt-2 text-xs text-aipify-text-muted">{pkg.idealFor}</p> : null}
       <ul className="mt-6 flex-1 space-y-2.5">
         {pkg.features.map((feature) => (
           <li key={feature} className="flex gap-2 text-sm text-aipify-text-secondary">
@@ -127,16 +129,46 @@ function PackageCard({ pkg }: { pkg: Package }) {
   );
 }
 
+function PlanComparisonGroup({ category }: { category: PlanComparisonCategory }) {
+  const levels = [
+    { key: "starter", value: category.starter },
+    { key: "professional", value: category.professional },
+    { key: "business", value: category.business },
+    { key: "enterprise", value: category.enterprise },
+  ];
+
+  return (
+    <div className="rounded-2xl border border-aipify-border bg-white/[0.03] p-5 sm:p-6">
+      <h3 className="text-base font-semibold text-cyan-300/90">{category.name}</h3>
+      <dl className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {levels.map(({ key, value }) => (
+          <div key={key} className="rounded-xl border border-white/10 bg-white/[0.02] px-3 py-3">
+            <dt className="text-xs font-semibold uppercase tracking-wide text-aipify-text-muted">
+              {PLAN_LABELS[key]}
+            </dt>
+            <dd className="mt-1 text-sm leading-relaxed text-aipify-text-secondary">{value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
 export default function PricingPackagesPageContent({ labels }: Props) {
   const {
     hero,
-    principles,
+    pricingPhilosophy,
     packages,
+    upgradeGrowth,
     businessPacks,
+    enterpriseOptions,
     included,
+    planComparison,
+    roiExplanation,
+    upgradeExperience,
     upgradePath,
-    enterpriseComparison,
     faq,
+    purchasingConfidence,
     contactSales,
     billingArchitecture,
     finalPrinciple,
@@ -149,7 +181,6 @@ export default function PricingPackagesPageContent({ labels }: Props) {
         <div className="absolute top-48 -left-32 h-[360px] w-[360px] rounded-full bg-cyan-500/10 blur-3xl" />
       </div>
 
-      {/* Hero */}
       <section className="relative border-b border-white/10">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
@@ -174,19 +205,17 @@ export default function PricingPackagesPageContent({ labels }: Props) {
         </div>
       </section>
 
-      {/* Principles */}
       <section className="relative py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionTitle>{principles.title}</SectionTitle>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {principles.cards.map((card) => (
-              <PrincipleCard key={card.title} {...card} />
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+          <SectionTitle>{pricingPhilosophy.title}</SectionTitle>
+          <div className="mt-6 space-y-4 text-base leading-relaxed text-aipify-text-secondary">
+            {pricingPhilosophy.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Packages */}
       <section id="packages" className="border-y border-white/10 bg-white/[0.02] py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionTitle>{packages.title}</SectionTitle>
@@ -198,8 +227,23 @@ export default function PricingPackagesPageContent({ labels }: Props) {
         </div>
       </section>
 
-      {/* Business Packs */}
-      <section id="business-packs" className="relative py-16 sm:py-20">
+      <section className="relative py-16 sm:py-20">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <SectionTitle>{upgradeGrowth.title}</SectionTitle>
+          <ul className="mt-10 flex flex-wrap justify-center gap-3">
+            {upgradeGrowth.items.map((item) => (
+              <li
+                key={item}
+                className="rounded-full border border-aipify-border bg-white/5 px-4 py-2 text-sm font-medium text-aipify-text-secondary"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section id="business-packs" className="border-y border-white/10 bg-violet-950/20 py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <SectionTitle>{businessPacks.title}</SectionTitle>
           <p className="mt-6 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">{businessPacks.copy}</p>
@@ -217,8 +261,23 @@ export default function PricingPackagesPageContent({ labels }: Props) {
         </div>
       </section>
 
-      {/* Included in every plan */}
-      <section className="border-y border-white/10 bg-violet-950/20 py-16 sm:py-20">
+      <section className="relative py-16 sm:py-20">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <SectionTitle>{enterpriseOptions.title}</SectionTitle>
+          <ul className="mt-10 grid gap-3 sm:grid-cols-2">
+            {enterpriseOptions.items.map((item) => (
+              <li
+                key={item}
+                className="rounded-xl border border-aipify-border bg-white/[0.03] px-4 py-3 text-sm font-medium text-aipify-text-secondary"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="border-y border-white/10 bg-white/[0.02] py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <SectionTitle>{included.title}</SectionTitle>
           <ul className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -234,17 +293,43 @@ export default function PricingPackagesPageContent({ labels }: Props) {
         </div>
       </section>
 
-      {/* Upgrade path */}
+      <section id="compare-plans" className="relative py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionTitle>{planComparison.title}</SectionTitle>
+          <div className="mt-10 space-y-4">
+            {planComparison.categories.map((category) => (
+              <PlanComparisonGroup key={category.name} category={category} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-white/10 bg-violet-950/20 py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+          <SectionTitle>{roiExplanation.title}</SectionTitle>
+          <p className="mt-6 text-base leading-relaxed text-aipify-text-secondary">{roiExplanation.intro}</p>
+          <ul className="mx-auto mt-8 grid max-w-xl gap-3 text-left">
+            {roiExplanation.benefits.map((benefit) => (
+              <li key={benefit} className="flex gap-3 text-sm text-aipify-text-secondary">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" aria-hidden="true" />
+                {benefit}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <section className="relative py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <SectionTitle>{upgradePath.headline}</SectionTitle>
+          <SectionTitle>{upgradeExperience.title}</SectionTitle>
+          <p className="mt-4 text-sm leading-relaxed text-aipify-text-secondary">{upgradeExperience.intro}</p>
           <div className="mt-10 flex flex-col items-center gap-2">
-            {upgradePath.steps.map((step, i) => (
+            {upgradeExperience.steps.map((step, index) => (
               <div key={step} className="flex flex-col items-center">
                 <span className="rounded-xl border border-aipify-border bg-white/5 px-8 py-3 text-base font-semibold text-aipify-text">
                   {step}
                 </span>
-                {i < upgradePath.steps.length - 1 ? (
+                {index < upgradeExperience.steps.length - 1 ? (
                   <span className="my-2 text-aipify-text-muted" aria-hidden="true">
                     ↓
                   </span>
@@ -252,23 +337,30 @@ export default function PricingPackagesPageContent({ labels }: Props) {
               </div>
             ))}
           </div>
-          <p className="mt-10 text-sm leading-relaxed text-aipify-text-secondary">{upgradePath.copy}</p>
         </div>
       </section>
 
-      {/* Enterprise comparison */}
       <section className="border-y border-white/10 bg-white/[0.02] py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionTitle>{enterpriseComparison.headline}</SectionTitle>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {enterpriseComparison.cards.map((card) => (
-              <PrincipleCard key={card.title} {...card} />
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+          <SectionTitle>{upgradePath.headline}</SectionTitle>
+          <div className="mt-10 flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:justify-center">
+            {upgradePath.steps.map((step, index) => (
+              <div key={step} className="flex items-center gap-2">
+                <span className="rounded-xl border border-aipify-border bg-white/5 px-6 py-2.5 text-sm font-semibold text-aipify-text">
+                  {step}
+                </span>
+                {index < upgradePath.steps.length - 1 ? (
+                  <span className="hidden text-aipify-text-muted sm:inline" aria-hidden="true">
+                    →
+                  </span>
+                ) : null}
+              </div>
             ))}
           </div>
+          <p className="mt-8 text-sm leading-relaxed text-aipify-text-secondary">{upgradePath.copy}</p>
         </div>
       </section>
 
-      {/* FAQ */}
       <section className="relative py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <SectionTitle>{faq.title}</SectionTitle>
@@ -283,8 +375,18 @@ export default function PricingPackagesPageContent({ labels }: Props) {
         </div>
       </section>
 
-      {/* Contact sales */}
       <section className="border-y border-white/10 bg-gradient-to-b from-violet-950/30 to-transparent py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+          <SectionTitle>{purchasingConfidence.title}</SectionTitle>
+          <div className="mt-6 space-y-4 text-base leading-relaxed text-aipify-text-secondary">
+            {purchasingConfidence.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="relative py-16 sm:py-20">
         <div className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">{contactSales.headline}</h2>
           <p className="mt-4 text-aipify-text-secondary">{contactSales.subheadline}</p>
@@ -297,8 +399,7 @@ export default function PricingPackagesPageContent({ labels }: Props) {
         </div>
       </section>
 
-      {/* Billing architecture */}
-      <section className="relative py-16 sm:py-20">
+      <section className="border-t border-white/10 py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <SectionTitle>{billingArchitecture.title}</SectionTitle>
           <div className="mt-8 space-y-6 text-sm text-aipify-text-secondary">
@@ -322,22 +423,10 @@ export default function PricingPackagesPageContent({ labels }: Props) {
               <span className="font-medium text-aipify-text-secondary">Accounting: </span>
               {billingArchitecture.accounting}
             </p>
-            <p className="font-medium text-cyan-300/90">{billingArchitecture.upgradeNote}</p>
-            <ol className="space-y-2 rounded-xl border border-aipify-border bg-white/[0.03] p-5">
-              {billingArchitecture.upgradeFlow.map((step) => (
-                <li key={step} className="flex items-center gap-2 text-aipify-text-secondary">
-                  <span className="text-emerald-400" aria-hidden="true">
-                    →
-                  </span>
-                  {step}
-                </li>
-              ))}
-            </ol>
           </div>
         </div>
       </section>
 
-      {/* Final principle */}
       <section className="border-t border-aipify-border py-12">
         <p className="mx-auto max-w-2xl px-4 text-center text-sm leading-relaxed text-aipify-text-muted sm:text-base">
           {finalPrinciple}

@@ -1,20 +1,23 @@
 import type { Metadata } from "next";
 import {
-  CategoryPositioningIntro,
-  EnterpriseConfidenceStrip,
-  EnterpriseTrustSection,
-  MarketingCtaBand,
+  EnterpriseBuyerFitSection,
+  EnterpriseBuyerValueSection,
+  EnterpriseCtaBand,
+  EnterpriseReadinessSection,
+  HumanApprovalModelSection,
+  ImplementationJourneySection,
+  MarketingDifferentiationStrip,
   MarketingPageHeader,
   PlatformDifferentiationSection,
+  TrustedPurchaseExperienceSection,
 } from "@/components/marketing";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import {
   getSection,
-  parseCategoryPositioningIntro,
-  parseConfidenceItems,
-  parseCtaBandLabels,
-  parseDifferentiationItems,
-  parseTrustPoints,
+  parseEnterpriseCtaLabels,
+  parseJourneySteps,
+  parseProcurementQuestions,
+  parseStringList,
 } from "@/lib/marketing/parse-marketing";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -26,33 +29,68 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function EnterprisePage() {
   const { marketing } = await getMarketingContext();
   const enterprisePage = getSection<Record<string, string>>(marketing, "enterprisePage");
-  const enterpriseTrust = getSection<Record<string, string>>(marketing, "enterpriseTrust");
-  const platformAuthority = getSection<Record<string, string>>(marketing, "platformAuthority");
-  const ctaBand = parseCtaBandLabels(marketing);
-  const categoryPositioning = parseCategoryPositioningIntro(marketing);
+  const enterpriseCta = parseEnterpriseCtaLabels(marketing);
 
   return (
     <>
-      <MarketingPageHeader title={enterprisePage.title ?? ""} subtitle={enterprisePage.subtitle} />
-      <CategoryPositioningIntro {...categoryPositioning} compact />
-      <EnterpriseConfidenceStrip
-        title={platformAuthority.confidenceTitle ?? ""}
-        subtitle={platformAuthority.confidenceSubtitle}
-        items={parseConfidenceItems(marketing).map(({ name, description }) => ({
-          title: name,
-          description,
-        }))}
+      <MarketingPageHeader
+        title={enterprisePage.title ?? ""}
+        subtitleLines={parseStringList(marketing, "enterprisePage", "subtitleLines")}
       />
-      <EnterpriseTrustSection
-        title={enterpriseTrust.title ?? ""}
-        subtitle={enterpriseTrust.subtitle ?? ""}
-        points={parseTrustPoints(marketing)}
+
+      <EnterpriseBuyerFitSection
+        title={getSection<{ title?: string }>(marketing, "enterpriseBuyerFit").title ?? ""}
+        audiences={parseStringList(marketing, "enterpriseBuyerFit", "audiences")}
       />
+
       <PlatformDifferentiationSection
-        title={platformAuthority.differentiationTitle ?? ""}
-        items={parseDifferentiationItems(marketing)}
+        title={getSection<{ title?: string }>(marketing, "procurementQuestions").title ?? ""}
+        items={parseProcurementQuestions(marketing)}
       />
-      <MarketingCtaBand {...ctaBand} />
+
+      <EnterpriseReadinessSection
+        title={getSection<{ title?: string }>(marketing, "enterpriseSecuritySummary").title ?? ""}
+        items={parseStringList(marketing, "enterpriseSecuritySummary", "items")}
+      />
+
+      <HumanApprovalModelSection
+        title={getSection<{ title?: string }>(marketing, "humanApprovalModel").title ?? ""}
+        statements={parseStringList(marketing, "humanApprovalModel", "statements")}
+      />
+
+      <EnterpriseBuyerValueSection
+        sectionId="executive-buyer-section"
+        title={getSection<{ title?: string }>(marketing, "executiveBuyer").title ?? ""}
+        items={parseStringList(marketing, "executiveBuyer", "items")}
+      />
+
+      <EnterpriseBuyerValueSection
+        sectionId="it-buyer-section"
+        title={getSection<{ title?: string }>(marketing, "itBuyer").title ?? ""}
+        items={parseStringList(marketing, "itBuyer", "items")}
+        muted
+      />
+
+      <EnterpriseBuyerValueSection
+        sectionId="operations-buyer-section"
+        title={getSection<{ title?: string }>(marketing, "operationsBuyer").title ?? ""}
+        items={parseStringList(marketing, "operationsBuyer", "items")}
+      />
+
+      <ImplementationJourneySection
+        title={getSection<{ title?: string }>(marketing, "implementationExpectations").title ?? ""}
+        steps={parseJourneySteps(marketing, "implementationExpectations")}
+      />
+
+      <TrustedPurchaseExperienceSection
+        title={getSection<{ title?: string }>(marketing, "trustedPurchaseExperience").title ?? ""}
+        intro={getSection<{ intro?: string }>(marketing, "trustedPurchaseExperience").intro ?? ""}
+        steps={parseStringList(marketing, "trustedPurchaseExperience", "steps")}
+      />
+
+      <MarketingDifferentiationStrip themes={parseStringList(marketing, "differentiationStrip", "themes")} />
+
+      <EnterpriseCtaBand {...enterpriseCta} />
     </>
   );
 }

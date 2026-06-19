@@ -1,6 +1,10 @@
 import Link from "next/link";
+import GrowthPartnerCtaBand from "./GrowthPartnerCtaBand";
 import GrowthPartnersSignupForm, { type GrowthPartnersSignupLabels } from "./GrowthPartnersSignupForm";
 import PartnerAuthoritySection from "./PartnerAuthoritySection";
+import PartnerPortalPreviewSection from "./PartnerPortalPreviewSection";
+import PartnerSuccessStoriesSection from "./PartnerSuccessStoriesSection";
+import PartnerTrustBuildersSection from "./PartnerTrustBuildersSection";
 import { PartnerAdvisorCard, type PartnerAdvisorLabels } from "./PartnerAdvisorCard";
 import type { HumanVerificationLabels } from "@/lib/system-notice/types";
 
@@ -22,12 +26,26 @@ export type GrowthPartnersPageLabels = {
     badgeCertification: string;
     badgeProfessional: string;
   };
-  earlySignup: {
-    title: string;
-    paragraphs: string[];
-    benefits: string[];
-  };
+  positioning: { lines: string[] };
   why: { title: string; cards: Card[] };
+  partnerJourney: { title: string; steps: string[] };
+  certificationExperience: { title: string; intro: string; topics: string[] };
+  partnerSupport: { title: string; items: string[] };
+  commissionTransparency: { title: string; paragraphs: string[] };
+  partnerBusinessModel: { title: string; paragraphs: string[]; activities: string[] };
+  partnerSuccessStories: { title: string; emptyMessage: string; futureTypes: string[] };
+  partnerPortalPreview: { title: string; items: string[] };
+  trustBuilders: { title: string; items: string[] };
+  registrationLeft: {
+    benefitsTitle: string;
+    benefits: string[];
+    certificationTitle: string;
+    certificationIntro: string;
+    certificationTopics: string[];
+    supportTitle: string;
+    supportItems: string[];
+    journeyTitle: string;
+  };
   independentPartnership: {
     title: string;
     intro: string;
@@ -39,7 +57,7 @@ export type GrowthPartnersPageLabels = {
   requirements: { title: string; items: string[]; copy: string };
   earnings: { title: string; copy: string; disclaimer: string; tiers: Tier[] };
   training: { title: string; modules: string[]; statusWaiting: string; statusVerified: string; certificationNote: string };
-  positioning: { lines: string[] };
+  growthPartnerCta: { title: string; applyLabel: string; speakLabel: string; learnMoreLabel: string };
   signup: GrowthPartnersSignupLabels;
   partnerAdvisor: PartnerAdvisorLabels;
   footerNote: string;
@@ -70,8 +88,73 @@ function BenefitCard({ title, body }: Card) {
   );
 }
 
+function PartnerJourneyFlow({ title, steps }: { title: string; steps: string[] }) {
+  return (
+    <section id="partner-journey" aria-labelledby="partner-journey-title" className="relative py-16 sm:py-20">
+      <div className="mx-auto max-w-lg px-4 sm:px-6 lg:px-8">
+        <SectionTitle>{title}</SectionTitle>
+        <ol className="mt-10 space-y-0">
+          {steps.map((step, index) => (
+            <li key={step} className="flex flex-col items-center">
+              <div className="w-full rounded-xl border border-violet-500/25 bg-violet-950/20 px-4 py-3 text-center text-sm font-medium text-violet-100">
+                {step}
+              </div>
+              {index < steps.length - 1 ? (
+                <span className="my-2 text-lg text-cyan-400/80" aria-hidden="true">
+                  ↓
+                </span>
+              ) : null}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+function CompactJourneyFlow({ title, steps }: { title: string; steps: string[] }) {
+  return (
+    <div>
+      <h3 className="text-lg font-semibold text-white">{title}</h3>
+      <ol className="mt-4 space-y-0">
+        {steps.map((step, index) => (
+          <li key={step} className="flex flex-col items-stretch">
+            <div className="rounded-lg border border-aipify-border bg-white/[0.03] px-3 py-2 text-center text-xs font-medium text-aipify-text-secondary">
+              {step}
+            </div>
+            {index < steps.length - 1 ? (
+              <span className="my-1 text-center text-sm text-cyan-400/70" aria-hidden="true">
+                ↓
+              </span>
+            ) : null}
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 export default function GrowthPartnersPageContent({ labels, verificationLabels, partnerAuthority }: Props) {
-  const { hero, earlySignup, why, independentPartnership, howItWorks, requirements, earnings, training, positioning } = labels;
+  const {
+    hero,
+    positioning,
+    why,
+    partnerJourney,
+    certificationExperience,
+    partnerSupport,
+    commissionTransparency,
+    partnerBusinessModel,
+    partnerSuccessStories,
+    partnerPortalPreview,
+    trustBuilders,
+    registrationLeft,
+    independentPartnership,
+    howItWorks,
+    requirements,
+    earnings,
+    training,
+    growthPartnerCta,
+  } = labels;
 
   return (
     <div className="relative">
@@ -85,7 +168,7 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-sm font-medium text-violet-200">
-              {hero.badgeTime}
+              {hero.badgeProfessional}
             </span>
             <h1 className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">{hero.headline}</h1>
             <p className="mt-4 text-base leading-relaxed text-aipify-text-secondary sm:text-lg">{hero.subheadline}</p>
@@ -93,7 +176,7 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
             <p className="mt-3 text-sm text-aipify-text-muted">{hero.supporting}</p>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-              {[hero.badgeIndependent, hero.badgeCertification, hero.badgeProfessional].map((badge) => (
+              {[hero.badgeIndependent, hero.badgeCertification, hero.badgeTime].map((badge) => (
                 <span key={badge} className="rounded-full border border-aipify-border bg-white/5 px-3 py-1 text-xs font-medium text-aipify-text-secondary">
                   {badge}
                 </span>
@@ -107,12 +190,12 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
               >
                 {hero.ctaPrimary}
               </a>
-              <a
-                href="#how-it-works"
+              <Link
+                href="/contact"
                 className="inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-white/5 px-8 py-4 text-base font-semibold text-aipify-text transition hover:bg-white/10 sm:w-auto"
               >
                 {hero.ctaSecondary}
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -128,40 +211,7 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
         />
       ) : null}
 
-      {/* Early signup — two columns */}
-      <section id="signup" className="relative border-b border-white/10 bg-gradient-to-b from-violet-950/20 to-transparent py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
-            <div className="lg:pr-4">
-              <SectionTitle>{earlySignup.title}</SectionTitle>
-              <div className="mt-8 space-y-5 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">
-                {earlySignup.paragraphs.map((p) => (
-                  <p key={p}>{p}</p>
-                ))}
-              </div>
-              <ul className="mt-10 space-y-4">
-                {earlySignup.benefits.map((benefit) => (
-                  <li key={benefit} className="flex gap-3 text-sm text-aipify-text-secondary sm:text-base">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" aria-hidden="true" />
-                    {benefit}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="space-y-8 lg:pl-2">
-              <PartnerAdvisorCard labels={labels.partnerAdvisor} />
-              <div className="rounded-2xl border border-aipify-border/80 bg-white/[0.02] p-6 sm:p-8">
-                <GrowthPartnersSignupForm labels={labels.signup} verificationLabels={verificationLabels} />
-              </div>
-              <p className="text-center text-xs text-aipify-text-muted">
-                <Link href="/login" className="text-cyan-400 hover:underline">Already registered?</Link>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Positioning strip */}
+      {/* Positioning */}
       <section className="border-b border-white/10 bg-white/[0.02] py-10">
         <div className="mx-auto max-w-4xl space-y-3 px-4 text-center text-sm leading-relaxed text-aipify-text-secondary sm:text-base">
           {positioning.lines.map((line) => (
@@ -170,7 +220,7 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
         </div>
       </section>
 
-      {/* Why */}
+      {/* Why become */}
       <section className="relative py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionTitle>{why.title}</SectionTitle>
@@ -182,8 +232,143 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
         </div>
       </section>
 
-      {/* Independent business partnership */}
+      <PartnerJourneyFlow title={partnerJourney.title} steps={partnerJourney.steps} />
+
+      {/* Certification */}
+      <section className="border-y border-white/10 bg-white/[0.02] py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <SectionTitle>{certificationExperience.title}</SectionTitle>
+          <p className="mt-6 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">{certificationExperience.intro}</p>
+          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+            {certificationExperience.topics.map((topic) => (
+              <li key={topic} className="flex items-center gap-2 rounded-xl border border-aipify-border bg-white/[0.03] px-4 py-3 text-sm text-aipify-text-secondary">
+                <span className="text-cyan-400" aria-hidden="true">
+                  •
+                </span>
+                {topic}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Partner support */}
+      <section className="relative py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionTitle>{partnerSupport.title}</SectionTitle>
+          <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {partnerSupport.items.map((item) => (
+              <li key={item} className="rounded-2xl border border-aipify-border bg-white/[0.03] px-5 py-4 text-center text-sm font-medium text-aipify-text-secondary">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Commission transparency */}
       <section className="border-y border-white/10 bg-violet-950/20 py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <SectionTitle>{commissionTransparency.title}</SectionTitle>
+          <div className="mt-6 space-y-4 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">
+            {commissionTransparency.paragraphs.map((p) => (
+              <p key={p}>{p}</p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Partner business model */}
+      <section className="relative py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <SectionTitle>{partnerBusinessModel.title}</SectionTitle>
+          <div className="mt-6 space-y-4 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">
+            {partnerBusinessModel.paragraphs.map((p) => (
+              <p key={p}>{p}</p>
+            ))}
+          </div>
+          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+            {partnerBusinessModel.activities.map((activity) => (
+              <li key={activity} className="flex items-center gap-2 rounded-xl border border-violet-500/20 bg-violet-950/15 px-4 py-3 text-sm text-aipify-text-secondary">
+                <span className="text-violet-400" aria-hidden="true">
+                  •
+                </span>
+                {activity}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <PartnerPortalPreviewSection title={partnerPortalPreview.title} items={partnerPortalPreview.items} />
+
+      <PartnerSuccessStoriesSection
+        title={partnerSuccessStories.title}
+        emptyMessage={partnerSuccessStories.emptyMessage}
+        futureTypes={partnerSuccessStories.futureTypes}
+      />
+
+      {/* Premium registration */}
+      <section id="signup" className="relative border-y border-white/10 bg-gradient-to-b from-violet-950/25 to-transparent py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
+            <div className="space-y-10 lg:pr-4">
+              <div>
+                <SectionTitle>{registrationLeft.benefitsTitle}</SectionTitle>
+                <ul className="mt-6 space-y-3">
+                  {registrationLeft.benefits.map((benefit) => (
+                    <li key={benefit} className="flex gap-3 text-sm text-aipify-text-secondary sm:text-base">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" aria-hidden="true" />
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-white">{registrationLeft.certificationTitle}</h3>
+                <p className="mt-2 text-sm text-aipify-text-secondary">{registrationLeft.certificationIntro}</p>
+                <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+                  {registrationLeft.certificationTopics.map((topic) => (
+                    <li key={topic} className="text-xs text-aipify-text-muted sm:text-sm">
+                      {topic}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-white">{registrationLeft.supportTitle}</h3>
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {registrationLeft.supportItems.map((item) => (
+                    <li key={item} className="rounded-full border border-aipify-border bg-white/5 px-3 py-1.5 text-xs font-medium text-aipify-text-secondary">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <CompactJourneyFlow title={registrationLeft.journeyTitle} steps={partnerJourney.steps} />
+            </div>
+
+            <div className="space-y-6 lg:pl-2">
+              <PartnerAdvisorCard labels={labels.partnerAdvisor} />
+              <PartnerTrustBuildersSection title={trustBuilders.title} items={trustBuilders.items} compact />
+              <div className="rounded-2xl border border-aipify-border/80 bg-white/[0.02] p-6 sm:p-8">
+                <GrowthPartnersSignupForm labels={labels.signup} verificationLabels={verificationLabels} />
+              </div>
+              <p className="text-center text-xs text-aipify-text-muted">
+                <Link href="/login" className="text-cyan-400 hover:underline">
+                  Already registered?
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Independent partnership detail */}
+      <section className="border-b border-white/10 bg-white/[0.02] py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <SectionTitle>{independentPartnership.title}</SectionTitle>
           <p className="mt-6 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">{independentPartnership.intro}</p>
@@ -199,7 +384,9 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
           <ul className="mt-4 grid gap-2 sm:grid-cols-2">
             {independentPartnership.aipifyProvides.map((item) => (
               <li key={item} className="flex items-center gap-2 rounded-xl border border-aipify-border bg-white/[0.03] px-4 py-3 text-sm text-aipify-text-secondary">
-                <span className="text-cyan-400" aria-hidden="true">•</span>
+                <span className="text-cyan-400" aria-hidden="true">
+                  •
+                </span>
                 {item}
               </li>
             ))}
@@ -207,7 +394,7 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
         </div>
       </section>
 
-      {/* How it works */}
+      {/* How it works — detail */}
       <section id="how-it-works" className="relative py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <SectionTitle>{howItWorks.title}</SectionTitle>
@@ -242,7 +429,7 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
         </div>
       </section>
 
-      {/* Earnings */}
+      {/* Earnings tiers */}
       <section className="relative py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
@@ -266,25 +453,23 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
             <ul className="space-y-2">
               {training.modules.map((mod) => (
                 <li key={mod} className="flex items-center gap-2 text-sm text-aipify-text-secondary">
-                  <span className="text-violet-400" aria-hidden="true">•</span>
+                  <span className="text-violet-400" aria-hidden="true">
+                    •
+                  </span>
                   {mod}
                 </li>
               ))}
             </ul>
             <div className="space-y-4">
-              <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 text-sm text-amber-100">
-                <span aria-hidden="true">⏳ </span>
-                {training.statusWaiting}
-              </div>
-              <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 text-sm text-emerald-100">
-                <span aria-hidden="true">🛡️ </span>
-                {training.statusVerified}
-              </div>
+              <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 text-sm text-amber-100">{training.statusWaiting}</div>
+              <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 text-sm text-emerald-100">{training.statusVerified}</div>
               <p className="text-xs leading-relaxed text-aipify-text-muted">{training.certificationNote}</p>
             </div>
           </div>
         </div>
       </section>
+
+      <GrowthPartnerCtaBand {...growthPartnerCta} />
 
       {/* Footer note + terms */}
       <section className="relative py-12">

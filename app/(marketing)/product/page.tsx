@@ -6,6 +6,7 @@ import {
   EnterpriseConfidenceStrip,
   HumanDifferenceSection,
   MarketingCtaBand,
+  MarketingDifferentiationStrip,
   MarketingPageHeader,
   ModuleShowcase,
   OrganizationalMemorySection,
@@ -14,6 +15,7 @@ import {
   PlatformMapSection,
   PlatformDifferentiationSection,
   PlatformPreviewStrip,
+  WhatCompanionDoesSection,
 } from "@/components/marketing";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import {
@@ -29,6 +31,7 @@ import {
   parsePlatformEngines,
   parsePlatformMapNodes,
   parsePlatformPreview,
+  parseCompanionCapabilities,
   parseStringList,
 } from "@/lib/marketing/parse-marketing";
 
@@ -58,6 +61,7 @@ export default async function ProductPage() {
       <MarketingPageHeader title={productPage.title ?? ""} subtitle={productPage.subtitle} />
       <CategoryPositioningIntro {...categoryPositioning} compact />
       <HumanDifferenceSection {...humanDifference} compact />
+      <MarketingDifferentiationStrip themes={parseStringList(marketing, "differentiationStrip", "themes")} />
       <CompanionNotChatbotSection
         title={getSection<{ title?: string }>(marketing, "companionNotChatbot").title ?? ""}
         statements={parseStringList(marketing, "companionNotChatbot", "statements")}
@@ -66,6 +70,10 @@ export default async function ProductPage() {
         title={getSection<{ title?: string }>(marketing, "organizationalMemory").title ?? ""}
         problems={parseStringList(marketing, "organizationalMemory", "problems")}
         closing={getSection<{ closing?: string }>(marketing, "organizationalMemory").closing ?? ""}
+      />
+      <WhatCompanionDoesSection
+        title={getSection<{ title?: string }>(marketing, "whatCompanionDoes").title ?? ""}
+        capabilities={parseCompanionCapabilities(marketing)}
       />
       <div className="border-b border-aipify-border bg-aipify-surface-muted/40">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">

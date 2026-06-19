@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { EarlyAccessForm, MarketingPageHeader, MarketingTrustSignalStrip } from "@/components/marketing";
+import { EarlyAccessForm, MarketingDifferentiationStrip, MarketingPageHeader, MarketingTrustSignalStrip } from "@/components/marketing";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import { getSection, parseStringList } from "@/lib/marketing/parse-marketing";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -26,6 +26,7 @@ export default async function EarlyAccessPage() {
         subtitle={earlyAccess.subtitle as string}
       />
       <MarketingTrustSignalStrip signals={trustSignals} />
+      <MarketingDifferentiationStrip themes={parseStringList(marketing, "differentiationStrip", "themes")} />
       <div className="mx-auto max-w-xl px-4 py-12 sm:px-6 lg:px-8">
         <EarlyAccessForm
           labels={earlyAccess as Parameters<typeof EarlyAccessForm>[0]["labels"]}

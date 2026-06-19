@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import {
+  CategoryPositioningIntro,
   EnterpriseConfidenceStrip,
+  HumanCenteredAiSection,
   MarketingCtaBand,
+  MarketingDifferentiationStrip,
   MarketingPageHeader,
   ModuleShowcase,
   PlatformArchitectureSection,
@@ -11,10 +14,12 @@ import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import {
   getSection,
   parseArchitectureLayers,
+  parseCategoryPositioningIntro,
   parseConfidenceItems,
   parseCtaBandLabels,
   parseModules,
   parsePlatformEngines,
+  parseStringList,
 } from "@/lib/marketing/parse-marketing";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -28,10 +33,13 @@ export default async function ModulesPage() {
   const modulesSection = getSection<Record<string, string>>(marketing, "modules");
   const platformAuthority = getSection<Record<string, string>>(marketing, "platformAuthority");
   const ctaBand = parseCtaBandLabels(marketing);
+  const categoryPositioning = parseCategoryPositioningIntro(marketing);
 
   return (
     <>
       <MarketingPageHeader title={modulesSection.title ?? ""} subtitle={modulesSection.subtitle} />
+      <CategoryPositioningIntro {...categoryPositioning} compact />
+      <MarketingDifferentiationStrip themes={parseStringList(marketing, "differentiationStrip", "themes")} />
       <PlatformArchitectureSection
         title={platformAuthority.architectureTitle ?? ""}
         subtitle={platformAuthority.architectureSubtitle ?? ""}

@@ -6,6 +6,13 @@ export const MARKETING_PRIMARY_CTA_HREFS = {
   seeHowItWorks: "#how-it-works",
 } as const;
 
+/** Phase 394 — enterprise buyer CTAs. */
+export const MARKETING_ENTERPRISE_CTA_HREFS = {
+  bookEnterpriseDemo: "/book-demo",
+  speakWithAipify: "/contact",
+  earlyAccess: "/early-access",
+} as const;
+
 export type MarketingPrimaryCtaLabels = {
   bookDemo: string;
   earlyAccess: string;

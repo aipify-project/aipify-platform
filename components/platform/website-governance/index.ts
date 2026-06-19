@@ -1,0 +1,1 @@
+export { WebsiteGovernancePanel } from "./WebsiteGovernancePanel";

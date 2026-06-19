@@ -443,3 +443,129 @@ export function parseCompanionTimelineMilestones(marketing: MarketingDictionary)
   }>(marketing, "companionTimeline");
   return recordValues(section.milestones);
 }
+
+export function parseProcurementQuestions(
+  marketing: MarketingDictionary
+): Array<{ question: string; answer: string }> {
+  const section = getSection<{ items?: Record<string, { q: string; a: string }> }>(
+    marketing,
+    "procurementQuestions"
+  );
+  return recordValues(section.items).map(({ q, a }) => ({ question: q, answer: a }));
+}
+
+export function parseEnterpriseCtaLabels(marketing: MarketingDictionary): {
+  title: string;
+  subtitle: string;
+  bookEnterpriseDemo: string;
+  speakWithAipify: string;
+  earlyAccess: string;
+} {
+  const enterpriseCta = getSection<Record<string, string>>(marketing, "enterpriseCta");
+  const ctaBand = getSection<Record<string, string>>(marketing, "ctaBand");
+  return {
+    title: enterpriseCta.title ?? ctaBand.title ?? "",
+    subtitle: enterpriseCta.subtitle ?? ctaBand.subtitle ?? "",
+    bookEnterpriseDemo: enterpriseCta.bookEnterpriseDemo ?? "Book Enterprise Demo",
+    speakWithAipify: enterpriseCta.speakWithAipify ?? "Speak With Aipify",
+    earlyAccess: enterpriseCta.earlyAccess ?? ctaBand.earlyAccess ?? "Request Early Access",
+  };
+}
+
+export function parseImplementationCtaLabels(marketing: MarketingDictionary): {
+  title: string;
+  subtitle: string;
+  bookDemo: string;
+  earlyAccess: string;
+  speakWithAipify: string;
+} {
+  const implementationCta = getSection<Record<string, string>>(marketing, "implementationCta");
+  const ctaBand = getSection<Record<string, string>>(marketing, "ctaBand");
+  return {
+    title: implementationCta.title ?? "",
+    subtitle: implementationCta.subtitle ?? "",
+    bookDemo: implementationCta.bookDemo ?? ctaBand.bookDemo ?? "Book Demo",
+    earlyAccess: implementationCta.earlyAccess ?? ctaBand.earlyAccess ?? "Request Early Access",
+    speakWithAipify: implementationCta.speakWithAipify ?? "Speak With Aipify",
+  };
+}
+
+export function parseFirst30DaysMilestones(marketing: MarketingDictionary) {
+  const section = getSection<{
+    milestones?: Record<string, { day: string; label: string }>;
+  }>(marketing, "getStartedFirst30Days");
+  return recordValues(section.milestones);
+}
+
+export function parseImplementationStories(marketing: MarketingDictionary) {
+  const section = getSection<{
+    title?: string;
+    stories?: Record<string, { title: string; steps?: Record<string, string> }>;
+  }>(marketing, "getStartedStories");
+  return {
+    title: section.title ?? "",
+    stories: recordValues(section.stories).map((story) => ({
+      title: story.title,
+      steps: recordValues(story.steps),
+    })),
+  };
+}
+
+export function parseGetStartedPageLabels(marketing: MarketingDictionary) {
+  const page = getSection<{
+    title?: string;
+    subtitle?: string;
+    meta?: { title?: string; description?: string };
+  }>(marketing, "getStartedPage");
+  const stories = parseImplementationStories(marketing);
+  return {
+    meta: {
+      title: page.meta?.title ?? "",
+      description: page.meta?.description ?? "",
+    },
+    hero: {
+      title: page.title ?? "",
+      subtitle: page.subtitle ?? "",
+    },
+    first30Days: {
+      title: getSection<{ title?: string }>(marketing, "getStartedFirst30Days").title ?? "",
+      milestones: parseFirst30DaysMilestones(marketing),
+    },
+    implementationTimeline: {
+      title: getSection<{ title?: string }>(marketing, "getStartedTimeline").title ?? "",
+      steps: parseStringList(marketing, "getStartedTimeline", "steps"),
+    },
+    companionOnboarding: {
+      title: getSection<{ title?: string }>(marketing, "getStartedCompanion").title ?? "",
+      intro: getSection<{ intro?: string }>(marketing, "getStartedCompanion").intro ?? "",
+      learns: parseStringList(marketing, "getStartedCompanion", "learns"),
+      closing: getSection<{ closing?: string }>(marketing, "getStartedCompanion").closing ?? "",
+    },
+    businessPackActivation: {
+      title: getSection<{ title?: string }>(marketing, "getStartedPackActivation").title ?? "",
+      steps: parseStringList(marketing, "getStartedPackActivation", "steps"),
+    },
+    implementationSupport: {
+      title: getSection<{ title?: string }>(marketing, "getStartedSupport").title ?? "",
+      items: parseStringList(marketing, "getStartedSupport", "items"),
+    },
+    timeToValue: {
+      title: getSection<{ title?: string }>(marketing, "getStartedTimeToValue").title ?? "",
+      outcomes: parseStringList(marketing, "getStartedTimeToValue", "outcomes"),
+    },
+    companionChecklist: {
+      title: getSection<{ title?: string }>(marketing, "getStartedChecklist").title ?? "",
+      items: parseStringList(marketing, "getStartedChecklist", "items"),
+    },
+    customerSuccessJourney: {
+      title: getSection<{ title?: string }>(marketing, "getStartedSuccessJourney").title ?? "",
+      steps: parseStringList(marketing, "getStartedSuccessJourney", "steps"),
+    },
+    implementationStories: stories,
+    complexityReassurance: {
+      title: getSection<{ title?: string }>(marketing, "getStartedComplexity").title ?? "",
+      paragraphs: parseParagraphs(marketing, "getStartedComplexity"),
+    },
+    implementationCta: parseImplementationCtaLabels(marketing),
+  };
+}
