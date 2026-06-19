@@ -16027,6 +16027,71 @@
       "incomplete": "Ufullstendig"
     }
   },
+  "serviceNetwork": {
+    "title": "Tjenestenettverk",
+    "subtitle": "Flere lokasjoner, stoler, rom, leverandører og leieavtaler — én APP-organisasjon med styrte tilganger.",
+    "principle": "Aipify administrerer tjenestenettverket ditt — lokasjoner er operative ressurser, ikke separate leietakere.",
+    "privacyNote": "Lokasjons- og leietakeromfang håndheves på serveren. Leietakere ser kun tillatte kunder og bestillinger.",
+    "hierarchyNote": "Plattform → APP → Tjenestenettverk → Lokasjon → Ressurs → Leverandør → Tjeneste → Tilgjengelighet → Bestilling",
+    "loading": "Laster",
+    "empty": "Tjenestenettverk-senteret er ikke tilgjengelig for denne organisasjonen.",
+    "refresh": "Oppdater",
+    "noRecords": "Ingen poster ennå.",
+    "locationSelector": "Lokasjon",
+    "allLocations": "Alle lokasjoner",
+    "companionRecommendations": "Companion Service Network-rådgiver",
+    "integrations": "Tverrfase-integrasjoner",
+    "auditRecent": "Nylige revisjonshendelser",
+    "sections": {
+      "network": "Nettverksoversikt",
+      "locations": "Lokasjoner",
+      "resources": "Ressurser",
+      "providers": "Tjenesteleverandører",
+      "rentals": "Leieavtaler"
+    },
+    "stats": {
+      "locations": "Lokasjoner",
+      "resources": "Ressurser",
+      "providers": "Leverandører",
+      "activeRentals": "Aktive leieavtaler",
+      "pendingRentals": "Venter på godkjenning",
+      "locationGroups": "Lokasjonsgrupper"
+    },
+    "detail": {
+      "back": "Tilbake til listen",
+      "overview": "Oversikt",
+      "assignments": "Tildelinger",
+      "relatedResources": "Relaterte ressurser",
+      "notFound": "Posten ble ikke funnet eller tilgang er nektet."
+    },
+    "entityTypes": {
+      "location": "Lokasjon",
+      "resource": "Ressurs",
+      "provider": "Tjenesteleverandør",
+      "rental": "Leieavtale"
+    },
+    "filters": {
+      "search": "Søk",
+      "location": "Lokasjon",
+      "status": "Status",
+      "type": "Type"
+    },
+    "emptyStates": {
+      "noLocations": "Ingen lokasjoner opprettet ennå.",
+      "noResources": "Ingen ressurser på denne lokasjonen.",
+      "noProviders": "Ingen leverandører tildelt ennå.",
+      "noRentals": "Ingen aktive leieavtaler.",
+      "createLocation": "Legg til en lokasjon når organisasjonen er klar til å utvide.",
+      "createResource": "Legg til stoler, rom eller arbeidsstasjoner for denne lokasjonen.",
+      "createProvider": "Tildel ansatte eller leietakere som tjenesteleverandører.",
+      "createRental": "Opprett en leieavtale for stol- eller romleietakere."
+    },
+    "validation": {
+      "passed": "Bestillingsvalidering bestått.",
+      "failed": "Bestillingsvalidering mislyktes.",
+      "loading": "Validerer bestilling"
+    }
+  },
   "appointmentBooking": {
     "title": "Avtaler og tjenester",
     "subtitle": "Timebestilling, kalenderinntekter og kapasitet — Aipify hjelper transparent, uten å utgi seg for teamet ditt.",

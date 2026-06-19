@@ -640,7 +640,8 @@
     "autonomousEnterpriseOperationsEngine": "Autonomous Operations Center",
     "timeAttendance": "Time & Attendance",
     "compensation": "Compensation & Payroll Input",
-    "profitability": "Profitability Operations"
+    "profitability": "Profitability Operations",
+    "serviceNetwork": "Service Network"
   },
   "voiceOfCustomer": {
     "trigger": "Share Feedback",

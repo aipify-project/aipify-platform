@@ -531,7 +531,8 @@
     "serviceCheckout": "Servicekasse",
     "timeAttendance": "Time og oppmøte",
     "compensation": "Kompensasjon og lønnsinput",
-    "profitability": "Lønnsomhetsoperasjoner"
+    "profitability": "Lønnsomhetsoperasjoner",
+    "serviceNetwork": "Tjenestenettverk"
   },
   "companionPresence": {
     "ariaIndicator": "Aipify companion-tilstedeværelse",

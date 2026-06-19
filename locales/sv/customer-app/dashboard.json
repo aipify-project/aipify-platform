@@ -15857,6 +15857,71 @@
       "incomplete": "Ofullständig"
     }
   },
+  "serviceNetwork": {
+    "title": "Tjänstenätverk",
+    "subtitle": "Flera platser, stolar, rum, leverantörer och hyresavtal — en APP-organisation med styrda behörigheter.",
+    "principle": "Aipify hanterar ditt tjänstenätverk — platser är operativa resurser, inte separata hyresgäster.",
+    "privacyNote": "Plats- och hyresgästomfång tillämpas på servern. Hyresgäster ser endast tillåtna kunder och bokningar.",
+    "hierarchyNote": "Plattform → APP → Tjänstenätverk → Plats → Resurs → Leverantör → Tjänst → Tillgänglighet → Bokning",
+    "loading": "Laddar",
+    "empty": "Tjänstenätverkscentret är inte tillgängligt för denna organisation.",
+    "refresh": "Uppdatera",
+    "noRecords": "Inga poster ännu.",
+    "locationSelector": "Plats",
+    "allLocations": "Alla platser",
+    "companionRecommendations": "Companion Service Network-rådgivare",
+    "integrations": "Tvärfasintegrationer",
+    "auditRecent": "Senaste granskningshändelser",
+    "sections": {
+      "network": "Nätverksöversikt",
+      "locations": "Platser",
+      "resources": "Resurser",
+      "providers": "Tjänsteleverantörer",
+      "rentals": "Hyresavtal"
+    },
+    "stats": {
+      "locations": "Platser",
+      "resources": "Resurser",
+      "providers": "Leverantörer",
+      "activeRentals": "Aktiva hyresavtal",
+      "pendingRentals": "Väntar på godkännande",
+      "locationGroups": "Platsgrupper"
+    },
+    "detail": {
+      "back": "Tillbaka till listan",
+      "overview": "Översikt",
+      "assignments": "Tilldelningar",
+      "relatedResources": "Relaterade resurser",
+      "notFound": "Posten hittades inte eller åtkomst nekad."
+    },
+    "entityTypes": {
+      "location": "Plats",
+      "resource": "Resurs",
+      "provider": "Tjänsteleverantör",
+      "rental": "Hyresavtal"
+    },
+    "filters": {
+      "search": "Sök",
+      "location": "Plats",
+      "status": "Status",
+      "type": "Typ"
+    },
+    "emptyStates": {
+      "noLocations": "Inga platser skapade ännu.",
+      "noResources": "Inga resurser på denna plats.",
+      "noProviders": "Inga leverantörer tilldelade ännu.",
+      "noRentals": "Inga aktiva hyresavtal.",
+      "createLocation": "Lägg till en plats när organisationen är redo att expandera.",
+      "createResource": "Lägg till stolar, rum eller arbetsstationer för denna plats.",
+      "createProvider": "Tilldela anställda eller hyresgäster som tjänsteleverantörer.",
+      "createRental": "Skapa ett hyresavtal för stol- eller rumshyresgäster."
+    },
+    "validation": {
+      "passed": "Bokningsvalidering godkänd.",
+      "failed": "Bokningsvalidering misslyckades.",
+      "loading": "Validerar bokning"
+    }
+  },
   "appointmentBooking": {
     "title": "Bokningar och tjänster",
     "subtitle": "Tidbokning, kalenderintäkter och kapacitet — Aipify hjälper transparent utan att utge sig för ditt team.",

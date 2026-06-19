@@ -15755,6 +15755,71 @@
       "incomplete": "Ufuldstændig"
     }
   },
+  "serviceNetwork": {
+    "title": "Servicenetværk",
+    "subtitle": "Flere lokationer, stole, rum, leverandører og lejeaftaler — én APP-organisation med styrede adgange.",
+    "principle": "Aipify administrerer dit servicenetværk — lokationer er operative ressourcer, ikke separate lejere.",
+    "privacyNote": "Lokations- og lejeromfang håndhæves på serveren. Lejere ser kun tilladte kunder og bookinger.",
+    "hierarchyNote": "Platform → APP → Servicenetværk → Lokation → Ressource → Leverandør → Service → Tilgængelighed → Booking",
+    "loading": "Indlæser",
+    "empty": "Servicenetværkscenteret er ikke tilgængeligt for denne organisation.",
+    "refresh": "Opdater",
+    "noRecords": "Ingen poster endnu.",
+    "locationSelector": "Lokation",
+    "allLocations": "Alle lokationer",
+    "companionRecommendations": "Companion Service Network-rådgiver",
+    "integrations": "Tværfaseintegrationer",
+    "auditRecent": "Seneste revisionshændelser",
+    "sections": {
+      "network": "Netværksoversigt",
+      "locations": "Lokationer",
+      "resources": "Ressourcer",
+      "providers": "Serviceleverandører",
+      "rentals": "Lejeaftaler"
+    },
+    "stats": {
+      "locations": "Lokationer",
+      "resources": "Ressourcer",
+      "providers": "Leverandører",
+      "activeRentals": "Aktive lejeaftaler",
+      "pendingRentals": "Afventer godkendelse",
+      "locationGroups": "Lokationsgrupper"
+    },
+    "detail": {
+      "back": "Tilbage til listen",
+      "overview": "Oversigt",
+      "assignments": "Tildelinger",
+      "relatedResources": "Relaterede ressourcer",
+      "notFound": "Posten blev ikke fundet eller adgang nægtet."
+    },
+    "entityTypes": {
+      "location": "Lokation",
+      "resource": "Ressource",
+      "provider": "Serviceleverandør",
+      "rental": "Lejeaftale"
+    },
+    "filters": {
+      "search": "Søg",
+      "location": "Lokation",
+      "status": "Status",
+      "type": "Type"
+    },
+    "emptyStates": {
+      "noLocations": "Ingen lokationer oprettet endnu.",
+      "noResources": "Ingen ressourcer på denne lokation.",
+      "noProviders": "Ingen leverandører tildelt endnu.",
+      "noRentals": "Ingen aktive lejeaftaler.",
+      "createLocation": "Tilføj en lokation når organisationen er klar til at udvide.",
+      "createResource": "Tilføj stole, rum eller arbejdsstationer for denne lokation.",
+      "createProvider": "Tildel medarbejdere eller lejere som serviceleverandører.",
+      "createRental": "Opret en lejeaftale for stol- eller rumlejere."
+    },
+    "validation": {
+      "passed": "Bookingvalidering bestået.",
+      "failed": "Bookingvalidering mislykkedes.",
+      "loading": "Validerer booking"
+    }
+  },
   "appointmentBooking": {
     "title": "Aftaler og services",
     "subtitle": "Tidsbestilling, kalenderindtægter og kapacitet — Aipify hjælper transparent uden at udgive sig for dit team.",

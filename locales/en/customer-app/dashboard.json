@@ -16313,6 +16313,71 @@
       "incomplete": "Incomplete"
     }
   },
+  "serviceNetwork": {
+    "title": "Service Network",
+    "subtitle": "Multi-location branches, chairs, rooms, providers, and rental agreements — one APP organization, governed scopes.",
+    "principle": "Aipify manages your service network — locations are operational resources, not separate tenants.",
+    "privacyNote": "Location and renter scopes are enforced server-side. Renters see only permitted customers and bookings.",
+    "hierarchyNote": "Platform → APP → Service Network → Location → Resource → Provider → Service → Availability → Booking",
+    "loading": "Loading",
+    "empty": "Service Network Center is not available for this organization.",
+    "refresh": "Refresh",
+    "noRecords": "No records yet.",
+    "locationSelector": "Location",
+    "allLocations": "All locations",
+    "companionRecommendations": "Companion Service Network Advisor",
+    "integrations": "Cross-phase integrations",
+    "auditRecent": "Recent audit events",
+    "sections": {
+      "network": "Network overview",
+      "locations": "Locations",
+      "resources": "Resources",
+      "providers": "Service providers",
+      "rentals": "Rental agreements"
+    },
+    "stats": {
+      "locations": "Locations",
+      "resources": "Resources",
+      "providers": "Providers",
+      "activeRentals": "Active rentals",
+      "pendingRentals": "Pending approval",
+      "locationGroups": "Location groups"
+    },
+    "detail": {
+      "back": "Back to list",
+      "overview": "Overview",
+      "assignments": "Assignments",
+      "relatedResources": "Related resources",
+      "notFound": "Record not found or access denied."
+    },
+    "entityTypes": {
+      "location": "Location",
+      "resource": "Resource",
+      "provider": "Service provider",
+      "rental": "Rental agreement"
+    },
+    "filters": {
+      "search": "Search",
+      "location": "Location",
+      "status": "Status",
+      "type": "Type"
+    },
+    "emptyStates": {
+      "noLocations": "No locations created yet.",
+      "noResources": "No resources at this location.",
+      "noProviders": "No providers assigned yet.",
+      "noRentals": "No active rental agreements.",
+      "createLocation": "Add a location when your organization is ready to expand.",
+      "createResource": "Add chairs, rooms, or workstations for this location.",
+      "createProvider": "Assign employees or renters as service providers.",
+      "createRental": "Create a rental agreement for chair or room renters."
+    },
+    "validation": {
+      "passed": "Booking validation passed.",
+      "failed": "Booking validation failed.",
+      "loading": "Validating booking"
+    }
+  },
   "appointmentBooking": {
     "title": "Appointments & Services",
     "subtitle": "Appointment booking, calendar revenue, and service capacity — Aipify assists transparently, never impersonating your team.",
