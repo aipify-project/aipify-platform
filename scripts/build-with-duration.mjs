@@ -6,10 +6,10 @@ const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const started = Date.now();
 
 // validate:deployment already runs typecheck.
-// Split build (compile + generate) lowers peak RAM on Enhanced 16 GB, but breaks Next.js 16
-// proxy.ts handling — generate expects .next/server/proxy.js from compile, which may be missing.
-// On Vercel Turbo (60 GB) use a single monolithic webpack build unless AIPIFY_SPLIT_BUILD=1.
-const useSplitBuild = process.env.AIPIFY_SPLIT_BUILD === "1";
+// Split build (compile + generate) lowers peak RAM on Enhanced 16 GB. build-split.mjs copies
+// middleware.js → proxy.js before generate (Next.js 16 proxy.ts rename). Monolithic only when
+// AIPIFY_SPLIT_BUILD=0 (e.g. Turbo 60 GB with a single high-heap process).
+const useSplitBuild = process.env.AIPIFY_SPLIT_BUILD !== "0";
 const result = useSplitBuild
   ? spawnSync("node", ["scripts/build-split.mjs", "--from", "2"], {
       cwd: root,
