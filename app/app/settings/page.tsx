@@ -59,11 +59,18 @@ export default async function SettingsPage() {
           id,
           title: t(`${p}.categories.${id}.title`),
           description: t(`${p}.categories.${id}.description`),
-          links: [1, 2, 3]
+          links: [1, 2, 3, 4, 5, 6]
             .map((index) => {
               const href = t(`${p}.categories.${id}.links.${index}.href`);
               const label = t(`${p}.categories.${id}.links.${index}.label`);
-              if (href.startsWith("customerApp.")) return null;
+              if (
+                href.startsWith("customerApp.") ||
+                href.startsWith("settings.") ||
+                label.startsWith("customerApp.") ||
+                label.startsWith("settings.")
+              ) {
+                return null;
+              }
               return { href, label };
             })
             .filter((link): link is { href: string; label: string } => link !== null),

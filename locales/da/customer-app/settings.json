@@ -18,6 +18,10 @@
           "4": {
             "href": "/app/settings/absence",
             "label": "Fraværpolitikker for administratorer"
+          },
+          "5": {
+            "href": "/app/profitability/policies",
+            "label": "Rentabilitetspolitikker"
           }
         }
       }

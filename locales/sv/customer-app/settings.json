@@ -18,6 +18,10 @@
           "4": {
             "href": "/app/settings/absence",
             "label": "Frånvaropolicyer för administratörer"
+          },
+          "5": {
+            "href": "/app/profitability/policies",
+            "label": "Lönsamhetspolicyer"
           }
         }
       }

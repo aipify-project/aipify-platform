@@ -50,6 +50,10 @@
           "4": {
             "href": "/app/settings/absence",
             "label": "Absence administrator policies"
+          },
+          "5": {
+            "href": "/app/profitability/policies",
+            "label": "Profitability policies"
           }
         }
       },
