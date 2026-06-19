@@ -5,5 +5,3 @@ export * from "./labels";
 export * from "./config";
 export * from "./csar587-parse";
 export * from "./advisor";
-export * from "./section-page";
-export * from "./platform-section-page";

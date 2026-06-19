@@ -17,5 +17,3 @@ export {
 } from "./labels";
 export { mapReliabilityStatusToKind } from "./status-map";
 export { detectReliabilityAdvisorIntent, getReliabilityAdvisorRoute } from "./advisor";
-export { ReliabilityOperationsSectionPage } from "./section-page";
-export { SystemHealthSectionPage } from "./customer-section-page";

@@ -9,4 +9,3 @@ export { parseChangeOperationsCenter, parseOrganizationChangeHistory } from "./p
 export type { ChangeOperationsCenter, OrganizationChangeHistory } from "./parse";
 export { buildChangeOperationsLabels, buildChangeHistoryLabels } from "./labels";
 export { detectChangeOperationsAdvisorIntent, getChangeOperationsAdvisorRoute } from "./advisor";
-export { ChangeOperationsSectionPage } from "./section-page";

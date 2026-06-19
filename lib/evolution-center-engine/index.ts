@@ -4,4 +4,3 @@ export { parseEvolutionCenter } from "./parse";
 export type { EvolutionCenter } from "./parse";
 export { buildEvolutionCenterLabels } from "./labels";
 export { detectEvolutionAdvisorIntent, getEvolutionAdvisorRoute } from "./advisor";
-export { EvolutionCenterSectionPage } from "./section-page";

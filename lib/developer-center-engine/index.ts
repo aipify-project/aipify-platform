@@ -4,4 +4,3 @@ export { parseDeveloperCenter } from "./parse";
 export type { DeveloperCenter } from "./parse";
 export { buildDeveloperCenterLabels } from "./labels";
 export { detectDeveloperAdvisorIntent, getDeveloperAdvisorRoute } from "./advisor";
-export { DeveloperCenterSectionPage } from "./section-page";

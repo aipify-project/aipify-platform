@@ -24,4 +24,3 @@ export {
   detectServiceNetworkAdvisorIntent,
   getServiceNetworkAdvisorRoute,
 } from "./advisor";
-export { ServiceNetworkSectionPage } from "./section-page";

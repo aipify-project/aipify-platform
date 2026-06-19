@@ -4,4 +4,3 @@ export { parseEcosystemCenter } from "./parse";
 export type { EcosystemCenter } from "./parse";
 export { buildEcosystemCenterLabels } from "./labels";
 export { detectEcosystemAdvisorIntent, getEcosystemAdvisorRoute } from "./advisor";
-export { EcosystemCenterSectionPage } from "./section-page";

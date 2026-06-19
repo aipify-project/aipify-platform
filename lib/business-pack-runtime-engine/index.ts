@@ -14,5 +14,3 @@ export {
   buildBusinessPackRuntimeCustomerLabels,
 } from "./labels";
 export { detectRuntimeAdvisorIntent, getRuntimeAdvisorRoute } from "./advisor";
-export { BusinessPackRuntimePlatformSectionPage } from "./section-page-platform";
-export { BusinessPackRuntimeCustomerSectionPage } from "./section-page-customer";

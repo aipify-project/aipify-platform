@@ -4,4 +4,3 @@ export { parseAosCenter, healthBandEmoji } from "./parse";
 export type { AosCenter } from "./parse";
 export { buildAosCenterLabels } from "./labels";
 export { detectAosAdvisorIntent, getAosAdvisorRoute } from "./advisor";
-export { AosCenterSectionPage } from "./section-page";

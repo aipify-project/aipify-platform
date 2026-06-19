@@ -9,4 +9,3 @@ export { parseAbsenceCenter } from "./parse";
 export type { AbsenceCenter } from "./parse";
 export { buildAbsenceCoverageLabels } from "./labels";
 export { detectVacationAdvisorIntent, getVacationAdvisorRoute } from "./advisor";
-export { AbsenceCoverageSectionPage } from "./section-page";
