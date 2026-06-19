@@ -18,7 +18,7 @@ export function IntegrationCenterNav({ labels }: { labels: Labels["sections"] })
           key={item.key}
           href={item.href}
           className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-            active === item.key ? "bg-sky-700 text-white" : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900"
+            active === item.key ? "bg-slate-800 text-white" : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900"
           }`}
         >
           {labels[item.key]}

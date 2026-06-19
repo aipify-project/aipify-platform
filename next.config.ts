@@ -5,6 +5,11 @@ import { fileURLToPath } from "url";
 const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
+  // validate:deployment runs `tsc --noEmit` before `next build`. Skipping the duplicate
+  // Next.js typecheck avoids OOM on Vercel Enhanced (16 GB) during "Running TypeScript …".
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   productionBrowserSourceMaps: false,
   staticPageGenerationTimeout: 300,
   outputFileTracingIncludes: {

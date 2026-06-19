@@ -15,15 +15,15 @@ export function buildIntegrationCenterLabels(t: Translator) {
     actionCapabilities: t(`${p}.actionCapabilities`),
     externalActionGovernance: t(`${p}.externalActionGovernance`),
     dataSyncEngine: t(`${p}.dataSyncEngine`),
+    marketplaceFoundation: t(`${p}.marketplaceFoundation`),
     businessPackIntegration: t(`${p}.businessPackIntegration`),
     executiveDashboard: t(`${p}.executiveDashboard`),
-    integrationAdvisor: t(`${p}.integrationAdvisor`),
+    integrationReport: t(`${p}.integrationReport`),
     mobileAccess: t(`${p}.mobileAccess`),
-    marketplaceFoundation: t(`${p}.marketplaceFoundation`),
     healthStatus: {
       healthy: t(`${p}.healthStatus.healthy`),
-      attention: t(`${p}.healthStatus.attention`),
-      failed: t(`${p}.healthStatus.failed`),
+      needs_attention: t(`${p}.healthStatus.needsAttention`),
+      connection_failed: t(`${p}.healthStatus.connectionFailed`),
     },
     sections: {
       overview: t(`${p}.sections.overview`),
@@ -40,14 +40,15 @@ export function buildIntegrationCenterLabels(t: Translator) {
       availableApps: t(`${p}.stats.availableApps`),
       activeApiKeys: t(`${p}.stats.activeApiKeys`),
       capabilities: t(`${p}.stats.capabilities`),
-      openHealthIssues: t(`${p}.stats.openHealthIssues`),
+      marketplaceCategories: t(`${p}.stats.marketplaceCategories`),
     },
     executive: {
       connectedApps: t(`${p}.executive.connectedApps`),
       healthyConnections: t(`${p}.executive.healthyConnections`),
+      needsAttention: t(`${p}.executive.needsAttention`),
       failedConnections: t(`${p}.executive.failedConnections`),
-      attentionRequired: t(`${p}.executive.attentionRequired`),
       permissionRisks: t(`${p}.executive.permissionRisks`),
+      recentSyncs: t(`${p}.executive.recentSyncs`),
     },
   };
 }

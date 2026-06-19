@@ -13,14 +13,12 @@ export type IntegrationCenter = {
   permissions?: Record<string, unknown>[];
   capabilities?: Record<string, unknown>[];
   health?: Record<string, unknown>[];
-  sync?: Record<string, unknown>[];
-  external_actions?: Record<string, unknown>[];
+  sync_runs?: Record<string, unknown>[];
   logs?: Record<string, unknown>[];
+  external_actions?: Record<string, unknown>[];
+  marketplace?: Record<string, unknown>[];
   business_packs?: Record<string, unknown>[];
   reports?: Record<string, string>;
-  installation_methods?: string[];
-  sync_modes?: string[];
-  marketplace_categories?: string[];
   audit_recent?: Record<string, unknown>[];
   mobile_access?: Record<string, unknown>;
 };
@@ -47,14 +45,12 @@ export function parseIntegrationCenter(raw: unknown): IntegrationCenter {
     permissions: Array.isArray(row.permissions) ? (row.permissions as Record<string, unknown>[]) : [],
     capabilities: Array.isArray(row.capabilities) ? (row.capabilities as Record<string, unknown>[]) : [],
     health: Array.isArray(row.health) ? (row.health as Record<string, unknown>[]) : [],
-    sync: Array.isArray(row.sync) ? (row.sync as Record<string, unknown>[]) : [],
-    external_actions: Array.isArray(row.external_actions) ? (row.external_actions as Record<string, unknown>[]) : [],
+    sync_runs: Array.isArray(row.sync_runs) ? (row.sync_runs as Record<string, unknown>[]) : [],
     logs: Array.isArray(row.logs) ? (row.logs as Record<string, unknown>[]) : [],
+    external_actions: Array.isArray(row.external_actions) ? (row.external_actions as Record<string, unknown>[]) : [],
+    marketplace: Array.isArray(row.marketplace) ? (row.marketplace as Record<string, unknown>[]) : [],
     business_packs: Array.isArray(row.business_packs) ? (row.business_packs as Record<string, unknown>[]) : [],
     reports: typeof row.reports === "object" && row.reports ? (row.reports as Record<string, string>) : {},
-    installation_methods: Array.isArray(row.installation_methods) ? (row.installation_methods as string[]) : [],
-    sync_modes: Array.isArray(row.sync_modes) ? (row.sync_modes as string[]) : [],
-    marketplace_categories: Array.isArray(row.marketplace_categories) ? (row.marketplace_categories as string[]) : [],
     audit_recent: Array.isArray(row.audit_recent) ? (row.audit_recent as Record<string, unknown>[]) : [],
     mobile_access:
       typeof row.mobile_access === "object" && row.mobile_access

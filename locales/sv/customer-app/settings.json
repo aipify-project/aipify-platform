@@ -2809,54 +2809,6 @@
     "mobileReady": "Mobil redo",
     "save": "Spara"
   },
-  "integrationCenter": {
-    "title": "Integration Center",
-    "subtitle": "Koordinera anslutna appar, behörigheter, synkronisering och externa åtgärder — Aipify kopplar ihop din befintliga programvara.",
-    "principle": "Organisationer har redan programvara. Aipify ska hjälpa den programvaran att samarbeta.",
-    "privacyNote": "Endast integrationsmetadata — Companion överskrider aldrig beviljade behörigheter.",
-    "loading": "Laddar",
-    "empty": "Integration Center är inte tillgängligt för denna organisation.",
-    "refresh": "Uppdatera",
-    "companionRecommendations": "Companion-rekommendationer",
-    "noRecords": "Inga poster ännu.",
-    "actionCapabilities": "Åtgärdskapacitetsregister",
-    "externalActionGovernance": "Styrning av externa åtgärder",
-    "dataSyncEngine": "Datasynkroniseringsmotor",
-    "businessPackIntegration": "Business Pack-integration",
-    "executiveDashboard": "Executive integrationsdashboard",
-    "integrationAdvisor": "Companion Integration Advisor",
-    "mobileAccess": "Mobilåtkomst",
-    "marketplaceFoundation": "Marknadsplatskategorier",
-    "healthStatus": {
-      "healthy": "Frisk",
-      "attention": "Kräver uppmärksamhet",
-      "failed": "Anslutning misslyckades"
-    },
-    "sections": {
-      "overview": "Översikt",
-      "connectedApps": "Anslutna appar",
-      "availableApps": "Tillgängliga appar",
-      "apiKeys": "API-nycklar",
-      "permissions": "Behörigheter",
-      "logs": "Loggar",
-      "health": "Hälsa",
-      "reports": "Rapporter"
-    },
-    "stats": {
-      "connectedApps": "Anslutna appar",
-      "availableApps": "Tillgängliga appar",
-      "activeApiKeys": "Aktiva API-nycklar",
-      "capabilities": "Åtgärdskapaciteter",
-      "openHealthIssues": "Hälsoproblem"
-    },
-    "executive": {
-      "connectedApps": "Anslutna appar",
-      "healthyConnections": "Friska anslutningar",
-      "failedConnections": "Misslyckade anslutningar",
-      "attentionRequired": "Kräver uppmärksamhet",
-      "permissionRisks": "Behörighetsrisker"
-    }
-  },
   "integrationHubOperations": {
     "title": "Integrationscenter",
     "subtitle": "Anslut externa system, plattformar, API:er och affärsapplikationer — Aipifys anslutningslager.",

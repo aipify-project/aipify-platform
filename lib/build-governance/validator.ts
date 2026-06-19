@@ -8,6 +8,8 @@ const LEGACY_PREFIXES = ["app/dashboard/"];
 
 const API_BARREL_PATTERN = /from\s+["']@\/lib\/aipify\/([^/"']+)["']/g;
 const API_COMPONENTS_PATTERN = /from\s+["']@\/components\//;
+/** Consolidated catch-all engine route — documented in docs/BUILD_MEMORY.md */
+const API_BARREL_ALLOWLIST = new Set(["api-route-handlers"]);
 
 function countByCategory(routes: RouteEntry[], category: RouteEntry["category"]): number {
   return routes.filter((route) => route.category === category).length;
@@ -124,10 +126,12 @@ function scanApiImportIssues(projectRoot: string): GovernanceIssue[] {
         });
       }
       for (const match of src.matchAll(API_BARREL_PATTERN)) {
+        const moduleName = match[1];
+        if (API_BARREL_ALLOWLIST.has(moduleName)) continue;
         issues.push({
           code: "api_barrel_import",
           severity: "warning",
-          message: `API route uses barrel import @/lib/aipify/${match[1]} — prefer /parse or submodule`,
+          message: `API route uses barrel import @/lib/aipify/${moduleName} — prefer /parse or submodule`,
           filePath: full.replace(`${projectRoot}/`, "").replace(/\\/g, "/"),
         });
       }

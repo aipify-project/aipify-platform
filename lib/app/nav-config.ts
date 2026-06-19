@@ -22,6 +22,7 @@ export type AppNavId =
   | "legalComplianceCaseOperationsPack"
   | "professionalServicesConsultingClientDeliveryPack"
   | "digitalEmployeeLifecycleEngine"
+  | "digitalEmployeeCenter"
   | "digitalWorkforceRecruitmentEngine"
   | "digitalWorkforceValueEngine"
   | "digitalWorkforceGovernanceEngine"
@@ -295,6 +296,9 @@ export type AppNavId =
   | "companionActionMemoryEngine"
   | "presenceContinuityEngine"
   | "companionIdentityRelationshipEngine"
+  | "companionIdentityCenter"
+  | "companionFeedbackCenter"
+  | "knowledgeFabricCenter"
   | "companionRelationshipEngine"
   | "lifeEventsEngine"
   | "trustAdoptionEngine"
@@ -578,9 +582,9 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "navigation.nav.professionalServicesConsultingClientDeliveryPack",
   },
   {
-    id: "digitalEmployeeLifecycleEngine",
+    id: "digitalEmployeeCenter",
     href: "/app/digital-employees",
-    labelKey: "navigation.nav.digitalEmployeeLifecycleEngine",
+    labelKey: "navigation.nav.digitalEmployeeCenter",
   },
   {
     id: "digitalWorkforceRecruitmentEngine",
@@ -1853,6 +1857,11 @@ export const APP_NAV: AppNavItem[] = [
     labelKey: "navigation.nav.presenceContinuityEngine",
   },
   {
+    id: "companionIdentityCenter",
+    href: "/app/companion/identity",
+    labelKey: "navigation.nav.companionIdentityCenter",
+  },
+  {
     id: "companionIdentityRelationshipEngine",
     href: "/app/companion/identity-relationship",
     labelKey: "navigation.nav.companionIdentityRelationshipEngine",
@@ -2150,6 +2159,8 @@ export const APP_NAV: AppNavItem[] = [
   { id: "businessPulse", href: "/app/business-pulse", labelKey: "navigation.nav.businessPulse" },
   { id: "strategicGoals", href: "/app/goals", labelKey: "navigation.nav.strategicGoals" },
   { id: "frictionIntelligence", href: "/app/friction", labelKey: "navigation.nav.frictionIntelligence" },
+  { id: "knowledgeFabricCenter", href: "/app/knowledge-fabric", labelKey: "navigation.nav.knowledgeFabricCenter" },
+  { id: "companionFeedbackCenter", href: "/app/feedback", labelKey: "navigation.nav.companionFeedbackCenter" },
   { id: "organizationalMemory", href: "/app/memory", labelKey: "navigation.nav.organizationalMemory" },
   { id: "organizationalIntelligence", href: "/app/organizational-intelligence", labelKey: "navigation.nav.organizationalIntelligence" },
   { id: "predictiveIntelligence", href: "/app/predictions", labelKey: "navigation.nav.predictiveIntelligence" },
@@ -2274,7 +2285,20 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/professional-services")) {
     return "professionalServicesConsultingClientDeliveryPack";
   }
-  if (pathname.startsWith("/app/digital-employees")) return "digitalEmployeeLifecycleEngine";
+  if (pathname.startsWith("/app/digital-employees/legacy-lifecycle")) return "digitalEmployeeLifecycleEngine";
+  if (
+    pathname === "/app/digital-employees" ||
+    pathname.startsWith("/app/digital-employees/employees") ||
+    pathname.startsWith("/app/digital-employees/roles") ||
+    pathname.startsWith("/app/digital-employees/assignments") ||
+    pathname.startsWith("/app/digital-employees/performance") ||
+    pathname.startsWith("/app/digital-employees/approvals") ||
+    pathname.startsWith("/app/digital-employees/permissions") ||
+    pathname.startsWith("/app/digital-employees/reports")
+  ) {
+    return "digitalEmployeeCenter";
+  }
+  if (pathname.startsWith("/app/digital-employees")) return "digitalEmployeeCenter";
   if (pathname.startsWith("/app/digital-workforce/value")) return "digitalWorkforceValueEngine";
   if (pathname.startsWith("/app/digital-workforce")) return "digitalWorkforceRecruitmentEngine";
   if (pathname.startsWith("/app/context-intelligence-engine")) return "contextIntelligenceEngine";
@@ -2455,6 +2479,9 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/companion/action-memory")) return "companionActionMemoryEngine";
   if (pathname.startsWith("/app/companion/presence-continuity")) return "presenceContinuityEngine";
   if (pathname.startsWith("/app/companion/identity-relationship")) return "companionIdentityRelationshipEngine";
+  if (pathname === "/app/companion/identity" || pathname.startsWith("/app/companion/identity/")) {
+    return "companionIdentityCenter";
+  }
   if (pathname.startsWith("/app/companion/life-events")) return "lifeEventsEngine";
   if (pathname.startsWith("/app/companion/trust-adoption")) return "trustAdoptionEngine";
   if (pathname === "/app/companion") return "appCompanionPresenceOperations";
@@ -3121,22 +3148,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/notifications")) return "appNotifications";
   if (pathname.startsWith("/app/executive-alerts")) return "appExecutiveAlerts";
   if (pathname.startsWith("/app/integrations/mobile-api")) return "appMobileApiIntegration";
-  if (
-    pathname === "/app/integrations" ||
-    pathname.startsWith("/app/integrations/connected-apps") ||
-    pathname.startsWith("/app/integrations/available-apps") ||
-    pathname.startsWith("/app/integrations/api-keys") ||
-    pathname.startsWith("/app/integrations/permissions") ||
-    pathname.startsWith("/app/integrations/logs") ||
-    pathname.startsWith("/app/integrations/health") ||
-    pathname.startsWith("/app/integrations/reports") ||
-    pathname.startsWith("/app/integrations/api") ||
-    pathname.startsWith("/app/integrations/webhooks") ||
-    pathname.startsWith("/app/integrations/sync") ||
-    pathname.startsWith("/app/integrations/marketplace")
-  ) {
-    return "appIntegrationHub";
-  }
+  if (pathname === "/app/integrations" || pathname.startsWith("/app/integrations/")) return "appIntegrationHub";
   if (pathname.startsWith("/app/assets")) return "appAssets";
   if (pathname.startsWith("/app/procurement")) return "appProcurement";
   if (pathname.startsWith("/app/quality-operations")) return "appQualityOperations";
@@ -3252,7 +3264,18 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/supplier-intelligence")) return "supplierIntelligenceEngine";
   if (pathname.startsWith("/app/personality")) return "personalityEngine";
   if (pathname.startsWith("/app/approvals")) return "approvals";
-  if (pathname === "/app/actions") return "realWorldActionServiceOrchestrationEngine";
+  if (
+    pathname === "/app/actions" ||
+    pathname.startsWith("/app/actions/pending") ||
+    pathname.startsWith("/app/actions/approved") ||
+    pathname.startsWith("/app/actions/completed-actions") ||
+    pathname.startsWith("/app/actions/approvals") ||
+    pathname.startsWith("/app/actions/permissions") ||
+    pathname.startsWith("/app/actions/history") ||
+    pathname.startsWith("/app/actions/reports")
+  ) {
+    return "realWorldActionServiceOrchestrationEngine";
+  }
   if (pathname.startsWith("/app/action-center")) return "actionCenter";
   if (pathname.startsWith("/app/actions/")) return "actionCenter";
   if (pathname.startsWith("/app/business-pulse") || pathname.startsWith("/dashboard/business-pulse")) {
@@ -3263,6 +3286,41 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   }
   if (pathname.startsWith("/app/friction") || pathname.startsWith("/dashboard/friction")) {
     return "frictionIntelligence";
+  }
+  if (
+    pathname === "/app/knowledge-fabric" ||
+    pathname.startsWith("/app/knowledge-fabric/sources") ||
+    pathname.startsWith("/app/knowledge-fabric/knowledge") ||
+    pathname.startsWith("/app/knowledge-fabric/conflicts") ||
+    pathname.startsWith("/app/knowledge-fabric/trust") ||
+    pathname.startsWith("/app/knowledge-fabric/reviews") ||
+    pathname.startsWith("/app/knowledge-fabric/insights") ||
+    pathname.startsWith("/app/knowledge-fabric/reports")
+  ) {
+    return "knowledgeFabricCenter";
+  }
+  if (
+    pathname === "/app/feedback" ||
+    pathname.startsWith("/app/feedback/collection") ||
+    pathname.startsWith("/app/feedback/suggestions") ||
+    pathname.startsWith("/app/feedback/ratings") ||
+    pathname.startsWith("/app/feedback/insights") ||
+    pathname.startsWith("/app/feedback/improvements") ||
+    pathname.startsWith("/app/feedback/reports")
+  ) {
+    return "companionFeedbackCenter";
+  }
+  if (
+    pathname === "/app/memory" ||
+    pathname.startsWith("/app/memory/personal") ||
+    pathname.startsWith("/app/memory/organization") ||
+    pathname.startsWith("/app/memory/preferences") ||
+    pathname.startsWith("/app/memory/relationships") ||
+    pathname.startsWith("/app/memory/permissions") ||
+    pathname.startsWith("/app/memory/reviews") ||
+    pathname.startsWith("/app/memory/reports")
+  ) {
+    return "organizationalMemory";
   }
   if (
     pathname.startsWith("/app/memory") ||

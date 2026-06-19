@@ -2987,54 +2987,6 @@
     "mobileReady": "Mobile ready",
     "save": "Save"
   },
-  "integrationCenter": {
-    "title": "Integration Center",
-    "subtitle": "Coordinate connected apps, permissions, sync, and external actions — Aipify connects your existing software.",
-    "principle": "Organizations already have software. Aipify should help that software work together.",
-    "privacyNote": "Integration metadata only — Companion never exceeds granted permissions.",
-    "loading": "Loading",
-    "empty": "Integration Center is not available for this organization.",
-    "refresh": "Refresh",
-    "companionRecommendations": "Companion Recommendations",
-    "noRecords": "No records yet.",
-    "actionCapabilities": "Action Capability Registry",
-    "externalActionGovernance": "External Action Governance",
-    "dataSyncEngine": "Data Sync Engine",
-    "businessPackIntegration": "Business Pack Integration",
-    "executiveDashboard": "Executive Integration Dashboard",
-    "integrationAdvisor": "Companion Integration Advisor",
-    "mobileAccess": "Mobile Access",
-    "marketplaceFoundation": "Marketplace Categories",
-    "healthStatus": {
-      "healthy": "Healthy",
-      "attention": "Needs Attention",
-      "failed": "Connection Failed"
-    },
-    "sections": {
-      "overview": "Overview",
-      "connectedApps": "Connected Apps",
-      "availableApps": "Available Apps",
-      "apiKeys": "API Keys",
-      "permissions": "Permissions",
-      "logs": "Logs",
-      "health": "Health",
-      "reports": "Reports"
-    },
-    "stats": {
-      "connectedApps": "Connected apps",
-      "availableApps": "Available apps",
-      "activeApiKeys": "Active API keys",
-      "capabilities": "Action capabilities",
-      "openHealthIssues": "Health issues"
-    },
-    "executive": {
-      "connectedApps": "Connected apps",
-      "healthyConnections": "Healthy connections",
-      "failedConnections": "Failed connections",
-      "attentionRequired": "Needs attention",
-      "permissionRisks": "Permission risks"
-    }
-  },
   "integrationHubOperations": {
     "title": "Integration Center",
     "subtitle": "Connect external systems, platforms, APIs, and business applications — the connectivity layer of Aipify.",

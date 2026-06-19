@@ -1,267 +1,82 @@
 "use client";
 
-import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import {
-  hasCommitmentPhrase,
-  parseCommitmentDetection,
-  parseCompanionMemoryCenter,
-  parseMemoryCenterAction,
-  type CompanionMemoryCenter,
-  type CompanionMemoryCenterLabels,
-  type MemoryCenterItem,
-} from "@/lib/companion-memory-center";
-import { MemoryStatusBadge } from "./MemoryStatusBadge";
+  parseMemoryCenter,
+  filterMemoriesByClass,
+  type MemoryCenter,
+} from "@/lib/companion-memory-center-engine/parse";
+import type { Cmri594Section } from "@/lib/companion-memory-center-engine/config";
+import { cmri594SectionToRpc } from "@/lib/companion-memory-center-engine/config";
+import type { buildCompanionMemoryCenterLabels } from "@/lib/companion-memory-center-engine/labels";
 
-type CompanionMemoryCenterPanelProps = {
-  labels: CompanionMemoryCenterLabels;
-};
+type Labels = ReturnType<typeof buildCompanionMemoryCenterLabels>;
 
-function formatWhen(value?: string | null) {
-  if (!value) return "—";
-  try {
-    return new Intl.DateTimeFormat(undefined, {
-      dateStyle: "medium",
-      timeStyle: "short",
-    }).format(new Date(value));
-  } catch {
-    return value;
-  }
-}
-
-function MemoryItemCard({
-  item,
-  labels,
-  busy,
-  onAction,
-}: {
-  item: MemoryCenterItem;
-  labels: CompanionMemoryCenterLabels;
-  busy: boolean;
-  onAction: (item: MemoryCenterItem, action: string) => void;
-}) {
-  const categoryLabel =
-    item.memoryCategory && item.memoryCategory in labels.categories
-      ? labels.categories[item.memoryCategory as keyof typeof labels.categories]
-      : item.memoryCategory;
-
+function StatCard({ label, value }: { label: string; value: string | number }) {
   return (
-    <li className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
-      <div className="flex flex-wrap items-start justify-between gap-2">
-        <div className="min-w-0 flex-1">
-          <p className="font-medium text-zinc-900">{item.title}</p>
-          {item.summary ? <p className="mt-1 text-sm text-zinc-600">{item.summary}</p> : null}
-          {item.suggestedAction ? (
-            <p className="mt-2 text-sm text-indigo-700">
-              <span className="font-medium">{labels.suggestions.suggestedAction}:</span> {item.suggestedAction}
-            </p>
-          ) : null}
-        </div>
-        <MemoryStatusBadge statusKey={item.statusKey} labels={labels.status} />
-      </div>
-
-      <dl className="mt-3 grid gap-1 text-xs text-zinc-500 sm:grid-cols-2">
-        <div>
-          <dt className="inline font-medium text-zinc-600">{labels.governance.source}: </dt>
-          <dd className="inline">{item.source}</dd>
-        </div>
-        <div>
-          <dt className="inline font-medium text-zinc-600">{labels.governance.owner}: </dt>
-          <dd className="inline">{item.owner}</dd>
-        </div>
-        <div>
-          <dt className="inline font-medium text-zinc-600">{labels.governance.created}: </dt>
-          <dd className="inline">{formatWhen(item.createdAt)}</dd>
-        </div>
-        <div>
-          <dt className="inline font-medium text-zinc-600">{labels.governance.lastActivity}: </dt>
-          <dd className="inline">{formatWhen(item.lastActivityAt)}</dd>
-        </div>
-        {categoryLabel ? (
-          <div>
-            <dt className="inline font-medium text-zinc-600">{labels.governance.status}: </dt>
-            <dd className="inline">{categoryLabel}</dd>
-          </div>
-        ) : null}
-        {item.dueAt ? (
-          <div>
-            <dt className="inline font-medium text-zinc-600">{labels.governance.dueDate}: </dt>
-            <dd className="inline">{formatWhen(item.dueAt)}</dd>
-          </div>
-        ) : null}
-      </dl>
-
-      {item.sectionKey !== "archived" ? (
-        <div className="mt-3 flex flex-wrap gap-2">
-          <button
-            type="button"
-            disabled={busy}
-            onClick={() => onAction(item, "complete")}
-            className="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
-          >
-            {labels.actions.complete}
-          </button>
-          <button
-            type="button"
-            disabled={busy}
-            onClick={() => onAction(item, "snooze")}
-            className="rounded-lg border border-zinc-300 px-3 py-1.5 text-xs font-medium text-zinc-700 hover:bg-zinc-50 disabled:opacity-50"
-          >
-            {labels.actions.snooze}
-          </button>
-          <button
-            type="button"
-            disabled={busy}
-            onClick={() => onAction(item, "archive")}
-            className="rounded-lg border border-zinc-300 px-3 py-1.5 text-xs font-medium text-zinc-700 hover:bg-zinc-50 disabled:opacity-50"
-          >
-            {labels.actions.archive}
-          </button>
-        </div>
-      ) : null}
-    </li>
+    <div className="rounded-2xl border border-zinc-200 bg-white px-5 py-4 shadow-sm">
+      <dt className="text-xs font-medium uppercase tracking-wide text-zinc-500">{label}</dt>
+      <dd className="mt-2 text-2xl font-semibold text-zinc-900">{value}</dd>
+    </div>
   );
 }
 
-function SectionBlock({
+function ItemCard({
   title,
-  items,
-  labels,
-  busy,
-  onAction,
-  empty,
+  summary,
+  badge,
+  extra,
 }: {
   title: string;
-  items: MemoryCenterItem[];
-  labels: CompanionMemoryCenterLabels;
-  busy: boolean;
-  onAction: (item: MemoryCenterItem, action: string) => void;
-  empty: string;
+  summary?: string;
+  badge?: string;
+  extra?: React.ReactNode;
 }) {
   return (
-    <section className="space-y-3">
-      <div className="flex items-center justify-between gap-2">
-        <h2 className="text-lg font-semibold text-zinc-900">{title}</h2>
-        <span className="text-sm text-zinc-500">{items.length}</span>
+    <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
+      <div className="flex flex-wrap items-start justify-between gap-2">
+        <p className="font-semibold text-zinc-900">{title}</p>
+        {badge ? (
+          <span className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium capitalize text-zinc-700">
+            {badge.replace(/_/g, " ")}
+          </span>
+        ) : null}
       </div>
-      {items.length === 0 ? (
-        <p className="text-sm text-zinc-500">{empty}</p>
-      ) : (
-        <ul className="space-y-3">
-          {items.map((item) => (
-            <MemoryItemCard key={`${item.itemType}-${item.id}`} item={item} labels={labels} busy={busy} onAction={onAction} />
-          ))}
-        </ul>
-      )}
-    </section>
+      {summary ? <p className="mt-2 text-sm text-zinc-600">{summary}</p> : null}
+      {extra}
+    </div>
   );
 }
 
-export function CompanionMemoryCenterPanel({ labels }: CompanionMemoryCenterPanelProps) {
-  const [center, setCenter] = useState<CompanionMemoryCenter | null>(null);
+export function CompanionMemoryCenterPanel({
+  labels,
+  activeSection,
+}: {
+  labels: Labels;
+  activeSection: Cmri594Section;
+}) {
+  const [center, setCenter] = useState<MemoryCenter | null>(null);
   const [loading, setLoading] = useState(true);
-  const [busy, setBusy] = useState(false);
-  const [detectText, setDetectText] = useState("");
-  const [detectResult, setDetectResult] = useState<string>("");
 
   const load = useCallback(async () => {
     setLoading(true);
-    const res = await fetch("/api/companion/memory-center");
-    if (res.ok) {
-      setCenter(parseCompanionMemoryCenter(await res.json()));
-    } else {
-      setCenter(null);
-    }
+    const rpcSection = cmri594SectionToRpc(activeSection);
+    const res = await fetch(`/api/companion-memory-center/center?section=${rpcSection}`);
+    if (res.ok) setCenter(parseMemoryCenter(await res.json()));
+    else setCenter(null);
     setLoading(false);
-  }, []);
+  }, [activeSection]);
 
   useEffect(() => {
     void load();
   }, [load]);
 
-  const refresh = async () => {
-    setBusy(true);
-    await load();
-    setBusy(false);
-  };
-
-  const runDetect = async () => {
-    if (!detectText.trim()) return;
-    setBusy(true);
-    setDetectResult("");
-    const res = await fetch("/api/companion/memory-center", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "detect", text: detectText.trim() }),
-    });
-    if (res.ok) {
-      const parsed = parseCommitmentDetection(await res.json());
-      if (parsed.detected) {
-        setDetectResult(labels.detectFound);
-      } else {
-        setDetectResult(labels.detectNotFound);
-      }
-    }
-    setBusy(false);
-  };
-
-  const saveDetected = async () => {
-    if (!detectText.trim()) return;
-    setBusy(true);
-    const detectRes = await fetch("/api/companion/memory-center", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "detect", text: detectText.trim() }),
-    });
-    if (detectRes.ok) {
-      const parsed = parseCommitmentDetection(await detectRes.json());
-      if (parsed.detected) {
-        await fetch("/api/companion/memory-center", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            action: "create",
-            payload: {
-              title: parsed.title ?? detectText.trim(),
-              summary: parsed.summary ?? detectText.trim(),
-              memory_category: parsed.memoryCategory ?? "personal",
-              section_key: parsed.sectionKey ?? "personal_reminders",
-              suggested_action: parsed.suggestedAction ?? "",
-              detection_phrase: detectText.trim(),
-            },
-          }),
-        });
-        setDetectText("");
-        setDetectResult("");
-        await load();
-      }
-    }
-    setBusy(false);
-  };
-
-  const handleAction = async (item: MemoryCenterItem, action: string) => {
-    setBusy(true);
-    const res = await fetch("/api/companion/memory-center", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        action: "manage",
-        item_type: item.itemType,
-        item_id: item.id,
-        manage_action: action,
-      }),
-    });
-    const result = parseMemoryCenterAction(await res.json());
-    if (result.ok) await load();
-    setBusy(false);
-  };
-
   if (loading && !center) {
     return (
       <div className="flex min-h-[320px] items-center justify-center">
         <AipifyLoader centered />
-        <span className="sr-only">{labels.title}</span>
+        <span className="sr-only">{labels.loading}</span>
       </div>
     );
   }
@@ -269,164 +84,289 @@ export function CompanionMemoryCenterPanel({ labels }: CompanionMemoryCenterPane
   if (!center?.found) {
     return (
       <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-amber-950">
-        <p className="font-medium">{labels.accessDenied}</p>
+        <p className="font-medium">{labels.empty}</p>
         {center?.error ? <p className="mt-2 text-sm">{center.error}</p> : null}
       </div>
     );
   }
 
-  const sectionBlocks = [
-    { key: "personal" as const, title: labels.sections.personalReminders, items: center.sections.personalReminders },
-    { key: "business" as const, title: labels.sections.businessReminders, items: center.sections.businessReminders },
-    { key: "followUps" as const, title: labels.sections.followUps, items: center.sections.followUps },
-    { key: "scheduled" as const, title: labels.sections.scheduledActions, items: center.sections.scheduledActions },
-    { key: "archived" as const, title: labels.sections.archivedMemories, items: center.sections.archivedMemories },
-  ];
+  const stats = center.stats ?? {};
+  const exec = center.executive_dashboard ?? {};
+  const memories = center.memories ?? [];
+
+  const renderMemories = (items: Record<string, unknown>[]) =>
+    items.length === 0 ? (
+      <p className="text-sm text-zinc-600">{labels.noRecords}</p>
+    ) : (
+      items.map((m) => (
+        <ItemCard
+          key={String(m.memory_key)}
+          title={String(m.memory_title)}
+          summary={String(m.summary ?? "")}
+          badge={`${String(m.memory_class ?? "")} · ${String(m.retention_type ?? "")}`}
+        />
+      ))
+    );
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="text-sm text-zinc-600">{labels.philosophy}</p>
-          {center.privacyNote ? <p className="mt-2 text-xs text-zinc-500">{center.privacyNote}</p> : null}
+          <h2 className="text-lg font-semibold text-zinc-900">{labels.sections[activeSection]}</h2>
+          {center.privacy_note ? <p className="mt-1 text-xs text-zinc-500">{center.privacy_note}</p> : null}
         </div>
         <button
           type="button"
-          disabled={busy}
-          onClick={() => void refresh()}
-          className="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 disabled:opacity-50"
+          onClick={() => void load()}
+          className="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
         >
           {labels.refresh}
         </button>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-5">
-        <div className="rounded-xl border border-zinc-200 bg-white p-4 text-center">
-          <p className="text-2xl font-semibold text-zinc-900">{center.statistics.personalCount}</p>
-          <p className="text-xs text-zinc-500">{labels.statistics.personal}</p>
-        </div>
-        <div className="rounded-xl border border-zinc-200 bg-white p-4 text-center">
-          <p className="text-2xl font-semibold text-zinc-900">{center.statistics.businessCount}</p>
-          <p className="text-xs text-zinc-500">{labels.statistics.business}</p>
-        </div>
-        <div className="rounded-xl border border-zinc-200 bg-white p-4 text-center">
-          <p className="text-2xl font-semibold text-zinc-900">{center.statistics.followUpCount}</p>
-          <p className="text-xs text-zinc-500">{labels.statistics.followUps}</p>
-        </div>
-        <div className="rounded-xl border border-zinc-200 bg-white p-4 text-center">
-          <p className="text-2xl font-semibold text-zinc-900">{center.statistics.scheduledCount}</p>
-          <p className="text-xs text-zinc-500">{labels.statistics.scheduled}</p>
-        </div>
-        <div className="rounded-xl border border-zinc-200 bg-white p-4 text-center">
-          <p className="text-2xl font-semibold text-zinc-900">{center.statistics.archivedCount}</p>
-          <p className="text-xs text-zinc-500">{labels.statistics.archived}</p>
-        </div>
-      </div>
-
-      <section className="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-5">
-        <h2 className="text-base font-semibold text-zinc-900">{labels.detectButton}</h2>
-        <p className="mt-1 text-sm text-zinc-600">{labels.detectPlaceholder}</p>
-        <div className="mt-3 flex flex-col gap-2 sm:flex-row">
-          <input
-            type="text"
-            value={detectText}
-            onChange={(e) => {
-              setDetectText(e.target.value);
-              if (hasCommitmentPhrase(e.target.value)) setDetectResult("");
-            }}
-            placeholder={labels.detectPlaceholder}
-            className="flex-1 rounded-lg border border-zinc-300 px-3 py-2 text-sm"
-          />
-          <button
-            type="button"
-            disabled={busy || !detectText.trim()}
-            onClick={() => void runDetect()}
-            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
-          >
-            {labels.detectButton}
-          </button>
-          {detectResult && detectResult === labels.detectFound ? (
-            <button
-              type="button"
-              disabled={busy}
-              onClick={() => void saveDetected()}
-              className="rounded-lg border border-indigo-600 px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-100 disabled:opacity-50"
-            >
-              {labels.saveCommitment}
-            </button>
-          ) : null}
-        </div>
-        {detectResult ? <p className="mt-2 text-sm text-zinc-700">{detectResult}</p> : null}
-      </section>
-
-      {center.followUpSuggestions.length > 0 ? (
-        <section className="space-y-3">
-          <h2 className="text-lg font-semibold text-zinc-900">{labels.suggestions.title}</h2>
-          <ul className="space-y-3">
-            {center.followUpSuggestions.map((suggestion, index) => (
-              <li key={`${suggestion.title}-${index}`} className="rounded-xl border border-amber-200 bg-amber-50 p-4">
-                <div className="flex flex-wrap items-start justify-between gap-2">
-                  <div>
-                    <p className="font-medium text-zinc-900">{suggestion.title}</p>
-                    <p className="mt-1 text-sm text-zinc-600">{suggestion.summary}</p>
-                    <p className="mt-2 text-sm text-indigo-700">
-                      {labels.suggestions.suggestedAction}: {suggestion.suggestedAction}
-                    </p>
-                    {suggestion.companionPrompt ? (
-                      <p className="mt-1 text-sm italic text-zinc-600">
-                        {labels.suggestions.companionPrompt}: {suggestion.companionPrompt}
-                      </p>
-                    ) : null}
-                  </div>
-                  <MemoryStatusBadge statusKey={suggestion.statusKey} labels={labels.status} />
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
+      {center.principle ? (
+        <p className="rounded-2xl border border-violet-100 bg-violet-50/70 px-5 py-4 text-sm text-violet-950">
+          {center.principle}
+        </p>
       ) : null}
 
-      {center.canExecutive ? (
-        <section className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
-          <h2 className="text-lg font-semibold text-zinc-900">{labels.executive.title}</h2>
-          <div className="mt-4 grid gap-3 sm:grid-cols-4">
-            <div className="rounded-lg bg-white p-3 ring-1 ring-zinc-200">
-              <p className="text-xl font-semibold text-amber-700">{center.executiveDashboard.overdueCommitments}</p>
-              <p className="text-xs text-zinc-600">{labels.executive.overdueCommitments}</p>
-            </div>
-            <div className="rounded-lg bg-white p-3 ring-1 ring-zinc-200">
-              <p className="text-xl font-semibold text-zinc-900">{center.executiveDashboard.openFollowUps}</p>
-              <p className="text-xs text-zinc-600">{labels.executive.openFollowUps}</p>
-            </div>
-            <div className="rounded-lg bg-white p-3 ring-1 ring-zinc-200">
-              <p className="text-xl font-semibold text-red-700">{center.executiveDashboard.missedActions}</p>
-              <p className="text-xs text-zinc-600">{labels.executive.missedActions}</p>
-            </div>
-            <div className="rounded-lg bg-white p-3 ring-1 ring-zinc-200">
-              <p className="text-xl font-semibold text-indigo-700">{center.executiveDashboard.outstandingApprovals}</p>
-              <p className="text-xs text-zinc-600">{labels.executive.outstandingApprovals}</p>
-            </div>
+      {(activeSection === "overview" || activeSection === "reports") && (
+        <section className="rounded-2xl border border-violet-100 bg-gradient-to-br from-violet-50/80 to-white p-6 shadow-sm">
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-zinc-600">{labels.executiveDashboard}</h3>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <StatCard label={labels.executive.upcomingMilestones} value={exec.upcoming_milestones ?? 0} />
+            <StatCard label={labels.executive.openFollowUps} value={exec.open_follow_ups ?? 0} />
+            <StatCard label={labels.executive.relationshipCount} value={exec.relationship_count ?? 0} />
+            <StatCard label={labels.executive.avgRelationshipHealth} value={exec.avg_relationship_health ?? 0} />
+            <StatCard label={labels.executive.pendingReviews} value={exec.pending_reviews ?? 0} />
+            <StatCard label={labels.executive.commitments} value={exec.commitments ?? 0} />
           </div>
         </section>
-      ) : null}
+      )}
 
-      {sectionBlocks.map((block) => (
-        <SectionBlock
-          key={block.key}
-          title={block.title}
-          items={block.items}
-          labels={labels}
-          busy={busy}
-          onAction={handleAction}
-          empty={labels.emptyState}
-        />
-      ))}
+      {activeSection === "overview" && (
+        <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <StatCard label={labels.stats.memories} value={stats.memories ?? 0} />
+          <StatCard label={labels.stats.preferences} value={stats.preferences ?? 0} />
+          <StatCard label={labels.stats.relationships} value={stats.relationships ?? 0} />
+          <StatCard label={labels.stats.importantDates} value={stats.important_dates ?? 0} />
+          <StatCard label={labels.stats.followUps} value={stats.follow_ups ?? 0} />
+          <StatCard label={labels.stats.contextItems} value={stats.context_items ?? 0} />
+        </section>
+      )}
 
-      <div className="flex flex-wrap gap-4 text-sm">
-        <Link href="/app/companion/follow-ups" className="text-indigo-700 hover:text-indigo-800">
-          {labels.links.followUps}
-        </Link>
-      </div>
+      {activeSection === "overview" && (center.companion_recommendations?.length ?? 0) > 0 && (
+        <section className="space-y-3">
+          <h3 className="font-semibold text-zinc-900">{labels.companionRecommendations}</h3>
+          {(center.companion_recommendations ?? []).map((rec, i) => (
+            <ItemCard
+              key={i}
+              title={String(rec.follow_up_title ?? "Insight")}
+              summary={String(rec.recommendation ?? "")}
+            />
+          ))}
+        </section>
+      )}
+
+      {activeSection === "personalMemory" && (
+        <section className="space-y-6">
+          <div className="grid gap-3">{renderMemories(filterMemoriesByClass(memories, "personal"))}</div>
+          {(center.context ?? []).length > 0 && (
+            <div className="space-y-3">
+              <h3 className="font-semibold text-zinc-900">{labels.contextMemory}</h3>
+              {(center.context ?? []).map((c) => (
+                <ItemCard key={String(c.context_key)} title={String(c.context_title)} summary={String(c.summary ?? "")} badge={String(c.context_type ?? "")} />
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
+      {activeSection === "organizationMemory" && (
+        <section className="space-y-6">
+          <div className="grid gap-3">
+            {renderMemories([
+              ...filterMemoriesByClass(memories, "organizational"),
+              ...filterMemoriesByClass(memories, "operational"),
+              ...filterMemoriesByClass(memories, "knowledge"),
+            ])}
+          </div>
+          {(center.important_dates ?? []).length > 0 && (
+            <div className="space-y-3">
+              <h3 className="font-semibold text-zinc-900">{labels.importantDates}</h3>
+              {(center.important_dates ?? []).map((d) => (
+                <ItemCard
+                  key={String(d.date_key)}
+                  title={String(d.date_title)}
+                  summary={String(d.summary ?? "")}
+                  badge={String(d.date_type ?? "")}
+                  extra={d.occurs_at ? <p className="mt-1 text-xs text-zinc-500">{String(d.occurs_at)}</p> : null}
+                />
+              ))}
+            </div>
+          )}
+          {(center.integrations ?? []).length > 0 && (
+            <div className="space-y-3">
+              <h3 className="font-semibold text-zinc-900">{labels.organizationalIntegration}</h3>
+              {(center.integrations ?? []).map((i) => (
+                <ItemCard key={String(i.integration_key)} title={String(i.integration_title)} summary={String(i.summary ?? "")} badge={String(i.engine_name ?? "")} />
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
+      {activeSection === "preferences" && (
+        <section className="grid gap-3 sm:grid-cols-2">
+          {(center.preferences ?? []).length === 0 ? (
+            <p className="text-sm text-zinc-600">{labels.noRecords}</p>
+          ) : (
+            (center.preferences ?? []).map((p) => (
+              <ItemCard
+                key={String(p.preference_key)}
+                title={String(p.preference_title)}
+                summary={String(p.summary ?? p.preference_value ?? "")}
+                badge={String(p.preference_category ?? "")}
+              />
+            ))
+          )}
+        </section>
+      )}
+
+      {activeSection === "relationships" && (
+        <section className="space-y-6">
+          <div className="grid gap-3">
+            {(center.relationships ?? []).map((r) => (
+              <ItemCard
+                key={String(r.relationship_key)}
+                title={String(r.relationship_title)}
+                summary={String(r.summary ?? "")}
+                badge={`${String(r.relationship_type ?? "")} · ${String(r.health_score ?? 0)}`}
+              />
+            ))}
+          </div>
+          {(center.follow_ups ?? []).length > 0 && (
+            <div className="space-y-3">
+              <h3 className="font-semibold text-zinc-900">{labels.followUpMemory}</h3>
+              {(center.follow_ups ?? []).map((f) => (
+                <ItemCard
+                  key={String(f.follow_up_key)}
+                  title={String(f.follow_up_title)}
+                  summary={String(f.summary ?? "")}
+                  badge={String(f.follow_up_status ?? "")}
+                  extra={f.due_at ? <p className="mt-1 text-xs text-zinc-500">{String(f.due_at)}</p> : null}
+                />
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
+      {activeSection === "permissions" && (
+        <section className="space-y-6">
+          <div className="grid gap-3">
+            {(center.permissions ?? []).map((p) => (
+              <ItemCard
+                key={String(p.permission_key)}
+                title={String(p.permission_title)}
+                summary={String(p.summary ?? "")}
+                badge={`${String(p.privacy_level ?? "")} · remember ${p.can_remember ? "yes" : "no"}`}
+                extra={
+                  p.retention_days != null ? (
+                    <p className="mt-1 text-xs text-zinc-500">Retention: {String(p.retention_days)} days</p>
+                  ) : null
+                }
+              />
+            ))}
+          </div>
+          <div className="space-y-3">
+            <h3 className="font-semibold text-zinc-900">{labels.memoryClassification}</h3>
+            {memories.slice(0, 5).map((m) => (
+              <ItemCard key={String(m.memory_key)} title={String(m.memory_title)} badge={String(m.memory_class ?? "")} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {activeSection === "reviews" && (
+        <section className="grid gap-3">
+          {(center.reviews ?? []).map((r) => (
+            <ItemCard
+              key={String(r.review_key)}
+              title={String(r.review_title)}
+              summary={String(r.summary ?? "")}
+              badge={`${String(r.review_action ?? "")} · ${String(r.review_status ?? "")}`}
+            />
+          ))}
+        </section>
+      )}
+
+      {activeSection === "reports" && (
+        <section className="space-y-6">
+          <div className="space-y-3">
+            <h3 className="font-semibold text-zinc-900">{labels.relationshipAdvisor}</h3>
+            {Object.entries(center.reports ?? {}).map(([key, prompt]) => (
+              <ItemCard key={key} title={String(prompt)} badge={key.replace(/_/g, " ")} />
+            ))}
+          </div>
+          {(center.business_packs ?? []).length > 0 && (
+            <div className="space-y-3">
+              <h3 className="font-semibold text-zinc-900">{labels.businessPackIntegration}</h3>
+              {(center.business_packs ?? []).map((pack) => (
+                <ItemCard
+                  key={String(pack.pack_key)}
+                  title={String(pack.pack_title)}
+                  summary={String(pack.summary ?? "")}
+                  badge={`${String(pack.relationships_count ?? 0)} relationships · ${String(pack.milestones_count ?? 0)} milestones`}
+                />
+              ))}
+            </div>
+          )}
+          {(center.audit_recent ?? []).length > 0 && (
+            <div className="space-y-3">
+              <h3 className="font-semibold text-zinc-900">Audit</h3>
+              {(center.audit_recent ?? []).map((entry, i) => (
+                <ItemCard
+                  key={i}
+                  title={String(entry.event_type ?? "")}
+                  summary={String(entry.summary ?? "")}
+                  extra={entry.created_at ? <p className="mt-1 text-xs text-zinc-500">{String(entry.created_at)}</p> : null}
+                />
+              ))}
+            </div>
+          )}
+          {center.mobile_access && (
+            <div className="rounded-xl border border-violet-100 bg-violet-50/50 p-4">
+              <h3 className="font-semibold text-zinc-900">{labels.mobileAccess}</h3>
+              <ul className="mt-2 flex flex-wrap gap-2 text-sm text-zinc-700">
+                {Object.entries(center.mobile_access).map(([cap, enabled]) => (
+                  <li key={cap} className="rounded-full bg-white px-3 py-1 ring-1 ring-violet-100">
+                    {cap.replace(/_/g, " ")}: {enabled === true ? "✓" : "—"}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
+      )}
+
+      {activeSection === "overview" && memories.length > 0 && (
+        <section className="space-y-3">
+          <h3 className="font-semibold text-zinc-900">{labels.memoryClassification}</h3>
+          <div className="grid gap-3 sm:grid-cols-2">{renderMemories(memories.slice(0, 4))}</div>
+        </section>
+      )}
+
+      {activeSection === "overview" && (center.business_packs?.length ?? 0) > 0 && (
+        <section className="space-y-3">
+          <h3 className="font-semibold text-zinc-900">{labels.businessPackIntegration}</h3>
+          <div className="grid gap-3 md:grid-cols-3">
+            {(center.business_packs ?? []).map((pack) => (
+              <ItemCard key={String(pack.pack_key)} title={String(pack.pack_title)} summary={String(pack.summary ?? "")} />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

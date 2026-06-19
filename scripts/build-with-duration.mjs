@@ -5,7 +5,9 @@ import { fileURLToPath } from "node:url";
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const started = Date.now();
 
-const result = spawnSync("npm", ["run", "build:next"], {
+// validate:deployment already runs typecheck — compile + generate in separate processes
+// to lower peak RAM during Vercel Enhanced (16 GB) page-data collection.
+const result = spawnSync("node", ["scripts/build-split.mjs", "--from", "2"], {
   cwd: root,
   stdio: "inherit",
   env: process.env,

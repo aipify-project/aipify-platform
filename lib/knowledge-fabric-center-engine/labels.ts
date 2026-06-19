@@ -1,0 +1,55 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildKnowledgeFabricCenterLabels(t: Translator) {
+  const p = "customerApp.knowledgeFabricCenter";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    principle: t(`${p}.principle`),
+    privacyNote: t(`${p}.privacyNote`),
+    loading: t(`${p}.loading`),
+    empty: t(`${p}.empty`),
+    refresh: t(`${p}.refresh`),
+    companionRecommendations: t(`${p}.companionRecommendations`),
+    noRecords: t(`${p}.noRecords`),
+    sourceRegistry: t(`${p}.sourceRegistry`),
+    truthEngine: t(`${p}.truthEngine`),
+    conflictDetection: t(`${p}.conflictDetection`),
+    trustScores: t(`${p}.trustScores`),
+    reviewEngine: t(`${p}.reviewEngine`),
+    wisdomLibrary: t(`${p}.wisdomLibrary`),
+    reliabilityEngine: t(`${p}.reliabilityEngine`),
+    knowledgeLineage: t(`${p}.knowledgeLineage`),
+    decayDetection: t(`${p}.decayDetection`),
+    businessPackIntegration: t(`${p}.businessPackIntegration`),
+    truthAdvisor: t(`${p}.truthAdvisor`),
+    executiveDashboard: t(`${p}.executiveDashboard`),
+    mobileAccess: t(`${p}.mobileAccess`),
+    sections: {
+      overview: t(`${p}.sections.overview`),
+      sources: t(`${p}.sections.sources`),
+      knowledge: t(`${p}.sections.knowledge`),
+      conflicts: t(`${p}.sections.conflicts`),
+      trust: t(`${p}.sections.trust`),
+      reviews: t(`${p}.sections.reviews`),
+      insights: t(`${p}.sections.insights`),
+      reports: t(`${p}.sections.reports`),
+    },
+    stats: {
+      sources: t(`${p}.stats.sources`),
+      knowledge: t(`${p}.stats.knowledge`),
+      conflicts: t(`${p}.stats.conflicts`),
+      trustScores: t(`${p}.stats.trustScores`),
+      reviews: t(`${p}.stats.reviews`),
+      wisdomItems: t(`${p}.stats.wisdomItems`),
+    },
+    executive: {
+      knowledgeHealth: t(`${p}.executive.knowledgeHealth`),
+      avgTrustScore: t(`${p}.executive.avgTrustScore`),
+      openConflicts: t(`${p}.executive.openConflicts`),
+      pendingReviews: t(`${p}.executive.pendingReviews`),
+      decaySignals: t(`${p}.executive.decaySignals`),
+      criticalRisks: t(`${p}.executive.criticalRisks`),
+    },
+  };
+}

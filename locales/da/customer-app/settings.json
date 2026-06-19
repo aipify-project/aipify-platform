@@ -2809,54 +2809,6 @@
     "mobileReady": "Mobil klar",
     "save": "Gem"
   },
-  "integrationCenter": {
-    "title": "Integration Center",
-    "subtitle": "Koordiner tilsluttede apps, tilladelser, synkronisering og eksterne handlinger — Aipify forbinder din eksisterende software.",
-    "principle": "Organisationer har allerede software. Aipify skal hjælpe den software med at arbejde sammen.",
-    "privacyNote": "Kun integrationsmetadata — Companion overskrider aldrig tildelte tilladelser.",
-    "loading": "Indlæser",
-    "empty": "Integration Center er ikke tilgængeligt for denne organisation.",
-    "refresh": "Opdater",
-    "companionRecommendations": "Companion-anbefalinger",
-    "noRecords": "Ingen poster endnu.",
-    "actionCapabilities": "Handlingskapabilitetsregister",
-    "externalActionGovernance": "Styring af eksterne handlinger",
-    "dataSyncEngine": "Datasynkroniseringsmotor",
-    "businessPackIntegration": "Business Pack-integration",
-    "executiveDashboard": "Executive integrationsdashboard",
-    "integrationAdvisor": "Companion Integration Advisor",
-    "mobileAccess": "Mobiladgang",
-    "marketplaceFoundation": "Markedspladskategorier",
-    "healthStatus": {
-      "healthy": "Sund",
-      "attention": "Kræver opmærksomhed",
-      "failed": "Forbindelse mislykkedes"
-    },
-    "sections": {
-      "overview": "Oversigt",
-      "connectedApps": "Tilsluttede apps",
-      "availableApps": "Tilgængelige apps",
-      "apiKeys": "API-nøgler",
-      "permissions": "Tilladelser",
-      "logs": "Logs",
-      "health": "Sundhed",
-      "reports": "Rapporter"
-    },
-    "stats": {
-      "connectedApps": "Tilsluttede apps",
-      "availableApps": "Tilgængelige apps",
-      "activeApiKeys": "Aktive API-nøgler",
-      "capabilities": "Handlingskapabiliteter",
-      "openHealthIssues": "Sundhedsproblemer"
-    },
-    "executive": {
-      "connectedApps": "Tilsluttede apps",
-      "healthyConnections": "Sunde forbindelser",
-      "failedConnections": "Mislykkede forbindelser",
-      "attentionRequired": "Kræver opmærksomhed",
-      "permissionRisks": "Tilladelsesrisici"
-    }
-  },
   "integrationHubOperations": {
     "title": "Integrationscenter",
     "subtitle": "Forbind eksterne systemer, platforme, API'er og forretningsapplikationer — Aipifys forbindelseslag.",

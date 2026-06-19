@@ -1,0 +1,13 @@
+---
+description: Standing permission from project owner for commits, pushes, and Supabase SQL
+alwaysApply: true
+---
+
+# Standing Permissions (Project Owner)
+
+The project owner has granted **standing permission** to the agent:
+
+1. **Git commit and push** — commit and push to remote when needed to ship fixes, migrations, or phase work without asking each time.
+2. **Supabase SQL** — apply pending migrations and run targeted SQL via `npm run supabase:sql:apply` (or equivalent) when required to keep remote Core in sync with the repo.
+
+Follow existing git safety rules (no force-push to main, no secrets in commits). Prefer apply → verify → commit → push for migration batches.

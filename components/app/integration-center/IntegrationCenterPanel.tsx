@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { parseIntegrationCenter, type IntegrationCenter } from "@/lib/integration-center-engine/parse";
@@ -112,18 +111,21 @@ export function IntegrationCenterPanel({
       </div>
 
       {center.principle ? (
-        <p className="rounded-2xl border border-sky-100 bg-sky-50/60 px-5 py-4 text-sm text-sky-950">{center.principle}</p>
+        <p className="rounded-2xl border border-slate-200 bg-slate-50/80 px-5 py-4 text-sm text-slate-900">
+          {center.principle}
+        </p>
       ) : null}
 
       {(activeSection === "overview" || activeSection === "reports") && (
-        <section className="rounded-2xl border border-sky-100 bg-gradient-to-br from-sky-50/80 to-white p-6 shadow-sm">
+        <section className="rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50/80 to-white p-6 shadow-sm">
           <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-zinc-600">{labels.executiveDashboard}</h3>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <StatCard label={labels.executive.connectedApps} value={exec.connected_apps ?? 0} />
             <StatCard label={labels.executive.healthyConnections} value={exec.healthy_connections ?? 0} />
+            <StatCard label={labels.executive.needsAttention} value={exec.needs_attention ?? 0} />
             <StatCard label={labels.executive.failedConnections} value={exec.failed_connections ?? 0} />
-            <StatCard label={labels.executive.attentionRequired} value={exec.attention_required ?? 0} />
             <StatCard label={labels.executive.permissionRisks} value={exec.permission_risks ?? 0} />
+            <StatCard label={labels.executive.recentSyncs} value={exec.recent_syncs ?? 0} />
           </div>
         </section>
       )}
@@ -134,7 +136,7 @@ export function IntegrationCenterPanel({
           <StatCard label={labels.stats.availableApps} value={stats.available_apps ?? 0} />
           <StatCard label={labels.stats.activeApiKeys} value={stats.active_api_keys ?? 0} />
           <StatCard label={labels.stats.capabilities} value={stats.capabilities ?? 0} />
-          <StatCard label={labels.stats.openHealthIssues} value={stats.open_health_issues ?? 0} />
+          <StatCard label={labels.stats.marketplaceCategories} value={stats.marketplace_categories ?? 0} />
         </section>
       )}
 
@@ -159,7 +161,11 @@ export function IntegrationCenterPanel({
               key={String(pack.pack_key)}
               title={String(pack.pack_title)}
               summary={String(pack.summary ?? "")}
-              badge={Array.isArray(pack.integrations) ? (pack.integrations as string[]).join(" · ") : ""}
+              extra={
+                Array.isArray(pack.integrations) ? (
+                  <p className="mt-2 text-xs text-zinc-500">{(pack.integrations as string[]).join(" · ")}</p>
+                ) : null
+              }
             />
           ))}
         </section>
@@ -174,8 +180,8 @@ export function IntegrationCenterPanel({
               <ItemCard
                 key={String(app.app_key)}
                 title={String(app.app_name)}
-                summary={String(app.permissions_summary || app.summary || "")}
-                badge={`${String(app.app_status ?? "")} · ${healthLabel(labels, app.health_status)}`}
+                summary={String(app.summary ?? app.permissions_summary ?? "")}
+                badge={healthLabel(labels, app.health_status)}
                 extra={
                   <p className="mt-1 text-xs text-zinc-500">
                     {String(app.owner_label ?? "")}
@@ -190,52 +196,57 @@ export function IntegrationCenterPanel({
 
       {activeSection === "availableApps" && (
         <section className="space-y-6">
-          {(center.marketplace_categories ?? []).length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              <span className="text-xs font-medium uppercase text-zinc-500">{labels.marketplaceFoundation}:</span>
-              {(center.marketplace_categories ?? []).map((cat) => (
-                <span key={cat} className="rounded-full bg-sky-50 px-3 py-1 text-xs capitalize text-sky-800">
-                  {cat}
-                </span>
-              ))}
+          <div className="grid gap-3 sm:grid-cols-2">
+            {(center.available_apps ?? []).length === 0 ? (
+              <p className="text-sm text-zinc-600">{labels.noRecords}</p>
+            ) : (
+              (center.available_apps ?? []).map((app) => (
+                <ItemCard
+                  key={String(app.app_key)}
+                  title={String(app.app_name)}
+                  summary={String(app.summary ?? "")}
+                  badge={`${String(app.app_category ?? "")} · ${String(app.install_method ?? "")}`}
+                />
+              ))
+            )}
+          </div>
+          {(center.marketplace ?? []).length > 0 && (
+            <div className="space-y-3">
+              <h3 className="font-semibold text-zinc-900">{labels.marketplaceFoundation}</h3>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {(center.marketplace ?? []).map((cat) => (
+                  <ItemCard
+                    key={String(cat.category_key)}
+                    title={String(cat.category_title)}
+                    summary={String(cat.summary ?? "")}
+                    badge={`${String(cat.app_count ?? 0)} apps`}
+                  />
+                ))}
+              </div>
             </div>
           )}
-          <div className="grid gap-3 sm:grid-cols-2">
-            {(center.available_apps ?? []).map((app) => (
-              <ItemCard
-                key={String(app.app_key)}
-                title={String(app.app_name)}
-                summary={String(app.summary ?? "")}
-                badge={`${String(app.app_category ?? "")} · ${String(app.install_method ?? "")}`}
-              />
-            ))}
-          </div>
-          <p className="text-sm text-zinc-600">
-            <Link href="/app/integrations/marketplace" className="font-medium text-sky-700 hover:underline">
-              Legacy marketplace
-            </Link>
-          </p>
         </section>
       )}
 
       {activeSection === "apiKeys" && (
         <section className="grid gap-3">
-          {(center.api_keys ?? []).map((key) => (
-            <ItemCard
-              key={String(key.key_key)}
-              title={String(key.key_name)}
-              summary={String(key.summary ?? "")}
-              badge={String(key.key_status ?? "")}
-              extra={
-                <>
-                  <p className="mt-1 font-mono text-xs text-zinc-500">{String(key.key_prefix ?? "")}••••</p>
-                  {Array.isArray(key.permissions) ? (
-                    <p className="mt-1 text-xs text-zinc-500">{(key.permissions as string[]).join(", ")}</p>
-                  ) : null}
-                </>
-              }
-            />
-          ))}
+          {(center.api_keys ?? []).length === 0 ? (
+            <p className="text-sm text-zinc-600">{labels.noRecords}</p>
+          ) : (
+            (center.api_keys ?? []).map((key) => (
+              <ItemCard
+                key={String(key.key_key)}
+                title={String(key.key_label)}
+                summary={String(key.summary ?? "")}
+                badge={`${String(key.key_scope ?? "")} · ${String(key.key_status ?? "")}`}
+                extra={
+                  key.last_used_at ? (
+                    <p className="mt-1 text-xs text-zinc-500">Last used: {String(key.last_used_at)}</p>
+                  ) : null
+                }
+              />
+            ))
+          )}
         </section>
       )}
 
@@ -247,13 +258,7 @@ export function IntegrationCenterPanel({
                 key={String(perm.permission_key)}
                 title={String(perm.permission_title)}
                 summary={String(perm.summary ?? "")}
-                badge={[
-                  perm.read_access ? "read" : null,
-                  perm.write_access ? "write" : null,
-                  perm.approval_required ? "approval" : null,
-                ]
-                  .filter(Boolean)
-                  .join(" · ")}
+                badge={String(perm.access_level ?? "")}
               />
             ))}
           </div>
@@ -264,8 +269,8 @@ export function IntegrationCenterPanel({
                 <ItemCard
                   key={String(cap.capability_key)}
                   title={String(cap.capability_title)}
-                  summary={String(cap.summary ?? "")}
-                  badge={cap.approval_required ? "approval required" : "available"}
+                  summary={String(cap.governance_rule || cap.summary || "")}
+                  badge={String(cap.capability_status ?? "")}
                 />
               ))}
             </div>
@@ -273,12 +278,12 @@ export function IntegrationCenterPanel({
           {(center.external_actions ?? []).length > 0 && (
             <div className="space-y-3">
               <h3 className="font-semibold text-zinc-900">{labels.externalActionGovernance}</h3>
-              {(center.external_actions ?? []).map((act) => (
+              {(center.external_actions ?? []).map((action) => (
                 <ItemCard
-                  key={String(act.action_key)}
-                  title={String(act.action_title)}
-                  summary={String(act.summary ?? "")}
-                  badge={String(act.governance_level ?? "")}
+                  key={String(action.action_key)}
+                  title={String(action.action_title)}
+                  summary={String(action.notification_rule || action.summary || "")}
+                  badge={String(action.governance_level ?? "")}
                 />
               ))}
             </div>
@@ -287,46 +292,33 @@ export function IntegrationCenterPanel({
       )}
 
       {activeSection === "logs" && (
-        <section className="grid gap-3">
-          {(center.logs ?? []).map((log) => (
-            <ItemCard
-              key={String(log.log_key)}
-              title={String(log.log_title)}
-              summary={String(log.summary ?? "")}
-              badge={`${String(log.log_type ?? "")} · ${String(log.log_status ?? "")}`}
-              extra={log.occurred_at ? <p className="mt-1 text-xs text-zinc-500">{String(log.occurred_at)}</p> : null}
-            />
-          ))}
-        </section>
-      )}
-
-      {activeSection === "health" && (
         <section className="space-y-6">
-          <div className="grid gap-3 sm:grid-cols-2">
-            {(center.health ?? []).map((h) => (
-              <ItemCard
-                key={String(h.health_key)}
-                title={String(h.health_title)}
-                summary={String(h.summary ?? "")}
-                badge={healthLabel(labels, h.connection_status)}
-                extra={
-                  <p className="mt-1 text-xs text-zinc-500">
-                    Auth: {String(h.auth_status ?? "")} · Sync: {String(h.sync_status ?? "")}
-                    {Number(h.api_errors) > 0 ? ` · ${String(h.api_errors)} API errors` : ""}
-                  </p>
-                }
-              />
-            ))}
+          <div className="grid gap-3">
+            {(center.logs ?? []).length === 0 ? (
+              <p className="text-sm text-zinc-600">{labels.noRecords}</p>
+            ) : (
+              (center.logs ?? []).map((log) => (
+                <ItemCard
+                  key={String(log.log_key)}
+                  title={String(log.log_title)}
+                  summary={String(log.summary ?? "")}
+                  badge={`${String(log.log_type ?? "")} · ${String(log.severity ?? "")}`}
+                  extra={
+                    log.logged_at ? <p className="mt-1 text-xs text-zinc-500">{String(log.logged_at)}</p> : null
+                  }
+                />
+              ))
+            )}
           </div>
-          {(center.sync ?? []).length > 0 && (
+          {(center.sync_runs ?? []).length > 0 && (
             <div className="space-y-3">
               <h3 className="font-semibold text-zinc-900">{labels.dataSyncEngine}</h3>
-              {(center.sync ?? []).map((s) => (
+              {(center.sync_runs ?? []).map((sync) => (
                 <ItemCard
-                  key={String(s.sync_key)}
-                  title={String(s.sync_title)}
-                  summary={String(s.summary ?? "")}
-                  badge={`${String(s.sync_mode ?? "")} · ${String(s.sync_status ?? "")}`}
+                  key={String(sync.sync_key)}
+                  title={String(sync.sync_title)}
+                  summary={String(sync.summary ?? "")}
+                  badge={`${String(sync.sync_mode ?? "")} · ${String(sync.sync_status ?? "")}`}
                 />
               ))}
             </div>
@@ -334,20 +326,60 @@ export function IntegrationCenterPanel({
         </section>
       )}
 
+      {activeSection === "health" && (
+        <section className="grid gap-3">
+          {(center.health ?? []).length === 0 ? (
+            <p className="text-sm text-zinc-600">{labels.noRecords}</p>
+          ) : (
+            (center.health ?? []).map((h) => (
+              <ItemCard
+                key={String(h.health_key)}
+                title={String(h.health_title)}
+                summary={String(h.summary ?? "")}
+                badge={healthLabel(labels, h.health_status)}
+                extra={
+                  <p className="mt-1 text-xs text-zinc-500">
+                    Auth: {String(h.auth_status ?? "")} · Sync: {String(h.sync_status ?? "")}
+                    {h.api_errors != null ? ` · Errors: ${String(h.api_errors)}` : ""}
+                  </p>
+                }
+              />
+            ))
+          )}
+        </section>
+      )}
+
       {activeSection === "reports" && (
         <section className="space-y-6">
           <div className="space-y-3">
-            <h3 className="font-semibold text-zinc-900">{labels.integrationAdvisor}</h3>
+            <h3 className="font-semibold text-zinc-900">{labels.integrationReport}</h3>
             {Object.entries(center.reports ?? {}).map(([key, prompt]) => (
               <ItemCard key={key} title={String(prompt)} badge={key.replace(/_/g, " ")} />
             ))}
           </div>
+          {(center.audit_recent ?? []).length > 0 && (
+            <div className="space-y-3">
+              <h3 className="font-semibold text-zinc-900">Audit</h3>
+              {(center.audit_recent ?? []).map((entry, i) => (
+                <ItemCard
+                  key={i}
+                  title={String(entry.event_type ?? "")}
+                  summary={String(entry.summary ?? "")}
+                  extra={
+                    entry.created_at ? (
+                      <p className="mt-1 text-xs text-zinc-500">{String(entry.created_at)}</p>
+                    ) : null
+                  }
+                />
+              ))}
+            </div>
+          )}
           {center.mobile_access && (
-            <div className="rounded-xl border border-sky-100 bg-sky-50/50 p-4">
+            <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-4">
               <h3 className="font-semibold text-zinc-900">{labels.mobileAccess}</h3>
               <ul className="mt-2 flex flex-wrap gap-2 text-sm text-zinc-700">
                 {Object.entries(center.mobile_access).map(([cap, enabled]) => (
-                  <li key={cap} className="rounded-full bg-white px-3 py-1 ring-1 ring-sky-100">
+                  <li key={cap} className="rounded-full bg-white px-3 py-1 ring-1 ring-slate-200">
                     {cap.replace(/_/g, " ")}: {enabled === true ? "✓" : "—"}
                   </li>
                 ))}

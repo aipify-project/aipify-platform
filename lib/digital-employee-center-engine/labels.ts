@@ -1,0 +1,55 @@
+import type { Translator } from "@/lib/i18n/translate";
+
+export function buildDigitalEmployeeCenterLabels(t: Translator) {
+  const p = "customerApp.digitalEmployeeCenter";
+  return {
+    title: t(`${p}.title`),
+    subtitle: t(`${p}.subtitle`),
+    principle: t(`${p}.principle`),
+    privacyNote: t(`${p}.privacyNote`),
+    loading: t(`${p}.loading`),
+    empty: t(`${p}.empty`),
+    refresh: t(`${p}.refresh`),
+    companionRecommendations: t(`${p}.companionRecommendations`),
+    noRecords: t(`${p}.noRecords`),
+    employeeRegistry: t(`${p}.employeeRegistry`),
+    roleSimulation: t(`${p}.roleSimulation`),
+    responsibilityFramework: t(`${p}.responsibilityFramework`),
+    taskEngine: t(`${p}.taskEngine`),
+    autonomyLevels: t(`${p}.autonomyLevels`),
+    performanceEngine: t(`${p}.performanceEngine`),
+    digitalTeams: t(`${p}.digitalTeams`),
+    escalationEngine: t(`${p}.escalationEngine`),
+    humanDigitalCollaboration: t(`${p}.humanDigitalCollaboration`),
+    businessPackIntegration: t(`${p}.businessPackIntegration`),
+    workforceAdvisor: t(`${p}.workforceAdvisor`),
+    executiveDashboard: t(`${p}.executiveDashboard`),
+    mobileAccess: t(`${p}.mobileAccess`),
+    sections: {
+      overview: t(`${p}.sections.overview`),
+      employees: t(`${p}.sections.employees`),
+      roles: t(`${p}.sections.roles`),
+      assignments: t(`${p}.sections.assignments`),
+      performance: t(`${p}.sections.performance`),
+      approvals: t(`${p}.sections.approvals`),
+      permissions: t(`${p}.sections.permissions`),
+      reports: t(`${p}.sections.reports`),
+    },
+    stats: {
+      employees: t(`${p}.stats.employees`),
+      roles: t(`${p}.stats.roles`),
+      tasks: t(`${p}.stats.tasks`),
+      teams: t(`${p}.stats.teams`),
+      escalations: t(`${p}.stats.escalations`),
+      performanceMetrics: t(`${p}.stats.performanceMetrics`),
+    },
+    executive: {
+      digitalEmployees: t(`${p}.executive.digitalEmployees`),
+      taskVolume: t(`${p}.executive.taskVolume`),
+      avgPerformance: t(`${p}.executive.avgPerformance`),
+      openEscalations: t(`${p}.executive.openEscalations`),
+      pendingApprovals: t(`${p}.executive.pendingApprovals`),
+      activeTeams: t(`${p}.executive.activeTeams`),
+    },
+  };
+}

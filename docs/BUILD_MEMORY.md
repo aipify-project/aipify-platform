@@ -8,9 +8,9 @@ Documented after locale graph reduction (customerApp monolith removed from layou
 |---------|--------|
 | **Build command** | `npm run build` (see `vercel.json` + `package.json`) |
 | **Build machine** | **Enhanced (16 GB RAM) required** — Project or Team → Settings → Build and Deployment → Build Machines → Enhanced |
-| **Node heap** | `NODE_OPTIONS=--max-old-space-size=14336` (14 GB) — set in `vercel.json` **and** inline in `package.json` `build` script |
+| **Node heap** | `NODE_OPTIONS=--max-old-space-size=10240` (10 GB) — set in `vercel.json`; split compile/generate phases use the same default via `scripts/build-split.mjs` |
 
-**Important:** A 14 GB Node heap on Vercel’s **Standard** build machine (8 GB RAM) causes OS-level **SIGKILL**. Local builds succeed because the machine has enough RAM. On Vercel you must use **Enhanced** (16 GB) when using this heap size.
+**Important:** A 14 GB Node heap on Vercel’s **Standard** build machine (8 GB RAM) causes OS-level **SIGKILL**. On **Enhanced** (16 GB), prefer **10 GB** heap plus split compile/generate — a single 14 GB process during page-data collection can swap and hit the ~45 min build limit.
 
 `VERCEL_BUILD_MACHINE_TYPE` is **not** a supported env var — configure Enhanced in the Vercel dashboard (or team-level Build and Deployment settings).
 
@@ -125,6 +125,14 @@ Platform Admin: **Operations → Build Health Center** (`/platform/operations/bu
 
 `npm run build` runs `validate:deployment` before every production build.
 
+### TypeScript during `next build`
+
+`next.config.ts` sets `typescript.ignoreBuildErrors: true` so Next.js does **not** run a second full-project `tsc` after webpack compile. Types are enforced once in `validate:deployment` (`npm run typecheck`).
+
+### Split compile / generate
+
+`scripts/build-with-duration.mjs` runs `build-split.mjs --from 2` after validation (skips duplicate typecheck). Webpack **compile** and page-data **generate** run as separate Node processes to reduce peak RAM on Vercel Enhanced.
+
 ## Incidents
 
 ### 2026-06-18 — Vercel ENOENT marketing client-reference manifest
@@ -136,6 +144,16 @@ Platform Admin: **Operations → Build Health Center** (`/platform/operations/bu
 | **Fix** | Removed duplicate `app/page.tsx`; marketing home is sole `/` route under `(marketing)/layout.tsx`. |
 | **Affected modules** | `app/(marketing)/page.tsx`, Vercel deploy pipeline |
 | **Resolution** | Local and Vercel builds pass; Phase 431 governance now blocks duplicate homepage routes |
+
+### 2026-06-19 — Vercel OOM during duplicate TypeScript check
+
+| Field | Detail |
+|-------|--------|
+| **Issue** | Vercel deploy failed after “Compiled successfully”; build report showed OOM during “Running TypeScript …” |
+| **Root cause** | `validate:deployment` already runs `tsc --noEmit`; Next.js ran a second full typecheck and exhausted 16 GB Enhanced build RAM |
+| **Fix** | `typescript.ignoreBuildErrors: true` in `next.config.ts` — types still gated by `validate:deployment` |
+| **Affected modules** | `next.config.ts`, Vercel build pipeline |
+| **Resolution** | Single typecheck before compile; import warning for consolidated catch-all allowlisted |
 
 ### 2026-06-18 — API route graph consolidation
 

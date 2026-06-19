@@ -1,2 +1,2 @@
+export { CompanionMemoryCenterNav } from "./CompanionMemoryCenterNav";
 export { CompanionMemoryCenterPanel } from "./CompanionMemoryCenterPanel";
-export { MemoryStatusBadge } from "./MemoryStatusBadge";
