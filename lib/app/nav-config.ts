@@ -63,6 +63,7 @@ export type AppNavId =
   | "compensation"
   | "profitability"
   | "serviceNetwork"
+  | "servicePayments"
   | "revenueGrowthCenter"
   | "customerExperienceAdoptionDelightEngine"
   | "platformExcellenceEngine"
@@ -723,6 +724,11 @@ export const APP_NAV: AppNavItem[] = [
     id: "serviceNetwork",
     href: "/app/services/network",
     labelKey: "navigation.nav.serviceNetwork",
+  },
+  {
+    id: "servicePayments",
+    href: "/app/services/payments",
+    labelKey: "navigation.nav.servicePayments",
   },
   {
     id: "customerSuccessEngine",

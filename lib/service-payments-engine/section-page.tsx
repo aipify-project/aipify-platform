@@ -1,6 +1,6 @@
-import { ServicePaymentsPanel } from "@/components/app/service-network";
-import { buildServicePaymentsLabels } from "@/lib/service-network-engine/labels";
-import type { ServicePaymentsSection } from "@/lib/service-network-engine/config";
+import { ServicePaymentsPanel } from "@/components/app/service-payments";
+import { buildServicePaymentsLabels } from "@/lib/service-payments-engine/labels";
+import type { ServicePaymentsSection } from "@/lib/service-payments-engine/config";
 import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
