@@ -16004,5 +16004,41 @@
       "openRecovery": "Öppna recovery-ärenden",
       "pendingReview": "Väntar på granskning"
     }
+  },
+  "servicePayments": {
+    "title": "Tjänstebetalningar",
+    "subtitle": "Deposits, balances, refunds, cancellations, no-shows, and revenue protection — payment confirmation is always server-side.",
+    "principle": "Payment confirmation is always validated server-side — never mark complete without verification.",
+    "privacyNote": "Financial access respects organization, location, provider, and renter scopes.",
+    "loading": "Loading",
+    "empty": "Service Payments Center is not available for this organization.",
+    "refresh": "Refresh",
+    "noRecords": "No records in this section yet.",
+    "companionAdvisor": "Companion Service Payments Advisor",
+    "sections": {
+      "overview": "Overview",
+      "payments": "Payments",
+      "deposits": "Deposits",
+      "balances": "Outstanding Balances",
+      "refunds": "Refunds",
+      "cancellations": "Cancellations",
+      "noShows": "No-Shows",
+      "reconciliation": "Reconciliation",
+      "policies": "Payment Policies"
+    },
+    "stats": {
+      "paymentsToday": "Payments today",
+      "depositsReceived": "Deposits received",
+      "outstandingBalances": "Outstanding balances",
+      "failedPayments": "Failed payments",
+      "refundsPending": "Refunds pending",
+      "noShowsPending": "No-shows pending",
+      "reconciliationIssues": "Reconciliation issues"
+    },
+    "checkout": {
+      "validate": "Validate checkout",
+      "confirm": "Confirm payment",
+      "verificationRequired": "Server-side payment verification is required before confirmation."
+    }
   }
 }

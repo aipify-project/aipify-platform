@@ -532,7 +532,8 @@
     "timeAttendance": "Tid och närvaro",
     "compensation": "Kompensation och löneinput",
     "profitability": "Lönsamhetsoperationer",
-    "serviceNetwork": "Tjänstenätverk"
+    "serviceNetwork": "Tjänstenätverk",
+    "servicePayments": "Tjänstebetalningar"
   },
   "companionPresence": {
     "ariaIndicator": "Aipify companion-närvaro",

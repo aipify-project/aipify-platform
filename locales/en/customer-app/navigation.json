@@ -641,7 +641,8 @@
     "timeAttendance": "Time & Attendance",
     "compensation": "Compensation & Payroll Input",
     "profitability": "Profitability Operations",
-    "serviceNetwork": "Service Network"
+    "serviceNetwork": "Service Network",
+    "servicePayments": "Service Payments"
   },
   "voiceOfCustomer": {
     "trigger": "Share Feedback",

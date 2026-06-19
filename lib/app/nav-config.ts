@@ -2614,6 +2614,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/time-attendance")) return "timeAttendance";
   if (pathname.startsWith("/app/compensation")) return "compensation";
   if (pathname.startsWith("/app/profitability")) return "profitability";
+  if (pathname.startsWith("/app/services/payments")) return "servicePayments";
   if (pathname.startsWith("/app/services")) return "serviceNetwork";
   if (pathname.startsWith("/app/platform/customer-experience")) {
     return "customerExperienceAdoptionDelightEngine";
