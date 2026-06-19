@@ -50,15 +50,44 @@ function prepareProxyArtifactForGeneratePhase() {
   }
 }
 
-const NODE_HEAP_COMPILE =
-  process.env.AIPIFY_BUILD_HEAP_COMPILE ?? "--max-old-space-size=40960";
-const NODE_HEAP_GENERATE =
-  process.env.AIPIFY_BUILD_HEAP_GENERATE ?? "--max-old-space-size=16384";
+const DEFAULT_HEAP_COMPILE = "--max-old-space-size=40960";
+const DEFAULT_HEAP_GENERATE = "--max-old-space-size=16384";
 
 function parseHeapMb(nodeOptions) {
   const match = nodeOptions?.match(/--max-old-space-size=(\d+)/);
   return match ? Number(match[1]) : null;
 }
+
+/** Cap requested heap to physical RAM so Vercel Standard (8 GB) does not SIGKILL on overcommit. */
+function capHeapToMachine(nodeOptions, maxMb) {
+  const requested = parseHeapMb(nodeOptions);
+  if (requested == null || requested <= maxMb) return nodeOptions;
+  console.log(
+    `[build] capping heap ${requested} MB → ${maxMb} MB (physical_ram=${Math.round(os.totalmem() / 1024 / 1024)} MB)`
+  );
+  return `--max-old-space-size=${maxMb}`;
+}
+
+function resolvePhaseHeaps() {
+  const totalMb = Math.round(os.totalmem() / 1024 / 1024);
+  // Native/webpack headroom: ~20 GB on Turbo, ~4 GB on Enhanced, ~2 GB on Standard.
+  const compileNativeReserveMb = totalMb >= 50000 ? 20480 : totalMb >= 14000 ? 4096 : 2048;
+  const maxCompileMb = Math.max(4096, totalMb - compileNativeReserveMb);
+  const maxGenerateMb = Math.max(2048, Math.min(16384, totalMb - 4096));
+
+  return {
+    compile: capHeapToMachine(
+      process.env.AIPIFY_BUILD_HEAP_COMPILE ?? DEFAULT_HEAP_COMPILE,
+      maxCompileMb
+    ),
+    generate: capHeapToMachine(
+      process.env.AIPIFY_BUILD_HEAP_GENERATE ?? DEFAULT_HEAP_GENERATE,
+      maxGenerateMb
+    ),
+  };
+}
+
+const { compile: NODE_HEAP_COMPILE, generate: NODE_HEAP_GENERATE } = resolvePhaseHeaps();
 
 function logPhaseEnv(phaseName, nodeOptions) {
   const heapMb = parseHeapMb(nodeOptions);

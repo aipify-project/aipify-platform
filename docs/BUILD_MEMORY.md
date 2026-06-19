@@ -159,6 +159,16 @@ Platform Admin: **Operations → Build Health Center** (`/platform/operations/bu
 | **Affected modules** | `scripts/build-split.mjs`, `scripts/build-with-duration.mjs`, `vercel.json`, `next.config.ts`, `docs/BUILD_MEMORY.md` |
 | **Resolution** | Compile child receives 40 GB heap on Turbo; generate 16 GB in a fresh process |
 
+### 2026-06-20 — Vercel Static generation OOM after split compile (8192 MB)
+
+| Field | Detail |
+|-------|--------|
+| **Issue** | Deploy failed after compile succeeded (`configured_heap_mb=49152`); monolithic retry on 217194c OOM'd on Standard 8 GB |
+| **Root cause** | Split generate phase capped at `8192` MB (d14b7456); static generation + trace collection exceeded heap. Commit 217194c regressed to monolithic `AIPIFY_SPLIT_BUILD=0` + global `NODE_OPTIONS=49152`, which OOM'd on Standard build machines (`VERCEL_BUILD_MACHINE_TYPE` in `vercel.json` is not honored — configure Turbo/Enhanced in Vercel dashboard). |
+| **Fix** | Restore split build; `AIPIFY_BUILD_HEAP_COMPILE=40960`, `AIPIFY_BUILD_HEAP_GENERATE=16384`; auto-cap heaps to physical RAM in `build-split.mjs`; no global `NODE_OPTIONS`. |
+| **Affected modules** | `vercel.json`, `scripts/build-split.mjs`, `docs/BUILD_MEMORY.md` |
+| **Resolution** | Generate runs in fresh 16 GB process after compile exits; compile capped at 40 GB for native headroom on Turbo 60 GB |
+
 ### 2026-06-20 — Vercel native OOM during webpack compile (Worklist::Segment)
 
 | Field | Detail |
