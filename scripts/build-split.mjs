@@ -14,6 +14,7 @@
  */
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import v8 from "node:v8";
 import { fileURLToPath } from "node:url";
@@ -50,9 +51,9 @@ function prepareProxyArtifactForGeneratePhase() {
 }
 
 const NODE_HEAP_COMPILE =
-  process.env.AIPIFY_BUILD_HEAP_COMPILE ?? "--max-old-space-size=49152";
+  process.env.AIPIFY_BUILD_HEAP_COMPILE ?? "--max-old-space-size=40960";
 const NODE_HEAP_GENERATE =
-  process.env.AIPIFY_BUILD_HEAP_GENERATE ?? "--max-old-space-size=8192";
+  process.env.AIPIFY_BUILD_HEAP_GENERATE ?? "--max-old-space-size=16384";
 
 function parseHeapMb(nodeOptions) {
   const match = nodeOptions?.match(/--max-old-space-size=(\d+)/);
@@ -63,6 +64,21 @@ function logPhaseEnv(phaseName, nodeOptions) {
   const heapMb = parseHeapMb(nodeOptions);
   console.log(
     `[build] ${phaseName} | bundler=${useTurbopack ? "turbopack" : "webpack"} | NODE_OPTIONS="${nodeOptions}" | configured_heap_mb=${heapMb ?? "default"}`
+  );
+}
+
+function logMachineContext() {
+  const totalMb = Math.round(os.totalmem() / 1024 / 1024);
+  const freeMb = Math.round(os.freemem() / 1024 / 1024);
+  const parentHeapMb = Math.round(v8.getHeapStatistics().heap_size_limit / 1024 / 1024);
+  const compileMb = parseHeapMb(NODE_HEAP_COMPILE);
+  const generateMb = parseHeapMb(NODE_HEAP_GENERATE);
+  const vercelMachine = process.env.VERCEL_BUILD_MACHINE_TYPE ?? "(unset)";
+  const nativeHeadroomMb =
+    compileMb != null ? Math.max(0, totalMb - compileMb) : null;
+
+  console.log(
+    `[build] machine context | total_ram_mb=${totalMb} free_ram_mb=${freeMb} parent_heap_limit_mb=${parentHeapMb} vercel_machine=${vercelMachine} compile_heap_mb=${compileMb ?? "default"} generate_heap_mb=${generateMb ?? "default"} native_headroom_mb=${nativeHeadroomMb ?? "n/a"} (physical_ram - compile_heap)`
   );
 }
 
@@ -117,9 +133,7 @@ function runPhase(phase) {
 console.log(
   `Split build starting (phases ${fromPhase}–${phases.length}, bundler=${useTurbopack ? "turbopack" : "webpack"})…`
 );
-console.log(
-  `[build] parent heap limit (MB): ${Math.round(v8.getHeapStatistics().heap_size_limit / 1024 / 1024)}`
-);
+logMachineContext();
 
 for (let i = fromPhase - 1; i < phases.length; i++) {
   if (phases[i].name === "Static generation") {

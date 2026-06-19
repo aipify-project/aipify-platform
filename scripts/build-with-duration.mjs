@@ -7,7 +7,7 @@ const started = Date.now();
 
 // validate:deployment already runs typecheck.
 // Split build (compile + generate) keeps webpack peak RAM in one process; build-split.mjs sets
-// NODE_OPTIONS per phase so compile can use Turbo-class heap (48 GB) while generate stays at 8 GB.
+// NODE_OPTIONS per phase so compile can use Turbo-class heap (40 GB) while generate stays at 16 GB.
 // Monolithic only when AIPIFY_SPLIT_BUILD=0. Turbopack: set AIPIFY_USE_TURBOPACK=1.
 const useSplitBuild = process.env.AIPIFY_SPLIT_BUILD !== "0";
 const useTurbopack = process.env.AIPIFY_USE_TURBOPACK === "1";

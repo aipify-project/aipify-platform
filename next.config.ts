@@ -28,6 +28,8 @@ const nextConfig: NextConfig = {
   webpack: (config, { dev, webpack }) => {
     if (!dev) {
       config.cache = false;
+      // Limit webpack parallelism to reduce V8 Worklist native memory alongside cpus: 1.
+      config.parallelism = 1;
     }
     // Locale JSON is read at runtime via fs — keep it out of the webpack module graph.
     config.plugins.push(
