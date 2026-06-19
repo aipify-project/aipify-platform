@@ -16496,5 +16496,21 @@
       "confirm": "Confirm payment",
       "verificationRequired": "Server-side payment verification is required before confirmation."
     }
+  },
+  "serviceIntake": {
+    "title": "Service Intake",
+    "subtitle": "Forms, submissions, consents, and service delivery readiness — governed intake before appointments proceed.",
+    "principle": "Required intake and consents must be complete before service delivery begins.",
+    "privacyNote": "Intake data respects organization, location, provider, and customer scopes.",
+    "loading": "Loading",
+    "empty": "Service Intake Center is not available for this organization.",
+    "refresh": "Refresh",
+    "noRecords": "No records in this section yet.",
+    "companionAdvisor": "Companion Service Intake Advisor",
+    "sections": { "forms": "Intake Forms", "submissions": "Submissions", "consents": "Consents", "serviceDelivery": "Service Delivery" },
+    "stats": { "activeForms": "Active forms", "pendingSubmissions": "Pending submissions", "consentsRequired": "Consents required", "deliveryTasksOpen": "Delivery tasks open", "readinessBlocked": "Readiness blocked" },
+    "detail": { "back": "Back to list", "overview": "Overview", "notFound": "This intake record could not be found." },
+    "entityTypes": { "form": "Intake form", "submission": "Submission" },
+    "readiness": { "ready": "Booking intake is ready", "blocked": "Booking intake is blocked", "principle": "Booking readiness is evaluated server-side before service delivery." }
   }
 }

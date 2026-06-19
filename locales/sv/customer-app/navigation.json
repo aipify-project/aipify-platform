@@ -533,7 +533,8 @@
     "compensation": "Kompensation och löneinput",
     "profitability": "Lönsamhetsoperationer",
     "serviceNetwork": "Tjänstenätverk",
-    "servicePayments": "Tjänstebetalningar"
+    "servicePayments": "Tjänstebetalningar",
+    "serviceIntake": "Tjänsteintag"
   },
   "companionPresence": {
     "ariaIndicator": "Aipify companion-närvaro",

@@ -642,7 +642,8 @@
     "compensation": "Compensation & Payroll Input",
     "profitability": "Profitability Operations",
     "serviceNetwork": "Service Network",
-    "servicePayments": "Service Payments"
+    "servicePayments": "Service Payments",
+    "serviceIntake": "Service Intake"
   },
   "voiceOfCustomer": {
     "trigger": "Share Feedback",

@@ -16210,5 +16210,43 @@
       "confirm": "Confirm payment",
       "verificationRequired": "Server-side payment verification is required before confirmation."
     }
+  },
+  "serviceIntake": {
+    "title": "Tjenesteinntak",
+    "subtitle": "Skjemaer, innsendinger, samtykker og leveringsklarhet — styrt inntak før avtaler fortsetter.",
+    "principle": "Påkrevd inntak og samtykker må være fullført før tjenestelevering starter.",
+    "privacyNote": "Inntaksdata respekterer organisasjon, lokasjon, leverandør og kundeomfang.",
+    "loading": "Laster",
+    "empty": "Service Intake Center er ikke tilgjengelig for denne organisasjonen.",
+    "refresh": "Oppdater",
+    "noRecords": "Ingen poster i denne seksjonen ennå.",
+    "companionAdvisor": "Companion Service Intake Advisor",
+    "sections": {
+      "forms": "Inntaksskjemaer",
+      "submissions": "Innsendinger",
+      "consents": "Samtykker",
+      "serviceDelivery": "Tjenestelevering"
+    },
+    "stats": {
+      "activeForms": "Aktive skjemaer",
+      "pendingSubmissions": "Ventende innsendinger",
+      "consentsRequired": "Samtykker påkrevd",
+      "deliveryTasksOpen": "Åpne leveringsoppgaver",
+      "readinessBlocked": "Klarhet blokkert"
+    },
+    "detail": {
+      "back": "Tilbake til listen",
+      "overview": "Oversikt",
+      "notFound": "Denne inntaksposten ble ikke funnet."
+    },
+    "entityTypes": {
+      "form": "Inntaksskjema",
+      "submission": "Innsending"
+    },
+    "readiness": {
+      "ready": "Bookinginntak er klart",
+      "blocked": "Bookinginntak er blokkert",
+      "principle": "Bookingklarhet evalueres serverside før tjenestelevering."
+    }
   }
 }

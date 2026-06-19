@@ -75,6 +75,7 @@ const DASHBOARD_MODULE_OVERRIDES = new Set([
   "profitability",
   "serviceNetwork",
   "servicePayments",
+  "serviceIntake",
   "systemHealth",
 ]);
 

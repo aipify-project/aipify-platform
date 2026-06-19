@@ -15938,5 +15938,43 @@
       "confirm": "Confirm payment",
       "verificationRequired": "Server-side payment verification is required before confirmation."
     }
+  },
+  "serviceIntake": {
+    "title": "Serviceindtag",
+    "subtitle": "Formularer, indsendelser, samtykker og leveringsklarhed — styret indtag før aftaler fortsætter.",
+    "principle": "Påkrævet indtag og samtykker skal være fuldført før servicelevering starter.",
+    "privacyNote": "Indtagsdata respekterer organisation, lokation, leverandør og kundeomfang.",
+    "loading": "Indlæser",
+    "empty": "Service Intake Center er ikke tilgængeligt for denne organisation.",
+    "refresh": "Opdater",
+    "noRecords": "Ingen poster i dette afsnit endnu.",
+    "companionAdvisor": "Companion Service Intake Advisor",
+    "sections": {
+      "forms": "Indtagsformularer",
+      "submissions": "Indsendelser",
+      "consents": "Samtykker",
+      "serviceDelivery": "Servicelevering"
+    },
+    "stats": {
+      "activeForms": "Aktive formularer",
+      "pendingSubmissions": "Afventende indsendelser",
+      "consentsRequired": "Samtykker påkrævet",
+      "deliveryTasksOpen": "Åbne leveringsopgaver",
+      "readinessBlocked": "Klarhed blokeret"
+    },
+    "detail": {
+      "back": "Tilbage til listen",
+      "overview": "Oversigt",
+      "notFound": "Denne indtagspost blev ikke fundet."
+    },
+    "entityTypes": {
+      "form": "Indtagsformular",
+      "submission": "Indsendelse"
+    },
+    "readiness": {
+      "ready": "Bookingindtag er klar",
+      "blocked": "Bookingindtag er blokeret",
+      "principle": "Bookingklarhed evalueres serverside før servicelevering."
+    }
   }
 }

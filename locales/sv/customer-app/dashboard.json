@@ -16040,5 +16040,43 @@
       "confirm": "Confirm payment",
       "verificationRequired": "Server-side payment verification is required before confirmation."
     }
+  },
+  "serviceIntake": {
+    "title": "Tjänsteintag",
+    "subtitle": "Formulär, inlämningar, samtycken och leveransberedskap — styrt intag innan bokningar fortsätter.",
+    "principle": "Obligatoriskt intag och samtycken måste vara klara innan tjänsteleverans börjar.",
+    "privacyNote": "Intagsdata respekterar organisation, plats, leverantör och kundomfång.",
+    "loading": "Laddar",
+    "empty": "Service Intake Center är inte tillgängligt för denna organisation.",
+    "refresh": "Uppdatera",
+    "noRecords": "Inga poster i detta avsnitt ännu.",
+    "companionAdvisor": "Companion Service Intake Advisor",
+    "sections": {
+      "forms": "Intagsformulär",
+      "submissions": "Inlämningar",
+      "consents": "Samtycken",
+      "serviceDelivery": "Tjänsteleverans"
+    },
+    "stats": {
+      "activeForms": "Aktiva formulär",
+      "pendingSubmissions": "Väntande inlämningar",
+      "consentsRequired": "Samtycken krävs",
+      "deliveryTasksOpen": "Öppna leveransuppgifter",
+      "readinessBlocked": "Beredskap blockerad"
+    },
+    "detail": {
+      "back": "Tillbaka till listan",
+      "overview": "Översikt",
+      "notFound": "Denna intagspost kunde inte hittas."
+    },
+    "entityTypes": {
+      "form": "Intagsformulär",
+      "submission": "Inlämning"
+    },
+    "readiness": {
+      "ready": "Bokningsintag är klart",
+      "blocked": "Bokningsintag är blockerat",
+      "principle": "Bokningsberedskap utvärderas serverside före tjänsteleverans."
+    }
   }
 }

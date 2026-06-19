@@ -533,7 +533,8 @@
     "compensation": "Kompensasjon og lønnsinput",
     "profitability": "Lønnsomhetsoperasjoner",
     "serviceNetwork": "Tjenestenettverk",
-    "servicePayments": "Tjenestebetalinger"
+    "servicePayments": "Tjenestebetalinger",
+    "serviceIntake": "Tjenesteinntak"
   },
   "companionPresence": {
     "ariaIndicator": "Aipify companion-tilstedeværelse",
