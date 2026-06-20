@@ -3981,6 +3981,54 @@
       "ctaSecondary": "Company",
       "ctaHref": "/contact",
       "ctaSecondaryHref": "/company"
+  },
+  "publicPages": {
+    "breadcrumbs": {
+      "home": "Hem"
+    },
+    "companion": {
+      "meta": {
+        "title": "Aipify Companion — ditt operativa intelligenslager",
+        "description": "Aipify Companion förbereder arbete, prioriterar det viktiga och håller människor i kontroll — en pålitlig affärspartner, inte en chatbot."
+      },
+      "breadcrumbs": {
+        "home": "Hem",
+        "companion": "Companion"
+      },
+      "hero": {
+        "eyebrow": "Aipify Companion",
+        "title": "En Aipify. Operativ intelligens med mänsklig kontroll.",
+        "subtitle": "Aipify Companion observerar, förklarar, rekommenderar och förbereder nästa steg — medan människor granskar, godkänner och bestämmer.",
+        "ctaPrimary": "Boka demo",
+        "ctaSecondary": "Utforska plattformen"
+      },
+      "cta": {
+        "title": "Se Aipify Companion i din organisation",
+        "subtitle": "Boka en konsultativ demo — Aipify förbereder samtalet kring dina arbetsflöden.",
+        "bookDemo": "Boka demo",
+        "explorePlatform": "Utforska plattformen"
+      }
+    },
+    "howAipifyWorks": {
+      "meta": {
+        "title": "Så fungerar Aipify — anslut, koordinera, styr",
+        "description": "Anslut befintliga system, samla godkänd kontext, koordinera arbete och utför med mänskligt godkännande och revisionsspår."
+      },
+      "breadcrumbs": {
+        "home": "Hem",
+        "howItWorks": "Så fungerar Aipify"
+      },
+      "hero": {
+        "eyebrow": "Så fungerar Aipify",
+        "title": "Från anslutning till styrd utförande",
+        "subtitle": "En strukturerad väg: installera i din miljö, lär godkänd kontext, koordinera verksamhet och behåll mänsklig kontroll vid varje känsligt steg."
+      },
+      "cta": {
+        "title": "Redo att se det i din organisation?",
+        "subtitle": "Boka en demo eller starta ett konsultativt samtal med Aipify-teamet.",
+        "bookDemo": "Boka demo",
+        "getStarted": "Planera demo"
+      }
     }
   }
 }

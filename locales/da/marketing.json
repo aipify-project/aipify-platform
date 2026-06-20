@@ -3981,6 +3981,54 @@
       "ctaSecondary": "Company",
       "ctaHref": "/contact",
       "ctaSecondaryHref": "/company"
+  },
+  "publicPages": {
+    "breadcrumbs": {
+      "home": "Hjem"
+    },
+    "companion": {
+      "meta": {
+        "title": "Aipify Companion — dit operationelle intelligenslag",
+        "description": "Aipify Companion forbereder arbejde, prioriterer det vigtige og holder mennesker i kontrol — én pålidelig forretningspartner, ikke en chatbot."
+      },
+      "breadcrumbs": {
+        "home": "Hjem",
+        "companion": "Companion"
+      },
+      "hero": {
+        "eyebrow": "Aipify Companion",
+        "title": "Én Aipify. Operationel intelligens med menneskelig kontrol.",
+        "subtitle": "Aipify Companion observerer, forklarer, anbefaler og forbereder næste skridt — mens mennesker gennemgår, godkender og beslutter.",
+        "ctaPrimary": "Book demo",
+        "ctaSecondary": "Udforsk platformen"
+      },
+      "cta": {
+        "title": "Se Aipify Companion i din organisation",
+        "subtitle": "Book en konsultativ demo — Aipify forbereder samtalen om dine arbejdsgange.",
+        "bookDemo": "Book demo",
+        "explorePlatform": "Udforsk platformen"
+      }
+    },
+    "howAipifyWorks": {
+      "meta": {
+        "title": "Sådan fungerer Aipify — forbind, koordiner, styr",
+        "description": "Forbind eksisterende systemer, indsamle godkendt kontekst, koordiner arbejde og udfør med menneskelig godkendelse og revisionsspor."
+      },
+      "breadcrumbs": {
+        "home": "Hjem",
+        "howItWorks": "Sådan fungerer Aipify"
+      },
+      "hero": {
+        "eyebrow": "Sådan fungerer Aipify",
+        "title": "Fra forbindelse til styret udførelse",
+        "subtitle": "En struktureret vej: installer i dit miljø, lær godkendt kontekst, koordiner drift og behold menneskelig kontrol ved hvert følsomt trin."
+      },
+      "cta": {
+        "title": "Klar til at se det i din organisation?",
+        "subtitle": "Book en demo eller start en konsultativ samtale med Aipify-teamet.",
+        "bookDemo": "Book demo",
+        "getStarted": "Planlæg demo"
+      }
     }
   }
 }

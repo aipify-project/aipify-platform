@@ -31,6 +31,7 @@ export default async function EarlyAccessPage() {
         <EarlyAccessForm
           labels={earlyAccess as Parameters<typeof EarlyAccessForm>[0]["labels"]}
           verificationLabels={buildHumanVerificationLabels(t)}
+          variant="light"
         />
       </div>
     </>

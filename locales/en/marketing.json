@@ -4436,5 +4436,54 @@
         }
       }
     }
+  },
+  "publicPages": {
+    "breadcrumbs": {
+      "home": "Home"
+    },
+    "companion": {
+      "meta": {
+        "title": "Aipify Companion — Your Operational Intelligence Layer",
+        "description": "Aipify Companion prepares work, surfaces priorities, and keeps humans in control — one trusted business companion, not a chatbot."
+      },
+      "breadcrumbs": {
+        "home": "Home",
+        "companion": "Companion"
+      },
+      "hero": {
+        "eyebrow": "Aipify Companion",
+        "title": "One Aipify. Operational intelligence with human control.",
+        "subtitle": "Aipify Companion observes, explains, recommends, and prepares next steps — while people review, approve, and decide.",
+        "ctaPrimary": "Book Demo",
+        "ctaSecondary": "Explore Platform"
+      },
+      "cta": {
+        "title": "See Aipify Companion in your organization",
+        "subtitle": "Schedule a consultative demo — Aipify prepares the conversation around your workflows, not generic feature lists.",
+        "bookDemo": "Book Demo",
+        "explorePlatform": "Explore Platform"
+      }
+    },
+    "howAipifyWorks": {
+      "meta": {
+        "title": "How Aipify Works — Connect, Coordinate, Govern",
+        "description": "Connect existing systems, gather approved context, coordinate work, recommend next actions, and execute with human approval and audit trails."
+      },
+      "breadcrumbs": {
+        "home": "Home",
+        "howItWorks": "How Aipify Works"
+      },
+      "hero": {
+        "eyebrow": "How Aipify Works",
+        "title": "From connection to governed execution",
+        "subtitle": "A structured path: install into your environment, learn approved context, coordinate operations, and keep humans in control at every sensitive step."
+      },
+      "cta": {
+        "title": "Ready to see it in your organization?",
+        "subtitle": "Book a demo or start a consultative conversation with the Aipify team.",
+        "bookDemo": "Book Demo",
+        "getStarted": "Schedule Demo"
+      }
+    }
   }
 }

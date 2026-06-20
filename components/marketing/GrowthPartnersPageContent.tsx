@@ -1,6 +1,8 @@
 import Link from "next/link";
 import GrowthPartnerCtaBand from "./GrowthPartnerCtaBand";
 import GrowthPartnersSignupForm, { type GrowthPartnersSignupLabels } from "./GrowthPartnersSignupForm";
+import { PublicPageHero } from "./public";
+import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
 import PartnerAuthoritySection from "./PartnerAuthoritySection";
 import PartnerPortalPreviewSection from "./PartnerPortalPreviewSection";
 import PartnerSuccessStoriesSection from "./PartnerSuccessStoriesSection";
@@ -76,13 +78,13 @@ type Props = {
 };
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
-  return <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">{children}</h2>;
+  return <h2 className="text-2xl font-bold tracking-tight text-aipify-text sm:text-3xl">{children}</h2>;
 }
 
 function BenefitCard({ title, body }: Card) {
   return (
-    <div className="rounded-2xl border border-aipify-border bg-white/[0.03] p-6 shadow-lg shadow-violet-900/10">
-      <h3 className="font-semibold text-white">{title}</h3>
+    <div className={AipifyMarketingClasses.card}>
+      <h3 className="font-semibold text-aipify-text">{title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{body}</p>
     </div>
   );
@@ -157,49 +159,38 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
   } = labels;
 
   return (
-    <div className="relative">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute -top-24 right-0 h-[420px] w-[420px] rounded-full bg-violet-600/15 blur-3xl" />
-        <div className="absolute top-48 -left-32 h-[360px] w-[360px] rounded-full bg-cyan-500/10 blur-3xl" />
-      </div>
+    <>
+      <PublicPageHero
+        eyebrow={hero.badgeProfessional}
+        title={hero.headline}
+        subtitle={hero.subheadline}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Growth Partners" },
+        ]}
+        primaryCta={{ label: hero.ctaPrimary, href: "#signup", analyticsId: "partners_hero_apply" }}
+        secondaryCta={{ label: hero.ctaSecondary, href: "/contact", analyticsId: "partners_hero_contact" }}
+        align="center"
+      />
 
-      {/* Hero */}
-      <section className="relative border-b border-white/10">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1.5 text-sm font-medium text-violet-200">
-              {hero.badgeProfessional}
-            </span>
-            <h1 className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">{hero.headline}</h1>
-            <p className="mt-4 text-base leading-relaxed text-aipify-text-secondary sm:text-lg">{hero.subheadline}</p>
-            <p className="mt-4 text-sm font-medium text-cyan-300/90">{hero.trustLine}</p>
-            <p className="mt-3 text-sm text-aipify-text-muted">{hero.supporting}</p>
-
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-              {[hero.badgeIndependent, hero.badgeCertification, hero.badgeTime].map((badge) => (
-                <span key={badge} className="rounded-full border border-aipify-border bg-white/5 px-3 py-1 text-xs font-medium text-aipify-text-secondary">
-                  {badge}
-                </span>
-              ))}
-            </div>
-
-            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <a
-                href="#signup"
-                className="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-8 py-4 text-base font-semibold text-aipify-text shadow-lg shadow-violet-600/25 transition hover:from-cyan-400 hover:to-violet-500 sm:w-auto"
+      {(hero.trustLine || hero.supporting) && (
+        <div className="mx-auto -mt-6 max-w-3xl px-4 pb-6 text-center sm:px-6">
+          {hero.trustLine ? (
+            <p className="text-sm font-medium text-aipify-companion">{hero.trustLine}</p>
+          ) : null}
+          {hero.supporting ? <p className="mt-2 text-sm text-aipify-text-muted">{hero.supporting}</p> : null}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+            {[hero.badgeIndependent, hero.badgeCertification, hero.badgeTime].map((badge) => (
+              <span
+                key={badge}
+                className="rounded-full border border-aipify-border bg-aipify-surface px-3 py-1 text-xs font-medium text-aipify-text-secondary"
               >
-                {hero.ctaPrimary}
-              </a>
-              <Link
-                href="/contact"
-                className="inline-flex w-full items-center justify-center rounded-xl border border-white/15 bg-white/5 px-8 py-4 text-base font-semibold text-aipify-text transition hover:bg-white/10 sm:w-auto"
-              >
-                {hero.ctaSecondary}
-              </Link>
-            </div>
+                {badge}
+              </span>
+            ))}
           </div>
         </div>
-      </section>
+      )}
 
       {partnerAuthority ? (
         <PartnerAuthoritySection
@@ -482,6 +473,6 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
           </p>
         </div>
       </section>
-    </div>
+    </>
   );
 }

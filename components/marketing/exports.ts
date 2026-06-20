@@ -105,4 +105,13 @@ export { DemoAdvisorCard } from "./DemoAdvisorCard";
 export { default as ContactExperiencePageContent } from "./ContactExperiencePageContent";
 export { default as DigitalHeadquartersPageContent } from "./DigitalHeadquartersPageContent";
 export { default as MarketingGlobalSearch } from "./MarketingGlobalSearch";
+export { default as CompanionPageContent } from "./CompanionPageContent";
+export { default as HowAipifyWorksPageContent } from "./HowAipifyWorksPageContent";
+export {
+  PublicPageShell,
+  PublicPageHero,
+  PublicBreadcrumbs,
+  PublicSectionHeader,
+  PublicCTA,
+} from "./public";
 export { default as WebsiteCompanionAssistant } from "./WebsiteCompanionAssistant";

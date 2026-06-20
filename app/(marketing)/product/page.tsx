@@ -58,7 +58,15 @@ export default async function ProductPage() {
 
   return (
     <>
-      <MarketingPageHeader title={productPage.title ?? ""} subtitle={productPage.subtitle} />
+      <MarketingPageHeader
+        title={productPage.title ?? ""}
+        subtitle={productPage.subtitle}
+        eyebrow="Aipify Business Operating System"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Platform" },
+        ]}
+      />
       <CategoryPositioningIntro {...categoryPositioning} compact />
       <HumanDifferenceSection {...humanDifference} compact />
       <MarketingDifferentiationStrip themes={parseStringList(marketing, "differentiationStrip", "themes")} />

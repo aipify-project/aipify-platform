@@ -25,8 +25,8 @@ export default async function TermsPage() {
       <div className="mx-auto max-w-3xl space-y-8 px-4 py-12 sm:px-6 lg:px-8">
         {sections.map((section) => (
           <article key={section.title}>
-            <h2 className="text-xl font-semibold text-white">{section.title}</h2>
-            <p className="mt-3 text-sm leading-relaxed text-slate-400">{section.body}</p>
+            <h2 className="text-xl font-semibold text-aipify-text">{section.title}</h2>
+            <p className="mt-3 text-sm leading-relaxed text-aipify-text-secondary">{section.body}</p>
           </article>
         ))}
       </div>

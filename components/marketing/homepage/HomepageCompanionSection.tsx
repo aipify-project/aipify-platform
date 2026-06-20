@@ -35,7 +35,7 @@ export default function HomepageCompanionSection({
               <p className="mt-4 text-lg leading-relaxed text-aipify-text-secondary">{subtitle}</p>
             ) : null}
             <Link
-              href="/product#companion"
+              href="/companion"
               className="mt-6 inline-block text-sm font-semibold text-aipify-accent hover:text-aipify-companion"
               {...marketingDataAttr("cta_click", "companion_learn_more")}
             >

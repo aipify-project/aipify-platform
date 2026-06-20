@@ -47,9 +47,9 @@ type Props = {
   id?: string;
 };
 
-const inputClass =
-  "mt-2 w-full rounded-xl border border-aipify-border bg-white/5 px-4 py-3 text-sm text-white placeholder:text-aipify-text-muted focus:border-cyan-500/50 focus:outline-none focus:ring-2 focus:ring-cyan-500/20";
-const labelClass = "block text-sm font-medium text-aipify-text-secondary";
+const lightInputClass =
+  "mt-2 w-full rounded-xl border border-aipify-border bg-aipify-surface-muted px-4 py-3 text-sm text-aipify-text placeholder:text-aipify-text-muted focus:border-aipify-accent focus:bg-aipify-surface focus:outline-none focus:ring-2 focus:ring-aipify-focus";
+const lightLabelClass = "block text-sm font-medium text-aipify-text-secondary";
 
 export default function GrowthPartnersSignupForm({ labels, verificationLabels, id = "signup-form" }: Props) {
   const router = useRouter();
@@ -146,53 +146,53 @@ export default function GrowthPartnersSignupForm({ labels, verificationLabels, i
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="sm:col-span-2">
-          <label htmlFor="gp-full-name" className={labelClass}>{labels.fullName}</label>
-          <input id="gp-full-name" name="full_name" required className={inputClass} autoComplete="name" />
+          <label htmlFor="gp-full-name" className={lightLabelClass}>{labels.fullName}</label>
+          <input id="gp-full-name" name="full_name" required className={lightInputClass} autoComplete="name" />
         </div>
         <div className="sm:col-span-2">
-          <label htmlFor="gp-company" className={labelClass}>{labels.companyName}</label>
-          <input id="gp-company" name="company_name" required className={inputClass} autoComplete="organization" />
+          <label htmlFor="gp-company" className={lightLabelClass}>{labels.companyName}</label>
+          <input id="gp-company" name="company_name" required className={lightInputClass} autoComplete="organization" />
         </div>
         <div className="sm:col-span-2">
-          <label htmlFor="gp-reg" className={labelClass}>{labels.businessRegistrationNumber}</label>
-          <input id="gp-reg" name="business_registration_number" className={inputClass} />
+          <label htmlFor="gp-reg" className={lightLabelClass}>{labels.businessRegistrationNumber}</label>
+          <input id="gp-reg" name="business_registration_number" className={lightInputClass} />
           <p className="mt-1.5 text-xs text-aipify-text-muted">{regHelper}</p>
         </div>
         <div>
-          <label htmlFor="gp-country" className={labelClass}>{labels.country}</label>
-          <select id="gp-country" name="country" value={country} onChange={(e) => onCountryChange(e.target.value)} className={inputClass}>
+          <label htmlFor="gp-country" className={lightLabelClass}>{labels.country}</label>
+          <select id="gp-country" name="country" value={country} onChange={(e) => onCountryChange(e.target.value)} className={lightInputClass}>
             {GROWTH_PARTNER_COUNTRY_OPTIONS.map((c) => (
               <option key={c.code} value={c.code} className="bg-aipify-canvas">{c.label}</option>
             ))}
           </select>
         </div>
         <div className="sm:col-span-2">
-          <label htmlFor="gp-address" className={labelClass}>{labels.address}</label>
-          <input id="gp-address" name="address" required className={inputClass} autoComplete="street-address" />
+          <label htmlFor="gp-address" className={lightLabelClass}>{labels.address}</label>
+          <input id="gp-address" name="address" required className={lightInputClass} autoComplete="street-address" />
         </div>
         <div>
-          <label htmlFor="gp-dial" className={labelClass}>{labels.phoneCountryCode}</label>
-          <select id="gp-dial" value={phoneDial} onChange={(e) => setPhoneDial(e.target.value)} className={inputClass}>
+          <label htmlFor="gp-dial" className={lightLabelClass}>{labels.phoneCountryCode}</label>
+          <select id="gp-dial" value={phoneDial} onChange={(e) => setPhoneDial(e.target.value)} className={lightInputClass}>
             {GROWTH_PARTNER_PHONE_COUNTRIES.map((c) => (
               <option key={c.dial} value={c.dial} className="bg-aipify-canvas">{c.flag} {c.dial}</option>
             ))}
           </select>
         </div>
         <div>
-          <label htmlFor="gp-phone" className={labelClass}>{labels.phoneNumber}</label>
-          <input id="gp-phone" name="phone_number" required type="tel" className={inputClass} autoComplete="tel-national" />
+          <label htmlFor="gp-phone" className={lightLabelClass}>{labels.phoneNumber}</label>
+          <input id="gp-phone" name="phone_number" required type="tel" className={lightInputClass} autoComplete="tel-national" />
         </div>
         <div className="sm:col-span-2">
-          <label htmlFor="gp-email" className={labelClass}>{labels.email}</label>
-          <input id="gp-email" name="email" required type="email" className={inputClass} autoComplete="email" />
+          <label htmlFor="gp-email" className={lightLabelClass}>{labels.email}</label>
+          <input id="gp-email" name="email" required type="email" className={lightInputClass} autoComplete="email" />
         </div>
         <div>
-          <label htmlFor="gp-password" className={labelClass}>{labels.password}</label>
-          <input id="gp-password" name="password" required type="password" minLength={8} className={inputClass} autoComplete="new-password" />
+          <label htmlFor="gp-password" className={lightLabelClass}>{labels.password}</label>
+          <input id="gp-password" name="password" required type="password" minLength={8} className={lightInputClass} autoComplete="new-password" />
         </div>
         <div>
-          <label htmlFor="gp-password-confirm" className={labelClass}>{labels.passwordConfirm}</label>
-          <input id="gp-password-confirm" name="password_confirm" required type="password" minLength={8} className={inputClass} autoComplete="new-password" />
+          <label htmlFor="gp-password-confirm" className={lightLabelClass}>{labels.passwordConfirm}</label>
+          <input id="gp-password-confirm" name="password_confirm" required type="password" minLength={8} className={lightInputClass} autoComplete="new-password" />
         </div>
       </div>
 
@@ -224,7 +224,7 @@ export default function GrowthPartnersSignupForm({ labels, verificationLabels, i
 
       <AipifyHumanVerification
         labels={verificationLabels}
-        variant="dark"
+        variant="light"
         onVerified={onVerified}
         onReset={onVerificationReset}
       />

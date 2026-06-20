@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import AipifyPulse from "@/components/branding/AipifyPulse";
 import MarketingGlobalSearch from "@/components/marketing/MarketingGlobalSearch";
 import { AipifyMarketingClasses, AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
 import { marketingDataAttr } from "@/lib/marketing/analytics";
 import type { MarketingSearchResult } from "@/lib/marketing/governance/types";
+import { isNavHrefActive } from "@/lib/marketing/public-nav";
 
 export type MarketingNavLabels = {
   platform: string;
@@ -61,6 +63,7 @@ function buildNavItems(labels: MarketingNavLabels): NavItem[] {
 }
 
 export default function MarketingNavbar({ appName, labels, search }: MarketingNavbarProps) {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const items = buildNavItems(labels);
 
@@ -83,15 +86,19 @@ export default function MarketingNavbar({ appName, labels, search }: MarketingNa
         </Link>
 
         <div className="hidden items-center gap-1 lg:flex">
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`rounded-lg px-3 py-2 ${AipifyMarketingClasses.navLink}`}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {items.map((item) => {
+            const active = isNavHrefActive(item.href, pathname);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`rounded-lg px-3 py-2 ${active ? AipifyMarketingClasses.navLinkActive : AipifyMarketingClasses.navLink}`}
+                aria-current={active ? "page" : undefined}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </div>
 
         <div className="hidden items-center gap-2 lg:flex">
@@ -132,16 +139,22 @@ export default function MarketingNavbar({ appName, labels, search }: MarketingNa
       {menuOpen ? (
         <div className="border-t border-aipify-border bg-aipify-surface px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] lg:hidden">
           <div className="flex flex-col gap-1">
-            {items.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="rounded-lg px-3 py-2.5 text-sm font-medium text-aipify-text-secondary hover:bg-aipify-surface-muted"
-                onClick={() => setMenuOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {items.map((item) => {
+              const active = isNavHrefActive(item.href, pathname);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-aipify-surface-muted ${
+                    active ? "text-aipify-companion" : "text-aipify-text-secondary"
+                  }`}
+                  aria-current={active ? "page" : undefined}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
             <hr className="my-3 border-aipify-border" />
             <Link href="/login" className={`${AipifyShellClasses.secondaryButton} text-center`} onClick={() => setMenuOpen(false)}>
               {labels.login}

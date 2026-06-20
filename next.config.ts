@@ -2,12 +2,13 @@ import type { NextConfig } from "next";
 import path from "path";
 import { fileURLToPath } from "url";
 import { LEGACY_DASHBOARD_REDIRECTS } from "./lib/app/legacy-dashboard-redirects";
+import { MARKETING_PUBLIC_REDIRECTS } from "./lib/marketing/public-redirects";
 
 const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
   async redirects() {
-    return LEGACY_DASHBOARD_REDIRECTS;
+    return [...LEGACY_DASHBOARD_REDIRECTS, ...MARKETING_PUBLIC_REDIRECTS];
   },
   // validate:deployment runs `tsc --noEmit` before `next build`. Skipping the duplicate
   // Next.js typecheck avoids OOM on Vercel Enhanced (16 GB) during "Running TypeScript …".

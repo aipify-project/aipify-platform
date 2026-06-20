@@ -57,7 +57,7 @@ export default function SimpleFlowSection({ title, subtitle, learnMore, steps }:
 
         <div className="mt-10">
           <Link
-            href="/get-started"
+            href="/how-aipify-works"
             className="text-sm font-semibold text-aipify-accent hover:text-aipify-companion"
             {...marketingDataAttr("cta_click", "how_it_works_learn_more")}
           >
