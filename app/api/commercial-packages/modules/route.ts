@@ -1,4 +1,12 @@
 import { NextResponse } from "next/server";
+import { getCustomerModulesCenter } from "@/lib/commercial-packages/client";
+import {
+  isDatabaseExecutionError,
+  requireOrganizationViewPermission,
+  requireReadyAppPortalContext,
+  rpcErrorStatus,
+} from "@/lib/tenant/app-portal-route-access";
+import { classifyAppPortalError } from "@/lib/tenant/resolve-app-organization-context";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {
@@ -9,12 +17,28 @@ export async function GET() {
     } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const { data, error } = await supabase.rpc("get_customer_modules_center");
-    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
 
+    const permission = await requireOrganizationViewPermission(
+      supabase,
+      "modules.view",
+      "modules.manage"
+    );
+    if (!permission.ok) return permission.response;
+
+    const data = await getCustomerModulesCenter(supabase);
     return NextResponse.json(data);
-  } catch {
-    return NextResponse.json({ error: "Modules center request failed" }, { status: 500 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Modules center request failed";
+    const access_state = isDatabaseExecutionError(message)
+      ? "database_execution_error"
+      : classifyAppPortalError(message);
+    console.error("[commercial-packages/modules]", message);
+    return NextResponse.json(
+      { error: message, access_state, found: false },
+      { status: rpcErrorStatus(message, access_state) }
+    );
   }
 }
 
@@ -25,6 +49,12 @@ export async function PATCH(request: Request) {
       data: { user },
     } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
+
+    const permission = await requireOrganizationViewPermission(supabase, "modules.manage");
+    if (!permission.ok) return permission.response;
 
     const body = (await request.json()) as {
       module_key?: string;
@@ -41,16 +71,19 @@ export async function PATCH(request: Request) {
       p_enabled: body.enabled ?? null,
       p_status: body.status ?? null,
     });
+    if (error) throw new Error(error.message);
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
-
-    const { data: center, error: centerError } = await supabase.rpc(
-      "get_customer_modules_center"
+    const data = await getCustomerModulesCenter(supabase);
+    return NextResponse.json(data);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Module update failed";
+    const access_state = isDatabaseExecutionError(message)
+      ? "database_execution_error"
+      : classifyAppPortalError(message);
+    console.error("[commercial-packages/modules]", message);
+    return NextResponse.json(
+      { error: message, access_state, found: false },
+      { status: rpcErrorStatus(message, access_state) }
     );
-    if (centerError) return NextResponse.json({ error: centerError.message }, { status: 400 });
-
-    return NextResponse.json(center);
-  } catch {
-    return NextResponse.json({ error: "Module update failed" }, { status: 500 });
   }
 }

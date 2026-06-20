@@ -517,6 +517,30 @@ $$;
 -- ---------------------------------------------------------------------------
 -- 7. Modules center
 -- ---------------------------------------------------------------------------
+create or replace function public._cpa_read_module_enabled(p_tenant_id uuid, p_module_key text)
+returns boolean
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+declare
+  v_row public.tenant_modules;
+begin
+  select * into v_row
+  from public.tenant_modules
+  where tenant_id = p_tenant_id and module_key = p_module_key;
+
+  if v_row.id is null then
+    return false;
+  end if;
+
+  return v_row.licensed
+    and v_row.enabled
+    and v_row.status in ('enabled', 'trial', 'beta');
+end;
+$$;
+
 create or replace function public.get_customer_modules_center()
 returns jsonb
 language plpgsql
@@ -531,7 +555,6 @@ begin
   v_tenant_id := public._presence_tenant_for_auth();
   if v_tenant_id is null then return jsonb_build_object('has_customer', false); end if;
 
-  perform public.ensure_tenant_commercial_setup(v_tenant_id);
   v_package_key := public._cpa_resolve_package_key(v_tenant_id);
 
   return jsonb_build_object(
@@ -552,7 +575,7 @@ begin
     'available_modules', coalesce(
       (select jsonb_agg(jsonb_build_object(
         'module_key', m,
-        'licensed', public.is_tenant_module_enabled(v_tenant_id, m)
+        'licensed', public._cpa_read_module_enabled(v_tenant_id, m)
       ))
       from (
         select distinct jsonb_array_elements_text(sp.module_keys) as m
@@ -634,5 +657,6 @@ grant execute on function public.track_tenant_usage(text, integer) to authentica
 grant execute on function public.update_tenant_module(text, boolean, text) to authenticated;
 grant execute on function public.get_upgrade_recommendations(uuid) to authenticated;
 grant execute on function public.get_customer_billing_center() to authenticated;
+grant execute on function public._cpa_read_module_enabled(uuid, text) to authenticated;
 grant execute on function public.get_customer_modules_center() to authenticated;
 grant execute on function public.get_platform_commercial_packages_overview() to authenticated;
