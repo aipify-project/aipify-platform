@@ -413,6 +413,47 @@ $$;
 -- ---------------------------------------------------------------------------
 -- 2. Public RPC
 -- ---------------------------------------------------------------------------
+create or replace function public._bs_read_settings(p_tenant_id uuid)
+returns public.aipify_briefing_settings
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+declare
+  v_row public.aipify_briefing_settings;
+begin
+  select * into v_row
+  from public.aipify_briefing_settings
+  where tenant_id = p_tenant_id;
+
+  if found then
+    return v_row;
+  end if;
+
+  v_row.id := null;
+  v_row.tenant_id := p_tenant_id;
+  v_row.enabled := true;
+  v_row.since_last_login_enabled := true;
+  v_row.daily_brief_enabled := true;
+  v_row.executive_brief_enabled := true;
+  v_row.operational_brief_enabled := true;
+  v_row.default_daily_time := '08:00';
+  v_row.default_timezone := 'Europe/Oslo';
+  v_row.max_default_items := 7;
+  v_row.include_quality := true;
+  v_row.include_support := true;
+  v_row.include_knowledge := true;
+  v_row.include_governance := true;
+  v_row.include_automation := true;
+  v_row.include_insights := true;
+  v_row.include_integrations := true;
+  v_row.created_at := now();
+  v_row.updated_at := now();
+  return v_row;
+end;
+$$;
+
 create or replace function public.get_companion_context_briefing(p_context text)
 returns jsonb
 language plpgsql
@@ -432,7 +473,7 @@ begin
   end if;
 
   v_context := lower(trim(coalesce(p_context, 'home')));
-  v_settings := public._bs_ensure_settings(v_tenant_id);
+  v_settings := public._bs_read_settings(v_tenant_id);
 
   if not v_settings.enabled then
     return jsonb_build_object(
@@ -458,5 +499,6 @@ end;
 $$;
 
 grant execute on function public._acb_require_tenant() to authenticated;
+grant execute on function public._bs_read_settings(uuid) to authenticated;
 grant execute on function public._acb_context_summary(text) to authenticated;
 grant execute on function public.get_companion_context_briefing(text) to authenticated;

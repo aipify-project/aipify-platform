@@ -7,7 +7,6 @@ import { AipifyEmptyState } from "@/components/branding";
 import type { CustomerApproval } from "@/lib/app/customer-app";
 import { RISK_LEVEL_STYLES, type ActionLevel } from "@/lib/trust-action";
 import { formatDate } from "@/lib/i18n/format-date";
-import { createClient } from "@/lib/supabase/client";
 
 type ApprovalsCenterMeta = {
   philosophy?: string;
@@ -77,13 +76,19 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
   const [centerMeta, setCenterMeta] = useState<ApprovalsCenterMeta | null>(null);
   const [emergencyState, setEmergencyState] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [actingId, setActingId] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
-    const supabase = createClient();
-    const { data, error } = await supabase.rpc("get_customer_approvals_center");
-    if (!error && data?.has_customer) {
-      const payload = data as Record<string, unknown>;
+    setLoadError(null);
+    const response = await fetch("/api/app/approvals");
+    const payload = (await response.json()) as Record<string, unknown> & { error?: string };
+    if (!response.ok) {
+      setLoadError(typeof payload.error === "string" ? payload.error : "Failed to load approvals");
+      setLoading(false);
+      return;
+    }
+    if (payload?.has_customer) {
       setCenterMeta({
         philosophy: typeof payload.philosophy === "string" ? payload.philosophy : undefined,
         mission: typeof payload.mission === "string" ? payload.mission : undefined,
@@ -143,6 +148,27 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
   }
 
   if (loading) return <AipifyLoadingState message={labels.loading} centered />;
+
+  if (loadError) {
+    return (
+      <div className="mx-auto max-w-4xl space-y-4 p-6">
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
+        <p className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
+          {loadError}
+        </p>
+        <button
+          type="button"
+          onClick={() => {
+            setLoading(true);
+            void refresh();
+          }}
+          className="rounded-lg bg-[#7C3AED] px-4 py-2 text-sm font-medium text-white hover:bg-[#6D28D9]"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   const emergencyActive =
     emergencyState === "paused" || emergencyState === "emergency_shutdown";
