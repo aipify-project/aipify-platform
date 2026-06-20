@@ -37,14 +37,19 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
   const [quietMode, setQuietMode] = useState<QuietHoursMode>("standard");
   const [timezone, setTimezone] = useState("UTC");
   const [saved, setSaved] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
+    setLoadError(null);
     const res = await fetch("/api/presence/preferences");
     if (res.ok) {
       const data = await res.json();
       const prefs = data.preferences as Record<string, unknown> | undefined;
       setQuietMode((prefs?.quiet_hours_mode as QuietHoursMode) ?? "standard");
       setTimezone(String(prefs?.timezone ?? getBrowserTimezone()));
+    } else {
+      const payload = (await res.json()) as { error?: string };
+      setLoadError(typeof payload.error === "string" ? payload.error : "Failed to load settings");
     }
   }, []);
 
@@ -71,6 +76,11 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
       <header className="max-w-3xl">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
         <p className="mt-3 text-lg leading-relaxed text-gray-600">{labels.subtitle}</p>
+        {loadError ? (
+          <p className="mt-4 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
+            {loadError}
+          </p>
+        ) : null}
       </header>
 
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">

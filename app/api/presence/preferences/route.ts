@@ -1,4 +1,11 @@
 import { NextResponse } from "next/server";
+import {
+  isDatabaseExecutionError,
+  requireOrganizationViewPermission,
+  requireReadyAppPortalContext,
+  rpcErrorStatus,
+} from "@/lib/tenant/app-portal-route-access";
+import { classifyAppPortalError } from "@/lib/tenant/resolve-app-organization-context";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {
@@ -12,17 +19,29 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { data, error } = await supabase.rpc("get_presence_notification_preferences");
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
-    }
+    const permission = await requireOrganizationViewPermission(
+      supabase,
+      "settings.view",
+      "settings.manage"
+    );
+    if (!permission.ok) return permission.response;
+
+    const { data, error } = await supabase.rpc("get_presence_notification_preferences");
+    if (error) throw new Error(error.message);
 
     return NextResponse.json(data);
-  } catch {
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to load preferences";
+    const access_state = isDatabaseExecutionError(message)
+      ? "database_execution_error"
+      : classifyAppPortalError(message);
+    console.error("[presence/preferences]", message);
     return NextResponse.json(
-      { error: "Failed to load preferences" },
-      { status: 500 }
+      { error: message, access_state, found: false },
+      { status: rpcErrorStatus(message, access_state) }
     );
   }
 }
@@ -39,6 +58,12 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
+
+    const permission = await requireOrganizationViewPermission(supabase, "settings.manage");
+    if (!permission.ok) return permission.response;
+
     const { data, error } = await supabase.rpc("update_presence_notification_preferences", {
       p_quiet_hours_mode: body.quiet_hours_mode ?? null,
       p_working_hours_start: body.working_hours_start ?? null,
@@ -54,15 +79,18 @@ export async function PATCH(request: Request) {
       p_min_level_email: body.min_level_email ?? null,
     });
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
-    }
+    if (error) throw new Error(error.message);
 
     return NextResponse.json(data);
-  } catch {
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to update preferences";
+    const access_state = isDatabaseExecutionError(message)
+      ? "database_execution_error"
+      : classifyAppPortalError(message);
+    console.error("[presence/preferences]", message);
     return NextResponse.json(
-      { error: "Failed to update preferences" },
-      { status: 500 }
+      { error: message, access_state, found: false },
+      { status: rpcErrorStatus(message, access_state) }
     );
   }
 }

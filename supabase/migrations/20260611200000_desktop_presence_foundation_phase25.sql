@@ -287,6 +287,45 @@ grant execute on function public.perform_presence_notification_action(uuid, text
 -- ---------------------------------------------------------------------------
 -- 7. Preferences get / update
 -- ---------------------------------------------------------------------------
+create or replace function public._presence_read_notification_preferences(p_tenant_id uuid)
+returns public.presence_notification_preferences
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+declare
+  v_row public.presence_notification_preferences;
+  v_default_tz text;
+begin
+  select * into v_row
+  from public.presence_notification_preferences
+  where tenant_id = p_tenant_id;
+
+  if found then
+    return v_row;
+  end if;
+
+  v_default_tz := coalesce(public.resolve_customer_timezone(p_tenant_id), 'UTC');
+  v_row.id := null;
+  v_row.tenant_id := p_tenant_id;
+  v_row.quiet_hours_mode := 'standard';
+  v_row.working_hours_start := '09:00';
+  v_row.working_hours_end := '17:00';
+  v_row.timezone := v_default_tz;
+  v_row.vacation_until := null;
+  v_row.channel_in_app := true;
+  v_row.channel_desktop := true;
+  v_row.channel_email_digest := false;
+  v_row.channel_mobile_push := false;
+  v_row.min_level_in_app := 'informational';
+  v_row.min_level_desktop := 'important';
+  v_row.min_level_email := 'important';
+  v_row.updated_at := now();
+  return v_row;
+end;
+$$;
+
 create or replace function public.get_presence_notification_preferences()
 returns jsonb
 language plpgsql
@@ -303,7 +342,7 @@ begin
     return jsonb_build_object('has_customer', false);
   end if;
 
-  v_prefs := public.ensure_presence_notification_preferences(v_tenant_id);
+  v_prefs := public._presence_read_notification_preferences(v_tenant_id);
 
   return jsonb_build_object(
     'has_customer', true,
@@ -312,6 +351,7 @@ begin
 end;
 $$;
 
+grant execute on function public._presence_read_notification_preferences(uuid) to authenticated;
 grant execute on function public.get_presence_notification_preferences() to authenticated;
 
 create or replace function public.update_presence_notification_preferences(
