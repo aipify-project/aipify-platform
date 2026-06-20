@@ -269,7 +269,7 @@ begin
 end;
 $$;
 
-create or replace function public._aebmi311_dimension_card(p_row record)
+create or replace function public._aebmi311_dimension_card(p_row public.app_portal_enterprise_benchmarking_dimensions)
 returns jsonb
 language sql
 stable

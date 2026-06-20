@@ -313,7 +313,7 @@ begin
 end;
 $$;
 
-create or replace function public._abpep310_pack_card(p_row record)
+create or replace function public._abpep310_pack_card(p_row public.app_portal_business_pack_executive_portfolio_records)
 returns jsonb
 language sql
 stable

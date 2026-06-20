@@ -269,7 +269,7 @@ begin
         initcap(replace(v_pack.module_key, '_', ' ')),
         v_primary, v_backup, coalesce(v_department, 'General'),
         v_status, v_health, v_frequency, coalesce(v_next, public._abpgo308_next_review_date(v_frequency)),
-        case when v_primary = '' then '["Missing primary owner"]'::jsonb else '[]'::jsonb,
+        case when v_primary = '' then '["Missing primary owner"]'::jsonb else '[]'::jsonb end,
         case
           when v_primary = '' then '["Assign a primary owner"]'::jsonb
           when v_backup = '' then '["Appoint a backup owner"]'::jsonb
@@ -298,7 +298,7 @@ begin
 end;
 $$;
 
-create or replace function public._abpgo308_pack_card(p_row record)
+create or replace function public._abpgo308_pack_card(p_row public.app_portal_business_pack_governance_records)
 returns jsonb
 language sql
 stable

@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
 import { parseCommunicationItem, parseCommunicationList } from "@/lib/app-portal/communications";
+import {
+  appPortalAccessDeniedResponse,
+  appPortalRpcErrorResponse,
+  requireOrganizationViewPermission,
+  requireReadyAppPortalContext,
+} from "@/lib/tenant/app-portal-route-access";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
@@ -7,6 +13,16 @@ export async function GET(request: Request) {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
+
+    const permission = await requireOrganizationViewPermission(
+      supabase,
+      "communications.view",
+      "communications.manage"
+    );
+    if (!permission.ok) return permission.response;
 
     const { searchParams } = new URL(request.url);
     const { data, error } = await supabase.rpc("list_app_portal_communications", {
@@ -19,10 +35,14 @@ export async function GET(request: Request) {
       p_publish_to: searchParams.get("publish_to") || null,
       p_search: searchParams.get("search") || null,
     });
-    if (error) return NextResponse.json({ error: error.message }, { status: 403 });
+    if (error) {
+      return appPortalRpcErrorResponse("[aipify/communications]", error.message);
+    }
     return NextResponse.json(parseCommunicationList(data));
-  } catch {
-    return NextResponse.json({ error: "Failed to load communications" }, { status: 500 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to load communications";
+    console.error("[aipify/communications]", message);
+    return NextResponse.json({ error: message, found: false }, { status: 500 });
   }
 }
 
@@ -43,6 +63,20 @@ export async function POST(request: Request) {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
+
+    const { data: canManage, error: permissionError } = await supabase.rpc(
+      "has_organization_permission",
+      { p_permission_key: "communications.manage" }
+    );
+    if (permissionError) {
+      return NextResponse.json({ error: permissionError.message }, { status: 403 });
+    }
+    if (!canManage) {
+      return appPortalAccessDeniedResponse("permission_missing", "permission_missing");
+    }
 
     const body = (await request.json()) as CreateBody;
     if (!body.title?.trim()) return NextResponse.json({ error: "title required" }, { status: 400 });

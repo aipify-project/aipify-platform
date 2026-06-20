@@ -290,7 +290,7 @@ begin
 end;
 $$;
 
-create or replace function public._abpoc305_pack_card(p_company_id uuid, p_pack record)
+create or replace function public._abpoc305_pack_card(p_company_id uuid, p_pack public.app_portal_business_pack_command_records)
 returns jsonb
 language sql
 stable

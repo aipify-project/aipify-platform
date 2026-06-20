@@ -273,7 +273,7 @@ begin
       ) values (
         p_company_id, v_pack.module_key, initcap(replace(v_pack.module_key, '_', ' ')),
         v_status, coalesce(v_reviewer, ''), v_frequency, v_next, v_alignment,
-        case when v_status in ('review_overdue', 'immediate_attention') then '["Schedule compliance review"]'::jsonb else '[]'::jsonb
+        case when v_status in ('review_overdue', 'immediate_attention') then '["Schedule compliance review"]'::jsonb else '[]'::jsonb end
       )
       on conflict (company_id, pack_key) do update set
         pack_name = excluded.pack_name,
@@ -300,7 +300,7 @@ begin
 end;
 $$;
 
-create or replace function public._abpco309_compliance_card(p_row record)
+create or replace function public._abpco309_compliance_card(p_row public.app_portal_business_pack_compliance_records)
 returns jsonb
 language sql
 stable
