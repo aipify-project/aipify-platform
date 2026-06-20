@@ -127,7 +127,8 @@ begin
     )), '[]'::jsonb)
     into v_installed
     from public.tenant_modules tm
-    where tm.company_id = v_company_id and tm.status in ('enabled', 'trial', 'beta');
+    where tm.tenant_id = (select c.id from public.customers c where c.company_id = v_company_id limit 1)
+      and tm.status in ('enabled', 'trial', 'beta');
   end if;
 
   if coalesce(v_ctx->>'can_full', 'false') = 'true' then

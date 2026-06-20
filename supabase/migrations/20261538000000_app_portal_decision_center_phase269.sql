@@ -190,14 +190,14 @@ begin
   if to_regclass('public.tenant_modules') is not null then
     select count(*)::int into v_packs
     from public.tenant_modules tm
-    where tm.company_id = v_company_id
+    where tm.tenant_id = (select c.id from public.customers c where c.company_id = v_company_id limit 1)
       and tm.status in ('enabled', 'trial', 'beta');
   end if;
 
   if to_regclass('public.action_requests') is not null then
     select count(*)::int into v_recent_approvals
     from public.action_requests ar
-    where ar.company_id = v_company_id
+    where ar.tenant_id = (select c.id from public.customers c where c.company_id = v_company_id limit 1)
       and ar.status = 'approved'
       and ar.updated_at > now() - interval '14 days';
   end if;
@@ -281,7 +281,8 @@ begin
     from (
       select jsonb_build_object('id', ar.id, 'title', ar.action_type, 'status', ar.status) as order_by_created
       from public.action_requests ar
-      where ar.company_id = v_d.company_id and ar.status in ('approved', 'pending')
+      where ar.tenant_id = (select c.id from public.customers c where c.company_id = v_d.company_id limit 1)
+        and ar.status in ('approved', 'pending')
       order by ar.created_at desc
       limit 5
     ) sub;

@@ -650,7 +650,9 @@ create or replace function public.get_user_achievement_badges(p_user_id uuid def
 returns jsonb language plpgsql stable security definer set search_path = public as $$
 declare v_org_id uuid; v_user_id uuid;
 begin
-  perform public._irp_require_permission('certifications.view');
+  if not public.has_organization_permission('certifications.view') then
+    return '[]'::jsonb;
+  end if;
   v_org_id := public._mta_require_organization();
   v_user_id := coalesce(p_user_id, public._mta_app_user_id());
 

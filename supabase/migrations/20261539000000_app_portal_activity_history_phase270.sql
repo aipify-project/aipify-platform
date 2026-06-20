@@ -173,7 +173,7 @@ begin
     for r in
       select ar.id, ar.action_name, ar.status, ar.risk_level, ar.created_at, ar.updated_at
       from public.action_requests ar
-      where ar.company_id = v_company_id
+      where ar.tenant_id = (select c.id from public.customers c where c.company_id = v_company_id limit 1)
         and coalesce(v_ctx->>'can_manage', 'false') = 'true'
       order by ar.created_at desc
       limit 50
@@ -250,7 +250,7 @@ begin
     for r in
       select tm.id, tm.module_key, tm.created_at
       from public.tenant_modules tm
-      where tm.company_id = v_company_id
+      where tm.tenant_id = (select c.id from public.customers c where c.company_id = v_company_id limit 1)
         and tm.status in ('enabled', 'trial', 'beta')
       order by tm.created_at desc
       limit 30

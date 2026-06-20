@@ -69,7 +69,8 @@ begin
   if to_regclass('public.action_requests') is not null then
     select count(*)::int into v_pending_approvals
     from public.action_requests ar
-    where ar.company_id = v_company_id and ar.status = 'pending';
+    where ar.tenant_id = (select c.id from public.customers c where c.company_id = v_company_id limit 1)
+      and ar.status = 'pending';
   end if;
 
   if to_regclass('public.support_cases') is not null then
@@ -118,7 +119,8 @@ begin
   if to_regclass('public.tenant_modules') is not null then
     select count(*)::int into v_packs_installed
     from public.tenant_modules tm
-    where tm.company_id = v_company_id and tm.status in ('enabled', 'trial', 'beta');
+    where tm.tenant_id = (select c.id from public.customers c where c.company_id = v_company_id limit 1)
+      and tm.status in ('enabled', 'trial', 'beta');
   end if;
 
   if to_regclass('public.aipify_actions') is not null then

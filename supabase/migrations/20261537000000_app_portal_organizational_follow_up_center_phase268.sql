@@ -208,7 +208,8 @@ begin
   if to_regclass('public.action_requests') is not null then
     select count(*)::int into v_pending_approvals
     from public.action_requests ar
-    where ar.company_id = v_company_id and ar.status = 'pending';
+    where ar.tenant_id = (select c.id from public.customers c where c.company_id = v_company_id limit 1)
+      and ar.status = 'pending';
   end if;
 
   if to_regclass('public.support_cases') is not null then

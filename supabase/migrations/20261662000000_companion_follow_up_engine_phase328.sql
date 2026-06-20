@@ -267,9 +267,6 @@ begin
   v_user_id := (v_ctx->>'user_id')::uuid;
   v_role := coalesce(v_ctx->>'role', 'member');
 
-  insert into public.companion_follow_up_settings (organization_id) values (v_org_id) on conflict do nothing;
-  perform public._cfu328_seed_follow_ups(v_org_id, v_user_id);
-
   select count(*) filter (where status in ('open','pending','waiting')),
          count(*) filter (where status = 'overdue'),
          count(*) filter (where status in ('open','pending') and due_date >= current_date and due_date <= current_date + 7),

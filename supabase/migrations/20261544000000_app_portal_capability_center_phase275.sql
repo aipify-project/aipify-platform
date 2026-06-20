@@ -168,14 +168,15 @@ declare
   v_self integer;
 begin
   select count(*)::int, count(*) filter (where u.role in ('owner', 'admin'))::int,
-         count(*) filter (where u.updated_at > now() - interval '14 days')::int
+         count(*) filter (where u.last_login_at is not null and u.last_login_at > now() - interval '14 days')::int
   into v_team, v_admins, v_active
   from public.users u where u.company_id = p_company_id;
 
   if to_regclass('public.tenant_modules') is not null then
     select count(*)::int into v_packs
     from public.tenant_modules tm
-    where tm.company_id = p_company_id and tm.status in ('enabled', 'trial', 'beta');
+    where tm.tenant_id = (select c.id from public.customers c where c.company_id = p_company_id limit 1)
+      and tm.status in ('enabled', 'trial', 'beta');
   end if;
 
   if to_regclass('public.app_portal_integration_connections') is not null then
@@ -194,7 +195,8 @@ begin
   if to_regclass('public.action_requests') is not null then
     select count(*)::int into v_pending_approvals
     from public.action_requests ar
-    where ar.company_id = p_company_id and ar.status = 'pending';
+    where ar.tenant_id = (select c.id from public.customers c where c.company_id = p_company_id limit 1)
+      and ar.status = 'pending';
   end if;
 
   if to_regclass('public.app_portal_follow_ups') is not null then
@@ -365,8 +367,6 @@ begin
   v_company_id := (v_access->>'company_id')::uuid;
   v_bundle := public._apmc275_compute_bundle(v_company_id);
   v_categories := coalesce(v_bundle->'categories', '[]'::jsonb);
-
-  perform public._apmc275_record_snapshot(v_company_id, v_bundle);
 
   select coalesce(jsonb_agg(jsonb_build_object(
     'recorded_at', h.recorded_at,

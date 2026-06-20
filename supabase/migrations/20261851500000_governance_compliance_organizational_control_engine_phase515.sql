@@ -387,12 +387,12 @@ declare
   v_audit jsonb;
   v_reports jsonb;
 begin
-  perform public._irp_require_permission('governance.view');
+  if not public.has_organization_permission('governance.view')
+     and not public.has_organization_permission('governance.manage') then
+    raise exception 'Permission denied: governance.view';
+  end if;
   v_org_id := public._ogv515_org();
   if v_org_id is null then return jsonb_build_object('found', false); end if;
-
-  perform public._ogv515_ensure_settings(v_org_id);
-  perform public._ogv515_seed_controls(v_org_id);
 
   begin v_user_id := public._mta_app_user_id(); exception when others then
     v_user_id := (select id from public.users where auth_user_id = auth.uid() limit 1);
@@ -403,9 +403,6 @@ begin
   exception when others then
     v_scope := jsonb_build_object('scope', 'organization');
   end;
-
-  perform public._ogv515_log(v_org_id, 'center_view', 'Governance Center viewed', 'governance', 'governance_center', null,
-    jsonb_build_object('section', p_section));
 
   select jsonb_build_object(
     'governance_health', public._ogv515_health_score(v_org_id),
