@@ -1596,6 +1596,11 @@
     "principle": "Menuer genereres automatisk fra installerede moduler, roller og tilladelser.",
     "visibilityRule": "Synlig når installeret og tilladt. Skjult når ikke installeret eller ingen tilladelse.",
     "suspendedNotice": "Abonnement påkrævet",
+    "activationGate": {
+      "title": "Aktivering i gang",
+      "message": "Aipify klargør funktionen og kontrollerer, at alle nødvendige tjenester er tilgængelige. Du får adgang automatisk, når valideringen er fuldført.",
+      "support": "Support"
+    },
     "renewSubscription": "Forny abonnement",
     "billing": "Fakturering",
     "support": "Support",

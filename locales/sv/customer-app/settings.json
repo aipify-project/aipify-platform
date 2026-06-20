@@ -1596,6 +1596,11 @@
     "principle": "Menyer genereras automatiskt från installerade moduler, roller och behörigheter.",
     "visibilityRule": "Synlig när installerad och tillåten. Dold när inte installerad eller ingen behörighet.",
     "suspendedNotice": "Prenumeration krävs",
+    "activationGate": {
+      "title": "Aktivering pågår",
+      "message": "Aipify förbereder funktionen och kontrollerar att alla nödvändiga tjänster är tillgängliga. Du får åtkomst automatiskt när valideringen är klar.",
+      "support": "Support"
+    },
     "renewSubscription": "Förnya prenumeration",
     "billing": "Fakturering",
     "support": "Support",

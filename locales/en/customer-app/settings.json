@@ -1741,6 +1741,11 @@
     "principle": "Menus are generated automatically from installed modules, roles, and permissions.",
     "visibilityRule": "Visible when installed and permitted. Hidden when not installed or no permission.",
     "suspendedNotice": "Subscription required",
+    "activationGate": {
+      "title": "Activation in progress",
+      "message": "Aipify is preparing the feature and verifying that all required services are available. You will receive access automatically when validation is complete.",
+      "support": "Support"
+    },
     "renewSubscription": "Renew subscription",
     "billing": "Billing",
     "support": "Support",

@@ -1,0 +1,39 @@
+---
+description: Permanent Business Pack Activation Gate — menu visibility requires validated activation chain
+globs:
+  - supabase/migrations/**business_pack**
+  - supabase/migrations/**module_registry**
+  - supabase/migrations/**dynamic_menu**
+  - lib/business-pack-activation-gate/**
+  - lib/dynamic-navigation/**
+  - app/api/**/business-pack**
+  - components/app/dynamic-navigation/**
+alwaysApply: false
+---
+
+# Business Pack Activation Gate (Permanent)
+
+See [AIPIFY_BUSINESS_PACK_ACTIVATION_GATE.md](../../AIPIFY_BUSINESS_PACK_ACTIVATION_GATE.md).
+
+## Rules
+
+1. **No partial exposure** — menu routes require `organization_business_pack_activation_gates.activation_status = 'active'`.
+2. **Atomic activation** — `run_business_pack_activation_gate()` validates the full chain or leaves the pack hidden / activation in progress.
+3. **GET paths stay read-only** — activation validation must not fix failures by marking read RPCs VOLATILE or writing on GET.
+4. **Forward migrations only** in production — never re-run historical migrations to activate packs.
+5. **Failure preserves access** — failed activation must not revoke unrelated modules; log step + platform alert + idempotent retry.
+6. **No shortcuts** — no Owner bypass, direct user grants, hardcoded tenant IDs, or org-name matching.
+7. **Customer copy** — show "Aktivering pågår" / activation-in-progress; never expose RPC, migration, or SQL errors.
+8. **Platform Admin** — failures visible via `get_platform_business_pack_activation_overview()` with failed step and safe diagnostic.
+
+## Activation sequence
+
+payment/plan → subscription → license → pack install → entitlement → schema → RPCs → permissions → modules → readonly GET → smoke → menu.
+
+## Before shipping Business Pack changes
+
+- [ ] Staging sets `menu_visible = false` until gate passes
+- [ ] `activate_business_pack_modules` invokes gate (or equivalent orchestrator)
+- [ ] Navigation checks gate for `business_pack_key`
+- [ ] New GET RPCs included in readonly validation requirements when pack-specific
+- [ ] Forward repair migration if changing activation functions in production

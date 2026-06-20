@@ -1,6 +1,10 @@
 import CustomerPortalGuard from "@/components/app/CustomerPortalGuard";
 import TwoFactorSessionGate from "@/components/auth/TwoFactorSessionGate";
-import { DynamicNavigationSuspendedBanner, NavigationUseTracker } from "@/components/app/dynamic-navigation";
+import { DynamicNavigationSuspendedBanner, BusinessPackActivationInProgressBanner, NavigationUseTracker } from "@/components/app/dynamic-navigation";
+import {
+  buildBusinessPackActivationGateLabels,
+  getOrganizationBusinessPackActivationGates,
+} from "@/lib/business-pack-activation-gate";
 import DashboardShell from "@/components/dashboard/DashboardShell";
 import { DashboardProfileProvider } from "@/components/dashboard/DashboardProfileProvider";
 import { buildAppNavConfig, buildAppNavGroupConfig } from "@/lib/app/build-nav";
@@ -44,10 +48,15 @@ export default async function AppLayout({
   let navSearchIndex: AppNavSearchEntry[] = buildAppNavSearchIndex(fallbackGroups, fallbackConfig, t);
   let mobileNavIds: string[] = [...APP_MOBILE_NAV_IDS];
   let suspendedNotice: string | null = null;
+  let showActivationBanner = false;
+  const activationLabels = buildBusinessPackActivationGateLabels(t);
 
   try {
     const supabase = await createClient();
-    const dynamicRaw = await getDynamicAppNavigation(supabase);
+    const [dynamicRaw, activationGates] = await Promise.all([
+      getDynamicAppNavigation(supabase),
+      getOrganizationBusinessPackActivationGates(supabase).catch(() => ({ found: false as const })),
+    ]);
     const dynamicNav = parseDynamicAppNavigation(dynamicRaw);
     if (dynamicNav?.found) {
       const built = buildAppNavFromDynamicNavigation(dynamicNav, t);
@@ -67,6 +76,11 @@ export default async function AppLayout({
         suspendedNotice = dynamicNav.suspended_notice;
       }
     }
+    showActivationBanner =
+      activationGates.found === true &&
+      (activationGates.items?.some((item) =>
+        ["pending_activation", "validating"].includes(item.activation_status)
+      ) ?? false);
   } catch {
     // Fallback to static navigation when dynamic engine unavailable
   }
@@ -132,6 +146,13 @@ export default async function AppLayout({
               renewLabel={t("customerApp.dynamicNavigation.renewSubscription")}
               billingLabel={t("customerApp.dynamicNavigation.billing")}
               supportLabel={t("customerApp.dynamicNavigation.support")}
+            />
+          ) : null}
+          {showActivationBanner ? (
+            <BusinessPackActivationInProgressBanner
+              title={activationLabels.title}
+              message={activationLabels.message}
+              supportLabel={activationLabels.support}
             />
           ) : null}
           {children}
