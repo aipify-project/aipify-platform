@@ -108,16 +108,19 @@ function NavLinkRow({
   activeAccent,
   compact,
   onNavigate,
+  prefetch,
 }: {
   item: NavItem;
   isActive: boolean;
   activeAccent: "default" | "soft";
   compact: boolean;
   onNavigate?: () => void;
+  prefetch?: boolean;
 }) {
   return (
     <Link
       href={item.href}
+      prefetch={prefetch}
       onClick={onNavigate}
       title={item.label}
       className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium transition ${
@@ -406,6 +409,7 @@ export default function GroupedSidebar({
                       isActive={item.id === activeId}
                       activeAccent={activeAccent}
                       compact={compact}
+                      prefetch={group.id !== "support"}
                       onNavigate={() => handleNavigate(item.id)}
                     />
                   ))}

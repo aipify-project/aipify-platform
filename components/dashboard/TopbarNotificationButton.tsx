@@ -1,11 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import {
   POLL_INTERVAL_HIDDEN_BADGE_MS,
   POLL_INTERVAL_NOTIFICATIONS_MS,
   dedupeFetch,
+  isPermanentPollingFailure,
+  recordPermanentPollingFailure,
   shouldPollNotifications,
   usePollingTask,
 } from "@/lib/polling";
@@ -20,39 +22,78 @@ type UnreadCounts = {
   critical_unread: number;
 };
 
+function isPermanentRpcError(message: string): boolean {
+  const lower = message.toLowerCase();
+  return lower.includes("pgrst202") || lower.includes("could not find the function");
+}
+
 export default function TopbarNotificationButton({ label }: TopbarNotificationButtonProps) {
   const pathname = usePathname();
   const [counts, setCounts] = useState<UnreadCounts>({ unread: 0, critical_unread: 0 });
+  const orgReadyRef = useRef<boolean | null>(null);
+
+  const ensureOrgReady = useCallback(async (): Promise<boolean> => {
+    if (orgReadyRef.current === true) return true;
+    if (orgReadyRef.current === false) return false;
+
+    try {
+      const res = await fetch("/api/app/organization-context", { cache: "no-store" });
+      if (!res.ok) {
+        orgReadyRef.current = false;
+        return false;
+      }
+      const body = (await res.json()) as { state?: string; has_app_access?: boolean };
+      const ready = body.state === "ready" && body.has_app_access === true;
+      orgReadyRef.current = ready;
+      return ready;
+    } catch {
+      orgReadyRef.current = false;
+      return false;
+    }
+  }, []);
 
   const loadUnread = useCallback(async () => {
     if (!shouldPollNotifications(pathname)) {
       return true;
+    }
+    if (isPermanentPollingFailure("notification-unread-count")) {
+      return true;
+    }
+    if (!(await ensureOrgReady())) {
+      return false;
     }
 
     try {
       const ok = await dedupeFetch("notification-unread-count", async () => {
         const supabase = createClient();
         const { data, error } = await supabase.rpc("get_notification_unread_count");
-        if (!error && data && typeof data === "object") {
+        if (error) {
+          if (isPermanentRpcError(error.message)) {
+            recordPermanentPollingFailure("notification-unread-count");
+          }
+          return false;
+        }
+        if (data && typeof data === "object") {
           const record = data as Record<string, unknown>;
           setCounts({
             unread: Number(record.unread ?? 0),
             critical_unread: Number(record.critical_unread ?? 0),
           });
         }
-        return !error;
+        return true;
       });
       return ok;
     } catch {
       return false;
     }
-  }, [pathname]);
+  }, [ensureOrgReady, pathname]);
 
   useEffect(() => {
     void loadUnread();
   }, [loadUnread]);
 
-  const pollingEnabled = shouldPollNotifications(pathname);
+  const pollingEnabled =
+    shouldPollNotifications(pathname) && !isPermanentPollingFailure("notification-unread-count");
 
   usePollingTask({
     taskKey: "notification-unread-count",

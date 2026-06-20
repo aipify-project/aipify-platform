@@ -7,7 +7,9 @@ export type AppOrganizationContextState =
   | "organization_missing"
   | "membership_missing"
   | "subscription_inactive"
+  | "license_inactive"
   | "entitlement_missing"
+  | "permission_missing"
   | "access_denied";
 
 export type AppOrganizationContext = {
@@ -35,7 +37,9 @@ const CONTEXT_STATES = new Set<AppOrganizationContextState>([
   "organization_missing",
   "membership_missing",
   "subscription_inactive",
+  "license_inactive",
   "entitlement_missing",
+  "permission_missing",
   "access_denied",
 ]);
 
@@ -78,14 +82,14 @@ export function classifyAppPortalError(message: string): AppOrganizationContextS
   if (lower.includes("organization context required") || lower.includes("company not found")) {
     return "organization_missing";
   }
-  if (lower.includes("active subscription required")) {
-    return "subscription_inactive";
+  if (lower.includes("active subscription required") || lower.includes("license")) {
+    return lower.includes("license") ? "license_inactive" : "subscription_inactive";
   }
   if (lower.includes("access denied for organization")) {
     return "membership_missing";
   }
   if (lower.includes("permission denied") || lower.includes("permission missing")) {
-    return "access_denied";
+    return "permission_missing";
   }
   if (
     lower.includes("entitlement") ||

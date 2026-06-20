@@ -31,7 +31,9 @@ const ACCESS_MESSAGES: Record<
   organization_missing: "organizationMissing",
   membership_missing: "organizationMissing",
   subscription_inactive: "subscriptionRequired",
+  license_inactive: "subscriptionRequired",
   entitlement_missing: "entitlementMissing",
+  permission_missing: "permissionMissing",
   access_denied: "permissionMissing",
 };
 

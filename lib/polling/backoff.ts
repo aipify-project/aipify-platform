@@ -5,9 +5,19 @@ type BackoffState = {
 };
 
 const states = new Map<string, BackoffState>();
+const permanentFailures = new Set<string>();
 
 export function recordPollingSuccess(key: string): void {
   states.delete(key);
+}
+
+export function recordPermanentPollingFailure(key: string): void {
+  permanentFailures.add(key);
+  states.delete(key);
+}
+
+export function isPermanentPollingFailure(key: string): boolean {
+  return permanentFailures.has(key);
 }
 
 export function recordPollingFailure(key: string): number {
@@ -29,4 +39,5 @@ export function getBackoffIntervalMs(key: string, baseIntervalMs: number): numbe
 
 export function clearPollingBackoff(): void {
   states.clear();
+  permanentFailures.clear();
 }
