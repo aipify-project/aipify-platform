@@ -9,12 +9,15 @@ Documented after locale graph reduction (customerApp monolith removed from layou
 | **Build command** | `npm run build` (see `vercel.json` + `package.json`) |
 | **Build machine** | **Turbo (60 GB RAM / 30 vCPU)** recommended for production builds — configure in Vercel → Settings → Build and Deployment → Build Machines. Enhanced (16 GB) minimum if Turbo is unavailable. |
 | **Split build** | `AIPIFY_SPLIT_BUILD=1` (default) — compile and generate run as separate Node processes |
-| **Node heap (compile)** | `AIPIFY_BUILD_HEAP_COMPILE=--max-old-space-size=30720` in `vercel.json` — passed as a direct `node --max-old-space-size=…` CLI flag on the Next.js process in `build-split.mjs` (verified via `heap_size_limit` log). **30 GB** leaves ~30 GB for V8 Worklist native memory + OS on Turbo 60 GB. |
-| **Node heap (generate)** | `AIPIFY_BUILD_HEAP_GENERATE=--max-old-space-size=16384` — same direct invocation in a fresh process after compile exits |
+| **Production bundler** | **`AIPIFY_USE_TURBOPACK=1`** in `vercel.json` — Next.js 16 Turbopack (avoids webpack native OOM on ~3600 routes). Webpack remains for `next dev --webpack` until dev Turbopack is validated. |
+| **Node heap (compile)** | `AIPIFY_BUILD_HEAP_COMPILE=--max-old-space-size=16384` — Turbopack compile fits in 16 GB; webpack required 30+ GB and still hit native V8 OOM. |
+| **Node heap (generate)** | `AIPIFY_BUILD_HEAP_GENERATE=--max-old-space-size=8192` — generate phase after compile exits |
 
 **Important:** Do **not** set a global `NODE_OPTIONS` heap on Vercel — it applies to every phase and breaks split-build memory isolation. Do **not** rely on `NODE_OPTIONS` + `npx next` for compile/generate — npm/npx wrappers often spawn child processes that never receive the heap flag (Vercel logs showed OOM at ~15 GB despite `configured_heap_mb=40960`). Invoke `node --max-old-space-size=… ./node_modules/next/dist/bin/next build` directly.
 
-**Turbopack (future):** Next.js 16 defaults to Turbopack. Production still uses `--webpack` until client/server barrel imports are fixed (`AIPIFY_USE_TURBOPACK=1` when ready). Do not enable globally until turbopack build passes locally.
+**Turbopack (production):** Set `AIPIFY_USE_TURBOPACK=1` in `vercel.json` build.env. `build-split.mjs` passes `--turbo` to `next build`. Local split turbopack build passes in ~2.5 min at 16 GB compile heap. Webpack `--webpack` is fallback only (`AIPIFY_USE_TURBOPACK` unset).
+
+`webpack.IgnorePlugin` for locales in `next.config.ts` is webpack-only; Turbopack does not need it (locales loaded via fs at runtime).
 
 `VERCEL_BUILD_MACHINE_TYPE` is **not** a supported env var — configure Enhanced in the Vercel dashboard (or team-level Build and Deployment settings).
 
