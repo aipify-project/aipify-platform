@@ -3041,7 +3041,10 @@
         "autoImproveAnswer": "No. Aipify provides recommendations and insights, while organizations remain responsible for implementation.",
         "whyAdoption": "Why is adoption important?",
         "whyAdoptionAnswer": "Organizations that successfully adopt technology typically realize greater operational efficiency, stronger engagement and higher long-term value."
-      }
+      },
+      "organizationMissing": "Brakuje kontekstu organizacji. Wybierz lub skonfiguruj workspace przed użyciem Customer Success.",
+      "subscriptionRequired": "Ten obszar wymaga aktywnej subskrypcji organizacji.",
+      "permissionMissing": "Nie masz uprawnień do tego obszaru. Skontaktuj się z administratorem organizacji."
     },
     "customerHealth": {
       "title": "Customer Health",

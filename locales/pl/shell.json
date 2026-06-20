@@ -44,7 +44,8 @@
     "statusPaused": "Paused",
     "statusUnknown": "Unknown",
     "notConfigured": "Not configured",
-    "notAssigned": "Not assigned"
+    "notAssigned": "Not assigned",
+    "organizationMissing": "Brakuje kontekstu organizacji"
   },
   "branding": {
     "pulseLabel": "Aipify platform symbol"

@@ -32,6 +32,9 @@ export async function getDashboardProfile(
     return null;
   }
 
+  // Sync organization membership + license context for sidebar and APP portal RPCs.
+  await supabase.rpc("get_app_organization_context");
+
   const { data: company, error: companyError } = await supabase
     .from("companies")
     .select("id, name, slug, is_platform, created_at")

@@ -38,7 +38,8 @@
     "statusPaused": "Pauset",
     "statusUnknown": "Ukendt",
     "notConfigured": "Ikke konfigureret",
-    "notAssigned": "Ikke tildelt"
+    "notAssigned": "Ikke tildelt",
+    "organizationMissing": "Organisationskontekst mangler"
   },
   "branding": {
     "pulseLabel": "Aipify platform symbol"

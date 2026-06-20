@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { parseCustomerSuccessOverview } from "@/lib/app-portal/customer-success";
+import { requireReadyAppPortalContext } from "@/lib/tenant/app-portal-route-access";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
@@ -7,6 +8,9 @@ export async function GET(request: Request) {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
 
     const { searchParams } = new URL(request.url);
     const { data, error } = await supabase.rpc("list_app_portal_customer_success", {
@@ -17,7 +21,12 @@ export async function GET(request: Request) {
       p_period_from: searchParams.get("period_from") || null,
       p_search: searchParams.get("search") || null,
     });
-    if (error) return NextResponse.json({ error: error.message }, { status: 403 });
+    if (error) {
+      return NextResponse.json(
+        { error: error.message, access_state: "access_denied", found: false },
+        { status: 403 }
+      );
+    }
     return NextResponse.json(parseCustomerSuccessOverview(data));
   } catch {
     return NextResponse.json({ error: "Failed to load customer success" }, { status: 500 });
@@ -29,6 +38,9 @@ export async function POST() {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
 
     const { data, error } = await supabase.rpc("begin_app_portal_customer_success_journey");
     if (error) return NextResponse.json({ error: error.message }, { status: 400 });

@@ -38,7 +38,8 @@
     "statusPaused": "Pausad",
     "statusUnknown": "Okänd",
     "notConfigured": "Inte konfigurerad",
-    "notAssigned": "Inte tilldelad"
+    "notAssigned": "Inte tilldelad",
+    "organizationMissing": "Organisationskontext saknas"
   },
   "branding": {
     "pulseLabel": "Aipify platform symbol"

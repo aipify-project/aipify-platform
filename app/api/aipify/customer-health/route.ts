@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { parseCustomerHealthOverview } from "@/lib/app-portal/customer-health";
+import { requireReadyAppPortalContext } from "@/lib/tenant/app-portal-route-access";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
@@ -7,6 +8,9 @@ export async function GET(request: Request) {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
 
     const { searchParams } = new URL(request.url);
     const { data, error } = await supabase.rpc("list_app_portal_customer_health", {
@@ -18,7 +22,12 @@ export async function GET(request: Request) {
       p_recommendation_status: searchParams.get("recommendation_status") || null,
       p_search: searchParams.get("search") || null,
     });
-    if (error) return NextResponse.json({ error: error.message }, { status: 403 });
+    if (error) {
+      return NextResponse.json(
+        { error: error.message, access_state: "access_denied", found: false },
+        { status: 403 }
+      );
+    }
     return NextResponse.json(parseCustomerHealthOverview(data));
   } catch {
     return NextResponse.json({ error: "Failed to load customer health" }, { status: 500 });
@@ -30,6 +39,9 @@ export async function POST() {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
 
     const { data, error } = await supabase.rpc("begin_app_portal_customer_health_review");
     if (error) return NextResponse.json({ error: error.message }, { status: 400 });

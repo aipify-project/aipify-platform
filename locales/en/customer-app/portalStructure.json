@@ -3157,6 +3157,9 @@
       "emptyBody": "Aipify helps organizations continuously improve and maximize business value.",
       "emptyCta": "Begin Success Journey",
       "accessDenied": "You do not have permission to access Customer Success.",
+      "organizationMissing": "Organization context is missing. Select or configure your workspace before using Customer Success.",
+      "subscriptionRequired": "This area requires an active organization subscription.",
+      "permissionMissing": "You do not have permission to access this area. Contact your organization administrator.",
       "filters": {
         "search": "Search success insights…",
         "category": "Adoption category",

@@ -10,8 +10,25 @@ import {
   type CustomerSuccessOverview,
   type CustomerSuccessStatus,
 } from "@/lib/app-portal/customer-success";
+import type { AppOrganizationContextState } from "@/lib/tenant/resolve-app-organization-context";
 
 type Props = { labels: CustomerSuccessLabels };
+
+const ACCESS_MESSAGES: Record<
+  AppOrganizationContextState,
+  keyof Pick<
+    CustomerSuccessLabels,
+    "accessDenied" | "organizationMissing" | "subscriptionRequired" | "permissionMissing"
+  >
+> = {
+  ready: "accessDenied",
+  unauthenticated: "accessDenied",
+  user_not_provisioned: "organizationMissing",
+  organization_missing: "organizationMissing",
+  membership_missing: "organizationMissing",
+  subscription_inactive: "subscriptionRequired",
+  access_denied: "permissionMissing",
+};
 
 const STATUS_STYLE: Record<CustomerSuccessStatus, string> = {
   getting_started: "bg-slate-100 text-slate-700",
@@ -40,6 +57,7 @@ export function CustomerSuccessPanel({ labels }: Props) {
   const [data, setData] = useState<CustomerSuccessOverview | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [accessState, setAccessState] = useState<AppOrganizationContextState | null>(null);
   const [category, setCategory] = useState("");
   const [priority, setPriority] = useState("");
   const [successStatus, setSuccessStatus] = useState("");
@@ -59,8 +77,10 @@ export function CustomerSuccessPanel({ labels }: Props) {
     const res = await fetch(`/api/aipify/customer-success?${params}`);
     if (res.ok) {
       setData(parseCustomerSuccessOverview(await res.json()));
+      setAccessState(null);
     } else {
-      const body = (await res.json()) as { error?: string };
+      const body = (await res.json()) as { error?: string; access_state?: AppOrganizationContextState };
+      setAccessState(body.access_state ?? "access_denied");
       setError(body.error ?? labels.accessDenied);
       setData(null);
     }
@@ -89,10 +109,11 @@ export function CustomerSuccessPanel({ labels }: Props) {
   }
 
   if (error && !data?.found) {
+    const messageKey = accessState ? ACCESS_MESSAGES[accessState] : "accessDenied";
     return (
       <div className="mx-auto max-w-5xl space-y-4">
         <Link href="/app" className="text-sm font-medium text-indigo-700 hover:underline">← APP Dashboard</Link>
-        <p className="text-slate-600">{labels.accessDenied}</p>
+        <p className="text-slate-600">{labels[messageKey]}</p>
       </div>
     );
   }

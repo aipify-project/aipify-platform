@@ -12,6 +12,9 @@ export function buildCustomerSuccessLabels(t: Translator): CustomerSuccessLabels
     emptyBody: t(`${p}.emptyBody`),
     emptyCta: t(`${p}.emptyCta`),
     accessDenied: t(`${p}.accessDenied`),
+    organizationMissing: t(`${p}.organizationMissing`),
+    subscriptionRequired: t(`${p}.subscriptionRequired`),
+    permissionMissing: t(`${p}.permissionMissing`),
     filters: {
       search: t(`${p}.filters.search`),
       category: t(`${p}.filters.category`),

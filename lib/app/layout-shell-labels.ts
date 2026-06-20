@@ -25,6 +25,7 @@ export function buildLayoutLicensePanelLabels(t: Translator) {
     statusUnknown: t(`${p}.statusUnknown`),
     notConfigured: t(`${p}.notConfigured`),
     notAssigned: t(`${p}.notAssigned`),
+    organizationMissing: t(`${p}.organizationMissing`),
     pulseLabel: t("shell.branding.pulseLabel"),
   };
 }

@@ -12,7 +12,6 @@ import {
   getCachedValue,
   setCachedValue,
 } from "@/lib/polling";
-import { createClient } from "@/lib/supabase/client";
 
 type LicenseSidebarPanelProps = {
   labels: {
@@ -29,6 +28,7 @@ type LicenseSidebarPanelProps = {
     statusUnknown: string;
     notConfigured: string;
     notAssigned: string;
+    organizationMissing: string;
     pulseLabel: string;
   };
 };
@@ -42,9 +42,18 @@ type LicenseSummary = {
   has_customer: boolean;
 };
 
+type OrganizationContextState =
+  | "ready"
+  | "organization_missing"
+  | "membership_missing"
+  | "subscription_inactive"
+  | "access_denied"
+  | "user_not_provisioned";
+
 type LicenseCache = {
   workspaceName: string | null;
   summary: LicenseSummary | null;
+  contextState: OrganizationContextState | null;
 };
 
 const LICENSE_CACHE_KEY = "license-sidebar";
@@ -53,6 +62,9 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
   const cached = getCachedValue<LicenseCache>(LICENSE_CACHE_KEY);
   const [workspaceName, setWorkspaceName] = useState<string | null>(cached?.workspaceName ?? null);
   const [summary, setSummary] = useState<LicenseSummary | null>(cached?.summary ?? null);
+  const [contextState, setContextState] = useState<OrganizationContextState | null>(
+    cached?.contextState ?? null
+  );
   const licenseHref = resolveAppHref("/app/license");
   const { sidebarMark } = AIPIFY_BRAND;
 
@@ -61,54 +73,49 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
     if (hit) {
       setWorkspaceName(hit.workspaceName);
       setSummary(hit.summary);
+      setContextState(hit.contextState);
       return;
     }
 
     await dedupeFetch(LICENSE_CACHE_KEY, async () => {
-      const supabase = createClient();
-
-      const [orgRes, licenseRes] = await Promise.all([
-        fetch("/api/organizations"),
-        supabase.rpc("get_customer_license_center"),
-      ]);
-
+      const contextRes = await fetch("/api/app/organization-context");
       let nextWorkspace: string | null = null;
-      if (orgRes.ok) {
-        const orgData = (await orgRes.json()) as {
-          current?: { name?: string } | null;
-          organizations?: Array<{ name?: string }>;
-        };
-        nextWorkspace =
-          orgData.current?.name ??
-          orgData.organizations?.[0]?.name ??
-          null;
-      }
-
       let nextSummary: LicenseSummary | null = null;
-      const data = licenseRes.data;
-      if (data && typeof data === "object") {
-        const record = data as Record<string, unknown>;
-        const hasCustomer = record.has_customer === true;
+      let nextContextState: OrganizationContextState | null = null;
+
+      if (contextRes.ok) {
+        const context = (await contextRes.json()) as {
+          state?: OrganizationContextState;
+          workspace_name?: string | null;
+          licensed_to?: string | null;
+          plan_name?: string | null;
+          license_status?: string | null;
+          has_customer?: boolean;
+        };
+        nextContextState = context.state ?? null;
+        nextWorkspace = context.workspace_name?.trim() || null;
         nextSummary = {
-          has_customer: hasCustomer,
-          licensed_to:
-            typeof record.company_name === "string" ? record.company_name : null,
-          plan_name: (record.subscription as { plan_name?: string } | undefined)?.plan_name ?? null,
-          license_status: hasCustomer ? String(record.license_status ?? "active") : null,
-          software_version:
-            typeof record.software_version === "string" ? record.software_version : null,
-          software_owner:
-            typeof record.software_owner === "string" ? record.software_owner : null,
+          has_customer: context.has_customer === true,
+          licensed_to: context.licensed_to?.trim() || null,
+          plan_name: context.plan_name?.trim() || null,
+          license_status: context.license_status?.trim() || null,
+          software_version: "1.0.0",
+          software_owner: "Aipify Group AS",
         };
       }
 
       setCachedValue(
         LICENSE_CACHE_KEY,
-        { workspaceName: nextWorkspace, summary: nextSummary },
+        {
+          workspaceName: nextWorkspace,
+          summary: nextSummary,
+          contextState: nextContextState,
+        },
         CACHE_TTL_LICENSE_MS
       );
       setWorkspaceName(nextWorkspace);
       setSummary(nextSummary);
+      setContextState(nextContextState);
       return true;
     });
   }, []);
@@ -117,21 +124,38 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
     void load();
   }, [load]);
 
-  const statusLabel =
-    summary?.license_status === "grace_period"
+  const isOrganizationMissing =
+    contextState === "organization_missing" ||
+    contextState === "user_not_provisioned" ||
+    contextState === "membership_missing";
+
+  const statusLabel = isOrganizationMissing
+    ? labels.organizationMissing
+    : summary?.license_status === "grace_period"
       ? labels.statusGrace
       : summary?.license_status === "paused"
         ? labels.statusPaused
         : summary?.license_status === "active"
           ? labels.statusActive
-          : labels.statusUnknown;
+          : contextState === "subscription_inactive"
+            ? labels.statusPaused
+            : summary?.has_customer
+              ? labels.statusActive
+              : labels.organizationMissing;
 
-  const workspaceDisplay = workspaceName?.trim() || labels.notConfigured;
-  const licensedToDisplay =
-    summary?.licensed_to?.trim() ||
-    summary?.software_owner?.trim() ||
-    labels.notConfigured;
-  const planDisplay = summary?.plan_name?.trim() || labels.notAssigned;
+  const workspaceDisplay = workspaceName?.trim()
+    ? workspaceName
+    : isOrganizationMissing
+      ? labels.organizationMissing
+      : labels.notConfigured;
+  const licensedToDisplay = summary?.licensed_to?.trim()
+    ? summary.licensed_to
+    : isOrganizationMissing
+      ? labels.organizationMissing
+      : summary?.software_owner?.trim() || labels.notConfigured;
+  const planDisplay = isOrganizationMissing
+    ? labels.notAssigned
+    : summary?.plan_name?.trim() || labels.notAssigned;
 
   return (
     <Link

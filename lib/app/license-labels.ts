@@ -32,6 +32,7 @@ export function buildLicensePanelLabels(t: Translator) {
     statusUnknown: t("license.sidebar.statusUnknown"),
     notConfigured: t("license.sidebar.notConfigured"),
     notAssigned: t("license.sidebar.notAssigned"),
+    organizationMissing: t("shell.licenseSidebar.organizationMissing"),
     pulseLabel: t("branding.pulseLabel"),
   };
 }

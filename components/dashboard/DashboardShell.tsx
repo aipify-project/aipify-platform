@@ -74,6 +74,7 @@ type DashboardShellProps = {
     statusUnknown: string;
     notConfigured: string;
     notAssigned: string;
+    organizationMissing: string;
     pulseLabel: string;
   };
   presenceLabels?: PresenceLabels;

@@ -84,6 +84,9 @@ export type CustomerSuccessLabels = {
   emptyBody: string;
   emptyCta: string;
   accessDenied: string;
+  organizationMissing: string;
+  subscriptionRequired: string;
+  permissionMissing: string;
   filters: {
     search: string;
     category: string;
