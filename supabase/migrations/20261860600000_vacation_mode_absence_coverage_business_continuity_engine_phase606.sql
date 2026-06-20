@@ -780,6 +780,41 @@ begin
   on conflict (organization_id) do nothing;
 end; $$;
 
+create or replace function public._vac606_read_settings(p_org_id uuid)
+returns public.organization_vac606_settings
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+declare
+  v_row public.organization_vac606_settings;
+begin
+  select * into v_row
+  from public.organization_vac606_settings
+  where organization_id = p_org_id;
+
+  if found then
+    return v_row;
+  end if;
+
+  v_row.organization_id := p_org_id;
+  v_row.absence_center_enabled := true;
+  v_row.max_coverage_level := 3;
+  v_row.default_coverage_level := 2;
+  v_row.delegation_rules_enabled := true;
+  v_row.template_approval_required := true;
+  v_row.urgency_escalation_enabled := true;
+  v_row.audit_logging_required := true;
+  v_row.private_reasons_hidden := true;
+  v_row.approval_requirements_preserved := true;
+  v_row.mobile_summary_enabled := true;
+  v_row.metadata := '{}'::jsonb;
+  v_row.updated_at := now();
+  return v_row;
+end;
+$$;
+
 create or replace function public._vac606_partner_access()
 returns jsonb language plpgsql stable security definer set search_path = public as $$
 declare v_profile public.growth_partner_app_profiles;
@@ -1060,8 +1095,7 @@ begin
   v_org_id := public._vac606_org();
   if v_org_id is null then return jsonb_build_object('found', false, 'error', 'Organization not found'); end if;
   v_section := public._vac606_normalize_section(p_section);
-  perform public._vac606_seed(v_org_id);
-  select * into v_settings from public.organization_vac606_settings where organization_id = v_org_id;
+  v_settings := public._vac606_read_settings(v_org_id);
 
   select count(*) into v_active_modes from public.organization_vac606_active_modes
     where organization_id = v_org_id and mode_status in ('active', 'scheduled');
@@ -1263,8 +1297,7 @@ begin
   v_org_id := public._vac606_org();
   if v_org_id is null then return jsonb_build_object('found', false, 'error', 'Organization not found'); end if;
   v_section := public._vac606_normalize_section(p_section);
-  perform public._vac606_seed(v_org_id);
-  select * into v_settings from public.organization_vac606_settings where organization_id = v_org_id;
+  v_settings := public._vac606_read_settings(v_org_id);
 
   return jsonb_build_object(
     'found', true, 'section', v_section,

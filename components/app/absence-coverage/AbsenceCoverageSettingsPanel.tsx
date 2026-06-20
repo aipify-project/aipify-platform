@@ -33,14 +33,21 @@ export function AbsenceCoverageSettingsPanel({
 }) {
   const [data, setData] = useState<ReturnType<typeof parseAbsenceCenter> | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
+    setLoadError(null);
     const res = await fetch(apiBase);
-    if (res.ok) setData(parseAbsenceCenter(await res.json()));
-    else setData(null);
+    if (res.ok) {
+      setData(parseAbsenceCenter(await res.json()));
+    } else {
+      const body = (await res.json().catch(() => ({}))) as { error?: string };
+      setData(null);
+      setLoadError(body.error ?? labels.empty);
+    }
     setLoading(false);
-  }, [apiBase]);
+  }, [apiBase, labels.empty]);
 
   useEffect(() => {
     void load();
@@ -52,6 +59,16 @@ export function AbsenceCoverageSettingsPanel({
         <AipifyLoader centered />
         <span className="sr-only">{labels.loading}</span>
       </div>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <PlatformEmptyState
+        title={labels.empty}
+        message={loadError}
+        primaryAction={{ label: labels.refresh, onClick: () => void load() }}
+      />
     );
   }
 

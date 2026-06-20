@@ -1,4 +1,11 @@
 import { NextResponse } from "next/server";
+import {
+  isDatabaseExecutionError,
+  requireOrganizationViewPermission,
+  requireReadyAppPortalContext,
+  rpcErrorStatus,
+} from "@/lib/tenant/app-portal-route-access";
+import { classifyAppPortalError } from "@/lib/tenant/resolve-app-organization-context";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
@@ -11,10 +18,43 @@ export async function GET(request: Request) {
     } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const { data, error } = await supabase.rpc("get_organization_absence_settings", { p_section: section });
-    if (error) return NextResponse.json({ found: false, error: error.message }, { status: 400 });
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
+
+    const permission = await requireOrganizationViewPermission(
+      supabase,
+      "absence.view",
+      "absence.manage"
+    );
+    if (!permission.ok) return permission.response;
+
+    const { data, error } = await supabase.rpc("get_organization_absence_settings", {
+      p_section: section,
+    });
+    if (error) throw new Error(error.message);
+
+    if (data?.found === false && !data?.error) {
+      return NextResponse.json(data, { status: 200 });
+    }
+    if (data?.found === false && data?.error) {
+      const message = String(data.error);
+      const access_state = classifyAppPortalError(message);
+      return NextResponse.json(
+        { ...data, access_state },
+        { status: rpcErrorStatus(message, access_state) }
+      );
+    }
+
     return NextResponse.json(data);
-  } catch {
-    return NextResponse.json({ error: "Failed to load Absence settings" }, { status: 500 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to load Absence settings";
+    const access_state = isDatabaseExecutionError(message)
+      ? "database_execution_error"
+      : classifyAppPortalError(message);
+    console.error("[absence/settings]", message);
+    return NextResponse.json(
+      { error: message, access_state, found: false },
+      { status: rpcErrorStatus(message, access_state) }
+    );
   }
 }
