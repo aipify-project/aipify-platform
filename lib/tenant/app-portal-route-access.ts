@@ -13,7 +13,10 @@ export function isDatabaseExecutionError(message: string): boolean {
     lower.includes("read-only transaction") ||
     lower.includes("cannot execute insert") ||
     lower.includes("cannot execute update") ||
-    lower.includes("cannot execute delete")
+    lower.includes("cannot execute delete") ||
+    lower.includes("insert is not allowed in a non-volatile function") ||
+    lower.includes("update is not allowed in a non-volatile function") ||
+    lower.includes("delete is not allowed in a non-volatile function")
   );
 }
 

@@ -75,6 +75,17 @@ revoke all on public.app_portal_business_pack_recommendation_views from authenti
 revoke all on public.app_portal_business_pack_comparison_history from authenticated, anon;
 revoke all on public.app_portal_business_pack_recommendation_audit_logs from authenticated, anon;
 
+insert into public.app_portal_business_pack_recommendation_state (company_id)
+select c.id
+from public.companies c
+where exists (select 1 from public.customers cu where cu.company_id = c.id)
+  and not exists (
+    select 1
+    from public.app_portal_business_pack_recommendation_state rs
+    where rs.company_id = c.id
+  )
+on conflict (company_id) do nothing;
+
 create or replace function public._abpre302_access_context()
 returns jsonb
 language plpgsql
@@ -323,10 +334,6 @@ begin
   v_company_id := (v_ctx->>'company_id')::uuid;
   v_user_id := (v_ctx->>'user_id')::uuid;
 
-  insert into public.app_portal_business_pack_recommendation_state (company_id, updated_by)
-  values (v_company_id, v_user_id)
-  on conflict (company_id) do update set updated_at = now(), updated_by = v_user_id;
-
   v_items := public._abpre302_build_recommendations(v_company_id, v_user_id);
   v_filtered := public._abpre302_filter_items(
     v_items, p_industry, p_category, p_complexity, p_business_impact,
@@ -408,9 +415,6 @@ begin
   if v_pack is null then
     return jsonb_build_object('found', false);
   end if;
-
-  insert into public.app_portal_business_pack_recommendation_views (company_id, pack_key, viewed_by)
-  values (v_company_id, p_pack_key, v_user_id);
 
   select r into v_item
   from jsonb_array_elements(public._abpre302_build_recommendations(v_company_id, v_user_id)) r
@@ -512,7 +516,7 @@ $$;
 create or replace function public.compare_app_portal_business_pack_recommendations(p_pack_keys jsonb)
 returns jsonb
 language plpgsql
-stable
+volatile
 security definer
 set search_path = public
 as $$
