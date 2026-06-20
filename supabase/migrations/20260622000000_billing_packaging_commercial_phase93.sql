@@ -526,21 +526,24 @@ declare
   v_health jsonb;
   v_analytics jsonb;
   v_sub record;
-  v_billing record;
+  v_payment_method text := 'invoice';
 begin
   v_tenant_id := public._bpc_require_tenant();
-  v_settings := public._bpc_ensure_settings(v_tenant_id);
-  perform public.sync_tenant_modules_from_package(v_tenant_id);
-  perform public._bpc_seed_catalog(v_tenant_id);
-  perform public._bpc_seed_renewals(v_tenant_id);
-  perform public._bpc_seed_partner_commissions(v_tenant_id);
+  select * into v_settings from public.commercial_model_settings where tenant_id = v_tenant_id;
+  if not found then
+    v_settings.tenant_id := v_tenant_id;
+    v_settings.self_service_enabled := true;
+    v_settings.trials_enabled := true;
+    v_settings.partner_billing_enabled := true;
+    v_settings.global_billing_enabled := true;
+    v_settings.downgrade_grace_days := 14;
+    v_settings.currency := 'EUR';
+  end if;
   v_tier := public._bpc_resolve_tier(v_tenant_id);
   v_health := public._bpc_calculate_health(v_tenant_id);
   v_analytics := public._bpc_commercial_analytics(v_tenant_id);
-  perform public._bpc_trust_explanation(v_tenant_id, (v_health->>'health_score')::numeric, v_tier);
 
   select * into v_sub from public.subscriptions where customer_id = v_tenant_id limit 1;
-  select * into v_billing from public.billing_profiles where customer_id = v_tenant_id limit 1;
 
   return jsonb_build_object(
     'has_customer', true,
@@ -564,7 +567,7 @@ begin
     'currency', coalesce(v_analytics->>'currency', v_settings.currency),
     'billing_cycle', v_analytics->'billing_cycle',
     'subscription_status', coalesce(v_sub.status, 'trialing'),
-    'payment_method', coalesce(v_billing.payment_method, 'invoice'),
+    'payment_method', v_payment_method,
     'packaging_layers', jsonb_build_array(
       jsonb_build_object('layer', 'core_platform', 'label', 'Core Platform'),
       jsonb_build_object('layer', 'business_pack', 'label', 'Business Packs'),

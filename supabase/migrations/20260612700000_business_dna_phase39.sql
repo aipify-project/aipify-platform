@@ -1096,7 +1096,12 @@ begin
   v_tenant_id := public._presence_tenant_for_auth();
   if v_tenant_id is null then return jsonb_build_object('has_customer', false); end if;
 
-  v_profile := public.ensure_business_dna_profile(v_tenant_id);
+  select * into v_profile from public.business_dna_profiles where tenant_id = v_tenant_id;
+  if not found then
+    select coalesce(c.company_name, '') into v_profile.company_name from public.customers c where c.id = v_tenant_id;
+    v_profile.tenant_id := v_tenant_id;
+    v_profile.profile_status := 'draft';
+  end if;
   select * into v_settings from public.bde_settings where tenant_id = v_tenant_id;
   v_health := public.calculate_business_dna_health(v_tenant_id);
 

@@ -1,4 +1,11 @@
 import { NextResponse } from "next/server";
+import {
+  isDatabaseExecutionError,
+  requireOrganizationViewPermission,
+  requireReadyAppPortalContext,
+  rpcErrorStatus,
+} from "@/lib/tenant/app-portal-route-access";
+import { classifyAppPortalError } from "@/lib/tenant/resolve-app-organization-context";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET() {
@@ -9,12 +16,40 @@ export async function GET() {
     } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
+
+    const permission = await requireOrganizationViewPermission(
+      supabase,
+      "business_dna.view",
+      "business_dna.manage"
+    );
+    if (!permission.ok) return permission.response;
+
     const { data, error } = await supabase.rpc("get_customer_business_dna_center");
-    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+    if (error) {
+      const message = error.message;
+      const access_state = isDatabaseExecutionError(message)
+        ? "database_execution_error"
+        : classifyAppPortalError(message);
+      console.error("[business-dna/profile]", message);
+      return NextResponse.json(
+        { error: message, access_state, found: false },
+        { status: rpcErrorStatus(message, access_state) }
+      );
+    }
 
     return NextResponse.json(data);
-  } catch {
-    return NextResponse.json({ error: "Business DNA profile request failed" }, { status: 500 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Business DNA profile request failed";
+    const access_state = isDatabaseExecutionError(message)
+      ? "database_execution_error"
+      : classifyAppPortalError(message);
+    console.error("[business-dna/profile]", message);
+    return NextResponse.json(
+      { error: message, access_state, found: false },
+      { status: rpcErrorStatus(message, access_state) }
+    );
   }
 }
 
@@ -25,6 +60,15 @@ export async function PATCH(request: Request) {
       data: { user },
     } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
+
+    const permission = await requireOrganizationViewPermission(
+      supabase,
+      "business_dna.manage"
+    );
+    if (!permission.ok) return permission.response;
 
     const body = (await request.json()) as Record<string, unknown>;
 
@@ -75,6 +119,15 @@ export async function POST(request: Request) {
       data: { user },
     } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
+
+    const permission = await requireOrganizationViewPermission(
+      supabase,
+      "business_dna.manage"
+    );
+    if (!permission.ok) return permission.response;
 
     const body = (await request.json()) as { action?: string };
     if (body.action === "seed_from_install") {

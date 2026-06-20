@@ -48,13 +48,16 @@ export function LearningReviewCenterPanel({ locale, labels }: LearningReviewCent
   const [saved, setSaved] = useState(false);
 
   const refresh = useCallback(async () => {
-    const supabase = createClient();
-    const { data, error } = await supabase.rpc("get_customer_learning_center");
-    if (!error && data?.has_customer) {
-      const next = data as LearningCenterBundle;
-      setBundle(next);
-      setMode(next.learning_mode ?? "assisted");
-      setAdaptiveConsent(next.adaptive_consent ?? false);
+    setLoading(true);
+    const res = await fetch("/api/learning/review");
+    if (res.ok) {
+      const data = await res.json();
+      if (data?.has_customer) {
+        const next = data as LearningCenterBundle;
+        setBundle(next);
+        setMode(next.learning_mode ?? "assisted");
+        setAdaptiveConsent(next.adaptive_consent ?? false);
+      }
     }
     setLoading(false);
   }, []);

@@ -476,7 +476,6 @@ returns jsonb language plpgsql stable security definer set search_path = public 
 declare v_tenant_id uuid;
 begin
   v_tenant_id := public._lrn_require_tenant();
-  perform public._lrn_ensure_settings(v_tenant_id);
 
   return jsonb_build_object(
     'has_customer', true,

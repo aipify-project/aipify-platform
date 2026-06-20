@@ -12,11 +12,24 @@ export function QualitySettingsPanel({ labels }: QualitySettingsPanelProps) {
   const [settings, setSettings] = useState<QualitySettings | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [upgradeRequired, setUpgradeRequired] = useState(false);
+  const [accessState, setAccessState] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
     setLoading(true);
     const res = await fetch("/api/aipify/quality/settings");
-    if (res.ok) setSettings(parseQualitySettings(await res.json()));
+    if (res.ok) {
+      setUpgradeRequired(false);
+      setAccessState(null);
+      setSettings(parseQualitySettings(await res.json()));
+    } else {
+      const body = (await res.json().catch(() => null)) as Record<string, unknown> | null;
+      if (body?.upgrade_required || body?.access_state) {
+        setUpgradeRequired(true);
+        setAccessState(String(body.access_state ?? "entitlement_missing"));
+        setSettings(null);
+      }
+    }
     setLoading(false);
   }, []);
 
@@ -35,7 +48,23 @@ export function QualitySettingsPanel({ labels }: QualitySettingsPanelProps) {
     setSaving(false);
   }
 
-  if (loading || !settings) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+  if (loading) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
+
+  if (upgradeRequired) {
+    return (
+      <div className="mx-auto max-w-3xl space-y-4 p-6">
+        <h1 className="text-2xl font-semibold">{labels.title}</h1>
+        <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+          <p className="font-medium">{labels.upgradeTitle ?? "Upgrade required"}</p>
+          <p className="mt-2">{labels.upgradeBody ?? "Quality Guardian is available on Business and Enterprise plans, or with an active Quality Guardian Business Pack."}</p>
+          {accessState ? <p className="mt-2 text-xs uppercase tracking-wide text-amber-700">{accessState}</p> : null}
+        </div>
+        <Link href="/app/settings/billing" className="text-sm text-violet-700">{labels.upgradeCta ?? "View billing options"}</Link>
+      </div>
+    );
+  }
+
+  if (!settings) return <div className="p-6 text-sm text-gray-600">{labels.loading}</div>;
 
   return (
     <div className="mx-auto max-w-3xl space-y-4 p-6">

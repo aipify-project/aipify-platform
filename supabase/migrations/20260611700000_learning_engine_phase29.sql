@@ -241,7 +241,11 @@ begin
     return jsonb_build_object('has_customer', false);
   end if;
 
-  v_settings := public.ensure_customer_learning_settings(v_tenant_id);
+  select * into v_settings from public.customer_learning_settings where tenant_id = v_tenant_id;
+  if not found then
+    v_settings.tenant_id := v_tenant_id;
+    v_settings.learning_mode := 'assisted';
+  end if;
   v_limits := public.get_customer_license_limits(v_tenant_id);
   v_plan := coalesce(v_limits ->> 'plan', 'starter');
 

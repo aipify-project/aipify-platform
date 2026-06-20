@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { parseLearningEngineDashboard } from "@/lib/aipify/learning-engine/parse";
 import {
   isDatabaseExecutionError,
   requireOrganizationViewPermission,
@@ -21,60 +22,34 @@ export async function GET() {
 
     const permission = await requireOrganizationViewPermission(
       supabase,
-      "governance.view",
-      "governance.manage"
+      "learning.view",
+      "learning.manage"
     );
     if (!permission.ok) return permission.response;
 
-    const { data, error } = await supabase.rpc("get_governance_settings");
+    const { data, error } = await supabase.rpc("get_learning_engine_dashboard");
     if (error) {
       const message = error.message;
       const access_state = isDatabaseExecutionError(message)
         ? "database_execution_error"
         : classifyAppPortalError(message);
-      console.error("[aipify/governance/settings]", message);
+      console.error("[aipify/learning-engine/dashboard]", message);
       return NextResponse.json(
         { error: message, access_state, found: false },
         { status: rpcErrorStatus(message, access_state) }
       );
     }
 
-    return NextResponse.json(data);
+    return NextResponse.json(parseLearningEngineDashboard(data));
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Settings request failed";
+    const message = err instanceof Error ? err.message : "Failed to load learning dashboard";
     const access_state = isDatabaseExecutionError(message)
       ? "database_execution_error"
       : classifyAppPortalError(message);
-    console.error("[aipify/governance/settings]", message);
+    console.error("[aipify/learning-engine/dashboard]", message);
     return NextResponse.json(
       { error: message, access_state, found: false },
       { status: rpcErrorStatus(message, access_state) }
     );
-  }
-}
-
-export async function PATCH(request: Request) {
-  try {
-    const supabase = await createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-    const access = await requireReadyAppPortalContext(supabase);
-    if (!access.ok) return access.response;
-
-    const permission = await requireOrganizationViewPermission(
-      supabase,
-      "governance.manage"
-    );
-    if (!permission.ok) return permission.response;
-
-    const body = await request.json();
-    const { data, error } = await supabase.rpc("update_governance_settings", { p_patch: body });
-    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
-    return NextResponse.json(data);
-  } catch {
-    return NextResponse.json({ error: "Settings update failed" }, { status: 500 });
   }
 }

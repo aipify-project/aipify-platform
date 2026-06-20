@@ -353,8 +353,16 @@ begin
     return jsonb_build_object('has_customer', false, 'has_access', false, 'upgrade_required', false);
   end if;
 
-  v_settings := public.ensure_tacc_governance_settings(v_tenant_id);
-  perform public.seed_tacc_action_permissions(v_tenant_id);
+  select * into v_settings from public.aipify_governance_settings where tenant_id = v_tenant_id;
+  if not found then
+    v_settings.tenant_id := v_tenant_id;
+    v_settings.governance_mode := 'safe';
+    v_settings.approval_defaults := '{"require_medium_risk": true, "require_high_risk": true}'::jsonb;
+    v_settings.emergency_controls_enabled := true;
+    v_settings.explainability_enabled := true;
+    v_settings.trust_scoring_enabled := true;
+    v_settings.audit_retention_days := 365;
+  end if;
 
   return jsonb_build_object(
     'has_customer', true,

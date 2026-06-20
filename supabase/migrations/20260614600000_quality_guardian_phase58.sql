@@ -705,8 +705,28 @@ language plpgsql stable security definer set search_path = public
 as $$
 declare v_tenant_id uuid; v_row public.aipify_quality_settings;
 begin
-  v_tenant_id := public._qg_require_access();
-  v_row := public._qg_ensure_settings(v_tenant_id);
+  v_tenant_id := public._presence_tenant_for_auth();
+  if v_tenant_id is null then return jsonb_build_object('has_customer', false); end if;
+  if not public._qg_package_allows(v_tenant_id) then
+    return jsonb_build_object(
+      'has_customer', true,
+      'has_access', false,
+      'access_state', 'plan_required',
+      'upgrade_required', true,
+      'message', 'Quality Guardian is available on Business and Enterprise plans, or with an active Quality Guardian Business Pack.'
+    );
+  end if;
+  select * into v_row from public.aipify_quality_settings where tenant_id = v_tenant_id;
+  if not found then
+    v_row.tenant_id := v_tenant_id;
+    v_row.observation_mode := true;
+    v_row.auto_fix_enabled := false;
+    v_row.notify_developers := true;
+    v_row.create_admin_tasks := true;
+    v_row.open_knowledge_gaps := true;
+    v_row.scan_interval_hours := 24;
+    v_row.enabled_scanners := '["link_monitor","journey_monitor","integration_monitor","workflow_validator","translation_monitor","mobile_monitor"]'::jsonb;
+  end if;
   return jsonb_build_object(
     'observation_mode', v_row.observation_mode,
     'auto_fix_enabled', v_row.auto_fix_enabled,
