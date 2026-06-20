@@ -19,6 +19,37 @@ type Props = {
   className?: string;
 };
 
+function optionButtonClass({
+  variant,
+  selected,
+  verified,
+}: {
+  variant: "light" | "dark";
+  selected: boolean;
+  verified: boolean;
+}) {
+  const base =
+    "flex shrink-0 items-center justify-center rounded-[13px] border text-lg transition focus:outline-none focus:ring-2 focus:ring-aipify-focus focus:ring-offset-2 disabled:cursor-not-allowed h-[60px] w-[72px] sm:h-[64px] sm:w-[84px] sm:text-xl";
+
+  if (variant === "dark") {
+    if (selected && verified) {
+      return `${base} border-emerald-400/70 bg-emerald-500/15 text-white`;
+    }
+    if (selected) {
+      return `${base} border-aipify-companion bg-violet-500/20 text-white`;
+    }
+    return `${base} border-white/15 bg-white/5 text-white hover:border-cyan-400/50 hover:bg-white/10`;
+  }
+
+  if (selected && verified) {
+    return `${base} border-emerald-500 bg-emerald-50 text-aipify-text`;
+  }
+  if (selected) {
+    return `${base} border-aipify-companion bg-aipify-accent-soft text-aipify-text`;
+  }
+  return `${base} border-aipify-border bg-aipify-surface-muted text-aipify-text hover:border-aipify-accent hover:bg-aipify-accent-soft/50`;
+}
+
 export function AipifyHumanVerification({
   labels,
   onVerified,
@@ -53,17 +84,8 @@ export function AipifyHumanVerification({
 
   const cardClass =
     variant === "dark"
-      ? "rounded-2xl border border-white/10 bg-white/[0.04] p-4"
-      : `${AipifyShellClasses.surfaceCard} p-4`;
-
-  const optionClass = (active: boolean) =>
-    variant === "dark"
-      ? `flex h-16 items-center justify-center rounded-xl border text-2xl transition ${
-          active ? "border-cyan-400 bg-cyan-500/20" : "border-white/10 bg-white/5 hover:border-cyan-500/40"
-        }`
-      : `flex h-16 items-center justify-center rounded-xl border text-2xl transition ${
-          active ? "border-aipify-companion bg-aipify-accent-soft" : "border-aipify-border bg-aipify-surface-muted hover:border-aipify-accent"
-        }`;
+      ? "rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-5 sm:px-7 sm:py-6"
+      : `${AipifyShellClasses.surfaceCard} px-5 py-5 sm:px-7 sm:py-6`;
 
   const targetLabel = useMemo(() => {
     if (!challenge) return "";
@@ -100,37 +122,71 @@ export function AipifyHumanVerification({
   return (
     <div className={`${cardClass} ${className}`} aria-live="polite">
       <p className="text-sm font-medium text-aipify-text">{labels.title}</p>
-      <p className="mt-1 text-xs text-aipify-text-secondary">{labels.description}</p>
-      <div className="mt-4 flex items-center justify-center gap-3">
-        <span className="text-xs uppercase tracking-wide text-aipify-text-muted">{labels.selectMatching}</span>
-        <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-aipify-companion text-2xl text-white" aria-hidden="true">
+      <p className="mt-1.5 text-xs leading-relaxed text-aipify-text-secondary">{labels.description}</p>
+
+      <div className="mt-5 flex flex-col items-center text-center">
+        <p id="verification-match-instruction" className="text-xs font-medium uppercase tracking-wide text-aipify-text-secondary">
+          {labels.selectMatching}
+        </p>
+        <div
+          className="mt-3.5 flex h-[52px] w-[52px] items-center justify-center rounded-[13px] bg-aipify-companion text-lg text-white sm:h-14 sm:w-14 sm:text-xl"
+          aria-hidden="true"
+        >
           {targetLabel}
-        </span>
+        </div>
       </div>
-      <div className="mt-4 grid grid-cols-4 gap-2">
-        {challenge.options.map((opt, index) => (
-          <button
-            key={opt.id}
-            type="button"
-            aria-label={`Option ${index + 1}`}
-            disabled={state === "verified" && selected !== index}
-            onClick={() => handleSelect(index)}
-            className={optionClass(selected === index)}
-            style={{ transform: `rotate(${opt.rotation}deg)` }}
-          >
-            {shapeGlyph(opt.shape)}
-          </button>
-        ))}
+
+      <div
+        className="mt-4 grid grid-cols-2 justify-items-center gap-2.5 sm:flex sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3 md:gap-4"
+        role="group"
+        aria-labelledby="verification-match-instruction"
+      >
+        {challenge.options.map((opt, index) => {
+          const isSelected = selected === index;
+          return (
+            <button
+              key={opt.id}
+              type="button"
+              aria-label={labels.shapes[opt.shape]}
+              aria-pressed={isSelected}
+              disabled={state === "verified" && !isSelected}
+              onClick={() => handleSelect(index)}
+              className={optionButtonClass({ variant, selected: isSelected, verified: state === "verified" })}
+            >
+              <span style={{ transform: `rotate(${opt.rotation}deg)` }} aria-hidden="true">
+                {shapeGlyph(opt.shape)}
+              </span>
+              {isSelected && state === "verified" ? (
+                <span className="sr-only">{labels.verified}</span>
+              ) : null}
+            </button>
+          );
+        })}
       </div>
+
       {state === "verified" ? (
-        <p className="mt-3 text-xs font-medium text-emerald-700">{labels.verified}</p>
+        <p className="mt-3 text-center text-xs font-medium text-emerald-700" role="status">
+          <span aria-hidden="true">✅ </span>
+          {labels.verified}
+        </p>
       ) : null}
       {state === "failed" ? (
-        <p className="mt-3 text-xs font-medium text-red-700">{labels.failed}</p>
+        <p className="mt-3 text-center text-xs font-medium text-red-700" role="alert">
+          <span aria-hidden="true">❌ </span>
+          {labels.failed}
+        </p>
       ) : null}
-      <button type="button" onClick={handleRefresh} className={`mt-3 text-xs ${AipifyShellClasses.link}`}>
-        {labels.refresh}
-      </button>
+
+      <div className="mt-3 flex justify-center sm:mt-4">
+        <button
+          type="button"
+          onClick={handleRefresh}
+          className={`inline-flex items-center gap-1.5 rounded px-2 py-1 text-xs font-medium ${AipifyShellClasses.link} focus:outline-none focus:ring-2 focus:ring-aipify-focus`}
+        >
+          <span aria-hidden="true">↻</span>
+          {labels.refresh}
+        </button>
+      </div>
     </div>
   );
 }

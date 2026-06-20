@@ -71,4 +71,5 @@ export type HumanVerificationLabels = {
   failed: string;
   required: string;
   refresh: string;
+  shapes: Record<"diamond" | "circle" | "triangle" | "square" | "star", string>;
 };

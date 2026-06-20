@@ -48,6 +48,7 @@ export function buildSystemNoticeLabels(t: Translator): SystemNoticeLabels {
 
 export function buildHumanVerificationLabels(t: Translator): HumanVerificationLabels {
   const p = "common.humanVerification";
+  const shapeKeys = ["diamond", "circle", "triangle", "square", "star"] as const;
   return {
     title: t(`${p}.title`),
     description: t(`${p}.description`),
@@ -57,5 +58,6 @@ export function buildHumanVerificationLabels(t: Translator): HumanVerificationLa
     failed: t(`${p}.failed`),
     required: t(`${p}.required`),
     refresh: t(`${p}.refresh`),
+    shapes: Object.fromEntries(shapeKeys.map((key) => [key, t(`${p}.shapes.${key}`)])) as HumanVerificationLabels["shapes"],
   };
 }

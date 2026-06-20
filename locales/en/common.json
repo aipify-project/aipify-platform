@@ -164,6 +164,13 @@
     "verified": "Verification complete",
     "failed": "Verification failed. Try again.",
     "required": "Verification required before submitting.",
-    "refresh": "New challenge"
+    "refresh": "New challenge",
+    "shapes": {
+      "diamond": "Select diamond",
+      "circle": "Select circle",
+      "triangle": "Select triangle",
+      "square": "Select square",
+      "star": "Select star"
+    }
   }
 }

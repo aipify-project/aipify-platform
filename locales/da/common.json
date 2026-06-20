@@ -164,6 +164,13 @@
     "verified": "Verificering fuldført",
     "failed": "Verificering mislykkedes. Prøv igen.",
     "required": "Verificering påkrævet før indsendelse.",
-    "refresh": "Ny udfordring"
+    "refresh": "Ny udfordring",
+    "shapes": {
+      "diamond": "Vælg diamant",
+      "circle": "Vælg cirkel",
+      "triangle": "Vælg trekant",
+      "square": "Vælg kvadrat",
+      "star": "Vælg stjerne"
+    }
   }
 }
