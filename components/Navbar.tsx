@@ -73,7 +73,7 @@ export default function Navbar({
             {bookDemo}
           </a>
           <Link
-            href="/dashboard"
+            href="/app"
             className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900"
           >
             {controlCenter}
@@ -133,7 +133,7 @@ export default function Navbar({
               {bookDemo}
             </a>
             <Link
-              href="/dashboard"
+              href="/app"
               className="rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
               onClick={() => setMenuOpen(false)}
             >

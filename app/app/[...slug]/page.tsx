@@ -10,6 +10,6 @@ export default async function AppCatchAllPage({ params }: AppPageProps) {
 
   const canonical = `/app/${slug.join("/")}`;
   const target = APP_ROUTE_ALIASES[canonical];
-  if (target) redirect(target);
+  if (target && target !== canonical) redirect(target);
   redirect("/app");
 }

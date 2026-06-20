@@ -16,49 +16,18 @@ export type CustomerNavItem = {
   labelKey: string;
 };
 
+/** Legacy shell nav — hrefs point at canonical /app routes (redirects handle /dashboard/* bookmarks). */
 export const CUSTOMER_CONTROL_CENTER_NAV: CustomerNavItem[] = [
-  { id: "overview", href: "/dashboard", labelKey: "dashboard.nav.overview" },
-  {
-    id: "assistant",
-    href: "/dashboard/assistant",
-    labelKey: "dashboard.nav.assistant",
-  },
-  {
-    id: "install",
-    href: "/dashboard/installs",
-    labelKey: "dashboard.nav.install",
-  },
-  {
-    id: "support",
-    href: "/dashboard/support",
-    labelKey: "dashboard.nav.support",
-  },
-  {
-    id: "analytics",
-    href: "/dashboard/analytics",
-    labelKey: "dashboard.nav.analytics",
-  },
-  {
-    id: "commerce",
-    href: "/dashboard/commerce",
-    labelKey: "dashboard.nav.commerce",
-  },
-  {
-    id: "notifications",
-    href: "/dashboard/notifications",
-    labelKey: "dashboard.nav.notifications",
-  },
-  { id: "team", href: "/dashboard/team", labelKey: "dashboard.nav.team" },
-  {
-    id: "billing",
-    href: "/dashboard/billing",
-    labelKey: "dashboard.nav.billing",
-  },
-  {
-    id: "settings",
-    href: "/dashboard/settings",
-    labelKey: "dashboard.nav.settings",
-  },
+  { id: "overview", href: "/app", labelKey: "dashboard.nav.overview" },
+  { id: "assistant", href: "/app/assistant", labelKey: "dashboard.nav.assistant" },
+  { id: "install", href: "/app/installations", labelKey: "dashboard.nav.install" },
+  { id: "support", href: "/app/support/history", labelKey: "dashboard.nav.support" },
+  { id: "analytics", href: "/app/analytics", labelKey: "dashboard.nav.analytics" },
+  { id: "commerce", href: "/app/commerce", labelKey: "dashboard.nav.commerce" },
+  { id: "notifications", href: "/app/notifications", labelKey: "dashboard.nav.notifications" },
+  { id: "team", href: "/app/team", labelKey: "dashboard.nav.team" },
+  { id: "billing", href: "/app/billing", labelKey: "dashboard.nav.billing" },
+  { id: "settings", href: "/app/settings", labelKey: "dashboard.nav.settings" },
 ];
 
 export const CUSTOMER_MOBILE_NAV_IDS: CustomerNavId[] = [
@@ -70,14 +39,17 @@ export const CUSTOMER_MOBILE_NAV_IDS: CustomerNavId[] = [
 ];
 
 export function getCustomerActiveNavId(pathname: string): CustomerNavId {
-  if (pathname.startsWith("/dashboard/installs")) return "install";
-  if (pathname.startsWith("/dashboard/assistant")) return "assistant";
-  if (pathname.startsWith("/dashboard/support")) return "support";
-  if (pathname.startsWith("/dashboard/analytics")) return "analytics";
-  if (pathname.startsWith("/dashboard/commerce")) return "commerce";
-  if (pathname.startsWith("/dashboard/notifications")) return "notifications";
-  if (pathname.startsWith("/dashboard/team")) return "team";
-  if (pathname.startsWith("/dashboard/billing")) return "billing";
-  if (pathname.startsWith("/dashboard/settings")) return "settings";
+  const normalized =
+    pathname.startsWith("/dashboard/") ? `/app${pathname.slice("/dashboard".length)}` : pathname;
+
+  if (normalized.startsWith("/app/installations") || normalized.startsWith("/app/install")) return "install";
+  if (normalized.startsWith("/app/assistant")) return "assistant";
+  if (normalized.startsWith("/app/support")) return "support";
+  if (normalized.startsWith("/app/analytics")) return "analytics";
+  if (normalized.startsWith("/app/commerce")) return "commerce";
+  if (normalized.startsWith("/app/notifications")) return "notifications";
+  if (normalized.startsWith("/app/team")) return "team";
+  if (normalized.startsWith("/app/billing")) return "billing";
+  if (normalized.startsWith("/app/settings")) return "settings";
   return "overview";
 }

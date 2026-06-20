@@ -14,7 +14,7 @@ export default function DashboardAuthGuard({
 }: DashboardAuthGuardProps) {
   const { checking, authenticated } = usePortalAuthGuard({
     loginPath: "/login",
-    nextPath: "/dashboard",
+    nextPath: "/app",
   });
 
   if (checking) {

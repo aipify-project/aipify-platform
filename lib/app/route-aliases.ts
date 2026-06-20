@@ -1,13 +1,11 @@
 /**
- * Maps canonical /app routes to legacy /dashboard routes during Layer 2 migration.
- * Remove entries as pages move from app/dashboard/ to app/app/.
+ * In-app route aliases — canonical /app paths only.
+ * Legacy /dashboard/* URLs redirect via lib/app/legacy-dashboard-redirects.ts.
  */
 export const APP_ROUTE_ALIASES: Record<string, string> = {
   "/app/pause-reflection-protocol": "/app/wisdom-intervention-protocol",
-  "/app/support": "/dashboard/support",
-  "/app/billing": "/dashboard/billing",
-  "/app/analytics": "/dashboard/analytics",
   "/app/settings/security": "/app/security",
+  "/app/support": "/app/support/history",
 };
 
 export function resolveAppHref(canonicalHref: string): string {

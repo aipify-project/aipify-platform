@@ -139,7 +139,7 @@ export default function CustomerDomainsSettingsPanel({
           <h3 className="text-base font-semibold text-gray-900">{labels.addDomain}</h3>
           {!allowAdd && license.has_subscription && (
             <Link
-              href="/dashboard/billing"
+              href="/app/billing"
               className="text-sm font-semibold text-violet-600 hover:text-violet-700"
             >
               {labels.upgrade} →

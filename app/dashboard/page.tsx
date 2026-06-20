@@ -10,12 +10,12 @@ export default async function DashboardPage() {
   const t = createTranslator(dict);
 
   const modules = [
-    { href: "/dashboard/assistant", titleKey: "dashboard.nav.assistant", descKey: "dashboard.customerOverview.modules.assistant" },
-    { href: "/dashboard/installs", titleKey: "dashboard.nav.install", descKey: "dashboard.customerOverview.modules.install" },
-    { href: "/dashboard/support", titleKey: "dashboard.nav.support", descKey: "dashboard.customerOverview.modules.support" },
-    { href: "/dashboard/analytics", titleKey: "dashboard.nav.analytics", descKey: "dashboard.customerOverview.modules.analytics" },
-    { href: "/dashboard/commerce", titleKey: "dashboard.nav.commerce", descKey: "dashboard.customerOverview.modules.commerce" },
-    { href: "/dashboard/notifications", titleKey: "dashboard.nav.notifications", descKey: "dashboard.customerOverview.modules.notifications" },
+    { href: "/app/assistant", titleKey: "dashboard.nav.assistant", descKey: "dashboard.customerOverview.modules.assistant" },
+    { href: "/app/installations", titleKey: "dashboard.nav.install", descKey: "dashboard.customerOverview.modules.install" },
+    { href: "/app/support/history", titleKey: "dashboard.nav.support", descKey: "dashboard.customerOverview.modules.support" },
+    { href: "/app/analytics", titleKey: "dashboard.nav.analytics", descKey: "dashboard.customerOverview.modules.analytics" },
+    { href: "/app/commerce", titleKey: "dashboard.nav.commerce", descKey: "dashboard.customerOverview.modules.commerce" },
+    { href: "/app/notifications", titleKey: "dashboard.nav.notifications", descKey: "dashboard.customerOverview.modules.notifications" },
   ] as const;
 
   return (
