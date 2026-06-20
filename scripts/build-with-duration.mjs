@@ -29,9 +29,10 @@ const result = useSplitBuild
       const match = heap.match(/(--max-old-space-size=\d+)/);
       const cliArg = match?.[1];
       const { NODE_OPTIONS: _ignored, ...envWithoutNodeOptions } = process.env;
+      const bundlerFlag = useTurbopack ? "--turbo" : "--webpack";
       return spawnSync(
         "node",
-        [...(cliArg ? [cliArg] : []), NEXT_BIN, "build", "--webpack"],
+        [...(cliArg ? [cliArg] : []), NEXT_BIN, "build", bundlerFlag],
         { cwd: root, stdio: "inherit", env: envWithoutNodeOptions }
       );
     })();
