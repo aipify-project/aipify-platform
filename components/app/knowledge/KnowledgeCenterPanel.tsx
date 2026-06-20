@@ -35,12 +35,20 @@ const STATUS_STYLES: Record<string, string> = {
 export function KnowledgeCenterPanel({ labels }: KnowledgeCenterPanelProps) {
   const [center, setCenter] = useState<KnowledgeCenter | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [actingId, setActingId] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
     setLoading(true);
+    setLoadError(null);
     const res = await fetch("/api/aipify/knowledge");
-    if (res.ok) setCenter(parseKnowledgeCenter(await res.json()));
+    if (res.ok) {
+      setCenter(parseKnowledgeCenter(await res.json()));
+    } else {
+      const payload = (await res.json()) as { error?: string };
+      setLoadError(typeof payload.error === "string" ? payload.error : "Failed to load Knowledge Center");
+      setCenter(null);
+    }
     setLoading(false);
   }, []);
 
@@ -75,6 +83,23 @@ export function KnowledgeCenterPanel({ labels }: KnowledgeCenterPanelProps) {
   }
 
   if (loading) return <AipifyLoadingState message={labels.loading} centered />;
+
+  if (loadError) {
+    return (
+      <div className="mx-auto max-w-4xl space-y-4 p-6">
+        <Link href="/app" className="text-sm text-indigo-600 hover:underline">{labels.back}</Link>
+        <h1 className="text-2xl font-semibold">{labels.title}</h1>
+        <p className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">{loadError}</p>
+        <button
+          type="button"
+          onClick={() => void refresh()}
+          className="rounded-lg bg-[#7C3AED] px-4 py-2 text-sm font-medium text-white hover:bg-[#6D28D9]"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   if (!center?.has_customer) {
     return <div className="p-6"><Link href="/app" className="text-sm text-indigo-600 hover:underline">{labels.back}</Link></div>;

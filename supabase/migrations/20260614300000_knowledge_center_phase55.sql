@@ -320,6 +320,41 @@ begin
 end;
 $$;
 
+create or replace function public._kc_read_knowledge_settings(p_tenant_id uuid)
+returns public.aipify_knowledge_settings
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+declare
+  v_row public.aipify_knowledge_settings;
+begin
+  select * into v_row
+  from public.aipify_knowledge_settings
+  where tenant_id = p_tenant_id;
+
+  if found then
+    return v_row;
+  end if;
+
+  v_row.id := null;
+  v_row.tenant_id := p_tenant_id;
+  v_row.enabled := true;
+  v_row.use_global_knowledge := true;
+  v_row.allow_tenant_articles := true;
+  v_row.allow_ai_gap_drafts := true;
+  v_row.require_review_before_publish := true;
+  v_row.default_language := 'en';
+  v_row.fallback_language := 'en';
+  v_row.minimum_answer_confidence := 0.65;
+  v_row.create_gap_below_confidence := 0.55;
+  v_row.created_at := now();
+  v_row.updated_at := now();
+  return v_row;
+end;
+$$;
+
 create or replace function public._kc_article_json(p_row public.aipify_knowledge_articles)
 returns jsonb language sql stable as $$
   select jsonb_build_object(
@@ -514,7 +549,7 @@ declare
 begin
   v_tenant_id := public._presence_tenant_for_auth();
   if v_tenant_id is not null then
-    v_settings := public.ensure_kc_knowledge_settings(v_tenant_id);
+    v_settings := public._kc_read_knowledge_settings(v_tenant_id);
   end if;
   v_norm := lower(trim(p_query));
   v_tsquery := plainto_tsquery('english', p_query);
@@ -634,7 +669,7 @@ declare
 begin
   v_tenant_id := public._presence_tenant_for_auth();
   if v_tenant_id is not null then
-    v_settings := public.ensure_kc_knowledge_settings(v_tenant_id);
+    v_settings := public._kc_read_knowledge_settings(v_tenant_id);
     if not v_settings.enabled then
       return jsonb_build_object(
         'answer', '', 'confidence_score', 0, 'articles_used', '[]'::jsonb,
@@ -706,7 +741,7 @@ begin
   if v_tenant_id is null then
     return jsonb_build_object('has_customer', false, 'has_access', false, 'upgrade_required', false, 'enabled', false);
   end if;
-  v_settings := public.ensure_kc_knowledge_settings(v_tenant_id);
+  v_settings := public._kc_read_knowledge_settings(v_tenant_id);
 
   return jsonb_build_object(
     'has_customer', true,
@@ -766,7 +801,7 @@ begin
   if v_tenant_id is null then
     return jsonb_build_object('has_customer', false, 'has_access', false, 'upgrade_required', false);
   end if;
-  v_settings := public.ensure_kc_knowledge_settings(v_tenant_id);
+  v_settings := public._kc_read_knowledge_settings(v_tenant_id);
   return jsonb_build_object(
     'has_customer', true, 'has_access', public._kc_package_allows(v_tenant_id),
     'upgrade_required', not public._kc_package_allows(v_tenant_id),

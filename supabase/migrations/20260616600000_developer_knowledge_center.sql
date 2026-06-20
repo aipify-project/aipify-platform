@@ -19,7 +19,7 @@ declare
 begin
   v_tenant_id := public._presence_tenant_for_auth();
   if v_tenant_id is not null then
-    v_settings := public.ensure_kc_knowledge_settings(v_tenant_id);
+    v_settings := public._kc_read_knowledge_settings(v_tenant_id);
   end if;
   v_norm := lower(trim(p_query));
   v_tsquery := plainto_tsquery('english', p_query);
