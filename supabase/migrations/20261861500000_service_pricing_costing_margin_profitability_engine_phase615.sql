@@ -1735,6 +1735,40 @@ begin
   on conflict (organization_id) do nothing;
 end; $$;
 
+create or replace function public._prof615_read_settings(p_org_id uuid)
+returns public.organization_prof615_settings
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+declare
+  v_row public.organization_prof615_settings;
+begin
+  select * into v_row
+  from public.organization_prof615_settings
+  where organization_id = p_org_id;
+
+  if found then
+    return v_row;
+  end if;
+
+  v_row.organization_id := p_org_id;
+  v_row.profitability_center_enabled := true;
+  v_row.margin_calculation_enabled := true;
+  v_row.price_recommendations_enabled := true;
+  v_row.overhead_allocation_enabled := true;
+  v_row.scenario_lab_enabled := true;
+  v_row.approval_workflow_enabled := true;
+  v_row.companion_advisor_enabled := true;
+  v_row.never_present_estimates_as_audited := true;
+  v_row.audit_logging_required := true;
+  v_row.metadata := '{}'::jsonb;
+  v_row.updated_at := now();
+  return v_row;
+end;
+$$;
+
 create or replace function public._prof615_seed(p_org_id uuid)
 returns void language plpgsql security definer set search_path = public as $$
 begin
@@ -2159,8 +2193,7 @@ begin
   v_org_id := public._prof615_org();
   if v_org_id is null then return jsonb_build_object('found', false, 'error', 'Organization not found'); end if;
 
-  perform public._prof615_seed(v_org_id);
-  select * into v_settings from public.organization_prof615_settings where organization_id = v_org_id;
+  v_settings := public._prof615_read_settings(v_org_id);
 
   if v_section = 'overview' then
     return jsonb_build_object(
@@ -2257,8 +2290,7 @@ declare
 begin
   v_org_id := public._prof615_org();
   if v_org_id is null then return jsonb_build_object('found', false, 'error', 'Organization not found'); end if;
-  perform public._prof615_ensure_settings(v_org_id);
-  select * into v_settings from public.organization_prof615_settings where organization_id = v_org_id;
+  v_settings := public._prof615_read_settings(v_org_id);
   return jsonb_build_object(
     'found', true,
     'settings', jsonb_build_object(

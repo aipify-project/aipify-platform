@@ -183,15 +183,22 @@ function RecordsList({
 export function ProfitabilityPanel({ labels, activeSection }: { labels: Labels; activeSection: Prof615Section }) {
   const [center, setCenter] = useState<ProfitabilityCenter | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
+    setLoadError(null);
     const section = prof615SectionToRpc(activeSection);
     const res = await fetch(`/api/profitability/center?section=${section}`);
-    if (res.ok) setCenter(parseProfitabilityCenter(await res.json()));
-    else setCenter(null);
+    if (res.ok) {
+      setCenter(parseProfitabilityCenter(await res.json()));
+    } else {
+      const body = (await res.json().catch(() => ({}))) as { error?: string };
+      setCenter(null);
+      setLoadError(body.error ?? labels.empty);
+    }
     setLoading(false);
-  }, [activeSection]);
+  }, [activeSection, labels.empty]);
 
   useEffect(() => {
     void load();
@@ -202,6 +209,22 @@ export function ProfitabilityPanel({ labels, activeSection }: { labels: Labels; 
       <div className="flex min-h-[320px] items-center justify-center">
         <AipifyLoader centered />
         <span className="sr-only">{labels.loading}</span>
+      </div>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <div className="rounded-2xl border border-rose-200 bg-rose-50 p-6 text-rose-950">
+        <p className="font-medium">{labels.empty}</p>
+        <p className="mt-2 text-sm">{loadError}</p>
+        <button
+          type="button"
+          onClick={() => void load()}
+          className="mt-4 rounded-lg border border-rose-300 px-4 py-2 text-sm font-medium hover:bg-rose-100"
+        >
+          {labels.refresh}
+        </button>
       </div>
     );
   }
