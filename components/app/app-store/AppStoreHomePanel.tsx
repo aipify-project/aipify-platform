@@ -14,9 +14,16 @@ import {
 
 type SectionKey = "installed" | "marketplace" | "recommended" | "popular" | "recently_added";
 
+export type AppStoreCatalogRouting = {
+  detailHref: (packKey: string) => string;
+  installHref: (packKey: string) => string;
+  upgradeHref: (packKey: string) => string;
+};
+
 function PackCard({
   listing,
   labels,
+  catalogRouting,
   onInstall,
   onUpgrade,
   onRemove,
@@ -24,12 +31,14 @@ function PackCard({
 }: {
   listing: AppStorePackListing;
   labels: AppStoreLabels;
+  catalogRouting?: AppStoreCatalogRouting;
   onInstall: (key: string) => void;
   onUpgrade: (key: string) => void;
   onRemove: (key: string) => void;
   busy: boolean;
 }) {
   const statusStyle = APP_STORE_CARD_STATUS_STYLE[listing.card_status] ?? APP_STORE_CARD_STATUS_STYLE.available;
+  const detailHref = catalogRouting?.detailHref(listing.pack_key) ?? listing.detail_route;
 
   return (
     <article className="flex h-full flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition hover:border-indigo-200 hover:shadow-md">
@@ -44,7 +53,7 @@ function PackCard({
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <Link href={listing.detail_route} className="font-semibold text-gray-900 hover:text-indigo-700">
+            <Link href={detailHref} className="font-semibold text-gray-900 hover:text-indigo-700">
               {listing.pack_name}
             </Link>
             <span className={`rounded-full px-2 py-0.5 text-xs font-medium ring-1 ${statusStyle}`}>
@@ -68,7 +77,7 @@ function PackCard({
         </div>
         <div className="flex flex-wrap gap-2">
           <Link
-            href={listing.detail_route}
+            href={detailHref}
             className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
             {labels.viewDetails}
@@ -129,6 +138,7 @@ function Section({
   title,
   listings,
   labels,
+  catalogRouting,
   onInstall,
   onUpgrade,
   onRemove,
@@ -137,6 +147,7 @@ function Section({
   title: string;
   listings: AppStorePackListing[];
   labels: AppStoreLabels;
+  catalogRouting?: AppStoreCatalogRouting;
   onInstall: (key: string) => void;
   onUpgrade: (key: string) => void;
   onRemove: (key: string) => void;
@@ -152,6 +163,7 @@ function Section({
             key={listing.pack_key}
             listing={listing}
             labels={labels}
+            catalogRouting={catalogRouting}
             onInstall={onInstall}
             onUpgrade={onUpgrade}
             onRemove={onRemove}
@@ -163,7 +175,17 @@ function Section({
   );
 }
 
-export function AppStoreHomePanel({ labels, locale = "en" }: { labels: AppStoreLabels; locale?: string }) {
+export function AppStoreHomePanel({
+  labels,
+  locale = "en",
+  catalogRouting,
+  hideHeader = false,
+}: {
+  labels: AppStoreLabels;
+  locale?: string;
+  catalogRouting?: AppStoreCatalogRouting;
+  hideHeader?: boolean;
+}) {
   const [home, setHome] = useState<AppStoreHome | null>(null);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
@@ -192,11 +214,11 @@ export function AppStoreHomePanel({ labels, locale = "en" }: { labels: AppStoreL
   }
 
   function handleInstall(packKey: string) {
-    window.location.href = `/app/store/${packKey}?install=1`;
+    window.location.href = catalogRouting?.installHref(packKey) ?? `/app/store/${packKey}?install=1`;
   }
 
   function handleUpgrade(packKey: string) {
-    window.location.href = `/app/store/${packKey}?upgrade=1`;
+    window.location.href = catalogRouting?.upgradeHref(packKey) ?? `/app/store/${packKey}?upgrade=1`;
   }
 
   async function handleRemove(packKey: string) {
@@ -237,21 +259,23 @@ export function AppStoreHomePanel({ labels, locale = "en" }: { labels: AppStoreL
   const activeListings = home.sections?.[activeTab] ?? [];
 
   return (
-    <div className="mx-auto max-w-6xl space-y-8 p-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
-          <p className="mt-2 text-gray-600">{labels.subtitle}</p>
-          {home.principle ? <p className="mt-2 text-sm font-medium text-violet-800">{home.principle}</p> : null}
-          {home.governance_note ? <p className="mt-1 text-xs text-zinc-500">{home.governance_note}</p> : null}
+    <div className={`mx-auto max-w-6xl space-y-8 ${hideHeader ? "" : "p-6"}`}>
+      {!hideHeader ? (
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
+            <p className="mt-2 text-gray-600">{labels.subtitle}</p>
+            {home.principle ? <p className="mt-2 text-sm font-medium text-violet-800">{home.principle}</p> : null}
+            {home.governance_note ? <p className="mt-1 text-xs text-zinc-500">{home.governance_note}</p> : null}
+          </div>
+          <Link
+            href="/app/licenses"
+            className="rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-100"
+          >
+            {labels.licensesLink}
+          </Link>
         </div>
-        <Link
-          href="/app/licenses"
-          className="rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-100"
-        >
-          {labels.licensesLink}
-        </Link>
-      </div>
+      ) : null}
 
       <div className="flex flex-wrap gap-2 border-b border-gray-200 pb-2">
         {tabs.map((tab) => (
@@ -305,6 +329,7 @@ export function AppStoreHomePanel({ labels, locale = "en" }: { labels: AppStoreL
           title={tabs.find((t) => t.key === activeTab)?.label ?? labels.marketplace}
           listings={activeListings}
           labels={labels}
+          catalogRouting={catalogRouting}
           onInstall={handleInstall}
           onUpgrade={handleUpgrade}
           onRemove={handleRemove}
@@ -317,6 +342,7 @@ export function AppStoreHomePanel({ labels, locale = "en" }: { labels: AppStoreL
           title={labels.recommended}
           listings={home.sections?.recommended ?? []}
           labels={labels}
+          catalogRouting={catalogRouting}
           onInstall={handleInstall}
           onUpgrade={handleUpgrade}
           onRemove={handleRemove}

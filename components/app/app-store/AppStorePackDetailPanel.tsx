@@ -9,13 +9,25 @@ import { parseAppStorePackDetail, type AppStoreLabels, type AppStorePackDetail }
 export function AppStorePackDetailPanel({
   packKey,
   labels,
+  backHref = "/app/store",
+  backLabel,
+  upgradeTitle,
+  upgradeBody,
+  upgradeCta,
 }: {
   packKey: string;
   labels: AppStoreLabels;
+  backHref?: string;
+  backLabel?: string;
+  upgradeTitle?: string;
+  upgradeBody?: string;
+  upgradeCta?: string;
 }) {
   const searchParams = useSearchParams();
-  const installMode = searchParams.get("install") === "1";
-  const upgradeMode = searchParams.get("upgrade") === "1";
+  const installMode =
+    searchParams.get("install") === "1" || searchParams.get("action") === "install";
+  const upgradeMode =
+    searchParams.get("upgrade") === "1" || searchParams.get("action") === "upgrade";
 
   const [detail, setDetail] = useState<AppStorePackDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -39,8 +51,14 @@ export function AppStorePackDetailPanel({
   useEffect(() => { void load(); }, [load]);
 
   useEffect(() => {
-    if (installMode || upgradeMode) setStep("domain");
-  }, [installMode, upgradeMode]);
+    if (!detail?.found) return;
+    const ur = detail.listing?.upgrade_required === true;
+    const installed = detail.listing?.installed === true;
+    const installAllowed =
+      !installed && !ur && detail.listing?.install_available !== false;
+    if (installMode && installAllowed) setStep("domain");
+    else if (upgradeMode && (installed || installAllowed)) setStep("domain");
+  }, [detail, installMode, upgradeMode]);
 
   useEffect(() => {
     const domains = detail?.available_domains ?? [];
@@ -128,18 +146,27 @@ export function AppStorePackDetailPanel({
   if (!detail?.found) {
     return (
       <div className="mx-auto max-w-3xl p-6">
-        <Link href="/app/store" className="text-sm text-indigo-600 hover:underline">← {labels.back}</Link>
+        <Link href={backHref} className="text-sm text-indigo-600 hover:underline">
+          ← {backLabel ?? labels.back}
+        </Link>
         <p className="mt-4 text-gray-600">{labels.notFound}</p>
       </div>
     );
   }
 
   const tiers = detail.pricing?.seat_tiers ?? [];
+  const upgradeRequired = detail.listing?.upgrade_required === true;
+  const canInstall =
+    !detail.listing?.installed &&
+    !upgradeRequired &&
+    detail.listing?.install_available !== false;
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 p-6">
       <div>
-        <Link href="/app/store" className="text-sm text-indigo-600 hover:underline">← {labels.back}</Link>
+        <Link href={backHref} className="text-sm text-indigo-600 hover:underline">
+          ← {backLabel ?? labels.back}
+        </Link>
         <h1 className="mt-2 text-2xl font-bold text-gray-900">
           {detail.listing?.pack_name ?? packKey}
         </h1>
@@ -147,6 +174,21 @@ export function AppStorePackDetailPanel({
           {detail.overview?.category as string} · {labels.version} {detail.overview?.version as string}
         </p>
       </div>
+
+      {upgradeRequired ? (
+        <section className="rounded-xl border border-amber-200 bg-amber-50 p-5">
+          <h2 className="font-semibold text-amber-950">{upgradeTitle ?? labels.upgrade}</h2>
+          <p className="mt-2 text-sm text-amber-900">
+            {upgradeBody ?? detail.listing?.license_requirements ?? detail.license_requirements}
+          </p>
+          <Link
+            href="/app/billing/upgrade"
+            className="mt-4 inline-flex rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+          >
+            {upgradeCta ?? labels.upgrade}
+          </Link>
+        </section>
+      ) : null}
 
       {step === "done" ? (
         <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-6">
@@ -311,7 +353,7 @@ export function AppStorePackDetailPanel({
           ) : null}
 
           <div className="flex flex-wrap gap-2">
-            {!detail.listing?.installed ? (
+            {canInstall ? (
               <button
                 type="button"
                 onClick={() => setStep("domain")}
@@ -319,6 +361,14 @@ export function AppStorePackDetailPanel({
               >
                 {labels.install}
               </button>
+            ) : null}
+            {upgradeRequired ? (
+              <Link
+                href="/app/billing/upgrade"
+                className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-2 text-sm font-medium text-amber-900 hover:bg-amber-100"
+              >
+                {upgradeCta ?? labels.upgrade}
+              </Link>
             ) : null}
             {detail.listing?.installed ? (
               <>

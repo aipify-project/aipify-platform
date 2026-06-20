@@ -1,4 +1,5 @@
-import { renderAppPortalFoundationPage } from "@/lib/app-portal/render-pages";
-export default function BusinessPacksavailableBusinessPacksPage() {
-  return renderAppPortalFoundationPage("availableBusinessPacks");
+import { renderAppPortalAvailableBusinessPacksPage } from "@/lib/app-portal/render-pages";
+
+export default function BusinessPacksAvailablePage() {
+  return renderAppPortalAvailableBusinessPacksPage();
 }

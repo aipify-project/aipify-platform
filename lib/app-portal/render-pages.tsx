@@ -1,13 +1,17 @@
+import { Suspense } from "react";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
 import {
   AppPortalFoundationPanel,
   AppPortalIntegrationSetupPanel,
   AppPortalIntegrationsHubPanel,
   AppPortalKnowledgePanel,
   AppPortalLicenseGate,
+  AvailableBusinessPacksPanel,
 } from "@/components/app/app-portal";
 import SinceLastLoginSummaryPanel from "@/components/shared/since-last-login/SinceLastLoginSummaryPanel";
 import { TeamCenterPanel } from "@/components/app/team/TeamCenterPanel";
 import { buildAppPortalLabels, buildAppPortalFaqAnswerLabels } from "@/lib/app-portal/labels";
+import { buildAppStoreLabels } from "@/lib/app-store/labels";
 import {
   APP_PORTAL_INTEGRATIONS_FAQ_ARTICLES,
   buildAppPortalIntegrationsFaqAnswerLabels,
@@ -174,6 +178,47 @@ export async function renderAppPortalFoundationPage(pageKey: AppPortalPageKey) {
     <AppPortalLicenseGate feature={page.featureKey} labels={labels.license}>
       {panel}
     </AppPortalLicenseGate>
+  );
+}
+
+export async function renderAppPortalAvailableBusinessPacksPage() {
+  const locale = await getLocale();
+  const portalDict = await getCustomerAppDictionaryForSplits(locale, [
+    "portalStructure",
+    "navigation",
+  ]);
+  const marketplaceDict = await getCustomerAppDictionaryForSplits(locale, ["marketplace"]);
+  const t = createTranslator({ ...portalDict, ...marketplaceDict });
+  const portalLabels = buildAppPortalLabels(t);
+  const storeLabels = buildAppStoreLabels(t);
+  const page = PAGE_KEYS.availableBusinessPacks;
+  const backLabel = t("customerApp.portalStructure.nav.availableBusinessPacks");
+
+  return (
+    <div className="mx-auto max-w-6xl space-y-6 p-6">
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-900">
+          {t(page.titleKey)}
+        </h1>
+        <p className="mt-2 text-slate-600">{t(page.subtitleKey)}</p>
+      </div>
+      <Suspense
+        fallback={
+          <div className="flex min-h-[320px] items-center justify-center">
+            <AipifyLoader centered />
+          </div>
+        }
+      >
+        <AvailableBusinessPacksPanel
+          labels={storeLabels}
+          locale={locale}
+          backLabel={backLabel}
+          upgradeTitle={portalLabels.license.upgradeTitle}
+          upgradeBody={portalLabels.license.upgradeBody}
+          upgradeCta={portalLabels.license.upgradeCta}
+        />
+      </Suspense>
+    </div>
   );
 }
 

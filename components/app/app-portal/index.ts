@@ -1,4 +1,5 @@
 export { AppPortalDashboardPanel } from "./AppPortalDashboardPanel";
+export { AvailableBusinessPacksPanel } from "./AvailableBusinessPacksPanel";
 export { AppPortalFoundationPanel } from "./AppPortalFoundationPanel";
 export { AppPortalLicenseGate } from "./AppPortalLicenseGate";
 export { AppPortalKnowledgePanel } from "./AppPortalKnowledgePanel";
