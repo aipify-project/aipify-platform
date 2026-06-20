@@ -337,7 +337,6 @@ begin
   v_tenant_id := public._presence_tenant_for_auth();
   if v_tenant_id is null then return jsonb_build_object('has_customer', false); end if;
 
-  perform public.ensure_tenant_commercial_setup(v_tenant_id);
   v_package_key := public._cpa_resolve_package_key(v_tenant_id);
   select * into v_pkg from public.subscription_packages where package_key = v_package_key;
   v_limits := public.get_customer_license_limits(v_tenant_id);
