@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
-import { AipifyModuleAccessDenied } from "@/components/ui/aipify-module-access-denied";
+import { AppErrorState } from "@/components/app/design";
+import type { AipifyStatusKind } from "@/lib/design/status-system";
+import type { AppOrganizationContextState } from "@/lib/tenant/resolve-app-organization-context";
 import { AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
 import type {
   ActivityEvent,
@@ -42,6 +44,53 @@ type Props = {
   subtitleOverride?: string;
   visibleTabs?: Tab[];
 };
+
+function resolveActivityAccessCopy(
+  accessState: AppOrganizationContextState | null,
+  labels: ActivityOperationsLabels
+): { title: string; description: string; statusKind: AipifyStatusKind; statusLabel: string } {
+  switch (accessState) {
+    case "permission_missing":
+    case "access_denied":
+      return {
+        title: labels.permissionMissing,
+        description: labels.accessDenied,
+        statusKind: "not_allowed",
+        statusLabel: labels.permissionMissing,
+      };
+    case "entitlement_missing":
+      return {
+        title: labels.entitlementMissing,
+        description: labels.accessDenied,
+        statusKind: "restricted",
+        statusLabel: labels.entitlementMissing,
+      };
+    case "subscription_inactive":
+    case "license_inactive":
+      return {
+        title: labels.entitlementMissing,
+        description: labels.accessDenied,
+        statusKind: "restricted",
+        statusLabel: labels.entitlementMissing,
+      };
+    case "organization_missing":
+    case "membership_missing":
+    case "user_not_provisioned":
+      return {
+        title: labels.organizationMissing,
+        description: labels.accessDenied,
+        statusKind: "needs_attention",
+        statusLabel: labels.organizationMissing,
+      };
+    default:
+      return {
+        title: labels.loadError,
+        description: labels.accessDenied,
+        statusKind: "needs_attention",
+        statusLabel: labels.loadError,
+      };
+  }
+}
 
 function EventList({ events, labels, emptyTitle }: { events: ActivityEvent[]; labels: ActivityOperationsLabels; emptyTitle: string }) {
   if (events.length === 0) {
@@ -105,6 +154,7 @@ export function ActivityOperationsPanel({
   visibleTabs,
 }: Props) {
   const [center, setCenter] = useState<ActivityOperationsCenter | null>(null);
+  const [accessState, setAccessState] = useState<AppOrganizationContextState | null>(null);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<Tab>(initialTab);
   const [busy, setBusy] = useState(false);
@@ -114,8 +164,14 @@ export function ActivityOperationsPanel({
   const load = useCallback(async () => {
     setLoading(true);
     const res = await fetch("/api/app/activity-operations");
-    if (res.ok) setCenter(parseActivityOperationsCenter(await res.json()));
-    else setCenter(null);
+    const body = (await res.json()) as Record<string, unknown>;
+    if (res.ok && body.found !== false) {
+      setCenter(parseActivityOperationsCenter(body));
+      setAccessState(null);
+    } else {
+      setCenter(null);
+      setAccessState((body.access_state as AppOrganizationContextState | undefined) ?? "access_denied");
+    }
     setLoading(false);
   }, []);
 
@@ -163,7 +219,21 @@ export function ActivityOperationsPanel({
   }
 
   if (!center?.found) {
-    return <AipifyModuleAccessDenied message={labels.accessDenied} />;
+    const accessCopy = resolveActivityAccessCopy(accessState, labels);
+    return (
+      <div className="mx-auto max-w-3xl p-6">
+        <AppErrorState
+          title={accessCopy.title}
+          description={accessCopy.description}
+          statusKind={accessCopy.statusKind}
+          statusLabel={accessCopy.statusLabel}
+          onRetry={() => void load()}
+          retryLabel={labels.retry}
+          returnHref="/app"
+          returnLabel={labels.returnToDashboard}
+        />
+      </div>
+    );
   }
 
   const overview = center.overview ?? {};

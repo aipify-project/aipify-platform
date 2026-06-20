@@ -77,4 +77,5 @@ export type ActivityOperationsCenter = {
   audit_recent?: { action: string; summary: string; section?: string; created_at?: string }[];
   routes?: Record<string, string>;
   error?: string;
+  access_state?: string;
 };

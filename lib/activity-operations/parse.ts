@@ -120,6 +120,7 @@ export function parseActivityOperationsCenter(row: Record<string, unknown>): Act
       : undefined,
     routes: row.routes as Record<string, string> | undefined,
     error: row.error ? String(row.error) : undefined,
+    access_state: row.access_state ? String(row.access_state) : undefined,
   };
 }
 
