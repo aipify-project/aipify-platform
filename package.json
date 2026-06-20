@@ -29,7 +29,10 @@
     "supabase:apply-batches": "node scripts/apply-migration-batches-pg.cjs",
     "supabase:apply-all": "node scripts/supabase-apply-sql.mjs apply",
     "supabase:apply-remote": "node scripts/apply-all-pending-remote.mjs",
-    "supabase:apply-pending": "node scripts/apply-all-migrations-mcp-style.mjs"
+    "supabase:apply-pending": "node scripts/apply-all-migrations-mcp-style.mjs",
+    "app:showcase:seed": "node scripts/seed-app-showcase-data.mjs",
+    "app:showcase:verify": "node scripts/verify-app-showcase-data.mjs",
+    "app:showcase:remove": "node scripts/remove-app-showcase-data.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",
