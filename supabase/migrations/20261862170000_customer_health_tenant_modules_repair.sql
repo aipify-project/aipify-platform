@@ -1,32 +1,29 @@
--- Phase 296 (APP) — Customer Health & Relationship Center
+-- Phase 620 P1 — Customer Health repair: tenant_modules.tenant_id + read-only list GET.
 
-create table if not exists public.app_portal_customer_health_state (
-  company_id uuid primary key references public.companies (id) on delete cascade,
-  review_started_at timestamptz,
-  last_overall_score integer,
-  last_engagement_score integer,
-  last_snapshot_at timestamptz,
-  updated_at timestamptz not null default now(),
-  updated_by uuid references public.users (id) on delete set null
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
+select v.key, v.label, v.module_key, v.description
+from (values
+  ('customer_health.view', 'View Customer Health', null, 'View customer health center'),
+  ('customer_health.manage', 'Manage Customer Health', null, 'Start and manage customer health reviews')
+) as v(key, label, module_key, description)
+where not exists (
+  select 1 from public.aipify_permissions p where p.permission_key = v.key
 );
 
-create table if not exists public.app_portal_customer_health_audit_logs (
-  id uuid primary key default gen_random_uuid(),
-  company_id uuid not null references public.companies (id) on delete cascade,
-  event_type text not null,
-  description text not null default '',
-  performed_by uuid references public.users (id) on delete set null,
-  metadata jsonb not null default '{}'::jsonb,
-  created_at timestamptz not null default now()
-);
-
-create index if not exists app_portal_customer_health_audit_idx
-  on public.app_portal_customer_health_audit_logs (company_id, created_at desc);
-
-alter table public.app_portal_customer_health_state enable row level security;
-alter table public.app_portal_customer_health_audit_logs enable row level security;
-revoke all on public.app_portal_customer_health_state from authenticated, anon;
-revoke all on public.app_portal_customer_health_audit_logs from authenticated, anon;
+insert into public.organization_role_permissions (organization_id, role, permission_key)
+select o.id, v.role, v.key
+from public.organizations o
+cross join (values
+  ('owner', 'customer_health.view'),
+  ('owner', 'customer_health.manage'),
+  ('administrator', 'customer_health.view'),
+  ('administrator', 'customer_health.manage'),
+  ('manager', 'customer_health.view'),
+  ('manager', 'customer_health.manage'),
+  ('support_agent', 'customer_health.view'),
+  ('viewer', 'customer_health.view')
+) as v(role, key)
+on conflict (organization_id, role, permission_key) do nothing;
 
 create or replace function public._achrc296_access_context()
 returns jsonb
@@ -156,113 +153,6 @@ begin
     'operations_records', v_operations_records,
     'journey_started', v_journey_started
   );
-end;
-$$;
-
-create or replace function public._achrc296_compute_scores(p_metrics jsonb, p_review_started boolean)
-returns jsonb
-language plpgsql
-immutable
-as $$
-declare
-  v_team integer := greatest(1, (p_metrics->>'team_count')::int);
-  v_learning integer;
-  v_adoption integer;
-  v_engagement integer;
-  v_support_sat integer;
-  v_overall integer;
-begin
-  if not p_review_started then
-    return jsonb_build_object(
-      'overall_health_score', 0, 'engagement_score', 0, 'support_satisfaction_score', 0,
-      'adoption_score', 0, 'learning_completion_score', 0
-    );
-  end if;
-
-  v_learning := least(100, round(((p_metrics->>'academy_completions')::numeric / 14) * 100)::int);
-  v_adoption := least(100, (
-    (case when (p_metrics->>'packs')::int > 0 then 25 else 0 end) +
-    (case when (p_metrics->>'connected_integrations')::int > 0 then 25 else 0 end) +
-    (case when (p_metrics->>'operations_records')::int > 0 then 25 else 0 end) +
-    (case when (p_metrics->>'journey_started')::boolean then 25 else 0 end)
-  ));
-  v_engagement := least(100, round(
-    least(40, (p_metrics->>'academy_completions')::numeric * 2) +
-    least(30, (p_metrics->>'operations_records')::numeric * 3) +
-    least(30, ((p_metrics->>'two_fa_count')::numeric / v_team) * 30)
-  )::int);
-  v_support_sat := case
-    when (p_metrics->>'support_open')::int = 0 and (p_metrics->>'support_resolved')::int > 0 then 90
-    when (p_metrics->>'support_open')::int = 0 then 75
-    when (p_metrics->>'support_resolved')::int > (p_metrics->>'support_open')::int then 65
-    else greatest(30, 60 - (p_metrics->>'support_open')::int * 5)
-  end;
-
-  v_overall := round((v_learning + v_adoption + v_engagement + v_support_sat) / 4)::int;
-
-  return jsonb_build_object(
-    'overall_health_score', v_overall,
-    'engagement_score', v_engagement,
-    'support_satisfaction_score', v_support_sat,
-    'adoption_score', v_adoption,
-    'learning_completion_score', v_learning
-  );
-end;
-$$;
-
-create or replace function public._achrc296_health_status(p_score integer)
-returns text
-language sql
-immutable
-as $$
-  select case
-    when p_score >= 85 then 'thriving'
-    when p_score >= 70 then 'healthy'
-    when p_score >= 50 then 'stable'
-    when p_score >= 30 then 'requires_attention'
-    else 'critical_support_needed'
-  end;
-$$;
-
-create or replace function public._achrc296_trend(p_current integer, p_prior integer, p_started boolean)
-returns text
-language plpgsql
-immutable
-as $$
-begin
-  if not p_started or p_prior is null then return 'insufficient_data'; end if;
-  if p_current - p_prior >= 5 then return 'improving'; end if;
-  if p_prior - p_current >= 5 then return 'declining'; end if;
-  return 'stable';
-end;
-$$;
-
-create or replace function public._achrc296_build_recommendations(p_metrics jsonb)
-returns jsonb
-language plpgsql
-stable
-as $$
-declare
-  v_recs jsonb := '[]'::jsonb;
-  v_team integer := greatest(1, (p_metrics->>'team_count')::int);
-begin
-  if (p_metrics->>'academy_completions')::int < 3 then
-    v_recs := v_recs || jsonb_build_object('id', 'onboarding-refresh', 'key', 'scheduleOnboardingRefresh', 'priority', 'important', 'category', 'learning');
-  end if;
-  if (p_metrics->>'support_open')::int > 0 then
-    v_recs := v_recs || jsonb_build_object('id', 'support-open', 'key', 'reviewOpenSupportRequests', 'priority', 'high_priority', 'category', 'support');
-  end if;
-  if (p_metrics->>'packs')::int < 2 then
-    v_recs := v_recs || jsonb_build_object('id', 'business-packs', 'key', 'exploreBusinessPacks', 'priority', 'opportunity', 'category', 'adoption');
-  end if;
-  if (p_metrics->>'academy_assignments_open')::int > 0 then
-    v_recs := v_recs || jsonb_build_object('id', 'learning-assign', 'key', 'encourageAssignedLearning', 'priority', 'important', 'category', 'learning');
-  end if;
-  if (p_metrics->>'two_fa_count')::int < v_team then
-    v_recs := v_recs || jsonb_build_object('id', 'security', 'key', 'activateSecurityProtections', 'priority', 'high_priority', 'category', 'security');
-  end if;
-  v_recs := v_recs || jsonb_build_object('id', 'quarterly-review', 'key', 'conductQuarterlyReview', 'priority', 'informational', 'category', 'relationship');
-  return v_recs;
 end;
 $$;
 
@@ -459,129 +349,4 @@ begin
 end;
 $$;
 
-create or replace function public.list_app_portal_customer_health_timeline(
-  p_period_from date default null,
-  p_search text default null
-)
-returns jsonb
-language plpgsql
-stable
-security definer
-set search_path = public
-as $$
-declare
-  v_ctx jsonb;
-  v_company_id uuid;
-  v_items jsonb := '[]'::jsonb;
-begin
-  v_ctx := public._achrc296_access_context();
-  v_company_id := (v_ctx->>'company_id')::uuid;
-
-  select coalesce(jsonb_agg(jsonb_build_object(
-    'id', l.id, 'event_type', l.event_type, 'description', l.description, 'created_at', l.created_at
-  ) order by l.created_at desc), '[]'::jsonb)
-  into v_items
-  from public.app_portal_customer_health_audit_logs l
-  where l.company_id = v_company_id
-    and (p_period_from is null or l.created_at::date >= p_period_from);
-
-  if to_regclass('public.app_portal_customer_success_milestones') is not null then
-    v_items := v_items || coalesce((
-      select jsonb_agg(jsonb_build_object(
-        'id', 'ms-' || m.milestone_key, 'event_type', 'milestone', 'description', m.milestone_key, 'created_at', m.achieved_at
-      ) order by m.achieved_at desc)
-      from public.app_portal_customer_success_milestones m where m.company_id = v_company_id
-    ), '[]'::jsonb);
-  end if;
-
-  if to_regclass('public.app_portal_academy_certifications') is not null then
-    v_items := v_items || coalesce((
-      select jsonb_agg(jsonb_build_object(
-        'id', 'cert-' || ce.id, 'event_type', 'certification', 'description', ce.certification_type, 'created_at', ce.earned_at
-      ) order by ce.earned_at desc)
-      from public.app_portal_academy_certifications ce
-      where ce.company_id = v_company_id and ce.status = 'earned'
-    ), '[]'::jsonb);
-  end if;
-
-  if to_regclass('public.app_portal_support_requests') is not null then
-    v_items := v_items || coalesce((
-      select jsonb_agg(jsonb_build_object(
-        'id', 'sr-' || sr.id, 'event_type', 'support', 'description', sr.title, 'created_at', sr.created_at
-      ) order by sr.created_at desc)
-      from public.app_portal_support_requests sr where sr.company_id = v_company_id limit 10
-    ), '[]'::jsonb);
-  end if;
-
-  return jsonb_build_object('found', true, 'timeline', v_items);
-end;
-$$;
-
-create or replace function public.list_app_portal_customer_health_recommendations(
-  p_priority text default null,
-  p_category text default null,
-  p_recommendation_status text default null,
-  p_search text default null
-)
-returns jsonb
-language plpgsql
-stable
-security definer
-set search_path = public
-as $$
-declare
-  v_ctx jsonb;
-  v_recs jsonb;
-begin
-  v_ctx := public._achrc296_access_context();
-  v_recs := public._achrc296_build_recommendations(public._achrc296_org_metrics((v_ctx->>'company_id')::uuid));
-
-  if p_priority is not null or p_category is not null or (p_search is not null and trim(p_search) <> '') then
-    select coalesce(jsonb_agg(r), '[]'::jsonb) into v_recs from (
-      select r from jsonb_array_elements(v_recs) r
-      where (p_priority is null or r->>'priority' = p_priority)
-        and (p_category is null or r->>'category' = p_category)
-        and (p_search is null or trim(p_search) = '' or r->>'key' ilike '%' || trim(p_search) || '%')
-    ) sub;
-  end if;
-
-  return jsonb_build_object('found', true, 'recommendations', v_recs);
-end;
-$$;
-
-create or replace function public.get_app_portal_customer_health_engagement(
-  p_department text default null
-)
-returns jsonb
-language plpgsql
-stable
-security definer
-set search_path = public
-as $$
-declare
-  v_ctx jsonb;
-  v_company_id uuid;
-  v_started timestamptz;
-  v_metrics jsonb;
-  v_scores jsonb;
-begin
-  v_ctx := public._achrc296_access_context();
-  v_company_id := (v_ctx->>'company_id')::uuid;
-  select hs.review_started_at into v_started from public.app_portal_customer_health_state hs where hs.company_id = v_company_id;
-  v_metrics := public._achrc296_org_metrics(v_company_id);
-  v_scores := public._achrc296_compute_scores(v_metrics, v_started is not null);
-
-  return jsonb_build_object(
-    'found', true,
-    'engagement_score', (v_scores->>'engagement_score')::int,
-    'engagement_insights', (public.list_app_portal_customer_health(p_department, null, null, null, null, null, null)->'engagement_insights'),
-    'metrics', v_metrics
-  );
-end;
-$$;
-
-grant execute on function public.list_app_portal_customer_health(text, date, text, text, text, text, text) to authenticated;
-grant execute on function public.list_app_portal_customer_health_timeline(date, text) to authenticated;
-grant execute on function public.list_app_portal_customer_health_recommendations(text, text, text, text) to authenticated;
-grant execute on function public.get_app_portal_customer_health_engagement(text) to authenticated;
-grant execute on function public.begin_app_portal_customer_health_review() to authenticated;
+notify pgrst, 'reload schema';

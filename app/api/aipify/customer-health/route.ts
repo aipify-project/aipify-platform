@@ -1,6 +1,14 @@
 import { NextResponse } from "next/server";
 import { parseCustomerHealthOverview } from "@/lib/app-portal/customer-health";
-import { requireReadyAppPortalContext } from "@/lib/tenant/app-portal-route-access";
+import {
+  appPortalAccessDeniedResponse,
+  appPortalRpcErrorResponse,
+  isDatabaseExecutionError,
+  requireOrganizationViewPermission,
+  requireReadyAppPortalContext,
+  rpcErrorStatus,
+} from "@/lib/tenant/app-portal-route-access";
+import { classifyAppPortalError } from "@/lib/tenant/resolve-app-organization-context";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
@@ -11,6 +19,13 @@ export async function GET(request: Request) {
 
     const access = await requireReadyAppPortalContext(supabase);
     if (!access.ok) return access.response;
+
+    const permission = await requireOrganizationViewPermission(
+      supabase,
+      "customer_health.view",
+      "customer_health.manage"
+    );
+    if (!permission.ok) return permission.response;
 
     const { searchParams } = new URL(request.url);
     const { data, error } = await supabase.rpc("list_app_portal_customer_health", {
@@ -23,14 +38,23 @@ export async function GET(request: Request) {
       p_search: searchParams.get("search") || null,
     });
     if (error) {
-      return NextResponse.json(
-        { error: error.message, access_state: "access_denied", found: false },
-        { status: 403 }
-      );
+      if (isDatabaseExecutionError(error.message)) {
+        return NextResponse.json(
+          { error: error.message, access_state: "database_execution_error", found: false },
+          { status: 500 }
+        );
+      }
+      return appPortalRpcErrorResponse("[aipify/customer-health]", error.message);
     }
     return NextResponse.json(parseCustomerHealthOverview(data));
-  } catch {
-    return NextResponse.json({ error: "Failed to load customer health" }, { status: 500 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to load customer health";
+    const access_state = classifyAppPortalError(message);
+    console.error("[aipify/customer-health]", message);
+    return NextResponse.json(
+      { error: message, access_state, found: false },
+      { status: rpcErrorStatus(message, access_state) }
+    );
   }
 }
 
@@ -43,10 +67,38 @@ export async function POST() {
     const access = await requireReadyAppPortalContext(supabase);
     if (!access.ok) return access.response;
 
+    const { data: canManage, error: manageError } = await supabase.rpc("has_organization_permission", {
+      p_permission_key: "customer_health.manage",
+    });
+    if (manageError) {
+      const access_state = classifyAppPortalError(manageError.message);
+      return NextResponse.json(
+        { error: manageError.message, access_state, found: false },
+        { status: rpcErrorStatus(manageError.message, access_state) }
+      );
+    }
+    if (!canManage) {
+      return appPortalAccessDeniedResponse("permission_missing", "permission_missing");
+    }
+
     const { data, error } = await supabase.rpc("begin_app_portal_customer_health_review");
-    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+    if (error) {
+      if (isDatabaseExecutionError(error.message)) {
+        return NextResponse.json(
+          { error: error.message, access_state: "database_execution_error", found: false },
+          { status: 500 }
+        );
+      }
+      return appPortalRpcErrorResponse("[aipify/customer-health]", error.message);
+    }
     return NextResponse.json(parseCustomerHealthOverview(data));
-  } catch {
-    return NextResponse.json({ error: "Failed to start health review" }, { status: 500 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to start health review";
+    const access_state = classifyAppPortalError(message);
+    console.error("[aipify/customer-health]", message);
+    return NextResponse.json(
+      { error: message, access_state, found: false },
+      { status: rpcErrorStatus(message, access_state) }
+    );
   }
 }
