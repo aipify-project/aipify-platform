@@ -16,7 +16,8 @@ export function isDatabaseExecutionError(message: string): boolean {
     lower.includes("cannot execute delete") ||
     lower.includes("insert is not allowed in a non-volatile function") ||
     lower.includes("update is not allowed in a non-volatile function") ||
-    lower.includes("delete is not allowed in a non-volatile function")
+    lower.includes("delete is not allowed in a non-volatile function") ||
+    (lower.includes("column") && lower.includes("does not exist"))
   );
 }
 

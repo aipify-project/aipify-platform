@@ -1,30 +1,27 @@
--- Phase 273 (APP) — Customer Success & Health Center
+-- Phase 620 P1 — Success Center repair: public.users has no updated_at column.
+-- Root cause: get_app_portal_success_center assumed u.updated_at for recent activity.
+-- Canonical users table exposes last_login_at for login activity.
 
-create or replace function public._apsc273_health_status(p_score integer)
-returns text
-language sql
-immutable
-as $$
-  select case
-    when p_score >= 80 then 'excellent'
-    when p_score >= 60 then 'healthy'
-    when p_score >= 40 then 'attention_needed'
-    else 'at_risk'
-  end;
-$$;
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
+select v.key, v.label, v.module_key, v.description
+from (values
+  ('success.view', 'View Customer Success', null, 'Access customer success center')
+) as v(key, label, module_key, description)
+where not exists (
+  select 1 from public.aipify_permissions p where p.permission_key = v.key
+);
 
-create or replace function public._apsc273_risk_level(p_score integer, p_open_issues integer)
-returns text
-language sql
-immutable
-as $$
-  select case
-    when p_score >= 75 and p_open_issues = 0 then 'low'
-    when p_score >= 55 then 'moderate'
-    when p_score >= 35 then 'elevated'
-    else 'high'
-  end;
-$$;
+insert into public.organization_role_permissions (organization_id, role, permission_key)
+select o.id, v.role, v.key
+from public.organizations o
+cross join (values
+  ('owner', 'success.view'),
+  ('administrator', 'success.view'),
+  ('manager', 'success.view'),
+  ('support_agent', 'success.view'),
+  ('viewer', 'success.view')
+) as v(role, key)
+on conflict (organization_id, role, permission_key) do nothing;
 
 create or replace function public._apsc273_require_success_access()
 returns jsonb
@@ -42,46 +39,6 @@ begin
 
   v_access := public._apsf260_require_app_access();
   return v_access;
-end;
-$$;
-
-create or replace function public._apsc273_build_recommendations(
-  p_team_count integer,
-  p_packs integer,
-  p_integrations integer,
-  p_open_support integer,
-  p_pending_approvals integer,
-  p_open_follow_ups integer
-)
-returns jsonb
-language plpgsql
-stable
-as $$
-declare v_recs jsonb := '[]'::jsonb;
-begin
-  if p_team_count < 3 then
-    v_recs := v_recs || jsonb_build_object('id', 'invite-team', 'key', 'inviteTeam', 'priority', 'high', 'module', 'organization');
-  end if;
-  if p_packs < 1 then
-    v_recs := v_recs || jsonb_build_object('id', 'explore-packs', 'key', 'explorePacks', 'priority', 'medium', 'module', 'business_packs');
-  end if;
-  if p_integrations < 1 then
-    v_recs := v_recs || jsonb_build_object('id', 'enable-integrations', 'key', 'enableIntegrations', 'priority', 'medium', 'module', 'integrations');
-  end if;
-  if p_open_support > 0 then
-    v_recs := v_recs || jsonb_build_object('id', 'review-support', 'key', 'reviewSupport', 'priority', 'high', 'module', 'support');
-  end if;
-  if p_pending_approvals > 0 then
-    v_recs := v_recs || jsonb_build_object('id', 'review-approvals', 'key', 'reviewApprovals', 'priority', 'medium', 'module', 'approvals');
-  end if;
-  if p_open_follow_ups > 2 then
-    v_recs := v_recs || jsonb_build_object('id', 'complete-follow-ups', 'key', 'completeFollowUps', 'priority', 'medium', 'module', 'operations');
-  end if;
-  if p_team_count >= 1 and p_packs >= 1 then
-    v_recs := v_recs || jsonb_build_object('id', 'complete-onboarding', 'key', 'completeOnboarding', 'priority', 'low', 'module', 'organization');
-  end if;
-  v_recs := v_recs || jsonb_build_object('id', 'configure-security', 'key', 'configureSecurity', 'priority', 'medium', 'module', 'security');
-  return v_recs;
 end;
 $$;
 
@@ -116,6 +73,10 @@ declare
   v_has_activity boolean := false;
   v_org_created timestamptz;
 begin
+  if not public.has_organization_permission('success.view') then
+    raise exception 'Permission denied: success.view';
+  end if;
+
   v_access := public._apsc273_require_success_access();
   v_company_id := (v_access->>'company_id')::uuid;
   select c.name, c.created_at into v_org_name, v_org_created from public.companies c where c.id = v_company_id;
@@ -250,24 +211,4 @@ begin
 end;
 $$;
 
-create or replace function public.get_app_portal_success_recommendations()
-returns jsonb
-language plpgsql
-stable
-security definer
-set search_path = public
-as $$
-declare
-  v_center jsonb;
-begin
-  v_center := public.get_app_portal_success_center();
-  return jsonb_build_object(
-    'found', true,
-    'recommendations', coalesce(v_center->'recommendations', '[]'::jsonb),
-    'advisory_only', true
-  );
-end;
-$$;
-
-grant execute on function public.get_app_portal_success_center() to authenticated;
-grant execute on function public.get_app_portal_success_recommendations() to authenticated;
+notify pgrst, 'reload schema';
