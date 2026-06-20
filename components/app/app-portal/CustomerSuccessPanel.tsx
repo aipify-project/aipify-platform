@@ -35,6 +35,7 @@ const ACCESS_MESSAGES: Record<
   entitlement_missing: "entitlementMissing",
   permission_missing: "permissionMissing",
   access_denied: "permissionMissing",
+  database_execution_error: "accessDenied",
 };
 
 const STATUS_STYLE: Record<CustomerSuccessStatus, string> = {

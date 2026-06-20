@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
 import { parseAbosCommandCenterOverview } from "@/lib/app-portal/abos-command-center";
+import {
+  appPortalRpcErrorResponse,
+  requireReadyAppPortalContext,
+} from "@/lib/tenant/app-portal-route-access";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
@@ -7,6 +11,9 @@ export async function GET(request: Request) {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
 
     const { searchParams } = new URL(request.url);
     const { data, error } = await supabase.rpc("list_app_portal_command_center", {
@@ -17,10 +24,11 @@ export async function GET(request: Request) {
       p_focus_category: searchParams.get("focus_category") || null,
       p_search: searchParams.get("search") || null,
     });
-    if (error) return NextResponse.json({ error: error.message }, { status: 403 });
+    if (error) return appPortalRpcErrorResponse("[aipify/command-center]", error.message);
     return NextResponse.json(parseAbosCommandCenterOverview(data));
-  } catch {
-    return NextResponse.json({ error: "Failed to load command center" }, { status: 500 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to load";
+    return appPortalRpcErrorResponse("[command-center]", message);
   }
 }
 

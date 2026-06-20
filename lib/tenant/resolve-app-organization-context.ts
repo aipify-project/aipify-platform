@@ -10,7 +10,8 @@ export type AppOrganizationContextState =
   | "license_inactive"
   | "entitlement_missing"
   | "permission_missing"
-  | "access_denied";
+  | "access_denied"
+  | "database_execution_error";
 
 export type AppOrganizationContext = {
   authenticated: boolean;
@@ -41,6 +42,7 @@ const CONTEXT_STATES = new Set<AppOrganizationContextState>([
   "entitlement_missing",
   "permission_missing",
   "access_denied",
+  "database_execution_error",
 ]);
 
 function str(value: unknown): string | null {
@@ -79,6 +81,17 @@ export function parseAppOrganizationContext(data: unknown): AppOrganizationConte
 
 export function classifyAppPortalError(message: string): AppOrganizationContextState {
   const lower = message.toLowerCase();
+  if (
+    lower.includes("read-only transaction") ||
+    lower.includes("cannot execute insert") ||
+    lower.includes("cannot execute update") ||
+    lower.includes("cannot execute delete") ||
+    lower.includes("greatest types") ||
+    (lower.includes("column") && lower.includes("does not exist")) ||
+    (lower.includes("function") && lower.includes("does not exist"))
+  ) {
+    return "database_execution_error";
+  }
   if (lower.includes("organization context required") || lower.includes("company not found")) {
     return "organization_missing";
   }

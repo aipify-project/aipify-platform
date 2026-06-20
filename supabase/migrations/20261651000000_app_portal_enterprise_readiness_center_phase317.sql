@@ -326,7 +326,7 @@ create or replace function public.list_app_portal_enterprise_readiness(
 ) returns jsonb language plpgsql stable security definer set search_path = public as $$
 declare
   v_ctx jsonb; v_company_id uuid; v_user_id uuid;
-  v_assessments jsonb := '[]'::jsonb; v_row record; v_total integer := 0;
+  v_assessments jsonb := '[]'::jsonb; v_row public.app_portal_enterprise_readiness_assessments; v_total integer := 0;
   v_score integer; v_can_full boolean; v_mgr_cats text[];
   v_gaps jsonb;
 begin
@@ -437,7 +437,7 @@ end; $$;
 create or replace function public.get_app_portal_enterprise_readiness_assessment(p_assessment_id uuid)
 returns jsonb language plpgsql stable security definer set search_path = public as $$
 declare
-  v_ctx jsonb; v_company_id uuid; v_row record;
+  v_ctx jsonb; v_company_id uuid; v_row public.app_portal_enterprise_readiness_assessments;
   v_reviews jsonb; v_can_full boolean; v_mgr_cats text[];
 begin
   v_ctx        := public._aerc317_access_context();

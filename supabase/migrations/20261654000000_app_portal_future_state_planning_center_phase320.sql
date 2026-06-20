@@ -413,7 +413,7 @@ create or replace function public.list_app_portal_future_state_planning(
 ) returns jsonb language plpgsql stable security definer set search_path = public as $$
 declare
   v_ctx jsonb; v_company_id uuid; v_user_id uuid;
-  v_plans jsonb := '[]'::jsonb; v_row record; v_total integer := 0;
+  v_plans jsonb := '[]'::jsonb; v_row public.app_portal_future_state_plans; v_total integer := 0;
   v_active jsonb := '[]'::jsonb; v_reviews jsonb := '[]'::jsonb;
   v_can_full boolean; v_mgr_cats text[];
 begin
@@ -490,7 +490,7 @@ end; $$;
 create or replace function public.get_app_portal_future_state_plan(p_plan_id uuid)
 returns jsonb language plpgsql stable security definer set search_path = public as $$
 declare
-  v_ctx jsonb; v_company_id uuid; v_row record;
+  v_ctx jsonb; v_company_id uuid; v_row public.app_portal_future_state_plans;
   v_milestones jsonb; v_alignment jsonb; v_reviews jsonb;
   v_can_full boolean; v_mgr_cats text[];
 begin

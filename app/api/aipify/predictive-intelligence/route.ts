@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
 import { parsePredictiveOverview } from "@/lib/app-portal/predictive-intelligence";
+import {
+  appPortalRpcErrorResponse,
+  requireReadyAppPortalContext,
+} from "@/lib/tenant/app-portal-route-access";
+import { classifyAppPortalError } from "@/lib/tenant/resolve-app-organization-context";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
@@ -7,6 +12,9 @@ export async function GET(request: Request) {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
 
     const { searchParams } = new URL(request.url);
     const { data, error } = await supabase.rpc("list_app_portal_predictive_intelligence", {
@@ -19,9 +27,10 @@ export async function GET(request: Request) {
       p_period_from: searchParams.get("period_from") || null,
       p_search: searchParams.get("search") || null,
     });
-    if (error) return NextResponse.json({ error: error.message }, { status: 403 });
+    if (error) return appPortalRpcErrorResponse("[route]", error.message);
     return NextResponse.json(parsePredictiveOverview(data));
-  } catch {
-    return NextResponse.json({ error: "Failed to load predictive intelligence center" }, { status: 500 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to load";
+    return appPortalRpcErrorResponse("[predictive-intelligence]", message);
   }
 }

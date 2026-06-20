@@ -3,6 +3,13 @@ import {
   parseFutureStatePlanningOverview,
   parseFutureStateActionResult,
 } from "@/lib/app-portal/future-state-planning";
+import {
+  appPortalRpcErrorResponse,
+  isDatabaseExecutionError,
+  requireReadyAppPortalContext,
+  rpcErrorStatus,
+} from "@/lib/tenant/app-portal-route-access";
+import { classifyAppPortalError } from "@/lib/tenant/resolve-app-organization-context";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
@@ -10,6 +17,9 @@ export async function GET(request: Request) {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
 
     const { searchParams } = new URL(request.url);
     const { data, error } = await supabase.rpc("list_app_portal_future_state_planning", {
@@ -21,10 +31,11 @@ export async function GET(request: Request) {
       p_status:             searchParams.get("status")              || null,
       p_search:             searchParams.get("search")              || null,
     });
-    if (error) return NextResponse.json({ error: error.message }, { status: 403 });
+    if (error) return appPortalRpcErrorResponse("[aipify/future-state-planning]", error.message);
     return NextResponse.json(parseFutureStatePlanningOverview(data));
-  } catch {
-    return NextResponse.json({ error: "Failed to load future-state planning" }, { status: 500 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to load future-state planning";
+    return appPortalRpcErrorResponse("[aipify/future-state-planning]", message);
   }
 }
 

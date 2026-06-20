@@ -300,7 +300,7 @@ create or replace function public.list_app_portal_strategic_opportunities(
 ) returns jsonb language plpgsql stable security definer set search_path = public as $$
 declare
   v_ctx jsonb; v_company_id uuid; v_user_id uuid;
-  v_opps jsonb := '[]'::jsonb; v_row record; v_total integer := 0;
+  v_opps jsonb := '[]'::jsonb; v_row public.app_portal_strategic_opportunities; v_total integer := 0;
   v_high_potential jsonb := '[]'::jsonb;
   v_under_review   jsonb := '[]'::jsonb;
   v_in_progress    jsonb := '[]'::jsonb;
@@ -395,7 +395,7 @@ end; $$;
 create or replace function public.get_app_portal_strategic_opportunity(p_opportunity_id uuid)
 returns jsonb language plpgsql stable security definer set search_path = public as $$
 declare
-  v_ctx jsonb; v_company_id uuid; v_row record;
+  v_ctx jsonb; v_company_id uuid; v_row public.app_portal_strategic_opportunities;
   v_reviews jsonb; v_can_full boolean; v_mgr_cats text[];
 begin
   v_ctx        := public._asoi315_access_context();

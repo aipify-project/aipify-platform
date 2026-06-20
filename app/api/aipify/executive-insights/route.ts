@@ -40,6 +40,12 @@ export async function GET() {
     return NextResponse.json(parsed);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to load executive insights";
+    if (isDatabaseExecutionError(message)) {
+      return NextResponse.json(
+        { error: message, access_state: "database_execution_error", found: false },
+        { status: 500 }
+      );
+    }
     const access_state = classifyAppPortalError(message);
     return NextResponse.json(
       { error: message, access_state, found: false },

@@ -127,7 +127,7 @@ declare
 begin
   -- Enterprise Benchmarking (Phase 311)
   if to_regclass('public.app_portal_enterprise_benchmarking_state') is not null then
-    select coalesce(round(avg(d.current_maturity_score)),0) into v_benchmarking_score
+    select coalesce(round(avg(d.maturity_score)),0) into v_benchmarking_score
     from public.app_portal_enterprise_benchmarking_dimensions d where d.company_id = p_company_id;
     v_count := v_count + 1;
   end if;

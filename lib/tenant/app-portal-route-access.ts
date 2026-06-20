@@ -17,6 +17,9 @@ export function isDatabaseExecutionError(message: string): boolean {
     lower.includes("insert is not allowed in a non-volatile function") ||
     lower.includes("update is not allowed in a non-volatile function") ||
     lower.includes("delete is not allowed in a non-volatile function") ||
+    lower.includes("greatest types") ||
+    lower.includes("could not find the function") ||
+    lower.includes("function") && lower.includes("does not exist") ||
     (lower.includes("column") && lower.includes("does not exist"))
   );
 }
@@ -32,6 +35,7 @@ export function rpcErrorStatus(message: string, accessState: string): number {
   if (accessState === "organization_missing" || accessState === "membership_missing") return 409;
   if (accessState === "entitlement_missing") return 403;
   if (accessState === "permission_missing") return 403;
+  if (accessState === "database_execution_error") return 500;
   return 403;
 }
 
@@ -83,6 +87,13 @@ export function appPortalRpcErrorResponse(
   logTag: string,
   message: string
 ): NextResponse {
+  if (isDatabaseExecutionError(message)) {
+    console.error(logTag, message);
+    return NextResponse.json(
+      { error: message, access_state: "database_execution_error", found: false },
+      { status: 500 }
+    );
+  }
   const access_state = classifyAppPortalError(message);
   console.error(logTag, message);
   return NextResponse.json(
