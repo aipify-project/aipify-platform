@@ -1486,6 +1486,63 @@
       "operational": "Operational Summary",
       "growth": "Growth Summary",
       "companion": "Companion Recommendations"
+    },
+    "premium": {
+      "eyebrow": "Executive workspace",
+      "description": "Your command overview after login — what changed, what needs attention, and what Aipify recommends next.",
+      "viewSinceLastLogin": "View since last login",
+      "refreshing": "Refreshing…",
+      "todaysOverview": "Today's Executive Overview",
+      "companionInsight": "Aipify insight",
+      "needsAttention": "Needs Attention",
+      "needsAttentionSubtitle": "Priority items that may require your review or decision.",
+      "returnToDashboard": "Return to Dashboard",
+      "retry": "Try again",
+      "openRecord": "Open",
+      "emptySection": "Aipify is monitoring — nothing to display in this section right now.",
+      "recommendationCategory": "Executive recommendation",
+      "context": {
+        "organizationActive": "Organization active",
+        "executiveAccessVerified": "Executive access verified"
+      },
+      "access": {
+        "permissionMissing": {
+          "title": "Executive access required",
+          "description": "Your role does not include Executive Command Center access. Contact your workspace administrator."
+        },
+        "entitlementMissing": {
+          "title": "Module not included",
+          "description": "Executive Command Center is not included in your current workspace entitlements."
+        },
+        "planRequired": {
+          "title": "Plan upgrade required",
+          "description": "Executive Command Center requires an active Business or Enterprise plan."
+        },
+        "organizationContextMissing": {
+          "title": "Organization context required",
+          "description": "Select or activate your organization workspace before opening the Executive Command Center."
+        },
+        "activationInProgress": {
+          "title": "Workspace activation in progress",
+          "description": "Aipify is preparing your executive workspace. Check back shortly or return to your dashboard."
+        },
+        "generic": {
+          "title": "Executive Command Center unavailable",
+          "description": "Executive Command Center is not available for this organization right now."
+        }
+      },
+      "metrics": {
+        "healthDescription": "Composite organizational health across verified operational signals.",
+        "sinceLastLoginDescription": "New or changed items since your last login.",
+        "openAlertsDescription": "Active alerts requiring awareness or follow-up.",
+        "pendingActionsDescription": "Actions awaiting review, approval, or completion.",
+        "criticalItemsDescription": "Items flagged at critical priority.",
+        "healthStatusGood": "Healthy",
+        "healthStatusModerate": "Moderate",
+        "healthStatusLow": "Needs attention",
+        "countActive": "Active",
+        "countNone": "Clear"
+      }
     }
   }
 }

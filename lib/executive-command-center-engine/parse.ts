@@ -1,6 +1,7 @@
 export type ExecutiveCommandCenter = {
   found: boolean;
   error?: string;
+  access_state?: string;
   section?: string;
   principle?: string;
   privacy_note?: string;
@@ -27,6 +28,7 @@ export function parseExecutiveCommandCenter(raw: unknown): ExecutiveCommandCente
   return {
     found: Boolean(row.found),
     error: typeof row.error === "string" ? row.error : undefined,
+    access_state: typeof row.access_state === "string" ? row.access_state : undefined,
     section: typeof row.section === "string" ? row.section : undefined,
     principle: typeof row.principle === "string" ? row.principle : undefined,
     privacy_note: typeof row.privacy_note === "string" ? row.privacy_note : undefined,

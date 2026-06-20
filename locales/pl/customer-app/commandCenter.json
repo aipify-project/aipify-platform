@@ -841,5 +841,112 @@
     "actionHubTitle": "Action Hub",
     "actionHubLink": "Otwórz skrzynkę zadań",
     "actionHubNote": "Zadania osobiste i zespołowe pozostają w Action Hub — oddzielnie od nadzorowanego wykonywania zewnętrznego."
+  },
+  "executiveCommandCenter": {
+    "title": "Executive Command Center",
+    "subtitle": "Jedno operacyjne podsumowanie po zalogowaniu — co się wydarzyło, co się zmieniło, co wymaga uwagi i co powinno nastąpić dalej.",
+    "principle": "Kierownictwo nie powinno szukać informacji — informacje powinny do nich docierać.",
+    "privacyNote": "Tylko metadane executive command — kierownictwo decyduje o wynikach.",
+    "loading": "Ładowanie",
+    "empty": "Executive Command Center nie jest dostępne dla tej organizacji.",
+    "refresh": "Odśwież",
+    "overallHealthScore": "Zdrowie organizacji",
+    "companionRecommendations": "Rekomendacje Companion",
+    "noRecords": "Brak rekordów.",
+    "sinceLastLogin": "Od ostatniego logowania",
+    "morningBriefing": "Poranny briefing executive",
+    "organizationalTimeline": "Oś czasu Command Center",
+    "businessPackSignals": "Integracja Business Pack",
+    "boardReadyReports": "Raporty gotowe dla zarządu",
+    "commandMode": "Tryb Companion Command",
+    "mobileExecutiveMode": "Tryb mobilny executive",
+    "priority": {
+      "information": "Informacja",
+      "attention": "Uwaga",
+      "urgent": "Pilne",
+      "critical": "Krytyczne"
+    },
+    "sections": {
+      "overview": "Przegląd",
+      "sinceLastLogin": "Od ostatniego logowania",
+      "alerts": "Alerty",
+      "approvals": "Zatwierdzenia",
+      "risks": "Ryzyka",
+      "opportunities": "Możliwości",
+      "performance": "Wydajność",
+      "companionBriefing": "Briefing Companion"
+    },
+    "stats": {
+      "sinceLastLoginItems": "Od ostatniego logowania",
+      "openAlerts": "Otwarte alerty",
+      "pendingActions": "Oczekujące działania",
+      "openOpportunities": "Możliwości",
+      "criticalItems": "Elementy krytyczne"
+    },
+    "briefing": {
+      "revenue": "Podsumowanie przychodów",
+      "customer": "Podsumowanie klientów",
+      "risk": "Podsumowanie ryzyka",
+      "operational": "Podsumowanie operacyjne",
+      "growth": "Podsumowanie wzrostu",
+      "companion": "Rekomendacje Companion"
+    },
+    "premium": {
+      "eyebrow": "Przestrzeń executive",
+      "description": "Przegląd dowodzenia po zalogowaniu — co się zmieniło, co wymaga uwagi i co Aipify rekomenduje dalej.",
+      "viewSinceLastLogin": "Zobacz od ostatniego logowania",
+      "refreshing": "Odświeżanie…",
+      "todaysOverview": "Dzisiejszy przegląd executive",
+      "companionInsight": "Wgląd Aipify",
+      "needsAttention": "Wymaga uwagi",
+      "needsAttentionSubtitle": "Elementy priorytetowe, które mogą wymagać Twojej oceny lub decyzji.",
+      "returnToDashboard": "Wróć do pulpitu",
+      "retry": "Spróbuj ponownie",
+      "openRecord": "Otwórz",
+      "emptySection": "Aipify monitoruje — w tej sekcji nie ma nic do wyświetlenia.",
+      "recommendationCategory": "Rekomendacja executive",
+      "context": {
+        "organizationActive": "Organizacja aktywna",
+        "executiveAccessVerified": "Dostęp executive zweryfikowany"
+      },
+      "access": {
+        "permissionMissing": {
+          "title": "Wymagany dostęp executive",
+          "description": "Twoja rola nie obejmuje dostępu do Executive Command Center. Skontaktuj się z administratorem workspace."
+        },
+        "entitlementMissing": {
+          "title": "Moduł niedostępny",
+          "description": "Executive Command Center nie jest uwzględniony w bieżących uprawnieniach workspace."
+        },
+        "planRequired": {
+          "title": "Wymagana aktualizacja planu",
+          "description": "Executive Command Center wymaga aktywnego planu Business lub Enterprise."
+        },
+        "organizationContextMissing": {
+          "title": "Wymagany kontekst organizacji",
+          "description": "Wybierz lub aktywuj workspace organizacji przed otwarciem Executive Command Center."
+        },
+        "activationInProgress": {
+          "title": "Trwa aktywacja workspace",
+          "description": "Aipify przygotowuje Twoją przestrzeń executive. Sprawdź ponownie wkrótce lub wróć do pulpitu."
+        },
+        "generic": {
+          "title": "Executive Command Center niedostępne",
+          "description": "Executive Command Center nie jest obecnie dostępne dla tej organizacji."
+        }
+      },
+      "metrics": {
+        "healthDescription": "Łączne zdrowie organizacji na podstawie zweryfikowanych sygnałów operacyjnych.",
+        "sinceLastLoginDescription": "Nowe lub zmienione elementy od ostatniego logowania.",
+        "openAlertsDescription": "Aktywne alerty wymagające uwagi lub działania.",
+        "pendingActionsDescription": "Działania oczekujące na przegląd, zatwierdzenie lub ukończenie.",
+        "criticalItemsDescription": "Elementy oznaczone priorytetem krytycznym.",
+        "healthStatusGood": "Dobre",
+        "healthStatusModerate": "Umiarkowane",
+        "healthStatusLow": "Wymaga uwagi",
+        "countActive": "Aktywne",
+        "countNone": "Czysto"
+      }
+    }
   }
 }

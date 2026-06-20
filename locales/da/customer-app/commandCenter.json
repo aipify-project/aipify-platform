@@ -1488,6 +1488,63 @@
       "operational": "Operationelt sammendrag",
       "growth": "Vækstsammendrag",
       "companion": "Companion-anbefalinger"
+    },
+    "premium": {
+      "eyebrow": "Executive-arbejdsområde",
+      "description": "Din kommandooversigt efter login — hvad der ændrede sig, hvad der kræver opmærksomhed, og hvad Aipify anbefaler næste.",
+      "viewSinceLastLogin": "Vis siden sidste login",
+      "refreshing": "Opdaterer…",
+      "todaysOverview": "Dagens executive-oversigt",
+      "companionInsight": "Aipify-indsigt",
+      "needsAttention": "Kræver opmærksomhed",
+      "needsAttentionSubtitle": "Prioriterede elementer, der kan kræve din gennemgang eller beslutning.",
+      "returnToDashboard": "Tilbage til dashboard",
+      "retry": "Prøv igen",
+      "openRecord": "Åbn",
+      "emptySection": "Aipify overvåger — intet at vise i dette afsnit lige nu.",
+      "recommendationCategory": "Executive-anbefaling",
+      "context": {
+        "organizationActive": "Organisation aktiv",
+        "executiveAccessVerified": "Executive-adgang verificeret"
+      },
+      "access": {
+        "permissionMissing": {
+          "title": "Executive-adgang påkrævet",
+          "description": "Din rolle inkluderer ikke adgang til Executive Command Center. Kontakt workspace-administratoren."
+        },
+        "entitlementMissing": {
+          "title": "Modulet er ikke inkluderet",
+          "description": "Executive Command Center er ikke inkluderet i dine nuværende workspace-rettigheder."
+        },
+        "planRequired": {
+          "title": "Planopgradering påkrævet",
+          "description": "Executive Command Center kræver en aktiv Business- eller Enterprise-plan."
+        },
+        "organizationContextMissing": {
+          "title": "Organisationskontekst påkrævet",
+          "description": "Vælg eller aktiver din organisations-workspace, før du åbner Executive Command Center."
+        },
+        "activationInProgress": {
+          "title": "Workspace-aktivering i gang",
+          "description": "Aipify forbereder dit executive-arbejdsområde. Tjek igen snart eller gå tilbage til dashboardet."
+        },
+        "generic": {
+          "title": "Executive Command Center utilgængeligt",
+          "description": "Executive Command Center er ikke tilgængeligt for denne organisation lige nu."
+        }
+      },
+      "metrics": {
+        "healthDescription": "Samlet organisationshelbred baseret på verificerede operationelle signaler.",
+        "sinceLastLoginDescription": "Nye eller ændrede elementer siden sidste login.",
+        "openAlertsDescription": "Aktive advarsler, der kræver opmærksomhed eller opfølgning.",
+        "pendingActionsDescription": "Handlinger, der afventer gennemgang, godkendelse eller fuldførelse.",
+        "criticalItemsDescription": "Elementer markeret med kritisk prioritet.",
+        "healthStatusGood": "Sund",
+        "healthStatusModerate": "Moderat",
+        "healthStatusLow": "Kræver opmærksomhed",
+        "countActive": "Aktiv",
+        "countNone": "Klart"
+      }
     }
   }
 }

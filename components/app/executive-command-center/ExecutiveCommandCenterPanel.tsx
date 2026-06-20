@@ -2,7 +2,18 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { AipifyLoader } from "@/components/ui/aipify-loader";
+import {
+  AppEmptyState,
+  AppErrorState,
+  AppLoadingState,
+  AppSectionHeader,
+  CompanionInsightBanner,
+  ExecutiveMetricCard,
+  PriorityRecommendationCard,
+} from "@/components/app/design";
+import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
+import type { AipifyStatusKind } from "@/lib/design/status-system";
+import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 import {
   parseExecutiveCommandCenter,
   type ExecutiveCommandCenter,
@@ -10,19 +21,36 @@ import {
 import type { Ecc590Section } from "@/lib/executive-command-center-engine/config";
 import { ecc590SectionToRpc } from "@/lib/executive-command-center-engine/config";
 import type { buildExecutiveCommandCenterLabels } from "@/lib/executive-command-center-engine/labels";
+import { EccTabIcons } from "./ecc-tab-icons";
+import { useExecutiveCommandCenterRefresh } from "./ExecutiveCommandCenterRefreshContext";
 
 type Labels = ReturnType<typeof buildExecutiveCommandCenterLabels>;
 
-function StatCard({ label, value }: { label: string; value: string | number }) {
-  return (
-    <div className="rounded-2xl border border-zinc-200 bg-white px-5 py-4 shadow-sm">
-      <dt className="text-xs font-medium uppercase tracking-wide text-zinc-500">{label}</dt>
-      <dd className="mt-2 text-2xl font-semibold text-zinc-900">{value}</dd>
-    </div>
-  );
+function priorityLabel(labels: Labels, priority: unknown): string {
+  const key = String(priority ?? "information") as keyof Labels["priority"];
+  return labels.priority[key] ?? String(priority);
 }
 
-function ItemCard({
+function priorityToStatusKind(priority: unknown): AipifyStatusKind {
+  const value = String(priority ?? "information");
+  if (value === "critical") return "not_allowed";
+  if (value === "urgent" || value === "attention") return "needs_attention";
+  return "information";
+}
+
+function healthScoreStatus(score: number, labels: Labels): { statusKind: AipifyStatusKind; statusLabel: string } {
+  if (score >= 80) return { statusKind: "completed", statusLabel: labels.premium.metrics.healthStatusGood };
+  if (score >= 60) return { statusKind: "information", statusLabel: labels.premium.metrics.healthStatusModerate };
+  return { statusKind: "needs_attention", statusLabel: labels.premium.metrics.healthStatusLow };
+}
+
+function countStatus(count: number, labels: Labels): { statusKind: AipifyStatusKind; statusLabel: string } {
+  return count > 0
+    ? { statusKind: "needs_attention", statusLabel: labels.premium.metrics.countActive }
+    : { statusKind: "completed", statusLabel: labels.premium.metrics.countNone };
+}
+
+function PremiumItemCard({
   title,
   summary,
   badge,
@@ -34,24 +62,49 @@ function ItemCard({
   extra?: React.ReactNode;
 }) {
   return (
-    <div className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
+    <article className={`${AppPremiumShell.elevatedCard} ${AppPremiumShell.elevatedCardHover} p-5`}>
       <div className="flex flex-wrap items-start justify-between gap-2">
-        <p className="font-semibold text-zinc-900">{title}</p>
+        <h3 className="text-base font-semibold text-aipify-text">{title}</h3>
         {badge ? (
-          <span className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium capitalize text-zinc-700">
+          <span className="rounded-full bg-aipify-surface-muted px-2.5 py-0.5 text-xs font-medium capitalize text-aipify-text-secondary">
             {badge.replace(/_/g, " ")}
           </span>
         ) : null}
       </div>
-      {summary ? <p className="mt-2 text-sm text-zinc-600">{summary}</p> : null}
+      {summary ? <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{summary}</p> : null}
       {extra}
-    </div>
+    </article>
   );
 }
 
-function priorityLabel(labels: Labels, priority: unknown): string {
-  const key = String(priority ?? "information") as keyof Labels["priority"];
-  return labels.priority[key] ?? String(priority);
+function resolveAccessStateContent(
+  accessState: string | undefined,
+  labels: Labels
+): { title: string; description: string; statusKind: AipifyStatusKind; variant: "error" | "empty" } {
+  switch (accessState) {
+    case "permission_missing":
+    case "access_denied":
+      return { ...labels.premium.access.permissionMissing, statusKind: "not_allowed", variant: "error" };
+    case "entitlement_missing":
+      return { ...labels.premium.access.entitlementMissing, statusKind: "restricted", variant: "error" };
+    case "subscription_inactive":
+    case "license_inactive":
+    case "plan_required":
+      return { ...labels.premium.access.planRequired, statusKind: "restricted", variant: "error" };
+    case "organization_missing":
+    case "membership_missing":
+    case "user_not_provisioned":
+    case "organization_context_missing":
+      return {
+        ...labels.premium.access.organizationContextMissing,
+        statusKind: "needs_attention",
+        variant: "error",
+      };
+    case "activation_in_progress":
+      return { ...labels.premium.access.activationInProgress, statusKind: "waiting", variant: "empty" };
+    default:
+      return { ...labels.premium.access.generic, statusKind: "needs_attention", variant: "error" };
+  }
 }
 
 export function ExecutiveCommandCenterPanel({
@@ -63,13 +116,14 @@ export function ExecutiveCommandCenterPanel({
 }) {
   const [center, setCenter] = useState<ExecutiveCommandCenter | null>(null);
   const [loading, setLoading] = useState(true);
+  const { registerRefreshHandler } = useExecutiveCommandCenterRefresh();
 
   const load = useCallback(async () => {
     setLoading(true);
     const rpcSection = ecc590SectionToRpc(activeSection);
     const res = await fetch(`/api/executive-command-center/center?section=${rpcSection}`);
-    if (res.ok) setCenter(parseExecutiveCommandCenter(await res.json()));
-    else setCenter(null);
+    const json = await res.json().catch(() => ({}));
+    setCenter(parseExecutiveCommandCenter(json));
     setLoading(false);
   }, [activeSection]);
 
@@ -77,21 +131,38 @@ export function ExecutiveCommandCenterPanel({
     void load();
   }, [load]);
 
+  useEffect(() => {
+    registerRefreshHandler(load);
+    return () => registerRefreshHandler(null);
+  }, [load, registerRefreshHandler]);
+
   if (loading && !center) {
-    return (
-      <div className="flex min-h-[320px] items-center justify-center">
-        <AipifyLoader centered />
-        <span className="sr-only">{labels.loading}</span>
-      </div>
-    );
+    return <AppLoadingState message={labels.loading} />;
   }
 
   if (!center?.found) {
+    const access = resolveAccessStateContent(center?.access_state, labels);
+    if (access.variant === "empty") {
+      return (
+        <AppEmptyState
+          title={access.title}
+          description={access.description}
+          actionHref="/app"
+          actionLabel={labels.premium.returnToDashboard}
+        />
+      );
+    }
     return (
-      <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-amber-950">
-        <p className="font-medium">{labels.empty}</p>
-        {center?.error ? <p className="mt-2 text-sm">{center.error}</p> : null}
-      </div>
+      <AppErrorState
+        title={access.title}
+        description={center?.error ?? access.description}
+        statusKind={access.statusKind}
+        statusLabel={access.title}
+        onRetry={() => void load()}
+        retryLabel={labels.premium.retry}
+        returnHref="/app"
+        returnLabel={labels.premium.returnToDashboard}
+      />
     );
   }
 
@@ -101,63 +172,111 @@ export function ExecutiveCommandCenterPanel({
   );
   const approvalActions = (center.actions ?? []).filter((a) => String(a.action_type) === "approval");
   const allActions = center.actions ?? [];
+  const healthScore = center.overall_health_score ?? 0;
+  const healthStatus = healthScoreStatus(healthScore, labels);
+
+  const overviewMetrics =
+    activeSection === "overview" || activeSection === "performance" ? (
+      <section
+        aria-label={labels.overallHealthScore}
+        className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
+      >
+        <ExecutiveMetricCard
+          featured
+          icon={EccTabIcons.health}
+          label={labels.overallHealthScore}
+          value={healthScore}
+          description={labels.premium.metrics.healthDescription}
+          statusKind={healthStatus.statusKind}
+          statusLabel={healthStatus.statusLabel}
+        />
+        <ExecutiveMetricCard
+          icon={EccTabIcons.history}
+          label={labels.stats.sinceLastLoginItems}
+          value={stats.since_last_login_items ?? 0}
+          description={labels.premium.metrics.sinceLastLoginDescription}
+          {...countStatus(Number(stats.since_last_login_items ?? 0), labels)}
+        />
+        <ExecutiveMetricCard
+          icon={EccTabIcons.alerts}
+          label={labels.stats.openAlerts}
+          value={stats.open_alerts ?? 0}
+          description={labels.premium.metrics.openAlertsDescription}
+          {...countStatus(Number(stats.open_alerts ?? 0), labels)}
+        />
+        <ExecutiveMetricCard
+          icon={EccTabIcons.action}
+          label={labels.stats.pendingActions}
+          value={stats.pending_actions ?? 0}
+          description={labels.premium.metrics.pendingActionsDescription}
+          {...countStatus(Number(stats.pending_actions ?? 0), labels)}
+        />
+        <ExecutiveMetricCard
+          icon={EccTabIcons.critical}
+          label={labels.stats.criticalItems}
+          value={stats.critical_items ?? 0}
+          description={labels.premium.metrics.criticalItemsDescription}
+          {...countStatus(Number(stats.critical_items ?? 0), labels)}
+        />
+      </section>
+    ) : null;
+
+  const needsAttentionSection =
+    activeSection === "overview" && (center.companion_recommendations?.length ?? 0) > 0 ? (
+      <section aria-labelledby="ecc-needs-attention" className="space-y-4">
+        <AppSectionHeader
+          title={labels.premium.needsAttention}
+          subtitle={labels.premium.needsAttentionSubtitle}
+        />
+        <div className="grid gap-4 lg:grid-cols-2">
+          {(center.companion_recommendations ?? []).map((rec, i) => {
+            const priority = rec.priority ?? "attention";
+            return (
+              <PriorityRecommendationCard
+                key={i}
+                category={labels.premium.recommendationCategory}
+                title={String(rec.alert_title ?? labels.companionRecommendations)}
+                description={String(rec.recommendation ?? "")}
+                statusKind={priorityToStatusKind(priority)}
+                statusLabel={priorityLabel(labels, priority)}
+              />
+            );
+          })}
+        </div>
+      </section>
+    ) : null;
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h2 className="text-lg font-semibold text-zinc-900">{labels.sections[activeSection]}</h2>
-          {center.privacy_note ? <p className="mt-1 text-xs text-zinc-500">{center.privacy_note}</p> : null}
-        </div>
-        <button
-          type="button"
-          onClick={() => void load()}
-          className="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
-        >
-          {labels.refresh}
-        </button>
-      </div>
+    <div className={AppPremiumShell.sectionGap}>
+      <AppSectionHeader
+        title={activeSection === "overview" ? labels.premium.todaysOverview : labels.sections[activeSection]}
+        subtitle={center.privacy_note ? labels.privacyNote : undefined}
+        action={
+          center.privacy_note ? (
+            <p className="max-w-md text-xs leading-relaxed text-aipify-text-muted">{center.privacy_note}</p>
+          ) : null
+        }
+      />
 
       {center.principle ? (
-        <p className="rounded-2xl border border-indigo-100 bg-indigo-50/60 px-5 py-4 text-sm text-indigo-950">
-          {center.principle}
-        </p>
+        <CompanionInsightBanner principle={center.principle} label={labels.premium.companionInsight} />
       ) : null}
 
-      {(activeSection === "overview" || activeSection === "performance") && (
-        <section className="rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50/80 to-white p-6 shadow-sm">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            <div>
-              <p className="text-xs font-medium uppercase text-zinc-500">{labels.overallHealthScore}</p>
-              <p className="mt-1 text-4xl font-bold text-indigo-900">{center.overall_health_score ?? 0}</p>
-            </div>
-            <StatCard label={labels.stats.sinceLastLoginItems} value={stats.since_last_login_items ?? 0} />
-            <StatCard label={labels.stats.openAlerts} value={stats.open_alerts ?? 0} />
-            <StatCard label={labels.stats.pendingActions} value={stats.pending_actions ?? 0} />
-            <StatCard label={labels.stats.criticalItems} value={stats.critical_items ?? 0} />
-          </div>
-        </section>
-      )}
-
-      {activeSection === "overview" && (center.companion_recommendations?.length ?? 0) > 0 && (
-        <section className="space-y-3">
-          <h3 className="font-semibold text-zinc-900">{labels.companionRecommendations}</h3>
-          {(center.companion_recommendations ?? []).map((rec, i) => (
-            <ItemCard
-              key={i}
-              title={String(rec.alert_title ?? "Insight")}
-              summary={String(rec.recommendation ?? "")}
-            />
-          ))}
-        </section>
+      {activeSection === "overview" ? (
+        <div className="flex flex-col-reverse gap-8 lg:flex-col">
+          {needsAttentionSection}
+          {overviewMetrics}
+        </div>
+      ) : (
+        overviewMetrics
       )}
 
       {activeSection === "overview" && (center.business_packs?.length ?? 0) > 0 && (
-        <section className="space-y-3">
-          <h3 className="font-semibold text-zinc-900">{labels.businessPackSignals}</h3>
-          <div className="grid gap-3 md:grid-cols-3">
+        <section className="space-y-4">
+          <AppSectionHeader title={labels.businessPackSignals} />
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {(center.business_packs ?? []).map((pack) => (
-              <ItemCard
+              <PremiumItemCard
                 key={String(pack.pack_key)}
                 title={String(pack.pack_title)}
                 summary={String(pack.summary ?? "")}
@@ -169,48 +288,52 @@ export function ExecutiveCommandCenterPanel({
       )}
 
       {activeSection === "sinceLastLogin" && (
-        <section className="space-y-3">
-          <h3 className="font-semibold text-zinc-900">{labels.sinceLastLogin}</h3>
+        <section className="space-y-4">
+          <AppSectionHeader title={labels.sinceLastLogin} />
           {(center.since_last_login ?? []).length === 0 ? (
-            <p className="text-sm text-zinc-600">{labels.noRecords}</p>
+            <p className="text-sm text-aipify-text-secondary">{labels.noRecords}</p>
           ) : (
-            (center.since_last_login ?? []).map((item) => (
-              <ItemCard
-                key={String(item.item_key)}
-                title={`${String(item.item_count ?? 1)} — ${String(item.item_title)}`}
-                summary={String(item.summary ?? "")}
-                badge={priorityLabel(labels, item.priority)}
-              />
-            ))
+            <div className="grid gap-4">
+              {(center.since_last_login ?? []).map((item) => (
+                <PremiumItemCard
+                  key={String(item.item_key)}
+                  title={`${String(item.item_count ?? 1)} — ${String(item.item_title)}`}
+                  summary={String(item.summary ?? "")}
+                  badge={priorityLabel(labels, item.priority)}
+                />
+              ))}
+            </div>
           )}
           {(center.timeline ?? []).length > 0 && (
             <>
-              <h3 className="pt-4 font-semibold text-zinc-900">{labels.organizationalTimeline}</h3>
-              {(center.timeline ?? []).map((evt) => (
-                <ItemCard
-                  key={String(evt.event_key)}
-                  title={String(evt.event_title)}
-                  summary={String(evt.summary ?? "")}
-                  badge={String(evt.event_type ?? "")}
-                  extra={
-                    evt.occurred_at ? (
-                      <p className="mt-1 text-xs text-zinc-500">{String(evt.occurred_at)}</p>
-                    ) : null
-                  }
-                />
-              ))}
+              <AppSectionHeader title={labels.organizationalTimeline} />
+              <div className="grid gap-4">
+                {(center.timeline ?? []).map((evt) => (
+                  <PremiumItemCard
+                    key={String(evt.event_key)}
+                    title={String(evt.event_title)}
+                    summary={String(evt.summary ?? "")}
+                    badge={String(evt.event_type ?? "")}
+                    extra={
+                      evt.occurred_at ? (
+                        <p className="mt-2 text-xs text-aipify-text-muted">{String(evt.occurred_at)}</p>
+                      ) : null
+                    }
+                  />
+                ))}
+              </div>
             </>
           )}
         </section>
       )}
 
       {activeSection === "alerts" && (
-        <section className="grid gap-3">
+        <section className="grid gap-4">
           {(center.alerts ?? []).length === 0 ? (
-            <p className="text-sm text-zinc-600">{labels.noRecords}</p>
+            <AppEmptyState title={labels.noRecords} description={labels.premium.emptySection} />
           ) : (
             (center.alerts ?? []).map((a) => (
-              <ItemCard
+              <PremiumItemCard
                 key={String(a.alert_key)}
                 title={String(a.alert_title)}
                 summary={String(a.companion_recommendation || a.summary || "")}
@@ -222,20 +345,23 @@ export function ExecutiveCommandCenterPanel({
       )}
 
       {activeSection === "approvals" && (
-        <section className="grid gap-3">
+        <section className="grid gap-4">
           {approvalActions.length === 0 && allActions.length === 0 ? (
-            <p className="text-sm text-zinc-600">{labels.noRecords}</p>
+            <AppEmptyState title={labels.noRecords} description={labels.premium.emptySection} />
           ) : (
             (approvalActions.length > 0 ? approvalActions : allActions).map((a) => (
-              <ItemCard
+              <PremiumItemCard
                 key={String(a.action_key)}
                 title={String(a.action_title)}
                 summary={String(a.summary ?? "")}
                 badge={priorityLabel(labels, a.priority)}
                 extra={
                   a.record_href ? (
-                    <Link href={String(a.record_href)} className="mt-3 inline-block text-sm font-medium text-indigo-700 hover:underline">
-                      Open
+                    <Link
+                      href={String(a.record_href)}
+                      className={`mt-4 inline-flex min-h-10 items-center text-sm font-medium text-aipify-companion hover:text-aipify-companion-hover ${AppPremiumShell.focusRing}`}
+                    >
+                      {labels.premium.openRecord}
                     </Link>
                   ) : null
                 }
@@ -246,13 +372,13 @@ export function ExecutiveCommandCenterPanel({
       )}
 
       {activeSection === "risks" && (
-        <section className="grid gap-3">
+        <section className="grid gap-4">
           {riskAlerts.length === 0 && (center.health ?? []).length === 0 ? (
-            <p className="text-sm text-zinc-600">{labels.noRecords}</p>
+            <AppEmptyState title={labels.noRecords} description={labels.premium.emptySection} />
           ) : (
             <>
               {riskAlerts.map((a) => (
-                <ItemCard
+                <PremiumItemCard
                   key={String(a.alert_key)}
                   title={String(a.alert_title)}
                   summary={String(a.companion_recommendation || a.summary || "")}
@@ -262,7 +388,7 @@ export function ExecutiveCommandCenterPanel({
               {(center.health ?? [])
                 .filter((h) => Number(h.health_score) < 80)
                 .map((h) => (
-                  <ItemCard
+                  <PremiumItemCard
                     key={String(h.health_key)}
                     title={String(h.health_title)}
                     summary={String(h.summary ?? "")}
@@ -275,12 +401,12 @@ export function ExecutiveCommandCenterPanel({
       )}
 
       {activeSection === "opportunities" && (
-        <section className="grid gap-3">
+        <section className="grid gap-4">
           {(center.opportunities ?? []).length === 0 ? (
-            <p className="text-sm text-zinc-600">{labels.noRecords}</p>
+            <AppEmptyState title={labels.noRecords} description={labels.premium.emptySection} />
           ) : (
             (center.opportunities ?? []).map((o) => (
-              <ItemCard
+              <PremiumItemCard
                 key={String(o.opportunity_key)}
                 title={String(o.opportunity_title)}
                 summary={String(o.recommendation || o.summary || "")}
@@ -292,12 +418,12 @@ export function ExecutiveCommandCenterPanel({
       )}
 
       {activeSection === "performance" && (
-        <section className="grid gap-3 sm:grid-cols-2">
+        <section className="grid gap-4 sm:grid-cols-2">
           {(center.health ?? []).length === 0 ? (
-            <p className="text-sm text-zinc-600">{labels.noRecords}</p>
+            <AppEmptyState title={labels.noRecords} description={labels.premium.emptySection} />
           ) : (
             (center.health ?? []).map((h) => (
-              <ItemCard
+              <PremiumItemCard
                 key={String(h.health_key)}
                 title={String(h.health_title)}
                 summary={String(h.summary ?? "")}
@@ -311,58 +437,77 @@ export function ExecutiveCommandCenterPanel({
       {activeSection === "companionBriefing" && (
         <section className="space-y-6">
           {(center.briefings ?? []).map((b) => (
-            <div key={String(b.briefing_key)} className="rounded-2xl border border-indigo-100 bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-zinc-900">{String(b.briefing_title)}</h3>
+            <article
+              key={String(b.briefing_key)}
+              className={`${AppPremiumShell.elevatedCard} border-violet-200/60 p-6`}
+            >
+              <h3 className="text-lg font-semibold text-aipify-text">{String(b.briefing_title)}</h3>
               <dl className="mt-4 grid gap-4 sm:grid-cols-2">
                 <div>
-                  <dt className="text-xs font-medium uppercase text-zinc-500">{labels.briefing.revenue}</dt>
-                  <dd className="mt-1 text-sm text-zinc-700">{String(b.revenue_summary ?? "")}</dd>
+                  <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">
+                    {labels.briefing.revenue}
+                  </dt>
+                  <dd className="mt-1 text-sm text-aipify-text-secondary">{String(b.revenue_summary ?? "")}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs font-medium uppercase text-zinc-500">{labels.briefing.customer}</dt>
-                  <dd className="mt-1 text-sm text-zinc-700">{String(b.customer_summary ?? "")}</dd>
+                  <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">
+                    {labels.briefing.customer}
+                  </dt>
+                  <dd className="mt-1 text-sm text-aipify-text-secondary">{String(b.customer_summary ?? "")}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs font-medium uppercase text-zinc-500">{labels.briefing.risk}</dt>
-                  <dd className="mt-1 text-sm text-zinc-700">{String(b.risk_summary ?? "")}</dd>
+                  <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">
+                    {labels.briefing.risk}
+                  </dt>
+                  <dd className="mt-1 text-sm text-aipify-text-secondary">{String(b.risk_summary ?? "")}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs font-medium uppercase text-zinc-500">{labels.briefing.operational}</dt>
-                  <dd className="mt-1 text-sm text-zinc-700">{String(b.operational_summary ?? "")}</dd>
+                  <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">
+                    {labels.briefing.operational}
+                  </dt>
+                  <dd className="mt-1 text-sm text-aipify-text-secondary">{String(b.operational_summary ?? "")}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs font-medium uppercase text-zinc-500">{labels.briefing.growth}</dt>
-                  <dd className="mt-1 text-sm text-zinc-700">{String(b.growth_summary ?? "")}</dd>
+                  <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">
+                    {labels.briefing.growth}
+                  </dt>
+                  <dd className="mt-1 text-sm text-aipify-text-secondary">{String(b.growth_summary ?? "")}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs font-medium uppercase text-zinc-500">{labels.briefing.companion}</dt>
-                  <dd className="mt-1 text-sm text-zinc-700">{String(b.companion_recommendations ?? "")}</dd>
+                  <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">
+                    {labels.briefing.companion}
+                  </dt>
+                  <dd className="mt-1 text-sm text-aipify-text-secondary">
+                    {String(b.companion_recommendations ?? "")}
+                  </dd>
                 </div>
               </dl>
-            </div>
+            </article>
           ))}
 
           {(center.board_reports ?? []).length > 0 && (
-            <div className="space-y-3">
-              <h3 className="font-semibold text-zinc-900">{labels.boardReadyReports}</h3>
-              {(center.board_reports ?? []).map((r) => (
-                <ItemCard
-                  key={String(r.report_key)}
-                  title={String(r.report_title)}
-                  summary={String(r.summary ?? "")}
-                  badge={String(r.report_type ?? "")}
-                />
-              ))}
+            <div className="space-y-4">
+              <AppSectionHeader title={labels.boardReadyReports} />
+              <div className="grid gap-4">
+                {(center.board_reports ?? []).map((r) => (
+                  <PremiumItemCard
+                    key={String(r.report_key)}
+                    title={String(r.report_title)}
+                    summary={String(r.summary ?? "")}
+                    badge={String(r.report_type ?? "")}
+                  />
+                ))}
+              </div>
             </div>
           )}
 
           {(center.command_prompts ?? []).length > 0 && (
-            <div className="space-y-3">
-              <h3 className="font-semibold text-zinc-900">{labels.commandMode}</h3>
+            <div className="space-y-4">
+              <AppSectionHeader title={labels.commandMode} />
               <ul className="flex flex-wrap gap-2">
                 {(center.command_prompts ?? []).map((prompt) => (
-                  <li key={prompt} className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-sm text-zinc-700">
-                    {prompt}
+                  <li key={prompt}>
+                    <AipifyStatusBadge kind="information" label={prompt} />
                   </li>
                 ))}
               </ul>

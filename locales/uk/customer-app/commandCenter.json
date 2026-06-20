@@ -841,5 +841,112 @@
     "actionHubTitle": "Action Hub",
     "actionHubLink": "Відкрити вхідні завдання",
     "actionHubNote": "Особисті та командні завдання залишаються в Action Hub — окремо від керованого зовнішнього виконання."
+  },
+  "executiveCommandCenter": {
+    "title": "Executive Command Center",
+    "subtitle": "Один операційний огляд після входу — що сталося, що змінилося, що потребує уваги та що має відбутися далі.",
+    "principle": "Керівництво не повинно шукати інформацію — інформація має приходити до них.",
+    "privacyNote": "Лише метадані executive command — керівництво приймає рішення.",
+    "loading": "Завантаження",
+    "empty": "Executive Command Center недоступний для цієї організації.",
+    "refresh": "Оновити",
+    "overallHealthScore": "Здоров'я організації",
+    "companionRecommendations": "Рекомендації Companion",
+    "noRecords": "Записів ще немає.",
+    "sinceLastLogin": "З моменту останнього входу",
+    "morningBriefing": "Ранковий executive-брифінг",
+    "organizationalTimeline": "Хронологія Command Center",
+    "businessPackSignals": "Інтеграція Business Pack",
+    "boardReadyReports": "Звіти для ради директорів",
+    "commandMode": "Режим Companion Command",
+    "mobileExecutiveMode": "Мобільний executive-режим",
+    "priority": {
+      "information": "Інформація",
+      "attention": "Увага",
+      "urgent": "Терміново",
+      "critical": "Критично"
+    },
+    "sections": {
+      "overview": "Огляд",
+      "sinceLastLogin": "З моменту останнього входу",
+      "alerts": "Сповіщення",
+      "approvals": "Схвалення",
+      "risks": "Ризики",
+      "opportunities": "Можливості",
+      "performance": "Ефективність",
+      "companionBriefing": "Брифінг Companion"
+    },
+    "stats": {
+      "sinceLastLoginItems": "З моменту останнього входу",
+      "openAlerts": "Відкриті сповіщення",
+      "pendingActions": "Очікуючі дії",
+      "openOpportunities": "Можливості",
+      "criticalItems": "Критичні елементи"
+    },
+    "briefing": {
+      "revenue": "Підсумок доходів",
+      "customer": "Підсумок клієнтів",
+      "risk": "Підсумок ризиків",
+      "operational": "Операційний підсумок",
+      "growth": "Підсумок зростання",
+      "companion": "Рекомендації Companion"
+    },
+    "premium": {
+      "eyebrow": "Executive-робочий простір",
+      "description": "Огляд командування після входу — що змінилося, що потребує уваги та що Aipify рекомендує далі.",
+      "viewSinceLastLogin": "Переглянути з моменту останнього входу",
+      "refreshing": "Оновлення…",
+      "todaysOverview": "Сьогоднішній executive-огляд",
+      "companionInsight": "Інсайт Aipify",
+      "needsAttention": "Потребує уваги",
+      "needsAttentionSubtitle": "Пріоритетні елементи, які можуть потребувати вашого перегляду або рішення.",
+      "returnToDashboard": "Повернутися до панелі",
+      "retry": "Спробувати знову",
+      "openRecord": "Відкрити",
+      "emptySection": "Aipify моніторить — у цьому розділі зараз нічого показувати.",
+      "recommendationCategory": "Executive-рекомендація",
+      "context": {
+        "organizationActive": "Організація активна",
+        "executiveAccessVerified": "Executive-доступ підтверджено"
+      },
+      "access": {
+        "permissionMissing": {
+          "title": "Потрібен executive-доступ",
+          "description": "Ваша роль не включає доступ до Executive Command Center. Зверніться до адміністратора workspace."
+        },
+        "entitlementMissing": {
+          "title": "Модуль не включено",
+          "description": "Executive Command Center не включено до ваших поточних прав workspace."
+        },
+        "planRequired": {
+          "title": "Потрібне оновлення плану",
+          "description": "Executive Command Center потребує активного плану Business або Enterprise."
+        },
+        "organizationContextMissing": {
+          "title": "Потрібен контекст організації",
+          "description": "Оберіть або активуйте workspace організації перед відкриттям Executive Command Center."
+        },
+        "activationInProgress": {
+          "title": "Триває активація workspace",
+          "description": "Aipify готує ваш executive-робочий простір. Перевірте знову незабаром або поверніться до панелі."
+        },
+        "generic": {
+          "title": "Executive Command Center недоступний",
+          "description": "Executive Command Center зараз недоступний для цієї організації."
+        }
+      },
+      "metrics": {
+        "healthDescription": "Загальне здоров'я організації на основі перевірених операційних сигналів.",
+        "sinceLastLoginDescription": "Нові або змінені елементи з моменту останнього входу.",
+        "openAlertsDescription": "Активні сповіщення, що потребують уваги або подальших дій.",
+        "pendingActionsDescription": "Дії, що очікують перегляду, схвалення або завершення.",
+        "criticalItemsDescription": "Елементи з критичним пріоритетом.",
+        "healthStatusGood": "Здорово",
+        "healthStatusModerate": "Помірно",
+        "healthStatusLow": "Потребує уваги",
+        "countActive": "Активно",
+        "countNone": "Чисто"
+      }
+    }
   }
 }

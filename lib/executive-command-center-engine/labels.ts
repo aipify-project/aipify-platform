@@ -51,5 +51,62 @@ export function buildExecutiveCommandCenterLabels(t: Translator) {
       growth: t(`${p}.briefing.growth`),
       companion: t(`${p}.briefing.companion`),
     },
+    premium: {
+      eyebrow: t(`${p}.premium.eyebrow`),
+      description: t(`${p}.premium.description`),
+      viewSinceLastLogin: t(`${p}.premium.viewSinceLastLogin`),
+      refreshing: t(`${p}.premium.refreshing`),
+      todaysOverview: t(`${p}.premium.todaysOverview`),
+      companionInsight: t(`${p}.premium.companionInsight`),
+      needsAttention: t(`${p}.premium.needsAttention`),
+      needsAttentionSubtitle: t(`${p}.premium.needsAttentionSubtitle`),
+      returnToDashboard: t(`${p}.premium.returnToDashboard`),
+      retry: t(`${p}.premium.retry`),
+      openRecord: t(`${p}.premium.openRecord`),
+      emptySection: t(`${p}.premium.emptySection`),
+      recommendationCategory: t(`${p}.premium.recommendationCategory`),
+      context: {
+        organizationActive: t(`${p}.premium.context.organizationActive`),
+        executiveAccessVerified: t(`${p}.premium.context.executiveAccessVerified`),
+      },
+      access: {
+        permissionMissing: {
+          title: t(`${p}.premium.access.permissionMissing.title`),
+          description: t(`${p}.premium.access.permissionMissing.description`),
+        },
+        entitlementMissing: {
+          title: t(`${p}.premium.access.entitlementMissing.title`),
+          description: t(`${p}.premium.access.entitlementMissing.description`),
+        },
+        planRequired: {
+          title: t(`${p}.premium.access.planRequired.title`),
+          description: t(`${p}.premium.access.planRequired.description`),
+        },
+        organizationContextMissing: {
+          title: t(`${p}.premium.access.organizationContextMissing.title`),
+          description: t(`${p}.premium.access.organizationContextMissing.description`),
+        },
+        activationInProgress: {
+          title: t(`${p}.premium.access.activationInProgress.title`),
+          description: t(`${p}.premium.access.activationInProgress.description`),
+        },
+        generic: {
+          title: t(`${p}.premium.access.generic.title`),
+          description: t(`${p}.premium.access.generic.description`),
+        },
+      },
+      metrics: {
+        healthDescription: t(`${p}.premium.metrics.healthDescription`),
+        sinceLastLoginDescription: t(`${p}.premium.metrics.sinceLastLoginDescription`),
+        openAlertsDescription: t(`${p}.premium.metrics.openAlertsDescription`),
+        pendingActionsDescription: t(`${p}.premium.metrics.pendingActionsDescription`),
+        criticalItemsDescription: t(`${p}.premium.metrics.criticalItemsDescription`),
+        healthStatusGood: t(`${p}.premium.metrics.healthStatusGood`),
+        healthStatusModerate: t(`${p}.premium.metrics.healthStatusModerate`),
+        healthStatusLow: t(`${p}.premium.metrics.healthStatusLow`),
+        countActive: t(`${p}.premium.metrics.countActive`),
+        countNone: t(`${p}.premium.metrics.countNone`),
+      },
+    },
   };
 }

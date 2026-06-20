@@ -1,29 +1,35 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
+import { AppSectionTabs, type AppSectionTabItem } from "@/components/app/design";
 import { ECC590_SECTIONS, getEcc590ActiveSection } from "@/lib/executive-command-center-engine/config";
 import type { buildExecutiveCommandCenterLabels } from "@/lib/executive-command-center-engine/labels";
+import { EccTabIcons } from "./ecc-tab-icons";
 
 type Labels = ReturnType<typeof buildExecutiveCommandCenterLabels>;
+
+const TAB_ICONS: Record<(typeof ECC590_SECTIONS)[number]["key"], ReactNode> = {
+  overview: EccTabIcons.overview,
+  sinceLastLogin: EccTabIcons.sinceLastLogin,
+  alerts: EccTabIcons.alerts,
+  approvals: EccTabIcons.approvals,
+  risks: EccTabIcons.risks,
+  opportunities: EccTabIcons.opportunities,
+  performance: EccTabIcons.performance,
+  companionBriefing: EccTabIcons.companionBriefing,
+};
 
 export function ExecutiveCommandCenterNav({ labels }: { labels: Labels["sections"] }) {
   const pathname = usePathname();
   const active = getEcc590ActiveSection(pathname);
 
-  return (
-    <nav aria-label="Executive Command Center" className="flex flex-wrap gap-2 border-b border-zinc-200 pb-4">
-      {ECC590_SECTIONS.map((item) => (
-        <Link
-          key={item.key}
-          href={item.href}
-          className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-            active === item.key ? "bg-indigo-700 text-white" : "text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900"
-          }`}
-        >
-          {labels[item.key]}
-        </Link>
-      ))}
-    </nav>
-  );
+  const items: AppSectionTabItem[] = ECC590_SECTIONS.map((item) => ({
+    key: item.key,
+    href: item.href,
+    label: labels[item.key],
+    icon: TAB_ICONS[item.key],
+  }));
+
+  return <AppSectionTabs items={items} activeKey={active} ariaLabel="Executive Command Center" />;
 }
