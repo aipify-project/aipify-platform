@@ -46,7 +46,6 @@ begin
     select 1 from public.platform_admins pa
     where pa.auth_user_id = auth.uid()
       and pa.role = 'super_admin'
-      and coalesce(pa.status, 'active') = 'active'
   ) then
     return jsonb_build_object(
       'organization_role', 'organization_owner',
@@ -59,12 +58,7 @@ begin
     raise exception 'APP portal access denied';
   end if;
 
-  select s.status
-  into v_sub_status
-  from public.subscriptions s
-  where s.company_id = v_company_id
-  order by s.created_at desc
-  limit 1;
+  v_sub_status := public._apsf260_subscription_status(v_company_id);
 
   if v_sub_status is not null and v_sub_status not in ('active', 'trialing', 'past_due') then
     raise exception 'Active subscription required';
