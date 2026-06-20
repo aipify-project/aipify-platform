@@ -130,6 +130,107 @@
       "upgradeCta": "Se oppgraderingsalternativer",
       "unavailableTitle": "Funksjon utilgjengelig"
     },
+    "businessPackSettings": {
+      "eyebrow": "BUSINESS PACK-ADMINISTRASJON",
+      "title": "Business Pack-innstillinger",
+      "description": "Administrer konfigurasjon, tilgang og aktivering for installerte Business Packs.",
+      "breadcrumbBusinessPacks": "Business Packs",
+      "breadcrumbSettings": "Innstillinger",
+      "backToBusinessPacks": "Tilbake til Business Packs",
+      "exploreAvailable": "Utforsk tilgjengelige Business Packs",
+      "viewUpgradeOptions": "Se oppgraderingsalternativer",
+      "contactSales": "Kontakt salg",
+      "contactSupport": "Kontakt support",
+      "currentPlan": "Nåværende plan",
+      "requiredPlan": "Påkrevd plan",
+      "requiredPlanValue": "Business eller Enterprise",
+      "capabilitySummary": "Etter oppgradering kan du administrere pakkekonfigurasjon, aktiveringsstatus, avhengigheter og organisasjonsinnstillinger på ett sted.",
+      "configure": "Konfigurer",
+      "openWorkspace": "Åpne arbeidsområde",
+      "version": "Versjon",
+      "dependencies": "Avhengigheter",
+      "integrations": "Tilkoblede integrasjoner",
+      "accessSummary": "Tilgangssammendrag",
+      "installedDate": "Installert",
+      "navRequiresUpgrade": "Krever oppgradering",
+      "states": {
+        "planRequired": {
+          "title": "Oppgradering kreves",
+          "body": "Business Pack-innstillinger er ikke inkludert i ditt nåværende abonnement. Oppgrader for å administrere pakkekonfigurasjon, aktiveringsstatus, avhengigheter og organisasjonsinnstillinger på ett sted."
+        },
+        "pendingActivation": {
+          "title": "Aktivering pågår",
+          "body": "Aipify forbereder Business Pack og validerer nødvendige tjenester. Tilgang blir tilgjengelig automatisk når valideringen er fullført."
+        },
+        "activationFailed": {
+          "title": "Aktivering krever oppmerksomhet",
+          "body": "Aipify kunne ikke fullføre aktiveringen. Problemet er loggført og Platform Admin er varslet."
+        },
+        "suspended": {
+          "title": "Tilgang suspendert",
+          "body": "Business Pack-innstillinger er midlertidig utilgjengelig fordi abonnement, lisens eller pakke-tilgang er suspendert. Gjenopprett fakturering eller kontakt support."
+        },
+        "noInstalledPacks": {
+          "title": "Ingen Business Packs installert",
+          "body": "Utforsk tilgjengelige Business Packs for å legge til nye muligheter i organisasjonen."
+        },
+        "permissionMissing": {
+          "title": "Tillatelse kreves",
+          "body": "Organisasjonsrollen din inkluderer ikke tillatelse til å administrere Business Pack-innstillinger. Kontakt en administrator hvis du trenger tilgang."
+        },
+        "organizationContextMissing": {
+          "title": "Organisasjonskontekst kreves",
+          "body": "Aipify kunne ikke finne organisasjonsarbeidsområdet ditt. Bekreft medlemskap og prøv igjen."
+        },
+        "subscriptionInactive": {
+          "title": "Abonnement inaktivt",
+          "body": "Business Pack-innstillinger krever et aktivt abonnement. Gjennomgå fakturering for å gjenopprette tilgang."
+        },
+        "licenseInactive": {
+          "title": "Lisens inaktiv",
+          "body": "Organisasjonslisensen er ikke aktiv. Gjennomgå fakturering eller kontakt support."
+        },
+        "entitlementMissing": {
+          "title": "Rettighet kreves",
+          "body": "Organisasjonen inkluderer ikke Business Pack-administrasjon. Oppgrader eller legg til nødvendig pakke."
+        }
+      },
+      "valueCards": {
+        "packConfiguration": {
+          "title": "Pakkekonfigurasjon",
+          "description": "Administrer innstillinger for installerte Business Packs."
+        },
+        "activationStatus": {
+          "title": "Aktiveringsstatus",
+          "description": "Se om pakker er aktive, valideres eller krever oppmerksomhet."
+        },
+        "dependencies": {
+          "title": "Avhengigheter",
+          "description": "Gjennomgå nødvendige integrasjoner, tillatelser og tjenester."
+        },
+        "accessManagement": {
+          "title": "Tilgangsadministrasjon",
+          "description": "Kontroller hvilke organisasjonsroller som kan bruke hver pakke."
+        },
+        "healthValidation": {
+          "title": "Helse og validering",
+          "description": "Se resultater fra røyktester og aktiveringsproblemer."
+        }
+      },
+      "packStatus": {
+        "active": "Aktiv",
+        "activationInProgress": "Aktivering pågår",
+        "requiresAttention": "Krever oppmerksomhet",
+        "activationFailed": "Aktivering mislyktes",
+        "suspended": "Suspendert",
+        "updateAvailable": "Oppdatering tilgjengelig"
+      },
+      "loadError": {
+        "title": "Business Pack-innstillinger kunne ikke lastes",
+        "body": "Aipify kunne ikke hente gjeldende pakkekonfigurasjon. Prøv igjen om litt.",
+        "retry": "Prøv igjen"
+      }
+    },
     "knowledge": {
       "title": "Kunnskapssenter",
       "subtitle": "Svar på vanlige spørsmål om APP-arbeidsområdet, abonnement og teamsamarbeid."

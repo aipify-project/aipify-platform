@@ -7,11 +7,13 @@ import {
   AppPortalKnowledgePanel,
   AppPortalLicenseGate,
   AvailableBusinessPacksPanel,
+  BusinessPackSettingsPanel,
 } from "@/components/app/app-portal";
 import SinceLastLoginSummaryPanel from "@/components/shared/since-last-login/SinceLastLoginSummaryPanel";
 import { TeamCenterPanel } from "@/components/app/team/TeamCenterPanel";
 import { buildAppPortalLabels, buildAppPortalFaqAnswerLabels } from "@/lib/app-portal/labels";
 import { buildAppStoreLabels } from "@/lib/app-store/labels";
+import { buildBusinessPackSettingsLabels } from "@/lib/app-portal/business-pack-settings";
 import {
   APP_PORTAL_INTEGRATIONS_FAQ_ARTICLES,
   buildAppPortalIntegrationsFaqAnswerLabels,
@@ -67,7 +69,6 @@ const PAGE_KEYS: Record<AppPortalPageKey, { titleKey: string; subtitleKey: strin
   availableBusinessPacks: {
     titleKey: "customerApp.portalStructure.pages.availableBusinessPacks.title",
     subtitleKey: "customerApp.portalStructure.pages.availableBusinessPacks.subtitle",
-    featureKey: "business_packs",
   },
   businessPackSettings: {
     titleKey: "customerApp.portalStructure.pages.businessPackSettings.title",
@@ -220,6 +221,15 @@ export async function renderAppPortalAvailableBusinessPacksPage() {
       </Suspense>
     </div>
   );
+}
+
+export async function renderAppPortalBusinessPackSettingsPage() {
+  const locale = await getLocale();
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure"]);
+  const t = createTranslator(dict);
+  const labels = buildBusinessPackSettingsLabels(t);
+
+  return <BusinessPackSettingsPanel labels={labels} />;
 }
 
 export async function renderAppPortalSinceLastLoginPage() {

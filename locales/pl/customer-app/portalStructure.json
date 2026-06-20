@@ -1,5 +1,91 @@
 {
   "portalStructure": {
+    "businessPackSettings": {
+      "eyebrow": "ZARZĄDZANIE BUSINESS PACK",
+      "title": "Ustawienia Business Pack",
+      "description": "Zarządzaj konfiguracją, dostępem i aktywacją zainstalowanych Business Packs.",
+      "breadcrumbBusinessPacks": "Business Packs",
+      "breadcrumbSettings": "Ustawienia",
+      "backToBusinessPacks": "Powrót do Business Packs",
+      "exploreAvailable": "Przeglądaj dostępne Business Packs",
+      "viewUpgradeOptions": "Zobacz opcje ulepszenia",
+      "contactSales": "Kontakt ze sprzedażą",
+      "contactSupport": "Kontakt z pomocą",
+      "currentPlan": "Obecny plan",
+      "requiredPlan": "Wymagany plan",
+      "requiredPlanValue": "Business lub Enterprise",
+      "capabilitySummary": "Po ulepszeniu możesz zarządzać konfiguracją pakietów, statusem aktywacji, zależnościami i ustawieniami organizacji w jednym miejscu.",
+      "configure": "Konfiguruj",
+      "openWorkspace": "Otwórz obszar roboczy",
+      "version": "Wersja",
+      "dependencies": "Zależności",
+      "integrations": "Połączone integracje",
+      "accessSummary": "Podsumowanie dostępu",
+      "installedDate": "Zainstalowano",
+      "navRequiresUpgrade": "Wymaga ulepszenia",
+      "states": {
+        "planRequired": {
+          "title": "Wymagane ulepszenie",
+          "body": "Ustawienia Business Pack nie są objęte bieżącą subskrypcją. Ulepsz plan, aby zarządzać konfiguracją pakietów, statusem aktywacji, zależnościami i ustawieniami organizacji."
+        },
+        "pendingActivation": {
+          "title": "Aktywacja w toku",
+          "body": "Aipify przygotowuje Business Pack i weryfikuje wymagane usługi. Dostęp będzie dostępny automatycznie po zakończeniu walidacji."
+        },
+        "activationFailed": {
+          "title": "Aktywacja wymaga uwagi",
+          "body": "Aipify nie ukończył aktywacji. Problem został zarejestrowany, a Platform Admin został powiadomiony."
+        },
+        "suspended": {
+          "title": "Dostęp zawieszony",
+          "body": "Ustawienia Business Pack są tymczasowo niedostępne z powodu zawieszenia subskrypcji, licencji lub dostępu do pakietu."
+        },
+        "noInstalledPacks": {
+          "title": "Brak zainstalowanych Business Packs",
+          "body": "Przeglądaj dostępne Business Packs, aby dodać nowe możliwości do organizacji."
+        },
+        "permissionMissing": {
+          "title": "Wymagane uprawnienie",
+          "body": "Twoja rola organizacyjna nie obejmuje uprawnienia do zarządzania ustawieniami Business Pack."
+        },
+        "organizationContextMissing": {
+          "title": "Wymagany kontekst organizacji",
+          "body": "Aipify nie mógł rozpoznać obszaru roboczego organizacji. Potwierdź członkostwo i spróbuj ponownie."
+        },
+        "subscriptionInactive": {
+          "title": "Subskrypcja nieaktywna",
+          "body": "Ustawienia Business Pack wymagają aktywnej subskrypcji."
+        },
+        "licenseInactive": {
+          "title": "Licencja nieaktywna",
+          "body": "Licencja organizacji nie jest aktywna. Sprawdź rozliczenia lub skontaktuj się z pomocą."
+        },
+        "entitlementMissing": {
+          "title": "Wymagane uprawnienie pakietowe",
+          "body": "Organizacja nie obejmuje obecnie zarządzania Business Pack. Ulepsz plan lub dodaj wymagany pakiet."
+        }
+      },
+      "valueCards": {
+        "packConfiguration": { "title": "Konfiguracja pakietu", "description": "Zarządzaj ustawieniami zainstalowanych Business Packs." },
+        "activationStatus": { "title": "Status aktywacji", "description": "Sprawdź, czy pakiety są aktywne, weryfikowane lub wymagają uwagi." },
+        "dependencies": { "title": "Zależności", "description": "Przeglądaj wymagane integracje, uprawnienia i usługi." },
+        "accessManagement": { "title": "Zarządzanie dostępem", "description": "Kontroluj, które role organizacji mogą korzystać z każdego pakietu." },
+        "healthValidation": { "title": "Zdrowie i walidacja", "description": "Zobacz wyniki testów i problemy aktywacji." }
+      },
+      "packStatus": {
+        "active": "Aktywny",
+        "activationInProgress": "Aktywacja w toku",
+        "requiresAttention": "Wymaga uwagi",
+        "activationFailed": "Aktywacja nie powiodła się",
+        "suspended": "Zawieszony",
+        "updateAvailable": "Dostępna aktualizacja"
+      },
+      "loadError": {
+        "title": "Nie udało się załadować ustawień Business Pack",
+        "body": "Aipify nie mógł pobrać bieżącej konfiguracji pakietów. Spróbuj ponownie wkrótce.",
+        "retry": "Spróbuj ponownie"
+      }
+    },
     "executiveInsights": {
       "title": "Executive Insights",
       "subtitle": "A concise overview of organizational health, priorities, risks, opportunities, and recommended next steps — decision support, not analytics.",

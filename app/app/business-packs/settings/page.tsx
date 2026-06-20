@@ -1,4 +1,5 @@
-import { renderAppPortalFoundationPage } from "@/lib/app-portal/render-pages";
-export default function BusinessPacksbusinessPackSettingsPage() {
-  return renderAppPortalFoundationPage("businessPackSettings");
+import { renderAppPortalBusinessPackSettingsPage } from "@/lib/app-portal/render-pages";
+
+export default function BusinessPackSettingsPage() {
+  return renderAppPortalBusinessPackSettingsPage();
 }

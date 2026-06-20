@@ -5,6 +5,8 @@ import {
   buildBusinessPackActivationGateLabels,
   getOrganizationBusinessPackActivationGates,
 } from "@/lib/business-pack-activation-gate";
+import { parseAppPortalFeatureAccess } from "@/lib/app-portal/parse";
+import type { AppNavGroupConfig } from "@/lib/app/build-nav";
 import DashboardShell from "@/components/dashboard/DashboardShell";
 import { DashboardProfileProvider } from "@/components/dashboard/DashboardProfileProvider";
 import { buildAppNavConfig, buildAppNavGroupConfig } from "@/lib/app/build-nav";
@@ -51,11 +53,24 @@ export default async function AppLayout({
   let showActivationBanner = false;
   const activationLabels = buildBusinessPackActivationGateLabels(t);
 
+  function applyBusinessPackSettingsNavLock(groups: AppNavGroupConfig[]): AppNavGroupConfig[] {
+    const lockHint = t("customerApp.portalStructure.businessPackSettings.navRequiresUpgrade");
+    return groups.map((group) => ({
+      ...group,
+      items: group.items.map((item) =>
+        item.id === "businessPackSettings"
+          ? { ...item, locked: true, accessHint: lockHint }
+          : item
+      ),
+    }));
+  }
+
   try {
     const supabase = await createClient();
-    const [dynamicRaw, activationGates] = await Promise.all([
+    const [dynamicRaw, activationGates, featureAccessRaw] = await Promise.all([
       getDynamicAppNavigation(supabase),
       getOrganizationBusinessPackActivationGates(supabase).catch(() => ({ found: false as const })),
+      supabase.rpc("get_app_portal_feature_access", { p_feature: "business_packs" }),
     ]);
     const dynamicNav = parseDynamicAppNavigation(dynamicRaw);
     if (dynamicNav?.found) {
@@ -81,6 +96,22 @@ export default async function AppLayout({
       (activationGates.items?.some((item) =>
         ["pending_activation", "validating"].includes(item.activation_status)
       ) ?? false);
+
+    const featureAccess = featureAccessRaw.error
+      ? null
+      : parseAppPortalFeatureAccess(featureAccessRaw.data);
+    if (featureAccess?.upgrade_required) {
+      navGroups = applyBusinessPackSettingsNavLock(navGroups);
+      navConfig = navConfig.map((item) =>
+        item.id === "businessPackSettings"
+          ? {
+              ...item,
+              locked: true,
+              accessHint: t("customerApp.portalStructure.businessPackSettings.navRequiresUpgrade"),
+            }
+          : item
+      );
+    }
   } catch {
     // Fallback to static navigation when dynamic engine unavailable
   }

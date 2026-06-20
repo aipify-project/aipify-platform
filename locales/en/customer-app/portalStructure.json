@@ -130,6 +130,107 @@
       "upgradeCta": "View upgrade options",
       "unavailableTitle": "Feature unavailable"
     },
+    "businessPackSettings": {
+      "eyebrow": "BUSINESS PACK MANAGEMENT",
+      "title": "Business Pack Settings",
+      "description": "Manage configuration, access and activation for your installed Business Packs.",
+      "breadcrumbBusinessPacks": "Business Packs",
+      "breadcrumbSettings": "Settings",
+      "backToBusinessPacks": "Back to Business Packs",
+      "exploreAvailable": "Explore available Business Packs",
+      "viewUpgradeOptions": "View upgrade options",
+      "contactSales": "Contact sales",
+      "contactSupport": "Contact support",
+      "currentPlan": "Current plan",
+      "requiredPlan": "Required plan",
+      "requiredPlanValue": "Business or Enterprise",
+      "capabilitySummary": "After upgrading, manage pack configuration, activation status, dependencies and organization-wide settings from one place.",
+      "configure": "Configure",
+      "openWorkspace": "Open workspace",
+      "version": "Version",
+      "dependencies": "Dependencies",
+      "integrations": "Connected integrations",
+      "accessSummary": "Access summary",
+      "installedDate": "Installed",
+      "navRequiresUpgrade": "Requires upgrade",
+      "states": {
+        "planRequired": {
+          "title": "Upgrade required",
+          "body": "Business Pack Settings is not included in your current subscription. Upgrade to manage pack configuration, activation status, dependencies and organization-wide settings from one place."
+        },
+        "pendingActivation": {
+          "title": "Activation in progress",
+          "body": "Aipify is preparing your Business Pack and validating the required services. Access will become available automatically when validation is complete."
+        },
+        "activationFailed": {
+          "title": "Activation requires attention",
+          "body": "Aipify could not complete the activation. The issue has been logged and Platform Admin has been notified."
+        },
+        "suspended": {
+          "title": "Access suspended",
+          "body": "Business Pack Settings is temporarily unavailable because your subscription, license or pack access is suspended. Restore billing or contact support for assistance."
+        },
+        "noInstalledPacks": {
+          "title": "No Business Packs installed",
+          "body": "Explore available Business Packs to add new capabilities to your organization."
+        },
+        "permissionMissing": {
+          "title": "Permission required",
+          "body": "Your organization role does not include permission to manage Business Pack settings. Contact an organization administrator if you need access."
+        },
+        "organizationContextMissing": {
+          "title": "Organization context required",
+          "body": "Aipify could not resolve your organization workspace. Confirm your organization membership and try again."
+        },
+        "subscriptionInactive": {
+          "title": "Subscription inactive",
+          "body": "Business Pack Settings requires an active subscription. Review billing to restore access."
+        },
+        "licenseInactive": {
+          "title": "License inactive",
+          "body": "Your organization license is not active. Review billing or contact support to restore Business Pack management."
+        },
+        "entitlementMissing": {
+          "title": "Entitlement required",
+          "body": "Your organization does not currently include Business Pack management. Upgrade or add the required package to continue."
+        }
+      },
+      "valueCards": {
+        "packConfiguration": {
+          "title": "Pack Configuration",
+          "description": "Manage settings for installed Business Packs."
+        },
+        "activationStatus": {
+          "title": "Activation Status",
+          "description": "See whether packs are active, validating or require attention."
+        },
+        "dependencies": {
+          "title": "Dependencies",
+          "description": "Review required integrations, permissions and services."
+        },
+        "accessManagement": {
+          "title": "Access Management",
+          "description": "Control which organization roles may use each pack."
+        },
+        "healthValidation": {
+          "title": "Health & Validation",
+          "description": "See smoke-test results and activation issues."
+        }
+      },
+      "packStatus": {
+        "active": "Active",
+        "activationInProgress": "Activation in progress",
+        "requiresAttention": "Requires attention",
+        "activationFailed": "Activation failed",
+        "suspended": "Suspended",
+        "updateAvailable": "Update available"
+      },
+      "loadError": {
+        "title": "Business Pack Settings could not be loaded",
+        "body": "Aipify could not retrieve the current pack configuration. Try again shortly.",
+        "retry": "Retry"
+      }
+    },
     "knowledge": {
       "title": "Knowledge Center",
       "subtitle": "Answers to common questions about your APP workspace, subscriptions, and team collaboration."

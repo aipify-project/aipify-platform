@@ -147,7 +147,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
     labelKey: "customerApp.portalStructure.navGroups.businessPacks",
     items: [
       { id: "installedBusinessPacks", href: "/app/business-packs/installed", labelKey: "customerApp.portalStructure.nav.installedBusinessPacks", featureKey: "business_packs" },
-      { id: "availableBusinessPacks", href: "/app/business-packs/available", labelKey: "customerApp.portalStructure.nav.availableBusinessPacks", featureKey: "business_packs" },
+      { id: "availableBusinessPacks", href: "/app/business-packs/available", labelKey: "customerApp.portalStructure.nav.availableBusinessPacks" },
       { id: "businessPackRecommendations", href: "/app/business-packs/recommendations", labelKey: "customerApp.portalStructure.nav.businessPackRecommendations", featureKey: "business_packs" },
       { id: "businessPackSettings", href: "/app/business-packs/settings", labelKey: "customerApp.portalStructure.nav.businessPackSettings", featureKey: "business_packs" },
     ],

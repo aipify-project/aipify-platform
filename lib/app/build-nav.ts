@@ -7,6 +7,8 @@ export type AppNavLink = {
   id: string;
   href: string;
   label: string;
+  locked?: boolean;
+  accessHint?: string;
 };
 
 export type AppNavGroupConfig = {
